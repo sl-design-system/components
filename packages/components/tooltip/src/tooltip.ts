@@ -132,12 +132,20 @@ export class Tooltip extends LitElement {
         (event.target as Element)?.nodeName === 'SL-TOOLTIP' && !this.#matchesAnchor(event.relatedTarget as Element);
     }
 
-    if ((this.#matchesAnchor(event.target as Element) && !toTooltip) || fromTooltip || fromDialog) {
+    console.log('fromDialog', fromDialog);
+
+    if ((this.#matchesAnchor(event.target as Element) && !toTooltip) || fromTooltip /*|| fromDialog*/) {
       this.hidePopover();
     }
   };
 
-  #onShow = ({ target }: Event): void => {
+  #onShow = ({ target, type }: Event): void => {
+    // Skip if this is a focus event but not keyboard-initiated (not focus-visible)
+    if (type === 'focusin' && !(target as Element).matches(':focus-visible')) {
+      console.log('not focus-visible');
+      return;
+    }
+
     if (this.#matchesAnchor(target as HTMLElement)) {
       this.anchorElement = target as HTMLElement;
 

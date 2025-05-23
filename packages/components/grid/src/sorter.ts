@@ -7,6 +7,7 @@ import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { type GridColumn } from './column.js';
 import styles from './sorter.scss.js';
 
@@ -76,13 +77,13 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
       <sl-button
         @click=${this.#onClick}
         aria-label=${this.direction === 'asc'
-          ? msg('Sort descending')
+          ? msg('Sort descending', { id: 'sl.grid.sortDescending' })
           : this.direction === 'desc'
-            ? msg('Remove sort')
-            : msg('Sort ascending')}
+            ? msg('Remove sort', { id: 'sl.grid.removeSort' })
+            : msg('Sort ascending', { id: 'sl.grid.sortAscending' })}
         .fill=${this.direction ? 'solid' : 'ghost'}
         size="sm"
-        .variant=${this.direction ? 'primary' : 'neutral'}
+        variant=${ifDefined(this.direction ? 'primary' : undefined)}
       >
         ${choose(
           this.direction,

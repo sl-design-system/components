@@ -119,7 +119,10 @@ export class Tag extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('removable')) {
       if (this.removable) {
-        this.setAttribute('aria-description', msg('Press the delete or backspace key to remove this item'));
+        this.setAttribute(
+          'aria-description',
+          msg('Press the delete or backspace key to remove this item', { id: 'sl.tag.removalInstructions' })
+        );
       } else {
         this.removeAttribute('aria-description');
       }

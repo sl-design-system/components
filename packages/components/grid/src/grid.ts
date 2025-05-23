@@ -1,9 +1,12 @@
+/* eslint-disable slds/button-has-label */
 /* eslint-disable lit/prefer-static-styles */
 import { localized, msg, str } from '@lit/localize';
 import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { Button } from '@sl-design-system/button';
 import { ArrayListDataSource, ListDataSource } from '@sl-design-system/data-source';
 import { EllipsizeText } from '@sl-design-system/ellipsize-text';
+import { Icon } from '@sl-design-system/icon';
 import { Scrollbar } from '@sl-design-system/scrollbar';
 import {
   type EventEmitter,
@@ -18,9 +21,10 @@ import {
 import { type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { Skeleton } from '@sl-design-system/skeleton';
 import { ToolBar } from '@sl-design-system/tool-bar';
+import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { GridColumnGroup } from './column-group.js';
 import { GridColumn } from './column.js';
 import { GridFilterColumn } from './filter-column.js';
@@ -104,11 +108,14 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
+      'sl-button': Button,
       'sl-ellipsize-text': EllipsizeText,
       'sl-grid-group-header': GridGroupHeader,
+      'sl-icon': Icon,
       'sl-skeleton': Skeleton,
       'sl-scrollbar': Scrollbar,
-      'sl-tool-bar': ToolBar
+      'sl-tool-bar': ToolBar,
+      'sl-tooltip': Tooltip
     };
   }
 
@@ -341,8 +348,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'top')}
         @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'end')}
       >
-        ${msg('Skip to end of table')}</a
-      >
+        ${msg('Skip to end of table', { id: 'sl.grid.skipToEndOfTable' })}
+      </a>
       <table part="table" aria-rowcount=${this.dataSource?.items.length || 0}>
         <caption></caption>
         <thead
@@ -374,9 +381,17 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       </table>
 
       <div part="bulk-actions" popover="manual">
-        <span>${msg(str`${this.selection.selected} of ${this.selection.size} selected`)}</span>
+        <span
+          >${msg(str`${this.selection.selected} of ${this.selection.size} selected`, {
+            id: 'sl.grid.selectionStatusMessage'
+          })}</span
+        >
         <sl-tool-bar no-border>
           <slot name="bulk-actions"></slot>
+          <sl-button @click=${this.#onCancelSelection} aria-describedby="tooltip" fill="ghost" variant="inverted">
+            <sl-icon name="xmark"></sl-icon>
+          </sl-button>
+          <sl-tooltip id="tooltip">${msg('Cancel selection', { id: 'sl.grid.cancelSelection' })}</sl-tooltip>
         </sl-tool-bar>
       </div>
 
@@ -386,7 +401,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         class="skip-link-end"
         @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'bottom')}
         @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'start')}
-        >${msg('Skip to start of table')}</a
+        >${msg('Skip to start of table', { id: 'sl.grid.skipToStartOfTable' })}</a
       >
     `;
   }
@@ -431,9 +446,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   renderHeaderRows(): TemplateResult[] {
-    const rows = this.view.headerRows;
-
-    return rows.map(row => this.renderHeaderRow(row));
+    return this.view.headerRows.map(row => this.renderHeaderRow(row));
   }
 
   renderHeaderRow(columns: GridColumn[]): TemplateResult {
@@ -477,10 +490,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         @dragover=${(event: DragEvent) => this.#onDragOver(event, item)}
         @dragend=${(event: DragEvent) => this.#onDragEnd(event, item)}
         @drop=${(event: DragEvent) => this.#onDrop(event, item)}
-        class=${classMap({ active })}
-        part=${parts.join(' ')}
-        index=${index}
         aria-rowindex=${index}
+        class=${ifDefined(active ? 'active' : undefined)}
+        index=${index}
+        part=${parts.join(' ')}
       >
         ${rows[rows.length - 1].map(col => col.renderData(item))}
       </tr>
@@ -499,12 +512,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           <sl-grid-group-header
             @sl-select=${(event: SlSelectEvent<boolean>) => this.#onGroupSelect(event, group)}
             @sl-toggle=${(event: SlToggleEvent<boolean>) => this.#onGroupToggle(event, group)}
+            .active=${active}
             .expanded=${expanded}
             .selectable=${selectable}
             .selected=${selected}
-            .active=${active}
           >
-            ${this.groupHeaderRenderer?.(group) ?? html`<span part="group-heading">${group.value}</span>`}
+            ${this.groupHeaderRenderer?.(group) ?? html`<span part="group-heading">${group.label}</span>`}
           </sl-grid-group-header>
         </td>
       </tr>
@@ -570,8 +583,18 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.requestUpdate();
   }
 
+  #onCancelSelection(): void {
+    this.selection.deselectAll();
+  }
+
   #onClickRow(event: Event, item: T): void {
-    if (this.clickableRow) {
+    if (!this.clickableRow) {
+      return;
+    }
+
+    if (this.view.columnDefinitions.some(col => col instanceof GridSelectionColumn)) {
+      this.selection.toggle(item);
+    } else {
       this.activeItem = this.selection.toggleActive(item);
       this.activeItemChangeEvent.emit({ grid: this, item: this.activeItem, relatedEvent: event });
     }
@@ -634,12 +657,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   #onDragEnter(_event: DragEvent, item: T): void {
     if (this.#dragItem === item || this.view.isFixedItem(item)) {
       return;
-    }
-
-    if (this.draggableRows === 'between-or-on-top') {
-      const dropFilter = this.dropFilter?.(item) ?? true;
-
-      this.dropTargetMode = typeof dropFilter === 'boolean' ? 'between' : dropFilter;
     }
   }
 
@@ -892,7 +909,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
 
     this.#sorterDebounceTimer = setTimeout(() => {
-      this.#applySorters(target.direction !== undefined);
+      this.#applySorters(this.#sorters.some(s => s.direction));
       this.#sorterDebounceTimer = undefined;
     });
   }
@@ -914,7 +931,13 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
       if (!empty && (f.filter || f.path)) {
         this.dataSource?.addFilter(id, f.filter! || f.path!, f.value);
+      } else if (empty) {
+        this.dataSource?.removeFilter(id);
       } else {
+        console.warn(
+          `The column ${id} is missing a filter or path. Either provide a path or a filter function, otherwise the filter cannot not work.`
+        );
+
         this.dataSource?.removeFilter(id);
       }
     });
@@ -931,9 +954,15 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     const { id } = this.dataSource?.sort ?? {},
       sorter = this.#sorters.find(sorter => !!sorter.direction);
 
-    if (sorter) {
+    if (sorter && (sorter.sorter || sorter.path)) {
       this.dataSource?.setSort(sorter.column.id, sorter.sorter! || sorter.path!, sorter.direction ?? 'asc');
     } else if (id && this.#sorters.find(s => s.column.id === id)) {
+      this.dataSource?.removeSort();
+    } else if (sorter) {
+      console.warn(
+        `The column ${sorter?.column.id} is missing a sorter or path. Either provide a path or a sorter function, otherwise the sorter cannot not work.`
+      );
+
       this.dataSource?.removeSort();
     }
 

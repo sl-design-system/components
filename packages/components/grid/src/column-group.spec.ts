@@ -36,7 +36,7 @@ describe('sl-column-group', () => {
     });
 
     it('should render column headers', () => {
-      const columns = Array.from(el.renderRoot.querySelectorAll('th')).map(col => col.textContent);
+      const columns = Array.from(el.renderRoot.querySelectorAll('th')).map(col => col.textContent?.trim());
 
       expect(columns).to.deep.equal([
         'Name',
@@ -86,7 +86,7 @@ describe('sl-column-group', () => {
     it('should have the correct width when one is set explicitly', () => {
       const cells = Array.from(el.renderRoot.querySelectorAll('th'));
       expect(cells.map(cell => Math.floor(parseFloat(getComputedStyle(cell).width)))).to.deep.equal([
-        281, 724, 214, 212, 197, 186, 195
+        271, 734, 214, 212, 197, 186, 195
       ]);
     });
   });

@@ -9,6 +9,7 @@ import {
 } from '@sl-design-system/shared';
 import { type CSSResult, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { type Grid } from './grid.js';
 
 declare global {
@@ -25,7 +26,8 @@ declare global {
 export type GridColumnAlignment = 'start' | 'center' | 'end';
 
 /** Custom renderer type for column headers. */
-export type GridColumnHeaderRenderer = () => string | undefined | TemplateResult;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type GridColumnHeaderRenderer<T = any> = (column: GridColumn<T>) => string | undefined | TemplateResult;
 
 /** Custom renderer type for column cells. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -177,7 +179,30 @@ export class GridColumn<T = any> extends LitElement {
     const classes = this.getClasses(),
       parts = ['header', ...this.getParts()];
 
-    return html`<th class=${classes.join(' ')} part=${parts.join(' ')}>${this.header ?? getNameByPath(this.path)}</th>`;
+    return html`
+      <th
+        class=${ifDefined(classes.length ? classes.join(' ') : undefined)}
+        part=${parts.join(' ')}
+        role="columnheader"
+      >
+        ${this.renderHeaderLabel()}
+      </th>
+    `;
+  }
+
+  /**
+   * This method renders the label for the header. This is used to render the content of the
+   * `<th>` element. Override this method if you want to customize how a header label is rendered.
+   * Do not override this if you only want to change the classes, contents or parts of the header.
+   */
+  renderHeaderLabel(): string | undefined | TemplateResult {
+    if (this.header) {
+      return typeof this.header === 'string' ? html`<span>${this.header}</span>` : this.header(this);
+    } else if (this.path) {
+      return html`<span>${getNameByPath(this.path)}</span>`;
+    }
+
+    return undefined;
   }
 
   /**
@@ -193,12 +218,14 @@ export class GridColumn<T = any> extends LitElement {
 
     if (this.ellipsizeText && typeof data === 'string') {
       return html`
-        <td class=${classes.join(' ')} part=${parts.join(' ')}>
+        <td class=${ifDefined(classes.length ? classes.join(' ') : undefined)} part=${parts.join(' ')}>
           <sl-ellipsize-text>${data}</sl-ellipsize-text>
         </td>
       `;
     } else {
-      return html`<td class=${classes.join(' ')} part=${parts.join(' ')}>${data}</td>`;
+      return html`
+        <td class=${ifDefined(classes.length ? classes.join(' ') : undefined)} part=${parts.join(' ')}>${data}</td>
+      `;
     }
   }
 

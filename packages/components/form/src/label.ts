@@ -127,8 +127,12 @@ export class Label extends LitElement {
     return html`
       <slot @slotchange=${this.#onSlotchange} style="display: none"></slot>
       <slot name="label"></slot>
-      ${this.mark === 'optional' && !this.required ? html`<span class="optional">(${msg('optional')})</span>` : nothing}
-      ${this.mark === 'required' && this.required ? html`<span class="required">(${msg('required')})</span>` : nothing}
+      ${this.mark === 'optional' && !this.required
+        ? html`<span class="optional">(${msg('optional', { id: 'sl.form.optionalLabelIndicator' })})</span>`
+        : nothing}
+      ${this.mark === 'required' && this.required
+        ? html`<span class="required">(${msg('required', { id: 'sl.form.requiredLabelIndicator' })})</span>`
+        : nothing}
     `;
   }
 

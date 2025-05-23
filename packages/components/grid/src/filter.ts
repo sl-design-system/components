@@ -115,7 +115,9 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
         <sl-select
           @sl-change=${this.#onSelectChange}
           @sl-clear=${this.#onClear}
-          .placeholder=${msg(str`Filter by ${this.#getFilterHeaderValue()}`)}
+          .placeholder=${msg(str`Filter by ${this.#getFilterHeaderValue()}`, {
+            id: 'sl.grid.filterByValue'
+          })}
           clearable
         >
           ${this.options?.map(option => {
@@ -132,7 +134,9 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
         <sl-search-field
           @sl-change=${this.#onSearchFieldChange}
           @sl-clear=${this.#onClear}
-          .placeholder=${msg(str`Filter by ${this.#getFilterHeaderValue()}`)}
+          .placeholder=${msg(str`Filter by ${this.#getFilterHeaderValue()}`, {
+            id: 'sl.grid.filterByValue'
+          })}
           .value=${this.value?.toString() ?? ''}
         ></sl-search-field>
       `;

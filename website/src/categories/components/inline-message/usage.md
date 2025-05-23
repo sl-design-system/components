@@ -53,6 +53,9 @@ Critical alerts require immediate attention and should not be buried within the 
 Avoid using inline messages to add context to a single input field (e.g., a text field). Inline messages are meant to provide additional context or supporting information related to UI elements. However, for a single input, they can clutter the interface and distract users from their primary task.
 Instead of inline messages, use [hints](/categories/components/form-field/) to guide users. Hints are less intrusive and provide concise instructions without overwhelming the user.
 
+### Interactive elements
+Avoid using inline messages with interactive elements inside. Inline messages are not designed to be interactive. They are meant to provide information or context, not to serve as interactive elements themselves. Using them in this way can lead to confusion and a poor user experience and accessibility problems.
+
 </section>
 
 <section>
@@ -60,10 +63,14 @@ Instead of inline messages, use [hints](/categories/components/form-field/) to g
 ## Variants
 
 Inline messages come in various flavors, each suited for specific situations:
-Info: For general informative messages.
-Success: To indicate successful completion of an action.
-Danger: To highlight critical errors or issues.
-Warning: For potential problems that need attention.
+
+  - **Info:** For general informative messages.
+
+  - **Success:** To indicate successful completion of an action.
+
+  - **Danger:** To highlight critical errors or issues.
+
+  - **Warning:** For potential problems that need attention.
 
 </section>
 

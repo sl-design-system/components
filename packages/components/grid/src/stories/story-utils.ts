@@ -4,6 +4,10 @@ import { type GridColumnDataRenderer } from '../column.js';
 
 export const avatarRenderer: GridColumnDataRenderer<Student> = ({ firstName, infix, lastName, pictureUrl }) => {
   return html`
-    <sl-avatar .displayName=${[firstName, infix, lastName].join(' ')} .pictureUrl=${pictureUrl} size="sm"></sl-avatar>
+    <sl-avatar
+      .displayName=${[firstName, infix, lastName].filter(Boolean).join(' ')}
+      .pictureUrl=${pictureUrl}
+      size="sm"
+    ></sl-avatar>
   `;
 };

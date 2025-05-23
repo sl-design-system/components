@@ -1,6 +1,6 @@
 import { type DataSourceSortDirection, type DataSourceSortFunction } from '@sl-design-system/data-source';
 import { getNameByPath } from '@sl-design-system/shared';
-import { type TemplateResult, html, nothing } from 'lit';
+import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { type Ref, createRef, ref } from 'lit/directives/ref.js';
@@ -42,6 +42,14 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
 
     this.id ||= `grid-sort-${nextUniqueId++}`;
     this.scopedElements = { ...this.scopedElements, 'sl-grid-sorter': GridSorter };
+  }
+
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
+
+    if (changes.has('direction') && this.#sorterRef.value) {
+      this.#sorterRef.value.direction = this.direction;
+    }
   }
 
   override stateChanged(): void {

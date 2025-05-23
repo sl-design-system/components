@@ -33,6 +33,9 @@ export default {
           block-size: 100px;
           inline-size: 400dvw;
         }
+        #storybook-root {
+          max-width: calc(100vw - 2rem);
+        }
       </style>
       <div id="scroller">
         <div class="scrolling"></div>

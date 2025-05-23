@@ -1,3 +1,4 @@
+import { type ListDataSourceDataItem } from '@sl-design-system/data-source';
 import { type Path, type PathKeys, getValueByPath, setValueByPath } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { TextField } from '@sl-design-system/text-field';
@@ -18,12 +19,12 @@ export class GridTextFieldColumn<T = any> extends GridColumn<T> {
     this.scopedElements = { ...this.scopedElements, 'sl-text-field': TextField };
   }
 
-  override renderData(item: T): TemplateResult {
+  override renderData(item: ListDataSourceDataItem<T>): TemplateResult {
     return html`
       <td part="data text-field">
         <sl-text-field
-          @sl-change=${(event: SlChangeEvent<string>) => this.#onChange(event, item)}
-          .value=${getValueByPath(item, this.path!)}
+          @sl-change=${(event: SlChangeEvent<string>) => this.#onChange(event, item.data)}
+          .value=${getValueByPath(item.data, this.path!)}
         ></sl-text-field>
       </td>
     `;

@@ -1,12 +1,12 @@
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { DATA_SOURCE_DEFAULT_PAGE_SIZE, type ListDataSource } from '@sl-design-system/data-source';
+import { LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE, type ListDataSource } from '@sl-design-system/data-source';
 import { Label } from '@sl-design-system/form';
 import { Option } from '@sl-design-system/listbox';
 import { Select } from '@sl-design-system/select';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './page-size.scss.js';
@@ -43,6 +43,9 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
   /** The data source that the paginator controls. */
   #dataSource?: ListDataSource<T>;
 
+  /** The current page size. */
+  #pageSize?: number;
+
   get dataSource(): ListDataSource<T> | undefined {
     return this.#dataSource;
   }
@@ -65,11 +68,19 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
     this.#onUpdate();
   }
 
-  /**
-   * Items per page.
-   * @default 10
-   */
-  @property({ type: Number, attribute: 'page-size' }) pageSize = DATA_SOURCE_DEFAULT_PAGE_SIZE;
+  get pageSize(): number {
+    return this.#dataSource?.pageSize ?? this.#pageSize ?? this.pageSizes?.at(0) ?? LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE;
+  }
+
+  /** Items per page. */
+  @property({ type: Number, attribute: 'page-size' })
+  set pageSize(pageSize: number) {
+    if (this.dataSource) {
+      this.dataSource?.setPageSize(pageSize);
+    } else {
+      this.#pageSize = pageSize;
+    }
+  }
 
   /** @internal Emits when the page size has been selected/changed. */
   @event({ name: 'sl-page-size-change' }) pageSizeChangeEvent!: EventEmitter<SlChangeEvent<number>>;
@@ -87,14 +98,6 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
     this.dataSource?.removeEventListener('sl-update', this.#onUpdate);
 
     super.disconnectedCallback();
-  }
-
-  override willUpdate(changes: PropertyValues<this>): void {
-    super.willUpdate(changes);
-
-    if (changes.has('pageSizes')) {
-      this.pageSize = this.pageSizes?.at(0) ?? DATA_SOURCE_DEFAULT_PAGE_SIZE;
-    }
   }
 
   override render(): TemplateResult {

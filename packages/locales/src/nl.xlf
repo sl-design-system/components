@@ -31,8 +31,8 @@
   <target>Zoeken</target>
 </trans-unit>
 <trans-unit id="sl.grid.selectionStatusMessage">
-  <source><x id="0" equiv-text="${this.selection.selected}"/> of <x id="1" equiv-text="${this.selection.size}"/> selected</source>
-  <target><x id="0" equiv-text="${this.selection.selected}"/> van <x id="1" equiv-text="${this.selection.size}"/> geselecteerd</target>
+  <source><x id="0" equiv-text="${this.dataSource?.selected}"/> of <x id="1" equiv-text="${this.dataSource?.totalSize}"/> selected</source>
+  <target><x id="0" equiv-text="${this.dataSource?.selected}"/> van <x id="1" equiv-text="${this.dataSource?.totalSize}"/> geselecteerd</target>
 </trans-unit>
 <trans-unit id="sl.messageDialog.alertTitle">
   <source>Alert</source>

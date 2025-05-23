@@ -208,11 +208,11 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
           return this.#mapToggleGroupToItem(element);
         } else if (element instanceof ToolBarDivider) {
           return { element, type: 'divider' };
-        } else {
+        } else if (!['SL-TOOLTIP'].includes(element.tagName)) {
           console.warn(`Unknown element type: ${element.tagName} in sl-tool-bar. Only sl-button elements are allowed.`);
-
-          return undefined;
         }
+
+        return undefined;
       })
       .filter(item => item !== undefined) as ToolBarItem[];
   }

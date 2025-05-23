@@ -1,4 +1,4 @@
-import { FetchListDataSourcePlaceholder } from '@sl-design-system/data-source';
+import { type ListDataSourceDataItem, ListDataSourcePlaceholder } from '@sl-design-system/data-source';
 import {
   type EventEmitter,
   type PathKeys,
@@ -211,10 +211,10 @@ export class GridColumn<T = any> extends LitElement {
    * if you only want to change the classes, contents or parts of the cell. See this specific
    * methods for that.
    */
-  renderData(item: T): TemplateResult {
-    const classes = this.getClasses(item),
-      data = this.getDisplayValue(item),
-      parts = ['data', ...this.getParts(item)];
+  renderData(item: ListDataSourceDataItem<T>): TemplateResult {
+    const classes = this.getClasses(item.data),
+      data = this.getDisplayValue(item.data),
+      parts = ['data', ...this.getParts(item.data)];
 
     if (this.ellipsizeText && typeof data === 'string') {
       return html`
@@ -260,7 +260,7 @@ export class GridColumn<T = any> extends LitElement {
   getDisplayValue(item: T): unknown {
     if (this.renderer) {
       return this.renderer(item);
-    } else if (item === FetchListDataSourcePlaceholder) {
+    } else if (item === ListDataSourcePlaceholder) {
       return html`<sl-skeleton style="inline-size: ${Math.max(Math.random() * 100, 30)}%"></sl-skeleton>`;
     } else if (this.path) {
       return getValueByPath(item, this.path);
@@ -283,7 +283,7 @@ export class GridColumn<T = any> extends LitElement {
       parts = this.parts(item)?.split(' ') ?? [];
     }
 
-    if (item === FetchListDataSourcePlaceholder) {
+    if (item === ListDataSourcePlaceholder) {
       parts.push('placeholder');
     }
 

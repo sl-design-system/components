@@ -3,14 +3,13 @@ import { Avatar } from '@sl-design-system/avatar';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import { ArrayListDataSource } from '@sl-design-system/data-source';
-import { type Person, getPeople, getStudents } from '@sl-design-system/example-data';
+import { type Student, getStudents } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
-import { type SelectionController } from '@sl-design-system/shared';
 import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../../register.js';
-import { type SlActiveItemChangeEvent } from '../grid.js';
+import { type SlSelectionChangeEvent } from '../grid.js';
 import { avatarRenderer } from './story-utils.js';
 
 type Story = StoryObj;
@@ -21,25 +20,44 @@ export default {
   parameters: {
     // Disables Chromatic's snapshotting on a story level
     chromatic: { disableSnapshot: true }
-  }
+  },
+  loaders: [async () => ({ students: (await getStudents()).students })]
 };
 
 Icon.register(faCopy, faTrash);
 
-export const Single: Story = {
-  loaders: [async () => ({ people: (await getPeople()).people })],
-  render: (_, { loaded: { people } }) => {
-    const onActiveItemChange = ({ detail: { item } }: SlActiveItemChangeEvent<Person>): void => {
-      console.log('current active item:', item);
+export const SingleRow: Story = {
+  render: (_, { loaded: { students } }) => {
+    const onSelectionChange = ({ detail: { grid } }: SlSelectionChangeEvent<Student>): void => {
+      const selection = grid.dataSource!.selection,
+        element = document.getElementById('selection')!;
+
+      if (selection.size > 0) {
+        const id = selection.values().next().value,
+          student = (students as Student[]).find(s => s.id === id);
+
+        element.innerText = `You have selected ${student?.fullName}.`;
+      } else {
+        element.innerText = 'You have not selected anybody yet.';
+      }
     };
 
     return html`
-      <sl-grid @sl-active-item-change=${onActiveItemChange} .items=${people} clickable-row>
-        <sl-grid-column path="firstName"></sl-grid-column>
-        <sl-grid-column path="lastName"></sl-grid-column>
+      <p>
+        This example allows for single selection of rows in the grid, by clicking anywhere on the row. This is done by
+        setting the <code>selects</code> property to <code>single-row</code>. If you want to perform an action when the
+        selection changes, you can listen for <code>sl-grid-selection-change</code> events. Details on what is exactly
+        selected can be found in the data source, accessible through <code>event.detail.grid.dataSource</code>.
+      </p>
+      <p id="selection">You have not selected anybody yet.</p>
+      <sl-grid @sl-grid-selection-change=${onSelectionChange} .items=${students} selects="single-row">
+        <sl-grid-column
+          grow="3"
+          header="Student"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}
+        ></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>
-        <sl-grid-column path="address.phone"></sl-grid-column>
-        <sl-grid-column path="profession"></sl-grid-column>
       </sl-grid>
     `;
   }
@@ -49,24 +67,17 @@ export const Multiple: Story = {
   args: {
     selectAll: false
   },
-  loaders: [async () => ({ students: (await getStudents()).students })],
   render: ({ selectAll }, { loaded: { students } }) => {
-    const onSelectionChange = ({ detail: { selected, size } }: CustomEvent<SelectionController>): void => {
-      const p = document.querySelector<HTMLParagraphElement>('.selection')!;
-
-      if (selected) {
-        p.innerText = `${selected} of ${size} selected`;
-      } else {
-        p.innerText = 'No selection';
-      }
-    };
-
     return html`
-      <p class="selection" style="margin-block: 0 1rem">
-        This is updated outside the component by listening to the <code>sl-selection-change</code> event.
+      <p>
+        This example shows how you can select multiple rows by toggling the checkbox in the first column. If you add an
+        <code>sl-grid-selection-column</code> element, it will automatically set the <code>selects</code> property to
+        <code>multiple</code> for you. When you have selected multiple rows, you can perform bulk actions on them by
+        using the floating tool-bar at the bottom of the grid. You can add bulk actions by using the
+        <code>bulk-actions</code> slot.
       </p>
-      <sl-grid @sl-selection-change=${onSelectionChange} .items=${students}>
-        <sl-grid-selection-column .selectAll=${selectAll}></sl-grid-selection-column>
+      <sl-grid .items=${students}>
+        <sl-grid-selection-column ?select-all=${selectAll}></sl-grid-selection-column>
         <sl-grid-column
           header="Student"
           path="fullName"
@@ -89,42 +100,63 @@ export const Multiple: Story = {
   }
 };
 
-export const MultipleWithClickableRow: Story = {
-  loaders: [async () => ({ people: (await getPeople()).people })],
-  render: (_, { loaded: { people } }) => {
-    const onActiveItemChange = ({ detail: { item } }: SlActiveItemChangeEvent<Person>): void => {
-      console.log('current active item:', item);
-    };
-
+export const MultipleRow: Story = {
+  render: (_, { loaded: { students } }) => {
     return html`
-      <sl-grid @sl-active-item-change=${onActiveItemChange} clickable-row .items=${people}>
-        <sl-grid-selection-column auto-select></sl-grid-selection-column>
-        <sl-grid-column path="firstName"></sl-grid-column>
-        <sl-grid-column path="lastName"></sl-grid-column>
+      <p>
+        This example shows how you can select multiple rows at a time, but not just by toggling the checkbox at the
+        start of the row, but by clicking anywhere on the row. This is done by setting the <code>selects</code> property
+        to the <code>multiple-row</code> value.
+      </p>
+      <sl-grid .items=${students} selects="multiple-row">
+        <sl-grid-selection-column></sl-grid-selection-column>
+        <sl-grid-column
+          grow="3"
+          header="Student"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}
+        ></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>
+
+        <!-- These get slotted into the floating tool-bar -->
+        <sl-button fill="outline" slot="bulk-actions" variant="inverted">
+          <sl-icon name="far-copy"></sl-icon>
+          Duplicate
+        </sl-button>
+        <sl-button fill="outline" slot="bulk-actions" variant="inverted">
+          <sl-icon name="far-trash"></sl-icon>
+          Delete
+        </sl-button>
       </sl-grid>
     `;
   }
 };
 
 export const Grouped: Story = {
-  loaders: [async () => ({ people: (await getPeople()).people })],
-  render: (_, { loaded: { people } }) => {
-    const dataSource = new ArrayListDataSource(people as Person[]);
-    dataSource.setGroupBy('membership');
-
-    const onActiveItemChange = ({ detail: { item } }: SlActiveItemChangeEvent<Person>): void => {
-      console.log('current active item:', item);
-    };
+  render: (_, { loaded: { students } }) => {
+    const dataSource = new ArrayListDataSource(students as Student[], {
+      groupBy: 'school.id',
+      groupLabelPath: 'school.name'
+    });
 
     return html`
-      <sl-grid .dataSource=${dataSource} clickable-row @sl-active-item-change=${onActiveItemChange}>
+      <p>
+        This example shows how selection works in combination with grouping. By adding a
+        <code>sl-grid-selection-column</code> element, the grid is automatically configured for multiple selection.
+        Since grouping is also enabled through the <code>groupBy</code> data source option, the grid will automatically
+        handle the selection of groups and items. When you have selected multiple rows, you can perform bulk actions on
+        them by using the floating tool-bar at the bottom of the grid. You can add bulk actions by using the
+        <code>bulk-actions</code> slot.
+      </p>
+      <sl-grid .dataSource=${dataSource}>
         <sl-grid-selection-column></sl-grid-selection-column>
-        <sl-grid-column path="firstName"></sl-grid-column>
-        <sl-grid-column path="lastName"></sl-grid-column>
+        <sl-grid-column
+          grow="3"
+          header="Student"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}
+        ></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>
-        <sl-grid-column path="address.phone"></sl-grid-column>
-        <sl-grid-column path="membership"></sl-grid-column>
       </sl-grid>
     `;
   }

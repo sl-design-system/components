@@ -22,7 +22,7 @@ Instead of `<sl-grid>` using `ListDataSource` *and* having a `GridViewModel` cla
 If you try to combine grouping with pagination, it will log a warning to the console. Grouping and pagination are not compatible with each other. You can either group or paginate, but not both at the same time.
 
 - Added `ListDataSourceItem`, `ListDataSourceDataItem` and `ListDataSourceGroupItem` view model types
-- Added constructor options for filtering, grouping and sorting
+- Added constructor options for filtering, grouping, pagination and sorting
 - Added the ability to customize how groups are sorted by adding `groupSortBy` and `groupSortDirection` options
 - Added `selects` property for single, multiple or no selection mode at all
 - Moved selection methods from `SelectionController` into this class

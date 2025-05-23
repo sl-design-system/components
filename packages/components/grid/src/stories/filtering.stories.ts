@@ -26,11 +26,11 @@ export const Basic: Story = {
   render: (_, { loaded: { students } }) => {
     return html`
       <p>
-        This example filters students based on their school. The filter is set declaratively on the
-        <code>sl-grid-filter-column</code> element using its <code>value</code> property. It filters on the school id,
-        not the name. This prevents unwanted behavior for schools with similar names. But showing the school ids is also
-        unwanted behavior. Therefore, the <code>label-path</code> property is used to show the name of the school
-        instead of the id.
+        This example filters students based on their name and school. The filters are set declaratively on the
+        <code>sl-grid-filter-column</code> elements using its <code>value</code> property. It filters on the school id,
+        not the school name. This prevents unwanted behavior for schools with similar names. But showing the school ids
+        is also unwanted behavior. Therefore, the <code>label-path</code> property is used to show the name of the
+        school instead of the id.
       </p>
       <sl-grid .items=${students}>
         <sl-grid-filter-column
@@ -38,6 +38,7 @@ export const Basic: Story = {
           path="fullName"
           .renderer=${avatarRenderer}
           .scopedElements=${{ 'sl-avatar': Avatar }}
+          value="ma"
         ></sl-grid-filter-column>
         <sl-grid-filter-column header="Group" path="group.name"></sl-grid-filter-column>
         <sl-grid-filter-column

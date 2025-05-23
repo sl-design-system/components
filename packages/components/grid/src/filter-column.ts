@@ -127,8 +127,9 @@ export class GridFilterColumn<T = any> extends GridSortColumn<T> {
     super.stateChanged();
 
     const filter = this.grid?.dataSource?.filters.get(this.id);
-
-    this.value = filter ? filter.value?.toString() : undefined;
+    if (filter && (filter.by === this.path || filter.by === this.filter)) {
+      this.value = filter.value?.toString();
+    }
   }
 
   override renderHeaderRow(index: number): TemplateResult | typeof nothing {

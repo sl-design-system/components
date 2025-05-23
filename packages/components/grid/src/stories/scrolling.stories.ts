@@ -149,6 +149,10 @@ export const BothSticky: Story = {
       body {
         padding-block-start: 0 !important;
       }
+      p:first-of-type {
+        margin-block-start: 0;
+        padding-block-start: 1rem;
+      }
       .cover {
         background: var(--sl-elevation-surface-base-default);
         block-size: 1rem;

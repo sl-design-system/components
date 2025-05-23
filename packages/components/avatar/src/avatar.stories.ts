@@ -30,8 +30,7 @@ export default {
   args: {
     displayName: 'Rose Nylund',
     imageOnly: false,
-    pictureUrl:
-      'https://images.unsplash.com/photo-1699412958387-2fe86d46d394?q=80&w=188&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    pictureUrl: '/images/avatar-1.jpg',
     size: 'md',
     subheading: '',
     vertical: false
@@ -168,15 +167,15 @@ export const All: StoryObj = {
     const users: Array<{ name: string; picture?: string }> = [
       {
         name: 'Yousef van der Schaaf',
-        picture: 'https://randomuser.me/api/portraits/mendfgdfgdfdfg/81.jpg'
+        picture: '/images/avatar-0.jpg'
       },
       {
         name: 'Chester Reid',
-        picture: 'https://randomuser.me/api/portraits/men/19.jpg'
+        picture: '/images/avatar-1.jpg'
       },
       {
         name: 'Emma Henderson - Van Deursen',
-        picture: 'https://randomuser.me/api/portraits/women/19.jpg'
+        picture: '/images/avatar-2.jpg'
       },
       {
         name: 'Johnni Sullivan'
@@ -186,7 +185,7 @@ export const All: StoryObj = {
       },
       {
         name: 'Rose Nylund',
-        picture: 'https://randomuser.me/api/portraits/women/10.jpg'
+        picture: '/images/avatar-3.jpg'
       }
     ];
 

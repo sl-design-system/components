@@ -476,8 +476,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             ${
               col.sticky
                 ? col.stickyPosition === 'start'
-                  ? `inset-inline-start: ${this.view.getStickyColumnOffset(index)}px;`
-                  : `inset-inline-end: ${this.view.getStickyColumnOffset(index)}px;`
+                  ? `inset-inline-start: ${this.#getStickyColumnOffset(index)}px;`
+                  : `inset-inline-end: ${this.#getStickyColumnOffset(index)}px;`
                 : ''
             }
             ${col.renderStyles()?.toString() ?? ''}
@@ -1054,6 +1054,19 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     } else {
       return [columns];
     }
+  }
+
+  /** Returns the left offset, taking any sticky columns into account. */
+  #getStickyColumnOffset(index: number): number {
+    let columns: Array<GridColumn<T>>;
+
+    if (this.#columnDefinitions[index].stickyPosition === 'end') {
+      columns = this.#columnDefinitions.slice(index, this.#columnDefinitions.length - 1).reverse();
+    } else {
+      columns = this.#columnDefinitions.slice(0, index);
+    }
+
+    return columns.filter(col => !col.hidden).reduce((acc, { width = 0 }) => acc + width, 0);
   }
 
   #removeColumn(col: GridColumn): void {

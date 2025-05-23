@@ -32,8 +32,16 @@
   --_first-cell-padding-inline-start: 28px;
 }
 
-:host([no-border]) :where(thead, tbody, tfoot) {
-  border: none;
+:host([no-border]) {
+  thead {
+    border-block-start: none;
+    border-inline: none;
+  }
+
+  tbody,
+  tfoot {
+    border: none;
+  }
 }
 
 :host([no-row-border]) td {
@@ -269,6 +277,11 @@ tbody {
       position: absolute;
       z-index: 1; // Ensure drop target outline is above the rows
     }
+  }
+
+  tr:last-of-type td {
+    // Hide the bottom border of the last row; tbody already has a bottom border
+    border-block-end: none;
   }
 }
 

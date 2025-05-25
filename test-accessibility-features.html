@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Field - Phase 4 Accessibility Testing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .test-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .instructions {
+            background: #f0f8ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        sl-date-field {
+            margin: 10px 0;
+            display: block;
+        }
+        .sr-only {
+            position: absolute !important;
+            width: 1px !important;
+            height: 1px !important;
+            padding: 0 !important;
+            margin: -1px !important;
+            overflow: hidden !important;
+            clip: rect(0, 0, 0, 0) !important;
+            white-space: nowrap !important;
+            border: 0 !important;
+        }
+        #announcements {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 5px;
+            min-height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Date Field - Phase 4 Accessibility Testing</h1>
+        
+        <div class="instructions">
+            <h3>Phase 4 Accessibility Features to Test:</h3>
+            <ul>
+                <li><strong>Screen Reader Announcements:</strong> Listen for announcements when navigating segments and changing values</li>
+                <li><strong>ARIA Live Regions:</strong> Should announce changes politely</li>
+                <li><strong>Keyboard Navigation Feedback:</strong> Each navigation action should be announced</li>
+                <li><strong>Value Change Announcements:</strong> When incrementing/decrementing or typing digits</li>
+            </ul>
+            
+            <h4>Testing Instructions:</h4>
+            <ol>
+                <li>Focus on the date field below</li>
+                <li>Use Left/Right arrows to navigate between segments - listen for announcements</li>
+                <li>Use Up/Down arrows to change values - listen for value change announcements</li>
+                <li>Type digits directly - listen for value update announcements</li>
+                <li>Check that announcements appear in the log below (visual fallback)</li>
+            </ol>
+        </div>
+
+        <div class="test-section">
+            <h3>Phase 4 Test: Accessibility Features</h3>
+            <label for="test-date">Date with Accessibility:</label>
+            <sl-date-field id="test-date" value="2024-03-15"></sl-date-field>
+            
+            <div id="announcement-log">
+                <h4>Announcement Log (for visual testing):</h4>
+                <div id="announcements">Announcements will appear here...</div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>Expected Behavior:</h3>
+            <ul>
+                <li>When navigating to day segment: "Now editing day: 15"</li>
+                <li>When navigating to month segment: "Now editing month: 3"</li>
+                <li>When navigating to year segment: "Now editing year: 2024"</li>
+                <li>When changing day to 16: "Day changed to 16"</li>
+                <li>When typing digit 2 for day: "Day is now 2"</li>
+                <li>All announcements should be polite and non-intrusive</li>
+            </ul>
+        </div>
+    </div>
+
+    <script type="module">
+        import './packages/components/date-field/dist/index.js';
+        
+        // Monitor announcements for visual testing
+        const announcementLog = document.getElementById('announcements');
+        let logCount = 0;
+        
+        // Override the announcement method to also log visually
+        const dateField = document.getElementById('test-date');
+        
+        // Wait for component to be ready
+        setTimeout(() => {
+            if (dateField && dateField.shadowRoot) {
+                // Find live region in shadow DOM
+                const liveRegions = dateField.shadowRoot.querySelectorAll('[aria-live]');
+                liveRegions.forEach(region => {
+                    const observer = new MutationObserver((mutations) => {
+                        mutations.forEach((mutation) => {
+                            if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                                const content = region.textContent.trim();
+                                if (content && content !== 'Announcements will appear here...') {
+                                    logCount++;
+                                    const timestamp = new Date().toLocaleTimeString();
+                                    announcementLog.innerHTML = `<div><strong>${logCount}. [${timestamp}]</strong> ${content}</div>` + announcementLog.innerHTML;
+                                }
+                            }
+                        });
+                    });
+                    
+                    observer.observe(region, {
+                        childList: true,
+                        characterData: true,
+                        subtree: true
+                    });
+                });
+            }
+        }, 1000);
+        
+        console.log('Phase 4 Accessibility test page loaded');
+        console.log('Use keyboard navigation on the date field to test announcements');
+    </script>
+</body>
+</html>

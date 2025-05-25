@@ -258,7 +258,11 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
       // Make sure the members array is initialized
       group.members ??= Array.from({ length: size });
 
-      return group.members.slice(startIndex, startIndex + length);
+      if (this.pagination) {
+        return group.members.slice(startIndex, startIndex + length);
+      } else {
+        return group.members;
+      }
     } else {
       return this.#flattenGroups(this.#groups);
     }

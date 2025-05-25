@@ -16,6 +16,7 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './date-field.scss.js';
+import { type DateSegment, DateSegmentParser } from './date-segment-parser.js';
 
 /**
  * A form component that allows the user to pick a date from a calendar.
@@ -50,6 +51,15 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
    * we don't want to show it again when the button click event fires.
    */
   #popoverJustClosed = false;
+
+  /** @internal Parser for handling date segments and keyboard navigation. */
+  #segmentParser?: DateSegmentParser;
+
+  /** @internal Current date segments for keyboard navigation. */
+  #dateSegments: DateSegment[] = [];
+
+  /** @internal Current active segment index for keyboard navigation. */
+  #currentSegmentIndex = 0;
 
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
@@ -147,6 +157,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     this.setFormControlElement(this.input);
 
+    // Add keyboard event listeners for navigation
+    this.input.addEventListener('keydown', this.#onKeyDown.bind(this));
+
     // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
     const style = document.createElement('style');
     style.innerHTML = `
@@ -160,12 +173,14 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    if (changes.has('dateTimeFormat') && changes.has('locale')) {
+    if (changes.has('dateTimeFormat') || changes.has('locale')) {
       this.#formatter = new Intl.DateTimeFormat(this.locale, this.dateTimeFormat);
+      this.#segmentParser = new DateSegmentParser(this.locale, this.dateTimeFormat);
     }
 
     if (changes.has('value')) {
       this.input.value = this.value && this.#formatter ? this.#formatter.format(this.value) : '';
+      this.#parseCurrentValue();
     }
   }
 
@@ -278,6 +293,12 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     event.stopPropagation();
 
     this.focusEvent.emit();
+
+    // Initialize keyboard navigation when input gains focus
+    if (this.value) {
+      this.#parseCurrentValue();
+      this.#highlightCurrentSegment();
+    }
   }
 
   #onTextFieldFormControl(event: SlFormControlEvent): void {
@@ -302,5 +323,195 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     // Trigger a rerender so the calendar will be rendered
     this.requestUpdate();
+  }
+
+  /**
+   * Handle keyboard events for date segment navigation.
+   */
+  #onKeyDown(event: KeyboardEvent): void {
+    // Only handle keyboard events when input is focused and has a value
+    if (document.activeElement !== this.input || !this.value) {
+      return;
+    }
+
+    const { key } = event;
+    let handled = false;
+
+    switch (key) {
+      case 'ArrowLeft':
+        handled = this.#navigateToSegment(this.#currentSegmentIndex - 1);
+        break;
+      case 'ArrowRight':
+        handled = this.#navigateToSegment(this.#currentSegmentIndex + 1);
+        break;
+      case 'ArrowUp':
+        handled = this.#incrementSegment(1);
+        break;
+      case 'ArrowDown':
+        handled = this.#incrementSegment(-1);
+        break;
+      case 'Enter':
+        handled = this.#moveToNextSegment();
+        break;
+      case 'Escape':
+        handled = this.#resetToFirstSegment();
+        break;
+      case 'Tab':
+        // Allow tab to work normally but reset segment position
+        this.#resetToFirstSegment();
+        break;
+      case '/':
+      case '-':
+      case '.':
+        // Separator keys should move to next segment
+        handled = this.#moveToNextSegment();
+        break;
+      default:
+        // Handle digit input
+        if (/^\d$/.test(key)) {
+          handled = this.#handleDigitInput(key);
+        }
+        break;
+    }
+
+    if (handled) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }
+
+  /**
+   * Navigate to a specific segment by index.
+   */
+  #navigateToSegment(index: number): boolean {
+    if (!this.#dateSegments.length) {
+      return false;
+    }
+
+    // Wrap around the segment index
+    if (index < 0) {
+      index = this.#dateSegments.length - 1;
+    } else if (index >= this.#dateSegments.length) {
+      index = 0;
+    }
+
+    this.#currentSegmentIndex = index;
+    this.#highlightCurrentSegment();
+    return true;
+  }
+
+  /**
+   * Increment or decrement the current segment value.
+   */
+  #incrementSegment(direction: 1 | -1): boolean {
+    if (!this.#dateSegments.length || !this.value) {
+      return false;
+    }
+
+    const segment = this.#dateSegments[this.#currentSegmentIndex];
+    if (!segment) {
+      return false;
+    }
+
+    let newValue = segment.value + direction;
+
+    // Handle wrapping
+    if (newValue > segment.max) {
+      newValue = segment.min;
+    } else if (newValue < segment.min) {
+      newValue = segment.max;
+    }
+
+    // Update the date with the new segment value
+    const newDate = this.#segmentParser!.updateSegment(this.value, segment.type, newValue);
+    this.value = newDate;
+    this.changeEvent.emit(this.value);
+
+    return true;
+  }
+
+  /**
+   * Move to the next segment.
+   */
+  #moveToNextSegment(): boolean {
+    return this.#navigateToSegment(this.#currentSegmentIndex + 1);
+  }
+
+  /**
+   * Reset to the first segment.
+   */
+  #resetToFirstSegment(): boolean {
+    this.#currentSegmentIndex = 0;
+    this.#highlightCurrentSegment();
+    return true;
+  }
+
+  /**
+   * Handle direct digit input to update segment value.
+   */
+  #handleDigitInput(digit: string): boolean {
+    if (!this.#dateSegments.length || !this.value) {
+      return false;
+    }
+
+    const segment = this.#dateSegments[this.#currentSegmentIndex];
+    if (!segment) {
+      return false;
+    }
+
+    const digitValue = parseInt(digit, 10);
+
+    // For single digit segments, replace entirely
+    if (segment.displayValue.length === 1) {
+      if (digitValue >= segment.min && digitValue <= segment.max) {
+        const newDate = this.#segmentParser!.updateSegment(this.value, segment.type, digitValue);
+        this.value = newDate;
+        this.changeEvent.emit(this.value);
+      }
+    } else {
+      // For multi-digit segments, try to build the new value
+      const currentValue = segment.value.toString();
+      const newValueStr = currentValue.slice(1) + digit;
+      const newValue = parseInt(newValueStr, 10);
+
+      if (newValue >= segment.min && newValue <= segment.max) {
+        const newDate = this.#segmentParser!.updateSegment(this.value, segment.type, newValue);
+        this.value = newDate;
+        this.changeEvent.emit(this.value);
+      }
+    }
+
+    return true;
+  }
+
+  /**
+   * Highlight the current segment using setSelectionRange.
+   */
+  #highlightCurrentSegment(): void {
+    if (!this.#dateSegments.length || !this.input) {
+      return;
+    }
+
+    const segment = this.#dateSegments[this.#currentSegmentIndex];
+    if (segment) {
+      this.input.setSelectionRange(segment.position.start, segment.position.end);
+    }
+  }
+
+  /**
+   * Parse the current value into date segments.
+   */
+  #parseCurrentValue(): void {
+    if (!this.value || !this.#segmentParser) {
+      this.#dateSegments = [];
+      return;
+    }
+
+    this.#dateSegments = this.#segmentParser.parseDate(this.value);
+
+    // Ensure current segment index is valid
+    if (this.#currentSegmentIndex >= this.#dateSegments.length) {
+      this.#currentSegmentIndex = 0;
+    }
   }
 }

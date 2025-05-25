@@ -61,6 +61,15 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** @internal Current active segment index for keyboard navigation. */
   #currentSegmentIndex = 0;
 
+  /** @internal Phase 4: ARIA live region for accessibility announcements. */
+  #liveRegion?: HTMLElement;
+
+  /** @internal Phase 4: Announcement queue for screen reader messages. */
+  #announcementQueue: string[] = [];
+
+  /** @internal Phase 4: Flag to prevent duplicate announcements. */
+  #lastAnnouncement = '';
+
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
@@ -240,6 +249,18 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
             `
           : nothing}
       </slot>
+
+      <!-- Phase 4: ARIA live region for accessibility announcements -->
+      <div
+        aria-live="polite"
+        aria-atomic="true"
+        style="position: absolute; left: -9999px;"
+        tabindex="-1"
+        @focus=${this.#onLiveRegionFocus}
+        @blur=${this.#onLiveRegionBlur}
+      >
+        ${this.#announcementQueue.join('')}
+      </div>
     `;
   }
 
@@ -397,7 +418,31 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     this.#currentSegmentIndex = index;
     this.#highlightCurrentSegment();
+
+    // Phase 4: Announce segment navigation to screen readers
+    const segment = this.#dateSegments[this.#currentSegmentIndex];
+    if (segment) {
+      const segmentName = this.#getSegmentName(segment.type);
+      this.#announceToScreenReader(msg(`Now editing ${segmentName}: ${segment.value}`));
+    }
+
     return true;
+  }
+
+  /**
+   * Phase 4: Get localized segment name for screen reader announcements.
+   */
+  #getSegmentName(type: string): string {
+    switch (type) {
+      case 'day':
+        return msg('day');
+      case 'month':
+        return msg('month');
+      case 'year':
+        return msg('year');
+      default:
+        return type;
+    }
   }
 
   /**
@@ -453,6 +498,11 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     // Use the helper method for consistent updating
     this.#updateSegmentValue(segment, newValue);
+
+    // Phase 4: Announce value change to screen readers
+    const segmentName = this.#getSegmentName(segment.type);
+    this.#announceToScreenReader(msg(`${segmentName} changed to ${newValue}`));
+
     return true;
   }
 
@@ -546,6 +596,13 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       }
     }
 
+    // Phase 4: Announce digit input to screen readers
+    const segmentAfterInput = this.#dateSegments[this.#currentSegmentIndex];
+    if (segmentAfterInput) {
+      const segmentName = this.#getSegmentName(segmentAfterInput.type);
+      this.#announceToScreenReader(msg(`${segmentName} is now ${segmentAfterInput.value}`));
+    }
+
     return true;
   }
 
@@ -615,19 +672,91 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   /**
-   * Parse the current value into date segments.
+   * Phase 4: Announce a message to screen readers.
+   */
+  #announceToScreenReader(message: string): void {
+    if (!message || message === this.#lastAnnouncement) {
+      return; // Avoid duplicate announcements
+    }
+
+    this.#lastAnnouncement = message;
+
+    if (!this.#liveRegion) {
+      this.#createLiveRegion();
+    }
+
+    // Clear previous content and add new message
+    if (this.#liveRegion) {
+      this.#liveRegion.textContent = message;
+
+      // Clear the message after a short delay to allow for new announcements
+      setTimeout(() => {
+        if (this.#liveRegion) {
+          this.#liveRegion.textContent = '';
+        }
+        this.#lastAnnouncement = '';
+      }, 1000);
+    }
+  }
+
+  /**
+   * Phase 4: Create ARIA live region for screen reader announcements.
+   */
+  #createLiveRegion(): void {
+    if (this.#liveRegion) {
+      return; // Already created
+    }
+
+    this.#liveRegion = document.createElement('div');
+    this.#liveRegion.setAttribute('aria-live', 'polite');
+    this.#liveRegion.setAttribute('aria-atomic', 'true');
+    this.#liveRegion.setAttribute('class', 'sr-only');
+    this.#liveRegion.style.cssText = `
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    `;
+
+    // Append to the component's shadow root or document body
+    if (this.shadowRoot) {
+      this.shadowRoot.appendChild(this.#liveRegion);
+    } else {
+      document.body.appendChild(this.#liveRegion);
+    }
+  }
+
+  /**
+   * Phase 4: Parse the current value into segments and initialize keyboard navigation.
    */
   #parseCurrentValue(): void {
-    if (!this.value || !this.#segmentParser) {
+    if (!this.#segmentParser || !this.value) {
       this.#dateSegments = [];
+      this.#currentSegmentIndex = 0;
       return;
     }
 
     this.#dateSegments = this.#segmentParser.parseDate(this.value);
-
-    // Ensure current segment index is valid
-    if (this.#currentSegmentIndex >= this.#dateSegments.length) {
-      this.#currentSegmentIndex = 0;
-    }
+    this.#currentSegmentIndex = Math.max(0, Math.min(this.#currentSegmentIndex, this.#dateSegments.length - 1));
   }
+
+  /**
+   * Phase 4: Handle focus on live region.
+   */
+  #onLiveRegionFocus = (): void => {
+    // Live region should not be focusable, redirect focus to main input
+    this.input?.focus();
+  };
+
+  /**
+   * Phase 4: Handle blur on live region.
+   */
+  #onLiveRegionBlur = (): void => {
+    // No specific action needed for live region blur
+  };
 }

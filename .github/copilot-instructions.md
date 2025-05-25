@@ -4,4 +4,4 @@ When using the GitHub MCP server, always limit the requests to the "sl-design-sy
 
 When creating a branch for a new feature or bug fix, use the following naming convention:
 - For new features: `feature/<issue-number>-<description>`
-- For bug fixes: `bugfix/<issue-number>-<description>`
+- For bug fixes: `fix/<issue-number>-<description>`

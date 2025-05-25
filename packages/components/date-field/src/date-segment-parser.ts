@@ -121,21 +121,68 @@ export class DateSegmentParser {
 
   /**
    * Create a new date by updating a specific segment.
+   * Phase 3: Enhanced with better validation and edge case handling.
    */
   updateSegment(currentDate: Date, segmentType: 'day' | 'month' | 'year', newValue: number): Date {
     const newDate = new Date(currentDate);
 
+    // Phase 3 Enhancement: Validate input bounds first
+    const minValue = this.#getMinValue(segmentType, currentDate);
+    const maxValue = this.#getMaxValue(segmentType, currentDate);
+
+    if (newValue < minValue || newValue > maxValue) {
+      // Return original date if value is out of bounds
+      return currentDate;
+    }
+
     switch (segmentType) {
-      case 'day':
+      case 'day': {
+        // Phase 3: Handle month boundary cases
+        const originalMonth = newDate.getMonth();
         newDate.setDate(newValue);
+
+        // Check if setting the day caused the month to change (invalid day)
+        if (newDate.getMonth() !== originalMonth) {
+          // The day was invalid for this month (e.g., Feb 30)
+          // Reset to last valid day of the original month
+          newDate.setMonth(originalMonth + 1, 0); // Last day of original month
+        }
         break;
-      case 'month':
-        // Month is 0-based in Date constructor
-        newDate.setMonth(newValue - 1);
+      }
+      case 'month': {
+        // Phase 3: Handle month changes with day validation
+        const originalDay = newDate.getDate();
+        newDate.setMonth(newValue - 1); // Month is 0-based
+
+        // Check if the day is still valid in the new month
+        const lastDayOfNewMonth = new Date(newDate.getFullYear(), newValue, 0).getDate();
+        if (originalDay > lastDayOfNewMonth) {
+          // Adjust to the last valid day of the new month
+          newDate.setDate(lastDayOfNewMonth);
+        }
         break;
-      case 'year':
+      }
+      case 'year': {
+        // Phase 3: Handle leap year transitions
+        const originalMonth = newDate.getMonth();
+        const originalDay = newDate.getDate();
         newDate.setFullYear(newValue);
+
+        // Special case: Feb 29 in non-leap year
+        if (originalMonth === 1 && originalDay === 29) {
+          const isLeapYear = (newValue % 4 === 0 && newValue % 100 !== 0) || newValue % 400 === 0;
+          if (!isLeapYear) {
+            // Change Feb 29 to Feb 28 in non-leap year
+            newDate.setDate(28);
+          }
+        }
         break;
+      }
+    }
+
+    // Phase 3: Final validation - ensure we have a valid date
+    if (isNaN(newDate.getTime())) {
+      return currentDate;
     }
 
     return newDate;

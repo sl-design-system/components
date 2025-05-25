@@ -564,18 +564,54 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   /**
-   * Phase 2: Helper method to update segment value and emit change event.
+   * Phase 3: Helper method to update segment value with enhanced validation.
    */
   #updateSegmentValue(segment: DateSegment, newValue: number): void {
-    const newDate = this.#segmentParser!.updateSegment(this.value!, segment.type, newValue);
-    if (newDate) {
-      this.value = newDate;
-      this.changeEvent.emit(this.value);
-      // Re-parse segments to get updated positions and values
-      this.#parseCurrentValue();
-      // Re-highlight the current segment
-      this.#highlightCurrentSegment();
+    const originalDate = this.value!;
+    const newDate = this.#segmentParser!.updateSegment(originalDate, segment.type, newValue);
+
+    // Phase 3: Enhanced validation
+    if (newDate && this.#isValidDateValue(newDate)) {
+      // Only update if the date actually changed and is valid
+      if (newDate.getTime() !== originalDate.getTime()) {
+        this.value = newDate;
+        this.changeEvent.emit(this.value);
+
+        // Re-parse segments to get updated positions and values
+        this.#parseCurrentValue();
+
+        // Re-highlight the current segment with improved timing
+        this.#scheduleHighlight();
+      }
     }
+    // If validation fails, the change is silently ignored
+    // In a future phase, we could add user feedback here
+  }
+
+  /**
+   * Phase 3: Validate that a date value is within acceptable bounds.
+   */
+  #isValidDateValue(date: Date | null): boolean {
+    if (!date || isNaN(date.getTime())) {
+      return false;
+    }
+
+    // Check against reasonable date bounds
+    const minYear = 1900;
+    const maxYear = new Date().getFullYear() + 100;
+    const year = date.getFullYear();
+
+    return year >= minYear && year <= maxYear;
+  }
+
+  /**
+   * Phase 3: Schedule segment highlighting with proper timing.
+   */
+  #scheduleHighlight(): void {
+    // Use requestAnimationFrame to ensure DOM updates are complete
+    requestAnimationFrame(() => {
+      this.#highlightCurrentSegment();
+    });
   }
 
   /**

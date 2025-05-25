@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Field Keyboard Navigation Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .instructions {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .test-item {
+            margin: 10px 0;
+        }
+        sl-date-field {
+            margin: 10px 0;
+            width: 300px;
+        }
+        .keyboard-shortcuts {
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .test-status {
+            font-weight: bold;
+            margin: 5px 0;
+        }
+        .pass { color: green; }
+        .fail { color: red; }
+        .pending { color: orange; }
+    </style>
+</head>
+<body>
+    <h1>Date Field Keyboard Navigation Test</h1>
+    
+    <div class="keyboard-shortcuts">
+        <h3>Keyboard Shortcuts to Test:</h3>
+        <ul>
+            <li><strong>← →</strong> Navigate between date segments (day, month, year)</li>
+            <li><strong>↑ ↓</strong> Increment/decrement current segment value</li>
+            <li><strong>0-9</strong> Type digits directly into segments</li>
+            <li><strong>Enter, /, -, .</strong> Move to next segment</li>
+            <li><strong>Tab</strong> Exit keyboard navigation mode</li>
+            <li><strong>Escape</strong> Reset to first segment</li>
+        </ul>
+    </div>
+
+    <div class="test-section">
+        <h2>Phase 1 Foundation Tests</h2>
+        <div class="instructions">
+            <strong>Instructions:</strong> Click on each date field to focus it, then test the keyboard navigation features listed above.
+        </div>
+
+        <div class="test-item">
+            <h3>Test 1: Basic Navigation (US Format)</h3>
+            <sl-date-field id="test1" placeholder="mm/dd/yyyy" locale="en-US"></sl-date-field>
+            <div class="test-status pending" id="status1">Status: Ready for testing</div>
+        </div>
+
+        <div class="test-item">
+            <h3>Test 2: European Format</h3>
+            <sl-date-field id="test2" placeholder="dd/mm/yyyy" locale="en-GB"></sl-date-field>
+            <div class="test-status pending" id="status2">Status: Ready for testing</div>
+        </div>
+
+        <div class="test-item">
+            <h3>Test 3: With Initial Value</h3>
+            <sl-date-field id="test3" locale="en-US" value="2024-01-15"></sl-date-field>
+            <div class="test-status pending" id="status3">Status: Ready for testing</div>
+        </div>
+
+        <div class="test-item">
+            <h3>Test 4: Different Date Format</h3>
+            <sl-date-field id="test4" locale="de-DE" placeholder="dd.mm.yyyy"></sl-date-field>
+            <div class="test-status pending" id="status4">Status: Ready for testing</div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Manual Test Checklist</h2>
+        <div class="instructions">
+            Test each feature below and check them off:
+        </div>
+        
+        <div class="test-item">
+            <input type="checkbox" id="check1"> 
+            <label for="check1">Arrow keys navigate between date segments</label>
+        </div>
+        
+        <div class="test-item">
+            <input type="checkbox" id="check2"> 
+            <label for="check2">Up/Down arrows increment/decrement values</label>
+        </div>
+        
+        <div class="test-item">
+            <input type="checkbox" id="check3"> 
+            <label for="check3">Typing digits updates current segment</label>
+        </div>
+        
+        <div class="test-item">
+            <input type="checkbox" id="check4"> 
+            <label for="check4">Enter/separators move to next segment</label>
+        </div>
+        
+        <div class="test-item">
+            <input type="checkbox" id="check5"> 
+            <label for="check5">Visual highlighting shows current segment</label>
+        </div>
+        
+        <div class="test-item">
+            <input type="checkbox" id="check6"> 
+            <label for="check6">Tab key exits navigation mode</label>
+        </div>
+        
+        <div class="test-item">
+            <input type="checkbox" id="check7"> 
+            <label for="check7">Escape key resets to first segment</label>
+        </div>
+        
+        <div class="test-item">
+            <input type="checkbox" id="check8"> 
+            <label for="check8">Different locales work correctly</label>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Development Console</h2>
+        <div class="instructions">
+            Open browser developer tools to see console logs for debugging.
+        </div>
+        <button onclick="testProgrammatically()">Run Programmatic Tests</button>
+        <div id="console-output" style="background: #f0f0f0; padding: 10px; margin-top: 10px; font-family: monospace; white-space: pre-wrap;"></div>
+    </div>
+
+    <script type="module">
+        // Import the date field component
+        import '../../../dist/date-field.js';
+        
+        // Add event listeners for testing
+        document.addEventListener('DOMContentLoaded', () => {
+            const dateFields = document.querySelectorAll('sl-date-field');
+            
+            dateFields.forEach((field, index) => {
+                field.addEventListener('focus', () => {
+                    console.log(`Date field ${index + 1} focused`);
+                });
+                
+                field.addEventListener('sl-change', (event) => {
+                    console.log(`Date field ${index + 1} changed:`, event.detail);
+                });
+                
+                field.addEventListener('keydown', (event) => {
+                    console.log(`Date field ${index + 1} keydown:`, event.key);
+                });
+            });
+        });
+        
+        // Programmatic testing function
+        window.testProgrammatically = function() {
+            const output = document.getElementById('console-output');
+            output.textContent = '';
+            
+            function log(message) {
+                output.textContent += message + '\n';
+                console.log(message);
+            }
+            
+            log('Starting programmatic tests...');
+            
+            const testField = document.getElementById('test1');
+            if (testField) {
+                log('✓ Date field found');
+                
+                // Test initial state
+                log('Testing initial state...');
+                testField.focus();
+                
+                // Test that segment parser is available
+                setTimeout(() => {
+                    if (testField.shadowRoot) {
+                        const input = testField.shadowRoot.querySelector('input');
+                        if (input) {
+                            log('✓ Input element found in shadow DOM');
+                            
+                            // Set a test value
+                            testField.value = new Date('2024-01-15');
+                            log('✓ Test value set: 2024-01-15');
+                            
+                            setTimeout(() => {
+                                log('Current input value: ' + input.value);
+                                log('✓ Programmatic tests completed');
+                            }, 100);
+                        } else {
+                            log('✗ Input element not found in shadow DOM');
+                        }
+                    } else {
+                        log('✗ Shadow DOM not available');
+                    }
+                }, 100);
+            } else {
+                log('✗ Date field not found');
+            }
+        };
+    </script>
+</body>
+</html>

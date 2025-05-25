@@ -402,6 +402,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /**
    * Increment or decrement the current segment value.
+   * Phase 2: Enhanced with better date validation and smart wrapping.
    */
   #incrementSegment(direction: 1 | -1): boolean {
     if (!this.#dateSegments.length || !this.value) {
@@ -415,18 +416,43 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     let newValue = segment.value + direction;
 
-    // Handle wrapping
-    if (newValue > segment.max) {
-      newValue = segment.min;
-    } else if (newValue < segment.min) {
-      newValue = segment.max;
+    // Phase 2 Enhancement: Smart wrapping with date awareness
+    if (segment.type === 'day') {
+      // For days, check if the month can support this day
+      const currentDate = new Date(this.value);
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth();
+
+      if (newValue > segment.max) {
+        newValue = segment.min;
+      } else if (newValue < segment.min) {
+        newValue = segment.max;
+      }
+
+      // Validate that this day exists in the current month
+      const testDate = new Date(year, month, newValue);
+      if (testDate.getDate() !== newValue) {
+        // Day doesn't exist (e.g., Feb 30), wrap to valid day
+        newValue = direction > 0 ? segment.min : segment.max;
+      }
+    } else if (segment.type === 'month') {
+      // For months, handle wrapping and adjust day if needed
+      if (newValue > segment.max) {
+        newValue = segment.min;
+      } else if (newValue < segment.min) {
+        newValue = segment.max;
+      }
+    } else {
+      // For years and other segments, simple wrapping
+      if (newValue > segment.max) {
+        newValue = segment.min;
+      } else if (newValue < segment.min) {
+        newValue = segment.max;
+      }
     }
 
-    // Update the date with the new segment value
-    const newDate = this.#segmentParser!.updateSegment(this.value, segment.type, newValue);
-    this.value = newDate;
-    this.changeEvent.emit(this.value);
-
+    // Use the helper method for consistent updating
+    this.#updateSegmentValue(segment, newValue);
     return true;
   }
 
@@ -448,6 +474,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /**
    * Handle direct digit input to update segment value.
+   * Phase 2: Enhanced with smart digit handling and auto-advancement.
    */
   #handleDigitInput(digit: string): boolean {
     if (!this.#dateSegments.length || !this.value) {
@@ -460,24 +487,62 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     const digitValue = parseInt(digit, 10);
+    const currentValue = segment.value;
 
-    // For single digit segments, replace entirely
-    if (segment.displayValue.length === 1) {
-      if (digitValue >= segment.min && digitValue <= segment.max) {
-        const newDate = this.#segmentParser!.updateSegment(this.value, segment.type, digitValue);
-        this.value = newDate;
-        this.changeEvent.emit(this.value);
+    // Phase 2 Enhancement: Improved digit input logic
+    if (segment.type === 'day' || segment.type === 'month') {
+      // For day/month: smart handling based on current value and constraints
+      if (currentValue === 0 || currentValue.toString().length >= 2) {
+        // Replace with new digit if current is 0 or already 2 digits
+        const newValue = digitValue;
+        if (newValue >= segment.min && newValue <= segment.max) {
+          this.#updateSegmentValue(segment, newValue);
+          // Auto-advance if this makes a complete valid value
+          if (digitValue > 3 && segment.type === 'day') this.#moveToNextSegment();
+          if (digitValue > 1 && segment.type === 'month') this.#moveToNextSegment();
+        }
+      } else {
+        // Append digit to current value
+        const newValueStr = currentValue.toString() + digit;
+        const newValue = parseInt(newValueStr, 10);
+
+        if (newValue <= segment.max) {
+          this.#updateSegmentValue(segment, newValue);
+          // Auto-advance if we hit 2 digits or an obvious complete value
+          if (
+            newValueStr.length >= 2 ||
+            (segment.type === 'day' && newValue > 3) ||
+            (segment.type === 'month' && newValue > 1)
+          ) {
+            this.#moveToNextSegment();
+          }
+        } else if (digitValue >= segment.min && digitValue <= segment.max) {
+          // If appending would exceed max, start fresh with just the digit
+          this.#updateSegmentValue(segment, digitValue);
+          if (digitValue > 3 && segment.type === 'day') this.#moveToNextSegment();
+          if (digitValue > 1 && segment.type === 'month') this.#moveToNextSegment();
+        }
       }
-    } else {
-      // For multi-digit segments, try to build the new value
-      const currentValue = segment.value.toString();
-      const newValueStr = currentValue.slice(1) + digit;
-      const newValue = parseInt(newValueStr, 10);
+    } else if (segment.type === 'year') {
+      // For year: build up the 4-digit year intelligently
+      const currentStr = currentValue.toString();
 
-      if (newValue >= segment.min && newValue <= segment.max) {
-        const newDate = this.#segmentParser!.updateSegment(this.value, segment.type, newValue);
-        this.value = newDate;
-        this.changeEvent.emit(this.value);
+      if (currentStr.length >= 4 || currentValue === 0) {
+        // Start fresh with new digit, assuming 21st century
+        const newValue = digitValue === 0 ? 2000 : digitValue === 1 ? 1000 + digitValue : 2000 + digitValue;
+        this.#updateSegmentValue(segment, newValue);
+      } else {
+        // Append to current year
+        const newValueStr = currentStr + digit;
+        const newValue = parseInt(newValueStr, 10);
+
+        if (newValueStr.length <= 4 && newValue >= segment.min && newValue <= segment.max) {
+          this.#updateSegmentValue(segment, newValue);
+          // Auto-advance after 4 digits
+          if (newValueStr.length >= 4) {
+            this.#moveToNextSegment();
+          }
+        }
       }
     }
 
@@ -495,6 +560,21 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     const segment = this.#dateSegments[this.#currentSegmentIndex];
     if (segment) {
       this.input.setSelectionRange(segment.position.start, segment.position.end);
+    }
+  }
+
+  /**
+   * Phase 2: Helper method to update segment value and emit change event.
+   */
+  #updateSegmentValue(segment: DateSegment, newValue: number): void {
+    const newDate = this.#segmentParser!.updateSegment(this.value!, segment.type, newValue);
+    if (newDate) {
+      this.value = newDate;
+      this.changeEvent.emit(this.value);
+      // Re-parse segments to get updated positions and values
+      this.#parseCurrentValue();
+      // Re-highlight the current segment
+      this.#highlightCurrentSegment();
     }
   }
 

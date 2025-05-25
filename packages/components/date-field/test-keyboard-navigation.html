@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Date Field Keyboard Navigation Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      color: #333;
+    }
+    
+    .test-section {
+      margin: 30px 0;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: #f9f9f9;
+    }
+    
+    .instructions {
+      background: #e3f2fd;
+      padding: 15px;
+      border-radius: 4px;
+      margin: 15px 0;
+    }
+    
+    sl-date-field {
+      margin: 10px 0;
+      display: block;
+    }
+    
+    .debug-info {
+      font-family: monospace;
+      background: #f5f5f5;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+  </style>
+  <script type="module">
+    // Import the date field component
+    import './src/date-field.js';
+    
+    // Add some debugging
+    document.addEventListener('DOMContentLoaded', () => {
+      const dateFields = document.querySelectorAll('sl-date-field');
+      
+      dateFields.forEach((field, index) => {
+        // Set initial values
+        if (index === 0) {
+          field.value = new Date(2024, 0, 15); // January 15, 2024
+        } else if (index === 1) {
+          field.value = new Date(2024, 11, 31); // December 31, 2024
+        }
+        
+        // Listen for changes
+        field.addEventListener('sl-change', (event) => {
+          console.log(`Field ${index + 1} changed:`, event.detail);
+          updateDebugInfo(field, index);
+        });
+        
+        // Update initial debug info
+        setTimeout(() => updateDebugInfo(field, index), 100);
+      });
+    });
+    
+    function updateDebugInfo(field, index) {
+      const debugElement = document.getElementById(`debug-${index}`);
+      if (debugElement && field.value) {
+        debugElement.textContent = `Current Value: ${field.value.toLocaleDateString()}
+Formatted: ${field.input?.value || 'N/A'}
+Date Object: ${field.value.toString()}`;
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>Date Field Keyboard Navigation Test</h1>
+  
+  <div class="instructions">
+    <h3>Test Instructions:</h3>
+    <ol>
+      <li><strong>Focus the input</strong> - Click on the date field input</li>
+      <li><strong>Left/Right arrows</strong> - Navigate between date segments (day, month, year)</li>
+      <li><strong>Up/Down arrows</strong> - Increment/decrement the current segment</li>
+      <li><strong>Digit keys (0-9)</strong> - Input digits directly to the current segment</li>
+      <li><strong>Tab</strong> - Should reset to first segment (normal tab behavior)</li>
+      <li><strong>Enter</strong> - Move to next segment</li>
+      <li><strong>Escape</strong> - Reset to first segment</li>
+      <li><strong>Separators (/, -, .)</strong> - Move to next segment</li>
+    </ol>
+  </div>
+  
+  <div class="test-section">
+    <h3>Test 1: Basic Date Field (January 15, 2024)</h3>
+    <sl-date-field 
+      placeholder="Select a date"
+      locale="en-US">
+    </sl-date-field>
+    <div id="debug-0" class="debug-info">Loading...</div>
+  </div>
+  
+  <div class="test-section">
+    <h3>Test 2: Different Date Format (December 31, 2024)</h3>
+    <sl-date-field 
+      placeholder="Select a date"
+      locale="en-US"
+      date-time-format='{"day": "2-digit", "month": "2-digit", "year": "numeric"}'>
+    </sl-date-field>
+    <div id="debug-1" class="debug-info">Loading...</div>
+  </div>
+  
+  <div class="test-section">
+    <h3>Test 3: European Format</h3>
+    <sl-date-field 
+      placeholder="Select a date"
+      locale="de-DE">
+    </sl-date-field>
+    <div id="debug-2" class="debug-info">Loading...</div>
+  </div>
+  
+  <div class="test-section">
+    <h3>Expected Behaviors:</h3>
+    <ul>
+      <li>✅ Segments should be visually highlighted when navigating</li>
+      <li>✅ Arrow keys should move between segments and increment/decrement values</li>
+      <li>✅ Digit input should update the current segment</li>
+      <li>✅ Values should wrap around min/max constraints (e.g., day 31 → 1, month 12 → 1)</li>
+      <li>✅ Changes should update the actual date value</li>
+      <li>✅ Navigation should work in different locales and formats</li>
+    </ul>
+  </div>
+</body>
+</html>

@@ -34,9 +34,11 @@ describe('sl-tooltip', () => {
       expect(tooltip.matches(':popover-open')).to.be.false;
     });
 
-    it('should toggle the tooltip on focusin and focusout', () => {
-      const focusinEvent = new Event('focusin', { bubbles: true });
-      button?.dispatchEvent(focusinEvent);
+    it('should toggle the tooltip on focusin and focusout', async () => {
+      button?.focus();
+      // Give some time for the tooltip to open
+      await new Promise(resolve => setTimeout(resolve, 100));
+      console.log('tooltip?', tooltip, tooltip.matches(':popover-open'));
       expect(tooltip.matches(':popover-open')).to.be.true;
 
       const focusoutEvent = new Event('focusout', { bubbles: true });
@@ -54,8 +56,10 @@ describe('sl-tooltip', () => {
       expect(tooltip.matches(':popover-open')).to.be.false;
     });
 
-    it('should toggle the tooltip on focusin and Escape key pressed', async () => {
+    it('should toggle the tooltip on focus and Escape key pressed', async () => {
       button?.focus();
+      // Give some time for the tooltip to open
+      await new Promise(resolve => setTimeout(resolve, 100));
       expect(tooltip.matches(':popover-open')).to.be.true;
 
       await sendKeys({ press: 'Escape' });

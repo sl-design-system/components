@@ -121,20 +121,12 @@ export class Tooltip extends LitElement {
   #onHide = (event: Event): void => {
     let toTooltip = false;
     let fromTooltip = false;
-    let fromDialog = false;
-
     if (event instanceof PointerEvent) {
       toTooltip = (event.relatedTarget as Element)?.nodeName === 'SL-TOOLTIP';
-
-      fromDialog =
-        (event.target as Element)?.nodeName === 'SL-DIALOG' || (event.target as Element)?.nodeName === 'SL-BUTTON';
       fromTooltip =
         (event.target as Element)?.nodeName === 'SL-TOOLTIP' && !this.#matchesAnchor(event.relatedTarget as Element);
     }
-
-    console.log('fromDialog', fromDialog);
-
-    if ((this.#matchesAnchor(event.target as Element) && !toTooltip) || fromTooltip /*|| fromDialog*/) {
+    if ((this.#matchesAnchor(event.target as Element) && !toTooltip) || fromTooltip) {
       this.hidePopover();
     }
   };

@@ -181,7 +181,7 @@
       ]
     },
     "build:themes:styles": {
-      "command": "node scripts/build-themes.js",
+      "command": "node scripts/build-themes.js --studio",
       "clean": "if-file-deleted",
       "files": [
         "scripts/build-themes.js",

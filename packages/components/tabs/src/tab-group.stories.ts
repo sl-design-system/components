@@ -356,6 +356,10 @@ export const All: Story = {
         gap: 1rem;
         grid-template-columns: auto 1fr;
       }
+
+      .custom-background::part(container) {
+        background-color: var(--sl-color-background-secondary-bold);
+      }
     </style>
     <div class="wrapper">
       <span>Default</span>
@@ -452,5 +456,21 @@ export const All: Story = {
         <sl-tab disabled>Disabled tab</sl-tab>
       </sl-tab-group>
     </div>
+
+    <span>Custom background-color (with overflow)</span>
+    <sl-tab-group class="custom-background">
+      <sl-tab>First tab</sl-tab>
+      <sl-tab>Second tab</sl-tab>
+      <sl-tab>Third tab</sl-tab>
+      <sl-tab>Fourth tab</sl-tab>
+      <sl-tab>Fifth tab</sl-tab>
+      <sl-tab>Sixth tab</sl-tab>
+      <sl-tab>Seventh tab</sl-tab>
+      <sl-tab>Eighth tab</sl-tab>
+      <sl-tab>Ninth tab</sl-tab>
+      <sl-tab selected>Tenth tab</sl-tab>
+      <sl-tab>Eleventh tab</sl-tab>
+      <sl-tab>Twelfth tab</sl-tab>
+    </sl-tab-group>
   `
 };

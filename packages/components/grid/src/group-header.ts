@@ -1,3 +1,4 @@
+import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { Checkbox } from '@sl-design-system/checkbox';
@@ -14,6 +15,7 @@ declare global {
   }
 }
 
+@localized()
 export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
@@ -44,7 +46,12 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <sl-button @click=${this.#onClick} fill="ghost">
+      <sl-button
+        @click=${this.#onClick}
+        aria-label=${msg('Toggle group', { id: 'sl.grid.toggleGroup' })}
+        fill="ghost"
+        size="sm"
+      >
         <sl-icon name="chevron-right"></sl-icon>
       </sl-button>
       ${this.selectable

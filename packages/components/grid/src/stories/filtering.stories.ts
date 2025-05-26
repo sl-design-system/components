@@ -2,8 +2,14 @@ import { Avatar } from '@sl-design-system/avatar';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import { ArrayListDataSource } from '@sl-design-system/data-source';
-import { type Person, type Student, getPeople, getStudents } from '@sl-design-system/example-data';
-import { Icon } from '@sl-design-system/icon';
+import {
+  type Person,
+  type School,
+  type Student,
+  getPeople,
+  getSchools,
+  getStudents
+} from '@sl-design-system/example-data';
 import { type TextField } from '@sl-design-system/text-field';
 import '@sl-design-system/text-field/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
@@ -26,77 +32,119 @@ export default {
 } satisfies Meta;
 
 export const Basic: Story = {
-  loaders: [async () => ({ students: (await getStudents()).students })],
-  render: (_, { loaded: { students } }) => {
+  loaders: [
+    async () => ({
+      schools: await getSchools(),
+      students: (await getStudents()).students
+    })
+  ],
+  render: (_, { loaded: { schools, students } }) => {
     return html`
+      <p>
+        This example filters students based on their school. The filter is set declaratively on the
+        <code>sl-grid-filter-column</code> element using its <code>value</code> property.
+      </p>
       <sl-grid .items=${students}>
-        <sl-grid-column
+        <sl-grid-filter-column
           header="Student"
+          path="fullName"
           .renderer=${avatarRenderer}
           .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-column>
+        ></sl-grid-filter-column>
         <sl-grid-filter-column header="Group" path="group.name"></sl-grid-filter-column>
-        <sl-grid-filter-column header="School" path="school.name" value="Collegio San Marco"></sl-grid-filter-column>
+        <sl-grid-filter-column
+          header="School"
+          label-path="school.name"
+          mode="select"
+          .options=${(schools as School[]).map(s => ({ label: s.name, value: s.id }))}
+          path="school.id"
+          value="school-3"
+        ></sl-grid-filter-column>
       </sl-grid>
     `;
   }
 };
 
 export const DataSource: Story = {
-  loaders: [async () => ({ students: (await getStudents()).students })],
-  render: (_, { loaded: { students } }) => {
+  loaders: [
+    async () => ({
+      schools: await getSchools(),
+      students: (await getStudents()).students
+    })
+  ],
+  render: (_, { loaded: { schools, students } }) => {
     const dataSource = new ArrayListDataSource(students as Student[]);
     dataSource.addFilter('filter-school', 'school.id', 'school-1');
+    dataSource.addFilter('filter-student', 'fullName', 'ma');
 
     return html`
+      <p>
+        This example is filtered on the students name and the school. The difference here is that the filter is set
+        programmatically on the data source using the <code>addFilter</code> method. Remember to set an
+        <code>id</code> on the <code>sl-grid-filter-column</code> element and use the same <code>id</code> as the first
+        argument in the <code>addFilter</code> method. That way the filter on the data source and the filter column are
+        linked together.
+      </p>
       <sl-grid .dataSource=${dataSource}>
-        <sl-grid-column
+        <sl-grid-filter-column
+          id="filter-student"
           header="Student"
+          path="fullName"
           .renderer=${avatarRenderer}
           .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-column>
+        ></sl-grid-filter-column>
         <sl-grid-filter-column
           id="filter-school"
           header="School"
           label-path="school.name"
+          mode="select"
+          .options=${(schools as School[]).map(s => ({ label: s.name, value: s.id }))}
           path="school.id"
         ></sl-grid-filter-column>
       </sl-grid>
     `;
   }
 };
-export const FilteringWithSelection: Story = {
+
+export const Selection: Story = {
+  loaders: [async () => ({ students: (await getStudents()).students })],
   render: (_, { loaded: { students } }) => html`
+    <p>This example shows how you can combine selection and filtering in a grid.</p>
     <sl-grid .items=${students}>
       <sl-grid-selection-column></sl-grid-selection-column>
-      <sl-grid-column path="firstName"></sl-grid-column>
-      <sl-grid-column path="lastName"></sl-grid-column>
-      <sl-grid-filter-column path="status"></sl-grid-filter-column>
-      <sl-grid-filter-column path="membership"></sl-grid-filter-column>
+      <sl-grid-filter-column path="fullName"></sl-grid-filter-column>
+      <sl-grid-filter-column path="email"></sl-grid-filter-column>
     </sl-grid>
   `
 };
 
 export const Custom: Story = {
-  render: (_, { loaded: { people } }) => {
-    const filter = (person: Person): boolean => {
-      return person.profession === 'Gastroenterologist';
+  loaders: [async () => ({ students: (await getStudents()).students })],
+  render: (_, { loaded: { students } }) => {
+    const filter = (student: Student): boolean => {
+      console.log('filtering', student);
+
+      return student.school.id === 'school-1';
     };
 
-    const dataSource = new ArrayListDataSource(people as Person[]);
+    const dataSource = new ArrayListDataSource(students as Student[]);
     dataSource.addFilter('custom', filter);
+    dataSource.update();
 
     return html`
-      <p>This grid filters people on the "Gastroenterologist" profession via a custom filter on the data directly.</p>
+      <p>
+        This example filters students on the "Gymnasium Sankt Georg" school via a custom filter on the data source
+        directly. There are no filter columns in this grid. This approach is similar to how filtering works outside of
+        the grid. Remember to explicitly call the <code>update</code> method on the data source after adding a filter.
+        This is necessary because there are no UI elements that trigger the update.
+      </p>
       <sl-grid .dataSource=${dataSource}>
-        <sl-grid-column path="firstName"></sl-grid-column>
-        <sl-grid-column path="lastName"></sl-grid-column>
-        <sl-grid-filter-column path="membership" filter-label="DUO membership status"></sl-grid-filter-column>
-        <sl-grid-filter-column
-          path="status"
-          .header=${html`<sl-icon name="calendar"></sl-icon> Status`}
-          .scopedElements=${{ 'sl-icon': Icon }}
-        ></sl-grid-filter-column>
+        <sl-grid-column
+          path="fullName"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}
+        ></sl-grid-column>
+        <sl-grid-column header="School" path="school.name"></sl-grid-column>
       </sl-grid>
     `;
   }
@@ -108,6 +156,7 @@ export const EmptyValues: Story = {
       { key: 'Foo', value: 'foo' },
       { key: '"0"', value: '0' },
       { key: '0', value: 0 },
+      { key: 'Number', value: 12345 },
       { key: 'Spaces', value: '          ' },
       { key: 'Blank', value: '' },
       { key: 'Null', value: null },
@@ -115,8 +164,9 @@ export const EmptyValues: Story = {
     ];
 
     return html`
-      <sl-grid .items=${items} style="width: 200px">
-        <sl-grid-column path="key"></sl-grid-column>
+      <p>This example shows how filtering works with different kind of values.</p>
+      <sl-grid .items=${items}>
+        <sl-grid-filter-column path="key"></sl-grid-filter-column>
         <sl-grid-filter-column path="value"></sl-grid-filter-column>
       </sl-grid>
     `;
@@ -129,6 +179,7 @@ export const Grouped: Story = {
     dataSource.setGroupBy('membership');
 
     return html`
+      <p>This example shows how you can combine grouping with filtering in a grid.</p>
       <sl-grid .dataSource=${dataSource}>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>

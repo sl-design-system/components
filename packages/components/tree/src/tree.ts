@@ -1,4 +1,4 @@
-import { type RangeChangedEvent } from '@lit-labs/virtualizer';
+import { type RangeChangedEvent } from '@lit-labs/virtualizer/events.js';
 import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';

@@ -34,11 +34,11 @@
     "@tokens-studio/sd-transforms": "^1.2.9",
     "@tokens-studio/sdk": "^2.2.1",
     "cssnano": "^7.0.6",
-    "esbuild": "^0.25.0",
+    "esbuild": "^0.25.3",
     "fast-glob": "^3.3.3",
     "graphql": "^16.10.0",
     "postcss": "^8.5.3",
-    "prettier": "^3.5.2",
+    "prettier": "^3.5.3",
     "sass": "^1.85.1",
     "style-dictionary": "^4.3.3",
     "wireit": "^0.14.12"

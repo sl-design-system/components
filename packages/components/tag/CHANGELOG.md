@@ -1,5 +1,14 @@
 # @sl-design-system/tag
 
+## 0.1.4
+
+### Patch Changes
+
+- [#1972](https://github.com/sl-design-system/components/pull/1972) [`c464140`](https://github.com/sl-design-system/components/commit/c46414048767d65a8489feae054904b9c12df8f5) - Fixing focusing removable tags in the `stacked` version, when there is no stack visible.
+
+- Updated dependencies [[`fc934eb`](https://github.com/sl-design-system/components/commit/fc934eba9f2049fda27d1e3f7c879789eea6254c)]:
+  - @sl-design-system/shared@0.7.2
+
 ## 0.1.3
 
 ### Patch Changes

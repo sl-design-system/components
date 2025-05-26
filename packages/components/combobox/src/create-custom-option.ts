@@ -25,7 +25,7 @@ export class CreateCustomOption extends Option {
     return html`
       <div part="container">
         <sl-icon name="plus"></sl-icon>
-        <div part="wrapper">${msg(str`Create "${this.value}"`)}</div>
+        <div part="wrapper">${msg(str`Create "${this.value}"`, { id: 'sl.combobox.createCustomOption' })}</div>
       </div>
     `;
   }

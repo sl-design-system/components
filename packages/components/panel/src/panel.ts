@@ -1,4 +1,4 @@
-import { localized } from '@lit/localize';
+import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button, ButtonFill } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
@@ -118,11 +118,14 @@ export class Panel extends ScopedElementsMixin(LitElement) {
         ${this.collapsible
           ? html`
               <sl-button
-                class="toggle"
                 @click=${() => this.toggle()}
-                fill="ghost"
+                aria-label=${this.collapsed
+                  ? msg('Expand panel', { id: 'sl.panel.expand' })
+                  : msg('Collapse panel', { id: 'sl.panel.collapse' })}
                 aria-controls="body"
                 aria-expanded=${this.collapsed ? 'false' : 'true'}
+                class="toggle"
+                fill="ghost"
               >
                 <sl-icon class=${!this.collapsed ? 'upside-down' : ''} name="chevron-down"></sl-icon>
               </sl-button>

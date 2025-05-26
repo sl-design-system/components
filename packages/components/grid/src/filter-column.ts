@@ -1,11 +1,11 @@
 import { localized, msg } from '@lit/localize';
 import { type DataSourceFilterFunction, FetchListDataSourcePlaceholder } from '@sl-design-system/data-source';
-import { type Path, type PathKeys, getNameByPath, getValueByPath } from '@sl-design-system/shared';
-import { type PropertyValues, type TemplateResult, html } from 'lit';
+import { type Path, type PathKeys, getValueByPath } from '@sl-design-system/shared';
+import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { type Ref, createRef, ref } from 'lit/directives/ref.js';
-import { GridColumn } from './column.js';
 import { GridFilter } from './filter.js';
+import { GridSortColumn } from './sort-column.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -13,7 +13,7 @@ declare global {
   }
 }
 
-export type GridFilterMode = 'select' | 'text';
+export type GridFilterMode = 'date' | 'date-range' | 'select' | 'text';
 
 export interface GridFilterOption {
   label: string;
@@ -22,20 +22,31 @@ export interface GridFilterOption {
 
 let nextUniqueId = 0;
 
+/**
+ * A column that can be used to filter the data in the grid. This column extends
+ * the sortable column, so it can be used to sort the data as well.
+ */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class GridFilterColumn<T = any> extends GridColumn<T> {
+export class GridFilterColumn<T = any> extends GridSortColumn<T> {
   /** Reference to the rendered `<sl-grid-filter>` element. */
   #filterRef: Ref<GridFilter> = createRef();
 
-  /** The internal options if none are provided. */
+  /** Returns the element that is rendered in the table header. */
+  get filterElement(): GridFilter | undefined {
+    return this.#filterRef.value;
+  }
+
+  /** @internal The internal options if none are provided. */
   @state() internalOptions?: GridFilterOption[];
 
   /** The filter function if you want to do custom filtering. */
-  @state() filter?: DataSourceFilterFunction<T>;
+  @property({ attribute: false }) filter?: DataSourceFilterFunction<T>;
 
-  /** The label as it needs to be shown in the filter popover. Only use this when the label needs to be something else than the column header converted to lowercase (and stripped of any html tags in case of a ColumnHeaderRenderer). */
+  /** The label as it needs to be shown in the filter. Only use this when the label needs to be something else than the column header converted to lowercase (and stripped of any html tags in case of a ColumnHeaderRenderer). */
   @property({ type: String, attribute: 'filter-label' }) filterLabel?: string;
+
+  override headerRowCount = 2;
 
   /** The path to use for the displayed value in the column. */
   @property({ attribute: 'label-path' }) labelPath?: PathKeys<T>;
@@ -57,7 +68,7 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
   @property({ attribute: false }) options?: GridFilterOption[];
 
   /** The value for this filter column. */
-  @property({ type: String }) value?: string | string[];
+  @property({ type: String }) value?: string;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -81,7 +92,7 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
   override itemsChanged(): void {
     super.itemsChanged();
 
-    if (this.mode !== 'text' && typeof this.options === 'undefined') {
+    if (this.mode === 'select' && typeof this.options === 'undefined') {
       const dataSource = this.grid?.dataSource;
 
       // No options were provided, so we'll create a list of options based on the column's values
@@ -91,7 +102,7 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
             label = (this.labelPath ? getValueByPath(item, this.labelPath)?.toString() : value?.toString()) ?? '';
 
           if (value === null || value === undefined || value?.toString().trim() === '') {
-            label = msg('Blank');
+            label = msg('Blank', { id: 'sl.grid.blankFilterOption' });
             value = '' as Path<T, PathKeys<T>>;
           }
 
@@ -110,28 +121,33 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
 
     const filter = this.grid?.dataSource?.filters.get(this.id);
 
-    this.value = filter ? filter.value : undefined;
+    this.value = filter ? filter.value?.toString() : undefined;
   }
 
-  override renderHeader(): TemplateResult {
+  override renderHeaderRow(index: number): TemplateResult | typeof nothing {
     const parts = ['header', 'filter', ...this.getParts()];
 
-    return html`
-      <th part=${parts.join(' ')}>
-        <sl-grid-filter
-          ${ref(this.#filterRef)}
-          .column=${this}
-          .filterLabel=${this.filterLabel}
-          .labelPath=${this.labelPath}
-          .mode=${this.mode || 'select'}
-          .options=${this.options ?? this.internalOptions}
-          .path=${this.path}
-          .value=${this.value}
-        >
-          ${this.header ?? getNameByPath(this.path)}
-        </sl-grid-filter>
-      </th>
-    `;
+    if (index === 0) {
+      return super.renderHeaderRow(index);
+    } else if (index === 1) {
+      return html`
+        <th part=${parts.join(' ')} role="columnheader" scope="col">
+          <sl-grid-filter
+            ${ref(this.#filterRef)}
+            .column=${this}
+            .filter=${this.filter}
+            .filterLabel=${this.filterLabel}
+            .mode=${this.mode || 'text'}
+            .options=${this.options ?? this.internalOptions}
+            .path=${this.path}
+            .value=${this.value}
+          >
+          </sl-grid-filter>
+        </th>
+      `;
+    }
+
+    return nothing;
   }
 
   override getDisplayValue(item: T): unknown {

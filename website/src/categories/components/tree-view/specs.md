@@ -1,9 +1,9 @@
 ---
-title: Tag specs
+title: Tree specs
 tags: specs
 eleventyNavigation:
-  parent: Tag
-  key: TagSpecs
+  parent: Tree
+  key: TreeSpecs
 ---
 <section>
 

@@ -1,3 +1,6 @@
+import { faPoo } from '@fortawesome/pro-regular-svg-icons';
+import { Icon } from '@sl-design-system/icon';
+import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
@@ -39,6 +42,19 @@ export const Disabled: Story = {
   args: {
     ...Basic.args,
     disabled: true
+  }
+};
+
+export const CustomIcon: Story = {
+  name: 'Icon',
+  render: ({ disabled, placeholder, value }) => {
+    Icon.register(faPoo);
+
+    return html`
+      <sl-search-field aria-label="Search" ?disabled=${disabled} .placeholder=${placeholder} .value=${value}>
+        <sl-icon name="far-poo" slot="prefix"></sl-icon>
+      </sl-search-field>
+    `;
   }
 };
 

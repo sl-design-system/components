@@ -5,9 +5,11 @@
 
   color: var(--sl-color-foreground-plain);
   display: block;
+  hyphens: auto;
   inline-size: calc(100% - var(--sl-size-100) * 2);
   margin-inline: var(--sl-size-100);
   outline: 0;
+  overflow-wrap: anywhere;
   scroll-margin-block: var(--sl-size-100);
   user-select: none;
 }

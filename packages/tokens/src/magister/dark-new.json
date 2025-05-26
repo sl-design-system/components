@@ -407,8 +407,8 @@
           "$description": "Use for text in selected states (e.g., tabs or menu items)."
         },
         "onBold": {
+          "$value": "{color.foreground.bold}",
           "$type": "color",
-          "$value": "{color.foreground.accent.blue.onBold}",
           "$description": "Use for text in selected states (e.g., tabs or menu items)."
         },
         "plain": {
@@ -533,18 +533,18 @@
       },
       "inverted": {
         "plain": {
+          "$value": "{color.foreground.accent.grey.plain}",
           "$type": "color",
-          "$value": "{color.palette.grey.000}",
           "$description": "Use for plain inverted text."
         },
         "bold": {
+          "$value": "{color.foreground.accent.grey.bold}",
           "$type": "color",
-          "$value": "{color.palette.grey.000}",
           "$description": "Use for inverted text on 'color.background.inverted.subtlest', and 'color.background.inverted.subtle'."
         },
         "onBold": {
+          "$value": "{color.foreground.accent.grey.onBold}",
           "$type": "color",
-          "$value": "{color.foreground.bold}",
           "$description": "Use for inverted text on 'color.background.inverted.bold'."
         }
       },
@@ -787,8 +787,8 @@
         "$description": "A neutral border option that passes min 3:1 contrast ratios."
       },
       "inverted": {
+        "$value": "{color.foreground.accent.grey.bold}",
         "$type": "color",
-        "$value": "{color.palette.grey.000}",
         "$description": "Use for borders on bold backgrounds."
       },
       "disabled": {
@@ -1510,18 +1510,18 @@
       },
       "inverted": {
         "subtlest": {
+          "$value": "rgba( {color.palette.grey.900}, {opacity.dark.subtlest})",
           "$type": "color",
-          "$value": "rgba( {color.palette.grey.000}, {opacity.dark.subtlest})",
           "$description": "The subtlest inverted background option."
         },
         "subtle": {
+          "$value": "rgba({color.palette.grey.900}, {opacity.dark.subtle})",
           "$type": "color",
-          "$value": "rgba({color.palette.grey.000}, {opacity.dark.subtle})",
           "$description": "A subtle inverted background option."
         },
         "bold": {
+          "$value": "{color.foreground.accent.grey.bold}",
           "$type": "color",
-          "$value": "{color.palette.grey.000}",
           "$description": "A solid inverted background option."
         },
         "interactive": {
@@ -1531,8 +1531,8 @@
             "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
           "plain": {
+            "$value": "{color.palette.grey.900}",
             "$type": "color",
-            "$value": "{color.palette.grey.200}",
             "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }
         }

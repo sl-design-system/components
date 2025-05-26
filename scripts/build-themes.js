@@ -1,4 +1,4 @@
-import { permutateThemes, register, transformLineHeight } from '@tokens-studio/sd-transforms';
+import { register, transformLineHeight } from '@tokens-studio/sd-transforms';
 import { kebabCase } from 'change-case';
 import cssnano from 'cssnano';
 import { readdir, readFile, writeFile } from 'fs/promises';

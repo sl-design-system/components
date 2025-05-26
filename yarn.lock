@@ -5331,7 +5331,7 @@ __metadata:
     "@fortawesome/sharp-light-svg-icons": "npm:^6.7.2"
     "@fortawesome/sharp-regular-svg-icons": "npm:^6.7.2"
     "@fortawesome/sharp-solid-svg-icons": "npm:^6.7.2"
-    "@tokens-studio/sd-transforms": "npm:^1.2.9"
+    "@tokens-studio/sd-transforms": "npm:^1.3.0"
     "@tokens-studio/sdk": "npm:^2.2.1"
     cssnano: "npm:^7.0.6"
     esbuild: "npm:^0.25.3"
@@ -5898,19 +5898,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tokens-studio/sd-transforms@npm:^1.2.9":
-  version: 1.2.9
-  resolution: "@tokens-studio/sd-transforms@npm:1.2.9"
+"@tokens-studio/sd-transforms@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "@tokens-studio/sd-transforms@npm:1.3.0"
   dependencies:
     "@bundled-es-modules/deepmerge": "npm:^4.3.1"
     "@bundled-es-modules/postcss-calc-ast-parser": "npm:^0.1.6"
     "@tokens-studio/types": "npm:^0.5.1"
-    colorjs.io: "npm:^0.4.3"
+    colorjs.io: "npm:^0.5.2"
     expr-eval-fork: "npm:^2.0.2"
     is-mergeable-object: "npm:^1.1.1"
   peerDependencies:
-    style-dictionary: ^4.1.4
-  checksum: 10c0/9673ed218c52387072cfcade703000523f316919581cd1267038248848a8960d336c7b95fd6a247a9ff436c3055a8970357be9acba496df57ac66be0588faf7b
+    style-dictionary: ^4.3.0 || ^5.0.0-rc.0
+  checksum: 10c0/bd670d5f742704e790c8398ef5f271406ada2510879a8b3e71bc57c8684ad3afc8ff0ef063f2ac1516e02f72cb005313af63b66aa94a221918b7cda599030cbb
   languageName: node
   linkType: hard
 
@@ -9222,10 +9222,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"colorjs.io@npm:^0.4.3":
-  version: 0.4.5
-  resolution: "colorjs.io@npm:0.4.5"
-  checksum: 10c0/4cc58d18223426bcb8caa558e7554002b62bf87bd20db06596abf5efe5ea65416266402db86b504ac5fa2c38360913dbb8e6ef7c4fa19a992fd1818d5710ef6f
+"colorjs.io@npm:^0.5.2":
+  version: 0.5.2
+  resolution: "colorjs.io@npm:0.5.2"
+  checksum: 10c0/2e6ea43629e325e721b92429239de3a6f42fb6d88ba6e4c2aeff0288c196d876f2f7ee82aea95bd40072d5cdc8cb87f042f4d94c134dcabf0e34a717e4caacb9
   languageName: node
   linkType: hard
 

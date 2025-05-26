@@ -478,7 +478,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     this.internals.setFormValue(this.nativeFormValue);
     this.internals.setValidity(
       { valueMissing: this.required && !this.selectedOption },
-      msg('Please choose an option from the list.')
+      msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
     );
 
     this.updateValidity();

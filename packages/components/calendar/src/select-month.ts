@@ -89,7 +89,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         <span class="current-year">${currentYear}</span>
         <sl-button
           @click=${this.#onPrevious}
-          aria-label=${msg(str`Previous year, ${currentYear - 1}`)}
+          aria-label=${msg(str`Previous year, ${currentYear - 1}`, { id: 'sl.calendar.previousYear' })}
           fill="ghost"
           variant="primary"
         >
@@ -97,7 +97,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         </sl-button>
         <sl-button
           @click=${this.#onNext}
-          aria-label=${msg(str`Next year, ${currentYear + 1}`)}
+          aria-label=${msg(str`Next year, ${currentYear + 1}`, { id: 'sl.calendar.nextYear' })}
           fill="ghost"
           variant="primary"
         >

@@ -112,15 +112,15 @@ StyleDictionary.registerTransform({
   name: 'sl/color/transparentColorMix',
   type: 'value',
   transitive: true,
-  filter: token => token.$type === 'color' && token.original?.value?.startsWith('rgba'),
+  filter: token => token.$type === 'color' && token.original?.$value?.startsWith('rgba'),
   transform: token => {
-    const [_, color, opacity] = token.original?.value?.match(/rgba\(\s*(\S+)\s*,\s*(\S+)\)/) ?? [];
+    const [_, color, opacity] = token.original?.$value?.match(/rgba\(\s*(\S+)\s*,\s*(\S+)\)/) ?? [];
 
     if (color && opacity) {
       if (opacity.endsWith('%')) {
-        token.original.value = `color-mix(in srgb, ${color} ${opacity}, transparent)`;
+        token.original.$value = `color-mix(in srgb, ${color} ${opacity}, transparent)`;
       } else {
-        token.original.value = `color-mix(in srgb, ${color} calc(${opacity} * 100%), transparent)`;
+        token.original.$value = `color-mix(in srgb, ${color} calc(${opacity} * 100%), transparent)`;
       }
     }
 
@@ -166,9 +166,9 @@ StyleDictionary.registerTransform({
   name: 'sl/wrapMathInCalc',
   type: 'value',
   transitive: true,
-  filter: token => typeof token.original?.value === 'string' && mathPresent.test(token.original.value),
+  filter: token => typeof token.original?.$value === 'string' && mathPresent.test(token.original.$value),
   transform: token => {
-    token.original.value = `calc(${token.original.value})`;
+    token.original.$value = `calc(${token.original.$value})`;
 
     return token.$value;
   }

@@ -265,9 +265,17 @@ describe('ArrayListDataSource', () => {
       });
     });
 
-    describe('explicit groups', () => {});
+    describe('with a label path', () => {
+      beforeEach(() => {
+        ds = new ArrayListDataSource(people, { groupBy: 'profession', groupLabelPath: 'membership' });
+      });
 
-    describe('with a label path', () => {});
+      it('should use the label path for the group label', () => {
+        const groupLabels = ds.items.filter(item => isListDataSourceGroupItem(item)).map(({ label }) => label);
+
+        expect(groupLabels).to.deep.equal(['Premium', 'Regular', 'Regular', 'VIP']);
+      });
+    });
   });
 
   describe('pagination', () => {

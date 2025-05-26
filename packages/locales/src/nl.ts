@@ -84,5 +84,8 @@ export const templates = {
   'sl.toolBar.showMore': 'Meer tonen',
   'sl.tree.loadingMessage': 'Laden',
   'sl.calendar.previousMonth': str`Previous month, ${0}`,
-  'sl.calendar.nextMonth': str`Next month, ${0}`
+  'sl.calendar.nextMonth': str`Next month, ${0}`,
+  sca8d3918f4578f1d: 'day',
+  sf4bdc3936faf56a5: 'month',
+  s7c64634977425edc: 'year'
 };

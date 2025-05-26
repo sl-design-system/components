@@ -11,11 +11,11 @@
       max-width: 800px;
       margin: 0 auto;
     }
-    
+
     h1 {
       color: #333;
     }
-    
+
     .test-section {
       margin: 30px 0;
       padding: 20px;
@@ -23,19 +23,19 @@
       border-radius: 8px;
       background: #f9f9f9;
     }
-    
+
     .instructions {
       background: #e3f2fd;
       padding: 15px;
       border-radius: 4px;
       margin: 15px 0;
     }
-    
+
     sl-date-field {
       margin: 10px 0;
       display: block;
     }
-    
+
     .debug-info {
       font-family: monospace;
       background: #f5f5f5;
@@ -48,11 +48,11 @@
   <script type="module">
     // Import the date field component
     import './src/date-field.js';
-    
+
     // Add some debugging
     document.addEventListener('DOMContentLoaded', () => {
       const dateFields = document.querySelectorAll('sl-date-field');
-      
+
       dateFields.forEach((field, index) => {
         // Set initial values
         if (index === 0) {
@@ -60,18 +60,18 @@
         } else if (index === 1) {
           field.value = new Date(2024, 11, 31); // December 31, 2024
         }
-        
+
         // Listen for changes
         field.addEventListener('sl-change', (event) => {
           console.log(`Field ${index + 1} changed:`, event.detail);
           updateDebugInfo(field, index);
         });
-        
+
         // Update initial debug info
         setTimeout(() => updateDebugInfo(field, index), 100);
       });
     });
-    
+
     function updateDebugInfo(field, index) {
       const debugElement = document.getElementById(`debug-${index}`);
       if (debugElement && field.value) {
@@ -84,7 +84,7 @@ Date Object: ${field.value.toString()}`;
 </head>
 <body>
   <h1>Date Field Keyboard Navigation Test</h1>
-  
+
   <div class="instructions">
     <h3>Test Instructions:</h3>
     <ol>
@@ -98,35 +98,35 @@ Date Object: ${field.value.toString()}`;
       <li><strong>Separators (/, -, .)</strong> - Move to next segment</li>
     </ol>
   </div>
-  
+
   <div class="test-section">
     <h3>Test 1: Basic Date Field (January 15, 2024)</h3>
-    <sl-date-field 
+    <sl-date-field
       placeholder="Select a date"
       locale="en-US">
     </sl-date-field>
     <div id="debug-0" class="debug-info">Loading...</div>
   </div>
-  
+
   <div class="test-section">
     <h3>Test 2: Different Date Format (December 31, 2024)</h3>
-    <sl-date-field 
+    <sl-date-field
       placeholder="Select a date"
       locale="en-US"
       date-time-format='{"day": "2-digit", "month": "2-digit", "year": "numeric"}'>
     </sl-date-field>
     <div id="debug-1" class="debug-info">Loading...</div>
   </div>
-  
+
   <div class="test-section">
     <h3>Test 3: European Format</h3>
-    <sl-date-field 
+    <sl-date-field
       placeholder="Select a date"
       locale="de-DE">
     </sl-date-field>
     <div id="debug-2" class="debug-info">Loading...</div>
   </div>
-  
+
   <div class="test-section">
     <h3>Expected Behaviors:</h3>
     <ul>

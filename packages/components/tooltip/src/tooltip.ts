@@ -131,15 +131,33 @@ export class Tooltip extends LitElement {
     }
   };
 
-  #onShow = ({ target }: Event): void => {
-    if (this.#matchesAnchor(target as HTMLElement)) {
-      this.anchorElement = target as HTMLElement;
+  #showTooltip = (element: HTMLElement): void => {
+    this.anchorElement = element;
 
-      this.showPopover();
+    this.showPopover();
+    requestAnimationFrame(() => {
+      this.#calculateSafeTriangle();
+    });
+  };
+
+  #onShow = ({ target, type }: Event): void => {
+    if (!this.#matchesAnchor(target as HTMLElement)) {
+      return;
+    }
+
+    // For keyboard navigation (focus events)
+    if (type === 'focusin') {
       requestAnimationFrame(() => {
-        //timeout is needed because otherwise the actualPlacement is not set yet
-        this.#calculateSafeTriangle();
+        if ((target as Element).matches(':focus-visible')) {
+          this.#showTooltip(target as HTMLElement);
+        }
       });
+      return;
+    }
+
+    // For hover events
+    if (type === 'pointerover') {
+      this.#showTooltip(target as HTMLElement);
     }
   };
 

@@ -142,7 +142,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
       ${this.menuItems.length
         ? html`
-            <sl-menu-button fill=${ifDefined(this.fill)} aria-label=${msg('Show more')}>
+            <sl-menu-button fill=${ifDefined(this.fill)} aria-label=${msg('Show more', { id: 'sl.toolBar.showMore' })}>
               <sl-icon name="far-ellipsis-vertical" slot="button"></sl-icon>
               ${this.menuItems.map(item => this.renderMenuItem(item))}
             </sl-menu-button>
@@ -208,11 +208,11 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
           return this.#mapToggleGroupToItem(element);
         } else if (element instanceof ToolBarDivider) {
           return { element, type: 'divider' };
-        } else {
+        } else if (!['SL-TOOLTIP'].includes(element.tagName)) {
           console.warn(`Unknown element type: ${element.tagName} in sl-tool-bar. Only sl-button elements are allowed.`);
-
-          return undefined;
         }
+
+        return undefined;
       })
       .filter(item => item !== undefined) as ToolBarItem[];
   }

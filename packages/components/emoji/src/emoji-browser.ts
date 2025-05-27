@@ -161,7 +161,7 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
         <sl-search-field
           @sl-change=${this.#onChange}
           @sl-clear=${this.#onClear}
-          .placeholder=${msg('Search')}
+          .placeholder=${msg('Search', { id: 'sl.emojiBrowser.search' })}
           .value=${this.query}
         ></sl-search-field>
 
@@ -170,7 +170,9 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
           : html`
               ${this.frequentlyUsedEmojis?.length
                 ? html`
-                    <div id="frequently-used" class="heading">${msg('Frequently Used')}</div>
+                    <div id="frequently-used" class="heading">
+                      ${msg('Frequently Used', { id: 'sl.emojiBrowser.frequentlyUsed' })}
+                    </div>
                     ${this.renderEmojis(this.frequentlyUsedEmojis)}
                   `
                 : nothing}

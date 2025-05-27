@@ -189,7 +189,8 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
       return msg(
         str`Please enter at least ${this.minLength} characters (you currently have ${length} character${
           length > 1 ? 's' : ''
-        }).`
+        }).`,
+        { id: 'sl.common.validation.tooShort' }
       );
     }
 

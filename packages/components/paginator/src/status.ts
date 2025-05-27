@@ -1,6 +1,6 @@
 import { localized, msg, str } from '@lit/localize';
 import { announce } from '@sl-design-system/announcer';
-import { DATA_SOURCE_DEFAULT_PAGE_SIZE, type ListDataSource } from '@sl-design-system/data-source';
+import { LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE, type ListDataSource } from '@sl-design-system/data-source';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './status.scss.js';
@@ -60,7 +60,7 @@ export class PaginatorStatus<T = any> extends LitElement {
    * Items per page.
    * @default 10
    */
-  @property({ type: Number, attribute: 'page-size' }) pageSize = DATA_SOURCE_DEFAULT_PAGE_SIZE;
+  @property({ type: Number, attribute: 'page-size' }) pageSize = LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE;
 
   /** @internal The current range of items visible. */
   @state() range?: number[];
@@ -113,7 +113,7 @@ export class PaginatorStatus<T = any> extends LitElement {
   override render(): TemplateResult {
     const [start, end] = this.range ?? [1, 1];
 
-    return html`${msg(str`${start} - ${end} of ${this.totalItems} items`)}`;
+    return html`${msg(str`${start} - ${end} of ${this.totalItems} items`, { id: 'sl.paginator.itemsRange' })}`;
   }
 
   #onUpdate = () => {
@@ -134,7 +134,11 @@ export class PaginatorStatus<T = any> extends LitElement {
       if (this.totalItems > 1) {
         const [start, end] = this.range ?? [1, 1];
 
-        announce(msg(str`Currently showing ${start} to ${end} of ${this.totalItems} items`));
+        announce(
+          msg(str`Currently showing ${start} to ${end} of ${this.totalItems} items`, {
+            id: 'sl.paginator.currentlyShowingAmount'
+          })
+        );
       }
     }, 100);
   }

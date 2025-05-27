@@ -46,6 +46,11 @@ export default {
     };
 
     return html`
+      <style>
+        #storybook-root {
+          max-width: calc(100vw - 2rem);
+        }
+      </style>
       <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
           ${slot?.() ??
@@ -215,11 +220,11 @@ export const WordBreak: Story = {
     slot: () => html`
       <style>
         sl-select {
-          width: 7em;
+          width: 9em;
         }
       </style>
       <sl-select value="2">
-        <sl-option value="1" lang="nl">Schoenenborstel</sl-option>
+        <sl-option value="1" lang="nl">Schoenenborsteldoosje</sl-option>
         <sl-option value="2" lang="en">1. MBO Paragraphcomponent</sl-option>
         <sl-option value="3" lang="en">Disproportionate</sl-option>
       </sl-select>

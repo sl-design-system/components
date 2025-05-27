@@ -27,7 +27,7 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
   @property({ attribute: false }) ariaSorting?: 'ascending' | 'descending';
 
   /** The direction this columns should be sorted in. */
-  @property({ type: String }) direction?: DataSourceSortDirection;
+  @property() direction?: DataSourceSortDirection;
 
   /** If you want to provide a custom sort function, you can via this property. */
   @property({ attribute: false }) sorter?: DataSourceSortFunction<T>;
@@ -55,11 +55,11 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
   override stateChanged(): void {
     super.stateChanged();
 
+    this.direction = undefined;
+
     const sort = this.grid?.dataSource?.sort;
-    if (sort?.id === this.id) {
-      this.direction = sort.direction;
-    } else {
-      this.direction = undefined;
+    if (sort && (sort?.by === this.path || sort?.by === this.sorter)) {
+      this.direction = sort?.direction;
     }
 
     if (!this.direction) {

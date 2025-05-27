@@ -1,6 +1,10 @@
 import { localized, msg } from '@lit/localize';
-import { type DataSourceFilterFunction, FetchListDataSourcePlaceholder } from '@sl-design-system/data-source';
-import { type Path, type PathKeys, getValueByPath } from '@sl-design-system/shared';
+import {
+  ArrayListDataSource,
+  type DataSourceFilterFunction,
+  FetchListDataSourcePlaceholder
+} from '@sl-design-system/data-source';
+import { type Path, type PathKeys, getStringByPath, getValueByPath } from '@sl-design-system/shared';
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { type Ref, createRef, ref } from 'lit/directives/ref.js';
@@ -92,17 +96,20 @@ export class GridFilterColumn<T = any> extends GridSortColumn<T> {
   override itemsChanged(): void {
     super.itemsChanged();
 
-    if (this.mode === 'select' && typeof this.options === 'undefined') {
-      const dataSource = this.grid?.dataSource;
-
+    if (
+      this.mode === 'select' &&
+      typeof this.options === 'undefined' &&
+      this.grid?.dataSource instanceof ArrayListDataSource
+    ) {
       // No options were provided, so we'll create a list of options based on the column's values
-      this.internalOptions = dataSource?.originalItems
-        ?.reduce((acc, item) => {
+      this.internalOptions = this.grid.dataSource.unfilteredItems
+        ?.filter(item => item.type === 'data')
+        ?.reduce((acc, { data: item }) => {
           let value = getValueByPath(item, this.path!),
-            label = (this.labelPath ? getValueByPath(item, this.labelPath)?.toString() : value?.toString()) ?? '';
+            label = (this.labelPath ? getStringByPath(item, this.labelPath) : String(value)) ?? '';
 
-          if (value === null || value === undefined || value?.toString().trim() === '') {
-            label = msg('Blank');
+          if (value === null || value === undefined || String(value).trim() === '') {
+            label = msg('Blank', { id: 'sl.grid.blankFilterOption' });
             value = '' as Path<T, PathKeys<T>>;
           }
 
@@ -120,8 +127,9 @@ export class GridFilterColumn<T = any> extends GridSortColumn<T> {
     super.stateChanged();
 
     const filter = this.grid?.dataSource?.filters.get(this.id);
-
-    this.value = filter ? filter.value?.toString() : undefined;
+    if (filter && (filter.by === this.path || filter.by === this.filter)) {
+      this.value = filter.value?.toString();
+    }
   }
 
   override renderHeaderRow(index: number): TemplateResult | typeof nothing {

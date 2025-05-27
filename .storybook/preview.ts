@@ -86,6 +86,11 @@ const preview: Preview = {
     },
     viewport: {
       viewports: INITIAL_VIEWPORTS
+    },
+    a11y: {
+      options: {
+        preload: false
+      }
     }
   }
 };

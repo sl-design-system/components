@@ -514,7 +514,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         ...(selected ? ['selected'] : []),
         ...(this.#dragItem === item ? ['dragging'] : []),
         ...(this.itemParts?.(item.data)?.split(' ') || [])
-        // ...(this.view.isFixedItem(item) ? ['fixed'] : [])
       ];
 
     return html`

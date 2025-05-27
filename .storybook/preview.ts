@@ -90,7 +90,7 @@ const preview: Preview = {
     a11y: {
       options: {
         preload: false
-      },
+      }
     }
   }
 };

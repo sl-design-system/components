@@ -99,10 +99,16 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
 
   override render(): TemplateResult {
     return html`
-      <sl-label for="sizes">${msg('Items per page:')}</sl-label>
+      <sl-label for="sizes">${msg('Items per page:', { id: 'sl.paginator.itemsPerPage' })}</sl-label>
       <sl-select @sl-change=${this.#onChange} ?disabled=${!this.pageSizes} id="sizes" value=${ifDefined(this.pageSize)}>
         ${this.pageSizes?.map(
-          size => html`<sl-option aria-label=${`${size} ${msg('items per page')}`} .value=${size}>${size}</sl-option>`
+          size => html`
+            <sl-option
+              aria-label=${`${size} ${msg('items per page', { id: 'sl.paginator.itemsPerPageOption' })}`}
+              .value=${size}
+              >${size}</sl-option
+            >
+          `
         )}
       </sl-select>
     `;

@@ -59,7 +59,11 @@ export class SearchField extends TextField {
   override renderSuffix(): TemplateResult | typeof nothing {
     return this.value && !this.disabled
       ? html`
-          <button @click=${this.#onClick} aria-label=${msg('Clear text')} tabindex="-1">
+          <button
+            @click=${this.#onClick}
+            aria-label=${msg('Clear text', { id: 'sl.searchField.clearText' })}
+            tabindex="-1"
+          >
             <sl-icon name="circle-xmark"></sl-icon>
             <sl-icon name="circle-xmark-solid"></sl-icon>
           </button>

@@ -187,7 +187,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         <sl-field-button
           @click=${this.#onButtonClick}
           ?disabled=${this.disabled || this.readonly}
-          aria-label=${msg('Toggle calendar')}
+          aria-label=${msg('Toggle calendar', { id: 'sl.dateField.toggleCalendar' })}
           slot="suffix"
           tabindex=${this.disabled ? '-1' : '0'}
         >

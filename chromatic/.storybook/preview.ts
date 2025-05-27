@@ -54,7 +54,8 @@ const preview: Preview = {
             <h1>State: Focus</h1>
             <div class="sb-fake-focus-visible">
               ${story()}
-            </div>`
+            </div>
+            `
         }`
     },
     (story) => {
@@ -89,6 +90,11 @@ const preview: Preview = {
     options: {
       storySort: {
         method: 'alphabetical'
+      }
+    },
+    a11y: {
+      options: {
+        preload: false
       }
     }
   }

@@ -90,6 +90,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   /** @internal The default margin between the popover and the viewport. */
   static viewportMargin = 8;
 
+  /** @internal */
+  static formAssociated = true;
+
   /** Event controller. */
   #events = new EventsController(this, { click: this.#onClick, focusout: this.#onFocusout });
 
@@ -164,6 +167,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
   /** When set will group all the selected options at the top of the listbox. */
   @property({ type: Boolean, attribute: 'group-selected' }) groupSelected?: boolean;
+
+  /** @internal. */
+  readonly internals = this.attachInternals();
 
   /** @internal The input element in the light DOM. */
   input!: HTMLInputElement;
@@ -256,7 +262,8 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
     this.#observer.observe(this);
 
-    this.setFormControlElement(this.input);
+    this.internals.ariaRequired = this.required ? 'true' : 'false';
+    this.setFormControlElement(this);
 
     /**
      * Light DOM styling workarounds:
@@ -320,7 +327,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       }
     }
 
-    if ((changes.has('options') || changes.has('value')) && this.items.length) {
+    if ((changes.has('options') || changes.has('value')) && this.items.length && this.value !== undefined) {
       this.#updateSelectedItems();
     }
 
@@ -842,6 +849,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     }
 
     this.items = this.items.filter(i => i !== item);
+
     this.selectedItems = this.selectedItems.filter(i => i !== item);
 
     if (this.#useVirtualList) {
@@ -1262,7 +1270,14 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   #updateTextFieldValue(): void {
     if (this.multiple) {
       this.input.placeholder = this.selectedItems.map(i => i.label).join(', ') || '';
-      this.input.value = '';
+      this.input.value = ''; // this causes the validity check to fail
+      this.internals.setFormValue(this.input.placeholder);
+      this.internals.setValidity(
+        { valueMissing: this.required && !this.input.placeholder },
+        msg('Please choose an option from the list.')
+      );
+
+      this.updateValidity();
     } else {
       const item = this.selectedItems.at(0);
 
@@ -1272,12 +1287,26 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       } else {
         this.input.value = '';
       }
+      this.formValue = this.input.value;
+      this.internals.setFormValue(this.input.value);
+      this.internals.setValidity(
+        { valueMissing: this.required && !this.input.value },
+        msg('Please choose an option from the list.')
+      );
     }
+    this.updateValidity();
   }
 
   /** Updates the value based on the current selection. */
   #updateValue(): void {
     const values = this.selectedItems.map(i => i.value!);
+
+    if (this.value === undefined) {
+      this.value = this.multiple ? values : values[0];
+      const valueString = this.multiple ? values.join(', ') : values[0]?.toString();
+      console.log('valueString', valueString);
+      this.internals.setFormValue(valueString);
+    }
 
     // Do nothing if the value hasn't changed
     if (
@@ -1286,12 +1315,17 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       this.value.length === values.length &&
       values.every(v => (this.value as U[]).includes(v))
     ) {
+      console.log('value, do nothing', this.selectedItems, values, this.value);
       return;
     } else if (this.value === values[0]) {
       return;
     }
 
     this.value = this.multiple ? values : values[0];
+    console.log('value', this.value);
+    const valueString = this.multiple ? values.join(', ') : values[0]?.toString();
+
+    this.internals.setFormValue(valueString);
     this.changeEvent.emit(this.value);
     this.updateState({ dirty: true });
     this.updateValidity();

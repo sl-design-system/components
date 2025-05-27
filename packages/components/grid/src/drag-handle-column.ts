@@ -1,4 +1,5 @@
-import { faGripDotsVertical } from '@fortawesome/pro-solid-svg-icons';
+import { faGripLines } from '@fortawesome/pro-regular-svg-icons';
+import { type ListDataSourceDataItem } from '@sl-design-system/data-source';
 import { Icon } from '@sl-design-system/icon';
 import { getValueByPath } from '@sl-design-system/shared';
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
@@ -10,7 +11,7 @@ declare global {
   }
 }
 
-Icon.register(faGripDotsVertical);
+Icon.register(faGripLines);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridDragHandleColumn<T = any> extends GridColumn<T> {
@@ -29,30 +30,26 @@ export class GridDragHandleColumn<T = any> extends GridColumn<T> {
     }
   }
 
-  override renderHeaderRow(index: number): TemplateResult | typeof nothing {
-    if (index >= this.headerRowCount) {
-      return nothing;
-    }
-
+  override renderHeaderRow(): TemplateResult {
     return html`<th part="header drag-handle" role="columnheader"></th>`;
   }
 
-  override renderData(item: T): TemplateResult {
+  override renderData(item: ListDataSourceDataItem<T>): TemplateResult {
     let draggable = true;
 
     if (this.path) {
-      draggable = !!getValueByPath(item, this.path);
+      draggable = !!getValueByPath(item.data, this.path);
     }
 
     // FIXME: Once `pointerdown` works properly in WebKit, use that instead
     // of `mousedown` and `touchstart`. See https://bugs.webkit.org/show_bug.cgi?id=267852
     return html`
       <td
-        @mousedown=${(event: Event & { target: HTMLElement }) => this.#onStartDrag(event, item)}
-        @touchstart=${(event: Event & { target: HTMLElement }) => this.#onStartDrag(event, item)}
+        @mousedown=${(event: Event & { target: HTMLElement }) => this.#onStartDrag(event, item.data)}
+        @touchstart=${(event: Event & { target: HTMLElement }) => this.#onStartDrag(event, item.data)}
         part="data drag-handle ${draggable ? '' : 'fixed'}"
       >
-        ${draggable ? html`<sl-icon name="fas-grip-dots-vertical"></sl-icon>` : nothing}
+        ${draggable ? html`<sl-icon name="far-grip-lines"></sl-icon>` : nothing}
       </td>
     `;
   }

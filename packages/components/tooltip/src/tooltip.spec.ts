@@ -38,7 +38,6 @@ describe('sl-tooltip', () => {
       button?.focus();
       // Give some time for the tooltip to open
       await new Promise(resolve => setTimeout(resolve, 100));
-      console.log('tooltip?', tooltip, tooltip.matches(':popover-open'));
       expect(tooltip.matches(':popover-open')).to.be.true;
 
       const focusoutEvent = new Event('focusout', { bubbles: true });

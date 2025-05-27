@@ -260,16 +260,19 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
             </sl-menu-button>
           `
         : nothing}
-
-      <sl-button
-        @click=${() => this.#onPageClick(this.pageCount - 1)}
-        aria-current=${ifDefined(this.page === this.pageCount - 1 ? 'page' : undefined)}
-        class=${classMap({ current: this.page === this.pageCount - 1, page: true })}
-        fill="ghost"
-        size=${ifDefined(this.size)}
-      >
-        ${this.pageCount}
-      </sl-button>
+      ${this.pageCount > 1
+        ? html`
+            <sl-button
+              @click=${() => this.#onPageClick(this.pageCount - 1)}
+              aria-current=${ifDefined(this.page === this.pageCount - 1 ? 'page' : undefined)}
+              class=${classMap({ current: this.page === this.pageCount - 1, page: true })}
+              fill="ghost"
+              size=${ifDefined(this.size)}
+            >
+              ${this.pageCount}
+            </sl-button>
+          `
+        : nothing}
 
       <div class="wrapper">
         <sl-select

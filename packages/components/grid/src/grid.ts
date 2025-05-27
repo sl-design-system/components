@@ -804,7 +804,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       });
 
       if (!cancelled) {
-        // this.dataSource?.reorder(this.#dragItem!, relativeItem!, index === 0 ? 'before' : 'after');
+        this.view.reorderItem(this.#dragItem!, relativeItem, index === 0 ? 'before' : 'after');
       }
     }
   }

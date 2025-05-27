@@ -51,7 +51,7 @@ describe('ArrayListDataSource', () => {
       expect(ds.groupLabelPath).to.be.undefined;
     });
 
-    it('should have any selected items', () => {
+    it('should not have any selected items', () => {
       expect(ds.selection.size).to.equal(0);
     });
 
@@ -180,7 +180,7 @@ describe('ArrayListDataSource', () => {
       expect(ds.items).to.have.length(people.length);
     });
 
-    it('should unfiltered items when filtered', () => {
+    it('should have unfiltered items when filtered', () => {
       ds.addFilter('id', 'profession', 'Gastroenterologist');
       ds.update();
 
@@ -216,7 +216,7 @@ describe('ArrayListDataSource', () => {
       it('should have expanded groups by default', () => {
         const groups = ds.items.filter(item => isListDataSourceGroupItem(item));
 
-        expect(groups.every(({ id }) => !ds.isGroupCollapsed(id))).to.be.true;
+        expect(groups.some(({ id }) => ds.isGroupCollapsed(id))).to.be.false;
       });
 
       it('should hide the group members when the group is collapsed', () => {
@@ -265,9 +265,17 @@ describe('ArrayListDataSource', () => {
       });
     });
 
-    describe('explicit groups', () => {});
+    describe('with a label path', () => {
+      beforeEach(() => {
+        ds = new ArrayListDataSource(people, { groupBy: 'profession', groupLabelPath: 'membership' });
+      });
 
-    describe('with a label path', () => {});
+      it('should use the label path for the group label', () => {
+        const groupLabels = ds.items.filter(item => isListDataSourceGroupItem(item)).map(({ label }) => label);
+
+        expect(groupLabels).to.deep.equal(['Premium', 'Regular', 'Regular', 'VIP']);
+      });
+    });
   });
 
   describe('pagination', () => {

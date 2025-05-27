@@ -127,15 +127,4 @@ describe('ListDataSource', () => {
 
     expect(ds.groupBy).to.be.undefined;
   });
-
-  // it('should reorder items', () => {
-  //   spy(ds, 'update');
-
-  //   expect(ds.items.map(({ id }) => id)).to.deep.equal([1, 2, 3, 4, 5]);
-
-  //   ds.reorder(people[0], people[4], 'before');
-
-  //   expect(ds.items.map(({ id }) => id)).to.deep.equal([2, 3, 4, 1, 5]);
-  //   expect(ds.update).to.have.been.calledOnce;
-  // });
 });

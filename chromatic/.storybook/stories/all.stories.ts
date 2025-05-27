@@ -38,17 +38,17 @@ export default {
     chromatic: {
       modes: {
         'bingel-dc': allModes['bingel-dc'],
-        // 'bingel-int': allModes['bingel-int'],
-        // 'clickedu': allModes['clickedu'],
-        // 'editorial-suite': allModes['editorial-suite'],
-        // 'itslearning': allModes['itslearning'],
-        // 'kampus': allModes['kampus'],
-        // 'magister': allModes['magister'],
-        // 'max': allModes['max'],
-        // 'my-digital-book': allModes['my-digital-book'],
-        // 'neon': allModes['neon'],
+        'bingel-int': allModes['bingel-int'],
+        'clickedu': allModes['clickedu'],
+        'editorial-suite': allModes['editorial-suite'],
+        'itslearning': allModes['itslearning'],
+        'kampus': allModes['kampus'],
+        'magister': allModes['magister'],
+        'max': allModes['max'],
+        'my-digital-book': allModes['my-digital-book'],
+        'neon': allModes['neon'],
         'sanoma-learning': allModes['sanoma-learning'],
-        // 'teas': allModes['teas'],
+        'teas': allModes['teas'],
       }
     }
   }

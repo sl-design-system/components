@@ -543,6 +543,11 @@ tfoot {
     display: flex;
   }
 
+  @supports not (position-anchor: --foo) {
+    margin-block-end: var(--sl-size-200);
+    margin-inline: auto;
+  }
+
   sl-tool-bar {
     background: inherit;
 

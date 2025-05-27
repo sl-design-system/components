@@ -91,6 +91,11 @@ const preview: Preview = {
       storySort: {
         method: 'alphabetical'
       }
+    },
+    a11y: {
+      options: {
+        preload: false
+      }
     }
   }
 };

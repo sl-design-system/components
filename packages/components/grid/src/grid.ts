@@ -203,7 +203,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /**
    * Indicates whether the user can activate a single row. A user can activate a row by
    * clicking on it, or using the keyboard. The `activeRow` property will then be set to
-   * the currently active row. The data source is not used to keep track of the active row.
+   * the current active row. The data source is not used to keep track of the active row.
    */
   @property({ type: Boolean, reflect: true, attribute: 'activatable-row' }) activatableRow?: boolean;
 

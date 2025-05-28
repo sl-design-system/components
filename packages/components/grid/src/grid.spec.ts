@@ -207,6 +207,60 @@ describe('sl-grid', () => {
     });
   });
 
+  describe('activatable row with selects multiple', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-grid
+          activatable-row
+          .items=${[
+            { firstName: 'John', lastName: 'Doe' },
+            { firstName: 'Jane', lastName: 'Smith' }
+          ]}
+          selects="multiple"
+        >
+          <sl-grid-selection-column></sl-grid-selection-column>
+          <sl-grid-column path="firstName"></sl-grid-column>
+          <sl-grid-column path="lastName"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+    });
+
+    it('should emit an sl-grid-active-row-change event a row is selected', async () => {
+      const onActiveRowChange = spy() as SinonSpy<[SlActiveRowChangeEvent], void>;
+
+      el.addEventListener('sl-grid-active-row-change', onActiveRowChange);
+
+      // Click the first row, last column to activate the row
+      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      // Now click the selection column to select the row
+      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(onActiveRowChange).to.have.been.calledTwice;
+      expect(onActiveRowChange.lastCall.args[0].detail.item).to.be.undefined;
+    });
+
+    it('should emit an sl-grid-selection-change event when a row is activated', async () => {
+      const onSelectionChange = spy();
+
+      el.addEventListener('sl-grid-selection-change', onSelectionChange);
+
+      // Click the first row, first column to select the row
+      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:first-of-type')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      // Now click the last row, last column to activate the row
+      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:last-of-type td:last-of-type')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(onSelectionChange).to.have.been.calledTwice;
+    });
+  });
+
   describe('selects multiple row', () => {
     beforeEach(async () => {
       el = await fixture(html`

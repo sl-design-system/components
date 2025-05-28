@@ -652,13 +652,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         this.dataSource?.update();
       }
 
-      if (this.activeRow === item.data) {
-        this.activeRow = undefined;
-      } else {
-        this.activeRow = item.data;
-      }
-
-      this.activeRowChangeEvent.emit({ item: this.activeRow });
+      this.#toggleActiveRow(item);
     } else if (this.selects === 'multiple-row') {
       this.dataSource?.toggle(item);
       this.dataSource?.update();
@@ -874,7 +868,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onSelectionChange = (): void => {
-    this.activeRow = undefined;
+    this.#toggleActiveRow();
 
     if (this.selects?.startsWith('multiple')) {
       this.renderRoot
@@ -1109,6 +1103,20 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     if (col instanceof GridFilterColumn) {
       this.#filters = this.#filters.filter(f => f !== col.filterElement);
+    }
+  }
+
+  #toggleActiveRow(item?: ListDataSourceDataItem<T>): void {
+    const emitEvent = this.activeRow !== item?.data;
+
+    if (item?.data && this.activeRow === item?.data) {
+      this.activeRow = undefined;
+    } else {
+      this.activeRow = item?.data;
+    }
+
+    if (emitEvent) {
+      this.activeRowChangeEvent.emit({ item: this.activeRow });
     }
   }
 

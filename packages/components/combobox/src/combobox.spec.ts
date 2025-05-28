@@ -142,7 +142,6 @@ describe('sl-combobox', () => {
     });
 
     it('should be pristine', () => {
-      console.log(el.dirty);
       expect(el.dirty).not.to.be.true;
     });
 
@@ -153,16 +152,16 @@ describe('sl-combobox', () => {
       expect(el.dirty).to.be.true;
     });
 
-    // it('should emit an sl-update-state event after typing in the input', async () => {
-    //   const onUpdateState = spy();
+    it('should emit an sl-update-state event after typing in the input', async () => {
+      const onUpdateState = spy();
 
-    //   el.addEventListener('sl-update-state', onUpdateState);
+      el.addEventListener('sl-update-state', onUpdateState);
 
-    //   input.focus();
-    //   await sendKeys({ type: 'L' });
+      input.focus();
+      await sendKeys({ type: 'L' });
 
-    //   expect(onUpdateState).to.have.been.calledOnce;
-    // });
+      expect(onUpdateState).to.have.been.calledOnce;
+    });
 
     it('should be untouched', () => {
       expect(el.touched).not.to.be.true;
@@ -192,93 +191,93 @@ describe('sl-combobox', () => {
       expect(document.activeElement).to.equal(input);
     });
 
-    // it('should emit an sl-focus event when focusing the input', async () => {
-    //   const onFocus = spy();
+    it('should emit an sl-focus event when focusing the input', async () => {
+      const onFocus = spy();
 
-    //   el.addEventListener('sl-focus', onFocus);
-    //   input.focus();
-    //   await new Promise(resolve => setTimeout(resolve, 50));
+      el.addEventListener('sl-focus', onFocus);
+      input.focus();
+      await new Promise(resolve => setTimeout(resolve, 50));
 
-    //   expect(onFocus).to.have.been.calledOnce;
-    // });
+      expect(onFocus).to.have.been.calledOnce;
+    });
 
-    // it('should emit an sl-blur event when blurring the input', async () => {
-    //   const onBlur = spy();
+    it('should emit an sl-blur event when blurring the input', async () => {
+      const onBlur = spy();
 
-    //   el.addEventListener('sl-blur', onBlur);
-    //   input.focus();
-    //   await sendKeys({ press: 'Tab' });
+      el.addEventListener('sl-blur', onBlur);
+      input.focus();
+      await sendKeys({ press: 'Tab' });
 
-    //   expect(onBlur).to.have.been.calledOnce;
-    // });
+      expect(onBlur).to.have.been.calledOnce;
+    });
 
-    // it('should emit an sl-change event when selecting an option', async () => {
-    //   const onChange = spy();
+    it('should emit an sl-change event when selecting an option', async () => {
+      const onChange = spy();
 
-    //   el.addEventListener('sl-change', onChange);
-    //   input.click();
-    //   el.querySelector('sl-option')?.click();
-    //   await el.updateComplete;
+      el.addEventListener('sl-change', onChange);
+      input.click();
+      el.querySelector('sl-option')?.click();
+      await el.updateComplete;
 
-    //   expect(onChange).to.have.been.calledOnce;
-    // });
+      expect(onChange).to.have.been.calledOnce;
+    });
 
-    // it('should emit an sl-validate event when calling reportValidity', async () => {
-    //   const onValidate = spy();
+    it('should emit an sl-validate event when calling reportValidity', async () => {
+      const onValidate = spy();
 
-    //   el.addEventListener('sl-validate', onValidate);
-    //   el.reportValidity();
-    //   await el.updateComplete;
+      el.addEventListener('sl-validate', onValidate);
+      el.reportValidity();
+      await el.updateComplete;
 
-    //   expect(onValidate).to.have.been.calledOnce;
-    // });
+      expect(onValidate).to.have.been.calledOnce;
+    });
 
-    // it('should emit an sl-validate event when selecting an option', async () => {
-    //   const onValidate = spy();
+    it('should emit an sl-validate event when selecting an option', async () => {
+      const onValidate = spy();
 
-    //   el.addEventListener('sl-validate', onValidate);
-    //   input.click();
-    //   el.querySelector('sl-option')?.click();
-    //   await el.updateComplete;
+      el.addEventListener('sl-validate', onValidate);
+      input.click();
+      el.querySelector('sl-option')?.click();
+      await el.updateComplete;
 
-    //   // expect(onValidate).to.have.been.calledOnce;
-    // });
+      expect(onValidate).to.have.been.calledOnce;
+    });
 
-    // describe('input', () => {
-    //   it('should exist', () => {
-    //     expect(input).to.exist;
-    //   });
+    describe('input', () => {
+      it('should exist', () => {
+        expect(input).to.exist;
+      });
 
-    //   it('should have a combobox role', () => {
-    //     expect(input).to.have.attribute('role', 'combobox');
-    //   });
+      it('should have a combobox role', () => {
+        expect(input).to.have.attribute('role', 'combobox');
+      });
 
-    //   it('should have autocomplete off', () => {
-    //     expect(input).to.have.attribute('autocomplete', 'off');
-    //   });
+      it('should have autocomplete off', () => {
+        expect(input).to.have.attribute('autocomplete', 'off');
+      });
 
-    //   it('should have an aria-haspopup attribute', () => {
-    //     expect(input).to.have.attribute('aria-haspopup', 'listbox');
-    //   });
+      it('should have an aria-haspopup attribute', () => {
+        expect(input).to.have.attribute('aria-haspopup', 'listbox');
+      });
 
-    //   it('should not be expanded', () => {
-    //     expect(input).to.have.attribute('aria-expanded', 'false');
-    //   });
+      it('should not be expanded', () => {
+        expect(input).to.have.attribute('aria-expanded', 'false');
+      });
 
-    //   it('should be expanded when the list is visible', async () => {
-    //     input.click();
-    //     await el.updateComplete;
+      it('should be expanded when the list is visible', async () => {
+        input.click();
+        await el.updateComplete;
 
-    //     expect(input).to.have.attribute('aria-expanded', 'true');
-    //   });
+        expect(input).to.have.attribute('aria-expanded', 'true');
+      });
 
-    //   it('should link the input to the listbox', () => {
-    //     expect(input).to.have.attribute('aria-controls', el.querySelector('sl-listbox')?.id);
-    //   });
-    // });
+      it('should link the input to the listbox', () => {
+        expect(input).to.have.attribute('aria-controls', el.querySelector('sl-listbox')?.id);
+      });
+    });
   });
 
-  describe.skip('allow custom values', () => {
+  describe('allow custom values', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-combobox allow-custom-values>
@@ -379,7 +378,7 @@ describe('sl-combobox', () => {
     });
   });
 
-  describe.skip('disabled', () => {
+  describe('disabled', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-combobox disabled>
@@ -406,7 +405,7 @@ describe('sl-combobox', () => {
     });
   });
 
-  describe.skip('single select', () => {
+  describe('single select', () => {
     describe('defaults', () => {
       beforeEach(async () => {
         el = await fixture(html`
@@ -624,7 +623,7 @@ describe('sl-combobox', () => {
     });
   });
 
-  describe.skip('multiple select', () => {
+  describe('multiple select', () => {
     describe('defaults', () => {
       beforeEach(async () => {
         el = await fixture(html`
@@ -980,7 +979,7 @@ describe('sl-combobox', () => {
     });
   });
 
-  describe.skip('form integration', () => {
+  describe('form integration', () => {
     let el: FormIntegrationTestComponent;
 
     class FormIntegrationTestComponent extends LitElement {

@@ -335,7 +335,6 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       // Workaround for Safari not allowing `::slotted(input)::placeholder`
       // See https://bugs.webkit.org/show_bug.cgi?id=223814
       this.toggleAttribute('has-selected-items', this.multiple && this.selectedItems.length > 0);
-
       if (this.items.length) {
         this.#updateTextFieldValue();
         this.#updateValue();
@@ -1283,7 +1282,6 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         { valueMissing: this.required && !this.input.placeholder },
         msg('Please choose an option from the list.')
       );
-
       this.updateValidity();
     } else {
       const item = this.selectedItems.at(0);
@@ -1300,8 +1298,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         { valueMissing: this.required && !this.input.value },
         msg('Please choose an option from the list.')
       );
+      this.updateValidity();
+      this.changeEvent.emit(this.value);
     }
-    this.updateValidity();
   }
 
   /** Updates the value based on the current selection. */
@@ -1311,7 +1310,6 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     if (this.value === undefined) {
       this.value = this.multiple ? values : values[0];
       const valueString = this.multiple ? values.join(', ') : values[0]?.toString();
-      console.log('valueString', valueString);
       this.internals.setFormValue(valueString);
     }
 
@@ -1322,19 +1320,20 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       this.value.length === values.length &&
       values.every(v => (this.value as U[]).includes(v))
     ) {
-      console.log('value, do nothing', this.selectedItems, values, this.value);
       return;
     } else if (this.value === values[0]) {
       return;
     }
 
     this.value = this.multiple ? values : values[0];
-    console.log('value', this.value);
     const valueString = this.multiple ? values.join(', ') : values[0]?.toString();
 
     this.internals.setFormValue(valueString);
+    // console.log('#updateValue, going to emit the changeEvent', this.value, valueString);
+    // this.updateState({ dirty: true });
     this.changeEvent.emit(this.value);
-    this.updateState({ dirty: true });
+    // this should only be done when the value changes because of user action
+    // this.updateState({ dirty: true });
     this.updateValidity();
   }
 }

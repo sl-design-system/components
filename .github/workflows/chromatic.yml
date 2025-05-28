@@ -12,6 +12,7 @@ on:
 env:
   FIGMA_TOKEN: ${{ secrets.FIGMA_AUTH_TOKEN }}
   FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
+  TOKENS_STUDIO_API_KEY: ${{ secrets.TOKENS_STUDIO_API_KEY }}
 
 jobs:
   chromatic-deployment:

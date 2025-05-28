@@ -207,7 +207,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
    */
   @property({ type: Boolean, reflect: true, attribute: 'activatable-row' }) activatableRow?: boolean;
 
-  /** The current active row. */
+  /**
+   * The current active row. This does not do anything unless the `activatableRow` property is also set.
+   */
   @property({ attribute: false }) activeRow?: T;
 
   /** @internal Emits when the active row has changed. */

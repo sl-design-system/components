@@ -1,11 +1,8 @@
 import { expect } from '@open-wc/testing';
 import { spy } from 'sinon';
-import { type Person, people } from './data-source.spec.js';
-import {
-  FetchListDataSource,
-  type FetchListDataSourceCallbackOptions,
-  FetchListDataSourcePlaceholder
-} from './fetch-list-data-source.js';
+import { FetchListDataSource, type FetchListDataSourceCallbackOptions } from './fetch-list-data-source.js';
+import { type ListDataSourceDataItem, ListDataSourcePlaceholder } from './list-data-source.js';
+import { type Person, people } from './list-data-source.spec.js';
 
 describe('FetchListDataSource', () => {
   let ds: FetchListDataSource<Person>;
@@ -68,11 +65,13 @@ describe('FetchListDataSource', () => {
     it('should return a placeholder item when the item is not yet available', async () => {
       ds.update();
 
-      expect(ds.items[0]).to.equal(FetchListDataSourcePlaceholder);
+      let item = ds.items[0] as ListDataSourceDataItem<Person>;
+      expect(item.data).to.equal(ListDataSourcePlaceholder);
 
       await new Promise(resolve => setTimeout(resolve));
 
-      expect(ds.items[0]).to.deep.equal(people[0]);
+      item = ds.items[0] as ListDataSourceDataItem<Person>;
+      expect(item.data).to.deep.equal(people[0]);
     });
 
     describe('fetchPage', () => {
@@ -126,7 +125,7 @@ describe('FetchListDataSource', () => {
       it('should provide any custom options when fetching a page', () => {
         spy(ds, 'fetchPage');
 
-        ds.getFetchOptions = (page, pageSize) => ({ page, pageSize, foo: 'bar' });
+        ds.getFetchOptions = (group, page, pageSize) => ({ group, page, pageSize, foo: 'bar' });
         ds.items.at(0);
 
         expect(ds.fetchPage).to.have.been.calledOnce;
@@ -149,19 +148,19 @@ describe('FetchListDataSource', () => {
         expect(options).to.not.be.undefined;
         expect(options?.filters).to.have.length(2);
         expect(options?.filters).to.deep.equal([
-          { path: 'membership', value: 'Regular' },
-          { path: 'profession', value: 'Gastroenterologist' }
+          { id: 'membership', by: 'membership', value: 'Regular' },
+          { id: 'profession', by: 'profession', value: 'Gastroenterologist' }
         ]);
       });
 
       it('should provide sort options when fetching a page', () => {
         spy(ds, 'fetchPage');
 
-        ds.setSort('id', 'firstName', 'desc');
+        ds.setSort('firstName', 'desc');
         ds.items.at(0);
 
         expect(ds.fetchPage).to.have.been.calledOnce;
-        expect(ds.fetchPage).to.have.been.calledWithMatch({ sort: { id: 'id', path: 'firstName', direction: 'desc' } });
+        expect(ds.fetchPage).to.have.been.calledWithMatch({ sort: { by: 'firstName', direction: 'desc' } });
       });
 
       it('should emit an update event after fetching a page', async () => {

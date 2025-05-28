@@ -1,10 +1,13 @@
 import { type PathKeys, getStringByPath, getValueByPath } from '@sl-design-system/shared';
+import { type DataSourceFilterFunction, type DataSourceSortFunction } from './data-source.js';
 import {
-  type DataSourceFilterByFunction,
-  type DataSourceFilterByPath,
-  type DataSourceSortFunction
-} from './data-source.js';
-import { ListDataSource, type ListDataSourceOptions } from './list-data-source.js';
+  ListDataSource,
+  type ListDataSourceDataItem,
+  type ListDataSourceGroupItem,
+  type ListDataSourceItem,
+  type ListDataSourceOptions,
+  isListDataSourceGroupItem
+} from './list-data-source.js';
 
 /**
  * A data source that can be used to filter, group by, sort,
@@ -14,59 +17,119 @@ import { ListDataSource, type ListDataSourceOptions } from './list-data-source.j
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class ArrayListDataSource<T = any> extends ListDataSource<T> {
-  /**
-   * The array of items after filtering, sorting, grouping and
-   * pagination has been applied.
-   */
-  #filteredItems: T[] = [];
+  /** The groups within the data source. */
+  #groups?: Map<unknown, ListDataSourceGroupItem>;
 
-  /** The original array of items. */
-  #items: T[];
+  /** The filtered, grouped and sorted items. */
+  #items: Array<ListDataSourceDataItem<T>> = [];
 
-  get items(): T[] {
-    return this.#filteredItems;
-  }
+  /** The mapped array of items, as provided in the constructor. */
+  #mappedItems: Array<ListDataSourceDataItem<T>> = [];
 
-  get originalItems(): T[] {
-    return this.#items;
+  /** The items, including any group items. This is used for rendering the list. */
+  #viewItems: Array<ListDataSourceItem<T>> = [];
+
+  get items() {
+    return this.#viewItems;
   }
 
   get size(): number {
     return this.#items.length;
   }
 
-  constructor(items: T[], options: ListDataSourceOptions = {}) {
-    super(options);
-    this.#filteredItems = [...items];
-    this.#items = [...items];
+  get totalSize(): number {
+    return this.#mappedItems.length;
   }
 
-  update(): void {
-    let items: T[] = [...this.#items];
+  get unfilteredItems() {
+    return this.#mappedItems;
+  }
+
+  constructor(items: T[], options: ListDataSourceOptions<T> = {}) {
+    super(options);
+
+    this.#mappedItems = items.map(item => ({
+      id: options.getId?.(item) ?? (item as { id: unknown }).id ?? item,
+      groupId: options.getGroupId?.(item) ?? (options.groupBy ? getValueByPath(item, options.groupBy) : undefined),
+      type: 'data',
+      data: item,
+      selected: options.isSelected?.(item)
+    }));
+
+    this.update(false);
+  }
+
+  override expandGroup(id: unknown): void {
+    const group = this.#groups?.get(id);
+    if (group) {
+      group.collapsed = false;
+    }
+  }
+
+  override collapseGroup(id: unknown): void {
+    const group = this.#groups?.get(id);
+    if (group) {
+      group.collapsed = true;
+    }
+  }
+
+  override toggleGroup(id: unknown, force?: boolean): void {
+    const group = this.#groups?.get(id);
+    if (group) {
+      group.collapsed = force ?? !group.collapsed;
+    }
+  }
+
+  override isGroupCollapsed(id: unknown): boolean {
+    return this.#groups?.get(id)?.collapsed ?? false;
+  }
+
+  override reorder(
+    item: ListDataSourceItem<T>,
+    relativeItem: ListDataSourceItem<T>,
+    position: 'before' | 'after'
+  ): void {
+    const items = this.items,
+      from = items.indexOf(item),
+      to = items.indexOf(relativeItem) + (position === 'before' ? 0 : 1);
+
+    if (from === -1 || to === -1 || from === to) {
+      return;
+    }
+
+    items.splice(from, 1);
+    items.splice(to + (from < to ? -1 : 0), 0, item);
+
+    this.update();
+  }
+
+  update(emitEvent = true): void {
+    let items = this.#mappedItems.map(item => ({ ...item, selected: this.isSelected(item) }));
 
     if (this.filters.size) {
       const filters = Array.from(this.filters.values());
 
       const pathFilters = filters
-        .filter((f): f is DataSourceFilterByPath<T> => 'path' in f && !!f.path)
+        .filter(f => typeof f.by === 'string')
         .reduce(
-          (acc, { path, value }) => {
+          (acc, { by, value }) => {
+            const path = by as PathKeys<T>;
+
             if (!acc[path]) {
               acc[path] = [];
             }
 
             if (Array.isArray(value)) {
-              acc[path].push(...value);
+              acc[path].push(...(value as unknown[]));
             } else {
               acc[path].push(value);
             }
-
             return acc;
           },
-          {} as Record<PathKeys<T>, string[]>
+          {} as Record<PathKeys<T>, unknown[]>
         );
 
-      for (const [path, values] of Object.entries<string[]>(pathFilters)) {
+      for (const [path, values] of Object.entries<unknown[]>(pathFilters)) {
         /**
          * Convert the value to a string and trim it, so we can match
          * an empty string to:
@@ -75,29 +138,31 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
          * - null
          * - undefined
          */
-        items = items.filter(item =>
-          values.includes(
-            getValueByPath(item, path as PathKeys<T>)
-              ?.toString()
-              ?.trim() ?? ''
-          )
+        items = items.filter(
+          ({ data: item }) =>
+            item &&
+            values.includes(
+              getValueByPath(item, path as PathKeys<T>)
+                ?.toString()
+                ?.trim() ?? ''
+            )
         );
       }
 
       filters
-        .filter((f): f is DataSourceFilterByFunction<T> => 'filter' in f && !!f.filter)
-        .forEach(f => {
-          items = items.filter(item => f.filter(item, f.value));
+        .filter(f => typeof f.by === 'function')
+        .forEach(({ by, value }) => {
+          items = items.filter(({ data: item }) => item && (by as DataSourceFilterFunction<T>)(item, value));
         });
     }
 
     if (this.sort) {
-      const ascending = this.sort.direction === 'asc';
-
       let sortFn: DataSourceSortFunction<T>;
 
-      if ('path' in this.sort && this.sort.path) {
-        const path = this.sort.path;
+      if (typeof this.sort.by === 'function') {
+        sortFn = this.sort.by;
+      } else {
+        const path = this.sort.by as PathKeys<T>;
 
         sortFn = (a: T, b: T): number => {
           const valueA = getStringByPath(a, path),
@@ -116,51 +181,141 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
               ? -1
               : 1;
         };
-      } else if ('sorter' in this.sort && this.sort.sorter) {
-        sortFn = this.sort.sorter;
       }
 
-      items.sort((a, b) => {
+      items.sort(({ data: a }, { data: b }) => {
         const result = sortFn(a, b);
 
-        return ascending ? result : -result;
+        return this.sort?.direction === 'asc' ? result : -result;
       });
     }
 
-    // Group the items by first filtering them and then sorting
+    this.#items = items;
+
+    // From here on out, we are only doing purely visual operations,
+    // such as adding group items and pagination.
+    let viewItems: Array<ListDataSourceItem<T>> = [...items];
+
     if (this.groupBy) {
-      const ascending = this.groupBy.direction !== 'desc'; // should be ascending by default
+      const groupedItems = [...items];
 
-      let sortFn: DataSourceSortFunction<T>;
+      this.#groups ??= this.#determineGroups();
 
-      if ('sorter' in this.groupBy && this.groupBy.sorter) {
-        sortFn = this.groupBy.sorter;
-      } else {
-        const path = this.groupBy.path;
+      // Sort by group label
+      groupedItems.sort((a, b) => {
+        const labelA = this.#groups?.get(a.groupId)?.label ?? '',
+          labelB = this.#groups?.get(b.groupId)?.label ?? '';
 
-        sortFn = (a: T, b: T): number => {
-          const valueA = getStringByPath(a, path),
-            valueB = getStringByPath(b, path);
+        return labelA.localeCompare(labelB);
+      });
 
-          return valueA === valueB ? 0 : valueA < valueB ? -1 : 1;
-        };
+      // Insert group items into the viewItems array
+      const grouped: Array<ListDataSourceItem<T>> = [];
+
+      let currentGroup: ListDataSourceGroupItem<T> | undefined = undefined,
+        currentGroupSelected = false,
+        count = 0;
+
+      for (const item of groupedItems) {
+        count++;
+
+        if (item.groupId !== currentGroup?.id) {
+          currentGroup = this.#groups?.get(item.groupId);
+          if (currentGroup) {
+            currentGroupSelected = this.isSelected(currentGroup);
+            currentGroup.members = [];
+            grouped.push(currentGroup);
+          }
+
+          count = 1;
+        }
+
+        if (currentGroup) {
+          currentGroup.count = count;
+          currentGroup.members?.push(item);
+          item.group = currentGroup;
+
+          if (currentGroupSelected) {
+            item.selected = true;
+          }
+        }
+
+        // Only push the item if the group is not collapsed
+        if (!currentGroup?.collapsed) {
+          grouped.push(item);
+        }
       }
 
-      items.sort((a, b) => {
-        const result = sortFn(a, b);
+      grouped
+        .filter(item => isListDataSourceGroupItem(item))
+        .forEach(item => {
+          if (item.members?.every(member => member.selected)) {
+            item.selected = 'all';
+          } else if (item.members?.some(member => member.selected)) {
+            item.selected = 'some';
+          } else {
+            item.selected = 'none';
+          }
+        });
 
-        return ascending ? result : -result;
-      });
+      if (this.groupSort) {
+        const sortFn =
+          this.groupSort.by ??
+          ((a, b) => {
+            const valueA = isListDataSourceGroupItem(a)
+                ? (a.label ?? String(a.id))
+                : (a.group?.label ?? String(a.group?.id)),
+              valueB = isListDataSourceGroupItem(b)
+                ? (b.label ?? String(b.id))
+                : (b.group?.label ?? String(b.group?.id));
+
+            const result = valueA.localeCompare(valueB);
+
+            return this.groupSort?.direction === 'desc' ? -result : result;
+          });
+
+        grouped.sort(sortFn);
+      }
+
+      viewItems = grouped;
     }
 
     if (this.pagination) {
       const start = (this.page ?? 0) * this.pageSize,
         end = Math.min(start + this.pageSize, this.size);
 
-      items = items.slice(start, end);
+      viewItems = viewItems.slice(start, end);
     }
 
-    this.#filteredItems = items;
-    this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
+    this.#viewItems = viewItems;
+
+    if (emitEvent) {
+      this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
+    }
+  }
+
+  #determineGroups(): Map<unknown, ListDataSourceGroupItem> {
+    const groups = new Map<unknown, ListDataSourceGroupItem>(),
+      groupLabels = new Map<unknown, string>();
+
+    this.unfilteredItems.forEach(item => {
+      const group = item.groupId;
+
+      if (!groups.has(group)) {
+        let label = groupLabels.get(group);
+        if (!label) {
+          label = this.groupLabelPath ? getStringByPath(item.data, this.groupLabelPath) : String(group);
+          groupLabels.set(group, label);
+        }
+
+        groups.set(group, {
+          id: group,
+          label,
+          type: 'group'
+        });
+      }
+    });
+
+    return groups;
   }
 }

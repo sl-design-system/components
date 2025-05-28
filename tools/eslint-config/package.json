@@ -41,10 +41,10 @@
   },
   "peerDependencies": {
     "eslint": "^9.17.0",
-    "typescript": "^5.4.5"
+    "typescript": "^5.5.4"
   },
   "devDependencies": {
     "eslint": "^9.25.1",
-    "typescript": "^5.4.5"
+    "typescript": "^5.5.4"
   }
 }

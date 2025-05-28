@@ -1276,11 +1276,11 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   #updateTextFieldValue(): void {
     if (this.multiple) {
       this.input.placeholder = this.selectedItems.map(i => i.label).join(', ') || '';
-      this.input.value = ''; // this causes the validity check to fail
+      this.input.value = '';
       this.internals.setFormValue(this.input.placeholder);
       this.internals.setValidity(
         { valueMissing: this.required && !this.input.placeholder },
-        msg('Please choose an option from the list.')
+        msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
       );
       this.updateValidity();
     } else {
@@ -1296,7 +1296,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       this.internals.setFormValue(this.input.value);
       this.internals.setValidity(
         { valueMissing: this.required && !this.input.value },
-        msg('Please choose an option from the list.')
+        msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
       );
       this.updateValidity();
       this.changeEvent.emit(this.value);
@@ -1329,11 +1329,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     const valueString = this.multiple ? values.join(', ') : values[0]?.toString();
 
     this.internals.setFormValue(valueString);
-    // console.log('#updateValue, going to emit the changeEvent', this.value, valueString);
-    // this.updateState({ dirty: true });
     this.changeEvent.emit(this.value);
-    // this should only be done when the value changes because of user action
-    // this.updateState({ dirty: true });
     this.updateValidity();
   }
 }

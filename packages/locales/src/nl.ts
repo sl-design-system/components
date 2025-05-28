@@ -84,6 +84,5 @@ export const templates = {
   'sl.toolBar.showMore': 'Meer tonen',
   'sl.tree.loadingMessage': 'Laden',
   'sl.calendar.previousMonth': str`Previous month, ${0}`,
-  'sl.calendar.nextMonth': str`Next month, ${0}`,
-  sb881081d4f28c851: 'Please choose an option from the list.'
+  'sl.calendar.nextMonth': str`Next month, ${0}`
 };

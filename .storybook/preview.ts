@@ -46,8 +46,8 @@ const preview: Preview = {
         icon: 'mirror',
         items: [
           { value: 'light', left: '🌞', title: 'Light mode' },
-          { value: 'dark', left: '🌛', title: 'Dark mode' },
-        ],
+          { value: 'dark', left: '🌛', title: 'Dark mode' }
+        ]
       }
     },
     locale: {
@@ -71,7 +71,7 @@ const preview: Preview = {
         { name: 'Raised', value: 'var(--sl-elevation-surface-raised-default)' },
         { name: 'Raised alternative', value: 'var(--sl-elevation-surface-raised-alternative)' },
         { name: 'Raised sunken', value: 'var(--sl-elevation-surface-raised-sunken)' },
-        { name: 'Inverted', value: 'var(--sl-color-palette-grey-900)' },
+        { name: 'Inverted', value: 'var(--sl-color-palette-grey-900)' }
       ],
       default: 'Default'
     },
@@ -90,7 +90,12 @@ const preview: Preview = {
     a11y: {
       options: {
         preload: false
-      }
+      },
+
+      // 'todo' - show a11y violations in the test UI only
+      // 'error' - fail CI on a11y violations
+      // 'off' - skip a11y checks entirely
+      test: 'todo'
     }
   }
 };

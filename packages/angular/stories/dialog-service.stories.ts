@@ -6,16 +6,15 @@ import { ButtonComponent } from '../src/button/button.component';
 import { DialogComponent } from '../src/dialog/dialog.component';
 import { DialogRef, DialogService } from '../src/services/dialog.service';
 
-// Dialog content component
 @Component({
   standalone: true,
   imports: [CommonModule, ButtonComponent],
   template: `
-      <span slot="title">Title</span>
-      <span slot="subtitle">Subtitle</span>
-      <p>Proident nulla enim est excepteur exercitation minim ea proident nisi.</p>
-      <sl-button (click)="dialogRef.close('cancelled')" slot="primary-actions">Cancel</sl-button>
-      <sl-button (click)="dialogRef.close('confirmed')" slot="primary-actions">Confirm</sl-button>
+    <span slot="title">Title</span>
+    <span slot="subtitle">Subtitle</span>
+    <p>This is an example of the dialog content.</p>
+    <sl-button (click)="dialogRef.close('cancelled')" slot="primary-actions">Cancel</sl-button>
+    <sl-button (click)="dialogRef.close('confirmed')" slot="primary-actions">Confirm</sl-button>
   `
 })
 export class ExampleDialogComponent {
@@ -25,26 +24,20 @@ export class ExampleDialogComponent {
   ) {}
 }
 
-// Demo component for dialog service
 @Component({
   selector: 'sla-dialog-service',
   standalone: true,
   imports: [ButtonComponent, CommonModule],
   template: `
-    <div style="padding: 20px;">
-      <h1>Dialog Service Examples</h1>
+    <h2>Dialog Service examples</h2>
 
-      <div style="display: flex; gap: 10px;">
-        <sl-button (click)="openBasicDialog()">Open Basic Dialog</sl-button>
-        <sl-button (click)="openCustomWidthDialog()">Open Custom Width Dialog</sl-button>
-        <sl-button (click)="openNonCancelableDialog()">Open Non-Cancelable Dialog</sl-button>
-      </div>
-
-      <div *ngIf="lastResult" style="margin-top: 20px; padding: 10px;">Last dialog result: {{ lastResult }}</div>
+    <div style="display: flex; gap: 10px;">
+      <sl-button (click)="openBasicDialog()">Open dialog</sl-button>
+      <sl-button (click)="openNonCancelableDialog()">Open dialog without close button</sl-button>
     </div>
   `
 })
-export class DialogServiceDemoComponent {
+export class DialogServiceExampleComponent {
   lastResult: string | undefined;
 
   constructor(private dialogService: DialogService) {}
@@ -60,23 +53,6 @@ export class DialogServiceDemoComponent {
     });
 
     dialogRef.afterClosed().subscribe((result: string | undefined) => {
-      this.lastResult = result;
-      console.log('Dialog closed with result:', result);
-    });
-  }
-
-  openCustomWidthDialog(): void {
-    const dialogRef = this.dialogService.open<ExampleDialogComponent, string>({
-      component: ExampleDialogComponent,
-      data: {
-        title: 'Custom Width Dialog',
-        message: 'This dialog has a custom width of 500px.'
-      },
-      width: '500px',
-      closeButton: true
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
       this.lastResult = result;
       console.log('Dialog closed with result:', result);
     });
@@ -107,7 +83,7 @@ export default {
       providers: [DialogService, provideRouter([], withHashLocation())]
     }),
     moduleMetadata({
-      imports: [DialogComponent, ButtonComponent, CommonModule, DialogServiceDemoComponent, ExampleDialogComponent]
+      imports: [DialogComponent, ButtonComponent, CommonModule, DialogServiceExampleComponent, ExampleDialogComponent]
     })
   ]
 } as Meta;

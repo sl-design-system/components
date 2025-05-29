@@ -1,8 +1,17 @@
 import { type DataSourceSort } from './data-source.js';
-import { ListDataSource, type ListDataSourceOptions } from './list-data-source.js';
+import {
+  ListDataSource,
+  type ListDataSourceDataItem,
+  type ListDataSourceGroupItem,
+  type ListDataSourceItem,
+  type ListDataSourceMapping,
+  type ListDataSourceOptions,
+  ListDataSourcePlaceholder
+} from './list-data-source.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface FetchListDataSourceCallbackOptions<T = any> {
+  group: FetchListDataSourceGroupItem<T>['id'];
   page: number;
   pageSize: number;
   sort?: DataSourceSort<T>;
@@ -20,10 +29,40 @@ export type FetchListDataSourceCallback<T> = (
 
 export type FetchListDataSourcePlaceholder<T> = (n: number) => T;
 
-export interface FetchListDataSourceOptions<T> extends ListDataSourceOptions {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface FetchListDataSourceGroupItem<T = any> extends ListDataSourceGroupItem<T> {
+  /** The pages that have been fetched for this group. */
+  pages: Record<number, Promise<void> | undefined>;
+
+  /** The start index of the group. */
+  startIndex?: number;
+}
+
+export interface FetchListDataSourceOptions<T> extends ListDataSourceOptions<T> {
+  /**
+   * The function to call to fetch the data. This function should return a promise
+   * that resolves to an object containing the items and the total number of items.
+   */
   fetchPage: FetchListDataSourceCallback<T>;
+
+  /**
+   * An explicit array of groups. Use this when you initially only want to show the groups.
+   * The groups can be collapsed by default. When the user expands a group, the items
+   * can then be loaded on demand.
+   */
+  groups?: Array<Partial<ListDataSourceGroupItem>>;
+
+  /** The number of items to fetch per page. */
   pageSize: number;
+
+  /** Callback for customizing the placeholder value for the given index. */
   placeholder?: FetchListDataSourcePlaceholder<T>;
+
+  /**
+   * The total number of items in the data source. If not provided, the data source will
+   * use the total number of items returned by the fetch function. This is useful when
+   * the data source is paginated and the total number of items is not known in advance.
+   */
   size?: number;
 }
 
@@ -41,22 +80,28 @@ export const FetchListDataSourceError = class extends Error {
 /** Symbol used as a placeholder for items that are being loaded. */
 export const FetchListDataSourcePlaceholder = Symbol('FetchListDataSourcePlaceholder');
 
+/** Symbol used as the ID for the dummy group when no groups are provided */
+const FetchListDataSourceDummyGroup = Symbol('FetchListDataSourceDummyGroup');
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class FetchListDataSource<T = any> extends ListDataSource<T> {
   /** The default size of the item collection if not explicitly set. */
   static defaultSize = 10;
 
-  /** Array containing all the loaded items. */
-  #items: T[] = [];
+  /** The groups within the data source. */
+  #groups: Map<unknown, FetchListDataSourceGroupItem<T>>;
 
-  /** Object for keeping track of outstanding fetch calls. */
-  #pages: Record<number, Promise<void> | undefined> = {};
+  /** Array containing all the loaded items. */
+  #items: Array<ListDataSourceItem<T>> = [];
+
+  /** The mapping from the source items to the ListDataSourceItem. */
+  #mapping: ListDataSourceMapping<T>;
 
   /** Proxy of the items array. */
-  #proxy: T[] = [];
+  #proxy: Array<ListDataSourceItem<T>> = [];
 
   /** The total number of items in the data source. */
-  #size: number;
+  #totalSize: number;
 
   /** The callback for retrieving data. */
   fetchPage: FetchListDataSourceCallback<T>;
@@ -64,22 +109,59 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
   /** Returns placeholder data for items not yet loaded. */
   placeholder: FetchListDataSourcePlaceholder<T> = () => FetchListDataSourcePlaceholder as T;
 
-  get items(): T[] {
+  get items() {
     return this.#proxy;
   }
 
-  get originalItems(): T[] {
-    return this.#items;
+  get size(): number {
+    return Array.from(this.#groups.values()).reduce((acc, group) => acc + (group.size ?? 0), 0);
   }
 
-  get size(): number {
-    return this.#size;
+  get totalSize(): number {
+    return this.#totalSize;
   }
 
   constructor(options: FetchListDataSourceOptions<T>) {
     super(options);
 
-    this.#size = options.size ?? FetchListDataSource.defaultSize;
+    if (options.groups) {
+      this.#groups = new Map(
+        options.groups.map(group => [
+          group.id,
+          {
+            ...group,
+            id: group.id ?? group,
+            type: 'group',
+            collapsed: group.collapsed ?? true,
+            members: Array.from({ length: group.size ?? FetchListDataSource.defaultSize }),
+            pages: {}
+          }
+        ])
+      );
+    } else {
+      // Create a dummy group for managing the pages when no groups are provided
+      this.#groups = new Map([
+        [
+          FetchListDataSourceDummyGroup,
+          {
+            id: FetchListDataSourceDummyGroup,
+            type: 'group',
+            collapsed: false,
+            members: Array.from({ length: options.size ?? FetchListDataSource.defaultSize }),
+            pages: {},
+            size: options.size ?? FetchListDataSource.defaultSize
+          }
+        ]
+      ]);
+    }
+
+    this.#mapping = {
+      getGroupId: options.getGroupId,
+      getId: options.getId ?? (item => item),
+      isSelected: options.isSelected
+    };
+
+    this.#totalSize = options.size ?? FetchListDataSource.defaultSize;
     this.fetchPage = options.fetchPage;
 
     if (typeof options.pageSize === 'number') {
@@ -94,22 +176,45 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
     this.update(false);
   }
 
-  update(emitEvent = true): void {
-    let length = this.size;
-
-    if (this.pagination) {
-      const pageCount = Math.ceil(this.size / this.pageSize),
-        lastPageSize = this.size % this.pageSize;
-
-      if (this.page === pageCount - 1 && lastPageSize > 0) {
-        length = lastPageSize;
-      } else {
-        length = this.pageSize;
-      }
+  override expandGroup(id: unknown): void {
+    const group = this.#groups.get(id);
+    if (group) {
+      group.collapsed = false;
     }
+  }
 
-    this.#items = Array.from({ length });
-    this.#pages = {};
+  override collapseGroup(id: unknown): void {
+    const group = this.#groups.get(id);
+    if (group) {
+      group.collapsed = true;
+    }
+  }
+
+  override toggleGroup(id: unknown): void {
+    if (this.isGroupCollapsed(id)) {
+      this.expandGroup(id);
+    } else {
+      this.collapseGroup(id);
+    }
+  }
+
+  override isGroupCollapsed(id: unknown): boolean {
+    return this.#groups.get(id)?.collapsed ?? false;
+  }
+
+  override reorder(
+    _item: ListDataSourceItem<T>,
+    _relativeItem: ListDataSourceItem<T>,
+    _position: 'before' | 'after'
+  ): void {
+    console.log('Reordering items is not supported in FetchListDataSource');
+  }
+
+  update(emitEvent = true): void {
+    // Reset the cached items
+    this.#groups.forEach(group => (group.pages = {}));
+
+    this.#items = this.#createItemsArray();
     this.#proxy = this.#createProxy(this.#items);
 
     if (emitEvent) {
@@ -118,20 +223,58 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
   }
 
   /**
-   * Override this function if you are extending the `FetchDataSource` class to
+   * Override this function if you are extending the `FetchListDataSource` class to
    * provide any additional options you may need when `fetchPage` is called.
    */
-  getFetchOptions(page: number, pageSize: number): FetchListDataSourceCallbackOptions {
-    return { filters: Array.from(this.filters.values()), page, pageSize, sort: this.sort };
+  getFetchOptions(
+    group: FetchListDataSourceGroupItem<T>,
+    page: number,
+    pageSize: number
+  ): FetchListDataSourceCallbackOptions {
+    return { filters: Array.from(this.filters.values()), group: group.id, page, pageSize, sort: this.sort };
   }
 
-  #createProxy(items: T[]): T[] {
+  #createItemsArray(): Array<ListDataSourceItem<T>> {
+    if (this.#groups.has(FetchListDataSourceDummyGroup)) {
+      const group = this.#groups.values().next().value!,
+        size = group.size ?? FetchListDataSource.defaultSize;
+
+      let length = size,
+        startIndex = 0;
+
+      if (this.pagination) {
+        const pageCount = Math.ceil(size / this.pageSize),
+          lastPageSize = size % this.pageSize;
+
+        startIndex = this.page * this.pageSize;
+
+        if (this.page === pageCount - 1 && lastPageSize > 0) {
+          length = lastPageSize;
+        } else {
+          length = this.pageSize;
+        }
+      }
+
+      // Make sure the members array is initialized
+      group.members ??= Array.from({ length: size });
+
+      if (this.pagination) {
+        return group.members.slice(startIndex, startIndex + length);
+      } else {
+        return group.members;
+      }
+    } else {
+      return this.#flattenGroups(this.#groups);
+    }
+  }
+
+  #createProxy(items: Array<ListDataSourceItem<T>>): Array<ListDataSourceItem<T>> {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const that = this;
 
     return new Proxy(items, {
       get: function (target, property) {
-        const length = that.pagination ? Math.min(target.length, that.pageSize) : that.size;
+        const length = that.pagination ? Math.min(target.length, that.pageSize) : target.length;
 
         if (property === 'length') {
           return length;
@@ -155,7 +298,11 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
         } else {
           const n = Number(property);
           if (!isNaN(n) && Math.round(n) === n) {
-            return target[n] ?? that.#requestFetch(n);
+            if (n >= 0 && n < length) {
+              return target[n] ?? that.#requestFetch(n);
+            } else {
+              return undefined;
+            }
           }
 
           return target[property as keyof T[]];
@@ -164,38 +311,101 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
     });
   }
 
-  #requestFetch(n: number): T {
-    const { pageSize } = this,
-      page = this.pagination ? this.page : Math.floor(n / pageSize);
+  #flattenGroups(groups: Map<unknown, FetchListDataSourceGroupItem<T>>): Array<ListDataSourceItem<T>> {
+    const items: Array<ListDataSourceItem<T>> = [];
 
-    if (!this.#pages[page]) {
-      this.#pages[page] = (async () => {
-        const options = this.getFetchOptions(page, pageSize),
+    let index = 0;
+
+    groups.forEach(group => {
+      items.push(group);
+
+      group.startIndex = index;
+
+      if (!group.collapsed && group.members) {
+        items.push(...group.members);
+        index += group.members.length;
+      }
+
+      // Add 1 for the group header
+      index++;
+    });
+
+    return items;
+  }
+
+  #getGroupAtIndex(index: number): FetchListDataSourceGroupItem<T> | undefined {
+    let currentIndex = 0;
+
+    for (const group of this.#groups.values()) {
+      // Always count the group header itself
+      let groupSize = 1;
+      if (!group.collapsed && group.members) {
+        groupSize += group.members.length;
+      }
+
+      if (index < currentIndex + groupSize) {
+        return group;
+      }
+
+      currentIndex += groupSize;
+    }
+
+    return undefined;
+  }
+
+  #requestFetch(n: number): ListDataSourceItem<T> {
+    const group = this.#getGroupAtIndex(n)!,
+      { pageSize } = this,
+      page = this.pagination ? this.page : Math.floor((n - (group.startIndex ?? 0)) / pageSize);
+
+    if (!group.pages[page]) {
+      group.pages[page] = (async () => {
+        const options = this.getFetchOptions(group, page, pageSize),
           res = await this.fetchPage(options);
 
+        // If the size of the group changes, or pagination is enabled, we need to
+        // recreate the proxy to ensure that the array with items is up to date.
+        let recreateProxy = this.pagination;
+
         if (res.totalItems !== undefined) {
-          this.#size = Number(res.totalItems);
+          group.size = Number(res.totalItems);
+
+          if (group.size !== group.members?.length) {
+            recreateProxy = true;
+
+            const members = group.members ?? [];
+            group.members = Array.from({ length: group.size });
+
+            for (let i = 0; i < group.size; i++) {
+              group.members[i] = members[i];
+            }
+          }
         }
 
         for (let i = 0; i < res.items.length; i++) {
-          const index = this.pagination ? i : pageSize * page + i;
+          const index = pageSize * page + i,
+            item = res.items[i];
 
-          this.#items[index] = res.items[i];
+          group.members![index] = {
+            id: this.#mapping.getId!(item),
+            type: 'data',
+            data: item
+          };
         }
 
-        /**
-         * When pagination is enabled and we are fetching a page for the first time,
-         * the size may be smaller than the initial size. In this case, we need to
-         * recreate the Proxy object to reflect the new size.
-         */
-        if (this.pagination && this.#items.length !== res.items.length) {
-          this.#proxy = this.#createProxy(this.#items.slice(0, res.items.length));
+        if (recreateProxy) {
+          this.#items = this.#createItemsArray();
+          this.#proxy = this.#createProxy(this.#items);
         }
 
         this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
       })();
     }
 
-    return (this.#items[n] = this.placeholder(n));
+    return {
+      id: ListDataSourcePlaceholder,
+      type: 'data',
+      data: ListDataSourcePlaceholder
+    } as ListDataSourceDataItem<T>;
   }
 }

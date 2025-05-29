@@ -1,6 +1,6 @@
 import { type ButtonSize, type ButtonVariant } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
-import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';

@@ -32,8 +32,8 @@
     "eslint-plugin-lit-a11y": "^4.1.4"
   },
   "devDependencies": {
-    "eslint": "^9.25.1",
+    "eslint": "^9.27.0",
     "eslint-plugin-lit-a11y": "^4.1.4",
-    "mocha": "11.2.2"
+    "mocha": "11.5.0"
   }
 }

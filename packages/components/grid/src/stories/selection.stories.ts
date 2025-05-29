@@ -6,7 +6,7 @@ import { ArrayListDataSource } from '@sl-design-system/data-source';
 import { type Student, getStudents } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
-import { type StoryObj } from '@storybook/web-components';
+import { type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '../../register.js';
 import { type SlActiveRowChangeEvent, type SlSelectionChangeEvent } from '../grid.js';

@@ -1,6 +1,6 @@
 import { ArrayListDataSource } from '@sl-design-system/data-source';
 import { type Person, getPeople } from '@sl-design-system/example-data';
-import { type StoryObj } from '@storybook/web-components';
+import { type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '../../register.js';
 import { type GridDropFilter, type SlDropEvent } from '../grid.js';

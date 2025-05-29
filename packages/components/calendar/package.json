@@ -43,9 +43,9 @@
     "@sl-design-system/icon": "^1.0.2"
   },
   "devDependencies": {
-    "@lit/localize": "^0.12.1",
+    "@lit/localize": "^0.12.2",
     "@open-wc/scoped-elements": "^3.0.5",
-    "lit": "^3.1.4"
+    "lit": "^3.3.0"
   },
   "peerDependencies": {
     "@lit/localize": "^0.12.1",

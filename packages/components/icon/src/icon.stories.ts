@@ -3,7 +3,7 @@ import { faPinata as falPinata } from '@fortawesome/pro-light-svg-icons';
 import { far } from '@fortawesome/pro-regular-svg-icons';
 import { faPinata as fasPinata } from '@fortawesome/pro-solid-svg-icons';
 import { faPinata as fatPinata } from '@fortawesome/pro-thin-svg-icons';
-import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import Events from 'storybook/internal/core-events';
 import { addons } from 'storybook/preview-api';

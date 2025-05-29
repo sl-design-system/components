@@ -1,6 +1,6 @@
 import { faFlag } from '@fortawesome/pro-regular-svg-icons';
 import { Icon } from '@sl-design-system/icon';
-import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';

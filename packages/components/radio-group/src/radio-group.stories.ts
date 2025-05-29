@@ -1,7 +1,7 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/form/register.js';
-import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import '../register.js';
 import { type RadioGroup } from './radio-group.js';

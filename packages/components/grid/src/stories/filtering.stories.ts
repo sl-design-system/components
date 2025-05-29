@@ -5,7 +5,7 @@ import { ArrayListDataSource } from '@sl-design-system/data-source';
 import { type Student, getStudents } from '@sl-design-system/example-data';
 import { type SearchField } from '@sl-design-system/search-field';
 import '@sl-design-system/search-field/register.js';
-import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '../../register.js';
 import { avatarRenderer } from './story-utils.js';

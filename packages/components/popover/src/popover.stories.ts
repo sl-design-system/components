@@ -1,7 +1,7 @@
 import '@sl-design-system/avatar/register.js';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
-import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import '../register.js';

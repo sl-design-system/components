@@ -83,6 +83,7 @@ packages/themes/**/*.js
 packages/themes/**/*.js.map
 packages/themes/**/*.scss
 !packages/themes/eslint.config.js
+scripts/studio-export
 website/build
 website/dist
 

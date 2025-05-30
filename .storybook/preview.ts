@@ -1,9 +1,8 @@
-import '@oddbird/popover-polyfill';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import '@sl-design-system/announcer/register.js';
 import { configureLocalization } from '@lit/localize';
 import * as locales from '@sl-design-system/locales';
-import { type Preview } from '@storybook/web-components';
+import { type Preview } from '@storybook/web-components-vite';
 import { INITIAL_VIEWPORTS } from 'storybook/viewport';
 import { updateTheme, themes } from './themes.js';
 
@@ -65,6 +64,16 @@ const preview: Preview = {
     }
   },
   parameters: {
+    a11y: {
+      options: {
+        preload: false
+      },
+
+      // 'todo' - show a11y violations in the test UI only
+      // 'error' - fail CI on a11y violations
+      // 'off' - skip a11y checks entirely
+      test: 'todo'
+    },
     backgrounds: {
       values: [
         { name: 'Default', value: 'var(--sl-elevation-surface-base-default)' },
@@ -86,18 +95,9 @@ const preview: Preview = {
     },
     viewport: {
       viewports: INITIAL_VIEWPORTS
-    },
-    a11y: {
-      options: {
-        preload: false
-      },
-
-      // 'todo' - show a11y violations in the test UI only
-      // 'error' - fail CI on a11y violations
-      // 'off' - skip a11y checks entirely
-      test: 'todo'
     }
-  }
+  },
+  tags: ['!test']
 };
 
 export default preview;

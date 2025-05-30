@@ -2522,6 +2522,11 @@
         "type": "Icons",
         "description": "icon.core.fav"
       },
+      "grip-lines": {
+        "value": "grip-lines",
+        "type": "Icons",
+        "description": "icon.core.grip-lines"
+      },
       "home-blank": {
         "value": "home-blank",
         "type": "Icons",

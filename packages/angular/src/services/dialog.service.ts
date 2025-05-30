@@ -4,7 +4,7 @@ import '@sl-design-system/dialog/register.js';
 import { Observable, Subject } from 'rxjs';
 
 /**
- * Configuration for opening a dialog
+ * Configuration for opening a dialog with the DialogService.
  */
 export interface DialogConfig<T> {
   /** Component to render in a dialog. */
@@ -21,30 +21,25 @@ export interface DialogConfig<T> {
 
   /** Whether to disable cancellation of the dialog */
   disableCancel?: boolean;
-}
-
-// TODO: maybe some properties in the DialogConfig should be automatically generated from the Dialog component? (except component and data?)
+} // TODO: maybe some properties in the DialogConfig should be automatically generated from the Dialog component (like component wrappers)? (except component and data?)
 
 export class DialogRef<T = unknown> {
   /** Dialog element reference */
-  #dialogElement: Dialog;
+  dialogElement: Dialog;
 
   /** Subject that emits when the dialog closes */
   #afterClosedSubject = new Subject<T | undefined>();
 
   /** Track if the subject was manually closed with a result */
   #manualClose = false;
+
+  /** Result passed when closing the dialog */
   #result?: T;
 
-  constructor(
-    dialogElement: Dialog,
-    private ngZone: NgZone
-  ) {
-    this.#dialogElement = dialogElement;
+  constructor(dialogElement: Dialog, private ngZone: NgZone) {
+    this.dialogElement = dialogElement;
 
-    // Listen for close events
-    this.#dialogElement.addEventListener('sl-close', () => {
-      // Need to use setTimeout to push to the next change detection cycle
+    this.dialogElement.addEventListener('sl-close', () => {
       setTimeout(() => {
         this.ngZone.run(() => {
           if (this.#manualClose) {
@@ -67,154 +62,19 @@ export class DialogRef<T = unknown> {
   close(result?: T): void {
     this.#manualClose = true;
     this.#result = result;
-    this.#dialogElement.close();
+    this.dialogElement.close();
   }
 }
-
-/*@Injectable({
-  providedIn: 'root'
-})
-export class DialogService {
-  constructor(
-    private appRef: ApplicationRef,
-    private injector: Injector,
-    private ngZone: NgZone
-  ) {}
-
-  /!**
-   * Opens a dialog with the given component and configuration
-   *!/
-  open<T, R = unknown>(config: DialogConfig<T>): DialogRef<R> {
-    const dialogElement = document.createElement('sl-dialog');
-
-    // Keep the dialog completely hidden until fully ready
-    dialogElement.style.visibility = 'hidden';
-    dialogElement.style.opacity = '0';
-    // Prevent any animations until ready
-    dialogElement.style.transition = 'none';
-
-    // Apply configuration
-    if (config.closeButton !== undefined) dialogElement.closeButton = config.closeButton;
-    if (config.dialogRole) dialogElement.dialogRole = config.dialogRole;
-    if (config.disableCancel !== undefined) dialogElement.disableCancel = config.disableCancel;
-
-    // Create dialog reference with NgZone
-    const dialogRef = new DialogRef<R>(dialogElement, this.ngZone);
-
-    // Create a component and get a reference to its ChangeDetectorRef
-    const componentRef = this.#createComponent<T, R>(config.component, config.data, dialogRef);
-    const hostElement = componentRef.location.nativeElement;
-    const componentChangeDetector = componentRef.injector.get(ChangeDetectorRef, null);
-
-    // Add dialog to DOM first while hidden
-    document.body.appendChild(dialogElement);
-    dialogElement.inert = false;
-
-    // Create a temporary div to render the component
-    const tempDiv = document.createElement('div');
-    document.body.appendChild(tempDiv);
-    tempDiv.appendChild(hostElement);
-
-    // Wait for component to render and move content, outside Angular zone to avoid change detection
-    this.ngZone.runOutsideAngular(() => {
-      setTimeout(() => {
-        // Move all slotted elements
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call
-        const slottedElements = hostElement.querySelectorAll('[slot]');
-        slottedElements.forEach((element: Element) => dialogElement.appendChild(element));
-
-        // Move non-slotted elements
-        const nonSlottedElements = Array.from(hostElement.childNodes).filter(
-          (node): node is Node => !(node instanceof Element) || !node.hasAttribute('slot')
-        );
-        nonSlottedElements.forEach(node => dialogElement.appendChild(node));
-
-        // Clean up temporary div
-        document.body.removeChild(tempDiv);
-
-        // Force browser layout calculation
-        void dialogElement.getBoundingClientRect();
-
-        // Call showModal while still invisible to position the dialog
-        dialogElement.showModal();
-
-        // Force another layout calculation after showModal
-        void dialogElement.getBoundingClientRect();
-
-        // Wait for the next animation frame to ensure the dialog is positioned
-        requestAnimationFrame(() => {
-          // Now enable transitions and make visible
-          dialogElement.style.transition = 'opacity 0.15s ease';
-
-          // Small additional delay to ensure all internal dialog positioning is complete
-          setTimeout(() => {
-            dialogElement.style.visibility = 'visible';
-            dialogElement.style.opacity = '1';
-
-            // Run a manual change detection on the component if available
-            this.ngZone.run(() => {
-              if (componentChangeDetector) {
-                componentChangeDetector.markForCheck();
-              }
-            });
-          }, 10);
-        });
-      });
-    });
-
-    // Handle dialog close
-    dialogElement.addEventListener('sl-close', () => {
-      this.ngZone.run(() => {
-        this.appRef.detachView(componentRef.hostView);
-        componentRef.destroy();
-        dialogElement.parentNode?.removeChild(dialogElement);
-      });
-    });
-
-    return dialogRef;
-  }
-
-  #createComponent<T, D = unknown>(component: Type<T>, data?: unknown, dialogRef?: DialogRef<D>) {
-    // Create providers for both DialogRef and DIALOG_DATA
-    const providers = [];
-
-    if (dialogRef) {
-      providers.push({ provide: DialogRef, useValue: dialogRef });
-    }
-
-    if (data !== undefined) {
-      providers.push({ provide: 'DIALOG_DATA', useValue: data });
-    }
-
-    // Create custom injector with the providers
-    const injector =
-      providers.length > 0
-        ? Injector.create({
-            providers,
-            parent: this.injector
-          })
-        : this.injector;
-
-    // Use the new createComponent API
-    const componentRef = createComponent(component, {
-      environmentInjector: this.appRef.injector,
-      elementInjector: injector
-    });
-
-    this.appRef.attachView(componentRef.hostView);
-    return componentRef;
-  }
-}*/
 
 @Injectable({
   providedIn: 'root'
 })
 export class DialogService {
-  // Track all open dialog references
+  /** Track all open dialog references, can be used to close all dilogs. */
   #openDialogs: DialogRef<unknown>[] = [];
 
   constructor(
-    private appRef: ApplicationRef, // TODO: check if we can use EnvironmentInjector instead
+    private appRef: ApplicationRef, // TODO: check if we can use EnvironmentInjector instead?
     private injector: Injector,
     private ngZone: NgZone
   ) {}
@@ -222,16 +82,14 @@ export class DialogService {
   /**
    * Opens a dialog with the given component and configuration
    */
-  open<T, R = unknown>(config: DialogConfig<T>): DialogRef<R> {
+  showModal<T, R = unknown>(config: DialogConfig<T>): DialogRef<R> {
     const dialogElement = document.createElement('sl-dialog');
 
     // Keep the dialog completely hidden until fully ready
     dialogElement.style.visibility = 'hidden';
     dialogElement.style.opacity = '0';
-    // Prevent any animations until ready
     dialogElement.style.transition = 'none';
 
-    // Apply configuration
     if (config.closeButton !== undefined) dialogElement.closeButton = config.closeButton;
     if (config.dialogRole) dialogElement.dialogRole = config.dialogRole;
     if (config.disableCancel !== undefined) dialogElement.disableCancel = config.disableCancel;
@@ -239,7 +97,6 @@ export class DialogService {
     // Create dialog reference with NgZone
     const dialogRef = new DialogRef<R>(dialogElement, this.ngZone);
 
-    // Track this dialog reference
     this.#openDialogs.push(dialogRef as DialogRef<unknown>);
 
     // Create a component and get a reference to its ChangeDetectorRef
@@ -247,11 +104,11 @@ export class DialogService {
     const hostElement = componentRef.location.nativeElement;
     const componentChangeDetector = componentRef.injector.get(ChangeDetectorRef, null);
 
-    // Add dialog to DOM first while hidden
+    // Add dialog to the DOM first, while hidden
     document.body.appendChild(dialogElement);
     dialogElement.inert = false;
 
-    // Create a temporary div to render the component
+    // Create a temporary container to render the component
     const tempDiv = document.createElement('div');
     document.body.appendChild(tempDiv);
     tempDiv.appendChild(hostElement);
@@ -260,7 +117,6 @@ export class DialogService {
     this.ngZone.runOutsideAngular(() => {
       setTimeout(() => {
         // Move all slotted elements
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call
         const slottedElements = hostElement.querySelectorAll('[slot]');
         slottedElements.forEach((element: Element) => dialogElement.appendChild(element));
 
@@ -268,23 +124,22 @@ export class DialogService {
         const nonSlottedElements = Array.from(hostElement.childNodes).filter(
           (node): node is Node => !(node instanceof Element) || !node.hasAttribute('slot')
         );
+
         nonSlottedElements.forEach(node => dialogElement.appendChild(node));
 
-        // Clean up temporary div
+        // Clean up temporary container
         document.body.removeChild(tempDiv);
 
-        // Force browser layout calculation
-        void dialogElement.getBoundingClientRect();
+        dialogElement.getBoundingClientRect();
 
         // Call showModal while still invisible to position the dialog
         dialogElement.showModal();
 
         // Force another layout calculation after showModal
-        void dialogElement.getBoundingClientRect();
+        dialogElement.getBoundingClientRect();
 
         // Wait for the next animation frame to ensure the dialog is positioned
         requestAnimationFrame(() => {
-          // Now enable transitions and make visible
           dialogElement.style.transition = 'opacity 0.15s ease';
 
           // Small additional delay to ensure all internal dialog positioning is complete
@@ -292,21 +147,18 @@ export class DialogService {
             dialogElement.style.visibility = 'visible';
             dialogElement.style.opacity = '1';
 
-            // Run a manual change detection on the component if available
             this.ngZone.run(() => {
               if (componentChangeDetector) {
                 componentChangeDetector.markForCheck();
               }
             });
-          }, 10);
+          }, 50);
         });
       });
     });
 
-    // Handle dialog close
     dialogElement.addEventListener('sl-close', () => {
       this.ngZone.run(() => {
-        // Remove this dialog from tracking
         const index = this.#openDialogs.indexOf(dialogRef as DialogRef<unknown>);
         if (index > -1) {
           this.#openDialogs.splice(index, 1);
@@ -322,14 +174,13 @@ export class DialogService {
   }
 
   /**
-   * Closes all currently open dialogs
+   * A method that closes all currently open dialogs
    * @param result Optional result to pass to all dialogs
    */
   closeAll(result?: unknown): void {
-    // Create a copy of the array since we'll be modifying it during iteration
     const dialogs = [...this.#openDialogs];
 
-    console.log('Closing all dialogs:', dialogs.length, dialogs);
+    console.log('Closing all dialogs', dialogs.length, dialogs);
 
     dialogs.forEach(dialogRef => {
       dialogRef.close(result);
@@ -337,7 +188,7 @@ export class DialogService {
   }
 
   #createComponent<T, D = unknown>(component: Type<T>, data?: unknown, dialogRef?: DialogRef<D>) {
-    // Create providers for both DialogRef and DIALOG_DATA
+    // Create providers for DialogRef and DIALOG_DATA
     const providers = [];
 
     if (dialogRef) {
@@ -348,7 +199,8 @@ export class DialogService {
       providers.push({ provide: 'DIALOG_DATA', useValue: data });
     }
 
-    // Create custom injector with the providers
+    console.log('providers', providers);
+
     const injector =
       providers.length > 0
         ? Injector.create({
@@ -362,11 +214,12 @@ export class DialogService {
       elementInjector: injector
     });
 
+    console.log('componentRef', componentRef);
+
     this.appRef.attachView(componentRef.hostView);
     return componentRef;
   }
 }
 
 // TODO: dialog mobile still have close button? should not?
-
 // TODO: check whether styling eg part="dialog" max-inline-size will work with the dialog service? if not, improve it...

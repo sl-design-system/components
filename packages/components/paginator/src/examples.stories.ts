@@ -1,7 +1,7 @@
 import '@sl-design-system/card/register.js';
 import { ArrayListDataSource, type ListDataSourceDataItem } from '@sl-design-system/data-source';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
-import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { LitElement, type TemplateResult, css, html } from 'lit';
 import '../register.js';
 

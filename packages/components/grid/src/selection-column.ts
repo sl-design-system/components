@@ -79,6 +79,9 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
     // If the user clicks in the cell with the checkbox, but not on the checkbox itself,
     // we want to toggle the checkbox anyway. This is helpful for touch devices.
     if (event.target instanceof HTMLTableCellElement) {
+      event.preventDefault();
+      event.stopPropagation();
+
       (event.target.firstElementChild as HTMLElement)?.click();
     }
   }

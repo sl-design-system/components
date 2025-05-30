@@ -1,7 +1,7 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
-import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '../register.js';
 import { type Editor } from './editor.js';

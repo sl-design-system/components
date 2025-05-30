@@ -1,5 +1,5 @@
 import '@sl-design-system/badge/register.js';
-import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';

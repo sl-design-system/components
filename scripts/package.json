@@ -18,9 +18,9 @@
     }
   },
   "devDependencies": {
-    "@figma-export/cli": "^6.0.3",
-    "@figma-export/output-components-as-svg": "^6.0.1",
-    "@figma-export/transform-svg-with-svgo": "^6.0.2",
+    "@figma-export/cli": "^6.2.0",
+    "@figma-export/output-components-as-svg": "^6.2.0",
+    "@figma-export/transform-svg-with-svgo": "^6.2.1",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
     "@fortawesome/pro-duotone-svg-icons": "^6.7.2",
@@ -33,14 +33,14 @@
     "@fortawesome/sharp-solid-svg-icons": "^6.7.2",
     "@tokens-studio/sd-transforms": "^1.3.0",
     "@tokens-studio/sdk": "^2.2.1",
-    "cssnano": "^7.0.6",
-    "esbuild": "^0.25.3",
+    "cssnano": "^7.0.7",
+    "esbuild": "^0.25.5",
     "fast-glob": "^3.3.3",
-    "graphql": "^16.10.0",
-    "postcss": "^8.5.3",
+    "graphql": "^16.11.0",
+    "postcss": "^8.5.4",
     "prettier": "^3.5.3",
-    "sass": "^1.85.1",
-    "style-dictionary": "^4.3.3",
+    "sass": "^1.89.0",
+    "style-dictionary": "^5.0.0",
     "wireit": "^0.14.12"
   }
 }

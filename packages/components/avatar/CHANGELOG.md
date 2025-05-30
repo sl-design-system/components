@@ -1,5 +1,15 @@
 # @sl-design-system/avatar
 
+## 1.1.5
+
+### Patch Changes
+
+- [#1997](https://github.com/sl-design-system/components/pull/1997) [`bfd34b7`](https://github.com/sl-design-system/components/commit/bfd34b784e677856574c0bd38f274d0edc9dc586) - Fixes issue where name didn't wrap
+
+- Updated dependencies [[`d212503`](https://github.com/sl-design-system/components/commit/d21250333818c229635688c01a139b57ccd5ec86), [`1072075`](https://github.com/sl-design-system/components/commit/1072075e3f1b5f0bf8b07dc1f89fd39b9f7103d0), [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664)]:
+  - @sl-design-system/tooltip@1.1.5
+  - @sl-design-system/shared@0.8.0
+
 ## 1.1.4
 
 ### Patch Changes

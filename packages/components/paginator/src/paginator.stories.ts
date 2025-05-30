@@ -1,5 +1,5 @@
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
-import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';

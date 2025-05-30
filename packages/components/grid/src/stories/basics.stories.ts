@@ -9,7 +9,7 @@ import { FormatDate } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
 import { MenuButton as MenuButtonComponent, MenuItem } from '@sl-design-system/menu';
 import { Tooltip } from '@sl-design-system/tooltip';
-import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { state } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';

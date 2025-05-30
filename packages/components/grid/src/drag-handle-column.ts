@@ -12,6 +12,10 @@ declare global {
 
 /**
  * A grid column that can be used to drag and drop rows.
+ *
+ * If you want drag and drop behavior to be conditional, you can use the `path` property to specify a path
+ * to a value in the data item. If the value at that path is truthy, the row will be draggable.
+ * If the value is falsy, the row will not be draggable.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridDragHandleColumn<T = any> extends GridColumn<T> {
@@ -56,6 +60,7 @@ export class GridDragHandleColumn<T = any> extends GridColumn<T> {
 
   #onStartDrag(event: Event & { target: HTMLElement }, item: T): void {
     if (!this.path || getValueByPath(item, this.path)) {
+      // In order for native drag and drop to work, the row must have the `draggable` attribute.
       event.target.closest('tr')?.setAttribute('draggable', 'true');
     }
   }

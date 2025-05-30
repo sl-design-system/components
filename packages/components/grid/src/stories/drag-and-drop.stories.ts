@@ -22,6 +22,12 @@ export default {
 export const Between: Story = {
   render: (_, { loaded: { students } }) => {
     return html`
+      <p>
+        This example shows basic drag and drop behavior. You can drag and row and drop it in between other rows. This
+        way you can reorder the items in the grid. This is the default behavior when you add a
+        <code>sl-grid-drag-handle-column</code> to the grid. The column automatically sets the
+        <code>draggable-rows</code> property to <code>between</code>.
+      </p>
       <sl-grid .items=${students}>
         <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
         <sl-grid-sort-column grow="0" header="Nr." path="studentNumber"></sl-grid-sort-column>

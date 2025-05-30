@@ -3,7 +3,7 @@ import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-regi
 import '@sl-design-system/announcer/register.js';
 import { configureLocalization } from '@lit/localize';
 import * as locales from '@sl-design-system/locales';
-import { type Preview } from '@storybook/web-components';
+import { type Preview } from '@storybook/web-components-vite';
 import { INITIAL_VIEWPORTS } from 'storybook/viewport';
 import { updateTheme, themes } from './themes.js';
 

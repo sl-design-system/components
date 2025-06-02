@@ -9,7 +9,8 @@ import {
   ListDataSource,
   type ListDataSourceDataItem,
   type ListDataSourceGroupItem,
-  type ListDataSourceItem
+  type ListDataSourceItem,
+  isListDataSourceDataItem
 } from '@sl-design-system/data-source';
 import { EllipsizeText } from '@sl-design-system/ellipsize-text';
 import { Icon } from '@sl-design-system/icon';
@@ -19,7 +20,7 @@ import { type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared
 import { Skeleton } from '@sl-design-system/skeleton';
 import { ToolBar } from '@sl-design-system/tool-bar';
 import { Tooltip } from '@sl-design-system/tooltip';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing, render } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { GridColumnGroup } from './column-group.js';
 import { GridColumn } from './column.js';
@@ -79,15 +80,15 @@ export type GridGroupHeaderRenderer = (
 export type SlActiveRowChangeEvent<T = any> = CustomEvent<{ item?: T }>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type SlDragStartEvent<T = any> = CustomEvent<{ grid: Grid<T>; item: T }>;
+export type SlDragStartEvent<T = any> = CustomEvent<{ grid: Grid<T>; item: ListDataSourceItem<T> }>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type SlDragEndEvent<T = any> = CustomEvent<{ grid: Grid<T>; item: T }>;
+export type SlDragEndEvent<T = any> = CustomEvent<{ grid: Grid<T>; item: ListDataSourceItem<T> }>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SlDropEvent<T = any> = CustomEvent<{
   grid: Grid<T>;
-  item: T;
+  item: ListDataSourceItem<T>;
   relativeItem?: T;
   position: 'before' | 'after' | 'on-grid' | 'on-top';
 }>;
@@ -132,8 +133,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** Timer for debouncing data source updates. */
   #dataSourceUpdateTimer?: ReturnType<typeof setTimeout>;
 
+  /** The clone of the row; used for the drag image. */
+  #dragClone?: HTMLTableRowElement;
+
   /** The item being dragged. */
-  #dragItem?: T;
+  #dragItem?: ListDataSourceItem<T>;
 
   /** The filters for this grid. */
   #filters: Array<GridFilter<T>> = [];
@@ -148,7 +152,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   #initialColumnWidthsCalculated = false;
 
   /** The item before the dragged item when dragging started. */
-  #itemBeforeDragItem?: T;
+  #itemBeforeDragItem?: ListDataSourceItem<T>;
 
   /** Observe the tbody style changes. */
   #mutationObserver = new MutationObserver(() => {
@@ -174,8 +178,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     const grid = event.composedPath().find(el => el instanceof Grid);
 
     if (!grid || grid !== this) {
-      this.view.reorderItem(this.#dragItem!, this.#itemBeforeDragItem, 'after');
-      this.requestUpdate('view');
+      this.dataSource?.reorder(this.#dragItem!, this.#itemBeforeDragItem!, 'after');
+      this.requestUpdate();
     }
   };
 
@@ -562,7 +566,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             ?collapsed=${item.collapsed}
             ?drag-handle=${draggable}
             ?selectable=${selectable}
-            .selected=${item.selected}
+            .selected=${item.selected ?? 'none'}
           >
             ${this.groupHeaderRenderer?.(item) ??
             html`
@@ -667,12 +671,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.requestUpdate();
   };
 
-  #onDragStart(event: DragEvent, item: ListDataSourceDataItem<T>): void {
+  #onDragStart(event: DragEvent, item: ListDataSourceItem<T>): void {
     event.stopPropagation();
 
     window.addEventListener('dragover', this.#onWindowDragOver);
 
-    const row = event.composedPath().at(0) as HTMLElement,
+    const row = event.composedPath().at(0) as HTMLTableRowElement,
       rowRect = row.getBoundingClientRect();
 
     if (isSafari) {
@@ -687,34 +691,27 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       });
     }
 
-    // Style the dragged row
-    row.style.setProperty('--_cell-background', 'var(--_dragging-background)');
-    row.style.setProperty('border', 'var(--_dragging-border)');
-    row.style.setProperty('opacity', 'var(--_dragging-opacity)');
-
     event.dataTransfer!.effectAllowed = 'move';
     event.dataTransfer!.setData('application/json', JSON.stringify(item));
 
-    // This is necessary for the dragged item to appear correctly in Safari
-    event.dataTransfer!.setDragImage(row, event.clientX - rowRect.left, event.clientY - rowRect.top);
+    // Create a clone of the row for the drag image
+    this.#dragClone = this.#cloneRowForDragging(row, item);
+    this.renderRoot.appendChild(this.#dragClone);
+    event.dataTransfer!.setDragImage(this.#dragClone, event.clientX - rowRect.left, event.clientY - rowRect.top);
 
-    this.#dragItem = item.data;
-    this.#itemBeforeDragItem = this.view.rows.at(this.view.rows.indexOf(item.data) - 1);
+    this.#dragItem = item;
+    this.#itemBeforeDragItem = this.dataSource?.items.at(this.dataSource?.items.indexOf(item) - 1);
 
     // Update styles in the next frame, after the drag image has been created
     requestAnimationFrame(() => {
-      row.style.removeProperty('--_cell-background');
-      row.style.removeProperty('border');
-      row.style.removeProperty('opacity');
-
       if (this.draggableRows !== 'between-or-on-top') {
         this.dropTargetMode = this.draggableRows;
       }
 
-      this.view.refresh();
+      // this.view.refresh();
     });
 
-    this.dragStartEvent.emit({ grid: this, item: item.data });
+    this.dragStartEvent.emit({ grid: this, item });
   }
 
   #onDragEnter(_event: DragEvent, item: ListDataSourceDataItem<T>): void {
@@ -746,9 +743,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         const { top, height } = row.getBoundingClientRect();
 
         // If the cursor is in the top half of the row, make this row the drop target
-        this.view.reorderItem(this.#dragItem!, item.data, event.clientY < top + height / 2 ? 'before' : 'after');
+        this.dataSource?.reorder(this.#dragItem!, item, event.clientY < top + height / 2 ? 'before' : 'after');
 
-        this.requestUpdate('view');
+        this.requestUpdate();
       } else if (
         draggableRows === 'on-top' ||
         (draggableRows === 'between-or-on-top' && this.dropTargetMode === 'on-top')
@@ -773,10 +770,13 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     this.#dragItem = this.dropTargetMode = this.#itemBeforeDragItem = undefined;
 
+    this.#dragClone?.remove();
+    this.#dragClone = undefined;
+
     // Force rerender
     requestAnimationFrame(() => this.view.refresh());
 
-    this.dragEndEvent.emit({ grid: this, item: item.data });
+    this.dragEndEvent.emit({ grid: this, item });
   }
 
   #onDrop(_event: DragEvent, item: ListDataSourceDataItem<T>): void {
@@ -807,7 +807,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       this.draggableRows === 'between' ||
       (this.draggableRows === 'between-or-on-top' && this.dropTargetMode === 'between')
     ) {
-      const index = this.view.rows.indexOf(this.#dragItem!);
+      const index = 0; //this.view.rows.indexOf(this.#dragItem!);
 
       let relativeItem: T | undefined;
       if (index === 0 && this.view.rows.length > 1) {
@@ -824,7 +824,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       });
 
       if (!cancelled) {
-        this.view.reorderItem(this.#dragItem!, relativeItem, index === 0 ? 'before' : 'after');
+        // this.view.reorderItem(this.#dragItem!, relativeItem, index === 0 ? 'before' : 'after');
       }
     }
   }
@@ -1047,6 +1047,31 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     // Let the sort columns know that the sort has changed
     this.stateChangeEvent.emit({ grid: this });
+  }
+
+  #cloneRowForDragging(row: HTMLTableRowElement, item: ListDataSourceItem<T>): HTMLTableRowElement {
+    const clone = document.createElement('tr');
+    clone.setAttribute('aria-hidden', 'true');
+    clone.style.background = 'transparent';
+    clone.style.border = 'var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain)';
+    clone.style.borderRadius = 'var(--sl-size-borderRadius-default)';
+    clone.style.cursor = 'grabbing';
+    clone.style.overflow = 'clip';
+    clone.style.width = row.getBoundingClientRect().width + 'px';
+
+    if (isListDataSourceDataItem(item)) {
+      render(html`${this.#columnDefinitions.filter(col => !col.hidden).map(col => col.renderData(item))}`, clone, {
+        creationScope: this.shadowRoot as unknown as Document
+      });
+    }
+
+    Array.from(clone.querySelectorAll('td')).forEach((cell: HTMLElement, index: number) => {
+      cell.style.background = 'var(--sl-elevation-surface-raised-default)';
+      cell.style.flexGrow = '0';
+      cell.style.width = row.children[index].getBoundingClientRect().width + 'px';
+    });
+
+    return clone;
   }
 
   /**

@@ -99,8 +99,6 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
 
     items.splice(from, 1);
     items.splice(to + (from < to ? -1 : 0), 0, item);
-
-    this.update();
   }
 
   update(emitEvent = true): void {

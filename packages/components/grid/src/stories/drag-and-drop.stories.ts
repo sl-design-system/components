@@ -19,7 +19,7 @@ export default {
   loaders: [async () => ({ students: (await getStudents()).students })]
 } satisfies Meta;
 
-export const Between: Story = {
+export const Basic: Story = {
   render: (_, { loaded: { students } }) => {
     return html`
       <p>

@@ -34,8 +34,8 @@ let themes: Array<{
 
 const themeFonts = {
   'Sanoma Learning': [{ family: 'Roboto', style: 'SemiBold' }],
-  'Bingel DC': [{ family: 'Proxima Nova', style: 'SemiBold' }], // doens't exist in the library
-  'Bingel Int': [{ family: 'Proxima Nova', style: 'SemiBold' }], // doens't exist in the library
+  'Bingel DC': [{ family: 'Proxima Nova', style: 'Semibold' }], // doens't exist in the library
+  'Bingel Int': [{ family: 'Proxima Nova', style: 'Semibold' }], // doens't exist in the library
   'Click edu': [{ family: 'Open Sans', style: 'SemiBold' }],
   'Editorial Suite': [
     { family: 'Open Sans', style: 'SemiBold' },
@@ -107,6 +107,8 @@ const getSubCollections = async (collection: VariableCollection | VariableCollec
         return;
       }
       modeCollection.modeId = mode.modeId;
+
+      // add the fonts to the modeCollection if they exist in the themeFonts object, so we can load them later
       if (mode.name in themeFonts) {
         modeCollection.fonts = themeFonts[mode.name as keyof typeof themeFonts];
       } else {
@@ -138,29 +140,9 @@ const getCollectionFromKey = async (key: string) => {
   }
 };
 
-getFromLibrary()
-  .then(() => {
-    if (variableCollections.length > 0) {
-      sendCollections();
-    } else {
-      // if the variables are not in the library, we need to get them from the current page
-      figma.variables
-        .getLocalVariableCollectionsAsync()
-        .then(c => {
-          variableCollections = c;
-          sendCollections();
-        })
-        .catch(() => {
-          figma.notify('Error getting local variable collections', { error: true });
-        });
-    }
-  })
-  .catch(() => {
-    figma.notify('Error getting library variables', { error: true });
-  });
-
 /** Create the list of themes with all the id's of relevant parents and children and send it to the UI */
 const sendCollections = () => {
+  console.log('Variable collections found:', variableCollections);
   //find all collections that have a theme as a direct child
   variableCollections
     .filter(c => c.name.includes('Themes'))
@@ -177,6 +159,7 @@ const sendCollections = () => {
         figma.notify(`Collection not found for ${themesCollection.name}`, { error: true });
         return;
       }
+
       // find the modeId of the collection so it can be set on the base collection
       const collectionAsMode = base.modes.find(sc => sc.name === collection.name);
       if (!collectionAsMode) {
@@ -324,3 +307,24 @@ figma.ui.onmessage = (msg: { type: string; theme: string }) => {
       });
   }
 };
+
+getFromLibrary()
+  .then(() => {
+    if (variableCollections.length > 0) {
+      sendCollections();
+    } else {
+      // if the variables are not in the library, we need to get them from the current page
+      figma.variables
+        .getLocalVariableCollectionsAsync()
+        .then(c => {
+          variableCollections = c;
+          sendCollections();
+        })
+        .catch(() => {
+          figma.notify('Error getting local variable collections', { error: true });
+        });
+    }
+  })
+  .catch(() => {
+    figma.notify('Error getting library variables', { error: true });
+  });

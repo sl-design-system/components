@@ -10,7 +10,7 @@ import '@sl-design-system/select/register.js';
 import '@sl-design-system/switch/register.js';
 import '@sl-design-system/text-area/register.js';
 import '@sl-design-system/text-field/register.js';
-import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import '../register.js';
 import { type Form } from './form.js';

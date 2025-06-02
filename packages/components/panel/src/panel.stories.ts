@@ -14,7 +14,7 @@ import {
 } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/button/register.js';
 import { Icon } from '@sl-design-system/icon';
-import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type Panel, type PanelDensity, PanelElevation, type TogglePlacement } from './panel.js';

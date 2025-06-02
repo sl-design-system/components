@@ -6,7 +6,7 @@ import { ButtonBar } from '@sl-design-system/button-bar';
 import '@sl-design-system/button-bar/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/menu/register.js';
-import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html, nothing } from 'lit';
 import '../register.js';
 import { FlatTreeDataSource } from './flat-tree-data-source.js';

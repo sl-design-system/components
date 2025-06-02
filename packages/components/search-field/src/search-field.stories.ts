@@ -1,7 +1,7 @@
 import { faPoo } from '@fortawesome/pro-regular-svg-icons';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
-import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '../register.js';
 import { type SearchField } from './search-field.js';

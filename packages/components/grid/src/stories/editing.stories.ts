@@ -1,5 +1,5 @@
 import { getPeople } from '@sl-design-system/example-data';
-import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '../../register.js';
 

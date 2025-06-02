@@ -1,7 +1,7 @@
 import '@sl-design-system/badge/register.js';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/icon/register.js';
-import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html, nothing } from 'lit';
 import '../register.js';
 import { type Card } from './card.js';

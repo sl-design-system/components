@@ -35,6 +35,7 @@ import { GridViewModel } from './view-model.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
+    'sl-grid-active-row-change': SlActiveRowChangeEvent;
     'sl-grid-dragstart': SlDragStartEvent;
     'sl-grid-dragend': SlDragEndEvent;
     'sl-grid-drop': SlDropEvent;
@@ -73,6 +74,9 @@ export type GridGroupHeaderRenderer = (
   group: ListDataSourceGroupItem,
   options?: GridGroupHeaderRendererOptions
 ) => TemplateResult;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type SlActiveRowChangeEvent<T = any> = CustomEvent<{ item?: T }>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SlDragStartEvent<T = any> = CustomEvent<{ grid: Grid<T>; item: T }>;
@@ -196,6 +200,21 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** The virtualizer instance for the grid. */
   #virtualizer?: VirtualizerHostElement[typeof virtualizerRef];
 
+  /**
+   * Indicates whether the user can activate a single row. A user can activate a row by
+   * clicking on it, or using the keyboard. The `activeRow` property will then be set to
+   * the current active row. The data source is not used to keep track of the active row.
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'activatable-row' }) activatableRow?: boolean;
+
+  /**
+   * The current active row. This does not do anything unless the `activatableRow` property is also set.
+   */
+  @property({ attribute: false }) activeRow?: T;
+
+  /** @internal Emits when the active row has changed. */
+  @event({ name: 'sl-grid-active-row-change' }) activeRowChangeEvent!: EventEmitter<SlActiveRowChangeEvent<T>>;
+
   get dataSource(): ListDataSource<T> | undefined {
     return this.#dataSource;
   }
@@ -214,9 +233,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     // There are multiple ways to set the grid selection. If it's done via the data source,
     // we need to update the selects property here as well.
-    if (dataSource?.selects === 'single') {
-      this.selects ??= 'single-row';
-    } else if (dataSource?.selects === 'multiple') {
+    if (dataSource?.selects === 'multiple') {
       this.selects ??= 'multiple-row';
     }
   }
@@ -280,11 +297,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /**
    * Indicates what type of selection is allowed in the grid.
-   * - `single-row`: Only one row can be selected at a time, by clicking anywhere on the row.
-   * - `multiple`: Multiple rows can be selected, but just by clicking on the selection column.
-   * - `multiple-row`: Multiple rows can be selected by clicking anywhere on the row.
+   * - `"multiple"`: Multiple rows can be selected, but just by clicking on the selection column.
+   * - `"multiple-row"`: Multiple rows can be selected by clicking anywhere on the row.
+   * - `undefined`: No selection is allowed.
    */
-  @property({ reflect: true }) selects?: 'single-row' | 'multiple' | 'multiple-row';
+  @property({ reflect: true }) selects?: 'multiple' | 'multiple-row';
 
   /** @internal Emits when the state in the grid has changed. */
   @event({ name: 'sl-grid-state-change' }) stateChangeEvent!: EventEmitter<SlStateChangeEvent<T>>;
@@ -362,8 +379,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     if (changes.has('selects') && this.dataSource) {
       if (this.selects?.startsWith('multiple')) {
         this.dataSource.selects = 'multiple';
-      } else if (this.selects) {
-        this.dataSource.selects = 'single';
       } else {
         this.dataSource.selects = undefined;
       }
@@ -512,13 +527,14 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         'row',
         index % 2 === 0 ? 'odd' : 'even',
         ...(selected ? ['selected'] : []),
+        ...(this.activeRow === item.data ? ['active'] : []),
         ...(this.#dragItem === item ? ['dragging'] : []),
         ...(this.itemParts?.(item.data)?.split(' ') || [])
       ];
 
     return html`
       <tr
-        @click=${(event: Event) => this.#onClickRow(event, item)}
+        @click=${() => this.#onClickRow(item)}
         @dragstart=${(event: DragEvent) => this.#onDragStart(event, item)}
         @dragenter=${(event: DragEvent) => this.#onDragEnter(event, item)}
         @dragover=${(event: DragEvent) => this.#onDragOver(event, item)}
@@ -629,13 +645,18 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.dataSource?.update();
   }
 
-  #onClickRow(_event: Event, item: ListDataSourceDataItem<T>): void {
-    if (!this.selects || this.selects === 'multiple') {
-      return;
-    }
+  #onClickRow(item: ListDataSourceDataItem<T>): void {
+    if (this.activatableRow) {
+      if (this.dataSource?.selected) {
+        this.dataSource?.deselectAll();
+        this.dataSource?.update();
+      }
 
-    this.dataSource?.toggle(item);
-    this.dataSource?.update();
+      this.#toggleActiveRow(item);
+    } else if (this.selects === 'multiple-row') {
+      this.dataSource?.toggle(item);
+      this.dataSource?.update();
+    }
   }
 
   #onColumnUpdate(event: Event & { target: GridColumn<T> }): void {
@@ -847,6 +868,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onSelectionChange = (): void => {
+    this.#toggleActiveRow();
+
     if (this.selects?.startsWith('multiple')) {
       this.renderRoot
         .querySelector<HTMLElement>('[part="bulk-actions"]')
@@ -1080,6 +1103,20 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     if (col instanceof GridFilterColumn) {
       this.#filters = this.#filters.filter(f => f !== col.filterElement);
+    }
+  }
+
+  #toggleActiveRow(item?: ListDataSourceDataItem<T>): void {
+    const emitEvent = this.activeRow !== item?.data;
+
+    if (item?.data && this.activeRow === item?.data) {
+      this.activeRow = undefined;
+    } else {
+      this.activeRow = item?.data;
+    }
+
+    if (emitEvent) {
+      this.activeRowChangeEvent.emit({ item: this.activeRow });
     }
   }
 

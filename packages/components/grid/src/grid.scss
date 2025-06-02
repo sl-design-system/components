@@ -48,7 +48,7 @@
   border: none;
 }
 
-:host([selects$='-row']) {
+:host(:where([activatable-row], [selects$='-row'])) {
   [part~='row'] {
     --_bg-color: transparent;
     --_bg-mix-color: var(--sl-color-background-input-interactive);

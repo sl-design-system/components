@@ -1,4 +1,4 @@
-import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -91,14 +91,17 @@ export const All: Story = {
           gap: 1rem;
           justify-items: center;
         }
-        span {
-          justify-self: start;
-        }
       </style>
       <div class="wrapper">
         <span></span>
         <span style="justify-self: center; grid-column: 2 / 4">md</span>
         <span style="justify-self: center; grid-column: 4 / 6">lg</span>
+
+        <span></span>
+        <span>default</span>
+        <span>info</span>
+        <span>default</span>
+        <span>info</span>
 
         <span>Default</span>
         <sl-tag>Label</sl-tag>

@@ -1,6 +1,6 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/popover/register.js';
-import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type Breadcrumbs } from './breadcrumbs.js';
@@ -29,7 +29,15 @@ export default {
     }
   },
   render: ({ breadcrumbs, inverted, homeUrl, noHome }) => html`
-    <sl-breadcrumbs .homeUrl=${homeUrl} ?inverted=${inverted} ?no-home=${noHome}>${breadcrumbs}</sl-breadcrumbs>
+    <style>
+      sl-breadcrumbs[inverted] {
+        background: var(--sl-color-palette-grey-900);
+      }
+      #storybook-root {
+        max-width: calc(100vw - 2rem);
+      }
+    </style>
+    <sl-breadcrumbs .homeUrl=${homeUrl} ?inverted=${inverted} ?no-home=${noHome}>${breadcrumbs()}</sl-breadcrumbs>
   `
 } satisfies Meta<Props>;
 
@@ -111,6 +119,9 @@ export const All: Story = {
     <style>
       sl-breadcrumbs[inverted] {
         background: var(--sl-color-palette-grey-900);
+      }
+      #storybook-root {
+        max-width: calc(100vw - 2rem);
       }
     </style>
     <sl-breadcrumbs aria-label="Breadcrumb trail 1" no-home>

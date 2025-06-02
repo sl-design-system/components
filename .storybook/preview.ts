@@ -1,10 +1,10 @@
-import type { Preview } from '@storybook/web-components';
 import '@oddbird/popover-polyfill';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import '@sl-design-system/announcer/register.js';
 import { configureLocalization } from '@lit/localize';
 import * as locales from '@sl-design-system/locales';
-import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
+import { type Preview } from '@storybook/web-components-vite';
+import { INITIAL_VIEWPORTS } from 'storybook/viewport';
 import { updateTheme, themes } from './themes.js';
 
 const { setLocale } = configureLocalization({
@@ -75,6 +75,9 @@ const preview: Preview = {
       ],
       default: 'Default'
     },
+    docs: {
+      codePanel: true
+    },
     options: {
       storySort: {
         method: 'alphabetical',
@@ -83,6 +86,11 @@ const preview: Preview = {
     },
     viewport: {
       viewports: INITIAL_VIEWPORTS
+    },
+    a11y: {
+      options: {
+        preload: false
+      }
     }
   }
 };

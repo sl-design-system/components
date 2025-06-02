@@ -43,7 +43,7 @@
   "devDependencies": {
     "@lit-labs/virtualizer": "^2.1.0",
     "@open-wc/scoped-elements": "^3.0.5",
-    "lit": "^3.2.1"
+    "lit": "^3.3.0"
   },
   "peerDependencies": {
     "@lit-labs/virtualizer": "^2.0.13",

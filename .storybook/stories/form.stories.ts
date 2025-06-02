@@ -13,7 +13,7 @@ import '@sl-design-system/select/register.js';
 import '@sl-design-system/switch/register.js';
 import '@sl-design-system/text-area/register.js';
 import '@sl-design-system/text-field/register.js';
-import { type StoryObj } from '@storybook/web-components';
+import { type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 
 type Story = StoryObj;

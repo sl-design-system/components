@@ -1,5 +1,5 @@
 import '@sl-design-system/form/register.js';
-import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type TextArea } from './text-area.js';

@@ -1,7 +1,7 @@
 import { announce } from '@sl-design-system/announcer';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
-import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
@@ -20,7 +20,6 @@ export default {
   title: 'Feedback & status/Inline message',
   tags: ['stable'],
   args: {
-    button: 'Action',
     variant: 'info'
   },
   argTypes: {
@@ -43,11 +42,9 @@ export default {
       options: variants
     }
   },
-  render: ({ body, button, indismissible, size, title, variant }) => html`
+  render: ({ body, indismissible, size, title, variant }) => html`
     <sl-inline-message ?indismissible=${indismissible} .size=${size ?? 'auto'} variant=${ifDefined(variant)}>
-      ${title ? html`<span slot="title">${title}</span>` : nothing}
-      ${button ? html`<sl-button fill="outline" slot="action" variant="info">${button}</sl-button>` : nothing}
-      ${typeof body === 'string' ? body : body()}
+      ${title ? html`<span slot="title">${title}</span>` : nothing} ${typeof body === 'string' ? body : body()}
     </sl-inline-message>
   `
 } satisfies Meta<Props>;
@@ -101,7 +98,7 @@ export const Dynamic: Story = {
       buttonBar?.after(msg);
 
       // Send an announcement with the text from the inline message.
-      announce(title);
+      announce(`${title} ${count + 1} ${body.toString()}`, variant === 'danger' ? 'assertive' : 'polite');
     };
 
     const onRemove = (event: Event & { target: HTMLElement }): void => {
@@ -126,7 +123,7 @@ export const Dynamic: Story = {
       </sl-button-bar>
       <h1>Announce changes</h1>
       <p>
-        In this example app the functions adding and removeing the inline message we use the
+        In this example app the functions adding and removing the inline message we use the
         <code>announce</code> function to announce the message and the fact that the message has been closed to users
         using a screenreader.
       </p>
@@ -171,34 +168,26 @@ export const Sizes: Story = {
         margin-block-end: 1rem;
       }
     </style>
-    <sl-inline-message size="sm" variant=${ifDefined(variant)}>
-      Small inline message
-      <sl-button fill="outline" slot="action">Action</sl-button>
-    </sl-inline-message>
+    <sl-inline-message size="sm" variant=${ifDefined(variant)}> Small inline message </sl-inline-message>
     <sl-inline-message size="md" variant=${ifDefined(variant)}>
       Medium inline message; If set explicitly (unlike auto), it will not grow automatically depending on the amount of
       content. Sit nostrud id non commodo nostrud voluptate nostrud sunt voluptate adipisicing.
-      <sl-button fill="outline" slot="action">Action</sl-button>
     </sl-inline-message>
     <sl-inline-message size="lg" variant=${ifDefined(variant)}>
       <span slot="title">Inline message title</span>
       Large inline message
-      <sl-button fill="outline" slot="action">Action</sl-button>
     </sl-inline-message>
     <sl-inline-message variant=${ifDefined(variant)}>
       Auto inline message is the same as md by default
-      <sl-button fill="outline" slot="action">Action</sl-button>
     </sl-inline-message>
     <sl-inline-message variant=${ifDefined(variant)}>
       Auto inline message will grow to large if the content span more than 2 lines; Sit nostrud id non commodo nostrud
       voluptate nostrud sunt voluptate adipisicing. Aliqua mollit eiusmod sunt enim enim tempor cillum labore commodo
       duis.
-      <sl-button fill="outline" slot="action">Action</sl-button>
     </sl-inline-message>
     <sl-inline-message variant=${ifDefined(variant)}>
       <span slot="title">Inline message title</span>
       Auto inline message will switch to large if a title is present.
-      <sl-button fill="outline" slot="action">Action</sl-button>
     </sl-inline-message>
   `
 };
@@ -219,43 +208,17 @@ export const All: StoryObj = {
     </style>
     <div class="wrapper">
       <sl-inline-message indismissible>The main content of the message</sl-inline-message>
-      <sl-inline-message>The main content of the message</sl-inline-message>
-      <sl-inline-message>
-        <sl-button fill="outline" slot="action">Action</sl-button>
-        The main content of the message
-      </sl-inline-message>
-      <sl-inline-message indismissible>
-        <sl-button fill="outline" slot="action">Action</sl-button>
-        The main content of the message
-      </sl-inline-message>
       <sl-inline-message>
         Duis deserunt ad quis Lorem. Consectetur non deserunt fugiat consequat pariatur amet commodo velit ut est sunt.
         Exercitation culpa ea officia fugiat culpa laborum sit fugiat esse proident.
-      </sl-inline-message>
-      <sl-inline-message>
-        <sl-button fill="outline" slot="action">Action</sl-button>
-        Duis deserunt ad quis Lorem. Consectetur non deserunt fugiat consequat pariatur amet commodo velit ut est sunt.
-        Exercitation culpa ea officia fugiat culpa laborum sit fugiat esse proident.
-      </sl-inline-message>
-      <sl-inline-message>
-        <span slot="title">
-          "info" inline message title esse laboris nisi ut quis ullamco dolor elit do commodo ea mollit eu irure.
-        </span>
-        <sl-button fill="outline" slot="action">Action</sl-button>
-        Duis ut magna commodo minim cillum voluptate incididunt ea labore adipisicing do ad anim. Incididunt non
-        consequat eiusmod aliqua consequat Lorem eu culpa labore aute laboris eiusmod.
       </sl-inline-message>
       ${variants.map(
         variant => html`
-          <sl-inline-message variant=${variant}>
-            <sl-button fill="outline" slot="action" .variant=${variant}>Action</sl-button>
-            The main content of the message
-          </sl-inline-message>
+          <sl-inline-message variant=${variant}> The main content of the message </sl-inline-message>
           <sl-inline-message variant=${variant}>
             <span slot="title">
               "info" inline message title esse laboris nisi ut quis ullamco dolor elit do commodo ea mollit eu irure.
             </span>
-            <sl-button fill="outline" slot="action" .variant=${variant}>Action</sl-button>
             Duis ut magna commodo minim cillum voluptate incididunt ea labore adipisicing do ad anim. Incididunt non
             consequat eiusmod aliqua consequat Lorem eu culpa labore aute laboris eiusmod.
           </sl-inline-message>

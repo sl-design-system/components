@@ -11,22 +11,12 @@ const config: StorybookConfig = {
   ],
   addons: [
     '@storybook/addon-a11y',
-    '@storybook/addon-actions',
-    '@storybook/addon-storysource',
-    {
-      name: '@storybook/addon-essentials',
-      options: {
-        actions: false
-      }
-    }
+    '@storybook/addon-docs'
   ],
   core: {
     disableTelemetry: true
   },
   framework: '@storybook/web-components-vite',
-  docs: {
-    autodocs: false
-  },
   refs: {
     angular: {
       title: 'Angular',
@@ -35,7 +25,8 @@ const config: StorybookConfig = {
   },
   staticDirs: [
     { from: '../node_modules/emojibase-data', to: '/emoji' },
-    { from: '../packages/themes', to: '/themes' }
+    { from: '../packages/themes', to: '/themes' },
+    { from: './images', to: '/images' }
   ],
   viteFinal: async config => {
     const { mergeConfig } = await import('vite');

@@ -1,5 +1,5 @@
 /* eslint-disable lit/attribute-value-entities */
-import { type StoryObj } from '@storybook/web-components';
+import { type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '../register.js';
 

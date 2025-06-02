@@ -1,7 +1,8 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
+import '@sl-design-system/dialog/register.js';
 import '@sl-design-system/spinner/register.js';
-import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import '../register.js';
@@ -130,6 +131,35 @@ export const All: Story = {
         }
       </style>
       <sl-button aria-describedby="tooltip"> Button </sl-button>
+      <sl-tooltip id="tooltip" position="top" max-width="300">This is the tooltip message</sl-tooltip>
+    `;
+  }
+};
+
+export const Dialog: Story = {
+  render: () => {
+    const onClick = async (event: Event & { target: HTMLElement }) => {
+      const dialog = document.createElement('sl-dialog');
+      dialog.innerHTML = `
+        <span slot="title">Tooltip</span>
+        Tooltip should be closed when the dialog is closed..
+        <sl-button slot="primary-actions" sl-dialog-close variant="primary">Close</sl-button>
+      `;
+      dialog.addEventListener('sl-close', () => dialog.remove());
+      event.target.insertAdjacentElement('afterend', dialog);
+      await dialog.updateComplete;
+      dialog.showModal();
+    };
+
+    return html`
+      <style>
+        #root-inner {
+          display: grid;
+          height: calc(20rem);
+          place-items: center;
+        }
+      </style>
+      <sl-button aria-describedby="tooltip" @click=${onClick}> Button </sl-button>
       <sl-tooltip id="tooltip" position="top" max-width="300">This is the tooltip message</sl-tooltip>
     `;
   }

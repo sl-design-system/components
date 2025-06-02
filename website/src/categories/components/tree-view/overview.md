@@ -1,9 +1,9 @@
 ---
-title: Tag
+title: Tree
 tags: overview
 eleventyNavigation:
-  parent: Tag
-  key: TagOverview
+  parent: Tree
+  key: TreeOverview
 ---
 <section>
 

@@ -189,7 +189,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
           ${choose(
             this.type,
             [
-              ['placeholder', () => html`<sl-spinner></sl-spinner>${msg('Loading')}`],
+              ['placeholder', () => html`<sl-spinner></sl-spinner>${msg('Loading', { id: 'sl.tree.loadingMessage' })}`],
               [
                 'skeleton',
                 () => html`<sl-skeleton style="inline-size: ${Math.max(20, Math.random() * 60)}%"></sl-skeleton>`

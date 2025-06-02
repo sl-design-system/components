@@ -1,4 +1,4 @@
-import { type PropertyValues, type TemplateResult, html } from 'lit';
+import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { state } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
 
@@ -34,8 +34,12 @@ export class GridColumnGroup<T = any> extends GridColumn<T> {
     return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
   }
 
-  override renderHeader(): TemplateResult {
-    return html`<th colspan=${Math.max(this.columns.length, 1)}>${this.header}</th>`;
+  override renderHeaderRow(index: number): TemplateResult | typeof nothing {
+    if (index >= this.headerRowCount) {
+      return nothing;
+    }
+
+    return html`<th colspan=${Math.max(this.columns.length, 1)}>${this.renderHeaderLabel()}</th>`;
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {

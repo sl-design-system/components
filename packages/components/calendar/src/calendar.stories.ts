@@ -1,4 +1,4 @@
-import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
@@ -16,7 +16,8 @@ export default {
   args: {
     readonly: false,
     showToday: false,
-    showWeekNumbers: false
+    showWeekNumbers: false,
+    month: new Date(2024, 8, 15)
   },
   argTypes: {
     firstDayOfWeek: {
@@ -40,6 +41,14 @@ export default {
     }
   },
   render: ({ firstDayOfWeek, locale, max, min, month, readonly, selected, showToday, showWeekNumbers }) => {
+    const parseDate = (value: string | Date | undefined): Date | undefined => {
+      if (!value) {
+        return undefined;
+      }
+
+      return value instanceof Date ? value : new Date(value);
+    };
+
     return html`
       <sl-calendar
         ?readonly=${readonly}
@@ -47,10 +56,10 @@ export default {
         ?show-week-numbers=${showWeekNumbers}
         first-day-of-week=${ifDefined(firstDayOfWeek)}
         locale=${ifDefined(locale)}
-        max=${ifDefined(max?.toISOString())}
-        min=${ifDefined(min?.toISOString())}
-        month=${ifDefined(month?.toISOString())}
-        selected=${ifDefined(selected?.toISOString())}
+        max=${ifDefined(parseDate(max)?.toISOString())}
+        min=${ifDefined(parseDate(min)?.toISOString())}
+        month=${ifDefined(parseDate(month)?.toISOString())}
+        selected=${ifDefined(parseDate(selected)?.toISOString())}
       ></sl-calendar>
     `;
   }
@@ -86,7 +95,8 @@ export const Selected: Story = {
 
 export const Today: Story = {
   args: {
-    showToday: true
+    showToday: true,
+    month: undefined
   }
 };
 

@@ -1,4 +1,4 @@
-import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
@@ -37,6 +37,11 @@ export default {
       );
 
     return html`
+      <style>
+        #storybook-root {
+          max-width: calc(100vw - 2rem);
+        }
+      </style>
       <sl-tag-list size=${ifDefined(size)} ?stacked=${stacked} variant=${ifDefined(variant)}>${tags()}</sl-tag-list>
     `;
   }

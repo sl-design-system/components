@@ -1,140 +1,177 @@
-import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
 import { expect, fixture } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
-import '../register.js';
-import { GridFilterColumn } from './filter-column.js';
+import { spy } from 'sinon';
 import { GridFilter } from './filter.js';
 
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
+try {
+  customElements.define('sl-grid-filter', GridFilter);
+} catch {
+  // empty
+}
 
 describe('sl-grid-filter', () => {
-  try {
-    customElements.define('sl-grid-filter', GridFilter);
-  } catch {
-    //
-  }
-
   let el: GridFilter;
-
-  const column = new GridFilterColumn();
-
-  const options = [
-    {
-      label: 'Premium',
-      value: 'Premium'
-    },
-    {
-      label: 'Regular',
-      value: 'Regular'
-    },
-    {
-      label: 'VIP',
-      value: 'VIP'
-    }
-  ];
 
   describe('defaults', () => {
     beforeEach(async () => {
-      column.path = 'membership';
-      column.value = 'Premium';
-      await new Promise(resolve => setTimeout(resolve, 200));
-
-      el = await fixture(html`
-        <sl-grid-filter .column=${column} .options=${options} mode="select" path="membership">
-          Membership
-        </sl-grid-filter>
-      `);
-      await new Promise(resolve => setTimeout(resolve, 200));
-      await el.updateComplete;
-
-      // Give grid time to render the table structure
-      await new Promise(resolve => setTimeout(resolve, 200));
-      await el.updateComplete;
+      el = await fixture(html`<sl-grid-filter></sl-grid-filter>`);
     });
 
-    it('should render correct icon', () => {
-      const button = el.renderRoot?.querySelector('sl-button'),
-        icon = button?.querySelector('sl-icon');
+    it('should render a search field', () => {
+      const searchField = el.renderRoot.querySelector('sl-search-field');
 
-      expect(button).to.exist;
-      expect(icon).to.exist;
-      expect(icon!.getAttribute('name')).to.equal('far-filter');
+      expect(searchField).to.exist;
+      expect(searchField).to.have.property('placeholder', 'Filter by ');
+      expect(searchField).to.have.property('value', '');
     });
 
-    it('should have no active filter by default', () => {
-      const active = el.hasAttribute('active');
+    it('should not be active', () => {
+      expect(el.active).to.not.be.true;
+    });
 
-      expect(active).to.equal(false);
+    it('should be active after typing in the search field', async () => {
+      el.renderRoot.querySelector('sl-search-field')?.focus();
+      await sendKeys({ type: 'Lorem' });
+
+      expect(el.active).to.be.true;
+    });
+
+    it('should emit the filter change event when typing in the search field', async () => {
+      const onFilterChange = spy();
+
+      el.addEventListener('sl-filter-change', onFilterChange);
+
+      el.renderRoot.querySelector('sl-search-field')?.focus();
+      await sendKeys({ type: 'Lorem' });
+
+      expect(onFilterChange).to.have.callCount(5);
+      expect(onFilterChange).to.have.been.calledWithMatch({ detail: { value: 'Lorem' } });
+    });
+
+    it('should emit the filter change event when clearing the search field', async () => {
+      const onFilterChange = spy(),
+        searchField = el.renderRoot.querySelector('sl-search-field');
+
+      el.addEventListener('sl-filter-change', onFilterChange);
+
+      searchField?.focus();
+      await sendKeys({ type: 'L' });
+      searchField?.renderRoot.querySelector('button')?.click();
+      await el.updateComplete;
+
+      expect(onFilterChange).to.have.callCount(2);
+      expect(onFilterChange).to.have.been.calledWithMatch({ detail: { value: undefined } });
     });
   });
 
-  describe('active filter', () => {
+  describe('register', () => {
+    it('should emit a filter register event when the filter is inserted into the DOM', () => {
+      const container = document.createElement('div'),
+        onFilterRegister = spy();
+
+      document.body.appendChild(container);
+      container.addEventListener('sl-filter-register', onFilterRegister);
+      container.appendChild(document.createElement('sl-grid-filter'));
+
+      expect(onFilterRegister).to.have.been.calledOnce;
+
+      container.remove();
+    });
+  });
+
+  describe('select mode', () => {
     beforeEach(async () => {
-      column.path = 'membership';
-      column.value = 'Premium';
-      await new Promise(resolve => setTimeout(resolve, 200));
-
       el = await fixture(html`
-        <sl-grid-filter .column=${column} .options=${options} mode="select" path="membership">
-          Membership
-        </sl-grid-filter>
+        <sl-grid-filter
+          mode="select"
+          .options=${[
+            { label: 'Option 1', value: 'option1' },
+            { label: 'Option 2', value: 'option2' }
+          ]}
+        ></sl-grid-filter>
       `);
-      await new Promise(resolve => setTimeout(resolve, 200));
-      await el.updateComplete;
-
-      // Give grid time to render the table structure
-      await new Promise(resolve => setTimeout(resolve, 200));
-      await el.updateComplete;
     });
 
-    it('should have active attribute when filtered', async () => {
-      const button = el.renderRoot?.querySelector('sl-button'),
-        popover = el?.renderRoot.querySelector('sl-popover');
+    it('should render a select', () => {
+      const select = el.renderRoot.querySelector('sl-select');
 
-      // Open the popover
-      button?.click();
-      await new Promise(resolve => setTimeout(resolve, 100));
-
-      const checkboxGroup = popover?.querySelector('sl-checkbox-group');
-
-      expect(checkboxGroup).to.exist;
-
-      const options = Array.from(checkboxGroup!.querySelectorAll('sl-checkbox'));
-
-      expect(options).to.exist;
-
-      options[0].click();
-      el.value = 'Premium';
-      await new Promise(resolve => setTimeout(resolve, 200));
-      await el.updateComplete;
-
-      expect(el.hasAttribute('active')).to.equal(true);
+      expect(select).to.exist;
+      expect(select).to.have.property('clearable', true);
+      expect(select).to.have.property('options').that.is.an('array').with.lengthOf(2);
+      expect(select).to.have.property('placeholder', 'Filter by ');
     });
 
-    it('should have a proper icon when filtered', async () => {
-      const button = el.renderRoot?.querySelector('sl-button'),
-        popover = el?.renderRoot.querySelector('sl-popover'),
-        icon = button?.querySelector('sl-icon');
+    it('should not be active', () => {
+      expect(el.active).to.not.be.true;
+    });
 
-      // Open the popover
-      button?.click();
-      await new Promise(resolve => setTimeout(resolve, 100));
-
-      const checkboxGroup = popover?.querySelector('sl-checkbox-group');
-
-      expect(checkboxGroup).to.exist;
-
-      const options = Array.from(checkboxGroup!.querySelectorAll('sl-checkbox'));
-
-      expect(options).to.exist;
-
-      options[0].click();
-      el.value = 'Premium';
-      await new Promise(resolve => setTimeout(resolve, 200));
+    it('should be active when an option is selected', async () => {
+      const select = el.renderRoot.querySelector('sl-select');
+      select?.querySelector('sl-select-button')?.click();
+      select?.querySelector('sl-option')?.click();
       await el.updateComplete;
 
-      expect(icon).to.exist;
-      expect(icon!.getAttribute('name')).to.equal('fas-filter');
+      expect(el.active).to.be.true;
+    });
+
+    it('should emit the filter change event when selecting an option', async () => {
+      const onFilterChange = spy();
+
+      el.addEventListener('sl-filter-change', onFilterChange);
+
+      const select = el.renderRoot.querySelector('sl-select');
+      select?.querySelector('sl-select-button')?.click();
+      select?.querySelector('sl-option')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(onFilterChange).to.have.callCount(1);
+      expect(onFilterChange).to.have.been.calledWithMatch({ detail: { value: 'option1' } });
+    });
+
+    it('should emit the filter change event when clearing the select', async () => {
+      const onFilterChange = spy();
+
+      el.addEventListener('sl-filter-change', onFilterChange);
+
+      const select = el.renderRoot.querySelector('sl-select');
+      select?.querySelector('sl-select-button')?.click();
+      select?.querySelector('sl-option')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      select?.querySelector('sl-select-button')?.renderRoot.querySelector('button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(onFilterChange).to.have.callCount(2);
+      expect(onFilterChange).to.have.been.calledWithMatch({ detail: { value: undefined } });
+    });
+  });
+
+  describe('filter label', () => {
+    it('should default to the filter label property', async () => {
+      el = await fixture(html`<sl-grid-filter filter-label="Lorem"></sl-grid-filter>`);
+
+      expect(el.renderRoot.querySelector('sl-search-field')).to.have.property('placeholder', 'Filter by Lorem');
+    });
+
+    it('should use the lowercase column header value as the filter label', async () => {
+      el = await fixture(html`<sl-grid-filter .column=${{ header: 'Lorem' }}></sl-grid-filter>`);
+
+      expect(el.renderRoot.querySelector('sl-search-field')).to.have.property('placeholder', 'Filter by lorem');
+    });
+
+    it('should use the column header value as the filter label', async () => {
+      el = await fixture(
+        html`<sl-grid-filter .column=${{ header: html`Lorem<sl-button>Ipsum</sl-button>` }}></sl-grid-filter>`
+      );
+
+      expect(el.renderRoot.querySelector('sl-search-field')).to.have.property('placeholder', 'Filter by lorem');
+    });
+
+    it('should use the column path name as the filter label', async () => {
+      el = await fixture(html`<sl-grid-filter .column=${{ path: 'school.name' }}></sl-grid-filter>`);
+
+      expect(el.renderRoot.querySelector('sl-search-field')).to.have.property('placeholder', 'Filter by name');
     });
   });
 });

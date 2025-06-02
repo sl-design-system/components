@@ -1,4 +1,4 @@
-import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '../register.js';
 import { type Scrollbar } from './scrollbar';
@@ -32,6 +32,9 @@ export default {
           background: linear-gradient(to ${vertical ? 'bottom' : 'right'}, red, blue);
           block-size: 100px;
           inline-size: 400dvw;
+        }
+        #storybook-root {
+          max-width: calc(100vw - 2rem);
         }
       </style>
       <div id="scroller">

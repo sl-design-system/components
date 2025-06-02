@@ -1,15 +1,16 @@
-import type { StorybookConfig } from '@storybook/web-components-vite';
+import { type StorybookConfig } from '@storybook/web-components-vite';
 
 const config: StorybookConfig = {
   stories: [
     './stories/**/*.stories.ts',
   ],
   addons: [
-    '@storybook/addon-a11y', 
-    '@storybook/addon-actions', 
+    '@storybook/addon-a11y',
+    '@storybook/addon-docs',
+    'storybook/addon-actions',
     '@storybook/addon-storysource',
     '@storybook/addon-themes',
-    'storybook-addon-pseudo-states',    
+    'storybook-addon-pseudo-states',
     {
       name: '@storybook/addon-essentials',
       options: {
@@ -22,11 +23,9 @@ const config: StorybookConfig = {
     disableTelemetry: true
   },
   framework: '@storybook/web-components-vite',
-  docs: {
-    autodocs: false
-  },
   staticDirs: [
-    { from: '../../packages/themes', to: '/themes' }
+    { from: '../../packages/themes', to: '/themes' },
+    { from: '../../.storybook/images', to: '/images' }
   ],
   viteFinal: async config => {
     const { mergeConfig } = await import('vite');

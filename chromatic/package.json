@@ -25,7 +25,7 @@
       ]
     },
     "start": {
-      "command": "storybook dev -p 6008 --no-open --quiet",
+      "command": "storybook dev -p 6008 --no-open",
       "service": {
         "readyWhen": {
           "lineMatches": "Storybook \\S+ for .*web-components-vite.* started"
@@ -40,16 +40,15 @@
     }
   },
   "devDependencies": {
-    "@storybook/addon-a11y": "^8.6.12",
-    "@storybook/addon-essentials": "^8.6.12",
-    "@storybook/addon-storysource": "^8.6.12",
-    "@storybook/addon-themes": "^8.6.12",
-    "@storybook/web-components-vite": "^8.6.12",
-    "lit": "^3.2.1",
-    "storybook": "^8.6.12",
-    "storybook-addon-pseudo-states": "^4.0.2",
+    "@storybook/addon-a11y": "^9.0.1",
+    "@storybook/addon-docs": "^9.0.1",
+    "@storybook/addon-themes": "^9.0.1",
+    "@storybook/web-components-vite": "^9.0.1",
+    "lit": "^3.3.0",
+    "storybook": "^9.0.1",
+    "storybook-addon-pseudo-states": "^9.0.1",
     "tslib": "^2.8.1",
-    "typescript": "^5.4.5",
+    "typescript": "^5.5.4",
     "wireit": "^0.14.12"
   }
 }

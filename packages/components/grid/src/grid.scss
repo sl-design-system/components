@@ -15,10 +15,6 @@
   --_vertical-border-offset: var(--sl-size-100);
 
   // TODO: Refactor these to use contextual tokens
-  --_drag-handle-inline-size: 28px;
-
-  // --_dragging-background: #ddeffe;
-  --_dragging-border: var(--_border-width) solid #080a0b;
   --_drop-target-outline: 2px solid #056dc2;
   --_drop-target-outline-offset: -2px;
 
@@ -279,13 +275,9 @@ tbody {
     }
   }
 
-  tr {
-    border-block-end: var(--_border);
-
-    &:last-of-type {
-      // Hide the bottom border of the last row; tbody already has a bottom border
-      border-block-end: none;
-    }
+  tr:last-of-type td {
+    // Hide the bottom border of the last row; tbody already has a bottom border
+    border-block-end: none;
   }
 }
 
@@ -311,8 +303,7 @@ tr {
 
     &::before {
       background: var(--sl-elevation-surface-raised-sunken);
-
-      // border-block-end: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+      border-block-end: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
       content: '';
       inset: 0;
       position: absolute;
@@ -372,8 +363,7 @@ th[part~='selection'] {
 
 td {
   background: var(--_body-cell-background);
-
-  // border-block-end: var(--_border);
+  border-block-end: var(--_border);
   justify-content: start;
   padding: var(--_body-cell-padding-block) var(--_body-cell-padding-inline);
 

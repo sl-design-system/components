@@ -1,5 +1,11 @@
 # @sl-design-system/eslint-config
 
+## 0.5.0
+
+### Minor Changes
+
+- [#2069](https://github.com/sl-design-system/components/pull/2069) [`14885b3`](https://github.com/sl-design-system/components/commit/14885b304781ea925c76b5a2cb509648cb747b7c) - Update dependencies
+
 ## 0.4.1
 
 ### Patch Changes

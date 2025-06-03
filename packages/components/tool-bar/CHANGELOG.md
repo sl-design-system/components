@@ -1,5 +1,23 @@
 # @sl-design-system/tool-bar
 
+## 0.0.9
+
+### Patch Changes
+
+- [#1998](https://github.com/sl-design-system/components/pull/1998) [`4943f52`](https://github.com/sl-design-system/components/commit/4943f5217ec0d2ba4a1902c2841daa729b6426bd) - Fixes incorrect margin when menu button is visible
+
+- [#1975](https://github.com/sl-design-system/components/pull/1975) [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664) - Improve styling for use within grid
+
+- [#2036](https://github.com/sl-design-system/components/pull/2036) [`b411a41`](https://github.com/sl-design-system/components/commit/b411a415b496b0ca15677b58ca41c7d770833b6e) - Improved translations by using `id` to prevent unnecessary overwriting, which will also help with adding translations in more languages in the future.
+
+- [#2034](https://github.com/sl-design-system/components/pull/2034) [`1072075`](https://github.com/sl-design-system/components/commit/1072075e3f1b5f0bf8b07dc1f89fd39b9f7103d0) - Fix console warning when an `<sl-tooltip>` is slotted
+
+- Updated dependencies []:
+  - @sl-design-system/button@1.2.4
+  - @sl-design-system/menu@0.2.4
+  - @sl-design-system/toggle-button@0.0.8
+  - @sl-design-system/toggle-group@0.0.8
+
 ## 0.0.8
 
 ### Patch Changes

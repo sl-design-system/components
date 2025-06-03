@@ -1,5 +1,66 @@
 # @sl-design-system/data-source
 
+## 0.2.0
+
+### Minor Changes
+
+- [#2034](https://github.com/sl-design-system/components/pull/2034) [`1072075`](https://github.com/sl-design-system/components/commit/1072075e3f1b5f0bf8b07dc1f89fd39b9f7103d0) - Big improvements to the `data-source` package:
+
+  #### DataSource
+
+  - Now a fully `abstract` class without any implementation details
+  - Removed the `id` parameter for `setSort()`
+  - Changed the `DataSourceSort` interface to be simpler:
+
+  ```ts
+  export type DataSourceSort<Model> = {
+    by: DataSourceSortFunction<Model> | PathKeys<Model>;
+    direction: DataSourceSortDirection;
+  };
+  ```
+
+  #### ListDataSource
+
+  Instead of `<sl-grid>` using `ListDataSource` _and_ having a `GridViewModel` class _and_ using `SelectionController`, `ListDataSource` now is setup to handle all the view model logic internally. This means `<sl-grid>` no longer needs a separate view model and selection controller.
+
+  If you try to combine grouping with pagination, it will log a warning to the console. Grouping and pagination are not compatible with each other. You can either group or paginate, but not both at the same time.
+
+  - Added `ListDataSourceItem`, `ListDataSourceDataItem` and `ListDataSourceGroupItem` view model types
+  - Added constructor options for filtering, grouping, pagination and sorting
+  - Added the ability to customize how groups are sorted by adding `groupSortBy` and `groupSortDirection` options
+  - Added `selects` property for single, multiple or no selection mode at all
+  - Moved selection methods from `SelectionController` into this class
+  - Emits a new `sl-selection-change` event when the selection changes
+  - Defines `collapseGroup()`, `expandGroup()`, `toggleGroup()` and `isGroupCollapsed()` abstract methods
+  - Changed `reorder()` to be an abstract method
+
+  #### ArrayListDataSource
+
+  - Refactored to use the new view model types from `ListDataSource`
+  - Implemented group sorting
+  - Implemented selection logic for groups (selected, unselected, indeterminate)
+
+  #### FetchListDataSource
+
+  - Refactored to use the new view model types from `ListDataSource`
+  - Added `groups` constructor option when you want to use groups, but lazy load the data
+  - Added ability to lazy load group items (per page)
+  - Added the current group id to the `fetchPage()` method arguments as well
+
+### Patch Changes
+
+- [#2072](https://github.com/sl-design-system/components/pull/2072) [`77b348d`](https://github.com/sl-design-system/components/commit/77b348d19a4869f9242d8ea1c70d32d1e6d04212) - Fix regression with basic drag and drop of rows within grid
+
+- [#1975](https://github.com/sl-design-system/components/pull/1975) [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664) - Several bug fixes:
+
+  - Fix text being parsed as floating point numbers during sorting
+  - Fix the `DataSourceFilterFunction` to include the value in the function
+
+- [#2024](https://github.com/sl-design-system/components/pull/2024) [`a343e29`](https://github.com/sl-design-system/components/commit/a343e298d6b65966e04b3fbfc3598305a29bf1cc) - Expand `ListDataSource.setGroupBy` by adding a parameter for the label path
+
+- Updated dependencies [[`1072075`](https://github.com/sl-design-system/components/commit/1072075e3f1b5f0bf8b07dc1f89fd39b9f7103d0), [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664)]:
+  - @sl-design-system/shared@0.8.0
+
 ## 0.1.3
 
 ### Patch Changes

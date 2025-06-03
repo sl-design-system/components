@@ -142,7 +142,6 @@ const getCollectionFromKey = async (key: string) => {
 
 /** Create the list of themes with all the id's of relevant parents and children and send it to the UI */
 const sendCollections = () => {
-  console.log('Variable collections found:', variableCollections);
   //find all collections that have a theme as a direct child
   variableCollections
     .filter(c => c.name.includes('Themes'))

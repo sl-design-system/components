@@ -977,6 +977,34 @@ describe('sl-combobox', () => {
         expect(headers.item(1)).to.have.trimmed.text('All options');
       });
     });
+
+    describe('required', () => {
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-combobox required>
+            <sl-listbox>
+              <sl-option value="1">Option 1</sl-option>
+              <sl-option value="2">Option 2</sl-option>
+              <sl-option value="3">Option 3</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+      });
+
+      it('should be invalid', () => {
+        expect(el.valid).to.be.false;
+      });
+
+      it('should be valid when an option is selected', async () => {
+        el.click();
+        await el.updateComplete;
+
+        el.querySelector('sl-option')?.click();
+        await el.updateComplete;
+
+        expect(el.valid).to.be.true;
+      });
+    });
   });
 
   describe('form integration', () => {

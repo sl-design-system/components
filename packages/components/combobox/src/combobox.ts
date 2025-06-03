@@ -219,7 +219,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   /** @internal The selected items. */
   @state() selectedItems: Array<ComboboxItem<T, U>> = [];
 
-  /** When set will cause the control to show it is valid after reportValidity is called. */
+  /** When set will cause the control to show it is valid after  lidity is called. */
   @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
 
   /**

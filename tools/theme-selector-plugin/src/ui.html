@@ -1,24 +1,37 @@
-<div>
-  <label>Select a theme</label>
-  <select id="theme"></select>
-</div>
-<button id="select">Set theme</button>
+<form>
+  <div>
+    <label>Select a theme</label>
+    <select id="theme"></select>
+  </div>
+  <button id="select">Set theme</button>
+</form>
+<span id="loading"> Loading themes...</span>
 
 <style>
 body {
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  color: var(--figma-color-text);
+  display: grid;
   font-family: Inter, Roboto, sans-serif;
   font-size: 11px;
   margin: 0;
-  color: var(--figma-color-text-primary);
+  padding: 16px;
+  place-content: stretch;
+}
+form {
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
 }
 div {
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+span {
+  display: grid;
+  place-content: center;
 }
 
 label {
@@ -85,6 +98,9 @@ window.onmessage = (e) => {
       option.innerText = item.name;
       theme.appendChild(option);
     });
+
+    document.getElementById('loading').style.display = 'none';
+    document.querySelector('form').style.display = 'flex';
   }
 };
 </script>

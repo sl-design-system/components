@@ -262,7 +262,6 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
     this.#observer.observe(this);
 
-    this.internals.ariaRequired = this.required ? 'true' : 'false';
     this.setFormControlElement(this);
 
     /**
@@ -339,6 +338,10 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         this.#updateTextFieldValue();
         this.#updateValue();
       }
+    }
+
+    if (changes.has('required')) {
+      this.internals.ariaRequired = this.required ? 'true' : 'false';
     }
   }
 

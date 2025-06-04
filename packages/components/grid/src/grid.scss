@@ -457,14 +457,17 @@ a[class^='skip-link'] {
   inset-inline-start: calc(anchor(left) + var(--sl-size-100));
   opacity: 0;
   padding: var(--sl-size-100) var(--sl-size-200);
+  pointer-events: none;
   position: fixed;
   position-anchor: --table;
   transition: opacity 0.3s ease-in-out;
+  z-index: -1;
 
   &:focus {
     opacity: 1;
     outline: var(--sl-color-border-focused) solid var(--sl-size-outlineWidth-default);
     outline-offset: var(--sl-size-outlineOffset-default);
+    pointer-events: auto;
     z-index: 2;
   }
 

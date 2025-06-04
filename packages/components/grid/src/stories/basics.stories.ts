@@ -41,7 +41,7 @@ export const Basic: Story = {
         <code>renderer</code> to render the student's avatar. The date of birth column uses the
         <code>sl-format-date</code> component to format the date.
       </p>
-      <sl-grid .items=${students}>
+      <sl-grid .items=${students} no-skip-links>
         <sl-grid-column grow="0" header="Nr." path="studentNumber"></sl-grid-column>
         <sl-grid-column
           grow="3"
@@ -64,7 +64,7 @@ export const Basic: Story = {
 export const ColumnGroups: Story = {
   render: (_, { loaded: { students } }) => html`
     <p>This example shows how you can group columns together using the <code>sl-grid-column-group</code> component.</p>
-    <sl-grid .items=${students} striped>
+    <sl-grid .items=${students} striped no-skip-links>
       <sl-grid-column-group header="Name">
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>
@@ -84,7 +84,7 @@ export const EllipsizeText: Story = {
       This example shows how to use the <code>ellipsize-text</code> attribute to truncate text that overflows its
       column. Content that is truncated will also automatically add a tooltip with the full text.
     </p>
-    <sl-grid .items=${students} style="max-inline-size: 500px" ellipsize-text column-divider>
+    <sl-grid .items=${students} style="max-inline-size: 500px" ellipsize-text column-divider no-skip-links>
       <sl-grid-column path="firstName"></sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>
       <sl-grid-column path="school.name"></sl-grid-column>
@@ -113,7 +113,7 @@ export const Header: Story = {
       <code>scopedElements</code> property to the column with the used custom elements. If you don't do this, the custom
       elements won't be rendered correctly.
     </p>
-    <sl-grid .items=${students}>
+    <sl-grid .items=${students} no-skip-links>
       <sl-grid-column
         path="firstName"
         .header=${() => html`

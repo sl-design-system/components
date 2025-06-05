@@ -43,9 +43,9 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "devDependencies": {
-    "@floating-ui/dom": "^1.6.13",
+    "@floating-ui/dom": "^1.7.0",
     "@open-wc/dedupe-mixin": "^1.4.0",
-    "lit": "^3.2.1"
+    "lit": "^3.3.0"
   },
   "peerDependencies": {
     "@floating-ui/dom": "^1.6.5",

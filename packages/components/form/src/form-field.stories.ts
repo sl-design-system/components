@@ -8,7 +8,7 @@ import '@sl-design-system/switch/register.js';
 import '@sl-design-system/text-area/register.js';
 import '@sl-design-system/text-field/register.js';
 import '@sl-design-system/tooltip/register.js';
-import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type FormField } from './form-field.js';

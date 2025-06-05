@@ -1,9 +1,11 @@
+import { Avatar } from '@sl-design-system/avatar';
 import { ArrayListDataSource } from '@sl-design-system/data-source';
-import { type Person, getPeople } from '@sl-design-system/example-data';
-import { type StoryObj } from '@storybook/web-components';
+import { type Person, getPeople, getStudents } from '@sl-design-system/example-data';
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '../../register.js';
 import { type GridDropFilter, type SlDropEvent } from '../grid.js';
+import { avatarRenderer } from './story-utils.js';
 
 type Story = StoryObj;
 
@@ -13,20 +15,31 @@ export default {
   parameters: {
     // Disables Chromatic's snapshotting on a story level
     chromatic: { disableSnapshot: true }
-  }
-};
+  },
+  loaders: [async () => ({ students: (await getStudents()).students })]
+} satisfies Meta;
 
-export const Between: Story = {
-  loaders: [async () => ({ people: (await getPeople({ count: 10 })).people })],
-  render: (_, { loaded: { people } }) => {
+export const Basic: Story = {
+  render: (_, { loaded: { students } }) => {
     return html`
-      <sl-grid .items=${people}>
+      <p>
+        This example shows basic drag and drop behavior. You can drag and row and drop it in between other rows. This
+        way you can reorder the items in the grid. This is the default behavior when you add a
+        <code>sl-grid-drag-handle-column</code> to the grid. The column automatically sets the
+        <code>draggable-rows</code> property to <code>between</code>.
+      </p>
+      <sl-grid .items=${students}>
         <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
-        <sl-grid-column path="firstName"></sl-grid-column>
-        <sl-grid-column path="lastName"></sl-grid-column>
+        <sl-grid-sort-column grow="0" header="Nr." path="studentNumber"></sl-grid-sort-column>
+        <sl-grid-sort-column
+          direction="asc"
+          grow="3"
+          header="Student"
+          path="fullName"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}
+        ></sl-grid-sort-column>
         <sl-grid-column path="email"></sl-grid-column>
-        <sl-grid-column path="address.phone"></sl-grid-column>
-        <sl-grid-column path="profession"></sl-grid-column>
       </sl-grid>
     `;
   }

@@ -1,5 +1,5 @@
 import '@sl-design-system/listbox/register.js';
-import { type StoryObj } from '@storybook/web-components';
+import { type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '../register.js';
 

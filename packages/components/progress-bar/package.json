@@ -43,7 +43,7 @@
   "devDependencies": {
     "@lit/localize": "^0.12.2",
     "@open-wc/scoped-elements": "^3.0.5",
-    "lit": "^3.2.1"
+    "lit": "^3.3.0"
   },
   "peerDependencies": {
     "@lit/localize": "^0.12.1",

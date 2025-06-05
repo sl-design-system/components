@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@open-wc/scoped-elements": "^3.0.5",
-    "lit": "^3.2.1"
+    "lit": "^3.3.0"
   },
   "peerDependencies": {
     "@open-wc/scoped-elements": "^3.0.5",

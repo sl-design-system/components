@@ -32,7 +32,7 @@
 }
 
 :host(:active) {
-  --_bg-opacity: var(--sl-opacity-light-interactive-plain-active);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-active);
 }
 
 :host([aria-expanded='true']) sl-icon {
@@ -46,7 +46,7 @@
 :host([selected]) {
   --_bg-color: var(--sl-color-background-selected-subtlest);
   --_bg-mix-color: var(--sl-color-background-selected-interactive-plain);
-  --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
 }
 
 :host([selected]:hover) {

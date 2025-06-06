@@ -1,7 +1,7 @@
 :host {
   --_bg-color: var(--sl-color-background-input-plain);
   --_bg-mix-color: var(--sl-color-background-input-interactive);
-  --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
 
   align-items: center;
   background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));

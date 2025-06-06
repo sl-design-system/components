@@ -151,7 +151,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     const style = document.createElement('style');
     style.innerHTML = `
       sl-date-field:has(input:hover):not(:focus-within)::part(text-field) {
-        --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+        --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
       }
     `;
     this.prepend(style);

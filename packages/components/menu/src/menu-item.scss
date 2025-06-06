@@ -1,7 +1,7 @@
 :host {
   --_bg-color: transparent;
   --_bg-mix-color: var(--sl-color-background-primary-interactive-plain);
-  --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
 
   border-radius: var(--sl-size-borderRadius-default);
   color: var(--sl-color-foreground-plain);
@@ -83,11 +83,11 @@ sl-icon[name='chevron-right'] {
   );
 
   &:hover {
-    --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+    --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
   }
 
   &:active {
-    --_bg-opacity: var(--sl-opacity-light-interactive-plain-active);
+    --_bg-opacity: var(--sl-opacity-interactive-plain-active);
   }
 }
 

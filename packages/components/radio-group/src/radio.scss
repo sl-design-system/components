@@ -1,7 +1,7 @@
 :host {
   --_bg-color: var(--sl-color-background-input-plain);
   --_bg-mix-color: var(--sl-color-background-input-interactive);
-  --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
   --_border: var(--sl-color-border-input);
   --_fill: var(--sl-color-foreground-selected-onBold);
 
@@ -16,26 +16,26 @@
 }
 
 :host(:hover) {
-  --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
 }
 
 :host(:active) {
-  --_bg-opacity: var(--sl-opacity-light-interactive-plain-active);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-active);
 }
 
 :host([checked]) {
   --_bg-color: var(--sl-color-background-selected-bold);
   --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);
-  --_bg-opacity: var(--sl-opacity-light-interactive-bold-idle);
+  --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
   --_border: var(--sl-color-border-selected);
 }
 
 :host([checked]:hover) {
-  --_bg-opacity: var(--sl-opacity-light-interactive-bold-hover);
+  --_bg-opacity: var(--sl-opacity-interactive-bold-hover);
 }
 
 :host([checked]:active) {
-  --_bg-opacity: var(--sl-opacity-light-interactive-bold-active);
+  --_bg-opacity: var(--sl-opacity-interactive-bold-active);
 }
 
 :host([show-validity='invalid']) {

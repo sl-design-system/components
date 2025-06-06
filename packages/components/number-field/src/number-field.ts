@@ -114,7 +114,7 @@ export class NumberField extends LocaleMixin(TextField) {
     const style = document.createElement('style');
     style.innerHTML = `
       sl-number-field:has(input:hover):not(:focus-within) {
-        --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+        --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
       }
     `;
     this.prepend(style);

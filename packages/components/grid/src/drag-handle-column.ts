@@ -1,4 +1,3 @@
-import { faGripLines } from '@fortawesome/pro-regular-svg-icons';
 import { type ListDataSourceDataItem } from '@sl-design-system/data-source';
 import { Icon } from '@sl-design-system/icon';
 import { getValueByPath } from '@sl-design-system/shared';
@@ -11,8 +10,13 @@ declare global {
   }
 }
 
-Icon.register(faGripLines);
-
+/**
+ * A grid column that can be used to drag and drop rows.
+ *
+ * If you want drag and drop behavior to be conditional, you can use the `path` property to specify a path
+ * to a value in the data item. If the value at that path is truthy, the row will be draggable.
+ * If the value is falsy, the row will not be draggable.
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridDragHandleColumn<T = any> extends GridColumn<T> {
   override connectedCallback(): void {
@@ -49,13 +53,14 @@ export class GridDragHandleColumn<T = any> extends GridColumn<T> {
         @touchstart=${(event: Event & { target: HTMLElement }) => this.#onStartDrag(event, item.data)}
         part="data drag-handle ${draggable ? '' : 'fixed'}"
       >
-        ${draggable ? html`<sl-icon name="far-grip-lines"></sl-icon>` : nothing}
+        ${draggable ? html`<sl-icon name="grip-lines"></sl-icon>` : nothing}
       </td>
     `;
   }
 
   #onStartDrag(event: Event & { target: HTMLElement }, item: T): void {
     if (!this.path || getValueByPath(item, this.path)) {
+      // In order for native drag and drop to work, the row must have the `draggable` attribute.
       event.target.closest('tr')?.setAttribute('draggable', 'true');
     }
   }

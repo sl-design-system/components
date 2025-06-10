@@ -204,16 +204,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** The virtualizer instance for the grid. */
   #virtualizer?: VirtualizerHostElement[typeof virtualizerRef];
 
-  /**
-   * Indicates whether the user can activate a single row. A user can activate a row by
-   * clicking on it, or using the keyboard. The `activeRow` property will then be set to
-   * the current active row. The data source is not used to keep track of the active row.
-   */
-  @property({ type: Boolean, reflect: true, attribute: 'activatable-row' }) activatableRow?: boolean;
-
-  /**
-   * The current active row. This does not do anything unless the `activatableRow` property is also set.
-   */
+  /** The current active row. */
   @property({ attribute: false }) activeRow?: T;
 
   /** @internal Emits when the active row has changed. */
@@ -650,14 +641,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onClickRow(item: ListDataSourceDataItem<T>): void {
-    if (this.activatableRow) {
-      if (this.dataSource?.selected) {
-        this.dataSource?.deselectAll();
-        this.dataSource?.update();
-      }
-
-      this.#toggleActiveRow(item);
-    } else if (this.selects === 'multiple-row') {
+    if (this.selects === 'multiple-row') {
       this.dataSource?.toggle(item);
       this.dataSource?.update();
     }
@@ -868,8 +852,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onSelectionChange = (): void => {
-    this.#toggleActiveRow();
-
     if (this.selects?.startsWith('multiple')) {
       this.renderRoot
         .querySelector<HTMLElement>('[part="bulk-actions"]')
@@ -1128,20 +1110,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     if (col instanceof GridFilterColumn) {
       this.#filters = this.#filters.filter(f => f !== col.filterElement);
-    }
-  }
-
-  #toggleActiveRow(item?: ListDataSourceDataItem<T>): void {
-    const emitEvent = this.activeRow !== item?.data;
-
-    if (item?.data && this.activeRow === item?.data) {
-      this.activeRow = undefined;
-    } else {
-      this.activeRow = item?.data;
-    }
-
-    if (emitEvent) {
-      this.activeRowChangeEvent.emit({ item: this.activeRow });
     }
   }
 

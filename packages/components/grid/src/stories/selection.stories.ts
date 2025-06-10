@@ -150,8 +150,8 @@ export const Combination: Story = {
       grid.dataSource?.update();
 
       document.getElementById('selection')!.innerText = grid.activeRow
-        ? `You have selected ${grid.activeRow.fullName}.`
-        : 'You have not selected anybody yet.';
+        ? `You have activated ${grid.activeRow.fullName}.`
+        : 'You have not activated or selected anybody yet.';
     };
 
     const onSelectionChange = ({ detail: { grid } }: SlSelectionChangeEvent<Student>): void => {

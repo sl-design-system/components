@@ -274,6 +274,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** Hide the border around the grid when true. */
   @property({ type: Boolean, reflect: true, attribute: 'no-border' }) noBorder?: boolean;
 
+  /** Hide the skiplinks. Use when there are not tab stops in the table or the table only has a few rows with limited tab stops. */
+  @property({ type: Boolean, reflect: true, attribute: 'no-skip-links' }) noSkipLinks?: boolean;
+
   /** Hides the border between rows when true. */
   @property({ type: Boolean, reflect: true, attribute: 'no-row-border' }) noRowBorder?: boolean;
 
@@ -390,15 +393,19 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       <style>
         ${this.renderStyles()}
       </style>
-      <a
-        id="table-start"
-        href="#table-end"
-        class="skip-link-start"
-        @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'end')}
-        @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'top')}
-      >
-        ${msg('Skip to end of table', { id: 'sl.grid.skipToEndOfTable' })}
-      </a>
+      ${!this.noSkipLinks
+        ? html`
+            <a
+              id="table-start"
+              href="#table-end"
+              class="skip-link-start"
+              @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'end')}
+              @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'top')}
+            >
+              ${msg('Skip to end of table', { id: 'sl.grid.skipToEndOfTable' })}
+            </a>
+          `
+        : nothing}
       <table part="table" aria-rowcount=${this.dataSource?.items.length || 0}>
         <caption></caption>
         <thead
@@ -444,14 +451,18 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         </sl-tool-bar>
       </div>
 
-      <a
-        id="table-end"
-        href="#table-start"
-        class="skip-link-end"
-        @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'bottom')}
-        @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'start')}
-        >${msg('Skip to start of table', { id: 'sl.grid.skipToStartOfTable' })}</a
-      >
+      ${!this.noSkipLinks
+        ? html`
+            <a
+              id="table-end"
+              href="#table-start"
+              class="skip-link-end"
+              @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'bottom')}
+              @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'start')}
+              >${msg('Skip to start of table', { id: 'sl.grid.skipToStartOfTable' })}</a
+            >
+          `
+        : nothing}
     `;
   }
 
@@ -870,7 +881,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   #onSkipToFocus(e: Event & { target: HTMLSlotElement }, position: 'top' | 'bottom') {
     if (!('anchorName' in document.documentElement.style)) {
-      positionPopover(e.target, position === 'top' ? this.thead : this.tfoot, { position: `${position}-start` });
+      const bottomAnchor = this.tfoot ?? this.tbody.querySelector('tr:last-of-type');
+      positionPopover(e.target, position === 'top' ? this.thead : bottomAnchor, { position: `${position}-start` });
     }
   }
 

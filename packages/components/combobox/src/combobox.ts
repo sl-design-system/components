@@ -90,6 +90,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   /** @internal The default margin between the popover and the viewport. */
   static viewportMargin = 8;
 
+  /** @internal */
+  static formAssociated = true;
+
   /** Event controller. */
   #events = new EventsController(this, { click: this.#onClick, focusout: this.#onFocusout });
 
@@ -165,6 +168,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   /** When set will group all the selected options at the top of the listbox. */
   @property({ type: Boolean, attribute: 'group-selected' }) groupSelected?: boolean;
 
+  /** @internal. */
+  readonly internals = this.attachInternals();
+
   /** @internal The input element in the light DOM. */
   input!: HTMLInputElement;
 
@@ -213,7 +219,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   /** @internal The selected items. */
   @state() selectedItems: Array<ComboboxItem<T, U>> = [];
 
-  /** When set will cause the control to show it is valid after reportValidity is called. */
+  /** When set will cause the control to show it is valid after  lidity is called. */
   @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
 
   /**
@@ -256,7 +262,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
     this.#observer.observe(this);
 
-    this.setFormControlElement(this.input);
+    this.setFormControlElement(this);
 
     /**
      * Light DOM styling workarounds:
@@ -320,7 +326,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       }
     }
 
-    if ((changes.has('options') || changes.has('value')) && this.items.length) {
+    if ((changes.has('options') || changes.has('value')) && this.items.length && this.value !== undefined) {
       this.#updateSelectedItems();
     }
 
@@ -328,11 +334,14 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       // Workaround for Safari not allowing `::slotted(input)::placeholder`
       // See https://bugs.webkit.org/show_bug.cgi?id=223814
       this.toggleAttribute('has-selected-items', this.multiple && this.selectedItems.length > 0);
-
       if (this.items.length) {
         this.#updateTextFieldValue();
         this.#updateValue();
       }
+    }
+
+    if (changes.has('required')) {
+      this.internals.ariaRequired = this.required ? 'true' : 'false';
     }
   }
 
@@ -846,6 +855,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     }
 
     this.items = this.items.filter(i => i !== item);
+
     this.selectedItems = this.selectedItems.filter(i => i !== item);
 
     if (this.#useVirtualList) {
@@ -1270,6 +1280,12 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     if (this.multiple) {
       this.input.placeholder = this.selectedItems.map(i => i.label).join(', ') || '';
       this.input.value = '';
+      this.internals.setFormValue(this.input.placeholder);
+      this.internals.setValidity(
+        { valueMissing: this.required && !this.input.placeholder },
+        msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
+      );
+      this.updateValidity();
     } else {
       const item = this.selectedItems.at(0);
 
@@ -1279,12 +1295,26 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       } else {
         this.input.value = '';
       }
+      this.formValue = this.input.value;
+      this.internals.setFormValue(this.input.value);
+      this.internals.setValidity(
+        { valueMissing: this.required && !this.input.value },
+        msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
+      );
+      this.updateValidity();
+      this.changeEvent.emit(this.value);
     }
   }
 
   /** Updates the value based on the current selection. */
   #updateValue(): void {
     const values = this.selectedItems.map(i => i.value!);
+
+    if (this.value === undefined) {
+      this.value = this.multiple ? values : values[0];
+      const valueString = this.multiple ? values.join(', ') : values[0]?.toString();
+      this.internals.setFormValue(valueString);
+    }
 
     // Do nothing if the value hasn't changed
     if (
@@ -1299,8 +1329,10 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     }
 
     this.value = this.multiple ? values : values[0];
+    const valueString = this.multiple ? values.join(', ') : values[0]?.toString();
+
+    this.internals.setFormValue(valueString);
     this.changeEvent.emit(this.value);
-    this.updateState({ dirty: true });
     this.updateValidity();
   }
 }

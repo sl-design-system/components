@@ -570,10 +570,6 @@ tfoot {
     background: inherit;
     flex: 1 1 0;
     min-inline-size: 0;
-
-    &::part(wrapper) {
-      gap: var(--sl-size-100);
-    }
   }
 }
 

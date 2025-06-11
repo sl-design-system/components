@@ -1,4 +1,3 @@
-import { faEllipsisVertical } from '@fortawesome/pro-regular-svg-icons';
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button, type ButtonFill } from '@sl-design-system/button';
@@ -46,9 +45,6 @@ export interface ToolBarItemGroup extends ToolBarItemBase {
 }
 
 export type ToolBarItem = ToolBarItemButton | ToolBarItemDivider | ToolBarItemGroup;
-
-// FIXME: Once the design is finalized, move this icon to the design system.
-Icon.register(faEllipsisVertical);
 
 /**
  * A responsive container that automatically hides items in an overflow menu when space is limited.
@@ -158,7 +154,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
               fill=${ifDefined(this.fill)}
               variant=${ifDefined(this.inverted ? 'inverted' : undefined)}
             >
-              <sl-icon name="far-ellipsis-vertical" slot="button"></sl-icon>
+              <sl-icon name="ellipsis-vertical" slot="button"></sl-icon>
               ${this.menuItems.map(item => this.renderMenuItem(item))}
             </sl-menu-button>
           `

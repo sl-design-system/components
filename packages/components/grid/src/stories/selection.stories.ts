@@ -1,4 +1,4 @@
-import { faCopy, faTrash } from '@fortawesome/pro-regular-svg-icons';
+import { faCopy, faRightToLine, faTrash } from '@fortawesome/pro-regular-svg-icons';
 import { Avatar } from '@sl-design-system/avatar';
 import { Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
@@ -25,7 +25,7 @@ export default {
   loaders: [async () => ({ students: (await getStudents()).students })]
 };
 
-Icon.register(faCopy, faTrash);
+Icon.register(faCopy, faRightToLine, faTrash);
 
 export const Single: Story = {
   render: (_, { loaded: { students } }) => {
@@ -97,6 +97,18 @@ export const Multiple: Story = {
         <sl-button fill="outline" slot="bulk-actions" variant="inverted">
           <sl-icon name="far-trash"></sl-icon>
           Delete
+        </sl-button>
+        <sl-button fill="outline" slot="bulk-actions" variant="inverted">
+          <sl-icon name="far-right-to-line"></sl-icon>
+          Action 1
+        </sl-button>
+        <sl-button fill="outline" slot="bulk-actions" variant="inverted">
+          <sl-icon name="far-right-to-line"></sl-icon>
+          Action 2
+        </sl-button>
+        <sl-button fill="outline" slot="bulk-actions" variant="inverted">
+          <sl-icon name="far-right-to-line"></sl-icon>
+          Action 3
         </sl-button>
       </sl-grid>
     `;

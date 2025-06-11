@@ -2512,6 +2512,11 @@
         "type": "Icons",
         "description": "icon.core.ellipsis"
       },
+      "ellipsis-vertical": {
+        "value": "ellipsis-vertical",
+        "type": "Icons",
+        "description": "icon.core.ellipsis-vertical"
+      },
       "face-smile": {
         "value": "face-smile",
         "type": "Icons",

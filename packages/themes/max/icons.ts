@@ -129,6 +129,12 @@ export const icons = {
   'ellipsis-down': {
     svg: '<svg fill="var(--sl-icon-fill-default)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14.512 12.5c0 .563-.313 1.031-.75 1.313-.469.28-1.063.28-1.5 0a1.5 1.5 0 0 1-.75-1.313c0-.531.281-1 .75-1.281.437-.281 1.031-.281 1.5 0 .437.281.75.75.75 1.281m-5 0c0 .563-.313 1.031-.75 1.313-.469.28-1.063.28-1.5 0a1.5 1.5 0 0 1-.75-1.313c0-.531.281-1 .75-1.281.437-.281 1.031-.281 1.5 0 .437.281.75.75.75 1.281m-6.5 1.5a1.5 1.5 0 0 1-1.313-.75c-.281-.437-.281-1.031 0-1.5.281-.437.75-.75 1.313-.75.531 0 1 .313 1.281.75.281.469.281 1.063 0 1.5-.281.469-.75.75-1.281.75"/></svg>'
   },
+  'ellipsis-vertical': {
+    value: 'ellipsis-vertical',
+    type: 'Icons',
+    description: 'icon.core.ellipsis-vertical',
+    svg: '<svg viewBox="0 0 128 512" xmlns="http://www.w3.org/2000/svg"><path d="M64 368a48 48 0 1 0 0 96 48 48 0 1 0 0-96zm0-160a48 48 0 1 0 0 96 48 48 0 1 0 0-96zM112 96A48 48 0 1 0 16 96a48 48 0 1 0 96 0z" fill="var(--sl-icon-fill-default)"></path></svg>'
+  },
   error: {
     svg: '<svg fill="var(--sl-icon-fill-default)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16M8 2.5a1 1 0 0 1 1 1V9a1 1 0 1 1-2 0V3.5a1 1 0 0 1 1-1m1.125 10a1.125 1.125 0 1 1-2.25 0 1.125 1.125 0 0 1 2.25 0" clip-rule="evenodd"/></svg>'
   },

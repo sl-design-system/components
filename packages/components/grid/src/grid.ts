@@ -18,6 +18,7 @@ import { Scrollbar } from '@sl-design-system/scrollbar';
 import { type EventEmitter, event, isSafari, positionPopover } from '@sl-design-system/shared';
 import { type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { Skeleton } from '@sl-design-system/skeleton';
+import { ToggleGroup } from '@sl-design-system/toggle-group';
 import { ToolBar } from '@sl-design-system/tool-bar';
 import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing, render } from 'lit';
@@ -116,6 +117,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       'sl-icon': Icon,
       'sl-skeleton': Skeleton,
       'sl-scrollbar': Scrollbar,
+      'sl-toggle-group': ToggleGroup,
       'sl-tool-bar': ToolBar,
       'sl-tooltip': Tooltip
     };
@@ -442,12 +444,14 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             id: 'sl.grid.selectionStatusMessage'
           })}
         </span>
-        <sl-tool-bar no-border>
+        <sl-tool-bar align="end" inverted no-border>
           <slot name="bulk-actions"></slot>
-          <sl-button @click=${this.#onCancelSelection} aria-describedby="tooltip" fill="ghost" variant="inverted">
-            <sl-icon name="xmark"></sl-icon>
-          </sl-button>
-          <sl-tooltip id="tooltip">${msg('Cancel selection', { id: 'sl.grid.cancelSelection' })}</sl-tooltip>
+          <sl-toggle-group>
+            <sl-button @click=${this.#onCancelSelection} aria-describedby="tooltip" fill="ghost" variant="inverted">
+              <sl-icon name="xmark"></sl-icon>
+            </sl-button>
+            <sl-tooltip id="tooltip">${msg('Cancel selection', { id: 'sl.grid.cancelSelection' })}</sl-tooltip>
+          </sl-toggle-group>
         </sl-tool-bar>
       </div>
 

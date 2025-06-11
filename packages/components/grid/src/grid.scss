@@ -544,6 +544,7 @@ tfoot {
   /* stylelint-disable-next-line declaration-property-value-no-unknown */
   justify-self: anchor-center;
   margin: 0;
+  max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-800) * 2);
   padding: 0;
   padding-inline-end: var(--sl-size-100);
   position-anchor: --table;
@@ -560,6 +561,7 @@ tfoot {
 
   sl-tool-bar {
     background: inherit;
+    min-inline-size: 0;
 
     &::part(wrapper) {
       gap: var(--sl-size-100);
@@ -568,6 +570,7 @@ tfoot {
 
   span {
     display: inline-flex;
+    flex-shrink: 0;
     margin-inline: var(--sl-size-200);
     padding-block: var(--sl-size-050);
   }

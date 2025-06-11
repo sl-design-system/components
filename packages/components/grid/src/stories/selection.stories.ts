@@ -98,6 +98,9 @@ export const Multiple: Story = {
           <sl-icon name="far-trash"></sl-icon>
           Delete
         </sl-button>
+        <sl-button fill="outline" slot="bulk-actions" variant="inverted">Action 1</sl-button>
+        <sl-button fill="outline" slot="bulk-actions" variant="inverted">Action 2</sl-button>
+        <sl-button fill="outline" slot="bulk-actions" variant="inverted">Action 3</sl-button>
       </sl-grid>
     `;
   }

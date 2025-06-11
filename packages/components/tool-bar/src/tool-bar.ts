@@ -157,7 +157,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         <sl-menu-item-group .heading=${item.label ?? ''} .selects=${item.selects}>
           ${item.buttons.map(button => this.renderMenuItem(button))}
         </sl-menu-item-group>
-        <hr />
       `;
     } else if (item.type === 'divider') {
       return html`<hr />`;
@@ -217,13 +216,13 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       .filter(item => item !== undefined) as ToolBarItem[];
   }
 
-  #mapToggleGroupToItem(group: HTMLElement): ToolBarItemGroup {
+  #mapToggleGroupToItem(group: ToggleGroup): ToolBarItemGroup {
     return {
       element: group,
       type: 'group',
       label: group.getAttribute('aria-label'),
       buttons: Array.from(group.children).map(button => this.#mapButtonToItem(button as HTMLElement)),
-      selects: 'multiple',
+      selects: group.multiple ? 'multiple' : 'single',
       visible: true
     };
   }

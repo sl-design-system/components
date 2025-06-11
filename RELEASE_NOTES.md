@@ -4,6 +4,40 @@ This is a collection of release notes for the SL Design System. Each release not
 
 The release notes are ordered by the date the release was made. From latest, to oldest.
 
+# June 11, 2025
+
+This release features major improvements to the `<sl-grid>` component, including new features and bug fixes. Some highlights include:
+- New visual styles throughout the component
+- New way for bulk actions to be displayed
+- Cleaner implementation by moving "view model" logic into the `data-source` package
+- Improved performance by removing unnecessary re-renders
+- Initial improvements to keyboard navigation (more to come)
+- Fixes drag & drop regression (more dnd to come in the future)
+
+## Breaking changes
+
+The `action` slot in `inline-message` has been removed due to accessibility concerns. We do not recommend using inline messages with interactive elements inside them.
+
+## New features
+- `angular` has been updated to support Angular 20. Version 18 is still supported (18 is still LTS).
+- `data-source` has seen significant improvements; this work was necessary in order to improve the `<sl-grid>` component
+- `inline-message` now uses the announcer to announce the message to screen readers
+- `search-field` now has the ability to slot a different icon in the `prefix` slot
+
+## Bug fixes
+- `avatar` fixes a bug where the name did not wrap correctly
+- `checkbox` fixes a styling regression when a label was not used
+- `combobox` fixes a validation bug
+- `listbox` fixes long text not breaking correctly in a narrow container
+- `paginator` fixes bugs related to `pageSize` and the buttons
+- `radio-group` increases the gap between radio buttons when in a horizontal layout
+- `select` various styling fixes
+- `tabs` fixes a bug with the gradient overlay
+- `tag` fixes tabindexes for hidden tags in the stacked variant
+- `tool-bar` fixes various bugs
+- `tooltip` fixes a bug where it was shown at the wrong time
+- All translations now have an `id`. This will prevent any translations from breaking when the source message changes.
+
 # April 29, 2025
 
 ## New features

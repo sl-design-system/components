@@ -194,7 +194,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     }, 0);
 
     // If it doesn't fit, remove space for the menu button and its gap.
-    if (totalWidth > availableWidth) {
+    if (Math.round(totalWidth) > Math.round(availableWidth)) {
       // The menu button has an aspect ratio of 1:1, so we can use the wrapper's height as the button width.
       availableWidth -= wrapper.getBoundingClientRect().height + gap;
     }

@@ -1,5 +1,19 @@
 # @sl-design-system/combobox
 
+## 0.1.3
+
+### Patch Changes
+
+- [#2036](https://github.com/sl-design-system/components/pull/2036) [`b411a41`](https://github.com/sl-design-system/components/commit/b411a415b496b0ca15677b58ca41c7d770833b6e) - Improved translations by using `id` to prevent unnecessary overwriting, which will also help with adding translations in more languages in the future.
+
+- [#2067](https://github.com/sl-design-system/components/pull/2067) [`68ea3c8`](https://github.com/sl-design-system/components/commit/68ea3c849b07a3a9b4e5071447794ac658937e44) - Fixes issue that showed incorrect validity when using multiple mode and the field was required.
+
+- Updated dependencies [[`b411a41`](https://github.com/sl-design-system/components/commit/b411a415b496b0ca15677b58ca41c7d770833b6e), [`0ce2293`](https://github.com/sl-design-system/components/commit/0ce22939899889ab60bdd387ff88a10fa9d7f84e), [`094e4c7`](https://github.com/sl-design-system/components/commit/094e4c7d9e975e7e7a2d28e80d1c6980786492da)]:
+  - @sl-design-system/form@1.2.3
+  - @sl-design-system/tag@0.1.5
+  - @sl-design-system/text-field@1.6.4
+  - @sl-design-system/listbox@0.1.3
+
 ## 0.1.2
 
 ### Patch Changes

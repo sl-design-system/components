@@ -1,5 +1,17 @@
 # @sl-design-system/shared
 
+## 0.8.0
+
+### Minor Changes
+
+- [#2034](https://github.com/sl-design-system/components/pull/2034) [`1072075`](https://github.com/sl-design-system/components/commit/1072075e3f1b5f0bf8b07dc1f89fd39b9f7103d0) - Removed `SelectionController` since it has been removed from grid and that was the only user.
+
+  See the data-source changes for more details.
+
+### Patch Changes
+
+- [#1975](https://github.com/sl-design-system/components/pull/1975) [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664) - Use the default `any` type for the `SlSelectionChangeEvent`
+
 ## 0.7.2
 
 ### Patch Changes

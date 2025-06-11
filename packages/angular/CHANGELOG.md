@@ -1,5 +1,23 @@
 # @sl-design-system/angular
 
+## 3.1.0
+
+### Minor Changes
+
+- [#2080](https://github.com/sl-design-system/components/pull/2080) [`5dd2eac`](https://github.com/sl-design-system/components/commit/5dd2eacbf7e623455ff8e8f0ac4fc1d07798f34e) - Add support for Angular 20
+
+### Patch Changes
+
+- Updated dependencies [[`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664), [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664), [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664), [`b411a41`](https://github.com/sl-design-system/components/commit/b411a415b496b0ca15677b58ca41c7d770833b6e), [`a343e29`](https://github.com/sl-design-system/components/commit/a343e298d6b65966e04b3fbfc3598305a29bf1cc), [`d115aa5`](https://github.com/sl-design-system/components/commit/d115aa5a81b8b09ed29e5ad8b47385447ace43d0), [`094e4c7`](https://github.com/sl-design-system/components/commit/094e4c7d9e975e7e7a2d28e80d1c6980786492da)]:
+  - @sl-design-system/locales@0.0.13
+  - @sl-design-system/select@2.0.4
+  - @sl-design-system/checkbox@2.1.4
+  - @sl-design-system/form@1.2.3
+  - @sl-design-system/radio-group@1.1.3
+  - @sl-design-system/text-area@1.1.3
+  - @sl-design-system/text-field@1.6.4
+  - @sl-design-system/switch@1.1.4
+
 ## 3.0.0
 
 ### Major Changes

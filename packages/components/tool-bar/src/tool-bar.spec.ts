@@ -105,7 +105,7 @@ describe('sl-tool-bar', () => {
 
       const group = el.items[2] as ToolBarItemGroup;
       expect(group.type).to.equal('group');
-      expect(group.selects).to.equal('multiple');
+      expect(group.selects).to.equal('single');
       expect(group.visible).to.be.true;
     });
   });
@@ -121,7 +121,7 @@ describe('sl-tool-bar', () => {
 
           <sl-tool-bar-divider></sl-tool-bar-divider>
 
-          <sl-toggle-group>
+          <sl-toggle-group multiple>
             <sl-toggle-button aria-label="Bell">
               <sl-icon name="far-bell" slot="default"></sl-icon>
               <sl-icon name="fas-bell" slot="pressed"></sl-icon>

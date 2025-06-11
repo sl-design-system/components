@@ -81,17 +81,13 @@ export default {
     },
     items: {
       table: { disable: true }
-    },
-    resize: {
-      table: { disable: true }
     }
   },
-  render: ({ align, description, disabled, inverted, items, noBorder, resize, width }) => {
+  render: ({ align, description, disabled, inverted, items, noBorder, width }) => {
     return html`
       ${description ? html`<p>${description}</p>` : nothing}
       <style>
         ${inverted ? 'sl-tool-bar { background: var(--sl-color-background-selected-bold); }' : nothing}
-        ${resize ? 'sl-tool-bar { overflow: auto; resize: horizontal; }' : nothing}
       </style>
       <sl-tool-bar
         align=${ifDefined(align)}
@@ -217,8 +213,7 @@ export const NoBorder: Story = {
     ...Basic.args,
     description:
       'This example shows a tool bar without a border. Without a border, it also does not have any inline padding. Please make sure that the focus outlines of the buttons are still visible.',
-    noBorder: true,
-    resize: false
+    noBorder: true
   }
 };
 

@@ -6,6 +6,7 @@ import { Icon } from '@sl-design-system/icon';
 import { MenuButton, MenuItem, MenuItemGroup } from '@sl-design-system/menu';
 import { ToggleButton } from '@sl-design-system/toggle-button';
 import { ToggleGroup } from '@sl-design-system/toggle-group';
+import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -74,10 +75,16 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   // Observe changes to the size of the element.
   #observer = new ResizeObserver(() => this.#onResize());
 
-  /** The horizontal alignment within the tool-bar. */
+  /**
+   * The horizontal alignment within the tool-bar.
+   * @default 'start'
+   */
   @property({ reflect: true }) align?: 'start' | 'end';
 
-  /** If true, the tool-bar is disabled and cannot be interacted with. */
+  /**
+   * If true, the tool-bar is disabled and cannot be interacted with.
+   * @default false
+   */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /** @internal True when the tool-bar is empty. */
@@ -97,10 +104,14 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
   /**
    * If true, will cause the tool bar to not have a border; useful when embedding
-   * the tool-bar inside another component.
-   * FIXME: The border on this component should be removed and done by the component embedding the toolbar
+   * the tool-bar inside another component. If you set this, make sure there is enough
+   * space around the tool bar to show focus outlines.
+   * @default false
    */
   @property({ type: Boolean, reflect: true, attribute: 'no-border' }) noBorder?: boolean;
+
+  /** Use this if you want the menu button to use the "inverted" variant. */
+  @property({ type: Boolean }) inverted?: boolean;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -142,7 +153,11 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
       ${this.menuItems.length
         ? html`
-            <sl-menu-button fill=${ifDefined(this.fill)} aria-label=${msg('Show more', { id: 'sl.toolBar.showMore' })}>
+            <sl-menu-button
+              aria-label=${msg('Show more', { id: 'sl.toolBar.showMore' })}
+              fill=${ifDefined(this.fill)}
+              variant=${ifDefined(this.inverted ? 'inverted' : undefined)}
+            >
               <sl-icon name="far-ellipsis-vertical" slot="button"></sl-icon>
               ${this.menuItems.map(item => this.renderMenuItem(item))}
             </sl-menu-button>
@@ -171,8 +186,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
   /** FIXME: The current behavior sometimes "lags" behind; look at this again to fix that. */
   #onResize(): void {
-    const wrapper = this.renderRoot.querySelector('[part="wrapper"]') as HTMLElement;
-    const { width: availableWidth } = wrapper.getBoundingClientRect(),
+    const wrapper = this.renderRoot.querySelector('[part="wrapper"]') as HTMLElement,
+      { width: availableWidth } = wrapper.getBoundingClientRect(),
       gap = parseInt(getComputedStyle(wrapper).gap);
 
     let totalWidth = 0;
@@ -221,19 +236,29 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       element: group,
       type: 'group',
       label: group.getAttribute('aria-label'),
-      buttons: Array.from(group.children).map(button => this.#mapButtonToItem(button as HTMLElement)),
+      buttons: Array.from(group.children)
+        .filter(el => !(el instanceof Tooltip))
+        .map(button => this.#mapButtonToItem(button as HTMLElement)),
       selects: group.multiple ? 'multiple' : 'single',
       visible: true
     };
   }
 
   #mapButtonToItem(button: HTMLElement): ToolBarItemButton {
+    let label = button.getAttribute('aria-label') || button.textContent?.trim();
+
+    if (button.hasAttribute('aria-labelledby')) {
+      label = this.querySelector(`#${button.getAttribute('aria-labelledby')}`)?.textContent?.trim();
+    } else if (!label && button.hasAttribute('aria-describedby')) {
+      label = this.querySelector(`#${button.getAttribute('aria-describedby')}`)?.textContent?.trim();
+    }
+
     return {
       element: button,
       type: 'button',
       disabled: button.hasAttribute('disabled'),
       icon: button.querySelector('sl-icon')?.getAttribute('name'),
-      label: button.getAttribute('aria-label') || button.textContent?.trim(),
+      label,
       selectable: button.hasAttribute('aria-pressed'),
       visible: true,
       click: () => button.click()

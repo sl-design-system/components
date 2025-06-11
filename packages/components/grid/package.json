@@ -51,6 +51,7 @@
     "@sl-design-system/shared": "^0.7.1",
     "@sl-design-system/skeleton": "^1.0.0",
     "@sl-design-system/text-field": "^1.6.3",
+    "@sl-design-system/toggle-group": "^0.0.7",
     "@sl-design-system/tool-bar": "^0.0.8",
     "@sl-design-system/tooltip": "^1.1.4"
   },

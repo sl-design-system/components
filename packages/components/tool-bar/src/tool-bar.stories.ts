@@ -30,8 +30,8 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type ToolBar } from './tool-bar.js';
 
-type Props = Pick<ToolBar, 'align' | 'disabled' | 'noBorder'> & {
-  description?: string;
+type Props = Pick<ToolBar, 'align' | 'disabled' | 'inverted' | 'noBorder'> & {
+  description?: string | TemplateResult;
   items?(): TemplateResult;
   resize?: boolean;
   width?: string;
@@ -76,6 +76,9 @@ export default {
     disabled: {
       control: 'boolean'
     },
+    inverted: {
+      control: 'boolean'
+    },
     items: {
       table: { disable: true }
     },
@@ -83,15 +86,17 @@ export default {
       table: { disable: true }
     }
   },
-  render: ({ align, description, disabled, items, noBorder, resize, width }) => {
+  render: ({ align, description, disabled, inverted, items, noBorder, resize, width }) => {
     return html`
       ${description ? html`<p>${description}</p>` : nothing}
       <style>
+        ${inverted ? 'sl-tool-bar { background: var(--sl-color-background-selected-bold); }' : nothing}
         ${resize ? 'sl-tool-bar { overflow: auto; resize: horizontal; }' : nothing}
       </style>
       <sl-tool-bar
         align=${ifDefined(align)}
         ?disabled=${disabled}
+        ?inverted=${inverted}
         ?no-border=${noBorder}
         style="inline-size: ${width ?? 'auto'}"
       >
@@ -188,6 +193,25 @@ export const FitContent: Story = {
   }
 };
 
+export const Inverted: Story = {
+  args: {
+    description: html`
+      This example shows a tool bar with inverted buttons. You have to set the
+      <code>inverted</code> attribute on the tool bar, otherwise the menu button will not be inverted.
+    `,
+    inverted: true,
+    items: () => html`
+      <sl-button fill="outline" variant="inverted">Action 1</sl-button>
+      <sl-button fill="outline" variant="inverted">Action 2</sl-button>
+      <sl-button fill="outline" variant="inverted">Action 3</sl-button>
+      <sl-button fill="outline" variant="inverted">Action 4</sl-button>
+      <sl-button fill="outline" variant="inverted">Action 5</sl-button>
+      <sl-button fill="outline" variant="inverted">Action 6</sl-button>
+    `,
+    width: '400px'
+  }
+};
+
 export const NoBorder: Story = {
   args: {
     ...Basic.args,
@@ -237,7 +261,7 @@ export const Combination: Story = {
     </p>
     <div class="container">
       <span>Some text in front</span>
-      <sl-tool-bar no-border>
+      <sl-tool-bar align="end" no-border>
         <sl-button>Button 1</sl-button>
         <sl-button>Button 2</sl-button>
         <sl-button>Button 3</sl-button>

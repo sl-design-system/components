@@ -559,6 +559,13 @@ tfoot {
     margin-inline: auto;
   }
 
+  span {
+    display: inline-flex;
+    flex-shrink: 0;
+    margin-inline: var(--sl-size-200);
+    padding-block: var(--sl-size-050);
+  }
+
   sl-tool-bar {
     background: inherit;
     flex: 1 1 0;
@@ -567,17 +574,6 @@ tfoot {
     &::part(wrapper) {
       gap: var(--sl-size-100);
     }
-  }
-
-  span {
-    display: inline-flex;
-    flex-shrink: 0;
-    margin-inline: var(--sl-size-200);
-    padding-block: var(--sl-size-050);
-  }
-
-  slot[name='bulk-actions']::slotted(sl-button:first-of-type) {
-    margin-inline-start: var(--sl-size-600);
   }
 }
 

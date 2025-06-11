@@ -1,5 +1,16 @@
 # @sl-design-system/date-field
 
+## 0.0.2
+
+### Patch Changes
+
+- [#2036](https://github.com/sl-design-system/components/pull/2036) [`b411a41`](https://github.com/sl-design-system/components/commit/b411a415b496b0ca15677b58ca41c7d770833b6e) - Improved translations by using `id` to prevent unnecessary overwriting, which will also help with adding translations in more languages in the future.
+
+- Updated dependencies [[`b411a41`](https://github.com/sl-design-system/components/commit/b411a415b496b0ca15677b58ca41c7d770833b6e)]:
+  - @sl-design-system/calendar@0.0.2
+  - @sl-design-system/form@1.2.3
+  - @sl-design-system/text-field@1.6.4
+
 ## 0.0.1
 
 ### Patch Changes

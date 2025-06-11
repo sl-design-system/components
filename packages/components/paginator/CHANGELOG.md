@@ -1,5 +1,23 @@
 # @sl-design-system/paginator
 
+## 0.1.3
+
+### Patch Changes
+
+- [#2036](https://github.com/sl-design-system/components/pull/2036) [`b411a41`](https://github.com/sl-design-system/components/commit/b411a415b496b0ca15677b58ca41c7d770833b6e) - Improved translations by using `id` to prevent unnecessary overwriting, which will also help with adding translations in more languages in the future.
+
+- [#2034](https://github.com/sl-design-system/components/pull/2034) [`1072075`](https://github.com/sl-design-system/components/commit/1072075e3f1b5f0bf8b07dc1f89fd39b9f7103d0) - Various fixes:
+  - Fix issue where the current `pageSize` sometimes did not reflect the `pageSize` property of the data source
+  - Fix issue where 2 buttons with "1" were showing when there was only one page
+  - Update types due to `ListDataSource` changes
+- Updated dependencies [[`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664), [`1072075`](https://github.com/sl-design-system/components/commit/1072075e3f1b5f0bf8b07dc1f89fd39b9f7103d0), [`b411a41`](https://github.com/sl-design-system/components/commit/b411a415b496b0ca15677b58ca41c7d770833b6e), [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664), [`094e4c7`](https://github.com/sl-design-system/components/commit/094e4c7d9e975e7e7a2d28e80d1c6980786492da)]:
+  - @sl-design-system/select@2.0.4
+  - @sl-design-system/shared@0.8.0
+  - @sl-design-system/form@1.2.3
+  - @sl-design-system/announcer@0.0.4
+  - @sl-design-system/button@1.2.4
+  - @sl-design-system/menu@0.2.4
+
 ## 0.1.2
 
 ### Patch Changes

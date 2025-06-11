@@ -1,5 +1,11 @@
 # @sanomalearning/sanoma-utbildning
 
+## 0.1.4
+
+### Patch Changes
+
+- [#2081](https://github.com/sl-design-system/components/pull/2081) [`604dc17`](https://github.com/sl-design-system/components/commit/604dc17be38f77fa099ffc890fcbe8f3768755a6) - Add new `ellipsis-vertical` icon
+
 ## 0.1.3
 
 ### Patch Changes

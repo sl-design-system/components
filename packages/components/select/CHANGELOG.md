@@ -1,5 +1,20 @@
 # @sl-design-system/select
 
+## 2.0.4
+
+### Patch Changes
+
+- [#1975](https://github.com/sl-design-system/components/pull/1975) [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664) - Fix the size of the clearable icon in the select button
+
+- [#2036](https://github.com/sl-design-system/components/pull/2036) [`b411a41`](https://github.com/sl-design-system/components/commit/b411a415b496b0ca15677b58ca41c7d770833b6e) - Improved translations by using `id` to prevent unnecessary overwriting, which will also help with adding translations in more languages in the future.
+
+- [#2037](https://github.com/sl-design-system/components/pull/2037) [`094e4c7`](https://github.com/sl-design-system/components/commit/094e4c7d9e975e7e7a2d28e80d1c6980786492da) - Added overflow-wrap to force words to break when options are shown in a very narrow container.
+
+- Updated dependencies [[`1072075`](https://github.com/sl-design-system/components/commit/1072075e3f1b5f0bf8b07dc1f89fd39b9f7103d0), [`b411a41`](https://github.com/sl-design-system/components/commit/b411a415b496b0ca15677b58ca41c7d770833b6e), [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664), [`094e4c7`](https://github.com/sl-design-system/components/commit/094e4c7d9e975e7e7a2d28e80d1c6980786492da)]:
+  - @sl-design-system/shared@0.8.0
+  - @sl-design-system/form@1.2.3
+  - @sl-design-system/listbox@0.1.3
+
 ## 2.0.3
 
 ### Patch Changes

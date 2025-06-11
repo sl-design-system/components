@@ -1,5 +1,16 @@
 # @sl-design-system/breadcrumbs
 
+## 1.1.1
+
+### Patch Changes
+
+- [#2036](https://github.com/sl-design-system/components/pull/2036) [`b411a41`](https://github.com/sl-design-system/components/commit/b411a415b496b0ca15677b58ca41c7d770833b6e) - Improved translations by using `id` to prevent unnecessary overwriting, which will also help with adding translations in more languages in the future.
+
+- Updated dependencies [[`d212503`](https://github.com/sl-design-system/components/commit/d21250333818c229635688c01a139b57ccd5ec86)]:
+  - @sl-design-system/tooltip@1.1.5
+  - @sl-design-system/button@1.2.4
+  - @sl-design-system/popover@1.2.3
+
 ## 1.1.0
 
 ### Minor Changes

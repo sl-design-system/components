@@ -1,5 +1,12 @@
 # @sl-design-system/format-number
 
+## 0.0.4
+
+### Patch Changes
+
+- Updated dependencies [[`1072075`](https://github.com/sl-design-system/components/commit/1072075e3f1b5f0bf8b07dc1f89fd39b9f7103d0), [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664)]:
+  - @sl-design-system/shared@0.8.0
+
 ## 0.0.3
 
 ### Patch Changes

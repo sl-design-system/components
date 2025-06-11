@@ -73,7 +73,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   // Observe changes to the size of the element.
-  #observer = new ResizeObserver(() => this.#onResize());
+  #observer = new ResizeObserver(entries => this.#onResize(entries.at(0)?.contentBoxSize.at(0)?.inlineSize ?? 0));
 
   /**
    * The horizontal alignment within the tool-bar.
@@ -184,22 +184,26 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  /** FIXME: The current behavior sometimes "lags" behind; look at this again to fix that. */
-  #onResize(): void {
-    const wrapper = this.renderRoot.querySelector('[part="wrapper"]') as HTMLElement,
-      { width: availableWidth } = wrapper.getBoundingClientRect(),
+  #onResize(availableWidth: number): void {
+    const wrapper = this.renderRoot.querySelector('[part="wrapper"]')!,
       gap = parseInt(getComputedStyle(wrapper).gap);
 
-    let totalWidth = 0;
-    this.items.forEach((item, index) => {
-      totalWidth += item.element.getBoundingClientRect().width;
+    // First calculate how much space we need for all the items, including gaps.
+    let totalWidth = this.items.reduce((sum, item, index) => {
+      return sum + item.element.getBoundingClientRect().width + (index < this.items.length - 1 ? gap : 0);
+    }, 0);
 
+    // If it doesn't fit, remove space for the menu button and its gap.
+    if (totalWidth > availableWidth) {
+      availableWidth -= 36 + gap;
+    }
+
+    // Now iterate through the items and set their visibility based on the available width.
+    this.items.toReversed().forEach(item => {
       item.visible = Math.round(totalWidth) <= Math.round(availableWidth);
       item.element.style.visibility = item.visible ? 'visible' : 'hidden';
 
-      if (index < this.items.length - 1) {
-        totalWidth += gap;
-      }
+      totalWidth -= item.element.getBoundingClientRect().width + gap;
     });
 
     this.requestUpdate('items');

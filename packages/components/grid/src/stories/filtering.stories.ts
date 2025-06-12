@@ -8,6 +8,7 @@ import '@sl-design-system/search-field/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '../../register.js';
+import { type GridFilterOption } from '../filter-column.js';
 import { avatarRenderer } from './story-utils.js';
 
 type Story = StoryObj;
@@ -106,6 +107,42 @@ export const Selection: Story = {
       <sl-grid-filter-column path="email"></sl-grid-filter-column>
     </sl-grid>
   `
+};
+
+export const ExplicitOptions: Story = {
+  render: (_, { loaded: { students } }) => {
+    const schools: GridFilterOption[] = Array.from(
+      new Map(
+        (students as Student[]).map(student => [
+          student.school.id,
+          { value: student.school.id, label: student.school.name }
+        ])
+      ).values()
+    ).sort((a, b) => b.label.localeCompare(a.label));
+
+    return html`
+      <p>
+        This example shows how you can provide an explicit list of options for the filter column. Instead of
+        automatically generating the options from the data, you can define them yourself. This is useful when you are
+        using a <code>FetchListDataSource</code> or when you want to change the order of the options.
+      </p>
+      <sl-grid .items=${students}>
+        <sl-grid-filter-column
+          header="Student"
+          path="fullName"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}
+        ></sl-grid-filter-column>
+        <sl-grid-filter-column
+          header="School"
+          label-path="school.name"
+          mode="select"
+          .options=${schools}
+          path="school.id"
+        ></sl-grid-filter-column>
+      </sl-grid>
+    `;
+  }
 };
 
 export const Custom: Story = {

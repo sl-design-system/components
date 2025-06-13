@@ -3,5 +3,29 @@ dialog {
 }
 
 sl-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   padding-block: var(--sl-size-100);
+}
+
+sl-form-field,
+sl-form-validation-errors {
+  grid-column: 1 / -1;
+}
+
+.amount {
+  grid-column: 1 / 2;
+}
+
+.deposit {
+  grid-column: 2 / 3;
+}
+
+.container {
+  display: flex;
+  gap: var(--sl-size-100);
+
+  sl-select {
+    flex: 3;
+  }
 }

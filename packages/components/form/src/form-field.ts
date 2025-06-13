@@ -169,7 +169,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     }
 
     if (changes.has('mark') && this.#label) {
-      this.#label.mark = this.mark;
+      this.#label.mark ??= this.mark;
     }
   }
 
@@ -292,7 +292,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
 
       if (this.#label) {
         this.#label.for = this.control.id;
-        this.#label.mark = this.mark;
+        this.#label.mark ??= this.mark;
       }
     } else {
       this.control = undefined;

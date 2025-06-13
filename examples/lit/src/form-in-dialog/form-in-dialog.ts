@@ -1,7 +1,7 @@
 import { type ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import { Checkbox } from '@sl-design-system/checkbox';
 import { Dialog } from '@sl-design-system/dialog';
-import { Error, Form, FormController, FormField, FormValidationErrors } from '@sl-design-system/form';
+import { Error, Form, FormController, FormField, FormValidationErrors, Label } from '@sl-design-system/form';
 import { Option } from '@sl-design-system/listbox';
 import { NumberField } from '@sl-design-system/number-field';
 import { Select } from '@sl-design-system/select';
@@ -21,6 +21,7 @@ export class FormInDialog extends Dialog {
       'sl-form': Form,
       'sl-form-field': FormField,
       'sl-form-validation-errors': FormValidationErrors,
+      'sl-label': Label,
       'sl-number-field': NumberField,
       'sl-option': Option,
       'sl-select': Select,
@@ -70,7 +71,8 @@ export class FormInDialog extends Dialog {
         <sl-form-field label="Description">
           <sl-text-area name="description"></sl-text-area>
         </sl-form-field>
-        <sl-form-field label="Rental period" mark="required">
+        <sl-form-field>
+          <sl-label mark="required">Rental period</sl-label>
           <sl-checkbox name="indefinitely">Indefinitely</sl-checkbox>
           <div class="container">
             <sl-number-field

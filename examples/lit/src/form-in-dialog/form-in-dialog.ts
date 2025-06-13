@@ -1,12 +1,14 @@
 import { type ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import { Checkbox } from '@sl-design-system/checkbox';
 import { Dialog } from '@sl-design-system/dialog';
-import { Form, FormController, FormField, FormValidationErrors } from '@sl-design-system/form';
+import { Error, Form, FormController, FormField, FormValidationErrors } from '@sl-design-system/form';
 import { Option } from '@sl-design-system/listbox';
 import { NumberField } from '@sl-design-system/number-field';
 import { Select } from '@sl-design-system/select';
+import { TextArea } from '@sl-design-system/text-area';
 import { TextField } from '@sl-design-system/text-field';
-import { type CSSResultGroup, type PropertyValues, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import { state } from 'lit/decorators.js';
 import styles from './form-in-dialog.scss.js';
 
 export class FormInDialog extends Dialog {
@@ -15,12 +17,14 @@ export class FormInDialog extends Dialog {
     return {
       ...super.scopedElements,
       'sl-checkbox': Checkbox,
+      'sl-error': Error,
       'sl-form': Form,
       'sl-form-field': FormField,
       'sl-form-validation-errors': FormValidationErrors,
       'sl-number-field': NumberField,
       'sl-option': Option,
       'sl-select': Select,
+      'sl-text-area': TextArea,
       'sl-text-field': TextField
     };
   }
@@ -38,6 +42,9 @@ export class FormInDialog extends Dialog {
     amount: number;
     deposit: number;
   }>(this);
+
+  /** @internal Invalid rental period state. */
+  @state() invalidRentalPeriod?: boolean;
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
@@ -61,9 +68,9 @@ export class FormInDialog extends Dialog {
           <sl-text-field autofocus name="type" required></sl-text-field>
         </sl-form-field>
         <sl-form-field label="Description">
-          <sl-text-field name="description"></sl-text-field>
+          <sl-text-area name="description"></sl-text-area>
         </sl-form-field>
-        <sl-form-field label="Rental period">
+        <sl-form-field label="Rental period" mark="required">
           <sl-checkbox name="indefinitely">Indefinitely</sl-checkbox>
           <div class="container">
             <sl-number-field
@@ -78,6 +85,7 @@ export class FormInDialog extends Dialog {
               <sl-option value="year">Year</sl-option>
             </sl-select>
           </div>
+          ${this.invalidRentalPeriod ? html`<sl-error>Please select a rental period.</sl-error>` : nothing}
         </sl-form-field>
         <sl-form-field class="amount" label="Amount">
           <sl-number-field

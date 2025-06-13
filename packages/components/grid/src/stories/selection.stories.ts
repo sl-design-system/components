@@ -31,19 +31,19 @@ export const Activate: Story = {
   render: (_, { loaded: { students } }) => {
     const onActiveRowChange = ({ detail: student }: SlActiveRowChangeEvent<Student>): void => {
       document.getElementById('selection')!.innerText = student
-        ? `You have selected ${student.fullName}.`
-        : 'You have not selected anybody yet.';
+        ? `You have activated ${student.fullName}.`
+        : 'You have not activated anybody yet.';
     };
 
     return html`
       <p>
-        This example allows you to select a student, by clicking anywhere on the row, or by using the keyboard to click
+        This example allows you to activate a student by clicking anywhere on the row, or by using the keyboard to click
         on the button with the avatar. This behavior is enabled by setting the <code>row-action</code> property to
-        <code>activate</code>. After selection, the selected student will be highlighted in the grid by setting the
+        <code>activate</code>. After activation, the activated student will be highlighted in the grid by setting the
         <code>activeRow</code> property. An <code>sl-grid-active-row-change</code> event is dispatched when the active
         row changes, which you can use to update the UI or perform other actions based on the active row.
       </p>
-      <p id="selection">You have not selected anybody yet.</p>
+      <p id="selection">You have not activated anybody yet.</p>
       <sl-grid @sl-grid-active-row-change=${onActiveRowChange} .items=${students} row-action="activate">
         <sl-grid-column
           grow="3"

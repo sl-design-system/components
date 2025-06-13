@@ -10,7 +10,7 @@ import '@sl-design-system/icon/register.js';
 import { type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '../../register.js';
-import { type Grid, type SlSelectionChangeEvent } from '../grid.js';
+import { type SlActiveRowChangeEvent, type SlSelectionChangeEvent } from '../grid.js';
 import { avatarRenderer } from './story-utils.js';
 
 type Story = StoryObj;
@@ -27,36 +27,29 @@ export default {
 
 Icon.register(faCopy, faRightToLine, faTrash);
 
-export const Single: Story = {
+export const Activate: Story = {
   render: (_, { loaded: { students } }) => {
-    const onSelectStudent = (student: Student): void => {
-      const grid = document.querySelector('sl-grid')! as Grid<Student>;
-
-      if (grid.activeRow === student) {
-        grid.activeRow = undefined; // Deselect if the same student is clicked again
-      } else {
-        grid.activeRow = student;
-      }
-
-      document.getElementById('selection')!.innerText = grid.activeRow
-        ? `You have selected ${grid.activeRow.fullName}.`
-        : 'You have not selected anybody yet.';
+    const onActiveRowChange = ({ detail: student }: SlActiveRowChangeEvent<Student>): void => {
+      document.getElementById('selection')!.innerText = student
+        ? `You have activated ${student.fullName}.`
+        : 'You have not activated anybody yet.';
     };
 
     return html`
       <p>
-        This example allows you to select a student, by clicking on the button with the avatar. After selection, the
-        selected student will be highlighted in the grid by setting the <code>activeRow</code> property.
+        This example allows you to activate a student by clicking anywhere on the row, or by using the keyboard to click
+        on the button with the avatar. This behavior is enabled by setting the <code>row-action</code> property to
+        <code>activate</code>. After activation, the activated student will be highlighted in the grid by setting the
+        <code>activeRow</code> property. An <code>sl-grid-active-row-change</code> event is dispatched when the active
+        row changes, which you can use to update the UI or perform other actions based on the active row.
       </p>
-      <p id="selection">You have not selected anybody yet.</p>
-      <sl-grid .items=${students}>
+      <p id="selection">You have not activated anybody yet.</p>
+      <sl-grid @sl-grid-active-row-change=${onActiveRowChange} .items=${students} row-action="activate">
         <sl-grid-column
           grow="3"
           header="Student"
           .renderer=${(student: Student) => html`
-            <sl-button @click=${() => onSelectStudent(student)} fill="link" variant="primary">
-              ${avatarRenderer(student)}
-            </sl-button>
+            <sl-button fill="link" variant="primary">${avatarRenderer(student)}</sl-button>
           `}
           .scopedElements=${{ 'sl-avatar': Avatar, 'sl-button': Button }}
         ></sl-grid-column>
@@ -74,10 +67,9 @@ export const Multiple: Story = {
     return html`
       <p>
         This example shows how you can select multiple rows by toggling the checkbox in the first column. If you add an
-        <code>sl-grid-selection-column</code> element, it will automatically set the <code>selects</code> property to
-        <code>multiple</code> for you. When you have selected multiple rows, you can perform bulk actions on them by
-        using the floating tool-bar at the bottom of the grid. You can add bulk actions by using the
-        <code>bulk-actions</code> slot.
+        <code>sl-grid-selection-column</code> element, it will automatically enable multi selection for you. When you
+        have selected multiple rows, you can perform bulk actions on them by using the floating tool-bar at the bottom
+        of the grid. You can add bulk actions by using the <code>bulk-actions</code> slot.
       </p>
       <sl-grid .items=${(students as Student[]).slice(0, 5)}>
         <sl-grid-selection-column ?select-all=${selectAll}></sl-grid-selection-column>
@@ -120,10 +112,10 @@ export const MultipleRow: Story = {
     return html`
       <p>
         This example shows how you can select multiple rows at a time, but not just by toggling the checkbox at the
-        start of the row, but by clicking anywhere on the row. This is done by setting the <code>selects</code> property
-        to the <code>multiple-row</code> value.
+        start of the row, but by clicking anywhere on the row. This is done by setting the
+        <code>row-action</code> property to the <code>select</code> value.
       </p>
-      <sl-grid .items=${students} selects="multiple-row">
+      <sl-grid .items=${students} row-action="select">
         <sl-grid-selection-column></sl-grid-selection-column>
         <sl-grid-column
           grow="3"
@@ -149,20 +141,9 @@ export const MultipleRow: Story = {
 
 export const Combination: Story = {
   render: (_, { loaded: { students } }) => {
-    const onSelectStudent = (student: Student): void => {
-      const grid = document.querySelector('sl-grid')! as Grid<Student>;
-
-      if (grid.activeRow === student) {
-        grid.activeRow = undefined; // Deselect if the same student is clicked again
-      } else {
-        grid.activeRow = student;
-      }
-
-      grid.dataSource?.deselectAll(); // Deselect all other students
-      grid.dataSource?.update();
-
-      document.getElementById('selection')!.innerText = grid.activeRow
-        ? `You have activated ${grid.activeRow.fullName}.`
+    const onActiveRowChange = ({ detail: student }: SlActiveRowChangeEvent<Student>): void => {
+      document.getElementById('selection')!.innerText = student
+        ? `You have activated ${student.fullName}.`
         : 'You have not activated or selected anybody yet.';
     };
 
@@ -182,18 +163,22 @@ export const Combination: Story = {
     return html`
       <p>
         This example shows how you can have mixed selection: you can perform bulk actions using the checkbox in the
-        selection column while at the same time clicking on the student to do single selection.
+        selection column while at the same time clicking anywhere else to activate the row. Using keyboard, you can do
+        both.
       </p>
       <p id="selection">You have not activated or selected anybody yet.</p>
-      <sl-grid @sl-grid-selection-change=${onSelectionChange} .items=${students} selects="multiple">
+      <sl-grid
+        @sl-grid-active-row-change=${onActiveRowChange}
+        @sl-grid-selection-change=${onSelectionChange}
+        .items=${students}
+        row-action="activate"
+      >
         <sl-grid-selection-column></sl-grid-selection-column>
         <sl-grid-column
           grow="3"
           header="Student"
           .renderer=${(student: Student) => html`
-            <sl-button @click=${() => onSelectStudent(student)} fill="link" variant="primary">
-              ${avatarRenderer(student)}
-            </sl-button>
+            <sl-button fill="link" variant="primary">${avatarRenderer(student)}</sl-button>
           `}
           .scopedElements=${{ 'sl-avatar': Avatar, 'sl-button': Button }}
         ></sl-grid-column>

@@ -78,7 +78,7 @@ export type GridGroupHeaderRenderer = (
 ) => TemplateResult;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type SlActiveRowChangeEvent<T = any> = CustomEvent<{ item?: T }>;
+export type SlActiveRowChangeEvent<T = any> = CustomEvent<T | undefined>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SlDragStartEvent<T = any> = CustomEvent<{ grid: Grid<T>; item: ListDataSourceItem<T> }>;
@@ -227,12 +227,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#dataSource = dataSource;
     this.#dataSource?.addEventListener('sl-update', this.#onDataSourceUpdate);
     this.#dataSource?.addEventListener('sl-selection-change', this.#onSelectionChange);
-
-    // There are multiple ways to set the grid selection. If it's done via the data source,
-    // we need to update the selects property here as well.
-    if (dataSource?.selects === 'multiple') {
-      this.selects ??= 'multiple-row';
-    }
   }
 
   /**
@@ -276,11 +270,19 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** Hide the border around the grid when true. */
   @property({ type: Boolean, reflect: true, attribute: 'no-border' }) noBorder?: boolean;
 
-  /** Hide the skiplinks. Use when there are not tab stops in the table or the table only has a few rows with limited tab stops. */
+  /** Hide the skip links. Use when there are not tab stops in the table or the table only has a few rows with limited tab stops. */
   @property({ type: Boolean, reflect: true, attribute: 'no-skip-links' }) noSkipLinks?: boolean;
 
   /** Hides the border between rows when true. */
   @property({ type: Boolean, reflect: true, attribute: 'no-row-border' }) noRowBorder?: boolean;
+
+  /**
+   * This indicates the behavior when a user clicks on a row. This does not include the selection column.
+   * If you don't want a click on a particular interactive element to trigger this behavior, please
+   * use `preventDefault()` and `stopPropagation()` to stop that from happening.
+   * @default undefined
+   */
+  @property({ reflect: true, attribute: 'row-action' }) rowAction?: 'activate' | 'select';
 
   /**
    * The custom elements used for rendering this grid. This can be used if you want to render
@@ -294,14 +296,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** @internal Emits when the selection in the grid changes. */
   @event({ name: 'sl-grid-selection-change' }) selectionChangeEvent!: EventEmitter<SlSelectionChangeEvent<T>>;
-
-  /**
-   * Indicates what type of selection is allowed in the grid.
-   * - `"multiple"`: Multiple rows can be selected, but just by clicking on the selection column.
-   * - `"multiple-row"`: Multiple rows can be selected by clicking anywhere on the row.
-   * - `undefined`: No selection is allowed.
-   */
-  @property({ reflect: true }) selects?: 'multiple' | 'multiple-row';
 
   /** @internal Emits when the state in the grid has changed. */
   @event({ name: 'sl-grid-state-change' }) stateChangeEvent!: EventEmitter<SlStateChangeEvent<T>>;
@@ -374,14 +368,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('scopedElements')) {
       this.#addScopedElements(this.scopedElements);
-    }
-
-    if (changes.has('selects') && this.dataSource) {
-      if (this.selects?.startsWith('multiple')) {
-        this.dataSource.selects = 'multiple';
-      } else {
-        this.dataSource.selects = undefined;
-      }
     }
 
     if (changes.has('ellipsizeText')) {
@@ -656,7 +642,18 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onClickRow(item: ListDataSourceDataItem<T>): void {
-    if (this.selects === 'multiple-row') {
+    if (this.rowAction === 'activate') {
+      this.dataSource?.deselectAll();
+      this.dataSource?.update();
+
+      if (this.activeRow === item.data) {
+        this.activeRow = undefined; // Deselect if the same row is clicked again
+      } else {
+        this.activeRow = item.data;
+      }
+
+      this.activeRowChangeEvent.emit(this.activeRow);
+    } else if (this.rowAction === 'select') {
       this.dataSource?.toggle(item);
       this.dataSource?.update();
     }
@@ -867,11 +864,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onSelectionChange = (): void => {
-    if (this.selects?.startsWith('multiple')) {
-      this.renderRoot
-        .querySelector<HTMLElement>('[part="bulk-actions"]')
-        ?.togglePopover((this.dataSource?.selected ?? 0) > 0);
-    }
+    this.renderRoot
+      .querySelector<HTMLElement>('[part="bulk-actions"]')
+      ?.togglePopover((this.dataSource?.selected ?? 0) > 0);
 
     this.selectionChangeEvent.emit({ grid: this });
   };

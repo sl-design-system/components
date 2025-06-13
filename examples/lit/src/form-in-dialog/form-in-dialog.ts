@@ -64,7 +64,7 @@ export class FormInDialog extends Dialog {
 
   override renderBody(): TemplateResult {
     return html`
-      <sl-form>
+      <sl-form @sl-update-validity=${this.#onUpdateValidity}>
         <sl-form-field label="Type">
           <sl-text-field autofocus name="type" required></sl-text-field>
         </sl-form-field>
@@ -120,5 +120,11 @@ export class FormInDialog extends Dialog {
     if (this.#form.reportValidity()) {
       this.close();
     }
+  }
+
+  #onUpdateValidity(): void {
+    const { rentalPeriodAmount, rentalPeriodUnit, indefinitely } = this.#form.value || {};
+
+    this.invalidRentalPeriod = !indefinitely && (!rentalPeriodAmount || !rentalPeriodUnit);
   }
 }

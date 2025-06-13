@@ -52,6 +52,10 @@ export class NumberField extends LocaleMixin(TextField) {
     }
   }
 
+  override get formValue(): unknown {
+    return super.formValue;
+  }
+
   override set formValue(value: unknown) {
     // If the value is a number, we set it as the valueAsNumber
     if (typeof value === 'number' && !Number.isNaN(value)) {

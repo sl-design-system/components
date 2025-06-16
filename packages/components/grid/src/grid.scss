@@ -44,7 +44,7 @@
   border: none;
 }
 
-:host([selects$='-row']) {
+:host([row-action]) {
   [part~='row'] {
     --_bg-color: transparent;
     --_bg-mix-color: var(--sl-color-background-input-interactive);
@@ -62,6 +62,15 @@
     }
   }
 
+  tr[part~='active'] td:first-of-type::before {
+    background: var(--sl-color-border-selected);
+    content: '';
+    inline-size: var(--sl-size-025);
+    inset: 0 auto 0 0;
+    position: absolute;
+  }
+
+  tr[part~='active'],
   tr[part~='selected'] {
     --_bg-color: var(--sl-color-background-selected-subtlest);
     --_bg-mix-color: var(--sl-color-background-selected-interactive-plain);
@@ -310,18 +319,6 @@ tr {
     }
   }
 
-  &[part~='active'] {
-    --_body-cell-background: var(--sl-color-background-selected-subtle);
-
-    td:first-of-type::before {
-      background: var(--sl-color-border-selected);
-      content: '';
-      inline-size: var(--sl-size-025);
-      inset: 0 auto 0 0;
-      position: absolute;
-    }
-  }
-
   &[part~='selected'] {
     --_body-cell-background: var(--sl-color-background-selected-subtlest);
   }
@@ -478,6 +475,7 @@ a[class^='skip-link'] {
     outline: var(--sl-color-border-focused) solid var(--sl-size-outlineWidth-default);
     outline-offset: var(--sl-size-outlineOffset-default);
     pointer-events: auto;
+    z-index: 2; // the positioning of the skip link is relative to the table, so we need to ensure it is above the table
   }
 
   &:hover {

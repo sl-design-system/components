@@ -30,8 +30,8 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    if (changes.has('grid') && this.grid) {
-      this.grid.selects ??= 'multiple';
+    if (changes.has('grid') && this.grid?.dataSource) {
+      this.grid.dataSource.selects = 'multiple';
     }
 
     if (changes.has('grid') && this.selectAll) {

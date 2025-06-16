@@ -1,5 +1,11 @@
 # @sl-design-system/tool-bar
 
+## 0.0.10
+
+### Patch Changes
+
+- [#2091](https://github.com/sl-design-system/components/pull/2091) [`0fd9ced`](https://github.com/sl-design-system/components/commit/0fd9ced50957e6afee406b2557705fc0ccc886d5) - Fix focus outline clipping when aligned to the end
+
 ## 0.0.9
 
 ### Patch Changes

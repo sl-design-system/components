@@ -36,7 +36,10 @@ export class DialogRef<T = unknown> {
   /** Result passed when closing the dialog */
   #result?: T;
 
-  constructor(dialogElement: Dialog, private ngZone: NgZone) {
+  constructor(
+    dialogElement: Dialog,
+    private ngZone: NgZone
+  ) {
     this.dialogElement = dialogElement;
 
     this.dialogElement.addEventListener('sl-close', () => {
@@ -116,9 +119,16 @@ export class DialogService {
     // Wait for component to render and move content, outside Angular zone to avoid change detection
     this.ngZone.runOutsideAngular(() => {
       setTimeout(() => {
+        // Move all child nodes (including slotted and non-slotted) to the dialog
+        while (hostElement.firstChild) { // TODO: partially working... not working when text-field is not wrapper in form-field for example
+          dialogElement.appendChild(hostElement.firstChild);
+        }
+
         // Move all slotted elements
         const slottedElements = hostElement.querySelectorAll('[slot]');
         slottedElements.forEach((element: Element) => dialogElement.appendChild(element));
+
+        console.log('Slotted elements:', slottedElements);
 
         // Move non-slotted elements
         const nonSlottedElements = Array.from(hostElement.childNodes).filter(
@@ -152,7 +162,7 @@ export class DialogService {
                 componentChangeDetector.markForCheck();
               }
             });
-          }, 50);
+          }, 500);
         });
       });
     });
@@ -169,6 +179,8 @@ export class DialogService {
         dialogElement.parentNode?.removeChild(dialogElement);
       });
     });
+
+    console.log('Dialog opened', dialogRef, config.component, config.data);
 
     return dialogRef;
   }

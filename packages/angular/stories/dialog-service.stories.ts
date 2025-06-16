@@ -1,12 +1,13 @@
+import { CommonModule } from '@angular/common';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, ViewChild } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { provideRouter, withHashLocation } from '@angular/router';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
 import '@sl-design-system/icon/register.js';
-import '@sl-design-system/text-field/register.js';
 import '@sl-design-system/text-area/register.js';
-import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ChangeDetectorRef, ElementRef, Inject, ViewChild } from '@angular/core';
-import { provideRouter, withHashLocation } from '@angular/router';
+import '@sl-design-system/text-field/register.js';
 import { type Meta, StoryFn, applicationConfig, moduleMetadata } from '@storybook/angular';
 import { ButtonComponent } from '../src/button/button.component';
 import { DialogComponent } from '../src/dialog/dialog.component';
@@ -17,7 +18,6 @@ import { TextFieldDirective } from '../src/forms/text-field.directive';
 import { DialogRef, DialogService } from '../src/services/dialog.service';
 import { TextAreaComponent } from '../src/text-area/text-area.component';
 import { TextFieldComponent } from '../src/text-field/text-field.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   standalone: true,
@@ -25,6 +25,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   template: `
     <span slot="title">{{ data.title }}</span>
     <p>{{ data.message }}</p>
+    <div>abcds</div>
     <sl-button (click)="dialogRef.close('cancelled')" slot="primary-actions">Cancel</sl-button>
     <sl-button (click)="dialogRef.close('confirmed')" slot="primary-actions" variant="primary">Confirm</sl-button>
   `
@@ -105,6 +106,9 @@ export class DialogServiceExampleComponent {
   template: `
     <span slot="title">{{ data?.title || 'User Information' }}</span>
     <span slot="subtitle">{{ data?.subtitle || 'Please fill in your details' }}</span>
+
+    <div>This is a text field which is not wrapped by a form-field</div>
+    <sl-text-field [(ngModel)]="formGroup.textField"></sl-text-field>
 
     <sl-form #form>
       <sl-form-field label="Text field">
@@ -198,6 +202,16 @@ export class DialogFormComponent implements AfterViewInit {
     <sl-button (click)="openFormDialog()">Open Form Dialog</sl-button>
 
     <pre>{{ formResult | json }}</pre>
+
+    <sl-form>
+      <sl-form-field label="Text field">
+        <sl-text-field [(ngModel)]="formGroup.textField"></sl-text-field>
+      </sl-form-field>
+
+      <sl-form-field label="Text area">
+        <sl-text-area [(ngModel)]="formGroup.textArea"></sl-text-area>
+      </sl-form-field>
+    </sl-form>
   `
 })
 export class DialogFormExampleComponent {
@@ -240,6 +254,8 @@ export default {
         DialogFormExampleComponent,
         DialogFormComponent,
         DialogFormExampleComponent,
+        FormComponent,
+        FormFieldComponent,
         FormsModule,
         TextFieldComponent,
         TextAreaComponent,

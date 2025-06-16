@@ -66,7 +66,7 @@ export class FormInDialog extends Dialog {
 
   override renderBody(): TemplateResult {
     return html`
-      <sl-form @sl-update-validity=${this.#onUpdateValidity}>
+      <sl-form @sl-update-state=${this.#onUpdateState}>
         <sl-form-field label="Type">
           <sl-text-field autofocus name="type" required></sl-text-field>
         </sl-form-field>
@@ -97,9 +97,6 @@ export class FormInDialog extends Dialog {
               <sl-option value="year">Year</sl-option>
             </sl-select>
           </div>
-          ${this.invalidRentalPeriod && this.#form.showValidity
-            ? html`<sl-error>Please HOHOHOselect a rental period.</sl-error>`
-            : nothing}
         </sl-form-field>
         <sl-form-field class="amount" label="Amount">
           ${this.#form.controls.amount?.dirty
@@ -142,17 +139,17 @@ export class FormInDialog extends Dialog {
     }
   }
 
-  #onUpdateValidity(): void {
+  #onUpdateState(): void {
     const { rentalPeriodAmount, rentalPeriodUnit, indefinitely } = this.#form.value || {};
 
     this.invalidRentalPeriod = !indefinitely && (!rentalPeriodAmount || !rentalPeriodUnit);
 
     if (!rentalPeriodAmount) {
-      // this.#form.controls.rentalPeriodAmount?.setCustomValidity('Rental period amount is required.');
+      this.#form.controls.rentalPeriodAmount?.setCustomValidity('Please enter a rental period amount.');
     }
 
     if (!rentalPeriodUnit) {
-      // this.#form.controls.rentalPeriodUnit?.setCustomValidity('Rental period unit is required.');
+      this.#form.controls.rentalPeriodUnit?.setCustomValidity('Please select a rental period unit.');
     }
   }
 }

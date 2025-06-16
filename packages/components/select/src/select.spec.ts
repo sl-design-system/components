@@ -232,6 +232,19 @@ describe('sl-select', () => {
 
       expect(el.querySelector('sl-option[value="2"]')).to.have.attribute('selected');
     });
+
+    it('should not remove a custom validity error when updating validation', async () => {
+      el.setCustomValidity('Custom error message');
+
+      expect(el.validationMessage).to.equal('Custom error message');
+      expect(el.validity.customError).to.be.true;
+
+      el.required = true; // This triggers an update of the validation state
+      await el.updateComplete;
+
+      expect(el.validationMessage).to.equal('Custom error message');
+      expect(el.validity.customError).to.be.true;
+    });
   });
 
   describe('groups', () => {

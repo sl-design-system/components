@@ -4908,6 +4908,7 @@ __metadata:
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/announcer": "npm:^0.0.4"
     "@sl-design-system/button": "npm:^1.2.4"
     "@sl-design-system/icon": "npm:^1.1.0"
     "@sl-design-system/shared": "npm:^0.8.0"

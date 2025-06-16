@@ -2,6 +2,7 @@ import { type ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js'
 import { Checkbox } from '@sl-design-system/checkbox';
 import { Dialog } from '@sl-design-system/dialog';
 import { Error, Form, FormController, FormField, FormValidationErrors, Label } from '@sl-design-system/form';
+import { Icon } from '@sl-design-system/icon';
 import { Option } from '@sl-design-system/listbox';
 import { NumberField } from '@sl-design-system/number-field';
 import { Select } from '@sl-design-system/select';
@@ -21,6 +22,7 @@ export class FormInDialog extends Dialog {
       'sl-form': Form,
       'sl-form-field': FormField,
       'sl-form-validation-errors': FormValidationErrors,
+      'sl-icon': Icon,
       'sl-label': Label,
       'sl-number-field': NumberField,
       'sl-option': Option,
@@ -76,20 +78,38 @@ export class FormInDialog extends Dialog {
           <sl-checkbox name="indefinitely">Indefinitely</sl-checkbox>
           <div class="container">
             <sl-number-field
+              aria-label="Rental period amount"
               ?disabled=${this.#form.value?.indefinitely}
               name="rentalPeriodAmount"
               placeholder="0"
+              ?required=${!this.#form.value?.indefinitely}
             ></sl-number-field>
-            <sl-select ?disabled=${this.#form.value?.indefinitely} name="rentalPeriodUnit" placeholder="Select unit">
+            <sl-select
+              aria-label="Rental period unit"
+              ?disabled=${this.#form.value?.indefinitely}
+              name="rentalPeriodUnit"
+              placeholder="Select unit"
+              ?required=${!this.#form.value?.indefinitely}
+            >
               <sl-option value="day">Day</sl-option>
               <sl-option value="week">Week</sl-option>
               <sl-option value="month">Month</sl-option>
               <sl-option value="year">Year</sl-option>
             </sl-select>
           </div>
-          ${this.invalidRentalPeriod ? html`<sl-error>Please select a rental period.</sl-error>` : nothing}
+          ${this.invalidRentalPeriod && this.#form.showValidity
+            ? html`<sl-error>Please HOHOHOselect a rental period.</sl-error>`
+            : nothing}
         </sl-form-field>
         <sl-form-field class="amount" label="Amount">
+          ${this.#form.controls.amount?.dirty
+            ? html`
+                <sl-hint>
+                  <sl-icon name="triangle-exclamation-solid"></sl-icon>
+                  The rental amount for <strong>already rented</strong> lockers will remain XX.XX.
+                </sl-hint>
+              `
+            : nothing}
           <sl-number-field
             .formatOptions=${{ style: 'currency', currency: 'EUR' }}
             name="amount"
@@ -126,5 +146,13 @@ export class FormInDialog extends Dialog {
     const { rentalPeriodAmount, rentalPeriodUnit, indefinitely } = this.#form.value || {};
 
     this.invalidRentalPeriod = !indefinitely && (!rentalPeriodAmount || !rentalPeriodUnit);
+
+    if (!rentalPeriodAmount) {
+      // this.#form.controls.rentalPeriodAmount?.setCustomValidity('Rental period amount is required.');
+    }
+
+    if (!rentalPeriodUnit) {
+      // this.#form.controls.rentalPeriodUnit?.setCustomValidity('Rental period unit is required.');
+    }
   }
 }

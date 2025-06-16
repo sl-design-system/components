@@ -217,6 +217,7 @@ export class NumberField extends LocaleMixin(TextField) {
 
     this.valueAsNumber = Math.min(Math.max(value - decrement, this.min ?? -Infinity), this.max ?? Infinity);
     this.#validateInput();
+    this.updateState({ dirty: true });
   }
 
   /** Increases the current value by the `step` amount. */
@@ -225,6 +226,7 @@ export class NumberField extends LocaleMixin(TextField) {
 
     this.valueAsNumber = Math.min(Math.max(value + increment, this.min ?? -Infinity), this.max ?? Infinity);
     this.#validateInput();
+    this.updateState({ dirty: true });
   }
 
   /**
@@ -246,6 +248,7 @@ export class NumberField extends LocaleMixin(TextField) {
   /** @internal */
   override onInput({ target }: Event & { target: HTMLInputElement }): void {
     this.rawValue = target.value;
+    this.updateState({ dirty: true });
   }
 
   /** @internal */

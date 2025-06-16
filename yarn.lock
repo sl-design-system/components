@@ -4881,7 +4881,7 @@ __metadata:
     "@sl-design-system/skeleton": "npm:^1.0.0"
     "@sl-design-system/text-field": "npm:^1.6.4"
     "@sl-design-system/toggle-group": "npm:^0.0.8"
-    "@sl-design-system/tool-bar": "npm:^0.0.9"
+    "@sl-design-system/tool-bar": "npm:^0.0.10"
     "@sl-design-system/tooltip": "npm:^1.1.5"
     lit: "npm:^3.3.0"
   peerDependencies:
@@ -5115,7 +5115,7 @@ __metadata:
     "@open-wc/scoped-elements": "npm:^3.0.5"
     "@sl-design-system/icon": "npm:^1.2.0"
     "@sl-design-system/shared": "npm:^0.8.0"
-    "@sl-design-system/tool-bar": "npm:^0.0.9"
+    "@sl-design-system/tool-bar": "npm:^0.0.10"
   peerDependencies:
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.5
@@ -5404,7 +5404,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/tool-bar@npm:^0.0.9, @sl-design-system/tool-bar@workspace:packages/components/tool-bar":
+"@sl-design-system/tool-bar@npm:^0.0.10, @sl-design-system/tool-bar@workspace:packages/components/tool-bar":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/tool-bar@workspace:packages/components/tool-bar"
   dependencies:

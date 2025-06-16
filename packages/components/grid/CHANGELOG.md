@@ -1,5 +1,20 @@
 # @sl-design-system/grid
 
+## 0.6.0
+
+### Minor Changes
+
+- [#2089](https://github.com/sl-design-system/components/pull/2089) [`5a6de74`](https://github.com/sl-design-system/components/commit/5a6de74b02391e6f625ba54897caa4e20d82a0ab) - This adds a new property `row-action` and removes the `selects` property. Using `row-action="activate"` will now activate the row when clicked, while `row-action="select"` will select the row. The `selects` property is no longer supported.
+
+  You should always have an interactive element inside the row, such as a button or link, to ensure proper accessibility and user experience. Do not rely on just `row-action` for interaction.
+
+### Patch Changes
+
+- [#2094](https://github.com/sl-design-system/components/pull/2094) [`48c7578`](https://github.com/sl-design-system/components/commit/48c7578e932501d4d207f37a41509441e735f595) - Fixes issue where skip links are not visible because they are positioned underneath the grid
+
+- Updated dependencies [[`0fd9ced`](https://github.com/sl-design-system/components/commit/0fd9ced50957e6afee406b2557705fc0ccc886d5)]:
+  - @sl-design-system/tool-bar@0.0.10
+
 ## 0.5.0
 
 ### Minor Changes

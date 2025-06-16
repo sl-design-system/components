@@ -14,6 +14,8 @@ Ensure that tooltips are discoverable and readable using various input methods, 
 Mouse or other pointer devices, keyboard navigation, screen readers, zoom software or any other assistive technology.
 Users with different abilities should be able to access tooltip content seamlessly.
 
+Not all elements are reachable by all screenreaders. A div for example, without any interactions or a role, will not be announced in a special way by the screenreader, so it also has no "stop" to read out the contents of the tooltip. Make sure you test the discoverability of your tooltip in multiple screenreaders when you use a tooltip on an element that doesn't naturally have a tab stop. Read more about this in this [W3C test report](https://w3c.github.io/using-aria/#label-support)
+
 ### Informative but non-essential content
 Tooltips should provide information that enhances the user’s understanding of the UI but is not strictly necessary for operating it.
 Avoid critical information in tooltips, as users relying solely on assistive technologies may miss it.
@@ -21,7 +23,6 @@ Avoid critical information in tooltips, as users relying solely on assistive tec
 ### Non-blocking behavior
 When a tooltip is open, it should not obstruct the user from performing other tasks on the screen.
 Test this behavior across all responsive breakpoints to ensure consistent behavior regardless of screen size.
-
 </section>
 
 <section>

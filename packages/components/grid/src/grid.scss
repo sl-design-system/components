@@ -475,6 +475,7 @@ a[class^='skip-link'] {
     outline: var(--sl-color-border-focused) solid var(--sl-size-outlineWidth-default);
     outline-offset: var(--sl-size-outlineOffset-default);
     pointer-events: auto;
+    z-index: 2; // the positioning of the skip link is relative to the table, so we need to ensure it is above the table
   }
 
   &:hover {

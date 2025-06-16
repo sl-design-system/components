@@ -1,5 +1,11 @@
 # @sl-design-system/inline-message
 
+## 2.0.1
+
+### Patch Changes
+
+- [#2090](https://github.com/sl-design-system/components/pull/2090) [`3e73cca`](https://github.com/sl-design-system/components/commit/3e73ccab6c180d43ea9ca25be9009c8b8ddbdbc8) - Fix missing announcer dependency
+
 ## 2.0.0
 
 ### Major Changes

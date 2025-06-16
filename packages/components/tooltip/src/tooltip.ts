@@ -118,13 +118,33 @@ export class Tooltip extends LitElement {
     );
   };
 
+  #getParentsUntil = (el: Element, selector: string) => {
+    const parents: Element[] = [];
+    let _el = el.parentNode as HTMLElement | null;
+    while (_el && typeof _el.matches === 'function') {
+      parents.unshift(_el);
+      if (_el.matches(selector)) return parents;
+      else _el = _el.parentNode as HTMLElement | null;
+    }
+    return [];
+  };
+
   #onHide = (event: Event): void => {
     let toTooltip = false;
     let fromTooltip = false;
+    let toChild = false;
     if (event instanceof PointerEvent) {
       toTooltip = (event.relatedTarget as Element)?.nodeName === 'SL-TOOLTIP';
       fromTooltip =
         (event.target as Element)?.nodeName === 'SL-TOOLTIP' && !this.#matchesAnchor(event.relatedTarget as Element);
+      toChild =
+        this.#getParentsUntil(
+          event.relatedTarget as Element,
+          "[aria-describedby='" + this.id + "'],[aria-labelledby='" + this.id + "']"
+        ).length > 0;
+    }
+    if (toChild) {
+      return;
     }
     if ((this.#matchesAnchor(event.target as Element) && !toTooltip) || fromTooltip) {
       this.hidePopover();

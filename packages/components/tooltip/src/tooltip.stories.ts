@@ -115,6 +115,27 @@ export const Shared: Story = {
   }
 };
 
+export const NestedChildren: Story = {
+  args: {
+    example: ({ message }) => html`
+      <div
+        style="border: 1px solid black; padding: 20px; margin: 20px"
+        aria-describedby="task-details-not-available-tooltip"
+      >
+        <sl-button aria-describedby="tooltip"> Some button </sl-button>
+        <p>
+          lorem ipsum, Lorem ipsum dolor sit amet, lorem eiusmod eu minim commodo labore fugiat tempor enim consectetur
+          qui elit reprehenderit do labore sit. Irure fugiat proident laborum velit est et.
+        </p>
+
+        <sl-button> Some button </sl-button>
+      </div>
+      <sl-tooltip id="task-details-not-available-tooltip"> There are no results of the planned tasks </sl-tooltip>
+      <sl-tooltip id="tooltip">${message}</sl-tooltip>
+    `
+  }
+};
+
 export const All: Story = {
   render: () => {
     setTimeout(() => {

@@ -11,7 +11,7 @@ The release notes are ordered by the date the release was made. From latest, to 
 
 ## Bug fixes
 - [`inline-message`](https://github.com/sl-design-system/components/blob/main/packages/components/inline-message/CHANGELOG.md#201) adds a missing dependency on `@sl-design-system/announcer`
-- [`tool-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/tool-bar/CHANGELOG.md#0010) fixes a bug where the focus outline of any buttons was cut-off when it was aligned to the right
+- [`tool-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/tool-bar/CHANGELOG.md#0010) fixes a bug where the focus outline of buttons was cut-off when it was aligned to the right
 
 # June 11, 2025
 

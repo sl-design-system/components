@@ -118,13 +118,13 @@ export class Tooltip extends LitElement {
     );
   };
 
-  #getParentsUntil = (el: Element, selector: string) => {
+  #getParentsUntil = (element: Element, selector: string) => {
     const parents: Element[] = [];
-    let _el = el?.parentNode as HTMLElement | null;
-    while (_el && typeof _el.matches === 'function') {
-      parents.unshift(_el);
-      if (_el.matches(selector)) return parents;
-      else _el = _el.parentNode as HTMLElement | null;
+    let parent = element?.parentNode as HTMLElement | null;
+    while (parent && typeof parent.matches === 'function') {
+      parents.unshift(parent);
+      if (parent.matches(selector)) return parents;
+      else parent = parent.parentNode as HTMLElement | null;
     }
     return [];
   };

@@ -119,22 +119,32 @@ export const Shared: Story = {
 export const NestedChildren: Story = {
   args: {
     example: ({ message }) => html`
+      This example is not necessarily a good practice, but it shows that the tooltip can be used on an element that has
+      many (interactive) child elements.
       <div
         style="border: 1px solid black; padding: 20px; margin: 20px"
         aria-describedby="task-details-not-available-tooltip"
+        @click=${(e: MouseEvent) => console.log('Div clicked', e)}
+        tabindex="0"
       >
         <sl-button aria-describedby="tooltip"> Some button </sl-button>
+        <p>The div has a tooltip attached, hovering over the child elements will not cause the tooltip to dissapear.</p>
         <p>
-          lorem ipsum, Lorem ipsum dolor sit amet, lorem eiusmod eu minim commodo labore fugiat tempor enim consectetur
-          qui elit reprehenderit do labore sit. Irure fugiat proident laborum velit est et.
+          Please beware when using the tooltip in a similar scenario: Not all elements are reachable by all
+          screenreaders. A div for example, without any interactions or a role, will not be announced in a special way
+          by the screenreader, so it also has no "stop" to read out the contents of the tooltip.
         </p>
-
-        <sl-button> Some button </sl-button>
+        <p>
+          Tooltips will be shown for user using keyboard navigation when the element has focus. That means you can only
+          use tooltips on elements that are focusable, like buttons or links. If the element you want to describe can
+          not have the focus you will need to use something like an info button that will show the tooltip.
+          <sl-button> Some button </sl-button>
+        </p>
       </div>
       <sl-button aria-label="Look" fill="outline" aria-describedby="tooltip">
         <sl-icon name="eye"></sl-icon>
       </sl-button>
-      <sl-tooltip id="task-details-not-available-tooltip"> There are no results of the planned tasks </sl-tooltip>
+      <sl-tooltip id="task-details-not-available-tooltip"> Tooltip on the div </sl-tooltip>
       <sl-tooltip id="tooltip">${message}</sl-tooltip>
     `
   }

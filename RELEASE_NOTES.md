@@ -4,6 +4,15 @@ This is a collection of release notes for the SL Design System. Each release not
 
 The release notes are ordered by the date the release was made. From latest, to oldest.
 
+# June 16, 2025
+
+## New features
+- [`grid`](https://github.com/sl-design-system/components/blob/main/packages/components/grid/CHANGELOG.md#060) adds a new `row-action` property and removes the `selects` property. Using `row-action="activate"` will now activate the row when clicked, while `row-action="select"` will select the row. The `selects` property is no longer supported. You should always have an interactive element inside the row, such as a button or link, to ensure proper accessibility and user experience. Do not rely on just `row-action` for interaction.
+
+## Bug fixes
+- [`inline-message`](https://github.com/sl-design-system/components/blob/main/packages/components/inline-message/CHANGELOG.md#201) adds a missing dependency on `@sl-design-system/announcer`
+- [`tool-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/tool-bar/CHANGELOG.md#0010) fixes a bug where the focus outline of buttons was cut-off when it was aligned to the right
+
 # June 11, 2025
 
 This release features major improvements to the `<sl-grid>` component, including new features and bug fixes. Some highlights include:

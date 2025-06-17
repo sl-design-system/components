@@ -1,6 +1,7 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/dialog/register.js';
+import '@sl-design-system/icon/register.js';
 import '@sl-design-system/spinner/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
@@ -130,6 +131,9 @@ export const NestedChildren: Story = {
 
         <sl-button> Some button </sl-button>
       </div>
+      <sl-button aria-label="Look" fill="outline" aria-describedby="tooltip">
+        <sl-icon name="eye"></sl-icon>
+      </sl-button>
       <sl-tooltip id="task-details-not-available-tooltip"> There are no results of the planned tasks </sl-tooltip>
       <sl-tooltip id="tooltip">${message}</sl-tooltip>
     `

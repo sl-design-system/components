@@ -120,7 +120,7 @@ export class Tooltip extends LitElement {
 
   #getParentsUntil = (el: Element, selector: string) => {
     const parents: Element[] = [];
-    let _el = el.parentNode as HTMLElement | null;
+    let _el = el?.parentNode as HTMLElement | null;
     while (_el && typeof _el.matches === 'function') {
       parents.unshift(_el);
       if (_el.matches(selector)) return parents;

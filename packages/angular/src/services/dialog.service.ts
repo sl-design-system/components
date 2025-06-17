@@ -43,7 +43,7 @@ export class DialogRef<T = unknown> {
     this.dialogElement = dialogElement;
 
     this.dialogElement.addEventListener('sl-close', () => {
-      setTimeout(() => {
+      requestAnimationFrame(() => {
         this.ngZone.run(() => {
           if (this.#manualClose) {
             this.#afterClosedSubject.next(this.#result);
@@ -104,8 +104,10 @@ export class DialogService {
 
     // Create a component and get a reference to its ChangeDetectorRef
     const componentRef = this.#createComponent<T, R>(config.component, config.data, dialogRef);
-    const hostElement = componentRef.location.nativeElement;
+    const hostElement = componentRef.location.nativeElement as HTMLElement;
     const componentChangeDetector = componentRef.injector.get(ChangeDetectorRef, null);
+
+    console.log('componentRef.location', componentRef.location);
 
     // Add dialog to the DOM first, while hidden
     document.body.appendChild(dialogElement);
@@ -116,11 +118,14 @@ export class DialogService {
     document.body.appendChild(tempDiv);
     tempDiv.appendChild(hostElement);
 
-    // Wait for component to render and move content, outside Angular zone to avoid change detection
+    // Wait for the component to render and move content, outside Angular zone to avoid change detection
     this.ngZone.runOutsideAngular(() => {
-      setTimeout(() => {
+      requestAnimationFrame(() => {
         // Move all child nodes (including slotted and non-slotted) to the dialog
+        // TODO: bug here in the console?
         while (hostElement.firstChild) { // TODO: partially working... not working when text-field is not wrapper in form-field for example
+          console.log('hostElement.firstChild', hostElement.firstChild);
+
           dialogElement.appendChild(hostElement.firstChild);
         }
 
@@ -132,7 +137,7 @@ export class DialogService {
 
         // Move non-slotted elements
         const nonSlottedElements = Array.from(hostElement.childNodes).filter(
-          (node): node is Node => !(node instanceof Element) || !node.hasAttribute('slot')
+          (node): node is ChildNode => !(node instanceof Element) || !node.hasAttribute('slot')
         );
 
         nonSlottedElements.forEach(node => dialogElement.appendChild(node));
@@ -149,21 +154,22 @@ export class DialogService {
         dialogElement.getBoundingClientRect();
 
         // Wait for the next animation frame to ensure the dialog is positioned
-        requestAnimationFrame(() => {
+      //  requestAnimationFrame(() => {
           dialogElement.style.transition = 'opacity 0.15s ease';
 
           // Small additional delay to ensure all internal dialog positioning is complete
-          setTimeout(() => {
+         // setTimeout(() => {
             dialogElement.style.visibility = 'visible';
             dialogElement.style.opacity = '1';
 
             this.ngZone.run(() => {
               if (componentChangeDetector) {
+                console.log('componentChangeDetector', componentChangeDetector);
                 componentChangeDetector.markForCheck();
               }
             });
-          }, 500);
-        });
+         // }, 50);
+       // });
       });
     });
 

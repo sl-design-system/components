@@ -25,7 +25,7 @@ import { TextFieldComponent } from '../src/text-field/text-field.component';
   template: `
     <span slot="title">{{ data.title }}</span>
     <p>{{ data.message }}</p>
-    <div>abcds</div>
+    <div>Example content.</div>
     <sl-button (click)="dialogRef.close('cancelled')" slot="primary-actions">Cancel</sl-button>
     <sl-button (click)="dialogRef.close('confirmed')" slot="primary-actions" variant="primary">Confirm</sl-button>
   `
@@ -104,11 +104,11 @@ export class DialogServiceExampleComponent {
     TextFieldDirective
   ],
   template: `
-    <span slot="title">{{ data?.title || 'User Information' }}</span>
-    <span slot="subtitle">{{ data?.subtitle || 'Please fill in your details' }}</span>
+    <span slot="title">{{ data.title }}</span>
+    <span>{{ data.details }}</span>
 
-    <div>This is a text field which is not wrapped by a form-field</div>
-    <sl-text-field [(ngModel)]="formGroup.textField"></sl-text-field>
+<!--    <div>This is a text field which is not wrapped by a form-field</div>
+    <sl-text-field [(ngModel)]="formGroup.textField"></sl-text-field>-->
 
     <sl-form #form>
       <sl-form-field label="Text field">
@@ -116,7 +116,7 @@ export class DialogServiceExampleComponent {
       </sl-form-field>
 
       <sl-form-field label="Text area">
-        <sl-text-area [(ngModel)]="formGroup.textArea" required></sl-text-area>
+        <sl-text-area [(ngModel)]="formGroup.textArea"></sl-text-area>
       </sl-form-field>
     </sl-form>
 
@@ -129,17 +129,29 @@ export class DialogServiceExampleComponent {
         width: 100%;
       }
 
+      ::part(body) {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      [part='body'] {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
       sl-form-field {
         display: block;
         margin-bottom: 16px;
       }
     `
   ]
-})
+}) // TODO: styling part body is not working, why??
 export class DialogFormComponent implements AfterViewInit {
   constructor(
     public dialogRef: DialogRef,
-    @Inject('DIALOG_DATA') public data: any,
+    @Inject('DIALOG_DATA') public data: { title: string; details: string },
     private elementRef: ElementRef,
     private cdr: ChangeDetectorRef
   ) {}
@@ -197,21 +209,11 @@ export class DialogFormComponent implements AfterViewInit {
   standalone: true,
   imports: [CommonModule, ButtonComponent],
   template: `
-    <h3>Dialog Service Form Example</h3>
+    <h3>Dialog Service with form example</h3>
     <p>Open a dialog with a form inside using the DialogService.</p>
     <sl-button (click)="openFormDialog()">Open Form Dialog</sl-button>
 
     <pre>{{ formResult | json }}</pre>
-
-    <sl-form>
-      <sl-form-field label="Text field">
-        <sl-text-field [(ngModel)]="formGroup.textField"></sl-text-field>
-      </sl-form-field>
-
-      <sl-form-field label="Text area">
-        <sl-text-area [(ngModel)]="formGroup.textArea"></sl-text-area>
-      </sl-form-field>
-    </sl-form>
   `
 })
 export class DialogFormExampleComponent {
@@ -223,13 +225,13 @@ export class DialogFormExampleComponent {
     const dialogRef = this.dialogService.showModal<DialogFormComponent, any>({
       component: DialogFormComponent,
       data: {
-        title: 'User Information Form',
-        subtitle: 'Please enter your details below'
+        title: 'Form in a dialog',
+        details: 'This is a short description of the form dialog.'
       },
       closeButton: true
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe(result => {
       if (result) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         this.formResult = result;

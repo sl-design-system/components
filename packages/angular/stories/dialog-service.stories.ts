@@ -1,6 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, ViewChild } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+  type AbstractControl,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  type ValidationErrors
+} from "@angular/forms";
 import { provideRouter, withHashLocation } from '@angular/router';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
@@ -91,6 +98,7 @@ export class DialogServiceExampleComponent {
 @Component({
   selector: 'sla-dialog-form',
   standalone: true,
+  encapsulation: ViewEncapsulation.None,
   imports: [
     CommonModule,
     ButtonComponent,
@@ -107,8 +115,8 @@ export class DialogServiceExampleComponent {
     <span slot="title">{{ data.title }}</span>
     <span>{{ data.details }}</span>
 
-<!--    <div>This is a text field which is not wrapped by a form-field</div>
-    <sl-text-field [(ngModel)]="formGroup.textField"></sl-text-field>-->
+    <div>This is a text field which is not wrapped by a form-field</div>
+    <sl-text-field [(ngModel)]="formGroup.textField"></sl-text-field>
 
     <sl-form #form>
       <sl-form-field label="Text field">
@@ -118,6 +126,8 @@ export class DialogServiceExampleComponent {
       <sl-form-field label="Text area">
         <sl-text-area [(ngModel)]="formGroup.textArea"></sl-text-area>
       </sl-form-field>
+
+      <sl-form-validation-errors [controller]="form"></sl-form-validation-errors>
     </sl-form>
 
     <sl-button slot="primary-actions" (click)="dialogRef.close()">Cancel</sl-button>
@@ -126,24 +136,13 @@ export class DialogServiceExampleComponent {
   styles: [
     `
       sl-form {
-        width: 100%;
+        padding-block: var(--sl-size-100);
       }
 
-      ::part(body) {
+      sl-dialog::part(body) {
         display: flex;
         flex-direction: column;
         gap: 1rem;
-      }
-
-      [part='body'] {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-      }
-
-      sl-form-field {
-        display: block;
-        margin-bottom: 16px;
       }
     `
   ]
@@ -158,10 +157,35 @@ export class DialogFormComponent implements AfterViewInit {
 
   @ViewChild('form') form!: FormComponent;
 
-  formGroup = {
-    textField: '',
-    textArea: ''
+  // formGroup = {
+  //   textField: '',
+  //   textArea: ''
+  // };
+
+  showValidity = false;
+
+  customUsernameValidator = (control: AbstractControl): ValidationErrors | null => {
+    return control.touched && control.value !== 'admin' ? { invalidUsername: true } : null;
   };
+
+  formGroup = new FormGroup(
+    {
+      textField: new FormControl('', this.customUsernameValidator), // TODO: just required?
+      textArea: new FormControl('')
+    },
+    (control: AbstractControl): ValidationErrors | null => {
+      const username = control.get('username'),
+        password = control.get('password');
+
+      if (username?.errors || password?.errors) {
+        return null;
+      } else if (username?.value !== 'admin' || password?.value !== 'admin') {
+        return { invalidCredentials: true };
+      }
+
+      return null;
+    }
+  );
 
   ngAfterViewInit(): void {
     // Force change detection after view init to ensure components render
@@ -171,7 +195,7 @@ export class DialogFormComponent implements AfterViewInit {
   }
 
   submitForm() {
-    /*setTimeout(() => {
+    setTimeout(() => {
       // const formData = {
       //   firstname: (
       //     this.dialogRef.dialogElement.querySelector('sl-text-field[name=firstname]') as unknown as TextFieldComponent
@@ -196,12 +220,24 @@ export class DialogFormComponent implements AfterViewInit {
 
       console.log('Form values:', this.formGroup, 'fooorm', this.form);
 
-      this.dialogRef.close(this.form.value);
-    }, 300);*/
+      // this.dialogRef.close(this.form.value);
+    }, 300);
 
-    console.log('Form values:', this.formGroup);
-    this.dialogRef.close(this.formGroup);
+    if (this.formGroup.invalid) {
+      this.form.el.reportValidity();
+      this.showValidity = this.form.el.showValidity;
+    } else {
+      this.dialogRef.close(this.formGroup);
+    }
+
+    console.log('Form values:', this.formGroup, this.formGroup.invalid);
+    // this.dialogRef.close(this.formGroup);
   }
+}
+
+interface DialogFormResult {
+  textField: string;
+  textArea: string;
 }
 
 @Component({
@@ -217,12 +253,15 @@ export class DialogFormComponent implements AfterViewInit {
   `
 })
 export class DialogFormExampleComponent {
-  formResult = null;
+  formResult: DialogFormResult = {
+    textField: '',
+    textArea: ''
+  };
 
   constructor(public dialogService: DialogService) {}
 
   openFormDialog(): void {
-    const dialogRef = this.dialogService.showModal<DialogFormComponent, any>({
+    const dialogRef = this.dialogService.showModal<DialogFormComponent, DialogFormResult>({
       component: DialogFormComponent,
       data: {
         title: 'Form in a dialog',

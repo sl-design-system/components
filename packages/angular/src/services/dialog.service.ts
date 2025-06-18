@@ -140,6 +140,8 @@ export class DialogService {
           (node): node is ChildNode => !(node instanceof Element) || !node.hasAttribute('slot')
         );
 
+        console.log('nonSlottedElements', nonSlottedElements);
+
         nonSlottedElements.forEach(node => dialogElement.appendChild(node));
 
         // Clean up temporary container
@@ -241,3 +243,4 @@ export class DialogService {
 
 // TODO: dialog mobile still have close button? should not?
 // TODO: check whether styling eg part="dialog" max-inline-size will work with the dialog service? if not, improve it...
+// TODO: part styling is working without encapsulation, but not with encapsulation. Maybe we should use ::ng-deep for dialog service? Or just `ViewEncapsulation.None` should be enough?

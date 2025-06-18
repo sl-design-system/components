@@ -49,6 +49,9 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   /** The error element. */
   #error?: Error;
 
+  /** A record of all error elements, with the form control id as key. */
+  #errors: Record<string, Error> = {};
+
   /** The hint element. */
   #hint?: Hint;
 
@@ -112,26 +115,35 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (!this.#customError) {
-      if (changes.has('error')) {
-        if (this.error) {
-          this.#error ??= this.shadowRoot?.createElement('sl-error') as Error;
-          this.#error.innerText = this.error;
+    if (!this.#customError && changes.has('errors')) {
+      const errors = Object.entries(this.errors).filter((error): error is [string, string] => !!error[0] && !!error[1]);
 
-          if (!this.#error.parentElement) {
-            this.prepend(this.#error);
-          }
-        } else {
-          const describedby = this.control?.formControlElement.getAttribute('aria-describedby');
+      // Remove any errors that are no longer present
+      Object.entries(this.#errors)
+        .filter(([id]) => !errors.find(([errorId]) => errorId === id))
+        .forEach(([id, error]) => {
+          error.remove();
+          delete this.#errors[id];
+
+          // Remove the id from the `aria-describedby` attribute if it exists
+          const control = this.querySelector<HTMLElement & FormControl>(`#${id}`)!,
+            describedby = control.getAttribute('aria-describedby');
           if (describedby) {
-            const ids = describedby.split(' ').filter(id => id !== this.#error!.id);
-            this.control?.formControlElement.setAttribute('aria-describedby', ids.join(' '));
+            const describedByIds = describedby.split(' ').filter(existingId => existingId !== id);
+            control.formControlElement.setAttribute('aria-describedby', describedByIds.join(' '));
           }
+        });
 
-          this.#error?.remove();
-          this.#error = undefined;
+      // Create or update error elements for each error
+      errors.forEach(([id, message]) => {
+        const error = (this.#errors[id] ??= this.shadowRoot!.createElement('sl-error'));
+        error.for = id;
+        error.innerText = message;
+
+        if (!error.parentElement) {
+          this.prepend(error);
         }
-      }
+      });
     }
 
     if (changes.has('hint')) {
@@ -185,30 +197,46 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   }
 
   #onErrorSlotchange(event: Event & { target: HTMLSlotElement }): void {
-    const assignedElements = event.target.assignedElements({ flatten: true }),
-      error = assignedElements.find((el): el is Error => el instanceof Error);
+    const errors = event.target.assignedElements({ flatten: true }).filter((el): el is Error => el instanceof Error);
 
-    if (error && !this.error) {
-      this.#customError = true;
-    } else if (error) {
-      this.#error = error;
-      this.#error.id ||= `sl-form-field-error-${nextUniqueId++}`;
+    errors.forEach(error => {
+      // Make sure every error has a unique ID
+      error.id ||= `sl-form-field-error-${nextUniqueId++}`;
 
-      if (this.control) {
-        const describedby = this.control.formControlElement.getAttribute('aria-describedby');
-        if (describedby) {
-          const ids = describedby.split(' ');
-          if (!ids.includes(this.#error.id)) {
-            ids.push(this.#error.id);
-            this.control.formControlElement.setAttribute('aria-describedby', ids.join(' '));
-          }
-        } else {
-          this.control.formControlElement.setAttribute('aria-describedby', this.#error.id);
+      const control = error.for ? this.querySelector<HTMLElement & FormControl>(`#${error.for}`) : this.control;
+      if (control) {
+        const describedby = control.formControlElement.getAttribute('aria-describedby'),
+          ids = describedby ? describedby.split(' ') : [];
+
+        // Add the ID of the error to the `aria-describedby` attribute
+        if (!ids.includes(error.id)) {
+          ids.push(error.id);
+          control.formControlElement.setAttribute('aria-describedby', ids.join(' '));
         }
       }
-    } else {
-      this.#label = undefined;
-    }
+    });
+
+    // if (error && !this.error) {
+    //   this.#customError = true;
+    // } else if (error) {
+    //   this.#error = error;
+    //   this.#error.id ||= `sl-form-field-error-${nextUniqueId++}`;
+
+    //   if (this.control) {
+    //     const describedby = this.control.formControlElement.getAttribute('aria-describedby');
+    //     if (describedby) {
+    //       const ids = describedby.split(' ');
+    //       if (!ids.includes(this.#error.id)) {
+    //         ids.push(this.#error.id);
+    //         this.control.formControlElement.setAttribute('aria-describedby', ids.join(' '));
+    //       }
+    //     } else {
+    //       this.control.formControlElement.setAttribute('aria-describedby', this.#error.id);
+    //     }
+    //   }
+    // } else {
+    //   this.#label = undefined;
+    // }
 
     // Trigger a re-render now that we've potentially added or removed the error message.
     this.requestUpdate();
@@ -304,8 +332,8 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   }
 
   #onUpdateValidity(event: SlUpdateValidityEvent): void {
-    if (this.#error && !this.error) {
-      // Do nothing if there is a custom error message slotted
+    if (!event.target.id || (this.#error && !this.error)) {
+      // Do nothing without a DOM id, or if there is a custom error message slotted
       return;
     }
 

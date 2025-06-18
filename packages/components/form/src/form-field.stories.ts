@@ -2,6 +2,7 @@ import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/combobox/register.js';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/listbox/register.js';
+import '@sl-design-system/number-field/register.js';
 import '@sl-design-system/radio-group/register.js';
 import '@sl-design-system/select/register.js';
 import '@sl-design-system/switch/register.js';
@@ -122,6 +123,49 @@ export const Textarea: Story = {
 export const TextField: Story = {
   args: {
     slot: () => html`<sl-text-field required></sl-text-field>`
+  }
+};
+
+export const Composite: Story = {
+  args: {
+    hint: 'This story shows a form field with multiple controls. The controls are arranged in a grid layout. The checkbox is the primary form control here, which means the form field itself is optional. However, if the checkbox is unchecked, the other form controls are required. This effectively means that the form field is required.',
+    slot: () => {
+      const onIndefinitelyChange = (event: Event & { target: HTMLInputElement }): void => {
+        const formField = event.target.closest('sl-form-field')!,
+          rentalPeriodAmount = formField.querySelector('sl-number-field')!,
+          rentalPeriodUnit = formField.querySelector('sl-select')!;
+
+        rentalPeriodAmount.required = rentalPeriodUnit.required = !event.target.checked;
+      };
+
+      return html`
+        <style>
+          sl-form-field::part(wrapper) {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 0 0.5rem;
+          }
+          sl-checkbox,
+          sl-error,
+          sl-hint {
+            grid-column: 1 / -1;
+          }
+        </style>
+        <sl-checkbox @sl-change=${onIndefinitelyChange} name="indefinitely">Indefinitely</sl-checkbox>
+        <sl-number-field
+          aria-label="Rental period amount"
+          name="rentalPeriodAmount"
+          min="1"
+          placeholder="0"
+          required
+        ></sl-number-field>
+        <sl-select aria-label="Rental period unit" name="rentalPeriodUnit" placeholder="Select unit" required>
+          <sl-option value="day">Day</sl-option>
+          <sl-option value="week">Week</sl-option>
+          <sl-option value="month">Month</sl-option>
+        </sl-select>
+      `;
+    }
   }
 };
 

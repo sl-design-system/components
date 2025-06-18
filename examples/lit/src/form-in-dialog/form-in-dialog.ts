@@ -73,30 +73,28 @@ export class FormInDialog extends Dialog {
         <sl-form-field label="Description">
           <sl-text-area name="description"></sl-text-area>
         </sl-form-field>
-        <sl-form-field>
+        <sl-form-field class="rental-period">
           <sl-label mark="required">Rental period</sl-label>
           <sl-checkbox name="indefinitely">Indefinitely</sl-checkbox>
-          <div class="container">
-            <sl-number-field
-              aria-label="Rental period amount"
-              ?disabled=${this.#form.value?.indefinitely}
-              name="rentalPeriodAmount"
-              placeholder="0"
-              ?required=${!this.#form.value?.indefinitely}
-            ></sl-number-field>
-            <sl-select
-              aria-label="Rental period unit"
-              ?disabled=${this.#form.value?.indefinitely}
-              name="rentalPeriodUnit"
-              placeholder="Select unit"
-              ?required=${!this.#form.value?.indefinitely}
-            >
-              <sl-option value="day">Day</sl-option>
-              <sl-option value="week">Week</sl-option>
-              <sl-option value="month">Month</sl-option>
-              <sl-option value="year">Year</sl-option>
-            </sl-select>
-          </div>
+          <sl-number-field
+            aria-label="Rental period amount"
+            ?disabled=${this.#form.value?.indefinitely}
+            name="rentalPeriodAmount"
+            placeholder="0"
+            ?required=${!this.#form.value?.indefinitely}
+          ></sl-number-field>
+          <sl-select
+            aria-label="Rental period unit"
+            ?disabled=${this.#form.value?.indefinitely}
+            name="rentalPeriodUnit"
+            placeholder="Select unit"
+            ?required=${!this.#form.value?.indefinitely}
+          >
+            <sl-option value="day">Day</sl-option>
+            <sl-option value="week">Week</sl-option>
+            <sl-option value="month">Month</sl-option>
+            <sl-option value="year">Year</sl-option>
+          </sl-select>
         </sl-form-field>
         <sl-form-field class="amount" label="Amount">
           ${this.#form.controls.amount?.dirty
@@ -144,11 +142,11 @@ export class FormInDialog extends Dialog {
 
     this.invalidRentalPeriod = !indefinitely && (!rentalPeriodAmount || !rentalPeriodUnit);
 
-    if (!rentalPeriodAmount) {
+    if (!indefinitely && !rentalPeriodAmount) {
       this.#form.controls.rentalPeriodAmount?.setCustomValidity('Please enter a rental period amount.');
     }
 
-    if (!rentalPeriodUnit) {
+    if (!indefinitely && !rentalPeriodUnit) {
       this.#form.controls.rentalPeriodUnit?.setCustomValidity('Please select a rental period unit.');
     }
   }

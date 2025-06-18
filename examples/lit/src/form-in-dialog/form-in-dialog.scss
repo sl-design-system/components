@@ -13,19 +13,22 @@ sl-form-validation-errors {
   grid-column: 1 / -1;
 }
 
+.rental-period::part(wrapper) {
+  display: grid;
+  gap: 0 var(--sl-size-100);
+  grid-template-columns: 1fr 3fr;
+}
+
+sl-checkbox[name='indefinitely'],
+sl-hint,
+sl-error {
+  grid-column: 1 / -1;
+}
+
 .amount {
   grid-column: 1 / 2;
 }
 
 .deposit {
   grid-column: 2 / 3;
-}
-
-.container {
-  display: flex;
-  gap: var(--sl-size-100);
-
-  sl-select {
-    flex: 3;
-  }
 }

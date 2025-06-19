@@ -323,24 +323,14 @@ describe('sl-number-field', () => {
       expect(el.setCustomValidity).to.have.been.calledTwice;
     });
 
-    it('should set a custom validity if valueAsNumber is not a number', async () => {
+    it('should toggle the validation message when the number becomes (in)valid', async () => {
       el.valueAsNumber = NaN;
-      el.focus();
-      await sendKeys({ press: 'Tab' });
-
-      expect(el.validationMessage).to.equal('Please enter a valid number.');
-    });
-
-    it('should reset the custom validity if the value is valid', async () => {
-      el.valueAsNumber = NaN;
-      el.focus();
-      await sendKeys({ press: 'Tab' });
+      await el.updateComplete;
 
       expect(el.validationMessage).to.equal('Please enter a valid number.');
 
       el.focus();
       await sendKeys({ type: '123' });
-      await sendKeys({ press: 'Tab' });
 
       expect(el.validationMessage).to.equal('');
     });

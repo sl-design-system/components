@@ -8,28 +8,31 @@ export class NumberParser {
   }
 
   parse(value: string): number | undefined {
-    if (this.options.style === 'percent') {
+    value = value.trim();
+
+    if (value.length === 0) {
+      return undefined; // Return undefined for empty strings
+    } else if (this.options.style === 'percent') {
       return this.#parseLocalePercentage(value);
     } else if (this.options.style === 'currency' || this.options.style === 'unit') {
       return this.#parseLocaleCurrencyOrUnit(value);
     }
 
-    // Remove non-numeric characters and symbols, except for the decimal point
-    const cleanedValue = value.replace(/[^0-9.,]/g, '');
-
     // Create a NumberFormat object for the specified locale and options
-    const formatter = new Intl.NumberFormat(this.locale, this.options);
-    const parts = formatter.formatToParts(parseFloat(value.replace(/[^0-9.,-]/g, '').replace(',', '.')));
-    const decimalSeparator = parts.find(part => part.type === 'decimal')?.value || '.';
-    const minusSign = parts.find(part => part.type === 'minusSign')?.value;
+    const formatter = new Intl.NumberFormat(this.locale, this.options),
+      parts = formatter.formatToParts(parseFloat(value.replace(/[^0-9.,-]/g, '').replace(',', '.'))),
+      decimalSeparator = parts.find(part => part.type === 'decimal')?.value || '.',
+      minusSign = parts.find(part => part.type === 'minusSign')?.value;
 
     // regex checks if the string is a valid number, optionally including a decimal part and/or starting with a minus sign.
     const isNumber = new RegExp(`^-?\\d+(\\${decimalSeparator}\\d+)?$`);
     if (!isNumber.test(value)) {
-      return undefined;
+      return NaN;
     }
 
-    const normalizedValue = minusSign ? minusSign + cleanedValue : cleanedValue;
+    // Remove non-numeric characters and symbols, except for the decimal point
+    const cleanedValue = value.replace(/[^0-9.,]/g, ''),
+      normalizedValue = minusSign ? minusSign + cleanedValue : cleanedValue;
 
     return parseFloat(normalizedValue.replace(decimalSeparator, '.'));
   }

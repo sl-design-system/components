@@ -3,6 +3,7 @@ import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/combobox/register.js';
 import '@sl-design-system/date-field/register.js';
+import { FormControlMixin } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
 import '@sl-design-system/listbox/register.js';
 import '@sl-design-system/radio-group/register.js';
@@ -11,7 +12,7 @@ import '@sl-design-system/switch/register.js';
 import '@sl-design-system/text-area/register.js';
 import '@sl-design-system/text-field/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
-import { type TemplateResult, html, nothing } from 'lit';
+import { LitElement, type TemplateResult, html, nothing } from 'lit';
 import '../register.js';
 import { type Form } from './form.js';
 
@@ -22,6 +23,21 @@ type Props = Pick<Form, 'disabled' | 'value'> & {
   reportValidity?: boolean;
 };
 type Story = StoryObj<Props>;
+class WordCount extends FormControlMixin(LitElement) {
+  constructor() {
+    super();
+  }
+
+  override render() {
+    return html`<slot></slot>`;
+  }
+  // Element functionality written in here
+  override connectedCallback() {
+    super.connectedCallback();
+    console.log('Custom element added to page.');
+  }
+}
+customElements.define('word-count', WordCount);
 
 export default {
   title: 'Form/Form',
@@ -154,6 +170,18 @@ export const Value: Story = {
     value: {
       textField: 'Hello world'
     }
+  }
+};
+
+export const CustomComponent: Story = {
+  args: {
+    reportValidity: false,
+    fields: ({ disabled }) => html`
+      <sl-form-field hint="Hint text" label="Text field">
+        <sl-text-field ?disabled=${disabled} name="textField" placeholder="Placeholder" required></sl-text-field>
+      </sl-form-field>
+      <word-count>10</word-count>
+    `
   }
 };
 

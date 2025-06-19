@@ -30,6 +30,17 @@ export type SlFormFieldEvent = CustomEvent<{ unregister?(): void }> & { target: 
 
 let nextUniqueId = 0;
 
+/**
+ * A form field component that provides a label, hint, and error message for form controls.
+ * It can be used with any form control that extends the `FormControl` mixin.
+ *
+ * @slot label - The `<sl-label>` element to use as the label for the form control.
+ * @slot hint - The `<sl-hint>` element to use as a hint for the form control.
+ * @slot error - The `<sl-error>` element to use as an error message for the form control.
+ * @slot controls - The form control(s) to associate with this field.
+ * @csspart wrapper - The container for the hint, controls, and error slots.
+ * @csspart controls - The slot that contains the form control(s).
+ */
 export class FormField extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
@@ -128,9 +139,15 @@ export class FormField extends ScopedElementsMixin(LitElement) {
           // Remove the id from the `aria-describedby` attribute if it exists
           const control = this.querySelector<HTMLElement & FormControl>(`#${id}`)!,
             describedby = control.getAttribute('aria-describedby');
+
           if (describedby) {
-            const describedByIds = describedby.split(' ').filter(existingId => existingId !== id);
-            control.formControlElement.setAttribute('aria-describedby', describedByIds.join(' '));
+            const describedByIds = describedby.split(' ').filter(existingId => existingId !== error.id);
+
+            if (describedByIds.length) {
+              control.formControlElement.setAttribute('aria-describedby', describedByIds.join(' '));
+            } else {
+              control.formControlElement.removeAttribute('aria-describedby');
+            }
           }
         });
 
@@ -190,7 +207,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       <slot name="label" @slotchange=${this.#onLabelSlotchange}></slot>
       <div class="wrapper" part="wrapper">
         <slot @slotchange=${this.#onHintSlotchange} name="hint"></slot>
-        <slot @slotchange=${this.#onSlotchange} @sl-update-validity=${this.#onUpdateValidity}></slot>
+        <slot @slotchange=${this.#onSlotchange} @sl-update-validity=${this.#onUpdateValidity} part="controls"></slot>
         <slot @slotchange=${this.#onErrorSlotchange} name="error"></slot>
       </div>
     `;

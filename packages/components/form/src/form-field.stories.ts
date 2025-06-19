@@ -140,14 +140,12 @@ export const Composite: Story = {
 
       return html`
         <style>
-          sl-form-field::part(wrapper) {
+          sl-form-field::part(controls) {
             display: grid;
             grid-template-columns: 1fr 3fr;
             gap: 0 0.5rem;
           }
-          sl-checkbox,
-          sl-error,
-          sl-hint {
+          sl-checkbox {
             grid-column: 1 / -1;
           }
         </style>

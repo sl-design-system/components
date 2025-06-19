@@ -1,5 +1,4 @@
 import { type ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
-import { Checkbox } from '@sl-design-system/checkbox';
 import { Dialog } from '@sl-design-system/dialog';
 import { Error, Form, FormController, FormField, FormValidationErrors, Label } from '@sl-design-system/form';
 import { FormatNumber } from '@sl-design-system/format-number';
@@ -8,6 +7,7 @@ import { InlineMessage } from '@sl-design-system/inline-message';
 import { Option } from '@sl-design-system/listbox';
 import { NumberField } from '@sl-design-system/number-field';
 import { Select } from '@sl-design-system/select';
+import { Switch } from '@sl-design-system/switch';
 import { TextArea } from '@sl-design-system/text-area';
 import { TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
@@ -18,7 +18,6 @@ export class FormInDialog extends Dialog {
   static override get scopedElements(): ScopedElementsMap {
     return {
       ...super.scopedElements,
-      'sl-checkbox': Checkbox,
       'sl-error': Error,
       'sl-form': Form,
       'sl-form-field': FormField,
@@ -30,6 +29,7 @@ export class FormInDialog extends Dialog {
       'sl-number-field': NumberField,
       'sl-option': Option,
       'sl-select': Select,
+      'sl-switch': Switch,
       'sl-text-area': TextArea,
       'sl-text-field': TextField
     };
@@ -75,7 +75,7 @@ export class FormInDialog extends Dialog {
         </sl-form-field>
         <sl-form-field class="rental-period">
           <sl-label mark="required">Rental period</sl-label>
-          <sl-checkbox name="indefinitely">Indefinitely</sl-checkbox>
+          <sl-switch name="indefinitely" reverse>Indefinitely, until the student leaves school.</sl-switch>
           <sl-number-field
             aria-label="Rental period amount"
             ?disabled=${this.#form.value?.indefinitely}
@@ -145,16 +145,16 @@ export class FormInDialog extends Dialog {
   }
 
   #onUpdateState(): void {
-    const { rentalPeriodAmount, rentalPeriodUnit, indefinitely } = this.#form.value || {};
+    const { indefinitely, rentalPeriodAmount, rentalPeriodUnit } = this.#form.value || {};
 
-    if (!indefinitely) {
-      this.#form.controls.rentalPeriodAmount?.setCustomValidity(
-        rentalPeriodAmount ? '' : 'Please enter a rental period amount.'
-      );
+    console.log({ indefinitely, rentalPeriodAmount, rentalPeriodUnit });
 
-      this.#form.controls.rentalPeriodUnit?.setCustomValidity(
-        rentalPeriodUnit ? '' : 'Please select a rental period unit.'
-      );
-    }
+    this.#form.controls.rentalPeriodAmount?.setCustomValidity(
+      indefinitely || rentalPeriodAmount ? '' : 'Please enter a rental period amount.'
+    );
+
+    this.#form.controls.rentalPeriodUnit?.setCustomValidity(
+      indefinitely || rentalPeriodUnit ? '' : 'Please select a rental period unit.'
+    );
   }
 }

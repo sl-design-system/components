@@ -99,6 +99,14 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     listenerScope: (): HTMLElement => this.listbox!
   });
 
+  /**
+   * @internal Since we move the aria-label to the button, we need to proxy it here,
+   * otherwise the `<sl-form-validation-errors>` component will not be able to read it.
+   */
+  override get ariaLabel(): string {
+    return this.button?.getAttribute('aria-label') || '';
+  }
+
   /** The button in the light DOM. */
   button!: SelectButton;
 

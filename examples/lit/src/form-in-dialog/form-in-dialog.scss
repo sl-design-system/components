@@ -14,15 +14,13 @@ sl-inline-message {
   grid-column: 1 / -1;
 }
 
-.rental-period::part(wrapper) {
+.rental-period::part(controls) {
   display: grid;
   gap: 0 var(--sl-size-100);
   grid-template-columns: 1fr 3fr;
 }
 
-sl-checkbox[name='indefinitely'],
-sl-hint,
-sl-error {
+sl-switch {
   grid-column: 1 / -1;
 }
 

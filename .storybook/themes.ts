@@ -162,6 +162,16 @@ export const themes: Theme[] = [
 
       setup();
     }
+  },
+  {
+    id: 'tig',
+    name: 'TIG',
+    fonts: ['https://use.typekit.net/itp5bbb.css'],
+    setup: async () => {
+      const { setup } = await import('@sl-design-system/tig');
+
+      setup();
+    }
   }
 ];
 

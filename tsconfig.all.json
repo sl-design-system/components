@@ -78,6 +78,7 @@
     { "path": "./packages/themes/my-digital-book" },
     { "path": "./packages/themes/neon" },
     { "path": "./packages/themes/sanoma-learning" },
-    { "path": "./packages/themes/teas" }
+    { "path": "./packages/themes/teas" },
+    { "path": "./packages/themes/tig" }
   ]
 }

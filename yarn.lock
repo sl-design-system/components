@@ -5370,6 +5370,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/tig@workspace:packages/themes/tig":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/tig@workspace:packages/themes/tig"
+  dependencies:
+    "@sl-design-system/icon": "npm:1.2.0"
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/toggle-button@npm:^0.0.8, @sl-design-system/toggle-button@workspace:packages/components/toggle-button":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/toggle-button@workspace:packages/components/toggle-button"

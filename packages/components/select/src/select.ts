@@ -227,6 +227,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
     if (changes.has('disabled')) {
       this.button.disabled = this.disabled;
+      this.button.tabIndex = this.disabled ? -1 : 0;
     }
 
     if (changes.has('placeholder')) {

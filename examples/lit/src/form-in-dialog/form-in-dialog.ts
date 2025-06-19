@@ -9,7 +9,6 @@ import { Select } from '@sl-design-system/select';
 import { TextArea } from '@sl-design-system/text-area';
 import { TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
-import { state } from 'lit/decorators.js';
 import styles from './form-in-dialog.scss.js';
 
 export class FormInDialog extends Dialog {
@@ -45,9 +44,6 @@ export class FormInDialog extends Dialog {
     amount: number;
     deposit: number;
   }>(this);
-
-  /** @internal Invalid rental period state. */
-  @state() invalidRentalPeriod?: boolean;
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
@@ -140,14 +136,18 @@ export class FormInDialog extends Dialog {
   #onUpdateState(): void {
     const { rentalPeriodAmount, rentalPeriodUnit, indefinitely } = this.#form.value || {};
 
-    this.invalidRentalPeriod = !indefinitely && (!rentalPeriodAmount || !rentalPeriodUnit);
+    if (!indefinitely) {
+      if (rentalPeriodAmount) {
+        this.#form.controls.rentalPeriodAmount?.setCustomValidity('');
+      } else {
+        this.#form.controls.rentalPeriodAmount?.setCustomValidity('Please enter a rental period amount.');
+      }
 
-    if (!indefinitely && !rentalPeriodAmount) {
-      this.#form.controls.rentalPeriodAmount?.setCustomValidity('Please enter a rental period amount.');
-    }
-
-    if (!indefinitely && !rentalPeriodUnit) {
-      this.#form.controls.rentalPeriodUnit?.setCustomValidity('Please select a rental period unit.');
+      if (rentalPeriodUnit) {
+        this.#form.controls.rentalPeriodUnit?.setCustomValidity('');
+      } else {
+        this.#form.controls.rentalPeriodUnit?.setCustomValidity('Please select a rental period unit.');
+      }
     }
   }
 }

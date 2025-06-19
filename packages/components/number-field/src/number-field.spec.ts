@@ -29,6 +29,18 @@ describe('sl-number-field', () => {
       expect(el).to.have.attribute('disabled');
     });
 
+    it('should not have a placeholder', () => {
+      expect(el.placeholder).to.be.undefined;
+      expect(el.querySelector('input')).to.not.have.attribute('placeholder');
+    });
+
+    it('should have a placeholder when set', async () => {
+      el.placeholder = 'Enter a number';
+      await el.updateComplete;
+
+      expect(el.querySelector('input')).to.have.attribute('placeholder', 'Enter a number');
+    });
+
     it('should not be readonly', () => {
       expect(el).not.to.have.attribute('readonly');
       expect(el.readonly).not.to.be.true;

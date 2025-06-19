@@ -1,5 +1,6 @@
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/combobox/register.js';
+import '@sl-design-system/date-field/register.js';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/listbox/register.js';
 import '@sl-design-system/number-field/register.js';
@@ -84,6 +85,18 @@ export const Combobox: Story = {
   }
 };
 
+export const DateField: Story = {
+  args: {
+    slot: () => html`<sl-date-field required></sl-date-field>`
+  }
+};
+
+export const NumberField: Story = {
+  args: {
+    slot: () => html`<sl-number-field required></sl-number-field>`
+  }
+};
+
 export const RadioGroup: Story = {
   args: {
     slot: () => html`
@@ -114,7 +127,7 @@ export const Switch: Story = {
   }
 };
 
-export const Textarea: Story = {
+export const TextArea: Story = {
   args: {
     slot: () => html`<sl-text-area required></sl-text-area>`
   }

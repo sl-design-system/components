@@ -440,7 +440,7 @@ export class TextField<T extends { toString(): string } = string>
     if (typeof this.placeholder === 'string') {
       input.setAttribute('placeholder', this.placeholder);
     } else {
-      input.setAttribute('placeholder', '');
+      input.removeAttribute('placeholder');
     }
   }
 }

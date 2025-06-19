@@ -88,7 +88,7 @@ describe('sl-text-field', () => {
 
     it('should not have a placeholder', () => {
       expect(el.placeholder).to.be.undefined;
-      expect(input).to.have.attribute('placeholder', '');
+      expect(input).not.to.have.attribute('placeholder');
     });
 
     it('should have a placeholder when set', async () => {
@@ -408,7 +408,7 @@ describe('sl-text-field', () => {
     });
 
     it('should overwrite text field properties except for "type"', () => {
-      expect(input).to.have.attribute('placeholder', '');
+      expect(input).not.to.have.attribute('placeholder');
       expect(input.type).to.equal('color');
     });
   });

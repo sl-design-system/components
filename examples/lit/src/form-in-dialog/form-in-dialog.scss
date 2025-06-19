@@ -3,5 +3,31 @@ dialog {
 }
 
 sl-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   padding-block: var(--sl-size-100);
+}
+
+sl-form-field,
+sl-form-validation-errors,
+sl-inline-message {
+  grid-column: 1 / -1;
+}
+
+.rental-period::part(controls) {
+  display: grid;
+  gap: 0 var(--sl-size-100);
+  grid-template-columns: 1fr 3fr;
+}
+
+sl-switch {
+  grid-column: 1 / -1;
+}
+
+.amount {
+  grid-column: 1 / 2;
+}
+
+.deposit {
+  grid-column: 2 / 3;
 }

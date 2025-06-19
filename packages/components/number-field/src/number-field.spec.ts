@@ -29,6 +29,22 @@ describe('sl-number-field', () => {
       expect(el).to.have.attribute('disabled');
     });
 
+    it('should have a numeric inputmode', () => {
+      expect(el.querySelector('input')).to.have.attribute('inputmode', 'numeric');
+    });
+
+    it('should not have a placeholder', () => {
+      expect(el.placeholder).to.be.undefined;
+      expect(el.querySelector('input')).to.not.have.attribute('placeholder');
+    });
+
+    it('should have a placeholder when set', async () => {
+      el.placeholder = 'Enter a number';
+      await el.updateComplete;
+
+      expect(el.querySelector('input')).to.have.attribute('placeholder', 'Enter a number');
+    });
+
     it('should not be readonly', () => {
       expect(el).not.to.have.attribute('readonly');
       expect(el.readonly).not.to.be.true;
@@ -88,13 +104,51 @@ describe('sl-number-field', () => {
       expect(el.valid).to.be.false;
     });
 
-    it('should have an invalid input', () => {
+    it('should be valid after typing a number', async () => {
+      el.focus();
+      await sendKeys({ type: '1 ' });
+      await el.updateComplete;
+
+      expect(el.valid).to.be.true;
+    });
+
+    it('should be valid after pressing the arrow down key', async () => {
+      el.focus();
+      await sendKeys({ press: 'ArrowDown' });
+      await el.updateComplete;
+
+      expect(el.valid).to.be.true;
+    });
+
+    it('should be valid after pressing the arrow up key', async () => {
+      el.focus();
+      await sendKeys({ press: 'ArrowUp' });
+      await el.updateComplete;
+
+      expect(el.valid).to.be.true;
+    });
+
+    it('should indicate that a value is missing', () => {
+      expect(el.validationMessage).to.equal('Please fill out this field.');
       expect(input.matches(':invalid')).to.be.true;
       expect(input.validity.valid).to.be.false;
       expect(input.validity.valueMissing).to.be.true;
     });
 
-    it('should have a show-validity attribute when reported', async () => {
+    it('should indicate a custom error when the value is not a valid number', async () => {
+      el.focus();
+      await sendKeys({ type: 'asdf' });
+
+      expect(el.validationMessage).to.equal('Please enter a valid number.');
+      expect(input.matches(':invalid')).to.be.true;
+      expect(input.validity.customError).to.be.true;
+      expect(input.validity.valid).to.be.false;
+      expect(input.validity.valueMissing).to.be.false;
+    });
+
+    it('should not have a show-validity attribute until reported', async () => {
+      expect(el).not.to.have.attribute('show-validity');
+
       el.reportValidity();
       await el.updateComplete;
 
@@ -109,14 +163,6 @@ describe('sl-number-field', () => {
       await el.updateComplete;
 
       expect(onUpdateValidity).to.have.been.calledOnce;
-    });
-
-    it('should be valid after typing a number', async () => {
-      el.focus();
-      await sendKeys({ type: '123 ' });
-      await el.updateComplete;
-
-      expect(el.valid).to.equal(true);
     });
   });
 
@@ -268,34 +314,23 @@ describe('sl-number-field', () => {
       el = await fixture(html`<sl-number-field></sl-number-field>`);
     });
 
-    it('should validate the value on blur', async () => {
+    it('should validate the value on input', async () => {
       spy(el, 'setCustomValidity');
 
       el.focus();
-      await sendKeys({ type: 'asdf' });
-      await sendKeys({ press: 'Tab' });
+      await sendKeys({ type: 'as' });
 
-      expect(el.setCustomValidity).to.have.been.calledOnce;
+      expect(el.setCustomValidity).to.have.been.calledTwice;
     });
 
-    it('should set a custom validity if valueAsNumber is not a number', async () => {
+    it('should toggle the validation message when the number becomes (in)valid', async () => {
       el.valueAsNumber = NaN;
-      el.focus();
-      await sendKeys({ press: 'Tab' });
-
-      expect(el.validationMessage).to.equal('Please enter a valid number.');
-    });
-
-    it('should reset the custom validity if the value is valid', async () => {
-      el.valueAsNumber = NaN;
-      el.focus();
-      await sendKeys({ press: 'Tab' });
+      await el.updateComplete;
 
       expect(el.validationMessage).to.equal('Please enter a valid number.');
 
       el.focus();
       await sendKeys({ type: '123' });
-      await sendKeys({ press: 'Tab' });
 
       expect(el.validationMessage).to.equal('');
     });

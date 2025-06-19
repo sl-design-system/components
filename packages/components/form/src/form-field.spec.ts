@@ -112,6 +112,19 @@ describe('sl-form-field', () => {
 
       expect(el.querySelector('sl-error')).to.have.text('Please fill in this field.');
     });
+
+    it('should link the error to the form control', async () => {
+      const input = el.querySelector('input');
+
+      el.querySelector('sl-text-field')?.reportValidity();
+      await el.updateComplete;
+
+      const error = el.querySelector('sl-error');
+
+      expect(error).to.exist;
+      expect(error).to.have.attribute('id');
+      expect(error?.id).to.equal(input?.getAttribute('aria-describedby'));
+    });
   });
 
   describe('composite field', () => {
@@ -128,23 +141,38 @@ describe('sl-form-field', () => {
       `);
     });
 
-    it('should show validation of the first control after calling reportValidity', async () => {
+    it('should show validation for all controls after calling reportValidity', async () => {
       el.querySelector('sl-radio-group')?.reportValidity();
       el.querySelector('sl-text-field')?.reportValidity();
       await el.updateComplete;
 
-      expect(el.querySelector('sl-error')).to.have.text('Please select an option.');
+      const errors = el.querySelectorAll('sl-error');
+      expect(errors).to.have.lengthOf(2);
+      expect(errors[1]).to.have.text('Please select an option.');
+      expect(errors[0]).to.have.text('Please fill in this field.');
     });
 
-    it('should show validation of the second control if the first control is valid after calling reportValidity', async () => {
-      el.querySelector('sl-radio')?.click();
-      await el.updateComplete;
-
+    it('should link the error to the correct form control', async () => {
       el.querySelector('sl-radio-group')?.reportValidity();
       el.querySelector('sl-text-field')?.reportValidity();
       await el.updateComplete;
 
+      const errors = el.querySelectorAll('sl-error');
+      expect(errors).to.have.lengthOf(2);
+      expect(errors[1].id).to.equal(el.querySelector('sl-radio-group')?.getAttribute('aria-describedby'));
+      expect(errors[0].id).to.equal(el.querySelector('sl-text-field input')?.getAttribute('aria-describedby'));
+    });
+
+    it('should remove the error once the control is valid', async () => {
+      el.querySelector('sl-radio-group')?.reportValidity();
+      el.querySelector('sl-text-field')?.reportValidity();
+      await el.updateComplete;
+
+      el.querySelector('sl-radio')?.click();
+      await new Promise(resolve => setTimeout(resolve, 10));
+
       expect(el.querySelector('sl-error')).to.have.text('Please fill in this field.');
+      expect(el.querySelector('sl-radio-group')).not.to.have.attribute('aria-describedby');
     });
   });
 });

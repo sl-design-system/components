@@ -37,6 +37,7 @@ describe('sl-select', () => {
       expect(el).not.to.have.attribute('disabled');
       expect(el.disabled).not.to.be.true;
       expect(button).not.to.have.attribute('disabled');
+      expect(button).to.have.attribute('tabindex', '0');
     });
 
     it('should be disabled when set', async () => {
@@ -46,6 +47,7 @@ describe('sl-select', () => {
       expect(el).to.have.attribute('disabled');
       expect(el.disabled).to.be.true;
       expect(button).to.have.attribute('disabled');
+      expect(button).to.have.attribute('tabindex', '-1');
     });
 
     it('should have a placeholder when set', async () => {

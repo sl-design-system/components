@@ -44,7 +44,7 @@
   border: none;
 }
 
-:host(:where([activatable-row], [selects$='-row'])) {
+:host([row-action]) {
   [part~='row'] {
     --_bg-color: transparent;
     --_bg-mix-color: var(--sl-color-background-input-interactive);
@@ -60,6 +60,14 @@
     &:active {
       --_bg-opacity: var(--sl-opacity-interactive-plain-active);
     }
+  }
+
+  tr[part~='active'] td:first-of-type::before {
+    background: var(--sl-color-border-selected);
+    content: '';
+    inline-size: var(--sl-size-025);
+    inset: 0 auto 0 0;
+    position: absolute;
   }
 
   tr[part~='active'],
@@ -457,6 +465,7 @@ a[class^='skip-link'] {
   inset-inline-start: calc(anchor(left) + var(--sl-size-100));
   opacity: 0;
   padding: var(--sl-size-100) var(--sl-size-200);
+  pointer-events: none;
   position: fixed;
   position-anchor: --table;
   transition: opacity 0.3s ease-in-out;
@@ -465,7 +474,8 @@ a[class^='skip-link'] {
     opacity: 1;
     outline: var(--sl-color-border-focused) solid var(--sl-size-outlineWidth-default);
     outline-offset: var(--sl-size-outlineOffset-default);
-    z-index: 2;
+    pointer-events: auto;
+    z-index: 2; // the positioning of the skip link is relative to the table, so we need to ensure it is above the table
   }
 
   &:hover {
@@ -532,6 +542,7 @@ tfoot {
   /* stylelint-disable-next-line declaration-property-value-no-unknown */
   justify-self: anchor-center;
   margin: 0;
+  max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-800) * 2);
   padding: 0;
   padding-inline-end: var(--sl-size-100);
   position-anchor: --table;
@@ -546,22 +557,17 @@ tfoot {
     margin-inline: auto;
   }
 
-  sl-tool-bar {
-    background: inherit;
-
-    &::part(wrapper) {
-      gap: var(--sl-size-100);
-    }
-  }
-
   span {
     display: inline-flex;
+    flex-shrink: 0;
     margin-inline: var(--sl-size-200);
     padding-block: var(--sl-size-050);
   }
 
-  slot[name='bulk-actions']::slotted(sl-button:first-of-type) {
-    margin-inline-start: var(--sl-size-600);
+  sl-tool-bar {
+    background: inherit;
+    flex: 1 1 0;
+    min-inline-size: 0;
   }
 }
 

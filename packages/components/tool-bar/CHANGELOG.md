@@ -1,5 +1,37 @@
 # @sl-design-system/tool-bar
 
+## 0.0.10
+
+### Patch Changes
+
+- [#2091](https://github.com/sl-design-system/components/pull/2091) [`0fd9ced`](https://github.com/sl-design-system/components/commit/0fd9ced50957e6afee406b2557705fc0ccc886d5) - Fix focus outline clipping when aligned to the end
+
+## 0.0.9
+
+### Patch Changes
+
+- [#2081](https://github.com/sl-design-system/components/pull/2081) [`604dc17`](https://github.com/sl-design-system/components/commit/604dc17be38f77fa099ffc890fcbe8f3768755a6) - Various improvements:
+
+  - Add `ellipsis-vertical` icon to the icon set
+  - Add `inverted` boolean property so the menu button can be inverted
+  - Fix overflow calculation so we never have an unnecessary menu button
+  - Fix 1 too many horizontal divider in the menu
+  - Fix missing menu item label for icon only buttons with tooltip
+
+- [#1998](https://github.com/sl-design-system/components/pull/1998) [`4943f52`](https://github.com/sl-design-system/components/commit/4943f5217ec0d2ba4a1902c2841daa729b6426bd) - Fixes incorrect margin when menu button is visible
+
+- [#1975](https://github.com/sl-design-system/components/pull/1975) [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664) - Improve styling for use within grid
+
+- [#2036](https://github.com/sl-design-system/components/pull/2036) [`b411a41`](https://github.com/sl-design-system/components/commit/b411a415b496b0ca15677b58ca41c7d770833b6e) - Improved translations by using `id` to prevent unnecessary overwriting, which will also help with adding translations in more languages in the future.
+
+- [#2034](https://github.com/sl-design-system/components/pull/2034) [`1072075`](https://github.com/sl-design-system/components/commit/1072075e3f1b5f0bf8b07dc1f89fd39b9f7103d0) - Fix console warning when an `<sl-tooltip>` is slotted
+
+- Updated dependencies []:
+  - @sl-design-system/button@1.2.4
+  - @sl-design-system/menu@0.2.4
+  - @sl-design-system/toggle-button@0.0.8
+  - @sl-design-system/toggle-group@0.0.8
+
 ## 0.0.8
 
 ### Patch Changes

@@ -30,6 +30,11 @@ describe('sl-grid', () => {
       await waitForGridToRenderData(el);
     });
 
+    it('should not have the row-action property set', () => {
+      expect(el).not.to.have.attribute('row-action');
+      expect(el.rowAction).to.be.undefined;
+    });
+
     it('should render a table with header and body', () => {
       const table = el.renderRoot.querySelector('table');
 
@@ -56,93 +61,7 @@ describe('sl-grid', () => {
     });
   });
 
-  describe('activatable row', () => {
-    beforeEach(async () => {
-      el = await fixture(html`
-        <sl-grid
-          activatable-row
-          .items=${[
-            { firstName: 'John', lastName: 'Doe' },
-            { firstName: 'Jane', lastName: 'Smith' }
-          ]}
-        >
-          <sl-grid-column path="firstName"></sl-grid-column>
-          <sl-grid-column path="lastName"></sl-grid-column>
-        </sl-grid>
-      `);
-
-      await waitForGridToRenderData(el);
-    });
-
-    it('should not have an active row by default', () => {
-      const activeRow = el.renderRoot.querySelector('[part~="active"]');
-
-      expect(activeRow).to.be.null;
-      expect(el.activeRow).to.be.undefined;
-    });
-
-    it('should toggle the "active" part of the row when clicked', async () => {
-      const firstRow = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr');
-
-      firstRow?.click();
-      await new Promise(resolve => setTimeout(resolve));
-
-      expect(firstRow?.part.contains('active')).to.be.true;
-      expect(el.activeRow).to.equal(el.items?.at(0));
-
-      firstRow?.click();
-      await new Promise(resolve => setTimeout(resolve));
-
-      expect(firstRow?.part.contains('active')).to.be.false;
-      expect(el.activeRow).to.be.undefined;
-    });
-
-    it('should remove the "active" part when another row is clicked', async () => {
-      const [firstRow, secondRow] = el.renderRoot.querySelectorAll<HTMLTableRowElement>('tbody tr');
-
-      firstRow?.click();
-      await new Promise(resolve => setTimeout(resolve));
-
-      expect(firstRow?.part.contains('active')).to.be.true;
-      expect(el.activeRow).to.equal(el.items?.at(0));
-
-      secondRow?.click();
-      await new Promise(resolve => setTimeout(resolve));
-
-      expect(firstRow?.part.contains('active')).to.be.false;
-      expect(secondRow?.part.contains('active')).to.be.true;
-      expect(el.activeRow).to.equal(el.items?.at(1));
-    });
-
-    it('should emit an sl-grid-active-row-change event when the active row changes', async () => {
-      const onActiveRowChange = spy() as SinonSpy<[SlActiveRowChangeEvent], void>;
-
-      el.addEventListener('sl-grid-active-row-change', onActiveRowChange);
-
-      el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr')?.click();
-      await new Promise(resolve => setTimeout(resolve));
-
-      expect(onActiveRowChange).to.have.been.calledOnce;
-      expect(onActiveRowChange.firstCall.args[0].detail.item).to.equal(el.items?.at(0));
-    });
-
-    it('should set the activeRow property to the clicked row item', async () => {
-      el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr')?.click();
-      await new Promise(resolve => setTimeout(resolve));
-
-      expect(el.activeRow).to.equal(el.items?.at(0));
-    });
-
-    it('should add the "active" part to the active row', async () => {
-      el.activeRow = el.items!.at(1);
-      await el.updateComplete;
-
-      const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:last-of-type');
-      expect(row?.part.contains('active')).to.be.true;
-    });
-  });
-
-  describe('selects multiple', () => {
+  describe('multiple select', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-grid
@@ -150,7 +69,6 @@ describe('sl-grid', () => {
             { firstName: 'John', lastName: 'Doe' },
             { firstName: 'Jane', lastName: 'Smith' }
           ]}
-          selects="multiple"
         >
           <sl-grid-selection-column></sl-grid-selection-column>
           <sl-grid-column path="firstName"></sl-grid-column>
@@ -207,18 +125,16 @@ describe('sl-grid', () => {
     });
   });
 
-  describe('activatable row with selects multiple', () => {
+  describe('row action activate', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-grid
-          activatable-row
           .items=${[
             { firstName: 'John', lastName: 'Doe' },
             { firstName: 'Jane', lastName: 'Smith' }
           ]}
-          selects="multiple"
+          row-action="activate"
         >
-          <sl-grid-selection-column></sl-grid-selection-column>
           <sl-grid-column path="firstName"></sl-grid-column>
           <sl-grid-column path="lastName"></sl-grid-column>
         </sl-grid>
@@ -227,41 +143,54 @@ describe('sl-grid', () => {
       await waitForGridToRenderData(el);
     });
 
-    it('should emit an sl-grid-active-row-change event a row is selected', async () => {
+    it('should have the row-action property set to "activate"', () => {
+      expect(el.rowAction).to.equal('activate');
+    });
+
+    it('should not have an active row by default', () => {
+      const activeRow = el.renderRoot.querySelector('[part~="active"]');
+
+      expect(activeRow).to.be.null;
+      expect(el.activeRow).to.be.undefined;
+    });
+
+    it('should add the "active" part to the active row', async () => {
+      el.activeRow = el.items!.at(1);
+      await el.updateComplete;
+
+      const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:last-of-type');
+      expect(row?.part.contains('active')).to.be.true;
+    });
+
+    it('should toggle the "active" part of the row when clicking in the row', async () => {
+      const tbody = el.renderRoot.querySelector('tbody')!;
+
+      tbody.querySelector<HTMLTableRowElement>('tr:last-of-type')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(tbody.querySelector<HTMLTableRowElement>('tr:last-of-type')).to.match('[part~="active"]');
+      expect(el.activeRow).to.deep.equal(el.items!.at(1));
+
+      tbody.querySelector<HTMLTableRowElement>('tr:last-of-type')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(tbody.querySelector<HTMLTableRowElement>('tr:last-of-type')).to.not.match('[part~="active"]');
+      expect(el.activeRow).to.be.undefined;
+    });
+
+    it('should emit an sl-grid-active-row-change event when clicking in the row', async () => {
       const onActiveRowChange = spy() as SinonSpy<[SlActiveRowChangeEvent], void>;
 
       el.addEventListener('sl-grid-active-row-change', onActiveRowChange);
-
-      // Click the first row, last column to activate the row
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
+      el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:last-of-type')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      // Now click the selection column to select the row
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')?.click();
-      await new Promise(resolve => setTimeout(resolve));
-
-      expect(onActiveRowChange).to.have.been.calledTwice;
-      expect(onActiveRowChange.lastCall.args[0].detail.item).to.be.undefined;
-    });
-
-    it('should emit an sl-grid-selection-change event when a row is activated', async () => {
-      const onSelectionChange = spy();
-
-      el.addEventListener('sl-grid-selection-change', onSelectionChange);
-
-      // Click the first row, first column to select the row
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:first-of-type')?.click();
-      await new Promise(resolve => setTimeout(resolve));
-
-      // Now click the last row, last column to activate the row
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:last-of-type td:last-of-type')?.click();
-      await new Promise(resolve => setTimeout(resolve));
-
-      expect(onSelectionChange).to.have.been.calledTwice;
+      expect(onActiveRowChange).to.have.been.calledOnce;
+      expect(onActiveRowChange.firstCall.args[0].detail).to.deep.equal(el.items!.at(1));
     });
   });
 
-  describe('selects multiple row', () => {
+  describe('row action select', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-grid
@@ -269,7 +198,7 @@ describe('sl-grid', () => {
             { firstName: 'John', lastName: 'Doe' },
             { firstName: 'Jane', lastName: 'Smith' }
           ]}
-          selects="multiple-row"
+          row-action="select"
         >
           <sl-grid-selection-column></sl-grid-selection-column>
           <sl-grid-column path="firstName"></sl-grid-column>

@@ -18,6 +18,7 @@ import { Scrollbar } from '@sl-design-system/scrollbar';
 import { type EventEmitter, event, isSafari, positionPopover } from '@sl-design-system/shared';
 import { type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { Skeleton } from '@sl-design-system/skeleton';
+import { ToggleGroup } from '@sl-design-system/toggle-group';
 import { ToolBar } from '@sl-design-system/tool-bar';
 import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing, render } from 'lit';
@@ -77,7 +78,7 @@ export type GridGroupHeaderRenderer = (
 ) => TemplateResult;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type SlActiveRowChangeEvent<T = any> = CustomEvent<{ item?: T }>;
+export type SlActiveRowChangeEvent<T = any> = CustomEvent<T | undefined>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SlDragStartEvent<T = any> = CustomEvent<{ grid: Grid<T>; item: ListDataSourceItem<T> }>;
@@ -116,6 +117,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       'sl-icon': Icon,
       'sl-skeleton': Skeleton,
       'sl-scrollbar': Scrollbar,
+      'sl-toggle-group': ToggleGroup,
       'sl-tool-bar': ToolBar,
       'sl-tooltip': Tooltip
     };
@@ -204,16 +206,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** The virtualizer instance for the grid. */
   #virtualizer?: VirtualizerHostElement[typeof virtualizerRef];
 
-  /**
-   * Indicates whether the user can activate a single row. A user can activate a row by
-   * clicking on it, or using the keyboard. The `activeRow` property will then be set to
-   * the current active row. The data source is not used to keep track of the active row.
-   */
-  @property({ type: Boolean, reflect: true, attribute: 'activatable-row' }) activatableRow?: boolean;
-
-  /**
-   * The current active row. This does not do anything unless the `activatableRow` property is also set.
-   */
+  /** The current active row. */
   @property({ attribute: false }) activeRow?: T;
 
   /** @internal Emits when the active row has changed. */
@@ -234,12 +227,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#dataSource = dataSource;
     this.#dataSource?.addEventListener('sl-update', this.#onDataSourceUpdate);
     this.#dataSource?.addEventListener('sl-selection-change', this.#onSelectionChange);
-
-    // There are multiple ways to set the grid selection. If it's done via the data source,
-    // we need to update the selects property here as well.
-    if (dataSource?.selects === 'multiple') {
-      this.selects ??= 'multiple-row';
-    }
   }
 
   /**
@@ -283,8 +270,19 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** Hide the border around the grid when true. */
   @property({ type: Boolean, reflect: true, attribute: 'no-border' }) noBorder?: boolean;
 
+  /** Hide the skip links. Use when there are not tab stops in the table or the table only has a few rows with limited tab stops. */
+  @property({ type: Boolean, reflect: true, attribute: 'no-skip-links' }) noSkipLinks?: boolean;
+
   /** Hides the border between rows when true. */
   @property({ type: Boolean, reflect: true, attribute: 'no-row-border' }) noRowBorder?: boolean;
+
+  /**
+   * This indicates the behavior when a user clicks on a row. This does not include the selection column.
+   * If you don't want a click on a particular interactive element to trigger this behavior, please
+   * use `preventDefault()` and `stopPropagation()` to stop that from happening.
+   * @default undefined
+   */
+  @property({ reflect: true, attribute: 'row-action' }) rowAction?: 'activate' | 'select';
 
   /**
    * The custom elements used for rendering this grid. This can be used if you want to render
@@ -298,14 +296,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** @internal Emits when the selection in the grid changes. */
   @event({ name: 'sl-grid-selection-change' }) selectionChangeEvent!: EventEmitter<SlSelectionChangeEvent<T>>;
-
-  /**
-   * Indicates what type of selection is allowed in the grid.
-   * - `"multiple"`: Multiple rows can be selected, but just by clicking on the selection column.
-   * - `"multiple-row"`: Multiple rows can be selected by clicking anywhere on the row.
-   * - `undefined`: No selection is allowed.
-   */
-  @property({ reflect: true }) selects?: 'multiple' | 'multiple-row';
 
   /** @internal Emits when the state in the grid has changed. */
   @event({ name: 'sl-grid-state-change' }) stateChangeEvent!: EventEmitter<SlStateChangeEvent<T>>;
@@ -380,14 +370,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       this.#addScopedElements(this.scopedElements);
     }
 
-    if (changes.has('selects') && this.dataSource) {
-      if (this.selects?.startsWith('multiple')) {
-        this.dataSource.selects = 'multiple';
-      } else {
-        this.dataSource.selects = undefined;
-      }
-    }
-
     if (changes.has('ellipsizeText')) {
       this.#headerRows.at(-1)?.forEach(col => (col.ellipsizeText = this.ellipsizeText));
     }
@@ -399,15 +381,19 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       <style>
         ${this.renderStyles()}
       </style>
-      <a
-        id="table-start"
-        href="#table-end"
-        class="skip-link-start"
-        @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'end')}
-        @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'top')}
-      >
-        ${msg('Skip to end of table', { id: 'sl.grid.skipToEndOfTable' })}
-      </a>
+      ${!this.noSkipLinks
+        ? html`
+            <a
+              id="table-start"
+              href="#table-end"
+              class="skip-link-start"
+              @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'end')}
+              @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'top')}
+            >
+              ${msg('Skip to end of table', { id: 'sl.grid.skipToEndOfTable' })}
+            </a>
+          `
+        : nothing}
       <table part="table" aria-rowcount=${this.dataSource?.items.length || 0}>
         <caption></caption>
         <thead
@@ -444,23 +430,29 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             id: 'sl.grid.selectionStatusMessage'
           })}
         </span>
-        <sl-tool-bar no-border>
+        <sl-tool-bar align="end" inverted no-border>
           <slot name="bulk-actions"></slot>
-          <sl-button @click=${this.#onCancelSelection} aria-describedby="tooltip" fill="ghost" variant="inverted">
-            <sl-icon name="xmark"></sl-icon>
-          </sl-button>
-          <sl-tooltip id="tooltip">${msg('Cancel selection', { id: 'sl.grid.cancelSelection' })}</sl-tooltip>
+          <sl-toggle-group>
+            <sl-button @click=${this.#onCancelSelection} aria-describedby="tooltip" fill="ghost" variant="inverted">
+              <sl-icon name="xmark"></sl-icon>
+            </sl-button>
+            <sl-tooltip id="tooltip">${msg('Cancel selection', { id: 'sl.grid.cancelSelection' })}</sl-tooltip>
+          </sl-toggle-group>
         </sl-tool-bar>
       </div>
 
-      <a
-        id="table-end"
-        href="#table-start"
-        class="skip-link-end"
-        @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'bottom')}
-        @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'start')}
-        >${msg('Skip to start of table', { id: 'sl.grid.skipToStartOfTable' })}</a
-      >
+      ${!this.noSkipLinks
+        ? html`
+            <a
+              id="table-end"
+              href="#table-start"
+              class="skip-link-end"
+              @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'bottom')}
+              @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'start')}
+              >${msg('Skip to start of table', { id: 'sl.grid.skipToStartOfTable' })}</a
+            >
+          `
+        : nothing}
     `;
   }
 
@@ -650,14 +642,18 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onClickRow(item: ListDataSourceDataItem<T>): void {
-    if (this.activatableRow) {
-      if (this.dataSource?.selected) {
-        this.dataSource?.deselectAll();
-        this.dataSource?.update();
+    if (this.rowAction === 'activate') {
+      this.dataSource?.deselectAll();
+      this.dataSource?.update();
+
+      if (this.activeRow === item.data) {
+        this.activeRow = undefined; // Deselect if the same row is clicked again
+      } else {
+        this.activeRow = item.data;
       }
 
-      this.#toggleActiveRow(item);
-    } else if (this.selects === 'multiple-row') {
+      this.activeRowChangeEvent.emit(this.activeRow);
+    } else if (this.rowAction === 'select') {
       this.dataSource?.toggle(item);
       this.dataSource?.update();
     }
@@ -868,13 +864,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onSelectionChange = (): void => {
-    this.#toggleActiveRow();
-
-    if (this.selects?.startsWith('multiple')) {
-      this.renderRoot
-        .querySelector<HTMLElement>('[part="bulk-actions"]')
-        ?.togglePopover((this.dataSource?.selected ?? 0) > 0);
-    }
+    this.renderRoot
+      .querySelector<HTMLElement>('[part="bulk-actions"]')
+      ?.togglePopover((this.dataSource?.selected ?? 0) > 0);
 
     this.selectionChangeEvent.emit({ grid: this });
   };
@@ -888,7 +880,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   #onSkipToFocus(e: Event & { target: HTMLSlotElement }, position: 'top' | 'bottom') {
     if (!('anchorName' in document.documentElement.style)) {
-      positionPopover(e.target, position === 'top' ? this.thead : this.tfoot, { position: `${position}-start` });
+      const bottomAnchor = this.tfoot ?? this.tbody.querySelector('tr:last-of-type');
+      positionPopover(e.target, position === 'top' ? this.thead : bottomAnchor, { position: `${position}-start` });
     }
   }
 
@@ -1128,20 +1121,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     if (col instanceof GridFilterColumn) {
       this.#filters = this.#filters.filter(f => f !== col.filterElement);
-    }
-  }
-
-  #toggleActiveRow(item?: ListDataSourceDataItem<T>): void {
-    const emitEvent = this.activeRow !== item?.data;
-
-    if (item?.data && this.activeRow === item?.data) {
-      this.activeRow = undefined;
-    } else {
-      this.activeRow = item?.data;
-    }
-
-    if (emitEvent) {
-      this.activeRowChangeEvent.emit({ item: this.activeRow });
     }
   }
 

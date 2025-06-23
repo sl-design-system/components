@@ -1,4 +1,6 @@
 import { faPlus, faUniversalAccess } from '@fortawesome/pro-regular-svg-icons';
+import '@sl-design-system/avatar/register.js';
+import { Student, getStudents } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
@@ -76,6 +78,20 @@ export default {
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
+
+export const Avatar: Story = {
+  loaders: [async () => ({ students: (await getStudents({ count: 1 })).students })],
+  render: (_, { loaded: { students } }) => {
+    const { fullName, pictureUrl } = (students as Student[]).at(0)!;
+
+    return html`
+      <p>This example shows a <code>size="sm"</code> avatar inside a default size <code>fill="link"</code> button.</p>
+      <sl-button fill="link" variant="primary">
+        <sl-avatar .displayName=${fullName} .pictureUrl=${pictureUrl} size="sm"></sl-avatar>
+      </sl-button>
+    `;
+  }
+};
 
 export const Disabled: Story = {
   args: {

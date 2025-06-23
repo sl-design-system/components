@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/shared",
-  "version": "0.7.2",
+  "version": "0.8.0",
   "description": "Shared code for the SL Design System components",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -43,7 +43,7 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "devDependencies": {
-    "@floating-ui/dom": "^1.7.0",
+    "@floating-ui/dom": "^1.7.1",
     "@open-wc/dedupe-mixin": "^1.4.0",
     "lit": "^3.3.0"
   },

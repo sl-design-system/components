@@ -18,9 +18,9 @@
     }
   },
   "devDependencies": {
-    "@figma-export/cli": "^6.2.0",
-    "@figma-export/output-components-as-svg": "^6.2.0",
-    "@figma-export/transform-svg-with-svgo": "^6.2.1",
+    "@figma-export/cli": "^6.2.2",
+    "@figma-export/output-components-as-svg": "^6.2.2",
+    "@figma-export/transform-svg-with-svgo": "^6.2.2",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
     "@fortawesome/pro-duotone-svg-icons": "^6.7.2",
@@ -39,7 +39,7 @@
     "graphql": "^16.11.0",
     "postcss": "^8.5.4",
     "prettier": "^3.5.3",
-    "sass": "^1.89.0",
+    "sass": "^1.89.2",
     "style-dictionary": "^5.0.0",
     "wireit": "^0.14.12"
   }

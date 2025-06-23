@@ -1,5 +1,22 @@
 # @sl-design-system/panel
 
+## 0.2.2
+
+### Patch Changes
+
+- Updated dependencies [[`0fd9ced`](https://github.com/sl-design-system/components/commit/0fd9ced50957e6afee406b2557705fc0ccc886d5)]:
+  - @sl-design-system/tool-bar@0.0.10
+
+## 0.2.1
+
+### Patch Changes
+
+- [#2036](https://github.com/sl-design-system/components/pull/2036) [`b411a41`](https://github.com/sl-design-system/components/commit/b411a415b496b0ca15677b58ca41c7d770833b6e) - Improved translations by using `id` to prevent unnecessary overwriting, which will also help with adding translations in more languages in the future.
+
+- Updated dependencies [[`604dc17`](https://github.com/sl-design-system/components/commit/604dc17be38f77fa099ffc890fcbe8f3768755a6), [`4943f52`](https://github.com/sl-design-system/components/commit/4943f5217ec0d2ba4a1902c2841daa729b6426bd), [`1072075`](https://github.com/sl-design-system/components/commit/1072075e3f1b5f0bf8b07dc1f89fd39b9f7103d0), [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664), [`b411a41`](https://github.com/sl-design-system/components/commit/b411a415b496b0ca15677b58ca41c7d770833b6e), [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664), [`1072075`](https://github.com/sl-design-system/components/commit/1072075e3f1b5f0bf8b07dc1f89fd39b9f7103d0)]:
+  - @sl-design-system/tool-bar@0.0.9
+  - @sl-design-system/shared@0.8.0
+
 ## 0.2.0
 
 ### Minor Changes

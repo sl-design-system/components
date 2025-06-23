@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/text-area",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Text area component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -38,9 +38,9 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/form": "^1.2.2",
+    "@sl-design-system/form": "^1.2.3",
     "@sl-design-system/icon": "^1.1.0",
-    "@sl-design-system/shared": "^0.7.0"
+    "@sl-design-system/shared": "^0.8.0"
   },
   "devDependencies": {
     "@open-wc/scoped-elements": "^3.0.5"

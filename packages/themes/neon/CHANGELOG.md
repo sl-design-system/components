@@ -1,5 +1,13 @@
 # @sanomalearning/slds-neon
 
+## 0.2.5
+
+### Patch Changes
+
+- [#1975](https://github.com/sl-design-system/components/pull/1975) [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664) - Minor fixes to dark theme colors
+
+- [#2081](https://github.com/sl-design-system/components/pull/2081) [`604dc17`](https://github.com/sl-design-system/components/commit/604dc17be38f77fa099ffc890fcbe8f3768755a6) - Add new `ellipsis-vertical` icon
+
 ## 0.2.4
 
 ### Patch Changes

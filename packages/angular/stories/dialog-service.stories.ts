@@ -1,5 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Inject,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
 import {
   type AbstractControl,
   FormControl,
@@ -7,7 +15,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
   type ValidationErrors
-} from "@angular/forms";
+} from '@angular/forms';
 import { provideRouter, withHashLocation } from '@angular/router';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
@@ -116,7 +124,7 @@ export class DialogServiceExampleComponent {
     <span>{{ data.details }}</span>
 
     <div>This is a text field which is not wrapped by a form-field</div>
-    <sl-text-field [(ngModel)]="formGroup.textField"></sl-text-field>
+    <sl-text-field></sl-text-field>
 
     <sl-form #form>
       <sl-form-field label="Text field">
@@ -146,7 +154,7 @@ export class DialogServiceExampleComponent {
       }
     `
   ]
-}) // TODO: styling part body is not working, why??
+})
 export class DialogFormComponent implements AfterViewInit {
   constructor(
     public dialogRef: DialogRef,
@@ -168,66 +176,73 @@ export class DialogFormComponent implements AfterViewInit {
     return control.touched && control.value !== 'admin' ? { invalidUsername: true } : null;
   };
 
-  formGroup = new FormGroup(
-    {
-      textField: new FormControl('', this.customUsernameValidator), // TODO: just required?
-      textArea: new FormControl('')
-    },
-    (control: AbstractControl): ValidationErrors | null => {
-      const username = control.get('username'),
-        password = control.get('password');
-
-      if (username?.errors || password?.errors) {
-        return null;
-      } else if (username?.value !== 'admin' || password?.value !== 'admin') {
-        return { invalidCredentials: true };
-      }
-
-      return null;
-    }
-  );
+  formGroup = new FormGroup({
+    textField: new FormControl(''), // TODO: just required?
+    textArea: new FormControl('')
+  });
 
   ngAfterViewInit(): void {
     // Force change detection after view init to ensure components render
-    setTimeout(() => {
-      this.cdr.detectChanges();
-    }, 0);
+    // setTimeout(() => {
+    //   this.cdr.detectChanges();
+    // }, 0);
   }
 
   submitForm() {
-    setTimeout(() => {
-      // const formData = {
-      //   firstname: (
-      //     this.dialogRef.dialogElement.querySelector('sl-text-field[name=firstname]') as unknown as TextFieldComponent
-      //   )?.value,
-      //   lastname: (
-      //     this.dialogRef.dialogElement.querySelector('sl-text-field[name=lastname]') as unknown as TextFieldComponent
-      //   )?.value,
-      //   email: (
-      //     this.dialogRef.dialogElement.querySelector('sl-text-field[name=email]') as unknown as TextFieldComponent
-      //   )?.value,
-      //   comments: (
-      //     this.dialogRef.dialogElement.querySelector('sl-text-area[name=comments]') as unknown as TextAreaComponent
-      //   )?.value
-      // };
+    // setTimeout(() => {
+    //   // const formData = {
+    //   //   firstname: (
+    //   //     this.dialogRef.dialogElement.querySelector('sl-text-field[name=firstname]') as unknown as TextFieldComponent
+    //   //   )?.value,
+    //   //   lastname: (
+    //   //     this.dialogRef.dialogElement.querySelector('sl-text-field[name=lastname]') as unknown as TextFieldComponent
+    //   //   )?.value,
+    //   //   email: (
+    //   //     this.dialogRef.dialogElement.querySelector('sl-text-field[name=email]') as unknown as TextFieldComponent
+    //   //   )?.value,
+    //   //   comments: (
+    //   //     this.dialogRef.dialogElement.querySelector('sl-text-area[name=comments]') as unknown as TextAreaComponent
+    //   //   )?.value
+    //   // };
+    //
+    //   console.log(
+    //     'Form submitted with data:',
+    //     this.dialogRef.dialogElement.querySelector('sl-text-field[name=firstname]'),
+    //     this.elementRef.nativeElement,
+    //     this.dialogRef.dialogElement
+    //   );
+    //
+    //   console.log('Form values:', this.formGroup, 'fooorm', this.form);
+    //
+    //   // this.dialogRef.close(this.form.value);
+    // }, 300);
 
-      console.log(
-        'Form submitted with data:',
-        this.dialogRef.dialogElement.querySelector('sl-text-field[name=firstname]'),
-        this.elementRef.nativeElement,
-        this.dialogRef.dialogElement
-      );
+    console.log(
+      'Submitting form...',
+      this.formGroup.invalid,
+      this.formGroup.valid,
+      this.form.valid,
+      this.form,
+      this.form.el.valid
+    );
 
-      console.log('Form values:', this.formGroup, 'fooorm', this.form);
-
-      // this.dialogRef.close(this.form.value);
-    }, 300);
-
-    if (this.formGroup.invalid) {
+    if (!this.form.el.valid) {
       this.form.el.reportValidity();
       this.showValidity = this.form.el.showValidity;
     } else {
+      console.log(
+        'Dialog closed with result:', this.formGroup.controls.textField.value, this.formGroup.controls.textArea, this.form);
       this.dialogRef.close(this.formGroup);
+
+      // this.dialogRef.afterClosed().subscribe(result => {
+      //   // this.lastResult = result;
+      //   console.log(
+      //     'Dialog closed with result:',
+      //     result
+      //     // (result as FormGroup).controls[0].value,
+      //     // (result as FormGroup).controls[1].value
+      //   );
+      // });
     }
 
     console.log('Form values:', this.formGroup, this.formGroup.invalid);
@@ -248,8 +263,6 @@ interface DialogFormResult {
     <h3>Dialog Service with form example</h3>
     <p>Open a dialog with a form inside using the DialogService.</p>
     <sl-button (click)="openFormDialog()">Open Form Dialog</sl-button>
-
-    <pre>{{ formResult | json }}</pre>
   `
 })
 export class DialogFormExampleComponent {
@@ -272,7 +285,6 @@ export class DialogFormExampleComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         this.formResult = result;
       }
     });

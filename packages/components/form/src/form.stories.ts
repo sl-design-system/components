@@ -1,9 +1,9 @@
+import { ScopedElementsMixin } from '@open-wc/scoped-elements/html-element.js';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/combobox/register.js';
 import '@sl-design-system/date-field/register.js';
-import { FormControlMixin } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
 import '@sl-design-system/listbox/register.js';
 import '@sl-design-system/radio-group/register.js';
@@ -23,13 +23,17 @@ type Props = Pick<Form, 'disabled' | 'value'> & {
   reportValidity?: boolean;
 };
 type Story = StoryObj<Props>;
-class WordCount extends FormControlMixin(LitElement) {
+class WordCount extends ScopedElementsMixin(LitElement) {
   constructor() {
     super();
   }
 
   override render() {
-    return html`<slot></slot>`;
+    return html`
+      <sl-form-field label="Text field">
+        <sl-text-field name="textField" required></sl-text-field>
+      </sl-form-field>
+    `;
   }
   // Element functionality written in here
   override connectedCallback() {

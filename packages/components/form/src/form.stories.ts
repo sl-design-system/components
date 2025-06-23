@@ -23,7 +23,7 @@ type Props = Pick<Form, 'disabled' | 'value'> & {
   reportValidity?: boolean;
 };
 type Story = StoryObj<Props>;
-class WordCount extends ScopedElementsMixin(LitElement) {
+class customComponent extends ScopedElementsMixin(LitElement) {
   constructor() {
     super();
   }
@@ -35,13 +35,8 @@ class WordCount extends ScopedElementsMixin(LitElement) {
       </sl-form-field>
     `;
   }
-  // Element functionality written in here
-  override connectedCallback() {
-    super.connectedCallback();
-    console.log('Custom element added to page.');
-  }
 }
-customElements.define('word-count', WordCount);
+customElements.define('custom-component', customComponent);
 
 export default {
   title: 'Form/Form',
@@ -184,7 +179,7 @@ export const CustomComponent: Story = {
       <sl-form-field hint="Hint text" label="Text field">
         <sl-text-field ?disabled=${disabled} name="textField" placeholder="Placeholder" required></sl-text-field>
       </sl-form-field>
-      <word-count>10</word-count>
+      <custom-component></custom-component>
     `
   }
 };

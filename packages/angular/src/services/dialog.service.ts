@@ -6,7 +6,6 @@ import { Observable, Subject } from 'rxjs';
 /**  Utility type to get all public properties from the Dialog, plus 'component' and 'data' additionally. */
 type DialogProps = Omit<
   {
-    // [K in keyof Dialog as Dialog[K] extends Function ? never : K]: Dialog[K];
     [K in keyof Dialog as Dialog[K] extends (...args: unknown[]) => unknown ? never : K]: Dialog[K];
   },
   'component' | 'data'
@@ -19,23 +18,14 @@ export interface DialogConfig<T> extends Partial<DialogProps> {
 
   /** Data to pass to the component */
   data?: unknown;
-
-  // /** Whether to show a close button in the dialog header */
-  // closeButton?: boolean; // TODO: this property should be automatically generateed
-  //
-  // /** Dialog role (default: 'dialog') */
-  // dialogRole?: 'dialog' | 'alertdialog';
-  //
-  // /** Whether to disable cancellation of the dialog */
-  // disableCancel?: boolean;
-} // TODO: maybe some properties in the DialogConfig should be automatically generated from the Dialog component (like component wrappers)? (except component and data?) Maybe use CePassthrough?
+}
 
 /** Helper to assign all config properties to the dialog element */
 const applyDialogProps = (dialog: Dialog, config: DialogConfig<unknown>) => {
   Object.keys(config).forEach(key => {
     if (key !== 'component' && key !== 'data' && key in dialog) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
-      (dialog as any)[key] = (config as any)[key];
+      console.log(`Applying dialog property - ${key} =`, (config as unknown as Record<string, unknown>)[key], config);
+      (dialog as unknown as Record<string, unknown>)[key] = (config as unknown as Record<string, unknown>)[key];
     }
   });
 };
@@ -108,15 +98,6 @@ export class DialogService {
     const dialogElement = document.createElement('sl-dialog');
     applyDialogProps(dialogElement, config);
 
-    // Keep the dialog completely hidden until fully ready
-   // dialogElement.style.visibility = 'hidden';
- //   dialogElement.style.opacity = '0';
-   // dialogElement.style.transition = 'none';
-
-    if (config.closeButton !== undefined) dialogElement.closeButton = config.closeButton;
-    if (config.dialogRole) dialogElement.dialogRole = config.dialogRole;
-    if (config.disableCancel !== undefined) dialogElement.disableCancel = config.disableCancel;
-
     // Create dialog reference with NgZone
     const dialogRef = new DialogRef<R>(dialogElement, this.ngZone);
 
@@ -129,9 +110,7 @@ export class DialogService {
 
     console.log('componentRef.location', componentRef.location);
 
-    // Add dialog to the DOM first, while hidden
     document.body.appendChild(dialogElement);
-    dialogElement.inert = false; // TODO: really necessary here?
 
     // Create a temporary container to render the component
     const tempDiv = document.createElement('div');
@@ -144,47 +123,16 @@ export class DialogService {
         // Move all child nodes (including slotted and non-slotted) to the dialog
         // TODO: bug here in the console?
         while (hostElement.firstChild) {
-          // TODO: partially working... not working when text-field is not wrapper in form-field for example
           console.log('hostElement.firstChild', hostElement.firstChild);
 
           dialogElement.appendChild(hostElement.firstChild);
         }
 
-        // TODO: maybe slotted and nonslotted are no longer necessaery? This one above should be enough??? check...
-        // Move all slotted elements
-        const slottedElements = hostElement.querySelectorAll('[slot]');
-        slottedElements.forEach((element: Element) => dialogElement.appendChild(element));
-
-        console.log('Slotted elements:', slottedElements);
-
-        // Move non-slotted elements
-        const nonSlottedElements = Array.from(hostElement.childNodes).filter(
-          (node): node is ChildNode => !(node instanceof Element) || !node.hasAttribute('slot')
-        );
-
-        console.log('nonSlottedElements', nonSlottedElements);
-
-        nonSlottedElements.forEach(node => dialogElement.appendChild(node));
-
         // Clean up temporary container
         document.body.removeChild(tempDiv);
 
-        dialogElement.getBoundingClientRect();
-
         // Call showModal while still invisible to position the dialog
         dialogElement.showModal();
-
-        // Force another layout calculation after showModal
-        dialogElement.getBoundingClientRect();
-
-        // Wait for the next animation frame to ensure the dialog is positioned
-        //  requestAnimationFrame(() => {
-      //  dialogElement.style.transition = 'opacity 0.15s ease';
-
-        // Small additional delay to ensure all internal dialog positioning is complete
-        // setTimeout(() => {
-      //  dialogElement.style.visibility = 'visible';
-      //  dialogElement.style.opacity = '1';
 
         this.ngZone.run(() => {
           if (componentChangeDetector) {
@@ -192,8 +140,6 @@ export class DialogService {
             componentChangeDetector.markForCheck();
           }
         });
-        // }, 50);
-        // });
       });
     });
 
@@ -259,10 +205,8 @@ export class DialogService {
     console.log('componentRef', componentRef);
 
     this.appRef.attachView(componentRef.hostView);
+
     return componentRef;
   }
 }
-
-// TODO: dialog mobile still have close button? should not?
-// TODO: check whether styling eg part="dialog" max-inline-size will work with the dialog service? if not, improve it...
 // TODO: part styling is working without encapsulation, but not with encapsulation. Maybe we should use ::ng-deep for dialog service? Or just `ViewEncapsulation.None` should be enough?

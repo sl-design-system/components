@@ -1,13 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  Inject,
-  ViewChild,
-  ViewEncapsulation
-} from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Inject, ViewChild, ViewEncapsulation } from '@angular/core';
 import {
   type AbstractControl,
   FormControl,
@@ -123,8 +115,8 @@ export class DialogServiceExampleComponent {
     <span slot="title">{{ data.title }}</span>
     <span>{{ data.details }}</span>
 
-    <div>This is a text field which is not wrapped by a form-field</div>
-    <sl-text-field></sl-text-field>
+<!--    <div>This is a text field which is not wrapped by a form-field</div>
+    <sl-text-field></sl-text-field>-->
 
     <sl-form #form>
       <sl-form-field label="Text field">
@@ -134,8 +126,6 @@ export class DialogServiceExampleComponent {
       <sl-form-field label="Text area">
         <sl-text-area [(ngModel)]="formGroup.textArea"></sl-text-area>
       </sl-form-field>
-
-      <sl-form-validation-errors [controller]="form"></sl-form-validation-errors>
     </sl-form>
 
     <sl-button slot="primary-actions" (click)="dialogRef.close()">Cancel</sl-button>
@@ -150,12 +140,12 @@ export class DialogServiceExampleComponent {
       sl-dialog::part(body) {
         display: flex;
         flex-direction: column;
-        gap: 1rem;
+        gap: 0.5rem;
       }
     `
   ]
 })
-export class DialogFormComponent implements AfterViewInit {
+export class DialogFormComponent {
   constructor(
     public dialogRef: DialogRef,
     @Inject('DIALOG_DATA') public data: { title: string; details: string },
@@ -165,58 +155,18 @@ export class DialogFormComponent implements AfterViewInit {
 
   @ViewChild('form') form!: FormComponent;
 
-  // formGroup = {
-  //   textField: '',
-  //   textArea: ''
-  // };
-
-  showValidity = false;
+  // showValidity = false;
 
   customUsernameValidator = (control: AbstractControl): ValidationErrors | null => {
     return control.touched && control.value !== 'admin' ? { invalidUsername: true } : null;
   };
 
   formGroup = new FormGroup({
-    textField: new FormControl(''), // TODO: just required?
+    textField: new FormControl(''),
     textArea: new FormControl('')
   });
 
-  ngAfterViewInit(): void {
-    // Force change detection after view init to ensure components render
-    // setTimeout(() => {
-    //   this.cdr.detectChanges();
-    // }, 0);
-  }
-
   submitForm() {
-    // setTimeout(() => {
-    //   // const formData = {
-    //   //   firstname: (
-    //   //     this.dialogRef.dialogElement.querySelector('sl-text-field[name=firstname]') as unknown as TextFieldComponent
-    //   //   )?.value,
-    //   //   lastname: (
-    //   //     this.dialogRef.dialogElement.querySelector('sl-text-field[name=lastname]') as unknown as TextFieldComponent
-    //   //   )?.value,
-    //   //   email: (
-    //   //     this.dialogRef.dialogElement.querySelector('sl-text-field[name=email]') as unknown as TextFieldComponent
-    //   //   )?.value,
-    //   //   comments: (
-    //   //     this.dialogRef.dialogElement.querySelector('sl-text-area[name=comments]') as unknown as TextAreaComponent
-    //   //   )?.value
-    //   // };
-    //
-    //   console.log(
-    //     'Form submitted with data:',
-    //     this.dialogRef.dialogElement.querySelector('sl-text-field[name=firstname]'),
-    //     this.elementRef.nativeElement,
-    //     this.dialogRef.dialogElement
-    //   );
-    //
-    //   console.log('Form values:', this.formGroup, 'fooorm', this.form);
-    //
-    //   // this.dialogRef.close(this.form.value);
-    // }, 300);
-
     console.log(
       'Submitting form...',
       this.formGroup.invalid,
@@ -228,10 +178,14 @@ export class DialogFormComponent implements AfterViewInit {
 
     if (!this.form.el.valid) {
       this.form.el.reportValidity();
-      this.showValidity = this.form.el.showValidity;
+      // this.showValidity = this.form.el.showValidity;
     } else {
       console.log(
-        'Dialog closed with result:', this.formGroup.controls.textField.value, this.formGroup.controls.textArea, this.form);
+        'Dialog closed with result:',
+        this.formGroup.controls.textField.value,
+        this.formGroup.controls.textArea,
+        this.form
+      );
       this.dialogRef.close(this.formGroup);
 
       // this.dialogRef.afterClosed().subscribe(result => {
@@ -246,7 +200,6 @@ export class DialogFormComponent implements AfterViewInit {
     }
 
     console.log('Form values:', this.formGroup, this.formGroup.invalid);
-    // this.dialogRef.close(this.formGroup);
   }
 }
 

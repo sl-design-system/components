@@ -30,9 +30,24 @@ const applyDialogProps = (dialog: Dialog, config: DialogConfig<unknown>) => {
   });
 };
 
+/**
+ * DialogRef is a handle for interacting with an opened dialog instance.
+ *
+ * Provides methods to close the dialog and observe when it has been closed.
+ * Allows passing an optional result value when closing the dialog, which will be emitted to subscribers.
+ *
+ * Example usage:
+ * ```TypeScript
+ * const dialogRef = dialogService.showModal<MyComponent, MyResultType>({ component: MyComponent });
+ * dialogRef.afterClosed().subscribe(result => {
+ *   // Handle the result when the dialog closes
+ * });
+ * dialogRef.close(resultValue);
+ * ```
+ */
 export class DialogRef<T = unknown> {
   /** Dialog element reference */
-  dialogElement: Dialog;
+  dialog: Dialog;
 
   /** Subject that emits when the dialog closes */
   #afterClosedSubject = new Subject<T | undefined>();
@@ -44,12 +59,12 @@ export class DialogRef<T = unknown> {
   #result?: T;
 
   constructor(
-    dialogElement: Dialog,
+    dialog: Dialog,
     private ngZone: NgZone
   ) {
-    this.dialogElement = dialogElement;
+    this.dialog = dialog;
 
-    this.dialogElement.addEventListener('sl-close', () => {
+    this.dialog.addEventListener('sl-close', () => {
       requestAnimationFrame(() => {
         this.ngZone.run(() => {
           if (this.#manualClose) {
@@ -70,12 +85,18 @@ export class DialogRef<T = unknown> {
 
   /** Close the dialog with an optional result */
   close(result?: T): void {
+    console.log('Closing dialog with result:', result);
     this.#manualClose = true;
     this.#result = result;
-    this.dialogElement.close();
+    this.dialog.close();
   }
 }
 
+/**
+ * DialogService is a service for opening and managing dialogs in Angular apps.
+ * Provides methods to show dialogs with custom components, pass data, and handle dialog lifecycle events.
+ * Tracks all opened dialogs and allows closing them programmatically.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -91,9 +112,7 @@ export class DialogService {
 
   // TODO: what to do with public functions from the component? Should we use a wrapper component for the dialog?
 
-  /**
-   * Opens a dialog with the given component and configuration
-   */
+  /** Opens a dialog with the given component and configuration */
   showModal<T, R = unknown>(config: DialogConfig<T>): DialogRef<R> {
     const dialogElement = document.createElement('sl-dialog');
     applyDialogProps(dialogElement, config);
@@ -104,9 +123,9 @@ export class DialogService {
     this.#openedDialogs.push(dialogRef as DialogRef<unknown>);
 
     // Create a component and get a reference to its ChangeDetectorRef
-    const componentRef = this.#createComponent<T, R>(config.component, config.data, dialogRef);
-    const hostElement = componentRef.location.nativeElement as HTMLElement;
-    const componentChangeDetector = componentRef.injector.get(ChangeDetectorRef, null);
+    const componentRef = this.#createComponent<T, R>(config.component, config.data, dialogRef),
+      hostElement = componentRef.location.nativeElement as HTMLElement,
+      componentChangeDetector = componentRef.injector.get(ChangeDetectorRef, null);
 
     console.log('componentRef.location', componentRef.location);
 
@@ -121,17 +140,14 @@ export class DialogService {
     this.ngZone.runOutsideAngular(() => {
       requestAnimationFrame(() => {
         // Move all child nodes (including slotted and non-slotted) to the dialog
-        // TODO: bug here in the console?
         while (hostElement.firstChild) {
           console.log('hostElement.firstChild', hostElement.firstChild);
-
           dialogElement.appendChild(hostElement.firstChild);
         }
 
         // Clean up temporary container
         document.body.removeChild(tempDiv);
 
-        // Call showModal while still invisible to position the dialog
         dialogElement.showModal();
 
         this.ngZone.run(() => {
@@ -173,7 +189,7 @@ export class DialogService {
     dialogs.forEach(dialogRef => {
       dialogRef.close(result);
     });
-  }
+  } // TODO: an example of closing all dialogs...
 
   #createComponent<T, D = unknown>(component: Type<T>, data?: unknown, dialogRef?: DialogRef<D>) {
     // Create providers for DialogRef and DIALOG_DATA

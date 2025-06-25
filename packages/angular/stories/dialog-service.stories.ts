@@ -140,7 +140,7 @@ export class DialogServiceExampleComponent {
       sl-dialog::part(body) {
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
+        gap: 0.2rem;
       }
     `
   ]
@@ -187,16 +187,6 @@ export class DialogFormComponent {
         this.form
       );
       this.dialogRef.close(this.formGroup);
-
-      // this.dialogRef.afterClosed().subscribe(result => {
-      //   // this.lastResult = result;
-      //   console.log(
-      //     'Dialog closed with result:',
-      //     result
-      //     // (result as FormGroup).controls[0].value,
-      //     // (result as FormGroup).controls[1].value
-      //   );
-      // });
     }
 
     console.log('Form values:', this.formGroup, this.formGroup.invalid);
@@ -216,6 +206,8 @@ interface DialogFormResult {
     <h3>Dialog Service with form example</h3>
     <p>Open a dialog with a form inside using the DialogService.</p>
     <sl-button (click)="openFormDialog()">Open Form Dialog</sl-button>
+<!--    <div>{{ formResult.textField | json }}</div>
+    <div>{{ formResult.textArea | json }}</div>-->
   `
 })
 export class DialogFormExampleComponent {
@@ -238,6 +230,7 @@ export class DialogFormExampleComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        console.log('Form dialog closed with result:', result);
         this.formResult = result;
       }
     });
@@ -280,3 +273,5 @@ export const DialogServiceExample: StoryFn = () => ({
 export const FormInDialogExample: StoryFn = () => ({
   template: '<sla-dialog-form-example></sla-dialog-form-example>'
 });
+
+// TODO: mobile example? with mobile1 viewport?

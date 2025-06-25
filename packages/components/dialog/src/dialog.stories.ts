@@ -157,7 +157,7 @@ export const Lazy: Story = {
 export const Mobile: Story = {
   parameters: {
     viewport: {
-      defaultViewport: 'iphone5'
+      defaultViewport: 'mobile1'
     }
   },
   args: {

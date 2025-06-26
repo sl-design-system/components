@@ -21,7 +21,7 @@ import { TextFieldComponent } from '../src/text-field/text-field.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, ButtonComponent],
+  imports: [ButtonComponent, CommonModule],
   template: `
     <span slot="title">{{ data.title }}</span>
     <p>{{ data.message }}</p>
@@ -45,7 +45,7 @@ export class ExampleDialogComponent {
     <h3>Dialog Service examples</h3>
     <div style="display: flex; gap: 10px; flex-wrap: wrap;">
       <sl-button (click)="openBasicDialog()">Open dialog</sl-button>
-      <sl-button (click)="openNonCancelableDialog()">Open dialog without close button</sl-button>
+      <sl-button (click)="openNonCancellableDialog()">Open dialog without close button</sl-button>
     </div>
   `
 })
@@ -70,11 +70,11 @@ export class DialogServiceExampleComponent {
     });
   }
 
-  openNonCancelableDialog(): void {
+  openNonCancellableDialog(): void {
     const dialogRef = this.dialogService.showModal<ExampleDialogComponent, string>({
       component: ExampleDialogComponent,
       data: {
-        title: 'Non-cancelable dialog title',
+        title: 'Non-cancellable dialog title',
         message: 'This dialog cannot be closed by clicking the backdrop or pressing Escape.'
       },
       disableCancel: true,
@@ -93,15 +93,15 @@ export class DialogServiceExampleComponent {
   standalone: true,
   encapsulation: ViewEncapsulation.None,
   imports: [
-    CommonModule,
     ButtonComponent,
+    CommonModule,
     FormComponent,
     FormFieldComponent,
     FormsModule,
-    TextFieldComponent,
-    TextAreaComponent,
     ReactiveFormsModule,
+    TextAreaComponent,
     TextAreaDirective,
+    TextFieldComponent,
     TextFieldDirective
   ],
   template: `
@@ -203,21 +203,20 @@ export default {
     }),
     moduleMetadata({
       imports: [
-        DialogComponent,
         ButtonComponent,
         CommonModule,
-        DialogServiceExampleComponent,
-        ExampleDialogComponent,
-        DialogFormExampleComponent,
+        DialogComponent,
         DialogFormComponent,
         DialogFormExampleComponent,
+        DialogServiceExampleComponent,
+        ExampleDialogComponent,
         FormComponent,
         FormFieldComponent,
         FormsModule,
-        TextFieldComponent,
-        TextAreaComponent,
         ReactiveFormsModule,
+        TextAreaComponent,
         TextAreaDirective,
+        TextFieldComponent,
         TextFieldDirective
       ]
     })

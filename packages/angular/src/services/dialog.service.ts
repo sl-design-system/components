@@ -122,7 +122,6 @@ export class DialogService {
     const dialog = document.createElement('sl-dialog');
     applyDialogProps(dialog, config);
 
-    // Create dialog reference with NgZone
     const dialogRef = new DialogRef<R>(dialog, this.ngZone);
 
     this.#openedDialogs.push(dialogRef as DialogRef<unknown>);
@@ -135,9 +134,9 @@ export class DialogService {
     document.body.appendChild(dialog);
 
     // Create a temporary container to render the component
-    const tempDiv = document.createElement('div');
-    document.body.appendChild(tempDiv);
-    tempDiv.appendChild(hostElement);
+    const temporaryContainer = document.createElement('div');
+    document.body.appendChild(temporaryContainer);
+    temporaryContainer.appendChild(hostElement);
 
     // Wait for the component to render and move content, outside Angular zone to avoid change detection
     this.ngZone.runOutsideAngular(() => {
@@ -148,7 +147,7 @@ export class DialogService {
         }
 
         // Clean up temporary container
-        document.body.removeChild(tempDiv);
+        document.body.removeChild(temporaryContainer);
 
         dialog.showModal();
 

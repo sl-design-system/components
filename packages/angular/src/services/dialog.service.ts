@@ -3,7 +3,7 @@ import { Dialog } from '@sl-design-system/dialog';
 import '@sl-design-system/dialog/register.js';
 import { Observable, Subject } from 'rxjs';
 
-/**  Utility type to get all public properties from the Dialog, plus 'component' and 'data' additionally. */
+/**  Utility type to get all public properties from the Dialog, plus 'component' and 'data' properties additionally. */
 type DialogProps = Omit<
   {
     [K in keyof Dialog as Dialog[K] extends (...args: unknown[]) => unknown ? never : K]: Dialog[K];
@@ -16,15 +16,14 @@ export interface DialogConfig<T> extends Partial<DialogProps> {
   /** Component to render in a dialog. */
   component: Type<T>;
 
-  /** Data to pass to the component */
+  /** Data to pass to the component. */
   data?: unknown;
 }
 
 /** Helper to assign all config properties to the dialog element */
-const applyDialogProps = (dialog: Dialog, config: DialogConfig<unknown>) => {
+const applyDialogProps = (dialog: Dialog, config: DialogConfig<unknown>): void => {
   Object.keys(config).forEach(key => {
     if (key !== 'component' && key !== 'data' && key in dialog) {
-      console.log(`Applying dialog property - ${key} =`, (config as unknown as Record<string, unknown>)[key], config);
       (dialog as unknown as Record<string, unknown>)[key] = (config as unknown as Record<string, unknown>)[key];
     }
   });
@@ -46,17 +45,19 @@ const applyDialogProps = (dialog: Dialog, config: DialogConfig<unknown>) => {
  * ```
  */
 export class DialogRef<T = unknown> {
-  /** Dialog element reference */
+  /** Dialog element reference. */
   dialog: Dialog;
 
-  /** Subject that emits when the dialog closes */
+  /** Subject that emits when the dialog closes. */
   #afterClosedSubject = new Subject<T | undefined>();
 
-  /** Track if the subject was manually closed with a result */
+  /** Track if the subject (dialog) was manually closed with a result. */
   #manualClose = false;
 
-  /** Result passed when closing the dialog */
+  /** Result passed when closing the dialog. */
   #result?: T;
+
+  #slCloseHandler: () => void;
 
   constructor(
     dialog: Dialog,
@@ -64,7 +65,7 @@ export class DialogRef<T = unknown> {
   ) {
     this.dialog = dialog;
 
-    this.dialog.addEventListener('sl-close', () => {
+    this.#slCloseHandler = () => {
       requestAnimationFrame(() => {
         this.ngZone.run(() => {
           if (this.#manualClose) {
@@ -75,7 +76,9 @@ export class DialogRef<T = unknown> {
           this.#afterClosedSubject.complete();
         });
       });
-    });
+    };
+
+    this.dialog.addEventListener('sl-close', this.#slCloseHandler);
   }
 
   /** Returns an Observable that emits when the dialog closes */
@@ -83,12 +86,16 @@ export class DialogRef<T = unknown> {
     return this.#afterClosedSubject.asObservable();
   }
 
-  /** Close the dialog with an optional result */
+  /** Close the dialog with an optional result. */
   close(result?: T): void {
-    console.log('Closing dialog with result:', result);
     this.#manualClose = true;
     this.#result = result;
     this.dialog.close();
+  }
+
+  /** A method to clean up the event listener */
+  destroy(): void {
+    this.dialog.removeEventListener('sl-close', this.#slCloseHandler);
   }
 }
 
@@ -105,20 +112,18 @@ export class DialogService {
   #openedDialogs: Array<DialogRef<unknown>> = [];
 
   constructor(
-    private appRef: ApplicationRef, // TODO: check if we can use EnvironmentInjector instead?
+    private appRef: ApplicationRef,
     private injector: Injector,
     private ngZone: NgZone
   ) {}
 
-  // TODO: what to do with public functions from the component? Should we use a wrapper component for the dialog?
-
   /** Opens a dialog with the given component and configuration */
   showModal<T, R = unknown>(config: DialogConfig<T>): DialogRef<R> {
-    const dialogElement = document.createElement('sl-dialog');
-    applyDialogProps(dialogElement, config);
+    const dialog = document.createElement('sl-dialog');
+    applyDialogProps(dialog, config);
 
     // Create dialog reference with NgZone
-    const dialogRef = new DialogRef<R>(dialogElement, this.ngZone);
+    const dialogRef = new DialogRef<R>(dialog, this.ngZone);
 
     this.#openedDialogs.push(dialogRef as DialogRef<unknown>);
 
@@ -127,9 +132,7 @@ export class DialogService {
       hostElement = componentRef.location.nativeElement as HTMLElement,
       componentChangeDetector = componentRef.injector.get(ChangeDetectorRef, null);
 
-    console.log('componentRef.location', componentRef.location);
-
-    document.body.appendChild(dialogElement);
+    document.body.appendChild(dialog);
 
     // Create a temporary container to render the component
     const tempDiv = document.createElement('div');
@@ -141,38 +144,36 @@ export class DialogService {
       requestAnimationFrame(() => {
         // Move all child nodes (including slotted and non-slotted) to the dialog
         while (hostElement.firstChild) {
-          console.log('hostElement.firstChild', hostElement.firstChild);
-          dialogElement.appendChild(hostElement.firstChild);
+          dialog.appendChild(hostElement.firstChild);
         }
 
         // Clean up temporary container
         document.body.removeChild(tempDiv);
 
-        dialogElement.showModal();
+        dialog.showModal();
 
         this.ngZone.run(() => {
           if (componentChangeDetector) {
-            console.log('componentChangeDetector', componentChangeDetector);
             componentChangeDetector.markForCheck();
           }
         });
       });
     });
 
-    dialogElement.addEventListener('sl-close', () => {
+    dialog.addEventListener('sl-close', () => {
       this.ngZone.run(() => {
         const index = this.#openedDialogs.indexOf(dialogRef as DialogRef<unknown>);
         if (index > -1) {
           this.#openedDialogs.splice(index, 1);
         }
 
+        dialogRef.destroy();
+
         this.appRef.detachView(componentRef.hostView);
         componentRef.destroy();
-        dialogElement.parentNode?.removeChild(dialogElement);
+        dialog.parentNode?.removeChild(dialog);
       });
     });
-
-    console.log('Dialog opened', dialogRef, config.component, config.data);
 
     return dialogRef;
   }
@@ -184,12 +185,11 @@ export class DialogService {
   closeAll(result?: unknown): void {
     const dialogs = [...this.#openedDialogs];
 
-    console.log('Closing all dialogs', dialogs.length, dialogs);
-
     dialogs.forEach(dialogRef => {
       dialogRef.close(result);
+      dialogRef.destroy();
     });
-  } // TODO: an example of closing all dialogs...
+  }
 
   #createComponent<T, D = unknown>(component: Type<T>, data?: unknown, dialogRef?: DialogRef<D>) {
     // Create providers for DialogRef and DIALOG_DATA
@@ -202,8 +202,6 @@ export class DialogService {
     if (data !== undefined) {
       providers.push({ provide: 'DIALOG_DATA', useValue: data });
     }
-
-    console.log('providers', providers);
 
     const injector =
       providers.length > 0
@@ -218,11 +216,8 @@ export class DialogService {
       elementInjector: injector
     });
 
-    console.log('componentRef', componentRef);
-
     this.appRef.attachView(componentRef.hostView);
 
     return componentRef;
   }
 }
-// TODO: part styling is working without encapsulation, but not with encapsulation. Maybe we should use ::ng-deep for dialog service? Or just `ViewEncapsulation.None` should be enough?

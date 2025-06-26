@@ -1,13 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, ElementRef, Inject, ViewChild, ViewEncapsulation } from '@angular/core';
-import {
-  type AbstractControl,
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  type ValidationErrors
-} from '@angular/forms';
+import { Component, Inject, ViewChild, ViewEncapsulation } from '@angular/core';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideRouter, withHashLocation } from '@angular/router';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
@@ -114,20 +107,14 @@ export class DialogServiceExampleComponent {
   template: `
     <span slot="title">{{ data.title }}</span>
     <span>{{ data.details }}</span>
-
-<!--    <div>This is a text field which is not wrapped by a form-field</div>
-    <sl-text-field></sl-text-field>-->
-
     <sl-form #form>
       <sl-form-field label="Text field">
         <sl-text-field [(ngModel)]="formGroup.textField" required></sl-text-field>
       </sl-form-field>
-
       <sl-form-field label="Text area">
         <sl-text-area [(ngModel)]="formGroup.textArea"></sl-text-area>
       </sl-form-field>
     </sl-form>
-
     <sl-button slot="primary-actions" (click)="dialogRef.close()">Cancel</sl-button>
     <sl-button slot="primary-actions" variant="primary" (click)="submitForm()">Save</sl-button>
   `,
@@ -148,18 +135,10 @@ export class DialogServiceExampleComponent {
 export class DialogFormComponent {
   constructor(
     public dialogRef: DialogRef,
-    @Inject('DIALOG_DATA') public data: { title: string; details: string },
-    private elementRef: ElementRef,
-    private cdr: ChangeDetectorRef
+    @Inject('DIALOG_DATA') public data: { title: string; details: string }
   ) {}
 
   @ViewChild('form') form!: FormComponent;
-
-  // showValidity = false;
-
-  customUsernameValidator = (control: AbstractControl): ValidationErrors | null => {
-    return control.touched && control.value !== 'admin' ? { invalidUsername: true } : null;
-  };
 
   formGroup = new FormGroup({
     textField: new FormControl(''),
@@ -167,29 +146,11 @@ export class DialogFormComponent {
   });
 
   submitForm() {
-    console.log(
-      'Submitting form...',
-      this.formGroup.invalid,
-      this.formGroup.valid,
-      this.form.valid,
-      this.form,
-      this.form.el.valid
-    );
-
     if (!this.form.el.valid) {
       this.form.el.reportValidity();
-      // this.showValidity = this.form.el.showValidity;
     } else {
-      console.log(
-        'Dialog closed with result:',
-        this.formGroup.controls.textField.value,
-        this.formGroup.controls.textArea,
-        this.form
-      );
       this.dialogRef.close(this.formGroup);
     }
-
-    console.log('Form values:', this.formGroup, this.formGroup.invalid);
   }
 }
 
@@ -206,8 +167,6 @@ interface DialogFormResult {
     <h3>Dialog Service with form example</h3>
     <p>Open a dialog with a form inside using the DialogService.</p>
     <sl-button (click)="openFormDialog()">Open Form Dialog</sl-button>
-<!--    <div>{{ formResult.textField | json }}</div>
-    <div>{{ formResult.textArea | json }}</div>-->
   `
 })
 export class DialogFormExampleComponent {
@@ -224,8 +183,7 @@ export class DialogFormExampleComponent {
       data: {
         title: 'Form in a dialog',
         details: 'This is a short description of the form dialog.'
-      },
-      closeButton: true
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -273,5 +231,3 @@ export const DialogServiceExample: StoryFn = () => ({
 export const FormInDialogExample: StoryFn = () => ({
   template: '<sla-dialog-form-example></sla-dialog-form-example>'
 });
-
-// TODO: mobile example? with mobile1 viewport?

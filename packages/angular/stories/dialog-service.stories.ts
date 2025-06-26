@@ -43,7 +43,7 @@ export class ExampleDialogComponent {
   imports: [ButtonComponent, CommonModule],
   template: `
     <h3>Dialog Service examples</h3>
-    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+    <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
       <sl-button (click)="openBasicDialog()">Open dialog</sl-button>
       <sl-button (click)="openNonCancellableDialog()">Open dialog without close button</sl-button>
     </div>

@@ -197,6 +197,7 @@ export class DialogFormExampleComponent {
 
 export default {
   title: 'Dialog Service',
+  tags: ['draft'],
   decorators: [
     applicationConfig({
       providers: [DialogService, provideRouter([], withHashLocation())]

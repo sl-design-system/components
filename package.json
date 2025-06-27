@@ -295,7 +295,7 @@
       ]
     },
     "dist:themes": {
-      "command": "node scripts/build-themes.js --production",
+      "command": "node scripts/build-themes.js --studio --production",
       "clean": "if-file-deleted",
       "output": [
         "packages/themes/**/*.{css,scss}",

@@ -7,8 +7,10 @@ export const templates = {
   'sl.breadcrumbs.breadcrumbTrail': 'Kruimelpad',
   'sl.breadcrumbs.home': 'Home',
   'sl.breadcrumbs.moreBreadcrumbs': 'Meer links',
+  'sl.calendar.nextMonth': str`Volgende maand, ${0}`,
   'sl.calendar.nextYear': str`Volgend jaar, ${0}`,
   'sl.calendar.nextYears': 'Ga 12 jaar terug',
+  'sl.calendar.previousMonth': str`Vorige maand, ${0}`,
   'sl.calendar.previousYear': str`Vorig jaar, ${0}`,
   'sl.calendar.previousYears': 'Ga 12 jaar vooruit',
   'sl.calendar.week': 'Week',
@@ -82,7 +84,5 @@ export const templates = {
   'sl.tag.listOfHiddenElements': 'Lijst met verborgen elementen',
   'sl.tag.removalInstructions': 'Druk op de delete- of backspacetoets om dit item te verwijderen',
   'sl.toolBar.showMore': 'Meer tonen',
-  'sl.tree.loadingMessage': 'Laden',
-  'sl.calendar.previousMonth': str`Previous month, ${0}`,
-  'sl.calendar.nextMonth': str`Next month, ${0}`
+  'sl.tree.loadingMessage': 'Laden'
 };

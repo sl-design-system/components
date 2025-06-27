@@ -104,9 +104,11 @@
 </trans-unit>
 <trans-unit id="sl.calendar.previousMonth">
   <source>Previous month, <x id="0" equiv-text="${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></source>
+  <target>Vorige maand, <x id="0" equiv-text="${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></target>
 </trans-unit>
 <trans-unit id="sl.calendar.nextMonth">
   <source>Next month, <x id="0" equiv-text="${format(this.nextMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></source>
+  <target>Volgende maand, <x id="0" equiv-text="${format(this.nextMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></target>
 </trans-unit>
 <trans-unit id="sl.calendar.week">
   <source>Week</source>

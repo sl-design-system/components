@@ -1,27 +1,32 @@
+import { faDownload } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/badge/register.js';
 import '@sl-design-system/button/register.js';
+import '@sl-design-system/button-bar/register.js';
+import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html, nothing } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
-import { type Card } from './card.js';
+import { type Card, CardOrientation } from './card.js';
 
-type Props = Pick<Card, 'padding' | 'orientation'> & {
+type Props = Pick<Card, 'orientation'> & {
   media?: boolean;
   title?: string;
   bodyText?: string;
+  fitImage?: boolean;
   imageUrl?: string;
   subheaderContent?: boolean;
   subheaderBadge?: string;
   subheaderText?: string;
   actionButton?: boolean;
-  actionButtonIcon?: string;
-  cardIcon?: string;
+  subgrid?: boolean;
 };
 
 type Story = StoryObj<Props>;
 
 const orientations = ['horizontal', 'vertical'];
+Icon.register(faDownload);
 
 export default {
   title: 'Layout/Card',
@@ -36,10 +41,9 @@ export default {
       'https://images.unsplash.com/photo-1586622992874-27d98f198139?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     subheaderContent: true,
     subheaderBadge: 'new',
-    subheaderText: 'Written by Nils',
     actionButton: true,
-    actionButtonIcon: 'ellipsis',
-    cardIcon: 'pinata'
+    fitImage: false,
+    subgrid: false
   },
   argTypes: {
     orientation: {
@@ -53,10 +57,6 @@ export default {
     subheaderText: {
       control: 'text',
       if: { arg: 'subheaderContent' }
-    },
-    actionButtonIcon: {
-      control: 'text',
-      if: { arg: 'actionButton' }
     }
   },
   render: ({
@@ -65,36 +65,73 @@ export default {
     bodyText,
     orientation,
     imageUrl,
+    fitImage,
     subheaderContent,
     subheaderBadge,
     subheaderText,
-    actionButton,
-    actionButtonIcon,
-    cardIcon
-  }) => html`
-    <sl-card .orientation=${orientation}>
-      ${media && imageUrl ? html`<img slot="media" src=${imageUrl} alt="Picture of ${title}" />` : nothing}
-      ${cardIcon ? html`<sl-icon .name=${cardIcon} slot="icon"></sl-icon>` : nothing}
-      <h2>${title}</h2>
-      ${subheaderContent
+    actionButton
+  }) => {
+    return card(
+      {
+        media,
+        title,
+        bodyText,
+        orientation,
+        imageUrl,
+        fitImage,
+        subheaderContent,
+        subheaderBadge,
+        subheaderText,
+        actionButton
+      },
+      0
+    );
+  }
+} satisfies Meta<Props>;
+
+const card = (
+  card: {
+    media?: boolean;
+    title?: string;
+    bodyText?: string;
+    orientation?: CardOrientation;
+    imageUrl?: string;
+    fitImage?: boolean;
+    subheaderContent?: boolean;
+    subheaderBadge?: string;
+    subheaderText?: string;
+    actionButton?: boolean;
+    subgrid?: boolean;
+  },
+  contentId: number
+) => {
+  return html`
+    <sl-card orientation=${ifDefined(card.orientation)} ?fit-image=${card.fitImage} ?subgrid=${card.subgrid}>
+      ${card.media && card.imageUrl
+        ? html`<img slot="media" src=${images[contentId]} alt="Picture of ${titles[contentId]}" />`
+        : nothing}
+      <h2>${titles[contentId]}</h2>
+      ${card.subheaderContent
         ? html`
             <span slot="header">
-              ${subheaderBadge ? html`<sl-badge>${subheaderBadge}</sl-badge>` : nothing} ${subheaderText}
+              ${card.subheaderBadge
+                ? html`<sl-badge color="purple" size="lg">${card.subheaderBadge}</sl-badge>`
+                : nothing}
+              ${card.subheaderText}
             </span>
           `
         : nothing}
-      <p slot="body">${bodyText}</p>
-      ${actionButton
+      <p slot="body">${bodyCopy[contentId]}</p>
+      ${card.actionButton
         ? html`
-            <sl-button aria-label="Actions" icon-only slot="actions" fill="ghost">
-              <sl-icon .name=${actionButtonIcon}></sl-icon>
-            </sl-button>
+            <sl-button-bar slot="actions"
+              ><sl-button> <sl-icon name="far-download"></sl-icon> Download </sl-button>
+            </sl-button-bar>
           `
         : nothing}
     </sl-card>
-  `
-} satisfies Meta<Props>;
-
+  `;
+};
 export const Basic: Story = {};
 
 const images = [
@@ -142,6 +179,47 @@ const bodyCopy = [
     that is both timeless and unforgettable.
   `
 ];
+
+export const SubGrid: Story = {
+  render: ({
+    media,
+    title,
+    bodyText,
+    orientation,
+    imageUrl,
+    fitImage,
+    subheaderContent,
+    subheaderBadge,
+    subheaderText,
+    actionButton,
+    subgrid
+  }) => {
+    const settings = {
+      media,
+      title,
+      bodyText,
+      orientation,
+      imageUrl,
+      fitImage,
+      subheaderContent,
+      subheaderBadge,
+      subheaderText,
+      actionButton,
+      subgrid
+    };
+    return html`
+      <style>
+        .grid {
+          display: grid;
+          gap: 16px;
+          grid-template-columns: repeat(2, 200px 1fr);
+          grid-auto-rows: max-content 1fr max-content;
+        }
+      </style>
+      <div class="grid">${card(settings, 1)} ${card(settings, 2)} ${card(settings, 0)} ${card(settings, 3)}</div>
+    `;
+  }
+};
 
 export const FlexboxFullWidthResponsive: Story = {
   render: () => html`
@@ -290,7 +368,7 @@ export const GridFixedRowHeight: Story = {
 };
 
 export const GridFixedRowHeightStretched: Story = {
-  render: () => html`
+  render: ({ fitImage }) => html`
     <style>
       #root-inner > div {
         gap: 16px;
@@ -309,36 +387,44 @@ export const GridFixedRowHeightStretched: Story = {
     </pre
     >
     <div class="grid" style="--sl-card-stretch-image:100%">
-      <sl-card explicit-height>
+      <sl-card explicit-height ?fit-image=${fitImage}>
         <img slot="media" src=${images[0]} />
         <h2>${titles[0]}</h2>
-        <h3 slot="header">Sub header</h3>
+        <span slot="header">Sub header</span>
         <p slot="body">${bodyCopy[0]}</p>
-        <sl-button aria-label="Actions" icon-only slot="actions" fill="ghost">
-          <sl-icon name="ellipsis"></sl-icon>
-        </sl-button>
+        <sl-button slot="actions"> <sl-icon name="far-download"></sl-icon> Download </sl-button>
       </sl-card>
-      <sl-card style="--sl-card-media-aspect-ratio:1/1;" padding media-position="end" explicit-height>
+      <sl-card
+        style="--sl-card-media-aspect-ratio:1/1;"
+        padding
+        media-position="end"
+        explicit-height
+        ?fit-image=${fitImage}
+      >
         <img slot="media" src=${images[1]} />
         <h2>${titles[1]}</h2>
         <span slot="header"><sl-badge>new</sl-badge></span>
         <p slot="body"><em>aspectratio:1/1, padding, mediaPosition:end</em> - ${bodyCopy[1]}</p>
       </sl-card>
-      <sl-card style="--sl-card-text-width:70fr; --sl-card-media-width:30fr;" explicit-height>
+      <sl-card style="--sl-card-text-width:70fr; --sl-card-media-width:30fr;" explicit-height ?fit-image=${fitImage}>
         <img slot="media" src=${images[2]} />
         <h2>${titles[1]}</h2>
         <span slot="header"><sl-badge>new</sl-badge></span>
         <p slot="body"><em>text/card-ratio:7/3</em> - ${bodyCopy[1]}</p>
       </sl-card>
-      <sl-card style="--sl-card-media-aspect-ratio:2/1;" padding media-position="end" explicit-height>
+      <sl-card
+        style="--sl-card-media-aspect-ratio:2/1;"
+        padding
+        media-position="end"
+        explicit-height
+        ?fit-image=${fitImage}
+      >
         <sl-icon name="pinata" slot="icon"></sl-icon>
         <img slot="media" src=${images[3]} />
         <h2>${titles[1]}</h2>
         <span slot="header"><sl-badge>new</sl-badge></span>
         <p slot="body"><em>padding, media: end, aspectratio: 2/1</em> - ${bodyCopy[1]}</p>
-        <sl-button aria-label="Toggle visibility" icon-only slot="actions" fill="ghost">
-          <sl-icon name="eye"></sl-icon>
-        </sl-button>
+        <sl-button slot="actions"> <sl-icon name="far-download"></sl-icon> Download </sl-button>
       </sl-card>
     </div>
   `
@@ -478,9 +564,7 @@ export const All: Story = {
         <h2>${titles[1]}</h2>
         <span slot="header"><sl-badge>new</sl-badge></span>
         <p slot="body">${bodyCopy[1]}</p>
-        <sl-button aria-label="Toggle visibility" icon-only slot="actions" fill="ghost">
-          <sl-icon name="eye"></sl-icon>
-        </sl-button>
+        <sl-button slot="actions"> <sl-icon name="far-download"></sl-icon> Download </sl-button>
       </sl-card>
 
       <sl-card style="--sl-card-media-aspect-ratio:1/1; max-width: 300px;" orientation="vertical">

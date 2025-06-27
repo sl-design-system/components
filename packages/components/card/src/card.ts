@@ -1,3 +1,5 @@
+import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { ButtonBar } from '@sl-design-system/button-bar';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './card.scss.js';
@@ -33,7 +35,14 @@ export type CardMediaPosition = 'start' | 'end';
  * @slot body - Body text of the card
  * @slot actions - Icon button for actions on the card.
  */
-export class Card extends LitElement {
+export class Card extends ScopedElementsMixin(LitElement) {
+  /** @internal */
+  static get scopedElements(): ScopedElementsMap {
+    return {
+      'sl-button-bar': ButtonBar
+    };
+  }
+
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
@@ -44,13 +53,14 @@ export class Card extends LitElement {
 
   /** @internal The slotted media. */
   @queryAssignedElements({ slot: 'media' }) media?: HTMLElement[];
-  /** @internal The slotted icon. */
-  @queryAssignedElements({ slot: 'icon' }) icon?: HTMLElement[];
 
-  /** Indicates whether there is a padding around the media. Recommended to set to true when the `--sl-card-stretch-image` isn't set to 100% */
-  @property({ type: Boolean, reflect: true }) padding: boolean = false;
+  /** When the height is `fixed` the image will determine the height of the card, when it is `flex` the height of the text will determine the height of the card. */
+  @property({ reflect: true, attribute: 'fit-image', type: Boolean }) fitImage?: boolean;
+
   /** When the height of the card is set (or constrained) by its container (for example in a grid with fixed rows) this needs to be set to be added in order to assure the correct rendering */
   @property({ type: Boolean, attribute: 'explicit-height' }) explicitHeight?: boolean;
+  /** When the grid inside the card is defined by a parent grid */
+  @property({ type: Boolean, attribute: 'explicit-height' }) subgrid?: boolean;
   /** When the height is `fixed` the image will determine the height of the card, when it is `flex` the height of the text will determine the height of the card. */
   @property({ reflect: true }) height: CardHeightOptions = 'fixed';
   /** The position of the media in relation to the text */
@@ -79,28 +89,21 @@ export class Card extends LitElement {
     }
   }
 
+  // <div class="media-wrapper">
+  //   </div>
+  // {# <div class="content"> #}
+  // </div>
   override render(): TemplateResult {
     return html`
-      <div class="media-wrapper">
-        <slot name="media" @slotchange=${this.#setOrientation}></slot>
-      </div>
-      <div class="content">
-        <slot name="icon" @slotchange=${this.#setIcon}></slot>
-        <header>
-          <slot class="title"></slot>
-          <slot name="header"></slot>
-        </header>
-        <article><slot name="body"></slot></article>
-      </div>
+      <slot name="media" @slotchange=${this.#setOrientation}></slot>
+      <header>
+        <slot class="title"></slot>
+        <slot name="header"></slot>
+        <slot name="menu-button"></slot>
+      </header>
+      <article><slot name="body"></slot></article>
       <slot name="actions"></slot>
     `;
-  }
-
-  #setIcon(): void {
-    const hasIcon = this.icon ? this.icon.length > 0 : false;
-    this.classList.remove('sl-has-icon');
-    if (!hasIcon) return;
-    this.classList.add('sl-has-icon');
   }
 
   #setOrientation(): void {

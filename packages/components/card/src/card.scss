@@ -1,184 +1,211 @@
 :host {
-  --_aspect-ratio: var(--sl-card-media-aspect-ratio, 4 / 3);
-  --_box-shadow: var(--sl-elevation-shadow-lg);
-  --_card-background: var(--sl-color-card-background);
-  --_card-border-radius: var(--sl-border-radius-card-default);
-  --_card-border: 1px solid var(--sl-color-card-border);
-  --_content-gap: var(--sl-space-card-gap-content-block) var(--sl-space-card-gap-content-inline);
-  --_content-padding-block: 0 var(--sl-space-card-content-block);
-  --_content-padding-inline: var(--sl-space-card-content-inline);
-  --_font-body: var(--sl-text-card-body);
-  --_font-sub-title: var(--sl-text-card-subtitle);
-  --_font-title: var(--sl-text-card-title);
-  --_line-clamp: 1;
-  --_media-column: var(--_media-width);
-  --_media-padding-full: 0;
-  --_media-padding: var(--sl-space-card-media-margins);
-  --_media-width: var(--sl-card-media-width, minmax(0, max-content));
-  --_object-position: var(--sl-card-media-x, 50%) var(--sl-card-media-y, 50%);
-  --_orientation-breakpoint: var(--sl-card-orientation-breakpoint, 350px);
-  --_text-column: var(--_text-width);
-  --_text-width: var(--sl-card-text-width, minmax(50%, 1fr));
+  // --_aspect-ratio: var(--sl-card-media-aspect-ratio, 4 / 3);
+  --_media-size: var(--sl-card-media-percentage, 50%);
 
-  background-color: var(--_card-background);
-  border: var(--_card-border);
-  border-radius: var(--_card-border-radius);
-  box-shadow: var(--_box-shadow);
-  box-sizing: border-box;
+  // --_box-shadow: var(--sl-elevation-shadow-lg);
+  // --_card-background: var(--sl-color-card-background);
+  // --_card-border-radius: var(--sl-border-radius-card-default);
+  // --_card-border: 1px solid var(--sl-color-card-border);
+  // --_content-gap: var(--sl-space-card-gap-content-block) var(--sl-space-card-gap-content-inline);
+  // --_content-padding-block: 0 var(--sl-space-card-content-block);
+  // --_content-padding-inline: var(--sl-space-card-content-inline);
+  // --_font-body: var(--sl-text-card-body);
+  // --_font-sub-title: var(--sl-text-card-subtitle);
+  // --_font-title: var(--sl-text-card-title);
+  --_line-clamp: 1;
+
+  // --_media-column: var(--_media-width);
+  // --_media-padding-full: 0;
+  // --_media-padding: var(--sl-space-card-media-margins);
+  // --_media-width: var(--sl-card-media-width, minmax(0, max-content));
+  // --_object-position: var(--sl-card-media-x, 50%) var(--sl-card-media-y, 50%);
+  // --_orientation-breakpoint: var(--sl-card-orientation-breakpoint, 350px);
+  // --_text-column: var(--_text-width);
+  // --_text-width: var(--sl-card-text-width, minmax(50%, 1fr));
+
+  background-color: var(--sl-elevation-surface-raised-default);
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+  border-radius: var(--sl-size-borderRadius-default);
   display: grid;
   grid-template:
-    'media' min-content
-    'actions' minmax(16px, max-content)
-    'content' 1fr
-    / 1fr;
+    'media' var(--_media-size)
+    'content' 1fr;
+
+  // box-shadow: var(--_box-shadow);
+  // box-sizing: border-box;
+
   inline-size: 100%;
   overflow: hidden;
 }
 
-:host([padding]) {
-  --_media-padding-full: var(--_media-padding) var(--_media-padding) 0 var(--_media-padding);
+// TODO: find out shorthand for grid-template
+// :host(:where(.sl-horizontal)) {
+//   grid-template-areas:
+//     'media header'
+//     'media contents'
+//     'media actions'
+//      ;
+//   grid-template-rows: 1fr max-content;
+//   grid-template-columns: var(--_media-size) 1fr;
+// }
+
+:host(:where([subgrid])) {
+  gap: var(--sl-space-200) 0;
+  grid-column: span 2;
+  grid-row: span 3;
+  grid-template-columns: subgrid;
+  grid-template-rows: subgrid;
 }
 
-:host(.sl-horizontal[padding]) {
-  --_media-padding-full: var(--_media-padding) 0 var(--_media-padding) var(--_media-padding);
-}
-
-:host(.sl-horizontal[padding][media-position='end']) {
-  --_media-padding-full: var(--_media-padding) var(--_media-padding) var(--_media-padding) 0;
-}
-
-:host(:where(.sl-horizontal)) {
-  --_content-padding-block: var(--sl-space-card-vertical-block) var(--sl-space-card-vertical-block);
-
-  grid-template: 'media content actions' 1fr / var(--_media-column) var(--_text-column) max-content;
-
-  .media-wrapper {
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-
-  slot[name='media'] {
-    aspect-ratio: var(--_aspect-ratio);
-    block-size: var(--sl-card-stretch-image, unset);
-    display: block;
-    inline-size: 100%;
-    max-block-size: 100%;
-    max-inline-size: 100%;
-    overflow: hidden;
-  }
-
-  slot[name='media']::slotted(*) {
-    block-size: 100%;
-    inline-size: 100%;
-    max-block-size: unset;
-    max-inline-size: unset;
-  }
-
-  article {
-    flex: 1 1 auto;
-    grid-area: body;
-  }
-}
-
-:host(.sl-horizontal[explicit-height]) {
-  --_media-width: var(--sl-card-media-width, minmax(0, calc(calc(var(--_aspect-ratio)) * 100cqh)));
-
-  container: card / size;
-}
-
-:host(.sl-horizontal[height='fixed']) {
-  article {
-    container: body / size;
-  }
-
-  slot[name='body'] {
-    /* stylelint-disable-next-line property-no-vendor-prefix */
-    -webkit-box-orient: vertical;
-    /* stylelint-disable-next-line value-no-vendor-prefix */
-    display: -webkit-box;
-    /* stylelint-disable-next-line property-no-vendor-prefix */
-    -webkit-line-clamp: var(--_line-clamp, 9999);
-    overflow: hidden;
-  }
-}
-
-:host(:where(.sl-horizontal[media-position='end'])) {
-  grid-template-areas: 'content actions media';
-  grid-template-columns: var(--_text-column) max-content var(--_media-column);
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--_content-gap);
-  grid-area: content;
-  overflow: hidden;
-  padding: var(--_content-padding-block) var(--_content-padding-inline);
-}
-
-:host(.sl-has-icon) .content {
-  display: grid;
-  grid-template:
-    'icon header' max-content
-    'icon body' 1fr
-    / max-content 1fr;
-
-  slot[name='icon']::slotted(*) {
-    grid-area: icon;
-  }
-}
-
-header {
-  grid-area: header;
-}
-
-:host(.sl-has-media) slot[name='media'] {
+slot[name='media'] {
   aspect-ratio: var(--_aspect-ratio);
-  display: flex;
+  display: grid;
   grid-area: media;
-}
-
-slot.title::slotted(*) {
-  font: var(--_font-title);
-}
-
-slot[name='header']::slotted(*:not(sl-badge)) {
-  font: var(--_font-sub-title);
+  margin: 0;
+  overflow: hidden;
 }
 
 slot[name='media']::slotted(*) {
-  aspect-ratio: inherit;
-  block-size: auto;
-  box-sizing: border-box;
+  block-size: 100%;
   inline-size: 100%;
   object-fit: cover;
-  object-position: var(--_object-position);
   overflow: hidden;
-  padding: var(--_media-padding-full);
 }
 
-slot[name='body'] {
-  font: var(--_font-body);
-  margin: 0;
-  outline: none;
-}
+// article {
+//   flex: 1 1 auto;
+//   grid-area: body;
+// }
 
-slot[name='actions'] {
-  align-items: flex-end;
-  display: flex;
-  flex-direction: column;
-  grid-area: actions;
-}
+:host([fit-image]) {
+  slot[name='media'] {
+    background-color: var(--sl-color-background-accent-grey-subtle);
+    position: relative;
+  }
 
-slot::slotted(*) {
-  margin: 0;
-}
+  slot[name='media']::slotted(*) {
+    --_margin: var(--sl-space-new-lg);
 
-@for $i from 2 through 20 {
-  @container body (min-height: #{$i}lh) {
-    slot[name='body'] {
-      --_line-clamp: #{$i};
-    }
+    block-size: calc(100% - 2 * var(--_margin));
+    inline-size: calc(100% - 2 * var(--_margin));
+    margin: var(--_margin);
+    object-fit: contain;
   }
 }
+
+// :host(.sl-horizontal[explicit-height]) {
+//   --_media-width: var(--sl-card-media-width, minmax(0, calc(calc(var(--_aspect-ratio)) * 100cqh)));
+
+//   container: card / size;
+// }
+
+// :host(.sl-horizontal[height='fixed']) {
+//   article {
+//     container: body / size;
+//   }
+
+// slot[name='body'] {
+//   /* stylelint-disable-next-line property-no-vendor-prefix */
+//   -webkit-box-orient: vertical;
+//   /* stylelint-disable-next-line value-no-vendor-prefix */
+//   display: -webkit-box;
+//   /* stylelint-disable-next-line property-no-vendor-prefix */
+//   -webkit-line-clamp: var(--_line-clamp, 9999);
+//   overflow: hidden;
+// }
+// }
+
+// :host(:where(.sl-horizontal[media-position='end'])) {
+//   grid-template-areas: 'content actions media';
+//   grid-template-columns: var(--_text-column) max-content var(--_media-column);
+// }
+
+// .content {
+//   padding: var(--sl-space-300);
+//   display: grid;
+//   grid-template-areas: 'header' 'body' 'actions';
+//   grid-template-rows: max-content 1fr max-content;
+// //   flex-direction: column;
+//   gap: var(--sl-space-200);
+// //   overflow: hidden;
+// //   padding: var(--_content-padding-block) var(--_content-padding-inline);
+// }
+
+article {
+  // display: contents;
+  grid-area: contents;
+  padding: 0 var(--sl-space-300);
+}
+
+// :host(.sl-has-icon) .content {
+//   display: grid;
+//   grid-template:
+//     'icon header' max-content
+//     'icon body' 1fr
+//     / max-content 1fr;
+
+//   slot[name='icon']::slotted(*) {
+//     grid-area: icon;
+//   }
+// }
+
+header {
+  grid-area: header;
+  padding: var(--sl-space-300) var(--sl-space-300) 0;
+}
+
+// :host(.sl-has-media) slot[name='media'] {
+//   aspect-ratio: var(--_aspect-ratio);
+//   display: flex;
+//   grid-area: media;
+// }
+
+slot.title::slotted(*) {
+  font-family: var(--sl-text-new-typeset-fontFamily-heading);
+  font-size: var(--sl-size-text-new-heading-md);
+}
+
+// slot[name='media']::slotted(*) {
+//   aspect-ratio: inherit;
+//   block-size: auto;
+//   box-sizing: border-box;
+//   inline-size: 100%;
+//   object-fit: cover;
+//   object-position: var(--_object-position);
+//   overflow: hidden;
+//   padding: var(--_media-padding-full);
+// }
+
+// slot[name='body'] {
+// //   font: var(--_font-body);
+// //   margin: 0;
+// //   outline: none;
+//   grid-area: body;
+//   padding: 0 var(--sl-space-300) var(--sl-space-300);
+// }
+
+slot[name='actions'] {
+  display: inline-block;
+
+  //   align-items: flex-end;
+  //   display: flex;
+  //   flex-direction: column;
+  grid-area: actions;
+  padding: 0 var(--sl-space-300);
+}
+
+:host :last-child {
+  padding-block-end: var(--sl-space-300);
+}
+
+// slot::slotted(*) {
+//   margin: 0;
+// }
+
+// @for $i from 2 through 20 {
+//   @container body (min-height: #{$i}lh) {
+//     slot[name='body'] {
+//       --_line-clamp: #{$i};
+//     }
+//   }
+// }

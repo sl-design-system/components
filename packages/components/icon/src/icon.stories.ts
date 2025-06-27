@@ -151,6 +151,35 @@ export const SizeInheritance: Story = {
       <p>
         <small>* = 16px is at time of writing the size of the <code>md</code> icon in the Sanoma Learning theme.</small>
       </p>
+      <div style="display: flex; flex-wrap: wrap; flex-direction: column; gap: 8px; border: 1px solid black;">
+        <div style="display: flex; inline-size: 40px; flex-wrap: nowrap; gap: 8px; border: 1px solid black;">
+          <div><sl-icon name="info"></sl-icon></div>
+          <span style="font-size: 12px">test 123</span>
+        </div>
+        <div style="display: flex; inline-size: 400px; flex-wrap: nowrap; gap: 8px; border: 1px solid black;">
+          <sl-icon name="pinata"></sl-icon>
+          <span style="font-size: 12px">test 123</span>
+        </div>
+        <div style="display: flex; flex-wrap: nowrap; gap: 8px; border: 1px solid black; font-size: 38px;">
+          <sl-icon name="check"></sl-icon>
+          <span style="font-size: inherit;">test 123</span>
+        </div>
+      </div>
+
+      <div
+        style="display: flex; flex-direction: column; gap: 8px; border: 2px solid red; margin-block: 20px; font-size: 30px;"
+      >
+        <div style="flex: 1; border: 1px solid cornflowerblue;">test 1</div>
+        <div style="border: 1px solid cornflowerblue;">
+          <sl-icon name="pinata"></sl-icon>
+          <span">test 123</span>
+        </div>
+        <div style="flex: 1; border: 1px solid cornflowerblue;">test2</div>
+        <div style="display: flex; flex-wrap: nowrap; gap: 8px; border: 1px solid black;">
+          <div><sl-icon name="info"></sl-icon></div>
+          <span>test 123</span>
+        </div>
+      </div>
     `;
   }
 };

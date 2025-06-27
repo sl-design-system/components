@@ -295,8 +295,11 @@
       ]
     },
     "dist:themes": {
-      "command": "node scripts/build-themes.js --production",
+      "command": "node scripts/build-themes.js --studio --production",
       "clean": "if-file-deleted",
+      "dependencies": [
+        "./scripts:import-tokens"
+      ],
       "output": [
         "packages/themes/**/*.{css,scss}",
         "!packages/themes/*/fonts.css",

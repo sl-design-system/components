@@ -47,6 +47,8 @@ export class PaginatorStatus<T = any> extends LitElement {
     this.#onUpdate();
   }
 
+  @property({ attribute: false }) itemLabel?: string; // TODO: do we need count for singular / plural distinction?
+
   /**
    * Current page.
    * @default 0
@@ -113,8 +115,12 @@ export class PaginatorStatus<T = any> extends LitElement {
   override render(): TemplateResult {
     const [start, end] = this.range ?? [1, 1];
 
-    return html`${msg(str`${start} - ${end} of ${this.totalItems} items`, { id: 'sl.paginator.itemsRange' })}`;
-  }
+    console.log(this.itemLabel, 'itemLabel');
+
+    return html`${msg(str`${start} - ${end} of ${this.totalItems} ${this.itemLabel ? this.itemLabel : 'items'}`, {
+      id: 'sl.paginator.itemsRange'
+    })}`;
+  } // TODO: add an example with translation for itemLabel provided in the story...
 
   #onUpdate = () => {
     this.page = this.dataSource!.page ?? 0;
@@ -135,9 +141,12 @@ export class PaginatorStatus<T = any> extends LitElement {
         const [start, end] = this.range ?? [1, 1];
 
         announce(
-          msg(str`Currently showing ${start} to ${end} of ${this.totalItems} items`, {
-            id: 'sl.paginator.currentlyShowingAmount'
-          })
+          msg(
+            str`Currently showing ${start} to ${end} of ${this.totalItems} ${this.itemLabel ? this.itemLabel : 'items'}`,
+            {
+              id: 'sl.paginator.currentlyShowingAmount'
+            }
+          )
         );
       }
     }, 100);

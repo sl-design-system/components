@@ -1,4 +1,4 @@
-import { localized, msg } from '@lit/localize';
+import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE, type ListDataSource } from '@sl-design-system/data-source';
 import { Label } from '@sl-design-system/form';
@@ -68,6 +68,8 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
     this.#onUpdate();
   }
 
+  @property({ attribute: false }) itemLabel?: string;
+
   get pageSize(): number {
     return this.#dataSource?.pageSize ?? this.#pageSize ?? this.pageSizes?.at(0) ?? LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE;
   }
@@ -101,13 +103,16 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
   }
 
   override render(): TemplateResult {
+    console.log(this.itemLabel, 'itemLabel');
     return html`
-      <sl-label for="sizes">${msg('Items per page:', { id: 'sl.paginator.itemsPerPage' })}</sl-label>
+      <sl-label for="sizes"
+        >${msg(str`${this.itemLabel ? this.itemLabel : 'Items'} per page:`, { id: 'sl.paginator.itemsPerPage' })}
+      </sl-label>
       <sl-select @sl-change=${this.#onChange} ?disabled=${!this.pageSizes} id="sizes" value=${ifDefined(this.pageSize)}>
         ${this.pageSizes?.map(
           size => html`
             <sl-option
-              aria-label=${`${size} ${msg('items per page', { id: 'sl.paginator.itemsPerPageOption' })}`}
+              aria-label=${`${size} ${msg(str`${this.itemLabel ? this.itemLabel : 'Items'} per page`, { id: 'sl.paginator.itemsPerPageOption' })}`}
               .value=${size}
               >${size}</sl-option
             >
@@ -116,6 +121,8 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
       </sl-select>
     `;
   }
+
+  // TODO: maybe rename itemLabel to itemsLabel????
 
   #onChange({ detail: pageSize }: SlChangeEvent<number>): void {
     this.pageSize = pageSize;

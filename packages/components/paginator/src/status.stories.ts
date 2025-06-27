@@ -4,20 +4,26 @@ import { html } from 'lit';
 import '../register.js';
 import { PaginatorStatus } from './status.js';
 
-type Props = Pick<PaginatorStatus, 'pageSize' | 'page' | 'totalItems'>;
+type Props = Pick<PaginatorStatus, 'itemLabel' | 'pageSize' | 'page' | 'totalItems'>;
 type Story = StoryObj<Props>;
 
 export default {
   title: 'Navigation/Paginator/Status',
   tags: ['draft'],
   args: {
+    itemLabel: '',
     totalItems: 100,
     pageSize: 10,
     page: 5
   },
-  render: ({ pageSize, page, totalItems }) => {
+  render: ({ itemLabel, pageSize, page, totalItems }) => {
     return html`
-      <sl-paginator-status .page=${page} .pageSize=${pageSize} .totalItems=${totalItems}></sl-paginator-status>
+      <sl-paginator-status
+        itemLabel=${itemLabel}
+        .page=${page}
+        .pageSize=${pageSize}
+        .totalItems=${totalItems}
+      ></sl-paginator-status>
     `;
   }
 } satisfies Meta<Props>;

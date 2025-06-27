@@ -59,12 +59,16 @@ export const Basic: Story = {
         <sl-grid-column ellipsize-text header="School" path="school.name"></sl-grid-column>
       </sl-grid>
       <div class="pagination">
-        <sl-paginator-status .dataSource=${ds}></sl-paginator-status>
+        <sl-paginator-status .itemLabel=${'students'} .dataSource=${ds}></sl-paginator-status>
         <sl-paginator .dataSource=${ds}></sl-paginator>
-        <sl-paginator-page-size .dataSource=${ds} page-sizes="[5,10,15,20]"></sl-paginator-page-size>
+        <sl-paginator-page-size
+          .dataSource=${ds}
+          .itemLabel=${'Students'}
+          page-sizes="[5,10,15,20]"
+        ></sl-paginator-page-size>
       </div>
     `;
-  }
+  } // TODO: add an example with translation for itemLabel provided in the story... students...
 };
 
 export const Filtering: Story = {
@@ -118,9 +122,13 @@ export const Filtering: Story = {
         ></sl-grid-filter-column>
       </sl-grid>
       <div class="pagination">
-        <sl-paginator-status .dataSource=${ds}></sl-paginator-status>
+        <sl-paginator-status .itemLabel=${'students'} .dataSource=${ds}></sl-paginator-status>
         <sl-paginator .dataSource=${ds}></sl-paginator>
-        <sl-paginator-page-size .dataSource=${ds} page-sizes="[5,10,15,20]"></sl-paginator-page-size>
+        <sl-paginator-page-size
+          .itemLabel=${'Students'}
+          .dataSource=${ds}
+          page-sizes="[5,10,15,20]"
+        ></sl-paginator-page-size>
       </div>
     `;
   }
@@ -249,10 +257,14 @@ export const Manual: Story = {
         <sl-grid-column ellipsize-text header="School" path="school.name"></sl-grid-column>
       </sl-grid>
       <div class="pagination">
-        <sl-paginator-status .totalItems=${(students as Student[]).length}></sl-paginator-status>
+        <sl-paginator-status
+          .itemLabel=${'students'}
+          .totalItems=${(students as Student[]).length}
+        ></sl-paginator-status>
         <sl-paginator @sl-page-change=${onPageChange} .totalItems=${(students as Student[]).length}></sl-paginator>
         <sl-paginator-page-size
           @sl-page-size-change=${onPageSizeChange}
+          .itemLabel=${'Students'}
           page-size="10"
           page-sizes="[5,10,15]"
         ></sl-paginator-page-size>

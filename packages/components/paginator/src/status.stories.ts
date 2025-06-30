@@ -11,7 +11,6 @@ export default {
   title: 'Navigation/Paginator/Status',
   tags: ['draft'],
   args: {
-    itemLabel: '',
     totalItems: 100,
     pageSize: 10,
     page: 5
@@ -19,7 +18,7 @@ export default {
   render: ({ itemLabel, pageSize, page, totalItems }) => {
     return html`
       <sl-paginator-status
-        itemLabel=${itemLabel}
+        .itemLabel=${itemLabel}
         .page=${page}
         .pageSize=${pageSize}
         .totalItems=${totalItems}
@@ -53,5 +52,11 @@ export const DataSource: Story = {
     dataSource.update();
 
     return html`<sl-paginator-status .dataSource=${dataSource}></sl-paginator-status>`;
+  }
+};
+
+export const CustomItemLabel: Story = {
+  args: {
+    itemLabel: 'books'
   }
 };

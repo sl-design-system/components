@@ -11,7 +11,6 @@ export default {
   title: 'Navigation/Paginator/Page size',
   tags: ['draft'],
   args: {
-    itemLabel: '',
     pageSize: 10,
     pageSizes: [5, 10, 15]
   },
@@ -39,5 +38,11 @@ export const DataSource: Story = {
     dataSource.update();
 
     return html`<sl-paginator-page-size .dataSource=${dataSource} .pageSizes=${pageSizes}></sl-paginator-page-size>`;
+  }
+};
+
+export const CustomItemLabel: Story = {
+  args: {
+    itemLabel: 'Students'
   }
 };

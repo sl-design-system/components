@@ -68,7 +68,7 @@ export const Basic: Story = {
         ></sl-paginator-page-size>
       </div>
     `;
-  } // TODO: add an example with translation for itemLabel provided in the story... students...
+  }
 };
 
 export const Filtering: Story = {

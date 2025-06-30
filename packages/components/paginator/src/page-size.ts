@@ -68,6 +68,12 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
     this.#onUpdate();
   }
 
+  /**
+   * The label to display for the 'items' per page selector.
+   * If not set, defaults to "Items".
+   * You can use this to set a custom label, such as "Students" or "Books" or something else.
+   * Please remember to provide a translation for the label in your application.
+   */
   @property({ attribute: false }) itemLabel?: string;
 
   get pageSize(): number {
@@ -103,7 +109,6 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
   }
 
   override render(): TemplateResult {
-    console.log(this.itemLabel, 'itemLabel');
     return html`
       <sl-label for="sizes"
         >${msg(str`${this.itemLabel ? this.itemLabel : 'Items'} per page:`, { id: 'sl.paginator.itemsPerPage' })}
@@ -121,8 +126,6 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
       </sl-select>
     `;
   }
-
-  // TODO: maybe rename itemLabel to itemsLabel????
 
   #onChange({ detail: pageSize }: SlChangeEvent<number>): void {
     this.pageSize = pageSize;

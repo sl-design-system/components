@@ -47,7 +47,13 @@ export class PaginatorStatus<T = any> extends LitElement {
     this.#onUpdate();
   }
 
-  @property({ attribute: false }) itemLabel?: string; // TODO: do we need count for singular / plural distinction?
+  /**
+   * The label to display for the 'items'.
+   * If not set, defaults to "Items".
+   * You can use this to set a custom label, such as "students" or "books" or something else.
+   * Please remember to provide a translation for the label in your application.
+   */
+  @property({ attribute: false }) itemLabel?: string;
 
   /**
    * Current page.
@@ -115,12 +121,10 @@ export class PaginatorStatus<T = any> extends LitElement {
   override render(): TemplateResult {
     const [start, end] = this.range ?? [1, 1];
 
-    console.log(this.itemLabel, 'itemLabel');
-
     return html`${msg(str`${start} - ${end} of ${this.totalItems} ${this.itemLabel ? this.itemLabel : 'items'}`, {
       id: 'sl.paginator.itemsRange'
     })}`;
-  } // TODO: add an example with translation for itemLabel provided in the story...
+  }
 
   #onUpdate = () => {
     this.page = this.dataSource!.page ?? 0;

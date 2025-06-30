@@ -1,5 +1,4 @@
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { ButtonBar } from '@sl-design-system/button-bar';
+import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './card.scss.js';
@@ -37,13 +36,6 @@ export type CardMediaPosition = 'start' | 'end';
  */
 export class Card extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
-    return {
-      'sl-button-bar': ButtonBar
-    };
-  }
-
-  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** Observe the card width. */
@@ -60,7 +52,7 @@ export class Card extends ScopedElementsMixin(LitElement) {
   /** When the height of the card is set (or constrained) by its container (for example in a grid with fixed rows) this needs to be set to be added in order to assure the correct rendering */
   @property({ type: Boolean, attribute: 'explicit-height' }) explicitHeight?: boolean;
   /** When the grid inside the card is defined by a parent grid */
-  @property({ type: Boolean, attribute: 'explicit-height' }) subgrid?: boolean;
+  @property({ type: Boolean }) subgrid?: boolean;
   /** When the height is `fixed` the image will determine the height of the card, when it is `flex` the height of the text will determine the height of the card. */
   @property({ reflect: true }) height: CardHeightOptions = 'fixed';
   /** The position of the media in relation to the text */
@@ -89,20 +81,16 @@ export class Card extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  // <div class="media-wrapper">
-  //   </div>
-  // {# <div class="content"> #}
-  // </div>
   override render(): TemplateResult {
     return html`
-      <slot name="media" @slotchange=${this.#setOrientation}></slot>
+      <figure><slot name="media" @slotchange=${this.#setOrientation}></slot></figure>
       <header>
         <slot class="title"></slot>
         <slot name="header"></slot>
         <slot name="menu-button"></slot>
       </header>
       <article><slot name="body"></slot></article>
-      <slot name="actions"></slot>
+      <slot name="actions" @slotchange=${this.#setActions}></slot>
     `;
   }
 
@@ -116,6 +104,28 @@ export class Card extends ScopedElementsMixin(LitElement) {
       this.classList.add('sl-horizontal');
     } else {
       this.classList.add('sl-has-media');
+    }
+
+    //calculate the number of lines in the article
+    const article = this.renderRoot.querySelector('article');
+    if (!article) return;
+    const lines = Math.floor(article.getBoundingClientRect().height / parseInt(getComputedStyle(article).lineHeight));
+    // console.log(article.getBoundingClientRect().height, lines);
+    if (!isNaN(lines) && lines > 0) {
+      article.style.setProperty('--_line-clamp', lines.toString());
+    }
+  }
+
+  #setActions(): void {
+    if (!this.shadowRoot) {
+      return;
+    }
+    const actions: HTMLSlotElement | null = this.shadowRoot.querySelector('slot[name="actions"]');
+
+    if (!actions || actions.assignedNodes({ flatten: true }).length === 0) {
+      this.classList.remove('sl-has-actions');
+    } else {
+      this.classList.add('sl-has-actions');
     }
   }
 }

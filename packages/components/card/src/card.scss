@@ -29,7 +29,9 @@
   display: grid;
   grid-template:
     'media' var(--_media-size)
-    'content' 1fr;
+    'header' max-content
+    'contents' 1fr
+    'actions' max-content / 1fr;
 
   // box-shadow: var(--_box-shadow);
   // box-sizing: border-box;
@@ -38,31 +40,52 @@
   overflow: hidden;
 }
 
-// TODO: find out shorthand for grid-template
-// :host(:where(.sl-horizontal)) {
-//   grid-template-areas:
-//     'media header'
-//     'media contents'
-//     'media actions'
-//      ;
-//   grid-template-rows: 1fr max-content;
-//   grid-template-columns: var(--_media-size) 1fr;
-// }
+:host(:where(.sl-horizontal)) {
+  gap: var(--sl-space-200) 0;
+  grid-template:
+    'media header' max-content
+    'media contents' 1fr
+    'media actions' max-content / var(--_media-size) 1fr;
+}
+
+:host(:where(.sl-horizontal):not(.sl-has-actions)) {
+  grid-template:
+    'media header' max-content
+    'media contents' 1fr / var(--_media-size) 1fr;
+}
 
 :host(:where([subgrid])) {
   gap: var(--sl-space-200) 0;
-  grid-column: span 2;
-  grid-row: span 3;
+
+  // grid-column: span 2;
+  grid-row: span 4;
   grid-template-columns: subgrid;
   grid-template-rows: subgrid;
 }
 
-slot[name='media'] {
-  aspect-ratio: var(--_aspect-ratio);
-  display: grid;
+:host(:where(.sl-horizontal[subgrid])) {
+  grid-column: span 2;
+  grid-row: span 3;
+}
+
+:host(:where([subgrid]):not(.sl-has-actions)) {
+  grid-row: span 2;
+  grid-template-columns: subgrid;
+  grid-template-rows: subgrid;
+}
+
+figure {
   grid-area: media;
   margin: 0;
   overflow: hidden;
+  position: relative;
+}
+
+slot[name='media'] {
+  display: grid;
+  inset: 0;
+  overflow: hidden;
+  position: absolute;
 }
 
 slot[name='media']::slotted(*) {
@@ -72,15 +95,11 @@ slot[name='media']::slotted(*) {
   overflow: hidden;
 }
 
-// article {
-//   flex: 1 1 auto;
-//   grid-area: body;
-// }
-
 :host([fit-image]) {
   slot[name='media'] {
     background-color: var(--sl-color-background-accent-grey-subtle);
-    position: relative;
+
+    // position: relative;
   }
 
   slot[name='media']::slotted(*) {
@@ -104,16 +123,21 @@ slot[name='media']::slotted(*) {
 //     container: body / size;
 //   }
 
-// slot[name='body'] {
-//   /* stylelint-disable-next-line property-no-vendor-prefix */
-//   -webkit-box-orient: vertical;
-//   /* stylelint-disable-next-line value-no-vendor-prefix */
-//   display: -webkit-box;
-//   /* stylelint-disable-next-line property-no-vendor-prefix */
-//   -webkit-line-clamp: var(--_line-clamp, 9999);
-//   overflow: hidden;
-// }
-// }
+slot[name='body'] {
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-box-orient: vertical;
+  clip-path: fill-box;
+  /* stylelint-disable-next-line value-no-vendor-prefix */
+  display: -webkit-box;
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-line-clamp: var(--_line-clamp, 9999);
+  overflow: hidden;
+}
+
+slot.title::slotted(*),
+slot[name='body']::slotted(*) {
+  margin-block: 0;
+}
 
 // :host(:where(.sl-horizontal[media-position='end'])) {
 //   grid-template-areas: 'content actions media';
@@ -132,9 +156,17 @@ slot[name='media']::slotted(*) {
 // }
 
 article {
-  // display: contents;
   grid-area: contents;
-  padding: 0 var(--sl-space-300);
+
+  // container: body / size;
+  overflow: hidden;
+  padding: 0 var(--sl-space-300) var(--sl-space-300);
+}
+
+:host(.sl-has-actions) {
+  article {
+    padding-block-end: 0;
+  }
 }
 
 // :host(.sl-has-icon) .content {
@@ -150,6 +182,9 @@ article {
 // }
 
 header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-space-050);
   grid-area: header;
   padding: var(--sl-space-300) var(--sl-space-300) 0;
 }
@@ -191,12 +226,16 @@ slot[name='actions'] {
   //   display: flex;
   //   flex-direction: column;
   grid-area: actions;
-  padding: 0 var(--sl-space-300);
+  padding: 0 var(--sl-space-300) var(--sl-space-300);
 }
 
-:host :last-child {
-  padding-block-end: var(--sl-space-300);
+slot[name='actions']:not(slot[name='actions']::slotted(*)) {
+  display: none;
 }
+
+// :host>:last-child:not() {
+//   padding-block-end: var(--sl-space-300);
+// }
 
 // slot::slotted(*) {
 //   margin: 0;

@@ -71,21 +71,28 @@ export default {
     subheaderText,
     actionButton
   }) => {
-    return card(
-      {
-        media,
-        title,
-        bodyText,
-        orientation,
-        imageUrl,
-        fitImage,
-        subheaderContent,
-        subheaderBadge,
-        subheaderText,
-        actionButton
-      },
-      0
-    );
+    return html`
+      <style>
+        sl-card {
+          --sl-card-media-percentage: 200px;
+        }
+      </style>
+      ${card(
+        {
+          media,
+          title,
+          bodyText,
+          orientation,
+          imageUrl,
+          fitImage,
+          subheaderContent,
+          subheaderBadge,
+          subheaderText,
+          actionButton
+        },
+        0
+      )}
+    `;
   }
 } satisfies Meta<Props>;
 
@@ -180,7 +187,12 @@ const bodyCopy = [
   `
 ];
 
-export const SubGrid: Story = {
+export const SubGridHorizontal: Story = {
+  args: {
+    fitImage: true,
+    subgrid: true
+  },
+
   render: ({
     media,
     title,
@@ -213,10 +225,67 @@ export const SubGrid: Story = {
           display: grid;
           gap: 16px;
           grid-template-columns: repeat(2, 200px 1fr);
-          grid-auto-rows: max-content 1fr max-content;
+          grid-auto-rows: max-content 100px max-content;
+        }
+        .grid.no-buttons {
+          grid-auto-rows: max-content max-content;
         }
       </style>
-      <div class="grid">${card(settings, 1)} ${card(settings, 2)} ${card(settings, 0)} ${card(settings, 3)}</div>
+      <div class=${!actionButton ? 'grid no-buttons' : 'grid'}>
+        ${card(settings, 1)} ${card(settings, 2)} ${card(settings, 0)} ${card(settings, 3)}
+      </div>
+    `;
+  }
+};
+
+export const SubGridVertical: Story = {
+  args: {
+    orientation: 'vertical',
+    subgrid: true,
+    subheaderContent: false
+  },
+
+  render: ({
+    media,
+    title,
+    bodyText,
+    orientation,
+    imageUrl,
+    fitImage,
+    subheaderContent,
+    subheaderBadge,
+    subheaderText,
+    actionButton,
+    subgrid
+  }) => {
+    const settings = {
+      media,
+      title,
+      bodyText,
+      orientation,
+      imageUrl,
+      fitImage,
+      subheaderContent,
+      subheaderBadge,
+      subheaderText,
+      actionButton,
+      subgrid
+    };
+    return html`
+      <style>
+        .grid {
+          display: grid;
+          gap: 16px;
+          grid-template-columns: repeat(4, 1fr);
+          grid-auto-rows: 200px max-content minmax(1lh, 5lh) max-content;
+        }
+        .grid.no-buttons {
+          grid-auto-rows: 200px max-content minmax(1lh, 5lh);
+        }
+      </style>
+      <div class=${!actionButton ? 'grid no-buttons' : 'grid'}>
+        ${card(settings, 1)} ${card(settings, 2)} ${card(settings, 0)} ${card(settings, 3)}
+      </div>
     `;
   }
 };

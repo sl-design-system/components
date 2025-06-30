@@ -117,7 +117,7 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
         ${this.pageSizes?.map(
           size => html`
             <sl-option
-              aria-label=${`${size} ${msg(str`${this.itemLabel ? this.itemLabel : 'Items'} per page`, { id: 'sl.paginator.itemsPerPageOption' })}`}
+              aria-label=${`${size} ${msg(str`${this.itemLabel ? this.itemLabel : 'items'} per page`, { id: 'sl.paginator.itemsPerPageOption' })}`}
               .value=${size}
               >${size}</sl-option
             >

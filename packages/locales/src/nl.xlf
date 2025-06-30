@@ -223,8 +223,8 @@
   <target><x id="0" equiv-text="${this.itemLabel ? this.itemLabel : 'Items'}"/> per pagina:</target>
 </trans-unit>
 <trans-unit id="sl.paginator.itemsPerPageOption">
-  <source><x id="0" equiv-text="${this.itemLabel ? this.itemLabel : 'Items'}"/> per page</source>
-  <target><x id="0" equiv-text="${this.itemLabel ? this.itemLabel : 'Items'}"/> per pagina</target>
+  <source><x id="0" equiv-text="${this.itemLabel ? this.itemLabel : 'items'}"/> per page</source>
+  <target><x id="0" equiv-text="${this.itemLabel ? this.itemLabel : 'items'}"/> per pagina</target>
 </trans-unit>
 <trans-unit id="sl.paginator.pagination">
   <source>Pagination</source>

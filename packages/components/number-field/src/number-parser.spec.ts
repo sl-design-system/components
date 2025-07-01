@@ -9,6 +9,10 @@ describe('NumberParser', () => {
       parser = new NumberParser();
     });
 
+    it('should return undefined for empty string', () => {
+      expect(parser.parse('')).to.be.undefined;
+    });
+
     it('should parse a simple number', () => {
       expect(parser.parse('1234')).to.equal(1234);
     });
@@ -17,8 +21,8 @@ describe('NumberParser', () => {
       expect(parser.parse('1234.56')).to.equal(1234.56);
     });
 
-    it('should return undefined for invalid number', () => {
-      expect(parser.parse('1abc')).to.be.undefined;
+    it('should return NaN for invalid number', () => {
+      expect(parser.parse('1abc')).to.be.NaN;
     });
   });
 

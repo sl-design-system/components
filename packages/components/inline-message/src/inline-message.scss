@@ -123,5 +123,6 @@ sl-button {
 [part='content'] {
   slot {
     display: block;
+    text-wrap: pretty;
   }
 }

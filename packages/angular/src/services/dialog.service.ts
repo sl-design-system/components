@@ -45,9 +45,6 @@ const applyDialogProps = (dialog: Dialog, config: DialogConfig<unknown>): void =
  * ```
  */
 export class DialogRef<T = unknown> {
-  /** Dialog element reference. */
-  dialog: Dialog;
-
   /** Subject that emits when the dialog closes. */
   #afterClosedSubject = new Subject<T | undefined>();
 
@@ -57,7 +54,15 @@ export class DialogRef<T = unknown> {
   /** Result passed when closing the dialog. */
   #result?: T;
 
-  #slCloseHandler: () => void;
+  /**
+   * Callback function type for handling the dialog close event.
+   * This property holds a reference to a function that is invoked when the dialog emits the `sl-close` event.
+   * It is used internally to notify subscribers and perform cleanup when the dialog is closed, either by user action or programmatically.
+   */
+  #onClose: () => void;
+
+  /** Dialog element reference. */
+  dialog: Dialog;
 
   constructor(
     dialog: Dialog,
@@ -65,7 +70,7 @@ export class DialogRef<T = unknown> {
   ) {
     this.dialog = dialog;
 
-    this.#slCloseHandler = () => {
+    this.#onClose = () => {
       requestAnimationFrame(() => {
         this.ngZone.run(() => {
           if (this.#manualClose) {
@@ -78,7 +83,7 @@ export class DialogRef<T = unknown> {
       });
     };
 
-    this.dialog.addEventListener('sl-close', this.#slCloseHandler);
+    this.dialog.addEventListener('sl-close', this.#onClose);
   }
 
   /** Returns an Observable that emits when the dialog closes */
@@ -95,7 +100,7 @@ export class DialogRef<T = unknown> {
 
   /** A method to clean up the event listener */
   destroy(): void {
-    this.dialog.removeEventListener('sl-close', this.#slCloseHandler);
+    this.dialog.removeEventListener('sl-close', this.#onClose);
   }
 }
 
@@ -133,11 +138,6 @@ export class DialogService {
 
     document.body.appendChild(dialog);
 
-    // Create a temporary container to render the component
-    const temporaryContainer = document.createElement('div');
-    document.body.appendChild(temporaryContainer);
-    temporaryContainer.appendChild(hostElement);
-
     // Wait for the component to render and move content, outside Angular zone to avoid change detection
     this.ngZone.runOutsideAngular(() => {
       requestAnimationFrame(() => {
@@ -145,9 +145,6 @@ export class DialogService {
         while (hostElement.firstChild) {
           dialog.appendChild(hostElement.firstChild);
         }
-
-        // Clean up temporary container
-        document.body.removeChild(temporaryContainer);
 
         dialog.showModal();
 

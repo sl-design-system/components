@@ -167,7 +167,42 @@ export const SizeInheritance: Story = {
       </div>
 
       <div
-        style="display: flex; flex-direction: column; gap: 8px; border: 2px solid red; margin-block: 20px; font-size: 30px;"
+        style="position: relative; display: flex; flex-direction: column; align-items: center; margin-block: 40px; height: 180px; padding: 16px 24px; background: #2bd6b4; border: 2px solid red;"
+      >
+        <div style="flex: 1; border: 1px solid cornflowerblue;">test 1</div>
+        <div style="border: 1px solid cornflowerblue;">
+          <sl-icon name="pinata"></sl-icon>
+          <span">test 123</span>
+        </div>
+        <div style="flex: 1; border: 1px solid cornflowerblue;">test2</div>
+        <sl-icon style="padding: 20px; background: #96a4d8" name="info"></sl-icon>
+        <sl-icon name="face-smile"></sl-icon>
+        <sl-icon size="md" name="info"></sl-icon>
+        <sl-icon size="lg" name="info"></sl-icon>
+        <sl-icon size="xl" name="info"></sl-icon>
+        <sl-button aria-label="Close">
+          <sl-icon name="info"></sl-icon>
+        </sl-button>
+        <div style="display: flex; flex-wrap: nowrap; gap: 8px; border: 1px solid black;">
+          <div><sl-icon name="info"></sl-icon></div>
+          <span>test 123</span>
+        </div>
+        <div style="border: 1px solid black;">
+          <div><sl-icon name="info"></sl-icon></div>
+          <span>test 123</span>
+        </div>
+        <div style="display: flex; flex-wrap: nowrap; gap: 8px; border: 1px solid black;">
+          <div><sl-icon size="md" name="info"></sl-icon></div>
+          <span>test 123</span>
+        </div>
+        <div style="display: flex; flex-wrap: nowrap; gap: 8px; border: 1px solid black;">
+          <div><sl-icon size="md" name="info"></sl-icon></div>
+          <span>test 123</span>
+        </div>
+      </div>
+
+      <div
+        style="display: flex; flex-direction: column; gap: 8px; border: 2px solid red; margin-block: 40px; font-size: 30px;"
       >
         <div style="flex: 1; border: 1px solid cornflowerblue;">test 1</div>
         <div style="border: 1px solid cornflowerblue;">

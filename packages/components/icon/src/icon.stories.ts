@@ -153,8 +153,8 @@ export const SizeInheritance: Story = {
       </p>
       <div style="display: flex; flex-wrap: wrap; flex-direction: column; gap: 8px; border: 1px solid black;">
         <div style="display: flex; inline-size: 40px; flex-wrap: nowrap; gap: 8px; border: 1px solid black;">
-          <div><sl-icon name="info"></sl-icon></div>
-          <span style="font-size: 12px">test 123</span>
+          <sl-icon name="info"></sl-icon>
+          <span style="font-size: 12px; white-space: no-wrap">test 123</span>
         </div>
         <div style="display: flex; inline-size: 400px; flex-wrap: nowrap; gap: 8px; border: 1px solid black;">
           <sl-icon name="pinata"></sl-icon>

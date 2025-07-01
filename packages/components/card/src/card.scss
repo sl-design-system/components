@@ -12,7 +12,6 @@
   // --_font-body: var(--sl-text-card-body);
   // --_font-sub-title: var(--sl-text-card-subtitle);
   // --_font-title: var(--sl-text-card-title);
-  --_line-clamp: 1;
 
   // --_media-column: var(--_media-width);
   // --_media-padding-full: 0;
@@ -42,13 +41,24 @@
 
 :host(:where(.sl-horizontal)) {
   gap: var(--sl-space-200) 0;
-  grid-template:
-    'media header' max-content
-    'media contents' 1fr
-    'media actions' max-content / var(--_media-size) 1fr;
+  grid-template-areas:
+    'media header'
+    'media contents';
 }
 
-:host(:where(.sl-horizontal):not(.sl-has-actions)) {
+:host(:where(.sl-horizontal.sl-has-actions)) {
+  grid-template-areas:
+    'media header'
+    'media contents'
+    'media actions';
+}
+
+:host(:where(.sl-horizontal):not([subgrid])) {
+  grid-template-columns: var(--_media-size) 1fr;
+  grid-template-rows: max-content max-content max-content;
+}
+
+:host(:where(.sl-horizontal):not(.sl-has-actions, [subgrid])) {
   grid-template:
     'media header' max-content
     'media contents' 1fr / var(--_media-size) 1fr;
@@ -56,20 +66,8 @@
 
 :host(:where([subgrid])) {
   gap: var(--sl-space-200) 0;
-
-  // grid-column: span 2;
-  grid-row: span 4;
-  grid-template-columns: subgrid;
-  grid-template-rows: subgrid;
-}
-
-:host(:where(.sl-horizontal[subgrid])) {
-  grid-column: span 2;
-  grid-row: span 3;
-}
-
-:host(:where([subgrid]):not(.sl-has-actions)) {
-  grid-row: span 2;
+  grid-column: span var(--_horizontal-elements, 1);
+  grid-row: span var(--_vertical-elements, 3);
   grid-template-columns: subgrid;
   grid-template-rows: subgrid;
 }
@@ -167,6 +165,16 @@ article {
   article {
     padding-block-end: 0;
   }
+
+  slot[name='actions'] {
+    display: inline-block;
+
+    //   align-items: flex-end;
+    //   display: flex;
+    //   flex-direction: column;
+    grid-area: actions;
+    padding: 0 var(--sl-space-300) var(--sl-space-300);
+  }
 }
 
 // :host(.sl-has-icon) .content {
@@ -181,7 +189,7 @@ article {
 //   }
 // }
 
-header {
+.header {
   display: flex;
   flex-direction: column;
   gap: var(--sl-space-050);
@@ -218,16 +226,6 @@ slot.title::slotted(*) {
 //   grid-area: body;
 //   padding: 0 var(--sl-space-300) var(--sl-space-300);
 // }
-
-slot[name='actions'] {
-  display: inline-block;
-
-  //   align-items: flex-end;
-  //   display: flex;
-  //   flex-direction: column;
-  grid-area: actions;
-  padding: 0 var(--sl-space-300) var(--sl-space-300);
-}
 
 slot[name='actions']:not(slot[name='actions']::slotted(*)) {
   display: none;

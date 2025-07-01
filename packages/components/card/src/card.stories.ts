@@ -276,11 +276,11 @@ export const SubGridVertical: Story = {
         .grid {
           display: grid;
           gap: 16px;
-          grid-template-columns: repeat(4, 1fr);
-          grid-auto-rows: 200px max-content minmax(1lh, 5lh) max-content;
+          grid-template-columns: repeat(3, 1fr);
+          grid-auto-rows: 200px max-content 4lh max-content;
         }
         .grid.no-buttons {
-          grid-auto-rows: 200px max-content minmax(1lh, 5lh);
+          grid-auto-rows: 200px max-content max-content;
         }
       </style>
       <div class=${!actionButton ? 'grid no-buttons' : 'grid'}>

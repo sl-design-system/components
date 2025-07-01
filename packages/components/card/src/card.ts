@@ -41,6 +41,7 @@ export class Card extends ScopedElementsMixin(LitElement) {
   /** Observe the card width. */
   #resizeObserver?: ResizeObserver = new ResizeObserver(() => {
     this.#setOrientation();
+    this.#setLineClamp();
   });
 
   /** @internal The slotted media. */
@@ -63,6 +64,7 @@ export class Card extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
     this.#setOrientation();
+    this.#setGridSpan();
 
     this.#resizeObserver?.observe(this);
   }
@@ -75,6 +77,7 @@ export class Card extends ScopedElementsMixin(LitElement) {
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
+    this.#setGridSpan();
 
     if (changes.has('orientation')) {
       this.#setOrientation();
@@ -84,12 +87,12 @@ export class Card extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <figure><slot name="media" @slotchange=${this.#setOrientation}></slot></figure>
-      <header>
+      <div class="header">
         <slot class="title"></slot>
         <slot name="header"></slot>
         <slot name="menu-button"></slot>
-      </header>
-      <article><slot name="body"></slot></article>
+      </div>
+      <article><slot name="body" @slotchange=${this.#setLineClamp}></slot></article>
       <slot name="actions" @slotchange=${this.#setActions}></slot>
     `;
   }
@@ -105,18 +108,28 @@ export class Card extends ScopedElementsMixin(LitElement) {
     } else {
       this.classList.add('sl-has-media');
     }
+  }
 
+  #setLineClamp(): void {
     //calculate the number of lines in the article
     const article = this.renderRoot.querySelector('article');
     if (!article) return;
-    const lines = Math.floor(article.getBoundingClientRect().height / parseInt(getComputedStyle(article).lineHeight));
-    // console.log(article.getBoundingClientRect().height, lines);
+
+    article.style.removeProperty('--_line-clamp'); // otherwise it can't calculate the height correctly
+    const lineHeight = getComputedStyle(article).lineHeight;
+
+    const lineHeightFont =
+      !lineHeight || lineHeight === 'normal'
+        ? parseInt(getComputedStyle(article).fontSize) * 1.2
+        : parseInt(lineHeight);
+    const lines = Math.floor(article.getBoundingClientRect().height / lineHeightFont);
     if (!isNaN(lines) && lines > 0) {
       article.style.setProperty('--_line-clamp', lines.toString());
     }
   }
 
   #setActions(): void {
+    this.#setGridSpan();
     if (!this.shadowRoot) {
       return;
     }
@@ -127,5 +140,30 @@ export class Card extends ScopedElementsMixin(LitElement) {
     } else {
       this.classList.add('sl-has-actions');
     }
+  }
+
+  #setGridSpan(): void {
+    let verticalElements = 2; // header and article are always present
+    let horizontalElements = 1; // the bare minimum :)
+    if (!this.shadowRoot) {
+      return;
+    }
+
+    const actions: HTMLSlotElement | null = this.shadowRoot.querySelector('slot[name="actions"]');
+
+    if (actions && actions.assignedNodes({ flatten: true }).length > 0) {
+      verticalElements++; // actions
+    }
+
+    if (this.orientation === 'vertical' && this.media && this.media.length > 0) {
+      verticalElements++; // media
+    }
+
+    if (this.orientation === 'horizontal' && this.media && this.media.length > 0) {
+      horizontalElements++; // media
+    }
+
+    this.style.setProperty('--_vertical-elements', verticalElements.toString());
+    this.style.setProperty('--_horizontal-elements', horizontalElements.toString());
   }
 }

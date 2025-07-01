@@ -31,7 +31,6 @@ export type SlCloseEvent = CustomEvent<void>;
  * @csspart body - The body of the dialog
  * @csspart footer - The dialog footer
  * @csspart footer-bar - The button bar in the footer
- * @cssprop --sl-dialog-max-inline-size - The maximum width of the dialog
  * @slot header - Header content for the dialog
  * @slot title - The title of the dialog
  * @slot footer - Footer content for the dialog

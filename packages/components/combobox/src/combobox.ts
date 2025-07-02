@@ -272,7 +272,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     const style = document.createElement('style');
     style.innerHTML = `
       sl-combobox:has(input:hover):not(:focus-within)::part(text-field) {
-        --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+        --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
       }
       sl-combobox[has-selected-items] input::placeholder {
         color: transparent;

@@ -132,4 +132,16 @@ describe('sl-paginator-status', () => {
       expect(event.detail.urgency).to.be.undefined;
     });
   });
+
+  describe('custom item label', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-paginator-status .itemLabel=${'books'} page="14" page-size="15" total-items="209"></sl-paginator-status>
+      `);
+    });
+
+    it('should have a proper label', () => {
+      expect(el.renderRoot).to.have.trimmed.text('196 - 209 of 209 books');
+    });
+  });
 });

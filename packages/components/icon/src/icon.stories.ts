@@ -155,6 +155,27 @@ export const SizeInheritance: Story = {
   }
 };
 
+export const FlexContainer: Story = {
+  render: () => {
+    return html`
+      <h2>Icons in a flex container</h2>
+      <p>We need to make sure the icon keeps its size even when it's in a flex-container.</p>
+      <div
+        style="display: flex; inline-size: 50px; flex-wrap: nowrap; gap: 8px; border: 1px solid black; margin-bottom: 16px;"
+      >
+        <sl-icon name="info"></sl-icon>
+        <span style="white-space: nowrap">test 123</span>
+      </div>
+      <div
+        style="font-size:48px; display: flex; inline-size: 50px; flex-wrap: nowrap; gap: 8px; border: 1px solid black;"
+      >
+        <sl-icon name="info"></sl-icon>
+        <span style="white-space: nowrap">test 123</span>
+      </div>
+    `;
+  }
+};
+
 export const All: Story = {
   render: () => {
     const icons = Object.keys(window.SLDS?.icons);

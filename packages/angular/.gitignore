@@ -2,6 +2,7 @@
 
 src/*
 !src/forms
+!src/services
 !src/*.ts
 
 # Compiled output

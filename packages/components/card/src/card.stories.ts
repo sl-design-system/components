@@ -132,7 +132,7 @@ const card = (
       ${card.actionButton
         ? html`
             <sl-button-bar slot="actions"
-              ><sl-button> <sl-icon name="far-download"></sl-icon> Download </sl-button>
+              ><sl-button variant="primary"> <sl-icon name="far-download"></sl-icon> Download </sl-button>
             </sl-button-bar>
           `
         : nothing}
@@ -225,13 +225,22 @@ export const SubGridHorizontal: Story = {
           display: grid;
           gap: 16px;
           grid-template-columns: repeat(2, 200px 1fr);
-          grid-auto-rows: max-content 100px max-content;
+          grid-auto-rows: max-content 5lh max-content;
         }
         .grid.no-buttons {
           grid-auto-rows: max-content max-content;
         }
       </style>
-      <div class=${!actionButton ? 'grid no-buttons' : 'grid'}>
+      <p>
+        This grid has 4 columns, because the horizontal cards span 2 columns each it will show 2 cards per row.<br />
+        Hiding the media will result in 4 cards per row, but this will look odd, because the cards columns are set to
+        200px and 1fr alternating.
+      </p>
+      <p>
+        The rows are set to <code>max-content 5lh max-content</code> and <code>max-content max-content</code> with and
+        without action buttons respectively
+      </p>
+      <div class="grid${!actionButton ? ' no-buttons' : ''}">
         ${card(settings, 1)} ${card(settings, 2)} ${card(settings, 0)} ${card(settings, 3)}
       </div>
     `;
@@ -281,6 +290,63 @@ export const SubGridVertical: Story = {
         }
         .grid.no-buttons {
           grid-auto-rows: 200px max-content max-content;
+        }
+      </style>
+      <p>
+        This grid has 3 columns, the rows are set to <code>200px max-content 4lh max-content</code> and
+        <code>200px max-content max-content</code> with and without action buttons respectively
+      </p>
+      <div class=${!actionButton ? 'grid no-buttons' : 'grid'}>
+        ${card(settings, 1)} ${card(settings, 2)} ${card(settings, 0)} ${card(settings, 3)}
+      </div>
+    `;
+  }
+};
+
+export const SubGridNoMedia: Story = {
+  args: {
+    orientation: 'vertical',
+    subgrid: true,
+    subheaderContent: true,
+    media: false
+  },
+
+  render: ({
+    media,
+    title,
+    bodyText,
+    orientation,
+    imageUrl,
+    fitImage,
+    subheaderContent,
+    subheaderBadge,
+    subheaderText,
+    actionButton,
+    subgrid
+  }) => {
+    const settings = {
+      media,
+      title,
+      bodyText,
+      orientation,
+      imageUrl,
+      fitImage,
+      subheaderContent,
+      subheaderBadge,
+      subheaderText,
+      actionButton,
+      subgrid
+    };
+    return html`
+      <style>
+        .grid {
+          display: grid;
+          gap: 16px;
+          grid-template-columns: repeat(3, 1fr);
+          grid-auto-rows: max-content 4lh max-content;
+        }
+        .grid.no-buttons {
+          grid-auto-rows: max-content max-content;
         }
       </style>
       <div class=${!actionButton ? 'grid no-buttons' : 'grid'}>

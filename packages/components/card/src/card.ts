@@ -105,6 +105,7 @@ export class Card extends ScopedElementsMixin(LitElement) {
 
     if (this.orientation === 'horizontal' && (this.getBoundingClientRect().width > breakpoint || breakpoint === 0)) {
       this.classList.add('sl-horizontal');
+      this.classList.add('sl-has-media');
     } else {
       this.classList.add('sl-has-media');
     }
@@ -156,6 +157,7 @@ export class Card extends ScopedElementsMixin(LitElement) {
     }
 
     if (this.orientation === 'vertical' && this.media && this.media.length > 0) {
+      console.log('vertical media', this.media);
       verticalElements++; // media
     }
 

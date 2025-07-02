@@ -54,13 +54,19 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
   /** The initial state when the form was associated with the radio group. Used to reset the group. */
   #initialState?: T;
 
+  #isInitialRender = true;
+
   /** When an option is checked, update the state. */
   #observer = new MutationObserver(mutations => {
     const { target } = mutations.find(m => m.attributeName === 'checked' && m.oldValue === null) || {};
 
+    console.log('isInitialRender in mutationObserver', this.#isInitialRender, this.#observer);
+
     this.#observer.disconnect();
-    this.#setSelectedOption(target as Radio<T>);
-    this.#observer.observe(this, OBSERVER_OPTIONS);
+    this.#setSelectedOption(target as Radio<T>, !this.#isInitialRender); // TODO: should not run on component render phase
+    // this.#setSelectedOption(target as Radio<T>, false); // Prevent event emission during initial render
+    this.#observer.observe(this, OBSERVER_OPTIONS); // TODO: maybe not necessary to re-observe here?
+    this.#isInitialRender = false; // Set to false after the first render
   });
 
   /** Manage the keyboard navigation. */
@@ -117,7 +123,7 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.#observer.observe(this, OBSERVER_OPTIONS);
+    // this.#observer.observe(this, OBSERVER_OPTIONS);
 
     this.internals.role = 'radiogroup';
     this.setFormControlElement(this);
@@ -142,6 +148,7 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
     this.value = this.#initialState;
 
     this.#observer.disconnect();
+    console.log('emits event? in formResetCallback', this.value, this.radios);
     this.#setSelectedOption(this.radios?.find(radio => radio.value === this.value));
     this.#observer.observe(this, OBSERVER_OPTIONS);
   }
@@ -149,6 +156,13 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
+    this.#observer.observe(this, OBSERVER_OPTIONS);
+
+    console.log('isInitialRender in firstUpdated before', this.#isInitialRender);
+    // this.#isInitialRender = false;
+
+    // this.#observer.observe(this, OBSERVER_OPTIONS);
+    console.log('isInitialRender in firstUpdated after', this.#isInitialRender);
     this.#updateValueAndValidity();
   }
 
@@ -226,7 +240,10 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
     this.radios?.forEach(radio => (radio.checked = radio.value === option?.value));
     this.value = option?.value;
 
+    console.log('setSelectedOption', this.value, option?.value, emitEvent);
+
     if (emitEvent) {
+      console.log('emits event? in setSelectedOption', this.value);
       this.changeEvent.emit(this.value);
       this.updateState({ dirty: true });
     }

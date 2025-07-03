@@ -1,6 +1,4 @@
 :host {
-  --_media-size: var(--sl-card-media-percentage, 50%);
-
   background-color: var(--sl-elevation-surface-raised-default);
   border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
   border-radius: var(--sl-size-borderRadius-default);
@@ -14,6 +12,8 @@
 
 @layer grid-areas {
   :host {
+    --_media-size: var(--sl-card-media-size, auto);
+
     display: grid;
     gap: var(--sl-space-200) 0;
     grid-template:
@@ -36,6 +36,8 @@
   }
 
   :host(:where(.sl-horizontal.sl-has-media)) {
+    --_media-size: var(--sl-card-media-size, 50%);
+
     gap: var(--sl-space-200) 0;
     grid-template-areas:
       'media header'
@@ -51,7 +53,7 @@
 
   :host(:where(.sl-horizontal.sl-has-media):not([subgrid])) {
     grid-template-columns: var(--_media-size) 1fr;
-    grid-template-rows: max-content max-content max-content;
+    grid-template-rows: max-content 1fr max-content;
   }
 
   :host(:where(.sl-horizontal.sl-has-media):not(.sl-has-actions, [subgrid])) {
@@ -81,7 +83,8 @@
     display: grid;
     inset: 0;
     overflow: hidden;
-    position: absolute;
+
+    // position: absolute;
   }
 
   slot[name='media']::slotted(*) {
@@ -93,9 +96,7 @@
 
   :host([fit-image]) {
     slot[name='media'] {
-      background-color: var(--sl-color-background-accent-grey-subtle);
-
-      // position: relative;
+      background: var(--sl-card-image-backdrop, var(--sl-color-background-accent-grey-subtle));
     }
 
     slot[name='media']::slotted(*) {
@@ -105,6 +106,26 @@
       inline-size: calc(100% - 2 * var(--_margin));
       margin: var(--_margin);
       object-fit: contain;
+    }
+  }
+
+  :host([fit-image][image-backdrop]) {
+    slot[name='media'] {
+      background: transparent;
+      z-index: 1; // Ensure backdrop is below the image
+    }
+
+    figure .backdrop {
+      --_blur: 16px;
+
+      block-size: calc(100% + 2 * var(--_blur));
+      display: block;
+      filter: blur(var(--_blur));
+      inline-size: calc(100% + 2 * var(--_blur));
+      inset-block-start: calc(-1 * var(--_blur));
+      inset-inline-start: calc(-1 * var(--_blur));
+      opacity: 0.4;
+      position: absolute;
     }
   }
 }

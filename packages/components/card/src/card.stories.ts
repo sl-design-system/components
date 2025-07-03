@@ -15,6 +15,7 @@ type Props = Pick<Card, 'orientation'> & {
   title?: string;
   bodyText?: string;
   fitImage?: boolean;
+  imageBackdrop?: boolean;
   imageUrl?: string;
   subheaderContent?: boolean;
   subheaderBadge?: string;
@@ -43,6 +44,7 @@ export default {
     subheaderBadge: 'new',
     actionButton: true,
     fitImage: false,
+    imageBackdrop: false,
     subgrid: false
   },
   argTypes: {
@@ -66,15 +68,17 @@ export default {
     orientation,
     imageUrl,
     fitImage,
+    imageBackdrop,
     subheaderContent,
     subheaderBadge,
     subheaderText,
-    actionButton
+    actionButton,
+    subgrid
   }) => {
     return html`
       <style>
         sl-card {
-          --sl-card-media-percentage: 200px;
+          --sl-card-media-size: unset;
         }
       </style>
       ${card(
@@ -85,10 +89,12 @@ export default {
           orientation,
           imageUrl,
           fitImage,
+          imageBackdrop,
           subheaderContent,
           subheaderBadge,
           subheaderText,
-          actionButton
+          actionButton,
+          subgrid
         },
         0
       )}
@@ -104,6 +110,7 @@ const card = (
     orientation?: CardOrientation;
     imageUrl?: string;
     fitImage?: boolean;
+    imageBackdrop?: boolean;
     subheaderContent?: boolean;
     subheaderBadge?: string;
     subheaderText?: string;
@@ -113,7 +120,12 @@ const card = (
   contentId: number
 ) => {
   return html`
-    <sl-card orientation=${ifDefined(card.orientation)} ?fit-image=${card.fitImage} ?subgrid=${card.subgrid}>
+    <sl-card
+      orientation=${ifDefined(card.orientation)}
+      ?fit-image=${card.fitImage}
+      ?subgrid=${card.subgrid}
+      ?image-backdrop=${card.imageBackdrop}
+    >
       ${card.media && card.imageUrl
         ? html`<img slot="media" src=${images[contentId]} alt="Picture of ${titles[contentId]}" />`
         : nothing}
@@ -200,6 +212,7 @@ export const SubGridHorizontal: Story = {
     orientation,
     imageUrl,
     fitImage,
+    imageBackdrop,
     subheaderContent,
     subheaderBadge,
     subheaderText,
@@ -213,6 +226,7 @@ export const SubGridHorizontal: Story = {
       orientation,
       imageUrl,
       fitImage,
+      imageBackdrop,
       subheaderContent,
       subheaderBadge,
       subheaderText,
@@ -261,6 +275,7 @@ export const SubGridVertical: Story = {
     orientation,
     imageUrl,
     fitImage,
+    imageBackdrop,
     subheaderContent,
     subheaderBadge,
     subheaderText,
@@ -274,6 +289,7 @@ export const SubGridVertical: Story = {
       orientation,
       imageUrl,
       fitImage,
+      imageBackdrop,
       subheaderContent,
       subheaderBadge,
       subheaderText,
@@ -318,6 +334,7 @@ export const SubGridNoMedia: Story = {
     orientation,
     imageUrl,
     fitImage,
+    imageBackdrop,
     subheaderContent,
     subheaderBadge,
     subheaderText,
@@ -331,6 +348,7 @@ export const SubGridNoMedia: Story = {
       orientation,
       imageUrl,
       fitImage,
+      imageBackdrop,
       subheaderContent,
       subheaderBadge,
       subheaderText,
@@ -351,6 +369,122 @@ export const SubGridNoMedia: Story = {
       </style>
       <div class=${!actionButton ? 'grid no-buttons' : 'grid'}>
         ${card(settings, 1)} ${card(settings, 2)} ${card(settings, 0)} ${card(settings, 3)}
+      </div>
+    `;
+  }
+};
+
+export const Masonry: Story = {
+  args: {
+    orientation: 'vertical'
+  },
+
+  render: ({
+    media,
+    title,
+    bodyText,
+    orientation,
+    imageUrl,
+    fitImage,
+    imageBackdrop,
+    subheaderContent,
+    subheaderBadge,
+    subheaderText,
+    actionButton,
+    subgrid
+  }) => {
+    const settings = {
+      media,
+      title,
+      bodyText,
+      orientation,
+      imageUrl,
+      fitImage,
+      imageBackdrop,
+      subheaderContent,
+      subheaderBadge,
+      subheaderText,
+      actionButton,
+      subgrid
+    };
+    return html`
+      <style>
+        .grid {
+          display: grid;
+          gap: 16px;
+          grid-template-columns: repeat(3, 1fr);
+          grid-template-rows: masonry;
+          --sl-card-media-size: 200px;
+        }
+      </style>
+      <p>
+        This grid has 3 columns, the rows are set to <code>masonry</code> (although this is
+        <a href="https://caniuse.com/mdn-css_properties_grid-template-rows_masonry" target="_blank"
+          >not supported in all browsers yet</a
+        >). <br />
+        The cards will grow as big as the text needs them to be. The height of the header might change, causing the
+        body-texts not to alight within a row. When it is important they align, use subgrid.<br />
+      </p>
+      <div class=${!actionButton ? 'grid no-buttons' : 'grid'}>
+        ${card(settings, 1)} ${card(settings, 2)} ${card(settings, 0)} ${card(settings, 3)} ${card(settings, 0)}
+        ${card(settings, 1)} ${card(settings, 2)} ${card(settings, 3)}
+      </div>
+    `;
+  }
+};
+
+export const MediaOptions: Story = {
+  render: ({
+    media,
+    title,
+    bodyText,
+    orientation,
+    imageUrl,
+    fitImage,
+    imageBackdrop,
+    subheaderContent,
+    subheaderBadge,
+    subheaderText,
+    actionButton,
+    subgrid
+  }) => {
+    const settings = {
+      media,
+      title,
+      bodyText,
+      orientation,
+      imageUrl,
+      fitImage,
+      imageBackdrop,
+      subheaderContent,
+      subheaderBadge,
+      subheaderText,
+      actionButton,
+      subgrid
+    };
+
+    return html`
+      <style>
+        .grid {
+          display: grid;
+          gap: 16px;
+          grid-template-columns: repeat(2, 1fr);
+        }
+        sl-card:nth-of-type(3) {
+          --sl-card-image-backdrop: #b9d7dd;
+        }
+        sl-card:nth-of-type(4) {
+          --sl-card-image-backdrop: linear-gradient(to bottom, #f1923f, #d4d9e1);
+        }
+      </style>
+      <div class="grid${!actionButton ? ' no-buttons' : ''}">
+        <span>Default (image is cropped to fit):</span><span>Fit image with default background-color:</span>
+        ${card(settings, 0)} ${card({ ...settings, fitImage: true }, 1)}
+        <span>Fit image with background-color set with <code>--sl-card-image-backdrop</code>:</span
+        ><span>Fit image with background set to gradient with <code>--sl-card-image-backdrop</code>:</span>
+        ${card({ ...settings, fitImage: true }, 2)} ${card({ ...settings, fitImage: true }, 3)}
+        <span>Fit image with imageBackdrop:</span><span></span>
+        ${card({ ...settings, fitImage: true, imageBackdrop: true }, 1)}
       </div>
     `;
   }

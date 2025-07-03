@@ -47,8 +47,10 @@ export class Card extends ScopedElementsMixin(LitElement) {
   /** @internal The slotted media. */
   @queryAssignedElements({ slot: 'media' }) media?: HTMLElement[];
 
-  /** When the height is `fixed` the image will determine the height of the card, when it is `flex` the height of the text will determine the height of the card. */
+  /** this will need the card to have an explicit image size set, either by subgrid or by `--sl-card-media-size`*/
   @property({ reflect: true, attribute: 'fit-image', type: Boolean }) fitImage?: boolean;
+  /** When the height is `fixed` the image will determine the height of the card, when it is `flex` the height of the text will determine the height of the card. */
+  @property({ reflect: true, attribute: 'image-backdrop', type: Boolean }) imageBackdrop?: boolean;
 
   /** When the height of the card is set (or constrained) by its container (for example in a grid with fixed rows) this needs to be set to be added in order to assure the correct rendering */
   @property({ type: Boolean, attribute: 'explicit-height' }) explicitHeight?: boolean;
@@ -77,16 +79,21 @@ export class Card extends ScopedElementsMixin(LitElement) {
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
-    this.#setGridSpan();
+    if (this.subgrid) {
+      this.#setGridSpan();
+    }
 
     if (changes.has('orientation')) {
       this.#setOrientation();
+    }
+    if (changes.has('imageBackdrop')) {
+      this.#setBackdrop();
     }
   }
 
   override render(): TemplateResult {
     return html`
-      <figure><slot name="media" @slotchange=${this.#setOrientation}></slot></figure>
+      <figure><slot name="media" @slotchange=${this.#setMedia}></slot></figure>
       <div class="header">
         <slot class="title"></slot>
         <slot name="header"></slot>
@@ -98,17 +105,49 @@ export class Card extends ScopedElementsMixin(LitElement) {
   }
 
   #setOrientation(): void {
-    const breakpoint = parseInt(window.getComputedStyle(this).getPropertyValue('--sl-card-horizontal-breakpoint')) || 0;
-    const hasMedia = this.media ? this.media.length > 0 : false;
-    this.classList.remove('sl-horizontal', 'sl-has-media');
-    if (!hasMedia) return;
-
-    if (this.orientation === 'horizontal' && (this.getBoundingClientRect().width > breakpoint || breakpoint === 0)) {
-      this.classList.add('sl-horizontal');
-      this.classList.add('sl-has-media');
-    } else {
-      this.classList.add('sl-has-media');
+    if (!this.media || this.media.length === 0) {
+      return;
     }
+
+    const breakpoint = parseInt(window.getComputedStyle(this).getPropertyValue('--sl-card-horizontal-breakpoint')) || 0;
+    console.log('breakpoint', breakpoint, this.getBoundingClientRect().width);
+    this.classList.remove('sl-horizontal');
+    if (this.orientation === 'horizontal' && (this.getBoundingClientRect().width > breakpoint || breakpoint === 0)) {
+      console.log('set horizontal');
+      this.classList.add('sl-horizontal');
+    }
+  }
+
+  #setMedia(): void {
+    this.classList.remove('sl-has-media');
+
+    // if there is no media, we don't need to do anything
+    if (!this.media || this.media.length === 0) {
+      return;
+    }
+
+    this.classList.add('sl-has-media');
+    this.#setOrientation();
+
+    console.log(this.imageBackdrop);
+    if (this.imageBackdrop) {
+      this.#setBackdrop();
+    }
+  }
+
+  #setBackdrop(): void {
+    // if the media is an image, we create a copy of the first media element and set it as the backdrop
+    if (!this.media || this.media.length === 0) {
+      return;
+    }
+    const media = this.media[0];
+    const backdrop = this.shadowRoot?.querySelector('figure');
+    if (!backdrop) {
+      return;
+    }
+    const backdropClone = media.cloneNode(true) as HTMLElement;
+    backdropClone.classList.add('backdrop');
+    backdrop.appendChild(backdropClone);
   }
 
   #setLineClamp(): void {
@@ -157,7 +196,6 @@ export class Card extends ScopedElementsMixin(LitElement) {
     }
 
     if (this.orientation === 'vertical' && this.media && this.media.length > 0) {
-      console.log('vertical media', this.media);
       verticalElements++; // media
     }
 

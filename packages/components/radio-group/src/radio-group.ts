@@ -63,10 +63,11 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
     console.log('isInitialRender in mutationObserver', this.#isInitialRender, this.#observer);
 
     this.#observer.disconnect();
-    this.#setSelectedOption(target as Radio<T>, !this.#isInitialRender); // TODO: should not run on component render phase
+    this.#setSelectedOption(target as Radio<T> /*, !this.#isInitialRender*/); // TODO: should not run on component render phase
     // this.#setSelectedOption(target as Radio<T>, false); // Prevent event emission during initial render
-    this.#observer.observe(this, OBSERVER_OPTIONS); // TODO: maybe not necessary to re-observe here?
     this.#isInitialRender = false; // Set to false after the first render
+    this.#observer.observe(this, OBSERVER_OPTIONS); // TODO: maybe not necessary to re-observe here?
+    // this.#isInitialRender = false; // Set to false after the first render
   });
 
   /** Manage the keyboard navigation. */

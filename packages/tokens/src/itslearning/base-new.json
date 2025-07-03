@@ -3,27 +3,27 @@
     "typeset": {
       "fontFamily": {
         "heading": {
-          "value": "Lato",
-          "type": "fontFamilies"
+          "$type": "fontFamilies",
+          "$value": "Lato"
         },
         "body": {
-          "value": "Lato",
-          "type": "fontFamilies"
+          "$type": "fontFamilies",
+          "$value": "Lato"
         },
         "icon": {
-          "value": "{icon.typeset.fontFamily.classic}",
-          "type": "fontFamilies",
-          "description": "text.typeset.fontFamily.fontIcon"
+          "$type": "fontFamilies",
+          "$value": "{icon.typeset.fontFamily.classic}",
+          "$description": "text.typeset.fontFamily.fontIcon"
         }
       },
       "fontWeight": {
         "regular": {
-          "value": "Regular",
-          "type": "fontWeights"
+          "$type": "fontWeights",
+          "$value": "Regular"
         },
         "demibold": {
-          "value": "SemiBold",
-          "type": "fontWeights"
+          "$type": "fontWeights",
+          "$value": "SemiBold"
         }
       }
     }
@@ -31,49 +31,49 @@
   "text-new": {
     "body": {
       "sm": {
-        "value": {
+        "$type": "typography",
+        "$value": {
           "fontFamily": "{text.typeset.fontFamily.body}",
           "fontSize": "{size.text.body.sm}",
           "lineHeight": "{size.lineHeight.200}",
           "fontWeight": "{text.typeset.fontWeight.regular}"
-        },
-        "type": "typography"
+        }
       },
       "md": {
-        "value": {
+        "$type": "typography",
+        "$value": {
           "fontFamily": "{text.typeset.fontFamily.body}",
           "fontSize": "{size.text.body.md}",
           "lineHeight": "{size.lineHeight.250}",
           "fontWeight": "{text.typeset.fontWeight.regular}"
-        },
-        "type": "typography"
+        }
       },
       "lg": {
-        "value": {
+        "$type": "typography",
+        "$value": {
           "fontFamily": "{text.typeset.fontFamily.body}",
           "fontSize": "{size.text.body.lg}",
           "lineHeight": "{size.lineHeight.300}",
           "fontWeight": "{text.typeset.fontWeight.regular}"
-        },
-        "type": "typography"
+        }
       }
     },
     "input": {
       "md": {
-        "value": {
+        "$type": "typography",
+        "$value": {
           "fontFamily": "{text.typeset.fontFamily.body}",
           "fontSize": "{size.text.body.md}",
           "lineHeight": "{size.lineHeight.300}"
-        },
-        "type": "typography"
+        }
       },
       "lg": {
-        "value": {
+        "$type": "typography",
+        "$value": {
           "fontFamily": "{text.typeset.fontFamily.body}",
           "fontSize": "{size.text.body.md}",
           "lineHeight": "{size.lineHeight.400}"
-        },
-        "type": "typography"
+        }
       }
     }
   },
@@ -81,99 +81,99 @@
     "text": {
       "body": {
         "sm": {
-          "value": "{size.font.150}",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{size.font.150}"
         },
         "md": {
-          "value": "{size.font.175}",
-          "type": "fontSizes",
-          "description": "default text size for body"
+          "$type": "fontSizes",
+          "$value": "{size.font.175}",
+          "$description": "default text size for body"
         },
         "lg": {
-          "value": "{size.font.200}",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{size.font.200}"
         }
       },
       "heading": {
         "sm": {
-          "value": "{size.font.175}",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{size.font.175}"
         },
         "md": {
-          "value": "{size.font.200}",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{size.font.200}"
         },
         "lg": {
-          "value": "{size.font.300}",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{size.font.300}"
         },
         "xl": {
-          "value": "{size.font.400}",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{size.font.400}"
         },
         "2xl": {
-          "value": "{size.font.600}",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{size.font.600}"
         }
       }
     },
     "borderRadius": {
       "default": {
-        "value": "{border.radius.2xs}",
-        "type": "borderRadius",
-        "description": "The standard border radius for most components. Use for elements that need subtle rounding without emphasizing their shape."
+        "$type": "borderRadius",
+        "$value": "{border.radius.2xs}",
+        "$description": "The standard border radius for most components. Use for elements that need subtle rounding without emphasizing their shape."
       },
       "full": {
-        "value": "50rem",
-        "type": "borderRadius",
-        "description": "Use for pill-shaped elements like badges, and circular rounding for components with equal width and height, such as icon buttons and avatars."
+        "$type": "borderRadius",
+        "$value": "50rem",
+        "$description": "Use for pill-shaped elements like badges, and circular rounding for components with equal width and height, such as icon buttons and avatars."
       }
     },
     "borderWidth": {
       "default": {
-        "value": "{size.borderWidth.bold}",
-        "type": "borderWidth",
-        "description": "Sets the standard border width for UI elements."
+        "$type": "borderWidth",
+        "$value": "{size.borderWidth.bold}",
+        "$description": "Sets the standard border width for UI elements."
       },
       "action": {
-        "value": "{size.borderWidth.bold}",
-        "type": "borderWidth",
-        "description": "Sets the standard border width for action components."
+        "$type": "borderWidth",
+        "$value": "{size.borderWidth.bold}",
+        "$description": "Sets the standard border width for action components."
       }
     },
     "icon": {
       "font": {
         "xs": {
-          "value": "{size-new.icon.xs}",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{size-new.icon.xs}"
         },
         "sm": {
-          "value": "{size-new.icon.sm}",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{size-new.icon.sm}"
         },
         "md": {
-          "value": "{size-new.icon.md}",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{size-new.icon.md}"
         },
         "lg": {
-          "value": "{size-new.icon.lg}",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{size-new.icon.lg}"
         },
         "xl": {
-          "value": "{size-new.icon.xl}",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{size-new.icon.xl}"
         },
         "2xl": {
-          "value": "{size-new.icon.2xl}",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{size-new.icon.2xl}"
         },
         "3xl": {
-          "value": "{size-new.icon.3xl}",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{size-new.icon.3xl}"
         },
         "4xl": {
-          "value": "{size-new.icon.4xl}",
-          "type": "fontSizes"
+          "$type": "fontSizes",
+          "$value": "{size-new.icon.4xl}"
         }
       }
     }

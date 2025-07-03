@@ -73,4 +73,25 @@ describe('sl-paginator-page-size', () => {
       expect(onPageSizeChange).to.have.been.calledWithMatch({ detail: 5 });
     });
   });
+
+  describe('custom item label', () => {
+    beforeEach(async () => {
+      el = await fixture(
+        html`<sl-paginator-page-size .itemLabel=${'Students'} page-sizes="[5,10,20]"></sl-paginator-page-size>`
+      );
+    });
+
+    it('should have a proper label', () => {
+      const label = el.renderRoot.querySelector('sl-label');
+
+      expect(label).to.exist;
+      expect(label).to.have.trimmed.text('Students per page:');
+    });
+
+    it('should have options with proper aria-label', () => {
+      const pageSizes = Array.from(el.renderRoot.querySelectorAll('sl-option')).map(o => o.ariaLabel);
+
+      expect(pageSizes).to.deep.equal(['5 Students per page', '10 Students per page', '20 Students per page']);
+    });
+  });
 });

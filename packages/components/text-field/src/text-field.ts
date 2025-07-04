@@ -318,6 +318,7 @@ export class TextField<T extends { toString(): string } = string>
     try {
       // Try to parse the value, but do nothing if it fails
       this.value = this.parseValue(this.rawValue);
+      console.log('event in onInput', this.value);
       this.changeEvent.emit(this.value);
     } catch {
       /* empty */

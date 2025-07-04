@@ -100,9 +100,11 @@ describe('sl-radio-group', () => {
       expect(el.dirty).not.to.be.true;
     });
 
-    it('should be dirty after clicking on a checkbox', async () => {
+    it('should be dirty after clicking on a radio button', async () => {
       el.querySelector('sl-radio')?.click();
       await new Promise(resolve => setTimeout(resolve));
+
+      // console.log('el.dirty', el.dirty);
 
       expect(el.dirty).to.be.true;
     });
@@ -121,7 +123,7 @@ describe('sl-radio-group', () => {
       expect(onUpdateState).to.have.been.calledOnce;
     });
 
-    it('should be touched after the checkbox loses focus', () => {
+    it('should be touched after the radio loses focus', () => {
       const radio = el.querySelector('sl-radio');
 
       radio?.focus();
@@ -152,8 +154,13 @@ describe('sl-radio-group', () => {
       const onChange = spy();
 
       el.addEventListener('sl-change', onChange);
+      // await new Promise(resolve => setTimeout(resolve, 800));
       el.querySelector('sl-radio')?.click();
+      // await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve));
+      // await new Promise(resolve => setTimeout(resolve, 200));
+
+      console.log('onChange', onChange);
 
       expect(onChange).to.have.been.calledOnce;
     });
@@ -372,6 +379,18 @@ describe('sl-radio-group', () => {
       expect(radios.at(0)?.checked).to.be.false;
       expect(radios.at(1)?.checked).to.be.true;
       expect(radios.at(2)?.checked).to.be.false;
+    });
+
+    it('should not emit an sl-change event on initial render when value is set', async () => {
+      const onChange = spy();
+
+      el.addEventListener('sl-change', onChange);
+      el.querySelector('sl-radio')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      console.log('onChange', onChange);
+
+      expect(onChange).not.to.have.been.called;
     });
 
     it('should not break when the value does not match any of the options', async () => {

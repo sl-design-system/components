@@ -49,6 +49,24 @@ export default {
   excludeStories: ['components']
 };
 
+export const SlChangeEvent: Story = {
+  render: () => {
+    const onChange = (event: Event) => {
+      console.log('sl-change event fired:', event);
+    };
+
+    return html`
+      <sl-combobox placeholder="Selected" value="Option 2" @sl-change=${onChange}>
+        <sl-listbox>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
+        </sl-listbox>
+      </sl-combobox>
+    `;
+  }
+};
+
 export const All: Story = {
   render: () => html`
     <style>

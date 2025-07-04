@@ -207,6 +207,7 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
     this.updateState({ dirty: true });
     this.updateValidity();
     this.#setSize();
+    console.log('event in onInput', this.value);
     this.changeEvent.emit(this.value);
   }
 

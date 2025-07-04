@@ -127,6 +127,8 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   /** Flag to indicate when to use lit-virtualizer. */
   #useVirtualList = false;
 
+  #isInitialRender = true; // TODO: alphabetically
+
   /** Will allow custom values not in the listbox when set. */
   @property({ type: Boolean, attribute: 'allow-custom-values' }) allowCustomValues?: boolean;
 
@@ -335,8 +337,10 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       // See https://bugs.webkit.org/show_bug.cgi?id=223814
       this.toggleAttribute('has-selected-items', this.multiple && this.selectedItems.length > 0);
       if (this.items.length) {
-        this.#updateTextFieldValue();
+        console.log('updateTextFieldValue in willUpdate', this.selectedItems, this.value);
+        this.#updateTextFieldValue(!this.#isInitialRender);
         this.#updateValue();
+        this.#isInitialRender = false;
       }
     }
 
@@ -1276,7 +1280,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   }
 
   /** Update the value in the text field. */
-  #updateTextFieldValue(): void {
+  #updateTextFieldValue(emitEvent = true): void {
     if (this.multiple) {
       this.input.placeholder = this.selectedItems.map(i => i.label).join(', ') || '';
       this.input.value = '';
@@ -1302,7 +1306,12 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
       );
       this.updateValidity();
-      this.changeEvent.emit(this.value);
+
+      console.log('emitEvent in #updateTextFieldValue', this.value, emitEvent);
+      if (emitEvent) {
+        console.log('event in #updateTextFieldValue', this.value);
+        this.changeEvent.emit(this.value);
+      }
     }
   }
 
@@ -1332,6 +1341,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     const valueString = this.multiple ? values.join(', ') : values[0]?.toString();
 
     this.internals.setFormValue(valueString);
+    console.log('event in #updateValue', this.value);
     this.changeEvent.emit(this.value);
     this.updateValidity();
   }

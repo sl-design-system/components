@@ -228,6 +228,7 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
     this.checked = !this.checked;
     this.input.checked = this.checked;
     this.changeEvent.emit(this.formValue);
+    console.log('event in onClick', this.value);
     this.updateState({ dirty: true });
     this.updateValidity();
   }

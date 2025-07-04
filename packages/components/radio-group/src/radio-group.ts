@@ -149,7 +149,7 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
     this.value = this.#initialState;
 
     this.#observer.disconnect();
-    console.log('emits event? in formResetCallback', this.value, this.radios);
+    // console.log('emits event? in formResetCallback', this.value, this.radios);
     this.#setSelectedOption(this.radios?.find(radio => radio.value === this.value));
     this.#observer.observe(this, OBSERVER_OPTIONS);
   }
@@ -159,11 +159,11 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
 
     this.#observer.observe(this, OBSERVER_OPTIONS);
 
-    console.log('isInitialRender in firstUpdated before', this.#isInitialRender);
+    // console.log('isInitialRender in firstUpdated before', this.#isInitialRender);
     // this.#isInitialRender = false;
 
     // this.#observer.observe(this, OBSERVER_OPTIONS);
-    console.log('isInitialRender in firstUpdated after', this.#isInitialRender);
+    // console.log('isInitialRender in firstUpdated after', this.#isInitialRender);
     this.#updateValueAndValidity();
   }
 
@@ -244,8 +244,11 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
     console.log('setSelectedOption', this.value, option?.value, emitEvent);
 
     if (emitEvent) {
-      console.log('emits event? in setSelectedOption', this.value);
-      this.changeEvent.emit(this.value);
+      console.log('emitEvent - dirty should work - in setSelectedOption', this.value);
+      if (!this.#isInitialRender) {
+        console.log('emits event? in setSelectedOption', this.value);
+        this.changeEvent.emit(this.value);
+      }
       this.updateState({ dirty: true });
     }
 

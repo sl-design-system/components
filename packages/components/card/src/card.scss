@@ -83,8 +83,10 @@
     display: grid;
     inset: 0;
     overflow: hidden;
+  }
 
-    // position: absolute;
+  :host(:where(.sl-media-explicit-size)) slot[name='media'] {
+    position: absolute; // this should not be used when it is in vertical mode and no height is set, Not sure what selector i can use here
   }
 
   slot[name='media']::slotted(*) {
@@ -160,10 +162,6 @@
 
     slot[name='actions'] {
       display: inline-block;
-
-      //   align-items: flex-end;
-      //   display: flex;
-      //   flex-direction: column;
       grid-area: actions;
       padding: 0 var(--sl-space-300) var(--sl-space-300);
     }
@@ -186,83 +184,3 @@
     display: none;
   }
 }
-
-// :host(.sl-horizontal[explicit-height]) {
-//   --_media-width: var(--sl-card-media-width, minmax(0, calc(calc(var(--_aspect-ratio)) * 100cqh)));
-
-//   container: card / size;
-// }
-
-// :host(.sl-horizontal[height='fixed']) {
-//   article {
-//     container: body / size;
-//   }
-
-// :host(:where(.sl-horizontal[media-position='end'])) {
-//   grid-template-areas: 'content actions media';
-//   grid-template-columns: var(--_text-column) max-content var(--_media-column);
-// }
-
-// .content {
-//   padding: var(--sl-space-300);
-//   display: grid;
-//   grid-template-areas: 'header' 'body' 'actions';
-//   grid-template-rows: max-content 1fr max-content;
-// //   flex-direction: column;
-//   gap: var(--sl-space-200);
-// //   overflow: hidden;
-// //   padding: var(--_content-padding-block) var(--_content-padding-inline);
-// }
-
-// :host(.sl-has-icon) .content {
-//   display: grid;
-//   grid-template:
-//     'icon header' max-content
-//     'icon body' 1fr
-//     / max-content 1fr;
-
-//   slot[name='icon']::slotted(*) {
-//     grid-area: icon;
-//   }
-// }
-
-// :host(.sl-has-media) slot[name='media'] {
-//   aspect-ratio: var(--_aspect-ratio);
-//   display: flex;
-//   grid-area: media;
-// }
-
-// slot[name='media']::slotted(*) {
-//   aspect-ratio: inherit;
-//   block-size: auto;
-//   box-sizing: border-box;
-//   inline-size: 100%;
-//   object-fit: cover;
-//   object-position: var(--_object-position);
-//   overflow: hidden;
-//   padding: var(--_media-padding-full);
-// }
-
-// slot[name='body'] {
-// //   font: var(--_font-body);
-// //   margin: 0;
-// //   outline: none;
-//   grid-area: body;
-//   padding: 0 var(--sl-space-300) var(--sl-space-300);
-// }
-
-// :host>:last-child:not() {
-//   padding-block-end: var(--sl-space-300);
-// }
-
-// slot::slotted(*) {
-//   margin: 0;
-// }
-
-// @for $i from 2 through 20 {
-//   @container body (min-height: #{$i}lh) {
-//     slot[name='body'] {
-//       --_line-clamp: #{$i};
-//     }
-//   }
-// }

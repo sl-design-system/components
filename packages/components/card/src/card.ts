@@ -52,12 +52,8 @@ export class Card extends ScopedElementsMixin(LitElement) {
   /** When the height is `fixed` the image will determine the height of the card, when it is `flex` the height of the text will determine the height of the card. */
   @property({ reflect: true, attribute: 'image-backdrop', type: Boolean }) imageBackdrop?: boolean;
 
-  /** When the height of the card is set (or constrained) by its container (for example in a grid with fixed rows) this needs to be set to be added in order to assure the correct rendering */
-  @property({ type: Boolean, attribute: 'explicit-height' }) explicitHeight?: boolean;
   /** When the grid inside the card is defined by a parent grid */
   @property({ type: Boolean }) subgrid?: boolean;
-  /** When the height is `fixed` the image will determine the height of the card, when it is `flex` the height of the text will determine the height of the card. */
-  @property({ reflect: true }) height: CardHeightOptions = 'fixed';
   /** The position of the media in relation to the text */
   @property({ reflect: true }) orientation: CardOrientation = 'horizontal';
   /** Show the media at the start or at the end. */
@@ -89,6 +85,9 @@ export class Card extends ScopedElementsMixin(LitElement) {
     if (changes.has('imageBackdrop')) {
       this.#setBackdrop();
     }
+    if (changes.has('subgrid')) {
+      this.#setMedia();
+    }
   }
 
   override render(): TemplateResult {
@@ -110,44 +109,56 @@ export class Card extends ScopedElementsMixin(LitElement) {
     }
 
     const breakpoint = parseInt(window.getComputedStyle(this).getPropertyValue('--sl-card-horizontal-breakpoint')) || 0;
-    console.log('breakpoint', breakpoint, this.getBoundingClientRect().width);
+
     this.classList.remove('sl-horizontal');
     if (this.orientation === 'horizontal' && (this.getBoundingClientRect().width > breakpoint || breakpoint === 0)) {
-      console.log('set horizontal');
       this.classList.add('sl-horizontal');
     }
   }
 
   #setMedia(): void {
     this.classList.remove('sl-has-media');
+    this.classList.remove('sl-media-explicit-size');
 
     // if there is no media, we don't need to do anything
     if (!this.media || this.media.length === 0) {
       return;
     }
 
+    if (
+      this.subgrid ||
+      window.getComputedStyle(this).getPropertyValue('--sl-card-media-size') ||
+      this.orientation === 'horizontal'
+    ) {
+      this.classList.add('sl-media-explicit-size');
+    }
+
     this.classList.add('sl-has-media');
     this.#setOrientation();
 
-    console.log(this.imageBackdrop);
     if (this.imageBackdrop) {
       this.#setBackdrop();
     }
   }
 
   #setBackdrop(): void {
-    // if the media is an image, we create a copy of the first media element and set it as the backdrop
-    if (!this.media || this.media.length === 0) {
+    // if the media is an image and fitImage is set, we create a copy of the first media element and set it as the backdrop
+    if (!this.media || this.media.length === 0 || !this.fitImage) {
+      this.shadowRoot?.querySelector('.backdrop')?.remove();
       return;
     }
     const media = this.media[0];
-    const backdrop = this.shadowRoot?.querySelector('figure');
-    if (!backdrop) {
-      return;
+    if (this.shadowRoot?.querySelector('.backdrop')) {
+      this.shadowRoot.querySelector('.backdrop')?.setAttribute('href', media.getAttribute('href') || '');
+    } else {
+      const backdrop = this.shadowRoot?.querySelector('figure');
+      if (!backdrop) {
+        return;
+      }
+      const backdropClone = media.cloneNode(true) as HTMLElement;
+      backdropClone.classList.add('backdrop');
+      backdrop.appendChild(backdropClone);
     }
-    const backdropClone = media.cloneNode(true) as HTMLElement;
-    backdropClone.classList.add('backdrop');
-    backdrop.appendChild(backdropClone);
   }
 
   #setLineClamp(): void {

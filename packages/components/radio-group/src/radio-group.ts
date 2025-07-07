@@ -60,7 +60,7 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
   #observer = new MutationObserver(mutations => {
     const { target } = mutations.find(m => m.attributeName === 'checked' && m.oldValue === null) || {};
 
-    console.log('isInitialRender in mutationObserver', this.#isInitialRender, this.#observer);
+    // console.log('isInitialRender in mutationObserver', this.#isInitialRender, this.#observer);
 
     this.#observer.disconnect();
     this.#setSelectedOption(target as Radio<T> /*, !this.#isInitialRender*/); // TODO: should not run on component render phase
@@ -241,10 +241,10 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
     this.radios?.forEach(radio => (radio.checked = radio.value === option?.value));
     this.value = option?.value;
 
-    console.log('setSelectedOption', this.value, option?.value, emitEvent);
+    // console.log('setSelectedOption', this.value, option?.value, emitEvent);
 
     if (emitEvent) {
-      console.log('emitEvent - dirty should work - in setSelectedOption', this.value);
+      // console.log('emitEvent - dirty should work - in setSelectedOption', this.value);
       if (!this.#isInitialRender) {
         console.log('emits event? in setSelectedOption', this.value);
         this.changeEvent.emit(this.value);

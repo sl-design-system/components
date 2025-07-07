@@ -1053,3 +1053,5 @@ describe('sl-combobox', () => {
     });
   });
 });
+
+// TODO: add a test: should not emit an sl-change event on initial render when a value is set

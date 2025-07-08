@@ -539,90 +539,91 @@ export const Vertical: Story = {
       <div class="grid">
         <span>No height of media is set, either with subgrid or <code>--sl-card-media-size</code></span>
         <span>Media height is set to 200px with <code>--sl-card-media-size</code></span>
-        ${card(settings, 0)} ${card(settings, 1)}
+        ${card(settings, 0)} ${card(settings, 0)}
       </div>
     `;
   }
 };
 
-// export const FlexboxFullWidthResponsive: Story = {
-//   render: () => html`
-//     <style>
-//       #root-inner > div {
-//         gap: 16px;
-//         margin-bottom: 24px;
-//         width: 100%;
-//       }
-//       div.flex {
-//         align-items: flex-start;
-//         display: flex;
-//         flex-wrap: wrap;
-//       }
-//     </style>
-//     <h1>In flexbox, full width, responsive cards</h1>
-//     <pre>
-//       flex-direction:column;
-//       --sl-card-horizontal-breakpoint:500px;
-//       --sl-card-text-width:70fr;
-//       --sl-card-media-width:30fr;
-//     </pre
-//     >
-//     <div
-//       class="flex"
-//       style="flex-direction:column; --sl-card-horizontal-breakpoint:500px; --sl-card-text-width:70fr; --sl-card-media-width:30fr;"
-//     >
-//       <sl-card responsive style="--sl-card-media-aspect-ratio:16/9;">
-//         <iframe
-//           width="560px"
-//           height="315px"
-//           slot="media"
-//           src="https://www.youtube-nocookie.com/embed/LkHztUGllkc?si=2rc92T2iTKBbSQK4&amp;controls=0"
-//           title="YouTube video player"
-//           frameborder="0"
-//           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-//           allowfullscreen
-//         ></iframe>
-//         <h2>${titles[0]}</h2>
-//         <h3 slot="header">Sub header</h3>
-//         <p slot="body"><em>aspectratio:16/9</em> - ${bodyCopy[0]}</p>
-//         <sl-button aria-label="Actions" icon-only slot="actions" fill="ghost">
-//           <sl-icon name="ellipsis"></sl-icon>
-//         </sl-button>
-//       </sl-card>
+export const Responsive: Story = {
+  args: {
+    subheaderContent: false
+  },
 
-//       <sl-card responsive style="--sl-card-media-aspect-ratio:1/1;" padding>
-//         <img slot="media" src=${images[1]} />
-//         <h2>${titles[1]}</h2>
-//         <span slot="header"><sl-badge>new</sl-badge></span>
-//         <p slot="body"><em>Padding, aspect-ratio:1/1</em> - ${bodyCopy[1]}</p>
-//         <sl-button aria-label="Toggle visibility" icon-only slot="actions" fill="ghost">
-//           <sl-icon name="eye"></sl-icon>
-//         </sl-button>
-//       </sl-card>
+  render: ({
+    media,
+    title,
+    bodyText,
+    orientation,
+    imageUrl,
+    fitImage,
+    imageBackdrop,
+    subheaderContent,
+    subheaderBadge,
+    subheaderText,
+    actionButton,
+    subgrid
+  }) => {
+    const settings = {
+      media,
+      title,
+      bodyText,
+      orientation,
+      imageUrl,
+      fitImage,
+      imageBackdrop,
+      subheaderContent,
+      subheaderBadge,
+      subheaderText,
+      actionButton,
+      subgrid
+    };
+    return html`
+      <style>
+        .grid {
+          display: grid;
+          gap: 16px;
+          grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
 
-//       <sl-card responsive media-position="end" height="flex">
-//         <img slot="media" src=${images[2]} />
-//         <h2>${titles[1]}</h2>
-//         <span slot="header"><sl-badge>new</sl-badge></span>
-//         <p slot="body"><em>mediaPosition: end, height:flex</em> - ${bodyCopy[4]}</p>
-//         <sl-button aria-label="Toggle visibility" icon-only slot="actions" fill="ghost">
-//           <sl-icon name="eye"></sl-icon>
-//         </sl-button>
-//       </sl-card>
-
-//       <sl-card responsive padding media-position="end" style="--sl-card-media-aspect-ratio:1/1;">
-//         <sl-icon name="pinata" slot="icon"></sl-icon>
-//         <img slot="media" src=${images[3]} />
-//         <h2>${titles[1]}</h2>
-//         <span slot="header"><sl-badge>new</sl-badge></span>
-//         <p slot="body"><em>icon:pinata, padding, mediaPosition:end, aspectratio:1/1</em> - ${bodyCopy[1]}</p>
-//         <sl-button aria-label="Toggle visibility" icon-only slot="actions" fill="ghost">
-//           <sl-icon name="eye"></sl-icon>
-//         </sl-button>
-//       </sl-card>
-//     </div>
-//   `
-// };
+          --sl-card-horizontal-breakpoint: 500px;
+        }
+        .grid:nth-of-type(2) {
+          grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+        }
+        @media (max-width: 500px) {
+          .grid:nth-of-type(2) {
+            grid-template-columns: 1fr;
+          }
+        }
+        @media (max-width: 350px) {
+          .grid {
+            grid-template-columns: 1fr;
+          }
+        }
+        sl-card:not(.sl-horizontal) {
+          /** this way we only limit the height, not the width when the card is horizontal  */
+          --sl-card-media-size: 200px;
+        }
+      </style>
+      <p>
+        This grid has the template columns set to <code>repeat(auto-fit, minmax(400px, 1fr))</code>, which means it will
+        show as many cards as will fit in the available space, with a minimum width of 400px per card.<br />
+        The cards will switch to horizontal layout when the column is wider than 500px. This will cause a lot of
+        "switching" between horizontal and vertical layout when the viewport is resized, this exact example is not
+        recommended for production use.<br />
+      </p>
+      <div class="grid">${card(settings, 1)} ${card(settings, 2)} ${card(settings, 0)} ${card(settings, 3)}</div>
+      <p>
+        This grid has the template columns set to <code>repeat(auto-fit, minmax(400px, 1fr))</code>, which means it will
+        show as many cards as will fit in the available space, with a minimum width of 400px per card.<br />
+        The cards will switch to horizontal layout when the column is wider than 500px. This will cause a lot of
+        "switching" between horizontal and vertical layout when the viewport is resized, this exact example is not
+        recommended for production use.<br />
+      </p>
+      <div class="grid">${card(settings, 1)} ${card(settings, 2)} ${card(settings, 0)} ${card(settings, 3)}</div>
+    `;
+  }
+};
 
 // export const FlexHeightFullWidthImageWidth: Story = {
 //   render: () => html`

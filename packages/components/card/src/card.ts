@@ -109,11 +109,15 @@ export class Card extends ScopedElementsMixin(LitElement) {
     }
 
     const breakpoint = parseInt(window.getComputedStyle(this).getPropertyValue('--sl-card-horizontal-breakpoint')) || 0;
-
     this.classList.remove('sl-horizontal');
     if (this.orientation === 'horizontal' && (this.getBoundingClientRect().width > breakpoint || breakpoint === 0)) {
       this.classList.add('sl-horizontal');
     }
+
+    requestAnimationFrame(() => {
+      this.#setGridSpan();
+      this.#setMedia();
+    }); // wait for the next frame to ensure the styles are applied
   }
 
   #setMedia(): void {
@@ -128,13 +132,13 @@ export class Card extends ScopedElementsMixin(LitElement) {
     if (
       this.subgrid ||
       window.getComputedStyle(this).getPropertyValue('--sl-card-media-size') ||
-      this.orientation === 'horizontal'
+      this.classList.contains('sl-horizontal')
     ) {
       this.classList.add('sl-media-explicit-size');
     }
 
     this.classList.add('sl-has-media');
-    this.#setOrientation();
+    // this.#setOrientation();
 
     if (this.imageBackdrop) {
       this.#setBackdrop();
@@ -143,7 +147,7 @@ export class Card extends ScopedElementsMixin(LitElement) {
 
   #setBackdrop(): void {
     // if the media is an image and fitImage is set, we create a copy of the first media element and set it as the backdrop
-    if (!this.media || this.media.length === 0 || !this.fitImage) {
+    if (!this.media || this.media.length === 0 || !this.fitImage || !this.imageBackdrop) {
       this.shadowRoot?.querySelector('.backdrop')?.remove();
       return;
     }
@@ -206,14 +210,16 @@ export class Card extends ScopedElementsMixin(LitElement) {
       verticalElements++; // actions
     }
 
-    if (this.orientation === 'vertical' && this.media && this.media.length > 0) {
+    console.log('media', this.media, this.media?.length, this.orientation, this.classList.contains('sl-horizontal'));
+    if (!this.classList.contains('sl-horizontal') && this.media && this.media.length > 0) {
       verticalElements++; // media
     }
 
-    if (this.orientation === 'horizontal' && this.media && this.media.length > 0) {
+    if (this.classList.contains('sl-horizontal') && this.media && this.media.length > 0) {
       horizontalElements++; // media
     }
 
+    console.log('verticalElements', verticalElements, 'horizontalElements', horizontalElements);
     this.style.setProperty('--_vertical-elements', verticalElements.toString());
     this.style.setProperty('--_horizontal-elements', horizontalElements.toString());
   }

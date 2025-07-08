@@ -2,10 +2,6 @@
   background-color: var(--sl-elevation-surface-raised-default);
   border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
   border-radius: var(--sl-size-borderRadius-default);
-
-  // box-shadow: var(--_box-shadow);
-  // box-sizing: border-box;
-
   inline-size: 100%;
   overflow: hidden;
 }
@@ -172,6 +168,11 @@
     flex-direction: column;
     gap: var(--sl-space-050);
     grid-area: header;
+    padding: calc(var(--sl-space-300) - var(--sl-space-200)) var(--sl-space-300) 0;
+  }
+
+  :host(:not(.sl-has-media)) .header,
+  :host(:where(.sl-horizontal)) .header {
     padding: var(--sl-space-300) var(--sl-space-300) 0;
   }
 

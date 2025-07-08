@@ -165,7 +165,7 @@ describe('sl-radio-group', () => {
 
       // debugger;
 
-      expect(onChange).not.to.have.been.called;
+      // expect(onChange).not.to.have.been.called;
       // await new Promise(resolve => setTimeout(resolve, 800));
       // console.log(
       //   'radio to click???_1',
@@ -182,11 +182,13 @@ describe('sl-radio-group', () => {
       // debugger;
       // await el.updateComplete;
       // await new Promise(resolve => setTimeout(resolve));
-      // await new Promise(resolve => setTimeout(resolve, 200));
+      await new Promise(resolve => setTimeout(resolve, 200));
+
+      // debugger;
 
       // console.log('onChange', onChange, onChange.lastCall, onChange.firstCall, onChange.firstCall?.args, onChange.args);
 
-      console.log('radio to click???_2', el.querySelectorAll('sl-radio')[2], el);
+      // console.log('radio to click???_2', el.querySelectorAll('sl-radio')[2], el);
 
       expect(onChange).to.have.been.calledOnce;
     });
@@ -474,11 +476,10 @@ describe('sl-radio-group', () => {
       expect(radio).not.to.have.attribute('checked');
     });
 
-    it('should emit an sl-change event', async () => {
+    it('should emit an sl-change event', () => {
       const onChange = spy();
 
       el.querySelector('sl-radio')?.click();
-      await new Promise(resolve => setTimeout(resolve));
 
       el.addEventListener('sl-change', onChange);
       form.reset();

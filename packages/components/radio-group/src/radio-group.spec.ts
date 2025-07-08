@@ -155,28 +155,38 @@ describe('sl-radio-group', () => {
     });
 
     it('should emit an sl-change event when clicking an option', async () => {
-      const onChange = spy();
       await el.updateComplete;
+      const onChange = spy();
+      // await el.updateComplete;
 
       // await new Promise(resolve => setTimeout(resolve));
 
       el.addEventListener('sl-change', onChange);
+
+      // debugger;
+
+      expect(onChange).not.to.have.been.called;
       // await new Promise(resolve => setTimeout(resolve, 800));
-      console.log(
-        'radio to click???_1',
-        el.querySelectorAll('sl-radio')[1],
-        el,
-        el.querySelectorAll('sl-radio')[1]?.checked
-      );
+      // console.log(
+      //   'radio to click???_1',
+      //   el.querySelectorAll('sl-radio')[1],
+      //   el,
+      //   el.querySelectorAll('sl-radio')[1]?.checked
+      // );
       // el.querySelectorAll('sl-radio')[1]?.click();
       // el.querySelectorAll('sl-radio')[2]?.click();
       // console.log('radio to click???_2', el.querySelectorAll('sl-radio')[1], el);
       // await el.updateComplete;
       el.querySelectorAll('sl-radio')[2]?.click();
+
+      // debugger;
+      // await el.updateComplete;
       // await new Promise(resolve => setTimeout(resolve));
       // await new Promise(resolve => setTimeout(resolve, 200));
 
-      console.log('onChange', onChange, onChange.lastCall, onChange.firstCall, onChange.firstCall?.args, onChange.args);
+      // console.log('onChange', onChange, onChange.lastCall, onChange.firstCall, onChange.firstCall?.args, onChange.args);
+
+      console.log('radio to click???_2', el.querySelectorAll('sl-radio')[2], el);
 
       expect(onChange).to.have.been.calledOnce;
     });

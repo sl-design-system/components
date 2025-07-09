@@ -215,7 +215,6 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   /** @ignore Resets the select to the initial state */
   formResetCallback(): void {
     this.value = this.#initialState;
-    console.log('emits event? in formResetCallback', this.value);
     this.changeEvent.emit(this.value);
   }
 
@@ -468,7 +467,6 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     this.value = this.selectedOption?.value;
 
     if (emitEvent) {
-      console.log('emits event? in setSelectedOption', this.value);
       this.changeEvent.emit(this.value);
       this.updateState({ dirty: true });
     }

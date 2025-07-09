@@ -250,7 +250,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     this.value = event.detail;
     this.changeEvent.emit(this.value);
-    console.log('event in onChange', this.value);
 
     this.updateState({ dirty: true });
     this.updateValidity();

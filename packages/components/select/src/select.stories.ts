@@ -86,47 +86,6 @@ export default {
 
 export const Basic: Story = {};
 
-export const SlChangeEvent: Story = {
-  args: {
-    slot: () => {
-      const onChange = (event: Event) => {
-        console.log('sl-change event fired:', event);
-      };
-
-      const value = '1';
-
-      return html`
-        <sl-select .value=${value} @sl-change=${onChange}>
-          <sl-option value="1">
-            <sl-avatar size="sm" display-name="Ashley Howard"></sl-avatar>
-          </sl-option>
-          <sl-option value="2">
-            <sl-avatar size="sm" display-name="Aria Bailey"></sl-avatar>
-          </sl-option>
-          <sl-option value="3">
-            <sl-avatar size="sm" display-name="Cooper Philips"></sl-avatar>
-          </sl-option>
-          <sl-option value="4">
-            <sl-avatar size="sm" display-name="Abigail Lewis"></sl-avatar>
-          </sl-option>
-          <sl-option disabled value="5">
-            <sl-avatar size="sm" display-name="Ryder Turner"></sl-avatar>
-          </sl-option>
-          <sl-option value="6">
-            <sl-avatar size="sm" display-name="Zoe Robinson"></sl-avatar>
-          </sl-option>
-        </sl-select>
-
-        <sl-select value="2" @sl-change=${onChange}>
-          <sl-option value="1" lang="nl">Schoenenborsteldoosje</sl-option>
-          <sl-option value="2" lang="en">1. MBO Paragraphcomponent</sl-option>
-          <sl-option value="3" lang="en">Disproportionate</sl-option>
-        </sl-select>
-      `;
-    }
-  }
-};
-
 export const Clearable: Story = {
   args: {
     clearable: true,

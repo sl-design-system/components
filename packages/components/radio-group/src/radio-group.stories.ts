@@ -101,26 +101,6 @@ export const Horizontal: Story = {
   }
 };
 
-export const SlChangeEvent: Story = {
-  args: {
-    slot: () => {
-      const onChange = (event: Event) => {
-        console.log('sl-change event fired:', event);
-      };
-
-      const value = '1';
-
-      return html`
-        <sl-radio-group .value=${value} @sl-change=${onChange}>
-          <sl-radio value="1">One</sl-radio>
-          <sl-radio value="2">Two</sl-radio>
-          <sl-radio value="3">Three</sl-radio>
-        </sl-radio-group>
-      `;
-    }
-  }
-}; // TODO: check in angular if this works
-
 export const Overflow: Story = {
   args: {
     options: () => html`
@@ -158,8 +138,6 @@ export const Value: Story = {
     value: '2'
   }
 };
-
-// TODO: example with sl-change addEventListener
 
 export const CustomValidity: Story = {
   args: {

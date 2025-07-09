@@ -104,8 +104,6 @@ describe('sl-radio-group', () => {
       el.querySelector('sl-radio')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      // console.log('el.dirty', el.dirty);
-
       expect(el.dirty).to.be.true;
     });
 
@@ -116,13 +114,9 @@ describe('sl-radio-group', () => {
     it('should emit an sl-update-state event after clicking the radio', async () => {
       const onUpdateState = spy();
 
-      // console.log('ELel1 to click???', el.querySelector('sl-radio'), el);
-
       el.addEventListener('sl-update-state', onUpdateState);
       el.querySelector('sl-radio')?.click();
       await new Promise(resolve => setTimeout(resolve));
-
-      // console.log('ELel2 to click???', el.querySelector('sl-radio'), el);
 
       expect(onUpdateState).to.have.been.calledOnce;
     });
@@ -157,66 +151,37 @@ describe('sl-radio-group', () => {
     it('should emit an sl-change event when clicking an option', async () => {
       await el.updateComplete;
       const onChange = spy();
-      // await el.updateComplete;
-
-      // await new Promise(resolve => setTimeout(resolve));
 
       el.addEventListener('sl-change', onChange);
+      el.querySelectorAll('sl-radio')[1]?.click();
 
-      // debugger;
-
-      // expect(onChange).not.to.have.been.called;
-      // await new Promise(resolve => setTimeout(resolve, 800));
-      // console.log(
-      //   'radio to click???_1',
-      //   el.querySelectorAll('sl-radio')[1],
-      //   el,
-      //   el.querySelectorAll('sl-radio')[1]?.checked
-      // );
-      // el.querySelectorAll('sl-radio')[1]?.click();
-      // el.querySelectorAll('sl-radio')[2]?.click();
-      // console.log('radio to click???_2', el.querySelectorAll('sl-radio')[1], el);
-      // await el.updateComplete;
-      el.querySelectorAll('sl-radio')[2]?.click();
-
-      // debugger;
-      // await el.updateComplete;
-      // await new Promise(resolve => setTimeout(resolve));
-      await new Promise(resolve => setTimeout(resolve, 200));
-
-      // debugger;
-
-      // console.log('onChange', onChange, onChange.lastCall, onChange.firstCall, onChange.firstCall?.args, onChange.args);
-
-      // console.log('radio to click???_2', el.querySelectorAll('sl-radio')[2], el);
+      await new Promise(resolve => setTimeout(resolve));
 
       expect(onChange).to.have.been.calledOnce;
     });
-    //
-    // it('should emit an sl-change event when pressing the space key on an option', async () => {
-    //   const onChange = spy();
-    //
-    //   el.addEventListener('sl-change', onChange);
-    //   expect(onChange).not.to.have.been.called;
-    //   // console.log('radio to focus??? with space', el.querySelector('sl-radio'), el);
-    //   el.querySelector('sl-radio')?.focus();
-    //   await sendKeys({ press: 'Space' });
-    //  // await el.updateComplete;
-    //  //  console.log('radio to focus??? with space - after', el.querySelector('sl-radio'), el);
-    //
-    //   expect(onChange).to.have.been.calledOnce;
-    // });
-    //
-    // it('should emit an sl-change event when pressing the enter key on an option', async () => {
-    //   const onChange = spy();
-    //
-    //   el.addEventListener('sl-change', onChange);
-    //   el.querySelector('sl-radio')?.focus();
-    //   await sendKeys({ press: 'Enter' });
-    //   await el.updateComplete;
-    //
-    //   expect(onChange).to.have.been.calledOnce;
-    // });
+
+    it('should emit an sl-change event when pressing the space key on an option', async () => {
+      const onChange = spy();
+
+      el.addEventListener('sl-change', onChange);
+      expect(onChange).not.to.have.been.called;
+
+      el.querySelector('sl-radio')?.focus();
+      await sendKeys({ press: 'Space' });
+
+      expect(onChange).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-change event when pressing the enter key on an option', async () => {
+      const onChange = spy();
+
+      el.addEventListener('sl-change', onChange);
+      el.querySelector('sl-radio')?.focus();
+      await sendKeys({ press: 'Enter' });
+      await el.updateComplete;
+
+      expect(onChange).to.have.been.calledOnce;
+    });
 
     it('should emit an sl-focus event when focusing the group', async () => {
       const onFocus = spy();
@@ -419,8 +384,6 @@ describe('sl-radio-group', () => {
 
       el.addEventListener('sl-change', onChange);
       await el.updateComplete;
-
-      // console.log('onChange', onChange);
 
       expect(onChange).not.to.have.been.called;
     });

@@ -94,26 +94,6 @@ export const Disabled: Story = {
   }
 };
 
-export const SlChangeEvent: Story = {
-  args: {
-    slot: () => {
-      const onChange = (event: Event) => {
-        console.log('sl-change event fired:', event);
-      };
-
-      // const value = '1';
-
-      return html`
-        <sl-checkbox-group @sl-change=${onChange}>
-          <sl-checkbox value="0">Option 1</sl-checkbox>
-          <sl-checkbox checked value="1">Option 2</sl-checkbox>
-          <sl-checkbox value="2">Option 3</sl-checkbox>
-        </sl-checkbox-group>
-      `;
-    }
-  }
-};
-
 export const Required: Story = {
   args: {
     hint: 'This checkbox is required and should display an error after reporting the validity',

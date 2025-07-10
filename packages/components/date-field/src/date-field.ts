@@ -160,6 +160,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
+    console.log('changes in willUpdate', changes);
+
     if (changes.has('dateTimeFormat') && changes.has('locale')) {
       this.#formatter = new Intl.DateTimeFormat(this.locale, this.dateTimeFormat);
     }
@@ -167,6 +169,12 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     if (changes.has('value')) {
       this.input.value = this.value && this.#formatter ? this.#formatter.format(this.value) : '';
     }
+
+    // if (changes.has('showValidity')) {
+    //   this.button.showValidity = this.showValidity;
+    // } // TODO: Implement showValidity in DateField???
+
+    console.log('showValidity in willUpdate', this.showValidity);
   }
 
   override render(): TemplateResult {
@@ -177,6 +185,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         @sl-focus=${this.#onTextFieldFocus}
         @sl-form-control=${this.#onTextFieldFormControl}
         @sl-update-state=${this.#onTextFieldUpdateState}
+        @inout=${this.#onTextFieldInput}
         ?disabled=${this.disabled}
         ?readonly=${this.readonly || this.selectOnly}
         ?required=${this.required}
@@ -248,16 +257,35 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     event.preventDefault();
     event.stopPropagation();
 
+    // debugger;
+
     this.value = event.detail;
     this.changeEvent.emit(this.value);
 
+    // TODO: Implement a way to update the input value based on the selected date...
+
+    this.renderRoot.querySelector('sl-text-field')?.updateValidity();
+
+    this.renderRoot.querySelector('sl-text-field')?.requestUpdate();
+
     this.updateState({ dirty: true });
     this.updateValidity();
+    console.log('DateField value changed, onCHANGE, updateValidity should be called', this.value);
+
+    // console.log('textField??? control in date field', this.renderRoot.querySelector('sl-text-field'), event, this.value);
+
+    // this.renderRoot.querySelector('sl-text-field')?.updateValidity();
+    //
+    // this.renderRoot.querySelector('sl-text-field')?.requestUpdate();
+
+    this.requestUpdate();
 
     setTimeout(() => {
       this.wrapper?.hidePopover();
       this.input.focus();
     }, 500);
+
+    // this.requestUpdate();
   }
 
   #onTextFieldBlur(event: SlBlurEvent): void {
@@ -268,9 +296,33 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.updateState({ touched: true });
   }
 
+  #onTextFieldInput(event: SlChangeEvent): void {
+    console.log('DateField onTextFieldInput', event);
+  }
+
   #onTextFieldChange(event: SlChangeEvent): void {
-    event.preventDefault();
-    event.stopPropagation();
+    // event.preventDefault();
+    // event.stopPropagation();
+
+    // this.updateValidity();
+
+    console.log('DateField onTextFieldChange', event);
+
+    // this.value = event.detail;
+    // this.changeEvent.emit(this.value);
+
+    // this.input.value = this.value?.toString();
+
+    console.log('textField???', this.renderRoot.querySelector('sl-text-field'), event);
+
+    // this.renderRoot.querySelector('sl-text-field')?.changeEvent; // setFormValue???
+    this.renderRoot.querySelector('sl-text-field')?.updateValidity();
+
+    this.renderRoot.querySelector('sl-text-field')?.requestUpdate();
+
+    this.updateState({ dirty: true });
+    this.updateValidity();
+    this.requestUpdate();
   }
 
   #onTextFieldFocus(event: SlFocusEvent): void {
@@ -283,11 +335,17 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   #onTextFieldFormControl(event: SlFormControlEvent): void {
     event.preventDefault();
     event.stopPropagation();
+
+    console.log('DateField onTextFieldFormControl', event);
   }
 
   #onTextFieldUpdateState(event: SlUpdateStateEvent): void {
     event.preventDefault();
     event.stopPropagation();
+
+    console.log('DateField onTextFieldUpdateState', event, this.formControlElement);
+
+    // this.requestUpdate();
   }
 
   #onToggle(event: ToggleEvent): void {

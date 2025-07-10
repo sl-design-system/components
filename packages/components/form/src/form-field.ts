@@ -315,5 +315,18 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       ...this.errors,
       [event.target.id]: event.detail.showValidity ? event.detail.validationMessage : undefined
     };
+
+    console.log(
+      'onUpdateValidity in form field',
+      this.control?.showValidity,
+      event.target.id,
+      event.detail.validationMessage
+    );
+
+    console.log(
+      'onUpdateValidity in form field showValidity...',
+      this.control?.showValidity,
+      event.detail?.showValidity
+    );
   }
 }

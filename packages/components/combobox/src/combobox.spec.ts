@@ -725,6 +725,15 @@ describe('sl-combobox', () => {
         input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
       });
 
+      it('should not emit an sl-change event on initial render when a value is set', async () => {
+        const onChange = spy();
+
+        el.addEventListener('sl-change', onChange);
+        await el.updateComplete;
+
+        expect(onChange).not.to.have.been.called;
+      });
+
       it('should have a stacked tag list', () => {
         const tagList = el.renderRoot.querySelector('sl-tag-list');
         expect(tagList).to.exist;

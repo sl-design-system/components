@@ -1,5 +1,11 @@
 # @sl-design-system/tooltip
 
+## 1.1.6
+
+### Patch Changes
+
+- [#2097](https://github.com/sl-design-system/components/pull/2097) [`f0121e9`](https://github.com/sl-design-system/components/commit/f0121e904651b4d5cde35a961710c61bf0b00d08) - Fixes issue where tooltip hides when hover is on child of element that has the tooltip attached to it.
+
 ## 1.1.5
 
 ### Patch Changes

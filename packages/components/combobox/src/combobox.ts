@@ -96,6 +96,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   /** Event controller. */
   #events = new EventsController(this, { click: this.#onClick, focusout: this.#onFocusout });
 
+  /** Indicates if the component is rendering for the first time. */
+  #isInitialRender = true;
+
   /** Message element for when filtering results did not yield any results. */
   #noMatch?: NoMatch;
 
@@ -335,8 +338,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       // See https://bugs.webkit.org/show_bug.cgi?id=223814
       this.toggleAttribute('has-selected-items', this.multiple && this.selectedItems.length > 0);
       if (this.items.length) {
-        this.#updateTextFieldValue();
+        this.#updateTextFieldValue(!this.#isInitialRender);
         this.#updateValue();
+        this.#isInitialRender = false;
       }
     }
 
@@ -1276,7 +1280,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   }
 
   /** Update the value in the text field. */
-  #updateTextFieldValue(): void {
+  #updateTextFieldValue(emitEvent = true): void {
     if (this.multiple) {
       this.input.placeholder = this.selectedItems.map(i => i.label).join(', ') || '';
       this.input.value = '';
@@ -1302,7 +1306,10 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
       );
       this.updateValidity();
-      this.changeEvent.emit(this.value);
+
+      if (emitEvent) {
+        this.changeEvent.emit(this.value);
+      }
     }
   }
 

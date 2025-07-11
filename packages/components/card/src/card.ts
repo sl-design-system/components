@@ -1,4 +1,5 @@
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { MenuButton } from '@sl-design-system/menu';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './card.scss.js';
@@ -94,9 +95,9 @@ export class Card extends ScopedElementsMixin(LitElement) {
     return html`
       <figure><slot name="media" @slotchange=${this.#setMedia}></slot></figure>
       <div class="header">
-        <slot class="title"></slot>
+        <slot class="title" @slotchange=${this.#setTitle}></slot>
         <slot name="header"></slot>
-        <slot name="menu-button"></slot>
+        <slot name="menu-button" @slotchange=${this.#setMenuButton}></slot>
       </div>
       <article><slot name="body" @slotchange=${this.#setLineClamp}></slot></article>
       <slot name="actions" @slotchange=${this.#setActions}></slot>
@@ -210,7 +211,6 @@ export class Card extends ScopedElementsMixin(LitElement) {
       verticalElements++; // actions
     }
 
-    console.log('media', this.media, this.media?.length, this.orientation, this.classList.contains('sl-horizontal'));
     if (!this.classList.contains('sl-horizontal') && this.media && this.media.length > 0) {
       verticalElements++; // media
     }
@@ -219,8 +219,48 @@ export class Card extends ScopedElementsMixin(LitElement) {
       horizontalElements++; // media
     }
 
-    console.log('verticalElements', verticalElements, 'horizontalElements', horizontalElements);
     this.style.setProperty('--_vertical-elements', verticalElements.toString());
     this.style.setProperty('--_horizontal-elements', horizontalElements.toString());
+  }
+
+  #setTitle(): void {
+    if (!this.shadowRoot) {
+      return;
+    }
+    const title: HTMLSlotElement | null = this.shadowRoot.querySelector('slot.title');
+    if (title && title.assignedNodes({ flatten: true }).length > 0) {
+      const link = title.assignedNodes({ flatten: true }).find(el => el instanceof HTMLAnchorElement);
+      if (!link) {
+        this.classList.remove('sl-has-link');
+        this.removeEventListener('click', () => {});
+      } else {
+        this.classList.add('sl-has-link');
+        this.addEventListener('click', (e: MouseEvent) => {
+          const shouldStopPropagation = e
+            .composedPath()
+            .find(el => el instanceof Element && (el.matches('sl-button') || el.matches('slot.title')));
+          if (!shouldStopPropagation) {
+            link.click();
+          }
+        });
+      }
+    }
+  }
+
+  #setMenuButton(): void {
+    if (!this.shadowRoot) {
+      return;
+    }
+    const menu: HTMLSlotElement | null = this.shadowRoot.querySelector('slot[name="menu-button"]');
+    if (!menu || menu.assignedNodes({ flatten: true }).length === 0) {
+      this.classList.remove('sl-has-menu-button');
+    } else {
+      const menuButton = menu.assignedNodes({ flatten: true })[0];
+      if (menuButton instanceof MenuButton) {
+        this.classList.add('sl-has-menu-button');
+        menuButton.fill = 'ghost';
+        menuButton.size = 'md';
+      }
+    }
   }
 }

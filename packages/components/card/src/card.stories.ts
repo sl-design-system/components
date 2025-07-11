@@ -4,6 +4,7 @@ import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
+import '@sl-design-system/menu/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -22,6 +23,8 @@ type Props = Pick<Card, 'orientation'> & {
   subheaderText?: string;
   actionButton?: boolean;
   subgrid?: boolean;
+  menuButton?: boolean;
+  link?: boolean;
 };
 
 type Story = StoryObj<Props>;
@@ -43,9 +46,11 @@ export default {
     subheaderContent: true,
     subheaderBadge: 'new',
     actionButton: true,
+    menuButton: false,
     fitImage: false,
     imageBackdrop: false,
-    subgrid: false
+    subgrid: false,
+    link: false
   },
   argTypes: {
     orientation: {
@@ -73,7 +78,9 @@ export default {
     subheaderBadge,
     subheaderText,
     actionButton,
-    subgrid
+    subgrid,
+    menuButton,
+    link
   }) => {
     return html`
       <style>
@@ -94,7 +101,9 @@ export default {
           subheaderBadge,
           subheaderText,
           actionButton,
-          subgrid
+          subgrid,
+          menuButton,
+          link
         },
         0
       )}
@@ -116,6 +125,8 @@ const card = (
     subheaderText?: string;
     actionButton?: boolean;
     subgrid?: boolean;
+    menuButton?: boolean;
+    link?: boolean;
   },
   contentId: number
 ) => {
@@ -129,7 +140,9 @@ const card = (
       ${card.media && card.imageUrl
         ? html`<img slot="media" src=${images[contentId]} alt="Picture of ${titles[contentId]}" />`
         : nothing}
-      <h2>${titles[contentId]}</h2>
+      ${card.link
+        ? html`<a href="javascript:console.log('link clicked');">${titles[contentId]}</a>`
+        : html`<h2>${titles[contentId]}</h2>`}
       ${card.subheaderContent
         ? html`
             <span slot="header">
@@ -140,11 +153,27 @@ const card = (
             </span>
           `
         : nothing}
+      ${card.menuButton
+        ? html`
+            <sl-menu-button slot="menu-button">
+              <sl-menu-item>
+                <sl-icon name="far-pen"></sl-icon>
+                Rename...
+              </sl-menu-item>
+              <sl-menu-item>
+                <sl-icon name="far-trash"></sl-icon>
+                Delete...
+              </sl-menu-item>
+            </sl-menu-button>
+          `
+        : nothing}
       <p slot="body">${bodyCopy[contentId]}</p>
       ${card.actionButton
         ? html`
             <sl-button-bar slot="actions"
-              ><sl-button variant="primary"> <sl-icon name="far-download"></sl-icon> Download </sl-button>
+              ><sl-button variant="primary" @click=${() => console.log('action button clicked')}>
+                <sl-icon name="far-download"></sl-icon> Download
+              </sl-button>
             </sl-button-bar>
           `
         : nothing}
@@ -155,8 +184,8 @@ export const Basic: Story = {};
 
 const images = [
   'https://images.unsplash.com/photo-1586622992874-27d98f198139?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  'https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   'https://images.unsplash.com/photo-1586622570180-59adf1864b1b?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  'https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   'https://images.unsplash.com/photo-1499689496495-5bdf4421b725?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
 ];
 
@@ -217,7 +246,9 @@ export const SubGridHorizontal: Story = {
     subheaderBadge,
     subheaderText,
     actionButton,
-    subgrid
+    subgrid,
+    menuButton,
+    link
   }) => {
     const settings = {
       media,
@@ -231,7 +262,9 @@ export const SubGridHorizontal: Story = {
       subheaderBadge,
       subheaderText,
       actionButton,
-      subgrid
+      subgrid,
+      menuButton,
+      link
     };
     return html`
       <style>
@@ -280,7 +313,9 @@ export const SubGridVertical: Story = {
     subheaderBadge,
     subheaderText,
     actionButton,
-    subgrid
+    subgrid,
+    menuButton,
+    link
   }) => {
     const settings = {
       media,
@@ -294,7 +329,9 @@ export const SubGridVertical: Story = {
       subheaderBadge,
       subheaderText,
       actionButton,
-      subgrid
+      subgrid,
+      menuButton,
+      link
     };
     return html`
       <style>
@@ -339,7 +376,9 @@ export const SubGridNoMedia: Story = {
     subheaderBadge,
     subheaderText,
     actionButton,
-    subgrid
+    subgrid,
+    menuButton,
+    link
   }) => {
     const settings = {
       media,
@@ -353,7 +392,9 @@ export const SubGridNoMedia: Story = {
       subheaderBadge,
       subheaderText,
       actionButton,
-      subgrid
+      subgrid,
+      menuButton,
+      link
     };
     return html`
       <style>
@@ -391,7 +432,9 @@ export const Masonry: Story = {
     subheaderBadge,
     subheaderText,
     actionButton,
-    subgrid
+    subgrid,
+    menuButton,
+    link
   }) => {
     const settings = {
       media,
@@ -405,7 +448,9 @@ export const Masonry: Story = {
       subheaderBadge,
       subheaderText,
       actionButton,
-      subgrid
+      subgrid,
+      menuButton,
+      link
     };
     return html`
       <style>
@@ -414,7 +459,6 @@ export const Masonry: Story = {
           gap: 16px;
           grid-template-columns: repeat(3, 1fr);
           grid-template-rows: masonry;
-          --sl-card-media-size: 200px;
         }
       </style>
       <p>
@@ -446,7 +490,9 @@ export const MediaOptions: Story = {
     subheaderBadge,
     subheaderText,
     actionButton,
-    subgrid
+    subgrid,
+    menuButton,
+    link
   }) => {
     const settings = {
       media,
@@ -460,7 +506,9 @@ export const MediaOptions: Story = {
       subheaderBadge,
       subheaderText,
       actionButton,
-      subgrid
+      subgrid,
+      menuButton,
+      link
     };
 
     return html`
@@ -507,7 +555,9 @@ export const Vertical: Story = {
     subheaderBadge,
     subheaderText,
     actionButton,
-    subgrid
+    subgrid,
+    menuButton,
+    link
   }) => {
     const settings = {
       media,
@@ -521,7 +571,9 @@ export const Vertical: Story = {
       subheaderBadge,
       subheaderText,
       actionButton,
-      subgrid
+      subgrid,
+      menuButton,
+      link
     };
 
     return html`
@@ -562,7 +614,9 @@ export const Responsive: Story = {
     subheaderBadge,
     subheaderText,
     actionButton,
-    subgrid
+    subgrid,
+    menuButton,
+    link
   }) => {
     const settings = {
       media,
@@ -576,7 +630,9 @@ export const Responsive: Story = {
       subheaderBadge,
       subheaderText,
       actionButton,
-      subgrid
+      subgrid,
+      menuButton,
+      link
     };
     return html`
       <style>
@@ -621,6 +677,63 @@ export const Responsive: Story = {
         recommended for production use.<br />
       </p>
       <div class="grid">${card(settings, 1)} ${card(settings, 2)} ${card(settings, 0)} ${card(settings, 3)}</div>
+    `;
+  }
+};
+
+export const Actions: Story = {
+  args: {
+    actionButton: false,
+    menuButton: false
+  },
+  render: ({
+    media,
+    title,
+    bodyText,
+    orientation,
+    imageUrl,
+    fitImage,
+    imageBackdrop,
+    subheaderContent,
+    subheaderBadge,
+    subheaderText,
+    actionButton,
+    subgrid,
+    menuButton,
+    link
+  }) => {
+    const settings = {
+      media,
+      title,
+      bodyText,
+      orientation,
+      imageUrl,
+      fitImage,
+      imageBackdrop,
+      subheaderContent,
+      subheaderBadge,
+      subheaderText,
+      actionButton,
+      subgrid,
+      menuButton,
+      link
+    };
+
+    return html`
+      <style>
+        .grid {
+          display: grid;
+          gap: 16px;
+          grid-template-columns: repeat(2, 1fr);
+        }
+      </style>
+      <div class="grid">
+        <span>Without any actions</span><span>With action button</span>
+        ${card(settings, 0)} ${card({ ...settings, actionButton: true }, 1)}
+        <span>With menu:</span>
+        <span>With link, whole card clickable:</span>
+        ${card({ ...settings, menuButton: true }, 2)} ${card({ ...settings, link: true, actionButton: true }, 3)}
+      </div>
     `;
   }
 };

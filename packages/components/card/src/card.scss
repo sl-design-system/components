@@ -1,9 +1,9 @@
 :host {
-  background-color: var(--sl-elevation-surface-raised-default);
-  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
   border-radius: var(--sl-size-borderRadius-default);
   inline-size: 100%;
-  overflow: hidden;
+
+  // overflow: hidden;
+  position: relative;
 }
 
 @layer grid-areas {
@@ -129,6 +129,15 @@
 }
 
 @layer main-contents {
+  :host {
+    --_bg-color: var(--sl-elevation-surface-raised-default);
+    --_bg-mix-color: var(--sl-color-background-neutral-interactive-plain);
+    --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
+
+    background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+    border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+  }
+
   slot[name='body'] {
     /* stylelint-disable-next-line property-no-vendor-prefix */
     -webkit-box-orient: vertical;
@@ -160,6 +169,8 @@
       display: inline-block;
       grid-area: actions;
       padding: 0 var(--sl-space-300) var(--sl-space-300);
+
+      // pointer-events: none;
     }
   }
 
@@ -183,5 +194,37 @@
 
   slot[name='actions']:not(slot[name='actions']::slotted(*)) {
     display: none;
+  }
+
+  slot.title::slotted(a[href]:focus-visible) {
+    outline: none;
+  }
+
+  :host(.sl-has-link):has(slot.title:focus-within),
+  :host(.sl-has-link:hover) {
+    border-color: var(--sl-color-border-input);
+    box-shadow: var(--sl-elevation-shadow-overflow);
+
+    --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
+  }
+
+  :host(.sl-has-link:active) {
+    --_bg-opacity: var(--sl-opacity-interactive-plain-active);
+  }
+
+  :host(.sl-has-menu-button) {
+    .header {
+      padding-inline-end: calc(
+        2 * var(--sl-size-100) + calc(1lh + (var(--sl-size-100) - var(--sl-size-borderWidth-action)) * 2)
+      );
+      position: relative;
+    }
+
+    slot[name='menu-button'] {
+      display: block;
+      inset-block-start: var(--sl-size-100);
+      inset-inline-end: var(--sl-size-100);
+      position: absolute;
+    }
   }
 }

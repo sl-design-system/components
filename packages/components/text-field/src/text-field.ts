@@ -241,7 +241,13 @@ export class TextField<T extends { toString(): string } = string>
   /** Render the input slot; separate method so it is composable for child components. */
   renderInputSlot(): TemplateResult {
     return html`
-      <slot @keydown=${this.onKeydown} @input=${this.onInput} @slotchange=${this.onSlotChange} name="input"></slot>
+      <slot
+        @keydown=${this.onKeydown}
+        @change=${this.onChange}
+        @input=${this.onInput}
+        @slotchange=${this.onSlotChange}
+        name="input"
+      ></slot>
     `;
   }
 
@@ -327,6 +333,30 @@ export class TextField<T extends { toString(): string } = string>
     this.updateValidity();
   }
 
+  protected onChange(event: Event & { target: HTMLInputElement }): void {
+    // This method is called when the input changes, but we already handle the change in `onInput`
+    // We can use this to prevent unnecessary updates or side effects
+    this.rawValue = event.target.value;
+
+    console.log('in textfield.....onChange called with value:', this.rawValue);
+
+    // // If the value is valid, we can emit the change event
+    // if (this.validity.valid) {
+    //   this.changeEvent.emit(this.value);
+    // }
+
+    try {
+      // Try to parse the value, but do nothing if it fails
+      this.value = this.parseValue(this.rawValue);
+      this.changeEvent.emit(this.value);
+    } catch {
+      /* empty */
+    }
+
+    this.updateState({ dirty: true });
+    this.updateValidity();
+  }
+
   /**
    * Handles the `keydown` event for the text field.
    * Simulates the native behavior of submitting a form when the Enter key is pressed.
@@ -361,6 +391,7 @@ export class TextField<T extends { toString(): string } = string>
    * and synchronizes its attributes with the component's properties.
    */
   protected onSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    console.log('event on slotchange in text field', event);
     const elements = event.target.assignedElements({ flatten: true }),
       inputs = elements.filter((el): el is HTMLInputElement => el instanceof HTMLInputElement);
 

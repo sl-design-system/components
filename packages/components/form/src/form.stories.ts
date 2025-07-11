@@ -43,6 +43,7 @@ export default {
       const form = document.querySelector('sl-form');
 
       console.log(form?.reportValidity(), form?.value);
+      console.log('Form validity onReport in story:', form, form?.value, reportValidity);
     };
 
     const onReset = (): void => {

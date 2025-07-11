@@ -15,6 +15,7 @@ type Props = Pick<
   | 'readonly'
   | 'required'
   | 'selectOnly'
+  | 'showValid'
   | 'showWeekNumbers'
   | 'value'
 > & {
@@ -35,6 +36,7 @@ export default {
     readonly: false,
     required: false,
     selectOnly: false,
+    showValid: true,
     showWeekNumbers: false
   },
   argTypes: {
@@ -77,13 +79,31 @@ export default {
     reportValidity,
     required,
     selectOnly,
+    showValid,
     showWeekNumbers,
     slot,
     value
   }) => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
       event.target.closest('sl-form')?.reportValidity();
+      console.log('reportValidity in story onClick should be fired', event.target.closest('sl-form'), event.target);
     };
+
+    // setTimeout(() => {
+    //   const dateField = document.querySelector('sl-date-field') as DateField | null;
+    //   console.log('dateField in story render', dateField);
+    //   if (dateField) {
+    //     dateField.value = undefined; // or set to initial value
+    //   }
+    // }, 1000);
+
+    // setTimeout(() => {
+    //   const form = document.querySelector('sl-form') as Form;
+    //   console.log('Form reset in story render', form);
+    //   form?.reset(); // Reset form state on story render
+    // }, 100);
+
+    console.log('reportValidity in story???', reportValidity);
 
     return html`
       <sl-form>
@@ -93,6 +113,7 @@ export default {
             ?readonly=${readonly}
             ?required=${required}
             ?select-only=${selectOnly}
+            ?show-valid=${showValid}
             ?show-week-numbers=${showWeekNumbers}
             .value=${value}
             locale=${ifDefined(locale)}
@@ -112,6 +133,10 @@ export default {
               </sl-button-bar>
             `
           : nothing}
+
+        <sl-form-field hint="Hint text" label="Date field">
+          <sl-date-field name="dateField" placeholder="Placeholder" required></sl-date-field>
+        </sl-form-field>
       </sl-form>
     `;
   }
@@ -164,3 +189,5 @@ export const Value: Story = {
     value: new Date(2024, 8, 12)
   }
 };
+
+// TODO: add unit test that will check if invalid state is missing when the value is set in the date field

@@ -26,7 +26,7 @@ body:
     id: current-behavior
     attributes:
       label: 😯 Current Behavior
-      description: | 
+      description: |
         Tell us what happens instead of the expected behavior.
     validations:
       required: true
@@ -40,15 +40,15 @@ body:
   - type: textarea
     id: base-reproduction
     attributes:
-      label: 🖥️ Steps to Reproduce 
-      description: | 
+      label: 🖥️ Steps to Reproduce
+      description: |
         For example: 1. Go to '...', 2. Click on '....', 3. Scroll to '....', 4. Check console, 5. See error
     validations:
       required: true
   - type: markdown
     attributes:
       value: "## 🌍 Your Environment"
-  - type: dropdown 
+  - type: dropdown
     id: browsers
     attributes:
       label: What browsers are you seeing the problem on? (only for bugs in code)
@@ -70,7 +70,7 @@ body:
   - type: input
     id: operating-system
     attributes:
-      label: What operating system are you using? 
+      label: What operating system are you using?
     validations:
       required: true
   - type: markdown
@@ -80,7 +80,7 @@ body:
     id: name
     attributes:
       label: 👤 Your name
-      description: | 
+      description: |
         Please provide your full name
     validations:
       required: true
@@ -88,7 +88,7 @@ body:
     id: product
     attributes:
       label: 🧢 Your product/team
-      description: | 
+      description: |
         Which product team is this bug impacting? (i.e. Bingel DC/Pokemon)
     validations:
       required: true
@@ -112,5 +112,6 @@ body:
       - Sanoma Learning
       - Sanoma Utbildning
       - TEAS
+      - TIG
     validations:
       required: true

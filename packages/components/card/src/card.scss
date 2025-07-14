@@ -1,8 +1,6 @@
 :host {
   border-radius: var(--sl-size-borderRadius-default);
   inline-size: 100%;
-
-  // overflow: hidden;
   position: relative;
 }
 
@@ -144,9 +142,11 @@
     clip-path: fill-box;
     /* stylelint-disable-next-line value-no-vendor-prefix */
     display: -webkit-box;
+    grid-area: contents;
     /* stylelint-disable-next-line property-no-vendor-prefix */
     -webkit-line-clamp: var(--_line-clamp, 9999);
     overflow: hidden;
+    padding: 0 var(--sl-space-300) var(--sl-space-300);
   }
 
   slot.title::slotted(*),
@@ -154,14 +154,8 @@
     margin-block: 0;
   }
 
-  article {
-    grid-area: contents;
-    overflow: hidden;
-    padding: 0 var(--sl-space-300) var(--sl-space-300);
-  }
-
   :host(.sl-has-actions) {
-    article {
+    slot[name='body'] {
       padding-block-end: 0;
     }
 
@@ -169,8 +163,6 @@
       display: inline-block;
       grid-area: actions;
       padding: 0 var(--sl-space-300) var(--sl-space-300);
-
-      // pointer-events: none;
     }
   }
 
@@ -188,12 +180,13 @@
   }
 
   slot.title::slotted(*) {
-    font-family: var(--sl-text-new-typeset-fontFamily-heading);
-    font-size: var(--sl-size-text-new-heading-md);
+    font: var(--sl-text-new-typeset-fontWeight-semiBold) var(--sl-size-text-new-heading-md)
+      var(--sl-text-new-typeset-fontFamily-heading);
   }
 
-  slot[name='actions']:not(slot[name='actions']::slotted(*)) {
-    display: none;
+  slot.title::slotted(a[href]) {
+    color: var(--sl-color-foreground-plain);
+    text-decoration: none;
   }
 
   slot.title::slotted(a[href]:focus-visible) {
@@ -204,6 +197,7 @@
   :host(.sl-has-link:hover) {
     border-color: var(--sl-color-border-input);
     box-shadow: var(--sl-elevation-shadow-overflow);
+    cursor: pointer;
 
     --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
   }

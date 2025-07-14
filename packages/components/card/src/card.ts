@@ -1,5 +1,6 @@
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { MenuButton } from '@sl-design-system/menu';
+import { ToggleButton } from '@sl-design-system/toggle-button';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './card.scss.js';
@@ -99,7 +100,7 @@ export class Card extends ScopedElementsMixin(LitElement) {
         <slot name="header"></slot>
         <slot name="menu-button" @slotchange=${this.#setMenuButton}></slot>
       </div>
-      <article><slot name="body" @slotchange=${this.#setLineClamp}></slot></article>
+      <slot name="body" @slotchange=${this.#setLineClamp}></slot>
       <slot name="actions" @slotchange=${this.#setActions}></slot>
     `;
   }
@@ -199,10 +200,16 @@ export class Card extends ScopedElementsMixin(LitElement) {
   }
 
   #setGridSpan(): void {
-    let verticalElements = 2; // header and article are always present
+    let verticalElements = 1; // header is always present
     let horizontalElements = 1; // the bare minimum :)
     if (!this.shadowRoot) {
       return;
+    }
+
+    const article: HTMLSlotElement | null = this.shadowRoot.querySelector('slot[name="body"]');
+
+    if (article && article.assignedNodes({ flatten: true }).length > 0) {
+      verticalElements++; // actions
     }
 
     const actions: HTMLSlotElement | null = this.shadowRoot.querySelector('slot[name="actions"]');
@@ -259,6 +266,10 @@ export class Card extends ScopedElementsMixin(LitElement) {
       if (menuButton instanceof MenuButton) {
         this.classList.add('sl-has-menu-button');
         menuButton.fill = 'ghost';
+        menuButton.size = 'md';
+      }
+      if (menuButton instanceof ToggleButton) {
+        this.classList.add('sl-has-menu-button');
         menuButton.size = 'md';
       }
     }

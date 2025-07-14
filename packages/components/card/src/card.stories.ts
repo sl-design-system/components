@@ -1,10 +1,12 @@
-import { faDownload } from '@fortawesome/pro-regular-svg-icons';
+import { faDownload, faHeart } from '@fortawesome/pro-regular-svg-icons';
+import { faHeart as fasHeart } from '@fortawesome/pro-solid-svg-icons';
 import '@sl-design-system/badge/register.js';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/menu/register.js';
+import '@sl-design-system/toggle-button/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -30,7 +32,7 @@ type Props = Pick<Card, 'orientation'> & {
 type Story = StoryObj<Props>;
 
 const orientations = ['horizontal', 'vertical'];
-Icon.register(faDownload);
+Icon.register(faDownload, faHeart, fasHeart);
 
 export default {
   title: 'Layout/Card',
@@ -155,7 +157,7 @@ const card = (
         : nothing}
       ${card.menuButton
         ? html`
-            <sl-menu-button slot="menu-button">
+            <sl-menu-button slot="menu-button" aria-label="Card actions">
               <sl-menu-item>
                 <sl-icon name="far-pen"></sl-icon>
                 Rename...
@@ -732,268 +734,137 @@ export const Actions: Story = {
         ${card(settings, 0)} ${card({ ...settings, actionButton: true }, 1)}
         <span>With menu:</span>
         <span>With link, whole card clickable:</span>
-        ${card({ ...settings, menuButton: true }, 2)} ${card({ ...settings, link: true, actionButton: true }, 3)}
+        ${card({ ...settings, menuButton: true }, 2)} ${card({ ...settings, link: true }, 3)}
       </div>
     `;
   }
 };
 
-// export const FlexHeightFullWidthImageWidth: Story = {
-//   render: () => html`
-//     <h1>Flex height, full width, image width is set</h1>
-//     <sl-card height="flex" style="--sl-card-image-width:200px">
-//       <img slot="media" src=${images[2]} />
-//       <h2>${titles[1]}</h2>
-//       <span slot="header"><sl-badge>new</sl-badge></span>
-//       <p slot="body"><em>imageWidth:200px, height:flex</em> - ${bodyCopy[4]}</p>
-//       <sl-button aria-label="Toggle visibility" icon-only slot="actions" fill="ghost">
-//         <sl-icon name="eye"></sl-icon>
-//       </sl-button>
-//     </sl-card>
-//   `
-// };
-
-// export const GridFixedRowHeight: Story = {
-//   render: () => html`
-//     <style>
-//       #root-inner > div {
-//         gap: 16px;
-//         margin-bottom: 24px;
-//         width: 100%;
-//       }
-//       div.grid {
-//         display: grid;
-//         grid-auto-rows: 240px;
-//         grid-template-columns: repeat(var(--cols, 2), 1fr);
-//       }
-//     </style>
-//     <h1>In grid, fixed row height (all cards have 'excplicit-height')</h1>
-//     <div class="grid">
-//       <sl-card explicit-height>
-//         <img slot="media" src=${images[0]} />
-//         <h2>${titles[0]}</h2>
-//         <h3 slot="header">Sub header</h3>
-//         <p slot="body">${bodyCopy[0]}</p>
-//         <sl-button aria-label="Actions" icon-only slot="actions" fill="ghost">
-//           <sl-icon name="ellipsis"></sl-icon>
-//         </sl-button>
-//       </sl-card>
-
-//       <sl-card style="--sl-card-media-aspect-ratio:1/1;" padding media-position="end" explicit-height>
-//         <img slot="media" src=${images[1]} />
-//         <h2>${titles[1]}</h2>
-//         <span slot="header"><sl-badge>new</sl-badge></span>
-//         <p slot="body"><em>aspect-ratio:1/1, padding, mediaPosition:end</em> - ${bodyCopy[1]}</p>
-//       </sl-card>
-//       <sl-card style="--sl-card-text-width:7fr; --sl-card-media-width:3fr;" explicit-height>
-//         <img slot="media" src=${images[2]} />
-//         <h2>${titles[1]}</h2>
-//         <span slot="header"><sl-badge>new</sl-badge></span>
-//         <p slot="body"><em>text/card-ratio:7/3</em> - ${bodyCopy[1]}</p>
-//       </sl-card>
-//       <sl-card style="--sl-card-media-aspect-ratio:2/1;" padding media-position="end" explicit-height>
-//         <sl-icon name="pinata" slot="icon"></sl-icon>
-//         <img slot="media" src=${images[3]} />
-//         <h2>${titles[1]}</h2>
-//         <span slot="header"><sl-badge>new</sl-badge></span>
-//         <p slot="body"><em>icon:pinata, aspectratio:2/1, padding, mediaPosition:end</em> - ${bodyCopy[1]}</p>
-//         <sl-button aria-label="Toggle visibility" icon-only slot="actions" fill="ghost">
-//           <sl-icon name="eye"></sl-icon>
-//         </sl-button>
-//       </sl-card>
-//     </div>
-//   `
-// };
-
-// export const GridFixedRowHeightStretched: Story = {
-//   render: ({ fitImage }) => html`
-//     <style>
-//       #root-inner > div {
-//         gap: 16px;
-//         margin-bottom: 24px;
-//         width: 100%;
-//       }
-//       div.grid {
-//         display: grid;
-//         grid-auto-rows: 240px;
-//         grid-template-columns: repeat(var(--cols, 2), 1fr);
-//       }
-//     </style>
-//     <h1>In grid, fixed row height (all cards have 'excplicit-height')</h1>
-//     <pre>
-//     --sl-card-stretch-image:100%
-//     </pre
-//     >
-//     <div class="grid" style="--sl-card-stretch-image:100%">
-//       <sl-card explicit-height ?fit-image=${fitImage}>
-//         <img slot="media" src=${images[0]} />
-//         <h2>${titles[0]}</h2>
-//         <span slot="header">Sub header</span>
-//         <p slot="body">${bodyCopy[0]}</p>
-//         <sl-button slot="actions"> <sl-icon name="far-download"></sl-icon> Download </sl-button>
-//       </sl-card>
-//       <sl-card
-//         style="--sl-card-media-aspect-ratio:1/1;"
-//         padding
-//         media-position="end"
-//         explicit-height
-//         ?fit-image=${fitImage}
-//       >
-//         <img slot="media" src=${images[1]} />
-//         <h2>${titles[1]}</h2>
-//         <span slot="header"><sl-badge>new</sl-badge></span>
-//         <p slot="body"><em>aspectratio:1/1, padding, mediaPosition:end</em> - ${bodyCopy[1]}</p>
-//       </sl-card>
-//       <sl-card style="--sl-card-text-width:70fr; --sl-card-media-width:30fr;" explicit-height ?fit-image=${fitImage}>
-//         <img slot="media" src=${images[2]} />
-//         <h2>${titles[1]}</h2>
-//         <span slot="header"><sl-badge>new</sl-badge></span>
-//         <p slot="body"><em>text/card-ratio:7/3</em> - ${bodyCopy[1]}</p>
-//       </sl-card>
-//       <sl-card
-//         style="--sl-card-media-aspect-ratio:2/1;"
-//         padding
-//         media-position="end"
-//         explicit-height
-//         ?fit-image=${fitImage}
-//       >
-//         <sl-icon name="pinata" slot="icon"></sl-icon>
-//         <img slot="media" src=${images[3]} />
-//         <h2>${titles[1]}</h2>
-//         <span slot="header"><sl-badge>new</sl-badge></span>
-//         <p slot="body"><em>padding, media: end, aspectratio: 2/1</em> - ${bodyCopy[1]}</p>
-//         <sl-button slot="actions"> <sl-icon name="far-download"></sl-icon> Download </sl-button>
-//       </sl-card>
-//     </div>
-//   `
-// };
-
-// export const GridFixedRowHeight3Columns: Story = {
-//   render: () => html`
-//     <style>
-//       #root-inner > div {
-//         gap: 16px;
-//         margin-bottom: 24px;
-//         width: 100%;
-//       }
-//       div.grid {
-//         display: grid;
-//         grid-auto-rows: 240px;
-//         grid-template-columns: repeat(var(--cols, 2), 1fr);
-//       }
-//     </style>
-//     <h1>In grid, fixed row height, 3 columns</h1>
-//     <div class="grid" style="--cols: 3">
-//       <sl-card explicit-height>
-//         <img slot="media" src=${images[0]} />
-//         <h2>${titles[0]}</h2>
-//         <h3 slot="header">Sub header</h3>
-//         <p slot="body">${bodyCopy[0]}</p>
-//         <sl-button aria-label="Actions" icon-only slot="actions" fill="ghost">
-//           <sl-icon name="ellipsis"></sl-icon>
-//         </sl-button>
-//       </sl-card>
-
-//       <sl-card style="--sl-card-media-aspect-ratio:1/1;" padding explicit-height>
-//         <img slot="media" src=${images[1]} />
-//         <h2>${titles[1]}</h2>
-//         <span slot="header"><sl-badge>new</sl-badge></span>
-//         <p slot="body"><em>padding, aspect ratio 1/1</em> - ${bodyCopy[1]}</p>
-//       </sl-card>
-//       <sl-card media-position="end" explicit-height>
-//         <img slot="media" src=${images[2]} />
-//         <h2>${titles[1]}</h2>
-//         <span slot="header"><sl-badge>new</sl-badge></span>
-//         <p slot="body"><em>media-position: end</em> - ${bodyCopy[1]}</p>
-//       </sl-card>
-//       <sl-card padding media-position="end" explicit-height>
-//         <sl-icon name="pinata" slot="icon"></sl-icon>
-//         <img slot="media" src=${images[3]} />
-//         <h2>${titles[1]}</h2>
-//         <span slot="header"><sl-badge>new</sl-badge></span>
-//         <p slot="body"><em>icon:pinata, padding mediaposition:end</em> - ${bodyCopy[1]}</p>
-//         <sl-button aria-label="Toggle visibility" icon-only slot="actions" fill="ghost">
-//           <sl-icon name="eye"></sl-icon>
-//         </sl-button>
-//       </sl-card>
-//     </div>
-//   `
-// };
-
-// export const Vertical: Story = {
-//   render: () => html`
-//     <style>
-//       #root-inner > div {
-//         gap: 16px;
-//         margin-bottom: 24px;
-//         width: 100%;
-//       }
-//       div.flex {
-//         align-items: flex-start;
-//         display: flex;
-//         flex-wrap: wrap;
-//       }
-//     </style>
-//     <h1>Vertical, in flexbox rows, max width of 300px</h1>
-
-//     <div class="flex">
-//       <sl-card style="max-width: 300px" orientation="vertical" padding>
-//         <img slot="media" src=${images[0]} />
-//         <h2>${titles[0]}</h2>
-//         <h3 slot="header">Sub header</h3>
-//         <p slot="body"><em>padding</em> - ${bodyCopy[0]}</p>
-//         <sl-button aria-label="Actions" icon-only slot="actions" fill="ghost">
-//           <sl-icon name="ellipsis"></sl-icon>
-//         </sl-button>
-//       </sl-card>
-
-//       <sl-card style="max-width: 300px;" orientation="vertical">
-//         <sl-icon name="pinata" slot="icon"></sl-icon>
-//         <img slot="media" src=${images[1]} />
-//         <h2>${titles[1]}</h2>
-//         <span slot="header"><sl-badge>new</sl-badge></span>
-//         <p slot="body"><em>icon:pinata</em> - ${bodyCopy[1]}</p>
-//         <sl-button aria-label="Toggle visibility" icon-only slot="actions" fill="ghost">
-//           <sl-icon name="eye"></sl-icon>
-//         </sl-button>
-//       </sl-card>
-//       <sl-card style="max-width: 300px;" orientation="vertical">
-//         <sl-icon name="pinata" slot="icon"></sl-icon>
-//         <img slot="media" src=${images[1]} />
-//         <h2>${titles[1]}</h2>
-//         <span slot="header"><sl-badge>new</sl-badge></span>
-//         <p slot="body"><em>icon:pinata</em> - ${bodyCopy[1]}</p>
-//       </sl-card>
-//       <sl-card style="max-width: 300px" orientation="vertical">
-//         <h2>${titles[1]}</h2>
-//         <span slot="header"><sl-badge>new</sl-badge></span>
-//         <p slot="body">${bodyCopy[1]}</p>
-//         <sl-button aria-label="Toggle visibility" icon-only slot="actions" fill="ghost">
-//           <sl-icon name="eye"></sl-icon>
-//         </sl-button>
-//       </sl-card>
-//       <sl-card style="max-width: 300px" orientation="vertical">
-//         <sl-icon name="pinata" slot="icon"></sl-icon>
-//         <h2>${titles[1]}</h2>
-//         <span slot="header"><sl-badge>new</sl-badge></span>
-//         <p slot="body"><em>icon:pinata</em> - ${bodyCopy[1]}</p>
-//         <sl-button aria-label="Toggle visibility" icon-only slot="actions" fill="ghost">
-//           <sl-icon name="eye"></sl-icon>
-//         </sl-button>
-//       </sl-card>
-//     </div>
-//   `
-// };
+export const RealWorldExamples: Story = {
+  render: () => {
+    return html`
+      <style>
+        div {
+          display: grid;
+          gap: 16px;
+          margin-bottom: 24px;
+          width: 100%;
+        }
+        .max {
+          grid-template-columns: repeat(auto-fill, 300px);
+          --sl-card-media-size: 200px;
+        }
+        .npm {
+          grid-template-columns: repeat(auto-fill, 200px);
+          --sl-card-media-size: 260px;
+        }
+      </style>
+      <h1>Max, chapter tile</h1>
+      <div class="max">
+        <sl-card orientation="vertical">
+          <img
+            slot="media"
+            src="/images/card-max-1.png"
+            alt="Een baby oerang oetan die wordt vastgehouden door hun moeder"
+          />
+          <a href="javascript:void(0);">Wat is biologie?</a>
+          <span slot="header"
+            ><sl-badge size="md">Thema 1</sl-badge> <sl-badge size="md" color="green">last activity</sl-badge></span
+          >
+        </sl-card>
+        <sl-card orientation="vertical">
+          <img slot="media" src="/images/card-max-2.png" alt="Glaskikker, van onderen gezien" />
+          <a href="javascript:void(0);">Organen en cellen</a>
+          <span slot="header"><sl-badge size="md">Thema 3</sl-badge></span>
+        </sl-card>
+      </div>
+      <h1>NPM, My books</h1>
+      <div class="npm">
+        <sl-card orientation="vertical">
+          <img slot="media" src=${images[0]} alt="Picture of ${titles[2]}" />
+          <a href="javascript:void(0);">Lengua castellana</a>
+          <span slot="header">
+            Primaria<br />
+            <small>31-12-2025</small>
+          </span>
+          <sl-menu-button slot="menu-button" aria-label="Card actions">
+            <sl-icon name="ellipsis" slot="button"></sl-icon>
+            <sl-menu-item> Leer libro </sl-menu-item>
+            <sl-menu-item> Mis libros personalizados </sl-menu-item>
+          </sl-menu-button>
+        </sl-card>
+        <sl-card orientation="vertical">
+          <img slot="media" src=${images[1]} alt="Picture of ${titles[3]}" />
+          <a href="javascript:void(0);">Lengua castellana</a>
+          <span slot="header">
+            Primaria<br />
+            <small>31-12-2025</small>
+          </span>
+          <sl-menu-button slot="menu-button" aria-label="Card actions">
+            <sl-icon name="ellipsis" slot="button"></sl-icon>
+            <sl-menu-item> Leer libro </sl-menu-item>
+            <sl-menu-item> Mis libros personalizados </sl-menu-item>
+          </sl-menu-button>
+        </sl-card>
+      </div>
+      <h1>NPM, My books v2</h1>
+      <div class="npm">
+        <sl-card orientation="vertical">
+          <img slot="media" src=${images[0]} alt="Picture of ${titles[2]}" />
+          <a href="javascript:void(0);">Il novo giramondo</a>
+          <span slot="header">
+            <sl-badge size="md" color="red">Nessuna risorsa</sl-badge>
+          </span>
+          <sl-toggle-button slot="menu-button" aria-label="Favorite">
+            <sl-icon name="far-heart" slot="default"></sl-icon>
+            <sl-icon name="fas-heart" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+          <sl-button-bar slot="actions"
+            ><sl-button
+              variant="primary"
+              fill="outline"
+              @click=${() => console.log('action button clicked')}
+              style="flex-grow: 1"
+            >
+              <sl-icon name="far-download"></sl-icon> Download
+            </sl-button>
+          </sl-button-bar>
+        </sl-card>
+        <sl-card orientation="vertical">
+          <img slot="media" src=${images[1]} alt="Picture of ${titles[3]}" />
+          <a href="javascript:void(0);">Il novo giramondo</a>
+          <span slot="header">
+            <sl-badge size="md" color="red">Nessuna risorsa</sl-badge>
+          </span>
+          <sl-toggle-button slot="menu-button" aria-label="Favorite">
+            <sl-icon name="far-heart" slot="default"></sl-icon>
+            <sl-icon name="fas-heart" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+          <sl-button-bar slot="actions"
+            ><sl-button
+              variant="primary"
+              fill="outline"
+              @click=${() => console.log('action button clicked')}
+              style="flex-grow: 1"
+            >
+              <sl-icon name="far-download"></sl-icon> Download
+            </sl-button>
+          </sl-button-bar>
+        </sl-card>
+      </div>
+    `;
+  }
+};
 
 export const All: Story = {
   render: () => html`
     <style>
       #root-inner > div {
+        display: grid;
         gap: 16px;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
         margin-bottom: 24px;
         width: 100%;
-        display: flex;
-        flex-direction: column;
       }
     </style>
     <div>

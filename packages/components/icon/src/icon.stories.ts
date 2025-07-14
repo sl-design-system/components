@@ -42,7 +42,6 @@ const sizes: IconSize[] = ['2xs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4
 let storyId: string;
 
 const copyIconName = async (name: string): Promise<void> => {
-  console.log(`Copying icon name: ${name}`);
   await navigator.clipboard.writeText(name);
 };
 

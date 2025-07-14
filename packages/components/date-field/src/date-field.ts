@@ -149,8 +149,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     this.setFormControlElement(this.input);
 
-    // console.log('DateField connectedCallback called', this.input, this.wrapper);
-
     // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
     const style = document.createElement('style');
     style.innerHTML = `
@@ -161,16 +159,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.prepend(style);
   }
 
-  // override disconnectedCallback(): void {
-  //   super.disconnectedCallback();
-  //
-  //   console.log('DateField disconnectedCallback called');
-  // }
-
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
-
-    // console.log('changes in willUpdate', changes);
 
     if (changes.has('dateTimeFormat') && changes.has('locale')) {
       this.#formatter = new Intl.DateTimeFormat(this.locale, this.dateTimeFormat);
@@ -199,8 +189,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     // if (changes.has('showValidity')) {
     //   this.button.showValidity = this.showValidity;
     // } // TODO: Implement showValidity in DateField???
-
-    // console.log('showValidity in willUpdate', this.showValidity);
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -226,13 +214,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     if (changes.has('required')) {
       this.input.required = !!this.required;
 
-      // console.log(
-      //   'DateField in updated, required changed',
-      //   this.required,
-      //   this.input.required,
-      //   this.renderRoot.querySelector('sl-text-field')
-      // );
-
       this.renderRoot.querySelector('sl-text-field')?.updateValidity();
       // this.renderRoot.querySelector('sl-text-field')?.requestUpdate();
       this.updateValidity();
@@ -241,7 +222,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   override render(): TemplateResult {
-    console.log('showValidity in render', this.showValidity);
     return html`
       <sl-text-field
         @sl-blur=${this.#onTextFieldBlur}
@@ -334,9 +314,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     this.updateState({ dirty: true });
     this.updateValidity();
-    // console.log('DateField value changed, onCHANGE, updateValidity should be called', this.value);
-
-    // console.log('textField??? control in date field', this.renderRoot.querySelector('sl-text-field'), event, this.value);
 
     // this.renderRoot.querySelector('sl-text-field')?.updateValidity();
     //
@@ -360,30 +337,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.updateState({ touched: true });
   }
 
-  // #onTextFieldInput(event: SlChangeEvent): void {
-  //   console.log('DateField onTextFieldInput', event);
-  // }
-
   #onTextFieldChange(event: SlChangeEvent): void {
     event.preventDefault();
     event.stopPropagation();
-
-    // this.updateValidity();
-
-    // console.log('DateField onTextFieldChange', event);
-
-    // this.value = event.detail;
-    // this.changeEvent.emit(this.value);
-
-    // this.input.value = this.value?.toString();
-
-    // console.log('textField???', this.renderRoot.querySelector('sl-text-field'), event);
-
-    // this.renderRoot.querySelector('sl-text-field')?.updateState({ dirty: true });
-    // this.renderRoot.querySelector('sl-text-field')?.changeEvent; // setFormValue???
-    // this.renderRoot.querySelector('sl-text-field')?.updateValidity(); // necessary?!!
-
-    // this.renderRoot.querySelector('sl-text-field')?.requestUpdate();
 
     this.updateState({ dirty: true });
     this.updateValidity();
@@ -400,15 +356,11 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   #onTextFieldFormControl(event: SlFormControlEvent): void {
     event.preventDefault();
     event.stopPropagation();
-
-    // console.log('DateField onTextFieldFormControl', event);
   }
 
   #onTextFieldUpdateState(event: SlUpdateStateEvent): void {
     event.preventDefault();
     event.stopPropagation();
-
-    console.log('DateField onTextFieldUpdateState', event, this.formControlElement);
 
     this.renderRoot.querySelector('sl-text-field')?.updateValidity();
     this.renderRoot.querySelector('sl-text-field')?.requestUpdate();

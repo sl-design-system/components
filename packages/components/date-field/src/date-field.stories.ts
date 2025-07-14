@@ -89,28 +89,12 @@ export default {
       console.log('reportValidity in story onClick should be fired', event.target.closest('sl-form'), event.target);
     };
 
-    // setTimeout(() => {
-    //   const dateField = document.querySelector('sl-date-field') as DateField | null;
-    //   console.log('dateField in story render', dateField);
-    //   if (dateField) {
-    //     dateField.value = undefined; // or set to initial value
-    //   }
-    // }, 1000);
-
-    // setTimeout(() => {
-    //   const form = document.querySelector('sl-form') as Form;
-    //   console.log('Form reset in story render', form);
-    //   form?.reset(); // Reset form state on story render
-    // }, 100);
-
     const onUpdate = (): void => {
       const form = document.querySelector('sl-form')!,
         pre = form.nextElementSibling as HTMLPreElement;
 
       pre.textContent = JSON.stringify(form.value, null, 2);
     };
-
-    console.log('reportValidity in story???', reportValidity);
 
     return html`
       <sl-form @sl-update-state=${onUpdate} @sl-update-validity=${onUpdate} .value=${value}>
@@ -196,5 +180,3 @@ export const Value: Story = {
     value: new Date(2024, 8, 12)
   }
 };
-
-// TODO: add unit test that will check if invalid state is missing when the value is set in the date field

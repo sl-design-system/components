@@ -86,18 +86,10 @@ export default {
   }) => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
       event.target.closest('sl-form')?.reportValidity();
-      console.log('reportValidity in story onClick should be fired', event.target.closest('sl-form'), event.target);
-    };
-
-    const onUpdate = (): void => {
-      const form = document.querySelector('sl-form')!,
-        pre = form.nextElementSibling as HTMLPreElement;
-
-      pre.textContent = JSON.stringify(form.value, null, 2);
     };
 
     return html`
-      <sl-form @sl-update-state=${onUpdate} @sl-update-validity=${onUpdate} .value=${value}>
+      <sl-form .value=${value}>
         <sl-form-field .hint=${hint} .label=${label}>
           <sl-date-field
             ?disabled=${disabled}

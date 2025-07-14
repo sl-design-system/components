@@ -143,8 +143,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       if (!this.input.parentElement) {
         this.append(this.input);
       }
-      // this.input.updateValidity();
-      // this.renderRoot.querySelector('sl-text-field')?.updateValidity();
     }
 
     this.setFormControlElement(this.input);
@@ -162,62 +160,41 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
+    console.log('changes in willUpdate:', changes);
+
     if (changes.has('dateTimeFormat') && changes.has('locale')) {
       this.#formatter = new Intl.DateTimeFormat(this.locale, this.dateTimeFormat);
     }
 
     if (changes.has('value')) {
       this.input.value = this.value && this.#formatter ? this.#formatter.format(this.value) : '';
-      // this.updateValidity();
-      // this.#onTextFieldChange({ target: this.input, detail: this.value });
       this.#onTextFieldChange(new CustomEvent('sl-change', { detail: this.value, bubbles: true, composed: true }));
     }
 
-    if (changes.has('showValid')) {
+    if (changes.has('showValid') || changes.has('showValidity')) {
+      console.log('showValidity in willUpdate', this.showValidity, this.showValid);
       if (this.renderRoot.querySelector('sl-text-field')) {
-        this.renderRoot.querySelector('sl-text-field')!.showValid = this.showValid;
+        (this.renderRoot.querySelector('sl-text-field') as TextField).showValid = this.showValid;
       }
     }
 
-    // if (changes.has('showValidity')) {
-    //   if (this.renderRoot.querySelector('sl-text-field')) {
-    //     (this.renderRoot.querySelector('sl-text-field') as TextField)!.showValidity = this.showValidity;
-    //    // this.input.showValidity = this.showValidity;
-    //   }
-    // }
-
-    // if (changes.has('showValidity')) {
-    //   this.button.showValidity = this.showValidity;
-    // } // TODO: Implement showValidity in DateField???
+    if (changes.has('required')) {
+      if (this.renderRoot.querySelector('sl-text-field')) {
+        (this.renderRoot.querySelector('sl-text-field') as TextField).required = !!this.required;
+      }
+      this.input.required = !!this.required;
+    }
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    // if (changes.has('autocomplete')) {
-    //   this.input.setAttribute('aria-autocomplete', this.autocomplete || 'both');
-    // }
-    //
-    // if (changes.has('autocomplete') || changes.has('selectOnly')) {
-    //   this.input.readOnly = this.selectOnly ?? this.autocomplete === 'off';
-    // }
-    //
-    // if (changes.has('disabled')) {
-    //   this.input.disabled = !!this.disabled;
-    // }
-    //
-    // if (changes.has('filterResults') && changes.get('filterResults') && !this.filterResults && this.#useVirtualList) {
-    //   this.items = this.items.map(o => ({ ...o, visible: true }));
-    //   this.listbox!.items = this.items;
-    // }
-
     if (changes.has('required')) {
-      this.input.required = !!this.required;
+      if (this.renderRoot.querySelector('sl-text-field')) {
+        (this.renderRoot.querySelector('sl-text-field') as TextField).required = !!this.required;
+      }
 
-      this.renderRoot.querySelector('sl-text-field')?.updateValidity();
-      // this.renderRoot.querySelector('sl-text-field')?.requestUpdate();
-      this.updateValidity();
-      // this.requestUpdate();
+      this.input.required = !!this.required;
     }
   }
 
@@ -301,8 +278,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     event.preventDefault();
     event.stopPropagation();
 
-    // debugger;
-
     this.value = event.detail;
     this.changeEvent.emit(this.value);
 
@@ -341,6 +316,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     event.preventDefault();
     event.stopPropagation();
 
+    this.renderRoot.querySelector('sl-text-field')?.updateValidity();
+    this.renderRoot.querySelector('sl-text-field')?.requestUpdate();
     this.updateState({ dirty: true });
     this.updateValidity();
     this.requestUpdate();

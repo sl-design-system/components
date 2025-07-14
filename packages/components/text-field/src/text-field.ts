@@ -335,6 +335,7 @@ export class TextField<T extends { toString(): string } = string>
 
   /** This method is called when the input changes. */
   protected onChange(): void {
+    this.changeEvent.emit(this.value); // TODO: is it ok? without try and catch?
     this.updateState({ dirty: true });
     this.updateValidity();
   }

@@ -84,7 +84,6 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
 
   /** Indicates whether to show validity state. */
   get showValidity(): boolean {
-    console.log('showValidity in form.ts', this.#showValidity);
     return this.#showValidity;
   }
 

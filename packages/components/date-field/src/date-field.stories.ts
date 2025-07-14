@@ -116,10 +116,6 @@ export default {
               </sl-button-bar>
             `
           : nothing}
-
-        <sl-form-field hint="Hint text" label="Date field">
-          <sl-date-field name="dateField" placeholder="Placeholder" required></sl-date-field>
-        </sl-form-field>
       </sl-form>
     `;
   }

@@ -333,26 +333,8 @@ export class TextField<T extends { toString(): string } = string>
     this.updateValidity();
   }
 
-  protected onChange(event: Event & { target: HTMLInputElement }): void {
-    // This method is called when the input changes, but we already handle the change in `onInput`
-    // We can use this to prevent unnecessary updates or side effects
-    this.rawValue = event.target.value;
-
-    console.log('in textfield.....onChange called with value:', this.rawValue);
-
-    // // If the value is valid, we can emit the change event
-    // if (this.validity.valid) {
-    //   this.changeEvent.emit(this.value);
-    // }
-
-    try {
-      // Try to parse the value, but do nothing if it fails
-      this.value = this.parseValue(this.rawValue);
-      this.changeEvent.emit(this.value);
-    } catch {
-      /* empty */
-    }
-
+  /** This method is called when the input changes. */
+  protected onChange(): void {
     this.updateState({ dirty: true });
     this.updateValidity();
   }

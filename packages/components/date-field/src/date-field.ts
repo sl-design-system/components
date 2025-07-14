@@ -379,8 +379,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     // console.log('textField???', this.renderRoot.querySelector('sl-text-field'), event);
 
+    // this.renderRoot.querySelector('sl-text-field')?.updateState({ dirty: true });
     // this.renderRoot.querySelector('sl-text-field')?.changeEvent; // setFormValue???
-    this.renderRoot.querySelector('sl-text-field')?.updateValidity(); // necessary?!!
+    // this.renderRoot.querySelector('sl-text-field')?.updateValidity(); // necessary?!!
 
     // this.renderRoot.querySelector('sl-text-field')?.requestUpdate();
 

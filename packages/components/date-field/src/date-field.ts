@@ -149,7 +149,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     this.setFormControlElement(this.input);
 
-    console.log('DateField connectedCallback called', this.input, this.wrapper);
+    // console.log('DateField connectedCallback called', this.input, this.wrapper);
 
     // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
     const style = document.createElement('style');
@@ -161,16 +161,16 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.prepend(style);
   }
 
-  override disconnectedCallback(): void {
-    super.disconnectedCallback();
-
-    console.log('DateField disconnectedCallback called');
-  }
+  // override disconnectedCallback(): void {
+  //   super.disconnectedCallback();
+  //
+  //   console.log('DateField disconnectedCallback called');
+  // }
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    console.log('changes in willUpdate', changes);
+    // console.log('changes in willUpdate', changes);
 
     if (changes.has('dateTimeFormat') && changes.has('locale')) {
       this.#formatter = new Intl.DateTimeFormat(this.locale, this.dateTimeFormat);
@@ -183,11 +183,24 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.#onTextFieldChange(new CustomEvent('sl-change', { detail: this.value, bubbles: true, composed: true }));
     }
 
+    if (changes.has('showValid')) {
+      if (this.renderRoot.querySelector('sl-text-field')) {
+        this.renderRoot.querySelector('sl-text-field')!.showValid = this.showValid;
+      }
+    }
+
+    // if (changes.has('showValidity')) {
+    //   if (this.renderRoot.querySelector('sl-text-field')) {
+    //     (this.renderRoot.querySelector('sl-text-field') as TextField)!.showValidity = this.showValidity;
+    //    // this.input.showValidity = this.showValidity;
+    //   }
+    // }
+
     // if (changes.has('showValidity')) {
     //   this.button.showValidity = this.showValidity;
     // } // TODO: Implement showValidity in DateField???
 
-    console.log('showValidity in willUpdate', this.showValidity);
+    // console.log('showValidity in willUpdate', this.showValidity);
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -213,12 +226,12 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     if (changes.has('required')) {
       this.input.required = !!this.required;
 
-      console.log(
-        'DateField in updated, required changed',
-        this.required,
-        this.input.required,
-        this.renderRoot.querySelector('sl-text-field')
-      );
+      // console.log(
+      //   'DateField in updated, required changed',
+      //   this.required,
+      //   this.input.required,
+      //   this.renderRoot.querySelector('sl-text-field')
+      // );
 
       this.renderRoot.querySelector('sl-text-field')?.updateValidity();
       // this.renderRoot.querySelector('sl-text-field')?.requestUpdate();
@@ -228,6 +241,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   override render(): TemplateResult {
+    console.log('showValidity in render', this.showValidity);
     return html`
       <sl-text-field
         @sl-blur=${this.#onTextFieldBlur}
@@ -235,10 +249,10 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         @sl-focus=${this.#onTextFieldFocus}
         @sl-form-control=${this.#onTextFieldFormControl}
         @sl-update-state=${this.#onTextFieldUpdateState}
-        @input=${this.#onTextFieldInput}
         ?disabled=${this.disabled}
         ?readonly=${this.readonly || this.selectOnly}
         ?required=${this.required}
+        .showValidity=${this.showValidity}
         part="text-field"
         placeholder=${ifDefined(this.placeholder)}
       >
@@ -285,7 +299,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           : nothing}
       </slot>
     `;
-  }
+  } // @input=${this.#onTextFieldInput}
 
   #onBeforeToggle(event: ToggleEvent): void {
     if (event.newState === 'open') {
@@ -314,13 +328,13 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     // TODO: Implement a way to update the input value based on the selected date...
 
-    // this.renderRoot.querySelector('sl-text-field')?.updateValidity();
+    this.renderRoot.querySelector('sl-text-field')?.updateValidity();
 
     //  this.renderRoot.querySelector('sl-text-field')?.requestUpdate();
 
     this.updateState({ dirty: true });
     this.updateValidity();
-    console.log('DateField value changed, onCHANGE, updateValidity should be called', this.value);
+    // console.log('DateField value changed, onCHANGE, updateValidity should be called', this.value);
 
     // console.log('textField??? control in date field', this.renderRoot.querySelector('sl-text-field'), event, this.value);
 
@@ -333,7 +347,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     setTimeout(() => {
       this.wrapper?.hidePopover();
       this.input.focus();
-    }, 300);
+    }, 500);
 
     // this.requestUpdate();
   }
@@ -346,9 +360,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.updateState({ touched: true });
   }
 
-  #onTextFieldInput(event: SlChangeEvent): void {
-    console.log('DateField onTextFieldInput', event);
-  }
+  // #onTextFieldInput(event: SlChangeEvent): void {
+  //   console.log('DateField onTextFieldInput', event);
+  // }
 
   #onTextFieldChange(event: SlChangeEvent): void {
     event.preventDefault();
@@ -356,14 +370,14 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     // this.updateValidity();
 
-    console.log('DateField onTextFieldChange', event);
+    // console.log('DateField onTextFieldChange', event);
 
     // this.value = event.detail;
     // this.changeEvent.emit(this.value);
 
     // this.input.value = this.value?.toString();
 
-    console.log('textField???', this.renderRoot.querySelector('sl-text-field'), event);
+    // console.log('textField???', this.renderRoot.querySelector('sl-text-field'), event);
 
     // this.renderRoot.querySelector('sl-text-field')?.changeEvent; // setFormValue???
     this.renderRoot.querySelector('sl-text-field')?.updateValidity(); // necessary?!!
@@ -386,7 +400,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     event.preventDefault();
     event.stopPropagation();
 
-    console.log('DateField onTextFieldFormControl', event);
+    // console.log('DateField onTextFieldFormControl', event);
   }
 
   #onTextFieldUpdateState(event: SlUpdateStateEvent): void {
@@ -395,7 +409,11 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     console.log('DateField onTextFieldUpdateState', event, this.formControlElement);
 
-    // this.requestUpdate();
+    this.renderRoot.querySelector('sl-text-field')?.updateValidity();
+    this.renderRoot.querySelector('sl-text-field')?.requestUpdate();
+    this.updateValidity();
+
+    this.requestUpdate();
   }
 
   #onToggle(event: ToggleEvent): void {

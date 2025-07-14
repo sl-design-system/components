@@ -391,7 +391,6 @@ export class TextField<T extends { toString(): string } = string>
    * and synchronizes its attributes with the component's properties.
    */
   protected onSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    console.log('event on slotchange in text field', event);
     const elements = event.target.assignedElements({ flatten: true }),
       inputs = elements.filter((el): el is HTMLInputElement => el instanceof HTMLInputElement);
 

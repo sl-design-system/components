@@ -103,19 +103,26 @@ export default {
     //   form?.reset(); // Reset form state on story render
     // }, 100);
 
+    const onUpdate = (): void => {
+      const form = document.querySelector('sl-form')!,
+        pre = form.nextElementSibling as HTMLPreElement;
+
+      pre.textContent = JSON.stringify(form.value, null, 2);
+    };
+
     console.log('reportValidity in story???', reportValidity);
 
     return html`
-      <sl-form>
+      <sl-form @sl-update-state=${onUpdate} @sl-update-validity=${onUpdate} .value=${value}>
         <sl-form-field .hint=${hint} .label=${label}>
           <sl-date-field
             ?disabled=${disabled}
             ?readonly=${readonly}
             ?required=${required}
             ?select-only=${selectOnly}
-            ?show-valid=${showValid}
             ?show-week-numbers=${showWeekNumbers}
             .value=${value}
+            .show-valid=${showValid}
             locale=${ifDefined(locale)}
             max=${ifDefined(max?.toISOString())}
             min=${ifDefined(min?.toISOString())}

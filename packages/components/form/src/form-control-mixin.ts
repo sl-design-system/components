@@ -300,18 +300,11 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     override updated(changes: PropertyValues<this>): void {
       super.updated(changes);
 
-      // console.log('FormControlMixin updated changes', changes, this);
-
       if (changes.has('name') && isNative(this.formControlElement)) {
         this.formControlElement.name = this.name ?? '';
       }
 
       if (changes.has('showValidity')) {
-        // console.log(
-        //   'Updating showValidity - changes has showValidity in form control... ',
-        //   this.showValidity,
-        //   this.formControlElement
-        // );
         if (isNative(this.formControlElement)) {
           if (this.showValidity === 'invalid') {
             this.formControlElement.setAttribute('aria-invalid', 'true');
@@ -338,8 +331,6 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
         : this.formControlElement.internals.reportValidity();
 
       this.updateValidity();
-
-      // console.log('FormControlMixin reportValidity', valid, this, this.formControlElement);
 
       return valid;
     }

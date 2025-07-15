@@ -160,8 +160,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    console.log('changes in willUpdate:', changes);
-
     if (changes.has('dateTimeFormat') && changes.has('locale')) {
       this.#formatter = new Intl.DateTimeFormat(this.locale, this.dateTimeFormat);
     }
@@ -172,7 +170,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     if (changes.has('showValid') || changes.has('showValidity')) {
-      console.log('showValidity in willUpdate', this.showValidity, this.showValid);
       if (this.renderRoot.querySelector('sl-text-field')) {
         (this.renderRoot.querySelector('sl-text-field') as TextField).showValid = this.showValid;
       }
@@ -256,7 +253,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           : nothing}
       </slot>
     `;
-  } // @input=${this.#onTextFieldInput}
+  }
 
   #onBeforeToggle(event: ToggleEvent): void {
     if (event.newState === 'open') {
@@ -316,11 +313,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     event.preventDefault();
     event.stopPropagation();
 
-    this.renderRoot.querySelector('sl-text-field')?.updateValidity();
-    this.renderRoot.querySelector('sl-text-field')?.requestUpdate();
-    this.updateState({ dirty: true });
     this.updateValidity();
-    this.requestUpdate();
   }
 
   #onTextFieldFocus(event: SlFocusEvent): void {
@@ -339,11 +332,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     event.preventDefault();
     event.stopPropagation();
 
-    this.renderRoot.querySelector('sl-text-field')?.updateValidity();
-    this.renderRoot.querySelector('sl-text-field')?.requestUpdate();
     this.updateValidity();
-
-    this.requestUpdate();
   }
 
   #onToggle(event: ToggleEvent): void {

@@ -51,6 +51,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
    */
   #popoverJustClosed = false;
 
+  /** @internal The text field. */
+  @query('sl-text-field') textField!: TextField;
+
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
@@ -166,18 +169,18 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     if (changes.has('value')) {
       this.input.value = this.value && this.#formatter ? this.#formatter.format(this.value) : '';
-      this.#onTextFieldChange(new CustomEvent('sl-change', { detail: this.value, bubbles: true, composed: true }));
+      this.updateValidity();
     }
 
     if (changes.has('showValid') || changes.has('showValidity')) {
-      if (this.renderRoot.querySelector('sl-text-field')) {
-        (this.renderRoot.querySelector('sl-text-field') as TextField).showValid = this.showValid;
+      if (this.textField) {
+        this.textField.showValid = this.showValid;
       }
     }
 
     if (changes.has('required')) {
-      if (this.renderRoot.querySelector('sl-text-field')) {
-        (this.renderRoot.querySelector('sl-text-field') as TextField).required = !!this.required;
+      if (this.textField) {
+        this.textField.required = !!this.required;
       }
     }
   }
@@ -186,8 +189,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     super.updated(changes);
 
     if (changes.has('required')) {
-      if (this.renderRoot.querySelector('sl-text-field')) {
-        (this.renderRoot.querySelector('sl-text-field') as TextField).required = !!this.required;
+      if (this.textField) {
+        this.textField.required = !!this.required;
       }
     }
   }
@@ -275,7 +278,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.value = event.detail;
     this.changeEvent.emit(this.value);
 
-    this.renderRoot.querySelector('sl-text-field')?.updateValidity();
+    this.textField?.updateValidity();
 
     this.updateState({ dirty: true });
     this.updateValidity();

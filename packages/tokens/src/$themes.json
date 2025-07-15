@@ -13657,6 +13657,22 @@
     "$figmaVariableReferences": {}
   },
   {
+    "id": "f76ab6629be224b8b2a31bc50e52bd0408bc72d6",
+    "name": "tig/light",
+    "selectedTokenSets": {
+      "core": "source",
+      "tig/base": "enabled",
+      "primitives": "source",
+      "system": "source",
+      "tig/light": "enabled",
+      "tig/light-new": "enabled",
+      "tig/base-new": "enabled"
+    },
+    "$figmaStyleReferences": {
+    },
+    "$figmaVariableReferences": {}
+  },
+  {
     "id": "8b23509cf0a35208aad368c416a303dcc9c17258",
     "name": "magister/dark",
     "selectedTokenSets": {

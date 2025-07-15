@@ -1,5 +1,11 @@
 # @sl-design-system/icon
 
+## 1.2.1
+
+### Patch Changes
+
+- [#2121](https://github.com/sl-design-system/components/pull/2121) [`e973712`](https://github.com/sl-design-system/components/commit/e973712439e562714aa0dfe427f88288a8ab78eb) - Fixes issue in scenario where icon in a flex container was squeezed too small.
+
 ## 1.2.0
 
 ### Minor Changes

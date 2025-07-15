@@ -1,5 +1,14 @@
 # @sl-design-system/text-field
 
+## 1.6.5
+
+### Patch Changes
+
+- [#2131](https://github.com/sl-design-system/components/pull/2131) [`919f116`](https://github.com/sl-design-system/components/commit/919f1168712569c5022a4ad6840fbce692ce6ea0) - Adds `onChange` method, called when the input changes.
+
+- Updated dependencies [[`e973712`](https://github.com/sl-design-system/components/commit/e973712439e562714aa0dfe427f88288a8ab78eb)]:
+  - @sl-design-system/icon@1.2.1
+
 ## 1.6.4
 
 ### Patch Changes

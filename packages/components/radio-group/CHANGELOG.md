@@ -1,5 +1,11 @@
 # @sl-design-system/radio-group
 
+## 1.1.4
+
+### Patch Changes
+
+- [#2125](https://github.com/sl-design-system/components/pull/2125) [`ea31f40`](https://github.com/sl-design-system/components/commit/ea31f4082be6b0ae423e0feded698f679046f7b9) - Fixes dispatching `sl-change` event when initial value is set.
+
 ## 1.1.3
 
 ### Patch Changes

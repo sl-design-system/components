@@ -95,13 +95,15 @@ export class Card extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <figure><slot name="media" @slotchange=${this.#setMedia}></slot></figure>
-      <div class="header">
-        <slot class="title" @slotchange=${this.#setTitle}></slot>
-        <slot name="header"></slot>
+      <div class="content">
+        <div class="header">
+          <slot class="title" @slotchange=${this.#setTitle}></slot>
+          <slot name="header"></slot>
+        </div>
         <slot name="menu-button" @slotchange=${this.#setMenuButton}></slot>
+        <slot name="body" @slotchange=${this.#setLineClamp}></slot>
+        <slot name="actions" @slotchange=${this.#setActions}></slot>
       </div>
-      <slot name="body" @slotchange=${this.#setLineClamp}></slot>
-      <slot name="actions" @slotchange=${this.#setActions}></slot>
     `;
   }
 
@@ -201,7 +203,7 @@ export class Card extends ScopedElementsMixin(LitElement) {
 
   #setGridSpan(): void {
     let verticalElements = 1; // header is always present
-    let horizontalElements = 1; // the bare minimum :)
+    let horizontalElements = 1;
     if (!this.shadowRoot) {
       return;
     }
@@ -241,6 +243,7 @@ export class Card extends ScopedElementsMixin(LitElement) {
         this.classList.remove('sl-has-link');
         this.removeEventListener('click', () => {});
       } else {
+        link.classList.add('sl-card-link');
         this.classList.add('sl-has-link');
         this.addEventListener('click', (e: MouseEvent) => {
           const shouldStopPropagation = e

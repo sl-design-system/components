@@ -9,19 +9,18 @@
     --_media-size: var(--sl-card-media-size, auto);
 
     display: grid;
-    gap: var(--sl-space-200) 0;
     grid-template:
       'media' var(--_media-size)
       'header' max-content
-      'contents' 1fr
-      'actions' max-content / 1fr;
+      'article' 1fr
+      'actions' max-content;
   }
 
   :host(:not(.sl-has-media)) {
     grid-template:
       'header' max-content
-      'contents' 1fr
-      'actions' max-content / 1fr;
+      'article' 1fr
+      'actions' max-content;
 
     figure {
       display: none;
@@ -32,16 +31,15 @@
   :host(:where(.sl-horizontal.sl-has-media)) {
     --_media-size: var(--sl-card-media-size, 50%);
 
-    gap: var(--sl-space-200) 0;
     grid-template-areas:
       'media header'
-      'media contents';
+      'media article';
   }
 
   :host(:where(.sl-horizontal.sl-has-actions.sl-has-media)) {
     grid-template-areas:
       'media header'
-      'media contents'
+      'media article'
       'media actions';
   }
 
@@ -53,15 +51,29 @@
   :host(:where(.sl-horizontal.sl-has-media):not(.sl-has-actions, [subgrid])) {
     grid-template:
       'media header' max-content
-      'media contents' 1fr / var(--_media-size) 1fr;
+      'media article' 1fr / var(--_media-size) 1fr;
   }
 
   :host(:where([subgrid])) {
-    gap: var(--sl-space-200) 0;
+    gap: 0;
     grid-column: span var(--_horizontal-elements, 1);
     grid-row: span var(--_vertical-elements, 3);
     grid-template-columns: subgrid;
     grid-template-rows: subgrid;
+  }
+
+  .content {
+    display: grid;
+    gap: var(--sl-space-200) 0;
+    grid-row: span var(--_vertical-elements, 3);
+    grid-template-columns: subgrid;
+    grid-template-rows: subgrid;
+    padding: var(--sl-space-300);
+    position: relative;
+  }
+
+  :host(.sl-has-media:not(.sl-horizontal)) .content {
+    grid-row: span calc(var(--_vertical-elements, 3) - 1);
   }
 }
 
@@ -126,7 +138,7 @@
   }
 }
 
-@layer main-contents {
+@layer main-content {
   :host {
     --_bg-color: var(--sl-elevation-surface-raised-default);
     --_bg-mix-color: var(--sl-color-background-neutral-interactive-plain);
@@ -142,11 +154,10 @@
     clip-path: fill-box;
     /* stylelint-disable-next-line value-no-vendor-prefix */
     display: -webkit-box;
-    grid-area: contents;
+    grid-area: article;
     /* stylelint-disable-next-line property-no-vendor-prefix */
     -webkit-line-clamp: var(--_line-clamp, 9999);
     overflow: hidden;
-    padding: 0 var(--sl-space-300) var(--sl-space-300);
   }
 
   slot.title::slotted(*),
@@ -155,14 +166,9 @@
   }
 
   :host(.sl-has-actions) {
-    slot[name='body'] {
-      padding-block-end: 0;
-    }
-
     slot[name='actions'] {
       display: inline-block;
       grid-area: actions;
-      padding: 0 var(--sl-space-300) var(--sl-space-300);
     }
   }
 
@@ -171,12 +177,6 @@
     flex-direction: column;
     gap: var(--sl-space-050);
     grid-area: header;
-    padding: calc(var(--sl-space-300) - var(--sl-space-200)) var(--sl-space-300) 0;
-  }
-
-  :host(:not(.sl-has-media)) .header,
-  :host(:where(.sl-horizontal)) .header {
-    padding: var(--sl-space-300) var(--sl-space-300) 0;
   }
 
   slot.title::slotted(*) {
@@ -185,7 +185,9 @@
   }
 
   slot.title::slotted(a[href]) {
-    color: var(--sl-color-foreground-plain);
+    color: var(
+      --sl-color-foreground-plain
+    ) !important; // There is now way to do this with a selector that has more weight than what is set in the global styles
     text-decoration: none;
   }
 

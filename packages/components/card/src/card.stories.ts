@@ -756,7 +756,18 @@ export const RealWorldExamples: Story = {
         }
         .npm {
           grid-template-columns: repeat(auto-fill, 200px);
+          grid-auto-rows: 260px 1fr max-content;
           --sl-card-media-size: 260px;
+        }
+        .npm2 {
+          grid-template-columns: repeat(auto-fit, 500px);
+          grid-auto-rows: 300px;
+          --sl-card-media-size: 230px;
+        }
+
+        .npm2 sl-card {
+          --sl-card-image-backdrop: var(--sl-color-palette-primary-100);
+          background-color: var(--sl-color-palette-primary-100);
         }
       </style>
       <h1>Max, chapter tile</h1>
@@ -769,53 +780,25 @@ export const RealWorldExamples: Story = {
           />
           <a href="javascript:void(0);">Wat is biologie?</a>
           <span slot="header"
-            ><sl-badge size="md">Thema 1</sl-badge> <sl-badge size="md" color="green">last activity</sl-badge></span
+            ><sl-badge size="lg">Thema 1</sl-badge> <sl-badge size="lg" color="green">last activity</sl-badge></span
           >
         </sl-card>
         <sl-card orientation="vertical">
           <img slot="media" src="/images/card-max-2.png" alt="Glaskikker, van onderen gezien" />
           <a href="javascript:void(0);">Organen en cellen</a>
-          <span slot="header"><sl-badge size="md">Thema 3</sl-badge></span>
+          <span slot="header"><sl-badge size="lg">Thema 3</sl-badge></span>
         </sl-card>
       </div>
       <h1>NPM, My books</h1>
       <div class="npm">
-        <sl-card orientation="vertical">
-          <img slot="media" src=${images[0]} alt="Picture of ${titles[2]}" />
-          <a href="javascript:void(0);">Lengua castellana</a>
+        <sl-card orientation="vertical" subgrid>
+          <img slot="media" src="/images/card-npm-1.jpg" alt="" />
+          <a href="javascript:void(0);">L'aventura più grande</a>
           <span slot="header">
-            Primaria<br />
-            <small>31-12-2025</small>
+            <sl-badge size="md" color="blue">Partial assets</sl-badge>
+            <sl-badge size="md" color="green">update</sl-badge>
           </span>
-          <sl-menu-button slot="menu-button" aria-label="Card actions">
-            <sl-icon name="ellipsis" slot="button"></sl-icon>
-            <sl-menu-item> Leer libro </sl-menu-item>
-            <sl-menu-item> Mis libros personalizados </sl-menu-item>
-          </sl-menu-button>
-        </sl-card>
-        <sl-card orientation="vertical">
-          <img slot="media" src=${images[1]} alt="Picture of ${titles[3]}" />
-          <a href="javascript:void(0);">Lengua castellana</a>
-          <span slot="header">
-            Primaria<br />
-            <small>31-12-2025</small>
-          </span>
-          <sl-menu-button slot="menu-button" aria-label="Card actions">
-            <sl-icon name="ellipsis" slot="button"></sl-icon>
-            <sl-menu-item> Leer libro </sl-menu-item>
-            <sl-menu-item> Mis libros personalizados </sl-menu-item>
-          </sl-menu-button>
-        </sl-card>
-      </div>
-      <h1>NPM, My books v2</h1>
-      <div class="npm">
-        <sl-card orientation="vertical">
-          <img slot="media" src=${images[0]} alt="Picture of ${titles[2]}" />
-          <a href="javascript:void(0);">Il novo giramondo</a>
-          <span slot="header">
-            <sl-badge size="md" color="red">Nessuna risorsa</sl-badge>
-          </span>
-          <sl-toggle-button slot="menu-button" aria-label="Favorite">
+          <sl-toggle-button slot="menu-button" aria-label="Favorite" shape="pill">
             <sl-icon name="far-heart" slot="default"></sl-icon>
             <sl-icon name="fas-heart" slot="pressed"></sl-icon>
           </sl-toggle-button>
@@ -826,17 +809,17 @@ export const RealWorldExamples: Story = {
               @click=${() => console.log('action button clicked')}
               style="flex-grow: 1"
             >
-              <sl-icon name="far-download"></sl-icon> Download
+              <sl-icon name="ellipsis"></sl-icon> More options
             </sl-button>
           </sl-button-bar>
         </sl-card>
-        <sl-card orientation="vertical">
-          <img slot="media" src=${images[1]} alt="Picture of ${titles[3]}" />
-          <a href="javascript:void(0);">Il novo giramondo</a>
+        <sl-card orientation="vertical" subgrid>
+          <img slot="media" src="/images/card-npm-2.jpg" alt="" />
+          <a href="javascript:void(0);">Gli snodi della storia</a>
           <span slot="header">
-            <sl-badge size="md" color="red">Nessuna risorsa</sl-badge>
+            <sl-badge size="md">Partial assets</sl-badge>
           </span>
-          <sl-toggle-button slot="menu-button" aria-label="Favorite">
+          <sl-toggle-button slot="menu-button" aria-label="Favorite" shape="pill">
             <sl-icon name="far-heart" slot="default"></sl-icon>
             <sl-icon name="fas-heart" slot="pressed"></sl-icon>
           </sl-toggle-button>
@@ -846,8 +829,31 @@ export const RealWorldExamples: Story = {
               fill="outline"
               @click=${() => console.log('action button clicked')}
               style="flex-grow: 1"
-            >
-              <sl-icon name="far-download"></sl-icon> Download
+              ><sl-icon name="ellipsis"></sl-icon> More options
+            </sl-button>
+          </sl-button-bar>
+        </sl-card>
+      </div>
+
+      <h1>NPM, My books v2</h1>
+      <div class="npm2">
+        <sl-card fit-image>
+          <img slot="media" src="/images/card-npm-1.jpg" alt="" />
+          <a href="javascript:void(0);">L'aventura più grande</a>
+          <p slot="body">Linda Cavadini, Loretta De Martin, Agnese Pianigiani</p>
+          <sl-button-bar slot="actions"
+            ><sl-button variant="inverted" @click=${() => console.log('action button clicked')} style="flex-grow: 1">
+              Open 12 volumes
+            </sl-button>
+          </sl-button-bar>
+        </sl-card>
+        <sl-card fit-image>
+          <img slot="media" src="/images/card-npm-2.jpg" alt="" />
+          <a href="javascript:void(0);">Gli snodi della storia</a>
+          <p slot="body">Giovanni Borgognone, Dino Carpanetto</p>
+          <sl-button-bar slot="actions"
+            ><sl-button variant="inverted" @click=${() => console.log('action button clicked')} style="flex-grow: 1">
+              Open 9 volumes
             </sl-button>
           </sl-button-bar>
         </sl-card>

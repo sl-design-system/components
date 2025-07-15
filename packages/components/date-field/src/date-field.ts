@@ -179,7 +179,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       if (this.renderRoot.querySelector('sl-text-field')) {
         (this.renderRoot.querySelector('sl-text-field') as TextField).required = !!this.required;
       }
-      this.input.required = !!this.required;
     }
   }
 
@@ -190,8 +189,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       if (this.renderRoot.querySelector('sl-text-field')) {
         (this.renderRoot.querySelector('sl-text-field') as TextField).required = !!this.required;
       }
-
-      this.input.required = !!this.required;
     }
   }
 
@@ -278,27 +275,15 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.value = event.detail;
     this.changeEvent.emit(this.value);
 
-    // TODO: Implement a way to update the input value based on the selected date...
-
     this.renderRoot.querySelector('sl-text-field')?.updateValidity();
-
-    //  this.renderRoot.querySelector('sl-text-field')?.requestUpdate();
 
     this.updateState({ dirty: true });
     this.updateValidity();
-
-    // this.renderRoot.querySelector('sl-text-field')?.updateValidity();
-    //
-    // this.renderRoot.querySelector('sl-text-field')?.requestUpdate();
-
-    // this.requestUpdate();
 
     setTimeout(() => {
       this.wrapper?.hidePopover();
       this.input.focus();
     }, 500);
-
-    // this.requestUpdate();
   }
 
   #onTextFieldBlur(event: SlBlurEvent): void {

@@ -11,7 +11,6 @@ declare global {
   }
 }
 
-export type CardHeightOptions = 'fixed' | 'flex';
 export type CardOrientation = 'horizontal' | 'vertical';
 export type CardMediaPosition = 'start' | 'end';
 
@@ -171,10 +170,10 @@ export class Card extends ScopedElementsMixin(LitElement) {
 
   #setLineClamp(): void {
     //calculate the number of lines in the article
-    const article = this.renderRoot.querySelector('article');
+    const article = this.renderRoot.querySelector('slot[name="body"]');
     if (!article) return;
 
-    article.style.removeProperty('--_line-clamp'); // otherwise it can't calculate the height correctly
+    (article as HTMLElement).style.removeProperty('--_line-clamp'); // otherwise it can't calculate the height correctly
     const lineHeight = getComputedStyle(article).lineHeight;
 
     const lineHeightFont =
@@ -183,8 +182,9 @@ export class Card extends ScopedElementsMixin(LitElement) {
         : parseInt(lineHeight);
     const lines = Math.floor(article.getBoundingClientRect().height / lineHeightFont);
     if (!isNaN(lines) && lines > 0) {
-      article.style.setProperty('--_line-clamp', lines.toString());
+      (article as HTMLElement).style.setProperty('--_line-clamp', lines.toString());
     }
+    this.#setGridSpan();
   }
 
   #setActions(): void {

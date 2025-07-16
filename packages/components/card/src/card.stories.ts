@@ -169,7 +169,7 @@ const card = (
             </sl-menu-button>
           `
         : nothing}
-      <p slot="body">${bodyCopy[contentId]}</p>
+      ${card.bodyText ? html`<p slot="body">${bodyCopy[contentId]}</p>` : nothing}
       ${card.actionButton
         ? html`
             <sl-button-bar slot="actions"
@@ -839,7 +839,7 @@ export const RealWorldExamples: Story = {
       <div class="npm2">
         <sl-card fit-image>
           <img slot="media" src="/images/card-npm-1.jpg" alt="" />
-          <a href="javascript:void(0);">L'aventura più grande</a>
+          <h2>L'aventura più grande</h2>
           <p slot="body">Linda Cavadini, Loretta De Martin, Agnese Pianigiani</p>
           <sl-button-bar slot="actions"
             ><sl-button variant="inverted" @click=${() => console.log('action button clicked')} style="flex-grow: 1">
@@ -849,7 +849,7 @@ export const RealWorldExamples: Story = {
         </sl-card>
         <sl-card fit-image>
           <img slot="media" src="/images/card-npm-2.jpg" alt="" />
-          <a href="javascript:void(0);">Gli snodi della storia</a>
+          <h2>Gli snodi della storia</h2>
           <p slot="body">Giovanni Borgognone, Dino Carpanetto</p>
           <sl-button-bar slot="actions"
             ><sl-button variant="inverted" @click=${() => console.log('action button clicked')} style="flex-grow: 1">
@@ -863,30 +863,80 @@ export const RealWorldExamples: Story = {
 };
 
 export const All: Story = {
-  render: () => html`
-    <style>
-      #root-inner > div {
-        display: grid;
-        gap: 16px;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        margin-bottom: 24px;
-        width: 100%;
-      }
-    </style>
-    <div>
-      <sl-card style="--sl-card-media-aspect-ratio:1/1;" padding>
-        <img slot="media" src=${images[1]} />
-        <h2>${titles[1]}</h2>
-        <span slot="header"><sl-badge>new</sl-badge></span>
-        <p slot="body">${bodyCopy[1]}</p>
-        <sl-button slot="actions"> <sl-icon name="far-download"></sl-icon> Download </sl-button>
-      </sl-card>
+  args: {
+    subheaderContent: false,
+    actionButton: false
+  },
+  render: ({
+    media,
+    title,
+    bodyText,
+    orientation,
+    imageUrl,
+    fitImage,
+    imageBackdrop,
+    subheaderContent,
+    subheaderBadge,
+    subheaderText,
+    actionButton,
+    subgrid,
+    menuButton,
+    link
+  }) => {
+    const settings = {
+      media,
+      title,
+      bodyText,
+      orientation,
+      imageUrl,
+      fitImage,
+      imageBackdrop,
+      subheaderContent,
+      subheaderBadge,
+      subheaderText,
+      actionButton,
+      subgrid,
+      menuButton,
+      link
+    };
+    const vsettings = { ...settings, orientation: 'vertical' as CardOrientation };
 
-      <sl-card style="--sl-card-media-aspect-ratio:1/1; max-width: 300px;" orientation="vertical">
-        <img slot="media" src=${images[1]} />
-        <h2>${titles[1]}</h2>
-        <p slot="body">${bodyCopy[1]}</p>
-      </sl-card>
-    </div>
-  `
+    return html`
+      <style>
+        .horizontal {
+          display: grid;
+          gap: 16px;
+          grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+          margin-bottom: 24px;
+          width: 100%;
+        }
+        .vertical {
+          display: grid;
+          gap: 16px;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          margin-bottom: 24px;
+          width: 100%;
+        }
+      </style>
+      <div class="horizontal">
+        ${card(settings, 1)} ${card({ ...settings, subheaderContent: true, subheaderBadge: 'new', fitImage: true }, 1)}
+        ${card({ ...settings, actionButton: true, fitImage: true, imageBackdrop: true }, 1)}
+        ${card({ ...settings, menuButton: true }, 1)} ${card({ ...settings, media: false }, 1)}
+        ${card(
+          { ...settings, bodyText: undefined, subheaderContent: true, subheaderBadge: 'new', actionButton: true },
+          1
+        )}
+      </div>
+      <div class="vertical">
+        ${card(vsettings, 2)}
+        ${card({ ...vsettings, subheaderContent: true, subheaderBadge: 'new', fitImage: true }, 2)}
+        ${card({ ...vsettings, actionButton: true, fitImage: true, imageBackdrop: true }, 2)}
+        ${card({ ...vsettings, menuButton: true }, 2)} ${card({ ...vsettings, media: false }, 2)}
+        ${card(
+          { ...vsettings, bodyText: undefined, subheaderContent: true, subheaderBadge: 'new', actionButton: true },
+          2
+        )}
+      </div>
+    `;
+  }
 };

@@ -154,6 +154,11 @@ export class Tooltip extends LitElement {
   #showTooltip = (element: HTMLElement): void => {
     this.anchorElement = element;
 
+    const anchorSlot = this.anchorElement?.getAttribute('slot');
+    if (typeof anchorSlot === 'string') {
+      this.setAttribute('slot', anchorSlot); // make sure the tooltip is slotted correctly, otherwise it might inherit styles from the wrong slot
+    }
+
     this.showPopover();
     requestAnimationFrame(() => {
       this.#calculateSafeTriangle();

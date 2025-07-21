@@ -21,19 +21,16 @@ export type CardMediaPosition = 'start' | 'end';
  * <sl-card></sl-card>
  * ```
  *
- * @cssprop --sl-card-media-aspect-ratio - The aspectratio of the media container (default is 4/3). By default this ratio is always maintained, and will cause the media to become smaller when there isn't sufficient space for the full width.
- * @cssprop --sl-card-media-width - The width of the media in relation to the text. Can be set in pixels or `fr`.
- * @cssprop --sl-card-media-x - X-Focuspoint of the media; this is taken as the center when the media is cropped.
- * @cssprop --sl-card-media-y - Y-Focuspoint of the media; this is taken as the center when the media is cropped.
- * @cssprop --sl-card-orientation-breakpoint - When card is smaller than this size it will switch from horizontal (when set) to vertical layout.
- * @cssprop --sl-card-stretch-image - Set this to 100% when the aspectratio of the media doesn't matter and you want it to fill the full height of the card.
- * @cssprop --sl-card-text-width - The width of the text in relation to the media. Can be set in pixels (not recommended) or `fr`.
+ * @cssprop --sl-card-media-size - Depending on the orientation, this will set the height or width of the media. Can be set in pixels, percentage or `fr`.
+ * @cssprop --sl-card-horizontal-breakpoint - When card is smaller than this size it will switch from horizontal (when set) to vertical layout.
+ * @cssprop --sl-card-image-backdrop - Color of the image backdrop when `fit-image` is set.
  *
  * @slot default - Title of the card
- * @slot media - Media, this can be an image or video
+ * @slot media - Image of the card.
  * @slot header - Subtitle or badges
  * @slot body - Body text of the card
- * @slot actions - Icon button for actions on the card.
+ * @slot actions - Main actions of the card, these will be displayed at the bottom of the card, This can be a single button or a button-bar.
+ * @slot menu-button - A menu button to display additional actions or a toggle button. This will be displayed in the header of the card.
  */
 export class Card extends ScopedElementsMixin(LitElement) {
   /** @internal */
@@ -50,6 +47,7 @@ export class Card extends ScopedElementsMixin(LitElement) {
 
   /** this will need the card to have an explicit image size set, either by subgrid or by `--sl-card-media-size`*/
   @property({ reflect: true, attribute: 'fit-image', type: Boolean }) fitImage?: boolean;
+
   /** When the height is `fixed` the image will determine the height of the card, when it is `flex` the height of the text will determine the height of the card. */
   @property({ reflect: true, attribute: 'image-backdrop', type: Boolean }) imageBackdrop?: boolean;
 

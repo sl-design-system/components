@@ -141,7 +141,6 @@ export class Card extends ScopedElementsMixin(LitElement) {
     }
 
     this.classList.add('sl-has-media');
-    // this.#setOrientation();
 
     if (this.imageBackdrop) {
       this.#setBackdrop();
@@ -243,7 +242,6 @@ export class Card extends ScopedElementsMixin(LitElement) {
         this.classList.remove('sl-has-link');
         this.removeEventListener('click', () => {});
       } else {
-        link.classList.add('sl-card-link');
         this.classList.add('sl-has-link');
         this.addEventListener('click', (e: MouseEvent) => {
           const shouldStopPropagation = e

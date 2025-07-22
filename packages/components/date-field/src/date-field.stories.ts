@@ -15,6 +15,7 @@ type Props = Pick<
   | 'readonly'
   | 'required'
   | 'selectOnly'
+  | 'showValid'
   | 'showWeekNumbers'
   | 'value'
 > & {
@@ -35,6 +36,7 @@ export default {
     readonly: false,
     required: false,
     selectOnly: false,
+    showValid: true,
     showWeekNumbers: false
   },
   argTypes: {
@@ -77,6 +79,7 @@ export default {
     reportValidity,
     required,
     selectOnly,
+    showValid,
     showWeekNumbers,
     slot,
     value
@@ -86,7 +89,7 @@ export default {
     };
 
     return html`
-      <sl-form>
+      <sl-form .value=${value}>
         <sl-form-field .hint=${hint} .label=${label}>
           <sl-date-field
             ?disabled=${disabled}
@@ -95,6 +98,7 @@ export default {
             ?select-only=${selectOnly}
             ?show-week-numbers=${showWeekNumbers}
             .value=${value}
+            .show-valid=${showValid}
             locale=${ifDefined(locale)}
             max=${ifDefined(max?.toISOString())}
             min=${ifDefined(min?.toISOString())}

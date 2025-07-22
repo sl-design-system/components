@@ -51,6 +51,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
    */
   #popoverJustClosed = false;
 
+  /** @internal The text field. */
+  @query('sl-text-field') textField!: TextField;
+
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
@@ -151,7 +154,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     const style = document.createElement('style');
     style.innerHTML = `
       sl-date-field:has(input:hover):not(:focus-within)::part(text-field) {
-        --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+        --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
       }
     `;
     this.prepend(style);
@@ -166,6 +169,29 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     if (changes.has('value')) {
       this.input.value = this.value && this.#formatter ? this.#formatter.format(this.value) : '';
+      this.updateValidity();
+    }
+
+    if (changes.has('showValid') || changes.has('showValidity')) {
+      if (this.textField) {
+        this.textField.showValid = this.showValid;
+      }
+    }
+
+    if (changes.has('required')) {
+      if (this.textField) {
+        this.textField.required = !!this.required;
+      }
+    }
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('required')) {
+      if (this.textField) {
+        this.textField.required = !!this.required;
+      }
     }
   }
 
@@ -180,6 +206,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         ?disabled=${this.disabled}
         ?readonly=${this.readonly || this.selectOnly}
         ?required=${this.required}
+        .showValidity=${this.showValidity}
         part="text-field"
         placeholder=${ifDefined(this.placeholder)}
       >
@@ -251,6 +278,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.value = event.detail;
     this.changeEvent.emit(this.value);
 
+    this.textField?.updateValidity();
+
     this.updateState({ dirty: true });
     this.updateValidity();
 
@@ -271,6 +300,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   #onTextFieldChange(event: SlChangeEvent): void {
     event.preventDefault();
     event.stopPropagation();
+
+    this.updateValidity();
   }
 
   #onTextFieldFocus(event: SlFocusEvent): void {
@@ -288,6 +319,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   #onTextFieldUpdateState(event: SlUpdateStateEvent): void {
     event.preventDefault();
     event.stopPropagation();
+
+    this.updateValidity();
   }
 
   #onToggle(event: ToggleEvent): void {

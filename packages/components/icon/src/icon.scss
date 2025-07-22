@@ -5,6 +5,7 @@
 
   aspect-ratio: 1 / 1;
   display: inline-grid;
+  flex-shrink: 0; // Prevent shrinking in flex containers
   inline-size: max(1cap, var(--sl-icon-size));
   outline: none;
   place-content: center;

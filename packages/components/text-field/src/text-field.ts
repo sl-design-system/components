@@ -241,7 +241,13 @@ export class TextField<T extends { toString(): string } = string>
   /** Render the input slot; separate method so it is composable for child components. */
   renderInputSlot(): TemplateResult {
     return html`
-      <slot @keydown=${this.onKeydown} @input=${this.onInput} @slotchange=${this.onSlotChange} name="input"></slot>
+      <slot
+        @keydown=${this.onKeydown}
+        @change=${this.onChange}
+        @input=${this.onInput}
+        @slotchange=${this.onSlotChange}
+        name="input"
+      ></slot>
     `;
   }
 
@@ -323,6 +329,13 @@ export class TextField<T extends { toString(): string } = string>
       /* empty */
     }
 
+    this.updateState({ dirty: true });
+    this.updateValidity();
+  }
+
+  /** This method is called when the input changes. */
+  protected onChange(): void {
+    this.changeEvent.emit(this.value);
     this.updateState({ dirty: true });
     this.updateValidity();
   }

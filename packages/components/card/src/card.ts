@@ -12,7 +12,6 @@ declare global {
 }
 
 export type CardOrientation = 'horizontal' | 'vertical';
-export type CardMediaPosition = 'start' | 'end';
 
 /**
  * Use cards to display media and text in a compact, appealing way.
@@ -45,18 +44,17 @@ export class Card extends ScopedElementsMixin(LitElement) {
   /** @internal The slotted media. */
   @queryAssignedElements({ slot: 'media' }) media?: HTMLElement[];
 
-  /** this will need the card to have an explicit image size set, either by subgrid or by `--sl-card-media-size`*/
+  /** When set the image won't be stretched and cropped to fill the whole container, but instead shown fully, with a margin around it.
+   *  In horizontal mode this will need the card to have an explicit image size set, either by subgrid or by `--sl-card-media-size`*/
   @property({ reflect: true, attribute: 'fit-image', type: Boolean }) fitImage?: boolean;
 
-  /** When the height is `fixed` the image will determine the height of the card, when it is `flex` the height of the text will determine the height of the card. */
+  /** When fit-image is set, setting this will create a blurred copy of the image in the margin around the image. */
   @property({ reflect: true, attribute: 'image-backdrop', type: Boolean }) imageBackdrop?: boolean;
 
-  /** When the grid inside the card is defined by a parent grid */
+  /** When the grid inside the card is defined by a parent grid, ideal for layout consistency, even when the contents of the card change. */
   @property({ type: Boolean }) subgrid?: boolean;
   /** The position of the media in relation to the text */
   @property({ reflect: true }) orientation: CardOrientation = 'horizontal';
-  /** Show the media at the start or at the end. */
-  @property({ reflect: true, attribute: 'media-position' }) mediaPosition: CardMediaPosition = 'start';
 
   override connectedCallback(): void {
     super.connectedCallback();

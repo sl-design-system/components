@@ -1,9 +1,12 @@
+import { ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { expect, fixture } from '@open-wc/testing';
+import { TextField } from '@sl-design-system/text-field';
 import '@sl-design-system/text-field/register.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { html } from 'lit';
+import { LitElement, html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
+import { FormField } from './form-field.js';
 import { Form } from './form.js';
 import { type Label } from './label.js';
 
@@ -307,6 +310,53 @@ describe('sl-form', () => {
       );
 
       expect(labels).to.eql(['(optional)', '', '']);
+    });
+  });
+
+  describe('custom components', () => {
+    class customComponent extends ScopedElementsMixin(LitElement) {
+      static get scopedElements(): ScopedElementsMap {
+        return {
+          'sl-form-field': FormField,
+          'sl-text-field': TextField
+        };
+      }
+
+      override render() {
+        return html`
+          blaaa
+          <sl-form-field label="Text field">
+            <sl-text-field name="customTextField" required></sl-text-field>
+          </sl-form-field>
+        `;
+      }
+    }
+
+    beforeEach(async () => {
+      try {
+        customElements.define('custom-component', customComponent);
+      } catch {
+        /* empty */
+      }
+      el = await fixture(html`
+        <sl-form>
+          <sl-form-field label="Text field">
+            <sl-text-field name="textField" placeholder="Placeholder" required></sl-text-field>
+          </sl-form-field>
+          <custom-component></custom-component>
+        </sl-form>
+      `);
+    });
+
+    it('should register the form controls INSIDE custom components', async () => {
+      const customComponent = el.querySelector('custom-component');
+      expect(customComponent).to.exist;
+
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 200));
+
+      const types = el.controls.map(c => c.constructor.name);
+      expect(types).to.deep.equal(['TextField', 'TextField']);
     });
   });
 });

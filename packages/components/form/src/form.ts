@@ -177,7 +177,10 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
   }
 
   #onFormControl(event: SlFormControlEvent): void {
-    const control = event.composedPath()[0] as EventTarget & HTMLElement & FormControl;
+    if (!(event.composedPath()[0] instanceof EventTarget) || !(event.composedPath()[0] instanceof HTMLElement)) {
+      return;
+    }
+    const control = event.composedPath()[0] as HTMLElement & FormControl;
 
     event.preventDefault();
     event.stopPropagation();

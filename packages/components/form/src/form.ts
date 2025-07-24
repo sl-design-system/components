@@ -176,8 +176,15 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
     this.resetEvent.emit();
   }
 
+  #isFormControl(element: unknown): element is HTMLElement & FormControl {
+    return element instanceof HTMLElement && 'formControlElement' in element;
+  }
+
   #onFormControl(event: SlFormControlEvent): void {
-    const control = event.target;
+    if (!this.#isFormControl(event.composedPath()[0])) {
+      return;
+    }
+    const control = event.composedPath()[0] as HTMLElement & FormControl;
 
     event.preventDefault();
     event.stopPropagation();

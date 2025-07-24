@@ -1,3 +1,4 @@
+import { ScopedElementsMixin } from '@open-wc/scoped-elements/html-element.js';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/checkbox/register.js';
@@ -11,7 +12,7 @@ import '@sl-design-system/switch/register.js';
 import '@sl-design-system/text-area/register.js';
 import '@sl-design-system/text-field/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
-import { type TemplateResult, html, nothing } from 'lit';
+import { LitElement, type TemplateResult, html, nothing } from 'lit';
 import '../register.js';
 import { type Form } from './form.js';
 
@@ -22,6 +23,20 @@ type Props = Pick<Form, 'disabled' | 'value'> & {
   reportValidity?: boolean;
 };
 type Story = StoryObj<Props>;
+class customComponent extends ScopedElementsMixin(LitElement) {
+  constructor() {
+    super();
+  }
+
+  override render() {
+    return html`
+      <sl-form-field label="Text field">
+        <sl-text-field name="textField" required></sl-text-field>
+      </sl-form-field>
+    `;
+  }
+}
+customElements.define('custom-component', customComponent);
 
 export default {
   title: 'Form/Form',
@@ -154,6 +169,18 @@ export const Value: Story = {
     value: {
       textField: 'Hello world'
     }
+  }
+};
+
+export const CustomComponent: Story = {
+  args: {
+    reportValidity: false,
+    fields: ({ disabled }) => html`
+      <sl-form-field hint="Hint text" label="Text field">
+        <sl-text-field ?disabled=${disabled} name="textField" placeholder="Placeholder" required></sl-text-field>
+      </sl-form-field>
+      <custom-component></custom-component>
+    `
   }
 };
 

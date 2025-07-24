@@ -6,10 +6,17 @@
   aspect-ratio: 1 / 1;
   display: inline-grid;
   flex-shrink: 0; // Prevent shrinking in flex containers
-  inline-size: max(1cap, var(--sl-icon-size));
+  inline-size: max(0.8em, var(--sl-icon-size));
   outline: none;
   place-content: center;
   translate: 0;
+}
+
+// There are some really old browsers that don't support `cap` yet, so we use a fallback with `em`.
+@supports (inline-size: 1cap) {
+  :host {
+    inline-size: max(1cap, var(--sl-icon-size));
+  }
 }
 
 :host([size='2xs']) {

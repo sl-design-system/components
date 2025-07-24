@@ -177,7 +177,7 @@ export const CustomComponent: Story = {
     reportValidity: false,
     fields: ({ disabled }) => html`
       <sl-form-field hint="Hint text" label="Text field">
-        <sl-text-field ?disabled=${disabled} name="textField" placeholder="Placeholder" required></sl-text-field>
+        <sl-text-field ?disabled=${disabled} name="customTextField" placeholder="Placeholder" required></sl-text-field>
       </sl-form-field>
       <custom-component></custom-component>
     `

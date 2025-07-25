@@ -168,6 +168,7 @@
 
   :host(.sl-has-actions) {
     slot[name='actions'] {
+      align-content: end;
       display: inline-block;
       grid-area: actions;
     }

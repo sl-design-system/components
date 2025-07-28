@@ -7,17 +7,20 @@
  <th>Token</th>
 </tr></thead>
 <tbody>
-{% for text in tokens.core.text -%}{% if text[0] == 'typeset' %}{% for textProperties in text[1] -%}{% for textType in textProperties[1] -%}{% if textType[0] | notContainsIconValue %}{% if textType[1].value %}
+{% for text in tokens.core.text -%}{% if text[0] == 'typeset' %}
+{% for textProperties in text[1] -%}
+{% for textType in textProperties[1] -%}
+{% if textType[0] | notContainsIconValue %}{% if textType[1]['$value'] %}
 <tr>
 <td>
-{% if textType[1].type != 'paragraphSpacing' %}
-<p class="ds-tokens__text" style="{% if textType[1].type == 'fontFamilies' %}font-family: {{ textType[1].value }}, sans-serif;{% endif %}{% if textType[1].type == 'fontWeights' %}font-weight: {{ textType[1].value | fontWeight }};{% endif %}{% if textType[1].type == 'textCase' %}text-transform: {{ textType[1].value }};{% endif %}
-       {% if textType[1].type == 'textDecoration' %}text-decoration: {{ textType[1].value }};{% endif %}{% if textType[1].type == 'fontSizes' %}font-size: {{ textType[1].value }}px;{% endif %}{% if textType[1].type == 'lineHeights' %}display: none;{% endif %}">Lorem ipsum</p>{% endif %}
-<code>{% if textType[1].type != 'paragraphSpacing' %}{{ textType[1].value | fontWeight }}{% if textType[1].type == 'fontSizes' or textType[1].type == 'lineHeights' %}px{% endif %}{% endif %}{% if textType[1].type == 'paragraphSpacing' %}{{ textType[1].value }}{% if textType[1].value != 0 %}px{% endif %}{% endif %}
+{% if textType[1]['$type'] != 'paragraphSpacing' %}
+  <p class="ds-tokens__text" style="{% if textType[1]['$type'] == 'fontFamilies' %}font-family: {{ textType[1]['$value'] }}, sans-serif;{% endif %}{% if textType[1]['$type'] == 'fontWeights' %}font-weight: {{ textType[1]['$value'] | fontWeight }};{% endif %}{% if textType[1]['$type'] == 'textCase' %}text-transform: {{ textType[1]['$value'] }};{% endif %}{% if textType[1]['$type'] == 'textDecoration' %}text-decoration: {{ textType[1]['$value'] }};{% endif %}{% if textType[1]['$type'] == 'fontSizes' %}font-size: {{ textType[1]['$value'] }}px;{% endif %}{% if textType[1]['$type'] == 'letterSpacing' %}letter-spacing: {{ textType[1]['$value'] }};{% endif %}{% if textType[1]['$type'] == 'lineHeights' %}display: none;{% endif %}">Lorem ipsum</p>
+{% endif %}
+<code>{% if textType[1]['$type'] != 'paragraphSpacing' %}{{ textType[1]['$value'] | fontWeight }}{% if textType[1]['$type'] == 'fontSizes' or textType[1]['$type'] == 'lineHeights' %}px{% endif %}{% endif %}{% if textType[1]['$type'] == 'paragraphSpacing' %}{{ textType[1]['$value'] }}{% if textType[1]['$value'] != 0 %}px{% endif %}{% endif %}
 </code>
 </td>
-<td class="ds-tokens__description">{{ textType[1].description | tokenDescription }}</td>
-<td>{% if textType[1].description %}<code>{{ textType[1].description | tokenName }}</code>{% endif %}</td>
+<td class="ds-tokens__description">{{ textType[1]['$description'] | tokenDescription }}</td>
+<td>{% if textType[1]['$description'] %}<code>{{ textType[1]['$description'] | tokenName }}</code>{% endif %}</td>
 </tr>
 {% endif %}{% endif %}{% endfor -%}{% endfor -%}{% endif %}{% endfor -%}
 </tbody>

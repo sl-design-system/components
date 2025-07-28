@@ -88,8 +88,6 @@ describe('<sl-card>', () => {
           <div slot="body" style="font-size: 20px; line-height: 20px; height: 40px;">Body text</div>
         </sl-card>
       `);
-      await el.updateComplete;
-      await el.updateComplete;
       const slot = el.shadowRoot!.querySelector('slot[name="body"]') as HTMLElement;
       expect(slot.style.getPropertyValue('--_line-clamp')).to.not.equal('');
     });
@@ -146,6 +144,7 @@ describe('<sl-card>', () => {
     it('should remove the create a copy of the image', async () => {
       el.imageBackdrop = false;
       await el.updateComplete;
+
       const copiedImage = el.shadowRoot!.querySelector('figure>img');
       expect(copiedImage).not.to.exist;
     });
@@ -198,7 +197,6 @@ describe('<sl-card>', () => {
     });
 
     it('should propagate click events on the card to the link', () => {
-      // const link = el.shadowRoot!.querySelector('a');
       const titleSlot = el.shadowRoot!.querySelector('slot.title');
       const link: HTMLAnchorElement | null =
         titleSlot &&
@@ -239,6 +237,7 @@ describe('<sl-card>', () => {
 
       el.subgrid = true;
       await el.updateComplete;
+
       expect(el.classList.contains('sl-media-explicit-size')).to.be.true;
     });
   });

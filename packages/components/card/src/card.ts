@@ -53,6 +53,7 @@ export class Card extends ScopedElementsMixin(LitElement) {
 
   /** When the grid inside the card is defined by a parent grid, ideal for layout consistency, even when the contents of the card change. */
   @property({ type: Boolean }) subgrid?: boolean;
+
   /** The position of the media in relation to the text */
   @property({ reflect: true }) orientation: CardOrientation = 'horizontal';
 
@@ -166,7 +167,9 @@ export class Card extends ScopedElementsMixin(LitElement) {
   #setLineClamp(): void {
     //calculate the number of lines in the article
     const article = this.renderRoot.querySelector('slot[name="body"]');
-    if (!article) return;
+    if (!article) {
+      return;
+    }
 
     (article as HTMLElement).style.removeProperty('--_line-clamp'); // otherwise it can't calculate the height correctly
     const lineHeight = getComputedStyle(article).lineHeight;
@@ -199,6 +202,7 @@ export class Card extends ScopedElementsMixin(LitElement) {
   #setGridSpan(): void {
     let verticalElements = 1; // header is always present
     let horizontalElements = 1;
+
     if (!this.shadowRoot) {
       return;
     }
@@ -231,7 +235,9 @@ export class Card extends ScopedElementsMixin(LitElement) {
     if (!this.shadowRoot) {
       return;
     }
+
     const title: HTMLSlotElement | null = this.shadowRoot.querySelector('slot.title');
+
     if (title && title.assignedNodes({ flatten: true }).length > 0) {
       const link = title.assignedNodes({ flatten: true }).find(el => el instanceof HTMLAnchorElement);
       if (!link) {
@@ -255,17 +261,19 @@ export class Card extends ScopedElementsMixin(LitElement) {
     if (!this.shadowRoot) {
       return;
     }
+
     const menu: HTMLSlotElement | null = this.shadowRoot.querySelector('slot[name="menu-button"]');
+
     if (!menu || menu.assignedNodes({ flatten: true }).length === 0) {
       this.classList.remove('sl-has-menu-button');
     } else {
       const menuButton = menu.assignedNodes({ flatten: true })[0];
+
       if (menuButton instanceof MenuButton) {
         this.classList.add('sl-has-menu-button');
         menuButton.fill = 'ghost';
         menuButton.size = 'md';
-      }
-      if (menuButton instanceof ToggleButton) {
+      } else if (menuButton instanceof ToggleButton) {
         this.classList.add('sl-has-menu-button');
         menuButton.size = 'md';
       }

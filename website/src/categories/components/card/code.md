@@ -10,17 +10,12 @@ eleventyNavigation:
 <section class="no-heading">
 <div class="ds-example">
   <div class="ds-example__code-wrapper">
-     <sl-card style="--sl-card-horizontal-breakpoint:500px;">
+     <sl-card style="--sl-card-horizontal-breakpoint:500px;" fit-image>
         <img slot="media" src="/assets/images/components/card/card-image.png" />
         <h2>Fun adventures in digital learning</h2>
-        <span slot="header"><sl-badge variant="accent" color="blue">new</sl-badge> written by: Lynn</span>
         <p slot="body">
           Digital learning is when we use computers, tablets, or even phones to learn new things. It's super cool because it lets us explore all sorts of topics without even leaving our homes!
         </p>
-        <sl-toggle-button slot="menu-button" aria-label="Favorite" shape="pill">
-            <sl-icon name="far-heart" slot="default"></sl-icon>
-            <sl-icon name="fas-heart" slot="pressed"></sl-icon>
-          </sl-toggle-button>
         <sl-button slot="actions"><sl-icon name="eye"></sl-icon> Read more</sl-button>
       </sl-card>
   </div>
@@ -29,18 +24,13 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-       <sl-card style="--sl-card-horizontal-breakpoint:500px;">
-         <img slot="media" src="/assets/images/components/card/card-image.png" />
+       <sl-card style="--sl-card-horizontal-breakpoint:500px;" fit-image>
+        <img slot="media" src="/assets/images/components/card/card-image.png" />
         <h2>Fun adventures in digital learning</h2>
-        <span slot="header"><sl-badge variant="accent" color="blue">new</sl-badge> written by: Lynn</span>
         <p slot="body">
           Digital learning is when we use computers...
         </p>
-        <sl-toggle-button slot="menu-button" aria-label="Favorite" shape="pill">
-          <sl-icon name="far-heart" slot="default"></sl-icon>
-            <sl-icon name="fas-heart" slot="pressed"></sl-icon>
-          </sl-toggle-button>
-        <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
+        <sl-button slot="actions"><sl-icon name="eye"></sl-icon> Read more</sl-button>
       </sl-card>
   ```
 

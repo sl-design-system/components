@@ -64,7 +64,7 @@
 
   .content {
     display: grid;
-    gap: var(--sl-space-200) 0;
+    gap: var(--sl-size-200) 0;
     grid-row: span var(--_vertical-elements, 3);
     grid-template-columns: subgrid;
     grid-template-rows: subgrid;
@@ -93,7 +93,7 @@
   }
 
   :host(:where(.sl-media-explicit-size)) slot[name='media'] {
-    position: absolute; // this should not be used when it is in vertical mode and no height is set, Not sure what selector i can use here
+    position: absolute;
   }
 
   slot[name='media']::slotted(*) {
@@ -125,7 +125,7 @@
     }
 
     figure .backdrop {
-      --_blur: 16px;
+      --_blur: var(--sl-size-200);
 
       block-size: calc(100% + 2 * var(--_blur));
       display: block;
@@ -133,7 +133,7 @@
       inline-size: calc(100% + 2 * var(--_blur));
       inset-block-start: calc(-1 * var(--_blur));
       inset-inline-start: calc(-1 * var(--_blur));
-      opacity: 0.4;
+      opacity: var(--sl-opacity-700);
       position: absolute;
     }
   }

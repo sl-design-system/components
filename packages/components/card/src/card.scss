@@ -68,7 +68,7 @@
     grid-row: span var(--_vertical-elements, 3);
     grid-template-columns: subgrid;
     grid-template-rows: subgrid;
-    padding: var(--sl-space-300);
+    padding: var(--sl-size-300);
     position: relative;
   }
 
@@ -109,7 +109,7 @@
     }
 
     slot[name='media']::slotted(*) {
-      --_margin: var(--sl-space-new-lg);
+      --_margin: var(--sl-size-new-lg);
 
       block-size: calc(100% - 2 * var(--_margin));
       inline-size: calc(100% - 2 * var(--_margin));
@@ -177,7 +177,7 @@
   .header {
     display: flex;
     flex-direction: column;
-    gap: var(--sl-space-050);
+    gap: var(--sl-size-050);
     grid-area: header;
   }
 

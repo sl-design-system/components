@@ -48,6 +48,10 @@ export class Card extends ScopedElementsMixin(LitElement) {
    *  In horizontal mode this will need the card to have an explicit image size set, either by subgrid or by `--sl-card-media-size`*/
   @property({ reflect: true, attribute: 'fit-image', type: Boolean }) fitImage?: boolean;
 
+  /** When set the image won't be stretched and cropped to fill the whole container, but instead shown fully, with a margin around it.
+   *  In horizontal mode this will need the card to have an explicit image size set, either by subgrid or by `--sl-card-media-size`*/
+  @property({ reflect: true, attribute: 'media-margin', type: Boolean }) mediaMargin?: boolean;
+
   /** When fit-image is set, setting this will create a blurred copy of the image in the margin around the image. */
   @property({ reflect: true, attribute: 'image-backdrop', type: Boolean }) imageBackdrop?: boolean;
 

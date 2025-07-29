@@ -85,6 +85,10 @@
     position: relative;
   }
 
+  :host(:where([media-margin])) figure {
+    margin: var(--sl-size-050);
+  }
+
   slot[name='media'] {
     display: grid;
     inset: 0;

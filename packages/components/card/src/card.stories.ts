@@ -20,6 +20,7 @@ type Props = Pick<Card, 'orientation'> & {
   fitImage?: boolean;
   imageBackdrop?: boolean;
   imageUrl?: string;
+  mediaMargin?: boolean;
   subheaderContent?: boolean;
   subheaderBadge?: string;
   subheaderText?: string;
@@ -51,6 +52,7 @@ export default {
     menuButton: false,
     fitImage: false,
     imageBackdrop: false,
+    mediaMargin: false,
     subgrid: false,
     link: false
   },
@@ -76,6 +78,7 @@ export default {
     imageUrl,
     fitImage,
     imageBackdrop,
+    mediaMargin,
     subheaderContent,
     subheaderBadge,
     subheaderText,
@@ -99,6 +102,7 @@ export default {
           imageUrl,
           fitImage,
           imageBackdrop,
+          mediaMargin,
           subheaderContent,
           subheaderBadge,
           subheaderText,
@@ -122,6 +126,7 @@ const card = (
     imageUrl?: string;
     fitImage?: boolean;
     imageBackdrop?: boolean;
+    mediaMargin?: boolean;
     subheaderContent?: boolean;
     subheaderBadge?: string;
     subheaderText?: string;
@@ -136,6 +141,7 @@ const card = (
     <sl-card
       orientation=${ifDefined(card.orientation)}
       ?fit-image=${card.fitImage}
+      ?media-margin=${card.mediaMargin}
       ?subgrid=${card.subgrid}
       ?image-backdrop=${card.imageBackdrop}
     >
@@ -244,6 +250,7 @@ export const SubGridHorizontal: Story = {
     imageUrl,
     fitImage,
     imageBackdrop,
+    mediaMargin,
     subheaderContent,
     subheaderBadge,
     subheaderText,
@@ -260,6 +267,7 @@ export const SubGridHorizontal: Story = {
       imageUrl,
       fitImage,
       imageBackdrop,
+      mediaMargin,
       subheaderContent,
       subheaderBadge,
       subheaderText,
@@ -311,6 +319,7 @@ export const SubGridVertical: Story = {
     imageUrl,
     fitImage,
     imageBackdrop,
+    mediaMargin,
     subheaderContent,
     subheaderBadge,
     subheaderText,
@@ -327,6 +336,7 @@ export const SubGridVertical: Story = {
       imageUrl,
       fitImage,
       imageBackdrop,
+      mediaMargin,
       subheaderContent,
       subheaderBadge,
       subheaderText,
@@ -374,6 +384,7 @@ export const SubGridNoMedia: Story = {
     imageUrl,
     fitImage,
     imageBackdrop,
+    mediaMargin,
     subheaderContent,
     subheaderBadge,
     subheaderText,
@@ -390,6 +401,7 @@ export const SubGridNoMedia: Story = {
       imageUrl,
       fitImage,
       imageBackdrop,
+      mediaMargin,
       subheaderContent,
       subheaderBadge,
       subheaderText,
@@ -430,6 +442,7 @@ export const Masonry: Story = {
     imageUrl,
     fitImage,
     imageBackdrop,
+    mediaMargin,
     subheaderContent,
     subheaderBadge,
     subheaderText,
@@ -446,6 +459,7 @@ export const Masonry: Story = {
       imageUrl,
       fitImage,
       imageBackdrop,
+      mediaMargin,
       subheaderContent,
       subheaderBadge,
       subheaderText,
@@ -488,6 +502,7 @@ export const MediaOptions: Story = {
     imageUrl,
     fitImage,
     imageBackdrop,
+    mediaMargin,
     subheaderContent,
     subheaderBadge,
     subheaderText,
@@ -504,6 +519,7 @@ export const MediaOptions: Story = {
       imageUrl,
       fitImage,
       imageBackdrop,
+      mediaMargin,
       subheaderContent,
       subheaderBadge,
       subheaderText,
@@ -533,8 +549,8 @@ export const MediaOptions: Story = {
         <span>Fit image with background-color set with <code>--sl-card-image-backdrop</code>:</span
         ><span>Fit image with background set to gradient with <code>--sl-card-image-backdrop</code>:</span>
         ${card({ ...settings, fitImage: true }, 2)} ${card({ ...settings, fitImage: true }, 3)}
-        <span>Fit image with imageBackdrop:</span><span></span>
-        ${card({ ...settings, fitImage: true, imageBackdrop: true }, 1)}
+        <span>Fit image with imageBackdrop:</span><span>With media-margin</span>
+        ${card({ ...settings, fitImage: true, imageBackdrop: true }, 1)} ${card({ ...settings, mediaMargin: true }, 0)}
       </div>
     `;
   }
@@ -553,6 +569,7 @@ export const Vertical: Story = {
     imageUrl,
     fitImage,
     imageBackdrop,
+    mediaMargin,
     subheaderContent,
     subheaderBadge,
     subheaderText,
@@ -569,6 +586,7 @@ export const Vertical: Story = {
       imageUrl,
       fitImage,
       imageBackdrop,
+      mediaMargin,
       subheaderContent,
       subheaderBadge,
       subheaderText,
@@ -612,6 +630,7 @@ export const Responsive: Story = {
     imageUrl,
     fitImage,
     imageBackdrop,
+    mediaMargin,
     subheaderContent,
     subheaderBadge,
     subheaderText,
@@ -628,6 +647,7 @@ export const Responsive: Story = {
       imageUrl,
       fitImage,
       imageBackdrop,
+      mediaMargin,
       subheaderContent,
       subheaderBadge,
       subheaderText,
@@ -696,6 +716,7 @@ export const Actions: Story = {
     imageUrl,
     fitImage,
     imageBackdrop,
+    mediaMargin,
     subheaderContent,
     subheaderBadge,
     subheaderText,
@@ -712,6 +733,7 @@ export const Actions: Story = {
       imageUrl,
       fitImage,
       imageBackdrop,
+      mediaMargin,
       subheaderContent,
       subheaderBadge,
       subheaderText,
@@ -875,6 +897,7 @@ export const All: Story = {
     imageUrl,
     fitImage,
     imageBackdrop,
+    mediaMargin,
     subheaderContent,
     subheaderBadge,
     subheaderText,
@@ -891,6 +914,7 @@ export const All: Story = {
       imageUrl,
       fitImage,
       imageBackdrop,
+      mediaMargin,
       subheaderContent,
       subheaderBadge,
       subheaderText,

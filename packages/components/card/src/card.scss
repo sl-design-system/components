@@ -109,7 +109,7 @@
     }
 
     slot[name='media']::slotted(*) {
-      --_margin: var(--sl-size-new-lg);
+      --_margin: var(--sl-size-200);
 
       block-size: calc(100% - 2 * var(--_margin));
       inline-size: calc(100% - 2 * var(--_margin));

@@ -10,7 +10,7 @@ Breaking:
  - `--sl-card-media-aspect-ratio` is removed. `--sl-card-media-size` is new and has a similar function.
  - `--sl-card-orientation-breakpoint` is renamed to `--sl-card-horizontal-breakpoint`.
  - The `actions` slot is no longer used for the small button at the top right, but for a big button under the body of the card.
- - `padding` is repaced by `media-margin`.
+ - `padding` is replaced by `media-margin`.
  - `explicit-height` has been removed.
  - `height` is removed, the text (or grid in the case of subgrid) is leading, the image stretches.
  - `media-position` has been removed.

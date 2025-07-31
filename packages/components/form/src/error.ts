@@ -31,8 +31,14 @@ export class Error extends ScopedElementsMixin(LitElement) {
   /** The light DOM slot. */
   #slot?: HTMLSlotElement;
 
-  /** The size at which the error is displayed. */
-  @property({ reflect: true }) size: ErrorSize = 'md';
+  /**
+   * The ID of the form control this error message is associated with. Use this
+   * to link the error message to a specific form control. This is useful for
+   * when a form field has more than 1 form control. If the form field has
+   * only 1 form control, the error message will automatically be associated
+   * with that form control.
+   */
+  @property() for?: string;
 
   override connectedCallback(): void {
     super.connectedCallback();

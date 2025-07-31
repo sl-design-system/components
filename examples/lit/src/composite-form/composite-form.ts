@@ -3,6 +3,7 @@ import { Button } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Checkbox, CheckboxGroup } from '@sl-design-system/checkbox';
 import { Form, FormController, FormField, FormValidationErrors } from '@sl-design-system/form';
+import { NumberField } from '@sl-design-system/number-field';
 import { Radio, RadioGroup } from '@sl-design-system/radio-group';
 import { Switch } from '@sl-design-system/switch';
 import { TextArea } from '@sl-design-system/text-area';
@@ -21,6 +22,7 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
       'sl-form': Form,
       'sl-form-field': FormField,
       'sl-form-validation-errors': FormValidationErrors,
+      'sl-number-field': NumberField,
       'sl-radio': Radio,
       'sl-radio-group': RadioGroup,
       'sl-switch': Switch,
@@ -76,14 +78,14 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
             <sl-radio value="under-18">Between 12 and 18</sl-radio>
             <sl-radio value="other">Other</sl-radio>
           </sl-radio-group>
-          <sl-text-field
+          <sl-number-field
             ?disabled=${this.#form.value?.age !== 'other'}
             aria-label="Your own age"
             input-size="8"
             name="otherAge"
             placeholder="Your age"
             required
-          ></sl-text-field>
+          ></sl-number-field>
         </sl-form-field>
 
         <sl-form-field label="Remarks">

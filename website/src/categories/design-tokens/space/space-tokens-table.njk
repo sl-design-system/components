@@ -7,16 +7,16 @@
   <th>Token</th>
 </tr></thead>
 <tbody>
-{% for property in tokens.core.space -%}{% if property[1].value %}
+{% for property in tokens.core.space -%}{% if property[1]['$value'] %}
 <tr>
   <td>
     <div class="ds-tokens__space-example">
-      <div class="ds-tokens__space" style="width: {{ property[1].value }}px; height: {{ property[1].value }}px"></div>
-      <code>{{ property[1].value }}{% if property[1].value != 0 %}px{% endif %}</code>
+      <div class="ds-tokens__space" style="width: {{ property[1]['$value'] }}{% if property[1]['$value'] | hasNoUnit %}px{% endif %}; height: {{ property[1]['$value'] }}{% if property[1]['$value'] | hasNoUnit %}px{% endif %}"></div>
+      <code>{{ property[1]['$value'] }}{% if property[1]['$value'] | hasNoUnit %}px{% endif %}</code>
     </div>
   </td>
-  <td class="ds-tokens__description">{{ property[1].description | tokenDescription }}</td>
-  <td><code>{{ property[1].description | tokenName }}</code></td>
+  <td class="ds-tokens__description">{{ property[1]['$description'] | tokenDescription }}</td>
+  <td><code>{{ property[1]['$description'] | tokenName }}</code></td>
 </tr>
 {% endif %}{% endfor -%}
 </tbody>

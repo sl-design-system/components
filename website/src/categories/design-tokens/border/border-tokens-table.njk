@@ -9,32 +9,32 @@
 <tbody>
 {% for border in tokens.core.border.width -%}
 {% for widthValue in border -%}
-{% if widthValue.value %}
+{% if widthValue['$value'] %}
 <tr>
   <td>
     <div class="ds-tokens__border-example">
-      <div class="ds-tokens__border" style="border-width: {{ widthValue.value }}px"></div>
-      <code>{{ widthValue.value }}{% if widthValue.value != 0 %}px{% endif %}</code>
+      <div class="ds-tokens__border" style="border-width: {{ widthValue['$value']}}{% if widthValue['$value'] | hasNoUnit %}px{% endif %}"></div>
+      <code>{{ widthValue['$value'] }}{% if widthValue['$value'] | hasNoUnit %}px{% endif %}</code>
     </div>
   </td>
-  <td class="ds-tokens__description">{{ widthValue.description | tokenDescription }}</td>
-  <td>{% if widthValue.description %}<code>{{ widthValue.description | tokenName }}</code>{% endif %}</td>
+  <td class="ds-tokens__description">{{ widthValue['$description'] | tokenDescription }}</td>
+  <td>{% if widthValue['$description'] %}<code>{{ widthValue['$description'] | tokenName }}</code>{% endif %}</td>
 </tr>
 {% endif %}
 {% endfor -%}
 {% endfor -%}
 {% for border in tokens.core.border.radius -%}
 {% for widthValue in border -%}
-{% if widthValue.value %}
+{% if widthValue['$value'] %}
 <tr>
   <td>
     <div class="ds-tokens__border-example">
-      <div class="ds-tokens__border" style="border-radius: {{ widthValue.value }}{% if widthValue.value | hasNoUnit %}px{% endif %}"></div>
-      <code>{{ widthValue.value }}{% if widthValue.value | hasNoUnit %}px{% endif %}</code>
+      <div class="ds-tokens__border" style="border-radius: {{ widthValue['$value'] }}{% if widthValue['$value'] | hasNoUnit %}px{% endif %}"></div>
+      <code>{{ widthValue['$value'] }}{% if widthValue['$value'] | hasNoUnit %}px{% endif %}</code>
     </div>
   </td>
-  <td class="ds-tokens__description">{{ widthValue.description | tokenDescription }}</td>
-  <td>{% if widthValue.description %}<code>{{ widthValue.description | tokenName }}</code>{% endif %}</td>
+  <td class="ds-tokens__description">{{ widthValue['$description'] | tokenDescription }}</td>
+  <td>{% if widthValue['$description'] %}<code>{{ widthValue['$description'] | tokenName }}</code>{% endif %}</td>
 </tr>
 {% endif %}
 {% endfor -%}

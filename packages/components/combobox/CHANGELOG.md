@@ -1,5 +1,16 @@
 # @sl-design-system/combobox
 
+## 0.1.4
+
+### Patch Changes
+
+- [#2125](https://github.com/sl-design-system/components/pull/2125) [`ea31f40`](https://github.com/sl-design-system/components/commit/ea31f4082be6b0ae423e0feded698f679046f7b9) - Fixes dispatching `sl-change` event when initial value is set.
+
+- Updated dependencies [[`e973712`](https://github.com/sl-design-system/components/commit/e973712439e562714aa0dfe427f88288a8ab78eb), [`5748337`](https://github.com/sl-design-system/components/commit/574833761ff5d1965f21ded94c26f1ff42272420), [`919f116`](https://github.com/sl-design-system/components/commit/919f1168712569c5022a4ad6840fbce692ce6ea0)]:
+  - @sl-design-system/icon@1.2.1
+  - @sl-design-system/form@1.2.4
+  - @sl-design-system/text-field@1.6.5
+
 ## 0.1.3
 
 ### Patch Changes

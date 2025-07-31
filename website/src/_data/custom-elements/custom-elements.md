@@ -1760,47 +1760,50 @@
 | ------------ | ------ | ------- |
 | `LitElement` |        | lit     |
 
+### Mixins
+
+| Name                  | Module | Package                                 |
+| --------------------- | ------ | --------------------------------------- |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements/lit-element.js |
+
 ### Fields
 
-| Name             | Privacy | Type                   | Default        | Description                                                                                                                                                                            | Inherited From |
-| ---------------- | ------- | ---------------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `explicitHeight` |         | `boolean \| undefined` |                | When the height of the card is set (or constrained) by its container (for example in a grid with fixed rows) this needs to be set to be added in order to assure the correct rendering |                |
-| `height`         |         | `CardHeightOptions`    | `'fixed'`      | When the height is `fixed` the image will determine the height of the card, when it is `flex` the height of the text will determine the height of the card.                            |                |
-| `mediaPosition`  |         | `CardMediaPosition`    | `'start'`      | Show the media at the start or at the end.                                                                                                                                             |                |
-| `orientation`    |         | `CardOrientation`      | `'horizontal'` | The position of the media in relation to the text                                                                                                                                      |                |
-| `padding`        |         | `boolean`              | `false`        | Indicates whether there is a padding around the media. Recommended to set to true when the `--sl-card-stretch-image` isn't set to 100%                                                 |                |
+| Name            | Privacy | Type                   | Default        | Description                                                                                                                                                                                                                                                        | Inherited From |
+| --------------- | ------- | ---------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------- |
+| `fitImage`      |         | `boolean \| undefined` |                | When set the image won't be stretched and cropped to fill the whole container, but instead shown fully, with a margin around it.&#xA;In horizontal mode this will need the card to have an explicit image size set, either by subgrid or by `--sl-card-media-size` |                |
+| `imageBackdrop` |         | `boolean \| undefined` |                | When fit-image is set, setting this will create a blurred copy of the image in the margin around the image.                                                                                                                                                        |                |
+| `mediaMargin`   |         | `boolean \| undefined` |                | Adds a little margin around the image                                                                                                                                                                                                                              |                |
+| `orientation`   |         | `CardOrientation`      | `'horizontal'` | The position of the media in relation to the text                                                                                                                                                                                                                  |                |
+| `subgrid`       |         | `boolean \| undefined` |                | When the grid inside the card is defined by a parent grid, ideal for layout consistency, even when the contents of the card change.                                                                                                                                |                |
 
 ### Attributes
 
-| Name              | Field          | Inherited From |
-| ----------------- | -------------- | -------------- |
-| `padding`         | padding        |                |
-| `explicit-height` | explicitHeight |                |
-| `height`          | height         |                |
-| `orientation`     | orientation    |                |
-| `media-position`  | mediaPosition  |                |
+| Name             | Field         | Inherited From |
+| ---------------- | ------------- | -------------- |
+| `fit-image`      | fitImage      |                |
+| `media-margin`   | mediaMargin   |                |
+| `image-backdrop` | imageBackdrop |                |
+| `subgrid`        | subgrid       |                |
+| `orientation`    | orientation   |                |
 
 ### CSS Properties
 
-| Name                               | Default | Description                                                                                                                                                                                           |
-| ---------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--sl-card-media-aspect-ratio`     |         | The aspectratio of the media container (default is 4/3). By default this ratio is always maintained, and will cause the media to become smaller when there isn't sufficient space for the full width. |
-| `--sl-card-media-width`            |         | The width of the media in relation to the text. Can be set in pixels or `fr`.                                                                                                                         |
-| `--sl-card-media-x`                |         | X-Focuspoint of the media; this is taken as the center when the media is cropped.                                                                                                                     |
-| `--sl-card-media-y`                |         | Y-Focuspoint of the media; this is taken as the center when the media is cropped.                                                                                                                     |
-| `--sl-card-orientation-breakpoint` |         | When card is smaller than this size it will switch from horizontal (when set) to vertical layout.                                                                                                     |
-| `--sl-card-stretch-image`          |         | Set this to 100% when the aspectratio of the media doesn't matter and you want it to fill the full height of the card.                                                                                |
-| `--sl-card-text-width`             |         | The width of the text in relation to the media. Can be set in pixels (not recommended) or `fr`.                                                                                                       |
+| Name                              | Default | Description                                                                                                             |
+| --------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `--sl-card-media-size`            |         | Depending on the orientation, this will set the height or width of the media. Can be set in pixels, percentage or `fr`. |
+| `--sl-card-horizontal-breakpoint` |         | When card is smaller than this size it will switch from horizontal (when set) to vertical layout.                       |
+| `--sl-card-image-backdrop`        |         | Color of the image backdrop when `fit-image` is set.                                                                    |
 
 ### Slots
 
-| Name      | Description                          |
-| --------- | ------------------------------------ |
-| `default` | Title of the card                    |
-| `media`   | Media, this can be an image or video |
-| `header`  | Subtitle or badges                   |
-| `body`    | Body text of the card                |
-| `actions` | Icon button for actions on the card. |
+| Name          | Description                                                                                                               |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `default`     | Title of the card                                                                                                         |
+| `media`       | Image of the card.                                                                                                        |
+| `header`      | Subtitle or badges                                                                                                        |
+| `body`        | Body text of the card                                                                                                     |
+| `actions`     | Main actions of the card, these will be displayed at the bottom of the card, This can be a single button or a button-bar. |
+| `menu-button` | A menu button to display additional actions or a toggle button. This will be displayed in the header of the card.         |
 
 <hr/>
 

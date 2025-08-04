@@ -2,441 +2,441 @@
   "border": {
     "radius": {
       "none": {
-        "value": "0",
-        "type": "borderRadius",
-        "description": "border.radius.none"
+        "$type": "borderRadius",
+        "$value": "0",
+        "$description": "border.radius.none"
       },
       "3xs": {
-        "value": "2",
-        "type": "borderRadius",
-        "description": "border.radius.3xs"
+        "$type": "borderRadius",
+        "$value": "2",
+        "$description": "border.radius.3xs"
       },
       "2xs": {
-        "value": "4",
-        "type": "borderRadius",
-        "description": "border.radius.2xs"
+        "$type": "borderRadius",
+        "$value": "4",
+        "$description": "border.radius.2xs"
       },
       "xs": {
-        "value": "6",
-        "type": "borderRadius",
-        "description": "border.radius.xs"
+        "$type": "borderRadius",
+        "$value": "6",
+        "$description": "border.radius.xs"
       },
       "sm": {
-        "value": "8",
-        "type": "borderRadius",
-        "description": "border.radius.sm"
+        "$type": "borderRadius",
+        "$value": "8",
+        "$description": "border.radius.sm"
       },
       "md": {
-        "value": "10",
-        "type": "borderRadius",
-        "description": "border.radius.md"
+        "$type": "borderRadius",
+        "$value": "10",
+        "$description": "border.radius.md"
       },
       "lg": {
-        "value": "12",
-        "type": "borderRadius",
-        "description": "border.radius.lg"
+        "$type": "borderRadius",
+        "$value": "12",
+        "$description": "border.radius.lg"
       },
       "xl": {
-        "value": "14",
-        "type": "borderRadius",
-        "description": "border.radius.xl"
+        "$type": "borderRadius",
+        "$value": "14",
+        "$description": "border.radius.xl"
       },
       "2xl": {
-        "value": "16",
-        "type": "borderRadius"
+        "$type": "borderRadius",
+        "$value": "16"
       },
       "3xl": {
-        "value": "18",
-        "type": "borderRadius",
-        "description": "border.radius.3xl"
+        "$type": "borderRadius",
+        "$value": "18",
+        "$description": "border.radius.3xl"
       },
       "full": {
-        "value": "50rem",
-        "type": "borderRadius",
-        "description": "border.radius.full"
+        "$type": "borderRadius",
+        "$value": "50rem",
+        "$description": "border.radius.full"
       }
     },
     "width": {
       "none": {
-        "value": "0px",
-        "type": "borderWidth",
-        "description": "border.width.none"
+        "$type": "borderWidth",
+        "$value": "0px",
+        "$description": "border.width.none"
       },
       "2xs": {
-        "value": "0.5",
-        "type": "borderWidth",
-        "description": "2xs"
+        "$type": "borderWidth",
+        "$value": "0.5",
+        "$description": "2xs"
       },
       "xs": {
-        "value": "1",
-        "type": "borderWidth",
-        "description": "border.width.xs"
+        "$type": "borderWidth",
+        "$value": "1",
+        "$description": "border.width.xs"
       },
       "sm": {
-        "value": "2",
-        "type": "borderWidth",
-        "description": "border.width.sm"
+        "$type": "borderWidth",
+        "$value": "2",
+        "$description": "border.width.sm"
       },
       "md": {
-        "value": "3",
-        "type": "borderWidth",
-        "description": "border.width.md"
+        "$type": "borderWidth",
+        "$value": "3",
+        "$description": "border.width.md"
       },
       "lg": {
-        "value": "4",
-        "type": "borderWidth",
-        "description": "border.width.lg"
+        "$type": "borderWidth",
+        "$value": "4",
+        "$description": "border.width.lg"
       },
       "xl": {
-        "value": "5",
-        "type": "borderWidth",
-        "description": "border.width.xl"
+        "$type": "borderWidth",
+        "$value": "5",
+        "$description": "border.width.xl"
       },
       "2xl": {
-        "value": "6",
-        "type": "borderWidth",
-        "description": "border.width.2xl"
+        "$type": "borderWidth",
+        "$value": "6",
+        "$description": "border.width.2xl"
       },
       "button": {
         "solid": {
-          "value": "{conceptual.border.width.default}",
-          "type": "borderWidth",
-          "description": "border.width.button.solid"
+          "$type": "borderWidth",
+          "$value": "{conceptual.border.width.default}",
+          "$description": "border.width.button.solid"
         },
         "outline": {
-          "value": "{conceptual.border.width.default}",
-          "type": "borderWidth",
-          "description": "border.width.button.outline"
+          "$type": "borderWidth",
+          "$value": "{conceptual.border.width.default}",
+          "$description": "border.width.button.outline"
         },
         "ghost": {
-          "value": "{conceptual.border.width.default}",
-          "type": "borderWidth",
-          "description": "border.width.button.ghost"
+          "$type": "borderWidth",
+          "$value": "{conceptual.border.width.default}",
+          "$description": "border.width.button.ghost"
         },
         "link": {
-          "value": "{conceptual.border.width.default}",
-          "type": "borderWidth",
-          "description": "border.width.button.link"
+          "$type": "borderWidth",
+          "$value": "{conceptual.border.width.default}",
+          "$description": "border.width.button.link"
         }
       },
       "select": {
         "listbox": {
-          "value": "{conceptual.border.width.default}",
-          "type": "borderWidth",
-          "description": "border.width.button.default"
+          "$type": "borderWidth",
+          "$value": "{conceptual.border.width.default}",
+          "$description": "border.width.button.default"
         }
       },
       "input": {
         "none": {
-          "value": "{border.width.none}",
-          "type": "borderWidth",
-          "description": "border.width.button.default"
+          "$type": "borderWidth",
+          "$value": "{border.width.none}",
+          "$description": "border.width.button.default"
         },
         "border": {
-          "value": "{conceptual.border.width.default}",
-          "type": "borderWidth",
-          "description": "border.width.button.outline"
+          "$type": "borderWidth",
+          "$value": "{conceptual.border.width.default}",
+          "$description": "border.width.button.outline"
         },
         "option": {
-          "value": "{border.width.xs}",
-          "type": "borderWidth",
-          "description": "border.width.button.outline"
+          "$type": "borderWidth",
+          "$value": "{border.width.xs}",
+          "$description": "border.width.button.outline"
         }
       },
       "focusring": {
         "default": {
-          "value": "{border.width.sm}",
-          "type": "borderWidth"
+          "$type": "borderWidth",
+          "$value": "{border.width.sm}"
         },
         "inside": {
-          "value": "{border.width.xs}",
-          "type": "borderWidth"
+          "$type": "borderWidth",
+          "$value": "{border.width.xs}"
         },
         "offset": {
-          "value": "{border.width.sm}",
-          "type": "borderWidth"
+          "$type": "borderWidth",
+          "$value": "{border.width.sm}"
         }
       },
       "dialog": {
         "default": {
-          "value": "{border.width.none}",
-          "type": "borderWidth"
+          "$type": "borderWidth",
+          "$value": "{border.width.none}"
         }
       },
       "divider": {
-        "value": "{border.width.xs}",
-        "type": "borderWidth"
+        "$type": "borderWidth",
+        "$value": "{border.width.xs}"
       },
       "tooltip": {
         "none": {
-          "value": "{border.width.none}",
-          "type": "borderWidth",
-          "description": "border.width.button.default"
+          "$type": "borderWidth",
+          "$value": "{border.width.none}",
+          "$description": "border.width.button.default"
         },
         "border": {
-          "value": "{border.width.xs}",
-          "type": "borderWidth",
-          "description": "border.width.button.outline"
+          "$type": "borderWidth",
+          "$value": "{border.width.xs}",
+          "$description": "border.width.button.outline"
         }
       },
       "popover": {
         "none": {
-          "value": "{border.width.none}",
-          "type": "borderWidth",
-          "description": "border.width.button.default"
+          "$type": "borderWidth",
+          "$value": "{border.width.none}",
+          "$description": "border.width.button.default"
         },
         "border": {
-          "value": "{border.width.xs}",
-          "type": "borderWidth",
-          "description": "border.width.button.outline"
+          "$type": "borderWidth",
+          "$value": "{border.width.xs}",
+          "$description": "border.width.button.outline"
         }
       },
       "inline-message": {
         "default": {
-          "value": "{conceptual.border.width.default}",
-          "type": "borderWidth"
+          "$type": "borderWidth",
+          "$value": "{conceptual.border.width.default}"
         },
         "start": {
-          "value": "{border.width.lg}",
-          "type": "borderWidth"
+          "$type": "borderWidth",
+          "$value": "{border.width.lg}"
         }
       },
       "border": {
         "tab": {
-          "value": "{border.width.xs}",
-          "type": "borderWidth"
+          "$type": "borderWidth",
+          "$value": "{border.width.xs}"
         },
         "tabbar": {
-          "value": "{border.width.xs}",
-          "type": "borderWidth"
+          "$type": "borderWidth",
+          "$value": "{border.width.xs}"
         }
       },
       "card": {
         "border": {
-          "value": "{border.width.xs}",
-          "type": "borderWidth"
+          "$type": "borderWidth",
+          "$value": "{border.width.xs}"
         }
       },
       "slds": {
         "checklist": {
-          "value": "{border.width.xs}",
-          "type": "borderWidth"
+          "$type": "borderWidth",
+          "$value": "{border.width.xs}"
         }
       }
     }
   },
   "opacity": {
     "50": {
-      "value": "0.02",
-      "type": "opacity",
-      "description": "opacity.50"
+      "$type": "opacity",
+      "$value": "0.02",
+      "$description": "opacity.50"
     },
     "100": {
-      "value": "0.04",
-      "type": "opacity",
-      "description": "opacity.100"
+      "$type": "opacity",
+      "$value": "0.04",
+      "$description": "opacity.100"
     },
     "150": {
-      "value": "0.06",
-      "type": "opacity",
-      "description": "opacity.150"
+      "$type": "opacity",
+      "$value": "0.06",
+      "$description": "opacity.150"
     },
     "200": {
-      "value": "0.08",
-      "type": "opacity",
-      "description": "opacity.200"
+      "$type": "opacity",
+      "$value": "0.08",
+      "$description": "opacity.200"
     },
     "300": {
-      "value": "0.12",
-      "type": "opacity",
-      "description": "opacity.300"
+      "$type": "opacity",
+      "$value": "0.12",
+      "$description": "opacity.300"
     },
     "400": {
-      "value": "0.16",
-      "type": "opacity",
-      "description": "opacity.400"
+      "$type": "opacity",
+      "$value": "0.16",
+      "$description": "opacity.400"
     },
     "500": {
-      "value": "0.2",
-      "type": "opacity",
-      "description": "opacity.500"
+      "$type": "opacity",
+      "$value": "0.2",
+      "$description": "opacity.500"
     },
     "600": {
-      "value": "0.32",
-      "type": "opacity",
-      "description": "opacity.600"
+      "$type": "opacity",
+      "$value": "0.32",
+      "$description": "opacity.600"
     },
     "700": {
-      "value": "0.48",
-      "type": "opacity",
-      "description": "opacity.700"
+      "$type": "opacity",
+      "$value": "0.48",
+      "$description": "opacity.700"
     },
     "800": {
-      "value": "0.64",
-      "type": "opacity",
-      "description": "opacity.800"
+      "$type": "opacity",
+      "$value": "0.64",
+      "$description": "opacity.800"
     },
     "900": {
-      "value": "0.8",
-      "type": "opacity",
-      "description": "opacity.900"
+      "$type": "opacity",
+      "$value": "0.8",
+      "$description": "opacity.900"
     },
     "1000": {
-      "value": "1",
-      "type": "opacity",
-      "description": "opacity.1000"
+      "$type": "opacity",
+      "$value": "1",
+      "$description": "opacity.1000"
     },
     "transparent": {
-      "value": "0",
-      "type": "opacity",
-      "description": "opacity.transparent"
+      "$type": "opacity",
+      "$value": "0",
+      "$description": "opacity.transparent"
     }
   },
   "size": {
     "none": {
-      "value": "0",
-      "type": "sizing",
-      "description": "size.none"
+      "$type": "sizing",
+      "$value": "0",
+      "$description": "size.none"
     },
     "4xs": {
-      "value": "2",
-      "type": "sizing",
-      "description": "size.4xs"
+      "$type": "sizing",
+      "$value": "2",
+      "$description": "size.4xs"
     },
     "3xs": {
-      "value": "4",
-      "type": "sizing",
-      "description": "size.3xs"
+      "$type": "sizing",
+      "$value": "4",
+      "$description": "size.3xs"
     },
     "2xs": {
-      "value": "8",
-      "type": "sizing",
-      "description": "size.2xs"
+      "$type": "sizing",
+      "$value": "8",
+      "$description": "size.2xs"
     },
     "xs": {
-      "value": "12",
-      "type": "sizing",
-      "description": "size.xs"
+      "$type": "sizing",
+      "$value": "12",
+      "$description": "size.xs"
     },
     "sm": {
-      "value": "14",
-      "type": "sizing",
-      "description": "size.sm"
+      "$type": "sizing",
+      "$value": "14",
+      "$description": "size.sm"
     },
     "md": {
-      "value": "16",
-      "type": "sizing",
-      "description": "size.md"
+      "$type": "sizing",
+      "$value": "16",
+      "$description": "size.md"
     },
     "lg": {
-      "value": "20",
-      "type": "sizing",
-      "description": "size.lg"
+      "$type": "sizing",
+      "$value": "20",
+      "$description": "size.lg"
     },
     "xl": {
-      "value": "24",
-      "type": "sizing",
-      "description": "size.xl"
+      "$type": "sizing",
+      "$value": "24",
+      "$description": "size.xl"
     },
     "2xl": {
-      "value": "32",
-      "type": "sizing",
-      "description": "size.2xl"
+      "$type": "sizing",
+      "$value": "32",
+      "$description": "size.2xl"
     },
     "3xl": {
-      "value": "48",
-      "type": "sizing",
-      "description": "size.3xl"
+      "$type": "sizing",
+      "$value": "48",
+      "$description": "size.3xl"
     },
     "4xl": {
-      "value": "64",
-      "type": "sizing",
-      "description": "size.4xl"
+      "$type": "sizing",
+      "$value": "64",
+      "$description": "size.4xl"
     },
     "input": {
       "option": {
         "sm": {
-          "value": "{size.lg}",
-          "type": "sizing"
+          "$type": "sizing",
+          "$value": "{size.lg}"
         },
         "md": {
-          "value": "{size.xl}",
-          "type": "sizing",
-          "description": "size.input.md"
+          "$type": "sizing",
+          "$value": "{size.xl}",
+          "$description": "size.input.md"
         },
         "lg": {
-          "value": "{size.2xl}",
-          "type": "sizing",
-          "description": "size.input.lg"
+          "$type": "sizing",
+          "$value": "{size.2xl}",
+          "$description": "size.input.lg"
         },
         "checkboxIcon": {
           "sm": {
-            "value": "{size.icon.xs}",
-            "type": "sizing"
+            "$type": "sizing",
+            "$value": "{size.icon.xs}"
           },
           "md": {
-            "value": "{size.icon.md}",
-            "type": "sizing",
-            "description": "size.input.md"
+            "$type": "sizing",
+            "$value": "{size.icon.md}",
+            "$description": "size.input.md"
           },
           "lg": {
-            "value": "{size.icon.lg}",
-            "type": "sizing",
-            "description": "size.input.lg"
+            "$type": "sizing",
+            "$value": "{size.icon.lg}",
+            "$description": "size.input.lg"
           }
         }
       },
       "switch": {
         "handle": {
           "sm": {
-            "value": "{size.md} - (2 * {space.input.switch.padding.controller})",
-            "type": "sizing",
-            "description": "size.input.md"
+            "$type": "sizing",
+            "$value": "{size.md} - (2 * {space.input.switch.padding.controller})",
+            "$description": "size.input.md"
           },
           "md": {
-            "value": "{size.xl} - (2 * {space.input.switch.padding.controller})",
-            "type": "sizing",
-            "description": "size.input.md"
+            "$type": "sizing",
+            "$value": "{size.xl} - (2 * {space.input.switch.padding.controller})",
+            "$description": "size.input.md"
           },
           "lg": {
-            "value": "{size.2xl} - (2 * {space.input.switch.padding.controller})",
-            "type": "sizing",
-            "description": "size.input.md"
+            "$type": "sizing",
+            "$value": "{size.2xl} - (2 * {space.input.switch.padding.controller})",
+            "$description": "size.input.md"
           }
         },
         "controller": {
           "height": {
             "sm": {
-              "value": "{size.md}",
-              "type": "sizing",
-              "description": "size.switch.controller.sm"
+              "$type": "sizing",
+              "$value": "{size.md}",
+              "$description": "size.switch.controller.sm"
             },
             "md": {
-              "value": "{size.xl}",
-              "type": "sizing",
-              "description": "size.switch.controller.md"
+              "$type": "sizing",
+              "$value": "{size.xl}",
+              "$description": "size.switch.controller.md"
             },
             "lg": {
-              "value": "{size.2xl}",
-              "type": "sizing",
-              "description": "size.switch.controller.lg"
+              "$type": "sizing",
+              "$value": "{size.2xl}",
+              "$description": "size.switch.controller.lg"
             }
           },
           "width": {
             "sm": {
-              "value": "{size.2xl}",
-              "type": "sizing",
-              "description": "size.switch.controller.sm"
+              "$type": "sizing",
+              "$value": "{size.2xl}",
+              "$description": "size.switch.controller.sm"
             },
             "md": {
-              "value": "{size.3xl}",
-              "type": "sizing",
-              "description": "size.switch.controller.md"
+              "$type": "sizing",
+              "$value": "{size.3xl}",
+              "$description": "size.switch.controller.md"
             },
             "lg": {
-              "value": "{size.4xl}",
-              "type": "sizing",
-              "description": "size.switch.controller.lg"
+              "$type": "sizing",
+              "$value": "{size.4xl}",
+              "$description": "size.switch.controller.lg"
             }
           }
         }
@@ -444,518 +444,518 @@
     },
     "icon": {
       "3xs": {
-        "value": "5",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "5"
       },
       "2xs": {
-        "value": "10px",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "10px"
       },
       "xs": {
-        "value": "{size.xs}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.xs}"
       },
       "sm": {
-        "value": "{size.sm}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.sm}"
       },
       "md": {
-        "value": "{size.md}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.md}"
       },
       "lg": {
-        "value": "{size.lg}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.lg}"
       },
       "xl": {
-        "value": "{size.xl}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.xl}"
       },
       "2xl": {
-        "value": "{size.2xl}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.2xl}"
       },
       "3xl": {
-        "value": "{size.3xl}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.3xl}"
       },
       "4xl": {
-        "value": "{size.4xl}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.4xl}"
       }
     },
     "button": {
       "icon-container": {
         "icon-only": {
           "sm": {
-            "value": "{size.md}",
-            "type": "sizing"
+            "$type": "sizing",
+            "$value": "{size.md}"
           },
           "md": {
-            "value": "{size.md}",
-            "type": "sizing"
+            "$type": "sizing",
+            "$value": "{size.md}"
           },
           "lg": {
-            "value": "{size.xl}",
-            "type": "sizing"
+            "$type": "sizing",
+            "$value": "{size.xl}"
           }
         },
         "inline": {
           "sm": {
-            "value": "{size.xs}",
-            "type": "sizing"
+            "$type": "sizing",
+            "$value": "{size.xs}"
           },
           "md": {
-            "value": "{size.sm}",
-            "type": "sizing"
+            "$type": "sizing",
+            "$value": "{size.sm}"
           },
           "lg": {
-            "value": "{size.md}",
-            "type": "sizing"
+            "$type": "sizing",
+            "$value": "{size.md}"
           }
         }
       }
     },
     "dialog": {
       "min": {
-        "value": "400",
-        "type": "sizing",
-        "description": "size.input.md"
+        "$type": "sizing",
+        "$value": "400",
+        "$description": "size.input.md"
       },
       "max": {
-        "value": "960",
-        "type": "sizing",
-        "description": "size.input.lg"
+        "$type": "sizing",
+        "$value": "960",
+        "$description": "size.input.lg"
       },
       "full": {
-        "value": "100%",
-        "type": "sizing",
-        "description": "size.input.lg"
+        "$type": "sizing",
+        "$value": "100%",
+        "$description": "size.input.lg"
       },
       "message": {
         "mobile": {
           "min": {
-            "value": "300px",
-            "type": "sizing",
-            "description": "size.input.md"
+            "$type": "sizing",
+            "$value": "300px",
+            "$description": "size.input.md"
           }
         }
       }
     },
     "badge": {
       "sm": {
-        "value": "{size.2xs}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.2xs}"
       },
       "md": {
-        "value": "{size.md}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.md}"
       },
       "lg": {
-        "value": "{size.lg}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.lg}"
       }
     },
     "avatar": {
       "sm": {
-        "value": "{size.xl}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.xl}"
       },
       "md": {
-        "value": "{size.2xl}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.2xl}"
       },
       "lg": {
-        "value": "40",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "40"
       },
       "xl": {
-        "value": "52",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "52"
       },
       "2xl": {
-        "value": "{size.4xl}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.4xl}"
       },
       "3xl": {
-        "value": "80",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "80"
       },
       "4xl": {
-        "value": "160",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "160"
       },
       "badge": {
         "sm": {
-          "value": "{size.2xs}",
-          "type": "sizing"
+          "$type": "sizing",
+          "$value": "{size.2xs}"
         },
         "md": {
-          "value": "{size.md}",
-          "type": "sizing"
+          "$type": "sizing",
+          "$value": "{size.md}"
         },
         "lg": {
-          "value": "{size.lg}",
-          "type": "sizing"
+          "$type": "sizing",
+          "$value": "{size.lg}"
         }
       }
     },
     "skeleton": {
       "minHeight": {
-        "value": "{size.2xs}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.2xs}"
       }
     },
     "spinner": {
       "xs": {
-        "value": "{size.xs}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.xs}"
       },
       "sm": {
-        "value": "{size.sm}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.sm}"
       },
       "md": {
-        "value": "{size.md}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.md}"
       },
       "lg": {
-        "value": "{size.lg}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.lg}"
       },
       "xl": {
-        "value": "{size.xl}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.xl}"
       },
       "2xl": {
-        "value": "{size.2xl}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.2xl}"
       },
       "3xl": {
-        "value": "{size.3xl}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.3xl}"
       },
       "4xl": {
-        "value": "{size.4xl}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.4xl}"
       }
     },
     "breadcrumb": {
-      "value": "{size.2xl}",
-      "type": "sizing"
+      "$type": "sizing",
+      "$value": "{size.2xl}"
     },
     "tab": {
       "indicator": {
-        "value": "{size.4xs}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.4xs}"
       }
     },
     "progressbar": {
-      "value": "{size.3xs}",
-      "type": "sizing"
+      "$type": "sizing",
+      "$value": "{size.3xs}"
     },
     "tag": {
       "counter": {
-        "value": "{borderRadius.default} + {borderRadius.default}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{borderRadius.default} + {borderRadius.default}"
       },
       "md": {
-        "value": "{size.xl}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.xl}"
       },
       "lg": {
-        "value": "{size.2xl}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.2xl}"
       }
     },
     "paginator": {
       "pageButton": {
         "minWidth": {
-          "value": "40px",
-          "type": "sizing",
-          "description": "we are using a raw value, needs to be changed to a token in the future"
+          "$type": "sizing",
+          "$value": "40px",
+          "$description": "we are using a raw value, needs to be changed to a token in the future"
         }
       },
       "Select": {
         "minWidth": {
-          "value": "80px",
-          "type": "sizing",
-          "description": "we are using a raw value, needs to be changed to a token in the future"
+          "$type": "sizing",
+          "$value": "80px",
+          "$description": "we are using a raw value, needs to be changed to a token in the future"
         }
       }
     }
   },
   "space": {
     "none": {
-      "value": "0px",
-      "type": "spacing",
-      "description": "space.none"
+      "$type": "spacing",
+      "$value": "0px",
+      "$description": "space.none"
     },
     "2xs": {
-      "value": "2",
-      "type": "spacing",
-      "description": "space.2xs"
+      "$type": "spacing",
+      "$value": "2",
+      "$description": "space.2xs"
     },
     "xs": {
-      "value": "4",
-      "type": "spacing",
-      "description": "space.xs"
+      "$type": "spacing",
+      "$value": "4",
+      "$description": "space.xs"
     },
     "sm": {
-      "value": "8",
-      "type": "spacing",
-      "description": "space.sm"
+      "$type": "spacing",
+      "$value": "8",
+      "$description": "space.sm"
     },
     "md": {
-      "value": "12",
-      "type": "spacing",
-      "description": "space.md"
+      "$type": "spacing",
+      "$value": "12",
+      "$description": "space.md"
     },
     "lg": {
-      "value": "16",
-      "type": "spacing",
-      "description": "space.lg"
+      "$type": "spacing",
+      "$value": "16",
+      "$description": "space.lg"
     },
     "xl": {
-      "value": "24",
-      "type": "spacing",
-      "description": "space.xl"
+      "$type": "spacing",
+      "$value": "24",
+      "$description": "space.xl"
     },
     "2xl": {
-      "value": "30",
-      "type": "spacing",
-      "description": "space.2xl"
+      "$type": "spacing",
+      "$value": "30",
+      "$description": "space.2xl"
     },
     "3xl": {
-      "value": "40",
-      "type": "spacing",
-      "description": "space.3xl"
+      "$type": "spacing",
+      "$value": "40",
+      "$description": "space.3xl"
     },
     "button": {
       "solid": {
         "block": {
           "sm": {
-            "value": "{space.xs} - {border.width.button.solid}",
-            "type": "spacing",
-            "description": "space.button.solid.block.sm"
+            "$type": "spacing",
+            "$value": "{space.xs} - {border.width.button.solid}",
+            "$description": "space.button.solid.block.sm"
           },
           "md": {
-            "value": "{space.sm} - {border.width.button.solid}",
-            "type": "spacing",
-            "description": "space.button.solid.block.md"
+            "$type": "spacing",
+            "$value": "{space.sm} - {border.width.button.solid}",
+            "$description": "space.button.solid.block.md"
           },
           "lg": {
-            "value": "{space.sm} - {border.width.button.solid}",
-            "type": "spacing",
-            "description": "space.button.solid.block.lg"
+            "$type": "spacing",
+            "$value": "{space.sm} - {border.width.button.solid}",
+            "$description": "space.button.solid.block.lg"
           }
         },
         "inline": {
           "sm": {
-            "value": "{space.lg} - {border.width.button.solid}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.sm"
+            "$type": "spacing",
+            "$value": "{space.lg} - {border.width.button.solid}",
+            "$description": "space.button.solid.inline.sm"
           },
           "md": {
-            "value": "{space.xl} - {border.width.button.solid}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.md"
+            "$type": "spacing",
+            "$value": "{space.xl} - {border.width.button.solid}",
+            "$description": "space.button.solid.inline.md"
           },
           "lg": {
-            "value": "{space.xl} - {border.width.button.solid}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.lg"
+            "$type": "spacing",
+            "$value": "{space.xl} - {border.width.button.solid}",
+            "$description": "space.button.solid.inline.lg"
           }
         },
         "icon-only": {
           "sm": {
-            "value": "{space.xs} - {border.width.button.solid}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.xs} - {border.width.button.solid}"
           },
           "md": {
-            "value": "{space.sm} - {border.width.button.solid}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.sm} - {border.width.button.solid}"
           },
           "lg": {
-            "value": "{space.sm} - {border.width.button.solid}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.sm} - {border.width.button.solid}"
           }
         }
       },
       "outline": {
         "block": {
           "sm": {
-            "value": "{space.xs} - {border.width.button.outline}",
-            "type": "spacing",
-            "description": "space.button.solid.block.sm"
+            "$type": "spacing",
+            "$value": "{space.xs} - {border.width.button.outline}",
+            "$description": "space.button.solid.block.sm"
           },
           "md": {
-            "value": "{space.sm} - {border.width.button.outline}",
-            "type": "spacing",
-            "description": "space.button.solid.block.md"
+            "$type": "spacing",
+            "$value": "{space.sm} - {border.width.button.outline}",
+            "$description": "space.button.solid.block.md"
           },
           "lg": {
-            "value": "{space.sm} - {border.width.button.outline}",
-            "type": "spacing",
-            "description": "space.button.solid.block.lg"
+            "$type": "spacing",
+            "$value": "{space.sm} - {border.width.button.outline}",
+            "$description": "space.button.solid.block.lg"
           }
         },
         "inline": {
           "sm": {
-            "value": "{space.lg} - {border.width.button.outline}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.sm"
+            "$type": "spacing",
+            "$value": "{space.lg} - {border.width.button.outline}",
+            "$description": "space.button.solid.inline.sm"
           },
           "md": {
-            "value": "{space.xl} - {border.width.button.outline}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.md"
+            "$type": "spacing",
+            "$value": "{space.xl} - {border.width.button.outline}",
+            "$description": "space.button.solid.inline.md"
           },
           "lg": {
-            "value": "{space.xl} - {border.width.button.outline}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.lg"
+            "$type": "spacing",
+            "$value": "{space.xl} - {border.width.button.outline}",
+            "$description": "space.button.solid.inline.lg"
           },
           "textOnly": {
             "md": {
-              "value": "{space.2xl}",
-              "type": "spacing"
+              "$type": "spacing",
+              "$value": "{space.2xl}"
             },
             "lg": {
-              "value": "{space.2xl}",
-              "type": "spacing"
+              "$type": "spacing",
+              "$value": "{space.2xl}"
             }
           }
         },
         "icon-only": {
           "sm": {
-            "value": "{space.xs} - {border.width.button.outline}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.xs} - {border.width.button.outline}"
           },
           "md": {
-            "value": "{space.sm} - {border.width.button.outline}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.sm} - {border.width.button.outline}"
           },
           "lg": {
-            "value": "{space.sm} - {border.width.button.outline}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.sm} - {border.width.button.outline}"
           }
         }
       },
       "ghost": {
         "block": {
           "sm": {
-            "value": "{space.xs} - {border.width.button.ghost}",
-            "type": "spacing",
-            "description": "space.button.solid.block.sm"
+            "$type": "spacing",
+            "$value": "{space.xs} - {border.width.button.ghost}",
+            "$description": "space.button.solid.block.sm"
           },
           "md": {
-            "value": "{space.sm} - {border.width.button.ghost}",
-            "type": "spacing",
-            "description": "space.button.solid.block.md"
+            "$type": "spacing",
+            "$value": "{space.sm} - {border.width.button.ghost}",
+            "$description": "space.button.solid.block.md"
           },
           "lg": {
-            "value": "{space.sm} - {border.width.button.ghost}",
-            "type": "spacing",
-            "description": "space.button.solid.block.lg"
+            "$type": "spacing",
+            "$value": "{space.sm} - {border.width.button.ghost}",
+            "$description": "space.button.solid.block.lg"
           }
         },
         "inline": {
           "sm": {
-            "value": "{space.lg} - {border.width.button.ghost}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.sm"
+            "$type": "spacing",
+            "$value": "{space.lg} - {border.width.button.ghost}",
+            "$description": "space.button.solid.inline.sm"
           },
           "md": {
-            "value": "{space.xl} - {border.width.button.ghost}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.md"
+            "$type": "spacing",
+            "$value": "{space.xl} - {border.width.button.ghost}",
+            "$description": "space.button.solid.inline.md"
           },
           "lg": {
-            "value": "{space.xl} - {border.width.button.ghost}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.lg"
+            "$type": "spacing",
+            "$value": "{space.xl} - {border.width.button.ghost}",
+            "$description": "space.button.solid.inline.lg"
           }
         },
         "icon-only": {
           "sm": {
-            "value": "{space.xs} - {border.width.button.ghost}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.xs} - {border.width.button.ghost}"
           },
           "md": {
-            "value": "{space.sm} - {border.width.button.ghost}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.sm} - {border.width.button.ghost}"
           },
           "lg": {
-            "value": "{space.sm} - {border.width.button.ghost}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.sm} - {border.width.button.ghost}"
           }
         }
       },
       "gap": {
         "sm": {
-          "value": "{space.xs}",
-          "type": "spacing",
-          "description": "{space.button.gap.sm}"
+          "$type": "spacing",
+          "$value": "{space.xs}",
+          "$description": "{space.button.gap.sm}"
         },
         "md": {
-          "value": "{space.xs}",
-          "type": "spacing",
-          "description": "{space.button.gap.md}"
+          "$type": "spacing",
+          "$value": "{space.xs}",
+          "$description": "{space.button.gap.md}"
         },
         "lg": {
-          "value": "{space.sm}",
-          "type": "spacing",
-          "description": "{space.button.gap.lg}"
+          "$type": "spacing",
+          "$value": "{space.sm}",
+          "$description": "{space.button.gap.lg}"
         }
       },
       "link": {
         "block": {
           "sm": {
-            "value": "{space.xs} - {border.width.button.link}",
-            "type": "spacing",
-            "description": "space.button.solid.block.sm"
+            "$type": "spacing",
+            "$value": "{space.xs} - {border.width.button.link}",
+            "$description": "space.button.solid.block.sm"
           },
           "md": {
-            "value": "{space.sm} - {border.width.button.link}",
-            "type": "spacing",
-            "description": "space.button.solid.block.md"
+            "$type": "spacing",
+            "$value": "{space.sm} - {border.width.button.link}",
+            "$description": "space.button.solid.block.md"
           },
           "lg": {
-            "value": "{space.sm} - {border.width.button.link}",
-            "type": "spacing",
-            "description": "space.button.solid.block.lg"
+            "$type": "spacing",
+            "$value": "{space.sm} - {border.width.button.link}",
+            "$description": "space.button.solid.block.lg"
           }
         },
         "inline": {
           "sm": {
-            "value": "{space.none}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.sm"
+            "$type": "spacing",
+            "$value": "{space.none}",
+            "$description": "space.button.solid.inline.sm"
           },
           "md": {
-            "value": "{space.none}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.md"
+            "$type": "spacing",
+            "$value": "{space.none}",
+            "$description": "space.button.solid.inline.md"
           },
           "lg": {
-            "value": "{space.none}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.lg"
+            "$type": "spacing",
+            "$value": "{space.none}",
+            "$description": "space.button.solid.inline.lg"
           }
         },
         "icon-only": {
           "sm": {
-            "value": "{space.xs} - {border.width.button.link}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.xs} - {border.width.button.link}"
           },
           "md": {
-            "value": "{space.sm} - {border.width.button.link}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.sm} - {border.width.button.link}"
           },
           "lg": {
-            "value": "{space.sm} - {border.width.button.link}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.sm} - {border.width.button.link}"
           }
         }
       }
@@ -964,281 +964,281 @@
       "option": {
         "block": {
           "sm": {
-            "value": "{space.none}",
-            "type": "spacing",
-            "description": "space.button.solid.block.md"
+            "$type": "spacing",
+            "$value": "{space.none}",
+            "$description": "space.button.solid.block.md"
           },
           "md": {
-            "value": "{space.xs}",
-            "type": "spacing",
-            "description": "space.button.solid.block.md"
+            "$type": "spacing",
+            "$value": "{space.xs}",
+            "$description": "space.button.solid.block.md"
           },
           "lg": {
-            "value": "{space.xs}",
-            "type": "spacing",
-            "description": "space.button.solid.block.lg"
+            "$type": "spacing",
+            "$value": "{space.xs}",
+            "$description": "space.button.solid.block.lg"
           }
         },
         "inline": {
           "sm": {
-            "value": "{space.none}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.md"
+            "$type": "spacing",
+            "$value": "{space.none}",
+            "$description": "space.button.solid.inline.md"
           },
           "md": {
-            "value": "{space.none}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.md"
+            "$type": "spacing",
+            "$value": "{space.none}",
+            "$description": "space.button.solid.inline.md"
           },
           "lg": {
-            "value": "{space.none}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.lg"
+            "$type": "spacing",
+            "$value": "{space.none}",
+            "$description": "space.button.solid.inline.lg"
           }
         },
         "gap": {
           "sm": {
-            "value": "{space.sm}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
+            "$type": "spacing",
+            "$value": "{space.sm}",
+            "$description": "{space.button.gap.md}"
           },
           "md": {
-            "value": "{space.sm}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
+            "$type": "spacing",
+            "$value": "{space.sm}",
+            "$description": "{space.button.gap.md}"
           },
           "lg": {
-            "value": "{space.sm}",
-            "type": "spacing",
-            "description": "{space.button.gap.lg}"
+            "$type": "spacing",
+            "$value": "{space.sm}",
+            "$description": "{space.button.gap.lg}"
           }
         }
       },
       "textField": {
         "block": {
           "md": {
-            "value": "{space.xs} + {conceptual.border.width.default}",
-            "type": "spacing",
-            "description": "space.button.solid.block.md"
+            "$type": "spacing",
+            "$value": "{space.xs} + {conceptual.border.width.default}",
+            "$description": "space.button.solid.block.md"
           },
           "lg": {
-            "value": "{space.sm} - {conceptual.border.width.default}",
-            "type": "spacing",
-            "description": "space.button.solid.block.lg"
+            "$type": "spacing",
+            "$value": "{space.sm} - {conceptual.border.width.default}",
+            "$description": "space.button.solid.block.lg"
           }
         },
         "inline": {
           "md": {
-            "value": "{space.md} - {conceptual.border.width.default}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.md"
+            "$type": "spacing",
+            "$value": "{space.md} - {conceptual.border.width.default}",
+            "$description": "space.button.solid.inline.md"
           },
           "lg": {
-            "value": "{space.lg} - {conceptual.border.width.default}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.lg"
+            "$type": "spacing",
+            "$value": "{space.lg} - {conceptual.border.width.default}",
+            "$description": "space.button.solid.inline.lg"
           }
         },
         "gap": {
           "md": {
-            "value": "{space.sm}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
+            "$type": "spacing",
+            "$value": "{space.sm}",
+            "$description": "{space.button.gap.md}"
           },
           "lg": {
-            "value": "{space.sm}",
-            "type": "spacing",
-            "description": "{space.button.gap.lg}"
+            "$type": "spacing",
+            "$value": "{space.sm}",
+            "$description": "{space.button.gap.lg}"
           }
         }
       },
       "helper": {
         "gap": {
           "sm": {
-            "value": "{space.xs}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
+            "$type": "spacing",
+            "$value": "{space.xs}",
+            "$description": "{space.button.gap.md}"
           },
           "md": {
-            "value": "{space.xs}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
+            "$type": "spacing",
+            "$value": "{space.xs}",
+            "$description": "{space.button.gap.md}"
           },
           "lg": {
-            "value": "{space.xs}",
-            "type": "spacing",
-            "description": "{space.button.gap.lg}"
+            "$type": "spacing",
+            "$value": "{space.xs}",
+            "$description": "{space.button.gap.lg}"
           }
         },
         "paddingTop": {
           "sm": {
-            "value": "{space.xs}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
+            "$type": "spacing",
+            "$value": "{space.xs}",
+            "$description": "{space.button.gap.md}"
           },
           "md": {
-            "value": "{space.xs}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
+            "$type": "spacing",
+            "$value": "{space.xs}",
+            "$description": "{space.button.gap.md}"
           },
           "lg": {
-            "value": "{space.xs}",
-            "type": "spacing",
-            "description": "{space.button.gap.lg}"
+            "$type": "spacing",
+            "$value": "{space.xs}",
+            "$description": "{space.button.gap.lg}"
           },
           "none": {
-            "value": "{space.none}",
-            "type": "spacing",
-            "description": "{space.button.gap.lg}"
+            "$type": "spacing",
+            "$value": "{space.none}",
+            "$description": "{space.button.gap.lg}"
           }
         }
       },
       "fieldLabel": {
         "gap": {
           "sm": {
-            "value": "{space.xs}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
+            "$type": "spacing",
+            "$value": "{space.xs}",
+            "$description": "{space.button.gap.md}"
           },
           "md": {
-            "value": "{space.xs}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
+            "$type": "spacing",
+            "$value": "{space.xs}",
+            "$description": "{space.button.gap.md}"
           },
           "lg": {
-            "value": "{space.sm}",
-            "type": "spacing",
-            "description": "{space.button.gap.lg}"
+            "$type": "spacing",
+            "$value": "{space.sm}",
+            "$description": "{space.button.gap.lg}"
           },
           "none": {
-            "value": "{space.none}",
-            "type": "spacing",
-            "description": "{space.button.gap.lg}"
+            "$type": "spacing",
+            "$value": "{space.none}",
+            "$description": "{space.button.gap.lg}"
           }
         },
         "icon": {
           "md": {
-            "value": "{space.2xs}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
+            "$type": "spacing",
+            "$value": "{space.2xs}",
+            "$description": "{space.button.gap.md}"
           },
           "lg": {
-            "value": "{space.xs}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
+            "$type": "spacing",
+            "$value": "{space.xs}",
+            "$description": "{space.button.gap.md}"
           }
         },
         "paddingBottom": {
           "sm": {
-            "value": "{space.sm}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
+            "$type": "spacing",
+            "$value": "{space.sm}",
+            "$description": "{space.button.gap.md}"
           },
           "md": {
-            "value": "{space.xs}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
+            "$type": "spacing",
+            "$value": "{space.xs}",
+            "$description": "{space.button.gap.md}"
           },
           "lg": {
-            "value": "{space.sm}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
+            "$type": "spacing",
+            "$value": "{space.sm}",
+            "$description": "{space.button.gap.md}"
           },
           "none": {
-            "value": "{space.none}",
-            "type": "spacing",
-            "description": "{space.button.gap.lg}"
+            "$type": "spacing",
+            "$value": "{space.none}",
+            "$description": "{space.button.gap.lg}"
           }
         }
       },
       "switch": {
         "padding": {
           "container": {
-            "value": "{space.xs}",
-            "type": "spacing",
-            "description": "space.switch.padding.outer"
+            "$type": "spacing",
+            "$value": "{space.xs}",
+            "$description": "space.switch.padding.outer"
           },
           "controller": {
-            "value": "{space.2xs}",
-            "type": "spacing",
-            "description": "space.switch.padding.outer"
+            "$type": "spacing",
+            "$value": "{space.2xs}",
+            "$description": "space.switch.padding.outer"
           },
           "row": {
             "sm": {
-              "value": "{space.input.switch.margin.left} + {size.input.switch.controller.width.sm} + ({space.input.switch.padding.container} * 2)",
-              "type": "spacing",
-              "description": "space.switch.padding.outer"
+              "$type": "spacing",
+              "$value": "{space.input.switch.margin.left} + {size.input.switch.controller.width.sm} + ({space.input.switch.padding.container} * 2)",
+              "$description": "space.switch.padding.outer"
             },
             "md": {
-              "value": "{space.input.switch.margin.left} + {size.input.switch.controller.width.md} + ({space.input.switch.padding.container} * 2)",
-              "type": "spacing",
-              "description": "space.switch.padding.outer"
+              "$type": "spacing",
+              "$value": "{space.input.switch.margin.left} + {size.input.switch.controller.width.md} + ({space.input.switch.padding.container} * 2)",
+              "$description": "space.switch.padding.outer"
             },
             "lg": {
-              "value": "{space.input.switch.margin.left} + {size.input.switch.controller.width.lg} + ({space.input.switch.padding.container} * 2)",
-              "type": "spacing",
-              "description": "space.switch.padding.outer"
+              "$type": "spacing",
+              "$value": "{space.input.switch.margin.left} + {size.input.switch.controller.width.lg} + ({space.input.switch.padding.container} * 2)",
+              "$description": "space.switch.padding.outer"
             },
             "none": {
-              "value": "{space.none}",
-              "type": "spacing",
-              "description": "space.switch.padding.outer"
+              "$type": "spacing",
+              "$value": "{space.none}",
+              "$description": "space.switch.padding.outer"
             }
           }
         },
         "gap": {
-          "value": "{space.none}",
-          "type": "spacing",
-          "description": "space.input.switch.padding.gap"
+          "$type": "spacing",
+          "$value": "{space.none}",
+          "$description": "space.input.switch.padding.gap"
         },
         "margin": {
           "top": {
             "sm": {
-              "value": "{space.sm}",
-              "type": "spacing",
-              "description": "space.switch.padding.outer"
+              "$type": "spacing",
+              "$value": "{space.sm}",
+              "$description": "space.switch.padding.outer"
             },
             "md": {
-              "value": "{space.sm}",
-              "type": "spacing",
-              "description": "space.switch.padding.outer"
+              "$type": "spacing",
+              "$value": "{space.sm}",
+              "$description": "space.switch.padding.outer"
             },
             "lg": {
-              "value": "{space.sm}",
-              "type": "spacing",
-              "description": "space.switch.padding.outer"
+              "$type": "spacing",
+              "$value": "{space.sm}",
+              "$description": "space.switch.padding.outer"
             },
             "none": {
-              "value": "{space.none}",
-              "type": "spacing",
-              "description": "space.switch.padding.outer"
+              "$type": "spacing",
+              "$value": "{space.none}",
+              "$description": "space.switch.padding.outer"
             }
           },
           "left": {
-            "value": "{space.sm}",
-            "type": "spacing",
-            "description": "space.switch.padding.outer"
+            "$type": "spacing",
+            "$value": "{space.sm}",
+            "$description": "space.switch.padding.outer"
           },
           "bottom": {
             "sm": {
-              "value": "{space.none}",
-              "type": "spacing",
-              "description": "space.switch.padding.outer"
+              "$type": "spacing",
+              "$value": "{space.none}",
+              "$description": "space.switch.padding.outer"
             },
             "md": {
-              "value": "{space.xs}",
-              "type": "spacing",
-              "description": "space.switch.padding.outer"
+              "$type": "spacing",
+              "$value": "{space.xs}",
+              "$description": "space.switch.padding.outer"
             },
             "lg": {
-              "value": "{space.none}",
-              "type": "spacing",
-              "description": "space.switch.padding.outer"
+              "$type": "spacing",
+              "$value": "{space.none}",
+              "$description": "space.switch.padding.outer"
             },
             "none": {
-              "value": "{space.none}",
-              "type": "spacing",
-              "description": "space.switch.padding.outer"
+              "$type": "spacing",
+              "$value": "{space.none}",
+              "$description": "space.switch.padding.outer"
             }
           }
         }
@@ -1248,103 +1248,103 @@
       "desktop": {
         "container": {
           "paddingTop": {
-            "value": "{space.xl}",
-            "type": "spacing",
-            "description": "space.dialog.desktop.container.paddingTop"
+            "$type": "spacing",
+            "$value": "{space.xl}",
+            "$description": "space.dialog.desktop.container.paddingTop"
           },
           "inline": {
-            "value": "{space.xl}",
-            "type": "spacing",
-            "description": "space.dialog.desktop.container.inline"
+            "$type": "spacing",
+            "$value": "{space.xl}",
+            "$description": "space.dialog.desktop.container.inline"
           },
           "paddingBottom": {
-            "value": "{space.xl}",
-            "type": "spacing",
-            "description": "space.dialog.desktop.container.paddingBottom"
+            "$type": "spacing",
+            "$value": "{space.xl}",
+            "$description": "space.dialog.desktop.container.paddingBottom"
           }
         },
         "body": {
           "block": {
-            "value": "{space.xl}",
-            "type": "spacing",
-            "description": "space.dialog.desktop.body.block"
+            "$type": "spacing",
+            "$value": "{space.xl}",
+            "$description": "space.dialog.desktop.body.block"
           },
           "inline": {
-            "value": "{space.xl}",
-            "type": "spacing",
-            "description": "space.dialog.desktop.body.inline"
+            "$type": "spacing",
+            "$value": "{space.xl}",
+            "$description": "space.dialog.desktop.body.inline"
           },
           "gap": {
-            "value": "{space.xl}",
-            "type": "spacing",
-            "description": "space.dialog.desktop.body.gap"
+            "$type": "spacing",
+            "$value": "{space.xl}",
+            "$description": "space.dialog.desktop.body.gap"
           }
         }
       },
       "mobile": {
         "container": {
           "paddingTop": {
-            "value": "{space.xl} * 2",
-            "type": "spacing",
-            "description": "space.button.solid.block.md"
+            "$type": "spacing",
+            "$value": "{space.xl} * 2",
+            "$description": "space.button.solid.block.md"
           },
           "inline": {
-            "value": "{space.none}",
-            "type": "spacing",
-            "description": "space.button.solid.block.md"
+            "$type": "spacing",
+            "$value": "{space.none}",
+            "$description": "space.button.solid.block.md"
           },
           "paddingBottom": {
-            "value": "{space.none}",
-            "type": "spacing",
-            "description": "space.button.solid.block.md"
+            "$type": "spacing",
+            "$value": "{space.none}",
+            "$description": "space.button.solid.block.md"
           }
         },
         "body": {
           "block": {
-            "value": "{space.lg}",
-            "type": "spacing",
-            "description": "space.button.solid.block.md"
+            "$type": "spacing",
+            "$value": "{space.lg}",
+            "$description": "space.button.solid.block.md"
           },
           "inline": {
-            "value": "{space.lg}",
-            "type": "spacing",
-            "description": "space.button.solid.block.md"
+            "$type": "spacing",
+            "$value": "{space.lg}",
+            "$description": "space.button.solid.block.md"
           },
           "gap": {
-            "value": "{space.lg}",
-            "type": "spacing",
-            "description": "space.button.solid.block.md"
+            "$type": "spacing",
+            "$value": "{space.lg}",
+            "$description": "space.button.solid.block.md"
           }
         }
       },
       "subtitle": {
         "paddingBottom": {
-          "value": "{space.xs}",
-          "type": "spacing",
-          "description": "space.button.solid.block.md"
+          "$type": "spacing",
+          "$value": "{space.xs}",
+          "$description": "space.button.solid.block.md"
         }
       },
       "gap": {
         "header": {
-          "value": "{space.none}",
-          "type": "spacing",
-          "description": "space.button.solid.block.md"
+          "$type": "spacing",
+          "$value": "{space.none}",
+          "$description": "space.button.solid.block.md"
         }
       },
       "message": {
         "mobile": {
           "container": {
             "paddingLeft": {
-              "value": "{space.xl}",
-              "type": "spacing"
+              "$type": "spacing",
+              "$value": "{space.xl}"
             },
             "paddingRight": {
-              "value": "{space.xl}",
-              "type": "spacing"
+              "$type": "spacing",
+              "$value": "{space.xl}"
             },
             "inline": {
-              "value": "100%",
-              "type": "spacing"
+              "$type": "spacing",
+              "$value": "100%"
             }
           }
         }
@@ -1354,338 +1354,338 @@
       "gap": {
         "default": {
           "block": {
-            "value": "{space.sm}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.sm}"
           },
           "inline": {
-            "value": "{space.buttonBar.gap.default.block}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.buttonBar.gap.default.block}"
           }
         },
         "ghostIcon": {
           "block": {
-            "value": "{space.xs}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.xs}"
           },
           "inline": {
-            "value": "{space.buttonBar.gap.ghostIcon.block}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.buttonBar.gap.ghostIcon.block}"
           }
         }
       }
     },
     "group": {
       "sm": {
-        "value": "{space.2xs}",
-        "type": "spacing"
+        "$type": "spacing",
+        "$value": "{space.2xs}"
       },
       "md": {
-        "value": "{space.xs}",
-        "type": "spacing"
+        "$type": "spacing",
+        "$value": "{space.xs}"
       },
       "lg": {
-        "value": "{space.sm}",
-        "type": "spacing"
+        "$type": "spacing",
+        "$value": "{space.sm}"
       },
       "xl": {
-        "value": "{space.sm}",
-        "type": "spacing"
+        "$type": "spacing",
+        "$value": "{space.sm}"
       }
     },
     "select": {
       "listbox": {
         "block": {
           "lg": {
-            "value": "{space.sm} - {border.width.xs}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.sm} - {border.width.xs}"
           },
           "md": {
-            "value": "{space.sm} - {border.width.xs}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.sm} - {border.width.xs}"
           }
         },
         "inline": {
           "lg": {
-            "value": "{space.sm} - {border.width.xs}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.sm} - {border.width.xs}"
           },
           "md": {
-            "value": "{space.sm} - {border.width.xs}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.sm} - {border.width.xs}"
           }
         },
         "gap": {
           "lg": {
-            "value": "{space.xs}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.xs}"
           },
           "md": {
-            "value": "{space.xs}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.xs}"
           }
         }
       },
       "divider": {
         "block": {
           "lg": {
-            "value": "{space.sm}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.sm}"
           },
           "md": {
-            "value": "{space.sm}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.sm}"
           }
         },
         "inline": {
           "lg": {
-            "value": "{space.md}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.md}"
           },
           "md": {
-            "value": "{space.md}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.md}"
           }
         },
         "gap": {
           "lg": {
-            "value": "{space.sm}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.sm}"
           },
           "md": {
-            "value": "{space.sm}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.sm}"
           }
         },
         "line": {
           "lg": {
-            "value": "{space.sm}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.sm}"
           },
           "md": {
-            "value": "{space.sm}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.sm}"
           }
         }
       },
       "selectbox": {
         "block": {
           "md": {
-            "value": "{space.input.textField.block.md}",
-            "type": "spacing",
-            "description": "space.button.solid.block.md"
+            "$type": "spacing",
+            "$value": "{space.input.textField.block.md}",
+            "$description": "space.button.solid.block.md"
           },
           "lg": {
-            "value": "{space.input.textField.block.lg}",
-            "type": "spacing",
-            "description": "space.button.solid.block.lg"
+            "$type": "spacing",
+            "$value": "{space.input.textField.block.lg}",
+            "$description": "space.button.solid.block.lg"
           }
         },
         "inline": {
           "md": {
-            "value": "{space.input.textField.inline.md}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.md"
+            "$type": "spacing",
+            "$value": "{space.input.textField.inline.md}",
+            "$description": "space.button.solid.inline.md"
           },
           "lg": {
-            "value": "{space.input.textField.inline.lg}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.lg"
+            "$type": "spacing",
+            "$value": "{space.input.textField.inline.lg}",
+            "$description": "space.button.solid.inline.lg"
           }
         },
         "gap": {
           "md": {
-            "value": "{space.input.textField.gap.md}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
+            "$type": "spacing",
+            "$value": "{space.input.textField.gap.md}",
+            "$description": "{space.button.gap.md}"
           },
           "lg": {
-            "value": "{space.input.textField.gap.lg}",
-            "type": "spacing",
-            "description": "{space.button.gap.lg}"
+            "$type": "spacing",
+            "$value": "{space.input.textField.gap.lg}",
+            "$description": "{space.button.gap.lg}"
           }
         }
       },
       "item": {
         "block": {
           "md": {
-            "value": "{space.input.textField.block.md}",
-            "type": "spacing",
-            "description": "space.button.solid.block.md"
+            "$type": "spacing",
+            "$value": "{space.input.textField.block.md}",
+            "$description": "space.button.solid.block.md"
           },
           "lg": {
-            "value": "{space.input.textField.block.lg}",
-            "type": "spacing",
-            "description": "space.button.solid.block.lg"
+            "$type": "spacing",
+            "$value": "{space.input.textField.block.lg}",
+            "$description": "space.button.solid.block.lg"
           }
         },
         "inline": {
           "md": {
-            "value": "{space.input.textField.inline.md}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.md"
+            "$type": "spacing",
+            "$value": "{space.input.textField.inline.md}",
+            "$description": "space.button.solid.inline.md"
           },
           "lg": {
-            "value": "{space.input.textField.inline.lg}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.lg"
+            "$type": "spacing",
+            "$value": "{space.input.textField.inline.lg}",
+            "$description": "space.button.solid.inline.lg"
           }
         },
         "gap": {
           "md": {
-            "value": "{space.input.textField.gap.md}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
+            "$type": "spacing",
+            "$value": "{space.input.textField.gap.md}",
+            "$description": "{space.button.gap.md}"
           },
           "lg": {
-            "value": "{space.input.textField.gap.lg}",
-            "type": "spacing",
-            "description": "{space.button.gap.lg}"
+            "$type": "spacing",
+            "$value": "{space.input.textField.gap.lg}",
+            "$description": "{space.button.gap.lg}"
           }
         }
       }
     },
     "tooltip": {
       "block": {
-        "value": "{space.sm}",
-        "type": "spacing",
-        "description": "space.button.solid.block.md"
+        "$type": "spacing",
+        "$value": "{space.sm}",
+        "$description": "space.button.solid.block.md"
       },
       "inline": {
-        "value": "{space.sm}",
-        "type": "spacing",
-        "description": "space.button.solid.inline.md"
+        "$type": "spacing",
+        "$value": "{space.sm}",
+        "$description": "space.button.solid.inline.md"
       },
       "gap": {
-        "value": "{space.xs}",
-        "type": "spacing"
+        "$type": "spacing",
+        "$value": "{space.xs}"
       },
       "offset": {
-        "value": "{space.xs}",
-        "type": "spacing"
+        "$type": "spacing",
+        "$value": "{space.xs}"
       }
     },
     "badge": {
       "inline": {
         "sm": {
-          "value": "{space.2xs}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.2xs}"
         },
         "md": {
-          "value": "{space.sm}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.sm}"
         },
         "lg": {
-          "value": "{space.sm}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.sm}"
         }
       },
       "block": {
         "sm": {
-          "value": "{space.2xs}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.2xs}"
         },
         "md": {
-          "value": "{space.2xs}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.2xs}"
         },
         "lg": {
-          "value": "{space.2xs}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.2xs}"
         }
       },
       "gap": {
         "sm": {
-          "value": "{space.2xs}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.2xs}"
         },
         "md": {
-          "value": "{space.xs}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.xs}"
         },
         "lg": {
-          "value": "{space.xs}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.xs}"
         }
       },
       "icon": {
         "inline": {
           "2xs": {
-            "value": "{space.none}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.none}"
           },
           "xs": {
-            "value": "{space.none}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.none}"
           },
           "sm": {
-            "value": "{space.none}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.none}"
           },
           "md": {
-            "value": "{space.none}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.none}"
           },
           "lg": {
-            "value": "1",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "1"
           },
           "xl": {
-            "value": "{space.2xs}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.2xs}"
           }
         },
         "block": {
           "2xs": {
-            "value": "{space.none}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.none}"
           },
           "xs": {
-            "value": "{space.none}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.none}"
           },
           "sm": {
-            "value": "{space.none}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.none}"
           },
           "md": {
-            "value": "{space.none}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.none}"
           },
           "lg": {
-            "value": "1",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "1"
           },
           "xl": {
-            "value": "{space.2xs}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.2xs}"
           }
         }
       },
       "label": {
         "inline": {
           "2xs": {
-            "value": "{space.2xs}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.2xs}"
           },
           "xs": {
-            "value": "{space.2xs}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.2xs}"
           },
           "sm": {
-            "value": "{space.2xs}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.2xs}"
           },
           "md": {
-            "value": "3px",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "3px"
           },
           "lg": {
-            "value": "3px",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "3px"
           },
           "xl": {
-            "value": "3px",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "3px"
           }
         }
       }
@@ -1693,203 +1693,203 @@
     "avatar": {
       "inline": {
         "sm": {
-          "value": "{space.sm}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.sm}"
         },
         "md": {
-          "value": "{space.sm}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.sm}"
         },
         "lg": {
-          "value": "{space.lg}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.lg}"
         },
         "xl": {
-          "value": "{space.lg}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.lg}"
         },
         "2xl": {
-          "value": "{space.lg}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.lg}"
         },
         "3xl": {
-          "value": "{space.lg}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.lg}"
         }
       },
       "block": {
         "sm": {
-          "value": "{space.sm}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.sm}"
         },
         "md": {
-          "value": "{space.sm}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.sm}"
         },
         "lg": {
-          "value": "{space.sm}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.sm}"
         },
         "xl": {
-          "value": "{space.sm}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.sm}"
         },
         "2xl": {
-          "value": "{space.sm}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.sm}"
         },
         "3xl": {
-          "value": "{space.sm}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.sm}"
         }
       },
       "badge": {
         "inset": {
           "sm": {
-            "value": "{space.2xs} * -1",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.2xs} * -1"
           },
           "md": {
-            "value": "{space.none}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.none}"
           },
           "lg": {
-            "value": "{space.xs} * -1",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.xs} * -1"
           },
           "xl": {
-            "value": "{space.2xs} * -1",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.2xs} * -1"
           },
           "2xl": {
-            "value": "{space.2xs} * -1",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.2xs} * -1"
           },
           "3xl": {
-            "value": "{space.2xs}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.2xs}"
           },
           "4xl": {
-            "value": "{space.md} + 2px",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.md} + 2px"
           }
         },
         "margin": {
-          "value": "{space.2xs}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.2xs}"
         }
       }
     },
     "popover": {
       "block": {
-        "value": "{space.sm}",
-        "type": "spacing",
-        "description": "space.button.solid.block.md"
+        "$type": "spacing",
+        "$value": "{space.sm}",
+        "$description": "space.button.solid.block.md"
       },
       "inline": {
-        "value": "{space.md}",
-        "type": "spacing",
-        "description": "space.button.solid.inline.md"
+        "$type": "spacing",
+        "$value": "{space.md}",
+        "$description": "space.button.solid.inline.md"
       },
       "gap": {
-        "value": "{space.xs}",
-        "type": "spacing",
-        "description": "space.popover.gap"
+        "$type": "spacing",
+        "$value": "{space.xs}",
+        "$description": "space.popover.gap"
       },
       "offset": {
-        "value": "{space.xs}",
-        "type": "spacing"
+        "$type": "spacing",
+        "$value": "{space.xs}"
       },
       "links": {
         "gap": {
-          "value": "{space.sm}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.sm}"
         },
         "block": {
-          "value": "{space.xs}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.xs}"
         }
       }
     },
     "inline-message": {
       "block": {
-        "value": "{space.md}",
-        "type": "spacing",
-        "description": "space.inline-message.block.md"
+        "$type": "spacing",
+        "$value": "{space.md}",
+        "$description": "space.inline-message.block.md"
       },
       "inline": {
         "start": {
-          "value": "{space.lg} + {size.inline-message.start}",
-          "type": "spacing",
-          "description": "space.inline-message.inline.start"
+          "$type": "spacing",
+          "$value": "{space.lg} + {size.inline-message.start}",
+          "$description": "space.inline-message.inline.start"
         },
         "end": {
-          "value": "{space.md}",
-          "type": "spacing",
-          "description": "space.inline-message.inline.end"
+          "$type": "spacing",
+          "$value": "{space.md}",
+          "$description": "space.inline-message.inline.end"
         }
       },
       "gap": {
-        "value": "{space.lg}",
-        "type": "spacing"
+        "$type": "spacing",
+        "$value": "{space.lg}"
       },
       "content": {
         "gap": {
-          "value": "{space.xs}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.xs}"
         }
       }
     },
     "tab": {
       "inline": {
-        "value": "{space.xl}",
-        "type": "spacing"
+        "$type": "spacing",
+        "$value": "{space.xl}"
       },
       "block": {
-        "value": "{space.md}",
-        "type": "spacing"
+        "$type": "spacing",
+        "$value": "{space.md}"
       },
       "gap": {
-        "value": "{space.sm}",
-        "type": "spacing"
+        "$type": "spacing",
+        "$value": "{space.sm}"
       },
       "more": {
         "inline": {
-          "value": "{space.md}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.md}"
         },
         "block": {
-          "value": "{space.sm}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.sm}"
         }
       },
       "content": {
         "horizontal": {
           "inline": {
-            "value": "{space.xl}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.xl}"
           },
           "block": {
-            "value": "{space.xl}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.xl}"
           },
           "gap": {
-            "value": "{space.xl}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.xl}"
           }
         },
         "vertical": {
           "inline": {
-            "value": "{space.xl}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.xl}"
           },
           "block": {
-            "value": "{space.sm}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.sm}"
           },
           "gap": {
-            "value": "{space.xl}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.xl}"
           }
         }
       }
@@ -1897,61 +1897,61 @@
     "card": {
       "media": {
         "full": {
-          "value": "{space.none}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.none}"
         },
         "margins": {
-          "value": "{space.sm}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.sm}"
         }
       },
       "content": {
         "inline": {
-          "value": "{space.xl}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.xl}"
         }
       },
       "vertical": {
         "inline": {
-          "value": "{space.none}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.none}"
         },
         "block": {
-          "value": "{space.xl}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.xl}"
         },
         "gap": {
-          "value": "{space.none}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.none}"
         }
       },
       "horizontal": {
         "inline": {
-          "value": "{space.none}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.none}"
         },
         "block": {
-          "value": "{space.xl}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.xl}"
         },
         "gap": {
-          "value": "{space.none}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.none}"
         }
       },
       "slotheader": {
         "badges": {
           "inline": {
-            "value": "{space.none}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.none}"
           },
           "block": {
-            "value": "{space.xs}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.xs}"
           },
           "gap": {
-            "value": "{space.sm}",
-            "type": "spacing"
+            "$type": "spacing",
+            "$value": "{space.sm}"
           }
         }
       }
@@ -1959,133 +1959,133 @@
     "menu": {
       "container": {
         "block": {
-          "value": "{space.sm}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.sm}"
         },
         "inline": {
-          "value": "{space.sm}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.sm}"
         },
         "gap": {
-          "value": "{space.xs}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.xs}"
         }
       },
       "item": {
         "block": {
-          "value": "{space.sm}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.sm}"
         },
         "inline": {
-          "value": "{space.sm}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.sm}"
         },
         "gap": {
-          "value": "{space.sm}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.sm}"
         }
       }
     },
     "breadcrumb": {
       "gap": {
         "full": {
-          "value": "{space.lg}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.lg}"
         },
         "short": {
-          "value": "{space.sm}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.sm}"
         },
         "home": {
-          "value": "{space.xs}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.xs}"
         }
       }
     },
     "form": {
       "gap": {
-        "value": "{space.xl}",
-        "type": "spacing"
+        "$type": "spacing",
+        "$value": "{space.xl}"
       }
     },
     "progressbar": {
       "vertical": {
         "gap": {
-          "value": "{space.sm}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.sm}"
         }
       },
       "horizontal": {
         "gap": {
-          "value": "{space.lg}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.lg}"
         }
       }
     },
     "tag": {
       "block": {
         "md": {
-          "value": "{space.xs}",
-          "type": "spacing",
-          "description": "space.button.solid.block.md"
+          "$type": "spacing",
+          "$value": "{space.xs}",
+          "$description": "space.button.solid.block.md"
         },
         "lg": {
-          "value": "{space.sm}",
-          "type": "spacing",
-          "description": "space.button.solid.block.lg"
+          "$type": "spacing",
+          "$value": "{space.sm}",
+          "$description": "space.button.solid.block.lg"
         }
       },
       "inline": {
         "md": {
-          "value": "{space.sm}",
-          "type": "spacing",
-          "description": "space.button.solid.inline.md"
+          "$type": "spacing",
+          "$value": "{space.sm}",
+          "$description": "space.button.solid.inline.md"
         },
         "lg": {
-          "value": "{space.md}",
-          "type": "spacing",
-          "description": "space.button.solid.inline.lg"
+          "$type": "spacing",
+          "$value": "{space.md}",
+          "$description": "space.button.solid.inline.lg"
         }
       },
       "gap": {
         "md": {
-          "value": "{space.sm}",
-          "type": "spacing",
-          "description": "{space.button.gap.md}"
+          "$type": "spacing",
+          "$value": "{space.sm}",
+          "$description": "{space.button.gap.md}"
         },
         "lg": {
-          "value": "{space.md}",
-          "type": "spacing",
-          "description": "{space.button.gap.lg}"
+          "$type": "spacing",
+          "$value": "{space.md}",
+          "$description": "{space.button.gap.lg}"
         }
       },
       "counter": {
         "gap": {
-          "value": "-1 * {borderRadius.default} / 2",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "-1 * {borderRadius.default} / 2"
         }
       },
       "list": {
         "md": {
-          "value": "{space.xs}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.xs}"
         },
         "lg": {
-          "value": "{space.xs} + {space.2xs}",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "{space.xs} + {space.2xs}"
         }
       }
     },
     "focus": {
       "gap": {
-        "value": "{border.width.focusring.default} + {border.width.focusring.offset}",
-        "type": "spacing"
+        "$type": "spacing",
+        "$value": "{border.width.focusring.default} + {border.width.focusring.offset}"
       }
     },
     "paginator": {
       "gap": {
-        "value": "{space.sm}",
-        "type": "spacing"
+        "$type": "spacing",
+        "$value": "{space.sm}"
       }
     }
   },
@@ -2093,290 +2093,290 @@
     "typeset": {
       "fontFamily": {
         "icon": {
-          "value": "Font Awesome 6 Pro",
-          "type": "fontFamilies",
-          "description": "text.typeset.fontFamily.icon"
+          "$type": "fontFamilies",
+          "$value": "Font Awesome 6 Pro",
+          "$description": "text.typeset.fontFamily.icon"
         }
       },
       "fontWeight": {
         "icon-thin": {
-          "value": "Thin",
-          "type": "fontWeights",
-          "description": "text.typeset.fontWeight.icon-thin"
+          "$type": "fontWeights",
+          "$value": "Thin",
+          "$description": "text.typeset.fontWeight.icon-thin"
         },
         "icon-light": {
-          "value": "Light",
-          "type": "fontWeights",
-          "description": "text.typeset.fontWeight.icon-light"
+          "$type": "fontWeights",
+          "$value": "Light",
+          "$description": "text.typeset.fontWeight.icon-light"
         },
         "icon-regular": {
-          "value": "Regular",
-          "type": "fontWeights",
-          "description": "text.typeset.fontWeight.icon-regular"
+          "$type": "fontWeights",
+          "$value": "Regular",
+          "$description": "text.typeset.fontWeight.icon-regular"
         },
         "icon-solid": {
-          "value": "Solid",
-          "type": "fontWeights",
-          "description": "text.typeset.fontWeight.icon-solid"
+          "$type": "fontWeights",
+          "$value": "Solid",
+          "$description": "text.typeset.fontWeight.icon-solid"
         },
         "regular": {
-          "value": "Regular",
-          "type": "fontWeights",
-          "description": "text.typeset.fontWeight.regular"
+          "$type": "fontWeights",
+          "$value": "Regular",
+          "$description": "text.typeset.fontWeight.regular"
         },
         "demibold": {
-          "value": "DemiBold",
-          "type": "fontWeights",
-          "description": "text.typeset.fontWeight.demibold"
+          "$type": "fontWeights",
+          "$value": "DemiBold",
+          "$description": "text.typeset.fontWeight.demibold"
         },
         "bold": {
-          "value": "Bold",
-          "type": "fontWeights",
-          "description": "text.typeset.fontWeight.bold"
+          "$type": "fontWeights",
+          "$value": "Bold",
+          "$description": "text.typeset.fontWeight.bold"
         }
       },
       "fontSize": {
         "xs": {
-          "value": "10",
-          "type": "fontSizes",
-          "description": "text.typeset.fontSize.xs"
+          "$type": "fontSizes",
+          "$value": "10",
+          "$description": "text.typeset.fontSize.xs"
         },
         "sm": {
-          "value": "12",
-          "type": "fontSizes",
-          "description": "text.typeset.fontSize.sm"
+          "$type": "fontSizes",
+          "$value": "12",
+          "$description": "text.typeset.fontSize.sm"
         },
         "md": {
-          "value": "14",
-          "type": "fontSizes",
-          "description": "text.typeset.fontSize.md"
+          "$type": "fontSizes",
+          "$value": "14",
+          "$description": "text.typeset.fontSize.md"
         },
         "lg": {
-          "value": "16",
-          "type": "fontSizes",
-          "description": "text.typeset.fontSize.lg"
+          "$type": "fontSizes",
+          "$value": "16",
+          "$description": "text.typeset.fontSize.lg"
         },
         "xl": {
-          "value": "18",
-          "type": "fontSizes",
-          "description": "text.typeset.fontSize.xl"
+          "$type": "fontSizes",
+          "$value": "18",
+          "$description": "text.typeset.fontSize.xl"
         },
         "2xl": {
-          "value": "24",
-          "type": "fontSizes",
-          "description": "text.typeset.fontSize.2xl"
+          "$type": "fontSizes",
+          "$value": "24",
+          "$description": "text.typeset.fontSize.2xl"
         },
         "3xl": {
-          "value": "32",
-          "type": "fontSizes",
-          "description": "text.typeset.fontSize.3xl"
+          "$type": "fontSizes",
+          "$value": "32",
+          "$description": "text.typeset.fontSize.3xl"
         },
         "4xl": {
-          "value": "48",
-          "type": "fontSizes",
-          "description": "text.typeset.fontSize.4xl"
+          "$type": "fontSizes",
+          "$value": "48",
+          "$description": "text.typeset.fontSize.4xl"
         },
         "5xl": {
-          "value": "54",
-          "type": "fontSizes",
-          "description": "text.typeset.fontSize.5xl"
+          "$type": "fontSizes",
+          "$value": "54",
+          "$description": "text.typeset.fontSize.5xl"
         }
       },
       "lineHeight": {
         "xxs": {
-          "value": "12",
-          "type": "lineHeights",
-          "description": "text.typeset.lineHeight.xs"
+          "$type": "lineHeights",
+          "$value": "12",
+          "$description": "text.typeset.lineHeight.xs"
         },
         "xs": {
-          "value": "14",
-          "type": "lineHeights",
-          "description": "text.typeset.lineHeight.xs"
+          "$type": "lineHeights",
+          "$value": "14",
+          "$description": "text.typeset.lineHeight.xs"
         },
         "sm": {
-          "value": "16",
-          "type": "lineHeights",
-          "description": "text.typeset.lineHeight.sm"
+          "$type": "lineHeights",
+          "$value": "16",
+          "$description": "text.typeset.lineHeight.sm"
         },
         "md": {
-          "value": "20",
-          "type": "lineHeights",
-          "description": "text.typeset.lineHeight.md"
+          "$type": "lineHeights",
+          "$value": "20",
+          "$description": "text.typeset.lineHeight.md"
         },
         "lg": {
-          "value": "24",
-          "type": "lineHeights",
-          "description": "text.typeset.lineHeight.lg"
+          "$type": "lineHeights",
+          "$value": "24",
+          "$description": "text.typeset.lineHeight.lg"
         },
         "xl": {
-          "value": "28",
-          "type": "lineHeights",
-          "description": "text.typeset.lineHeight.xl"
+          "$type": "lineHeights",
+          "$value": "28",
+          "$description": "text.typeset.lineHeight.xl"
         },
         "2xl": {
-          "value": "34",
-          "type": "lineHeights",
-          "description": "text.typeset.lineHeight.2xl"
+          "$type": "lineHeights",
+          "$value": "34",
+          "$description": "text.typeset.lineHeight.2xl"
         },
         "3xl": {
-          "value": "42",
-          "type": "lineHeights",
-          "description": "text.typeset.lineHeight.3xl"
+          "$type": "lineHeights",
+          "$value": "42",
+          "$description": "text.typeset.lineHeight.3xl"
         },
         "4xl": {
-          "value": "58",
-          "type": "lineHeights",
-          "description": "text.typeset.lineHeight.4xl"
+          "$type": "lineHeights",
+          "$value": "58",
+          "$description": "text.typeset.lineHeight.4xl"
         },
         "5xl": {
-          "value": "64",
-          "type": "lineHeights",
-          "description": "text.typeset.lineHeight.5xl"
+          "$type": "lineHeights",
+          "$value": "64",
+          "$description": "text.typeset.lineHeight.5xl"
         }
       },
       "paragraphSpacing": {
         "none": {
-          "value": "0",
-          "type": "paragraphSpacing",
-          "description": "text.typeset.paragraphSpacing.none"
+          "$type": "paragraphSpacing",
+          "$value": "0",
+          "$description": "text.typeset.paragraphSpacing.none"
         },
         "xs": {
-          "value": "14",
-          "type": "paragraphSpacing",
-          "description": "text.typeset.paragraphSpacing.xs"
+          "$type": "paragraphSpacing",
+          "$value": "14",
+          "$description": "text.typeset.paragraphSpacing.xs"
         },
         "sm": {
-          "value": "18",
-          "type": "paragraphSpacing",
-          "description": "text.typeset.paragraphSpacing.sm"
+          "$type": "paragraphSpacing",
+          "$value": "18",
+          "$description": "text.typeset.paragraphSpacing.sm"
         },
         "md": {
-          "value": "22",
-          "type": "paragraphSpacing",
-          "description": "text.typeset.paragraphSpacing.md"
+          "$type": "paragraphSpacing",
+          "$value": "22",
+          "$description": "text.typeset.paragraphSpacing.md"
         },
         "lg": {
-          "value": "24",
-          "type": "paragraphSpacing",
-          "description": "text.typeset.paragraphSpacing.lg"
+          "$type": "paragraphSpacing",
+          "$value": "24",
+          "$description": "text.typeset.paragraphSpacing.lg"
         },
         "xl": {
-          "value": "28",
-          "type": "paragraphSpacing",
-          "description": "text.typeset.paragraphSpacing.xl"
+          "$type": "paragraphSpacing",
+          "$value": "28",
+          "$description": "text.typeset.paragraphSpacing.xl"
         },
         "2xl": {
-          "value": "34",
-          "type": "paragraphSpacing",
-          "description": "text.typeset.paragraphSpacing.2xl"
+          "$type": "paragraphSpacing",
+          "$value": "34",
+          "$description": "text.typeset.paragraphSpacing.2xl"
         },
         "3xl": {
-          "value": "42",
-          "type": "paragraphSpacing",
-          "description": "text.typeset.paragraphSpacing.3xl"
+          "$type": "paragraphSpacing",
+          "$value": "42",
+          "$description": "text.typeset.paragraphSpacing.3xl"
         },
         "4xl": {
-          "value": "58",
-          "type": "paragraphSpacing",
-          "description": "text.typeset.paragraphSpacing.4xl"
+          "$type": "paragraphSpacing",
+          "$value": "58",
+          "$description": "text.typeset.paragraphSpacing.4xl"
         },
         "5xl": {
-          "value": "64",
-          "type": "paragraphSpacing",
-          "description": "text.typeset.paragraphSpacing.5xl"
+          "$type": "paragraphSpacing",
+          "$value": "64",
+          "$description": "text.typeset.paragraphSpacing.5xl"
         }
       },
       "textDecoration": {
         "none": {
-          "value": "none",
-          "type": "textDecoration",
-          "description": "text.typeset.textDecoration.none"
+          "$type": "textDecoration",
+          "$value": "none",
+          "$description": "text.typeset.textDecoration.none"
         },
         "underline": {
-          "value": "underline",
-          "type": "textDecoration",
-          "description": "text.typeset.textDecoration.underline"
+          "$type": "textDecoration",
+          "$value": "underline",
+          "$description": "text.typeset.textDecoration.underline"
         },
         "strikethrough": {
-          "value": "strikethrough",
-          "type": "textDecoration",
-          "description": "text.typeset.textDecoration.strikethrough"
+          "$type": "textDecoration",
+          "$value": "strikethrough",
+          "$description": "text.typeset.textDecoration.strikethrough"
         }
       },
       "textCase": {
         "none": {
-          "value": "none",
-          "type": "textCase",
-          "description": "text.typeset.textCase.none"
+          "$type": "textCase",
+          "$value": "none",
+          "$description": "text.typeset.textCase.none"
         },
         "uppercase": {
-          "value": "uppercase",
-          "type": "textCase",
-          "description": "text.typeset.textCase.uppercase"
+          "$type": "textCase",
+          "$value": "uppercase",
+          "$description": "text.typeset.textCase.uppercase"
         },
         "lowercase": {
-          "value": "lowercase",
-          "type": "textCase",
-          "description": "text.typeset.textCase.lowercase"
+          "$type": "textCase",
+          "$value": "lowercase",
+          "$description": "text.typeset.textCase.lowercase"
         },
         "capitalize": {
-          "value": "capitalize",
-          "type": "textCase",
-          "description": "text.typeset.textCase.capitalize"
+          "$type": "textCase",
+          "$value": "capitalize",
+          "$description": "text.typeset.textCase.capitalize"
         }
       },
       "letterSpacing": {
         "none": {
-          "value": "0%",
-          "type": "letterSpacing",
-          "description": "text.typeset.letterSpacing.none"
+          "$type": "letterSpacing",
+          "$value": "0%",
+          "$description": "text.typeset.letterSpacing.none"
         },
         "xs": {
-          "value": "-2%",
-          "type": "letterSpacing",
-          "description": "text.typeset.letterSpacing.xs"
+          "$type": "letterSpacing",
+          "$value": "-2%",
+          "$description": "text.typeset.letterSpacing.xs"
         },
         "sm": {
-          "value": "-1%",
-          "type": "letterSpacing",
-          "description": "text.typeset.letterSpacing.sm"
+          "$type": "letterSpacing",
+          "$value": "-1%",
+          "$description": "text.typeset.letterSpacing.sm"
         },
         "md": {
-          "value": "0%",
-          "type": "letterSpacing",
-          "description": "text.typeset.letterSpacing.md"
+          "$type": "letterSpacing",
+          "$value": "0%",
+          "$description": "text.typeset.letterSpacing.md"
         },
         "lg": {
-          "value": "1%",
-          "type": "letterSpacing",
-          "description": "text.typeset.letterSpacing.lg"
+          "$type": "letterSpacing",
+          "$value": "1%",
+          "$description": "text.typeset.letterSpacing.lg"
         },
         "xl": {
-          "value": "2%",
-          "type": "letterSpacing",
-          "description": "text.typeset.letterSpacing.xl"
+          "$type": "letterSpacing",
+          "$value": "2%",
+          "$description": "text.typeset.letterSpacing.xl"
         }
       }
     },
     "badge": {
       "text": {
         "md": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.demibold}",
             "fontSize": "{text.typeset.fontSize.sm}",
             "lineHeight": "{text.typeset.lineHeight.sm}"
-          },
-          "type": "typography"
+          }
         },
         "lg": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.demibold}",
             "fontSize": "{text.typeset.fontSize.md}",
             "lineHeight": "{text.typeset.lineHeight.md}"
-          },
-          "type": "typography"
+          }
         }
       }
     },
@@ -2384,22 +2384,22 @@
       "message": {
         "mobile": {
           "heading": {
-            "value": {
+            "$type": "typography",
+            "$value": {
               "fontFamily": "{text.typeset.fontFamily.heading}",
               "fontWeight": "{text.typeset.fontWeight.demibold}",
               "lineHeight": "{text.typeset.lineHeight.md}",
               "fontSize": "{icon.typeset.fontSize.md}"
-            },
-            "type": "typography"
+            }
           },
           "subheading": {
-            "value": {
+            "$type": "typography",
+            "$value": {
               "fontFamily": "{text.typeset.fontFamily.body}",
               "fontWeight": "{text.typeset.fontWeight.demibold}",
               "lineHeight": "{text.typeset.lineHeight.sm}",
               "fontSize": "{icon.typeset.fontSize.sm}"
-            },
-            "type": "typography"
+            }
           }
         }
       }
@@ -2408,217 +2408,227 @@
   "icon": {
     "fontFamily": {
       "classic": {
-        "value": "Font Awesome 6 Pro",
-        "type": "fontFamilies"
+        "$type": "fontFamilies",
+        "$value": "Font Awesome 6 Pro"
       },
       "sharp": {
-        "value": "Font Awesome 6 Sharp",
-        "type": "fontFamilies"
+        "$type": "fontFamilies",
+        "$value": "Font Awesome 6 Sharp"
       }
     },
     "core": {
       "angle-down": {
-        "value": "angle-down",
-        "type": "Icons",
-        "description": "icon.core.angle-down"
+        "$type": "Icons",
+        "$value": "angle-down",
+        "$description": "icon.core.angle-down"
       },
       "breadcrumb-separator": {
-        "value": "slash-forward",
-        "type": "Icons",
-        "description": "icon.core.breadcrumb-separator"
+        "$type": "Icons",
+        "$value": "slash-forward",
+        "$description": "icon.core.breadcrumb-separator"
       },
       "calendar": {
-        "value": "calendar",
-        "type": "Icons",
-        "description": "icon.core.calendar"
+        "$type": "Icons",
+        "$value": "calendar",
+        "$description": "icon.core.calendar"
       },
       "caret-down-solid": {
-        "value": "caret-down",
-        "type": "Icons",
-        "description": "icon.core.caret-down-solid"
+        "$type": "Icons",
+        "$value": "caret-down",
+        "$description": "icon.core.caret-down-solid"
       },
       "caret-left-solid": {
-        "value": "caret-left",
-        "type": "Icons",
-        "description": "icon.core.caret-left-solid"
+        "$type": "Icons",
+        "$value": "caret-left",
+        "$description": "icon.core.caret-left-solid"
       },
       "caret-right-solid": {
-        "value": "caret-right",
-        "type": "Icons",
-        "description": "icon.core.caret-right-solid"
+        "$type": "Icons",
+        "$value": "caret-right",
+        "$description": "icon.core.caret-right-solid"
       },
       "check": {
-        "value": "check",
-        "type": "Icons",
-        "description": "icon.core.check"
+        "$type": "Icons",
+        "$value": "check",
+        "$description": "icon.core.check"
       },
       "check-solid": {
-        "value": "check",
-        "type": "Icons",
-        "description": "icon.core.check-solid"
+        "$type": "Icons",
+        "$value": "check",
+        "$description": "icon.core.check-solid"
       },
       "chevron-down": {
-        "value": "chevron-down",
-        "type": "Icons",
-        "description": "icon.core.chevron-down"
+        "$type": "Icons",
+        "$value": "chevron-down",
+        "$description": "icon.core.chevron-down"
       },
       "chevron-left": {
-        "value": "chevron-left",
-        "type": "Icons",
-        "description": "icon.core.chevron-left"
+        "$type": "Icons",
+        "$value": "chevron-left",
+        "$description": "icon.core.chevron-left"
       },
       "chevron-right": {
-        "value": "chevron-right",
-        "type": "Icons",
-        "description": "icon.core.chevron-right"
+        "$type": "Icons",
+        "$value": "chevron-right",
+        "$description": "icon.core.chevron-right"
       },
       "circle-check-solid": {
-        "value": "circle-check",
-        "type": "Icons",
-        "description": "icon.core.circle-check-solid"
+        "$type": "Icons",
+        "$value": "circle-check",
+        "$description": "icon.core.circle-check-solid"
       },
       "circle-exclamation-solid": {
-        "value": "circle-exclamation",
-        "type": "Icons",
-        "description": "icon.core.circle-exclamation-solid"
+        "$type": "Icons",
+        "$value": "circle-exclamation",
+        "$description": "icon.core.circle-exclamation-solid"
       },
       "circle-solid": {
-        "value": "circle",
-        "type": "Icons",
-        "description": "icon.core.circle"
+        "$type": "Icons",
+        "$value": "circle",
+        "$description": "icon.core.circle"
       },
       "circle-xmark": {
-        "value": "circle-xmark",
-        "type": "Icons",
-        "description": "icon.core.circle-xmark"
+        "$type": "Icons",
+        "$value": "circle-xmark",
+        "$description": "icon.core.circle-xmark"
       },
       "circle-xmark-solid": {
-        "value": "circle-xmark",
-        "type": "Icons",
-        "description": "icon.core.circle-xmark-solid"
+        "$type": "Icons",
+        "$value": "circle-xmark",
+        "$description": "icon.core.circle-xmark-solid"
       },
       "dash-solid": {
-        "value": "dash",
-        "type": "Icons",
-        "description": "icon.core.dash-solid"
+        "$type": "Icons",
+        "$value": "dash",
+        "$description": "icon.core.dash-solid"
       },
       "diamond-exclamation-solid": {
-        "value": "diamond-exclamation",
-        "type": "Icons",
-        "description": "icon.core.diamond-exclamation-solid"
+        "$type": "Icons",
+        "$value": "diamond-exclamation",
+        "$description": "icon.core.diamond-exclamation-solid"
       },
       "ellipsis": {
-        "value": "ellipsis",
+        "$type": "Icons",
+        "$value": "ellipsis",
+        "$description": "icon.core.ellipsis"
+      },
+      "ellipsis-vertical": {
+        "value": "ellipsis-vertical",
         "type": "Icons",
-        "description": "icon.core.ellipsis"
+        "description": "icon.core.ellipsis-vertical"
       },
       "face-smile": {
-        "value": "face-smile",
-        "type": "Icons",
-        "description": "icon.core.face-smile"
+        "$type": "Icons",
+        "$value": "face-smile",
+        "$description": "icon.core.face-smile"
       },
       "fav": {
-        "value": "star",
+        "$type": "Icons",
+        "$value": "star",
+        "$description": "icon.core.fav"
+      },
+      "grip-lines": {
+        "value": "grip-lines",
         "type": "Icons",
-        "description": "icon.core.fav"
+        "description": "icon.core.grip-lines"
       },
       "home-blank": {
-        "value": "home-blank",
-        "type": "Icons",
-        "description": "icon.core.home-blank"
+        "$type": "Icons",
+        "$value": "home-blank",
+        "$description": "icon.core.home-blank"
       },
       "menu": {
-        "value": "bars",
-        "type": "Icons",
-        "description": "icon.core.menu"
+        "$type": "Icons",
+        "$value": "bars",
+        "$description": "icon.core.menu"
       },
       "minus": {
-        "value": "minus",
-        "type": "Icons",
-        "description": "icon.core.minus"
+        "$type": "Icons",
+        "$value": "minus",
+        "$description": "icon.core.minus"
       },
       "octagon-exclamation-solid": {
-        "value": "octagon-exclamation",
-        "type": "Icons",
-        "description": "icon.core.octagon-exclamation-solid"
+        "$type": "Icons",
+        "$value": "octagon-exclamation",
+        "$description": "icon.core.octagon-exclamation-solid"
       },
       "pinata": {
-        "value": "pinata",
-        "type": "Icons",
-        "description": "icon.core.pinata"
+        "$type": "Icons",
+        "$value": "pinata",
+        "$description": "icon.core.pinata"
       },
       "pinata-solid": {
-        "value": "pinata",
-        "type": "Icons",
-        "description": "icon.core.pinata"
+        "$type": "Icons",
+        "$value": "pinata",
+        "$description": "icon.core.pinata"
       },
       "plus": {
-        "value": "plus",
-        "type": "Icons",
-        "description": "icon.core.plus"
+        "$type": "Icons",
+        "$value": "plus",
+        "$description": "icon.core.plus"
       },
       "search": {
-        "value": "magnifying-glass",
-        "type": "Icons",
-        "description": "icon.core.search"
+        "$type": "Icons",
+        "$value": "magnifying-glass",
+        "$description": "icon.core.search"
       },
       "triangle-exclamation-solid": {
-        "value": "triangle-exclamation",
-        "type": "Icons",
-        "description": "icon.core.triangle-exclamation-solid"
+        "$type": "Icons",
+        "$value": "triangle-exclamation",
+        "$description": "icon.core.triangle-exclamation-solid"
       },
       "xmark": {
-        "value": "xmark",
-        "type": "Icons",
-        "description": "icon.core.xmark"
+        "$type": "Icons",
+        "$value": "xmark",
+        "$description": "icon.core.xmark"
       }
     },
     "typeset": {
       "fontSize": {
         "2xs": {
-          "value": "10px",
-          "type": "fontSizes",
-          "description": "icon.typeset.fontSize.xs"
+          "$type": "fontSizes",
+          "$value": "10px",
+          "$description": "icon.typeset.fontSize.xs"
         },
         "xs": {
-          "value": "{size.xs}",
-          "type": "fontSizes",
-          "description": "icon.typeset.fontSize.xs"
+          "$type": "fontSizes",
+          "$value": "{size.xs}",
+          "$description": "icon.typeset.fontSize.xs"
         },
         "sm": {
-          "value": "{size.sm}",
-          "type": "fontSizes",
-          "description": "icon.typeset.fontSize.sm"
+          "$type": "fontSizes",
+          "$value": "{size.sm}",
+          "$description": "icon.typeset.fontSize.sm"
         },
         "md": {
-          "value": "{size.md}",
-          "type": "fontSizes",
-          "description": "icon.typeset.fontSize.md"
+          "$type": "fontSizes",
+          "$value": "{size.md}",
+          "$description": "icon.typeset.fontSize.md"
         },
         "lg": {
-          "value": "{size.lg}",
-          "type": "fontSizes",
-          "description": "icon.typeset.fontSize.lg"
+          "$type": "fontSizes",
+          "$value": "{size.lg}",
+          "$description": "icon.typeset.fontSize.lg"
         },
         "xl": {
-          "value": "{size.xl}",
-          "type": "fontSizes",
-          "description": "icon.typeset.fontSize.xl"
+          "$type": "fontSizes",
+          "$value": "{size.xl}",
+          "$description": "icon.typeset.fontSize.xl"
         },
         "2xl": {
-          "value": "{size.2xl}",
-          "type": "fontSizes",
-          "description": "icon.typeset.fontSize.2xl"
+          "$type": "fontSizes",
+          "$value": "{size.2xl}",
+          "$description": "icon.typeset.fontSize.2xl"
         },
         "3xl": {
-          "value": "{size.3xl}",
-          "type": "fontSizes",
-          "description": "icon.typeset.fontSize.3xl"
+          "$type": "fontSizes",
+          "$value": "{size.3xl}",
+          "$description": "icon.typeset.fontSize.3xl"
         },
         "4xl": {
-          "value": "{size.4xl}",
-          "type": "fontSizes",
-          "description": "icon.typeset.fontSize.4xl"
+          "$type": "fontSizes",
+          "$value": "{size.4xl}",
+          "$description": "icon.typeset.fontSize.4xl"
         }
       }
     }
@@ -2626,49 +2636,50 @@
   "animation": {
     "duration": {
       "fast": {
-        "value": "90ms",
-        "type": "other",
-        "description": "animation.duration.fast"
+        "$type": "other",
+        "$value": "90ms",
+        "$description": "animation.duration.fast"
       },
       "normal": {
-        "value": "200ms",
-        "type": "other",
-        "description": "animation.duration.normal"
+        "$type": "other",
+        "$value": "200ms",
+        "$description": "animation.duration.normal"
       },
       "slow": {
-        "value": "500ms",
-        "type": "other",
-        "description": "animation.duration.slow"
+        "$type": "other",
+        "$value": "500ms",
+        "$description": "animation.duration.slow"
       }
     },
     "easing": {
       "ease-in-out": {
-        "value": "ease-in-out",
-        "type": "other",
-        "description": "animation.easing.ease-in-out"
+        "$type": "other",
+        "$value": "ease-in-out",
+        "$description": "animation.easing.ease-in-out"
       }
     }
   },
   "button": {
     "label": {
       "sm": {
-        "value": "{text.typeset.lineHeight.sm}",
-        "type": "lineHeights"
+        "$type": "lineHeights",
+        "$value": "{text.typeset.lineHeight.sm}"
       },
       "md": {
-        "value": "{text.typeset.lineHeight.sm}",
-        "type": "lineHeights"
+        "$type": "lineHeights",
+        "$value": "{text.typeset.lineHeight.sm}"
       },
       "lg": {
-        "value": "{text.typeset.lineHeight.lg}",
-        "type": "lineHeights"
+        "$type": "lineHeights",
+        "$value": "{text.typeset.lineHeight.lg}"
       }
     }
   },
   "elevation": {
     "shadow": {
       "sm": {
-        "value": [
+        "$type": "boxShadow",
+        "$value": [
           {
             "x": "0",
             "y": "0",
@@ -2685,11 +2696,11 @@
             "color": "rgba({color.palette.neutral.base} , {opacity.200})",
             "type": "dropShadow"
           }
-        ],
-        "type": "boxShadow"
+        ]
       },
       "md": {
-        "value": [
+        "$type": "boxShadow",
+        "$value": [
           {
             "x": "0",
             "y": "0",
@@ -2706,11 +2717,11 @@
             "color": "rgba({color.palette.neutral.base} , {opacity.150})",
             "type": "dropShadow"
           }
-        ],
-        "type": "boxShadow"
+        ]
       },
       "lg": {
-        "value": [
+        "$type": "boxShadow",
+        "$value": [
           {
             "x": "0",
             "y": "0",
@@ -2727,11 +2738,11 @@
             "color": "rgba({color.palette.neutral.base} , {opacity.200})",
             "type": "dropShadow"
           }
-        ],
-        "type": "boxShadow"
+        ]
       },
       "none": {
-        "value": [
+        "$type": "boxShadow",
+        "$value": [
           {
             "x": "0",
             "y": "0",
@@ -2740,15 +2751,15 @@
             "color": "rgba({color.palette.neutral.base} , {opacity.transparent})",
             "type": "dropShadow"
           }
-        ],
-        "type": "boxShadow"
+        ]
       }
     }
   },
   "boxShadow": {
     "slds": {
       "checklist": {
-        "value": [
+        "$type": "boxShadow",
+        "$value": [
           {
             "x": "0",
             "y": "0",
@@ -2765,60 +2776,59 @@
             "color": "rgba({color.palette.neutral.base} , {opacity.150})",
             "type": "dropShadow"
           }
-        ],
-        "type": "boxShadow"
+        ]
       }
     }
   },
   "flexDirection": {
     "column": {
-      "value": "column",
-      "type": "Flex"
+      "$type": "Flex",
+      "$value": "column"
     },
     "columnReverse": {
-      "value": "column-reverse",
-      "type": "Flex"
+      "$type": "Flex",
+      "$value": "column-reverse"
     },
     "rowReverse": {
-      "value": "row-reverse",
-      "type": "Flex"
+      "$type": "Flex",
+      "$value": "row-reverse"
     },
     "row": {
-      "value": "row",
-      "type": "Flex"
+      "$type": "Flex",
+      "$value": "row"
     }
   },
   "justifyContent": {
     "start": {
-      "value": "start",
-      "type": "Flex"
+      "$type": "Flex",
+      "$value": "start"
     },
     "spaceBetween": {
-      "value": "space-between",
-      "type": "Flex"
+      "$type": "Flex",
+      "$value": "space-between"
     },
     "end": {
-      "value": "end",
-      "type": "Flex"
+      "$type": "Flex",
+      "$value": "end"
     }
   },
   "borderRadius": {
     "focusring": {
       "default": {
-        "value": "{borderRadius.default} - 1px",
-        "type": "borderRadius"
+        "$type": "borderRadius",
+        "$value": "{borderRadius.default} - 1px"
       },
       "inside": {
-        "value": "{borderRadius.default} - 1",
-        "type": "borderRadius"
+        "$type": "borderRadius",
+        "$value": "{borderRadius.default} - 1"
       },
       "checkbox": {
-        "value": "{borderRadius.checkbox} - 1px",
-        "type": "borderRadius"
+        "$type": "borderRadius",
+        "$value": "{borderRadius.checkbox} - 1px"
       },
       "full": {
-        "value": "{border.radius.full}",
-        "type": "borderRadius"
+        "$type": "borderRadius",
+        "$value": "{border.radius.full}"
       }
     }
   }

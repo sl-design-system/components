@@ -39,4 +39,7 @@ export const allModes = {
   'teas': {
     theme: 'teas'
   },
+  'tig': {
+    theme: 'tig'
+  },
 };

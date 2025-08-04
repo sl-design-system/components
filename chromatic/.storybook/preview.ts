@@ -73,6 +73,7 @@ const preview: Preview = {
           neon: themes['neon'],
           'sanoma-learning': themes['sanoma-learning'],
           teas: themes['teas'],
+          tig: themes['tig'],
         },
         defaultTheme: 'sanoma-learning'
       });

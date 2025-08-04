@@ -1772,6 +1772,7 @@
 | --------------- | ------- | ---------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------- |
 | `fitImage`      |         | `boolean \| undefined` |                | When set the image won't be stretched and cropped to fill the whole container, but instead shown fully, with a margin around it.&#xA;In horizontal mode this will need the card to have an explicit image size set, either by subgrid or by `--sl-card-media-size` |                |
 | `imageBackdrop` |         | `boolean \| undefined` |                | When fit-image is set, setting this will create a blurred copy of the image in the margin around the image.                                                                                                                                                        |                |
+| `mediaMargin`   |         | `boolean \| undefined` |                | Adds a little margin around the image                                                                                                                                                                                                                              |                |
 | `orientation`   |         | `CardOrientation`      | `'horizontal'` | The position of the media in relation to the text                                                                                                                                                                                                                  |                |
 | `subgrid`       |         | `boolean \| undefined` |                | When the grid inside the card is defined by a parent grid, ideal for layout consistency, even when the contents of the card change.                                                                                                                                |                |
 
@@ -1780,6 +1781,7 @@
 | Name             | Field         | Inherited From |
 | ---------------- | ------------- | -------------- |
 | `fit-image`      | fitImage      |                |
+| `media-margin`   | mediaMargin   |                |
 | `image-backdrop` | imageBackdrop |                |
 | `subgrid`        | subgrid       |                |
 | `orientation`    | orientation   |                |

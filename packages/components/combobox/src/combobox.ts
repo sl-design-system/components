@@ -378,6 +378,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
   override render(): TemplateResult {
     return html`
+      formValue = ${this.formValue}<br />
       <sl-text-field
         @input=${this.#onInput}
         @keydown=${this.#onKeydown}
@@ -1299,8 +1300,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       } else {
         this.input.value = '';
       }
-      this.formValue = this.input.value;
-      this.internals.setFormValue(this.input.value);
+
+      this.formValue = item?.value?.toString() || '';
+      this.internals.setFormValue(item?.value?.toString() || '');
       this.internals.setValidity(
         { valueMissing: this.required && !this.input.value },
         msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })

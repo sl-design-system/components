@@ -26,7 +26,7 @@ body:
     id: current-behavior
     attributes:
       label: 😯 Current Behavior
-      description: | 
+      description: |
         Tell us what happens instead of the expected behavior
     validations:
       required: true
@@ -41,7 +41,7 @@ body:
     id: screenshots
     attributes:
       label: 📷 Screenshots
-      description: | 
+      description: |
         You can attach images by clicking this area to highlight it and then dragging files in
     validations:
       required: false
@@ -55,7 +55,7 @@ body:
   - type: markdown
     attributes:
       value: "## 🦄 Other"
-  
+
   - type: input
     id: name
     attributes:
@@ -84,5 +84,6 @@ body:
       - Sanoma Learning
       - Sanoma Utbildning
       - TEAS
+      - TIG
     validations:
       required: true

@@ -1304,9 +1304,6 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         this.internals.setFormValue(null);
       }
 
-      // this.formValue = this.input.value;
-      // this.internals.setFormValue(this.input.value);
-
       this.internals.setValidity(
         { valueMissing: this.required && !this.input.value },
         msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })

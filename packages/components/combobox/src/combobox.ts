@@ -1281,7 +1281,6 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
   /** Update the value in the text field. */
   #updateTextFieldValue(emitEvent = true): void {
-    console.log('Updating text field value');
     if (this.multiple) {
       this.input.placeholder = this.selectedItems.map(i => i.label).join(', ') || '';
       this.input.value = '';
@@ -1293,7 +1292,6 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       this.updateValidity();
     } else {
       const item = this.selectedItems.at(0);
-      console.log(item);
       if (item) {
         this.input.value = item.label;
         this.input.setSelectionRange(-1, -1);

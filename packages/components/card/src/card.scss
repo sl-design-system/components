@@ -1,184 +1,233 @@
 :host {
-  --_aspect-ratio: var(--sl-card-media-aspect-ratio, 4 / 3);
-  --_box-shadow: var(--sl-elevation-shadow-lg);
-  --_card-background: var(--sl-color-card-background);
-  --_card-border-radius: var(--sl-border-radius-card-default);
-  --_card-border: 1px solid var(--sl-color-card-border);
-  --_content-gap: var(--sl-space-card-gap-content-block) var(--sl-space-card-gap-content-inline);
-  --_content-padding-block: 0 var(--sl-space-card-content-block);
-  --_content-padding-inline: var(--sl-space-card-content-inline);
-  --_font-body: var(--sl-text-card-body);
-  --_font-sub-title: var(--sl-text-card-subtitle);
-  --_font-title: var(--sl-text-card-title);
-  --_line-clamp: 1;
-  --_media-column: var(--_media-width);
-  --_media-padding-full: 0;
-  --_media-padding: var(--sl-space-card-media-margins);
-  --_media-width: var(--sl-card-media-width, minmax(0, max-content));
-  --_object-position: var(--sl-card-media-x, 50%) var(--sl-card-media-y, 50%);
-  --_orientation-breakpoint: var(--sl-card-orientation-breakpoint, 350px);
-  --_text-column: var(--_text-width);
-  --_text-width: var(--sl-card-text-width, minmax(50%, 1fr));
-
-  background-color: var(--_card-background);
-  border: var(--_card-border);
-  border-radius: var(--_card-border-radius);
-  box-shadow: var(--_box-shadow);
-  box-sizing: border-box;
-  display: grid;
-  grid-template:
-    'media' min-content
-    'actions' minmax(16px, max-content)
-    'content' 1fr
-    / 1fr;
+  border-radius: var(--sl-size-borderRadius-default);
   inline-size: 100%;
-  overflow: hidden;
+  position: relative;
 }
 
-:host([padding]) {
-  --_media-padding-full: var(--_media-padding) var(--_media-padding) 0 var(--_media-padding);
+@layer grid-areas {
+  :host {
+    --_media-size: var(--sl-card-media-size, auto);
+
+    display: grid;
+    grid-template:
+      'media' var(--_media-size)
+      'header' max-content
+      'article' 1fr
+      'actions' max-content;
+  }
+
+  :host(:not(.sl-has-media)) {
+    grid-template:
+      'header' max-content
+      'article' 1fr
+      'actions' max-content;
+
+    figure {
+      display: none;
+      grid-area: unset;
+    }
+  }
+
+  :host(:where(.sl-horizontal.sl-has-media)) {
+    --_media-size: var(--sl-card-media-size, 50%);
+
+    grid-template-areas:
+      'media header'
+      'media article';
+  }
+
+  :host(:where(.sl-horizontal.sl-has-actions.sl-has-media)) {
+    grid-template-areas:
+      'media header'
+      'media article'
+      'media actions';
+  }
+
+  :host(:where(.sl-horizontal.sl-has-media):not([subgrid])) {
+    grid-template-columns: var(--_media-size) 1fr;
+    grid-template-rows: max-content 1fr max-content;
+  }
+
+  :host(:where(.sl-horizontal.sl-has-media):not(.sl-has-actions, [subgrid])) {
+    grid-template:
+      'media header' max-content
+      'media article' 1fr / var(--_media-size) 1fr;
+  }
+
+  :host(:where([subgrid])) {
+    gap: 0;
+    grid-column: span var(--_horizontal-elements, 1);
+    grid-row: span var(--_vertical-elements, 3);
+    grid-template-columns: subgrid;
+    grid-template-rows: subgrid;
+  }
+
+  .content {
+    display: grid;
+    gap: var(--sl-size-200) 0;
+    grid-row: span var(--_vertical-elements, 3);
+    grid-template-columns: subgrid;
+    grid-template-rows: subgrid;
+    padding: var(--sl-size-300);
+    position: relative;
+  }
+
+  :host(.sl-has-media:not(.sl-horizontal)) .content {
+    grid-row: span calc(var(--_vertical-elements, 3) - 1);
+  }
 }
 
-:host(.sl-horizontal[padding]) {
-  --_media-padding-full: var(--_media-padding) 0 var(--_media-padding) var(--_media-padding);
-}
-
-:host(.sl-horizontal[padding][media-position='end']) {
-  --_media-padding-full: var(--_media-padding) var(--_media-padding) var(--_media-padding) 0;
-}
-
-:host(:where(.sl-horizontal)) {
-  --_content-padding-block: var(--sl-space-card-vertical-block) var(--sl-space-card-vertical-block);
-
-  grid-template: 'media content actions' 1fr / var(--_media-column) var(--_text-column) max-content;
-
-  .media-wrapper {
-    display: flex;
-    flex-direction: column;
+@layer media {
+  figure {
+    grid-area: media;
+    margin: 0;
     overflow: hidden;
+    position: relative;
+  }
+
+  :host(:where([media-margin])) figure {
+    margin: var(--sl-size-050);
   }
 
   slot[name='media'] {
-    aspect-ratio: var(--_aspect-ratio);
-    block-size: var(--sl-card-stretch-image, unset);
-    display: block;
-    inline-size: 100%;
-    max-block-size: 100%;
-    max-inline-size: 100%;
+    display: grid;
+    inset: 0;
     overflow: hidden;
+    position: relative;
+  }
+
+  :host(:where(.sl-media-explicit-size)) slot[name='media'] {
+    position: absolute;
   }
 
   slot[name='media']::slotted(*) {
     block-size: 100%;
     inline-size: 100%;
-    max-block-size: unset;
-    max-inline-size: unset;
+    object-fit: cover;
+    overflow: hidden;
   }
 
-  article {
-    flex: 1 1 auto;
-    grid-area: body;
+  :host([fit-image]) {
+    slot[name='media'] {
+      background: var(--sl-card-image-backdrop, var(--sl-color-background-accent-grey-subtle));
+    }
+
+    slot[name='media']::slotted(*) {
+      --_margin: var(--sl-size-200);
+
+      block-size: calc(100% - 2 * var(--_margin));
+      inline-size: calc(100% - 2 * var(--_margin));
+      margin: var(--_margin);
+      object-fit: contain;
+    }
+  }
+
+  :host([fit-image][image-backdrop]) {
+    slot[name='media'] {
+      background: transparent;
+      z-index: 1; // Ensure backdrop is below the image
+    }
+
+    figure .backdrop {
+      --_blur: var(--sl-size-200);
+
+      block-size: calc(100% + 2 * var(--_blur));
+      display: block;
+      filter: blur(var(--_blur));
+      inline-size: calc(100% + 2 * var(--_blur));
+      inset-block-start: calc(-1 * var(--_blur));
+      inset-inline-start: calc(-1 * var(--_blur));
+      opacity: var(--sl-opacity-700);
+      position: absolute;
+    }
   }
 }
 
-:host(.sl-horizontal[explicit-height]) {
-  --_media-width: var(--sl-card-media-width, minmax(0, calc(calc(var(--_aspect-ratio)) * 100cqh)));
+@layer main-content {
+  :host {
+    --_bg-color: var(--sl-elevation-surface-raised-default);
+    --_bg-mix-color: var(--sl-color-background-neutral-interactive-plain);
+    --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
 
-  container: card / size;
-}
-
-:host(.sl-horizontal[height='fixed']) {
-  article {
-    container: body / size;
+    background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+    border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
   }
 
   slot[name='body'] {
     /* stylelint-disable-next-line property-no-vendor-prefix */
     -webkit-box-orient: vertical;
+    clip-path: fill-box;
     /* stylelint-disable-next-line value-no-vendor-prefix */
     display: -webkit-box;
+    grid-area: article;
     /* stylelint-disable-next-line property-no-vendor-prefix */
     -webkit-line-clamp: var(--_line-clamp, 9999);
     overflow: hidden;
   }
-}
 
-:host(:where(.sl-horizontal[media-position='end'])) {
-  grid-template-areas: 'content actions media';
-  grid-template-columns: var(--_text-column) max-content var(--_media-column);
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--_content-gap);
-  grid-area: content;
-  overflow: hidden;
-  padding: var(--_content-padding-block) var(--_content-padding-inline);
-}
-
-:host(.sl-has-icon) .content {
-  display: grid;
-  grid-template:
-    'icon header' max-content
-    'icon body' 1fr
-    / max-content 1fr;
-
-  slot[name='icon']::slotted(*) {
-    grid-area: icon;
+  slot.title::slotted(*),
+  slot[name='body']::slotted(*) {
+    margin-block: 0;
   }
-}
 
-header {
-  grid-area: header;
-}
+  :host(.sl-has-actions) {
+    slot[name='actions'] {
+      align-content: end;
+      display: inline-block;
+      grid-area: actions;
+    }
+  }
 
-:host(.sl-has-media) slot[name='media'] {
-  aspect-ratio: var(--_aspect-ratio);
-  display: flex;
-  grid-area: media;
-}
+  .header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sl-size-050);
+    grid-area: header;
+  }
 
-slot.title::slotted(*) {
-  font: var(--_font-title);
-}
+  slot.title::slotted(*) {
+    font: var(--sl-text-new-typeset-fontWeight-semiBold) var(--sl-size-text-new-heading-md)
+      var(--sl-text-new-typeset-fontFamily-heading);
+  }
 
-slot[name='header']::slotted(*:not(sl-badge)) {
-  font: var(--_font-sub-title);
-}
+  slot.title::slotted(a[href]) {
+    color: var(
+      --sl-color-foreground-plain
+    ) !important; // There is now way to do this with a selector that has more weight than what is set in the global styles
 
-slot[name='media']::slotted(*) {
-  aspect-ratio: inherit;
-  block-size: auto;
-  box-sizing: border-box;
-  inline-size: 100%;
-  object-fit: cover;
-  object-position: var(--_object-position);
-  overflow: hidden;
-  padding: var(--_media-padding-full);
-}
+    text-decoration: none;
+  }
 
-slot[name='body'] {
-  font: var(--_font-body);
-  margin: 0;
-  outline: none;
-}
+  slot.title::slotted(a[href]:focus-visible) {
+    outline: none;
+  }
 
-slot[name='actions'] {
-  align-items: flex-end;
-  display: flex;
-  flex-direction: column;
-  grid-area: actions;
-}
+  :host(.sl-has-link):has(slot.title:focus-within),
+  :host(.sl-has-link:hover) {
+    border-color: var(--sl-color-border-input);
+    box-shadow: var(--sl-elevation-shadow-overflow);
+    cursor: pointer;
 
-slot::slotted(*) {
-  margin: 0;
-}
+    --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
+  }
 
-@for $i from 2 through 20 {
-  @container body (min-height: #{$i}lh) {
-    slot[name='body'] {
-      --_line-clamp: #{$i};
+  :host(.sl-has-link:active) {
+    --_bg-opacity: var(--sl-opacity-interactive-plain-active);
+  }
+
+  :host(.sl-has-menu-button) {
+    .header {
+      padding-inline-end: calc(
+        2 * var(--sl-size-100) + calc(1lh + (var(--sl-size-100) - var(--sl-size-borderWidth-action)) * 2)
+      );
+      position: relative;
+    }
+
+    slot[name='menu-button'] {
+      display: block;
+      inset-block-start: var(--sl-size-100);
+      inset-inline-end: var(--sl-size-100);
+      position: absolute;
     }
   }
 }

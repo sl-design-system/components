@@ -1292,15 +1292,19 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       this.updateValidity();
     } else {
       const item = this.selectedItems.at(0);
-
       if (item) {
         this.input.value = item.label;
         this.input.setSelectionRange(-1, -1);
+        this.formValue = this.#useVirtualList ? item.index : item.value?.toString() || item.label;
+        this.internals.setFormValue(
+          this.#useVirtualList && item.index ? item.index.toString() : item.value?.toString() || item.label
+        );
       } else {
         this.input.value = '';
+        this.formValue = null;
+        this.internals.setFormValue(null);
       }
-      this.formValue = this.input.value;
-      this.internals.setFormValue(this.input.value);
+
       this.internals.setValidity(
         { valueMissing: this.required && !this.input.value },
         msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })

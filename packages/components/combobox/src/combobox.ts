@@ -1297,10 +1297,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       if (item) {
         this.input.value = item.label;
         this.input.setSelectionRange(-1, -1);
-        this.formValue = this.#useVirtualList ? item.index : item.value?.toString() || item.label;
-        this.internals.setFormValue(
-          this.#useVirtualList && item.index ? item.index.toString() : item.value?.toString() || item.label
-        );
+        const value = this.#useVirtualList && item.index ? item.index.toString() : item.value?.toString() || item.label;
+        this.formValue = value as U | null;
+        this.internals.setFormValue(value as string | null);
       } else {
         this.input.value = '';
         this.formValue = null;

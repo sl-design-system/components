@@ -18,7 +18,29 @@ eleventyNavigation:
 
 <div class="ds-subpage-section__wrapper">
 <section>
-  
+
+## SL Design System Update
+<small>June & July 2025</small>
+
+Here’s an update on what we’ve been working on recently:
+
+### Component Updates
+- **Card** is refactored completely in terms of design and options, and partly in terms of html-slots. The way the image is handled is improved so a grid with multiple cards will look more consistent, also helped by the `subgrid` option.
+- **Angular** has support added for the `DialogService`.
+- **Paginator** has a new `itemLabel` property, if you want to count 'students' on the pages instead of 'items' for example.
+
+### Other Improvements
+We have been working on a lot of bug fixes, the details can be found on our [release notes page](https://github.com/sl-design-system/components/blob/main/RELEASE_NOTES.md). The following components have one or more issues resolved:
+- combobox
+- date-field
+- form
+- icon
+- radio-group
+- text-field
+- tooltip
+</section>
+<section>
+
 ## SL Design System Update
 <small>April & May 2025</small>
 

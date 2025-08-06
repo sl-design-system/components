@@ -11,6 +11,9 @@ The release notes are ordered by the date the release was made. From latest, to 
 - [`angular`](https://github.com/sl-design-system/components/blob/main/packages/angular/CHANGELOG.md) has support added for the `DialogService`.
 - [`paginator`](https://github.com/sl-design-system/components/blob/main/packages/components/paginator/CHANGELOG.md) has a new `itemLabel` property, if you want to count 'students' on the pages instead of 'items' for example.
 
+## Breaking changes
+- [`card`](https://github.com/sl-design-system/components/blob/main/packages/components/card/CHANGELOG.md) a lot of the css-properties have been removed or renamed (see the full changelog for details), the `actions` slot functionality and position has changed; this is now placed at the bottom. `padding` propery has been renamed to `media-margin` and the `explicit-height`, `height` and `media-position` properties have been removed.
+
 ## Bug fixes
 - `combobox` fixes issue where chosen option disappears when option has a 'value' attribute and issue where dispatching an sl-change event when initial value is set.
 - `date-field` fixes showing/removing invalid state for required validation

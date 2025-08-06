@@ -1,5 +1,13 @@
 # @sl-design-system/tooltip
 
+## 1.1.6
+
+### Patch Changes
+
+- [#2097](https://github.com/sl-design-system/components/pull/2097) [`f0121e9`](https://github.com/sl-design-system/components/commit/f0121e904651b4d5cde35a961710c61bf0b00d08) - Fixes issue where tooltip hides when hover is on child of element that has the tooltip attached to it.
+
+- [#2133](https://github.com/sl-design-system/components/pull/2133) [`67df189`](https://github.com/sl-design-system/components/commit/67df189d3333051ca69a779dd1a0c2cbfd0406b0) - Tooltip is now placed in the same slot as the trigger, making it easier to have the tooltip show up in de correct font, because it doesn't inadvertedly inherit the wrong font from the wrong parent
+
 ## 1.1.5
 
 ### Patch Changes

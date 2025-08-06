@@ -18,7 +18,29 @@ eleventyNavigation:
 
 <div class="ds-subpage-section__wrapper">
 <section>
-  
+
+## SL Design System Update
+<small>June & July 2025</small>
+
+Here’s an update on what we’ve been working on recently:
+
+### Component Updates
+- **Card** is refactored completely in terms of design and options, and partly in terms of html-slots. The way the image is handled is improved so a grid with multiple cards will look more consistent, also helped by the `subgrid` option. Because the changes are so big there are some breaking changes, you can find more detail in the [changelog of the card component](https://github.com/sl-design-system/components/blob/main/packages/components/card/CHANGELOG.md). <ds-status status="stable"></ds-status>
+- **Angular** has support added for the `DialogService`. <ds-status status="stable"></ds-status>
+- **Paginator** has a new `itemLabel` property, if you want to count 'students' on the pages instead of 'items' for example. <ds-status status="draft"></ds-status>
+
+### Other Improvements
+We have been working on a lot of bug fixes, the details can be found on our [release notes page](https://github.com/sl-design-system/components/blob/main/RELEASE_NOTES.md). The following components have one or more issues resolved:
+- [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md)
+- [`date-field`](https://github.com/sl-design-system/components/blob/main/packages/components/date-field/CHANGELOG.md)
+- [`form`](https://github.com/sl-design-system/components/blob/main/packages/components/form/CHANGELOG.md)
+- [`icon`](https://github.com/sl-design-system/components/blob/main/packages/components/icon/CHANGELOG.md)
+- [`radio-group`](https://github.com/sl-design-system/components/blob/main/packages/components/radio-group/CHANGELOG.md)
+- [`text-field`](https://github.com/sl-design-system/components/blob/main/packages/components/text-field/CHANGELOG.md)
+- [`tooltip`](https://github.com/sl-design-system/components/blob/main/packages/components/tooltip/CHANGELOG.md)
+</section>
+<section>
+
 ## SL Design System Update
 <small>April & May 2025</small>
 

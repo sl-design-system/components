@@ -10,6 +10,7 @@ The release notes are ordered by the date the release was made. From latest, to 
 - [`card`](https://github.com/sl-design-system/components/blob/main/packages/components/card/CHANGELOG.md) is refactored completely in terms of design and options, and partly in terms of html-slots. The way the image is handled is improved so a grid with multiple cards will look more consistent, also helped by the `subgrid` option.
 - [`angular`](https://github.com/sl-design-system/components/blob/main/packages/angular/CHANGELOG.md) has support added for the `DialogService`.
 - [`paginator`](https://github.com/sl-design-system/components/blob/main/packages/components/paginator/CHANGELOG.md) has a new `itemLabel` property, if you want to count 'students' on the pages instead of 'items' for example.
+- TIG theme is added
 
 ## Breaking changes
 - [`card`](https://github.com/sl-design-system/components/blob/main/packages/components/card/CHANGELOG.md) a lot of the css-properties have been removed or renamed (see the full changelog for details), the `actions` slot functionality and position has changed; this is now placed at the bottom. `padding` propery has been renamed to `media-margin` and the `explicit-height`, `height` and `media-position` properties have been removed.

@@ -31,13 +31,13 @@ Here’s an update on what we’ve been working on recently:
 
 ### Other Improvements
 We have been working on a lot of bug fixes, the details can be found on our [release notes page](https://github.com/sl-design-system/components/blob/main/RELEASE_NOTES.md). The following components have one or more issues resolved:
-- combobox
-- date-field
-- form
-- icon
-- radio-group
-- text-field
-- tooltip
+- [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md)
+- [`date-field`](https://github.com/sl-design-system/components/blob/main/packages/components/date-field/CHANGELOG.md)
+- [`form`](https://github.com/sl-design-system/components/blob/main/packages/components/form/CHANGELOG.md)
+- [`icon`](https://github.com/sl-design-system/components/blob/main/packages/components/icon/CHANGELOG.md)
+- [`radio-group`](https://github.com/sl-design-system/components/blob/main/packages/components/radio-group/CHANGELOG.md)
+- [`text-field`](https://github.com/sl-design-system/components/blob/main/packages/components/text-field/CHANGELOG.md)
+- [`tooltip`](https://github.com/sl-design-system/components/blob/main/packages/components/tooltip/CHANGELOG.md)
 </section>
 <section>
 

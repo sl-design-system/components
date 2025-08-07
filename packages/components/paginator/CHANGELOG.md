@@ -1,5 +1,17 @@
 # @sl-design-system/paginator
 
+## 0.2.0
+
+### Minor Changes
+
+- [#2120](https://github.com/sl-design-system/components/pull/2120) [`ee2985a`](https://github.com/sl-design-system/components/commit/ee2985af6b0124910ea1e5840bd3f46d3719fcc6) - Add `itemLabel` property to the 'paginator status' and 'paginator page size' to customize item label when it's necessary.
+
+### Patch Changes
+
+- Updated dependencies [[`e973712`](https://github.com/sl-design-system/components/commit/e973712439e562714aa0dfe427f88288a8ab78eb), [`5748337`](https://github.com/sl-design-system/components/commit/574833761ff5d1965f21ded94c26f1ff42272420), [`7371487`](https://github.com/sl-design-system/components/commit/7371487bd75cfceca454c243d199c572378d726f)]:
+  - @sl-design-system/icon@1.2.1
+  - @sl-design-system/form@1.2.4
+
 ## 0.1.3
 
 ### Patch Changes

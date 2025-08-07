@@ -227,10 +227,13 @@ export const Events: Story = {
     return html`
       Check the console for the event output.
       <sl-form>
-        <sl-form-field label="Number label">
+        <sl-form-field label="Number label inside form">
           <sl-number-field @sl-change=${onChange} @sl-blur=${onBlur} @sl-validate=${onValidate}></sl-number-field>
         </sl-form-field>
       </sl-form>
+      <sl-form-field label="Number label outside form">
+        <sl-number-field @sl-change=${onChange} @sl-blur=${onBlur} @sl-validate=${onValidate}></sl-number-field>
+      </sl-form-field>
     `;
   }
 };

@@ -1,4 +1,6 @@
+import { type SlValidateEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
+import { type SlBlurEvent, type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -214,14 +216,14 @@ export const ValidateOnBlur: Story = {
 
 export const Events: Story = {
   render: () => {
-    const onChange = (event: Event & { target: NumberField }): void => {
-      console.log('sl-change:', event.target.rawValue);
+    const onChange = (event: SlChangeEvent & { target: NumberField }): void => {
+      console.log('sl-change:', event.detail);
     };
-    const onBlur = (event: Event & { target: NumberField }): void => {
-      console.log('sl-blur:', event.target.rawValue);
+    const onBlur = (event: SlBlurEvent & { target: NumberField }): void => {
+      console.log('sl-blur:', event.detail);
     };
-    const onValidate = (): void => {
-      console.log('sl-validate');
+    const onValidate = (event: SlValidateEvent & { target: NumberField }): void => {
+      console.log('sl-validate:', event.detail);
     };
 
     return html`

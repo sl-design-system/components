@@ -212,6 +212,29 @@ export const ValidateOnBlur: Story = {
   }
 };
 
+export const Events: Story = {
+  render: () => {
+    const onChange = (event: Event & { target: NumberField }): void => {
+      console.log('sl-change:', event.target.rawValue);
+    };
+    const onBlur = (event: Event & { target: NumberField }): void => {
+      console.log('sl-blur:', event.target.rawValue);
+    };
+    const onValidate = (): void => {
+      console.log('sl-validate');
+    };
+
+    return html`
+      Check the console for the event output.
+      <sl-form>
+        <sl-form-field label="Number label">
+          <sl-number-field @sl-change=${onChange} @sl-blur=${onBlur} @sl-validate=${onValidate}></sl-number-field>
+        </sl-form-field>
+      </sl-form>
+    `;
+  }
+};
+
 export const All: Story = {
   render: () => html`
     <style>

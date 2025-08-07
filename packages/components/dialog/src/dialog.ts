@@ -259,6 +259,10 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   #onBackdropClick(event: MouseEvent): void {
     const rect = this.dialog!.getBoundingClientRect();
 
+    console.log('Dialog backdrop clicked:', event);
+    // event.preventDefault();
+    // event.stopPropagation();
+
     // Check if the user clicked on the backdrop
     if (
       !this.disableCancel &&

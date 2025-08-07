@@ -1,5 +1,16 @@
 # @sl-design-system/date-field
 
+## 0.0.3
+
+### Patch Changes
+
+- [#2131](https://github.com/sl-design-system/components/pull/2131) [`919f116`](https://github.com/sl-design-system/components/commit/919f1168712569c5022a4ad6840fbce692ce6ea0) - Fixes showing/removing invalid state for required validation.
+
+- Updated dependencies [[`e973712`](https://github.com/sl-design-system/components/commit/e973712439e562714aa0dfe427f88288a8ab78eb), [`5748337`](https://github.com/sl-design-system/components/commit/574833761ff5d1965f21ded94c26f1ff42272420), [`7371487`](https://github.com/sl-design-system/components/commit/7371487bd75cfceca454c243d199c572378d726f), [`919f116`](https://github.com/sl-design-system/components/commit/919f1168712569c5022a4ad6840fbce692ce6ea0)]:
+  - @sl-design-system/icon@1.2.1
+  - @sl-design-system/form@1.2.4
+  - @sl-design-system/text-field@1.6.5
+
 ## 0.0.2
 
 ### Patch Changes

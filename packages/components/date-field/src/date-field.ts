@@ -264,7 +264,11 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
   }
 
-  #onButtonClick(): void {
+  #onButtonClick(event: MouseEvent): void {
+    console.log('event on sl-field-button click', event);
+    // event.preventDefault();
+    // event.stopPropagation();
+
     // Prevents the popover from reopening immediately after it was just closed
     if (!this.#popoverJustClosed) {
       this.wrapper?.togglePopover();
@@ -272,6 +276,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onChange(event: SlSelectEvent<Date>): void {
+    console.log('event on sl-calendar change', event);
     event.preventDefault();
     event.stopPropagation();
 

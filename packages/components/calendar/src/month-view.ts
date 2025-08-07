@@ -223,6 +223,10 @@ export class MonthView extends LocaleMixin(LitElement) {
   }
 
   #onClick(event: Event, day: Day): void {
+    console.log('click on day', day.date, event);
+    // event.preventDefault();
+    // event.stopPropagation();
+
     if (event.target instanceof HTMLButtonElement && !event.target.disabled) {
       this.selectEvent.emit(day.date);
     }

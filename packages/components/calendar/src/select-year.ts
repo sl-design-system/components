@@ -108,6 +108,8 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
 
   #onKeydown(event: KeyboardEvent): void {
     if (event.key === 'Escape') {
+      console.log('escape in select year', event);
+      // TODO: add unit tests for the future with the escape key and clicking in the dialog... but maybe in the dialog component
       event.preventDefault();
       event.stopPropagation();
 

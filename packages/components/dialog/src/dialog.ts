@@ -251,6 +251,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   /** Close the dialog. */
   close(): void {
+    console.log('Dialog close called', this.dialog?.open, this.dialog);
     if (this.dialog?.open) {
       this.dialog?.close();
     }
@@ -259,9 +260,20 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   #onBackdropClick(event: MouseEvent): void {
     const rect = this.dialog!.getBoundingClientRect();
 
-    console.log('Dialog backdrop clicked:', event);
+    console.log(
+      'Dialog backdrop clicked:',
+      event,
+      event.target,
+      event.target === this.dialog,
+      'event target is sl dialog?',
+      event.target instanceof Dialog,
+      event.target instanceof HTMLDialogElement
+    );
+
     // event.preventDefault();
     // event.stopPropagation();
+
+    console.log('event.target instanceof HTMLDialogElement', event.target instanceof HTMLDialogElement);
 
     // Check if the user clicked on the backdrop
     if (
@@ -269,8 +281,10 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       (event.clientY < rect.top ||
         event.clientY > rect.bottom ||
         event.clientX < rect.left ||
-        event.clientX > rect.right)
+        event.clientX > rect.right) &&
+      event.target instanceof HTMLDialogElement
     ) {
+      console.log('Clicked outside the dialog in the backdrop area', event);
       event.preventDefault();
       event.stopPropagation();
 
@@ -282,7 +296,10 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   #onClick(event: MouseEvent): void {
     const button = event.composedPath().find((el): el is Button => el instanceof Button);
 
+    console.log('Dialog close called with...before... SL-DIALOG-CLOSE', this.dialog?.open, this.dialog);
+
     if (button?.hasAttribute('sl-dialog-close')) {
+      console.log('Dialog close called with SL-DIALOG-CLOSE', this.dialog?.open, this.dialog);
       this.close();
     }
   }
@@ -302,12 +319,18 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     event.preventDefault();
     event.stopPropagation();
 
+    console.log('Close button clicked:', event);
+
     this.close();
   }
 
   #onKeydown(event: KeyboardEvent): void {
     if (event.key === 'Escape') {
       event.preventDefault();
+
+      console.log('Escape key pressed in dialog:', event.target, event);
+
+      // TODO: when I click esc in the date picker in the dialog, the dialog closes and should not?
 
       if (this.disableCancel) {
         event.stopPropagation();

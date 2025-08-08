@@ -131,6 +131,8 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   #onKeydown(event: KeyboardEvent): void {
     if (event.key === 'Escape') {
+      console.log('escape in select month', event);
+
       event.preventDefault();
       event.stopPropagation();
 

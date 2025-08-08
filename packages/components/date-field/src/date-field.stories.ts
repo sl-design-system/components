@@ -187,6 +187,7 @@ export const Dialog: Story = {
         <div>Dialog should not be closed when the date picker is closed...</div>
         <sl-button slot="primary-actions" sl-dialog-close variant="primary">Close</sl-button>
       `;
+      dialog.closeButton = true;
       dialog.addEventListener('sl-close', () => dialog.remove());
       event.target.insertAdjacentElement('afterend', dialog);
       await dialog.updateComplete;

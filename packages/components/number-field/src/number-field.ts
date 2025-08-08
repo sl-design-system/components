@@ -230,6 +230,13 @@ export class NumberField extends LocaleMixin(TextField) {
     super.onBlur();
   }
 
+  /** This method is called when the input changes. */
+  override onChange(): void {
+    this.changeEvent.emit(this.rawValue);
+    this.updateState({ dirty: true });
+    this.updateValidity();
+  }
+
   /** @internal */
   override onInput({ target }: Event & { target: HTMLInputElement }): void {
     this.rawValue = target.value;

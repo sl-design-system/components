@@ -16,24 +16,35 @@ export interface CustomIconDefinition {
 export type IconStyle = 'solid' | 'regular' | 'light' | 'thin' | 'duotone' | 'brands';
 export type IconPrefix =
   | 'fas'
-  | 'fass'
   | 'far'
-  | 'fasr'
   | 'fal'
-  | 'fasl'
   | 'fat'
-  | 'fast'
   | 'fad'
   | 'fadr'
   | 'fadl'
   | 'fadt'
+  | 'fass'
+  | 'fasr'
+  | 'fasl'
+  | 'fast'
   | 'fasds'
   | 'fasdr'
   | 'fasdl'
   | 'fasdt'
   | 'fab'
+  | 'facr'
+  | 'faes'
+  | 'fajr'
+  | 'fajfr'
+  | 'fajdr'
   | 'fak'
-  | 'fakd';
+  | 'fakd'
+  | 'fans'
+  | 'fands'
+  | 'faslr'
+  | 'faslpr'
+  | 'fatl'
+  | 'fawsb';
 export type IconPathData = string | string[];
 
 export interface IconLookup {

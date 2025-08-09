@@ -43,6 +43,7 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
     'sl-form-field': this.#onFormField
   });
 
+  /** Indicates whether to show validity state. */
   #showValidity = false;
 
   /**

@@ -256,11 +256,15 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onBeforeToggle(event: ToggleEvent): void {
+    console.log('event on sl-field-button beforetoggle', event);
     if (event.newState === 'open') {
       this.input.setAttribute('aria-expanded', 'true');
     } else {
       this.input.setAttribute('aria-expanded', 'false');
       this.#popoverJustClosed = true;
+
+      event.preventDefault();
+      event.stopPropagation(); // TODO: maybe sth here with esc key?
     }
   }
 
@@ -329,8 +333,12 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onToggle(event: ToggleEvent): void {
+    console.log('event on sl-field-button toggle', event);
     if (event.newState === 'closed') {
       this.#popoverJustClosed = false;
+
+      event.preventDefault();
+      event.stopPropagation(); // TODO: maybe sth here with esc key?
     } else {
       // Wait for the calendar to render in the popover
       requestAnimationFrame(() => {

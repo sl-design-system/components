@@ -118,7 +118,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /**
    * Whether the component is select only. This means you cannot type in the text field,
-   * but you can still pick a date via de popover.
+   * but you can still pick a date via the popover.
    * @default false
    */
   @property({ type: Boolean, reflect: true, attribute: 'select-only' }) selectOnly?: boolean;
@@ -231,6 +231,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         })}
         @beforetoggle=${this.#onBeforeToggle}
         @toggle=${this.#onToggle}
+        @keydown=${(event: KeyboardEvent) => this.#onKeydown(event)}
         name="calendar"
         part="wrapper"
         popover
@@ -256,15 +257,15 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onBeforeToggle(event: ToggleEvent): void {
-    console.log('event on sl-field-button beforetoggle', event);
+    console.log('event on sl-field-button beforetoggle POPOVER', event);
     if (event.newState === 'open') {
       this.input.setAttribute('aria-expanded', 'true');
     } else {
       this.input.setAttribute('aria-expanded', 'false');
       this.#popoverJustClosed = true;
 
-      event.preventDefault();
-      event.stopPropagation(); // TODO: maybe sth here with esc key?
+      // event.preventDefault();
+      // event.stopPropagation(); // TODO: maybe sth here with esc key?
     }
   }
 
@@ -333,12 +334,12 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onToggle(event: ToggleEvent): void {
-    console.log('event on sl-field-button toggle', event);
+    console.log('event on sl-field-button toggle POPOVER', event);
     if (event.newState === 'closed') {
       this.#popoverJustClosed = false;
 
-      event.preventDefault();
-      event.stopPropagation(); // TODO: maybe sth here with esc key?
+      // event.preventDefault();
+      // event.stopPropagation(); // TODO: maybe sth here with esc key?
     } else {
       // Wait for the calendar to render in the popover
       requestAnimationFrame(() => {
@@ -348,5 +349,14 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     // Trigger a rerender so the calendar will be rendered
     this.requestUpdate();
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    console.log('event on sl-field-button keydown POPOVER', event);
+    if (event.code === 'Escape') {
+      // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the date field
+      // does not close parent containers (such as dialogs).
+      event.stopPropagation();
+    }
   }
 }

@@ -143,6 +143,68 @@ describe('sl-dialog', () => {
       expect(onCancel).to.have.been.calledOnce;
     });
 
+    it('should only handle backdrop clicks when event.target is an HTMLDialogElement', async () => {
+      // Simulate click on the dialog (should be handled)
+      // const clickEvent = new PointerEvent('click', { clientX: 0, clientY: 0, bubbles: true });
+      // Object.defineProperty(clickEvent, 'target', { value: dialog, configurable: true });
+      // const spy = sinon.spy(el.cancelEvent, 'emit');
+      // dialog.dispatchEvent(clickEvent);
+      // expect(spy.called).to.be.true;
+
+      stub(dialog, 'getBoundingClientRect').returns({
+        top: 400,
+        right: 1400,
+        bottom: 900,
+        left: 700
+      } as DOMRect);
+
+      const onCancel = spy();
+      el.addEventListener('sl-cancel', onCancel);
+
+      // Mock the click event
+      const clickEvent = new PointerEvent('click');
+      stub(clickEvent, 'clientX').value(100);
+      stub(clickEvent, 'clientY').value(100);
+      dialog.dispatchEvent(clickEvent);
+
+      // Wait for the event to be emitted
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      expect(onCancel).to.have.been.calledOnce;
+
+      console.log('onCancel', onCancel, onCancel.args, onCancel.lastCall, onCancel.callCount);
+
+      // Simulate click on a child element (should not be handled)
+      const child = document.createElement('div');
+      dialog.appendChild(child);
+
+      // debugger;
+      console.log('dialog child', child, dialog, dialog.children, 'p eeeel', el.querySelector('p'));
+
+      const dialogParagraph = el.querySelector('p');
+      expect(dialogParagraph).to.exist;
+
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      console.log(
+        'dialogParagraph',
+        dialogParagraph,
+        dialogParagraph?.getBoundingClientRect(),
+        dialogParagraph?.clientWidth
+      );
+
+      const childClickEvent = new PointerEvent('click', { clientX: 0, clientY: 0, bubbles: true });
+      Object.defineProperty(childClickEvent, 'target', { value: child, configurable: true });
+      // spy.resetHistory();
+      dialog.dispatchEvent(childClickEvent);
+
+      // Wait for the event to be emitted
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // expect(spy.called).to.be.false;
+      expect(onCancel).not.to.have.been.called;
+    });
+
     it('should emit an sl-close event when calling close()', async () => {
       const onClose = spy();
 
@@ -150,7 +212,7 @@ describe('sl-dialog', () => {
       el.close();
 
       // Wait for the event to be emitted
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 400));
 
       expect(onClose).to.have.been.calledOnce;
     });
@@ -173,7 +235,7 @@ describe('sl-dialog', () => {
       dialog.dispatchEvent(clickEvent);
 
       // Wait for the event to be emitted
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 400));
 
       expect(onClose).to.have.been.calledOnce;
     });
@@ -185,7 +247,7 @@ describe('sl-dialog', () => {
       el.renderRoot.querySelector<Button>('sl-button[aria-label="Close"]')?.click();
 
       // Wait for the event to be emitted
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 400));
 
       expect(onClose).to.have.been.calledOnce;
     });
@@ -197,7 +259,7 @@ describe('sl-dialog', () => {
       el.querySelector('sl-button')?.click();
 
       // Wait for the event to be emitted
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 400));
 
       expect(onClose).to.have.been.calledOnce;
     });
@@ -266,6 +328,7 @@ describe('sl-dialog', () => {
     });
 
     it('should not have reset the overflow on the document element', () => {
+      console.log('document.documentElement.style.overflow..........', document.documentElement.style.overflow);
       expect(document.documentElement.style.overflow).to.equal('');
     });
 

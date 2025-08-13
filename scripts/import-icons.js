@@ -85,7 +85,9 @@ const buildIcons = async theme => {
 
   // fetch all FA tokens and store these
   Object.entries(icons).map(([iconName, value]) => {
-    const faIcon = convertToIconDefinition(value.value.replace('fa-', ''), getIconStyle(iconName, text, style));
+    const tokenValue = value['$value'] || value.value;
+    if (!tokenValue) return;
+    const faIcon = convertToIconDefinition(tokenValue.replace('fa-', ''), getIconStyle(iconName, text, style));
     if (!faIcon) return;
 
     const {
@@ -95,7 +97,11 @@ const buildIcons = async theme => {
 
     const svg = `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">${paths.map((p, i) => `<path d="${p}" fill="var(--sl-icon-fill-${getColorToken(i, 'regular')})"></path>`).join('')}</svg>`;
 
-    icons[iconName] = { ...value, svg };
+    icons[iconName] = {
+      value: tokenValue,
+      type: value['$type'] || value.type,
+      description: value['$description'] || value.description,
+      svg };
   });
 
   const iconsFolderPath = join(cwd, `../packages/themes/${theme}/icons/`);

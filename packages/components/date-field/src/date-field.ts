@@ -257,23 +257,15 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onBeforeToggle(event: ToggleEvent): void {
-    console.log('event on sl-field-button beforetoggle POPOVER', event);
     if (event.newState === 'open') {
       this.input.setAttribute('aria-expanded', 'true');
     } else {
       this.input.setAttribute('aria-expanded', 'false');
       this.#popoverJustClosed = true;
-
-      // event.preventDefault();
-      // event.stopPropagation(); // TODO: maybe sth here with esc key?
     }
   }
 
-  #onButtonClick(event: MouseEvent): void {
-    console.log('event on sl-field-button click', event);
-    // event.preventDefault();
-    // event.stopPropagation();
-
+  #onButtonClick(): void {
     // Prevents the popover from reopening immediately after it was just closed
     if (!this.#popoverJustClosed) {
       this.wrapper?.togglePopover();
@@ -281,7 +273,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onChange(event: SlSelectEvent<Date>): void {
-    console.log('event on sl-calendar change', event);
     event.preventDefault();
     event.stopPropagation();
 
@@ -334,12 +325,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onToggle(event: ToggleEvent): void {
-    console.log('event on sl-field-button toggle POPOVER', event);
     if (event.newState === 'closed') {
       this.#popoverJustClosed = false;
-
-      // event.preventDefault();
-      // event.stopPropagation(); // TODO: maybe sth here with esc key?
     } else {
       // Wait for the calendar to render in the popover
       requestAnimationFrame(() => {
@@ -352,7 +339,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    console.log('event on sl-field-button keydown POPOVER', event);
     if (event.code === 'Escape') {
       // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the date field
       // does not close parent containers (such as dialogs).

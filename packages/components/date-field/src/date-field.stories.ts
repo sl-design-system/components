@@ -89,8 +89,6 @@ export default {
       event.target.closest('sl-form')?.reportValidity();
     };
 
-    console.log('value in date field story', value);
-
     return html`
       <sl-form .value=${value}>
         <sl-form-field .hint=${hint} .label=${label}>

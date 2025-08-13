@@ -134,7 +134,6 @@ describe('sl-dialog', () => {
       const onCancel = spy();
       el.addEventListener('sl-cancel', onCancel);
 
-      // Mock the click event
       const clickEvent = new PointerEvent('click');
       stub(clickEvent, 'clientX').value(100);
       stub(clickEvent, 'clientY').value(100);
@@ -143,14 +142,7 @@ describe('sl-dialog', () => {
       expect(onCancel).to.have.been.calledOnce;
     });
 
-    it('should only handle backdrop clicks when event.target is an HTMLDialogElement', async () => {
-      // Simulate click on the dialog (should be handled)
-      // const clickEvent = new PointerEvent('click', { clientX: 0, clientY: 0, bubbles: true });
-      // Object.defineProperty(clickEvent, 'target', { value: dialog, configurable: true });
-      // const spy = sinon.spy(el.cancelEvent, 'emit');
-      // dialog.dispatchEvent(clickEvent);
-      // expect(spy.called).to.be.true;
-
+    it('should only handle backdrop clicks when event.target is an dialog', async () => {
       stub(dialog, 'getBoundingClientRect').returns({
         top: 400,
         right: 1400,
@@ -161,47 +153,30 @@ describe('sl-dialog', () => {
       const onCancel = spy();
       el.addEventListener('sl-cancel', onCancel);
 
-      // Mock the click event
       const clickEvent = new PointerEvent('click');
       stub(clickEvent, 'clientX').value(100);
       stub(clickEvent, 'clientY').value(100);
       dialog.dispatchEvent(clickEvent);
 
       // Wait for the event to be emitted
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve));
 
       expect(onCancel).to.have.been.calledOnce;
 
-      console.log('onCancel', onCancel, onCancel.args, onCancel.lastCall, onCancel.callCount);
+      onCancel.resetHistory();
 
-      // Simulate click on a child element (should not be handled)
-      const child = document.createElement('div');
-      dialog.appendChild(child);
+      const button = document.createElement('sl-button');
+      button.innerHTML = 'Click me';
+      dialog.appendChild(button);
 
-      // debugger;
-      console.log('dialog child', child, dialog, dialog.children, 'p eeeel', el.querySelector('p'));
+      await el.updateComplete;
 
-      const dialogParagraph = el.querySelector('p');
-      expect(dialogParagraph).to.exist;
-
-      await new Promise(resolve => setTimeout(resolve, 500));
-
-      console.log(
-        'dialogParagraph',
-        dialogParagraph,
-        dialogParagraph?.getBoundingClientRect(),
-        dialogParagraph?.clientWidth
-      );
-
-      const childClickEvent = new PointerEvent('click', { clientX: 0, clientY: 0, bubbles: true });
-      Object.defineProperty(childClickEvent, 'target', { value: child, configurable: true });
-      // spy.resetHistory();
-      dialog.dispatchEvent(childClickEvent);
+      button.click();
+      await el.updateComplete;
 
       // Wait for the event to be emitted
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve));
 
-      // expect(spy.called).to.be.false;
       expect(onCancel).not.to.have.been.called;
     });
 
@@ -210,6 +185,8 @@ describe('sl-dialog', () => {
 
       el.addEventListener('sl-close', onClose);
       el.close();
+
+      await el.updateComplete;
 
       // Wait for the event to be emitted
       await new Promise(resolve => setTimeout(resolve, 400));
@@ -234,6 +211,8 @@ describe('sl-dialog', () => {
       stub(clickEvent, 'clientY').value(100);
       dialog.dispatchEvent(clickEvent);
 
+      await el.updateComplete;
+
       // Wait for the event to be emitted
       await new Promise(resolve => setTimeout(resolve, 400));
 
@@ -245,6 +224,8 @@ describe('sl-dialog', () => {
 
       el.addEventListener('sl-close', onClose);
       el.renderRoot.querySelector<Button>('sl-button[aria-label="Close"]')?.click();
+
+      await el.updateComplete;
 
       // Wait for the event to be emitted
       await new Promise(resolve => setTimeout(resolve, 400));
@@ -328,7 +309,6 @@ describe('sl-dialog', () => {
     });
 
     it('should not have reset the overflow on the document element', () => {
-      console.log('document.documentElement.style.overflow..........', document.documentElement.style.overflow);
       expect(document.documentElement.style.overflow).to.equal('');
     });
 

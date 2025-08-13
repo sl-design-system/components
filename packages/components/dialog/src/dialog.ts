@@ -284,7 +284,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         event.clientX > rect.right) &&
       event.target instanceof HTMLDialogElement
     ) {
-      // console.log('Clicked outside the dialog in the backdrop area', event);
       event.preventDefault();
       event.stopPropagation();
 

@@ -89,6 +89,8 @@ export default {
       event.target.closest('sl-form')?.reportValidity();
     };
 
+    console.log('value in date field story', value);
+
     return html`
       <sl-form .value=${value}>
         <sl-form-field .hint=${hint} .label=${label}>
@@ -174,36 +176,37 @@ export const Dialog: Story = {
   render: () => {
     const onClick = async (event: Event & { target: HTMLElement }) => {
       const dialog = document.createElement('sl-dialog');
+
       dialog.innerHTML = `
-        <span slot="title">Tooltip</span>
-        Dialog should not be closed when the date picker is closed...
-        <sl-date-field select-only placeholder="this is a date field in the dialog" style="width: fit-content"> </sl-date-field>
-        <div>Dialog should not be closed when the date picker is closed...</div>
-        <div>Dialog should not be closed when the date picker is closed...</div>
-        <div>Dialog should not be closed when the date picker is closed...</div>
-        <div>Dialog should not be closed when the date picker is closed...</div>
-        <div>Dialog should not be closed when the date picker is closed...</div>
-        <div>Dialog should not be closed when the date picker is closed...</div>
-        <div>Dialog should not be closed when the date picker is closed...</div>
+        <span slot="title">Dialog with a date field</span>
+        <div class="container">
+          This dialog should not be closed when the date picker is closed.
+          <sl-date-field select-only placeholder="this is a date field in the dialog" style="width: fit-content"> </sl-date-field>
+        </div>
         <sl-button slot="primary-actions" sl-dialog-close variant="primary">Close</sl-button>
       `;
+
       dialog.closeButton = true;
+
       dialog.addEventListener('sl-close', () => dialog.remove());
+
       event.target.insertAdjacentElement('afterend', dialog);
+
       await dialog.updateComplete;
+
       dialog.showModal();
     };
 
     return html`
       <style>
-        #root-inner {
-          display: grid;
-          height: calc(20rem);
-          place-items: center;
+        .container {
+          display: flex;
+          flex-direction: column;
+          gap: 0.8rem;
+          margin-block-end: 0.5rem;
         }
       </style>
       <sl-button @click=${onClick}>Open dialog</sl-button>
-      <sl-date-field select-only placeholder="this is a date field" style="width: fit-content"> </sl-date-field>
     `;
   }
 };

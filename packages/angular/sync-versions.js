@@ -17,8 +17,6 @@ Object.keys(packageJson.peerDependencies)
 
     const { version } = JSON.parse(readFileSync(path, 'utf8'));
 
-    console.log('version, componentName, name', version, componentName, name);
-
     packageJson.peerDependencies[name] = `^${version}`;
   });
 

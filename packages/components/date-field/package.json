@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/date-field",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Date field component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -39,9 +39,9 @@
   },
   "dependencies": {
     "@sl-design-system/calendar": "^0.0.2",
-    "@sl-design-system/form": "^1.2.3",
-    "@sl-design-system/icon": "^1.0.2",
-    "@sl-design-system/text-field": "^1.6.4"
+    "@sl-design-system/form": "^1.2.4",
+    "@sl-design-system/icon": "^1.2.1",
+    "@sl-design-system/text-field": "^1.6.5"
   },
   "devDependencies": {
     "@open-wc/scoped-elements": "^3.0.5",

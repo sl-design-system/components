@@ -49,6 +49,7 @@ export default {
         'neon': allModes['neon'],
         'sanoma-learning': allModes['sanoma-learning'],
         'teas': allModes['teas'],
+        'tig': allModes['tig'],
       }
     }
   }

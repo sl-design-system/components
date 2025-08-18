@@ -2688,100 +2688,100 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/fontawesome-common-types@npm:6.7.2":
-  version: 6.7.2
-  resolution: "@fortawesome/fontawesome-common-types@npm:6.7.2::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Ffontawesome-common-types%2F-%2F6.7.2%2Ffontawesome-common-types-6.7.2.tgz"
-  checksum: 10c0/0785df560542d9c08a0ba07bb7a39902274a3cd65c018672eb2520a99efccce18bdb7f7f4b1c6089763bc5627bf0f0837c3af963a8427eaeb535bd57c820a723
+"@fortawesome/fontawesome-common-types@npm:7.0.0":
+  version: 7.0.0
+  resolution: "@fortawesome/fontawesome-common-types@npm:7.0.0"
+  checksum: 10c0/e9c3a77d11e537212b734badf5cfa5f7828ac4e2d74692a3078113e226f31abcf37cb7a3187d5eebd7fc1c819ddea8ad9383f24d033dba3d2aeec79e92e28dd7
   languageName: node
   linkType: hard
 
-"@fortawesome/fontawesome-svg-core@npm:^6.7.2":
-  version: 6.7.2
-  resolution: "@fortawesome/fontawesome-svg-core@npm:6.7.2::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Ffontawesome-svg-core%2F-%2F6.7.2%2Ffontawesome-svg-core-6.7.2.tgz"
+"@fortawesome/fontawesome-svg-core@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "@fortawesome/fontawesome-svg-core@npm:7.0.0"
   dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:6.7.2"
-  checksum: 10c0/9e4e2992b341d2d11cd6ab8cf001e2cb9be4266ce200b307d15c0618e7d2cf11c1c4c67a1f95f3cc70feed2380fa66672132c32078674d5f9cb2cb0b7703f3ac
+    "@fortawesome/fontawesome-common-types": "npm:7.0.0"
+  checksum: 10c0/abeff7307874b11e096496418516b2cb120e6aee358def639915fbf2a31bbd4df243ecdde04ed9c74c454e0a3fc90331131572b600d58acd973d3e62d39c7db9
   languageName: node
   linkType: hard
 
-"@fortawesome/free-brands-svg-icons@npm:^6.7.2":
-  version: 6.7.2
-  resolution: "@fortawesome/free-brands-svg-icons@npm:6.7.2::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Ffree-brands-svg-icons%2F-%2F6.7.2%2Ffree-brands-svg-icons-6.7.2.tgz"
+"@fortawesome/free-brands-svg-icons@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "@fortawesome/free-brands-svg-icons@npm:7.0.0"
   dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:6.7.2"
-  checksum: 10c0/054af882f3416d4a04dfe0f8db8f1ac645d07709a019e95368ae796c1aeee5929dfaf023e5568438a600e1bc1496e6e7270659d2be91b50531fdbd724034b22c
+    "@fortawesome/fontawesome-common-types": "npm:7.0.0"
+  checksum: 10c0/ebb201a083d12d068c1ae0e81d1ff91677b989d304975ce4cad8b3db19d205f2cd7a199167ae5f91b03e9ff47545772be4d2dea70501d7272a43cd4eab39d1bd
   languageName: node
   linkType: hard
 
-"@fortawesome/pro-duotone-svg-icons@npm:^6.7.2":
-  version: 6.7.2
-  resolution: "@fortawesome/pro-duotone-svg-icons@npm:6.7.2::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fpro-duotone-svg-icons%2F-%2F6.7.2%2Fpro-duotone-svg-icons-6.7.2.tgz"
+"@fortawesome/pro-duotone-svg-icons@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "@fortawesome/pro-duotone-svg-icons@npm:7.0.0"
   dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:6.7.2"
-  checksum: 10c0/5064e1ffcf1a316be8ca38d4b64b80e675891f58e0b1ac7ad321d3c9aff2f28fbd3c40065fa48de7c942324cf9ad2fa02399fb0c977b927f615a02d1009730c3
+    "@fortawesome/fontawesome-common-types": "npm:7.0.0"
+  checksum: 10c0/8b01b6449e0d5b73a1fc93de564e1095beb8b0ecc79d8cc7d5622d49d5afc8829ad32c460fbe1ba601e02460dff74000e8079603602924fa26a0fb7cce0c9afc
   languageName: node
   linkType: hard
 
-"@fortawesome/pro-light-svg-icons@npm:^6.7.2":
-  version: 6.7.2
-  resolution: "@fortawesome/pro-light-svg-icons@npm:6.7.2::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fpro-light-svg-icons%2F-%2F6.7.2%2Fpro-light-svg-icons-6.7.2.tgz"
+"@fortawesome/pro-light-svg-icons@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "@fortawesome/pro-light-svg-icons@npm:7.0.0"
   dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:6.7.2"
-  checksum: 10c0/7b4a468d5382e473a93c6413774f98be11b12dc76ee9dda4fcedf599de9e4791250deb90b20839ebf73fc59c207679414c73ad73ac1bb088104a32958d992e42
+    "@fortawesome/fontawesome-common-types": "npm:7.0.0"
+  checksum: 10c0/ac56db381b04100d2ebea669873dd68ce2548103fcbbb79413e874df95f962cec6144ca8749f568576b2b0d5a313e948cf46f031b291b3710b8796e1be80cea4
   languageName: node
   linkType: hard
 
-"@fortawesome/pro-regular-svg-icons@npm:^6.7.2":
-  version: 6.7.2
-  resolution: "@fortawesome/pro-regular-svg-icons@npm:6.7.2::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fpro-regular-svg-icons%2F-%2F6.7.2%2Fpro-regular-svg-icons-6.7.2.tgz"
+"@fortawesome/pro-regular-svg-icons@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "@fortawesome/pro-regular-svg-icons@npm:7.0.0"
   dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:6.7.2"
-  checksum: 10c0/23b7ce4f18b8751025431020d4c59344919794ebf0ace7d36ed2d50b5b78b10ed18dcf6e3951a3d80a3718769b5a862b84642f64389483edd0e30f825c04a735
+    "@fortawesome/fontawesome-common-types": "npm:7.0.0"
+  checksum: 10c0/851bd414bf9caaa336b6f96152dd8f53a2282a51a261c730ca47467c6f65eb8fd3154476765dce76a6932a7fa1988cbded9b4410a206d84ea6194815076479a5
   languageName: node
   linkType: hard
 
-"@fortawesome/pro-solid-svg-icons@npm:^6.7.2":
-  version: 6.7.2
-  resolution: "@fortawesome/pro-solid-svg-icons@npm:6.7.2::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fpro-solid-svg-icons%2F-%2F6.7.2%2Fpro-solid-svg-icons-6.7.2.tgz"
+"@fortawesome/pro-solid-svg-icons@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "@fortawesome/pro-solid-svg-icons@npm:7.0.0"
   dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:6.7.2"
-  checksum: 10c0/6c9fa5c29136356bd720d4e46939153f774622cb82eb8a7ba8f638f3ed0e418db96e57bd43ed24b6cd14a17a58df8792029c9e9f73104e0eeebbe9acecf3079e
+    "@fortawesome/fontawesome-common-types": "npm:7.0.0"
+  checksum: 10c0/e2430244065baf6321f91cb39190c9895a3e1d530cdf396f53edbe46250311640712ad084b945955aab25975822bc2cb878339add243807d8323e46a8f9eb304
   languageName: node
   linkType: hard
 
-"@fortawesome/pro-thin-svg-icons@npm:^6.7.2":
-  version: 6.7.2
-  resolution: "@fortawesome/pro-thin-svg-icons@npm:6.7.2::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fpro-thin-svg-icons%2F-%2F6.7.2%2Fpro-thin-svg-icons-6.7.2.tgz"
+"@fortawesome/pro-thin-svg-icons@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "@fortawesome/pro-thin-svg-icons@npm:7.0.0"
   dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:6.7.2"
-  checksum: 10c0/728b2ec887f2a6390639307db1ea718d4f54519f6d5d999c80d9870292e04662c1872a593fd13831708ad92d5fae12786becdaab713f75c5cb8f2175230fda5a
+    "@fortawesome/fontawesome-common-types": "npm:7.0.0"
+  checksum: 10c0/0bf1c2e9d9826299363d6c4e7bf190cbe54bb46283438521dffc61522c77cc086ee061a0ef9dca7af3fd1eb6101a9659bc116c6344c29180bc8f025a3e3afef9
   languageName: node
   linkType: hard
 
-"@fortawesome/sharp-light-svg-icons@npm:^6.7.2":
-  version: 6.7.2
-  resolution: "@fortawesome/sharp-light-svg-icons@npm:6.7.2::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fsharp-light-svg-icons%2F-%2F6.7.2%2Fsharp-light-svg-icons-6.7.2.tgz"
+"@fortawesome/sharp-light-svg-icons@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "@fortawesome/sharp-light-svg-icons@npm:7.0.0"
   dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:6.7.2"
-  checksum: 10c0/bef1697873a97e8f3e4adf3f8a7bb5eabca903240e460f8a218a36c8bef182d3cb13c35ed81f16e051f9d33048a919439dbbace127cd7287f94eb17313d2be17
+    "@fortawesome/fontawesome-common-types": "npm:7.0.0"
+  checksum: 10c0/8092fafed05d3b10b17e236e095436dc11fa30d54bb12f4a07cffd187f8b2fd27858140faaef877b0eb2549eb554a2dfec9d3ec7b98a3e486d367c6b7f2d2ba2
   languageName: node
   linkType: hard
 
-"@fortawesome/sharp-regular-svg-icons@npm:^6.7.2":
-  version: 6.7.2
-  resolution: "@fortawesome/sharp-regular-svg-icons@npm:6.7.2::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fsharp-regular-svg-icons%2F-%2F6.7.2%2Fsharp-regular-svg-icons-6.7.2.tgz"
+"@fortawesome/sharp-regular-svg-icons@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "@fortawesome/sharp-regular-svg-icons@npm:7.0.0"
   dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:6.7.2"
-  checksum: 10c0/f747156ae09844de5951a2c3e6ced91d81b3ff60cd8a86d41b38291eff334be439094a86a7138ac53dce358bb4f10c4f5b117465e4f9980f75afa682e5ca0df4
+    "@fortawesome/fontawesome-common-types": "npm:7.0.0"
+  checksum: 10c0/e24b38202a59749d8a57406e834b6574e5868d6e279edd7e5dabc8adb7a03d2dbcafb12091b58b82e150a35199a596c327bc2990921a07547498e797a6eeaff4
   languageName: node
   linkType: hard
 
-"@fortawesome/sharp-solid-svg-icons@npm:^6.7.2":
-  version: 6.7.2
-  resolution: "@fortawesome/sharp-solid-svg-icons@npm:6.7.2::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fsharp-solid-svg-icons%2F-%2F6.7.2%2Fsharp-solid-svg-icons-6.7.2.tgz"
+"@fortawesome/sharp-solid-svg-icons@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "@fortawesome/sharp-solid-svg-icons@npm:7.0.0"
   dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:6.7.2"
-  checksum: 10c0/0f2162837d6b8da5cb19f36624784c43732e0fcd69ec9382c990ec1c2d38084fb3e82ff5dec57bc3fb04a64be734403faab15fd133108d2f0e14a22cbc1fbdac
+    "@fortawesome/fontawesome-common-types": "npm:7.0.0"
+  checksum: 10c0/171b6607cfed56a7ae003608b36c234f37367828c7e0aecc1429aae60c1b8b08fdabd1c2d3cabfe83b7b9ac46b9b301f00e7b544bbe12adcbaf9fa35aa8b74dc
   languageName: node
   linkType: hard
 
@@ -4487,14 +4487,14 @@ __metadata:
     "@angular/platform-browser-dynamic": "npm:^19.2.14"
     "@angular/router": "npm:^19.2.14"
     "@sl-design-system/checkbox": "npm:^2.1.4"
-    "@sl-design-system/form": "npm:^1.2.3"
-    "@sl-design-system/icon": "npm:^1.2.0"
+    "@sl-design-system/form": "npm:^1.2.4"
+    "@sl-design-system/icon": "npm:^1.2.1"
     "@sl-design-system/locales": "npm:^0.0.13"
-    "@sl-design-system/radio-group": "npm:^1.1.3"
+    "@sl-design-system/radio-group": "npm:^1.1.4"
     "@sl-design-system/select": "npm:^2.0.4"
     "@sl-design-system/switch": "npm:^1.1.4"
     "@sl-design-system/text-area": "npm:^1.1.3"
-    "@sl-design-system/text-field": "npm:^1.6.4"
+    "@sl-design-system/text-field": "npm:^1.6.5"
     "@storybook/angular": "npm:^9.0.6"
     "@types/jasmine": "npm:~5.1.8"
     jasmine-core: "npm:~5.8.0"
@@ -4557,7 +4557,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/bingel-dc@workspace:packages/themes/bingel-dc"
   dependencies:
-    "@sl-design-system/icon": "npm:1.2.0"
+    "@sl-design-system/icon": "npm:1.2.1"
   languageName: unknown
   linkType: soft
 
@@ -4565,7 +4565,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/bingel-int@workspace:packages/themes/bingel-int"
   dependencies:
-    "@sl-design-system/icon": "npm:1.2.0"
+    "@sl-design-system/icon": "npm:1.2.1"
   languageName: unknown
   linkType: soft
 
@@ -4647,7 +4647,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/checklist@workspace:packages/checklist"
   dependencies:
-    "@fortawesome/pro-solid-svg-icons": "npm:^6.7.2"
+    "@fortawesome/pro-solid-svg-icons": "npm:^7.0.0"
     "@open-wc/scoped-elements": "npm:^3.0.5"
     "@sl-design-system/icon": "npm:^1.0.0"
     "@sl-design-system/skeleton": "npm:^1.0.0"
@@ -4677,7 +4677,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/clickedu@workspace:packages/themes/clickedu"
   dependencies:
-    "@sl-design-system/icon": "npm:1.2.0"
+    "@sl-design-system/icon": "npm:1.2.1"
   languageName: unknown
   linkType: soft
 
@@ -4686,11 +4686,11 @@ __metadata:
   resolution: "@sl-design-system/combobox@workspace:packages/components/combobox"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/form": "npm:^1.2.3"
-    "@sl-design-system/icon": "npm:^1.1.0"
+    "@sl-design-system/form": "npm:^1.2.4"
+    "@sl-design-system/icon": "npm:^1.2.1"
     "@sl-design-system/listbox": "npm:^0.1.3"
     "@sl-design-system/tag": "npm:^0.1.5"
-    "@sl-design-system/text-field": "npm:^1.6.4"
+    "@sl-design-system/text-field": "npm:^1.6.5"
     lit: "npm:^3.3.0"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.5
@@ -4712,9 +4712,9 @@ __metadata:
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.5"
     "@sl-design-system/calendar": "npm:^0.0.2"
-    "@sl-design-system/form": "npm:^1.2.3"
-    "@sl-design-system/icon": "npm:^1.0.2"
-    "@sl-design-system/text-field": "npm:^1.6.4"
+    "@sl-design-system/form": "npm:^1.2.4"
+    "@sl-design-system/icon": "npm:^1.2.1"
+    "@sl-design-system/text-field": "npm:^1.6.5"
     lit: "npm:^3.3.0"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.5
@@ -4780,7 +4780,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/editorial-suite@workspace:packages/themes/editorial-suite"
   dependencies:
-    "@sl-design-system/icon": "npm:1.2.0"
+    "@sl-design-system/icon": "npm:1.2.1"
   languageName: unknown
   linkType: soft
 
@@ -4876,7 +4876,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/form@npm:^1.2.3, @sl-design-system/form@workspace:packages/components/form":
+"@sl-design-system/form@npm:^1.2.3, @sl-design-system/form@npm:^1.2.4, @sl-design-system/form@workspace:packages/components/form":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/form@workspace:packages/components/form"
   dependencies:
@@ -4937,7 +4937,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/icon@npm:1.2.0, @sl-design-system/icon@npm:^1.0.0, @sl-design-system/icon@npm:^1.0.2, @sl-design-system/icon@npm:^1.1.0, @sl-design-system/icon@npm:^1.2.0, @sl-design-system/icon@workspace:packages/components/icon":
+"@sl-design-system/icon@npm:1.2.1, @sl-design-system/icon@npm:^1.0.0, @sl-design-system/icon@npm:^1.0.2, @sl-design-system/icon@npm:^1.1.0, @sl-design-system/icon@npm:^1.2.0, @sl-design-system/icon@npm:^1.2.1, @sl-design-system/icon@workspace:packages/components/icon":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/icon@workspace:packages/components/icon"
   dependencies:
@@ -4967,7 +4967,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/itslearning@workspace:packages/themes/itslearning"
   dependencies:
-    "@sl-design-system/icon": "npm:1.2.0"
+    "@sl-design-system/icon": "npm:1.2.1"
   languageName: unknown
   linkType: soft
 
@@ -4975,7 +4975,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/kampus@workspace:packages/themes/kampus"
   dependencies:
-    "@sl-design-system/icon": "npm:1.2.0"
+    "@sl-design-system/icon": "npm:1.2.1"
   languageName: unknown
   linkType: soft
 
@@ -5017,7 +5017,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/magister@workspace:packages/themes/magister"
   dependencies:
-    "@sl-design-system/icon": "npm:1.2.0"
+    "@sl-design-system/icon": "npm:1.2.1"
   languageName: unknown
   linkType: soft
 
@@ -5025,7 +5025,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/max@workspace:packages/themes/max"
   dependencies:
-    "@sl-design-system/icon": "npm:1.2.0"
+    "@sl-design-system/icon": "npm:1.2.1"
   languageName: unknown
   linkType: soft
 
@@ -5100,7 +5100,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/my-digital-book@workspace:packages/themes/my-digital-book"
   dependencies:
-    "@sl-design-system/icon": "npm:1.2.0"
+    "@sl-design-system/icon": "npm:1.2.1"
   languageName: unknown
   linkType: soft
 
@@ -5108,7 +5108,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/myvanin@workspace:packages/themes/myvanin_onhold"
   dependencies:
-    "@sl-design-system/icon": "npm:1.2.0"
+    "@sl-design-system/icon": "npm:1.2.1"
   languageName: unknown
   linkType: soft
 
@@ -5116,7 +5116,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/neon@workspace:packages/themes/neon"
   dependencies:
-    "@sl-design-system/icon": "npm:1.2.0"
+    "@sl-design-system/icon": "npm:1.2.1"
   languageName: unknown
   linkType: soft
 
@@ -5141,8 +5141,8 @@ __metadata:
     "@open-wc/scoped-elements": "npm:^3.0.5"
     "@sl-design-system/announcer": "npm:^0.0.4"
     "@sl-design-system/button": "npm:^1.2.4"
-    "@sl-design-system/form": "npm:^1.2.3"
-    "@sl-design-system/icon": "npm:^1.1.0"
+    "@sl-design-system/form": "npm:^1.2.4"
+    "@sl-design-system/icon": "npm:^1.2.1"
     "@sl-design-system/menu": "npm:^0.2.4"
     "@sl-design-system/select": "npm:^2.0.4"
     "@sl-design-system/shared": "npm:^0.8.0"
@@ -5190,12 +5190,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/radio-group@npm:^1.1.3, @sl-design-system/radio-group@workspace:packages/components/radio-group":
+"@sl-design-system/radio-group@npm:^1.1.4, @sl-design-system/radio-group@workspace:packages/components/radio-group":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/radio-group@workspace:packages/components/radio-group"
   dependencies:
     "@lit/localize": "npm:^0.12.2"
-    "@sl-design-system/form": "npm:^1.2.3"
+    "@sl-design-system/form": "npm:^1.2.4"
     "@sl-design-system/shared": "npm:^0.8.0"
   peerDependencies:
     "@lit/localize": ^0.12.1
@@ -5206,7 +5206,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/sanoma-learning@workspace:packages/themes/sanoma-learning"
   dependencies:
-    "@sl-design-system/icon": "npm:1.2.0"
+    "@sl-design-system/icon": "npm:1.2.1"
   languageName: unknown
   linkType: soft
 
@@ -5214,7 +5214,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/sanoma-utbildning@workspace:packages/themes/sanoma-utbildning_onhold"
   dependencies:
-    "@sl-design-system/icon": "npm:1.2.0"
+    "@sl-design-system/icon": "npm:1.2.1"
   languageName: unknown
   linkType: soft
 
@@ -5225,16 +5225,16 @@ __metadata:
     "@figma-export/cli": "npm:^6.2.2"
     "@figma-export/output-components-as-svg": "npm:^6.2.2"
     "@figma-export/transform-svg-with-svgo": "npm:^6.2.2"
-    "@fortawesome/fontawesome-svg-core": "npm:^6.7.2"
-    "@fortawesome/free-brands-svg-icons": "npm:^6.7.2"
-    "@fortawesome/pro-duotone-svg-icons": "npm:^6.7.2"
-    "@fortawesome/pro-light-svg-icons": "npm:^6.7.2"
-    "@fortawesome/pro-regular-svg-icons": "npm:^6.7.2"
-    "@fortawesome/pro-solid-svg-icons": "npm:^6.7.2"
-    "@fortawesome/pro-thin-svg-icons": "npm:^6.7.2"
-    "@fortawesome/sharp-light-svg-icons": "npm:^6.7.2"
-    "@fortawesome/sharp-regular-svg-icons": "npm:^6.7.2"
-    "@fortawesome/sharp-solid-svg-icons": "npm:^6.7.2"
+    "@fortawesome/fontawesome-svg-core": "npm:^7.0.0"
+    "@fortawesome/free-brands-svg-icons": "npm:^7.0.0"
+    "@fortawesome/pro-duotone-svg-icons": "npm:^7.0.0"
+    "@fortawesome/pro-light-svg-icons": "npm:^7.0.0"
+    "@fortawesome/pro-regular-svg-icons": "npm:^7.0.0"
+    "@fortawesome/pro-solid-svg-icons": "npm:^7.0.0"
+    "@fortawesome/pro-thin-svg-icons": "npm:^7.0.0"
+    "@fortawesome/sharp-light-svg-icons": "npm:^7.0.0"
+    "@fortawesome/sharp-regular-svg-icons": "npm:^7.0.0"
+    "@fortawesome/sharp-solid-svg-icons": "npm:^7.0.0"
     "@tokens-studio/sd-transforms": "npm:^2.0.1"
     "@tokens-studio/sdk": "npm:^2.2.2"
     cssnano: "npm:^7.0.7"
@@ -5388,7 +5388,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/teas@workspace:packages/themes/teas"
   dependencies:
-    "@sl-design-system/icon": "npm:1.2.0"
+    "@sl-design-system/icon": "npm:1.2.1"
   languageName: unknown
   linkType: soft
 
@@ -5405,16 +5405,24 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/text-field@npm:^1.6.4, @sl-design-system/text-field@workspace:packages/components/text-field":
+"@sl-design-system/text-field@npm:^1.6.4, @sl-design-system/text-field@npm:^1.6.5, @sl-design-system/text-field@workspace:packages/components/text-field":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/text-field@workspace:packages/components/text-field"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/form": "npm:^1.2.3"
-    "@sl-design-system/icon": "npm:^1.1.0"
+    "@sl-design-system/form": "npm:^1.2.4"
+    "@sl-design-system/icon": "npm:^1.2.1"
     "@sl-design-system/shared": "npm:^0.8.0"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.5
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/tig@workspace:packages/themes/tig":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/tig@workspace:packages/themes/tig"
+  dependencies:
+    "@sl-design-system/icon": "npm:1.2.1"
   languageName: unknown
   linkType: soft
 

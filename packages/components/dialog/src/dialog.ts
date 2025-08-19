@@ -18,9 +18,15 @@ declare global {
   interface HTMLElementTagNameMap {
     'sl-dialog': Dialog;
   }
+
+  interface GlobalEventHandlersEventMap {
+    'sl-open': SlOpenEvent;
+  }
 }
 
 export type SlCloseEvent = CustomEvent<void>;
+
+export type SlOpenEvent = CustomEvent<void>;
 
 /**
  * A dialog component for displaying modal UI.
@@ -52,7 +58,15 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   // eslint-disable-next-line no-unused-private-class-members
-  #events = new EventsController(this, { click: this.#onClick, keydown: this.#onKeydown });
+  #events = new EventsController(this, {
+    click: this.#onClick,
+    keydown: this.#onKeydown
+    // 'sl-open': this.#onChildOpen,
+    // 'sl-close': this.#onChildClose
+  });
+
+  /** Tracks number of open date-field calendars within the dialog. */
+  #openCalendars = 0;
 
   /** Responsive behavior utility. */
   #media = new MediaController(this);
@@ -61,13 +75,15 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
    * @internal Emits when the dialog has been cancelled. This happens when the
    * user closes the dialog using the escape key or clicks on the backdrop.
    */
-  @event({ name: 'sl-cancel' }) cancelEvent!: EventEmitter<SlCancelEvent>;
+  @event({ name: 'sl-cancel', cancelable: true }) cancelEvent!: EventEmitter<SlCancelEvent>;
 
   /**
    * Determines whether a close button should be shown in the top right corner.
    * @default false
    */
   @property({ type: Boolean, attribute: 'close-button' }) closeButton?: boolean;
+
+  @event({ name: 'sl-open' }) openEvent!: EventEmitter<SlCloseEvent>;
 
   /** @internal Emits when the dialog has been closed. */
   @event({ name: 'sl-close' }) closeEvent!: EventEmitter<SlCloseEvent>;
@@ -259,6 +275,13 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   #onBackdropClick(event: MouseEvent): void {
     const rect = this.dialog!.getBoundingClientRect();
 
+    // If any date-field calendar is open, block cancel by default
+    if (this.#openCalendars > 0) {
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
+
     // Check if the user clicked on the backdrop
     if (
       !this.disableCancel &&
@@ -271,8 +294,12 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       event.preventDefault();
       event.stopPropagation();
 
-      this.cancelEvent.emit();
-      this.close();
+      // Emit cancelable cancel event; only close when not prevented
+      const notCancelled = this.cancelEvent.emit(undefined, { cancelable: true });
+      console.log('onBackdropClick cancel --- notCancelled', event, event.target, notCancelled);
+      if (notCancelled) {
+        this.close();
+      }
     }
   }
 
@@ -280,11 +307,13 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     const button = event.composedPath().find((el): el is Button => el instanceof Button);
 
     if (button?.hasAttribute('sl-dialog-close')) {
+      console.log('onClick close when sl-dialog-close is set', event, event.target);
       this.close();
     }
   }
 
-  async #onClose(): Promise<void> {
+  async #onClose(event: MouseEvent): Promise<void> {
+    console.log('onClose close', event, event.target);
     this.#updateDocumentElement(false);
 
     this.inert = true;
@@ -306,11 +335,20 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     if (event.key === 'Escape') {
       event.preventDefault();
 
+      // If any date-field calendar is open, block cancel by default
+      if (this.#openCalendars > 0) {
+        event.stopPropagation();
+        return;
+      }
+
       if (this.disableCancel) {
         event.stopPropagation();
       } else {
-        this.cancelEvent.emit();
-        this.close();
+        // Emit cancelable cancel event; only close when not prevented
+        const notCancelled = this.cancelEvent.emit(undefined, { cancelable: true });
+        if (notCancelled) {
+          this.close();
+        }
       }
     }
   }
@@ -365,4 +403,19 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       buttons.at(0)?.setAttribute('fill', this.#media.mobile ? 'link' : 'solid');
     }
   }
+
+  // #onChildOpen(event: Event & { target: HTMLElement }): void {
+  //   // Only react to sl-open coming from sl-date-field children
+  //   if (event.target?.tagName === 'SL-DATE-FIELD') {
+  //     this.#openCalendars++;
+  //   }
+  // }
+  //
+  // #onChildClose(event: SlCloseEvent): void {
+  //   // Only react to sl-close coming from sl-date-field children
+  //   const t = event.target as HTMLElement | null;
+  //   if (t?.tagName === 'SL-DATE-FIELD') {
+  //     this.#openCalendars = Math.max(0, this.#openCalendars - 1);
+  //   }
+  // }
 }

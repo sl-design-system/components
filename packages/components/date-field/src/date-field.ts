@@ -60,6 +60,12 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<Date>>;
 
+  /** @internal Emits when the calendar popover opens. */
+  @event({ name: 'sl-open' }) openEvent!: EventEmitter<CustomEvent<void>>;
+
+  /** @internal Emits when the calendar popover closes. */
+  @event({ name: 'sl-close' }) closeEvent!: EventEmitter<CustomEvent<void>>;
+
   /**
    * Date and time format that will be used for formatting the date in the input.
    * This support the `Intl.DateTimeFormatOptions` format.
@@ -257,11 +263,16 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onBeforeToggle(event: ToggleEvent): void {
+    console.log('onBeforeToggle event', event, event.target, 'event.newState', event.newState);
     if (event.newState === 'open') {
       this.input.setAttribute('aria-expanded', 'true');
+      this.openEvent.emit();
     } else {
       this.input.setAttribute('aria-expanded', 'false');
       this.#popoverJustClosed = true;
+      // this.closeEvent.emit();
+      event.preventDefault();
+      event.stopPropagation();
     }
   }
 
@@ -325,8 +336,11 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onToggle(event: ToggleEvent): void {
+    console.log('onToggle event', event, event.target, 'event.newState', event.newState);
     if (event.newState === 'closed') {
+      event.stopPropagation();
       this.#popoverJustClosed = false;
+      this.closeEvent.emit();
     } else {
       // Wait for the calendar to render in the popover
       requestAnimationFrame(() => {

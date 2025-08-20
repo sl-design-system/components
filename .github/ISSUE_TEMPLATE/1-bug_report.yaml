@@ -1,6 +1,6 @@
 name: 🐛 Bug Report
 description: File a bug report
-labels: ["bug", "development", "triage"]
+labels: ["type: Bug", "triage"]
 projects: ["projects/9"]
 body:
   - type: markdown

@@ -1,7 +1,7 @@
 name: 🧩 New component
 description: Outline the requirements for a new component
-labels: [request, triage]
-projects: ["projects/2"]
+labels: ["triage"]
+projects: ["projects/9"]
 body:
     - type: markdown
       attributes:

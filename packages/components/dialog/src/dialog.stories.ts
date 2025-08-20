@@ -1,11 +1,15 @@
 import { faBurst } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
+import '@sl-design-system/combobox/register.js';
 import '@sl-design-system/date-field/register.js';
 import '@sl-design-system/form/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
+import '@sl-design-system/listbox/register.js';
 import { FormInDialog } from '@sl-design-system/lit-examples';
+import '@sl-design-system/popover/register.js';
+import '@sl-design-system/select/register.js';
 import '@sl-design-system/text-area/register.js';
 import '@sl-design-system/text-field/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
@@ -285,6 +289,104 @@ export const PreventCancelWhileCalendarOpen: Story = {
         <sl-date-field></sl-date-field>
         <sl-button slot="primary-actions" sl-dialog-close>Close</sl-button>
       </sl-dialog>
+    `;
+  }
+};
+
+export const DialogWithOverlayComponents: Story = {
+  render: () => {
+    const onClickPopover = (event: Event & { target: HTMLElement }): void => {
+      (event.target.nextElementSibling as HTMLElement).togglePopover();
+    };
+
+    const onClick = async (event: Event & { target: HTMLElement }) => {
+      const dialog = document.createElement('sl-dialog');
+
+      // const onClickPopover = (event: Event & { target: HTMLElement }): void => {
+      //   (event.target.nextElementSibling as HTMLElement).togglePopover();
+      // };
+
+      const onClickPopover = (): void => {
+        const popover = document.getElementById('popover-example') as HTMLElement & { togglePopover(): void };
+        popover?.togglePopover();
+      };
+
+      dialog.innerHTML = `
+        <span slot="title">Dialog with a date field</span>
+        <div class="container">
+          This dialog should not be closed when the date picker is closed.
+          <sl-date-field select-only placeholder="this is a date field in the dialog" style="width: fit-content"> </sl-date-field>
+
+          <sl-select placeholder="Select an option">
+            <sl-option value="1">Option 1</sl-option>
+            <sl-option value="2">Option 2</sl-option>
+            <sl-option value="3">Option 3</sl-option>
+            <sl-option value="3">Option 4</sl-option>
+            <sl-option value="3">Option 5</sl-option>
+          </sl-select>
+
+          <sl-combobox multiple style="inline-size: min(100%, 500px)" value='["0","1"]'>
+            <sl-listbox>
+              <sl-option value="0">Mathematics</sl-option>
+              <sl-option value="1">Geography</sl-option>
+              <sl-option value="2">Physics</sl-option>
+              <sl-option value="3">History</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+
+          <sl-button id="anchor" variant="primary">Toggle popover</sl-button>
+          <sl-popover id="popover-example" anchor="anchor">
+            <header style="block-size: 2rem;">Please confirm</header>
+            <section style="block-size: 2rem;">Are you sure you want to continue?</section>
+            <footer>
+              <sl-button size="sm">Cancel</sl-button>
+              <sl-button size="sm" variant="primary">Confirm</sl-button>
+            </footer>
+          </sl-popover>
+
+          <sl-menu-button position="bottom">
+            <span slot="button">Actions</span>
+            <sl-menu-item><sl-icon name="smile"></sl-icon>Profile</sl-menu-item>
+            <sl-menu-item><sl-icon name="far-gear"></sl-icon>Settings</sl-menu-item>
+            <sl-menu-item><sl-icon name="far-trash"></sl-icon>Remove</sl-menu-item>
+          </sl-menu-button>
+        </div>
+        <sl-button slot="primary-actions" sl-dialog-close variant="primary">Close</sl-button>
+      `;
+
+      dialog.closeButton = true;
+
+      dialog.addEventListener('sl-close', () => dialog.remove());
+
+      event.target.insertAdjacentElement('afterend', dialog);
+
+      dialog.querySelector('#anchor')?.addEventListener('click', onClickPopover);
+
+      await dialog.updateComplete;
+
+      dialog.showModal();
+    };
+
+    return html`
+      <style>
+        .container {
+          display: flex;
+          flex-direction: column;
+          gap: 0.8rem;
+          margin-block-end: 0.5rem;
+        }
+      </style>
+      <sl-button @click=${onClick}>Open dialog</sl-button>
+
+      <sl-button id="anchor1" variant="primary" @click=${onClickPopover}>Toggle popover</sl-button>
+      <sl-popover anchor="anchor1">
+        <header>Please confirm</header>
+        <section>Are you sure you want to continue?</section>
+        <footer>
+          <sl-button size="sm">Cancel</sl-button>
+          <sl-button size="sm" variant="primary">Confirm</sl-button>
+        </footer>
+      </sl-popover>
     `;
   }
 };

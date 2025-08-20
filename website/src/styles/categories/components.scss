@@ -25,12 +25,7 @@ $transition-timing: 300ms;
 .component-card {
   block-size: 100%;
   border-radius: 0.2rem;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
   gap: 0.8rem;
-  overflow: hidden;
 
   svg {
     overflow: visible;

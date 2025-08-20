@@ -1,7 +1,7 @@
 name: 🙋 Feature Request
 description: Want to add a feature to SL Design System?
-labels: ["enhancement", "development", "triage"]
-projects: ["projects/2"]
+labels: ["triage"]
+projects: ["projects/9"]
 body:
   - type: markdown
     attributes:

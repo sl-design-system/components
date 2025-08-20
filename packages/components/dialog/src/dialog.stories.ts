@@ -315,7 +315,7 @@ export const DialogWithOverlayComponents: Story = {
         <span slot="title">Dialog with a date field</span>
         <div class="container">
           This dialog should not be closed when the date picker is closed.
-          <sl-date-field select-only placeholder="this is a date field in the dialog" style="width: fit-content"> </sl-date-field>
+          <sl-date-field autofocus select-only placeholder="this is a date field in the dialog" style="width: fit-content"> </sl-date-field>
 
           <sl-select placeholder="Select an option">
             <sl-option value="1">Option 1</sl-option>

@@ -1,4 +1,4 @@
-import { AnchorController, type PopoverPosition } from '@sl-design-system/shared';
+import { AnchorController, EventsController, type PopoverPosition } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './popover.scss.js';
@@ -32,6 +32,9 @@ export class Popover extends LitElement {
 
   /** @internal The default margin between the tooltip and the viewport. */
   static viewportMargin = 8;
+
+  // eslint-disable-next-line no-unused-private-class-members
+  #events = new EventsController(this, { keydown: this.#onKeydown });
 
   /** Controller for managing anchoring. */
   #anchor = new AnchorController(this, {
@@ -83,5 +86,14 @@ export class Popover extends LitElement {
         </svg>
       </div>
     `;
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    console.log('onKeydown in popover', event); // TODO: works only when sth in the popover is focused, not when just opened
+    if (event.code === 'Escape') {
+      // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the date field
+      // does not close parent containers (such as dialogs).
+      event.stopPropagation();
+    }
   }
 }

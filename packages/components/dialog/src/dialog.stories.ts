@@ -295,9 +295,9 @@ export const PreventCancelWhileCalendarOpen: Story = {
 
 export const DialogWithOverlayComponents: Story = {
   render: () => {
-    const onClickPopover = (event: Event & { target: HTMLElement }): void => {
-      (event.target.nextElementSibling as HTMLElement).togglePopover();
-    };
+    // const onClickPopover = (event: Event & { target: HTMLElement }): void => {
+    //   (event.target.nextElementSibling as HTMLElement).togglePopover();
+    // };
 
     const onClick = async (event: Event & { target: HTMLElement }) => {
       const dialog = document.createElement('sl-dialog');
@@ -377,16 +377,6 @@ export const DialogWithOverlayComponents: Story = {
         }
       </style>
       <sl-button @click=${onClick}>Open dialog</sl-button>
-
-      <sl-button id="anchor1" variant="primary" @click=${onClickPopover}>Toggle popover</sl-button>
-      <sl-popover anchor="anchor1">
-        <header>Please confirm</header>
-        <section>Are you sure you want to continue?</section>
-        <footer>
-          <sl-button size="sm">Cancel</sl-button>
-          <sl-button size="sm" variant="primary">Confirm</sl-button>
-        </footer>
-      </sl-popover>
     `;
   }
 };

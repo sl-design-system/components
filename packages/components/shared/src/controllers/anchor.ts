@@ -25,14 +25,28 @@ export class AnchorController implements ReactiveController {
         offset: this.offset,
         position: this.position
       });
+
+      // this.#host?.addEventListener('keydown', this.#onKeydown);
+      // (anchorElement as HTMLElement).addEventListener('keydown', this.#onKeydown);
     } else if (this.#cleanup) {
       this.#cleanup();
       this.#cleanup = undefined;
     }
   };
 
+  #onKeydown(event: KeyboardEvent): void {
+    console.log('onKeydown in anchor...', event); // TODO: works only when sth in the popover is focused, not when just opened
+    if (event.code === 'Escape') {
+      // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the date field
+      // does not close parent containers (such as dialogs).
+      event.stopPropagation();
+    }
+  }
+
   #onToggle = (event: Event): void => {
     const { newState, oldState, target } = event as ToggleEvent & { target: HTMLElement };
+
+    console.log('this.#host in anchor', this.#host, 'target', target, 'newState', newState, 'oldState', oldState);
 
     /**
      * Tooltips are working in a little bit different way than popovers,
@@ -86,11 +100,20 @@ export class AnchorController implements ReactiveController {
 
     this.#host?.addEventListener('beforetoggle', this.#onBeforeToggle);
     this.#host?.addEventListener('toggle', this.#onToggle);
+    // this.#host?.addEventListener('keydown', this.#onKeydown);
+    // (this.#getAnchorElement() as HTMLElement).addEventListener('keydown', this.#onKeydown);
+
+    this.#getAnchorElement()?.addEventListener('keydown', event => this.#onKeydown(event as KeyboardEvent));
+
+    console.log('hostConnected in anchor controller', this.#host);
   }
 
   hostDisconnected(): void {
     this.#host?.removeEventListener('toggle', this.#onToggle);
     this.#host?.removeEventListener('beforetoggle', this.#onBeforeToggle);
+    // this.#host?.removeEventListener('keydown', this.#onKeydown);
+    //this.#getAnchorElement()?.removeEventListener('keydown', this.#onKeydown);
+    this.#getAnchorElement()?.removeEventListener('keydown', event => this.#onKeydown(event as KeyboardEvent));
 
     this.#host.removeAttribute('aria-details');
     this.#getAnchorElement()?.removeAttribute('aria-expanded');
@@ -127,6 +150,8 @@ export class AnchorController implements ReactiveController {
       return;
     }
 
+    // this.#host?.addEventListener('keydown', this.#onKeydown);
+
     if (anchorElement && !this.#host.hasAttribute('aria-details')) {
       anchorElement.id ||= `sl-anchor-${nextUniqueId++}`;
 
@@ -145,10 +170,13 @@ export class AnchorController implements ReactiveController {
     // for buttons?
     if (anchorElement?.tagName === 'SL-BUTTON') {
       if (expanded) {
+        console.log('is popover expanded?', expanded, 'anchorElement', anchorElement);
         anchorElement.setAttribute('popover-opened', '');
         if (!hasRichContent && !this.#host.hasAttribute('no-describedby')) {
           anchorElement?.setAttribute('aria-describedby', this.#host.id);
         }
+        // this.#host?.addEventListener('keydown', this.#onKeydown);
+        // (anchorElement as HTMLElement).addEventListener('keydown', this.#onKeydown);
       } else {
         anchorElement.removeAttribute('popover-opened');
         anchorElement?.removeAttribute('aria-describedby');

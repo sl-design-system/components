@@ -1,4 +1,4 @@
-import { AnchorController, EventsController, type PopoverPosition } from '@sl-design-system/shared';
+import { AnchorController, EventsController, type PopoverPosition, isPopoverOpen } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './popover.scss.js';
@@ -75,7 +75,10 @@ export class Popover extends LitElement {
     }
   }
 
+  // TODO: getter and setter for isPopoverOpen ???
+
   override render(): TemplateResult {
+    console.log('isPopoverOpen(this) --- popover', isPopoverOpen(this));
     return html`
       <div class="container" part="container">
         <slot></slot>

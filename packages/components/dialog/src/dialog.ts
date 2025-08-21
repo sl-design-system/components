@@ -22,11 +22,17 @@ declare global {
   interface GlobalEventHandlersEventMap {
     'sl-open': SlOpenEvent;
   }
+
+  interface GlobalEventHandlersEventMap {
+    'sl-close-overlay': SlCloseOverlayEvent;
+  }
 }
 
 export type SlCloseEvent = CustomEvent<void>;
 
 export type SlOpenEvent = CustomEvent<void>;
+
+export type SlCloseOverlayEvent = CustomEvent<void>;
 
 /**
  * A dialog component for displaying modal UI.
@@ -60,12 +66,14 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
     click: this.#onClick,
-    keydown: this.#onKeydown
-    // 'sl-open': this.#onChildOpen,
-    // 'sl-close': this.#onChildClose
+    keydown: this.#onKeydown,
+    'sl-open': this.#onChildOpen,
+    'sl-close-overlay': this.#onChildClose
   });
 
-  /** Tracks number of open date-field calendars within the dialog. */
+  /** Tracks number of open date-field calendars (overlay components) within the dialog.
+   * The dialog should not close when we click the dropdown, when there is any overlay component opened in it.
+   * We use sl-open and sl-close events to detect those.*/
   #openCalendars = 0;
 
   /** Responsive behavior utility. */
@@ -275,7 +283,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   #onBackdropClick(event: MouseEvent): void {
     const rect = this.dialog!.getBoundingClientRect();
 
-    // If any date-field calendar is open, block cancel by default
+    // If any date-field calendar (overlay component) is open, block cancel by default
     if (this.#openCalendars > 0) {
       event.preventDefault();
       event.stopPropagation();
@@ -404,18 +412,21 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  // #onChildOpen(event: Event & { target: HTMLElement }): void {
-  //   // Only react to sl-open coming from sl-date-field children
-  //   if (event.target?.tagName === 'SL-DATE-FIELD') {
-  //     this.#openCalendars++;
-  //   }
-  // }
-  //
-  // #onChildClose(event: SlCloseEvent): void {
-  //   // Only react to sl-close coming from sl-date-field children
-  //   const t = event.target as HTMLElement | null;
-  //   if (t?.tagName === 'SL-DATE-FIELD') {
-  //     this.#openCalendars = Math.max(0, this.#openCalendars - 1);
-  //   }
-  // }
+  #onChildOpen(event: Event /*& { target: HTMLElement }*/): void {
+    console.log('event sl-open', event, event.target);
+    // Only react to sl-open coming from sl-date-field children
+    if ((event.target as HTMLElement)?.tagName === 'SL-DATE-FIELD') {
+      this.#openCalendars++;
+    }
+    console.log('event sl-open and this.#openCalendars', event, event.target, this.#openCalendars);
+  }
+
+  #onChildClose(event: SlCloseEvent): void {
+    console.log('event sl-close-overlay', event, event.target); // TODO: or maybe use sl-close instead sl-close-overlay? But addEventListeners to children, not the whole dialog?
+    // Only react to sl-close coming from sl-date-field children
+    const t = event.target as HTMLElement | null;
+    if (t?.tagName === 'SL-DATE-FIELD') {
+      this.#openCalendars = 0; // Math.max(0, this.#openCalendars - 1);
+    }
+  }
 }

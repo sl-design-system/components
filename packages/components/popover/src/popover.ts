@@ -94,7 +94,7 @@ export class Popover extends LitElement {
   #onKeydown(event: KeyboardEvent): void {
     console.log('onKeydown in popover', event); // TODO: works only when sth in the popover is focused, not when just opened
     if (event.code === 'Escape') {
-      // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the date field
+      // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the popover
       // does not close parent containers (such as dialogs).
       event.stopPropagation();
     }

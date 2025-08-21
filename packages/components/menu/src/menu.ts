@@ -133,13 +133,21 @@ export class Menu extends LitElement {
   }
 
   #onKeydown(event: KeyboardEvent): void {
+    console.log('onKeydown in menu111', event);
+
     if (!(this.anchorElement instanceof MenuItem)) {
       return;
     }
 
     const placement = this.getAttribute('actual-placement');
 
-    if (
+    console.log('onKeydown in menu222', event); // TODO: works only when sth in the popover is focused, not when just opened
+
+    if (event.code === 'Escape') {
+      // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the menu
+      // does not close parent containers (such as dialogs).
+      event.stopPropagation();
+    } else if (
       (placement?.startsWith('right') && event.key === 'ArrowLeft') ||
       (placement?.startsWith('left') && event.key === 'ArrowRight')
     ) {

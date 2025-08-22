@@ -23,16 +23,16 @@ declare global {
     'sl-open': SlOpenEvent;
   }
 
-  interface GlobalEventHandlersEventMap {
-    'sl-close-overlay': SlCloseOverlayEvent;
-  }
+  // interface GlobalEventHandlersEventMap {
+  //   'sl-close-overlay': SlCloseOverlayEvent;
+  // }
 }
 
 export type SlCloseEvent = CustomEvent<void>;
 
 export type SlOpenEvent = CustomEvent<void>;
 
-export type SlCloseOverlayEvent = CustomEvent<void>;
+// export type SlCloseOverlayEvent = CustomEvent<void>;
 
 /**
  * A dialog component for displaying modal UI.
@@ -63,12 +63,11 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
     click: this.#onClick,
-    keydown: this.#onKeydown,
-    'sl-open': this.#onChildOpen,
-    'sl-close-overlay': this.#onChildClose
+    keydown: this.#onKeydown //,
+    // 'sl-open': this.#onChildOpen//,
+    // 'sl-close-overlay': this.#onChildClose
   });
 
   /** Tracks number of open date-field calendars (overlay components) within the dialog.
@@ -91,7 +90,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
    */
   @property({ type: Boolean, attribute: 'close-button' }) closeButton?: boolean;
 
-  @event({ name: 'sl-open' }) openEvent!: EventEmitter<SlCloseEvent>;
+  // @event({ name: 'sl-open' }) openEvent!: EventEmitter<SlCloseEvent>;
 
   /** @internal Emits when the dialog has been closed. */
   @event({ name: 'sl-close' }) closeEvent!: EventEmitter<SlCloseEvent>;
@@ -116,6 +115,14 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.inert = true;
+
+    // this.#events.listen(this.input, 'click', this.#onInputClick);
+  }
+
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    console.log('changes in firstUpdated', changes, this.renderRoot, this.renderRoot.querySelector('dialog'));
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -190,7 +197,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
    */
   renderBody(): TemplateResult {
     return html`
-      <slot></slot>
+      <slot @slotchange=${this.#onBodySlotChange}></slot>
       ${this.#media.mobile
         ? html`
             <sl-button-bar part="footer-bar">
@@ -311,6 +318,45 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  #onBodySlotChange(): void {
+    // const headerSlots = this.renderRoot.querySelectorAll('slot'),
+    //   hasContent = Array.from(headerSlots).find(slot =>
+    //     (slot as HTMLSlotElement)
+    //       .assignedNodes({ flatten: true })
+    //       .some(
+    //         node =>
+    //           node.textContent?.trim() !== '' ||
+    //           (node.nodeType === Node.ELEMENT_NODE &&
+    //             !(node as Element).hasAttribute('slot') &&
+    //             !(node instanceof HTMLStyleElement))
+    //       )
+    //   );
+
+    // const headerSlots = this.renderRoot.querySelectorAll('slot');
+    // const slottedElements = Array.from(headerSlots).flatMap(slot =>
+    //   (slot as HTMLSlotElement).assignedElements({ flatten: true })
+    // );
+
+    const headerSlots = this.renderRoot.querySelectorAll('slot');
+    const slottedElements = Array.from(headerSlots).flatMap(slot => slot.assignedElements({ flatten: true }));
+    // const allNestedElements = slottedElements.flatMap(el =>
+    //   el instanceof HTMLElement ? [el, ...Array.from(el.querySelectorAll<HTMLElement>('*'))] : []
+    // );
+
+    const allNestedElements = slottedElements.flatMap(el =>
+      el instanceof HTMLElement && el.tagName !== 'SLOT'
+        ? [el, ...Array.from(el.querySelectorAll<HTMLElement>('*')).filter(child => child.tagName !== 'SLOT')]
+        : []
+    );
+
+    allNestedElements.forEach(element => {
+      this.#events.listen(element, 'sl-open', this.#onChildOpen);
+      this.#events.listen(element, 'sl-close', this.#onChildClose);
+    });
+
+    console.log('headerSlots on bodyclotchange', headerSlots, slottedElements, allNestedElements, this.renderRoot);
+  }
+
   #onClick(event: MouseEvent): void {
     const button = event.composedPath().find((el): el is Button => el instanceof Button);
 
@@ -321,7 +367,17 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   }
 
   async #onClose(event: MouseEvent): Promise<void> {
-    console.log('onClose close', event, event.target);
+    console.log('onClose close', event, event.target, this.#openCalendars); // TODO: why it's invoked when I close select, but not when the date fiel???
+    // event.preventDefault();
+
+    // debugger;
+
+    if (this.#openCalendars > 0) {
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
+
     this.#updateDocumentElement(false);
 
     this.inert = true;
@@ -415,18 +471,26 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   #onChildOpen(event: Event /*& { target: HTMLElement }*/): void {
     console.log('event sl-open', event, event.target);
     // Only react to sl-open coming from sl-date-field children
-    if ((event.target as HTMLElement)?.tagName === 'SL-DATE-FIELD') {
-      this.#openCalendars++;
-    }
+    // if ((event.target as HTMLElement)?.tagName === 'SL-DATE-FIELD') {
+    this.#openCalendars++;
+    // }
     console.log('event sl-open and this.#openCalendars', event, event.target, this.#openCalendars);
   }
 
-  #onChildClose(event: SlCloseEvent): void {
-    console.log('event sl-close-overlay', event, event.target); // TODO: or maybe use sl-close instead sl-close-overlay? But addEventListeners to children, not the whole dialog?
+  #onChildClose(event: Event /*SlCloseEvent*/): void {
+    console.log('event sl-close-overlay #onChildClose', event, event.target, (event.target as HTMLElement).tagName); // TODO: or maybe use sl-close instead sl-close-overlay? But addEventListeners to children, not the whole dialog?
+    event.preventDefault();
+    event.stopPropagation();
+
     // Only react to sl-close coming from sl-date-field children
-    const t = event.target as HTMLElement | null;
-    if (t?.tagName === 'SL-DATE-FIELD') {
-      this.#openCalendars = 0; // Math.max(0, this.#openCalendars - 1);
-    }
+    // const t = event.target as HTMLElement | null;
+    // if (t?.tagName === 'SL-DATE-FIELD') {
+    //  requestAnimationFrame(() => {
+    this.#openCalendars = Math.max(0, this.#openCalendars - 1); // TODO: should be changed only when event has been emitted?
+    // }
+    // });
+
+    // event.preventDefault();
+    // event.stopPropagation();
   }
 }

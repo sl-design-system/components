@@ -63,8 +63,11 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** @internal Emits when the calendar popover opens. */
   @event({ name: 'sl-open' }) openEvent!: EventEmitter<CustomEvent<void>>;
 
+  // /** @internal Emits when the calendar popover closes. */
+  // @event({ name: 'sl-close-overlay' }) closeEvent!: EventEmitter<CustomEvent<void>>;
+
   /** @internal Emits when the calendar popover closes. */
-  @event({ name: 'sl-close-overlay' }) closeEvent!: EventEmitter<CustomEvent<void>>;
+  @event({ name: 'sl-close' }) closeEvent!: EventEmitter<CustomEvent<void>>;
 
   /**
    * Date and time format that will be used for formatting the date in the input.

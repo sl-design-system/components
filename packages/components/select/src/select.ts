@@ -124,6 +124,12 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
+  /** @internal Emits when the listbox opens. */
+  @event({ name: 'sl-open' }) openEvent!: EventEmitter<CustomEvent<void>>;
+
+  /** @internal Emits when the listbox closes. */
+  @event({ name: 'sl-close' }) closeEvent!: EventEmitter<CustomEvent<void>>;
+
   /** @internal */
   readonly internals = this.attachInternals();
 
@@ -307,11 +313,15 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
   #onBeforetoggle({ newState }: ToggleEvent): void {
     if (newState === 'open') {
+      this.openEvent.emit();
+
       this.button.setAttribute('aria-expanded', 'true');
       this.listbox!.style.width = `${this.button.getBoundingClientRect().width}px`;
 
       this.currentOption = this.selectedOption ?? this.options[0];
     } else {
+      // this.closeEvent.emit();
+
       this.#popoverClosing = true;
       this.button.setAttribute('aria-expanded', 'false');
     }
@@ -434,6 +444,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     if (event.newState === 'open') {
       this.#rovingTabindexController.focus();
     } else if (event.newState === 'closed') {
+      this.closeEvent.emit();
       const activeElement = (this.getRootNode() as Document | ShadowRoot).activeElement;
       if (activeElement?.closest('sl-select') === this) {
         this.button.focus();

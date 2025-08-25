@@ -271,7 +271,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.input.setAttribute('aria-expanded', 'true');
       this.openEvent.emit();
     } else {
-      // this.closeEvent.emit();
+      event.stopPropagation();
+      this.closeEvent.emit();
       this.input.setAttribute('aria-expanded', 'false');
       this.#popoverJustClosed = true;
       // this.closeEvent.emit();
@@ -343,7 +344,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     console.log('onToggle event', event, event.target, 'event.newState', event.newState);
     if (event.newState === 'closed') {
       // event.stopPropagation();
-      this.closeEvent.emit();
+      // this.closeEvent.emit();
       this.#popoverJustClosed = false;
       // this.closeEvent.emit();
     } else {

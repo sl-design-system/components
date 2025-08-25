@@ -320,7 +320,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
       this.currentOption = this.selectedOption ?? this.options[0];
     } else {
-      // this.closeEvent.emit();
+      this.closeEvent.emit();
 
       this.#popoverClosing = true;
       this.button.setAttribute('aria-expanded', 'false');
@@ -444,7 +444,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     if (event.newState === 'open') {
       this.#rovingTabindexController.focus();
     } else if (event.newState === 'closed') {
-      this.closeEvent.emit();
+      // this.closeEvent.emit();
       const activeElement = (this.getRootNode() as Document | ShadowRoot).activeElement;
       if (activeElement?.closest('sl-select') === this) {
         this.button.focus();

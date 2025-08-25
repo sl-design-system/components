@@ -65,9 +65,10 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   #events = new EventsController(this, {
     click: this.#onClick,
-    keydown: this.#onKeydown //,
-    // 'sl-open': this.#onChildOpen//,
-    // 'sl-close-overlay': this.#onChildClose
+    keydown: this.#onKeydown,
+    // Listen once at the host for child overlay open/close events; bubbling is sufficient
+    'sl-open': this.#onChildOpen,
+    'sl-close': this.#onChildClose
   });
 
   /** Tracks number of open date-field calendars (overlay components) within the dialog.
@@ -290,12 +291,36 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   #onBackdropClick(event: MouseEvent): void {
     const rect = this.dialog!.getBoundingClientRect();
 
+    console.log('onBackdropClick', event, event.target, rect, this.#openCalendars);
+
+    // debugger;
+    //
     // If any date-field calendar (overlay component) is open, block cancel by default
+    // if (this.#openCalendars > 0) {
+    //   event.preventDefault();
+    //   event.stopPropagation();
+    //   return;
+    // }
+
     if (this.#openCalendars > 0) {
-      event.preventDefault();
-      event.stopPropagation();
-      return;
+      console.log(
+        'onBackdropClick blocked by open calendar or sth else - other overlay component',
+        event,
+        event.target,
+        rect,
+        this.#openCalendars
+      );
+      // event.preventDefault();
+      // event.stopPropagation();
+      // return;
     }
+
+    console.log('onBackdropClick after checking #openCalendars value', event, event.target, rect, this.#openCalendars);
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    // debugger;
 
     // Check if the user clicked on the backdrop
     if (
@@ -306,55 +331,85 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         event.clientX > rect.right) &&
       event.target instanceof HTMLDialogElement
     ) {
-      event.preventDefault();
-      event.stopPropagation();
+      // event.preventDefault();
+      // event.stopPropagation();
 
-      // Emit cancelable cancel event; only close when not prevented
+      // if (this.#openCalendars > 0) {
+      //   event.preventDefault();
+      //   event.stopPropagation();
+      //   return;
+      // }
+
       const notCancelled = this.cancelEvent.emit(undefined, { cancelable: true });
-      console.log('onBackdropClick cancel --- notCancelled', event, event.target, notCancelled);
-      if (notCancelled) {
+      console.log('onBackdropClick cancel --- notCancelled111', event, event.target, notCancelled);
+
+      console.log('this.#events in backdropclick', this.#events);
+
+      // event.preventDefault();
+      // event.stopPropagation();
+
+      if (this.#openCalendars === 0) {
+        console.log('onBackdropClick close openCalendars === 0', event, event.target, rect, this.#openCalendars);
+        event.preventDefault();
+        event.stopPropagation();
+
+        this.cancelEvent.emit();
         this.close();
       }
+
+      // const notCancelled = this.cancelEvent.emit(undefined, { cancelable: true });
+      console.log('onBackdropClick cancel --- notCancelled222', event, event.target, notCancelled);
+
+      // event.preventDefault();
+      // event.stopPropagation();
+
+      console.log('onBackdropClick close', event, event.target, rect, this.#openCalendars);
+
+      // // Emit cancelable cancel event; only close when not prevented
+      // const notCancelled = this.cancelEvent.emit(undefined, { cancelable: true });
+      // console.log('onBackdropClick cancel --- notCancelled', event, event.target, notCancelled);
+      // if (notCancelled) {
+      //   this.close();
+      // }
     }
   }
 
   #onBodySlotChange(): void {
-    // const headerSlots = this.renderRoot.querySelectorAll('slot'),
-    //   hasContent = Array.from(headerSlots).find(slot =>
-    //     (slot as HTMLSlotElement)
-    //       .assignedNodes({ flatten: true })
-    //       .some(
-    //         node =>
-    //           node.textContent?.trim() !== '' ||
-    //           (node.nodeType === Node.ELEMENT_NODE &&
-    //             !(node as Element).hasAttribute('slot') &&
-    //             !(node instanceof HTMLStyleElement))
-    //       )
-    //   );
-
+    // // const headerSlots = this.renderRoot.querySelectorAll('slot'),
+    // //   hasContent = Array.from(headerSlots).find(slot =>
+    // //     (slot as HTMLSlotElement)
+    // //       .assignedNodes({ flatten: true })
+    // //       .some(
+    // //         node =>
+    // //           node.textContent?.trim() !== '' ||
+    // //           (node.nodeType === Node.ELEMENT_NODE &&
+    // //             !(node as Element).hasAttribute('slot') &&
+    // //             !(node instanceof HTMLStyleElement))
+    // //       )
+    // //   );
+    //
+    // // const headerSlots = this.renderRoot.querySelectorAll('slot');
+    // // const slottedElements = Array.from(headerSlots).flatMap(slot =>
+    // //   (slot as HTMLSlotElement).assignedElements({ flatten: true })
+    // // );
+    //
     // const headerSlots = this.renderRoot.querySelectorAll('slot');
-    // const slottedElements = Array.from(headerSlots).flatMap(slot =>
-    //   (slot as HTMLSlotElement).assignedElements({ flatten: true })
-    // );
-
-    const headerSlots = this.renderRoot.querySelectorAll('slot');
-    const slottedElements = Array.from(headerSlots).flatMap(slot => slot.assignedElements({ flatten: true }));
+    // const slottedElements = Array.from(headerSlots).flatMap(slot => slot.assignedElements({ flatten: true }));
+    // // const allNestedElements = slottedElements.flatMap(el =>
+    // //   el instanceof HTMLElement ? [el, ...Array.from(el.querySelectorAll<HTMLElement>('*'))] : []
+    // // );
+    //
     // const allNestedElements = slottedElements.flatMap(el =>
-    //   el instanceof HTMLElement ? [el, ...Array.from(el.querySelectorAll<HTMLElement>('*'))] : []
+    //   el instanceof HTMLElement && el.tagName !== 'SLOT'
+    //     ? [el, ...Array.from(el.querySelectorAll<HTMLElement>('*')).filter(child => child.tagName !== 'SLOT')]
+    //     : []
     // );
-
-    const allNestedElements = slottedElements.flatMap(el =>
-      el instanceof HTMLElement && el.tagName !== 'SLOT'
-        ? [el, ...Array.from(el.querySelectorAll<HTMLElement>('*')).filter(child => child.tagName !== 'SLOT')]
-        : []
-    );
-
-    allNestedElements.forEach(element => {
-      this.#events.listen(element, 'sl-open', this.#onChildOpen);
-      this.#events.listen(element, 'sl-close', this.#onChildClose);
-    });
-
-    console.log('headerSlots on bodyclotchange', headerSlots, slottedElements, allNestedElements, this.renderRoot);
+    //
+    // allNestedElements.forEach(element => {
+    //   this.#events.listen(element, 'sl-open', this.#onChildOpen, { capture: true, once: true });
+    //   this.#events.listen(element, 'sl-close', this.#onChildClose, { capture: true, once: true });
+    // });
+    // console.log('headerSlots on bodyclotchange', headerSlots, slottedElements, allNestedElements, this.renderRoot);
   }
 
   #onClick(event: MouseEvent): void {
@@ -373,8 +428,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     // debugger;
 
     if (this.#openCalendars > 0) {
-      event.preventDefault();
-      event.stopPropagation();
+      // event.preventDefault();
+      // event.stopPropagation();
       return;
     }
 
@@ -468,29 +523,34 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #onChildOpen(event: Event /*& { target: HTMLElement }*/): void {
+  #onChildOpen(event: Event): void {
     console.log('event sl-open', event, event.target);
-    // Only react to sl-open coming from sl-date-field children
-    // if ((event.target as HTMLElement)?.tagName === 'SL-DATE-FIELD') {
+
+    // Ignore the dialog's own events
+    if (event.target === this || event.target instanceof HTMLDialogElement) {
+      console.log('event sl-open ignored', event, event.target);
+      event.stopPropagation();
+      return;
+    }
+    console.log('this.#openCalendars before increment', this.#openCalendars, event.target);
+
     this.#openCalendars++;
-    // }
+    console.log('this.#openCalendars after increment', this.#openCalendars, event.target);
+
     console.log('event sl-open and this.#openCalendars', event, event.target, this.#openCalendars);
   }
 
-  #onChildClose(event: Event /*SlCloseEvent*/): void {
-    console.log('event sl-close-overlay #onChildClose', event, event.target, (event.target as HTMLElement).tagName); // TODO: or maybe use sl-close instead sl-close-overlay? But addEventListeners to children, not the whole dialog?
-    event.preventDefault();
-    event.stopPropagation();
+  #onChildClose(event: Event): void {
+    console.log('event sl-close-overlay #onChildClose', event, event.target, (event.target as HTMLElement).tagName);
 
-    // Only react to sl-close coming from sl-date-field children
-    // const t = event.target as HTMLElement | null;
-    // if (t?.tagName === 'SL-DATE-FIELD') {
-    //  requestAnimationFrame(() => {
-    this.#openCalendars = Math.max(0, this.#openCalendars - 1); // TODO: should be changed only when event has been emitted?
-    // }
-    // });
-
-    // event.preventDefault();
-    // event.stopPropagation();
+    // Ignore the dialog's own events
+    if (event.target === this || event.target instanceof HTMLDialogElement) {
+      console.log('event sl-close ignored', event, event.target);
+      event.stopPropagation();
+      return;
+    }
+    console.log('this.#openCalendars before decrement', this.#openCalendars, event.target);
+    this.#openCalendars = Math.max(0, this.#openCalendars - 1);
+    console.log('this.#openCalendars after decrement', this.#openCalendars, event.target);
   }
 }

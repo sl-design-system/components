@@ -12,8 +12,8 @@
   cursor: text;
   display: flex;
   gap: var(--sl-size-100);
-  outline: transparent solid var(--sl-size-outlineWidth-default);
-  outline-offset: var(--sl-size-outlineOffset-default);
+  outline: transparent solid var(--sl-size-borderWidth-focusRing);
+  outline-offset: var(--sl-space-offset-focused);
   position: relative;
 }
 

@@ -11,8 +11,8 @@
   color: var(--sl-color-foreground-plain);
   cursor: text;
   display: block;
-  outline: transparent solid var(--sl-size-outlineWidth-default);
-  outline-offset: var(--sl-size-outlineOffset-default);
+  outline: transparent solid var(--sl-size-borderWidth-focusRing);
+  outline-offset: var(--sl-space-offset-focused);
 }
 
 :host(:hover:not(:focus-within)) {

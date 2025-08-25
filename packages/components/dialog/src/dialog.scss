@@ -28,8 +28,8 @@ dialog {
   }
 
   &:focus-visible {
-    outline: var(--sl-color-border-focused) solid var(--sl-size-outlineWidth-default);
-    outline-offset: var(--sl-size-outlineOffset-default);
+    outline: var(--sl-color-border-focused) solid var(--sl-size-borderWidth-focusRing);
+    outline-offset: var(--sl-space-offset-focused);
   }
 
   &::backdrop {

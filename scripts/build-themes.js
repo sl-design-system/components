@@ -1,8 +1,7 @@
-import { permutateThemes, register, transformLineHeight } from '@tokens-studio/sd-transforms';
+import { register, transformLineHeight } from '@tokens-studio/sd-transforms';
 import { kebabCase } from 'change-case';
 import cssnano from 'cssnano';
-import { readFile, writeFile } from 'fs/promises';
-import { log } from 'node:console';
+import { readdir, readFile, writeFile } from 'fs/promises';
 import { argv } from 'node:process';
 import { join } from 'path';
 import postcss from 'postcss';
@@ -12,6 +11,76 @@ import StyleDictionary from 'style-dictionary';
 const mathPresent = /^(?!calc|color-mix|rgb|hsl).*\s[\+\-\*\/]\s.*/;
 
 register(StyleDictionary);
+
+const isObject = (item) => {
+  return (item && typeof item === 'object' && !Array.isArray(item));
+};
+
+const mergeDeep = (target, source) => {
+  let output = Object.assign({}, target);
+
+  if (isObject(target) && isObject(source)) {
+    Object.keys(source).forEach(key => {
+      if (isObject(source[key])) {
+        if (!(key in target))
+          Object.assign(output, { [key]: source[key] });
+        else
+          output[key] = mergeDeep(target[key], source[key]);
+      } else {
+        Object.assign(output, { [key]: source[key] });
+      }
+    });
+  }
+
+  return output;
+};
+
+const stripPrefix = (dictionary, prefix) => {
+  Object.values(dictionary).forEach(token => {
+    // Return early if the token is not a contextual token
+    if (token?.isSource && !token?.filePath?.endsWith('-new.json')) {
+      return;
+    }
+
+    if (token?.isSource) {
+      // Strip the prefix from any token values that are strings or objects
+      if (typeof token.$value === 'string') {
+        token.$value = token.$value.replaceAll(`${prefix}.`, '');
+      } else {
+        Object.entries(token.$value).forEach(([key, value]) => {
+          token.$value[key] = value.replaceAll(`${prefix}.`, '');
+        });
+      }
+    } else if (token) {
+      // If the token does not have the `isSource` property, assume it has
+      // child tokens and recursively strip the prefix from them
+      stripPrefix(token, prefix);
+    }
+  });
+};
+
+StyleDictionary.registerPreprocessor({
+  name: 'strip-routing-prefix',
+  preprocessor: (dictionary, { theme }) => {
+    ['I-A', 'I-B', 'I-C', 'II-E', 'II-F', theme].forEach(prefix => {
+      // Return early if the prefix is not present
+      if (!dictionary[prefix]) {
+        return;
+      }
+
+      // Get the prefix dictionary, since we will be modifying the original dictionary
+      const prefixDictionary = dictionary[prefix];
+
+      // Merge the prefix dictionary with the top-level dictionary
+      dictionary = mergeDeep(Object.assign(dictionary, { [prefix]: undefined }), prefixDictionary);
+
+      // Strip the prefix from the dictionary
+      stripPrefix(dictionary, prefix);
+    });
+
+    return dictionary;
+  }
+});
 
 StyleDictionary.registerTransform({
   name: 'name/kebabWithCamel',
@@ -43,19 +112,19 @@ StyleDictionary.registerTransform({
   name: 'sl/color/transparentColorMix',
   type: 'value',
   transitive: true,
-  filter: token => token.type === 'color' && token.original?.value?.startsWith('rgba'),
+  filter: token => token.$type === 'color' && token.original?.$value?.startsWith('rgba'),
   transform: token => {
-    const [_, color, opacity] = token.original?.value?.match(/rgba\(\s*(\S+)\s*,\s*(\S+)\)/) ?? [];
+    const [_, color, opacity] = token.original?.$value?.match(/rgba\(\s*(\S+)\s*,\s*(\S+)\)/) ?? [];
 
     if (color && opacity) {
       if (opacity.endsWith('%')) {
-        token.original.value = `color-mix(in srgb, ${color} ${opacity}, transparent)`;
+        token.original.$value = `color-mix(in srgb, ${color} ${opacity}, transparent)`;
       } else {
-        token.original.value = `color-mix(in srgb, ${color} calc(${opacity} * 100%), transparent)`;
+        token.original.$value = `color-mix(in srgb, ${color} calc(${opacity} * 100%), transparent)`;
       }
     }
 
-    return token.value;
+    return token.$value;
   }
 });
 
@@ -63,8 +132,8 @@ StyleDictionary.registerTransform({
 StyleDictionary.registerTransform({
   name: 'sl/name/css/fontFamilies',
   type: 'value',
-  filter: token => token.type === 'fontFamily',
-  transform: token => token.value.replace(/\s+/g, '-').replaceAll('\'', '').toLowerCase()
+  filter: token => token.$type === 'fontFamily',
+  transform: token => token.$value.replace(/\s+/g, '-').replaceAll('\'', '').toLowerCase()
 });
 
 // Transform line heights to px if they are not percentages
@@ -72,9 +141,9 @@ StyleDictionary.registerTransform({
   name: 'sl/size/css/lineHeight',
   type: 'value',
   transitive: true,
-  filter: token => token.type === 'lineHeight',
+  filter: token => token.$type === 'lineHeight',
   transform: token => {
-    const value = token.value;
+    const value = token.$value;
 
     return value?.endsWith('%') ? transformLineHeight(value) : `${value}px`;
   }
@@ -84,9 +153,9 @@ StyleDictionary.registerTransform({
 StyleDictionary.registerTransform({
   name: 'sl/size/css/paragraphSpacing',
   type: 'value',
-  filter: token => token.type === 'paragraphSpacing',
+  filter: token => token.$type === 'paragraphSpacing',
   transform: token => {
-    const value = token.value;
+    const value = token.$value;
 
     return typeof value === 'string' && !value.endsWith('px') ? `${value}px` : value;
   }
@@ -97,25 +166,48 @@ StyleDictionary.registerTransform({
   name: 'sl/wrapMathInCalc',
   type: 'value',
   transitive: true,
-  filter: token => typeof token.original?.value === 'string' && mathPresent.test(token.original.value),
+  filter: token => typeof token.original?.$value === 'string' && mathPresent.test(token.original.$value),
   transform: token => {
-    token.original.value = `calc(${token.original.value})`;
+    token.original.$value = `calc(${token.original.$value})`;
 
-    return token.value;
+    return token.$value;
   }
 });
 
-const build = async (production = false) => {
-  const cwd = new URL('.', import.meta.url).pathname,
-    $themes = JSON.parse(await readFile(join(cwd, '../packages/tokens/src/$themes.json'), 'utf8'));
+// Returns an array of themes and their variants
+// e.g. [['sanoma-learning', 'light'], ['sanoma-learning', 'dark']]
+const getThemes = async folder => {
+  const folders = (await readdir(folder)).filter(f => !f.endsWith('.json') && !f.endsWith('_onhold') && !['I', 'II', 'device', 'placeholder', 'tokens'].includes(f));
 
+  const themes = [];
+
+  await Promise.all(folders.map(async f => {
+    const files = await readdir(join(folder, f));
+
+    if (files.some(file => file.startsWith('light'))) {
+      themes.push([f, 'light']);
+    }
+
+    if (files.some(file => file.startsWith('dark'))) {
+      themes.push([f, 'dark']);
+    }
+  }));
+
+  return themes;
+};
+
+const build = async (production = false, path) => {
+  const cwd = new URL('.', import.meta.url).pathname,
+    themeBase = join(cwd, '../packages/themes'),
+    themes = await getThemes(join(cwd, path));
+
+  // Filter out files that are not in the `files` array
   const filterFiles = files => async token => {
     const filePath = token.filePath ?? token.attributes.filePath;
 
     return files.some(file => filePath.endsWith(file));
   };
 
-  const themeBase = join(cwd, '../packages/themes');
 
   /**
    * Filter out the `space.<number>` tokens since they are just aliases
@@ -133,96 +225,102 @@ const build = async (production = false) => {
     }
   };
 
-  const configs = Object
-    .entries(permutateThemes($themes))
-    .map(([name, tokensets]) => {
-      const [theme, variant] = name.split('/');
+  const configs = themes.map(([theme, variant]) => {
+    const tokensets = [
+      'core',
+      'system',
+      'primitives',
+      `${theme}/base`,
+      `${theme}/base-new`,
+      `${theme}/${variant}`,
+      `${theme}/${variant}-new`
+    ];
 
-      const files = [
+    const files = [
+      {
+        destination: `${themeBase}/${theme}/${variant}.css`,
+        // filter: excludeSpaceTokens,
+        format: 'css/variables',
+        options: {
+          fileHeader: 'sl/legal',
+          outputReferences: !production
+        }
+      }
+    ];
+
+    if (production) {
+      files.push(
         {
-          destination: `${themeBase}/${theme}/${variant}.css`,
+          destination: `${themeBase}/${theme}/css/base.css`,
           // filter: excludeSpaceTokens,
           format: 'css/variables',
           options: {
             fileHeader: 'sl/legal',
-            outputReferences: !production
-          }
+            outputReferences: true
+          },
+          filter: filterFiles(['core.json', 'system.json', 'primitives.json', 'base.json', 'base-new.json'])
+        },
+        {
+          destination: `${themeBase}/${theme}/scss/base.scss`,
+          // filter: excludeSpaceTokens,
+          format: 'css/variables',
+          options: {
+            fileHeader: 'sl/legal',
+            outputReferences: true,
+            selector: '@mixin sl-theme-base'
+          },
+          filter: filterFiles(['core.json', 'system.json', 'primitives.json', 'base.json', 'base-new.json'])
+        },
+        {
+          destination: `${themeBase}/${theme}/css/${variant}.css`,
+          // filter: excludeSpaceTokens,
+          format: 'css/variables',
+          options: {
+            fileHeader: 'sl/legal',
+            outputReferences: true
+          },
+          filter: filterFiles([`${variant}.json`, `${variant}-new.json`])
+        },
+        {
+          destination: `${themeBase}/${theme}/scss/${variant}.scss`,
+          // filter: excludeSpaceTokens,
+          format: 'css/variables',
+          options: {
+            fileHeader: 'sl/legal',
+            outputReferences: true,
+            selector: `@mixin sl-theme-${variant}`
+          },
+          filter: filterFiles([`${variant}.json`, `${variant}-new.json`])
         }
-      ];
+      );
+    }
 
-      if (production) {
-        files.push(
-          {
-            destination: `${themeBase}/${theme}/css/base.css`,
-            // filter: excludeSpaceTokens,
-            format: 'css/variables',
-            options: {
-              fileHeader: 'sl/legal',
-              outputReferences: true
-            },
-            filter: filterFiles(['core.json', 'system.json', 'primitives.json', 'base.json', 'base-new.json'])
-          },
-          {
-            destination: `${themeBase}/${theme}/scss/base.scss`,
-            // filter: excludeSpaceTokens,
-            format: 'css/variables',
-            options: {
-              fileHeader: 'sl/legal',
-              outputReferences: true,
-              selector: '@mixin sl-theme-base'
-            },
-            filter: filterFiles(['core.json', 'system.json', 'primitives.json', 'base.json', 'base-new.json'])
-          },
-          {
-            destination: `${themeBase}/${theme}/css/${variant}.css`,
-            // filter: excludeSpaceTokens,
-            format: 'css/variables',
-            options: {
-              fileHeader: 'sl/legal',
-              outputReferences: true
-            },
-            filter: filterFiles([`${variant}.json`, `${variant}-new.json`])
-          },
-          {
-            destination: `${themeBase}/${theme}/scss/${variant}.scss`,
-            // filter: excludeSpaceTokens,
-            format: 'css/variables',
-            options: {
-              fileHeader: 'sl/legal',
-              outputReferences: true,
-              selector: `@mixin sl-theme-${variant}`
-            },
-            filter: filterFiles([`${variant}.json`, `${variant}-new.json`])
-          }
-        );
-      }
-
-      return {
-        log: {
-          verbosity: argv.includes('--verbose') ? 'verbose' : undefined,
-          warnings: 'disabled'
-        },
-        source: tokensets.map(tokenset => join(cwd, `../packages/tokens/src/${tokenset}.json`)),
-        preprocessors: ['tokens-studio'],
-        platforms: {
-          css: {
-            transformGroup: 'tokens-studio',
-            transforms: [
-              'name/kebabWithCamel',
-              'sl/name/css/fontFamilies',
-              'sl/size/css/lineHeight',
-              'sl/size/css/paragraphSpacing',
-              'sl/color/transparentColorMix',
-              'sl/wrapMathInCalc'
-            ].filter(Boolean),
-            prefix: 'sl',
-            files
-          }
-        },
-        theme,
-        variant
-      };
-    });
+    return {
+      log: {
+        verbosity: argv.includes('--verbose') ? 'verbose' : undefined,
+        warnings: 'disabled'
+      },
+      source: tokensets.map(tokenset => join(cwd, path, `${tokenset}.json`)),
+      preprocessors: ['strip-routing-prefix', 'tokens-studio'],
+      platforms: {
+        css: {
+          transformGroup: 'tokens-studio',
+          transforms: [
+            'name/kebabWithCamel',
+            'sl/name/css/fontFamilies',
+            'sl/size/css/lineHeight',
+            'sl/size/css/paragraphSpacing',
+            'sl/color/transparentColorMix',
+            'sl/wrapMathInCalc'
+          ].filter(Boolean),
+          prefix: 'sl',
+          files
+        }
+      },
+      theme,
+      variant
+    };
+  });
 
   for (const cfg of configs) {
     const sd = new StyleDictionary(cfg);
@@ -243,4 +341,4 @@ const build = async (production = false) => {
   }
 };
 
-build(argv.includes('--production'));
+build(argv.includes('--production'), argv.includes('--studio') ? './studio-export' : '../packages/tokens/src');

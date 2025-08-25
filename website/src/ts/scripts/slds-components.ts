@@ -9,6 +9,7 @@ import {
   faFileEdit,
   faFloppyDisk,
   faGear,
+  faHeart,
   faMessagesQuestion,
   faPenToSquare,
   faPencilRuler,
@@ -35,6 +36,7 @@ import {
   faBold as fasBold,
   faGear as fasGear,
   faGrid as fasGrid,
+  faHeart as fasHeart,
   faItalic as fasItalic,
   faListUl as fasListUl,
   faUnderline as fasUnderline
@@ -92,6 +94,7 @@ Icon.register(
   faGear,
   faGithub,
   faHandBackPointUp,
+  faHeart,
   faMessagesQuestion,
   faPenToSquare,
   faPencilRuler,
@@ -115,6 +118,7 @@ Icon.register(
   fasBold,
   fasGrid,
   fasGear,
+  fasHeart,
   fasItalic,
   fasListUl,
   fasUnderline

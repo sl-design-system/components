@@ -1,7 +1,7 @@
 :host {
   --_bg-color: var(--sl-color-background-input-plain);
   --_bg-mix-color: var(--sl-color-background-input-interactive);
-  --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
   --_border: var(--sl-color-border-input);
 
   align-items: start;
@@ -22,7 +22,7 @@
 }
 
 :host(:hover:not(:focus-within)) {
-  --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
 }
 
 :host([show-validity='invalid']) {

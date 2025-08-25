@@ -1,7 +1,7 @@
 name: 📚 Documentation
 description: Have an issue or improvement for the SL Design System documentation?
-labels: ["documentation", "triage"]
-projects: ["projects/2"]
+labels: ["triage"]
+projects: ["projects/9"]
 body:
   - type: markdown
     attributes:

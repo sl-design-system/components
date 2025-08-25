@@ -96,6 +96,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   /** Event controller. */
   #events = new EventsController(this, { click: this.#onClick, focusout: this.#onFocusout });
 
+  /** Indicates if the component is rendering for the first time. */
+  #isInitialRender = true;
+
   /** Message element for when filtering results did not yield any results. */
   #noMatch?: NoMatch;
 
@@ -272,7 +275,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     const style = document.createElement('style');
     style.innerHTML = `
       sl-combobox:has(input:hover):not(:focus-within)::part(text-field) {
-        --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+        --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
       }
       sl-combobox[has-selected-items] input::placeholder {
         color: transparent;
@@ -335,8 +338,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       // See https://bugs.webkit.org/show_bug.cgi?id=223814
       this.toggleAttribute('has-selected-items', this.multiple && this.selectedItems.length > 0);
       if (this.items.length) {
-        this.#updateTextFieldValue();
+        this.#updateTextFieldValue(!this.#isInitialRender);
         this.#updateValue();
+        this.#isInitialRender = false;
       }
     }
 
@@ -1276,7 +1280,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   }
 
   /** Update the value in the text field. */
-  #updateTextFieldValue(): void {
+  #updateTextFieldValue(emitEvent = true): void {
     if (this.multiple) {
       this.input.placeholder = this.selectedItems.map(i => i.label).join(', ') || '';
       this.input.value = '';
@@ -1288,21 +1292,28 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       this.updateValidity();
     } else {
       const item = this.selectedItems.at(0);
-
       if (item) {
         this.input.value = item.label;
         this.input.setSelectionRange(-1, -1);
+        this.formValue = this.#useVirtualList ? item.index : item.value?.toString() || item.label;
+        this.internals.setFormValue(
+          this.#useVirtualList && item.index ? item.index.toString() : item.value?.toString() || item.label
+        );
       } else {
         this.input.value = '';
+        this.formValue = null;
+        this.internals.setFormValue(null);
       }
-      this.formValue = this.input.value;
-      this.internals.setFormValue(this.input.value);
+
       this.internals.setValidity(
         { valueMissing: this.required && !this.input.value },
         msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
       );
       this.updateValidity();
-      this.changeEvent.emit(this.value);
+
+      if (emitEvent) {
+        this.changeEvent.emit(this.value);
+      }
     }
   }
 

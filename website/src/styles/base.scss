@@ -1,7 +1,7 @@
 @import './breakpoints';
 
 :root {
-  --font-color: var(--text-color);
+  --font-color: var(--sl-color-foreground-plain);
 }
 
 :not(:defined) {

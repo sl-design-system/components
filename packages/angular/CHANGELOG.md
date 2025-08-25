@@ -1,5 +1,19 @@
 # @sl-design-system/angular
 
+## 3.2.0
+
+### Minor Changes
+
+- [#2071](https://github.com/sl-design-system/components/pull/2071) [`9c6c5f0`](https://github.com/sl-design-system/components/commit/9c6c5f0cd9886f085af188e41f9a941c292aed92) - Add new `DialogService` that can be used for opening (by passing a component reference) and managing dialogs in Angular apps. Provides methods to show dialogs with custom components, pass data, and handle dialog lifecycle events. Tracks all opened dialogs and allows closing them programmatically.
+
+### Patch Changes
+
+- Updated dependencies [[`e973712`](https://github.com/sl-design-system/components/commit/e973712439e562714aa0dfe427f88288a8ab78eb), [`ea31f40`](https://github.com/sl-design-system/components/commit/ea31f4082be6b0ae423e0feded698f679046f7b9), [`5748337`](https://github.com/sl-design-system/components/commit/574833761ff5d1965f21ded94c26f1ff42272420), [`7371487`](https://github.com/sl-design-system/components/commit/7371487bd75cfceca454c243d199c572378d726f), [`919f116`](https://github.com/sl-design-system/components/commit/919f1168712569c5022a4ad6840fbce692ce6ea0)]:
+  - @sl-design-system/icon@1.2.1
+  - @sl-design-system/radio-group@1.1.4
+  - @sl-design-system/form@1.2.4
+  - @sl-design-system/text-field@1.6.5
+
 ## 3.1.0
 
 ### Minor Changes

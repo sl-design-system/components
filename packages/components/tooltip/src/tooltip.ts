@@ -118,13 +118,33 @@ export class Tooltip extends LitElement {
     );
   };
 
+  #getParentsUntil = (element: Element, selector: string) => {
+    const parents: Element[] = [];
+    let parent = element?.parentNode as HTMLElement | null;
+    while (parent && typeof parent.matches === 'function') {
+      parents.unshift(parent);
+      if (parent.matches(selector)) return parents;
+      else parent = parent.parentNode as HTMLElement | null;
+    }
+    return [];
+  };
+
   #onHide = (event: Event): void => {
     let toTooltip = false;
     let fromTooltip = false;
+    let toChild = false;
     if (event instanceof PointerEvent) {
       toTooltip = (event.relatedTarget as Element)?.nodeName === 'SL-TOOLTIP';
       fromTooltip =
         (event.target as Element)?.nodeName === 'SL-TOOLTIP' && !this.#matchesAnchor(event.relatedTarget as Element);
+      toChild =
+        this.#getParentsUntil(
+          event.relatedTarget as Element,
+          "[aria-describedby='" + this.id + "'],[aria-labelledby='" + this.id + "']"
+        ).length > 0;
+    }
+    if (toChild) {
+      return;
     }
     if ((this.#matchesAnchor(event.target as Element) && !toTooltip) || fromTooltip) {
       this.hidePopover();
@@ -133,6 +153,11 @@ export class Tooltip extends LitElement {
 
   #showTooltip = (element: HTMLElement): void => {
     this.anchorElement = element;
+
+    const anchorSlot = this.anchorElement?.getAttribute('slot');
+    if (typeof anchorSlot === 'string') {
+      this.setAttribute('slot', anchorSlot); // make sure the tooltip is slotted correctly, otherwise it might inherit styles from the wrong slot
+    }
 
     this.showPopover();
     requestAnimationFrame(() => {

@@ -4,6 +4,29 @@ This is a collection of release notes for the SL Design System. Each release not
 
 The release notes are ordered by the date the release was made. From latest, to oldest.
 
+# August 6, 2025
+
+## New features
+- [`card`](https://github.com/sl-design-system/components/blob/main/packages/components/card/CHANGELOG.md) is refactored completely in terms of design and options, and partly in terms of html-slots. The way the image is handled is improved so a grid with multiple cards will look more consistent, also helped by the `subgrid` option.
+- [`angular`](https://github.com/sl-design-system/components/blob/main/packages/angular/CHANGELOG.md) has support added for the `DialogService`.
+- [`paginator`](https://github.com/sl-design-system/components/blob/main/packages/components/paginator/CHANGELOG.md) has a new `itemLabel` property, if you want to count 'students' on the pages instead of 'items' for example.
+- TIG theme is added
+
+## Breaking changes
+- [`card`](https://github.com/sl-design-system/components/blob/main/packages/components/card/CHANGELOG.md) a lot of the css-properties have been removed or renamed (see the full changelog for details), the `actions` slot functionality and position has changed; this is now placed at the bottom. `padding` propery has been renamed to `media-margin` and the `explicit-height`, `height` and `media-position` properties have been removed.
+
+## Bug fixes
+- `combobox` fixes issue where chosen option disappears when option has a 'value' attribute and issue where dispatching an sl-change event when initial value is set.
+- `date-field` fixes showing/removing invalid state for required validation
+- `form` fixes issue where sl-form-fields inside custom components didn't register to the sl-form correctly.
+- `icon` fixes issue where icon in a flex container was squeezed too small and added a fallback for older browser because when the unit `cap` isn't supported.
+- `radio-group` fixes dispatching sl-change event when initial value is set.
+- `text-field` adds onChange method, called when the input changes.
+- `tooltip` fixes issue where tooltip hides when hover is on child of element that has the tooltip attached to it and fixes issue where tooltip could inherit the font from the wrong container.
+- All themes have been updated to support the new version of the `icon` component
+
+
+
 # June 16, 2025
 
 ## New features

@@ -10,15 +10,17 @@ eleventyNavigation:
   
 <div class="ds-example">
   <div class="ds-example__code-wrapper">
-    <sl-card style="--sl-card-media-aspect-ratio:1/1; --sl-card-horizontal-breakpoint:500px;">
-        <img slot="media" src="https://sanomalearning.design/assets/images/open-graph-card.jpg" />
+    <sl-card style="--sl-card-horizontal-breakpoint:500px;">
+        <img slot="media" src="/assets/images/components/card/card-image.png" />
         <h2>Fun adventures in digital learning</h2>
-        <span slot="header"><sl-badge variant="accent">new</sl-badge> written by: Lynn</span>
+        <span slot="header"><sl-badge variant="accent" color="blue">new</sl-badge> written by: Lynn</span>
         <p slot="body">
           Digital learning is when we use computers, tablets, or even phones to learn new things. It's super cool because it lets us explore all sorts of topics without even leaving our homes!
         </p>
-        <p slot="body">First off, digital learning means we can learn anytime, anywhere. Say goodbye to boring textbooks! With digital learning, we can watch fun videos, play educational games, and even talk to teachers and other students online. It's like having a whole world of knowledge at our fingertips!</p>
-        <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
+        <sl-toggle-button slot="menu-button" aria-label="Favorite" shape="pill">
+            <sl-icon name="far-heart" slot="default"></sl-icon>
+            <sl-icon name="fas-heart" slot="pressed"></sl-icon>
+          </sl-toggle-button>
       </sl-card>
   </div>
 </div>
@@ -26,22 +28,18 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-  <sl-card style="
-      --sl-card-media-aspect-ratio:1/1; 
-      --sl-card-horizontal-breakpoint:500px;">
-    <img slot="media" src="images/open-graph-card.jpg" />
-    <h2>Fun adventures...</h2>
-    <span slot="header">
-      <sl-badge>new</sl-badge>
-       written by: Lynn
-    </span>
+<sl-card style="--sl-card-horizontal-breakpoint:500px;">
+    <img slot="media" src="/assets/images/components/card/card-image.png" />
+    <h2>Fun adventures in digital learning</h2>
+    <span slot="header"><sl-badge variant="accent" color="blue">new</sl-badge> written by: Lynn</span>
     <p slot="body">
-      Digital learning is when...
+      Digital learning is when we use computers...
     </p>
-    <sl-button slot="actions" icon-only fill="ghost">
-      <sl-icon name="eye"></sl-icon>
-    </sl-button>
-  </sl-card>
+    <sl-toggle-button slot="menu-button" aria-label="Favorite" shape="pill">
+        <sl-icon name="far-heart" slot="default"></sl-icon>
+        <sl-icon name="fas-heart" slot="pressed"></sl-icon>
+      </sl-toggle-button>
+</sl-card>
   ```
 
 </div>

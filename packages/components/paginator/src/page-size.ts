@@ -1,4 +1,4 @@
-import { localized, msg } from '@lit/localize';
+import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE, type ListDataSource } from '@sl-design-system/data-source';
 import { Label } from '@sl-design-system/form';
@@ -68,6 +68,14 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
     this.#onUpdate();
   }
 
+  /**
+   * The label to display for the 'items' per page selector.
+   * If not set, defaults to "Items".
+   * You can use this to set a custom label, such as "Students" or "Books" or something else.
+   * Please remember to provide a translation for the label in your application.
+   */
+  @property({ attribute: false }) itemLabel?: string;
+
   get pageSize(): number {
     return this.#dataSource?.pageSize ?? this.#pageSize ?? this.pageSizes?.at(0) ?? LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE;
   }
@@ -102,12 +110,14 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
 
   override render(): TemplateResult {
     return html`
-      <sl-label for="sizes">${msg('Items per page:', { id: 'sl.paginator.itemsPerPage' })}</sl-label>
+      <sl-label for="sizes"
+        >${msg(str`${this.itemLabel ? this.itemLabel : 'Items'} per page:`, { id: 'sl.paginator.itemsPerPage' })}
+      </sl-label>
       <sl-select @sl-change=${this.#onChange} ?disabled=${!this.pageSizes} id="sizes" value=${ifDefined(this.pageSize)}>
         ${this.pageSizes?.map(
           size => html`
             <sl-option
-              aria-label=${`${size} ${msg('items per page', { id: 'sl.paginator.itemsPerPageOption' })}`}
+              aria-label=${`${size} ${msg(str`${this.itemLabel ? this.itemLabel : 'items'} per page`, { id: 'sl.paginator.itemsPerPageOption' })}`}
               .value=${size}
               >${size}</sl-option
             >

@@ -104,9 +104,11 @@
 </trans-unit>
 <trans-unit id="sl.calendar.previousMonth">
   <source>Previous month, <x id="0" equiv-text="${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></source>
+  <target>Vorige maand, <x id="0" equiv-text="${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></target>
 </trans-unit>
 <trans-unit id="sl.calendar.nextMonth">
   <source>Next month, <x id="0" equiv-text="${format(this.nextMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></source>
+  <target>Volgende maand, <x id="0" equiv-text="${format(this.nextMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></target>
 </trans-unit>
 <trans-unit id="sl.calendar.week">
   <source>Week</source>
@@ -217,12 +219,12 @@
   <target>Naar het begin van de tabel</target>
 </trans-unit>
 <trans-unit id="sl.paginator.itemsPerPage">
-  <source>Items per page:</source>
-  <target>Items per pagina:</target>
+  <source><x id="0" equiv-text="${this.itemLabel ? this.itemLabel : 'Items'}"/> per page:</source>
+  <target><x id="0" equiv-text="${this.itemLabel ? this.itemLabel : 'Items'}"/> per pagina:</target>
 </trans-unit>
 <trans-unit id="sl.paginator.itemsPerPageOption">
-  <source>items per page</source>
-  <target>items per pagina</target>
+  <source><x id="0" equiv-text="${this.itemLabel ? this.itemLabel : 'items'}"/> per page</source>
+  <target><x id="0" equiv-text="${this.itemLabel ? this.itemLabel : 'items'}"/> per pagina</target>
 </trans-unit>
 <trans-unit id="sl.paginator.pagination">
   <source>Pagination</source>
@@ -257,12 +259,12 @@
   <target>Pagina <x id="0" equiv-text="${this.page + 1}"/> van <x id="1" equiv-text="${this.pageCount}"/></target>
 </trans-unit>
 <trans-unit id="sl.paginator.itemsRange">
-  <source><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems}"/> items</source>
-  <target><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.totalItems}"/> items</target>
+  <source><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems} ${this.itemLabel ? this.itemLabel : 'items'}"/></source>
+  <target><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.totalItems} ${this.itemLabel ? this.itemLabel : 'items'}"/></target>
 </trans-unit>
 <trans-unit id="sl.paginator.currentlyShowingAmount">
-  <source>Currently showing <x id="0" equiv-text="${start}"/> to <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems}"/> items</source>
-  <target>Momenteel worden <x id="0" equiv-text="${start}"/> tot <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.totalItems}"/> weergegeven</target>
+  <source>Currently showing <x id="0" equiv-text="${start}"/> to <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems} ${this.itemLabel ? this.itemLabel : 'items'}"/></source>
+  <target>Momenteel worden <x id="0" equiv-text="${start}"/> tot <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.totalItems} ${this.itemLabel ? this.itemLabel : 'items'}"/> weergegeven</target>
 </trans-unit>
 <trans-unit id="sl.progressBar.state">
   <source>state</source>

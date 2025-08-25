@@ -1,5 +1,11 @@
 # @sl-design-system/form
 
+## 1.2.4
+
+### Patch Changes
+
+- [#2105](https://github.com/sl-design-system/components/pull/2105) [`5748337`](https://github.com/sl-design-system/components/commit/574833761ff5d1965f21ded94c26f1ff42272420) - Fixes issue where sl-form-fields inside custom components didn't register to the sl-form correctly, causing issues when reporting validity
+
 ## 1.2.3
 
 ### Patch Changes

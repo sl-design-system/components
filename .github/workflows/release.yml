@@ -9,6 +9,7 @@ env:
   FIGMA_TOKEN: ${{ secrets.FIGMA_AUTH_TOKEN }}
   FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
   HUSKY: 0
+  TOKENS_STUDIO_API_KEY: ${{ secrets.TOKENS_STUDIO_2_API_KEY }}
 
 permissions:
   contents: write

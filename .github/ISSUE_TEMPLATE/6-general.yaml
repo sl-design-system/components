@@ -1,7 +1,7 @@
 name: 👨🏻‍💻 General
 description: Create a general issue to improve the SL Design System
 labels: ["triage"]
-projects: ["projects/2"]
+projects: ["projects/9"]
 body:
   - type: markdown
     attributes:

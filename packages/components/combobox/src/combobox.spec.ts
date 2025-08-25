@@ -497,6 +497,33 @@ describe('sl-combobox', () => {
       });
     });
 
+    describe('options with values', () => {
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-combobox>
+            <sl-listbox>
+              <sl-option .value=${'1'}>Lorem</sl-option>
+              <sl-option .value=${'2'}>Ipsum</sl-option>
+              <sl-option .value=${'3'}>Ipsom</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+      });
+
+      it('should set the value when an option is selected', async () => {
+        input.click();
+        await el.updateComplete;
+
+        el.querySelector('sl-option')?.click();
+        input.blur();
+        await el.updateComplete;
+
+        expect(el.value).to.equal('1');
+        expect(input.value).to.equal('Lorem');
+      });
+    });
+
     describe('allow custom values', () => {
       beforeEach(async () => {
         el = await fixture(html`
@@ -723,6 +750,15 @@ describe('sl-combobox', () => {
           </sl-combobox>
         `);
         input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+      });
+
+      it('should not emit an sl-change event on initial render when a value is set', async () => {
+        const onChange = spy();
+
+        el.addEventListener('sl-change', onChange);
+        await el.updateComplete;
+
+        expect(onChange).not.to.have.been.called;
       });
 
       it('should have a stacked tag list', () => {

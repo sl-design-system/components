@@ -48,6 +48,14 @@ export class PaginatorStatus<T = any> extends LitElement {
   }
 
   /**
+   * The label to display for the 'items'.
+   * If not set, defaults to "Items".
+   * You can use this to set a custom label, such as "students" or "books" or something else.
+   * Please remember to provide a translation for the label in your application.
+   */
+  @property({ attribute: false }) itemLabel?: string;
+
+  /**
    * Current page.
    * @default 0
    */
@@ -113,7 +121,9 @@ export class PaginatorStatus<T = any> extends LitElement {
   override render(): TemplateResult {
     const [start, end] = this.range ?? [1, 1];
 
-    return html`${msg(str`${start} - ${end} of ${this.totalItems} items`, { id: 'sl.paginator.itemsRange' })}`;
+    return html`${msg(str`${start} - ${end} of ${this.totalItems} ${this.itemLabel ? this.itemLabel : 'items'}`, {
+      id: 'sl.paginator.itemsRange'
+    })}`;
   }
 
   #onUpdate = () => {
@@ -135,9 +145,12 @@ export class PaginatorStatus<T = any> extends LitElement {
         const [start, end] = this.range ?? [1, 1];
 
         announce(
-          msg(str`Currently showing ${start} to ${end} of ${this.totalItems} items`, {
-            id: 'sl.paginator.currentlyShowingAmount'
-          })
+          msg(
+            str`Currently showing ${start} to ${end} of ${this.totalItems} ${this.itemLabel ? this.itemLabel : 'items'}`,
+            {
+              id: 'sl.paginator.currentlyShowingAmount'
+            }
+          )
         );
       }
     }, 100);

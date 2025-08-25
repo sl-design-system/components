@@ -8,7 +8,7 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './month-view.scss.js';
-import { type Calendar, type Day, createCalendar, getWeekdayNames, isSameDate } from './utils.js';
+import { type Calendar, type Day, createCalendar, getWeekdayNames, isDateInList, isSameDate } from './utils.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -101,6 +101,12 @@ export class MonthView extends LocaleMixin(LitElement) {
 
   /** The selected date. */
   @property({ converter: dateConverter }) selected?: Date;
+
+  /** The list of dates that should have 'negative' styling. */
+  @property({ converter: dateConverter }) negative?: Date[];
+
+  /** The list of dates that should have an indicator. */
+  @property({ converter: dateConverter }) indicator?: Date[];
 
   /**
    * Highlights today's date when set.
@@ -211,6 +217,8 @@ export class MonthView extends LocaleMixin(LitElement) {
       day.previousMonth ? 'previous-month' : '',
       day.today ? 'today' : '',
       day.unselectable ? 'unselectable' : '',
+      this.negative && isDateInList(day.date, this.negative) ? 'negative' : '',
+      this.indicator && isDateInList(day.date, this.indicator) ? 'indicator' : '',
       this.selected && isSameDate(day.date, this.selected) ? 'selected' : ''
     ].filter(part => part !== '');
   };
@@ -243,6 +251,7 @@ export class MonthView extends LocaleMixin(LitElement) {
       event.preventDefault();
       event.stopPropagation();
 
+      console.log(day.date);
       this.selectEvent.emit(day.date);
     }
   }

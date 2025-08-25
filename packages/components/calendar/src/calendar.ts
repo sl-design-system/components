@@ -1,6 +1,6 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { type EventEmitter, LocaleMixin, event } from '@sl-design-system/shared';
-import { dateConverter } from '@sl-design-system/shared/converters.js';
+import { dateConverter, dateListConverter } from '@sl-design-system/shared/converters.js';
 import { type SlChangeEvent, type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -66,6 +66,12 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** The selected date. */
   @property({ converter: dateConverter }) selected?: Date;
 
+  /** The list of dates that should have 'negative' styling. */
+  @property({ converter: dateListConverter }) negative?: Date[];
+
+  /** The list of dates that should have 'negative' styling. */
+  @property({ converter: dateListConverter }) indicator?: Date[];
+
   /** Highlights today's date when set. */
   @property({ type: Boolean, attribute: 'show-today' }) showToday?: boolean;
 
@@ -86,6 +92,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   override render(): TemplateResult {
+    console.log(this.negative);
     return html`
       <sl-select-day
         @sl-select=${this.#onSelect}
@@ -96,6 +103,8 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         ?show-week-numbers=${this.showWeekNumbers}
         .month=${this.month}
         .selected=${this.selected}
+        .negative=${this.negative}
+        .indicator=${this.indicator}
         aria-hidden=${this.mode !== 'day'}
         first-day-of-week=${ifDefined(this.firstDayOfWeek)}
         locale=${ifDefined(this.locale)}

@@ -6,7 +6,17 @@ import { type Calendar } from './calendar.js';
 
 type Props = Pick<
   Calendar,
-  'firstDayOfWeek' | 'locale' | 'max' | 'min' | 'month' | 'readonly' | 'selected' | 'showToday' | 'showWeekNumbers'
+  | 'firstDayOfWeek'
+  | 'locale'
+  | 'indicator'
+  | 'max'
+  | 'min'
+  | 'month'
+  | 'readonly'
+  | 'selected'
+  | 'showToday'
+  | 'showWeekNumbers'
+  | 'negative'
 >;
 type Story = StoryObj<Props>;
 
@@ -38,9 +48,27 @@ export default {
     },
     selected: {
       control: 'date'
+    },
+    negative: {
+      control: 'date'
+    },
+    indicator: {
+      control: 'date'
     }
   },
-  render: ({ firstDayOfWeek, locale, max, min, month, readonly, selected, showToday, showWeekNumbers }) => {
+  render: ({
+    firstDayOfWeek,
+    indicator,
+    locale,
+    max,
+    min,
+    month,
+    negative,
+    readonly,
+    selected,
+    showToday,
+    showWeekNumbers
+  }) => {
     const parseDate = (value: string | Date | undefined): Date | undefined => {
       if (!value) {
         return undefined;
@@ -60,6 +88,8 @@ export default {
         min=${ifDefined(parseDate(min)?.toISOString())}
         month=${ifDefined(parseDate(month)?.toISOString())}
         selected=${ifDefined(parseDate(selected)?.toISOString())}
+        negative=${ifDefined(negative?.map(date => date.toISOString()).join(','))}
+        indicator=${ifDefined(indicator?.map(date => date.toISOString()).join(','))}
       ></sl-calendar>
     `;
   }
@@ -89,7 +119,25 @@ export const Readonly: Story = {
 
 export const Selected: Story = {
   args: {
-    selected: new Date(2024, 8, 15)
+    selected: new Date(1755640800000),
+    showToday: true,
+    month: new Date(1755640800000)
+  }
+};
+
+export const Negative: Story = {
+  args: {
+    negative: [new Date('2025-08-20'), new Date('2025-08-07')],
+    showToday: true,
+    month: new Date(1755640800000)
+  }
+};
+
+export const Indicator: Story = {
+  args: {
+    indicator: [new Date('2025-08-25'), new Date('2025-08-05')],
+    showToday: true,
+    month: new Date(1755640800000)
   }
 };
 

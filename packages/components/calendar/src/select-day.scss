@@ -16,8 +16,8 @@
 [part='header'] {
   align-items: center;
   display: flex;
-  padding-block-start: var(--sl-size-075);
-  padding-inline: var(--sl-size-075);
+  padding-block: var(--sl-size-075);
+  padding-inline: var(--sl-size-150) var(--sl-size-075);
 }
 
 .current-month,
@@ -31,7 +31,11 @@
 }
 
 .current-year {
-  margin-inline: var(--sl-size-050) auto;
+  margin-inline: var(--sl-size-200) auto;
+}
+
+.next-month {
+  margin-inline: var(--sl-size-100) auto;
 }
 
 .days-of-week {

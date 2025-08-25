@@ -83,6 +83,12 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** The selected date. */
   @property({ converter: dateConverter }) selected?: Date;
 
+  /** The list of dates that should have 'negative' styling. */
+  @property({ converter: dateConverter }) negative?: Date[];
+
+  /** The list of dates that should have an indicator. */
+  @property({ converter: dateConverter }) indicator?: Date[];
+
   /** @internal Emits when the user selects a day. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<Date>>;
 
@@ -106,6 +112,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
+    console.log(this.negative);
 
     if (changes.has('firstDayOfWeek') || changes.has('locale')) {
       const { locale, firstDayOfWeek } = this,
@@ -131,13 +138,13 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   override render(): TemplateResult {
     return html`
       <div part="header">
-        <sl-button @click=${this.#onToggleMonthSelect} class="current-month" fill="link">
+        <sl-button @click=${this.#onToggleMonthSelect} class="current-month" fill="link" variant="secondary">
           <sl-format-date .date=${this.displayMonth} locale=${ifDefined(this.locale)} month="long"></sl-format-date>
-          <sl-icon name="caret-down-solid" size="xs"></sl-icon>
+          <sl-icon name="caret-down-solid" size="md"></sl-icon>
         </sl-button>
-        <sl-button @click=${this.#onToggleYearSelect} class="current-year" fill="link">
+        <sl-button @click=${this.#onToggleYearSelect} class="current-year" fill="link" variant="secondary">
           <sl-format-date .date=${this.displayMonth} locale=${ifDefined(this.locale)} year="numeric"></sl-format-date>
-          <sl-icon name="caret-down-solid" size="xs"></sl-icon>
+          <sl-icon name="caret-down-solid" size="md"></sl-icon>
         </sl-button>
         <sl-button
           @click=${this.#onPrevious}
@@ -145,8 +152,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
             str`Previous month, ${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}`,
             { id: 'sl.calendar.previousMonth' }
           )}
+          class="previous-month"
           fill="ghost"
-          variant="primary"
+          variant="secondary"
         >
           <sl-icon name="chevron-left"></sl-icon>
         </sl-button>
@@ -156,8 +164,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
             str`Next month, ${format(this.nextMonth!, this.locale, { month: 'long', year: 'numeric' })}`,
             { id: 'sl.calendar.nextMonth' }
           )}
+          class="next-month"
           fill="ghost"
-          variant="primary"
+          variant="secondary"
         >
           <sl-icon name="chevron-right"></sl-icon>
         </sl-button>
@@ -185,6 +194,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           .firstDayOfWeek=${this.firstDayOfWeek}
           .month=${this.previousMonth}
           .selected=${this.selected}
+          .negative=${this.negative}
+          .indicator=${this.indicator}
           aria-hidden="true"
           inert
           max=${ifDefined(this.max?.toISOString())}
@@ -200,6 +211,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           .firstDayOfWeek=${this.firstDayOfWeek}
           .month=${this.month}
           .selected=${this.selected}
+          .negative=${this.negative}
+          .indicator=${this.indicator}
           locale=${ifDefined(this.locale)}
           max=${ifDefined(this.max?.toISOString())}
           min=${ifDefined(this.min?.toISOString())}
@@ -211,6 +224,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           .firstDayOfWeek=${this.firstDayOfWeek}
           .month=${this.nextMonth}
           .selected=${this.selected}
+          .negative=${this.negative}
+          .indicator=${this.indicator}
           aria-hidden="true"
           inert
           locale=${ifDefined(this.locale)}

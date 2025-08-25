@@ -220,6 +220,10 @@
   outline-color: var(--sl-color-border-focused);
 }
 
+:host([variant='inverted']:focus-visible) {
+  outline-color: var(--sl-color-border-inverted);
+}
+
 @media (prefers-reduced-motion: no-preference) {
   :host(:where(:active, :focus-visible, :hover)) {
     transition-duration: var(--sl-animation-button-duration);

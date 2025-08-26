@@ -147,8 +147,6 @@ export class FormInDialog extends Dialog {
   #onUpdateState(): void {
     const { indefinitely, rentalPeriodAmount, rentalPeriodUnit } = this.#form.value || {};
 
-    console.log({ indefinitely, rentalPeriodAmount, rentalPeriodUnit });
-
     this.#form.controls.rentalPeriodAmount?.setCustomValidity(
       indefinitely || rentalPeriodAmount ? '' : 'Please enter a rental period amount.'
     );

@@ -23,13 +23,12 @@
   @media (prefers-reduced-motion: no-preference) {
     transition: 0.2s cubic-bezier(0.25, 0, 0.3, 1);
     transition-behavior: allow-discrete;
-    transition-property: display, opacity, translate;
+    transition-property: display, opacity;
   }
 
   @starting-style {
     display: flex;
     opacity: 0;
-    translate: 0 20px;
   }
 }
 

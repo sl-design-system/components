@@ -236,63 +236,6 @@ export const All: Story = {
   }
 };
 
-export const PreventCancelWhileCalendarOpen: Story = {
-  render: () => {
-    const onClick = async (event: Event & { target: HTMLElement }) => {
-      const dialog = event.target.nextElementSibling as Dialog;
-
-      if (!(dialog as unknown as { eventListenersAttached?: boolean }).eventListenersAttached) {
-        (dialog as unknown as { eventListenersAttached?: boolean }).eventListenersAttached = true;
-
-        let openCalendars = 0;
-
-        dialog.addEventListener(
-          'sl-open',
-          e => {
-            const t = e.target as HTMLElement;
-            if (t.tagName === 'SL-DATE-FIELD') {
-              openCalendars++;
-              dialog.disableCancel = true;
-            }
-          },
-          { capture: true }
-        );
-
-        dialog.addEventListener(
-          'sl-close',
-          e => {
-            const t = e.target as HTMLElement;
-            if (t.tagName === 'SL-DATE-FIELD') {
-              openCalendars = Math.max(0, openCalendars - 1);
-              dialog.disableCancel = openCalendars > 0;
-            }
-          },
-          { capture: true }
-        );
-
-        dialog.addEventListener('sl-cancel', e => {
-          if (openCalendars > 0) {
-            e.preventDefault();
-          }
-        });
-      }
-
-      await dialog.updateComplete;
-      dialog.showModal();
-    };
-
-    return html`
-      <sl-button @click=${onClick}>Show Dialog</sl-button>
-      <sl-dialog close-button>
-        <span slot="title">Pick a date</span>
-        <p>Backdrop clicks and Escape are blocked while the calendar is open.</p>
-        <sl-date-field></sl-date-field>
-        <sl-button slot="primary-actions" sl-dialog-close>Close</sl-button>
-      </sl-dialog>
-    `;
-  }
-};
-
 export const DialogWithOverlayComponents: Story = {
   render: () => {
     // const onClickPopover = (event: Event & { target: HTMLElement }): void => {

@@ -18,21 +18,9 @@ declare global {
   interface HTMLElementTagNameMap {
     'sl-dialog': Dialog;
   }
-
-  interface GlobalEventHandlersEventMap {
-    'sl-open': SlOpenEvent;
-  }
-
-  // interface GlobalEventHandlersEventMap {
-  //   'sl-close-overlay': SlCloseOverlayEvent;
-  // }
 }
 
 export type SlCloseEvent = CustomEvent<void>;
-
-export type SlOpenEvent = CustomEvent<void>;
-
-// export type SlCloseOverlayEvent = CustomEvent<void>;
 
 /**
  * A dialog component for displaying modal UI.
@@ -64,20 +52,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   // eslint-disable-next-line no-unused-private-class-members
-  #events = new EventsController(this, {
-    click: this.#onClick,
-    keydown: this.#onKeydown,
-    // Listen once at the host for child overlay open/close events; bubbling is sufficient
-    'sl-open': this.#onChildOpen,
-    'sl-close': this.#onChildClose
-  });
-
-  // #mutationObserver?: MutationObserver;
-
-  /** Tracks number of open date-field calendars (overlay components) within the dialog.
-   * The dialog should not close when we click the dropdown, when there is any overlay component opened in it.
-   * We use sl-open and sl-close events to detect those.*/
-  #openCalendars = 0;
+  #events = new EventsController(this, { click: this.#onClick, keydown: this.#onKeydown });
 
   /** Responsive behavior utility. */
   #media = new MediaController(this);
@@ -86,15 +61,13 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
    * @internal Emits when the dialog has been cancelled. This happens when the
    * user closes the dialog using the escape key or clicks on the backdrop.
    */
-  @event({ name: 'sl-cancel', cancelable: true }) cancelEvent!: EventEmitter<SlCancelEvent>;
+  @event({ name: 'sl-cancel' }) cancelEvent!: EventEmitter<SlCancelEvent>;
 
   /**
    * Determines whether a close button should be shown in the top right corner.
    * @default false
    */
   @property({ type: Boolean, attribute: 'close-button' }) closeButton?: boolean;
-
-  // @event({ name: 'sl-open' }) openEvent!: EventEmitter<SlCloseEvent>;
 
   /** @internal Emits when the dialog has been closed. */
   @event({ name: 'sl-close' }) closeEvent!: EventEmitter<SlCloseEvent>;
@@ -120,14 +93,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.inert = true;
-
-    // this.#events.listen(this.input, 'click', this.#onInputClick);
-  }
-
-  override firstUpdated(changes: PropertyValues<this>): void {
-    super.firstUpdated(changes);
-
-    console.log('changes in firstUpdated', changes, this.renderRoot, this.renderRoot.querySelector('dialog'));
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -202,7 +167,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
    */
   renderBody(): TemplateResult {
     return html`
-      <slot @slotchange=${this.#onBodySlotChange}></slot>
+      <slot></slot>
       ${this.#media.mobile
         ? html`
             <sl-button-bar part="footer-bar">
@@ -306,8 +271,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
     const rect = this.dialog.getBoundingClientRect();
 
-    console.log('onBackdropClick', event, event.target, rect, this.#openCalendars);
-
     // Check if the user clicked on the backdrop
     if (
       !this.disableCancel &&
@@ -322,218 +285,17 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       this.cancelEvent.emit();
       this.close();
     }
-
-    /*    // debugger;
-    //
-    // If any date-field calendar (overlay component) is open, block cancel by default
-    // if (this.#openCalendars > 0) {
-    //   event.preventDefault();
-    //   event.stopPropagation();
-    //   return;
-    // }
-
-    if (this.#openCalendars > 0) {
-      console.log(
-        'onBackdropClick blocked by open calendar or sth else - other overlay component',
-        event,
-        event.target,
-        rect,
-        this.#openCalendars
-      );
-      // event.preventDefault();
-      // event.stopPropagation();
-      // return;
-    }
-
-    console.log('onBackdropClick after checking #openCalendars value', event, event.target, rect, this.#openCalendars);
-
-    event.preventDefault();
-    event.stopPropagation();
-
-    // debugger;
-
-    // Check if the user clicked on the backdrop
-    if (
-      !this.disableCancel &&
-      (event.clientY < rect.top ||
-        event.clientY > rect.bottom ||
-        event.clientX < rect.left ||
-        event.clientX > rect.right) &&
-      event.target instanceof HTMLDialogElement
-    ) {
-      // event.preventDefault();
-      // event.stopPropagation();
-
-      // if (this.#openCalendars > 0) {
-      //   event.preventDefault();
-      //   event.stopPropagation();
-      //   return;
-      // }
-
-      const notCancelled = this.cancelEvent.emit(undefined, { cancelable: true });
-      console.log('onBackdropClick cancel --- notCancelled111', event, event.target, notCancelled);
-
-      console.log('this.#events in backdropclick', this.#events);
-
-      // event.preventDefault();
-      // event.stopPropagation();
-
-      if (this.#openCalendars === 0) {
-        console.log('onBackdropClick close openCalendars === 0', event, event.target, rect, this.#openCalendars);
-        event.preventDefault();
-        event.stopPropagation();
-
-        this.cancelEvent.emit();
-        this.close();
-      }
-
-      // const notCancelled = this.cancelEvent.emit(undefined, { cancelable: true });
-      console.log('onBackdropClick cancel --- notCancelled222', event, event.target, notCancelled);
-
-      // event.preventDefault();
-      // event.stopPropagation();
-
-      console.log('onBackdropClick close', event, event.target, rect, this.#openCalendars);
-
-      // // Emit cancelable cancel event; only close when not prevented
-      // const notCancelled = this.cancelEvent.emit(undefined, { cancelable: true });
-      // console.log('onBackdropClick cancel --- notCancelled', event, event.target, notCancelled);
-      // if (notCancelled) {
-      //   this.close();
-      // }
-    }*/
-  }
-
-  #onBodySlotChange(): void {
-    // // // const headerSlots = this.renderRoot.querySelectorAll('slot'),
-    // // //   hasContent = Array.from(headerSlots).find(slot =>
-    // // //     (slot as HTMLSlotElement)
-    // // //       .assignedNodes({ flatten: true })
-    // // //       .some(
-    // // //         node =>
-    // // //           node.textContent?.trim() !== '' ||
-    // // //           (node.nodeType === Node.ELEMENT_NODE &&
-    // // //             !(node as Element).hasAttribute('slot') &&
-    // // //             !(node instanceof HTMLStyleElement))
-    // // //       )
-    // // //   );
-    // //
-    // // // const headerSlots = this.renderRoot.querySelectorAll('slot');
-    // // // const slottedElements = Array.from(headerSlots).flatMap(slot =>
-    // // //   (slot as HTMLSlotElement).assignedElements({ flatten: true })
-    // // // );
-    // //
-    // const headerSlots = this.renderRoot.querySelectorAll('slot');
-    // const slottedElements = Array.from(headerSlots).flatMap(slot => slot.assignedElements({ flatten: true }));
-    // // const allNestedElements = slottedElements.flatMap(el =>
-    // //   el instanceof HTMLElement ? [el, ...Array.from(el.querySelectorAll<HTMLElement>('*'))] : []
-    // // );
-    //
-    // const allNestedElements = slottedElements.flatMap(el =>
-    //   el instanceof HTMLElement && el.tagName !== 'SLOT'
-    //     ? [el, ...Array.from(el.querySelectorAll<HTMLElement>('*')).filter(child => child.tagName !== 'SLOT')]
-    //     : []
-    // );
-    // //
-    // // allNestedElements.forEach(element => {
-    // //   this.#events.listen(element, 'sl-open', this.#onChildOpen, { capture: true, once: true });
-    // //   this.#events.listen(element, 'sl-close', this.#onChildClose, { capture: true, once: true });
-    // // });
-    // // console.log('headerSlots on bodyclotchange', headerSlots, slottedElements, allNestedElements, this.renderRoot);
-    //
-    // let openPopoverCount = 0;
-    //
-    // let anyPopoverOpen = false;
-    //
-    // if (this.#mutationObserver) {
-    //   this.#mutationObserver.disconnect();
-    //   openPopoverCount = 0;
-    //   anyPopoverOpen = false;
-    // }
-    //
-    // // const slots = this.renderRoot.querySelectorAll('slot');
-    // // const slottedElements = Array.from(slots).flatMap(slot =>
-    // //   (slot as HTMLSlotElement).assignedElements({ flatten: true })
-    // // );
-    // // const allNestedElements = slottedElements.flatMap(el =>
-    // //   el instanceof HTMLElement ? [el, ...Array.from(el.querySelectorAll<HTMLElement>('*'))] : []
-    // // );
-    //
-    // console.log('allNestedElements on bodyclotchange', allNestedElements, this.renderRoot);
-    // allNestedElements.forEach(element => {
-    //   if (isPopoverOpen(element)) {
-    //     // Do something if the popover is open
-    //     console.log('Popover is open for:', element);
-    //   }
-    // });
-    //
-    // // let openPopoverCount = 0;
-    // allNestedElements.forEach(element => {
-    //   if (isPopoverOpen(element)) {
-    //     openPopoverCount++;
-    //     console.log('Popover is open for:', element);
-    //   }
-    // });
-    // const anyPopoverOpen2 = openPopoverCount > 0;
-    // console.log('Number of open popovers:', openPopoverCount, 'Any open:', anyPopoverOpen2);
-    //
-    // this.#mutationObserver = new MutationObserver(mutations => {
-    //   mutations.forEach(mutation => {
-    //     // Handle mutation (e.g., attribute or content change)
-    //     console.log('Mutation detected:', mutation, mutation.target as HTMLElement);
-    //
-    //     if (isPopoverOpen(mutation.target as HTMLElement)) {
-    //       console.log('Mutation detected on open popover:', mutation.target);
-    //       openPopoverCount++;
-    //       console.log('openPopoverCount in mutationObserver', openPopoverCount);
-    //     }
-    //   });
-    //
-    //   anyPopoverOpen = mutations.some(element => isPopoverOpen(element.target as HTMLElement));
-    //   console.log('Any popover open in mutationObserver:', anyPopoverOpen);
-    // });
-    //
-    // console.log('openPopoverCount', openPopoverCount);
-    //
-    // allNestedElements.forEach(element => {
-    //   this.#mutationObserver?.observe(element, { attributes: true, childList: true, subtree: true });
-    //
-    //   console.log('Mutation detected:', element);
-    //
-    //   anyPopoverOpen = allNestedElements.some(element => isPopoverOpen(element));
-    //
-    //   console.log('Any popover open:', anyPopoverOpen);
-    //
-    //   if (isPopoverOpen(element)) {
-    //     // Do something if the popover is open
-    //     console.log('in mutation observer... Popover is open for:', element);
-    //   }
-    // });
-    //
-    // console.log('allNestedElements to observe....', allNestedElements);
   }
 
   #onClick(event: MouseEvent): void {
     const button = event.composedPath().find((el): el is Button => el instanceof Button);
 
     if (button?.hasAttribute('sl-dialog-close')) {
-      console.log('onClick close when sl-dialog-close is set', event, event.target);
       this.close();
     }
   }
 
-  async #onClose(event: MouseEvent): Promise<void> {
-    console.log('onClose close', event, event.target, this.#openCalendars); // TODO: why it's invoked when I close select, but not when the date fiel???
-    // event.preventDefault();
-
-    // debugger;
-
-    if (this.#openCalendars > 0) {
-      // event.preventDefault();
-      // event.stopPropagation();
-      return;
-    }
-
+  async #onClose(): Promise<void> {
     this.#updateDocumentElement(false);
 
     this.inert = true;
@@ -555,20 +317,11 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     if (event.key === 'Escape') {
       event.preventDefault();
 
-      // If any date-field calendar is open, block cancel by default
-      if (this.#openCalendars > 0) {
-        event.stopPropagation();
-        return;
-      }
-
       if (this.disableCancel) {
         event.stopPropagation();
       } else {
-        // Emit cancelable cancel event; only close when not prevented
-        const notCancelled = this.cancelEvent.emit(undefined, { cancelable: true });
-        if (notCancelled) {
-          this.close();
-        }
+        this.cancelEvent.emit();
+        this.close();
       }
     }
   }
@@ -622,36 +375,5 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     } else {
       buttons.at(0)?.setAttribute('fill', this.#media.mobile ? 'link' : 'solid');
     }
-  }
-
-  #onChildOpen(event: Event): void {
-    console.log('event sl-open', event, event.target);
-
-    // Ignore the dialog's own events
-    if (event.target === this || event.target instanceof HTMLDialogElement) {
-      console.log('event sl-open ignored', event, event.target);
-      event.stopPropagation();
-      return;
-    }
-    console.log('this.#openCalendars before increment', this.#openCalendars, event.target);
-
-    this.#openCalendars++;
-    console.log('this.#openCalendars after increment', this.#openCalendars, event.target);
-
-    console.log('event sl-open and this.#openCalendars', event, event.target, this.#openCalendars);
-  }
-
-  #onChildClose(event: Event): void {
-    console.log('event sl-close-overlay #onChildClose', event, event.target, (event.target as HTMLElement).tagName);
-
-    // Ignore the dialog's own events
-    if (event.target === this || event.target instanceof HTMLDialogElement) {
-      console.log('event sl-close ignored', event, event.target);
-      event.stopPropagation();
-      return;
-    }
-    console.log('this.#openCalendars before decrement', this.#openCalendars, event.target);
-    this.#openCalendars = Math.max(0, this.#openCalendars - 1);
-    console.log('this.#openCalendars after decrement', this.#openCalendars, event.target);
   }
 }

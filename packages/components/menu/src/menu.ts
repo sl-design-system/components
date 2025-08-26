@@ -133,8 +133,6 @@ export class Menu extends LitElement {
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    console.log('onKeydown in menu111', event);
-
     if (!(this.anchorElement instanceof MenuItem)) {
       return;
     }

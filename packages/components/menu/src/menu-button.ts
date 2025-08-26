@@ -148,7 +148,6 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    console.log('onKeydown in menu-button', event);
     if (event.code === 'Escape') {
       // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the menu
       // does not close parent containers (such as dialogs).
@@ -168,7 +167,6 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
   }
 
   #onKeydownMenu(event: KeyboardEvent): void {
-    console.log('onKeydown in menu onkeydownmenu....', event); // TODO: works only when sth in the popover is focused, not when just opened
     if (event.code === 'Escape') {
       // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the date field
       // does not close parent containers (such as dialogs).

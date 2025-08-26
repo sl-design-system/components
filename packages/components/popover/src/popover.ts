@@ -1,4 +1,4 @@
-import { AnchorController, EventsController, type PopoverPosition, isPopoverOpen } from '@sl-design-system/shared';
+import { AnchorController, EventsController, type PopoverPosition } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './popover.scss.js';
@@ -75,10 +75,7 @@ export class Popover extends LitElement {
     }
   }
 
-  // TODO: getter and setter for isPopoverOpen ???
-
   override render(): TemplateResult {
-    console.log('isPopoverOpen(this) --- popover', isPopoverOpen(this));
     return html`
       <div class="container" part="container">
         <slot></slot>
@@ -92,7 +89,6 @@ export class Popover extends LitElement {
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    console.log('onKeydown in popover', event); // TODO: works only when sth in the popover is focused, not when just opened
     if (event.code === 'Escape') {
       // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the popover
       // does not close parent containers (such as dialogs).

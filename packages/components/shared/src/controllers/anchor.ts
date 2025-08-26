@@ -25,9 +25,6 @@ export class AnchorController implements ReactiveController {
         offset: this.offset,
         position: this.position
       });
-
-      // this.#host?.addEventListener('keydown', this.#onKeydown);
-      // (anchorElement as HTMLElement).addEventListener('keydown', this.#onKeydown);
     } else if (this.#cleanup) {
       this.#cleanup();
       this.#cleanup = undefined;
@@ -45,8 +42,6 @@ export class AnchorController implements ReactiveController {
 
   #onToggle = (event: Event): void => {
     const { newState, oldState, target } = event as ToggleEvent & { target: HTMLElement };
-
-    console.log('this.#host in anchor', this.#host, 'target', target, 'newState', newState, 'oldState', oldState);
 
     /**
      * Tooltips are working in a little bit different way than popovers,
@@ -150,8 +145,6 @@ export class AnchorController implements ReactiveController {
       return;
     }
 
-    // this.#host?.addEventListener('keydown', this.#onKeydown);
-
     if (anchorElement && !this.#host.hasAttribute('aria-details')) {
       anchorElement.id ||= `sl-anchor-${nextUniqueId++}`;
 
@@ -170,13 +163,10 @@ export class AnchorController implements ReactiveController {
     // for buttons?
     if (anchorElement?.tagName === 'SL-BUTTON') {
       if (expanded) {
-        console.log('is popover expanded?', expanded, 'anchorElement', anchorElement);
         anchorElement.setAttribute('popover-opened', '');
         if (!hasRichContent && !this.#host.hasAttribute('no-describedby')) {
           anchorElement?.setAttribute('aria-describedby', this.#host.id);
         }
-        // this.#host?.addEventListener('keydown', this.#onKeydown);
-        // (anchorElement as HTMLElement).addEventListener('keydown', this.#onKeydown);
       } else {
         anchorElement.removeAttribute('popover-opened');
         anchorElement?.removeAttribute('aria-describedby');

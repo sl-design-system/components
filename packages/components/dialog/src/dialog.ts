@@ -258,13 +258,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   }
 
   #onBackdropClick(event: MouseEvent): void {
-    console.log(
-      'should not close the dialog?',
-      this.dialog !== event.composedPath()[0],
-      event.composedPath,
-      event.composedPath()[0]
-    );
-
     if (this.dialog !== event.composedPath()[0]) {
       return;
     }

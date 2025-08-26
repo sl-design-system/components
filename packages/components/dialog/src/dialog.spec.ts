@@ -1,4 +1,4 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect, fixture, oneEvent } from '@open-wc/testing';
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { sendKeys } from '@web/test-runner-commands';
@@ -107,6 +107,8 @@ describe('sl-dialog', () => {
       dialog = el.renderRoot.querySelector('dialog')!;
 
       el.showModal();
+
+      await el.updateComplete;
     });
 
     it('should emit an sl-cancel event when pressing the escape key', async () => {
@@ -183,13 +185,22 @@ describe('sl-dialog', () => {
     it('should emit an sl-close event when calling close()', async () => {
       const onClose = spy();
 
-      el.addEventListener('sl-close', onClose);
+      // This promise is used to wait until the 'sl-close' event is emitted, ensuring the test only continues after the dialog has actually closed.
+      // So no `await new Promise(resolve => setTimeout(resolve));` is needed.
+      const closeEmitted = new Promise<void>(resolve =>
+        el.addEventListener(
+          'sl-close',
+          () => {
+            onClose();
+            resolve();
+          },
+          { once: true }
+        )
+      );
       el.close();
 
+      await closeEmitted;
       await el.updateComplete;
-
-      // Wait for the event to be emitted
-      await new Promise(resolve => setTimeout(resolve, 400));
 
       expect(onClose).to.have.been.calledOnce;
     });
@@ -203,7 +214,20 @@ describe('sl-dialog', () => {
       } as DOMRect);
 
       const onClose = spy();
-      el.addEventListener('sl-close', onClose);
+      // el.addEventListener('sl-close', onClose);
+
+      // This promise is used to wait until the 'sl-close' event is emitted, ensuring the test only continues after the dialog has actually closed.
+      // So no `await new Promise(resolve => setTimeout(resolve));` is needed.
+      const closeEmitted = new Promise<void>(resolve =>
+        el.addEventListener(
+          'sl-close',
+          () => {
+            onClose();
+            resolve();
+          },
+          { once: true }
+        )
+      );
 
       // Mock the click event
       const clickEvent = new PointerEvent('click');
@@ -211,10 +235,8 @@ describe('sl-dialog', () => {
       stub(clickEvent, 'clientY').value(100);
       dialog.dispatchEvent(clickEvent);
 
+      await closeEmitted;
       await el.updateComplete;
-
-      // Wait for the event to be emitted
-      await new Promise(resolve => setTimeout(resolve, 400));
 
       expect(onClose).to.have.been.calledOnce;
     });
@@ -225,10 +247,12 @@ describe('sl-dialog', () => {
       el.addEventListener('sl-close', onClose);
       el.renderRoot.querySelector<Button>('sl-button[aria-label="Close"]')?.click();
 
-      await el.updateComplete;
+      // Using `oneEvent` https://open-wc.org/docs/testing/helpers/#testing-events
+      // instead of `await new Promise(resolve => setTimeout(resolve))`
+      // ensures the test waits for the actual 'sl-close' event to be emitted by the component, rather than relying on a timeout.
+      await oneEvent(el, 'sl-close', false);
 
-      // Wait for the event to be emitted
-      await new Promise(resolve => setTimeout(resolve, 400));
+      await el.updateComplete;
 
       expect(onClose).to.have.been.calledOnce;
     });
@@ -236,11 +260,23 @@ describe('sl-dialog', () => {
     it('should close the dialog when the button with sl-dialog-close is clicked', async () => {
       const onClose = spy();
 
-      el.addEventListener('sl-close', onClose);
+      // This promise is used to wait until the 'sl-close' event is emitted, ensuring the test only continues after the dialog has actually closed.
+      // So no `await new Promise(resolve => setTimeout(resolve));` is needed.
+      const closeEmitted = new Promise<void>(resolve =>
+        el.addEventListener(
+          'sl-close',
+          () => {
+            onClose();
+            resolve();
+          },
+          { once: true }
+        )
+      );
+
       el.querySelector('sl-button')?.click();
 
-      // Wait for the event to be emitted
-      await new Promise(resolve => setTimeout(resolve, 400));
+      await closeEmitted;
+      await el.updateComplete;
 
       expect(onClose).to.have.been.calledOnce;
     });
@@ -297,7 +333,7 @@ describe('sl-dialog', () => {
       el.close();
 
       // Wait for the event to be emitted
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 100));
     });
 
     it('should be inert', () => {

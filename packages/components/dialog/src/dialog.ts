@@ -57,6 +57,9 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   /** Responsive behavior utility. */
   #media = new MediaController(this);
 
+  /** Observe size changes to the dialog. */
+  #observer = new ResizeObserver(() => this.#onScroll());
+
   /**
    * @internal Emits when the dialog has been cancelled. This happens when the
    * user closes the dialog using the escape key or clicks on the backdrop.
@@ -92,12 +95,23 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.inert = true;
+
+    if (this.dialog) {
+      this.#observer.observe(this.dialog);
+    }
+  }
+
+  override disconnectedCallback(): void {
+    this.#observer.disconnect();
+
+    super.disconnectedCallback();
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
     this.#updatePrimaryButtons();
+    this.#observer.observe(this.dialog!);
   }
 
   override render(): TemplateResult {
@@ -314,8 +328,9 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #onScroll(event: Event & { target: HTMLElement }): void {
-    const { clientHeight, scrollTop, scrollHeight } = event.target;
+  #onScroll(): void {
+    const body = this.renderRoot.querySelector('[part="body"]') as HTMLElement,
+      { clientHeight, scrollTop, scrollHeight } = body;
 
     // Toggle sticky header when scrolling down
     this.renderRoot.querySelector('[part="header"]')?.toggleAttribute('sticky', scrollTop > 0);

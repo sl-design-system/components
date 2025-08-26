@@ -32,7 +32,7 @@ The following guidance describes when to use the tree view component.
 ### Hierarchical Content
 The Tree View is ideal for displaying and navigating hierarchical data, such as file systems, category structures, or organisational charts. It groups related data with nested relationships in a clear and organised way. It is a powerful tool for organising subject lesson content in educational applications. For example, it represents a syllabus with modules as parent nodes and lessons as child nodes, enabling students to intuitively explore and navigate their coursework. 
 
-### SCENARIO 2
+### Collapsable Data
 The Tree View allows users to dynamically expand or collapse data sections, enabling a cleaner interface that focuses only on relevant information. This interactive functionality is handy when managing large amounts of content, where each item contains complex data or detailed information. It ensures users can explore deeply without being overwhelmed.
 
 </section>
@@ -42,7 +42,7 @@ The Tree View allows users to dynamically expand or collapse data sections, enab
 ## When Not to Use
 
 ### Simple Structures
-Avoid using Tree View when your data is flat, only requires one level of nested information, or if a simpler component like an accordion or data table would suffice. This includes use cases like showing a single level of expandable content, such as FAQ answers. 
+Avoid using Tree when your data is flat and only requires a single level of expansion. In these cases, an Accordion is more suitable, as it is designed to condense flat content, such as FAQ pages, making the content easier to scan and interact with, without the added complexity.
 
 ### Global Navigation
 Do not use Tree View as the primary navigation for your product’s UI. For global sidebar navigation, it's better to use a dedicated UI Shell left panel that is more suited for this purpose.
@@ -79,9 +79,6 @@ Tree View comes in two versions, each suited for specific situations:
 ### Node
 A basic element in the tree, representing a terminal item without parent or child nodes.
 
-### Header Node
-Section titles that group related nodes, helping organize and categorize data within the Tree View.
-
 ### Parent Node
 A node that has one or more child nodes, typically expandable to reveal more detailed data.
 
@@ -113,6 +110,9 @@ Let's explore the behaviour of the Tree View
 ### Selectable
 When this feature is enabled, nodes can be selected by the user, allowing for interactions such as checking, highlighting, or performing actions on a specific node. This is useful when users need to select multiple items from the tree.
 
+### Multiple Selection
+When this feature is enabled, users can select multiple nodes at the same time, allowing interactions such as checking, highlighting, or performing actions on several nodes simultaneously. Single selection is disabled in this mode to simplify user interaction.
+
 ### Expandable
 Allowing users to click on a parent node to reveal its child nodes. This interaction helps in navigating deeper structures without overwhelming the user with too much data at once. It is essential for managing large hierarchical datasets.
 
@@ -126,6 +126,8 @@ ndentation visually distinguishes parent nodes from their child nodes by shiftin
 
 ## Related Components
 
-- [COMPONENT](/categories/components/COMPONENT/usage)
+- [COMPONENT](/categories/components/checkbox/usage)
+- [COMPONENT](/categories/components/badge/usage)
+- [COMPONENT](/categories/components/icon/usage)
 
 </section>

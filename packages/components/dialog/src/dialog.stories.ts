@@ -358,7 +358,7 @@ export const DialogWithOverlayComponents: Story = {
 
       dialog.addEventListener('sl-close', () => {
         console.log('remove dialog in the story', event, event.target);
-        dialog.remove();
+        // dialog.remove();
       });
 
       event.target.insertAdjacentElement('afterend', dialog);

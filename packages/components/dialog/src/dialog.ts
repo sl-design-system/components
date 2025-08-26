@@ -63,6 +63,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
     click: this.#onClick,
     keydown: this.#onKeydown,
@@ -70,6 +71,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     'sl-open': this.#onChildOpen,
     'sl-close': this.#onChildClose
   });
+
+  // #mutationObserver?: MutationObserver;
 
   /** Tracks number of open date-field calendars (overlay components) within the dialog.
    * The dialog should not close when we click the dropdown, when there is any overlay component opened in it.
@@ -106,8 +109,9 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   @property({ attribute: 'dialog-role' }) dialogRole: 'dialog' | 'alertdialog' = 'dialog';
 
   /**
-   * Disables the ability to cancel the dialog by pressing the Escape key
-   * or clicking on the backdrop.
+   * Disables the ability to cancel the dialog by pressing the Escape key or clicking on the backdrop.
+   * We recommend setting this to true when the dialog contains a form that must be submitted or cancelled,
+   * to prevent accidental closing when clicking on the backdrop.
    * @default false
    */
   @property({ type: Boolean, attribute: 'disable-cancel' }) disableCancel?: boolean;
@@ -289,11 +293,37 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   }
 
   #onBackdropClick(event: MouseEvent): void {
-    const rect = this.dialog!.getBoundingClientRect();
+    console.log(
+      'should not close the dialog?',
+      this.dialog !== event.composedPath()[0],
+      event.composedPath,
+      event.composedPath()[0]
+    );
+
+    if (this.dialog !== event.composedPath()[0]) {
+      return;
+    }
+
+    const rect = this.dialog.getBoundingClientRect();
 
     console.log('onBackdropClick', event, event.target, rect, this.#openCalendars);
 
-    // debugger;
+    // Check if the user clicked on the backdrop
+    if (
+      !this.disableCancel &&
+      (event.clientY < rect.top ||
+        event.clientY > rect.bottom ||
+        event.clientX < rect.left ||
+        event.clientX > rect.right)
+    ) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      this.cancelEvent.emit();
+      this.close();
+    }
+
+    /*    // debugger;
     //
     // If any date-field calendar (overlay component) is open, block cancel by default
     // if (this.#openCalendars > 0) {
@@ -371,28 +401,28 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       // if (notCancelled) {
       //   this.close();
       // }
-    }
+    }*/
   }
 
   #onBodySlotChange(): void {
-    // // const headerSlots = this.renderRoot.querySelectorAll('slot'),
-    // //   hasContent = Array.from(headerSlots).find(slot =>
-    // //     (slot as HTMLSlotElement)
-    // //       .assignedNodes({ flatten: true })
-    // //       .some(
-    // //         node =>
-    // //           node.textContent?.trim() !== '' ||
-    // //           (node.nodeType === Node.ELEMENT_NODE &&
-    // //             !(node as Element).hasAttribute('slot') &&
-    // //             !(node instanceof HTMLStyleElement))
-    // //       )
-    // //   );
-    //
-    // // const headerSlots = this.renderRoot.querySelectorAll('slot');
-    // // const slottedElements = Array.from(headerSlots).flatMap(slot =>
-    // //   (slot as HTMLSlotElement).assignedElements({ flatten: true })
-    // // );
-    //
+    // // // const headerSlots = this.renderRoot.querySelectorAll('slot'),
+    // // //   hasContent = Array.from(headerSlots).find(slot =>
+    // // //     (slot as HTMLSlotElement)
+    // // //       .assignedNodes({ flatten: true })
+    // // //       .some(
+    // // //         node =>
+    // // //           node.textContent?.trim() !== '' ||
+    // // //           (node.nodeType === Node.ELEMENT_NODE &&
+    // // //             !(node as Element).hasAttribute('slot') &&
+    // // //             !(node instanceof HTMLStyleElement))
+    // // //       )
+    // // //   );
+    // //
+    // // // const headerSlots = this.renderRoot.querySelectorAll('slot');
+    // // // const slottedElements = Array.from(headerSlots).flatMap(slot =>
+    // // //   (slot as HTMLSlotElement).assignedElements({ flatten: true })
+    // // // );
+    // //
     // const headerSlots = this.renderRoot.querySelectorAll('slot');
     // const slottedElements = Array.from(headerSlots).flatMap(slot => slot.assignedElements({ flatten: true }));
     // // const allNestedElements = slottedElements.flatMap(el =>
@@ -404,12 +434,83 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     //     ? [el, ...Array.from(el.querySelectorAll<HTMLElement>('*')).filter(child => child.tagName !== 'SLOT')]
     //     : []
     // );
+    // //
+    // // allNestedElements.forEach(element => {
+    // //   this.#events.listen(element, 'sl-open', this.#onChildOpen, { capture: true, once: true });
+    // //   this.#events.listen(element, 'sl-close', this.#onChildClose, { capture: true, once: true });
+    // // });
+    // // console.log('headerSlots on bodyclotchange', headerSlots, slottedElements, allNestedElements, this.renderRoot);
+    //
+    // let openPopoverCount = 0;
+    //
+    // let anyPopoverOpen = false;
+    //
+    // if (this.#mutationObserver) {
+    //   this.#mutationObserver.disconnect();
+    //   openPopoverCount = 0;
+    //   anyPopoverOpen = false;
+    // }
+    //
+    // // const slots = this.renderRoot.querySelectorAll('slot');
+    // // const slottedElements = Array.from(slots).flatMap(slot =>
+    // //   (slot as HTMLSlotElement).assignedElements({ flatten: true })
+    // // );
+    // // const allNestedElements = slottedElements.flatMap(el =>
+    // //   el instanceof HTMLElement ? [el, ...Array.from(el.querySelectorAll<HTMLElement>('*'))] : []
+    // // );
+    //
+    // console.log('allNestedElements on bodyclotchange', allNestedElements, this.renderRoot);
+    // allNestedElements.forEach(element => {
+    //   if (isPopoverOpen(element)) {
+    //     // Do something if the popover is open
+    //     console.log('Popover is open for:', element);
+    //   }
+    // });
+    //
+    // // let openPopoverCount = 0;
+    // allNestedElements.forEach(element => {
+    //   if (isPopoverOpen(element)) {
+    //     openPopoverCount++;
+    //     console.log('Popover is open for:', element);
+    //   }
+    // });
+    // const anyPopoverOpen2 = openPopoverCount > 0;
+    // console.log('Number of open popovers:', openPopoverCount, 'Any open:', anyPopoverOpen2);
+    //
+    // this.#mutationObserver = new MutationObserver(mutations => {
+    //   mutations.forEach(mutation => {
+    //     // Handle mutation (e.g., attribute or content change)
+    //     console.log('Mutation detected:', mutation, mutation.target as HTMLElement);
+    //
+    //     if (isPopoverOpen(mutation.target as HTMLElement)) {
+    //       console.log('Mutation detected on open popover:', mutation.target);
+    //       openPopoverCount++;
+    //       console.log('openPopoverCount in mutationObserver', openPopoverCount);
+    //     }
+    //   });
+    //
+    //   anyPopoverOpen = mutations.some(element => isPopoverOpen(element.target as HTMLElement));
+    //   console.log('Any popover open in mutationObserver:', anyPopoverOpen);
+    // });
+    //
+    // console.log('openPopoverCount', openPopoverCount);
     //
     // allNestedElements.forEach(element => {
-    //   this.#events.listen(element, 'sl-open', this.#onChildOpen, { capture: true, once: true });
-    //   this.#events.listen(element, 'sl-close', this.#onChildClose, { capture: true, once: true });
+    //   this.#mutationObserver?.observe(element, { attributes: true, childList: true, subtree: true });
+    //
+    //   console.log('Mutation detected:', element);
+    //
+    //   anyPopoverOpen = allNestedElements.some(element => isPopoverOpen(element));
+    //
+    //   console.log('Any popover open:', anyPopoverOpen);
+    //
+    //   if (isPopoverOpen(element)) {
+    //     // Do something if the popover is open
+    //     console.log('in mutation observer... Popover is open for:', element);
+    //   }
     // });
-    // console.log('headerSlots on bodyclotchange', headerSlots, slottedElements, allNestedElements, this.renderRoot);
+    //
+    // console.log('allNestedElements to observe....', allNestedElements);
   }
 
   #onClick(event: MouseEvent): void {

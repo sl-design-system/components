@@ -1,7 +1,7 @@
 name: 👩‍🎨 Figma Toolkit
 description: File an issue for the toolkit
-labels: ["figma", "bug", "triage"]
-projects: ["projects/2"]
+labels: ["triage"]
+projects: ["projects/9"]
 body:
   - type: markdown
     attributes:

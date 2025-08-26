@@ -233,28 +233,6 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       }
     });
 
-    // if (error && !this.error) {
-    //   this.#customError = true;
-    // } else if (error) {
-    //   this.#error = error;
-    //   this.#error.id ||= `sl-form-field-error-${nextUniqueId++}`;
-
-    //   if (this.control) {
-    //     const describedby = this.control.formControlElement.getAttribute('aria-describedby');
-    //     if (describedby) {
-    //       const ids = describedby.split(' ');
-    //       if (!ids.includes(this.#error.id)) {
-    //         ids.push(this.#error.id);
-    //         this.control.formControlElement.setAttribute('aria-describedby', ids.join(' '));
-    //       }
-    //     } else {
-    //       this.control.formControlElement.setAttribute('aria-describedby', this.#error.id);
-    //     }
-    //   }
-    // } else {
-    //   this.#label = undefined;
-    // }
-
     // Trigger a re-render now that we've potentially added or removed the error message.
     this.requestUpdate();
   }

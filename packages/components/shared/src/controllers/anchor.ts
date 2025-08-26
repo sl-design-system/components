@@ -32,9 +32,9 @@ export class AnchorController implements ReactiveController {
   };
 
   #onKeydown(event: KeyboardEvent): void {
-    console.log('onKeydown in anchor...', event); // TODO: works only when sth in the popover is focused, not when just opened
     if (event.code === 'Escape') {
-      // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the date field
+      // Prevents the Escape key event from bubbling up,
+      // so that pressing 'Escape' inside the attached element to the anchor
       // does not close parent containers (such as dialogs).
       event.stopPropagation();
     }
@@ -95,19 +95,12 @@ export class AnchorController implements ReactiveController {
 
     this.#host?.addEventListener('beforetoggle', this.#onBeforeToggle);
     this.#host?.addEventListener('toggle', this.#onToggle);
-    // this.#host?.addEventListener('keydown', this.#onKeydown);
-    // (this.#getAnchorElement() as HTMLElement).addEventListener('keydown', this.#onKeydown);
-
     this.#getAnchorElement()?.addEventListener('keydown', event => this.#onKeydown(event as KeyboardEvent));
-
-    console.log('hostConnected in anchor controller', this.#host);
   }
 
   hostDisconnected(): void {
     this.#host?.removeEventListener('toggle', this.#onToggle);
     this.#host?.removeEventListener('beforetoggle', this.#onBeforeToggle);
-    // this.#host?.removeEventListener('keydown', this.#onKeydown);
-    //this.#getAnchorElement()?.removeEventListener('keydown', this.#onKeydown);
     this.#getAnchorElement()?.removeEventListener('keydown', event => this.#onKeydown(event as KeyboardEvent));
 
     this.#host.removeAttribute('aria-details');

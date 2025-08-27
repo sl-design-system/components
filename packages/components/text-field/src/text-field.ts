@@ -305,6 +305,13 @@ export class TextField
     }
   }
 
+  /** This method is called when the input changes. */
+  protected onChange(): void {
+    this.changeEvent.emit(this.value);
+    this.updateState({ dirty: true });
+    this.updateValidity();
+  }
+
   /**
    * Handles the focus event when the input field gains focus.
    * Emits a focus event and updates the focus ring state.
@@ -329,13 +336,6 @@ export class TextField
       /* empty */
     }
 
-    this.updateState({ dirty: true });
-    this.updateValidity();
-  }
-
-  /** This method is called when the input changes. */
-  protected onChange(): void {
-    this.changeEvent.emit(this.value);
     this.updateState({ dirty: true });
     this.updateValidity();
   }

@@ -220,6 +220,27 @@ export class NumberField extends LocaleMixin(TextField) {
     this.updateValidity();
   }
 
+  /** @internal Update the value on blur; this will also cause the value to be formatted. */
+  override onBlur(): void {
+    try {
+      // Try to parse the value, but do nothing if it fails
+      this.parseValue(this.rawValue);
+      this.changeEvent.emit(this.value);
+    } catch {
+      /* empty */
+    }
+
+    this.updateState({ dirty: true });
+    this.updateValidity();
+
+    super.onBlur();
+  }
+
+  /** @internal Do not emit change event on input; wait until the blur event. */
+  override onInput({ target }: Event & { target: HTMLInputElement }): void {
+    this.rawValue = target.value;
+  }
+
   /** @internal */
   override onKeydown(event: KeyboardEvent): void {
     if (this.disabled || this.readonly) {

@@ -127,7 +127,7 @@ export const Selected: Story = {
 
 export const Negative: Story = {
   args: {
-    negative: [new Date('2025-08-20'), new Date('2025-08-07')],
+    negative: [new Date(), new Date('2025-08-07')],
     showToday: true,
     month: new Date(1755640800000)
   }
@@ -135,7 +135,7 @@ export const Negative: Story = {
 
 export const Indicator: Story = {
   args: {
-    indicator: [new Date('2025-08-25'), new Date('2025-08-05')],
+    indicator: [new Date(), new Date('2025-08-05')],
     showToday: true,
     month: new Date(1755640800000)
   }
@@ -153,3 +153,35 @@ export const WeekNumbers: Story = {
     showWeekNumbers: true
   }
 };
+
+export const All: Story = {
+  args: {
+    indicator: [
+      getOffsetDate(0),
+      getOffsetDate(1),
+      getOffsetDate(6),
+      getOffsetDate(-6),
+      getOffsetDate(3),
+      getOffsetDate(8),
+      getOffsetDate(-8)
+    ],
+    negative: [
+      getOffsetDate(2),
+      getOffsetDate(7),
+      getOffsetDate(-7),
+      getOffsetDate(3),
+      getOffsetDate(8),
+      getOffsetDate(-8)
+    ],
+    showToday: true,
+    month: new Date(),
+    max: getOffsetDate(5),
+    min: getOffsetDate(-5)
+  }
+};
+
+function getOffsetDate(offset: number): Date {
+  const date = new Date();
+  date.setDate(date.getDate() + offset);
+  return date;
+}

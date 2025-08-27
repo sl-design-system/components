@@ -909,15 +909,15 @@
 | --------------------------- | --------- | ----------- | ------------------------------------- | ------- |
 | `custom-element-definition` | `sl-tree` | Tree        | /packages/components/tree/src/tree.js |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/accordion/src/accordion-item.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/accordion/src/accordion-item.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/accordion/src/accordion-item.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                               | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/accordion/src/accordion-item.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/accordion/src/accordion-item.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/accordion/src/accordion-item.ts`:
 
 ## class: `AccordionItem`, `sl-accordion-item`
 
@@ -974,19 +974,19 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                           | Package |
-| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `AccordionItem` | AccordionItem | /Users/diana.broeders/Projects/design-system/packages/components/accordion/src/accordion-item.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                          | Package |
+| ---- | --------------- | ------------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `AccordionItem` | AccordionItem | /Users/anna.sobczak/IdeaProjects/components/packages/components/accordion/src/accordion-item.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/accordion/src/accordion.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/accordion/src/accordion.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/accordion/src/accordion.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                          | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/accordion/src/accordion.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/accordion/src/accordion.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/accordion/src/accordion.ts`:
 
 ## class: `Accordion`, `sl-accordion`
 
@@ -1019,11 +1019,11 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                                      | Package |
-| ---- | ----------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `Accordion` | Accordion   | /Users/diana.broeders/Projects/design-system/packages/components/accordion/src/accordion.ts |         |
+| Kind | Name        | Declaration | Module                                                                                     | Package |
+| ---- | ----------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `Accordion` | Accordion   | /Users/anna.sobczak/IdeaProjects/components/packages/components/accordion/src/accordion.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/announcer/src/announce.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/announcer/src/announce.ts`:
 
 ## Functions
 
@@ -1035,19 +1035,19 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                     | Package |
-| ---- | ---------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `announce` | announce    | /Users/diana.broeders/Projects/design-system/packages/components/announcer/src/announce.ts |         |
+| Kind | Name       | Declaration | Module                                                                                    | Package |
+| ---- | ---------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `announce` | announce    | /Users/anna.sobczak/IdeaProjects/components/packages/components/announcer/src/announce.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/announcer/src/announcer.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/announcer/src/announcer.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/announcer/src/announcer.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                          | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/announcer/src/announcer.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/announcer/src/announcer.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/announcer/src/announcer.ts`:
 
 ## class: `Announcer`, `sl-announcer`
 
@@ -1061,20 +1061,20 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                                      | Package |
-| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlAnnounceEvent` | SlAnnounceEvent | /Users/diana.broeders/Projects/design-system/packages/components/announcer/src/announcer.ts |         |
-| `js` | `Announcer`       | Announcer       | /Users/diana.broeders/Projects/design-system/packages/components/announcer/src/announcer.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                     | Package |
+| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `SlAnnounceEvent` | SlAnnounceEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/announcer/src/announcer.ts |         |
+| `js` | `Announcer`       | Announcer       | /Users/anna.sobczak/IdeaProjects/components/packages/components/announcer/src/announcer.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/avatar/src/avatar.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/avatar/src/avatar.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                     | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/avatar/src/avatar.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                    | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/avatar/src/avatar.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/avatar/src/avatar.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/avatar/src/avatar.ts`:
 
 ## class: `Avatar`, `sl-avatar`
 
@@ -1144,19 +1144,19 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `Avatar` | Avatar      | /Users/diana.broeders/Projects/design-system/packages/components/avatar/src/avatar.ts |         |
+| Kind | Name     | Declaration | Module                                                                               | Package |
+| ---- | -------- | ----------- | ------------------------------------------------------------------------------------ | ------- |
+| `js` | `Avatar` | Avatar      | /Users/anna.sobczak/IdeaProjects/components/packages/components/avatar/src/avatar.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/badge/src/badge.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/badge/src/badge.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                   | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/badge/src/badge.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                  | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/badge/src/badge.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/badge/src/badge.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/badge/src/badge.ts`:
 
 ## class: `Badge`, `sl-badge`
 
@@ -1194,19 +1194,19 @@
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                                                              | Package |
-| ---- | ------- | ----------- | ----------------------------------------------------------------------------------- | ------- |
-| `js` | `Badge` | Badge       | /Users/diana.broeders/Projects/design-system/packages/components/badge/src/badge.ts |         |
+| Kind | Name    | Declaration | Module                                                                             | Package |
+| ---- | ------- | ----------- | ---------------------------------------------------------------------------------- | ------- |
+| `js` | `Badge` | Badge       | /Users/anna.sobczak/IdeaProjects/components/packages/components/badge/src/badge.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/breadcrumbs/src/breadcrumbs.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/breadcrumbs/src/breadcrumbs.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/breadcrumbs/src/breadcrumbs.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                              | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/breadcrumbs/src/breadcrumbs.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/breadcrumbs/src/breadcrumbs.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/breadcrumbs/src/breadcrumbs.ts`:
 
 ## class: `Breadcrumbs`, `sl-breadcrumbs`
 
@@ -1255,19 +1255,19 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                                          | Package |
-| ---- | ------------- | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `Breadcrumbs` | Breadcrumbs | /Users/diana.broeders/Projects/design-system/packages/components/breadcrumbs/src/breadcrumbs.ts |         |
+| Kind | Name          | Declaration | Module                                                                                         | Package |
+| ---- | ------------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `Breadcrumbs` | Breadcrumbs | /Users/anna.sobczak/IdeaProjects/components/packages/components/breadcrumbs/src/breadcrumbs.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/button-bar/src/button-bar.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/button-bar/src/button-bar.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                             | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/button-bar/src/button-bar.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                            | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/button-bar/src/button-bar.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/button-bar/src/button-bar.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/button-bar/src/button-bar.ts`:
 
 ## class: `ButtonBar`, `sl-button-bar`
 
@@ -1303,19 +1303,19 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                                        | Package |
-| ---- | ----------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ButtonBar` | ButtonBar   | /Users/diana.broeders/Projects/design-system/packages/components/button-bar/src/button-bar.ts |         |
+| Kind | Name        | Declaration | Module                                                                                       | Package |
+| ---- | ----------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ButtonBar` | ButtonBar   | /Users/anna.sobczak/IdeaProjects/components/packages/components/button-bar/src/button-bar.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/button/src/button.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/button/src/button.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                     | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/button/src/button.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                    | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/button/src/button.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/button/src/button.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/button/src/button.ts`:
 
 ## class: `Button`, `sl-button`
 
@@ -1357,19 +1357,19 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `Button` | Button      | /Users/diana.broeders/Projects/design-system/packages/components/button/src/button.ts |         |
+| Kind | Name     | Declaration | Module                                                                               | Package |
+| ---- | -------- | ----------- | ------------------------------------------------------------------------------------ | ------- |
+| `js` | `Button` | Button      | /Users/anna.sobczak/IdeaProjects/components/packages/components/button/src/button.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/calendar/src/calendar.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/calendar.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/calendar.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/calendar.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/calendar/src/calendar.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/calendar.ts`:
 
 ## class: `Calendar`, `sl-calendar`
 
@@ -1430,19 +1430,19 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                    | Package |
-| ---- | ---------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `Calendar` | Calendar    | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/calendar.ts |         |
+| Kind | Name       | Declaration | Module                                                                                   | Package |
+| ---- | ---------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `Calendar` | Calendar    | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/calendar.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/calendar/src/month-view.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/month-view.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/month-view.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                          | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/month-view.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/calendar/src/month-view.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/month-view.ts`:
 
 ## class: `MonthView`, `sl-month-view`
 
@@ -1509,19 +1509,19 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                                      | Package |
-| ---- | ----------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `MonthView` | MonthView   | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/month-view.ts |         |
+| Kind | Name        | Declaration | Module                                                                                     | Package |
+| ---- | ----------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `MonthView` | MonthView   | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/month-view.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/calendar/src/select-day.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/select-day.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/select-day.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                          | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/select-day.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/calendar/src/select-day.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/select-day.ts`:
 
 ## class: `SelectDay`
 
@@ -1583,19 +1583,19 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                                      | Package |
-| ---- | ----------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SelectDay` | SelectDay   | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/select-day.ts |         |
+| Kind | Name        | Declaration | Module                                                                                     | Package |
+| ---- | ----------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `SelectDay` | SelectDay   | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/select-day.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/calendar/src/select-month.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/select-month.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                             | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/select-month.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                            | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/select-month.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/calendar/src/select-month.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/select-month.ts`:
 
 ## class: `SelectMonth`
 
@@ -1642,19 +1642,19 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                                        | Package |
-| ---- | ------------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SelectMonth` | SelectMonth | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/select-month.ts |         |
+| Kind | Name          | Declaration | Module                                                                                       | Package |
+| ---- | ------------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SelectMonth` | SelectMonth | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/select-month.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/calendar/src/select-year.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/select-year.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/select-year.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/select-year.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/calendar/src/select-year.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/select-year.ts`:
 
 ## class: `SelectYear`
 
@@ -1698,11 +1698,11 @@
 
 ## Exports
 
-| Kind | Name         | Declaration | Module                                                                                       | Package |
-| ---- | ------------ | ----------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SelectYear` | SelectYear  | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/select-year.ts |         |
+| Kind | Name         | Declaration | Module                                                                                      | Package |
+| ---- | ------------ | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SelectYear` | SelectYear  | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/select-year.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/calendar/src/utils.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/utils.ts`:
 
 ## Functions
 
@@ -1730,27 +1730,27 @@
 
 ## Exports
 
-| Kind | Name                | Declaration       | Module                                                                                 | Package |
-| ---- | ------------------- | ----------------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `getWeekdayNames`   | getWeekdayNames   | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/utils.ts |         |
-| `js` | `getWeekNumber`     | getWeekNumber     | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/utils.ts |         |
-| `js` | `isSameDate`        | isSameDate        | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/utils.ts |         |
-| `js` | `normalizeDateTime` | normalizeDateTime | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/utils.ts |         |
-| `js` | `createCalendar`    | createCalendar    | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/utils.ts |         |
-| `js` | `createPeriod`      | createPeriod      | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/utils.ts |         |
-| `js` | `createMonth`       | createMonth       | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/utils.ts |         |
-| `js` | `createWeek`        | createWeek        | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/utils.ts |         |
-| `js` | `createDay`         | createDay         | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/utils.ts |         |
+| Kind | Name                | Declaration       | Module                                                                                | Package |
+| ---- | ------------------- | ----------------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `getWeekdayNames`   | getWeekdayNames   | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/utils.ts |         |
+| `js` | `getWeekNumber`     | getWeekNumber     | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/utils.ts |         |
+| `js` | `isSameDate`        | isSameDate        | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/utils.ts |         |
+| `js` | `normalizeDateTime` | normalizeDateTime | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/utils.ts |         |
+| `js` | `createCalendar`    | createCalendar    | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/utils.ts |         |
+| `js` | `createPeriod`      | createPeriod      | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/utils.ts |         |
+| `js` | `createMonth`       | createMonth       | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/utils.ts |         |
+| `js` | `createWeek`        | createWeek        | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/utils.ts |         |
+| `js` | `createDay`         | createDay         | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/utils.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/card/src/card.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/card/src/card.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                 | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/card/src/card.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/card/src/card.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/card/src/card.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/card/src/card.ts`:
 
 ## class: `Card`, `sl-card`
 
@@ -1809,19 +1809,19 @@
 
 ## Exports
 
-| Kind | Name   | Declaration | Module                                                                            | Package |
-| ---- | ------ | ----------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `Card` | Card        | /Users/diana.broeders/Projects/design-system/packages/components/card/src/card.ts |         |
+| Kind | Name   | Declaration | Module                                                                           | Package |
+| ---- | ------ | ----------- | -------------------------------------------------------------------------------- | ------- |
+| `js` | `Card` | Card        | /Users/anna.sobczak/IdeaProjects/components/packages/components/card/src/card.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/checkbox/src/checkbox-group.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/checkbox/src/checkbox-group.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/checkbox/src/checkbox-group.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                              | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/checkbox/src/checkbox-group.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/checkbox/src/checkbox-group.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/checkbox/src/checkbox-group.ts`:
 
 ## class: `CheckboxGroup`, `sl-checkbox-group`
 
@@ -1903,19 +1903,19 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                          | Package |
-| ---- | --------------- | ------------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `CheckboxGroup` | CheckboxGroup | /Users/diana.broeders/Projects/design-system/packages/components/checkbox/src/checkbox-group.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                         | Package |
+| ---- | --------------- | ------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `CheckboxGroup` | CheckboxGroup | /Users/anna.sobczak/IdeaProjects/components/packages/components/checkbox/src/checkbox-group.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/checkbox/src/checkbox.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/checkbox/src/checkbox.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/checkbox/src/checkbox.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/checkbox/src/checkbox.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/checkbox/src/checkbox.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/checkbox/src/checkbox.ts`:
 
 ## class: `Checkbox`, `sl-checkbox`
 
@@ -2017,19 +2017,19 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                    | Package |
-| ---- | ---------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `Checkbox` | Checkbox    | /Users/diana.broeders/Projects/design-system/packages/components/checkbox/src/checkbox.ts |         |
+| Kind | Name       | Declaration | Module                                                                                   | Package |
+| ---- | ---------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `Checkbox` | Checkbox    | /Users/anna.sobczak/IdeaProjects/components/packages/components/checkbox/src/checkbox.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/combobox.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/combobox.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/combobox.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/combobox.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/combobox.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/combobox.ts`:
 
 ## class: `Combobox`, `sl-combobox`
 
@@ -2137,19 +2137,19 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                    | Package |
-| ---- | ---------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `Combobox` | Combobox    | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/combobox.ts |         |
+| Kind | Name       | Declaration | Module                                                                                   | Package |
+| ---- | ---------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `Combobox` | Combobox    | /Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/combobox.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/create-custom-option.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/create-custom-option.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                     | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/create-custom-option.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                    | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/create-custom-option.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/create-custom-option.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/create-custom-option.ts`:
 
 ## class: `CreateCustomOption`
 
@@ -2188,19 +2188,19 @@
 
 ## Exports
 
-| Kind | Name                 | Declaration        | Module                                                                                                | Package |
-| ---- | -------------------- | ------------------ | ----------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `CreateCustomOption` | CreateCustomOption | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/create-custom-option.ts |         |
+| Kind | Name                 | Declaration        | Module                                                                                               | Package |
+| ---- | -------------------- | ------------------ | ---------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `CreateCustomOption` | CreateCustomOption | /Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/create-custom-option.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/custom-option.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/custom-option.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                              | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/custom-option.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                             | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/custom-option.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/custom-option.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/custom-option.ts`:
 
 ## class: `CustomOption`
 
@@ -2239,19 +2239,19 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                         | Package |
-| ---- | -------------- | ------------ | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `CustomOption` | CustomOption | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/custom-option.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                        | Package |
+| ---- | -------------- | ------------ | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `CustomOption` | CustomOption | /Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/custom-option.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/grouped-option.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/grouped-option.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/grouped-option.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                              | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/grouped-option.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/grouped-option.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/grouped-option.ts`:
 
 ## class: `GroupedOption`
 
@@ -2292,19 +2292,19 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                          | Package |
-| ---- | --------------- | ------------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `GroupedOption` | GroupedOption | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/grouped-option.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                         | Package |
+| ---- | --------------- | ------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `GroupedOption` | GroupedOption | /Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/grouped-option.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/no-match.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/no-match.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/no-match.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/no-match.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/no-match.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/no-match.ts`:
 
 ## class: `NoMatch`
 
@@ -2330,19 +2330,19 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                    | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `NoMatch` | NoMatch     | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/no-match.ts |         |
+| Kind | Name      | Declaration | Module                                                                                   | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `NoMatch` | NoMatch     | /Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/no-match.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/selected-group.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/selected-group.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/selected-group.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                              | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/selected-group.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/selected-group.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/selected-group.ts`:
 
 ## class: `SelectedGroup`
 
@@ -2384,19 +2384,19 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                          | Package |
-| ---- | --------------- | ------------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SelectedGroup` | SelectedGroup | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/selected-group.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                         | Package |
+| ---- | --------------- | ------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SelectedGroup` | SelectedGroup | /Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/selected-group.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/data-source/src/array-list-data-source.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/array-list-data-source.ts`:
 
 ## class: `ArrayListDataSource`
 
 ### Superclass
 
-| Name             | Module                                                                                                | Package |
-| ---------------- | ----------------------------------------------------------------------------------------------------- | ------- |
-| `ListDataSource` | //Users/diana.broeders/Projects/design-system/packages/components/data-source/src/list-data-source.js |         |
+| Name             | Module                                                                                               | Package |
+| ---------------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| `ListDataSource` | //Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/list-data-source.js |         |
 
 ### Fields
 
@@ -2456,19 +2456,19 @@
 
 ## Exports
 
-| Kind | Name                  | Declaration         | Module                                                                                                     | Package |
-| ---- | --------------------- | ------------------- | ---------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ArrayListDataSource` | ArrayListDataSource | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/array-list-data-source.ts |         |
+| Kind | Name                  | Declaration         | Module                                                                                                    | Package |
+| ---- | --------------------- | ------------------- | --------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ArrayListDataSource` | ArrayListDataSource | /Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/array-list-data-source.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/data-source/src/data-source.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/data-source.ts`:
 
 ## class: `DataSource`
 
 ### Superclass
 
-| Name          | Module                                                                                          | Package |
-| ------------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `EventTarget` | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/data-source.ts |         |
+| Name          | Module                                                                                         | Package |
+| ------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `EventTarget` | /Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/data-source.ts |         |
 
 ### Fields
 
@@ -2492,20 +2492,20 @@
 
 ## Exports
 
-| Kind | Name                    | Declaration           | Module                                                                                          | Package |
-| ---- | ----------------------- | --------------------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `DataSourceUpdateEvent` | DataSourceUpdateEvent | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/data-source.ts |         |
-| `js` | `DataSource`            | DataSource            | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/data-source.ts |         |
+| Kind | Name                    | Declaration           | Module                                                                                         | Package |
+| ---- | ----------------------- | --------------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `DataSourceUpdateEvent` | DataSourceUpdateEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/data-source.ts |         |
+| `js` | `DataSource`            | DataSource            | /Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/data-source.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/data-source/src/fetch-list-data-source.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/fetch-list-data-source.ts`:
 
 ## class: `FetchListDataSource`
 
 ### Superclass
 
-| Name             | Module                                                                                                | Package |
-| ---------------- | ----------------------------------------------------------------------------------------------------- | ------- |
-| `ListDataSource` | //Users/diana.broeders/Projects/design-system/packages/components/data-source/src/list-data-source.js |         |
+| Name             | Module                                                                                               | Package |
+| ---------------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| `ListDataSource` | //Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/list-data-source.js |         |
 
 ### Static Fields
 
@@ -2582,22 +2582,22 @@
 
 ## Exports
 
-| Kind | Name                             | Declaration                    | Module                                                                                                     | Package |
-| ---- | -------------------------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `FetchListDataSourceEvent`       | FetchListDataSourceEvent       | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/fetch-list-data-source.ts |         |
-| `js` | `FetchListDataSourceError`       | FetchListDataSourceError       | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/fetch-list-data-source.ts |         |
-| `js` | `FetchListDataSourcePlaceholder` | FetchListDataSourcePlaceholder | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/fetch-list-data-source.ts |         |
-| `js` | `FetchListDataSource`            | FetchListDataSource            | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/fetch-list-data-source.ts |         |
+| Kind | Name                             | Declaration                    | Module                                                                                                    | Package |
+| ---- | -------------------------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `FetchListDataSourceEvent`       | FetchListDataSourceEvent       | /Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/fetch-list-data-source.ts |         |
+| `js` | `FetchListDataSourceError`       | FetchListDataSourceError       | /Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/fetch-list-data-source.ts |         |
+| `js` | `FetchListDataSourcePlaceholder` | FetchListDataSourcePlaceholder | /Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/fetch-list-data-source.ts |         |
+| `js` | `FetchListDataSource`            | FetchListDataSource            | /Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/fetch-list-data-source.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/data-source/src/list-data-source.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/list-data-source.ts`:
 
 ## class: `ListDataSource`
 
 ### Superclass
 
-| Name         | Module                                                                                           | Package |
-| ------------ | ------------------------------------------------------------------------------------------------ | ------- |
-| `DataSource` | //Users/diana.broeders/Projects/design-system/packages/components/data-source/src/data-source.js |         |
+| Name         | Module                                                                                          | Package |
+| ------------ | ----------------------------------------------------------------------------------------------- | ------- |
+| `DataSource` | //Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/data-source.js |         |
 
 ### Fields
 
@@ -2673,23 +2673,23 @@
 
 ## Exports
 
-| Kind | Name                                 | Declaration                        | Module                                                                                               | Package |
-| ---- | ------------------------------------ | ---------------------------------- | ---------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE` | LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/list-data-source.ts |         |
-| `js` | `ListDataSourcePlaceholder`          | ListDataSourcePlaceholder          | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/list-data-source.ts |         |
-| `js` | `isListDataSourceDataItem`           | isListDataSourceDataItem           | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/list-data-source.ts |         |
-| `js` | `isListDataSourceGroupItem`          | isListDataSourceGroupItem          | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/list-data-source.ts |         |
-| `js` | `ListDataSource`                     | ListDataSource                     | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/list-data-source.ts |         |
+| Kind | Name                                 | Declaration                        | Module                                                                                              | Package |
+| ---- | ------------------------------------ | ---------------------------------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE` | LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE | /Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/list-data-source.ts |         |
+| `js` | `ListDataSourcePlaceholder`          | ListDataSourcePlaceholder          | /Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/list-data-source.ts |         |
+| `js` | `isListDataSourceDataItem`           | isListDataSourceDataItem           | /Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/list-data-source.ts |         |
+| `js` | `isListDataSourceGroupItem`          | isListDataSourceGroupItem          | /Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/list-data-source.ts |         |
+| `js` | `ListDataSource`                     | ListDataSource                     | /Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/list-data-source.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/date-field/src/date-field.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/date-field/src/date-field.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                             | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/date-field/src/date-field.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                            | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/date-field/src/date-field.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/date-field/src/date-field.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/date-field/src/date-field.ts`:
 
 ## class: `DateField`, `sl-date-field`
 
@@ -2784,19 +2784,19 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                                        | Package |
-| ---- | ----------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
-| `js` | `DateField` | DateField   | /Users/diana.broeders/Projects/design-system/packages/components/date-field/src/date-field.ts |         |
+| Kind | Name        | Declaration | Module                                                                                       | Package |
+| ---- | ----------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `DateField` | DateField   | /Users/anna.sobczak/IdeaProjects/components/packages/components/date-field/src/date-field.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/dialog/src/dialog.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/dialog/src/dialog.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                     | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/dialog/src/dialog.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                    | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/dialog/src/dialog.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/dialog/src/dialog.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/dialog/src/dialog.ts`:
 
 ## class: `Dialog`, `sl-dialog`
 
@@ -2873,20 +2873,20 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                | Package |
-| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlCloseEvent` | SlCloseEvent | /Users/diana.broeders/Projects/design-system/packages/components/dialog/src/dialog.ts |         |
-| `js` | `Dialog`       | Dialog       | /Users/diana.broeders/Projects/design-system/packages/components/dialog/src/dialog.ts |         |
+| Kind | Name           | Declaration  | Module                                                                               | Package |
+| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------ | ------- |
+| `js` | `SlCloseEvent` | SlCloseEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/dialog/src/dialog.ts |         |
+| `js` | `Dialog`       | Dialog       | /Users/anna.sobczak/IdeaProjects/components/packages/components/dialog/src/dialog.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/drawer/src/drawer.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/drawer/src/drawer.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                     | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/drawer/src/drawer.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                    | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/drawer/src/drawer.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/drawer/src/drawer.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/drawer/src/drawer.ts`:
 
 ## class: `Drawer`, `sl-drawer`
 
@@ -2944,11 +2944,11 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `Drawer` | Drawer      | /Users/diana.broeders/Projects/design-system/packages/components/drawer/src/drawer.ts |         |
+| Kind | Name     | Declaration | Module                                                                               | Package |
+| ---- | -------- | ----------- | ------------------------------------------------------------------------------------ | ------- |
+| `js` | `Drawer` | Drawer      | /Users/anna.sobczak/IdeaProjects/components/packages/components/drawer/src/drawer.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/editor/src/commands.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/commands.ts`:
 
 ## Functions
 
@@ -2960,19 +2960,19 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                  | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `setHTML` | setHTML     | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/commands.ts |         |
+| Kind | Name      | Declaration | Module                                                                                 | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `setHTML` | setHTML     | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/commands.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/editor/src/editor.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/editor.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                     | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/editor.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                    | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/editor.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/editor/src/editor.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/editor.ts`:
 
 ## class: `Editor`, `sl-editor`
 
@@ -3043,11 +3043,11 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `Editor` | Editor      | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/editor.ts |         |
+| Kind | Name     | Declaration | Module                                                                               | Package |
+| ---- | -------- | ----------- | ------------------------------------------------------------------------------------ | ------- |
+| `js` | `Editor` | Editor      | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/editor.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/editor/src/keymap.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/keymap.ts`:
 
 ## Functions
 
@@ -3060,12 +3060,12 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                                | Package |
-| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `buildKeymap`     | buildKeymap     | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/keymap.ts |         |
-| `js` | `buildListKeymap` | buildListKeymap | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/keymap.ts |         |
+| Kind | Name              | Declaration     | Module                                                                               | Package |
+| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------ | ------- |
+| `js` | `buildKeymap`     | buildKeymap     | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/keymap.ts |         |
+| `js` | `buildListKeymap` | buildListKeymap | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/keymap.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts`:
 
 ## Functions
 
@@ -3090,24 +3090,24 @@
 
 ## Exports
 
-| Kind | Name                      | Declaration             | Module                                                                                    | Package |
-| ---- | ------------------------- | ----------------------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `rootListDepth`           | rootListDepth           | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `getListLiftTarget`       | getListLiftTarget       | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `liftSelectionList`       | liftSelectionList       | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleList`              | toggleList              | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleListCommand`       | toggleListCommand       | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `liftFollowingList`       | liftFollowingList       | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `isRangeOfType`           | isRangeOfType           | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `getAncestorNodesBetween` | getAncestorNodesBetween | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `findAncestorPosition`    | findAncestorPosition    | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `liftListItems`           | liftListItems           | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `wrapInList`              | wrapInList              | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleUnorderedList`     | toggleUnorderedList     | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleOrderedList`       | toggleOrderedList       | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `splitListItemKeepMarks`  | splitListItemKeepMarks  | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| Kind | Name                      | Declaration             | Module                                                                                   | Package |
+| ---- | ------------------------- | ----------------------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `rootListDepth`           | rootListDepth           | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `getListLiftTarget`       | getListLiftTarget       | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `liftSelectionList`       | liftSelectionList       | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleList`              | toggleList              | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleListCommand`       | toggleListCommand       | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `liftFollowingList`       | liftFollowingList       | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `isRangeOfType`           | isRangeOfType           | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `getAncestorNodesBetween` | getAncestorNodesBetween | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `findAncestorPosition`    | findAncestorPosition    | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `liftListItems`           | liftListItems           | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `wrapInList`              | wrapInList              | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleUnorderedList`     | toggleUnorderedList     | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleOrderedList`       | toggleOrderedList       | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `splitListItemKeepMarks`  | splitListItemKeepMarks  | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/editor/src/schema.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/schema.ts`:
 
 ## Variables
 
@@ -3131,16 +3131,16 @@
 
 ## Exports
 
-| Kind | Name                 | Declaration        | Module                                                                                | Package |
-| ---- | -------------------- | ------------------ | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `isEmpty`            | isEmpty            | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
-| `js` | `removeEntries`      | removeEntries      | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
-| `js` | `removeEmptyEntries` | removeEmptyEntries | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
-| `js` | `commonAttributes`   | commonAttributes   | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
-| `js` | `marks`              | marks              | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
-| `js` | `nodes`              | nodes              | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
+| Kind | Name                 | Declaration        | Module                                                                               | Package |
+| ---- | -------------------- | ------------------ | ------------------------------------------------------------------------------------ | ------- |
+| `js` | `isEmpty`            | isEmpty            | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/schema.ts |         |
+| `js` | `removeEntries`      | removeEntries      | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/schema.ts |         |
+| `js` | `removeEmptyEntries` | removeEmptyEntries | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/schema.ts |         |
+| `js` | `commonAttributes`   | commonAttributes   | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/schema.ts |         |
+| `js` | `marks`              | marks              | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/schema.ts |         |
+| `js` | `nodes`              | nodes              | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/schema.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/editor/src/utils.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/utils.ts`:
 
 ## Functions
 
@@ -3153,20 +3153,20 @@
 
 ## Exports
 
-| Kind | Name                | Declaration       | Module                                                                               | Package |
-| ---- | ------------------- | ----------------- | ------------------------------------------------------------------------------------ | ------- |
-| `js` | `createContentNode` | createContentNode | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/utils.ts |         |
-| `js` | `getHTML`           | getHTML           | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/utils.ts |         |
+| Kind | Name                | Declaration       | Module                                                                              | Package |
+| ---- | ------------------- | ----------------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `createContentNode` | createContentNode | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/utils.ts |         |
+| `js` | `getHTML`           | getHTML           | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/utils.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/ellipsize-text/src/ellipsize-text.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/ellipsize-text/src/ellipsize-text.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                     | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/ellipsize-text/src/ellipsize-text.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                    | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/ellipsize-text/src/ellipsize-text.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/ellipsize-text/src/ellipsize-text.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/ellipsize-text/src/ellipsize-text.ts`:
 
 ## class: `EllipsizeText`, `sl-ellipsize-text`
 
@@ -3186,19 +3186,19 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                                | Package |
-| ---- | --------------- | ------------- | ----------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `EllipsizeText` | EllipsizeText | /Users/diana.broeders/Projects/design-system/packages/components/ellipsize-text/src/ellipsize-text.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                               | Package |
+| ---- | --------------- | ------------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `EllipsizeText` | EllipsizeText | /Users/anna.sobczak/IdeaProjects/components/packages/components/ellipsize-text/src/ellipsize-text.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/emoji/src/emoji-browser.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/emoji/src/emoji-browser.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/emoji/src/emoji-browser.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                          | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/emoji/src/emoji-browser.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/emoji/src/emoji-browser.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/emoji/src/emoji-browser.ts`:
 
 ## class: `EmojiBrowser`, `sl-emoji-browser`
 
@@ -3249,11 +3249,11 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                      | Package |
-| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `EmojiBrowser` | EmojiBrowser | /Users/diana.broeders/Projects/design-system/packages/components/emoji/src/emoji-browser.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                     | Package |
+| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `EmojiBrowser` | EmojiBrowser | /Users/anna.sobczak/IdeaProjects/components/packages/components/emoji/src/emoji-browser.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/emoji/src/emoji-service.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/emoji/src/emoji-service.ts`:
 
 ## class: `EmojiService`
 
@@ -3270,19 +3270,19 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                      | Package |
-| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `EmojiService` | EmojiService | /Users/diana.broeders/Projects/design-system/packages/components/emoji/src/emoji-service.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                     | Package |
+| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `EmojiService` | EmojiService | /Users/anna.sobczak/IdeaProjects/components/packages/components/emoji/src/emoji-service.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/error.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/error.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                  | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/form/src/error.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                 | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/error.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/error.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/error.ts`:
 
 ## class: `Error`, `sl-error`
 
@@ -3320,11 +3320,11 @@
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                                                             | Package |
-| ---- | ------- | ----------- | ---------------------------------------------------------------------------------- | ------- |
-| `js` | `Error` | Error       | /Users/diana.broeders/Projects/design-system/packages/components/form/src/error.ts |         |
+| Kind | Name    | Declaration | Module                                                                            | Package |
+| ---- | ------- | ----------- | --------------------------------------------------------------------------------- | ------- |
+| `js` | `Error` | Error       | /Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/error.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/form-control-mixin.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form-control-mixin.ts`:
 
 ## mixin: `FormControlMixin`
 
@@ -3383,23 +3383,23 @@
 
 ## Exports
 
-| Kind | Name                    | Declaration           | Module                                                                                          | Package |
-| ---- | ----------------------- | --------------------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlFormControlEvent`    | SlFormControlEvent    | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form-control-mixin.ts |         |
-| `js` | `SlUpdateStateEvent`    | SlUpdateStateEvent    | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form-control-mixin.ts |         |
-| `js` | `SlUpdateValidityEvent` | SlUpdateValidityEvent | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form-control-mixin.ts |         |
-| `js` | `SlValidateEvent`       | SlValidateEvent       | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form-control-mixin.ts |         |
-| `js` | `FormControlMixin`      | FormControlMixin      | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form-control-mixin.ts |         |
+| Kind | Name                    | Declaration           | Module                                                                                         | Package |
+| ---- | ----------------------- | --------------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlFormControlEvent`    | SlFormControlEvent    | /Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form-control-mixin.ts |         |
+| `js` | `SlUpdateStateEvent`    | SlUpdateStateEvent    | /Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form-control-mixin.ts |         |
+| `js` | `SlUpdateValidityEvent` | SlUpdateValidityEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form-control-mixin.ts |         |
+| `js` | `SlValidateEvent`       | SlValidateEvent       | /Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form-control-mixin.ts |         |
+| `js` | `FormControlMixin`      | FormControlMixin      | /Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form-control-mixin.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/form-controller.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form-controller.ts`:
 
 ## class: `FormController`
 
 ### Superclass
 
-| Name          | Module                                                                                       | Package |
-| ------------- | -------------------------------------------------------------------------------------------- | ------- |
-| `EventTarget` | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form-controller.ts |         |
+| Name          | Module                                                                                      | Package |
+| ------------- | ------------------------------------------------------------------------------------------- | ------- |
+| `EventTarget` | /Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form-controller.ts |         |
 
 ### Fields
 
@@ -3432,19 +3432,19 @@
 
 ## Exports
 
-| Kind | Name             | Declaration    | Module                                                                                       | Package |
-| ---- | ---------------- | -------------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `FormController` | FormController | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form-controller.ts |         |
+| Kind | Name             | Declaration    | Module                                                                                      | Package |
+| ---- | ---------------- | -------------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `FormController` | FormController | /Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form-controller.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/form-field.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form-field.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form-field.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                      | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form-field.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/form-field.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form-field.ts`:
 
 ## class: `FormField`, `sl-form-field`
 
@@ -3487,20 +3487,20 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                  | Package |
-| ---- | ------------------ | ---------------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlFormFieldEvent` | SlFormFieldEvent | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form-field.ts |         |
-| `js` | `FormField`        | FormField        | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form-field.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                 | Package |
+| ---- | ------------------ | ---------------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlFormFieldEvent` | SlFormFieldEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form-field.ts |         |
+| `js` | `FormField`        | FormField        | /Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form-field.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/form-validation-errors.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form-validation-errors.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                   | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form-validation-errors.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                  | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form-validation-errors.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/form-validation-errors.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form-validation-errors.ts`:
 
 ## class: `FormValidationErrors`, `sl-form-validation-errors`
 
@@ -3529,19 +3529,19 @@
 
 ## Exports
 
-| Kind | Name                   | Declaration          | Module                                                                                              | Package |
-| ---- | ---------------------- | -------------------- | --------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `FormValidationErrors` | FormValidationErrors | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form-validation-errors.ts |         |
+| Kind | Name                   | Declaration          | Module                                                                                             | Package |
+| ---- | ---------------------- | -------------------- | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `FormValidationErrors` | FormValidationErrors | /Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form-validation-errors.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/form.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                 | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/form.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form.ts`:
 
 ## class: `Form`, `sl-form`
 
@@ -3593,21 +3593,21 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                            | Package |
-| ---- | --------------- | ------------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `SlResetEvent`  | SlResetEvent  | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form.ts |         |
-| `js` | `SlSubmitEvent` | SlSubmitEvent | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form.ts |         |
-| `js` | `Form`          | Form          | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form.ts |         |
+| Kind | Name            | Declaration   | Module                                                                           | Package |
+| ---- | --------------- | ------------- | -------------------------------------------------------------------------------- | ------- |
+| `js` | `SlResetEvent`  | SlResetEvent  | /Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form.ts |         |
+| `js` | `SlSubmitEvent` | SlSubmitEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form.ts |         |
+| `js` | `Form`          | Form          | /Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/hint.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/hint.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                 | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/form/src/hint.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/hint.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/hint.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/hint.ts`:
 
 ## class: `Hint`, `sl-hint`
 
@@ -3639,19 +3639,19 @@
 
 ## Exports
 
-| Kind | Name   | Declaration | Module                                                                            | Package |
-| ---- | ------ | ----------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `Hint` | Hint        | /Users/diana.broeders/Projects/design-system/packages/components/form/src/hint.ts |         |
+| Kind | Name   | Declaration | Module                                                                           | Package |
+| ---- | ------ | ----------- | -------------------------------------------------------------------------------- | ------- |
+| `js` | `Hint` | Hint        | /Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/hint.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/label.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/label.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                  | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/form/src/label.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                 | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/label.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/label.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/label.ts`:
 
 ## class: `Label`, `sl-label`
 
@@ -3683,11 +3683,11 @@
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                                                             | Package |
-| ---- | ------- | ----------- | ---------------------------------------------------------------------------------- | ------- |
-| `js` | `Label` | Label       | /Users/diana.broeders/Projects/design-system/packages/components/form/src/label.ts |         |
+| Kind | Name    | Declaration | Module                                                                            | Package |
+| ---- | ------- | ----------- | --------------------------------------------------------------------------------- | ------- |
+| `js` | `Label` | Label       | /Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/label.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/format-date/src/format-date.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/format-date/src/format-date.ts`:
 
 ## class: `FormatDate`, `sl-format-date`
 
@@ -3764,11 +3764,11 @@
 
 ## Exports
 
-| Kind | Name         | Declaration | Module                                                                                          | Package |
-| ---- | ------------ | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `FormatDate` | FormatDate  | /Users/diana.broeders/Projects/design-system/packages/components/format-date/src/format-date.ts |         |
+| Kind | Name         | Declaration | Module                                                                                         | Package |
+| ---- | ------------ | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `FormatDate` | FormatDate  | /Users/anna.sobczak/IdeaProjects/components/packages/components/format-date/src/format-date.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/format-date/src/format.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/format-date/src/format.ts`:
 
 ## Functions
 
@@ -3780,11 +3780,11 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                     | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `format` | format      | /Users/diana.broeders/Projects/design-system/packages/components/format-date/src/format.ts |         |
+| Kind | Name     | Declaration | Module                                                                                    | Package |
+| ---- | -------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `format` | format      | /Users/anna.sobczak/IdeaProjects/components/packages/components/format-date/src/format.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/format-number/src/format-number.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/format-number/src/format-number.ts`:
 
 ## class: `FormatNumber`, `sl-format-number`
 
@@ -3846,11 +3846,11 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                              | Package |
-| ---- | -------------- | ------------ | --------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `FormatNumber` | FormatNumber | /Users/diana.broeders/Projects/design-system/packages/components/format-number/src/format-number.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                             | Package |
+| ---- | -------------- | ------------ | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `FormatNumber` | FormatNumber | /Users/anna.sobczak/IdeaProjects/components/packages/components/format-number/src/format-number.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/format-number/src/format.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/format-number/src/format.ts`:
 
 ## Functions
 
@@ -3862,19 +3862,19 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                       | Package |
-| ---- | -------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `format` | format      | /Users/diana.broeders/Projects/design-system/packages/components/format-number/src/format.ts |         |
+| Kind | Name     | Declaration | Module                                                                                      | Package |
+| ---- | -------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `format` | format      | /Users/anna.sobczak/IdeaProjects/components/packages/components/format-number/src/format.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/column-group.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/column-group.ts`:
 
 ## class: `GridColumnGroup`, `sl-grid-column-group`
 
 ### Superclass
 
-| Name         | Module                                                                               | Package |
-| ------------ | ------------------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                              | Package |
+| ------------ | ----------------------------------------------------------------------------------- | ------- |
+| `GridColumn` | //Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -3935,11 +3935,11 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                                    | Package |
-| ---- | ----------------- | --------------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `GridColumnGroup` | GridColumnGroup | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/column-group.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                   | Package |
+| ---- | ----------------- | --------------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridColumnGroup` | GridColumnGroup | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/column-group.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/column.ts`:
 
 ## class: `GridColumn`, `sl-grid-column`
 
@@ -4007,20 +4007,20 @@
 
 ## Exports
 
-| Kind | Name                  | Declaration         | Module                                                                              | Package |
-| ---- | --------------------- | ------------------- | ----------------------------------------------------------------------------------- | ------- |
-| `js` | `SlColumnUpdateEvent` | SlColumnUpdateEvent | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.ts |         |
-| `js` | `GridColumn`          | GridColumn          | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.ts |         |
+| Kind | Name                  | Declaration         | Module                                                                             | Package |
+| ---- | --------------------- | ------------------- | ---------------------------------------------------------------------------------- | ------- |
+| `js` | `SlColumnUpdateEvent` | SlColumnUpdateEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/column.ts |         |
+| `js` | `GridColumn`          | GridColumn          | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/column.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/drag-handle-column.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/drag-handle-column.ts`:
 
 ## class: `GridDragHandleColumn`, `sl-grid-drag-handle-column`
 
 ### Superclass
 
-| Name         | Module                                                                               | Package |
-| ------------ | ------------------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                              | Package |
+| ------------ | ----------------------------------------------------------------------------------- | ------- |
+| `GridColumn` | //Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -4080,19 +4080,19 @@
 
 ## Exports
 
-| Kind | Name                   | Declaration          | Module                                                                                          | Package |
-| ---- | ---------------------- | -------------------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `GridDragHandleColumn` | GridDragHandleColumn | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/drag-handle-column.ts |         |
+| Kind | Name                   | Declaration          | Module                                                                                         | Package |
+| ---- | ---------------------- | -------------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridDragHandleColumn` | GridDragHandleColumn | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/drag-handle-column.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/filter-column.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/filter-column.ts`:
 
 ## class: `GridFilterColumn`, `sl-grid-filter-column`
 
 ### Superclass
 
-| Name             | Module                                                                                    | Package |
-| ---------------- | ----------------------------------------------------------------------------------------- | ------- |
-| `GridSortColumn` | //Users/diana.broeders/Projects/design-system/packages/components/grid/src/sort-column.js |         |
+| Name             | Module                                                                                   | Package |
+| ---------------- | ---------------------------------------------------------------------------------------- | ------- |
+| `GridSortColumn` | //Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/sort-column.js |         |
 
 ### Fields
 
@@ -4167,19 +4167,19 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                     | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `GridFilterColumn` | GridFilterColumn | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/filter-column.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                    | Package |
+| ---- | ------------------ | ---------------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridFilterColumn` | GridFilterColumn | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/filter-column.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/filter.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/filter.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                   | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/filter.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                  | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/filter.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/filter.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/filter.ts`:
 
 ## class: `GridFilter`
 
@@ -4226,21 +4226,21 @@
 
 ## Exports
 
-| Kind | Name                    | Declaration           | Module                                                                              | Package |
-| ---- | ----------------------- | --------------------- | ----------------------------------------------------------------------------------- | ------- |
-| `js` | `SlFilterChangeEvent`   | SlFilterChangeEvent   | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/filter.ts |         |
-| `js` | `SlFilterRegisterEvent` | SlFilterRegisterEvent | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/filter.ts |         |
-| `js` | `GridFilter`            | GridFilter            | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/filter.ts |         |
+| Kind | Name                    | Declaration           | Module                                                                             | Package |
+| ---- | ----------------------- | --------------------- | ---------------------------------------------------------------------------------- | ------- |
+| `js` | `SlFilterChangeEvent`   | SlFilterChangeEvent   | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/filter.ts |         |
+| `js` | `SlFilterRegisterEvent` | SlFilterRegisterEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/filter.ts |         |
+| `js` | `GridFilter`            | GridFilter            | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/filter.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/grid.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                 | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/grid.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/grid.ts`:
 
 ## class: `Grid`, `sl-grid`
 
@@ -4319,25 +4319,25 @@
 
 ## Exports
 
-| Kind | Name                     | Declaration            | Module                                                                            | Package |
-| ---- | ------------------------ | ---------------------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `SlActiveRowChangeEvent` | SlActiveRowChangeEvent | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
-| `js` | `SlDragStartEvent`       | SlDragStartEvent       | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
-| `js` | `SlDragEndEvent`         | SlDragEndEvent         | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
-| `js` | `SlDropEvent`            | SlDropEvent            | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
-| `js` | `SlSelectionChangeEvent` | SlSelectionChangeEvent | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
-| `js` | `SlStateChangeEvent`     | SlStateChangeEvent     | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
-| `js` | `Grid`                   | Grid                   | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
+| Kind | Name                     | Declaration            | Module                                                                           | Package |
+| ---- | ------------------------ | ---------------------- | -------------------------------------------------------------------------------- | ------- |
+| `js` | `SlActiveRowChangeEvent` | SlActiveRowChangeEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/grid.ts |         |
+| `js` | `SlDragStartEvent`       | SlDragStartEvent       | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/grid.ts |         |
+| `js` | `SlDragEndEvent`         | SlDragEndEvent         | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/grid.ts |         |
+| `js` | `SlDropEvent`            | SlDropEvent            | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/grid.ts |         |
+| `js` | `SlSelectionChangeEvent` | SlSelectionChangeEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/grid.ts |         |
+| `js` | `SlStateChangeEvent`     | SlStateChangeEvent     | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/grid.ts |         |
+| `js` | `Grid`                   | Grid                   | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/grid.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/group-header.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/group-header.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/group-header.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/group-header.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/group-header.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/group-header.ts`:
 
 ## class: `GridGroupHeader`
 
@@ -4382,19 +4382,19 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                                    | Package |
-| ---- | ----------------- | --------------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `GridGroupHeader` | GridGroupHeader | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/group-header.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                   | Package |
+| ---- | ----------------- | --------------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridGroupHeader` | GridGroupHeader | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/group-header.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/select-column.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/select-column.ts`:
 
 ## class: `GridSelectColumn`, `sl-grid-select-column`
 
 ### Superclass
 
-| Name         | Module                                                                               | Package |
-| ------------ | ------------------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                              | Package |
+| ------------ | ----------------------------------------------------------------------------------- | ------- |
+| `GridColumn` | //Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -4456,19 +4456,19 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                     | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `GridSelectColumn` | GridSelectColumn | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/select-column.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                    | Package |
+| ---- | ------------------ | ---------------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridSelectColumn` | GridSelectColumn | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/select-column.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/selection-column.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/selection-column.ts`:
 
 ## class: `GridSelectionColumn`, `sl-grid-selection-column`
 
 ### Superclass
 
-| Name         | Module                                                                               | Package |
-| ------------ | ------------------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                              | Package |
+| ------------ | ----------------------------------------------------------------------------------- | ------- |
+| `GridColumn` | //Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -4530,19 +4530,19 @@
 
 ## Exports
 
-| Kind | Name                  | Declaration         | Module                                                                                        | Package |
-| ---- | --------------------- | ------------------- | --------------------------------------------------------------------------------------------- | ------- |
-| `js` | `GridSelectionColumn` | GridSelectionColumn | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/selection-column.ts |         |
+| Kind | Name                  | Declaration         | Module                                                                                       | Package |
+| ---- | --------------------- | ------------------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridSelectionColumn` | GridSelectionColumn | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/selection-column.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/sort-column.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/sort-column.ts`:
 
 ## class: `GridSortColumn`, `sl-grid-sort-column`
 
 ### Superclass
 
-| Name         | Module                                                                               | Package |
-| ------------ | ------------------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                              | Package |
+| ------------ | ----------------------------------------------------------------------------------- | ------- |
+| `GridColumn` | //Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -4606,19 +4606,19 @@
 
 ## Exports
 
-| Kind | Name             | Declaration    | Module                                                                                   | Package |
-| ---- | ---------------- | -------------- | ---------------------------------------------------------------------------------------- | ------- |
-| `js` | `GridSortColumn` | GridSortColumn | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/sort-column.ts |         |
+| Kind | Name             | Declaration    | Module                                                                                  | Package |
+| ---- | ---------------- | -------------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridSortColumn` | GridSortColumn | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/sort-column.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/sorter.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/sorter.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                   | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/sorter.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                  | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/sorter.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/sorter.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/sorter.ts`:
 
 ## class: `GridSorter`
 
@@ -4667,21 +4667,21 @@
 
 ## Exports
 
-| Kind | Name                    | Declaration           | Module                                                                              | Package |
-| ---- | ----------------------- | --------------------- | ----------------------------------------------------------------------------------- | ------- |
-| `js` | `SlSorterChangeEvent`   | SlSorterChangeEvent   | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/sorter.ts |         |
-| `js` | `SlSorterRegisterEvent` | SlSorterRegisterEvent | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/sorter.ts |         |
-| `js` | `GridSorter`            | GridSorter            | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/sorter.ts |         |
+| Kind | Name                    | Declaration           | Module                                                                             | Package |
+| ---- | ----------------------- | --------------------- | ---------------------------------------------------------------------------------- | ------- |
+| `js` | `SlSorterChangeEvent`   | SlSorterChangeEvent   | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/sorter.ts |         |
+| `js` | `SlSorterRegisterEvent` | SlSorterRegisterEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/sorter.ts |         |
+| `js` | `GridSorter`            | GridSorter            | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/sorter.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/text-field-column.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/text-field-column.ts`:
 
 ## class: `GridTextFieldColumn`, `sl-grid-text-field-column`
 
 ### Superclass
 
-| Name         | Module                                                                               | Package |
-| ------------ | ------------------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                              | Package |
+| ------------ | ----------------------------------------------------------------------------------- | ------- |
+| `GridColumn` | //Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -4741,11 +4741,11 @@
 
 ## Exports
 
-| Kind | Name                  | Declaration         | Module                                                                                         | Package |
-| ---- | --------------------- | ------------------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `GridTextFieldColumn` | GridTextFieldColumn | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/text-field-column.ts |         |
+| Kind | Name                  | Declaration         | Module                                                                                        | Package |
+| ---- | --------------------- | ------------------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridTextFieldColumn` | GridTextFieldColumn | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/text-field-column.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/view-model.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/view-model.ts`:
 
 ## class: `GridViewModel`
 
@@ -4783,20 +4783,20 @@
 
 ## Exports
 
-| Kind | Name                 | Declaration        | Module                                                                                  | Package |
-| ---- | -------------------- | ------------------ | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `GridViewModelGroup` | GridViewModelGroup | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/view-model.ts |         |
-| `js` | `GridViewModel`      | GridViewModel      | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/view-model.ts |         |
+| Kind | Name                 | Declaration        | Module                                                                                 | Package |
+| ---- | -------------------- | ------------------ | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridViewModelGroup` | GridViewModelGroup | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/view-model.ts |         |
+| `js` | `GridViewModel`      | GridViewModel      | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/view-model.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/icon/src/icon.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/icon/src/icon.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                 | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/icon/src/icon.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/icon/src/icon.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/icon/src/icon.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/icon/src/icon.ts`:
 
 ## class: `Icon`, `sl-icon`
 
@@ -4840,19 +4840,19 @@
 
 ## Exports
 
-| Kind | Name   | Declaration | Module                                                                            | Package |
-| ---- | ------ | ----------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `Icon` | Icon        | /Users/diana.broeders/Projects/design-system/packages/components/icon/src/icon.ts |         |
+| Kind | Name   | Declaration | Module                                                                           | Package |
+| ---- | ------ | ----------- | -------------------------------------------------------------------------------- | ------- |
+| `js` | `Icon` | Icon        | /Users/anna.sobczak/IdeaProjects/components/packages/components/icon/src/icon.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/inline-message/src/inline-message.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/inline-message/src/inline-message.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                     | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/inline-message/src/inline-message.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                    | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/inline-message/src/inline-message.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/inline-message/src/inline-message.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/inline-message/src/inline-message.ts`:
 
 ## class: `InlineMessage`, `sl-inline-message`
 
@@ -4902,20 +4902,20 @@
 
 ## Exports
 
-| Kind | Name             | Declaration    | Module                                                                                                | Package |
-| ---- | ---------------- | -------------- | ----------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlDismissEvent` | SlDismissEvent | /Users/diana.broeders/Projects/design-system/packages/components/inline-message/src/inline-message.ts |         |
-| `js` | `InlineMessage`  | InlineMessage  | /Users/diana.broeders/Projects/design-system/packages/components/inline-message/src/inline-message.ts |         |
+| Kind | Name             | Declaration    | Module                                                                                               | Package |
+| ---- | ---------------- | -------------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlDismissEvent` | SlDismissEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/inline-message/src/inline-message.ts |         |
+| `js` | `InlineMessage`  | InlineMessage  | /Users/anna.sobczak/IdeaProjects/components/packages/components/inline-message/src/inline-message.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/listbox/src/listbox.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/listbox/src/listbox.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/listbox/src/listbox.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                      | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/listbox/src/listbox.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/listbox/src/listbox.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/listbox/src/listbox.ts`:
 
 ## class: `Listbox`, `sl-listbox`
 
@@ -4965,19 +4965,19 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                  | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `Listbox` | Listbox     | /Users/diana.broeders/Projects/design-system/packages/components/listbox/src/listbox.ts |         |
+| Kind | Name      | Declaration | Module                                                                                 | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `Listbox` | Listbox     | /Users/anna.sobczak/IdeaProjects/components/packages/components/listbox/src/listbox.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option-group-header.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/listbox/src/option-group-header.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                   | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option-group-header.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                  | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/listbox/src/option-group-header.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option-group-header.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/listbox/src/option-group-header.ts`:
 
 ## class: `OptionGroupHeader`
 
@@ -5003,19 +5003,19 @@
 
 ## Exports
 
-| Kind | Name                | Declaration       | Module                                                                                              | Package |
-| ---- | ------------------- | ----------------- | --------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `OptionGroupHeader` | OptionGroupHeader | /Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option-group-header.ts |         |
+| Kind | Name                | Declaration       | Module                                                                                             | Package |
+| ---- | ------------------- | ----------------- | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `OptionGroupHeader` | OptionGroupHeader | /Users/anna.sobczak/IdeaProjects/components/packages/components/listbox/src/option-group-header.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option-group.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/listbox/src/option-group.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option-group.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/listbox/src/option-group.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option-group.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/listbox/src/option-group.ts`:
 
 ## class: `OptionGroup`, `sl-option-group`
 
@@ -5053,19 +5053,19 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                                       | Package |
-| ---- | ------------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `OptionGroup` | OptionGroup | /Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option-group.ts |         |
+| Kind | Name          | Declaration | Module                                                                                      | Package |
+| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `OptionGroup` | OptionGroup | /Users/anna.sobczak/IdeaProjects/components/packages/components/listbox/src/option-group.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/listbox/src/option.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                      | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                     | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/listbox/src/option.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/listbox/src/option.ts`:
 
 ## class: `Option`, `sl-option`
 
@@ -5110,19 +5110,19 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                 | Package |
-| ---- | -------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `Option` | Option      | /Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option.ts |         |
+| Kind | Name     | Declaration | Module                                                                                | Package |
+| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `Option` | Option      | /Users/anna.sobczak/IdeaProjects/components/packages/components/listbox/src/option.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-button.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/menu/src/menu-button.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-button.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/menu/src/menu-button.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-button.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/menu/src/menu-button.ts`:
 
 ## class: `MenuButton`, `sl-menu-button`
 
@@ -5180,19 +5180,19 @@
 
 ## Exports
 
-| Kind | Name         | Declaration | Module                                                                                   | Package |
-| ---- | ------------ | ----------- | ---------------------------------------------------------------------------------------- | ------- |
-| `js` | `MenuButton` | MenuButton  | /Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-button.ts |         |
+| Kind | Name         | Declaration | Module                                                                                  | Package |
+| ---- | ------------ | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `MenuButton` | MenuButton  | /Users/anna.sobczak/IdeaProjects/components/packages/components/menu/src/menu-button.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-item-group.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/menu/src/menu-item-group.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-item-group.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/menu/src/menu-item-group.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-item-group.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/menu/src/menu-item-group.ts`:
 
 ## class: `MenuItemGroup`, `sl-menu-item-group`
 
@@ -5227,19 +5227,19 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                       | Package |
-| ---- | --------------- | ------------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `MenuItemGroup` | MenuItemGroup | /Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-item-group.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                      | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `MenuItemGroup` | MenuItemGroup | /Users/anna.sobczak/IdeaProjects/components/packages/components/menu/src/menu-item-group.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-item.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/menu/src/menu-item.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                      | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-item.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                     | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/menu/src/menu-item.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-item.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/menu/src/menu-item.ts`:
 
 ## class: `MenuItem`, `sl-menu-item`
 
@@ -5298,19 +5298,19 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                 | Package |
-| ---- | ---------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `MenuItem` | MenuItem    | /Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-item.ts |         |
+| Kind | Name       | Declaration | Module                                                                                | Package |
+| ---- | ---------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `MenuItem` | MenuItem    | /Users/anna.sobczak/IdeaProjects/components/packages/components/menu/src/menu-item.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/menu/src/menu.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                 | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/menu/src/menu.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/menu/src/menu.ts`:
 
 ## class: `Menu`, `sl-menu`
 
@@ -5360,19 +5360,19 @@
 
 ## Exports
 
-| Kind | Name   | Declaration | Module                                                                            | Package |
-| ---- | ------ | ----------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `Menu` | Menu        | /Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu.ts |         |
+| Kind | Name   | Declaration | Module                                                                           | Package |
+| ---- | ------ | ----------- | -------------------------------------------------------------------------------- | ------- |
+| `js` | `Menu` | Menu        | /Users/anna.sobczak/IdeaProjects/components/packages/components/menu/src/menu.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/message-dialog/src/message-dialog.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/message-dialog/src/message-dialog.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                     | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/message-dialog/src/message-dialog.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                    | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/message-dialog/src/message-dialog.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/message-dialog/src/message-dialog.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/message-dialog/src/message-dialog.ts`:
 
 ## class: `MessageDialog`, `sl-message-dialog`
 
@@ -5419,19 +5419,19 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                                | Package |
-| ---- | --------------- | ------------- | ----------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `MessageDialog` | MessageDialog | /Users/diana.broeders/Projects/design-system/packages/components/message-dialog/src/message-dialog.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                               | Package |
+| ---- | --------------- | ------------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `MessageDialog` | MessageDialog | /Users/anna.sobczak/IdeaProjects/components/packages/components/message-dialog/src/message-dialog.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/number-field/src/number-field.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/number-field/src/number-field.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                 | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/number-field/src/number-field.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/number-field/src/number-field.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/number-field/src/number-field.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/number-field/src/number-field.ts`:
 
 ## class: `NumberField`, `sl-number-field`
 
@@ -5572,11 +5572,11 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                                            | Package |
-| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `NumberField` | NumberField | /Users/diana.broeders/Projects/design-system/packages/components/number-field/src/number-field.ts |         |
+| Kind | Name          | Declaration | Module                                                                                           | Package |
+| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `NumberField` | NumberField | /Users/anna.sobczak/IdeaProjects/components/packages/components/number-field/src/number-field.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/number-field/src/number-parser.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/number-field/src/number-parser.ts`:
 
 ## class: `NumberParser`
 
@@ -5597,19 +5597,19 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                             | Package |
-| ---- | -------------- | ------------ | -------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `NumberParser` | NumberParser | /Users/diana.broeders/Projects/design-system/packages/components/number-field/src/number-parser.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                            | Package |
+| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `NumberParser` | NumberParser | /Users/anna.sobczak/IdeaProjects/components/packages/components/number-field/src/number-parser.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/paginator/src/page-size.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/paginator/src/page-size.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/paginator/src/page-size.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                          | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/paginator/src/page-size.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/paginator/src/page-size.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/paginator/src/page-size.ts`:
 
 ## class: `PaginatorPageSize`, `sl-paginator-page-size`
 
@@ -5651,19 +5651,19 @@
 
 ## Exports
 
-| Kind | Name                | Declaration       | Module                                                                                      | Package |
-| ---- | ------------------- | ----------------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `PaginatorPageSize` | PaginatorPageSize | /Users/diana.broeders/Projects/design-system/packages/components/paginator/src/page-size.ts |         |
+| Kind | Name                | Declaration       | Module                                                                                     | Package |
+| ---- | ------------------- | ----------------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `PaginatorPageSize` | PaginatorPageSize | /Users/anna.sobczak/IdeaProjects/components/packages/components/paginator/src/page-size.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/paginator/src/paginator.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/paginator/src/paginator.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/paginator/src/paginator.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                          | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/paginator/src/paginator.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/paginator/src/paginator.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/paginator/src/paginator.ts`:
 
 ## class: `Paginator`, `sl-paginator`
 
@@ -5712,19 +5712,19 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                                      | Package |
-| ---- | ----------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `Paginator` | Paginator   | /Users/diana.broeders/Projects/design-system/packages/components/paginator/src/paginator.ts |         |
+| Kind | Name        | Declaration | Module                                                                                     | Package |
+| ---- | ----------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `Paginator` | Paginator   | /Users/anna.sobczak/IdeaProjects/components/packages/components/paginator/src/paginator.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/paginator/src/status.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/paginator/src/status.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/paginator/src/status.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/paginator/src/status.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/paginator/src/status.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/paginator/src/status.ts`:
 
 ## class: `PaginatorStatus`, `sl-paginator-status`
 
@@ -5756,19 +5756,19 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                                   | Package |
-| ---- | ----------------- | --------------- | ---------------------------------------------------------------------------------------- | ------- |
-| `js` | `PaginatorStatus` | PaginatorStatus | /Users/diana.broeders/Projects/design-system/packages/components/paginator/src/status.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                  | Package |
+| ---- | ----------------- | --------------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `PaginatorStatus` | PaginatorStatus | /Users/anna.sobczak/IdeaProjects/components/packages/components/paginator/src/status.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/panel/src/panel.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/panel/src/panel.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                   | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/panel/src/panel.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                  | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/panel/src/panel.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/panel/src/panel.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/panel/src/panel.ts`:
 
 ## class: `Panel`, `sl-panel`
 
@@ -5857,19 +5857,19 @@
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                                                              | Package |
-| ---- | ------- | ----------- | ----------------------------------------------------------------------------------- | ------- |
-| `js` | `Panel` | Panel       | /Users/diana.broeders/Projects/design-system/packages/components/panel/src/panel.ts |         |
+| Kind | Name    | Declaration | Module                                                                             | Package |
+| ---- | ------- | ----------- | ---------------------------------------------------------------------------------- | ------- |
+| `js` | `Panel` | Panel       | /Users/anna.sobczak/IdeaProjects/components/packages/components/panel/src/panel.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/popover/src/popover.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/popover/src/popover.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/popover/src/popover.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                      | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/popover/src/popover.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/popover/src/popover.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/popover/src/popover.ts`:
 
 ## class: `Popover`, `sl-popover`
 
@@ -5909,19 +5909,19 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                  | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `Popover` | Popover     | /Users/diana.broeders/Projects/design-system/packages/components/popover/src/popover.ts |         |
+| Kind | Name      | Declaration | Module                                                                                 | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `Popover` | Popover     | /Users/anna.sobczak/IdeaProjects/components/packages/components/popover/src/popover.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/progress-bar/src/progress-bar.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/progress-bar/src/progress-bar.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                 | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/progress-bar/src/progress-bar.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/progress-bar/src/progress-bar.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/progress-bar/src/progress-bar.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/progress-bar/src/progress-bar.ts`:
 
 ## class: `ProgressBar`, `sl-progress-bar`
 
@@ -5967,19 +5967,19 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                                            | Package |
-| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ProgressBar` | ProgressBar | /Users/diana.broeders/Projects/design-system/packages/components/progress-bar/src/progress-bar.ts |         |
+| Kind | Name          | Declaration | Module                                                                                           | Package |
+| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `ProgressBar` | ProgressBar | /Users/anna.sobczak/IdeaProjects/components/packages/components/progress-bar/src/progress-bar.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/radio-group/src/radio-group.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/radio-group/src/radio-group.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/radio-group/src/radio-group.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                              | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/radio-group/src/radio-group.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/radio-group/src/radio-group.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/radio-group/src/radio-group.ts`:
 
 ## class: `RadioGroup`, `sl-radio-group`
 
@@ -6064,19 +6064,19 @@
 
 ## Exports
 
-| Kind | Name         | Declaration | Module                                                                                          | Package |
-| ---- | ------------ | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `RadioGroup` | RadioGroup  | /Users/diana.broeders/Projects/design-system/packages/components/radio-group/src/radio-group.ts |         |
+| Kind | Name         | Declaration | Module                                                                                         | Package |
+| ---- | ------------ | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `RadioGroup` | RadioGroup  | /Users/anna.sobczak/IdeaProjects/components/packages/components/radio-group/src/radio-group.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/radio-group/src/radio.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/radio-group/src/radio.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/radio-group/src/radio.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/radio-group/src/radio.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/radio-group/src/radio.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/radio-group/src/radio.ts`:
 
 ## class: `Radio`, `sl-radio`
 
@@ -6110,19 +6110,19 @@
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                                                                    | Package |
-| ---- | ------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `Radio` | Radio       | /Users/diana.broeders/Projects/design-system/packages/components/radio-group/src/radio.ts |         |
+| Kind | Name    | Declaration | Module                                                                                   | Package |
+| ---- | ------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `Radio` | Radio       | /Users/anna.sobczak/IdeaProjects/components/packages/components/radio-group/src/radio.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/scrollbar/src/scrollbar.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/scrollbar/src/scrollbar.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/scrollbar/src/scrollbar.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                          | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/scrollbar/src/scrollbar.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/scrollbar/src/scrollbar.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/scrollbar/src/scrollbar.ts`:
 
 ## class: `Scrollbar`, `sl-scrollbar`
 
@@ -6163,19 +6163,19 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                                      | Package |
-| ---- | ----------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `Scrollbar` | Scrollbar   | /Users/diana.broeders/Projects/design-system/packages/components/scrollbar/src/scrollbar.ts |         |
+| Kind | Name        | Declaration | Module                                                                                     | Package |
+| ---- | ----------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `Scrollbar` | Scrollbar   | /Users/anna.sobczak/IdeaProjects/components/packages/components/scrollbar/src/scrollbar.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/search-field/src/search-field.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/search-field/src/search-field.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                 | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/search-field/src/search-field.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/search-field/src/search-field.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/search-field/src/search-field.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/search-field/src/search-field.ts`:
 
 ## class: `SearchField`, `sl-search-field`
 
@@ -6297,20 +6297,20 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                            | Package |
-| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlSearchEvent` | SlSearchEvent | /Users/diana.broeders/Projects/design-system/packages/components/search-field/src/search-field.ts |         |
-| `js` | `SearchField`   | SearchField   | /Users/diana.broeders/Projects/design-system/packages/components/search-field/src/search-field.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                           | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `SlSearchEvent` | SlSearchEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/search-field/src/search-field.ts |         |
+| `js` | `SearchField`   | SearchField   | /Users/anna.sobczak/IdeaProjects/components/packages/components/search-field/src/search-field.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/select/src/select-button.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/select/src/select-button.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/select/src/select-button.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/select/src/select-button.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/select/src/select-button.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/select/src/select-button.ts`:
 
 ## class: `SelectButton`
 
@@ -6361,19 +6361,19 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                       | Package |
-| ---- | -------------- | ------------ | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SelectButton` | SelectButton | /Users/diana.broeders/Projects/design-system/packages/components/select/src/select-button.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                      | Package |
+| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SelectButton` | SelectButton | /Users/anna.sobczak/IdeaProjects/components/packages/components/select/src/select-button.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/select/src/select.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/select/src/select.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                     | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/select/src/select.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                    | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/select/src/select.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/select/src/select.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/select/src/select.ts`:
 
 ## class: `Select`, `sl-select`
 
@@ -6474,19 +6474,19 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `Select` | Select      | /Users/diana.broeders/Projects/design-system/packages/components/select/src/select.ts |         |
+| Kind | Name     | Declaration | Module                                                                               | Package |
+| ---- | -------- | ----------- | ------------------------------------------------------------------------------------ | ------- |
+| `js` | `Select` | Select      | /Users/anna.sobczak/IdeaProjects/components/packages/components/select/src/select.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/breakpoints.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/breakpoints.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                          | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/breakpoints.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/breakpoints.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/browser.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/browser.ts`:
 
 ## Variables
 
@@ -6498,11 +6498,11 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                 | Package |
-| ---- | ---------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `isSafari` | isSafari    | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/browser.ts |         |
+| Kind | Name       | Declaration | Module                                                                                | Package |
+| ---- | ---------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `isSafari` | isSafari    | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/browser.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/config.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/config.ts`:
 
 ## class: `Config`
 
@@ -6517,11 +6517,11 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `Config` | Config      | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/config.ts |         |
+| Kind | Name     | Declaration | Module                                                                               | Package |
+| ---- | -------- | ----------- | ------------------------------------------------------------------------------------ | ------- |
+| `js` | `Config` | Config      | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/config.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/anchor.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/controllers/anchor.ts`:
 
 ## class: `AnchorController`
 
@@ -6546,11 +6546,11 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                            | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `AnchorController` | AnchorController | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/anchor.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                           | Package |
+| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `AnchorController` | AnchorController | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/controllers/anchor.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/events.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/controllers/events.ts`:
 
 ## class: `EventsController`
 
@@ -6572,11 +6572,11 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                            | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `EventsController` | EventsController | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/events.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                           | Package |
+| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `EventsController` | EventsController | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/controllers/events.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/focus-group.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/controllers/focus-group.ts`:
 
 ## class: `FocusGroupController`
 
@@ -6627,11 +6627,11 @@
 
 ## Exports
 
-| Kind | Name                   | Declaration          | Module                                                                                                 | Package |
-| ---- | ---------------------- | -------------------- | ------------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `FocusGroupController` | FocusGroupController | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/focus-group.ts |         |
+| Kind | Name                   | Declaration          | Module                                                                                                | Package |
+| ---- | ---------------------- | -------------------- | ----------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `FocusGroupController` | FocusGroupController | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/controllers/focus-group.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/media.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/controllers/media.ts`:
 
 ## class: `MediaController`
 
@@ -6655,19 +6655,19 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                                           | Package |
-| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `MediaController` | MediaController | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/media.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                          | Package |
+| ---- | ----------------- | --------------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `MediaController` | MediaController | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/controllers/media.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/roving-tabindex.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/controllers/roving-tabindex.ts`:
 
 ## class: `RovingTabindexController`
 
 ### Superclass
 
-| Name                   | Module                                                                                                  | Package |
-| ---------------------- | ------------------------------------------------------------------------------------------------------- | ------- |
-| `FocusGroupController` | //Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/focus-group.js |         |
+| Name                   | Module                                                                                                 | Package |
+| ---------------------- | ------------------------------------------------------------------------------------------------------ | ------- |
+| `FocusGroupController` | //Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/controllers/focus-group.js |         |
 
 ### Fields
 
@@ -6717,11 +6717,11 @@
 
 ## Exports
 
-| Kind | Name                       | Declaration              | Module                                                                                                     | Package |
-| ---- | -------------------------- | ------------------------ | ---------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `RovingTabindexController` | RovingTabindexController | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/roving-tabindex.ts |         |
+| Kind | Name                       | Declaration              | Module                                                                                                    | Package |
+| ---- | -------------------------- | ------------------------ | --------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `RovingTabindexController` | RovingTabindexController | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/controllers/roving-tabindex.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/shortcut.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/controllers/shortcut.ts`:
 
 ## class: `ShortcutController`
 
@@ -6738,11 +6738,11 @@
 
 ## Exports
 
-| Kind | Name                 | Declaration        | Module                                                                                              | Package |
-| ---- | -------------------- | ------------------ | --------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ShortcutController` | ShortcutController | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/shortcut.ts |         |
+| Kind | Name                 | Declaration        | Module                                                                                             | Package |
+| ---- | -------------------- | ------------------ | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ShortcutController` | ShortcutController | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/controllers/shortcut.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/converters/date.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/converters/date.ts`:
 
 ## Variables
 
@@ -6754,11 +6754,11 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                         | Package |
-| ---- | --------------- | ------------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `dateConverter` | dateConverter | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/converters/date.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                        | Package |
+| ---- | --------------- | ------------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `dateConverter` | dateConverter | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/converters/date.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/css.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/css.ts`:
 
 ## Variables
 
@@ -6770,12 +6770,12 @@
 
 ## Exports
 
-| Kind | Name                     | Declaration            | Module                                                                             | Package |
-| ---- | ------------------------ | ---------------------- | ---------------------------------------------------------------------------------- | ------- |
-| `js` | `breakpoints`            | breakpoints            | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/css.ts |         |
-| `js` | `firstFocusableSelector` | firstFocusableSelector | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/css.ts |         |
+| Kind | Name                     | Declaration            | Module                                                                            | Package |
+| ---- | ------------------------ | ---------------------- | --------------------------------------------------------------------------------- | ------- |
+| `js` | `breakpoints`            | breakpoints            | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/css.ts |         |
+| `js` | `firstFocusableSelector` | firstFocusableSelector | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/css.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/decorators/base.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/decorators/base.ts`:
 
 ## Functions
 
@@ -6793,11 +6793,11 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                         | Package |
-| ---- | ------------------ | ---------------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `decorateProperty` | decorateProperty | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/decorators/base.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                        | Package |
+| ---- | ------------------ | ---------------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `decorateProperty` | decorateProperty | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/decorators/base.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/decorators/event.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/decorators/event.ts`:
 
 ## class: `EventEmitter`
 
@@ -6827,12 +6827,12 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                          | Package |
-| ---- | -------------- | ------------ | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `EventEmitter` | EventEmitter | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/decorators/event.ts |         |
-| `js` | `event`        | event        | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/decorators/event.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                         | Package |
+| ---- | -------------- | ------------ | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `EventEmitter` | EventEmitter | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/decorators/event.ts |         |
+| `js` | `event`        | event        | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/decorators/event.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/decorators/observe.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/decorators/observe.ts`:
 
 ## Functions
 
@@ -6844,11 +6844,11 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `observe` | observe     | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/decorators/observe.ts |         |
+| Kind | Name      | Declaration | Module                                                                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `observe` | observe     | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/decorators/observe.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/directives/anchor.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/directives/anchor.ts`:
 
 ## class: `AnchorDirective`
 
@@ -6876,12 +6876,12 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                                           | Package |
-| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `AnchorDirective` | AnchorDirective | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/directives/anchor.ts |         |
-| `js` | `anchor`          | anchor          | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/directives/anchor.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                          | Package |
+| ---- | ----------------- | --------------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `AnchorDirective` | AnchorDirective | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/directives/anchor.ts |         |
+| `js` | `anchor`          | anchor          | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/directives/anchor.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/dom.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/dom.ts`:
 
 ## Functions
 
@@ -6896,70 +6896,70 @@
 
 ## Exports
 
-| Kind | Name                     | Declaration            | Module                                                                             | Package |
-| ---- | ------------------------ | ---------------------- | ---------------------------------------------------------------------------------- | ------- |
-| `js` | `getScrollParent`        | getScrollParent        | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/dom.ts |         |
-| `js` | `closestElementComposed` | closestElementComposed | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/dom.ts |         |
-| `js` | `closestElementComposed` | closestElementComposed | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/dom.ts |         |
-| `js` | `closestElementComposed` | closestElementComposed | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/dom.ts |         |
+| Kind | Name                     | Declaration            | Module                                                                            | Package |
+| ---- | ------------------------ | ---------------------- | --------------------------------------------------------------------------------- | ------- |
+| `js` | `getScrollParent`        | getScrollParent        | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/dom.ts |         |
+| `js` | `closestElementComposed` | closestElementComposed | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/dom.ts |         |
+| `js` | `closestElementComposed` | closestElementComposed | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/dom.ts |         |
+| `js` | `closestElementComposed` | closestElementComposed | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/dom.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/blur.ts`:
-
-## Exports
-
-| Kind | Name          | Declaration | Module                                                                                     | Package |
-| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `SlBlurEvent` | SlBlurEvent | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/blur.ts |         |
-
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/cancel.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/events/blur.ts`:
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                       | Package |
-| ---- | --------------- | ------------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlCancelEvent` | SlCancelEvent | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/cancel.ts |         |
+| Kind | Name          | Declaration | Module                                                                                    | Package |
+| ---- | ------------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlBlurEvent` | SlBlurEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/events/blur.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/change.ts`:
-
-## Exports
-
-| Kind | Name            | Declaration   | Module                                                                                       | Package |
-| ---- | --------------- | ------------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlChangeEvent` | SlChangeEvent | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/change.ts |         |
-
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/clear.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/events/cancel.ts`:
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                      | Package |
-| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlClearEvent` | SlClearEvent | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/clear.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                      | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlCancelEvent` | SlCancelEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/events/cancel.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/focus.ts`:
-
-## Exports
-
-| Kind | Name           | Declaration  | Module                                                                                      | Package |
-| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlFocusEvent` | SlFocusEvent | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/focus.ts |         |
-
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/select.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/events/change.ts`:
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                       | Package |
-| ---- | --------------- | ------------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlSelectEvent` | SlSelectEvent | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/select.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                      | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlChangeEvent` | SlChangeEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/events/change.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/toggle.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/events/clear.ts`:
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                       | Package |
-| ---- | --------------- | ------------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlToggleEvent` | SlToggleEvent | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/toggle.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                     | Package |
+| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `SlClearEvent` | SlClearEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/events/clear.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/mixins.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/events/focus.ts`:
+
+## Exports
+
+| Kind | Name           | Declaration  | Module                                                                                     | Package |
+| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `SlFocusEvent` | SlFocusEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/events/focus.ts |         |
+
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/events/select.ts`:
+
+## Exports
+
+| Kind | Name            | Declaration   | Module                                                                                      | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlSelectEvent` | SlSelectEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/events/select.ts |         |
+
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/events/toggle.ts`:
+
+## Exports
+
+| Kind | Name            | Declaration   | Module                                                                                      | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlToggleEvent` | SlToggleEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/events/toggle.ts |         |
+
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/mixins.ts`:
 
 ## Exports
 
@@ -6970,7 +6970,7 @@
 | `js` | `ObserveAttributesMixinInterface` | ObserveAttributesMixinInterface | ./mixins/observe-attributes-mixin.js |         |
 | `js` | `ObserveAttributesMixin`          | ObserveAttributesMixin          | ./mixins/observe-attributes-mixin.js |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/mixins/locale-mixin.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/mixins/locale-mixin.ts`:
 
 ## mixin: `LocaleMixin`
 
@@ -6996,11 +6996,11 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                                             | Package |
-| ---- | ------------- | ----------- | -------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `LocaleMixin` | LocaleMixin | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/mixins/locale-mixin.ts |         |
+| Kind | Name          | Declaration | Module                                                                                            | Package |
+| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `LocaleMixin` | LocaleMixin | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/mixins/locale-mixin.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/mixins/observe-attributes-mixin.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/mixins/observe-attributes-mixin.ts`:
 
 ## mixin: `ObserveAttributesMixin`
 
@@ -7015,11 +7015,11 @@
 
 ## Exports
 
-| Kind | Name                     | Declaration            | Module                                                                                                         | Package |
-| ---- | ------------------------ | ---------------------- | -------------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ObserveAttributesMixin` | ObserveAttributesMixin | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/mixins/observe-attributes-mixin.ts |         |
+| Kind | Name                     | Declaration            | Module                                                                                                        | Package |
+| ---- | ------------------------ | ---------------------- | ------------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ObserveAttributesMixin` | ObserveAttributesMixin | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/mixins/observe-attributes-mixin.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/path.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/path.ts`:
 
 ## Functions
 
@@ -7034,14 +7034,14 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                              | Package |
-| ---- | ----------------- | --------------- | ----------------------------------------------------------------------------------- | ------- |
-| `js` | `getNameByPath`   | getNameByPath   | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/path.ts |         |
-| `js` | `getStringByPath` | getStringByPath | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/path.ts |         |
-| `js` | `getValueByPath`  | getValueByPath  | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/path.ts |         |
-| `js` | `setValueByPath`  | setValueByPath  | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/path.ts |         |
+| Kind | Name              | Declaration     | Module                                                                             | Package |
+| ---- | ----------------- | --------------- | ---------------------------------------------------------------------------------- | ------- |
+| `js` | `getNameByPath`   | getNameByPath   | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/path.ts |         |
+| `js` | `getStringByPath` | getStringByPath | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/path.ts |         |
+| `js` | `getValueByPath`  | getValueByPath  | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/path.ts |         |
+| `js` | `setValueByPath`  | setValueByPath  | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/path.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/popover.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/popover.ts`:
 
 ## Functions
 
@@ -7054,12 +7054,12 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                                 | Package |
-| ---- | ----------------- | --------------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `isPopoverOpen`   | isPopoverOpen   | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/popover.ts |         |
-| `js` | `positionPopover` | positionPopover | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/popover.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                | Package |
+| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `isPopoverOpen`   | isPopoverOpen   | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/popover.ts |         |
+| `js` | `positionPopover` | positionPopover | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/popover.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/string.ts`:
 
 ## Functions
 
@@ -7077,17 +7077,17 @@
 
 ## Exports
 
-| Kind | Name         | Declaration | Module                                                                                | Package |
-| ---- | ------------ | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `camelize`   | camelize    | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
-| `js` | `capitalize` | capitalize  | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
-| `js` | `classify`   | classify    | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
-| `js` | `dasherize`  | dasherize   | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
-| `js` | `decamelize` | decamelize  | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
-| `js` | `humanize`   | humanize    | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
-| `js` | `underscore` | underscore  | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
+| Kind | Name         | Declaration | Module                                                                               | Package |
+| ---- | ------------ | ----------- | ------------------------------------------------------------------------------------ | ------- |
+| `js` | `camelize`   | camelize    | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/string.ts |         |
+| `js` | `capitalize` | capitalize  | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/string.ts |         |
+| `js` | `classify`   | classify    | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/string.ts |         |
+| `js` | `dasherize`  | dasherize   | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/string.ts |         |
+| `js` | `decamelize` | decamelize  | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/string.ts |         |
+| `js` | `humanize`   | humanize    | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/string.ts |         |
+| `js` | `underscore` | underscore  | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/string.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/vendor/tinykeys.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/vendor/tinykeys.ts`:
 
 ## Functions
 
@@ -7101,21 +7101,21 @@
 
 ## Exports
 
-| Kind | Name                       | Declaration              | Module                                                                                         | Package |
-| ---- | -------------------------- | ------------------------ | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `parseKeybinding`          | parseKeybinding          | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/vendor/tinykeys.ts |         |
-| `js` | `createKeybindingsHandler` | createKeybindingsHandler | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/vendor/tinykeys.ts |         |
-| `js` | `tinykeys`                 | tinykeys                 | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/vendor/tinykeys.ts |         |
+| Kind | Name                       | Declaration              | Module                                                                                        | Package |
+| ---- | -------------------------- | ------------------------ | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `parseKeybinding`          | parseKeybinding          | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/vendor/tinykeys.ts |         |
+| `js` | `createKeybindingsHandler` | createKeybindingsHandler | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/vendor/tinykeys.ts |         |
+| `js` | `tinykeys`                 | tinykeys                 | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/vendor/tinykeys.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/skeleton/src/skeleton.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/skeleton/src/skeleton.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/skeleton/src/skeleton.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/skeleton/src/skeleton.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/skeleton/src/skeleton.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/skeleton/src/skeleton.ts`:
 
 ## class: `Skeleton`, `sl-skeleton`
 
@@ -7143,19 +7143,19 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                    | Package |
-| ---- | ---------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `Skeleton` | Skeleton    | /Users/diana.broeders/Projects/design-system/packages/components/skeleton/src/skeleton.ts |         |
+| Kind | Name       | Declaration | Module                                                                                   | Package |
+| ---- | ---------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `Skeleton` | Skeleton    | /Users/anna.sobczak/IdeaProjects/components/packages/components/skeleton/src/skeleton.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/spinner/src/spinner.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/spinner/src/spinner.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/spinner/src/spinner.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                      | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/spinner/src/spinner.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/spinner/src/spinner.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/spinner/src/spinner.ts`:
 
 ## class: `Spinner`, `sl-spinner`
 
@@ -7187,19 +7187,19 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                  | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `Spinner` | Spinner     | /Users/diana.broeders/Projects/design-system/packages/components/spinner/src/spinner.ts |         |
+| Kind | Name      | Declaration | Module                                                                                 | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `Spinner` | Spinner     | /Users/anna.sobczak/IdeaProjects/components/packages/components/spinner/src/spinner.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/switch/src/switch.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/switch/src/switch.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                     | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/switch/src/switch.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                    | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/switch/src/switch.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/switch/src/switch.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/switch/src/switch.ts`:
 
 ## class: `Switch`, `sl-switch`
 
@@ -7295,19 +7295,19 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `Switch` | Switch      | /Users/diana.broeders/Projects/design-system/packages/components/switch/src/switch.ts |         |
+| Kind | Name     | Declaration | Module                                                                               | Package |
+| ---- | -------- | ----------- | ------------------------------------------------------------------------------------ | ------- |
+| `js` | `Switch` | Switch      | /Users/anna.sobczak/IdeaProjects/components/packages/components/switch/src/switch.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab-group.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tabs/src/tab-group.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                      | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab-group.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                     | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/tabs/src/tab-group.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab-group.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tabs/src/tab-group.ts`:
 
 ## class: `TabGroup`, `sl-tab-group`
 
@@ -7373,20 +7373,20 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                 | Package |
-| ---- | ------------------ | ---------------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlTabChangeEvent` | SlTabChangeEvent | /Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab-group.ts |         |
-| `js` | `TabGroup`         | TabGroup         | /Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab-group.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                | Package |
+| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlTabChangeEvent` | SlTabChangeEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/tabs/src/tab-group.ts |         |
+| `js` | `TabGroup`         | TabGroup         | /Users/anna.sobczak/IdeaProjects/components/packages/components/tabs/src/tab-group.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab-panel.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tabs/src/tab-panel.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                      | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab-panel.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                     | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/tabs/src/tab-panel.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab-panel.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tabs/src/tab-panel.ts`:
 
 ## class: `TabPanel`, `sl-tab-panel`
 
@@ -7406,19 +7406,19 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                 | Package |
-| ---- | ---------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `TabPanel` | TabPanel    | /Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab-panel.ts |         |
+| Kind | Name       | Declaration | Module                                                                                | Package |
+| ---- | ---------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `TabPanel` | TabPanel    | /Users/anna.sobczak/IdeaProjects/components/packages/components/tabs/src/tab-panel.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tabs/src/tab.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                               | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/tabs/src/tab.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tabs/src/tab.ts`:
 
 ## class: `Tab`, `sl-tab`
 
@@ -7457,19 +7457,19 @@
 
 ## Exports
 
-| Kind | Name  | Declaration | Module                                                                           | Package |
-| ---- | ----- | ----------- | -------------------------------------------------------------------------------- | ------- |
-| `js` | `Tab` | Tab         | /Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab.ts |         |
+| Kind | Name  | Declaration | Module                                                                          | Package |
+| ---- | ----- | ----------- | ------------------------------------------------------------------------------- | ------- |
+| `js` | `Tab` | Tab         | /Users/anna.sobczak/IdeaProjects/components/packages/components/tabs/src/tab.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tag/src/tag-list.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tag/src/tag-list.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                    | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/tag/src/tag-list.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                   | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/tag/src/tag-list.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tag/src/tag-list.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tag/src/tag-list.ts`:
 
 ## class: `TagList`, `sl-tag-list`
 
@@ -7513,19 +7513,19 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                               | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------ | ------- |
-| `js` | `TagList` | TagList     | /Users/diana.broeders/Projects/design-system/packages/components/tag/src/tag-list.ts |         |
+| Kind | Name      | Declaration | Module                                                                              | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `TagList` | TagList     | /Users/anna.sobczak/IdeaProjects/components/packages/components/tag/src/tag-list.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tag/src/tag.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tag/src/tag.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                               | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/tag/src/tag.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                              | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/tag/src/tag.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tag/src/tag.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tag/src/tag.ts`:
 
 ## class: `Tag`, `sl-tag`
 
@@ -7575,20 +7575,20 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                          | Package |
-| ---- | --------------- | ------------- | ------------------------------------------------------------------------------- | ------- |
-| `js` | `SlRemoveEvent` | SlRemoveEvent | /Users/diana.broeders/Projects/design-system/packages/components/tag/src/tag.ts |         |
-| `js` | `Tag`           | Tag           | /Users/diana.broeders/Projects/design-system/packages/components/tag/src/tag.ts |         |
+| Kind | Name            | Declaration   | Module                                                                         | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------------------------------------ | ------- |
+| `js` | `SlRemoveEvent` | SlRemoveEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/tag/src/tag.ts |         |
+| `js` | `Tag`           | Tag           | /Users/anna.sobczak/IdeaProjects/components/packages/components/tag/src/tag.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/text-area/src/text-area.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/text-area/src/text-area.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/text-area/src/text-area.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                          | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/text-area/src/text-area.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/text-area/src/text-area.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/text-area/src/text-area.ts`:
 
 ## class: `TextArea`, `sl-text-area`
 
@@ -7700,19 +7700,19 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                      | Package |
-| ---- | ---------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `TextArea` | TextArea    | /Users/diana.broeders/Projects/design-system/packages/components/text-area/src/text-area.ts |         |
+| Kind | Name       | Declaration | Module                                                                                     | Package |
+| ---- | ---------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `TextArea` | TextArea    | /Users/anna.sobczak/IdeaProjects/components/packages/components/text-area/src/text-area.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/text-field/src/field-button.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/text-field/src/field-button.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/text-field/src/field-button.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                              | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/text-field/src/field-button.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/text-field/src/field-button.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/text-field/src/field-button.ts`:
 
 ## class: `FieldButton`, `sl-field-button`
 
@@ -7746,19 +7746,19 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                                          | Package |
-| ---- | ------------- | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `FieldButton` | FieldButton | /Users/diana.broeders/Projects/design-system/packages/components/text-field/src/field-button.ts |         |
+| Kind | Name          | Declaration | Module                                                                                         | Package |
+| ---- | ------------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `FieldButton` | FieldButton | /Users/anna.sobczak/IdeaProjects/components/packages/components/text-field/src/field-button.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/text-field/src/text-field.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/text-field/src/text-field.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                             | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/text-field/src/text-field.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                            | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/text-field/src/text-field.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/text-field/src/text-field.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/text-field/src/text-field.ts`:
 
 ## class: `TextField`, `sl-text-field`
 
@@ -7885,19 +7885,19 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                                        | Package |
-| ---- | ----------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
-| `js` | `TextField` | TextField   | /Users/diana.broeders/Projects/design-system/packages/components/text-field/src/text-field.ts |         |
+| Kind | Name        | Declaration | Module                                                                                       | Package |
+| ---- | ----------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `TextField` | TextField   | /Users/anna.sobczak/IdeaProjects/components/packages/components/text-field/src/text-field.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/toggle-button/src/toggle-button.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/toggle-button/src/toggle-button.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                   | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/toggle-button/src/toggle-button.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                  | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/toggle-button/src/toggle-button.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/toggle-button/src/toggle-button.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/toggle-button/src/toggle-button.ts`:
 
 ## class: `ToggleButton`, `sl-toggle-button`
 
@@ -7950,19 +7950,19 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                              | Package |
-| ---- | -------------- | ------------ | --------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ToggleButton` | ToggleButton | /Users/diana.broeders/Projects/design-system/packages/components/toggle-button/src/toggle-button.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                             | Package |
+| ---- | -------------- | ------------ | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ToggleButton` | ToggleButton | /Users/anna.sobczak/IdeaProjects/components/packages/components/toggle-button/src/toggle-button.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/toggle-group/src/toggle-group.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/toggle-group/src/toggle-group.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                 | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/toggle-group/src/toggle-group.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/toggle-group/src/toggle-group.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/toggle-group/src/toggle-group.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/toggle-group/src/toggle-group.ts`:
 
 ## class: `ToggleGroup`, `sl-toggle-group`
 
@@ -8002,19 +8002,19 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                                            | Package |
-| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ToggleGroup` | ToggleGroup | /Users/diana.broeders/Projects/design-system/packages/components/toggle-group/src/toggle-group.ts |         |
+| Kind | Name          | Declaration | Module                                                                                           | Package |
+| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `ToggleGroup` | ToggleGroup | /Users/anna.sobczak/IdeaProjects/components/packages/components/toggle-group/src/toggle-group.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar-divider.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tool-bar/src/tool-bar-divider.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                 | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar-divider.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/tool-bar/src/tool-bar-divider.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar-divider.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tool-bar/src/tool-bar-divider.ts`:
 
 ## class: `ToolBarDivider`, `sl-tool-bar-divider`
 
@@ -8028,19 +8028,19 @@
 
 ## Exports
 
-| Kind | Name             | Declaration    | Module                                                                                            | Package |
-| ---- | ---------------- | -------------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ToolBarDivider` | ToolBarDivider | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar-divider.ts |         |
+| Kind | Name             | Declaration    | Module                                                                                           | Package |
+| ---- | ---------------- | -------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `ToolBarDivider` | ToolBarDivider | /Users/anna.sobczak/IdeaProjects/components/packages/components/tool-bar/src/tool-bar-divider.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tool-bar/src/tool-bar.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/tool-bar/src/tool-bar.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tool-bar/src/tool-bar.ts`:
 
 ## class: `ToolBar`, `sl-tool-bar`
 
@@ -8098,11 +8098,11 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                    | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `ToolBar` | ToolBar     | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar.ts |         |
+| Kind | Name      | Declaration | Module                                                                                   | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `ToolBar` | ToolBar     | /Users/anna.sobczak/IdeaProjects/components/packages/components/tool-bar/src/tool-bar.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tooltip/src/tooltip-directive.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tooltip/src/tooltip-directive.ts`:
 
 ## class: `TooltipDirective`
 
@@ -8140,20 +8140,20 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                            | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `TooltipDirective` | TooltipDirective | /Users/diana.broeders/Projects/design-system/packages/components/tooltip/src/tooltip-directive.ts |         |
-| `js` | `tooltip`          | tooltip          | /Users/diana.broeders/Projects/design-system/packages/components/tooltip/src/tooltip-directive.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                           | Package |
+| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `TooltipDirective` | TooltipDirective | /Users/anna.sobczak/IdeaProjects/components/packages/components/tooltip/src/tooltip-directive.ts |         |
+| `js` | `tooltip`          | tooltip          | /Users/anna.sobczak/IdeaProjects/components/packages/components/tooltip/src/tooltip-directive.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tooltip/src/tooltip.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tooltip/src/tooltip.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/tooltip/src/tooltip.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                      | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/tooltip/src/tooltip.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tooltip/src/tooltip.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tooltip/src/tooltip.ts`:
 
 ## class: `Tooltip`, `sl-tooltip`
 
@@ -8193,19 +8193,19 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                  | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `Tooltip` | Tooltip     | /Users/diana.broeders/Projects/design-system/packages/components/tooltip/src/tooltip.ts |         |
+| Kind | Name      | Declaration | Module                                                                                 | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `Tooltip` | Tooltip     | /Users/anna.sobczak/IdeaProjects/components/packages/components/tooltip/src/tooltip.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tree/src/flat-tree-data-source.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/flat-tree-data-source.ts`:
 
 ## class: `FlatTreeDataSource`
 
 ### Superclass
 
-| Name             | Module                                                                                         | Package |
-| ---------------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `TreeDataSource` | //Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree-data-source.js |         |
+| Name             | Module                                                                                        | Package |
+| ---------------- | --------------------------------------------------------------------------------------------- | ------- |
+| `TreeDataSource` | //Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/tree-data-source.js |         |
 
 ### Fields
 
@@ -8251,19 +8251,19 @@
 
 ## Exports
 
-| Kind | Name                 | Declaration        | Module                                                                                             | Package |
-| ---- | -------------------- | ------------------ | -------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `FlatTreeDataSource` | FlatTreeDataSource | /Users/diana.broeders/Projects/design-system/packages/components/tree/src/flat-tree-data-source.ts |         |
+| Kind | Name                 | Declaration        | Module                                                                                            | Package |
+| ---- | -------------------- | ------------------ | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `FlatTreeDataSource` | FlatTreeDataSource | /Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/flat-tree-data-source.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tree/src/indent-guides.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/indent-guides.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                          | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/tree/src/indent-guides.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/indent-guides.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tree/src/indent-guides.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/indent-guides.ts`:
 
 ## class: `IndentGuides`
 
@@ -8293,19 +8293,19 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                     | Package |
-| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `IndentGuides` | IndentGuides | /Users/diana.broeders/Projects/design-system/packages/components/tree/src/indent-guides.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                    | Package |
+| ---- | -------------- | ------------ | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `IndentGuides` | IndentGuides | /Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/indent-guides.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tree/src/nested-tree-data-source.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/nested-tree-data-source.ts`:
 
 ## class: `NestedTreeDataSource`
 
 ### Superclass
 
-| Name             | Module                                                                                         | Package |
-| ---------------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `TreeDataSource` | //Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree-data-source.js |         |
+| Name             | Module                                                                                        | Package |
+| ---------------- | --------------------------------------------------------------------------------------------- | ------- |
+| `TreeDataSource` | //Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/tree-data-source.js |         |
 
 ### Fields
 
@@ -8351,11 +8351,11 @@
 
 ## Exports
 
-| Kind | Name                   | Declaration          | Module                                                                                               | Package |
-| ---- | ---------------------- | -------------------- | ---------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `NestedTreeDataSource` | NestedTreeDataSource | /Users/diana.broeders/Projects/design-system/packages/components/tree/src/nested-tree-data-source.ts |         |
+| Kind | Name                   | Declaration          | Module                                                                                              | Package |
+| ---- | ---------------------- | -------------------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `NestedTreeDataSource` | NestedTreeDataSource | /Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/nested-tree-data-source.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree-data-source.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/tree-data-source.ts`:
 
 ## class: `TreeDataSource`
 
@@ -8403,19 +8403,19 @@
 
 ## Exports
 
-| Kind | Name             | Declaration    | Module                                                                                        | Package |
-| ---- | ---------------- | -------------- | --------------------------------------------------------------------------------------------- | ------- |
-| `js` | `TreeDataSource` | TreeDataSource | /Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree-data-source.ts |         |
+| Kind | Name             | Declaration    | Module                                                                                       | Package |
+| ---- | ---------------- | -------------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `TreeDataSource` | TreeDataSource | /Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/tree-data-source.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree-node.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/tree-node.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                      | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree-node.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                     | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/tree-node.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree-node.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/tree-node.ts`:
 
 ## class: `TreeNode`
 
@@ -8482,19 +8482,19 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                 | Package |
-| ---- | ---------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `TreeNode` | TreeNode    | /Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree-node.ts |         |
+| Kind | Name       | Declaration | Module                                                                                | Package |
+| ---- | ---------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `TreeNode` | TreeNode    | /Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/tree-node.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree.scss.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/tree.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                 | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/tree.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/tree.ts`:
 
 ## class: `Tree`, `sl-tree`
 
@@ -8546,6 +8546,6 @@
 
 ## Exports
 
-| Kind | Name   | Declaration | Module                                                                            | Package |
-| ---- | ------ | ----------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `Tree` | Tree        | /Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree.ts |         |
+| Kind | Name   | Declaration | Module                                                                           | Package |
+| ---- | ------ | ----------- | -------------------------------------------------------------------------------- | ------- |
+| `js` | `Tree` | Tree        | /Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/tree.ts |         |

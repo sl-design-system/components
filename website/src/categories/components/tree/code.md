@@ -2,8 +2,8 @@
 title: Tree code
 tags: code
 APIdescription: {
-  sl-tag: "Tree has a range of properties to define the experience in different use cases.",
-  sl-tag-list: "Tree list component provides properties to define the experience in different use cases, and it is a kind of wrapper for multiple tags."
+  sl-tree: "Tree has a range of properties to define the experience in different use cases.",
+  sl-tree-node: "Tree list component provides properties to define the experience in different use cases, and it is a kind of wrapper for multiple tags."
 }
 eleventyNavigation:
   parent: Tree
@@ -43,5 +43,5 @@ eleventyNavigation:
 </div>
 
 </section>
-<ds-install-info link-in-navigation package="tag"></ds-install-info>
+<ds-install-info link-in-navigation package="tree"></ds-install-info>
 {% include "../component-table.njk" %}

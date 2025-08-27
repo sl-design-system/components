@@ -1,0 +1,19 @@
+{
+  "layout": "categories/components/components.njk",
+  "tags": "tag",
+  "componentStatus": "draft",
+  "componentTagName": [
+    {
+      "name": "Tree",
+      "selector": "sl-tree"
+    },
+    {
+      "name": "Tree node",
+      "selector": "sl-tree-node"
+    },
+    {
+      "name": "Tree data source",
+      "selector": "sl-tree-data-source"
+    }
+  ]
+}

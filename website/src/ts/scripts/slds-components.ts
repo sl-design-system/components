@@ -51,6 +51,7 @@ import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/card/register.js';
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/combobox/register.js';
+import '@sl-design-system/data-source';
 import '@sl-design-system/dialog/register.js';
 import '@sl-design-system/drawer/register.js';
 import '@sl-design-system/editor/register.js';
@@ -80,6 +81,8 @@ import '@sl-design-system/text-field/register.js';
 import '@sl-design-system/toggle-button/register.js';
 import '@sl-design-system/toggle-group/register.js';
 import '@sl-design-system/tooltip/register.js';
+import { FlatTreeDataSource } from '@sl-design-system/tree';
+import '@sl-design-system/tree/register.js';
 
 setup();
 
@@ -127,8 +130,10 @@ Icon.register(
 declare global {
   interface Window {
     MessageDialog: typeof MessageDialog;
+    FlatTreeDataSource: typeof FlatTreeDataSource;
   }
 }
 
 // This is a hack so we can access the MessageDialog class from markdown files
 window.MessageDialog = MessageDialog;
+window.FlatTreeDataSource = FlatTreeDataSource;

@@ -56,6 +56,19 @@ describe('sl-number-field', () => {
 
       expect(el).to.have.attribute('readonly');
     });
+
+    it('should format the value on blur', async () => {
+      el.input.focus();
+      await sendKeys({ type: '1000' });
+      await el.updateComplete;
+
+      expect(el.input.value).to.equal('1000');
+
+      el.input.blur();
+      await el.updateComplete;
+
+      expect(el.input.value).to.equal('1,000');
+    });
   });
 
   describe('with value', () => {
@@ -136,8 +149,12 @@ describe('sl-number-field', () => {
     });
 
     it('should indicate a custom error when the value is not a valid number', async () => {
-      el.focus();
+      el.input.focus();
       await sendKeys({ type: 'asdf' });
+      await el.updateComplete;
+
+      el.input.blur();
+      await el.updateComplete;
 
       expect(el.validationMessage).to.equal('Please enter a valid number.');
       expect(input.matches(':invalid')).to.be.true;
@@ -314,13 +331,19 @@ describe('sl-number-field', () => {
       el = await fixture(html`<sl-number-field></sl-number-field>`);
     });
 
-    it('should validate the value on input', async () => {
+    it('should validate the value on blur', async () => {
       spy(el, 'setCustomValidity');
 
-      el.focus();
+      el.input.focus();
       await sendKeys({ type: 'as' });
+      await el.updateComplete;
 
-      expect(el.setCustomValidity).to.have.been.calledTwice;
+      expect(el.setCustomValidity).to.not.have.been.called;
+
+      el.input.blur();
+      await el.updateComplete;
+
+      expect(el.setCustomValidity).to.have.been.calledOnce;
     });
 
     it('should toggle the validation message when the number becomes (in)valid', async () => {
@@ -329,8 +352,10 @@ describe('sl-number-field', () => {
 
       expect(el.validationMessage).to.equal('Please enter a valid number.');
 
-      el.focus();
+      el.input.focus();
       await sendKeys({ type: '123' });
+      el.input.blur();
+      await el.updateComplete;
 
       expect(el.validationMessage).to.equal('');
     });

@@ -1,10 +1,15 @@
 import { faBurst } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
+import '@sl-design-system/combobox/register.js';
+import '@sl-design-system/date-field/register.js';
 import '@sl-design-system/form/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
+import '@sl-design-system/listbox/register.js';
 import { FormInDialog } from '@sl-design-system/lit-examples';
+import '@sl-design-system/popover/register.js';
+import '@sl-design-system/select/register.js';
 import '@sl-design-system/text-area/register.js';
 import '@sl-design-system/text-field/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
@@ -227,6 +232,110 @@ export const All: Story = {
         <sl-button slot="primary-actions" sl-dialog-close autofocus>Cancel</sl-button>
         <sl-button slot="primary-actions" variant="primary" sl-dialog-close>Action</sl-button>
       </sl-dialog>
+    `;
+  }
+};
+
+export const DialogWithOverlayComponents: Story = {
+  render: () => {
+    const onClick = async (event: Event & { target: HTMLElement }) => {
+      const dialog = document.createElement('sl-dialog');
+
+      const onClickPopover = (): void => {
+        const popover = document.getElementById('popover-example') as HTMLElement & { togglePopover(): void };
+        popover?.togglePopover();
+      };
+
+      const hidePopover = (): void => {
+        const popover = document.getElementById('popover-example') as HTMLElement & { togglePopover(): void };
+        popover?.hidePopover();
+      };
+
+      dialog.innerHTML = `
+        <span slot="title">Dialog with overlay components</span>
+        <div class="container">
+          This dialog should not close when any overlay component is closed using the Escape key.
+
+          <sl-date-field autofocus select-only placeholder="Choose a date" style="width: fit-content"> </sl-date-field>
+
+          <sl-select placeholder="Select an option">
+            <sl-option value="1">Option 1</sl-option>
+            <sl-option value="2">Option 2</sl-option>
+            <sl-option value="3">Option 3</sl-option>
+            <sl-option value="3">Option 4</sl-option>
+            <sl-option value="3">Option 5</sl-option>
+          </sl-select>
+
+          <sl-combobox multiple value='["0","2"]'>
+            <sl-listbox>
+              <sl-option value="0">Mathematics</sl-option>
+              <sl-option value="1">Geography</sl-option>
+              <sl-option value="2">Physics</sl-option>
+              <sl-option value="3">History</sl-option>
+              <sl-option value="4">Biology</sl-option>
+              <sl-option value="4">Art</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+
+          <sl-button id="anchor" variant="primary">Show definition</sl-button>
+          <sl-popover id="popover-example" anchor="anchor">
+            <header style="font-size: 1.1em; padding-block-end: 1rem;">Word Definition</header>
+            <section style="padding-block-end: 1rem;">
+              <strong>Photosynthesis</strong> is the process by which green plants and some other organisms <br/>
+               use sunlight to synthesize foods from carbon dioxide and water.
+            </section>
+            <footer>
+              <sl-button id="closeButton" size="sm" variant="primary">Got it</sl-button>
+            </footer>
+          </sl-popover>
+
+          <sl-menu-button position="bottom">
+            <span slot="button">Actions</span>
+            <sl-menu-item><sl-icon name="smile"></sl-icon>Profile</sl-menu-item>
+            <sl-menu-item><sl-icon name="calendar"></sl-icon>Settings</sl-menu-item>
+            <sl-menu-item><sl-icon name="far-trash"></sl-icon>Remove</sl-menu-item>
+          </sl-menu-button>
+        </div>
+        <sl-button slot="primary-actions" sl-dialog-close variant="primary">Close</sl-button>
+      `;
+
+      dialog.closeButton = true;
+
+      dialog.addEventListener('sl-close', () => {
+        dialog.remove();
+      });
+
+      event.target.insertAdjacentElement('afterend', dialog);
+
+      dialog.querySelector('#anchor')?.addEventListener('click', onClickPopover);
+
+      dialog.querySelector('#closeButton')?.addEventListener('click', hidePopover);
+
+      await dialog.updateComplete;
+
+      dialog.showModal();
+    };
+
+    return html`
+      <style>
+        .container {
+          display: flex;
+          flex-direction: column;
+          gap: 0.8rem;
+          margin-block-end: 0.5rem;
+        }
+
+        section {
+          margin-block-end: 1rem;
+        }
+      </style>
+      <section>
+        This example shows a dialog with overlay components (such as date fields, selects, comboboxes, popovers, and
+        menu buttons). <br />
+        The main purpose is to verify that closing any of these overlay components (for example, by pressing the
+        <code>Escape</code> key) does not accidentally close the parent dialog.
+      </section>
+      <sl-button @click=${onClick}>Open dialog</sl-button>
     `;
   }
 };

@@ -132,6 +132,7 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
       </sl-button>
       <sl-menu
         @click=${this.#onMenuClick}
+        @keydown=${this.#onKeydownMenu}
         @toggle=${this.#onToggle}
         @sl-select=${this.#onSelect}
         .position=${this.position ?? 'bottom-start'}
@@ -147,7 +148,11 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    if (this.#popoverState !== 'open' && event.key === 'ArrowDown') {
+    if (event.key === 'Escape') {
+      // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the menu
+      // does not close parent containers (such as dialogs).
+      event.stopPropagation();
+    } else if (this.#popoverState !== 'open' && event.key === 'ArrowDown') {
       this.menu.showPopover();
       this.menu.focus();
     } else {
@@ -158,6 +163,14 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
       } else if (actualPlacement?.startsWith('bottom') && event.key === 'ArrowDown') {
         this.menu.focus();
       }
+    }
+  }
+
+  #onKeydownMenu(event: KeyboardEvent): void {
+    if (event.key === 'Escape') {
+      // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the menu
+      // does not close parent containers (such as dialogs).
+      event.stopPropagation();
     }
   }
 

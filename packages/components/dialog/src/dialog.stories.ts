@@ -238,16 +238,8 @@ export const All: Story = {
 
 export const DialogWithOverlayComponents: Story = {
   render: () => {
-    // const onClickPopover = (event: Event & { target: HTMLElement }): void => {
-    //   (event.target.nextElementSibling as HTMLElement).togglePopover();
-    // };
-
     const onClick = async (event: Event & { target: HTMLElement }) => {
       const dialog = document.createElement('sl-dialog');
-
-      // const onClickPopover = (event: Event & { target: HTMLElement }): void => {
-      //   (event.target.nextElementSibling as HTMLElement).togglePopover();
-      // };
 
       const onClickPopover = (): void => {
         const popover = document.getElementById('popover-example') as HTMLElement & { togglePopover(): void };
@@ -255,10 +247,11 @@ export const DialogWithOverlayComponents: Story = {
       };
 
       dialog.innerHTML = `
-        <span slot="title">Dialog with a date field</span>
+        <span slot="title">Dialog with overlay components</span>
         <div class="container">
-          This dialog should not be closed when the date picker is closed.
-          <sl-date-field autofocus select-only placeholder="this is a date field in the dialog" style="width: fit-content"> </sl-date-field>
+          This dialog should not close when any overlay component is closed using the Escape key.
+
+          <sl-date-field autofocus select-only placeholder="Choose a date" style="width: fit-content"> </sl-date-field>
 
           <sl-select placeholder="Select an option">
             <sl-option value="1">Option 1</sl-option>
@@ -268,29 +261,33 @@ export const DialogWithOverlayComponents: Story = {
             <sl-option value="3">Option 5</sl-option>
           </sl-select>
 
-          <sl-combobox multiple style="inline-size: min(100%, 500px)" value='["0","1"]'>
+          <sl-combobox multiple value='["0","2"]'>
             <sl-listbox>
               <sl-option value="0">Mathematics</sl-option>
               <sl-option value="1">Geography</sl-option>
               <sl-option value="2">Physics</sl-option>
               <sl-option value="3">History</sl-option>
+              <sl-option value="4">Biology</sl-option>
+              <sl-option value="4">Art</sl-option>
             </sl-listbox>
           </sl-combobox>
 
-          <sl-button id="anchor" variant="primary">Toggle popover</sl-button>
+          <sl-button id="anchor" variant="primary">Show definition</sl-button>
           <sl-popover id="popover-example" anchor="anchor">
-            <header style="block-size: 2rem;">Please confirm</header>
-            <section style="block-size: 2rem;">Are you sure you want to continue?</section>
+            <header style="font-size: 1.1em; padding-block-end: 1rem;">Word Definition</header>
+            <section style="padding-block-end: 1rem;">
+              <strong>Photosynthesis</strong> is the process by which green plants and some other organisms <br/>
+               use sunlight to synthesize foods from carbon dioxide and water.
+            </section>
             <footer>
-              <sl-button size="sm">Cancel</sl-button>
-              <sl-button size="sm" variant="primary">Confirm</sl-button>
+              <sl-button size="sm" variant="primary">Got it</sl-button>
             </footer>
           </sl-popover>
 
           <sl-menu-button position="bottom">
             <span slot="button">Actions</span>
             <sl-menu-item><sl-icon name="smile"></sl-icon>Profile</sl-menu-item>
-            <sl-menu-item><sl-icon name="far-gear"></sl-icon>Settings</sl-menu-item>
+            <sl-menu-item><sl-icon name="calendar"></sl-icon>Settings</sl-menu-item>
             <sl-menu-item><sl-icon name="far-trash"></sl-icon>Remove</sl-menu-item>
           </sl-menu-button>
         </div>
@@ -300,8 +297,7 @@ export const DialogWithOverlayComponents: Story = {
       dialog.closeButton = true;
 
       dialog.addEventListener('sl-close', () => {
-        console.log('remove dialog in the story', event, event.target);
-        // dialog.remove();
+        dialog.remove();
       });
 
       event.target.insertAdjacentElement('afterend', dialog);
@@ -321,7 +317,17 @@ export const DialogWithOverlayComponents: Story = {
           gap: 0.8rem;
           margin-block-end: 0.5rem;
         }
+
+        section {
+          margin-block-end: 1rem;
+        }
       </style>
+      <section>
+        This example shows a dialog with overlay components (such as date fields, selects, comboboxes, popovers, and
+        menu buttons). <br />
+        The main purpose is to verify that closing any of these overlay components (for example, by pressing the
+        <code>Escape</code> key) does not accidentally close the parent dialog.
+      </section>
       <sl-button @click=${onClick}>Open dialog</sl-button>
     `;
   }

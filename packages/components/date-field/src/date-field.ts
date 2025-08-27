@@ -118,7 +118,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /**
    * Whether the component is select only. This means you cannot type in the text field,
-   * but you can still pick a date via de popover.
+   * but you can still pick a date via the popover.
    * @default false
    */
   @property({ type: Boolean, reflect: true, attribute: 'select-only' }) selectOnly?: boolean;
@@ -231,6 +231,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         })}
         @beforetoggle=${this.#onBeforeToggle}
         @toggle=${this.#onToggle}
+        @keydown=${this.#onKeydown}
         name="calendar"
         part="wrapper"
         popover
@@ -335,5 +336,13 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     // Trigger a rerender so the calendar will be rendered
     this.requestUpdate();
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape') {
+      // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the date field
+      // does not close parent containers (such as dialogs).
+      event.stopPropagation();
+    }
   }
 }

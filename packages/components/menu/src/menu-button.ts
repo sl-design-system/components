@@ -148,7 +148,7 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    if (event.code === 'Escape') {
+    if (event.key === 'Escape') {
       // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the menu
       // does not close parent containers (such as dialogs).
       event.stopPropagation();
@@ -167,7 +167,7 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
   }
 
   #onKeydownMenu(event: KeyboardEvent): void {
-    if (event.code === 'Escape') {
+    if (event.key === 'Escape') {
       // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the menu
       // does not close parent containers (such as dialogs).
       event.stopPropagation();

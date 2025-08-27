@@ -142,7 +142,7 @@ describe('sl-dialog', () => {
       expect(onCancel).to.have.been.calledOnce;
     });
 
-    it('should only handle backdrop clicks when event.target is an dialog', async () => {
+    it('should only handle backdrop clicks when event.target is a dialog', async () => {
       stub(dialog, 'getBoundingClientRect').returns({
         top: 400,
         right: 1400,

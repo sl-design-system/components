@@ -139,7 +139,7 @@ export class Menu extends LitElement {
 
     const placement = this.getAttribute('actual-placement');
 
-    if (event.code === 'Escape') {
+    if (event.key === 'Escape') {
       // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the menu
       // does not close parent containers (such as dialogs).
       event.stopPropagation();

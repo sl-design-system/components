@@ -231,7 +231,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         })}
         @beforetoggle=${this.#onBeforeToggle}
         @toggle=${this.#onToggle}
-        @keydown=${(event: KeyboardEvent) => this.#onKeydown(event)}
+        @keydown=${this.#onKeydown}
         name="calendar"
         part="wrapper"
         popover
@@ -339,7 +339,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    if (event.code === 'Escape') {
+    if (event.key === 'Escape') {
       // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the date field
       // does not close parent containers (such as dialogs).
       event.stopPropagation();

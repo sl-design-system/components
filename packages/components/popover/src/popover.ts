@@ -89,7 +89,7 @@ export class Popover extends LitElement {
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    if (event.code === 'Escape') {
+    if (event.key === 'Escape') {
       // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the popover
       // does not close parent containers (such as dialogs).
       event.stopPropagation();

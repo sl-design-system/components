@@ -246,6 +246,11 @@ export const DialogWithOverlayComponents: Story = {
         popover?.togglePopover();
       };
 
+      const hidePopover = (): void => {
+        const popover = document.getElementById('popover-example') as HTMLElement & { togglePopover(): void };
+        popover?.hidePopover();
+      };
+
       dialog.innerHTML = `
         <span slot="title">Dialog with overlay components</span>
         <div class="container">
@@ -280,7 +285,7 @@ export const DialogWithOverlayComponents: Story = {
                use sunlight to synthesize foods from carbon dioxide and water.
             </section>
             <footer>
-              <sl-button size="sm" variant="primary">Got it</sl-button>
+              <sl-button id="closeButton" size="sm" variant="primary">Got it</sl-button>
             </footer>
           </sl-popover>
 
@@ -303,6 +308,8 @@ export const DialogWithOverlayComponents: Story = {
       event.target.insertAdjacentElement('afterend', dialog);
 
       dialog.querySelector('#anchor')?.addEventListener('click', onClickPopover);
+
+      dialog.querySelector('#closeButton')?.addEventListener('click', hidePopover);
 
       await dialog.updateComplete;
 

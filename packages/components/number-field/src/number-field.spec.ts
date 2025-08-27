@@ -71,6 +71,32 @@ describe('sl-number-field', () => {
       expect(input.value).to.equal('15');
     });
 
+    it('should emit an sl-change event when typing in the input', async () => {
+      const input = el.querySelector('input')!;
+      const onInput = spy();
+
+      el.addEventListener('sl-change', onInput);
+      input.focus();
+      await sendKeys({ type: '15' });
+      input.blur();
+      await el.updateComplete;
+
+      expect(onInput.callCount).to.equal(1);
+    });
+
+    it('should emit an sl-validate event when typing in the input', async () => {
+      const input = el.querySelector('input')!;
+      const onInput = spy();
+
+      el.addEventListener('sl-validate', onInput);
+      input.focus();
+      await sendKeys({ type: '15' });
+      input.blur();
+      await el.updateComplete;
+
+      expect(onInput.callCount).to.equal(1);
+    });
+
     it('should be valid with a valid value', () => {
       expect(el.valid).to.be.true;
     });

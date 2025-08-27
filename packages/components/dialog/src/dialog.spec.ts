@@ -213,8 +213,6 @@ describe('sl-dialog', () => {
       stub(clickEvent, 'clientY').value(100);
       dialog.dispatchEvent(clickEvent);
 
-      // Using `oneEvent` https://open-wc.org/docs/testing/helpers/#testing-events
-      // instead of `await new Promise(resolve => setTimeout(resolve))`
       // ensures the test waits for the actual 'sl-close' event to be emitted by the component, rather than relying on a timeout.
       await oneEvent(el, 'sl-close', false);
       await el.updateComplete;
@@ -228,8 +226,6 @@ describe('sl-dialog', () => {
       el.addEventListener('sl-close', onClose);
       el.renderRoot.querySelector<Button>('sl-button[aria-label="Close"]')?.click();
 
-      // Using `oneEvent` https://open-wc.org/docs/testing/helpers/#testing-events
-      // instead of `await new Promise(resolve => setTimeout(resolve))`
       // ensures the test waits for the actual 'sl-close' event to be emitted by the component, rather than relying on a timeout.
       await oneEvent(el, 'sl-close', false);
 

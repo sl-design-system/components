@@ -13,8 +13,8 @@
   flex: 1;
   max-inline-size: 100%;
   min-inline-size: 0;
-  outline: transparent solid var(--sl-size-borderWidth-focusRing);
-  outline-offset: var(--sl-space-offset-focused);
+  outline: transparent solid var(--sl-size-outlineWidth-default);
+  outline-offset: var(--sl-size-outlineOffset-default);
   padding-inline-end: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default));
 
   @media (prefers-reduced-motion: no-preference) {

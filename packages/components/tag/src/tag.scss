@@ -10,8 +10,8 @@
   color: var(--sl-color-foreground-neutral-bold);
   display: inline-flex;
   max-inline-size: 100%;
-  outline: transparent solid var(--sl-size-borderWidth-focusRing);
-  outline-offset: var(--sl-space-offset-focused);
+  outline: transparent solid var(--sl-size-outlineWidth-default);
+  outline-offset: var(--sl-size-outlineOffset-default);
   overflow: hidden;
   vertical-align: middle;
 

@@ -336,7 +336,7 @@ td {
   display: inline-flex;
   flex-shrink: 0;
   overflow: clip;
-  overflow-clip-margin: border-box calc(var(--sl-space-offset-focused) + var(--sl-size-borderWidth-focusRing));
+  overflow-clip-margin: border-box calc(var(--sl-size-outlineOffset-default) + var(--sl-size-outlineWidth-default));
 }
 
 th {
@@ -472,8 +472,8 @@ a[class^='skip-link'] {
 
   &:focus {
     opacity: 1;
-    outline: var(--sl-color-border-focused) solid var(--sl-size-borderWidth-focusRing);
-    outline-offset: var(--sl-space-offset-focused);
+    outline: var(--sl-color-border-focused) solid var(--sl-size-outlineWidth-default);
+    outline-offset: var(--sl-size-outlineOffset-default);
     pointer-events: auto;
     z-index: 2; // the positioning of the skip link is relative to the table, so we need to ensure it is above the table
   }

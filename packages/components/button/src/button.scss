@@ -14,8 +14,8 @@
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
   gap: var(--sl-size-075);
   justify-content: center;
-  outline: transparent solid var(--sl-size-borderWidth-focusRing);
-  outline-offset: var(--sl-space-offset-focused);
+  outline: transparent solid var(--sl-size-outlineWidth-default);
+  outline-offset: var(--sl-size-outlineOffset-default);
   padding: calc(var(--sl-size-100) - var(--sl-size-borderWidth-action))
     calc(var(--sl-size-200) - var(--sl-size-borderWidth-action));
   user-select: none;

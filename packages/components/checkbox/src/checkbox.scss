@@ -152,8 +152,8 @@
   display: inline-flex;
   flex-shrink: 0;
   justify-content: center;
-  outline: transparent solid var(--sl-size-borderWidth-focusRing);
-  outline-offset: var(--sl-space-offset-focused);
+  outline: transparent solid var(--sl-size-outlineWidth-default);
+  outline-offset: var(--sl-size-outlineOffset-default);
 }
 
 [part='label'] {

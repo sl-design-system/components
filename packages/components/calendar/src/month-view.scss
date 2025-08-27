@@ -18,8 +18,8 @@ button {
   color: var(--sl-color-foreground-plain);
   cursor: pointer;
   font: inherit;
-  outline: transparent solid var(--sl-size-borderWidth-focusRing);
-  outline-offset: var(--sl-space-offset-focused);
+  outline: transparent solid var(--sl-size-outlineWidth-default);
+  outline-offset: var(--sl-size-outlineOffset-default);
   padding: 0;
 
   @media (prefers-reduced-motion: no-preference) {

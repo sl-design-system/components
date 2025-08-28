@@ -96,12 +96,23 @@ A node nested under a parent node, typically hidden until the parent is expanded
 
 <section>
 
-## Options
-FIGMA_OPTIONS_INTRODUCTION
+## Figma Options
+With these options, you can tweak the appearance of the Tree in Figma. They are available in the Design Panel so you can compose the switch to exactly fit the user experience need for the use case you are working on.
 
 |Item|Options|Description|
 |-|-|-|
-|PROP|`'on', 'of'`|PROPERTY DESCRIPTION |
+|Variant|`'Child', 'Parent'`|Defines whether the node behaves as a parent with expandable content or a child item.|
+|Expanded|`'on', 'off'`|Toggles whether the parent node is expanded to show its children.|
+|Multiselect|`'on', 'off'`|Enables the ability to select multiple nodes at once.|
+|Selected|`'on', 'off'`|Indicates whether the node is currently selected.|
+|Node Label|`Text`|The text label displayed as the node’s title.|
+|Icon|`'on', 'off'`|Shows or hides the icon associated with the node (e.g., folder, file).|
+|showFocus|`'on', 'off'`|Displays a focus ring around the node when active.|
+|Level|`'1' to '6'`|Sets the hierarchy level to control indentation.|
+|hideGuides|`'on', 'off'`|Shows or hides the connector guides between parent and child nodes.|
+|Actions Type|`'Badge', 'Button Bar'`|Toggles additional actions available on the node (e.g., edit, delete).|
+|State|`'idle', 'hover', 'active'`|Represents the interactive state of the node (e.g., default, hover).|
+|Selected|`'on', 'off'`|Indicates if the node is selected in its current state.|
 
 {.ds-table .ds-table-align-top}
 

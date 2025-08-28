@@ -77,9 +77,6 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
 
   /**
    *  The model for the tree.
-   *
-   *  Selection mode is read from `dataSource.selects`
-   *  (`single` | `multiple` | `undefined`).
    *  @type {TreeDataSource<T> | undefined}
    *  */
   @property({ attribute: false })

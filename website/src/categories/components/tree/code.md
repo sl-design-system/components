@@ -40,132 +40,23 @@ eleventyNavigation:
 
 ## Data source and custom rendering
 
-The tree component supports custom rendering of nodes via a `renderer` function.
-This allows you to add custom icons, buttons, or other interactive elements to each node.
-Data source is a kind of utility that adapts your data to the tree's needs.
-Data source is required to provide the tree structure and manage state.
-
-Use a `renderer(node)` to customize each node's content while preserving built\-in selection,
-focus, and keyboard behavior.
-The function receives the node's render data (`id`, `label`, `expanded`, `level`, and selection state)
-and must return a `Node` or `DocumentFragment`.
-
-To place inline actions on the right, assign `slot="actions"` to your controls. Prevent unintended selection or expansion by calling `e.stopPropagation()` in event handlers. Add accessible names with `aria-label`; mark decorative icons with `aria-hidden="true"`.
-
-<div>
-
-For data, `FlatTreeDataSource(items, options)` adapts a flat array to a hierarchical view. 
-
-Provide `getId`, `getLabel`, `getLevel`, `isExpandable`, and optionally `getIcon` and `isExpanded` for initial state.
-
-Configure selection via `selects` \=`single`\|`multiple`\|`none`.
-
-Utility methods `expandAll()` and `collapseAll()` are available.
-
-</div>
-
-```js
-// Minimal example: custom renderer with icon and an inline action
-const dataSource = new FlatTreeDataSource(items, {
-  getId: i => i.id,
-  getLabel: i => i.name,
-  getLevel: i => i.level,
-  isExpandable: i => i.expandable,
-  selects: 'single'
-});
-
-const renderer = node => {
-  const frag = document.createDocumentFragment();
-
-  const icon = document.createElement('sl-icon');
-  icon.name = node.label.includes('.') ? 'far-file-lines' : `far-folder${node.expanded ? '-open' : ''}`;
-  icon.setAttribute('size', 'sm');
-  icon.setAttribute('aria-hidden', 'true');
-  frag.appendChild(icon);
-
-  const text = document.createElement('span');
-  text.textContent = node.label;
-  frag.appendChild(text);
-
-  const action = document.createElement('sl-button');
-  action.setAttribute('slot', 'actions');
-  action.setAttribute('fill', 'ghost');
-  action.setAttribute('size', 'sm');
-  action.setAttribute('aria-label', 'Rename');
-  action.addEventListener('click', e => e.stopPropagation());
-  const pen = document.createElement('sl-icon');
-  pen.name = 'far-pen';
-  action.appendChild(pen);
-  frag.appendChild(action);
-
-  return frag;
-};
-
-const tree = document.querySelector('sl-tree');
-tree.setAttribute('aria-label', 'Project files');
-tree.dataSource = dataSource;
-tree.renderer = renderer;
-```
+The tree component requires a data source to supply structure and manage state.
+This component provides `FlatTreeDataSource`, which adapts a flat array to a hierarchical view.
 
 **What is a data source?**  
 A data source is the adapter that supplies the tree with items, their stable ids, labels, hierarchy \(via `level`\), expandability, and optional initial expansion/selection. The tree reads from it to render nodes and maintain expansion/selection and keyboard behavior consistently.
+[More information about the **data source** you can find below](#data-source-reference).
 
-**How it is used here**  
-This component provides `FlatTreeDataSource`, which adapts a flat array to a hierarchical view. You provide small callbacks: `getId`, `getLabel`, `getLevel`, `isExpandable` \(optional: `getIcon`, `isExpanded`\). Configure selection with `selects` \= `single`\|`multiple`\|`none`. Utility helpers `expandAll()` and `collapseAll()` are available.
+**What is a renderer function?**  
+The tree component supports custom rendering of nodes via a `renderer` function.
+This allows you to add custom icons, buttons, or other interactive elements to each node.
 
-**Quick start**
-```javascript
-const items = [
-  { id: 0, expandable: true, level: 0, name: 'docs' },
-  { id: 1, expandable: false, level: 1, name: 'README.md' }
-];
-
-const dataSource = new FlatTreeDataSource(items, {
-  getId: i => i.id,
-  getLabel: i => i.name,
-  getLevel: i => i.level,
-  isExpandable: i => i.expandable,
-  // optional:
-  // getIcon: ({ name }, expanded) => name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`,
-  // isExpanded: ({ name }) => name === 'docs',
-  selects: 'single'
-});
-
-const tree = document.querySelector('sl-tree');
-tree.setAttribute('aria-label', 'Project files');
-tree.dataSource = dataSource;
-// optional custom content per node:
-tree.renderer = renderer;
-```
-
-### What parts of the data source does the tree use?
-
-- `id`: Stable, unique key used to track focus, selection, and expanded state. Keep it stable across updates.
-- `label`: Visible text for each node. Also used for typeahead and accessible names.
-- `level`: Zero\-based depth per item. Controls indentation and `aria\-level`.
-- `isExpandable`: Whether a node can expand. Non\-expandable nodes ignore expand toggles.
-- `isExpanded` \(`optional`\): Initial expansion state. User interactions and helpers like `expandAll()`/`collapseAll()` can override it at runtime.
-- `getIcon` \(`optional`\): Returns an icon name when not using a custom `renderer`. If your `renderer` draws its own icon, this value is ignored for that node.
-- `selects`: Selection model \(`single`\|`multiple`\|`none`\) that the tree enforces for keyboard/mouse behavior.
-
-Guidelines:
-- Ensure `id` values are stable so the tree can correctly preserve selection/focus between updates.
-- Provide consistent `level` values; the array should reflect the visual order you expect.
-- When adding inline actions in a custom `renderer`, call `e.stopPropagation()` and set `aria\-label` on controls; mark decorative icons `aria\-hidden="true"`.
-
-```javascript
-// Centralize icons and initial expansion via the data source
-const ds = new FlatTreeDataSource(items, {
-  getId: (i) => i.id,
-  getLabel: (i) => i.name,
-  getLevel: (i) => i.level,
-  isExpandable: (i) => i.expandable,
-  isExpanded: (i) => ['docs', 'src'].includes(i.name), // optional initial state
-  getIcon: (i, expanded) =>
-    i.name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`, // optional
-  selects: 'multiple' // or 'single' | 'none'
-});
-```
+Use a `renderer` to customize each node's content while preserving built\-in selection,
+focus, and keyboard behavior.
+The function receives the node's render data (`id`, `label`, `expanded`, `level`, and selection state)
+and must return a `Node` or `DocumentFragment`.
+More information about the `renderer` function is below.
+[More information about the **rendered** function you can find below](#renderer-function).
 
 ### Data source reference
 
@@ -195,41 +86,96 @@ What the tree uses:
 
 Guidelines:
 - Keep `id` values stable between renders.
-- Ensure `level` reflects the visual order \(`0`-based depth\).
-- If you render inline actions, call `e.stopPropagation()` and add `aria-label`s; mark decorative icons with `aria-hidden="true"`.
+- Ensure `level` reflects the visual order (`0`-based depth).
+- If you render inline actions, call `e.stopPropagation()` and add `aria-label`s (to icon-only buttons).
 - Prefer providing icons via `renderer`; when `renderer` is set, `getIcon` is ignored.
 
+### Renderer function
+
+A `renderer(node)` function lets you set how each node looks while keeping the built-in selection, focus, and keyboard features working.
+
+- Function: `renderer(node)` → `Node`|`DocumentFragment`
+- Input `node` fields: `id`, `label`, `level`, `expanded`, and selection state
+- Output: a `Node` or `DocumentFragment` that becomes the node’s content
+
+What the tree uses:
+- Elements with `slot="actions"` are placed on the right as inline actions
+- When a `renderer` is provided, `getIcon` from the data source is ignored for that node
+
+Guidelines:
+- Call `e.stopPropagation()` in inline action handlers to prevent unintended selection/expansion
+- Add accessible names with `aria-label` to icon-only controls
+- Do not mutate `node`; use tree APIs to change selection/expansion
+
+
+#### Below you can find an **tree example** of a `flat data source` and a `custom renderer` function:
+
 ```javascript
+
+<sl-tree aria-label="Project files"></sl-tree>
+
+<script>
+// Flat data example
+const flatData = [
+  { id: 0, expandable: true,  level: 0, name: 'docs' },
+  { id: 1, expandable: false, level: 1, name: 'README.md' },
+  { id: 2, expandable: true,  level: 0, name: 'src' },
+  { id: 3, expandable: false, level: 1, name: 'index.ts' },
+  { id: 4, expandable: false, level: 1, name: 'tree.ts' }
+];
+
 // Build a data source and control expansion
-const ds = new FlatTreeDataSource(items, {
-  getId: i => i.id,
-  getLabel: i => i.name,
-  getLevel: i => i.level,      // 0-based depth in the flat list
-  isExpandable: i => i.expandable,
-  isExpanded: i => ['docs', 'src'].includes(i.name), // optional
+const dataSource = new FlatTreeDataSource(items, {
+  getId: (item) => item.id,
+  getLabel: (item) => item.name,
+  getLevel: (item) => item.level, // 0-based depth in the flat list
+  isExpandable: (item) => item.expandable,
+  isExpanded: (item) => ['docs', 'src'].includes(item.name), // optional
   selects: 'multiple' // or 'single' | 'none'
 });
 
-const tree = document.querySelector('sl-tree');
-tree.setAttribute('aria-label', 'Project files');
-tree.dataSource = ds;
+// Optional custom renderer for each node
+const renderTreeNode = (renderData) => {
+  const fragment = document.createDocumentFragment();
+
+  const icon = document.createElement('sl-icon');
+  icon.name = renderData.label.includes('.')
+    ? 'far-file-lines'
+    : `far-folder${renderData.expanded ? '-open' : ''}`;
+  icon.setAttribute('size', 'sm');
+  fragment.appendChild(icon);
+
+  const label = document.createElement('span');
+  label.textContent = renderData.label;
+  fragment.appendChild(label);
+
+  const renameButton = document.createElement('sl-button');
+  renameButton.setAttribute('slot', 'actions');
+  renameButton.setAttribute('fill', 'ghost');
+  renameButton.setAttribute('size', 'sm');
+  renameButton.setAttribute('aria-label', 'Rename');
+  renameButton.addEventListener('click', (event) => event.stopPropagation());
+  const renameIcon = document.createElement('sl-icon');
+  renameIcon.name = 'far-pen';
+  renameButton.appendChild(renameIcon);
+  fragment.appendChild(renameButton);
+
+  return fragment;
+};
+
+const treeElement = document.querySelector('sl-tree');
+treeElement.dataSource = dataSource;
+treeElement.renderer = renderTreeNode;
 
 // Helpers
-// ds.expandAll();
-// ds.collapseAll();
+// dataSource.expandAll();
+// dataSource.collapseAll();
+
+</script>
 ```
 
 </section>
 {% include "../component-table.njk" %}
-
-Tree component relies on a data source to provide the tree structure and manage state.
-The `FlatTreeDataSource` is a built-in option that works well for many use cases.
-It takes a flat array of items and uses callback functions to extract the necessary information.
-
-
-// Optional helpers:
-// dataSource.expandAll();
-// dataSource.collapseAll();
 
 <script type="module">
 const flatData = [

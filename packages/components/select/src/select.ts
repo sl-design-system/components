@@ -407,6 +407,10 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
       this.#setSelectedOption(event.target);
       this.listbox?.hidePopover();
+    } else if (event.key === 'Escape') {
+      // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the select
+      // does not close parent containers (such as dialogs).
+      event.stopPropagation();
     }
   }
 

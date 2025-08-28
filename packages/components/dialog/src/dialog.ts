@@ -88,8 +88,9 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   @property({ attribute: 'dialog-role' }) dialogRole: 'dialog' | 'alertdialog' = 'dialog';
 
   /**
-   * Disables the ability to cancel the dialog by pressing the Escape key
-   * or clicking on the backdrop.
+   * Disables the ability to cancel the dialog by pressing the Escape key or clicking on the backdrop.
+   * We recommend setting this to true when the dialog contains a form that must be submitted or cancelled,
+   * to prevent accidental closing when clicking on the backdrop.
    * @default false
    */
   @property({ type: Boolean, attribute: 'disable-cancel' }) disableCancel?: boolean;

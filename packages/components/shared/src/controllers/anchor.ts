@@ -31,6 +31,15 @@ export class AnchorController implements ReactiveController {
     }
   };
 
+  #onKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape') {
+      // Prevents the Escape key event from bubbling up,
+      // so that pressing 'Escape' inside the attached element to the anchor
+      // does not close parent containers (such as dialogs).
+      event.stopPropagation();
+    }
+  }
+
   #onToggle = (event: Event): void => {
     const { newState, oldState, target } = event as ToggleEvent & { target: HTMLElement };
 
@@ -86,15 +95,25 @@ export class AnchorController implements ReactiveController {
 
     this.#host?.addEventListener('beforetoggle', this.#onBeforeToggle);
     this.#host?.addEventListener('toggle', this.#onToggle);
+
+    const anchor = this.#getAnchorElement();
+    if (anchor instanceof HTMLElement) {
+      anchor.addEventListener('keydown', this.#onKeydown);
+    }
   }
 
   hostDisconnected(): void {
     this.#host?.removeEventListener('toggle', this.#onToggle);
     this.#host?.removeEventListener('beforetoggle', this.#onBeforeToggle);
 
+    const anchor = this.#getAnchorElement();
+    if (anchor instanceof HTMLElement) {
+      anchor.removeEventListener('keydown', this.#onKeydown);
+      anchor.removeAttribute('aria-expanded');
+      anchor.removeAttribute('popover-opened');
+    }
+
     this.#host.removeAttribute('aria-details');
-    this.#getAnchorElement()?.removeAttribute('aria-expanded');
-    this.#getAnchorElement()?.removeAttribute('popover-opened');
   }
 
   #getAnchorElement(): Element | null {

@@ -155,33 +155,61 @@ export const WeekNumbers: Story = {
 };
 
 export const All: Story = {
-  args: {
-    indicator: [
-      getOffsetDate(0),
-      getOffsetDate(1),
-      getOffsetDate(6),
-      getOffsetDate(-6),
-      getOffsetDate(3),
-      getOffsetDate(8),
-      getOffsetDate(-8)
-    ],
-    negative: [
-      getOffsetDate(2),
-      getOffsetDate(7),
-      getOffsetDate(-7),
-      getOffsetDate(3),
-      getOffsetDate(8),
-      getOffsetDate(-8)
-    ],
-    showToday: true,
-    month: new Date(),
-    max: getOffsetDate(5),
-    min: getOffsetDate(-5)
+  render: () => {
+    const parseDate = (value: string | Date | undefined): Date | undefined => {
+      if (!value) {
+        return undefined;
+      }
+
+      return value instanceof Date ? value : new Date(value);
+    };
+    const getOffsetDate = (offset: number): Date => {
+      const date = new Date();
+      date.setDate(date.getDate() + offset);
+      return date;
+    };
+    const negative = {
+      indicator: [
+        getOffsetDate(0),
+        getOffsetDate(1),
+        getOffsetDate(6),
+        getOffsetDate(-6),
+        getOffsetDate(3),
+        getOffsetDate(8),
+        getOffsetDate(-8)
+      ],
+      negative: [
+        getOffsetDate(2),
+        getOffsetDate(7),
+        getOffsetDate(-7),
+        getOffsetDate(3),
+        getOffsetDate(8),
+        getOffsetDate(-8)
+      ],
+      showToday: true,
+      month: new Date(),
+      max: getOffsetDate(5),
+      min: getOffsetDate(-5)
+    };
+    return html`
+      <sl-calendar
+        show-today="true"
+        show-week-numbers="true"
+        max=${ifDefined(parseDate(negative.max)?.toISOString())}
+        min=${ifDefined(parseDate(negative.min)?.toISOString())}
+        month=${ifDefined(parseDate(negative.month)?.toISOString())}
+        negative=${ifDefined(negative.negative?.map(date => date.toISOString()).join(','))}
+        indicator=${ifDefined(negative.indicator?.map(date => date.toISOString()).join(','))}
+      ></sl-calendar>
+      <sl-calendar
+        show-today="true"
+        show-week-numbers="true"
+        max=${ifDefined(parseDate(negative.max)?.toISOString())}
+        min=${ifDefined(parseDate(negative.min)?.toISOString())}
+        month=${ifDefined(parseDate(negative.month)?.toISOString())}
+        negative=${ifDefined(negative.negative?.map(date => date.toISOString()).join(','))}
+        indicator=${ifDefined(negative.indicator?.map(date => date.toISOString()).join(','))}
+      ></sl-calendar>
+    `;
   }
 };
-
-function getOffsetDate(offset: number): Date {
-  const date = new Date();
-  date.setDate(date.getDate() + offset);
-  return date;
-}

@@ -9,6 +9,7 @@ table {
 td,
 th {
   padding: var(--sl-size-075);
+  position: relative;
 }
 
 button {
@@ -55,7 +56,6 @@ button {
   display: inline-flex;
   inline-size: var(--sl-size-300);
   justify-content: center;
-  position: relative;
 }
 
 [part~='previous-month'],
@@ -82,7 +82,7 @@ button {
   box-shadow: inset 0 0 0 var(--sl-size-borderWidth-subtle) var(--sl-elevation-surface-raised-default);
 }
 
-[part~='negative'] {
+[part~='negative']:not([part~='unselectable']) {
   --_bg-color: var(--sl-color-background-negative-subtlest);
   --_bg-mix-color: var(--sl-color-background-negative-interactive-plain);
 
@@ -122,7 +122,7 @@ button {
   color: var(--sl-color-foreground-info-onBold);
   content: '';
   inline-size: var(--sl-size-075);
-  inset-block-end: calc(-1 * var(--sl-size-075));
+  inset-block-end: calc(-1 * var(--sl-size-010));
   inset-inline-start: calc(50% - var(--sl-size-075) / 2);
   position: absolute;
 }

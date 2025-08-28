@@ -12,7 +12,7 @@
   cursor: text;
   display: flex;
   gap: var(--sl-size-100);
-  outline: transparent solid var(--sl-size-outlineWidth-default);
+  outline: transparent solid var(--sl-size-borderWidth-focusRing);
   outline-offset: var(--sl-size-outlineOffset-default);
   padding-inline-start: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default));
   vertical-align: middle;

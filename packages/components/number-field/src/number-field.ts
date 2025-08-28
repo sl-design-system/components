@@ -141,7 +141,7 @@ export class NumberField extends LocaleMixin(TextField) {
 
     if (changes.has('value') || changes.has('valueAsNumber')) {
       this.requestUpdate('formattedValue');
-      this.#updateCustomValidity();
+      this.updateValidity();
     }
   }
 
@@ -220,25 +220,17 @@ export class NumberField extends LocaleMixin(TextField) {
     this.updateValidity();
   }
 
-  /** @internal Update the value on blur; this will also cause the value to be formatted. */
-  override onBlur(): void {
-    try {
-      // Try to parse the value, but do nothing if it fails
-      this.parseValue(this.rawValue);
-      this.changeEvent.emit(this.value);
-    } catch {
-      /* empty */
-    }
-
-    this.updateState({ dirty: true });
-    this.updateValidity();
-
-    super.onBlur();
+  /** @internal Bypass the setter's, so the formatted value isn't updated. */
+  override parseValue(value: string): void {
+    this.#value = value;
+    this.#valueAsNumber = value ? this.#parser.parse(value) : undefined;
   }
 
-  /** @internal Do not emit change event on input; wait until the blur event. */
-  override onInput({ target }: Event & { target: HTMLInputElement }): void {
-    this.rawValue = target.value;
+  /** @internal Update the formatted value on blur. */
+  override onBlur(): void {
+    this.requestUpdate('formattedValue');
+
+    super.onBlur();
   }
 
   /** @internal */
@@ -258,25 +250,8 @@ export class NumberField extends LocaleMixin(TextField) {
     }
   }
 
-  #isButtonDisabled(button: string): boolean {
-    if (button === 'up') {
-      return (
-        this.disabled ||
-        this.readonly ||
-        (this.max !== undefined && this.valueAsNumber !== undefined && this.max === this.valueAsNumber)
-      );
-    } else if (button === 'down') {
-      return (
-        this.disabled ||
-        this.readonly ||
-        (this.min !== undefined && this.valueAsNumber !== undefined && this.min === this.valueAsNumber)
-      );
-    } else {
-      return false;
-    }
-  }
-
-  #updateCustomValidity(): void {
+  /** @internal Implement custom number validity checks. */
+  override updateInternalValidity(): void {
     if (Number.isNaN(this.valueAsNumber)) {
       this.setCustomValidity(msg('Please enter a valid number.', { id: 'sl.numberField.validation.invalidNumber' }));
     } else if (typeof this.valueAsNumber === 'number' && this.valueAsNumber > (this.max ?? Infinity)) {
@@ -293,6 +268,24 @@ export class NumberField extends LocaleMixin(TextField) {
       );
     } else {
       this.setCustomValidity('');
+    }
+  }
+
+  #isButtonDisabled(button: string): boolean {
+    if (button === 'up') {
+      return (
+        this.disabled ||
+        this.readonly ||
+        (this.max !== undefined && this.valueAsNumber !== undefined && this.max === this.valueAsNumber)
+      );
+    } else if (button === 'down') {
+      return (
+        this.disabled ||
+        this.readonly ||
+        (this.min !== undefined && this.valueAsNumber !== undefined && this.min === this.valueAsNumber)
+      );
+    } else {
+      return false;
     }
   }
 }

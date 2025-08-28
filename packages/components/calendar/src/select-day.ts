@@ -112,7 +112,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
-    console.log(this.negative);
 
     if (changes.has('firstDayOfWeek') || changes.has('locale')) {
       const { locale, firstDayOfWeek } = this,

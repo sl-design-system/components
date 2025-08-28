@@ -92,7 +92,6 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   override render(): TemplateResult {
-    console.log(this.negative);
     return html`
       <sl-select-day
         @sl-select=${this.#onSelect}
@@ -138,7 +137,6 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     event.stopPropagation();
 
     if (!this.selected || !isSameDate(this.selected, event.detail)) {
-      this.month = new Date(event.detail.getFullYear(), event.detail.getMonth());
       this.selected = new Date(event.detail);
       this.changeEvent.emit(this.selected);
     }

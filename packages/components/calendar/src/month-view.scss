@@ -59,9 +59,8 @@ button {
 }
 
 [part~='previous-month'],
-[part~='next-month'],
-[part~='unselectable'] {
-  color: var(--sl-color-foreground-disabled);
+[part~='next-month'] {
+  color: var(--sl-color-foreground-subtlest);
 }
 
 [part~='today'] {
@@ -101,6 +100,8 @@ button {
 }
 
 [part~='unselectable'] {
+  color: var(--sl-color-foreground-disabled);
+
   &[part~='selected'] {
     --_bg-color: var(--sl-color-background-disabled);
     --_bg-mix-color: var(--sl-color-background-disabled);

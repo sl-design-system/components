@@ -190,7 +190,7 @@ export class MonthView extends LocaleMixin(LitElement) {
         ariaLabel = `${day.date.getDate()}, ${format(day.date, this.locale, { weekday: 'long' })} ${format(day.date, this.locale, { month: 'long', year: 'numeric' })}`;
 
       template =
-        this.readonly || !day.currentMonth || day.unselectable
+        this.readonly || day.unselectable
           ? html`<span .part=${parts} aria-label=${ariaLabel}>${day.date.getDate()}</span>`
           : html`
               <button
@@ -251,7 +251,6 @@ export class MonthView extends LocaleMixin(LitElement) {
       event.preventDefault();
       event.stopPropagation();
 
-      console.log(day.date);
       this.selectEvent.emit(day.date);
     }
   }

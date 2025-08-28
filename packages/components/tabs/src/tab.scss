@@ -10,8 +10,8 @@
   flex-shrink: 0;
   justify-content: center;
   min-inline-size: fit-content;
-  outline: transparent solid var(--sl-size-outlineWidth-default);
-  outline-offset: calc(var(--sl-size-outlineWidth-default) * -1);
+  outline: transparent solid var(--sl-size-borderWidth-focusRing);
+  outline-offset: calc(var(--sl-size-borderWidth-focusRing) * -1);
   position: relative;
   scroll-snap-align: start;
 

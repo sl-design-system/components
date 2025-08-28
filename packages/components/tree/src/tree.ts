@@ -52,7 +52,10 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** The data model for the tree. */
+  /**
+   *  The data model for the tree.
+   * @type {TreeDataSource<T> | undefined}
+   * */
   #dataSource?: TreeDataSource<T>;
 
   /** Manage keyboard navigation between tabs. */
@@ -62,14 +65,23 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
     isFocusableElement: (el: TreeNode<T>) => !el.disabled
   });
 
-  /** The virtualizer instance. */
+  /**
+   * The virtualizer instance.
+   * @type {VirtualizerHostElement[typeof virtualizerRef] | undefined}
+   * */
   #virtualizer?: VirtualizerHostElement[typeof virtualizerRef];
 
   get dataSource() {
     return this.#dataSource;
   }
 
-  /** The model for the tree. */
+  /**
+   *  The model for the tree.
+   *
+   *  Selection mode is read from `dataSource.selects`
+   *  (`single` | `multiple` | `undefined`).
+   *  @type {TreeDataSource<T> | undefined}
+   *  */
   @property({ attribute: false })
   set dataSource(dataSource: TreeDataSource<T> | undefined) {
     if (this.#dataSource) {
@@ -88,7 +100,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
    * Use this if you want to wait until lit-virtualizer has finished the rendering
    * the tree nodes. This can be useful in unit tests for example.
    */
-  get layoutComplete() {
+  get layoutComplete(): Promise<void> {
     return this.#virtualizer?.layoutComplete ?? Promise.resolve();
   }
 
@@ -175,6 +187,17 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
     `;
   }
 
+  /**
+   * @internal
+   * Renders a single tree item as a virtualized row.
+   *
+   * Determines the icon from the node’s expanded state, wires selection and toggle behavior,
+   * and applies ARIA required for the `treegrid` pattern. Uses the optional custom `renderer`
+   * when provided; otherwise falls back to an icon and label template.
+   *
+   * @param item - The tree data node to render.
+   * @returns {TemplateResult} - A Lit `TemplateResult` consumed by `lit-virtualizer`.
+   */
   renderItem(item: TreeDataSourceNode<T>): TemplateResult {
     const icon = item.expanded ? item.expandedIcon : item.icon;
 
@@ -217,6 +240,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
     `;
   }
 
+  /** @internal */
   scrollToNode(node: TreeDataSourceNode<T>, options?: ScrollIntoViewOptions): void {
     const index = this.dataSource?.items.indexOf(node) ?? -1;
     if (index !== -1) {

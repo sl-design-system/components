@@ -6,14 +6,6 @@
     {
       "name": "Tree",
       "selector": "sl-tree"
-    },
-    {
-      "name": "Tree node",
-      "selector": "sl-tree-node"
-    },
-    {
-      "name": "Tree data source",
-      "selector": "sl-tree-data-source"
     }
   ]
 }

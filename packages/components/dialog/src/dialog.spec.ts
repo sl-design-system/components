@@ -1,4 +1,4 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect, fixture, oneEvent } from '@open-wc/testing';
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { sendKeys } from '@web/test-runner-commands';
@@ -134,7 +134,6 @@ describe('sl-dialog', () => {
       const onCancel = spy();
       el.addEventListener('sl-cancel', onCancel);
 
-      // Mock the click event
       const clickEvent = new PointerEvent('click');
       stub(clickEvent, 'clientX').value(100);
       stub(clickEvent, 'clientY').value(100);
@@ -143,14 +142,56 @@ describe('sl-dialog', () => {
       expect(onCancel).to.have.been.calledOnce;
     });
 
+    it('should only handle backdrop clicks when event.target is a dialog', async () => {
+      stub(dialog, 'getBoundingClientRect').returns({
+        top: 400,
+        right: 1400,
+        bottom: 900,
+        left: 700
+      } as DOMRect);
+
+      const onCancel = spy();
+      el.addEventListener('sl-cancel', onCancel);
+
+      const clickEvent = new PointerEvent('click');
+      stub(clickEvent, 'clientX').value(100);
+      stub(clickEvent, 'clientY').value(100);
+      dialog.dispatchEvent(clickEvent);
+
+      // Wait for the event to be emitted
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(onCancel).to.have.been.calledOnce;
+
+      onCancel.resetHistory();
+
+      // Simulate a click inside the dialog (not a backdrop click)
+      const button = document.createElement('sl-button');
+      button.innerHTML = 'Click me';
+      dialog.appendChild(button);
+
+      await el.updateComplete;
+
+      button.click();
+      await el.updateComplete;
+
+      // Wait for the event to be emitted
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(onCancel).not.to.have.been.called;
+    });
+
     it('should emit an sl-close event when calling close()', async () => {
       const onClose = spy();
 
       el.addEventListener('sl-close', onClose);
       el.close();
 
-      // Wait for the event to be emitted
-      await new Promise(resolve => setTimeout(resolve, 50));
+      // Using `oneEvent` https://open-wc.org/docs/testing/helpers/#testing-events
+      // instead of `await new Promise(resolve => setTimeout(resolve))`
+      // ensures the test waits for the actual 'sl-close' event to be emitted by the component, rather than relying on a timeout.
+      await oneEvent(el, 'sl-close', false);
+      await el.updateComplete;
 
       expect(onClose).to.have.been.calledOnce;
     });
@@ -172,8 +213,9 @@ describe('sl-dialog', () => {
       stub(clickEvent, 'clientY').value(100);
       dialog.dispatchEvent(clickEvent);
 
-      // Wait for the event to be emitted
-      await new Promise(resolve => setTimeout(resolve, 50));
+      // ensures the test waits for the actual 'sl-close' event to be emitted by the component, rather than relying on a timeout.
+      await oneEvent(el, 'sl-close', false);
+      await el.updateComplete;
 
       expect(onClose).to.have.been.calledOnce;
     });
@@ -184,8 +226,10 @@ describe('sl-dialog', () => {
       el.addEventListener('sl-close', onClose);
       el.renderRoot.querySelector<Button>('sl-button[aria-label="Close"]')?.click();
 
-      // Wait for the event to be emitted
-      await new Promise(resolve => setTimeout(resolve, 50));
+      // ensures the test waits for the actual 'sl-close' event to be emitted by the component, rather than relying on a timeout.
+      await oneEvent(el, 'sl-close', false);
+
+      await el.updateComplete;
 
       expect(onClose).to.have.been.calledOnce;
     });
@@ -196,8 +240,9 @@ describe('sl-dialog', () => {
       el.addEventListener('sl-close', onClose);
       el.querySelector('sl-button')?.click();
 
-      // Wait for the event to be emitted
-      await new Promise(resolve => setTimeout(resolve, 50));
+      // ensures the test waits for the actual 'sl-close' event to be emitted by the component, rather than relying on a timeout.
+      await oneEvent(el, 'sl-close', false);
+      await el.updateComplete;
 
       expect(onClose).to.have.been.calledOnce;
     });

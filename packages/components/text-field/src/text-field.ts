@@ -136,7 +136,8 @@ export class TextField
 
   /**
    * The input type. Only text types are valid here. For other types,
-   * see their respective components.
+   * see their respective components. For the number type, please see the
+   * `<sl-number-field>` component.
    */
   @property() type: 'email' | 'number' | 'tel' | 'text' | 'url' | 'password' = 'text';
 
@@ -423,7 +424,11 @@ export class TextField
 
     // Do not overwrite the type on slotted inputs
     if (input.type !== this.type && input.type === 'text') {
-      input.type = this.type;
+      if (this.type === 'number') {
+        console.warn('The "number" type of sl-text-field has been deprecated. Please use sl-number-field instead.');
+      }
+
+      input.type = this.type === 'number' ? 'text' : this.type;
     }
 
     if (typeof this.inputSize === 'number') {

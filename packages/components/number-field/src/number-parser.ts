@@ -3,6 +3,7 @@ interface Symbols {
   plusSign?: string;
   decimal?: string;
   group?: string;
+  unit?: string;
   literals: RegExp;
   numeral: RegExp;
   index(v: string): string;
@@ -58,6 +59,7 @@ function getSymbols(
 
   const decimal = decimalParts.find(p => p.type === 'decimal')?.value;
   const group = allParts.find(p => p.type === 'group')?.value;
+  const unit = allParts.find(p => p.type === 'unit')?.value;
 
   // this set is also for a regex, it's all literals that might be in the string we want to eventually parse that
   // don't contribute to the numerical value
@@ -80,7 +82,7 @@ function getSymbols(
   const numeral = new RegExp(`[${numerals.join('')}]`, 'g');
   const index = (d: string) => String(indexes.get(d));
 
-  return { minusSign, plusSign, decimal, group, literals, numeral, index };
+  return { minusSign, plusSign, decimal, group, unit, literals, numeral, index };
 }
 
 function replaceAll(str: string, find: string | RegExp, replace: string) {
@@ -161,6 +163,7 @@ export class NumberParser {
         value = value.replace(',', this.symbols.decimal);
         value = value.replace(String.fromCharCode(1548), this.symbols.decimal);
       }
+
       if (this.symbols.group) {
         value = replaceAll(value, '.', this.symbols.group);
       }
@@ -172,12 +175,19 @@ export class NumberParser {
       value = replaceAll(value, "'", this.symbols.group);
     }
 
+    // Remove the unit string, if it exists
+    if (this.symbols.unit) {
+      value = replaceAll(value, this.symbols.unit, '');
+    }
+
     // fr-FR group character is narrow non-breaking space, char code 8239 (U+202F), but that's not a key on the french keyboard,
     // so allow space and non-breaking space as a group char as well
     if (this.options.locale === 'fr-FR' && this.symbols.group) {
       value = replaceAll(value, ' ', this.symbols.group);
       value = replaceAll(value, /\u00A0/g, this.symbols.group);
     }
+
+    value = value.trim();
 
     return value;
   }

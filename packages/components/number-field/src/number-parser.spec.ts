@@ -57,4 +57,18 @@ describe('NumberParser', () => {
       expect(parser.parse('$abc')).to.be.NaN;
     });
   });
+
+  describe('unit', () => {
+    beforeEach(() => {
+      parser = new NumberParser('en-GB', { style: 'unit', unit: 'meter', unitDisplay: 'long' });
+    });
+
+    it('should parse a unit value', () => {
+      expect(parser.parse('1,234 metres')).to.equal(1234);
+    });
+
+    it('should return NaN for invalid unit', () => {
+      expect(parser.parse('1,234 cars')).to.be.NaN;
+    });
+  });
 });

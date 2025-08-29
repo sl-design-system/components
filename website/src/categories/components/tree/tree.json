@@ -4,12 +4,8 @@
   "componentStatus": "draft",
   "componentTagName": [
     {
-      "name": "Tag",
-      "selector": "sl-tag"
-    },
-    {
-      "name": "Tag list",
-      "selector": "sl-tag-list"
+      "name": "Tree",
+      "selector": "sl-tree"
     }
   ]
 }

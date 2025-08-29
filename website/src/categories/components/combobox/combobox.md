@@ -10,5 +10,5 @@ storybookCategory: form
 eleventyNavigation:
   parent: Components
   key: Combobox
-  status: new
+  status: ready
 ---

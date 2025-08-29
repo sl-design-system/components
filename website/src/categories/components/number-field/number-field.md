@@ -10,5 +10,5 @@ storybookCategory: form
 eleventyNavigation:
   parent: Components
   key: Number Field
-  status: new
+  status: ready
 ---

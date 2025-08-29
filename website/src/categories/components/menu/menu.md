@@ -10,5 +10,5 @@ storybookCategory: actions-menu
 eleventyNavigation:
   parent: Components
   key: Menu
-  status: new
+  status: ready
 ---

@@ -428,7 +428,7 @@ export class TextField
         console.warn('The "number" type of sl-text-field has been deprecated. Please use sl-number-field instead.');
       }
 
-      input.type = this.type === 'number' ? 'text' : this.type;
+      input.type = this.type;
     }
 
     if (typeof this.inputSize === 'number') {

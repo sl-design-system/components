@@ -142,9 +142,6 @@ More information about the `renderer` function is below.
 
 ### Data source reference
 
-To get the tree working,
-you will need to install the `@sl-design-system/data-source` package alongside `@sl-design-system/tree`.
-
 The tree reads items from a data source to determine identity, labels, hierarchy, expandability, and initial expansion. This component ships `FlatTreeDataSource` for flat arrays that encode hierarchy via a `level`.
 
 - Constructor

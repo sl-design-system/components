@@ -1,5 +1,15 @@
 # @sl-design-system/menu
 
+## 0.2.5
+
+### Patch Changes
+
+- [#2331](https://github.com/sl-design-system/components/pull/2331) [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16) - Fixes the issue where pressing the `Escape` key inside the menu closes parent containers (such as dialogs).
+
+- Updated dependencies [[`29f38d4`](https://github.com/sl-design-system/components/commit/29f38d4a44003f63e20965ed176dfa9bc16851e7), [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16)]:
+  - @sl-design-system/icon@1.3.0
+  - @sl-design-system/shared@0.8.1
+
 ## 0.2.4
 
 ### Patch Changes

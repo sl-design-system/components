@@ -1,5 +1,17 @@
 # @sl-design-system/angular
 
+## 3.2.1
+
+### Patch Changes
+
+- [#2447](https://github.com/sl-design-system/components/pull/2447) [`501a119`](https://github.com/sl-design-system/components/commit/501a1195d8d4cdb0d1a85b1fee1e4d2d7b36c41a) - Added missing peer dependencies: `dialog` and `tooltip`.
+
+- Updated dependencies [[`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a), [`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a), [`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a), [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16), [`29f38d4`](https://github.com/sl-design-system/components/commit/29f38d4a44003f63e20965ed176dfa9bc16851e7)]:
+  - @sl-design-system/select@2.0.5
+  - @sl-design-system/form@1.3.0
+  - @sl-design-system/text-field@1.6.6
+  - @sl-design-system/icon@1.3.0
+
 ## 3.2.0
 
 ### Minor Changes

@@ -1,5 +1,17 @@
 # @sl-design-system/inline-message
 
+## 2.0.2
+
+### Patch Changes
+
+- [#2086](https://github.com/sl-design-system/components/pull/2086) [`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a) - Remove slide-up animation
+
+  This fixes a bug where the `scrollHeight` of the dialog body was increased while the slide-up animation was running. This caused the dialog to incorrectly show the scroll indicator when it shouldn't have. It was not possible to use `overflow` to prevent this from happening in the dialog. So from now on, the inline message will simply fade in and out without any sliding motion.
+
+- Updated dependencies [[`29f38d4`](https://github.com/sl-design-system/components/commit/29f38d4a44003f63e20965ed176dfa9bc16851e7), [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16)]:
+  - @sl-design-system/icon@1.3.0
+  - @sl-design-system/shared@0.8.1
+
 ## 2.0.1
 
 ### Patch Changes

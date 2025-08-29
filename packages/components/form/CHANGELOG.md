@@ -1,5 +1,23 @@
 # @sl-design-system/form
 
+## 1.3.0
+
+### Minor Changes
+
+- [#2086](https://github.com/sl-design-system/components/pull/2086) [`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a) - Various improvements & fixes
+  - Add support for more than 1 form control per form-field
+  - Add `for` property to `<sl-error>` so it is linked to the form control
+  - Add `controls` getter to `FormController` that returns a record when the form control name as key
+  - Add `controls` part to the form-field template so you can customize the layout
+  - Fix missing label in `<sl-form-validation-errors>` for `<sl-select>`
+  - Refactored `updateValidity()` to add `updateInternalValidity()` hook that components can implement for _internal_ custom validation logic
+
+### Patch Changes
+
+- Updated dependencies [[`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a), [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16)]:
+  - @sl-design-system/inline-message@2.0.2
+  - @sl-design-system/shared@0.8.1
+
 ## 1.2.4
 
 ### Patch Changes

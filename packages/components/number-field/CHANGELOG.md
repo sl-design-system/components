@@ -1,5 +1,18 @@
 # @sl-design-system/number-field
 
+## 0.1.5
+
+### Patch Changes
+
+- [#2086](https://github.com/sl-design-system/components/pull/2086) [`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a) - - Fix issue where the form value wasn't being set correctly when the value was a number.
+  - Fix number parser to remove any non essentials characters before parsing
+  - Fix missing `sl-change` and `sl-validate` events
+  - Change behavior so the formatted value is only updated when the value is programmatically changed, or when the input is blurred
+  - Move validation to new `updateInternalValidity()` hook
+- Updated dependencies [[`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a), [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16)]:
+  - @sl-design-system/text-field@1.6.6
+  - @sl-design-system/shared@0.8.1
+
 ## 0.1.4
 
 ### Patch Changes

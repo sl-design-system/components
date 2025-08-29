@@ -1,5 +1,14 @@
 # @sanomalearning/slds-max
 
+## 0.2.7
+
+### Patch Changes
+
+- [#2243](https://github.com/sl-design-system/components/pull/2243) [`29f38d4`](https://github.com/sl-design-system/components/commit/29f38d4a44003f63e20965ed176dfa9bc16851e7) - Updated icons (new Font Awesome version)
+
+- Updated dependencies [[`29f38d4`](https://github.com/sl-design-system/components/commit/29f38d4a44003f63e20965ed176dfa9bc16851e7)]:
+  - @sl-design-system/icon@1.3.0
+
 ## 0.2.6
 
 ### Patch Changes

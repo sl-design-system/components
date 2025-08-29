@@ -1,5 +1,20 @@
 # @sl-design-system/dialog
 
+## 2.0.2
+
+### Patch Changes
+
+- [#2086](https://github.com/sl-design-system/components/pull/2086) [`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a) - Various fixes:
+
+  - Fix unexpected closing of dialog due to click events "leaking"
+  - Fix scroll indicators not updating due to dialog resizing
+
+- [#2331](https://github.com/sl-design-system/components/pull/2331) [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16) - Fixes closing the dialog when clicking the backdrop.
+  The dialog should close only when the dialog element itself is clicked, not when a child of the dialog is clicked.
+- Updated dependencies [[`29f38d4`](https://github.com/sl-design-system/components/commit/29f38d4a44003f63e20965ed176dfa9bc16851e7), [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16)]:
+  - @sl-design-system/icon@1.3.0
+  - @sl-design-system/shared@0.8.1
+
 ## 2.0.1
 
 ### Patch Changes

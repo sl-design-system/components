@@ -1,5 +1,22 @@
 # @sl-design-system/select
 
+## 2.0.5
+
+### Patch Changes
+
+- [#2086](https://github.com/sl-design-system/components/pull/2086) [`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a) - Various fixes:
+
+  - Fix built-in validation bug when there already is a custom error
+  - Fix disabled select getting keyboard focus
+  - Fix missing label in `<sl-form-validation-errors>`
+
+- [#2331](https://github.com/sl-design-system/components/pull/2331) [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16) - Fixes the issue where pressing the `Escape` key inside the select closes parent containers (such as dialogs).
+
+- Updated dependencies [[`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a), [`29f38d4`](https://github.com/sl-design-system/components/commit/29f38d4a44003f63e20965ed176dfa9bc16851e7), [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16)]:
+  - @sl-design-system/form@1.3.0
+  - @sl-design-system/icon@1.3.0
+  - @sl-design-system/shared@0.8.1
+
 ## 2.0.4
 
 ### Patch Changes

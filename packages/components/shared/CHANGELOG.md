@@ -1,5 +1,11 @@
 # @sl-design-system/shared
 
+## 0.8.1
+
+### Patch Changes
+
+- [#2331](https://github.com/sl-design-system/components/pull/2331) [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16) - Fixes the issue where pressing the `Escape` key inside the popover closes parent containers (such as dialogs).
+
 ## 0.8.0
 
 ### Minor Changes

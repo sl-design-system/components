@@ -1,5 +1,11 @@
 # @sl-design-system/icon
 
+## 1.3.0
+
+### Minor Changes
+
+- [#2243](https://github.com/sl-design-system/components/pull/2243) [`29f38d4`](https://github.com/sl-design-system/components/commit/29f38d4a44003f63e20965ed176dfa9bc16851e7) - Updated to Font Awesome version 7.0. To use this version of the icon you also need to update your Font Awesome version, otherwise there will be a conflict in the typing of the IconPrefix.
+
 ## 1.2.1
 
 ### Patch Changes

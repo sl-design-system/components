@@ -110,11 +110,6 @@ eleventyNavigation:
 
 ## Data source and custom rendering
 
-**NOTE**
-To get the tree working,
-you will need to install the `@sl-design-system/data-source` package alongside `@sl-design-system/tree`.
-
-
 The tree component requires a data source to supply structure and manage state.
 This component provides `FlatTreeDataSource`, which adapts a flat array to a hierarchical view.
 
@@ -248,11 +243,6 @@ const renderTreeNode = (renderData) => {
 const treeElement = document.querySelector('sl-tree');
 treeElement.dataSource = dataSource;
 treeElement.renderer = renderTreeNode;
-
-// Helpers
-// dataSource.expandAll();
-// dataSource.collapseAll();
-
 </script>
 ```
 
@@ -267,7 +257,6 @@ const flatData = [
   { id: 3, expandable: true, level: 1, name: 'src' },
   { id: 4, expandable: false, level: 2, name: 'tree-node.ts' }
 ];
-
 
 const dataSource = new FlatTreeDataSource(flatData, {
   getIcon: ({ name }, expanded) =>

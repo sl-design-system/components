@@ -2071,7 +2071,7 @@
 | `placeholder`        |         | `string \| undefined`                                |          | Placeholder text in the input.                                                                                                                                                                                                                                                                                                                          |                  |
 | `required`           |         | `boolean \| undefined`                               |          | Whether the text field is a required field.                                                                                                                                                                                                                                                                                                             |                  |
 | `selectOnly`         |         | `boolean \| undefined`                               |          | Whether the component is select only. This means you cannot type in the text field,&#xA;but you can still select options.                                                                                                                                                                                                                               |                  |
-| `showValid`          |         | `boolean`                                            | `false`  | When set will cause the control to show it is valid after  lidity is called.                                                                                                                                                                                                                                                                            | FormControlMixin |
+| `showValid`          |         | `boolean`                                            | `false`  | When set will cause the control to show it is valid after reportValidity is called.                                                                                                                                                                                                                                                                     | FormControlMixin |
 | `showValidity`       |         | `'valid' \| 'invalid' \| undefined`                  |          | Whether to show the validity state.                                                                                                                                                                                                                                                                                                                     | FormControlMixin |
 | `size`               |         | `ComboboxSize \| undefined`                          | `'md'`   | The size of the combobox.                                                                                                                                                                                                                                                                                                                               |                  |
 | `touched`            |         | `boolean`                                            | `false`  | A control is marked touched once the user has triggered a blur event on it.                                                                                                                                                                                                                                                                             | FormControlMixin |
@@ -3300,15 +3300,15 @@
 
 ### Fields
 
-| Name   | Privacy | Type        | Default | Description                               | Inherited From |
-| ------ | ------- | ----------- | ------- | ----------------------------------------- | -------------- |
-| `size` |         | `ErrorSize` | `'md'`  | The size at which the error is displayed. |                |
+| Name  | Privacy | Type                  | Default | Description                                                                                                                                                                                                                                                                                                                               | Inherited From |
+| ----- | ------- | --------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `for` |         | `string \| undefined` |         | The ID of the form control this error message is associated with. Use this&#xA;to link the error message to a specific form control. This is useful for&#xA;when a form field has more than 1 form control. If the form field has&#xA;only 1 form control, the error message will automatically be associated&#xA;with that form control. |                |
 
 ### Attributes
 
-| Name   | Field | Inherited From |
-| ------ | ----- | -------------- |
-| `size` | size  |                |
+| Name  | Field | Inherited From |
+| ----- | ----- | -------------- |
+| `for` | for   |                |
 
 ### Slots
 
@@ -3403,17 +3403,18 @@
 
 ### Fields
 
-| Name           | Privacy | Type | Default | Description | Inherited From |
-| -------------- | ------- | ---- | ------- | ----------- | -------------- |
-| `dirty`        |         |      |         |             |                |
-| `element`      |         |      |         |             |                |
-| `invalid`      |         |      |         |             |                |
-| `pristine`     |         |      |         |             |                |
-| `showValidity` |         |      |         |             |                |
-| `touched`      |         |      |         |             |                |
-| `untouched`    |         |      |         |             |                |
-| `valid`        |         |      |         |             |                |
-| `value`        |         |      |         |             |                |
+| Name           | Privacy | Type                                         | Default | Description | Inherited From |
+| -------------- | ------- | -------------------------------------------- | ------- | ----------- | -------------- |
+| `controls`     |         | `Record<keyof T, HTMLElement & FormControl>` |         |             |                |
+| `dirty`        |         |                                              |         |             |                |
+| `element`      |         |                                              |         |             |                |
+| `invalid`      |         |                                              |         |             |                |
+| `pristine`     |         |                                              |         |             |                |
+| `showValidity` |         |                                              |         |             |                |
+| `touched`      |         |                                              |         |             |                |
+| `untouched`    |         |                                              |         |             |                |
+| `valid`        |         |                                              |         |             |                |
+| `value`        |         |                                              |         |             |                |
 
 ### Methods
 
@@ -3482,6 +3483,22 @@
 | `hint`  | hint  |                |
 | `label` | label |                |
 | `mark`  | mark  |                |
+
+### CSS Parts
+
+| Name       | Description                                            |
+| ---------- | ------------------------------------------------------ |
+| `wrapper`  | The container for the hint, controls, and error slots. |
+| `controls` | The slot that contains the form control(s).            |
+
+### Slots
+
+| Name       | Description                                                               |
+| ---------- | ------------------------------------------------------------------------- |
+| `label`    | The `<sl-label>` element to use as the label for the form control.        |
+| `hint`     | The `<sl-hint>` element to use as a hint for the form control.            |
+| `error`    | The `<sl-error>` element to use as an error message for the form control. |
+| `controls` | The form control(s) to associate with this field.                         |
 
 <hr/>
 
@@ -3663,12 +3680,12 @@
 
 ### Fields
 
-| Name       | Privacy | Type                     | Default | Description                                                                       | Inherited From |
-| ---------- | ------- | ------------------------ | ------- | --------------------------------------------------------------------------------- | -------------- |
-| `disabled` |         | `boolean`                | `false` | Whether the form control is disabled; when set no interaction is possible.        |                |
-| `for`      |         | `string \| undefined`    |         | The DOM id of the form control this is linked to.                                 |                |
-| `mark`     |         | `LabelMark \| undefined` |         | Indicates whether the label should indicate if the field is optional or required. |                |
-| `size`     |         | `LabelSize`              | `'md'`  | The size of the label.                                                            |                |
+| Name       | Privacy | Type                     | Default | Description                                                                                                                                                                                                                                                                    | Inherited From |
+| ---------- | ------- | ------------------------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------- |
+| `disabled` |         | `boolean`                | `false` | Whether the form control is disabled; when set no interaction is possible.                                                                                                                                                                                                     |                |
+| `for`      |         | `string \| undefined`    |         | The DOM id of the form control this is linked to.                                                                                                                                                                                                                              |                |
+| `mark`     |         | `LabelMark \| undefined` |         | Indicates whether the label should indicate if the field is optional or required.&#xA;If you have a form field that contains more than one control, and the "required" state&#xA;is a combination of the controls, you can use this property to hide the "optional" indicator. |                |
+| `size`     |         | `LabelSize`              | `'md'`  | The size of the label.                                                                                                                                                                                                                                                         |                |
 
 ### Attributes
 
@@ -5480,7 +5497,7 @@
 | `step`              |         | `number \| undefined`                                           | `1`         | The amount by which the value will be increased/decreased by a step up/down.                                                                                                                                                                                                                                                                            |                |
 | `stepButtons`       |         | `NumberFieldButtonsAlignment \| undefined`                      |             | Step buttons placement for incrementing / decrementing. No step buttons by default.                                                                                                                                                                                                                                                                     |                |
 | `touched`           |         | `boolean`                                                       | `false`     | A control is marked touched once the user has triggered a blur event on it.                                                                                                                                                                                                                                                                             | TextField      |
-| `type`              |         | `'email' \| 'number' \| 'tel' \| 'text' \| 'url' \| 'password'` | `'text'`    | The input type. Only text types are valid here. For other types,&#xA;see their respective components.                                                                                                                                                                                                                                                   | TextField      |
+| `type`              |         | `'email' \| 'number' \| 'tel' \| 'text' \| 'url' \| 'password'` | `'text'`    | The input type. Only text types are valid here. For other types,&#xA;see their respective components. For the number type, please see the&#xA;\`<sl-number-field>` component.                                                                                                                                                                           | TextField      |
 | `valid`             |         | `boolean`                                                       |             | Returns whether the form control is valid or not.                                                                                                                                                                                                                                                                                                       | TextField      |
 | `validationMessage` |         | `string`                                                        |             | String representing a localized (by the browser) message that describes the validation&#xA;constraints that the control does not satisfy (if any). The string is empty if the control&#xA;is not a candidate for constraint validation, or it satisfies its constraints.&#xA;&#xA;For true localization, see `getLocalizedValidationMessage()` instead. | TextField      |
 | `validity`          |         | `ValidityState`                                                 |             | Returns the validity state the control is in.                                                                                                                                                                                                                                                                                                           | TextField      |
@@ -5493,7 +5510,7 @@
 | Name                            | Privacy   | Description                                                                                                                                                                                                                                     | Parameters                                         | Return                             | Inherited From |
 | ------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- | ---------------------------------- | -------------- |
 | `getLocalizedValidationMessage` |           | This returns a localized validation message. It does not support all `ValidityState` properties,&#xA;since some require more context than we have here. If you need to support more, you can override&#xA;this method in your own form control. |                                                    | `string`                           | TextField      |
-| `onBlur`                        | protected | Handles the blur event when the input field loses focus.&#xA;Parses the raw value, validates the input, and updates the state.                                                                                                                  |                                                    | `void`                             | TextField      |
+| `onBlur`                        | protected | Handles the blur event when the input field loses focus.&#xA;Emits a `sl-blur` event if the component had focus and updates the state.                                                                                                          |                                                    | `void`                             | TextField      |
 | `onChange`                      | protected | This method is called when the input changes.                                                                                                                                                                                                   |                                                    | `void`                             | TextField      |
 | `onFocus`                       | protected | Handles the focus event when the input field gains focus.&#xA;Emits a focus event and updates the focus ring state.                                                                                                                             |                                                    | `void`                             | TextField      |
 | `onInput`                       | protected | Handles input events to update the raw and parsed values.                                                                                                                                                                                       | `{ target }: Event & { target: HTMLInputElement }` | `void`                             | TextField      |
@@ -5501,7 +5518,7 @@
 | `onPrefixSlotChange`            | protected | Handles changes to the prefix slot. Detects and adds any `FieldButton` elements&#xA;assigned to the prefix slot to the `fieldButtons` state for further processing.                                                                             | `event: Event & { target: HTMLSlotElement }`       | `void`                             | TextField      |
 | `onSlotChange`                  | protected | Handles changes to the input slot. Updates the `input` element reference&#xA;and synchronizes its attributes with the component's properties.                                                                                                   | `event: Event & { target: HTMLSlotElement }`       | `void`                             | TextField      |
 | `onSuffixSlotChange`            | protected | Handles changes to the suffix slot. Detects and adds any `FieldButton` elements&#xA;assigned to the suffix slot to the `fieldButtons` state for further processing.                                                                             | `event: Event & { target: HTMLSlotElement }`       | `void`                             | TextField      |
-| `parseValue`                    |           | Method that converts the string value in the input to the specified type T. Override this method&#xA;if you want to convert the value in a different way. Throw an error if the value is invalid.                                               | `value: string`                                    | `T \| undefined`                   | TextField      |
+| `parseValue`                    |           | Method that parses the string input and converts it to a specific value. Override this method&#xA;if you want to convert the value in a different way. Throw an error if the value is invalid.                                                  | `value: string`                                    | `void`                             | TextField      |
 | `renderInputSlot`               |           | Render the input slot; separate method so it is composable for child components.                                                                                                                                                                |                                                    | `TemplateResult`                   | TextField      |
 | `renderPrefix`                  |           | Renders the prefix slot; can be overridden to customize the prefix.                                                                                                                                                                             |                                                    | `TemplateResult \| typeof nothing` | TextField      |
 | `renderSuffix`                  |           | Renders the suffix slot; can be overridden to customize the suffix. Remember that if&#xA;you override this method, it will no longer automatically show the valid checkmark&#xA;when the input is valid.                                        |                                                    | `TemplateResult \| typeof nothing` | TextField      |
@@ -5512,15 +5529,15 @@
 
 ### Events
 
-| Name                 | Type                            | Description                                                                                  | Inherited From |
-| -------------------- | ------------------------------- | -------------------------------------------------------------------------------------------- | -------------- |
-| `sl-form-control`    | `SlFormControlEvent`            | Emits when the form control is added to the DOM.                                             | TextField      |
-| `sl-update-state`    | `SlUpdateStateEvent`            | Emits when the UI state (dirty, pristine, touched or untouched) of the form control changes. | TextField      |
-| `sl-update-validity` | `SlUpdateValidityEvent`         | Emits when the validity of the form control changes.                                         | TextField      |
-| `sl-validate`        | `SlValidateEvent`               | Emits when the form control can be validated.                                                | TextField      |
-| `sl-blur`            | `SlBlurEvent`                   | Emits when the focus leaves the component.                                                   | TextField      |
-| `sl-change`          | `SlChangeEvent<T \| undefined>` | Emits when the value changes.                                                                | TextField      |
-| `sl-focus`           | `SlFocusEvent`                  | Emits when the component gains focus.                                                        | TextField      |
+| Name                 | Type                                 | Description                                                                                  | Inherited From |
+| -------------------- | ------------------------------------ | -------------------------------------------------------------------------------------------- | -------------- |
+| `sl-form-control`    | `SlFormControlEvent`                 | Emits when the form control is added to the DOM.                                             | TextField      |
+| `sl-update-state`    | `SlUpdateStateEvent`                 | Emits when the UI state (dirty, pristine, touched or untouched) of the form control changes. | TextField      |
+| `sl-update-validity` | `SlUpdateValidityEvent`              | Emits when the validity of the form control changes.                                         | TextField      |
+| `sl-validate`        | `SlValidateEvent`                    | Emits when the form control can be validated.                                                | TextField      |
+| `sl-blur`            | `SlBlurEvent`                        | Emits when the focus leaves the component.                                                   | TextField      |
+| `sl-change`          | `SlChangeEvent<string \| undefined>` | Emits when the value changes.                                                                | TextField      |
+| `sl-focus`           | `SlFocusEvent`                       | Emits when the component gains focus.                                                        | TextField      |
 
 ### Attributes
 
@@ -5582,10 +5599,12 @@
 
 ### Fields
 
-| Name      | Privacy | Type                       | Default   | Description | Inherited From |
-| --------- | ------- | -------------------------- | --------- | ----------- | -------------- |
-| `locale`  |         | `Intl.LocalesArgument`     | `locale`  |             |                |
-| `options` |         | `Intl.NumberFormatOptions` | `options` |             |                |
+| Name        | Privacy | Type                               | Default                                  | Description | Inherited From |
+| ----------- | ------- | ---------------------------------- | ---------------------------------------- | ----------- | -------------- |
+| `formatter` |         | `Intl.NumberFormat`                | `new Intl.NumberFormat(locale, options)` |             |                |
+| `locale`    |         | `Intl.LocalesArgument`             | `locale`                                 |             |                |
+| `options`   |         | `Intl.ResolvedNumberFormatOptions` |                                          |             |                |
+| `symbols`   |         | `Symbols`                          |                                          |             |                |
 
 ### Methods
 
@@ -6212,7 +6231,7 @@
 | `showValidity`      |         | `'valid' \| 'invalid' \| undefined`                             |          | Whether to show the validity state.                                                                                                                                                                                                                                                                                                                     | TextField      |
 | `size`              |         | `TextFieldSize \| undefined`                                    | `md`     | The size of the input.                                                                                                                                                                                                                                                                                                                                  | TextField      |
 | `touched`           |         | `boolean`                                                       | `false`  | A control is marked touched once the user has triggered a blur event on it.                                                                                                                                                                                                                                                                             | TextField      |
-| `type`              |         | `'email' \| 'number' \| 'tel' \| 'text' \| 'url' \| 'password'` | `'text'` | The input type. Only text types are valid here. For other types,&#xA;see their respective components.                                                                                                                                                                                                                                                   | TextField      |
+| `type`              |         | `'email' \| 'number' \| 'tel' \| 'text' \| 'url' \| 'password'` | `'text'` | The input type. Only text types are valid here. For other types,&#xA;see their respective components. For the number type, please see the&#xA;\`<sl-number-field>` component.                                                                                                                                                                           | TextField      |
 | `valid`             |         | `boolean`                                                       |          | Returns whether the form control is valid or not.                                                                                                                                                                                                                                                                                                       | TextField      |
 | `validationMessage` |         | `string`                                                        |          | String representing a localized (by the browser) message that describes the validation&#xA;constraints that the control does not satisfy (if any). The string is empty if the control&#xA;is not a candidate for constraint validation, or it satisfies its constraints.&#xA;&#xA;For true localization, see `getLocalizedValidationMessage()` instead. | TextField      |
 | `validity`          |         | `ValidityState`                                                 |          | Returns the validity state the control is in.                                                                                                                                                                                                                                                                                                           | TextField      |
@@ -6233,7 +6252,7 @@
 | `onPrefixSlotChange`            | protected | Handles changes to the prefix slot. Detects and adds any `FieldButton` elements&#xA;assigned to the prefix slot to the `fieldButtons` state for further processing.                                                                             | `event: Event & { target: HTMLSlotElement }`       | `void`                             | TextField      |
 | `onSlotChange`                  | protected | Handles changes to the input slot. Updates the `input` element reference&#xA;and synchronizes its attributes with the component's properties.                                                                                                   | `event: Event & { target: HTMLSlotElement }`       | `void`                             | TextField      |
 | `onSuffixSlotChange`            | protected | Handles changes to the suffix slot. Detects and adds any `FieldButton` elements&#xA;assigned to the suffix slot to the `fieldButtons` state for further processing.                                                                             | `event: Event & { target: HTMLSlotElement }`       | `void`                             | TextField      |
-| `parseValue`                    |           | Method that converts the string value in the input to the specified type T. Override this method&#xA;if you want to convert the value in a different way. Throw an error if the value is invalid.                                               | `value: string`                                    | `T \| undefined`                   | TextField      |
+| `parseValue`                    |           | Method that parses the string input and converts it to a specific value. Override this method&#xA;if you want to convert the value in a different way. Throw an error if the value is invalid.                                                  | `value: string`                                    | `void`                             | TextField      |
 | `renderInputSlot`               |           | Render the input slot; separate method so it is composable for child components.                                                                                                                                                                |                                                    | `TemplateResult`                   | TextField      |
 | `renderPrefix`                  |           | Renders the prefix slot; can be overridden to customize the prefix.                                                                                                                                                                             |                                                    | `TemplateResult`                   | TextField      |
 | `renderSuffix`                  |           | Renders the suffix slot; can be overridden to customize the suffix. Remember that if&#xA;you override this method, it will no longer automatically show the valid checkmark&#xA;when the input is valid.                                        |                                                    | `TemplateResult \| typeof nothing` | TextField      |
@@ -6242,17 +6261,17 @@
 
 ### Events
 
-| Name                 | Type                            | Description                                                                                  | Inherited From |
-| -------------------- | ------------------------------- | -------------------------------------------------------------------------------------------- | -------------- |
-| `sl-clear`           | `SlClearEvent`                  | Emits when the user clears the field.                                                        |                |
-| `sl-search`          | `SlSearchEvent`                 | Emits when the user presses enter.                                                           |                |
-| `sl-form-control`    | `SlFormControlEvent`            | Emits when the form control is added to the DOM.                                             | TextField      |
-| `sl-update-state`    | `SlUpdateStateEvent`            | Emits when the UI state (dirty, pristine, touched or untouched) of the form control changes. | TextField      |
-| `sl-update-validity` | `SlUpdateValidityEvent`         | Emits when the validity of the form control changes.                                         | TextField      |
-| `sl-validate`        | `SlValidateEvent`               | Emits when the form control can be validated.                                                | TextField      |
-| `sl-blur`            | `SlBlurEvent`                   | Emits when the focus leaves the component.                                                   | TextField      |
-| `sl-change`          | `SlChangeEvent<T \| undefined>` | Emits when the value changes.                                                                | TextField      |
-| `sl-focus`           | `SlFocusEvent`                  | Emits when the component gains focus.                                                        | TextField      |
+| Name                 | Type                                 | Description                                                                                  | Inherited From |
+| -------------------- | ------------------------------------ | -------------------------------------------------------------------------------------------- | -------------- |
+| `sl-clear`           | `SlClearEvent`                       | Emits when the user clears the field.                                                        |                |
+| `sl-search`          | `SlSearchEvent`                      | Emits when the user presses enter.                                                           |                |
+| `sl-form-control`    | `SlFormControlEvent`                 | Emits when the form control is added to the DOM.                                             | TextField      |
+| `sl-update-state`    | `SlUpdateStateEvent`                 | Emits when the UI state (dirty, pristine, touched or untouched) of the form control changes. | TextField      |
+| `sl-update-validity` | `SlUpdateValidityEvent`              | Emits when the validity of the form control changes.                                         | TextField      |
+| `sl-validate`        | `SlValidateEvent`                    | Emits when the form control can be validated.                                                | TextField      |
+| `sl-blur`            | `SlBlurEvent`                        | Emits when the focus leaves the component.                                                   | TextField      |
+| `sl-change`          | `SlChangeEvent<string \| undefined>` | Emits when the value changes.                                                                | TextField      |
+| `sl-focus`           | `SlFocusEvent`                       | Emits when the component gains focus.                                                        | TextField      |
 
 ### Attributes
 
@@ -7803,7 +7822,7 @@
 | `showValidity`      |         | `'valid' \| 'invalid' \| undefined`                             |          | Whether to show the validity state.                                                                                                                                                                                                                                                                                                                     | FormControlMixin |
 | `size`              |         | `TextFieldSize \| undefined`                                    | `md`     | The size of the input.                                                                                                                                                                                                                                                                                                                                  |                  |
 | `touched`           |         | `boolean`                                                       | `false`  | A control is marked touched once the user has triggered a blur event on it.                                                                                                                                                                                                                                                                             | FormControlMixin |
-| `type`              |         | `'email' \| 'number' \| 'tel' \| 'text' \| 'url' \| 'password'` | `'text'` | The input type. Only text types are valid here. For other types,&#xA;see their respective components.                                                                                                                                                                                                                                                   |                  |
+| `type`              |         | `'email' \| 'number' \| 'tel' \| 'text' \| 'url' \| 'password'` | `'text'` | The input type. Only text types are valid here. For other types,&#xA;see their respective components. For the number type, please see the&#xA;\`<sl-number-field>` component.                                                                                                                                                                           |                  |
 | `valid`             |         | `boolean`                                                       |          | Returns whether the form control is valid or not.                                                                                                                                                                                                                                                                                                       | FormControlMixin |
 | `validationMessage` |         | `string`                                                        |          | String representing a localized (by the browser) message that describes the validation&#xA;constraints that the control does not satisfy (if any). The string is empty if the control&#xA;is not a candidate for constraint validation, or it satisfies its constraints.&#xA;&#xA;For true localization, see `getLocalizedValidationMessage()` instead. | FormControlMixin |
 | `validity`          |         | `ValidityState`                                                 |          | Returns the validity state the control is in.                                                                                                                                                                                                                                                                                                           | FormControlMixin |
@@ -7823,7 +7842,7 @@
 | `onPrefixSlotChange`            | protected | Handles changes to the prefix slot. Detects and adds any `FieldButton` elements&#xA;assigned to the prefix slot to the `fieldButtons` state for further processing.                                                                             | `event: Event & { target: HTMLSlotElement }`       | `void`                             |                  |
 | `onSlotChange`                  | protected | Handles changes to the input slot. Updates the `input` element reference&#xA;and synchronizes its attributes with the component's properties.                                                                                                   | `event: Event & { target: HTMLSlotElement }`       | `void`                             |                  |
 | `onSuffixSlotChange`            | protected | Handles changes to the suffix slot. Detects and adds any `FieldButton` elements&#xA;assigned to the suffix slot to the `fieldButtons` state for further processing.                                                                             | `event: Event & { target: HTMLSlotElement }`       | `void`                             |                  |
-| `parseValue`                    |           | Method that converts the string value in the input to the specified type T. Override this method&#xA;if you want to convert the value in a different way. Throw an error if the value is invalid.                                               | `value: string`                                    | `T \| undefined`                   |                  |
+| `parseValue`                    |           | Method that parses the string input and converts it to a specific value. Override this method&#xA;if you want to convert the value in a different way. Throw an error if the value is invalid.                                                  | `value: string`                                    | `void`                             |                  |
 | `renderInputSlot`               |           | Render the input slot; separate method so it is composable for child components.                                                                                                                                                                |                                                    | `TemplateResult`                   |                  |
 | `renderPrefix`                  |           | Renders the prefix slot; can be overridden to customize the prefix.                                                                                                                                                                             |                                                    | `TemplateResult \| typeof nothing` |                  |
 | `renderSuffix`                  |           | Renders the suffix slot; can be overridden to customize the suffix. Remember that if&#xA;you override this method, it will no longer automatically show the valid checkmark&#xA;when the input is valid.                                        |                                                    | `TemplateResult \| typeof nothing` |                  |
@@ -7832,15 +7851,15 @@
 
 ### Events
 
-| Name                 | Type                            | Description                                                                                  | Inherited From   |
-| -------------------- | ------------------------------- | -------------------------------------------------------------------------------------------- | ---------------- |
-| `sl-blur`            | `SlBlurEvent`                   | Emits when the focus leaves the component.                                                   |                  |
-| `sl-change`          | `SlChangeEvent<T \| undefined>` | Emits when the value changes.                                                                |                  |
-| `sl-focus`           | `SlFocusEvent`                  | Emits when the component gains focus.                                                        |                  |
-| `sl-form-control`    | `SlFormControlEvent`            | Emits when the form control is added to the DOM.                                             | FormControlMixin |
-| `sl-update-state`    | `SlUpdateStateEvent`            | Emits when the UI state (dirty, pristine, touched or untouched) of the form control changes. | FormControlMixin |
-| `sl-update-validity` | `SlUpdateValidityEvent`         | Emits when the validity of the form control changes.                                         | FormControlMixin |
-| `sl-validate`        | `SlValidateEvent`               | Emits when the form control can be validated.                                                | FormControlMixin |
+| Name                 | Type                                 | Description                                                                                  | Inherited From   |
+| -------------------- | ------------------------------------ | -------------------------------------------------------------------------------------------- | ---------------- |
+| `sl-blur`            | `SlBlurEvent`                        | Emits when the focus leaves the component.                                                   |                  |
+| `sl-change`          | `SlChangeEvent<string \| undefined>` | Emits when the value changes.                                                                |                  |
+| `sl-focus`           | `SlFocusEvent`                       | Emits when the component gains focus.                                                        |                  |
+| `sl-form-control`    | `SlFormControlEvent`                 | Emits when the form control is added to the DOM.                                             | FormControlMixin |
+| `sl-update-state`    | `SlUpdateStateEvent`                 | Emits when the UI state (dirty, pristine, touched or untouched) of the form control changes. | FormControlMixin |
+| `sl-update-validity` | `SlUpdateValidityEvent`              | Emits when the validity of the form control changes.                                         | FormControlMixin |
+| `sl-validate`        | `SlValidateEvent`                    | Emits when the form control can be validated.                                                | FormControlMixin |
 
 ### Attributes
 

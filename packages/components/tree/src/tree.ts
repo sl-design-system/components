@@ -52,10 +52,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /**
-   *  The data model for the tree.
-   * @type {TreeDataSource<T> | undefined}
-   * */
+  /** The data model for the tree. */
   #dataSource?: TreeDataSource<T>;
 
   /** Manage keyboard navigation between tabs. */
@@ -65,10 +62,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
     isFocusableElement: (el: TreeNode<T>) => !el.disabled
   });
 
-  /**
-   * The virtualizer instance.
-   * @type {VirtualizerHostElement[typeof virtualizerRef] | undefined}
-   * */
+  /** The virtualizer instance. */
   #virtualizer?: VirtualizerHostElement[typeof virtualizerRef];
 
   get dataSource() {
@@ -187,13 +181,6 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
   /**
    * @internal
    * Renders a single tree item as a virtualized row.
-   *
-   * Determines the icon from the node’s expanded state, wires selection and toggle behavior,
-   * and applies ARIA required for the `treegrid` pattern. Uses the optional custom `renderer`
-   * when provided; otherwise falls back to an icon and label template.
-   *
-   * @param item - The tree data node to render.
-   * @returns {TemplateResult} - A Lit `TemplateResult` consumed by `lit-virtualizer`.
    */
   renderItem(item: TreeDataSourceNode<T>): TemplateResult {
     const icon = item.expanded ? item.expandedIcon : item.icon;

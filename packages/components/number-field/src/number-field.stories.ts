@@ -188,30 +188,6 @@ export const StepButtonsEdges: Story = {
   }
 };
 
-export const ValidateOnBlur: Story = {
-  render: ({ min }) => {
-    const onBlur = (event: Event & { target: HTMLElement }): void => {
-      event.target.closest('sl-form')?.reportValidity();
-    };
-
-    return html`
-      <sl-form>
-        <sl-form-field hint="The value should be of maximum 8" label="Number label">
-          <sl-number-field
-            @sl-blur=${onBlur}
-            input-size="20"
-            placeholder="Placeholder"
-            required
-            size="md"
-            .min=${min}
-            max="8"
-          ></sl-number-field>
-        </sl-form-field>
-      </sl-form>
-    `;
-  }
-};
-
 export const All: Story = {
   render: () => html`
     <style>

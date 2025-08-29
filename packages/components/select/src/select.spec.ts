@@ -37,6 +37,7 @@ describe('sl-select', () => {
       expect(el).not.to.have.attribute('disabled');
       expect(el.disabled).not.to.be.true;
       expect(button).not.to.have.attribute('disabled');
+      expect(button).to.have.attribute('tabindex', '0');
     });
 
     it('should be disabled when set', async () => {
@@ -46,6 +47,7 @@ describe('sl-select', () => {
       expect(el).to.have.attribute('disabled');
       expect(el.disabled).to.be.true;
       expect(button).to.have.attribute('disabled');
+      expect(button).to.have.attribute('tabindex', '-1');
     });
 
     it('should have a placeholder when set', async () => {
@@ -231,6 +233,19 @@ describe('sl-select', () => {
       await el.updateComplete;
 
       expect(el.querySelector('sl-option[value="2"]')).to.have.attribute('selected');
+    });
+
+    it('should not remove a custom validity error when updating validation', async () => {
+      el.setCustomValidity('Custom error message');
+
+      expect(el.validationMessage).to.equal('Custom error message');
+      expect(el.validity.customError).to.be.true;
+
+      el.required = true; // This triggers an update of the validation state
+      await el.updateComplete;
+
+      expect(el.validationMessage).to.equal('Custom error message');
+      expect(el.validity.customError).to.be.true;
     });
   });
 

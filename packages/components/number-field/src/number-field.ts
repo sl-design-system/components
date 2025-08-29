@@ -52,6 +52,19 @@ export class NumberField extends LocaleMixin(TextField) {
     }
   }
 
+  override get formValue(): unknown {
+    return super.formValue;
+  }
+
+  override set formValue(value: unknown) {
+    // If the value is a number, we set it as the valueAsNumber
+    if (typeof value === 'number' && !Number.isNaN(value)) {
+      this.valueAsNumber = value;
+    } else {
+      super.formValue = value;
+    }
+  }
+
   /**
    * The maximum value that is acceptable and valid.
    * If the value is greater, the control will be invalid.
@@ -83,11 +96,7 @@ export class NumberField extends LocaleMixin(TextField) {
   @property()
   override set value(value: string | undefined) {
     this.#value = value;
-
-    const number = value ? this.#parser.parse(value) : undefined;
-    if (this.valueAsNumber !== number) {
-      this.valueAsNumber = number;
-    }
+    this.#valueAsNumber = value ? this.#parser.parse(value) : undefined;
   }
 
   get valueAsNumber() {
@@ -130,18 +139,9 @@ export class NumberField extends LocaleMixin(TextField) {
       this.requestUpdate('formattedValue');
     }
 
-    if (this.max) {
-      this.input.max = this.max.toString();
-    }
-
-    if (this.min) {
-      this.input.min = this.min.toString();
-    }
-
     if (changes.has('value') || changes.has('valueAsNumber')) {
       this.requestUpdate('formattedValue');
-
-      this.#validateInput();
+      this.updateValidity();
     }
   }
 
@@ -200,39 +200,37 @@ export class NumberField extends LocaleMixin(TextField) {
 
   /** Decreases the current value by the `step` amount. */
   stepDown(decrement: number = this.step ?? 1): void {
-    const value = this.valueAsNumber ?? 0;
+    const value = this.valueAsNumber || 0;
 
     this.valueAsNumber = Math.min(Math.max(value - decrement, this.min ?? -Infinity), this.max ?? Infinity);
-    this.#validateInput();
+    this.input.value = this.formattedValue;
+
+    this.updateState({ dirty: true });
+    this.updateValidity();
   }
 
   /** Increases the current value by the `step` amount. */
   stepUp(increment: number = this.step ?? 1): void {
-    const value = this.valueAsNumber ?? 0;
+    const value = this.valueAsNumber || 0;
 
     this.valueAsNumber = Math.min(Math.max(value + increment, this.min ?? -Infinity), this.max ?? Infinity);
-    this.#validateInput();
+    this.input.value = this.formattedValue;
+
+    this.updateState({ dirty: true });
+    this.updateValidity();
   }
 
-  /**
-   * Handles the blur event when the input field loses focus.
-   * Parses the raw value, validates the input, and updates the state.
-   */
-  override onBlur(): void {
-    if (this.rawValue !== undefined && this.rawValue !== '') {
-      this.valueAsNumber = this.#parser.parse(
-        this.rawValue ? this.rawValue : this.#value !== undefined ? this.#value.toString() : ''
-      );
+  /** @internal Bypass the setter's, so the formatted value isn't updated. */
+  override parseValue(value: string): void {
+    this.#value = value;
+    this.#valueAsNumber = value ? this.#parser.parse(value) : undefined;
+  }
 
-      this.#validateInput();
-    }
+  /** @internal Update the formatted value on blur. */
+  override onBlur(): void {
+    this.requestUpdate('formattedValue');
 
     super.onBlur();
-  }
-
-  /** @internal */
-  override onInput({ target }: Event & { target: HTMLInputElement }): void {
-    this.rawValue = target.value;
   }
 
   /** @internal */
@@ -252,6 +250,27 @@ export class NumberField extends LocaleMixin(TextField) {
     }
   }
 
+  /** @internal Implement custom number validity checks. */
+  override updateInternalValidity(): void {
+    if (Number.isNaN(this.valueAsNumber)) {
+      this.setCustomValidity(msg('Please enter a valid number.', { id: 'sl.numberField.validation.invalidNumber' }));
+    } else if (typeof this.valueAsNumber === 'number' && this.valueAsNumber > (this.max ?? Infinity)) {
+      this.setCustomValidity(
+        msg(str`The value must be less than or equal to ${this.max}.`, {
+          id: 'sl.numberField.validation.exceedsMaximum'
+        })
+      );
+    } else if (typeof this.valueAsNumber === 'number' && this.valueAsNumber < (this.min ?? -Infinity)) {
+      this.setCustomValidity(
+        msg(str`The value must be greater than or equal to ${this.min}.`, {
+          id: 'sl.numberField.validation.belowMinimum'
+        })
+      );
+    } else {
+      this.setCustomValidity('');
+    }
+  }
+
   #isButtonDisabled(button: string): boolean {
     if (button === 'up') {
       return (
@@ -267,36 +286,6 @@ export class NumberField extends LocaleMixin(TextField) {
       );
     } else {
       return false;
-    }
-  }
-
-  #validateInput(): void {
-    if (this.valueAsNumber !== undefined && !Number.isNaN(this.valueAsNumber)) {
-      // check constraints, when it really is a number
-      if (this.valueAsNumber > (this.max ?? Infinity)) {
-        this.setCustomValidity(
-          msg(str`The value must be less than or equal to ${this.max}.`, {
-            id: 'sl.numberField.validation.exceedsMaximum'
-          })
-        );
-      } else if (this.valueAsNumber < (this.min ?? -Infinity)) {
-        this.setCustomValidity(
-          msg(str`The value must be greater than or equal to ${this.min}.`, {
-            id: 'sl.numberField.validation.belowMinimum'
-          })
-        );
-      } else {
-        this.setCustomValidity('');
-      }
-    } else if (this.rawValue !== '' || this.value !== '') {
-      // Set custom validity message for NaN case
-      if (this.valueAsNumber === undefined || isNaN(this.valueAsNumber)) {
-        this.setCustomValidity(msg('Please enter a valid number.', { id: 'sl.numberField.validation.invalidNumber' }));
-      } else {
-        this.setCustomValidity('');
-      }
-    } else {
-      this.setCustomValidity('');
     }
   }
 }

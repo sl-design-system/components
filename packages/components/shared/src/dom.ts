@@ -4,6 +4,7 @@
  * @returns The first scrollable parent of the given element; if no explicit scroll parent, returns the html element.
  */
 export const getScrollParent = (element: Element): Element => {
+  console.log('element in getScrollParent', element.scrollHeight, element.clientHeight);
   if (element.scrollHeight > element.clientHeight) {
     return element;
   } else if (element.parentElement) {

@@ -300,6 +300,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   #onClick(event: Event & { target: HTMLElement }): void {
     const tab = event.target.closest('sl-tab');
 
+    console.log('Clicked tab:', tab);
+
     if (!tab) {
       return;
     }
@@ -421,6 +423,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #scrollToTabPanelStart(): void {
+    console.log('Scrolling to tab panel start in scrollToTabPanelStart');
     const { bottom: containerBottom = 0 } =
         this.renderRoot.querySelector('[part="container"]')?.getBoundingClientRect() || {},
       { top: wrapperTop = 0 } = this.renderRoot.querySelector('[part="wrapper"]')?.getBoundingClientRect() || {},

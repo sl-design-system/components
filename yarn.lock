@@ -4490,6 +4490,7 @@ __metadata:
     "@sl-design-system/form": "npm:^1.2.4"
     "@sl-design-system/icon": "npm:^1.2.1"
     "@sl-design-system/locales": "npm:^0.0.13"
+    "@sl-design-system/number-field": "npm:^0.1.4"
     "@sl-design-system/radio-group": "npm:^1.1.4"
     "@sl-design-system/select": "npm:^2.0.4"
     "@sl-design-system/switch": "npm:^1.1.4"
@@ -5120,7 +5121,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/number-field@workspace:packages/components/number-field":
+"@sl-design-system/number-field@npm:^0.1.4, @sl-design-system/number-field@workspace:packages/components/number-field":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/number-field@workspace:packages/components/number-field"
   dependencies:

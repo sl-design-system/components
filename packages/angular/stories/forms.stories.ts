@@ -16,6 +16,7 @@ import { FormFieldComponent } from '../src/form/form-field.component';
 import { FormComponent } from '../src/form/form.component';
 import { CheckboxGroupDirective } from '../src/forms/checkbox-group.directive';
 import { CheckboxDirective } from '../src/forms/checkbox.directive';
+import { NumberFieldDirective } from '../src/forms/number-field.directive';
 import { RadioGroupDirective } from '../src/forms/radio-group.directive';
 import { SelectDirective } from '../src/forms/select.directive';
 import { SwitchDirective } from '../src/forms/switch.directive';
@@ -23,6 +24,7 @@ import { TextAreaDirective } from '../src/forms/text-area.directive';
 import { TextFieldDirective } from '../src/forms/text-field.directive';
 import { InlineMessageComponent } from '../src/inline-message/inline-message.component';
 import { OptionComponent } from '../src/listbox/option.component';
+import { NumberFieldComponent } from '../src/number-field/number-field.component';
 import { RadioGroupComponent } from '../src/radio-group/radio-group.component';
 import { RadioComponent } from '../src/radio-group/radio.component';
 import { SelectComponent } from '../src/select/select.component';
@@ -36,6 +38,10 @@ import { TextFieldComponent } from '../src/text-field/text-field.component';
     <sl-form [formGroup]="formGroup">
       <sl-form-field label="Text field">
         <sl-text-field formControlName="textField"></sl-text-field>
+      </sl-form-field>
+
+      <sl-form-field label="Number field">
+        <sl-number-field formControlName="numberField"></sl-number-field>
       </sl-form-field>
 
       <sl-form-field label="Textarea">
@@ -82,6 +88,7 @@ export class AllFormControlsReactiveComponent {
   formGroup = new FormGroup({
     checkbox: new FormControl('checked'),
     checkboxGroup: new FormControl(['2', '1', '0']),
+    numberField: new FormControl(10),
     radioGroup: new FormControl('1'),
     select: new FormControl('1'),
     switch: new FormControl('toggled'),
@@ -108,6 +115,10 @@ export class AllFormControlsReactiveComponent {
     <sl-form #form [formGroup]="formGroup">
       <sl-form-field label="Text field">
         <sl-text-field formControlName="textField" required></sl-text-field>
+      </sl-form-field>
+
+      <sl-form-field label="Number field">
+        <sl-number-field formControlName="numberField" required></sl-number-field>
       </sl-form-field>
 
       <sl-form-field label="Text area">
@@ -158,6 +169,7 @@ export class AllFormControlsEmptyReactiveComponent {
   formGroup = new FormGroup({
     checkbox: new FormControl(false),
     checkboxGroup: new FormControl([]),
+    numberField: new FormControl(),
     radioGroup: new FormControl(''),
     select: new FormControl(''),
     switch: new FormControl(false),
@@ -182,6 +194,10 @@ export class AllFormControlsEmptyReactiveComponent {
     <sl-form>
       <sl-form-field label="Text field">
         <sl-text-field [(ngModel)]="formGroup.textField"></sl-text-field>
+      </sl-form-field>
+
+      <sl-form-field label="Number field">
+        <sl-number-field [(ngModel)]="formGroup.numberField"></sl-number-field>
       </sl-form-field>
 
       <sl-form-field label="Text area">
@@ -229,6 +245,7 @@ export class AllFormControlsTemplateComponent {
     textField: 'Text field',
     textArea: 'Text area',
     checkbox: 'checked',
+    numberField: 10,
     select: '1',
     switch: 'toggled',
     checkboxGroup: ['2', '1', '0'],
@@ -242,6 +259,10 @@ export class AllFormControlsTemplateComponent {
     <sl-form #form>
       <sl-form-field label="Text field">
         <sl-text-field [(ngModel)]="formGroup.textField" required></sl-text-field>
+      </sl-form-field>
+
+      <sl-form-field label="Number field">
+        <sl-number-field [(ngModel)]="formGroup.numberField" required></sl-number-field>
       </sl-form-field>
 
       <sl-form-field label="Text area">
@@ -295,6 +316,7 @@ export class AllFormControlsEmptyTemplateComponent {
     textField: '',
     textArea: '',
     checkbox: false,
+    numberField: 10,
     select: '',
     switch: false,
     checkboxGroup: [],
@@ -401,6 +423,8 @@ export default {
         FormFieldComponent,
         FormsModule,
         InlineMessageComponent,
+        NumberFieldComponent,
+        NumberFieldDirective,
         OptionComponent,
         RadioComponent,
         RadioGroupComponent,

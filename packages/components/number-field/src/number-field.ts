@@ -202,22 +202,22 @@ export class NumberField extends LocaleMixin(TextField) {
   stepDown(decrement: number = this.step ?? 1): void {
     const value = this.valueAsNumber || 0;
 
-    this.valueAsNumber = Math.min(Math.max(value - decrement, this.min ?? -Infinity), this.max ?? Infinity);
-    this.input.value = this.formattedValue;
+    this.#valueAsNumber = Math.min(Math.max(value - decrement, this.min ?? -Infinity), this.max ?? Infinity);
+    this.#value = this.#valueAsNumber.toString();
+    this.requestUpdate('formattedValue');
 
-    this.updateState({ dirty: true });
-    this.updateValidity();
+    this.onChange();
   }
 
   /** Increases the current value by the `step` amount. */
   stepUp(increment: number = this.step ?? 1): void {
     const value = this.valueAsNumber || 0;
 
-    this.valueAsNumber = Math.min(Math.max(value + increment, this.min ?? -Infinity), this.max ?? Infinity);
-    this.input.value = this.formattedValue;
+    this.#valueAsNumber = Math.min(Math.max(value + increment, this.min ?? -Infinity), this.max ?? Infinity);
+    this.#value = this.#valueAsNumber.toString();
+    this.requestUpdate('formattedValue');
 
-    this.updateState({ dirty: true });
-    this.updateValidity();
+    this.onChange();
   }
 
   /** @internal Bypass the setter's, so the formatted value isn't updated. */

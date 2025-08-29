@@ -67,6 +67,18 @@ describe('sl-number-field', () => {
       expect(onChange).to.have.been.calledThrice;
     });
 
+    it('should emit an sl-change event when using the up/down arrow keys', async () => {
+      const onChange = spy();
+
+      el.addEventListener('sl-change', onChange);
+      el.focus();
+      await sendKeys({ press: 'ArrowUp' });
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'ArrowUp' });
+
+      expect(onChange).to.have.been.calledThrice;
+    });
+
     it('should emit an sl-validate event when typing', async () => {
       const onValidate = spy();
 
@@ -75,6 +87,18 @@ describe('sl-number-field', () => {
       await sendKeys({ type: '100' });
 
       expect(onValidate).to.have.been.calledThrice;
+    });
+
+    it('should emit an sl-validate event when using the up/down arrow keys', async () => {
+      const onChange = spy();
+
+      el.addEventListener('sl-change', onChange);
+      el.focus();
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'ArrowUp' });
+      await sendKeys({ press: 'ArrowDown' });
+
+      expect(onChange).to.have.been.calledThrice;
     });
 
     it('should not format the value while typing', async () => {

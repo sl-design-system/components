@@ -17,6 +17,7 @@
     "@sl-design-system/dialog": "*",
     "@sl-design-system/form": "*",
     "@sl-design-system/icon": "*",
+    "@sl-design-system/number-field": "*",
     "@sl-design-system/radio-group": "*",
     "@sl-design-system/select": "*",
     "@sl-design-system/switch": "*",

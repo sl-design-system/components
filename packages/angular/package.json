@@ -63,6 +63,7 @@
     "@sl-design-system/form": "^1.2.4",
     "@sl-design-system/icon": "^1.2.1",
     "@sl-design-system/locales": "^0.0.13",
+    "@sl-design-system/number-field": "^0.1.4",
     "@sl-design-system/radio-group": "^1.1.4",
     "@sl-design-system/select": "^2.0.4",
     "@sl-design-system/switch": "^1.1.4",

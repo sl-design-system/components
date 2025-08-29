@@ -14,16 +14,66 @@ eleventyNavigation:
 
 <div class="ds-example">
 <div class="ds-example__tree">
-<sl-tree id="tree" aria-label="Tree label"></sl-tree>
+<sl-tree id="tree" aria-label="Subjects structure"></sl-tree>
 </div>
 </div>
 
 <div class="ds-code">
 
   ```html
-<sl-tag>Mathematics</sl-tag>
-<sl-tag removable>History</sl-tag>
-<sl-tag disabled removable>Science</sl-tag>
+<sl-tree id="tree" aria-label="Subjects structure"></sl-tree>
+
+<script type="module">
+  import { FlatTreeDataSource } from '@sl-design-system/tree';
+  
+  const tree = document.querySelector('#tree');
+  
+    const flatData = [
+      { id: 0, expandable: true, level: 0, name: 'Mathematics' },
+      { id: 1, expandable: true, level: 1, name: 'Algebra' },
+      { id: 2, expandable: false, level: 2, name: 'Lesson 1 - Linear equations.md' },
+      { id: 3, expandable: false, level: 2, name: 'Lesson 2 - Quadratic equations.md' },
+      { id: 4, expandable: true, level: 1, name: 'Geometry' },
+      ...
+      { id: 18, expandable: true, level: 1, name: 'Modern History' },
+      { id: 19, expandable: false, level: 2, name: 'World War I.md' },
+      { id: 20, expandable: false, level: 2, name: 'World War II.md' }
+    ];
+
+    const dataSource = new FlatTreeDataSource(flatData, {
+      getIcon: ({ name }, expanded) =>
+        name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`,
+      getId: (item) => item.id,
+      getLabel: ({ name }) => name,
+      getLevel: ({ level }) => level,
+      isExpandable: ({ expandable }) => expandable,
+      isExpanded: ({ name }) => ['tree', 'src'].includes(name),
+      selects: 'multiple'
+    });
+
+    const renderer = (node) => {
+      const frag = document.createDocumentFragment();
+
+      const iconName = node.label.includes('.')
+        ? 'far-file-lines'
+        : `far-folder${node.expanded ? '-open' : ''}`;
+      if (iconName) {
+        const iconEl = document.createElement('sl-icon');
+        iconEl.setAttribute('size', 'sm');
+        iconEl.name = iconName;
+        frag.appendChild(iconEl);
+      }
+
+      const label = document.createElement('span');
+      label.textContent = node.label;
+      frag.appendChild(label);
+
+      return frag;
+    };
+  
+    tree.dataSource = dataSource;
+    tree.renderer = renderer;
+</script>
   ```
 
 </div>
@@ -149,683 +199,35 @@ Indentation visually distinguishes parent nodes from their child nodes by shifti
 
 </section>
 
-// import { FlatTreeDataSource } from "@sl-design-system/tree";
-
-// const { FlatTreeDataSource } = window;
-
-[//]: # (    scopedElements = {)
-
-[//]: # (      'sl-button': Button,)
-
-[//]: # (      'sl-button-bar': ButtonBar,)
-
-[//]: # (      'sl-icon': Icon)
-
-[//]: # (    };)
-
-
-window.FlatTreeDataSource = FlatTreeDataSource;
-
-[//]: # (<script type="module">)
-
-[//]: # ()
-[//]: # ()
-[//]: # (const tree = document.querySelector&#40;"#tree"&#41;;)
-
-[//]: # (let dataSource;)
-
-[//]: # (let renderer;)
-
-[//]: # (let scopedElements;)
-
-[//]: # ()
-[//]: # (const flatData = [)
-
-[//]: # (  {)
-
-[//]: # (    id: 0,)
-
-[//]: # (    expandable: true,)
-
-[//]: # (    level: 0,)
-
-[//]: # (    name: "textarea")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 1,)
-
-[//]: # (    expandable: false,)
-
-[//]: # (    level: 1,)
-
-[//]: # (    name: "package.json")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 2,)
-
-[//]: # (    expandable: true,)
-
-[//]: # (    level: 0,)
-
-[//]: # (    name: "tooltip")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 3,)
-
-[//]: # (    expandable: false,)
-
-[//]: # (    level: 1,)
-
-[//]: # (    name: "package.json")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 4,)
-
-[//]: # (    expandable: true,)
-
-[//]: # (    level: 0,)
-
-[//]: # (    name: "tree")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 5,)
-
-[//]: # (    expandable: true,)
-
-[//]: # (    level: 1,)
-
-[//]: # (    name: "src")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 6,)
-
-[//]: # (    expandable: false,)
-
-[//]: # (    level: 2,)
-
-[//]: # (    name: "flat-tree-model.ts")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 7,)
-
-[//]: # (    expandable: false,)
-
-[//]: # (    level: 2,)
-
-[//]: # (    name: "nested-tree-model.ts")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 8,)
-
-[//]: # (    expandable: false,)
-
-[//]: # (    level: 2,)
-
-[//]: # (    name: "tree-model.ts")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 9,)
-
-[//]: # (    expandable: false,)
-
-[//]: # (    level: 2,)
-
-[//]: # (    name: "tree-node.scss")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 10,)
-
-[//]: # (    expandable: false,)
-
-[//]: # (    level: 2,)
-
-[//]: # (    name: "tree-node.ts")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 11,)
-
-[//]: # (    expandable: false,)
-
-[//]: # (    level: 2,)
-
-[//]: # (    name: "tree.ts")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 12,)
-
-[//]: # (    expandable: false,)
-
-[//]: # (    level: 2,)
-
-[//]: # (    name: "utils.ts")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 13,)
-
-[//]: # (    expandable: false,)
-
-[//]: # (    level: 1,)
-
-[//]: # (    name: "index.ts")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 14,)
-
-[//]: # (    expandable: false,)
-
-[//]: # (    level: 1,)
-
-[//]: # (    name: "package.json")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 15,)
-
-[//]: # (    expandable: false,)
-
-[//]: # (    level: 1,)
-
-[//]: # (    name: "register.ts")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 16,)
-
-[//]: # (    expandable: false,)
-
-[//]: # (    level: 0,)
-
-[//]: # (    name: "eslint.config.mjs")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 17,)
-
-[//]: # (    expandable: false,)
-
-[//]: # (    level: 0,)
-
-[//]: # (    name: "stylelint.config.mjs")
-
-[//]: # (  })
-
-[//]: # (];)
-
-[//]: # ()
-[//]: # (  dataSource = new FlatTreeDataSource&#40;flatData, {)
-
-[//]: # (      getIcon: &#40;{ name }, expanded&#41; => &#40;name.includes&#40;"."&#41; ? "far-file-lines" : `far-folder${expanded ? "-open" : ""}`&#41;,)
-
-[//]: # (      getId: item => item.id,)
-
-[//]: # (      getLabel: &#40;{ name }&#41; => name,)
-
-[//]: # (      getLevel: &#40;{ level }&#41; => level,)
-
-[//]: # (      isExpandable: &#40;{ expandable }&#41; => expandable,)
-
-[//]: # (      isExpanded: &#40;{ name }&#41; => ["tree", "src"].includes&#40;name&#41;)
-
-[//]: # (    }&#41;;)
-
-[//]: # ()
-[//]: # (    renderer = node => {)
-
-[//]: # (      const icon = node.label.includes&#40;"."&#41; ? "far-file-lines" : `far-folder${node.expanded ? "-open" : ""}`;)
-
-[//]: # ()
-[//]: # (      const onClickEdit = &#40;event&#41; => {)
-
-[//]: # (        event.stopPropagation&#40;&#41;;)
-
-[//]: # (      };)
-
-[//]: # ()
-[//]: # (      const onClickRemove = &#40;event&#41; => {)
-
-[//]: # (        event.stopPropagation&#40;&#41;;)
-
-[//]: # (      };)
-
-[//]: # ()
-[//]: # (      return html`)
-
-[//]: # (        ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing})
-
-[//]: # (        <span>${node.label}</span>)
-
-[//]: # ()
-[//]: # (        <sl-button fill="ghost" size="sm" slot="actions" @click=${onClickEdit} aria-label="Edit">)
-
-[//]: # (          <sl-icon name="far-pen"></sl-icon>)
-
-[//]: # (        </sl-button>)
-
-[//]: # (        <sl-button fill="ghost" size="sm" slot="actions" @click=${onClickRemove} aria-label="Remove">)
-
-[//]: # (          <sl-icon name="far-trash"></sl-icon>)
-
-[//]: # (        </sl-button>)
-
-[//]: # (      `;)
-
-[//]: # (    };)
-
-[//]: # ()
-[//]: # (if &#40;tree&#41; {)
-
-[//]: # (  tree.dataSource = dataSource;)
-
-[//]: # (  tree.renderer = renderer;)
-
-[//]: # (  tree.scopedElements = scopedElements;)
-
-[//]: # (})
-
-[//]: # ()
-[//]: # (console.log&#40;"treee before raf", tree, tree?.scopedElements&#41;;)
-
-[//]: # ()
-[//]: # (requestAnimationFrame&#40;&#40;&#41; => {)
-
-[//]: # ()
-[//]: # (const flatData = [)
-
-[//]: # (  {)
-
-[//]: # (    id: 0,)
-
-[//]: # (    expandable: true,)
-
-[//]: # (    level: 0,)
-
-[//]: # (    name: "textarea")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 1,)
-
-[//]: # (    expandable: false,)
-
-[//]: # (    level: 1,)
-
-[//]: # (    name: "package.json")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 2,)
-
-[//]: # (    expandable: true,)
-
-[//]: # (    level: 0,)
-
-[//]: # (    name: "tooltip")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 3,)
-
-[//]: # (    expandable: false,)
-
-[//]: # (    level: 1,)
-
-[//]: # (    name: "package.json")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 4,)
-
-[//]: # (    expandable: true,)
-
-[//]: # (    level: 0,)
-
-[//]: # (    name: "tree")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 5,)
-
-[//]: # (    expandable: true,)
-
-[//]: # (    level: 1,)
-
-[//]: # (    name: "src")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 6,)
-
-[//]: # (    expandable: false,)
-
-[//]: # (    level: 2,)
-
-[//]: # (    name: "flat-tree-model.ts")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 7,)
-
-[//]: # (    expandable: false,)
-
-[//]: # (    level: 2,)
-
-[//]: # (    name: "nested-tree-model.ts")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 8,)
-
-[//]: # (    expandable: false,)
-
-[//]: # (    level: 2,)
-
-[//]: # (    name: "tree-model.ts")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 9,)
-
-[//]: # (    expandable: false,)
-
-[//]: # (    level: 2,)
-
-[//]: # (    name: "tree-node.scss")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 10,)
-
-[//]: # (    expandable: false,)
-
-[//]: # (    level: 2,)
-
-[//]: # (    name: "tree-node.ts")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 11,)
-
-[//]: # (    expandable: false,)
-
-[//]: # (    level: 2,)
-
-[//]: # (    name: "tree.ts")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 12,)
-
-[//]: # (    expandable: false,)
-
-[//]: # (    level: 2,)
-
-[//]: # (    name: "utils.ts")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 13,)
-
-[//]: # (    expandable: false,)
-
-[//]: # (    level: 1,)
-
-[//]: # (    name: "index.ts")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 14,)
-
-[//]: # (    expandable: false,)
-
-[//]: # (    level: 1,)
-
-[//]: # (    name: "package.json")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 15,)
-
-[//]: # (    expandable: false,)
-
-[//]: # (    level: 1,)
-
-[//]: # (    name: "register.ts")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 16,)
-
-[//]: # (    expandable: false,)
-
-[//]: # (    level: 0,)
-
-[//]: # (    name: "eslint.config.mjs")
-
-[//]: # (  },)
-
-[//]: # (  {)
-
-[//]: # (    id: 17,)
-
-[//]: # (    expandable: false,)
-
-[//]: # (    level: 0,)
-
-[//]: # (    name: "stylelint.config.mjs")
-
-[//]: # (  })
-
-[//]: # (];)
-
-[//]: # ()
-[//]: # (  dataSource = new FlatTreeDataSource&#40;flatData, {)
-
-[//]: # (      getIcon: &#40;{ name }, expanded&#41; => &#40;name.includes&#40;"."&#41; ? "far-file-lines" : `far-folder${expanded ? "-open" : ""}`&#41;,)
-
-[//]: # (      getId: item => item.id,)
-
-[//]: # (      getLabel: &#40;{ name }&#41; => name,)
-
-[//]: # (      getLevel: &#40;{ level }&#41; => level,)
-
-[//]: # (      isExpandable: &#40;{ expandable }&#41; => expandable,)
-
-[//]: # (      isExpanded: &#40;{ name }&#41; => ["tree", "src"].includes&#40;name&#41;)
-
-[//]: # (    }&#41;;)
-
-[//]: # ()
-[//]: # (    renderer = node => {)
-
-[//]: # (      const icon = node.label.includes&#40;"."&#41; ? "far-file-lines" : `far-folder${node.expanded ? "-open" : ""}`;)
-
-[//]: # ()
-[//]: # (      const onClickEdit = &#40;event&#41; => {)
-
-[//]: # (        event.stopPropagation&#40;&#41;;)
-
-[//]: # (      };)
-
-[//]: # ()
-[//]: # (      const onClickRemove = &#40;event&#41; => {)
-
-[//]: # (        event.stopPropagation&#40;&#41;;)
-
-[//]: # (      };)
-
-[//]: # ()
-[//]: # (      return html`)
-
-[//]: # (        ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing})
-
-[//]: # (        <span>${node.label}</span>)
-
-[//]: # ()
-[//]: # (        <sl-button fill="ghost" size="sm" slot="actions" @click=${onClickEdit} aria-label="Edit">)
-
-[//]: # (          <sl-icon name="far-pen"></sl-icon>)
-
-[//]: # (        </sl-button>)
-
-[//]: # (        <sl-button fill="ghost" size="sm" slot="actions" @click=${onClickRemove} aria-label="Remove">)
-
-[//]: # (          <sl-icon name="far-trash"></sl-icon>)
-
-[//]: # (        </sl-button>)
-
-[//]: # (      `;)
-
-[//]: # (    };)
-
-[//]: # ()
-[//]: # (if &#40;tree&#41; {)
-
-[//]: # (  tree.dataSource = dataSource;)
-
-[//]: # (  tree.renderer = renderer;)
-
-[//]: # (  tree.scopedElements = scopedElements;)
-
-[//]: # (})
-
-[//]: # ()
-[//]: # (console.log&#40;"tree in raf", tree&#41;;)
-
-[//]: # ()
-[//]: # (}&#41;;)
-
-[//]: # (</script>)
-
-
 <script type="module">
   const tree = document.querySelector('#tree');
   if (!tree) {
     console.warn('sl-tree element with id \`tree\` not found');
   } else {
-    const flatData2 = [
-      { id: 0, expandable: true, level: 0, name: 'textarea' },
-      { id: 1, expandable: false, level: 1, name: 'package.json' },
-      { id: 2, expandable: true, level: 0, name: 'tooltip' },
-      { id: 3, expandable: false, level: 1, name: 'package.json' },
-      { id: 4, expandable: true, level: 0, name: 'tree' },
-      { id: 5, expandable: true, level: 1, name: 'src' },
-      { id: 6, expandable: false, level: 2, name: 'flat-tree-model.ts' },
-      { id: 7, expandable: false, level: 2, name: 'nested-tree-model.ts' },
-      { id: 8, expandable: false, level: 2, name: 'tree-model.ts' },
-      { id: 9, expandable: false, level: 2, name: 'tree-node.scss' },
-      { id: 10, expandable: false, level: 2, name: 'tree-node.ts' },
-      { id: 11, expandable: false, level: 2, name: 'tree.ts' },
-      { id: 12, expandable: false, level: 2, name: 'utils.ts' },
-      { id: 13, expandable: false, level: 1, name: 'index.ts' },
-      { id: 14, expandable: false, level: 1, name: 'package.json' },
-      { id: 15, expandable: false, level: 1, name: 'register.ts' },
-      { id: 16, expandable: false, level: 0, name: 'eslint.config.mjs' },
-      { id: 17, expandable: false, level: 0, name: 'stylelint.config.mjs' }
+    const flatData = [
+      { id: 0, expandable: true, level: 0, name: 'Mathematics' },
+      { id: 1, expandable: true, level: 1, name: 'Algebra' },
+      { id: 2, expandable: false, level: 2, name: 'Lesson 1 - Linear equations.md' },
+      { id: 3, expandable: false, level: 2, name: 'Lesson 2 - Quadratic equations.md' },
+      { id: 4, expandable: true, level: 1, name: 'Geometry' },
+      { id: 5, expandable: false, level: 2, name: 'Lesson 1 - Triangles.md' },
+      { id: 6, expandable: false, level: 2, name: 'Lesson 2 - Circles.md' },
+      { id: 21, expandable: false, level: 1, name: 'Lesson 20 - Statistics and probability.md' },
+      { id: 7, expandable: true, level: 0, name: 'Science' },
+      { id: 8, expandable: true, level: 1, name: 'Physics' },
+      { id: 9, expandable: false, level: 2, name: 'Lesson 1 - Motion.md' },
+      { id: 10, expandable: false, level: 2, name: 'Lesson 2 - Forces.md' },
+      { id: 11, expandable: true, level: 1, name: 'Chemistry' },
+      { id: 12, expandable: false, level: 2, name: 'Lesson 1 - Atoms.md' },
+      { id: 13, expandable: false, level: 2, name: 'Lesson 2 - Reactions.md' },
+      { id: 14, expandable: true, level: 0, name: 'History' },
+      { id: 15, expandable: true, level: 1, name: 'Ancient Civilizations' },
+      { id: 16, expandable: false, level: 2, name: 'Egypt.md' },
+      { id: 17, expandable: false, level: 2, name: 'Rome.md' },
+      { id: 18, expandable: true, level: 1, name: 'Modern History' },
+      { id: 19, expandable: false, level: 2, name: 'World War I.md' },
+      { id: 20, expandable: false, level: 2, name: 'World War II.md' }
     ];
-
-const flatData = [
-  { id: 0, expandable: true, level: 0, name: 'Mathematics' },
-  { id: 1, expandable: true, level: 1, name: 'Algebra' },
-  { id: 2, expandable: false, level: 2, name: 'Lesson 1 - Linear equations.md' },
-  { id: 3, expandable: false, level: 2, name: 'Lesson 2 - Quadratic equations.md' },
-  { id: 4, expandable: true, level: 1, name: 'Geometry' },
-  { id: 5, expandable: false, level: 2, name: 'Lesson 1 - Triangles.md' },
-  { id: 6, expandable: false, level: 2, name: 'Lesson 2 - Circles.md' },
-  { id: 7, expandable: true, level: 0, name: 'Science' },
-  { id: 8, expandable: true, level: 1, name: 'Physics' },
-  { id: 9, expandable: false, level: 2, name: 'Lesson 1 - Motion.md' },
-  { id: 10, expandable: false, level: 2, name: 'Lesson 2 - Forces.md' },
-  { id: 11, expandable: true, level: 1, name: 'Chemistry' },
-  { id: 12, expandable: false, level: 2, name: 'Lesson 1 - Atoms.md' },
-  { id: 13, expandable: false, level: 2, name: 'Lesson 2 - Reactions.md' },
-  { id: 14, expandable: true, level: 0, name: 'History' },
-  { id: 15, expandable: true, level: 1, name: 'Ancient Civilizations' },
-  { id: 16, expandable: false, level: 2, name: 'Egypt.md' },
-  { id: 17, expandable: false, level: 2, name: 'Rome.md' },
-  { id: 18, expandable: true, level: 1, name: 'Modern History' },
-  { id: 19, expandable: false, level: 2, name: 'World War I.md' },
-  { id: 20, expandable: false, level: 2, name: 'World War II.md' }
-];
 
     const dataSource = new FlatTreeDataSource(flatData, {
       getIcon: ({ name }, expanded) =>
@@ -835,7 +237,7 @@ const flatData = [
       getLevel: ({ level }) => level,
       isExpandable: ({ expandable }) => expandable,
       isExpanded: ({ name }) => ['tree', 'src'].includes(name),
-      selects: 'single'
+      selects: 'multiple'
     });
 
     const renderer = (node) => {
@@ -854,34 +256,6 @@ const flatData = [
       const label = document.createElement('span');
       label.textContent = node.label;
       frag.appendChild(label);
-
-      const editBtn = document.createElement('sl-button');
-      editBtn.setAttribute('fill', 'ghost');
-      editBtn.setAttribute('size', 'sm');
-      editBtn.setAttribute('slot', 'actions');
-      editBtn.setAttribute('aria-label', 'Edit');
-      editBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        console.log('Edit', node);
-      });
-      const editIcon = document.createElement('sl-icon');
-      editIcon.name = 'far-pen';
-      editBtn.appendChild(editIcon);
-      frag.appendChild(editBtn);
-
-      const removeBtn = document.createElement('sl-button');
-      removeBtn.setAttribute('fill', 'ghost');
-      removeBtn.setAttribute('size', 'sm');
-      removeBtn.setAttribute('slot', 'actions');
-      removeBtn.setAttribute('aria-label', 'Remove');
-      removeBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        console.log('Remove', node);
-      });
-      const removeIcon = document.createElement('sl-icon');
-      removeIcon.name = 'far-trash';
-      removeBtn.appendChild(removeIcon);
-      frag.appendChild(removeBtn);
 
       return frag;
     };

@@ -143,6 +143,6 @@ declare global {
   }
 }
 
-// This is a hack so we can access the MessageDialog class from markdown files
+// This is a hack so we can access the MessageDialog and FlatTreeDataSource class from markdown files
 window.MessageDialog = MessageDialog;
 window.FlatTreeDataSource = FlatTreeDataSource;

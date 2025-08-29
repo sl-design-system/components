@@ -127,6 +127,17 @@ describe('sl-number-field', () => {
       expect(el.input.value).to.equal('2,000');
     });
 
+    it('should update the formatted value after typing and leaving the field', async () => {
+      el.input.focus();
+      await sendKeys({ press: 'ArrowRight' });
+      await sendKeys({ type: '123' });
+      el.input.blur();
+      await el.updateComplete;
+
+      expect(el.input.value).to.equal('1,000,123');
+      expect(el.valid).to.be.true;
+    });
+
     it('should be valid with a valid value', () => {
       expect(el.valid).to.be.true;
     });

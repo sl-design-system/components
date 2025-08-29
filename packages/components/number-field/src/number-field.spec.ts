@@ -29,6 +29,22 @@ describe('sl-number-field', () => {
       expect(el).to.have.attribute('disabled');
     });
 
+    it('should have a numeric inputmode', () => {
+      expect(el.querySelector('input')).to.have.attribute('inputmode', 'numeric');
+    });
+
+    it('should not have a placeholder', () => {
+      expect(el.placeholder).to.be.undefined;
+      expect(el.querySelector('input')).to.not.have.attribute('placeholder');
+    });
+
+    it('should have a placeholder when set', async () => {
+      el.placeholder = 'Enter a number';
+      await el.updateComplete;
+
+      expect(el.querySelector('input')).to.have.attribute('placeholder', 'Enter a number');
+    });
+
     it('should not be readonly', () => {
       expect(el).not.to.have.attribute('readonly');
       expect(el.readonly).not.to.be.true;
@@ -40,35 +56,86 @@ describe('sl-number-field', () => {
 
       expect(el).to.have.attribute('readonly');
     });
+
+    it('should emit an sl-change event when typing', async () => {
+      const onChange = spy();
+
+      el.addEventListener('sl-change', onChange);
+      el.input.focus();
+      await sendKeys({ type: '100' });
+
+      expect(onChange).to.have.been.calledThrice;
+    });
+
+    it('should emit an sl-validate event when typing', async () => {
+      const onValidate = spy();
+
+      el.addEventListener('sl-validate', onValidate);
+      el.input.focus();
+      await sendKeys({ type: '100' });
+
+      expect(onValidate).to.have.been.calledThrice;
+    });
+
+    it('should not format the value while typing', async () => {
+      el.input.focus();
+      await sendKeys({ type: '1000' });
+      await el.updateComplete;
+
+      expect(el.input.value).to.equal('1000');
+    });
+
+    it('should format the value on blur', async () => {
+      el.input.focus();
+      await sendKeys({ type: '1000' });
+
+      el.input.blur();
+      await el.updateComplete;
+
+      expect(el.input.value).to.equal('1,000');
+    });
   });
 
   describe('with value', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-number-field value="10"></sl-number-field>`);
+      el = await fixture(html`<sl-number-field value="1000"></sl-number-field>`);
     });
 
     it('should have the correct initial value', () => {
-      expect(el.valueAsNumber).to.equal(10);
+      expect(el.value).to.equals('1000');
     });
 
-    it('should update the value when changed programmatically', async () => {
-      el.valueAsNumber = 20;
-      await el.updateComplete;
-
-      const input = el.querySelector('input');
-
-      expect(input).to.exist;
-      expect(input!.value).to.equal('20');
+    it('should have the correct initial value as number', () => {
+      expect(el.valueAsNumber).to.equal(1000);
     });
 
-    it('should reflect the value in the input element', async () => {
-      const input = el.querySelector('input')!;
-      expect(input.value).to.equal('10');
+    it('should show the formatted initial value', () => {
+      expect(el.input.value).to.equal('1,000');
+    });
 
-      el.valueAsNumber = 15;
+    it('should show the formatted valueAsNumber when changed programmatically', async () => {
+      el.valueAsNumber = 2000;
       await el.updateComplete;
 
-      expect(input.value).to.equal('15');
+      expect(el.input.value).to.equal('2,000');
+    });
+
+    it('should show the formatted value when changed programmatically', async () => {
+      el.value = '2000';
+      await el.updateComplete;
+
+      expect(el.input.value).to.equal('2,000');
+    });
+
+    it('should update the formatted value after typing and leaving the field', async () => {
+      el.input.focus();
+      await sendKeys({ press: 'ArrowRight' });
+      await sendKeys({ type: '123' });
+      el.input.blur();
+      await el.updateComplete;
+
+      expect(el.input.value).to.equal('1,000,123');
+      expect(el.valid).to.be.true;
     });
 
     it('should be valid with a valid value', () => {
@@ -77,24 +144,63 @@ describe('sl-number-field', () => {
   });
 
   describe('required', () => {
-    let input: HTMLInputElement;
-
     beforeEach(async () => {
       el = await fixture(html`<sl-number-field required></sl-number-field>`);
-      input = el.querySelector('input')!;
     });
 
     it('should be invalid', () => {
       expect(el.valid).to.be.false;
     });
 
-    it('should have an invalid input', () => {
-      expect(input.matches(':invalid')).to.be.true;
-      expect(input.validity.valid).to.be.false;
-      expect(input.validity.valueMissing).to.be.true;
+    it('should be valid after typing a number', async () => {
+      el.focus();
+      await sendKeys({ type: '1 ' });
+      await el.updateComplete;
+
+      expect(el.valid).to.be.true;
     });
 
-    it('should have a show-validity attribute when reported', async () => {
+    it('should be valid after pressing the arrow down key', async () => {
+      el.focus();
+      await sendKeys({ press: 'ArrowDown' });
+      await el.updateComplete;
+
+      expect(el.valid).to.be.true;
+    });
+
+    it('should be valid after pressing the arrow up key', async () => {
+      el.focus();
+      await sendKeys({ press: 'ArrowUp' });
+      await el.updateComplete;
+
+      expect(el.valid).to.be.true;
+    });
+
+    it('should indicate that a value is missing', () => {
+      expect(el.validationMessage).to.equal('Please fill out this field.');
+      expect(el.input.matches(':invalid')).to.be.true;
+      expect(el.input.validity.valid).to.be.false;
+      expect(el.input.validity.valueMissing).to.be.true;
+    });
+
+    it('should indicate a custom error when the value is not a valid number', async () => {
+      el.input.focus();
+      await sendKeys({ type: 'asdf' });
+      await el.updateComplete;
+
+      el.input.blur();
+      await el.updateComplete;
+
+      expect(el.validationMessage).to.equal('Please enter a valid number.');
+      expect(el.input.matches(':invalid')).to.be.true;
+      expect(el.input.validity.customError).to.be.true;
+      expect(el.input.validity.valid).to.be.false;
+      expect(el.input.validity.valueMissing).to.be.false;
+    });
+
+    it('should not have a show-validity attribute until reported', async () => {
+      expect(el).not.to.have.attribute('show-validity');
+
       el.reportValidity();
       await el.updateComplete;
 
@@ -110,22 +216,11 @@ describe('sl-number-field', () => {
 
       expect(onUpdateValidity).to.have.been.calledOnce;
     });
-
-    it('should be valid after typing a number', async () => {
-      el.focus();
-      await sendKeys({ type: '123 ' });
-      await el.updateComplete;
-
-      expect(el.valid).to.equal(true);
-    });
   });
 
   describe('min', () => {
-    let input: HTMLInputElement;
-
     beforeEach(async () => {
       el = await fixture(html`<sl-number-field min="2" value="-1"></sl-number-field>`);
-      input = el.querySelector('input')!;
     });
 
     it('should be invalid when value is lower than min', () => {
@@ -133,22 +228,19 @@ describe('sl-number-field', () => {
     });
 
     it('should have an invalid input', () => {
-      expect(input.matches(':invalid')).to.be.true;
-      expect(input.validity.valid).to.be.false;
-      expect(input.validity.customError).to.be.true;
+      expect(el.input.matches(':invalid')).to.be.true;
+      expect(el.input.validity.valid).to.be.false;
+      expect(el.input.validity.customError).to.be.true;
     });
 
     it('should have a validation message', () => {
-      expect(input.validationMessage).to.equal('The value must be greater than or equal to 2.');
+      expect(el.input.validationMessage).to.equal('The value must be greater than or equal to 2.');
     });
   });
 
   describe('max', () => {
-    let input: HTMLInputElement;
-
     beforeEach(async () => {
       el = await fixture(html`<sl-number-field max="12" value="13"></sl-number-field>`);
-      input = el.querySelector('input')!;
     });
 
     it('should be invalid when value is greater than max', () => {
@@ -156,13 +248,13 @@ describe('sl-number-field', () => {
     });
 
     it('should have an invalid input', () => {
-      expect(input.matches(':invalid')).to.be.true;
-      expect(input.validity.valid).to.be.false;
-      expect(input.validity.customError).to.be.true;
+      expect(el.input.matches(':invalid')).to.be.true;
+      expect(el.input.validity.valid).to.be.false;
+      expect(el.input.validity.customError).to.be.true;
     });
 
     it('should have a validation message', () => {
-      expect(input.validationMessage).to.equal('The value must be less than or equal to 12.');
+      expect(el.input.validationMessage).to.equal('The value must be less than or equal to 12.');
     });
   });
 
@@ -268,34 +360,14 @@ describe('sl-number-field', () => {
       el = await fixture(html`<sl-number-field></sl-number-field>`);
     });
 
-    it('should validate the value on blur', async () => {
-      spy(el, 'setCustomValidity');
-
-      el.focus();
-      await sendKeys({ type: 'asdf' });
-      await sendKeys({ press: 'Tab' });
-
-      expect(el.setCustomValidity).to.have.been.calledOnce;
-    });
-
-    it('should set a custom validity if valueAsNumber is not a number', async () => {
+    it('should toggle the validation message when the number becomes (in)valid', async () => {
       el.valueAsNumber = NaN;
-      el.focus();
-      await sendKeys({ press: 'Tab' });
-
-      expect(el.validationMessage).to.equal('Please enter a valid number.');
-    });
-
-    it('should reset the custom validity if the value is valid', async () => {
-      el.valueAsNumber = NaN;
-      el.focus();
-      await sendKeys({ press: 'Tab' });
+      await el.updateComplete;
 
       expect(el.validationMessage).to.equal('Please enter a valid number.');
 
       el.focus();
       await sendKeys({ type: '123' });
-      await sendKeys({ press: 'Tab' });
 
       expect(el.validationMessage).to.equal('');
     });

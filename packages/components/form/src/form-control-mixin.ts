@@ -73,7 +73,9 @@ export interface FormControl {
   reportValidity(): boolean;
   reset(value: unknown): void;
   updateState(options: { dirty?: boolean; touched?: boolean }): void;
-  updateValidity(): void;
+  updateValidity(emitValidateEvent?: boolean): void;
+
+  updateInternalValidity(): void;
 
   getLocalizedValidationMessage(): string;
   setCustomValidity(message: string | Promise<string>): void;
@@ -118,6 +120,9 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
         this.updateValidity();
       }
     };
+
+    /** Flag indicating whether the validity is being updated. */
+    #updatingValidity = false;
 
     // A callback returned by the parent form component to unregister the control
     #unregister?: () => void;
@@ -370,6 +375,14 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     }
 
     /**
+     * Override this in a component to update internal validity using `setCustomValidity`.
+     * This is called during the validity check. Use this for custom validation within
+     * a component. This way, only a single `sl-update-validity` will be emitted.
+     * @internal
+     */
+    updateInternalValidity(): void {}
+
+    /**
      * Updates the validity of the form control. This does not *change* the `validity` of the
      * form control, it just updates the display of any validation message. Changing the validity
      * is up to the form control itself.
@@ -379,6 +392,12 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
      * @internal
      */
     updateValidity(emitValidateEvent = true): void {
+      // Set flag so we do not re-enter this method
+      this.#updatingValidity = true;
+
+      // Give components a chance to update their internal validity
+      this.updateInternalValidity();
+
       if (emitValidateEvent) {
         // Emit the validate event so custom validation can be run at the right time
         this.validateEvent.emit();
@@ -397,6 +416,8 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
         validationMessage: this.getLocalizedValidationMessage(),
         showValidity: this.showValidity
       });
+
+      this.#updatingValidity = false;
     }
 
     /**
@@ -460,7 +481,10 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
         }
       }
 
-      this.updateValidity(false);
+      // If `setCustomValidity` is called during an `updateValidity` call, do not re-enter the method
+      if (!this.#updatingValidity) {
+        this.updateValidity();
+      }
     }
 
     /**

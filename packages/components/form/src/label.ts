@@ -43,7 +43,11 @@ export class Label extends LitElement {
   /** @internal The associated form control. */
   @state() formControl: (HTMLElement & FormControl & { size?: string }) | null = null;
 
-  /** Indicates whether the label should indicate if the field is optional or required. */
+  /**
+   * Indicates whether the label should indicate if the field is optional or required.
+   * If you have a form field that contains more than one control, and the "required" state
+   * is a combination of the controls, you can use this property to hide the "optional" indicator.
+   */
   @property() mark?: LabelMark;
 
   /** @internal Whether this label should be marked as required. */

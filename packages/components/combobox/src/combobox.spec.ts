@@ -678,7 +678,7 @@ describe('sl-combobox', () => {
         el.value = ['Lorem'];
         await el.updateComplete;
 
-        expect(input).to.have.attribute('placeholder', '');
+        expect(input).not.to.have.attribute('placeholder');
       });
 
       it('should set the value when an option is selected', async () => {

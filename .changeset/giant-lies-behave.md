@@ -8,3 +8,4 @@ Various improvements & fixes
 - Add `controls` getter to `FormController` that returns a record when the form control name as key
 - Add `controls` part to the form-field template so you can customize the layout
 - Fix missing label in `<sl-form-validation-errors>` for `<sl-select>`
+- Refactored `updateValidity()` to add `updateInternalValidity()` hook that components can implement for *internal* custom validation logic

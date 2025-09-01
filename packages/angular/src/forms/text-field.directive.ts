@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Inject, forwardRef } from '@angular/core';
+import { ChangeDetectorRef, Directive, ElementRef, Inject, forwardRef } from '@angular/core';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR, type ValidationErrors } from '@angular/forms';
 import { type TextField } from '@sl-design-system/text-field';
 import { FormControlElementDirective } from './form-control-element.directive';
@@ -20,8 +20,11 @@ import { FormControlElementDirective } from './form-control-element.directive';
   ]
 })
 export class TextFieldDirective extends FormControlElementDirective<TextField> {
-  constructor(@Inject(ElementRef) elementRef: ElementRef<TextField>) {
-    super(elementRef);
+  constructor(
+    @Inject(ElementRef) elementRef: ElementRef<TextField>,
+    @Inject(ChangeDetectorRef) changeDetection: ChangeDetectorRef
+  ) {
+    super(elementRef, changeDetection);
   }
 
   override validate(): ValidationErrors | null {

@@ -1,3 +1,4 @@
+import { JsonPipe } from '@angular/common';
 import { Component, ViewChild, type WritableSignal, signal } from '@angular/core';
 import {
   type AbstractControl,
@@ -82,7 +83,19 @@ import { TextFieldComponent } from '../src/text-field/text-field.component';
     </sl-form>
 
     <pre>{{ formGroup.value | json }}</pre>
-  `
+  `,
+  imports: [
+    JsonPipe,
+    ReactiveFormsModule,
+    CheckboxDirective,
+    CheckboxGroupDirective,
+    NumberFieldDirective,
+    RadioGroupDirective,
+    SelectDirective,
+    SwitchDirective,
+    TextAreaDirective,
+    TextFieldDirective
+  ]
 })
 export class AllFormControlsReactiveComponent {
   formGroup = new FormGroup({
@@ -161,7 +174,21 @@ export class AllFormControlsReactiveComponent {
     </sl-form>
 
     <pre>{{ formGroup.value | json }}</pre>
-  `
+  `,
+  imports: [
+    JsonPipe,
+    ReactiveFormsModule,
+    ButtonComponent,
+    ButtonBarComponent,
+    CheckboxDirective,
+    CheckboxGroupDirective,
+    NumberFieldDirective,
+    RadioGroupDirective,
+    SelectDirective,
+    SwitchDirective,
+    TextAreaDirective,
+    TextFieldDirective
+  ]
 })
 export class AllFormControlsEmptyReactiveComponent {
   @ViewChild('form') form!: FormComponent;
@@ -238,7 +265,19 @@ export class AllFormControlsEmptyReactiveComponent {
     </sl-form>
 
     <pre>{{ formGroup | json }}</pre>
-  `
+  `,
+  imports: [
+    JsonPipe,
+    FormsModule,
+    CheckboxDirective,
+    CheckboxGroupDirective,
+    NumberFieldDirective,
+    RadioGroupDirective,
+    SelectDirective,
+    SwitchDirective,
+    TextAreaDirective,
+    TextFieldDirective
+  ]
 })
 export class AllFormControlsTemplateComponent {
   formGroup = {
@@ -307,7 +346,21 @@ export class AllFormControlsTemplateComponent {
     </sl-form>
 
     <pre>{{ formGroup | json }}</pre>
-  `
+  `,
+  imports: [
+    JsonPipe,
+    FormsModule,
+    ButtonComponent,
+    ButtonBarComponent,
+    CheckboxDirective,
+    CheckboxGroupDirective,
+    NumberFieldDirective,
+    RadioGroupDirective,
+    SelectDirective,
+    SwitchDirective,
+    TextAreaDirective,
+    TextFieldDirective
+  ]
 })
 export class AllFormControlsEmptyTemplateComponent {
   @ViewChild('form') form!: FormComponent;
@@ -316,7 +369,7 @@ export class AllFormControlsEmptyTemplateComponent {
     textField: '',
     textArea: '',
     checkbox: false,
-    numberField: 10,
+    numberField: '',
     select: '',
     switch: false,
     checkboxGroup: [],
@@ -360,7 +413,16 @@ export class AllFormControlsEmptyTemplateComponent {
         <sl-button (click)="onSubmit()" variant="primary">Log in</sl-button>
       </sl-button-bar>
     </sl-form>
-  `
+  `,
+  imports: [
+    JsonPipe,
+    ReactiveFormsModule,
+    ButtonComponent,
+    ButtonBarComponent,
+    CheckboxDirective,
+    InlineMessageComponent,
+    TextFieldDirective
+  ]
 })
 export class LoginFormComponent {
   @ViewChild('form') form!: FormComponent;
@@ -405,39 +467,24 @@ export default {
   title: 'Forms',
   decorators: [
     moduleMetadata({
-      declarations: [
+      imports: [
         AllFormControlsReactiveComponent,
         AllFormControlsEmptyReactiveComponent,
         AllFormControlsTemplateComponent,
         AllFormControlsEmptyTemplateComponent,
-        LoginFormComponent
-      ],
-      imports: [
-        ButtonComponent,
-        ButtonBarComponent,
+        LoginFormComponent,
         CheckboxComponent,
-        CheckboxDirective,
         CheckboxGroupComponent,
-        CheckboxGroupDirective,
         FormComponent,
         FormFieldComponent,
-        FormsModule,
-        InlineMessageComponent,
         NumberFieldComponent,
-        NumberFieldDirective,
         OptionComponent,
         RadioComponent,
         RadioGroupComponent,
-        RadioGroupDirective,
-        ReactiveFormsModule,
         SelectComponent,
-        SelectDirective,
         SwitchComponent,
-        SwitchDirective,
-        TextFieldComponent,
-        TextFieldDirective,
         TextAreaComponent,
-        TextAreaDirective
+        TextFieldComponent
       ]
     })
   ],

@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Inject, forwardRef } from '@angular/core';
+import { ChangeDetectorRef, Directive, ElementRef, Inject, forwardRef } from '@angular/core';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR, type ValidationErrors } from '@angular/forms';
 import { type NumberField } from '@sl-design-system/number-field';
 import { FormControlElementDirective } from './form-control-element.directive';
@@ -20,8 +20,11 @@ import { FormControlElementDirective } from './form-control-element.directive';
   ]
 })
 export class NumberFieldDirective extends FormControlElementDirective<NumberField> {
-  constructor(@Inject(ElementRef) elementRef: ElementRef<NumberField>) {
-    super(elementRef);
+  constructor(
+    @Inject(ElementRef) elementRef: ElementRef<NumberField>,
+    @Inject(ChangeDetectorRef) changeDetection: ChangeDetectorRef
+  ) {
+    super(elementRef, changeDetection);
   }
 
   override validate(): ValidationErrors | null {

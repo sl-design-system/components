@@ -1,5 +1,5 @@
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { TemplateResult, html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type Calendar } from './calendar.js';
@@ -163,53 +163,75 @@ export const All: Story = {
 
       return value instanceof Date ? value : new Date(value);
     };
-    const getOffsetDate = (offset: number): Date => {
-      const date = new Date();
+    const getOffsetDate = (offset: number, setDate?: Date): Date => {
+      const date = setDate ? new Date(setDate) : new Date();
       date.setDate(date.getDate() + offset);
       return date;
     };
-    const negative = {
-      indicator: [
-        getOffsetDate(0),
-        getOffsetDate(1),
-        getOffsetDate(6),
-        getOffsetDate(-6),
-        getOffsetDate(3),
-        getOffsetDate(8),
-        getOffsetDate(-8)
-      ],
-      negative: [
-        getOffsetDate(2),
-        getOffsetDate(7),
-        getOffsetDate(-7),
-        getOffsetDate(3),
-        getOffsetDate(8),
-        getOffsetDate(-8)
-      ],
+
+    const renderMonth = (settings: Props): TemplateResult => {
+      return html`
+        <sl-calendar
+          ?show-today=${ifDefined(settings.showToday)}
+          show-week-numbers="true"
+          max=${ifDefined(parseDate(settings.max)?.toISOString())}
+          min=${ifDefined(parseDate(settings.min)?.toISOString())}
+          month=${ifDefined(parseDate(settings.month)?.toISOString())}
+          selected=${ifDefined(parseDate(settings.selected)?.toISOString())}
+          negative=${ifDefined(settings.negative?.map(date => date.toISOString()).join(','))}
+          indicator=${ifDefined(settings.indicator?.map(date => date.toISOString()).join(','))}
+        ></sl-calendar>
+      `;
+    };
+    const monthEndDate = new Date(2025, 8, 29);
+    const monthEnd = {
+      negative: [getOffsetDate(2, monthEndDate)],
+      indicator: [getOffsetDate(3, monthEndDate)],
+      selected: getOffsetDate(4, monthEndDate),
+      showToday: false,
+      month: monthEndDate,
+      max: getOffsetDate(5, monthEndDate),
+      min: getOffsetDate(-5, monthEndDate)
+    };
+
+    const indicator = {
+      indicator: [getOffsetDate(0), getOffsetDate(1), getOffsetDate(6)], // make sure one it outside the min/max range
+      selected: getOffsetDate(1),
       showToday: true,
       month: new Date(),
       max: getOffsetDate(5),
       min: getOffsetDate(-5)
     };
+    const indicatorToday = {
+      ...indicator,
+      selected: getOffsetDate(0)
+    };
+    const negative = {
+      negative: [getOffsetDate(0), getOffsetDate(1), getOffsetDate(6)], // make sure one it outside the min/max range
+      selected: getOffsetDate(1),
+      showToday: true,
+      month: new Date(),
+      max: getOffsetDate(5),
+      min: getOffsetDate(-5)
+    };
+
+    const negativeToday = {
+      ...negative,
+      selected: getOffsetDate(0)
+    };
     return html`
-      <sl-calendar
-        show-today="true"
-        show-week-numbers="true"
-        max=${ifDefined(parseDate(negative.max)?.toISOString())}
-        min=${ifDefined(parseDate(negative.min)?.toISOString())}
-        month=${ifDefined(parseDate(negative.month)?.toISOString())}
-        negative=${ifDefined(negative.negative?.map(date => date.toISOString()).join(','))}
-        indicator=${ifDefined(negative.indicator?.map(date => date.toISOString()).join(','))}
-      ></sl-calendar>
-      <sl-calendar
-        show-today="true"
-        show-week-numbers="true"
-        max=${ifDefined(parseDate(negative.max)?.toISOString())}
-        min=${ifDefined(parseDate(negative.min)?.toISOString())}
-        month=${ifDefined(parseDate(negative.month)?.toISOString())}
-        negative=${ifDefined(negative.negative?.map(date => date.toISOString()).join(','))}
-        indicator=${ifDefined(negative.indicator?.map(date => date.toISOString()).join(','))}
-      ></sl-calendar>
+      <h1>Month End (${monthEndDate.toLocaleDateString()})</h1>
+      <p>
+        Selected, negative and date with indicator are all in the next month, but have the same styling as they would
+        within the current month.
+      </p>
+      ${renderMonth(monthEnd)}
+      <h1>Today</h1>
+      <p>Shows current month with 'today' highlighted, in combination with selected, indicator and negative</p>
+      <h2>Indicator</h2>
+      ${renderMonth(indicator)} ${renderMonth(indicatorToday)}
+      <h2>Negative</h2>
+      ${renderMonth(negative)} ${renderMonth(negativeToday)}
     `;
   }
 };

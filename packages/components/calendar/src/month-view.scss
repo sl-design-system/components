@@ -63,7 +63,7 @@ button {
   color: var(--sl-color-foreground-subtlest);
 }
 
-[part~='today'] {
+:host([show-today]) [part~='today'] {
   border: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-bold);
   border-radius: var(--sl-size-borderRadius-default);
 }
@@ -76,7 +76,7 @@ button {
   color: var(--sl-color-foreground-selected-onBold);
 }
 
-[part~='today'][part~='selected'] {
+:host([show-today]) [part~='today'][part~='selected'] {
   border-color: var(--sl-color-border-primary-plain);
   box-shadow: inset 0 0 0 var(--sl-size-borderWidth-subtle) var(--sl-elevation-surface-raised-default);
 }
@@ -95,7 +95,7 @@ button {
   color: var(--sl-color-foreground-negative-onBold);
 }
 
-[part~='negative'][part~='today'] {
+:host([show-today]) [part~='negative'][part~='today'] {
   border-color: var(--sl-color-border-negative-plain);
 }
 
@@ -108,13 +108,9 @@ button {
 
     color: var(--sl-color-foreground-disabled);
   }
-
-  &[part~='today'][part~='selected'] {
-    border-color: var(--sl-color-border-disabled);
-  }
 }
 
-[part~='indicator']::after {
+[part~='indicator']:not([part~='unselectable'])::after {
   background: var(--sl-color-background-accent-blue-bold);
   block-size: var(--sl-size-075);
   border: var(--sl-size-borderWidth-default) solid var(--sl-elevation-surface-raised-default);

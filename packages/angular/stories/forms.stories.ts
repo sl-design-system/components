@@ -262,7 +262,7 @@ export class AllFormControlsTemplateComponent {
       </sl-form-field>
 
       <sl-form-field label="Number field">
-        <sl-number-field [(ngModel)]="formGroup.numberField" required></sl-number-field>
+        <sl-number-field [(ngModel)]="formGroup.numberField" min="5" max="15" required></sl-number-field>
       </sl-form-field>
 
       <sl-form-field label="Text area">

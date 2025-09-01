@@ -11,17 +11,17 @@ eleventyNavigation:
 
 <div class="ds-table-wrapper">
 
-| Command       |Description|
-|---------------|-|
-| Tab           |Moves focus into the tree (to the first visible node) or to the next focusable element when leaving the tree. Inline action controls inside a node are tabbable.|
-| Shift + Tab   |Moves focus to the previous focusable element (can move focus out of the tree).|
-| Arrow Down    |Moves focus to the next visible node.|
-| Arrow Up      |Moves focus to the previous visible node.|
-| Arrow Right   |On a collapsed, expandable node: expands it and keeps focus. On an expanded node: moves focus to its first child.|
-| Arrow Left    |On an expanded node: collapses it and keeps focus. On a leaf node: moves focus to its parent.|
-| Home          |Moves focus to the first visible node.|
-| End           |Moves focus to the last visible node.|
-| Enter / Space |Selects or toggles selection of the focused node.|
+| Command       | Description                                                                                                                                                      |
+|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Tab           | Moves focus into the tree (to the first visible node) or to the next focusable element when leaving the tree. Inline action controls inside a node are tabbable. |
+| Shift + Tab   | Moves focus to the previous focusable element (can move focus out of the tree).                                                                                  |
+| Arrow Down    | Moves focus to the next visible node.                                                                                                                            |
+| Arrow Up      | Moves focus to the previous visible node.                                                                                                                        |
+| Arrow Right   | On a collapsed, expandable node: expands it and keeps focus. On an expanded node: moves focus to its first child.                                                |
+| Arrow Left    | On an expanded node: collapses it and keeps focus. On a leaf node (the nodes which don't have any child nodes are called leaf nodes): moves focus to its parent. |
+| Home          | Moves focus to the first visible node.                                                                                                                           |
+| End           | Moves focus to the last visible node.                                                                                                                            |
+| Enter / Space | Selects or toggles selection of the focused node.                                                                                                                |
 
 {.ds-table .ds-table-align-top}
 

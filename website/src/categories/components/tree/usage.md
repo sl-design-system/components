@@ -50,29 +50,8 @@ eleventyNavigation:
       isExpanded: ({ name }) => ['tree', 'src'].includes(name),
       selects: 'multiple'
     });
-
-    const renderer = (node) => {
-      const frag = document.createDocumentFragment();
-
-      const iconName = node.label.includes('.')
-        ? 'far-file-lines'
-        : `far-folder${node.expanded ? '-open' : ''}`;
-      if (iconName) {
-        const iconEl = document.createElement('sl-icon');
-        iconEl.setAttribute('size', 'sm');
-        iconEl.name = iconName;
-        frag.appendChild(iconEl);
-      }
-
-      const label = document.createElement('span');
-      label.textContent = node.label;
-      frag.appendChild(label);
-
-      return frag;
-    };
   
     tree.dataSource = dataSource;
-    tree.renderer = renderer;
 </script>
   ```
 
@@ -240,30 +219,9 @@ Indentation visually distinguishes parent nodes from their child nodes by shifti
       selects: 'multiple'
     });
 
-    const renderer = (node) => {
-      const frag = document.createDocumentFragment();
-
-      const iconName = node.label.includes('.')
-        ? 'far-file-lines'
-        : `far-folder${node.expanded ? '-open' : ''}`;
-      if (iconName) {
-        const iconEl = document.createElement('sl-icon');
-        iconEl.setAttribute('size', 'sm');
-        iconEl.name = iconName;
-        frag.appendChild(iconEl);
-      }
-
-      const label = document.createElement('span');
-      label.textContent = node.label;
-      frag.appendChild(label);
-
-      return frag;
-    };
-
     (async () => {
       await customElements.whenDefined('sl-tree');
       tree.dataSource = dataSource;
-      tree.renderer = renderer;
     })();
   }
 </script>

@@ -1,4 +1,7 @@
+import { faFileLines, faFolder, faFolderOpen, faPen, faTrash } from '@fortawesome/pro-regular-svg-icons';
 import { Dialog as DialogElement } from '@sl-design-system/dialog';
+import { Icon as SlIcon } from '@sl-design-system/icon';
+import { FlatTreeDataSource } from '@sl-design-system/tree';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 import { AccordionItemComponent } from '../src/accordion/accordion-item.component';
 import { AccordionComponent } from '../src/accordion/accordion.component';
@@ -27,6 +30,7 @@ import { TabComponent } from '../src/tabs/tab.component';
 import { TextAreaComponent } from '../src/text-area/text-area.component';
 import { TextFieldComponent } from '../src/text-field/text-field.component';
 import { TooltipComponent } from '../src/tooltip/tooltip.component';
+import { TreeComponent } from '../src/tree/tree.component';
 
 export default {
   title: 'Wrappers',
@@ -59,11 +63,14 @@ export default {
         TabPanelComponent,
         TextFieldComponent,
         TextAreaComponent,
-        TooltipComponent
+        TooltipComponent,
+        TreeComponent
       ]
     })
   ]
 } as Meta;
+
+SlIcon.register(faFileLines, faFolder, faFolderOpen, faPen, faTrash);
 
 export const Accordion: StoryObj = {
   render: () => ({
@@ -278,4 +285,53 @@ export const Tooltip: StoryObj = {
       <sl-tooltip id="tooltip">Tooltip content</sl-tooltip>
     `
   })
+};
+
+export const Tree: StoryObj = {
+  render: () => {
+    type Item = { id: number; expandable: boolean; level: number; name: string };
+
+    const flatData: Item[] = [
+      { id: 0, expandable: true, level: 0, name: 'Mathematics' },
+      { id: 1, expandable: true, level: 1, name: 'Algebra' },
+      { id: 2, expandable: false, level: 2, name: 'Lesson 1 - Linear equations.md' },
+      { id: 3, expandable: false, level: 2, name: 'Lesson 2 - Quadratic equations.md' },
+      { id: 4, expandable: true, level: 1, name: 'Geometry' },
+      { id: 5, expandable: false, level: 2, name: 'Lesson 1 - Triangles.md' },
+      { id: 6, expandable: false, level: 2, name: 'Lesson 2 - Circles.md' },
+      { id: 21, expandable: false, level: 1, name: 'Lesson 20 - Statistics and probability.md' },
+      { id: 7, expandable: true, level: 0, name: 'Science' },
+      { id: 8, expandable: true, level: 1, name: 'Physics' },
+      { id: 9, expandable: false, level: 2, name: 'Lesson 1 - Motion.md' },
+      { id: 10, expandable: false, level: 2, name: 'Lesson 2 - Forces.md' },
+      { id: 11, expandable: true, level: 1, name: 'Chemistry' },
+      { id: 12, expandable: false, level: 2, name: 'Lesson 1 - Atoms.md' },
+      { id: 13, expandable: false, level: 2, name: 'Lesson 2 - Reactions.md' },
+      { id: 14, expandable: true, level: 0, name: 'History' },
+      { id: 15, expandable: true, level: 1, name: 'Ancient Civilizations' },
+      { id: 16, expandable: false, level: 2, name: 'Egypt.md' },
+      { id: 17, expandable: false, level: 2, name: 'Rome.md' },
+      { id: 18, expandable: true, level: 1, name: 'Modern History' },
+      { id: 19, expandable: false, level: 2, name: 'World War I.md' },
+      { id: 20, expandable: false, level: 2, name: 'World War II.md' }
+    ];
+
+    const dataSource = new FlatTreeDataSource<Item>(flatData, {
+      getIcon: ({ name }: Item, expanded: boolean) =>
+        name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`,
+      getId: (item: Item) => item.id,
+      getLabel: ({ name }: Item) => name,
+      getLevel: ({ level }: Item) => level,
+      isExpandable: ({ expandable }: Item) => expandable,
+      isExpanded: ({ name }: Item) => ['tree', 'src'].includes(name),
+      selects: 'multiple'
+    });
+
+    return {
+      props: { dataSource },
+      template: `
+        <sl-tree [dataSource]="dataSource" aria-label="Subjects structure"></sl-tree>
+      `
+    };
+  }
 };

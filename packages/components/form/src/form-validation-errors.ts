@@ -33,7 +33,10 @@ export class FormValidationErrors extends ScopedElementsMixin(LitElement) {
           .filter(control => !control.valid)
           .reduce((acc, control) => {
             const label =
-              control.labels?.[0]?.textContent?.trim() || control.getAttribute('aria-label') || control.name!;
+              control.labels?.[0]?.textContent?.trim() ||
+              control.formControlElement.ariaLabel ||
+              control.ariaLabel ||
+              control.name!;
 
             return { ...acc, [label]: control };
           }, {}) ?? {};

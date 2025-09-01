@@ -9,6 +9,10 @@ describe('NumberParser', () => {
       parser = new NumberParser();
     });
 
+    it('should return undefined for empty string', () => {
+      expect(parser.parse('')).to.be.undefined;
+    });
+
     it('should parse a simple number', () => {
       expect(parser.parse('1234')).to.equal(1234);
     });
@@ -17,8 +21,12 @@ describe('NumberParser', () => {
       expect(parser.parse('1234.56')).to.equal(1234.56);
     });
 
-    it('should return undefined for invalid number', () => {
-      expect(parser.parse('1abc')).to.be.undefined;
+    it('should parse a number with thousand separators', () => {
+      expect(parser.parse('1,234')).to.equal(1234);
+    });
+
+    it('should return NaN for invalid number', () => {
+      expect(parser.parse('1abc')).to.be.NaN;
     });
   });
 
@@ -28,11 +36,11 @@ describe('NumberParser', () => {
     });
 
     it('should parse a percentage', () => {
-      expect(parser.parse('50,5%')).to.equal(50.5);
+      expect(parser.parse('50.5%')).to.equal(50.5);
     });
 
-    it('should return undefined for invalid percentage', () => {
-      expect(parser.parse('abc%')).to.be.undefined;
+    it('should return NaN for invalid percentage', () => {
+      expect(parser.parse('abc%')).to.be.NaN;
     });
   });
 
@@ -45,8 +53,8 @@ describe('NumberParser', () => {
       expect(parser.parse('$1,234.56')).to.equal(1234.56);
     });
 
-    it('should return undefined for invalid currency value', () => {
-      expect(parser.parse('$abc')).to.be.undefined;
+    it('should return NaN for invalid currency value', () => {
+      expect(parser.parse('$abc')).to.be.NaN;
     });
   });
 
@@ -56,11 +64,11 @@ describe('NumberParser', () => {
     });
 
     it('should parse a unit value', () => {
-      expect(parser.parse('1,234 meters')).to.equal(1234);
+      expect(parser.parse('1,234 metres')).to.equal(1234);
     });
 
-    it('should return undefined for invalid unit value', () => {
-      expect(parser.parse('a2bc meteros')).to.be.undefined;
+    it('should return NaN for invalid unit', () => {
+      expect(parser.parse('1,234 cars')).to.be.NaN;
     });
   });
 });

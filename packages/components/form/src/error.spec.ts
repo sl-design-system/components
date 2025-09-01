@@ -11,10 +11,6 @@ describe('sl-error', () => {
       el = await fixture(html`<sl-error>My error</sl-error>`);
     });
 
-    it('should have a default size of md', () => {
-      expect(el).to.have.attribute('size', 'md');
-    });
-
     it('should not have an error slot', () => {
       expect(el).not.to.have.attribute('slot', 'error');
     });

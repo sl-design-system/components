@@ -6,6 +6,10 @@
   }
 }
 
+::slotted(input) {
+  text-overflow: ellipsis;
+}
+
 .step-buttons {
   display: flex;
 

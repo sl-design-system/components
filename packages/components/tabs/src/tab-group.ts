@@ -306,8 +306,12 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    this.#updateSelectedTab(tab);
-    this.#scrollToTabPanelStart();
+    requestAnimationFrame(() => {
+      this.#updateSelectedTab(tab);
+      this.#scrollToTabPanelStart();
+    });
+    // this.#updateSelectedTab(tab);
+    // this.#scrollToTabPanelStart();
   }
 
   #onFocusin(event: FocusEvent): void {
@@ -399,39 +403,49 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #scrollIntoViewIfNeeded(tab: Tab, behavior?: ScrollBehavior): void {
-    const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement,
-      scrollerRect = scroller.getBoundingClientRect(),
-      tabRect = tab.getBoundingClientRect();
+    console.log('Scrolling tab into view if needed:', tab, behavior);
+    requestAnimationFrame(() => {
+      const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement,
+        scrollerRect = scroller.getBoundingClientRect(),
+        tabRect = tab.getBoundingClientRect();
 
-    if (this.vertical) {
-      if (tabRect.top < scrollerRect.top) {
-        // The tab is above the top edge of the scroller
-        scroller.scrollBy({ top: tabRect.top - scrollerRect.top, behavior });
-      } else if (tabRect.bottom > scrollerRect.bottom) {
-        // The tab is below the bottom edge of the scroller
-        scroller.scrollBy({ top: tabRect.bottom - scrollerRect.bottom, behavior });
+      console.log('scrollerRect:', scrollerRect);
+      console.log('tabRect:', tabRect);
+
+      if (this.vertical) {
+        if (tabRect.top < scrollerRect.top) {
+          // The tab is above the top edge of the scroller
+          scroller.scrollBy({ top: tabRect.top - scrollerRect.top, behavior });
+        } else if (tabRect.bottom > scrollerRect.bottom) {
+          // The tab is below the bottom edge of the scroller
+          scroller.scrollBy({ top: tabRect.bottom - scrollerRect.bottom, behavior });
+        }
+      } else {
+        if (tabRect.left < scrollerRect.left) {
+          // The tab is to the left of the left edge of the scroller
+          scroller.scrollBy({ left: tabRect.left - scrollerRect.left, behavior });
+          console.log('Scrolling left', tabRect.left, scrollerRect.left, tabRect.left - scrollerRect.left);
+        } else if (tabRect.right > scrollerRect.right) {
+          // The tab is to the right of the right edge of the scroller
+          scroller.scrollBy({ left: tabRect.right - scrollerRect.right, behavior });
+          console.log('Scrolling right', tabRect.right - scrollerRect.right);
+        }
       }
-    } else {
-      if (tabRect.left < scrollerRect.left) {
-        // The tab is to the left of the left edge of the scroller
-        scroller.scrollBy({ left: tabRect.left - scrollerRect.left, behavior });
-      } else if (tabRect.right > scrollerRect.right) {
-        // The tab is to the right of the right edge of the scroller
-        scroller.scrollBy({ left: tabRect.right - scrollerRect.right, behavior });
-      }
-    }
+    });
   }
 
   #scrollToTabPanelStart(): void {
     console.log('Scrolling to tab panel start in scrollToTabPanelStart');
-    const { bottom: containerBottom = 0 } =
-        this.renderRoot.querySelector('[part="container"]')?.getBoundingClientRect() || {},
-      { top: wrapperTop = 0 } = this.renderRoot.querySelector('[part="wrapper"]')?.getBoundingClientRect() || {},
-      { top = 0 } = this.renderRoot.querySelector('[part="panels"]')?.getBoundingClientRect() || {};
+    requestAnimationFrame(() => {
+      const { bottom: containerBottom = 0 } =
+          this.renderRoot.querySelector('[part="container"]')?.getBoundingClientRect() || {},
+        { top: wrapperTop = 0 } = this.renderRoot.querySelector('[part="wrapper"]')?.getBoundingClientRect() || {},
+        { top = 0 } = this.renderRoot.querySelector('[part="panels"]')?.getBoundingClientRect() || {};
 
-    // Scroll to make sure the top of the panel is visible, but don't scroll too far
-    // so the tab container/wrapper may become unstuck.
-    getScrollParent(this)?.scrollBy({ top: top - (this.vertical ? wrapperTop : containerBottom) });
+      // Scroll to make sure the top of the panel is visible, but don't scroll too far
+      // so the tab container/wrapper may become unstuck.
+      getScrollParent(this)?.scrollBy({ top: top - (this.vertical ? wrapperTop : containerBottom) });
+    });
   }
 
   #updateSelectedTab(selectedTab?: Tab, emitEvent = true): void {

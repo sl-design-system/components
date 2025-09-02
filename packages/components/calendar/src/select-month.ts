@@ -85,6 +85,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       currentYear = this.month.getFullYear();
 
     return html`
+      dfdf
       <div part="header">
         <span class="current-year">${currentYear}</span>
         <sl-button

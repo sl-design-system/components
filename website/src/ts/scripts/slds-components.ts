@@ -7,10 +7,14 @@ import {
   faCode,
   faCopy,
   faFileEdit,
+  faFileLines,
   faFloppyDisk,
+  faFolder,
+  faFolderOpen,
   faGear,
   faHeart,
   faMessagesQuestion,
+  faPen,
   faPenToSquare,
   faPencilRuler,
   faTrash,
@@ -41,6 +45,7 @@ import {
   faListUl as fasListUl,
   faUnderline as fasUnderline
 } from '@fortawesome/pro-solid-svg-icons';
+import '@lit-labs/virtualizer/virtualize.js';
 import '@oddbird/popover-polyfill';
 import '@sl-design-system/accordion/register.js';
 import '@sl-design-system/avatar/register.js';
@@ -51,6 +56,7 @@ import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/card/register.js';
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/combobox/register.js';
+import '@sl-design-system/data-source';
 import '@sl-design-system/dialog/register.js';
 import '@sl-design-system/drawer/register.js';
 import '@sl-design-system/editor/register.js';
@@ -80,6 +86,8 @@ import '@sl-design-system/text-field/register.js';
 import '@sl-design-system/toggle-button/register.js';
 import '@sl-design-system/toggle-group/register.js';
 import '@sl-design-system/tooltip/register.js';
+import { FlatTreeDataSource } from '@sl-design-system/tree';
+import '@sl-design-system/tree/register.js';
 
 setup();
 
@@ -90,12 +98,16 @@ Icon.register(
   faCopy,
   faEnvelope,
   faFileEdit,
+  faFileLines,
   faFloppyDisk,
+  faFolder,
+  faFolderOpen,
   faGear,
   faGithub,
   faHandBackPointUp,
   faHeart,
   faMessagesQuestion,
+  faPen,
   faPenToSquare,
   faPencilRuler,
   faSchool,
@@ -127,8 +139,10 @@ Icon.register(
 declare global {
   interface Window {
     MessageDialog: typeof MessageDialog;
+    FlatTreeDataSource: typeof FlatTreeDataSource;
   }
 }
 
-// This is a hack so we can access the MessageDialog class from markdown files
+// This is a hack so we can access the MessageDialog and FlatTreeDataSource class from markdown files
 window.MessageDialog = MessageDialog;
+window.FlatTreeDataSource = FlatTreeDataSource;

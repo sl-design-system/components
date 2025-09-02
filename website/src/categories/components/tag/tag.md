@@ -10,5 +10,5 @@ storybookCategory: feedback-status
 eleventyNavigation:
   parent: Components
   key: Tag
-  status: new
+  status: ready
 ---

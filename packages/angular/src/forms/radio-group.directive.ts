@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Inject, forwardRef } from '@angular/core';
+import { ChangeDetectorRef, Directive, ElementRef, Inject, forwardRef } from '@angular/core';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR, type ValidationErrors } from '@angular/forms';
 import { type RadioGroup } from '@sl-design-system/radio-group';
 import { FormControlElementDirective } from './form-control-element.directive';
@@ -20,8 +20,11 @@ import { FormControlElementDirective } from './form-control-element.directive';
   ]
 })
 export class RadioGroupDirective extends FormControlElementDirective<RadioGroup> {
-  constructor(@Inject(ElementRef) elementRef: ElementRef<RadioGroup>) {
-    super(elementRef);
+  constructor(
+    @Inject(ElementRef) elementRef: ElementRef<RadioGroup>,
+    @Inject(ChangeDetectorRef) changeDetection: ChangeDetectorRef
+  ) {
+    super(elementRef, changeDetection);
   }
 
   override validate(): ValidationErrors | null {

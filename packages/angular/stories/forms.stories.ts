@@ -1,4 +1,5 @@
-import { Component, ViewChild, type WritableSignal, signal } from '@angular/core';
+import { JsonPipe } from '@angular/common';
+import { Component, type ElementRef, ViewChild, type WritableSignal, signal } from '@angular/core';
 import {
   type AbstractControl,
   FormControl,
@@ -7,6 +8,7 @@ import {
   ReactiveFormsModule,
   type ValidationErrors
 } from '@angular/forms';
+import { type Form } from '@sl-design-system/form';
 import { type Meta, type StoryFn, moduleMetadata } from '@storybook/angular';
 import { ButtonComponent } from '../src/button/button.component';
 import { ButtonBarComponent } from '../src/button-bar/button-bar.component';
@@ -16,6 +18,7 @@ import { FormFieldComponent } from '../src/form/form-field.component';
 import { FormComponent } from '../src/form/form.component';
 import { CheckboxGroupDirective } from '../src/forms/checkbox-group.directive';
 import { CheckboxDirective } from '../src/forms/checkbox.directive';
+import { NumberFieldDirective } from '../src/forms/number-field.directive';
 import { RadioGroupDirective } from '../src/forms/radio-group.directive';
 import { SelectDirective } from '../src/forms/select.directive';
 import { SwitchDirective } from '../src/forms/switch.directive';
@@ -23,6 +26,7 @@ import { TextAreaDirective } from '../src/forms/text-area.directive';
 import { TextFieldDirective } from '../src/forms/text-field.directive';
 import { InlineMessageComponent } from '../src/inline-message/inline-message.component';
 import { OptionComponent } from '../src/listbox/option.component';
+import { NumberFieldComponent } from '../src/number-field/number-field.component';
 import { RadioGroupComponent } from '../src/radio-group/radio-group.component';
 import { RadioComponent } from '../src/radio-group/radio.component';
 import { SelectComponent } from '../src/select/select.component';
@@ -36,6 +40,10 @@ import { TextFieldComponent } from '../src/text-field/text-field.component';
     <sl-form [formGroup]="formGroup">
       <sl-form-field label="Text field">
         <sl-text-field formControlName="textField"></sl-text-field>
+      </sl-form-field>
+
+      <sl-form-field label="Number field">
+        <sl-number-field formControlName="numberField"></sl-number-field>
       </sl-form-field>
 
       <sl-form-field label="Textarea">
@@ -76,12 +84,25 @@ import { TextFieldComponent } from '../src/text-field/text-field.component';
     </sl-form>
 
     <pre>{{ formGroup.value | json }}</pre>
-  `
+  `,
+  imports: [
+    JsonPipe,
+    ReactiveFormsModule,
+    CheckboxDirective,
+    CheckboxGroupDirective,
+    NumberFieldDirective,
+    RadioGroupDirective,
+    SelectDirective,
+    SwitchDirective,
+    TextAreaDirective,
+    TextFieldDirective
+  ]
 })
 export class AllFormControlsReactiveComponent {
   formGroup = new FormGroup({
     checkbox: new FormControl('checked'),
     checkboxGroup: new FormControl(['2', '1', '0']),
+    numberField: new FormControl(10),
     radioGroup: new FormControl('1'),
     select: new FormControl('1'),
     switch: new FormControl('toggled'),
@@ -110,6 +131,10 @@ export class AllFormControlsReactiveComponent {
         <sl-text-field formControlName="textField" required></sl-text-field>
       </sl-form-field>
 
+      <sl-form-field label="Number field">
+        <sl-number-field formControlName="numberField" required></sl-number-field>
+      </sl-form-field>
+
       <sl-form-field label="Text area">
         <sl-text-area formControlName="textArea" required></sl-text-area>
       </sl-form-field>
@@ -120,7 +145,9 @@ export class AllFormControlsReactiveComponent {
 
       <sl-form-field label="Select">
         <sl-select formControlName="select" required>
-          <sl-option *ngFor="let option of options" [value]="option.value">{{ option.label }}</sl-option>
+          @for (option of options(); track option.value) {
+            <sl-option [value]="option.value">{{ option.label }}</sl-option>
+          }
         </sl-select>
       </sl-form-field>
 
@@ -150,14 +177,29 @@ export class AllFormControlsReactiveComponent {
     </sl-form>
 
     <pre>{{ formGroup.value | json }}</pre>
-  `
+  `,
+  imports: [
+    JsonPipe,
+    ReactiveFormsModule,
+    ButtonComponent,
+    ButtonBarComponent,
+    CheckboxDirective,
+    CheckboxGroupDirective,
+    NumberFieldDirective,
+    RadioGroupDirective,
+    SelectDirective,
+    SwitchDirective,
+    TextAreaDirective,
+    TextFieldDirective
+  ]
 })
 export class AllFormControlsEmptyReactiveComponent {
-  @ViewChild('form') form!: FormComponent;
+  @ViewChild('form') form!: ElementRef<Form>;
 
   formGroup = new FormGroup({
     checkbox: new FormControl(false),
     checkboxGroup: new FormControl([]),
+    numberField: new FormControl(),
     radioGroup: new FormControl(''),
     select: new FormControl(''),
     switch: new FormControl(false),
@@ -165,14 +207,20 @@ export class AllFormControlsEmptyReactiveComponent {
     textField: new FormControl('')
   });
 
-  options = [
-    { label: 'Option 1', value: '1' },
-    { label: 'Option 2', value: '2' },
-    { label: 'Option 3', value: '3' }
-  ];
+  options: WritableSignal<Array<{ label: string; value: string }>> = signal([]);
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.options.set([
+        { label: 'Option 1', value: '1' },
+        { label: 'Option 2', value: '2' },
+        { label: 'Option 3', value: '3' }
+      ]);
+    }, 500);
+  }
 
   onClick(): void {
-    this.form.el.reportValidity();
+    this.form.nativeElement.reportValidity();
   }
 }
 
@@ -182,6 +230,10 @@ export class AllFormControlsEmptyReactiveComponent {
     <sl-form>
       <sl-form-field label="Text field">
         <sl-text-field [(ngModel)]="formGroup.textField"></sl-text-field>
+      </sl-form-field>
+
+      <sl-form-field label="Number field">
+        <sl-number-field [(ngModel)]="formGroup.numberField"></sl-number-field>
       </sl-form-field>
 
       <sl-form-field label="Text area">
@@ -222,13 +274,26 @@ export class AllFormControlsEmptyReactiveComponent {
     </sl-form>
 
     <pre>{{ formGroup | json }}</pre>
-  `
+  `,
+  imports: [
+    JsonPipe,
+    FormsModule,
+    CheckboxDirective,
+    CheckboxGroupDirective,
+    NumberFieldDirective,
+    RadioGroupDirective,
+    SelectDirective,
+    SwitchDirective,
+    TextAreaDirective,
+    TextFieldDirective
+  ]
 })
 export class AllFormControlsTemplateComponent {
   formGroup = {
     textField: 'Text field',
     textArea: 'Text area',
     checkbox: 'checked',
+    numberField: 10,
     select: '1',
     switch: 'toggled',
     checkboxGroup: ['2', '1', '0'],
@@ -242,6 +307,10 @@ export class AllFormControlsTemplateComponent {
     <sl-form #form>
       <sl-form-field label="Text field">
         <sl-text-field [(ngModel)]="formGroup.textField" required></sl-text-field>
+      </sl-form-field>
+
+      <sl-form-field label="Number field">
+        <sl-number-field [(ngModel)]="formGroup.numberField" min="5" max="15" required></sl-number-field>
       </sl-form-field>
 
       <sl-form-field label="Text area">
@@ -286,15 +355,30 @@ export class AllFormControlsTemplateComponent {
     </sl-form>
 
     <pre>{{ formGroup | json }}</pre>
-  `
+  `,
+  imports: [
+    JsonPipe,
+    FormsModule,
+    ButtonComponent,
+    ButtonBarComponent,
+    CheckboxDirective,
+    CheckboxGroupDirective,
+    NumberFieldDirective,
+    RadioGroupDirective,
+    SelectDirective,
+    SwitchDirective,
+    TextAreaDirective,
+    TextFieldDirective
+  ]
 })
 export class AllFormControlsEmptyTemplateComponent {
-  @ViewChild('form') form!: FormComponent;
+  @ViewChild('form') form!: ElementRef<Form>;
 
   formGroup = {
     textField: '',
     textArea: '',
     checkbox: false,
+    numberField: '',
     select: '',
     switch: false,
     checkboxGroup: [],
@@ -302,7 +386,7 @@ export class AllFormControlsEmptyTemplateComponent {
   };
 
   onClick(): void {
-    this.form.el.reportValidity();
+    this.form.nativeElement.reportValidity();
   }
 }
 
@@ -310,9 +394,9 @@ export class AllFormControlsEmptyTemplateComponent {
   selector: 'sla-login-form',
   template: `
     <sl-form #form [formGroup]="formGroup">
-      <sl-inline-message *ngIf="showValidity && formGroup.errors?.invalidCredentials" variant="danger">
-        Please enter admin/admin to gain access.
-      </sl-inline-message>
+      @if (showValidity && formGroup.errors?.invalidCredentials) {
+        <sl-inline-message variant="danger">Please enter admin/admin to gain access.</sl-inline-message>
+      }
 
       <sl-form-field label="Username">
         <sl-text-field
@@ -338,10 +422,19 @@ export class AllFormControlsEmptyTemplateComponent {
         <sl-button (click)="onSubmit()" variant="primary">Log in</sl-button>
       </sl-button-bar>
     </sl-form>
-  `
+  `,
+  imports: [
+    JsonPipe,
+    ReactiveFormsModule,
+    ButtonComponent,
+    ButtonBarComponent,
+    CheckboxDirective,
+    InlineMessageComponent,
+    TextFieldDirective
+  ]
 })
 export class LoginFormComponent {
-  @ViewChild('form') form!: FormComponent;
+  @ViewChild('form') form!: ElementRef<Form>;
 
   showValidity = false;
 
@@ -371,8 +464,8 @@ export class LoginFormComponent {
 
   onSubmit(): void {
     if (this.formGroup.invalid) {
-      this.form.el.reportValidity();
-      this.showValidity = this.form.el.showValidity;
+      this.form.nativeElement.reportValidity();
+      this.showValidity = this.form.nativeElement.showValidity;
     }
 
     console.log('onSubmit', this.formGroup.valid, this.formGroup.value, this.formGroup);
@@ -383,37 +476,24 @@ export default {
   title: 'Forms',
   decorators: [
     moduleMetadata({
-      declarations: [
+      imports: [
         AllFormControlsReactiveComponent,
         AllFormControlsEmptyReactiveComponent,
         AllFormControlsTemplateComponent,
         AllFormControlsEmptyTemplateComponent,
-        LoginFormComponent
-      ],
-      imports: [
-        ButtonComponent,
-        ButtonBarComponent,
+        LoginFormComponent,
         CheckboxComponent,
-        CheckboxDirective,
         CheckboxGroupComponent,
-        CheckboxGroupDirective,
         FormComponent,
         FormFieldComponent,
-        FormsModule,
-        InlineMessageComponent,
+        NumberFieldComponent,
         OptionComponent,
         RadioComponent,
         RadioGroupComponent,
-        RadioGroupDirective,
-        ReactiveFormsModule,
         SelectComponent,
-        SelectDirective,
         SwitchComponent,
-        SwitchDirective,
-        TextFieldComponent,
-        TextFieldDirective,
         TextAreaComponent,
-        TextAreaDirective
+        TextFieldComponent
       ]
     })
   ],

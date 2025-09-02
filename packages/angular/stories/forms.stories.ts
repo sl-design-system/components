@@ -452,8 +452,6 @@ export class LoginFormComponent {
       const username = control.get('username'),
         password = control.get('password');
 
-      console.log({ username, password });
-
       if (username?.errors || password?.errors) {
         return null;
       } else if (username?.value !== 'admin' || password?.value !== 'admin') {
@@ -468,8 +466,6 @@ export class LoginFormComponent {
     if (this.formGroup.invalid) {
       this.form.nativeElement.reportValidity();
       this.showValidity = this.form.nativeElement.showValidity;
-      console.log(this.showValidity);
-      console.log(this.formGroup.errors);
     }
 
     console.log('onSubmit', this.formGroup.valid, this.formGroup.value, this.formGroup);

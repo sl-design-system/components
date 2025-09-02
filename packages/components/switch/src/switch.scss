@@ -95,7 +95,7 @@
   box-sizing: border-box;
   display: grid;
   inline-size: var(--_track-size);
-  outline: transparent solid var(--sl-size-outlineWidth-default);
+  outline: transparent solid var(--sl-size-borderWidth-focusRing);
   outline-offset: var(--sl-size-outlineOffset-default);
   padding: calc(var(--sl-size-025) - var(--sl-size-borderWidth-default));
 

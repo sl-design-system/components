@@ -80,10 +80,10 @@ The Tree allows users to dynamically expand or collapse data sections, enabling 
 Avoid using Tree when your data is flat and only requires a single level of expansion. In these cases, an Accordion is more suitable, as it is designed to condense flat content, such as FAQ pages, making the content easier to scan and interact with, without the added complexity.
 
 ### Global Navigation
-Do not use Tree as the primary navigation for your product’s UI. For global sidebar navigation, it's better to use a dedicated UI Shell left panel that is more suited for this purpose.
+Do not use Tree as the primary navigation for your product’s UI. The tree component is not suitable for this purpose.
 
 ### Elements Toggle
-The tree is not ideal for showing and hiding UI elements or content within a page. If the interaction only involves collapsing or expanding content at a basic level, consider using other components like accordions or dropdowns for a more straightforward solution.
+The tree is not ideal for showing and hiding UI elements or content within a page. If the interaction only involves collapsing or expanding content at a basic level, consider using other components like accordions or collapsable panels for a more straightforward solution.
 
 </section>
 
@@ -154,7 +154,7 @@ With these options, you can tweak the appearance of the Tree in Figma. They are 
 Let's explore the behaviour of the Tree.
 
 ### Selectable
-When this feature is enabled, nodes can be selected by the user, allowing for interactions such as checking, highlighting, or performing actions on a specific node. This is useful when users need to select multiple items from the tree.
+When this feature is enabled, nodes can be selected by the user, allowing for interactions such as checking, highlighting, or performing actions on a specific node.
 
 ### Multiple Selection
 When this feature is enabled, users can select multiple nodes at the same time, allowing interactions such as checking, highlighting, or performing actions on several nodes simultaneously. Single selection is disabled in this mode to simplify user interaction.

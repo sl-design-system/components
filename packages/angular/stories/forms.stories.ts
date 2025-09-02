@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { Component, ViewChild, type WritableSignal, signal } from '@angular/core';
+import { Component, type ElementRef, ViewChild, type WritableSignal, signal } from '@angular/core';
 import {
   type AbstractControl,
   FormControl,
@@ -8,6 +8,7 @@ import {
   ReactiveFormsModule,
   type ValidationErrors
 } from '@angular/forms';
+import { type Form } from '@sl-design-system/form';
 import { type Meta, type StoryFn, moduleMetadata } from '@storybook/angular';
 import { ButtonComponent } from '../src/button/button.component';
 import { ButtonBarComponent } from '../src/button-bar/button-bar.component';
@@ -144,7 +145,9 @@ export class AllFormControlsReactiveComponent {
 
       <sl-form-field label="Select">
         <sl-select formControlName="select" required>
-          <sl-option *ngFor="let option of options" [value]="option.value">{{ option.label }}</sl-option>
+          @for (option of options(); track option.value) {
+            <sl-option [value]="option.value">{{ option.label }}</sl-option>
+          }
         </sl-select>
       </sl-form-field>
 
@@ -191,7 +194,7 @@ export class AllFormControlsReactiveComponent {
   ]
 })
 export class AllFormControlsEmptyReactiveComponent {
-  @ViewChild('form') form!: FormComponent;
+  @ViewChild('form') form!: ElementRef<Form>;
 
   formGroup = new FormGroup({
     checkbox: new FormControl(false),
@@ -204,14 +207,20 @@ export class AllFormControlsEmptyReactiveComponent {
     textField: new FormControl('')
   });
 
-  options = [
-    { label: 'Option 1', value: '1' },
-    { label: 'Option 2', value: '2' },
-    { label: 'Option 3', value: '3' }
-  ];
+  options: WritableSignal<Array<{ label: string; value: string }>> = signal([]);
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.options.set([
+        { label: 'Option 1', value: '1' },
+        { label: 'Option 2', value: '2' },
+        { label: 'Option 3', value: '3' }
+      ]);
+    }, 500);
+  }
 
   onClick(): void {
-    this.form.el.reportValidity();
+    this.form.nativeElement.reportValidity();
   }
 }
 
@@ -363,7 +372,7 @@ export class AllFormControlsTemplateComponent {
   ]
 })
 export class AllFormControlsEmptyTemplateComponent {
-  @ViewChild('form') form!: FormComponent;
+  @ViewChild('form') form!: ElementRef<Form>;
 
   formGroup = {
     textField: '',
@@ -377,7 +386,7 @@ export class AllFormControlsEmptyTemplateComponent {
   };
 
   onClick(): void {
-    this.form.el.reportValidity();
+    this.form.nativeElement.reportValidity();
   }
 }
 
@@ -385,9 +394,9 @@ export class AllFormControlsEmptyTemplateComponent {
   selector: 'sla-login-form',
   template: `
     <sl-form #form [formGroup]="formGroup">
-      <sl-inline-message *ngIf="showValidity && formGroup.errors?.invalidCredentials" variant="danger">
-        Please enter admin/admin to gain access.
-      </sl-inline-message>
+      @if (showValidity && formGroup.errors?.invalidCredentials) {
+        <sl-inline-message variant="danger">Please enter admin/admin to gain access.</sl-inline-message>
+      }
 
       <sl-form-field label="Username">
         <sl-text-field
@@ -425,7 +434,7 @@ export class AllFormControlsEmptyTemplateComponent {
   ]
 })
 export class LoginFormComponent {
-  @ViewChild('form') form!: FormComponent;
+  @ViewChild('form') form!: ElementRef<Form>;
 
   showValidity = false;
 
@@ -443,6 +452,8 @@ export class LoginFormComponent {
       const username = control.get('username'),
         password = control.get('password');
 
+      console.log({ username, password });
+
       if (username?.errors || password?.errors) {
         return null;
       } else if (username?.value !== 'admin' || password?.value !== 'admin') {
@@ -455,8 +466,10 @@ export class LoginFormComponent {
 
   onSubmit(): void {
     if (this.formGroup.invalid) {
-      this.form.el.reportValidity();
-      this.showValidity = this.form.el.showValidity;
+      this.form.nativeElement.reportValidity();
+      this.showValidity = this.form.nativeElement.showValidity;
+      console.log(this.showValidity);
+      console.log(this.formGroup.errors);
     }
 
     console.log('onSubmit', this.formGroup.valid, this.formGroup.value, this.formGroup);

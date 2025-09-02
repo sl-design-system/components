@@ -1,4 +1,4 @@
-import { type ElementRef, Injectable, type OnDestroy, type OnInit } from '@angular/core';
+import { type ChangeDetectorRef, type ElementRef, Injectable, type OnDestroy, type OnInit } from '@angular/core';
 import { type AbstractControl, type ControlValueAccessor, type ValidationErrors, type Validator } from '@angular/forms';
 import { type FormControl } from '@sl-design-system/form';
 
@@ -9,6 +9,7 @@ export abstract class FormControlElementDirective<T extends HTMLElement & FormCo
   #onChange = (event: Event): void => {
     this.onChange((event as CustomEvent<T['formValue']>).detail);
     this.onTouched();
+    this.changeDetection.markForCheck();
   };
 
   protected onChange: (value: T['formValue']) => void = () => {};
@@ -19,7 +20,10 @@ export abstract class FormControlElementDirective<T extends HTMLElement & FormCo
     return this.elementRef.nativeElement;
   }
 
-  constructor(protected elementRef: ElementRef<T>) {}
+  constructor(
+    protected elementRef: ElementRef<T>,
+    protected changeDetection: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.element.addEventListener('sl-blur', this.onTouched);

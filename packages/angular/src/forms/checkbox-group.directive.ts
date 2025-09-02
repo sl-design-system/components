@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Inject, forwardRef } from '@angular/core';
+import { ChangeDetectorRef, Directive, ElementRef, Inject, forwardRef } from '@angular/core';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR, type ValidationErrors } from '@angular/forms';
 import { type CheckboxGroup } from '@sl-design-system/checkbox';
 import { FormControlElementDirective } from './form-control-element.directive';
@@ -20,8 +20,11 @@ import { FormControlElementDirective } from './form-control-element.directive';
   ]
 })
 export class CheckboxGroupDirective extends FormControlElementDirective<CheckboxGroup> {
-  constructor(@Inject(ElementRef) elementRef: ElementRef<CheckboxGroup>) {
-    super(elementRef);
+  constructor(
+    @Inject(ElementRef) elementRef: ElementRef<CheckboxGroup>,
+    @Inject(ChangeDetectorRef) changeDetection: ChangeDetectorRef
+  ) {
+    super(elementRef, changeDetection);
   }
 
   override validate(): ValidationErrors | null {

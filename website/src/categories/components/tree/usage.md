@@ -64,7 +64,7 @@ eleventyNavigation:
 The following guidance describes when to use the tree component.
 
 ### Hierarchical Content
-The Tree is ideal for displaying and navigating hierarchical data, such as file systems, category structures, or organisational charts. It groups related data with nested relationships in a clear and organised way. It is a powerful tool for organising subject lesson content in educational applications. For example, it represents a syllabus with modules as parent nodes and lessons as child nodes, enabling students to intuitively explore and navigate their coursework. 
+The Tree is ideal for displaying and navigating hierarchical data, such as file systems or category structures. It groups related data with nested relationships in a clear and organised way. It is a powerful tool for organising subject lesson content in educational applications. For example, it represents a syllabus with modules as parent nodes and lessons as child nodes, enabling students to intuitively explore and navigate their coursework. 
 
 ### Collapsable Data
 The Tree allows users to dynamically expand or collapse data sections, enabling a cleaner interface that focuses only on relevant information. This interactive functionality is handy when managing large amounts of content, where each item contains complex data or detailed information. It ensures users can explore deeply without being overwhelmed.

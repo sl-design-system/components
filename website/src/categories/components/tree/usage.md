@@ -83,7 +83,7 @@ Avoid using Tree when your data is flat and only requires a single level of expa
 Do not use Tree as the primary navigation for your product’s UI. The tree component is not suitable for this purpose.
 
 ### Elements Toggle
-The tree is not ideal for showing and hiding UI elements or content within a page. If the interaction only involves collapsing or expanding content at a basic level, consider using other components like accordions or collapsable panels for a more straightforward solution.
+The tree is not ideal for showing and hiding UI elements or content within a page. If the interaction only involves collapsing or expanding content at a basic level, consider using other components like [accordions](/categories/components/accordion) or collapsable panels for a more straightforward solution.
 
 </section>
 
@@ -109,7 +109,7 @@ The tree is not ideal for showing and hiding UI elements or content within a pag
 <section>
 
 ## Variants
-Tree comes in two versions, each suited for specific situations:
+Tree comes in three versions, each suited for specific situations:
 
 ### Node
 A basic element in the tree, representing a terminal item without parent or child nodes.

@@ -76,9 +76,6 @@ The Tree allows users to dynamically expand or collapse data sections, enabling 
 
 ## When not to use
 
-### Simple Structures
-Avoid using Tree when your data is flat and only requires a single level of expansion. In these cases, an Accordion is more suitable, as it is designed to condense flat content, such as FAQ pages, making the content easier to scan and interact with, without the added complexity.
-
 ### Global Navigation
 Do not use Tree as the primary navigation for your product’s UI. The tree component is not suitable for this purpose.
 

@@ -205,6 +205,25 @@ export const CustomAsyncValidity: Story = {
   }
 };
 
+export const Standalone: Story = {
+  render: () => {
+    return html`
+      <style>
+        p {
+          margin: 0 0 1rem 0;
+        }
+      </style>
+      <p>
+        This story shows how you can use a standalone text field, outside of a form, while still keeping it accessible.
+        To do this, we slot a custom input with the aria-label property set into the component.
+      </p>
+      <sl-text-field>
+        <input slot="input" aria-label="Text field" />
+      </sl-text-field>
+    `;
+  }
+};
+
 export const All: Story = {
   render: () => {
     return html`

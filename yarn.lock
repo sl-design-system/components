@@ -5871,6 +5871,7 @@ __metadata:
     "@sl-design-system/menu": "npm:^0.2.4"
     "@sl-design-system/toggle-button": "npm:^0.0.8"
     "@sl-design-system/toggle-group": "npm:^0.0.8"
+    lit: "npm:^3.3.1"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.5
   languageName: unknown

@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@sl-design-system/eslint-plugin-slds": "^0.0.1",
-    "@stylistic/eslint-plugin": "^4.4.0",
+    "@stylistic/eslint-plugin": "^4.4.1",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-chai-expect": "^3.1.0",
     "eslint-plugin-chai-friendly": "^1.0.1",
@@ -36,7 +36,7 @@
     "eslint-plugin-storybook": "^9.0.1",
     "eslint-plugin-unused-imports": "^4.1.4",
     "eslint-plugin-wc": "^3.0.1",
-    "prettier": "^3.5.3",
+    "prettier": "^3.6.2",
     "typescript-eslint": "^8.33.0"
   },
   "peerDependencies": {
@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "eslint": "^9.27.0",
-    "storybook": "^9.0.6",
+    "storybook": "^9.1.4",
     "typescript": "^5.5.4"
   }
 }

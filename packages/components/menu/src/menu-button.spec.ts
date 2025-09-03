@@ -4,7 +4,6 @@ import { type Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
-import { spy } from 'sinon';
 import '../register.js';
 import { type MenuButton } from './menu-button.js';
 import { type Menu } from './menu.js';
@@ -39,6 +38,10 @@ describe('sl-menu-button', () => {
         expect(button).to.exist;
       });
 
+      it('should indicate it opens a menu', () => {
+        expect(button).to.have.attribute('aria-haspopup', 'menu');
+      });
+
       it('should not be expanded', () => {
         expect(button).to.have.attribute('aria-expanded', 'false');
       });
@@ -50,7 +53,7 @@ describe('sl-menu-button', () => {
       });
 
       it('should be linked to the menu', () => {
-        expect(button.getAttribute('aria-controls')).to.equal(menu.id);
+        expect(button).to.have.attribute('aria-controls', menu.id);
       });
 
       it('should not have a disabled button', () => {
@@ -124,14 +127,16 @@ describe('sl-menu-button', () => {
       });
 
       it('should focus the button after the menu is hidden', async () => {
-        spy(button, 'focus');
-
         button.click();
 
         el.querySelector('sl-menu-item')?.focus();
+
+        // The 50msec timeout fixes the flakiness of this test on headless browsers
+        await new Promise(resolve => setTimeout(resolve, 50));
+
         await sendKeys({ press: 'Escape' });
 
-        expect(button.focus).to.have.been.calledOnce;
+        expect(el.shadowRoot?.activeElement).to.equal(button);
       });
     });
 

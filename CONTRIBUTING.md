@@ -24,7 +24,7 @@ These are the steps to follow when creating a new component:
 
 When in doubt, copy the files from an existing component and rename accordingly.
 
-3. Add the new component to `tsconfig.all.json` in the root of the project. 
+3. Add the new component to `tsconfig.all.json` in the root of the project.
 This is used for typechecking your component by the TypeScript compiler.
 
 4. Add a `src/<component-name>.stories.ts` file and start writing Storybook stories
@@ -47,6 +47,7 @@ When writing code in this project, please follow the following naming convention
 The main branch of the repository is called `main`. All releases are done from this branch automatically using GitHub Actions and `changesets`. If you want to work on something, please create a new branch from `main`.
 
 When creating a branch, please prefix the branch with the type of thing you intend to work on:
+- `chore/update-dependencies`
 - `docs/improve-button`
 - `feature/my-cool-component`
 - `fix/dialog-close-button`

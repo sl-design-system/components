@@ -180,7 +180,7 @@ export const NoVisibleLabel: StoryObj = {
     return html`
       <p style="margin: 0 0 1rem 0">
         This select has no internal or external label. It only has an <code>aria-label</code> attribute. That attribute
-        is automatically applied to the <code>input</code> element.
+        is automatically applied to the <code>sl-select-button</code> element.
       </p>
       <sl-select aria-label="Select an option">
         <sl-option value="1">Option 1</sl-option>

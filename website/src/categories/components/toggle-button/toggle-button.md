@@ -10,6 +10,6 @@ storybookCategory: actions
 eleventyNavigation:
   parent: Components
   key: Toggle button
-  status: new
+  status: ready
 ---
 

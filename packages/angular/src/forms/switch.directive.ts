@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Inject, forwardRef } from '@angular/core';
+import { ChangeDetectorRef, Directive, ElementRef, Inject, forwardRef } from '@angular/core';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { type Switch } from '@sl-design-system/switch';
 import { FormControlElementDirective } from './form-control-element.directive';
@@ -20,7 +20,10 @@ import { FormControlElementDirective } from './form-control-element.directive';
   ]
 })
 export class SwitchDirective extends FormControlElementDirective<Switch> {
-  constructor(@Inject(ElementRef) elementRef: ElementRef<Switch>) {
-    super(elementRef);
+  constructor(
+    @Inject(ElementRef) elementRef: ElementRef<Switch>,
+    @Inject(ChangeDetectorRef) changeDetection: ChangeDetectorRef
+  ) {
+    super(elementRef, changeDetection);
   }
 }

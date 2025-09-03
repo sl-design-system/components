@@ -4923,7 +4923,7 @@ __metadata:
     lit: "npm:^3.3.1"
   peerDependencies:
     "@lit/localize": ^0.12.1
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
     lit: ^3.1.4
   languageName: unknown
   linkType: soft
@@ -4939,7 +4939,7 @@ __metadata:
     "@sl-design-system/tooltip": "npm:^1.1.5"
   peerDependencies:
     "@lit/localize": ^0.12.1
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
   languageName: unknown
   linkType: soft
 
@@ -4981,7 +4981,7 @@ __metadata:
     "@sl-design-system/tooltip": "npm:^1.1.5"
   peerDependencies:
     "@lit/localize": ^0.12.1
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
   languageName: unknown
   linkType: soft
 
@@ -5016,7 +5016,7 @@ __metadata:
     lit: "npm:^3.3.1"
   peerDependencies:
     "@lit/localize": ^0.12.1
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
     lit: ^3.1.4
   languageName: unknown
   linkType: soft
@@ -5093,7 +5093,7 @@ __metadata:
     "@sl-design-system/text-field": "npm:^1.6.5"
     lit: "npm:^3.3.1"
   peerDependencies:
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
     lit: ^3.1.4
   languageName: unknown
   linkType: soft
@@ -5117,7 +5117,7 @@ __metadata:
     "@sl-design-system/text-field": "npm:^1.6.5"
     lit: "npm:^3.3.1"
   peerDependencies:
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
     lit: ^3.1.4
   languageName: unknown
   linkType: soft
@@ -5134,7 +5134,7 @@ __metadata:
     "@sl-design-system/shared": "npm:^0.8.0"
   peerDependencies:
     "@lit/localize": ^0.12.1
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
   languageName: unknown
   linkType: soft
 
@@ -5146,7 +5146,7 @@ __metadata:
     "@sl-design-system/button": "npm:^1.0.0"
     "@sl-design-system/button-bar": "npm:^1.0.0"
   peerDependencies:
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
   languageName: unknown
   linkType: soft
 
@@ -5191,7 +5191,7 @@ __metadata:
     "@open-wc/scoped-elements": "npm:^3.0.6"
     "@sl-design-system/tooltip": "npm:^1.1.1"
   peerDependencies:
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
   languageName: unknown
   linkType: soft
 
@@ -5208,7 +5208,7 @@ __metadata:
     emojibase-data: "npm:^16.0.3"
   peerDependencies:
     "@lit/localize": ^0.12.1
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
   languageName: unknown
   linkType: soft
 
@@ -5286,7 +5286,7 @@ __metadata:
     "@sl-design-system/shared": "npm:^0.8.0"
   peerDependencies:
     "@lit/localize": ^0.12.1
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
   languageName: unknown
   linkType: soft
 
@@ -5332,7 +5332,7 @@ __metadata:
   peerDependencies:
     "@lit-labs/virtualizer": ^2.0.13
     "@lit/localize": ^0.12.1
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
     lit: ^3.1.4
   languageName: unknown
   linkType: soft
@@ -5359,7 +5359,7 @@ __metadata:
     "@sl-design-system/shared": "npm:^0.8.0"
   peerDependencies:
     "@lit/localize": ^0.12.1
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
   languageName: unknown
   linkType: soft
 
@@ -5389,7 +5389,7 @@ __metadata:
     lit: "npm:^3.3.1"
   peerDependencies:
     "@lit-labs/virtualizer": ^2.0.13
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
     lit: ^3.1.4
   languageName: unknown
   linkType: soft
@@ -5440,7 +5440,7 @@ __metadata:
     "@sl-design-system/shared": "npm:^0.8.0"
   peerDependencies:
     "@lit/localize": ^0.12.1
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
   languageName: unknown
   linkType: soft
 
@@ -5454,7 +5454,7 @@ __metadata:
     "@sl-design-system/dialog": "npm:^2.0.1"
   peerDependencies:
     "@lit/localize": ^0.12.1
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
   languageName: unknown
   linkType: soft
 
@@ -5529,7 +5529,7 @@ __metadata:
     "@sl-design-system/shared": "npm:^0.8.0"
     "@sl-design-system/text-field": "npm:^1.6.4"
   peerDependencies:
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
   languageName: unknown
   linkType: soft
 
@@ -5548,7 +5548,7 @@ __metadata:
     "@sl-design-system/shared": "npm:^0.8.0"
   peerDependencies:
     "@lit/localize": ^0.12.1
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
   languageName: unknown
   linkType: soft
 
@@ -5563,7 +5563,7 @@ __metadata:
     "@sl-design-system/tool-bar": "npm:^0.0.10"
   peerDependencies:
     "@lit/localize": ^0.12.1
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
   languageName: unknown
   linkType: soft
 
@@ -5585,7 +5585,7 @@ __metadata:
     lit: "npm:^3.3.1"
   peerDependencies:
     "@lit/localize": ^0.12.1
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
     lit: ^3.1.4
   languageName: unknown
   linkType: soft
@@ -5667,7 +5667,7 @@ __metadata:
     "@sl-design-system/shared": "npm:^0.8.0"
     "@sl-design-system/text-field": "npm:^1.6.4"
   peerDependencies:
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
   languageName: unknown
   linkType: soft
 
@@ -5683,7 +5683,7 @@ __metadata:
     "@sl-design-system/shared": "npm:^0.8.0"
   peerDependencies:
     "@lit/localize": ^0.12.1
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
   languageName: unknown
   linkType: soft
 
@@ -5748,7 +5748,7 @@ __metadata:
     "@sl-design-system/icon": "npm:^1.1.0"
     "@sl-design-system/shared": "npm:^0.8.0"
   peerDependencies:
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
   languageName: unknown
   linkType: soft
 
@@ -5763,7 +5763,7 @@ __metadata:
     "@sl-design-system/shared": "npm:^0.8.0"
   peerDependencies:
     "@lit/localize": ^0.12.1
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
   languageName: unknown
   linkType: soft
 
@@ -5779,7 +5779,7 @@ __metadata:
     lit: "npm:^3.3.1"
   peerDependencies:
     "@lit/localize": ^0.12.1
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
     lit: ^3.1.4
   languageName: unknown
   linkType: soft
@@ -5801,7 +5801,7 @@ __metadata:
     "@sl-design-system/icon": "npm:^1.1.0"
     "@sl-design-system/shared": "npm:^0.8.0"
   peerDependencies:
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
   languageName: unknown
   linkType: soft
 
@@ -5814,7 +5814,7 @@ __metadata:
     "@sl-design-system/icon": "npm:^1.2.1"
     "@sl-design-system/shared": "npm:^0.8.0"
   peerDependencies:
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
   languageName: unknown
   linkType: soft
 
@@ -5836,7 +5836,7 @@ __metadata:
     "@sl-design-system/tooltip": "npm:^1.1.5"
     lit: "npm:^3.3.1"
   peerDependencies:
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
     lit: ^3.1.4
   languageName: unknown
   linkType: soft
@@ -5873,7 +5873,7 @@ __metadata:
     "@sl-design-system/toggle-group": "npm:^0.0.8"
     lit: "npm:^3.3.1"
   peerDependencies:
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
   languageName: unknown
   linkType: soft
 
@@ -5899,7 +5899,7 @@ __metadata:
     "@sl-design-system/spinner": "npm:^2.0.0"
     lit: "npm:^3.3.1"
   peerDependencies:
-    "@open-wc/scoped-elements": ^3.0.5
+    "@open-wc/scoped-elements": ^3.0.6
     lit: ^3.1.4
   languageName: unknown
   linkType: soft

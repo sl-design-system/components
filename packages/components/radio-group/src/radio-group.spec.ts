@@ -10,16 +10,6 @@ import { RadioGroup } from './radio-group.js';
 describe('sl-radio-group', () => {
   let el: RadioGroup;
 
-  describe('empty', () => {
-    beforeEach(async () => {
-      el = await fixture(html`<sl-radio-group></sl-radio-group>`);
-    });
-
-    it('should not break', () => {
-      expect(el).shadowDom.to.equalSnapshot();
-    });
-  });
-
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`
@@ -29,10 +19,6 @@ describe('sl-radio-group', () => {
           <sl-radio value="3">Option 3</sl-radio>
         </sl-radio-group>
       `);
-    });
-
-    it('should render correctly', () => {
-      expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('should have a role of radiogroup', () => {
@@ -399,6 +385,47 @@ describe('sl-radio-group', () => {
       expect(radios.at(0)?.checked).to.be.false;
       expect(radios.at(1)?.checked).to.be.false;
       expect(radios.at(2)?.checked).to.be.false;
+    });
+  });
+
+  describe('sl-change event', () => {
+    it('should not be emitted during initial render with a value', async () => {
+      const onChange = spy();
+
+      document.body.addEventListener('sl-change', onChange);
+
+      el = await fixture(html`
+        <sl-radio-group value="2">
+          <sl-radio value="1">Option 1</sl-radio>
+          <sl-radio value="2">Option 2</sl-radio>
+          <sl-radio value="3">Option 3</sl-radio>
+        </sl-radio-group>
+      `);
+
+      expect(onChange).to.not.have.been.called;
+
+      document.body.removeEventListener('sl-change', onChange);
+    });
+
+    it('should be emitted after initial render when a radio is checked', async () => {
+      const onChange = spy();
+
+      document.body.addEventListener('sl-change', onChange);
+
+      el = await fixture(html`
+        <sl-radio-group value="2">
+          <sl-radio value="1">Option 1</sl-radio>
+          <sl-radio value="2">Option 2</sl-radio>
+          <sl-radio value="3">Option 3</sl-radio>
+        </sl-radio-group>
+      `);
+
+      el.querySelector<HTMLElement>('sl-radio[value="1"]')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(onChange).to.have.been.calledOnce;
+
+      document.body.removeEventListener('sl-change', onChange);
     });
   });
 

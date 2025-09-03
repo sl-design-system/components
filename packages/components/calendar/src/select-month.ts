@@ -85,7 +85,6 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       currentYear = this.month.getFullYear();
 
     return html`
-      dfdf
       <div part="header">
         <span class="current-year">${currentYear}</span>
         <sl-button
@@ -109,16 +108,15 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         ${this.months.map(
           ({ short, long, value }) => html`
             <li>
-              <sl-button
+              <button
+                part="month"
                 @click=${() => this.#onClick(value)}
-                .fill=${currentMonth === value ? 'solid' : 'ghost'}
-                .variant=${currentMonth === value ? 'primary' : 'default'}
                 ?autofocus=${currentMonth === value}
                 aria-label=${long}
                 aria-pressed=${ifDefined(currentMonth === value ? 'true' : undefined)}
               >
                 ${short}
-              </sl-button>
+              </button>
             </li>
           `
         )}

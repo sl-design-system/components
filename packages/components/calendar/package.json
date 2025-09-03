@@ -44,8 +44,8 @@
   },
   "devDependencies": {
     "@lit/localize": "^0.12.2",
-    "@open-wc/scoped-elements": "^3.0.5",
-    "lit": "^3.3.0"
+    "@open-wc/scoped-elements": "^3.0.6",
+    "lit": "^3.3.1"
   },
   "peerDependencies": {
     "@lit/localize": "^0.12.1",

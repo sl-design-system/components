@@ -56,10 +56,10 @@
     "@sl-design-system/tooltip": "^1.1.5"
   },
   "devDependencies": {
-    "@lit-labs/virtualizer": "^2.1.0",
+    "@lit-labs/virtualizer": "^2.1.1",
     "@lit/localize": "^0.12.2",
-    "@open-wc/scoped-elements": "^3.0.5",
-    "lit": "^3.3.0"
+    "@open-wc/scoped-elements": "^3.0.6",
+    "lit": "^3.3.1"
   },
   "peerDependencies": {
     "@lit-labs/virtualizer": "^2.0.13",

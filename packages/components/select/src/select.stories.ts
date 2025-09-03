@@ -175,6 +175,22 @@ export const Groups: Story = {
   }
 };
 
+export const NoVisibleLabel: StoryObj = {
+  render: () => {
+    return html`
+      <p style="margin: 0 0 1rem 0">
+        This select has no internal or external label. It only has an <code>aria-label</code> attribute. That attribute
+        is automatically applied to the <code>input</code> element.
+      </p>
+      <sl-select aria-label="Select an option">
+        <sl-option value="1">Option 1</sl-option>
+        <sl-option value="2">Option 2</sl-option>
+        <sl-option value="3">Option 3</sl-option>
+      </sl-select>
+    `;
+  }
+};
+
 export const OptionOverflow: Story = {
   args: {
     hint: 'This field has a lot of options, try scrolling through them.',

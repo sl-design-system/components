@@ -42,11 +42,6 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
   }
 
   /** @internal */
-  static override get observedAttributes(): string[] {
-    return [...super.observedAttributes, 'aria-label', 'aria-labelledby'];
-  }
-
-  /** @internal */
   static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
   /** @internal */

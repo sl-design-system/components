@@ -8,12 +8,16 @@ export interface ObserveAttributesMixinInterface {
 /**
  * Mixin that is used to rewrite aria attributes in the component (based on the observedAttributes) to the focusable target element.
  */
-export function ObserveAttributesMixin<T extends Constructor<ReactiveElement>>(
+export function ObserveAttributesMixin<T extends Constructor<ReactiveElement> & { observedAttributes?: string[] }>(
   constructor: T,
   observedAttributes: string[] = []
 ): T & Constructor<ObserveAttributesMixinInterface> {
   class ObserveAttributesImpl extends constructor {
     #targetElement?: Element;
+
+    static override get observedAttributes(): string[] {
+      return [...(super.observedAttributes ?? []), ...observedAttributes];
+    }
 
     /** @internal */
     setAttributesTarget(target: Element): void {
@@ -26,6 +30,7 @@ export function ObserveAttributesMixin<T extends Constructor<ReactiveElement>>(
       requestAnimationFrame(() => {
         if (this.#targetElement && observedAttributes.includes(name)) {
           const value = this.getAttribute(name);
+
           if (value !== null) {
             this.#targetElement.setAttribute(name, value);
             this.removeAttribute(name);

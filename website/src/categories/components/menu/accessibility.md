@@ -40,8 +40,9 @@ eleventyNavigation:
 
 |Attribute|Value|Description|
 |-|-|-|
-|`aria-label`|string|Please add when only icon button is used (so no text for the menu button is added).|
 |`aria-disabled`|boolean|Announces the menu button component as disabled with a screen reader. See [Note 1] below.|
+|`aria-label`|string|Please add when only icon button is used (so no text for the menu button is added).|
+|`aria-labelledby`|string|Please add when only icon button is used, but another element is providing a label for it.|
 
 {.ds-table .ds-table-align-top}
 

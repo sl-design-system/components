@@ -222,7 +222,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   /** @internal The selected items. */
   @state() selectedItems: Array<ComboboxItem<T, U>> = [];
 
-  /** When set will cause the control to show it is valid after  lidity is called. */
+  /** When set will cause the control to show it is valid after reportValidity is called. */
   @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
 
   /**
@@ -443,6 +443,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         })}
         @beforetoggle=${this.#onBeforeToggle}
         @click=${this.#onOptionClick}
+        @keydown=${this.#onKeydown}
         @slotchange=${() => this.#onSlotChange()}
         @toggle=${this.#onToggle}
         part="wrapper"
@@ -625,6 +626,10 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       index = (index + delta + items.length) % items.length;
 
       this.#updateCurrent(items[index]);
+    } else if (event.key === 'Escape') {
+      // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the combobox
+      // does not close parent containers (such as dialogs).
+      event.stopPropagation();
     }
   }
 

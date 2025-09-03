@@ -57,6 +57,12 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   /** Responsive behavior utility. */
   #media = new MediaController(this);
 
+  /** Observe size changes to the dialog. */
+  #observer = new ResizeObserver(() => this.#onScroll());
+
+  /** @internal */
+  @query('[part="body"]') body?: HTMLElement;
+
   /**
    * @internal Emits when the dialog has been cancelled. This happens when the
    * user closes the dialog using the escape key or clicks on the backdrop.
@@ -82,8 +88,9 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   @property({ attribute: 'dialog-role' }) dialogRole: 'dialog' | 'alertdialog' = 'dialog';
 
   /**
-   * Disables the ability to cancel the dialog by pressing the Escape key
-   * or clicking on the backdrop.
+   * Disables the ability to cancel the dialog by pressing the Escape key or clicking on the backdrop.
+   * We recommend setting this to true when the dialog contains a form that must be submitted or cancelled,
+   * to prevent accidental closing when clicking on the backdrop.
    * @default false
    */
   @property({ type: Boolean, attribute: 'disable-cancel' }) disableCancel?: boolean;
@@ -92,6 +99,12 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.inert = true;
+  }
+
+  override disconnectedCallback(): void {
+    this.#observer.disconnect();
+
+    super.disconnectedCallback();
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -235,6 +248,10 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
     this.#updateDocumentElement(true);
 
+    // Observe size changes to the dialog and body
+    this.#observer.observe(this.dialog!);
+    this.#observer.observe(this.body!);
+
     this.inert = false;
     this.dialog?.showModal();
 
@@ -252,12 +269,18 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   /** Close the dialog. */
   close(): void {
     if (this.dialog?.open) {
+      this.#observer.disconnect();
+
       this.dialog?.close();
     }
   }
 
   #onBackdropClick(event: MouseEvent): void {
-    const rect = this.dialog!.getBoundingClientRect();
+    if (this.dialog !== event.composedPath()[0]) {
+      return;
+    }
+
+    const rect = this.dialog.getBoundingClientRect();
 
     // Check if the user clicked on the backdrop
     if (
@@ -314,8 +337,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #onScroll(event: Event & { target: HTMLElement }): void {
-    const { clientHeight, scrollTop, scrollHeight } = event.target;
+  #onScroll(): void {
+    const { clientHeight, scrollTop, scrollHeight } = this.body!;
 
     // Toggle sticky header when scrolling down
     this.renderRoot.querySelector('[part="header"]')?.toggleAttribute('sticky', scrollTop > 0);

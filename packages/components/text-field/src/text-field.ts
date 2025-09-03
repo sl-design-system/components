@@ -34,7 +34,7 @@ let nextUniqueId = 0;
  * @slot suffix - Content shown after the input
  */
 @localized()
-export class TextField<T extends { toString(): string } = string>
+export class TextField
   extends ObserveAttributesMixin(FormControlMixin(ScopedElementsMixin(LitElement)), [
     'aria-disabled',
     'aria-label',
@@ -63,7 +63,7 @@ export class TextField<T extends { toString(): string } = string>
   static override styles: CSSResultGroup = styles;
 
   /** The value of the text field. */
-  #value: T | undefined = '' as unknown as T;
+  #value?: string = '';
 
   /**
    * Specifies which type of data the browser can use to pre-fill the input.
@@ -75,7 +75,7 @@ export class TextField<T extends { toString(): string } = string>
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
   /** @internal Emits when the value changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<T | undefined>>;
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<string | undefined>>;
 
   /** Whether the text field is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
@@ -136,17 +136,18 @@ export class TextField<T extends { toString(): string } = string>
 
   /**
    * The input type. Only text types are valid here. For other types,
-   * see their respective components.
+   * see their respective components. For the number type, please see the
+   * `<sl-number-field>` component.
    */
   @property() type: 'email' | 'number' | 'tel' | 'text' | 'url' | 'password' = 'text';
 
-  override get value(): T | undefined {
+  override get value(): string | undefined {
     return this.#value;
   }
 
   /** The value of the text field. */
   @property()
-  override set value(value: T | undefined) {
+  override set value(value: string | undefined) {
     this.#value = value;
   }
 
@@ -280,11 +281,11 @@ export class TextField<T extends { toString(): string } = string>
   }
 
   /**
-   * Method that converts the string value in the input to the specified type T. Override this method
+   * Method that parses the string input and converts it to a specific value. Override this method
    * if you want to convert the value in a different way. Throw an error if the value is invalid.
    */
-  parseValue(value: string): T | undefined {
-    return value as unknown as T;
+  parseValue(value: string): void {
+    this.value = value;
   }
 
   /** @internal */
@@ -305,6 +306,13 @@ export class TextField<T extends { toString(): string } = string>
     }
   }
 
+  /** This method is called when the input changes. */
+  protected onChange(): void {
+    this.changeEvent.emit(this.value);
+    this.updateState({ dirty: true });
+    this.updateValidity();
+  }
+
   /**
    * Handles the focus event when the input field gains focus.
    * Emits a focus event and updates the focus ring state.
@@ -323,19 +331,12 @@ export class TextField<T extends { toString(): string } = string>
 
     try {
       // Try to parse the value, but do nothing if it fails
-      this.value = this.parseValue(this.rawValue);
+      this.parseValue(this.rawValue);
       this.changeEvent.emit(this.value);
     } catch {
       /* empty */
     }
 
-    this.updateState({ dirty: true });
-    this.updateValidity();
-  }
-
-  /** This method is called when the input changes. */
-  protected onChange(): void {
-    this.changeEvent.emit(this.value);
     this.updateState({ dirty: true });
     this.updateValidity();
   }
@@ -423,6 +424,10 @@ export class TextField<T extends { toString(): string } = string>
 
     // Do not overwrite the type on slotted inputs
     if (input.type !== this.type && input.type === 'text') {
+      if (this.type === 'number') {
+        console.warn('The "number" type of sl-text-field has been deprecated. Please use sl-number-field instead.');
+      }
+
       input.type = this.type;
     }
 
@@ -453,7 +458,7 @@ export class TextField<T extends { toString(): string } = string>
     if (typeof this.placeholder === 'string') {
       input.setAttribute('placeholder', this.placeholder);
     } else {
-      input.setAttribute('placeholder', '');
+      input.removeAttribute('placeholder');
     }
   }
 }

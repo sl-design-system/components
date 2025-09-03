@@ -99,6 +99,14 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     listenerScope: (): HTMLElement => this.listbox!
   });
 
+  /**
+   * @internal Since we move the aria-label to the button, we need to proxy it here,
+   * otherwise the `<sl-form-validation-errors>` component will not be able to read it.
+   */
+  override get ariaLabel(): string {
+    return this.button?.getAttribute('aria-label') || '';
+  }
+
   /** The button in the light DOM. */
   button!: SelectButton;
 
@@ -227,6 +235,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
     if (changes.has('disabled')) {
       this.button.disabled = this.disabled;
+      this.button.tabIndex = this.disabled ? -1 : 0;
     }
 
     if (changes.has('placeholder')) {
@@ -398,6 +407,10 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
       this.#setSelectedOption(event.target);
       this.listbox?.hidePopover();
+    } else if (event.key === 'Escape') {
+      // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the select
+      // does not close parent containers (such as dialogs).
+      event.stopPropagation();
     }
   }
 
@@ -476,10 +489,13 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
   #updateValueAndValidity(): void {
     this.internals.setFormValue(this.nativeFormValue);
-    this.internals.setValidity(
-      { valueMissing: this.required && !this.selectedOption },
-      msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
-    );
+
+    if (!this.validity.customError) {
+      this.internals.setValidity(
+        { valueMissing: this.required && !this.selectedOption },
+        msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
+      );
+    }
 
     this.updateValidity();
   }

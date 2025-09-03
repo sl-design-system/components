@@ -1,4 +1,5 @@
 import { type LitElement, type ReactiveController, type ReactiveControllerHost } from 'lit';
+import { type FormControl } from './form-control-mixin.js';
 import { type Form } from './form.js';
 
 export interface FormControllerOptions {
@@ -19,6 +20,19 @@ export class FormController<T extends Record<string, any> = Record<string, any>>
     this.#host.requestUpdate();
     this.#emitUpdateEvent();
   };
+
+  get controls(): Record<keyof T, HTMLElement & FormControl> {
+    return (
+      this.#form?.controls.reduce(
+        (acc, c) => {
+          acc[c.name as keyof T] = c;
+
+          return acc;
+        },
+        {} as Record<keyof T, HTMLElement & FormControl>
+      ) ?? ({} as Record<keyof T, HTMLElement & FormControl>)
+    );
+  }
 
   get dirty() {
     return this.#form?.dirty;

@@ -40,7 +40,7 @@
     "postcss": "^8.5.6",
     "prettier": "^3.6.2",
     "sass": "^1.92.0",
-    "style-dictionary": "^5.0.0",
+    "style-dictionary": "^5.0.4",
     "wireit": "^0.14.12"
   }
 }

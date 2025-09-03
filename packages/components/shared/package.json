@@ -44,12 +44,12 @@
   },
   "devDependencies": {
     "@floating-ui/dom": "^1.7.4",
-    "@open-wc/dedupe-mixin": "^1.4.0",
+    "@open-wc/dedupe-mixin": "^2.0.1",
     "lit": "^3.3.1"
   },
   "peerDependencies": {
     "@floating-ui/dom": "^1.6.5",
-    "@open-wc/dedupe-mixin": "^1.4.0",
+    "@open-wc/dedupe-mixin": "^2.0.1",
     "lit": "^3.1.4"
   }
 }

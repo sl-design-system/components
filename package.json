@@ -473,7 +473,7 @@
     "@web/test-runner-commands": "^0.9.0",
     "@web/test-runner-playwright": "^0.11.1",
     "@webcomponents/scoped-custom-element-registry": "^0.0.10",
-    "chai": "^5.3.3",
+    "chai": "^6.0.1",
     "chai-as-promised": "^8.0.2",
     "chromatic": "^13.1.4",
     "eslint": "^9.27.0",

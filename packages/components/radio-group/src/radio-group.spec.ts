@@ -406,6 +406,27 @@ describe('sl-radio-group', () => {
 
       document.body.removeEventListener('sl-change', onChange);
     });
+
+    it('should be emitted after initial render when a radio is checked', async () => {
+      const onChange = spy();
+
+      document.body.addEventListener('sl-change', onChange);
+
+      el = await fixture(html`
+        <sl-radio-group value="2">
+          <sl-radio value="1">Option 1</sl-radio>
+          <sl-radio value="2">Option 2</sl-radio>
+          <sl-radio value="3">Option 3</sl-radio>
+        </sl-radio-group>
+      `);
+
+      el.querySelector<HTMLElement>('sl-radio[value="1"]')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(onChange).to.have.been.calledOnce;
+
+      document.body.removeEventListener('sl-change', onChange);
+    });
   });
 
   describe('form reset', () => {

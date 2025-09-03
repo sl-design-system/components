@@ -188,9 +188,12 @@
   inset: auto auto 0 0;
   opacity: 0;
   position: absolute;
-  scale: 0 1;
+
+  // scale: 0 1;
   transform-origin: center left;
-  transition-property: scale, translate;
+
+  // transition-property: scale, translate;
+  transition-property: width, height, translate;
   transition-timing-function: ease-in-out;
   translate: 0;
 

@@ -16,7 +16,7 @@ export function ObserveAttributesMixin<T extends Constructor<ReactiveElement> & 
     #targetElement?: Element;
 
     static override get observedAttributes(): string[] {
-      return [...(super.observedAttributes ?? []), ...observedAttributes] as string[];
+      return [...(super.observedAttributes ?? []), ...observedAttributes];
     }
 
     /** @internal */

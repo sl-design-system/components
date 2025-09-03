@@ -37,11 +37,6 @@ export class Switch<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   static formAssociated = true;
 
   /** @internal */
-  static override get observedAttributes(): string[] {
-    return [...super.observedAttributes, 'aria-disabled', 'aria-label', 'aria-labelledby'];
-  }
-
-  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon

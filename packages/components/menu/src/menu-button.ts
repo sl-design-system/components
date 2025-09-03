@@ -38,11 +38,6 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
   'aria-label'
 ]) {
   /** @internal */
-  static override get observedAttributes(): string[] {
-    return [...super.observedAttributes, 'aria-disabled', 'aria-label'];
-  }
-
-  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,

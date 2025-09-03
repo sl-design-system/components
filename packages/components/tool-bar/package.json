@@ -50,6 +50,6 @@
     "lit": "^3.3.1"
   },
   "peerDependencies": {
-    "@open-wc/scoped-elements": "^3.0.5"
+    "@open-wc/scoped-elements": "^3.0.6"
   }
 }

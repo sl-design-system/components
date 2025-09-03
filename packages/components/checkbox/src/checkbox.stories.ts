@@ -217,6 +217,18 @@ export const Indeterminate: StoryObj = {
   }
 };
 
+export const NoVisibleLabel: StoryObj = {
+  render: () => {
+    return html`
+      <p style="margin: 0 0 1rem 0">
+        This checkbox has no internal or external label. It only has an <code>aria-label</code> attribute. That
+        attribute is automatically applied to the <code>input</code> element.
+      </p>
+      <sl-checkbox aria-label="Check me"></sl-checkbox>
+    `;
+  }
+};
+
 export const Overflow: Story = {
   args: {
     hint: 'The checkbox should be aligned with the first row of text',

@@ -35,11 +35,6 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
   'aria-labelledby'
 ]) {
   /** @internal */
-  static override get observedAttributes(): string[] {
-    return [...super.observedAttributes, 'aria-disabled', 'aria-label', 'aria-labelledby'];
-  }
-
-  /** @internal */
   static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
   /** @internal */

@@ -49,6 +49,10 @@ export default {
     href: {
       control: 'text'
     },
+    shape: {
+      control: 'inline-radio',
+      options: ['circle', 'square']
+    },
     size: {
       control: 'inline-radio',
       options: sizes

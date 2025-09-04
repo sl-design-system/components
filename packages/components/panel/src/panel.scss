@@ -146,7 +146,7 @@ slot[name='heading'],
 slot[name='heading']::slotted(*) {
   color: var(--sl-color-foreground-bold);
   font-size: 1.143em;
-  font-weight: var(--sl-text-typeset-fontWeight-demibold);
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
   padding-block: var(--sl-size-100);
 }
 

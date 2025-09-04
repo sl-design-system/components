@@ -625,16 +625,16 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
   #scrollToTabPanelStart(): void {
     console.log('Scrolling to tab panel start in scrollToTabPanelStart');
-    // requestAnimationFrame(() => {
-    const { bottom: containerBottom = 0 } =
-        this.renderRoot.querySelector('[part="container"]')?.getBoundingClientRect() || {},
-      { top: wrapperTop = 0 } = this.renderRoot.querySelector('[part="wrapper"]')?.getBoundingClientRect() || {},
-      { top = 0 } = this.renderRoot.querySelector('[part="panels"]')?.getBoundingClientRect() || {};
+    requestAnimationFrame(() => {
+      const { bottom: containerBottom = 0 } =
+          this.renderRoot.querySelector('[part="container"]')?.getBoundingClientRect() || {},
+        { top: wrapperTop = 0 } = this.renderRoot.querySelector('[part="wrapper"]')?.getBoundingClientRect() || {},
+        { top = 0 } = this.renderRoot.querySelector('[part="panels"]')?.getBoundingClientRect() || {};
 
-    // Scroll to make sure the top of the panel is visible, but don't scroll too far
-    // so the tab container/wrapper may become unstuck.
-    getScrollParent(this)?.scrollBy({ top: top - (this.vertical ? wrapperTop : containerBottom) });
-    // });
+      // Scroll to make sure the top of the panel is visible, but don't scroll too far
+      // so the tab container/wrapper may become unstuck.
+      getScrollParent(this)?.scrollBy({ top: top - (this.vertical ? wrapperTop : containerBottom) });
+    });
   }
 
   #updateSelectedTab(selectedTab?: Tab, emitEvent = true): void {
@@ -655,8 +655,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     }
 
     if (selectedTab) {
-      // this.#scrollIntoViewIfNeeded(selectedTab, emitEvent ? 'smooth' : 'instant');
-      this.#scrollIntoViewIfNeeded(selectedTab, emitEvent ? 'smooth' : 'auto');
+      this.#scrollIntoViewIfNeeded(selectedTab, emitEvent ? 'smooth' : 'instant');
+      // this.#scrollIntoViewIfNeeded(selectedTab, emitEvent ? 'smooth' : 'auto');
 
       requestAnimationFrame(() => this.#updateSelectionIndicator());
     }
@@ -677,11 +677,56 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     const tablist = this.renderRoot.querySelector('[part="tablist"]') as HTMLElement,
       rect = this.selectedTab.getBoundingClientRect();
 
+    console.log('Tablist rect:', tablist, tablist.getBoundingClientRect());
+
     let start = 0;
+    // if (this.vertical) {
+    //   start = rect.top - tablist.getBoundingClientRect().top;
+    // } else {
+    //   start = rect.left - tablist.getBoundingClientRect().left;
+    // }
+
+    // if (this.vertical) {
+    //   // Use offsetTop to avoid transform (zoom) effects from Storybook
+    //   start = this.selectedTab.offsetTop;
+    // } else {
+    //   // Use offsetLeft for horizontal positioning under zoom
+    //   start = this.selectedTab.offsetLeft;
+    // }
+
+    const tab = this.selectedTab;
+    const scroller = this.renderRoot.querySelector<HTMLElement>('[part="scroller"]');
+    // const isRTL = getComputedStyle(tablist).direction === 'rtl';
+
+    if (!tab || !scroller) {
+      return;
+    }
+
+    // if (this.vertical) {
+    //   // Use offset* to avoid transform (zoom) distortion
+    //   start = tab.offsetTop - tablist.offsetTop;
+    // } else {
+    //   // Horizontal: compensate scroll + RTL (Firefox uses negative scrollLeft in RTL)
+    //   let scrollLeft = scroller?.scrollLeft ?? 0;
+    //   if (isRTL && scrollLeft < 0) scrollLeft = -scrollLeft;
+    //   start = tab.offsetLeft - scrollLeft;
+    // }
+
+    // Baseline (first tab) so start = 0 for the first tab even when tabs are centered/end aligned
+    const firstTab = this.tabs?.[0];
+    const baseInline = firstTab ? firstTab.offsetLeft : 0;
+    const baseBlock = firstTab ? firstTab.offsetTop : 0;
+
+    // let start = 0;
+
+    console.log('for horizontal indicator positioning:', tab, tab.offsetLeft, baseInline);
+
+    console.log('for vertical indicator positioning:', tab, tab.offsetTop, baseBlock);
+
     if (this.vertical) {
-      start = rect.top - tablist.getBoundingClientRect().top;
+      start = tab.offsetTop - baseBlock;
     } else {
-      start = rect.left - tablist.getBoundingClientRect().left;
+      start = tab.offsetLeft - baseInline;
     }
 
     indicator.style.opacity = '1';
@@ -690,13 +735,27 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
     console.log('Updating selection indicator:', rect, start);
 
+    // if (this.vertical) {
+    //   // indicator.style.scale = `1 ${rect.height / 100}`;
+    //   indicator.style.blockSize = `${rect.height}px`;
+    //   indicator.style.translate = `0 ${start}px`;
+    // } else {
+    //   // indicator.style.scale = `${rect.width / 100} 1`;
+    //   indicator.style.inlineSize = `${rect.width}px`;
+    //   indicator.style.translate = `${start}px`;
+    // }
+
+    // Sizes unaffected by ancestor CSS transforms (e.g. Storybook zoom)
+    const sizeInline = tab.offsetWidth;
+    const sizeBlock = tab.offsetHeight;
+
     if (this.vertical) {
-      // indicator.style.scale = `1 ${rect.height / 100}`;
-      indicator.style.blockSize = `${rect.height}px`;
+      indicator.style.blockSize = `${sizeBlock}px`;
+      indicator.style.inlineSize = '';
       indicator.style.translate = `0 ${start}px`;
     } else {
-      // indicator.style.scale = `${rect.width / 100} 1`;
-      indicator.style.inlineSize = `${rect.width}px`;
+      indicator.style.inlineSize = `${sizeInline}px`;
+      indicator.style.blockSize = '';
       indicator.style.translate = `${start}px`;
     }
 
@@ -823,6 +882,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       }
     } else if (hostResized && this.selectedTab) {
       // this.#scrollIntoViewIfNeeded(this.selectedTab, 'instant');
+      console.log('Host resized, scrolling selected tab into view if needed', hostResized);
       this.#scrollIntoViewIfNeeded(this.selectedTab, 'auto');
     }
 

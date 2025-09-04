@@ -13,8 +13,9 @@ declare global {
   }
 }
 
+export type AvatarColor = 'blue' | 'green' | 'grey' | 'orange' | 'purple' | 'red' | 'teal' | 'yellow';
+export type AvatarEmphasis = 'subtle' | 'bold';
 export type AvatarShape = 'circle' | 'square';
-
 export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
 
 /**
@@ -54,11 +55,23 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
   /** @internal The clip-path cutout for the badge. */
   @state() clipPath?: string;
 
+  /**
+   * The color of the avatar.
+   * @default grey
+   */
+  @property({ reflect: true }) color?: AvatarColor;
+
   /** The initials that need to be displayed. If none are set they are determined based on the displayName .*/
   @property({ attribute: 'display-initials' }) displayInitials?: string;
 
   /** The name that needs to be displayed. */
   @property({ attribute: 'display-name' }) displayName?: string;
+
+  /**
+   * The emphasis of the avatar.
+   * @default subtle
+   */
+  @property({ reflect: true }) emphasis?: AvatarEmphasis;
 
   /** An optional URL that will be used for linking the display name. */
   @property() href?: string;

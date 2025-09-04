@@ -6,11 +6,20 @@ import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
-import { type Avatar, type AvatarSize } from './avatar.js';
+import { type Avatar, type AvatarColor, type AvatarSize } from './avatar.js';
 
 type Props = Pick<
   Avatar,
-  'displayInitials' | 'displayName' | 'href' | 'imageOnly' | 'pictureUrl' | 'shape' | 'size' | 'vertical'
+  | 'color'
+  | 'displayInitials'
+  | 'displayName'
+  | 'emphasis'
+  | 'href'
+  | 'imageOnly'
+  | 'pictureUrl'
+  | 'shape'
+  | 'size'
+  | 'vertical'
 > & {
   badge?(): TemplateResult;
   fallback?(): TemplateResult;
@@ -20,7 +29,8 @@ type Props = Pick<
 };
 type Story = StoryObj<Props>;
 
-const sizes: AvatarSize[] = ['sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'];
+const colors: AvatarColor[] = ['blue', 'green', 'grey', 'orange', 'purple', 'red', 'teal', 'yellow'],
+  sizes: AvatarSize[] = ['sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'];
 
 Icon.register(faSchool);
 
@@ -41,6 +51,14 @@ export default {
         disable: true
       }
     },
+    color: {
+      control: 'radio',
+      options: colors
+    },
+    emphasis: {
+      control: 'inline-radio',
+      options: ['subtle', 'bold']
+    },
     fallback: {
       table: {
         disable: true
@@ -60,8 +78,10 @@ export default {
   },
   render: ({
     badge,
+    color,
     displayInitials,
     displayName,
+    emphasis,
     fallback,
     href,
     imageOnly,
@@ -75,14 +95,16 @@ export default {
   }) => {
     return html`
       <sl-avatar
-        .displayInitials=${displayInitials}
         .displayName=${displayName}
-        .href=${href}
-        .pictureUrl=${pictureUrl}
-        .size=${size}
         ?image-only=${imageOnly}
         ?vertical=${vertical}
+        color=${ifDefined(color)}
+        display-initials=${ifDefined(displayInitials)}
+        emphasis=${ifDefined(emphasis)}
+        href=${ifDefined(href)}
+        picture-url=${ifDefined(pictureUrl)}
         shape=${ifDefined(shape)}
+        size=${ifDefined(size)}
         style=${ifDefined(maxWidth ? `max-width: ${maxWidth}` : undefined)}
         tabindex=${ifDefined(tabIndex)}
       >

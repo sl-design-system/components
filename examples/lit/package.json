@@ -21,7 +21,7 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@open-wc/scoped-elements": "^3.0.5",
+    "@open-wc/scoped-elements": "^3.0.6",
     "@sl-design-system/shared": "^0.8.0"
   }
 }

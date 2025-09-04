@@ -35,13 +35,9 @@ declare global {
 @localized()
 export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitElement), [
   'aria-disabled',
-  'aria-label'
+  'aria-label',
+  'aria-labelledby'
 ]) {
-  /** @internal */
-  static override get observedAttributes(): string[] {
-    return [...super.observedAttributes, 'aria-disabled', 'aria-label'];
-  }
-
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {

@@ -172,6 +172,38 @@ describe('sl-text-area', () => {
       expect(el).to.have.attribute('resize', 'auto');
     });
 
+    it('should proxy the aria-disabled attribute to the textarea element', async () => {
+      el.setAttribute('aria-disabled', 'true');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el).to.not.have.attribute('aria-disabled');
+      expect(el.textarea).to.have.attribute('aria-disabled', 'true');
+    });
+
+    it('should proxy the aria-label attribute to the textarea element', async () => {
+      el.setAttribute('aria-label', 'Label');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el).to.not.have.attribute('aria-label');
+      expect(el.textarea).to.have.attribute('aria-label', 'Label');
+    });
+
+    it('should proxy the aria-labelledby attribute to the textarea element', async () => {
+      el.setAttribute('aria-labelledby', 'id');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el).to.not.have.attribute('aria-labelledby');
+      expect(el.textarea).to.have.attribute('aria-labelledby', 'id');
+    });
+
+    it('should proxy the aria-required attribute to the textarea element', async () => {
+      el.setAttribute('aria-required', 'true');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el).to.not.have.attribute('aria-required');
+      expect(el.textarea).to.have.attribute('aria-required', 'true');
+    });
+
     it('should be pristine', () => {
       expect(el.dirty).not.to.be.true;
     });
@@ -322,23 +354,6 @@ describe('sl-text-area', () => {
       await el.updateComplete;
 
       expect(el.valid).to.equal(true);
-    });
-  });
-
-  describe('aria attributes', () => {
-    beforeEach(async () => {
-      el = await fixture(html`<sl-text-area aria-label="my label" aria-disabled="true"></sl-checkbox>`);
-      textArea = el.querySelector('textarea')!;
-
-      // Give time to rewrite arias
-      await new Promise(resolve => setTimeout(resolve, 100));
-    });
-
-    it('should have an input with proper arias', () => {
-      expect(el).not.to.have.attribute('aria-label', 'my label');
-      expect(el).not.to.have.attribute('aria-disabled', 'true');
-      expect(textArea).to.have.attribute('aria-label', 'my label');
-      expect(textArea).to.have.attribute('aria-disabled', 'true');
     });
   });
 

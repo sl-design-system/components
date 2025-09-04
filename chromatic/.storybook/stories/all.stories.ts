@@ -5,7 +5,7 @@ import { All as AllBadge } from '../../../packages/components/badge/src/badge.st
 import { All as AllBreadcrumbs } from '../../../packages/components/breadcrumbs/src/breadcrumbs.stories';
 import { All as AllButton } from '../../../packages/components/button/src/button.stories';
 import { All as AllCard } from '../../../packages/components/card/src/card.stories';
-import { All as AllCheckbox } from '../../../packages/components/checkbox/src/checkbox.stories';
+import { All as AllCheckbox } from '../../../packages/components/checkbox/src/root.stories';
 import { All as AllCombobox } from '../../../packages/components/combobox/src/combobox.stories';
 import { All as AllDialog } from '../../../packages/components/dialog/src/dialog.stories';
 import { All as AllIcon } from '../../../packages/components/icon/src/icon.stories';

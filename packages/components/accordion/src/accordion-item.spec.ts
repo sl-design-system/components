@@ -36,6 +36,23 @@ describe('sl-accordion-item', () => {
       expect(el).to.have.attribute('icon-type', 'chevron');
     });
 
+    it('should render a custom svg icon', () => {
+      const icon = el.renderRoot.querySelector('svg');
+
+      expect(icon).to.exist;
+      expect(icon).to.contain('g.horizontal-line');
+      expect(icon).to.contain('g.vertical-line');
+    });
+
+    it('should render an sl-icon when icon type is "chevron"', async () => {
+      el.iconType = 'chevron';
+      await el.updateComplete;
+
+      const icon = el.renderRoot.querySelector('sl-icon');
+      expect(icon).to.exist;
+      expect(icon).to.have.attribute('name', 'chevron-down');
+    });
+
     it('should have the correct attributes', () => {
       expect(summary).to.have.attribute('aria-controls', 'content');
       expect(summary).to.have.attribute('aria-expanded', 'false');

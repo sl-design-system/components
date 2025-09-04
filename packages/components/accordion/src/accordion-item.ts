@@ -69,8 +69,9 @@ export class AccordionItem extends LitElement {
           part="summary"
           tabindex=${this.disabled ? -1 : 0}
         >
-          ${this.iconType === 'plusminus'
-            ? html`
+          ${this.iconType === 'chevron'
+            ? html`<sl-icon name="chevron-down"></sl-icon>`
+            : html`
                 <svg viewBox="-12 -14 24 28" xmlns="http://www.w3.org/2000/svg">
                   <g class="horizontal-line">
                     <rect x="-1" y="-8" width="2" height="16" rx="0.824742" fill="currentColor" />
@@ -79,8 +80,7 @@ export class AccordionItem extends LitElement {
                     <rect x="-1" y="-8" width="2" height="16" rx="0.824742" fill="currentColor" />
                   </g>
                 </svg>
-              `
-            : html`<sl-icon name="chevron-down"></sl-icon>`}
+              `}
           <slot name="summary">${this.summary}</slot>
         </summary>
         <div class="wrapper">

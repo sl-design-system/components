@@ -3,15 +3,16 @@
   --_gap-inline: var(--sl-size-100);
   --_heading-fontSize: 1em;
   --_heading-lineHeight: calc((18 / 14) * 1em);
+  --_icon-size: var(--sl-size-200);
   --_initials-fontSize: calc((12 / 14) * 1em);
   --_initials-lineHeight: calc((16 / 12) * 1em);
   --_picture-size: var(--sl-size-400);
+  --_subheading-fontSize: 1em;
+  --_subheading-lineHeight: calc((18 / 14) * 1em);
 
   // old
   --_badge-inset: var(--sl-space-avatar-badge-inset-md);
   --_badge-margin: var(--sl-space-avatar-badge-margin);
-  --_icon-size: var(--sl-size-icon-md);
-  --_subheading-font: var(--sl-text-avatar-subheader-md);
 
   display: inline-flex;
   outline: transparent solid var(--sl-size-borderWidth-focusRing);
@@ -54,14 +55,13 @@
 }
 
 :host([size='lg']) {
+  --_icon-size: var(--sl-size-250);
   --_initials-fontSize: 1em;
   --_initials-lineHeight: calc((20 / 14) * 1em);
   --_picture-size: var(--sl-size-500);
 
   // old
   --_badge-inset: var(--sl-space-avatar-badge-inset-lg);
-  --_icon-size: var(--sl-size-icon-lg);
-  --_subheading-font: var(--sl-text-avatar-subheader-lg);
 }
 
 :host([size='xl']),
@@ -72,49 +72,47 @@
 }
 
 :host([size='xl']) {
+  --_icon-size: var(--sl-size-300);
   --_initials-fontSize: calc((18 / 14) * 1em);
   --_initials-lineHeight: calc((28 / 18) * 1em);
   --_picture-size: var(--sl-size-600);
 
   // old
   --_badge-inset: var(--sl-space-avatar-badge-inset-xl);
-  --_icon-size: var(--sl-size-icon-xl);
-  --_subheading-font: var(--sl-text-avatar-subheader-xl);
 }
 
 :host([size='2xl']) {
+  --_icon-size: var(--sl-size-400);
   --_initials-fontSize: calc((24 / 14) * 1em);
   --_initials-lineHeight: calc((34 / 24) * 1em);
   --_picture-size: var(--sl-size-800);
 
   // old
   --_badge-inset: var(--sl-space-avatar-badge-inset-2xl);
-  --_icon-size: var(--sl-size-icon-2xl);
-  --_subheading-font: var(--sl-text-avatar-subheader-2xl);
 }
 
 :host([size='3xl']) {
+  --_icon-size: var(--sl-size-600);
   --_initials-fontSize: calc((32 / 14) * 1em);
   --_initials-lineHeight: calc((34 / 32) * 1em);
   --_picture-size: var(--sl-size-1000);
 
   // old
   --_badge-inset: var(--sl-space-avatar-badge-inset-3xl);
-  --_icon-size: var(--sl-size-icon-3xl);
-  --_subheading-font: var(--sl-text-avatar-subheader-3xl);
 }
 
 :host([size='4xl']) {
-  --_picture-size: calc(2 * var(--sl-size-1000)); // 2 * 80px = 160px
   --_heading-fontSize: calc((24 / 14) * 1em);
   --_heading-lineHeight: 1em;
+  --_icon-size: var(--sl-size-800);
   --_initials-fontSize: calc((64 / 14) * 1em);
   --_initials-lineHeight: 1em;
+  --_picture-size: calc(2 * var(--sl-size-1000)); // 2 * 80px = 160px
+  --_subheading-fontSize: calc((16 / 14) * 1em);
+  --_subheading-lineHeight: calc((20 / 16) * 1em);
 
   // old
   --_badge-inset: var(--sl-space-avatar-badge-inset-4xl);
-  --_icon-size: var(--sl-size-icon-4xl);
-  --_subheading-font: var(--sl-text-avatar-subheader-4xl);
 }
 
 :host([image-only]) {
@@ -227,8 +225,9 @@ slot:not([name]) {
   align-self: start;
   color: var(--sl-color-avatar-subheader);
   display: block;
-  font: var(--_subheading-font);
+  font-size: var(--_subheading-fontSize);
   grid-area: subheader;
+  line-height: var(--_subheading-lineHeight);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

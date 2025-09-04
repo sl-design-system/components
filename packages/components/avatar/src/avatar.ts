@@ -158,7 +158,7 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
   }
 
   #onResize(): void {
-    const badgeMargin = parseInt(getComputedStyle(this).getPropertyValue('--_badge-margin') || '0'),
+    const outlineOffset = parseInt(getComputedStyle(this).outlineOffset || '0'),
       {
         top: badgeTop = 0,
         right: badgeRight = 0,
@@ -173,9 +173,9 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
       } = this.renderRoot.querySelector('[part="picture"]')!.getBoundingClientRect();
 
     // Calculate the bounds of the cutout path for the badge
-    const cutoutTop = badgeTop - pictureTop - badgeMargin,
+    const cutoutTop = badgeTop - pictureTop - outlineOffset,
       cutoutRight = badgeRight - pictureRight + pictureSize - badgeRadius,
-      cutoutBottom = cutoutTop + badgeHeight + 2 * badgeMargin,
+      cutoutBottom = cutoutTop + badgeHeight + 2 * outlineOffset,
       cutoutLeft = cutoutRight - badgeWidth + badgeRadius * 2;
 
     if (badgeHeight && pictureSize) {

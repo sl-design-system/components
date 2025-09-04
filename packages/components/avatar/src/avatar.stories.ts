@@ -119,7 +119,7 @@ export const Basic: Story = {};
 export const Badge: Story = {
   args: {
     badge: () => html`
-      <sl-badge aria-label="1 unread message" emphasis="bold" slot="badge" variant="warning" size="lg"> 1 </sl-badge>
+      <sl-badge aria-label="1 unread message" emphasis="bold" slot="badge" variant="warning">1</sl-badge>
     `,
     size: 'xl'
   }
@@ -330,34 +330,32 @@ export const All: StoryObj = {
             </td>
             <td>
               <sl-avatar .displayName=${users[3].name} size="lg" image-only>
-                <sl-badge aria-label="1 unread message" emphasis="bold" slot="badge" variant="danger">1</sl-badge>
+                <sl-badge aria-label="1 unread message" emphasis="bold" slot="badge" variant="danger">2</sl-badge>
               </sl-avatar>
             </td>
             <td>
               <sl-avatar .displayName=${users[3].name} size="xl" image-only>
-                <sl-badge aria-label="1 unread message" emphasis="bold" slot="badge" variant="danger">
-                  <sl-icon name="check"></sl-icon>
-                </sl-badge>
+                <sl-badge aria-label="1 unread message" emphasis="bold" slot="badge" variant="danger">2</sl-badge>
               </sl-avatar>
             </td>
             <td>
               <sl-avatar .displayName=${users[3].name} size="2xl" image-only>
                 <sl-badge aria-label="1 unread message" emphasis="bold" size="lg" slot="badge" variant="danger">
-                  1234
+                  2
                 </sl-badge>
               </sl-avatar>
             </td>
             <td>
               <sl-avatar .displayName=${users[3].name} size="3xl" image-only>
                 <sl-badge aria-label="1 unread message" emphasis="bold" size="lg" slot="badge" variant="danger">
-                  <sl-icon name="check"></sl-icon>1
+                  2
                 </sl-badge>
               </sl-avatar>
             </td>
             <td>
               <sl-avatar .displayName=${users[3].name} size="4xl" image-only>
                 <sl-badge aria-label="1 unread message" emphasis="bold" size="lg" slot="badge" variant="danger">
-                  12
+                  2
                 </sl-badge>
               </sl-avatar>
             </td>

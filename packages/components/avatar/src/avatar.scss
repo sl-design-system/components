@@ -1,4 +1,5 @@
 :host {
+  --_badge-inset: calc(var(--sl-size-025) * -1);
   --_gap-block: var(--sl-size-100);
   --_gap-inline: var(--sl-size-100);
   --_heading-fontSize: 1em;
@@ -9,10 +10,6 @@
   --_picture-size: var(--sl-size-400);
   --_subheading-fontSize: 1em;
   --_subheading-lineHeight: calc((18 / 14) * 1em);
-
-  // old
-  --_badge-inset: var(--sl-space-avatar-badge-inset-md);
-  --_badge-margin: var(--sl-space-avatar-badge-margin);
 
   display: inline-flex;
   outline: transparent solid var(--sl-size-borderWidth-focusRing);
@@ -54,14 +51,16 @@
   --_gap-inline: var(--sl-size-200);
 }
 
+:host([size='lg']),
+:host([size='xl']) {
+  --_badge-inset: calc(var(--sl-size-050) * -1);
+}
+
 :host([size='lg']) {
   --_icon-size: var(--sl-size-250);
   --_initials-fontSize: 1em;
   --_initials-lineHeight: calc((20 / 14) * 1em);
   --_picture-size: var(--sl-size-500);
-
-  // old
-  --_badge-inset: var(--sl-space-avatar-badge-inset-lg);
 }
 
 :host([size='xl']),
@@ -76,9 +75,12 @@
   --_initials-fontSize: calc((18 / 14) * 1em);
   --_initials-lineHeight: calc((28 / 18) * 1em);
   --_picture-size: var(--sl-size-600);
+}
 
-  // old
-  --_badge-inset: var(--sl-space-avatar-badge-inset-xl);
+:host([size='2xl']),
+:host([size='3xl']),
+:host([size='4xl']) {
+  --_badge-inset: calc(var(--sl-size-075) * -1);
 }
 
 :host([size='2xl']) {
@@ -86,9 +88,6 @@
   --_initials-fontSize: calc((24 / 14) * 1em);
   --_initials-lineHeight: calc((34 / 24) * 1em);
   --_picture-size: var(--sl-size-800);
-
-  // old
-  --_badge-inset: var(--sl-space-avatar-badge-inset-2xl);
 }
 
 :host([size='3xl']) {
@@ -96,9 +95,6 @@
   --_initials-fontSize: calc((32 / 14) * 1em);
   --_initials-lineHeight: calc((34 / 32) * 1em);
   --_picture-size: var(--sl-size-1000);
-
-  // old
-  --_badge-inset: var(--sl-space-avatar-badge-inset-3xl);
 }
 
 :host([size='4xl']) {
@@ -110,9 +106,6 @@
   --_picture-size: calc(2 * var(--sl-size-1000)); // 2 * 80px = 160px
   --_subheading-fontSize: calc((16 / 14) * 1em);
   --_subheading-lineHeight: calc((20 / 16) * 1em);
-
-  // old
-  --_badge-inset: var(--sl-space-avatar-badge-inset-4xl);
 }
 
 :host([image-only]) {
@@ -148,11 +141,11 @@ a {
   text-decoration: none;
 
   &:hover [part='name'] {
-    color: var(--sl-color-href-hover-foreground);
+    color: var(--sl-color-link-hover);
   }
 
   &:active [part='name'] {
-    color: var(--sl-color-href-active-foreground);
+    color: var(--sl-color-link-active);
   }
 
   &:focus-visible {
@@ -160,7 +153,7 @@ a {
   }
 
   [part='name'] {
-    color: var(--sl-color-href-idle-foreground);
+    color: var(--sl-color-link-idle);
     text-decoration: underline;
   }
 }
@@ -223,7 +216,7 @@ slot[name='fallback'] {
 
 slot:not([name]) {
   align-self: start;
-  color: var(--sl-color-avatar-subheader);
+  color: var(--sl-color-foreground-subtlest);
   display: block;
   font-size: var(--_subheading-fontSize);
   grid-area: subheader;

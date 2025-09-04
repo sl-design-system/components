@@ -10,7 +10,7 @@ import { type Avatar, type AvatarSize } from './avatar.js';
 
 type Props = Pick<
   Avatar,
-  'displayInitials' | 'displayName' | 'href' | 'imageOnly' | 'pictureUrl' | 'size' | 'vertical'
+  'displayInitials' | 'displayName' | 'href' | 'imageOnly' | 'pictureUrl' | 'shape' | 'size' | 'vertical'
 > & {
   badge?(): TemplateResult;
   fallback?(): TemplateResult;
@@ -63,6 +63,7 @@ export default {
     imageOnly,
     maxWidth,
     pictureUrl,
+    shape,
     size,
     subheading,
     tabIndex,
@@ -77,6 +78,7 @@ export default {
         .size=${size}
         ?image-only=${imageOnly}
         ?vertical=${vertical}
+        shape=${ifDefined(shape)}
         style=${ifDefined(maxWidth ? `max-width: ${maxWidth}` : undefined)}
         tabindex=${ifDefined(tabIndex)}
       >
@@ -143,6 +145,12 @@ export const Overflow: Story = {
     displayName: 'Yousef van der Schaaf van Kommeren der Nederlanden',
     maxWidth: '300px',
     subheading: 'Ipsum adipisicing exercitation amet et anim consectetur.'
+  }
+};
+
+export const Square: Story = {
+  args: {
+    shape: 'square'
   }
 };
 

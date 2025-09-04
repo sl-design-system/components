@@ -13,6 +13,8 @@ declare global {
   }
 }
 
+export type AvatarShape = 'circle' | 'square';
+
 export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
 
 /**
@@ -49,7 +51,7 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
   /** The slotted badge element. */
   badge?: Badge;
 
-  /** The clip-path cutout for the badge. */
+  /** @internal The clip-path cutout for the badge. */
   @state() clipPath?: string;
 
   /** The initials that need to be displayed. If none are set they are determined based on the displayName .*/
@@ -69,6 +71,9 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
 
   /** The url of the avatar image. */
   @property({ attribute: 'picture-url' }) pictureUrl?: string;
+
+  /** The shape of the avatar. Defaults to 'circle'. */
+  @property({ reflect: true }) shape?: AvatarShape;
 
   /** The size of the avatar. */
   @property({ reflect: true }) size: AvatarSize = 'md';

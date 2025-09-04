@@ -21,6 +21,10 @@
   outline-offset: var(--sl-border-width-focusring-offset);
 }
 
+:host([shape='square']) [part='picture'] {
+  border-radius: var(--sl-size-borderRadius-default);
+}
+
 :host([size='sm']) {
   --_block-gap: var(--sl-space-avatar-block-sm);
   --_inline-gap: var(--sl-space-avatar-inline-sm);

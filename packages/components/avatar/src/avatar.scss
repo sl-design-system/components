@@ -105,8 +105,7 @@
   --_picture-size: var(--sl-size-300);
 }
 
-:host([size='sm']),
-:host([size='md']) {
+:host(:where([size='sm'], [size='md'])) {
   [part='wrapper'] {
     grid-template: 'picture spacer name' auto / auto var(--_gap-inline) 1fr;
   }
@@ -120,19 +119,6 @@
   }
 }
 
-:host([size='lg']),
-:host([size='xl']),
-:host([size='2xl']),
-:host([size='3xl']),
-:host([size='4xl']) {
-  --_gap-inline: var(--sl-size-200);
-}
-
-:host([size='lg']),
-:host([size='xl']) {
-  --_badge-inset: calc(var(--sl-size-050) * -1);
-}
-
 :host([size='lg']) {
   --_icon-size: var(--sl-size-250);
   --_initials-fontSize: 1em;
@@ -140,11 +126,12 @@
   --_picture-size: var(--sl-size-500);
 }
 
-:host([size='xl']),
-:host([size='2xl']),
-:host([size='3xl']) {
-  --_heading-fontSize: calc((16 / 14) * 1em);
-  --_heading-lineHeight: calc((20 / 16) * 1em);
+:host(:where([size='lg'], [size='xl'])) {
+  --_badge-inset: calc(var(--sl-size-050) * -1);
+}
+
+:host(:where([size='lg'], [size='xl'], [size='2xl'], [size='3xl'], [size='4xl'])) {
+  --_gap-inline: var(--sl-size-200);
 }
 
 :host([size='xl']) {
@@ -154,9 +141,9 @@
   --_picture-size: var(--sl-size-600);
 }
 
-:host([size='2xl']),
-:host([size='3xl']) {
-  --_badge-inset: calc(var(--sl-size-075) * -1);
+:host(:where([size='xl'], [size='2xl'], [size='3xl'])) {
+  --_heading-fontSize: calc((16 / 14) * 1em);
+  --_heading-lineHeight: calc((20 / 16) * 1em);
 }
 
 :host([size='2xl']) {
@@ -164,6 +151,10 @@
   --_initials-fontSize: calc((24 / 14) * 1em);
   --_initials-lineHeight: calc((34 / 24) * 1em);
   --_picture-size: var(--sl-size-800);
+}
+
+:host(:where([size='2xl'], [size='3xl'])) {
+  --_badge-inset: calc(var(--sl-size-075) * -1);
 }
 
 :host([size='3xl']) {

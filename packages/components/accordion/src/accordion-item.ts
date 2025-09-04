@@ -15,6 +15,7 @@ declare global {
 /**
  * An accordion item component.
  *
+ * @csspart details - Details element of the accordion-item
  * @csspart summary - Header element of the accordion-item
  * @csspart panel - The body of the accordion-item
  *
@@ -59,7 +60,7 @@ export class AccordionItem extends LitElement {
 
   override render(): TemplateResult {
     return html`
-      <details @toggle=${this.#onToggle}>
+      <details @toggle=${this.#onToggle} part="details">
         <summary
           @click=${this.#onClick}
           aria-controls="content"

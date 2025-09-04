@@ -123,6 +123,33 @@ export const IconType: Story = {
   }
 };
 
+export const NoBottomBorder: Story = {
+  args: {
+    items: () => html`
+      <style>
+        sl-accordion-item:last-of-type::part(details) {
+          border-block-end: none;
+        }
+      </style>
+      <sl-accordion-item summary="With border">
+        This accordion item has a bottom border because it's not the last item.
+      </sl-accordion-item>
+      <sl-accordion-item summary="Without border" open>
+        This accordion item does not have a bottom border because it's the last item. This is done using the
+        <code>::part(details)</code> selector. Set the <code>border-block-end</code> property to <code>none</code> of
+        the last <code>sl-accordion-item</code>.
+
+        <pre>
+sl-accordion-item:last-of-type::part(details) {
+  border-block-end: none;
+}
+        </pre
+        >
+      </sl-accordion-item>
+    `
+  }
+};
+
 export const Overflow: Story = {
   args: {
     items: () => html`

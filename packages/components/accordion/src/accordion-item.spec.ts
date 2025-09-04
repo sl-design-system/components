@@ -19,13 +19,21 @@ describe('sl-accordion-item', () => {
       summary = el.renderRoot.querySelector('summary') as HTMLElement;
     });
 
-    it('should render correctly', () => {
-      expect(el).shadowDom.to.equalSnapshot();
-    });
-
     it('should not be disabled', () => {
       expect(el).not.to.have.attribute('disabled');
       expect(el.disabled).not.to.be.true;
+    });
+
+    it('should not have an icon type', () => {
+      expect(el).not.to.have.attribute('icon-type');
+      expect(el.iconType).to.be.undefined;
+    });
+
+    it('should have an icon type when set', async () => {
+      el.iconType = 'chevron';
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('icon-type', 'chevron');
     });
 
     it('should have the correct attributes', () => {

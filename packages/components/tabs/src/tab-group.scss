@@ -92,6 +92,7 @@
     overflow: clip scroll;
     overscroll-behavior-y: contain;
     scroll-snap-points-y: repeat(100%);
+    scroll-snap-type: block;
   }
 
   [part='tablist'] {
@@ -162,7 +163,7 @@
   overscroll-behavior-x: contain;
   scroll-behavior: auto;
   scroll-snap-points-x: repeat(100%);
-  scroll-snap-type: x mandatory;
+  scroll-snap-type: inline;
   scrollbar-width: none;
 
   &::-webkit-scrollbar {

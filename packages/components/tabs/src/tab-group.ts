@@ -111,10 +111,14 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     this.#mutationObserver?.disconnect();
 
     if (selected) {
+      console.log('MutationObserver detected selected tab change:', selected.target);
       this.#updateSelectedTab(selected.target as Tab);
     } else if (deselected) {
+      console.log('MutationObserver detected deselected tab change:', deselected.target);
       this.#updateSelectedTab();
     }
+
+    // this.#scrollToTabPanelStart();
 
     this.#mutationObserver?.observe(this, OBSERVER_OPTIONS);
   });
@@ -373,7 +377,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
     const selectedTab = this.tabs.find(tab => tab.selected);
     if (selectedTab) {
+      console.log('selectedTab found in onTabSlotChange:', selectedTab);
       this.#updateSelectedTab(selectedTab, false);
+      // this.#scrollToTabPanelStart();
+      this.#scrollIntoViewIfNeeded(selectedTab, 'smooth');
     }
 
     this.#rovingTabindexController.clearElementCache();
@@ -411,162 +418,29 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #scrollIntoViewIfNeeded(tab: Tab, behavior?: ScrollBehavior): void {
+    const scroller = this.renderRoot.querySelector<HTMLElement>('[part="scroller"]');
+
     console.log('Scrolling tab into view if needed:', tab, behavior);
-    // requestAnimationFrame(() => {
-    //   const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement,
-    //     scrollerRect = scroller.getBoundingClientRect(),
-    //     tabRect = tab.getBoundingClientRect();
-    //
-    //   console.log('scrollerRect:', scrollerRect);
-    //   console.log('tabRect:', tabRect);
-    //
-    //   if (this.vertical) {
-    //     if (tabRect.top < scrollerRect.top) {
-    //       // The tab is above the top edge of the scroller
-    //       scroller.scrollBy({ top: tabRect.top - scrollerRect.top, behavior });
-    //     } else if (tabRect.bottom > scrollerRect.bottom) {
-    //       // The tab is below the bottom edge of the scroller
-    //       scroller.scrollBy({ top: tabRect.bottom - scrollerRect.bottom, behavior });
-    //     }
-    //   } else {
-    //     if (tabRect.left < scrollerRect.left) {
-    //       // The tab is to the left of the left edge of the scroller
-    //       scroller.scrollBy({ left: tabRect.left - scrollerRect.left, behavior });
-    //       console.log('Scrolling left', tabRect.left, scrollerRect.left, tabRect.left - scrollerRect.left);
-    //     } else if (tabRect.right > scrollerRect.right) {
-    //       // The tab is to the right of the right edge of the scroller
-    //       scroller.scrollBy({ left: tabRect.right - scrollerRect.right, behavior });
-    //       console.log('Scrolling right', tabRect.right - scrollerRect.right);
-    //     }
-    //   }
-    // });
 
-    // const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement
-
-    // if (scroller instanceof HTMLElement && tab instanceof HTMLElement) {
-    //   if (scroller.style.writingMode?.startsWith('vertical') || scroller.getAttribute('aria-orientation') === 'vertical') {
-    //     const top = tab.offsetTop;
-    //     const bottom = top + tab.offsetHeight;
-    //     const viewTop = scroller.scrollTop;
-    //     const viewBottom = viewTop + scroller.clientHeight;
-    //
-    //     if (top < viewTop) scroller.scrollTo({ top, behavior });
-    //     else if (bottom > viewBottom) scroller.scrollTo({ top: bottom - scroller.clientHeight, behavior });
-    //   } else {
-    //     const left = tab.offsetLeft;
-    //     const right = left + tab.offsetWidth;
-    //     const isRTL = getComputedStyle(scroller).direction === 'rtl';
-    //     const scrollLeft = isRTL ? -scroller.scrollLeft || scroller.scrollLeft : scroller.scrollLeft; // handle Firefox RTL
-    //     const viewLeft = scrollLeft;
-    //     const viewRight = viewLeft + scroller.clientWidth;
-    //
-    //     if (left < viewLeft) scroller.scrollTo({ left: isRTL ? -left : left, behavior });
-    //     else if (right > viewRight) scroller.scrollTo({ left: isRTL ? -(right - scroller.clientWidth) : right - scroller.clientWidth, behavior });
-    //   }
-    // }
-
-    /*    const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement;
     if (!(scroller instanceof HTMLElement) || !(tab instanceof HTMLElement)) return;
-
-    const scrollBehavior: ScrollBehavior = behavior === 'smooth' ? 'smooth' : 'auto';
-    const sRect = scroller.getBoundingClientRect();
-    const tRect = tab.getBoundingClientRect();
-
-    const epsilon = 1; // tolerate sub-pixel differences
-    const pad = 4; // keep a small padding from the edge
-
-    if (this.vertical) {
-      const overflowTop = tRect.top - sRect.top;
-      const overflowBottom = tRect.bottom - sRect.bottom;
-
-      if (overflowTop < -epsilon) {
-        scroller.scrollBy({ top: overflowTop - pad, behavior: scrollBehavior });
-      } else if (overflowBottom > epsilon) {
-        scroller.scrollBy({ top: overflowBottom + pad, behavior: scrollBehavior });
-      }
-    } else {
-      const overflowLeft = tRect.left - sRect.left;
-      const overflowRight = tRect.right - sRect.right;
-
-      if (overflowLeft < -epsilon) {
-        scroller.scrollBy({ left: overflowLeft - pad, behavior: scrollBehavior });
-      } else if (overflowRight > epsilon) {
-        scroller.scrollBy({ left: overflowRight + pad, behavior: scrollBehavior });
-      }
-    }*/
-
-    /*    const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement;
-    if (!(scroller instanceof HTMLElement) || !(tab instanceof HTMLElement)) return;
-
+    /*
     const scrollBehavior: ScrollBehavior = behavior === 'smooth' ? 'smooth' : 'auto';
     const epsilon = 1; // tolerate sub-pixel differences
-    const pad = 0; //4; // keep a small padding from the edge
+    const pad = 0; //80; //4; // keep a small padding from the edge
 
     // Defer until styles/indicator/menu layout have settled
-    requestAnimationFrame(() => {
-      if (this.vertical) {
-        const top = tab.offsetTop;
-        const bottom = top + tab.offsetHeight;
-        const viewTop = scroller.scrollTop;
-        const viewBottom = viewTop + scroller.clientHeight;
-
-        if (top - pad < viewTop - epsilon) {
-          scroller.scrollTo({ top: Math.max(0, top - pad), behavior: scrollBehavior });
-        } else if (bottom + pad > viewBottom + epsilon) {
-          scroller.scrollTo({
-            top: Math.min(bottom - scroller.clientHeight + pad, scroller.scrollHeight),
-            behavior: scrollBehavior
-          });
-        }
-      } else {
-        const left = tab.offsetLeft;
-        const right = left + tab.offsetWidth;
-        const isRTL = getComputedStyle(scroller).direction === 'rtl';
-
-        // Normalize current scroll position for comparison (FF uses negative in RTL)
-        let viewLeft = scroller.scrollLeft;
-        if (isRTL && viewLeft < 0) viewLeft = -viewLeft;
-        const viewRight = viewLeft + scroller.clientWidth;
-
-        const targetLeft = Math.max(0, left - pad);
-        const targetRight = right + pad;
-
-        if (targetLeft < viewLeft - epsilon) {
-          const to = isRTL && scroller.scrollLeft < 0 ? -targetLeft : targetLeft;
-          scroller.scrollTo({ left: to, behavior: scrollBehavior });
-        } else if (targetRight > viewRight + epsilon) {
-          const toRaw = Math.max(0, targetRight - scroller.clientWidth);
-          const to = isRTL && scroller.scrollLeft < 0 ? -toRaw : toRaw;
-          scroller.scrollTo({ left: to, behavior: scrollBehavior });
-        }
-      }
-    });*/
-
-    const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement;
-
-    const scrollBehavior: ScrollBehavior = behavior === 'smooth' ? 'smooth' : 'auto';
-    const epsilon = 1; // tolerate sub-pixel differences
-
-    // Read padding from CSS, fallback to a custom property, then to 4px
-    const cs = getComputedStyle(scroller);
-    const fallbackPad = parseFloat(cs.getPropertyValue('--sl-tab-scroll-pad')) || 4;
-
-    const inlineStart = parseFloat(cs.getPropertyValue('scroll-padding-inline-start')) || fallbackPad;
-    const inlineEnd = parseFloat(cs.getPropertyValue('scroll-padding-inline-end')) || fallbackPad;
-    const blockStart = parseFloat(cs.getPropertyValue('scroll-padding-block-start')) || fallbackPad;
-    const blockEnd = parseFloat(cs.getPropertyValue('scroll-padding-block-end')) || fallbackPad;
-
+    // requestAnimationFrame(() => {
     if (this.vertical) {
       const top = tab.offsetTop;
       const bottom = top + tab.offsetHeight;
       const viewTop = scroller.scrollTop;
       const viewBottom = viewTop + scroller.clientHeight;
 
-      if (top - blockStart < viewTop - epsilon) {
-        scroller.scrollTo({ top: Math.max(0, top - blockStart), behavior: scrollBehavior });
-      } else if (bottom + blockEnd > viewBottom + epsilon) {
+      if (top - pad < viewTop - epsilon) {
+        scroller.scrollTo({ top: Math.max(0, top - pad), behavior: scrollBehavior });
+      } else if (bottom + pad > viewBottom + epsilon) {
         scroller.scrollTo({
-          top: Math.min(bottom - scroller.clientHeight + blockEnd, scroller.scrollHeight),
+          top: Math.min(bottom - scroller.clientHeight + pad, scroller.scrollHeight),
           behavior: scrollBehavior
         });
       }
@@ -575,41 +449,17 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       const right = left + tab.offsetWidth;
       const isRTL = getComputedStyle(scroller).direction === 'rtl';
 
-      // Snap to the start when the first tab is selected
-      const index = this.tabs?.indexOf(tab) ?? -1;
-      if (index === 0) {
-        const to = isRTL && scroller.scrollLeft < 0 ? -0 : 0;
-        scroller.scrollTo({ left: to, behavior: scrollBehavior });
-        return;
-      }
+      console.log('Scrolling horizontally, isRTL:', isRTL, left, right, scroller.scrollLeft, scroller.clientWidth);
 
       // Normalize current scroll position for comparison (FF uses negative in RTL)
       let viewLeft = scroller.scrollLeft;
       if (isRTL && viewLeft < 0) viewLeft = -viewLeft;
       const viewRight = viewLeft + scroller.clientWidth;
 
-      const targetLeft = Math.max(0, left - inlineStart);
-      const targetRight = right + inlineEnd;
+      const targetLeft = Math.max(0, left - pad);
+      const targetRight = right + pad;
 
-      if (targetLeft + epsilon < viewLeft) {
-        const to = isRTL && scroller.scrollLeft < 0 ? -targetLeft : targetLeft;
-        scroller.scrollTo({ left: to, behavior: scrollBehavior });
-      } else if (targetRight - epsilon > viewRight) {
-        const toRaw = Math.max(0, targetRight - scroller.clientWidth);
-        const to = isRTL && scroller.scrollLeft < 0 ? -toRaw : toRaw;
-        scroller.scrollTo({ left: to, behavior: scrollBehavior });
-      } /*else {
-      const left = tab.offsetLeft;
-      const right = left + tab.offsetWidth;
-      const isRTL = getComputedStyle(scroller).direction === 'rtl';
-
-      // Normalize current scroll position for comparison (FF uses negative in RTL)
-      let viewLeft = scroller.scrollLeft;
-      if (isRTL && viewLeft < 0) viewLeft = -viewLeft;
-      const viewRight = viewLeft + scroller.clientWidth;
-
-      const targetLeft = Math.max(0, left - inlineStart);
-      const targetRight = right + inlineEnd;
+      console.log('Scrolling horizontally -> targetLeft/Right, viewLeft/Right:', targetLeft, targetRight, viewLeft, viewRight, scroller.offsetLeft);
 
       if (targetLeft < viewLeft - epsilon) {
         const to = isRTL && scroller.scrollLeft < 0 ? -targetLeft : targetLeft;
@@ -619,22 +469,80 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         const to = isRTL && scroller.scrollLeft < 0 ? -toRaw : toRaw;
         scroller.scrollTo({ left: to, behavior: scrollBehavior });
       }
+    }
+    // });*/
+
+    const scrollerRect = scroller.getBoundingClientRect(),
+      tabRect = tab.getBoundingClientRect();
+
+    /*    if (this.vertical) {
+      if (tabRect.top < scrollerRect.top) {
+        // The tab is above the top edge of the scroller
+        scroller.scrollBy({ top: tabRect.top - scrollerRect.top, behavior });
+      } else if (tabRect.bottom > scrollerRect.bottom) {
+        // The tab is below the bottom edge of the scroller
+        scroller.scrollBy({ top: tabRect.bottom - scrollerRect.bottom, behavior });
+      }
+    } else {
+      if (tabRect.left < scrollerRect.left) {
+        console.log('tab on the left side of scroller', tabRect.left, scrollerRect.left);
+        // The tab is to the left of the left edge of the scroller
+        scroller.scrollBy({ left: tabRect.left - scrollerRect.left, behavior });
+      } else if (tabRect.right > scrollerRect.right) {
+        console.log('tab on the right side of scroller', tabRect.right, scrollerRect.right, tabRect, scrollerRect);
+        // The tab is to the right of the right edge of the scroller
+        scroller.scrollBy({ left: tabRect.right - scrollerRect.right, behavior });
+      }
     }*/
+
+    if (this.vertical) {
+      if (tabRect.top < scrollerRect.top) {
+        scroller.scrollTo({
+          top: scroller.scrollTop + (tabRect.top - scrollerRect.top),
+          behavior
+        });
+      } else if (tabRect.bottom > scrollerRect.bottom) {
+        scroller.scrollTo({
+          top: scroller.scrollTop + (tabRect.bottom - scrollerRect.bottom),
+          behavior
+        });
+      }
+    } else {
+      if (tabRect.left < scrollerRect.left) {
+        scroller.scrollTo({
+          left: scroller.scrollLeft + (tabRect.left - scrollerRect.left),
+          behavior
+        });
+      } else if (tabRect.right > scrollerRect.right) {
+        scroller.scrollTo({
+          left: scroller.scrollLeft + (tabRect.right - scrollerRect.right),
+          behavior
+        });
+      }
     }
   }
 
   #scrollToTabPanelStart(): void {
     console.log('Scrolling to tab panel start in scrollToTabPanelStart');
-    requestAnimationFrame(() => {
-      const { bottom: containerBottom = 0 } =
-          this.renderRoot.querySelector('[part="container"]')?.getBoundingClientRect() || {},
-        { top: wrapperTop = 0 } = this.renderRoot.querySelector('[part="wrapper"]')?.getBoundingClientRect() || {},
-        { top = 0 } = this.renderRoot.querySelector('[part="panels"]')?.getBoundingClientRect() || {};
+    // requestAnimationFrame(() => {
+    const { bottom: containerBottom = 0 } =
+        this.renderRoot.querySelector('[part="container"]')?.getBoundingClientRect() || {},
+      { top: wrapperTop = 0 } = this.renderRoot.querySelector('[part="wrapper"]')?.getBoundingClientRect() || {},
+      { top = 0 } = this.renderRoot.querySelector('[part="panels"]')?.getBoundingClientRect() || {};
 
-      // Scroll to make sure the top of the panel is visible, but don't scroll too far
-      // so the tab container/wrapper may become unstuck.
-      getScrollParent(this)?.scrollBy({ top: top - (this.vertical ? wrapperTop : containerBottom) });
-    });
+    console.log('Tab panel top:', top, 'container bottom:', containerBottom, 'wrapper top:', wrapperTop);
+
+    // Scroll to make sure the top of the panel is visible, but don't scroll too far
+    // so the tab container/wrapper may become unstuck.
+    // getScrollParent(this)?.scrollBy({ top: top - (this.vertical ? wrapperTop : containerBottom) });
+
+    const scrollParent = getScrollParent(this);
+    if (scrollParent) {
+      scrollParent.scrollTo({
+        top: scrollParent.scrollTop + top - (this.vertical ? wrapperTop : containerBottom)
+      });
+    }
+    // });
   }
 
   #updateSelectedTab(selectedTab?: Tab, emitEvent = true): void {
@@ -655,10 +563,13 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     }
 
     if (selectedTab) {
-      this.#scrollIntoViewIfNeeded(selectedTab, emitEvent ? 'smooth' : 'instant');
-      // this.#scrollIntoViewIfNeeded(selectedTab, emitEvent ? 'smooth' : 'auto');
+      console.log('Scrolling selected tab into view (when selectedTab exists):', selectedTab, emitEvent);
+      // this.#scrollIntoViewIfNeeded(selectedTab, emitEvent ? 'smooth' : 'instant');
+      this.#scrollIntoViewIfNeeded(selectedTab, emitEvent ? 'smooth' : 'auto');
 
-      requestAnimationFrame(() => this.#updateSelectionIndicator());
+      // requestAnimationFrame(() => this.#updateSelectionIndicator());
+
+      this.#updateSelectionIndicator();
     }
   }
 
@@ -667,9 +578,11 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
     if (!this.selectedTab) {
       indicator.style.opacity = '';
-      indicator.style.scale = ''; // TODO: remove?
+      // indicator.style.scale = ''; // TODO: remove?
       indicator.style.transitionDuration = '0s';
       indicator.style.translate = '';
+      indicator.style.inlineSize = '';
+      indicator.style.blockSize = '';
 
       return;
     }

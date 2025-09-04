@@ -78,7 +78,7 @@ summary {
   background: color-mix(
     in srgb,
     transparent,
-    var(--sl-color-background-primary-interactive-plain) calc(100% * var(--_bg-opacity))
+    var(--sl-color-background-secondary-interactive-plain) calc(100% * var(--_bg-opacity))
   );
   color: var(--sl-color-foreground-plain);
   cursor: pointer;
@@ -99,14 +99,10 @@ summary {
 
   &:hover {
     --_bg-opacity: var(--sl-opacity-interactive-bold-hover);
-
-    color: var(--sl-color-foreground-primary-bold);
   }
 
   &:active {
     --_bg-opacity: var(--sl-opacity-interactive-bold-active);
-
-    color: var(--sl-color-foreground-primary-bold);
   }
 
   &:focus-visible {

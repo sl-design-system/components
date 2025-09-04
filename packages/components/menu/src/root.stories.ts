@@ -10,7 +10,7 @@ Icon.register(faGear, faRocket, faTrash);
 
 export default {
   title: 'Actions/Menu',
-  tags: ['stable'],
+  tags: ['draft'],
   parameters: {
     layout: 'centered'
   }

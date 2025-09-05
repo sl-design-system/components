@@ -300,6 +300,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement;
 
       if (this.vertical) {
+        // this.#resizeObserver?.disconnect();
         this.#resizeObserver.observe(scroller);
       } else {
         this.#resizeObserver.unobserve(scroller);
@@ -558,6 +559,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     }*/
 
     if (this.vertical) {
+      console.log('Vertical scrollIntoViewIfNeeded');
       if (tabRect.top < scrollerRect.top) {
         scroller.scrollTo({
           top: scroller.scrollTop + (tabRect.top - scrollerRect.top),
@@ -600,6 +602,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
     const scrollParent = getScrollParent(this);
     if (scrollParent) {
+      console.log('wrapperTop for vertical', wrapperTop);
       scrollParent.scrollTo({
         top: scrollParent.scrollTop + top - (this.vertical ? wrapperTop : containerBottom)
       });
@@ -633,7 +636,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       this.#scrollIntoViewIfNeeded(selectedTab, emitEvent ? 'smooth' : 'instant');
       // });
 
-      // requestAnimationFrame(() => this.#updateSelectionIndicator());
+      requestAnimationFrame(() => this.#updateSelectionIndicator());
 
       // this.#updateSelectionIndicator();
     }
@@ -704,6 +707,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
     if (this.vertical) {
       start = tab.offsetTop - baseBlock;
+      console.log('for vertical start:', start);
     } else {
       start = tab.offsetLeft - baseInline;
     }
@@ -738,7 +742,17 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       indicator.style.translate = `${start}px`;
     }
 
-    console.log('Indicator styles:', indicator.style, indicator.style.blockSize);
+    console.log(
+      'Indicator styles: (for vertical as well)',
+      indicator.style,
+      indicator.style.blockSize,
+      tab.offsetHeight,
+      tab.clientHeight,
+      tab.scrollHeight,
+      tab.getBoundingClientRect().height,
+      tab.getBoundingClientRect(),
+      tab
+    ); // TODO: in ff when I check tab and there clientHeight there is a proper value, but not when I check tab.clientHeight directly... why?
 
     /*    const tab = this.selectedTab;
 

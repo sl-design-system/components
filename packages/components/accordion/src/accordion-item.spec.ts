@@ -19,13 +19,38 @@ describe('sl-accordion-item', () => {
       summary = el.renderRoot.querySelector('summary') as HTMLElement;
     });
 
-    it('should render correctly', () => {
-      expect(el).shadowDom.to.equalSnapshot();
-    });
-
     it('should not be disabled', () => {
       expect(el).not.to.have.attribute('disabled');
       expect(el.disabled).not.to.be.true;
+    });
+
+    it('should not have an icon type', () => {
+      expect(el).not.to.have.attribute('icon-type');
+      expect(el.iconType).to.be.undefined;
+    });
+
+    it('should have an icon type when set', async () => {
+      el.iconType = 'chevron';
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('icon-type', 'chevron');
+    });
+
+    it('should render a custom svg icon', () => {
+      const icon = el.renderRoot.querySelector('svg');
+
+      expect(icon).to.exist;
+      expect(icon).to.contain('g.horizontal-line');
+      expect(icon).to.contain('g.vertical-line');
+    });
+
+    it('should render an sl-icon when icon type is "chevron"', async () => {
+      el.iconType = 'chevron';
+      await el.updateComplete;
+
+      const icon = el.renderRoot.querySelector('sl-icon');
+      expect(icon).to.exist;
+      expect(icon).to.have.attribute('name', 'chevron-down');
     });
 
     it('should have the correct attributes', () => {

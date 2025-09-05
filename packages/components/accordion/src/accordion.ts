@@ -1,6 +1,6 @@
 import { FocusGroupController } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import { AccordionItem } from './accordion-item.js';
 import styles from './accordion.scss.js';
@@ -10,6 +10,8 @@ declare global {
     'sl-accordion': Accordion;
   }
 }
+
+export type AccordionIconType = 'chevron' | 'plusminus';
 
 /**
  * An accordion component that can contain accordion-items
@@ -21,6 +23,12 @@ declare global {
  * @slot default - The place for multiple `<sl-accordion-item>`
  */
 export class Accordion extends LitElement {
+  /**
+   * This determines the icons used in the accordion. You can change this to
+   * `chevron` for all accordions.
+   */
+  static iconType: AccordionIconType = 'plusminus';
+
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
@@ -31,16 +39,34 @@ export class Accordion extends LitElement {
     isFocusableElement: (el: AccordionItem) => !el.disabled
   });
 
+  /**
+   * The icon type used in the accordion. Use this to only change the icon type for this accordion.
+   * Alternatively, you can set `Accordion.iconType` to change the default for all accordions.
+   */
+  @property({ attribute: 'icon-type' }) iconType?: AccordionIconType = Accordion.iconType;
+
   /** The slotted accordion items. */
   @queryAssignedElements({ flatten: true }) items?: AccordionItem[];
 
   /** Whether only one accordion item can be opened at once. By default, multiple accordion items can be opened. */
   @property({ type: Boolean, reflect: true }) single?: boolean;
 
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('iconType')) {
+      this.items?.forEach(item => (item.iconType = this.iconType ?? Accordion.iconType));
+    }
+  }
+
   override render(): TemplateResult {
-    return html`
-      <slot @slotchange=${() => this.#focusGroupController.clearElementCache()} @sl-toggle=${this.#onToggle}></slot>
-    `;
+    return html`<slot @slotchange=${this.#onSlotChange} @sl-toggle=${this.#onToggle}></slot>`;
+  }
+
+  #onSlotChange(): void {
+    this.items?.forEach(item => (item.iconType = this.iconType ?? Accordion.iconType));
+
+    this.#focusGroupController.clearElementCache();
   }
 
   #onToggle(event: SlToggleEvent<boolean>): void {

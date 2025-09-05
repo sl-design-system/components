@@ -7,23 +7,29 @@ import { LitElement, type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type Accordion } from './accordion.js';
 
-export type Props = Pick<Accordion, 'single'> & { items(): TemplateResult };
+export type Props = Pick<Accordion, 'iconType' | 'single'> & { items(): TemplateResult };
 export type Story = StoryObj<Props>;
 
 export default {
   title: 'Layout/Accordion',
   tags: ['stable'],
   args: {
+    iconType: 'plusminus',
     single: false
   },
   argTypes: {
+    iconType: {
+      control: 'inline-radio',
+      options: ['plusminus', 'chevron']
+    },
     items: {
       table: {
         disable: true
       }
     }
   },
-  render: ({ items, single }) => html`<sl-accordion ?single=${single}>${items()}</sl-accordion>`
+  render: ({ iconType, items, single }) =>
+    html`<sl-accordion .iconType=${iconType} ?single=${single}>${items()}</sl-accordion>`
 } satisfies Meta<Props>;
 
 export const Basic: Story = {
@@ -105,6 +111,40 @@ export const Basic: Story = {
         Buckle up for a cosmic adventure! Blast off into the universe and explore distant planets, swirling galaxies,
         and sparkling constellations. Learn about astronauts, black holes, and the mysteries of dark matter. Whether you
         dream of being an astronaut or simply love stargazing, the cosmos awaits your curiosity.
+      </sl-accordion-item>
+    `
+  }
+};
+
+export const IconType: Story = {
+  args: {
+    ...Basic.args,
+    iconType: 'chevron'
+  }
+};
+
+export const NoBottomBorder: Story = {
+  args: {
+    items: () => html`
+      <style>
+        sl-accordion-item:last-of-type::part(details) {
+          border-block-end: none;
+        }
+      </style>
+      <sl-accordion-item summary="With border">
+        This accordion item has a bottom border because it's not the last item.
+      </sl-accordion-item>
+      <sl-accordion-item summary="Without border" open>
+        This accordion item does not have a bottom border because it's the last item. This is done using the
+        <code>::part(details)</code> selector. Set the <code>border-block-end</code> property to <code>none</code> of
+        the last <code>sl-accordion-item</code>.
+
+        <pre>
+sl-accordion-item:last-of-type::part(details) {
+  border-block-end: none;
+}
+        </pre
+        >
       </sl-accordion-item>
     `
   }

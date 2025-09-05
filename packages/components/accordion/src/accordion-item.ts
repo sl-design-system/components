@@ -4,6 +4,7 @@ import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './accordion-item.scss.js';
+import { type AccordionIconType } from './accordion.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -14,6 +15,7 @@ declare global {
 /**
  * An accordion item component.
  *
+ * @csspart details - Details element of the accordion-item
  * @csspart summary - Header element of the accordion-item
  * @csspart panel - The body of the accordion-item
  *
@@ -27,6 +29,9 @@ export class AccordionItem extends LitElement {
 
   /** Whether the element is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
+
+  /** @internal */
+  @property({ attribute: 'icon-type', reflect: true }) iconType?: AccordionIconType;
 
   /** Whether the details element is opened. */
   @property({ type: Boolean, reflect: true }) open?: boolean;
@@ -55,7 +60,7 @@ export class AccordionItem extends LitElement {
 
   override render(): TemplateResult {
     return html`
-      <details @toggle=${this.#onToggle}>
+      <details @toggle=${this.#onToggle} part="details">
         <summary
           @click=${this.#onClick}
           aria-controls="content"
@@ -64,14 +69,18 @@ export class AccordionItem extends LitElement {
           part="summary"
           tabindex=${this.disabled ? -1 : 0}
         >
-          <svg viewBox="-12 -14 24 28" xmlns="http://www.w3.org/2000/svg">
-            <g class="horizontal-line">
-              <rect x="-1" y="-8" width="2" height="16" rx="0.824742" fill="currentColor" />
-            </g>
-            <g class="vertical-line">
-              <rect x="-1" y="-8" width="2" height="16" rx="0.824742" fill="currentColor" />
-            </g>
-          </svg>
+          ${this.iconType === 'chevron'
+            ? html`<sl-icon name="chevron-down"></sl-icon>`
+            : html`
+                <svg viewBox="-12 -14 24 28" xmlns="http://www.w3.org/2000/svg">
+                  <g class="horizontal-line">
+                    <rect x="-1" y="-8" width="2" height="16" rx="0.824742" fill="currentColor" />
+                  </g>
+                  <g class="vertical-line">
+                    <rect x="-1" y="-8" width="2" height="16" rx="0.824742" fill="currentColor" />
+                  </g>
+                </svg>
+              `}
           <slot name="summary">${this.summary}</slot>
         </summary>
         <div class="wrapper">

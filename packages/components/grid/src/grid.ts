@@ -325,6 +325,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   override disconnectedCallback(): void {
+    this.#dataSource?.removeEventListener('sl-update', this.#onDataSourceUpdate);
+    this.#dataSource?.removeEventListener('sl-selection-change', this.#onSelectionChange);
+
     this.#mutationObserver?.disconnect();
     this.#resizeObserver?.disconnect();
 
@@ -864,9 +867,18 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onSelectionChange = (): void => {
+    if (!this.renderRoot) {
+      // This is a workaround for incorrect Storybook behavior where there
+      // is a second `<sl-grid>` instance without a renderRoot.
+      return;
+    }
+
     this.renderRoot
       .querySelector<HTMLElement>('[part="bulk-actions"]')
       ?.togglePopover((this.dataSource?.selected ?? 0) > 0);
+
+    // Trigger a rerender of the grid to update the selected rows
+    this.requestUpdate();
 
     this.selectionChangeEvent.emit({ grid: this });
   };

@@ -113,14 +113,18 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     if (selected) {
       console.log('MutationObserver detected selected tab change:', selected.target);
       this.#updateSelectedTab(selected.target as Tab);
+      // this.#scrollToTabPanelStart();
     } else if (deselected) {
       console.log('MutationObserver detected deselected tab change:', deselected.target);
       this.#updateSelectedTab();
+      // this.#scrollToTabPanelStart();
     }
 
     // this.#scrollToTabPanelStart();
 
     this.#mutationObserver?.observe(this, OBSERVER_OPTIONS);
+
+    this.#scrollToTabPanelStart();
   });
 
   /**
@@ -134,6 +138,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     const scrollerResized = entries.some(
       entry => entry.target instanceof HTMLElement && entry.target.matches('[part="scroller"]')
     );
+
+    console.log('hostResized, scrollerResized in resizeObserver:', hostResized, scrollerResized);
 
     this.#shouldAnimate = false;
     this.#updateSize(hostResized, scrollerResized);
@@ -203,6 +209,44 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
+    // this.#mutationObserver.observe(this, OBSERVER_OPTIONS);
+
+    // // We want to observe the size of the component so we can scroll the selected
+    // // tab into view if needed.
+    // this.#resizeObserver.observe(this);
+    //
+    // // We need to wait for the next frame so the element has time to render
+    // requestAnimationFrame(() => {
+    //   const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement;
+    //
+    //   // // Manually trigger the scroll event handler the first time,
+    //   // // so that the fade elements are shown if necessary.
+    //   // this.#onScroll(scroller);
+    //
+    //   // this.#resizeObserver.unobserve(this);
+    //
+    //   // We want to observe the size of the scroller, not the
+    //   // container or wrapper. The scroller is the element that
+    //   // changes size for example when fonts are loaded. The
+    //   // other elements do not change size while the scroller does.
+    //   this.#resizeObserver.observe(scroller);
+    //
+    //   // Manually trigger the scroll event handler the first time,
+    //   // so that the fade elements are shown if necessary.
+    //   this.#onScroll(scroller);
+    // });
+  }
+
+  override disconnectedCallback(): void {
+    this.#resizeObserver.disconnect();
+    this.#mutationObserver.disconnect();
+
+    super.disconnectedCallback();
+  }
+
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
     this.#mutationObserver.observe(this, OBSERVER_OPTIONS);
 
     // We want to observe the size of the component so we can scroll the selected
@@ -211,25 +255,34 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
     // We need to wait for the next frame so the element has time to render
     requestAnimationFrame(() => {
+      // this.#mutationObserver.observe(this, OBSERVER_OPTIONS);
+
       const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement;
 
-      // Manually trigger the scroll event handler the first time,
-      // so that the fade elements are shown if necessary.
-      this.#onScroll(scroller);
+      // // Manually trigger the scroll event handler the first time,
+      // // so that the fade elements are shown if necessary.
+      // this.#onScroll(scroller);
+
+      // this.#resizeObserver.unobserve(this);
 
       // We want to observe the size of the scroller, not the
       // container or wrapper. The scroller is the element that
       // changes size for example when fonts are loaded. The
       // other elements do not change size while the scroller does.
       this.#resizeObserver.observe(scroller);
+
+      // Manually trigger the scroll event handler the first time,
+      // so that the fade elements are shown if necessary.
+      this.#onScroll(scroller);
+
+      // if (this.selectedTab) {
+      //   // this.#scrollIntoViewIfNeeded(this.selectedTab, 'auto');
+      //   this.#updateSelectedTab(this.selectedTab, false);
+      //   this.#scrollToTabPanelStart();
+      // }
     });
-  }
 
-  override disconnectedCallback(): void {
-    this.#resizeObserver.disconnect();
-    this.#mutationObserver.disconnect();
-
-    super.disconnectedCallback();
+    // this.#mutationObserver.observe(this, OBSERVER_OPTIONS);
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -343,6 +396,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #onScroll(scroller: HTMLElement): void {
+    console.log('onscroll called:', scroller.scrollTop, scroller.scrollLeft);
     let scrollStart = false,
       scrollEnd = false;
 
@@ -366,6 +420,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     // Keep the indicator aligned while the scroller moves
     if (this.selectedTab) {
       this.#updateSelectionIndicator();
+
+      // this.#updateSelectedTab(this.selectedTab, false);
+      //  this.#scrollToTabPanelStart();
     }
   }
 
@@ -378,9 +435,14 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     const selectedTab = this.tabs.find(tab => tab.selected);
     if (selectedTab) {
       console.log('selectedTab found in onTabSlotChange:', selectedTab);
-      this.#updateSelectedTab(selectedTab, false);
+      // this.#updateSelectedTab(selectedTab, false);
       // this.#scrollToTabPanelStart();
-      this.#scrollIntoViewIfNeeded(selectedTab, 'smooth');
+      // requestAnimationFrame(() => {
+      //   this.#scrollIntoViewIfNeeded(selectedTab, 'smooth');
+      // });
+
+      this.#updateSelectedTab(selectedTab, false);
+      this.#scrollToTabPanelStart();
     }
 
     this.#rovingTabindexController.clearElementCache();
@@ -563,13 +625,17 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     }
 
     if (selectedTab) {
+      // this.#updateSelectionIndicator();
+
+      // requestAnimationFrame(() => {
       console.log('Scrolling selected tab into view (when selectedTab exists):', selectedTab, emitEvent);
       // this.#scrollIntoViewIfNeeded(selectedTab, emitEvent ? 'smooth' : 'instant');
-      this.#scrollIntoViewIfNeeded(selectedTab, emitEvent ? 'smooth' : 'auto');
+      this.#scrollIntoViewIfNeeded(selectedTab, emitEvent ? 'smooth' : 'instant');
+      // });
 
       // requestAnimationFrame(() => this.#updateSelectionIndicator());
 
-      this.#updateSelectionIndicator();
+      // this.#updateSelectionIndicator();
     }
   }
 
@@ -753,7 +819,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #updateSize(hostResized: boolean, tablistResized: boolean): void {
+    console.log('Updating size, hostResized:', hostResized, 'tablistResized:', tablistResized);
     if (tablistResized) {
+      console.log('in updateSize, tablistResized is true', hostResized, tablistResized, this.selectedTab);
       const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement,
         tablist = this.renderRoot.querySelector('[part="tablist"]') as HTMLElement,
         showingMenu = !!this.showMenu;
@@ -789,11 +857,20 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       // of the ResizeObserver to scroll the selected tab into view. Showing/hiding the
       // menu button *will* trigger that callback. If we don't, then the selected tab
       // may not be fully visible.
+      // requestAnimationFrame(() => {
       if (showingMenu === this.showMenu && this.selectedTab) {
         // this.#scrollIntoViewIfNeeded(this.selectedTab, 'instant');
+        console.log('Tablist resized, scrolling selected tab into view if needed', tablistResized);
         this.#scrollIntoViewIfNeeded(this.selectedTab, 'auto');
       }
+      // });
     } else if (hostResized && this.selectedTab) {
+      console.log(
+        'in updateSize, tablistResized is false but hostResized is true',
+        hostResized,
+        tablistResized,
+        this.selectedTab
+      );
       // this.#scrollIntoViewIfNeeded(this.selectedTab, 'instant');
       console.log('Host resized, scrolling selected tab into view if needed', hostResized);
       this.#scrollIntoViewIfNeeded(this.selectedTab, 'auto');

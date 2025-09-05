@@ -139,7 +139,33 @@ export const MultipleRow: Story = {
   }
 };
 
-export const Combination: Story = {
+export const WithFiltering: Story = {
+  render: (_, { loaded: { students } }) => {
+    return html`
+      <p>
+        This example shows a combination of selection and filtering. You can have a selection that may not be visible
+        due to filtering.
+      </p>
+      <sl-grid .items=${students}>
+        <sl-grid-selection-column></sl-grid-selection-column>
+        <sl-grid-filter-column
+          header="Student"
+          path="fullName"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}
+        ></sl-grid-filter-column>
+        <sl-grid-filter-column
+          header="School"
+          label-path="school.name"
+          mode="select"
+          path="school.id"
+        ></sl-grid-filter-column>
+      </sl-grid>
+    `;
+  }
+};
+
+export const WithLinks: Story = {
   render: (_, { loaded: { students } }) => {
     const onActiveRowChange = ({ detail: student }: SlActiveRowChangeEvent<Student>): void => {
       document.getElementById('selection')!.innerText = student

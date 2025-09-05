@@ -143,11 +143,9 @@ export const WithFiltering: Story = {
   render: (_, { loaded: { students } }) => {
     return html`
       <p>
-        This example shows how you can have mixed selection: you can perform bulk actions using the checkbox in the
-        selection column while at the same time clicking anywhere else to activate the row. Using keyboard, you can do
-        both.
+        This example shows a combination of selection and filtering. You can have a selection that may not be visible
+        due to filtering.
       </p>
-      <p id="selection">You have not activated or selected anybody yet.</p>
       <sl-grid .items=${students}>
         <sl-grid-selection-column></sl-grid-selection-column>
         <sl-grid-filter-column

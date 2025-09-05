@@ -1,5 +1,15 @@
 # @sl-design-system/drawer
 
+## 0.0.31
+
+### Patch Changes
+
+- [#2547](https://github.com/sl-design-system/components/pull/2547) [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68) - Bump patch version of `@open-wc/scoped-elements` peer dependency
+
+- Updated dependencies [[`0c4f19b`](https://github.com/sl-design-system/components/commit/0c4f19beb6f66b6cba944c6bc4589252113554fb), [`0c4f19b`](https://github.com/sl-design-system/components/commit/0c4f19beb6f66b6cba944c6bc4589252113554fb), [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68)]:
+  - @sl-design-system/button@1.2.5
+  - @sl-design-system/button-bar@1.2.1
+
 ## 0.0.30
 
 ### Patch Changes

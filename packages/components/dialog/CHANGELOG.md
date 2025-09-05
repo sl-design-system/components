@@ -1,5 +1,28 @@
 # @sl-design-system/dialog
 
+## 2.0.2
+
+### Patch Changes
+
+- [#2086](https://github.com/sl-design-system/components/pull/2086) [`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a) - Various fixes:
+  - Fix unexpected closing of dialog due to click events "leaking"
+  - Fix scroll indicators not updating due to dialog resizing
+
+- [#2481](https://github.com/sl-design-system/components/pull/2481) [`0c4f19b`](https://github.com/sl-design-system/components/commit/0c4f19beb6f66b6cba944c6bc4589252113554fb) - Changed token used for the width of the focusring
+
+- [#2547](https://github.com/sl-design-system/components/pull/2547) [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68) - Bump patch version of `@open-wc/scoped-elements` peer dependency
+
+- [#2331](https://github.com/sl-design-system/components/pull/2331) [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16) - Fixes closing the dialog when clicking the backdrop.
+  The dialog should close only when the dialog element itself is clicked, not when a child of the dialog is clicked.
+
+- [#2548](https://github.com/sl-design-system/components/pull/2548) [`5db3329`](https://github.com/sl-design-system/components/commit/5db33293ac0ac53dcb13c607a4df76500eca7141) - Fixed wrong token for bold font-weight
+
+- Updated dependencies [[`0c4f19b`](https://github.com/sl-design-system/components/commit/0c4f19beb6f66b6cba944c6bc4589252113554fb), [`0c4f19b`](https://github.com/sl-design-system/components/commit/0c4f19beb6f66b6cba944c6bc4589252113554fb), [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`29f38d4`](https://github.com/sl-design-system/components/commit/29f38d4a44003f63e20965ed176dfa9bc16851e7), [`0e2e426`](https://github.com/sl-design-system/components/commit/0e2e426041997a299f3e35bcde499909d62f7ce9), [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16)]:
+  - @sl-design-system/button@1.2.5
+  - @sl-design-system/button-bar@1.2.1
+  - @sl-design-system/shared@0.9.0
+  - @sl-design-system/icon@1.3.0
+
 ## 2.0.1
 
 ### Patch Changes
@@ -15,7 +38,6 @@
 ### Major Changes
 
 - [#1836](https://github.com/sl-design-system/components/pull/1836) [`ab33cc8`](https://github.com/sl-design-system/components/commit/ab33cc86cc01480fb20206be689f9bbdb62bf0ad) - Refactor dialog to better work on mobile devices:
-
   - Add `primary-actions` and `secondary-actions` slots
 
   This was done to make it easier to position the actions at the top of the dialog on mobile devices. On mobile, primary actions are positioned on both sides of the title, and secondary actions are positioned at the bottom of the body of the dialog. On desktop, the secondary actions are automatically positioned at the bottom left of the dialog.
@@ -23,7 +45,6 @@
   This change also includes new `renderPrimaryActions()` and `renderSecondaryActions()` methods that can be overridden by developers who need to customize the rendering of the dialog.
 
   The dialog automatically sets the `fill` property on the primary action buttons, depending on the size of the viewport.
-
   - Make the dialog header and footer behave as sticky when scrolling
   - Animate the dialog using only CSS
     - Add distinct entry and exit animations for both desktop & mobile
@@ -88,7 +109,6 @@
 - [#1576](https://github.com/sl-design-system/components/pull/1576) [`b3619c7`](https://github.com/sl-design-system/components/commit/b3619c75d92f72d1db06146c93b98a3a5f86c035) - Improve ability to `extends Dialog`
 
   This change improves the ability to extend the Dialog component by splitting the `render()` method into smaller methods. This makes it easier to override specific parts of the Dialog component:
-
   - `renderHeader(title: string, subtitle: string)`
   - `renderBody()`
   - `renderFooter()`
@@ -255,13 +275,11 @@
 ### Patch Changes
 
 - [#937](https://github.com/sl-design-system/components/pull/937) [`e4e94cb`](https://github.com/sl-design-system/components/commit/e4e94cbae85ef09c029920db0cb0ac9c92939097) - - Fix large body text
-
   - Fix backdrop not fading in/out during show/close
   - Fix backdrop not animating after pressing Escape
   - Add `--sl-dialog-max-inline-size` CSS public API
 
 - [#925](https://github.com/sl-design-system/components/pull/925) [`2aff1dd`](https://github.com/sl-design-system/components/commit/2aff1dd7aa946cb2ee998d7d121ab585ca9ad39b) - - Add `sl-cancel` and `sl-close` events
-
   - Rename `disableClose` to `disableCancel` to better reflect its behavior
   - Rename `closingButton` to `closeButton` to better align with naming conventions
 

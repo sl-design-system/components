@@ -1,5 +1,15 @@
 # @sl-design-system/icon
 
+## 1.3.0
+
+### Minor Changes
+
+- [#2243](https://github.com/sl-design-system/components/pull/2243) [`29f38d4`](https://github.com/sl-design-system/components/commit/29f38d4a44003f63e20965ed176dfa9bc16851e7) - Updated to Font Awesome version 7.0. To use this version of the icon you also need to update your Font Awesome version, otherwise there will be a conflict in the typing of the IconPrefix.
+
+### Patch Changes
+
+- [#2547](https://github.com/sl-design-system/components/pull/2547) [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68) - Bump patch version of `@open-wc/scoped-elements` peer dependency
+
 ## 1.2.1
 
 ### Patch Changes
@@ -24,11 +34,9 @@
 - [#1710](https://github.com/sl-design-system/components/pull/1710) [`40cc538`](https://github.com/sl-design-system/components/commit/40cc538648e6ed5ac453fbe708bae8761caaab5e) - Overhaul of how (custom) icons are maintained in figma and exported to be used in the packages.
 
   The following icons have changed:
-
   - `circle` has been renamed to `circle-solid`
 
   The following icons have been added:
-
   - `badge-available`
   - `badge-away`
   - `badge-donotdisturb`
@@ -37,7 +45,6 @@
   - `info`
 
   The following items have been removed (mainly in cleaning up, they were never meant to be there)
-
   - `svg-sort`
   - `svg-sort-down`
   - `svg-sort-up`

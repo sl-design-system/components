@@ -1,5 +1,23 @@
 # @sl-design-system/inline-message
 
+## 2.0.2
+
+### Patch Changes
+
+- [#2547](https://github.com/sl-design-system/components/pull/2547) [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68) - Bump patch version of `@open-wc/scoped-elements` peer dependency
+
+- [#2086](https://github.com/sl-design-system/components/pull/2086) [`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a) - Remove slide-up animation
+
+  This fixes a bug where the `scrollHeight` of the dialog body was increased while the slide-up animation was running. This caused the dialog to incorrectly show the scroll indicator when it shouldn't have. It was not possible to use `overflow` to prevent this from happening in the dialog. So from now on, the inline message will simply fade in and out without any sliding motion.
+
+- [#2548](https://github.com/sl-design-system/components/pull/2548) [`5db3329`](https://github.com/sl-design-system/components/commit/5db33293ac0ac53dcb13c607a4df76500eca7141) - Fixed wrong token for bold font-weight
+
+- Updated dependencies [[`0c4f19b`](https://github.com/sl-design-system/components/commit/0c4f19beb6f66b6cba944c6bc4589252113554fb), [`0c4f19b`](https://github.com/sl-design-system/components/commit/0c4f19beb6f66b6cba944c6bc4589252113554fb), [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`29f38d4`](https://github.com/sl-design-system/components/commit/29f38d4a44003f63e20965ed176dfa9bc16851e7), [`0e2e426`](https://github.com/sl-design-system/components/commit/0e2e426041997a299f3e35bcde499909d62f7ce9), [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16)]:
+  - @sl-design-system/button@1.2.5
+  - @sl-design-system/announcer@0.0.5
+  - @sl-design-system/shared@0.9.0
+  - @sl-design-system/icon@1.3.0
+
 ## 2.0.1
 
 ### Patch Changes
@@ -11,11 +29,9 @@
 ### Major Changes
 
 - [#2031](https://github.com/sl-design-system/components/pull/2031) [`79c250d`](https://github.com/sl-design-system/components/commit/79c250db048f1db459305df9c90b78e03f7b6162) - Breaking change:
-
   - Remove `action` slot for action buttons. The `action` slot has been removed due to accessibility reasons. We do not recommend using inline messages with interactive elements inside.
 
   Other changes:
-
   - Remove `role` - announcer (aria-live) is used in the component instead.
   - Added `announcer` to the component (for the `danger` variant there is `aria-live="assertive"` used, for the rest: `aria-live="polite"`).
 

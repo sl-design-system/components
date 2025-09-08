@@ -26,6 +26,13 @@ export interface Week {
   days: Day[];
 }
 
+export interface Month {
+  short: string;
+  long: string;
+  value: number;
+  unselectable?: boolean;
+}
+
 export type WeekDayNamesStyle = 'long' | 'short' | 'narrow';
 
 export type WeekDayNames = {

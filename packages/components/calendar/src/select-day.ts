@@ -135,16 +135,76 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   override render(): TemplateResult {
+    const canSelectNextYear = this.displayMonth
+        ? !this.max || (this.max && this.displayMonth.getFullYear() + 1 <= this.max.getFullYear())
+        : false,
+      canSelectPreviousYear = this.displayMonth
+        ? !this.min || (this.min && this.displayMonth.getFullYear() - 1 >= this.min.getFullYear())
+        : false,
+      canSelectNextMonth = this.nextMonth
+        ? !this.max || (this.max && this.nextMonth?.getTime() + 1 <= this.max.getTime())
+        : false,
+      canSelectPreviousMonth = this.previousMonth
+        ? !this.min ||
+          (this.min && this.previousMonth?.getTime() >= new Date(this.min.getFullYear(), this.min.getMonth()).getTime())
+        : false;
+    console.log({
+      displayMonth: this.displayMonth,
+      next: this.nextMonth,
+      previous: this.previousMonth,
+      max: this.max,
+      min: this.min,
+      canSelectNextMonth,
+      canSelectPreviousMonth
+    });
     return html`
       <div part="header">
-        <sl-button @click=${this.#onToggleMonthSelect} class="current-month" fill="link" variant="secondary">
-          <sl-format-date .date=${this.displayMonth} locale=${ifDefined(this.locale)} month="long"></sl-format-date>
-          <sl-icon name="caret-down-solid" size="md"></sl-icon>
-        </sl-button>
-        <sl-button @click=${this.#onToggleYearSelect} class="current-year" fill="link" variant="secondary">
-          <sl-format-date .date=${this.displayMonth} locale=${ifDefined(this.locale)} year="numeric"></sl-format-date>
-          <sl-icon name="caret-down-solid" size="md"></sl-icon>
-        </sl-button>
+        ${canSelectPreviousMonth || canSelectNextMonth
+          ? html`
+              <sl-button @click=${this.#onToggleMonthSelect} class="current-month" fill="link" variant="secondary">
+                <sl-format-date
+                  .date=${this.displayMonth}
+                  locale=${ifDefined(this.locale)}
+                  month="long"
+                ></sl-format-date>
+                <sl-icon name="caret-down-solid" size="md"></sl-icon>
+              </sl-button>
+            `
+          : html`
+              <span class="current-year"
+                ><sl-format-date
+                  .date=${this.displayMonth}
+                  locale=${ifDefined(this.locale)}
+                  month="long"
+                ></sl-format-date
+              ></span>
+            `}
+        ${canSelectPreviousYear || canSelectNextYear
+          ? html`
+              <sl-button
+                @click=${this.#onToggleYearSelect}
+                ?disabled=${this.readonly}
+                class="current-year"
+                fill="link"
+                variant="secondary"
+              >
+                <sl-format-date
+                  .date=${this.displayMonth}
+                  locale=${ifDefined(this.locale)}
+                  year="numeric"
+                ></sl-format-date>
+                <sl-icon name="caret-down-solid" size="md"></sl-icon>
+              </sl-button>
+            `
+          : html`
+              <span class="current-year"
+                ><sl-format-date
+                  .date=${this.displayMonth}
+                  locale=${ifDefined(this.locale)}
+                  year="numeric"
+                ></sl-format-date
+              ></span>
+            `}
         <sl-button
           @click=${this.#onPrevious}
           aria-label=${msg(
@@ -154,6 +214,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           class="previous-month"
           fill="ghost"
           variant="secondary"
+          ?disabled=${!canSelectPreviousMonth}
         >
           <sl-icon name="chevron-left"></sl-icon>
         </sl-button>
@@ -166,6 +227,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           class="next-month"
           fill="ghost"
           variant="secondary"
+          ?disabled=${!canSelectNextMonth}
         >
           <sl-icon name="chevron-right"></sl-icon>
         </sl-button>

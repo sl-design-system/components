@@ -117,8 +117,11 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           () => html`
             <sl-select-month
               @sl-select=${this.#onSelectMonth}
+              @sl-toggle=${this.#onToggleMonthYear}
               .month=${this.month}
               locale=${ifDefined(this.locale)}
+              max=${ifDefined(this.max?.toISOString())}
+              min=${ifDefined(this.min?.toISOString())}
             ></sl-select-month>
           `
         ],

@@ -125,12 +125,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
             ></sl-select-month>
           `
         ],
-        [
-          'year',
-          () => html`
-            <sl-select-year @sl-select=${this.#onSelectYear} .year=${this.month!.getFullYear()}></sl-select-year>
-          `
-        ]
+        ['year', () => html`<sl-select-year @sl-select=${this.#onSelectYear} .year=${this.month}></sl-select-year>`]
       ])}
     `;
   }

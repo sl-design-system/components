@@ -3,6 +3,7 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, EventsController, RovingTabindexController, event } from '@sl-design-system/shared';
+import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -50,7 +51,25 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<Date>>;
 
   /** The current year. */
-  @property({ type: Number }) year = new Date().getFullYear();
+  @property({ converter: dateConverter }) year = new Date();
+
+  /**
+   * The maximum date selectable in the month.
+   * @default undefined
+   */
+  @property({ converter: dateConverter }) max?: Date;
+
+  /**
+   * The minimum date selectable in the month.
+   * @default undefined
+   */
+  @property({ converter: dateConverter }) min?: Date;
+
+  /**
+   * Highlights the current month when set.
+   * @default false
+   */
+  @property({ type: Boolean, attribute: 'show-today' }) showToday?: boolean;
 
   /** @internal The year you can select from. */
   @state() years: number[] = [];
@@ -58,18 +77,19 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.#setYears(this.year - 5, this.year + 6);
+    this.#setYears(this.year.getFullYear() - 5, this.year.getFullYear() + 6);
   }
 
   override render(): TemplateResult {
     return html`
       <div part="header">
-        <span class="current-range">${this.years.at(0)}-${this.years.at(-1)}</span>
+        <span class="current-range">${this.years.at(0)} - ${this.years.at(-1)}</span>
         <sl-button
           @click=${this.#onPrevious}
           aria-label=${msg('Go back 12 years', { id: 'sl.calendar.previousYears' })}
           fill="ghost"
           variant="primary"
+          ?disabled=${this.years && this.#isUnselectable((this.years.at(0) || 0) - 1)}
         >
           <sl-icon name="chevron-left"></sl-icon>
         </sl-button>
@@ -78,28 +98,49 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
           aria-label=${msg('Go forward 12 years', { id: 'sl.calendar.nextYears' })}
           fill="ghost"
           variant="primary"
+          ?disabled=${this.years && this.#isUnselectable((this.years.at(-1) || 0) + 1)}
         >
           <sl-icon name="chevron-right"></sl-icon>
         </sl-button>
       </div>
       <ol class="years">
-        ${this.years.map(
-          year => html`
+        ${this.years.map(year => {
+          const parts = this.getYearParts(year).join(' ');
+          return html`
             <li>
-              <sl-button
-                @click=${() => this.#onClick(year)}
-                .fill=${this.year === year ? 'solid' : 'ghost'}
-                .variant=${this.year === year ? 'primary' : 'default'}
-                ?autofocus=${this.year === year}
-                aria-pressed=${ifDefined(this.year === year ? 'true' : undefined)}
-              >
-                ${year}
-              </sl-button>
+              ${this.#isUnselectable(year)
+                ? html`<span .part=${parts}>${year}</span>`
+                : html`
+                    <button
+                      .part=${parts}
+                      @click=${() => this.#onClick(year)}
+                      ?autofocus=${this.year.getFullYear() === year}
+                      aria-pressed=${ifDefined(this.year.getFullYear() === year ? 'true' : undefined)}
+                    >
+                      ${year}
+                    </button>
+                  `}
             </li>
-          `
-        )}
+          `;
+        })}
       </ol>
     `;
+  }
+
+  getYearParts = (year: number): string[] => {
+    return [
+      'year',
+      year === new Date().getFullYear() ? 'today' : '',
+      this.year.getFullYear() === year ? 'selected' : '',
+      this.#isUnselectable(year) ? 'unselectable' : ''
+    ].filter(part => part !== '');
+  };
+
+  #isUnselectable(year: number): boolean {
+    if (!year) {
+      return true;
+    }
+    return !!((this.min && year < this.min.getFullYear()) || (this.max && year > this.max.getFullYear()));
   }
 
   #onClick(year: number): void {
@@ -111,7 +152,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
       event.preventDefault();
       event.stopPropagation();
 
-      this.selectEvent.emit(new Date(this.year, 0));
+      this.selectEvent.emit(this.year);
     }
   }
 

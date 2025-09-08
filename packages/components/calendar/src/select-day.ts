@@ -148,15 +148,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         ? !this.min ||
           (this.min && this.previousMonth?.getTime() >= new Date(this.min.getFullYear(), this.min.getMonth()).getTime())
         : false;
-    console.log({
-      displayMonth: this.displayMonth,
-      next: this.nextMonth,
-      previous: this.previousMonth,
-      max: this.max,
-      min: this.min,
-      canSelectNextMonth,
-      canSelectPreviousMonth
-    });
     return html`
       <div part="header">
         ${canSelectPreviousMonth || canSelectNextMonth

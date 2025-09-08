@@ -83,9 +83,9 @@ summary {
   color: var(--sl-color-foreground-plain);
   cursor: pointer;
   display: flex;
-  font-size: 1.14em; // 14px * 1.14 ~= 16px
+  font-size: calc((16 / 14) * 1em);
   gap: var(--sl-size-075);
-  line-height: var(--sl-size-350);
+  line-height: calc((24 / 16) * 1em);
   outline: transparent solid var(--sl-size-borderWidth-focusRing);
   outline-offset: var(--sl-size-outlineOffset-default);
   padding: var(--sl-size-200);
@@ -119,9 +119,9 @@ summary {
 }
 
 sl-icon {
-  block-size: var(--sl-size-350);
+  block-size: var(--sl-size-300);
   flex-shrink: 0;
-  padding-inline: var(--sl-size-075);
+  padding-inline: var(--sl-size-050);
 
   @media (prefers-reduced-motion: no-preference) {
     transition: transform var(--_transition-duration) ease-in-out;
@@ -130,7 +130,7 @@ sl-icon {
 
 svg {
   aspect-ratio: 1;
-  block-size: var(--sl-size-350);
+  block-size: var(--sl-size-300);
   flex-shrink: 0;
 }
 

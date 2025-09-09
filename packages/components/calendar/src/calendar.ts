@@ -119,13 +119,23 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
               @sl-select=${this.#onSelectMonth}
               @sl-toggle=${this.#onToggleMonthYear}
               .month=${this.month}
+              ?show-today=${this.showToday}
               locale=${ifDefined(this.locale)}
               max=${ifDefined(this.max?.toISOString())}
               min=${ifDefined(this.min?.toISOString())}
             ></sl-select-month>
           `
         ],
-        ['year', () => html`<sl-select-year @sl-select=${this.#onSelectYear} .year=${this.month}></sl-select-year>`]
+        [
+          'year',
+          () => html`
+            <sl-select-year
+              @sl-select=${this.#onSelectYear}
+              ?show-today=${this.showToday}
+              .year=${this.month}
+            ></sl-select-year>
+          `
+        ]
       ])}
     `;
   }

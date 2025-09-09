@@ -214,7 +214,7 @@ export const Sizes: Story = {
       md: 'sm',
       lg: 'md',
       xl: 'md',
-      '2xl': 'lg',
+      '2xl': 'md',
       '3xl': 'lg',
       '4xl': 'lg'
     };

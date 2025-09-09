@@ -114,6 +114,10 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
         this.initials = '';
       }
     }
+
+    if (changes.has('shape')) {
+      requestAnimationFrame(() => this.#onResize());
+    }
   }
 
   override render(): TemplateResult {

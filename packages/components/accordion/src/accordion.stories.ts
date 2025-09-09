@@ -7,23 +7,29 @@ import { LitElement, type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type Accordion } from './accordion.js';
 
-export type Props = Pick<Accordion, 'single'> & { items(): TemplateResult };
+export type Props = Pick<Accordion, 'iconType' | 'single'> & { items(): TemplateResult };
 export type Story = StoryObj<Props>;
 
 export default {
   title: 'Layout/Accordion',
   tags: ['stable'],
   args: {
+    iconType: 'plusminus',
     single: false
   },
   argTypes: {
+    iconType: {
+      control: 'inline-radio',
+      options: ['plusminus', 'chevron']
+    },
     items: {
       table: {
         disable: true
       }
     }
   },
-  render: ({ items, single }) => html`<sl-accordion ?single=${single}>${items()}</sl-accordion>`
+  render: ({ iconType, items, single }) =>
+    html`<sl-accordion .iconType=${iconType} ?single=${single}>${items()}</sl-accordion>`
 } satisfies Meta<Props>;
 
 export const Basic: Story = {
@@ -105,6 +111,64 @@ export const Basic: Story = {
         Buckle up for a cosmic adventure! Blast off into the universe and explore distant planets, swirling galaxies,
         and sparkling constellations. Learn about astronauts, black holes, and the mysteries of dark matter. Whether you
         dream of being an astronaut or simply love stargazing, the cosmos awaits your curiosity.
+      </sl-accordion-item>
+    `
+  }
+};
+
+export const Extras: Story = {
+  args: {
+    items: () => html`
+      <style>
+        sl-icon {
+          margin-block-start: round(up, 1ex - 1cap, 1px);
+        }
+      </style>
+      <sl-accordion-item summary="Discovering Dinosaurs: A Prehistoric Adventure">
+        <sl-icon name="circle-check-solid" slot="summary-extras"></sl-icon>
+        Embark on a thrilling journey back in time to the age of dinosaurs! 🌎🦕🌿🦖
+      </sl-accordion-item>
+      <sl-accordion-item summary="Journey Through Ancient Civilizations">
+        <sl-icon name="octagon-exclamation-solid" slot="summary-extras"></sl-icon>
+        Pack your virtual bags and travel through time to ancient Egypt, Greece, Rome, and beyond 🌍🏛️🔍🏺
+      </sl-accordion-item>
+      <sl-accordion-item summary="Space Odyssey: Exploring Planets and Stars">
+        <sl-icon name="info" slot="summary-extras"></sl-icon>
+        Buckle up for a cosmic adventure! 🚀🪐👽
+      </sl-accordion-item>
+    `
+  }
+};
+
+export const IconType: Story = {
+  args: {
+    ...Basic.args,
+    iconType: 'chevron'
+  }
+};
+
+export const NoBottomBorder: Story = {
+  args: {
+    items: () => html`
+      <style>
+        sl-accordion-item:last-of-type::part(details) {
+          border-block-end: none;
+        }
+      </style>
+      <sl-accordion-item summary="With border">
+        This accordion item has a bottom border because it's not the last item.
+      </sl-accordion-item>
+      <sl-accordion-item summary="Without border" open>
+        This accordion item does not have a bottom border because it's the last item. This is done using the
+        <code>::part(details)</code> selector. Set the <code>border-block-end</code> property to <code>none</code> of
+        the last <code>sl-accordion-item</code>.
+
+        <pre>
+sl-accordion-item:last-of-type::part(details) {
+  border-block-end: none;
+}
+        </pre
+        >
       </sl-accordion-item>
     `
   }
@@ -304,47 +368,21 @@ export const ToggleExternally: Story = {
   }
 };
 
-export const CustomSummary: Story = {
-  args: {
-    items: () => html`
-      <style>
-        div[slot] {
-          align-items: center;
-          display: flex;
-          flex: 1;
-          justify-content: space-between;
-          gap: 0.5rem;
-        }
-      </style>
-      <sl-accordion-item>
-        <div slot="summary">
-          Discovering Dinosaurs: A Prehistoric Adventure
-          <sl-icon name="circle-check-solid" size="lg"></sl-icon>
-        </div>
-        Embark on a thrilling journey back in time to the age of dinosaurs! 🌎🦕🌿🦖
-      </sl-accordion-item>
-      <sl-accordion-item>
-        <div slot="summary">
-          Journey Through Ancient Civilizations
-          <sl-icon name="octagon-exclamation-solid" size="lg"></sl-icon>
-        </div>
-        Pack your virtual bags and travel through time to ancient Egypt, Greece, Rome, and beyond 🌍🏛️🔍🏺
-      </sl-accordion-item>
-      <sl-accordion-item>
-        <div slot="summary">
-          Space Odyssey: Exploring Planets and Stars
-          <sl-icon name="info" size="lg"></sl-icon>
-        </div>
-        Buckle up for a cosmic adventure! 🚀🪐👽
-      </sl-accordion-item>
-    `
-  }
-};
-
 export const All: Story = {
   render: () => {
     return html`
       <sl-accordion>
+        <sl-accordion-item summary="Discovering Dinosaurs: A Prehistoric Adventure" open>
+          Embark on a thrilling journey back in time to the age of dinosaurs! 🌎🦕🌿🦖
+        </sl-accordion-item>
+        <sl-accordion-item summary="Journey Through Ancient Civilizations">
+          Pack your virtual bags and travel through time to ancient Egypt, Greece, Rome, and beyond 🌍🏛️🔍🏺
+        </sl-accordion-item>
+        <sl-accordion-item summary="Space Odyssey: Exploring Planets and Stars" disabled>
+          Buckle up for a cosmic adventure! 🚀🪐👽
+        </sl-accordion-item>
+      </sl-accordion>
+      <sl-accordion icon-type="chevron" style="margin-block-start: 1rem">
         <sl-accordion-item summary="Discovering Dinosaurs: A Prehistoric Adventure" open>
           Embark on a thrilling journey back in time to the age of dinosaurs! 🌎🦕🌿🦖
         </sl-accordion-item>

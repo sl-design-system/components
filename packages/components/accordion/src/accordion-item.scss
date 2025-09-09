@@ -78,7 +78,7 @@ summary {
   // align-items: center;
   background: color-mix(
     in srgb,
-    transparent,
+    var(--sl-elevation-surface-base-default),
     var(--sl-color-background-secondary-interactive-plain) calc(100% * var(--_bg-opacity))
   );
   color: var(--sl-color-foreground-plain);
@@ -87,6 +87,7 @@ summary {
   font-size: calc((16 / 14) * 1em);
   gap: var(--sl-size-100);
   line-height: calc((24 / 16) * 1em);
+  min-block-size: 1em;
   outline: transparent solid var(--sl-size-borderWidth-focusRing);
   outline-offset: var(--sl-size-outlineOffset-default);
   padding: var(--sl-size-200);
@@ -120,6 +121,7 @@ summary {
 
 slot[name='summary'] {
   display: block;
+  inline-size: 100%;
   text-box: trim-both cap alphabetic;
 }
 

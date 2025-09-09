@@ -21,6 +21,7 @@ declare global {
  *
  * @slot default - Body content for the accordion
  * @slot summary - Header content for the accordion; use this if the `summary` property is not enough
+ * @slot summary-extras - Extra content in the header of the accordion item
  */
 @localized()
 export class AccordionItem extends LitElement {
@@ -82,6 +83,7 @@ export class AccordionItem extends LitElement {
                 </svg>
               `}
           <slot name="summary">${this.summary}</slot>
+          <slot name="summary-extras"></slot>
         </summary>
         <div class="wrapper">
           <div class="body">

@@ -116,6 +116,30 @@ export const Basic: Story = {
   }
 };
 
+export const Extras: Story = {
+  args: {
+    items: () => html`
+      <style>
+        sl-icon {
+          margin-block-start: round(up, 1ex - 1cap, 1px);
+        }
+      </style>
+      <sl-accordion-item summary="Discovering Dinosaurs: A Prehistoric Adventure">
+        <sl-icon name="circle-check-solid" slot="summary-extras"></sl-icon>
+        Embark on a thrilling journey back in time to the age of dinosaurs! 🌎🦕🌿🦖
+      </sl-accordion-item>
+      <sl-accordion-item summary="Journey Through Ancient Civilizations">
+        <sl-icon name="octagon-exclamation-solid" slot="summary-extras"></sl-icon>
+        Pack your virtual bags and travel through time to ancient Egypt, Greece, Rome, and beyond 🌍🏛️🔍🏺
+      </sl-accordion-item>
+      <sl-accordion-item summary="Space Odyssey: Exploring Planets and Stars">
+        <sl-icon name="info" slot="summary-extras"></sl-icon>
+        Buckle up for a cosmic adventure! 🚀🪐👽
+      </sl-accordion-item>
+    `
+  }
+};
+
 export const IconType: Story = {
   args: {
     ...Basic.args,
@@ -341,43 +365,6 @@ export const ToggleExternally: Story = {
     }
 
     return html`<accordion-toggle-example></accordion-toggle-example>`;
-  }
-};
-
-export const CustomSummary: Story = {
-  args: {
-    items: () => html`
-      <style>
-        div[slot] {
-          align-items: center;
-          display: flex;
-          flex: 1;
-          justify-content: space-between;
-          gap: 0.5rem;
-        }
-      </style>
-      <sl-accordion-item>
-        <div slot="summary">
-          Discovering Dinosaurs: A Prehistoric Adventure
-          <sl-icon name="circle-check-solid" size="lg"></sl-icon>
-        </div>
-        Embark on a thrilling journey back in time to the age of dinosaurs! 🌎🦕🌿🦖
-      </sl-accordion-item>
-      <sl-accordion-item>
-        <div slot="summary">
-          Journey Through Ancient Civilizations
-          <sl-icon name="octagon-exclamation-solid" size="lg"></sl-icon>
-        </div>
-        Pack your virtual bags and travel through time to ancient Egypt, Greece, Rome, and beyond 🌍🏛️🔍🏺
-      </sl-accordion-item>
-      <sl-accordion-item>
-        <div slot="summary">
-          Space Odyssey: Exploring Planets and Stars
-          <sl-icon name="info" size="lg"></sl-icon>
-        </div>
-        Buckle up for a cosmic adventure! 🚀🪐👽
-      </sl-accordion-item>
-    `
   }
 };
 

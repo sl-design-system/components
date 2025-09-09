@@ -179,6 +179,10 @@
 }
 
 :host([shape='square']) {
+  --_badge-inset: calc(var(--sl-size-050) * -1);
+}
+
+:host([shape='square']:where([size='lg'], [size='xl'], [size='2xl'])) {
   --_badge-inset: calc(var(--sl-size-075) * -1);
 }
 

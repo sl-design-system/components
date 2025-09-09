@@ -75,6 +75,7 @@ details {
 summary {
   --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
 
+  // align-items: center;
   background: color-mix(
     in srgb,
     transparent,
@@ -84,12 +85,11 @@ summary {
   cursor: pointer;
   display: flex;
   font-size: calc((16 / 14) * 1em);
-  gap: var(--sl-size-075);
+  gap: var(--sl-size-100);
   line-height: calc((24 / 16) * 1em);
   outline: transparent solid var(--sl-size-borderWidth-focusRing);
   outline-offset: var(--sl-size-outlineOffset-default);
   padding: var(--sl-size-200);
-  padding-inline-start: var(--sl-size-075);
   position: relative;
   z-index: 1; /* To work properly with sticky */
 
@@ -118,10 +118,20 @@ summary {
   }
 }
 
+slot[name='summary'] {
+  display: block;
+  text-box: trim-both cap alphabetic;
+}
+
+svg,
 sl-icon {
-  block-size: var(--sl-size-300);
+  align-self: start;
   flex-shrink: 0;
-  padding-inline: var(--sl-size-050);
+  margin-block-start: round(up, 1ex - 1cap, 1px);
+}
+
+sl-icon {
+  block-size: var(--sl-size-200);
 
   @media (prefers-reduced-motion: no-preference) {
     transition: transform var(--_transition-duration) ease-in-out;
@@ -130,8 +140,7 @@ sl-icon {
 
 svg {
   aspect-ratio: 1;
-  block-size: var(--sl-size-300);
-  flex-shrink: 0;
+  block-size: var(--sl-size-200);
 }
 
 g {

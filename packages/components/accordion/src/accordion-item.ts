@@ -72,12 +72,12 @@ export class AccordionItem extends LitElement {
           ${this.iconType === 'chevron'
             ? html`<sl-icon name="chevron-down"></sl-icon>`
             : html`
-                <svg viewBox="-12 -14 24 28" xmlns="http://www.w3.org/2000/svg">
+                <svg viewBox="-8 -8 16 16" xmlns="http://www.w3.org/2000/svg">
                   <g class="horizontal-line">
-                    <rect x="-1" y="-8" width="2" height="16" rx="0.824742" fill="currentColor" />
+                    <rect x="-1" y="-7" width="2" height="14" rx="0.82" fill="currentColor" />
                   </g>
                   <g class="vertical-line">
-                    <rect x="-1" y="-8" width="2" height="16" rx="0.824742" fill="currentColor" />
+                    <rect x="-1" y="-7" width="2" height="14" rx="0.82" fill="currentColor" />
                   </g>
                 </svg>
               `}

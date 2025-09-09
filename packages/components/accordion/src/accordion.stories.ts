@@ -382,6 +382,17 @@ export const All: Story = {
           Buckle up for a cosmic adventure! 🚀🪐👽
         </sl-accordion-item>
       </sl-accordion>
+      <sl-accordion icon-type="chevron" style="margin-block-start: 1rem">
+        <sl-accordion-item summary="Discovering Dinosaurs: A Prehistoric Adventure" open>
+          Embark on a thrilling journey back in time to the age of dinosaurs! 🌎🦕🌿🦖
+        </sl-accordion-item>
+        <sl-accordion-item summary="Journey Through Ancient Civilizations">
+          Pack your virtual bags and travel through time to ancient Egypt, Greece, Rome, and beyond 🌍🏛️🔍🏺
+        </sl-accordion-item>
+        <sl-accordion-item summary="Space Odyssey: Exploring Planets and Stars" disabled>
+          Buckle up for a cosmic adventure! 🚀🪐👽
+        </sl-accordion-item>
+      </sl-accordion>
     `;
   }
 };

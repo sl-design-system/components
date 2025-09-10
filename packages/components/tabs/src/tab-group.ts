@@ -293,14 +293,14 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     this.#resizeObserver.observe(this);
 
     // We need to wait for the next frame so the element has time to render
-    requestAnimationFrame(() => {
+    setTimeout(() => {
       // this.#mutationObserver.observe(this, OBSERVER_OPTIONS);
 
       const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement;
 
       // // Manually trigger the scroll event handler the first time,
       // // so that the fade elements are shown if necessary.
-      // this.#onScroll(scroller);
+      this.#onScroll(scroller);
 
       // this.#resizeObserver.unobserve(this);
 
@@ -314,12 +314,12 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       // so that the fade elements are shown if necessary.
       this.#onScroll(scroller);
 
-      // if (this.selectedTab) {
-      //   // this.#scrollIntoViewIfNeeded(this.selectedTab, 'auto');
-      //   this.#updateSelectedTab(this.selectedTab, false);
-      //   this.#scrollToTabPanelStart();
-      // }
-    });
+      if (this.selectedTab) {
+        this.#scrollIntoViewIfNeeded(this.selectedTab, 'auto');
+        this.#updateSelectedTab(this.selectedTab, false);
+        this.#scrollToTabPanelStart();
+      }
+    }, 50); // todo: giving some time for the animation? was not working with raf in ff
 
     // this.#mutationObserver.observe(this, OBSERVER_OPTIONS);
   }
@@ -343,6 +343,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         this.#resizeObserver.observe(scroller);
       } else {
         this.#resizeObserver.unobserve(scroller);
+        // this.#resizeObserver.observe(scroller);
       }
     }
   }

@@ -133,7 +133,24 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
    * - we know when we need to reposition the active tab indicator
    */
   #resizeObserver = new ResizeObserver(entries => {
+    console.log(
+      'ResizeObserver entries:',
+      entries,
+      this,
+      'hostResized:',
+      entries.some(entry => entry.target === this)
+    );
     const hostResized = entries.some(entry => entry.target === this);
+
+    requestAnimationFrame(() => {
+      console.log(
+        'ResizeObserver entries in requestAnimationFrame:',
+        entries,
+        this,
+        'hostResized:',
+        entries.some(entry => entry.target === this)
+      );
+    });
 
     const scrollerResized = entries.some(
       entry => entry.target instanceof HTMLElement && entry.target.matches('[part="scroller"]')
@@ -142,7 +159,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     console.log('hostResized, scrollerResized in resizeObserver:', hostResized, scrollerResized);
 
     this.#shouldAnimate = false;
-    this.#updateSize(hostResized, scrollerResized);
+    requestAnimationFrame(() => {
+      this.#updateSize(hostResized, scrollerResized);
+    });
+    // this.#updateSize(hostResized, scrollerResized);
     this.#shouldAnimate = true;
   });
 

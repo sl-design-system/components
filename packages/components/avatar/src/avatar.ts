@@ -13,6 +13,9 @@ declare global {
   }
 }
 
+export type AvatarColor = 'blue' | 'green' | 'grey' | 'orange' | 'purple' | 'red' | 'teal' | 'yellow';
+export type AvatarEmphasis = 'subtle' | 'bold';
+export type AvatarShape = 'circle' | 'square';
 export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
 
 /**
@@ -49,14 +52,26 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
   /** The slotted badge element. */
   badge?: Badge;
 
-  /** The clip-path cutout for the badge. */
+  /** @internal The clip-path cutout for the badge. */
   @state() clipPath?: string;
+
+  /**
+   * The color of the avatar.
+   * @default grey
+   */
+  @property({ reflect: true }) color?: AvatarColor;
 
   /** The initials that need to be displayed. If none are set they are determined based on the displayName .*/
   @property({ attribute: 'display-initials' }) displayInitials?: string;
 
   /** The name that needs to be displayed. */
   @property({ attribute: 'display-name' }) displayName?: string;
+
+  /**
+   * The emphasis of the avatar.
+   * @default subtle
+   */
+  @property({ reflect: true }) emphasis?: AvatarEmphasis;
 
   /** An optional URL that will be used for linking the display name. */
   @property() href?: string;
@@ -69,6 +84,9 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
 
   /** The url of the avatar image. */
   @property({ attribute: 'picture-url' }) pictureUrl?: string;
+
+  /** The shape of the avatar. Defaults to 'circle'. */
+  @property({ reflect: true }) shape?: AvatarShape;
 
   /** The size of the avatar. */
   @property({ reflect: true }) size: AvatarSize = 'md';
@@ -95,6 +113,10 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
       } else {
         this.initials = '';
       }
+    }
+
+    if (changes.has('shape')) {
+      requestAnimationFrame(() => this.#onResize());
     }
   }
 
@@ -140,7 +162,7 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
   }
 
   #onResize(): void {
-    const badgeMargin = parseInt(getComputedStyle(this).getPropertyValue('--_badge-margin') || '0'),
+    const outlineOffset = parseInt(getComputedStyle(this).outlineOffset || '0'),
       {
         top: badgeTop = 0,
         right: badgeRight = 0,
@@ -155,9 +177,9 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
       } = this.renderRoot.querySelector('[part="picture"]')!.getBoundingClientRect();
 
     // Calculate the bounds of the cutout path for the badge
-    const cutoutTop = badgeTop - pictureTop - badgeMargin,
+    const cutoutTop = badgeTop - pictureTop - outlineOffset,
       cutoutRight = badgeRight - pictureRight + pictureSize - badgeRadius,
-      cutoutBottom = cutoutTop + badgeHeight + 2 * badgeMargin,
+      cutoutBottom = cutoutTop + badgeHeight + 2 * outlineOffset,
       cutoutLeft = cutoutRight - badgeWidth + badgeRadius * 2;
 
     if (badgeHeight && pictureSize) {

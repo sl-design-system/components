@@ -170,6 +170,38 @@ describe('sl-text-field', () => {
       expect(input).to.have.attribute('size', '10');
     });
 
+    it('should proxy the aria-disabled attribute to the input element', async () => {
+      el.setAttribute('aria-disabled', 'true');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el).to.not.have.attribute('aria-disabled');
+      expect(el.input).to.have.attribute('aria-disabled', 'true');
+    });
+
+    it('should proxy the aria-label attribute to the input element', async () => {
+      el.setAttribute('aria-label', 'Label');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el).to.not.have.attribute('aria-label');
+      expect(el.input).to.have.attribute('aria-label', 'Label');
+    });
+
+    it('should proxy the aria-labelledby attribute to the input element', async () => {
+      el.setAttribute('aria-labelledby', 'id');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el).to.not.have.attribute('aria-labelledby');
+      expect(el.input).to.have.attribute('aria-labelledby', 'id');
+    });
+
+    it('should proxy the aria-required attribute to the input element', async () => {
+      el.setAttribute('aria-required', 'true');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el).to.not.have.attribute('aria-required');
+      expect(el.input).to.have.attribute('aria-required', 'true');
+    });
+
     it('should be pristine', () => {
       expect(el.dirty).not.to.be.true;
     });

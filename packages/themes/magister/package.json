@@ -17,7 +17,13 @@
   "types": "./index.d.ts",
   "exports": {
     ".": "./index.js",
-    "./package.json": "./package.json"
+    "./global.css": "./global.css",
+    "./light.css": "./light.css",
+    "./light.min.css": "./light.min.css",
+    "./dark.css": "./dark.css",
+    "./dark.min.css": "./dark.min.css",
+    "./package.json": "./package.json",
+    "./css/*.css": "./css/*.css"
   },
   "files": [
     "**/*.css",

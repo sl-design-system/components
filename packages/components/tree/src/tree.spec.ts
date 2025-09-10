@@ -111,6 +111,26 @@ describe('sl-tree', () => {
 
       expect(nodes).to.have.lengthOf(0);
     });
+
+    it('should proxy the aria-label attribute to the wrapper element', async () => {
+      const wrapper = el.renderRoot.querySelector('[part="wrapper"]');
+
+      el.setAttribute('aria-label', 'Label');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el).to.not.have.attribute('aria-label');
+      expect(wrapper).to.have.attribute('aria-label', 'Label');
+    });
+
+    it('should proxy the aria-labelledby attribute to the wrapper element', async () => {
+      const wrapper = el.renderRoot.querySelector('[part="wrapper"]');
+
+      el.setAttribute('aria-labelledby', 'id');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el).to.not.have.attribute('aria-labelledby');
+      expect(wrapper).to.have.attribute('aria-labelledby', 'id');
+    });
   });
 
   describe('keyboard navigation', () => {

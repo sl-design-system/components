@@ -40,13 +40,13 @@
     }
   },
   "devDependencies": {
-    "@storybook/addon-a11y": "^9.0.6",
-    "@storybook/addon-docs": "^9.0.6",
-    "@storybook/addon-themes": "^9.0.6",
-    "@storybook/web-components-vite": "^9.0.6",
-    "lit": "^3.3.0",
-    "storybook": "^9.0.6",
-    "storybook-addon-pseudo-states": "^9.0.6",
+    "@storybook/addon-a11y": "^9.1.4",
+    "@storybook/addon-docs": "^9.1.4",
+    "@storybook/addon-themes": "^9.1.4",
+    "@storybook/web-components-vite": "^9.1.4",
+    "lit": "^3.3.1",
+    "storybook": "^9.1.4",
+    "storybook-addon-pseudo-states": "^9.1.4",
     "tslib": "^2.8.1",
     "typescript": "^5.5.4",
     "wireit": "^0.14.12"

@@ -111,6 +111,12 @@ The simplest way to include the theme is by including the theme stylesheet in yo
 
 </div>
 
+The theme packages also support package exports, meaning you can import the stylesheet directly from the package (if your build system supports it):
+
+```scss
+@import '@sl-design-system/sanoma-learning/light.css';
+```
+
 If your theme supports dark mode you can also use `dark.css`.
 
 If you need to have more control over theming, you can use the split files in the `css` and `scss` folders of the theme package. These folders contain split files for the base, light and dark theme. You can include these files in your application as you see fit.

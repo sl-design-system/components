@@ -36,11 +36,6 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
   'aria-required'
 ]) {
   /** @internal */
-  static override get observedAttributes(): string[] {
-    return [...super.observedAttributes, 'aria-disabled', 'aria-label', 'aria-labelledby', 'aria-required'];
-  }
-
-  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon

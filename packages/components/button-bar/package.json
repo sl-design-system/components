@@ -41,7 +41,7 @@
     "@sl-design-system/button": "^1.2.0"
   },
   "devDependencies": {
-    "lit": "^3.3.0"
+    "lit": "^3.3.1"
   },
   "peerDependencies": {
     "lit": "^3.1.4"

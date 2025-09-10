@@ -93,6 +93,30 @@ describe('sl-select', () => {
       expect(el.value).to.be.undefined;
     });
 
+    it('should proxy the aria-describedby attribute to the button element', async () => {
+      el.setAttribute('aria-describedby', 'id');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el).to.not.have.attribute('aria-describedby');
+      expect(el.button).to.have.attribute('aria-describedby', 'id');
+    });
+
+    it('should proxy the aria-label attribute to the button element', async () => {
+      el.setAttribute('aria-label', 'Label');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el).to.not.have.attribute('aria-label');
+      expect(el.button).to.have.attribute('aria-label', 'Label');
+    });
+
+    it('should proxy the aria-labelledby attribute to the button element', async () => {
+      el.setAttribute('aria-labelledby', 'id');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el).to.not.have.attribute('aria-labelledby');
+      expect(el.button).to.have.attribute('aria-labelledby', 'id');
+    });
+
     it('should have set aria-selected to false on all options', () => {
       const allNotSelected = Array.from(el.querySelectorAll('sl-option')).every(
         option => option.getAttribute('aria-selected') === 'false'

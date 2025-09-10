@@ -440,6 +440,7 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
 
     this.#selectAll = true;
     this.#selection.clear();
+    this.#groupSelection.clear();
 
     this.dispatchEvent(new CustomEvent('sl-selection-change'));
   }
@@ -448,6 +449,7 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
   deselectAll(): void {
     this.#selectAll = false;
     this.#selection.clear();
+    this.#groupSelection.clear();
 
     this.dispatchEvent(new CustomEvent('sl-selection-change'));
   }

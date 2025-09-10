@@ -9,24 +9,26 @@ declare global {
 }
 
 export type SkeletonEffect = 'none' | 'shimmer' | 'pulse' | 'sheen';
-
 export type SkeletonVariant = 'circle' | 'default';
 
+/**
+ * Skeletons are used as a temporary placeholder while content is loading to improve the user experience.
+ */
 export class Skeleton extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /**
    * Skeleton's effect.
-   * @type {'none' | 'shimmer' | 'pulse' | 'sheen'}
+   * @default 'shimmer'
    */
-  @property({ reflect: true }) effect: SkeletonEffect = 'shimmer';
+  @property({ reflect: true }) effect?: SkeletonEffect;
 
   /**
    * Skeleton's variant.
-   * @type {'circle' | 'default'}
+   * @default 'default'
    */
-  @property({ reflect: true }) variant: SkeletonVariant = 'default';
+  @property({ reflect: true }) variant?: SkeletonVariant;
 
   override connectedCallback(): void {
     super.connectedCallback();

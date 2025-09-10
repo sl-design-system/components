@@ -182,7 +182,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     // this.#updateSize(hostResized, scrollerResized);
     this.#shouldAnimate = true;
 
-    this.#updateSelectionIndicator();
+    // this.#updateSelectionIndicator();
   });
 
   /** Manage keyboard navigation between tabs. */
@@ -800,7 +800,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       tab
     ); // TODO: in ff when I check tab and there clientHeight there is a proper value, but not when I check tab.clientHeight directly... why?
 
-    this.#onScroll(scroller);
+    // this.#onScroll(scroller);
 
     /*    const tab = this.selectedTab;
 
@@ -891,6 +891,17 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       this.showMenu = this.vertical
         ? tablist.scrollHeight > scroller.offsetHeight
         : tablist.scrollWidth > scroller.offsetWidth;
+
+      console.log(
+        'showMenu in updateSize',
+        this.showMenu,
+        this.vertical,
+        tablist.scrollHeight,
+        scroller.offsetHeight,
+        tablist.scrollHeight > scroller.offsetHeight,
+        tablist.offsetHeight,
+        scroller.scrollHeight
+      ); // TODO: that's why menu is not visible in vertical in ff?
 
       if (this.showMenu) {
         const menuBtn = this.renderRoot.querySelector('sl-menu-button');

@@ -138,7 +138,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       entries,
       this,
       'hostResized:',
-      entries.some(entry => entry.target === this)
+      entries.some(entry => entry.target === this),
+      'scrollerResized:',
+      entries.some(entry => entry.target instanceof HTMLElement && entry.target.matches('[part="scroller"]'))
     );
     const hostResized = entries.some(entry => entry.target === this);
 
@@ -148,7 +150,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         entries,
         this,
         'hostResized:',
-        entries.some(entry => entry.target === this)
+        entries.some(entry => entry.target === this),
+        'scrollerResized:',
+        entries.some(entry => entry.target instanceof HTMLElement && entry.target.matches('[part="scroller"]'))
       );
     });
 
@@ -159,11 +163,26 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     console.log('hostResized, scrollerResized in resizeObserver:', hostResized, scrollerResized);
 
     this.#shouldAnimate = false;
-    requestAnimationFrame(() => {
-      this.#updateSize(hostResized, scrollerResized);
-    });
+    this.#updateSize(hostResized, scrollerResized);
+
+    // this.#updateSelectionIndicator();
+
+    // const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement;
+    // this.#onScroll(scroller);
+
+    // requestAnimationFrame(() => {
+    //   this.#updateSelectionIndicator();
+    //   // this.#updateSize(hostResized, scrollerResized);
+    //   // this.#scrollToTabPanelStart();
+    //   // this.#updateSize(hostResized, scrollerResized);
+    //
+    //   // const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement;
+    //   // // this.#onScroll(scroller);
+    // });
     // this.#updateSize(hostResized, scrollerResized);
     this.#shouldAnimate = true;
+
+    this.#updateSelectionIndicator();
   });
 
   /** Manage keyboard navigation between tabs. */
@@ -438,8 +457,11 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     this.toggleAttribute('scroll-start', scrollStart);
     this.toggleAttribute('scroll-end', scrollEnd);
 
+    console.log('this.selectedTab onscroll', this.selectedTab);
+
     // Keep the indicator aligned while the scroller moves
     if (this.selectedTab) {
+      console.log('Scrolling, updating selection indicator');
       this.#updateSelectionIndicator();
 
       // this.#updateSelectedTab(this.selectedTab, false);
@@ -665,6 +687,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   #updateSelectionIndicator(): void {
     const indicator = this.renderRoot.querySelector('.indicator') as HTMLElement;
 
+    console.log('this.selectedTab in updateSelectionIndicator', this.selectedTab, indicator.style, this.vertical);
+
     if (!this.selectedTab) {
       indicator.style.opacity = '';
       // indicator.style.scale = ''; // TODO: remove?
@@ -703,6 +727,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     if (!tab || !scroller) {
       return;
     }
+
+    // this.#onScroll(scroller);
 
     // if (this.vertical) {
     //   // Use offset* to avoid transform (zoom) distortion
@@ -773,6 +799,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       tab.getBoundingClientRect(),
       tab
     ); // TODO: in ff when I check tab and there clientHeight there is a proper value, but not when I check tab.clientHeight directly... why?
+
+    this.#onScroll(scroller);
 
     /*    const tab = this.selectedTab;
 

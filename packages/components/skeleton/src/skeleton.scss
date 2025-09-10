@@ -1,8 +1,10 @@
 :host {
-  --_background: var(--sl-color-skeleton-base);
-  --_shine-color: var(--sl-color-skeleton-effect);
-
-  background: linear-gradient(to right, var(--_background) 4%, var(--_shine-color) 25%, var(--_background) 36%);
+  background: linear-gradient(
+    to right,
+    var(--sl-color-skeleton-plain) 4%,
+    var(--sl-color-skeleton-subtle) 25%,
+    var(--sl-color-skeleton-plain) 36%
+  );
   background-size: 2000px 100%;
   border-radius: var(--sl-size-borderRadius-default);
   display: block;
@@ -20,10 +22,10 @@
 :host([effect='sheen']) {
   background-image: linear-gradient(
     100deg,
-    var(--_shine-color),
-    var(--_background),
-    var(--_background),
-    var(--_shine-color)
+    var(--sl-color-skeleton-subtle),
+    var(--sl-color-skeleton-plain),
+    var(--sl-color-skeleton-plain),
+    var(--sl-color-skeleton-subtle)
   );
   background-size: 200% 100%;
 
@@ -33,7 +35,7 @@
 }
 
 :host([effect='pulse']) {
-  background: var(--_background);
+  background: var(--sl-color-skeleton-plain);
 
   @media (prefers-reduced-motion: no-preference) {
     animation: pulse-effect 3s ease-in-out 0.5s infinite;

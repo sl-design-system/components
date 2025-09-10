@@ -133,20 +133,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
    * - we know when we need to reposition the active tab indicator
    */
   #resizeObserver = new ResizeObserver(entries => {
-    console.log(
-      'ResizeObserver entries:',
-      entries,
-      this,
-      'hostResized:',
-      entries.some(entry => entry.target === this),
-      'scrollerResized:',
-      entries.some(entry => entry.target instanceof HTMLElement && entry.target.matches('[part="scroller"]'))
-    );
-    const hostResized = entries.some(entry => entry.target === this);
-
-    requestAnimationFrame(() => {
+    setTimeout(() => {
       console.log(
-        'ResizeObserver entries in requestAnimationFrame:',
+        'ResizeObserver entries:',
         entries,
         this,
         'hostResized:',
@@ -154,35 +143,54 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         'scrollerResized:',
         entries.some(entry => entry.target instanceof HTMLElement && entry.target.matches('[part="scroller"]'))
       );
-    });
+      const hostResized = entries.some(entry => entry.target === this);
 
-    const scrollerResized = entries.some(
-      entry => entry.target instanceof HTMLElement && entry.target.matches('[part="scroller"]')
-    );
+      requestAnimationFrame(() => {
+        console.log(
+          'ResizeObserver entries in requestAnimationFrame:',
+          entries,
+          this,
+          'hostResized:',
+          entries.some(entry => entry.target === this),
+          'scrollerResized:',
+          entries.some(entry => entry.target instanceof HTMLElement && entry.target.matches('[part="scroller"]'))
+        );
+      });
 
-    console.log('hostResized, scrollerResized in resizeObserver:', hostResized, scrollerResized);
+      const scrollerResized = entries.some(
+        entry => entry.target instanceof HTMLElement && entry.target.matches('[part="scroller"]')
+      );
 
-    this.#shouldAnimate = false;
-    this.#updateSize(hostResized, scrollerResized);
+      console.log('hostResized, scrollerResized in resizeObserver:', hostResized, scrollerResized);
 
-    // this.#updateSelectionIndicator();
+      this.#shouldAnimate = false;
+      this.#updateSize(hostResized, scrollerResized);
 
-    // const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement;
-    // this.#onScroll(scroller);
+      // this.#updateSelectionIndicator();
 
-    // requestAnimationFrame(() => {
-    //   this.#updateSelectionIndicator();
-    //   // this.#updateSize(hostResized, scrollerResized);
-    //   // this.#scrollToTabPanelStart();
-    //   // this.#updateSize(hostResized, scrollerResized);
-    //
-    //   // const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement;
-    //   // // this.#onScroll(scroller);
-    // });
-    // this.#updateSize(hostResized, scrollerResized);
-    this.#shouldAnimate = true;
+      // const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement;
+      // this.#onScroll(scroller);
 
-    // this.#updateSelectionIndicator();
+      // requestAnimationFrame(() => {
+      //   this.#updateSelectionIndicator();
+      //   // this.#updateSize(hostResized, scrollerResized);
+      //   // this.#scrollToTabPanelStart();
+      //   // this.#updateSize(hostResized, scrollerResized);
+      //
+      //   // const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement;
+      //   // // this.#onScroll(scroller);
+      // });
+      // this.#updateSize(hostResized, scrollerResized);
+      this.#shouldAnimate = true;
+
+      // this.#updateSelectionIndicator();
+
+      if (this.selectedTab) {
+        // this.#scrollIntoViewIfNeeded(this.selectedTab, 'auto');
+        this.#updateSelectedTab(this.selectedTab, false);
+        this.#scrollToTabPanelStart();
+      }
+    }, 50);
   });
 
   /** Manage keyboard navigation between tabs. */
@@ -315,7 +323,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       this.#onScroll(scroller);
 
       if (this.selectedTab) {
-        this.#scrollIntoViewIfNeeded(this.selectedTab, 'auto');
+        // this.#scrollIntoViewIfNeeded(this.selectedTab, 'auto');
         this.#updateSelectedTab(this.selectedTab, false);
         this.#scrollToTabPanelStart();
       }

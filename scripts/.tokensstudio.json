@@ -4,5 +4,5 @@
   "project": "baa983ae-54f5-4d92-93a3-fbda703c196d",
   "branch": "main",
   "release": "",
-  "output": "studio-export"
+  "output": "../packages/tokens/src"
 }

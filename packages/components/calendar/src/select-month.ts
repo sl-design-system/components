@@ -195,6 +195,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onNext(): void {
+    console.log('next');
     this.month = new Date(this.month.getFullYear() + 1, this.month.getMonth(), this.month.getDate());
   }
 

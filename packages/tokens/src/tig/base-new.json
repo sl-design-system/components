@@ -100,10 +100,6 @@
 					"$type": "borderWidth",
 					"$value": "{size.borderWidth.subtle}",
 					"$description": "Sets the standard border width for UI elements."
-				},
-				"focusRing": {
-					"$type": "borderWidth",
-					"$value": "{size.borderWidth.bold}"
 				}
 			},
 			"borderRadius": {
@@ -149,11 +145,6 @@
 					"$type": "spacing",
 					"$value": "{space.075}",
 					"$description": "Defines the standard spacing offset."
-				},
-				"focused": {
-					"$type": "spacing",
-					"$value": "{space.025}",
-					"$description": "Defines the spacing applied when an element is focused."
 				}
 			}
 		},
@@ -267,7 +258,7 @@
 				"fontFamily": {
 					"body": {
 						"$type": "fontFamilies",
-						"$value": "Roboto"
+						"$value": "Open Sans"
 					},
 					"icon": {
 						"$type": "fontFamilies",
@@ -275,13 +266,17 @@
 					},
 					"heading": {
 						"$type": "fontFamilies",
-						"$value": "Roboto"
+						"$value": "Montserrat"
 					}
 				},
 				"fontWeight": {
 					"regular": {
 						"$type": "fontWeights",
-						"$value": "Regular"
+						"$value": "{fontWeight.400}"
+					},
+					"semiBold": {
+						"$type": "fontWeights",
+						"$value": "{fontWeight.600}"
 					}
 				}
 			}

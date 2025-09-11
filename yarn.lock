@@ -5646,7 +5646,6 @@ __metadata:
     prettier: "npm:^3.6.2"
     sass: "npm:^1.92.0"
     style-dictionary: "npm:^5.0.4"
-    wireit: "npm:^0.14.12"
   languageName: unknown
   linkType: soft
 

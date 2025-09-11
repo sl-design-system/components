@@ -6,16 +6,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "import-tokens": "wireit",
+    "import-tokens": "yarn exec tokensstudio pull --host graphql.prod.tokens.studio",
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "wireit": {
-    "import-tokens": {
-      "command": "yarn exec tokensstudio pull --host graphql.prod.tokens.studio",
-      "output": [
-        "studio-export"
-      ]
-    }
   },
   "devDependencies": {
     "@figma-export/cli": "^6.2.3",
@@ -40,7 +32,6 @@
     "postcss": "^8.5.6",
     "prettier": "^3.6.2",
     "sass": "^1.92.0",
-    "style-dictionary": "^5.0.4",
-    "wireit": "^0.14.12"
+    "style-dictionary": "^5.0.4"
   }
 }

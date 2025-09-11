@@ -111,16 +111,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     this.#mutationObserver?.disconnect();
 
     if (selected) {
-      console.log('MutationObserver detected selected tab change:', selected.target);
       this.#updateSelectedTab(selected.target as Tab);
-      // this.#scrollToTabPanelStart();
     } else if (deselected) {
-      console.log('MutationObserver detected deselected tab change:', deselected.target);
       this.#updateSelectedTab();
-      // this.#scrollToTabPanelStart();
     }
-
-    // this.#scrollToTabPanelStart();
 
     this.#mutationObserver?.observe(this, OBSERVER_OPTIONS);
 
@@ -134,56 +128,15 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
    */
   #resizeObserver = new ResizeObserver(entries => {
     setTimeout(() => {
-      console.log(
-        'ResizeObserver entries:',
-        entries,
-        this,
-        'hostResized:',
-        entries.some(entry => entry.target === this),
-        'scrollerResized:',
-        entries.some(entry => entry.target instanceof HTMLElement && entry.target.matches('[part="scroller"]'))
-      );
       const hostResized = entries.some(entry => entry.target === this);
-
-      requestAnimationFrame(() => {
-        console.log(
-          'ResizeObserver entries in requestAnimationFrame:',
-          entries,
-          this,
-          'hostResized:',
-          entries.some(entry => entry.target === this),
-          'scrollerResized:',
-          entries.some(entry => entry.target instanceof HTMLElement && entry.target.matches('[part="scroller"]'))
-        );
-      });
 
       const scrollerResized = entries.some(
         entry => entry.target instanceof HTMLElement && entry.target.matches('[part="scroller"]')
       );
 
-      console.log('hostResized, scrollerResized in resizeObserver:', hostResized, scrollerResized);
-
       this.#shouldAnimate = false;
       this.#updateSize(hostResized, scrollerResized);
-
-      // this.#updateSelectionIndicator();
-
-      // const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement;
-      // this.#onScroll(scroller);
-
-      // requestAnimationFrame(() => {
-      //   this.#updateSelectionIndicator();
-      //   // this.#updateSize(hostResized, scrollerResized);
-      //   // this.#scrollToTabPanelStart();
-      //   // this.#updateSize(hostResized, scrollerResized);
-      //
-      //   // const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement;
-      //   // // this.#onScroll(scroller);
-      // });
-      // this.#updateSize(hostResized, scrollerResized);
       this.#shouldAnimate = true;
-
-      // this.#updateSelectionIndicator();
 
       if (this.selectedTab) {
         // this.#scrollIntoViewIfNeeded(this.selectedTab, 'auto');
@@ -253,37 +206,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
    */
   @property({ type: Boolean, reflect: true }) vertical?: boolean;
 
-  override connectedCallback(): void {
-    super.connectedCallback();
-
-    // this.#mutationObserver.observe(this, OBSERVER_OPTIONS);
-
-    // // We want to observe the size of the component so we can scroll the selected
-    // // tab into view if needed.
-    // this.#resizeObserver.observe(this);
-    //
-    // // We need to wait for the next frame so the element has time to render
-    // requestAnimationFrame(() => {
-    //   const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement;
-    //
-    //   // // Manually trigger the scroll event handler the first time,
-    //   // // so that the fade elements are shown if necessary.
-    //   // this.#onScroll(scroller);
-    //
-    //   // this.#resizeObserver.unobserve(this);
-    //
-    //   // We want to observe the size of the scroller, not the
-    //   // container or wrapper. The scroller is the element that
-    //   // changes size for example when fonts are loaded. The
-    //   // other elements do not change size while the scroller does.
-    //   this.#resizeObserver.observe(scroller);
-    //
-    //   // Manually trigger the scroll event handler the first time,
-    //   // so that the fade elements are shown if necessary.
-    //   this.#onScroll(scroller);
-    // });
-  }
-
   override disconnectedCallback(): void {
     this.#resizeObserver.disconnect();
     this.#mutationObserver.disconnect();
@@ -302,15 +224,11 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
     // We need to wait for the next frame so the element has time to render
     setTimeout(() => {
-      // this.#mutationObserver.observe(this, OBSERVER_OPTIONS);
-
       const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement;
 
       // // Manually trigger the scroll event handler the first time,
       // // so that the fade elements are shown if necessary.
       this.#onScroll(scroller);
-
-      // this.#resizeObserver.unobserve(this);
 
       // We want to observe the size of the scroller, not the
       // container or wrapper. The scroller is the element that
@@ -323,13 +241,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       this.#onScroll(scroller);
 
       if (this.selectedTab) {
-        // this.#scrollIntoViewIfNeeded(this.selectedTab, 'auto');
         this.#updateSelectedTab(this.selectedTab, false);
         this.#scrollToTabPanelStart();
       }
     }, 50); // todo: giving some time for the animation? was not working with raf in ff
-
-    // this.#mutationObserver.observe(this, OBSERVER_OPTIONS);
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -347,11 +262,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement;
 
       if (this.vertical) {
-        // this.#resizeObserver?.disconnect();
         this.#resizeObserver.observe(scroller);
       } else {
         this.#resizeObserver.unobserve(scroller);
-        // this.#resizeObserver.observe(scroller);
       }
     }
   }
@@ -406,16 +319,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   #onClick(event: Event & { target: HTMLElement }): void {
     const tab = event.target.closest('sl-tab');
 
-    console.log('Clicked tab:', tab);
-
     if (!tab) {
       return;
     }
 
-    // requestAnimationFrame(() => {
-    //   this.#updateSelectedTab(tab);
-    //   this.#scrollToTabPanelStart();
-    // });
     this.#updateSelectedTab(tab);
     this.#scrollToTabPanelStart();
   }
@@ -445,7 +352,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #onScroll(scroller: HTMLElement): void {
-    console.log('onscroll called:', scroller.scrollTop, scroller.scrollLeft);
     let scrollStart = false,
       scrollEnd = false;
 
@@ -466,15 +372,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     this.toggleAttribute('scroll-start', scrollStart);
     this.toggleAttribute('scroll-end', scrollEnd);
 
-    console.log('this.selectedTab onscroll', this.selectedTab);
-
     // Keep the indicator aligned while the scroller moves
     if (this.selectedTab) {
-      console.log('Scrolling, updating selection indicator');
       this.#updateSelectionIndicator();
-
-      // this.#updateSelectedTab(this.selectedTab, false);
-      //  this.#scrollToTabPanelStart();
     }
   }
 
@@ -486,13 +386,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
     const selectedTab = this.tabs.find(tab => tab.selected);
     if (selectedTab) {
-      console.log('selectedTab found in onTabSlotChange:', selectedTab);
-      // this.#updateSelectedTab(selectedTab, false);
-      // this.#scrollToTabPanelStart();
-      // requestAnimationFrame(() => {
-      //   this.#scrollIntoViewIfNeeded(selectedTab, 'smooth');
-      // });
-
       this.#updateSelectedTab(selectedTab, false);
       this.#scrollToTabPanelStart();
     }
@@ -534,83 +427,14 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   #scrollIntoViewIfNeeded(tab: Tab, behavior?: ScrollBehavior): void {
     const scroller = this.renderRoot.querySelector<HTMLElement>('[part="scroller"]');
 
-    console.log('Scrolling tab into view if needed:', tab, behavior);
-
-    if (!(scroller instanceof HTMLElement) || !(tab instanceof HTMLElement)) return;
-    /*
-    const scrollBehavior: ScrollBehavior = behavior === 'smooth' ? 'smooth' : 'auto';
-    const epsilon = 1; // tolerate sub-pixel differences
-    const pad = 0; //80; //4; // keep a small padding from the edge
-
-    // Defer until styles/indicator/menu layout have settled
-    // requestAnimationFrame(() => {
-    if (this.vertical) {
-      const top = tab.offsetTop;
-      const bottom = top + tab.offsetHeight;
-      const viewTop = scroller.scrollTop;
-      const viewBottom = viewTop + scroller.clientHeight;
-
-      if (top - pad < viewTop - epsilon) {
-        scroller.scrollTo({ top: Math.max(0, top - pad), behavior: scrollBehavior });
-      } else if (bottom + pad > viewBottom + epsilon) {
-        scroller.scrollTo({
-          top: Math.min(bottom - scroller.clientHeight + pad, scroller.scrollHeight),
-          behavior: scrollBehavior
-        });
-      }
-    } else {
-      const left = tab.offsetLeft;
-      const right = left + tab.offsetWidth;
-      const isRTL = getComputedStyle(scroller).direction === 'rtl';
-
-      console.log('Scrolling horizontally, isRTL:', isRTL, left, right, scroller.scrollLeft, scroller.clientWidth);
-
-      // Normalize current scroll position for comparison (FF uses negative in RTL)
-      let viewLeft = scroller.scrollLeft;
-      if (isRTL && viewLeft < 0) viewLeft = -viewLeft;
-      const viewRight = viewLeft + scroller.clientWidth;
-
-      const targetLeft = Math.max(0, left - pad);
-      const targetRight = right + pad;
-
-      console.log('Scrolling horizontally -> targetLeft/Right, viewLeft/Right:', targetLeft, targetRight, viewLeft, viewRight, scroller.offsetLeft);
-
-      if (targetLeft < viewLeft - epsilon) {
-        const to = isRTL && scroller.scrollLeft < 0 ? -targetLeft : targetLeft;
-        scroller.scrollTo({ left: to, behavior: scrollBehavior });
-      } else if (targetRight > viewRight + epsilon) {
-        const toRaw = Math.max(0, targetRight - scroller.clientWidth);
-        const to = isRTL && scroller.scrollLeft < 0 ? -toRaw : toRaw;
-        scroller.scrollTo({ left: to, behavior: scrollBehavior });
-      }
+    if (!(scroller instanceof HTMLElement) || !(tab instanceof HTMLElement)) {
+      return;
     }
-    // });*/
 
     const scrollerRect = scroller.getBoundingClientRect(),
       tabRect = tab.getBoundingClientRect();
 
-    /*    if (this.vertical) {
-      if (tabRect.top < scrollerRect.top) {
-        // The tab is above the top edge of the scroller
-        scroller.scrollBy({ top: tabRect.top - scrollerRect.top, behavior });
-      } else if (tabRect.bottom > scrollerRect.bottom) {
-        // The tab is below the bottom edge of the scroller
-        scroller.scrollBy({ top: tabRect.bottom - scrollerRect.bottom, behavior });
-      }
-    } else {
-      if (tabRect.left < scrollerRect.left) {
-        console.log('tab on the left side of scroller', tabRect.left, scrollerRect.left);
-        // The tab is to the left of the left edge of the scroller
-        scroller.scrollBy({ left: tabRect.left - scrollerRect.left, behavior });
-      } else if (tabRect.right > scrollerRect.right) {
-        console.log('tab on the right side of scroller', tabRect.right, scrollerRect.right, tabRect, scrollerRect);
-        // The tab is to the right of the right edge of the scroller
-        scroller.scrollBy({ left: tabRect.right - scrollerRect.right, behavior });
-      }
-    }*/
-
     if (this.vertical) {
-      console.log('Vertical scrollIntoViewIfNeeded');
       if (tabRect.top < scrollerRect.top) {
         scroller.scrollTo({
           top: scroller.scrollTop + (tabRect.top - scrollerRect.top),
@@ -638,14 +462,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #scrollToTabPanelStart(): void {
-    console.log('Scrolling to tab panel start in scrollToTabPanelStart');
-    // requestAnimationFrame(() => {
     const { bottom: containerBottom = 0 } =
         this.renderRoot.querySelector('[part="container"]')?.getBoundingClientRect() || {},
       { top: wrapperTop = 0 } = this.renderRoot.querySelector('[part="wrapper"]')?.getBoundingClientRect() || {},
       { top = 0 } = this.renderRoot.querySelector('[part="panels"]')?.getBoundingClientRect() || {};
-
-    console.log('Tab panel top:', top, 'container bottom:', containerBottom, 'wrapper top:', wrapperTop);
 
     // Scroll to make sure the top of the panel is visible, but don't scroll too far
     // so the tab container/wrapper may become unstuck.
@@ -653,12 +473,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
     const scrollParent = getScrollParent(this);
     if (scrollParent) {
-      console.log('wrapperTop for vertical', wrapperTop);
       scrollParent.scrollTo({
         top: scrollParent.scrollTop + top - (this.vertical ? wrapperTop : containerBottom)
       });
     }
-    // });
   }
 
   #updateSelectedTab(selectedTab?: Tab, emitEvent = true): void {
@@ -679,28 +497,19 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     }
 
     if (selectedTab) {
-      // this.#updateSelectionIndicator();
-
-      // requestAnimationFrame(() => {
-      console.log('Scrolling selected tab into view (when selectedTab exists):', selectedTab, emitEvent);
-      // this.#scrollIntoViewIfNeeded(selectedTab, emitEvent ? 'smooth' : 'instant');
       this.#scrollIntoViewIfNeeded(selectedTab, emitEvent ? 'smooth' : 'instant');
-      // });
 
-      requestAnimationFrame(() => this.#updateSelectionIndicator());
-
-      // this.#updateSelectionIndicator();
+      requestAnimationFrame(() => {
+        this.#updateSelectionIndicator();
+      });
     }
   }
 
   #updateSelectionIndicator(): void {
     const indicator = this.renderRoot.querySelector('.indicator') as HTMLElement;
 
-    console.log('this.selectedTab in updateSelectionIndicator', this.selectedTab, indicator.style, this.vertical);
-
     if (!this.selectedTab) {
       indicator.style.opacity = '';
-      // indicator.style.scale = ''; // TODO: remove?
       indicator.style.transitionDuration = '0s';
       indicator.style.translate = '';
       indicator.style.inlineSize = '';
@@ -709,60 +518,22 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    const tablist = this.renderRoot.querySelector('[part="tablist"]') as HTMLElement,
-      rect = this.selectedTab.getBoundingClientRect();
-
-    console.log('Tablist rect:', tablist, tablist.getBoundingClientRect());
-
     let start = 0;
-    // if (this.vertical) {
-    //   start = rect.top - tablist.getBoundingClientRect().top;
-    // } else {
-    //   start = rect.left - tablist.getBoundingClientRect().left;
-    // }
-
-    // if (this.vertical) {
-    //   // Use offsetTop to avoid transform (zoom) effects from Storybook
-    //   start = this.selectedTab.offsetTop;
-    // } else {
-    //   // Use offsetLeft for horizontal positioning under zoom
-    //   start = this.selectedTab.offsetLeft;
-    // }
 
     const tab = this.selectedTab;
     const scroller = this.renderRoot.querySelector<HTMLElement>('[part="scroller"]');
-    // const isRTL = getComputedStyle(tablist).direction === 'rtl';
 
     if (!tab || !scroller) {
       return;
     }
-
-    // this.#onScroll(scroller);
-
-    // if (this.vertical) {
-    //   // Use offset* to avoid transform (zoom) distortion
-    //   start = tab.offsetTop - tablist.offsetTop;
-    // } else {
-    //   // Horizontal: compensate scroll + RTL (Firefox uses negative scrollLeft in RTL)
-    //   let scrollLeft = scroller?.scrollLeft ?? 0;
-    //   if (isRTL && scrollLeft < 0) scrollLeft = -scrollLeft;
-    //   start = tab.offsetLeft - scrollLeft;
-    // }
 
     // Baseline (first tab) so start = 0 for the first tab even when tabs are centered/end aligned
     const firstTab = this.tabs?.[0];
     const baseInline = firstTab ? firstTab.offsetLeft : 0;
     const baseBlock = firstTab ? firstTab.offsetTop : 0;
 
-    // let start = 0;
-
-    console.log('for horizontal indicator positioning:', tab, tab.offsetLeft, baseInline);
-
-    console.log('for vertical indicator positioning:', tab, tab.offsetTop, baseBlock);
-
     if (this.vertical) {
       start = tab.offsetTop - baseBlock;
-      console.log('for vertical start:', start);
     } else {
       start = tab.offsetLeft - baseInline;
     }
@@ -771,19 +542,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     indicator.style.transitionDuration = this.#shouldAnimate ? '' : '0s';
     indicator.style.transitionProperty = indicator.style.translate === '' ? 'opacity' : '';
 
-    console.log('Updating selection indicator:', rect, start);
-
-    // if (this.vertical) {
-    //   // indicator.style.scale = `1 ${rect.height / 100}`;
-    //   indicator.style.blockSize = `${rect.height}px`;
-    //   indicator.style.translate = `0 ${start}px`;
-    // } else {
-    //   // indicator.style.scale = `${rect.width / 100} 1`;
-    //   indicator.style.inlineSize = `${rect.width}px`;
-    //   indicator.style.translate = `${start}px`;
-    // }
-
-    // Sizes unaffected by ancestor CSS transforms (e.g. Storybook zoom)
     const sizeInline = tab.offsetWidth;
     const sizeBlock = tab.offsetHeight;
 
@@ -796,26 +554,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       indicator.style.blockSize = '';
       indicator.style.translate = `${start}px`;
     }
-
-    console.log(
-      'Indicator styles: (for vertical as well)',
-      indicator.style,
-      indicator.style.blockSize,
-      tab.offsetHeight,
-      tab.clientHeight,
-      tab.scrollHeight,
-      tab.getBoundingClientRect().height,
-      tab.getBoundingClientRect(),
-      tab
-    ); // TODO: in ff when I check tab and there clientHeight there is a proper value, but not when I check tab.clientHeight directly... why?
-
-    // this.#onScroll(scroller);
   }
 
   #updateSize(hostResized: boolean, tablistResized: boolean): void {
-    console.log('Updating size, hostResized:', hostResized, 'tablistResized:', tablistResized);
     if (tablistResized) {
-      console.log('in updateSize, tablistResized is true', hostResized, tablistResized, this.selectedTab);
       const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement,
         tablist = this.renderRoot.querySelector('[part="tablist"]') as HTMLElement,
         showingMenu = !!this.showMenu;
@@ -862,22 +604,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       // of the ResizeObserver to scroll the selected tab into view. Showing/hiding the
       // menu button *will* trigger that callback. If we don't, then the selected tab
       // may not be fully visible.
-      // requestAnimationFrame(() => {
       if (showingMenu === this.showMenu && this.selectedTab) {
-        // this.#scrollIntoViewIfNeeded(this.selectedTab, 'instant');
-        console.log('Tablist resized, scrolling selected tab into view if needed', tablistResized);
         this.#scrollIntoViewIfNeeded(this.selectedTab, 'auto');
       }
-      // });
     } else if (hostResized && this.selectedTab) {
-      console.log(
-        'in updateSize, tablistResized is false but hostResized is true',
-        hostResized,
-        tablistResized,
-        this.selectedTab
-      );
-      // this.#scrollIntoViewIfNeeded(this.selectedTab, 'instant');
-      console.log('Host resized, scrolling selected tab into view if needed', hostResized);
       this.#scrollIntoViewIfNeeded(this.selectedTab, 'auto');
     }
 

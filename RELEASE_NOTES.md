@@ -26,6 +26,7 @@ The release notes are ordered by the date the release was made. From latest, to 
 - [`tree`](https://github.com/sl-design-system/components/blob/main/packages/components/tree/CHANGELOG.md) fixes transparent background
 - All components have minor styling changes due to the focus indicator
 - All components have bumped the patch version of the `@open-wc/scoped-elements` peer dependency
+- All themes have been updated after moving to Tokens Studio from Figma
 
 # August 6, 2025
 

@@ -1,5 +1,18 @@
 # @sl-design-system/toggle-button
 
+## 0.0.9
+
+### Patch Changes
+
+- [#2481](https://github.com/sl-design-system/components/pull/2481) [`0c4f19b`](https://github.com/sl-design-system/components/commit/0c4f19beb6f66b6cba944c6bc4589252113554fb) - Changed token used for the width of the focusring
+
+- [#2547](https://github.com/sl-design-system/components/pull/2547) [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68) - Bump patch version of `@open-wc/scoped-elements` peer dependency
+
+- Updated dependencies [[`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`29f38d4`](https://github.com/sl-design-system/components/commit/29f38d4a44003f63e20965ed176dfa9bc16851e7), [`0e2e426`](https://github.com/sl-design-system/components/commit/0e2e426041997a299f3e35bcde499909d62f7ce9), [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16)]:
+  - @sl-design-system/shared@0.9.0
+  - @sl-design-system/icon@1.3.0
+  - @sl-design-system/tooltip@1.1.7
+
 ## 0.0.8
 
 ### Patch Changes
@@ -33,7 +46,6 @@
 - [#1602](https://github.com/sl-design-system/components/pull/1602) [`6866dd0`](https://github.com/sl-design-system/components/commit/6866dd0f47f7decf2938e62edc8e3f6a865e6f6b) - Fixed toggling `text-only` attribute.
 
 - [#1807](https://github.com/sl-design-system/components/pull/1807) [`b0ac221`](https://github.com/sl-design-system/components/commit/b0ac22130da66c4f1ce68bf008a4e22a456ea768) - Incorporate the new contextual tokens and add new options:
-
   - add size `sm`
   - add shape `pill` | `square`
   - changed fill `ghost` `to solid`

@@ -692,7 +692,7 @@
 			"skeleton": {
 				"plain": {
 					"$type": "color",
-					"$value": "rgba( {sanoma-learning.color.palette.grey.900}, 3%)",
+					"$value": "rgba( {sanoma-learning.color.palette.grey.900}, 5%)",
 					"$description": "Use for skeleton loading states."
 				},
 				"subtle": {

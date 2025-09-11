@@ -226,8 +226,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     setTimeout(() => {
       const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement;
 
-      // // Manually trigger the scroll event handler the first time,
-      // // so that the fade elements are shown if necessary.
+      // Manually trigger the scroll event handler the first time,
+      // so that the fade elements are shown if necessary.
       this.#onScroll(scroller);
 
       // We want to observe the size of the scroller, not the
@@ -341,14 +341,11 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #onMenuItemClick(tab: Tab): void {
-    // Defer until the menu closes so layout is settled before scrolling
-    requestAnimationFrame(() => {
-      if (tab.href) {
-        tab.renderRoot.querySelector('a')?.click();
-      }
+    if (tab.href) {
+      tab.renderRoot.querySelector('a')?.click();
+    }
 
-      tab.click();
-    });
+    tab.click();
   }
 
   #onScroll(scroller: HTMLElement): void {
@@ -425,22 +422,19 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #scrollIntoViewIfNeeded(tab: Tab, behavior?: ScrollBehavior): void {
-    const scroller = this.renderRoot.querySelector<HTMLElement>('[part="scroller"]');
-
-    if (!(scroller instanceof HTMLElement) || !(tab instanceof HTMLElement)) {
-      return;
-    }
-
-    const scrollerRect = scroller.getBoundingClientRect(),
+    const scroller = this.renderRoot.querySelector<HTMLElement>('[part="scroller"]') as HTMLElement,
+      scrollerRect = scroller.getBoundingClientRect(),
       tabRect = tab.getBoundingClientRect();
 
     if (this.vertical) {
       if (tabRect.top < scrollerRect.top) {
+        // The tab is above the top edge of the scroller
         scroller.scrollTo({
           top: scroller.scrollTop + (tabRect.top - scrollerRect.top),
           behavior
         });
       } else if (tabRect.bottom > scrollerRect.bottom) {
+        // The tab is below the bottom edge of the scroller
         scroller.scrollTo({
           top: scroller.scrollTop + (tabRect.bottom - scrollerRect.bottom),
           behavior
@@ -448,11 +442,13 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       }
     } else {
       if (tabRect.left < scrollerRect.left) {
+        // The tab is to the left of the left edge of the scroller
         scroller.scrollTo({
           left: scroller.scrollLeft + (tabRect.left - scrollerRect.left),
           behavior
         });
       } else if (tabRect.right > scrollerRect.right) {
+        // The tab is to the right of the right edge of the scroller
         scroller.scrollTo({
           left: scroller.scrollLeft + (tabRect.right - scrollerRect.right),
           behavior
@@ -469,8 +465,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
     // Scroll to make sure the top of the panel is visible, but don't scroll too far
     // so the tab container/wrapper may become unstuck.
-    // getScrollParent(this)?.scrollBy({ top: top - (this.vertical ? wrapperTop : containerBottom) });
-
     const scrollParent = getScrollParent(this);
     if (scrollParent) {
       scrollParent.scrollTo({
@@ -565,17 +559,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       this.showMenu = this.vertical
         ? tablist.scrollHeight > scroller.offsetHeight
         : tablist.scrollWidth > scroller.offsetWidth;
-
-      console.log(
-        'showMenu in updateSize',
-        this.showMenu,
-        this.vertical,
-        tablist.scrollHeight,
-        scroller.offsetHeight,
-        tablist.scrollHeight > scroller.offsetHeight,
-        tablist.offsetHeight,
-        scroller.scrollHeight
-      ); // TODO: that's why menu is not visible in vertical in ff?
 
       if (this.showMenu) {
         const menuBtn = this.renderRoot.querySelector('sl-menu-button');

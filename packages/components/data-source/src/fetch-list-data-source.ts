@@ -68,14 +68,14 @@ export interface FetchListDataSourceOptions<T> extends ListDataSourceOptions<T> 
 
 export type FetchListDataSourceEvent = CustomEvent<FetchListDataSourceCallbackOptions>;
 
-export const FetchListDataSourceError = class extends Error {
+export class FetchListDataSourceError extends Error {
   constructor(
     message: string,
     public response: Response
   ) {
     super(message);
   }
-};
+}
 
 /** Symbol used as a placeholder for items that are being loaded. */
 export const FetchListDataSourcePlaceholder = Symbol('FetchListDataSourcePlaceholder');

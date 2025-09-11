@@ -1,5 +1,34 @@
 # @sl-design-system/angular
 
+## 3.3.0
+
+### Minor Changes
+
+- [#2615](https://github.com/sl-design-system/components/pull/2615) [`e5fa66b`](https://github.com/sl-design-system/components/commit/e5fa66b00e9b89445a724890e28e6ba12dc19b92) - Add `ComboboxDirective` to forms
+
+- [#2512](https://github.com/sl-design-system/components/pull/2512) [`fcc7864`](https://github.com/sl-design-system/components/commit/fcc786484858d74bd8c93a40a6bb10b5f2d7664d) - - Add explicit `markForChanges()` to all `ControlValueAccessor` directives
+  - Add support for the `<sl-number-field>` component:
+    - Added `NumberFieldComponent` for exposing the web component API within Angular
+    - Added `NumberFieldDirective` for Angular form integration
+
+  The above work the same as the existing bindings (for `<sl-text-field>` for example).
+
+### Patch Changes
+
+- [#2447](https://github.com/sl-design-system/components/pull/2447) [`501a119`](https://github.com/sl-design-system/components/commit/501a1195d8d4cdb0d1a85b1fee1e4d2d7b36c41a) - Added missing peer dependencies: `dialog` and `tooltip`.
+
+- Updated dependencies [[`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a), [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16), [`0c4f19b`](https://github.com/sl-design-system/components/commit/0c4f19beb6f66b6cba944c6bc4589252113554fb), [`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a), [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a), [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16), [`29f38d4`](https://github.com/sl-design-system/components/commit/29f38d4a44003f63e20965ed176dfa9bc16851e7), [`0e2e426`](https://github.com/sl-design-system/components/commit/0e2e426041997a299f3e35bcde499909d62f7ce9), [`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a), [`5db3329`](https://github.com/sl-design-system/components/commit/5db33293ac0ac53dcb13c607a4df76500eca7141), [`e5fa66b`](https://github.com/sl-design-system/components/commit/e5fa66b00e9b89445a724890e28e6ba12dc19b92), [`588dae3`](https://github.com/sl-design-system/components/commit/588dae331fdc6ee20ea1ac25dd020070e2f3e694)]:
+  - @sl-design-system/select@2.0.5
+  - @sl-design-system/combobox@0.1.5
+  - @sl-design-system/radio-group@1.1.5
+  - @sl-design-system/text-field@1.6.6
+  - @sl-design-system/text-area@1.1.4
+  - @sl-design-system/checkbox@2.1.5
+  - @sl-design-system/switch@1.1.5
+  - @sl-design-system/form@1.3.0
+  - @sl-design-system/number-field@0.1.5
+  - @sl-design-system/icon@1.3.0
+
 ## 3.2.0
 
 ### Minor Changes
@@ -85,18 +114,15 @@
 ### Minor Changes
 
 - [#1210](https://github.com/sl-design-system/components/pull/1210) [`c3c9de6`](https://github.com/sl-design-system/components/commit/c3c9de6590f5abd1d8010186df127a665ee303b5) - Various improvements:
-
   - Remove the `FormsModule` and make all form directives standalone
 
   This is a breaking change and the reason for the minor version bump. If you are using the `FormsModule` in
   your Angular app, you will need to remove it and import the form directives you are using individually.
-
   - Generate Angular wrappers for all public web components
 
   This will make it easier to use the components in Angular apps. You only need to import a specific component
   to be able to get Angular bindings and type safety. This also removes the need for specifying the `CUSTOM_ELEMENTS_SCHEMA`
   everywhere.
-
   - Add `slTooltip` directive for ease-of-use in Angular
 
   This is syntactic sugar for the `sl-tooltip` web component. It allows you to use the `slTooltip` directive on any

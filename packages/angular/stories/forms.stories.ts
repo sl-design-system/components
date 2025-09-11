@@ -8,16 +8,18 @@ import {
   ReactiveFormsModule,
   type ValidationErrors
 } from '@angular/forms';
-import { type Form } from '@sl-design-system/form';
+import { Form } from '@sl-design-system/form';
 import { type Meta, type StoryFn, moduleMetadata } from '@storybook/angular';
 import { ButtonComponent } from '../src/button/button.component';
 import { ButtonBarComponent } from '../src/button-bar/button-bar.component';
 import { CheckboxGroupComponent } from '../src/checkbox/checkbox-group.component';
 import { CheckboxComponent } from '../src/checkbox/checkbox.component';
+import { ComboboxComponent } from '../src/combobox/combobox.component';
 import { FormFieldComponent } from '../src/form/form-field.component';
 import { FormComponent } from '../src/form/form.component';
 import { CheckboxGroupDirective } from '../src/forms/checkbox-group.directive';
 import { CheckboxDirective } from '../src/forms/checkbox.directive';
+import { ComboboxDirective } from '../src/forms/combobox-directive';
 import { NumberFieldDirective } from '../src/forms/number-field.directive';
 import { RadioGroupDirective } from '../src/forms/radio-group.directive';
 import { SelectDirective } from '../src/forms/select.directive';
@@ -62,6 +64,26 @@ import { TextFieldComponent } from '../src/text-field/text-field.component';
         </sl-select>
       </sl-form-field>
 
+      <sl-form-field label="Combobox - single select">
+        <sl-combobox formControlName="comboboxSingle" placeholder="Select an option">
+          <sl-listbox>
+            @for (option of options(); track option.value) {
+              <sl-option>{{ option.label }}</sl-option>
+            }
+          </sl-listbox>
+        </sl-combobox>
+      </sl-form-field>
+
+      <sl-form-field label="Combobox - multiple select">
+        <sl-combobox formControlName="comboboxMultiple" multiple placeholder="Select one or more options">
+          <sl-listbox>
+            @for (option of options(); track option.value) {
+              <sl-option>{{ option.label }}</sl-option>
+            }
+          </sl-listbox>
+        </sl-combobox>
+      </sl-form-field>
+
       <sl-form-field label="Switch">
         <sl-switch formControlName="switch" reverse value="toggled">Toggle me</sl-switch>
       </sl-form-field>
@@ -90,6 +112,7 @@ import { TextFieldComponent } from '../src/text-field/text-field.component';
     ReactiveFormsModule,
     CheckboxDirective,
     CheckboxGroupDirective,
+    ComboboxDirective,
     NumberFieldDirective,
     RadioGroupDirective,
     SelectDirective,
@@ -102,6 +125,8 @@ export class AllFormControlsReactiveComponent {
   formGroup = new FormGroup({
     checkbox: new FormControl('checked'),
     checkboxGroup: new FormControl(['2', '1', '0']),
+    comboboxSingle: new FormControl(''),
+    comboboxMultiple: new FormControl(''),
     numberField: new FormControl(10),
     radioGroup: new FormControl('1'),
     select: new FormControl('1'),
@@ -151,6 +176,26 @@ export class AllFormControlsReactiveComponent {
         </sl-select>
       </sl-form-field>
 
+      <sl-form-field label="Combobox - single select">
+        <sl-combobox formControlName="comboboxSingle" required>
+          <sl-listbox>
+            @for (option of options(); track option.value) {
+              <sl-option>{{ option.label }}</sl-option>
+            }
+          </sl-listbox>
+        </sl-combobox>
+      </sl-form-field>
+
+      <sl-form-field label="Combobox - multiple select">
+        <sl-combobox formControlName="comboboxMultiple" multiple required>
+          <sl-listbox>
+            @for (option of options(); track option.value) {
+              <sl-option>{{ option.label }}</sl-option>
+            }
+          </sl-listbox>
+        </sl-combobox>
+      </sl-form-field>
+
       <sl-form-field label="Switch">
         <sl-switch formControlName="switch" reverse>Toggle me</sl-switch>
       </sl-form-field>
@@ -185,6 +230,7 @@ export class AllFormControlsReactiveComponent {
     ButtonBarComponent,
     CheckboxDirective,
     CheckboxGroupDirective,
+    ComboboxDirective,
     NumberFieldDirective,
     RadioGroupDirective,
     SelectDirective,
@@ -199,6 +245,8 @@ export class AllFormControlsEmptyReactiveComponent {
   formGroup = new FormGroup({
     checkbox: new FormControl(false),
     checkboxGroup: new FormControl([]),
+    comboboxSingle: new FormControl(''),
+    comboboxMultiple: new FormControl(''),
     numberField: new FormControl(),
     radioGroup: new FormControl(''),
     select: new FormControl(''),
@@ -252,6 +300,26 @@ export class AllFormControlsEmptyReactiveComponent {
         </sl-select>
       </sl-form-field>
 
+      <sl-form-field label="Combobox - single select">
+        <sl-combobox [(ngModel)]="formGroup.comboboxSingle">
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+            <sl-option>Option 2</sl-option>
+            <sl-option>Option 3</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      </sl-form-field>
+
+      <sl-form-field label="Combobox - multiple select">
+        <sl-combobox [(ngModel)]="formGroup.comboboxMultiple" multiple>
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+            <sl-option>Option 2</sl-option>
+            <sl-option>Option 3</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      </sl-form-field>
+
       <sl-form-field label="Switch">
         <sl-switch [(ngModel)]="formGroup.switch" reverse value="toggled">Toggle me</sl-switch>
       </sl-form-field>
@@ -280,6 +348,7 @@ export class AllFormControlsEmptyReactiveComponent {
     FormsModule,
     CheckboxDirective,
     CheckboxGroupDirective,
+    ComboboxDirective,
     NumberFieldDirective,
     RadioGroupDirective,
     SelectDirective,
@@ -293,6 +362,8 @@ export class AllFormControlsTemplateComponent {
     textField: 'Text field',
     textArea: 'Text area',
     checkbox: 'checked',
+    comboboxSingle: 'Option 1',
+    comboboxMultiple: ['Option 1', 'Option 2'],
     numberField: 10,
     select: '1',
     switch: 'toggled',
@@ -329,6 +400,26 @@ export class AllFormControlsTemplateComponent {
         </sl-select>
       </sl-form-field>
 
+      <sl-form-field label="Combobox - single select">
+        <sl-combobox [(ngModel)]="formGroup.comboboxSingle" required>
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+            <sl-option>Option 2</sl-option>
+            <sl-option>Option 3</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      </sl-form-field>
+
+      <sl-form-field label="Combobox - multiple select">
+        <sl-combobox [(ngModel)]="formGroup.comboboxMultiple" multiple required>
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+            <sl-option>Option 2</sl-option>
+            <sl-option>Option 3</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      </sl-form-field>
+
       <sl-form-field label="Switch">
         <sl-switch [(ngModel)]="formGroup.switch" reverse>Toggle me</sl-switch>
       </sl-form-field>
@@ -363,6 +454,7 @@ export class AllFormControlsTemplateComponent {
     ButtonBarComponent,
     CheckboxDirective,
     CheckboxGroupDirective,
+    ComboboxDirective,
     NumberFieldDirective,
     RadioGroupDirective,
     SelectDirective,
@@ -378,6 +470,8 @@ export class AllFormControlsEmptyTemplateComponent {
     textField: '',
     textArea: '',
     checkbox: false,
+    comboboxSingle: '',
+    comboboxMultiple: [],
     numberField: '',
     select: '',
     switch: false,
@@ -484,6 +578,7 @@ export default {
         LoginFormComponent,
         CheckboxComponent,
         CheckboxGroupComponent,
+        ComboboxComponent,
         FormComponent,
         FormFieldComponent,
         NumberFieldComponent,

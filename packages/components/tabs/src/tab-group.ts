@@ -408,7 +408,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #scrollIntoViewIfNeeded(tab: Tab, behavior?: ScrollBehavior): void {
-    const scroller = this.renderRoot.querySelector<HTMLElement>('[part="scroller"]') as HTMLElement,
+    const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement,
       scrollerRect = scroller.getBoundingClientRect(),
       tabRect = tab.getBoundingClientRect();
 
@@ -500,17 +500,17 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
     let start = 0;
 
-    const tab = this.selectedTab;
-    const scroller = this.renderRoot.querySelector<HTMLElement>('[part="scroller"]');
+    const tab = this.selectedTab,
+      scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement;
 
     if (!tab || !scroller) {
       return;
     }
 
     // Baseline (first tab) so start = 0 for the first tab even when tabs are centered/end aligned
-    const firstTab = this.tabs?.[0];
-    const baseInline = firstTab ? firstTab.offsetLeft : 0;
-    const baseBlock = firstTab ? firstTab.offsetTop : 0;
+    const firstTab = this.tabs?.[0],
+      baseInline = firstTab ? firstTab.offsetLeft : 0,
+      baseBlock = firstTab ? firstTab.offsetTop : 0;
 
     if (this.vertical) {
       start = tab.offsetTop - baseBlock;
@@ -522,8 +522,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     indicator.style.transitionDuration = this.#shouldAnimate ? '' : '0s';
     indicator.style.transitionProperty = indicator.style.translate === '' ? 'opacity' : '';
 
-    const sizeInline = tab.offsetWidth;
-    const sizeBlock = tab.offsetHeight;
+    const sizeInline = tab.offsetWidth,
+      sizeBlock = tab.offsetHeight;
 
     if (this.vertical) {
       indicator.style.blockSize = `${sizeBlock}px`;

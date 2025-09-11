@@ -31,7 +31,7 @@
     "extract-i18n": "lit-localize extract",
     "dist": "wireit",
     "import-icons": "wireit",
-    "import-tokens": "wireit",
+    "import-tokens": "yarn workspace @sl-design-system/scripts import-tokens",
     "lint": "wireit",
     "postinstall": "husky || true",
     "release": "wireit",
@@ -295,9 +295,6 @@
     "dist:themes": {
       "command": "node scripts/build-themes.js --studio --production",
       "clean": "if-file-deleted",
-      "dependencies": [
-        "./scripts:import-tokens"
-      ],
       "output": [
         "packages/themes/**/*.{css,scss}",
         "!packages/themes/*/fonts.css",
@@ -339,11 +336,6 @@
       "output": [
         "packages/themes/*/icons.ts",
         "packages/themes/*/icons/*.svg"
-      ]
-    },
-    "import-tokens": {
-      "dependencies": [
-        "./scripts:import-tokens"
       ]
     },
     "lint": {

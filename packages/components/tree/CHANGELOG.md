@@ -1,5 +1,26 @@
 # @sl-design-system/tree
 
+## 0.1.6
+
+### Patch Changes
+
+- [#2481](https://github.com/sl-design-system/components/pull/2481) [`0c4f19b`](https://github.com/sl-design-system/components/commit/0c4f19beb6f66b6cba944c6bc4589252113554fb) - Changed token used for the width of the focusring
+
+- [#2547](https://github.com/sl-design-system/components/pull/2547) [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68) - Bump patch version of `@open-wc/scoped-elements` peer dependency
+
+- [#2561](https://github.com/sl-design-system/components/pull/2561) [`0e2e426`](https://github.com/sl-design-system/components/commit/0e2e426041997a299f3e35bcde499909d62f7ce9) - Remove duplication of `observedAttributes` from the components and into the `ObserveAttributesMixin`
+
+- [#2535](https://github.com/sl-design-system/components/pull/2535) [`395fffb`](https://github.com/sl-design-system/components/commit/395fffb6d25f8eba9fcd0aa629c1275daef6ab96) - Fix transparent tree background
+
+- Updated dependencies [[`0c4f19b`](https://github.com/sl-design-system/components/commit/0c4f19beb6f66b6cba944c6bc4589252113554fb), [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`061367b`](https://github.com/sl-design-system/components/commit/061367b5daf905c9fe52a3630d9eaebc4bcb4e80), [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`29f38d4`](https://github.com/sl-design-system/components/commit/29f38d4a44003f63e20965ed176dfa9bc16851e7), [`6c72794`](https://github.com/sl-design-system/components/commit/6c727949b5aef75e1548416f80a7595fbd51e312), [`0e2e426`](https://github.com/sl-design-system/components/commit/0e2e426041997a299f3e35bcde499909d62f7ce9), [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16)]:
+  - @sl-design-system/checkbox@2.1.5
+  - @sl-design-system/button-bar@1.2.1
+  - @sl-design-system/skeleton@1.0.1
+  - @sl-design-system/spinner@2.0.1
+  - @sl-design-system/shared@0.9.0
+  - @sl-design-system/icon@1.3.0
+  - @sl-design-system/data-source@0.2.1
+
 ## 0.1.5
 
 ### Patch Changes

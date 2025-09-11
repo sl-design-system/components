@@ -1,5 +1,13 @@
 # @sl-design-system/badge
 
+## 1.1.3
+
+### Patch Changes
+
+- [#2547](https://github.com/sl-design-system/components/pull/2547) [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68) - Bump patch version of `@open-wc/scoped-elements` peer dependency
+
+- [#2548](https://github.com/sl-design-system/components/pull/2548) [`5db3329`](https://github.com/sl-design-system/components/commit/5db33293ac0ac53dcb13c607a4df76500eca7141) - Fixed wrong token for bold font-weight
+
 ## 1.1.2
 
 ### Patch Changes
@@ -17,7 +25,6 @@
 ### Minor Changes
 
 - [#1812](https://github.com/sl-design-system/components/pull/1812) [`9b639ea`](https://github.com/sl-design-system/components/commit/9b639eacedd763e9eac4d50eb570736a1bd7dfee) - Design tweaks:
-
   - Do not uppercase all the text
   - Make the `lg` version `24px` tall
   - Use different padding depending on the size

@@ -1,5 +1,11 @@
 # @sl-design-system/skeleton
 
+## 1.0.1
+
+### Patch Changes
+
+- [#2547](https://github.com/sl-design-system/components/pull/2547) [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68) - Bump patch version of `@open-wc/scoped-elements` peer dependency
+
 ## 1.0.0
 
 ### Major Changes

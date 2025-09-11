@@ -165,6 +165,16 @@ export class AllFormControlsReactiveComponent {
         </sl-select>
       </sl-form-field>
 
+      <sl-form-field label="Combobox">
+        <sl-combobox formControlName="combobox" required>
+          <sl-listbox>
+            @for (option of options(); track option.value) {
+              <sl-option>{{ option.label }}</sl-option>
+            }
+          </sl-listbox>
+        </sl-combobox>
+      </sl-form-field>
+
       <sl-form-field label="Switch">
         <sl-switch formControlName="switch" reverse>Toggle me</sl-switch>
       </sl-form-field>
@@ -213,6 +223,7 @@ export class AllFormControlsEmptyReactiveComponent {
   formGroup = new FormGroup({
     checkbox: new FormControl(false),
     checkboxGroup: new FormControl([]),
+    combobox: new FormControl(''),
     numberField: new FormControl(),
     radioGroup: new FormControl(''),
     select: new FormControl(''),
@@ -266,6 +277,16 @@ export class AllFormControlsEmptyReactiveComponent {
         </sl-select>
       </sl-form-field>
 
+      <sl-form-field label="Combobox">
+        <sl-combobox [(ngModel)]="formGroup.combobox">
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+            <sl-option>Option 2</sl-option>
+            <sl-option>Option 3</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      </sl-form-field>
+
       <sl-form-field label="Switch">
         <sl-switch [(ngModel)]="formGroup.switch" reverse value="toggled">Toggle me</sl-switch>
       </sl-form-field>
@@ -307,6 +328,7 @@ export class AllFormControlsTemplateComponent {
     textField: 'Text field',
     textArea: 'Text area',
     checkbox: 'checked',
+    combobox: 'Option 1',
     numberField: 10,
     select: '1',
     switch: 'toggled',
@@ -341,6 +363,16 @@ export class AllFormControlsTemplateComponent {
           <sl-option value="2">Option 2</sl-option>
           <sl-option value="3">Option 3</sl-option>
         </sl-select>
+      </sl-form-field>
+
+      <sl-form-field label="Combobox">
+        <sl-combobox [(ngModel)]="formGroup.combobox" required>
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+            <sl-option>Option 2</sl-option>
+            <sl-option>Option 3</sl-option>
+          </sl-listbox>
+        </sl-combobox>
       </sl-form-field>
 
       <sl-form-field label="Switch">
@@ -392,6 +424,7 @@ export class AllFormControlsEmptyTemplateComponent {
     textField: '',
     textArea: '',
     checkbox: false,
+    combobox: '',
     numberField: '',
     select: '',
     switch: false,

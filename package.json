@@ -31,6 +31,7 @@
     "extract-i18n": "lit-localize extract",
     "dist": "wireit",
     "import-icons": "wireit",
+    "import-tokens": "wireit",
     "lint": "wireit",
     "postinstall": "husky || true",
     "release": "wireit",
@@ -338,6 +339,11 @@
       "output": [
         "packages/themes/*/icons.ts",
         "packages/themes/*/icons/*.svg"
+      ]
+    },
+    "import-tokens": {
+      "dependencies": [
+        "./scripts:import-tokens"
       ]
     },
     "lint": {

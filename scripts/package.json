@@ -11,10 +11,7 @@
   },
   "wireit": {
     "import-tokens": {
-      "command": "yarn exec tokensstudio pull --host graphql.prod.tokens.studio",
-      "output": [
-        "studio-export"
-      ]
+      "command": "yarn exec tokensstudio pull --host graphql.prod.tokens.studio"
     }
   },
   "devDependencies": {

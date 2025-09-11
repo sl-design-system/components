@@ -1,5 +1,25 @@
 # @sl-design-system/avatar
 
+## 1.2.0
+
+### Minor Changes
+
+- [#2577](https://github.com/sl-design-system/components/pull/2577) [`927c110`](https://github.com/sl-design-system/components/commit/927c1106b2fe1c37e15c6be96e4a3f40ff3c9ff5) - Various improvements:
+  - Add `shape` property that defaults to `circle` but can be set to `square`
+  - Add `color` property that works the same as in `<sl-badge>`
+  - Add `emphasis` property that works the same as in `<sl-badge>`
+  - Use relative font sizes & line heights
+  - Refactor to use contextual tokens
+
+### Patch Changes
+
+- [#2547](https://github.com/sl-design-system/components/pull/2547) [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68) - Bump patch version of `@open-wc/scoped-elements` peer dependency
+
+- Updated dependencies [[`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`0e2e426`](https://github.com/sl-design-system/components/commit/0e2e426041997a299f3e35bcde499909d62f7ce9), [`5db3329`](https://github.com/sl-design-system/components/commit/5db33293ac0ac53dcb13c607a4df76500eca7141), [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16)]:
+  - @sl-design-system/shared@0.9.0
+  - @sl-design-system/badge@1.1.3
+  - @sl-design-system/tooltip@1.1.7
+
 ## 1.1.5
 
 ### Patch Changes
@@ -65,7 +85,6 @@
 ### Patch Changes
 
 - [#1389](https://github.com/sl-design-system/components/pull/1389) [`f03971b`](https://github.com/sl-design-system/components/commit/f03971b7b338a4248df292060b91b6b903b6c8ed) - Minor style fixes:
-
   - Fix the title and subtitle text being cutoff for certain characters due not enough line-height
   - Use a different color for the subtitle text
 
@@ -201,7 +220,6 @@
 ### Patch Changes
 
 - [#883](https://github.com/sl-design-system/components/pull/883) [`b941f99`](https://github.com/sl-design-system/components/commit/b941f9943782a5a823bac0bf8433bb77c664e752) - Several small changes:
-
   - Hide subheader on horizontal orientation and size small.
   - Show tooltip with full name when name is truncated
   - Changed font size to improve readability

@@ -1,5 +1,24 @@
 # @sl-design-system/accordion
 
+## 1.2.0
+
+### Minor Changes
+
+- [#2570](https://github.com/sl-design-system/components/pull/2570) [`0c7dfc9`](https://github.com/sl-design-system/components/commit/0c7dfc90f32b00a03ecb52b6faec740e8e30e10e) - Various improvements:
+  - Add a global and per instance `iconType` property with default value `plusminus` and new option `chevron`
+  - Add `::part(details)` so you can remove the bottom border from the last `<sl-accordion-item>`
+  - Add `summary-extras` slot for extra content in the header of the accordion item
+  - Reduce `<summary>` font-size from 18px to 16px
+  - Use relative font-size and inherit the font-family
+  - Refactor styling to use contextual tokens
+
+### Patch Changes
+
+- [#2547](https://github.com/sl-design-system/components/pull/2547) [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68) - Bump patch version of `@open-wc/scoped-elements` peer dependency
+
+- Updated dependencies [[`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`0e2e426`](https://github.com/sl-design-system/components/commit/0e2e426041997a299f3e35bcde499909d62f7ce9), [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16)]:
+  - @sl-design-system/shared@0.9.0
+
 ## 1.1.6
 
 ### Patch Changes

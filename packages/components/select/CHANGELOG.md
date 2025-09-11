@@ -1,5 +1,28 @@
 # @sl-design-system/select
 
+## 2.0.5
+
+### Patch Changes
+
+- [#2086](https://github.com/sl-design-system/components/pull/2086) [`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a) - Various fixes:
+  - Fix built-in validation bug when there already is a custom error
+  - Fix disabled select getting keyboard focus
+  - Fix missing label in `<sl-form-validation-errors>`
+
+- [#2481](https://github.com/sl-design-system/components/pull/2481) [`0c4f19b`](https://github.com/sl-design-system/components/commit/0c4f19beb6f66b6cba944c6bc4589252113554fb) - Changed token used for the width of the focusring
+
+- [#2547](https://github.com/sl-design-system/components/pull/2547) [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68) - Bump patch version of `@open-wc/scoped-elements` peer dependency
+
+- [#2331](https://github.com/sl-design-system/components/pull/2331) [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16) - Fixes the issue where pressing the `Escape` key inside the select closes parent containers (such as dialogs).
+
+- [#2561](https://github.com/sl-design-system/components/pull/2561) [`0e2e426`](https://github.com/sl-design-system/components/commit/0e2e426041997a299f3e35bcde499909d62f7ce9) - Remove duplication of `observedAttributes` from the components and into the `ObserveAttributesMixin`
+
+- Updated dependencies [[`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a), [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`29f38d4`](https://github.com/sl-design-system/components/commit/29f38d4a44003f63e20965ed176dfa9bc16851e7), [`0e2e426`](https://github.com/sl-design-system/components/commit/0e2e426041997a299f3e35bcde499909d62f7ce9), [`5db3329`](https://github.com/sl-design-system/components/commit/5db33293ac0ac53dcb13c607a4df76500eca7141), [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16)]:
+  - @sl-design-system/form@1.3.0
+  - @sl-design-system/listbox@0.1.4
+  - @sl-design-system/shared@0.9.0
+  - @sl-design-system/icon@1.3.0
+
 ## 2.0.4
 
 ### Patch Changes
@@ -55,7 +78,6 @@
   Make sure you have those custom elements loaded. If not, you can import them from the `@sl-design-system/listbox` package.
 
   Various improvements:
-
   - Add `clearable` property for clearing the selection
   - Hide the listbox popover when focus leaves the `<sl-select>` component
   - Show the listbox popover immediately; only animate it when closing
@@ -288,7 +310,6 @@
   This add a new `sl-validate` event that is fired when the validity of the form control is updated. It fires _after_ any builtin validation has been performed, so it can be used to override the validity of the control.
 
 - [#828](https://github.com/sl-design-system/components/pull/828) [`974e2a3`](https://github.com/sl-design-system/components/commit/974e2a305431be631be3b72a685dcf72199ea031) - Refactor `<sl-select>` to
-
   - use new `FormControlMixin` from the form package
   - use `aria-activedescendant` to indicate the currently focused option
 

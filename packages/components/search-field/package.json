@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/search-field",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Search field component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -38,8 +38,8 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/shared": "^0.8.0",
-    "@sl-design-system/text-field": "^1.6.4"
+    "@sl-design-system/shared": "^0.9.0",
+    "@sl-design-system/text-field": "^1.6.6"
   },
   "devDependencies": {
     "@open-wc/scoped-elements": "^3.0.6"

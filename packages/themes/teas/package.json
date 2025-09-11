@@ -1,7 +1,7 @@
 {
   "name": "@sl-design-system/teas",
   "description": "TEAS theme for the SL Design System",
-  "version": "0.2.6",
+  "version": "0.3.0",
   "license": "Apache 2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -34,6 +34,6 @@
     "CHANGELOG.md"
   ],
   "dependencies": {
-    "@sl-design-system/icon": "1.2.1"
+    "@sl-design-system/icon": "1.3.0"
   }
 }

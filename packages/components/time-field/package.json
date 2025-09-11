@@ -40,6 +40,7 @@
   "dependencies": {
     "@sl-design-system/form": "^1.2.4",
     "@sl-design-system/icon": "^1.2.1",
+    "@sl-design-system/listbox": "^0.1.4",
     "@sl-design-system/text-field": "^1.6.5"
   },
   "devDependencies": {

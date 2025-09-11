@@ -3,10 +3,11 @@ import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin, type SlFormControlEvent, type SlUpdateStateEvent } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
+import { Listbox, Option } from '@sl-design-system/listbox';
 import { type EventEmitter, anchor, event } from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { FieldButton, TextField } from '@sl-design-system/text-field';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './time-field.scss.js';
@@ -21,6 +22,12 @@ Icon.register(faClock);
 
 @localized()
 export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement)) {
+  /** The default step between each hour option. */
+  static hourStep = 1;
+
+  /** The default step between each minute option. */
+  static minuteStep = 5;
+
   /** @internal The default offset of the popover to the text-field. */
   static offset = 6;
 
@@ -29,6 +36,8 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
     return {
       'sl-field-button': FieldButton,
       'sl-icon': Icon,
+      'sl-option': Option,
+      'sl-listbox': Listbox,
       'sl-text-field': TextField
     };
   }
@@ -58,8 +67,17 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
+  /** The step between each hour option. */
+  @property({ type: Number, attribute: 'hour-step' }) hourStep = TimeField.hourStep;
+
   /** @internal The input element in the light DOM. */
   input!: HTMLInputElement;
+
+  /** @internal The listbox element that is also the popover. */
+  @query('[part="listbox"]') listbox?: HTMLSlotElement;
+
+  /** The step between each minute option. */
+  @property({ type: Number, attribute: 'minute-step' }) minuteStep = TimeField.minuteStep;
 
   /**
    * The placeholder for the time field.
@@ -81,9 +99,6 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
 
   /** @internal The text field. */
   @query('sl-text-field') textField!: TextField;
-
-  /** @internal The wrapper element that is also the popover. */
-  @query('[part="wrapper"]') wrapper?: HTMLSlotElement;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -139,7 +154,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
         <sl-field-button
           @click=${this.#onButtonClick}
           ?disabled=${this.disabled || this.readonly}
-          aria-label=${msg('Toggle calendar', { id: 'sl.dateField.toggleCalendar' })}
+          aria-label=${msg('Toggle dropdown', { id: 'sl.timeField.toggleDropdown' })}
           slot="suffix"
           tabindex=${this.disabled ? '-1' : '0'}
         >
@@ -147,7 +162,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
         </sl-field-button>
       </sl-text-field>
 
-      <slot
+      <sl-listbox
         ${anchor({
           element: this,
           offset: TimeField.offset,
@@ -157,13 +172,29 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
         @beforetoggle=${this.#onBeforeToggle}
         @toggle=${this.#onToggle}
         @keydown=${this.#onKeydown}
-        name="calendar"
-        part="wrapper"
+        part="listbox"
         popover
-        tabindex="-1"
       >
-        ${this.wrapper?.matches(':popover-open') ? html`<div>Time dropdown</div>` : nothing}
-      </slot>
+        <div class="wrapper">
+          <div class="hours">
+            ${Array.from({ length: 24 / this.hourStep }, (_, i) => {
+              const hour = i * this.hourStep,
+                hourString = hour.toString().padStart(2, '0');
+
+              return html`<button @click=${() => this.#onHourClick(hour)}>${hourString}</button>`;
+            })}
+          </div>
+          <div class="separator"></div>
+          <div class="minutes">
+            ${Array.from({ length: 60 / this.minuteStep }, (_, i) => {
+              const minute = i * this.minuteStep,
+                minuteString = minute.toString().padStart(2, '0');
+
+              return html`<button @click=${() => this.#onMinuteClick(minute)}>${minuteString}</button>`;
+            })}
+          </div>
+        </div>
+      </sl-listbox>
     `;
   }
 
@@ -179,8 +210,16 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
   #onButtonClick(): void {
     // Prevents the popover from reopening immediately after it was just closed
     if (!this.#popoverJustClosed) {
-      this.wrapper?.togglePopover();
+      this.listbox?.togglePopover();
     }
+  }
+
+  #onHourClick(hour: number): void {
+    console.log('hour', hour);
+  }
+
+  #onMinuteClick(minute: number): void {
+    console.log('minute', minute);
   }
 
   #onTextFieldBlur(event: SlBlurEvent): void {

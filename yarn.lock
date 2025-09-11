@@ -5834,6 +5834,7 @@ __metadata:
     "@open-wc/scoped-elements": "npm:^3.0.6"
     "@sl-design-system/form": "npm:^1.2.4"
     "@sl-design-system/icon": "npm:^1.2.1"
+    "@sl-design-system/listbox": "npm:^0.1.4"
     "@sl-design-system/text-field": "npm:^1.6.5"
     lit: "npm:^3.3.1"
   peerDependencies:

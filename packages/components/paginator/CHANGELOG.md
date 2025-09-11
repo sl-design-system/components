@@ -1,5 +1,20 @@
 # @sl-design-system/paginator
 
+## 0.2.1
+
+### Patch Changes
+
+- [#2547](https://github.com/sl-design-system/components/pull/2547) [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68) - Bump patch version of `@open-wc/scoped-elements` peer dependency
+
+- Updated dependencies [[`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a), [`0c4f19b`](https://github.com/sl-design-system/components/commit/0c4f19beb6f66b6cba944c6bc4589252113554fb), [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16), [`0c4f19b`](https://github.com/sl-design-system/components/commit/0c4f19beb6f66b6cba944c6bc4589252113554fb), [`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a), [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16), [`29f38d4`](https://github.com/sl-design-system/components/commit/29f38d4a44003f63e20965ed176dfa9bc16851e7), [`0e2e426`](https://github.com/sl-design-system/components/commit/0e2e426041997a299f3e35bcde499909d62f7ce9), [`5db3329`](https://github.com/sl-design-system/components/commit/5db33293ac0ac53dcb13c607a4df76500eca7141), [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16)]:
+  - @sl-design-system/select@2.0.5
+  - @sl-design-system/button@1.2.5
+  - @sl-design-system/menu@0.2.5
+  - @sl-design-system/form@1.3.0
+  - @sl-design-system/announcer@0.0.5
+  - @sl-design-system/shared@0.9.0
+  - @sl-design-system/icon@1.3.0
+
 ## 0.2.0
 
 ### Minor Changes
@@ -67,14 +82,12 @@
 ### Patch Changes
 
 - [#1804](https://github.com/sl-design-system/components/pull/1804) [`7a0b48e`](https://github.com/sl-design-system/components/commit/7a0b48e981ad4c7cc1a34022625e6ae3ee55c977) - - Applied new tokens to the paginator,
-
   - Paginator component changes:
     - `size` property no longer controls the width of the layout of the entire paginator, but only the size of the components within the paginator,
     - new `width` property that controls the width of the layout of the entire paginator,
     - new `emphasis` property.
 
 - [#1690](https://github.com/sl-design-system/components/pull/1690) [`1a9604e`](https://github.com/sl-design-system/components/commit/1a9604e1fc70a6382a3545dafee527d7d674179d) - Various improvements:
-
   - Add missing dependencies (announcer & form)
   - Rename `<sl-paginator-size>` to `<sl-paginator-page-size>`
   - Remove `pageSizes` property from `<sl-paginator>`
@@ -91,7 +104,6 @@
 
 - [#1693](https://github.com/sl-design-system/components/pull/1693) [`4e57f9c`](https://github.com/sl-design-system/components/commit/4e57f9c60835a07db45f74fde73a3bf13b6abe51) - Refactor existing data sources into list specific datasources, clearing
   the way to add `TreeDataSource` in the `@sl-design-system/tree` package.
-
   - The base `DataSource` class has support for sorting and filtering
   - Grouping and pagination has been moved to the `ListDataSource` class
   - `ArrayDataSource` and `FetchDataSource` have been renamed to `ArrayListDataSource` and `FetchListDataSource` respectively

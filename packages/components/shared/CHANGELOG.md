@@ -1,5 +1,19 @@
 # @sl-design-system/shared
 
+## 0.9.0
+
+### Minor Changes
+
+- [#2547](https://github.com/sl-design-system/components/pull/2547) [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68) - Bump peer dependency `@open-wc/dedupe-mixin` major version
+
+### Patch Changes
+
+- [#2547](https://github.com/sl-design-system/components/pull/2547) [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68) - Bump patch version of `@open-wc/scoped-elements` peer dependency
+
+- [#2561](https://github.com/sl-design-system/components/pull/2561) [`0e2e426`](https://github.com/sl-design-system/components/commit/0e2e426041997a299f3e35bcde499909d62f7ce9) - Remove duplication of `observedAttributes` from the components and into the `ObserveAttributesMixin`
+
+- [#2331](https://github.com/sl-design-system/components/pull/2331) [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16) - Fixes the issue where pressing the `Escape` key inside the popover closes parent containers (such as dialogs).
+
 ## 0.8.0
 
 ### Minor Changes
@@ -31,7 +45,6 @@
 - [#1836](https://github.com/sl-design-system/components/pull/1836) [`ab33cc8`](https://github.com/sl-design-system/components/commit/ab33cc86cc01480fb20206be689f9bbdb62bf0ad) - - Remove the `FocusTrapController` and related `focus-trap` dependency
 
   This was only used within `<sl-dialog>`. That component no longer uses this functionality. Because this was internal API, it's not seen as a breaking change.
-
   - Add new `MediaController` class to help manage media queries
 
 ## 0.6.0
@@ -131,7 +144,6 @@
 ### Patch Changes
 
 - [#1328](https://github.com/sl-design-system/components/pull/1328) [`a705c3f`](https://github.com/sl-design-system/components/commit/a705c3f7034207b19a10a819bccd85a3347e0204) - Various fixes:
-
   - Make it possible to close a tooltip with Escape key
   - Fix issue where the tooltip was broken after first show
   - Fix showing shared tooltip

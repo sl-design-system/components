@@ -1,5 +1,18 @@
 # @sl-design-system/tool-bar
 
+## 0.0.11
+
+### Patch Changes
+
+- [#2547](https://github.com/sl-design-system/components/pull/2547) [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68) - Bump patch version of `@open-wc/scoped-elements` peer dependency
+
+- Updated dependencies [[`0c4f19b`](https://github.com/sl-design-system/components/commit/0c4f19beb6f66b6cba944c6bc4589252113554fb), [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16), [`0c4f19b`](https://github.com/sl-design-system/components/commit/0c4f19beb6f66b6cba944c6bc4589252113554fb), [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`29f38d4`](https://github.com/sl-design-system/components/commit/29f38d4a44003f63e20965ed176dfa9bc16851e7), [`0e2e426`](https://github.com/sl-design-system/components/commit/0e2e426041997a299f3e35bcde499909d62f7ce9)]:
+  - @sl-design-system/button@1.2.5
+  - @sl-design-system/menu@0.2.5
+  - @sl-design-system/toggle-button@0.0.9
+  - @sl-design-system/toggle-group@0.0.9
+  - @sl-design-system/icon@1.3.0
+
 ## 0.0.10
 
 ### Patch Changes
@@ -11,7 +24,6 @@
 ### Patch Changes
 
 - [#2081](https://github.com/sl-design-system/components/pull/2081) [`604dc17`](https://github.com/sl-design-system/components/commit/604dc17be38f77fa099ffc890fcbe8f3768755a6) - Various improvements:
-
   - Add `ellipsis-vertical` icon to the icon set
   - Add `inverted` boolean property so the menu button can be inverted
   - Fix overflow calculation so we never have an unnecessary menu button

@@ -1,5 +1,23 @@
 # @sl-design-system/text-field
 
+## 1.6.6
+
+### Patch Changes
+
+- [#2481](https://github.com/sl-design-system/components/pull/2481) [`0c4f19b`](https://github.com/sl-design-system/components/commit/0c4f19beb6f66b6cba944c6bc4589252113554fb) - Changed token used for the width of the focusring
+
+- [#2547](https://github.com/sl-design-system/components/pull/2547) [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68) - Bump patch version of `@open-wc/scoped-elements` peer dependency
+
+- [#2086](https://github.com/sl-design-system/components/pull/2086) [`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a) - - Refactor internals to help fix `<sl-number-field>` behavior
+  - Adding warning when `type="number"` is used that points to `<sl-number-field>`
+
+- [#2561](https://github.com/sl-design-system/components/pull/2561) [`0e2e426`](https://github.com/sl-design-system/components/commit/0e2e426041997a299f3e35bcde499909d62f7ce9) - Remove duplication of `observedAttributes` from the components and into the `ObserveAttributesMixin`
+
+- Updated dependencies [[`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a), [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`29f38d4`](https://github.com/sl-design-system/components/commit/29f38d4a44003f63e20965ed176dfa9bc16851e7), [`0e2e426`](https://github.com/sl-design-system/components/commit/0e2e426041997a299f3e35bcde499909d62f7ce9), [`5db3329`](https://github.com/sl-design-system/components/commit/5db33293ac0ac53dcb13c607a4df76500eca7141), [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16)]:
+  - @sl-design-system/form@1.3.0
+  - @sl-design-system/shared@0.9.0
+  - @sl-design-system/icon@1.3.0
+
 ## 1.6.5
 
 ### Patch Changes
@@ -65,7 +83,6 @@
 ### Patch Changes
 
 - [#1785](https://github.com/sl-design-system/components/pull/1785) [`4e80437`](https://github.com/sl-design-system/components/commit/4e804374c3a02e88b04e4c1df662967740461f7c) - - Styling buttons improvements,
-
   - Formatting value changes - using `formattedValue` instead of `formatValue`.
 
 - [#1805](https://github.com/sl-design-system/components/pull/1805) [`94e2a7b`](https://github.com/sl-design-system/components/commit/94e2a7bf1ccaaa9d547654603554cc6bdfdf66fb) - Fix able to submit a parent form using the enter key in readonly mode

@@ -1,5 +1,20 @@
 # @sanomalearning/slds-bingel-int
 
+## 0.3.0
+
+### Minor Changes
+
+- [#2597](https://github.com/sl-design-system/components/pull/2597) [`8ca3a20`](https://github.com/sl-design-system/components/commit/8ca3a20310ed9e0f4d176a44ac09cb4d4c1e2213) - First release since move to Tokens Studio
+
+### Patch Changes
+
+- [#2243](https://github.com/sl-design-system/components/pull/2243) [`29f38d4`](https://github.com/sl-design-system/components/commit/29f38d4a44003f63e20965ed176dfa9bc16851e7) - Updated icons (new Font Awesome version)
+
+- [#2535](https://github.com/sl-design-system/components/pull/2535) [`395fffb`](https://github.com/sl-design-system/components/commit/395fffb6d25f8eba9fcd0aa629c1275daef6ab96) - Add missing package exports for CSS files
+
+- Updated dependencies [[`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`29f38d4`](https://github.com/sl-design-system/components/commit/29f38d4a44003f63e20965ed176dfa9bc16851e7)]:
+  - @sl-design-system/icon@1.3.0
+
 ## 0.2.6
 
 ### Patch Changes
@@ -55,11 +70,9 @@
 - [#1710](https://github.com/sl-design-system/components/pull/1710) [`40cc538`](https://github.com/sl-design-system/components/commit/40cc538648e6ed5ac453fbe708bae8761caaab5e) - Overhaul of how (custom) icons are maintained in figma and exported to be used in the packages.
 
   The following icons have changed:
-
   - `circle` has been renamed to `circle-solid`
 
   The following icons have been added:
-
   - `badge-available`
   - `badge-away`
   - `badge-donotdisturb`
@@ -68,7 +81,6 @@
   - `info`
 
   The following items have been removed (mainly in cleaning up, they were never meant to be there)
-
   - `svg-sort`
   - `svg-sort-down`
   - `svg-sort-up`
@@ -110,7 +122,6 @@
 ### Patch Changes
 
 - [#1454](https://github.com/sl-design-system/components/pull/1454) [`af62ce4`](https://github.com/sl-design-system/components/commit/af62ce4d0e65b1363b9cede48642bc22d1fc9365) - - Improve toggle button and group tokens
-
   - Add a `check-solid` icon for use in the `toggle-button` component
 
 - [#1414](https://github.com/sl-design-system/components/pull/1414) [`ff1618c`](https://github.com/sl-design-system/components/commit/ff1618cdfa4d0060465d993f656345ba1044f88c) - Update icons to the latest fontawesome release (6.6.0)
@@ -125,7 +136,6 @@
 ### Patch Changes
 
 - [#1389](https://github.com/sl-design-system/components/pull/1389) [`f03971b`](https://github.com/sl-design-system/components/commit/f03971b7b338a4248df292060b91b6b903b6c8ed) - Minor style fixes:
-
   - Fix the title and subtitle text being cutoff for certain characters due not enough line-height
   - Use a different color for the subtitle text
 
@@ -171,7 +181,6 @@
 - [#1251](https://github.com/sl-design-system/components/pull/1251) [`a3da76c`](https://github.com/sl-design-system/components/commit/a3da76c7df521c2241b565dc22025715f1231e9c) - New search icon
 
 - [#1234](https://github.com/sl-design-system/components/pull/1234) [`fe047da`](https://github.com/sl-design-system/components/commit/fe047da265a3d657d74ee26df95ebd73f2d7ef7f) - - Enhanced the color contrast of buttons when used on slightly darker backgrounds across all themes.
-
   - Enhanced the color contrast of inline messages to match our buttons.
 
 - [#1234](https://github.com/sl-design-system/components/pull/1234) [`fe047da`](https://github.com/sl-design-system/components/commit/fe047da265a3d657d74ee26df95ebd73f2d7ef7f) - Fix missing triangle-exclamation-solid icon
@@ -188,7 +197,6 @@
 - [#1242](https://github.com/sl-design-system/components/pull/1242) [`ab122ec`](https://github.com/sl-design-system/components/commit/ab122ec672a515ae2ca7dce88c7344c1b209d538) - Fix missing `calc()` functions in theme parts.
 
 - [#1225](https://github.com/sl-design-system/components/pull/1225) [`ad297ab`](https://github.com/sl-design-system/components/commit/ad297ab817ab998253b9c2a90033c72dcc686893) - Updated/added tokens:
-
   - Button bar available in all themes
   - Fixed accordion border
   - Button fixes

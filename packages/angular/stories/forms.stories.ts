@@ -8,16 +8,18 @@ import {
   ReactiveFormsModule,
   type ValidationErrors
 } from '@angular/forms';
-import { type Form } from '@sl-design-system/form';
+import { Form } from '@sl-design-system/form';
 import { type Meta, type StoryFn, moduleMetadata } from '@storybook/angular';
 import { ButtonComponent } from '../src/button/button.component';
 import { ButtonBarComponent } from '../src/button-bar/button-bar.component';
 import { CheckboxGroupComponent } from '../src/checkbox/checkbox-group.component';
 import { CheckboxComponent } from '../src/checkbox/checkbox.component';
+import { ComboboxComponent } from '../src/combobox/combobox.component';
 import { FormFieldComponent } from '../src/form/form-field.component';
 import { FormComponent } from '../src/form/form.component';
 import { CheckboxGroupDirective } from '../src/forms/checkbox-group.directive';
 import { CheckboxDirective } from '../src/forms/checkbox.directive';
+import { ComboboxDirective } from '../src/forms/combobox-directive';
 import { NumberFieldDirective } from '../src/forms/number-field.directive';
 import { RadioGroupDirective } from '../src/forms/radio-group.directive';
 import { SelectDirective } from '../src/forms/select.directive';
@@ -62,6 +64,16 @@ import { TextFieldComponent } from '../src/text-field/text-field.component';
         </sl-select>
       </sl-form-field>
 
+      <sl-form-field label="Combobox">
+        <sl-combobox formControlName="combobox" placeholder="Select an option">
+          <sl-listbox>
+            @for (option of options(); track option.value) {
+              <sl-option>{{ option.label }}</sl-option>
+            }
+          </sl-listbox>
+        </sl-combobox>
+      </sl-form-field>
+
       <sl-form-field label="Switch">
         <sl-switch formControlName="switch" reverse value="toggled">Toggle me</sl-switch>
       </sl-form-field>
@@ -90,6 +102,7 @@ import { TextFieldComponent } from '../src/text-field/text-field.component';
     ReactiveFormsModule,
     CheckboxDirective,
     CheckboxGroupDirective,
+    ComboboxDirective,
     NumberFieldDirective,
     RadioGroupDirective,
     SelectDirective,
@@ -102,6 +115,7 @@ export class AllFormControlsReactiveComponent {
   formGroup = new FormGroup({
     checkbox: new FormControl('checked'),
     checkboxGroup: new FormControl(['2', '1', '0']),
+    combobox: new FormControl(''),
     numberField: new FormControl(10),
     radioGroup: new FormControl('1'),
     select: new FormControl('1'),
@@ -484,6 +498,7 @@ export default {
         LoginFormComponent,
         CheckboxComponent,
         CheckboxGroupComponent,
+        ComboboxComponent,
         FormComponent,
         FormFieldComponent,
         NumberFieldComponent,

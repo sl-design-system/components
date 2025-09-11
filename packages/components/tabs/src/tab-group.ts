@@ -127,23 +127,20 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
    * - we know when we need to reposition the active tab indicator
    */
   #resizeObserver = new ResizeObserver(entries => {
-    setTimeout(() => {
-      const hostResized = entries.some(entry => entry.target === this);
+    const hostResized = entries.some(entry => entry.target === this);
 
-      const scrollerResized = entries.some(
-        entry => entry.target instanceof HTMLElement && entry.target.matches('[part="scroller"]')
-      );
+    const scrollerResized = entries.some(
+      entry => entry.target instanceof HTMLElement && entry.target.matches('[part="scroller"]')
+    );
 
-      this.#shouldAnimate = false;
-      this.#updateSize(hostResized, scrollerResized);
-      this.#shouldAnimate = true;
+    this.#shouldAnimate = false;
+    this.#updateSize(hostResized, scrollerResized);
+    this.#shouldAnimate = true;
 
-      if (this.selectedTab) {
-        // this.#scrollIntoViewIfNeeded(this.selectedTab, 'auto');
-        this.#updateSelectedTab(this.selectedTab, false);
-        this.#scrollToTabPanelStart();
-      }
-    }, 50);
+    if (this.selectedTab) {
+      this.#updateSelectedTab(this.selectedTab, false);
+      this.#scrollToTabPanelStart();
+    }
   });
 
   /** Manage keyboard navigation between tabs. */
@@ -222,7 +219,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     // tab into view if needed.
     this.#resizeObserver.observe(this);
 
-    // We need to wait for the next frame so the element has time to render
+    // Delay ensures the DOM is fully rendered and layout is stable before running scroll and indicator logic,
+    // improving compatibility with Firefox and preventing visual glitches.
     setTimeout(() => {
       const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement;
 
@@ -244,7 +242,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         this.#updateSelectedTab(this.selectedTab, false);
         this.#scrollToTabPanelStart();
       }
-    }, 50); // todo: giving some time for the animation? was not working with raf in ff
+    }, 50);
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -254,18 +252,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       this.#shouldAnimate = false;
       this.#updateSelectionIndicator();
       this.#shouldAnimate = true;
-    }
-
-    // In vertical mode, we need to observe the scroller for changes in size to
-    // determine when we need to show the menu button.
-    if (changes.has('vertical')) {
-      const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement;
-
-      if (this.vertical) {
-        this.#resizeObserver.observe(scroller);
-      } else {
-        this.#resizeObserver.unobserve(scroller);
-      }
     }
   }
 

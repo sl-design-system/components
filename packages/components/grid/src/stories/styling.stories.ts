@@ -133,7 +133,7 @@ export const Parts: Story = {
           --rating-text-decoration: underline;
         }
         sl-grid::part(data grades) {
-          font-weight: var(--sl-text-typeset-fontWeight-demibold);
+          font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
           text-decoration: var(--rating-text-decoration, none);
         }
         sl-grid::part(high-grades) {

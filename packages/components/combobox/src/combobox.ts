@@ -691,52 +691,11 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
       if (this.#useVirtualList) {
         this.listbox.items = this.items;
-      } else {
-        let hasSelected = false;
+      } else if (this.listbox.childElementCount) {
+        const { hasSelected, items, selectedItems } = this.#getListboxOptions(this.listbox);
 
-        this.selectedItems = [];
-
-        this.items = Array.from(this.listbox.children)
-          .flatMap(el => this.#flattenOptions(el))
-          .filter(el => !(el instanceof CreateCustomOption))
-          .map(el => {
-            el.id ||= `sl-combobox-option-${nextUniqueId++}`;
-
-            this.optionLabelPath ??= 'label' as PathKeys<T>;
-            this.optionValuePath ??= 'value' as PathKeys<T>;
-
-            const label = el.textContent?.trim(),
-              value = (el.value ?? label) as U,
-              group = el.closest('sl-option-group')?.label || undefined;
-
-            const item: ComboboxItem<T, U> = {
-              id: el.id,
-              element: el,
-              group,
-              label,
-              option: {
-                [this.optionLabelPath || 'label']: label,
-                [this.optionValuePath || 'value']: value
-              } as T,
-              selected: el.selected,
-              type: 'option',
-              value,
-              visible: true
-            };
-
-            if (el.selected) {
-              hasSelected = true;
-
-              this.selectedItems = [...this.selectedItems, item];
-            }
-
-            // Ensure the option has an aria-selected attribute
-            if (!el.hasAttribute('aria-selected')) {
-              el.setAttribute('aria-selected', Boolean(el.selected).toString());
-            }
-
-            return item;
-          });
+        this.items = items;
+        this.selectedItems = selectedItems;
 
         // The selected option can be set either via:
         // - The `selected` attribute on the option -> call `#updateValue`
@@ -746,6 +705,11 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         } else {
           this.#updateSelectedItems();
         }
+      } else {
+        // When using `@for` syntax in Angular templates to render options,the options will
+        // render *after* the slotchange event has fired. In order to work around that, we
+        // listen for the next slotchange event on the listbox and handle it there.
+        this.listbox.renderRoot.addEventListener('slotchange', () => this.#onSlotChange(), { once: true });
       }
     } else {
       this.input.removeAttribute('aria-controls');
@@ -806,6 +770,59 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       this.#popoverJustClosed = false;
       this.#updateCurrent();
     }
+  }
+
+  #getListboxOptions(listbox: HTMLElement): {
+    hasSelected: boolean;
+    items: Array<ComboboxItem<T, U>>;
+    selectedItems: Array<ComboboxItem<T, U>>;
+  } {
+    let hasSelected = false,
+      selectedItems: Array<ComboboxItem<T, U>> = [];
+
+    const items = Array.from(listbox.children)
+      .flatMap(el => this.#flattenOptions(el))
+      .filter(el => !(el instanceof CreateCustomOption))
+      .map(el => {
+        el.id ||= `sl-combobox-option-${nextUniqueId++}`;
+
+        this.optionLabelPath ??= 'label' as PathKeys<T>;
+        this.optionValuePath ??= 'value' as PathKeys<T>;
+
+        const label = el.textContent?.trim(),
+          value = (el.value ?? label) as U,
+          group = el.closest('sl-option-group')?.label || undefined;
+
+        const item: ComboboxItem<T, U> = {
+          id: el.id,
+          element: el,
+          group,
+          label,
+          option: {
+            [this.optionLabelPath || 'label']: label,
+            [this.optionValuePath || 'value']: value
+          } as T,
+          selected: el.selected,
+          type: 'option',
+          value,
+          visible: true
+        };
+
+        if (el.selected) {
+          hasSelected = true;
+
+          selectedItems = [...selectedItems, item];
+        }
+
+        // Ensure the option has an aria-selected attribute
+        if (!el.hasAttribute('aria-selected')) {
+          el.setAttribute('aria-selected', Boolean(el.selected).toString());
+        }
+
+        return item;
+      });
+
+    return { hasSelected, items, selectedItems };
   }
 
   #addCustomOption(value: string): void {

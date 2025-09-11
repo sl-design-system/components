@@ -18,6 +18,14 @@
 				"$value": "{size.3xs}"
 			}
 		},
+		"tabbar": {
+			"vertical": {
+				"maxwidth": {
+					"$type": "sizing",
+					"$value": "200px"
+				}
+			}
+		},
 		"accordion": {
 			"icon": {
 				"height": {
@@ -233,42 +241,15 @@
 		"card": {
 			"body": {
 				"$type": "typography",
-				"$value": {
-					"fontSize": "{text.typeset.fontSize.md}",
-					"textCase": "{text.typeset.textCase.none}",
-					"fontFamily": "{text.typeset.fontFamily.body}",
-					"fontWeight": "{text.typeset.fontWeight.regular}",
-					"lineHeight": "{text.typeset.lineHeight.md}",
-					"letterSpacing": "{text.typeset.letterSpacing.md}",
-					"textDecoration": "{text.typeset.textDecoration.none}",
-					"paragraphSpacing": "{text.typeset.paragraphSpacing.md}"
-				}
+				"$value": "{text.body.md.normal}"
 			},
 			"title": {
 				"$type": "typography",
-				"$value": {
-					"fontSize": "{text.typeset.fontSize.xl}",
-					"textCase": "{text.typeset.textCase.none}",
-					"fontFamily": "{text.typeset.fontFamily.heading}",
-					"fontWeight": "{text.typeset.fontWeight.demibold}",
-					"lineHeight": "{text.typeset.lineHeight.xl}",
-					"letterSpacing": "{text.typeset.letterSpacing.md}",
-					"textDecoration": "{text.typeset.textDecoration.none}",
-					"paragraphSpacing": "{text.typeset.paragraphSpacing.none}"
-				}
+				"$value": "{text.heading.3}"
 			},
 			"subtitle": {
 				"$type": "typography",
-				"$value": {
-					"fontSize": "{text.typeset.fontSize.lg}",
-					"textCase": "{text.typeset.textCase.none}",
-					"fontFamily": "{text.typeset.fontFamily.body}",
-					"fontWeight": "{text.typeset.fontWeight.regular}",
-					"lineHeight": "{text.typeset.lineHeight.lg}",
-					"letterSpacing": "{text.typeset.letterSpacing.md}",
-					"textDecoration": "{text.typeset.textDecoration.none}",
-					"paragraphSpacing": "{text.typeset.paragraphSpacing.lg}"
-				}
+				"$value": "{text.body.lg.normal}"
 			}
 		},
 		"href": {
@@ -277,7 +258,7 @@
 				"$value": {
 					"fontSize": "{text.typeset.fontSize.lg}",
 					"fontFamily": "{text.typeset.fontFamily.body}",
-					"fontWeight": "{text.typeset.fontWeight.demibold}",
+					"fontWeight": "{text.typeset.fontWeight.regular}",
 					"lineHeight": "{button.label.lg}",
 					"textDecoration": "{text.typeset.textDecoration.underline}"
 				}
@@ -287,7 +268,7 @@
 				"$value": {
 					"fontSize": "{text.typeset.fontSize.md}",
 					"fontFamily": "{text.typeset.fontFamily.body}",
-					"fontWeight": "{text.typeset.fontWeight.demibold}",
+					"fontWeight": "{text.typeset.fontWeight.regular}",
 					"lineHeight": "{button.label.md}",
 					"textDecoration": "{text.typeset.textDecoration.underline}"
 				}
@@ -297,7 +278,7 @@
 				"$value": {
 					"fontSize": "{text.typeset.fontSize.sm}",
 					"fontFamily": "{text.typeset.fontFamily.body}",
-					"fontWeight": "{text.typeset.fontWeight.demibold}",
+					"fontWeight": "{text.typeset.fontWeight.regular}",
 					"lineHeight": "{button.label.sm}",
 					"textDecoration": "{text.typeset.textDecoration.underline}"
 				}
@@ -439,8 +420,7 @@
 						"$value": {
 							"fontSize": "{text.typeset.fontSize.lg}",
 							"fontFamily": "{text.typeset.fontFamily.icon}",
-							"fontWeight": "{text.typeset.fontWeight.regular}",
-							"lineHeight": "{text.typeset.lineHeight.sm}"
+							"fontWeight": "{text.typeset.fontWeight.regular}"
 						}
 					},
 					"md": {
@@ -448,17 +428,15 @@
 						"$value": {
 							"fontSize": "{text.typeset.fontSize.md}",
 							"fontFamily": "{text.typeset.fontFamily.icon}",
-							"fontWeight": "{text.typeset.fontWeight.regular}",
-							"lineHeight": "{text.typeset.lineHeight.xs}"
+							"fontWeight": "{text.typeset.fontWeight.regular}"
 						}
 					},
 					"sm": {
 						"$type": "typography",
 						"$value": {
-							"fontSize": "13",
+							"fontSize": "{icon.typeset.fontSize.xs}",
 							"fontFamily": "{text.typeset.fontFamily.icon}",
-							"fontWeight": "{text.typeset.fontWeight.regular}",
-							"lineHeight": "{text.typeset.lineHeight.xxs}"
+							"fontWeight": "{text.typeset.fontWeight.regular}"
 						}
 					}
 				}
@@ -481,144 +459,39 @@
 				}
 			}
 		},
+		"slds": {
+			"checklist": {
+				"body": {
+					"$type": "typography",
+					"$value": {
+						"fontSize": "{text.typeset.fontSize.lg}",
+						"fontFamily": "{text.typeset.fontFamily.body}",
+						"fontWeight": "{text.typeset.fontWeight.regular}",
+						"lineHeight": "{text.typeset.lineHeight.lg}"
+					}
+				},
+				"heading": {
+					"$type": "typography",
+					"$value": {
+						"fontSize": "{text.typeset.fontSize.xl}",
+						"fontFamily": "{text.typeset.fontFamily.heading}",
+						"fontWeight": "{text.typeset.fontWeight.demibold}",
+						"lineHeight": "{text.typeset.lineHeight.xl}"
+					}
+				},
+				"listitem": {
+					"$type": "typography",
+					"$value": {
+						"fontSize": "{text.typeset.fontSize.lg}",
+						"fontFamily": "{text.typeset.fontFamily.body}",
+						"fontWeight": "{text.typeset.fontWeight.demibold}",
+						"lineHeight": "{text.typeset.lineHeight.lg}"
+					}
+				}
+			}
+		},
 		"input": {
-			"text": {
-				"lg": {
-					"$type": "typography",
-					"$value": {
-						"fontSize": "{text.typeset.fontSize.lg}",
-						"fontFamily": "{text.typeset.fontFamily.body}",
-						"fontWeight": "{text.typeset.fontWeight.regular}",
-						"lineHeight": "{text.typeset.lineHeight.lg}"
-					}
-				},
-				"md": {
-					"$type": "typography",
-					"$value": {
-						"fontSize": "{text.typeset.fontSize.md}",
-						"fontFamily": "{text.typeset.fontFamily.body}",
-						"fontWeight": "{text.typeset.fontWeight.regular}",
-						"lineHeight": "{text.typeset.lineHeight.md}"
-					},
-					"$description": "UPDATED - Line height md from 22px to 20px"
-				}
-			},
-			"label": {
-				"lg": {
-					"$type": "typography",
-					"$value": {
-						"fontSize": "{text.typeset.fontSize.lg}",
-						"fontFamily": "{text.typeset.fontFamily.body}",
-						"fontWeight": "{text.typeset.fontWeight.regular}",
-						"lineHeight": "{text.typeset.lineHeight.lg}"
-					},
-					"$description": "Is use in Radio and Checkbox"
-				},
-				"md": {
-					"$type": "typography",
-					"$value": {
-						"fontSize": "{text.typeset.fontSize.md}",
-						"fontFamily": "{text.typeset.fontFamily.body}",
-						"fontWeight": "{text.typeset.fontWeight.regular}",
-						"lineHeight": "{text.typeset.lineHeight.md}"
-					},
-					"$description": "Is use in Radio and Checkbox"
-				},
-				"tag": {
-					"lg": {
-						"$type": "typography",
-						"$value": {
-							"fontSize": "{text.typeset.fontSize.xl}",
-							"fontFamily": "{text.typeset.fontFamily.body}",
-							"fontWeight": "{text.typeset.fontWeight.regular}",
-							"lineHeight": "{text.typeset.lineHeight.lg}"
-						},
-						"$description": "Font size xl is 18px need to be change to 20px to match 4-Grid layout."
-					},
-					"md": {
-						"$type": "typography",
-						"$value": {
-							"fontSize": "{text.typeset.fontSize.lg}",
-							"fontFamily": "{text.typeset.fontFamily.body}",
-							"fontWeight": "{text.typeset.fontWeight.regular}",
-							"lineHeight": "{text.typeset.lineHeight.lg}"
-						},
-						"$description": "UPDATED - Line height md from 22px to 20px"
-					},
-					"sm": {
-						"$type": "typography",
-						"$value": {
-							"fontSize": "{text.typeset.fontSize.md}",
-							"fontFamily": "{text.typeset.fontFamily.body}",
-							"fontWeight": "{text.typeset.fontWeight.regular}",
-							"lineHeight": "{text.typeset.lineHeight.sm}"
-						},
-						"$description": "UPDATED - Line height md from 22px to 20px"
-					}
-				},
-				"label": {
-					"lg": {
-						"$type": "typography",
-						"$value": {
-							"fontSize": "{text.typeset.fontSize.xl}",
-							"fontFamily": "{text.typeset.fontFamily.body}",
-							"fontWeight": "{text.typeset.fontWeight.demibold}",
-							"lineHeight": "{text.typeset.lineHeight.lg}"
-						},
-						"$description": "Font size xl is 18px need to be change to 20px to match 4-Grid layout."
-					},
-					"md": {
-						"$type": "typography",
-						"$value": {
-							"fontSize": "{text.typeset.fontSize.lg}",
-							"fontFamily": "{text.typeset.fontFamily.body}",
-							"fontWeight": "{text.typeset.fontWeight.demibold}",
-							"lineHeight": "{text.typeset.lineHeight.lg}"
-						},
-						"$description": "UPDATED - Line height md from 22px to 20px"
-					},
-					"sm": {
-						"$type": "typography",
-						"$value": {
-							"fontSize": "{text.typeset.fontSize.md}",
-							"fontFamily": "{text.typeset.fontFamily.body}",
-							"fontWeight": "{text.typeset.fontWeight.demibold}",
-							"lineHeight": "{text.typeset.lineHeight.sm}"
-						},
-						"$description": "UPDATED - Line height md from 22px to 20px"
-					}
-				}
-			},
 			"helper": {
-				"lg": {
-					"$type": "typography",
-					"$value": {
-						"fontSize": "{text.typeset.fontSize.lg}",
-						"fontFamily": "{text.typeset.fontFamily.body}",
-						"fontWeight": "{text.typeset.fontWeight.regular}",
-						"lineHeight": "{text.typeset.lineHeight.lg}"
-					}
-				},
-				"md": {
-					"$type": "typography",
-					"$value": {
-						"fontSize": "{text.typeset.fontSize.md}",
-						"fontFamily": "{text.typeset.fontFamily.body}",
-						"fontWeight": "{text.typeset.fontWeight.regular}",
-						"lineHeight": "{text.typeset.lineHeight.md}"
-					},
-					"$description": "UPDATED - Line height md from 22px to 20px"
-				},
-				"sm": {
-					"$type": "typography",
-					"$value": {
-						"fontSize": "{text.typeset.fontSize.sm}",
-						"fontFamily": "{text.typeset.fontFamily.body}",
-						"fontWeight": "{text.typeset.fontWeight.regular}",
-						"lineHeight": "{text.typeset.lineHeight.sm}"
-					},
-					"$description": "UPDATED - Line height md from 22px to 20px"
-				},
 				"text": {
 					"lg": {
 						"$type": "typography",
@@ -654,10 +527,10 @@
 					"lg": {
 						"$type": "typography",
 						"$value": {
-							"fontSize": "18",
+							"fontSize": "15",
 							"fontFamily": "{text.typeset.fontFamily.icon}",
 							"fontWeight": "{text.typeset.fontWeight.icon-solid}",
-							"lineHeight": "{text.typeset.lineHeight.md}"
+							"lineHeight": "{text.typeset.lineHeight.sm}"
 						}
 					},
 					"md": {
@@ -761,26 +634,6 @@
 					}
 				}
 			},
-			"fontIcon": {
-				"lg": {
-					"$type": "typography",
-					"$value": {
-						"fontSize": "18",
-						"fontFamily": "{text.typeset.fontFamily.icon}",
-						"fontWeight": "{text.typeset.fontWeight.icon-solid}",
-						"lineHeight": "{text.typeset.lineHeight.md}"
-					}
-				},
-				"md": {
-					"$type": "typography",
-					"$value": {
-						"fontSize": "15",
-						"fontFamily": "{text.typeset.fontFamily.icon}",
-						"fontWeight": "{text.typeset.fontWeight.icon-solid}",
-						"lineHeight": "{text.typeset.lineHeight.sm}"
-					}
-				}
-			},
 			"textField": {
 				"text": {
 					"lg": {
@@ -825,38 +678,6 @@
 				}
 			},
 			"fieldLabel": {
-				"tag": {
-					"lg": {
-						"$type": "typography",
-						"$value": {
-							"fontSize": "{text.typeset.fontSize.lg}",
-							"fontFamily": "{text.typeset.fontFamily.body}",
-							"fontWeight": "{text.typeset.fontWeight.regular}",
-							"lineHeight": "{text.typeset.lineHeight.lg}"
-						},
-						"$description": "Font size xl is 18px need to be change to 20px to match 4-Grid layout."
-					},
-					"md": {
-						"$type": "typography",
-						"$value": {
-							"fontSize": "{text.typeset.fontSize.md}",
-							"fontFamily": "{text.typeset.fontFamily.body}",
-							"fontWeight": "{text.typeset.fontWeight.regular}",
-							"lineHeight": "{text.typeset.lineHeight.md}"
-						},
-						"$description": "UPDATED - Line height md from 22px to 20px"
-					},
-					"sm": {
-						"$type": "typography",
-						"$value": {
-							"fontSize": "{text.typeset.fontSize.md}",
-							"fontFamily": "{text.typeset.fontFamily.body}",
-							"fontWeight": "{text.typeset.fontWeight.regular}",
-							"lineHeight": "{text.typeset.lineHeight.md}"
-						},
-						"$description": "UPDATED - Line height md from 22px to 20px"
-					}
-				},
 				"hint": {
 					"lg": {
 						"$type": "typography",
@@ -1201,6 +1022,33 @@
 		},
 		"button": {
 			"link": {
+				"lg": {
+					"$type": "typography",
+					"$value": {
+						"fontSize": "{text.typeset.fontSize.md}",
+						"fontFamily": "{text.typeset.fontFamily.body}",
+						"fontWeight": "{text.typeset.fontWeight.demibold}",
+						"lineHeight": "{button.label.lg}"
+					}
+				},
+				"md": {
+					"$type": "typography",
+					"$value": {
+						"fontSize": "{text.typeset.fontSize.md}",
+						"fontFamily": "{text.typeset.fontFamily.body}",
+						"fontWeight": "{text.typeset.fontWeight.demibold}",
+						"lineHeight": "{button.label.md}"
+					}
+				},
+				"sm": {
+					"$type": "typography",
+					"$value": {
+						"fontSize": "{text.typeset.fontSize.md}",
+						"fontFamily": "{text.typeset.fontFamily.body}",
+						"fontWeight": "{text.typeset.fontWeight.demibold}",
+						"lineHeight": "{button.label.sm}"
+					}
+				},
 				"idle": {
 					"lg": {
 						"$type": "typography",
@@ -1544,6 +1392,28 @@
 				}
 			}
 		},
+		"tooltip": {
+			"text": {
+				"tip": {
+					"$type": "typography",
+					"$value": {
+						"fontSize": "{text.typeset.fontSize.sm}",
+						"fontFamily": "{text.typeset.fontFamily.body}",
+						"fontWeight": "{text.typeset.fontWeight.regular}",
+						"lineHeight": "{button.label.md}"
+					}
+				},
+				"title": {
+					"$type": "typography",
+					"$value": {
+						"fontSize": "{text.typeset.fontSize.sm}",
+						"fontFamily": "{text.typeset.fontFamily.body}",
+						"fontWeight": "{text.typeset.fontWeight.demibold}",
+						"lineHeight": "{text.typeset.lineHeight.sm}"
+					}
+				}
+			}
+		},
 		"typeset": {
 			"fontFamily": {
 				"body": {
@@ -1558,7 +1428,7 @@
 				},
 				"heading": {
 					"$type": "fontFamilies",
-					"$value": "Open Sans",
+					"$value": "Montserrat",
 					"$description": "text.typeset.fontFamily.heading"
 				}
 			},
@@ -1589,7 +1459,7 @@
 					"fontSize": "{text.typeset.fontSize.xl}",
 					"textCase": "{text.typeset.textCase.none}",
 					"fontFamily": "{text.typeset.fontFamily.heading}",
-					"fontWeight": "{text.typeset.fontWeight.demibold}",
+					"fontWeight": "{text.typeset.fontWeight.regular}",
 					"lineHeight": "{text.typeset.lineHeight.xl}",
 					"letterSpacing": "{text.typeset.letterSpacing.md}",
 					"textDecoration": "{text.typeset.textDecoration.none}",
@@ -1599,49 +1469,9 @@
 		},
 		"textField": {
 			"$type": "other",
-			"label": {
-				"lg": {
-					"type": "typography",
-					"value": {
-						"fontSize": "{text.typeset.fontSize.lg}",
-						"fontFamily": "{text.typeset.fontFamily.body}",
-						"fontWeight": "{text.typeset.fontWeight.regular}",
-						"lineHeight": "{text.typeset.lineHeight.lg}"
-					}
-				},
-				"md": {
-					"type": "typography",
-					"value": {
-						"fontSize": "{text.typeset.fontSize.md}",
-						"fontFamily": "{text.typeset.fontFamily.body}",
-						"fontWeight": "{text.typeset.fontWeight.regular}",
-						"lineHeight": "{text.typeset.lineHeight.md}"
-					}
-				}
-			},
 			"$value": {
 				"lg": "[object Object]",
 				"md": "[object Object]"
-			},
-			"fontIcon": {
-				"lg": {
-					"type": "typography",
-					"value": {
-						"fontSize": "18",
-						"fontFamily": "{text.typeset.fontFamily.icon}",
-						"fontWeight": "{text.typeset.fontWeight.icon-solid}",
-						"lineHeight": "{text.typeset.lineHeight.md}"
-					}
-				},
-				"md": {
-					"type": "typography",
-					"value": {
-						"fontSize": "15",
-						"fontFamily": "{text.typeset.fontFamily.icon}",
-						"fontWeight": "{text.typeset.fontWeight.icon-solid}",
-						"lineHeight": "{text.typeset.lineHeight.sm}"
-					}
-				}
 			}
 		},
 		"breadcrumb": {
@@ -1682,447 +1512,447 @@
 			"info": {
 				"50": {
 					"$type": "color",
-					"$value": "#DEE2F3",
+					"$value": "#F0F5FF",
 					"$description": "color.palette.info.50"
 				},
 				"100": {
 					"$type": "color",
-					"$value": "#BAC3E5",
+					"$value": "#E0EAFF",
 					"$description": "color.palette.info.100"
 				},
 				"150": {
 					"$type": "color",
-					"$value": "#96A4D8",
+					"$value": "#CCDBFF",
 					"$description": "color.palette.info.150"
 				},
 				"200": {
 					"$type": "color",
-					"$value": "#7285CB",
+					"$value": "#9EBAFF",
 					"$description": "color.palette.info.200"
 				},
 				"300": {
 					"$type": "color",
-					"$value": "#4E66BD",
+					"$value": "#5985FF",
 					"$description": "color.palette.info.300"
 				},
 				"400": {
 					"$type": "color",
-					"$value": "#2A47B0",
+					"$value": "{color.palette.info.base}",
 					"$description": "color.palette.info.400"
 				},
 				"500": {
 					"$type": "color",
-					"$value": "#233B92",
+					"$value": "#2351DB",
 					"$description": "color.palette.info.500"
 				},
 				"600": {
 					"$type": "color",
-					"$value": "#1C2F75",
+					"$value": "#1138AD",
 					"$description": "color.palette.info.600"
 				},
 				"700": {
 					"$type": "color",
-					"$value": "#152357",
+					"$value": "#09298E",
 					"$description": "color.palette.info.700"
 				},
 				"800": {
 					"$type": "color",
-					"$value": "#0E1739",
+					"$value": "#00175F",
 					"$description": "color.palette.info.800"
 				},
 				"900": {
 					"$type": "color",
-					"$value": "#070B1C",
+					"$value": "#000D33",
 					"$description": "color.palette.info.900"
 				},
 				"base": {
 					"$type": "color",
-					"$value": "#2A47B0",
+					"$value": "#3366FF",
 					"$description": "color.palette.info.base"
 				}
 			},
 			"black": {
 				"base": {
 					"$type": "color",
-					"$value": "#29292B",
+					"$value": "#222222",
 					"$description": "color.palette.black.base"
 				}
 			},
 			"white": {
 				"base": {
 					"$type": "color",
-					"$value": "#FFFFFF",
+					"$value": "#FEFEFE",
 					"$description": "color.palette.white.base"
 				}
 			},
 			"accent": {
 				"50": {
 					"$type": "color",
-					"$value": "#DFEAF5",
+					"$value": "#EDF2FC",
 					"$description": "color.palette.accent.50"
 				},
 				"100": {
 					"$type": "color",
-					"$value": "#BCD4EA",
+					"$value": "#E0EAFF",
 					"$description": "color.palette.accent.100"
 				},
 				"150": {
 					"$type": "color",
-					"$value": "#99BDDE",
+					"$value": "#CCDBFF",
 					"$description": "color.palette.accent.150"
 				},
 				"200": {
 					"$type": "color",
-					"$value": "#76A7D3",
+					"$value": "#9EBAFF",
 					"$description": "color.palette.accent.200"
 				},
 				"300": {
 					"$type": "color",
-					"$value": "#5490C8",
+					"$value": "#5985FF",
 					"$description": "color.palette.accent.300"
 				},
 				"400": {
 					"$type": "color",
-					"$value": "#317ABD",
+					"$value": "{color.palette.accent.base}",
 					"$description": "color.palette.accent.400"
 				},
 				"500": {
 					"$type": "color",
-					"$value": "#29659D",
+					"$value": "#2351DB",
 					"$description": "color.palette.accent.500"
 				},
 				"600": {
 					"$type": "color",
-					"$value": "#20517D",
+					"$value": "#1138AD",
 					"$description": "color.palette.accent.600"
 				},
 				"700": {
 					"$type": "color",
-					"$value": "#183C5D",
+					"$value": "#09298E",
 					"$description": "color.palette.accent.700"
 				},
 				"800": {
 					"$type": "color",
-					"$value": "#10283E",
+					"$value": "#00175F",
 					"$description": "color.palette.accent.800"
 				},
 				"900": {
 					"$type": "color",
-					"$value": "#08131E",
+					"$value": "#000D33",
 					"$description": "color.palette.accent.900"
 				},
 				"base": {
 					"$type": "color",
-					"$value": "#317ABD",
+					"$value": "#3366FF",
 					"$description": "color.palette.accent.base"
 				}
 			},
 			"danger": {
 				"50": {
 					"$type": "color",
-					"$value": "#F8D7D7",
+					"$value": "#FFEDEB",
 					"$description": "color.palette.danger.50"
 				},
 				"100": {
 					"$type": "color",
-					"$value": "#F1ACAC",
+					"$value": "#FFD6D1",
 					"$description": "color.palette.danger.100"
 				},
 				"150": {
 					"$type": "color",
-					"$value": "#EA8181",
+					"$value": "#FFBCB8",
 					"$description": "color.palette.danger.150"
 				},
 				"200": {
 					"$type": "color",
-					"$value": "#E35656",
+					"$value": "#FF8E8A",
 					"$description": "color.palette.danger.200"
 				},
 				"300": {
 					"$type": "color",
-					"$value": "#DB2B2B",
+					"$value": "{color.palette.danger.base}",
 					"$description": "color.palette.danger.300"
 				},
 				"400": {
 					"$type": "color",
-					"$value": "#D40000",
+					"$value": "#E5454A",
 					"$description": "color.palette.danger.400"
 				},
 				"500": {
 					"$type": "color",
-					"$value": "#B00000",
+					"$value": "#C73434",
 					"$description": "color.palette.danger.500"
 				},
 				"600": {
 					"$type": "color",
-					"$value": "#8D0000",
+					"$value": "#992224",
 					"$description": "color.palette.danger.600"
 				},
 				"700": {
 					"$type": "color",
-					"$value": "#690000",
+					"$value": "#6B1313",
 					"$description": "color.palette.danger.700"
 				},
 				"800": {
 					"$type": "color",
-					"$value": "#450000",
+					"$value": "#470D0D",
 					"$description": "color.palette.danger.800"
 				},
 				"900": {
 					"$type": "color",
-					"$value": "#210000",
+					"$value": "#260808",
 					"$description": "color.palette.danger.900"
 				},
 				"base": {
 					"$type": "color",
-					"$value": "#D40000",
+					"$value": "#FF575C",
 					"$description": "color.palette.danger.base"
 				}
 			},
 			"neutral": {
 				"50": {
 					"$type": "color",
-					"$value": "#FFFFFF",
+					"$value": "#f3f3f3",
 					"$description": "color.palette.neutral.50"
 				},
 				"100": {
 					"$type": "color",
-					"$value": "#f5f5f6",
+					"$value": "#EAEAEA",
 					"$description": "color.palette.neutral.100"
 				},
 				"150": {
 					"$type": "color",
-					"$value": "#E2E2E4",
+					"$value": "#D5D5D5",
 					"$description": "color.palette.neutral.150"
 				},
 				"200": {
 					"$type": "color",
-					"$value": "#D7D7D7",
+					"$value": "#BCBCBC",
 					"$description": "color.palette.neutral.200"
 				},
 				"300": {
 					"$type": "color",
-					"$value": "#CECFD2",
+					"$value": "#A2A1A1",
 					"$description": "color.palette.neutral.300"
 				},
 				"400": {
 					"$type": "color",
-					"$value": "#C3C3C4",
+					"$value": "#898989",
 					"$description": "color.palette.neutral.400"
 				},
 				"500": {
 					"$type": "color",
-					"$value": "#B1B2B7",
+					"$value": "#737373",
 					"$description": "color.palette.neutral.500"
 				},
 				"600": {
 					"$type": "color",
-					"$value": "#95969D",
+					"$value": "#605F5F",
 					"$description": "color.palette.neutral.600"
 				},
 				"700": {
 					"$type": "color",
-					"$value": "#6D6E73",
+					"$value": "#4E4E4E",
 					"$description": "color.palette.neutral.700"
 				},
 				"800": {
 					"$type": "color",
-					"$value": "#444548",
+					"$value": "#3E3D3D",
 					"$description": "color.palette.neutral.800"
 				},
 				"900": {
 					"$type": "color",
-					"$value": "#29292B",
+					"$value": "#2E2E2E",
 					"$description": "color.palette.neutral.900"
 				},
 				"base": {
 					"$type": "color",
-					"$value": "#29292B",
+					"$value": "#222222",
 					"$description": "color.palette.neutral.base"
 				}
 			},
 			"primary": {
 				"50": {
 					"$type": "color",
-					"$value": "#D8ECEB",
+					"$value": "#FEFEFE",
 					"$description": "color.palette.primary.50"
 				},
 				"100": {
 					"$type": "color",
-					"$value": "#AED7D6",
+					"$value": "#EAEAEA",
 					"$description": "color.palette.primary.100"
 				},
 				"150": {
 					"$type": "color",
-					"$value": "#84C2C0",
+					"$value": "#D5D5D5",
 					"$description": "color.palette.primary.150"
 				},
 				"200": {
 					"$type": "color",
-					"$value": "#5AADAB",
+					"$value": "#BCBCBC",
 					"$description": "color.palette.primary.200"
 				},
 				"300": {
 					"$type": "color",
-					"$value": "#309995",
+					"$value": "#A2A1A1",
 					"$description": "color.palette.primary.300"
 				},
 				"400": {
 					"$type": "color",
-					"$value": "#068480",
+					"$value": "#898989",
 					"$description": "color.palette.primary.400"
 				},
 				"500": {
 					"$type": "color",
-					"$value": "#056E6A",
+					"$value": "#737373",
 					"$description": "color.palette.primary.500"
 				},
 				"600": {
 					"$type": "color",
-					"$value": "#045755",
+					"$value": "#605F5F",
 					"$description": "color.palette.primary.600"
 				},
 				"700": {
 					"$type": "color",
-					"$value": "#03413F",
+					"$value": "#4E4E4E",
 					"$description": "color.palette.primary.700"
 				},
 				"800": {
 					"$type": "color",
-					"$value": "#022B2A",
+					"$value": "#3E3D3D",
 					"$description": "color.palette.primary.800"
 				},
 				"900": {
 					"$type": "color",
-					"$value": "#011514",
+					"$value": "#262626",
 					"$description": "color.palette.primary.900"
 				},
 				"base": {
 					"$type": "color",
-					"$value": "#068480",
+					"$value": "#222222",
 					"$description": "color.palette.primary.base"
 				}
 			},
 			"success": {
 				"50": {
 					"$type": "color",
-					"$value": "#D8F7E5",
+					"$value": "#EBF5EE",
 					"$description": "color.palette.success.50"
 				},
 				"100": {
 					"$type": "color",
-					"$value": "#AFEFC8",
+					"$value": "#D7F5E1",
 					"$description": "color.palette.success.100"
 				},
 				"150": {
 					"$type": "color",
-					"$value": "#85E6AC"
+					"$value": "#AEEBC4"
 				},
 				"200": {
 					"$type": "color",
-					"$value": "#5BDE90",
+					"$value": "#70E09D",
 					"$description": "color.palette.success.200"
 				},
 				"300": {
 					"$type": "color",
-					"$value": "#32D573",
+					"$value": "{color.palette.success.base}",
 					"$description": "color.palette.success.300"
 				},
 				"400": {
 					"$type": "color",
-					"$value": "#08CD57",
+					"$value": "#39B26C",
 					"$description": "color.palette.success.400"
 				},
 				"500": {
 					"$type": "color",
-					"$value": "#07AA48",
+					"$value": "#28854E",
 					"$description": "color.palette.success.500"
 				},
 				"600": {
 					"$type": "color",
-					"$value": "#05883A",
+					"$value": "#1B6137",
 					"$description": "color.palette.success.600"
 				},
 				"700": {
 					"$type": "color",
-					"$value": "#04652B",
+					"$value": "#114224",
 					"$description": "color.palette.success.700"
 				},
 				"800": {
 					"$type": "color",
-					"$value": "#03431C",
+					"$value": "#0B331A",
 					"$description": "color.palette.success.800"
 				},
 				"900": {
 					"$type": "color",
-					"$value": "#01200E",
+					"$value": "#082613",
 					"$description": "color.palette.success.900"
 				},
 				"base": {
 					"$type": "color",
-					"$value": "#08CD57",
+					"$value": "#45CC80",
 					"$description": "color.palette.success.base"
 				}
 			},
 			"warning": {
 				"50": {
 					"$type": "color",
-					"$value": "#FEECD7",
+					"$value": "#FFFDF9",
 					"$description": "color.palette.warning.50"
 				},
 				"100": {
 					"$type": "color",
-					"$value": "#FDD8AC",
+					"$value": "#FFF8E8",
 					"$description": "color.palette.warning.100"
 				},
 				"150": {
 					"$type": "color",
-					"$value": "#FCC381",
+					"$value": "#FFEFCB",
 					"$description": "color.palette.warning.150"
 				},
 				"200": {
 					"$type": "color",
-					"$value": "#FAAF56",
+					"$value": "#FFE2A3",
 					"$description": "color.palette.warning.200"
 				},
 				"300": {
 					"$type": "color",
-					"$value": "#F99A2B",
+					"$value": "#FFD170",
 					"$description": "color.palette.warning.300"
 				},
 				"400": {
 					"$type": "color",
-					"$value": "#F88600",
+					"$value": "#FFAE00",
 					"$description": "color.palette.warning.400"
 				},
 				"500": {
 					"$type": "color",
-					"$value": "#CE6F00",
+					"$value": "#CC7700",
 					"$description": "color.palette.warning.500"
 				},
 				"600": {
 					"$type": "color",
-					"$value": "#A45900",
+					"$value": "#A66100",
 					"$description": "color.palette.warning.600"
 				},
 				"700": {
 					"$type": "color",
-					"$value": "#7B4200",
+					"$value": "#804B00",
 					"$description": "color.palette.warning.700"
 				},
 				"800": {
 					"$type": "color",
-					"$value": "#512C00",
+					"$value": "#593400",
 					"$description": "color.palette.warning.800"
 				},
 				"900": {
 					"$type": "color",
-					"$value": "#271500",
+					"$value": "#331E00",
 					"$description": "color.palette.warning.900"
 				},
 				"base": {
 					"$type": "color",
-					"$value": "#F88600",
+					"$value": "#FFAE00",
 					"$description": "color.palette.warning.base"
 				}
 			},
@@ -2275,6 +2105,12 @@
 					"$value": "{border.width.xs}"
 				}
 			},
+			"slds": {
+				"checklist": {
+					"$type": "borderWidth",
+					"$value": "{border.width.xs}"
+				}
+			},
 			"input": {
 				"none": {
 					"$type": "borderWidth",
@@ -2305,22 +2141,22 @@
 			"button": {
 				"link": {
 					"$type": "borderWidth",
-					"$value": "{border.width.xs}",
+					"$value": "{conceptual.border.width.default}",
 					"$description": "border.width.button.link"
 				},
 				"ghost": {
 					"$type": "borderWidth",
-					"$value": "{border.width.xs}",
+					"$value": "{conceptual.border.width.default}",
 					"$description": "border.width.button.ghost"
 				},
 				"solid": {
 					"$type": "borderWidth",
-					"$value": "{border.width.xs}",
+					"$value": "{conceptual.border.width.default}",
 					"$description": "border.width.button.solid"
 				},
 				"outline": {
 					"$type": "borderWidth",
-					"$value": "{border.width.xs}",
+					"$value": "{conceptual.border.width.default}",
 					"$description": "border.width.button.outline"
 				}
 			},
@@ -2366,6 +2202,10 @@
 				}
 			},
 			"focusring": {
+				"inside": {
+					"$type": "borderWidth",
+					"$value": "{border.width.xs}"
+				},
 				"offset": {
 					"$type": "borderWidth",
 					"$value": "{border.width.sm}"
@@ -2475,6 +2315,12 @@
 				"$value": "{borderRadius.default}"
 			}
 		},
+		"slds": {
+			"checklist": {
+				"$type": "borderRadius",
+				"$value": "{border.radius.2xl}"
+			}
+		},
 		"badge": {
 			"full": {
 				"$type": "borderRadius",
@@ -2490,33 +2336,33 @@
 		"button": {
 			"lg": {
 				"$type": "borderRadius",
-				"$value": "{border.radius.2xs}",
+				"$value": "{border.radius.3xs}",
 				"$description": "borderRadius.button"
 			},
 			"md": {
 				"$type": "borderRadius",
-				"$value": "{border.radius.2xs}",
+				"$value": "{border.radius.3xs}",
 				"$description": "borderRadius.button"
 			},
 			"sm": {
 				"$type": "borderRadius",
-				"$value": "{border.radius.2xs}",
+				"$value": "{border.radius.3xs}",
 				"$description": "borderRadius.button"
 			},
 			"icon-only": {
 				"lg": {
 					"$type": "borderRadius",
-					"$value": "{border.radius.2xs}",
+					"$value": "{border.radius.3xs}",
 					"$description": "borderRadius.button"
 				},
 				"md": {
 					"$type": "borderRadius",
-					"$value": "{border.radius.2xs}",
+					"$value": "{border.radius.3xs}",
 					"$description": "borderRadius.button"
 				},
 				"sm": {
 					"$type": "borderRadius",
-					"$value": "{border.radius.2xs}",
+					"$value": "{border.radius.3xs}",
 					"$description": "borderRadius.button"
 				}
 			}
@@ -2544,11 +2390,15 @@
 			"listbox": {
 				"$type": "borderRadius",
 				"$value": "{border.radius.2xs}"
+			},
+			"indicator": {
+				"$type": "borderRadius",
+				"$value": "{border.radius.3xs}"
 			}
 		},
 		"default": {
 			"$type": "borderRadius",
-			"$value": "{border.radius.2xs}",
+			"$value": "{border.radius.3xs}",
 			"$description": "borderRadius.button"
 		},
 		"popover": {
@@ -2560,7 +2410,7 @@
 		},
 		"checkbox": {
 			"$type": "borderRadius",
-			"$value": "{border.radius.2xs}"
+			"$value": "{border.radius.3xs}"
 		},
 		"skeleton": {
 			"default": {
@@ -2573,13 +2423,17 @@
 				"$type": "borderRadius",
 				"$value": "{border.radius.full}"
 			},
+			"inside": {
+				"$type": "borderRadius",
+				"$value": "{borderRadius.default} - 1px"
+			},
 			"default": {
 				"$type": "borderRadius",
-				"$value": "{borderRadius.default} + 1"
+				"$value": "{borderRadius.default} + 1px"
 			},
 			"checkbox": {
 				"$type": "borderRadius",
-				"$value": "{borderRadius.checkbox} + 1"
+				"$value": "{borderRadius.checkbox} - 1px"
 			}
 		},
 		"inline-message": {

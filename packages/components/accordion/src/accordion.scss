@@ -1,6 +1,4 @@
 :host {
-  --_background: var(--sl-body-background);
-
-  background: var(--_background);
+  background: var(--sl-elevation-surface-base-default);
   display: block;
 }

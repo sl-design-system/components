@@ -341,4 +341,4 @@ const build = async (production = false, path) => {
   }
 };
 
-build(argv.includes('--production'), argv.includes('--studio') ? './studio-export' : '../packages/tokens/src');
+build(argv.includes('--production'), '../packages/tokens/src');

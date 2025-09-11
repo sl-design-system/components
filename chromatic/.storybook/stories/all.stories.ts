@@ -1,11 +1,11 @@
 import { updateTheme } from '../../../.storybook/themes.js';
 import { All as AllAccordion } from '../../../packages/components/accordion/src/accordion.stories';
-import { All as AllAvatar } from '../../../packages/components/avatar/src/avatar.stories';
+import { Colors, Sizes } from '../../../packages/components/avatar/src/avatar.stories';
 import { All as AllBadge } from '../../../packages/components/badge/src/badge.stories';
 import { All as AllBreadcrumbs } from '../../../packages/components/breadcrumbs/src/breadcrumbs.stories';
 import { All as AllButton } from '../../../packages/components/button/src/button.stories';
 import { All as AllCard } from '../../../packages/components/card/src/card.stories';
-import { All as AllCheckbox } from '../../../packages/components/checkbox/src/checkbox.stories';
+import { All as AllCheckbox } from '../../../packages/components/checkbox/src/root.stories';
 import { All as AllCombobox } from '../../../packages/components/combobox/src/combobox.stories';
 import { All as AllDialog } from '../../../packages/components/dialog/src/dialog.stories';
 import { All as AllIcon } from '../../../packages/components/icon/src/icon.stories';
@@ -63,7 +63,8 @@ export default {
  * The All story always needs its own `render` function, otherwise this doesn't work.
  */
 export const Accordion = { render: AllAccordion.render };
-export const Avatar = { render: AllAvatar.render };
+export const AvatarColors = { render: Colors.render };
+export const AvatarSizes = { render: Sizes.render };
 export const Badge = { render: AllBadge.render };
 export const Breadcrumbs = { render: AllBreadcrumbs.render };
 export const Button = { render: AllButton.render };

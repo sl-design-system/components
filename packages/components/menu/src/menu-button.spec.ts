@@ -4,7 +4,6 @@ import { type Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
-import { spy } from 'sinon';
 import '../register.js';
 import { type MenuButton } from './menu-button.js';
 import { type Menu } from './menu.js';
@@ -34,9 +33,37 @@ describe('sl-menu-button', () => {
       expect(el.disabled).not.to.be.true;
     });
 
+    it('should proxy the aria-disabled attribute to the input element', async () => {
+      el.setAttribute('aria-disabled', 'true');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el).to.not.have.attribute('aria-disabled');
+      expect(el.button).to.have.attribute('aria-disabled', 'true');
+    });
+
+    it('should proxy the aria-label attribute to the input element', async () => {
+      el.setAttribute('aria-label', 'Label');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el).to.not.have.attribute('aria-label');
+      expect(el.button).to.have.attribute('aria-label', 'Label');
+    });
+
+    it('should proxy the aria-labelledby attribute to the input element', async () => {
+      el.setAttribute('aria-labelledby', 'id');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el).to.not.have.attribute('aria-labelledby');
+      expect(el.button).to.have.attribute('aria-labelledby', 'id');
+    });
+
     describe('button', () => {
       it('should have a button', () => {
         expect(button).to.exist;
+      });
+
+      it('should indicate it opens a menu', () => {
+        expect(button).to.have.attribute('aria-haspopup', 'menu');
       });
 
       it('should not be expanded', () => {
@@ -50,7 +77,7 @@ describe('sl-menu-button', () => {
       });
 
       it('should be linked to the menu', () => {
-        expect(button.getAttribute('aria-controls')).to.equal(menu.id);
+        expect(button).to.have.attribute('aria-controls', menu.id);
       });
 
       it('should not have a disabled button', () => {
@@ -124,14 +151,16 @@ describe('sl-menu-button', () => {
       });
 
       it('should focus the button after the menu is hidden', async () => {
-        spy(button, 'focus');
-
         button.click();
 
         el.querySelector('sl-menu-item')?.focus();
+
+        // The 50msec timeout fixes the flakiness of this test on headless browsers
+        await new Promise(resolve => setTimeout(resolve, 50));
+
         await sendKeys({ press: 'Escape' });
 
-        expect(button.focus).to.have.been.calledOnce;
+        expect(el.shadowRoot?.activeElement).to.equal(button);
       });
     });
 
@@ -266,32 +295,6 @@ describe('sl-menu-button', () => {
 
     it('should not have a selected span', () => {
       expect(button.querySelector('.selected')).not.to.exist;
-    });
-  });
-
-  describe('aria attributes', () => {
-    beforeEach(async () => {
-      el = await fixture(html`
-        <sl-menu-button aria-label="my label" aria-disabled="true">
-          <span slot="button">Button</span>
-
-          <sl-menu-item>Item 1</sl-menu-item>
-          <sl-menu-item>Item 2</sl-menu-item>
-        </sl-menu-button>
-      `);
-
-      button = el.renderRoot.querySelector('sl-button') as Button;
-      menu = el.renderRoot.querySelector('sl-menu') as Menu;
-
-      // Give time to rewrite arias
-      await new Promise(resolve => setTimeout(resolve, 100));
-    });
-
-    it('should have a button with proper arias', () => {
-      expect(el).not.to.have.attribute('aria-label', 'my label');
-      expect(el).not.to.have.attribute('aria-disabled', 'true');
-      expect(button).to.have.attribute('aria-label', 'my label');
-      expect(button).to.have.attribute('aria-disabled', 'true');
     });
   });
 });

@@ -47,7 +47,7 @@
 :host([has-subtitle]) {
   slot:not([name]) {
     font-size: 1.2em;
-    font-weight: var(--sl-text-typeset-fontWeight-demibold);
+    font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
   }
 
   slot[name='subtitle']::slotted(*) {

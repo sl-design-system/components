@@ -1,26 +1,5 @@
 :host {
-  --_background: var(--sl-color-accordion-default-header);
-  --_background-hover: var(--sl-color-accordion-hover-header);
-  --_background-active: var(--sl-color-accordion-active-header);
-  --_border-color: var(--sl-color-accordion-default-border);
-  --_border-width: var(--sl-border-width-divider);
-  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
-  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
-  --_focus-radius: var(--sl-border-radius-focusring-default);
-  --_icon-size: var(--sl-size-accordion-icon-height);
-  --_padding-block: var(--sl-space-accordion-content-block);
-  --_panel-color: var(--sl-color-accordion-default-foreground);
-  --_panel-font: var(--sl-text-accordion-body);
-  --_panel-padding-block: var(--sl-space-accordion-content-block);
-  --_panel-padding-inline: var(--sl-space-accordion-content-inline);
-  --_title-color: var(--sl-color-accordion-default-foreground);
-  --_title-color-active: var(--sl-color-accordion-active-foreground);
-  --_title-color-disabled: var(--sl-color-accordion-disabled-foreground);
-  --_title-color-hover: var(--sl-color-accordion-hover-foreground);
-  --_title-font: var(--sl-text-accordion-title);
-  --_title-gap: var(--sl-space-accordion-title-gap);
-  --_title-padding: var(--sl-space-accordion-title-inline);
-  --_transition-duration: 300ms;
+  --_transition-duration: 0.3s; // This is used in JavaScript as well
 
   display: flex;
   outline: 0;
@@ -30,22 +9,35 @@
   pointer-events: none;
 
   summary {
-    --_title-color: var(--_title-color-disabled);
+    color: var(--sl-color-foreground-disabled);
+  }
+}
+
+:host([icon-type='chevron']) {
+  details[open],
+  details.opening {
+    sl-icon {
+      transform: rotate(-180deg);
+    }
+  }
+
+  details[open].closing sl-icon {
+    transform: rotate(0deg);
   }
 }
 
 details {
-  border-block-end: var(--_border-width) solid var(--_border-color);
+  border-block-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain);
   flex: 1;
 
   &[open] summary::after {
-    background: var(--_border-color);
-    block-size: var(--_border-width);
+    background: var(--sl-color-border-plain);
+    block-size: var(--sl-size-borderWidth-subtle);
     content: '';
-    inline-size: calc(100% - 2 * var(--_panel-padding-inline));
+    inline-size: calc(100% - 2 * var(--sl-size-500));
     inset-block-end: 0;
     inset-inline-start: 0;
-    margin-inline: var(--_panel-padding-inline);
+    margin-inline: var(--sl-size-500);
     position: absolute;
   }
 
@@ -81,14 +73,23 @@ details {
 }
 
 summary {
-  background: var(--_background);
-  color: var(--_title-color);
+  --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
+
+  // align-items: center;
+  background: color-mix(
+    in srgb,
+    var(--sl-elevation-surface-base-default),
+    var(--sl-color-background-secondary-interactive-plain) calc(100% * var(--_bg-opacity))
+  );
+  color: var(--sl-color-foreground-plain);
   cursor: pointer;
   display: flex;
-  font: var(--_title-font);
-  gap: var(--_title-gap);
-  padding-block: var(--_padding-block);
-  padding-inline: var(--_title-padding);
+  font-size: calc((16 / 14) * 1em);
+  gap: var(--sl-size-100);
+  line-height: calc((24 / 16) * 1em);
+  outline: transparent solid var(--sl-size-borderWidth-focusRing);
+  outline-offset: var(--sl-size-outlineOffset-default);
+  padding: var(--sl-size-200);
   position: relative;
   z-index: 1; /* To work properly with sticky */
 
@@ -97,31 +98,50 @@ summary {
   }
 
   &:hover {
-    background: var(--_background-hover);
-    color: var(--_title-color-hover);
+    --_bg-opacity: var(--sl-opacity-interactive-bold-hover);
   }
 
   &:active {
-    background: var(--_background-active);
-    color: var(--_title-color-active);
+    --_bg-opacity: var(--sl-opacity-interactive-bold-active);
   }
 
   &:focus-visible {
-    border-radius: var(--_focus-radius);
-    outline: var(--_focus-outline);
-    outline-offset: var(--_focus-outline-offset);
+    border-radius: var(--sl-size-borderRadius-default);
+    outline-color: var(--sl-color-border-focused);
     position: relative;
     z-index: 2; // Make sure the outline is not clipped by the next accordion item
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    transition: background var(--_transition-duration);
+    transition-duration: var(--_transition-duration);
+    transition-property: background, outline-color;
+  }
+}
+
+slot[name='summary'] {
+  display: block;
+  inline-size: 100%;
+  text-box: trim-both cap alphabetic;
+}
+
+svg,
+sl-icon {
+  align-self: start;
+  flex-shrink: 0;
+  margin-block-start: round(up, 1ex - 1cap, 1px);
+}
+
+sl-icon {
+  block-size: var(--sl-size-200);
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: transform var(--_transition-duration) ease-in-out;
   }
 }
 
 svg {
-  block-size: var(--_icon-size);
-  flex-shrink: 0;
+  aspect-ratio: 1;
+  block-size: var(--sl-size-200);
 }
 
 g {
@@ -131,7 +151,6 @@ g {
     transform: rotate(90deg);
   }
 
-  /* stylelint-disable-next-line max-nesting-depth */
   @media (prefers-reduced-motion: no-preference) {
     transition: transform var(--_transition-duration) cubic-bezier(0.6, 2, 0.6, 1);
   }
@@ -142,7 +161,7 @@ g {
   animation-fill-mode: both;
   animation-iteration-count: 1;
   animation-timing-function: linear;
-  background: var(--_background);
+  background: var(--sl-elevation-surface-base-default);
   display: grid;
   overflow: hidden;
 
@@ -157,9 +176,8 @@ g {
 }
 
 [part='panel'] {
-  color: var(--_panel-color);
-  font: var(--_panel-font);
-  padding: var(--_panel-padding-block) var(--_panel-padding-inline);
+  color: var(--sl-color-foreground-plain);
+  padding: var(--sl-size-200) var(--sl-size-500);
   position: relative;
 }
 

@@ -123,7 +123,7 @@ export const All: Story = {
         ${[undefined, 'bold'].map(emphasis =>
           colors.map(
             color => html`
-              <span style="font-weight: ${emphasis ? 'var(--sl-text-typeset-fontWeight-demibold)' : 'regular'}">
+              <span style="font-weight: ${emphasis ? 'var(--sl-text-new-typeset-fontWeight-semiBold)' : 'regular'}">
                 ${color}
               </span>
               <sl-badge color=${ifDefined(color)} emphasis=${ifDefined(emphasis)} size="sm"></sl-badge>

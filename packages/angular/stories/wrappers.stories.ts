@@ -13,6 +13,7 @@ import { ButtonBarComponent } from '../src/button-bar/button-bar.component';
 import { CardComponent } from '../src/card/card.component';
 import { CheckboxGroupComponent } from '../src/checkbox/checkbox-group.component';
 import { CheckboxComponent } from '../src/checkbox/checkbox.component';
+import { ComboboxComponent } from '../src/combobox/combobox.component';
 import { DialogComponent } from '../src/dialog/dialog.component';
 import { IconComponent } from '../src/icon/icon.component';
 import { InlineMessageComponent } from '../src/inline-message/inline-message.component';
@@ -48,6 +49,7 @@ export default {
         CardComponent,
         CheckboxComponent,
         CheckboxGroupComponent,
+        ComboboxComponent,
         DialogComponent,
         IconComponent,
         InlineMessageComponent,
@@ -147,6 +149,20 @@ export const Checkbox: StoryObj = {
         <sl-checkbox>Checkbox 2</sl-checkbox>
         <sl-checkbox>Checkbox 3</sl-checkbox>
       </sl-checkbox-group>
+    `
+  })
+};
+
+export const Combobox: StoryObj = {
+  render: () => ({
+    template: `
+      <sl-combobox placeholder="Select an option">
+        <sl-listbox>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
+        </sl-listbox>
+      </sl-combobox>
     `
   })
 };

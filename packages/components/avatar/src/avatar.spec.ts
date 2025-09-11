@@ -27,6 +27,42 @@ describe('sl-avatar', () => {
     expect(subheading).to.equal('Straight A student');
   });
 
+  it('should not have a color by default', () => {
+    expect(el).to.not.have.attribute('color');
+    expect(el.color).to.be.undefined;
+  });
+
+  it('should have a color when set', async () => {
+    el.color = 'blue';
+    await el.updateComplete;
+
+    expect(el).to.have.attribute('color', 'blue');
+  });
+
+  it('should not have an emphasis by default', () => {
+    expect(el).to.not.have.attribute('emphasis');
+    expect(el.emphasis).to.be.undefined;
+  });
+
+  it('should have an emphasis when set', async () => {
+    el.emphasis = 'bold';
+    await el.updateComplete;
+
+    expect(el).to.have.attribute('emphasis', 'bold');
+  });
+
+  it('should not have a shape by default', () => {
+    expect(el).to.not.have.attribute('shape');
+    expect(el.shape).to.be.undefined;
+  });
+
+  it('should have a shape when set', async () => {
+    el.shape = 'square';
+    await el.updateComplete;
+
+    expect(el).to.have.attribute('shape', 'square');
+  });
+
   it('should only render the avatar part if imageOnly is set', async () => {
     el.imageOnly = true;
     await el.updateComplete;

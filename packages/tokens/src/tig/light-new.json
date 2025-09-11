@@ -78,17 +78,17 @@
 				"info": {
 					"bold": {
 						"$type": "color",
-						"$value": "{tig.color.border.accent.orange.bold}",
+						"$value": "{tig.color.border.accent.teal.bold}",
 						"$description": "Use for borders that highlight informative actions or messages on muted, subtlest and subtle background colors."
 					},
 					"plain": {
 						"$type": "color",
-						"$value": "{tig.color.border.accent.orange.plain}",
+						"$value": "{tig.color.border.accent.teal.plain}",
 						"$description": "Use for borders that highlight informative actions or messages on elevation.surface background colors."
 					},
 					"subtle": {
 						"$type": "color",
-						"$value": "{tig.color.palette.orange.100}",
+						"$value": "{tig.color.palette.teal.100}",
 						"$description": "Use for subtle borders onbackground.info background colors."
 					}
 				},
@@ -292,7 +292,7 @@
 				},
 				"selected": {
 					"$type": "color",
-					"$value": "{tig.color.border.accent.teal.plain}",
+					"$value": "{tig.color.border.accent.orange.plain}",
 					"$description": "Use for borders that emphasize selected states, such as tabs or menu items."
 				},
 				"secondary": {
@@ -473,7 +473,7 @@
 					},
 					"300": {
 						"$type": "color",
-						"$value": "#49b8b6"
+						"$value": "#82C8C8"
 					},
 					"400": {
 						"$type": "color",
@@ -527,7 +527,7 @@
 					},
 					"500": {
 						"$type": "color",
-						"$value": "#31883b"
+						"$value": "#00850F"
 					},
 					"600": {
 						"$type": "color",
@@ -710,28 +710,28 @@
 				"info": {
 					"bold": {
 						"$type": "color",
-						"$value": "{tig.color.background.accent.orange.bold}",
+						"$value": "{tig.color.background.accent.teal.bold}",
 						"$description": "Use for the background of actions with bold emphasis related to informative messages."
 					},
 					"subtle": {
 						"$type": "color",
-						"$value": "{tig.color.background.accent.orange.subtle}",
+						"$value": "{tig.color.background.accent.teal.subtle}",
 						"$description": "A subtle background for informative messages."
 					},
 					"subtlest": {
 						"$type": "color",
-						"$value": "{tig.color.background.accent.orange.subtlest}",
+						"$value": "{tig.color.background.accent.teal.subtlest}",
 						"$description": "The subtlest background for informative messages."
 					},
 					"interactive": {
 						"bold": {
 							"$type": "color",
-							"$value": "{tig.color.background.accent.orange.interactive.bold}",
+							"$value": "{tig.color.background.accent.teal.interactive.bold}",
 							"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
 						},
 						"plain": {
 							"$type": "color",
-							"$value": "{tig.color.background.accent.orange.interactive.plain}",
+							"$value": "{tig.color.background.accent.teal.interactive.plain}",
 							"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
 						}
 					}
@@ -839,7 +839,7 @@
 					"teal": {
 						"bold": {
 							"$type": "color",
-							"$value": "{tig.color.palette.teal.400}",
+							"$value": "{tig.color.palette.teal.300}",
 							"$description": "A vibrant teal background option, applied purely for stylistic purposes without specific meaning."
 						},
 						"subtle": {
@@ -855,7 +855,7 @@
 						"interactive": {
 							"bold": {
 								"$type": "color",
-								"$value": "{tig.color.palette.teal.200}",
+								"$value": "{tig.color.palette.teal.100}",
 								"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
 							},
 							"plain": {
@@ -868,7 +868,7 @@
 					"green": {
 						"bold": {
 							"$type": "color",
-							"$value": "{tig.color.palette.green.600}",
+							"$value": "{tig.color.palette.green.500}",
 							"$description": "A vibrant green background option, applied purely for stylistic purposes without specific meaning."
 						},
 						"subtle": {
@@ -889,7 +889,7 @@
 							},
 							"plain": {
 								"$type": "color",
-								"$value": "{tig.color.palette.green.400}",
+								"$value": "{tig.color.palette.green.500}",
 								"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
 							}
 						}
@@ -955,7 +955,7 @@
 					"yellow": {
 						"bold": {
 							"$type": "color",
-							"$value": "{tig.color.palette.yellow.400}",
+							"$value": "{tig.color.palette.yellow.200}",
 							"$description": "A vibrant yellow background option, applied purely for stylistic purposes without specific meaning."
 						},
 						"subtle": {
@@ -1169,28 +1169,28 @@
 				"selected": {
 					"bold": {
 						"$type": "color",
-						"$value": "{tig.color.background.accent.teal.bold}",
+						"$value": "{tig.color.background.accent.orange.bold}",
 						"$description": "Use for backgrounds of elements in selected state with bold emphasis, such as in opened dropdowns."
 					},
 					"subtle": {
 						"$type": "color",
-						"$value": "{tig.color.background.accent.teal.subtle}",
+						"$value": "{tig.color.background.accent.orange.subtle}",
 						"$description": "Use for backgrounds of elements in selected state with subtle emphasis, such as in opened dropdowns."
 					},
 					"subtlest": {
 						"$type": "color",
-						"$value": "{tig.color.background.accent.teal.subtlest}",
+						"$value": "{tig.color.background.accent.orange.subtlest}",
 						"$description": "The subtlest background in the primary action color."
 					},
 					"interactive": {
 						"bold": {
 							"$type": "color",
-							"$value": "{tig.color.background.accent.teal.interactive.bold}",
+							"$value": "{tig.color.background.accent.orange.interactive.bold}",
 							"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
 						},
 						"plain": {
 							"$type": "color",
-							"$value": "{tig.color.background.accent.teal.interactive.plain}",
+							"$value": "{tig.color.background.accent.orange.interactive.plain}",
 							"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
 						}
 					}
@@ -1246,12 +1246,12 @@
 				"info": {
 					"bold": {
 						"$type": "color",
-						"$value": "{tig.color.foreground.accent.orange.bold}",
+						"$value": "{tig.color.foreground.accent.teal.bold}",
 						"$description": "Use for text that communicates informative messages the user needs to be aware of on info backgrounds, such as 'color.background.info.muted' and 'color.background.info.subtle'."
 					},
 					"plain": {
 						"$type": "color",
-						"$value": "{tig.color.foreground.accent.orange.plain}",
+						"$value": "{tig.color.foreground.accent.teal.plain}",
 						"$description": "Use for text that communicates informative messages the user needs to be aware of on neutral backgrounds."
 					},
 					"onBold": {
@@ -1284,7 +1284,7 @@
 						},
 						"onBold": {
 							"$type": "color",
-							"$value": "{tig.color.foreground.bold}",
+							"$value": "{tig.color.foreground.inverted.plain}",
 							"$description": "Use for text on 'color.background.accent.red.bold', when used purely for stylistic purposes without specific meaning."
 						}
 					},
@@ -1367,12 +1367,12 @@
 						},
 						"plain": {
 							"$type": "color",
-							"$value": "{tig.color.palette.green.400}",
+							"$value": "{tig.color.palette.green.500}",
 							"$description": "Use for green text on neutral backgrounds for purely stylistic purposes with no specific meaning."
 						},
 						"onBold": {
 							"$type": "color",
-							"$value": "{tig.color.foreground.bold}",
+							"$value": "{tig.color.foreground.inverted.plain}",
 							"$description": "Use for text on 'color.background.accent.green.bold', when used purely for stylistic purposes without specific meaning."
 						}
 					},
@@ -1538,17 +1538,17 @@
 				"selected": {
 					"bold": {
 						"$type": "color",
-						"$value": "{tig.color.foreground.accent.teal.bold}",
+						"$value": "{tig.color.foreground.accent.orange.bold}",
 						"$description": "Use for text in selected states (e.g., tabs or menu items)."
 					},
 					"plain": {
 						"$type": "color",
-						"$value": "{tig.color.foreground.accent.teal.plain}",
+						"$value": "{tig.color.foreground.accent.orange.plain}",
 						"$description": "Used as selected foreground color on white backgrounds."
 					},
 					"onBold": {
 						"$type": "color",
-						"$value": "{tig.color.foreground.accent.teal.onBold}",
+						"$value": "{tig.color.foreground.accent.orange.onBold}",
 						"$description": "Use for text in selected states (e.g., tabs or menu items)."
 					}
 				},

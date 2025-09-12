@@ -260,12 +260,16 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
     }
   }
 
-  #onHourClick(hour: number): void {
-    console.log('hour', hour);
+  #onHourClick(hours: number): void {
+    this.#valueAsNumbers = { hours, minutes: this.#valueAsNumbers?.minutes ?? 0 };
+    this.#value = this.#formatTime(this.#valueAsNumbers.hours ?? 0, this.#valueAsNumbers.minutes ?? 0);
+    this.requestUpdate('value');
   }
 
-  #onMinuteClick(minute: number): void {
-    console.log('minute', minute);
+  #onMinuteClick(minutes: number): void {
+    this.#valueAsNumbers = { hours: this.#valueAsNumbers?.hours ?? 0, minutes };
+    this.#value = this.#formatTime(this.#valueAsNumbers.hours ?? 0, this.#valueAsNumbers.minutes ?? 0);
+    this.requestUpdate('value');
   }
 
   #onTextFieldBlur(event: SlBlurEvent): void {
@@ -322,6 +326,13 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
       // does not close parent containers (such as dialogs).
       event.stopPropagation();
     }
+  }
+
+  #formatTime(hours: number, minutes: number): string | undefined {
+    if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
+      return undefined;
+    }
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
   }
 
   #parseTime(value: string): { hours: number; minutes: number } | undefined {

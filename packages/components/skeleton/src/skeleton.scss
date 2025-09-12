@@ -1,51 +1,44 @@
 :host {
-  --_animation-duration: var(--sl-skeleton-animation-duration, 3000ms);
-  --_background: var(--sl-color-skeleton-base);
-  --_border-radius-circle: var(--sl-border-radius-circle);
-  --_border-radius: var(--sl-border-radius-skeleton-default);
-  --_min-block-size: var(--sl-size-skeleton-min-height);
-  --_shine-color: var(--sl-color-skeleton-effect);
-
-  background: var(--_background);
+  background: linear-gradient(
+    to right,
+    var(--sl-color-skeleton-plain) 4%,
+    var(--sl-color-skeleton-subtle) 25%,
+    var(--sl-color-skeleton-plain) 36%
+  );
+  background-size: 2000px 100%;
+  border-radius: var(--sl-size-borderRadius-default);
   display: block;
-  min-block-size: var(--_min-block-size);
-}
+  min-block-size: var(--sl-size-100);
 
-:host([variant='default']) {
-  border-radius: var(--_border-radius);
+  @media (prefers-reduced-motion: no-preference) {
+    animation: shimmer-effect 3s linear infinite;
+  }
 }
 
 :host([variant='circle']) {
-  border-radius: var(--_border-radius-circle);
-}
-
-:host([effect='shimmer']) {
-  background: linear-gradient(to right, var(--_background) 4%, var(--_shine-color) 25%, var(--_background) 36%);
-  background-size: 2000px 100%;
-
-  @media (prefers-reduced-motion: no-preference) {
-    animation: shimmer-effect var(--_animation-duration) linear infinite;
-  }
+  border-radius: 50%;
 }
 
 :host([effect='sheen']) {
   background-image: linear-gradient(
     100deg,
-    var(--_shine-color),
-    var(--_background),
-    var(--_background),
-    var(--_shine-color)
+    var(--sl-color-skeleton-subtle),
+    var(--sl-color-skeleton-plain),
+    var(--sl-color-skeleton-plain),
+    var(--sl-color-skeleton-subtle)
   );
   background-size: 200% 100%;
 
   @media (prefers-reduced-motion: no-preference) {
-    animation: sheen-effect var(--_animation-duration) linear infinite;
+    animation: sheen-effect 3s linear infinite;
   }
 }
 
 :host([effect='pulse']) {
+  background: var(--sl-color-skeleton-plain);
+
   @media (prefers-reduced-motion: no-preference) {
-    animation: pulse-effect var(--_animation-duration) ease-in-out 0.5s infinite;
+    animation: pulse-effect 3s ease-in-out 0.5s infinite;
   }
 }
 

@@ -9,7 +9,10 @@ eleventyNavigation:
 .ds-example__skeleton {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.8rem;
+  background-color: var(--background-color);
+  padding: 0.8rem;
+  border-radius: 0.4rem;
 }
 
 .ds-example__skeleton section sl-skeleton {

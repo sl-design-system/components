@@ -72,7 +72,7 @@
 			"border": {
 				"bold": {
 					"$type": "color",
-					"$value": "{clickedu.color.border.accent.grey.bold}",
+					"$value": "{clickedu.color.palette.grey.600}",
 					"$description": "A neutral border option that passes min 3:1 contrast ratios."
 				},
 				"info": {
@@ -130,7 +130,7 @@
 					"grey": {
 						"bold": {
 							"$type": "color",
-							"$value": "{clickedu.color.palette.grey.400}",
+							"$value": "{clickedu.color.palette.grey.200}",
 							"$description": "Use for bold grey borders for purely stylistic purposes with no specific meaning."
 						},
 						"faint": {
@@ -145,7 +145,7 @@
 						},
 						"plain": {
 							"$type": "color",
-							"$value": "{clickedu.color.palette.grey.150}",
+							"$value": "{clickedu.color.palette.grey.200}",
 							"$description": "Use for plain grey borders for purely stylistic purposes with no specific meaning."
 						}
 					},
@@ -224,7 +224,7 @@
 				},
 				"focused": {
 					"$type": "color",
-					"$value": "{clickedu.color.palette.blue.400}",
+					"$value": "{clickedu.color.palette.blue.700}",
 					"$description": "Use for focus rings of elements in a focus state."
 				},
 				"neutral": {
@@ -247,12 +247,12 @@
 				"primary": {
 					"bold": {
 						"$type": "color",
-						"$value": "{clickedu.color.border.accent.red.bold}",
+						"$value": "{clickedu.color.border.accent.purple.bold}",
 						"$description": "Use for borders that highlight primary actions or messages on muted, subtlest and subtle background colors."
 					},
 					"plain": {
 						"$type": "color",
-						"$value": "{clickedu.color.border.accent.red.plain}",
+						"$value": "{clickedu.color.border.accent.purple.plain}",
 						"$description": "Use for borders that highlight primary actions or messages on elevation.surface background colors."
 					}
 				},
@@ -298,12 +298,12 @@
 				"secondary": {
 					"bold": {
 						"$type": "color",
-						"$value": "{clickedu.color.border.accent.purple.bold}",
+						"$value": "{clickedu.color.border.accent.grey.bold}",
 						"$description": "Use for borders that highlight secondary actions or messages on muted, subtlest and subtle background colors."
 					},
 					"plain": {
 						"$type": "color",
-						"$value": "{clickedu.color.border.accent.purple.plain}",
+						"$value": "{clickedu.color.border.accent.grey.plain}",
 						"$description": "Use for borders that highlight secondary actions or messages on elevation.surface background colors."
 					}
 				}
@@ -365,97 +365,97 @@
 				"blue": {
 					"100": {
 						"$type": "color",
-						"$value": "#B4DDFF"
+						"$value": "#ECF5FF"
 					},
 					"150": {
 						"$type": "color",
-						"$value": "#8ECCFF"
+						"$value": "#D6E7FE"
 					},
 					"200": {
 						"$type": "color",
-						"$value": "#67BBFF"
+						"$value": "#B6D6FF"
 					},
 					"300": {
 						"$type": "color",
-						"$value": "#41A9FF"
+						"$value": "#83BDFF"
 					},
 					"400": {
 						"$type": "color",
-						"$value": "#1A98FF"
+						"$value": "#198DFF"
 					},
 					"500": {
 						"$type": "color",
-						"$value": "#167ED4"
+						"$value": "#2674FF"
 					},
 					"600": {
 						"$type": "color",
-						"$value": "#1165A9"
+						"$value": "#1553FC"
 					},
 					"700": {
 						"$type": "color",
-						"$value": "#0D4B7E"
+						"$value": "#143EE2"
 					},
 					"800": {
 						"$type": "color",
-						"$value": "#083153"
+						"$value": "#1A3282"
 					},
 					"900": {
 						"$type": "color",
-						"$value": "#041828"
+						"$value": "#16214B"
 					},
 					"050": {
 						"$type": "color",
-						"$value": "#DBEFFF"
+						"$value": "#F5FAFF"
 					}
 				},
 				"grey": {
 					"100": {
 						"$type": "color",
-						"$value": "#DADADA"
+						"$value": "#F7F9FC"
 					},
 					"150": {
 						"$type": "color",
-						"$value": "#C8C8C8"
+						"$value": "#EFF4F8"
 					},
 					"200": {
 						"$type": "color",
-						"$value": "#B7B7B7"
+						"$value": "#DEE4EE"
 					},
 					"300": {
 						"$type": "color",
-						"$value": "#A5A5A5"
+						"$value": "#C3CFDE"
 					},
 					"400": {
 						"$type": "color",
-						"$value": "#939393"
+						"$value": "#8597B0"
 					},
 					"500": {
 						"$type": "color",
-						"$value": "#818181"
+						"$value": "#576983"
 					},
 					"600": {
 						"$type": "color",
-						"$value": "#707070"
+						"$value": "#3C4B61"
 					},
 					"700": {
 						"$type": "color",
-						"$value": "#5E5E5E"
+						"$value": "#2B394E"
 					},
 					"800": {
 						"$type": "color",
-						"$value": "#4C4C4C"
+						"$value": "#1B2535"
 					},
 					"900": {
 						"$type": "color",
-						"$value": "#3A3A3A"
+						"$value": "#020717"
 					},
 					"000": {
 						"$type": "color",
-						"$value": "#FFFFFF"
+						"$value": "#ffffff"
 					},
 					"050": {
 						"$type": "color",
-						"$value": "#ECECEC"
+						"$value": "#F9FBFD"
 					}
 				},
 				"teal": {
@@ -599,47 +599,47 @@
 				"purple": {
 					"100": {
 						"$type": "color",
-						"$value": "#f1e8ff"
+						"$value": "#F8F2FF"
 					},
 					"150": {
 						"$type": "color",
-						"$value": "#e5d4ff"
+						"$value": "#EFE0FF"
 					},
 					"200": {
 						"$type": "color",
-						"$value": "#d1b2ff"
+						"$value": "#E2C8FF"
 					},
 					"300": {
 						"$type": "color",
-						"$value": "#b481ff"
+						"$value": "#CF9FFF"
 					},
 					"400": {
 						"$type": "color",
-						"$value": "#a669fb"
+						"$value": "#B164FF"
 					},
 					"500": {
 						"$type": "color",
-						"$value": "#812fee"
+						"$value": "#9936FF"
 					},
 					"600": {
 						"$type": "color",
-						"$value": "#6d1ed2"
+						"$value": "#8212F8"
 					},
 					"700": {
 						"$type": "color",
-						"$value": "#5e1eab"
+						"$value": "#6C00CF"
 					},
 					"800": {
 						"$type": "color",
-						"$value": "#4e1a89"
+						"$value": "#57139D"
 					},
 					"900": {
 						"$type": "color",
-						"$value": "#320566"
+						"$value": "#2E0951"
 					},
 					"050": {
 						"$type": "color",
-						"$value": "#f9f5ff"
+						"$value": "#FBF9FF"
 					}
 				},
 				"yellow": {
@@ -810,28 +810,28 @@
 					"grey": {
 						"bold": {
 							"$type": "color",
-							"$value": "{clickedu.color.palette.grey.050}",
+							"$value": "{clickedu.color.palette.grey.200}",
 							"$description": "A vibrant grey background option, applied purely for stylistic purposes without specific meaning."
 						},
 						"subtle": {
 							"$type": "color",
-							"$value": "rgba({clickedu.color.palette.grey.700}, {clickedu.opacity.subtle})",
+							"$value": "rgba({clickedu.color.palette.grey.400}, {clickedu.opacity.subtle})",
 							"$description": "A subtle grey background option in idle state, applied purely for stylistic purposes without specific meaning."
 						},
 						"subtlest": {
 							"$type": "color",
-							"$value": "rgba( {clickedu.color.palette.grey.700}, {clickedu.opacity.subtlest})",
+							"$value": "rgba( {clickedu.color.palette.grey.400}, {clickedu.opacity.subtlest})",
 							"$description": "The subtlest grey background option for interactive elements, applied purely for stylistic purposes without specific meaning."
 						},
 						"interactive": {
 							"bold": {
 								"$type": "color",
-								"$value": "{clickedu.color.palette.grey.600}",
+								"$value": "{clickedu.color.palette.grey.500}",
 								"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
 							},
 							"plain": {
 								"$type": "color",
-								"$value": "{clickedu.color.palette.grey.300}",
+								"$value": "{clickedu.color.palette.grey.400}",
 								"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
 							}
 						}
@@ -1048,35 +1048,35 @@
 				"primary": {
 					"bold": {
 						"$type": "color",
-						"$value": "{clickedu.color.background.accent.red.bold}",
+						"$value": "{clickedu.color.background.accent.purple.bold}",
 						"$description": "A vibrant background option used for primary actions."
 					},
 					"subtle": {
 						"$type": "color",
-						"$value": "{clickedu.color.background.accent.red.subtle}",
+						"$value": "{clickedu.color.background.accent.purple.subtle}",
 						"$description": "A subtle background in the primary action color."
 					},
 					"subtlest": {
 						"$type": "color",
-						"$value": "{clickedu.color.background.accent.red.subtlest}",
+						"$value": "{clickedu.color.background.accent.purple.subtlest}",
 						"$description": "The subtlest background in the primary action color."
 					},
 					"interactive": {
 						"bold": {
 							"$type": "color",
-							"$value": "{clickedu.color.background.accent.red.interactive.bold}",
+							"$value": "{clickedu.color.background.accent.purple.interactive.bold}",
 							"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
 						},
 						"plain": {
 							"$type": "color",
-							"$value": "{clickedu.color.background.accent.red.interactive.plain}",
+							"$value": "{clickedu.color.background.accent.purple.interactive.plain}",
 							"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
 						}
 					}
 				},
 				"disabled": {
 					"$type": "color",
-					"$value": "{clickedu.color.palette.grey.050}",
+					"$value": "{clickedu.color.palette.grey.150}",
 					"$description": "Use for backgrounds of elements in disabled state."
 				},
 				"inverted": {
@@ -1198,12 +1198,12 @@
 				"secondary": {
 					"bold": {
 						"$type": "color",
-						"$value": "{clickedu.color.background.accent.purple.bold}",
+						"$value": "{clickedu.color.background.accent.grey.bold}",
 						"$description": "A vibrant background option used for secondary actions."
 					},
 					"subtle": {
 						"$type": "color",
-						"$value": "{clickedu.color.background.accent.purple.subtle}",
+						"$value": "{clickedu.color.background.accent.grey.subtle}",
 						"$description": "A subtle background in the secondary action color."
 					},
 					"subtlest": {
@@ -1214,12 +1214,12 @@
 					"interactive": {
 						"bold": {
 							"$type": "color",
-							"$value": "{clickedu.color.background.accent.purple.interactive.bold}",
+							"$value": "{clickedu.color.background.accent.grey.interactive.bold}",
 							"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
 						},
 						"plain": {
 							"$type": "color",
-							"$value": "{clickedu.color.background.accent.purple.interactive.plain}",
+							"$value": "{clickedu.color.background.accent.grey.interactive.plain}",
 							"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
 						}
 					}
@@ -1308,7 +1308,7 @@
 					"grey": {
 						"bold": {
 							"$type": "color",
-							"$value": "{clickedu.color.palette.grey.900}",
+							"$value": "{clickedu.color.palette.grey.800}",
 							"$description": "Use for bold grey text for purely stylistic purposes with no specific meaning."
 						},
 						"faint": {
@@ -1318,7 +1318,7 @@
 						},
 						"plain": {
 							"$type": "color",
-							"$value": "{clickedu.color.palette.grey.800}",
+							"$value": "{clickedu.color.palette.grey.600}",
 							"$description": "Use for plain grey text for purely stylistic purposes with no specific meaning."
 						},
 						"onBold": {
@@ -1333,7 +1333,7 @@
 						},
 						"subtlest": {
 							"$type": "color",
-							"$value": "rgba({clickedu.color.palette.grey.900}, 70%)",
+							"$value": "rgba({clickedu.color.palette.grey.600}, 70%)",
 							"$description": "Use for muted grey text for purely stylistic purposes with no specific meaning."
 						},
 						"onInverted": {
@@ -1470,7 +1470,7 @@
 				"primary": {
 					"bold": {
 						"$type": "color",
-						"$value": "{clickedu.color.foreground.accent.red.bold}",
+						"$value": "{clickedu.color.foreground.accent.purple.bold}",
 						"$description": "Use for primary actions on 'color.background.primary.muted' and 'color.background.primary.subtle'."
 					},
 					"onBold": {
@@ -1481,7 +1481,7 @@
 				},
 				"disabled": {
 					"$type": "color",
-					"$value": "{clickedu.color.palette.grey.150}",
+					"$value": "{clickedu.color.palette.grey.300}",
 					"$description": "Use for text in a disabled state."
 				},
 				"inverted": {
@@ -1560,12 +1560,12 @@
 				"secondary": {
 					"bold": {
 						"$type": "color",
-						"$value": "{clickedu.color.foreground.accent.purple.bold}",
+						"$value": "{clickedu.color.foreground.accent.grey.bold}",
 						"$description": "Use for secondary actions on 'color.background.secondary.muted' and 'color.background.secondary.subtle'."
 					},
 					"onBold": {
 						"$type": "color",
-						"$value": "{clickedu.color.foreground.accent.purple.onBold}",
+						"$value": "{clickedu.color.foreground.accent.grey.onBold}",
 						"$description": "Use for secondary actions on 'color.background.secondary.bold'"
 					}
 				}

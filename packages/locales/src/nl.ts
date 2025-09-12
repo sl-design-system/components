@@ -83,6 +83,7 @@ export const templates = {
   'sl.tabs.showAll': 'Toon alles',
   'sl.tag.listOfHiddenElements': 'Lijst met verborgen elementen',
   'sl.tag.removalInstructions': 'Druk op de delete- of backspacetoets om dit item te verwijderen',
+  'sl.timeField.toggleDropdown': 'Toon dropdown',
   'sl.toolBar.showMore': 'Meer tonen',
   'sl.tree.loadingMessage': 'Laden'
 };

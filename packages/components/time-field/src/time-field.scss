@@ -43,14 +43,13 @@
   flex-direction: column;
   gap: var(--sl-size-050);
   overflow: auto;
-  padding-block: calc(var(--sl-size-050) - var(--sl-size-borderWidth-default));
-  padding-inline: var(--sl-size-050);
+  padding: var(--sl-size-100);
+  scroll-padding-block: var(--sl-size-100);
   scrollbar-width: thin;
 }
 
 .minutes {
   margin-inline-start: var(--sl-size-borderWidth-default);
-  padding-inline-start: var(--sl-size-050);
 }
 
 .separator {

@@ -313,6 +313,8 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
       this.renderRoot
         .querySelectorAll<HTMLElement>('button[selected]')
         ?.forEach(el => el.scrollIntoView({ block: 'start', behavior: 'instant' }));
+
+      this.renderRoot.querySelector<HTMLElement>('.hours button[selected]')?.focus();
     }
   }
 

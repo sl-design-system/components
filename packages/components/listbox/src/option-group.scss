@@ -10,12 +10,6 @@
   padding-block-start: var(--sl-size-100);
 }
 
-// :host(:not(:last-of-type)) {
-// border-block-end: blue solid var(--sl-size-borderWidth-default);
-// margin-block-end: var(--sl-size-075);
-// padding-block-start: var(--sl-size-100);
-// }
-
 ::slotted(sl-option:first-of-type) {
   margin-block-start: var(--sl-size-025);
 }
@@ -23,8 +17,3 @@
 [part='wrapper'] {
   flex: 1;
 }
-
-// ::slotted(sl-option:first-child) {
-//  background: #0a5757;
-//  border: deeppink solid var(--sl-size-borderWidth-default);
-// }

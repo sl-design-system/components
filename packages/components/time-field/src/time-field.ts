@@ -323,6 +323,39 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
       // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the date field
       // does not close parent containers (such as dialogs).
       event.stopPropagation();
+    } else if (['ArrowUp', 'ArrowDown'].includes(event.key)) {
+      event.preventDefault();
+
+      const activeElement = (this.renderRoot as ShadowRoot).activeElement as HTMLElement;
+      if (!activeElement || !(activeElement instanceof HTMLButtonElement)) {
+        return;
+      }
+
+      const buttons = Array.from(activeElement.parentElement?.querySelectorAll('button') ?? []);
+      let index = buttons.indexOf(activeElement);
+
+      if (event.key === 'ArrowUp') {
+        index = index === 0 ? buttons.length - 1 : index - 1;
+      } else if (event.key === 'ArrowDown') {
+        index = index === buttons.length - 1 ? 0 : index + 1;
+      }
+
+      buttons[index]?.focus();
+      buttons[index]?.scrollIntoView({ block: 'nearest' });
+    } else if (['ArrowLeft', 'ArrowRight'].includes(event.key)) {
+      event.preventDefault();
+
+      const activeElement = (this.renderRoot as ShadowRoot).activeElement as HTMLElement;
+      if (!activeElement || !(activeElement instanceof HTMLButtonElement)) {
+        return;
+      }
+
+      const container = activeElement.parentElement;
+      if (container?.classList.contains('hours') && event.key === 'ArrowRight') {
+        this.renderRoot.querySelector<HTMLElement>('.minutes button[selected]')?.focus();
+      } else if (container?.classList.contains('minutes') && event.key === 'ArrowLeft') {
+        this.renderRoot.querySelector<HTMLElement>('.hours button[selected]')?.focus();
+      }
     }
   }
 

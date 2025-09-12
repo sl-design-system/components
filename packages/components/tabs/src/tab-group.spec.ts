@@ -270,7 +270,7 @@ describe('sl-tab-group', () => {
       `);
 
       // We need to wait for the RovingTabindexController to do its thing
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 100));
     });
 
     it('should have a menu button', () => {
@@ -318,7 +318,7 @@ describe('sl-tab-group', () => {
       `);
 
       // We need to wait for the RovingTabindexController to do its thing
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 100));
     });
 
     it('should have a menu button', async () => {
@@ -344,7 +344,7 @@ describe('sl-tab-group', () => {
       `);
 
       // We need to wait for the RovingTabindexController to do its thing
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 100));
 
       tab = el.querySelector('sl-tab')!;
       link = tab.renderRoot.querySelector('a')!;

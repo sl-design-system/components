@@ -80,6 +80,7 @@ export class Tooltip extends LitElement {
 
       tooltip.id = `sl-tooltip-${nextUniqueId++}`;
       target.setAttribute('aria-describedby', tooltip.id);
+      target.setAttribute('aria-labelledby', tooltip.id);
 
       callback(tooltip);
 

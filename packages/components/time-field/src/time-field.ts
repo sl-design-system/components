@@ -76,6 +76,18 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** @internal The listbox element that is also the popover. */
   @query('[part="listbox"]') listbox?: HTMLSlotElement;
 
+  /**
+   * The maximum time selectable in the field.
+   * @default undefined
+   */
+  @property() max?: string;
+
+  /**
+   * The minimum time selectable in the field.
+   * @default undefined
+   */
+  @property() min?: string;
+
   /** The step between each minute option. */
   @property({ type: Number, attribute: 'minute-step' }) minuteStep = TimeField.minuteStep;
 

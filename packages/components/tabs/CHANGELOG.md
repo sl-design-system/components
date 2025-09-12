@@ -1,5 +1,11 @@
 # @sl-design-system/tabs
 
+## 1.2.3
+
+### Patch Changes
+
+- [#2616](https://github.com/sl-design-system/components/pull/2616) [`dfb4ed6`](https://github.com/sl-design-system/components/commit/dfb4ed65687c54d8052faeae3243ba6ced8b0995) - Fixes selecting tab (and showing the selected tab) for Safari and Firefox (when zooming in/out as well).
+
 ## 1.2.2
 
 ### Patch Changes

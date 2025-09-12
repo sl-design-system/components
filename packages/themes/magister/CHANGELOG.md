@@ -1,5 +1,12 @@
 # @sanomalearning/slds-magister
 
+## 0.3.1
+
+### Patch Changes
+
+- [#2619](https://github.com/sl-design-system/components/pull/2619) [`f98677b`](https://github.com/sl-design-system/components/commit/f98677be7437be86d29503ea21bdfc768b283916) - - Updated the orange color palette in Magister for improved consistency and accessibility
+  - Slightly lightened the zebra striping in grid views to enhance visual clarity
+
 ## 0.3.0
 
 ### Minor Changes

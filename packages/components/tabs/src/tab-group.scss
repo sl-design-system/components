@@ -92,6 +92,7 @@
     overflow: clip scroll;
     overscroll-behavior-y: contain;
     scroll-snap-points-y: repeat(100%);
+    scroll-snap-type: block;
   }
 
   [part='tablist'] {
@@ -162,7 +163,7 @@
   overscroll-behavior-x: contain;
   scroll-behavior: auto;
   scroll-snap-points-x: repeat(100%);
-  scroll-snap-type: x mandatory;
+  scroll-snap-type: inline;
   scrollbar-width: none;
 
   &::-webkit-scrollbar {
@@ -184,13 +185,13 @@
 .indicator {
   background: var(--sl-color-border-selected);
   block-size: var(--sl-size-025);
-  inline-size: 100px; // Default value; actual width depends on scale transform
+  inline-size: 100px; // Default value; actual width depends on calculated value
   inset: auto auto 0 0;
   opacity: 0;
   position: absolute;
-  scale: 0 1;
   transform-origin: center left;
-  transition-property: scale, translate;
+  transition-property:
+    width, height, translate; // TODO: `width` and `height` are not animated on the GPU, but `scale` is not working properly in Safari e.g. when zooming in/out (so we cannot use it right now). Change to `scale` when Safari supports it in a proper way.
   transition-timing-function: ease-in-out;
   translate: 0;
 

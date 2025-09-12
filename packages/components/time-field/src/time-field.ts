@@ -55,6 +55,12 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
    */
   #popoverJustClosed = false;
 
+  /** The current value in numbers. */
+  #valueAsNumbers: { hours: number; minutes: number } | undefined;
+
+  /** The value in HH:mm format. */
+  #value: string | undefined;
+
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
@@ -112,6 +118,16 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** @internal The text field. */
   @query('sl-text-field') textField!: TextField;
 
+  override get value(): string | undefined {
+    return this.#value;
+  }
+
+  @property()
+  override set value(value: string | undefined) {
+    this.#value = value;
+    this.#valueAsNumbers = value ? this.#parseTime(value) : undefined;
+  }
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -137,13 +153,20 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
     this.prepend(style);
   }
 
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
+
+    if (changes.has('value')) {
+      this.input.value = this.value || '';
+      this.updateValidity();
+    }
+  }
+
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('required')) {
-      if (this.textField) {
-        this.textField.required = !!this.required;
-      }
+    if (changes.has('required') && this.textField) {
+      this.textField.required = !!this.required;
     }
   }
 
@@ -193,7 +216,11 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
               const hour = i * this.hourStep,
                 hourString = hour.toString().padStart(2, '0');
 
-              return html`<button @click=${() => this.#onHourClick(hour)}>${hourString}</button>`;
+              return html`
+                <button @click=${() => this.#onHourClick(hour)} ?selected=${hour === this.#valueAsNumbers?.hours}>
+                  ${hourString}
+                </button>
+              `;
             })}
           </div>
           <div class="separator"></div>
@@ -202,7 +229,14 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
               const minute = i * this.minuteStep,
                 minuteString = minute.toString().padStart(2, '0');
 
-              return html`<button @click=${() => this.#onMinuteClick(minute)}>${minuteString}</button>`;
+              return html`
+                <button
+                  @click=${() => this.#onMinuteClick(minute)}
+                  ?selected=${minute === this.#valueAsNumbers?.minutes}
+                >
+                  ${minuteString}
+                </button>
+              `;
             })}
           </div>
         </div>
@@ -287,6 +321,16 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
       // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the date field
       // does not close parent containers (such as dialogs).
       event.stopPropagation();
+    }
+  }
+
+  #parseTime(value: string): { hours: number; minutes: number } | undefined {
+    const timeParts = value.split(':').map(Number);
+
+    if (timeParts.length === 2) {
+      return { hours: timeParts[0], minutes: timeParts[1] };
+    } else {
+      return undefined;
     }
   }
 }

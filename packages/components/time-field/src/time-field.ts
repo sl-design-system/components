@@ -211,20 +211,24 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
         popover
       >
         <div class="wrapper">
-          <div class="hours">
+          <div class="hours" tabindex="-1">
             ${Array.from({ length: 24 / this.hourStep }, (_, i) => {
               const hour = i * this.hourStep,
                 hourString = hour.toString().padStart(2, '0');
 
               return html`
-                <button @click=${() => this.#onHourClick(hour)} ?selected=${hour === this.#valueAsNumbers?.hours}>
+                <button
+                  @click=${() => this.#onHourClick(hour)}
+                  ?selected=${hour === this.#valueAsNumbers?.hours}
+                  tabindex="-1"
+                >
                   ${hourString}
                 </button>
               `;
             })}
           </div>
           <div class="separator"></div>
-          <div class="minutes">
+          <div class="minutes" tabindex="-1">
             ${Array.from({ length: 60 / this.minuteStep }, (_, i) => {
               const minute = i * this.minuteStep,
                 minuteString = minute.toString().padStart(2, '0');
@@ -233,6 +237,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
                 <button
                   @click=${() => this.#onMinuteClick(minute)}
                   ?selected=${minute === this.#valueAsNumbers?.minutes}
+                  tabindex="-1"
                 >
                   ${minuteString}
                 </button>
@@ -314,7 +319,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
         .querySelectorAll<HTMLElement>('button[selected]')
         ?.forEach(el => el.scrollIntoView({ block: 'start', behavior: 'instant' }));
 
-      this.renderRoot.querySelector<HTMLElement>('.hours button[selected]')?.focus();
+      this.renderRoot.querySelector<HTMLElement>('.hours button:first-of-type, .hours button[selected]')?.focus();
     }
   }
 
@@ -341,6 +346,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
       }
 
       buttons[index]?.focus();
+      buttons[index]?.click();
       buttons[index]?.scrollIntoView({ block: 'nearest' });
     } else if (['ArrowLeft', 'ArrowRight'].includes(event.key)) {
       event.preventDefault();
@@ -352,10 +358,25 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
 
       const container = activeElement.parentElement;
       if (container?.classList.contains('hours') && event.key === 'ArrowRight') {
-        this.renderRoot.querySelector<HTMLElement>('.minutes button[selected]')?.focus();
+        const minutes = this.renderRoot.querySelector<HTMLElement>('.minutes')!;
+
+        (
+          minutes.querySelector<HTMLElement>('button[selected]') ||
+          minutes.querySelector<HTMLElement>('button:first-of-type')
+        )?.focus();
       } else if (container?.classList.contains('minutes') && event.key === 'ArrowLeft') {
-        this.renderRoot.querySelector<HTMLElement>('.hours button[selected]')?.focus();
+        const hours = this.renderRoot.querySelector<HTMLElement>('.hours')!;
+
+        (
+          hours.querySelector<HTMLElement>('button[selected]') ||
+          hours.querySelector<HTMLElement>('button:first-of-type')
+        )?.focus();
       }
+    } else if (event.key === 'Enter') {
+      event.preventDefault();
+
+      this.listbox?.hidePopover();
+      this.textField.focus();
     }
   }
 

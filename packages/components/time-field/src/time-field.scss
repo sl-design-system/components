@@ -59,12 +59,13 @@
 }
 
 button {
+  --_bg-color: transparent;
   --_bg-mix-color: var(--sl-color-background-secondary-interactive-bold);
   --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
 
   align-items: center;
   appearance: none;
-  background: color-mix(in srgb, transparent, var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
   border: 0;
   border-radius: var(--sl-size-borderRadius-default);
   cursor: pointer;
@@ -85,5 +86,12 @@ button {
 
   &:focus-visible {
     outline-color: var(--sl-color-border-focused);
+  }
+
+  &[selected] {
+    --_bg-color: var(--sl-color-background-primary-bold);
+    --_bg-mix-color: var(--sl-color-background-primary-interactive-bold);
+
+    color: var(--sl-color-foreground-primary-onBold);
   }
 }

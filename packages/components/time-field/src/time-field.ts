@@ -310,14 +310,10 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
     if (event.newState === 'closed') {
       this.#popoverJustClosed = false;
     } else {
-      // Wait for the calendar to render in the popover
-      requestAnimationFrame(() => {
-        // this.renderRoot.querySelector('sl-calendar')?.focus();
-      });
+      this.renderRoot
+        .querySelectorAll<HTMLElement>('button[selected]')
+        ?.forEach(el => el.scrollIntoView({ block: 'start', behavior: 'instant' }));
     }
-
-    // Trigger a rerender so the calendar will be rendered
-    this.requestUpdate();
   }
 
   #onKeydown(event: KeyboardEvent): void {

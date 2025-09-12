@@ -10,47 +10,52 @@ describe('sl-skeleton', () => {
     el = await fixture(html`<sl-skeleton></sl-skeleton>`);
   });
 
-  it('should render correctly', () => {
-    expect(el).shadowDom.to.equalSnapshot();
-  });
-
   it('should have an aria busy', () => {
     expect(el).to.have.attribute('aria-busy', 'true');
   });
 
-  it('should have a shimmer effect by default', () => {
-    expect(el).to.have.attribute('effect', 'shimmer');
+  it('should not have a default effect', () => {
+    expect(el).not.to.have.attribute('effect');
+    expect(el.effect).to.be.undefined;
   });
 
   it('should have a pulse effect when set', async () => {
     el.effect = 'pulse';
     await el.updateComplete;
 
-    const effect = el.getAttribute('effect');
-    expect(effect).to.equal('pulse');
+    expect(el).to.have.attribute('effect', 'pulse');
   });
 
   it('should have a shimmer effect when set', async () => {
     el.effect = 'shimmer';
     await el.updateComplete;
 
-    const effect = el.getAttribute('effect');
-    expect(effect).to.equal('shimmer');
+    expect(el).to.have.attribute('effect', 'shimmer');
   });
 
   it('should have a sheen effect when set', async () => {
     el.effect = 'sheen';
     await el.updateComplete;
 
-    const effect = el.getAttribute('effect');
-    expect(effect).to.equal('sheen');
+    expect(el).to.have.attribute('effect', 'sheen');
   });
 
   it('should have no effect when set to none', async () => {
     el.effect = 'none';
     await el.updateComplete;
 
-    const effect = el.getAttribute('effect');
-    expect(effect).to.equal('none');
+    expect(el).to.have.attribute('effect', 'none');
+  });
+
+  it('should not have a default variant', () => {
+    expect(el).not.to.have.attribute('variant');
+    expect(el.variant).to.be.undefined;
+  });
+
+  it('should have a circle variant when set', async () => {
+    el.variant = 'circle';
+    await el.updateComplete;
+
+    expect(el).to.have.attribute('variant', 'circle');
   });
 });

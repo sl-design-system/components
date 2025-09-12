@@ -85,6 +85,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   /** Unique prefix ID for each component in the light DOM. */
   #idPrefix = `sl-tab-group-${nextUniqueId++}`;
 
+  /** Menu element, is shown when the tabs are overflowing. */
+  #menu?: Menu;
+
   /**
    * Observe changes to the selected tab and update accordingly. This observer
    * is necessary for changes to the selected tab that are made programmatically.
@@ -156,11 +159,11 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     listenerScope: (): HTMLElement => this.renderRoot.querySelector('[part="tablist"]') as HTMLElement
   });
 
-  /** Menu element, is shown when the tabs are overflowing. */
-  #menu?: Menu;
-
   /** Determines whether the active tab indicator should animate. */
   #shouldAnimate = false;
+
+  /** Timeout id, to be used with `clearTimeout`. */
+  #timeoutId?: ReturnType<typeof setTimeout>;
 
   /**
    * Determines when the contents of a tab is shown. Auto means the contents will be
@@ -204,6 +207,11 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   @property({ type: Boolean, reflect: true }) vertical?: boolean;
 
   override disconnectedCallback(): void {
+    if (this.#timeoutId) {
+      clearTimeout(this.#timeoutId);
+      this.#timeoutId = undefined;
+    }
+
     this.#resizeObserver.disconnect();
     this.#mutationObserver.disconnect();
 
@@ -221,7 +229,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
     // Delay ensures the DOM is fully rendered and layout is stable before running scroll and indicator logic,
     // improving compatibility with Firefox and preventing visual glitches.
-    setTimeout(() => {
+    this.#timeoutId = setTimeout(() => {
       const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement;
 
       // Manually trigger the scroll event handler the first time,

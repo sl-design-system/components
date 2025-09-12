@@ -50,7 +50,11 @@ Here's an overview of the common keyboard interactions associated with a tooltip
 
 {{ 'aria-attributes' | recurringText }}
 
-A tooltip can be linked to another element by either using `aria-describedby` or `aria-labelledby` attributes. The choice between the two depends on the context and the relationship between the tooltip and the anchor element.
+A tooltip can be linked to another element by either using `aria-describedby` or `aria-labelledby` attributes.
+The choice between the two depends on the context and the relationship between the tooltip and the anchor element.
+A good example of when to use `aria-labelledby` is when the tooltip provides a label or title for the anchor element,
+such as an icon only button (so button with only an icon) and no visible text.
+In this case, the tooltip serves as the accessible name for the button.
 
 You can read  more on the difference between the two attributes in the [MDN article about aria-describedby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby#:~:text=The%20aria%2Ddescribedby%20attribute%20is%20very%20similar%20to%20the)
 

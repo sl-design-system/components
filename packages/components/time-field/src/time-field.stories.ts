@@ -4,7 +4,10 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type TimeField } from './time-field.js';
 
-type Props = Pick<TimeField, 'disabled' | 'max' | 'min' | 'placeholder' | 'readonly' | 'required' | 'value'> & {
+type Props = Pick<
+  TimeField,
+  'disabled' | 'hourStep' | 'max' | 'min' | 'minuteStep' | 'placeholder' | 'readonly' | 'required' | 'value'
+> & {
   hint?: string;
   label?: string;
   reportValidity?: boolean;

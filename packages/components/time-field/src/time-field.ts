@@ -3,7 +3,7 @@ import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin, type SlFormControlEvent, type SlUpdateStateEvent } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { Listbox, Option } from '@sl-design-system/listbox';
+import { Listbox } from '@sl-design-system/listbox';
 import { type EventEmitter, anchor, event } from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { FieldButton, TextField } from '@sl-design-system/text-field';
@@ -20,6 +20,9 @@ declare global {
 
 Icon.register(faClock);
 
+/**
+ * A time field control for selecting a time.
+ */
 @localized()
 export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** The default step between each hour option. */
@@ -36,7 +39,6 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
     return {
       'sl-field-button': FieldButton,
       'sl-icon': Icon,
-      'sl-option': Option,
       'sl-listbox': Listbox,
       'sl-text-field': TextField
     };
@@ -178,6 +180,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
         @sl-focus=${this.#onTextFieldFocus}
         @sl-form-control=${this.#onTextFieldFormControl}
         @sl-update-state=${this.#onTextFieldUpdateState}
+        @keydown=${this.#onTextFieldKeydown}
         ?disabled=${this.disabled}
         ?readonly=${this.readonly}
         ?required=${this.required}
@@ -297,11 +300,51 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
     event.stopPropagation();
 
     this.focusEvent.emit();
+
+    this.input.setSelectionRange(0, 2);
   }
 
   #onTextFieldFormControl(event: SlFormControlEvent): void {
     event.preventDefault();
     event.stopPropagation();
+  }
+
+  #onTextFieldKeydown(event: KeyboardEvent): void {
+    const { selectionStart, selectionEnd } = this.input;
+
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      event.preventDefault();
+
+      let { hours, minutes } = this.#valueAsNumbers || { hours: 0, minutes: 0 };
+
+      if (this.input.selectionStart === 0) {
+        hours += event.key === 'ArrowUp' ? 1 : -1;
+        hours = (hours + 24) % 24;
+      } else {
+        minutes += event.key === 'ArrowUp' ? 1 : -1;
+        minutes = (minutes + 60) % 60;
+      }
+
+      this.#valueAsNumbers = { hours, minutes };
+      this.#value = this.#formatTime(hours, minutes);
+
+      this.input.value = this.#value ?? '';
+      this.input.setSelectionRange(selectionStart, selectionEnd);
+
+      this.requestUpdate();
+    } else if (event.key === 'ArrowRight') {
+      event.preventDefault();
+
+      if (selectionStart === 0) {
+        this.input.setSelectionRange(3, 5);
+      }
+    } else if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+
+      if (selectionStart === 3) {
+        this.input.setSelectionRange(0, 2);
+      }
+    }
   }
 
   #onTextFieldUpdateState(event: SlUpdateStateEvent): void {

@@ -326,6 +326,10 @@
   <source>error</source>
   <target>fout</target>
 </trans-unit>
+<trans-unit id="sl.timeField.toggleDropdown">
+  <source>Toggle dropdown</source>
+  <target>Toon dropdown</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

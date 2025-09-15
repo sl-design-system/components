@@ -192,6 +192,7 @@
   transform-origin: center left;
   transition-property:
     width, height, translate; // TODO: `width` and `height` are not animated on the GPU, but `scale` is not working properly in Safari e.g. when zooming in/out (so we cannot use it right now). Change to `scale` when Safari supports it in a proper way.
+
   transition-timing-function: ease-in-out;
   translate: 0;
 

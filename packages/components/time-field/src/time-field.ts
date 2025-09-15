@@ -392,7 +392,6 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
       }
 
       buttons[index]?.focus();
-      buttons[index]?.click();
       buttons[index]?.scrollIntoView({ block: 'nearest' });
     } else if (['ArrowLeft', 'ArrowRight'].includes(event.key)) {
       event.preventDefault();

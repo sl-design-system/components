@@ -183,6 +183,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
         @sl-focus=${this.#onTextFieldFocus}
         @sl-form-control=${this.#onTextFieldFormControl}
         @sl-update-state=${this.#onTextFieldUpdateState}
+        @click=${this.#onTextFieldClick}
         @keydown=${this.#onTextFieldKeydown}
         ?disabled=${this.disabled}
         ?readonly=${this.readonly}
@@ -197,7 +198,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
           ?disabled=${this.disabled || this.readonly}
           aria-label=${msg('Toggle dropdown', { id: 'sl.timeField.toggleDropdown' })}
           slot="suffix"
-          tabindex=${this.disabled ? '-1' : '0'}
+          tabindex=${this.disabled || this.readonly ? '-1' : '0'}
         >
           <sl-icon name="far-clock"></sl-icon>
         </sl-field-button>
@@ -225,6 +226,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
               return html`
                 <button
                   @click=${() => this.#onHourClick(hour)}
+                  @keydown=${(event: KeyboardEvent) => this.#onHourKeydown(event, hour)}
                   ?selected=${hour === this.#valueAsNumbers?.hours}
                   tabindex="-1"
                 >
@@ -242,6 +244,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
               return html`
                 <button
                   @click=${() => this.#onMinuteClick(minute)}
+                  @keydown=${(event: KeyboardEvent) => this.#onMinuteKeydown(event, minute)}
                   ?selected=${minute === this.#valueAsNumbers?.minutes}
                   tabindex="-1"
                 >
@@ -277,97 +280,11 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
     this.requestUpdate('value');
   }
 
-  #onMinuteClick(minutes: number): void {
-    this.#valueAsNumbers = { hours: this.#valueAsNumbers?.hours ?? 0, minutes };
-    this.#value = this.#formatTime(this.#valueAsNumbers.hours ?? 0, this.#valueAsNumbers.minutes ?? 0);
-    this.requestUpdate('value');
-  }
-
-  #onTextFieldBlur(event: SlBlurEvent): void {
-    event.preventDefault();
-    event.stopPropagation();
-
-    this.blurEvent.emit();
-    this.updateState({ touched: true });
-  }
-
-  #onTextFieldChange(event: SlChangeEvent): void {
-    event.preventDefault();
-    event.stopPropagation();
-
-    this.updateValidity();
-  }
-
-  #onTextFieldFocus(event: SlFocusEvent): void {
-    event.preventDefault();
-    event.stopPropagation();
-
-    this.focusEvent.emit();
-
-    if (!this.readonly) {
-      this.input.setSelectionRange(0, 2);
-    }
-  }
-
-  #onTextFieldFormControl(event: SlFormControlEvent): void {
-    event.preventDefault();
-    event.stopPropagation();
-  }
-
-  #onTextFieldKeydown(event: KeyboardEvent): void {
-    if (this.readonly) {
-      return;
-    }
-
-    const { selectionStart, selectionEnd } = this.input;
-
-    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+  #onHourKeydown(event: KeyboardEvent, hours: number): void {
+    if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
 
-      let { hours, minutes } = this.#valueAsNumbers || { hours: 0, minutes: 0 };
-
-      if (this.input.selectionStart === 0) {
-        hours += event.key === 'ArrowUp' ? 1 : -1;
-        hours = (hours + 24) % 24;
-      } else {
-        minutes += event.key === 'ArrowUp' ? 1 : -1;
-        minutes = (minutes + 60) % 60;
-      }
-
-      this.#valueAsNumbers = { hours, minutes };
-      this.#value = this.#formatTime(hours, minutes);
-
-      this.input.value = this.#value ?? '';
-      this.input.setSelectionRange(selectionStart, selectionEnd);
-
-      this.requestUpdate();
-    } else if (event.key === 'ArrowRight') {
-      event.preventDefault();
-
-      if (selectionStart === 0) {
-        this.input.setSelectionRange(3, 5);
-      }
-    } else if (event.key === 'ArrowLeft') {
-      event.preventDefault();
-
-      if (selectionStart === 3) {
-        this.input.setSelectionRange(0, 2);
-      }
-    }
-  }
-
-  #onTextFieldUpdateState(event: SlUpdateStateEvent): void {
-    event.preventDefault();
-    event.stopPropagation();
-
-    this.updateValidity();
-  }
-
-  #onToggle(event: ToggleEvent): void {
-    if (event.newState === 'closed') {
-      this.#popoverJustClosed = false;
-    } else {
-      this.#scrollAndFocusStartTime();
+      this.#onHourClick(hours);
     }
   }
 
@@ -419,11 +336,119 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
           hours.querySelector<HTMLElement>('button:first-of-type')
         )?.focus();
       }
-    } else if (event.key === 'Enter') {
+    }
+  }
+
+  #onMinuteClick(minutes: number): void {
+    this.#valueAsNumbers = { hours: this.#valueAsNumbers?.hours ?? 0, minutes };
+    this.#value = this.#formatTime(this.#valueAsNumbers.hours ?? 0, this.#valueAsNumbers.minutes ?? 0);
+    this.requestUpdate('value');
+
+    this.listbox?.hidePopover();
+    this.textField.focus();
+  }
+
+  #onMinuteKeydown(event: KeyboardEvent, minutes: number): void {
+    if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
 
-      this.listbox?.hidePopover();
-      this.textField.focus();
+      this.#onMinuteClick(minutes);
+    }
+  }
+
+  #onTextFieldBlur(event: SlBlurEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.blurEvent.emit();
+    this.updateState({ touched: true });
+  }
+
+  #onTextFieldChange(event: SlChangeEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.updateValidity();
+  }
+
+  #onTextFieldClick(): void {
+    if (this.readonly || this.disabled) {
+      return;
+    }
+
+    this.listbox?.showPopover();
+  }
+
+  #onTextFieldFocus(event: SlFocusEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.focusEvent.emit();
+
+    if (!this.readonly) {
+      this.input.setSelectionRange(0, 2);
+    }
+  }
+
+  #onTextFieldFormControl(event: SlFormControlEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  #onTextFieldKeydown(event: KeyboardEvent): void {
+    if (this.readonly) {
+      return;
+    }
+
+    const selectionStart = this.input.selectionStart || 0;
+
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      event.preventDefault();
+
+      let { hours, minutes } = this.#getStartTime();
+
+      if (selectionStart === 0) {
+        hours += event.key === 'ArrowUp' ? 1 : -1;
+        hours = (hours + 24) % 24;
+      } else {
+        minutes += event.key === 'ArrowUp' ? 1 : -1;
+        minutes = (minutes + 60) % 60;
+      }
+
+      this.#valueAsNumbers = { hours, minutes };
+      this.#value = this.#formatTime(hours, minutes);
+
+      this.input.value = this.#value ?? '';
+      this.input.setSelectionRange(selectionStart, selectionStart + 2);
+
+      this.requestUpdate();
+    } else if (event.key === 'ArrowRight') {
+      event.preventDefault();
+
+      if (selectionStart === 0) {
+        this.input.setSelectionRange(3, 5);
+      }
+    } else if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+
+      if (selectionStart === 3) {
+        this.input.setSelectionRange(0, 2);
+      }
+    }
+  }
+
+  #onTextFieldUpdateState(event: SlUpdateStateEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.updateValidity();
+  }
+
+  #onToggle(event: ToggleEvent): void {
+    if (event.newState === 'closed') {
+      this.#popoverJustClosed = false;
+    } else {
+      this.#scrollAndFocusStartTime();
     }
   }
 
@@ -444,7 +469,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
     }
   }
 
-  #scrollAndFocusStartTime(): void {
+  #getStartTime(): { hours: number; minutes: number } {
     let time = this.#valueAsNumbers;
     if (!time && this.start) {
       time = this.#parseTime(this.start);
@@ -452,6 +477,12 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
 
     // Fallback to the current time
     time ||= { hours: new Date().getHours(), minutes: new Date().getMinutes() };
+
+    return time;
+  }
+
+  #scrollAndFocusStartTime(): void {
+    const time = this.#getStartTime();
 
     // Find the closest hour and minute based on the steps
     time.hours = Math.round(time.hours / this.hourStep) * this.hourStep;

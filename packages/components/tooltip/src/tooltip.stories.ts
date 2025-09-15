@@ -98,17 +98,18 @@ export const Directive: Story = {
 
 export const DirectiveWithOptions: Story = {
   render: () => {
-    const onClick = async (event: Event & { target: HTMLElement }) => {
-      const dialog = document.createElement('sl-dialog');
-      dialog.innerHTML = `
-        <span slot="title">Tooltip</span>
-        Tooltip should be closed when the dialog is closed..
-        <sl-button slot="primary-actions" sl-dialog-close variant="primary">Close</sl-button>
-      `;
-      dialog.addEventListener('sl-close', () => dialog.remove());
-      event.target.insertAdjacentElement('afterend', dialog);
-      await dialog.updateComplete;
-      dialog.showModal();
+    const onClick = (event: Event & { target: HTMLElement }) => {
+      // const dialog = document.createElement('sl-dialog');
+      // dialog.innerHTML = `
+      //   <span slot="title">Tooltip</span>
+      //   Tooltip should be closed when the dialog is closed..
+      //   <sl-button slot="primary-actions" sl-dialog-close variant="primary">Close</sl-button>
+      // `;
+      // dialog.addEventListener('sl-close', () => dialog.remove());
+      // event.target.insertAdjacentElement('afterend', dialog);
+      // await dialog.updateComplete;
+      // dialog.showModal();
+      console.log('click', event);
     };
 
     return html`
@@ -123,6 +124,8 @@ export const DirectiveWithOptions: Story = {
         <sl-icon name="far-gear" size="lg"></sl-icon>
       </sl-button>
       TODO: make it working with context like tooltip.lazy?
+
+      <sl-button ${tooltip('Hello world', { ariaRelation: 'label' })}>Button</sl-button>
     `;
   }
 };

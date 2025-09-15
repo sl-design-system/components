@@ -34,13 +34,13 @@ export interface TooltipOptions {
 
   /**
    * Which ARIA relationship attribute to add to the anchor (`aria-describedby` or `aria-labelledby`).
-   * Defaults to 'describedby'.
+   * Defaults to 'description' ('aria-describedby').
    *
    * A good example of when to use `aria-labelledby`
    * is when the tooltip provides a label or title for the anchor element,
    * such as an icon only button (so button with only an icon) and no visible text.
    */
-  ariaRelation?: 'describedby' | 'labelledby';
+  ariaRelation?: 'description' | 'label';
 }
 
 let nextUniqueId = 0;
@@ -90,8 +90,10 @@ export class Tooltip extends LitElement {
 
       tooltip.id = `sl-tooltip-${nextUniqueId++}`;
 
-      const ariaRelation = options.ariaRelation ?? 'describedby';
-      target.setAttribute(`aria-${ariaRelation}`, tooltip.id);
+      const ariaRelation = options.ariaRelation ?? 'description',
+        ariaAttribute = ariaRelation === 'label' ? 'labelledby' : 'describedby';
+
+      target.setAttribute(`aria-${ariaAttribute}`, tooltip.id);
 
       callback(tooltip);
 

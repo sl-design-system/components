@@ -181,6 +181,26 @@ export const NestedChildren: Story = {
   }
 };
 
+export const IconButton: Story = {
+  render: () => {
+    return html`
+      <style>
+        #root-inner {
+          display: grid;
+          height: calc(20rem);
+          place-items: center;
+        }
+      </style>
+      <sl-button aria-labelledby="tooltip" variant="primary" fill="solid" shape="pill" size="md">
+        <sl-icon name="face-smile"></sl-icon>
+      </sl-button>
+      <sl-tooltip id="tooltip" position="top">
+        This is the tooltip message that labels the icon only button.
+      </sl-tooltip>
+    `;
+  }
+};
+
 export const All: Story = {
   render: () => {
     setTimeout(() => {

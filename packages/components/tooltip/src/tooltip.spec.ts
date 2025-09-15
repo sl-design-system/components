@@ -113,4 +113,73 @@ describe('sl-tooltip', () => {
       expect(tooltip.matches(':popover-open')).to.be.true;
     });
   });
+
+  describe('Tooltip lazy()', () => {
+    let el: HTMLElement;
+    let button: Button;
+    let tooltip: Tooltip;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <div style="display: block; width: 400px; height: 400px;">
+          <sl-button>Button</sl-button>
+        </div>
+      `);
+      button = el.querySelector('sl-button') as Button;
+    });
+
+    it('should create a tooltip lazily on pointerover with default aria-describedby', async () => {
+      Tooltip.lazy(button, createdTooltip => (tooltip = createdTooltip));
+
+      button.dispatchEvent(new Event('pointerover', { bubbles: true }));
+
+      // Give some time for the tooltip to open
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(tooltip).to.exist;
+      expect(tooltip!.id).to.match(/sl-tooltip-(\d+)/);
+      expect(button).to.have.attribute('aria-describedby', tooltip?.id);
+      expect(button).not.to.have.attribute('aria-labelledby');
+      expect(tooltip!.matches(':popover-open')).to.be.true;
+    });
+
+    it('should create a tooltip lazily on focusin', async () => {
+      Tooltip.lazy(button, createdTooltip => (tooltip = createdTooltip));
+
+      button.dispatchEvent(new Event('focusin', { bubbles: true }));
+
+      // Give some time for the tooltip to open
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(tooltip).to.exist;
+      expect(button).to.have.attribute('aria-describedby', tooltip?.id);
+      expect(tooltip!.matches(':popover-open')).to.be.true;
+    });
+
+    it('should use aria-labelledby when ariaRelation is label', async () => {
+      Tooltip.lazy(button, createdTooltip => (tooltip = createdTooltip), { ariaRelation: 'label' });
+
+      button.dispatchEvent(new Event('pointerover', { bubbles: true }));
+
+      // Give some time for the tooltip to open
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(tooltip).to.exist;
+      expect(button).to.have.attribute('aria-labelledby', tooltip?.id);
+      expect(button).not.to.have.attribute('aria-describedby');
+    });
+
+    it('should only create the tooltip once', async () => {
+      Tooltip.lazy(button, createdTooltip => (tooltip = createdTooltip));
+
+      button.dispatchEvent(new Event('pointerover', { bubbles: true }));
+      button.dispatchEvent(new Event('pointerover', { bubbles: true })); // second should be ignored
+
+      // Give some time for the tooltip to open
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(el.querySelectorAll('sl-tooltip').length).to.equal(1);
+      expect(tooltip).to.exist;
+    });
+  });
 });

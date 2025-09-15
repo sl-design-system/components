@@ -117,6 +117,9 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
    */
   @property({ type: Boolean, reflect: true }) override required?: boolean;
 
+  /** The start time of the field. If not set, it will use the current time. */
+  @property() start?: string;
+
   /** @internal The text field. */
   @query('sl-text-field') textField!: TextField;
 
@@ -301,7 +304,9 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
 
     this.focusEvent.emit();
 
-    this.input.setSelectionRange(0, 2);
+    if (!this.readonly) {
+      this.input.setSelectionRange(0, 2);
+    }
   }
 
   #onTextFieldFormControl(event: SlFormControlEvent): void {
@@ -310,6 +315,10 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
   }
 
   #onTextFieldKeydown(event: KeyboardEvent): void {
+    if (this.readonly) {
+      return;
+    }
+
     const { selectionStart, selectionEnd } = this.input;
 
     if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
@@ -358,14 +367,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
     if (event.newState === 'closed') {
       this.#popoverJustClosed = false;
     } else {
-      this.renderRoot
-        .querySelectorAll<HTMLElement>('button[selected]')
-        ?.forEach(el => el.scrollIntoView({ block: 'start', behavior: 'instant' }));
-
-      const hours = this.renderRoot.querySelector<HTMLElement>('.hours')!;
-      (
-        hours.querySelector<HTMLElement>('button[selected]') || hours.querySelector<HTMLElement>('button:first-of-type')
-      )?.focus();
+      this.#scrollAndFocusStartTime();
     }
   }
 
@@ -440,5 +442,30 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
     } else {
       return undefined;
     }
+  }
+
+  #scrollAndFocusStartTime(): void {
+    let time = this.#valueAsNumbers;
+    if (!time && this.start) {
+      time = this.#parseTime(this.start);
+    }
+
+    // Fallback to the current time
+    time ||= { hours: new Date().getHours(), minutes: new Date().getMinutes() };
+
+    // Find the closest hour and minute based on the steps
+    time.hours = Math.round(time.hours / this.hourStep) * this.hourStep;
+    time.minutes = Math.round(time.minutes / this.minuteStep) * this.minuteStep;
+
+    // Scroll to the closest hour and minute
+    const hours = this.renderRoot.querySelector<HTMLElement>('.hours')!,
+      minutes = this.renderRoot.querySelector<HTMLElement>('.minutes')!;
+
+    const hoursIndex = Math.floor(time.hours / this.hourStep),
+      minutesIndex = Math.floor(time.minutes / this.minuteStep);
+
+    (hours.children[hoursIndex] as HTMLElement)?.focus();
+    (hours.children[hoursIndex] as HTMLElement)?.scrollIntoView({ block: 'start' });
+    (minutes.children[minutesIndex] as HTMLElement)?.scrollIntoView({ block: 'start' });
   }
 }

@@ -143,9 +143,13 @@ const buildIcons = async theme => {
 };
 
 const buildAllIcons = async () => {
-  const themes = (await fg('../packages/themes/*', { cwd, onlyDirectories: true })).filter(theme => theme.indexOf('core') < 0);
+  const folders = (await fg('../packages/themes/*', { cwd, onlyDirectories: true }));
 
-  themes.forEach(component => buildIcons(basename(component)));
+  folders
+    .map(folder => basename(folder))
+    .filter(theme => theme.indexOf('core') < 0)
+    .filter(theme => existsSync(join(cwd, `../packages/tokens/src/${theme}/base.json`)))
+    .forEach(component => buildIcons(basename(component)));
 };
 
 const exportCoreIcons = async () => {

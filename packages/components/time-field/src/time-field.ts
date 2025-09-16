@@ -70,7 +70,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<Date>>;
 
   /** Whether the time field is disabled; when set no interaction is possible. */
-  @property({ type: Boolean }) override disabled?: boolean;
+  @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
   /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;

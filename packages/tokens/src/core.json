@@ -21,6 +21,11 @@
 				"$value": "check",
 				"$description": "icon.core.check"
 			},
+			"clock": {
+				"$type": "Icons",
+				"$value": "clock",
+				"$description": "icon.core.fav"
+			},
 			"minus": {
 				"$type": "Icons",
 				"$value": "minus",

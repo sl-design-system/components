@@ -38,7 +38,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   #rovingTabindexController = new RovingTabindexController(this, {
     direction: 'grid',
     directionLength: 3,
-    elements: (): HTMLElement[] => Array.from(this.renderRoot.querySelectorAll('ol sl-button')),
+    elements: (): HTMLElement[] => Array.from(this.renderRoot.querySelectorAll('ol button')),
     focusInIndex: elements => {
       const index = elements.findIndex(el => el.hasAttribute('aria-pressed'));
 

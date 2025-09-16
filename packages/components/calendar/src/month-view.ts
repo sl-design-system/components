@@ -108,6 +108,9 @@ export class MonthView extends LocaleMixin(LitElement) {
   /** The list of dates that should have an indicator. */
   @property({ converter: dateConverter }) indicator?: Date[];
 
+  // eslint-disable-next-line lit/no-native-attributes
+  @property({ type: Boolean }) override inert = false;
+
   /**
    * Highlights today's date when set.
    * @default false
@@ -144,7 +147,7 @@ export class MonthView extends LocaleMixin(LitElement) {
       this.calendar = createCalendar(this.month ?? new Date(), { firstDayOfWeek, max, min, showToday });
     }
 
-    if (changes.has('month')) {
+    if (changes.has('month') || changes.has('inert')) {
       this.#rovingTabindexController.clearElementCache();
     }
   }

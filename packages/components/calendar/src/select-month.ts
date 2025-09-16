@@ -46,7 +46,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   #rovingTabindexController = new RovingTabindexController(this, {
     direction: 'grid',
     directionLength: 3,
-    elements: (): HTMLElement[] => Array.from(this.renderRoot.querySelectorAll('ol sl-button')),
+    elements: (): HTMLElement[] => Array.from(this.renderRoot.querySelectorAll('ol button')),
     focusInIndex: elements => {
       const index = elements.findIndex(el => el.hasAttribute('aria-pressed'));
 
@@ -169,6 +169,13 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /** Returns an array of part names for a day. */
   getMonthParts = (month: Month): string[] => {
+    console.log(
+      'getMonthParts',
+      this.month.getMonth(),
+      month.value,
+      this.month.getFullYear(),
+      new Date().getFullYear()
+    );
     return [
       'month',
       month.value === new Date().getMonth() && this.month.getFullYear() === new Date().getFullYear() ? 'today' : '',

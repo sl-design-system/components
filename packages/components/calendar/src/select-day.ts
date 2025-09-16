@@ -104,6 +104,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal The translated days of the week. */
   @state() weekDays: Array<{ long: string; short: string }> = [];
 
+  // eslint-disable-next-line lit/no-native-attributes
+  @property({ type: Boolean }) override inert = false;
+
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
@@ -265,6 +268,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           .selected=${this.selected}
           .negative=${this.negative}
           .indicator=${this.indicator}
+          ?inert=${this.inert}
           locale=${ifDefined(this.locale)}
           max=${ifDefined(this.max?.toISOString())}
           min=${ifDefined(this.min?.toISOString())}

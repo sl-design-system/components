@@ -30,6 +30,8 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     };
   }
 
+  #previousMode: 'day' | 'month' | 'year' = 'day';
+
   /** @internal */
   static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
@@ -167,7 +169,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     event.stopPropagation();
 
     this.month = new Date(event.detail.getFullYear(), this.month!.getMonth(), this.month!.getDate());
-    this.mode = 'day';
+    this.mode = this.#previousMode ?? 'day';
 
     requestAnimationFrame(() => {
       this.renderRoot.querySelector('sl-select-day')?.focus();
@@ -178,6 +180,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     event.preventDefault();
     event.stopPropagation();
 
+    this.#previousMode = this.mode;
     this.mode = event.detail;
 
     requestAnimationFrame(() => {

@@ -98,34 +98,32 @@ export const Directive: Story = {
 
 export const DirectiveWithOptions: Story = {
   render: () => {
-    const onClick = (event: Event & { target: HTMLElement }) => {
-      // const dialog = document.createElement('sl-dialog');
-      // dialog.innerHTML = `
-      //   <span slot="title">Tooltip</span>
-      //   Tooltip should be closed when the dialog is closed..
-      //   <sl-button slot="primary-actions" sl-dialog-close variant="primary">Close</sl-button>
-      // `;
-      // dialog.addEventListener('sl-close', () => dialog.remove());
-      // event.target.insertAdjacentElement('afterend', dialog);
-      // await dialog.updateComplete;
-      // dialog.showModal();
-      console.log('click', event);
-    };
+   // const button = document.createElement('sl-button');
 
     return html`
       <style>
-        #root-inner {
+        .container {
           display: grid;
           height: calc(20rem);
           place-items: center;
         }
       </style>
-      <sl-button aria-label="settings" @click=${onClick} fill="ghost" ${tooltip('My message')}>
-        <sl-icon name="far-gear" size="lg"></sl-icon>
-      </sl-button>
-      TODO: make it working with context like tooltip.lazy?
+      <p>
+        This story demonstrates hot to use the tooltip directive with some inline options
+        (custom 'ariaRelation', custom 'position' and 'maxWidth') on a <code>sl-button</code>.
+        The example shows how to add a tooltip directly without a separate <code>sl-tooltip</code> element.
+      </p>
 
-      <sl-button ${tooltip('Hello world', { ariaRelation: 'label' })}>Button</sl-button>
+      <div class="container">
+        <sl-button variant="primary" fill="solid"
+          ${tooltip('My tooltip example', { ariaRelation: 'label', position: 'bottom-start', maxWidth: 100 })}
+        >
+          <sl-icon name="face-smile" size="lg"></sl-icon>
+        </sl-button>
+        TODO: make it working with context like tooltip.lazy?
+
+        <sl-button ${tooltip('Hello world')}>Button</sl-button>
+      </div>
     `;
   }
 };

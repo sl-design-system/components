@@ -565,15 +565,15 @@
 					},
 					"300": {
 						"$type": "color",
-						"$value": "#ff7733"
+						"$value": "#FE6011"
 					},
 					"400": {
 						"$type": "color",
-						"$value": "#fe5611"
+						"$value": "#DF4D05"
 					},
 					"500": {
 						"$type": "color",
-						"$value": "#ef3c07"
+						"$value": "#BD4805"
 					},
 					"600": {
 						"$type": "color",
@@ -692,12 +692,12 @@
 			"skeleton": {
 				"plain": {
 					"$type": "color",
-					"$value": "{magister.color.background.accent.grey.subtlest}",
+					"$value": "{magister.color.palette.grey.100}",
 					"$description": "Use for skeleton loading states."
 				},
 				"subtle": {
 					"$type": "color",
-					"$value": "{magister.color.background.accent.grey.subtle}",
+					"$value": "{magister.color.palette.grey.050}",
 					"$description": "Use for the pulse or shimmer effect in skeleton loading states."
 				}
 			},
@@ -1664,7 +1664,7 @@
 					},
 					"alternative": {
 						"$type": "color",
-						"$value": "{magister.color.palette.grey.100}",
+						"$value": "{magister.color.palette.grey.050}",
 						"$description": "An alternate surface color used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
 					}
 				},

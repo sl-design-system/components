@@ -692,12 +692,12 @@
 			"skeleton": {
 				"plain": {
 					"$type": "color",
-					"$value": "{editorial-suite.color.background.accent.grey.subtlest}",
+					"$value": "{editorial-suite.color.palette.grey.100}",
 					"$description": "Use for skeleton loading states."
 				},
 				"subtle": {
 					"$type": "color",
-					"$value": "{editorial-suite.color.background.accent.grey.subtle}",
+					"$value": "{editorial-suite.color.palette.grey.050}",
 					"$description": "Use for the pulse or shimmer effect in skeleton loading states."
 				}
 			},

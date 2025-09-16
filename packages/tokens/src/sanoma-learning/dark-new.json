@@ -692,12 +692,12 @@
 			"skeleton": {
 				"plain": {
 					"$type": "color",
-					"$value": "{sanoma-learning.color.background.accent.grey.subtlest}",
+					"$value": "rgba( {sanoma-learning.color.palette.grey.900}, 5%)",
 					"$description": "Use for skeleton loading states."
 				},
 				"subtle": {
 					"$type": "color",
-					"$value": "{sanoma-learning.color.background.accent.grey.subtle}",
+					"$value": "{sanoma-learning.color.palette.grey.000}",
 					"$description": "Use for the pulse or shimmer effect in skeleton loading states."
 				}
 			},

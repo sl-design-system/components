@@ -311,6 +311,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onNext(): void {
+    console.log('onNext');
     this.#scrollToMonth(1, true);
   }
 
@@ -326,6 +327,11 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onScrollSnapChanging(event: Event): void {
+    console.log(
+      'onScrollSnapChanging',
+      this.displayMonth,
+      normalizeDateTime((event.snapTargetInline as MonthView).month!)
+    );
     if (!this.#initialized) return;
 
     this.displayMonth = normalizeDateTime((event.snapTargetInline as MonthView).month!);
@@ -349,6 +355,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   #scrollToMonth(month: -1 | 0 | 1, smooth = false): void {
     const width = parseInt(getComputedStyle(this).width),
       left = width * month + width;
+
+    console.log('scrollToMonth', month, left, this.scroller);
 
     this.scroller?.scrollTo({ left, behavior: smooth ? 'smooth' : 'instant' });
   }

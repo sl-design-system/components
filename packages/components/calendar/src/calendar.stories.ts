@@ -1,6 +1,8 @@
+import '@sl-design-system/format-date/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { TemplateResult, html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { useArgs } from 'storybook/internal/preview-api';
 import '../register.js';
 import { type Calendar } from './calendar.js';
 
@@ -69,6 +71,7 @@ export default {
     showToday,
     showWeekNumbers
   }) => {
+    const [_, updateArgs] = useArgs();
     const parseDate = (value: string | Date | undefined): Date | undefined => {
       if (!value) {
         return undefined;
@@ -77,8 +80,16 @@ export default {
       return value instanceof Date ? value : new Date(value);
     };
 
+    const selectedDate: Date | undefined = parseDate(selected);
+
+    const onSelectDate = (event: CustomEvent<Date>) => {
+      console.log('Date selected:', event.detail.getFullYear(), event.detail.getMonth());
+      updateArgs({ selected: new Date(event.detail).getTime() }); //needs to be set to the 'time' otherwise Storybook chokes on the date format 🤷
+    };
+
     return html`
       <sl-calendar
+        @sl-change=${onSelectDate}
         ?readonly=${readonly}
         ?show-today=${showToday}
         ?show-week-numbers=${showWeekNumbers}
@@ -91,6 +102,10 @@ export default {
         negative=${ifDefined(negative?.map(date => date.toISOString()).join(','))}
         indicator=${ifDefined(indicator?.map(date => date.toISOString()).join(','))}
       ></sl-calendar>
+      <p>
+        Selected date:
+        <sl-format-date .date=${selectedDate} locale=${ifDefined(locale)} date-style="long"></sl-format-date>
+      </p>
     `;
   }
 } satisfies Meta<Props>;

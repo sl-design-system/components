@@ -53,6 +53,9 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   /** The current year. */
   @property({ converter: dateConverter }) year = new Date();
 
+  /** The currently selected date. (In order to style current month) */
+  @property({ converter: dateConverter }) selected?: Date;
+
   /**
    * The maximum date selectable in the month.
    * @default undefined
@@ -131,7 +134,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     return [
       'year',
       year === new Date().getFullYear() ? 'today' : '',
-      this.year.getFullYear() === year ? 'selected' : '',
+      this.selected && this.selected.getFullYear() === year ? 'selected' : '',
       this.#isUnselectable(year) ? 'unselectable' : ''
     ].filter(part => part !== '');
   };

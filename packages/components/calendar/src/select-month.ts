@@ -58,6 +58,9 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** The month/year to display. */
   @property({ converter: dateConverter }) month = new Date();
 
+  /** The currently selected date. (In order to style current month) */
+  @property({ converter: dateConverter }) selected?: Date;
+
   /**
    * The maximum date selectable in the month.
    * @default undefined
@@ -98,6 +101,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         return {
           short: formatShort.format(date),
           long: formatLong.format(date),
+          date,
           value: i,
           unselectable: !(
             (!this.min || date >= new Date(this.min.getFullYear(), this.min.getMonth(), 1)) &&
@@ -169,18 +173,15 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /** Returns an array of part names for a day. */
   getMonthParts = (month: Month): string[] => {
-    console.log(
-      'getMonthParts',
-      this.month.getMonth(),
-      month.value,
-      this.month.getFullYear(),
-      new Date().getFullYear()
-    );
     return [
       'month',
       month.value === new Date().getMonth() && this.month.getFullYear() === new Date().getFullYear() ? 'today' : '',
       month.unselectable ? 'unselectable' : '',
-      this.month.getMonth() === month.value && this.month.getFullYear() === new Date().getFullYear() ? 'selected' : ''
+      this.selected &&
+      this.selected.getMonth() === month.value &&
+      this.selected.getFullYear() === month.date.getFullYear()
+        ? 'selected'
+        : ''
     ].filter(part => part !== '');
   };
 
@@ -202,7 +203,6 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onNext(): void {
-    console.log('next');
     this.month = new Date(this.month.getFullYear() + 1, this.month.getMonth(), this.month.getDate());
   }
 

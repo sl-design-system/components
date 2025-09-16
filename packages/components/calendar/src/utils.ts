@@ -30,6 +30,7 @@ export interface Month {
   short: string;
   long: string;
   value: number;
+  date: Date;
   unselectable?: boolean;
 }
 

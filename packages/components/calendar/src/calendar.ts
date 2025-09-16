@@ -120,6 +120,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
             <sl-select-month
               @sl-select=${this.#onSelectMonth}
               @sl-toggle=${this.#onToggleMonthYear}
+              .selected=${this.selected}
               .month=${this.month}
               ?show-today=${this.showToday}
               locale=${ifDefined(this.locale)}
@@ -133,6 +134,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           () => html`
             <sl-select-year
               @sl-select=${this.#onSelectYear}
+              .selected=${this.selected}
               ?show-today=${this.showToday}
               .year=${this.month}
             ></sl-select-year>
@@ -147,6 +149,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     event.stopPropagation();
 
     if (!this.selected || !isSameDate(this.selected, event.detail)) {
+      console.log('select date', event.detail, this.selected);
       this.selected = new Date(event.detail);
       this.changeEvent.emit(this.selected);
     }

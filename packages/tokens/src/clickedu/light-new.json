@@ -752,7 +752,7 @@
 					"red": {
 						"bold": {
 							"$type": "color",
-							"$value": "{clickedu.color.palette.red.500}",
+							"$value": "{clickedu.color.palette.red.600}",
 							"$description": "A vibrant red background option, applied purely for stylistic purposes without specific meaning."
 						},
 						"subtle": {
@@ -1318,7 +1318,7 @@
 						},
 						"plain": {
 							"$type": "color",
-							"$value": "{clickedu.color.palette.grey.600}",
+							"$value": "{clickedu.color.palette.grey.700}",
 							"$description": "Use for plain grey text for purely stylistic purposes with no specific meaning."
 						},
 						"onBold": {
@@ -1333,7 +1333,7 @@
 						},
 						"subtlest": {
 							"$type": "color",
-							"$value": "rgba({clickedu.color.palette.grey.600}, 70%)",
+							"$value": "{clickedu.color.palette.grey.500}",
 							"$description": "Use for muted grey text for purely stylistic purposes with no specific meaning."
 						},
 						"onInverted": {

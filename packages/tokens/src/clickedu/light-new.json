@@ -72,7 +72,7 @@
 			"border": {
 				"bold": {
 					"$type": "color",
-					"$value": "{clickedu.color.palette.grey.600}",
+					"$value": "{clickedu.color.palette.grey.500}",
 					"$description": "A neutral border option that passes min 3:1 contrast ratios."
 				},
 				"info": {
@@ -99,7 +99,7 @@
 				},
 				"plain": {
 					"$type": "color",
-					"$value": "{clickedu.color.palette.grey.050}",
+					"$value": "{clickedu.color.border.accent.grey.plain}",
 					"$description": "Use to visually group or seperate UI elements, such as card, tabs or side panel dividers."
 				},
 				"accent": {

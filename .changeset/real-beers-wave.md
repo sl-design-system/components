@@ -1,5 +1,5 @@
 ---
-'@sl-design-system/tooltip': patch
+'@sl-design-system/tooltip': minor
 ---
 
-Fixes the tooltip to make it working with `aria-labelledby` as well (e.g. when an icon only button with a tooltip is used).
+Add a new `ariaRelation` option to `Tooltip.lazy()`. This allows you to specify whether the tooltip should use `aria-describedby` (default) or `aria-labelledby` to associate the tooltip with the target element.

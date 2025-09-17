@@ -26,8 +26,27 @@ export const buttonHasLabel = {
 
           analyzer.traverse({
             enterElement(element) {
+              // console.log('element', element.name);
               if (element.name === 'sl-button') {
-                if (hasTextContent(element) || hasAccessibleName(element)) {
+                // const hasAriaRelationLabel =
+                //   element.attributes?.some(
+                //     attr => attr.name === 'ariaRelation' && attr.value === 'label'
+                //   );
+
+                const hasAriaRelationLabel = (
+                  element.attributes?.some(attr => attr.name === 'ariaRelation' && attr.value === 'label')
+                  ||
+                  (() => {
+                    if (!element.sourceCodeLocation?.startTag) return false;
+                    const { startOffset, endOffset } = element.sourceCodeLocation.startTag;
+                    const startTagSource = context.sourceCode.text.slice(startOffset, endOffset);
+                    return /ariaRelation\s*:\s*['"]label['"]/.test(startTagSource);
+                  })()
+                );
+
+                console.log('hasAriaRelationLabel', hasAriaRelationLabel);
+
+                if (hasTextContent(element) || hasAccessibleName(element) || hasAriaRelationLabel) {
                   return;
                 }
 

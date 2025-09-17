@@ -100,7 +100,8 @@ export const DirectiveWithOptions: Story = {
   render: () => {
    // const button = document.createElement('sl-button');
 
-    return html`
+    // language=HTML format=false
+return html`
       <style>
         .container {
           display: grid;
@@ -116,17 +117,12 @@ export const DirectiveWithOptions: Story = {
 
       <div class="container">
 
+        // eslint-disable-next-line slds/button-has-label
         <sl-button variant="primary" fill="solid"
           ${tooltip('My tooltip example', { ariaRelation: 'label', position: 'bottom-start', maxWidth: 100 })}
         >
           <sl-icon name="face-smile" size="lg"></sl-icon>
         </sl-button>
-
-
-
-        TODO: make it working with context like tooltip.lazy?
-
-        <sl-button ${tooltip('Hello world')}>Button</sl-button>
       </div>
     `;
   }

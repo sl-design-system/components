@@ -54,6 +54,9 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
    */
   #popoverJustClosed = false;
 
+  /** The start time. */
+  #startTime?: { hours: number; minutes: number } | undefined;
+
   /** The current value in numbers. */
   #valueAsNumbers: { hours: number; minutes: number } | undefined;
 
@@ -162,8 +165,18 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
     this.prepend(style);
   }
 
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    this.updateValidity();
+  }
+
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
+
+    if (changes.has('start')) {
+      this.#startTime = this.start ? this.#parseTime(this.start) : undefined;
+    }
 
     if (changes.has('value')) {
       this.input.value = this.value || '';
@@ -264,6 +277,15 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
     `;
   }
 
+  /** @internal */
+  override updateInternalValidity(): void {
+    if (this.required && !this.value) {
+      this.setCustomValidity(msg('Please enter a time.', { id: 'sl.timeField.valueMissing' }));
+    } else {
+      this.setCustomValidity('');
+    }
+  }
+
   #onBeforeToggle(event: ToggleEvent): void {
     if (event.newState === 'open') {
       this.input.setAttribute('aria-expanded', 'true');
@@ -281,11 +303,13 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
   }
 
   #onHourClick(hours: number): void {
-    this.#valueAsNumbers = { hours, minutes: this.#valueAsNumbers?.minutes ?? 0 };
+    this.#valueAsNumbers = { hours, minutes: this.#valueAsNumbers?.minutes ?? this.#startTime?.minutes ?? 0 };
     this.#value = this.#formatTime(this.#valueAsNumbers.hours ?? 0, this.#valueAsNumbers.minutes ?? 0);
-
     this.requestUpdate('value');
+
     this.changeEvent.emit(this.value ?? '');
+    this.updateState({ dirty: true });
+    this.updateValidity();
   }
 
   #onHourKeydown(event: KeyboardEvent, hours: number): void {
@@ -328,11 +352,13 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
   }
 
   #onMinuteClick(minutes: number): void {
-    this.#valueAsNumbers = { hours: this.#valueAsNumbers?.hours ?? 0, minutes };
+    this.#valueAsNumbers = { hours: this.#valueAsNumbers?.hours ?? this.#startTime?.hours ?? 0, minutes };
     this.#value = this.#formatTime(this.#valueAsNumbers.hours ?? 0, this.#valueAsNumbers.minutes ?? 0);
-
     this.requestUpdate('value');
+
     this.changeEvent.emit(this.value ?? '');
+    this.updateState({ dirty: true });
+    this.updateValidity();
 
     this.listbox?.hidePopover();
     this.textField.focus();
@@ -355,6 +381,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
       this.#valueAsNumbers = time;
       this.#value = this.#formatTime(time.hours, time.minutes);
       this.requestUpdate('value');
+
       this.changeEvent.emit(this.value ?? '');
     }
 
@@ -366,6 +393,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
     event.preventDefault();
     event.stopPropagation();
 
+    this.updateState({ dirty: true });
     this.updateValidity();
   }
 
@@ -482,7 +510,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
   }
 
   #scrollAndFocusStartTime(focus: 'hour' | 'minute' = 'hour'): void {
-    const time = this.#getStartTime();
+    const time = (this.#startTime = this.#getStartTime());
 
     // Find the closest hour and minute based on the steps
     time.hours = Math.round(time.hours / this.hourStep) * this.hourStep;

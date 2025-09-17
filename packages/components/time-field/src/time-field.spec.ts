@@ -361,7 +361,7 @@ describe('sl-time-field', () => {
     it('should select the hour when pressing enter on an hour option', async () => {
       el.textField.focus();
       await sendKeys({ press: 'Tab' });
-      await sendKeys({ press: ' ' });
+      await sendKeys({ press: 'Enter' });
 
       await sendKeys({ press: 'ArrowDown' });
       await sendKeys({ press: 'Enter' });
@@ -370,11 +370,43 @@ describe('sl-time-field', () => {
       expect(el.textField.value).to.equal('13:00');
     });
 
-    it('should select the hour when pressing space on an hour option', async () => {});
+    it('should select the hour when pressing space on an hour option', async () => {
+      el.textField.focus();
+      await sendKeys({ press: 'Tab' });
+      await sendKeys({ press: ' ' });
 
-    it('should select the minute when pressing enter on a minute option', async () => {});
+      await sendKeys({ press: 'ArrowUp' });
+      await sendKeys({ press: ' ' });
 
-    it('should select the minute when pressing space on a minute option', async () => {});
+      expect(el.value).to.equal('11:00');
+      expect(el.textField.value).to.equal('11:00');
+    });
+
+    it('should select the minute when pressing enter on a minute option', async () => {
+      el.textField.focus();
+      await sendKeys({ press: 'Tab' });
+      await sendKeys({ press: 'Enter' });
+
+      await sendKeys({ press: 'ArrowRight' });
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'Enter' });
+
+      expect(el.value).to.equal('12:05');
+      expect(el.textField.value).to.equal('12:05');
+    });
+
+    it('should select the minute when pressing space on a minute option', async () => {
+      el.textField.focus();
+      await sendKeys({ press: 'Tab' });
+      await sendKeys({ press: ' ' });
+
+      await sendKeys({ press: 'ArrowRight' });
+      await sendKeys({ press: 'ArrowUp' });
+      await sendKeys({ press: ' ' });
+
+      expect(el.value).to.equal('12:55');
+      expect(el.textField.value).to.equal('12:55');
+    });
   });
 
   describe('min/max', () => {});
@@ -386,6 +418,11 @@ describe('sl-time-field', () => {
 
     it('should be invalid when empty', () => {
       expect(el.valid).to.be.false;
+      expect(el.validity.valueMissing).to.be.true;
+    });
+
+    it('should have a validation message', () => {
+      expect(el.validationMessage).to.equal('Please enter a time.');
     });
 
     it('should be valid when a time is selected', async () => {

@@ -64,7 +64,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
   /** @internal Emits when the value changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<Date>>;
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<string>>;
 
   /** Whether the time field is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
@@ -192,7 +192,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
         ?disabled=${this.disabled}
         ?readonly=${this.readonly}
         ?required=${this.required}
-        input-size="8"
+        input-size="10"
         part="text-field"
         placeholder=${ifDefined(this.placeholder)}
         show-validity=${ifDefined(this.showValidity)}
@@ -365,6 +365,14 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
   #onTextFieldBlur(event: SlBlurEvent): void {
     event.preventDefault();
     event.stopPropagation();
+
+    const time = this.#parseTime(this.textField.input.value);
+    if (time && time.hours !== this.#valueAsNumbers?.hours && time.minutes !== this.#valueAsNumbers?.minutes) {
+      this.#valueAsNumbers = time;
+      this.#value = this.#formatTime(time.hours, time.minutes);
+      this.requestUpdate('value');
+      this.changeEvent.emit(this.value ?? '');
+    }
 
     this.blurEvent.emit();
     this.updateState({ touched: true });

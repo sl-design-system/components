@@ -227,6 +227,7 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
     }
 
     this.#observer.observe(this, OBSERVER_OPTIONS);
+    this.#updateValueAndValidity();
   }
 
   #setSelectedOption(option?: Radio<T>, emitEvent = true): void {

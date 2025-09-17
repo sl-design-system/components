@@ -4,6 +4,18 @@ This is a collection of release notes for the SL Design System. Each release not
 
 The release notes are ordered by the date the release was made. From latest, to oldest.
 
+# September 17, 2025
+
+## New features
+- [`skeleton`](https://github.com/sl-design-system/components/blob/main/packages/components/skeleton/CHANGELOG.md) has been refactored to use the new contextual tokens.
+- [`tooltip`](https://github.com/sl-design-system/components/blob/main/packages/components/tooltip/CHANGELOG.md) added ability to specify the `ariaRelation` when using the tooltip Lit directive.
+
+## Bug fixes
+- [`listbox`](https://github.com/sl-design-system/components/blob/main/packages/components/listbox/CHANGELOG.md) fixes missing border between group and lone option.
+- [`radiogroup`](https://github.com/sl-design-system/components/blob/main/packages/components/radio-group/CHANGELOG.md) fixes issue where the validity did not match the initial group value.
+- [`tabs`](https://github.com/sl-design-system/components/blob/main/packages/components/tabs/CHANGELOG.md) fixes issue selecting a tab when zoomed in was not working correctly in some browsers.
+- [`magister`](https://github.com/sl-design-system/components/blob/main/packages/themes/magister/CHANGELOG.md) various theme improvements.
+
 # September 11, 2025
 
 ## New features

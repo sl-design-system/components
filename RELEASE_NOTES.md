@@ -8,7 +8,7 @@ The release notes are ordered by the date the release was made. From latest, to 
 
 ## New features
 - [`skeleton`](https://github.com/sl-design-system/components/blob/main/packages/components/skeleton/CHANGELOG.md) has been refactored to use the new contextual tokens.
-- [`tooltip`](https://github.com/sl-design-system/components/blob/main/packages/components/tooltip/CHANGELOG.md) added ability to specify the `ariaRelation` when using the tooltip Lit directive.
+- [`tooltip`](https://github.com/sl-design-system/components/blob/main/packages/components/tooltip/CHANGELOG.md) added ability to specify the `ariaRelation` when using the tooltip component.
 
 ## Bug fixes
 - [`listbox`](https://github.com/sl-design-system/components/blob/main/packages/components/listbox/CHANGELOG.md) fixes missing border between group and lone option.

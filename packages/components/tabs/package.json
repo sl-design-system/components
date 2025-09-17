@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/tabs",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Tabs components for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

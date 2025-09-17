@@ -1,5 +1,13 @@
 # @sl-design-system/radio-group
 
+## 1.1.6
+
+### Patch Changes
+
+- [#2638](https://github.com/sl-design-system/components/pull/2638) [`5884d0f`](https://github.com/sl-design-system/components/commit/5884d0f609407f0da2591afb2bdf1f8ef7dfd5c6) - Fix bug where radiogroup is invalid even though it has an initial value
+
+  The validity was not updated as part of the `slotchange` handler, causing the radiogroup to be invalid on initial render even though one of the radios was checked. This has been fixed by calling `#updateValueAndValidity` at the end of the `slotchange` handler.
+
 ## 1.1.5
 
 ### Patch Changes

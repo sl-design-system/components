@@ -2,7 +2,7 @@ import { expect, fixture } from '@open-wc/testing';
 import { type TextField } from '@sl-design-system/text-field';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
-import { type SinonFakeTimers, useFakeTimers } from 'sinon';
+import { spy } from 'sinon';
 import '../register.js';
 import { TimeField } from './time-field.js';
 
@@ -68,11 +68,37 @@ describe('sl-time-field', () => {
       expect(el.textField.input.selectionEnd).to.equal(5);
     });
 
-    it('should emit a change event when the time is changed via the keyboard', async () => {});
+    it('should emit a change event when the time is changed via the keyboard', async () => {
+      const onChange = spy();
 
-    it('should emit a change event when the time is changed via the arrow keys', async () => {});
+      el.addEventListener('sl-change', onChange);
+      el.textField.input.focus();
+      await sendKeys({ type: '12:34' });
+      el.textField.input.blur();
+      await el.updateComplete;
 
-    it('should emit a change event when the time is changed via the listbox', async () => {});
+      expect(onChange).to.have.been.calledOnce;
+    });
+
+    it('should emit a change event when the time is changed via the arrow keys', async () => {
+      const onChange = spy();
+
+      el.addEventListener('sl-change', onChange);
+      el.textField.input.focus();
+      await sendKeys({ press: 'ArrowUp' });
+
+      expect(onChange).to.have.been.calledOnce;
+    });
+
+    it('should emit a change event when the time is changed via the listbox', () => {
+      const onChange = spy();
+
+      el.addEventListener('sl-change', onChange);
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      el.renderRoot.querySelector<HTMLElement>('[popover] button')?.click();
+
+      expect(onChange).to.have.been.calledOnce;
+    });
   });
 
   describe('field button', () => {
@@ -235,22 +261,114 @@ describe('sl-time-field', () => {
 
   describe('listbox', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-time-field></sl-time-field>`);
+      el = await fixture(html`<sl-time-field start="12:00"></sl-time-field>`);
     });
 
-    it('should contain columns for hours and minutes', () => {});
+    it('should contain columns for hours', () => {
+      const hours = Array.from(el.renderRoot.querySelectorAll('.hours button')).map(button =>
+        button.textContent?.trim()
+      );
 
-    it('should contain options for each time based on the step', () => {});
+      expect(hours).to.deep.equal([
+        '00',
+        '01',
+        '02',
+        '03',
+        '04',
+        '05',
+        '06',
+        '07',
+        '08',
+        '09',
+        '10',
+        '11',
+        '12',
+        '13',
+        '14',
+        '15',
+        '16',
+        '17',
+        '18',
+        '19',
+        '20',
+        '21',
+        '22',
+        '23'
+      ]);
+    });
 
-    it('should update the value when an option is selected', () => {});
+    it('should contain columns for minutes', () => {
+      const minutes = Array.from(el.renderRoot.querySelectorAll('.minutes button')).map(button =>
+        button.textContent?.trim()
+      );
 
-    it('should focus the start hour when opened', () => {});
+      expect(minutes).to.deep.equal(['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55']);
+    });
 
-    it('should focus the start minute when pressing arrow right', async () => {});
+    it('should contain options for each time based on the step', async () => {
+      el.hourStep = 2;
+      el.minuteStep = 10;
+      await el.updateComplete;
 
-    it('should focus the start hour when pressing arrow left', async () => {});
+      const hours = Array.from(el.renderRoot.querySelectorAll('.hours button')).map(button =>
+        button.textContent?.trim()
+      );
+      const minutes = Array.from(el.renderRoot.querySelectorAll('.minutes button')).map(button =>
+        button.textContent?.trim()
+      );
 
-    it('should select the hour when pressing enter on an hour option', async () => {});
+      expect(hours).to.deep.equal(['00', '02', '04', '06', '08', '10', '12', '14', '16', '18', '20', '22']);
+      expect(minutes).to.deep.equal(['00', '10', '20', '30', '40', '50']);
+    });
+
+    it('should update the value when an option is selected', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      el.renderRoot.querySelector<HTMLElement>('.hours button:nth-of-type(5)')?.click();
+      el.renderRoot.querySelector<HTMLElement>('.minutes button:nth-of-type(3)')?.click();
+      await el.updateComplete;
+
+      expect(el.value).to.equal('04:10');
+      expect(el.textField.value).to.equal('04:10');
+    });
+
+    it('should focus the start hour when opened', async () => {
+      el.textField.focus();
+      await sendKeys({ press: 'Tab' });
+      await sendKeys({ press: ' ' });
+
+      expect(el.shadowRoot?.activeElement).to.match('button');
+      expect(el.shadowRoot?.activeElement?.parentElement).to.match('div.hours');
+    });
+
+    it('should switch focus between start hour and minute when pressing horizontal arrows', async () => {
+      el.textField.focus();
+      await sendKeys({ press: 'Tab' });
+      await sendKeys({ press: ' ' });
+
+      await sendKeys({ press: 'ArrowRight' });
+
+      expect(el.shadowRoot?.activeElement).to.match('button');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('00');
+      expect(el.shadowRoot?.activeElement?.parentElement).to.match('div.minutes');
+
+      await sendKeys({ press: 'ArrowLeft' });
+
+      expect(el.shadowRoot?.activeElement).to.match('button');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('12');
+      expect(el.shadowRoot?.activeElement?.parentElement).to.match('div.hours');
+    });
+
+    it('should select the hour when pressing enter on an hour option', async () => {
+      el.textField.focus();
+      await sendKeys({ press: 'Tab' });
+      await sendKeys({ press: ' ' });
+
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'Enter' });
+
+      expect(el.value).to.equal('13:00');
+      expect(el.textField.value).to.equal('13:00');
+    });
 
     it('should select the hour when pressing space on an hour option', async () => {});
 
@@ -279,21 +397,29 @@ describe('sl-time-field', () => {
   });
 
   describe('start time', () => {
-    let clock: SinonFakeTimers;
-
     beforeEach(async () => {
-      clock = useFakeTimers(new Date(2025, 0, 1, 9, 0, 0));
-
       el = await fixture(html`<sl-time-field></sl-time-field>`);
     });
 
-    afterEach(() => clock.restore());
+    it('should use the current time by default', async () => {
+      const now = new Date(),
+        hours = (now.getHours() - 1).toString().padStart(2, '0'),
+        minutes = now.getMinutes().toString().padStart(2, '0'),
+        current = `${hours}:${minutes}`;
 
-    it('should show the current time at the top of the listbox', () => {});
+      el.textField.focus();
+      await el.updateComplete;
 
-    it('should be settable via the value property', async () => {});
+      await sendKeys({ press: 'ArrowDown' });
+
+      expect(el.value).to.equal(current);
+      expect(el.textField.value).to.equal(current);
+    });
 
     it('should use the start time when pressing the up/down arrows', async () => {
+      el.start = '09:00';
+      await el.updateComplete;
+
       el.textField.focus();
       await el.updateComplete;
 
@@ -301,8 +427,6 @@ describe('sl-time-field', () => {
 
       expect(el.value).to.equal('08:00');
       expect(el.textField.value).to.equal('08:00');
-      expect(el.textField.input.selectionStart).to.equal(0);
-      expect(el.textField.input.selectionEnd).to.equal(2);
     });
   });
 

@@ -283,7 +283,9 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
   #onHourClick(hours: number): void {
     this.#valueAsNumbers = { hours, minutes: this.#valueAsNumbers?.minutes ?? 0 };
     this.#value = this.#formatTime(this.#valueAsNumbers.hours ?? 0, this.#valueAsNumbers.minutes ?? 0);
+
     this.requestUpdate('value');
+    this.changeEvent.emit(this.value ?? '');
   }
 
   #onHourKeydown(event: KeyboardEvent, hours: number): void {
@@ -302,7 +304,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
     } else if (['ArrowUp', 'ArrowDown'].includes(event.key)) {
       event.preventDefault();
 
-      const activeElement = (this.renderRoot as ShadowRoot).activeElement as HTMLElement;
+      const activeElement = this.shadowRoot?.activeElement;
       if (!activeElement || !(activeElement instanceof HTMLButtonElement)) {
         return;
       }
@@ -321,34 +323,16 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
     } else if (['ArrowLeft', 'ArrowRight'].includes(event.key)) {
       event.preventDefault();
 
-      const activeElement = (this.renderRoot as ShadowRoot).activeElement as HTMLElement;
-      if (!activeElement || !(activeElement instanceof HTMLButtonElement)) {
-        return;
-      }
-
-      const container = activeElement.parentElement;
-      if (container?.classList.contains('hours') && event.key === 'ArrowRight') {
-        const minutes = this.renderRoot.querySelector<HTMLElement>('.minutes')!;
-
-        (
-          minutes.querySelector<HTMLElement>('button[selected]') ||
-          minutes.querySelector<HTMLElement>('button:first-of-type')
-        )?.focus();
-      } else if (container?.classList.contains('minutes') && event.key === 'ArrowLeft') {
-        const hours = this.renderRoot.querySelector<HTMLElement>('.hours')!;
-
-        (
-          hours.querySelector<HTMLElement>('button[selected]') ||
-          hours.querySelector<HTMLElement>('button:first-of-type')
-        )?.focus();
-      }
+      this.#scrollAndFocusStartTime(event.key === 'ArrowRight' ? 'minute' : 'hour');
     }
   }
 
   #onMinuteClick(minutes: number): void {
     this.#valueAsNumbers = { hours: this.#valueAsNumbers?.hours ?? 0, minutes };
     this.#value = this.#formatTime(this.#valueAsNumbers.hours ?? 0, this.#valueAsNumbers.minutes ?? 0);
+
     this.requestUpdate('value');
+    this.changeEvent.emit(this.value ?? '');
 
     this.listbox?.hidePopover();
     this.textField.focus();
@@ -435,6 +419,8 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
       this.input.value = this.#value ?? '';
       this.input.setSelectionRange(selectionStart, selectionStart + 2);
 
+      this.changeEvent.emit(this.value ?? '');
+
       this.requestUpdate();
     } else if (event.key === 'ArrowRight' && (selectionStart === 2 || this.input.selectionEnd === 2)) {
       event.preventDefault();
@@ -495,7 +481,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
     return time;
   }
 
-  #scrollAndFocusStartTime(): void {
+  #scrollAndFocusStartTime(focus: 'hour' | 'minute' = 'hour'): void {
     const time = this.#getStartTime();
 
     // Find the closest hour and minute based on the steps
@@ -509,8 +495,13 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
     const hoursIndex = Math.floor(time.hours / this.hourStep),
       minutesIndex = Math.floor(time.minutes / this.minuteStep);
 
-    (hours.children[hoursIndex] as HTMLElement)?.focus();
     (hours.children[hoursIndex] as HTMLElement)?.scrollIntoView({ block: 'start' });
     (minutes.children[minutesIndex] as HTMLElement)?.scrollIntoView({ block: 'start' });
+
+    if (focus === 'hour') {
+      (hours.children[hoursIndex] as HTMLElement)?.focus();
+    } else {
+      (minutes.children[minutesIndex] as HTMLElement)?.focus();
+    }
   }
 }

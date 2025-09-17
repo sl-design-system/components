@@ -21,6 +21,11 @@
 				"$value": "check",
 				"$description": "icon.core.check"
 			},
+			"clock": {
+				"$type": "Icons",
+				"$value": "clock",
+				"$description": "icon.core.clock"
+			},
 			"minus": {
 				"$type": "Icons",
 				"$value": "minus",
@@ -40,6 +45,11 @@
 				"$type": "Icons",
 				"$value": "magnifying-glass",
 				"$description": "icon.core.search"
+			},
+			"calendar": {
+				"$type": "Icons",
+				"$value": "calendar",
+				"$description": "icon.core.calendar"
 			},
 			"ellipsis": {
 				"$type": "Icons",
@@ -61,6 +71,11 @@
 				"$value": "face-smile",
 				"$description": "icon.core.face-smile"
 			},
+			"grip-lines": {
+				"$type": "Icons",
+				"$value": "grip-lines",
+				"$description": "icon.core.grip-lines"
+			},
 			"home-blank": {
 				"$type": "Icons",
 				"$value": "home-blank",
@@ -75,6 +90,11 @@
 				"$type": "Icons",
 				"$value": "chevron-down",
 				"$description": "icon.core.chevron-down"
+			},
+			"chevron-left": {
+				"$type": "Icons",
+				"$value": "chevron-left",
+				"$description": "icon.core.chevron-left"
 			},
 			"circle-solid": {
 				"$type": "Icons",
@@ -96,6 +116,11 @@
 				"$value": "chevron-right",
 				"$description": "icon.core.chevron-right"
 			},
+			"caret-down-solid": {
+				"$type": "Icons",
+				"$value": "caret-down",
+				"$description": "icon.core.caret-down-solid"
+			},
 			"caret-left-solid": {
 				"$type": "Icons",
 				"$value": "caret-left",
@@ -105,6 +130,11 @@
 				"$type": "Icons",
 				"$value": "caret-right",
 				"$description": "icon.core.caret-right-solid"
+			},
+			"ellipsis-vertical": {
+				"$type": "Icons",
+				"$value": "ellipsis-vertical",
+				"$description": "icon.core.ellipsis-vertical"
 			},
 			"circle-check-solid": {
 				"$type": "Icons",

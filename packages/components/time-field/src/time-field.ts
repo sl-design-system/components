@@ -1,4 +1,3 @@
-import { faClock } from '@fortawesome/pro-regular-svg-icons';
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin, type SlFormControlEvent, type SlUpdateStateEvent } from '@sl-design-system/form';
@@ -17,8 +16,6 @@ declare global {
     'sl-time-field': TimeField;
   }
 }
-
-Icon.register(faClock);
 
 /**
  * A time field control for selecting a time.
@@ -129,8 +126,15 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
 
   @property()
   override set value(value: string | undefined) {
-    this.#value = value;
-    this.#valueAsNumbers = value ? this.#parseTime(value) : undefined;
+    if (value) {
+      const time = this.#parseTime(value);
+
+      this.#value = this.#formatTime(time?.hours ?? 0, time?.minutes ?? 0);
+      this.#valueAsNumbers = time;
+    } else {
+      this.#value = undefined;
+      this.#valueAsNumbers = undefined;
+    }
   }
 
   override connectedCallback(): void {
@@ -188,9 +192,11 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
         ?disabled=${this.disabled}
         ?readonly=${this.readonly}
         ?required=${this.required}
-        .showValidity=${this.showValidity}
+        input-size="8"
         part="text-field"
         placeholder=${ifDefined(this.placeholder)}
+        show-validity=${ifDefined(this.showValidity)}
+        value=${ifDefined(this.value)}
       >
         <slot name="input" slot="input"></slot>
         <sl-field-button
@@ -200,7 +206,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
           slot="suffix"
           tabindex=${this.disabled || this.readonly ? '-1' : '0'}
         >
-          <sl-icon name="far-clock"></sl-icon>
+          <sl-icon name="clock"></sl-icon>
         </sl-field-button>
       </sl-text-field>
 

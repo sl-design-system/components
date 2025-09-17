@@ -213,12 +213,12 @@
 				"caution": {
 					"bold": {
 						"$type": "color",
-						"$value": "{clickedu.color.border.accent.orange.bold}",
+						"$value": "{clickedu.color.border.accent.yellow.bold}",
 						"$description": "Use for borders that highlight caution to help prevent mistakes or errors on muted, subtlest and subtle background colors."
 					},
 					"plain": {
 						"$type": "color",
-						"$value": "{clickedu.color.border.accent.orange.plain}",
+						"$value": "{clickedu.color.border.accent.yellow.plain}",
 						"$description": "Use for borders that highlight caution to help prevent mistakes or errors on elevation.surface background colors."
 					}
 				},
@@ -319,47 +319,47 @@
 				"red": {
 					"100": {
 						"$type": "color",
-						"$value": "#ffe1e2"
+						"$value": "#FEF0F0"
 					},
 					"150": {
 						"$type": "color",
-						"$value": "#ffc7c9"
+						"$value": "#FFDEDE"
 					},
 					"200": {
 						"$type": "color",
-						"$value": "#ffa0a3"
+						"$value": "#FFC2C2"
 					},
 					"300": {
 						"$type": "color",
-						"$value": "#ff575c"
+						"$value": "#FF9898"
 					},
 					"400": {
 						"$type": "color",
-						"$value": "#f83b41"
+						"$value": "#FF595C"
 					},
 					"500": {
 						"$type": "color",
-						"$value": "#e51d23"
+						"$value": "#FA272F"
 					},
 					"600": {
 						"$type": "color",
-						"$value": "#c11419"
+						"$value": "#E3000E"
 					},
 					"700": {
 						"$type": "color",
-						"$value": "#a01418"
+						"$value": "#B90009"
 					},
 					"800": {
 						"$type": "color",
-						"$value": "#84181b"
+						"$value": "#890E14"
 					},
 					"900": {
 						"$type": "color",
-						"$value": "#480709"
+						"$value": "#360F0F"
 					},
 					"050": {
 						"$type": "color",
-						"$value": "#fff1f1"
+						"$value": "#FFF7F7"
 					}
 				},
 				"blue": {
@@ -507,93 +507,93 @@
 				"green": {
 					"100": {
 						"$type": "color",
-						"$value": "#BBF4DC"
+						"$value": "#E9FDF4"
 					},
 					"150": {
 						"$type": "color",
-						"$value": "#97EECA"
+						"$value": "#C3F8DD"
 					},
 					"200": {
 						"$type": "color",
-						"$value": "#74E8B7"
+						"$value": "#8FF0C2"
 					},
 					"300": {
 						"$type": "color",
-						"$value": "#50E2A5"
+						"$value": "#4AE2A2"
 					},
 					"400": {
 						"$type": "color",
-						"$value": "#2DDC93"
+						"$value": "#00C77C"
 					},
 					"500": {
 						"$type": "color",
-						"$value": "#25B77A"
+						"$value": "#00AB66"
 					},
 					"600": {
 						"$type": "color",
-						"$value": "#1E9261"
+						"$value": "#008351"
 					},
 					"700": {
 						"$type": "color",
-						"$value": "#166D49"
+						"$value": "#006442"
 					},
 					"800": {
 						"$type": "color",
-						"$value": "#0F4830"
+						"$value": "#004C35"
 					},
 					"900": {
 						"$type": "color",
-						"$value": "#072317"
+						"$value": "#00231D"
 					},
 					"050": {
 						"$type": "color",
-						"$value": "#DEFAEE"
+						"$value": "#F4FEF9"
 					}
 				},
 				"orange": {
 					"100": {
 						"$type": "color",
-						"$value": "#ffefd4"
+						"$value": "#FFF0E4"
 					},
 					"150": {
 						"$type": "color",
-						"$value": "#ffdca8"
+						"$value": "#FFD7B6"
 					},
 					"200": {
 						"$type": "color",
-						"$value": "#ffc271"
+						"$value": "#FFBF8A"
 					},
 					"300": {
 						"$type": "color",
-						"$value": "#ff9d38"
+						"$value": "#FFA761"
 					},
 					"400": {
 						"$type": "color",
-						"$value": "#fe8319"
+						"$value": "#FF8F3A"
 					},
 					"500": {
 						"$type": "color",
-						"$value": "#ef6207"
+						"$value": "#FE7818"
 					},
 					"600": {
 						"$type": "color",
-						"$value": "#c64908"
+						"$value": "#CF5B07"
 					},
 					"700": {
 						"$type": "color",
-						"$value": "#9d3b0f"
+						"$value": "#A24600"
 					},
 					"800": {
 						"$type": "color",
-						"$value": "#7e3210"
+						"$value": "#793500"
 					},
 					"900": {
 						"$type": "color",
-						"$value": "#441606"
+						"$value": "#512500"
 					},
 					"050": {
 						"$type": "color",
-						"$value": "#fff8ed"
+						"$value": "#FFF7F1"
 					}
 				},
 				"purple": {
@@ -645,47 +645,47 @@
 				"yellow": {
 					"100": {
 						"$type": "color",
-						"$value": "#fff7c5"
+						"$value": "#FEFCE4"
 					},
 					"150": {
 						"$type": "color",
-						"$value": "#fff085"
+						"$value": "#FEF8BA"
 					},
 					"200": {
 						"$type": "color",
-						"$value": "#ffe146"
+						"$value": "#FFEE7A"
 					},
 					"300": {
 						"$type": "color",
-						"$value": "#ffcf1b"
+						"$value": "#FFDA1D"
 					},
 					"400": {
 						"$type": "color",
-						"$value": "#ffae00"
+						"$value": "#FDC000"
 					},
 					"500": {
 						"$type": "color",
-						"$value": "#e28400"
+						"$value": "#EEA800"
 					},
 					"600": {
 						"$type": "color",
-						"$value": "#bb5c02"
+						"$value": "#CA7C00"
 					},
 					"700": {
 						"$type": "color",
-						"$value": "#984708"
+						"$value": "#9C5400"
 					},
 					"800": {
 						"$type": "color",
-						"$value": "#7c3a0b"
+						"$value": "#68360C"
 					},
 					"900": {
 						"$type": "color",
-						"$value": "#481d00"
+						"$value": "#3B1D05"
 					},
 					"050": {
 						"$type": "color",
-						"$value": "#fffdea"
+						"$value": "#FFFDF1"
 					}
 				}
 			},
@@ -797,7 +797,7 @@
 						"interactive": {
 							"bold": {
 								"$type": "color",
-								"$value": "{clickedu.color.palette.blue.900}",
+								"$value": "{clickedu.color.palette.blue.800}",
 								"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
 							},
 							"plain": {
@@ -868,7 +868,7 @@
 					"green": {
 						"bold": {
 							"$type": "color",
-							"$value": "{clickedu.color.palette.green.700}",
+							"$value": "{clickedu.color.palette.green.600}",
 							"$description": "A vibrant green background option, applied purely for stylistic purposes without specific meaning."
 						},
 						"subtle": {
@@ -884,7 +884,7 @@
 						"interactive": {
 							"bold": {
 								"$type": "color",
-								"$value": "{clickedu.color.palette.green.900}",
+								"$value": "{clickedu.color.palette.green.800}",
 								"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
 							},
 							"plain": {
@@ -897,7 +897,7 @@
 					"orange": {
 						"bold": {
 							"$type": "color",
-							"$value": "{clickedu.color.palette.orange.600}",
+							"$value": "{clickedu.color.palette.orange.400}",
 							"$description": "A vibrant orange background option, applied purely for stylistic purposes without specific meaning."
 						},
 						"subtle": {
@@ -942,7 +942,7 @@
 						"interactive": {
 							"bold": {
 								"$type": "color",
-								"$value": "{clickedu.color.palette.purple.900}",
+								"$value": "{clickedu.color.palette.purple.800}",
 								"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
 							},
 							"plain": {
@@ -971,7 +971,7 @@
 						"interactive": {
 							"bold": {
 								"$type": "color",
-								"$value": "{clickedu.color.palette.yellow.800}",
+								"$value": "{clickedu.color.palette.yellow.600}",
 								"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
 							},
 							"plain": {
@@ -990,28 +990,28 @@
 				"caution": {
 					"bold": {
 						"$type": "color",
-						"$value": "{clickedu.color.background.accent.orange.bold}",
+						"$value": "{clickedu.color.background.accent.yellow.bold}",
 						"$description": "Use for the background of actions with bold emphasis related to messages that communicate caution."
 					},
 					"subtle": {
 						"$type": "color",
-						"$value": "{clickedu.color.background.accent.orange.subtle}",
+						"$value": "{clickedu.color.background.accent.yellow.subtle}",
 						"$description": "A subtle background option to communicate caution to prevent errors."
 					},
 					"subtlest": {
 						"$type": "color",
-						"$value": "{clickedu.color.background.accent.orange.subtlest}",
+						"$value": "{clickedu.color.background.accent.yellow.subtlest}",
 						"$description": "The subtlest background option to communicate caution to prevent errors."
 					},
 					"interactive": {
 						"bold": {
 							"$type": "color",
-							"$value": "{clickedu.color.background.accent.orange.interactive.bold}",
+							"$value": "{clickedu.color.background.accent.yellow.interactive.bold}",
 							"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
 						},
 						"plain": {
 							"$type": "color",
-							"$value": "{clickedu.color.background.accent.orange.interactive.plain}",
+							"$value": "{clickedu.color.background.accent.yellow.interactive.plain}",
 							"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
 						}
 					}
@@ -1274,12 +1274,12 @@
 					"red": {
 						"bold": {
 							"$type": "color",
-							"$value": "{clickedu.color.palette.red.800}",
+							"$value": "{clickedu.color.palette.red.700}",
 							"$description": "Use for red text on 'color.background.accent.red.muted' or 'color.background.accent.red.subtle', when used purely for stylistic purposes without specific meaning."
 						},
 						"plain": {
 							"$type": "color",
-							"$value": "{clickedu.color.palette.red.500}",
+							"$value": "{clickedu.color.palette.red.600}",
 							"$description": "Use for red text on neutral backgrounds for purely stylistic purposes with no specific meaning."
 						},
 						"onBold": {
@@ -1362,7 +1362,7 @@
 					"green": {
 						"bold": {
 							"$type": "color",
-							"$value": "{clickedu.color.palette.green.800}",
+							"$value": "{clickedu.color.palette.green.700}",
 							"$description": "Use for green text on 'color.background.accent.green.muted' or 'color.background.accent.green.subtle', when used purely for stylistic purposes without specific meaning."
 						},
 						"plain": {
@@ -1384,24 +1384,24 @@
 						},
 						"plain": {
 							"$type": "color",
-							"$value": "{clickedu.color.palette.orange.600}",
+							"$value": "{clickedu.color.palette.orange.700}",
 							"$description": "Use for orange text on neutral backgrounds for purely stylistic purposes with no specific meaning."
 						},
 						"onBold": {
 							"$type": "color",
-							"$value": "{clickedu.color.foreground.inverted.plain}",
+							"$value": "{clickedu.color.foreground.bold}",
 							"$description": "Use for text on 'color.background.accent.orange.bold', when used purely for stylistic purposes without specific meaning."
 						}
 					},
 					"purple": {
 						"bold": {
 							"$type": "color",
-							"$value": "{clickedu.color.palette.purple.700}",
+							"$value": "{clickedu.color.palette.purple.600}",
 							"$description": "Use for purple text on 'color.background.accent.purple.muted' or 'color.background.accent.purple.subtle', when used purely for stylistic purposes without specific meaning."
 						},
 						"plain": {
 							"$type": "color",
-							"$value": "{clickedu.color.palette.purple.500}",
+							"$value": "{clickedu.color.palette.purple.600}",
 							"$description": "Use for purple text on neutral backgrounds for purely stylistic purposes with no specific meaning."
 						},
 						"onBold": {
@@ -1418,7 +1418,7 @@
 						},
 						"plain": {
 							"$type": "color",
-							"$value": "{clickedu.color.palette.yellow.600}",
+							"$value": "{clickedu.color.palette.yellow.700}",
 							"$description": "Use for yellow text on neutral backgrounds for purely stylistic purposes with no specific meaning."
 						},
 						"onBold": {
@@ -1436,17 +1436,17 @@
 				"caution": {
 					"bold": {
 						"$type": "color",
-						"$value": "{clickedu.color.foreground.accent.orange.bold}",
+						"$value": "{clickedu.color.foreground.accent.yellow.bold}",
 						"$description": "Use for text that communicates caution to prevent mistakes or errors on caution backgrounds, such as 'color.background.caution.muted', and 'color.background.caution.subtle'."
 					},
 					"plain": {
 						"$type": "color",
-						"$value": "{clickedu.color.foreground.accent.orange.plain}",
+						"$value": "{clickedu.color.foreground.accent.yellow.plain}",
 						"$description": "Use for text that communicates caution to prevent mistakes or errors on neutral backgrounds."
 					},
 					"onBold": {
 						"$type": "color",
-						"$value": "{clickedu.color.foreground.accent.orange.onBold}",
+						"$value": "{clickedu.color.foreground.accent.yellow.onBold}",
 						"$description": "Use for text that communicates caution to prevent mistakes or errors on 'color.background.caution.bold'."
 					}
 				},

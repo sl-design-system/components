@@ -343,27 +343,41 @@ describe('sl-time-field', () => {
       el.textField.focus();
       await el.updateComplete;
 
+      // Move focus to the minutes
       await sendKeys({ press: 'ArrowRight' });
 
       expect(el.textField.input.selectionStart).to.equal(3);
       expect(el.textField.input.selectionEnd).to.equal(5);
 
-      // Pressing right again should do nothing
+      // Move focus to the end
       await sendKeys({ press: 'ArrowRight' });
 
-      expect(el.textField.input.selectionStart).to.equal(3);
+      expect(el.textField.input.selectionStart).to.equal(5);
       expect(el.textField.input.selectionEnd).to.equal(5);
 
+      // Move focus 1 space left
+      await sendKeys({ press: 'ArrowLeft' });
+
+      expect(el.textField.input.selectionStart).to.equal(4);
+      expect(el.textField.input.selectionEnd).to.equal(4);
+
+      // Move focus 1 space left (now just before the ':')
+      await sendKeys({ press: 'ArrowLeft' });
+
+      expect(el.textField.input.selectionStart).to.equal(3);
+      expect(el.textField.input.selectionEnd).to.equal(3);
+
+      // Move focus to the hours
       await sendKeys({ press: 'ArrowLeft' });
 
       expect(el.textField.input.selectionStart).to.equal(0);
       expect(el.textField.input.selectionEnd).to.equal(2);
 
-      // Pressing left again should do nothing
+      // Move focus to the start
       await sendKeys({ press: 'ArrowLeft' });
 
       expect(el.textField.input.selectionStart).to.equal(0);
-      expect(el.textField.input.selectionEnd).to.equal(2);
+      expect(el.textField.input.selectionEnd).to.equal(0);
     });
 
     it('should increment the hour when pressing the up arrow with the hour selected', async () => {

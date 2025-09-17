@@ -63,13 +63,12 @@ export class TooltipDirective extends AsyncDirective {
   //   return TooltipDirective.instancePropKeys.has(key as TooltipInstancePropKey);
   // }
 
-
-  isInstanceProp2(prop: string): prop is TooltipInstancePropKey { // isTooltipProp
+  isInstanceProp2(prop: string): prop is TooltipInstancePropKey {
+    // isTooltipProp
     return tooltipPropKeys.includes(prop as TooltipInstancePropKey);
   }
 
   // private static readonly instancePropKeys: readonly TooltipInstancePropKey[] = tooltipPropKeys;
-
 
   override disconnected(): void {
     if (this.tooltip instanceof HTMLElement) {
@@ -134,13 +133,15 @@ export class TooltipDirective extends AsyncDirective {
       this.config = { ...this.config, ...config };
     }
 
+    console.log('Merged config:', this.config, 'content, config', content, config, part);
+
     this.part = part;
 
-    if (this.tooltip instanceof Tooltip) {
-      this.#applyRuntimeProps(this.tooltip);
-      this.renderContent();
-      return;
-    }
+    // if (this.tooltip instanceof Tooltip) {
+    //   this.#applyRuntimeProps(this.tooltip);
+    //   this.renderContent();
+    //   return;
+    // }
 
     this.#setup();
   }
@@ -160,6 +161,29 @@ export class TooltipDirective extends AsyncDirective {
       this.part?.type
     );
 
+    const entries = Object.entries(this.config).filter(([_, v]) => v !== undefined);
+
+    const instanceProps = Object.fromEntries(
+      entries.filter(([k]) => this.isInstanceProp2(k))
+    ) as Partial<TooltipInstanceProps>;
+
+    const creationOptions = Object.fromEntries(entries.filter(([k]) => !this.isInstanceProp2(k))) as TooltipOptions;
+
+    console.log('Tooltip instance props in config:', instanceProps, 'creationOptions:', creationOptions);
+
+    if (this.part!.element)
+      this.tooltip ||= Tooltip.lazy(
+        this.part!.element,
+        tooltip => {
+          if (this.isConnected) {
+            this.tooltip = tooltip;
+            this.#applyRuntimeProps(this.tooltip, instanceProps);
+            this.renderContent();
+          }
+        },
+        creationOptions
+      );
+
     if (!this.part?.element || this.tooltip) return;
 
     // Split config: creation options = keys NOT present as instance props.
@@ -171,46 +195,25 @@ export class TooltipDirective extends AsyncDirective {
     //   Object.entries(this.config).filter(([k, v]) => v !== undefined && /*!TooltipDirective.*/this.isInstanceProp2(k))
     // ) as TooltipOptions;
 
+    // const entries = Object.entries(this.config).filter(([_, v]) => v !== undefined);
+    // const instanceProps = Object.fromEntries(
+    //   entries.filter(([k]) => this.isInstanceProp2(k))
+    // ) as Partial<TooltipInstanceProps>;
+    // const creationOptions = Object.fromEntries(entries.filter(([k]) => !this.isInstanceProp2(k))) as TooltipOptions;
+    // console.log('Tooltip instance props in config:', instanceProps, 'creationOptions:', creationOptions);
 
-    const entries = Object.entries(this.config).filter(([_, v]) => v !== undefined);
-    const instanceProps = Object.fromEntries(
-      entries.filter(([k]) => this.isInstanceProp2(k))
-    ) as Partial<TooltipInstanceProps>;
-    const creationOptions = Object.fromEntries(
-      entries.filter(([k]) => !this.isInstanceProp2(k))
-    ) as TooltipOptions;
-    console.log('Tooltip instance props in config:', instanceProps, 'creationOptions:', creationOptions);
+    // this.#applyRuntimeProps(this.tooltip as Tooltip, instanceProps);
 
-
-    this.tooltip = Tooltip.lazy(
-      this.part.element,
-      tooltip => {
-        if (!this.isConnected) return;
-        this.tooltip = tooltip;
-        this.#applyRuntimeProps(tooltip, instanceProps);
-        this.renderContent();
-      },
-      creationOptions
-    );
-
-    /*    if (this.part!.element) {
-      this.tooltip ||= Tooltip.lazy(
-        this.part!.element,
-        tooltip => {
-          // tooltip.position = 'bottom';
-          if (this.isConnected) {
-            this.tooltip = tooltip;
-            this.renderContent();
-            // this.tooltip.position = 'bottom';
-            // tooltip.position = 'bottom'; // TODO: needs to be an option that can be set? why first position is top and then bottom?
-          }
-        },
-        this.options
-      ); // TODO: add TooltipOptions here
-
-      console.log('this.tooltip after lazy init:', this.part?.options, this.part?.type, this.part?.element,
-      this.tooltip.constructor, Object.keys(this.tooltip));
-    }*/
+    // this.tooltip = Tooltip.lazy(
+    //   this.part.element,
+    //   tooltip => {
+    //     if (!this.isConnected) return;
+    //     this.tooltip = tooltip;
+    //     this.#applyRuntimeProps(this.tooltip, instanceProps);
+    //     this.renderContent();
+    //   },
+    //   creationOptions
+    // );
 
     //console.log('this.tooltip after lazy init:', this.tooltip, this.tooltip.properties);
     // this.tooltip.properties = { ...this.tooltip.properties, ...options };
@@ -227,7 +230,7 @@ export class TooltipDirective extends AsyncDirective {
       return;
     }
 
-    Object.entries(/*runtimeProps*/props).reduce<void>((_, [k, v]) => {
+    Object.entries(/*runtimeProps*/ props).reduce<void>((_, [k, v]) => {
       if (v === undefined) return _;
       try {
         (tooltip as unknown as Record<string, unknown>)[k] = v;

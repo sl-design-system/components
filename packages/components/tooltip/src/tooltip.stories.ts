@@ -115,11 +115,15 @@ export const DirectiveWithOptions: Story = {
       </p>
 
       <div class="container">
+
         <sl-button variant="primary" fill="solid"
           ${tooltip('My tooltip example', { ariaRelation: 'label', position: 'bottom-start', maxWidth: 100 })}
         >
           <sl-icon name="face-smile" size="lg"></sl-icon>
         </sl-button>
+
+
+
         TODO: make it working with context like tooltip.lazy?
 
         <sl-button ${tooltip('Hello world')}>Button</sl-button>

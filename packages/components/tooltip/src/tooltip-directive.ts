@@ -23,25 +23,9 @@ export type TooltipDirectiveConfig = TooltipOptions & Partial<TooltipInstancePro
 
 type TooltipDirectiveParams = [content: unknown, config?: TooltipDirectiveConfig /*options?: TooltipOptions*/]; // TODO: add TooltipProperties here as well?
 
-/*// Single introspection instance (never added to DOM).
-const #tooltipIntrospection = new Tooltip();
+const tooltipPropKeys = ['position', 'maxWidth'] as const;
 
-function isInstanceProp(key: string): boolean {
-  return key in __tooltipIntrospection && typeof (#tooltipIntrospection as any)[key] !== 'function';
-}*/
-
-// function isInstanceProp(key: keyof Tooltip): boolean {
-//   const value = __tooltipIntrospection[key];
-//   return typeof value !== 'function';
-// }
-
-// type RuntimePropKey = keyof TooltipInstanceProps;
-//
-// function isRuntimeProp(k: string): k is RuntimePropKey {
-//   return k in __tooltipIntrospection && typeof (__tooltipIntrospection as Record<string, unknown>)[k] !== 'function';
-// }
-
-type TooltipInstancePropKey = Extract<keyof TooltipInstanceProps, string>;
+type TooltipInstancePropKey = (typeof tooltipPropKeys)[number];
 
 export class TooltipDirective extends AsyncDirective {
   content?: unknown;
@@ -64,10 +48,28 @@ export class TooltipDirective extends AsyncDirective {
   //   return key in inst && typeof inst[key] !== 'function';
   // }
 
+  // private static readonly instancePropKeys: ReadonlySet<TooltipInstancePropKey> =
+  //   new Set<TooltipInstancePropKey>([
+  //     'position',
+  //     'maxWidth'
+  //   ] as const);
+
   private static isInstanceProp(key: string): key is TooltipInstancePropKey {
     const inst = TooltipDirective.introspection as unknown as Record<string, unknown>;
     return key in inst && typeof inst[key] !== 'function';
   }
+
+  // private static isInstanceProp2a(key: string): boolean /*key is TooltipInstancePropKey*/ {
+  //   return TooltipDirective.instancePropKeys.has(key as TooltipInstancePropKey);
+  // }
+
+
+  isInstanceProp2(prop: string): prop is TooltipInstancePropKey { // isTooltipProp
+    return tooltipPropKeys.includes(prop as TooltipInstancePropKey);
+  }
+
+  // private static readonly instancePropKeys: readonly TooltipInstancePropKey[] = tooltipPropKeys;
+
 
   override disconnected(): void {
     if (this.tooltip instanceof HTMLElement) {
@@ -161,29 +163,31 @@ export class TooltipDirective extends AsyncDirective {
     if (!this.part?.element || this.tooltip) return;
 
     // Split config: creation options = keys NOT present as instance props.
-    // const creationOptions: TooltipOptions = {};
-    // for (const [k, v] of Object.entries(this.config)) {
-    //   if (v === undefined) continue;
-    //   if (!isInstanceProp(k)) {
-    //     (creationOptions as any)[k] = v;
-    //   }
-    // }
-
-    // Split config: creation options = keys NOT present as instance props.
     // const creationOptions = Object.fromEntries(
     //   Object.entries(this.config).filter(([k, v]) => v !== undefined && !isInstanceProp(k))
     // ) as TooltipOptions;
 
+    // const creationOptions = Object.fromEntries(
+    //   Object.entries(this.config).filter(([k, v]) => v !== undefined && /*!TooltipDirective.*/this.isInstanceProp2(k))
+    // ) as TooltipOptions;
+
+
+    const entries = Object.entries(this.config).filter(([_, v]) => v !== undefined);
+    const instanceProps = Object.fromEntries(
+      entries.filter(([k]) => this.isInstanceProp2(k))
+    ) as Partial<TooltipInstanceProps>;
     const creationOptions = Object.fromEntries(
-      Object.entries(this.config).filter(([k, v]) => v !== undefined && !TooltipDirective.isInstanceProp(k))
+      entries.filter(([k]) => !this.isInstanceProp2(k))
     ) as TooltipOptions;
+    console.log('Tooltip instance props in config:', instanceProps, 'creationOptions:', creationOptions);
+
 
     this.tooltip = Tooltip.lazy(
       this.part.element,
       tooltip => {
         if (!this.isConnected) return;
         this.tooltip = tooltip;
-        this.#applyRuntimeProps(tooltip);
+        this.#applyRuntimeProps(tooltip, instanceProps);
         this.renderContent();
       },
       creationOptions
@@ -212,24 +216,27 @@ export class TooltipDirective extends AsyncDirective {
     // this.tooltip.properties = { ...this.tooltip.properties, ...options };
   } // TODO: it needs to be possible to set context shadowRoot as well in the callback
 
-  #applyRuntimeProps(tooltip: Tooltip): void {
-    for (const [k, v] of Object.entries(this.config)) {
-      if (v === undefined) continue;
-      if (!TooltipDirective.isInstanceProp(k)) continue; // skip creation-only keys
-     // if (!isInstanceProp(k)) continue; // skip creation-only keys
-      (tooltip as any)[k] = v;
-    }
-  }
+  #applyRuntimeProps(tooltip: Tooltip, props?: Partial<TooltipInstanceProps>): void {
+    // const runtimeProps =
+    //   props ??
+    //   (Object.fromEntries(
+    //     Object.entries(this.config).filter(([k, v]) => v !== undefined && this.isInstanceProp2(k))
+    //   ) as Partial<TooltipInstanceProps>);
 
-  // #applyRuntimeProps(t: Tooltip): void {
-  //   const cfg = this.config as Partial<TooltipInstanceProps>;
-  //   for (const k of Object.keys(cfg) as RuntimePropKey[]) {
-  //     const v = cfg[k];
-  //     if (v === undefined) continue;
-  //     if (!isRuntimeProp(k)) continue;
-  //     t[k] = v as TooltipInstanceProps[typeof k];
-  //   }
-  // }
+    if (!props) {
+      return;
+    }
+
+    Object.entries(/*runtimeProps*/props).reduce<void>((_, [k, v]) => {
+      if (v === undefined) return _;
+      try {
+        (tooltip as unknown as Record<string, unknown>)[k] = v;
+      } catch {
+        /* ignore readonly assignments */
+      }
+      return _;
+    }, undefined);
+  }
 }
 
 export const tooltip = directive(TooltipDirective);

@@ -84,6 +84,9 @@ export const templates = {
   'sl.tag.listOfHiddenElements': 'Lijst met verborgen elementen',
   'sl.tag.removalInstructions': 'Druk op de delete- of backspacetoets om dit item te verwijderen',
   'sl.timeField.toggleDropdown': 'Toon dropdown',
+  'sl.timeField.validation.rangeOverflow': str`Voer een tijd in die niet later is dan ${0}.`,
+  'sl.timeField.validation.rangeUnderflow': str`Voer een tijd in die niet eerder is dan ${0}.`,
+  'sl.timeField.valueMissing': 'Voer een tijd in.',
   'sl.toolBar.showMore': 'Meer tonen',
   'sl.tree.loadingMessage': 'Laden'
 };

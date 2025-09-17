@@ -71,9 +71,10 @@ export const Disabled: Story = {
 
 export const MinMax: Story = {
   args: {
-    hint: 'The allowed time range is between 09:00 and 18:00',
-    min: '09:00',
-    max: '18:00'
+    hint: 'The allowed time range is between 08:00 and 18:00',
+    min: '08:00',
+    max: '18:00',
+    start: '09:00'
   }
 };
 

@@ -1,4 +1,4 @@
-import { localized, msg } from '@lit/localize';
+import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin, type SlFormControlEvent, type SlUpdateStateEvent } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
@@ -237,43 +237,67 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
         popover
       >
         <div class="wrapper">
-          <div class="hours" tabindex="-1">
-            ${Array.from({ length: 24 / this.hourStep }, (_, i) => {
-              const hour = i * this.hourStep,
-                hourString = hour.toString().padStart(2, '0');
-
-              return html`
-                <button
-                  @click=${() => this.#onHourClick(hour)}
-                  @keydown=${(event: KeyboardEvent) => this.#onHourKeydown(event, hour)}
-                  ?selected=${hour === this.#valueAsNumbers?.hours}
-                  tabindex="-1"
-                >
-                  ${hourString}
-                </button>
-              `;
-            })}
-          </div>
+          ${this.renderHours()}
           <div class="separator"></div>
-          <div class="minutes" tabindex="-1">
-            ${Array.from({ length: 60 / this.minuteStep }, (_, i) => {
-              const minute = i * this.minuteStep,
-                minuteString = minute.toString().padStart(2, '0');
-
-              return html`
-                <button
-                  @click=${() => this.#onMinuteClick(minute)}
-                  @keydown=${(event: KeyboardEvent) => this.#onMinuteKeydown(event, minute)}
-                  ?selected=${minute === this.#valueAsNumbers?.minutes}
-                  tabindex="-1"
-                >
-                  ${minuteString}
-                </button>
-              `;
-            })}
-          </div>
+          ${this.renderMinutes()}
         </div>
       </sl-listbox>
+    `;
+  }
+
+  renderHours(): TemplateResult {
+    let hours = Array.from({ length: 24 / this.hourStep }, (_, i) => i * this.hourStep);
+
+    if (this.min) {
+      const minHour = this.#parseTime(this.min)?.hours;
+      if (minHour !== undefined) {
+        hours = hours.filter(h => h >= minHour);
+      }
+    }
+
+    if (this.max) {
+      const maxHour = this.#parseTime(this.max)?.hours;
+      if (maxHour !== undefined) {
+        hours = hours.filter(h => h <= maxHour);
+      }
+    }
+
+    return html`
+      <div class="hours" tabindex="-1">
+        ${hours.map(hour => {
+          return html`
+            <button
+              @click=${() => this.#onHourClick(hour)}
+              @keydown=${(event: KeyboardEvent) => this.#onHourKeydown(event, hour)}
+              ?selected=${hour === this.#valueAsNumbers?.hours}
+              tabindex="-1"
+            >
+              ${hour.toString().padStart(2, '0')}
+            </button>
+          `;
+        })}
+      </div>
+    `;
+  }
+
+  renderMinutes(): TemplateResult {
+    const minutes = Array.from({ length: 60 / this.minuteStep }, (_, i) => i * this.minuteStep);
+
+    return html`
+      <div class="minutes" tabindex="-1">
+        ${minutes.map(minute => {
+          return html`
+            <button
+              @click=${() => this.#onMinuteClick(minute)}
+              @keydown=${(event: KeyboardEvent) => this.#onMinuteKeydown(event, minute)}
+              ?selected=${minute === this.#valueAsNumbers?.minutes}
+              tabindex="-1"
+            >
+              ${minute.toString().padStart(2, '0')}
+            </button>
+          `;
+        })}
+      </div>
     `;
   }
 
@@ -281,6 +305,26 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
   override updateInternalValidity(): void {
     if (this.required && !this.value) {
       this.setCustomValidity(msg('Please enter a time.', { id: 'sl.timeField.valueMissing' }));
+    } else if (this.value && (this.min || this.max)) {
+      const time = this.#valueAsNumbers,
+        minTime = this.min ? this.#parseTime(this.min) : undefined,
+        maxTime = this.max ? this.#parseTime(this.max) : undefined;
+
+      if (minTime && (time?.hours ?? 0) * 60 + (time?.minutes ?? 0) < minTime.hours * 60 + minTime.minutes) {
+        this.setCustomValidity(
+          msg(str`Please select a time that is no earlier than ${this.min}.`, {
+            id: 'sl.timeField.validation.rangeUnderflow'
+          })
+        );
+      } else if (maxTime && (time?.hours ?? 0) * 60 + (time?.minutes ?? 0) > maxTime.hours * 60 + maxTime.minutes) {
+        this.setCustomValidity(
+          msg(str`Please select a time that is no later than ${this.max}.`, {
+            id: 'sl.timeField.validation.rangeOverflow'
+          })
+        );
+      } else {
+        this.setCustomValidity('');
+      }
     } else {
       this.setCustomValidity('');
     }
@@ -520,7 +564,12 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
     const hours = this.renderRoot.querySelector<HTMLElement>('.hours')!,
       minutes = this.renderRoot.querySelector<HTMLElement>('.minutes')!;
 
-    const hoursIndex = Math.floor(time.hours / this.hourStep),
+    let minHour = 0;
+    if (this.min) {
+      minHour = this.#parseTime(this.min)?.hours ?? 0;
+    }
+
+    const hoursIndex = Math.floor((time.hours - minHour) / this.hourStep),
       minutesIndex = Math.floor(time.minutes / this.minuteStep);
 
     (hours.children[hoursIndex] as HTMLElement)?.scrollIntoView({ block: 'start' });

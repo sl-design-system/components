@@ -409,7 +409,54 @@ describe('sl-time-field', () => {
     });
   });
 
-  describe('min/max', () => {});
+  describe('min/max', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-time-field min="08:00" max="14:00"></sl-time-field>`);
+    });
+
+    it('should only show the hours and minutes within the range', () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+
+      const hours = Array.from(el.renderRoot.querySelectorAll('.hours button')).map(button =>
+        button.textContent?.trim()
+      );
+      const minutes = Array.from(el.renderRoot.querySelectorAll('.minutes button')).map(button =>
+        button.textContent?.trim()
+      );
+
+      expect(hours).to.deep.equal(['08', '09', '10', '11', '12', '13', '14']);
+      expect(minutes).to.deep.equal(['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55']);
+    });
+
+    it('should be invalid when the value is before the minimum time', async () => {
+      el.textField.input.focus();
+      await sendKeys({ type: '07:00' });
+      el.textField.input.blur();
+      await el.updateComplete;
+
+      expect(el.valid).to.be.false;
+      expect(el.validationMessage).to.equal('Please select a time that is no earlier than 08:00.');
+    });
+
+    it('should be invalid when the value is after the maximum time', async () => {
+      el.textField.input.focus();
+      await sendKeys({ type: '19:00' });
+      el.textField.input.blur();
+      await el.updateComplete;
+
+      expect(el.valid).to.be.false;
+      expect(el.validationMessage).to.equal('Please select a time that is no later than 14:00.');
+    });
+
+    it('should be valid when the value is within the range', async () => {
+      el.textField.input.focus();
+      await sendKeys({ type: '10:00' });
+      el.textField.input.blur();
+      await el.updateComplete;
+
+      expect(el.valid).to.be.true;
+    });
+  });
 
   describe('required', () => {
     beforeEach(async () => {

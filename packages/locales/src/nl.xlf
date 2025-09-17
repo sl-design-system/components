@@ -330,6 +330,18 @@
   <source>Toggle dropdown</source>
   <target>Toon dropdown</target>
 </trans-unit>
+<trans-unit id="sl.timeField.valueMissing">
+  <source>Please enter a time.</source>
+  <target>Voer een tijd in.</target>
+</trans-unit>
+<trans-unit id="sl.timeField.validation.rangeUnderflow">
+  <source>Please select a time that is no earlier than <x id="0" equiv-text="${this.min}"/>.</source>
+  <target>Voer een tijd in die niet eerder is dan <x id="0" equiv-text="${this.min}"/>.</target>
+</trans-unit>
+<trans-unit id="sl.timeField.validation.rangeOverflow">
+  <source>Please select a time that is no later than <x id="0" equiv-text="${this.max}"/>.</source>
+  <target>Voer een tijd in die niet later is dan <x id="0" equiv-text="${this.max}"/>.</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

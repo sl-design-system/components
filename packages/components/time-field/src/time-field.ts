@@ -436,18 +436,18 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
       this.input.setSelectionRange(selectionStart, selectionStart + 2);
 
       this.requestUpdate();
-    } else if (event.key === 'ArrowRight') {
+    } else if (event.key === 'ArrowRight' && (selectionStart === 2 || this.input.selectionEnd === 2)) {
       event.preventDefault();
 
-      if (selectionStart === 0) {
-        this.input.setSelectionRange(3, 5);
-      }
-    } else if (event.key === 'ArrowLeft') {
+      this.input.setSelectionRange(3, 5);
+    } else if (event.key === 'ArrowLeft' && selectionStart === 3) {
       event.preventDefault();
 
-      if (selectionStart === 3) {
-        this.input.setSelectionRange(0, 2);
-      }
+      this.input.setSelectionRange(0, 2);
+    } else if (event.key === ':' && this.input.value.includes(':')) {
+      event.preventDefault();
+
+      this.input.setSelectionRange(3, 5);
     }
   }
 

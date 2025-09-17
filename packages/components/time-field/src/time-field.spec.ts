@@ -67,6 +67,12 @@ describe('sl-time-field', () => {
       expect(el.textField.input.selectionStart).to.equal(5);
       expect(el.textField.input.selectionEnd).to.equal(5);
     });
+
+    it('should emit a change event when the time is changed via the keyboard', async () => {});
+
+    it('should emit a change event when the time is changed via the arrow keys', async () => {});
+
+    it('should emit a change event when the time is changed via the listbox', async () => {});
   });
 
   describe('field button', () => {
@@ -253,6 +259,25 @@ describe('sl-time-field', () => {
     it('should select the minute when pressing space on a minute option', async () => {});
   });
 
+  describe('min/max', () => {});
+
+  describe('required', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-time-field required></sl-time-field>`);
+    });
+
+    it('should be invalid when empty', () => {
+      expect(el.valid).to.be.false;
+    });
+
+    it('should be valid when a time is selected', async () => {
+      el.value = '09:00';
+      await el.updateComplete;
+
+      expect(el.valid).to.be.true;
+    });
+  });
+
   describe('start time', () => {
     let clock: SinonFakeTimers;
 
@@ -291,6 +316,17 @@ describe('sl-time-field', () => {
 
       expect(textField.input.value).to.equal('09:00');
       expect(textField.value).to.equal('09:00');
+    });
+
+    it('should be possible to enter a new time via the keyboard', async () => {
+      el.textField.input.focus();
+      await sendKeys({ type: '12:34' });
+      el.textField.input.blur();
+
+      expect(el.value).to.equal('12:34');
+      expect(el.textField.value).to.equal('12:34');
+      expect(el.textField.input.selectionStart).to.equal(5);
+      expect(el.textField.input.selectionEnd).to.equal(5);
     });
 
     it('should focus the hour when focusing the text field', async () => {

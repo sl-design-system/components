@@ -4,10 +4,10 @@ import { type ElementPart, directive } from 'lit/directive.js';
 import { Tooltip, TooltipOptions } from './tooltip.js';
 
 /** Configuration options for the tooltip directive. */
-export type TooltipDirectiveConfig = TooltipOptions & TooltipInstanceProps;
+export type TooltipDirectiveConfig = TooltipOptions & TooltipProperties;
 
 /** Tooltip public properties that can be set. */
-type TooltipInstanceProps = {
+type TooltipProperties = {
   position?: Tooltip['position'];
   maxWidth?: number;
 };
@@ -59,14 +59,14 @@ export class TooltipDirective extends AsyncDirective {
 
   #setup(): void {
     const options = Object.entries(this.config).filter(([_, value]) => value !== undefined),
-      instanceProps: TooltipInstanceProps = {},
-      creationOptions: TooltipOptions = {};
+      tooltipProperties: TooltipProperties = {},
+      tooltipOptions: TooltipOptions = {};
 
     for (const [key, value] of options) {
       if (this.isTooltipProperty(key)) {
-        (instanceProps as Record<string, unknown>)[key] = value;
+        (tooltipProperties as Record<string, unknown>)[key] = value;
       } else {
-        (creationOptions as Record<string, unknown>)[key] = value;
+        (tooltipOptions as Record<string, unknown>)[key] = value;
       }
     }
 
@@ -76,15 +76,15 @@ export class TooltipDirective extends AsyncDirective {
         tooltip => {
           if (this.isConnected) {
             this.tooltip = tooltip;
-            this.#applyTooltipProps(this.tooltip, instanceProps);
+            this.#applyTooltipProps(this.tooltip, tooltipProperties);
             this.renderContent();
           }
         },
-        creationOptions
+        tooltipOptions
       );
   }
 
-  #applyTooltipProps(tooltip: Tooltip, props?: Partial<TooltipInstanceProps>): void {
+  #applyTooltipProps(tooltip: Tooltip, props?: Partial<TooltipProperties>): void {
     if (!props) {
       return;
     }
@@ -93,7 +93,7 @@ export class TooltipDirective extends AsyncDirective {
       try {
         (tooltip as unknown as Record<string, unknown>)[key] = value;
       } catch {
-        /* ignore readonly properties */
+        // ignore readonly properties
       }
     });
   }

@@ -1,5 +1,6 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { expect, fixture } from '@open-wc/testing';
+import { type PopoverPosition } from '@sl-design-system/shared';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy, stub } from 'sinon';
 import { tooltip } from './tooltip-directive.js';
@@ -7,12 +8,14 @@ import { Tooltip } from './tooltip.js';
 
 describe('tooltip()', () => {
   it('should create a lazy tooltip on the host element', async () => {
-    spy(Tooltip, 'lazy');
+    const lazySpy = spy(Tooltip, 'lazy');
 
     const el = await fixture(html`<div ${tooltip('content')}>Host</div>`);
 
     expect(Tooltip.lazy).to.have.been.calledOnce;
     expect(Tooltip.lazy).to.have.been.calledWith(el);
+
+    lazySpy.restore();
   });
 
   it('should log a warning if the custom element is not defined on the document', async () => {
@@ -93,6 +96,70 @@ describe('tooltip()', () => {
     expect(siblingEl).to.match('sl-tooltip');
     expect(siblingEl).to.have.text('content');
     expect(siblingEl?.shadowRoot).be.instanceof(ShadowRoot);
+
+    // Cleanup
+    el.remove();
+  });
+
+  it('should pass tooltip options via config to the tooltip', async () => {
+    try {
+      if (!customElements.get('sl-tooltip')) {
+        customElements.define('sl-tooltip', Tooltip);
+      }
+    } catch {
+      // empty
+    }
+
+    const parent = document.createElement('div');
+
+    document.body.appendChild(parent);
+
+    const lazySpy = spy(Tooltip, 'lazy');
+
+    const el: HTMLElement = await fixture(
+      html`<div ${tooltip('content', { parentNode: parent, ariaRelation: 'label' })} tabindex="0">Host</div>`
+    );
+
+    // Trigger the lazy tooltip creation
+    el.focus();
+
+    expect(lazySpy).to.have.been.calledOnce;
+    console.log('lazy getcall', lazySpy.getCall(0).args[2], lazySpy.getCall(0));
+    expect(lazySpy.getCall(0).args[2]).to.deep.equal({ parentNode: parent, ariaRelation: 'label' });
+
+    const tooltipEl = parent.querySelector('sl-tooltip');
+
+    expect(tooltipEl).to.exist;
+    expect(el).to.have.attribute('aria-labelledby', tooltipEl?.id);
+
+    parent.remove();
+    lazySpy.restore();
+  });
+
+  it('should apply tooltip properties (position, maxWidth) from config to the tooltip', async () => {
+    try {
+      if (!customElements.get('sl-tooltip')) {
+        customElements.define('sl-tooltip', Tooltip);
+      }
+    } catch {
+      // empty
+    }
+
+    const el: HTMLElement = await fixture(html`
+      <sl-button ${tooltip('Tooltip example', { position: 'bottom' as PopoverPosition, maxWidth: 150 })} tabindex="0"
+        >Button</sl-button
+      >
+    `);
+
+    // Trigger the lazy tooltip creation
+    el.focus();
+
+    const tooltipEl = el.nextElementSibling as Tooltip | null;
+
+    expect(tooltipEl).to.exist;
+    expect(tooltipEl?.position).to.equal('bottom');
+    expect(tooltipEl?.maxWidth).to.equal(150);
+    expect(tooltipEl).to.have.text('Tooltip example');
 
     // Cleanup
     el.remove();

@@ -64,6 +64,9 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
+  /** @internal */
+  @query('sl-field-button') button?: FieldButton;
+
   /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<string>>;
 
@@ -214,6 +217,9 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
           @click=${this.#onButtonClick}
           ?disabled=${this.disabled || this.readonly}
           aria-label=${msg('Toggle dropdown', { id: 'sl.timeField.toggleDropdown' })}
+          aria-controls="dialog"
+          aria-expanded="false"
+          aria-haspopup="listbox"
           slot="suffix"
           tabindex=${this.disabled || this.readonly ? '-1' : '0'}
         >
@@ -231,6 +237,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
         @beforetoggle=${this.#onBeforeToggle}
         @toggle=${this.#onToggle}
         @keydown=${this.#onKeydown}
+        id="dialog"
         popover
       >
         <ul
@@ -335,9 +342,9 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
 
   #onBeforeToggle(event: ToggleEvent): void {
     if (event.newState === 'open') {
-      this.input.setAttribute('aria-expanded', 'true');
+      this.button?.setAttribute('aria-expanded', 'true');
     } else {
-      this.input.setAttribute('aria-expanded', 'false');
+      this.button?.setAttribute('aria-expanded', 'false');
       this.#popoverJustClosed = true;
     }
   }

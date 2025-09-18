@@ -39,6 +39,7 @@ ul {
   flex-direction: column;
   gap: var(--sl-size-050);
   margin: 0;
+  max-block-size: calc(8 * (1lh + var(--sl-size-200)) + 7 * var(--sl-size-050) + var(--sl-size-200));
   overflow: auto;
   padding: var(--sl-size-100);
   scroll-padding-block: var(--sl-size-100);
@@ -57,8 +58,7 @@ li {
   display: flex;
   outline: transparent solid var(--sl-size-borderWidth-focusRing);
   outline-offset: var(--sl-size-outlineOffset-default);
-  padding: calc(var(--sl-size-100) - var(--sl-size-borderWidth-action))
-    calc(var(--sl-size-200) - var(--sl-size-borderWidth-action));
+  padding: var(--sl-size-100) var(--sl-size-200);
 
   &:hover {
     --_bg-opacity: var(--sl-opacity-interactive-plain-hover);

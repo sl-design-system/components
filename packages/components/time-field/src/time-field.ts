@@ -2,7 +2,6 @@ import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin, type SlFormControlEvent, type SlUpdateStateEvent } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { Listbox } from '@sl-design-system/listbox';
 import { type EventEmitter, anchor, event } from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { FieldButton, TextField } from '@sl-design-system/text-field';
@@ -36,7 +35,6 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
     return {
       'sl-field-button': FieldButton,
       'sl-icon': Icon,
-      'sl-listbox': Listbox,
       'sl-text-field': TextField
     };
   }
@@ -81,8 +79,8 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** @internal The input element in the light DOM. */
   input!: HTMLInputElement;
 
-  /** @internal The listbox element that is also the popover. */
-  @query('[part="listbox"]') listbox?: HTMLSlotElement;
+  /** @internal The dialog element that is also the popover. */
+  @query('dialog') dialog?: HTMLDialogElement;
 
   /**
    * The maximum time selectable in the field.
@@ -223,7 +221,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
         </sl-field-button>
       </sl-text-field>
 
-      <sl-listbox
+      <dialog
         ${anchor({
           element: this,
           offset: TimeField.offset,
@@ -233,19 +231,30 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
         @beforetoggle=${this.#onBeforeToggle}
         @toggle=${this.#onToggle}
         @keydown=${this.#onKeydown}
-        part="listbox"
         popover
       >
-        <div class="wrapper">
+        <ul
+          aria-label=${msg('Select hours', { id: 'sl.timeField.selectHours' })}
+          class="hours"
+          role="listbox"
+          tabindex="-1"
+        >
           ${this.renderHours()}
-          <div class="separator"></div>
+        </ul>
+        <hr />
+        <ul
+          aria-label=${msg('Select minutes', { id: 'sl.timeField.selectMinutes' })}
+          class="minutes"
+          role="listbox"
+          tabindex="-1"
+        >
           ${this.renderMinutes()}
-        </div>
-      </sl-listbox>
+        </ul>
+      </dialog>
     `;
   }
 
-  renderHours(): TemplateResult {
+  renderHours(): TemplateResult[] {
     let hours = Array.from({ length: 24 / this.hourStep }, (_, i) => i * this.hourStep);
 
     if (this.min) {
@@ -262,43 +271,37 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
       }
     }
 
-    return html`
-      <div class="hours" tabindex="-1">
-        ${hours.map(hour => {
-          return html`
-            <button
-              @click=${() => this.#onHourClick(hour)}
-              @keydown=${(event: KeyboardEvent) => this.#onHourKeydown(event, hour)}
-              ?selected=${hour === this.#valueAsNumbers?.hours}
-              tabindex="-1"
-            >
-              ${hour.toString().padStart(2, '0')}
-            </button>
-          `;
-        })}
-      </div>
-    `;
+    return hours.map(
+      hour => html`
+        <li
+          @click=${() => this.#onHourClick(hour)}
+          @keydown=${(event: KeyboardEvent) => this.#onHourKeydown(event, hour)}
+          aria-selected=${hour === this.#valueAsNumbers?.hours}
+          role="option"
+          tabindex="-1"
+        >
+          ${hour.toString().padStart(2, '0')}
+        </li>
+      `
+    );
   }
 
-  renderMinutes(): TemplateResult {
+  renderMinutes(): TemplateResult[] {
     const minutes = Array.from({ length: 60 / this.minuteStep }, (_, i) => i * this.minuteStep);
 
-    return html`
-      <div class="minutes" tabindex="-1">
-        ${minutes.map(minute => {
-          return html`
-            <button
-              @click=${() => this.#onMinuteClick(minute)}
-              @keydown=${(event: KeyboardEvent) => this.#onMinuteKeydown(event, minute)}
-              ?selected=${minute === this.#valueAsNumbers?.minutes}
-              tabindex="-1"
-            >
-              ${minute.toString().padStart(2, '0')}
-            </button>
-          `;
-        })}
-      </div>
-    `;
+    return minutes.map(
+      minute => html`
+        <li
+          @click=${() => this.#onMinuteClick(minute)}
+          @keydown=${(event: KeyboardEvent) => this.#onMinuteKeydown(event, minute)}
+          aria-selected=${minute === this.#valueAsNumbers?.minutes}
+          role="option"
+          tabindex="-1"
+        >
+          ${minute.toString().padStart(2, '0')}
+        </li>
+      `
+    );
   }
 
   /** @internal */
@@ -342,7 +345,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
   #onButtonClick(): void {
     // Prevents the popover from reopening immediately after it was just closed
     if (!this.#popoverJustClosed) {
-      this.listbox?.togglePopover();
+      this.dialog?.togglePopover();
     }
   }
 
@@ -373,21 +376,21 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
       event.preventDefault();
 
       const activeElement = this.shadowRoot?.activeElement;
-      if (!activeElement || !(activeElement instanceof HTMLButtonElement)) {
+      if (!activeElement || !(activeElement instanceof HTMLLIElement)) {
         return;
       }
 
-      const buttons = Array.from(activeElement.parentElement?.querySelectorAll('button') ?? []);
-      let index = buttons.indexOf(activeElement);
+      const elements = Array.from(activeElement.parentElement?.querySelectorAll('li') ?? []);
+      let index = elements.indexOf(activeElement);
 
       if (event.key === 'ArrowUp') {
-        index = index === 0 ? buttons.length - 1 : index - 1;
+        index = index === 0 ? elements.length - 1 : index - 1;
       } else if (event.key === 'ArrowDown') {
-        index = index === buttons.length - 1 ? 0 : index + 1;
+        index = index === elements.length - 1 ? 0 : index + 1;
       }
 
-      buttons[index]?.focus();
-      buttons[index]?.scrollIntoView({ block: 'nearest' });
+      elements[index]?.focus();
+      elements[index]?.scrollIntoView({ block: 'nearest' });
     } else if (['ArrowLeft', 'ArrowRight'].includes(event.key)) {
       event.preventDefault();
 
@@ -404,7 +407,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
     this.updateState({ dirty: true });
     this.updateValidity();
 
-    this.listbox?.hidePopover();
+    this.dialog?.hidePopover();
     this.textField.focus();
   }
 
@@ -446,7 +449,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
       return;
     }
 
-    this.listbox?.showPopover();
+    this.dialog?.showPopover();
   }
 
   #onTextFieldFocus(event: SlFocusEvent): void {

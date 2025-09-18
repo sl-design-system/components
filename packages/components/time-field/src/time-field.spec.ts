@@ -95,7 +95,7 @@ describe('sl-time-field', () => {
 
       el.addEventListener('sl-change', onChange);
       el.renderRoot.querySelector('sl-field-button')?.click();
-      el.renderRoot.querySelector<HTMLElement>('[popover] button')?.click();
+      el.renderRoot.querySelector<HTMLElement>('dialog li')?.click();
 
       expect(onChange).to.have.been.calledOnce;
     });
@@ -138,30 +138,30 @@ describe('sl-time-field', () => {
     it('should show the popover when clicked', () => {
       button.click();
 
-      const popover = el.renderRoot.querySelector<HTMLElement>('[popover]')!;
+      const dialog = el.renderRoot.querySelector<HTMLElement>('dialog')!;
 
-      expect(popover).to.exist;
-      expect(popover).to.match(':popover-open');
+      expect(dialog).to.exist;
+      expect(dialog).to.match(':popover-open');
     });
 
     it('should show the popover when focused and Enter is pressed', async () => {
       button.focus();
       await sendKeys({ press: 'Enter' });
 
-      const popover = el.renderRoot.querySelector<HTMLElement>('[popover]')!;
+      const dialog = el.renderRoot.querySelector<HTMLElement>('dialog')!;
 
-      expect(popover).to.exist;
-      expect(popover).to.match(':popover-open');
+      expect(dialog).to.exist;
+      expect(dialog).to.match(':popover-open');
     });
 
     it('should show the popover when focused and Space is pressed', async () => {
       button.focus();
       await sendKeys({ press: ' ' });
 
-      const popover = el.renderRoot.querySelector<HTMLElement>('[popover]')!;
+      const dialog = el.renderRoot.querySelector<HTMLElement>('dialog')!;
 
-      expect(popover).to.exist;
-      expect(popover).to.match(':popover-open');
+      expect(dialog).to.exist;
+      expect(dialog).to.match(':popover-open');
     });
   });
 
@@ -242,20 +242,20 @@ describe('sl-time-field', () => {
       textField.click();
       await el.updateComplete;
 
-      const popover = el.renderRoot.querySelector<HTMLElement>('[popover]')!;
+      const dialog = el.renderRoot.querySelector<HTMLElement>('dialog')!;
 
-      expect(popover).to.exist;
-      expect(popover).to.match(':popover-open');
+      expect(dialog).to.exist;
+      expect(dialog).to.match(':popover-open');
     });
 
     it('should not open the popover on focus', async () => {
       textField.focus();
       await el.updateComplete;
 
-      const popover = el.renderRoot.querySelector<HTMLElement>('[popover]')!;
+      const dialog = el.renderRoot.querySelector<HTMLElement>('dialog')!;
 
-      expect(popover).to.exist;
-      expect(popover).not.to.match(':popover-open');
+      expect(dialog).to.exist;
+      expect(dialog).not.to.match(':popover-open');
     });
   });
 
@@ -265,9 +265,7 @@ describe('sl-time-field', () => {
     });
 
     it('should contain columns for hours', () => {
-      const hours = Array.from(el.renderRoot.querySelectorAll('.hours button')).map(button =>
-        button.textContent?.trim()
-      );
+      const hours = Array.from(el.renderRoot.querySelectorAll('.hours li')).map(e => e.textContent?.trim());
 
       expect(hours).to.deep.equal([
         '00',
@@ -298,9 +296,7 @@ describe('sl-time-field', () => {
     });
 
     it('should contain columns for minutes', () => {
-      const minutes = Array.from(el.renderRoot.querySelectorAll('.minutes button')).map(button =>
-        button.textContent?.trim()
-      );
+      const minutes = Array.from(el.renderRoot.querySelectorAll('.minutes li')).map(e => e.textContent?.trim());
 
       expect(minutes).to.deep.equal(['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55']);
     });
@@ -310,12 +306,8 @@ describe('sl-time-field', () => {
       el.minuteStep = 10;
       await el.updateComplete;
 
-      const hours = Array.from(el.renderRoot.querySelectorAll('.hours button')).map(button =>
-        button.textContent?.trim()
-      );
-      const minutes = Array.from(el.renderRoot.querySelectorAll('.minutes button')).map(button =>
-        button.textContent?.trim()
-      );
+      const hours = Array.from(el.renderRoot.querySelectorAll('.hours li')).map(e => e.textContent?.trim());
+      const minutes = Array.from(el.renderRoot.querySelectorAll('.minutes li')).map(e => e.textContent?.trim());
 
       expect(hours).to.deep.equal(['00', '02', '04', '06', '08', '10', '12', '14', '16', '18', '20', '22']);
       expect(minutes).to.deep.equal(['00', '10', '20', '30', '40', '50']);
@@ -323,8 +315,8 @@ describe('sl-time-field', () => {
 
     it('should update the value when an option is selected', async () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
-      el.renderRoot.querySelector<HTMLElement>('.hours button:nth-of-type(5)')?.click();
-      el.renderRoot.querySelector<HTMLElement>('.minutes button:nth-of-type(3)')?.click();
+      el.renderRoot.querySelector<HTMLElement>('.hours li:nth-of-type(5)')?.click();
+      el.renderRoot.querySelector<HTMLElement>('.minutes li:nth-of-type(3)')?.click();
       await el.updateComplete;
 
       expect(el.value).to.equal('04:10');
@@ -336,8 +328,8 @@ describe('sl-time-field', () => {
       await sendKeys({ press: 'Tab' });
       await sendKeys({ press: ' ' });
 
-      expect(el.shadowRoot?.activeElement).to.match('button');
-      expect(el.shadowRoot?.activeElement?.parentElement).to.match('div.hours');
+      expect(el.shadowRoot?.activeElement).to.match('li');
+      expect(el.shadowRoot?.activeElement?.parentElement).to.match('ul.hours');
     });
 
     it('should switch focus between start hour and minute when pressing horizontal arrows', async () => {
@@ -347,15 +339,15 @@ describe('sl-time-field', () => {
 
       await sendKeys({ press: 'ArrowRight' });
 
-      expect(el.shadowRoot?.activeElement).to.match('button');
+      expect(el.shadowRoot?.activeElement).to.match('li');
       expect(el.shadowRoot?.activeElement).to.have.trimmed.text('00');
-      expect(el.shadowRoot?.activeElement?.parentElement).to.match('div.minutes');
+      expect(el.shadowRoot?.activeElement?.parentElement).to.match('ul.minutes');
 
       await sendKeys({ press: 'ArrowLeft' });
 
-      expect(el.shadowRoot?.activeElement).to.match('button');
+      expect(el.shadowRoot?.activeElement).to.match('li');
       expect(el.shadowRoot?.activeElement).to.have.trimmed.text('12');
-      expect(el.shadowRoot?.activeElement?.parentElement).to.match('div.hours');
+      expect(el.shadowRoot?.activeElement?.parentElement).to.match('ul.hours');
     });
 
     it('should select the hour when pressing enter on an hour option', async () => {
@@ -417,12 +409,8 @@ describe('sl-time-field', () => {
     it('should only show the hours and minutes within the range', () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
 
-      const hours = Array.from(el.renderRoot.querySelectorAll('.hours button')).map(button =>
-        button.textContent?.trim()
-      );
-      const minutes = Array.from(el.renderRoot.querySelectorAll('.minutes button')).map(button =>
-        button.textContent?.trim()
-      );
+      const hours = Array.from(el.renderRoot.querySelectorAll('.hours li')).map(e => e.textContent?.trim());
+      const minutes = Array.from(el.renderRoot.querySelectorAll('.minutes li')).map(e => e.textContent?.trim());
 
       expect(hours).to.deep.equal(['08', '09', '10', '11', '12', '13', '14']);
       expect(minutes).to.deep.equal(['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55']);

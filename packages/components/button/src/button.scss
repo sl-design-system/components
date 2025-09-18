@@ -199,20 +199,23 @@
 }
 
 :host([disabled]) {
-  color: var(--sl-color-foreground-disabled);
-  cursor: default;
   pointer-events: none;
 }
 
-:host([disabled]:where(:not([fill]), [fill='solid'])) {
+:host(:where([disabled], [aria-disabled='true'])) {
+  color: var(--sl-color-foreground-disabled);
+  cursor: default;
+}
+
+:host(:where([disabled], [aria-disabled='true']):where(:not([fill]), [fill='solid'])) {
   background: var(--sl-color-background-disabled);
 }
 
-:host([disabled]:where([fill='ghost'], [fill='link'], [fill='outline'])) {
+:host(:where([disabled], [aria-disabled='true']):where([fill='ghost'], [fill='link'], [fill='outline'])) {
   background: transparent;
 }
 
-:host([disabled][fill='outline']) {
+:host(:where([disabled], [aria-disabled='true'])[fill='outline']) {
   border-color: var(--sl-color-border-disabled);
 }
 

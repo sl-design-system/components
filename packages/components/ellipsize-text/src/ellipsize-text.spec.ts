@@ -38,7 +38,7 @@ describe('sl-ellipsize-text', () => {
     });
 
     it('should have a tooltip when there is not enough space', () => {
-      const tooltip = el.nextElementSibling;
+      const tooltip = el.lastElementChild;
 
       expect(tooltip).to.exist;
       expect(tooltip).to.match('sl-tooltip');

@@ -42,7 +42,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   static override styles: CSSResultGroup = styles;
 
   /** Ignore snap events before initialized. */
-  #initialized = false;
+  // #initialized = false;
 
   /** @internal The month/year that will be displayed in the header. */
   @state() displayMonth?: Date;
@@ -79,6 +79,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /** @internal The scroller element. */
   @query('.scroller') scroller?: HTMLElement;
+  /** @internal The scroller element. */
+  @query('.scroll-wrapper') scrollWrapper?: HTMLElement;
 
   /** The selected date. */
   @property({ converter: dateConverter }) selected?: Date;
@@ -107,10 +109,27 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   // eslint-disable-next-line lit/no-native-attributes
   @property({ type: Boolean }) override inert = false;
 
+  observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && entry.intersectionRatio === 1) {
+          this.month = normalizeDateTime((entry.target as MonthView).month!);
+          this.#scrollToMonth(0);
+        }
+      });
+    },
+    { root: this.scrollWrapper, threshold: [0, 0.25, 0.5, 0.75, 1] }
+  );
+
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
-    requestAnimationFrame(() => this.#scrollToMonth(0));
+    requestAnimationFrame(() => {
+      this.#scrollToMonth(0);
+      const monthViews = this.renderRoot.querySelectorAll('sl-month-view');
+      console.log('monthViews', monthViews);
+      monthViews.forEach(mv => this.observer.observe(mv));
+    });
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -236,58 +255,55 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           : nothing}
         ${this.weekDays.map(day => html`<span class="day-of-week" aria-label=${day.long}>${day.short}</span>`)}
       </div>
-      <div
-        @scrollend=${this.#onScrollEnd}
-        @scrollsnapchange=${this.#onScrollSnapChange}
-        @scrollsnapchanging=${this.#onScrollSnapChanging}
-        class="scroller"
-      >
-        <sl-month-view
-          ?readonly=${this.readonly}
-          ?show-today=${this.showToday}
-          ?show-week-numbers=${this.showWeekNumbers}
-          .firstDayOfWeek=${this.firstDayOfWeek}
-          .month=${this.previousMonth}
-          .selected=${this.selected}
-          .negative=${this.negative}
-          .indicator=${this.indicator}
-          aria-hidden="true"
-          inert
-          max=${ifDefined(this.max?.toISOString())}
-          min=${ifDefined(this.min?.toISOString())}
-          locale=${ifDefined(this.locale)}
-        ></sl-month-view>
-        <sl-month-view
-          @sl-change=${this.#onChange}
-          @sl-select=${this.#onSelect}
-          ?readonly=${this.readonly}
-          ?show-today=${this.showToday}
-          ?show-week-numbers=${this.showWeekNumbers}
-          .firstDayOfWeek=${this.firstDayOfWeek}
-          .month=${this.month}
-          .selected=${this.selected}
-          .negative=${this.negative}
-          .indicator=${this.indicator}
-          ?inert=${this.inert}
-          locale=${ifDefined(this.locale)}
-          max=${ifDefined(this.max?.toISOString())}
-          min=${ifDefined(this.min?.toISOString())}
-        ></sl-month-view>
-        <sl-month-view
-          ?readonly=${this.readonly}
-          ?show-today=${this.showToday}
-          ?show-week-numbers=${this.showWeekNumbers}
-          .firstDayOfWeek=${this.firstDayOfWeek}
-          .month=${this.nextMonth}
-          .selected=${this.selected}
-          .negative=${this.negative}
-          .indicator=${this.indicator}
-          aria-hidden="true"
-          inert
-          locale=${ifDefined(this.locale)}
-          max=${ifDefined(this.max?.toISOString())}
-          min=${ifDefined(this.min?.toISOString())}
-        ></sl-month-view>
+      <div class="scroll-wrapper">
+        <div class="scroller">
+          <sl-month-view
+            ?readonly=${this.readonly}
+            ?show-today=${this.showToday}
+            ?show-week-numbers=${this.showWeekNumbers}
+            .firstDayOfWeek=${this.firstDayOfWeek}
+            .month=${this.previousMonth}
+            .selected=${this.selected}
+            .negative=${this.negative}
+            .indicator=${this.indicator}
+            aria-hidden="true"
+            inert
+            max=${ifDefined(this.max?.toISOString())}
+            min=${ifDefined(this.min?.toISOString())}
+            locale=${ifDefined(this.locale)}
+          ></sl-month-view>
+          <sl-month-view
+            @sl-change=${this.#onChange}
+            @sl-select=${this.#onSelect}
+            ?readonly=${this.readonly}
+            ?show-today=${this.showToday}
+            ?show-week-numbers=${this.showWeekNumbers}
+            .firstDayOfWeek=${this.firstDayOfWeek}
+            .month=${this.month}
+            .selected=${this.selected}
+            .negative=${this.negative}
+            .indicator=${this.indicator}
+            ?inert=${this.inert}
+            locale=${ifDefined(this.locale)}
+            max=${ifDefined(this.max?.toISOString())}
+            min=${ifDefined(this.min?.toISOString())}
+          ></sl-month-view>
+          <sl-month-view
+            ?readonly=${this.readonly}
+            ?show-today=${this.showToday}
+            ?show-week-numbers=${this.showWeekNumbers}
+            .firstDayOfWeek=${this.firstDayOfWeek}
+            .month=${this.nextMonth}
+            .selected=${this.selected}
+            .negative=${this.negative}
+            .indicator=${this.indicator}
+            aria-hidden="true"
+            inert
+            locale=${ifDefined(this.locale)}
+            max=${ifDefined(this.max?.toISOString())}
+            min=${ifDefined(this.min?.toISOString())}
+          ></sl-month-view>
+        </div>
       </div>
     `;
   }
@@ -311,30 +327,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onNext(): void {
-    console.log('onNext');
     this.#scrollToMonth(1, true);
-  }
-
-  #onScrollEnd(): void {
-    this.#initialized = true;
-  }
-
-  #onScrollSnapChange(event: Event): void {
-    if (!this.#initialized) return;
-
-    this.month = normalizeDateTime((event.snapTargetInline as MonthView).month!);
-    this.#scrollToMonth(0);
-  }
-
-  #onScrollSnapChanging(event: Event): void {
-    console.log(
-      'onScrollSnapChanging',
-      this.displayMonth,
-      normalizeDateTime((event.snapTargetInline as MonthView).month!)
-    );
-    if (!this.#initialized) return;
-
-    this.displayMonth = normalizeDateTime((event.snapTargetInline as MonthView).month!);
   }
 
   #onSelect(event: SlSelectEvent<Date>): void {
@@ -355,8 +348,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   #scrollToMonth(month: -1 | 0 | 1, smooth = false): void {
     const width = parseInt(getComputedStyle(this).width),
       left = width * month + width;
-
-    console.log('scrollToMonth', month, left, this.scroller);
 
     this.scroller?.scrollTo({ left, behavior: smooth ? 'smooth' : 'instant' });
   }

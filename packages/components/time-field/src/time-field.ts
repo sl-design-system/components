@@ -133,8 +133,13 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
     if (value) {
       const time = this.#parseTime(value);
 
-      this.#value = this.#formatTime(time?.hours ?? 0, time?.minutes ?? 0);
-      this.#valueAsNumbers = time;
+      if (time && !Number.isNaN(time.hours) && !Number.isNaN(time.minutes)) {
+        this.#value = this.#formatTime(time?.hours ?? 0, time?.minutes ?? 0);
+        this.#valueAsNumbers = time;
+      } else {
+        this.#value = undefined;
+        this.#valueAsNumbers = undefined;
+      }
     } else {
       this.#value = undefined;
       this.#valueAsNumbers = undefined;
@@ -357,7 +362,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
   }
 
   #onHourClick(hours: number): void {
-    this.#valueAsNumbers = { hours, minutes: this.#valueAsNumbers?.minutes ?? this.#startTime?.minutes ?? 0 };
+    this.#valueAsNumbers = { hours, minutes: this.#valueAsNumbers?.minutes ?? 0 };
     this.#value = this.#formatTime(this.#valueAsNumbers.hours ?? 0, this.#valueAsNumbers.minutes ?? 0);
     this.requestUpdate('value');
 
@@ -431,10 +436,16 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
     event.stopPropagation();
 
     const time = this.#parseTime(this.textField.input.value);
-    if (time && time.hours !== this.#valueAsNumbers?.hours && time.minutes !== this.#valueAsNumbers?.minutes) {
+    if (!time || Number.isNaN(time.hours) || Number.isNaN(time.minutes)) {
+      this.#valueAsNumbers = undefined;
+      this.#value = undefined;
+      this.requestUpdate();
+
+      this.changeEvent.emit(this.value ?? '');
+    } else if (time && time.hours !== this.#valueAsNumbers?.hours && time.minutes !== this.#valueAsNumbers?.minutes) {
       this.#valueAsNumbers = time;
       this.#value = this.#formatTime(time.hours, time.minutes);
-      this.requestUpdate('value');
+      this.requestUpdate();
 
       this.changeEvent.emit(this.value ?? '');
     }
@@ -451,12 +462,17 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
     this.updateValidity();
   }
 
-  #onTextFieldClick(): void {
+  #onTextFieldClick(event: Event): void {
     if (this.readonly || this.disabled) {
       return;
     }
 
     this.dialog?.showPopover();
+
+    // If the user clicks on the input, show the dialog but focus the input
+    if (event.target === this.input) {
+      this.dialog?.addEventListener('toggle', () => this.textField.focus(), { once: true });
+    }
   }
 
   #onTextFieldFocus(event: SlFocusEvent): void {
@@ -557,8 +573,8 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
       time = this.#parseTime(this.start);
     }
 
-    // Fallback to the current time
-    time ||= { hours: new Date().getHours(), minutes: new Date().getMinutes() };
+    // Fallback to the current time, with minutes set to 0
+    time ||= { hours: new Date().getHours(), minutes: 0 };
 
     return time;
   }

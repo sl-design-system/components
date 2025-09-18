@@ -259,7 +259,7 @@ describe('sl-time-field', () => {
     });
   });
 
-  describe('listbox', () => {
+  describe('dialog', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-time-field start="12:00"></sl-time-field>`);
     });
@@ -466,6 +466,14 @@ describe('sl-time-field', () => {
 
       expect(el.valid).to.be.true;
     });
+
+    it('should be invalid when the time has the wrong syntax', async () => {
+      el.value = 'ab:cd';
+      await el.updateComplete;
+
+      expect(el.valid).to.be.false;
+      expect(el.validationMessage).to.equal('Please enter a time.');
+    });
   });
 
   describe('start time', () => {
@@ -476,8 +484,7 @@ describe('sl-time-field', () => {
     it('should use the current time by default', async () => {
       const now = new Date(),
         hours = (now.getHours() - 1).toString().padStart(2, '0'),
-        minutes = now.getMinutes().toString().padStart(2, '0'),
-        current = `${hours}:${minutes}`;
+        current = `${hours}:00`;
 
       el.textField.focus();
       await el.updateComplete;
@@ -523,6 +530,31 @@ describe('sl-time-field', () => {
       expect(el.textField.value).to.equal('12:34');
       expect(el.textField.input.selectionStart).to.equal(5);
       expect(el.textField.input.selectionEnd).to.equal(5);
+    });
+
+    it('should clear the value after removing all the text', async () => {
+      el.textField.input.focus();
+      for (let i = 0; i < 5; i++) {
+        await sendKeys({ press: 'Delete' });
+      }
+      el.textField.input.blur();
+
+      expect(el.value).to.be.undefined;
+      expect(el.textField.value).to.equal('');
+      expect(el.textField.input.selectionStart).to.equal(0);
+      expect(el.textField.input.selectionEnd).to.equal(0);
+    });
+
+    it('should clear the selection after removing all text', async () => {
+      el.textField.input.focus();
+      for (let i = 0; i < 5; i++) {
+        await sendKeys({ press: 'Delete' });
+      }
+      await sendKeys({ press: 'Tab' });
+      await sendKeys({ press: 'Enter' });
+
+      const selected = el.renderRoot.querySelectorAll('dialog li[aria-selected="true"]');
+      expect(selected).to.have.lengthOf(0);
     });
 
     it('should focus the hour when focusing the text field', async () => {

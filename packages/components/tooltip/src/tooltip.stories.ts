@@ -116,9 +116,9 @@ return html`
       </p>
 
       <div class="container">
-
-        // eslint-disable-next-line slds/button-has-label
-        <sl-button variant="primary" fill="solid"
+        <sl-button
+          variant="primary"
+          fill="solid"
           ${tooltip('My tooltip example', { ariaRelation: 'label', position: 'bottom-start', maxWidth: 100 })}
         >
           <sl-icon name="face-smile" size="lg"></sl-icon>
@@ -230,7 +230,7 @@ export const Dialog: Story = {
       dialog.innerHTML = `
         <span slot="title">Tooltip</span>
         Tooltip should be closed when the dialog is closed..
-        <sl-button slot="primary-actions" sl-dialog-close variant="primary">Close</sl-button>
+        <sl-button slot="primary-actions" sl_dialog_close variant="primary">Close</sl-button>
       `;
       dialog.addEventListener('sl-close', () => dialog.remove());
       event.target.insertAdjacentElement('afterend', dialog);

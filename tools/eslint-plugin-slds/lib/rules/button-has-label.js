@@ -19,50 +19,75 @@ export const buttonHasLabel = {
     }
   },
   create(context) {
+    // Returns only the element's start tag text (up to and including '>') without scanning past it,
+    // used to detect inline tooltip config safely.
+    const getStartTagSlice = (element) => {
+      const startTagLocation = element.sourceCodeLocation?.startTag;
+
+      if (!startTagLocation) {
+        return '';
+      }
+
+      const text = context.sourceCode.text;
+
+      let i = startTagLocation.startOffset;
+      while (i < text.length && text[i] !== '>') {
+        i++;
+      }
+      if (text[i] === '>') { // include '>'
+        i++;
+      }
+      return text.slice(startTagLocation.startOffset, i);
+    }
+
+    const hasTooltipWithLabel = (element) => {
+      const tag = getStartTagSlice(element);
+
+      if (!tag || !tag.includes('tooltip')) {
+        return false;
+      }
+
+      // Match when 'tooltip' appears before `ariaRelation: 'label'` (any chars between).
+      return /tooltip[\s\S]*?ariaRelation\s*:\s*['"]label['"]/.test(tag);
+    }
+
+    const hasExplicitAriaRelationLabel = (element) => {
+      return element.attributes?.some(a => a.name === 'ariaRelation' && a.value === 'label');
+    }
+
     return {
       TaggedTemplateExpression(node) {
-        if (isHtmlTaggedTemplate(node, context)) {
-          const analyzer = TemplateAnalyzer.create(node);
-
-          analyzer.traverse({
-            enterElement(element) {
-              // console.log('element', element.name);
-              if (element.name === 'sl-button') {
-                // const hasAriaRelationLabel =
-                //   element.attributes?.some(
-                //     attr => attr.name === 'ariaRelation' && attr.value === 'label'
-                //   );
-
-                const hasAriaRelationLabel = (
-                  element.attributes?.some(attr => attr.name === 'ariaRelation' && attr.value === 'label')
-                  ||
-                  (() => {
-                    if (!element.sourceCodeLocation?.startTag) return false;
-                    const { startOffset, endOffset } = element.sourceCodeLocation.startTag;
-                    const startTagSource = context.sourceCode.text.slice(startOffset, endOffset);
-                    return /ariaRelation\s*:\s*['"]label['"]/.test(startTagSource);
-                  })()
-                );
-
-                console.log('hasAriaRelationLabel', hasAriaRelationLabel);
-
-                if (hasTextContent(element) || hasAccessibleName(element) || hasAriaRelationLabel) {
-                  return;
-                }
-
-                const loc =
-                  analyzer.resolveLocation(
-                    element.sourceCodeLocation.startTag,
-                    context.sourceCode,
-                  ) ?? node.loc;
-
-                if (loc) {
-                  context.report({ loc, messageId: 'missingText' });
-                }
-              }
-            }
-          });
+        if (!isHtmlTaggedTemplate(node, context)) {
+          return;
         }
+
+        const analyzer = TemplateAnalyzer.create(node);
+
+        analyzer.traverse({
+          enterElement(element) {
+            if (element.name !== 'sl-button') {
+              return;
+            }
+
+            if (
+              hasTextContent(element) ||
+              hasAccessibleName(element) ||
+              hasExplicitAriaRelationLabel(element) ||
+              hasTooltipWithLabel(element)
+            ) {
+              return;
+            }
+
+            const loc = analyzer.resolveLocation(
+              element.sourceCodeLocation.startTag,
+              context.sourceCode
+            ) || node.loc;
+
+            if (loc) {
+              context.report({ loc, messageId: 'missingText' });
+            }
+          }
+        });
       }
     };
   }

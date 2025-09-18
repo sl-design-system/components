@@ -342,6 +342,14 @@
   <source>Please select a time that is no later than <x id="0" equiv-text="${this.max}"/>.</source>
   <target>Voer een tijd in die niet later is dan <x id="0" equiv-text="${this.max}"/>.</target>
 </trans-unit>
+<trans-unit id="sl.timeField.selectHours">
+  <source>Select hours</source>
+  <target>Selecteer uren</target>
+</trans-unit>
+<trans-unit id="sl.timeField.selectMinutes">
+  <source>Select minutes</source>
+  <target>Selecteer minuten</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

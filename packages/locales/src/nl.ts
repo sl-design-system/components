@@ -88,5 +88,7 @@ export const templates = {
   'sl.timeField.validation.rangeUnderflow': str`Voer een tijd in die niet eerder is dan ${0}.`,
   'sl.timeField.valueMissing': 'Voer een tijd in.',
   'sl.toolBar.showMore': 'Meer tonen',
-  'sl.tree.loadingMessage': 'Laden'
+  'sl.tree.loadingMessage': 'Laden',
+  'sl.timeField.selectHours': 'Select hours',
+  'sl.timeField.selectMinutes': 'Select minutes'
 };

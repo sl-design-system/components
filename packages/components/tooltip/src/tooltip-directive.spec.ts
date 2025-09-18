@@ -1,5 +1,6 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { expect, fixture } from '@open-wc/testing';
+import { Button } from '@sl-design-system/button';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy, stub } from 'sinon';
 import { tooltip } from './tooltip-directive.js';
@@ -64,12 +65,13 @@ describe('tooltip()', () => {
     class TooltipDefined extends ScopedElementsMixin(LitElement) {
       static get scopedElements(): ScopedElementsMap {
         return {
+          'sl-button': Button,
           'sl-tooltip': Tooltip
         };
       }
 
       override render(): TemplateResult {
-        return html`<div ${tooltip('content')} tabindex="0">Host</div>`;
+        return html`<sl-button ${tooltip('content')}>Button</sl-button>`;
       }
     }
 
@@ -80,19 +82,18 @@ describe('tooltip()', () => {
     }
 
     const el: LitElement = await fixture(html`<tooltip-defined></tooltip-defined>`),
-      hostEl = el.renderRoot.querySelector('div');
+      button = el.renderRoot.querySelector('sl-button');
 
     // Append the host element to the document body
     document.body.append(el);
 
     // Trigger the lazy tooltip creation
-    hostEl?.focus();
+    button?.focus();
 
-    const siblingEl = hostEl?.nextElementSibling;
-
-    expect(siblingEl).to.match('sl-tooltip');
-    expect(siblingEl).to.have.text('content');
-    expect(siblingEl?.shadowRoot).be.instanceof(ShadowRoot);
+    const tt = button?.lastElementChild;
+    expect(tt).to.match('sl-tooltip');
+    expect(tt).to.have.text('content');
+    expect(tt?.shadowRoot).be.instanceof(ShadowRoot);
 
     // Cleanup
     el.remove();

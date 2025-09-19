@@ -1,5 +1,14 @@
 # @sl-design-system/tool-bar
 
+## 0.0.12
+
+### Patch Changes
+
+- [#2646](https://github.com/sl-design-system/components/pull/2646) [`f025c0f`](https://github.com/sl-design-system/components/commit/f025c0f3cbb83b72c80563e9d989402608add193) - - Fix missing `aria-disabled="true"` support for buttons
+  - Fix behavior due to `slotchange` events from nested slots
+- Updated dependencies [[`f025c0f`](https://github.com/sl-design-system/components/commit/f025c0f3cbb83b72c80563e9d989402608add193)]:
+  - @sl-design-system/button@1.3.0
+
 ## 0.0.11
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @sl-design-system/panel
 
+## 0.2.4
+
+### Patch Changes
+
+- Updated dependencies [[`f025c0f`](https://github.com/sl-design-system/components/commit/f025c0f3cbb83b72c80563e9d989402608add193)]:
+  - @sl-design-system/tool-bar@0.0.12
+
 ## 0.2.3
 
 ### Patch Changes

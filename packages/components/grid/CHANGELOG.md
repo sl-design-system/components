@@ -1,5 +1,14 @@
 # @sl-design-system/grid
 
+## 0.6.2
+
+### Patch Changes
+
+- Updated dependencies [[`f025c0f`](https://github.com/sl-design-system/components/commit/f025c0f3cbb83b72c80563e9d989402608add193), [`f025c0f`](https://github.com/sl-design-system/components/commit/f025c0f3cbb83b72c80563e9d989402608add193), [`f025c0f`](https://github.com/sl-design-system/components/commit/f025c0f3cbb83b72c80563e9d989402608add193)]:
+  - @sl-design-system/button@1.3.0
+  - @sl-design-system/tooltip@1.3.0
+  - @sl-design-system/tool-bar@0.0.12
+
 ## 0.6.1
 
 ### Patch Changes

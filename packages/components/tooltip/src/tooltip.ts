@@ -66,8 +66,14 @@ export class Tooltip extends LitElement {
   /** To attach the `sl-tooltip` to the DOM tree and anchor element */
   static lazy(target: Element, callback: (target: Tooltip) => void, options: TooltipOptions = {}): () => void {
     const createTooltip = (): void => {
-      const context = options.context || target.shadowRoot || (target.getRootNode() as Document),
-        tooltip = context.createElement('sl-tooltip');
+      let context = options.context;
+      if (!context && target.shadowRoot?.registry?.get('sl-tooltip')) {
+        context = target.shadowRoot;
+      } else if (!context) {
+        context = target.getRootNode() as Document;
+      }
+
+      const tooltip = context.createElement('sl-tooltip');
 
       if (options.parentNode) {
         options.parentNode.appendChild(tooltip);

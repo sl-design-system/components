@@ -82,13 +82,13 @@ export const icons = {
     value: 'circle-check',
     type: 'Icons',
     description: 'icon.core.circle-check-solid',
-    svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512zm84.4-299.3l-80 128c-4.2 6.7-11.4 10.9-19.3 11.3s-15.5-3.2-20.2-9.6l-48-64c-8-10.6-5.8-25.6 4.8-33.6s25.6-5.8 33.6 4.8l27 36 61.4-98.3c7-11.2 21.8-14.7 33.1-7.6s14.7 21.8 7.6 33.1z" fill="var(--sl-icon-fill-default)"></path></svg>'
+    svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 512a256 256 0 1 1 0-512 256 256 0 1 1 0 512zM374 145.7c-10.7-7.8-25.7-5.4-33.5 5.3L221.1 315.2 169 263.1c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l72 72c5 5 11.8 7.5 18.8 7s13.4-4.1 17.5-9.8L379.3 179.2c7.8-10.7 5.4-25.7-5.3-33.5z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
   'circle-exclamation-solid': {
     value: 'circle-exclamation',
     type: 'Icons',
     description: 'icon.core.circle-exclamation-solid',
-    svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512zm0-376c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM229.3 352a26.7 26.7 0 1 1 53.3 0 26.7 26.7 0 1 1 -53.3 0z" fill="var(--sl-icon-fill-default)"></path></svg>'
+    svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 512a256 256 0 1 1 0-512 256 256 0 1 1 0 512zm0-192a32 32 0 1 0 0 64 32 32 0 1 0 0-64zm0-192c-18.2 0-32.7 15.5-31.4 33.7l7.4 104c.9 12.6 11.4 22.3 23.9 22.3 12.6 0 23-9.7 23.9-22.3l7.4-104c1.3-18.2-13.1-33.7-31.4-33.7z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
   'circle-solid': {
     value: 'circle',
@@ -108,6 +108,12 @@ export const icons = {
     description: 'icon.core.circle-xmark-solid',
     svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512zM167 167c9.4-9.4 24.6-9.4 33.9 0l55 55 55-55c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-55 55 55 55c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-55-55-55 55c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l55-55-55-55c-9.4-9.4-9.4-24.6 0-33.9z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
+  clock: {
+    value: 'clock',
+    type: 'Icons',
+    description: 'icon.core.clock',
+    svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M464 256a208 208 0 1 1 -416 0 208 208 0 1 1 416 0zM0 256a256 256 0 1 0 512 0 256 256 0 1 0 -512 0zM232 120l0 136c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2 280 120c0-13.3-10.7-24-24-24s-24 10.7-24 24z" fill="var(--sl-icon-fill-default)"></path></svg>'
+  },
   'dash-solid': {
     value: 'dash',
     type: 'Icons',
@@ -118,7 +124,7 @@ export const icons = {
     value: 'diamond-exclamation',
     type: 'Icons',
     description: 'icon.core.diamond-exclamation-solid',
-    svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M215 17L17 215C6.1 225.9 0 240.6 0 256s6.1 30.1 17 41L215 495c10.9 10.9 25.6 17 41 17s30.1-6.1 41-17L495 297c10.9-10.9 17-25.6 17-41s-6.1-30.1-17-41L297 17C286.1 6.1 271.4 0 256 0s-30.1 6.1-41 17zm41 119c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM229.3 352a26.7 26.7 0 1 1 53.3 0 26.7 26.7 0 1 1 -53.3 0z" fill="var(--sl-icon-fill-default)"></path></svg>'
+    svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 0c15.4 0 30.1 6.1 41 17L495 215c10.9 10.9 17 25.6 17 41s-6.1 30.1-17 41L297 495c-10.9 10.9-25.6 17-41 17s-30.1-6.1-41-17L17 297C6.1 286.1 0 271.4 0 256s6.1-30.1 17-41L215 17C225.9 6.1 240.6 0 256 0zm0 320a32 32 0 1 0 0 64 32 32 0 1 0 0-64zm0-192c-18.2 0-32.7 15.5-31.4 33.7l7.4 104c.9 12.6 11.4 22.3 23.9 22.3 12.6 0 23-9.7 23.9-22.3l7.4-104c1.3-18.2-13.1-33.7-31.4-33.7z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
   ellipsis: {
     value: 'ellipsis',
@@ -187,7 +193,7 @@ export const icons = {
     value: 'octagon-exclamation',
     type: 'Icons',
     description: 'icon.core.octagon-exclamation-solid',
-    svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M143.4 18.8c12-12 28.3-18.7 45.3-18.7l135.6 0c17 0 33.3 6.7 45.3 18.7L493.6 143c12 12 18.7 28.3 18.7 45.3l0 135.6c0 17-6.7 33.3-18.7 45.3L369.5 493.2c-12 12-28.3 18.7-45.3 18.7l-135.6 0c-17 0-33.3-6.7-45.3-18.7L19.2 369C7.2 357 .5 340.8 .5 323.8l0-135.6c0-17 6.7-33.3 18.7-45.3L143.4 18.8zM256.4 136c-13.3 0-24 10.7-24 24l0 112c0 13.3 10.7 24 24 24s24-10.7 24-24l0-112c0-13.3-10.7-24-24-24zm26.7 216a26.7 26.7 0 1 0 -53.3 0 26.7 26.7 0 1 0 53.3 0z" fill="var(--sl-icon-fill-default)"></path></svg>'
+    svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M324.2 .1c17 0 33.3 6.7 45.3 18.7L493.6 142.9c12 12 18.7 28.3 18.7 45.2l0 135.6c0 17-6.8 33.2-18.7 45.2L369.5 493.2c-12 12-28.3 18.8-45.3 18.8l-135.6 0c-17 0-33.3-6.8-45.2-18.8L19.3 369C7.3 357 .5 340.8 .5 323.8l0-135.6c0-17 6.8-33.3 18.8-45.2L143.4 18.8c12-12 28.3-18.7 45.2-18.7l135.6 0zM256.4 320a32 32 0 1 0 0 64 32 32 0 1 0 0-64zm0-192c-18.2 0-32.7 15.5-31.4 33.7l7.4 104c.9 12.6 11.4 22.3 23.9 22.3 12.6 0 23-9.7 23.9-22.3l7.4-104c1.3-18.2-13.1-33.7-31.4-33.7z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
   pinata: {
     value: 'pinata',
@@ -232,7 +238,7 @@ export const icons = {
     value: 'triangle-exclamation',
     type: 'Icons',
     description: 'icon.core.triangle-exclamation-solid',
-    svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 0c14.7 0 28.2 8.1 35.2 21l216 400c6.7 12.4 6.4 27.4-.8 39.5S486.1 480 472 480L40 480c-14.1 0-27.1-7.4-34.4-19.5s-7.5-27.1-.8-39.5l216-400c7-12.9 20.5-21 35.2-21zm0 168c-13.3 0-24 10.7-24 24l0 112c0 13.3 10.7 24 24 24s24-10.7 24-24l0-112c0-13.3-10.7-24-24-24zm26.7 216a26.7 26.7 0 1 0 -53.3 0 26.7 26.7 0 1 0 53.3 0z" fill="var(--sl-icon-fill-default)"></path></svg>'
+    svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 0c14.7 0 28.2 8.1 35.2 21l216 400c6.7 12.4 6.4 27.4-.8 39.5S486.1 480 472 480L40 480c-14.1 0-27.2-7.4-34.4-19.5s-7.5-27.1-.8-39.5l216-400c7-12.9 20.5-21 35.2-21zm0 352a32 32 0 1 0 0 64 32 32 0 1 0 0-64zm0-192c-18.2 0-32.7 15.5-31.4 33.7l7.4 104c.9 12.5 11.4 22.3 23.9 22.3 12.6 0 23-9.7 23.9-22.3l7.4-104c1.3-18.2-13.1-33.7-31.4-33.7z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
   xmark: {
     value: 'xmark',

@@ -24,6 +24,7 @@
     "@sl-design-system/switch": "*",
     "@sl-design-system/text-area": "*",
     "@sl-design-system/text-field": "*",
+    "@sl-design-system/time-field": "*",
     "@sl-design-system/tooltip": "*"
   }
 }

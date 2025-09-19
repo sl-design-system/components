@@ -649,36 +649,48 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     time.hours = Math.round(time.hours / this.hourStep) * this.hourStep;
     time.minutes = Math.round(time.minutes / this.minuteStep) * this.minuteStep;
 
+    // Scroll to the start time
+    this.#scrollTimeIntoView(time.hours, time.minutes, 'start');
+
+    // Focus the appropriate element
+    this.#focusTimeElement(time.hours, time.minutes, focus);
+  }
+
+  #scrollTimeIntoView(hours: number, minutes?: number, block: ScrollLogicalPosition = 'nearest'): void {
+    const hoursEl = this.renderRoot.querySelector<HTMLElement>('.hours')!,
+      minutesEl = this.renderRoot.querySelector<HTMLElement>('.minutes')!;
+
     let minHour = 0;
     if (this.min) {
       minHour = this.#parseTime(this.min)?.hours ?? 0;
     }
 
-    // Scroll to the closest hour and minute
-    const hours = this.renderRoot.querySelector<HTMLElement>('.hours')!,
-      minutes = this.renderRoot.querySelector<HTMLElement>('.minutes')!;
+    const hoursIndex = Math.floor((hours - minHour) / this.hourStep),
+      minutesIndex = Math.floor((minutes ?? 0) / this.minuteStep);
 
-    const hoursIndex = Math.floor((time.hours - minHour) / this.hourStep),
-      minutesIndex = Math.floor(time.minutes / this.minuteStep);
+    (hoursEl.children[hoursIndex] as HTMLElement)?.scrollIntoView({ block });
 
-    if (focus === 'hour') {
-      (hours.children[hoursIndex] as HTMLElement)?.scrollIntoView({ block: 'start' });
-      (hours.children[hoursIndex] as HTMLElement)?.focus();
-    } else if (focus === 'minute') {
-      (minutes.children[minutesIndex] as HTMLElement)?.focus();
+    if (minutes !== undefined) {
+      (minutesEl.children[minutesIndex] as HTMLElement)?.scrollIntoView({ block });
     }
-
-    (minutes.children[minutesIndex] as HTMLElement)?.scrollIntoView({ block: 'start' });
   }
 
-  #scrollTimeIntoView(hours: number, minutes?: number): void {
+  #focusTimeElement(hours: number, minutes: number, focus: 'hour' | 'minute'): void {
     const hoursEl = this.renderRoot.querySelector<HTMLElement>('.hours')!,
       minutesEl = this.renderRoot.querySelector<HTMLElement>('.minutes')!;
 
-    (hoursEl.children[Math.floor(hours / this.hourStep)] as HTMLElement)?.scrollIntoView({ block: 'nearest' });
+    let minHour = 0;
+    if (this.min) {
+      minHour = this.#parseTime(this.min)?.hours ?? 0;
+    }
 
-    if (minutes !== undefined) {
-      (minutesEl.children[Math.floor(minutes / this.minuteStep)] as HTMLElement)?.scrollIntoView({ block: 'nearest' });
+    const hoursIndex = Math.floor((hours - minHour) / this.hourStep),
+      minutesIndex = Math.floor(minutes / this.minuteStep);
+
+    if (focus === 'hour') {
+      (hoursEl.children[hoursIndex] as HTMLElement)?.focus();
+    } else if (focus === 'minute') {
+      (minutesEl.children[minutesIndex] as HTMLElement)?.focus();
     }
   }
 }

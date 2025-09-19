@@ -7,7 +7,17 @@ import { type TimeField } from './time-field.js';
 
 type Props = Pick<
   TimeField,
-  'disabled' | 'hourStep' | 'max' | 'min' | 'minuteStep' | 'placeholder' | 'readonly' | 'required' | 'start' | 'value'
+  | 'disabled'
+  | 'hourStep'
+  | 'locale'
+  | 'max'
+  | 'min'
+  | 'minuteStep'
+  | 'placeholder'
+  | 'readonly'
+  | 'required'
+  | 'start'
+  | 'value'
 > & {
   hint?: string;
   label?: string;
@@ -29,6 +39,10 @@ export default {
   argTypes: {
     hint: { table: { disable: true } },
     label: { table: { disable: true } },
+    locale: {
+      control: 'inline-radio',
+      options: ['de', 'en-GB', 'es', 'fi', 'fr', 'it', 'nl', 'nl-BE', 'no', 'pl', 'sv']
+    },
     reportValidity: { table: { disable: true } }
   },
   render: ({
@@ -36,6 +50,7 @@ export default {
     hint,
     hourStep,
     label,
+    locale,
     max,
     min,
     minuteStep,
@@ -56,6 +71,7 @@ export default {
           <sl-time-field
             ?disabled=${disabled}
             hour-step=${ifDefined(hourStep)}
+            locale=${ifDefined(locale)}
             max=${ifDefined(max)}
             min=${ifDefined(min)}
             minute-step=${ifDefined(minuteStep)}
@@ -83,6 +99,14 @@ export const Basic: Story = {};
 export const Disabled: Story = {
   args: {
     disabled: true
+  }
+};
+
+export const Finnish: Story = {
+  args: {
+    hint: 'In Finnish (fi) the time separator is a dot (.)',
+    locale: 'fi',
+    value: '13.30'
   }
 };
 

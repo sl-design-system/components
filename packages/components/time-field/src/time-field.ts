@@ -2,7 +2,7 @@ import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin, type SlFormControlEvent, type SlUpdateStateEvent } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, anchor, event } from '@sl-design-system/shared';
+import { type EventEmitter, LocaleMixin, anchor, event } from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { FieldButton, TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
@@ -16,11 +16,13 @@ declare global {
   }
 }
 
+const timeSeparators = new Map<string, string>();
+
 /**
  * A time field control for selecting a time.
  */
 @localized()
-export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement)) {
+export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(LitElement))) {
   /** The default step between each hour option. */
   static hourStep = 1;
 
@@ -565,7 +567,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
       event.preventDefault();
 
       this.input.setSelectionRange(0, 2);
-    } else if (event.key === ':' && this.input.value.includes(':')) {
+    } else if (event.key === this.#getTimeSeparator() && this.input.value.includes(this.#getTimeSeparator())) {
       event.preventDefault();
 
       this.input.setSelectionRange(3, 5);
@@ -598,11 +600,12 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
     if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
       return undefined;
     }
-    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+
+    return `${hours.toString().padStart(2, '0')}${this.#getTimeSeparator()}${minutes.toString().padStart(2, '0')}`;
   }
 
   #parseTime(value: string): { hours: number; minutes: number } | undefined {
-    const timeParts = value.split(':').map(Number);
+    const timeParts = value.split(this.#getTimeSeparator()).map(Number);
 
     if (timeParts.length === 2) {
       return { hours: timeParts[0], minutes: timeParts[1] };
@@ -621,6 +624,20 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
     time ||= { hours: new Date().getHours(), minutes: 0 };
 
     return time;
+  }
+
+  #getTimeSeparator(): string {
+    if (this.locale && timeSeparators.has(this.locale)) {
+      return timeSeparators.get(this.locale)!;
+    }
+
+    const formatter = new Intl.DateTimeFormat(this.locale, { hour: '2-digit', minute: '2-digit' }),
+      parts = formatter.formatToParts(new Date()),
+      separator = parts.find(part => part.type === 'literal')?.value ?? ':';
+
+    timeSeparators.set(this.locale || 'default', separator);
+
+    return separator;
   }
 
   #scrollAndFocusStartTime(focus: 'hour' | 'minute' = 'hour'): void {

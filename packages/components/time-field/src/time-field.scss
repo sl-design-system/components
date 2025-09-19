@@ -9,6 +9,7 @@
 
 dialog {
   background: var(--sl-elevation-surface-raised-default);
+  block-size: calc(8 * (1lh + var(--sl-size-200)) + 7 * var(--sl-size-050) + var(--sl-size-200));
   border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
   border-radius: var(--sl-size-borderRadius-default);
   box-shadow: var(--sl-elevation-shadow-overlay);
@@ -33,13 +34,17 @@ dialog {
   }
 }
 
+hr,
+ul {
+  max-block-size: calc(8 * (1lh + var(--sl-size-200)) + 7 * var(--sl-size-050) + var(--sl-size-200));
+}
+
 ul {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: var(--sl-size-050);
   margin: 0;
-  max-block-size: calc(8 * (1lh + var(--sl-size-200)) + 7 * var(--sl-size-050) + var(--sl-size-200));
   overflow: auto;
   padding: var(--sl-size-100);
   scroll-padding-block: var(--sl-size-100);

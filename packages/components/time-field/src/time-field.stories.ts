@@ -1,3 +1,4 @@
+import '@sl-design-system/form/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -30,7 +31,21 @@ export default {
     label: { table: { disable: true } },
     reportValidity: { table: { disable: true } }
   },
-  render: ({ disabled, hint, label, max, min, placeholder, readonly, reportValidity, required, start, value }) => {
+  render: ({
+    disabled,
+    hint,
+    hourStep,
+    label,
+    max,
+    min,
+    minuteStep,
+    placeholder,
+    readonly,
+    reportValidity,
+    required,
+    start,
+    value
+  }) => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
       event.target.closest('sl-form')?.reportValidity();
     };
@@ -40,8 +55,10 @@ export default {
         <sl-form-field .hint=${hint} .label=${label}>
           <sl-time-field
             ?disabled=${disabled}
+            hour-step=${ifDefined(hourStep)}
             max=${ifDefined(max)}
             min=${ifDefined(min)}
+            minute-step=${ifDefined(minuteStep)}
             placeholder=${ifDefined(placeholder)}
             ?readonly=${readonly}
             ?required=${required}
@@ -97,6 +114,14 @@ export const Start: Story = {
   args: {
     hint: 'The start time is set to 08:00, so that will be the default time shown when opening the listbox',
     start: '08:00'
+  }
+};
+
+export const Steps: Story = {
+  args: {
+    hint: 'This is an example of a time field with custom hour and minute steps',
+    hourStep: 2,
+    minuteStep: 10
   }
 };
 

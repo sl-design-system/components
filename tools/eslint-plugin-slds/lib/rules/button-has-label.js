@@ -15,51 +15,21 @@ export const buttonHasLabel = {
     fixable: null,
     schema: [],
     messages: {
-      missingText: 'sl-button elements must have text content or aria-label for accessibility'
+      missingText: 'sl-button elements must have text content or aria-label for accessibility',
+      mustBeAriaRelationLabel: 'for the tooltip directive ariaRelation must be \'label\''
     }
   },
   create(context) {
-    // Returns only the element's start tag text (up to and including '>') without scanning past it,
-    // used to detect inline tooltip config safely.
-    const getStartTagSlice = (element) => {
-      const startTagLocation = element.sourceCodeLocation?.startTag;
-
-      if (!startTagLocation) {
-        return '';
-      }
-
-      const text = context.sourceCode.text;
-
-      let i = startTagLocation.startOffset;
-      while (i < text.length && text[i] !== '>') {
-        i++;
-      }
-      if (text[i] === '>') { // include '>'
-        i++;
-      }
-      return text.slice(startTagLocation.startOffset, i);
-    }
-
-    const hasTooltipWithLabel = (element) => {
-      const tag = getStartTagSlice(element);
-
-      if (!tag || !tag.includes('tooltip')) {
-        return false;
-      }
-
-      // Match when 'tooltip' appears before `ariaRelation: 'label'` (any chars between).
-      return /tooltip[\s\S]*?ariaRelation\s*:\s*['"]label['"]/.test(tag);
-    }
-
-    const hasExplicitAriaRelationLabel = (element) => {
-      return element.attributes?.some(a => a.name === 'ariaRelation' && a.value === 'label');
-    }
-
     return {
       TaggedTemplateExpression(node) {
         if (!isHtmlTaggedTemplate(node, context)) {
           return;
         }
+
+        // Tooltip with ariaRelation: 'label' variant
+        const templateSource = context.sourceCode.getText(node),
+          hasTooltip = /tooltip\s*\(/.test(templateSource),
+          hasTooltipWithAriaRelationLabel = /tooltip\s*\([^)]*ariaRelation\s*:\s*['"]label['"]/.test(templateSource);
 
         const analyzer = TemplateAnalyzer.create(node);
 
@@ -72,8 +42,7 @@ export const buttonHasLabel = {
             if (
               hasTextContent(element) ||
               hasAccessibleName(element) ||
-              hasExplicitAriaRelationLabel(element) ||
-              hasTooltipWithLabel(element)
+              hasTooltipWithAriaRelationLabel
             ) {
               return;
             }
@@ -84,7 +53,11 @@ export const buttonHasLabel = {
             ) || node.loc;
 
             if (loc) {
-              context.report({ loc, messageId: 'missingText' });
+              if (hasTooltip && !hasTooltipWithAriaRelationLabel) {
+                context.report({ loc, messageId: 'mustBeAriaRelationLabel' })
+              } else if (!hasAccessibleName(element)) {
+                context.report({ loc, messageId: 'missingText' });
+              }
             }
           }
         });

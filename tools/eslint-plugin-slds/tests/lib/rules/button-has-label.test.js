@@ -65,7 +65,11 @@ ruleTester.run('button-has-label', buttonHasLabel, {
     },
     {
       code: "html`<sl-button ${tooltip('Tip', { position: 'bottom-start' })}><sl-icon name='face-smile'></sl-icon></sl-button>`;",
-      errors: [{ messageId: 'missingText' }]
+      errors: [{ messageId: 'mustBeAriaRelationLabel' }]
+    },
+    {
+      code: "html`<sl-button ${tooltip('Tip', { ariaRelation: 'sth else but not label', position: 'bottom-start' })}><sl-icon name='face-smile'></sl-icon></sl-button>`;",
+      errors: [{ messageId: 'mustBeAriaRelationLabel' }]
     }
   ]
 });

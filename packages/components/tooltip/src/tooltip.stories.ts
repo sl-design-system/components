@@ -125,6 +125,19 @@ export const DirectiveWithOptions: Story = {
   }
 };
 
+export const Disabled: Story = {
+  args: {
+    example: ({ alignSelf, justifySelf, message }) => html`
+      <div
+        style=${styleMap({ 'align-self': alignSelf, display: 'inline-flex', gap: '1rem', 'justify-self': justifySelf })}
+      >
+        <sl-button ${tooltip(message)} disabled>Disabled button</sl-button>
+        <sl-button ${tooltip(message)} aria-disabled="true">Disabled (ARIA only) button</sl-button>
+      </div>
+    `
+  }
+};
+
 export const Shared: Story = {
   args: {
     example: ({ alignSelf, justifySelf, message }) => html`

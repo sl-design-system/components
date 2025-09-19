@@ -1,3 +1,4 @@
+/* eslint-disable slds/button-has-label */
 import {
   faAlignCenter,
   faAlignJustify,
@@ -24,6 +25,8 @@ import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/toggle-button/register.js';
 import '@sl-design-system/toggle-group/register.js';
+import { tooltip } from '@sl-design-system/tooltip';
+import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -33,7 +36,7 @@ import { type ToolBar } from './tool-bar.js';
 type Props = Pick<ToolBar, 'align' | 'disabled' | 'inverted' | 'noBorder'> & {
   description?: string | TemplateResult;
   items?(): TemplateResult;
-  resize?: boolean;
+  resizable?: boolean;
   width?: string;
 };
 type Story = StoryObj<Props>;
@@ -63,7 +66,7 @@ export default {
   tags: ['draft'],
   args: {
     noBorder: false,
-    resize: true
+    resizable: true
   },
   argTypes: {
     align: {
@@ -81,23 +84,29 @@ export default {
     },
     items: {
       table: { disable: true }
+    },
+    resizable: {
+      control: 'boolean'
     }
   },
-  render: ({ align, description, disabled, inverted, items, noBorder, width }) => {
+  render: ({ align, description, disabled, inverted, items, noBorder, resizable, width }) => {
     return html`
       ${description ? html`<p>${description}</p>` : nothing}
       <style>
         ${inverted ? 'sl-tool-bar { background: var(--sl-color-background-selected-bold); }' : nothing}
+        ${resizable ? '.container { overflow: auto; resize: horizontal; }' : nothing}
       </style>
-      <sl-tool-bar
-        align=${ifDefined(align)}
-        ?disabled=${disabled}
-        ?inverted=${inverted}
-        ?no-border=${noBorder}
-        style="inline-size: ${width ?? 'auto'}"
-      >
-        ${items?.()}
-      </sl-tool-bar>
+      <div class="container">
+        <sl-tool-bar
+          align=${ifDefined(align)}
+          ?disabled=${disabled}
+          ?inverted=${inverted}
+          ?no-border=${noBorder}
+          style="inline-size: ${width ?? 'auto'}"
+        >
+          ${items?.()}
+        </sl-tool-bar>
+      </div>
     `;
   }
 } satisfies Meta<Props>;
@@ -223,6 +232,26 @@ export const Overflow: Story = {
     description:
       'This example shows a tool bar with many items that overflow into a menu. You can resize the tool bar by dragging the right edge.',
     width: '100px'
+  }
+};
+
+export const Tooltips: Story = {
+  args: {
+    description: 'This example shows a tool bar with different tooltip techniques on the buttons.',
+    items: () => html`
+      <sl-button aria-describedby="tooltip-bold">
+        <sl-icon name="far-bold"></sl-icon>
+      </sl-button>
+      <sl-tooltip id="tooltip-bold">Bold</sl-tooltip>
+
+      <sl-button ${tooltip('Italic')}>
+        <sl-icon name="far-italic"></sl-icon>
+      </sl-button>
+
+      <sl-button aria-disabled="true" ${tooltip('Underline (disabled)')}>
+        <sl-icon name="far-underline"></sl-icon>
+      </sl-button>
+    `
   }
 };
 

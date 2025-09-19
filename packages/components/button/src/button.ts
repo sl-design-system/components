@@ -100,7 +100,7 @@ export class Button extends LitElement {
   }
 
   #onClick(event: Event): void {
-    if (this.hasAttribute('disabled')) {
+    if (this.disabled || this.ariaDisabled === 'true') {
       event.preventDefault();
       event.stopPropagation();
     } else if (this.type === 'reset') {

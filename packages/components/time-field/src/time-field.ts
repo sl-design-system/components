@@ -52,7 +52,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
    */
   #popoverJustClosed = false;
 
-  /** The start time. */
+  /** The start time; the time that has the initial focus when the picker is opened when there isn't a value. */
   #startTime?: { hours: number; minutes: number } | undefined;
 
   /** The current value in numbers. */

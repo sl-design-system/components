@@ -52,8 +52,17 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
    */
   #popoverJustClosed = false;
 
-  /** The start time; the time that has the initial focus when the picker is opened when there isn't a value. */
+  /**
+   * The start time; the time that has the initial focus when the picker is opened when
+   * there is no value set.
+   */
   #startTime?: { hours: number; minutes: number } | undefined;
+
+  /**
+   * Flag for indicating whether the selected range needs to be set on focus. If the user
+   * directly clicked on the input, we don't want to override the selection.
+   */
+  #updateSelectedRangeOnFocus = true;
 
   /** The current value in numbers. */
   #valueAsNumbers: { hours: number; minutes: number } | undefined;
@@ -118,7 +127,11 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
    */
   @property({ type: Boolean, reflect: true }) override required?: boolean;
 
-  /** The start time of the field. If not set, it will use the current time. */
+  /**
+   * The start time; the time that has the initial focus when the picker is opened without
+   * a value. If will use the current time if not explicitly set.
+   * @default undefined
+   */
   @property() start?: string;
 
   /** @internal The text field. */
@@ -208,6 +221,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
         @sl-update-state=${this.#onTextFieldUpdateState}
         @click=${this.#onTextFieldClick}
         @keydown=${this.#onTextFieldKeydown}
+        @pointerdown=${this.#onTextFieldPointerDown}
         ?disabled=${this.disabled}
         ?readonly=${this.readonly}
         ?required=${this.required}
@@ -462,7 +476,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
     this.updateValidity();
   }
 
-  #onTextFieldClick(event: Event): void {
+  #onTextFieldClick(event: MouseEvent): void {
     if (this.readonly || this.disabled) {
       return;
     }
@@ -471,7 +485,14 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
 
     // If the user clicks on the input, show the dialog but focus the input
     if (event.target === this.input) {
-      this.dialog?.addEventListener('toggle', () => this.textField.focus(), { once: true });
+      this.dialog?.addEventListener(
+        'toggle',
+        () => {
+          this.#updateSelectedRangeOnFocus = false;
+          this.textField.focus();
+        },
+        { once: true }
+      );
     }
   }
 
@@ -481,9 +502,11 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
 
     this.focusEvent.emit();
 
-    if (!this.readonly) {
+    if (!this.readonly && this.#updateSelectedRangeOnFocus) {
       this.input.setSelectionRange(0, 2);
     }
+
+    this.#updateSelectedRangeOnFocus = true;
   }
 
   #onTextFieldFormControl(event: SlFormControlEvent): void {
@@ -503,9 +526,23 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
 
       let { hours, minutes } = this.#getStartTime();
 
-      if (selectionStart === 0) {
+      if (selectionStart < 3) {
         hours += event.key === 'ArrowUp' ? 1 : -1;
         hours = (hours + 24) % 24;
+
+        if (this.min) {
+          const minHour = this.#parseTime(this.min)?.hours;
+          if (minHour !== undefined && hours <= minHour) {
+            hours = minHour;
+          }
+        }
+
+        if (this.max) {
+          const maxHour = this.#parseTime(this.max)?.hours;
+          if (maxHour !== undefined && hours > maxHour) {
+            hours = maxHour;
+          }
+        }
       } else {
         minutes += event.key === 'ArrowUp' ? 1 : -1;
         minutes = (minutes + 60) % 60;
@@ -515,7 +552,7 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
       this.#value = this.#formatTime(hours, minutes);
 
       this.input.value = this.#value ?? '';
-      this.input.setSelectionRange(selectionStart, selectionStart + 2);
+      this.input.setSelectionRange(selectionStart < 3 ? 0 : 3, selectionStart < 3 ? 2 : 5);
 
       this.changeEvent.emit(this.value ?? '');
 
@@ -532,6 +569,13 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
       event.preventDefault();
 
       this.input.setSelectionRange(3, 5);
+    }
+  }
+
+  #onTextFieldPointerDown(event: Event): void {
+    if (event.target === this.input) {
+      // If the user directly clicked on the input, we don't want to override the selection on focus
+      this.#updateSelectedRangeOnFocus = false;
     }
   }
 
@@ -598,13 +642,13 @@ export class TimeField extends FormControlMixin(ScopedElementsMixin(LitElement))
     const hoursIndex = Math.floor((time.hours - minHour) / this.hourStep),
       minutesIndex = Math.floor(time.minutes / this.minuteStep);
 
-    (hours.children[hoursIndex] as HTMLElement)?.scrollIntoView({ block: 'start' });
-    (minutes.children[minutesIndex] as HTMLElement)?.scrollIntoView({ block: 'start' });
-
     if (focus === 'hour') {
+      (hours.children[hoursIndex] as HTMLElement)?.scrollIntoView({ block: 'start' });
       (hours.children[hoursIndex] as HTMLElement)?.focus();
-    } else {
+    } else if (focus === 'minute') {
       (minutes.children[minutesIndex] as HTMLElement)?.focus();
     }
+
+    (minutes.children[minutesIndex] as HTMLElement)?.scrollIntoView({ block: 'start' });
   }
 }

@@ -58,7 +58,7 @@ describe('sl-time-field', () => {
     });
 
     it('should support entering a time via the keyboard', async () => {
-      el.textField.input.focus();
+      el.textField.focus();
       await sendKeys({ type: '12:34' });
       el.textField.input.blur();
 
@@ -72,7 +72,7 @@ describe('sl-time-field', () => {
       const onChange = spy();
 
       el.addEventListener('sl-change', onChange);
-      el.textField.input.focus();
+      el.textField.focus();
       await sendKeys({ type: '12:34' });
       el.textField.input.blur();
       await el.updateComplete;
@@ -84,7 +84,7 @@ describe('sl-time-field', () => {
       const onChange = spy();
 
       el.addEventListener('sl-change', onChange);
-      el.textField.input.focus();
+      el.textField.focus();
       await sendKeys({ press: 'ArrowUp' });
 
       expect(onChange).to.have.been.calledOnce;
@@ -416,8 +416,32 @@ describe('sl-time-field', () => {
       expect(minutes).to.deep.equal(['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55']);
     });
 
+    it('should not go below the minimum time when using the arrow keys', async () => {
+      el.value = '09:00';
+      await el.updateComplete;
+
+      el.textField.focus();
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'ArrowDown' });
+
+      expect(el.value).to.equal('08:00');
+      expect(el.textField.value).to.equal('08:00');
+    });
+
+    it('should not go above the maximum time when using the arrow keys', async () => {
+      el.value = '13:00';
+      await el.updateComplete;
+
+      el.textField.focus();
+      await sendKeys({ press: 'ArrowUp' });
+      await sendKeys({ press: 'ArrowUp' });
+
+      expect(el.value).to.equal('14:00');
+      expect(el.textField.value).to.equal('14:00');
+    });
+
     it('should be invalid when the value is before the minimum time', async () => {
-      el.textField.input.focus();
+      el.textField.focus();
       await sendKeys({ type: '07:00' });
       el.textField.input.blur();
       await el.updateComplete;
@@ -427,7 +451,7 @@ describe('sl-time-field', () => {
     });
 
     it('should be invalid when the value is after the maximum time', async () => {
-      el.textField.input.focus();
+      el.textField.focus();
       await sendKeys({ type: '19:00' });
       el.textField.input.blur();
       await el.updateComplete;
@@ -437,7 +461,7 @@ describe('sl-time-field', () => {
     });
 
     it('should be valid when the value is within the range', async () => {
-      el.textField.input.focus();
+      el.textField.focus();
       await sendKeys({ type: '10:00' });
       el.textField.input.blur();
       await el.updateComplete;
@@ -522,7 +546,7 @@ describe('sl-time-field', () => {
     });
 
     it('should be possible to enter a new time via the keyboard', async () => {
-      el.textField.input.focus();
+      el.textField.focus();
       await sendKeys({ type: '12:34' });
       el.textField.input.blur();
 
@@ -533,7 +557,7 @@ describe('sl-time-field', () => {
     });
 
     it('should clear the value after removing all the text', async () => {
-      el.textField.input.focus();
+      el.textField.focus();
       for (let i = 0; i < 5; i++) {
         await sendKeys({ press: 'Delete' });
       }
@@ -546,7 +570,7 @@ describe('sl-time-field', () => {
     });
 
     it('should clear the selection after removing all text', async () => {
-      el.textField.input.focus();
+      el.textField.focus();
       for (let i = 0; i < 5; i++) {
         await sendKeys({ press: 'Delete' });
       }

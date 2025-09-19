@@ -16,14 +16,10 @@ type TooltipDirectiveParams = [content: unknown, config?: TooltipDirectiveConfig
 
 /** Provides a Lit directive tooltip that attaches a lazily created Tooltip instance to a host element. */
 export class TooltipDirective extends AsyncDirective {
+  config: TooltipDirectiveConfig = {};
   content?: unknown;
   part?: ElementPart;
   tooltip?: Tooltip | (() => void);
-  config: TooltipDirectiveConfig = {};
-
-  isTooltipProperty(property: string): boolean {
-    return ['position', 'maxWidth'].includes(property);
-  }
 
   override disconnected(): void {
     if (this.tooltip instanceof HTMLElement) {
@@ -57,13 +53,31 @@ export class TooltipDirective extends AsyncDirective {
     this.#setup();
   }
 
+  #applyTooltipProps(tooltip: Tooltip, props?: Partial<TooltipProperties>): void {
+    if (!props) {
+      return;
+    }
+
+    Object.entries(props).forEach(([key, value]) => {
+      try {
+        (tooltip as unknown as Record<string, unknown>)[key] = value;
+      } catch {
+        // ignore readonly properties
+      }
+    });
+  }
+
+  #isTooltipProperty(property: string): boolean {
+    return ['position', 'maxWidth'].includes(property);
+  }
+
   #setup(): void {
     const options = Object.entries(this.config).filter(([_, value]) => value !== undefined),
       tooltipProperties: TooltipProperties = {},
       tooltipOptions: TooltipOptions = {};
 
     for (const [key, value] of options) {
-      if (this.isTooltipProperty(key)) {
+      if (this.#isTooltipProperty(key)) {
         (tooltipProperties as Record<string, unknown>)[key] = value;
       } else {
         (tooltipOptions as Record<string, unknown>)[key] = value;
@@ -82,20 +96,6 @@ export class TooltipDirective extends AsyncDirective {
         },
         tooltipOptions
       );
-  }
-
-  #applyTooltipProps(tooltip: Tooltip, props?: Partial<TooltipProperties>): void {
-    if (!props) {
-      return;
-    }
-
-    Object.entries(props).forEach(([key, value]) => {
-      try {
-        (tooltip as unknown as Record<string, unknown>)[key] = value;
-      } catch {
-        // ignore readonly properties
-      }
-    });
   }
 }
 

@@ -76,8 +76,8 @@ You can also pass a second argument: a **config** object. Use this to control ho
 // Basic string content + position + max width
 html`<sl-button ${tooltip('More info', { position: 'right', maxWidth: 240 })}>Hover me</sl-button>`;
 
-// Use ariaRelation: 'label' when the tooltip should ACT AS the accessible label (e.g. icon only buttons)
-html`<sl-button ${tooltip('Settings', { ariaRelation: 'label' })}>⚙️</sl-button>`;
+// Use ariaRelation: 'label' when the tooltip should be used as the accessible label (e.g. icon only buttons)
+html`<sl-button ${tooltip('Settings', { ariaRelation: 'label' })}><sl-icon name="smile"></sl-icon></sl-button>`;
 ```
 
 </div>

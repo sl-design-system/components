@@ -98,10 +98,7 @@ export const Directive: Story = {
 
 export const DirectiveWithOptions: Story = {
   render: () => {
-   // const button = document.createElement('sl-button');
-
-    // language=HTML format=false
-return html`
+    return html`
       <style>
         .container {
           display: grid;

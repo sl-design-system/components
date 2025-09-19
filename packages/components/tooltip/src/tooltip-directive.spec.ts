@@ -124,7 +124,6 @@ describe('tooltip()', () => {
     el.focus();
 
     expect(lazySpy).to.have.been.calledOnce;
-    console.log('lazy getcall', lazySpy.getCall(0).args[2], lazySpy.getCall(0));
     expect(lazySpy.getCall(0).args[2]).to.deep.equal({ parentNode: parent, ariaRelation: 'label' });
 
     const tooltipEl = parent.querySelector('sl-tooltip');

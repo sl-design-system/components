@@ -57,19 +57,26 @@ When the button has focus:
 |-|-|-|
 |`aria-labelledby`|string| When different element serves as the label, for example in the case of an icon-only button that has a label outside the button, this property can be set to the `id` of that element|
 |`aria-label`|string|To be used when the button is icon-only|
-|`aria-describedby`|string| When the button needs extra explanation or description you can reference this element here by the `id`. See [Note 1] below for more explanation.| 
-|`aria-disabled`| boolean| Announces the button as disabled with a screenreader. See [Note 2] below for more explanation| 
-|`aria-pressed`| boolean | When the button is used as a toggle and is toggled on, the value of this state is true, and when toggled off, the state is false.| 
+|`aria-describedby`|string| When the button needs extra explanation or description you can reference this element here by the `id`. See [Note 1] below for more explanation.|
+|`aria-disabled`| boolean| Announces the button as disabled with a screenreader. See [Note 2] below for more explanation|
+|`aria-pressed`| boolean | When the button is used as a toggle and is toggled on, the value of this state is true, and when toggled off, the state is false.|
 
 {.ds-table .ds-table-align-top}
 
-**Notes:** 
+**Notes:**
 1. There is a subtle difference between `aria-labelledby` and `aria-describedby`; a label should be concise, where a description is intended to provide more verbose information. A description can for example be "Items in the trash will be permanently removed after 30 days." to explain what (delayed) effect a "Move to trash" button has.
-1. The `aria-disabled` should not be used as a one-for-one replacement for the `disabled` attribute because they have different functionalities:
+1. The `aria-disabled="true"` attribute should not be used as a one-for-one replacement for the `disabled` attribute because they have different functionalities.
 
-    - `disabled` dims the button visually, takes it out of the tab-focus sequence, prevents actions (click, enter) on it and anounces it as 'dimmed' or 'disabled' in a screenreader. 
+    Both:
+    - visually dim the button
+    - prevent actions (click, enter/space) on the button
+    - announce the button as 'dimmed' or 'disabled' in a screenreader
 
-    - `aria-disabled` only does the latter. You will need to disable the functionality yourself. This might be useful for scenario's where you don't want to take the button out of the navigation flow. 
+    However, there are some differences:
+    - `disabled` takes the button out of the tab-focus sequence, `aria-disabled` does not
+    - `disabled` disables pointer events, `aria-disabled` does not
+
+    The difference can be useful when you want to combine a disabled button with a tooltip. In that case you want the button to be focusable (so you can hover or tab to it) but you also want it to be dimmed and not clickable. In that case you would use `aria-disabled` instead of `disabled`.
 
     When `disabled` is added to a button there is no need to also add `aria-disabled`; Everything `aria-disabled` does, `disabled` does as well.
 

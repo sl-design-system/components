@@ -64,8 +64,8 @@ eleventyNavigation:
 
 ## When to use
 
-### Hierarchical Sections
-Split long pages into scannable blocks—one topic per Panel—with the header signaling ownership. Panels can be collapsible or always-on to act as structural wrappers. Adjust visual weight using the Density, Border/Divider, and Elevation properties to keep hierarchy clear even without collapse.
+### Layout Wrappers
+Nesting Panels lets you group subtopics and local controls inside a parent section, improving scanability, and enabling progressive disclosure without overwhelming the page. Panels can be collapsible or always-on to act as structural wrappers. Adjust visual weight using the Density, Border/Divider, and Elevation properties to keep hierarchy clear even without collapse.
 
 ### Progressive Content
 Use Panel to progressively reveal either interactive controls (filters, advanced settings, long forms) or dense supporting details (explanations, specs, logs) that don’t need to be always visible. Keep them collapsed by default to reduce scanning effort and distraction, and let users expand on demand. Wrap tools related to a specific area of a page (e.g., “Lesson details” actions) so the header acts as a clear anchor. 
@@ -80,7 +80,7 @@ Use Panel to progressively reveal either interactive controls (filters, advanced
 ### Static or Critical Content
 For simple, short, non-interactive information, use a plain section or [Card](/categories/components/card/usage) to avoid unnecessary chrome. And never place error messages or critical information inside a collapsible Panel—keep them visible by default.
 
-### Navigation & routing
+### Navigation & Routing
 Don’t use Panel to switch between sections of an app or page. Panels don’t manage URL state, deep links, or back/forward history, and they’re not optimized for navigating large informations. Use Panels for local content grouping and disclosure only; they can include links, but should not be the mechanism that drives routing.
 
 </section>
@@ -89,7 +89,6 @@ Don’t use Panel to switch between sections of an app or page. Panels don’t m
 <section>
 
 ## Anatomy
-
 
 <div class="ds-table-wrapper">
 
@@ -115,8 +114,8 @@ Don’t use Panel to switch between sections of an app or page. Panels don’t m
 ## Density
 Panels support two densities to tune information density and comfort:
 
-- Plain (default) — Slightly compact spacing for data-heavy views, dashboards, or when several Panels appear in a column; helps reduce scroll.
-- Comfortable — Increased padding for readability in content-first screens, forms, or when a Panel contains mixed media (text + controls + images).
+- **Plain (default):** Slightly compact spacing for data-heavy views, dashboards, or when several Panels appear in a column; helps reduce scroll.
+- **Comfortable:** Increased padding for readability in content-first screens, forms, or when a Panel contains mixed media (text + controls + images).
 
 Choose density per layout context; mixing densities on the same screen is possible but keep it consistent within a section.
 
@@ -128,9 +127,9 @@ Choose density per layout context; mixing densities on the same screen is possib
 ## Elevation
 Use elevation to signal layering and emphasis relative to the page background.
 
-- None (default) — Flat surface. Best for inline sections that should blend with the page layout.
-- Raisen — Subtle lift. Use to separate the Panel from busy backgrounds or when grouping controls needs visual priority.
-- Shuken — Deepest elevation. Reserve for floating containers, highly prominent tools, or when the Panel must stand out from surrounding elements.
+- **None (default):** Flat surface. Best for inline sections that should blend with the page layout.
+- **Raisen:** Subtle lift. Use to separate the Panel from busy backgrounds or when grouping controls needs visual priority.
+- **Shuken:** Deepest elevation. Reserve for floating containers, highly prominent tools, or when the Panel must stand out from surrounding elements.
 
 </section>
 
@@ -140,8 +139,8 @@ Use elevation to signal layering and emphasis relative to the page background.
 ## Header
 The header frames the Panel’s title and optional affordances. You can add:
 
-- Prefix — Icon: a small, descriptive icon that conveys the section’s purpose (e.g., info, settings, warning).
-- Suffix — Badge: a compact status/count indicator (e.g., “3”, “Beta”, “New”) aligned with the title to convey state at a glance.
+- **Prefix (Icon):** a small, descriptive icon that conveys the section’s purpose (e.g., info, settings, warning).
+- **Suffix (Badge):** a compact status/count indicator (e.g., “3”, “Beta”, “New”) aligned with the title to convey state at a glance.
 
 Use prefix/suffix sparingly to keep headings short and readable.
 
@@ -151,18 +150,10 @@ Use prefix/suffix sparingly to keep headings short and readable.
 <section>
 
 ## Styling
-DESCRIPTION
+Improves scannability and grouping, reduces visual clutter, and reinforces hierarchy by separating titles/actions from body content.
 
-- Border — Draws a border around the Panel to clearly delimit its area from adjacent content.
-- Divider — Adds a horizontal rule between header and content; only visible when content is expanded.
-
-</section>
-
-
-<section>
-
-## TITLE
-DESCRIPTION
+- **Border:** Draws a border around the Panel to clearly delimit its area from adjacent content.
+- **Divider:** Adds a horizontal rule between header and content; only visible when content is expanded.
 
 </section>
 
@@ -170,8 +161,7 @@ DESCRIPTION
 <section>
 
 ## Figma Options
-
-With these options, you can tweak the appearance of the popover in Figma. They are available in the Design Panel so you can compose the popover to exactly fit the user experience need for the use case you are working on.
+With these options, you can tweak the appearance of the popover in Figma. They are available in the design Panel so you can compose the popover to exactly fit the user experience need for the use case you are working on.
 
 ### Panel Props
 <div class="ds-table-wrapper">
@@ -217,12 +207,19 @@ With these options, you can tweak the appearance of the popover in Figma. They a
 <section>
 
 ## Behaviours
+Let's explore the behaviour of the Panel.
 
+### TITLE
 Expands/collapses via header toggle; remembers its open state when controlled by the app.
 
-- Header is keyboard-focusable; toggle is reachable via Tab and operable with Enter/Space.
-- Divider appears only when content is visible; transitions should not shift surrounding layout abruptly.
-- Supports nested Panels; inner toggles operate independently.
+### TITLE
+Header is keyboard-focusable; toggle is reachable via Tab and operable with Enter/Space.
+
+### TITLE
+Divider appears only when content is visible; transitions should not shift surrounding layout abruptly.
+
+### TITLE
+Supports nested Panels; inner toggles operate independently.
 
 </section>
 

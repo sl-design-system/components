@@ -134,6 +134,10 @@
   --_bg-mix-color: var(--sl-color-background-inverted-interactive-plain);
 }
 
+:host([variant='inverted']:where([disabled], [aria-disabled='true'])) {
+  color: var(--sl-color-foreground-disabled);
+}
+
 :host(:is(:not([fill]), [fill='ghost'], [fill='link'], [fill='solid'])) {
   border-color: transparent;
 }

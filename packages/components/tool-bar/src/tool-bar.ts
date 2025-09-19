@@ -257,7 +257,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     return {
       element: button,
       type: 'button',
-      disabled: button.hasAttribute('disabled'),
+      disabled: button.hasAttribute('disabled') || button.getAttribute('aria-disabled') === 'true',
       icon: button.querySelector('sl-icon')?.getAttribute('name'),
       label,
       selectable: button.hasAttribute('aria-pressed'),

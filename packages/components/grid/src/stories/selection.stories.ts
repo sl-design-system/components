@@ -7,6 +7,8 @@ import { ArrayListDataSource } from '@sl-design-system/data-source';
 import { type Student, getStudents } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
+import { tooltip } from '@sl-design-system/tooltip';
+import '@sl-design-system/tooltip/register.js';
 import { type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '../../register.js';
@@ -90,11 +92,17 @@ export const Multiple: Story = {
           <sl-icon name="far-trash"></sl-icon>
           Delete
         </sl-button>
-        <sl-button fill="outline" slot="bulk-actions" variant="inverted">
+        <sl-button disabled fill="outline" slot="bulk-actions" variant="inverted">
           <sl-icon name="far-right-to-line"></sl-icon>
           Action 1
         </sl-button>
-        <sl-button fill="outline" slot="bulk-actions" variant="inverted">
+        <sl-button
+          ${tooltip('I am a tooltip')}
+          aria-disabled="true"
+          fill="outline"
+          slot="bulk-actions"
+          variant="inverted"
+        >
           <sl-icon name="far-right-to-line"></sl-icon>
           Action 2
         </sl-button>

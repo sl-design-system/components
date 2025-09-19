@@ -78,7 +78,7 @@ export class Tooltip extends LitElement {
       if (options.parentNode) {
         options.parentNode.appendChild(tooltip);
       } else {
-        target.appendChild(tooltip);
+        target.parentNode!.insertBefore(tooltip, target.nextSibling);
       }
 
       // If the tooltip has no popover property, then the sl-tooltip custom element

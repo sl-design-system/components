@@ -207,6 +207,11 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }) {
+    // Ignore events from nested slots.
+    if (event.target !== this.renderRoot.querySelector('slot')) {
+      return;
+    }
+
     const elements = event.target.assignedElements({ flatten: true });
 
     this.empty = elements.length === 0;

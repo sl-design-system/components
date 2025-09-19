@@ -556,6 +556,8 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.input.value = this.#value ?? '';
       this.input.setSelectionRange(selectionStart < 3 ? 0 : 3, selectionStart < 3 ? 2 : 5);
 
+      this.#scrollTimeIntoView(hours, minutes);
+
       this.changeEvent.emit(this.value ?? '');
 
       this.requestUpdate();
@@ -647,14 +649,14 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     time.hours = Math.round(time.hours / this.hourStep) * this.hourStep;
     time.minutes = Math.round(time.minutes / this.minuteStep) * this.minuteStep;
 
-    // Scroll to the closest hour and minute
-    const hours = this.renderRoot.querySelector<HTMLElement>('.hours')!,
-      minutes = this.renderRoot.querySelector<HTMLElement>('.minutes')!;
-
     let minHour = 0;
     if (this.min) {
       minHour = this.#parseTime(this.min)?.hours ?? 0;
     }
+
+    // Scroll to the closest hour and minute
+    const hours = this.renderRoot.querySelector<HTMLElement>('.hours')!,
+      minutes = this.renderRoot.querySelector<HTMLElement>('.minutes')!;
 
     const hoursIndex = Math.floor((time.hours - minHour) / this.hourStep),
       minutesIndex = Math.floor(time.minutes / this.minuteStep);
@@ -667,5 +669,16 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     (minutes.children[minutesIndex] as HTMLElement)?.scrollIntoView({ block: 'start' });
+  }
+
+  #scrollTimeIntoView(hours: number, minutes?: number): void {
+    const hoursEl = this.renderRoot.querySelector<HTMLElement>('.hours')!,
+      minutesEl = this.renderRoot.querySelector<HTMLElement>('.minutes')!;
+
+    (hoursEl.children[Math.floor(hours / this.hourStep)] as HTMLElement)?.scrollIntoView({ block: 'nearest' });
+
+    if (minutes !== undefined) {
+      (minutesEl.children[Math.floor(minutes / this.minuteStep)] as HTMLElement)?.scrollIntoView({ block: 'nearest' });
+    }
   }
 }

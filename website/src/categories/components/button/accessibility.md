@@ -74,7 +74,7 @@ When the button has focus:
 
     However, there are some differences:
     - `disabled` takes the button out of the tab-focus sequence, `aria-disabled` does not
-    - `disabled` disables pointer events, `aria-disabled` does not
+    - `disabled` disables all pointer events, `aria-disabled` does not
 
     The difference can be useful when you want to combine a disabled button with a tooltip. In that case you want the button to be focusable (so you can hover or tab to it) but you also want it to be dimmed and not clickable. In that case you would use `aria-disabled` instead of `disabled`.
 

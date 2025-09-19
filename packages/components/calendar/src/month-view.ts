@@ -157,6 +157,9 @@ export class MonthView extends LocaleMixin(LitElement) {
       <table>
         ${this.renderHeader()}
         <tbody>
+          <tr>
+            <td colspan="7">${1 + (this.month?.getMonth() ?? 0)}</td>
+          </tr>
           ${this.calendar?.weeks.map(
             week => html`
               <tr>

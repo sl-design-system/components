@@ -1,10 +1,12 @@
 import { expect, fixture } from '@open-wc/testing';
 import { Button } from '@sl-design-system/button';
 import { html } from 'lit';
+import { MonthView } from '../index.js';
 import { SelectDay } from './select-day.js';
 
 try {
   customElements.define('sl-select-day', SelectDay);
+  customElements.define('sl-month-view', MonthView);
 } catch {
   /* already defined */
 }
@@ -125,46 +127,51 @@ describe('sl-select-day', () => {
   });
 
   // New tests exercising the next/previous navigation (invoking #onNext / #onPrevious indirectly)
-  // eslint-disable-next-line mocha/no-pending-tests
-  describe.skip('month navigation', () => {
+
+  describe('month navigation', () => {
     it('should go to next month when next button clicked', async () => {
-      el = await fixture(html`<sl-select-day .month=${new Date(2025, 5, 15)}></sl-select-day>`); // June 2025
-      console.log('displayMonth before click', el.displayMonth);
+      const startMonth = 5; // June
+      el = await fixture(html`<sl-select-day .month=${new Date(2025, startMonth, 15)}></sl-select-day>`); // June 2025
+      await new Promise(resolve => setTimeout(resolve, 500)); // wait for the scroll animation to finish
+
       await el.updateComplete;
-      const startMonth = el.month!.getMonth(); // 5
+
       const nextBtn: Button | null = el.renderRoot.querySelector('sl-button.next-month');
       expect(nextBtn, 'next-month button should exist').to.exist;
       nextBtn?.click();
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 500)); // wait for the scroll animation to finish
+
       await el.updateComplete;
-      // debugger;
-      console.log('displayMonth after click', el.displayMonth);
+
       expect(el.displayMonth?.getMonth()).to.equal((startMonth + 1) % 12);
-      if (startMonth === 11) {
-        expect(el.month?.getFullYear()).to.equal(2026);
-      }
     });
 
     it('should go to previous month when previous button clicked', async () => {
-      el = await fixture(html`<sl-select-day .month=${new Date(2025, 5, 15)}></sl-select-day>`); // June 2025
+      const startMonth = 5; // June
+
+      el = await fixture(html`<sl-select-day .month=${new Date(2025, startMonth, 15)}></sl-select-day>`); // June 2025
+      await new Promise(resolve => setTimeout(resolve, 500)); // wait for the scroll animation to finish
+
       await el.updateComplete;
-      const startMonth = el.month!.getMonth(); // 5
+
       const prevBtn: Button | null = el.renderRoot.querySelector('sl-button.previous-month');
       expect(prevBtn, 'previous-month button should exist').to.exist;
       prevBtn?.click();
+      await new Promise(resolve => setTimeout(resolve, 500)); // wait for the scroll animation to finish
       await el.updateComplete;
+
       const expected = (startMonth + 11) % 12;
       expect(el.month?.getMonth()).to.equal(expected);
-      if (startMonth === 0) {
-        expect(el.month?.getFullYear()).to.equal(2024);
-      }
     });
 
     it('should handle year decrement when navigating from January to previous month', async () => {
       el = await fixture(html`<sl-select-day .month=${new Date(2025, 0, 10)}></sl-select-day>`); // Jan 2025
+      await new Promise(resolve => setTimeout(resolve, 500)); // wait for the scroll animation to finish
+
       await el.updateComplete;
       const prevBtn: Button | null = el.renderRoot.querySelector('sl-button.previous-month');
       prevBtn?.click();
+      await new Promise(resolve => setTimeout(resolve, 500)); // wait for the scroll animation to finish
       await el.updateComplete;
       expect(el.month?.getMonth()).to.equal(11); // Dec
       expect(el.month?.getFullYear()).to.equal(2024);
@@ -172,9 +179,13 @@ describe('sl-select-day', () => {
 
     it('should handle year increment when navigating from December to next month', async () => {
       el = await fixture(html`<sl-select-day .month=${new Date(2025, 11, 10)}></sl-select-day>`); // Dec 2025
+      await new Promise(resolve => setTimeout(resolve, 500)); // wait for the scroll animation to finish
+
       await el.updateComplete;
       const nextBtn: Button | null = el.renderRoot.querySelector('sl-button.next-month');
       nextBtn?.click();
+      await new Promise(resolve => setTimeout(resolve, 500)); // wait for the scroll animation to finish
+
       await el.updateComplete;
       expect(el.month?.getMonth()).to.equal(0); // Jan
       expect(el.month?.getFullYear()).to.equal(2026);

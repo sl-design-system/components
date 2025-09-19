@@ -127,7 +127,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     requestAnimationFrame(() => {
       this.#scrollToMonth(0);
       const monthViews = this.renderRoot.querySelectorAll('sl-month-view');
-      console.log('monthViews', monthViews);
       monthViews.forEach(mv => this.observer.observe(mv));
     });
   }
@@ -255,55 +254,53 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           : nothing}
         ${this.weekDays.map(day => html`<span class="day-of-week" aria-label=${day.long}>${day.short}</span>`)}
       </div>
-      <div class="scroll-wrapper">
-        <div class="scroller">
-          <sl-month-view
-            ?readonly=${this.readonly}
-            ?show-today=${this.showToday}
-            ?show-week-numbers=${this.showWeekNumbers}
-            .firstDayOfWeek=${this.firstDayOfWeek}
-            .month=${this.previousMonth}
-            .selected=${this.selected}
-            .negative=${this.negative}
-            .indicator=${this.indicator}
-            aria-hidden="true"
-            inert
-            max=${ifDefined(this.max?.toISOString())}
-            min=${ifDefined(this.min?.toISOString())}
-            locale=${ifDefined(this.locale)}
-          ></sl-month-view>
-          <sl-month-view
-            @sl-change=${this.#onChange}
-            @sl-select=${this.#onSelect}
-            ?readonly=${this.readonly}
-            ?show-today=${this.showToday}
-            ?show-week-numbers=${this.showWeekNumbers}
-            .firstDayOfWeek=${this.firstDayOfWeek}
-            .month=${this.month}
-            .selected=${this.selected}
-            .negative=${this.negative}
-            .indicator=${this.indicator}
-            ?inert=${this.inert}
-            locale=${ifDefined(this.locale)}
-            max=${ifDefined(this.max?.toISOString())}
-            min=${ifDefined(this.min?.toISOString())}
-          ></sl-month-view>
-          <sl-month-view
-            ?readonly=${this.readonly}
-            ?show-today=${this.showToday}
-            ?show-week-numbers=${this.showWeekNumbers}
-            .firstDayOfWeek=${this.firstDayOfWeek}
-            .month=${this.nextMonth}
-            .selected=${this.selected}
-            .negative=${this.negative}
-            .indicator=${this.indicator}
-            aria-hidden="true"
-            inert
-            locale=${ifDefined(this.locale)}
-            max=${ifDefined(this.max?.toISOString())}
-            min=${ifDefined(this.min?.toISOString())}
-          ></sl-month-view>
-        </div>
+      <div class="scroller">
+        <sl-month-view
+          ?readonly=${this.readonly}
+          ?show-today=${this.showToday}
+          ?show-week-numbers=${this.showWeekNumbers}
+          .firstDayOfWeek=${this.firstDayOfWeek}
+          .month=${this.previousMonth}
+          .selected=${this.selected}
+          .negative=${this.negative}
+          .indicator=${this.indicator}
+          aria-hidden="true"
+          inert
+          max=${ifDefined(this.max?.toISOString())}
+          min=${ifDefined(this.min?.toISOString())}
+          locale=${ifDefined(this.locale)}
+        ></sl-month-view>
+        <sl-month-view
+          @sl-change=${this.#onChange}
+          @sl-select=${this.#onSelect}
+          ?readonly=${this.readonly}
+          ?show-today=${this.showToday}
+          ?show-week-numbers=${this.showWeekNumbers}
+          .firstDayOfWeek=${this.firstDayOfWeek}
+          .month=${this.month}
+          .selected=${this.selected}
+          .negative=${this.negative}
+          .indicator=${this.indicator}
+          ?inert=${this.inert}
+          locale=${ifDefined(this.locale)}
+          max=${ifDefined(this.max?.toISOString())}
+          min=${ifDefined(this.min?.toISOString())}
+        ></sl-month-view>
+        <sl-month-view
+          ?readonly=${this.readonly}
+          ?show-today=${this.showToday}
+          ?show-week-numbers=${this.showWeekNumbers}
+          .firstDayOfWeek=${this.firstDayOfWeek}
+          .month=${this.nextMonth}
+          .selected=${this.selected}
+          .negative=${this.negative}
+          .indicator=${this.indicator}
+          aria-hidden="true"
+          inert
+          locale=${ifDefined(this.locale)}
+          max=${ifDefined(this.max?.toISOString())}
+          min=${ifDefined(this.min?.toISOString())}
+        ></sl-month-view>
       </div>
     `;
   }

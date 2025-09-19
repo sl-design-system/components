@@ -90,7 +90,7 @@ describe('tooltip()', () => {
     // Trigger the lazy tooltip creation
     button?.focus();
 
-    const tt = button?.lastElementChild;
+    const tt = button?.nextElementSibling;
     expect(tt).to.match('sl-tooltip');
     expect(tt).to.have.text('content');
     expect(tt?.shadowRoot).be.instanceof(ShadowRoot);

@@ -24,7 +24,8 @@ ruleTester.run('button-has-label', buttonHasLabel, {
     { code: "html`<div><sl-button>First</sl-button><sl-button>Second</sl-button></div>`;" },
     { code: "html`<sl-button ${tooltip('Toolip example', { ariaRelation: 'label' })}><sl-icon name='face-smile'></sl-icon></sl-button>`;" },
     { code: "html`<sl-button ${tooltip('Tiooltip example', { position: 'bottom-start', ariaRelation: 'label' })}><sl-icon name='face-smile'></sl-icon></sl-button>`;" },
-    { code: "html`<sl-button ${tooltip('My tooltip example', { ariaRelation: 'label', position: 'bottom-start', maxWidth: 100 })}><sl-icon name='face-smile' size='lg'></sl-icon></sl-button>`;" }
+    { code: "html`<sl-button ${tooltip('My tooltip example', { ariaRelation: 'label', position: 'bottom-start', maxWidth: 100 })}><sl-icon name='face-smile' size='lg'></sl-icon></sl-button>`;" },
+    { code: "html`<sl-button variant=\"primary\" fill=\"solid\" ${tooltip('My tooltip example', { ariaRelation: 'label', position: 'bottom-start', maxWidth: 100 })}>\n`;" }
   ],
   invalid: [
     {

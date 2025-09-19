@@ -107,9 +107,9 @@ export const DirectiveWithOptions: Story = {
         }
       </style>
       <p>
-        This story demonstrates hot to use the tooltip directive with some inline options
-        (custom 'ariaRelation', custom 'position' and 'maxWidth') on a <code>sl-button</code>.
-        The example shows how to add a tooltip directly without a separate <code>sl-tooltip</code> element.
+        This story demonstrates hot to use the tooltip directive with some inline options (custom 'ariaRelation', custom
+        'position' and 'maxWidth') on a <code>sl-button</code>. The example shows how to add a tooltip directly without
+        a separate <code>sl-tooltip</code> element.
       </p>
 
       <div class="container">

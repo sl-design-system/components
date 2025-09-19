@@ -1,12 +1,24 @@
+import '@sl-design-system/format-date/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { TemplateResult, html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { useArgs } from 'storybook/internal/preview-api';
 import '../register.js';
 import { type Calendar } from './calendar.js';
 
 type Props = Pick<
   Calendar,
-  'firstDayOfWeek' | 'locale' | 'max' | 'min' | 'month' | 'readonly' | 'selected' | 'showToday' | 'showWeekNumbers'
+  | 'firstDayOfWeek'
+  | 'locale'
+  | 'indicator'
+  | 'max'
+  | 'min'
+  | 'month'
+  | 'readonly'
+  | 'selected'
+  | 'showToday'
+  | 'showWeekNumbers'
+  | 'negative'
 >;
 type Story = StoryObj<Props>;
 
@@ -38,9 +50,28 @@ export default {
     },
     selected: {
       control: 'date'
+    },
+    negative: {
+      control: 'date'
+    },
+    indicator: {
+      control: 'date'
     }
   },
-  render: ({ firstDayOfWeek, locale, max, min, month, readonly, selected, showToday, showWeekNumbers }) => {
+  render: ({
+    firstDayOfWeek,
+    indicator,
+    locale,
+    max,
+    min,
+    month,
+    negative,
+    readonly,
+    selected,
+    showToday,
+    showWeekNumbers
+  }) => {
+    const [_, updateArgs] = useArgs();
     const parseDate = (value: string | Date | undefined): Date | undefined => {
       if (!value) {
         return undefined;
@@ -49,8 +80,16 @@ export default {
       return value instanceof Date ? value : new Date(value);
     };
 
+    const selectedDate: Date | undefined = parseDate(selected);
+
+    const onSelectDate = (event: CustomEvent<Date>) => {
+      console.log('Date selected:', event.detail.getFullYear(), event.detail.getMonth());
+      updateArgs({ selected: new Date(event.detail).getTime() }); //needs to be set to the 'time' otherwise Storybook chokes on the date format 🤷
+    };
+
     return html`
       <sl-calendar
+        @sl-change=${onSelectDate}
         ?readonly=${readonly}
         ?show-today=${showToday}
         ?show-week-numbers=${showWeekNumbers}
@@ -60,7 +99,13 @@ export default {
         min=${ifDefined(parseDate(min)?.toISOString())}
         month=${ifDefined(parseDate(month)?.toISOString())}
         selected=${ifDefined(parseDate(selected)?.toISOString())}
+        negative=${ifDefined(negative?.map(date => date.toISOString()).join(','))}
+        indicator=${ifDefined(indicator?.map(date => date.toISOString()).join(','))}
       ></sl-calendar>
+      <p>
+        Selected date:
+        <sl-format-date .date=${selectedDate} locale=${ifDefined(locale)} date-style="long"></sl-format-date>
+      </p>
     `;
   }
 } satisfies Meta<Props>;
@@ -89,7 +134,25 @@ export const Readonly: Story = {
 
 export const Selected: Story = {
   args: {
-    selected: new Date(2024, 8, 15)
+    selected: new Date(1755640800000),
+    showToday: true,
+    month: new Date(1755640800000)
+  }
+};
+
+export const Negative: Story = {
+  args: {
+    negative: [new Date(), new Date('2025-08-07')],
+    showToday: true,
+    month: new Date(1755640800000)
+  }
+};
+
+export const Indicator: Story = {
+  args: {
+    indicator: [new Date(), new Date('2025-08-05')],
+    showToday: true,
+    month: new Date(1755640800000)
   }
 };
 
@@ -103,5 +166,87 @@ export const Today: Story = {
 export const WeekNumbers: Story = {
   args: {
     showWeekNumbers: true
+  }
+};
+
+export const All: Story = {
+  render: () => {
+    const parseDate = (value: string | Date | undefined): Date | undefined => {
+      if (!value) {
+        return undefined;
+      }
+
+      return value instanceof Date ? value : new Date(value);
+    };
+    const getOffsetDate = (offset: number, setDate?: Date): Date => {
+      const date = setDate ? new Date(setDate) : new Date();
+      date.setDate(date.getDate() + offset);
+      return date;
+    };
+
+    const renderMonth = (settings: Props): TemplateResult => {
+      return html`
+        <sl-calendar
+          ?show-today=${ifDefined(settings.showToday)}
+          show-week-numbers="true"
+          max=${ifDefined(parseDate(settings.max)?.toISOString())}
+          min=${ifDefined(parseDate(settings.min)?.toISOString())}
+          month=${ifDefined(parseDate(settings.month)?.toISOString())}
+          selected=${ifDefined(parseDate(settings.selected)?.toISOString())}
+          negative=${ifDefined(settings.negative?.map(date => date.toISOString()).join(','))}
+          indicator=${ifDefined(settings.indicator?.map(date => date.toISOString()).join(','))}
+        ></sl-calendar>
+      `;
+    };
+    const monthEndDate = new Date(2025, 8, 29);
+    const monthEnd = {
+      negative: [getOffsetDate(2, monthEndDate)],
+      indicator: [getOffsetDate(3, monthEndDate)],
+      selected: getOffsetDate(4, monthEndDate),
+      showToday: false,
+      month: monthEndDate,
+      max: getOffsetDate(5, monthEndDate),
+      min: getOffsetDate(-5, monthEndDate)
+    };
+
+    const indicator = {
+      indicator: [getOffsetDate(0), getOffsetDate(1), getOffsetDate(6)], // make sure one it outside the min/max range
+      selected: getOffsetDate(1),
+      showToday: true,
+      month: new Date(),
+      max: getOffsetDate(5),
+      min: getOffsetDate(-5)
+    };
+    const indicatorToday = {
+      ...indicator,
+      selected: getOffsetDate(0)
+    };
+    const negative = {
+      negative: [getOffsetDate(0), getOffsetDate(1), getOffsetDate(6)], // make sure one it outside the min/max range
+      selected: getOffsetDate(1),
+      showToday: true,
+      month: new Date(),
+      max: getOffsetDate(5),
+      min: getOffsetDate(-5)
+    };
+
+    const negativeToday = {
+      ...negative,
+      selected: getOffsetDate(0)
+    };
+    return html`
+      <h1>Month End (${monthEndDate.toLocaleDateString()})</h1>
+      <p>
+        Selected, negative and date with indicator are all in the next month, but have the same styling as they would
+        within the current month.
+      </p>
+      ${renderMonth(monthEnd)}
+      <h1>Today</h1>
+      <p>Shows current month with 'today' highlighted, in combination with selected, indicator and negative</p>
+      <h2>Indicator</h2>
+      ${renderMonth(indicator)} ${renderMonth(indicatorToday)}
+      <h2>Negative</h2>
+      ${renderMonth(negative)} ${renderMonth(negativeToday)}
+    `;
   }
 };

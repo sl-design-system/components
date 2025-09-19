@@ -1,5 +1,12 @@
 # @sl-design-system/listbox
 
+## 0.1.5
+
+### Patch Changes
+
+- [#2624](https://github.com/sl-design-system/components/pull/2624) [`6e34fcb`](https://github.com/sl-design-system/components/commit/6e34fcbb1884ab75574b5145560e959dc9ab53f8) - - Adds missing divider between groups and options,
+  - Fixes rendering `sl-option-group-header` only when the label attribute is set.
+
 ## 0.1.4
 
 ### Patch Changes

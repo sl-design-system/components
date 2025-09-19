@@ -249,6 +249,38 @@ describe('sl-radio-group', () => {
     });
   });
 
+  describe('initial value', () => {
+    it('should be valid when the initial value matches one of the options', async () => {
+      el = await fixture(html`
+        <sl-radio-group value="2" required>
+          <sl-radio value="1">Option 1</sl-radio>
+          <sl-radio value="2">Option 2</sl-radio>
+          <sl-radio value="3">Option 3</sl-radio>
+        </sl-radio-group>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(el.value).to.equal('2');
+      expect(el.valid).to.be.true;
+    });
+
+    it('should be invalid when the initial value does not match any of the options', async () => {
+      el = await fixture(html`
+        <sl-radio-group value="dummy" required>
+          <sl-radio value="1">Option 1</sl-radio>
+          <sl-radio value="2">Option 2</sl-radio>
+          <sl-radio value="3">Option 3</sl-radio>
+        </sl-radio-group>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(el.value).to.equal('dummy');
+      expect(el.valid).to.be.false;
+    });
+  });
+
   describe('validation', () => {
     beforeEach(async () => {
       el = await fixture(html`

@@ -1,5 +1,11 @@
 # @sl-design-system/tooltip
 
+## 1.2.0
+
+### Minor Changes
+
+- [#2626](https://github.com/sl-design-system/components/pull/2626) [`97bd268`](https://github.com/sl-design-system/components/commit/97bd2687ebc1a71349e113c46e2082a993b9dd80) - Add a new `ariaRelation` option to `Tooltip.lazy()`. This allows you to specify whether the tooltip should use `aria-describedby` (default) or `aria-labelledby` to associate the tooltip with the target element.
+
 ## 1.1.7
 
 ### Patch Changes

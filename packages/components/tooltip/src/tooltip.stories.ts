@@ -96,6 +96,35 @@ export const Directive: Story = {
   }
 };
 
+export const DirectiveWithOptions: Story = {
+  render: () => {
+    return html`
+      <style>
+        .container {
+          display: grid;
+          height: calc(20rem);
+          place-items: center;
+        }
+      </style>
+      <p>
+        This story demonstrates hot to use the tooltip directive with some inline options (custom 'ariaRelation', custom
+        'position' and 'maxWidth') on a <code>sl-button</code>. The example shows how to add a tooltip directly without
+        a separate <code>sl-tooltip</code> element.
+      </p>
+
+      <div class="container">
+        <sl-button
+          variant="primary"
+          fill="solid"
+          ${tooltip('My tooltip example', { ariaRelation: 'label', position: 'bottom-start', maxWidth: 100 })}
+        >
+          <sl-icon name="face-smile" size="lg"></sl-icon>
+        </sl-button>
+      </div>
+    `;
+  }
+};
+
 export const Disabled: Story = {
   args: {
     example: ({ alignSelf, justifySelf, message }) => html`

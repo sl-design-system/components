@@ -114,8 +114,11 @@ export function isListDataSourceGroupItem<T>(item?: ListDataSourceItemBase): ite
   return item?.type === 'group';
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends DataSource<T, U> {
+export abstract class ListDataSource<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  T = any,
+  U extends ListDataSourceItem<T> = ListDataSourceItem<T>
+> extends DataSource<T, U> {
   /** Map of all active filters. */
   #filters: Map<string, DataSourceFilter<T>> = new Map();
 
@@ -438,9 +441,16 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
       return;
     }
 
-    this.#selectAll = true;
-    this.#selection.clear();
-    this.#groupSelection.clear();
+    // If there are active filters, we need to select each item individually
+    if (this.filters.size > 0) {
+      this.items
+        .filter(item => isListDataSourceDataItem(item))
+        .forEach(item => this.select(item as ListDataSourceItemBase, false));
+    } else {
+      this.#selectAll = true;
+      this.#selection.clear();
+      this.#groupSelection.clear();
+    }
 
     this.dispatchEvent(new CustomEvent('sl-selection-change'));
   }

@@ -142,6 +142,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
+    console.log('menu items in render', this.menuItems);
     return html`
       <div part="wrapper">
         <slot @slotchange=${this.#onSlotChange}></slot>
@@ -163,6 +164,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   }
 
   renderMenuItem(item: ToolBarItem): TemplateResult {
+    console.log('Rendering menu item:', item);
     if (item.type === 'group') {
       return html`
         <sl-menu-item-group .heading=${item.label ?? ''} .selects=${item.selects}>
@@ -214,14 +216,25 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     const elements = event.target.assignedElements({ flatten: true });
 
+    console.log('Slot changed, assigned elements:', elements);
+
     this.empty = elements.length === 0;
 
     if (typeof this.disabled === 'boolean') {
       elements.forEach(el => el.toggleAttribute('disabled', this.disabled));
     }
 
+    console.log(
+      'Slot changed, mapping elements to items:',
+      this.renderRoot,
+      this.renderRoot.querySelector('sl-tooltip'),
+      this.querySelector('sl-tooltip'),
+      this.renderRoot as HTMLElement
+    );
+
     this.items = elements
       .map(element => {
+        console.log('Mapping element to item:', element);
         if (element instanceof Button || element instanceof ToggleButton) {
           return this.#mapButtonToItem(element);
         } else if (element instanceof ToggleGroup) {
@@ -251,6 +264,15 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   }
 
   #mapButtonToItem(button: HTMLElement): ToolBarItemButton {
+    console.log(
+      'Mapping button:',
+      button,
+      button.nextElementSibling,
+      this.querySelector('#copy-tooltip-1'),
+      'just sl-tooltip:',
+      this.querySelector('sl-tooltip'),
+      this.renderRoot
+    );
     let label = button.getAttribute('aria-label') || button.textContent?.trim();
 
     if (button.hasAttribute('aria-labelledby')) {
@@ -258,6 +280,34 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     } else if (!label && button.hasAttribute('aria-describedby')) {
       label = this.querySelector(`#${button.getAttribute('aria-describedby')}`)?.textContent?.trim();
     }
+
+    console.log(
+      'Mapped button label:',
+      label,
+      button.hasAttribute('aria-labelledby'),
+      button.getAttribute('aria-labelledby'),
+      this.querySelector('#copy-tooltip-1'),
+      button.nextElementSibling,
+      'button.nextElementSibling innerHTML:',
+      button.nextElementSibling?.innerHTML,
+      button.nextElementSibling instanceof Tooltip,
+      button.nextElementSibling?.hasAttribute('#copy-tooltip-1')
+    );
+
+    requestAnimationFrame(() => {
+      console.log(
+        'Mapped button label in RAF:',
+        label,
+        button.hasAttribute('aria-labelledby'),
+        button.getAttribute('aria-labelledby'),
+        this.querySelector('#copy-tooltip-1'),
+        button.nextElementSibling,
+        'button.nextElementSibling innerHTML:',
+        button.nextElementSibling?.innerHTML,
+        button.nextElementSibling instanceof Tooltip,
+        button.nextElementSibling?.hasAttribute('#copy-tooltip-1')
+      );
+    });
 
     return {
       element: button,

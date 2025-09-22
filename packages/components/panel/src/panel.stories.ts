@@ -212,7 +212,8 @@ export const OverflowActions: Story = {
       <sl-button fill="ghost" slot="actions" aria-label="Edit"><sl-icon name="far-pen"></sl-icon></sl-button>
       <sl-button fill="ghost" slot="actions" aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
       <sl-button fill="ghost" slot="actions" aria-label="Paste"><sl-icon name="far-paste"></sl-icon></sl-button>
-      <sl-button fill="ghost" slot="actions" aria-label="Book"><sl-icon name="far-book"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-labelledby="tooltip1"><sl-icon name="far-book"></sl-icon></sl-button>
+      <sl-tooltip id="tooltip1">Book...</sl-tooltip>
       <sl-button fill="ghost" slot="actions" aria-label="Share"><sl-icon name="far-share"></sl-icon></sl-button>
       <sl-button fill="ghost" slot="actions" aria-label="List"><sl-icon name="far-list"></sl-icon></sl-button>
       <sl-button fill="ghost" slot="actions" aria-label="Link"><sl-icon name="far-link"></sl-icon></sl-button>
@@ -275,6 +276,38 @@ export const ActionsWithTooltips2: Story = {
     `
   }
 }; // TODO: Tooltips in overflow menu are not working...
+
+export const ActionsWithTooltips3: Story = {
+  args: {
+    ...Basic.args,
+    actions: () => html`
+      <sl-button fill="ghost" slot="actions" aria-labelledby="copy-tooltip-1">
+        <sl-icon name="far-copy"></sl-icon>
+      </sl-button>
+      <sl-tooltip id="copy-tooltip-1">Edit</sl-tooltip>
+      <sl-button fill="ghost" slot="actions" aria-label="Book">
+        <sl-icon name="far-book"> </sl-icon>
+      </sl-button>
+    `,
+    content: () => html`
+      <style>
+        sl-panel {
+          inline-size: 410px;
+        }
+      </style>
+
+      "If you add too many actions that won't fit on 1 line, it will add a menu button for the overflow."
+
+      <sl-button aria-labelledby="copy-tooltip" fill="ghost">
+        <sl-icon name="far-copy"></sl-icon>
+        <sl-tooltip id="copy-tooltip">Copy</sl-tooltip>
+      </sl-button>
+
+      <sl-button aria-labelledby="edit-tooltip" fill="ghost"><sl-icon name="far-pen"></sl-icon></sl-button>
+      <sl-tooltip id="edit-tooltip">Edit</sl-tooltip>
+    `
+  }
+};
 
 export const WithoutActions: Story = {
   args: {

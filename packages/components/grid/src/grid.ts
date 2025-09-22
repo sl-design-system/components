@@ -219,6 +219,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** Provide your own implementation for getting the data. */
   @property({ attribute: false })
   set dataSource(dataSource: ListDataSource<T> | undefined) {
+    const replacement = !!this.#dataSource;
+
     if (this.#dataSource) {
       this.#dataSource.removeEventListener('sl-update', this.#onDataSourceUpdate);
       this.#dataSource.removeEventListener('sl-selection-change', this.#onSelectionChange);
@@ -227,6 +229,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#dataSource = dataSource;
     this.#dataSource?.addEventListener('sl-update', this.#onDataSourceUpdate);
     this.#dataSource?.addEventListener('sl-selection-change', this.#onSelectionChange);
+
+    if (replacement) {
+      this.#onSelectionChange();
+    }
   }
 
   /**

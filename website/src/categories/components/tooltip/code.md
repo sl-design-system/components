@@ -68,7 +68,7 @@ The complete usage example might appear as follows:
 
 ### Add config with the directive
 
-You can also pass a second argument: a **config** object. Use this to control how and where the tooltip appears.
+You can also pass a second argument: a **config** object. Use this to control how the tooltip appears.
 
 <div class="ds-code">
 
@@ -87,8 +87,6 @@ html`<sl-button ${tooltip('Settings', { ariaRelation: 'label' })}><sl-icon name=
 - **position**: Where the tooltip shows relative to the anchor. One of: `top`, `right`, `bottom`, `left`, `top-start`, `top-end`, `right-start`, `right-end`, `bottom-start`, `bottom-end`, `left-start`, `left-end`. Default: `top`.
 - **maxWidth**: A `number` (pixels). The maximum width of the tooltip.
 - **ariaRelation**: How the tooltip is linked for screen readers. A `description` (default) uses `aria-describedby`, `label` uses `aria-labelledby` and should be used when the tooltip text is the actual label of the anchor element (like an icon-only button).
-- **context**: A `Document` or `ShadowRoot` to create the `<sl-tooltip>` element in. If not provided, the tooltip will be created on the target element if it has a `shadowRoot`, or the root node of the target element.
-- **parentNode**: A `Node` where the tooltip element should be inserted. This can be useful when you don't want the tooltip to be added next to the anchor element. If not provided, it will be added next to the anchor element.
 
 If you omit a `config` it just uses its default behaviour. Config options are optional.
 

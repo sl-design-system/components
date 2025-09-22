@@ -468,6 +468,14 @@ describe('ArrayListDataSource', () => {
         expect(ds.isSelectAllToggled()).to.be.false;
       });
 
+      it('should toggle isSelectAllToggled() after calling deselect() on every item', () => {
+        ds.selectAll();
+        expect(ds.isSelectAllToggled()).to.be.true;
+
+        ds.items.forEach(item => ds.deselect(item));
+        expect(ds.isSelectAllToggled()).to.be.false;
+      });
+
       it('should clear the selection when calling selectAll()', () => {
         ds.select(ds.items.at(0)!);
         ds.selectAll();

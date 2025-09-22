@@ -498,6 +498,15 @@ describe('sl-time-field', () => {
       expect(el.valid).to.be.false;
       expect(el.validationMessage).to.equal('Please enter a time.');
     });
+
+    it('should be valid when the time has the correct syntax', async () => {
+      el.textField.focus();
+      await sendKeys({ type: '12:34' });
+      el.textField.input.blur();
+      await el.updateComplete;
+
+      expect(el.valid).to.be.true;
+    });
   });
 
   describe('start time', () => {

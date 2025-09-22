@@ -468,6 +468,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     this.blurEvent.emit();
     this.updateState({ touched: true });
+    this.updateValidity();
   }
 
   #onTextFieldChange(event: SlChangeEvent): void {

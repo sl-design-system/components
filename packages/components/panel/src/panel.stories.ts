@@ -265,15 +265,13 @@ export const ActionsWithTooltips2: Story = {
 
       "If you add too many actions that won't fit on 1 line, it will add a menu button for the overflow."
 
-      <sl-button aria-describedby="edit-tooltip" fill="ghost" aria-label="Copy">
+      <sl-button aria-labelledby="copy-tooltip" fill="ghost">
         <sl-icon name="far-copy"></sl-icon>
-        <sl-tooltip id="edit-tooltip">Edit'</sl-tooltip>
+        <sl-tooltip id="copy-tooltip">Copy</sl-tooltip>
       </sl-button>
 
-      <sl-button aria-describedby="copy-tooltip" fill="ghost" aria-label="Edit"
-        ><sl-icon name="far-pen"></sl-icon
-      ></sl-button>
-      <sl-tooltip id="copy-tooltip">Edit...</sl-tooltip>
+      <sl-button aria-labelledby="edit-tooltip" fill="ghost"><sl-icon name="far-pen"></sl-icon></sl-button>
+      <sl-tooltip id="edit-tooltip">Edit</sl-tooltip>
     `
   }
 }; // TODO: Tooltips in overflow menu are not working...

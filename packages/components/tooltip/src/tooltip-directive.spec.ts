@@ -111,28 +111,23 @@ describe('tooltip()', () => {
       // empty
     }
 
-    const parent = document.createElement('div');
-
-    document.body.appendChild(parent);
-
     const lazySpy = spy(Tooltip, 'lazy');
 
     const el: HTMLElement = await fixture(
-      html`<div ${tooltip('content', { parentNode: parent, ariaRelation: 'label' })} tabindex="0">Host</div>`
+      html`<div ${tooltip('content', { ariaRelation: 'label' })} tabindex="0">Host</div>`
     );
 
     // Trigger the lazy tooltip creation
     el.focus();
 
     expect(lazySpy).to.have.been.calledOnce;
-    expect(lazySpy.getCall(0).args[2]).to.deep.equal({ parentNode: parent, ariaRelation: 'label' });
+    expect(lazySpy.getCall(0).args[2]).to.deep.equal({ ariaRelation: 'label' });
 
-    const tooltipEl = parent.querySelector('sl-tooltip');
+    const tooltipEl = el.nextElementSibling as Tooltip | null;
 
     expect(tooltipEl).to.exist;
     expect(el).to.have.attribute('aria-labelledby', tooltipEl?.id);
 
-    parent.remove();
     lazySpy.restore();
   });
 

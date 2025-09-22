@@ -4,7 +4,7 @@ import { type ElementPart, directive } from 'lit/directive.js';
 import { Tooltip, TooltipOptions } from './tooltip.js';
 
 /** Configuration options for the tooltip directive. */
-export type TooltipDirectiveConfig = TooltipOptions & TooltipProperties;
+export type TooltipDirectiveConfig = Partial<TooltipOptions> & TooltipProperties;
 
 /** Tooltip public properties that can be set. */
 type TooltipProperties = {
@@ -53,48 +53,19 @@ export class TooltipDirective extends AsyncDirective {
     this.#setup();
   }
 
-  #applyTooltipProps(tooltip: Tooltip, props?: Partial<TooltipProperties>): void {
-    if (!props) {
-      return;
-    }
-
-    Object.entries(props).forEach(([key, value]) => {
-      try {
-        (tooltip as unknown as Record<string, unknown>)[key] = value;
-      } catch {
-        // ignore readonly properties
-      }
-    });
-  }
-
-  #isTooltipProperty(property: string): boolean {
-    return ['position', 'maxWidth'].includes(property);
-  }
-
   #setup(): void {
-    const options = Object.entries(this.config).filter(([_, value]) => value !== undefined),
-      tooltipProperties: TooltipProperties = {},
-      tooltipOptions: TooltipOptions = {};
-
-    for (const [key, value] of options) {
-      if (this.#isTooltipProperty(key)) {
-        (tooltipProperties as Record<string, unknown>)[key] = value;
-      } else {
-        (tooltipOptions as Record<string, unknown>)[key] = value;
-      }
-    }
-
     if (this.part!.element)
       this.tooltip ||= Tooltip.lazy(
         this.part!.element,
         tooltip => {
           if (this.isConnected) {
             this.tooltip = tooltip;
-            this.#applyTooltipProps(this.tooltip, tooltipProperties);
+            tooltip.position = this.config.position || 'top';
+            tooltip.maxWidth = this.config.maxWidth;
             this.renderContent();
           }
         },
-        tooltipOptions
+        { ariaRelation: this.config.ariaRelation }
       );
   }
 }

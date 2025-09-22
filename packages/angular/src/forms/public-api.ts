@@ -7,3 +7,4 @@ export * from './select.directive';
 export * from './switch.directive';
 export * from './text-area.directive';
 export * from './text-field.directive';
+export * from './time-field.directive';

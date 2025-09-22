@@ -192,11 +192,13 @@
 	"color": {
 		"black": {
 			"$type": "color",
-			"$value": "#000000"
+			"$value": "#000000",
+			"$description": "Solid black"
 		},
 		"white": {
 			"$type": "color",
-			"$value": "#ffffff"
+			"$value": "#ffffff",
+			"$description": "Solid White"
 		},
 		"shadow": {
 			"overlay1": {

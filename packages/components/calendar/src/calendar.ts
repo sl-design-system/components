@@ -87,6 +87,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       // If only the `selected` property is set, make sure the `month` property is set
       // to the same date, so the selected day is visible in the calendar.
       this.month ??= new Date(this.selected);
+      console.log('willUpdate selected, setting month to', this.month, this.selected);
     } else {
       // Otherwise default to the current month.
       this.month ??= new Date();
@@ -95,6 +96,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   override render(): TemplateResult {
     return html`
+      ${this.month ? html`month:${this.month.getMonth() + 1}` : 'undefined month'}
       <sl-select-day
         @sl-select=${this.#onSelect}
         @sl-toggle=${this.#onToggleMonthYear}

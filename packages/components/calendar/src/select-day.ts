@@ -41,9 +41,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** Ignore snap events before initialized. */
-  // #initialized = false;
-
   /** @internal The month/year that will be displayed in the header. */
   @state() displayMonth?: Date;
 
@@ -114,6 +111,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       entries.forEach(entry => {
         if (entry.isIntersecting && entry.intersectionRatio === 1) {
           this.month = normalizeDateTime((entry.target as MonthView).month!);
+          console.log(this.month);
           this.#scrollToMonth(0);
         }
       });
@@ -149,6 +147,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     }
 
     if (changes.has('month') && this.month) {
+      console.log('willUpdate', { month: this.month });
       this.displayMonth = this.month;
       this.nextMonth = new Date(this.month.getFullYear(), this.month.getMonth() + 1);
       this.previousMonth = new Date(this.month.getFullYear(), this.month.getMonth() - 1);
@@ -309,6 +308,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     event.preventDefault();
     event.stopPropagation();
 
+    console.log('onChange, setting month to', event.detail);
     this.month = new Date(event.detail.getFullYear(), event.detail.getMonth());
 
     // Wait for the month views to rerender before focusing the day

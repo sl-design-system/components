@@ -128,8 +128,8 @@ Choose density per layout context; mixing densities on the same screen is possib
 Use elevation to signal layering and emphasis relative to the page background.
 
 - **None (default):** Flat surface. Best for inline sections that should blend with the page layout.
-- **Raisen:** Subtle lift. Use to separate the Panel from busy backgrounds or when grouping controls needs visual priority.
-- **Shuken:** Deepest elevation. Reserve for floating containers, highly prominent tools, or when the Panel must stand out from surrounding elements.
+- **Raisen:** Use to separate the Panel from busy backgrounds or when grouping controls needs visual priority.
+- **Shuken:** Reserve for floating containers, highly prominent tools, or when the Panel must stand out from surrounding elements.
 
 </section>
 
@@ -198,28 +198,30 @@ With these options, you can tweak the appearance of the popover in Figma. They a
 |Item|Options|Description|
 |-|-|-|
 |Layout|`'Plain', 'full-width', 'Comfortable'`| Controls content padding: standard padding, edge-to-edge content, or increased padding for comfort. |
+
 {.ds-table .ds-table-align-top}
 
 </div>
 
 </section>
 
+
 <section>
 
 ## Behaviours
 Let's explore the behaviour of the Panel.
 
-### TITLE
-Expands/collapses via header toggle; remembers its open state when controlled by the app.
+### Nested structure
+Supports nesting a Panel inside another to group subtopics and local tools within a parent section. Each Panel keeps its own header, state, and affordances, improving scanability without overwhelming the page.
 
-### TITLE
-Header is keyboard-focusable; toggle is reachable via Tab and operable with Enter/Space.
+### Collapsable Toggle
+Opens and closes via the header toggle to reveal content on demand. In controlled mode, the component reflects the app’s state (e.g., open=true/false) and “remembers” it across renders and navigation patterns you manage.
 
-### TITLE
-Divider appears only when content is visible; transitions should not shift surrounding layout abruptly.
+### Keyboard Navigation
+All interactive elements in the header, including actions and the toggle, are reachable via `Tab` and operable with `Enter` or `Space`. Users can continue tabbing into the content or onward in the page flow.
 
-### TITLE
-Supports nested Panels; inner toggles operate independently.
+### Content Divider
+The header-content divider only appears when the panel is expanded, using a smooth transition to avoid abrupt layout shifts. This preserves rhythm in dense interfaces while clarifying hierarchy when content is visible.
 
 </section>
 

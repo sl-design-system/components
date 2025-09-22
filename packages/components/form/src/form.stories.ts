@@ -11,6 +11,7 @@ import '@sl-design-system/select/register.js';
 import '@sl-design-system/switch/register.js';
 import '@sl-design-system/text-area/register.js';
 import '@sl-design-system/text-field/register.js';
+import '@sl-design-system/time-field/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { LitElement, type TemplateResult, html, nothing } from 'lit';
 import '../register.js';
@@ -23,6 +24,7 @@ type Props = Pick<Form, 'disabled' | 'value'> & {
   reportValidity?: boolean;
 };
 type Story = StoryObj<Props>;
+
 class customComponent extends ScopedElementsMixin(LitElement) {
   constructor() {
     super();
@@ -36,7 +38,12 @@ class customComponent extends ScopedElementsMixin(LitElement) {
     `;
   }
 }
-customElements.define('custom-component', customComponent);
+
+try {
+  customElements.define('custom-component', customComponent);
+} catch {
+  /* empty */
+}
 
 export default {
   title: 'Form/Form',
@@ -195,6 +202,10 @@ export const All: Story = {
         <sl-date-field name="dateField" placeholder="Placeholder" required></sl-date-field>
       </sl-form-field>
 
+      <sl-form-field hint="Hint text" label="Time field">
+        <sl-time-field name="timeField" placeholder="Placeholder" required></sl-time-field>
+      </sl-form-field>
+
       <sl-form-field hint="Hint text" label="Text area">
         <sl-text-area ?disabled=${disabled} name="textArea" placeholder="Placeholder" required></sl-text-area>
       </sl-form-field>
@@ -285,7 +296,8 @@ export const AllValid: Story = {
       select: '2',
       switch: 'toggled',
       textArea: 'Text area',
-      textField: 'Text field'
+      textField: 'Text field',
+      timeField: '12:00'
     }
   }
 };

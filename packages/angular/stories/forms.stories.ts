@@ -26,6 +26,7 @@ import { SelectDirective } from '../src/forms/select.directive';
 import { SwitchDirective } from '../src/forms/switch.directive';
 import { TextAreaDirective } from '../src/forms/text-area.directive';
 import { TextFieldDirective } from '../src/forms/text-field.directive';
+import { TimeFieldDirective } from '../src/forms/time-field.directive';
 import { InlineMessageComponent } from '../src/inline-message/inline-message.component';
 import { OptionComponent } from '../src/listbox/option.component';
 import { NumberFieldComponent } from '../src/number-field/number-field.component';
@@ -35,6 +36,7 @@ import { SelectComponent } from '../src/select/select.component';
 import { SwitchComponent } from '../src/switch/switch.component';
 import { TextAreaComponent } from '../src/text-area/text-area.component';
 import { TextFieldComponent } from '../src/text-field/text-field.component';
+import { TimeFieldComponent } from '../src/time-field/time-field.component';
 
 @Component({
   selector: 'sla-all-form-controls-reactive',
@@ -46,6 +48,10 @@ import { TextFieldComponent } from '../src/text-field/text-field.component';
 
       <sl-form-field label="Number field">
         <sl-number-field formControlName="numberField"></sl-number-field>
+      </sl-form-field>
+
+      <sl-form-field label="Time field">
+        <sl-time-field formControlName="timeField"></sl-time-field>
       </sl-form-field>
 
       <sl-form-field label="Textarea">
@@ -118,7 +124,8 @@ import { TextFieldComponent } from '../src/text-field/text-field.component';
     SelectDirective,
     SwitchDirective,
     TextAreaDirective,
-    TextFieldDirective
+    TextFieldDirective,
+    TimeFieldDirective
   ]
 })
 export class AllFormControlsReactiveComponent {
@@ -132,7 +139,8 @@ export class AllFormControlsReactiveComponent {
     select: new FormControl('1'),
     switch: new FormControl('toggled'),
     textArea: new FormControl('Text area'),
-    textField: new FormControl('Text field')
+    textField: new FormControl('Text field'),
+    timeField: new FormControl('13:45')
   });
 
   options: WritableSignal<Array<{ label: string; value: string }>> = signal([]);
@@ -158,6 +166,10 @@ export class AllFormControlsReactiveComponent {
 
       <sl-form-field label="Number field">
         <sl-number-field formControlName="numberField" required></sl-number-field>
+      </sl-form-field>
+
+      <sl-form-field label="Time field">
+        <sl-time-field formControlName="timeField" required></sl-time-field>
       </sl-form-field>
 
       <sl-form-field label="Text area">
@@ -236,7 +248,8 @@ export class AllFormControlsReactiveComponent {
     SelectDirective,
     SwitchDirective,
     TextAreaDirective,
-    TextFieldDirective
+    TextFieldDirective,
+    TimeFieldDirective
   ]
 })
 export class AllFormControlsEmptyReactiveComponent {
@@ -252,7 +265,8 @@ export class AllFormControlsEmptyReactiveComponent {
     select: new FormControl(''),
     switch: new FormControl(false),
     textArea: new FormControl(''),
-    textField: new FormControl('')
+    textField: new FormControl(''),
+    timeField: new FormControl('')
   });
 
   options: WritableSignal<Array<{ label: string; value: string }>> = signal([]);
@@ -282,6 +296,10 @@ export class AllFormControlsEmptyReactiveComponent {
 
       <sl-form-field label="Number field">
         <sl-number-field [(ngModel)]="formGroup.numberField"></sl-number-field>
+      </sl-form-field>
+
+      <sl-form-field label="Time field">
+        <sl-time-field [(ngModel)]="formGroup.timeField"></sl-time-field>
       </sl-form-field>
 
       <sl-form-field label="Text area">
@@ -354,21 +372,23 @@ export class AllFormControlsEmptyReactiveComponent {
     SelectDirective,
     SwitchDirective,
     TextAreaDirective,
-    TextFieldDirective
+    TextFieldDirective,
+    TimeFieldDirective
   ]
 })
 export class AllFormControlsTemplateComponent {
   formGroup = {
-    textField: 'Text field',
-    textArea: 'Text area',
     checkbox: 'checked',
-    comboboxSingle: 'Option 1',
+    checkboxGroup: ['2', '1', '0'],
     comboboxMultiple: ['Option 1', 'Option 2'],
+    comboboxSingle: 'Option 1',
     numberField: 10,
+    radioGroup: '1',
     select: '1',
     switch: 'toggled',
-    checkboxGroup: ['2', '1', '0'],
-    radioGroup: '1'
+    textArea: 'Text area',
+    textField: 'Text field',
+    timeField: '13:45'
   };
 }
 
@@ -467,16 +487,17 @@ export class AllFormControlsEmptyTemplateComponent {
   @ViewChild('form') form!: ElementRef<Form>;
 
   formGroup = {
-    textField: '',
-    textArea: '',
     checkbox: false,
-    comboboxSingle: '',
+    checkboxGroup: [],
     comboboxMultiple: [],
+    comboboxSingle: '',
     numberField: '',
+    radioGroup: null,
     select: '',
     switch: false,
-    checkboxGroup: [],
-    radioGroup: null
+    textArea: '',
+    textField: '',
+    timeField: ''
   };
 
   onClick(): void {
@@ -588,7 +609,8 @@ export default {
         SelectComponent,
         SwitchComponent,
         TextAreaComponent,
-        TextFieldComponent
+        TextFieldComponent,
+        TimeFieldComponent
       ]
     })
   ],

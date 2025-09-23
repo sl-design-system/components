@@ -52,7 +52,7 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
       ${this.dragHandle
         ? html`
             <div part="drag-handle">
-              <sl-icon name="far-grip-lines"></sl-icon>
+              <sl-icon name="grip-lines"></sl-icon>
             </div>
           `
         : nothing}

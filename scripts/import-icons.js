@@ -80,15 +80,20 @@ const buildIcons = async theme => {
 
   const icons = {
     ...getFormattedIcons(coreIcons, 'core'),
-    ...themeIcons?getFormattedIcons({themeIcons},'themeIcons'):{}
+    ...(themeIcons ? getFormattedIcons({ themeIcons },'themeIcons') : {})
   };
 
   // fetch all FA tokens and store these
   Object.entries(icons).map(([iconName, value]) => {
     const tokenValue = value['$value'] || value.value;
-    if (!tokenValue) return;
+    if (!tokenValue) {
+      return;
+    }
+
     const faIcon = convertToIconDefinition(tokenValue.replace('fa-', ''), getIconStyle(iconName, text, style));
-    if (!faIcon) return;
+    if (!faIcon) {
+      return;
+    }
 
     const {
         icon: [width, height, , , path]
@@ -97,11 +102,13 @@ const buildIcons = async theme => {
 
     const svg = `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">${paths.map((p, i) => `<path d="${p}" fill="var(--sl-icon-fill-${getColorToken(i, 'regular')})"></path>`).join('')}</svg>`;
 
+
     icons[iconName] = {
       value: tokenValue,
       type: value['$type'] || value.type,
       description: value['$description'] || value.description,
-      svg };
+      svg
+    };
   });
 
   const iconsFolderPath = join(cwd, `../packages/themes/${theme}/icons/`);
@@ -143,9 +150,13 @@ const buildIcons = async theme => {
 };
 
 const buildAllIcons = async () => {
-  const themes = (await fg('../packages/themes/*', { cwd, onlyDirectories: true })).filter(theme => theme.indexOf('core') < 0);
+  const folders = (await fg('../packages/themes/*', { cwd, onlyDirectories: true }));
 
-  themes.forEach(component => buildIcons(basename(component)));
+  folders
+    .map(folder => basename(folder))
+    .filter(theme => theme.indexOf('core') < 0)
+    .filter(theme => existsSync(join(cwd, `../packages/tokens/src/${theme}/base.json`)))
+    .forEach(component => buildIcons(basename(component)));
 };
 
 const exportCoreIcons = async () => {

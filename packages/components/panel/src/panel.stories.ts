@@ -230,7 +230,7 @@ export const ActionsWithTooltips: Story = {
   args: {
     ...Basic.args,
     actions: () => html`
-      <sl-button aria-describedby="copy-tooltip" fill="ghost" slot="actions" aria-label="Edit"
+      <sl-button aria-labelledby="copy-tooltip" fill="ghost" slot="actions" aria-label="Edit"
         ><sl-icon name="far-pen"></sl-icon
       ></sl-button>
       <sl-tooltip id="copy-tooltip">Edit...</sl-tooltip>

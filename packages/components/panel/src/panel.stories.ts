@@ -212,8 +212,7 @@ export const OverflowActions: Story = {
       <sl-button fill="ghost" slot="actions" aria-label="Edit"><sl-icon name="far-pen"></sl-icon></sl-button>
       <sl-button fill="ghost" slot="actions" aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
       <sl-button fill="ghost" slot="actions" aria-label="Paste"><sl-icon name="far-paste"></sl-icon></sl-button>
-      <sl-button fill="ghost" slot="actions" aria-labelledby="tooltip1"><sl-icon name="far-book"></sl-icon></sl-button>
-      <sl-tooltip id="tooltip1">Book...</sl-tooltip>
+      <sl-button fill="ghost" slot="actions" aria-label="Book"><sl-icon name="far-book"></sl-icon></sl-button>
       <sl-button fill="ghost" slot="actions" aria-label="Share"><sl-icon name="far-share"></sl-icon></sl-button>
       <sl-button fill="ghost" slot="actions" aria-label="List"><sl-icon name="far-list"></sl-icon></sl-button>
       <sl-button fill="ghost" slot="actions" aria-label="Link"><sl-icon name="far-link"></sl-icon></sl-button>
@@ -247,7 +246,7 @@ export const ActionsWithTooltips: Story = {
       </sl-button>
       <sl-tooltip id="share-tooltip">Paste</sl-tooltip>
     `,
-    content: () => "If you add too many actions that won't fit on 1 line, it will add a menu button for the overflow."
+    content: () => 'This panel contains action buttons with tooltips.'
   }
 };
 
@@ -269,10 +268,10 @@ export const FixedInlineSize: Story = {
         }
       </style>
 
-      If you add too many actions that won't fit on 1 line, it will add a menu button for the overflow.
+      This is a panel with a fixed inline size of 350px.
     `
   }
-}; // TODO: Tooltips in overflow menu are not working...
+};
 
 export const WithoutActions: Story = {
   args: {

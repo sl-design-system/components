@@ -1,5 +1,34 @@
 # @sl-design-system/grid
 
+## 0.6.1
+
+### Patch Changes
+
+- [#2481](https://github.com/sl-design-system/components/pull/2481) [`0c4f19b`](https://github.com/sl-design-system/components/commit/0c4f19beb6f66b6cba944c6bc4589252113554fb) - Changed token used for the width of the focusring
+
+- [#2547](https://github.com/sl-design-system/components/pull/2547) [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68) - Bump patch version of `@open-wc/scoped-elements` peer dependency
+
+- [#2579](https://github.com/sl-design-system/components/pull/2579) [`6c72794`](https://github.com/sl-design-system/components/commit/6c727949b5aef75e1548416f80a7595fbd51e312) - Fix bug where calling `deselectAll()` on the data source did not update the UI
+
+- [#2548](https://github.com/sl-design-system/components/pull/2548) [`5db3329`](https://github.com/sl-design-system/components/commit/5db33293ac0ac53dcb13c607a4df76500eca7141) - Fixed wrong token for bold font-weight
+
+- Updated dependencies [[`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a), [`0c4f19b`](https://github.com/sl-design-system/components/commit/0c4f19beb6f66b6cba944c6bc4589252113554fb), [`0c4f19b`](https://github.com/sl-design-system/components/commit/0c4f19beb6f66b6cba944c6bc4589252113554fb), [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`061367b`](https://github.com/sl-design-system/components/commit/061367b5daf905c9fe52a3630d9eaebc4bcb4e80), [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a), [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16), [`29f38d4`](https://github.com/sl-design-system/components/commit/29f38d4a44003f63e20965ed176dfa9bc16851e7), [`6c72794`](https://github.com/sl-design-system/components/commit/6c727949b5aef75e1548416f80a7595fbd51e312), [`0e2e426`](https://github.com/sl-design-system/components/commit/0e2e426041997a299f3e35bcde499909d62f7ce9), [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16)]:
+  - @sl-design-system/select@2.0.5
+  - @sl-design-system/button@1.2.5
+  - @sl-design-system/text-field@1.6.6
+  - @sl-design-system/checkbox@2.1.5
+  - @sl-design-system/ellipsize-text@0.0.2
+  - @sl-design-system/search-field@0.2.1
+  - @sl-design-system/toggle-group@0.0.9
+  - @sl-design-system/scrollbar@0.1.2
+  - @sl-design-system/skeleton@1.0.1
+  - @sl-design-system/tool-bar@0.0.11
+  - @sl-design-system/listbox@0.1.4
+  - @sl-design-system/shared@0.9.0
+  - @sl-design-system/icon@1.3.0
+  - @sl-design-system/data-source@0.2.1
+  - @sl-design-system/tooltip@1.1.7
+
 ## 0.6.0
 
 ### Minor Changes
@@ -20,7 +49,6 @@
 ### Minor Changes
 
 - [#2034](https://github.com/sl-design-system/components/pull/2034) [`1072075`](https://github.com/sl-design-system/components/commit/1072075e3f1b5f0bf8b07dc1f89fd39b9f7103d0) - Big improvements:
-
   - New visual styles throughout all components
   - Refactored to use the new `ListDataSource` class and view model types
   - Removed `SelectionController` since that logic is now part of `ListDataSource`
@@ -43,7 +71,6 @@
   This change removes the `activatable-row` property and instead leaves it to the user to set the `activeRow` property on the `sl-grid` component. The examples in Storybook now also use a button with an avatar to activate the row, which is more accessible than using a checkbox. This fixes the issue we had before where we could not find a solution how to make the row activatable with the keyboard, while also keeping the checkbox for selection. Now, the row can be activated with the keyboard by focusing the button and pressing Enter or Space. And at the same time, the checkbox can still be used for selection.
 
 - [#2024](https://github.com/sl-design-system/components/pull/2024) [`a343e29`](https://github.com/sl-design-system/components/commit/a343e298d6b65966e04b3fbfc3598305a29bf1cc) - Grid improvements:
-
   - Add "Cancel selection" button to the bulk action toolbar
   - Add `column` argument to `GridColumnHeaderRenderer` type
   - Fix missing aria-label on a selection column checkbox
@@ -67,7 +94,6 @@
 ### Patch Changes
 
 - [#2077](https://github.com/sl-design-system/components/pull/2077) [`778e8a1`](https://github.com/sl-design-system/components/commit/778e8a1ae5dc7908e5c000a620b8143883c75a91) - - Adds option to have no skip table links
-
   - Fixes issue for Safari (an other browsers that don't support native anchor positioning) where to "Skip to start of table" link was positioned incorrectly
 
 - [#2072](https://github.com/sl-design-system/components/pull/2072) [`77b348d`](https://github.com/sl-design-system/components/commit/77b348d19a4869f9242d8ea1c70d32d1e6d04212) - Fix regression with basic drag and drop of rows within grid
@@ -168,7 +194,6 @@
 - [#1791](https://github.com/sl-design-system/components/pull/1791) [`133b883`](https://github.com/sl-design-system/components/commit/133b883234d911dabe37bd3c8acef26afea20fe9) - Replace `--sl-size-borderWidth-subtle` with `--sl-size-borderWidth-default`
 
 - [#1653](https://github.com/sl-design-system/components/pull/1653) [`f15d75c`](https://github.com/sl-design-system/components/commit/f15d75c6c3765b797f0bed57c5d1f2855cab4f7e) - Improve horizontal scrolling experience:
-
   - Add shadows to the left and right of the grid when it is scrollable
   - Add the new `<sl-scrollbar>` when the grid is horizontally scrollable
   - Make sure the scrollbar is always visible (sticky at the bottom of the grid)
@@ -194,7 +219,6 @@
 - [#1609](https://github.com/sl-design-system/components/pull/1609) [`515e2fb`](https://github.com/sl-design-system/components/commit/515e2fbbda7ecee92392b8ddf9f98c335fe32cf6) - Added tokens for grid
 
 - [#1616](https://github.com/sl-design-system/components/pull/1616) [`b1e3b74`](https://github.com/sl-design-system/components/commit/b1e3b741e78400e3755ddaa0c5c4fdeed2e3f960) - Improved accessibilty of the table;
-
   - Added aria-rowindex and aria-rowcount;
   - Improved keyboardnavigation, including skip table links
   - Changed the way selecting works; active row by clicking on the entire row and selecting a row by checking the checkbox
@@ -211,7 +235,6 @@
 
 - [#1693](https://github.com/sl-design-system/components/pull/1693) [`4e57f9c`](https://github.com/sl-design-system/components/commit/4e57f9c60835a07db45f74fde73a3bf13b6abe51) - Refactor existing data sources into list specific datasources, clearing
   the way to add `TreeDataSource` in the `@sl-design-system/tree` package.
-
   - The base `DataSource` class has support for sorting and filtering
   - Grouping and pagination has been moved to the `ListDataSource` class
   - `ArrayDataSource` and `FetchDataSource` have been renamed to `ArrayListDataSource` and `FetchListDataSource` respectively
@@ -702,7 +725,6 @@
 ### Patch Changes
 
 - [#462](https://github.com/sl-design-system/components/pull/462) [`df14a96`](https://github.com/sl-design-system/components/commit/df14a962e8771101feb9edf10b19fd256287189b) - Fix various grid issues:
-
   - Fix unexported filter types
   - Add `GridColumnAlignment` type
   - Add `itemsChanged()` callback for when the items in the grid have changed

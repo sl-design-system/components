@@ -54,18 +54,6 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
   /** The initial state when the form was associated with the radio group. Used to reset the group. */
   #initialState?: T;
 
-  /**
-   * Stores the initial value of the radio group when it is first rendered.
-   * Used to determine if the value has changed since initialization and to manage event emission, avoiding unnecessary events on the first render.
-   */
-  #initialValue?: T;
-
-  /**
-   * Indicates whether the component is rendering for the first time.
-   * Used to track the initial render and preventing unnecessary event emission.
-   */
-  #isInitialRender = true;
-
   /** When an option is checked, update the state. */
   #observer = new MutationObserver(mutations => {
     const { target } = mutations.find(m => m.attributeName === 'checked' && m.oldValue === null) || {};
@@ -189,11 +177,6 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
     }
 
     if (changes.has('value')) {
-      if (this.#isInitialRender) {
-        this.#initialValue = this.value;
-        this.#isInitialRender = false;
-      }
-
       this.#observer.disconnect();
       this.radios?.forEach(radio => (radio.checked = radio.value === this.value));
       this.#observer.observe(this, OBSERVER_OPTIONS);
@@ -223,10 +206,12 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
     this.updateState({ touched: true });
   }
 
-  #onSlotchange(): void {
+  async #onSlotchange(): Promise<void> {
     this.#rovingTabindexController.clearElementCache();
 
-    this.radios?.forEach(radio => {
+    this.#observer.disconnect();
+
+    for (const radio of this.radios ?? []) {
       radio.checked = radio.value === this.value;
 
       if (typeof this.disabled === 'boolean') {
@@ -236,7 +221,13 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
       if (this.size) {
         radio.size = this.size;
       }
-    });
+
+      // Wait for the `<sl-radio>` to stabilize, otherwise we'll trigger the observer
+      await radio.updateComplete;
+    }
+
+    this.#observer.observe(this, OBSERVER_OPTIONS);
+    this.#updateValueAndValidity();
   }
 
   #setSelectedOption(option?: Radio<T>, emitEvent = true): void {
@@ -244,14 +235,11 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
     this.value = option?.value;
 
     if (emitEvent) {
-      if (!this.#initialValue) {
-        this.changeEvent.emit(this.value);
-      }
+      this.changeEvent.emit(this.value);
       this.updateState({ dirty: true });
     }
 
     this.#updateValueAndValidity();
-    this.#initialValue = undefined;
   }
 
   #updateValueAndValidity(): void {

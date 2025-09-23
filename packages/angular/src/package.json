@@ -14,14 +14,17 @@
     "@angular/core": "^18.0.0 || ^19.0.0 || ^20.0.0",
     "@angular/forms": "^18.0.0 || ^19.0.0 || ^20.0.0",
     "@sl-design-system/checkbox": "*",
+    "@sl-design-system/combobox": "*",
     "@sl-design-system/dialog": "*",
     "@sl-design-system/form": "*",
     "@sl-design-system/icon": "*",
+    "@sl-design-system/number-field": "*",
     "@sl-design-system/radio-group": "*",
     "@sl-design-system/select": "*",
     "@sl-design-system/switch": "*",
     "@sl-design-system/text-area": "*",
     "@sl-design-system/text-field": "*",
+    "@sl-design-system/time-field": "*",
     "@sl-design-system/tooltip": "*"
   }
 }

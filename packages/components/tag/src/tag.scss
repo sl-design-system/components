@@ -10,7 +10,7 @@
   color: var(--sl-color-foreground-neutral-bold);
   display: inline-flex;
   max-inline-size: 100%;
-  outline: transparent solid var(--sl-size-outlineWidth-default);
+  outline: transparent solid var(--sl-size-borderWidth-focusRing);
   outline-offset: var(--sl-size-outlineOffset-default);
   overflow: hidden;
   vertical-align: middle;
@@ -57,6 +57,8 @@
 
 :host(:focus-visible) {
   outline-color: var(--sl-color-border-focused);
+  position: relative;
+  z-index: 1; // Make sure the focus ring is above other elements
 }
 
 slot {

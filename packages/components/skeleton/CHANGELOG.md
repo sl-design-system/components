@@ -1,5 +1,17 @@
 # @sl-design-system/skeleton
 
+## 1.1.0
+
+### Minor Changes
+
+- [#2606](https://github.com/sl-design-system/components/pull/2606) [`be15fea`](https://github.com/sl-design-system/components/commit/be15fea3b0c41f30a50f43c28c8cac439797b6be) - Refactor component to use contextual tokens
+
+## 1.0.1
+
+### Patch Changes
+
+- [#2547](https://github.com/sl-design-system/components/pull/2547) [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68) - Bump patch version of `@open-wc/scoped-elements` peer dependency
+
 ## 1.0.0
 
 ### Major Changes

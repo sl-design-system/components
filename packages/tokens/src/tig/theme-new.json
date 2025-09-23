@@ -1653,6 +1653,11 @@
 						"$value": "{tig.elevation.surface.raised.default}",
 						"$description": "Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
 					},
+					"inverted": {
+						"$type": "color",
+						"$value": "{tig.elevation.surface.raised.inverted}",
+						"$description": "Background of elevated components with an inverted background color like tooltips that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
+					},
 					"alternative": {
 						"$type": "color",
 						"$value": "{tig.elevation.surface.raised.alternative}",

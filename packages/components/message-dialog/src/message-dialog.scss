@@ -33,7 +33,7 @@ dialog {
   }
 
   &:focus-visible {
-    outline: var(--sl-color-border-focused) solid var(--sl-size-outlineWidth-default);
+    outline: var(--sl-color-border-focused) solid var(--sl-size-borderWidth-focusRing);
     outline-offset: var(--sl-size-outlineOffset-default);
   }
 
@@ -74,7 +74,7 @@ dialog {
 h1 {
   color: var(--sl-color-foreground-bold);
   font-size: 1.7em;
-  font-weight: var(--sl-text-typeset-fontWeight-demibold);
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
   line-height: 1.42em;
   margin-block: 0;
   text-box: trim-both cap alphabetic;

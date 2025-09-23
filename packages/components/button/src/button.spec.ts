@@ -141,7 +141,7 @@ describe('sl-button', () => {
         preventDefaultSpy = spy(clickEvent, 'preventDefault'),
         stopPropagationSpy = spy(clickEvent, 'stopPropagation');
 
-      el.disabled = true;
+      el.setAttribute('aria-disabled', 'true');
       await el.updateComplete;
 
       el.dispatchEvent(clickEvent);
@@ -152,6 +152,20 @@ describe('sl-button', () => {
 
     it('should prevent Enter keydown event from bubbling up the DOM', async () => {
       const keydownEvent = new KeyboardEvent('keydown', { key: 'Enter' }),
+        preventDefaultSpy = spy(keydownEvent, 'preventDefault'),
+        stopPropagationSpy = spy(keydownEvent, 'stopPropagation');
+
+      el.disabled = true;
+      await el.updateComplete;
+
+      el.dispatchEvent(keydownEvent);
+
+      expect(preventDefaultSpy).to.have.been.called;
+      expect(stopPropagationSpy).to.have.been.called;
+    });
+
+    it('should prevent Space keydown event from bubbling up the DOM', async () => {
+      const keydownEvent = new KeyboardEvent('keydown', { key: ' ' }),
         preventDefaultSpy = spy(keydownEvent, 'preventDefault'),
         stopPropagationSpy = spy(keydownEvent, 'stopPropagation');
 

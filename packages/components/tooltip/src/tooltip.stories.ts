@@ -96,6 +96,48 @@ export const Directive: Story = {
   }
 };
 
+export const DirectiveWithOptions: Story = {
+  render: () => {
+    return html`
+      <style>
+        .container {
+          display: grid;
+          height: calc(20rem);
+          place-items: center;
+        }
+      </style>
+      <p>
+        This story demonstrates hot to use the tooltip directive with some inline options (custom 'ariaRelation', custom
+        'position' and 'maxWidth') on a <code>sl-button</code>. The example shows how to add a tooltip directly without
+        a separate <code>sl-tooltip</code> element.
+      </p>
+
+      <div class="container">
+        <sl-button
+          variant="primary"
+          fill="solid"
+          ${tooltip('My tooltip example', { ariaRelation: 'label', position: 'bottom-start', maxWidth: 100 })}
+        >
+          <sl-icon name="face-smile" size="lg"></sl-icon>
+        </sl-button>
+      </div>
+    `;
+  }
+};
+
+export const Disabled: Story = {
+  args: {
+    example: ({ alignSelf, justifySelf, message }) => html`
+      <div
+        style=${styleMap({ 'align-self': alignSelf, display: 'inline-flex', gap: '1rem', 'justify-self': justifySelf })}
+      >
+        <sl-button ${tooltip(message)} disabled>Disabled button</sl-button>
+        <sl-button ${tooltip(message)} aria-disabled="true">Disabled (ARIA only) button</sl-button>
+      </div>
+    `
+  }
+};
+
 export const Shared: Story = {
   args: {
     example: ({ alignSelf, justifySelf, message }) => html`
@@ -147,6 +189,26 @@ export const NestedChildren: Story = {
       <sl-tooltip id="task-details-not-available-tooltip"> Tooltip on the div </sl-tooltip>
       <sl-tooltip id="tooltip">${message}</sl-tooltip>
     `
+  }
+};
+
+export const IconButton: Story = {
+  render: () => {
+    return html`
+      <style>
+        #root-inner {
+          display: grid;
+          height: calc(20rem);
+          place-items: center;
+        }
+      </style>
+      <sl-button aria-labelledby="tooltip" variant="primary" fill="solid" shape="pill" size="md">
+        <sl-icon name="face-smile"></sl-icon>
+      </sl-button>
+      <sl-tooltip id="tooltip" position="top">
+        This is the tooltip message that labels the icon only button.
+      </sl-tooltip>
+    `;
   }
 };
 

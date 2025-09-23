@@ -7,6 +7,8 @@ import { ArrayListDataSource } from '@sl-design-system/data-source';
 import { type Student, getStudents } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
+import { tooltip } from '@sl-design-system/tooltip';
+import '@sl-design-system/tooltip/register.js';
 import { type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '../../register.js';
@@ -90,11 +92,17 @@ export const Multiple: Story = {
           <sl-icon name="far-trash"></sl-icon>
           Delete
         </sl-button>
-        <sl-button fill="outline" slot="bulk-actions" variant="inverted">
+        <sl-button disabled fill="outline" slot="bulk-actions" variant="inverted">
           <sl-icon name="far-right-to-line"></sl-icon>
           Action 1
         </sl-button>
-        <sl-button fill="outline" slot="bulk-actions" variant="inverted">
+        <sl-button
+          ${tooltip('I am a tooltip')}
+          aria-disabled="true"
+          fill="outline"
+          slot="bulk-actions"
+          variant="inverted"
+        >
           <sl-icon name="far-right-to-line"></sl-icon>
           Action 2
         </sl-button>
@@ -139,7 +147,33 @@ export const MultipleRow: Story = {
   }
 };
 
-export const Combination: Story = {
+export const WithFiltering: Story = {
+  render: (_, { loaded: { students } }) => {
+    return html`
+      <p>
+        This example shows a combination of selection and filtering. You can have a selection that may not be visible
+        due to filtering.
+      </p>
+      <sl-grid .items=${students}>
+        <sl-grid-selection-column></sl-grid-selection-column>
+        <sl-grid-filter-column
+          header="Student"
+          path="fullName"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}
+        ></sl-grid-filter-column>
+        <sl-grid-filter-column
+          header="School"
+          label-path="school.name"
+          mode="select"
+          path="school.id"
+        ></sl-grid-filter-column>
+      </sl-grid>
+    `;
+  }
+};
+
+export const WithLinks: Story = {
   render: (_, { loaded: { students } }) => {
     const onActiveRowChange = ({ detail: student }: SlActiveRowChangeEvent<Student>): void => {
       document.getElementById('selection')!.innerText = student

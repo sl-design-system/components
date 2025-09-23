@@ -7,16 +7,6 @@ import { Accordion } from './accordion.js';
 describe('sl-accordion', () => {
   let el: Accordion;
 
-  describe('empty', () => {
-    beforeEach(async () => {
-      el = await fixture(html`<sl-accordion></sl-accordion>`);
-    });
-
-    it('should not break', () => {
-      expect(el).shadowDom.to.equalSnapshot();
-    });
-  });
-
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`
@@ -28,8 +18,27 @@ describe('sl-accordion', () => {
       `);
     });
 
-    it('should render correctly', () => {
-      expect(el).shadowDom.to.equalSnapshot();
+    it('should have icon type "plusminus"', () => {
+      expect(el.iconType).to.equal('plusminus');
+    });
+
+    it('should propagate the icon type to all items', () => {
+      const iconTypes = Array.from(el.querySelectorAll('sl-accordion-item')).map(item =>
+        item.getAttribute('icon-type')
+      );
+
+      expect(iconTypes).to.deep.equal(['plusminus', 'plusminus', 'plusminus']);
+    });
+
+    it('should have icon type "chevron" when set', async () => {
+      el.iconType = 'chevron';
+      await el.updateComplete;
+
+      const iconTypes = Array.from(el.querySelectorAll('sl-accordion-item')).map(item =>
+        item.getAttribute('icon-type')
+      );
+
+      expect(iconTypes).to.deep.equal(['chevron', 'chevron', 'chevron']);
     });
 
     it('should not be in single mode', () => {
@@ -98,6 +107,23 @@ describe('sl-accordion', () => {
 
       expect(items.at(0)?.open).to.be.true;
       expect(items.at(1)?.open).to.be.true;
+    });
+  });
+
+  describe('global icon type', () => {
+    it('should have a default icon type of "plusminus"', () => {
+      expect(Accordion.iconType).to.equal('plusminus');
+    });
+
+    it('should allow setting a global icon type', async () => {
+      Accordion.iconType = 'chevron';
+
+      el = await fixture(html`<sl-accordion></sl-accordion>`);
+
+      expect(el.iconType).to.equal('chevron');
+
+      // Reset for future tests
+      Accordion.iconType = 'plusminus';
     });
   });
 });

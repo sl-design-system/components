@@ -25,6 +25,8 @@ type Props = Pick<
 > & { fallback?: string };
 type Story = StoryObj<Props>;
 
+const locales = ['de', 'en-GB', 'es', 'fi', 'fr', 'it', 'nl', 'nl-BE', 'no', 'pl', 'sv'];
+
 export default {
   title: 'Utilities/Format date',
   tags: ['draft'],
@@ -41,7 +43,7 @@ export default {
     },
     locale: {
       control: 'inline-radio',
-      options: ['de', 'en-GB', 'es', 'fi', 'fr', 'it', 'nl', 'nl-BE', 'no', 'pl', 'sv']
+      options: locales
     },
     timeStyle: {
       control: 'inline-radio',
@@ -145,4 +147,68 @@ export const Fallback: Story = {
     fallback:
       'You can use the fallback slot to provide a message when the date is not valid (this includes when a date is not set). This can be useful if you want to show a placeholder or an error message.'
   }
+};
+
+export const Locales: Story = {
+  args: {
+    date: new Date()
+  },
+  argTypes: {
+    locale: { table: { disable: true } }
+  },
+  render: ({
+    fallback,
+    date,
+    dateStyle,
+    timeStyle,
+    weekday,
+    era,
+    year,
+    month,
+    day,
+    dayPeriod,
+    hour,
+    minute,
+    second,
+    timeZoneName,
+    timeZone,
+    hour12
+  }) => html`
+    <style>
+      dl {
+        display: inline-grid;
+        grid-template-columns: auto 1fr;
+        gap: 0.5rem 1rem;
+      }
+    </style>
+    <dl>
+      ${locales.map(
+        locale => html`
+          <dt>${locale}</dt>
+          <dd>
+            <sl-format-date
+              .date=${date}
+              .dateStyle=${dateStyle}
+              .timeStyle=${timeStyle}
+              .weekday=${weekday}
+              .era=${era}
+              .year=${year}
+              .month=${month}
+              .day=${day}
+              .dayPeriod=${dayPeriod}
+              .hour=${hour}
+              .minute=${minute}
+              .second=${second}
+              .timeZoneName=${timeZoneName}
+              .timeZone=${timeZone}
+              .hour12=${hour12}
+              locale=${locale}
+            >
+              ${fallback}
+            </sl-format-date>
+          </dd>
+        `
+      )}
+    </dl>
+  `
 };

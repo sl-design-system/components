@@ -52,11 +52,6 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   static offset = 6;
 
   /** @internal */
-  static override get observedAttributes(): string[] {
-    return [...super.observedAttributes, 'aria-describedby', 'aria-label', 'aria-labelledby'];
-  }
-
-  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-listbox': Listbox,

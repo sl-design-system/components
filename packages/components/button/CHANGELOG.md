@@ -1,5 +1,16 @@
 # @sl-design-system/button
 
+## 1.2.5
+
+### Patch Changes
+
+- [#2481](https://github.com/sl-design-system/components/pull/2481) [`0c4f19b`](https://github.com/sl-design-system/components/commit/0c4f19beb6f66b6cba944c6bc4589252113554fb) - Added style for an inverted focus ring so it's better visible on a dark background
+
+- [#2481](https://github.com/sl-design-system/components/pull/2481) [`0c4f19b`](https://github.com/sl-design-system/components/commit/0c4f19beb6f66b6cba944c6bc4589252113554fb) - Changed token used for the width of the focusring
+
+- Updated dependencies [[`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`0e2e426`](https://github.com/sl-design-system/components/commit/0e2e426041997a299f3e35bcde499909d62f7ce9), [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16)]:
+  - @sl-design-system/shared@0.9.0
+
 ## 1.2.4
 
 ### Patch Changes
@@ -35,7 +46,6 @@
 ### Minor Changes
 
 - [#1675](https://github.com/sl-design-system/components/pull/1675) [`389d0e2`](https://github.com/sl-design-system/components/commit/389d0e2a982dd40b4e3a04cf3b1d8b34204236a0) - Button improvements:
-
   - Added a new `shape` property that defaults to `square` but also accepts `pill` for rounded corners
   - Added a new `inverted` variant, to be used on dark/light background (depending on light/dark mode)
   - Removed default values of `fill`, `size`, `type` and `variant` properties

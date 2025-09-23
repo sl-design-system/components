@@ -110,6 +110,30 @@ describe('sl-checkbox', () => {
       expect(label).to.have.attribute('for', input.id);
     });
 
+    it('should proxy the aria-disabled attribute to the input element', async () => {
+      el.setAttribute('aria-disabled', 'true');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el).to.not.have.attribute('aria-disabled');
+      expect(el.input).to.have.attribute('aria-disabled', 'true');
+    });
+
+    it('should proxy the aria-label attribute to the input element', async () => {
+      el.setAttribute('aria-label', 'Label');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el).to.not.have.attribute('aria-label');
+      expect(el.input).to.have.attribute('aria-label', 'Label');
+    });
+
+    it('should proxy the aria-labelledby attribute to the input element', async () => {
+      el.setAttribute('aria-labelledby', 'id');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el).to.not.have.attribute('aria-labelledby');
+      expect(el.input).to.have.attribute('aria-labelledby', 'id');
+    });
+
     it('should be pristine', () => {
       expect(el.dirty).not.to.be.true;
     });
@@ -304,23 +328,6 @@ describe('sl-checkbox', () => {
 
       expect(el.checked).not.to.be.true;
       expect(input.checked).not.to.be.true;
-    });
-  });
-
-  describe('aria attributes', () => {
-    beforeEach(async () => {
-      el = await fixture(html`<sl-checkbox aria-label="my checkbox label" aria-disabled="true"></sl-checkbox>`);
-      input = el.querySelector('input')!;
-
-      // Give time to rewrite arias
-      await new Promise(resolve => setTimeout(resolve, 100));
-    });
-
-    it('should have an input with proper arias', () => {
-      expect(el).not.to.have.attribute('aria-label', 'my checkbox label');
-      expect(el).not.to.have.attribute('aria-disabled', 'true');
-      expect(input).to.have.attribute('aria-label', 'my checkbox label');
-      expect(input).to.have.attribute('aria-disabled', 'true');
     });
   });
 

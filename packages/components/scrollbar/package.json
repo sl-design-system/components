@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/scrollbar",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Scrollbar component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -38,7 +38,7 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "devDependencies": {
-    "lit": "^3.3.0"
+    "lit": "^3.3.1"
   },
   "peerDependencies": {
     "lit": "^3.1.4"

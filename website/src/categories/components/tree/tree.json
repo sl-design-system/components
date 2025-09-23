@@ -1,0 +1,11 @@
+{
+  "layout": "categories/components/components.njk",
+  "tags": "tag",
+  "componentStatus": "draft",
+  "componentTagName": [
+    {
+      "name": "Tree",
+      "selector": "sl-tree"
+    }
+  ]
+}

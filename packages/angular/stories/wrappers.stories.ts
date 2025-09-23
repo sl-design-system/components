@@ -1,4 +1,7 @@
+import { faFileLines, faFolder, faFolderOpen, faPen, faTrash } from '@fortawesome/pro-regular-svg-icons';
 import { Dialog as DialogElement } from '@sl-design-system/dialog';
+import { Icon as SlIcon } from '@sl-design-system/icon';
+import { FlatTreeDataSource } from '@sl-design-system/tree';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 import { AccordionItemComponent } from '../src/accordion/accordion-item.component';
 import { AccordionComponent } from '../src/accordion/accordion.component';
@@ -10,10 +13,12 @@ import { ButtonBarComponent } from '../src/button-bar/button-bar.component';
 import { CardComponent } from '../src/card/card.component';
 import { CheckboxGroupComponent } from '../src/checkbox/checkbox-group.component';
 import { CheckboxComponent } from '../src/checkbox/checkbox.component';
+import { ComboboxComponent } from '../src/combobox/combobox.component';
 import { DialogComponent } from '../src/dialog/dialog.component';
 import { IconComponent } from '../src/icon/icon.component';
 import { InlineMessageComponent } from '../src/inline-message/inline-message.component';
 import { OptionComponent } from '../src/listbox/option.component';
+import { NumberFieldComponent } from '../src/number-field/number-field.component';
 import { PopoverComponent } from '../src/popover/popover.component';
 import { RadioGroupComponent } from '../src/radio-group/radio-group.component';
 import { RadioComponent } from '../src/radio-group/radio.component';
@@ -27,6 +32,7 @@ import { TabComponent } from '../src/tabs/tab.component';
 import { TextAreaComponent } from '../src/text-area/text-area.component';
 import { TextFieldComponent } from '../src/text-field/text-field.component';
 import { TooltipComponent } from '../src/tooltip/tooltip.component';
+import { TreeComponent } from '../src/tree/tree.component';
 
 export default {
   title: 'Wrappers',
@@ -43,9 +49,11 @@ export default {
         CardComponent,
         CheckboxComponent,
         CheckboxGroupComponent,
+        ComboboxComponent,
         DialogComponent,
         IconComponent,
         InlineMessageComponent,
+        NumberFieldComponent,
         OptionComponent,
         PopoverComponent,
         RadioComponent,
@@ -59,11 +67,14 @@ export default {
         TabPanelComponent,
         TextFieldComponent,
         TextAreaComponent,
-        TooltipComponent
+        TooltipComponent,
+        TreeComponent
       ]
     })
   ]
 } as Meta;
+
+SlIcon.register(faFileLines, faFolder, faFolderOpen, faPen, faTrash);
 
 export const Accordion: StoryObj = {
   render: () => ({
@@ -142,6 +153,20 @@ export const Checkbox: StoryObj = {
   })
 };
 
+export const Combobox: StoryObj = {
+  render: () => ({
+    template: `
+      <sl-combobox placeholder="Select an option">
+        <sl-listbox>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
+        </sl-listbox>
+      </sl-combobox>
+    `
+  })
+};
+
 export const Dialog: StoryObj = {
   render: () => {
     const onClick = (event: Event & { target: HTMLElement }) => {
@@ -181,6 +206,12 @@ export const InlineMessage: StoryObj = {
         <p>Et labore exercitation excepteur sunt. Laboris amet minim nisi non ut labore culpa eiusmod reprehenderit nisi. Exercitation veniam quis aute mollit qui commodo magna est commodo veniam magna. Est in pariatur quis laboris non ad. Cillum amet eiusmod duis ullamco dolore irure. Mollit ea incididunt elit nostrud anim sunt do. Cupidatat occaecat nisi aliqua esse occaecat duis amet et labore quis.</p>
       </sl-inline-message>
     `
+  })
+};
+
+export const NumberField: StoryObj = {
+  render: () => ({
+    template: '<sl-number-field></sl-number-field>'
   })
 };
 
@@ -278,4 +309,53 @@ export const Tooltip: StoryObj = {
       <sl-tooltip id="tooltip">Tooltip content</sl-tooltip>
     `
   })
+};
+
+export const Tree: StoryObj = {
+  render: () => {
+    type Item = { id: number; expandable: boolean; level: number; name: string };
+
+    const flatData: Item[] = [
+      { id: 0, expandable: true, level: 0, name: 'Mathematics' },
+      { id: 1, expandable: true, level: 1, name: 'Algebra' },
+      { id: 2, expandable: false, level: 2, name: 'Lesson 1 - Linear equations.md' },
+      { id: 3, expandable: false, level: 2, name: 'Lesson 2 - Quadratic equations.md' },
+      { id: 4, expandable: true, level: 1, name: 'Geometry' },
+      { id: 5, expandable: false, level: 2, name: 'Lesson 1 - Triangles.md' },
+      { id: 6, expandable: false, level: 2, name: 'Lesson 2 - Circles.md' },
+      { id: 21, expandable: false, level: 1, name: 'Lesson 20 - Statistics and probability.md' },
+      { id: 7, expandable: true, level: 0, name: 'Science' },
+      { id: 8, expandable: true, level: 1, name: 'Physics' },
+      { id: 9, expandable: false, level: 2, name: 'Lesson 1 - Motion.md' },
+      { id: 10, expandable: false, level: 2, name: 'Lesson 2 - Forces.md' },
+      { id: 11, expandable: true, level: 1, name: 'Chemistry' },
+      { id: 12, expandable: false, level: 2, name: 'Lesson 1 - Atoms.md' },
+      { id: 13, expandable: false, level: 2, name: 'Lesson 2 - Reactions.md' },
+      { id: 14, expandable: true, level: 0, name: 'History' },
+      { id: 15, expandable: true, level: 1, name: 'Ancient Civilizations' },
+      { id: 16, expandable: false, level: 2, name: 'Egypt.md' },
+      { id: 17, expandable: false, level: 2, name: 'Rome.md' },
+      { id: 18, expandable: true, level: 1, name: 'Modern History' },
+      { id: 19, expandable: false, level: 2, name: 'World War I.md' },
+      { id: 20, expandable: false, level: 2, name: 'World War II.md' }
+    ];
+
+    const dataSource = new FlatTreeDataSource<Item>(flatData, {
+      getIcon: ({ name }: Item, expanded: boolean) =>
+        name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`,
+      getId: (item: Item) => item.id,
+      getLabel: ({ name }: Item) => name,
+      getLevel: ({ level }: Item) => level,
+      isExpandable: ({ expandable }: Item) => expandable,
+      isExpanded: ({ name }: Item) => ['tree', 'src'].includes(name),
+      selects: 'multiple'
+    });
+
+    return {
+      props: { dataSource },
+      template: `
+        <sl-tree [dataSource]="dataSource" aria-label="Subjects structure"></sl-tree>
+      `
+    };
+  }
 };

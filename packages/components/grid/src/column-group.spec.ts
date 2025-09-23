@@ -85,6 +85,7 @@ describe('sl-column-group', () => {
 
     it('should have the correct width when one is set explicitly', () => {
       const cells = Array.from(el.renderRoot.querySelectorAll('th'));
+
       expect(cells.map(cell => Math.floor(parseFloat(getComputedStyle(cell).width)))).to.deep.equal([
         271, 734, 214, 212, 197, 186, 195
       ]);

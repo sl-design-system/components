@@ -1,5 +1,5 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { OptionGroupHeader } from './option-group-header.js';
 import styles from './option-group.scss.js';
@@ -50,7 +50,7 @@ export class OptionGroup extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <div part="wrapper">
-        <sl-option-group-header>${this.label}</sl-option-group-header>
+        ${this.label ? html`<sl-option-group-header>${this.label}</sl-option-group-header>` : nothing}
         <slot></slot>
       </div>
     `;

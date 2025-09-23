@@ -31,6 +31,16 @@ export interface TooltipOptions {
    * it will be added next to the anchor element.
    */
   parentNode?: Node;
+
+  /**
+   * Which ARIA relationship attribute to add to the anchor (`aria-describedby` or `aria-labelledby`).
+   * Defaults to 'description' ('aria-describedby').
+   *
+   * A good example of when to use `aria-labelledby`
+   * is when the tooltip provides a label or title for the anchor element,
+   * such as an icon only button (so button with only an icon) and no visible text.
+   */
+  ariaRelation?: 'description' | 'label';
 }
 
 let nextUniqueId = 0;
@@ -56,8 +66,14 @@ export class Tooltip extends LitElement {
   /** To attach the `sl-tooltip` to the DOM tree and anchor element */
   static lazy(target: Element, callback: (target: Tooltip) => void, options: TooltipOptions = {}): () => void {
     const createTooltip = (): void => {
-      const context = options.context || target.shadowRoot || (target.getRootNode() as Document),
-        tooltip = context.createElement('sl-tooltip');
+      let context = options.context;
+      if (!context && target.shadowRoot?.registry?.get('sl-tooltip')) {
+        context = target.shadowRoot;
+      } else if (!context) {
+        context = target.getRootNode() as Document;
+      }
+
+      const tooltip = context.createElement('sl-tooltip');
 
       if (options.parentNode) {
         options.parentNode.appendChild(tooltip);
@@ -79,7 +95,11 @@ export class Tooltip extends LitElement {
       }
 
       tooltip.id = `sl-tooltip-${nextUniqueId++}`;
-      target.setAttribute('aria-describedby', tooltip.id);
+
+      const ariaRelation = options.ariaRelation ?? 'description',
+        ariaAttribute = ariaRelation === 'label' ? 'labelledby' : 'describedby';
+
+      target.setAttribute(`aria-${ariaAttribute}`, tooltip.id);
 
       callback(tooltip);
 

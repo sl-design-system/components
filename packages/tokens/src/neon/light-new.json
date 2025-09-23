@@ -1,1679 +1,1684 @@
 {
-  "color": {
-    "palette": {
-      "blue": {
-        "100": {
-          "$type": "color",
-          "$value": "#C5DEF2"
-        },
-        "150": {
-          "$type": "color",
-          "$value": "#AEC6DA"
-        },
-        "200": {
-          "$type": "color",
-          "$value": "#94AFC5"
-        },
-        "300": {
-          "$type": "color",
-          "$value": "#7E9EB9"
-        },
-        "400": {
-          "$type": "color",
-          "$value": "#517695"
-        },
-        "500": {
-          "$type": "color",
-          "$value": "#3A546A"
-        },
-        "600": {
-          "$type": "color",
-          "$value": "#253646"
-        },
-        "700": {
-          "$type": "color",
-          "$value": "#1E2B38"
-        },
-        "800": {
-          "$type": "color",
-          "$value": "#16202A"
-        },
-        "900": {
-          "$type": "color",
-          "$value": "#070B0E"
-        },
-        "050": {
-          "$type": "color",
-          "$value": "#EFF8FF"
-        }
-      },
-      "green": {
-        "100": {
-          "$type": "color",
-          "$value": "#d0fbe9"
-        },
-        "150": {
-          "$type": "color",
-          "$value": "#a4f6d9"
-        },
-        "200": {
-          "$type": "color",
-          "$value": "#6aebc5"
-        },
-        "300": {
-          "$type": "color",
-          "$value": "#2fd8ac"
-        },
-        "400": {
-          "$type": "color",
-          "$value": "#0abf96"
-        },
-        "500": {
-          "$type": "color",
-          "$value": "#009b7b"
-        },
-        "600": {
-          "$type": "color",
-          "$value": "#007a64"
-        },
-        "700": {
-          "$type": "color",
-          "$value": "#036251"
-        },
-        "800": {
-          "$type": "color",
-          "$value": "#045044"
-        },
-        "900": {
-          "$type": "color",
-          "$value": "#012d28"
-        },
-        "050": {
-          "$type": "color",
-          "$value": "#ebfef7"
-        }
-      },
-      "grey": {
-        "100": {
-          "$type": "color",
-          "$value": "#E6E6E6"
-        },
-        "150": {
-          "$type": "color",
-          "$value": "#C7CCD4"
-        },
-        "200": {
-          "$type": "color",
-          "$value": "#AEB6C1"
-        },
-        "300": {
-          "$type": "color",
-          "$value": "#98A2B0"
-        },
-        "400": {
-          "$type": "color",
-          "$value": "#838B97"
-        },
-        "500": {
-          "$type": "color",
-          "$value": "#6D747E"
-        },
-        "600": {
-          "$type": "color",
-          "$value": "#585D65"
-        },
-        "700": {
-          "$type": "color",
-          "$value": "#42474D"
-        },
-        "800": {
-          "$type": "color",
-          "$value": "#2D3034"
-        },
-        "900": {
-          "$type": "color",
-          "$value": "#17191B"
-        },
-        "050": {
-          "$type": "color",
-          "$value": "#F3F3F3"
-        },
-        "000": {
-          "$type": "color",
-          "$value": "#FFFFFF"
-        }
-      },
-      "orange": {
-        "100": {
-          "$type": "color",
-          "$value": "#ffe7d4"
-        },
-        "150": {
-          "$type": "color",
-          "$value": "#ffcba8"
-        },
-        "200": {
-          "$type": "color",
-          "$value": "#ffa671"
-        },
-        "300": {
-          "$type": "color",
-          "$value": "#ff8650"
-        },
-        "400": {
-          "$type": "color",
-          "$value": "#fe5011"
-        },
-        "500": {
-          "$type": "color",
-          "$value": "#ef3607"
-        },
-        "600": {
-          "$type": "color",
-          "$value": "#c62408"
-        },
-        "700": {
-          "$type": "color",
-          "$value": "#9d1f0f"
-        },
-        "800": {
-          "$type": "color",
-          "$value": "#7e1c10"
-        },
-        "900": {
-          "$type": "color",
-          "$value": "#440a06"
-        },
-        "050": {
-          "$type": "color",
-          "$value": "#fff4ed"
-        }
-      },
-      "purple": {
-        "100": {
-          "$type": "color",
-          "$value": "#ece7ff"
-        },
-        "150": {
-          "$type": "color",
-          "$value": "#d9d2ff"
-        },
-        "200": {
-          "$type": "color",
-          "$value": "#bfaeff"
-        },
-        "300": {
-          "$type": "color",
-          "$value": "#9f80ff"
-        },
-        "400": {
-          "$type": "color",
-          "$value": "#824dff"
-        },
-        "500": {
-          "$type": "color",
-          "$value": "#7b33ff"
-        },
-        "600": {
-          "$type": "color",
-          "$value": "#6616eb"
-        },
-        "700": {
-          "$type": "color",
-          "$value": "#5512c5"
-        },
-        "800": {
-          "$type": "color",
-          "$value": "#4711a1"
-        },
-        "900": {
-          "$type": "color",
-          "$value": "#29076e"
-        },
-        "050": {
-          "$type": "color",
-          "$value": "#f4f2ff"
-        }
-      },
-      "red": {
-        "100": {
-          "$type": "color",
-          "$value": "#fce7e7"
-        },
-        "150": {
-          "$type": "color",
-          "$value": "#f9d2d5"
-        },
-        "200": {
-          "$type": "color",
-          "$value": "#f4adb3"
-        },
-        "300": {
-          "$type": "color",
-          "$value": "#ed7f8a"
-        },
-        "400": {
-          "$type": "color",
-          "$value": "#e14e60"
-        },
-        "500": {
-          "$type": "color",
-          "$value": "#cd314b"
-        },
-        "600": {
-          "$type": "color",
-          "$value": "#ac243e"
-        },
-        "700": {
-          "$type": "color",
-          "$value": "#912039"
-        },
-        "800": {
-          "$type": "color",
-          "$value": "#7c1f37"
-        },
-        "900": {
-          "$type": "color",
-          "$value": "#450c19"
-        },
-        "050": {
-          "$type": "color",
-          "$value": "#fef2f2"
-        }
-      },
-      "teal": {
-        "100": {
-          "$type": "color",
-          "$value": "#F3F9F7",
-          "$description": "color.palette.info.100"
-        },
-        "150": {
-          "$type": "color",
-          "$value": "#EEF7F9",
-          "$description": "color.palette.info.150"
-        },
-        "200": {
-          "$type": "color",
-          "$value": "#C5DFE3",
-          "$description": "color.palette.info.200"
-        },
-        "300": {
-          "$type": "color",
-          "$value": "#9EC9D2",
-          "$description": "color.palette.info.300"
-        },
-        "400": {
-          "$type": "color",
-          "$value": "#568B9B",
-          "$description": "color.palette.info.400"
-        },
-        "500": {
-          "$type": "color",
-          "$value": "#447D8F",
-          "$description": "color.palette.info.500"
-        },
-        "600": {
-          "$type": "color",
-          "$value": "#416881",
-          "$description": "color.palette.info.600"
-        },
-        "700": {
-          "$type": "color",
-          "$value": "#36566A",
-          "$description": "color.palette.info.700"
-        },
-        "800": {
-          "$type": "color",
-          "$value": "#2D485A",
-          "$description": "color.palette.info.800"
-        },
-        "900": {
-          "$type": "color",
-          "$value": "#203340",
-          "$description": "color.palette.info.900"
-        },
-        "050": {
-          "$type": "color",
-          "$value": "#FFFEFC",
-          "$description": "color.palette.info.50"
-        },
-        "base": {
-          "$type": "color",
-          "$value": "#9EC9D2",
-          "$description": "color.palette.info.base"
-        }
-      },
-      "yellow": {
-        "100": {
-          "$type": "color",
-          "$value": "#faeec7"
-        },
-        "150": {
-          "$type": "color",
-          "$value": "#f6da92"
-        },
-        "200": {
-          "$type": "color",
-          "$value": "#efb63f"
-        },
-        "300": {
-          "$type": "color",
-          "$value": "#eba224"
-        },
-        "400": {
-          "$type": "color",
-          "$value": "#db8b17"
-        },
-        "500": {
-          "$type": "color",
-          "$value": "#bd6911"
-        },
-        "600": {
-          "$type": "color",
-          "$value": "#974a11"
-        },
-        "700": {
-          "$type": "color",
-          "$value": "#7d3c16"
-        },
-        "800": {
-          "$type": "color",
-          "$value": "#6b3118"
-        },
-        "900": {
-          "$type": "color",
-          "$value": "#3e180a"
-        },
-        "050": {
-          "$type": "color",
-          "$value": "#fdf8e9"
-        }
-      }
-    },
-    "foreground": {
-      "bold": {
-        "$type": "color",
-        "$value": "{color.foreground.accent.grey.bold}",
-        "$description": "Use for headers."
-      },
-      "plain": {
-        "$type": "color",
-        "$value": "{color.foreground.accent.grey.plain}",
-        "$description": "Use for body copy and menu items."
-      },
-      "subtle": {
-        "$type": "color",
-        "$value": "{color.foreground.accent.grey.subtle}",
-        "$description": "Use for labels and subheadings."
-      },
-      "subtlest": {
-        "$type": "color",
-        "$value": "{color.foreground.accent.grey.subtlest}",
-        "$description": "Use for placeholders and hints."
-      },
-      "disabled": {
-        "$type": "color",
-        "$value": "{color.palette.grey.200}",
-        "$description": "Use for text in a disabled state."
-      },
-      "selected": {
-        "bold": {
-          "$type": "color",
-          "$value": "{color.foreground.accent.teal.bold}",
-          "$description": "Use for text in selected states (e.g., tabs or menu items)."
-        },
-        "onBold": {
-          "$type": "color",
-          "$value": "{color.foreground.accent.teal.onBold}",
-          "$description": "Use for text in selected states (e.g., tabs or menu items)."
-        },
-        "plain": {
-          "$type": "color",
-          "$value": "{color.foreground.accent.teal.plain}",
-          "$description": "Used as selected foreground color on white backgrounds."
-        }
-      },
-      "brand": {
-        "$type": "color",
-        "$value": "{color.palette.blue.800}",
-        "$description": "Use for non-interactive brand-reinforcing text."
-      },
-      "primary": {
-        "bold": {
-          "$type": "color",
-          "$value": "{color.palette.blue.800}",
-          "$description": "Use for primary actions on 'color.background.primary.muted' and 'color.background.primary.subtle'."
-        },
-        "onBold": {
-          "$type": "color",
-          "$value": "{color.foreground.accent.blue.onBold}",
-          "$description": "Use for primary actions on 'color.background.primary.bold'"
-        }
-      },
-      "secondary": {
-        "bold": {
-          "$type": "color",
-          "$value": "{color.palette.blue.400}",
-          "$description": "Use for secondary actions on 'color.background.secondary.muted' and 'color.background.secondary.subtle'."
-        },
-        "onBold": {
-          "$type": "color",
-          "$value": "{color.palette.blue.800}",
-          "$description": "Use for secondary actions on 'color.background.secondary.bold'"
-        }
-      },
-      "neutral": {
-        "plain": {
-          "$type": "color",
-          "$value": "{color.foreground.accent.grey.subtlest}",
-          "$description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
-        },
-        "bold": {
-          "$type": "color",
-          "$value": "{color.foreground.accent.grey.bold}",
-          "$description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
-        },
-        "onBold": {
-          "$type": "color",
-          "$value": "{color.foreground.accent.grey.onBold}",
-          "$description": "Use for neutral actions on 'color.background.neutral.bold'"
-        }
-      },
-      "info": {
-        "plain": {
-          "$type": "color",
-          "$value": "{color.foreground.accent.teal.plain}",
-          "$description": "Use for text that communicates informative messages the user needs to be aware of on neutral backgrounds."
-        },
-        "bold": {
-          "$type": "color",
-          "$value": "{color.foreground.accent.teal.bold}",
-          "$description": "Use for text that communicates informative messages the user needs to be aware of on info backgrounds, such as 'color.background.info.muted' and 'color.background.info.subtle'."
-        },
-        "onBold": {
-          "$type": "color",
-          "$value": "{color.foreground.accent.teal.onBold}",
-          "$description": "Use for text that communicates informative messages the user needs to be aware of on info backgrounds, such as 'color.background.info.bold'."
-        }
-      },
-      "positive": {
-        "plain": {
-          "$type": "color",
-          "$value": "{color.foreground.accent.green.plain}",
-          "$description": "Use for text that communicates a favorable outcome on neutral backgrounds.'"
-        },
-        "bold": {
-          "$type": "color",
-          "$value": "{color.foreground.accent.green.bold}",
-          "$description": "Use for text that communicates a favorable outcome on positive backgrounds, such as 'color.background.positive.muted', and 'color.background.positive.subtle'."
-        },
-        "onBold": {
-          "$type": "color",
-          "$value": "{color.foreground.accent.green.onBold}",
-          "$description": "Use for text that communicates a favorable outcome on positive backgrounds, such as 'color.background.positive.bold'."
-        }
-      },
-      "caution": {
-        "plain": {
-          "$type": "color",
-          "$value": "{color.foreground.accent.orange.plain}",
-          "$description": "Use for text that communicates caution to prevent mistakes or errors on neutral backgrounds."
-        },
-        "bold": {
-          "$type": "color",
-          "$value": "{color.foreground.accent.orange.bold}",
-          "$description": "Use for text that communicates caution to prevent mistakes or errors on caution backgrounds, such as 'color.background.caution.muted', and 'color.background.caution.subtle'."
-        },
-        "onBold": {
-          "$type": "color",
-          "$value": "{color.foreground.accent.orange.onBold}",
-          "$description": "Use for text that communicates caution to prevent mistakes or errors on 'color.background.caution.bold'."
-        }
-      },
-      "negative": {
-        "plain": {
-          "$type": "color",
-          "$value": "{color.foreground.accent.red.plain}",
-          "$description": "Use for text that communicates negative or serious error states (e.g., validation errors or irreversible actions) on neutral backgrounds."
-        },
-        "bold": {
-          "$type": "color",
-          "$value": "{color.foreground.accent.red.bold}",
-          "$description": "Use for text that communicates negative or serious error states (e.g., validation errors or irreversible actions) on 'color.background.negative.muted', and 'color.background.negative.subtle'."
-        },
-        "onBold": {
-          "$type": "color",
-          "$value": "{color.foreground.accent.red.onBold}",
-          "$description": "Use for text that communicates negative or serious error states (e.g., validation errors or irreversible actions) on 'color.background.negative.bold'."
-        }
-      },
-      "inverted": {
-        "plain": {
-          "$type": "color",
-          "$value": "{color.palette.grey.000}",
-          "$description": "Use for plain inverted text."
-        },
-        "bold": {
-          "$type": "color",
-          "$value": "{color.palette.grey.000}",
-          "$description": "Use for inverted text on 'color.background.inverted.subtlest', and 'color.background.inverted.subtle'."
-        },
-        "onBold": {
-          "$type": "color",
-          "$value": "{color.palette.grey.900}",
-          "$description": "Use for inverted text on 'color.background.inverted.bold'."
-        }
-      },
-      "accent": {
-        "blue": {
-          "plain": {
-            "$type": "color",
-            "$value": "{color.palette.blue.600}",
-            "$description": "Use for blue text on neutral backgrounds for purely stylistic purposes with no specific meaning."
-          },
-          "bold": {
-            "$type": "color",
-            "$value": "{color.palette.blue.600}",
-            "$description": "Use for blue text on 'color.background.accent.blue.muted' or 'color.background.accent.blue.subtle', when used purely for stylistic purposes without specific meaning."
-          },
-          "onBold": {
-            "$type": "color",
-            "$value": "{color.foreground.inverted.plain}",
-            "$description": "Use for text on 'color.background.accent.blue.bold', when used purely for stylistic purposes without specific meaning."
-          }
-        },
-        "green": {
-          "plain": {
-            "$type": "color",
-            "$value": "{color.palette.green.600}",
-            "$description": "Use for green text on neutral backgrounds for purely stylistic purposes with no specific meaning."
-          },
-          "bold": {
-            "$type": "color",
-            "$value": "{color.palette.green.700}",
-            "$description": "Use for green text on 'color.background.accent.green.muted' or 'color.background.accent.green.subtle', when used purely for stylistic purposes without specific meaning."
-          },
-          "onBold": {
-            "$type": "color",
-            "$value": "{color.foreground.inverted.plain}",
-            "$description": "Use for text on 'color.background.accent.green.bold', when used purely for stylistic purposes without specific meaning."
-          }
-        },
-        "grey": {
-          "faint": {
-            "$type": "color",
-            "$value": "{color.palette.grey.300}",
-            "$description": "Use for faint text on neutral backgrounds, providing low contrast. Not intended for primary content, as it does not meet WCAG 2.2 AA contrast requirements. Use sparingly where accessibility isn't a critical concern."
-          },
-          "subtlest": {
-            "$type": "color",
-            "$value": "{color.palette.grey.500}",
-            "$description": "Use for muted grey text for purely stylistic purposes with no specific meaning."
-          },
-          "subtle": {
-            "$type": "color",
-            "$value": "{color.palette.grey.600}",
-            "$description": "Use for subtle grey text for purely stylistic purposes with no specific meaning."
-          },
-          "plain": {
-            "$type": "color",
-            "$value": "{color.palette.grey.700}",
-            "$description": "Use for plain grey text for purely stylistic purposes with no specific meaning."
-          },
-          "bold": {
-            "$type": "color",
-            "$value": "{color.palette.grey.900}",
-            "$description": "Use for bold grey text for purely stylistic purposes with no specific meaning."
-          },
-          "onBold": {
-            "$type": "color",
-            "$value": "{color.foreground.bold}",
-            "$description": "Use for text on 'color.background.accent.grey.bold', when used purely for stylistic purposes without specific meaning."
-          },
-          "onInverted": {
-            "$type": "color",
-            "$value": "{color.foreground.bold}",
-            "$description": "Use for text on 'color.background.inverted', when used purely for stylistic purposes without specific meaning."
-          }
-        },
-        "orange": {
-          "plain": {
-            "$type": "color",
-            "$value": "{color.palette.orange.600}",
-            "$description": "Use for orange text on neutral backgrounds for purely stylistic purposes with no specific meaning."
-          },
-          "bold": {
-            "$type": "color",
-            "$value": "{color.palette.orange.700}",
-            "$description": "Use for orange text on 'color.background.accent.orange.muted' or 'color.background.accent.orange.subtle', when used purely for stylistic purposes without specific meaning."
-          },
-          "onBold": {
-            "$type": "color",
-            "$value": "{color.foreground.inverted.plain}",
-            "$description": "Use for text on 'color.background.accent.orange.bold', when used purely for stylistic purposes without specific meaning."
-          }
-        },
-        "purple": {
-          "plain": {
-            "$type": "color",
-            "$value": "{color.palette.purple.500}",
-            "$description": "Use for purple text on neutral backgrounds for purely stylistic purposes with no specific meaning."
-          },
-          "bold": {
-            "$type": "color",
-            "$value": "{color.palette.purple.600}",
-            "$description": "Use for purple text on 'color.background.accent.purple.muted' or 'color.background.accent.purple.subtle', when used purely for stylistic purposes without specific meaning."
-          },
-          "onBold": {
-            "$type": "color",
-            "$value": "{color.foreground.inverted.plain}",
-            "$description": "Use for text on 'color.background.accent.purple.bold', when used purely for stylistic purposes without specific meaning."
-          }
-        },
-        "red": {
-          "plain": {
-            "$type": "color",
-            "$value": "{color.palette.red.500}",
-            "$description": "Use for red text on neutral backgrounds for purely stylistic purposes with no specific meaning."
-          },
-          "bold": {
-            "$type": "color",
-            "$value": "{color.palette.red.600}",
-            "$description": "Use for red text on 'color.background.accent.red.muted' or 'color.background.accent.red.subtle', when used purely for stylistic purposes without specific meaning."
-          },
-          "onBold": {
-            "$type": "color",
-            "$value": "{color.foreground.inverted.plain}",
-            "$description": "Use for text on 'color.background.accent.red.bold', when used purely for stylistic purposes without specific meaning."
-          }
-        },
-        "teal": {
-          "plain": {
-            "$type": "color",
-            "$value": "{color.palette.teal.500}",
-            "$description": "Use for teal text on neutral backgrounds for purely stylistic purposes with no specific meaning."
-          },
-          "bold": {
-            "$type": "color",
-            "$value": "{color.palette.teal.600}",
-            "$description": "Use for teal text on 'color.background.accent.teal.muted' or 'color.background.accent.teal.subtle', when used purely for stylistic purposes without specific meaning."
-          },
-          "onBold": {
-            "$type": "color",
-            "$value": "{color.foreground.inverted.plain}",
-            "$description": "Use for text on 'color.background.accent.blue.bold', when used purely for stylistic purposes without specific meaning."
-          }
-        },
-        "yellow": {
-          "plain": {
-            "$type": "color",
-            "$value": "{color.palette.yellow.600}",
-            "$description": "Use for yellow text on neutral backgrounds for purely stylistic purposes with no specific meaning."
-          },
-          "bold": {
-            "$type": "color",
-            "$value": "{color.palette.yellow.600}",
-            "$description": "Use for yellow text on 'color.background.accent.yellow.muted' or 'color.background.accent.yellow.subtle', when used purely for stylistic purposes without specific meaning."
-          },
-          "onBold": {
-            "$type": "color",
-            "$value": "{color.foreground.bold}",
-            "$description": "Use for text on 'color.background.accent.yellow.bold', when used purely for stylistic purposes without specific meaning."
-          }
-        }
-      }
-    },
-    "link": {
-      "idle": {
-        "$type": "color",
-        "$value": "{color.foreground.accent.teal.plain}",
-        "$description": "Use for links in their default or hovered state."
-      },
-      "hover": {
-        "$type": "color",
-        "$value": "{color.foreground.accent.teal.bold}",
-        "$description": "Use for links in hover state."
-      },
-      "active": {
-        "$type": "color",
-        "$value": "{color.palette.teal.700}",
-        "$description": "Use for links in active state."
-      },
-      "muted": {
-        "idle": {
-          "$type": "color",
-          "$value": "{color.foreground.accent.grey.subtlest}",
-          "$description": "Use for muted links in idle state."
-        },
-        "hover": {
-          "$type": "color",
-          "$value": "{color.link.hover}",
-          "$description": "Use for muted links in hover state."
-        },
-        "active": {
-          "$type": "color",
-          "$value": "{color.link.active}",
-          "$description": "Use for muted links in active state."
-        }
-      },
-      "inverted": {
-        "idle": {
-          "$type": "color",
-          "$value": "{color.foreground.inverted.plain}",
-          "$description": "Use for inverted links in idle state."
-        },
-        "hover": {
-          "$type": "color",
-          "$value": "{color.palette.teal.100}",
-          "$description": "Use for inverted links in hover state."
-        },
-        "active": {
-          "$type": "color",
-          "$value": "{color.palette.teal.150}",
-          "$description": "Use for inverted links in active state."
-        }
-      },
-      "focused": {
-        "idle": {
-          "$type": "color",
-          "$value": "{color.palette.teal.700}",
-          "$description": "Used for the linkcolor of navigation aids in idle state, such as skip links, when they are focused or visible."
-        },
-        "hover": {
-          "$type": "color",
-          "$value": "{color.palette.teal.800}",
-          "$description": "Used for the linkcolor of navigation aids in hovered state, such as skip links, when they are focused or visible."
-        },
-        "active": {
-          "$type": "color",
-          "$value": "{color.palette.teal.900}",
-          "$description": "Used for the linkcolor of navigation aids in pressed state, such as skip links, when they are focused or visible."
-        }
-      }
-    },
-    "border": {
-      "plain": {
-        "$type": "color",
-        "$value": "{color.border.accent.grey.plain}",
-        "$description": "Use to visually group or seperate UI elements, such as card, tabs or side panel dividers."
-      },
-      "bold": {
-        "$type": "color",
-        "$value": "{color.border.accent.grey.bold}",
-        "$description": "A neutral border option that passes min 3:1 contrast ratios."
-      },
-      "inverted": {
-        "$type": "color",
-        "$value": "{color.palette.grey.000}",
-        "$description": "Use for borders on bold backgrounds."
-      },
-      "disabled": {
-        "$type": "color",
-        "$value": "{color.foreground.disabled}",
-        "$description": "Use for borders of elements in a disabled state."
-      },
-      "focused": {
-        "$type": "color",
-        "$value": "{color.border.accent.blue.bold}",
-        "$description": "Use for focus rings of elements in a focus state."
-      },
-      "selected": {
-        "$type": "color",
-        "$value": "{color.border.accent.teal.plain}",
-        "$description": "Use for borders that emphasize selected states, such as tabs or menu items."
-      },
-      "input": {
-        "$type": "color",
-        "$value": "{color.border.bold}",
-        "$description": "Use for borders of form UI elements, such as text fields, checkboxes and, radio buttons."
-      },
-      "primary": {
-        "plain": {
-          "$type": "color",
-          "$value": "{color.border.accent.blue.plain}",
-          "$description": "Use for borders that highlight primary actions or messages on elevation.surface background colors."
-        },
-        "bold": {
-          "$type": "color",
-          "$value": "{color.border.accent.blue.bold}",
-          "$description": "Use for borders that highlight primary actions or messages on muted, subtlest and subtle background colors."
-        }
-      },
-      "secondary": {
-        "plain": {
-          "$type": "color",
-          "$value": "{color.border.accent.blue.plain}",
-          "$description": "Use for borders that highlight secondary actions or messages on elevation.surface background colors."
-        },
-        "bold": {
-          "$type": "color",
-          "$value": "{color.background.accent.blue.bold}",
-          "$description": "Use for borders that highlight secondary actions or messages on muted, subtlest and subtle background colors."
-        }
-      },
-      "neutral": {
-        "subtle": {
-          "$type": "color",
-          "$value": "{color.background.accent.grey.subtle}",
-          "$description": "Use for subtle borders on color.background.neutral background colors."
-        },
-        "plain": {
-          "$type": "color",
-          "$value": "{color.border.accent.grey.plain}",
-          "$description": "Use for borders that highlight neutral actions or messages on elevation.surface background colors."
-        },
-        "bold": {
-          "$type": "color",
-          "$value": "{color.border.accent.grey.bold}",
-          "$description": "Use for borders that highlight neutral actions or messages on muted, subtlest and subtle background colors."
-        }
-      },
-      "info": {
-        "subtle": {
-          "$type": "color",
-          "$value": "{color.background.info.subtle}",
-          "$description": "Use for subtle borders on color.background.info background colors."
-        },
-        "plain": {
-          "$type": "color",
-          "$value": "{color.border.accent.blue.plain}",
-          "$description": "Use for borders that highlight informative actions or messages on elevation.surface background colors."
-        },
-        "bold": {
-          "$type": "color",
-          "$value": "{color.border.accent.blue.bold}",
-          "$description": "Use for borders that highlight informative actions or messages on muted, subtlest and subtle background colors."
-        }
-      },
-      "positive": {
-        "plain": {
-          "$type": "color",
-          "$value": "{color.border.accent.green.plain}",
-          "$description": "Use for borders that highlight a favorable outcome on elevation.surface background colors."
-        },
-        "bold": {
-          "$type": "color",
-          "$value": "{color.border.accent.green.bold}",
-          "$description": "Use for borders that highlight a favorable outcome on muted, subtlest and subtle background colors."
-        }
-      },
-      "caution": {
-        "plain": {
-          "$type": "color",
-          "$value": "{color.border.accent.orange.plain}",
-          "$description": "Use for borders that highlight caution to help prevent mistakes or errors on elevation.surface background colors."
-        },
-        "bold": {
-          "$type": "color",
-          "$value": "{color.border.accent.orange.bold}",
-          "$description": "Use for borders that highlight caution to help prevent mistakes or errors on muted, subtlest and subtle background colors."
-        }
-      },
-      "negative": {
-        "plain": {
-          "$type": "color",
-          "$value": "{color.border.accent.red.plain}",
-          "$description": "Use for borders that highlight negative or serious error states on elevation.surface background colors."
-        },
-        "bold": {
-          "$type": "color",
-          "$value": "{color.border.accent.red.bold}",
-          "$description": "Use for borders that highlight negative or serious error states on muted, subtlest and subtle background colors."
-        }
-      },
-      "accent": {
-        "blue": {
-          "plain": {
-            "$type": "color",
-            "$value": "{color.background.accent.blue.bold}",
-            "$description": "Use for plain blue borders for purely stylistic purposes with no specific meaning."
-          },
-          "bold": {
-            "$type": "color",
-            "$value": "{color.foreground.accent.blue.bold}",
-            "$description": "Use for bold blue borders for purely stylistic purposes with no specific meaning."
-          }
-        },
-        "green": {
-          "plain": {
-            "$type": "color",
-            "$value": "{color.background.accent.green.bold}",
-            "$description": "Use for plain green borders for purely stylistic purposes with no specific meaning."
-          },
-          "bold": {
-            "$type": "color",
-            "$value": "{color.foreground.accent.green.bold}",
-            "$description": "Use for bold green borders for purely stylistic purposes with no specific meaning."
-          }
-        },
-        "grey": {
-          "faint": {
-            "$type": "color",
-            "$value": "{color.palette.grey.100}",
-            "$description": "Use for faint grey borders for purely stylistic purposes with no specific meaning."
-          },
-          "plain": {
-            "$type": "color",
-            "$value": "{color.palette.grey.150}",
-            "$description": "Use for plain grey borders for purely stylistic purposes with no specific meaning."
-          },
-          "bold": {
-            "$type": "color",
-            "$value": "{color.palette.grey.400}",
-            "$description": "Use for bold grey borders for purely stylistic purposes with no specific meaning."
-          },
-          "heavy": {
-            "$type": "color",
-            "$value": "{color.foreground.bold}",
-            "$description": "Use for heavy grey borders for purely stylistic purposes with no specific meaning."
-          }
-        },
-        "orange": {
-          "plain": {
-            "$type": "color",
-            "$value": "{color.background.accent.orange.bold}",
-            "$description": "Use for plain orange borders for purely stylistic purposes with no specific meaning."
-          },
-          "bold": {
-            "$type": "color",
-            "$value": "{color.foreground.accent.orange.bold}",
-            "$description": "Use for bold orange borders for purely stylistic purposes with no specific meaning."
-          }
-        },
-        "purple": {
-          "plain": {
-            "$type": "color",
-            "$value": "{color.background.accent.purple.bold}",
-            "$description": "Use for plain purple borders for purely stylistic purposes with no specific meaning."
-          },
-          "bold": {
-            "$type": "color",
-            "$value": "{color.foreground.accent.purple.bold}",
-            "$description": "Use for bold purple borders for purely stylistic purposes with no specific meaning."
-          }
-        },
-        "red": {
-          "plain": {
-            "$type": "color",
-            "$value": "{color.background.accent.red.bold}",
-            "$description": "Use for plain red borders for purely stylistic purposes with no specific meaning."
-          },
-          "bold": {
-            "$type": "color",
-            "$value": "{color.foreground.accent.red.bold}",
-            "$description": "Use for bold red borders for purely stylistic purposes with no specific meaning."
-          }
-        },
-        "teal": {
-          "plain": {
-            "$type": "color",
-            "$value": "{color.background.accent.teal.bold}",
-            "$description": "Use for plain teal borders for purely stylistic purposes with no specific meaning."
-          },
-          "bold": {
-            "$type": "color",
-            "$value": "{color.foreground.accent.teal.bold}",
-            "$description": "Use for bold teal borders for purely stylistic purposes with no specific meaning."
-          }
-        },
-        "yellow": {
-          "plain": {
-            "$type": "color",
-            "$value": "{color.background.accent.yellow.bold}",
-            "$description": "Use for plain yellow borders for purely stylistic purposes with no specific meaning."
-          },
-          "bold": {
-            "$type": "color",
-            "$value": "{color.foreground.accent.yellow.bold}",
-            "$description": "Use for bold yellow borders for purely stylistic purposes with no specific meaning."
-          }
-        }
-      }
-    },
-    "background": {
-      "subtle": {
-        "$type": "color",
-        "$value": "{color.background.accent.grey.subtle}",
-        "$description": "Use for backgrounds of elements in a neutral state with subtle emphasis."
-      },
-      "bold": {
-        "$type": "color",
-        "$value": "{color.border.bold}",
-        "$description": "Use for backgrounds of elements in a neutral state that require a bold emphasis or a minimum color contrast of 3:1, such as switch backgrounds."
-      },
-      "disabled": {
-        "$type": "color",
-        "$value": "{color.palette.grey.100}",
-        "$description": "Use for backgrounds of elements in disabled state."
-      },
-      "input": {
-        "plain": {
-          "$type": "color",
-          "$value": "{color.palette.grey.000}",
-          "$description": "Use for backgrounds of form UI elements, such as text fields, checkboxes, and radio buttons."
-        },
-        "interactive": {
-          "$type": "color",
-          "$value": "{color.background.accent.blue.interactive.plain}",
-          "$description": "Used as transparent layer on top of the input background to indicate the hover state."
-        }
-      },
-      "selected": {
-        "subtlest": {
-          "$type": "color",
-          "$value": "{color.background.accent.teal.subtlest}",
-          "$description": "The subtlest background in the primary action color."
-        },
-        "subtle": {
-          "$type": "color",
-          "$value": "{color.background.accent.teal.subtle}",
-          "$description": "Use for backgrounds of elements in selected state with subtle emphasis, such as in opened dropdowns."
-        },
-        "bold": {
-          "$type": "color",
-          "$value": "{color.background.accent.teal.bold}",
-          "$description": "Use for backgrounds of elements in selected state with bold emphasis, such as in opened dropdowns."
-        },
-        "interactive": {
-          "bold": {
-            "$type": "color",
-            "$value": "{color.background.accent.teal.interactive.bold}",
-            "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-          },
-          "plain": {
-            "$type": "color",
-            "$value": "{color.background.accent.teal.interactive.plain}",
-            "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-          }
-        }
-      },
-      "primary": {
-        "subtlest": {
-          "$type": "color",
-          "$value": "{color.background.accent.blue.subtlest}",
-          "$description": "The subtlest background in the primary action color."
-        },
-        "subtle": {
-          "$type": "color",
-          "$value": "{color.background.accent.blue.subtle}",
-          "$description": "A subtle background in the primary action color."
-        },
-        "bold": {
-          "$type": "color",
-          "$value": "{color.palette.blue.600}",
-          "$description": "A vibrant background option used for primary actions."
-        },
-        "interactive": {
-          "bold": {
-            "$type": "color",
-            "$value": "{color.background.accent.blue.interactive.plain}",
-            "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-          },
-          "plain": {
-            "$type": "color",
-            "$value": "{color.palette.blue.300}",
-            "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-          }
-        }
-      },
-      "secondary": {
-        "subtlest": {
-          "$type": "color",
-          "$value": "{color.background.accent.blue.subtlest}",
-          "$description": "The subtlest background in the secondary action color."
-        },
-        "subtle": {
-          "$type": "color",
-          "$value": "{color.background.accent.blue.subtle}",
-          "$description": "A subtle background in the secondary action color."
-        },
-        "bold": {
-          "$type": "color",
-          "$value": "{color.palette.blue.100}",
-          "$description": "A vibrant background option used for secondary actions."
-        },
-        "interactive": {
-          "bold": {
-            "$type": "color",
-            "$value": "{color.palette.blue.400}",
-            "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-          },
-          "plain": {
-            "$type": "color",
-            "$value": "{color.background.accent.blue.interactive.plain}",
-            "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-          }
-        }
-      },
-      "neutral": {
-        "subtlest": {
-          "$type": "color",
-          "$value": "{color.background.accent.grey.subtlest}",
-          "$description": "The subtlest background in the neutral action color."
-        },
-        "subtle": {
-          "$type": "color",
-          "$value": "{color.background.accent.grey.subtle}",
-          "$description": "A subtle background in the neutral action color."
-        },
-        "bold": {
-          "$type": "color",
-          "$value": "{color.palette.grey.050}",
-          "$description": "A vibrant background option used for neutral actions."
-        },
-        "interactive": {
-          "bold": {
-            "$type": "color",
-            "$value": "{color.background.accent.grey.interactive.bold}",
-            "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-          },
-          "plain": {
-            "$type": "color",
-            "$value": "{color.background.accent.grey.interactive.plain}",
-            "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-          }
-        }
-      },
-      "info": {
-        "subtlest": {
-          "$type": "color",
-          "$value": "{color.background.accent.teal.subtlest}",
-          "$description": "The subtlest background for informative messages."
-        },
-        "subtle": {
-          "$type": "color",
-          "$value": "{color.background.accent.teal.subtle}",
-          "$description": "A subtle background for informative messages."
-        },
-        "bold": {
-          "$type": "color",
-          "$value": "{color.background.accent.teal.bold}",
-          "$description": "Use for the background of actions with bold emphasis related to informative messages."
-        },
-        "interactive": {
-          "bold": {
-            "$type": "color",
-            "$value": "{color.background.accent.teal.interactive.bold}",
-            "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-          },
-          "plain": {
-            "$type": "color",
-            "$value": "{color.background.accent.teal.interactive.plain}",
-            "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-          }
-        }
-      },
-      "positive": {
-        "subtlest": {
-          "$type": "color",
-          "$value": "{color.background.accent.green.subtlest}",
-          "$description": "The subtlest background option for communicating a positive outcome."
-        },
-        "subtle": {
-          "$type": "color",
-          "$value": "{color.background.accent.green.subtle}",
-          "$description": "A subtle background option for communicating a positive outcome."
-        },
-        "bold": {
-          "$type": "color",
-          "$value": "{color.background.accent.green.bold}",
-          "$description": "Use for the background of actions with bold emphasis related to messages that communicate a positive outcome."
-        },
-        "interactive": {
-          "bold": {
-            "$type": "color",
-            "$value": "{color.background.accent.green.interactive.bold}",
-            "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-          },
-          "plain": {
-            "$type": "color",
-            "$value": "{color.background.accent.green.interactive.plain}",
-            "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-          }
-        }
-      },
-      "caution": {
-        "subtlest": {
-          "$type": "color",
-          "$value": "{color.background.accent.orange.subtlest}",
-          "$description": "The subtlest background option to communicate caution to prevent errors."
-        },
-        "subtle": {
-          "$type": "color",
-          "$value": "{color.background.accent.orange.subtle}",
-          "$description": "A subtle background option to communicate caution to prevent errors."
-        },
-        "bold": {
-          "$type": "color",
-          "$value": "{color.background.accent.orange.bold}",
-          "$description": "Use for the background of actions with bold emphasis related to messages that communicate caution."
-        },
-        "interactive": {
-          "bold": {
-            "$type": "color",
-            "$value": "{color.background.accent.orange.interactive.bold}",
-            "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-          },
-          "plain": {
-            "$type": "color",
-            "$value": "{color.background.accent.orange.interactive.plain}",
-            "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-          }
-        }
-      },
-      "negative": {
-        "subtlest": {
-          "$type": "color",
-          "$value": "{color.background.accent.red.subtlest}",
-          "$description": "The subtlest background option to communicate negative or serious error states (e.g., validation errors or irreversible actions)."
-        },
-        "subtle": {
-          "$type": "color",
-          "$value": "{color.background.accent.red.subtle}",
-          "$description": "A subtle background option to communicate negative or serious error states (e.g., validation errors or irreversible actions)."
-        },
-        "bold": {
-          "$type": "color",
-          "$value": "{color.background.accent.red.bold}",
-          "$description": "Use for the background of actions with bold emphasis related to messages that communicate negative or serious error states (e.g., validation errors or irreversible actions)."
-        },
-        "interactive": {
-          "bold": {
-            "$type": "color",
-            "$value": "{color.background.accent.red.interactive.bold}",
-            "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-          },
-          "plain": {
-            "$type": "color",
-            "$value": "{color.background.accent.red.interactive.plain}",
-            "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-          }
-        }
-      },
-      "accent": {
-        "blue": {
-          "subtlest": {
-            "$type": "color",
-            "$value": "rgba({color.background.accent.blue.bold}, {opacity.light.subtlest})",
-            "$description": "The subtlest blue background option for interactive elements, applied purely for stylistic purposes without specific meaning."
-          },
-          "subtle": {
-            "$type": "color",
-            "$value": "rgba({color.background.accent.blue.bold}, {opacity.light.subtle})",
-            "$description": "A subtle blue background option in idle state, applied purely for stylistic purposes without specific meaning."
-          },
-          "bold": {
-            "$type": "color",
-            "$value": "{color.palette.blue.400}",
-            "$description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
-          },
-          "interactive": {
-            "bold": {
-              "$type": "color",
-              "$value": "{color.palette.blue.800}",
-              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-            },
-            "plain": {
-              "$type": "color",
-              "$value": "{color.palette.blue.200}",
-              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-            }
-          }
-        },
-        "green": {
-          "subtlest": {
-            "$type": "color",
-            "$value": "rgba( {color.palette.green.400}, {opacity.light.subtlest})",
-            "$description": "The subtlest green background option for interactive elements, applied purely for stylistic purposes without specific meaning."
-          },
-          "subtle": {
-            "$type": "color",
-            "$value": "rgba({color.palette.green.400}, {opacity.light.subtle})",
-            "$description": "A subtle green background option in idle state, applied purely for stylistic purposes without specific meaning."
-          },
-          "bold": {
-            "$type": "color",
-            "$value": "{color.palette.green.600}",
-            "$description": "A vibrant green background option, applied purely for stylistic purposes without specific meaning."
-          },
-          "interactive": {
-            "bold": {
-              "$type": "color",
-              "$value": "{color.palette.green.900}",
-              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-            },
-            "plain": {
-              "$type": "color",
-              "$value": "{color.palette.green.400}",
-              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-            }
-          }
-        },
-        "grey": {
-          "subtlest": {
-            "$type": "color",
-            "$value": "rgba( {color.palette.grey.700}, {opacity.light.subtlest})",
-            "$description": "The subtlest grey background option for interactive elements, applied purely for stylistic purposes without specific meaning."
-          },
-          "subtle": {
-            "$type": "color",
-            "$value": "rgba({color.palette.grey.300}, {opacity.light.subtle})",
-            "$description": "A subtle grey background option in idle state, applied purely for stylistic purposes without specific meaning."
-          },
-          "bold": {
-            "$type": "color",
-            "$value": "{color.palette.grey.150}",
-            "$description": "A vibrant grey background option, applied purely for stylistic purposes without specific meaning."
-          },
-          "interactive": {
-            "bold": {
-              "$type": "color",
-              "$value": "{color.palette.grey.800}",
-              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-            },
-            "plain": {
-              "$type": "color",
-              "$value": "{color.palette.grey.200}",
-              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-            }
-          }
-        },
-        "orange": {
-          "subtlest": {
-            "$type": "color",
-            "$value": "rgba( {color.palette.orange.400}, {opacity.light.subtlest})",
-            "$description": "The subtlest orange background option for interactive elements, applied purely for stylistic purposes without specific meaning."
-          },
-          "subtle": {
-            "$type": "color",
-            "$value": "rgba({color.palette.orange.400}, {opacity.light.subtle})",
-            "$description": "A subtle orange background option in idle state, applied purely for stylistic purposes without specific meaning."
-          },
-          "bold": {
-            "$type": "color",
-            "$value": "{color.palette.orange.600}",
-            "$description": "A vibrant orange background option, applied purely for stylistic purposes without specific meaning."
-          },
-          "interactive": {
-            "bold": {
-              "$type": "color",
-              "$value": "{color.palette.orange.900}",
-              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-            },
-            "plain": {
-              "$type": "color",
-              "$value": "{color.palette.orange.400}",
-              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-            }
-          }
-        },
-        "purple": {
-          "subtlest": {
-            "$type": "color",
-            "$value": "rgba( {color.palette.purple.400}, {opacity.light.subtlest})",
-            "$description": "The subtlest purple background option for interactive elements, applied purely for stylistic purposes without specific meaning."
-          },
-          "subtle": {
-            "$type": "color",
-            "$value": "rgba({color.palette.purple.400}, {opacity.light.subtle})",
-            "$description": "A subtle purple background option in idle state, applied purely for stylistic purposes without specific meaning."
-          },
-          "bold": {
-            "$type": "color",
-            "$value": "{color.palette.purple.600}",
-            "$description": "A vibrant purple background option, applied purely for stylistic purposes without specific meaning."
-          },
-          "interactive": {
-            "bold": {
-              "$type": "color",
-              "$value": "{color.palette.purple.900}",
-              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-            },
-            "plain": {
-              "$type": "color",
-              "$value": "{color.palette.purple.400}",
-              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-            }
-          }
-        },
-        "red": {
-          "subtlest": {
-            "$type": "color",
-            "$value": "rgba( {color.palette.red.400}, {opacity.light.subtlest})",
-            "$description": "The subtlest red background option for interactive elements, applied purely for stylistic purposes without specific meaning."
-          },
-          "subtle": {
-            "$type": "color",
-            "$value": "rgba({color.palette.red.400}, {opacity.light.subtle})",
-            "$description": "A subtle red background option in idle state, applied purely for stylistic purposes without specific meaning."
-          },
-          "bold": {
-            "$type": "color",
-            "$value": "{color.palette.red.500}",
-            "$description": "A vibrant red background option, applied purely for stylistic purposes without specific meaning."
-          },
-          "interactive": {
-            "bold": {
-              "$type": "color",
-              "$value": "{color.palette.red.900}",
-              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-            },
-            "plain": {
-              "$type": "color",
-              "$value": "{color.palette.red.400}",
-              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-            }
-          }
-        },
-        "teal": {
-          "subtlest": {
-            "$type": "color",
-            "$value": "rgba( {color.palette.teal.400}, {opacity.light.subtlest})",
-            "$description": "The subtlest teal background option for interactive elements, applied purely for stylistic purposes without specific meaning."
-          },
-          "subtle": {
-            "$type": "color",
-            "$value": "rgba({color.palette.teal.400}, {opacity.light.subtle})",
-            "$description": "A subtle teal background option in idle state, applied purely for stylistic purposes without specific meaning."
-          },
-          "bold": {
-            "$type": "color",
-            "$value": "{color.palette.teal.500}",
-            "$description": "A vibrant teal background option, applied purely for stylistic purposes without specific meaning."
-          },
-          "interactive": {
-            "bold": {
-              "$type": "color",
-              "$value": "{color.palette.teal.900}",
-              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-            },
-            "plain": {
-              "$type": "color",
-              "$value": "{color.palette.teal.400}",
-              "$description": "Used as transparent layer on top of the subtlest and subtle background to indicate the hover and pressed state."
-            }
-          }
-        },
-        "yellow": {
-          "subtlest": {
-            "$type": "color",
-            "$value": "rgba( {color.palette.yellow.400}, {opacity.light.subtlest})",
-            "$description": "The subtlest yellow background option for interactive elements, applied purely for stylistic purposes without specific meaning."
-          },
-          "subtle": {
-            "$type": "color",
-            "$value": "rgba({color.palette.yellow.400}, {opacity.light.subtle})",
-            "$description": "A subtle yellow background option in idle state, applied purely for stylistic purposes without specific meaning."
-          },
-          "bold": {
-            "$type": "color",
-            "$value": "{color.palette.yellow.400}",
-            "$description": "A vibrant yellow background option, applied purely for stylistic purposes without specific meaning."
-          },
-          "interactive": {
-            "bold": {
-              "$type": "color",
-              "$value": "{color.palette.yellow.800}",
-              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-            },
-            "plain": {
-              "$type": "color",
-              "$value": "{color.palette.yellow.400}",
-              "$description": "Used as transparent layer on top of the subtlest and subtle background to indicate the hover and pressed state."
-            }
-          }
-        }
-      },
-      "inverted": {
-        "subtlest": {
-          "$type": "color",
-          "$value": "rgba( {color.palette.grey.000}, {opacity.light.subtlest})",
-          "$description": "The subtlest inverted background option."
-        },
-        "subtle": {
-          "$type": "color",
-          "$value": "rgba({color.palette.grey.000}, {opacity.light.subtle})",
-          "$description": "A subtle inverted background option."
-        },
-        "bold": {
-          "$type": "color",
-          "$value": "{color.palette.grey.000}",
-          "$description": "A solid inverted background option."
-        },
-        "interactive": {
-          "bold": {
-            "$type": "color",
-            "$value": "{color.palette.grey.600}",
-            "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-          },
-          "plain": {
-            "$type": "color",
-            "$value": "{color.palette.grey.100}",
-            "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-          }
-        }
-      },
-      "interactive": {
-        "bold": {
-          "$type": "color",
-          "$value": "{color.background.accent.blue.interactive.bold}",
-          "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-        },
-        "plain": {
-          "$type": "color",
-          "$value": "{color.background.accent.teal.interactive.plain}",
-          "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-        }
-      }
-    },
-    "blanket": {
-      "plain": {
-        "$type": "color",
-        "$value": "rgba({color.palette.grey.900}, {opacity.light.moderate})",
-        "$description": "Use for screen overlay that appears with dialogs or drawers."
-      }
-    },
-    "skeleton": {
-      "plain": {
-        "$type": "color",
-        "$value": "{color.background.accent.grey.subtlest}",
-        "$description": "Use for skeleton loading states."
-      },
-      "subtle": {
-        "$type": "color",
-        "$value": "{color.background.accent.grey.subtle}",
-        "$description": "Use for the pulse or shimmer effect in skeleton loading states."
-      }
-    }
-  },
-  "elevation": {
-    "surface": {
-      "base": {
-        "default": {
-          "$type": "color",
-          "$value": "{color.palette.grey.000}",
-          "$description": "The default, flat surface level. Used for primary content backgrounds or non-interactive UI regions."
-        }
-      },
-      "raised": {
-        "default": {
-          "$type": "color",
-          "$value": "{color.palette.grey.000}",
-          "$description": "Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
-        },
-        "alternative": {
-          "$type": "color",
-          "$value": "{color.palette.grey.100}",
-          "$description": "An alternate surface color used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
-        },
-        "sunken": {
-          "$type": "color",
-          "$value": "{color.palette.grey.050}",
-          "$description": "Background for components that create a sunken effect, typically used for grouping related items."
-        },
-        "inverted": {
-          "$type": "color",
-          "$value": "{color.palette.grey.900}",
-          "$description": "Background of elevated components with an inverted background color like tooltips that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
-        }
-      },
-      "shadow": {
-        "$type": "color",
-        "$value": "{color.palette.grey.900}",
-        "$description": "Used as color for shadows."
-      }
-    }
-  },
-  "opacity": {
-    "interactive": {
-      "bold": {
-        "idle": {
-          "$type": "opacity",
-          "$value": "0%"
-        },
-        "hover": {
-          "$type": "opacity",
-          "$value": "20%"
-        },
-        "active": {
-          "$type": "opacity",
-          "$value": "40%"
-        }
-      },
-      "plain": {
-        "idle": {
-          "$type": "opacity",
-          "$value": "0%"
-        },
-        "hover": {
-          "$type": "opacity",
-          "$value": "15%"
-        },
-        "active": {
-          "$type": "opacity",
-          "$value": "25%"
-        }
-      }
-    },
-    "muted": {
-      "$type": "opacity",
-      "$value": "0%"
-    },
-    "subtlest": {
-      "$type": "opacity",
-      "$value": "10%"
-    },
-    "subtle": {
-      "$type": "opacity",
-      "$value": "20%"
-    },
-    "moderate": {
-      "$type": "opacity",
-      "$value": "80%"
-    },
-    "bold": {
-      "$type": "opacity",
-      "$value": "100%"
-    }
-  }
+	"neon": {
+		"color": {
+			"link": {
+				"idle": {
+					"$type": "color",
+					"$value": "{neon.color.foreground.accent.teal.plain}",
+					"$description": "Use for links in their default or hovered state."
+				},
+				"hover": {
+					"$type": "color",
+					"$value": "{neon.color.foreground.accent.teal.bold}",
+					"$description": "Use for links in hover state."
+				},
+				"muted": {
+					"idle": {
+						"$type": "color",
+						"$value": "{neon.color.foreground.accent.grey.subtlest}",
+						"$description": "Use for muted links in idle state."
+					},
+					"hover": {
+						"$type": "color",
+						"$value": "{neon.color.link.hover}",
+						"$description": "Use for muted links in hover state."
+					},
+					"active": {
+						"$type": "color",
+						"$value": "{neon.color.link.active}",
+						"$description": "Use for muted links in active state."
+					}
+				},
+				"active": {
+					"$type": "color",
+					"$value": "{neon.color.palette.teal.700}",
+					"$description": "Use for links in active state."
+				},
+				"focused": {
+					"idle": {
+						"$type": "color",
+						"$value": "{neon.color.palette.teal.700}",
+						"$description": "Used for the linkcolor of navigation aids in idle state, such as skip links, when they are focused or visible."
+					},
+					"hover": {
+						"$type": "color",
+						"$value": "{neon.color.palette.teal.800}",
+						"$description": "Used for the linkcolor of navigation aids in hovered state, such as skip links, when they are focused or visible."
+					},
+					"active": {
+						"$type": "color",
+						"$value": "{neon.color.palette.teal.900}",
+						"$description": "Used for the linkcolor of navigation aids in pressed state, such as skip links, when they are focused or visible."
+					}
+				},
+				"inverted": {
+					"idle": {
+						"$type": "color",
+						"$value": "{neon.color.foreground.inverted.plain}",
+						"$description": "Use for inverted links in idle state."
+					},
+					"hover": {
+						"$type": "color",
+						"$value": "{neon.color.palette.teal.100}",
+						"$description": "Use for inverted links in hover state."
+					},
+					"active": {
+						"$type": "color",
+						"$value": "{neon.color.palette.teal.150}",
+						"$description": "Use for inverted links in active state."
+					}
+				}
+			},
+			"border": {
+				"bold": {
+					"$type": "color",
+					"$value": "{neon.color.border.accent.grey.bold}",
+					"$description": "A neutral border option that passes min 3:1 contrast ratios."
+				},
+				"info": {
+					"bold": {
+						"$type": "color",
+						"$value": "{neon.color.border.accent.blue.bold}",
+						"$description": "Use for borders that highlight informative actions or messages on muted, subtlest and subtle background colors."
+					},
+					"plain": {
+						"$type": "color",
+						"$value": "{neon.color.border.accent.blue.plain}",
+						"$description": "Use for borders that highlight informative actions or messages on elevation.surface background colors."
+					},
+					"subtle": {
+						"$type": "color",
+						"$value": "{neon.color.background.info.subtle}",
+						"$description": "Use for subtle borders on color.background.info background colors."
+					}
+				},
+				"input": {
+					"$type": "color",
+					"$value": "{neon.color.border.bold}",
+					"$description": "Use for borders of form UI elements, such as text fields, checkboxes and, radio buttons."
+				},
+				"plain": {
+					"$type": "color",
+					"$value": "{neon.color.border.accent.grey.plain}",
+					"$description": "Use to visually group or seperate UI elements, such as card, tabs or side panel dividers."
+				},
+				"accent": {
+					"red": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.foreground.accent.red.bold}",
+							"$description": "Use for bold red borders for purely stylistic purposes with no specific meaning."
+						},
+						"plain": {
+							"$type": "color",
+							"$value": "{neon.color.background.accent.red.bold}",
+							"$description": "Use for plain red borders for purely stylistic purposes with no specific meaning."
+						}
+					},
+					"blue": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.foreground.accent.blue.bold}",
+							"$description": "Use for bold blue borders for purely stylistic purposes with no specific meaning."
+						},
+						"plain": {
+							"$type": "color",
+							"$value": "{neon.color.background.accent.blue.bold}",
+							"$description": "Use for plain blue borders for purely stylistic purposes with no specific meaning."
+						}
+					},
+					"grey": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.palette.grey.400}",
+							"$description": "Use for bold grey borders for purely stylistic purposes with no specific meaning."
+						},
+						"faint": {
+							"$type": "color",
+							"$value": "{neon.color.palette.grey.100}",
+							"$description": "Use for faint grey borders for purely stylistic purposes with no specific meaning."
+						},
+						"heavy": {
+							"$type": "color",
+							"$value": "{neon.color.foreground.bold}",
+							"$description": "Use for heavy grey borders for purely stylistic purposes with no specific meaning."
+						},
+						"plain": {
+							"$type": "color",
+							"$value": "{neon.color.palette.grey.150}",
+							"$description": "Use for plain grey borders for purely stylistic purposes with no specific meaning."
+						}
+					},
+					"teal": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.foreground.accent.teal.bold}",
+							"$description": "Use for bold teal borders for purely stylistic purposes with no specific meaning."
+						},
+						"plain": {
+							"$type": "color",
+							"$value": "{neon.color.background.accent.teal.bold}",
+							"$description": "Use for plain teal borders for purely stylistic purposes with no specific meaning."
+						}
+					},
+					"green": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.foreground.accent.green.bold}",
+							"$description": "Use for bold green borders for purely stylistic purposes with no specific meaning."
+						},
+						"plain": {
+							"$type": "color",
+							"$value": "{neon.color.background.accent.green.bold}",
+							"$description": "Use for plain green borders for purely stylistic purposes with no specific meaning."
+						}
+					},
+					"orange": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.foreground.accent.orange.bold}",
+							"$description": "Use for bold orange borders for purely stylistic purposes with no specific meaning."
+						},
+						"plain": {
+							"$type": "color",
+							"$value": "{neon.color.background.accent.orange.bold}",
+							"$description": "Use for plain orange borders for purely stylistic purposes with no specific meaning."
+						}
+					},
+					"purple": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.foreground.accent.purple.bold}",
+							"$description": "Use for bold purple borders for purely stylistic purposes with no specific meaning."
+						},
+						"plain": {
+							"$type": "color",
+							"$value": "{neon.color.background.accent.purple.bold}",
+							"$description": "Use for plain purple borders for purely stylistic purposes with no specific meaning."
+						}
+					},
+					"yellow": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.foreground.accent.yellow.bold}",
+							"$description": "Use for bold yellow borders for purely stylistic purposes with no specific meaning."
+						},
+						"plain": {
+							"$type": "color",
+							"$value": "{neon.color.background.accent.yellow.bold}",
+							"$description": "Use for plain yellow borders for purely stylistic purposes with no specific meaning."
+						}
+					}
+				},
+				"caution": {
+					"bold": {
+						"$type": "color",
+						"$value": "{neon.color.border.accent.orange.bold}",
+						"$description": "Use for borders that highlight caution to help prevent mistakes or errors on muted, subtlest and subtle background colors."
+					},
+					"plain": {
+						"$type": "color",
+						"$value": "{neon.color.border.accent.orange.plain}",
+						"$description": "Use for borders that highlight caution to help prevent mistakes or errors on elevation.surface background colors."
+					}
+				},
+				"focused": {
+					"$type": "color",
+					"$value": "{neon.color.border.accent.blue.bold}",
+					"$description": "Use for focus rings of elements in a focus state."
+				},
+				"neutral": {
+					"bold": {
+						"$type": "color",
+						"$value": "{neon.color.border.accent.grey.bold}",
+						"$description": "Use for borders that highlight neutral actions or messages on muted, subtlest and subtle background colors."
+					},
+					"plain": {
+						"$type": "color",
+						"$value": "{neon.color.border.accent.grey.plain}",
+						"$description": "Use for borders that highlight neutral actions or messages on elevation.surface background colors."
+					},
+					"subtle": {
+						"$type": "color",
+						"$value": "{neon.color.background.accent.grey.subtle}",
+						"$description": "Use for subtle borders on color.background.neutral background colors."
+					}
+				},
+				"primary": {
+					"bold": {
+						"$type": "color",
+						"$value": "{neon.color.border.accent.blue.bold}",
+						"$description": "Use for borders that highlight primary actions or messages on muted, subtlest and subtle background colors."
+					},
+					"plain": {
+						"$type": "color",
+						"$value": "{neon.color.border.accent.blue.plain}",
+						"$description": "Use for borders that highlight primary actions or messages on elevation.surface background colors."
+					}
+				},
+				"disabled": {
+					"$type": "color",
+					"$value": "{neon.color.foreground.disabled}",
+					"$description": "Use for borders of elements in a disabled state."
+				},
+				"inverted": {
+					"$type": "color",
+					"$value": "{neon.color.palette.grey.000}",
+					"$description": "Use for borders on bold backgrounds."
+				},
+				"negative": {
+					"bold": {
+						"$type": "color",
+						"$value": "{neon.color.border.accent.red.bold}",
+						"$description": "Use for borders that highlight negative or serious error states on muted, subtlest and subtle background colors."
+					},
+					"plain": {
+						"$type": "color",
+						"$value": "{neon.color.border.accent.red.plain}",
+						"$description": "Use for borders that highlight negative or serious error states on elevation.surface background colors."
+					}
+				},
+				"positive": {
+					"bold": {
+						"$type": "color",
+						"$value": "{neon.color.border.accent.green.bold}",
+						"$description": "Use for borders that highlight a favorable outcome on muted, subtlest and subtle background colors."
+					},
+					"plain": {
+						"$type": "color",
+						"$value": "{neon.color.border.accent.green.plain}",
+						"$description": "Use for borders that highlight a favorable outcome on elevation.surface background colors."
+					}
+				},
+				"selected": {
+					"$type": "color",
+					"$value": "{neon.color.border.accent.teal.plain}",
+					"$description": "Use for borders that emphasize selected states, such as tabs or menu items."
+				},
+				"secondary": {
+					"bold": {
+						"$type": "color",
+						"$value": "{neon.color.background.accent.blue.bold}",
+						"$description": "Use for borders that highlight secondary actions or messages on muted, subtlest and subtle background colors."
+					},
+					"plain": {
+						"$type": "color",
+						"$value": "{neon.color.border.accent.blue.plain}",
+						"$description": "Use for borders that highlight secondary actions or messages on elevation.surface background colors."
+					}
+				}
+			},
+			"blanket": {
+				"plain": {
+					"$type": "color",
+					"$value": "rgba({neon.color.palette.grey.900}, {neon.opacity.moderate})",
+					"$description": "Use for screen overlay that appears with dialogs or drawers."
+				}
+			},
+			"palette": {
+				"red": {
+					"100": {
+						"$type": "color",
+						"$value": "#fce7e7"
+					},
+					"150": {
+						"$type": "color",
+						"$value": "#f9d2d5"
+					},
+					"200": {
+						"$type": "color",
+						"$value": "#f4adb3"
+					},
+					"300": {
+						"$type": "color",
+						"$value": "#ed7f8a"
+					},
+					"400": {
+						"$type": "color",
+						"$value": "#e14e60"
+					},
+					"500": {
+						"$type": "color",
+						"$value": "#cd314b"
+					},
+					"600": {
+						"$type": "color",
+						"$value": "#ac243e"
+					},
+					"700": {
+						"$type": "color",
+						"$value": "#912039"
+					},
+					"800": {
+						"$type": "color",
+						"$value": "#7c1f37"
+					},
+					"900": {
+						"$type": "color",
+						"$value": "#450c19"
+					},
+					"050": {
+						"$type": "color",
+						"$value": "#fef2f2"
+					}
+				},
+				"blue": {
+					"100": {
+						"$type": "color",
+						"$value": "#C5DEF2"
+					},
+					"150": {
+						"$type": "color",
+						"$value": "#AEC6DA"
+					},
+					"200": {
+						"$type": "color",
+						"$value": "#94AFC5"
+					},
+					"300": {
+						"$type": "color",
+						"$value": "#7E9EB9"
+					},
+					"400": {
+						"$type": "color",
+						"$value": "#517695"
+					},
+					"500": {
+						"$type": "color",
+						"$value": "#3A546A"
+					},
+					"600": {
+						"$type": "color",
+						"$value": "#253646"
+					},
+					"700": {
+						"$type": "color",
+						"$value": "#1E2B38"
+					},
+					"800": {
+						"$type": "color",
+						"$value": "#16202A"
+					},
+					"900": {
+						"$type": "color",
+						"$value": "#070B0E"
+					},
+					"050": {
+						"$type": "color",
+						"$value": "#EFF8FF"
+					}
+				},
+				"grey": {
+					"100": {
+						"$type": "color",
+						"$value": "#E6E6E6"
+					},
+					"150": {
+						"$type": "color",
+						"$value": "#C7CCD4"
+					},
+					"200": {
+						"$type": "color",
+						"$value": "#AEB6C1"
+					},
+					"300": {
+						"$type": "color",
+						"$value": "#98A2B0"
+					},
+					"400": {
+						"$type": "color",
+						"$value": "#838B97"
+					},
+					"500": {
+						"$type": "color",
+						"$value": "#6D747E"
+					},
+					"600": {
+						"$type": "color",
+						"$value": "#585D65"
+					},
+					"700": {
+						"$type": "color",
+						"$value": "#42474D"
+					},
+					"800": {
+						"$type": "color",
+						"$value": "#2D3034"
+					},
+					"900": {
+						"$type": "color",
+						"$value": "#17191B"
+					},
+					"000": {
+						"$type": "color",
+						"$value": "#FFFFFF"
+					},
+					"050": {
+						"$type": "color",
+						"$value": "#F3F3F3"
+					}
+				},
+				"teal": {
+					"100": {
+						"$type": "color",
+						"$value": "#F3F9F7"
+					},
+					"150": {
+						"$type": "color",
+						"$value": "#EEF7F9"
+					},
+					"200": {
+						"$type": "color",
+						"$value": "#C5DFE3"
+					},
+					"300": {
+						"$type": "color",
+						"$value": "#9EC9D2"
+					},
+					"400": {
+						"$type": "color",
+						"$value": "#568B9B"
+					},
+					"500": {
+						"$type": "color",
+						"$value": "#447D8F"
+					},
+					"600": {
+						"$type": "color",
+						"$value": "#416881"
+					},
+					"700": {
+						"$type": "color",
+						"$value": "#36566A"
+					},
+					"800": {
+						"$type": "color",
+						"$value": "#2D485A"
+					},
+					"900": {
+						"$type": "color",
+						"$value": "#203340"
+					},
+					"050": {
+						"$type": "color",
+						"$value": "#FFFEFC"
+					}
+				},
+				"green": {
+					"100": {
+						"$type": "color",
+						"$value": "#d0fbe9"
+					},
+					"150": {
+						"$type": "color",
+						"$value": "#a4f6d9"
+					},
+					"200": {
+						"$type": "color",
+						"$value": "#6aebc5"
+					},
+					"300": {
+						"$type": "color",
+						"$value": "#2fd8ac"
+					},
+					"400": {
+						"$type": "color",
+						"$value": "#0abf96"
+					},
+					"500": {
+						"$type": "color",
+						"$value": "#009b7b"
+					},
+					"600": {
+						"$type": "color",
+						"$value": "#007a64"
+					},
+					"700": {
+						"$type": "color",
+						"$value": "#036251"
+					},
+					"800": {
+						"$type": "color",
+						"$value": "#045044"
+					},
+					"900": {
+						"$type": "color",
+						"$value": "#012d28"
+					},
+					"050": {
+						"$type": "color",
+						"$value": "#ebfef7"
+					}
+				},
+				"orange": {
+					"100": {
+						"$type": "color",
+						"$value": "#ffe7d4"
+					},
+					"150": {
+						"$type": "color",
+						"$value": "#ffcba8"
+					},
+					"200": {
+						"$type": "color",
+						"$value": "#ffa671"
+					},
+					"300": {
+						"$type": "color",
+						"$value": "#ff8650"
+					},
+					"400": {
+						"$type": "color",
+						"$value": "#fe5011"
+					},
+					"500": {
+						"$type": "color",
+						"$value": "#ef3607"
+					},
+					"600": {
+						"$type": "color",
+						"$value": "#c62408"
+					},
+					"700": {
+						"$type": "color",
+						"$value": "#9d1f0f"
+					},
+					"800": {
+						"$type": "color",
+						"$value": "#7e1c10"
+					},
+					"900": {
+						"$type": "color",
+						"$value": "#440a06"
+					},
+					"050": {
+						"$type": "color",
+						"$value": "#fff4ed"
+					}
+				},
+				"purple": {
+					"100": {
+						"$type": "color",
+						"$value": "#ece7ff"
+					},
+					"150": {
+						"$type": "color",
+						"$value": "#d9d2ff"
+					},
+					"200": {
+						"$type": "color",
+						"$value": "#bfaeff"
+					},
+					"300": {
+						"$type": "color",
+						"$value": "#9f80ff"
+					},
+					"400": {
+						"$type": "color",
+						"$value": "#824dff"
+					},
+					"500": {
+						"$type": "color",
+						"$value": "#7b33ff"
+					},
+					"600": {
+						"$type": "color",
+						"$value": "#6616eb"
+					},
+					"700": {
+						"$type": "color",
+						"$value": "#5512c5"
+					},
+					"800": {
+						"$type": "color",
+						"$value": "#4711a1"
+					},
+					"900": {
+						"$type": "color",
+						"$value": "#29076e"
+					},
+					"050": {
+						"$type": "color",
+						"$value": "#f4f2ff"
+					}
+				},
+				"yellow": {
+					"100": {
+						"$type": "color",
+						"$value": "#faeec7"
+					},
+					"150": {
+						"$type": "color",
+						"$value": "#f6da92"
+					},
+					"200": {
+						"$type": "color",
+						"$value": "#efb63f"
+					},
+					"300": {
+						"$type": "color",
+						"$value": "#eba224"
+					},
+					"400": {
+						"$type": "color",
+						"$value": "#db8b17"
+					},
+					"500": {
+						"$type": "color",
+						"$value": "#bd6911"
+					},
+					"600": {
+						"$type": "color",
+						"$value": "#974a11"
+					},
+					"700": {
+						"$type": "color",
+						"$value": "#7d3c16"
+					},
+					"800": {
+						"$type": "color",
+						"$value": "#6b3118"
+					},
+					"900": {
+						"$type": "color",
+						"$value": "#3e180a"
+					},
+					"050": {
+						"$type": "color",
+						"$value": "#fdf8e9"
+					}
+				}
+			},
+			"skeleton": {
+				"plain": {
+					"$type": "color",
+					"$value": "{neon.color.palette.grey.100}",
+					"$description": "Use for skeleton loading states."
+				},
+				"subtle": {
+					"$type": "color",
+					"$value": "{neon.color.palette.grey.050}",
+					"$description": "Use for the pulse or shimmer effect in skeleton loading states."
+				}
+			},
+			"background": {
+				"bold": {
+					"$type": "color",
+					"$value": "{neon.color.border.bold}",
+					"$description": "Use for backgrounds of elements in a neutral state that require a bold emphasis or a minimum color contrast of 3:1, such as switch backgrounds."
+				},
+				"info": {
+					"bold": {
+						"$type": "color",
+						"$value": "{neon.color.background.accent.teal.bold}",
+						"$description": "Use for the background of actions with bold emphasis related to informative messages."
+					},
+					"subtle": {
+						"$type": "color",
+						"$value": "{neon.color.background.accent.teal.subtle}",
+						"$description": "A subtle background for informative messages."
+					},
+					"subtlest": {
+						"$type": "color",
+						"$value": "{neon.color.background.accent.teal.subtlest}",
+						"$description": "The subtlest background for informative messages."
+					},
+					"interactive": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.background.accent.teal.interactive.bold}",
+							"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+						},
+						"plain": {
+							"$type": "color",
+							"$value": "{neon.color.background.accent.teal.interactive.plain}",
+							"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+						}
+					}
+				},
+				"input": {
+					"plain": {
+						"$type": "color",
+						"$value": "{neon.color.palette.grey.000}",
+						"$description": "Use for backgrounds of form UI elements, such as text fields, checkboxes, and radio buttons."
+					},
+					"interactive": {
+						"$type": "color",
+						"$value": "{neon.color.background.accent.blue.interactive.plain}",
+						"$description": "Used as transparent layer on top of the input background to indicate the hover state."
+					}
+				},
+				"accent": {
+					"red": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.palette.red.500}",
+							"$description": "A vibrant red background option, applied purely for stylistic purposes without specific meaning."
+						},
+						"subtle": {
+							"$type": "color",
+							"$value": "rgba({neon.color.palette.red.400}, {neon.opacity.subtle})",
+							"$description": "A subtle red background option in idle state, applied purely for stylistic purposes without specific meaning."
+						},
+						"subtlest": {
+							"$type": "color",
+							"$value": "rgba( {neon.color.palette.red.400}, {neon.opacity.subtlest})",
+							"$description": "The subtlest red background option for interactive elements, applied purely for stylistic purposes without specific meaning."
+						},
+						"interactive": {
+							"bold": {
+								"$type": "color",
+								"$value": "{neon.color.palette.red.900}",
+								"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+							},
+							"plain": {
+								"$type": "color",
+								"$value": "{neon.color.palette.red.400}",
+								"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+							}
+						}
+					},
+					"blue": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.palette.blue.600}",
+							"$description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
+						},
+						"subtle": {
+							"$type": "color",
+							"$value": "{neon.color.palette.blue.100}",
+							"$description": "A subtle blue background option in idle state, applied purely for stylistic purposes without specific meaning."
+						},
+						"subtlest": {
+							"$type": "color",
+							"$value": "{neon.color.palette.blue.050}",
+							"$description": "The subtlest blue background option for interactive elements, applied purely for stylistic purposes without specific meaning."
+						},
+						"interactive": {
+							"bold": {
+								"$type": "color",
+								"$value": "{neon.color.palette.blue.800}",
+								"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+							},
+							"plain": {
+								"$type": "color",
+								"$value": "{neon.color.palette.blue.200}",
+								"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+							}
+						}
+					},
+					"grey": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.palette.grey.150}",
+							"$description": "A vibrant grey background option, applied purely for stylistic purposes without specific meaning."
+						},
+						"subtle": {
+							"$type": "color",
+							"$value": "rgba({neon.color.palette.grey.300}, {neon.opacity.subtle})",
+							"$description": "A subtle grey background option in idle state, applied purely for stylistic purposes without specific meaning."
+						},
+						"subtlest": {
+							"$type": "color",
+							"$value": "rgba( {neon.color.palette.grey.700}, {neon.opacity.subtlest})",
+							"$description": "The subtlest grey background option for interactive elements, applied purely for stylistic purposes without specific meaning."
+						},
+						"interactive": {
+							"bold": {
+								"$type": "color",
+								"$value": "{neon.color.palette.grey.800}",
+								"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+							},
+							"plain": {
+								"$type": "color",
+								"$value": "{neon.color.palette.grey.200}",
+								"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+							}
+						}
+					},
+					"teal": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.palette.teal.500}",
+							"$description": "A vibrant teal background option, applied purely for stylistic purposes without specific meaning."
+						},
+						"subtle": {
+							"$type": "color",
+							"$value": "rgba({neon.color.palette.teal.400}, {neon.opacity.subtle})",
+							"$description": "A subtle teal background option in idle state, applied purely for stylistic purposes without specific meaning."
+						},
+						"subtlest": {
+							"$type": "color",
+							"$value": "rgba( {neon.color.palette.teal.400}, {neon.opacity.subtlest})",
+							"$description": "The subtlest teal background option for interactive elements, applied purely for stylistic purposes without specific meaning."
+						},
+						"interactive": {
+							"bold": {
+								"$type": "color",
+								"$value": "{neon.color.palette.teal.900}",
+								"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+							},
+							"plain": {
+								"$type": "color",
+								"$value": "{neon.color.palette.teal.400}",
+								"$description": "Used as transparent layer on top of the subtlest and subtle background to indicate the hover and pressed state."
+							}
+						}
+					},
+					"green": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.palette.green.600}",
+							"$description": "A vibrant green background option, applied purely for stylistic purposes without specific meaning."
+						},
+						"subtle": {
+							"$type": "color",
+							"$value": "rgba({neon.color.palette.green.400}, {neon.opacity.subtle})",
+							"$description": "A subtle green background option in idle state, applied purely for stylistic purposes without specific meaning."
+						},
+						"subtlest": {
+							"$type": "color",
+							"$value": "rgba( {neon.color.palette.green.400}, {neon.opacity.subtlest})",
+							"$description": "The subtlest green background option for interactive elements, applied purely for stylistic purposes without specific meaning."
+						},
+						"interactive": {
+							"bold": {
+								"$type": "color",
+								"$value": "{neon.color.palette.green.900}",
+								"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+							},
+							"plain": {
+								"$type": "color",
+								"$value": "{neon.color.palette.green.400}",
+								"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+							}
+						}
+					},
+					"orange": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.palette.orange.600}",
+							"$description": "A vibrant orange background option, applied purely for stylistic purposes without specific meaning."
+						},
+						"subtle": {
+							"$type": "color",
+							"$value": "rgba({neon.color.palette.orange.400}, {neon.opacity.subtle})",
+							"$description": "A subtle orange background option in idle state, applied purely for stylistic purposes without specific meaning."
+						},
+						"subtlest": {
+							"$type": "color",
+							"$value": "rgba( {neon.color.palette.orange.400}, {neon.opacity.subtlest})",
+							"$description": "The subtlest orange background option for interactive elements, applied purely for stylistic purposes without specific meaning."
+						},
+						"interactive": {
+							"bold": {
+								"$type": "color",
+								"$value": "{neon.color.palette.orange.900}",
+								"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+							},
+							"plain": {
+								"$type": "color",
+								"$value": "{neon.color.palette.orange.400}",
+								"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+							}
+						}
+					},
+					"purple": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.palette.purple.600}",
+							"$description": "A vibrant purple background option, applied purely for stylistic purposes without specific meaning."
+						},
+						"subtle": {
+							"$type": "color",
+							"$value": "rgba({neon.color.palette.purple.400}, {neon.opacity.subtle})",
+							"$description": "A subtle purple background option in idle state, applied purely for stylistic purposes without specific meaning."
+						},
+						"subtlest": {
+							"$type": "color",
+							"$value": "rgba( {neon.color.palette.purple.400}, {neon.opacity.subtlest})",
+							"$description": "The subtlest purple background option for interactive elements, applied purely for stylistic purposes without specific meaning."
+						},
+						"interactive": {
+							"bold": {
+								"$type": "color",
+								"$value": "{neon.color.palette.purple.900}",
+								"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+							},
+							"plain": {
+								"$type": "color",
+								"$value": "{neon.color.palette.purple.400}",
+								"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+							}
+						}
+					},
+					"yellow": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.palette.yellow.400}",
+							"$description": "A vibrant yellow background option, applied purely for stylistic purposes without specific meaning."
+						},
+						"subtle": {
+							"$type": "color",
+							"$value": "rgba({neon.color.palette.yellow.400}, {neon.opacity.subtle})",
+							"$description": "A subtle yellow background option in idle state, applied purely for stylistic purposes without specific meaning."
+						},
+						"subtlest": {
+							"$type": "color",
+							"$value": "rgba( {neon.color.palette.yellow.400}, {neon.opacity.subtlest})",
+							"$description": "The subtlest yellow background option for interactive elements, applied purely for stylistic purposes without specific meaning."
+						},
+						"interactive": {
+							"bold": {
+								"$type": "color",
+								"$value": "{neon.color.palette.yellow.800}",
+								"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+							},
+							"plain": {
+								"$type": "color",
+								"$value": "{neon.color.palette.yellow.400}",
+								"$description": "Used as transparent layer on top of the subtlest and subtle background to indicate the hover and pressed state."
+							}
+						}
+					}
+				},
+				"subtle": {
+					"$type": "color",
+					"$value": "{neon.color.background.accent.grey.subtle}",
+					"$description": "Use for backgrounds of elements in a neutral state with subtle emphasis."
+				},
+				"caution": {
+					"bold": {
+						"$type": "color",
+						"$value": "{neon.color.background.accent.orange.bold}",
+						"$description": "Use for the background of actions with bold emphasis related to messages that communicate caution."
+					},
+					"subtle": {
+						"$type": "color",
+						"$value": "{neon.color.background.accent.orange.subtle}",
+						"$description": "A subtle background option to communicate caution to prevent errors."
+					},
+					"subtlest": {
+						"$type": "color",
+						"$value": "{neon.color.background.accent.orange.subtlest}",
+						"$description": "The subtlest background option to communicate caution to prevent errors."
+					},
+					"interactive": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.background.accent.orange.interactive.bold}",
+							"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+						},
+						"plain": {
+							"$type": "color",
+							"$value": "{neon.color.background.accent.orange.interactive.plain}",
+							"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+						}
+					}
+				},
+				"neutral": {
+					"bold": {
+						"$type": "color",
+						"$value": "{neon.color.palette.grey.050}",
+						"$description": "A vibrant background option used for neutral actions."
+					},
+					"subtle": {
+						"$type": "color",
+						"$value": "{neon.color.background.accent.grey.subtle}",
+						"$description": "A subtle background in the neutral action color."
+					},
+					"subtlest": {
+						"$type": "color",
+						"$value": "{neon.color.background.accent.grey.subtlest}",
+						"$description": "The subtlest background in the neutral action color."
+					},
+					"interactive": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.background.accent.grey.interactive.bold}",
+							"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+						},
+						"plain": {
+							"$type": "color",
+							"$value": "{neon.color.background.accent.grey.interactive.plain}",
+							"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+						}
+					}
+				},
+				"primary": {
+					"bold": {
+						"$type": "color",
+						"$value": "{neon.color.background.accent.blue.bold}",
+						"$description": "A vibrant background option used for primary actions."
+					},
+					"subtle": {
+						"$type": "color",
+						"$value": "{neon.color.background.accent.blue.subtle}",
+						"$description": "A subtle background in the primary action color."
+					},
+					"subtlest": {
+						"$type": "color",
+						"$value": "{neon.color.background.accent.blue.subtlest}",
+						"$description": "The subtlest background in the primary action color."
+					},
+					"interactive": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.background.accent.blue.interactive.plain}",
+							"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+						},
+						"plain": {
+							"$type": "color",
+							"$value": "{neon.color.palette.blue.300}",
+							"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+						}
+					}
+				},
+				"disabled": {
+					"$type": "color",
+					"$value": "{neon.color.palette.grey.100}",
+					"$description": "Use for backgrounds of elements in disabled state."
+				},
+				"inverted": {
+					"bold": {
+						"$type": "color",
+						"$value": "{neon.color.palette.grey.000}",
+						"$description": "A solid inverted background option."
+					},
+					"subtle": {
+						"$type": "color",
+						"$value": "rgba({neon.color.palette.grey.000}, {neon.opacity.subtle})",
+						"$description": "A subtle inverted background option."
+					},
+					"subtlest": {
+						"$type": "color",
+						"$value": "rgba( {neon.color.palette.grey.000}, {neon.opacity.subtlest})",
+						"$description": "The subtlest inverted background option."
+					},
+					"interactive": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.palette.grey.600}",
+							"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+						},
+						"plain": {
+							"$type": "color",
+							"$value": "{neon.color.palette.grey.100}",
+							"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+						}
+					}
+				},
+				"negative": {
+					"bold": {
+						"$type": "color",
+						"$value": "{neon.color.background.accent.red.bold}",
+						"$description": "Use for the background of actions with bold emphasis related to messages that communicate negative or serious error states (e.g., validation errors or irreversible actions)."
+					},
+					"subtle": {
+						"$type": "color",
+						"$value": "{neon.color.background.accent.red.subtle}",
+						"$description": "A subtle background option to communicate negative or serious error states (e.g., validation errors or irreversible actions)."
+					},
+					"subtlest": {
+						"$type": "color",
+						"$value": "{neon.color.background.accent.red.subtlest}",
+						"$description": "The subtlest background option to communicate negative or serious error states (e.g., validation errors or irreversible actions)."
+					},
+					"interactive": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.background.accent.red.interactive.bold}",
+							"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+						},
+						"plain": {
+							"$type": "color",
+							"$value": "{neon.color.background.accent.red.interactive.plain}",
+							"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+						}
+					}
+				},
+				"positive": {
+					"bold": {
+						"$type": "color",
+						"$value": "{neon.color.background.accent.green.bold}",
+						"$description": "Use for the background of actions with bold emphasis related to messages that communicate a positive outcome."
+					},
+					"subtle": {
+						"$type": "color",
+						"$value": "{neon.color.background.accent.green.subtle}",
+						"$description": "A subtle background option for communicating a positive outcome."
+					},
+					"subtlest": {
+						"$type": "color",
+						"$value": "{neon.color.background.accent.green.subtlest}",
+						"$description": "The subtlest background option for communicating a positive outcome."
+					},
+					"interactive": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.background.accent.green.interactive.bold}",
+							"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+						},
+						"plain": {
+							"$type": "color",
+							"$value": "{neon.color.background.accent.green.interactive.plain}",
+							"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+						}
+					}
+				},
+				"selected": {
+					"bold": {
+						"$type": "color",
+						"$value": "{neon.color.background.accent.teal.bold}",
+						"$description": "Use for backgrounds of elements in selected state with bold emphasis, such as in opened dropdowns."
+					},
+					"subtle": {
+						"$type": "color",
+						"$value": "{neon.color.background.accent.teal.subtle}",
+						"$description": "Use for backgrounds of elements in selected state with subtle emphasis, such as in opened dropdowns."
+					},
+					"subtlest": {
+						"$type": "color",
+						"$value": "{neon.color.background.accent.teal.subtlest}",
+						"$description": "The subtlest background in the primary action color."
+					},
+					"interactive": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.background.accent.teal.interactive.bold}",
+							"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+						},
+						"plain": {
+							"$type": "color",
+							"$value": "{neon.color.background.accent.teal.interactive.plain}",
+							"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+						}
+					}
+				},
+				"secondary": {
+					"bold": {
+						"$type": "color",
+						"$value": "{neon.color.palette.blue.100}",
+						"$description": "A vibrant background option used for secondary actions."
+					},
+					"subtle": {
+						"$type": "color",
+						"$value": "{neon.color.background.accent.blue.subtle}",
+						"$description": "A subtle background in the secondary action color."
+					},
+					"subtlest": {
+						"$type": "color",
+						"$value": "{neon.color.background.accent.blue.subtlest}",
+						"$description": "The subtlest background in the secondary action color."
+					},
+					"interactive": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.palette.blue.400}",
+							"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+						},
+						"plain": {
+							"$type": "color",
+							"$value": "{neon.color.background.accent.blue.interactive.plain}",
+							"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+						}
+					}
+				},
+				"interactive": {
+					"bold": {
+						"$type": "color",
+						"$value": "{neon.color.background.accent.blue.interactive.bold}",
+						"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+					},
+					"plain": {
+						"$type": "color",
+						"$value": "{neon.color.background.accent.teal.interactive.plain}",
+						"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+					}
+				}
+			},
+			"foreground": {
+				"bold": {
+					"$type": "color",
+					"$value": "{neon.color.foreground.accent.grey.bold}",
+					"$description": "Use for headers."
+				},
+				"info": {
+					"bold": {
+						"$type": "color",
+						"$value": "{neon.color.foreground.accent.teal.bold}",
+						"$description": "Use for text that communicates informative messages the user needs to be aware of on info backgrounds, such as 'color.background.info.muted' and 'color.background.info.subtle'."
+					},
+					"plain": {
+						"$type": "color",
+						"$value": "{neon.color.foreground.accent.teal.plain}",
+						"$description": "Use for text that communicates informative messages the user needs to be aware of on neutral backgrounds."
+					},
+					"onBold": {
+						"$type": "color",
+						"$value": "{neon.color.foreground.accent.teal.onBold}",
+						"$description": "Use for text that communicates informative messages the user needs to be aware of on info backgrounds, such as 'color.background.info.bold'."
+					}
+				},
+				"brand": {
+					"$type": "color",
+					"$value": "{neon.color.palette.blue.800}",
+					"$description": "Use for non-interactive brand-reinforcing text."
+				},
+				"plain": {
+					"$type": "color",
+					"$value": "{neon.color.foreground.accent.grey.plain}",
+					"$description": "Use for body copy and menu items."
+				},
+				"accent": {
+					"red": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.palette.red.600}",
+							"$description": "Use for red text on 'color.background.accent.red.muted' or 'color.background.accent.red.subtle', when used purely for stylistic purposes without specific meaning."
+						},
+						"plain": {
+							"$type": "color",
+							"$value": "{neon.color.palette.red.500}",
+							"$description": "Use for red text on neutral backgrounds for purely stylistic purposes with no specific meaning."
+						},
+						"onBold": {
+							"$type": "color",
+							"$value": "{neon.color.foreground.inverted.plain}",
+							"$description": "Use for text on 'color.background.accent.red.bold', when used purely for stylistic purposes without specific meaning."
+						}
+					},
+					"blue": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.palette.blue.600}",
+							"$description": "Use for blue text on 'color.background.accent.blue.muted' or 'color.background.accent.blue.subtle', when used purely for stylistic purposes without specific meaning."
+						},
+						"plain": {
+							"$type": "color",
+							"$value": "{neon.color.palette.blue.600}",
+							"$description": "Use for blue text on neutral backgrounds for purely stylistic purposes with no specific meaning."
+						},
+						"onBold": {
+							"$type": "color",
+							"$value": "{neon.color.foreground.inverted.plain}",
+							"$description": "Use for text on 'color.background.accent.blue.bold', when used purely for stylistic purposes without specific meaning."
+						}
+					},
+					"grey": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.palette.grey.900}",
+							"$description": "Use for bold grey text for purely stylistic purposes with no specific meaning."
+						},
+						"faint": {
+							"$type": "color",
+							"$value": "{neon.color.palette.grey.300}",
+							"$description": "Use for faint text on neutral backgrounds, providing low contrast. Not intended for primary content, as it does not meet WCAG 2.2 AA contrast requirements. Use sparingly where accessibility isn't a critical concern."
+						},
+						"plain": {
+							"$type": "color",
+							"$value": "{neon.color.palette.grey.700}",
+							"$description": "Use for plain grey text for purely stylistic purposes with no specific meaning."
+						},
+						"onBold": {
+							"$type": "color",
+							"$value": "{neon.color.foreground.bold}",
+							"$description": "Use for text on 'color.background.accent.grey.bold', when used purely for stylistic purposes without specific meaning."
+						},
+						"subtle": {
+							"$type": "color",
+							"$value": "{neon.color.palette.grey.600}",
+							"$description": "Use for subtle grey text for purely stylistic purposes with no specific meaning."
+						},
+						"subtlest": {
+							"$type": "color",
+							"$value": "{neon.color.palette.grey.500}",
+							"$description": "Use for muted grey text for purely stylistic purposes with no specific meaning."
+						},
+						"onInverted": {
+							"$type": "color",
+							"$value": "{neon.color.foreground.bold}",
+							"$description": "Use for text on 'color.background.inverted', when used purely for stylistic purposes without specific meaning."
+						}
+					},
+					"teal": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.palette.teal.600}",
+							"$description": "Use for teal text on 'color.background.accent.teal.muted' or 'color.background.accent.teal.subtle', when used purely for stylistic purposes without specific meaning."
+						},
+						"plain": {
+							"$type": "color",
+							"$value": "{neon.color.palette.teal.500}",
+							"$description": "Use for teal text on neutral backgrounds for purely stylistic purposes with no specific meaning."
+						},
+						"onBold": {
+							"$type": "color",
+							"$value": "{neon.color.foreground.inverted.plain}",
+							"$description": "Use for text on 'color.background.accent.blue.bold', when used purely for stylistic purposes without specific meaning."
+						}
+					},
+					"green": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.palette.green.700}",
+							"$description": "Use for green text on 'color.background.accent.green.muted' or 'color.background.accent.green.subtle', when used purely for stylistic purposes without specific meaning."
+						},
+						"plain": {
+							"$type": "color",
+							"$value": "{neon.color.palette.green.600}",
+							"$description": "Use for green text on neutral backgrounds for purely stylistic purposes with no specific meaning."
+						},
+						"onBold": {
+							"$type": "color",
+							"$value": "{neon.color.foreground.inverted.plain}",
+							"$description": "Use for text on 'color.background.accent.green.bold', when used purely for stylistic purposes without specific meaning."
+						}
+					},
+					"orange": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.palette.orange.700}",
+							"$description": "Use for orange text on 'color.background.accent.orange.muted' or 'color.background.accent.orange.subtle', when used purely for stylistic purposes without specific meaning."
+						},
+						"plain": {
+							"$type": "color",
+							"$value": "{neon.color.palette.orange.600}",
+							"$description": "Use for orange text on neutral backgrounds for purely stylistic purposes with no specific meaning."
+						},
+						"onBold": {
+							"$type": "color",
+							"$value": "{neon.color.foreground.inverted.plain}",
+							"$description": "Use for text on 'color.background.accent.orange.bold', when used purely for stylistic purposes without specific meaning."
+						}
+					},
+					"purple": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.palette.purple.600}",
+							"$description": "Use for purple text on 'color.background.accent.purple.muted' or 'color.background.accent.purple.subtle', when used purely for stylistic purposes without specific meaning."
+						},
+						"plain": {
+							"$type": "color",
+							"$value": "{neon.color.palette.purple.500}",
+							"$description": "Use for purple text on neutral backgrounds for purely stylistic purposes with no specific meaning."
+						},
+						"onBold": {
+							"$type": "color",
+							"$value": "{neon.color.foreground.inverted.plain}",
+							"$description": "Use for text on 'color.background.accent.purple.bold', when used purely for stylistic purposes without specific meaning."
+						}
+					},
+					"yellow": {
+						"bold": {
+							"$type": "color",
+							"$value": "{neon.color.palette.yellow.600}",
+							"$description": "Use for yellow text on 'color.background.accent.yellow.muted' or 'color.background.accent.yellow.subtle', when used purely for stylistic purposes without specific meaning."
+						},
+						"plain": {
+							"$type": "color",
+							"$value": "{neon.color.palette.yellow.600}",
+							"$description": "Use for yellow text on neutral backgrounds for purely stylistic purposes with no specific meaning."
+						},
+						"onBold": {
+							"$type": "color",
+							"$value": "{neon.color.foreground.bold}",
+							"$description": "Use for text on 'color.background.accent.yellow.bold', when used purely for stylistic purposes without specific meaning."
+						}
+					}
+				},
+				"subtle": {
+					"$type": "color",
+					"$value": "{neon.color.foreground.accent.grey.subtle}",
+					"$description": "Use for labels and subheadings."
+				},
+				"caution": {
+					"bold": {
+						"$type": "color",
+						"$value": "{neon.color.foreground.accent.orange.bold}",
+						"$description": "Use for text that communicates caution to prevent mistakes or errors on caution backgrounds, such as 'color.background.caution.muted', and 'color.background.caution.subtle'."
+					},
+					"plain": {
+						"$type": "color",
+						"$value": "{neon.color.foreground.accent.orange.plain}",
+						"$description": "Use for text that communicates caution to prevent mistakes or errors on neutral backgrounds."
+					},
+					"onBold": {
+						"$type": "color",
+						"$value": "{neon.color.foreground.accent.orange.onBold}",
+						"$description": "Use for text that communicates caution to prevent mistakes or errors on 'color.background.caution.bold'."
+					}
+				},
+				"neutral": {
+					"bold": {
+						"$type": "color",
+						"$value": "{neon.color.foreground.accent.grey.bold}",
+						"$description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
+					},
+					"plain": {
+						"$type": "color",
+						"$value": "{neon.color.foreground.accent.grey.subtlest}",
+						"$description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
+					},
+					"onBold": {
+						"$type": "color",
+						"$value": "{neon.color.foreground.accent.grey.onBold}",
+						"$description": "Use for neutral actions on 'color.background.neutral.bold'"
+					}
+				},
+				"primary": {
+					"bold": {
+						"$type": "color",
+						"$value": "{neon.color.palette.blue.800}",
+						"$description": "Use for primary actions on 'color.background.primary.muted' and 'color.background.primary.subtle'."
+					},
+					"onBold": {
+						"$type": "color",
+						"$value": "{neon.color.foreground.accent.blue.onBold}",
+						"$description": "Use for primary actions on 'color.background.primary.bold'"
+					}
+				},
+				"disabled": {
+					"$type": "color",
+					"$value": "{neon.color.palette.grey.200}",
+					"$description": "Use for text in a disabled state."
+				},
+				"inverted": {
+					"bold": {
+						"$type": "color",
+						"$value": "{neon.color.palette.grey.000}",
+						"$description": "Use for inverted text on 'color.background.inverted.subtlest', and 'color.background.inverted.subtle'."
+					},
+					"plain": {
+						"$type": "color",
+						"$value": "{neon.color.palette.grey.000}",
+						"$description": "Use for plain inverted text."
+					},
+					"onBold": {
+						"$type": "color",
+						"$value": "{neon.color.palette.grey.900}",
+						"$description": "Use for inverted text on 'color.background.inverted.bold'."
+					}
+				},
+				"negative": {
+					"bold": {
+						"$type": "color",
+						"$value": "{neon.color.foreground.accent.red.bold}",
+						"$description": "Use for text that communicates negative or serious error states (e.g., validation errors or irreversible actions) on 'color.background.negative.muted', and 'color.background.negative.subtle'."
+					},
+					"plain": {
+						"$type": "color",
+						"$value": "{neon.color.foreground.accent.red.plain}",
+						"$description": "Use for text that communicates negative or serious error states (e.g., validation errors or irreversible actions) on neutral backgrounds."
+					},
+					"onBold": {
+						"$type": "color",
+						"$value": "{neon.color.foreground.accent.red.onBold}",
+						"$description": "Use for text that communicates negative or serious error states (e.g., validation errors or irreversible actions) on 'color.background.negative.bold'."
+					}
+				},
+				"positive": {
+					"bold": {
+						"$type": "color",
+						"$value": "{neon.color.foreground.accent.green.bold}",
+						"$description": "Use for text that communicates a favorable outcome on positive backgrounds, such as 'color.background.positive.muted', and 'color.background.positive.subtle'."
+					},
+					"plain": {
+						"$type": "color",
+						"$value": "{neon.color.foreground.accent.green.plain}",
+						"$description": "Use for text that communicates a favorable outcome on neutral backgrounds.'"
+					},
+					"onBold": {
+						"$type": "color",
+						"$value": "{neon.color.foreground.accent.green.onBold}",
+						"$description": "Use for text that communicates a favorable outcome on positive backgrounds, such as 'color.background.positive.bold'."
+					}
+				},
+				"selected": {
+					"bold": {
+						"$type": "color",
+						"$value": "{neon.color.foreground.accent.teal.bold}",
+						"$description": "Use for text in selected states (e.g., tabs or menu items)."
+					},
+					"plain": {
+						"$type": "color",
+						"$value": "{neon.color.foreground.accent.teal.plain}",
+						"$description": "Used as selected foreground color on white backgrounds."
+					},
+					"onBold": {
+						"$type": "color",
+						"$value": "{neon.color.foreground.accent.teal.onBold}",
+						"$description": "Use for text in selected states (e.g., tabs or menu items)."
+					}
+				},
+				"subtlest": {
+					"$type": "color",
+					"$value": "{neon.color.foreground.accent.grey.subtlest}",
+					"$description": "Use for placeholders and hints."
+				},
+				"secondary": {
+					"bold": {
+						"$type": "color",
+						"$value": "{neon.color.palette.blue.400}",
+						"$description": "Use for secondary actions on 'color.background.secondary.muted' and 'color.background.secondary.subtle'."
+					},
+					"onBold": {
+						"$type": "color",
+						"$value": "{neon.color.palette.blue.800}",
+						"$description": "Use for secondary actions on 'color.background.secondary.bold'"
+					}
+				}
+			}
+		},
+		"opacity": {
+			"bold": {
+				"$type": "opacity",
+				"$value": "100%"
+			},
+			"muted": {
+				"$type": "opacity",
+				"$value": "0%"
+			},
+			"subtle": {
+				"$type": "opacity",
+				"$value": "20%"
+			},
+			"moderate": {
+				"$type": "opacity",
+				"$value": "80%"
+			},
+			"subtlest": {
+				"$type": "opacity",
+				"$value": "10%"
+			},
+			"interactive": {
+				"bold": {
+					"idle": {
+						"$type": "opacity",
+						"$value": "0%"
+					},
+					"hover": {
+						"$type": "opacity",
+						"$value": "20%"
+					},
+					"active": {
+						"$type": "opacity",
+						"$value": "40%"
+					}
+				},
+				"plain": {
+					"idle": {
+						"$type": "opacity",
+						"$value": "0%"
+					},
+					"hover": {
+						"$type": "opacity",
+						"$value": "15%"
+					},
+					"active": {
+						"$type": "opacity",
+						"$value": "25%"
+					}
+				},
+				"reversed": {
+					"idle": {
+						"$type": "opacity",
+						"$value": "80%"
+					},
+					"hover": {
+						"$type": "opacity",
+						"$value": "90%"
+					},
+					"active": {
+						"$type": "opacity",
+						"$value": "100%"
+					}
+				}
+			}
+		},
+		"elevation": {
+			"surface": {
+				"base": {
+					"default": {
+						"$type": "color",
+						"$value": "{neon.color.palette.grey.000}",
+						"$description": "The default, flat surface level. Used for primary content backgrounds or non-interactive UI regions."
+					}
+				},
+				"raised": {
+					"sunken": {
+						"$type": "color",
+						"$value": "{neon.color.palette.grey.050}",
+						"$description": "Background for components that create a sunken effect, typically used for grouping related items."
+					},
+					"default": {
+						"$type": "color",
+						"$value": "{neon.color.palette.grey.000}",
+						"$description": "Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
+					},
+					"inverted": {
+						"$type": "color",
+						"$value": "{neon.color.palette.grey.900}",
+						"$description": "Background of elevated components with an inverted background color like tooltips that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
+					},
+					"alternative": {
+						"$type": "color",
+						"$value": "{neon.color.palette.grey.100}",
+						"$description": "An alternate surface color used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
+					}
+				},
+				"shadow": {
+					"$type": "color",
+					"$value": "{neon.color.palette.grey.900}",
+					"$description": "Used as color for shadows."
+				}
+			}
+		},
+		"theme-name": {
+			"$type": "text",
+			"$value": "Neon Light",
+			"$description": ""
+		}
+	}
 }

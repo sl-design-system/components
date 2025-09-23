@@ -366,6 +366,11 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
       } else {
         this.#selection.add(item.id);
       }
+
+      // If all items have been manually deselected, turn off select all mode
+      if (this.#selection.size === this.size) {
+        this.deselectAll(false);
+      }
     } else {
       if (item.type === 'group') {
         this.#groupSelection.delete(item.id);
@@ -433,23 +438,29 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
   }
 
   /** Selects all items in the data source. */
-  selectAll(): void {
+  selectAll(update = true): void {
     if (this.#selects !== 'multiple') {
       return;
     }
 
     this.#selectAll = true;
     this.#selection.clear();
+    this.#groupSelection.clear();
 
-    this.dispatchEvent(new CustomEvent('sl-selection-change'));
+    if (update) {
+      this.dispatchEvent(new CustomEvent('sl-selection-change'));
+    }
   }
 
   /** Deselects all items in the data source. */
-  deselectAll(): void {
+  deselectAll(update = true): void {
     this.#selectAll = false;
     this.#selection.clear();
+    this.#groupSelection.clear();
 
-    this.dispatchEvent(new CustomEvent('sl-selection-change'));
+    if (update) {
+      this.dispatchEvent(new CustomEvent('sl-selection-change'));
+    }
   }
 
   /** Returns whether the "select all" state is active. */

@@ -42,11 +42,6 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
   }
 
   /** @internal */
-  static override get observedAttributes(): string[] {
-    return [...super.observedAttributes, 'aria-label', 'aria-labelledby'];
-  }
-
-  /** @internal */
   static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
   /** @internal */
@@ -69,7 +64,10 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
     return this.#dataSource;
   }
 
-  /** The model for the tree. */
+  /**
+   *  The model for the tree.
+   *  @type {TreeDataSource<T> | undefined}
+   *  */
   @property({ attribute: false })
   set dataSource(dataSource: TreeDataSource<T> | undefined) {
     if (this.#dataSource) {
@@ -88,7 +86,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
    * Use this if you want to wait until lit-virtualizer has finished the rendering
    * the tree nodes. This can be useful in unit tests for example.
    */
-  get layoutComplete() {
+  get layoutComplete(): Promise<void> {
     return this.#virtualizer?.layoutComplete ?? Promise.resolve();
   }
 
@@ -175,6 +173,10 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
     `;
   }
 
+  /**
+   * @internal
+   * Renders a single tree item as a virtualized row.
+   */
   renderItem(item: TreeDataSourceNode<T>): TemplateResult {
     const icon = item.expanded ? item.expandedIcon : item.icon;
 
@@ -217,6 +219,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
     `;
   }
 
+  /** @internal */
   scrollToNode(node: TreeDataSourceNode<T>, options?: ScrollIntoViewOptions): void {
     const index = this.dataSource?.items.indexOf(node) ?? -1;
     if (index !== -1) {

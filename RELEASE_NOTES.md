@@ -4,6 +4,43 @@ This is a collection of release notes for the SL Design System. Each release not
 
 The release notes are ordered by the date the release was made. From latest, to oldest.
 
+# September 17, 2025
+
+## New features
+- [`skeleton`](https://github.com/sl-design-system/components/blob/main/packages/components/skeleton/CHANGELOG.md) has been refactored to use the new contextual tokens.
+- [`tooltip`](https://github.com/sl-design-system/components/blob/main/packages/components/tooltip/CHANGELOG.md) added ability to specify the `ariaRelation` when using the tooltip component.
+
+## Bug fixes
+- [`listbox`](https://github.com/sl-design-system/components/blob/main/packages/components/listbox/CHANGELOG.md) fixes missing border between group and lone option.
+- [`radiogroup`](https://github.com/sl-design-system/components/blob/main/packages/components/radio-group/CHANGELOG.md) fixes issue where the validity did not match the initial group value.
+- [`tabs`](https://github.com/sl-design-system/components/blob/main/packages/components/tabs/CHANGELOG.md) fixes issue selecting a tab when zoomed in was not working correctly in some browsers.
+- [`magister`](https://github.com/sl-design-system/components/blob/main/packages/themes/magister/CHANGELOG.md) various theme improvements.
+
+# September 11, 2025
+
+## New features
+- [`angular`](https://github.com/sl-design-system/components/blob/main/packages/angular/CHANGELOG.md) has new form directives for `<sl-combobox>` and `<sl-number-field>`.
+- [`accordion`](https://github.com/sl-design-system/components/blob/main/packages/components/accordion/CHANGELOG.md) has a new `iconType` property that allows you to use a chevron icon instead of plus/minus. It now also uses contextual tokens for styling.
+- [`avatar`](https://github.com/sl-design-system/components/blob/main/packages/components/avatar/CHANGELOG.md) has new `color`, `emphasis` and `shape` properties for easier customization (similar to `<sl-badge>`).
+- [`form`](https://github.com/sl-design-system/components/blob/main/packages/components/form/CHANGELOG.md) now supports more than 1 form control per field.
+- [`icon`](https://github.com/sl-design-system/components/blob/main/packages/components/icon/CHANGELOG.md) now supports version 7 of Font Awesome.
+- [`text-field`](https://github.com/sl-design-system/components/blob/main/packages/components/text-field/CHANGELOG.md) will now log a warning to the console when used with `type="number"`. Use `<sl-number-field>` instead.
+
+## Bug fixes
+- [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md), [`date-field`](https://github.com/sl-design-system/components/blob/main/packages/components/date-field/CHANGELOG.md), [`menu`](https://github.com/sl-design-system/components/blob/main/packages/components/menu/CHANGELOG.md), [`popover`](https://github.com/sl-design-system/components/blob/main/packages/components/popover/CHANGELOG.md), [`select`](https://github.com/sl-design-system/components/blob/main/packages/components/select/CHANGELOG.md) fixes issue where pressing the escape key would close a parent container (such as a dialog or popover).
+- [`data-source`](https://github.com/sl-design-system/components/blob/main/packages/components/data-source/CHANGELOG.md) fixes issue where a selected group would not be cleared after calling `deselectAll()`.
+- [`data-source`](https://github.com/sl-design-system/components/blob/main/packages/components/data-source/CHANGELOG.md) fixes issue where `FetchListDataSourceError` would be compiled incorrectly using NodeJS types.
+- [`dialog`](https://github.com/sl-design-system/components/blob/main/packages/components/dialog/CHANGELOG.md) fixes various issues related to a dialog unexpectedly closing.
+- [`grid`](https://github.com/sl-design-system/components/blob/main/packages/components/grid/CHANGELOG.md) fixes issue where calling `deselectAll()` on the data source would not cause an update of the grid.
+- [`inline-message`](https://github.com/sl-design-system/components/blob/main/packages/components/inline-message/CHANGELOG.md) removes the slide-up animation due to unexpected behavior in `<sl-dialog>`.
+- [`number-field`](https://github.com/sl-design-system/components/blob/main/packages/components/number-field/CHANGELOG.md) fixes various issues related to validation and input handling.
+- [`radio-group`](https://github.com/sl-design-system/components/blob/main/packages/components/radio-group/CHANGELOG.md) fixes issue where `sl-change` event would be emitted during initial render.
+- [`select`](https://github.com/sl-design-system/components/blob/main/packages/components/select/CHANGELOG.md) fixes various issues related to validation and disabled state.
+- [`tree`](https://github.com/sl-design-system/components/blob/main/packages/components/tree/CHANGELOG.md) fixes transparent background
+- All components have minor styling changes due to the focus indicator
+- All components have bumped the patch version of the `@open-wc/scoped-elements` peer dependency
+- All themes have been updated after moving to Tokens Studio from Figma
+
 # August 6, 2025
 
 ## New features

@@ -1,5 +1,25 @@
 # @sl-design-system/radio-group
 
+## 1.1.6
+
+### Patch Changes
+
+- [#2638](https://github.com/sl-design-system/components/pull/2638) [`5884d0f`](https://github.com/sl-design-system/components/commit/5884d0f609407f0da2591afb2bdf1f8ef7dfd5c6) - Fix bug where radiogroup is invalid even though it has an initial value
+
+  The validity was not updated as part of the `slotchange` handler, causing the radiogroup to be invalid on initial render even though one of the radios was checked. This has been fixed by calling `#updateValueAndValidity` at the end of the `slotchange` handler.
+
+## 1.1.5
+
+### Patch Changes
+
+- [#2481](https://github.com/sl-design-system/components/pull/2481) [`0c4f19b`](https://github.com/sl-design-system/components/commit/0c4f19beb6f66b6cba944c6bc4589252113554fb) - Changed token used for the width of the focusring
+
+- [#2537](https://github.com/sl-design-system/components/pull/2537) [`588dae3`](https://github.com/sl-design-system/components/commit/588dae331fdc6ee20ea1ac25dd020070e2f3e694) - Fix `sl-change` event being emitted during initial render
+
+- Updated dependencies [[`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a), [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`0e2e426`](https://github.com/sl-design-system/components/commit/0e2e426041997a299f3e35bcde499909d62f7ce9), [`5db3329`](https://github.com/sl-design-system/components/commit/5db33293ac0ac53dcb13c607a4df76500eca7141), [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16)]:
+  - @sl-design-system/form@1.3.0
+  - @sl-design-system/shared@0.9.0
+
 ## 1.1.4
 
 ### Patch Changes

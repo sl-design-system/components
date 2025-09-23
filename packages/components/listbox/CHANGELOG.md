@@ -1,5 +1,21 @@
 # @sl-design-system/listbox
 
+## 0.1.5
+
+### Patch Changes
+
+- [#2624](https://github.com/sl-design-system/components/pull/2624) [`6e34fcb`](https://github.com/sl-design-system/components/commit/6e34fcbb1884ab75574b5145560e959dc9ab53f8) - - Adds missing divider between groups and options,
+  - Fixes rendering `sl-option-group-header` only when the label attribute is set.
+
+## 0.1.4
+
+### Patch Changes
+
+- [#2547](https://github.com/sl-design-system/components/pull/2547) [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68) - Bump patch version of `@open-wc/scoped-elements` peer dependency
+
+- Updated dependencies [[`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`29f38d4`](https://github.com/sl-design-system/components/commit/29f38d4a44003f63e20965ed176dfa9bc16851e7)]:
+  - @sl-design-system/icon@1.3.0
+
 ## 0.1.3
 
 ### Patch Changes
@@ -31,7 +47,6 @@
 ### Patch Changes
 
 - [#1632](https://github.com/sl-design-system/components/pull/1632) [`e68df34`](https://github.com/sl-design-system/components/commit/e68df344917a8d0bdc6a4c92f59079a247c6e7a9) - Add ability to render grouped items using lit-virtualizer:
-
   - New `optionGroupPath` property to specify the path to the group name in the option object
   - New `<sl-option-group-header>` component to render the group header
   - Add `items` property for advanced customization of how options are rendered (used in combobox)

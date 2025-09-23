@@ -1,5 +1,26 @@
 # @sl-design-system/tabs
 
+## 1.2.3
+
+### Patch Changes
+
+- [#2616](https://github.com/sl-design-system/components/pull/2616) [`dfb4ed6`](https://github.com/sl-design-system/components/commit/dfb4ed65687c54d8052faeae3243ba6ced8b0995) - Fixes selecting tab (and showing the selected tab) for Safari and Firefox (when zooming in/out as well).
+
+## 1.2.2
+
+### Patch Changes
+
+- [#2481](https://github.com/sl-design-system/components/pull/2481) [`0c4f19b`](https://github.com/sl-design-system/components/commit/0c4f19beb6f66b6cba944c6bc4589252113554fb) - Changed token used for the width of the focusring
+
+- [#2547](https://github.com/sl-design-system/components/pull/2547) [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68) - Bump patch version of `@open-wc/scoped-elements` peer dependency
+
+- [#2548](https://github.com/sl-design-system/components/pull/2548) [`5db3329`](https://github.com/sl-design-system/components/commit/5db33293ac0ac53dcb13c607a4df76500eca7141) - Fixed wrong token for bold font-weight
+
+- Updated dependencies [[`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16), [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68), [`29f38d4`](https://github.com/sl-design-system/components/commit/29f38d4a44003f63e20965ed176dfa9bc16851e7), [`0e2e426`](https://github.com/sl-design-system/components/commit/0e2e426041997a299f3e35bcde499909d62f7ce9), [`17fbc40`](https://github.com/sl-design-system/components/commit/17fbc404a27bada6a5013c84c34a2936de604f16)]:
+  - @sl-design-system/menu@0.2.5
+  - @sl-design-system/shared@0.9.0
+  - @sl-design-system/icon@1.3.0
+
 ## 1.2.1
 
 ### Patch Changes
@@ -52,13 +73,11 @@
 - [#1798](https://github.com/sl-design-system/components/pull/1798) [`99a9ad9`](https://github.com/sl-design-system/components/commit/99a9ad9503a6dcf1b92838e46aafd2f1c5d3dc58) - Tabs improvements
 
   Features:
-
   - Refactor styling to use new contextual tokens
   - Add activation property for auto or manual activation (see https://www.w3.org/WAI/ARIA/apg/patterns/tabs/)
   - Simplify `<sl-tab>` styling using grid layout; makes the tab more flexible
 
   Fixes:
-
   - Scroll to the focused tab when using the keyboard
   - Make sure the selected tab is fully visible on initial render and doesn't smooth scroll
   - Fix bug where the RovingTabIndexController on `<sl-tab-group>` caused the inability to focus anything other than a tab
@@ -108,7 +127,6 @@
 ### Patch Changes
 
 - [#1354](https://github.com/sl-design-system/components/pull/1354) [`07d4437`](https://github.com/sl-design-system/components/commit/07d443778cf46b80c0f89fb2e7fdc8d11b5c335a) - Various improvements:
-
   - Fix tab group to not always select a tab by default
   - Fix tab group component to allow for removing the selected attribute from a tab
   - Fade in the selected tab indicator on first selected tab
@@ -129,7 +147,6 @@
 ### Patch Changes
 
 - [#1208](https://github.com/sl-design-system/components/pull/1208) [`b48b108`](https://github.com/sl-design-system/components/commit/b48b108c4873b6bbbea7636988a663f92c0ee242) - Improvements and bug fixes:
-
   - Add possibility of changing tab with URL by keyboard
   - Add missing background for `container` part: `--_tablist-background: var(--sl-color-tab-tabbar-background)`
   - Fix scrolling - only horizontally

@@ -152,7 +152,7 @@
   display: inline-flex;
   flex-shrink: 0;
   justify-content: center;
-  outline: transparent solid var(--sl-size-outlineWidth-default);
+  outline: transparent solid var(--sl-size-borderWidth-focusRing);
   outline-offset: var(--sl-size-outlineOffset-default);
 }
 

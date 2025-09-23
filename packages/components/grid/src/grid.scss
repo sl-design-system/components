@@ -336,7 +336,7 @@ td {
   display: inline-flex;
   flex-shrink: 0;
   overflow: clip;
-  overflow-clip-margin: border-box calc(var(--sl-size-outlineOffset-default) + var(--sl-size-outlineWidth-default));
+  overflow-clip-margin: border-box calc(var(--sl-size-outlineOffset-default) + var(--sl-size-borderWidth-focusRing));
 }
 
 th {
@@ -350,7 +350,7 @@ th {
   }
 
   > span {
-    font-weight: var(--sl-text-typeset-fontWeight-demibold);
+    font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
     padding-block: var(--_head-cell-padding-block);
   }
 }
@@ -472,7 +472,7 @@ a[class^='skip-link'] {
 
   &:focus {
     opacity: 1;
-    outline: var(--sl-color-border-focused) solid var(--sl-size-outlineWidth-default);
+    outline: var(--sl-color-border-focused) solid var(--sl-size-borderWidth-focusRing);
     outline-offset: var(--sl-size-outlineOffset-default);
     pointer-events: auto;
     z-index: 2; // the positioning of the skip link is relative to the table, so we need to ensure it is above the table

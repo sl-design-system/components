@@ -237,13 +237,7 @@ export class TextField
   /** Render the input slot; separate method so it is composable for child components. */
   renderInputSlot(): TemplateResult {
     return html`
-      <slot
-        @keydown=${this.onKeydown}
-        @change=${this.onChange}
-        @input=${this.onInput}
-        @slotchange=${this.onSlotChange}
-        name="input"
-      ></slot>
+      <slot @keydown=${this.onKeydown} @input=${this.onInput} @slotchange=${this.onSlotChange} name="input"></slot>
     `;
   }
 
@@ -299,13 +293,6 @@ export class TextField
       this.blurEvent.emit();
       this.updateState({ touched: true });
     }
-  }
-
-  /** This method is called when the input changes. */
-  protected onChange(): void {
-    this.changeEvent.emit(this.value);
-    this.updateState({ dirty: true });
-    this.updateValidity();
   }
 
   /**

@@ -206,7 +206,9 @@ export class NumberField extends LocaleMixin(TextField) {
     this.#value = this.#valueAsNumber.toString();
     this.requestUpdate('formattedValue');
 
-    this.onChange();
+    this.changeEvent.emit(this.value);
+    this.updateState({ dirty: true });
+    this.updateValidity();
   }
 
   /** Increases the current value by the `step` amount. */
@@ -217,7 +219,9 @@ export class NumberField extends LocaleMixin(TextField) {
     this.#value = this.#valueAsNumber.toString();
     this.requestUpdate('formattedValue');
 
-    this.onChange();
+    this.changeEvent.emit(this.value);
+    this.updateState({ dirty: true });
+    this.updateValidity();
   }
 
   /** @internal Bypass the setter's, so the formatted value isn't updated. */

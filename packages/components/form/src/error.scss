@@ -1,5 +1,5 @@
 :host {
-  align-items: flex-start;
+  align-items: start;
   color: var(--sl-color-foreground-negative-plain);
   display: flex;
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
@@ -12,6 +12,8 @@ slot {
 }
 
 sl-icon {
+  // Vertically center the icon with the text when the error message is a multi line and we can't center it with flexbox.
+  // The icon needs to be centered in the line-height of the text (1lh) and the size of the icon calculated with max() (same as in the icon component).
   margin-block-start: calc((1lh - max(0.8em, var(--sl-icon-size))) / 2);
 }
 

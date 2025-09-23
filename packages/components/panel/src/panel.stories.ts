@@ -265,7 +265,7 @@ export const FixedInlineSize: Story = {
     content: () => html`
       <style>
         sl-panel {
-          inline-size: 341px;
+          inline-size: 350px;
         }
       </style>
 

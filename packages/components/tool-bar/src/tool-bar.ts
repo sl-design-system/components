@@ -124,9 +124,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
-    //  requestAnimationFrame(() => {
     this.#observer.observe(this);
-    // });
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -148,7 +146,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    console.log('menu items in render', this.menuItems);
     return html`
       <div part="wrapper">
         <slot @slotchange=${this.#onSlotChange}></slot>
@@ -170,7 +167,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   }
 
   renderMenuItem(item: ToolBarItem): TemplateResult {
-    console.log('Rendering menu item:', item);
     if (item.type === 'group') {
       return html`
         <sl-menu-item-group .heading=${item.label ?? ''} .selects=${item.selects}>
@@ -197,59 +193,18 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       return sum + item.element.getBoundingClientRect().width + (index < this.items.length - 1 ? gap : 0);
     }, 0);
 
-    console.log(
-      'Resizing, available width:',
-      availableWidth,
-      wrapper,
-      gap,
-      totalWidth,
-      availableWidth,
-      'totalWidth > availableWidth:',
-      totalWidth > availableWidth,
-      Math.round(totalWidth) > Math.round(availableWidth),
-      wrapper.getBoundingClientRect()
-    );
-
     // If it doesn't fit, remove space for the menu button and its gap.
     if (Math.round(totalWidth) > Math.round(availableWidth)) {
       // The menu button has an aspect ratio of 1:1, so we can use the wrapper's height as the button width.
       availableWidth -= wrapper.getBoundingClientRect().height + gap;
     }
 
-    // if (Math.ceil(totalWidth) - Math.floor(availableWidth) > (1 / (window.devicePixelRatio || 1))) {
-    //   // Reserve space for the menu button (square: height == width) only if overflow exceeds epsilon.
-    //   const menuButtonWidth = wrapper.getBoundingClientRect().height + gap;
-    //   availableWidth -= menuButtonWidth;
-    // }
-
     // Now iterate through the items and set their visibility based on the available width.
     this.items.toReversed().forEach(item => {
-      console.log(
-        'Math.round(totalWidth) <= Math.round(availableWidth)',
-        Math.round(totalWidth) <= Math.round(availableWidth),
-        Math.round(totalWidth),
-        Math.round(availableWidth),
-        'item width:',
-        Math.round(item.element.getBoundingClientRect().width),
-        'gap',
-        item !== this.items[0] ? gap : 0
-      );
-      // totalWidth -= Math.round(item.element.getBoundingClientRect().width) + (item !== this.items[0] ? gap : 0);
       item.visible = Math.round(totalWidth) <= Math.round(availableWidth);
       item.element.style.visibility = item.visible ? 'visible' : 'hidden';
 
-      console.log(
-        '222Math.round(totalWidth) <= Math.round(availableWidth)',
-        Math.round(totalWidth) <= Math.round(availableWidth),
-        Math.round(totalWidth),
-        Math.round(availableWidth),
-        'item width:',
-        Math.round(item.element.getBoundingClientRect().width),
-        'gap',
-        item !== this.items[0] ? gap : 0
-      );
-
-      totalWidth -= item.element.getBoundingClientRect().width + (item !== this.items[0] ? gap : 0); // gap should not be added to the last item
+      totalWidth -= item.element.getBoundingClientRect().width + gap;
     });
 
     this.requestUpdate('items');
@@ -263,27 +218,15 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     const elements = event.target.assignedElements({ flatten: true });
 
-    console.log('Slot changed, assigned elements:', elements);
-
     this.empty = elements.length === 0;
 
     if (typeof this.disabled === 'boolean') {
       elements.forEach(el => el.toggleAttribute('disabled', this.disabled));
     }
 
-    console.log(
-      'Slot changed, mapping elements to items:',
-      this.renderRoot,
-      this.renderRoot.querySelector('sl-tooltip'),
-      this.querySelector('sl-tooltip'),
-      this.renderRoot as HTMLElement
-    );
-
     this.items = elements
       .map(element => {
-        console.log('Mapping element to item:', element);
         if (element instanceof Button || element instanceof ToggleButton) {
-          console.log('this.#mapButtonToItem(element):', this.#mapButtonToItem(element));
           return this.#mapButtonToItem(element);
         } else if (element instanceof ToggleGroup) {
           return this.#mapToggleGroupToItem(element);

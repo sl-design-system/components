@@ -260,8 +260,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     if (button.hasAttribute('aria-labelledby')) {
       const buttonLabelledby = button.getAttribute('aria-labelledby');
 
-      label = this.querySelector(`#${buttonLabelledby}`)?.textContent?.trim();
-
       if (this.querySelector(`#${buttonLabelledby}`)) {
         label = this.querySelector(`#${buttonLabelledby}`)?.textContent?.trim();
       } else if (button.nextElementSibling && button.nextElementSibling.tagName === 'SL-TOOLTIP') {

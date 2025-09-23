@@ -536,6 +536,16 @@ describe('ArrayListDataSource', () => {
 
         expect(ds.items.map(item => ds.isSelected(item))).to.deep.equal([false, false, false, true, true]);
       });
+
+      it('should indicate that all items are selected if all filtered items are selected', () => {
+        ds.select(ds.items.at(-1)!);
+        ds.select(ds.items.at(-2)!);
+        ds.addFilter('id', 'profession', 'Gastroenterologist');
+        ds.update();
+
+        expect(ds.items.filter(item => isListDataSourceDataItem(item)).every(({ selected }) => selected)).to.be.true;
+        expect(ds.areAllSelected()).to.be.true;
+      });
     });
 
     describe('group select', () => {

@@ -262,7 +262,11 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
       if (this.querySelector(`#${buttonLabelledby}`)) {
         label = this.querySelector(`#${buttonLabelledby}`)?.textContent?.trim();
-      } else if (button.nextElementSibling && button.nextElementSibling.tagName === 'SL-TOOLTIP') {
+      } else if (
+        button.nextElementSibling &&
+        button.nextElementSibling.tagName === 'SL-TOOLTIP' &&
+        buttonLabelledby === button.nextElementSibling.id
+      ) {
         label = button.nextElementSibling.textContent?.trim();
       }
     } else if (!label && button.hasAttribute('aria-describedby')) {

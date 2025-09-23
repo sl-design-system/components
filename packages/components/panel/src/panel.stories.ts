@@ -230,23 +230,28 @@ export const ActionsWithTooltips: Story = {
   args: {
     ...Basic.args,
     actions: () => html`
-      <sl-button aria-labelledby="copy-tooltip" fill="ghost" slot="actions" aria-label="Edit"
+      <sl-button aria-labelledby="edit-tooltip" fill="ghost" slot="actions"
         ><sl-icon name="far-pen"></sl-icon
       ></sl-button>
-      <sl-tooltip id="copy-tooltip">Edit...</sl-tooltip>
-      <sl-button aria-describedby="edit-tooltip" fill="ghost" slot="actions" aria-label="Copy">
+      <sl-tooltip id="edit-tooltip">Edit</sl-tooltip>
+      <sl-button aria-labelledby="copy-tooltip" fill="ghost" slot="actions">
         <sl-icon name="far-copy"></sl-icon>
-        <sl-tooltip id="edit-tooltip">Edit'</sl-tooltip>
       </sl-button>
-      <sl-button fill="ghost" slot="actions" aria-label="Paste"><sl-icon name="far-paste"></sl-icon></sl-button>
-      <sl-button fill="ghost" slot="actions" aria-label="Book"><sl-icon name="far-book"></sl-icon></sl-button>
-      <sl-button fill="ghost" slot="actions" aria-label="Share"><sl-icon name="far-share"></sl-icon></sl-button>
+      <sl-tooltip id="copy-tooltip">Copy</sl-tooltip>
+      <sl-button aria-labelledby="paste-tooltip" fill="ghost" slot="actions">
+        <sl-icon name="far-paste"></sl-icon>
+      </sl-button>
+      <sl-tooltip id="paste-tooltip">Paste</sl-tooltip>
+      <sl-button aria-labelledby="share-tooltip" fill="ghost" slot="actions">
+        <sl-icon name="far-share"></sl-icon>
+      </sl-button>
+      <sl-tooltip id="share-tooltip">Paste</sl-tooltip>
     `,
     content: () => "If you add too many actions that won't fit on 1 line, it will add a menu button for the overflow."
   }
 };
 
-export const ActionsWithTooltips2: Story = {
+export const FixedInlineSize: Story = {
   args: {
     ...Basic.args,
     actions: () => html`
@@ -260,54 +265,14 @@ export const ActionsWithTooltips2: Story = {
     content: () => html`
       <style>
         sl-panel {
-          inline-size: 420px;
+          inline-size: 341px;
         }
       </style>
 
-      "If you add too many actions that won't fit on 1 line, it will add a menu button for the overflow."
-
-      <sl-button aria-labelledby="copy-tooltip" fill="ghost">
-        <sl-icon name="far-copy"></sl-icon>
-        <sl-tooltip id="copy-tooltip">Copy</sl-tooltip>
-      </sl-button>
-
-      <sl-button aria-labelledby="edit-tooltip" fill="ghost"><sl-icon name="far-pen"></sl-icon></sl-button>
-      <sl-tooltip id="edit-tooltip">Edit</sl-tooltip>
+      If you add too many actions that won't fit on 1 line, it will add a menu button for the overflow.
     `
   }
 }; // TODO: Tooltips in overflow menu are not working...
-
-export const ActionsWithTooltips3: Story = {
-  args: {
-    ...Basic.args,
-    actions: () => html`
-      <sl-button fill="ghost" slot="actions" aria-labelledby="copy-tooltip-1">
-        <sl-icon name="far-copy"></sl-icon>
-      </sl-button>
-      <sl-tooltip id="copy-tooltip-1">Edit</sl-tooltip>
-      <sl-button fill="ghost" slot="actions" aria-label="Book">
-        <sl-icon name="far-book"> </sl-icon>
-      </sl-button>
-    `,
-    content: () => html`
-      <style>
-        sl-panel {
-          inline-size: 410px;
-        }
-      </style>
-
-      "If you add too many actions that won't fit on 1 line, it will add a menu button for the overflow."
-
-      <sl-button aria-labelledby="copy-tooltip" fill="ghost">
-        <sl-icon name="far-copy"></sl-icon>
-        <sl-tooltip id="copy-tooltip">Copy</sl-tooltip>
-      </sl-button>
-
-      <sl-button aria-labelledby="edit-tooltip" fill="ghost"><sl-icon name="far-pen"></sl-icon></sl-button>
-      <sl-tooltip id="edit-tooltip">Edit</sl-tooltip>
-    `
-  }
-};
 
 export const WithoutActions: Story = {
   args: {

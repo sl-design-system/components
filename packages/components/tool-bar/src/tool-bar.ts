@@ -124,7 +124,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
+    //  requestAnimationFrame(() => {
     this.#observer.observe(this);
+    // });
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -203,21 +205,51 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       totalWidth,
       availableWidth,
       'totalWidth > availableWidth:',
-      totalWidth > availableWidth
+      totalWidth > availableWidth,
+      Math.round(totalWidth) > Math.round(availableWidth),
+      wrapper.getBoundingClientRect()
     );
 
     // If it doesn't fit, remove space for the menu button and its gap.
-    if (Math.round(totalWidth) >= Math.round(availableWidth)) {
+    if (Math.round(totalWidth) > Math.round(availableWidth)) {
       // The menu button has an aspect ratio of 1:1, so we can use the wrapper's height as the button width.
       availableWidth -= wrapper.getBoundingClientRect().height + gap;
     }
 
+    // if (Math.ceil(totalWidth) - Math.floor(availableWidth) > (1 / (window.devicePixelRatio || 1))) {
+    //   // Reserve space for the menu button (square: height == width) only if overflow exceeds epsilon.
+    //   const menuButtonWidth = wrapper.getBoundingClientRect().height + gap;
+    //   availableWidth -= menuButtonWidth;
+    // }
+
     // Now iterate through the items and set their visibility based on the available width.
     this.items.toReversed().forEach(item => {
+      console.log(
+        'Math.round(totalWidth) <= Math.round(availableWidth)',
+        Math.round(totalWidth) <= Math.round(availableWidth),
+        Math.round(totalWidth),
+        Math.round(availableWidth),
+        'item width:',
+        Math.round(item.element.getBoundingClientRect().width),
+        'gap',
+        item !== this.items[0] ? gap : 0
+      );
+      // totalWidth -= Math.round(item.element.getBoundingClientRect().width) + (item !== this.items[0] ? gap : 0);
       item.visible = Math.round(totalWidth) <= Math.round(availableWidth);
       item.element.style.visibility = item.visible ? 'visible' : 'hidden';
 
-      totalWidth -= item.element.getBoundingClientRect().width + gap;
+      console.log(
+        '222Math.round(totalWidth) <= Math.round(availableWidth)',
+        Math.round(totalWidth) <= Math.round(availableWidth),
+        Math.round(totalWidth),
+        Math.round(availableWidth),
+        'item width:',
+        Math.round(item.element.getBoundingClientRect().width),
+        'gap',
+        item !== this.items[0] ? gap : 0
+      );
+
+      totalWidth -= item.element.getBoundingClientRect().width + (item !== this.items[0] ? gap : 0); // gap should not be added to the last item
     });
 
     this.requestUpdate('items');
@@ -264,8 +296,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         return undefined;
       })
       .filter(item => item !== undefined) as ToolBarItem[];
-
-    console.log('Mapped items in slotchange:', this.items);
   }
 
   #mapToggleGroupToItem(group: ToggleGroup): ToolBarItemGroup {
@@ -282,78 +312,21 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   }
 
   #mapButtonToItem(button: HTMLElement): ToolBarItemButton {
-    console.log(
-      'Mapping button:',
-      button,
-      button.nextElementSibling,
-      this.querySelector('#copy-tooltip-1'),
-      'just sl-tooltip:',
-      this.querySelector('sl-tooltip'),
-      this.renderRoot
-    );
     let label = button.getAttribute('aria-label') || button.textContent?.trim();
 
     if (button.hasAttribute('aria-labelledby')) {
       const buttonLabelledby = button.getAttribute('aria-labelledby');
-      console.log(
-        'buttonLabelledby:',
-        buttonLabelledby,
-        `this.querySelector(#${buttonLabelledby})`,
-        this.querySelector(`#${buttonLabelledby}`)
-      );
-      label = this.querySelector(`#${button.getAttribute('aria-labelledby')}`)?.textContent?.trim();
+
+      label = this.querySelector(`#${buttonLabelledby}`)?.textContent?.trim();
 
       if (this.querySelector(`#${buttonLabelledby}`)) {
         label = this.querySelector(`#${buttonLabelledby}`)?.textContent?.trim();
       } else if (button.nextElementSibling && button.nextElementSibling.tagName === 'SL-TOOLTIP') {
         label = button.nextElementSibling.textContent?.trim();
       }
-
-      // if (!label) {
-      //   if (button.nextElementSibling && button.nextElementSibling.tagName === 'SL-TOOLTIP') {
-      //     label = button.nextElementSibling.textContent?.trim();
-      //   }
-      // }
     } else if (!label && button.hasAttribute('aria-describedby')) {
       label = this.querySelector(`#${button.getAttribute('aria-describedby')}`)?.textContent?.trim();
     }
-
-    console.log(
-      'Mapped button label:',
-      label,
-      "this.querySelector(`#${button.getAttribute('aria-labelledby')}`)", // null
-      this.querySelector(`#${button.getAttribute('aria-labelledby')}`),
-      button.hasAttribute('aria-labelledby'),
-      button.getAttribute('aria-labelledby'),
-      this.querySelector('#copy-tooltip-1'),
-      button.nextElementSibling,
-      'button.nextElementSibling innerHTML:',
-      button.nextElementSibling?.innerHTML,
-      button.nextElementSibling instanceof Tooltip,
-      button.nextElementSibling?.hasAttribute('#copy-tooltip-1'),
-      '.tagName ===',
-      button.nextElementSibling?.tagName === 'SL-TOOLTIP',
-      button.nextElementSibling?.getAttribute('id'),
-      button.nextElementSibling?.getAttribute('id')
-    );
-
-    // requestAnimationFrame(() => {
-    //   console.log(
-    //     'Mapped button label in RAF:',
-    //     label,
-    //     button.hasAttribute('aria-labelledby'),
-    //     button.getAttribute('aria-labelledby'),
-    //     this.querySelector('#copy-tooltip-1'),
-    //     button.nextElementSibling,
-    //     'button.nextElementSibling innerHTML:',
-    //     button.nextElementSibling?.innerHTML,
-    //     button.nextElementSibling instanceof Tooltip,
-    //     button.nextElementSibling?.hasAttribute('#copy-tooltip-1'),
-    //     '.tagName ===',
-    //     button.nextElementSibling?.tagName === 'SL-TOOLTIP',
-    //     button.nextElementSibling?.getAttribute('id')
-    //   );
-    // });
 
     return {
       element: button,

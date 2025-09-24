@@ -152,9 +152,10 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
             <sl-menu-button
               aria-label=${msg('Show more', { id: 'sl.toolBar.showMore' })}
               fill=${ifDefined(this.fill)}
-              variant=${ifDefined(this.inverted ? 'inverted' : undefined)}
-            >
-              <sl-icon name="ellipsis-vertical" slot="button"></sl-icon>
+              variant=${ifDefined(this.inverted ? 'inverted' : undefined)}>
+              <sl-icon
+                name="ellipsis-vertical"
+                slot="button"></sl-icon>
               ${this.menuItems.map(item => this.renderMenuItem(item))}
             </sl-menu-button>
           `
@@ -165,7 +166,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   renderMenuItem(item: ToolBarItem): TemplateResult {
     if (item.type === 'group') {
       return html`
-        <sl-menu-item-group .heading=${item.label ?? ''} .selects=${item.selects}>
+        <sl-menu-item-group
+          .heading=${item.label ?? ''}
+          .selects=${item.selects}>
           ${item.buttons.map(button => this.renderMenuItem(button))}
         </sl-menu-item-group>
       `;
@@ -173,7 +176,10 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       return html`<hr />`;
     } else {
       return html`
-        <sl-menu-item @click=${() => item.click?.()} ?disabled=${item.disabled} ?selectable=${item.selectable}>
+        <sl-menu-item
+          @click=${() => item.click?.()}
+          ?disabled=${item.disabled}
+          ?selectable=${item.selectable}>
           ${item.icon ? html`<sl-icon .name=${item.icon}></sl-icon>` : nothing} ${item.label}
         </sl-menu-item>
       `;
@@ -254,7 +260,17 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     let label = button.getAttribute('aria-label') || button.textContent?.trim();
 
     if (button.hasAttribute('aria-labelledby')) {
-      label = this.querySelector(`#${button.getAttribute('aria-labelledby')}`)?.textContent?.trim();
+      const buttonLabelledby = button.getAttribute('aria-labelledby');
+
+      if (this.querySelector(`#${buttonLabelledby}`)) {
+        label = this.querySelector(`#${buttonLabelledby}`)?.textContent?.trim();
+      } else if (
+        button.nextElementSibling &&
+        button.nextElementSibling.tagName === 'SL-TOOLTIP' &&
+        buttonLabelledby === button.nextElementSibling.id
+      ) {
+        label = button.nextElementSibling.textContent?.trim();
+      }
     } else if (!label && button.hasAttribute('aria-describedby')) {
       label = this.querySelector(`#${button.getAttribute('aria-describedby')}`)?.textContent?.trim();
     }

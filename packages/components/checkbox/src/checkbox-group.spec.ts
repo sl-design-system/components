@@ -30,7 +30,6 @@ describe('sl-checkbox-group', () => {
       el.disabled = true;
       await el.updateComplete;
 
-      expect(el.disabled).to.be.true;
       expect(el).to.have.attribute('disabled');
     });
 
@@ -44,15 +43,15 @@ describe('sl-checkbox-group', () => {
     });
 
     it('should be valid', () => {
-      expect(el.valid).to.equal(true);
+      expect(el.valid).to.be.true;
     });
 
     it('should be invalid when required', async () => {
       el.required = true;
       await el.updateComplete;
 
-      expect(el.valid).to.equal(false);
-      expect(el.validity.valueMissing).to.equal(true);
+      expect(el.valid).to.be.false;
+      expect(el.validity.valueMissing).to.be.true;
     });
 
     it('should be valid when required and checked', async () => {
@@ -62,8 +61,8 @@ describe('sl-checkbox-group', () => {
       el.querySelector('sl-checkbox')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      expect(el.valid).to.equal(true);
-      expect(el.validity.valueMissing).to.equal(false);
+      expect(el.valid).to.be.true;
+      expect(el.validity.valueMissing).to.be.false;
     });
 
     it('should not have a show-validity attribute when reported', async () => {

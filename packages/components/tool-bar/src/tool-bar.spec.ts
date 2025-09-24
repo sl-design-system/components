@@ -131,6 +131,8 @@ describe('sl-tool-bar', () => {
               <sl-icon name="fas-gear" slot="pressed"></sl-icon>
             </sl-toggle-button>
           </sl-toggle-group>
+          <sl-button aria-labelledby="edit-tooltip" fill="ghost"> <sl-icon name="far-pen"></sl-icon></sl-button>
+          <sl-tooltip id="edit-tooltip">Edit</sl-tooltip>
         </sl-tool-bar>
       `);
 
@@ -141,7 +143,7 @@ describe('sl-tool-bar', () => {
     it('should have hidden all slotted elements', () => {
       const hidden = Array.from(el.children).map(child => (child as HTMLElement).style.visibility);
 
-      expect(hidden).to.deep.equal(['hidden', 'hidden', 'hidden']);
+      expect(hidden).to.deep.equal(['hidden', 'hidden', 'hidden', 'hidden', '']);
     });
 
     it('should have a menu button', () => {
@@ -180,6 +182,12 @@ describe('sl-tool-bar', () => {
       expect(lastChild).to.have.attribute('selectable');
       expect(lastChild).to.have.trimmed.text('Gear');
       expect(lastChild).to.contain('sl-icon[name="far-gear"]');
+    });
+
+    it('should have a menu item for the icon only button with tooltip connected via aria-labelledby', () => {
+      const lastChild = el.renderRoot.querySelectorAll('sl-menu-item')[3];
+      expect(lastChild).to.have.trimmed.text('Edit');
+      expect(lastChild).to.contain('sl-icon[name="far-pen"]');
     });
 
     it('should proxy clicks on the menu items to the original elements', () => {

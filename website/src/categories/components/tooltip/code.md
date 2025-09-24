@@ -2,7 +2,7 @@
 title: Tooltip code
 tags: code
 APIdescription: {
-  sl-tooltip: "Tooltip component has a range of properties to define the experience in different use cases. <code>sl-tooltip</code> component is recommended to use in all non-LitElement applications.",
+  sl-tooltip: "Tooltip component has a range of properties to define the experience in different use cases. <code>sl-tooltip</code> component is recommended to use in all non-LitElement applications. Tooltip component should be a sibling of the element it is describing (not a child element).",
   TooltipDirective: "When working on the application with LitElement, <code>TooltipDirective</code> can be used as an alternative way for adding <code>sl-tooltip</code> component. This is a LitElement specific directive."
 }
 eleventyNavigation:
@@ -26,6 +26,8 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
+Tooltip component should be a sibling of the elements it is describing (not a child element). You can share the same tooltip between multiple elements by using the same id in the `aria-describedby` or `aria-labelledby` attribute.
+
 <sl-button aria-describedby="tooltip-id" fill="solid" variant="primary">We</sl-button>
 <sl-button aria-describedby="tooltip-id" fill="solid" variant="primary">share</sl-button>
 <sl-button aria-describedby="tooltip-id" fill="solid" variant="primary">the</sl-button>

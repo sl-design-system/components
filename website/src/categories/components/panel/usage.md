@@ -6,55 +6,40 @@ eleventyNavigation:
   key: PanelUsage
 ---
 <style>
-.ds-example header {
-  margin-block: var(--scale-100-scale);
+.ds-example > sl-panel {
+  max-inline-size: 360px;
+}
+sl-panel::part(content){
   display: flex;
-  justify-content: space-between;
+  gap: 8px;
 }
-
-#example-content {
-  display: grid;
-  gap: 0.4rem;
-  grid-template-columns: 1fr 1fr;
-}
-
-#example-content p {
-  margin-block: 0;
+.ds-example > sl-panel::part(content){
+  flex-direction: column;
 }
 </style>
 
 <section class="no-heading">
 
 <div class="ds-example">
-  <sl-button id="anchor" popovertarget="popover-1" variant="primary">Show more information</sl-button>
-  <sl-popover id="popover-1" anchor="anchor" aria-label="More information about John">
-  <header class="ds-heading-3">
-  Project Overview
-  <sl-button id="close-btn" fill="ghost" variant="default" size="sm" aria-label="Close the popover" autofocus>
-  <sl-icon name="xmark"></sl-icon>
-  </sl-button>
-  </header>
-  <hr color="#D9D9D9" />
-  <div id="example-content">
-    <p>Assigned to</p> <p>John Smith</p>
-    <p>Class</p> <p>2a</p>
-    <p>Due</p> <p>March 10, 2024</p>
-  </div>
-  </sl-popover>
+  <sl-panel collapsible heading="6.5 Sneaky Photo Signals">
+    <sl-badge slot="aside" emphasis="subtle" color="yellow" size="lg">Draft</sl-badge>
+    <p>Find a news article with a striking photo. In 4–6 sentences, tell us what the image really says beyond the caption. Quote a sentence from the article that amplifies the photo.</p>
+    <sl-panel><sl-icon name="far-eye-slash"></sl-icon> 1. Find a photo-forward story</sl-panel>
+    <sl-panel><sl-icon name="far-puzzle-piece-simple"></sl-icon> 2. Answer the questions</sl-panel>
+    <sl-panel><sl-icon name="far-puzzle-piece-simple"></sl-icon> 3. Find in the text</sl-panel>
+    <sl-button-bar align="end">
+      <sl-button fill="ghost"><sl-icon name="far-file-pen"></sl-icon>Edit</sl-button>
+      <sl-button fill="ghost"><sl-icon name="far-trash"></sl-icon>Delete</sl-button>
+    </sl-button-bar>
+  </sl-panel>
 </div>
 
 <div class="ds-code">
 
   ```html
-<sl-button id="anchor" popovertarget="popover-1">Show more information</sl-button>
-
-<sl-popover id="popover-1" anchor="anchor" aria-label="More information about John">
-    <header>Project Overview <sl-button autofocus>...</sl-button></header>
-    <hr>
-    <section>
-      Assigned to...
-    </section>
-</sl-popover>
+<sl-panel collapsible heading="Title">
+  Lorem ipsum 
+</sl-panel>
   ```
 
 </div>

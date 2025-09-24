@@ -141,7 +141,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
    * Only use this when extending the `Dialog` class. If you are using
    * the `<sl-dialog>` custom element, use the slots.
    */
-  renderHeader(title = ''): TemplateResult {
+  renderHeader(title: string = ''): TemplateResult {
     return html`
       <slot name="header">
         <div part="titles">

@@ -86,15 +86,26 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     if (changes.has('selected') && this.selected) {
       // If only the `selected` property is set, make sure the `month` property is set
       // to the same date, so the selected day is visible in the calendar.
-      this.month ??= new Date(this.selected);
-      console.log('willUpdate selected, setting month to', this.month, this.selected);
+      // this.month ??= this.selected; //new Date(this.selected); // only assigns this.selected to this.month if this.month is null or undefined
+      this.month = this.selected;
+      // TODO: jumping here when selected has changed?
+      console.log(
+        'willUpdate selected, setting month to',
+        this.month,
+        this.selected,
+        this.month.getMonth(),
+        this.selected.getMonth()
+      );
     } else {
       // Otherwise default to the current month.
       this.month ??= new Date();
+      console.log('willUpdate month - should be current', this.month, this.selected);
     }
   }
 
   override render(): TemplateResult {
+    console.log('in render', this.month, this.selected);
+
     return html`
       ${this.month ? html`month:${this.month.getMonth() + 1}` : 'undefined month'}
       <sl-select-day

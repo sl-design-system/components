@@ -184,7 +184,10 @@ export const CustomError: Story = {
   args: {
     slot: () => html`
       <sl-text-field required show-validity="invalid"></sl-text-field>
-      <sl-error>This is a <strong>custom</strong> error</sl-error>
+      <sl-error
+        >This is a <strong>custom</strong> error with a lot of text so we can see what happens when you have a lot to
+        explain. Because forms are hard!</sl-error
+      >
     `
   }
 };

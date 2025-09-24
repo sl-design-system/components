@@ -113,18 +113,14 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.setAttribute('role', 'toolbar');
+
+    this.#observer.observe(this);
   }
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
 
     super.disconnectedCallback();
-  }
-
-  override firstUpdated(changes: PropertyValues<this>): void {
-    super.firstUpdated(changes);
-
-    this.#observer.observe(this);
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -156,9 +152,10 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
             <sl-menu-button
               aria-label=${msg('Show more', { id: 'sl.toolBar.showMore' })}
               fill=${ifDefined(this.fill)}
-              variant=${ifDefined(this.inverted ? 'inverted' : undefined)}
-            >
-              <sl-icon name="ellipsis-vertical" slot="button"></sl-icon>
+              variant=${ifDefined(this.inverted ? 'inverted' : undefined)}>
+              <sl-icon
+                name="ellipsis-vertical"
+                slot="button"></sl-icon>
               ${this.menuItems.map(item => this.renderMenuItem(item))}
             </sl-menu-button>
           `
@@ -169,7 +166,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   renderMenuItem(item: ToolBarItem): TemplateResult {
     if (item.type === 'group') {
       return html`
-        <sl-menu-item-group .heading=${item.label ?? ''} .selects=${item.selects}>
+        <sl-menu-item-group
+          .heading=${item.label ?? ''}
+          .selects=${item.selects}>
           ${item.buttons.map(button => this.renderMenuItem(button))}
         </sl-menu-item-group>
       `;
@@ -177,7 +176,10 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       return html`<hr />`;
     } else {
       return html`
-        <sl-menu-item @click=${() => item.click?.()} ?disabled=${item.disabled} ?selectable=${item.selectable}>
+        <sl-menu-item
+          @click=${() => item.click?.()}
+          ?disabled=${item.disabled}
+          ?selectable=${item.selectable}>
           ${item.icon ? html`<sl-icon .name=${item.icon}></sl-icon>` : nothing} ${item.label}
         </sl-menu-item>
       `;

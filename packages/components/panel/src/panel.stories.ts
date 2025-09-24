@@ -144,7 +144,8 @@ export default {
         .elevation=${elevation}
         .heading=${heading}
         .noBorder=${noBorder}
-        .togglePlacement=${togglePlacement}>
+        .togglePlacement=${togglePlacement}
+      >
         ${actions?.()}${content?.()}${prefix?.()}${suffix?.()}
       </sl-panel>
     `;
@@ -153,14 +154,8 @@ export default {
 
 export const Basic: Story = {
   args: {
-    actions: () => html`
-      <sl-button
-        fill="ghost"
-        slot="actions"
-        aria-label="Remove"
-        ><sl-icon name="far-trash"></sl-icon
-      ></sl-button>
-    `,
+    actions: () =>
+      html`<sl-button fill="ghost" slot="actions" aria-label="Remove"><sl-icon name="far-trash"></sl-icon></sl-button>`,
     content: () => html`<span>Panel content</span>`,
     heading: 'Panel heading'
   }
@@ -168,44 +163,20 @@ export const Basic: Story = {
 
 export const WithPrefix: Story = {
   args: {
-    actions: () => html`
-      <sl-button
-        fill="ghost"
-        slot="actions"
-        aria-label="Remove"
-        ><sl-icon name="far-trash"></sl-icon
-      ></sl-button>
-    `,
+    actions: () =>
+      html`<sl-button fill="ghost" slot="actions" aria-label="Remove"><sl-icon name="far-trash"></sl-icon></sl-button>`,
     content: () => html`<span>Panel content</span>`,
-    prefix: () => html`
-      <sl-icon
-        slot="prefix"
-        name="far-backpack"></sl-icon>
-    `,
+    prefix: () => html`<sl-icon slot="prefix" name="far-backpack"></sl-icon>`,
     heading: 'Panel heading'
   }
 };
 
 export const WithSuffix: Story = {
   args: {
-    actions: () => html`
-      <sl-button
-        fill="ghost"
-        slot="actions"
-        aria-label="Remove"
-        ><sl-icon name="far-trash"></sl-icon
-      ></sl-button>
-    `,
+    actions: () =>
+      html`<sl-button fill="ghost" slot="actions" aria-label="Remove"><sl-icon name="far-trash"></sl-icon></sl-button>`,
     content: () => html`<span>Panel content</span>`,
-    suffix: () => html`
-      <sl-badge
-        slot="suffix"
-        emphasis="subtle"
-        size="lg"
-        variant="info"
-        >suffix</sl-badge
-      >
-    `,
+    suffix: () => html`<sl-badge slot="suffix" emphasis="subtle" size="lg" variant="info">suffix</sl-badge>`,
     heading: 'Panel heading'
   }
 };
@@ -238,72 +209,17 @@ export const OverflowActions: Story = {
   args: {
     ...Basic.args,
     actions: () => html`
-      <sl-button
-        fill="ghost"
-        slot="actions"
-        aria-label="Edit"
-        ><sl-icon name="far-pen"></sl-icon
-      ></sl-button>
-      <sl-button
-        fill="ghost"
-        slot="actions"
-        aria-label="Copy"
-        ><sl-icon name="far-copy"></sl-icon
-      ></sl-button>
-      <sl-button
-        fill="ghost"
-        slot="actions"
-        aria-label="Paste"
-        ><sl-icon name="far-paste"></sl-icon
-      ></sl-button>
-      <sl-button
-        fill="ghost"
-        slot="actions"
-        aria-label="Book"
-        ><sl-icon name="far-book"></sl-icon
-      ></sl-button>
-      <sl-button
-        fill="ghost"
-        slot="actions"
-        aria-label="Share"
-        ><sl-icon name="far-share"></sl-icon
-      ></sl-button>
-      <sl-button
-        fill="ghost"
-        slot="actions"
-        aria-label="List"
-        ><sl-icon name="far-list"></sl-icon
-      ></sl-button>
-      <sl-button
-        fill="ghost"
-        slot="actions"
-        aria-label="Link"
-        ><sl-icon name="far-link"></sl-icon
-      ></sl-button>
-      <sl-button
-        fill="ghost"
-        slot="actions"
-        aria-label="Lock"
-        ><sl-icon name="far-lock"></sl-icon
-      ></sl-button>
-      <sl-button
-        fill="ghost"
-        slot="actions"
-        aria-label="Unlock"
-        ><sl-icon name="far-unlock"></sl-icon
-      ></sl-button>
-      <sl-button
-        fill="ghost"
-        slot="actions"
-        aria-label="Settings"
-        ><sl-icon name="far-gear"></sl-icon
-      ></sl-button>
-      <sl-button
-        fill="ghost"
-        slot="actions"
-        aria-label="Remove"
-        ><sl-icon name="far-trash"></sl-icon
-      ></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Edit"><sl-icon name="far-pen"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Paste"><sl-icon name="far-paste"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Book"><sl-icon name="far-book"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Share"><sl-icon name="far-share"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="List"><sl-icon name="far-list"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Link"><sl-icon name="far-link"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Lock"><sl-icon name="far-lock"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Unlock"><sl-icon name="far-unlock"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Settings"><sl-icon name="far-gear"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Remove"><sl-icon name="far-trash"></sl-icon></sl-button>
     `,
     content: () => "If you add too many actions that won't fit on 1 line, it will add a menu button for the overflow."
   }
@@ -313,31 +229,19 @@ export const ActionsWithTooltips: Story = {
   args: {
     ...Basic.args,
     actions: () => html`
-      <sl-button
-        aria-labelledby="edit-tooltip"
-        fill="ghost"
-        slot="actions">
+      <sl-button aria-labelledby="edit-tooltip" fill="ghost" slot="actions">
         <sl-icon name="far-pen"></sl-icon>
       </sl-button>
       <sl-tooltip id="edit-tooltip">Edit</sl-tooltip>
-      <sl-button
-        aria-labelledby="copy-tooltip"
-        fill="ghost"
-        slot="actions">
+      <sl-button aria-labelledby="copy-tooltip" fill="ghost" slot="actions">
         <sl-icon name="far-copy"></sl-icon>
       </sl-button>
       <sl-tooltip id="copy-tooltip">Copy</sl-tooltip>
-      <sl-button
-        aria-labelledby="paste-tooltip"
-        fill="ghost"
-        slot="actions">
+      <sl-button aria-labelledby="paste-tooltip" fill="ghost" slot="actions">
         <sl-icon name="far-paste"></sl-icon>
       </sl-button>
       <sl-tooltip id="paste-tooltip">Paste</sl-tooltip>
-      <sl-button
-        aria-labelledby="share-tooltip"
-        fill="ghost"
-        slot="actions">
+      <sl-button aria-labelledby="share-tooltip" fill="ghost" slot="actions">
         <sl-icon name="far-share"></sl-icon>
       </sl-button>
       <sl-tooltip id="share-tooltip">Paste</sl-tooltip>
@@ -350,16 +254,10 @@ export const FixedInlineSize: Story = {
   args: {
     ...Basic.args,
     actions: () => html`
-      <sl-button
-        fill="ghost"
-        slot="actions"
-        aria-label="Copy">
+      <sl-button fill="ghost" slot="actions" aria-label="Copy">
         <sl-icon name="far-copy"></sl-icon>
       </sl-button>
-      <sl-button
-        fill="ghost"
-        slot="actions"
-        aria-label="Book">
+      <sl-button fill="ghost" slot="actions" aria-label="Book">
         <sl-icon name="far-book"> </sl-icon>
       </sl-button>
     `,
@@ -436,17 +334,13 @@ export const NoPaddingContent: Story = {
                   <sl-avatar
                     .displayName=${users[rowIndex].name}
                     .pictureUrl=${users[rowIndex].picture}
-                    size="md"></sl-avatar>
+                    size="md"
+                  ></sl-avatar>
                 </td>
                 <td class="cell">${users[rowIndex].days}</td>
                 <td class="cell">${users[rowIndex].since}</td>
                 <td class="cell">
-                  <sl-badge
-                    emphasis="subtle"
-                    size="lg"
-                    variant="info"
-                    >${users[rowIndex].signal}</sl-badge
-                  >
+                  <sl-badge emphasis="subtle" size="lg" variant="info">${users[rowIndex].signal}</sl-badge>
                 </td>
               </tr>
             `
@@ -476,9 +370,7 @@ export const NoHeader: Story = {
       </style>
       <div>
         <span>Panel without header. Panel content - can contain anything you need.</span>
-        <img
-          alt="city"
-          src="https://images.unsplash.com/photo-1586622992874-27d98f198139" />
+        <img alt="city" src="https://images.unsplash.com/photo-1586622992874-27d98f198139" />
       </div>
     `
   }
@@ -504,10 +396,7 @@ export const All: Story = {
     </style>
 
     <section>
-      <sl-panel
-        no-border
-        elevation="raised"
-        class="examples">
+      <sl-panel no-border elevation="raised" class="examples">
         <h3>Static panel</h3>
         Static panels group content and layout sections.
         <sl-panel> A layout without a header, typically used for content grouping. </sl-panel>
@@ -517,15 +406,10 @@ export const All: Story = {
 
         <h3>Collapsible panel</h3>
         Collapsible panels allow users to expand or collapse sections of content.
-        <sl-panel
-          collapsible
-          heading="Toggle start">
+        <sl-panel collapsible heading="Toggle start">
           A collapsible panel with the toggle positioned at the beginning of the section.
         </sl-panel>
-        <sl-panel
-          collapsible
-          heading="Toggle end"
-          toggle-placement="end">
+        <sl-panel collapsible heading="Toggle end" toggle-placement="end">
           A collapsible panel with the toggle placed at the end of the section.
         </sl-panel>
 
@@ -534,42 +418,30 @@ export const All: Story = {
         <sl-panel heading="None">
           For nested panels or areas where no visual background or separation is needed.
         </sl-panel>
-        <sl-panel
-          elevation="raised"
-          heading="Raised">
+        <sl-panel elevation="raised" heading="Raised">
           Adds elevation to visually lift the panel from the surrounding content. Use when the panel is placed on top of
           the page body.
         </sl-panel>
-        <sl-panel
-          elevation="sunken"
-          heading="Sunken">
+        <sl-panel elevation="sunken" heading="Sunken">
           Adds a subtle inset effect. Useful for grouping nested content within a panel.
         </sl-panel>
 
         <h3>Density</h3>
         Density adjusts the internal spacing of content within the panel.
         <sl-panel heading="Plain"> The default spacing for general use. </sl-panel>
-        <sl-panel
-          density="comfortable"
-          heading="Comfortable">
-          Adds extra padding for a more relaxed layout.
-        </sl-panel>
+        <sl-panel density="comfortable" heading="Comfortable"> Adds extra padding for a more relaxed layout. </sl-panel>
 
         <h3>Divider</h3>
         Dividers can be added to visually separate sections within a panel.
         <sl-panel heading="Without divider"> Use when visual separation is not needed between sections. </sl-panel>
-        <sl-panel
-          divider
-          heading="With divider">
+        <sl-panel divider heading="With divider">
           Adds a horizontal divider to separate content areas clearly.
         </sl-panel>
 
         <h3>No border</h3>
         By default, there is a border around the panel. This can be removed by setting the no-border attribute.
         <sl-panel heading="With border"> A border around the panel to make it more distinct in the layout. </sl-panel>
-        <sl-panel
-          no-border
-          heading="No border">
+        <sl-panel no-border heading="No border">
           Best used when elevation or other context provides sufficient separation.
         </sl-panel>
       </sl-panel>

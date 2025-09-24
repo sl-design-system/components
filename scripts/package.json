@@ -26,12 +26,12 @@
     "@tokens-studio/sd-transforms": "^2.0.1",
     "@tokens-studio/sdk": "^2.2.2",
     "cssnano": "^7.1.1",
-    "esbuild": "^0.25.9",
+    "esbuild": "^0.25.10",
     "fast-glob": "^3.3.3",
     "graphql": "^16.11.0",
     "postcss": "^8.5.6",
     "prettier": "^3.6.2",
-    "sass": "^1.92.0",
+    "sass": "^1.93.2",
     "style-dictionary": "^5.0.4"
   }
 }

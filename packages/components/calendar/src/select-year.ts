@@ -151,7 +151,52 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Escape') {
+    if (event.key === 'ArrowLeft' /*&& year.currentMonth && day.date.getDate() === 1*/) {
+      // this.#onPrevious();
+
+      const buttons = Array.from(this.renderRoot.querySelectorAll('ol button'));
+      const activeEl = this.shadowRoot?.activeElement as HTMLButtonElement | null;
+      const index = activeEl ? buttons.indexOf(activeEl) : -1;
+      if (index === 0) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.#onPrevious();
+      }
+    } else if (event.key === 'ArrowRight' /*&& day.currentMonth && day.lastDayOfMonth*/) {
+      const buttons = Array.from(this.renderRoot.querySelectorAll('ol button'));
+      const activeEl = this.shadowRoot?.activeElement as HTMLButtonElement | null;
+      const index = activeEl ? buttons.indexOf(activeEl) : -1;
+      if (index === buttons.length - 1) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.#onNext();
+      }
+    } else if (event.key === 'ArrowUp' /*&& day.date.getDate() === 1*/) {
+      // event.preventDefault();
+      // event.stopPropagation();
+      //
+      // this.changeEvent.emit(new Date(day.date.getFullYear(), day.date.getMonth(), 0));
+
+      const buttons = Array.from(this.renderRoot.querySelectorAll('ol button'));
+      const activeEl = this.shadowRoot?.activeElement as HTMLButtonElement | null;
+      const index = activeEl ? buttons.indexOf(activeEl) : -1;
+      if (index === 0) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.#onPrevious();
+      }
+    } else if (event.key === 'ArrowDown' /* && day.currentMonth*/ /*&& day.lastDayOfMonth*/) {
+      console.log('down on last day of month');
+
+      const buttons = Array.from(this.renderRoot.querySelectorAll('ol button'));
+      const activeEl = this.shadowRoot?.activeElement as HTMLButtonElement | null;
+      const index = activeEl ? buttons.indexOf(activeEl) : -1;
+      if (index === buttons.length - 1) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.#onNext();
+      }
+    } else if (event.key === 'Escape') {
       event.preventDefault();
       event.stopPropagation();
 

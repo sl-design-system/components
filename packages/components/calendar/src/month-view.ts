@@ -43,7 +43,14 @@ export class MonthView extends LocaleMixin(LitElement) {
 
       return elements.findIndex(el => !el.disabled);
     },
-    elements: (): HTMLButtonElement[] => Array.from(this.renderRoot.querySelectorAll('button')),
+    elements: (): HTMLButtonElement[] => {
+      // console.log(
+      //   'elements',
+      //   Array.from(this.renderRoot.querySelectorAll('button')),
+      //   this.renderRoot.querySelectorAll('button')
+      // );
+      return Array.from(this.renderRoot.querySelectorAll('button'));
+    },
     isFocusableElement: el => !el.disabled
   });
 
@@ -253,6 +260,47 @@ export class MonthView extends LocaleMixin(LitElement) {
       event.stopPropagation();
 
       this.changeEvent.emit(new Date(day.date.getFullYear(), day.date.getMonth() + 1, 1));
+    } else if (event.key === 'ArrowUp' && day.currentMonth /*&& day.date.getDate() === 1*/) {
+      // event.preventDefault();
+      // event.stopPropagation();
+      //
+      // this.changeEvent.emit(new Date(day.date.getFullYear(), day.date.getMonth(), 0));
+
+      const crossesMonthBoundary = day.date.getDate() - 7 < 1;
+      // Move to the same weekday in previous month
+      if (crossesMonthBoundary) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const targetDate = new Date(day.date.getFullYear(), day.date.getMonth(), day.date.getDate() - 7);
+        this.changeEvent.emit(targetDate);
+      }
+    } else if (event.key === 'ArrowDown' && day.currentMonth /*&& day.lastDayOfMonth*/) {
+      console.log('down on last day of month', day, day.currentMonth, day.lastDayOfMonth);
+      // event.preventDefault();
+      // event.stopPropagation();
+      //
+      // this.changeEvent.emit(new Date(day.date.getFullYear(), day.date.getMonth() + 1, 1));
+
+      // const lastDateOfMonth = new Date(day.date.getFullYear(), day.date.getMonth() + 1, 0).getDate();
+      // const isInLastWeek = day.date.getDate() + 7 > lastDateOfMonth;
+      //
+      // if (isInLastWeek) {
+      //   event.preventDefault();
+      //   event.stopPropagation();
+      //   this.changeEvent.emit(new Date(day.date.getFullYear(), day.date.getMonth() + 1, 1));
+      // }
+
+      const lastDateOfMonth = new Date(day.date.getFullYear(), day.date.getMonth() + 1, 0).getDate();
+      const crossesMonthBoundary = day.date.getDate() + 7 > lastDateOfMonth;
+      // Move to the same weekday in next month
+      if (crossesMonthBoundary) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const targetDate = new Date(day.date.getFullYear(), day.date.getMonth(), day.date.getDate() + 7);
+        this.changeEvent.emit(targetDate);
+      }
     } else if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
       event.stopPropagation();

@@ -8,9 +8,9 @@ import '../register.js';
 import { CheckboxGroup } from './checkbox-group.js';
 
 describe('sl-checkbox-group', () => {
-  describe('defaults', () => {
-    let el: CheckboxGroup;
+  let el: CheckboxGroup;
 
+  describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-checkbox-group>
@@ -30,7 +30,6 @@ describe('sl-checkbox-group', () => {
       el.disabled = true;
       await el.updateComplete;
 
-      expect(el.disabled).to.be.true;
       expect(el).to.have.attribute('disabled');
     });
 
@@ -44,15 +43,15 @@ describe('sl-checkbox-group', () => {
     });
 
     it('should be valid', () => {
-      expect(el.valid).to.equal(true);
+      expect(el.valid).to.be.true;
     });
 
     it('should be invalid when required', async () => {
       el.required = true;
       await el.updateComplete;
 
-      expect(el.valid).to.equal(false);
-      expect(el.validity.valueMissing).to.equal(true);
+      expect(el.valid).to.be.false;
+      expect(el.validity.valueMissing).to.be.true;
     });
 
     it('should be valid when required and checked', async () => {
@@ -62,8 +61,8 @@ describe('sl-checkbox-group', () => {
       el.querySelector('sl-checkbox')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      expect(el.valid).to.equal(true);
-      expect(el.validity.valueMissing).to.equal(false);
+      expect(el.valid).to.be.true;
+      expect(el.validity.valueMissing).to.be.false;
     });
 
     it('should not have a show-validity attribute when reported', async () => {
@@ -257,8 +256,6 @@ describe('sl-checkbox-group', () => {
   });
 
   describe('implicit value', () => {
-    let el: CheckboxGroup;
-
     beforeEach(async () => {
       el = await fixture(html`
         <sl-checkbox-group>
@@ -274,9 +271,65 @@ describe('sl-checkbox-group', () => {
     });
   });
 
-  describe('without values', () => {
-    let el: CheckboxGroup;
+  describe('required', () => {
+    it('should be invalid when no initial value is set', async () => {
+      el = await fixture(html`
+        <sl-checkbox-group required>
+          <sl-checkbox value="0">Option 1</sl-checkbox>
+          <sl-checkbox value="1">Option 2</sl-checkbox>
+          <sl-checkbox value="2">Option 3</sl-checkbox>
+        </sl-checkbox-group>
+      `);
 
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(el.valid).not.to.be.true;
+    });
+
+    it('should be valid when an implicit initial value is set', async () => {
+      el = await fixture(html`
+        <sl-checkbox-group required>
+          <sl-checkbox checked value="0">Option 1</sl-checkbox>
+          <sl-checkbox value="1">Option 2</sl-checkbox>
+          <sl-checkbox value="2">Option 3</sl-checkbox>
+        </sl-checkbox-group>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(el.valid).to.be.true;
+    });
+
+    it('should be valid when the initial value matches one of the options', async () => {
+      el = await fixture(html`
+        <sl-checkbox-group required value="[1]">
+          <sl-checkbox value="0">Option 1</sl-checkbox>
+          <sl-checkbox value="1">Option 2</sl-checkbox>
+          <sl-checkbox value="2">Option 3</sl-checkbox>
+        </sl-checkbox-group>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(el.valid).to.be.true;
+    });
+
+    it('should be invalid when the initial value does not match any of the options', async () => {
+      el = await fixture(html`
+        <sl-checkbox-group required value="[3]">
+          <sl-checkbox value="0">Option 1</sl-checkbox>
+          <sl-checkbox value="1">Option 2</sl-checkbox>
+          <sl-checkbox value="2">Option 3</sl-checkbox>
+        </sl-checkbox-group>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(el.valid).not.to.be.true;
+    });
+  });
+
+  describe('without values', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-checkbox-group>
@@ -309,8 +362,6 @@ describe('sl-checkbox-group', () => {
   });
 
   describe('null/undefined values', () => {
-    let el: CheckboxGroup;
-
     beforeEach(async () => {
       el = await fixture(html`
         <sl-checkbox-group>
@@ -341,7 +392,7 @@ describe('sl-checkbox-group', () => {
   });
 
   describe('form integration', () => {
-    let el: FormIntegrationTestComponent;
+    let fitc: FormIntegrationTestComponent;
 
     class FormIntegrationTestComponent extends LitElement {
       onFormControl: (event: SlFormControlEvent) => void = spy();
@@ -366,21 +417,21 @@ describe('sl-checkbox-group', () => {
         // empty
       }
 
-      el = await fixture(html`<form-integration-test-component></form-integration-test-component>`);
+      fitc = await fixture(html`<form-integration-test-component></form-integration-test-component>`);
     });
 
     it('should emit an sl-form-control event after first render', () => {
-      expect(el.onFormControl).to.have.been.calledOnce;
+      expect(fitc.onFormControl).to.have.been.calledOnce;
     });
 
     it('should focus the input of the first checkbox when the label is clicked', async () => {
-      const input = el.renderRoot.querySelector('input'),
-        label = el.renderRoot.querySelector('label');
+      const input = fitc.renderRoot.querySelector('input'),
+        label = fitc.renderRoot.querySelector('label');
 
       label?.click();
-      await el.updateComplete;
+      await fitc.updateComplete;
 
-      expect(el.shadowRoot!.activeElement).to.equal(input);
+      expect(fitc.shadowRoot!.activeElement).to.equal(input);
     });
   });
 });

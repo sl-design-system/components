@@ -5,7 +5,7 @@ import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, EventsController, RovingTabindexController, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { type SlSelectEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './select-year.scss.js';
@@ -34,7 +34,8 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { keydown: this.#onKeydown });
 
-  // eslint-disable-next-line no-unused-private-class-members
+  // #focusLastOnRender = false;
+
   #rovingTabindexController = new RovingTabindexController(this, {
     direction: 'grid',
     directionLength: 3,
@@ -43,6 +44,17 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
       const index = elements.findIndex(el => el.hasAttribute('aria-pressed'));
 
       return index === -1 ? 0 : index;
+
+      // const pressedIndex = elements.findIndex(el => el.hasAttribute('aria-pressed'));
+      // if (pressedIndex !== -1) {
+      //   return pressedIndex;
+      // }
+      // // console.log('focusing last element', this.#focusLastOnRender);
+      // if (this.#focusLastOnRender) {
+      //  // console.log('focusing last element', this.#focusLastOnRender);
+      //   return elements.length - 1;
+      // }
+      // return 0;
     },
     listenerScope: (): HTMLElement => this.renderRoot.querySelector('ol')!
   });
@@ -81,6 +93,15 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.#setYears(this.year.getFullYear() - 5, this.year.getFullYear() + 6);
+  }
+
+  override willUpdate(changes: PropertyValues<this>): void {
+    console.log('SelectYear willUpdate changes', changes);
+
+    if (changes.has('years') || changes.has('inert')) {
+      this.#rovingTabindexController.clearElementCache();
+      // this.#rovingTabindexController.focusToElement(this.selected);
+    }
   }
 
   override render(): TemplateResult {
@@ -158,9 +179,26 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
       const activeEl = this.shadowRoot?.activeElement as HTMLButtonElement | null;
       const index = activeEl ? buttons.indexOf(activeEl) : -1;
       if (index === 0) {
+        console.log('left on first year of range');
         event.preventDefault();
         event.stopPropagation();
-        this.#onPrevious();
+        // this.#onPrevious();
+
+        const start = this.years[0] - 12;
+        const end = this.years[0] - 1;
+        this.#setYears(start, end);
+        // void this.updateComplete.then(() => {
+        //   const buttons = this.renderRoot.querySelectorAll('ol button');
+        //   (buttons[buttons.length - 1] as HTMLButtonElement | undefined)?.focus();
+        // });
+        void this.updateComplete.then(() => {
+          // this.#rovingTabindexController.clearElementCache();
+          // this.#focusLastOnRender = true;
+          // (buttons[buttons.length - 1] as HTMLButtonElement | undefined)?.focus();
+          // this.#rovingTabindexController.clearElementCache();
+          this.#rovingTabindexController.focusToElement(buttons[buttons.length - 1] as HTMLButtonElement);
+        });
+        // this.#rovingTabindexController.clearElementCache();
       }
     } else if (event.key === 'ArrowRight' /*&& day.currentMonth && day.lastDayOfMonth*/) {
       const buttons = Array.from(this.renderRoot.querySelectorAll('ol button'));
@@ -169,7 +207,15 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
       if (index === buttons.length - 1) {
         event.preventDefault();
         event.stopPropagation();
+
         this.#onNext();
+        void this.updateComplete.then(() => {
+          // this.#rovingTabindexController.clearElementCache();
+          const first = this.renderRoot.querySelector('ol button') as HTMLButtonElement;
+          if (first) {
+            this.#rovingTabindexController.focusToElement(first);
+          }
+        }); // TODO: should work as well when we have limited years with min and max...
       }
     } else if (event.key === 'ArrowUp' /*&& day.date.getDate() === 1*/) {
       // event.preventDefault();
@@ -206,6 +252,12 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
 
   #onPrevious(): void {
     this.#setYears(this.years[0] - 12, this.years[0] - 1);
+
+    // this.#focusLastOnRender = true;
+    // this.#setYears(this.years[0] - 12, this.years[0] - 1);
+    // void this.updateComplete.then(() => {
+    //   this.#focusLastOnRender = false;
+    // });
   }
 
   #onNext(): void {

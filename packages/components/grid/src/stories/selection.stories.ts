@@ -13,6 +13,7 @@ import { type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '../../register.js';
 import { type SlActiveRowChangeEvent, type SlSelectionChangeEvent } from '../grid.js';
+import './reactive-demo.js';
 import { avatarRenderer } from './story-utils.js';
 
 type Story = StoryObj;
@@ -258,6 +259,39 @@ export const Grouped: Story = {
         ></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>
       </sl-grid>
+    `;
+  }
+};
+
+export const StateDemo: Story = {
+  render: () => {
+    return html`
+      <div>
+        <h2>@state() Decorator Demo - Multiple Story Implementation</h2>
+        <p>
+          This story demonstrates the Multiple story functionality implemented using the <code>@state()</code> decorator
+          in a Lit component:
+        </p>
+        <reactive-demo></reactive-demo>
+        <p>
+          <strong>Key differences from the original Multiple story:</strong>
+        </p>
+        <ul>
+          <li>Uses <code>@state()</code> properties instead of Storybook args for state management</li>
+          <li>State changes trigger automatic re-renders of the component</li>
+          <li>Demonstrates proper reactive state management patterns in Lit</li>
+          <li>Shows how internal component state can control UI behavior</li>
+        </ul>
+        <p>
+          <strong>About @state():</strong>
+        </p>
+        <ul>
+          <li><code>@state()</code> creates reactive internal state properties</li>
+          <li>Changes to @state() properties automatically trigger re-renders</li>
+          <li>@state() properties are private to the component (not reflected as attributes)</li>
+          <li>Use @property() for public reactive properties instead</li>
+        </ul>
+      </div>
     `;
   }
 };

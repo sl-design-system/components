@@ -1,9 +1,10 @@
-import { expect, fixture } from '@open-wc/testing';
 import '@sl-design-system/icon/register.js';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
 import { spy, stub } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { type ToggleButton } from './toggle-button.js';
 
@@ -69,7 +70,7 @@ describe('sl-toggle-button', () => {
 
     it('should toggle the pressed state when pressing enter', async () => {
       el.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
       await el.updateComplete;
 
       expect(el).to.have.attribute('aria-pressed', 'true');
@@ -77,7 +78,7 @@ describe('sl-toggle-button', () => {
       expect(el.pressed).to.be.true;
 
       el.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
       await el.updateComplete;
 
       expect(el).to.have.attribute('aria-pressed', 'false');
@@ -87,7 +88,7 @@ describe('sl-toggle-button', () => {
 
     it('should toggle the pressed state when pressing space', async () => {
       el.focus();
-      await sendKeys({ press: 'Space' });
+      await userEvent.keyboard('{Space}');
       await el.updateComplete;
 
       expect(el).to.have.attribute('aria-pressed', 'true');
@@ -95,7 +96,7 @@ describe('sl-toggle-button', () => {
       expect(el.pressed).to.be.true;
 
       el.focus();
-      await sendKeys({ press: 'Space' });
+      await userEvent.keyboard('{Space}');
       await el.updateComplete;
 
       expect(el).to.have.attribute('aria-pressed', 'false');
@@ -125,7 +126,7 @@ describe('sl-toggle-button', () => {
       });
 
       el.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
       await el.updateComplete;
 
       expect(onToggle).to.have.been.calledOnce;
@@ -140,7 +141,7 @@ describe('sl-toggle-button', () => {
       });
 
       el.focus();
-      await sendKeys({ press: 'Space' });
+      await userEvent.keyboard('{Space}');
       await el.updateComplete;
 
       expect(onToggle).to.have.been.calledOnce;
@@ -169,7 +170,7 @@ describe('sl-toggle-button', () => {
 
     it('should not toggle the pressed state when pressing enter', async () => {
       el.focus();
-      sendKeys({ press: 'Enter' });
+      userEvent.keyboard('{Enter}');
       await el.updateComplete;
 
       expect(el).to.have.attribute('aria-pressed', 'false');
@@ -179,7 +180,7 @@ describe('sl-toggle-button', () => {
 
     it('should not toggle the pressed state when pressing space', async () => {
       el.focus();
-      sendKeys({ press: 'Space' });
+      userEvent.keyboard('{Space}');
       await el.updateComplete;
 
       expect(el).to.have.attribute('aria-pressed', 'false');

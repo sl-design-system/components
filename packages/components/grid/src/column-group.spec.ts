@@ -1,7 +1,8 @@
 import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
-import { expect, fixture } from '@open-wc/testing';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { type Grid } from './grid.js';
 

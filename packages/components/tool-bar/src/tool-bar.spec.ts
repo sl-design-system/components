@@ -1,14 +1,15 @@
 import { faBell, faGear } from '@fortawesome/pro-regular-svg-icons';
 import { faBell as fasBell, faGear as fasGear } from '@fortawesome/pro-solid-svg-icons';
 import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
-import { expect, fixture } from '@open-wc/testing';
 import '@sl-design-system/button/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/toggle-button/register.js';
 import '@sl-design-system/toggle-group/register.js';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { type ToolBar, type ToolBarItemButton, type ToolBarItemDivider, type ToolBarItemGroup } from './tool-bar.js';
 

@@ -1,9 +1,11 @@
-import { expect, fixture, oneEvent } from '@open-wc/testing';
+import { oneEvent } from '@open-wc/testing';
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { type LitElement, type TemplateResult, html } from 'lit';
 import { spy, stub } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { Dialog } from './dialog.js';
 
@@ -115,7 +117,7 @@ describe('sl-dialog', () => {
 
       expect(dialog).to.have.attribute('open');
 
-      await sendKeys({ press: 'Escape' });
+      await userEvent.keyboard('{Escape}');
 
       // Wait for the event to be emitted
       await new Promise(resolve => setTimeout(resolve, 10));
@@ -257,7 +259,7 @@ describe('sl-dialog', () => {
         const onCancel = spy();
         el.addEventListener('sl-cancel', onCancel);
 
-        await sendKeys({ press: 'Escape' });
+        await userEvent.keyboard('{Escape}');
 
         expect(onCancel).not.to.have.been.called;
       });

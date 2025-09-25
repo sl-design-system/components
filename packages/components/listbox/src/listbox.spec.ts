@@ -1,6 +1,7 @@
 import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
-import { expect, fixture } from '@open-wc/testing';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { type Listbox, type ListboxItem } from './listbox.js';
 import { type Option } from './option.js';

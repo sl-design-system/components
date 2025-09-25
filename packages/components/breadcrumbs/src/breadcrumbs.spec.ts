@@ -1,6 +1,7 @@
-import { expect, fixture } from '@open-wc/testing';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { Breadcrumbs } from './breadcrumbs.js';
 

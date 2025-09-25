@@ -1,9 +1,10 @@
-import { expect, fixture } from '@open-wc/testing';
 import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { RadioGroup } from './radio-group.js';
 
@@ -153,7 +154,7 @@ describe('sl-radio-group', () => {
       expect(onChange).not.to.have.been.called;
 
       el.querySelector('sl-radio')?.focus();
-      await sendKeys({ press: 'Space' });
+      await userEvent.keyboard('{Space}');
 
       expect(onChange).to.have.been.calledOnce;
     });
@@ -163,7 +164,7 @@ describe('sl-radio-group', () => {
 
       el.addEventListener('sl-change', onChange);
       el.querySelector('sl-radio')?.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
       await el.updateComplete;
 
       expect(onChange).to.have.been.calledOnce;
@@ -217,13 +218,13 @@ describe('sl-radio-group', () => {
       expect(radios.at(1)?.tabIndex).to.equal(-1);
 
       radios.at(0)?.focus();
-      await sendKeys({ press: 'Space' });
+      await userEvent.keyboard('{Space}');
 
       expect(radios.at(0)?.checked).to.be.true;
       expect(radios.at(1)?.checked).to.be.false;
 
-      await sendKeys({ press: 'ArrowDown' });
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{ArrowDown}');
+      await userEvent.keyboard('{Enter}');
 
       expect(radios.at(0)?.checked).to.be.false;
       expect(radios.at(1)?.checked).to.be.true;
@@ -236,13 +237,13 @@ describe('sl-radio-group', () => {
       await el.updateComplete;
 
       radios.at(0)?.focus();
-      await sendKeys({ press: 'Space' });
+      await userEvent.keyboard('{Space}');
 
       expect(radios.at(0)?.checked).to.be.true;
       expect(radios.at(1)?.checked).to.be.false;
 
-      await sendKeys({ press: 'ArrowRight' });
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{ArrowRight}');
+      await userEvent.keyboard('{Enter}');
 
       expect(radios.at(0)?.checked).to.be.false;
       expect(radios.at(1)?.checked).to.be.true;
@@ -480,7 +481,7 @@ describe('sl-radio-group', () => {
 
     it('should change the value back to the initial state when the form is reset', async () => {
       el.querySelector('sl-radio')?.focus();
-      await sendKeys({ press: 'Space' });
+      await userEvent.keyboard('{Space}');
 
       expect(el.value).to.equal('1');
 

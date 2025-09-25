@@ -10,6 +10,8 @@ describe('sl-breadcrumbs', () => {
 
   describe('defaults', () => {
     beforeEach(async () => {
+      await page.viewport(800, 600);
+
       el = await fixture(html`
         <sl-breadcrumbs>
           <a href="/docs">Docs</a>
@@ -51,7 +53,7 @@ describe('sl-breadcrumbs', () => {
 
       expect(homeLink).to.exist;
       expect(homeLink).to.have.attribute('href', '/');
-      expect(homeLink).to.have.text('Home');
+      expect(homeLink).to.have.trimmed.text('Home');
       expect(homeLink.querySelector('sl-icon')).to.have.attribute('name', 'home-blank');
     });
 

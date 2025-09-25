@@ -149,6 +149,8 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
               @sl-select=${this.#onSelectYear}
               .selected=${this.selected}
               ?show-today=${this.showToday}
+              max=${ifDefined(this.max?.toISOString())}
+              min=${ifDefined(this.min?.toISOString())}
               .year=${this.month}
             ></sl-select-year>
           `

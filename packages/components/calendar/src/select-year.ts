@@ -39,7 +39,14 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   #rovingTabindexController = new RovingTabindexController(this, {
     direction: 'grid',
     directionLength: 3,
-    elements: (): HTMLElement[] => Array.from(this.renderRoot.querySelectorAll('ol button')),
+    // elements: (): HTMLElement[] => Array.from(this.renderRoot.querySelectorAll('ol button')),
+    //  elements: (): HTMLElement[] =>
+    //    Array.from(this.renderRoot.querySelectorAll('ol button')).filter(btn => !btn.disabled),
+    elements: (): HTMLElement[] => {
+      const list = this.renderRoot.querySelector('ol');
+      if (!list) return [];
+      return Array.from(list.querySelectorAll<HTMLButtonElement>('button')).filter(btn => !btn.disabled);
+    },
     focusInIndex: elements => {
       const index = elements.findIndex(el => el.hasAttribute('aria-pressed'));
 
@@ -98,7 +105,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   override willUpdate(changes: PropertyValues<this>): void {
     console.log('SelectYear willUpdate changes', changes);
 
-    if (changes.has('years') || changes.has('inert')) {
+    if (changes.has('max') || changes.has('min') || changes.has('years') || changes.has('inert')) {
       this.#rovingTabindexController.clearElementCache();
       // this.#rovingTabindexController.focusToElement(this.selected);
     }
@@ -133,7 +140,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
           return html`
             <li>
               ${this.#isUnselectable(year)
-                ? html`<span .part=${parts}>${year}</span>`
+                ? html`<button disabled .part=${parts}>${year}</button>`
                 : html`
                     <button
                       .part=${parts}
@@ -161,6 +168,13 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   };
 
   #isUnselectable(year: number): boolean {
+    console.log(
+      'isUnselectable',
+      year,
+      this.min,
+      this.max,
+      !!((this.min && year < this.min.getFullYear()) || (this.max && year > this.max.getFullYear()))
+    );
     if (!year) {
       return true;
     }
@@ -172,7 +186,12 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    if (event.key === 'ArrowLeft' /*&& year.currentMonth && day.date.getDate() === 1*/) {
+    const canGoPrevious = !this.#isUnselectable(this.years[0] - 1);
+    const canGoNext = !this.#isUnselectable(this.years[this.years.length - 1] + 1);
+
+    console.log('canGoPrevious', canGoPrevious, 'canGoNext', canGoNext);
+
+    if (event.key === 'ArrowLeft' && canGoPrevious /*&& year.currentMonth && day.date.getDate() === 1*/) {
       // this.#onPrevious();
 
       const buttons = Array.from(this.renderRoot.querySelectorAll('ol button'));
@@ -192,15 +211,18 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
         //   (buttons[buttons.length - 1] as HTMLButtonElement | undefined)?.focus();
         // });
         void this.updateComplete.then(() => {
-          // this.#rovingTabindexController.clearElementCache();
+          this.#rovingTabindexController.clearElementCache();
           // this.#focusLastOnRender = true;
           // (buttons[buttons.length - 1] as HTMLButtonElement | undefined)?.focus();
           // this.#rovingTabindexController.clearElementCache();
-          this.#rovingTabindexController.focusToElement(buttons[buttons.length - 1] as HTMLButtonElement);
+          // this.#rovingTabindexController.focusToElement(buttons[buttons.length - 1] as HTMLButtonElement);
+
+          const newButtons = Array.from(this.renderRoot.querySelectorAll('ol button'));
+          this.#rovingTabindexController.focusToElement(newButtons[newButtons.length - 1] as HTMLButtonElement);
         });
         // this.#rovingTabindexController.clearElementCache();
       }
-    } else if (event.key === 'ArrowRight' /*&& day.currentMonth && day.lastDayOfMonth*/) {
+    } else if (event.key === 'ArrowRight' && canGoNext /*&& day.currentMonth && day.lastDayOfMonth*/) {
       const buttons = Array.from(this.renderRoot.querySelectorAll('ol button'));
       const activeEl = this.shadowRoot?.activeElement as HTMLButtonElement | null;
       const index = activeEl ? buttons.indexOf(activeEl) : -1;
@@ -210,6 +232,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
 
         this.#onNext();
         void this.updateComplete.then(() => {
+          this.#rovingTabindexController.clearElementCache();
           // this.#rovingTabindexController.clearElementCache();
           const first = this.renderRoot.querySelector('ol button') as HTMLButtonElement;
           if (first) {
@@ -223,31 +246,94 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
       //
       // this.changeEvent.emit(new Date(day.date.getFullYear(), day.date.getMonth(), 0));
 
-      const buttons = Array.from(this.renderRoot.querySelectorAll('ol button'));
-      const activeEl = this.shadowRoot?.activeElement as HTMLButtonElement | null;
-      const index = activeEl ? buttons.indexOf(activeEl) : -1;
-      if (index === 0) {
-        event.preventDefault();
-        event.stopPropagation();
-        this.#onPrevious();
-      }
-    } else if (event.key === 'ArrowDown' /* && day.currentMonth*/ /*&& day.lastDayOfMonth*/) {
-      console.log('down on last day of month');
+      // const buttons = Array.from(this.renderRoot.querySelectorAll('ol button'));
+      // const activeEl = this.shadowRoot?.activeElement as HTMLButtonElement | null;
+      // const index = activeEl ? buttons.indexOf(activeEl) : -1;
+      // if (index === 0) {
+      //   event.preventDefault();
+      //   event.stopPropagation();
+      //   this.#onPrevious();
+      // }
 
       const buttons = Array.from(this.renderRoot.querySelectorAll('ol button'));
       const activeEl = this.shadowRoot?.activeElement as HTMLButtonElement | null;
       const index = activeEl ? buttons.indexOf(activeEl) : -1;
-      if (index === buttons.length - 1) {
+
+      // When on first row (any of the first 3 buttons), jump to previous range
+      // and focus the button in the last row, same column.
+      if (index > -1 && index < 3 && canGoPrevious) {
         event.preventDefault();
         event.stopPropagation();
-        this.#onNext();
+
+        const col = index % 3;
+        this.#onPrevious();
+        void this.updateComplete.then(() => {
+          const newButtons = Array.from(this.renderRoot.querySelectorAll('ol button'));
+          if (!newButtons.length) {
+            return;
+          }
+          const columns = 3;
+          const total = newButtons.length;
+          // Start index of last (possibly partial) row
+          const lastRowStart = total - (total % columns === 0 ? columns : total % columns);
+          const targetIndex = Math.min(lastRowStart + col, total - 1);
+          const target = newButtons[targetIndex] as HTMLButtonElement | undefined;
+          if (target) {
+            this.#rovingTabindexController.clearElementCache();
+            this.#rovingTabindexController.focusToElement(target);
+          }
+        });
+      }
+    } else if (event.key === 'ArrowDown' /* && day.currentMonth*/ /*&& day.lastDayOfMonth*/) {
+      console.log('down on last day of month');
+
+      // const buttons = Array.from(this.renderRoot.querySelectorAll('ol button'));
+      // const activeEl = this.shadowRoot?.activeElement as HTMLButtonElement | null;
+      // const index = activeEl ? buttons.indexOf(activeEl) : -1;
+      // if (index === buttons.length - 1) {
+      //   event.preventDefault();
+      //   event.stopPropagation();
+      //   this.#onNext();
+      // }
+
+      const buttons = Array.from(this.renderRoot.querySelectorAll('ol button'));
+      const activeEl = this.shadowRoot?.activeElement as HTMLButtonElement | null;
+      const index = activeEl ? buttons.indexOf(activeEl) : -1;
+
+      if (index > -1 && canGoNext) {
+        const columns = 3;
+        const total = buttons.length;
+        const lastRowStart = total - (total % columns === 0 ? columns : total % columns);
+        // If on any button in the last row, move to next range keeping column
+        if (index >= lastRowStart) {
+          event.preventDefault();
+          event.stopPropagation();
+
+          const col = index % columns;
+          this.#onNext();
+          void this.updateComplete.then(() => {
+            const newButtons = Array.from(this.renderRoot.querySelectorAll('ol button'));
+            if (!newButtons.length) {
+              return;
+            }
+            let target = newButtons[col] as HTMLButtonElement | undefined;
+            if (!target) {
+              // Fallback: last button if fewer buttons than expected
+              target = newButtons[newButtons.length - 1] as HTMLButtonElement;
+            }
+            if (target) {
+              this.#rovingTabindexController.clearElementCache();
+              this.#rovingTabindexController.focusToElement(target);
+            }
+          });
+        }
       }
     } else if (event.key === 'Escape') {
       event.preventDefault();
       event.stopPropagation();
 
       this.selectEvent.emit(this.year);
-    }
+    } // TODO: when using escape should close the years view and go back to month view
   }
 
   #onPrevious(): void {

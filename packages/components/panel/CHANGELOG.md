@@ -1,5 +1,15 @@
 # @sl-design-system/panel
 
+## 0.2.4
+
+### Patch Changes
+
+- [#2667](https://github.com/sl-design-system/components/pull/2667) [`0964af6`](https://github.com/sl-design-system/components/commit/0964af6411a6a6175d4cf104ad2411c7ac71b33a) - Increased space for action buttons so they don't overflow too early.
+
+- Updated dependencies [[`0964af6`](https://github.com/sl-design-system/components/commit/0964af6411a6a6175d4cf104ad2411c7ac71b33a), [`9b9a724`](https://github.com/sl-design-system/components/commit/9b9a72437620de637c42ec3884173cf7d25286b5), [`e2543df`](https://github.com/sl-design-system/components/commit/e2543df011b9d65b8e11a07323b3712f52859e0e), [`f025c0f`](https://github.com/sl-design-system/components/commit/f025c0f3cbb83b72c80563e9d989402608add193)]:
+  - @sl-design-system/tool-bar@0.1.0
+  - @sl-design-system/icon@1.3.1
+
 ## 0.2.3
 
 ### Patch Changes

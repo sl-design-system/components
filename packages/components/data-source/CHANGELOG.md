@@ -1,5 +1,11 @@
 # @sl-design-system/data-source
 
+## 0.2.2
+
+### Patch Changes
+
+- [#2655](https://github.com/sl-design-system/components/pull/2655) [`8d7163c`](https://github.com/sl-design-system/components/commit/8d7163cd05c3483cbdc2cb907236066ed90b963b) - Fix issue where the `selectAll` flag wasn't reset after manually deselecting all items
+
 ## 0.2.1
 
 ### Patch Changes

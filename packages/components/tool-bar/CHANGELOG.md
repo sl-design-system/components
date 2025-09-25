@@ -1,5 +1,21 @@
 # @sl-design-system/tool-bar
 
+## 0.1.0
+
+### Minor Changes
+
+- [#2667](https://github.com/sl-design-system/components/pull/2667) [`0964af6`](https://github.com/sl-design-system/components/commit/0964af6411a6a6175d4cf104ad2411c7ac71b33a) - Adds support for buttons with tooltips (connected via `aria-labelledby`) so they also work in the overflow menu.
+
+### Patch Changes
+
+- [#2674](https://github.com/sl-design-system/components/pull/2674) [`9b9a724`](https://github.com/sl-design-system/components/commit/9b9a72437620de637c42ec3884173cf7d25286b5) - Changed toolbar background to transparent so it can be used on any background color
+
+- [#2646](https://github.com/sl-design-system/components/pull/2646) [`f025c0f`](https://github.com/sl-design-system/components/commit/f025c0f3cbb83b72c80563e9d989402608add193) - - Fix missing `aria-disabled="true"` support for buttons
+  - Fix behavior due to `slotchange` events from nested slots
+- Updated dependencies [[`f025c0f`](https://github.com/sl-design-system/components/commit/f025c0f3cbb83b72c80563e9d989402608add193), [`e2543df`](https://github.com/sl-design-system/components/commit/e2543df011b9d65b8e11a07323b3712f52859e0e)]:
+  - @sl-design-system/button@1.3.0
+  - @sl-design-system/icon@1.3.1
+
 ## 0.0.11
 
 ### Patch Changes

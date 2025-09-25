@@ -67,20 +67,20 @@ export class Panel extends ScopedElementsMixin(LitElement) {
    */
   @property({ reflect: true }) density?: PanelDensity;
 
-  /** Will render a horizontal divider when set. */
+  /** Will render a horizontal divider between the header and content when set. */
   @property({ type: Boolean, reflect: true }) divider?: boolean;
 
   /** The elevation style of the panel. */
   @property({ reflect: true }) elevation?: PanelElevation;
 
   /**
-   * The fill of the button in the tool-bar.
+   * The fill of the buttons in the tool-bar.
    * @default 'ghost'
    */
   @property() fill: ButtonFill = 'ghost';
 
   /**
-   * The heading shown in the header. Use this property if your heading is a string. If you need
+   * The text shown in the header. Use this property if your heading is a string. If you need
    * more flexibility, such as an icon or other elements, use the `heading` slot.
    */
   @property() heading?: string;
@@ -129,9 +129,9 @@ export class Panel extends ScopedElementsMixin(LitElement) {
               >
                 <sl-icon class=${!this.collapsed ? 'upside-down' : ''} name="chevron-down"></sl-icon>
               </sl-button>
-              <div part="wrapper">${this.renderHeading()}</div>
+              <div part="wrapper">${this.#renderHeading()}</div>
             `
-          : html`<div part="wrapper">${this.renderHeading()}</div>`}
+          : html`<div part="wrapper">${this.#renderHeading()}</div>`}
         <slot name="aside">
           <sl-tool-bar align="end" no-border fill=${ifDefined(this.fill)}>
             <slot @slotchange=${this.#onActionsSlotChange} name="actions"></slot>
@@ -148,7 +148,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  renderHeading(): TemplateResult {
+  #renderHeading(): TemplateResult {
     return html`
       <slot name="prefix"></slot>
       <div part="titles">
@@ -160,9 +160,9 @@ export class Panel extends ScopedElementsMixin(LitElement) {
 
   /**
    * Toggle's the collapsed state of the panel. This only does something if the panel is collapsible.
-   * @param force - Whether to force the panel to be collapsed or expanded.
+   * @param force Whether to force the panel to be collapsed or expanded.
    */
-  toggle(force = !this.collapsed): void {
+  toggle(force: boolean = !this.collapsed): void {
     requestAnimationFrame(() => {
       this.collapsed = force;
       this.toggleEvent.emit(this.collapsed);

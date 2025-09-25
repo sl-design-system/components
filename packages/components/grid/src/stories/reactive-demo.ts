@@ -59,18 +59,6 @@ export class ReactiveDemo extends LitElement {
             <li>selectAll: ${this.selectAll}</li>
           </ul>
         </div>
-
-        <p>
-          <strong>How it works:</strong> Each checkbox is bound to a <code>@state()</code> property. When you
-          check/uncheck a box, the component automatically re-renders and updates the grid's bulk action buttons
-          accordingly. This demonstrates reactive state management in Lit components.
-        </p>
-        <p>
-          <strong>Note:</strong> Due to how Lit's reactivity works, the grid re-renders when any @state() property
-          changes, which resets the grid's selection state. In a real application, you would either manage the grid's
-          selection state externally or use more sophisticated state management patterns to preserve UI state across
-          re-renders.
-        </p>
       </div>
     `;
   }

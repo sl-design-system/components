@@ -1,4 +1,4 @@
-import { expect } from '@open-wc/testing';
+import { expect } from 'chai';
 import { ListDataSource, type ListDataSourceItem } from './list-data-source.js';
 
 // eslint-disable-next-line mocha/no-exports

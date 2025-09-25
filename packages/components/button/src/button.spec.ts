@@ -1,7 +1,8 @@
-import { expect, fixture } from '@open-wc/testing';
+import { fixture } from '@open-wc/testing';
 import { type Form } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
 import { sendKeys } from '@web/test-runner-commands';
+import { expect } from 'chai';
 import { html } from 'lit';
 import { restore, spy, stub } from 'sinon';
 import '../register.js';

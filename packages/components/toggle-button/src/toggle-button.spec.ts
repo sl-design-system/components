@@ -1,7 +1,8 @@
-import { expect, fixture } from '@open-wc/testing';
+import { fixture } from '@open-wc/testing';
 import '@sl-design-system/icon/register.js';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { sendKeys } from '@web/test-runner-commands';
+import { expect } from 'chai';
 import { html } from 'lit';
 import { spy, stub } from 'sinon';
 import '../register.js';

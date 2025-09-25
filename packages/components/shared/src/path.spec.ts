@@ -1,4 +1,4 @@
-import { expect } from '@open-wc/testing';
+import { expect } from 'chai';
 import { type PathKeys, getNameByPath, getStringByPath, getValueByPath, setValueByPath } from './path.js';
 
 describe('path utils', () => {

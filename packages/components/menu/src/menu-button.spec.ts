@@ -1,8 +1,9 @@
 import { faGear } from '@fortawesome/pro-regular-svg-icons';
-import { expect, fixture } from '@open-wc/testing';
+import { fixture } from '@open-wc/testing';
 import { type Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { sendKeys } from '@web/test-runner-commands';
+import { expect } from 'chai';
 import { html } from 'lit';
 import '../register.js';
 import { type MenuButton } from './menu-button.js';

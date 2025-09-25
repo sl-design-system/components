@@ -471,7 +471,7 @@
     "chai": "^6.0.1",
     "chai-as-promised": "^8.0.2",
     "chromatic": "^13.2.0",
-    "eslint": "^9.27.0",
+    "eslint": "^9.36.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.0",
     "lit": "^3.3.1",

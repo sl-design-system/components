@@ -1,5 +1,6 @@
-import { expect, fixture } from '@open-wc/testing';
+import { fixture } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
+import { expect } from 'chai';
 import { html } from 'lit';
 import '../register.js';
 import { Breadcrumbs } from './breadcrumbs.js';

@@ -1,4 +1,4 @@
-import { expect } from '@open-wc/testing';
+import { expect } from 'chai';
 import { NumberParser } from './number-parser.js';
 
 describe('NumberParser', () => {

@@ -1,7 +1,8 @@
 import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
-import { expect, fixture } from '@open-wc/testing';
+import { fixture } from '@open-wc/testing';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
+import { expect } from 'chai';
 import { html } from 'lit';
 import '../register.js';
 import { GridDragHandleColumn } from './drag-handle-column.js';

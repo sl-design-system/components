@@ -208,7 +208,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
         aria-owns=${ifDefined(item.children?.map(child => String(child.id)).join(' '))}
         aria-posinset=${item.parent?.children ? item.parent.children?.indexOf(item) + 1 : 1}
         aria-rowindex=${this.dataSource ? this.dataSource.items?.indexOf(item) + 1 : 1}
-        aria-setsize=${item.parent ? item.parent.children?.length : this.dataSource?.size}
+        aria-setsize=${ifDefined(item.parent ? item.parent.children?.length : this.dataSource?.size)}
       >
         ${this.renderer?.(item) ??
         html`

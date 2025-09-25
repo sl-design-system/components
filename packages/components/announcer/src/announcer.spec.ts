@@ -1,5 +1,6 @@
-import { expect, fixture } from '@open-wc/testing';
+import { fixture } from '@open-wc/testing';
 import { EventEmitter } from '@sl-design-system/shared';
+import { expect } from 'chai';
 import { html } from 'lit';
 import '../register.js';
 import { Announcer, SlAnnounceEvent } from './announcer.js';

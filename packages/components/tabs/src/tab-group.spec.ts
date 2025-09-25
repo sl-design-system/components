@@ -1,6 +1,7 @@
 import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
-import { expect, fixture } from '@open-wc/testing';
+import { fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
+import { expect } from 'chai';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
@@ -47,6 +48,7 @@ describe('sl-tab-group', () => {
     });
 
     ['start', 'center', 'end', 'stretch'].forEach(align => {
+      // Workaround for `mocha/consistent-spacing-between-blocks` rule
       it(`should support ${align} alignment of tabs`, async () => {
         el.alignTabs = align as TabsAlignment;
         await el.updateComplete;

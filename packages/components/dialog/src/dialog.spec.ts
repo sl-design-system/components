@@ -1,7 +1,8 @@
-import { expect, fixture, oneEvent } from '@open-wc/testing';
+import { fixture, oneEvent } from '@open-wc/testing';
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { sendKeys } from '@web/test-runner-commands';
+import { expect } from 'chai';
 import { type LitElement, type TemplateResult, html } from 'lit';
 import { spy, stub } from 'sinon';
 import '../register.js';

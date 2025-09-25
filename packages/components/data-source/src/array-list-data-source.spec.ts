@@ -320,7 +320,7 @@ describe('ArrayListDataSource', () => {
         ds = new ArrayListDataSource(people);
       });
 
-      it('should not have a selected any items', () => {
+      it('should not have selected any items', () => {
         expect(ds.selection.size).to.equal(0);
       });
 
@@ -518,6 +518,33 @@ describe('ArrayListDataSource', () => {
 
         ds.deselect(ds.items.at(0)!);
         expect(ds.areSomeSelected()).to.be.true;
+      });
+
+      it('should only select items that have been filtered', () => {
+        ds.addFilter('id', 'profession', 'Gastroenterologist');
+        ds.update();
+
+        expect(ds.items).to.have.length(2);
+
+        ds.selectAll();
+        ds.update();
+
+        expect(ds.items.filter(item => isListDataSourceDataItem(item)).every(({ selected }) => selected)).to.be.true;
+
+        ds.removeFilter('id');
+        ds.update();
+
+        expect(ds.items.map(item => ds.isSelected(item))).to.deep.equal([false, false, false, true, true]);
+      });
+
+      it('should indicate that all items are selected if all filtered items are selected', () => {
+        ds.select(ds.items.at(-1)!);
+        ds.select(ds.items.at(-2)!);
+        ds.addFilter('id', 'profession', 'Gastroenterologist');
+        ds.update();
+
+        expect(ds.items.filter(item => isListDataSourceDataItem(item)).every(({ selected }) => selected)).to.be.true;
+        expect(ds.areAllSelected()).to.be.true;
       });
     });
 

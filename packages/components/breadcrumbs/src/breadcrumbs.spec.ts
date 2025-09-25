@@ -1,5 +1,5 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
-import { setViewport } from '@web/test-runner-commands';
+import { page } from '@vitest/browser/context';
 import { html } from 'lit';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
@@ -194,7 +194,7 @@ describe('sl-breadcrumbs', () => {
   describe('on mobile', () => {
     beforeEach(async () => {
       // iPhone 15 portrait
-      await setViewport({ width: 393, height: 852 });
+      await page.viewport(393, 852);
 
       el = await fixture(html`
         <sl-breadcrumbs>

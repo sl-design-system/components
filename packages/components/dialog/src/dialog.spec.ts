@@ -1,4 +1,3 @@
-import { oneEvent } from '@open-wc/testing';
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
@@ -192,7 +191,8 @@ describe('sl-dialog', () => {
       // Using `oneEvent` https://open-wc.org/docs/testing/helpers/#testing-events
       // instead of `await new Promise(resolve => setTimeout(resolve))`
       // ensures the test waits for the actual 'sl-close' event to be emitted by the component, rather than relying on a timeout.
-      await oneEvent(el, 'sl-close', false);
+      // await oneEvent(el, 'sl-close', false);
+      await new Promise(resolve => setTimeout(resolve));
       await el.updateComplete;
 
       expect(onClose).to.have.been.calledOnce;
@@ -216,7 +216,8 @@ describe('sl-dialog', () => {
       dialog.dispatchEvent(clickEvent);
 
       // ensures the test waits for the actual 'sl-close' event to be emitted by the component, rather than relying on a timeout.
-      await oneEvent(el, 'sl-close', false);
+      // await oneEvent(el, 'sl-close', false);
+      await new Promise(resolve => setTimeout(resolve));
       await el.updateComplete;
 
       expect(onClose).to.have.been.calledOnce;
@@ -229,7 +230,8 @@ describe('sl-dialog', () => {
       el.renderRoot.querySelector<Button>('sl-button[aria-label="Close"]')?.click();
 
       // ensures the test waits for the actual 'sl-close' event to be emitted by the component, rather than relying on a timeout.
-      await oneEvent(el, 'sl-close', false);
+      // await oneEvent(el, 'sl-close', false);
+      await new Promise(resolve => setTimeout(resolve));
 
       await el.updateComplete;
 
@@ -243,7 +245,8 @@ describe('sl-dialog', () => {
       el.querySelector('sl-button')?.click();
 
       // ensures the test waits for the actual 'sl-close' event to be emitted by the component, rather than relying on a timeout.
-      await oneEvent(el, 'sl-close', false);
+      // await oneEvent(el, 'sl-close', false);
+      await new Promise(resolve => setTimeout(resolve));
       await el.updateComplete;
 
       expect(onClose).to.have.been.calledOnce;

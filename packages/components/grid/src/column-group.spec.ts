@@ -1,6 +1,6 @@
 import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
-import { setViewport } from '@web/test-runner-commands';
+import { page } from '@vitest/browser/context';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
@@ -27,7 +27,7 @@ describe('sl-column-group', () => {
           </sl-grid-column-group>
         </sl-grid>
       `);
-      await setViewport({ width: 1024, height: 1024 });
+      await page.viewport(1024, 1024);
       el.items = [{ firstName: 'John', lastName: 'Doe', grades: { biology: 'A', maths: 'B', english: 'B+' } }];
       await el.updateComplete;
 
@@ -74,7 +74,7 @@ describe('sl-column-group', () => {
           </sl-grid-column-group>
         </sl-grid>
       `);
-      await setViewport({ width: 1024, height: 1024 });
+      await page.viewport(1024, 1024);
 
       el.items = [{ firstName: 'John', lastName: 'Doe', grades: { biology: 'A', maths: 'B', english: 'B+' } }];
       await el.updateComplete;

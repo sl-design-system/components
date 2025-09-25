@@ -41,7 +41,7 @@
   },
   "peerDependencies": {
     "eslint": "^9.36.0",
-    "storybook": "^9.0.0",
+    "storybook": "^9.1.0",
     "typescript": "^5.5.4"
   },
   "peerDependenciesMeta": {

@@ -18,6 +18,7 @@ type Props = Pick<
   | 'showValid'
   | 'showWeekNumbers'
   | 'value'
+  | 'valueAsDate'
 > & {
   hint?: string;
   label?: string;
@@ -89,7 +90,7 @@ export default {
     };
 
     return html`
-      <sl-form .value=${value}>
+      <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
           <sl-date-field
             ?disabled=${disabled}
@@ -97,7 +98,6 @@ export default {
             ?required=${required}
             ?select-only=${selectOnly}
             ?show-week-numbers=${showWeekNumbers}
-            .value=${value}
             .show-valid=${showValid}
             locale=${ifDefined(locale)}
             max=${ifDefined(max?.toISOString())}
@@ -105,6 +105,7 @@ export default {
             month=${ifDefined(month?.toISOString())}
             placeholder=${ifDefined(placeholder)}
             style="width: fit-content"
+            value=${ifDefined(value)}
           >
             ${slot?.()}
           </sl-date-field>
@@ -165,6 +166,6 @@ export const ShowWeekNumbers: Story = {
 
 export const Value: Story = {
   args: {
-    value: new Date(2024, 8, 12)
+    value: '2025-09-20'
   }
 };

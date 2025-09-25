@@ -51,11 +51,17 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
    */
   #popoverJustClosed = false;
 
-  /** @internal The text field. */
-  @query('sl-text-field') textField!: TextField;
+  /** The string value. */
+  #value?: string;
+
+  /** The date value. */
+  #valueAsDate?: Date;
 
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
+
+  /** @internal */
+  @query('sl-field-button') button?: FieldButton;
 
   /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<Date>>;
@@ -67,6 +73,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
    */
   @property({ type: Object, attribute: 'date-time-format' })
   dateTimeFormat: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'numeric', year: 'numeric' };
+
+  /** @internal The dialog element that is also the popover. */
+  @query('dialog') dialog?: HTMLDialogElement;
 
   /** Whether the date field is disabled; when set no interaction is possible. */
   @property({ type: Boolean }) override disabled?: boolean;
@@ -129,11 +138,30 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
    */
   @property({ type: Boolean, attribute: 'show-week-numbers' }) showWeekNumbers?: boolean;
 
-  /** The selected date in the calendar. */
-  @property({ converter: dateConverter }) override value?: Date;
+  /** @internal The text field. */
+  @query('sl-text-field') textField!: TextField;
 
-  /** @internal The wrapper element that is also the popover. */
-  @query('[part="wrapper"]') wrapper?: HTMLSlotElement;
+  override get value(): string | undefined {
+    return this.#value;
+  }
+
+  /** The value as a string. */
+  @property()
+  override set value(value: string | undefined) {
+    this.#value = value;
+    this.#valueAsDate = value ? new Date(value) : undefined;
+  }
+
+  get valueAsDate() {
+    return this.#valueAsDate;
+  }
+
+  /** The value as a Date object. */
+  @property({ attribute: false })
+  set valueAsDate(value: Date | undefined) {
+    this.#valueAsDate = value;
+    this.#value = value ? value.toISOString().split('T')[0] : undefined;
+  }
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -160,38 +188,22 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.prepend(style);
   }
 
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    this.updateValidity();
+  }
+
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    if (changes.has('dateTimeFormat') && changes.has('locale')) {
+    if (changes.has('dateTimeFormat') || changes.has('locale')) {
       this.#formatter = new Intl.DateTimeFormat(this.locale, this.dateTimeFormat);
     }
 
-    if (changes.has('value')) {
-      this.input.value = this.value && this.#formatter ? this.#formatter.format(this.value) : '';
+    if (changes.has('dateTimeFormat') || changes.has('locale') || changes.has('value') || changes.has('valueAsDate')) {
+      this.input.value = this.valueAsDate ? (this.#formatter?.format(this.valueAsDate) ?? '') : '';
       this.updateValidity();
-    }
-
-    if (changes.has('showValid') || changes.has('showValidity')) {
-      if (this.textField) {
-        this.textField.showValid = this.showValid;
-      }
-    }
-
-    if (changes.has('required')) {
-      if (this.textField) {
-        this.textField.required = !!this.required;
-      }
-    }
-  }
-
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    if (changes.has('required')) {
-      if (this.textField) {
-        this.textField.required = !!this.required;
-      }
     }
   }
 
@@ -206,23 +218,27 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         ?disabled=${this.disabled}
         ?readonly=${this.readonly || this.selectOnly}
         ?required=${this.required}
-        .showValidity=${this.showValidity}
         part="text-field"
         placeholder=${ifDefined(this.placeholder)}
+        show-validity=${ifDefined(this.showValidity)}
       >
         <slot name="input" slot="input"></slot>
         <sl-field-button
           @click=${this.#onButtonClick}
           ?disabled=${this.disabled || this.readonly}
           aria-label=${msg('Toggle calendar', { id: 'sl.dateField.toggleCalendar' })}
+          aria-controls="dialog"
+          aria-expanded="false"
+          aria-haspopup="dialog"
+          part="button"
           slot="suffix"
-          tabindex=${this.disabled ? '-1' : '0'}
+          tabindex=${this.disabled || this.readonly ? '-1' : '0'}
         >
           <sl-icon name="calendar"></sl-icon>
         </sl-field-button>
       </sl-text-field>
 
-      <slot
+      <dialog
         ${anchor({
           element: this,
           offset: DateField.offset,
@@ -232,35 +248,35 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         @beforetoggle=${this.#onBeforeToggle}
         @toggle=${this.#onToggle}
         @keydown=${this.#onKeydown}
-        name="calendar"
-        part="wrapper"
+        id="dialog"
         popover
-        tabindex="-1"
       >
-        ${this.wrapper?.matches(':popover-open')
-          ? html`
-              <sl-calendar
-                @sl-change=${this.#onChange}
-                .selected=${this.value}
-                ?show-week-numbers=${this.showWeekNumbers}
-                first-day-of-week=${ifDefined(this.firstDayOfWeek)}
-                locale=${ifDefined(this.locale)}
-                max=${ifDefined(this.max?.toISOString())}
-                min=${ifDefined(this.min?.toISOString())}
-                month=${ifDefined(this.month?.toISOString())}
-                show-today
-              ></sl-calendar>
-            `
-          : nothing}
-      </slot>
+        <slot name="calendar">
+          ${this.dialog?.matches(':popover-open')
+            ? html`
+                <sl-calendar
+                  @sl-change=${this.#onChange}
+                  .selected=${this.valueAsDate}
+                  ?show-week-numbers=${this.showWeekNumbers}
+                  first-day-of-week=${ifDefined(this.firstDayOfWeek)}
+                  locale=${ifDefined(this.locale)}
+                  max=${ifDefined(this.max?.toISOString())}
+                  min=${ifDefined(this.min?.toISOString())}
+                  month=${ifDefined(this.month?.toISOString())}
+                  show-today
+                ></sl-calendar>
+              `
+            : nothing}
+        </slot>
+      </dialog>
     `;
   }
 
   #onBeforeToggle(event: ToggleEvent): void {
     if (event.newState === 'open') {
-      this.input.setAttribute('aria-expanded', 'true');
+      this.button?.setAttribute('aria-expanded', 'true');
     } else {
-      this.input.setAttribute('aria-expanded', 'false');
+      this.button?.setAttribute('aria-expanded', 'false');
       this.#popoverJustClosed = true;
     }
   }
@@ -268,7 +284,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   #onButtonClick(): void {
     // Prevents the popover from reopening immediately after it was just closed
     if (!this.#popoverJustClosed) {
-      this.wrapper?.togglePopover();
+      this.dialog?.togglePopover();
     }
   }
 
@@ -276,8 +292,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     event.preventDefault();
     event.stopPropagation();
 
-    this.value = event.detail;
-    this.changeEvent.emit(this.value);
+    this.valueAsDate = event.detail;
+    this.changeEvent.emit(this.valueAsDate);
 
     this.textField?.updateValidity();
 
@@ -285,7 +301,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.updateValidity();
 
     setTimeout(() => {
-      this.wrapper?.hidePopover();
+      this.dialog?.hidePopover();
       this.input.focus();
     }, 500);
   }
@@ -294,14 +310,18 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     event.preventDefault();
     event.stopPropagation();
 
+    // TODO: check if the date value has changed and emit a change event if so
+
     this.blurEvent.emit();
     this.updateState({ touched: true });
+    this.updateValidity();
   }
 
   #onTextFieldChange(event: SlChangeEvent): void {
     event.preventDefault();
     event.stopPropagation();
 
+    this.updateState({ dirty: true });
     this.updateValidity();
   }
 

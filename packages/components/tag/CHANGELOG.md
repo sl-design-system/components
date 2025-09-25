@@ -1,5 +1,15 @@
 # @sl-design-system/tag
 
+## 0.1.7
+
+### Patch Changes
+
+- [#2660](https://github.com/sl-design-system/components/pull/2660) [`d00e59b`](https://github.com/sl-design-system/components/commit/d00e59ba538edb328e418eaa652ad7d1e443916d) - Fix focus outline clipping due to z-index
+
+- Updated dependencies [[`d3b9d45`](https://github.com/sl-design-system/components/commit/d3b9d4512e33dbf10a2aa28efc94a54b93002285), [`f025c0f`](https://github.com/sl-design-system/components/commit/f025c0f3cbb83b72c80563e9d989402608add193), [`e2543df`](https://github.com/sl-design-system/components/commit/e2543df011b9d65b8e11a07323b3712f52859e0e)]:
+  - @sl-design-system/tooltip@1.3.0
+  - @sl-design-system/icon@1.3.1
+
 ## 0.1.6
 
 ### Patch Changes

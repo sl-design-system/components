@@ -1,5 +1,14 @@
 # @sl-design-system/checkbox
 
+## 2.1.6
+
+### Patch Changes
+
+- [#2669](https://github.com/sl-design-system/components/pull/2669) [`61989c4`](https://github.com/sl-design-system/components/commit/61989c46d7592bad8e48e6e29866a87ed222a229) - Fix incorrect validity when initial value is set
+
+- Updated dependencies [[`09a1533`](https://github.com/sl-design-system/components/commit/09a1533558b2e16baa0d118b8348ee444e169854)]:
+  - @sl-design-system/form@1.3.1
+
 ## 2.1.5
 
 ### Patch Changes

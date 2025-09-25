@@ -1,9 +1,10 @@
-import { expect, fixture } from '@open-wc/testing';
+import { fixture } from '@open-wc/testing';
 import '@sl-design-system/icon/register.js';
 import { MenuButton } from '@sl-design-system/menu';
 import '@sl-design-system/menu/register.js';
 import { ToggleButton } from '@sl-design-system/toggle-button';
 import '@sl-design-system/toggle-button/register.js';
+import { expect } from 'chai';
 import { html } from 'lit';
 import '../register.js';
 import { type Card } from './card.js';

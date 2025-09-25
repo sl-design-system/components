@@ -1,8 +1,9 @@
 import { ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { expect, fixture } from '@open-wc/testing';
+import { fixture } from '@open-wc/testing';
 import { TextField } from '@sl-design-system/text-field';
 import '@sl-design-system/text-field/register.js';
 import { sendKeys } from '@web/test-runner-commands';
+import { expect } from 'chai';
 import { LitElement, html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';

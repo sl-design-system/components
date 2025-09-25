@@ -1,6 +1,7 @@
-import { expect, fixture } from '@open-wc/testing';
+import { fixture } from '@open-wc/testing';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/icon/register.js';
+import { expect } from 'chai';
 import { html } from 'lit';
 import '../register.js';
 import { type ButtonBar, type ButtonBarAlign } from './button-bar.js';
@@ -26,6 +27,7 @@ describe('sl-button-bar', () => {
     });
 
     ['center', 'end', 'space-between', 'start'].forEach(align => {
+      // Workaround for `mocha/consistent-spacing-between-blocks` rule
       it(`should support ${align} alignment`, async () => {
         el.align = align as ButtonBarAlign;
         await el.updateComplete;

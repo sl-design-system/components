@@ -1,5 +1,6 @@
-import { expect, fixture } from '@open-wc/testing';
+import { fixture } from '@open-wc/testing';
 import { type SlAnnounceEvent } from '@sl-design-system/announcer';
+import { expect } from 'chai';
 import { html } from 'lit';
 import { type SinonSpy, spy } from 'sinon';
 import '../register.js';

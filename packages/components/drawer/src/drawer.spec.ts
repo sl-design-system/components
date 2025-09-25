@@ -1,4 +1,5 @@
-import { expect, fixture } from '@open-wc/testing';
+import { fixture } from '@open-wc/testing';
+import { expect } from 'chai';
 import { html } from 'lit';
 import { SinonSpy, spy, stub } from 'sinon';
 import '../register.js';
@@ -21,6 +22,7 @@ describe('sl-drawer', () => {
     });
 
     ['right', 'left', 'top', 'bottom'].forEach(attachment => {
+      // Workaround for `mocha/consistent-spacing-between-blocks` rule
       it(`should support ${attachment} attachment`, async () => {
         el.attachment = attachment as DrawerAttachment;
         await el.updateComplete;

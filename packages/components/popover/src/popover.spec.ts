@@ -1,7 +1,8 @@
-import { expect, fixture } from '@open-wc/testing';
+import { fixture } from '@open-wc/testing';
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { sendKeys } from '@web/test-runner-commands';
+import { expect } from 'chai';
 import { html } from 'lit';
 import '../register.js';
 import { Popover } from './popover.js';

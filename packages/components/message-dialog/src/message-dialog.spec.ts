@@ -1,5 +1,5 @@
-import { expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
+import { expect } from 'chai';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';

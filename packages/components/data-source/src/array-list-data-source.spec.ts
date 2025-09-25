@@ -1,4 +1,4 @@
-import { expect } from '@open-wc/testing';
+import { expect } from 'chai';
 import { spy } from 'sinon';
 import { ArrayListDataSource } from './array-list-data-source.js';
 import {

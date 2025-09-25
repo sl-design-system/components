@@ -1,7 +1,8 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { expect, fixture } from '@open-wc/testing';
+import { fixture } from '@open-wc/testing';
 import { Button } from '@sl-design-system/button';
 import { type PopoverPosition } from '@sl-design-system/shared';
+import { expect } from 'chai';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy, stub } from 'sinon';
 import { tooltip } from './tooltip-directive.js';

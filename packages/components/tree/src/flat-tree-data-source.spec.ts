@@ -1,4 +1,4 @@
-import { expect } from '@open-wc/testing';
+import { expect } from 'chai';
 import { FlatTreeDataSource } from './flat-tree-data-source.js';
 
 describe('FlatTreeDataSource', () => {

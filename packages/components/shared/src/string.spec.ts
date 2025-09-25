@@ -1,4 +1,4 @@
-import { expect } from '@open-wc/testing';
+import { expect } from 'chai';
 import { camelize, capitalize, classify, dasherize, decamelize, humanize, underscore } from './string.js';
 
 describe('string utils', () => {

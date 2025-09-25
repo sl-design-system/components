@@ -1,8 +1,9 @@
-import { expect, fixture } from '@open-wc/testing';
+import { fixture } from '@open-wc/testing';
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/switch/register.js';
 import { type TextField } from '@sl-design-system/text-field';
 import '@sl-design-system/text-field/register.js';
+import { expect } from 'chai';
 import { html } from 'lit';
 import '../register.js';
 import { type Form } from './form.js';

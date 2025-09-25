@@ -1,6 +1,8 @@
-import { expect, fixture, html } from '@open-wc/testing';
+import { fixture } from '@open-wc/testing';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { sendKeys } from '@web/test-runner-commands';
+import { expect } from 'chai';
+import { html } from 'lit';
 import { spy } from 'sinon';
 import { TreeNode } from './tree-node.js';
 

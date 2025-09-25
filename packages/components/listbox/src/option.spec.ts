@@ -1,4 +1,5 @@
-import { expect, fixture } from '@open-wc/testing';
+import { fixture } from '@open-wc/testing';
+import { expect } from 'chai';
 import { html } from 'lit';
 import '../register.js';
 import { type Option } from './option.js';

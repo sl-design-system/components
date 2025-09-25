@@ -1,6 +1,7 @@
 import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
-import { expect, fixture } from '@open-wc/testing';
+import { fixture } from '@open-wc/testing';
 import '@sl-design-system/text-field/register.js';
+import { expect } from 'chai';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { query } from 'lit/decorators.js';
 import { spy, stub } from 'sinon';

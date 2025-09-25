@@ -1,8 +1,9 @@
 import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
-import { expect, fixture } from '@open-wc/testing';
+import { fixture } from '@open-wc/testing';
 import { Avatar } from '@sl-design-system/avatar';
 import '@sl-design-system/avatar/register.js';
 import { ListDataSourcePlaceholder } from '@sl-design-system/data-source';
+import { expect } from 'chai';
 import { html } from 'lit';
 import { Person } from 'tools/example-data/index.js';
 import '../register.js';

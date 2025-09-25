@@ -1,6 +1,7 @@
-import { expect, fixture } from '@open-wc/testing';
+import { fixture } from '@open-wc/testing';
 import '@sl-design-system/radio-group/register.js';
 import '@sl-design-system/text-field/register.js';
+import { expect } from 'chai';
 import { html } from 'lit';
 import '../register.js';
 import { FormField } from './form-field.js';

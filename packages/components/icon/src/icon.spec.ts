@@ -1,4 +1,5 @@
-import { elementUpdated, expect, fixture } from '@open-wc/testing';
+import { elementUpdated, fixture } from '@open-wc/testing';
+import { expect } from 'chai';
 import { html } from 'lit';
 import { SinonStub, stub } from 'sinon';
 import '../register.js';

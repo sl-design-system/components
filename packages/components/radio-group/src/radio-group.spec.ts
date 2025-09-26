@@ -453,7 +453,12 @@ describe('sl-radio-group', () => {
         </sl-radio-group>
       `);
 
+      // Give the radios a chance to initialize
+      await new Promise(resolve => setTimeout(resolve));
+
       el.querySelector<HTMLElement>('sl-radio[value="1"]')?.click();
+
+      // Wait for the event to propagate
       await new Promise(resolve => setTimeout(resolve));
 
       expect(onChange).to.have.been.calledOnce;

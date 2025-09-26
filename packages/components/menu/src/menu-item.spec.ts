@@ -160,8 +160,7 @@ describe('sl-menu-item', () => {
 
       el.addEventListener('click', onClick);
 
-      await userEvent.keyboard(navigator.platform.indexOf('Mac') > -1 ? '{Meta}' : '{Control}');
-      await userEvent.keyboard('{1}');
+      await userEvent.keyboard(navigator.platform.indexOf('Mac') > -1 ? '{Meta>}1{/Meta}' : '{Control>}1{/Control}');
 
       expect(onClick).to.have.been.calledOnce;
     });
@@ -173,8 +172,7 @@ describe('sl-menu-item', () => {
       el.disabled = true;
       await el.updateComplete;
 
-      await userEvent.keyboard('{Meta}');
-      await userEvent.keyboard('{1}');
+      await userEvent.keyboard('{Meta>}1{/Meta}');
 
       expect(onClick).not.to.have.been.called;
     });

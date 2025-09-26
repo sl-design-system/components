@@ -5,3 +5,9 @@ import { chai } from 'vitest';
 
 chai.use(chaiDom);
 chai.use(sinonChai);
+
+import('./packages/themes/sanoma-learning/light.css?inline').then(styles => {
+  const style = document.createElement('style');
+  style.innerText = styles.default;
+  document.head.appendChild(style);
+});

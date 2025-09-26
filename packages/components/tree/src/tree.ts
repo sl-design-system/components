@@ -104,7 +104,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
   /** @internal Emits when the user selects a tree node. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<TreeDataSourceNode<T>>>;
 
-  override firstUpdated(changes: PropertyValues<this>): void {
+  override async firstUpdated(changes: PropertyValues<this>): Promise<void> {
     super.firstUpdated(changes);
 
     const wrapper = this.renderRoot.querySelector('[part="wrapper"]') as VirtualizerHostElement;
@@ -112,7 +112,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
 
     this.setAttributesTarget(wrapper);
 
-    // await this.layoutComplete;
+    await this.layoutComplete;
 
     if (this.dataSource?.selection.size) {
       const node = this.dataSource.selection.keys().next().value as TreeDataSourceNode<T>;
@@ -271,14 +271,14 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
     }
   }
 
-  #onRangeChanged(_event: RangeChangedEvent): void {
+  #onRangeChanged(event: RangeChangedEvent): void {
     // Give lit-virtualizer time to finish rendering the tree nodes
-    // requestAnimationFrame(() => {
-    //   this.#rovingTabindexController.updateWithVirtualizer(
-    //     { elements: () => Array.from(this.renderRoot.querySelectorAll('sl-tree-node')) },
-    //     event
-    //   );
-    // });
+    requestAnimationFrame(() => {
+      this.#rovingTabindexController.updateWithVirtualizer(
+        { elements: () => Array.from(this.renderRoot.querySelectorAll('sl-tree-node')) },
+        event
+      );
+    });
   }
 
   #onSelect(event: SlSelectEvent<TreeDataSourceNode<T>>): void {

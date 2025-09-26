@@ -8,7 +8,7 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './month-view.scss.js';
-import { type Calendar, type Day, createCalendar, getWeekdayNames, isSameDate } from './utils.js';
+import { type Calendar, type Day, createCalendar, getWeekdayNames, isDateInList, isSameDate } from './utils.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -43,7 +43,14 @@ export class MonthView extends LocaleMixin(LitElement) {
 
       return elements.findIndex(el => !el.disabled);
     },
-    elements: (): HTMLButtonElement[] => Array.from(this.renderRoot.querySelectorAll('button')),
+    elements: (): HTMLButtonElement[] => {
+      // console.log(
+      //   'elements',
+      //   Array.from(this.renderRoot.querySelectorAll('button')),
+      //   this.renderRoot.querySelectorAll('button')
+      // );
+      return Array.from(this.renderRoot.querySelectorAll('button'));
+    },
     isFocusableElement: el => !el.disabled
   });
 
@@ -102,6 +109,15 @@ export class MonthView extends LocaleMixin(LitElement) {
   /** The selected date. */
   @property({ converter: dateConverter }) selected?: Date;
 
+  /** The list of dates that should have 'negative' styling. */
+  @property({ converter: dateConverter }) negative?: Date[];
+
+  /** The list of dates that should have an indicator. */
+  @property({ converter: dateConverter }) indicator?: Date[];
+
+  // eslint-disable-next-line lit/no-native-attributes
+  @property({ type: Boolean }) override inert = false;
+
   /**
    * Highlights today's date when set.
    * @default false
@@ -138,7 +154,7 @@ export class MonthView extends LocaleMixin(LitElement) {
       this.calendar = createCalendar(this.month ?? new Date(), { firstDayOfWeek, max, min, showToday });
     }
 
-    if (changes.has('month')) {
+    if (changes.has('month') || changes.has('inert')) {
       this.#rovingTabindexController.clearElementCache();
     }
   }
@@ -148,6 +164,9 @@ export class MonthView extends LocaleMixin(LitElement) {
       <table>
         ${this.renderHeader()}
         <tbody>
+          <tr>
+            <td colspan="7">${1 + (this.month?.getMonth() ?? 0)}</td>
+          </tr>
           ${this.calendar?.weeks.map(
             week => html`
               <tr>
@@ -184,7 +203,7 @@ export class MonthView extends LocaleMixin(LitElement) {
         ariaLabel = `${day.date.getDate()}, ${format(day.date, this.locale, { weekday: 'long' })} ${format(day.date, this.locale, { month: 'long', year: 'numeric' })}`;
 
       template =
-        this.readonly || !day.currentMonth || day.unselectable
+        this.readonly || day.unselectable
           ? html`<span .part=${parts} aria-label=${ariaLabel}>${day.date.getDate()}</span>`
           : html`
               <button
@@ -211,6 +230,8 @@ export class MonthView extends LocaleMixin(LitElement) {
       day.previousMonth ? 'previous-month' : '',
       day.today ? 'today' : '',
       day.unselectable ? 'unselectable' : '',
+      this.negative && isDateInList(day.date, this.negative) ? 'negative' : '',
+      this.indicator && isDateInList(day.date, this.indicator) ? 'indicator' : '',
       this.selected && isSameDate(day.date, this.selected) ? 'selected' : ''
     ].filter(part => part !== '');
   };
@@ -239,6 +260,29 @@ export class MonthView extends LocaleMixin(LitElement) {
       event.stopPropagation();
 
       this.changeEvent.emit(new Date(day.date.getFullYear(), day.date.getMonth() + 1, 1));
+    } else if (event.key === 'ArrowUp' && day.currentMonth) {
+      const crossesMonthBoundary = day.date.getDate() - 7 < 1;
+
+      // Move to the same weekday in previous month
+      if (crossesMonthBoundary) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const targetDate = new Date(day.date.getFullYear(), day.date.getMonth(), day.date.getDate() - 7);
+        this.changeEvent.emit(targetDate);
+      }
+    } else if (event.key === 'ArrowDown' && day.currentMonth) {
+      const lastDateOfMonth = new Date(day.date.getFullYear(), day.date.getMonth() + 1, 0).getDate(),
+        crossesMonthBoundary = day.date.getDate() + 7 > lastDateOfMonth;
+
+      // Move to the same weekday in next month
+      if (crossesMonthBoundary) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const targetDate = new Date(day.date.getFullYear(), day.date.getMonth(), day.date.getDate() + 7);
+        this.changeEvent.emit(targetDate);
+      }
     } else if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
       event.stopPropagation();

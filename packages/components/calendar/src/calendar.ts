@@ -1,6 +1,6 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { type EventEmitter, LocaleMixin, event } from '@sl-design-system/shared';
-import { dateConverter } from '@sl-design-system/shared/converters.js';
+import { dateConverter, dateListConverter } from '@sl-design-system/shared/converters.js';
 import { type SlChangeEvent, type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -29,6 +29,8 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       'sl-select-year': SelectYear
     };
   }
+
+  #previousMode: 'day' | 'month' | 'year' = 'day';
 
   /** @internal */
   static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
@@ -66,11 +68,29 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** The selected date. */
   @property({ converter: dateConverter }) selected?: Date;
 
+  /** The list of dates that should have 'negative' styling. */
+  @property({ converter: dateListConverter }) negative?: Date[];
+
+  /** The list of dates that should have 'negative' styling. */
+  @property({ converter: dateListConverter }) indicator?: Date[];
+
   /** Highlights today's date when set. */
   @property({ type: Boolean, attribute: 'show-today' }) showToday?: boolean;
 
   /** Shows the week numbers. */
   @property({ type: Boolean, attribute: 'show-week-numbers' }) showWeekNumbers?: boolean;
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    document.addEventListener('pointerdown', this.#onPointerDown, true); // TODO: or maybe click better?
+  }
+
+  override disconnectedCallback(): void {
+    document.removeEventListener('pointerdown', this.#onPointerDown, true);
+
+    super.disconnectedCallback();
+  }
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
@@ -78,15 +98,28 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     if (changes.has('selected') && this.selected) {
       // If only the `selected` property is set, make sure the `month` property is set
       // to the same date, so the selected day is visible in the calendar.
-      this.month ??= new Date(this.selected);
+      // this.month ??= this.selected; //new Date(this.selected); // only assigns this.selected to this.month if this.month is null or undefined
+      this.month = this.selected;
+      // TODO: jumping here when selected has changed?
+      console.log(
+        'willUpdate selected, setting month to',
+        this.month,
+        this.selected,
+        this.month.getMonth(),
+        this.selected.getMonth()
+      );
     } else {
       // Otherwise default to the current month.
       this.month ??= new Date();
+      console.log('willUpdate month - should be current', this.month, this.selected);
     }
   }
 
   override render(): TemplateResult {
+    console.log('in render', this.month, this.selected);
+
     return html`
+      ${this.month ? html`month:${this.month.getMonth() + 1}` : 'undefined month'}
       <sl-select-day
         @sl-select=${this.#onSelect}
         @sl-toggle=${this.#onToggleMonthYear}
@@ -96,6 +129,8 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         ?show-week-numbers=${this.showWeekNumbers}
         .month=${this.month}
         .selected=${this.selected}
+        .negative=${this.negative}
+        .indicator=${this.indicator}
         aria-hidden=${this.mode !== 'day'}
         first-day-of-week=${ifDefined(this.firstDayOfWeek)}
         locale=${ifDefined(this.locale)}
@@ -109,27 +144,54 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           () => html`
             <sl-select-month
               @sl-select=${this.#onSelectMonth}
+              @sl-toggle=${this.#onToggleMonthYear}
+              ?show-today=${this.showToday}
+              .selected=${this.selected}
               .month=${this.month}
               locale=${ifDefined(this.locale)}
+              max=${ifDefined(this.max?.toISOString())}
+              min=${ifDefined(this.min?.toISOString())}
             ></sl-select-month>
           `
         ],
         [
           'year',
           () => html`
-            <sl-select-year @sl-select=${this.#onSelectYear} .year=${this.month!.getFullYear()}></sl-select-year>
+            <sl-select-year
+              @sl-select=${this.#onSelectYear}
+              ?show-today=${this.showToday}
+              .selected=${this.selected}
+              .year=${this.month}
+              max=${ifDefined(this.max?.toISOString())}
+              min=${ifDefined(this.min?.toISOString())}
+            ></sl-select-year>
           `
         ]
       ])}
     `;
   }
 
+  #onPointerDown = (event: PointerEvent): void => {
+    // Close month/year view when clicking outside the component
+    if (this.mode === 'day') {
+      return;
+    }
+
+    const path = event.composedPath();
+    if (!path.includes(this)) {
+      this.mode = 'day';
+      requestAnimationFrame(() => {
+        this.renderRoot.querySelector('sl-select-day')?.focus(); // TODO: really necessary?
+      });
+    }
+  }; // TODO: stop Propagation needs to be added to prevent bubbling up? So it would not close the dialog for example?
+
   #onSelect(event: SlSelectEvent<Date>): void {
     event.preventDefault();
     event.stopPropagation();
 
     if (!this.selected || !isSameDate(this.selected, event.detail)) {
-      this.month = new Date(event.detail.getFullYear(), event.detail.getMonth());
+      console.log('select date', event.detail, this.selected);
       this.selected = new Date(event.detail);
       this.changeEvent.emit(this.selected);
     }
@@ -152,7 +214,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     event.stopPropagation();
 
     this.month = new Date(event.detail.getFullYear(), this.month!.getMonth(), this.month!.getDate());
-    this.mode = 'day';
+    this.mode = this.#previousMode ?? 'day';
 
     requestAnimationFrame(() => {
       this.renderRoot.querySelector('sl-select-day')?.focus();
@@ -160,9 +222,11 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onToggleMonthYear(event: SlToggleEvent<'month' | 'year'>): void {
+    // TODO: should be used when clicking outsie the component to close month/year views ??
     event.preventDefault();
     event.stopPropagation();
 
+    this.#previousMode = this.mode;
     this.mode = event.detail;
 
     requestAnimationFrame(() => {
@@ -170,3 +234,4 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     });
   }
 }
+// TODO: there is an issue when I go to months view and then go to the years view and then select a year and go back to selecting month from months view - I cannot use arrow keays properly there... why?

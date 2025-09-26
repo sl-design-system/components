@@ -9,6 +9,7 @@ export interface Day {
   future?: boolean;
   highlight?: boolean;
   lastDayOfMonth?: boolean;
+  negative?: boolean;
   nextMonth?: boolean;
   past?: boolean;
   previousMonth?: boolean;
@@ -23,6 +24,14 @@ export interface Day {
 export interface Week {
   number: number;
   days: Day[];
+}
+
+export interface Month {
+  short: string;
+  long: string;
+  value: number;
+  date: Date;
+  unselectable?: boolean;
 }
 
 export type WeekDayNamesStyle = 'long' | 'short' | 'narrow';
@@ -119,6 +128,14 @@ export function isSameDate(day1?: Date, day2?: Date): boolean {
     day1.getMonth() === day2.getMonth() &&
     day1.getFullYear() === day2.getFullYear()
   );
+}
+
+export function isDateInList(date: Date, list?: Date[] | string): boolean {
+  if (!list) return false;
+  if (typeof list === 'string') {
+    list = list.split(',').map(item => new Date(item));
+  }
+  return list.some(item => isSameDate(item, date));
 }
 
 export function normalizeDateTime(date: Date): Date {

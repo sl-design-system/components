@@ -80,6 +80,18 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** Shows the week numbers. */
   @property({ type: Boolean, attribute: 'show-week-numbers' }) showWeekNumbers?: boolean;
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    document.addEventListener('pointerdown', this.#onPointerDown, true); // TODO: or maybe click better?
+  }
+
+  override disconnectedCallback(): void {
+    document.removeEventListener('pointerdown', this.#onPointerDown, true);
+
+    super.disconnectedCallback();
+  }
+
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
@@ -105,17 +117,6 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   override render(): TemplateResult {
     console.log('in render', this.month, this.selected);
-    console.log(
-      'active element in calendar...',
-      document.activeElement,
-      this.renderRoot instanceof ShadowRoot ? this.renderRoot.activeElement : null,
-      'sl-select-day active:',
-      this.renderRoot.querySelector('sl-select-day')?.shadowRoot?.activeElement ?? null,
-      'sl-select-month active:',
-      this.renderRoot.querySelector('sl-select-month')?.shadowRoot?.activeElement ?? null,
-      'sl-select-year active:',
-      this.renderRoot.querySelector('sl-select-year')?.shadowRoot?.activeElement ?? null
-    );
 
     return html`
       ${this.month ? html`month:${this.month.getMonth() + 1}` : 'undefined month'}
@@ -170,6 +171,21 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     `;
   }
 
+  #onPointerDown = (event: PointerEvent): void => {
+    // Close month/year view when clicking outside the component
+    if (this.mode === 'day') {
+      return;
+    }
+
+    const path = event.composedPath();
+    if (!path.includes(this)) {
+      this.mode = 'day';
+      requestAnimationFrame(() => {
+        this.renderRoot.querySelector('sl-select-day')?.focus(); // TODO: really necessary?
+      });
+    }
+  }; // TODO: stop Propagation needs to be added to prevent bubbling up? So it would not close the dialog for example?
+
   #onSelect(event: SlSelectEvent<Date>): void {
     event.preventDefault();
     event.stopPropagation();
@@ -218,3 +234,4 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     });
   }
 }
+// TODO: there is an issue when I go to months view and then go to the years view and then select a year and go back to selecting month from months view - I cannot use arrow keays properly there... why?

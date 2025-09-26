@@ -101,6 +101,7 @@ documentation.json
 
 # Test files
 __screenshots__
+packages/components/*/src/__screenshots__
 __snapshots__
 
 # Intellij

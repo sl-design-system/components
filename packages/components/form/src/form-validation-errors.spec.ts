@@ -4,7 +4,7 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { query } from 'lit/decorators.js';
 import { spy, stub } from 'sinon';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { FormController } from './form-controller.js';
 import { type FormValidationErrors } from './form-validation-errors.js';

@@ -10,8 +10,6 @@ describe('sl-breadcrumbs', () => {
 
   describe('defaults', () => {
     beforeEach(async () => {
-      await page.viewport(800, 600);
-
       el = await fixture(html`
         <sl-breadcrumbs>
           <a href="/docs">Docs</a>

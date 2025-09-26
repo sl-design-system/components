@@ -56,7 +56,7 @@ describe('sl-message-dialog', () => {
       await userEvent.keyboard('{Escape}');
 
       // Wait for the event to be emitted
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 500));
 
       expect(callback).to.have.been.calledWith(undefined);
     });

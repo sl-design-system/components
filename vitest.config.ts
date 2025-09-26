@@ -1,3 +1,4 @@
+/// <reference types="@vitest/browser/providers/playwright" />
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import { defineConfig } from 'vitest/config';
 
@@ -32,7 +33,16 @@ export default defineConfig({
             enabled: true,
             headless: true,
             provider: 'playwright',
-            instances: [{ browser: 'chromium' }]
+            instances: [
+              {
+                browser: 'chromium',
+                context: {
+                  locale: 'en',
+                  reducedMotion: 'reduce'
+                }
+              }
+            ],
+            viewport: { width: 1024, height: 768 }
           },
           setupFiles: 'vitest.setup.ts'
         }

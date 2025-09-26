@@ -106,6 +106,7 @@ export default {
         Selected date:
         <sl-format-date .date=${selectedDate} locale=${ifDefined(locale)} date-style="long"></sl-format-date>
       </p>
+      <p>active element: ${window.document.activeElement ? window.document.activeElement.tagName : 'none'}</p>
     `;
   }
 } satisfies Meta<Props>;

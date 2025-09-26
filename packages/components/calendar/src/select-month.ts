@@ -42,11 +42,15 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { keydown: this.#onKeydown });
 
-  // eslint-disable-next-line no-unused-private-class-members
   #rovingTabindexController = new RovingTabindexController(this, {
     direction: 'grid',
     directionLength: 3,
-    elements: (): HTMLElement[] => Array.from(this.renderRoot.querySelectorAll('ol button')),
+    // elements: (): HTMLElement[] => Array.from(this.renderRoot.querySelectorAll('ol button')),
+    elements: (): HTMLElement[] => {
+      const list = this.renderRoot.querySelector('ol');
+      if (!list) return [];
+      return Array.from(list.querySelectorAll<HTMLButtonElement>('button')).filter(btn => !btn.disabled);
+    },
     focusInIndex: elements => {
       const index = elements.findIndex(el => el.hasAttribute('aria-pressed'));
 
@@ -110,6 +114,10 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         };
       });
     }
+
+    if (changes.has('month') || changes.has('min') || changes.has('max') || changes.has('inert')) {
+      this.#rovingTabindexController.clearElementCache();
+    }
   }
 
   override render(): TemplateResult {
@@ -153,7 +161,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           return html`
             <li>
               ${month.unselectable
-                ? html`<span .part=${parts}>${month.long}</span>`
+                ? html`<button disabled .part=${parts}>${month.long}</button>`
                 : html`
                     <button
                       .part=${parts}
@@ -193,8 +201,131 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     this.toggleEvent.emit('year');
   }
 
+  #isUnselectable(year: number, month: number): boolean {
+    const date = new Date(year, month, 1);
+    if (this.min && date < new Date(this.min.getFullYear(), this.min.getMonth(), 1)) {
+      return true;
+    }
+    return !!(this.max && date > new Date(this.max.getFullYear(), this.max.getMonth(), 1));
+  }
+
+  #allPreviousUnselectable(): boolean {
+    const prevY = this.month.getFullYear() - 1;
+    return this.months.every(m => this.#isUnselectable(prevY, m.value));
+  }
+
+  #allNextUnselectable(): boolean {
+    const nextY = this.month.getFullYear() + 1;
+    return this.months.every(m => this.#isUnselectable(nextY, m.value));
+  }
+
+  #getMonthsButtons(): HTMLButtonElement[] {
+    return Array.from(this.renderRoot.querySelectorAll('ol button'));
+    // return Array.from(this.renderRoot.querySelectorAll<HTMLButtonElement>('ol button:not([disabled])'));
+  }
+
   #onKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Escape') {
+    const buttons = Array.from(this.renderRoot.querySelectorAll<HTMLButtonElement>('ol button')),
+      activeElement = this.shadowRoot?.activeElement as HTMLButtonElement | null,
+      index = activeElement ? buttons.indexOf(activeElement) : -1,
+      cols = 3;
+
+    if (event.key === 'ArrowLeft' && !this.#allPreviousUnselectable()) {
+      if (index === 0) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        this.#onPrevious();
+
+        void this.updateComplete.then(() => {
+          this.#rovingTabindexController.clearElementCache();
+
+          const newButtons = this.#getMonthsButtons();
+
+          this.#rovingTabindexController.focusToElement(newButtons[newButtons.length - 1]);
+        });
+      }
+    } else if (event.key === 'ArrowRight' && !this.#allNextUnselectable()) {
+      if (index === buttons.length - 1) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        this.#onNext();
+
+        void this.updateComplete.then(() => {
+          this.#rovingTabindexController.clearElementCache();
+
+          const first = this.#getMonthsButtons()[0];
+
+          if (first) {
+            this.#rovingTabindexController.focusToElement(first);
+          }
+        });
+      }
+    } else if (event.key === 'ArrowUp' && !this.#allPreviousUnselectable()) {
+      if (index > -1 && index < cols) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const col = index % cols;
+
+        this.#onPrevious();
+
+        void this.updateComplete.then(() => {
+          this.#rovingTabindexController.clearElementCache();
+
+          const newButtons = this.#getMonthsButtons(),
+            total = newButtons.length;
+
+          if (!total) {
+            return;
+          }
+
+          // Start index of last (possibly partial) row
+          const lastRowStart = total - (total % cols === 0 ? cols : total % cols),
+            targetIndex = Math.min(lastRowStart + col, total - 1),
+            target = newButtons[targetIndex];
+
+          if (target) {
+            this.#rovingTabindexController.focusToElement(target);
+          }
+        });
+      }
+    } else if (event.key === 'ArrowDown' && !this.#allNextUnselectable()) {
+      if (index > -1) {
+        const total = buttons.length,
+          lastRowStart = total - (total % cols === 0 ? cols : total % cols);
+
+        // If on any button in the last row, move to next range keeping column
+        if (index >= lastRowStart) {
+          event.preventDefault();
+          event.stopPropagation();
+
+          const col = index % cols;
+
+          this.#onNext();
+
+          void this.updateComplete.then(() => {
+            this.#rovingTabindexController.clearElementCache();
+
+            const newButtons = this.#getMonthsButtons();
+
+            if (!newButtons.length) {
+              return;
+            }
+
+            let target = newButtons[col];
+            if (!target) {
+              // Last button if fewer buttons than expected
+              target = newButtons[newButtons.length - 1];
+            }
+            if (target) {
+              this.#rovingTabindexController.focusToElement(target);
+            }
+          });
+        }
+      }
+    } else if (event.key === 'Escape') {
       event.preventDefault();
       event.stopPropagation();
 
@@ -210,3 +341,6 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     this.month = new Date(this.month.getFullYear() - 1, this.month.getMonth(), this.month.getDate());
   }
 }
+
+// TODO: e.g. when I'm in the selecting month view and press Escape, it goes go back to day view,
+// and when I click the month button it goes back to day view too. But when I click outsie of the selecting month view it's not going back to day view, but it should...

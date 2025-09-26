@@ -168,13 +168,13 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   };
 
   #isUnselectable(year: number): boolean {
-    console.log(
-      'isUnselectable',
-      year,
-      this.min,
-      this.max,
-      !!((this.min && year < this.min.getFullYear()) || (this.max && year > this.max.getFullYear()))
-    );
+    // console.log(
+    //   'isUnselectable',
+    //   year,
+    //   this.min,
+    //   this.max,
+    //   !!((this.min && year < this.min.getFullYear()) || (this.max && year > this.max.getFullYear()))
+    // );
     if (!year) {
       return true;
     }
@@ -185,47 +185,33 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     this.selectEvent.emit(new Date(year, 0));
   }
 
+  #getYearButtons(): HTMLButtonElement[] {
+    return Array.from(this.renderRoot.querySelectorAll('ol button'));
+  }
+
   #onKeydown(event: KeyboardEvent): void {
-    const canGoPrevious = !this.#isUnselectable(this.years[0] - 1);
-    const canGoNext = !this.#isUnselectable(this.years[this.years.length - 1] + 1);
+    const canGoPrevious = !this.#isUnselectable(this.years[0] - 1),
+      canGoNext = !this.#isUnselectable(this.years[this.years.length - 1] + 1),
+      buttons = this.#getYearButtons(),
+      activeElement = this.shadowRoot?.activeElement as HTMLButtonElement | null,
+      index = activeElement ? buttons.indexOf(activeElement) : -1,
+      cols = 3;
 
-    console.log('canGoPrevious', canGoPrevious, 'canGoNext', canGoNext);
-
-    if (event.key === 'ArrowLeft' && canGoPrevious /*&& year.currentMonth && day.date.getDate() === 1*/) {
-      // this.#onPrevious();
-
-      const buttons = Array.from(this.renderRoot.querySelectorAll('ol button'));
-      const activeEl = this.shadowRoot?.activeElement as HTMLButtonElement | null;
-      const index = activeEl ? buttons.indexOf(activeEl) : -1;
+    if (event.key === 'ArrowLeft' && canGoPrevious) {
       if (index === 0) {
-        console.log('left on first year of range');
         event.preventDefault();
         event.stopPropagation();
-        // this.#onPrevious();
 
-        const start = this.years[0] - 12;
-        const end = this.years[0] - 1;
-        this.#setYears(start, end);
-        // void this.updateComplete.then(() => {
-        //   const buttons = this.renderRoot.querySelectorAll('ol button');
-        //   (buttons[buttons.length - 1] as HTMLButtonElement | undefined)?.focus();
-        // });
+        this.#onPrevious();
         void this.updateComplete.then(() => {
           this.#rovingTabindexController.clearElementCache();
-          // this.#focusLastOnRender = true;
-          // (buttons[buttons.length - 1] as HTMLButtonElement | undefined)?.focus();
-          // this.#rovingTabindexController.clearElementCache();
-          // this.#rovingTabindexController.focusToElement(buttons[buttons.length - 1] as HTMLButtonElement);
 
-          const newButtons = Array.from(this.renderRoot.querySelectorAll('ol button'));
-          this.#rovingTabindexController.focusToElement(newButtons[newButtons.length - 1] as HTMLButtonElement);
+          const newButtons = this.#getYearButtons();
+
+          this.#rovingTabindexController.focusToElement(newButtons[newButtons.length - 1]);
         });
-        // this.#rovingTabindexController.clearElementCache();
       }
-    } else if (event.key === 'ArrowRight' && canGoNext /*&& day.currentMonth && day.lastDayOfMonth*/) {
-      const buttons = Array.from(this.renderRoot.querySelectorAll('ol button'));
-      const activeEl = this.shadowRoot?.activeElement as HTMLButtonElement | null;
-      const index = activeEl ? buttons.indexOf(activeEl) : -1;
+    } else if (event.key === 'ArrowRight' && canGoNext) {
       if (index === buttons.length - 1) {
         event.preventDefault();
         event.stopPropagation();
@@ -233,96 +219,74 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
         this.#onNext();
         void this.updateComplete.then(() => {
           this.#rovingTabindexController.clearElementCache();
-          // this.#rovingTabindexController.clearElementCache();
-          const first = this.renderRoot.querySelector('ol button') as HTMLButtonElement;
+
+          const first = this.#getYearButtons()[0];
+
           if (first) {
             this.#rovingTabindexController.focusToElement(first);
           }
-        }); // TODO: should work as well when we have limited years with min and max...
+        });
       }
-    } else if (event.key === 'ArrowUp' /*&& day.date.getDate() === 1*/) {
-      // event.preventDefault();
-      // event.stopPropagation();
-      //
-      // this.changeEvent.emit(new Date(day.date.getFullYear(), day.date.getMonth(), 0));
-
-      // const buttons = Array.from(this.renderRoot.querySelectorAll('ol button'));
-      // const activeEl = this.shadowRoot?.activeElement as HTMLButtonElement | null;
-      // const index = activeEl ? buttons.indexOf(activeEl) : -1;
-      // if (index === 0) {
-      //   event.preventDefault();
-      //   event.stopPropagation();
-      //   this.#onPrevious();
-      // }
-
-      const buttons = Array.from(this.renderRoot.querySelectorAll('ol button'));
-      const activeEl = this.shadowRoot?.activeElement as HTMLButtonElement | null;
-      const index = activeEl ? buttons.indexOf(activeEl) : -1;
-
+    } else if (event.key === 'ArrowUp' && canGoPrevious) {
       // When on first row (any of the first 3 buttons), jump to previous range
       // and focus the button in the last row, same column.
-      if (index > -1 && index < 3 && canGoPrevious) {
+      if (index > -1 && index < cols) {
         event.preventDefault();
         event.stopPropagation();
 
-        const col = index % 3;
+        const col = index % cols;
+
         this.#onPrevious();
+
         void this.updateComplete.then(() => {
-          const newButtons = Array.from(this.renderRoot.querySelectorAll('ol button'));
-          if (!newButtons.length) {
+          this.#rovingTabindexController.clearElementCache();
+
+          const newButtons = this.#getYearButtons();
+          const total = newButtons.length;
+
+          if (!total) {
             return;
           }
-          const columns = 3;
-          const total = newButtons.length;
+
           // Start index of last (possibly partial) row
-          const lastRowStart = total - (total % columns === 0 ? columns : total % columns);
+          const lastRowStart = total - (total % cols === 0 ? cols : total % cols);
           const targetIndex = Math.min(lastRowStart + col, total - 1);
-          const target = newButtons[targetIndex] as HTMLButtonElement | undefined;
+
+          const target = newButtons[targetIndex];
           if (target) {
-            this.#rovingTabindexController.clearElementCache();
             this.#rovingTabindexController.focusToElement(target);
           }
         });
       }
-    } else if (event.key === 'ArrowDown' /* && day.currentMonth*/ /*&& day.lastDayOfMonth*/) {
-      console.log('down on last day of month');
-
-      // const buttons = Array.from(this.renderRoot.querySelectorAll('ol button'));
-      // const activeEl = this.shadowRoot?.activeElement as HTMLButtonElement | null;
-      // const index = activeEl ? buttons.indexOf(activeEl) : -1;
-      // if (index === buttons.length - 1) {
-      //   event.preventDefault();
-      //   event.stopPropagation();
-      //   this.#onNext();
-      // }
-
-      const buttons = Array.from(this.renderRoot.querySelectorAll('ol button'));
-      const activeEl = this.shadowRoot?.activeElement as HTMLButtonElement | null;
-      const index = activeEl ? buttons.indexOf(activeEl) : -1;
-
-      if (index > -1 && canGoNext) {
-        const columns = 3;
+    } else if (event.key === 'ArrowDown' && canGoNext) {
+      // console.log('down on last day of month');
+      if (index > -1) {
         const total = buttons.length;
-        const lastRowStart = total - (total % columns === 0 ? columns : total % columns);
+        const lastRowStart = total - (total % cols === 0 ? cols : total % cols);
         // If on any button in the last row, move to next range keeping column
         if (index >= lastRowStart) {
           event.preventDefault();
           event.stopPropagation();
 
-          const col = index % columns;
+          const col = index % cols;
+
           this.#onNext();
+
           void this.updateComplete.then(() => {
-            const newButtons = Array.from(this.renderRoot.querySelectorAll('ol button'));
+            this.#rovingTabindexController.clearElementCache();
+
+            const newButtons = this.#getYearButtons();
+
             if (!newButtons.length) {
               return;
             }
-            let target = newButtons[col] as HTMLButtonElement | undefined;
+
+            let target = newButtons[col];
             if (!target) {
-              // Fallback: last button if fewer buttons than expected
-              target = newButtons[newButtons.length - 1] as HTMLButtonElement;
+              // Last button if fewer buttons than expected
+              target = newButtons[newButtons.length - 1];
             }
             if (target) {
-              this.#rovingTabindexController.clearElementCache();
               this.#rovingTabindexController.focusToElement(target);
             }
           });
@@ -338,12 +302,6 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
 
   #onPrevious(): void {
     this.#setYears(this.years[0] - 12, this.years[0] - 1);
-
-    // this.#focusLastOnRender = true;
-    // this.#setYears(this.years[0] - 12, this.years[0] - 1);
-    // void this.updateComplete.then(() => {
-    //   this.#focusLastOnRender = false;
-    // });
   }
 
   #onNext(): void {

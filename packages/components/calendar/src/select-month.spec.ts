@@ -48,12 +48,12 @@ describe('sl-select-month', () => {
       await el.updateComplete;
     });
 
-    it('should mark months outside range as unselectable spans', () => {
+    it('should mark months outside range as unselectable buttons', () => {
       const unselectableParts = Array.from(el.renderRoot.querySelectorAll('[part~="unselectable"]'));
       // Months 0,1,2 and 9,10,11 -> 6 unselectables
       expect(unselectableParts).to.have.lengthOf(6);
-      const allSpans = unselectableParts.every(n => n.tagName === 'SPAN');
-      expect(allSpans).to.be.true;
+      const allButtons = unselectableParts.every(node => node.tagName === 'BUTTON' && node.hasAttribute('disabled'));
+      expect(allButtons).to.be.true;
     });
 
     it('should disable navigating to a previous year (since min is current year)', () => {

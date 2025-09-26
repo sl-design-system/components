@@ -105,6 +105,17 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   override render(): TemplateResult {
     console.log('in render', this.month, this.selected);
+    console.log(
+      'active element in calendar...',
+      document.activeElement,
+      this.renderRoot instanceof ShadowRoot ? this.renderRoot.activeElement : null,
+      'sl-select-day active:',
+      this.renderRoot.querySelector('sl-select-day')?.shadowRoot?.activeElement ?? null,
+      'sl-select-month active:',
+      this.renderRoot.querySelector('sl-select-month')?.shadowRoot?.activeElement ?? null,
+      'sl-select-year active:',
+      this.renderRoot.querySelector('sl-select-year')?.shadowRoot?.activeElement ?? null
+    );
 
     return html`
       ${this.month ? html`month:${this.month.getMonth() + 1}` : 'undefined month'}
@@ -133,9 +144,9 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
             <sl-select-month
               @sl-select=${this.#onSelectMonth}
               @sl-toggle=${this.#onToggleMonthYear}
+              ?show-today=${this.showToday}
               .selected=${this.selected}
               .month=${this.month}
-              ?show-today=${this.showToday}
               locale=${ifDefined(this.locale)}
               max=${ifDefined(this.max?.toISOString())}
               min=${ifDefined(this.min?.toISOString())}
@@ -147,11 +158,11 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           () => html`
             <sl-select-year
               @sl-select=${this.#onSelectYear}
-              .selected=${this.selected}
               ?show-today=${this.showToday}
+              .selected=${this.selected}
+              .year=${this.month}
               max=${ifDefined(this.max?.toISOString())}
               min=${ifDefined(this.min?.toISOString())}
-              .year=${this.month}
             ></sl-select-year>
           `
         ]
@@ -195,6 +206,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onToggleMonthYear(event: SlToggleEvent<'month' | 'year'>): void {
+    // TODO: should be used when clicking outsie the component to close month/year views ??
     event.preventDefault();
     event.stopPropagation();
 

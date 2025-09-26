@@ -55,11 +55,11 @@ button {
     transition-property: background, border-radius, color;
   }
 
-  &:hover {
+  &:hover:not([part~='unselectable']) {
     --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
   }
 
-  &:active {
+  &:active:not([part~='unselectable']) {
     --_bg-opacity: var(--sl-opacity-interactive-plain-active);
   }
 
@@ -93,6 +93,7 @@ button {
 
 [part~='unselectable'] {
   color: var(--sl-color-foreground-disabled);
+  cursor: default;
 }
 
 [part~='selected'] {

@@ -1,14 +1,9 @@
-import { render } from 'lit';
+import { page } from '@vitest/browser/context';
+import { beforeEach } from 'vitest';
+import { fixture, cleanup } from './helpers.js';
 
-export async function fixture(template) {
-  const wrapper = document.createElement('div');
-  document.body.appendChild(wrapper);
-  render(template, wrapper);
+page.extend({ fixture, [Symbol.for('vitest:component-cleanup')]: cleanup });
 
-  const element = wrapper.firstElementChild;
-  if (element.updateComplete) {
-    await element.updateComplete;
-  }
+beforeEach(() => cleanup());
 
-  return element;
-}
+export { fixture, cleanup };

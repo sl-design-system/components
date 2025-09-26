@@ -71,9 +71,10 @@ describe('sl-select-year', () => {
     it('should render disabled (unselectable) years outside min/max', () => {
       const unselectable = Array.from(el.renderRoot.querySelectorAll('[part~="unselectable"]'));
       expect(unselectable.length).to.be.greaterThan(0);
-      // ensure they are spans not buttons
-      const allSpans = unselectable.every(node => node.tagName === 'SPAN');
-      expect(allSpans).to.be.true;
+
+      // ensure they are disabled buttons
+      const allDisabled = unselectable.every(node => node.tagName === 'BUTTON' && node.hasAttribute('disabled'));
+      expect(allDisabled).to.be.true;
     });
 
     it('should not allow navigating before min boundary', async () => {

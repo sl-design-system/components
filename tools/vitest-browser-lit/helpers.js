@@ -26,3 +26,14 @@ export function cleanup() {
 
   containers.clear();
 }
+
+export function oneEvent(eventTarget, eventName) {
+  return new Promise(resolve => {
+    function listener(ev) {
+      resolve(ev);
+      eventTarget.removeEventListener(eventName, listener);
+    }
+
+    eventTarget.addEventListener(eventName, listener);
+  });
+}

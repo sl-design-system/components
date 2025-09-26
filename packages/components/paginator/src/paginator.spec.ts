@@ -1,4 +1,3 @@
-import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
 import { Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { ArrayListDataSource, type ListDataSource } from '@sl-design-system/data-source';
@@ -6,11 +5,9 @@ import '@sl-design-system/select/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy, stub } from 'sinon';
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { Paginator } from './paginator.js';
-
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
 
 describe('sl-paginator', () => {
   let el: Paginator;

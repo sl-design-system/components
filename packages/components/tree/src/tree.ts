@@ -51,9 +51,9 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
   #dataSource?: TreeDataSource<T>;
 
   /** Manage keyboard navigation between tabs. */
-  #rovingTabindexController = new RovingTabindexController<TreeNode<T>>(this, {
-    focusInIndex: (elements: Array<TreeNode<T>>) => elements.findIndex(el => !el.disabled),
-    elements: () => Array.from(this.shadowRoot?.querySelectorAll('sl-tree-node') ?? []),
+  #rovingTabindexController = new RovingTabindexController<TreeNode>(this, {
+    focusInIndex: elements => elements.findIndex(el => !el.disabled),
+    elements: (): TreeNode[] => Array.from(this.shadowRoot?.querySelectorAll('sl-tree-node') ?? []),
     isFocusableElement: (el: TreeNode<T>) => !el.disabled
   });
 
@@ -104,7 +104,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
   /** @internal Emits when the user selects a tree node. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<TreeDataSourceNode<T>>>;
 
-  override async firstUpdated(changes: PropertyValues<this>): Promise<void> {
+  override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
     const wrapper = this.renderRoot.querySelector('[part="wrapper"]') as VirtualizerHostElement;
@@ -112,7 +112,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
 
     this.setAttributesTarget(wrapper);
 
-    await this.layoutComplete;
+    // await this.layoutComplete;
 
     if (this.dataSource?.selection.size) {
       const node = this.dataSource.selection.keys().next().value as TreeDataSourceNode<T>;
@@ -208,7 +208,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
         aria-owns=${ifDefined(item.children?.map(child => String(child.id)).join(' '))}
         aria-posinset=${item.parent?.children ? item.parent.children?.indexOf(item) + 1 : 1}
         aria-rowindex=${this.dataSource ? this.dataSource.items?.indexOf(item) + 1 : 1}
-        aria-setsize=${item.parent ? item.parent.children?.length : this.dataSource?.size}
+        aria-setsize=${ifDefined(item.parent ? item.parent.children?.length : this.dataSource?.size)}
       >
         ${this.renderer?.(item) ??
         html`
@@ -271,14 +271,14 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
     }
   }
 
-  #onRangeChanged(event: RangeChangedEvent): void {
+  #onRangeChanged(_event: RangeChangedEvent): void {
     // Give lit-virtualizer time to finish rendering the tree nodes
-    requestAnimationFrame(() => {
-      this.#rovingTabindexController.updateWithVirtualizer(
-        { elements: () => Array.from(this.renderRoot.querySelectorAll('sl-tree-node')) },
-        event
-      );
-    });
+    // requestAnimationFrame(() => {
+    //   this.#rovingTabindexController.updateWithVirtualizer(
+    //     { elements: () => Array.from(this.renderRoot.querySelectorAll('sl-tree-node')) },
+    //     event
+    //   );
+    // });
   }
 
   #onSelect(event: SlSelectEvent<TreeDataSourceNode<T>>): void {

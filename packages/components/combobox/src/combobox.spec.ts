@@ -1,4 +1,3 @@
-import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
 import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
 import '@sl-design-system/listbox/register.js';
@@ -7,13 +6,11 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { userEvent } from '@vitest/browser/context';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { type Combobox } from './combobox.js';
 import { type CustomOption } from './custom-option.js';
 import { type SelectedGroup } from './selected-group.js';
-
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
 
 describe('sl-combobox', () => {
   let el: Combobox, input: HTMLInputElement;

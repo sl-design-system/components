@@ -1,13 +1,10 @@
-import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { type SinonSpy, spy } from 'sinon';
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { type Grid, type SlActiveRowChangeEvent } from './grid.js';
 import { waitForGridToRenderData } from './utils.js';
-
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
 
 type Person = { firstName: string; lastName: string };
 

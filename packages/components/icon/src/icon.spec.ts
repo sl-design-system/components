@@ -135,7 +135,8 @@ describe('sl-icon', () => {
 
     it('should not register the same icon twice', () => {
       Icon.register(faIcon1);
-      expect(consoleStub.calledWith('Icon fat-pinata is already in the registry')).to.be.true;
+
+      expect(consoleStub).to.be.calledWith('Icon fat-pinata is already in the registry');
     });
 
     it('should be able to register multiple FA icons', () => {

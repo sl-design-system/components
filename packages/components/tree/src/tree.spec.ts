@@ -1,4 +1,3 @@
-import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
 import { type Icon } from '@sl-design-system/icon';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { userEvent } from '@vitest/browser/context';
@@ -21,8 +20,6 @@ interface NestedDataNode {
   name: string;
   children?: NestedDataNode[];
 }
-
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
 
 const flatData: FlatDataNode[] = [
   {
@@ -95,6 +92,7 @@ describe('sl-tree', () => {
 
     it('should have a treegrid role', () => {
       const wrapper = el.renderRoot.querySelector('[part="wrapper"]');
+
       expect(wrapper).to.have.attribute('role', 'treegrid');
     });
 

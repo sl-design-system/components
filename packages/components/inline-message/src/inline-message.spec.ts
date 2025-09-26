@@ -1,4 +1,3 @@
-import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
 import { type SlAnnounceEvent } from '@sl-design-system/announcer';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
@@ -6,8 +5,6 @@ import { type SinonSpy, spy } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { InlineMessage } from './inline-message.js';
-
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
 
 describe('sl-inline-message', () => {
   let el: InlineMessage;

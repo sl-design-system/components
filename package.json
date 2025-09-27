@@ -420,7 +420,7 @@
       ]
     },
     "test:components": {
-      "command": "vitest",
+      "command": "vitest --project=unit",
       "dependencies": [
         "build:components",
         "test:setup"

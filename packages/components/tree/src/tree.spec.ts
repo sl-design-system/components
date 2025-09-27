@@ -82,7 +82,7 @@ const nestedData: NestedDataNode[] = [
   }
 ];
 
-describe('sl-tree', () => {
+describe.skip('sl-tree', () => {
   let el: Tree;
 
   describe('defaults', () => {

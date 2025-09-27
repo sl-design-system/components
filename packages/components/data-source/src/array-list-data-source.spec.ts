@@ -1,5 +1,5 @@
-import { expect } from '@open-wc/testing';
 import { spy } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { ArrayListDataSource } from './array-list-data-source.js';
 import {
   LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE,

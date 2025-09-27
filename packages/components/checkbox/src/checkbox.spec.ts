@@ -1,9 +1,10 @@
-import { expect, fixture } from '@open-wc/testing';
 import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { Checkbox } from './checkbox.js';
 
@@ -14,10 +15,6 @@ describe('sl-checkbox', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-checkbox>Hello world</sl-checkbox>`);
       input = el.querySelector('input')!;
-    });
-
-    it('should render correctly', () => {
-      expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('should have an input of type checkbox', () => {
@@ -200,7 +197,7 @@ describe('sl-checkbox', () => {
 
     it('should change the state to checked on when pressing enter', async () => {
       el.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
       await el.updateComplete;
 
       expect(el).to.have.attribute('checked');
@@ -212,7 +209,7 @@ describe('sl-checkbox', () => {
 
     it('should change the state to checked on when pressing space', async () => {
       el.focus();
-      await sendKeys({ press: 'Space' });
+      await userEvent.keyboard('{Space}');
       await el.updateComplete;
 
       expect(el).to.have.attribute('checked');
@@ -237,7 +234,7 @@ describe('sl-checkbox', () => {
 
       el.addEventListener('sl-change', onChange);
       el.focus();
-      await sendKeys({ press: 'Space' });
+      await userEvent.keyboard('{Space}');
 
       expect(onChange).to.have.been.calledOnce;
     });
@@ -247,7 +244,7 @@ describe('sl-checkbox', () => {
 
       el.addEventListener('sl-change', onChange);
       el.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
 
       expect(onChange).to.have.been.calledOnce;
     });
@@ -314,7 +311,7 @@ describe('sl-checkbox', () => {
 
     it('should not change the state to checked on enter', async () => {
       el.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
       await new Promise(resolve => setTimeout(resolve));
 
       expect(el.checked).not.to.be.true;
@@ -323,7 +320,7 @@ describe('sl-checkbox', () => {
 
     it('should not change the state to checked on space', async () => {
       el.focus();
-      await sendKeys({ press: 'Space' });
+      await userEvent.keyboard('{Space}');
       await new Promise(resolve => setTimeout(resolve));
 
       expect(el.checked).not.to.be.true;

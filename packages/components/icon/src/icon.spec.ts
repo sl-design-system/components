@@ -1,6 +1,7 @@
-import { elementUpdated, expect, fixture } from '@open-wc/testing';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { SinonStub, stub } from 'sinon';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { Icon } from './icon.js';
 import { type IconDefinition } from './models.js';
@@ -69,10 +70,6 @@ describe('sl-icon', () => {
       el = await fixture(html`<sl-icon></sl-icon>`);
     });
 
-    it('should render correctly', () => {
-      expect(el).shadowDom.to.equalSnapshot();
-    });
-
     it('should show no icons because none are registered', async () => {
       el.name = 'check';
       await el.updateComplete;
@@ -112,7 +109,6 @@ describe('sl-icon', () => {
     it('should be able to show a registered icon.', async () => {
       el.name = 'menu';
       await el.updateComplete;
-      await elementUpdated(el);
       await new Promise(resolve => setTimeout(resolve, 1500));
 
       const icon = el.shadowRoot?.querySelector('svg');
@@ -139,7 +135,8 @@ describe('sl-icon', () => {
 
     it('should not register the same icon twice', () => {
       Icon.register(faIcon1);
-      expect(consoleStub.calledWith('Icon fat-pinata is already in the registry')).to.be.true;
+
+      expect(consoleStub).to.be.calledWith('Icon fat-pinata is already in the registry');
     });
 
     it('should be able to register multiple FA icons', () => {
@@ -151,7 +148,6 @@ describe('sl-icon', () => {
     it('should be able to show a FA icon', async () => {
       el.name = 'fal-pinata';
       await el.updateComplete;
-      await elementUpdated(el);
       expect(el.shadowRoot?.firstElementChild).not.to.match('.icon-not-def');
     });
   });

@@ -51,9 +51,9 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
   #dataSource?: TreeDataSource<T>;
 
   /** Manage keyboard navigation between tabs. */
-  #rovingTabindexController = new RovingTabindexController<TreeNode<T>>(this, {
-    focusInIndex: (elements: Array<TreeNode<T>>) => elements.findIndex(el => !el.disabled),
-    elements: () => Array.from(this.shadowRoot?.querySelectorAll('sl-tree-node') ?? []),
+  #rovingTabindexController = new RovingTabindexController<TreeNode>(this, {
+    focusInIndex: elements => elements.findIndex(el => !el.disabled),
+    elements: (): TreeNode[] => Array.from(this.shadowRoot?.querySelectorAll('sl-tree-node') ?? []),
     isFocusableElement: (el: TreeNode<T>) => !el.disabled
   });
 
@@ -208,7 +208,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
         aria-owns=${ifDefined(item.children?.map(child => String(child.id)).join(' '))}
         aria-posinset=${item.parent?.children ? item.parent.children?.indexOf(item) + 1 : 1}
         aria-rowindex=${this.dataSource ? this.dataSource.items?.indexOf(item) + 1 : 1}
-        aria-setsize=${item.parent ? item.parent.children?.length : this.dataSource?.size}
+        aria-setsize=${ifDefined(item.parent ? item.parent.children?.length : this.dataSource?.size)}
       >
         ${this.renderer?.(item) ??
         html`

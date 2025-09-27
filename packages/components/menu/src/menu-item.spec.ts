@@ -1,7 +1,8 @@
-import { expect, fixture } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
 import { spy } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { type MenuItem } from './menu-item.js';
 import { Menu } from './menu.js';
@@ -88,22 +89,22 @@ describe('sl-menu-item', () => {
 
     it('should toggle selected when focused and pressing enter', async () => {
       el.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
 
       expect(el.selected).to.be.false;
 
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
 
       expect(el.selected).to.be.true;
     });
 
     it('should toggle selected when focused and pressing space', async () => {
       el.focus();
-      await sendKeys({ press: ' ' });
+      await userEvent.keyboard('{Space}');
 
       expect(el.selected).to.be.false;
 
-      await sendKeys({ press: ' ' });
+      await userEvent.keyboard('{Space}');
 
       expect(el.selected).to.be.true;
     });
@@ -122,7 +123,7 @@ describe('sl-menu-item', () => {
 
       el.addEventListener('sl-select', onSelect);
       el.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
 
       expect(onSelect).to.have.been.calledOnce;
     });
@@ -132,7 +133,7 @@ describe('sl-menu-item', () => {
 
       el.addEventListener('sl-select', onSelect);
       el.focus();
-      await sendKeys({ press: ' ' });
+      await userEvent.keyboard('{Space}');
 
       expect(onSelect).to.have.been.calledOnce;
     });
@@ -159,8 +160,7 @@ describe('sl-menu-item', () => {
 
       el.addEventListener('click', onClick);
 
-      await sendKeys({ down: navigator.platform.indexOf('Mac') > -1 ? 'Meta' : 'Control' });
-      await sendKeys({ press: '1' });
+      await userEvent.keyboard(navigator.platform.indexOf('Mac') > -1 ? '{Meta>}1{/Meta}' : '{Control>}1{/Control}');
 
       expect(onClick).to.have.been.calledOnce;
     });
@@ -172,8 +172,7 @@ describe('sl-menu-item', () => {
       el.disabled = true;
       await el.updateComplete;
 
-      await sendKeys({ down: 'Meta' });
-      await sendKeys({ press: '1' });
+      await userEvent.keyboard('{Meta>}1{/Meta}');
 
       expect(onClick).not.to.have.been.called;
     });
@@ -225,21 +224,21 @@ describe('sl-menu-item', () => {
 
     it('should show the submenu when the menu item is focused and pressing enter', async () => {
       el.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
 
       expect(menu).to.match(':popover-open');
     });
 
     it('should show the submenu when the menu item is focused and pressing space', async () => {
       el.focus();
-      await sendKeys({ press: ' ' });
+      await userEvent.keyboard('{Space}');
 
       expect(menu).to.match(':popover-open');
     });
 
     it('should toggle the submenu when pressing arrow right/left', async () => {
       el.focus();
-      await sendKeys({ press: 'ArrowRight' });
+      await userEvent.keyboard('{ArrowRight}');
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(menu).to.match(':popover-open');
@@ -249,7 +248,7 @@ describe('sl-menu-item', () => {
       // is unexpected because we're running in a headless browser.
       menu.setAttribute('actual-placement', 'right-start');
 
-      await sendKeys({ press: 'ArrowLeft' });
+      await userEvent.keyboard('{ArrowLeft}');
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(menu).not.to.match(':popover-open');

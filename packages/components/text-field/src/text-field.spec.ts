@@ -1,9 +1,10 @@
-import { expect, fixture } from '@open-wc/testing';
 import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { TextField } from './text-field.js';
 
@@ -208,7 +209,7 @@ describe('sl-text-field', () => {
 
     it('should be dirty after typing in the input', async () => {
       el.focus();
-      await sendKeys({ type: 'L' });
+      await userEvent.keyboard('L');
 
       expect(el.dirty).to.be.true;
     });
@@ -219,7 +220,7 @@ describe('sl-text-field', () => {
       el.addEventListener('sl-update-state', onUpdateState);
 
       el.focus();
-      await sendKeys({ type: 'L' });
+      await userEvent.keyboard('L');
 
       expect(onUpdateState).to.have.been.calledOnce;
     });
@@ -266,7 +267,7 @@ describe('sl-text-field', () => {
 
       el.addEventListener('sl-blur', onBlur);
       input.focus();
-      await sendKeys({ press: 'Tab' });
+      await userEvent.tab();
 
       expect(onBlur).to.have.been.calledOnce;
     });
@@ -276,7 +277,7 @@ describe('sl-text-field', () => {
 
       el.addEventListener('sl-change', onInput);
       input.focus();
-      await sendKeys({ type: 'Lorem' });
+      await userEvent.keyboard('Lorem');
 
       expect(onInput.callCount).to.equal(5);
     });
@@ -295,7 +296,7 @@ describe('sl-text-field', () => {
 
       el.addEventListener('sl-validate', onValidate);
       el.focus();
-      await sendKeys({ type: 'Lorem' });
+      await userEvent.keyboard('Lorem');
 
       expect(onValidate).to.have.been.callCount(5);
     });
@@ -317,7 +318,7 @@ describe('sl-text-field', () => {
 
   describe('aria attributes', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-text-field aria-label="my label" aria-disabled="true"></sl-checkbox>`);
+      el = await fixture(html`<sl-text-field aria-label="my label" aria-disabled="true"></sl-text-field>`);
       input = el.querySelector('input')!;
 
       // Give time to rewrite arias
@@ -358,7 +359,7 @@ describe('sl-text-field', () => {
       el.addEventListener('sl-validate', () => el.setCustomValidity('Custom validation message'));
 
       el.focus();
-      await sendKeys({ type: 'L' });
+      await userEvent.keyboard('L');
 
       expect(el.validationMessage).to.equal('Custom validation message');
     });
@@ -516,7 +517,7 @@ describe('sl-text-field', () => {
       spy(form, 'requestSubmit');
 
       el.renderRoot.querySelector('input')?.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
 
       expect(form.requestSubmit).to.have.been.calledOnce;
     });
@@ -529,7 +530,7 @@ describe('sl-text-field', () => {
       el.renderRoot.querySelector('sl-text-field')?.setAttribute('readonly', '');
 
       el.renderRoot.querySelector('input')?.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
 
       expect(form.requestSubmit).not.to.have.been.called;
     });

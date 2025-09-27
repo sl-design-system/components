@@ -1,4 +1,3 @@
-import '@oddbird/popover-polyfill';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import '@sl-design-system/announcer/register.js';
 import { configureLocalization } from '@lit/localize';

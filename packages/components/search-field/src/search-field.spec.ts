@@ -1,7 +1,8 @@
-import { expect, fixture } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
 import { spy } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { type SearchField, type SlSearchEvent } from './search-field.js';
 
@@ -63,7 +64,7 @@ describe('sl-search-field', () => {
 
     it('should clear the input when the escape key is pressed', async () => {
       el.focus();
-      await sendKeys({ press: 'Escape' });
+      await userEvent.keyboard('{Escape}');
 
       expect(el.value).to.equal('');
     });
@@ -88,7 +89,7 @@ describe('sl-search-field', () => {
 
       el.addEventListener('sl-clear', onClear);
       el.focus();
-      await sendKeys({ press: 'Escape' });
+      await userEvent.keyboard('{Escape}');
 
       expect(onClear).to.be.calledOnce;
     });
@@ -98,7 +99,7 @@ describe('sl-search-field', () => {
 
       el.addEventListener('sl-search', (event: SlSearchEvent) => onSearch(event.detail));
       el.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
 
       expect(onSearch).to.be.calledOnce;
       expect(onSearch).to.be.calledWith('Foo');

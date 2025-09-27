@@ -1,7 +1,8 @@
-import { expect, fixture } from '@open-wc/testing';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/icon/register.js';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { type ButtonBar, type ButtonBarAlign } from './button-bar.js';
 

@@ -1,5 +1,6 @@
-import { expect, fixture } from '@open-wc/testing';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { type Spinner } from './spinner.js';
 
@@ -8,10 +9,6 @@ describe('sl-spinner', () => {
 
   beforeEach(async () => {
     el = await fixture(html`<sl-spinner></sl-spinner>`);
-  });
-
-  it('should render correctly', () => {
-    expect(el).shadowDom.to.equalSnapshot();
   });
 
   it('should not have a default size', () => {

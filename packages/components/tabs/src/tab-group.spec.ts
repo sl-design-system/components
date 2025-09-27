@@ -1,13 +1,11 @@
-import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
-import { expect, fixture } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
 import { spy } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { TabGroup, type TabsAlignment } from './tab-group.js';
 import { type Tab } from './tab.js';
-
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
 
 describe('sl-tab-group', () => {
   let el: TabGroup;
@@ -128,19 +126,19 @@ describe('sl-tab-group', () => {
 
       expect(document.activeElement).to.equal(tabs[0]);
 
-      await sendKeys({ press: 'ArrowRight' });
+      await userEvent.keyboard('{ArrowRight}');
       await el.updateComplete;
 
       expect(document.activeElement).to.equal(tabs[1]);
 
       // Third tab is disabled, so it should be skipped
-      await sendKeys({ press: 'ArrowRight' });
+      await userEvent.keyboard('{ArrowRight}');
       await el.updateComplete;
 
       expect(document.activeElement).to.equal(tabs[0]);
 
       // Third tab is disabled, so it should be skipped
-      await sendKeys({ press: 'ArrowLeft' });
+      await userEvent.keyboard('{ArrowLeft}');
       await el.updateComplete;
 
       expect(document.activeElement).to.equal(tabs[1]);
@@ -151,8 +149,8 @@ describe('sl-tab-group', () => {
 
       first?.focus();
 
-      await sendKeys({ press: 'ArrowRight' });
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{ArrowRight}');
+      await userEvent.keyboard('{Enter}');
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve));
 
@@ -168,8 +166,8 @@ describe('sl-tab-group', () => {
 
       first?.focus();
 
-      await sendKeys({ press: 'ArrowLeft' });
-      await sendKeys({ press: 'Space' });
+      await userEvent.keyboard('{ArrowLeft}');
+      await userEvent.keyboard('{Space}');
 
       const selectedTab = el.querySelector('sl-tab[selected]') as HTMLElement,
         selectedPanel = el.querySelector('sl-tab-panel[aria-hidden="false"]') as HTMLElement;

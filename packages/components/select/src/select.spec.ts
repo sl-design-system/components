@@ -1,10 +1,11 @@
-import { expect, fixture } from '@open-wc/testing';
 import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
 import '@sl-design-system/listbox/register.js';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { SelectButton } from './select-button.js';
 import { Select } from './select.js';
@@ -293,13 +294,13 @@ describe('sl-select', () => {
 
     it('should handle keyboard navigation across all nested options', async () => {
       button.focus();
-      await sendKeys({ press: 'ArrowDown' });
+      await userEvent.keyboard('{ArrowDown}');
       await el.updateComplete;
 
-      await sendKeys({ press: 'ArrowDown' });
-      await sendKeys({ press: 'ArrowDown' });
-      await sendKeys({ press: 'ArrowDown' });
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{ArrowDown}');
+      await userEvent.keyboard('{ArrowDown}');
+      await userEvent.keyboard('{ArrowDown}');
+      await userEvent.keyboard('{Enter}');
       await el.updateComplete;
 
       expect(el.value).to.equal('4');
@@ -307,7 +308,7 @@ describe('sl-select', () => {
 
     it('should be able to navigate options that were added later', async () => {
       button.focus();
-      await sendKeys({ press: 'ArrowDown' });
+      await userEvent.keyboard('{ArrowDown}');
       await el.updateComplete;
 
       const option = document.createElement('sl-option');
@@ -319,8 +320,8 @@ describe('sl-select', () => {
       // Give the MutationObserver time to fire
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      await sendKeys({ press: 'ArrowUp' });
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{ArrowUp}');
+      await userEvent.keyboard('{Enter}');
       await el.updateComplete;
 
       expect(el.value).to.equal('5');
@@ -359,7 +360,7 @@ describe('sl-select', () => {
       const button = el.querySelector<SelectButton>('sl-select-button');
 
       button?.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
       await el.updateComplete;
 
       expect(button).to.have.attribute('aria-expanded', 'false');
@@ -602,7 +603,7 @@ describe('sl-select', () => {
 
     it('should open the popover on ArrowDown key', async () => {
       button.focus();
-      await sendKeys({ press: 'ArrowDown' });
+      await userEvent.keyboard('{ArrowDown}');
       await el.updateComplete;
 
       expect(button).to.have.attribute('aria-expanded', 'true');
@@ -610,10 +611,10 @@ describe('sl-select', () => {
 
     it('should close the popover on Escape key', async () => {
       button.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
       await el.updateComplete;
 
-      await sendKeys({ press: 'Escape' });
+      await userEvent.keyboard('{Escape}');
       await el.updateComplete;
 
       expect(button).to.have.attribute('aria-expanded', 'false');
@@ -623,12 +624,12 @@ describe('sl-select', () => {
       const listbox = el.renderRoot.querySelector('sl-listbox');
 
       button.focus();
-      await sendKeys({ press: 'ArrowDown' });
+      await userEvent.keyboard('{ArrowDown}');
       await el.updateComplete;
 
       expect(listbox).to.match(':popover-open');
 
-      await sendKeys({ press: 'Tab' });
+      await userEvent.keyboard('{Tab}');
       await el.updateComplete;
 
       expect(listbox).not.to.match(':popover-open');
@@ -638,21 +639,21 @@ describe('sl-select', () => {
       button.focus();
 
       // Open popover
-      await sendKeys({ press: 'ArrowDown' });
+      await userEvent.keyboard('{ArrowDown}');
 
       // Select the first option
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
 
       expect(document.activeElement).to.equal(button);
     });
 
     it('should navigate options with ArrowDown key', async () => {
       button.focus();
-      await sendKeys({ press: 'ArrowDown' });
+      await userEvent.keyboard('{ArrowDown}');
       await el.updateComplete;
 
-      await sendKeys({ press: 'ArrowDown' });
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{ArrowDown}');
+      await userEvent.keyboard('{Enter}');
       await el.updateComplete;
 
       const selectedOption = el.querySelectorAll('sl-option')[1];
@@ -663,7 +664,7 @@ describe('sl-select', () => {
 
     it('should be able to navigate options that were added later', async () => {
       button.focus();
-      await sendKeys({ press: 'ArrowDown' });
+      await userEvent.keyboard('{ArrowDown}');
       await el.updateComplete;
 
       el.appendChild(document.createElement('sl-option')).innerText = 'Option 4';
@@ -671,8 +672,8 @@ describe('sl-select', () => {
       // Give the MutationObserver time to fire
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      await sendKeys({ press: 'ArrowUp' });
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{ArrowUp}');
+      await userEvent.keyboard('{Enter}');
       await el.updateComplete;
 
       const selectedOption = el.querySelectorAll('sl-option')[3];

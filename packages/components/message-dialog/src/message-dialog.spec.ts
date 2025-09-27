@@ -1,7 +1,7 @@
-import { expect } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
+import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
 import { spy } from 'sinon';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { MessageDialog } from './message-dialog.js';
 
@@ -53,7 +53,7 @@ describe('sl-message-dialog', () => {
 
       promise.then(callback);
 
-      await sendKeys({ press: 'Escape' });
+      await userEvent.keyboard('{Escape}');
 
       // Wait for the event to be emitted
       await new Promise(resolve => setTimeout(resolve, 50));
@@ -127,7 +127,7 @@ describe('sl-message-dialog', () => {
 
       promise.then(callback);
 
-      await sendKeys({ press: 'Escape' });
+      await userEvent.keyboard('{Escape}');
 
       // Wait for component to stabilize
       await new Promise(resolve => setTimeout(resolve));
@@ -222,7 +222,7 @@ describe('sl-message-dialog', () => {
 
       promise.then(callback);
 
-      await sendKeys({ press: 'Escape' });
+      await userEvent.keyboard('{Escape}');
 
       // Wait for component to stabilize
       await new Promise(resolve => setTimeout(resolve, 50));

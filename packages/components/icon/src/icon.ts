@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
@@ -61,12 +62,9 @@ export class Icon extends LitElement {
 
   /** @ignore */
   static register(icon: IconDefinition | IconLibrary, ...icons: IconDefinition[]): void {
-    // TODO: find a better (and more universal) way to only log these kind of warnings in dev mode
-    const isDevMode = location.hostname === 'localhost';
-
     if (isIconDefinition(icon)) {
       [icon, ...icons].forEach(i => {
-        if (window.SLDS.icons[`${i.prefix}-${i.iconName}`] && isDevMode) {
+        if (window.SLDS.icons[`${i.prefix}-${i.iconName}`] && import.meta.env.DEV) {
           console.warn(`Icon ${i.prefix}-${i.iconName} is already in the registry`);
           return;
         }

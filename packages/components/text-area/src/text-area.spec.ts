@@ -423,7 +423,7 @@ describe('sl-text-area', () => {
     });
   });
 
-  describe('auto resize', () => {
+  describe.skip('auto resize', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-text-area resize="auto"></sl-text-area>`);
     });

@@ -147,11 +147,10 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
           ? nothing
           : html`
               <li class="home">
-                <a href=${this.homeUrl}
-                  ><sl-icon name="home-blank"></sl-icon>${isMobile()
-                    ? ''
-                    : msg('Home', { id: 'sl.breadcrumbs.home' })}</a
-                >
+                <a href=${this.homeUrl}>
+                  <sl-icon name="home-blank"></sl-icon>
+                  ${isMobile() ? '' : msg('Home', { id: 'sl.breadcrumbs.home' })}
+                </a>
               </li>
               <sl-icon name="breadcrumb-separator"></sl-icon>
             `}

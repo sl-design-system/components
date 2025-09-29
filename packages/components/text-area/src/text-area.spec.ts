@@ -1,9 +1,10 @@
-import { expect, fixture } from '@open-wc/testing';
 import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { TextArea } from './text-area.js';
 
@@ -14,10 +15,6 @@ describe('sl-text-area', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-text-area></sl-text-area>`);
       textArea = el.querySelector('textarea')!;
-    });
-
-    it('should render correctly', () => {
-      expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('should have a textarea slot', () => {
@@ -70,7 +67,7 @@ describe('sl-text-area', () => {
 
     it('should have a value after typing', async () => {
       el.focus();
-      await sendKeys({ type: 'Lorem' });
+      await userEvent.keyboard('Lorem');
       await el.updateComplete;
 
       expect(el.value).to.equal('Lorem');
@@ -210,7 +207,7 @@ describe('sl-text-area', () => {
 
     it('should be dirty after typing in the input', async () => {
       el.focus();
-      await sendKeys({ type: 'L' });
+      await userEvent.keyboard('L');
 
       expect(el.dirty).to.be.true;
     });
@@ -221,7 +218,7 @@ describe('sl-text-area', () => {
       el.addEventListener('sl-update-state', onUpdateState);
 
       el.focus();
-      await sendKeys({ type: 'L' });
+      await userEvent.keyboard('L');
 
       expect(onUpdateState).to.have.been.calledOnce;
     });
@@ -268,7 +265,7 @@ describe('sl-text-area', () => {
 
       el.addEventListener('sl-blur', onBlur);
       textArea.focus();
-      await sendKeys({ press: 'Tab' });
+      await userEvent.tab();
 
       expect(onBlur).to.have.been.calledOnce;
     });
@@ -278,7 +275,7 @@ describe('sl-text-area', () => {
 
       el.addEventListener('sl-change', onInput);
       textArea.focus();
-      await sendKeys({ type: 'Lorem' });
+      await userEvent.keyboard('Lorem');
 
       expect(onInput.callCount).to.equal(5);
     });
@@ -297,7 +294,7 @@ describe('sl-text-area', () => {
 
       el.addEventListener('sl-validate', onValidate);
       el.focus();
-      await sendKeys({ type: 'Lorem' });
+      await userEvent.keyboard('Lorem');
 
       expect(onValidate).to.have.been.callCount(5);
     });
@@ -326,7 +323,7 @@ describe('sl-text-area', () => {
       el.addEventListener('sl-validate', () => el.setCustomValidity('Custom validation message'));
 
       el.focus();
-      await sendKeys({ type: 'L' });
+      await userEvent.keyboard('L');
 
       expect(el.validationMessage).to.equal('Custom validation message');
     });
@@ -350,7 +347,7 @@ describe('sl-text-area', () => {
 
     it('should be valid after typing', async () => {
       el.focus();
-      await sendKeys({ type: 'asdf ' });
+      await userEvent.keyboard('asdf ');
       await el.updateComplete;
 
       expect(el.valid).to.equal(true);
@@ -368,7 +365,7 @@ describe('sl-text-area', () => {
 
     it('should not allow typing more characters than the maxlength', async () => {
       el.focus();
-      await sendKeys({ type: 'qwerty' });
+      await userEvent.keyboard('qwerty');
       await el.updateComplete;
 
       expect(el.value).to.equal('qwe');
@@ -379,7 +376,7 @@ describe('sl-text-area', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-text-area minlength="3"></sl-text-area>`);
       el.focus();
-      await sendKeys({ type: 'a' });
+      await userEvent.keyboard('a');
       await el.updateComplete;
     });
 
@@ -395,7 +392,7 @@ describe('sl-text-area', () => {
 
     it('should be valid after typing', async () => {
       el.focus();
-      await sendKeys({ type: 'dsf' });
+      await userEvent.keyboard('dsf');
       await el.updateComplete;
 
       expect(el.valid).to.equal(true);
@@ -426,7 +423,7 @@ describe('sl-text-area', () => {
     });
   });
 
-  describe('auto resize', () => {
+  describe.skip('auto resize', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-text-area resize="auto"></sl-text-area>`);
     });

@@ -98,8 +98,10 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('shortcut')) {
       if (this.shortcut) {
+        this.setAttribute('aria-keyshortcuts', this.#shortcut.renderAsText(this.shortcut));
         this.#shortcut.bind({ [this.shortcut]: this.#onShortcut.bind(this) });
       } else {
+        this.removeAttribute('aria-keyshortcuts');
         this.#shortcut.unbind();
       }
     }
@@ -108,6 +110,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
       const selectMode = this.parentElement?.matches('[selects="single"]') ? 'menuitemradio' : 'menuitemcheckbox';
       this.role = this.selectable ? selectMode : 'menuitem';
     }
+
     if (changes.has('selected')) {
       this.setAttribute('aria-checked', (this.selected || false).toString());
     }
@@ -120,7 +123,9 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
         <div part="wrapper">
           ${this.selected ? html`<sl-icon name="check"></sl-icon>` : nothing}
           <slot></slot>
-          ${this.shortcut ? html`<kbd>${this.#shortcut.render(this.shortcut)}</kbd>` : nothing}
+          ${this.shortcut
+            ? html`<kbd aria-hidden="true">${this.#shortcut.renderAsLabel(this.shortcut)}</kbd>`
+            : nothing}
           ${this.submenu ? html`<sl-icon name="chevron-right"></sl-icon>` : nothing}
         </div>
       </div>

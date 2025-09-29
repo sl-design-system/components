@@ -148,6 +148,17 @@ describe('sl-menu-item', () => {
       expect(el.shortcut).to.equal('$mod+Digit1');
     });
 
+    it('should have an aria-keyshortcuts attribute', () => {
+      expect(el).to.have.attribute('aria-keyshortcuts', navigator.platform.indexOf('Mac') > -1 ? 'Meta+1' : 'Ctrl+1');
+    });
+
+    it('should hide the kbd element from assistive technologies', () => {
+      const kbd = el.renderRoot.querySelector('kbd');
+
+      expect(kbd).to.exist;
+      expect(kbd).to.have.attribute('aria-hidden', 'true');
+    });
+
     it('should render the shortcut', () => {
       // Take into account that these tests are also running on Linux
       const text = navigator.platform.indexOf('Mac') > -1 ? '⌘1' : 'Ctrl1';

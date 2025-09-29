@@ -177,9 +177,31 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       return;
     }
 
+    // TODO: when mode year and previous mode month, it should go back to month mode, not day mode directly
+
+    console.log(
+      'pointer down',
+      event,
+      event.target,
+      this,
+      'mode -> ',
+      this.mode,
+      'previousMode -> ',
+      this.#previousMode
+    );
+
+    // todo: after closing years view, when I'm back to months view, I cannot use arrow keys properly anymore... why?
+
+    // todo: if mode year and previous month, should go back to month, in other cases go back to day ???
+
     const path = event.composedPath();
     if (!path.includes(this)) {
-      this.mode = 'day';
+      if (this.mode === 'year' && this.#previousMode === 'month') {
+        this.mode = 'month';
+      } else {
+        this.mode = 'day';
+      }
+
       requestAnimationFrame(() => {
         this.renderRoot.querySelector('sl-select-day')?.focus(); // TODO: really necessary?
       });

@@ -49,6 +49,11 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     elements: (): HTMLElement[] => {
       const list = this.renderRoot.querySelector('ol');
       if (!list) return [];
+      console.log(
+        'in select month view: RovingTabindexController elements --- list',
+        list,
+        Array.from(list.querySelectorAll<HTMLButtonElement>('button')).filter(btn => !btn.disabled)
+      );
       return Array.from(list.querySelectorAll<HTMLButtonElement>('button')).filter(btn => !btn.disabled);
     },
     focusInIndex: elements => {
@@ -92,8 +97,18 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal Emits when the user selects a month. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<Date>>;
 
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    console.log('SelectMonth firstUpdated --- changes', changes);
+
+    this.#rovingTabindexController.clearElementCache();
+  }
+
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
+
+    console.log('SelectMonth willUpdate --- changes', changes);
 
     if (changes.has('locale') || changes.has('month') || changes.has('min') || changes.has('max')) {
       const formatShort = new Intl.DateTimeFormat(this.locale, { month: 'short' }),
@@ -121,6 +136,8 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   override render(): TemplateResult {
+    // this.#rovingTabindexController.clearElementCache();
+
     const currentMonth = this.month.getMonth(),
       currentYear = this.month.getFullYear(),
       canSelectNextYear = !this.max || (this.max && this.month.getFullYear() + 1 <= this.max.getFullYear()),

@@ -108,8 +108,21 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
       const selectMode = this.parentElement?.matches('[selects="single"]') ? 'menuitemradio' : 'menuitemcheckbox';
       this.role = this.selectable ? selectMode : 'menuitem';
     }
+
     if (changes.has('selected')) {
       this.setAttribute('aria-checked', (this.selected || false).toString());
+    }
+
+    if (changes.has('submenu')) {
+      if (this.submenu) {
+        this.setAttribute('aria-expanded', this.submenu?.matches(':popover-open').toString());
+        this.wrapper?.setAttribute('aria-haspopup', 'true');
+        this.wrapper?.setAttribute('aria-controls', this.submenu.id);
+      } else {
+        this.removeAttribute('aria-expanded');
+        this.wrapper?.removeAttribute('aria-haspopup');
+        this.wrapper?.removeAttribute('aria-controls');
+      }
     }
   }
 
@@ -212,8 +225,6 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
     if (this.submenu) {
       this.submenu.anchorElement = this;
       this.submenu.offset = MenuItem.submenuOffset;
-      this.wrapper?.setAttribute('aria-haspopup', 'true');
-      this.wrapper?.setAttribute('aria-controls', this.submenu.id);
 
       this.submenu.addEventListener('beforetoggle', () => {
         this.setAttribute('aria-expanded', (!this.submenu?.matches(':popover-open')).toString());

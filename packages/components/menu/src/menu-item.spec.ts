@@ -196,6 +196,31 @@ describe('sl-menu-item', () => {
       menu = el.querySelector('sl-menu') as Menu;
     });
 
+    it('should have an aria-expanded attribute', () => {
+      expect(el).to.have.attribute('aria-expanded', 'false');
+    });
+
+    it('should set aria-expanded to true when the submenu is open', async () => {
+      el.dispatchEvent(new PointerEvent('pointerenter'));
+      await menu.updateComplete;
+
+      expect(el).to.have.attribute('aria-expanded', 'true');
+    });
+
+    it('should have an aria-haspopup attribute on the wrapper', () => {
+      const wrapper = el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]');
+
+      expect(wrapper).to.exist;
+      expect(wrapper).to.have.attribute('aria-haspopup', 'true');
+    });
+
+    it('should have an aria-controls attribute on the wrapper', () => {
+      const wrapper = el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]');
+
+      expect(wrapper).to.exist;
+      expect(wrapper).to.have.attribute('aria-controls', menu.id);
+    });
+
     it('should render an icon indicating the submenu', () => {
       const icon = el.renderRoot.querySelector('sl-icon');
 

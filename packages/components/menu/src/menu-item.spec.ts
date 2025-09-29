@@ -149,7 +149,7 @@ describe('sl-menu-item', () => {
     });
 
     it('should have an aria-keyshortcuts attribute', () => {
-      expect(el).to.have.attribute('aria-keyshortcuts', 'Meta+1');
+      expect(el).to.have.attribute('aria-keyshortcuts', navigator.platform.indexOf('Mac') > -1 ? 'Meta+1' : 'Ctrl+1');
     });
 
     it('should hide the kbd element from assistive technologies', () => {

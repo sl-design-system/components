@@ -1,4 +1,4 @@
-import { expect } from '@open-wc/testing';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { NumberParser } from './number-parser.js';
 
 describe('NumberParser', () => {

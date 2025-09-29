@@ -1,12 +1,10 @@
-import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
-import { expect, fixture } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
 import { spy } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { Tab } from './tab.js';
-
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
 
 describe('sl-tab', () => {
   let el: Tab;
@@ -44,7 +42,7 @@ describe('sl-tab', () => {
       await el.updateComplete;
 
       el.focus();
-      await sendKeys({ type: 'asdf' });
+      await userEvent.keyboard('asdf');
 
       expect(onKeydown).not.to.have.been.called;
     });
@@ -130,7 +128,7 @@ describe('sl-tab', () => {
 
       link.addEventListener('click', onClick);
       tab.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
 
       expect(onClick).to.have.been.called;
     });
@@ -140,7 +138,7 @@ describe('sl-tab', () => {
 
       link.addEventListener('click', onClick);
       tab.focus();
-      await sendKeys({ press: 'Space' });
+      await userEvent.keyboard('{Space}');
 
       expect(onClick).to.have.been.called;
     });

@@ -1,6 +1,7 @@
-import { expect, fixture } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { AccordionItem } from './accordion-item.js';
 
@@ -69,7 +70,7 @@ describe('sl-accordion-item', () => {
 
     it('should open on Enter', async () => {
       summary.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
 
       await el.updateComplete;
 
@@ -79,7 +80,7 @@ describe('sl-accordion-item', () => {
 
     it('should open on Space', async () => {
       summary.focus();
-      await sendKeys({ press: 'Space' });
+      await userEvent.keyboard('{Space}');
 
       await el.updateComplete;
 
@@ -169,7 +170,7 @@ describe('sl-accordion-item', () => {
 
     it('should ignore Enter', async () => {
       summary.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve));
 
@@ -179,7 +180,7 @@ describe('sl-accordion-item', () => {
 
     it('should ignore Space', async () => {
       summary.focus();
-      await sendKeys({ press: 'Space' });
+      await userEvent.keyboard('{Space}');
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve));
 

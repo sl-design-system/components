@@ -1,8 +1,9 @@
-import { expect, fixture } from '@open-wc/testing';
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { Tooltip } from './tooltip.js';
 
@@ -61,7 +62,7 @@ describe('sl-tooltip', () => {
       await new Promise(resolve => setTimeout(resolve, 100));
       expect(tooltip.matches(':popover-open')).to.be.true;
 
-      await sendKeys({ press: 'Escape' });
+      await userEvent.keyboard('{Escape}');
       expect(tooltip.matches(':popover-open')).to.be.false;
     });
 
@@ -69,7 +70,7 @@ describe('sl-tooltip', () => {
       button?.dispatchEvent(new Event('pointerover', { bubbles: true }));
       expect(tooltip.matches(':popover-open')).to.be.true;
 
-      await sendKeys({ press: 'Escape' });
+      await userEvent.keyboard('{Escape}');
       expect(tooltip.matches(':popover-open')).to.be.false;
     });
 

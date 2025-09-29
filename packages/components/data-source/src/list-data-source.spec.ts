@@ -1,7 +1,6 @@
-import { expect } from '@open-wc/testing';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { ListDataSource, type ListDataSourceItem } from './list-data-source.js';
 
-// eslint-disable-next-line mocha/no-exports
 export type Person = {
   id: number;
   firstName: string;
@@ -12,7 +11,6 @@ export type Person = {
   membership: string;
 };
 
-// eslint-disable-next-line mocha/no-exports
 export const people: Person[] = [
   {
     id: 1,

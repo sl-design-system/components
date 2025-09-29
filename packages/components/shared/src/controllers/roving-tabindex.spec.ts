@@ -1,8 +1,9 @@
-import { expect, fixture } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { fake } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { type RovingTabindexConfig, RovingTabindexController } from './roving-tabindex.js';
 
 class RovingTabindexFixture extends LitElement {
@@ -65,7 +66,7 @@ describe('RovingTabindexController', () => {
     });
 
     it('should focus the first element when focusing the host', async () => {
-      await sendKeys({ press: 'Tab' });
+      await userEvent.tab();
 
       expect(el.shadowRoot!.activeElement).to.equal(el.controller!.elements[0]);
     });
@@ -87,31 +88,31 @@ describe('RovingTabindexController', () => {
       });
 
       it('should focus the next element when pressing the ArrowRight key', async () => {
-        await sendKeys({ press: 'ArrowRight' });
+        await userEvent.keyboard('{ArrowRight}');
 
         expect(el.shadowRoot!.activeElement).to.equal(el.controller!.elements.at(1));
       });
 
       it('should focus the next element when pressing the ArrowDown key', async () => {
-        await sendKeys({ press: 'ArrowDown' });
+        await userEvent.keyboard('{ArrowDown}');
 
         expect(el.shadowRoot!.activeElement).to.equal(el.controller!.elements.at(1));
       });
 
       it('should focus the last element when pressing the ArrowLeft key', async () => {
-        await sendKeys({ press: 'ArrowLeft' });
+        await userEvent.keyboard('{ArrowLeft}');
 
         expect(el.shadowRoot!.activeElement).to.equal(el.controller!.elements.at(-1));
       });
 
       it('should focus the last element when pressing the ArrowUp key', async () => {
-        await sendKeys({ press: 'ArrowUp' });
+        await userEvent.keyboard('{ArrowUp}');
 
         expect(el.shadowRoot!.activeElement).to.equal(el.controller!.elements.at(-1));
       });
 
       it('should focus the last element when pressing the End key', async () => {
-        await sendKeys({ press: 'End' });
+        await userEvent.keyboard('{End}');
 
         expect(el.shadowRoot!.activeElement).to.equal(el.controller!.elements.at(-1));
       });
@@ -127,31 +128,31 @@ describe('RovingTabindexController', () => {
       });
 
       it('should focus the first element when pressing the ArrowRight key', async () => {
-        await sendKeys({ press: 'ArrowRight' });
+        await userEvent.keyboard('{ArrowRight}');
 
         expect(el.shadowRoot!.activeElement).to.equal(el.controller!.elements.at(0));
       });
 
       it('should focus the first element when pressing the ArrowDown key', async () => {
-        await sendKeys({ press: 'ArrowDown' });
+        await userEvent.keyboard('{ArrowDown}');
 
         expect(el.shadowRoot!.activeElement).to.equal(el.controller!.elements.at(0));
       });
 
       it('should skip the disabled element when pressing the ArrowLeft key', async () => {
-        await sendKeys({ press: 'ArrowLeft' });
+        await userEvent.keyboard('{ArrowLeft}');
 
         expect(el.shadowRoot!.activeElement).to.equal(el.controller!.elements.at(1));
       });
 
       it('should skip the disabled element when pressing the ArrowUp key', async () => {
-        await sendKeys({ press: 'ArrowUp' });
+        await userEvent.keyboard('{ArrowUp}');
 
         expect(el.shadowRoot!.activeElement).to.equal(el.controller!.elements.at(1));
       });
 
       it('should focus the first element when pressing the Home key', async () => {
-        await sendKeys({ press: 'Home' });
+        await userEvent.keyboard('{Home}');
 
         expect(el.shadowRoot!.activeElement).to.equal(el.controller!.elements.at(0));
       });
@@ -174,25 +175,25 @@ describe('RovingTabindexController', () => {
     });
 
     it('should focus the next element when pressing the ArrowRight key', async () => {
-      await sendKeys({ press: 'ArrowRight' });
+      await userEvent.keyboard('{ArrowRight}');
 
       expect(el.shadowRoot!.activeElement).to.equal(el.controller!.elements.at(1));
     });
 
     it('should focus the next element when pressing the ArrowDown key', async () => {
-      await sendKeys({ press: 'ArrowDown' });
+      await userEvent.keyboard('{ArrowDown}');
 
       expect(el.shadowRoot!.activeElement).to.equal(el.controller!.elements.at(0));
     });
 
     it('should focus the last element when pressing the ArrowLeft key', async () => {
-      await sendKeys({ press: 'ArrowLeft' });
+      await userEvent.keyboard('{ArrowLeft}');
 
       expect(el.shadowRoot!.activeElement).to.equal(el.controller!.elements.at(-1));
     });
 
     it('should focus the last element when pressing the ArrowUp key', async () => {
-      await sendKeys({ press: 'ArrowUp' });
+      await userEvent.keyboard('{ArrowUp}');
 
       expect(el.shadowRoot!.activeElement).to.equal(el.controller!.elements.at(0));
     });
@@ -214,25 +215,25 @@ describe('RovingTabindexController', () => {
     });
 
     it('should do nothing when pressing the ArrowRight key', async () => {
-      await sendKeys({ press: 'ArrowRight' });
+      await userEvent.keyboard('{ArrowRight}');
 
       expect(el.shadowRoot!.activeElement).to.equal(el.controller!.elements.at(0));
     });
 
     it('should focus the next element when pressing the ArrowDown key', async () => {
-      await sendKeys({ press: 'ArrowDown' });
+      await userEvent.keyboard('{ArrowDown}');
 
       expect(el.shadowRoot!.activeElement).to.equal(el.controller!.elements.at(1));
     });
 
     it('should do nothing when pressing the ArrowLeft key', async () => {
-      await sendKeys({ press: 'ArrowLeft' });
+      await userEvent.keyboard('{ArrowLeft}');
 
       expect(el.shadowRoot!.activeElement).to.equal(el.controller!.elements.at(0));
     });
 
     it('should focus the last element when pressing the ArrowUp key', async () => {
-      await sendKeys({ press: 'ArrowUp' });
+      await userEvent.keyboard('{ArrowUp}');
 
       expect(el.shadowRoot!.activeElement).to.equal(el.controller!.elements.at(-1));
     });
@@ -309,19 +310,19 @@ describe('RovingTabindexController', () => {
       el.controller!.focus();
       expect(el.shadowRoot!.activeElement).to.equal(el.controller!.elements.at(0));
 
-      await sendKeys({ press: 'ArrowLeft' });
+      await userEvent.keyboard('{ArrowLeft}');
       expect(document.activeElement).to.equal(el.controller!.elements.at(-1));
 
-      await sendKeys({ press: 'ArrowLeft' });
+      await userEvent.keyboard('{ArrowLeft}');
       expect(el.shadowRoot!.activeElement).to.equal(el.controller!.elements.at(3));
 
-      await sendKeys({ press: 'ArrowLeft' });
+      await userEvent.keyboard('{ArrowLeft}');
       expect(el.shadowRoot!.activeElement).to.equal(el.controller!.elements.at(1));
 
-      await sendKeys({ press: 'ArrowLeft' });
+      await userEvent.keyboard('{ArrowLeft}');
       expect(el.shadowRoot!.activeElement).to.equal(el.controller!.elements.at(0));
 
-      await sendKeys({ press: 'ArrowLeft' });
+      await userEvent.keyboard('{ArrowLeft}');
       expect(document.activeElement).to.equal(el.controller!.elements.at(-1));
     });
   });

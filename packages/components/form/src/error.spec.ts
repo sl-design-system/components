@@ -1,5 +1,6 @@
-import { expect, fixture } from '@open-wc/testing';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { Error } from './error.js';
 

@@ -1,0 +1,1 @@
+This package provides helper functions for testing Lit components with Vitest in a browser environment.

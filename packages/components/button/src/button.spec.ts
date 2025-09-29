@@ -1,9 +1,10 @@
-import { expect, fixture } from '@open-wc/testing';
 import { type Form } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
 import { restore, spy, stub } from 'sinon';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { type Button, type ButtonType } from './button.js';
 
@@ -255,7 +256,7 @@ describe('sl-button', () => {
           reset = stub(form, 'reset').returns(undefined);
 
         el.focus();
-        await sendKeys({ press: 'Enter' });
+        await userEvent.keyboard('{Enter}');
 
         expect(requestSubmit).not.to.have.been.called;
         expect(reset).not.to.have.been.called;
@@ -266,7 +267,7 @@ describe('sl-button', () => {
           reset = stub(form, 'reset').returns(undefined);
 
         el.focus();
-        await sendKeys({ press: 'Space' });
+        await userEvent.keyboard('{Space}');
 
         expect(requestSubmit).not.to.have.been.called;
         expect(reset).not.to.have.been.called;
@@ -288,7 +289,7 @@ describe('sl-button', () => {
         const reset = stub(form, 'reset').returns(undefined);
 
         el.focus();
-        await sendKeys({ press: 'Enter' });
+        await userEvent.keyboard('{Enter}');
 
         expect(reset).to.have.been.calledOnce;
       });
@@ -297,7 +298,7 @@ describe('sl-button', () => {
         const reset = stub(form, 'reset').returns(undefined);
 
         el.focus();
-        await sendKeys({ press: 'Space' });
+        await userEvent.keyboard('{Space}');
 
         expect(reset).to.have.been.calledOnce;
       });
@@ -318,7 +319,7 @@ describe('sl-button', () => {
         const requestSubmit = stub(form, 'requestSubmit').returns(undefined);
 
         el.focus();
-        await sendKeys({ press: 'Enter' });
+        await userEvent.keyboard('{Enter}');
 
         expect(requestSubmit).to.have.been.calledOnce;
       });
@@ -327,7 +328,7 @@ describe('sl-button', () => {
         const requestSubmit = stub(form, 'requestSubmit').returns(undefined);
 
         el.focus();
-        await sendKeys({ press: 'Space' });
+        await userEvent.keyboard('{Space}');
 
         expect(requestSubmit).to.have.been.calledOnce;
       });

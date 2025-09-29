@@ -1,18 +1,16 @@
 import { faBell, faGear } from '@fortawesome/pro-regular-svg-icons';
 import { faBell as fasBell, faGear as fasGear } from '@fortawesome/pro-solid-svg-icons';
-import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
-import { expect, fixture } from '@open-wc/testing';
 import '@sl-design-system/button/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/toggle-button/register.js';
 import '@sl-design-system/toggle-group/register.js';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { type ToolBar, type ToolBarItemButton, type ToolBarItemDivider, type ToolBarItemGroup } from './tool-bar.js';
-
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
 
 Icon.register(faBell, faGear, fasBell, fasGear);
 
@@ -131,6 +129,8 @@ describe('sl-tool-bar', () => {
               <sl-icon name="fas-gear" slot="pressed"></sl-icon>
             </sl-toggle-button>
           </sl-toggle-group>
+          <sl-button aria-labelledby="edit-tooltip" fill="ghost"> <sl-icon name="far-pen"></sl-icon></sl-button>
+          <sl-tooltip id="edit-tooltip">Edit</sl-tooltip>
         </sl-tool-bar>
       `);
 
@@ -141,7 +141,7 @@ describe('sl-tool-bar', () => {
     it('should have hidden all slotted elements', () => {
       const hidden = Array.from(el.children).map(child => (child as HTMLElement).style.visibility);
 
-      expect(hidden).to.deep.equal(['hidden', 'hidden', 'hidden']);
+      expect(hidden).to.deep.equal(['hidden', 'hidden', 'hidden', 'hidden', '']);
     });
 
     it('should have a menu button', () => {
@@ -180,6 +180,12 @@ describe('sl-tool-bar', () => {
       expect(lastChild).to.have.attribute('selectable');
       expect(lastChild).to.have.trimmed.text('Gear');
       expect(lastChild).to.contain('sl-icon[name="far-gear"]');
+    });
+
+    it('should have a menu item for the icon only button with tooltip connected via aria-labelledby', () => {
+      const lastChild = el.renderRoot.querySelectorAll('sl-menu-item')[3];
+      expect(lastChild).to.have.trimmed.text('Edit');
+      expect(lastChild).to.contain('sl-icon[name="far-pen"]');
     });
 
     it('should proxy clicks on the menu items to the original elements', () => {

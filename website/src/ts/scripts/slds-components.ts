@@ -48,7 +48,6 @@ import {
   faUnderline as fasUnderline
 } from '@fortawesome/pro-solid-svg-icons';
 import '@lit-labs/virtualizer/virtualize.js';
-import '@oddbird/popover-polyfill';
 import '@sl-design-system/accordion/register.js';
 import '@sl-design-system/avatar/register.js';
 import '@sl-design-system/badge/register.js';

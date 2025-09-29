@@ -1,7 +1,8 @@
-import { expect, fixture } from '@open-wc/testing';
 import { SlAnnounceEvent } from '@sl-design-system/announcer';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { type ProgressBar } from './progress-bar.js';
 

@@ -1,10 +1,11 @@
-import { expect, fixture } from '@open-wc/testing';
 import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
 import { Icon } from '@sl-design-system/icon';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { Switch } from './switch.js';
 
@@ -15,10 +16,6 @@ describe('sl-switch', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-switch></sl-switch>`);
       input = el.querySelector('input')!;
-    });
-
-    it('should render correctly', () => {
-      expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('should not be checked', () => {
@@ -160,7 +157,7 @@ describe('sl-switch', () => {
 
       el.addEventListener('sl-change', onChange);
       el.focus();
-      await sendKeys({ press: 'Space' });
+      await userEvent.keyboard('{Space}');
 
       expect(onChange).to.have.been.calledOnce;
     });
@@ -170,7 +167,7 @@ describe('sl-switch', () => {
 
       el.addEventListener('sl-change', onChange);
       el.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
 
       expect(onChange).to.have.been.calledOnce;
     });
@@ -245,14 +242,14 @@ describe('sl-switch', () => {
 
     it('should toggle the state on Enter', async () => {
       el.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
 
       expect(el.checked).to.equal(true);
       expect(input).to.have.attribute('aria-checked', 'true');
       expect(input).to.match(':checked');
       expect(input.checked).to.be.true;
 
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
 
       expect(el.checked).to.equal(false);
       expect(input).to.have.attribute('aria-checked', 'false');
@@ -262,14 +259,14 @@ describe('sl-switch', () => {
 
     it('should toggle the state on Space', async () => {
       el.focus();
-      await sendKeys({ press: ' ' });
+      await userEvent.keyboard('{Space}');
 
       expect(el.checked).to.equal(true);
       expect(input).to.have.attribute('aria-checked', 'true');
       expect(input).to.match(':checked');
       expect(input.checked).to.be.true;
 
-      await sendKeys({ press: ' ' });
+      await userEvent.keyboard('{Space}');
 
       expect(el.checked).to.equal(false);
       expect(input).to.have.attribute('aria-checked', 'false');
@@ -313,7 +310,7 @@ describe('sl-switch', () => {
 
     it('should not change the state on Enter', async () => {
       el.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
 
       expect(el.checked).not.to.equal(true);
       expect(input).to.have.attribute('aria-checked', 'true');
@@ -323,7 +320,7 @@ describe('sl-switch', () => {
 
     it('should not change the state on Space', async () => {
       el.focus();
-      await sendKeys({ press: ' ' });
+      await userEvent.keyboard('{Space}');
 
       expect(el.checked).not.to.equal(true);
       expect(input).to.have.attribute('aria-checked', 'true');

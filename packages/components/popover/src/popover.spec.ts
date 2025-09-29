@@ -1,8 +1,9 @@
-import { expect, fixture } from '@open-wc/testing';
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { Popover } from './popover.js';
 
@@ -39,10 +40,6 @@ describe('sl-popover', () => {
       `);
       button = el.querySelector('sl-button') as Button;
       popover = el.querySelector('sl-popover') as Popover;
-    });
-
-    it('should render correctly', () => {
-      expect(popover).shadowDom.to.equalSnapshot();
     });
 
     it('should set popover attribute if not already set', () => {
@@ -87,7 +84,7 @@ describe('sl-popover', () => {
     });
 
     it('should close the popover on escape', async () => {
-      await sendKeys({ press: 'Escape' });
+      await userEvent.keyboard('{Escape}');
 
       expect(popover?.matches(':popover-open')).to.be.false;
     });

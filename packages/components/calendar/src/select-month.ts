@@ -103,6 +103,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     console.log('SelectMonth firstUpdated --- changes', changes);
 
     this.#rovingTabindexController.clearElementCache();
+    this.#rovingTabindexController.focus();
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -128,10 +129,13 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           )
         };
       });
+
+      this.#rovingTabindexController.clearElementCache();
     }
 
     if (changes.has('month') || changes.has('min') || changes.has('max') || changes.has('inert')) {
-      this.#rovingTabindexController.clearElementCache();
+      console.log('SelectMonth willUpdate --- changes in month, min, max, inert', changes);
+      this.#rovingTabindexController.clearElementCache(); // TODO: maybe sth with inert?
     }
   }
 
@@ -242,12 +246,15 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onKeydown(event: KeyboardEvent): void {
+    console.log('SelectMonth #onKeydown --- event', event);
+
     const buttons = Array.from(this.renderRoot.querySelectorAll<HTMLButtonElement>('ol button')),
       activeElement = this.shadowRoot?.activeElement as HTMLButtonElement | null,
       index = activeElement ? buttons.indexOf(activeElement) : -1,
       cols = 3;
 
     if (event.key === 'ArrowLeft' && !this.#allPreviousUnselectable()) {
+      console.log('SelectMonth #onKeydown --- ArrowLeft', event, 'index --> ', index);
       if (index === 0) {
         event.preventDefault();
         event.stopPropagation();

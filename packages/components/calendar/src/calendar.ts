@@ -202,9 +202,11 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         this.mode = 'day';
       }
 
-      requestAnimationFrame(() => {
-        this.renderRoot.querySelector('sl-select-day')?.focus(); // TODO: really necessary?
-      });
+      // requestAnimationFrame(() => {
+      //   this.renderRoot.querySelector('sl-select-day')?.focus(); // TODO: really necessary?
+      // });
+      //
+      // this.requestUpdate();
     }
   }; // TODO: stop Propagation needs to be added to prevent bubbling up? So it would not close the dialog for example?
 

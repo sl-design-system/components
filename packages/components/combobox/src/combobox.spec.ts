@@ -1,18 +1,16 @@
-import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
-import { expect, fixture } from '@open-wc/testing';
 import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
 import '@sl-design-system/listbox/register.js';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { type Combobox } from './combobox.js';
 import { type CustomOption } from './custom-option.js';
 import { type SelectedGroup } from './selected-group.js';
-
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
 
 describe('sl-combobox', () => {
   let el: Combobox, input: HTMLInputElement;
@@ -147,7 +145,7 @@ describe('sl-combobox', () => {
 
     it('should be dirty after typing in the input', async () => {
       input.focus();
-      await sendKeys({ type: 'L' });
+      await userEvent.keyboard('L');
 
       expect(el.dirty).to.be.true;
     });
@@ -158,7 +156,7 @@ describe('sl-combobox', () => {
       el.addEventListener('sl-update-state', onUpdateState);
 
       input.focus();
-      await sendKeys({ type: 'L' });
+      await userEvent.keyboard('L');
 
       expect(onUpdateState).to.have.been.calledOnce;
     });
@@ -206,7 +204,7 @@ describe('sl-combobox', () => {
 
       el.addEventListener('sl-blur', onBlur);
       input.focus();
-      await sendKeys({ press: 'Tab' });
+      await userEvent.tab();
 
       expect(onBlur).to.have.been.calledOnce;
     });
@@ -293,7 +291,7 @@ describe('sl-combobox', () => {
 
     it('should add a create-custom-option element while typing', async () => {
       input.focus();
-      await sendKeys({ type: 'Custom value' });
+      await userEvent.keyboard('Custom value');
       await el.updateComplete;
 
       const createCustomOption = el.querySelector('sl-combobox-create-custom-option');
@@ -305,7 +303,7 @@ describe('sl-combobox', () => {
 
     it('should not add a create-custom-option element when the typed text matches an existing option', async () => {
       input.focus();
-      await sendKeys({ type: 'Lorem' });
+      await userEvent.keyboard('Lorem');
       await el.updateComplete;
 
       expect(el.querySelector('sl-combobox-create-custom-option')).not.to.exist;
@@ -313,17 +311,17 @@ describe('sl-combobox', () => {
 
     it('should remove the create-custom-option element if the text is cleared', async () => {
       input.focus();
-      await sendKeys({ type: 'Custom' });
+      await userEvent.keyboard('Custom');
       await el.updateComplete;
 
       expect(el.querySelector('sl-combobox-create-custom-option')).to.exist;
 
-      await sendKeys({ press: 'Backspace' });
-      await sendKeys({ press: 'Backspace' });
-      await sendKeys({ press: 'Backspace' });
-      await sendKeys({ press: 'Backspace' });
-      await sendKeys({ press: 'Backspace' });
-      await sendKeys({ press: 'Backspace' });
+      await userEvent.keyboard('{Backspace}');
+      await userEvent.keyboard('{Backspace}');
+      await userEvent.keyboard('{Backspace}');
+      await userEvent.keyboard('{Backspace}');
+      await userEvent.keyboard('{Backspace}');
+      await userEvent.keyboard('{Backspace}');
       await el.updateComplete;
 
       expect(el.querySelector('sl-combobox-create-custom-option')).not.to.exist;
@@ -331,8 +329,8 @@ describe('sl-combobox', () => {
 
     it('should create a custom option after pressing Enter', async () => {
       input.focus();
-      await sendKeys({ type: 'Custom value' });
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('Custom value');
+      await userEvent.keyboard('{Enter}');
       await el.updateComplete;
 
       const customOption = el.querySelector('sl-listbox')?.firstElementChild as CustomOption;
@@ -347,7 +345,7 @@ describe('sl-combobox', () => {
 
     it('should create a custom option after clicking on the create-custom-option element', async () => {
       input.focus();
-      await sendKeys({ type: 'Custom value' });
+      await userEvent.keyboard('Custom value');
       el.querySelector('sl-combobox-create-custom-option')?.click();
       await el.updateComplete;
 
@@ -363,8 +361,8 @@ describe('sl-combobox', () => {
 
     it('should remove the custom option after deselecting it', async () => {
       input.focus();
-      await sendKeys({ type: 'Custom value' });
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('Custom value');
+      await userEvent.keyboard('{Enter}');
       await el.updateComplete;
 
       const customOption = el.querySelector('sl-combobox-custom-option');
@@ -462,8 +460,8 @@ describe('sl-combobox', () => {
         input.click();
         await el.updateComplete;
 
-        await sendKeys({ type: 'foo' });
-        await sendKeys({ press: 'Tab' });
+        await userEvent.keyboard('foo');
+        await userEvent.keyboard('{Tab}');
 
         expect(input.value).to.equal('');
       });
@@ -476,8 +474,8 @@ describe('sl-combobox', () => {
         await el.updateComplete;
 
         input.select();
-        await sendKeys({ type: 'foo' });
-        await sendKeys({ press: 'Tab' });
+        await userEvent.keyboard('foo');
+        await userEvent.keyboard('{Tab}');
 
         expect(input.value).to.equal('Lorem');
       });
@@ -540,8 +538,8 @@ describe('sl-combobox', () => {
 
       it('should remove the custom option after selecting a different option', async () => {
         input.focus();
-        await sendKeys({ type: 'Custom value' });
-        await sendKeys({ press: 'Enter' });
+        await userEvent.keyboard('Custom value');
+        await userEvent.keyboard('{Enter}');
         await el.updateComplete;
 
         expect(el.querySelector('sl-combobox-custom-option')).to.exist;
@@ -554,8 +552,8 @@ describe('sl-combobox', () => {
 
       it('should remove the custom option after adding a different custom option', async () => {
         input.focus();
-        await sendKeys({ type: 'Foo' });
-        await sendKeys({ press: 'Enter' });
+        await userEvent.keyboard('Foo');
+        await userEvent.keyboard('{Enter}');
         await el.updateComplete;
 
         const customOption = el.querySelector('sl-combobox-custom-option');
@@ -565,8 +563,8 @@ describe('sl-combobox', () => {
 
         input.focus();
         input.select();
-        await sendKeys({ type: 'Bar' });
-        await sendKeys({ press: 'Enter' });
+        await userEvent.keyboard('Bar');
+        await userEvent.keyboard('{Enter}');
         await el.updateComplete;
 
         const customOptions = Array.from(el.querySelectorAll('sl-combobox-custom-option'));
@@ -579,10 +577,10 @@ describe('sl-combobox', () => {
       it('should remove the custom option when focus leaves the component', async () => {
         input.focus();
 
-        await sendKeys({ type: 'Foo' });
+        await userEvent.keyboard('Foo');
         expect(el.querySelector('sl-combobox-create-custom-option')).to.exist;
 
-        await sendKeys({ press: 'Tab' });
+        await userEvent.keyboard('{Tab}');
         expect(el.querySelector('sl-combobox-create-custom-option')).not.to.exist;
       });
 
@@ -594,8 +592,8 @@ describe('sl-combobox', () => {
         });
 
         input.focus();
-        await sendKeys({ type: 'Custom value' });
-        await sendKeys({ press: 'Enter' });
+        await userEvent.keyboard('Custom value');
+        await userEvent.keyboard('{Enter}');
         await el.updateComplete;
 
         expect(onChange).to.have.been.calledOnce;
@@ -619,7 +617,7 @@ describe('sl-combobox', () => {
 
       it('should filter the results in the list when typing', async () => {
         input.focus();
-        await sendKeys({ type: 'Ip' });
+        await userEvent.keyboard('Ip');
 
         const options = Array.from(el.querySelectorAll('sl-option'));
 
@@ -631,7 +629,7 @@ describe('sl-combobox', () => {
 
       it('should reset the results when the input is cleared', async () => {
         input.focus();
-        await sendKeys({ type: 'Ip' });
+        await userEvent.keyboard('Ip');
 
         const options = Array.from(el.querySelectorAll('sl-option'));
 
@@ -639,9 +637,9 @@ describe('sl-combobox', () => {
         expect(options[1]).to.be.displayed;
         expect(options[2]).to.be.displayed;
 
-        await sendKeys({ press: 'Backspace' });
-        await sendKeys({ press: 'Backspace' });
-        await sendKeys({ press: 'Backspace' });
+        await userEvent.keyboard('{Backspace}');
+        await userEvent.keyboard('{Backspace}');
+        await userEvent.keyboard('{Backspace}');
 
         expect(options[0]).to.be.displayed;
         expect(options[1]).to.be.displayed;
@@ -714,8 +712,8 @@ describe('sl-combobox', () => {
         input.click();
         await el.updateComplete;
 
-        await sendKeys({ type: 'foo' });
-        await sendKeys({ press: 'Tab' });
+        await userEvent.keyboard('foo');
+        await userEvent.keyboard('{Tab}');
 
         expect(input.value).to.equal('');
       });
@@ -850,16 +848,16 @@ describe('sl-combobox', () => {
 
       it('should allow for multiple custom options', async () => {
         input.focus();
-        await sendKeys({ type: 'Custom 1' });
-        await sendKeys({ press: 'Enter' });
+        await userEvent.keyboard('Custom 1');
+        await userEvent.keyboard('{Enter}');
         await el.updateComplete;
 
         expect(el.querySelectorAll('sl-combobox-custom-option')).to.have.lengthOf(1);
 
         input.focus();
         input.select();
-        await sendKeys({ type: 'Custom 2' });
-        await sendKeys({ press: 'Enter' });
+        await userEvent.keyboard('Custom 2');
+        await userEvent.keyboard('{Enter}');
         await el.updateComplete;
 
         expect(el.querySelectorAll('sl-combobox-custom-option')).to.have.lengthOf(2);
@@ -870,10 +868,10 @@ describe('sl-combobox', () => {
       it('should remove the custom option when focus leaves the component', async () => {
         input.focus();
 
-        await sendKeys({ type: 'Foo' });
+        await userEvent.keyboard('Foo');
         expect(el.querySelector('sl-combobox-create-custom-option')).to.exist;
 
-        await sendKeys({ press: 'Tab' });
+        await userEvent.keyboard('{Tab}');
         expect(el.querySelector('sl-combobox-create-custom-option')).not.to.exist;
       });
     });
@@ -922,7 +920,7 @@ describe('sl-combobox', () => {
 
       it('should filter the results in the list when typing', async () => {
         input.focus();
-        await sendKeys({ type: 'Ip' });
+        await userEvent.keyboard('Ip');
 
         const options = Array.from(el.querySelectorAll('sl-option'));
 
@@ -934,7 +932,7 @@ describe('sl-combobox', () => {
 
       it('should reset the results when the input is cleared', async () => {
         input.focus();
-        await sendKeys({ type: 'Ip' });
+        await userEvent.keyboard('Ip');
 
         const options = Array.from(el.querySelectorAll('sl-option'));
 
@@ -942,9 +940,9 @@ describe('sl-combobox', () => {
         expect(options[1]).to.be.displayed;
         expect(options[2]).to.be.displayed;
 
-        await sendKeys({ press: 'Backspace' });
-        await sendKeys({ press: 'Backspace' });
-        await sendKeys({ press: 'Backspace' });
+        await userEvent.keyboard('{Backspace}');
+        await userEvent.keyboard('{Backspace}');
+        await userEvent.keyboard('{Backspace}');
 
         expect(options[0]).to.be.displayed;
         expect(options[1]).to.be.displayed;
@@ -953,7 +951,7 @@ describe('sl-combobox', () => {
 
       it('should show a message when there are no matches', async () => {
         input.focus();
-        await sendKeys({ type: 'Foo' });
+        await userEvent.keyboard('Foo');
 
         const noMatch = el.querySelector('sl-combobox-no-match');
         expect(noMatch).to.exist;
@@ -962,12 +960,12 @@ describe('sl-combobox', () => {
 
       it('should remove the message when there are matches', async () => {
         input.focus();
-        await sendKeys({ type: 'Foo' });
+        await userEvent.keyboard('Foo');
 
         expect(el.querySelector('sl-combobox-no-match')).to.exist;
 
         input.select();
-        await sendKeys({ press: 'Backspace' });
+        await userEvent.keyboard('{Backspace}');
 
         expect(el.querySelector('sl-combobox-no-match')).not.to.exist;
       });

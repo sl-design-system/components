@@ -1,9 +1,10 @@
-import { expect, fixture } from '@open-wc/testing';
 import '@sl-design-system/button/register.js';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
 import { spy } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { type Panel } from './panel.js';
 
@@ -129,7 +130,7 @@ describe('sl-panel', () => {
       });
 
       button?.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
 
       // Wait for the animation to finish
       await new Promise(resolve => setTimeout(resolve, 400));
@@ -137,7 +138,7 @@ describe('sl-panel', () => {
       expect(onToggle).to.have.been.calledOnce;
       expect(onToggle.lastCall.args[0]).to.be.true;
 
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
 
       // Wait for the animation to finish
       await new Promise(resolve => setTimeout(resolve, 400));
@@ -155,7 +156,7 @@ describe('sl-panel', () => {
       });
 
       button?.focus();
-      await sendKeys({ press: 'Space' });
+      await userEvent.keyboard('{Space}');
 
       // Wait for the animation to finish
       await new Promise(resolve => setTimeout(resolve, 400));
@@ -163,7 +164,7 @@ describe('sl-panel', () => {
       expect(onToggle).to.have.been.calledOnce;
       expect(onToggle.lastCall.args[0]).to.be.true;
 
-      await sendKeys({ press: 'Space' });
+      await userEvent.keyboard('{Space}');
 
       // Wait for the animation to finish
       await new Promise(resolve => setTimeout(resolve, 400));

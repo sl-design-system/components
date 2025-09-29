@@ -1,6 +1,7 @@
-import { expect, fixture } from '@open-wc/testing';
 import { EventEmitter } from '@sl-design-system/shared';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { Announcer, SlAnnounceEvent } from './announcer.js';
 

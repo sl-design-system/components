@@ -1,6 +1,7 @@
-import { expect, fixture } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { Accordion } from './accordion.js';
 
@@ -58,13 +59,13 @@ describe('sl-accordion', () => {
 
       items.at(0)?.focus();
 
-      await sendKeys({ press: 'ArrowDown' });
+      await userEvent.keyboard('{ArrowDown}');
       expect(items.at(1)).to.equal(document.activeElement);
 
-      await sendKeys({ press: 'ArrowDown' });
+      await userEvent.keyboard('{ArrowDown}');
       expect(items.at(0)).to.equal(document.activeElement);
 
-      await sendKeys({ press: 'ArrowUp' });
+      await userEvent.keyboard('{ArrowUp}');
       expect(items.at(1)).to.equal(document.activeElement);
     });
 

@@ -1,7 +1,8 @@
-import { expect, fixture } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
 import { spy } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { type NumberField } from './number-field.js';
 
@@ -62,7 +63,7 @@ describe('sl-number-field', () => {
 
       el.addEventListener('sl-change', onChange);
       el.input.focus();
-      await sendKeys({ type: '100' });
+      await userEvent.keyboard('100');
 
       expect(onChange).to.have.been.calledThrice;
     });
@@ -72,9 +73,9 @@ describe('sl-number-field', () => {
 
       el.addEventListener('sl-change', onChange);
       el.focus();
-      await sendKeys({ press: 'ArrowUp' });
-      await sendKeys({ press: 'ArrowDown' });
-      await sendKeys({ press: 'ArrowUp' });
+      await userEvent.keyboard('{ArrowUp}');
+      await userEvent.keyboard('{ArrowDown}');
+      await userEvent.keyboard('{ArrowUp}');
 
       expect(onChange).to.have.been.calledThrice;
     });
@@ -84,7 +85,7 @@ describe('sl-number-field', () => {
 
       el.addEventListener('sl-validate', onValidate);
       el.input.focus();
-      await sendKeys({ type: '100' });
+      await userEvent.keyboard('100');
 
       expect(onValidate).to.have.been.calledThrice;
     });
@@ -94,16 +95,16 @@ describe('sl-number-field', () => {
 
       el.addEventListener('sl-change', onChange);
       el.focus();
-      await sendKeys({ press: 'ArrowDown' });
-      await sendKeys({ press: 'ArrowUp' });
-      await sendKeys({ press: 'ArrowDown' });
+      await userEvent.keyboard('{ArrowDown}');
+      await userEvent.keyboard('{ArrowUp}');
+      await userEvent.keyboard('{ArrowDown}');
 
       expect(onChange).to.have.been.calledThrice;
     });
 
     it('should not format the value while typing', async () => {
       el.input.focus();
-      await sendKeys({ type: '1000' });
+      await userEvent.keyboard('1000');
       await el.updateComplete;
 
       expect(el.input.value).to.equal('1000');
@@ -111,7 +112,7 @@ describe('sl-number-field', () => {
 
     it('should format the value on blur', async () => {
       el.input.focus();
-      await sendKeys({ type: '1000' });
+      await userEvent.keyboard('1000');
 
       el.input.blur();
       await el.updateComplete;
@@ -153,8 +154,8 @@ describe('sl-number-field', () => {
 
     it('should update the formatted value after typing and leaving the field', async () => {
       el.input.focus();
-      await sendKeys({ press: 'ArrowRight' });
-      await sendKeys({ type: '123' });
+      await userEvent.keyboard('{ArrowRight}');
+      await userEvent.keyboard('123');
       el.input.blur();
       await el.updateComplete;
 
@@ -178,7 +179,7 @@ describe('sl-number-field', () => {
 
     it('should be valid after typing a number', async () => {
       el.focus();
-      await sendKeys({ type: '1 ' });
+      await userEvent.keyboard('1 ');
       await el.updateComplete;
 
       expect(el.valid).to.be.true;
@@ -186,7 +187,7 @@ describe('sl-number-field', () => {
 
     it('should be valid after pressing the arrow down key', async () => {
       el.focus();
-      await sendKeys({ press: 'ArrowDown' });
+      await userEvent.keyboard('{ArrowDown}');
       await el.updateComplete;
 
       expect(el.valid).to.be.true;
@@ -194,7 +195,7 @@ describe('sl-number-field', () => {
 
     it('should be valid after pressing the arrow up key', async () => {
       el.focus();
-      await sendKeys({ press: 'ArrowUp' });
+      await userEvent.keyboard('{ArrowUp}');
       await el.updateComplete;
 
       expect(el.valid).to.be.true;
@@ -209,7 +210,7 @@ describe('sl-number-field', () => {
 
     it('should indicate a custom error when the value is not a valid number', async () => {
       el.input.focus();
-      await sendKeys({ type: 'asdf' });
+      await userEvent.keyboard('asdf');
       await el.updateComplete;
 
       el.input.blur();
@@ -328,7 +329,7 @@ describe('sl-number-field', () => {
 
     it('should increase the value when ArrowUp key is pressed', async () => {
       el.focus();
-      await sendKeys({ press: 'ArrowUp' });
+      await userEvent.keyboard('{ArrowUp}');
       await el.updateComplete;
 
       expect(el.valueAsNumber).to.equal(11);
@@ -336,7 +337,7 @@ describe('sl-number-field', () => {
 
     it('should decrease the value when ArrowDown key is pressed', async () => {
       el.focus();
-      await sendKeys({ press: 'ArrowDown' });
+      await userEvent.keyboard('{ArrowDown}');
       await el.updateComplete;
 
       expect(el.valueAsNumber).to.equal(9);
@@ -347,9 +348,9 @@ describe('sl-number-field', () => {
       await el.updateComplete;
 
       el.focus();
-      await sendKeys({ press: 'ArrowUp' });
-      await sendKeys({ press: 'ArrowUp' });
-      await sendKeys({ press: 'ArrowDown' });
+      await userEvent.keyboard('{ArrowUp}');
+      await userEvent.keyboard('{ArrowUp}');
+      await userEvent.keyboard('{ArrowDown}');
       await el.updateComplete;
 
       expect(el.valueAsNumber).to.equal(10);
@@ -391,7 +392,7 @@ describe('sl-number-field', () => {
       expect(el.validationMessage).to.equal('Please enter a valid number.');
 
       el.focus();
-      await sendKeys({ type: '123' });
+      await userEvent.keyboard('123');
 
       expect(el.validationMessage).to.equal('');
     });

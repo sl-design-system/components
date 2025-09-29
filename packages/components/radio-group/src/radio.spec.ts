@@ -1,6 +1,7 @@
-import { expect, fixture } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { Radio } from './radio.js';
 
@@ -10,10 +11,6 @@ describe('sl-radio', () => {
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-radio>Hello world</sl-radio>`);
-    });
-
-    it('should render correctly', () => {
-      expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('should have a role of radio', () => {
@@ -49,7 +46,7 @@ describe('sl-radio', () => {
 
     it('should be checked after Enter', async () => {
       el.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
 
       expect(el).to.have.attribute('aria-checked', 'true');
       expect(el).to.have.attribute('checked');
@@ -58,7 +55,7 @@ describe('sl-radio', () => {
 
     it('should be checked after Space', async () => {
       el.focus();
-      await sendKeys({ press: 'Space' });
+      await userEvent.keyboard('{Space}');
 
       expect(el).to.have.attribute('aria-checked', 'true');
       expect(el).to.have.attribute('checked');
@@ -98,7 +95,7 @@ describe('sl-radio', () => {
 
     it('should ignore Enter', async () => {
       el.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
       await el.updateComplete;
 
       expect(el).to.have.attribute('aria-checked', 'false');
@@ -108,7 +105,7 @@ describe('sl-radio', () => {
 
     it('should ignore Space', async () => {
       el.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
       await el.updateComplete;
 
       expect(el).to.have.attribute('aria-checked', 'false');

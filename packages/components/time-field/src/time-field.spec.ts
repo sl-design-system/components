@@ -1,8 +1,9 @@
-import { expect, fixture } from '@open-wc/testing';
 import { type TextField } from '@sl-design-system/text-field';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
 import { spy } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { TimeField } from './time-field.js';
 
@@ -59,7 +60,7 @@ describe('sl-time-field', () => {
 
     it('should support entering a time via the keyboard', async () => {
       el.textField.focus();
-      await sendKeys({ type: '12:34' });
+      await userEvent.keyboard('12:34');
       el.textField.input.blur();
 
       expect(el.value).to.equal('12:34');
@@ -73,7 +74,7 @@ describe('sl-time-field', () => {
 
       el.addEventListener('sl-change', onChange);
       el.textField.focus();
-      await sendKeys({ type: '12:34' });
+      await userEvent.keyboard('12:34');
       el.textField.input.blur();
       await el.updateComplete;
 
@@ -85,7 +86,7 @@ describe('sl-time-field', () => {
 
       el.addEventListener('sl-change', onChange);
       el.textField.focus();
-      await sendKeys({ press: 'ArrowUp' });
+      await userEvent.keyboard('{ArrowUp}');
 
       expect(onChange).to.have.been.calledOnce;
     });
@@ -146,7 +147,7 @@ describe('sl-time-field', () => {
 
     it('should show the popover when focused and Enter is pressed', async () => {
       button.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
 
       const dialog = el.renderRoot.querySelector<HTMLElement>('dialog')!;
 
@@ -156,7 +157,7 @@ describe('sl-time-field', () => {
 
     it('should show the popover when focused and Space is pressed', async () => {
       button.focus();
-      await sendKeys({ press: ' ' });
+      await userEvent.keyboard('{Space}');
 
       const dialog = el.renderRoot.querySelector<HTMLElement>('dialog')!;
 
@@ -325,8 +326,8 @@ describe('sl-time-field', () => {
 
     it('should focus the start hour when opened', async () => {
       el.textField.focus();
-      await sendKeys({ press: 'Tab' });
-      await sendKeys({ press: ' ' });
+      await userEvent.tab();
+      await userEvent.keyboard('{Space}');
 
       expect(el.shadowRoot?.activeElement).to.match('li');
       expect(el.shadowRoot?.activeElement?.parentElement).to.match('ul.hours');
@@ -334,16 +335,16 @@ describe('sl-time-field', () => {
 
     it('should switch focus between start hour and minute when pressing horizontal arrows', async () => {
       el.textField.focus();
-      await sendKeys({ press: 'Tab' });
-      await sendKeys({ press: ' ' });
+      await userEvent.tab();
+      await userEvent.keyboard('{Space}');
 
-      await sendKeys({ press: 'ArrowRight' });
+      await userEvent.keyboard('{ArrowRight}');
 
       expect(el.shadowRoot?.activeElement).to.match('li');
       expect(el.shadowRoot?.activeElement).to.have.trimmed.text('00');
       expect(el.shadowRoot?.activeElement?.parentElement).to.match('ul.minutes');
 
-      await sendKeys({ press: 'ArrowLeft' });
+      await userEvent.keyboard('{ArrowLeft}');
 
       expect(el.shadowRoot?.activeElement).to.match('li');
       expect(el.shadowRoot?.activeElement).to.have.trimmed.text('12');
@@ -352,11 +353,11 @@ describe('sl-time-field', () => {
 
     it('should select the hour when pressing enter on an hour option', async () => {
       el.textField.focus();
-      await sendKeys({ press: 'Tab' });
-      await sendKeys({ press: 'Enter' });
+      await userEvent.tab();
+      await userEvent.keyboard('{Enter}');
 
-      await sendKeys({ press: 'ArrowDown' });
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{ArrowDown}');
+      await userEvent.keyboard('{Enter}');
 
       expect(el.value).to.equal('13:00');
       expect(el.textField.value).to.equal('13:00');
@@ -364,11 +365,11 @@ describe('sl-time-field', () => {
 
     it('should select the hour when pressing space on an hour option', async () => {
       el.textField.focus();
-      await sendKeys({ press: 'Tab' });
-      await sendKeys({ press: ' ' });
+      await userEvent.tab();
+      await userEvent.keyboard('{Space}');
 
-      await sendKeys({ press: 'ArrowUp' });
-      await sendKeys({ press: ' ' });
+      await userEvent.keyboard('{ArrowUp}');
+      await userEvent.keyboard('{Space}');
 
       expect(el.value).to.equal('11:00');
       expect(el.textField.value).to.equal('11:00');
@@ -376,12 +377,12 @@ describe('sl-time-field', () => {
 
     it('should select the minute when pressing enter on a minute option', async () => {
       el.textField.focus();
-      await sendKeys({ press: 'Tab' });
-      await sendKeys({ press: 'Enter' });
+      await userEvent.tab();
+      await userEvent.keyboard('{Enter}');
 
-      await sendKeys({ press: 'ArrowRight' });
-      await sendKeys({ press: 'ArrowDown' });
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{ArrowRight}');
+      await userEvent.keyboard('{ArrowDown}');
+      await userEvent.keyboard('{Enter}');
 
       expect(el.value).to.equal('12:05');
       expect(el.textField.value).to.equal('12:05');
@@ -389,12 +390,12 @@ describe('sl-time-field', () => {
 
     it('should select the minute when pressing space on a minute option', async () => {
       el.textField.focus();
-      await sendKeys({ press: 'Tab' });
-      await sendKeys({ press: ' ' });
+      await userEvent.tab();
+      await userEvent.keyboard('{Space}');
 
-      await sendKeys({ press: 'ArrowRight' });
-      await sendKeys({ press: 'ArrowUp' });
-      await sendKeys({ press: ' ' });
+      await userEvent.keyboard('{ArrowRight}');
+      await userEvent.keyboard('{ArrowUp}');
+      await userEvent.keyboard('{Space}');
 
       expect(el.value).to.equal('12:55');
       expect(el.textField.value).to.equal('12:55');
@@ -421,8 +422,8 @@ describe('sl-time-field', () => {
       await el.updateComplete;
 
       el.textField.focus();
-      await sendKeys({ press: 'ArrowDown' });
-      await sendKeys({ press: 'ArrowDown' });
+      await userEvent.keyboard('{ArrowDown}');
+      await userEvent.keyboard('{ArrowDown}');
 
       expect(el.value).to.equal('08:00');
       expect(el.textField.value).to.equal('08:00');
@@ -433,8 +434,8 @@ describe('sl-time-field', () => {
       await el.updateComplete;
 
       el.textField.focus();
-      await sendKeys({ press: 'ArrowUp' });
-      await sendKeys({ press: 'ArrowUp' });
+      await userEvent.keyboard('{ArrowUp}');
+      await userEvent.keyboard('{ArrowUp}');
 
       expect(el.value).to.equal('14:00');
       expect(el.textField.value).to.equal('14:00');
@@ -442,7 +443,7 @@ describe('sl-time-field', () => {
 
     it('should be invalid when the value is before the minimum time', async () => {
       el.textField.focus();
-      await sendKeys({ type: '07:00' });
+      await userEvent.keyboard('07:00');
       el.textField.input.blur();
       await el.updateComplete;
 
@@ -452,7 +453,7 @@ describe('sl-time-field', () => {
 
     it('should be invalid when the value is after the maximum time', async () => {
       el.textField.focus();
-      await sendKeys({ type: '19:00' });
+      await userEvent.keyboard('19:00');
       el.textField.input.blur();
       await el.updateComplete;
 
@@ -462,7 +463,7 @@ describe('sl-time-field', () => {
 
     it('should be valid when the value is within the range', async () => {
       el.textField.focus();
-      await sendKeys({ type: '10:00' });
+      await userEvent.keyboard('10:00');
       el.textField.input.blur();
       await el.updateComplete;
 
@@ -501,7 +502,7 @@ describe('sl-time-field', () => {
 
     it('should be valid when the time has the correct syntax', async () => {
       el.textField.focus();
-      await sendKeys({ type: '12:34' });
+      await userEvent.keyboard('12:34');
       el.textField.input.blur();
       await el.updateComplete;
 
@@ -522,7 +523,7 @@ describe('sl-time-field', () => {
       el.textField.focus();
       await el.updateComplete;
 
-      await sendKeys({ press: 'ArrowDown' });
+      await userEvent.keyboard('{ArrowDown}');
 
       expect(el.value).to.equal(current);
       expect(el.textField.value).to.equal(current);
@@ -535,7 +536,7 @@ describe('sl-time-field', () => {
       el.textField.focus();
       await el.updateComplete;
 
-      await sendKeys({ press: 'ArrowDown' });
+      await userEvent.keyboard('{ArrowDown}');
 
       expect(el.value).to.equal('08:00');
       expect(el.textField.value).to.equal('08:00');
@@ -556,7 +557,7 @@ describe('sl-time-field', () => {
 
     it('should be possible to enter a new time via the keyboard', async () => {
       el.textField.focus();
-      await sendKeys({ type: '12:34' });
+      await userEvent.keyboard('12:34');
       el.textField.input.blur();
 
       expect(el.value).to.equal('12:34');
@@ -568,7 +569,7 @@ describe('sl-time-field', () => {
     it('should clear the value after removing all the text', async () => {
       el.textField.focus();
       for (let i = 0; i < 5; i++) {
-        await sendKeys({ press: 'Delete' });
+        await userEvent.keyboard('{Delete}');
       }
       el.textField.input.blur();
 
@@ -581,10 +582,10 @@ describe('sl-time-field', () => {
     it('should clear the selection after removing all text', async () => {
       el.textField.focus();
       for (let i = 0; i < 5; i++) {
-        await sendKeys({ press: 'Delete' });
+        await userEvent.keyboard('{Delete}');
       }
-      await sendKeys({ press: 'Tab' });
-      await sendKeys({ press: 'Enter' });
+      await userEvent.tab();
+      await userEvent.keyboard('{Enter}');
 
       const selected = el.renderRoot.querySelectorAll('dialog li[aria-selected="true"]');
       expect(selected).to.have.lengthOf(0);
@@ -605,37 +606,37 @@ describe('sl-time-field', () => {
       await el.updateComplete;
 
       // Move focus to the minutes
-      await sendKeys({ press: 'ArrowRight' });
+      await userEvent.keyboard('{ArrowRight}');
 
       expect(el.textField.input.selectionStart).to.equal(3);
       expect(el.textField.input.selectionEnd).to.equal(5);
 
       // Move focus to the end
-      await sendKeys({ press: 'ArrowRight' });
+      await userEvent.keyboard('{ArrowRight}');
 
       expect(el.textField.input.selectionStart).to.equal(5);
       expect(el.textField.input.selectionEnd).to.equal(5);
 
       // Move focus 1 space left
-      await sendKeys({ press: 'ArrowLeft' });
+      await userEvent.keyboard('{ArrowLeft}');
 
       expect(el.textField.input.selectionStart).to.equal(4);
       expect(el.textField.input.selectionEnd).to.equal(4);
 
       // Move focus 1 space left (now just before the ':')
-      await sendKeys({ press: 'ArrowLeft' });
+      await userEvent.keyboard('{ArrowLeft}');
 
       expect(el.textField.input.selectionStart).to.equal(3);
       expect(el.textField.input.selectionEnd).to.equal(3);
 
       // Move focus to the hours
-      await sendKeys({ press: 'ArrowLeft' });
+      await userEvent.keyboard('{ArrowLeft}');
 
       expect(el.textField.input.selectionStart).to.equal(0);
       expect(el.textField.input.selectionEnd).to.equal(2);
 
       // Move focus to the start
-      await sendKeys({ press: 'ArrowLeft' });
+      await userEvent.keyboard('{ArrowLeft}');
 
       expect(el.textField.input.selectionStart).to.equal(0);
       expect(el.textField.input.selectionEnd).to.equal(0);
@@ -645,7 +646,7 @@ describe('sl-time-field', () => {
       el.textField.focus();
       await el.updateComplete;
 
-      await sendKeys({ press: 'ArrowUp' });
+      await userEvent.keyboard('{ArrowUp}');
 
       expect(el.value).to.equal('10:00');
       expect(el.textField.value).to.equal('10:00');
@@ -657,7 +658,7 @@ describe('sl-time-field', () => {
       el.textField.focus();
       await el.updateComplete;
 
-      await sendKeys({ press: 'ArrowDown' });
+      await userEvent.keyboard('{ArrowDown}');
 
       expect(el.value).to.equal('08:00');
       expect(el.textField.value).to.equal('08:00');
@@ -669,8 +670,8 @@ describe('sl-time-field', () => {
       el.textField.focus();
       await el.updateComplete;
 
-      await sendKeys({ press: 'ArrowRight' });
-      await sendKeys({ press: 'ArrowUp' });
+      await userEvent.keyboard('{ArrowRight}');
+      await userEvent.keyboard('{ArrowUp}');
 
       expect(el.value).to.equal('09:01');
       expect(el.textField.value).to.equal('09:01');
@@ -682,8 +683,8 @@ describe('sl-time-field', () => {
       el.textField.focus();
       await el.updateComplete;
 
-      await sendKeys({ press: 'ArrowRight' });
-      await sendKeys({ press: 'ArrowDown' });
+      await userEvent.keyboard('{ArrowRight}');
+      await userEvent.keyboard('{ArrowDown}');
 
       expect(el.value).to.equal('09:59');
       expect(el.textField.value).to.equal('09:59');

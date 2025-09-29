@@ -1,9 +1,10 @@
 import { faGear } from '@fortawesome/pro-regular-svg-icons';
-import { expect, fixture } from '@open-wc/testing';
 import { type Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { type MenuButton } from './menu-button.js';
 import { type Menu } from './menu.js';
@@ -158,7 +159,7 @@ describe('sl-menu-button', () => {
         // The 50msec timeout fixes the flakiness of this test on headless browsers
         await new Promise(resolve => setTimeout(resolve, 50));
 
-        await sendKeys({ press: 'Escape' });
+        await userEvent.keyboard('{Escape}');
 
         expect(el.shadowRoot?.activeElement).to.equal(button);
       });
@@ -195,28 +196,28 @@ describe('sl-menu-button', () => {
 
         it('should show the menu when the button is focused and the down arrow key is pressed', async () => {
           button.focus();
-          await sendKeys({ press: 'ArrowDown' });
+          await userEvent.keyboard('{ArrowDown}');
 
           expect(menu).to.match(':popover-open');
         });
 
         it('should focus the menu when the button is focused and the down arrow key is pressed', async () => {
           button.focus();
-          await sendKeys({ press: 'ArrowDown' });
+          await userEvent.keyboard('{ArrowDown}');
 
           expect(el.querySelector('sl-menu-item')).to.equal(document.activeElement);
         });
 
         it('should show the menu when the button is focused and the enter key is pressed', async () => {
           button.focus();
-          await sendKeys({ press: 'Enter' });
+          await userEvent.keyboard('{Enter}');
 
           expect(menu).to.match(':popover-open');
         });
 
         it('should show the menu when the button is focused and the space key is pressed', async () => {
           button.focus();
-          await sendKeys({ press: ' ' });
+          await userEvent.keyboard('{Space}');
 
           expect(menu).to.match(':popover-open');
         });
@@ -241,7 +242,7 @@ describe('sl-menu-button', () => {
         it('should hide the menu when the escape key is pressed', async () => {
           expect(menu).to.match(':popover-open');
 
-          await sendKeys({ press: 'Escape' });
+          await userEvent.keyboard('{Escape}');
 
           expect(menu).not.to.match(':popover-open');
         });
@@ -258,7 +259,7 @@ describe('sl-menu-button', () => {
           expect(menu).to.match(':popover-open');
 
           el.querySelector('sl-menu-item')?.focus();
-          await sendKeys({ press: 'Enter' });
+          await userEvent.keyboard('{Enter}');
 
           expect(menu).not.to.match(':popover-open');
         });
@@ -267,7 +268,7 @@ describe('sl-menu-button', () => {
           expect(menu).to.match(':popover-open');
 
           el.querySelector('sl-menu-item')?.focus();
-          await sendKeys({ press: ' ' });
+          await userEvent.keyboard('{ }');
 
           expect(menu).not.to.match(':popover-open');
         });

@@ -9,11 +9,8 @@ eleventyNavigation:
 
 ## Keyboard interactions
 
-The tag list component uses a roving tabindex. You can focus the first tag in the list by pressing the `Tab` key. After that, you can navigate through the tags using the left and right arrow keys. You can navigate back to the previous tag with left. The focus indicator loops, so when you are at the last option and press right it will focus on the first tag.
-In the stacked version of tag-list, when there are hidden tags, you can navigate only through visible tags with arrow keys. The first tag indicates how many hidden tags there are. Using a screen reader, it will announce how many hidden tags there are.
-
-
-When you click on a tag inside a tag-list (as long as it is not disabled), the tag become the active spot for using the keyboard. This means you can start using keyboard navigation right from the tag you just clicked on.
+The tag list component uses a roving tabindex. You can focus the first removable tag in the list by pressing the `Tab` key. After that, you can navigate through the removable tags using the left and right arrow keys. You can navigate back to the previous tag with left. The focus indicator loops, so when you are at the last option and press right it will focus on the first tag.
+In the stacked version of tag-list, when there are hidden tags, you can navigate only through visible removable tags with arrow keys. The first tag indicates how many hidden tags there are. Using a screen reader, it will announce how many hidden tags there are.
 
 
 When the tag is focused and is removable, it can be removed by pressing the `Delete` or `Backspace` key. This behavior is also announced by the screen reader.

@@ -388,7 +388,7 @@ export const ToggleExternally: Story = {
 
           override render(): TemplateResult {
             return html`
-              <h2>We use the announcer to inform the user, when the accordion is opened/closed externally.</h2>
+              <h2>We use the announcer to inform the user, when the panel is opened/closed externally.</h2>
               <sl-button @click=${this.togglePanel}>Toggle panel</sl-button>
               <p>State: ${this.panel ? 'open' : 'closed'}</p>
               <sl-panel

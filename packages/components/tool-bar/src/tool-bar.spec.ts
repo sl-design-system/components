@@ -106,6 +106,17 @@ describe('sl-tool-bar', () => {
       expect(group.selects).to.equal('single');
       expect(group.visible).to.be.true;
     });
+
+    it('should update the disabled state of the items when they change', async () => {
+      expect(el.items[0]).to.have.property('disabled', false);
+
+      const button = el.querySelector('sl-button')!;
+      button.setAttribute('disabled', '');
+
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(el.items[0]).to.have.property('disabled', true);
+    });
   });
 
   describe('overflow', () => {

@@ -76,6 +76,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /** @internal The scroller element. */
   @query('.scroller') scroller?: HTMLElement;
+
   /** @internal The scroller element. */
   @query('.scroll-wrapper') scrollWrapper?: HTMLElement;
 
@@ -155,6 +156,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   override render(): TemplateResult {
+    console.log('in render readonly', this.readonly, this.month, this.selected);
+
     const canSelectNextYear = this.displayMonth
         ? !this.max || (this.max && this.displayMonth.getFullYear() + 1 <= this.max.getFullYear())
         : false,
@@ -172,7 +175,13 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       <div part="header">
         ${canSelectPreviousMonth || canSelectNextMonth
           ? html`
-              <sl-button @click=${this.#onToggleMonthSelect} class="current-month" fill="link" variant="secondary">
+              <sl-button
+                @click=${this.#onToggleMonthSelect}
+                ?disabled=${this.readonly}
+                class="current-month"
+                fill="link"
+                variant="secondary"
+              >
                 <sl-format-date
                   .date=${this.displayMonth}
                   locale=${ifDefined(this.locale)}
@@ -225,7 +234,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           class="previous-month"
           fill="ghost"
           variant="secondary"
-          ?disabled=${!canSelectPreviousMonth}
+          ?disabled=${!canSelectPreviousMonth || this.readonly}
         >
           <sl-icon name="chevron-left"></sl-icon>
         </sl-button>
@@ -238,7 +247,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           class="next-month"
           fill="ghost"
           variant="secondary"
-          ?disabled=${!canSelectNextMonth}
+          ?disabled=${!canSelectNextMonth || this.readonly}
         >
           <sl-icon name="chevron-right"></sl-icon>
         </sl-button>

@@ -275,7 +275,7 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
         diff += this.direction === 'grid' ? this.#directionLength() : 1;
         break;
       case 'ArrowLeft':
-        console.log('arrowLeft in focus-group...', this.currentIndex, (diff -= 1));
+        //  console.log('arrowLeft in focus-group...', this.currentIndex, (diff -= 1));
         diff -= 1;
         break;
       case 'ArrowUp':

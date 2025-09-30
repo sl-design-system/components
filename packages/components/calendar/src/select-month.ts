@@ -100,16 +100,12 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
-    console.log('SelectMonth firstUpdated --- changes', changes);
-
     this.#rovingTabindexController.clearElementCache();
     this.#rovingTabindexController.focus();
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
-
-    console.log('SelectMonth willUpdate --- changes', changes);
 
     if (changes.has('locale') || changes.has('month') || changes.has('min') || changes.has('max')) {
       const formatShort = new Intl.DateTimeFormat(this.locale, { month: 'short' }),
@@ -129,19 +125,15 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           )
         };
       });
-
-      this.#rovingTabindexController.clearElementCache();
     }
 
     if (changes.has('month') || changes.has('min') || changes.has('max') || changes.has('inert')) {
-      console.log('SelectMonth willUpdate --- changes in month, min, max, inert', changes);
-      this.#rovingTabindexController.clearElementCache(); // TODO: maybe sth with inert?
+      // console.log('SelectMonth willUpdate --- changes in month, min, max, inert', changes);
+      this.#rovingTabindexController.clearElementCache();
     }
   }
 
   override render(): TemplateResult {
-    // this.#rovingTabindexController.clearElementCache();
-
     const currentMonth = this.month.getMonth(),
       currentYear = this.month.getFullYear(),
       canSelectNextYear = !this.max || (this.max && this.month.getFullYear() + 1 <= this.max.getFullYear()),
@@ -254,7 +246,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       cols = 3;
 
     if (event.key === 'ArrowLeft' && !this.#allPreviousUnselectable()) {
-      console.log('SelectMonth #onKeydown --- ArrowLeft', event, 'index --> ', index);
+      // console.log('SelectMonth #onKeydown --- ArrowLeft', event, 'index --> ', index);
       if (index === 0) {
         event.preventDefault();
         event.stopPropagation();

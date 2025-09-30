@@ -16,7 +16,7 @@ sl-panel::part(content){
 .ds-example > sl-panel::part(content){
   flex-direction: column;
 }
-ul.links {
+.ds-example ul.links {
   list-style:none;
   padding: 0;
   margin: 0;
@@ -24,12 +24,12 @@ ul.links {
   gap: 8px;
   flex-direction: column;
 }
-ul.links li {
+.ds-example ul.links li {
   border: 1px solid #D0D9E0;
   border-radius: 4px;
   margin: 0;
 }
-a {
+.ds-example ul.links a {
   text-align: center;
   padding: 12px 16px;
   display: flex;

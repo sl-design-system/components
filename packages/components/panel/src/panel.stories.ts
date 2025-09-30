@@ -384,7 +384,7 @@ export const ToggleExternally: Story = {
       customElements.define(
         'panel-toggle-example',
         class extends LitElement {
-          collapsed = true;
+          collapsed = false;
 
           override render(): TemplateResult {
             return html`
@@ -409,7 +409,6 @@ export const ToggleExternally: Story = {
 
           togglePanel() {
             this.renderRoot.querySelector('sl-panel')?.toggle();
-            // this.collapsed = !this.collapsed;
             announce(`Panel ${this.collapsed ? 'collapsing' : 'expanding'}`);
             this.requestUpdate();
           }

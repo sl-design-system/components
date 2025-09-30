@@ -251,8 +251,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       })
       .filter(item => item !== undefined) as ToolBarItem[];
 
-    // Update the visibility based on the current width
-    this.#onResize(this.getBoundingClientRect().width);
+    // Reconnect the resize observer to ensure we measure the correct widths
+    this.#resizeObserver.disconnect();
+    this.#resizeObserver.observe(this);
   }
 
   #mapToggleGroupToItem(group: ToggleGroup): ToolBarItemGroup {

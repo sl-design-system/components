@@ -3,3 +3,15 @@
   display: flex;
   scroll-padding-block: var(--sl-size-100);
 }
+
+.wrapper {
+  contain: strict;
+  inline-size: 100%;
+  position: relative;
+}
+
+.starter {
+  inline-size: 100%;
+  inset: 0 auto auto 0;
+  position: absolute;
+}

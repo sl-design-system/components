@@ -146,7 +146,7 @@ describe.skip('sl-tree', () => {
       });
 
       el = await fixture(html`<sl-tree .dataSource=${ds}></sl-tree>`);
-      await el.layoutComplete;
+      // await el.layoutComplete;
     });
 
     it('should focus the first tree node when focusing the tree', () => {
@@ -258,7 +258,7 @@ describe.skip('sl-tree', () => {
       });
 
       el = await fixture(html`<sl-tree .dataSource=${ds}></sl-tree>`);
-      await el.layoutComplete;
+      // await el.layoutComplete;
     });
 
     it('should render the visible tree nodes', () => {
@@ -314,7 +314,7 @@ describe.skip('sl-tree', () => {
       });
 
       el = await fixture(html`<sl-tree .dataSource=${ds}></sl-tree>`);
-      await el.layoutComplete;
+      // await el.layoutComplete;
     });
 
     it('should render the visible tree nodes', () => {

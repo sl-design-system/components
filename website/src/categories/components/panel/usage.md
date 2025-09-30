@@ -69,7 +69,7 @@ a {
       <li><a href="#"><sl-icon name="far-eye-slash"></sl-icon> 1. Find ...</a></li>
       ...
     </ul>
-    s
+    
     <sl-button-bar align="end">
       <sl-button fill="ghost"><sl-icon name="far-file-pen"></sl-icon>Edit</sl-button>
       <sl-button fill="ghost"><sl-icon name="far-trash"></sl-icon>Delete</sl-button>

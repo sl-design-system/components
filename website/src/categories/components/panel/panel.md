@@ -12,6 +12,6 @@ storybookCategory: layout
 eleventyNavigation:
   parent: Components
   key: Panel
-  status: ready
+  status: new
 ---
 

@@ -376,12 +376,6 @@ export const NoHeader: Story = {
   }
 };
 
-export const NoContent: Story = {
-  args: {
-    heading: 'Panel heading'
-  }
-};
-
 export const All: Story = {
   render: () => html`
     <style>

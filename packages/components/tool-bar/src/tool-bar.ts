@@ -68,8 +68,11 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  // Observe changes to the size of the element.
-  #observer = new ResizeObserver(entries => this.#onResize(entries.at(0)?.contentBoxSize.at(0)?.inlineSize ?? 0));
+  /** Observe changes to the child elements. */
+  #mutationObserver = new MutationObserver(() => this.#updateMapping());
+
+  /** Observe changes to the size of the element. */
+  #resizeObserver = new ResizeObserver(entries => this.#onResize(entries.at(0)?.contentBoxSize.at(0)?.inlineSize ?? 0));
 
   /**
    * The horizontal alignment within the tool-bar.
@@ -114,11 +117,18 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     this.setAttribute('role', 'toolbar');
 
-    this.#observer.observe(this);
+    this.#mutationObserver.observe(this, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['disabled']
+    });
+    this.#resizeObserver.observe(this);
   }
 
   override disconnectedCallback(): void {
-    this.#observer.disconnect();
+    this.#resizeObserver.disconnect();
+    this.#mutationObserver.disconnect();
 
     super.disconnectedCallback();
   }
@@ -212,13 +222,18 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    const elements = event.target.assignedElements({ flatten: true });
+    if (typeof this.disabled === 'boolean') {
+      event.target.assignedElements({ flatten: true }).forEach(el => el.toggleAttribute('disabled', this.disabled));
+    }
+
+    this.#updateMapping();
+  }
+
+  #updateMapping(): void {
+    const slot = this.renderRoot.querySelector('slot')!,
+      elements = slot.assignedElements({ flatten: true });
 
     this.empty = elements.length === 0;
-
-    if (typeof this.disabled === 'boolean') {
-      elements.forEach(el => el.toggleAttribute('disabled', this.disabled));
-    }
 
     this.items = elements
       .map(element => {
@@ -235,6 +250,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         return undefined;
       })
       .filter(item => item !== undefined) as ToolBarItem[];
+
+    // Update the visibility based on the current width
+    this.#onResize(this.getBoundingClientRect().width);
   }
 
   #mapToggleGroupToItem(group: ToggleGroup): ToolBarItemGroup {
@@ -251,7 +269,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   }
 
   #mapButtonToItem(button: HTMLElement): ToolBarItemButton {
-    let label = button.getAttribute('aria-label') || button.textContent?.trim();
+    let label: string | undefined = button.getAttribute('aria-label') || button.textContent?.trim();
 
     if (button.hasAttribute('aria-labelledby')) {
       const buttonLabelledby = button.getAttribute('aria-labelledby');

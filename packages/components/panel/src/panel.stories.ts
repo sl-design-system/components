@@ -384,16 +384,15 @@ export const ToggleExternally: Story = {
       customElements.define(
         'panel-toggle-example',
         class extends LitElement {
-          panel = true;
+          collapsed = true;
 
           override render(): TemplateResult {
             return html`
               <h2>We use the announcer to inform the user, when the panel is opened/closed externally.</h2>
               <sl-button @click=${this.togglePanel}>Toggle panel</sl-button>
-              <p>State: ${this.panel ? 'open' : 'closed'}</p>
+              <p>State: ${this.collapsed ? 'closed' : 'open'}</p>
               <sl-panel
                 @sl-toggle=${(e: SlToggleEvent) => this.onToggle(e)}
-                .collapsed=${!this.panel}
                 collapsible
                 heading="Discovering Dinosaurs 🦕"
               >
@@ -409,14 +408,15 @@ export const ToggleExternally: Story = {
           }
 
           togglePanel() {
-            this.panel = !this.panel;
-            announce(`Panel ${this.panel ? 'expanded' : 'collapsed'}`);
+            this.renderRoot.querySelector('sl-panel')?.toggle();
+            // this.collapsed = !this.collapsed;
+            announce(`Panel ${this.collapsed ? 'collapsing' : 'expanding'}`);
             this.requestUpdate();
           }
 
           //make sure that the state of the panel is updated in the current component when it's changed in the SLDS panel component
           onToggle(event: SlToggleEvent) {
-            this.panel = event.detail as boolean;
+            this.collapsed = event.detail as boolean;
             this.requestUpdate();
           }
         }

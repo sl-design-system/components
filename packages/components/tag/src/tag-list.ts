@@ -166,15 +166,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   }
 
   #onRemove(event: SlRemoveEvent & { target: Tag }): void {
-    console.log('remove', event.target);
-
     const index = this.#rovingTabindexController.elements.indexOf(event.target as Tag);
 
-    console.log({ index });
-
     this.#rovingTabindexController.focusToElement(index + (index === 0 ? 1 : -1));
-
-    console.log('after remove');
   }
 
   #onResize(entries: ResizeObserverEntry[]): void {

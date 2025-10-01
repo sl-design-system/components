@@ -1,6 +1,7 @@
-import { expect, fixture } from '@open-wc/testing';
 import { Button } from '@sl-design-system/button';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { MonthView } from '../index.js';
 import { SelectDay } from './select-day.js';
 

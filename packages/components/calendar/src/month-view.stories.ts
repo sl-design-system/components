@@ -11,6 +11,7 @@ type Props = Pick<
   MonthView,
   | 'firstDayOfWeek'
   | 'hideDaysOtherMonths'
+  | 'indicator'
   | 'locale'
   | 'max'
   | 'min'
@@ -39,6 +40,9 @@ export default {
     firstDayOfWeek: {
       control: 'number'
     },
+    indicator: {
+      control: 'date'
+    },
     locale: {
       control: 'inline-radio',
       options: ['de', 'en-GB', 'es', 'fi', 'fr', 'it', 'nl', 'nl-BE', 'no', 'pl', 'sv']
@@ -65,6 +69,7 @@ export default {
   render: ({
     firstDayOfWeek,
     hideDaysOtherMonths,
+    indicator,
     max,
     min,
     month,
@@ -89,6 +94,7 @@ export default {
       ?show-today=${showToday}
       ?show-week-numbers=${showWeekNumbers}
       first-day-of-week=${ifDefined(firstDayOfWeek)}
+      indicator=${ifDefined(indicator?.map(date => date.toISOString()).join(','))}
       locale=${ifDefined(locale)}
       max=${ifDefined(max?.toISOString())}
       min=${ifDefined(min?.toISOString())}
@@ -174,6 +180,14 @@ export const Selected: Story = {
 export const Today: Story = {
   args: {
     showToday: true
+  }
+};
+
+export const Indicator: Story = {
+  args: {
+    indicator: [new Date(), new Date('2025-08-05')],
+    showToday: true,
+    month: new Date(1755640800000)
   }
 };
 

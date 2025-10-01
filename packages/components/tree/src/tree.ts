@@ -1,10 +1,16 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, EventsController, RovingTabindexController, event } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  EventsController,
+  RovingTabindexController,
+  event,
+  getScrollParent
+} from '@sl-design-system/shared';
 import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { Skeleton } from '@sl-design-system/skeleton';
 import { Spinner } from '@sl-design-system/spinner';
-import { type VirtualizerController, WindowVirtualizerController } from '@tanstack/lit-virtual';
+import { VirtualizerController, WindowVirtualizerController } from '@tanstack/lit-virtual';
 import { type Virtualizer } from '@tanstack/virtual-core';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -105,13 +111,22 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
 
     this.setAttribute('role', 'treegrid');
 
-    this.#virtualizer = new WindowVirtualizerController(this, {
-      // getScrollElement: () => this as HTMLElement,
+    const options = {
       count: this.#dataSource?.items.length ?? 0,
       estimateSize: () => 32,
       gap: 2, // var(--sl-size-025)
       overscan: 3
-    });
+    };
+
+    const scrollParent = getScrollParent(this);
+    if (scrollParent === document.documentElement) {
+      this.#virtualizer = new WindowVirtualizerController(this, options);
+    } else {
+      this.#virtualizer = new VirtualizerController(this, {
+        ...options,
+        getScrollElement: () => scrollParent
+      });
+    }
   }
 
   override firstUpdated(changes: PropertyValues<this>): void {

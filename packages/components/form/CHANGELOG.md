@@ -1,5 +1,14 @@
 # @sl-design-system/form
 
+## 1.3.1
+
+### Patch Changes
+
+- [#2658](https://github.com/sl-design-system/components/pull/2658) [`09a1533`](https://github.com/sl-design-system/components/commit/09a1533558b2e16baa0d118b8348ee444e169854) - Fixed alignment of warning icon when an error spans over more than 2 lines.
+
+- Updated dependencies [[`659a92a`](https://github.com/sl-design-system/components/commit/659a92af4732d339f9830368b1e0e3bd48221714)]:
+  - @sl-design-system/shared@0.9.1
+
 ## 1.3.0
 
 ### Minor Changes

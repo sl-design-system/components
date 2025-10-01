@@ -41,7 +41,7 @@ Icon.register(
 
 export default {
   title: 'Actions/Menu/Menu',
-  tags: ['draft'],
+  tags: ['preview'],
   args: {
     maxWidth: '200px',
     emphasis: 'subtle'

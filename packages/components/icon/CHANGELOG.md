@@ -1,5 +1,13 @@
 # @sl-design-system/icon
 
+## 1.3.1
+
+### Patch Changes
+
+- [#2677](https://github.com/sl-design-system/components/pull/2677) [`c76f3c8`](https://github.com/sl-design-system/components/commit/c76f3c86cc289be16bdf7ad4ec09baf910d67361) - Use `import.meta.env.DEV` instead of custom `isDevMode()` check
+
+- [#2657](https://github.com/sl-design-system/components/pull/2657) [`e2543df`](https://github.com/sl-design-system/components/commit/e2543df011b9d65b8e11a07323b3712f52859e0e) - Added overflow:visible on svg to counteract the change FontAwesome v7 introduced to visually align the icons better, causing some icons to be clipped as a result.
+
 ## 1.3.0
 
 ### Minor Changes

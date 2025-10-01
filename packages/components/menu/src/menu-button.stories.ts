@@ -31,7 +31,7 @@ Icon.register(faArrowUpShortWide, faGear, faList, faPen, faRectanglesMixed, faTa
 
 export default {
   title: 'Actions/Menu/Menu button',
-  tags: ['draft'],
+  tags: ['preview'],
   args: {
     alignSelf: 'center',
     body: 'Button',

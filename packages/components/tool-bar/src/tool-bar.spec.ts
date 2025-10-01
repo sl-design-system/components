@@ -1,8 +1,10 @@
-import { faBell, faGear } from '@fortawesome/pro-regular-svg-icons';
+import { faBell, faGear, faPen, faTrash } from '@fortawesome/pro-regular-svg-icons';
 import { faBell as fasBell, faGear as fasGear } from '@fortawesome/pro-solid-svg-icons';
 import '@sl-design-system/button/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
+import { type MenuItem } from '@sl-design-system/menu';
+import '@sl-design-system/menu/register.js';
 import '@sl-design-system/toggle-button/register.js';
 import '@sl-design-system/toggle-group/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
@@ -10,9 +12,16 @@ import { html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
-import { type ToolBar, type ToolBarItemButton, type ToolBarItemDivider, type ToolBarItemGroup } from './tool-bar.js';
+import {
+  type ToolBar,
+  type ToolBarItem,
+  type ToolBarItemButton,
+  type ToolBarItemDivider,
+  type ToolBarItemGroup,
+  type ToolBarItemMenu
+} from './tool-bar.js';
 
-Icon.register(faBell, faGear, fasBell, fasGear);
+Icon.register(faBell, faGear, faPen, faTrash, fasBell, fasGear);
 
 describe('sl-tool-bar', () => {
   let el: ToolBar;
@@ -38,6 +47,20 @@ describe('sl-tool-bar', () => {
               <sl-icon name="fas-gear" slot="pressed"></sl-icon>
             </sl-toggle-button>
           </sl-toggle-group>
+
+          <sl-tool-bar-divider></sl-tool-bar-divider>
+
+          <sl-menu-button>
+            <div slot="button">Edit</div>
+            <sl-menu-item>
+              <sl-icon name="far-pen"></sl-icon>
+              Rename...
+            </sl-menu-item>
+            <sl-menu-item>
+              <sl-icon name="far-trash"></sl-icon>
+              Delete...
+            </sl-menu-item>
+          </sl-menu-button>
         </sl-tool-bar>
       `);
 
@@ -79,7 +102,7 @@ describe('sl-tool-bar', () => {
     it('should have made all slotted elements visible', () => {
       const visible = Array.from(el.children).map(child => (child as HTMLElement).style.visibility);
 
-      expect(visible).to.deep.equal(['visible', 'visible', 'visible']);
+      expect(visible).to.deep.equal(['visible', 'visible', 'visible', 'visible', 'visible']);
     });
 
     it('should not have a menu button', () => {
@@ -89,22 +112,42 @@ describe('sl-tool-bar', () => {
     });
 
     it('should map the slotted items', () => {
-      expect(el.items).to.have.length(3);
+      expect(el.items).to.have.length(5);
 
-      const button = el.items[0] as ToolBarItemButton;
-      expect(button.type).to.equal('button');
-      expect(button.label).to.equal('Button');
-      expect(button.icon).to.equal('far-gear');
-      expect(button.visible).to.be.true;
+      let item: ToolBarItem = el.items[0] as ToolBarItemButton;
+      expect(item.type).to.equal('button');
+      expect(item.label).to.equal('Button');
+      expect(item.icon).to.equal('far-gear');
+      expect(item.visible).to.be.true;
 
-      const divider = el.items[1] as ToolBarItemDivider;
-      expect(divider.type).to.equal('divider');
-      expect(divider.visible).to.be.true;
+      item = el.items[1] as ToolBarItemDivider;
+      expect(item.type).to.equal('divider');
+      expect(item.visible).to.be.true;
 
-      const group = el.items[2] as ToolBarItemGroup;
-      expect(group.type).to.equal('group');
-      expect(group.selects).to.equal('single');
-      expect(group.visible).to.be.true;
+      item = el.items[2] as ToolBarItemGroup;
+      expect(item.type).to.equal('group');
+      expect(item.selects).to.equal('single');
+      expect(item.visible).to.be.true;
+
+      item = el.items[3] as ToolBarItemDivider;
+      expect(item.type).to.equal('divider');
+      expect(item.visible).to.be.true;
+
+      item = el.items[4] as ToolBarItemMenu;
+      expect(item.type).to.equal('menu');
+      expect(item.label).to.equal('Edit');
+      expect(item.visible).to.be.true;
+    });
+
+    it('should update the disabled state of the items when they change', async () => {
+      expect(el.items[0]).to.have.property('disabled', false);
+
+      const button = el.querySelector('sl-button')!;
+      button.setAttribute('disabled', '');
+
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(el.items[0]).to.have.property('disabled', true);
     });
   });
 
@@ -129,8 +172,23 @@ describe('sl-tool-bar', () => {
               <sl-icon name="fas-gear" slot="pressed"></sl-icon>
             </sl-toggle-button>
           </sl-toggle-group>
-          <sl-button aria-labelledby="edit-tooltip" fill="ghost"> <sl-icon name="far-pen"></sl-icon></sl-button>
+
+          <sl-button aria-labelledby="edit-tooltip" fill="ghost">
+            <sl-icon name="far-pen"></sl-icon>
+          </sl-button>
           <sl-tooltip id="edit-tooltip">Edit</sl-tooltip>
+
+          <sl-menu-button>
+            <div slot="button">Edit</div>
+            <sl-menu-item>
+              <sl-icon name="far-pen"></sl-icon>
+              Rename...
+            </sl-menu-item>
+            <sl-menu-item>
+              <sl-icon name="far-trash"></sl-icon>
+              Delete...
+            </sl-menu-item>
+          </sl-menu-button>
         </sl-tool-bar>
       `);
 
@@ -141,7 +199,7 @@ describe('sl-tool-bar', () => {
     it('should have hidden all slotted elements', () => {
       const hidden = Array.from(el.children).map(child => (child as HTMLElement).style.visibility);
 
-      expect(hidden).to.deep.equal(['hidden', 'hidden', 'hidden', 'hidden', '']);
+      expect(hidden).to.deep.equal(['hidden', 'hidden', 'hidden', 'hidden', '', 'hidden']);
     });
 
     it('should have a menu button', () => {
@@ -186,6 +244,19 @@ describe('sl-tool-bar', () => {
       const lastChild = el.renderRoot.querySelectorAll('sl-menu-item')[3];
       expect(lastChild).to.have.trimmed.text('Edit');
       expect(lastChild).to.contain('sl-icon[name="far-pen"]');
+    });
+
+    it('should have a menu item with submenu for the menu button', () => {
+      const menu = el.renderRoot.querySelector('sl-menu')!,
+        menuItem = menu.parentElement as MenuItem,
+        menuItems = menu.querySelectorAll('sl-menu-item');
+
+      expect(menuItem).to.contain.text('Edit');
+      expect(menuItems).to.have.length(2);
+      expect(menuItems[0]).to.have.trimmed.text('Rename...');
+      expect(menuItems[0]).to.contain('sl-icon[name="far-pen"]');
+      expect(menuItems[1]).to.have.trimmed.text('Delete...');
+      expect(menuItems[1]).to.contain('sl-icon[name="far-trash"]');
     });
 
     it('should proxy clicks on the menu items to the original elements', () => {

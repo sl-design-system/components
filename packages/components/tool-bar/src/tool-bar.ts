@@ -2,7 +2,7 @@ import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button, type ButtonFill } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
-import { MenuButton, MenuItem, MenuItemGroup } from '@sl-design-system/menu';
+import { Menu, MenuButton, MenuItem, MenuItemGroup } from '@sl-design-system/menu';
 import { ToggleButton } from '@sl-design-system/toggle-button';
 import { ToggleGroup } from '@sl-design-system/toggle-group';
 import { Tooltip } from '@sl-design-system/tooltip';
@@ -44,7 +44,15 @@ export interface ToolBarItemGroup extends ToolBarItemBase {
   selects?: 'single' | 'multiple';
 }
 
-export type ToolBarItem = ToolBarItemButton | ToolBarItemDivider | ToolBarItemGroup;
+export interface ToolBarItemMenu extends ToolBarItemBase {
+  type: 'menu';
+  disabled?: boolean;
+  icon?: string | null;
+  label?: string | null;
+  menuItems: Array<ToolBarItemButton | ToolBarItemDivider | ToolBarItemMenu>;
+}
+
+export type ToolBarItem = ToolBarItemButton | ToolBarItemDivider | ToolBarItemGroup | ToolBarItemMenu;
 
 /**
  * A responsive container that automatically hides items in an overflow menu when space is limited.
@@ -59,6 +67,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon,
+      'sl-menu': Menu,
       'sl-menu-button': MenuButton,
       'sl-menu-item': MenuItem,
       'sl-menu-item-group': MenuItemGroup
@@ -68,8 +77,11 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  // Observe changes to the size of the element.
-  #observer = new ResizeObserver(entries => this.#onResize(entries.at(0)?.contentBoxSize.at(0)?.inlineSize ?? 0));
+  /** Observe changes to the child elements. */
+  #mutationObserver = new MutationObserver(() => this.#updateMapping());
+
+  /** Observe changes to the size of the element. */
+  #resizeObserver = new ResizeObserver(entries => this.#onResize(entries.at(0)?.contentBoxSize.at(0)?.inlineSize ?? 0));
 
   /**
    * The horizontal alignment within the tool-bar.
@@ -114,11 +126,18 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     this.setAttribute('role', 'toolbar');
 
-    this.#observer.observe(this);
+    this.#mutationObserver.observe(this, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['disabled']
+    });
+    this.#resizeObserver.observe(this);
   }
 
   override disconnectedCallback(): void {
-    this.#observer.disconnect();
+    this.#resizeObserver.disconnect();
+    this.#mutationObserver.disconnect();
 
     super.disconnectedCallback();
   }
@@ -171,10 +190,17 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       `;
     } else if (item.type === 'divider') {
       return html`<hr />`;
-    } else {
+    } else if (item.type === 'button') {
       return html`
         <sl-menu-item @click=${() => item.click?.()} ?disabled=${item.disabled} ?selectable=${item.selectable}>
           ${item.icon ? html`<sl-icon .name=${item.icon}></sl-icon>` : nothing} ${item.label}
+        </sl-menu-item>
+      `;
+    } else {
+      return html`
+        <sl-menu-item ?disabled=${item.disabled}>
+          ${item.icon ? html`<sl-icon .name=${item.icon}></sl-icon>` : nothing} ${item.label}
+          <sl-menu slot="submenu">${item.menuItems.map(menuItem => this.renderMenuItem(menuItem))}</sl-menu>
         </sl-menu-item>
       `;
     }
@@ -212,46 +238,44 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    const elements = event.target.assignedElements({ flatten: true });
+    if (typeof this.disabled === 'boolean') {
+      event.target.assignedElements({ flatten: true }).forEach(el => el.toggleAttribute('disabled', this.disabled));
+    }
+
+    this.#updateMapping();
+  }
+
+  #updateMapping(): void {
+    const slot = this.renderRoot.querySelector('slot')!,
+      elements = slot.assignedElements({ flatten: true });
 
     this.empty = elements.length === 0;
-
-    if (typeof this.disabled === 'boolean') {
-      elements.forEach(el => el.toggleAttribute('disabled', this.disabled));
-    }
 
     this.items = elements
       .map(element => {
         if (element instanceof Button || element instanceof ToggleButton) {
           return this.#mapButtonToItem(element);
+        } else if (element instanceof MenuButton) {
+          return this.#mapMenuButtonToItem(element);
         } else if (element instanceof ToggleGroup) {
           return this.#mapToggleGroupToItem(element);
         } else if (element instanceof ToolBarDivider) {
           return { element, type: 'divider' };
         } else if (!['SL-TOOLTIP'].includes(element.tagName)) {
-          console.warn(`Unknown element type: ${element.tagName} in sl-tool-bar. Only sl-button elements are allowed.`);
+          console.warn(`Unknown element type: ${element.tagName} in sl-tool-bar.`);
         }
 
         return undefined;
       })
       .filter(item => item !== undefined) as ToolBarItem[];
-  }
 
-  #mapToggleGroupToItem(group: ToggleGroup): ToolBarItemGroup {
-    return {
-      element: group,
-      type: 'group',
-      label: group.getAttribute('aria-label'),
-      buttons: Array.from(group.children)
-        .filter(el => !(el instanceof Tooltip))
-        .map(button => this.#mapButtonToItem(button as HTMLElement)),
-      selects: group.multiple ? 'multiple' : 'single',
-      visible: true
-    };
+    // Reconnect the resize observer to ensure we measure the correct widths
+    this.#resizeObserver.disconnect();
+    this.#resizeObserver.observe(this);
   }
 
   #mapButtonToItem(button: HTMLElement): ToolBarItemButton {
-    let label = button.getAttribute('aria-label') || button.textContent?.trim();
+    let label: string | undefined = button.getAttribute('aria-label') || button.textContent?.trim();
 
     if (button.hasAttribute('aria-labelledby')) {
       const buttonLabelledby = button.getAttribute('aria-labelledby');
@@ -278,6 +302,52 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       selectable: button.hasAttribute('aria-pressed'),
       visible: true,
       click: () => button.click()
+    };
+  }
+
+  #mapMenuButtonToItem(menuButton: MenuButton): ToolBarItemMenu {
+    let label: string | undefined =
+      menuButton.getAttribute('aria-label') || menuButton.querySelector('[slot="button"]')?.textContent?.trim();
+
+    if (menuButton.hasAttribute('aria-labelledby')) {
+      const buttonLabelledby = menuButton.getAttribute('aria-labelledby');
+
+      if (this.querySelector(`#${buttonLabelledby}`)) {
+        label = this.querySelector(`#${buttonLabelledby}`)?.textContent?.trim();
+      } else if (
+        menuButton.nextElementSibling &&
+        menuButton.nextElementSibling.tagName === 'SL-TOOLTIP' &&
+        buttonLabelledby === menuButton.nextElementSibling.id
+      ) {
+        label = menuButton.nextElementSibling.textContent?.trim();
+      }
+    } else if (!label && menuButton.hasAttribute('aria-describedby')) {
+      label = this.querySelector(`#${menuButton.getAttribute('aria-describedby')}`)?.textContent?.trim();
+    }
+
+    const menuItems = Array.from(menuButton.querySelectorAll('sl-menu-item')).map(el => this.#mapButtonToItem(el));
+
+    return {
+      element: menuButton,
+      type: 'menu',
+      disabled: menuButton.hasAttribute('disabled') || menuButton.getAttribute('aria-disabled') === 'true',
+      icon: menuButton.querySelector('sl-icon')?.getAttribute('name'),
+      label,
+      menuItems,
+      visible: true
+    };
+  }
+
+  #mapToggleGroupToItem(group: ToggleGroup): ToolBarItemGroup {
+    return {
+      element: group,
+      type: 'group',
+      label: group.getAttribute('aria-label'),
+      buttons: Array.from(group.children)
+        .filter(el => !(el instanceof Tooltip))
+        .map(button => this.#mapButtonToItem(button as HTMLElement)),
+      selects: group.multiple ? 'multiple' : 'single',
+      visible: true
     };
   }
 }

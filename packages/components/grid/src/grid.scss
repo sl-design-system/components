@@ -320,7 +320,13 @@ tr {
   }
 
   &[part~='selected'] {
-    --_body-cell-background: var(--sl-color-background-selected-subtlest);
+    // Manually customize the background color for selected rows, so it's not
+    // transparent like --sl-color-background-selected-subtlest
+    --_body-cell-background: color-mix(
+      in srgb,
+      var(--sl-color-background-accent-blue-bold) calc(var(--sl-opacity-subtlest) * 100%),
+      var(--sl-elevation-surface-raised-default)
+    );
   }
 
   &.drop-target {
@@ -376,7 +382,7 @@ td {
   padding: var(--_body-cell-padding-block) var(--_body-cell-padding-inline);
 
   @media (prefers-reduced-motion: no-preference) {
-    transition: background 0.2s ease-in-out;
+    transition: background-color 0.2s ease-in-out;
   }
 
   &:has(> :not(sl-ellipsize-text)) {

@@ -1,5 +1,13 @@
 # @sl-design-system/toggle-group
 
+## 0.0.10
+
+### Patch Changes
+
+- Updated dependencies [[`659a92a`](https://github.com/sl-design-system/components/commit/659a92af4732d339f9830368b1e0e3bd48221714), [`c76f3c8`](https://github.com/sl-design-system/components/commit/c76f3c86cc289be16bdf7ad4ec09baf910d67361)]:
+  - @sl-design-system/shared@0.9.1
+  - @sl-design-system/toggle-button@0.0.10
+
 ## 0.0.9
 
 ### Patch Changes

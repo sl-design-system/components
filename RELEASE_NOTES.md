@@ -4,6 +4,31 @@ This is a collection of release notes for the SL Design System. Each release not
 
 The release notes are ordered by the date the release was made. From latest, to oldest.
 
+# October 1, 2025
+
+Menu, number-field and tag have been promoted from draft to preview.
+
+New `<sl-time-field>` component in the `@sl-design-system/time-field` package.
+
+## New features
+- [`angular`](https://github.com/sl-design-system/components/blob/main/packages/angular/CHANGELOG.md) has new form directives for `<sl-time-field>`.
+- [`button`](https://github.com/sl-design-system/components/blob/main/packages/components/button/CHANGELOG.md) has support for `aria-disabled="true"` to disable a button while keeping it focusable (for example, when using tooltips).
+- [`tool-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/tool-bar/CHANGELOG.md) now supports `<sl-menu-button>`.
+- [`tooltip`](https://github.com/sl-design-system/components/blob/main/packages/components/tooltip/CHANGELOG.md) now supports passing a config object to the `tooltip()` Lit directive.
+
+## Bug fixes
+- [`checkbox`](https://github.com/sl-design-system/components/blob/main/packages/components/checkbox/CHANGELOG.md) fix initial validity when checked.
+- [`data-source`](https://github.com/sl-design-system/components/blob/main/packages/components/data-source/CHANGELOG.md) fix issue where the "select all" flag wasn't being cleared after manually deselecting every item.
+- [`form`](https://github.com/sl-design-system/components/blob/main/packages/components/form/CHANGELOG.md) fix alignment issue of icon when error text spans multiple lines.
+- [`grid`](https://github.com/sl-design-system/components/blob/main/packages/components/grid/CHANGELOG.md) various fixes.
+- [`icon`](https://github.com/sl-design-system/components/blob/main/packages/components/icon/CHANGELOG.md) has a fix for the new Font Awesome 7 icons which were sometimes shown clipped.
+- [`menu`](https://github.com/sl-design-system/components/blob/main/packages/components/menu/CHANGELOG.md) fix missing initial `aria-expanded` for menu item with sub menu.
+- [`menu`](https://github.com/sl-design-system/components/blob/main/packages/components/menu/CHANGELOG.md) fix keyboard shortcut not being announced properly by using `aria-keyshortcuts`.
+- [`panel`](https://github.com/sl-design-system/components/blob/main/packages/components/panel/CHANGELOG.md) fix styling issue with overlapping buttons.
+- [`tag`](https://github.com/sl-design-system/components/blob/main/packages/components/tag/CHANGELOG.md) fix missing focus after removing a tag.
+- [`tag`](https://github.com/sl-design-system/components/blob/main/packages/components/tag/CHANGELOG.md) fix focus outline clipping due to `z-index`.
+- [`tree`](https://github.com/sl-design-system/components/blob/main/packages/components/tree/CHANGELOG.md) fix empty `aria-setsize` attribute when size is unknown.
+
 # September 17, 2025
 
 ## New features

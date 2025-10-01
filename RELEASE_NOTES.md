@@ -11,7 +11,7 @@ Menu, number-field and tag have been promoted from draft to preview.
 New `<sl-time-field>` component in the `@sl-design-system/time-field` package.
 
 ## New features
-- [`angular`](https://github.com/sl-design-system/components/blob/main/packages/angular/CHANGELOG.md) has new form directives for `<sl-time-field>`.
+- [`angular`](https://github.com/sl-design-system/components/blob/main/packages/angular/CHANGELOG.md) has new bindings for `<sl-time-field>`.
 - [`button`](https://github.com/sl-design-system/components/blob/main/packages/components/button/CHANGELOG.md) has support for `aria-disabled="true"` to disable a button while keeping it focusable (for example, when using tooltips).
 - [`tool-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/tool-bar/CHANGELOG.md) now supports `<sl-menu-button>`.
 - [`tooltip`](https://github.com/sl-design-system/components/blob/main/packages/components/tooltip/CHANGELOG.md) now supports passing a config object to the `tooltip()` Lit directive.

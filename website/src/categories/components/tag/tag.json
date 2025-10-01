@@ -1,7 +1,7 @@
 {
   "layout": "categories/components/components.njk",
   "tags": "tag",
-  "componentStatus": "draft",
+  "componentStatus": "preview",
   "componentTagName": [
     {
       "name": "Tag",

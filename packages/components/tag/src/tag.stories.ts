@@ -12,7 +12,7 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Feedback & status/Tag',
-  tags: ['draft'],
+  tags: ['preview'],
   parameters: {
     a11y: {
       config: {

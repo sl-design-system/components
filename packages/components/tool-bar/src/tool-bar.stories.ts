@@ -8,7 +8,9 @@ import {
   faCopy,
   faItalic,
   faPaste,
+  faPen,
   faScissors,
+  faTrash,
   faUnderline
 } from '@fortawesome/pro-regular-svg-icons';
 import {
@@ -24,6 +26,7 @@ import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
+import '@sl-design-system/menu/register.js';
 import '@sl-design-system/toggle-button/register.js';
 import '@sl-design-system/toggle-group/register.js';
 import { tooltip } from '@sl-design-system/tooltip';
@@ -51,7 +54,9 @@ Icon.register(
   faCopy,
   faItalic,
   faPaste,
+  faPen,
   faScissors,
+  faTrash,
   faUnderline,
   fasAlignCenter,
   fasAlignJustify,
@@ -129,6 +134,17 @@ export const Basic: Story = {
         <sl-icon name="far-paste"></sl-icon>
         Paste
       </sl-button>
+      <sl-menu-button>
+        <div slot="button">Edit</div>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
     `
   }
 };

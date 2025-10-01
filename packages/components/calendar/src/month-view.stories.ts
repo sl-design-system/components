@@ -94,7 +94,7 @@ export default {
       ?show-today=${showToday}
       ?show-week-numbers=${showWeekNumbers}
       first-day-of-week=${ifDefined(firstDayOfWeek)}
-      indicator=${ifDefined(indicator?.map(date => date.toISOString()).join(','))}
+      indicator=${ifDefined(indicator?.map(ind => ind.date.toISOString()).join(','))}
       locale=${ifDefined(locale)}
       max=${ifDefined(max?.toISOString())}
       min=${ifDefined(min?.toISOString())}
@@ -185,7 +185,8 @@ export const Today: Story = {
 
 export const Indicator: Story = {
   args: {
-    indicator: [new Date(), new Date('2025-08-05')],
+  //  indicator: [new Date(), new Date('2025-08-05')],
+    indicator: [{ date: new Date() }, { date: new Date('2025-08-05') }],
     showToday: true,
     month: new Date(1755640800000)
   }

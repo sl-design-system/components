@@ -124,6 +124,10 @@ button {
   position: absolute;
 }
 
+[part~='indicator'][indicator-color='red']:not([part~='unselectable'])::after {
+  background: var(--sl-color-background-accent-red-bold); // TODO: change..
+}
+
 [part~='week-day'],
 [part~='week-number'] {
   color: var(--sl-color-foreground-subtlest);

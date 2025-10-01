@@ -16,7 +16,11 @@ declare global {
   }
 }
 
+export type IndicatorColor = 'blue' | 'red' | 'yellow' | 'green' | 'grey';
+
 export type MonthViewRenderer = (day: Day, monthView: MonthView) => TemplateResult;
+
+export type Indicator = { date: Date; color?: IndicatorColor };
 
 /**
  * Component that renders a single month of a calendar.
@@ -113,7 +117,40 @@ export class MonthView extends LocaleMixin(LitElement) {
   @property({ converter: dateConverter }) negative?: Date[];
 
   /** The list of dates that should have an indicator. */
-  @property({ converter: dateConverter }) indicator?: Date[];
+  // @property({ converter: dateConverter }) indicator?: Indicator[]; // Date[];
+  // @property({ type: Object }) indicator?: Indicator[]; // Date[];
+
+  @property({
+    attribute: 'indicator',
+    converter: {
+      toAttribute: (value?: Indicator[]) =>
+        value
+          ? JSON.stringify(
+              value.map(i => ({
+                ...i,
+                date: dateConverter.toAttribute?.(i.date)
+              }))
+            )
+          : undefined,
+      fromAttribute: (value: string | null, _type?: unknown) =>
+        value
+          ? (JSON.parse(value) as Array<{ date: string; color?: IndicatorColor }>).map(i => ({
+              ...i,
+              date: dateConverter.fromAttribute?.(i.date)
+            }))
+          : undefined
+    }
+  })
+  indicator?: Indicator[];
+
+  // TODO: maybe implement indicator color and indicator (date) separately?
+
+  // /**
+  //  * The color of the indicator.
+  //  * Should be used together with the `indicator` property.
+  //  * @default 'blue'
+  //  */
+  // @property({ reflect: true, attribute: 'indicator-color' }) indicatorColor?: IndicatorColor;
 
   // eslint-disable-next-line lit/no-native-attributes
   @property({ type: Boolean }) override inert = false;
@@ -224,6 +261,23 @@ export class MonthView extends LocaleMixin(LitElement) {
 
   /** Returns an array of part names for a day. */
   getDayParts = (day: Day): string[] => {
+    console.log(
+      'indicator in getDayParts',
+      this.indicator,
+      this.indicator ? this.indicator[0].date : 'no indicator',
+      this.indicator?.length
+    );
+    console.log(
+      'indicator part applied?',
+      this.indicator &&
+        isDateInList(
+          day.date,
+          this.indicator.map(i => i.date)
+        )
+        ? 'indicator'
+        : ''
+    );
+
     return [
       'day',
       day.nextMonth ? 'next-month' : '',
@@ -231,7 +285,14 @@ export class MonthView extends LocaleMixin(LitElement) {
       day.today ? 'today' : '',
       day.unselectable ? 'unselectable' : '',
       this.negative && isDateInList(day.date, this.negative) ? 'negative' : '',
-      this.indicator && isDateInList(day.date, this.indicator) ? 'indicator' : '',
+      // this.indicator && isDateInList(day.date, this.indicator) ? 'indicator' : '',
+      this.indicator &&
+      isDateInList(
+        day.date,
+        this.indicator.map(i => i.date)
+      )
+        ? 'indicator'
+        : '',
       this.selected && isSameDate(day.date, this.selected) ? 'selected' : ''
     ].filter(part => part !== '');
   };

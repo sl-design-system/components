@@ -7,6 +7,7 @@ import { property, state } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './calendar.scss.js';
+import { Indicator, IndicatorColor } from './month-view.js';
 import { SelectDay } from './select-day.js';
 import { SelectMonth } from './select-month.js';
 import { SelectYear } from './select-year.js';
@@ -71,8 +72,34 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** The list of dates that should have 'negative' styling. */
   @property({ converter: dateListConverter }) negative?: Date[];
 
-  /** The list of dates that should have 'negative' styling. */
-  @property({ converter: dateListConverter }) indicator?: Date[];
+  // /** The list of dates that should have 'negative' styling. */
+  // @property({ converter: dateListConverter }) indicator?: Date[];
+
+  /** The list of dates that should have an indicator. */
+  // @property({ converter: dateConverter }) indicator?: Indicator[]; // Date[];
+
+  @property({
+    attribute: 'indicator',
+    converter: {
+      toAttribute: (value?: Indicator[]) =>
+        value
+          ? JSON.stringify(
+              value.map(i => ({
+                ...i,
+                date: dateConverter.toAttribute?.(i.date)
+              }))
+            )
+          : undefined,
+      fromAttribute: (value: string | null, _type?: unknown) =>
+        value
+          ? (JSON.parse(value) as Array<{ date: string; color?: IndicatorColor }>).map(i => ({
+              ...i,
+              date: dateConverter.fromAttribute?.(i.date)
+            }))
+          : undefined
+    }
+  })
+  indicator?: Indicator[];
 
   /** Highlights today's date when set. */
   @property({ type: Boolean, attribute: 'show-today' }) showToday?: boolean;
@@ -117,6 +144,8 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   override render(): TemplateResult {
     console.log('in render', this.month, this.selected);
+
+    console.log('indicator in the calendar render', this.indicator);
 
     return html`
       ${this.month ? html`month:${this.month.getMonth() + 1}` : 'undefined month'}

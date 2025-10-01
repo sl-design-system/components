@@ -9,7 +9,7 @@ import { type SlChangeEvent, type SlSelectEvent, SlToggleEvent } from '@sl-desig
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { MonthView } from './month-view.js';
+import { Indicator, IndicatorColor, MonthView } from './month-view.js';
 import styles from './select-day.scss.js';
 import { getWeekdayNames, normalizeDateTime } from './utils.js';
 
@@ -87,7 +87,31 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   @property({ converter: dateConverter }) negative?: Date[];
 
   /** The list of dates that should have an indicator. */
-  @property({ converter: dateConverter }) indicator?: Date[];
+  // @property({ converter: dateConverter }) indicator?: Date[];
+  // @property({ converter: dateConverter }) indicator?: Indicator[];
+
+  @property({
+    attribute: 'indicator',
+    converter: {
+      toAttribute: (value?: Indicator[]) =>
+        value
+          ? JSON.stringify(
+            value.map(i => ({
+              ...i,
+              date: dateConverter.toAttribute?.(i.date)
+            }))
+          )
+          : undefined,
+      fromAttribute: (value: string | null, _type?: unknown) =>
+        value
+          ? (JSON.parse(value) as Array<{ date: string; color?: IndicatorColor }>).map(i => ({
+            ...i,
+            date: dateConverter.fromAttribute?.(i.date)
+          }))
+          : undefined
+    }
+  })
+  indicator?: Indicator[];
 
   /** @internal Emits when the user selects a day. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<Date>>;

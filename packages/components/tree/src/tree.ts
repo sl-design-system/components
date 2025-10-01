@@ -4,7 +4,8 @@ import { type EventEmitter, EventsController, RovingTabindexController, event } 
 import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { Skeleton } from '@sl-design-system/skeleton';
 import { Spinner } from '@sl-design-system/spinner';
-import { WindowVirtualizerController } from '@tanstack/lit-virtual';
+import { type VirtualizerController, WindowVirtualizerController } from '@tanstack/lit-virtual';
+import { type Virtualizer } from '@tanstack/virtual-core';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -61,13 +62,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   });
 
   /** The virtualizer instance. */
-  #virtualizer = new WindowVirtualizerController(this, {
-    // getScrollElement: () => this as HTMLElement,
-    count: this.#dataSource?.items.length ?? 0,
-    estimateSize: () => 36,
-    gap: 2, // var(--sl-size-025)
-    overscan: 3
-  });
+  #virtualizer?: VirtualizerController<Element, Element> | WindowVirtualizerController<Element>;
 
   get dataSource() {
     return this.#dataSource;
@@ -109,6 +104,14 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.setAttribute('role', 'treegrid');
+
+    this.#virtualizer = new WindowVirtualizerController(this, {
+      // getScrollElement: () => this as HTMLElement,
+      count: this.#dataSource?.items.length ?? 0,
+      estimateSize: () => 32,
+      gap: 2, // var(--sl-size-025)
+      overscan: 3
+    });
   }
 
   override firstUpdated(changes: PropertyValues<this>): void {
@@ -151,7 +154,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    const virtualizer = this.#virtualizer.getVirtualizer(),
+    const virtualizer = this.#virtualizer!.getVirtualizer(),
       virtualItems = virtualizer.getVirtualItems();
 
     /**
@@ -274,8 +277,11 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onUpdate = (): void => {
-    const virtualizer = this.#virtualizer.getVirtualizer();
+    if (!this.#virtualizer) {
+      return;
+    }
 
+    const virtualizer = this.#virtualizer.getVirtualizer() as Virtualizer<Element, Element>;
     virtualizer.setOptions({
       ...virtualizer.options,
       count: this.#dataSource?.items.length ?? 0

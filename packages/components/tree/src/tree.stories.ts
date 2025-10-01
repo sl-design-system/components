@@ -345,6 +345,46 @@ export const LazyLoad: Story = {
   }
 };
 
+export const Overflow: Story = {
+  args: {
+    ...FlatDataSource.args,
+    styles: `
+      sl-tree {
+        block-size: 200px;
+        border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+        border-radius: var(--sl-size-borderRadius-default);
+        overflow: auto;
+        padding: var(--sl-size-100);
+      }
+    `
+  }
+};
+
+export const PageScrolling: Story = {
+  parameters: {
+    // The size of the snapshot exceeds the maximum
+    chromatic: { disableSnapshot: true }
+  },
+  args: {
+    dataSource: new NestedTreeDataSource<NestedDataNode>(
+      [1, 2, 3].map(id => ({
+        id,
+        name: `Root ${id}`,
+        children: Array.from({ length: 1000 }).map((_, i) => ({ id: 1000 * id + i, name: `Child ${i}` }))
+      })),
+      {
+        getChildren: ({ children }) => children,
+        getId: ({ id }) => id,
+        getLabel: ({ name }) => name,
+        isExpandable: ({ children }) => !!children,
+        isExpanded: () => true,
+        isSelected: ({ id }) => id === 2010,
+        selects: 'single'
+      }
+    )
+  }
+};
+
 export const Skeleton: Story = {
   args: {
     dataSource: new NestedTreeDataSource(
@@ -373,31 +413,6 @@ export const Skeleton: Story = {
         getId: ({ id }) => id,
         getLabel: ({ id }) => id,
         isExpandable: ({ expandable }) => !!expandable
-      }
-    )
-  }
-};
-
-export const Scrolling: Story = {
-  parameters: {
-    // The size of the snapshot exceeds the maximum
-    chromatic: { disableSnapshot: true }
-  },
-  args: {
-    dataSource: new NestedTreeDataSource<NestedDataNode>(
-      [1, 2, 3].map(id => ({
-        id,
-        name: `Root ${id}`,
-        children: Array.from({ length: 1000 }).map((_, i) => ({ id: 1000 * id + i, name: `Child ${i}` }))
-      })),
-      {
-        getChildren: ({ children }) => children,
-        getId: ({ id }) => id,
-        getLabel: ({ name }) => name,
-        isExpandable: ({ children }) => !!children,
-        isExpanded: () => true,
-        isSelected: ({ id }) => id === 2010,
-        selects: 'single'
       }
     )
   }

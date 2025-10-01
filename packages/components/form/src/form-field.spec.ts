@@ -1,7 +1,8 @@
-import { expect, fixture } from '@open-wc/testing';
 import '@sl-design-system/radio-group/register.js';
 import '@sl-design-system/text-field/register.js';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { FormField } from './form-field.js';
 

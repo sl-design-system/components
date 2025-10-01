@@ -1,7 +1,8 @@
-import { expect, fixture } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
 import { spy } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { GridFilter } from './filter.js';
 
 try {
@@ -32,7 +33,7 @@ describe('sl-grid-filter', () => {
 
     it('should be active after typing in the search field', async () => {
       el.renderRoot.querySelector('sl-search-field')?.focus();
-      await sendKeys({ type: 'Lorem' });
+      await userEvent.keyboard('Lorem');
 
       expect(el.active).to.be.true;
     });
@@ -43,7 +44,7 @@ describe('sl-grid-filter', () => {
       el.addEventListener('sl-filter-change', onFilterChange);
 
       el.renderRoot.querySelector('sl-search-field')?.focus();
-      await sendKeys({ type: 'Lorem' });
+      await userEvent.keyboard('Lorem');
 
       expect(onFilterChange).to.have.callCount(5);
       expect(onFilterChange).to.have.been.calledWithMatch({ detail: { value: 'Lorem' } });
@@ -56,7 +57,7 @@ describe('sl-grid-filter', () => {
       el.addEventListener('sl-filter-change', onFilterChange);
 
       searchField?.focus();
-      await sendKeys({ type: 'L' });
+      await userEvent.keyboard('L');
       searchField?.renderRoot.querySelector('button')?.click();
       await el.updateComplete;
 

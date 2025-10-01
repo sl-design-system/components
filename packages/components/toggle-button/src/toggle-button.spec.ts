@@ -1,9 +1,10 @@
-import { expect, fixture } from '@open-wc/testing';
 import '@sl-design-system/icon/register.js';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
 import { spy, stub } from 'sinon';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { type ToggleButton } from './toggle-button.js';
 
@@ -69,7 +70,7 @@ describe('sl-toggle-button', () => {
 
     it('should toggle the pressed state when pressing enter', async () => {
       el.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
       await el.updateComplete;
 
       expect(el).to.have.attribute('aria-pressed', 'true');
@@ -77,7 +78,7 @@ describe('sl-toggle-button', () => {
       expect(el.pressed).to.be.true;
 
       el.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
       await el.updateComplete;
 
       expect(el).to.have.attribute('aria-pressed', 'false');
@@ -87,7 +88,7 @@ describe('sl-toggle-button', () => {
 
     it('should toggle the pressed state when pressing space', async () => {
       el.focus();
-      await sendKeys({ press: 'Space' });
+      await userEvent.keyboard('{Space}');
       await el.updateComplete;
 
       expect(el).to.have.attribute('aria-pressed', 'true');
@@ -95,7 +96,7 @@ describe('sl-toggle-button', () => {
       expect(el.pressed).to.be.true;
 
       el.focus();
-      await sendKeys({ press: 'Space' });
+      await userEvent.keyboard('{Space}');
       await el.updateComplete;
 
       expect(el).to.have.attribute('aria-pressed', 'false');
@@ -125,7 +126,7 @@ describe('sl-toggle-button', () => {
       });
 
       el.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
       await el.updateComplete;
 
       expect(onToggle).to.have.been.calledOnce;
@@ -140,7 +141,7 @@ describe('sl-toggle-button', () => {
       });
 
       el.focus();
-      await sendKeys({ press: 'Space' });
+      await userEvent.keyboard('{Space}');
       await el.updateComplete;
 
       expect(onToggle).to.have.been.calledOnce;
@@ -169,7 +170,7 @@ describe('sl-toggle-button', () => {
 
     it('should not toggle the pressed state when pressing enter', async () => {
       el.focus();
-      sendKeys({ press: 'Enter' });
+      userEvent.keyboard('{Enter}');
       await el.updateComplete;
 
       expect(el).to.have.attribute('aria-pressed', 'false');
@@ -179,7 +180,7 @@ describe('sl-toggle-button', () => {
 
     it('should not toggle the pressed state when pressing space', async () => {
       el.focus();
-      sendKeys({ press: 'Space' });
+      userEvent.keyboard('{Space}');
       await el.updateComplete;
 
       expect(el).to.have.attribute('aria-pressed', 'false');
@@ -218,9 +219,13 @@ describe('sl-toggle-button', () => {
   });
 
   describe('developer feedback', () => {
-    it('should log an error when the default icon is missing', async () => {
-      const errorStub = stub(console, 'error');
+    let errorStub: sinon.SinonStub;
 
+    beforeEach(() => (errorStub = stub(console, 'error')));
+
+    afterEach(() => errorStub.restore());
+
+    it('should log an error when the default icon is missing', async () => {
       el = await fixture(html`<sl-toggle-button></sl-toggle-button>`);
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 100));
@@ -228,13 +233,9 @@ describe('sl-toggle-button', () => {
       expect(errorStub).to.have.been.calledWith(
         'There needs to be an sl-icon in the "default" slot for the component to work'
       );
-
-      errorStub.restore();
     });
 
     it('should log an error when the pressed icon is missing', async () => {
-      const errorStub = stub(console, 'error');
-
       el = await fixture(html`
         <sl-toggle-button>
           <sl-icon name="far-gear" slot="default"></sl-icon>
@@ -246,13 +247,9 @@ describe('sl-toggle-button', () => {
       expect(errorStub).to.have.been.calledWith(
         'There needs to be an sl-icon in the "pressed" slot for the component to work'
       );
-
-      errorStub.restore();
     });
 
     it('should log an error when the default and pressed icons are the same', async () => {
-      const errorStub = stub(console, 'error');
-
       el = await fixture(html`
         <sl-toggle-button>
           <sl-icon name="far-gear" slot="default"></sl-icon>
@@ -263,20 +260,14 @@ describe('sl-toggle-button', () => {
       await new Promise(resolve => setTimeout(resolve, 100));
 
       expect(errorStub).to.have.been.calledWith('Do not use the same icon for both states of the toggle button.');
-
-      errorStub.restore();
     });
 
     it('should not log an error if only text is slotted', async () => {
-      const errorStub = stub(console, 'error');
-
       el = await fixture(html`<sl-toggle-button>Toggle me</sl-toggle-button>`);
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 100));
 
       expect(errorStub).not.to.have.been.called;
-
-      errorStub.restore();
     });
   });
 });

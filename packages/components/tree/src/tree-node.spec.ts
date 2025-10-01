@@ -1,7 +1,9 @@
-import { expect, fixture, html } from '@open-wc/testing';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
+import { html } from 'lit';
 import { spy } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { TreeNode } from './tree-node.js';
 
 // We need to define sl-tree-node ourselves, since it's not
@@ -157,10 +159,10 @@ describe('sl-tree-node', () => {
     it('should toggle the expanded state when using the keyboard', async () => {
       el.focus();
 
-      await sendKeys({ press: 'ArrowRight' });
+      await userEvent.keyboard('{ArrowRight}');
       expect(el).to.have.attribute('aria-expanded', 'true');
 
-      await sendKeys({ press: 'ArrowLeft' });
+      await userEvent.keyboard('{ArrowLeft}');
       expect(el).to.have.attribute('aria-expanded', 'false');
     });
 
@@ -236,7 +238,7 @@ describe('sl-tree-node', () => {
     it('should set the selected state when pressing enter', async () => {
       el.focus();
 
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
 
       expect(el).to.have.attribute('aria-selected', 'true');
     });
@@ -244,7 +246,7 @@ describe('sl-tree-node', () => {
     it('should set the selected state when pressing space', async () => {
       el.focus();
 
-      await sendKeys({ press: 'Space' });
+      await userEvent.keyboard('{Space}');
 
       expect(el).to.have.attribute('aria-selected', 'true');
     });

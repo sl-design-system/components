@@ -1,9 +1,10 @@
-import { expect, fixture } from '@open-wc/testing';
 import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { CheckboxGroup } from './checkbox-group.js';
 
@@ -243,13 +244,13 @@ describe('sl-checkbox-group', () => {
       expect(el.boxes?.[1].tabIndex).to.equal(-1);
 
       el.boxes?.[0]?.focus();
-      await sendKeys({ press: 'Space' });
+      await userEvent.keyboard('{Space}');
 
       expect(el.boxes?.[0].checked).to.be.true;
       expect(el.boxes?.[1].checked).not.to.be.true;
 
-      await sendKeys({ press: 'ArrowDown' });
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{ArrowDown}');
+      await userEvent.keyboard('{Enter}');
 
       expect(el.boxes?.[0].checked).to.be.true;
       expect(el.boxes?.[1].checked).to.be.true;

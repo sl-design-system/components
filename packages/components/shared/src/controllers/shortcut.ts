@@ -41,7 +41,7 @@ export class ShortcutController implements ReactiveController {
     this.#unregister = tinykeys(this.#target, shortcuts);
   }
 
-  render(shortcut: string): string {
+  renderAsLabel(shortcut: string): string {
     const keys = shortcut.replace(KEY_REGEX, '$1').split('+');
 
     return keys
@@ -53,5 +53,19 @@ export class ShortcutController implements ReactiveController {
         }
       })
       .join('');
+  }
+
+  renderAsText(shortcut: string): string {
+    const keys = shortcut.replace(KEY_REGEX, '$1').split('+');
+
+    return keys
+      .map(key => {
+        if (key === '$mod') {
+          return isMac() ? 'Meta' : 'Ctrl';
+        } else {
+          return key;
+        }
+      })
+      .join('+');
   }
 }

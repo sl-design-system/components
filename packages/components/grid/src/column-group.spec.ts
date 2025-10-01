@@ -1,11 +1,9 @@
-import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
-import { expect, fixture } from '@open-wc/testing';
-import { setViewport } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { page } from '@vitest/browser/context';
 import { html } from 'lit';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { type Grid } from './grid.js';
-
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
 
 describe('sl-column-group', () => {
   let el: Grid;
@@ -26,7 +24,7 @@ describe('sl-column-group', () => {
           </sl-grid-column-group>
         </sl-grid>
       `);
-      await setViewport({ width: 1024, height: 1024 });
+      await page.viewport(1024, 1024);
       el.items = [{ firstName: 'John', lastName: 'Doe', grades: { biology: 'A', maths: 'B', english: 'B+' } }];
       await el.updateComplete;
 
@@ -53,7 +51,7 @@ describe('sl-column-group', () => {
     it('should have the correct width', () => {
       const cells = Array.from(el.renderRoot.querySelectorAll('th'));
       expect(cells.map(cell => Math.floor(parseFloat(getComputedStyle(cell).width)))).to.deep.equal([
-        369, 636, 185, 183, 169, 157, 166, 144
+        370, 651, 185, 184, 171, 161, 169, 149
       ]);
     });
   });
@@ -73,7 +71,7 @@ describe('sl-column-group', () => {
           </sl-grid-column-group>
         </sl-grid>
       `);
-      await setViewport({ width: 1024, height: 1024 });
+      await page.viewport(1024, 1024);
 
       el.items = [{ firstName: 'John', lastName: 'Doe', grades: { biology: 'A', maths: 'B', english: 'B+' } }];
       await el.updateComplete;
@@ -87,7 +85,7 @@ describe('sl-column-group', () => {
       const cells = Array.from(el.renderRoot.querySelectorAll('th'));
 
       expect(cells.map(cell => Math.floor(parseFloat(getComputedStyle(cell).width)))).to.deep.equal([
-        271, 734, 214, 212, 197, 186, 195
+        268, 753, 215, 214, 201, 191, 199
       ]);
     });
   });

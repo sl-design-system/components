@@ -212,6 +212,7 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
       }
 
       this.controls = [...this.controls, control];
+      this.controls.find(c => c.autofocus)?.focus();
     });
   }
 

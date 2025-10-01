@@ -50,8 +50,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
 
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
-    keydown: this.#onKeydown,
-    'sl-select': this.#onSelect
+    keydown: this.#onKeydown
   });
 
   /** Manage keyboard navigation between tabs. */
@@ -182,6 +181,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
                   ${ref(virtualizer.measureElement)}
                   id=${item.id}
                   @sl-change=${(event: SlChangeEvent<boolean>) => this.#onChange(event, item)}
+                  @sl-select=${this.#onSelect}
                   @sl-toggle=${() => this.#onToggle(item)}
                   ?checked=${this.dataSource?.selects === 'multiple' && item.selected}
                   ?expandable=${item.expandable}

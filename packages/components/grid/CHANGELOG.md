@@ -1,5 +1,25 @@
 # @sl-design-system/grid
 
+## 0.6.2
+
+### Patch Changes
+
+- [#2691](https://github.com/sl-design-system/components/pull/2691) [`c17cd0d`](https://github.com/sl-design-system/components/commit/c17cd0d26d799c134c205fa659a8783580d35750) - Fix transparent background color for sticky columns
+
+- [#2653](https://github.com/sl-design-system/components/pull/2653) [`3fd461e`](https://github.com/sl-design-system/components/commit/3fd461e4cc2d17bdcc2d0b5231e8aa4999b185b7) - Reset the selection state when the data source is replaced
+
+- [#2655](https://github.com/sl-design-system/components/pull/2655) [`8d7163c`](https://github.com/sl-design-system/components/commit/8d7163cd05c3483cbdc2cb907236066ed90b963b) - Fix incorrect icon for drag and drop in a group header row
+
+- Updated dependencies [[`d3b9d45`](https://github.com/sl-design-system/components/commit/d3b9d4512e33dbf10a2aa28efc94a54b93002285), [`9afb9ff`](https://github.com/sl-design-system/components/commit/9afb9fffc65bdeb70e85747ffb3ca6e2fdf14463), [`659a92a`](https://github.com/sl-design-system/components/commit/659a92af4732d339f9830368b1e0e3bd48221714), [`0964af6`](https://github.com/sl-design-system/components/commit/0964af6411a6a6175d4cf104ad2411c7ac71b33a), [`f025c0f`](https://github.com/sl-design-system/components/commit/f025c0f3cbb83b72c80563e9d989402608add193), [`c76f3c8`](https://github.com/sl-design-system/components/commit/c76f3c86cc289be16bdf7ad4ec09baf910d67361), [`8d7163c`](https://github.com/sl-design-system/components/commit/8d7163cd05c3483cbdc2cb907236066ed90b963b), [`61989c4`](https://github.com/sl-design-system/components/commit/61989c46d7592bad8e48e6e29866a87ed222a229), [`9b9a724`](https://github.com/sl-design-system/components/commit/9b9a72437620de637c42ec3884173cf7d25286b5), [`f025c0f`](https://github.com/sl-design-system/components/commit/f025c0f3cbb83b72c80563e9d989402608add193), [`e2543df`](https://github.com/sl-design-system/components/commit/e2543df011b9d65b8e11a07323b3712f52859e0e), [`1603ff3`](https://github.com/sl-design-system/components/commit/1603ff3e291dc95100de65627d26dd45067f86d7), [`f025c0f`](https://github.com/sl-design-system/components/commit/f025c0f3cbb83b72c80563e9d989402608add193)]:
+  - @sl-design-system/tooltip@1.3.0
+  - @sl-design-system/tool-bar@0.1.0
+  - @sl-design-system/shared@0.9.1
+  - @sl-design-system/button@1.3.0
+  - @sl-design-system/icon@1.3.1
+  - @sl-design-system/data-source@0.2.2
+  - @sl-design-system/checkbox@2.1.6
+  - @sl-design-system/toggle-group@0.0.10
+
 ## 0.6.1
 
 ### Patch Changes

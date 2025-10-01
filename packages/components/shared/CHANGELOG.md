@@ -1,5 +1,13 @@
 # @sl-design-system/shared
 
+## 0.9.1
+
+### Patch Changes
+
+- [#2682](https://github.com/sl-design-system/components/pull/2682) [`659a92a`](https://github.com/sl-design-system/components/commit/659a92af4732d339f9830368b1e0e3bd48221714) - Fix the keyboard shortcut being part of the menu item contents
+
+  Use `aria-keyshortcuts` to expose the shortcut to assistive technologies
+
 ## 0.9.0
 
 ### Minor Changes

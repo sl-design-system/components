@@ -1,5 +1,16 @@
 # @sl-design-system/my-digital-book
 
+## 0.4.0
+
+### Minor Changes
+
+- [#2618](https://github.com/sl-design-system/components/pull/2618) [`1115612`](https://github.com/sl-design-system/components/commit/1115612e1fdf4ee38d9e484e92cc324e767f0e56) - Added clock icon for use in `<sl-time-field>`
+
+### Patch Changes
+
+- Updated dependencies [[`c76f3c8`](https://github.com/sl-design-system/components/commit/c76f3c86cc289be16bdf7ad4ec09baf910d67361), [`e2543df`](https://github.com/sl-design-system/components/commit/e2543df011b9d65b8e11a07323b3712f52859e0e)]:
+  - @sl-design-system/icon@1.3.1
+
 ## 0.3.0
 
 ### Minor Changes

@@ -1,5 +1,20 @@
 # @sl-design-system/button
 
+## 1.3.0
+
+### Minor Changes
+
+- [#2646](https://github.com/sl-design-system/components/pull/2646) [`f025c0f`](https://github.com/sl-design-system/components/commit/f025c0f3cbb83b72c80563e9d989402608add193) - Various improvements:
+  - Fix missing inverted + disabled styling
+  - Add support for `aria-disabled="true"`
+
+  This adds the ability to "disable" a button using `aria-disabled="true"` instead of the `disabled` attribute. This is useful in cases where you want to disable a button but still want it to be focusable (for example, when using tooltips). There is visually no difference between the two.
+
+### Patch Changes
+
+- Updated dependencies [[`659a92a`](https://github.com/sl-design-system/components/commit/659a92af4732d339f9830368b1e0e3bd48221714)]:
+  - @sl-design-system/shared@0.9.1
+
 ## 1.2.5
 
 ### Patch Changes

@@ -110,7 +110,7 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
-    if (import.meta.env.DEV) {
+    if (import.meta.env?.DEV) {
       // Wait for the slotchange events to fire before checking for errors
       requestAnimationFrame(() => {
         this.removeAttribute('error');

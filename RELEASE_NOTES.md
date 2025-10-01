@@ -27,6 +27,7 @@ New `<sl-time-field>` component in the `@sl-design-system/time-field` package.
 - [`panel`](https://github.com/sl-design-system/components/blob/main/packages/components/panel/CHANGELOG.md) fix styling issue with overlapping buttons.
 - [`tag`](https://github.com/sl-design-system/components/blob/main/packages/components/tag/CHANGELOG.md) fix missing focus after removing a tag.
 - [`tag`](https://github.com/sl-design-system/components/blob/main/packages/components/tag/CHANGELOG.md) fix focus outline clipping due to `z-index`.
+- [`tool-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/tool-bar/CHANGELOG.md) fix weird behavior due to nested `slotchange` events.
 - [`tree`](https://github.com/sl-design-system/components/blob/main/packages/components/tree/CHANGELOG.md) fix empty `aria-setsize` attribute when size is unknown.
 
 # September 17, 2025

@@ -1,7 +1,7 @@
 {
   "layout": "categories/components/components.njk",
   "tags": "number-field",
-  "componentStatus": "draft",
+  "componentStatus": "preview",
   "componentTagName": [
     {
       "name": "Number Field",

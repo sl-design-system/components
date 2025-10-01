@@ -134,6 +134,7 @@ export const Basic: Story = {
         <sl-icon name="far-paste"></sl-icon>
         Paste
       </sl-button>
+      <sl-tool-bar-divider></sl-tool-bar-divider>
       <sl-menu-button>
         <div slot="button">Edit</div>
         <sl-menu-item>

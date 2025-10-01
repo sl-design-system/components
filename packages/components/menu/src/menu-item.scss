@@ -97,7 +97,7 @@ sl-icon[name='check'] {
 
 kbd {
   font-family: var(--sl-text-typeset-font-family-body);
-  letter-spacing: 2px;
+  letter-spacing: var(--sl-size-025);
   margin-inline-start: auto;
   padding-inline-start: var(--sl-size-100);
 }

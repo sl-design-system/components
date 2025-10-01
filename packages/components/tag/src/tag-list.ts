@@ -6,7 +6,7 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './tag-list.scss.js';
-import { Tag, type TagSize, type TagVariant } from './tag.js';
+import { type SlRemoveEvent, Tag, type TagSize, type TagVariant } from './tag.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -159,10 +159,16 @@ export class TagList extends ScopedElementsMixin(LitElement) {
             </div>
           `
         : nothing}
-      <div class="list">
+      <div @sl-remove=${this.#onRemove} class="list">
         <slot @slotchange=${this.#onSlotChange}></slot>
       </div>
     `;
+  }
+
+  #onRemove(event: SlRemoveEvent & { target: Tag }): void {
+    const index = this.#rovingTabindexController.elements.indexOf(event.target as Tag);
+
+    this.#rovingTabindexController.focusToElement(index + (index === 0 ? 1 : -1));
   }
 
   #onResize(entries: ResizeObserverEntry[]): void {

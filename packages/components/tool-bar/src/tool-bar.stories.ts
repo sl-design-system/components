@@ -20,6 +20,7 @@ import {
   faItalic as fasItalic,
   faUnderline as fasUnderline
 } from '@fortawesome/pro-solid-svg-icons';
+import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
@@ -114,44 +115,8 @@ export default {
 export const Basic: Story = {
   args: {
     description:
-      'This example shows a typical tool bar with text formatting options. You can resize the tool bar by dragging the right edge. This showcases how the tool bar can adapt to different widths and overflow items in a menu.',
+      'This example shows a typical tool bar with buttons. You can resize the tool bar by dragging the right edge. This showcases how the tool bar can adapt to different widths and overflow items in a menu.',
     items: () => html`
-      <sl-toggle-group multiple>
-        <sl-toggle-button aria-label="Bold">
-          <sl-icon name="far-bold" slot="default"></sl-icon>
-          <sl-icon name="fas-bold" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-        <sl-toggle-button aria-label="Italic">
-          <sl-icon name="far-italic" slot="default"></sl-icon>
-          <sl-icon name="fas-italic" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-        <sl-toggle-button aria-label="Underline">
-          <sl-icon name="far-underline" slot="default"></sl-icon>
-          <sl-icon name="fas-underline" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-      </sl-toggle-group>
-
-      <sl-toggle-group>
-        <sl-toggle-button aria-label="Align left">
-          <sl-icon name="far-align-left" slot="default"></sl-icon>
-          <sl-icon name="fas-align-left" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-        <sl-toggle-button aria-label="Align center">
-          <sl-icon name="far-align-center" slot="default"></sl-icon>
-          <sl-icon name="fas-align-center" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-        <sl-toggle-button aria-label="Align right">
-          <sl-icon name="far-align-right" slot="default"></sl-icon>
-          <sl-icon name="fas-align-right" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-        <sl-toggle-button aria-label="Align justify">
-          <sl-icon name="far-align-justify" slot="default"></sl-icon>
-          <sl-icon name="fas-align-justify" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-      </sl-toggle-group>
-
-      <sl-tool-bar-divider></sl-tool-bar-divider>
-
       <sl-button disabled fill="outline">
         <sl-icon name="far-scissors"></sl-icon>
         Cut
@@ -232,6 +197,31 @@ export const Overflow: Story = {
     description:
       'This example shows a tool bar with many items that overflow into a menu. You can resize the tool bar by dragging the right edge.',
     width: '100px'
+  }
+};
+
+export const State: Story = {
+  args: {
+    description:
+      'This example shows a how the tool bar automatically updates when the disabled state of buttons changes.',
+    items: () => {
+      const onClick = (event: Event) => {
+        const buttons = (event.target as HTMLElement).parentElement?.querySelectorAll<Button>(
+          'sl-button:not(:first-child)'
+        );
+
+        buttons?.forEach(button => {
+          button.disabled = !button.disabled;
+        });
+      };
+
+      return html`
+        <sl-button @click=${onClick}>Toggle disabled</sl-button>
+        <sl-button>Action 1</sl-button>
+        <sl-button>Action 2</sl-button>
+        <sl-button>Action 3</sl-button>
+      `;
+    }
   }
 };
 

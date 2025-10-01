@@ -64,8 +64,9 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   #virtualizer = new WindowVirtualizerController(this, {
     // getScrollElement: () => this as HTMLElement,
     count: this.#dataSource?.items.length ?? 0,
-    estimateSize: () => 32,
-    overscan: 5
+    estimateSize: () => 36,
+    gap: 2, // var(--sl-size-025)
+    overscan: 3
   });
 
   get dataSource() {

@@ -11,6 +11,9 @@
 }
 
 .starter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-025);
   inline-size: 100%;
   inset: 0 auto auto 0;
   position: absolute;

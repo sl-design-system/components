@@ -148,6 +148,17 @@ describe('sl-menu-item', () => {
       expect(el.shortcut).to.equal('$mod+Digit1');
     });
 
+    it('should have an aria-keyshortcuts attribute', () => {
+      expect(el).to.have.attribute('aria-keyshortcuts', navigator.platform.indexOf('Mac') > -1 ? 'Meta+1' : 'Ctrl+1');
+    });
+
+    it('should hide the kbd element from assistive technologies', () => {
+      const kbd = el.renderRoot.querySelector('kbd');
+
+      expect(kbd).to.exist;
+      expect(kbd).to.have.attribute('aria-hidden', 'true');
+    });
+
     it('should render the shortcut', () => {
       // Take into account that these tests are also running on Linux
       const text = navigator.platform.indexOf('Mac') > -1 ? '⌘1' : 'Ctrl1';
@@ -193,6 +204,31 @@ describe('sl-menu-item', () => {
       `);
 
       menu = el.querySelector('sl-menu') as Menu;
+    });
+
+    it('should have an aria-expanded attribute', () => {
+      expect(el).to.have.attribute('aria-expanded', 'false');
+    });
+
+    it('should set aria-expanded to true when the submenu is open', async () => {
+      el.dispatchEvent(new PointerEvent('pointerenter'));
+      await menu.updateComplete;
+
+      expect(el).to.have.attribute('aria-expanded', 'true');
+    });
+
+    it('should have an aria-haspopup attribute on the wrapper', () => {
+      const wrapper = el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]');
+
+      expect(wrapper).to.exist;
+      expect(wrapper).to.have.attribute('aria-haspopup', 'true');
+    });
+
+    it('should have an aria-controls attribute on the wrapper', () => {
+      const wrapper = el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]');
+
+      expect(wrapper).to.exist;
+      expect(wrapper).to.have.attribute('aria-controls', menu.id);
     });
 
     it('should render an icon indicating the submenu', () => {

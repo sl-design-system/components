@@ -15,6 +15,7 @@ New `<sl-time-field>` component in the `@sl-design-system/time-field` package.
 - [`button`](https://github.com/sl-design-system/components/blob/main/packages/components/button/CHANGELOG.md) has support for `aria-disabled="true"` to disable a button while keeping it focusable (for example, when using tooltips).
 - [`tool-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/tool-bar/CHANGELOG.md) now supports `<sl-menu-button>`.
 - [`tooltip`](https://github.com/sl-design-system/components/blob/main/packages/components/tooltip/CHANGELOG.md) now supports passing a config object to the `tooltip()` Lit directive.
+- [`tooltip`](https://github.com/sl-design-system/components/blob/main/packages/components/tooltip/CHANGELOG.md) now supports an `ariaRelation` option which you can use to tell it to use `aria-describedby` or `aria-labelledby`.
 
 ## Bug fixes
 - [`checkbox`](https://github.com/sl-design-system/components/blob/main/packages/components/checkbox/CHANGELOG.md) fix initial validity when checked.
@@ -28,6 +29,7 @@ New `<sl-time-field>` component in the `@sl-design-system/time-field` package.
 - [`tag`](https://github.com/sl-design-system/components/blob/main/packages/components/tag/CHANGELOG.md) fix missing focus after removing a tag.
 - [`tag`](https://github.com/sl-design-system/components/blob/main/packages/components/tag/CHANGELOG.md) fix focus outline clipping due to `z-index`.
 - [`tool-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/tool-bar/CHANGELOG.md) fix weird behavior due to nested `slotchange` events.
+- [`tooltip`](https://github.com/sl-design-system/components/blob/main/packages/components/tooltip/CHANGELOG.md) fix issue where the Lit directive would not work when used on an `<sl-button>`.
 - [`tree`](https://github.com/sl-design-system/components/blob/main/packages/components/tree/CHANGELOG.md) fix empty `aria-setsize` attribute when size is unknown.
 
 # September 17, 2025

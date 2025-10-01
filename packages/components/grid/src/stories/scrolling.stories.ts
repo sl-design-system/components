@@ -172,6 +172,7 @@ export const BothSticky: Story = {
     </p>
     <div class="cover"></div>
     <sl-grid .items=${students}>
+      <sl-grid-selection-column sticky></sl-grid-selection-column>
       <sl-grid-column grow="0" header="Nr." path="studentNumber" sticky></sl-grid-column>
       <sl-grid-column
         grow="3"

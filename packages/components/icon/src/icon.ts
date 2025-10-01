@@ -64,7 +64,7 @@ export class Icon extends LitElement {
   static register(icon: IconDefinition | IconLibrary, ...icons: IconDefinition[]): void {
     if (isIconDefinition(icon)) {
       [icon, ...icons].forEach(i => {
-        if (window.SLDS.icons[`${i.prefix}-${i.iconName}`] && import.meta.env.DEV) {
+        if (window.SLDS.icons[`${i.prefix}-${i.iconName}`] && import.meta.env?.DEV) {
           console.warn(`Icon ${i.prefix}-${i.iconName} is already in the registry`);
           return;
         }

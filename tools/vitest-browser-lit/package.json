@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/vitest-browser-lit",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "packageManager": "yarn@4.1.1",
   "description": "Helper functions for testing Lit components with Vitest in a browser environment",
   "license": "Apache-2.0",

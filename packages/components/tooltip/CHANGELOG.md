@@ -1,5 +1,21 @@
 # @sl-design-system/tooltip
 
+## 1.3.0
+
+### Minor Changes
+
+- [#2647](https://github.com/sl-design-system/components/pull/2647) [`d3b9d45`](https://github.com/sl-design-system/components/commit/d3b9d4512e33dbf10a2aa28efc94a54b93002285) - Adds support for passing a config object to the tooltip directive (same as `Tooltip.lazy`).
+  The directive now accepts either a string (content) or a `TooltipConfig` with configurable properties like: `position`, `maxWidth` and `ariaRelation`.
+
+- [#2646](https://github.com/sl-design-system/components/pull/2646) [`f025c0f`](https://github.com/sl-design-system/components/commit/f025c0f3cbb83b72c80563e9d989402608add193) - Various improvements:
+  - Fix broken behavior when the `tooltip()` directive is used on an `<sl-button>` by automatically falling back to the root node if a target's `ShadowRoot` does not contain `<sl-tooltip>` in its custom element registry
+  - Fix font not being applied correctly
+
+### Patch Changes
+
+- Updated dependencies [[`659a92a`](https://github.com/sl-design-system/components/commit/659a92af4732d339f9830368b1e0e3bd48221714)]:
+  - @sl-design-system/shared@0.9.1
+
 ## 1.2.0
 
 ### Minor Changes

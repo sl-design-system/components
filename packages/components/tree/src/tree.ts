@@ -102,7 +102,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
     super.connectedCallback();
 
     const options = {
-      count: this.#dataSource?.items.length ?? 0,
+      count: this.dataSource?.items.length ?? 0,
       estimateSize: () => 32, // this doesn't need to be exact
       gap: 2, // var(--sl-size-025)
       overscan: 3 // render a few extra nodes outside of the viewport
@@ -118,10 +118,10 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
       });
     }
 
-    if (this.#dataSource?.selects) {
-      const selected = this.#dataSource.items.find(item => item.selected);
+    if (this.dataSource?.selects) {
+      const selected = this.dataSource.items.find(item => item.selected);
       if (selected) {
-        this.#indexOfFocusedNode = this.#dataSource.items.indexOf(selected);
+        this.#indexOfFocusedNode = this.dataSource.items.indexOf(selected);
       }
     }
   }
@@ -283,6 +283,13 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
       if (parent) {
         this.#scrollAndFocusNode(parseInt(parent.dataset.index ?? '0'));
       }
+    } else if (event.key === 'ArrowRight') {
+      event.preventDefault();
+
+      const nextElement = event.target.nextElementSibling as TreeNode<T> | null;
+      if (nextElement && nextElement.level > event.target.level) {
+        this.#scrollAndFocusNode(parseInt(nextElement.dataset.index ?? '0'));
+      }
     }
   }
 
@@ -303,7 +310,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
       const virtualizer = this.#virtualizer.getVirtualizer() as Virtualizer<Element, Element>;
       virtualizer.setOptions({
         ...virtualizer.options,
-        count: this.#dataSource?.items.length ?? 0
+        count: this.dataSource?.items.length ?? 0
       });
     }
 

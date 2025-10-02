@@ -82,7 +82,7 @@ const nestedData: NestedDataNode[] = [
   }
 ];
 
-describe.skip('sl-tree', () => {
+describe('sl-tree', () => {
   let el: Tree;
 
   describe('defaults', () => {
@@ -146,7 +146,20 @@ describe.skip('sl-tree', () => {
       });
 
       el = await fixture(html`<sl-tree .dataSource=${ds}></sl-tree>`);
-      // await el.layoutComplete;
+    });
+
+    it('should have a tabindex of 0 for the first node', () => {
+      const firstNode = el.renderRoot.querySelector('sl-tree-node');
+
+      expect(firstNode).to.have.attribute('tabindex', '0');
+    });
+
+    it('should have a tabindex of -1 for all other nodes', () => {
+      const tabIndices = Array.from(
+        el.renderRoot.querySelectorAll<HTMLElement>('sl-tree-node:not(:first-of-type)')
+      ).map(node => node.tabIndex);
+
+      expect(tabIndices).to.deep.equal([-1, -1, -1, -1]);
     });
 
     it('should focus the first tree node when focusing the tree', () => {

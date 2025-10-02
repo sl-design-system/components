@@ -1,15 +1,16 @@
 /** colors */
+/* stylelint-disable color-no-hex */
 :root {
   --ds-color-white: #fff;
-  --ds-color-white-rgb: 255, 255, 255;
+  --ds-color-white-rgb: 255 255 255;
   --ds-color-black: #222;
-  --ds-color-black-rgb: 34, 34, 34;
+  --ds-color-black-rgb: 34 34 34;
   --ds-color-green: #56cc8a;
   --ds-color-emerald: #45cc80;
-  --ds-color-emerald-rgb: 69, 204, 128;
+  --ds-color-emerald-rgb: 69 204 128;
   --ds-color-success: #28854e;
   --ds-color-red: #ff575c;
-  --ds-color-red-rgb: 255, 87, 92;
+  --ds-color-red-rgb: 255 87 92;
   --ds-color-danger: #c73434;
   --ds-color-light-blue: #f7f9ff;
   --ds-color-alice-blue: #f0f3fe;
@@ -17,7 +18,7 @@
   --ds-color-lavender-blue: #ccdbff;
   --ds-color-selago-blue: #edf2fc;
   --ds-color-blue: #36f;
-  --ds-color-blue-rgb: 51, 102, 255;
+  --ds-color-blue-rgb: 51 102 255;
   --ds-color-base-surface: #262626;
   --ds-color-baby-blue: #9ebaff;
   --ds-color-blueberry: #5985ff;
@@ -27,7 +28,7 @@
   --ds-color-ghost-white: #f9f9f9;
   --ds-color-lotion: #fbfcfb;
   --ds-color-faux-white: #fefefe;
-  --ds-color-faux-white-rgb: 254, 254, 254;
+  --ds-color-faux-white-rgb: 254 254 254;
   --ds-color-concrete: #f3f3f3;
   --ds-color-light-concrete: #f4f4f4;
   --ds-color-light-grey: #d5d5d5;

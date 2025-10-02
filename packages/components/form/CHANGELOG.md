@@ -1,5 +1,11 @@
 # @sl-design-system/form
 
+## 1.3.2
+
+### Patch Changes
+
+- [#2714](https://github.com/sl-design-system/components/pull/2714) [`b169507`](https://github.com/sl-design-system/components/commit/b1695074d53a1f26c274162eb3623c1ca5074d15) - Added functionality that mimics autofocus, since the real autofocus doesn't work because the input fields are added after page load.
+
 ## 1.3.1
 
 ### Patch Changes

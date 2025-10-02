@@ -124,8 +124,20 @@ button {
   position: absolute;
 }
 
-[part~='indicator'][indicator-color='red']:not([part~='unselectable'])::after {
+[part~='indicator-green']:not([part~='unselectable'])::after {
+  background: var(--sl-color-background-accent-green-bold); // TODO: change..
+}
+
+[part~='indicator-grey']:not([part~='unselectable'])::after {
+  background: var(--sl-color-background-accent-grey-bold); // TODO: change..
+}
+
+[part~='indicator-red']:not([part~='unselectable'])::after {
   background: var(--sl-color-background-accent-red-bold); // TODO: change..
+}
+
+[part~='indicator-yellow']:not([part~='unselectable'])::after {
+  background: var(--sl-color-background-accent-yellow-bold); // TODO: change..
 }
 
 [part~='week-day'],

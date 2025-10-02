@@ -41,6 +41,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** The list of dates that should be set as disabled. */
+  @property({ converter: dateConverter }) disabled?: Date[];
+
   /** @internal The month/year that will be displayed in the header. */
   @state() displayMonth?: Date;
 
@@ -96,18 +99,18 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       toAttribute: (value?: Indicator[]) =>
         value
           ? JSON.stringify(
-            value.map(i => ({
-              ...i,
-              date: dateConverter.toAttribute?.(i.date)
-            }))
-          )
+              value.map(i => ({
+                ...i,
+                date: dateConverter.toAttribute?.(i.date)
+              }))
+            )
           : undefined,
       fromAttribute: (value: string | null, _type?: unknown) =>
         value
           ? (JSON.parse(value) as Array<{ date: string; color?: IndicatorColor }>).map(i => ({
-            ...i,
-            date: dateConverter.fromAttribute?.(i.date)
-          }))
+              ...i,
+              date: dateConverter.fromAttribute?.(i.date)
+            }))
           : undefined
     }
   })
@@ -291,11 +294,12 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           ?readonly=${this.readonly}
           ?show-today=${this.showToday}
           ?show-week-numbers=${this.showWeekNumbers}
+          .disabled=${this.disabled}
           .firstDayOfWeek=${this.firstDayOfWeek}
-          .month=${this.previousMonth}
-          .selected=${this.selected}
-          .negative=${this.negative}
           .indicator=${this.indicator}
+          .month=${this.previousMonth}
+          .negative=${this.negative}
+          .selected=${this.selected}
           aria-hidden="true"
           inert
           max=${ifDefined(this.max?.toISOString())}
@@ -308,11 +312,12 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           ?readonly=${this.readonly}
           ?show-today=${this.showToday}
           ?show-week-numbers=${this.showWeekNumbers}
+          .disabled=${this.disabled}
           .firstDayOfWeek=${this.firstDayOfWeek}
-          .month=${this.month}
-          .selected=${this.selected}
-          .negative=${this.negative}
           .indicator=${this.indicator}
+          .month=${this.month}
+          .negative=${this.negative}
+          .selected=${this.selected}
           ?inert=${this.inert}
           locale=${ifDefined(this.locale)}
           max=${ifDefined(this.max?.toISOString())}
@@ -322,11 +327,12 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           ?readonly=${this.readonly}
           ?show-today=${this.showToday}
           ?show-week-numbers=${this.showWeekNumbers}
+          .disabled=${this.disabled}
           .firstDayOfWeek=${this.firstDayOfWeek}
-          .month=${this.nextMonth}
-          .selected=${this.selected}
-          .negative=${this.negative}
           .indicator=${this.indicator}
+          .month=${this.nextMonth}
+          .negative=${this.negative}
+          .selected=${this.selected}
           aria-hidden="true"
           inert
           locale=${ifDefined(this.locale)}

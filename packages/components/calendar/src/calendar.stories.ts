@@ -9,6 +9,7 @@ import { type Indicator, type IndicatorColor } from './month-view.js';
 
 type Props = Pick<
   Calendar,
+  | 'disabled'
   | 'firstDayOfWeek'
   | 'locale'
   | 'indicator'
@@ -33,6 +34,9 @@ export default {
     month: new Date(2024, 8, 15)
   },
   argTypes: {
+    disabled: {
+      control: 'date'
+    },
     firstDayOfWeek: {
       control: 'number'
     },
@@ -61,6 +65,7 @@ export default {
     }
   },
   render: ({
+    disabled,
     firstDayOfWeek,
     indicator,
     locale,
@@ -95,6 +100,7 @@ export default {
         ?readonly=${readonly}
         ?show-today=${showToday}
         ?show-week-numbers=${showWeekNumbers}
+        disabled=${ifDefined(disabled?.map(date => date.toISOString()).join(','))}
         first-day-of-week=${ifDefined(firstDayOfWeek)}
         locale=${ifDefined(locale)}
         max=${ifDefined(parseDate(max)?.toISOString())}
@@ -106,10 +112,10 @@ export default {
           Array.isArray(indicator)
             ? JSON.stringify(
                 indicator
-                  .filter(item => item?.date && item?.color)
+                  .filter(item => item?.date)
                   .map(item => ({
                     date: item.date.toISOString(),
-                    color: item.color
+                    ...(item.color ? { color: item.color } : {})
                   }))
               )
             : undefined
@@ -168,13 +174,24 @@ export const WithIndicator: Story = {
   args: {
     indicator: [
       { date: new Date(), color: 'red' },
-      { date: new Date('2025-08-05'), color: 'blue' as IndicatorColor },
-      { date: new Date('2025-08-07') }
+      { date: new Date('2025-09-05'), color: 'blue' as IndicatorColor },
+      { date: new Date('2025-09-07') },
+      { date: new Date('2025-09-09'), color: 'green' as IndicatorColor },
+      { date: new Date('2025-09-11'), color: 'grey' as IndicatorColor },
+      { date: new Date('2025-09-12'), color: 'yellow' as IndicatorColor }
     ],
     showToday: true,
-    month: new Date(1755640800000)
+    month: new Date('2025-09-01') //new Date(1755640800000)
   }
 }; // indicator: [{new Date()}, {new Date('2025-08-05')}, {new Date('2025-10-05')}],
+
+export const DisabledDays: Story = {
+  args: {
+    disabled: [new Date(), new Date('2025-08-05'), new Date('2025-10-05'), new Date('2025-10-10')],
+    showToday: true,
+    month: new Date('2025-09-01') //new Date(1755640800000)
+  }
+};
 
 export const Today: Story = {
   args: {

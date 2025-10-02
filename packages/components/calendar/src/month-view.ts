@@ -64,6 +64,9 @@ export class MonthView extends LocaleMixin(LitElement) {
   /** @internal Emits when the user uses the keyboard to navigate to the next/previous month. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<Date>>;
 
+  /** The list of dates that should be disabled. */
+  @property({ converter: dateConverter }) disabled?: Date[];
+
   /**
    * The first day of the week; 0 for Sunday, 1 for Monday.
    *
@@ -197,6 +200,8 @@ export class MonthView extends LocaleMixin(LitElement) {
   }
 
   override render(): TemplateResult {
+    console.log('disabled dates in month view', this.disabled);
+
     return html`
       <table>
         ${this.renderHeader()}
@@ -231,6 +236,8 @@ export class MonthView extends LocaleMixin(LitElement) {
   renderDay(day: Day): TemplateResult {
     let template: TemplateResult | undefined;
 
+    console.log('day in renderDay', day, 'day.disabled?', day.disabled);
+
     if (this.renderer) {
       template = this.renderer(day, this);
     } else if (this.hideDaysOtherMonths && (day.nextMonth || day.previousMonth)) {
@@ -238,6 +245,8 @@ export class MonthView extends LocaleMixin(LitElement) {
     } else {
       const parts = this.getDayParts(day).join(' '),
         ariaLabel = `${day.date.getDate()}, ${format(day.date, this.locale, { weekday: 'long' })} ${format(day.date, this.locale, { month: 'long', year: 'numeric' })}`;
+
+      // TODO: maybe disabled -> unselectable here as well?
 
       template =
         this.readonly || day.unselectable
@@ -257,7 +266,7 @@ export class MonthView extends LocaleMixin(LitElement) {
     return html`
       <td @click=${(event: Event) => this.#onClick(event, day)} data-date=${day.date.toISOString()}>${template}</td>
     `;
-  }
+  } // TODO: buttons instead of spans for unselectable days, still problems with disabled?
 
   /** Returns an array of part names for a day. */
   getDayParts = (day: Day): string[] => {
@@ -284,6 +293,7 @@ export class MonthView extends LocaleMixin(LitElement) {
       day.previousMonth ? 'previous-month' : '',
       day.today ? 'today' : '',
       day.unselectable ? 'unselectable' : '',
+      this.disabled && isDateInList(day.date, this.disabled) ? 'unselectable' : '',
       this.negative && isDateInList(day.date, this.negative) ? 'negative' : '',
       // this.indicator && isDateInList(day.date, this.indicator) ? 'indicator' : '',
       // this.indicator &&

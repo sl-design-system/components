@@ -42,6 +42,9 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<Date>>;
 
+  /** The list of dates that should be set as disabled. */
+  @property({ converter: dateListConverter }) disabled?: Date[];
+
   /** The first day of the week; 0 for Sunday, 1 for Monday. */
   @property({ type: Number, attribute: 'first-day-of-week' }) firstDayOfWeek?: number;
 
@@ -71,6 +74,8 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /** The list of dates that should have 'negative' styling. */
   @property({ converter: dateListConverter }) negative?: Date[];
+
+  // TODO: make it possible to disable certain days of the week (e.g. all Sundays) ? or just exact dates?
 
   // /** The list of dates that should have 'negative' styling. */
   // @property({ converter: dateListConverter }) indicator?: Date[];
@@ -147,6 +152,8 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
     console.log('indicator in the calendar render', this.indicator);
 
+    console.log('disabled dates', this.disabled);
+
     return html`
       ${this.month ? html`month:${this.month.getMonth() + 1}` : 'undefined month'}
       <sl-select-day
@@ -156,10 +163,11 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         ?readonly=${this.readonly}
         ?show-today=${this.showToday}
         ?show-week-numbers=${this.showWeekNumbers}
-        .month=${this.month}
-        .selected=${this.selected}
-        .negative=${this.negative}
+        .disabled=${this.disabled}
         .indicator=${this.indicator}
+        .month=${this.month}
+        .negative=${this.negative}
+        .selected=${this.selected}
         aria-hidden=${this.mode !== 'day'}
         first-day-of-week=${ifDefined(this.firstDayOfWeek)}
         locale=${ifDefined(this.locale)}

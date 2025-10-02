@@ -114,6 +114,22 @@ export const Basic: Story = {
   }
 };
 
+export const Autofocus: Story = {
+  args: {
+    fields: () => html`
+      <sl-form-field label="Text field 1 (autofocus)">
+        <sl-text-field name="textField-1" required autofocus></sl-text-field>
+      </sl-form-field>
+      <sl-form-field label="Text field 2">
+        <sl-text-field name="textField-2"></sl-text-field>
+      </sl-form-field>
+      <sl-form-field label="Text field 3">
+        <sl-text-field name="textField-3"></sl-text-field>
+      </sl-form-field>
+    `
+  }
+};
+
 export const Reset: Story = {
   args: {
     reset: true,

@@ -141,7 +141,9 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     /** We cannot use treeitem role, due to a11y issues with tree role and no group role with Virtualizer. */
     this.setAttribute('role', 'row');
 
-    this.tabIndex = 0;
+    if (!this.hasAttribute('tabindex')) {
+      this.tabIndex = 0;
+    }
   }
 
   override updated(changes: PropertyValues<this>): void {

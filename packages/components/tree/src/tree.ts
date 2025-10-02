@@ -1,12 +1,6 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
-import {
-  type EventEmitter,
-  EventsController,
-  RovingTabindexController,
-  event,
-  getScrollParent
-} from '@sl-design-system/shared';
+import { type EventEmitter, event, getScrollParent } from '@sl-design-system/shared';
 import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { Skeleton } from '@sl-design-system/skeleton';
 import { Spinner } from '@sl-design-system/spinner';
@@ -55,17 +49,8 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   /** The data model for the tree. */
   #dataSource?: TreeDataSource<T>;
 
-  // eslint-disable-next-line no-unused-private-class-members
-  #events = new EventsController(this, {
-    keydown: this.#onKeydown
-  });
-
-  /** Manage keyboard navigation between tabs. */
-  #rovingTabindexController = new RovingTabindexController<TreeNode>(this, {
-    focusInIndex: elements => elements.findIndex(el => !el.disabled),
-    elements: (): TreeNode[] => Array.from(this.shadowRoot?.querySelectorAll('sl-tree-node') ?? []),
-    isFocusableElement: (el: TreeNode<T>) => !el.disabled
-  });
+  /** The index of the currently focused node. */
+  #indexOfFocusedNode: number = 0;
 
   /** The virtualizer instance. */
   #virtualizer?: VirtualizerController<Element, Element> | WindowVirtualizerController<Element>;
@@ -196,23 +181,12 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
                */
               return html`
                 <sl-tree-node
-                  data-index=${virtualItem.index}
-                  ${ref(virtualizer.measureElement)}
-                  id=${item.id}
                   @sl-change=${(event: SlChangeEvent<boolean>) => this.#onChange(event, item)}
                   @sl-select=${this.#onSelect}
                   @sl-toggle=${() => this.#onToggle(item)}
-                  ?checked=${this.dataSource?.selects === 'multiple' && item.selected}
-                  ?expandable=${item.expandable}
-                  ?expanded=${item.expanded}
-                  ?hide-guides=${this.hideGuides}
-                  ?indeterminate=${item.indeterminate}
-                  ?last-node-in-level=${item.lastNodeInLevel}
-                  ?selected=${this.dataSource?.selects === 'single' && item.selected}
-                  .level=${item.level}
-                  .node=${item}
-                  .selects=${this.dataSource?.selects}
-                  .type=${item.type}
+                  @keydown=${this.#onKeydown}
+                  data-index=${virtualItem.index}
+                  ${ref(virtualizer.measureElement) /* must be *after* data-index */}
                   aria-controls=${ifDefined(item.children?.map(child => String(child.id)).join(' '))}
                   aria-label=${item.label}
                   aria-level=${item.level + 1}
@@ -220,6 +194,19 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
                   aria-posinset=${item.parent?.children ? item.parent.children?.indexOf(item) + 1 : 1}
                   aria-rowindex=${this.dataSource ? this.dataSource.items?.indexOf(item) + 1 : 1}
                   aria-setsize=${ifDefined(item.parent ? item.parent.children?.length : this.dataSource?.size)}
+                  ?checked=${this.dataSource?.selects === 'multiple' && item.selected}
+                  ?expandable=${item.expandable}
+                  ?expanded=${item.expanded}
+                  ?hide-guides=${this.hideGuides}
+                  id=${item.id}
+                  ?indeterminate=${item.indeterminate}
+                  ?last-node-in-level=${item.lastNodeInLevel}
+                  .level=${item.level}
+                  .node=${item}
+                  ?selected=${this.dataSource?.selects === 'single' && item.selected}
+                  .selects=${this.dataSource?.selects}
+                  tabindex=${virtualItem.index === this.#indexOfFocusedNode ? '0' : '-1'}
+                  .type=${item.type}
                 >
                   ${this.renderer?.(item) ??
                   html`
@@ -245,11 +232,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     this.selectEvent.emit(node);
   }
 
-  #onKeydown(event: KeyboardEvent): void {
-    if (!(event.target instanceof TreeNode)) {
-      return;
-    }
-
+  #onKeydown(event: KeyboardEvent & { target: TreeNode<T> }): void {
     // Expands all siblings that are at the same level as the current node.
     // See https://www.w3.org/WAI/ARIA/apg/patterns/treeview/#keyboardinteraction
     if (event.key === '*') {
@@ -265,6 +248,23 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
       }
 
       this.dataSource?.update();
+    } else if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      event.preventDefault();
+
+      const direction = event.key === 'ArrowDown' ? 1 : -1;
+
+      let nextIndex = parseInt(event.target.dataset.index ?? '0') + direction;
+      if (nextIndex < 0) {
+        nextIndex = this.dataSource!.items.length - 1;
+      } else if (nextIndex >= this.dataSource!.items.length) {
+        nextIndex = 0;
+      }
+
+      this.#scrollAndFocusNode(nextIndex);
+    } else if (event.key === 'Home' || event.key === 'End') {
+      event.preventDefault();
+
+      this.#scrollAndFocusNode(event.key === 'Home' ? 0 : this.dataSource!.items.length - 1);
     } else if (event.key === 'ArrowLeft' && !event.target.expanded) {
       event.preventDefault();
 
@@ -274,7 +274,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
       }
 
       if (parent) {
-        this.#rovingTabindexController.focusToElement(parent);
+        this.#scrollAndFocusNode(parseInt(parent.dataset.index ?? '0'));
       }
     }
   }
@@ -304,4 +304,26 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
 
     this.requestUpdate();
   };
+
+  #scrollAndFocusNode(index: number): void {
+    this.#virtualizer!.getVirtualizer().scrollToIndex(index);
+
+    const currentlyFocusedNode = this.renderRoot.querySelector<HTMLElement>(
+      `[data-index="${this.#indexOfFocusedNode}"]`
+    );
+    if (currentlyFocusedNode) {
+      currentlyFocusedNode.tabIndex = -1;
+    }
+
+    // Wait for the next frame, so the node is rendered and can be focused
+    requestAnimationFrame(() => {
+      const nodeToFocus = this.renderRoot.querySelector<HTMLElement>(`[data-index="${index}"]`);
+      if (nodeToFocus) {
+        nodeToFocus.tabIndex = 0;
+        nodeToFocus.focus();
+
+        this.#indexOfFocusedNode = index;
+      }
+    });
+  }
 }

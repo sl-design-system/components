@@ -241,6 +241,28 @@ describe('sl-form', () => {
     });
   });
 
+  describe('autofocus', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-form>
+          <sl-form-field label="Foo">
+            <sl-text-field name="foo" autofocus></sl-text-field>
+          </sl-form-field>
+
+          <sl-form-field label="Bar">
+            <sl-text-field name="bar"></sl-text-field>
+          </sl-form-field>
+        </sl-form>
+      `);
+      // Give the form time to register the controls
+      await new Promise(resolve => setTimeout(resolve, 50));
+    });
+
+    it('should have focus on the first field', () => {
+      expect(el.querySelector('sl-text-field[name="foo"] input')).to.have.focus;
+    });
+  });
+
   describe('array values', () => {
     beforeEach(async () => {
       el = await fixture(html`

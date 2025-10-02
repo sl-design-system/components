@@ -1,0 +1,11 @@
+{
+  "layout": "categories/components/components.njk",
+  "tags": "panel",
+  "componentStatus": "preview",
+  "componentTagName": [
+    {
+      "name": "Panel",
+      "selector": "sl-panel"
+    }
+  ]
+}

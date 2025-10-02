@@ -255,46 +255,47 @@ export const DialogWithOverlayComponents: Story = {
         <span slot="title">Dialog with overlay components</span>
         <div class="container">
           This dialog should not close when any overlay component is closed using the Escape key.
+          <sl-form>
+            <sl-date-field autofocus select-only placeholder="Choose a date" style="width: fit-content"> </sl-date-field>
 
-          <sl-date-field autofocus select-only placeholder="Choose a date" style="width: fit-content"> </sl-date-field>
+            <sl-select placeholder="Select an option">
+              <sl-option value="1">Option 1</sl-option>
+              <sl-option value="2">Option 2</sl-option>
+              <sl-option value="3">Option 3</sl-option>
+              <sl-option value="3">Option 4</sl-option>
+              <sl-option value="3">Option 5</sl-option>
+            </sl-select>
 
-          <sl-select placeholder="Select an option">
-            <sl-option value="1">Option 1</sl-option>
-            <sl-option value="2">Option 2</sl-option>
-            <sl-option value="3">Option 3</sl-option>
-            <sl-option value="3">Option 4</sl-option>
-            <sl-option value="3">Option 5</sl-option>
-          </sl-select>
+            <sl-combobox multiple value='["0","2"]'>
+              <sl-listbox>
+                <sl-option value="0">Mathematics</sl-option>
+                <sl-option value="1">Geography</sl-option>
+                <sl-option value="2">Physics</sl-option>
+                <sl-option value="3">History</sl-option>
+                <sl-option value="4">Biology</sl-option>
+                <sl-option value="4">Art</sl-option>
+              </sl-listbox>
+            </sl-combobox>
 
-          <sl-combobox multiple value='["0","2"]'>
-            <sl-listbox>
-              <sl-option value="0">Mathematics</sl-option>
-              <sl-option value="1">Geography</sl-option>
-              <sl-option value="2">Physics</sl-option>
-              <sl-option value="3">History</sl-option>
-              <sl-option value="4">Biology</sl-option>
-              <sl-option value="4">Art</sl-option>
-            </sl-listbox>
-          </sl-combobox>
+            <sl-button id="anchor" variant="primary">Show definition</sl-button>
+            <sl-popover id="popover-example" anchor="anchor">
+              <header style="font-size: 1.1em; padding-block-end: 1rem;">Word Definition</header>
+              <section style="padding-block-end: 1rem;">
+                <strong>Photosynthesis</strong> is the process by which green plants and some other organisms <br/>
+                use sunlight to synthesize foods from carbon dioxide and water.
+              </section>
+              <footer>
+                <sl-button id="closeButton" size="sm" variant="primary">Got it</sl-button>
+              </footer>
+            </sl-popover>
 
-          <sl-button id="anchor" variant="primary">Show definition</sl-button>
-          <sl-popover id="popover-example" anchor="anchor">
-            <header style="font-size: 1.1em; padding-block-end: 1rem;">Word Definition</header>
-            <section style="padding-block-end: 1rem;">
-              <strong>Photosynthesis</strong> is the process by which green plants and some other organisms <br/>
-               use sunlight to synthesize foods from carbon dioxide and water.
-            </section>
-            <footer>
-              <sl-button id="closeButton" size="sm" variant="primary">Got it</sl-button>
-            </footer>
-          </sl-popover>
-
-          <sl-menu-button position="bottom">
-            <span slot="button">Actions</span>
-            <sl-menu-item><sl-icon name="smile"></sl-icon>Profile</sl-menu-item>
-            <sl-menu-item><sl-icon name="calendar"></sl-icon>Settings</sl-menu-item>
-            <sl-menu-item><sl-icon name="far-trash"></sl-icon>Remove</sl-menu-item>
-          </sl-menu-button>
+            <sl-menu-button position="bottom">
+              <span slot="button">Actions</span>
+              <sl-menu-item><sl-icon name="smile"></sl-icon>Profile</sl-menu-item>
+              <sl-menu-item><sl-icon name="calendar"></sl-icon>Settings</sl-menu-item>
+              <sl-menu-item><sl-icon name="far-trash"></sl-icon>Remove</sl-menu-item>
+            </sl-menu-button>
+          </sl-form>
         </div>
         <sl-button slot="primary-actions" sl-dialog-close variant="primary">Close</sl-button>
       `;

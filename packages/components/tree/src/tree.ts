@@ -1,13 +1,13 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, event, getScrollParent } from '@sl-design-system/shared';
+import { type EventEmitter, ObserveAttributesMixin, event, getScrollParent } from '@sl-design-system/shared';
 import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { Skeleton } from '@sl-design-system/skeleton';
 import { Spinner } from '@sl-design-system/spinner';
 import { VirtualizerController, WindowVirtualizerController } from '@tanstack/lit-virtual';
 import { type Virtualizer } from '@tanstack/virtual-core';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { ref } from 'lit/directives/ref.js';
 import { repeat } from 'lit/directives/repeat.js';
@@ -29,7 +29,11 @@ export type TreeItemRenderer<T = any> = (item: TreeDataSourceNode<T>) => Templat
  * to visualize.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
+export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(LitElement), [
+  'aria-describedby',
+  'aria-label',
+  'aria-labelledby'
+]) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -91,14 +95,11 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal Emits when the user selects a tree node. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<TreeDataSourceNode<T>>>;
 
+  /** @internal */
+  @query('[part="wrapper"]') wrapper!: HTMLElement;
+
   override connectedCallback(): void {
     super.connectedCallback();
-
-    // Use role `treegrid` instead of `tree`; treegrid is a better
-    // match for accessibility due to the use of Virtualizer: we can't
-    // use a group role to wrap the children of a tree node, because
-    // that would mess up the virtualization.
-    this.setAttribute('role', 'treegrid');
 
     const options = {
       count: this.#dataSource?.items.length ?? 0,
@@ -128,24 +129,19 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
-    // if (this.dataSource?.nodes) {
-    //   wrapper?.setAttribute('aria-owns', this.dataSource?.nodes.map(child => String(child.id)).join(' ') || '');
-    //   wrapper?.setAttribute('aria-controls', this.dataSource?.nodes.map(child => String(child.id)).join(' ') || '');
-    // }
+    this.setAttributesTarget(this.wrapper);
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
     if (changes.has('dataSource')) {
-      const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
-
       if (this.dataSource?.selects === 'multiple') {
-        wrapper?.setAttribute('aria-multiselectable', 'true');
+        this.wrapper?.setAttribute('aria-multiselectable', 'true');
       } else if (this.dataSource?.selects === 'single') {
-        wrapper?.setAttribute('aria-multiselectable', 'false');
+        this.wrapper?.setAttribute('aria-multiselectable', 'false');
       } else {
-        wrapper?.removeAttribute('aria-multiselectable');
+        this.wrapper?.removeAttribute('aria-multiselectable');
       }
     }
 
@@ -159,11 +155,22 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    const virtualizer = this.#virtualizer!.getVirtualizer(),
+    const rootIds = this.dataSource?.nodes.map(child => String(child.id)).join(' '),
+      virtualizer = this.#virtualizer!.getVirtualizer(),
       virtualItems = virtualizer.getVirtualItems();
 
+    // Use role `treegrid` instead of `tree`; treegrid is a better
+    // match for accessibility due to the use of Virtualizer: we can't
+    // use a group role to wrap the children of a tree node, because
+    // that would mess up the virtualization.
     return html`
-      <div class="wrapper" style="block-size: ${virtualizer.getTotalSize()}px">
+      <div
+        aria-controls=${ifDefined(rootIds)}
+        aria-owns=${ifDefined(rootIds)}
+        part="wrapper"
+        role="treegrid"
+        style="block-size: ${virtualizer.getTotalSize()}px"
+      >
         <div class="starter" style="translate: 0px ${virtualItems[0]?.start ?? 0}px">
           ${repeat(
             virtualItems,
@@ -292,15 +299,13 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onUpdate = (): void => {
-    if (!this.#virtualizer) {
-      return;
+    if (this.#virtualizer) {
+      const virtualizer = this.#virtualizer.getVirtualizer() as Virtualizer<Element, Element>;
+      virtualizer.setOptions({
+        ...virtualizer.options,
+        count: this.#dataSource?.items.length ?? 0
+      });
     }
-
-    const virtualizer = this.#virtualizer.getVirtualizer() as Virtualizer<Element, Element>;
-    virtualizer.setOptions({
-      ...virtualizer.options,
-      count: this.#dataSource?.items.length ?? 0
-    });
 
     this.requestUpdate();
   };

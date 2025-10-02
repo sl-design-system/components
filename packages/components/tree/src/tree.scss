@@ -4,7 +4,7 @@
   scroll-padding-block: var(--sl-size-100);
 }
 
-.wrapper {
+[part='wrapper'] {
   inline-size: 100%;
   position: relative;
 }

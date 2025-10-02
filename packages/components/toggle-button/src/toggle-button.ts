@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { ButtonShape } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
@@ -109,7 +110,7 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
-    if (location.hostname === 'localhost') {
+    if (import.meta.env?.DEV) {
       // Wait for the slotchange events to fire before checking for errors
       requestAnimationFrame(() => {
         this.removeAttribute('error');

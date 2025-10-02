@@ -1,5 +1,5 @@
-import { expect } from '@open-wc/testing';
 import { spy } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { FetchListDataSource, type FetchListDataSourceCallbackOptions } from './fetch-list-data-source.js';
 import { type ListDataSourceDataItem, ListDataSourcePlaceholder } from './list-data-source.js';
 import { type Person, people } from './list-data-source.spec.js';

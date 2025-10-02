@@ -1,5 +1,17 @@
 # @sl-design-system/tree
 
+## 0.1.7
+
+### Patch Changes
+
+- [#2677](https://github.com/sl-design-system/components/pull/2677) [`c76f3c8`](https://github.com/sl-design-system/components/commit/c76f3c86cc289be16bdf7ad4ec09baf910d67361) - Fix empty `aria-setsize` attribute when size isn't known
+
+- Updated dependencies [[`659a92a`](https://github.com/sl-design-system/components/commit/659a92af4732d339f9830368b1e0e3bd48221714), [`c76f3c8`](https://github.com/sl-design-system/components/commit/c76f3c86cc289be16bdf7ad4ec09baf910d67361), [`8d7163c`](https://github.com/sl-design-system/components/commit/8d7163cd05c3483cbdc2cb907236066ed90b963b), [`61989c4`](https://github.com/sl-design-system/components/commit/61989c46d7592bad8e48e6e29866a87ed222a229), [`e2543df`](https://github.com/sl-design-system/components/commit/e2543df011b9d65b8e11a07323b3712f52859e0e)]:
+  - @sl-design-system/shared@0.9.1
+  - @sl-design-system/icon@1.3.1
+  - @sl-design-system/data-source@0.2.2
+  - @sl-design-system/checkbox@2.1.6
+
 ## 0.1.6
 
 ### Patch Changes

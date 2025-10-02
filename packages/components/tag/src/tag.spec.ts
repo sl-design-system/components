@@ -1,7 +1,8 @@
-import { expect, fixture } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
 import { spy } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { type Tag } from './tag.js';
 
@@ -103,7 +104,7 @@ describe('sl-tag', () => {
       const onRemove = spy(el, 'remove');
 
       el.renderRoot.querySelector('button')?.focus();
-      await sendKeys({ press: 'Enter' });
+      await userEvent.keyboard('{Enter}');
 
       expect(onRemove).to.have.been.calledOnce;
     });
@@ -112,7 +113,7 @@ describe('sl-tag', () => {
       const onRemove = spy(el, 'remove');
 
       el.focus();
-      await sendKeys({ press: 'Backspace' });
+      await userEvent.keyboard('{Backspace}');
 
       expect(onRemove).to.have.been.calledOnce;
     });
@@ -121,7 +122,7 @@ describe('sl-tag', () => {
       const onRemove = spy(el, 'remove');
 
       el.focus();
-      await sendKeys({ press: 'Delete' });
+      await userEvent.keyboard('{Delete}');
 
       expect(onRemove).to.have.been.calledOnce;
     });

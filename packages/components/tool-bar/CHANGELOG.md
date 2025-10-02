@@ -1,5 +1,28 @@
 # @sl-design-system/tool-bar
 
+## 0.1.0
+
+### Minor Changes
+
+- [#2694](https://github.com/sl-design-system/components/pull/2694) [`9afb9ff`](https://github.com/sl-design-system/components/commit/9afb9fffc65bdeb70e85747ffb3ca6e2fdf14463) - Add support for `<sl-menu-button>`
+
+- [#2667](https://github.com/sl-design-system/components/pull/2667) [`0964af6`](https://github.com/sl-design-system/components/commit/0964af6411a6a6175d4cf104ad2411c7ac71b33a) - Adds support for buttons with tooltips (connected via `aria-labelledby`) so they also work in the overflow menu.
+
+### Patch Changes
+
+- [#2674](https://github.com/sl-design-system/components/pull/2674) [`9b9a724`](https://github.com/sl-design-system/components/commit/9b9a72437620de637c42ec3884173cf7d25286b5) - Changed toolbar background to transparent so it can be used on any background color
+
+- [#2690](https://github.com/sl-design-system/components/pull/2690) [`1603ff3`](https://github.com/sl-design-system/components/commit/1603ff3e291dc95100de65627d26dd45067f86d7) - Fix issue where changing disabled state of buttons wasn't reflected in the menu items.
+
+- [#2646](https://github.com/sl-design-system/components/pull/2646) [`f025c0f`](https://github.com/sl-design-system/components/commit/f025c0f3cbb83b72c80563e9d989402608add193) - - Fix missing `aria-disabled="true"` support for buttons
+  - Fix behavior due to `slotchange` events from nested slots
+- Updated dependencies [[`659a92a`](https://github.com/sl-design-system/components/commit/659a92af4732d339f9830368b1e0e3bd48221714), [`bd0fa20`](https://github.com/sl-design-system/components/commit/bd0fa20294b989bab05e142f8f5346d3d919bbb3), [`f025c0f`](https://github.com/sl-design-system/components/commit/f025c0f3cbb83b72c80563e9d989402608add193), [`c76f3c8`](https://github.com/sl-design-system/components/commit/c76f3c86cc289be16bdf7ad4ec09baf910d67361), [`e2543df`](https://github.com/sl-design-system/components/commit/e2543df011b9d65b8e11a07323b3712f52859e0e)]:
+  - @sl-design-system/menu@0.2.6
+  - @sl-design-system/button@1.3.0
+  - @sl-design-system/toggle-button@0.0.10
+  - @sl-design-system/icon@1.3.1
+  - @sl-design-system/toggle-group@0.0.10
+
 ## 0.0.11
 
 ### Patch Changes

@@ -1,9 +1,10 @@
-import { expect, fixture, oneEvent } from '@open-wc/testing';
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture, oneEvent } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { type LitElement, type TemplateResult, html } from 'lit';
 import { spy, stub } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { Dialog } from './dialog.js';
 
@@ -107,6 +108,9 @@ describe('sl-dialog', () => {
       dialog = el.renderRoot.querySelector('dialog')!;
 
       el.showModal();
+
+      // Wait for the dialog to open
+      await new Promise(resolve => setTimeout(resolve));
     });
 
     it('should emit an sl-cancel event when pressing the escape key', async () => {
@@ -115,7 +119,7 @@ describe('sl-dialog', () => {
 
       expect(dialog).to.have.attribute('open');
 
-      await sendKeys({ press: 'Escape' });
+      await userEvent.keyboard('{Escape}');
 
       // Wait for the event to be emitted
       await new Promise(resolve => setTimeout(resolve, 10));
@@ -187,11 +191,8 @@ describe('sl-dialog', () => {
       el.addEventListener('sl-close', onClose);
       el.close();
 
-      // Using `oneEvent` https://open-wc.org/docs/testing/helpers/#testing-events
-      // instead of `await new Promise(resolve => setTimeout(resolve))`
-      // ensures the test waits for the actual 'sl-close' event to be emitted by the component, rather than relying on a timeout.
-      await oneEvent(el, 'sl-close', false);
-      await el.updateComplete;
+      // Actually wait for the `sl-close` event to be emitted
+      await oneEvent(el, 'sl-close');
 
       expect(onClose).to.have.been.calledOnce;
     });
@@ -213,9 +214,8 @@ describe('sl-dialog', () => {
       stub(clickEvent, 'clientY').value(100);
       dialog.dispatchEvent(clickEvent);
 
-      // ensures the test waits for the actual 'sl-close' event to be emitted by the component, rather than relying on a timeout.
-      await oneEvent(el, 'sl-close', false);
-      await el.updateComplete;
+      // Actually wait for the `sl-close` event to be emitted
+      await oneEvent(el, 'sl-close');
 
       expect(onClose).to.have.been.calledOnce;
     });
@@ -226,10 +226,8 @@ describe('sl-dialog', () => {
       el.addEventListener('sl-close', onClose);
       el.renderRoot.querySelector<Button>('sl-button[aria-label="Close"]')?.click();
 
-      // ensures the test waits for the actual 'sl-close' event to be emitted by the component, rather than relying on a timeout.
-      await oneEvent(el, 'sl-close', false);
-
-      await el.updateComplete;
+      // Actually wait for the `sl-close` event to be emitted
+      await oneEvent(el, 'sl-close');
 
       expect(onClose).to.have.been.calledOnce;
     });
@@ -240,9 +238,8 @@ describe('sl-dialog', () => {
       el.addEventListener('sl-close', onClose);
       el.querySelector('sl-button')?.click();
 
-      // ensures the test waits for the actual 'sl-close' event to be emitted by the component, rather than relying on a timeout.
-      await oneEvent(el, 'sl-close', false);
-      await el.updateComplete;
+      // Actually wait for the `sl-close` event to be emitted
+      await oneEvent(el, 'sl-close');
 
       expect(onClose).to.have.been.calledOnce;
     });
@@ -257,7 +254,7 @@ describe('sl-dialog', () => {
         const onCancel = spy();
         el.addEventListener('sl-cancel', onCancel);
 
-        await sendKeys({ press: 'Escape' });
+        await userEvent.keyboard('{Escape}');
 
         expect(onCancel).not.to.have.been.called;
       });

@@ -1,5 +1,7 @@
-import { expect, fixture } from '@open-wc/testing';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { type TagList } from './tag-list.js';
 
@@ -56,6 +58,27 @@ describe('sl-tag', () => {
     it('should not be stacked', () => {
       expect(el).not.to.have.attribute('stacked');
       expect(el.stacked).not.to.be.true;
+    });
+  });
+
+  describe('removable', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-tag-list>
+          <sl-tag removable>My label 1</sl-tag>
+          <sl-tag removable>My label 2</sl-tag>
+          <sl-tag removable>My label 3</sl-tag>
+        </sl-tag-list>
+      `);
+    });
+
+    it('should focus the previous tag when a tag is removed', async () => {
+      const tags = Array.from(el.querySelectorAll('sl-tag'));
+
+      tags.at(-1)?.focus();
+      await userEvent.keyboard('{Backspace}');
+
+      expect(document.activeElement).to.equal(tags.at(-2));
     });
   });
 

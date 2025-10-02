@@ -16,6 +16,8 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
+Tooltip component should be a sibling of the element it is describing (not a child element).
+
 <sl-button aria-describedby="tooltip">Button with a tooltip</sl-button>
 <sl-tooltip id="tooltip">This is a tooltip with some additional information</sl-tooltip>
   ```

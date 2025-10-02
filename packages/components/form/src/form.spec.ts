@@ -1,10 +1,11 @@
 import { ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { expect, fixture } from '@open-wc/testing';
 import { TextField } from '@sl-design-system/text-field';
 import '@sl-design-system/text-field/register.js';
-import { sendKeys } from '@web/test-runner-commands';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { LitElement, html } from 'lit';
 import { spy } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { FormField } from './form-field.js';
 import { Form } from './form.js';
@@ -87,7 +88,7 @@ describe('sl-form', () => {
       expect(el.valid).to.be.false;
 
       el.querySelector<HTMLElement>('sl-text-field[name="bar"]')?.focus();
-      await sendKeys({ type: 'asdf' });
+      await userEvent.keyboard('asdf');
 
       expect(el.valid).to.be.true;
     });
@@ -106,7 +107,7 @@ describe('sl-form', () => {
       expect(el.value).to.deep.equal({ foo: 'lorem', bar: '' });
 
       el.querySelector<HTMLElement>('sl-text-field[name="bar"]')?.focus();
-      await sendKeys({ type: 'asdf' });
+      await userEvent.keyboard('asdf');
 
       expect(el.value).to.deep.equal({ foo: 'lorem', bar: 'asdf' });
     });
@@ -131,7 +132,7 @@ describe('sl-form', () => {
 
     it('should update the value when a field changes', async () => {
       el.querySelector<HTMLElement>('sl-text-field[name="bar"]')?.focus();
-      await sendKeys({ type: 'asdf' });
+      await userEvent.keyboard('asdf');
 
       expect(el.value).to.deep.equal({ foo: 'lorem', bar: 'asdf' });
     });
@@ -143,7 +144,7 @@ describe('sl-form', () => {
 
     it('should be dirty after modifying a field', async () => {
       el.querySelector<HTMLElement>('sl-text-field[name="foo"]')?.focus();
-      await sendKeys({ type: 'asdf' });
+      await userEvent.keyboard('asdf');
 
       expect(el.dirty).to.be.true;
       expect(el.pristine).to.be.false;
@@ -156,7 +157,7 @@ describe('sl-form', () => {
 
     it('should be valid after modifying a field', async () => {
       el.querySelector<HTMLElement>('sl-text-field[name="bar"]')?.focus();
-      await sendKeys({ type: 'asdf' });
+      await userEvent.keyboard('asdf');
 
       expect(el.invalid).to.be.false;
       expect(el.valid).to.be.true;
@@ -186,7 +187,7 @@ describe('sl-form', () => {
       expect(onSubmit).to.not.have.been.calledOnce;
 
       el.querySelector<HTMLElement>('sl-text-field[name="bar"]')?.focus();
-      await sendKeys({ type: 'asdf' });
+      await userEvent.keyboard('asdf');
 
       el.requestSubmit();
 
@@ -214,14 +215,14 @@ describe('sl-form', () => {
     it('should reset the form', async () => {
       expect(el.value).to.deep.equal({ foo: 'lorem', bar: '' });
       el.querySelector<HTMLElement>('sl-text-field[name="foo"]')?.focus();
-      await sendKeys({ press: 'Backspace' });
-      await sendKeys({ press: 'Backspace' });
-      await sendKeys({ press: 'Backspace' });
-      await sendKeys({ press: 'Backspace' });
-      await sendKeys({ press: 'Backspace' });
+      await userEvent.keyboard('{Backspace}');
+      await userEvent.keyboard('{Backspace}');
+      await userEvent.keyboard('{Backspace}');
+      await userEvent.keyboard('{Backspace}');
+      await userEvent.keyboard('{Backspace}');
 
       el.querySelector<HTMLElement>('sl-text-field[name="bar"]')?.focus();
-      await sendKeys({ type: 'asdf' });
+      await userEvent.keyboard('asdf');
 
       expect(el.value).to.deep.equal({ foo: '', bar: 'asdf' });
 
@@ -237,6 +238,28 @@ describe('sl-form', () => {
       el.reset();
 
       expect(onReset).to.have.been.calledOnce;
+    });
+  });
+
+  describe('autofocus', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-form>
+          <sl-form-field label="Foo">
+            <sl-text-field name="foo" autofocus></sl-text-field>
+          </sl-form-field>
+
+          <sl-form-field label="Bar">
+            <sl-text-field name="bar"></sl-text-field>
+          </sl-form-field>
+        </sl-form>
+      `);
+      // Give the form time to register the controls
+      await new Promise(resolve => setTimeout(resolve, 50));
+    });
+
+    it('should have focus on the first field', () => {
+      expect(el.querySelector('sl-text-field[name="foo"] input')).to.have.focus;
     });
   });
 

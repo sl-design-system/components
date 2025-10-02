@@ -43,7 +43,7 @@ import { TimeFieldComponent } from '../src/time-field/time-field.component';
   template: `
     <sl-form [formGroup]="formGroup">
       <sl-form-field label="Text field">
-        <sl-text-field formControlName="textField"></sl-text-field>
+        <sl-text-field formControlName="textField" autofocus></sl-text-field>
       </sl-form-field>
 
       <sl-form-field label="Number field">
@@ -161,7 +161,7 @@ export class AllFormControlsReactiveComponent {
   template: `
     <sl-form #form [formGroup]="formGroup">
       <sl-form-field label="Text field">
-        <sl-text-field formControlName="textField" required></sl-text-field>
+        <sl-text-field formControlName="textField" required autofocus></sl-text-field>
       </sl-form-field>
 
       <sl-form-field label="Number field">
@@ -291,7 +291,7 @@ export class AllFormControlsEmptyReactiveComponent {
   template: `
     <sl-form>
       <sl-form-field label="Text field">
-        <sl-text-field [(ngModel)]="formGroup.textField"></sl-text-field>
+        <sl-text-field [(ngModel)]="formGroup.textField" autofocus></sl-text-field>
       </sl-form-field>
 
       <sl-form-field label="Number field">
@@ -397,7 +397,7 @@ export class AllFormControlsTemplateComponent {
   template: `
     <sl-form #form>
       <sl-form-field label="Text field">
-        <sl-text-field [(ngModel)]="formGroup.textField" required></sl-text-field>
+        <sl-text-field [(ngModel)]="formGroup.textField" required autofocus></sl-text-field>
       </sl-form-field>
 
       <sl-form-field label="Number field">

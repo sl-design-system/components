@@ -77,6 +77,8 @@
 }
 */
 
+/* stylelint-disable color-no-hex */
+
 :root {
   --angle: url('../assets/icons/angle-right-black.svg');
   --angle-active: invert(33%) sepia(70%) saturate(3459%) hue-rotate(219deg) brightness(101%) contrast(105%);
@@ -102,12 +104,12 @@
   --copy-button-border: var(--ds-color-bright-grey);
   --cta-background: linear-gradient(79.62deg, var(--ds-color-blue) 0.95%, var(--ds-color-blueberry-light) 100%);
   --cta-link-color: var(--ds-color-white);
-  --cta-link-color--active: rgb(var(--ds-color-white-rgb) 0.9);
+  --cta-link-color--active: rgb(var(--ds-color-white-rgb) / 90%);
   --danger-color: var(--ds-color-danger);
   --error-icon: url('../assets/icons/error-dark.svg');
   --filter-color: rgb(34 34 34 / 12%);
-  --focus-box-shadow: 0 0 0 3px rgb(var(--ds-color-blue-rgb) 0.32);
-  --navigation-focus-box-shadow: 0 0 0 3px rgb(var(--ds-color-blue-rgb) 0.32);
+  --focus-box-shadow: 0 0 0 3px rgb(var(--ds-color-blue-rgb) / 32%);
+  --navigation-focus-box-shadow: 0 0 0 3px rgb(var(--ds-color-blue-rgb) / 32%);
   --hamburger-filter: brightness(3.5);
   --hamburger-icon: url('../assets/icons/hamburger.svg');
   --heading-background: var(--ds-color-blue);
@@ -117,15 +119,15 @@
   --help-icon-hover: url('../assets/icons/messages-question-black.svg');
   --helper-text: var(--ds-color-black);
   --highlight-color: var(--ds-color-blue);
-  --input-menu-background: rgb(var(--ds-color-black-rgb) 0.04);
-  --input-menu-background--hover: rgb(var(--ds-color-black-rgb) 0.08);
+  --input-menu-background: rgb(var(--ds-color-black-rgb) / 4%);
+  --input-menu-background--hover: rgb(var(--ds-color-black-rgb) / 8%);
   --input-menu--border: var(--ds-color-light-grey);
   --link-color: var(--ds-color-blueberry-light);
   --link-hover-color: var(--ds-color-mariner);
   --link-active-color: var(--ds-color-mariner);
   --link-visited-color: var(--ds-color-blueberry-light);
   --logo: url('../assets/logo-black.svg');
-  --menu-button-hover: rgb(var(--ds-color-blue-rgb) 0.04);
+  --menu-button-hover: rgb(var(--ds-color-blue-rgb) / 4%);
   --menu-font-color: var(--ds-color-raisin-black);
   --menu-second-color: rgb(138 174 255 / 20%);
   --picture-background: var(--ds-color-concrete);
@@ -138,7 +140,7 @@
   --table-code-background: var(--ds-color-concrete);
   --table-separator: var(--ds-color-bright-grey);
   --table-text-color: var(--ds-color-raisin-black);
-  --tab-color: rgb(var(--ds-color-black-rgb) 0.6);
+  --tab-color: rgb(var(--ds-color-black-rgb) / 60%);
   --tab-color--active: var(--ds-color-black);
   --tab-color--hover: var(--ds-color-black);
   --tab-indicator-background: var(--ds-color-blue);
@@ -166,11 +168,11 @@
     --badge-background: var(--ds-color-base-surface);
     --badge-border: var(--ds-color-blck-olive);
     --badge-color: var(--ds-color-grey);
-    --card-background: rgb(var(--ds-color-blue-rgb) 0.32);
+    --card-background: rgb(var(--ds-color-blue-rgb) / 32%);
     --card-color--active: var(--ds-color-baby-blue);
     --chevron-icon: url('../assets/icons/chevron-right-dark.svg');
     --chevron-icon--active: url('../assets/icons/chevron-right-dark-lighter.svg');
-    --contact-block-background: rgb(var(--ds-color-blue-rgb) 0.2);
+    --contact-block-background: rgb(var(--ds-color-blue-rgb) / 20%);
     --contact-block-link: var(--ds-color-baby-blue);
     --contact-block-link--hover: var(--ds-color-lavender-blue);
     --close-icon: url('../assets/icons/close-light.svg');
@@ -184,12 +186,12 @@
     --copy-button-border: var(--ds-color-tundora);
     --cta-background: linear-gradient(259.74deg, rgb(89 133 255 / 80%) 0%, var(--ds-color-blueberry) 100%);
     --cta-link-color: var(--ds-color-raisin-black);
-    --cta-link-color--active: rgb(var(--ds-color-black-rgb) 0.9);
+    --cta-link-color--active: rgb(var(--ds-color-black-rgb) / 90%);
     --danger-color: var(--ds-color-red);
     --error-icon: url('../assets/icons/error.svg');
     --filter-color: rgb(34 34 34 / 64%);
-    --focus-box-shadow: 0 0 0 3px rgb(var(--ds-color-blue-rgb) 0.32);
-    --navigation-focus-box-shadow: 0 0 0 3px rgb(var(--ds-color-blue-rgb) 0.64);
+    --focus-box-shadow: 0 0 0 3px rgb(var(--ds-color-blue-rgb) / 32%);
+    --navigation-focus-box-shadow: 0 0 0 3px rgb(var(--ds-color-blue-rgb) / 64%);
     --hamburger-filter: brightness(0.6);
     --hamburger-icon: url('../assets/icons/hamburger-light.svg');
     --heading-background: var(--ds-color-blueberry);
@@ -199,14 +201,14 @@
     --help-icon-hover: url('../assets/icons/messages-question.svg');
     --helper-text: var(--ds-color-faux-white);
     --highlight-color: var(--ds-color-blueberry);
-    --input-menu-background: rgb(var(--ds-color-faux-white-rgb) 0.16);
-    --input-menu-background--hover: rgb(var(--ds-color-faux-white-rgb) 0.2);
+    --input-menu-background: rgb(var(--ds-color-faux-white-rgb) / 16%);
+    --input-menu-background--hover: rgb(var(--ds-color-faux-white-rgb) / 20%);
     --logo: url('../assets/logo.svg');
     --link-color: var(--ds-color-baby-blue);
     --link-hover-color: var(--ds-color-lavender-blue);
     --link-active-color: var(--ds-color-lavender-blue);
     --link-visited-color: var(--ds-color-baby-blue);
-    --menu-button-hover: rgb(var(--ds-color-blue-rgb) 0.32);
+    --menu-button-hover: rgb(var(--ds-color-blue-rgb) / 32%);
     --menu-font-color: var(--ds-color-lotion);
     --menu-second-color: #363739;
     --picture-background: var(--ds-color-blck-olive);
@@ -219,7 +221,7 @@
     --table-code-background: var(--ds-color-blck-olive);
     --table-separator: var(--ds-color-tundora);
     --table-text-color: var(--ds-color-white);
-    --tab-color: rgb(var(--ds-color-faux-white-rgb) 0.64);
+    --tab-color: rgb(var(--ds-color-faux-white-rgb) / 64%);
     --tab-color--active: var(--ds-color-faux-white);
     --tab-color--hover: var(--ds-color-faux-white);
     --tab-indicator-background: var(--ds-color-blueberry);

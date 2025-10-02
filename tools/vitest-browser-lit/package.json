@@ -1,0 +1,35 @@
+{
+  "name": "@sl-design-system/vitest-browser-lit",
+  "version": "0.0.1",
+  "packageManager": "yarn@4.1.1",
+  "description": "Helper functions for testing Lit components with Vitest in a browser environment",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sl-design-system/components.git",
+    "directory": "tools/vitest-browser-lit"
+  },
+  "homepage": "https://sanomalearning.design",
+  "bugs": {
+    "url": "https://github.com/sl-design-system/components/issues"
+  },
+  "type": "module",
+  "main": "./index.js",
+  "module": "./index.js",
+  "scripts": {
+    "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
+  },
+  "peerDependencies": {
+    "@vitest/browser": ">=2.1.0",
+    "lit": ">3.0.0",
+    "vitest": ">=2.1.0"
+  },
+  "devDependencies": {
+    "@vitest/browser": "^3.2.4",
+    "lit": "^3.3.1",
+    "vitest": "^3.2.4"
+  }
+}

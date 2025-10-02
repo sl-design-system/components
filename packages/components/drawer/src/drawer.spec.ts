@@ -1,6 +1,7 @@
-import { expect, fixture } from '@open-wc/testing';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { SinonSpy, spy, stub } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { type Drawer, type DrawerAttachment } from './drawer.js';
 
@@ -9,10 +10,6 @@ describe('sl-drawer', () => {
 
   beforeEach(async () => {
     el = await fixture(html`<sl-drawer></sl-drawer>`);
-  });
-
-  it('should render correctly', () => {
-    expect(el).shadowDom.to.equalSnapshot();
   });
 
   describe('positioning', () => {

@@ -1,5 +1,16 @@
 # @sl-design-system/toggle-button
 
+## 0.0.10
+
+### Patch Changes
+
+- [#2677](https://github.com/sl-design-system/components/pull/2677) [`c76f3c8`](https://github.com/sl-design-system/components/commit/c76f3c86cc289be16bdf7ad4ec09baf910d67361) - Use `import.meta.env.DEV` instead of custom `isDevMode()` check
+
+- Updated dependencies [[`d3b9d45`](https://github.com/sl-design-system/components/commit/d3b9d4512e33dbf10a2aa28efc94a54b93002285), [`659a92a`](https://github.com/sl-design-system/components/commit/659a92af4732d339f9830368b1e0e3bd48221714), [`c76f3c8`](https://github.com/sl-design-system/components/commit/c76f3c86cc289be16bdf7ad4ec09baf910d67361), [`f025c0f`](https://github.com/sl-design-system/components/commit/f025c0f3cbb83b72c80563e9d989402608add193), [`e2543df`](https://github.com/sl-design-system/components/commit/e2543df011b9d65b8e11a07323b3712f52859e0e)]:
+  - @sl-design-system/tooltip@1.3.0
+  - @sl-design-system/shared@0.9.1
+  - @sl-design-system/icon@1.3.1
+
 ## 0.0.9
 
 ### Patch Changes

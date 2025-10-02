@@ -6,6 +6,7 @@ import {
   faBug,
   faCode,
   faCopy,
+  faEyeSlash,
   faFileEdit,
   faFileLines,
   faFloppyDisk,
@@ -17,6 +18,7 @@ import {
   faPen,
   faPenToSquare,
   faPencilRuler,
+  faPuzzlePieceSimple,
   faTrash,
   faTruckFast,
   faXmark,
@@ -46,7 +48,6 @@ import {
   faUnderline as fasUnderline
 } from '@fortawesome/pro-solid-svg-icons';
 import '@lit-labs/virtualizer/virtualize.js';
-import '@oddbird/popover-polyfill';
 import '@sl-design-system/accordion/register.js';
 import '@sl-design-system/avatar/register.js';
 import '@sl-design-system/badge/register.js';
@@ -70,6 +71,7 @@ import '@sl-design-system/menu/register.js';
 import { MessageDialog } from '@sl-design-system/message-dialog';
 import '@sl-design-system/message-dialog/register.js';
 import '@sl-design-system/number-field/register.js';
+import '@sl-design-system/panel/register.js';
 import '@sl-design-system/popover/register.js';
 import '@sl-design-system/progress-bar/register.js';
 import '@sl-design-system/radio-group/register.js';
@@ -97,6 +99,7 @@ Icon.register(
   faCode,
   faCopy,
   faEnvelope,
+  faEyeSlash,
   faFileEdit,
   faFileLines,
   faFloppyDisk,
@@ -110,6 +113,7 @@ Icon.register(
   faPen,
   faPenToSquare,
   faPencilRuler,
+  faPuzzlePieceSimple,
   faSchool,
   faScreenUsers,
   faSlack,

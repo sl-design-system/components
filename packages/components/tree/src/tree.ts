@@ -260,7 +260,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
 
       const direction = event.key === 'ArrowDown' ? 1 : -1;
 
-      let nextIndex = parseInt(event.target.dataset.index ?? '0') + direction;
+      let nextIndex = parseInt(event.target.dataset['index'] ?? '0') + direction;
       if (nextIndex < 0) {
         nextIndex = this.dataSource!.items.length - 1;
       } else if (nextIndex >= this.dataSource!.items.length) {
@@ -281,14 +281,14 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
       }
 
       if (parent) {
-        this.#scrollAndFocusNode(parseInt(parent.dataset.index ?? '0'));
+        this.#scrollAndFocusNode(parseInt(parent.dataset['index'] ?? '0'));
       }
     } else if (event.key === 'ArrowRight') {
       event.preventDefault();
 
       const nextElement = event.target.nextElementSibling as TreeNode<T> | null;
       if (nextElement && nextElement.level > event.target.level) {
-        this.#scrollAndFocusNode(parseInt(nextElement.dataset.index ?? '0'));
+        this.#scrollAndFocusNode(parseInt(nextElement.dataset['index'] ?? '0'));
       }
     }
   }

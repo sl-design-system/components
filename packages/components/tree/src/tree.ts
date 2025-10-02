@@ -94,13 +94,17 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
+    // Use role `treegrid` instead of `tree`; treegrid is a better
+    // match for accessibility due to the use of Virtualizer: we can't
+    // use a group role to wrap the children of a tree node, because
+    // that would mess up the virtualization.
     this.setAttribute('role', 'treegrid');
 
     const options = {
       count: this.#dataSource?.items.length ?? 0,
-      estimateSize: () => 32,
+      estimateSize: () => 32, // this doesn't need to be exact
       gap: 2, // var(--sl-size-025)
-      overscan: 3
+      overscan: 3 // render a few extra nodes outside of the viewport
     };
 
     const scrollParent = getScrollParent(this);
@@ -112,16 +116,17 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
         getScrollElement: () => scrollParent
       });
     }
+
+    if (this.#dataSource?.selects) {
+      const selected = this.#dataSource.items.find(item => item.selected);
+      if (selected) {
+        this.#indexOfFocusedNode = this.#dataSource.items.indexOf(selected);
+      }
+    }
   }
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
-
-    // if (this.dataSource?.selection.size) {
-    //   const node = this.dataSource.selection.keys().next().value as TreeDataSourceNode<T>;
-
-    //   this.scrollToNode(node, { block: 'center' });
-    // }
 
     // if (this.dataSource?.nodes) {
     //   wrapper?.setAttribute('aria-owns', this.dataSource?.nodes.map(child => String(child.id)).join(' ') || '');
@@ -157,11 +162,6 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     const virtualizer = this.#virtualizer!.getVirtualizer(),
       virtualItems = virtualizer.getVirtualItems();
 
-    /**
-     * Role `treegrid` is used instead of `tree`,
-     * because `tree` role is not fully accessible without `group` role inside,
-     * and we cannot implement groups due to Virtualizer usage.
-     */
     return html`
       <div class="wrapper" style="block-size: ${virtualizer.getTotalSize()}px">
         <div class="starter" style="translate: 0px ${virtualItems[0]?.start ?? 0}px">

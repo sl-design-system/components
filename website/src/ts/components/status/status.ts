@@ -32,7 +32,7 @@ export class Status extends LitElement {
 
   override render(): TemplateResult {
     return html`
-      <sl-badge emphasis="bold" size=${this.size} variant=${this.badgeVariant}
+      <sl-badge emphasis="subtle" size=${this.size} variant=${this.badgeVariant}
         >${this.status ? this.status : 'planned'}</sl-badge
       >
     `;

@@ -271,7 +271,6 @@ describe('sl-tree', () => {
       });
 
       el = await fixture(html`<sl-tree .dataSource=${ds}></sl-tree>`);
-      // await el.layoutComplete;
     });
 
     it('should render the visible tree nodes', () => {
@@ -327,7 +326,6 @@ describe('sl-tree', () => {
       });
 
       el = await fixture(html`<sl-tree .dataSource=${ds}></sl-tree>`);
-      // await el.layoutComplete;
     });
 
     it('should render the visible tree nodes', () => {

@@ -104,13 +104,14 @@ export default {
         negative=${ifDefined(negative?.map(date => date.toISOString()).join(','))}
         indicator=${ifDefined(
           Array.isArray(indicator)
-            ? indicator
-                .filter(item => item?.date && item?.color)
-                .map(item => {
-                  const date = item.date;
-                  return { date: date.toISOString(), color: item.color };
-                })
-                .join(',')
+            ? JSON.stringify(
+                indicator
+                  .filter(item => item?.date && item?.color)
+                  .map(item => ({
+                    date: item.date.toISOString(),
+                    color: item.color
+                  }))
+              )
             : undefined
         )}
       ></sl-calendar>
@@ -167,7 +168,8 @@ export const WithIndicator: Story = {
   args: {
     indicator: [
       { date: new Date(), color: 'red' },
-      { date: new Date('2025-08-05'), color: 'blue' as IndicatorColor }
+      { date: new Date('2025-08-05'), color: 'blue' as IndicatorColor },
+      { date: new Date('2025-08-07') }
     ],
     showToday: true,
     month: new Date(1755640800000)
@@ -233,7 +235,6 @@ export const All: Story = {
     };
 
     const indicator = {
-      // indicator: [getOffsetDate(0), getOffsetDate(1), getOffsetDate(6)], // make sure one it outside the min/max range
       indicator: [
         { date: getOffsetDate(0), color: 'red' as IndicatorColor },
         { date: getOffsetDate(1), color: 'blue' as IndicatorColor },

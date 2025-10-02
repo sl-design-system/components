@@ -286,12 +286,22 @@ export class MonthView extends LocaleMixin(LitElement) {
       day.unselectable ? 'unselectable' : '',
       this.negative && isDateInList(day.date, this.negative) ? 'negative' : '',
       // this.indicator && isDateInList(day.date, this.indicator) ? 'indicator' : '',
+      // this.indicator &&
+      // isDateInList(
+      //   day.date,
+      //   this.indicator.map(i => i.date)
+      // )
+      //   ? 'indicator'
+      //   : '',
       this.indicator &&
       isDateInList(
         day.date,
         this.indicator.map(i => i.date)
       )
-        ? 'indicator'
+        ? (() => {
+            const indicator = this.indicator && this.indicator.find(i => isSameDate(i.date, day.date));
+            return indicator?.color ? `indicator indicator-${indicator.color}` : 'indicator';
+          })()
         : '',
       this.selected && isSameDate(day.date, this.selected) ? 'selected' : ''
     ].filter(part => part !== '');

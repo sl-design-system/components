@@ -238,14 +238,6 @@ export class MonthView extends LocaleMixin(LitElement) {
   renderDay(day: Day): TemplateResult {
     let template: TemplateResult | undefined;
 
-    // console.log('day in renderDay', day, 'day.disabled?', day.disabled);
-
-    // if (this.disabled && isDateInList(day.date, this.disabled)) {
-    //   // this.disabled && isDateInList(day.date, this.disabled) ? 'unselectable' : '';
-    //   day.disabled = true;
-    //   day.unselectable = true;
-    // }
-
     // TODO: fix roving tab index up and down when days are disabled
 
     if (this.renderer) {
@@ -284,8 +276,6 @@ export class MonthView extends LocaleMixin(LitElement) {
                 ${day.date.getDate()}
               </button>
             `;
-
-      // console.log('template in renderDay', template);
     }
 
     return html`
@@ -301,16 +291,16 @@ export class MonthView extends LocaleMixin(LitElement) {
       this.indicator ? this.indicator[0].date : 'no indicator',
       this.indicator?.length
     );
-    console.log(
-      'indicator part applied?',
-      this.indicator &&
-        isDateInList(
-          day.date,
-          this.indicator.map(i => i.date)
-        )
-        ? 'indicator'
-        : ''
-    );
+    // console.log(
+    //   'indicator part applied?',
+    //   this.indicator &&
+    //     isDateInList(
+    //       day.date,
+    //       this.indicator.map(i => i.date)
+    //     )
+    //     ? 'indicator'
+    //     : ''
+    // );
 
     return [
       'day',
@@ -320,14 +310,6 @@ export class MonthView extends LocaleMixin(LitElement) {
       day.unselectable ? 'unselectable' : '',
       this.disabled && isDateInList(day.date, this.disabled) ? 'unselectable' : '',
       this.negative && isDateInList(day.date, this.negative) ? 'negative' : '',
-      // this.indicator && isDateInList(day.date, this.indicator) ? 'indicator' : '',
-      // this.indicator &&
-      // isDateInList(
-      //   day.date,
-      //   this.indicator.map(i => i.date)
-      // )
-      //   ? 'indicator'
-      //   : '',
       this.indicator &&
       isDateInList(
         day.date,

@@ -94,7 +94,18 @@ export default {
       ?show-today=${showToday}
       ?show-week-numbers=${showWeekNumbers}
       first-day-of-week=${ifDefined(firstDayOfWeek)}
-      indicator=${ifDefined(indicator?.map(ind => ind.date.toISOString()).join(','))}
+      indicator=${ifDefined(
+        Array.isArray(indicator)
+          ? JSON.stringify(
+              indicator
+                .filter(item => item?.date)
+                .map(item => ({
+                  date: item.date.toISOString(),
+                  ...(item.color ? { color: item.color } : {})
+                }))
+            )
+          : undefined
+      )}
       locale=${ifDefined(locale)}
       max=${ifDefined(max?.toISOString())}
       min=${ifDefined(min?.toISOString())}
@@ -106,6 +117,8 @@ export default {
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
+
+// TODO: selecting when clicking on it should work in the mont-view as well?
 
 export const FirstDayOfWeek: Story = {
   args: {
@@ -185,8 +198,17 @@ export const Today: Story = {
 
 export const Indicator: Story = {
   args: {
-  //  indicator: [new Date(), new Date('2025-08-05')],
-    indicator: [{ date: new Date() }, { date: new Date('2025-08-05') }],
+    //  indicator: [new Date(), new Date('2025-08-05')],
+    indicator: [
+      { date: new Date('2025-08-05') },
+      { date: new Date('2025-08-06'), color: 'blue' },
+      { date: new Date('2025-08-07'), color: 'red' },
+      { date: new Date('2025-08-09'), color: 'yellow' },
+      { date: new Date('2025-08-10'), color: 'green' },
+      { date: new Date('2025-08-20'), color: 'grey' },
+      { date: new Date('2025-08-22'), color: 'green' },
+      { date: new Date('2025-08-27'), color: 'yellow' }
+    ],
     showToday: true,
     month: new Date(1755640800000)
   }

@@ -5,7 +5,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { useArgs } from 'storybook/internal/preview-api';
 import '../register.js';
 import { type Calendar } from './calendar.js';
-import { type Indicator, type IndicatorColor } from './month-view.js';
+import { type IndicatorColor } from './month-view.js';
 
 type Props = Pick<
   Calendar,
@@ -233,7 +233,14 @@ export const All: Story = {
           negative=${ifDefined(settings.negative?.map(date => date.toISOString()).join(','))}
           indicator=${ifDefined(
             Array.isArray(settings.indicator)
-              ? settings.indicator.map((item: Indicator) => `${item.date.toISOString()}:${item.color}`).join(',')
+              ? JSON.stringify(
+                  settings.indicator
+                    .filter(item => item?.date)
+                    .map(item => ({
+                      date: item.date.toISOString(),
+                      ...(item.color ? { color: item.color } : {})
+                    }))
+                )
               : undefined
           )}
         ></sl-calendar>

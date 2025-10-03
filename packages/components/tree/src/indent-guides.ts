@@ -1,5 +1,6 @@
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import styles from './indent-guides.scss.js';
 
 declare global {
@@ -23,7 +24,10 @@ export class IndentGuides extends LitElement {
   @property({ type: Number }) level = 0;
 
   /** Will show a selection indicator if set. */
-  @property({ type: Boolean, reflect: true }) selected?: false;
+  @property({ type: Boolean }) selected?: false;
+
+  /** Will show indentation guides if set. */
+  @property({ type: Boolean, reflect: true }) visible?: boolean;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -34,7 +38,8 @@ export class IndentGuides extends LitElement {
   override render(): TemplateResult {
     return html`
       ${Array.from({ length: this.level }).map(
-        (_, index) => html`<div class="guide${index === this.level - 1 ? ' last' : ''}"></div>`
+        (_, index) =>
+          html`<div class=${classMap({ guide: true, first: index === 0, last: index === this.level - 1 })}></div>`
       )}
       ${this.selected ? html`<div class="selected"></div>` : nothing}
     `;

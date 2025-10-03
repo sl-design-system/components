@@ -98,7 +98,7 @@ describe('sl-tree', () => {
 
     it('should not hide the indentation guides', () => {
       expect(el).to.not.have.attribute('hide-guides');
-      expect(el.hideGuides).not.to.be.true;
+      expect(el.showGuides).not.to.be.true;
     });
 
     it('should not have a data source', () => {

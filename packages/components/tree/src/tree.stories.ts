@@ -13,7 +13,7 @@ import { FlatTreeDataSource } from './flat-tree-data-source.js';
 import { NestedTreeDataSource } from './nested-tree-data-source.js';
 import { type Tree } from './tree.js';
 
-type Props = Pick<Tree, 'dataSource' | 'hideGuides' | 'renderer' | 'scopedElements'> & {
+type Props = Pick<Tree, 'dataSource' | 'renderer' | 'scopedElements' | 'showGuides'> & {
   styles?: string;
 };
 type Story = StoryObj<Props>;
@@ -208,7 +208,7 @@ export default {
     }
   },
   args: {
-    hideGuides: false,
+    showGuides: false,
     dataSource: undefined
   },
   argTypes: {
@@ -222,7 +222,7 @@ export default {
       table: { disable: true }
     }
   },
-  render: ({ dataSource, hideGuides, renderer, scopedElements, styles }) => {
+  render: ({ dataSource, renderer, scopedElements, showGuides, styles }) => {
     const onToggle = () => dataSource?.selection.forEach(node => dataSource?.toggle(node)),
       onToggleDescendants = () => dataSource?.selection.forEach(node => dataSource?.toggleDescendants(node)),
       onExpandAll = () => dataSource?.expandAll(),
@@ -247,10 +247,10 @@ export default {
         <sl-button @click=${onCollapseAll}>Collapse all</sl-button>
       </sl-button-bar>
       <sl-tree
-        ?hide-guides=${hideGuides}
         .dataSource=${dataSource}
         .renderer=${renderer}
         .scopedElements=${scopedElements}
+        ?show-guides=${showGuides}
         aria-label="Tree label"
       ></sl-tree>
     `;
@@ -283,6 +283,13 @@ export const NestedDataSource: Story = {
   }
 };
 
+export const Guides: Story = {
+  args: {
+    ...FlatDataSource.args,
+    showGuides: true
+  }
+};
+
 export const SingleSelect: Story = {
   args: {
     dataSource: new FlatTreeDataSource(flatData, {
@@ -294,7 +301,8 @@ export const SingleSelect: Story = {
       isExpanded: ({ name }) => ['tree', 'src'].includes(name),
       isSelected: ({ name }) => name === 'tree-node.ts',
       selects: 'single'
-    })
+    }),
+    showGuides: true
   }
 };
 
@@ -309,7 +317,8 @@ export const MultiSelect: Story = {
       isExpandable: ({ children }) => !!children,
       isSelected: ({ name }) => ['tree-node.scss', 'tree-node.ts'].includes(name),
       selects: 'multiple'
-    })
+    }),
+    showGuides: true
   }
 };
 

@@ -78,12 +78,6 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   @property({ type: Boolean }) expanded?: boolean;
 
   /**
-   * Hides the indentation guides when set.
-   * @default false
-   */
-  @property({ type: Boolean, attribute: 'hide-guides', reflect: true }) hideGuides?: boolean;
-
-  /**
    * Indeterminate state of the checkbox. Used when not all children are checked.
    * @default false
    */
@@ -118,6 +112,12 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
    * @default undefined
    */
   @property() selects?: 'single' | 'multiple';
+
+  /**
+   * Shows the indentation guides when set.
+   * @default false
+   */
+  @property({ type: Boolean, attribute: 'show-guides', reflect: true }) showGuides?: boolean;
 
   /** @internal Emits when the expanded state changes. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
@@ -169,6 +169,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
         ?last-node-in-level=${this.lastNodeInLevel}
         .level=${this.level}
         ?selected=${this.selects === 'single' && this.selected}
+        ?visible=${this.showGuides}
       ></sl-indent-guides>
       <div aria-colindex="1" role="gridcell" tabindex=${this.disabled ? -1 : 0}>
         ${this.expandable

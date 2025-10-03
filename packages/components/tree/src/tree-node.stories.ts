@@ -14,12 +14,12 @@ type Props = Pick<
   | 'disabled'
   | 'expandable'
   | 'expanded'
-  | 'hideGuides'
   | 'indeterminate'
   | 'lastNodeInLevel'
   | 'level'
   | 'selected'
   | 'selects'
+  | 'showGuides'
   | 'type'
 > & { text: string };
 type Story = StoryObj<Props>;
@@ -30,12 +30,12 @@ export default {
     disabled: false,
     expandable: false,
     expanded: false,
-    hideGuides: false,
     indeterminate: false,
     lastNodeInLevel: false,
     level: 0,
     selected: false,
     selects: undefined,
+    showGuides: false,
     text: 'Tree node',
     type: 'node'
   },
@@ -53,12 +53,12 @@ export default {
     disabled,
     expandable,
     expanded,
-    hideGuides,
     indeterminate,
     lastNodeInLevel,
     level,
     selected,
     selects,
+    showGuides,
     text,
     type
   }) => {
@@ -69,12 +69,12 @@ export default {
         ?disabled=${disabled}
         ?expandable=${expandable}
         ?expanded=${expanded}
-        ?hide-guides=${hideGuides}
         ?indeterminate=${indeterminate}
         ?last-node-in-level=${lastNodeInLevel}
         level=${level}
         ?selected=${selected}
         selects=${ifDefined(selects)}
+        ?show-guides=${showGuides}
         type=${ifDefined(type)}
       >
         ${text}

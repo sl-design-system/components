@@ -54,11 +54,11 @@ describe('sl-tree-node', () => {
 
     it('should not hide the indentation guides', () => {
       expect(el).not.to.have.attribute('hide-guides');
-      expect(el.hideGuides).to.not.be.true;
+      expect(el.showGuides).to.not.be.true;
     });
 
     it('should hide the indentation guides when set', async () => {
-      el.hideGuides = true;
+      el.showGuides = true;
       await el.updateComplete;
 
       expect(el).to.have.attribute('hide-guides');

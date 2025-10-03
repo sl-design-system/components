@@ -78,9 +78,6 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
     this.#dataSource?.update();
   }
 
-  /** Hides the indentation guides when set. */
-  @property({ type: Boolean, attribute: 'hide-guides' }) hideGuides?: boolean;
-
   /** Custom renderer function for tree items. */
   @property({ attribute: false }) renderer?: TreeItemRenderer<T>;
 
@@ -94,6 +91,9 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
 
   /** @internal Emits when the user selects a tree node. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<TreeDataSourceNode<T>>>;
+
+  /** Shows the indentation guides when set. */
+  @property({ type: Boolean, attribute: 'show-guides' }) showGuides?: boolean;
 
   /** @internal */
   @query('[part="wrapper"]') wrapper!: HTMLElement;
@@ -203,7 +203,6 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
                   aria-setsize=${ifDefined(item.parent ? item.parent.children?.length : this.dataSource?.size)}
                   ?expandable=${item.expandable}
                   ?expanded=${item.expanded}
-                  ?hide-guides=${this.hideGuides}
                   id=${item.id}
                   ?indeterminate=${item.indeterminate}
                   ?last-node-in-level=${item.lastNodeInLevel}
@@ -211,6 +210,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
                   .node=${item}
                   ?selected=${item.selected}
                   selects=${ifDefined(this.dataSource?.selects)}
+                  ?show-guides=${this.showGuides}
                   tabindex=${virtualItem.index === this.#indexOfFocusedNode ? '0' : '-1'}
                   .type=${item.type}
                 >

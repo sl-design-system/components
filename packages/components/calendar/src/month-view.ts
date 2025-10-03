@@ -53,7 +53,9 @@ export class MonthView extends LocaleMixin(LitElement) {
       //   Array.from(this.renderRoot.querySelectorAll('button')),
       //   this.renderRoot.querySelectorAll('button')
       // );
-      return Array.from(this.renderRoot.querySelectorAll('button'));
+      // return Array.from(this.renderRoot.querySelectorAll('button'));
+      // return Array.from(this.renderRoot.querySelectorAll('button')).filter(btn => !btn.disabled);
+      return Array.from(this.renderRoot.querySelectorAll('button')); // keep disabled buttons to preserve grid alignment
     },
     isFocusableElement: el => !el.disabled
   });
@@ -236,7 +238,15 @@ export class MonthView extends LocaleMixin(LitElement) {
   renderDay(day: Day): TemplateResult {
     let template: TemplateResult | undefined;
 
-    console.log('day in renderDay', day, 'day.disabled?', day.disabled);
+    // console.log('day in renderDay', day, 'day.disabled?', day.disabled);
+
+    // if (this.disabled && isDateInList(day.date, this.disabled)) {
+    //   // this.disabled && isDateInList(day.date, this.disabled) ? 'unselectable' : '';
+    //   day.disabled = true;
+    //   day.unselectable = true;
+    // }
+
+    // TODO: fix roving tab index up and down when days are disabled
 
     if (this.renderer) {
       template = this.renderer(day, this);
@@ -248,9 +258,22 @@ export class MonthView extends LocaleMixin(LitElement) {
 
       // TODO: maybe disabled -> unselectable here as well?
 
+      // TODO: why the bunselectable is not disabled button in the DOM?
+
+      console.log(
+        'day before template',
+        day,
+        day.date.getDate(),
+        'readonly?',
+        this.readonly,
+        'day.unselectable?',
+        day.unselectable,
+        parts
+      );
+
       template =
-        this.readonly || day.unselectable
-          ? html`<span .part=${parts} aria-label=${ariaLabel}>${day.date.getDate()}</span>`
+        this.readonly || day.unselectable || day.disabled || isDateInList(day.date, this.disabled)
+          ? html`<button .part=${parts} aria-label=${ariaLabel} disabled>${day.date.getDate()}</button>`
           : html`
               <button
                 @keydown=${(event: KeyboardEvent) => this.#onKeydown(event, day)}
@@ -261,6 +284,8 @@ export class MonthView extends LocaleMixin(LitElement) {
                 ${day.date.getDate()}
               </button>
             `;
+
+      // console.log('template in renderDay', template);
     }
 
     return html`
@@ -342,27 +367,38 @@ export class MonthView extends LocaleMixin(LitElement) {
 
       this.changeEvent.emit(new Date(day.date.getFullYear(), day.date.getMonth() + 1, 1));
     } else if (event.key === 'ArrowUp' && day.currentMonth) {
-      const crossesMonthBoundary = day.date.getDate() - 7 < 1;
+      // Whether it's possible to move to the same weekday in previous weeks (skipping disabled)
+      const possibleDay = this.#getEnabledSameWeekday(day.date, -1);
 
-      // Move to the same weekday in previous month
-      if (crossesMonthBoundary) {
+      if (!possibleDay) {
+        return;
+      }
+
+      const crossesMonth =
+        possibleDay.getMonth() !== day.date.getMonth() || possibleDay.getFullYear() !== day.date.getFullYear();
+
+      if (crossesMonth) {
         event.preventDefault();
         event.stopPropagation();
 
-        const targetDate = new Date(day.date.getFullYear(), day.date.getMonth(), day.date.getDate() - 7);
-        this.changeEvent.emit(targetDate);
+        this.changeEvent.emit(possibleDay);
       }
     } else if (event.key === 'ArrowDown' && day.currentMonth) {
-      const lastDateOfMonth = new Date(day.date.getFullYear(), day.date.getMonth() + 1, 0).getDate(),
-        crossesMonthBoundary = day.date.getDate() + 7 > lastDateOfMonth;
+      // Whether it's possible to move to the same weekday in following weeks (skipping disabled)
+      const possibleDay = this.#getEnabledSameWeekday(day.date, 1);
 
-      // Move to the same weekday in next month
-      if (crossesMonthBoundary) {
+      if (!possibleDay) {
+        return;
+      }
+
+      const crossesMonth =
+        possibleDay.getMonth() !== day.date.getMonth() || possibleDay.getFullYear() !== day.date.getFullYear();
+
+      if (crossesMonth) {
         event.preventDefault();
         event.stopPropagation();
 
-        const targetDate = new Date(day.date.getFullYear(), day.date.getMonth(), day.date.getDate() + 7);
-        this.changeEvent.emit(targetDate);
+        this.changeEvent.emit(possibleDay);
       }
     } else if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
@@ -370,5 +406,24 @@ export class MonthView extends LocaleMixin(LitElement) {
 
       this.selectEvent.emit(day.date);
     }
+  }
+
+  /** Nearest enabled same-weekday date (weekly steps: -1 or 1) */
+  #getEnabledSameWeekday(start: Date, direction: 1 | -1): Date | undefined {
+    const findEnabledSameWeekday = (current: Date): Date | undefined => {
+      const possibleDay = new Date(current.getFullYear(), current.getMonth(), current.getDate() + 7 * direction);
+
+      if ((this.min && possibleDay < this.min) || (this.max && possibleDay > this.max)) {
+        return undefined;
+      }
+
+      if (!(this.disabled && isDateInList(possibleDay, this.disabled))) {
+        return possibleDay;
+      }
+
+      return findEnabledSameWeekday(possibleDay);
+    };
+
+    return findEnabledSameWeekday(start);
   }
 }

@@ -26,9 +26,9 @@ describe('sl-tree-node', () => {
       expect(el).to.have.attribute('role', 'row');
     });
 
-    it('should not be checked', () => {
-      expect(el).not.to.have.attribute('aria-checked');
-      expect(el.checked).to.not.be.true;
+    it('should not be selected', () => {
+      expect(el).not.to.have.attribute('aria-selected');
+      expect(el.selected).to.not.be.true;
     });
 
     it('should not be disabled', () => {
@@ -273,8 +273,8 @@ describe('sl-tree-node', () => {
       `);
     });
 
-    it('should have an aria-checked attribute', () => {
-      expect(el).to.have.attribute('aria-checked', 'false');
+    it('should have an aria-selected attribute', () => {
+      expect(el).to.have.attribute('aria-selected', 'false');
     });
 
     it('should render a checkbox', () => {
@@ -287,13 +287,13 @@ describe('sl-tree-node', () => {
       el.querySelector('span')?.click();
       await el.updateComplete;
 
-      expect(el).to.have.attribute('aria-checked', 'true');
+      expect(el).to.have.attribute('aria-selected', 'true');
       expect(el.renderRoot.querySelector('sl-checkbox')).to.have.property('checked', true);
 
       el.querySelector('span')?.click();
       await el.updateComplete;
 
-      expect(el).to.have.attribute('aria-checked', 'false');
+      expect(el).to.have.attribute('aria-selected', 'false');
       expect(el.renderRoot.querySelector('sl-checkbox')).to.have.property('checked', false);
     });
 

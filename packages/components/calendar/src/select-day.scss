@@ -16,8 +16,9 @@
 [part='header'] {
   align-items: center;
   display: flex;
-  padding-block-start: var(--sl-size-075);
-  padding-inline: var(--sl-size-075);
+  justify-content: space-between;
+  padding-block: var(--sl-size-075);
+  padding-inline: var(--sl-size-150) var(--sl-size-075);
 }
 
 .current-month,
@@ -31,7 +32,15 @@
 }
 
 .current-year {
-  margin-inline: var(--sl-size-050) auto;
+  margin-inline-start: var(--sl-size-200);
+}
+
+.previous-month {
+  margin-inline-start: auto;
+}
+
+.next-month {
+  margin-inline-start: var(--sl-size-100) auto;
 }
 
 .days-of-week {
@@ -70,7 +79,6 @@ sl-button {
 
 sl-month-view {
   flex-shrink: 0;
-  inline-size: 100%;
   padding-inline: var(--sl-size-050);
   scroll-snap-align: start;
   scroll-snap-stop: always;

@@ -1,0 +1,175 @@
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
+import { html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import { TreeNode } from './tree-node.js';
+
+try {
+  customElements.define('sl-tree-node', TreeNode);
+} catch {
+  /* empty */
+}
+
+type Props = Pick<
+  TreeNode,
+  | 'disabled'
+  | 'expandable'
+  | 'expanded'
+  | 'hideGuides'
+  | 'indeterminate'
+  | 'lastNodeInLevel'
+  | 'level'
+  | 'selected'
+  | 'selects'
+  | 'type'
+> & { text: string };
+type Story = StoryObj<Props>;
+
+export default {
+  title: 'Navigation/Tree/Node',
+  args: {
+    disabled: false,
+    expandable: false,
+    expanded: false,
+    hideGuides: false,
+    indeterminate: false,
+    lastNodeInLevel: false,
+    level: 0,
+    selected: false,
+    selects: undefined,
+    text: 'Tree node',
+    type: 'node'
+  },
+  argTypes: {
+    selects: {
+      control: 'inline-radio',
+      options: [undefined, 'single', 'multiple']
+    },
+    type: {
+      control: 'inline-radio',
+      options: ['node', 'placeholder', 'skeleton']
+    }
+  },
+  render: ({
+    disabled,
+    expandable,
+    expanded,
+    hideGuides,
+    indeterminate,
+    lastNodeInLevel,
+    level,
+    selected,
+    selects,
+    text,
+    type
+  }) => {
+    console.log({ text });
+
+    return html`
+      <sl-tree-node
+        ?disabled=${disabled}
+        ?expandable=${expandable}
+        ?expanded=${expanded}
+        ?hide-guides=${hideGuides}
+        ?indeterminate=${indeterminate}
+        ?last-node-in-level=${lastNodeInLevel}
+        level=${level}
+        ?selected=${selected}
+        selects=${ifDefined(selects)}
+        type=${ifDefined(type)}
+      >
+        ${text}
+      </sl-tree-node>
+    `;
+  }
+} satisfies Meta<Props>;
+
+export const Basic: Story = {};
+
+export const Disabled: Story = {
+  args: {
+    disabled: true
+  }
+};
+
+export const Expandable: Story = {
+  args: {
+    expandable: true
+  }
+};
+
+export const SelectedSingle: Story = {
+  args: {
+    selected: true,
+    selects: 'single'
+  }
+};
+
+export const SelectedMultiple: Story = {
+  args: {
+    selected: true,
+    selects: 'multiple'
+  }
+};
+
+export const All: Story = {
+  render: () => {
+    return html`
+      <style>
+        .container {
+          display: flex;
+          flex-direction: column;
+          gap: var(--sl-size-100);
+        }
+      </style>
+      <div class="container">
+        <sl-tree-node disabled>Disabled</sl-tree-node>
+
+        <sl-tree-node>Level 0</sl-tree-node>
+        <sl-tree-node level="1">Level 1</sl-tree-node>
+        <sl-tree-node level="1" last-node-in-level>Level 1 (last node in level)</sl-tree-node>
+        <sl-tree-node level="2">Level 2</sl-tree-node>
+        <sl-tree-node level="2" last-node-in-level>Level 2 (last node in level)</sl-tree-node>
+        <sl-tree-node level="3">Level 3</sl-tree-node>
+        <sl-tree-node level="3" last-node-in-level>Level 3 (last node in level)</sl-tree-node>
+        <sl-tree-node level="4">Level 4</sl-tree-node>
+        <sl-tree-node level="4" last-node-in-level>Level 4 (last node in level)</sl-tree-node>
+
+        <sl-tree-node expandable>Level 0 (expandable)</sl-tree-node>
+        <sl-tree-node level="1" expandable>Level 1 (expandable)</sl-tree-node>
+        <sl-tree-node level="2" expandable>Level 2 (expandable)</sl-tree-node>
+        <sl-tree-node level="3" expandable>Level 3 (expandable)</sl-tree-node>
+        <sl-tree-node level="4" expandable>Level 4 (expandable)</sl-tree-node>
+
+        <sl-tree-node expandable expanded>Level 0 (expanded)</sl-tree-node>
+        <sl-tree-node level="1" expandable expanded>Level 1 (expanded)</sl-tree-node>
+        <sl-tree-node level="2" expandable expanded>Level 2 (expanded)</sl-tree-node>
+        <sl-tree-node level="3" expandable expanded>Level 3 (expanded)</sl-tree-node>
+        <sl-tree-node level="4" expandable expanded>Level 4 (expanded)</sl-tree-node>
+
+        <sl-tree-node selects="single" selected>Level 0 (selected, single)</sl-tree-node>
+        <sl-tree-node level="1" selects="single" selected>Level 1 (selected, single)</sl-tree-node>
+        <sl-tree-node level="2" selects="single" selected>Level 2 (selected, single)</sl-tree-node>
+        <sl-tree-node level="3" selects="single" selected>Level 3 (selected, single)</sl-tree-node>
+        <sl-tree-node level="4" selects="single" selected>Level 4 (selected, single)</sl-tree-node>
+
+        <sl-tree-node selects="multiple">Level 0 (multiple)</sl-tree-node>
+        <sl-tree-node level="1" selects="multiple">Level 1 (multiple)</sl-tree-node>
+        <sl-tree-node level="2" selects="multiple">Level 2 (multiple)</sl-tree-node>
+        <sl-tree-node level="3" selects="multiple">Level 3 (multiple)</sl-tree-node>
+        <sl-tree-node level="4" selects="multiple">Level 4 (multiple)</sl-tree-node>
+
+        <sl-tree-node selected selects="multiple">Level 0 (multiple, selected)</sl-tree-node>
+        <sl-tree-node level="1" selected selects="multiple">Level 1 (multiple, selected)</sl-tree-node>
+        <sl-tree-node level="2" selected selects="multiple">Level 2 (multiple, selected)</sl-tree-node>
+        <sl-tree-node level="3" selected selects="multiple">Level 3 (multiple, selected)</sl-tree-node>
+        <sl-tree-node level="4" selected selects="multiple">Level 4 (multiple, selected)</sl-tree-node>
+
+        <sl-tree-node indeterminate selects="multiple">Level 0 (multiple, indeterminate)</sl-tree-node>
+        <sl-tree-node level="1" indeterminate selects="multiple">Level 1 (multiple, indeterminate)</sl-tree-node>
+        <sl-tree-node level="2" indeterminate selects="multiple">Level 2 (multiple, indeterminate)</sl-tree-node>
+        <sl-tree-node level="3" indeterminate selects="multiple">Level 3 (multiple, indeterminate)</sl-tree-node>
+        <sl-tree-node level="4" indeterminate selects="multiple">Level 4 (multiple, indeterminate)</sl-tree-node>
+      </div>
+    `;
+  }
+};

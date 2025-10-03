@@ -1,33 +1,49 @@
 :host {
   align-items: stretch;
-  color: var(--sl-color-border-plain);
   display: flex;
-  padding-inline-end: calc(var(--sl-size-300) + var(--sl-size-025));
 }
 
-:host([expandable]) {
-  padding-inline-end: 0;
-}
-
-:host([last-node-in-level]) [part='guide']:last-child {
+:host([last-node-in-level]) .guide.last {
   align-self: start;
   block-size: 25%;
   position: relative;
 
   &::before {
     block-size: 100%;
-    border-block-end: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+    border-block-end: var(--sl-size-borderWidth-default) solid var(--sl-color-border-bold);
     border-end-start-radius: var(--sl-size-050);
-    border-inline-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+    border-inline-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-bold);
     content: '';
-    inline-size: var(--sl-size-100);
+    inline-size: var(--sl-size-075);
     inset: 100% auto auto 0;
     position: absolute;
   }
 }
 
-[part='guide'] {
-  background: var(--sl-color-border-plain);
+:host([selected]) {
+  position: relative;
+}
+
+.guide {
+  background: var(--sl-color-border-bold);
   inline-size: var(--sl-size-borderWidth-default);
-  margin-inline: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default)) var(--sl-size-050);
+  margin-inline: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default)) var(--sl-size-075);
+}
+
+.selected {
+  background: var(--sl-elevation-surface-base-default);
+  inline-size: calc(var(--sl-size-075) + var(--sl-size-010));
+  inset: 3px 3px 3px auto;
+  position: absolute;
+
+  &::before {
+    background: var(--sl-color-background-selected-bold);
+    block-size: var(--sl-size-300);
+    border-radius: var(--sl-size-150);
+    content: '';
+    inset: 50% 1px auto;
+    margin-block-start: calc(var(--sl-size-150) / -1);
+    position: absolute;
+    z-index: 1;
+  }
 }

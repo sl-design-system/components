@@ -1,5 +1,5 @@
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
-import { html, nothing } from 'lit';
+import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { useArgs } from 'storybook/internal/preview-api';
 import '../register.js';
@@ -52,20 +52,26 @@ export default {
     };
 
     return html`
-      ${styles
-        ? html`
-            <style>
-              ${styles}
-            </style>
-          `
-        : nothing}
-      <sl-select-year
-        @sl-select=${onSelectYear}
-        year=${ifDefined(parseDate(year)?.toISOString())}
-        max=${ifDefined(parseDate(max)?.toISOString())}
-        min=${ifDefined(parseDate(min)?.toISOString())}
-        show-today=${ifDefined(showToday)}
-      ></sl-select-year>
+      <style>
+        ${styles} .container {
+          display: inline-grid;
+          grid-template-columns: 1fr;
+        }
+
+        sl-select-year {
+          grid-area: 1 / 1;
+          inline-size: 100%;
+        }
+      </style>
+      <div class="container">
+        <sl-select-year
+          @sl-select=${onSelectYear}
+          year=${ifDefined(parseDate(year)?.toISOString())}
+          max=${ifDefined(parseDate(max)?.toISOString())}
+          min=${ifDefined(parseDate(min)?.toISOString())}
+          show-today=${ifDefined(showToday)}
+        ></sl-select-year>
+      </div>
     `;
   }
 } satisfies Meta<Props>;

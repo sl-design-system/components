@@ -13,7 +13,7 @@ import { FlatTreeDataSource } from './flat-tree-data-source.js';
 import { NestedTreeDataSource } from './nested-tree-data-source.js';
 import { type Tree } from './tree.js';
 
-type Props = Pick<Tree, 'dataSource' | 'hideGuides' | 'renderer' | 'scopedElements'> & {
+type Props = Pick<Tree, 'dataSource' | 'renderer' | 'scopedElements' | 'showGuides'> & {
   styles?: string;
 };
 type Story = StoryObj<Props>;
@@ -208,7 +208,7 @@ export default {
     }
   },
   args: {
-    hideGuides: false,
+    showGuides: false,
     dataSource: undefined
   },
   argTypes: {
@@ -222,7 +222,7 @@ export default {
       table: { disable: true }
     }
   },
-  render: ({ dataSource, hideGuides, renderer, scopedElements, styles }) => {
+  render: ({ dataSource, renderer, scopedElements, showGuides, styles }) => {
     const onToggle = () => dataSource?.selection.forEach(node => dataSource?.toggle(node)),
       onToggleDescendants = () => dataSource?.selection.forEach(node => dataSource?.toggleDescendants(node)),
       onExpandAll = () => dataSource?.expandAll(),
@@ -247,10 +247,10 @@ export default {
         <sl-button @click=${onCollapseAll}>Collapse all</sl-button>
       </sl-button-bar>
       <sl-tree
-        ?hide-guides=${hideGuides}
         .dataSource=${dataSource}
         .renderer=${renderer}
         .scopedElements=${scopedElements}
+        ?show-guides=${showGuides}
         aria-label="Tree label"
       ></sl-tree>
     `;
@@ -283,6 +283,13 @@ export const NestedDataSource: Story = {
   }
 };
 
+export const Guides: Story = {
+  args: {
+    ...FlatDataSource.args,
+    showGuides: true
+  }
+};
+
 export const SingleSelect: Story = {
   args: {
     dataSource: new FlatTreeDataSource(flatData, {
@@ -294,7 +301,8 @@ export const SingleSelect: Story = {
       isExpanded: ({ name }) => ['tree', 'src'].includes(name),
       isSelected: ({ name }) => name === 'tree-node.ts',
       selects: 'single'
-    })
+    }),
+    showGuides: true
   }
 };
 
@@ -309,7 +317,8 @@ export const MultiSelect: Story = {
       isExpandable: ({ children }) => !!children,
       isSelected: ({ name }) => ['tree-node.scss', 'tree-node.ts'].includes(name),
       selects: 'multiple'
-    })
+    }),
+    showGuides: true
   }
 };
 
@@ -345,6 +354,46 @@ export const LazyLoad: Story = {
   }
 };
 
+export const Overflow: Story = {
+  args: {
+    ...FlatDataSource.args,
+    styles: `
+      sl-tree {
+        block-size: 200px;
+        border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+        border-radius: var(--sl-size-borderRadius-default);
+        overflow: auto;
+        padding: var(--sl-size-100);
+      }
+    `
+  }
+};
+
+export const PageScrolling: Story = {
+  parameters: {
+    // The size of the snapshot exceeds the maximum
+    chromatic: { disableSnapshot: true }
+  },
+  args: {
+    dataSource: new NestedTreeDataSource<NestedDataNode>(
+      [1, 2, 3].map(id => ({
+        id,
+        name: `Root ${id}`,
+        children: Array.from({ length: 1000 }).map((_, i) => ({ id: 1000 * id + i, name: `Child ${i}` }))
+      })),
+      {
+        getChildren: ({ children }) => children,
+        getId: ({ id }) => id,
+        getLabel: ({ name }) => name,
+        isExpandable: ({ children }) => !!children,
+        isExpanded: () => true,
+        isSelected: ({ id }) => id === 2010,
+        selects: 'single'
+      }
+    )
+  }
+};
+
 export const Skeleton: Story = {
   args: {
     dataSource: new NestedTreeDataSource(
@@ -373,31 +422,6 @@ export const Skeleton: Story = {
         getId: ({ id }) => id,
         getLabel: ({ id }) => id,
         isExpandable: ({ expandable }) => !!expandable
-      }
-    )
-  }
-};
-
-export const Scrolling: Story = {
-  parameters: {
-    // The size of the snapshot exceeds the maximum
-    chromatic: { disableSnapshot: true }
-  },
-  args: {
-    dataSource: new NestedTreeDataSource<NestedDataNode>(
-      [1, 2, 3].map(id => ({
-        id,
-        name: `Root ${id}`,
-        children: Array.from({ length: 1000 }).map((_, i) => ({ id: 1000 * id + i, name: `Child ${i}` }))
-      })),
-      {
-        getChildren: ({ children }) => children,
-        getId: ({ id }) => id,
-        getLabel: ({ name }) => name,
-        isExpandable: ({ children }) => !!children,
-        isExpanded: () => true,
-        isSelected: ({ id }) => id === 2010,
-        selects: 'single'
       }
     )
   }

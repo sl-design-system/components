@@ -4,7 +4,10 @@
  * @returns The first scrollable parent of the given element; if no explicit scroll parent, returns the html element.
  */
 export const getScrollParent = (element: Element): Element => {
-  if (element.scrollHeight > element.clientHeight) {
+  const { overflow, overflowY } = getComputedStyle(element),
+    scrollable = /(auto|scroll)/.test(overflow + overflowY);
+
+  if (scrollable || element.scrollHeight > element.clientHeight) {
     return element;
   } else if (element.parentElement) {
     return getScrollParent(element.parentElement);

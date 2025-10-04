@@ -47,6 +47,9 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     };
   }
 
+  /** @internal */
+  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
     click: this.#onClick,
@@ -55,12 +58,6 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** @internal Emits when the checked state of the checkbox changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<boolean>>;
-
-  /**
-   * Determines whether the checkbox is checked or not.
-   * @default false
-   */
-  @property({ type: Boolean }) checked?: boolean;
 
   /**
    * Whether the node is disabled.
@@ -79,12 +76,6 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
    * @default false
    */
   @property({ type: Boolean }) expanded?: boolean;
-
-  /**
-   * Hides the indentation guides when set.
-   * @default false
-   */
-  @property({ type: Boolean, attribute: 'hide-guides', reflect: true }) hideGuides?: boolean;
 
   /**
    * Indeterminate state of the checkbox. Used when not all children are checked.
@@ -107,20 +98,26 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   /** The tree model node. */
   @property({ attribute: false }) node?: TreeDataSourceNode<T>;
 
-  /** @internal Emits when the user clicks a the wrapper part of the tree node. */
-  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<TreeDataSourceNode<T>>>;
-
   /**
-   * Whether the node is currently selected.
+   * Determines whether the node is selected or not.
    * @default false
    */
   @property({ type: Boolean }) selected?: boolean;
+
+  /** @internal Emits when the user clicks on the wrapper part of the tree node. */
+  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<TreeDataSourceNode<T>>>;
 
   /**
    * If you are able to select one or more tree nodes (at the same time).
    * @default undefined
    */
   @property() selects?: 'single' | 'multiple';
+
+  /**
+   * Shows the indentation guides when set.
+   * @default false
+   */
+  @property({ type: Boolean, attribute: 'show-guides' }) showGuides?: boolean;
 
   /** @internal Emits when the expanded state changes. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
@@ -141,20 +138,16 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     /** We cannot use treeitem role, due to a11y issues with tree role and no group role with Virtualizer. */
     this.setAttribute('role', 'row');
 
-    this.tabIndex = 0;
+    if (!this.hasAttribute('tabindex')) {
+      this.tabIndex = 0;
+    }
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('checked') || changes.has('indeterminate') || changes.has('selected') || changes.has('selects')) {
-      if (this.selects === 'multiple') {
-        this.setAttribute('aria-checked', this.checked ? 'true' : this.indeterminate ? 'mixed' : 'false');
-      } else {
-        this.removeAttribute('aria-checked');
-      }
-
-      if (this.selects === 'single') {
+    if (changes.has('indeterminate') || changes.has('selects') || changes.has('selected')) {
+      if (this.selects) {
         this.setAttribute('aria-selected', Boolean(this.selected).toString());
       } else {
         this.removeAttribute('aria-selected');
@@ -172,12 +165,13 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <div id=${`${this.id}-cell`} role="gridcell" aria-colindex="1">
-        <sl-indent-guides
-          ?expandable=${this.expandable}
-          ?last-node-in-level=${this.lastNodeInLevel}
-          .level=${this.level}
-        ></sl-indent-guides>
+      <sl-indent-guides
+        ?last-node-in-level=${this.lastNodeInLevel}
+        .level=${this.level}
+        ?selected=${this.selects === 'single' && this.selected}
+        ?visible=${this.showGuides}
+      ></sl-indent-guides>
+      <div aria-colindex="1" role="gridcell" tabindex=${this.disabled ? -1 : 0}>
         ${this.expandable
           ? html`
               <div class="expander">
@@ -200,7 +194,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
                 ? html`
                     <sl-checkbox
                       @sl-change=${this.#onChange}
-                      ?checked=${this.checked}
+                      ?checked=${this.selected}
                       ?indeterminate=${this.indeterminate}
                       exportparts="label"
                       part="checkbox"
@@ -236,9 +230,9 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     event.preventDefault();
     event.stopPropagation();
 
-    this.checked = event.detail;
+    this.selected = event.detail;
     this.indeterminate = false;
-    this.changeEvent.emit(this.checked);
+    this.changeEvent.emit(this.selected);
   }
 
   /**
@@ -257,13 +251,15 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     if (insideWrapper) {
       event.preventDefault();
 
-      if (this.selects === 'multiple') {
-        this.checked = !this.checked;
+      if (this.selects) {
+        this.selected = !this.selected;
         this.indeterminate = false;
-        this.changeEvent.emit(this.checked);
-      } else {
-        this.selected = this.selects === 'single' ? true : this.selected;
-        this.selectEvent.emit(this.node!);
+
+        if (this.selects === 'single') {
+          this.selectEvent.emit(this.node!);
+        } else {
+          this.changeEvent.emit(this.selected);
+        }
       }
     } else if (this.expandable) {
       this.toggle();
@@ -275,13 +271,15 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
 
-      if (this.selects === 'multiple') {
-        this.checked = !this.checked;
+      if (this.selects) {
+        this.selected = !this.selected;
         this.indeterminate = false;
-        this.changeEvent.emit(this.checked);
-      } else {
-        this.selected = this.selects === 'single' ? true : this.selected;
-        this.selectEvent.emit(this.node!);
+
+        if (this.selects === 'single') {
+          this.selectEvent.emit(this.node!);
+        } else {
+          this.changeEvent.emit(this.selected);
+        }
       }
     } else if (event.key === 'ArrowLeft') {
       if (this.expanded) {

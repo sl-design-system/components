@@ -117,7 +117,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
    * Shows the indentation guides when set.
    * @default false
    */
-  @property({ type: Boolean, attribute: 'show-guides', reflect: true }) showGuides?: boolean;
+  @property({ type: Boolean, attribute: 'show-guides' }) showGuides?: boolean;
 
   /** @internal Emits when the expanded state changes. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;

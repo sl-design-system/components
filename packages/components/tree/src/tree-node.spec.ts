@@ -8,7 +8,11 @@ import { TreeNode } from './tree-node.js';
 
 // We need to define sl-tree-node ourselves, since it's not
 // part of the public API of the tree.
-customElements.define('sl-tree-node', TreeNode);
+try {
+  customElements.define('sl-tree-node', TreeNode);
+} catch {
+  /* empty */
+}
 
 describe('sl-tree-node', () => {
   let el: TreeNode;
@@ -26,11 +30,6 @@ describe('sl-tree-node', () => {
       expect(el).to.have.attribute('role', 'row');
     });
 
-    it('should not be selected', () => {
-      expect(el).not.to.have.attribute('aria-selected');
-      expect(el.selected).to.not.be.true;
-    });
-
     it('should not be disabled', () => {
       expect(el).not.to.have.attribute('disabled');
       expect(el.disabled).to.not.be.true;
@@ -41,10 +40,12 @@ describe('sl-tree-node', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('disabled');
+      expect(el.renderRoot.querySelector('[role="gridcell"]')).to.have.attribute('tabindex', '-1');
     });
 
     it('should not be expandable', () => {
       expect(el.expandable).to.not.be.true;
+      expect(el.renderRoot.querySelector('.expander')).to.not.exist;
     });
 
     it('should not be expanded', () => {
@@ -52,16 +53,9 @@ describe('sl-tree-node', () => {
       expect(el.expanded).to.not.be.true;
     });
 
-    it('should not hide the indentation guides', () => {
-      expect(el).not.to.have.attribute('hide-guides');
+    it('should not show the indentation guides', () => {
       expect(el.showGuides).to.not.be.true;
-    });
-
-    it('should hide the indentation guides when set', async () => {
-      el.showGuides = true;
-      await el.updateComplete;
-
-      expect(el).to.have.attribute('hide-guides');
+      expect(el.renderRoot.querySelector('sl-indent-guides')).to.not.have.attribute('visible');
     });
 
     it('should not be indeterminate', () => {
@@ -76,25 +70,36 @@ describe('sl-tree-node', () => {
       expect(el.level).to.equal(0);
     });
 
+    it('should not support selection', () => {
+      expect(el.selects).to.be.undefined;
+    });
+
     it('should not be selected', () => {
       expect(el).not.to.have.attribute('aria-selected');
       expect(el.selected).to.not.be.true;
-    });
-
-    it('should not support selection', () => {
-      expect(el.selects).to.be.undefined;
     });
 
     it('should have a tabindex of 0', () => {
       expect(el.tabIndex).to.equal(0);
     });
 
-    it('should not have a type', () => {
-      expect(el.type).to.be.undefined;
+    it('should have indent guides', () => {
+      const indentGuides = el.renderRoot.querySelector('sl-indent-guides');
+
+      expect(indentGuides).to.exist;
+      expect(indentGuides).to.have.property('level', 0);
     });
 
-    it('should have a content with gridcell role', () => {
-      expect(el.renderRoot.querySelector('div')).to.have.attribute('role', 'gridcell');
+    it('should have a gridcell', () => {
+      const gridcell = el.renderRoot.querySelector('[role="gridcell"]');
+
+      expect(gridcell).to.exist;
+      expect(gridcell).to.have.attribute('aria-colindex', '1');
+      expect(gridcell).to.have.attribute('tabindex', '0');
+    });
+
+    it('should not have a type', () => {
+      expect(el.type).to.be.undefined;
     });
 
     it('should render a spinner when type "placeholder"', async () => {
@@ -128,6 +133,13 @@ describe('sl-tree-node', () => {
     it('should not be expanded', () => {
       expect(el).to.have.attribute('aria-expanded', 'false');
       expect(el.expanded).not.to.be.true;
+    });
+
+    it('should be expanded when set', async () => {
+      el.expanded = true;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('aria-expanded', 'true');
     });
 
     it('should render an expander', () => {

@@ -85,32 +85,6 @@ export default {
 
 export const Basic: Story = {};
 
-export const Disabled: Story = {
-  args: {
-    disabled: true
-  }
-};
-
-export const Expandable: Story = {
-  args: {
-    expandable: true
-  }
-};
-
-export const SelectedSingle: Story = {
-  args: {
-    selected: true,
-    selects: 'single'
-  }
-};
-
-export const SelectedMultiple: Story = {
-  args: {
-    selected: true,
-    selects: 'multiple'
-  }
-};
-
 export const All: Story = {
   render: () => {
     return html`
@@ -126,13 +100,25 @@ export const All: Story = {
 
         <sl-tree-node>Level 0</sl-tree-node>
         <sl-tree-node level="1">Level 1</sl-tree-node>
-        <sl-tree-node level="1" last-node-in-level>Level 1 (last node in level)</sl-tree-node>
         <sl-tree-node level="2">Level 2</sl-tree-node>
-        <sl-tree-node level="2" last-node-in-level>Level 2 (last node in level)</sl-tree-node>
         <sl-tree-node level="3">Level 3</sl-tree-node>
-        <sl-tree-node level="3" last-node-in-level>Level 3 (last node in level)</sl-tree-node>
         <sl-tree-node level="4">Level 4</sl-tree-node>
-        <sl-tree-node level="4" last-node-in-level>Level 4 (last node in level)</sl-tree-node>
+
+        <sl-tree-node expandable expanded show-guides>Level 0 (guides)</sl-tree-node>
+        <sl-tree-node level="1" show-guides>Level 1 (guides)</sl-tree-node>
+        <sl-tree-node expandable expanded level="1" last-node-in-level show-guides>
+          Level 1 (last node in level, guides)
+        </sl-tree-node>
+        <sl-tree-node level="2" show-guides>Level 2 (guides)</sl-tree-node>
+        <sl-tree-node expandable expanded level="2" last-node-in-level show-guides>
+          Level 2 (last node in level, guides)
+        </sl-tree-node>
+        <sl-tree-node level="3" show-guides>Level 3 (guides)</sl-tree-node>
+        <sl-tree-node expandable expanded level="3" last-node-in-level show-guides>
+          Level 3 (last node in level, guides)
+        </sl-tree-node>
+        <sl-tree-node level="4" show-guides>Level 4 (guides)</sl-tree-node>
+        <sl-tree-node level="4" last-node-in-level show-guides>Level 4 (last node in level, guides)</sl-tree-node>
 
         <sl-tree-node expandable>Level 0 (expandable)</sl-tree-node>
         <sl-tree-node level="1" expandable>Level 1 (expandable)</sl-tree-node>
@@ -146,11 +132,17 @@ export const All: Story = {
         <sl-tree-node level="3" expandable expanded>Level 3 (expanded)</sl-tree-node>
         <sl-tree-node level="4" expandable expanded>Level 4 (expanded)</sl-tree-node>
 
-        <sl-tree-node selects="single" selected>Level 0 (selected, single)</sl-tree-node>
-        <sl-tree-node level="1" selects="single" selected>Level 1 (selected, single)</sl-tree-node>
-        <sl-tree-node level="2" selects="single" selected>Level 2 (selected, single)</sl-tree-node>
-        <sl-tree-node level="3" selects="single" selected>Level 3 (selected, single)</sl-tree-node>
-        <sl-tree-node level="4" selects="single" selected>Level 4 (selected, single)</sl-tree-node>
+        <sl-tree-node selects="single">Level 0 (single)</sl-tree-node>
+        <sl-tree-node level="1" selects="single">Level 1 (single)</sl-tree-node>
+        <sl-tree-node level="2" selects="single">Level 2 (single)</sl-tree-node>
+        <sl-tree-node level="3" selects="single">Level 3 (single)</sl-tree-node>
+        <sl-tree-node level="4" selects="single">Level 4 (single)</sl-tree-node>
+
+        <sl-tree-node selects="single" selected>Level 0 (single, selected)</sl-tree-node>
+        <sl-tree-node level="1" selects="single" selected>Level 1 (single, selected)</sl-tree-node>
+        <sl-tree-node level="2" selects="single" selected>Level 2 (single, selected)</sl-tree-node>
+        <sl-tree-node level="3" selects="single" selected>Level 3 (single, selected)</sl-tree-node>
+        <sl-tree-node level="4" selects="single" selected>Level 4 (single, selected)</sl-tree-node>
 
         <sl-tree-node selects="multiple">Level 0 (multiple)</sl-tree-node>
         <sl-tree-node level="1" selects="multiple">Level 1 (multiple)</sl-tree-node>

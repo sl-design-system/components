@@ -183,6 +183,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
 
   #onClick(year: number): void {
     this.selectEvent.emit(new Date(year, 0));
+    this.selected = new Date(year, 0);
   }
 
   #getYearButtons(): HTMLButtonElement[] {

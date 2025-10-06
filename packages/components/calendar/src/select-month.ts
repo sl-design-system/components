@@ -207,7 +207,9 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   };
 
   #onClick(month: number): void {
+    console.log('SelectMonth click event --- month', month, this.selected, new Date(this.month.getFullYear(), month));
     this.selectEvent.emit(new Date(this.month.getFullYear(), month));
+    this.selected = new Date(this.month.getFullYear(), month);
   }
 
   #onToggleYearSelect(): void {
@@ -357,6 +359,3 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     this.month = new Date(this.month.getFullYear() - 1, this.month.getMonth(), this.month.getDate());
   }
 }
-
-// TODO: e.g. when I'm in the selecting month view and press Escape, it goes go back to day view,
-// and when I click the month button it goes back to day view too. But when I click outsie of the selecting month view it's not going back to day view, but it should...

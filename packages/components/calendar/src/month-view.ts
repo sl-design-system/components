@@ -202,7 +202,7 @@ export class MonthView extends LocaleMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    console.log('disabled dates in month view', this.disabled);
+    // console.log('disabled dates in month view', this.disabled);
 
     return html`
       <table>
@@ -332,8 +332,10 @@ export class MonthView extends LocaleMixin(LitElement) {
   }
 
   #onClick(event: Event, day: Day): void {
+    console.log('click event in month view...', event, day);
     if (event.target instanceof HTMLButtonElement && !event.target.disabled) {
       this.selectEvent.emit(day.date);
+      this.selected = day.date;
     }
   }
 

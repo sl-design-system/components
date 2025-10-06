@@ -187,9 +187,11 @@ export const WithIndicator: Story = {
 
 export const DisabledDays: Story = {
   args: {
-    disabled: [new Date(), new Date('2025-08-05'), new Date('2025-10-05'), new Date('2025-10-10')],
-    showToday: true,
-    month: new Date('2025-09-01') //new Date(1755640800000)
+    disabled: [new Date('2025-10-06'), new Date('2025-10-07'), new Date('2025-10-10')],
+    // showToday: true,
+    max: new Date(2025, 10, 20),
+    min: new Date(2025, 9, 4),
+    month: new Date(2025, 9, 20) //new Date(1755640800000)
   }
 };
 
@@ -262,7 +264,10 @@ export const All: Story = {
       indicator: [
         { date: getOffsetDate(0), color: 'red' as IndicatorColor },
         { date: getOffsetDate(1), color: 'blue' as IndicatorColor },
-        { date: getOffsetDate(6), color: 'green' as IndicatorColor }
+        { date: getOffsetDate(2), color: 'yellow' as IndicatorColor },
+        { date: getOffsetDate(3), color: 'grey' as IndicatorColor },
+        { date: getOffsetDate(5), color: 'green' as IndicatorColor },
+        { date: getOffsetDate(8), color: 'green' as IndicatorColor }
       ], // make sure one is outside the min/max range
       selected: getOffsetDate(1),
       showToday: true,

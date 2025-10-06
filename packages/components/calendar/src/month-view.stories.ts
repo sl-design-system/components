@@ -9,6 +9,7 @@ import { type Day } from './utils.js';
 
 type Props = Pick<
   MonthView,
+  | 'disabled'
   | 'firstDayOfWeek'
   | 'hideDaysOtherMonths'
   | 'indicator'
@@ -37,6 +38,9 @@ export default {
     showWeekNumbers: false
   },
   argTypes: {
+    disabled: {
+      control: 'date'
+    },
     firstDayOfWeek: {
       control: 'number'
     },
@@ -67,6 +71,7 @@ export default {
     }
   },
   render: ({
+    disabled,
     firstDayOfWeek,
     hideDaysOtherMonths,
     indicator,
@@ -93,6 +98,7 @@ export default {
       ?readonly=${readonly}
       ?show-today=${showToday}
       ?show-week-numbers=${showWeekNumbers}
+      .disabled=${ifDefined(disabled?.map(date => date.toISOString()).join(','))}
       first-day-of-week=${ifDefined(firstDayOfWeek)}
       indicator=${ifDefined(
         Array.isArray(indicator)
@@ -119,6 +125,8 @@ export default {
 export const Basic: Story = {};
 
 // TODO: selecting when clicking on it should work in the mont-view as well?
+
+// TODO: disabled days story is missing
 
 export const FirstDayOfWeek: Story = {
   args: {
@@ -198,7 +206,6 @@ export const Today: Story = {
 
 export const Indicator: Story = {
   args: {
-    //  indicator: [new Date(), new Date('2025-08-05')],
     indicator: [
       { date: new Date('2025-08-05') },
       { date: new Date('2025-08-06'), color: 'blue' },
@@ -211,6 +218,15 @@ export const Indicator: Story = {
     ],
     showToday: true,
     month: new Date(1755640800000)
+  }
+};
+
+export const DisabledDays: Story = {
+  args: {
+    disabled: [new Date('2025-10-06'), new Date('2025-10-07'), new Date('2025-10-17')],
+    max: new Date(2025, 9, 25),
+    min: new Date(2025, 9, 4),
+    month: new Date(2025, 9, 1)
   }
 };
 

@@ -29,11 +29,11 @@ button {
     transition-property: background, border-radius, color;
   }
 
-  &:hover:not([part~='unselectable']) {
+  &:hover:not([part~='unselectable'], [disabled]) {
     --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
   }
 
-  &:active:not([part~='unselectable']) {
+  &:active:not([part~='unselectable'], [disabled]) {
     --_bg-opacity: var(--sl-opacity-interactive-plain-active);
   }
 
@@ -47,6 +47,7 @@ button {
   --_bg-mix-color: var(
     --sl-color-background-neutral-interactive-bold
   ); // var(--sl-color-background-info-interactive-plain);
+
   --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
 
   align-items: center;
@@ -99,6 +100,10 @@ button {
 
 :host([show-today]) [part~='negative'][part~='today'] {
   border-color: var(--sl-color-border-negative-plain);
+}
+
+[disabled] {
+  cursor: default;
 }
 
 [part~='unselectable'] {

@@ -90,9 +90,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   @property({ converter: dateConverter }) negative?: Date[];
 
   /** The list of dates that should have an indicator. */
-  // @property({ converter: dateConverter }) indicator?: Date[];
-  // @property({ converter: dateConverter }) indicator?: Indicator[];
-
   @property({
     attribute: 'indicator',
     converter: {
@@ -114,7 +111,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           : undefined
     }
   })
-  indicator?: Indicator[];
+  indicator?: Indicator[]; // TODO: maybe sth like dateConverter is needed here?
 
   /** @internal Emits when the user selects a day. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<Date>>;
@@ -139,7 +136,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       entries.forEach(entry => {
         if (entry.isIntersecting && entry.intersectionRatio === 1) {
           this.month = normalizeDateTime((entry.target as MonthView).month!);
-          console.log(this.month);
           this.#scrollToMonth(0);
         }
       });
@@ -175,7 +171,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     }
 
     if (changes.has('month') && this.month) {
-      console.log('willUpdate', { month: this.month });
       this.displayMonth = this.month;
       this.nextMonth = new Date(this.month.getFullYear(), this.month.getMonth() + 1);
       this.previousMonth = new Date(this.month.getFullYear(), this.month.getMonth() - 1);
@@ -183,8 +178,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   override render(): TemplateResult {
-    console.log('in render readonly', this.readonly, this.month, this.selected);
-
     const canSelectNextYear = this.displayMonth
         ? !this.max || (this.max && this.displayMonth.getFullYear() + 1 <= this.max.getFullYear())
         : false,
@@ -218,7 +211,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
               </sl-button>
             `
           : html`
-              <span class="current-year"
+              <span class="current-month"
                 ><sl-format-date
                   .date=${this.displayMonth}
                   locale=${ifDefined(this.locale)}
@@ -347,7 +340,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     event.preventDefault();
     event.stopPropagation();
 
-    console.log('onChange, setting month to', event.detail);
     this.month = new Date(event.detail.getFullYear(), event.detail.getMonth());
 
     // Wait for the month views to rerender before focusing the day

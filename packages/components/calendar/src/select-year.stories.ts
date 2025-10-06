@@ -79,7 +79,7 @@ export default {
 export const Basic: Story = {
   args: {
     max: new Date(2025, 10, 1),
-    min: new Date(2025, 2, 1),
+    min: new Date(2022, 2, 1),
     year: new Date(2025, 7, 1)
   }
 };

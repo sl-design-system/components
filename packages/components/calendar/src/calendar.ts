@@ -152,7 +152,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
     console.log('indicator in the calendar render', this.indicator);
 
-    console.log('disabled dates', this.disabled);
+    console.log('disabled dates', this.disabled, 'min and max', this.min, this.max, 'month', this.month);
 
     return html`
       ${this.month ? html`month:${this.month.getMonth() + 1}` : 'undefined month'}
@@ -296,3 +296,5 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 }
 // TODO: there is an issue when I go to months view and then go to the years view and then select a year and go back to selecting month from months view - I cannot use arrow keays properly there... why?
+
+// TODO: what aria for current day (today) and what for selected day?

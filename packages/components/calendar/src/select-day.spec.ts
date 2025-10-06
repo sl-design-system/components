@@ -192,4 +192,60 @@ describe('sl-select-day', () => {
       expect(el.month?.getFullYear()).to.equal(2026);
     });
   });
+
+  describe('header rendering & readonly behavior', () => {
+    it('should render static month and year (no toggle buttons) when navigation is fully disabled by min/max', async () => {
+      el = await fixture(html`
+        <sl-select-day
+          .month=${new Date(2025, 5, 15)}
+          .min=${new Date(2025, 5, 1)}
+          .max=${new Date(2025, 5, 30)}
+        ></sl-select-day>
+      `);
+      await el.updateComplete;
+
+      const monthButton = el.renderRoot.querySelector('sl-button.current-month');
+      const monthSpan = el.renderRoot.querySelector('span.current-month');
+      const yearButton = el.renderRoot.querySelector('sl-button.current-year');
+      const yearSpan = el.renderRoot.querySelector('span.current-year');
+
+      expect(monthButton, 'month should not be a button').to.not.exist;
+      expect(monthSpan, 'month should render as span').to.exist;
+      expect(yearButton, 'year should not be a button').to.not.exist;
+      expect(yearSpan, 'year should render as span').to.exist;
+    });
+
+    it('should disable all interactive header controls when readonly', async () => {
+      el = await fixture(html`<sl-select-day .month=${new Date(2025, 3, 10)}></sl-select-day>`);
+      await el.updateComplete;
+
+      el.readonly = true;
+      await el.updateComplete;
+
+      const currentMonthBtn = el.renderRoot.querySelector('sl-button.current-month'),
+        currentYearBtn = el.renderRoot.querySelector('sl-button.current-year'),
+        prevBtn = el.renderRoot.querySelector('sl-button.previous-month'),
+        nextBtn = el.renderRoot.querySelector('sl-button.next-month');
+
+      expect(currentMonthBtn).to.exist;
+      expect(currentMonthBtn).to.match(':disabled');
+      expect(currentYearBtn).to.exist;
+      expect(currentYearBtn).to.match(':disabled');
+      expect(prevBtn).to.exist;
+      expect(prevBtn).to.match(':disabled');
+      expect(nextBtn).to.exist;
+      expect(nextBtn).to.match(':disabled');
+    });
+
+    it('should still show toggle buttons (not spans) when navigation is possible', async () => {
+      el = await fixture(html`<sl-select-day .month=${new Date(2025, 3, 10)}></sl-select-day>`);
+      await el.updateComplete;
+
+      const monthButton = el.renderRoot.querySelector('sl-button.current-month');
+      const yearButton = el.renderRoot.querySelector('sl-button.current-year');
+
+      expect(monthButton).to.exist;
+      expect(yearButton).to.exist;
+    });
+  });
 });

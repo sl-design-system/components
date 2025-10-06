@@ -11,9 +11,11 @@ import { html, nothing } from 'lit';
 import '../register.js';
 import { FlatTreeDataSource } from './flat-tree-data-source.js';
 import { NestedTreeDataSource } from './nested-tree-data-source.js';
+import { type TreeDataSourceNode } from './tree-data-source.js';
 import { type Tree } from './tree.js';
 
 type Props = Pick<Tree, 'dataSource' | 'renderer' | 'scopedElements' | 'showGuides'> & {
+  maxWidth?: string;
   styles?: string;
 };
 type Story = StoryObj<Props>;
@@ -23,6 +25,7 @@ export interface FlatDataNode {
   expandable: boolean;
   level: number;
   name: string;
+  badge?: string;
 }
 
 export interface NestedDataNode {
@@ -44,109 +47,77 @@ export const flatData: FlatDataNode[] = [
     id: 0,
     expandable: true,
     level: 0,
-    name: 'textarea'
+    name: 'Upper school',
+    badge: '316'
   },
   {
     id: 1,
-    expandable: false,
+    expandable: true,
     level: 1,
-    name: 'package.json'
+    name: 'MAVO',
+    badge: '179'
   },
   {
     id: 2,
-    expandable: true,
-    level: 0,
-    name: 'tooltip'
+    expandable: false,
+    level: 2,
+    name: 'M3A'
   },
   {
     id: 3,
-    expandable: false,
+    expandable: true,
     level: 1,
-    name: 'package.json'
+    name: 'HAVO',
+    badge: '108'
   },
   {
     id: 4,
-    expandable: true,
-    level: 0,
-    name: 'tree'
+    expandable: false,
+    level: 2,
+    name: 'H3A',
+    badge: '26'
   },
   {
     id: 5,
-    expandable: true,
-    level: 1,
-    name: 'src'
+    expandable: false,
+    level: 2,
+    name: 'H3B',
+    badge: '24'
   },
   {
     id: 6,
     expandable: false,
     level: 2,
-    name: 'flat-tree-model.ts'
+    name: 'H4A',
+    badge: '28'
   },
   {
     id: 7,
     expandable: false,
     level: 2,
-    name: 'nested-tree-model.ts'
+    name: 'H4B',
+    badge: '30'
   },
   {
     id: 8,
-    expandable: false,
-    level: 2,
-    name: 'tree-model.ts'
+    expandable: true,
+    level: 1,
+    name: 'VWO',
+    badge: '29'
   },
   {
     id: 9,
     expandable: false,
     level: 2,
-    name: 'tree-node.scss'
+    name: 'V4A',
+    badge: '29'
   },
   {
     id: 10,
-    expandable: false,
-    level: 2,
-    name: 'tree-node.ts'
-  },
-  {
-    id: 11,
-    expandable: false,
-    level: 2,
-    name: 'tree.ts'
-  },
-  {
-    id: 12,
-    expandable: false,
-    level: 2,
-    name: 'utils.ts'
-  },
-  {
-    id: 13,
-    expandable: false,
-    level: 1,
-    name: 'index.ts'
-  },
-  {
-    id: 14,
-    expandable: false,
-    level: 1,
-    name: 'package.json'
-  },
-  {
-    id: 15,
-    expandable: false,
-    level: 1,
-    name: 'register.ts'
-  },
-  {
-    id: 16,
-    expandable: false,
+    expandable: true,
     level: 0,
-    name: 'eslint.config.mjs'
-  },
-  {
-    id: 17,
-    expandable: false,
-    level: 0,
-    name: 'stylelint.config.mjs'
+    name: 'Lower school',
+    badge: '813'
   }
 ];
 
@@ -212,17 +183,11 @@ export default {
     dataSource: undefined
   },
   argTypes: {
-    dataSource: {
-      table: { disable: true }
-    },
-    renderer: {
-      table: { disable: true }
-    },
-    styles: {
-      table: { disable: true }
-    }
+    dataSource: { table: { disable: true } },
+    renderer: { table: { disable: true } },
+    styles: { table: { disable: true } }
   },
-  render: ({ dataSource, renderer, scopedElements, showGuides, styles }) => {
+  render: ({ dataSource, maxWidth, renderer, scopedElements, showGuides, styles }) => {
     const onToggle = () => dataSource?.selection.forEach(node => dataSource?.toggle(node)),
       onToggleDescendants = () => dataSource?.selection.forEach(node => dataSource?.toggleDescendants(node)),
       onExpandAll = () => dataSource?.expandAll(),
@@ -252,74 +217,56 @@ export default {
         .scopedElements=${scopedElements}
         ?show-guides=${showGuides}
         aria-label="Tree label"
-        style="max-inline-size: 400px"
+        style="max-inline-size: ${maxWidth ?? '400px'}"
       ></sl-tree>
     `;
   }
 } satisfies Meta<Props>;
 
-export const FlatDataSource: Story = {
+export const Basic: Story = {
   args: {
     dataSource: new FlatTreeDataSource(flatData, {
-      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
       getId: item => item.id,
       getLabel: ({ name }) => name,
       getLevel: ({ level }) => level,
       isExpandable: ({ expandable }) => expandable,
-      isExpanded: ({ name }) => ['tree', 'src'].includes(name)
+      isExpanded: ({ name }) => ['Upper school', 'HAVO'].includes(name),
+      isSelected: ({ name }) => name === 'H3B'
     })
   }
 };
 
-export const NestedDataSource: Story = {
+export const Badges: Story = {
   args: {
-    dataSource: new NestedTreeDataSource(nestedData, {
-      getChildren: ({ children }) => children,
-      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
-      getId: item => item.id,
-      getLabel: ({ name }) => name,
-      isExpandable: ({ children }) => !!children,
-      isExpanded: ({ name }) => ['tree', 'src'].includes(name)
-    })
+    ...Basic.args,
+    maxWidth: '250px',
+    renderer: (node: TreeDataSourceNode<FlatDataNode>) => {
+      return html`
+        <span>${node.label}</span>
+        <sl-badge color="blue" emphasis="subtle" slot="aside">${node.dataNode.badge ?? '0'}</sl-badge>
+      `;
+    },
+    scopedElements: { 'sl-badge': Badge }
   }
 };
 
 export const Guides: Story = {
   args: {
-    ...FlatDataSource.args,
+    ...Basic.args,
     showGuides: true
   }
 };
 
-export const SingleSelect: Story = {
-  args: {
-    dataSource: new FlatTreeDataSource(flatData, {
-      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
-      getId: item => item.id,
-      getLabel: ({ name }) => name,
-      getLevel: ({ level }) => level,
-      isExpandable: ({ expandable }) => expandable,
-      isExpanded: ({ name }) => ['tree', 'src'].includes(name),
-      isSelected: ({ name }) => name === 'tree-node.ts',
-      selects: 'single'
-    }),
-    showGuides: true
-  }
-};
-
-export const MultiSelect: Story = {
+export const Icons: Story = {
   args: {
     dataSource: new NestedTreeDataSource(nestedData, {
       getChildren: ({ children }) => children,
       getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
       getId: item => item.id,
       getLabel: ({ name }) => name,
-      isExpanded: ({ name }) => ['tree', 'src'].includes(name),
       isExpandable: ({ children }) => !!children,
-      isSelected: ({ name }) => ['tree-node.scss', 'tree-node.ts'].includes(name),
-      selects: 'multiple'
-    }),
-    showGuides: true
+      isExpanded: ({ name }) => ['tree', 'src'].includes(name)
+    })
   }
 };
 
@@ -355,9 +302,25 @@ export const LazyLoad: Story = {
   }
 };
 
+export const Multiple: Story = {
+  args: {
+    dataSource: new NestedTreeDataSource(nestedData, {
+      getChildren: ({ children }) => children,
+      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
+      getId: item => item.id,
+      getLabel: ({ name }) => name,
+      isExpanded: ({ name }) => ['tree', 'src'].includes(name),
+      isExpandable: ({ children }) => !!children,
+      isSelected: ({ name }) => ['tree-node.scss', 'tree-node.ts'].includes(name),
+      selects: 'multiple'
+    }),
+    showGuides: true
+  }
+};
+
 export const Overflow: Story = {
   args: {
-    ...FlatDataSource.args,
+    ...Basic.args,
     styles: `
       sl-tree {
         block-size: 200px;
@@ -463,28 +426,6 @@ export const CustomRendererWithActionButtons: Story = {
       `;
     },
     scopedElements: {
-      'sl-button': Button,
-      'sl-button-bar': ButtonBar,
-      'sl-icon': Icon
-    }
-  }
-};
-
-export const CustomRendererWithBadges: Story = {
-  args: {
-    ...FlatDataSource.args,
-    renderer: node => {
-      const icon = node.label.includes('.') ? 'far-file-lines' : `far-folder${node.expanded ? '-open' : ''}`;
-
-      return html`
-        ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing}
-        <span>${node.label}</span>
-
-        <sl-badge color="blue" slot="aside">99</sl-badge>
-      `;
-    },
-    scopedElements: {
-      'sl-badge': Badge,
       'sl-button': Button,
       'sl-button-bar': ButtonBar,
       'sl-icon': Icon

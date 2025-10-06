@@ -111,6 +111,7 @@ sl-indent-guides {
   inline-size: var(--sl-size-300);
   justify-content: center;
   margin-inline-end: var(--sl-size-025);
+  user-select: none;
 
   sl-icon {
     color: var(--sl-color-foreground-bold);

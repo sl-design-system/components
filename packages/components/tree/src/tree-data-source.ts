@@ -126,7 +126,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     this.#selects = options.selects;
   }
 
-  addFilter(id: string, by: PathKeys<T> | DataSourceFilterFunction<T>, value?: unknown): void {
+  addFilter(id: string, by: string | PathKeys<T> | DataSourceFilterFunction<T>, value?: unknown): void {
     this.#filters.set(id, { id, by, value } as DataSourceFilter<T>);
   }
 
@@ -134,7 +134,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     this.#filters.delete(id);
   }
 
-  setSort(by: PathKeys<T> | DataSourceSortFunction<T>, direction: DataSourceSortDirection): void {
+  setSort(by: string | PathKeys<T> | DataSourceSortFunction<T>, direction: DataSourceSortDirection): void {
     this.#sort = { by, direction };
   }
 

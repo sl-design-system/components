@@ -10,7 +10,7 @@ export type DataSourceFilterFunction<Model> = (item: Model, value: unknown) => b
 
 export type DataSourceFilter<Model> = {
   id: string;
-  by: DataSourceFilterFunction<Model> | PathKeys<Model>;
+  by: DataSourceFilterFunction<Model> | PathKeys<Model> | string;
   value?: unknown;
 };
 
@@ -20,7 +20,7 @@ export type DataSourceSortDirection = 'asc' | 'desc';
 export type DataSourceSortFunction<Model = any> = (a: Model, b: Model) => number;
 
 export type DataSourceSort<Model> = {
-  by: DataSourceSortFunction<Model> | PathKeys<Model>;
+  by: DataSourceSortFunction<Model> | PathKeys<Model> | string;
   direction: DataSourceSortDirection;
 };
 

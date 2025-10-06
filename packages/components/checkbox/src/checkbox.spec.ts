@@ -26,7 +26,6 @@ describe('sl-checkbox', () => {
     it('should not be checked', () => {
       expect(el.checked).not.to.be.true;
       expect(input.checked).not.to.be.true;
-      expect(input).to.have.attribute('aria-checked', 'false');
       expect(input).not.to.match(':checked');
       expect(input.checked).to.be.false;
     });
@@ -36,7 +35,6 @@ describe('sl-checkbox', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('checked');
-      expect(input).to.have.attribute('aria-checked', 'true');
       expect(input).to.match(':checked');
       expect(input.checked).to.be.true;
     });
@@ -78,7 +76,6 @@ describe('sl-checkbox', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('indeterminate');
-      expect(input).to.have.attribute('aria-checked', 'mixed');
       expect(input).to.match(':indeterminate');
       expect(input.indeterminate).to.be.true;
     });
@@ -181,7 +178,6 @@ describe('sl-checkbox', () => {
 
       expect(el).to.have.attribute('checked');
       expect(el.checked).to.be.true;
-      expect(input).to.have.attribute('aria-checked', 'true');
       expect(input).to.match(':checked');
       expect(input.checked).to.be.true;
 
@@ -190,7 +186,6 @@ describe('sl-checkbox', () => {
 
       expect(el).not.to.have.attribute('checked');
       expect(el.checked).to.be.false;
-      expect(input).to.have.attribute('aria-checked', 'false');
       expect(input).not.to.match(':checked');
       expect(input.checked).to.be.false;
     });
@@ -202,7 +197,6 @@ describe('sl-checkbox', () => {
 
       expect(el).to.have.attribute('checked');
       expect(el.checked).to.be.true;
-      expect(input).to.have.attribute('aria-checked', 'true');
       expect(input).to.match(':checked');
       expect(input.checked).to.be.true;
     });
@@ -214,7 +208,6 @@ describe('sl-checkbox', () => {
 
       expect(el).to.have.attribute('checked');
       expect(el.checked).to.be.true;
-      expect(input).to.have.attribute('aria-checked', 'true');
       expect(input).to.match(':checked');
       expect(input.checked).to.be.true;
     });

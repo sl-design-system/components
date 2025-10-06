@@ -10,11 +10,11 @@ export class ComponentStatus extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = componentStatusStyles;
 
-  @property() componentName = '';
+  @property({ attribute: 'component-name' }) componentName = '';
 
-  @property() storybookCategory = '';
+  @property({ attribute: 'storybook-category' }) storybookCategory = '';
 
-  @property() storybookComponentName = '';
+  @property({ attribute: 'storybook-component-name' }) storybookComponentName = '';
 
   @property() status: StatusType = 'planned';
 
@@ -46,19 +46,21 @@ export class ComponentStatus extends LitElement {
             <ds-status status=${this.status}></ds-status>
           </div>
           ${this.version
-            ? html` <div class="ds-heading-4 info">
-                Version
-                <span class="link">
-                  <a
-                    href="https://github.com/sl-design-system/components/releases/tag/%40sl-design-system%2F${this
-                      .componentName}%40${this.version}"
-                    target="_blank"
-                  >
-                    v${this.version}
-                  </a>
-                  <sl-icon name="far-arrow-up-right-from-square"></sl-icon>
-                </span>
-              </div>`
+            ? html`
+                <div class="ds-heading-4 info">
+                  Version
+                  <span class="link">
+                    <a
+                      href="https://github.com/sl-design-system/components/releases/tag/%40sl-design-system%2F${this
+                        .componentName}%40${this.version}"
+                      target="_blank"
+                    >
+                      v${this.version}
+                    </a>
+                    <sl-icon name="far-arrow-up-right-from-square"></sl-icon>
+                  </span>
+                </div>
+              `
             : nothing}
         </div>
         <div class="links">

@@ -252,6 +252,7 @@ export default {
         .scopedElements=${scopedElements}
         ?show-guides=${showGuides}
         aria-label="Tree label"
+        style="max-inline-size: 400px"
       ></sl-tree>
     `;
   }

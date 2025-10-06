@@ -47,9 +47,6 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     };
   }
 
-  /** @internal */
-  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
-
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
     click: this.#onClick,
@@ -171,7 +168,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
         ?selected=${this.selects === 'single' && this.selected}
         ?visible=${this.showGuides}
       ></sl-indent-guides>
-      <div aria-colindex="1" role="gridcell" tabindex=${this.disabled ? -1 : 0}>
+      <div aria-colindex="1" role="gridcell">
         ${this.expandable
           ? html`
               <div class="expander">

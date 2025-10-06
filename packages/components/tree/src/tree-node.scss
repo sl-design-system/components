@@ -6,6 +6,7 @@
   align-items: center;
   color: var(--sl-color-foreground-plain);
   display: flex;
+  outline: 0;
   padding-inline-start: var(--sl-size-050);
   scroll-margin-block: var(--sl-size-100);
 }
@@ -14,7 +15,12 @@
   rotate: 90deg;
 }
 
-:host(:focus-within) {
+:host(:focus-visible) [role='gridcell'] {
+  outline-color: var(--sl-color-border-focused);
+  z-index: 1;
+}
+
+:host(:where(:focus-visible, :focus-within)) {
   sl-button-bar {
     display: flex;
   }

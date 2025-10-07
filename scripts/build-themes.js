@@ -334,9 +334,9 @@ const build = async (production = false, path) => {
   const configs = themes.map(([theme, variant]) => createConfigForThemeVariant(theme, variant, false));
   const oldConfigs = oldThemes.map(([theme, variant]) => createConfigForThemeVariant(theme, variant, true));
 
+  console.log(configs, oldConfigs);
   for (const cfg of [...configs, ...oldConfigs]) {
     const sd = new StyleDictionary(cfg);
-    console.log(cfg);
 
     await sd.buildAllPlatforms();
 

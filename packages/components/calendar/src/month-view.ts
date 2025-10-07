@@ -190,7 +190,7 @@ export class MonthView extends LocaleMixin(LitElement) {
       );
     }
 
-    if (changes.has('max') || changes.has('min') || changes.has('month')) {
+    if (changes.has('max') || changes.has('min') || changes.has('month') || changes.has('showToday')) {
       const { firstDayOfWeek, max, min, showToday } = this;
 
       this.calendar = createCalendar(this.month ?? new Date(), { firstDayOfWeek, max, min, showToday });

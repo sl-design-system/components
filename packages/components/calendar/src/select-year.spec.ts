@@ -1,4 +1,5 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
@@ -89,6 +90,48 @@ describe('sl-select-year', () => {
       const prevBtn = el.renderRoot.querySelector('sl-button:nth-of-type(1)');
       expect(prevBtn).to.have.attribute('disabled');
     });
+
+    it('should disable prev/next buttons when navigation is fully restricted by min/max', async () => {
+      const baseYear = 2025;
+      el = await fixture(html`
+        <sl-select-year
+          .year=${new Date(baseYear, 0, 1)}
+          .min=${new Date(baseYear - 5, 0, 1)}
+          .max=${new Date(baseYear + 6, 11, 31)}
+        ></sl-select-year>
+      `);
+      await el.updateComplete;
+
+      const prevBtn = el.renderRoot.querySelector('sl-button:nth-of-type(1)');
+      const nextBtn = el.renderRoot.querySelector('sl-button:nth-of-type(2)');
+
+      expect(prevBtn).to.have.attribute('disabled');
+      expect(nextBtn).to.have.attribute('disabled');
+    });
+
+    it('should set "today" and "selected" parts when applicable and "unselectable" when outside min/max', async () => {
+      el = await fixture(html`<sl-select-year .year=${new Date(new Date().getFullYear(), 0, 1)}></sl-select-year>`);
+      await el.updateComplete;
+
+      el.selected = new Date(new Date().getFullYear(), 0, 1);
+      await el.updateComplete;
+
+      const year = el.renderRoot.querySelector('[part~="today"]');
+
+      expect(year).to.exist;
+      expect(year?.matches('[part~="today"]')).to.be.true;
+      expect(year?.matches('[part~="selected"]')).to.be.true;
+
+      // make current year unselectable by moving min/max beyond it
+      el.min = new Date(new Date().getFullYear() + 1, 0, 1);
+      el.max = new Date(new Date().getFullYear() + 2, 11, 31);
+      await el.updateComplete;
+
+      const yearUnselectable = el.renderRoot.querySelector('[part~="today"]');
+
+      expect(yearUnselectable).to.exist;
+      expect(yearUnselectable?.matches('[part~="unselectable"]')).to.be.true;
+    });
   });
 
   describe('selection', () => {
@@ -116,6 +159,66 @@ describe('sl-select-year', () => {
       el.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
       const ev = await onSelect;
       expect((ev.detail as Date).getFullYear()).to.equal(currentYear);
+    });
+  });
+
+  describe('keyboard navigation', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-select-year .year=${new Date(2025, 0, 1)}></sl-select-year>`);
+
+      await el.updateComplete;
+    });
+
+    it('keydown ArrowLeft on first button should decrement year range by 12', async () => {
+      const initialFirst = el.years[0];
+      const buttons = el.renderRoot.querySelectorAll('ol button');
+      const first = buttons[0] as HTMLButtonElement;
+
+      first.focus();
+
+      await userEvent.keyboard('{ArrowLeft}');
+      await el.updateComplete;
+
+      expect(el.years[0]).to.equal(initialFirst - 12);
+    });
+
+    it('keydown ArrowRight on last button should increment year range by 12', async () => {
+      const initialLast = el.years.at(-1)!;
+      const buttons = el.renderRoot.querySelectorAll('ol button');
+      const last = buttons[buttons.length - 1] as HTMLButtonElement;
+
+      last.focus();
+
+      await userEvent.keyboard('{ArrowRight}');
+      await el.updateComplete;
+
+      expect(el.years.at(-1)).to.equal(initialLast + 12);
+    });
+
+    it('keydown ArrowUp on a top-row button should decrement year range by 12', async () => {
+      const initialFirst = el.years[0];
+      const buttons = el.renderRoot.querySelectorAll('ol button');
+      const target = buttons[1] as HTMLButtonElement; // top row (index 1)
+
+      target.focus();
+
+      await userEvent.keyboard('{ArrowUp}');
+      await el.updateComplete;
+
+      expect(el.years[0]).to.equal(initialFirst - 12);
+    });
+
+    it('keydown ArrowDown on a last-row button should increment year range by 12', async () => {
+      const initialFirst = el.years[0];
+      const buttons = el.renderRoot.querySelectorAll('ol button');
+      const target = buttons[10] as HTMLButtonElement; // pick an index in the last row
+
+      target.focus();
+
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      expect(el.years[0]).to.equal(initialFirst + 12);
     });
   });
 });

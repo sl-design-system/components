@@ -1,4 +1,5 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { SelectMonth } from './select-month.js';
@@ -66,6 +67,23 @@ describe('sl-select-month', () => {
       const next = el.renderRoot.querySelector('sl-button[aria-label^="Next year"]');
       expect(next).to.exist.and.match(':disabled');
     });
+
+    it('should have static year (span) when navigation is fully disabled by min and max', async () => {
+      el = await fixture(html`
+        <sl-select-month
+          .month=${new Date(2025, 5, 1)}
+          .min=${new Date(2025, 5, 1)}
+          .max=${new Date(2025, 5, 30)}
+        ></sl-select-month>
+      `);
+      await el.updateComplete;
+
+      const yearButton = el.renderRoot.querySelector('sl-button.current-year');
+      const yearSpan = el.renderRoot.querySelector('span.current-year');
+
+      expect(yearButton).to.not.exist;
+      expect(yearSpan).to.exist;
+    });
   });
 
   describe('selection', () => {
@@ -82,6 +100,22 @@ describe('sl-select-month', () => {
       const ev = await onSelect;
       expect(ev.detail).to.be.instanceOf(Date);
       expect((ev.detail as Date).getMonth()).to.equal(parseInt(firstButton!.textContent!.trim().slice(0, 2)) - 1 || 0); // simplistic, month names may vary but at least ensure Date returned
+    });
+
+    it('clicking a month button should update selected', async () => {
+      const clickable = Array.from(el.renderRoot.querySelectorAll('ol button')).find(
+        b => !(b as HTMLButtonElement).disabled
+      )!;
+      const onSelect = new Promise<CustomEvent>(resolve =>
+        el.addEventListener('sl-select', (e: Event) => resolve(e as CustomEvent))
+      );
+
+      (clickable as HTMLButtonElement).click();
+      const ev = await onSelect;
+
+      await el.updateComplete;
+      expect(el.selected).to.be.instanceOf(Date);
+      expect((el.selected as Date).getMonth()).to.equal((ev.detail as Date).getMonth());
     });
 
     it('should emit sl-select with current month when Escape is pressed', async () => {
@@ -130,6 +164,86 @@ describe('sl-select-month', () => {
       (toggleBtn as HTMLButtonElement | null)?.click?.();
       const ev = await onToggle;
       expect(ev.detail).to.equal('year');
+    });
+  });
+
+  describe('parts', () => {
+    it('should add "today" and "selected" parts to the month button when month and selected equal the current month', async () => {
+      const now = new Date();
+      el = await fixture(
+        html`<sl-select-month .month=${new Date(now.getFullYear(), now.getMonth(), 1)}></sl-select-month>`
+      );
+      await el.updateComplete;
+
+      el.selected = new Date(now.getFullYear(), now.getMonth(), 1);
+      await el.updateComplete;
+
+      const button = Array.from(el.renderRoot.querySelectorAll('ol button')).find(button =>
+        (button.getAttribute('part') || '').includes('selected')
+      );
+
+      expect(button).to.exist;
+      expect(button?.matches('[part~="today"]')).to.be.true;
+      expect(button?.matches('[part~="selected"]')).to.be.true;
+    });
+  });
+
+  describe('keyboard navigation', () => {
+    let month: Date;
+
+    beforeEach(async () => {
+      month = new Date(2025, 6, 1);
+
+      el = await fixture(html`<sl-select-month .month=${month}></sl-select-month>`);
+
+      await el.updateComplete;
+    });
+
+    it('ArrowLeft on first button should decrement year', async () => {
+      const buttons = el.renderRoot.querySelectorAll('ol button');
+      const first = buttons[0] as HTMLButtonElement;
+
+      first.focus();
+      await userEvent.keyboard('{ArrowLeft}');
+
+      await el.updateComplete;
+
+      expect(el.month.getFullYear()).to.equal(month.getFullYear() - 1);
+    });
+
+    it('ArrowRight on last button should increment year', async () => {
+      const buttons = el.renderRoot.querySelectorAll('ol button');
+      const last = buttons[buttons.length - 1] as HTMLButtonElement;
+
+      last.focus();
+      await userEvent.keyboard('{ArrowRight}');
+
+      await el.updateComplete;
+      expect(el.month.getFullYear()).to.equal(month.getFullYear() + 1);
+    });
+
+    it('keydown ArrowUp on a top row button should decrement year', async () => {
+      const buttons = el.renderRoot.querySelectorAll('ol button');
+      // pick index 1 (top row, middle)
+      const target = buttons[1] as HTMLButtonElement;
+
+      target.focus();
+      await userEvent.keyboard('{ArrowUp}');
+
+      await el.updateComplete;
+      expect(el.month.getFullYear()).to.equal(month.getFullYear() - 1);
+    });
+
+    it('keydown ArrowDown on a last row button should increment year', async () => {
+      const buttons = el.renderRoot.querySelectorAll('ol button');
+      // For 12 months and 3 columns, lastRowStart is index 9, choose index 10
+      const target = buttons[10] as HTMLButtonElement;
+
+      target.focus();
+      await userEvent.keyboard('{ArrowDown}');
+
+      await el.updateComplete;
+      expect(el.month.getFullYear()).to.equal(month.getFullYear() + 1);
     });
   });
 });

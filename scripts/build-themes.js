@@ -200,6 +200,7 @@ const build = async (production = false, path) => {
   const cwd = new URL('.', import.meta.url).pathname,
     themeBase = join(cwd, '../packages/themes'),
     themes = await getThemes(join(cwd, path));
+    const oldThemes = [ ...themes ];
 
   // Filter out files that are not in the `files` array
   const filterFiles = files => async token => {
@@ -225,105 +226,117 @@ const build = async (production = false, path) => {
     }
   };
 
-  const configs = themes.map(([theme, variant]) => {
-    const tokensets = [
-      'core',
-      'system',
-      'primitives',
-      `${theme}/base`,
-      `${theme}/base-new`,
-      `${theme}/${variant}`,
-      `${theme}/${variant}-new`
-    ];
+  const createConfigForThemeVariant = (theme, variant, old) => {
+    {
+      const tokensets =  old ? [
+        'core',
+        `${theme}/base`,
+        `${theme}/${variant}`
+      ]: [
+        'system',
+        'primitives',
+        `${theme}/base-new`,
+        `${theme}/${variant}-new`
+      ];
 
-    const files = [
-      {
-        destination: `${themeBase}/${theme}/${variant}.css`,
-        // filter: excludeSpaceTokens,
-        format: 'css/variables',
-        options: {
-          fileHeader: 'sl/legal',
-          outputReferences: !production
+      const files = [
+        {
+          destination: old ? `${themeBase}/${theme}/${variant}-old.css` : `${themeBase}/${theme}/${variant}.css`,
+          // filter: excludeSpaceTokens,
+          format: 'css/variables',
+          options: {
+            fileHeader: 'sl/legal',
+            outputReferences: !production
+          }
         }
+      ];
+
+      if (production) {
+        files.push(
+          {
+            destination: old ? `${themeBase}/${theme}/css/base-old.css` : `${themeBase}/${theme}/css/base.css`,
+            // filter: excludeSpaceTokens,
+            format: 'css/variables',
+            options: {
+              fileHeader: 'sl/legal',
+              outputReferences: true
+            },
+            filter: filterFiles(old
+              ? ['core.json', 'base.json']
+              : ['system.json', 'primitives.json', 'base-new.json'])
+          },
+          {
+            destination: old ? `${themeBase}/${theme}/scss/base-old.scss` : `${themeBase}/${theme}/scss/base.scss`,
+            // filter: excludeSpaceTokens,
+            format: 'css/variables',
+            options: {
+              fileHeader: 'sl/legal',
+              outputReferences: true,
+              selector: '@mixin sl-theme-base'
+            },
+            filter: filterFiles(old
+              ? ['core.json', 'base.json']
+              : ['system.json', 'primitives.json', 'base-new.json'])
+          },
+          //--------
+          {
+            destination: old ? `${themeBase}/${theme}/css/${variant}-old.css` : `${themeBase}/${theme}/css/${variant}.css`,
+            // filter: excludeSpaceTokens,
+            format: 'css/variables',
+            options: {
+              fileHeader: 'sl/legal',
+              outputReferences: true
+            },
+            filter: filterFiles([old ? `${variant}.json` : `${variant}-new.json`])
+          },
+          {
+            destination: old ? `${themeBase}/${theme}/scss/${variant}-old.scss` : `${themeBase}/${theme}/scss/${variant}.scss`,
+            // filter: excludeSpaceTokens,
+            format: 'css/variables',
+            options: {
+              fileHeader: 'sl/legal',
+              outputReferences: true,
+              selector: `@mixin sl-theme-${variant}`
+            },
+            filter: filterFiles([old ? `${variant}.json` : `${variant}-new.json`])
+          }
+        );
       }
-    ];
 
-    if (production) {
-      files.push(
-        {
-          destination: `${themeBase}/${theme}/css/base.css`,
-          // filter: excludeSpaceTokens,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true
-          },
-          filter: filterFiles(['core.json', 'system.json', 'primitives.json', 'base.json', 'base-new.json'])
+      return {
+        log: {
+          verbosity: argv.includes('--verbose') ? 'verbose' : undefined,
+          warnings: 'disabled'
         },
-        {
-          destination: `${themeBase}/${theme}/scss/base.scss`,
-          // filter: excludeSpaceTokens,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true,
-            selector: '@mixin sl-theme-base'
-          },
-          filter: filterFiles(['core.json', 'system.json', 'primitives.json', 'base.json', 'base-new.json'])
+        source: tokensets.map(tokenset => join(cwd, path, `${tokenset}.json`)),
+        preprocessors: ['strip-routing-prefix', 'tokens-studio'],
+        platforms: {
+          css: {
+            transformGroup: 'tokens-studio',
+            transforms: [
+              'name/kebabWithCamel',
+              'sl/name/css/fontFamilies',
+              'sl/size/css/lineHeight',
+              'sl/size/css/paragraphSpacing',
+              'sl/color/transparentColorMix',
+              'sl/wrapMathInCalc'
+            ].filter(Boolean),
+            prefix: 'sl',
+            files
+          }
         },
-        {
-          destination: `${themeBase}/${theme}/css/${variant}.css`,
-          // filter: excludeSpaceTokens,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true
-          },
-          filter: filterFiles([`${variant}.json`, `${variant}-new.json`])
-        },
-        {
-          destination: `${themeBase}/${theme}/scss/${variant}.scss`,
-          // filter: excludeSpaceTokens,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true,
-            selector: `@mixin sl-theme-${variant}`
-          },
-          filter: filterFiles([`${variant}.json`, `${variant}-new.json`])
-        }
-      );
+        theme,
+        variant
+      };
     }
+  };
 
-    return {
-      log: {
-        verbosity: argv.includes('--verbose') ? 'verbose' : undefined,
-        warnings: 'disabled'
-      },
-      source: tokensets.map(tokenset => join(cwd, path, `${tokenset}.json`)),
-      preprocessors: ['strip-routing-prefix', 'tokens-studio'],
-      platforms: {
-        css: {
-          transformGroup: 'tokens-studio',
-          transforms: [
-            'name/kebabWithCamel',
-            'sl/name/css/fontFamilies',
-            'sl/size/css/lineHeight',
-            'sl/size/css/paragraphSpacing',
-            'sl/color/transparentColorMix',
-            'sl/wrapMathInCalc'
-          ].filter(Boolean),
-          prefix: 'sl',
-          files
-        }
-      },
-      theme,
-      variant
-    };
-  });
+  const configs = themes.map(([theme, variant]) => createConfigForThemeVariant(theme, variant, false));
+  const oldConfigs = oldThemes.map(([theme, variant]) => createConfigForThemeVariant(theme, variant, true));
 
-  for (const cfg of configs) {
+  for (const cfg of [...configs, ...oldConfigs]) {
     const sd = new StyleDictionary(cfg);
+    console.log(cfg);
 
     await sd.buildAllPlatforms();
 

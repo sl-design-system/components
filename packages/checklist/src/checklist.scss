@@ -72,7 +72,7 @@ sl-skeleton.icon {
   aspect-ratio: 1;
   border-radius: 50%;
   display: inline-flex;
-  inline-size: var(--sl-size-icon-xl);
+  inline-size: var(--sl-size-new-icon-xl);
 }
 
 sl-skeleton.title {
@@ -115,8 +115,9 @@ sl-icon {
 }
 
 code {
-  font-family: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono', 'Roboto Mono', 'Oxygen Mono',
-    'Ubuntu Monospace', 'Source Code Pro', 'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+  font-family:
+    ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono', 'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace',
+    'Source Code Pro', 'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
   font-size: 0.9em;
   font-weight: bolder;
 }

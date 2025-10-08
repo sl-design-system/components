@@ -384,6 +384,7 @@ export class MonthView extends LocaleMixin(LitElement) {
       event.stopPropagation();
 
       this.selectEvent.emit(day.date);
+      this.selected = day.date;
     }
   }
 

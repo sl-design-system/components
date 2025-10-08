@@ -95,10 +95,25 @@ export const All: Story = {
         <sl-tree-node disabled>Disabled</sl-tree-node>
 
         <sl-tree-node>Level 0</sl-tree-node>
+        <sl-tree-node selected>Level 0 (selected)</sl-tree-node>
+        <sl-tree-node expandable>Level 0 (expandable)</sl-tree-node>
+        <sl-tree-node expandable expanded>Level 0 (expandable, expanded)</sl-tree-node>
         <sl-tree-node level="1">Level 1</sl-tree-node>
+        <sl-tree-node level="1" selected>Level 1 (selected)</sl-tree-node>
+        <sl-tree-node expandable level="1">Level 1 (expandable)</sl-tree-node>
+        <sl-tree-node expandable expanded level="1">Level 1 (expandable, expanded)</sl-tree-node>
         <sl-tree-node level="2">Level 2</sl-tree-node>
+        <sl-tree-node level="2" selected>Level 2 (selected)</sl-tree-node>
+        <sl-tree-node expandable level="2">Level 2 (expandable)</sl-tree-node>
+        <sl-tree-node expandable expanded level="2">Level 2 (expandable, expanded)</sl-tree-node>
         <sl-tree-node level="3">Level 3</sl-tree-node>
+        <sl-tree-node level="3" selected>Level 3 (selected)</sl-tree-node>
+        <sl-tree-node expandable level="3">Level 3 (expandable)</sl-tree-node>
+        <sl-tree-node expandable expanded level="3">Level 3 (expandable, expanded)</sl-tree-node>
         <sl-tree-node level="4">Level 4</sl-tree-node>
+        <sl-tree-node level="4" selected>Level 4 (selected)</sl-tree-node>
+        <sl-tree-node expandable level="4">Level 4 (expandable)</sl-tree-node>
+        <sl-tree-node expandable expanded level="4">Level 4 (expandable, expanded)</sl-tree-node>
 
         <sl-tree-node expandable expanded show-guides>Level 0 (guides)</sl-tree-node>
         <sl-tree-node level="1" show-guides>Level 1 (guides)</sl-tree-node>
@@ -116,47 +131,21 @@ export const All: Story = {
         <sl-tree-node level="4" show-guides>Level 4 (guides)</sl-tree-node>
         <sl-tree-node level="4" last-node-in-level show-guides>Level 4 (last node in level, guides)</sl-tree-node>
 
-        <sl-tree-node expandable>Level 0 (expandable)</sl-tree-node>
-        <sl-tree-node level="1" expandable>Level 1 (expandable)</sl-tree-node>
-        <sl-tree-node level="2" expandable>Level 2 (expandable)</sl-tree-node>
-        <sl-tree-node level="3" expandable>Level 3 (expandable)</sl-tree-node>
-        <sl-tree-node level="4" expandable>Level 4 (expandable)</sl-tree-node>
-
-        <sl-tree-node expandable expanded>Level 0 (expanded)</sl-tree-node>
-        <sl-tree-node level="1" expandable expanded>Level 1 (expanded)</sl-tree-node>
-        <sl-tree-node level="2" expandable expanded>Level 2 (expanded)</sl-tree-node>
-        <sl-tree-node level="3" expandable expanded>Level 3 (expanded)</sl-tree-node>
-        <sl-tree-node level="4" expandable expanded>Level 4 (expanded)</sl-tree-node>
-
-        <sl-tree-node>Level 0 (single)</sl-tree-node>
-        <sl-tree-node level="1">Level 1 (single)</sl-tree-node>
-        <sl-tree-node level="2">Level 2 (single)</sl-tree-node>
-        <sl-tree-node level="3">Level 3 (single)</sl-tree-node>
-        <sl-tree-node level="4">Level 4 (single)</sl-tree-node>
-
-        <sl-tree-node selected>Level 0 (single, selected)</sl-tree-node>
-        <sl-tree-node level="1" selected>Level 1 (single, selected)</sl-tree-node>
-        <sl-tree-node level="2" selected>Level 2 (single, selected)</sl-tree-node>
-        <sl-tree-node level="3" selected>Level 3 (single, selected)</sl-tree-node>
-        <sl-tree-node level="4" selected>Level 4 (single, selected)</sl-tree-node>
-
         <sl-tree-node multiple>Level 0 (multiple)</sl-tree-node>
+        <sl-tree-node multiple indeterminate>Level 0 (multiple, indeterminate)</sl-tree-node>
+        <sl-tree-node multiple selected>Level 0 (multiple, selected)</sl-tree-node>
         <sl-tree-node level="1" multiple>Level 1 (multiple)</sl-tree-node>
+        <sl-tree-node level="1" multiple indeterminate>Level 1 (multiple, indeterminate)</sl-tree-node>
+        <sl-tree-node level="1" multiple selected>Level 1 (multiple, selected)</sl-tree-node>
         <sl-tree-node level="2" multiple>Level 2 (multiple)</sl-tree-node>
+        <sl-tree-node level="2" multiple indeterminate>Level 2 (multiple, indeterminate)</sl-tree-node>
+        <sl-tree-node level="2" multiple selected>Level 2 (multiple, selected)</sl-tree-node>
         <sl-tree-node level="3" multiple>Level 3 (multiple)</sl-tree-node>
+        <sl-tree-node level="3" multiple indeterminate>Level 3 (multiple, indeterminate)</sl-tree-node>
+        <sl-tree-node level="3" multiple selected>Level 3 (multiple, selected)</sl-tree-node>
         <sl-tree-node level="4" multiple>Level 4 (multiple)</sl-tree-node>
-
-        <sl-tree-node selected multiple>Level 0 (multiple, selected)</sl-tree-node>
-        <sl-tree-node level="1" selected multiple>Level 1 (multiple, selected)</sl-tree-node>
-        <sl-tree-node level="2" selected multiple>Level 2 (multiple, selected)</sl-tree-node>
-        <sl-tree-node level="3" selected multiple>Level 3 (multiple, selected)</sl-tree-node>
-        <sl-tree-node level="4" selected multiple>Level 4 (multiple, selected)</sl-tree-node>
-
-        <sl-tree-node indeterminate multiple>Level 0 (multiple, indeterminate)</sl-tree-node>
-        <sl-tree-node level="1" indeterminate multiple>Level 1 (multiple, indeterminate)</sl-tree-node>
-        <sl-tree-node level="2" indeterminate multiple>Level 2 (multiple, indeterminate)</sl-tree-node>
-        <sl-tree-node level="3" indeterminate multiple>Level 3 (multiple, indeterminate)</sl-tree-node>
-        <sl-tree-node level="4" indeterminate multiple>Level 4 (multiple, indeterminate)</sl-tree-node>
+        <sl-tree-node level="4" multiple indeterminate>Level 4 (multiple, indeterminate)</sl-tree-node>
+        <sl-tree-node level="4" multiple selected>Level 4 (multiple, selected)</sl-tree-node>
       </div>
     `;
   }

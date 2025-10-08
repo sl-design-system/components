@@ -24,6 +24,7 @@ export interface TreeDataSourceNode<T> {
   label: string;
   lastNodeInLevel?: boolean;
   level: number;
+  levelGuides?: number[];
   parent?: TreeDataSourceNode<T>;
   selected?: boolean;
   type: TreeNodeType;

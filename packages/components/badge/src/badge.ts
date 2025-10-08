@@ -66,5 +66,6 @@ export class Badge extends LitElement {
 
     // Toggle the round attribute if the badge contains only an icon, or a single character
     this.toggleAttribute('round', (icon && text === '') || (!icon && text?.length === 1));
+    this.classList.toggle('with-label', this.size === 'sm' && text !== '');
   }
 }

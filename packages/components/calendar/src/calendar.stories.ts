@@ -31,7 +31,7 @@ export default {
     readonly: false,
     showToday: false,
     showWeekNumbers: false,
-    month: new Date(2024, 8, 15)
+    month: new Date(2025, 8, 15)
   },
   argTypes: {
     disabled: {
@@ -87,7 +87,7 @@ export default {
       return value instanceof Date ? value : new Date(value);
     };
 
-    const selectedDate: Date | undefined = parseDate(selected);
+    // const selectedDate: Date | undefined = parseDate(selected);
 
     const onSelectDate = (event: CustomEvent<Date>) => {
       console.log('Date selected:', event.detail.getFullYear(), event.detail.getMonth());
@@ -121,11 +121,6 @@ export default {
             : undefined
         )}
       ></sl-calendar>
-      <p>
-        Selected date:
-        <sl-format-date .date=${selectedDate} locale=${ifDefined(locale)} date-style="long"></sl-format-date>
-      </p>
-      <p>active element: ${window.document.activeElement ? window.document.activeElement.tagName : 'none'}</p>
     `;
   }
 } satisfies Meta<Props>;
@@ -248,7 +243,7 @@ export const All: Story = {
         ></sl-calendar>
       `;
     };
-    const monthEndDate = new Date(2025, 8, 29);
+    const monthEndDate = new Date(); //new Date(2025, 8, 29);
     const monthEnd = {
       negative: [getOffsetDate(2, monthEndDate)],
       // indicator: [getOffsetDate(3, monthEndDate)],
@@ -293,6 +288,12 @@ export const All: Story = {
       selected: getOffsetDate(0)
     };
     return html`
+      <style>
+        .container {
+          display: flex;
+          gap: 1.2rem;
+        }
+      </style>
       <h1>Month End (${monthEndDate.toLocaleDateString()})</h1>
       <p>
         Selected, negative and date with indicator are all in the next month, but have the same styling as they would
@@ -302,9 +303,9 @@ export const All: Story = {
       <h1>Today</h1>
       <p>Shows current month with 'today' highlighted, in combination with selected, indicator and negative</p>
       <h2>Indicator</h2>
-      ${renderMonth(indicator)} ${renderMonth(indicatorToday)}
+      <div class="container">${renderMonth(indicator)} ${renderMonth(indicatorToday)}</div>
       <h2>Negative</h2>
-      ${renderMonth(negative)} ${renderMonth(negativeToday)}
+      <div class="container">${renderMonth(negative)} ${renderMonth(negativeToday)}</div>
     `;
   }
 };

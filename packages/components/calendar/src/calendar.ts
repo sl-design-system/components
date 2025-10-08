@@ -155,7 +155,6 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     console.log('disabled dates', this.disabled, 'min and max', this.min, this.max, 'month', this.month);
 
     return html`
-      ${this.month ? html`month:${this.month.getMonth() + 1}` : 'undefined month'}
       <sl-select-day
         @sl-select=${this.#onSelect}
         @sl-toggle=${this.#onToggleMonthYear}

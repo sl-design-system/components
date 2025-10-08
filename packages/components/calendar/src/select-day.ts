@@ -191,6 +191,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         ? !this.min ||
           (this.min && this.previousMonth?.getTime() >= new Date(this.min.getFullYear(), this.min.getMonth()).getTime())
         : false;
+
+    console.log('canSelectPreviousMonth in select day', canSelectPreviousMonth, this.previousMonth, this.min);
+
     return html`
       <div part="header">
         ${canSelectPreviousMonth || canSelectNextMonth
@@ -374,9 +377,16 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #scrollToMonth(month: -1 | 0 | 1, smooth = false): void {
+    console.log(
+      'scroll to month',
+      month,
+      smooth,
+      'left:',
+      parseInt(getComputedStyle(this).width) * month + parseInt(getComputedStyle(this).width)
+    );
     const width = parseInt(getComputedStyle(this).width),
       left = width * month + width;
 
-    this.scroller?.scrollTo({ left, behavior: smooth ? 'smooth' : 'instant' });
+    this.scroller?.scrollTo({ left, behavior: smooth ? 'smooth' : 'auto' });
   }
 }

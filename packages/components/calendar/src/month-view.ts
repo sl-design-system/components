@@ -202,15 +202,10 @@ export class MonthView extends LocaleMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    // console.log('disabled dates in month view', this.disabled);
-
     return html`
       <table>
         ${this.renderHeader()}
         <tbody>
-          <tr>
-            <td colspan="7">${1 + (this.month?.getMonth() ?? 0)}</td>
-          </tr>
           ${this.calendar?.weeks.map(
             week => html`
               <tr>

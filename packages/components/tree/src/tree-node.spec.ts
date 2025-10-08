@@ -70,10 +70,6 @@ describe('sl-tree-node', () => {
       expect(el.level).to.equal(0);
     });
 
-    it('should not support selection', () => {
-      expect(el.selects).to.be.undefined;
-    });
-
     it('should not be selected', () => {
       expect(el).not.to.have.attribute('aria-selected');
       expect(el.selected).to.not.be.true;

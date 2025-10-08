@@ -32,25 +32,7 @@
   pointer-events: none;
 }
 
-:host([selects]) [role='gridcell'] {
-  cursor: pointer;
-
-  &:hover {
-    --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
-
-    @media (hover: hover) {
-      sl-button-bar {
-        display: flex;
-      }
-    }
-  }
-
-  &:active {
-    --_bg-opacity: var(--sl-opacity-interactive-plain-active);
-  }
-}
-
-:host([selects='single'][selected]) [role='gridcell'] {
+:host([selected]:not([multiple])) [role='gridcell'] {
   --_bg-color: var(--sl-color-background-selected-subtlest);
   --_bg-mix-color: var(--sl-color-background-selected-interactive-plain);
   --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
@@ -77,6 +59,7 @@ sl-indent-guides {
   align-items: center;
   background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
   border-radius: var(--sl-size-borderRadius-default);
+  cursor: pointer;
   display: flex;
   inline-size: 100%;
   outline: transparent solid var(--sl-size-borderWidth-focusRing);
@@ -84,6 +67,20 @@ sl-indent-guides {
 
   @media (prefers-reduced-motion: no-preference) {
     transition: background 200ms ease-in-out;
+  }
+
+  &:hover {
+    --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
+
+    @media (hover: hover) {
+      sl-button-bar {
+        display: flex;
+      }
+    }
+  }
+
+  &:active {
+    --_bg-opacity: var(--sl-opacity-interactive-plain-active);
   }
 
   &:focus-visible {

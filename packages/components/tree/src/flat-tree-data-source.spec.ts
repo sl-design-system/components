@@ -23,10 +23,6 @@ describe('FlatTreeDataSource', () => {
       );
     });
 
-    it('should not be selectable', () => {
-      expect(ds.selects).to.be.undefined;
-    });
-
     it('should have the correct size', () => {
       expect(ds.size).to.equal(2);
     });

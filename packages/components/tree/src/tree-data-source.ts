@@ -15,6 +15,7 @@ export interface TreeDataSourceNode<T> {
   childrenCount?: number;
   childrenLoading?: Promise<void>;
   dataNode: T;
+  description?: string;
   expandable: boolean;
   expanded: boolean;
   expandedIcon?: string;
@@ -29,6 +30,9 @@ export interface TreeDataSourceNode<T> {
 }
 
 export interface TreeDataSourceMapping<T> {
+  /** Optional method for returning a custom aria description for a tree node. */
+  getAriaDescription?(item: T): string;
+
   /**
    * Returns the number of children. This can be used in combination with
    * lazy loading children. This way, the tree component can show skeletons
@@ -71,8 +75,10 @@ export interface TreeDataSourceOptions<T> {
   /** Provide this method to lazy load child nodes when a parent node is expanded. */
   loadChildren?(node: TreeDataSourceNode<T>): Promise<Array<TreeDataSourceNode<T>>>;
 
-  /** Enables single or multiple selection of tree nodes. */
-  selects?: 'single' | 'multiple';
+  /** Enables multiple selection of tree nodes. */
+  multiple?: boolean;
+
+  // selects?: 'single' | 'multiple';
 }
 
 /**
@@ -89,8 +95,8 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
   /** A set containing the selected node(s) in the tree. */
   #selection: Set<TreeDataSourceNode<T>> = new Set();
 
-  /** The selection type for the tree model. */
-  #selects?: 'single' | 'multiple';
+  /** Whether multiple nodes can be selected. */
+  #multiple?: boolean;
 
   /**
    * The value and path/function to use for sorting. When setting this property,
@@ -102,17 +108,17 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     return this.#filters;
   }
 
+  /** Indicates whether the data source allows single or multiple selection. */
+  get multiple() {
+    return this.#multiple;
+  }
+
   /** A hierarchical representation of the items in the tree. */
   abstract readonly nodes: Array<TreeDataSourceNode<T>>;
 
   /** The current selection of tree node(s). */
   get selection() {
     return this.#selection;
-  }
-
-  /** Indicates whether the data source allows single or multiple selection. */
-  get selects() {
-    return this.#selects;
   }
 
   get sort() {
@@ -123,7 +129,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     super();
 
     this.#loadChildren = options.loadChildren;
-    this.#selects = options.selects;
+    this.#multiple = options.multiple;
   }
 
   addFilter(id: string, by: string | PathKeys<T> | DataSourceFilterFunction<T>, value?: unknown): void {
@@ -260,7 +266,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
 
   /** Selects the given node and any children. */
   select(node: TreeDataSourceNode<T>, emitEvent = true): void {
-    if (this.selects === 'single') {
+    if (!this.multiple) {
       this.deselectAll();
     }
 
@@ -268,7 +274,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     node.selected = true;
     this.#selection.add(node);
 
-    if (this.selects === 'multiple') {
+    if (this.multiple) {
       // Select all children
       if (node.expandable) {
         const traverse = (node: TreeDataSourceNode<T>): void => {
@@ -304,7 +310,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     node.indeterminate = node.selected = false;
     this.#selection.delete(node);
 
-    if (this.selects === 'multiple') {
+    if (this.multiple) {
       // Deselect all children
       if (node.expandable) {
         const traverse = (node: TreeDataSourceNode<T>): void => {

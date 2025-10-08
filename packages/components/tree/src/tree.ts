@@ -118,11 +118,9 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
       });
     }
 
-    if (this.dataSource?.selects) {
-      const selected = this.dataSource.items.find(item => item.selected);
-      if (selected) {
-        this.#indexOfFocusedNode = this.dataSource.items.indexOf(selected);
-      }
+    const selected = this.dataSource?.items.find(item => item.selected);
+    if (selected) {
+      this.#indexOfFocusedNode = this.dataSource?.items.indexOf(selected) ?? 0;
     }
   }
 
@@ -136,12 +134,10 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
     super.willUpdate(changes);
 
     if (changes.has('dataSource')) {
-      if (this.dataSource?.selects === 'multiple') {
+      if (this.dataSource?.multiple) {
         this.wrapper?.setAttribute('aria-multiselectable', 'true');
-      } else if (this.dataSource?.selects === 'single') {
-        this.wrapper?.setAttribute('aria-multiselectable', 'false');
       } else {
-        this.wrapper?.removeAttribute('aria-multiselectable');
+        this.wrapper?.setAttribute('aria-multiselectable', 'false');
       }
     }
 
@@ -195,6 +191,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
                   data-index=${virtualItem.index}
                   ${ref(virtualizer.measureElement) /* must be *after* data-index */}
                   aria-controls=${ifDefined(item.children?.map(child => String(child.id)).join(' '))}
+                  aria-description=${ifDefined(item.description || undefined)}
                   aria-label=${item.label}
                   aria-level=${item.level + 1}
                   aria-owns=${ifDefined(item.children?.map(child => String(child.id)).join(' '))}
@@ -209,9 +206,9 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
                   ?indeterminate=${item.indeterminate}
                   ?last-node-in-level=${item.lastNodeInLevel}
                   .level=${item.level}
+                  ?multiple=${this.dataSource?.multiple}
                   .node=${item}
                   ?selected=${item.selected}
-                  selects=${ifDefined(this.dataSource?.selects)}
                   ?show-guides=${this.showGuides}
                   tabindex=${virtualItem.index === this.#indexOfFocusedNode ? '0' : '-1'}
                   .type=${item.type}

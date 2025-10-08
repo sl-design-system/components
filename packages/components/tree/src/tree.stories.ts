@@ -184,7 +184,9 @@ export default {
   },
   argTypes: {
     dataSource: { table: { disable: true } },
+    maxWidth: { table: { disable: true } },
     renderer: { table: { disable: true } },
+    scopedElements: { table: { disable: true } },
     styles: { table: { disable: true } }
   },
   render: ({ dataSource, maxWidth, renderer, scopedElements, showGuides, styles }) => {
@@ -202,12 +204,8 @@ export default {
           `
         : nothing}
       <sl-button-bar style="margin-block-end: 1rem">
-        ${dataSource?.selects
-          ? html`
-              <sl-button @click=${onToggle}>Toggle selected</sl-button>
-              <sl-button @click=${onToggleDescendants}>Toggle descendants</sl-button>
-            `
-          : nothing}
+        <sl-button @click=${onToggle}>Toggle selected</sl-button>
+        <sl-button @click=${onToggleDescendants}>Toggle descendants</sl-button>
         <sl-button @click=${onExpandAll}>Expand all</sl-button>
         <sl-button @click=${onCollapseAll}>Collapse all</sl-button>
       </sl-button-bar>
@@ -217,7 +215,7 @@ export default {
         .scopedElements=${scopedElements}
         ?show-guides=${showGuides}
         aria-label="Tree label"
-        style="max-inline-size: ${maxWidth ?? '400px'}"
+        style="max-inline-size: ${maxWidth ?? '300px'}"
       ></sl-tree>
     `;
   }
@@ -238,12 +236,22 @@ export const Basic: Story = {
 
 export const Badges: Story = {
   args: {
-    ...Basic.args,
+    dataSource: new FlatTreeDataSource(flatData, {
+      getAriaDescription: ({ badge }) => (badge ? `${badge} students` : ''),
+      getId: item => item.id,
+      getLabel: ({ name }) => name,
+      getLevel: ({ level }) => level,
+      isExpandable: ({ expandable }) => expandable,
+      isExpanded: ({ name }) => ['Upper school', 'HAVO'].includes(name),
+      isSelected: ({ name }) => name === 'H3B'
+    }),
     maxWidth: '250px',
     renderer: (node: TreeDataSourceNode<FlatDataNode>) => {
       return html`
         <span>${node.label}</span>
-        <sl-badge color="blue" emphasis="subtle" slot="aside">${node.dataNode.badge ?? '0'}</sl-badge>
+        <sl-badge color="blue" .emphasis=${node.selected ? 'bold' : 'subtle'} slot="aside">
+          ${node.dataNode.badge ?? '0'}
+        </sl-badge>
       `;
     },
     scopedElements: { 'sl-badge': Badge }

@@ -109,22 +109,27 @@
   }
 }
 
-:host([size='sm'].with-label) {
+:host([size='sm'][round]) {
   background: transparent;
   color: inherit;
   font-size: 1em;
   line-height: unset;
 }
 
-:host([size='sm'].with-label)::before {
+:host([size='sm'][round])::before {
   background: var(--_background, var(--sl-color-background-accent-grey-subtle));
   block-size: var(--sl-size-100);
   border-radius: var(--sl-size-borderRadius-full);
   content: '';
   display: inline-block;
   inline-size: var(--sl-size-100);
-  margin-block-start: calc(1cap - var(--sl-size-100));
+  margin-block-start: calc(0.8em - var(--sl-size-100));
   margin-inline-end: var(--sl-size-050);
+
+  @supports (inline-size: 1cap) {
+    // There are some really old browsers that don't support `cap` yet, so we use a fallback with `em`.
+    margin-block-start: calc(1cap - var(--sl-size-100));
+  }
 }
 
 :host([round]),

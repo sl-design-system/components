@@ -4,7 +4,6 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { MonthView } from './month-view.js';
 
-// Ensure the element is defined for direct usage if not already via calendar/register
 try {
   customElements.define('sl-month-view', MonthView);
 } catch {
@@ -14,17 +13,69 @@ try {
 describe('sl-month-view', () => {
   let el: MonthView;
 
-  describe('basic rendering & header', () => {
+  describe('defaults', () => {
+    const month = new Date();
+
+    beforeEach(async () => {
+      el = await fixture(html`<sl-month-view .month=${month}></sl-month-view>`);
+
+      await el.updateComplete;
+    });
+
+    it('renders a header with weekday names', () => {
+      const weekdays = Array.from(el.renderRoot.querySelectorAll('thead th[part~="week-day"]'));
+
+      expect(weekdays.length).to.equal(7);
+      expect(weekdays.map(th => th.textContent?.trim())).to.deep.equal([
+        'Mon',
+        'Tue',
+        'Wed',
+        'Thu',
+        'Fri',
+        'Sat',
+        'Sun'
+      ]);
+    });
+
+    it('applies day part to days buttons', async () => {
+      // const today = new Date();
+      el.month = new Date(el.month!.getFullYear(), el.month!.getMonth(), 1);
+      // el.showToday = true;
+      // el.selected = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      await el.updateComplete;
+
+      const buttons = Array.from(el.renderRoot.querySelectorAll('button'));
+
+      console.log('buttons.....', buttons, 'el....', el);
+
+      expect(buttons).to.exist;
+      expect(buttons.length).to.be.greaterThan(0);
+      expect(buttons[0]?.matches('[part~="day"]')).to.be.true;
+      // expect(button?.matches('[part~="selected"]')).to.be.true;
+    });
+  });
+
+  describe('header', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-month-view></sl-month-view>`);
+
       await el.updateComplete;
     });
 
     it('renders a header with localized weekday short names', () => {
-      const headers = Array.from(el.renderRoot.querySelectorAll('thead th[part~="week-day"]'));
-      expect(headers.length).to.equal(7);
-      // short names should be short strings like 'Mon' or single-letter depending on locale
-      expect(headers[0].textContent?.trim().length).to.be.greaterThan(0);
+      // TODO: maybe different locale check?
+      const weekdays = Array.from(el.renderRoot.querySelectorAll('thead th[part~="week-day"]'));
+
+      expect(weekdays.length).to.equal(7);
+      expect(weekdays.map(th => th.textContent?.trim())).to.deep.equal([
+        'Mon',
+        'Tue',
+        'Wed',
+        'Thu',
+        'Fri',
+        'Sat',
+        'Sun'
+      ]);
     });
 
     it('renders week numbers column when showWeekNumbers is true', async () => {
@@ -32,8 +83,9 @@ describe('sl-month-view', () => {
       await el.updateComplete;
 
       const firstTh = el.renderRoot.querySelector('thead th[part~="week-number"]');
+
       expect(firstTh).to.exist;
-      expect(firstTh?.textContent?.trim().length).to.be.greaterThan(0);
+      expect(firstTh).to.have.trimmed.text('wk.');
     });
   });
 
@@ -63,7 +115,7 @@ describe('sl-month-view', () => {
     });
   });
 
-  describe('parts generation & indicators/negative/disabled/selected', () => {
+  describe('parts', () => {
     beforeEach(async () => {
       const now = new Date();
       // use current month so we can exercise today/selected semantics
@@ -73,19 +125,21 @@ describe('sl-month-view', () => {
       await el.updateComplete;
     });
 
-    // it('applies today and selected parts when appropriate', async () => {
-    //   const today = new Date();
-    //   el.showToday = true;
-    //   el.selected = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-    //   await el.updateComplete;
-    //
-    //   // find a button with both today and selected in part attribute
-    //   const btn = Array.from(el.renderRoot.querySelectorAll('button')).find(b => (b.getAttribute('part') || '').includes('selected'));
-    //   expect(btn).to.exist;
-    //   const part = btn!.getAttribute('part') || '';
-    //   expect(part).to.include('today');
-    //   expect(part).to.include('selected');
-    // });
+    it('applies today part when appropriate', async () => {
+      // const today = new Date();
+      el.month = new Date(el.month!.getFullYear(), el.month!.getMonth(), 1);
+      el.showToday = true;
+      // el.selected = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      await el.updateComplete;
+
+      const button = Array.from(el.renderRoot.querySelectorAll('button')).find(btn =>
+        (btn.getAttribute('part') || '').includes('today')
+      );
+      expect(button).to.exist;
+
+      expect(button?.matches('[part~="today"]')).to.be.true;
+      // expect(button?.matches('[part~="selected"]')).to.be.true;
+    });
 
     it('applies today and selected parts when appropriate', async () => {
       const today = new Date();
@@ -94,28 +148,13 @@ describe('sl-month-view', () => {
       el.selected = new Date(today.getFullYear(), today.getMonth(), today.getDate());
       await el.updateComplete;
 
-      // el.selected = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-
-      // // Recreate the calendar so `day.today` gets computed (willUpdate recreates only on month/min/max)
-      // el.month = new Date(el.month!.getFullYear(), el.month!.getMonth(), 1);
-      // await el.updateComplete;
-
-      console.log(
-        'Today is:',
-        today.toDateString(),
-        Array.from(el.renderRoot.querySelectorAll('button')).filter(b => b.getAttribute('part') || '')
+      const button = Array.from(el.renderRoot.querySelectorAll('button')).find(btn =>
+        (btn.getAttribute('part') || '').includes('selected')
       );
+      expect(button).to.exist;
 
-      // find a button with both today and selected in part attribute
-      const btn = Array.from(el.renderRoot.querySelectorAll('button')).find(b =>
-        (b.getAttribute('part') || '').includes('selected')
-      );
-      expect(btn).to.exist;
-      const part = btn!.getAttribute('part') || '';
-
-      console.log('parts:', part);
-      expect(part).to.include('today'); // TODO: use matches...
-      expect(part).to.include('selected');
+      expect(button?.matches('[part~="today"]')).to.be.true;
+      expect(button?.matches('[part~="selected"]')).to.be.true;
     });
 
     it('applies "unselectable" for disabled and outside min/max days and "negative" and indicator classes', async () => {

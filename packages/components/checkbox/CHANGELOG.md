@@ -1,5 +1,14 @@
 # @sl-design-system/checkbox
 
+## 2.1.7
+
+### Patch Changes
+
+- [#2733](https://github.com/sl-design-system/components/pull/2733) [`0a615b1`](https://github.com/sl-design-system/components/commit/0a615b17e65995cf637dec9c2aa17b390bafcb7e) - Removes aria-checked attribute on internal input element because the native behaviour already handles this
+
+- Updated dependencies [[`b169507`](https://github.com/sl-design-system/components/commit/b1695074d53a1f26c274162eb3623c1ca5074d15)]:
+  - @sl-design-system/form@1.3.2
+
 ## 2.1.6
 
 ### Patch Changes

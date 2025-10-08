@@ -1,5 +1,11 @@
 # @sanomalearning/slds-clickedu
 
+## 0.5.0
+
+### Minor Changes
+
+- [#2621](https://github.com/sl-design-system/components/pull/2621) [`3ef7bd7`](https://github.com/sl-design-system/components/commit/3ef7bd73d96feff5ae5a9ae5480b6c7e83914455) - Updated color palette with new brand colors
+
 ## 0.4.0
 
 ### Minor Changes

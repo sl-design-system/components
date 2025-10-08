@@ -1,5 +1,11 @@
 # @sl-design-system/panel
 
+## 0.2.5
+
+### Patch Changes
+
+- [#2644](https://github.com/sl-design-system/components/pull/2644) [`12cf7bc`](https://github.com/sl-design-system/components/commit/12cf7bc4e66b4e4cb02c4ce0cc2d1d7facb8b310) - Changed background to `--sl-elevation-surface-raised-default` so it has the lightest background possible (this is only a change for themes that has a base background colour that is not (almost) white
+
 ## 0.2.4
 
 ### Patch Changes

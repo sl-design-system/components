@@ -7,11 +7,12 @@
   color: var(--sl-color-foreground-plain);
   display: block;
   flex-grow: 1;
+  outline: transparent solid var(--sl-size-borderWidth-focusRing);
+  outline-offset: var(--sl-size-outlineOffset-default);
 }
 
 :host(:focus-visible) {
-  outline: var(--sl-color-border-focused) solid var(--sl-border-width-focusring-default);
-  outline-offset: var(--sl-border-width-focusring-offset);
+  outline-color: var(--sl-color-border-focused);
   position: relative;
   z-index: 1;
 }

@@ -115,24 +115,26 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     return html`
       <div part="header">
         <span class="current-range">${this.years.at(0)} - ${this.years.at(-1)}</span>
-        <sl-button
-          @click=${this.#onPrevious}
-          aria-label=${msg('Go back 12 years', { id: 'sl.calendar.previousYears' })}
-          fill="ghost"
-          variant="primary"
-          ?disabled=${this.years && this.#isUnselectable((this.years.at(0) || 0) - 1)}
-        >
-          <sl-icon name="chevron-left"></sl-icon>
-        </sl-button>
-        <sl-button
-          @click=${this.#onNext}
-          aria-label=${msg('Go forward 12 years', { id: 'sl.calendar.nextYears' })}
-          fill="ghost"
-          variant="primary"
-          ?disabled=${this.years && this.#isUnselectable((this.years.at(-1) || 0) + 1)}
-        >
-          <sl-icon name="chevron-right"></sl-icon>
-        </sl-button>
+        <div class="arrows">
+          <sl-button
+            @click=${this.#onPrevious}
+            aria-label=${msg('Go back 12 years', { id: 'sl.calendar.previousYears' })}
+            fill="ghost"
+            variant="secondary"
+            ?disabled=${this.years && this.#isUnselectable((this.years.at(0) || 0) - 1)}
+          >
+            <sl-icon name="chevron-left"></sl-icon>
+          </sl-button>
+          <sl-button
+            @click=${this.#onNext}
+            aria-label=${msg('Go forward 12 years', { id: 'sl.calendar.nextYears' })}
+            fill="ghost"
+            variant="secondary"
+            ?disabled=${this.years && this.#isUnselectable((this.years.at(-1) || 0) + 1)}
+          >
+            <sl-icon name="chevron-right"></sl-icon>
+          </sl-button>
+        </div>
       </div>
       <ol class="years">
         ${this.years.map(year => {

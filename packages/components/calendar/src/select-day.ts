@@ -196,84 +196,88 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
     return html`
       <div part="header">
-        ${canSelectPreviousMonth || canSelectNextMonth
-          ? html`
-              <sl-button
-                @click=${this.#onToggleMonthSelect}
-                ?disabled=${this.readonly}
-                class="current-month"
-                fill="link"
-                variant="secondary"
-              >
-                <sl-format-date
-                  .date=${this.displayMonth}
-                  locale=${ifDefined(this.locale)}
-                  month="long"
-                ></sl-format-date>
-                <sl-icon name="caret-down-solid" size="md"></sl-icon>
-              </sl-button>
-            `
-          : html`
-              <span class="current-month"
-                ><sl-format-date
-                  .date=${this.displayMonth}
-                  locale=${ifDefined(this.locale)}
-                  month="long"
-                ></sl-format-date
-              ></span>
-            `}
-        ${canSelectPreviousYear || canSelectNextYear
-          ? html`
-              <sl-button
-                @click=${this.#onToggleYearSelect}
-                ?disabled=${this.readonly}
-                class="current-year"
-                fill="link"
-                variant="secondary"
-              >
-                <sl-format-date
-                  .date=${this.displayMonth}
-                  locale=${ifDefined(this.locale)}
-                  year="numeric"
-                ></sl-format-date>
-                <sl-icon name="caret-down-solid" size="md"></sl-icon>
-              </sl-button>
-            `
-          : html`
-              <span class="current-year"
-                ><sl-format-date
-                  .date=${this.displayMonth}
-                  locale=${ifDefined(this.locale)}
-                  year="numeric"
-                ></sl-format-date
-              ></span>
-            `}
-        <sl-button
-          @click=${this.#onPrevious}
-          aria-label=${msg(
-            str`Previous month, ${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}`,
-            { id: 'sl.calendar.previousMonth' }
-          )}
-          class="previous-month"
-          fill="ghost"
-          variant="secondary"
-          ?disabled=${!canSelectPreviousMonth || this.readonly}
-        >
-          <sl-icon name="chevron-left"></sl-icon>
-        </sl-button>
-        <sl-button
-          @click=${this.#onNext}
-          aria-label=${msg(
-            str`Next month, ${format(this.nextMonth!, this.locale, { month: 'long', year: 'numeric' })}`,
-            { id: 'sl.calendar.nextMonth' }
-          )}
-          class="next-month"
-          fill="ghost"
-          variant="secondary"
-          ?disabled=${!canSelectNextMonth || this.readonly}
-        >
-          <sl-icon name="chevron-right"></sl-icon>
-        </sl-button>
+        <div>
+          ${canSelectPreviousMonth || canSelectNextMonth
+            ? html`
+                <sl-button
+                  @click=${this.#onToggleMonthSelect}
+                  ?disabled=${this.readonly}
+                  class="current-month"
+                  fill="link"
+                  variant="secondary"
+                >
+                  <sl-format-date
+                    .date=${this.displayMonth}
+                    locale=${ifDefined(this.locale)}
+                    month="long"
+                  ></sl-format-date>
+                  <sl-icon name="caret-down-solid" size="md"></sl-icon>
+                </sl-button>
+              `
+            : html`
+                <span class="current-month"
+                  ><sl-format-date
+                    .date=${this.displayMonth}
+                    locale=${ifDefined(this.locale)}
+                    month="long"
+                  ></sl-format-date
+                ></span>
+              `}
+          ${canSelectPreviousYear || canSelectNextYear
+            ? html`
+                <sl-button
+                  @click=${this.#onToggleYearSelect}
+                  ?disabled=${this.readonly}
+                  class="current-year"
+                  fill="link"
+                  variant="secondary"
+                >
+                  <sl-format-date
+                    .date=${this.displayMonth}
+                    locale=${ifDefined(this.locale)}
+                    year="numeric"
+                  ></sl-format-date>
+                  <sl-icon name="caret-down-solid" size="md"></sl-icon>
+                </sl-button>
+              `
+            : html`
+                <span class="current-year"
+                  ><sl-format-date
+                    .date=${this.displayMonth}
+                    locale=${ifDefined(this.locale)}
+                    year="numeric"
+                  ></sl-format-date
+                ></span>
+              `}
+        </div>
+        <div class="arrows">
+          <sl-button
+            @click=${this.#onPrevious}
+            aria-label=${msg(
+              str`Previous month, ${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}`,
+              { id: 'sl.calendar.previousMonth' }
+            )}
+            class="previous-month"
+            fill="ghost"
+            variant="secondary"
+            ?disabled=${!canSelectPreviousMonth || this.readonly}
+          >
+            <sl-icon name="chevron-left"></sl-icon>
+          </sl-button>
+          <sl-button
+            @click=${this.#onNext}
+            aria-label=${msg(
+              str`Next month, ${format(this.nextMonth!, this.locale, { month: 'long', year: 'numeric' })}`,
+              { id: 'sl.calendar.nextMonth' }
+            )}
+            class="next-month"
+            fill="ghost"
+            variant="secondary"
+            ?disabled=${!canSelectNextMonth || this.readonly}
+          >
+            <sl-icon name="chevron-right"></sl-icon>
+          </sl-button>
+        </div>
       </div>
       <div class="days-of-week">
         ${this.showWeekNumbers

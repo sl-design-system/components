@@ -3,18 +3,24 @@
   display: inline-flex;
   flex-direction: column;
   gap: var(--sl-size-100);
-  padding: var(--sl-size-075);
+  padding: var(--sl-size-025);
 }
 
 [part='header'] {
   align-items: center;
   display: flex;
+  padding-inline: var(--sl-size-150) var(--sl-size-050);
 }
 
 .current-year {
-  font-size: 1.2em;
+  // font-size: 1.2em;
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
   margin-inline-end: auto;
+}
+
+.arrows {
+  display: inline-flex;
+  gap: var(--sl-size-100);
 }
 
 sl-button {

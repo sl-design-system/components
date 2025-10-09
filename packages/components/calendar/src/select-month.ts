@@ -149,24 +149,26 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
               </sl-button>
             `
           : html`<span class="current-year">${currentYear}</span>`}
-        <sl-button
-          @click=${this.#onPrevious}
-          aria-label=${msg(str`Previous year, ${currentYear - 1}`, { id: 'sl.calendar.previousYear' })}
-          fill="ghost"
-          variant="primary"
-          ?disabled=${!canSelectPreviousYear}
-        >
-          <sl-icon name="chevron-left"></sl-icon>
-        </sl-button>
-        <sl-button
-          @click=${this.#onNext}
-          aria-label=${msg(str`Next year, ${currentYear + 1}`, { id: 'sl.calendar.nextYear' })}
-          fill="ghost"
-          variant="primary"
-          ?disabled=${!canSelectNextYear}
-        >
-          <sl-icon name="chevron-right"></sl-icon>
-        </sl-button>
+        <div class="arrows">
+          <sl-button
+            @click=${this.#onPrevious}
+            aria-label=${msg(str`Previous year, ${currentYear - 1}`, { id: 'sl.calendar.previousYear' })}
+            fill="ghost"
+            variant="secondary"
+            ?disabled=${!canSelectPreviousYear}
+          >
+            <sl-icon name="chevron-left"></sl-icon>
+          </sl-button>
+          <sl-button
+            @click=${this.#onNext}
+            aria-label=${msg(str`Next year, ${currentYear + 1}`, { id: 'sl.calendar.nextYear' })}
+            fill="ghost"
+            variant="secondary"
+            ?disabled=${!canSelectNextYear}
+          >
+            <sl-icon name="chevron-right"></sl-icon>
+          </sl-button>
+        </div>
       </div>
       <ol class="months">
         ${this.months.map(month => {

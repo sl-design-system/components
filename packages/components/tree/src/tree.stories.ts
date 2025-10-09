@@ -6,6 +6,8 @@ import { ButtonBar } from '@sl-design-system/button-bar';
 import '@sl-design-system/button-bar/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/menu/register.js';
+import '@sl-design-system/search-field/register.js';
+import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html, nothing } from 'lit';
 import '../register.js';
@@ -275,6 +277,47 @@ export const Icons: Story = {
       isExpandable: ({ children }) => !!children,
       isExpanded: ({ name }) => ['tree', 'src'].includes(name)
     })
+  }
+};
+
+export const Filter: Story = {
+  args: {
+    ...Icons.args
+  },
+  render: ({ dataSource, showGuides }) => {
+    const onChange = (event: SlChangeEvent<string | undefined>): void => {
+      const value = event.detail ?? '';
+
+      if (value) {
+        const regex = new RegExp(value, 'i');
+
+        dataSource?.addFilter('search', (item: NestedDataNode) => regex.test(item.name));
+      } else {
+        dataSource?.removeFilter('search');
+      }
+
+      dataSource?.update();
+    };
+
+    const onClear = () => {
+      dataSource?.removeFilter('search');
+      dataSource?.update();
+    };
+
+    return html`
+      <sl-search-field
+        @sl-change=${onChange}
+        @sl-clear=${onClear}
+        placeholder="Filter the nodes in the tree"
+        style="margin-block-end: 1rem"
+      ></sl-search-field>
+      <sl-tree
+        .dataSource=${dataSource}
+        ?show-guides=${showGuides}
+        aria-label="Tree label"
+        style="max-inline-size: 300px"
+      ></sl-tree>
+    `;
   }
 };
 

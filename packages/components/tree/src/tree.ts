@@ -216,7 +216,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
                   ${this.renderer?.(item) ??
                   html`
                     ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing}
-                    <span>${item.label} ${item.levelGuides?.join(',')}</span>
+                    <span>${item.label}</span>
                   `}
                 </sl-tree-node>
               `;

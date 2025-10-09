@@ -93,6 +93,11 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   @property({ type: Number }) level = 0;
 
   /**
+   * An array indicating which levels have a next sibling; used to render indentation guides.
+   */
+  @property({ type: Array, attribute: 'level-guides' }) levelGuides?: number[];
+
+  /**
    * Will render a checkbox to allow for multiple selections.
    * @default false
    */
@@ -109,12 +114,6 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** @internal Emits when the user clicks on the wrapper part of the tree node. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<TreeDataSourceNode<T>>>;
-
-  /**
-   * Shows the indentation guides when set.
-   * @default false
-   */
-  @property({ type: Boolean, attribute: 'show-guides' }) showGuides?: boolean;
 
   /** @internal Emits when the expanded state changes. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
@@ -165,8 +164,8 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
       <sl-indent-guides
         ?last-node-in-level=${this.lastNodeInLevel}
         .level=${this.level}
+        .levelGuides=${this.levelGuides}
         ?selected=${!this.multiple && this.selected}
-        ?visible=${this.showGuides}
       ></sl-indent-guides>
       <div aria-colindex="1" role="gridcell">
         ${this.expandable

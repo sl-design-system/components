@@ -23,6 +23,9 @@ export class IndentGuides extends LitElement {
   /** Level of indentation. */
   @property({ type: Number }) level = 0;
 
+  /** Array of levels that should show a guide. */
+  @property({ type: Array, attribute: 'level-guides' }) levelGuides?: number[];
+
   /** Will show a selection indicator if set. */
   @property({ type: Boolean }) selected?: false;
 
@@ -38,8 +41,16 @@ export class IndentGuides extends LitElement {
   override render(): TemplateResult {
     return html`
       ${Array.from({ length: this.level }).map(
-        (_, index) =>
-          html`<div class=${classMap({ guide: true, first: index === 0, last: index === this.level - 1 })}></div>`
+        (_, index) => html`
+          <div
+            class=${classMap({
+              guide: true,
+              first: index === 0,
+              last: index === this.level - 1,
+              visible: this.levelGuides?.includes(index) ?? false
+            })}
+          ></div>
+        `
       )}
       ${this.selected ? html`<div class="selected"></div>` : nothing}
     `;

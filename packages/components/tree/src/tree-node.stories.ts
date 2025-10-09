@@ -17,9 +17,9 @@ type Props = Pick<
   | 'indeterminate'
   | 'lastNodeInLevel'
   | 'level'
+  | 'levelGuides'
   | 'multiple'
   | 'selected'
-  | 'showGuides'
   | 'type'
 > & { text: string };
 type Story = StoryObj<Props>;
@@ -35,7 +35,6 @@ export default {
     level: 0,
     multiple: false,
     selected: false,
-    showGuides: false,
     text: 'Tree node',
     type: 'node'
   },
@@ -54,7 +53,6 @@ export default {
     level,
     multiple,
     selected,
-    showGuides,
     text,
     type
   }) => {
@@ -70,7 +68,6 @@ export default {
         level=${level}
         ?multiple=${multiple}
         ?selected=${selected}
-        ?show-guides=${showGuides}
         type=${ifDefined(type)}
       >
         ${text}

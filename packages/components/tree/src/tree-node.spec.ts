@@ -53,11 +53,6 @@ describe('sl-tree-node', () => {
       expect(el.expanded).to.not.be.true;
     });
 
-    it('should not show the indentation guides', () => {
-      expect(el.showGuides).to.not.be.true;
-      expect(el.renderRoot.querySelector('sl-indent-guides')).to.not.have.attribute('visible');
-    });
-
     it('should not be indeterminate', () => {
       expect(el.indeterminate).to.not.be.true;
     });

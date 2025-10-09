@@ -376,7 +376,41 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
 
   /** Flattens the tree nodes to an array based on the expansion state. */
   toViewArray(): Array<TreeDataSourceNode<T>> {
+    /**
+     * Calculate level guides for a node by walking up the parent chain.
+     * Always add the parent's level, but stop walking up when we reach a last child.
+     */
+    const calculateLevelGuides = (node: TreeDataSourceNode<T>): number[] => {
+      const guides: number[] = [];
+
+      let current = node.parent;
+      while (current) {
+        const siblings = current.parent?.children ?? this.nodes;
+
+        // Always add the current parent's level
+        guides.push(current.level);
+
+        // Stop propagating if this parent is the last child
+        if (siblings?.at(-1) === current) {
+          break;
+        }
+
+        // Move up to the next parent
+        current = current.parent;
+      }
+
+      return guides;
+    };
+
     const traverse = (treeNode: TreeDataSourceNode<T>): Array<TreeDataSourceNode<T>> => {
+      // Calculate and set level guides for the current node
+      treeNode.levelGuides = calculateLevelGuides(treeNode);
+
+      // Set lastNodeInLevel based on whether this is the last child of its parent
+      const siblings = treeNode.parent?.children ?? this.nodes;
+
+      treeNode.lastNodeInLevel = siblings?.at(-1) === treeNode;
+
       if (treeNode.expandable && treeNode.expanded) {
         if (Array.isArray(treeNode.children)) {
           const array = treeNode.children.map(childNode => {
@@ -407,6 +441,16 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
   }
 
   #createPlaceholderTreeNode(parent: TreeDataSourceNode<T>): TreeDataSourceNode<T> {
+    let levelGuides: number[] = [];
+
+    const siblings = parent.parent?.children ?? this.nodes;
+    if (siblings?.at(-1) === parent && parent.levelGuides) {
+      // If parent is last child, don't include guides from higher levels
+      levelGuides = [parent.level];
+    } else {
+      levelGuides = [parent.level, ...(parent.levelGuides ?? [])];
+    }
+
     return {
       dataNode: null as unknown as T,
       expandable: false,
@@ -414,12 +458,23 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
       id: 'placeholder',
       label: '',
       level: parent.level + 1,
+      levelGuides,
       parent,
       type: 'placeholder'
     };
   }
 
   #createSkeletonTreeNode(parent: TreeDataSourceNode<T>): TreeDataSourceNode<T> {
+    let levelGuides: number[] = [];
+
+    const siblings = parent.parent?.children ?? this.nodes;
+    if (siblings?.at(-1) === parent && parent.levelGuides) {
+      // If parent is last child, don't include guides from higher levels
+      levelGuides = [parent.level];
+    } else {
+      levelGuides = [parent.level, ...(parent.levelGuides ?? [])];
+    }
+
     return {
       dataNode: null as unknown as T,
       expandable: false,
@@ -427,6 +482,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
       id: 'skeleton',
       label: '',
       level: parent.level + 1,
+      levelGuides,
       parent,
       type: 'skeleton'
     };

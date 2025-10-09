@@ -23,10 +23,6 @@
   }
 }
 
-:host([visible]) .guide {
-  --_color: var(--sl-color-border-bold);
-}
-
 .guide {
   background: var(--_color);
   inline-size: var(--sl-size-borderWidth-default);
@@ -35,6 +31,10 @@
   &.first {
     background: transparent;
   }
+}
+
+.visible {
+  --_color: var(--sl-color-border-bold);
 }
 
 .selected {

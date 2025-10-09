@@ -123,7 +123,7 @@
   content: '';
   display: inline-block;
   inline-size: var(--sl-size-100);
-  margin-block-start: calc(0.8em - var(--sl-size-100));
+  margin-block-start: calc(0.8em - var(--sl-size-100)); // This will  be overwritten when 1cap is supported.
   margin-inline-end: var(--sl-size-050);
 
   @supports (inline-size: 1cap) {

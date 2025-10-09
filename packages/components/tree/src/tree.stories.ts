@@ -46,78 +46,85 @@ Icon.register(faFileLines, faFolder, faFolderOpen, faPen, faTrash);
 
 export const flatData: FlatDataNode[] = [
   {
-    id: 0,
+    id: -1,
     expandable: true,
     level: 0,
+    name: 'Location A',
+    badge: '1129'
+  },
+  {
+    id: 0,
+    expandable: true,
+    level: 1,
     name: 'Upper school',
     badge: '316'
   },
   {
     id: 1,
     expandable: true,
-    level: 1,
+    level: 2,
     name: 'MAVO',
     badge: '179'
   },
   {
     id: 2,
     expandable: false,
-    level: 2,
+    level: 3,
     name: 'M3A'
   },
   {
     id: 3,
     expandable: true,
-    level: 1,
+    level: 2,
     name: 'HAVO',
     badge: '108'
   },
   {
     id: 4,
     expandable: false,
-    level: 2,
+    level: 3,
     name: 'H3A',
     badge: '26'
   },
   {
     id: 5,
     expandable: false,
-    level: 2,
+    level: 3,
     name: 'H3B',
     badge: '24'
   },
   {
     id: 6,
     expandable: false,
-    level: 2,
+    level: 3,
     name: 'H4A',
     badge: '28'
   },
   {
     id: 7,
     expandable: false,
-    level: 2,
+    level: 3,
     name: 'H4B',
     badge: '30'
   },
   {
     id: 8,
     expandable: true,
-    level: 1,
+    level: 2,
     name: 'VWO',
     badge: '29'
   },
   {
     id: 9,
     expandable: false,
-    level: 2,
+    level: 3,
     name: 'V4A',
     badge: '29'
   },
   {
     id: 10,
     expandable: true,
-    level: 0,
+    level: 1,
     name: 'Lower school',
     badge: '813'
   }
@@ -125,39 +132,45 @@ export const flatData: FlatDataNode[] = [
 
 export const nestedData: NestedDataNode[] = [
   {
-    id: 0,
-    name: 'textarea',
-    children: [{ id: 1, name: 'package.json' }]
-  },
-  {
-    id: 2,
-    name: 'tooltip',
-    children: [{ id: 3, name: 'package.json' }]
-  },
-  {
-    id: 4,
-    name: 'tree',
+    id: -1,
+    name: 'components',
     children: [
       {
-        id: 5,
-        name: 'src',
+        id: 0,
+        name: 'textarea',
+        children: [{ id: 1, name: 'package.json' }]
+      },
+      {
+        id: 2,
+        name: 'tooltip',
+        children: [{ id: 3, name: 'package.json' }]
+      },
+      {
+        id: 4,
+        name: 'tree',
         children: [
-          { id: 6, name: 'flat-tree-model.ts' },
-          { id: 7, name: 'nested-tree-model.ts' },
-          { id: 8, name: 'tree-model.ts' },
-          { id: 9, name: 'tree-node.scss' },
-          { id: 10, name: 'tree-node.ts' },
-          { id: 11, name: 'tree.ts' },
-          { id: 12, name: 'utils.ts' }
+          {
+            id: 5,
+            name: 'src',
+            children: [
+              { id: 6, name: 'flat-tree-model.ts' },
+              { id: 7, name: 'nested-tree-model.ts' },
+              { id: 8, name: 'tree-model.ts' },
+              { id: 9, name: 'tree-node.scss' },
+              { id: 10, name: 'tree-node.ts' },
+              { id: 11, name: 'tree.ts' },
+              { id: 12, name: 'utils.ts' }
+            ]
+          },
+          { id: 13, name: 'index.ts' },
+          { id: 14, name: 'package.json' },
+          { id: 15, name: 'register.ts' }
         ]
       },
-      { id: 13, name: 'index.ts' },
-      { id: 14, name: 'package.json' },
-      { id: 15, name: 'register.ts' }
+      { id: 16, name: 'eslint.config.mjs' },
+      { id: 17, name: 'stylelint.config.mjs' }
     ]
-  },
-  { id: 16, name: 'eslint.config.mjs' },
-  { id: 17, name: 'stylelint.config.mjs' }
+  }
 ];
 
 export default {
@@ -230,7 +243,7 @@ export const Basic: Story = {
       getLabel: ({ name }) => name,
       getLevel: ({ level }) => level,
       isExpandable: ({ expandable }) => expandable,
-      isExpanded: ({ name }) => ['Upper school', 'HAVO'].includes(name),
+      isExpanded: ({ name }) => ['Location A', 'Upper school', 'HAVO', 'VWO'].includes(name),
       isSelected: ({ name }) => name === 'H3B'
     })
   }
@@ -244,7 +257,7 @@ export const Badges: Story = {
       getLabel: ({ name }) => name,
       getLevel: ({ level }) => level,
       isExpandable: ({ expandable }) => expandable,
-      isExpanded: ({ name }) => ['Upper school', 'HAVO'].includes(name),
+      isExpanded: ({ name }) => ['Location A', 'Upper school', 'HAVO', 'VWO'].includes(name),
       isSelected: ({ name }) => name === 'H3B'
     }),
     maxWidth: '250px',
@@ -275,7 +288,7 @@ export const Icons: Story = {
       getId: item => item.id,
       getLabel: ({ name }) => name,
       isExpandable: ({ children }) => !!children,
-      isExpanded: ({ name }) => ['tree', 'src'].includes(name)
+      isExpanded: ({ name }) => ['components', 'tree', 'src'].includes(name)
     })
   }
 };

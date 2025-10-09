@@ -30,7 +30,7 @@
 .guide {
   background: var(--_color);
   inline-size: var(--sl-size-borderWidth-default);
-  margin-inline: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default)) var(--sl-size-075);
+  margin-inline: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default)) var(--sl-size-075);
 
   &.first {
     background: transparent;

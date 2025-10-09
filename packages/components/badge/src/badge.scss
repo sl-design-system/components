@@ -3,7 +3,7 @@
   background: var(--_background, var(--sl-color-background-accent-grey-subtle));
   block-size: 1lh;
   border-radius: var(--sl-size-borderRadius-full);
-  color: var(--_color, (--sl-color-foreground-accent-grey-bold));
+  color: var(--_color, var(--sl-color-foreground-accent-grey-bold));
   display: inline-flex;
   font-size: 0.857em;
   gap: var(--sl-size-025);

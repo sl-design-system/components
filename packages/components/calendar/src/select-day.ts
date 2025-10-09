@@ -80,8 +80,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal The scroller element. */
   @query('.scroller') scroller?: HTMLElement;
 
-  /** @internal The scroller element. */
-  @query('.scroll-wrapper') scrollWrapper?: HTMLElement;
+  // /** @internal The scroller element. */
+  // @query('.scroll-wrapper') scrollWrapper?: HTMLElement;
 
   /** The selected date. */
   @property({ converter: dateConverter }) selected?: Date;
@@ -131,25 +131,70 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   // eslint-disable-next-line lit/no-native-attributes
   @property({ type: Boolean }) override inert = false;
 
-  observer = new IntersectionObserver(
-    entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && entry.intersectionRatio === 1) {
-          this.month = normalizeDateTime((entry.target as MonthView).month!);
-          this.#scrollToMonth(0);
-        }
-      });
-    },
-    { root: this.scrollWrapper, threshold: [0, 0.25, 0.5, 0.75, 1] }
-  );
+  observer?: IntersectionObserver;
+
+  // observer = new IntersectionObserver(
+  //   entries => {
+  //     entries.forEach(entry => {
+  //       console.log(
+  //         'entry in intersection observer',
+  //         entry,
+  //         'entry.isIntersecting && entry.intersectionRatio',
+  //         entry.isIntersecting,
+  //         entry.intersectionRatio,
+  //         'month...',
+  //         normalizeDateTime((entry.target as MonthView).month!),
+  //         'root for intersection observer',
+  //         this.scroller
+  //       );
+  //       if (entry.isIntersecting && entry.intersectionRatio >= 0.75 /*=== 1*/) {
+  //         this.month = normalizeDateTime((entry.target as MonthView).month!);
+  //         console.log('month in intersection observer', this.month);
+  //         this.#scrollToMonth(0);
+  //       }
+  //     });
+  //   },
+  //   { root: this.scroller, threshold: [0, 0.25, 0.5, 0.75, 1] } // TODO: check maybe rootMargin 20px or sth?
+  // );
+
+  override disconnectedCallback(): void {
+    this.observer?.disconnect();
+
+    super.disconnectedCallback();
+  }
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
+    // Create the observer after the scroller exists so `root` is the scroller element
+    this.observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          console.log(
+            'entry in intersection observer',
+            entry,
+            'entry.isIntersecting && entry.intersectionRatio',
+            entry.isIntersecting,
+            entry.intersectionRatio,
+            'month...',
+            normalizeDateTime((entry.target as MonthView).month!),
+            'root for intersection observer',
+            this.scroller
+          );
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.7 /*=== 1*/) {
+            this.month = normalizeDateTime((entry.target as MonthView).month!);
+            console.log('month in intersection observer', this.month);
+            this.#scrollToMonth(0);
+          }
+        });
+      },
+      { root: this.scroller, threshold: [0, 0.25, 0.5, 0.75, 1] } // TODO: check maybe rootMargin 20px or sth?
+    );
+
     requestAnimationFrame(() => {
       this.#scrollToMonth(0);
       const monthViews = this.renderRoot.querySelectorAll('sl-month-view');
-      monthViews.forEach(mv => this.observer.observe(mv));
+      monthViews.forEach(mv => this.observer?.observe(mv));
     });
   }
 
@@ -362,6 +407,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onNext(): void {
+    // TODO: why the header is not updated when clicking next and week days are visible?
     this.#scrollToMonth(1, true);
   }
 
@@ -388,9 +434,15 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       'left:',
       parseInt(getComputedStyle(this).width) * month + parseInt(getComputedStyle(this).width)
     );
-    const width = parseInt(getComputedStyle(this).width),
-      left = width * month + width;
+    // // Prefer scroller width (viewport of observed root). Fall back to host computed width
+    // const width = this.scroller?.clientWidth ?? parseInt(getComputedStyle(this).width), //parseInt(getComputedStyle(this).width),
+    //   left = width * month + width;
 
-    this.scroller?.scrollTo({ left, behavior: smooth ? 'smooth' : 'auto' });
+    // Prefer scroller width (viewport of observed root). Fall back to host computed width.
+    const hostWidth = parseInt(getComputedStyle(this).width) || 0;
+    const width = this.scroller?.clientWidth ?? hostWidth;
+    const left = width * month + width;
+
+    this.scroller?.scrollTo({ left, behavior: smooth ? 'smooth' : 'instant' });
   }
 }

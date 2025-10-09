@@ -208,7 +208,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
                   .level=${item.level}
                   ?multiple=${this.dataSource?.multiple}
                   .node=${item}
-                  ?selected=${item.selected}
+                  .selected=${item.selected}
                   ?show-guides=${this.showGuides}
                   tabindex=${virtualItem.index === this.#indexOfFocusedNode ? '0' : '-1'}
                   .type=${item.type}

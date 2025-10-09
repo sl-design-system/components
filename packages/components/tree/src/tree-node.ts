@@ -172,7 +172,9 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
         ${this.expandable
           ? html`
               <div class="expander">
-                <sl-icon name="chevron-right" size="xs"></sl-icon>
+                <div class="expander-inner">
+                  <sl-icon name="chevron-right" size="xs"></sl-icon>
+                </div>
               </div>
             `
           : nothing}

@@ -188,7 +188,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       monthViews.forEach(mv => this.observer?.observe(mv));
       console.log('monthViews observed', monthViews);
     });
-  }
+  } // TODO: maybe rovingtabindex for days should be added here as well? not only in the month view?
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);

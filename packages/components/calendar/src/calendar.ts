@@ -154,6 +154,9 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
     console.log('disabled dates', this.disabled, 'min and max', this.min, this.max, 'month', this.month);
 
+    console.log('find all focusable elements in calendar...', this.renderRoot.querySelectorAll('[tabindex="0"]'));
+    // TODO: in each month view there is one focusable (tabindex 0) element, probably only in the currently visible one there should be a tabindex 0?
+
     return html`
       <sl-select-day
         @sl-select=${this.#onSelect}

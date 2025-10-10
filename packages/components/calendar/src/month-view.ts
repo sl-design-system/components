@@ -36,26 +36,47 @@ export class MonthView extends LocaleMixin(LitElement) {
     directionLength: 7,
     focusInIndex: elements => {
       let index = elements.findIndex(el => el.part.contains('selected') && !el.disabled);
+      console.log('looking for selected index...', index);
       if (index > -1) {
+        console.log('in focusInIndex: focusing selected?', index);
         return index;
       }
 
       index = elements.findIndex(el => el.part.contains('today') && !el.disabled);
+      console.log('looking for today index...', index);
       if (index > -1) {
+        console.log('in focusInIndex: focusing today?', index);
         return index;
       }
+
+      console.log(
+        'in focusInIndex: no selected or today, focusing first enabled element',
+        elements.findIndex(el => !el.disabled)
+      );
 
       return elements.findIndex(el => !el.disabled);
     },
     elements: (): HTMLButtonElement[] => {
-      // console.log(
-      //   'elements',
-      //   Array.from(this.renderRoot.querySelectorAll('button')),
-      //   this.renderRoot.querySelectorAll('button')
-      // );
+      console.log(
+        'elements in rovingtabindex controller in month view',
+        Array.from(this.renderRoot.querySelectorAll('button')),
+        this.renderRoot.querySelectorAll('button'),
+        'inert?',
+        this.inert
+      );
+
+      if (this.inert) {
+        return [];
+      }
+
       // return Array.from(this.renderRoot.querySelectorAll('button'));
       // return Array.from(this.renderRoot.querySelectorAll('button')).filter(btn => !btn.disabled);
       return Array.from(this.renderRoot.querySelectorAll('button')); // keep disabled buttons to preserve grid alignment
+
+      // const buttons = Array.from(this.renderRoot.querySelectorAll('button')) as HTMLButtonElement[];
+      // // If `inert` is set we keep disabled buttons to preserve grid alignment,
+      // // otherwise return only focusable (not disabled) buttons.
+      // return this.inert ? buttons : buttons.filter(btn => !btn.disabled);
     },
     isFocusableElement: el => !el.disabled
   });
@@ -196,9 +217,12 @@ export class MonthView extends LocaleMixin(LitElement) {
       this.calendar = createCalendar(this.month ?? new Date(), { firstDayOfWeek, max, min, showToday });
     }
 
-    if (changes.has('month') || changes.has('inert')) {
+    if (changes.has('max') || changes.has('min') || changes.has('month') || changes.has('inert')) {
       this.#rovingTabindexController.clearElementCache();
+      // this.#rovingTabindexController.focus();
     }
+
+    console.log('find all focusable elements in month view...', this.renderRoot.querySelectorAll('[tabindex="0"]'));
   }
 
   override render(): TemplateResult {

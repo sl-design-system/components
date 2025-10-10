@@ -363,7 +363,8 @@ export const LazyLoad: Story = {
         getLabel: ({ id }) => id,
         isExpandable: ({ expandable }) => !!expandable
       }
-    )
+    ),
+    styles: 'sl-button-bar { display: none; }'
   }
 };
 

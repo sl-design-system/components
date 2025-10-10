@@ -68,6 +68,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** The month that is shown. */
   @property({ converter: dateConverter }) month?: Date;
 
+  /** @internal The month-view element. */
+  @query('sl-month-view') monthView?: HTMLElement;
+
   /** @internal The next month in the calendar. */
   @state() nextMonth?: Date;
 
@@ -133,30 +136,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   observer?: IntersectionObserver;
 
-  // observer = new IntersectionObserver(
-  //   entries => {
-  //     entries.forEach(entry => {
-  //       console.log(
-  //         'entry in intersection observer',
-  //         entry,
-  //         'entry.isIntersecting && entry.intersectionRatio',
-  //         entry.isIntersecting,
-  //         entry.intersectionRatio,
-  //         'month...',
-  //         normalizeDateTime((entry.target as MonthView).month!),
-  //         'root for intersection observer',
-  //         this.scroller
-  //       );
-  //       if (entry.isIntersecting && entry.intersectionRatio >= 0.75 /*=== 1*/) {
-  //         this.month = normalizeDateTime((entry.target as MonthView).month!);
-  //         console.log('month in intersection observer', this.month);
-  //         this.#scrollToMonth(0);
-  //       }
-  //     });
-  //   },
-  //   { root: this.scroller, threshold: [0, 0.25, 0.5, 0.75, 1] } // TODO: check maybe rootMargin 20px or sth?
-  // );
-
   override disconnectedCallback(): void {
     this.observer?.disconnect();
 
@@ -166,35 +145,48 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
-    // Create the observer after the scroller exists so `root` is the scroller element
-    this.observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          console.log(
-            'entry in intersection observer',
-            entry,
-            'entry.isIntersecting && entry.intersectionRatio',
-            entry.isIntersecting,
-            entry.intersectionRatio,
-            'month...',
-            normalizeDateTime((entry.target as MonthView).month!),
-            'root for intersection observer',
-            this.scroller
-          );
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.7 /*=== 1*/) {
-            this.month = normalizeDateTime((entry.target as MonthView).month!);
-            console.log('month in intersection observer', this.month);
-            this.#scrollToMonth(0);
-          }
-        });
-      },
-      { root: this.scroller, threshold: [0, 0.25, 0.5, 0.75, 1] } // TODO: check maybe rootMargin 20px or sth?
-    );
-
     requestAnimationFrame(() => {
+      let totalHorizontal = 0;
+
+      if (this.monthView) {
+        const cs = getComputedStyle(this.monthView);
+        const left = parseFloat(cs.paddingLeft) || 0;
+        const right = parseFloat(cs.paddingRight) || 0;
+        totalHorizontal = Math.round(left + right);
+      }
+
+      // Create the observer after the scroller exists so `root` is the scroller element
+      this.observer = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            // console.log(
+            //   'entry in intersection observer',
+            //   entry,
+            //   'entry.isIntersecting && entry.intersectionRatio',
+            //   entry.isIntersecting,
+            //   'ratio:',
+            //   entry.intersectionRatio,
+            //   'month...',
+            //   normalizeDateTime((entry.target as MonthView).month!),
+            //   'root for intersection observer',
+            //   this.scroller,
+            //   'monthView....?',
+            //   this.monthView
+            // );
+            if (entry.isIntersecting && entry.intersectionRatio === 1) {
+              this.month = normalizeDateTime((entry.target as MonthView).month!);
+              console.log('month in intersection observer', this.month);
+              this.#scrollToMonth(0);
+            }
+          });
+        },
+        { root: this.scroller, rootMargin: `${totalHorizontal}px`, threshold: [0, 0.25, 0.5, 0.75, /*0.99,*/ 1] } // TODO: check maybe rootMargin 20px or sth?
+      );
+
       this.#scrollToMonth(0);
       const monthViews = this.renderRoot.querySelectorAll('sl-month-view');
       monthViews.forEach(mv => this.observer?.observe(mv));
+      console.log('monthViews observed', monthViews);
     });
   }
 
@@ -440,8 +432,10 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
     // Prefer scroller width (viewport of observed root). Fall back to host computed width.
     const hostWidth = parseInt(getComputedStyle(this).width) || 0;
-    const width = this.scroller?.clientWidth ?? hostWidth;
+    const width = /*this.scroller?.clientWidth ??*/ hostWidth;
     const left = width * month + width;
+
+    console.log('scroll to month - left', left, 'width used', width, 'hostWidth', hostWidth);
 
     this.scroller?.scrollTo({ left, behavior: smooth ? 'smooth' : 'instant' });
   }

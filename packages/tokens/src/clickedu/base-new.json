@@ -93,7 +93,7 @@
 			"borderWidth": {
 				"action": {
 					"$type": "borderWidth",
-					"$value": "{size.borderWidth.default}",
+					"$value": "{size.borderWidth.subtle}",
 					"$description": "Sets the standard border width for action components."
 				},
 				"default": {

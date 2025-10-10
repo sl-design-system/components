@@ -9,8 +9,10 @@ import { type Day } from './utils.js';
 
 type Props = Pick<
   MonthView,
+  | 'disabled'
   | 'firstDayOfWeek'
   | 'hideDaysOtherMonths'
+  | 'indicator'
   | 'locale'
   | 'max'
   | 'min'
@@ -36,8 +38,14 @@ export default {
     showWeekNumbers: false
   },
   argTypes: {
+    disabled: {
+      control: 'date'
+    },
     firstDayOfWeek: {
       control: 'number'
+    },
+    indicator: {
+      control: 'date'
     },
     locale: {
       control: 'inline-radio',
@@ -63,8 +71,10 @@ export default {
     }
   },
   render: ({
+    disabled,
     firstDayOfWeek,
     hideDaysOtherMonths,
+    indicator,
     max,
     min,
     month,
@@ -88,7 +98,20 @@ export default {
       ?readonly=${readonly}
       ?show-today=${showToday}
       ?show-week-numbers=${showWeekNumbers}
+      .disabled=${ifDefined(disabled?.map(date => date.toISOString()).join(','))}
       first-day-of-week=${ifDefined(firstDayOfWeek)}
+      indicator=${ifDefined(
+        Array.isArray(indicator)
+          ? JSON.stringify(
+              indicator
+                .filter(item => item?.date)
+                .map(item => ({
+                  date: item.date.toISOString(),
+                  ...(item.color ? { color: item.color } : {})
+                }))
+            )
+          : undefined
+      )}
       locale=${ifDefined(locale)}
       max=${ifDefined(max?.toISOString())}
       min=${ifDefined(min?.toISOString())}
@@ -100,6 +123,10 @@ export default {
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
+
+// TODO: selecting when clicking on it should work in the mont-view as well?
+
+// TODO: disabled days story is missing
 
 export const FirstDayOfWeek: Story = {
   args: {
@@ -174,6 +201,32 @@ export const Selected: Story = {
 export const Today: Story = {
   args: {
     showToday: true
+  }
+};
+
+export const Indicator: Story = {
+  args: {
+    indicator: [
+      { date: new Date('2025-08-05') },
+      { date: new Date('2025-08-06'), color: 'blue' },
+      { date: new Date('2025-08-07'), color: 'red' },
+      { date: new Date('2025-08-09'), color: 'yellow' },
+      { date: new Date('2025-08-10'), color: 'green' },
+      { date: new Date('2025-08-20'), color: 'grey' },
+      { date: new Date('2025-08-22'), color: 'green' },
+      { date: new Date('2025-08-27'), color: 'yellow' }
+    ],
+    showToday: true,
+    month: new Date(1755640800000)
+  }
+};
+
+export const DisabledDays: Story = {
+  args: {
+    disabled: [new Date('2025-10-06'), new Date('2025-10-07'), new Date('2025-10-17')],
+    max: new Date(2025, 9, 25),
+    min: new Date(2025, 9, 4),
+    month: new Date(2025, 9, 1)
   }
 };
 

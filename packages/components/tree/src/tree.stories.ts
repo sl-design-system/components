@@ -294,6 +294,7 @@ export const Icons: Story = {
 };
 
 export const Filter: Story = {
+  tags: ['!dev'],
   args: {
     ...Icons.args
   },

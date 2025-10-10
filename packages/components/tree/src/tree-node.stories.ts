@@ -78,6 +78,12 @@ export default {
 
 export const Basic: Story = {};
 
+export const Overflow: Story = {
+  args: {
+    text: 'This is a very long tree node text that should wrap across multiple lines to test how the component handles overflow scenarios.'
+  }
+};
+
 export const All: Story = {
   render: () => {
     return html`

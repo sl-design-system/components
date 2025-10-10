@@ -190,6 +190,16 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
                   @keydown=${this.#onKeydown}
                   data-index=${virtualItem.index}
                   ${ref(virtualizer.measureElement) /* must be *after* data-index */}
+                  ?expandable=${item.expandable}
+                  ?expanded=${item.expanded}
+                  ?indeterminate=${item.indeterminate}
+                  ?last-node-in-level=${item.lastNodeInLevel}
+                  ?multiple=${this.dataSource?.multiple}
+                  .level=${item.level}
+                  .levelGuides=${this.showGuides ? item.levelGuides : undefined}
+                  .node=${item}
+                  .selected=${item.selected}
+                  .type=${item.type}
                   aria-controls=${ifDefined(item.children?.map(child => String(child.id)).join(' '))}
                   aria-description=${ifDefined(item.description || undefined)}
                   aria-label=${item.label}
@@ -200,18 +210,8 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
                     : (this.dataSource?.nodes.indexOf(item) ?? -1) + 1}
                   aria-rowindex=${this.dataSource ? this.dataSource.items?.indexOf(item) + 1 : 1}
                   aria-setsize=${ifDefined(item.parent ? item.parent.children?.length : this.dataSource?.size)}
-                  ?expandable=${item.expandable}
-                  ?expanded=${item.expanded}
                   id=${item.id}
-                  ?indeterminate=${item.indeterminate}
-                  ?last-node-in-level=${item.lastNodeInLevel}
-                  .level=${item.level}
-                  .levelGuides=${this.showGuides ? item.levelGuides : undefined}
-                  ?multiple=${this.dataSource?.multiple}
-                  .node=${item}
-                  .selected=${item.selected}
                   tabindex=${virtualItem.index === this.#indexOfFocusedNode ? '0' : '-1'}
-                  .type=${item.type}
                 >
                   ${this.renderer?.(item) ??
                   html`

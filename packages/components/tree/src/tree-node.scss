@@ -137,8 +137,7 @@ sl-icon {
   display: flex;
   flex: 1;
   gap: var(--sl-size-075);
-  justify-content: space-between;
-  padding-inline: calc(var(--sl-size-300) + var(--sl-size-025)) var(--sl-size-050);
+  padding-inline: var(--sl-size-400) var(--sl-size-050);
 }
 
 [part='content'] {
@@ -146,7 +145,6 @@ sl-icon {
   display: flex;
   gap: var(--sl-size-025);
   padding-block: var(--sl-size-075);
-  padding-inline: 0 var(--sl-size-100);
 }
 
 ::slotted(sl-icon) {

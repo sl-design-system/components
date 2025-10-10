@@ -208,7 +208,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
                       <slot></slot>
                     </div>
                     <slot name="aside">
-                      <sl-button-bar part="button-bar">
+                      <sl-button-bar fill="ghost" part="button-bar" size="sm" variant="primary">
                         <slot name="actions"></slot>
                       </sl-button-bar>
                     </slot>

@@ -264,12 +264,42 @@ export const Badges: Story = {
     renderer: (node: TreeDataSourceNode<FlatDataNode>) => {
       return html`
         <span>${node.label}</span>
-        <sl-badge color="blue" .emphasis=${node.selected ? 'bold' : 'subtle'} slot="aside">
+        <sl-badge color="blue" emphasis=${node.selected ? 'bold' : 'subtle'} slot="aside">
           ${node.dataNode.badge ?? '0'}
         </sl-badge>
       `;
     },
     scopedElements: { 'sl-badge': Badge }
+  }
+};
+
+export const Buttons: Story = {
+  args: {
+    ...Basic.args,
+    renderer: node => {
+      // Don't show action buttons for expandable nodes; returning undefined
+      // will make the tree use the default rendering.
+      if (node.expandable) {
+        return undefined;
+      }
+
+      const onClick = (event: Event) => event.stopPropagation();
+
+      return html`
+        <span>${node.label}</span>
+
+        <sl-button @click=${onClick} aria-label="Edit" slot="actions">
+          <sl-icon name="far-pen"></sl-icon>
+        </sl-button>
+        <sl-button @click=${onClick} aria-label="Remove" slot="actions">
+          <sl-icon name="far-trash"></sl-icon>
+        </sl-button>
+      `;
+    },
+    scopedElements: {
+      'sl-button': Button,
+      'sl-icon': Icon
+    }
   }
 };
 
@@ -454,48 +484,6 @@ export const Skeleton: Story = {
         isExpandable: ({ expandable }) => !!expandable
       }
     )
-  }
-};
-
-export const CustomRendererWithActionButtons: Story = {
-  args: {
-    dataSource: new FlatTreeDataSource(flatData, {
-      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
-      getId: item => item.id,
-      getLabel: ({ name }) => name,
-      getLevel: ({ level }) => level,
-      isExpandable: ({ expandable }) => expandable,
-      isExpanded: ({ name }) => ['tree', 'src'].includes(name),
-      selects: 'single'
-    }),
-    renderer: node => {
-      const icon = node.label.includes('.') ? 'far-file-lines' : `far-folder${node.expanded ? '-open' : ''}`;
-
-      const onClickEdit = (event: Event) => {
-        event.stopPropagation();
-      };
-
-      const onClickRemove = (event: Event) => {
-        event.stopPropagation();
-      };
-
-      return html`
-        ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing}
-        <span>${node.label}</span>
-
-        <sl-button fill="ghost" size="sm" slot="actions" @click=${onClickEdit} aria-label="Edit">
-          <sl-icon name="far-pen"></sl-icon>
-        </sl-button>
-        <sl-button fill="ghost" size="sm" slot="actions" @click=${onClickRemove} aria-label="Remove">
-          <sl-icon name="far-trash"></sl-icon>
-        </sl-button>
-      `;
-    },
-    scopedElements: {
-      'sl-button': Button,
-      'sl-button-bar': ButtonBar,
-      'sl-icon': Icon
-    }
   }
 };
 

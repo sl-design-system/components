@@ -22,7 +22,7 @@ declare global {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type TreeItemRenderer<T = any> = (item: TreeDataSourceNode<T>) => TemplateResult;
+export type TreeItemRenderer<T = any> = (item: TreeDataSourceNode<T>) => TemplateResult | undefined;
 
 /**
  * A tree component. Use this if you have hierarchical data that you want

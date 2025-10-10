@@ -147,6 +147,10 @@ sl-icon {
   padding-block: var(--sl-size-075);
 }
 
+slot[name='aside']::slotted(sl-badge) {
+  margin-inline-start: auto;
+}
+
 ::slotted(sl-icon) {
   vertical-align: bottom;
 }

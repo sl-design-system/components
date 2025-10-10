@@ -1,4 +1,4 @@
-import { type ButtonSize } from '@sl-design-system/button';
+import { type ButtonFill, type ButtonSize, type ButtonVariant } from '@sl-design-system/button';
 import { type CSSResultGroup, LitElement, type PropertyValues, ReactiveElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './button-bar.scss.js';
@@ -29,9 +29,15 @@ export class ButtonBar extends LitElement {
 
   /**
    * The alignment of the buttons within the bar.
-   * @default start
+   * @default 'start'
    */
   @property({ reflect: true }) align?: ButtonBarAlign;
+
+  /**
+   * Determines the fill of all buttons in the bar.
+   * @default undefined
+   */
+  @property() fill?: ButtonFill;
 
   /**
    * Whether the bar only contains icon-only buttons.
@@ -40,17 +46,29 @@ export class ButtonBar extends LitElement {
    */
   @property({ type: Boolean, reflect: true, attribute: 'icon-only' }) iconOnly?: boolean;
 
-  /** When set to true, the button order is reversed. */
+  /**
+   * When set to true, the button order is reversed.
+   * @default false
+   */
   @property({ type: Boolean, reflect: true }) reverse?: boolean;
 
-  /** Determines the size of all buttons in the bar. */
+  /**
+   * Determines the size of all buttons in the bar.
+   * @default undefined
+   */
   @property() size?: ButtonSize;
+
+  /**
+   * Determines the variant of all buttons in the bar.
+   * @default undefined
+   */
+  @property() variant?: ButtonVariant;
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('size')) {
-      this.#updateButtonSize();
+    if (changes.has('fill') || changes.has('size') || changes.has('variant')) {
+      this.#updateButtons();
     }
   }
 
@@ -73,18 +91,26 @@ export class ButtonBar extends LitElement {
 
     this.iconOnly = icons.every(Boolean);
 
-    this.#updateButtonSize();
+    this.#updateButtons();
   }
 
-  #updateButtonSize(): void {
+  #updateButtons(): void {
     this.renderRoot
       .querySelector('slot')
       ?.assignedElements({ flatten: true })
       .forEach(element => {
-        const button = element as { size?: ButtonSize };
+        const button = element as { fill?: ButtonFill; size?: ButtonSize; variant?: ButtonVariant };
 
         if (this.size) {
           button.size = this.size;
+        }
+
+        if (this.fill) {
+          button.fill = this.fill;
+        }
+
+        if (this.variant) {
+          button.variant = this.variant;
         }
       });
   }

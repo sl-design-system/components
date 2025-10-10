@@ -5507,9 +5507,11 @@ __metadata:
     "@sl-design-system/shared": "npm:^0.9.1"
     "@sl-design-system/skeleton": "npm:^1.0.1"
     "@sl-design-system/spinner": "npm:^2.0.1"
+    "@tanstack/lit-virtual": "patch:@tanstack/lit-virtual@npm%3A3.13.12#~/.yarn/patches/@tanstack-lit-virtual-npm-3.13.12-56dd05e0b4.patch"
     lit: "npm:^3.3.1"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.6
+    "@tanstack/lit-virtual": ^3.13.12
     lit: ^3.1.4
   languageName: unknown
   linkType: soft
@@ -5798,6 +5800,35 @@ __metadata:
   peerDependencies:
     eslint: ">=9.0.0"
   checksum: 10c0/94160bfc172a3934dd35be87887f43f7e3ffe9d1645096860a4e4c61877bb0fb62eb20a90e50ad74767ee794ed10f334f7165952cf9bcbd8bae6b80dc10c0d62
+  languageName: node
+  linkType: hard
+
+"@tanstack/lit-virtual@npm:3.13.12":
+  version: 3.13.12
+  resolution: "@tanstack/lit-virtual@npm:3.13.12"
+  dependencies:
+    "@tanstack/virtual-core": "npm:3.13.12"
+  peerDependencies:
+    lit: ^3.1.0
+  checksum: 10c0/8f18401d5221cc12cf2c640b6d6b6f06b5854f486f255bbe1e1f1905680da98b5db88255e57ee58d0536de952049eaea9354775cf4a5756c56ee809419bee1b3
+  languageName: node
+  linkType: hard
+
+"@tanstack/lit-virtual@patch:@tanstack/lit-virtual@npm%3A3.13.12#~/.yarn/patches/@tanstack-lit-virtual-npm-3.13.12-56dd05e0b4.patch":
+  version: 3.13.12
+  resolution: "@tanstack/lit-virtual@patch:@tanstack/lit-virtual@npm%3A3.13.12#~/.yarn/patches/@tanstack-lit-virtual-npm-3.13.12-56dd05e0b4.patch::version=3.13.12&hash=1a1ff1"
+  dependencies:
+    "@tanstack/virtual-core": "npm:3.13.12"
+  peerDependencies:
+    lit: ^3.1.0
+  checksum: 10c0/a82aad05cc7acae1ee01b6d30c9537ccad4000a7a6f32c578d815031a81ae567052451af18e4119bcb80ed23b1c1e4bd7d8e109dddb50f277f95dbe9568e6a05
+  languageName: node
+  linkType: hard
+
+"@tanstack/virtual-core@npm:3.13.12":
+  version: 3.13.12
+  resolution: "@tanstack/virtual-core@npm:3.13.12"
+  checksum: 10c0/483f38761b73db05c181c10181f0781c1051be3350ae5c378e65057e5f1fdd6606e06e17dbaad8a5e36c04b208ea1a1344cacd4eca0dcde60f335cf398e4d698
   languageName: node
   linkType: hard
 

@@ -45,7 +45,7 @@ yarn build
 
 To test a specific component, use the following command from the root of the repository:
 ```bash
-wtr packages/components/<component>/src/<component>.spec.ts
+vitest packages/components/<component>/src/<component>.spec.ts
 ```
 
 To run linting and formatting checks, use the following command from the root of the repository:

@@ -9,7 +9,7 @@ chai.use(sinonChai);
 
 // Set the body font
 let style = document.createElement('style');
-style.innerText = `body { font: var(--sl-text-body-md-normal); }`;
+style.innerText = `body { font: var(--sl-text-new-body-md); }`;
 document.head.appendChild(style);
 
 // Load the SL light theme

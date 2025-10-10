@@ -51,7 +51,7 @@ node scripts/backwards-compatibility-check.js ../old-themes
 ## What it does
 
 The script will:
-1. Compare CSS variables in `light.css` + `light-old.css` (and dark variants) from current themes
+1. Compare CSS variables in `light.css` + `light-deprecated.css` (and dark variants) from current themes
 2. Check against the reference `light.css` (and dark variants) from the old theme packages
 3. Report any CSS variables that are present in the old but missing in the current themes
 4. Ignore any new variables that only exist in current themes (not considered breaking changes)

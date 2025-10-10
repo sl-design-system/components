@@ -30,7 +30,7 @@ function extractCSSVariables(cssContent) {
 }
 
 /**
- * Reads and combines CSS variables from light.css and light-old.css (or dark variants)
+ * Reads and combines CSS variables from light.css and light-deprecated.css (or dark variants)
  * @param {string} themePath - Path to the theme folder
  * @param {string} variant - 'light' or 'dark'
  * @returns {Promise<Set<string>>} Combined set of CSS variables
@@ -47,7 +47,7 @@ async function getCombinedVariables(themePath, variant) {
   }
 
   try {
-    const oldFile = await readFile(join(themePath, `${variant}-old.css`), 'utf-8');
+    const oldFile = await readFile(join(themePath, `${variant}-deprecated.css`), 'utf-8');
     const oldVars = extractCSSVariables(oldFile);
     oldVars.forEach(v => variables.add(v));
   } catch (err) {

@@ -241,7 +241,7 @@ const build = async (production = false, path) => {
 
       const files = [
         {
-          destination: old ? `${themeBase}/${theme}/${variant}-old.css` : `${themeBase}/${theme}/${variant}.css`,
+          destination: old ? `${themeBase}/${theme}/${variant}-deprecated.css` : `${themeBase}/${theme}/${variant}.css`,
           // filter: excludeSpaceTokens,
           format: 'css/variables',
           options: {
@@ -254,7 +254,7 @@ const build = async (production = false, path) => {
       if (production) {
         files.push(
           {
-            destination: old ? `${themeBase}/${theme}/css/base-old.css` : `${themeBase}/${theme}/css/base.css`,
+            destination: old ? `${themeBase}/${theme}/css/base-deprecated.css` : `${themeBase}/${theme}/css/base.css`,
             // filter: excludeSpaceTokens,
             format: 'css/variables',
             options: {
@@ -266,7 +266,7 @@ const build = async (production = false, path) => {
               : ['system.json', 'primitives.json', 'base-new.json'])
           },
           {
-            destination: old ? `${themeBase}/${theme}/scss/base-old.scss` : `${themeBase}/${theme}/scss/base.scss`,
+            destination: old ? `${themeBase}/${theme}/scss/base-deprecated.scss` : `${themeBase}/${theme}/scss/base.scss`,
             // filter: excludeSpaceTokens,
             format: 'css/variables',
             options: {
@@ -280,7 +280,7 @@ const build = async (production = false, path) => {
           },
           //--------
           {
-            destination: old ? `${themeBase}/${theme}/css/${variant}-old.css` : `${themeBase}/${theme}/css/${variant}.css`,
+            destination: old ? `${themeBase}/${theme}/css/${variant}-deprecated.css` : `${themeBase}/${theme}/css/${variant}.css`,
             // filter: excludeSpaceTokens,
             format: 'css/variables',
             options: {
@@ -290,7 +290,7 @@ const build = async (production = false, path) => {
             filter: filterFiles([old ? `${variant}.json` : `${variant}-new.json`])
           },
           {
-            destination: old ? `${themeBase}/${theme}/scss/${variant}-old.scss` : `${themeBase}/${theme}/scss/${variant}.scss`,
+            destination: old ? `${themeBase}/${theme}/scss/${variant}-deprecated.scss` : `${themeBase}/${theme}/scss/${variant}.scss`,
             // filter: excludeSpaceTokens,
             format: 'css/variables',
             options: {

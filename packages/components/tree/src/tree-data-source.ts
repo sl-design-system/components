@@ -131,12 +131,12 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     this.#multiple = options.multiple;
   }
 
-  addFilter(id: string, by: string | PathKeys<T> | DataSourceFilterFunction<T>, value?: unknown): void {
-    this.#filters.set(id, { id, by, value } as DataSourceFilter<T>);
+  addFilter(_id: string, _by: string | PathKeys<T> | DataSourceFilterFunction<T>, _value?: unknown): void {
+    throw new Error('Filtering is not yet supported in tree data sources.');
   }
 
-  removeFilter(id: string): void {
-    this.#filters.delete(id);
+  removeFilter(_id: string): void {
+    throw new Error('Filtering is not yet supported in tree data sources.');
   }
 
   setSort(by: string | PathKeys<T> | DataSourceSortFunction<T>, direction: DataSourceSortDirection): void {

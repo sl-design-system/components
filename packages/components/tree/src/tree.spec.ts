@@ -306,7 +306,7 @@ describe('sl-tree', () => {
         'Nested Data Source'
       ]);
       expect(nodes.map(g => g.ariaLevel)).to.deep.equal(['1', '1', '2', '3', '3']);
-      expect(nodes.map(g => g.ariaPosInSet)).to.deep.equal(['1', '1', '1', '1', '2']);
+      expect(nodes.map(g => g.ariaPosInSet)).to.deep.equal(['1', '2', '1', '1', '2']);
       expect(nodes.map(g => g.ariaRowIndex)).to.deep.equal(['1', '2', '3', '4', '5']);
       expect(nodes.map(g => g.ariaSetSize)).to.deep.equal(['2', '2', '1', '2', '2']);
     });

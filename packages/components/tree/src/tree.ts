@@ -315,12 +315,18 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
   }
 
   #onUpdate = (): void => {
+    const count = this.dataSource?.items.length ?? 0;
+
     if (this.#virtualizer) {
       const virtualizer = this.#virtualizer.getVirtualizer() as Virtualizer<Element, Element>;
       virtualizer.setOptions({
         ...virtualizer.options,
-        count: this.dataSource?.items.length ?? 0
+        count
       });
+    }
+
+    if (this.#indexOfFocusedNode >= count) {
+      this.#indexOfFocusedNode = 0;
     }
 
     this.requestUpdate();

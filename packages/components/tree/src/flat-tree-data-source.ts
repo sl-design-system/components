@@ -10,7 +10,10 @@ export interface FlatTreeDataSourceMapping<T> extends TreeDataSourceMapping<T> {
 }
 
 export interface FlatTreeDataSourceOptions<T> extends FlatTreeDataSourceMapping<T> {
+  /** Provide this method to lazy load child nodes when a parent node is expanded. */
   loadChildren?(node: T): Promise<T[]>;
+
+  /** Enables multiple selection of tree nodes. */
   multiple?: boolean;
 }
 

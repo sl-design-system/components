@@ -405,10 +405,10 @@ export const Multiple: Story = {
       getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
       getId: item => item.id,
       getLabel: ({ name }) => name,
-      isExpanded: ({ name }) => ['tree', 'src'].includes(name),
+      isExpanded: ({ name }) => ['components', 'tree', 'src'].includes(name),
       isExpandable: ({ children }) => !!children,
       isSelected: ({ name }) => ['tree-node.scss', 'tree-node.ts'].includes(name),
-      selects: 'multiple'
+      multiple: true
     }),
     showGuides: true
   }
@@ -447,8 +447,7 @@ export const PageScrolling: Story = {
         getLabel: ({ name }) => name,
         isExpandable: ({ children }) => !!children,
         isExpanded: () => true,
-        isSelected: ({ id }) => id === 2010,
-        selects: 'single'
+        isSelected: ({ id }) => id === 2010
       }
     )
   }
@@ -495,8 +494,7 @@ export const SingleSelectWithActionButtons: Story = {
       getLabel: ({ name }) => name,
       getLevel: ({ level }) => level,
       isExpandable: ({ expandable }) => expandable,
-      isExpanded: ({ name }) => ['tree', 'src'].includes(name),
-      selects: 'single'
+      isExpanded: ({ name }) => ['tree', 'src'].includes(name)
     }),
     renderer: node => {
       const icon = node.label.includes('.') ? 'far-file-lines' : `far-folder${node.expanded ? '-open' : ''}`;
@@ -538,7 +536,7 @@ export const MultiSelectWithBadges: Story = {
       getLevel: ({ level }) => level,
       isExpandable: ({ expandable }) => expandable,
       isExpanded: ({ name }) => ['tree', 'src'].includes(name),
-      selects: 'multiple'
+      multiple: true
     }),
     renderer: node => {
       const icon = node.label.includes('.') ? 'far-file-lines' : `far-folder${node.expanded ? '-open' : ''}`;

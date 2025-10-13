@@ -11,7 +11,7 @@ export interface NestedTreeDataSourceMapping<T> extends TreeDataSourceMapping<T>
 
 export interface NestedTreeDataSourceOptions<T> extends NestedTreeDataSourceMapping<T> {
   loadChildren?(node: T): Promise<T[]>;
-  selects?: 'single' | 'multiple';
+  multiple?: boolean;
 }
 
 /**

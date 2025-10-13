@@ -11,7 +11,7 @@ export interface FlatTreeDataSourceMapping<T> extends TreeDataSourceMapping<T> {
 
 export interface FlatTreeDataSourceOptions<T> extends FlatTreeDataSourceMapping<T> {
   loadChildren?(node: T): Promise<T[]>;
-  selects?: 'single' | 'multiple';
+  multiple?: boolean;
 }
 
 /**

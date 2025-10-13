@@ -78,8 +78,6 @@ export interface TreeDataSourceOptions<T> {
 
   /** Enables multiple selection of tree nodes. */
   multiple?: boolean;
-
-  // selects?: 'single' | 'multiple';
 }
 
 /**

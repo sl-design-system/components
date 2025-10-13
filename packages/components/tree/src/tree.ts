@@ -71,10 +71,12 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
   set dataSource(dataSource: TreeDataSource<T> | undefined) {
     if (this.#dataSource) {
       this.#dataSource.removeEventListener('sl-update', this.#onUpdate);
+      this.#dataSource.removeEventListener('sl-selection-change', this.#onSelectionChange);
     }
 
     this.#dataSource = dataSource;
     this.#dataSource?.addEventListener('sl-update', this.#onUpdate);
+    this.#dataSource?.addEventListener('sl-selection-change', this.#onSelectionChange);
     this.#dataSource?.update();
   }
 
@@ -295,9 +297,15 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
     event.preventDefault();
     event.stopPropagation();
 
+    this.#scrollAndFocusNode(this.dataSource?.items.indexOf(event.detail) ?? 0);
+
     this.dataSource?.select(event.detail);
     this.selectEvent.emit(event.detail);
   }
+
+  #onSelectionChange = (): void => {
+    this.requestUpdate();
+  };
 
   #onToggle(node: TreeDataSourceNode<T>): void {
     this.dataSource?.toggle(node);

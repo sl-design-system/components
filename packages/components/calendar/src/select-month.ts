@@ -57,9 +57,15 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       return Array.from(list.querySelectorAll<HTMLButtonElement>('button')).filter(btn => !btn.disabled);
     },
     focusInIndex: elements => {
-      const index = elements.findIndex(el => el.hasAttribute('aria-pressed'));
+      // const index = elements.findIndex(el => el.hasAttribute('aria-pressed'));
+      //
+      // return index === -1 ? 0 : index;
 
-      return index === -1 ? 0 : index;
+      if (!elements || elements.length === 0) return -1;
+      const buttons = elements as HTMLButtonElement[];
+      const selectedIndex = buttons.findIndex(el => el.hasAttribute('aria-pressed') && !el.disabled);
+      if (selectedIndex > -1) return selectedIndex;
+      return buttons.findIndex(el => !el.disabled);
     },
     listenerScope: (): HTMLElement => this.renderRoot.querySelector('ol')!
   });
@@ -130,6 +136,8 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     if (changes.has('month') || changes.has('min') || changes.has('max') || changes.has('inert')) {
       // console.log('SelectMonth willUpdate --- changes in month, min, max, inert', changes);
       this.#rovingTabindexController.clearElementCache();
+      // this.#rovingTabindexController.focus();
+      // requestAnimationFrame(() => this.#rovingTabindexController.focus());
     }
   }
 
@@ -174,7 +182,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         ${this.months.map(month => {
           const parts = this.getMonthParts(month).join(' ');
           return html`
-            <li>
+            <li tabindex="-1">
               ${month.unselectable
                 ? html`<button disabled .part=${parts}>${month.long}</button>`
                 : html`
@@ -192,7 +200,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         })}
       </ol>
     `;
-  }
+  } // TODO: sth wrong with focusing month and year, works when using shirt tab but not just tab?
 
   /** Returns an array of part names for a day. */
   getMonthParts = (month: Month): string[] => {

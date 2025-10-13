@@ -326,7 +326,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           : nothing}
         ${this.weekDays.map(day => html`<span class="day-of-week" aria-label=${day.long}>${day.short}</span>`)}
       </div>
-      <div class="scroller">
+      <div class="scroller" tabindex="-1">
         <sl-month-view
           ?readonly=${this.readonly}
           ?show-today=${this.showToday}
@@ -391,7 +391,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
     requestAnimationFrame(() => {
       this.renderRoot.querySelector<MonthView>('sl-month-view:nth-child(2)')?.focusDay(event.detail);
-    });
+    }); // TODO: maybe focus next month shoudl be added explicitly here as well?
   }
 
   #onPrevious(): void {

@@ -134,6 +134,8 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     /** We cannot use treeitem role, due to a11y issues with tree role and no group role with Virtualizer. */
     this.setAttribute('role', 'row');
 
+    this.setAttribute('aria-selected', Boolean(this.selected).toString());
+
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = 0;
     }
@@ -151,11 +153,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     }
 
     if (changes.has('indeterminate') || changes.has('selected')) {
-      if (this.selected) {
-        this.setAttribute('aria-selected', Boolean(this.selected).toString());
-      } else {
-        this.removeAttribute('aria-selected');
-      }
+      this.setAttribute('aria-selected', Boolean(this.selected).toString());
     }
   }
 

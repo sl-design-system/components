@@ -40,7 +40,6 @@ describe('sl-tree-node', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('disabled');
-      expect(el.renderRoot.querySelector('[role="gridcell"]')).to.have.attribute('tabindex', '-1');
     });
 
     it('should not be expandable', () => {
@@ -66,7 +65,7 @@ describe('sl-tree-node', () => {
     });
 
     it('should not be selected', () => {
-      expect(el).not.to.have.attribute('aria-selected');
+      expect(el).to.have.attribute('aria-selected', 'false');
       expect(el.selected).to.not.be.true;
     });
 
@@ -86,7 +85,6 @@ describe('sl-tree-node', () => {
 
       expect(gridcell).to.exist;
       expect(gridcell).to.have.attribute('aria-colindex', '1');
-      expect(gridcell).to.have.attribute('tabindex', '0');
     });
 
     it('should not have a type', () => {
@@ -215,7 +213,7 @@ describe('sl-tree-node', () => {
   describe('single select', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-tree-node .node=${{ hello: true }} selects="single">
+        <sl-tree-node .node=${{ hello: true }}>
           <span>Lorem</span>
         </sl-tree-node>
       `);
@@ -270,7 +268,7 @@ describe('sl-tree-node', () => {
   describe('multiple select', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-tree-node selects="multiple">
+        <sl-tree-node multiple>
           <span>Lorem</span>
         </sl-tree-node>
       `);

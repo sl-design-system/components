@@ -107,7 +107,10 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
       count: this.dataSource?.items.length ?? 0,
       estimateSize: () => 32, // this doesn't need to be exact
       gap: 2, // var(--sl-size-025)
-      overscan: 3 // render a few extra nodes outside of the viewport
+      overscan: 3, // render a few extra nodes outside of the viewport
+      getItemKey: (index: number): number | string => {
+        return this.dataSource?.items?.at(index)?.id?.toString() ?? index;
+      }
     };
 
     const scrollParent = getScrollParent(this);

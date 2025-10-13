@@ -50,7 +50,7 @@ export const flatData: FlatDataNode[] = [
     expandable: true,
     level: 0,
     name: 'Location A',
-    badge: '1129'
+    badge: '343'
   },
   {
     id: 0,
@@ -126,7 +126,21 @@ export const flatData: FlatDataNode[] = [
     expandable: true,
     level: 1,
     name: 'Lower school',
-    badge: '813'
+    badge: '27'
+  },
+  {
+    id: 11,
+    expandable: true,
+    level: 2,
+    name: 'MAVO',
+    badge: '27'
+  },
+  {
+    id: 12,
+    expandable: false,
+    level: 3,
+    name: 'M1A',
+    badge: '27'
   }
 ];
 

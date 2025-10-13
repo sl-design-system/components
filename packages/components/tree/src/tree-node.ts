@@ -142,19 +142,19 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('indeterminate') || changes.has('multiple') || changes.has('selected')) {
-      if (this.selected) {
-        this.setAttribute('aria-selected', Boolean(this.selected).toString());
-      } else {
-        this.removeAttribute('aria-selected');
-      }
-    }
-
     if (changes.has('expandable') || changes.has('expanded')) {
       if (this.expandable) {
         this.setAttribute('aria-expanded', Boolean(this.expanded).toString());
       } else {
         this.removeAttribute('aria-expanded');
+      }
+    }
+
+    if (changes.has('indeterminate') || changes.has('selected')) {
+      if (this.selected) {
+        this.setAttribute('aria-selected', Boolean(this.selected).toString());
+      } else {
+        this.removeAttribute('aria-selected');
       }
     }
   }

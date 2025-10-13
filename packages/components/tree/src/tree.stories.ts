@@ -2,7 +2,6 @@ import { faFileLines, faFolder, faFolderOpen, faPen, faTrash } from '@fortawesom
 import { Badge } from '@sl-design-system/badge';
 import { Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
-import { ButtonBar } from '@sl-design-system/button-bar';
 import '@sl-design-system/button-bar/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/menu/register.js';
@@ -16,7 +15,7 @@ import { NestedTreeDataSource } from './nested-tree-data-source.js';
 import { type TreeDataSourceNode } from './tree-data-source.js';
 import { type Tree } from './tree.js';
 
-type Props = Pick<Tree, 'dataSource' | 'renderer' | 'scopedElements' | 'showGuides'> & {
+type Props = Pick<Tree, 'dataSource' | 'hideGuides' | 'renderer' | 'scopedElements'> & {
   maxWidth?: string;
   styles?: string;
 };
@@ -208,7 +207,7 @@ export default {
     }
   },
   args: {
-    showGuides: false,
+    hideGuides: false,
     dataSource: undefined
   },
   argTypes: {
@@ -218,7 +217,7 @@ export default {
     scopedElements: { table: { disable: true } },
     styles: { table: { disable: true } }
   },
-  render: ({ dataSource, maxWidth, renderer, scopedElements, showGuides, styles }) => {
+  render: ({ dataSource, hideGuides, maxWidth, renderer, scopedElements, styles }) => {
     const onToggle = () => dataSource?.selection.forEach(node => dataSource?.toggle(node)),
       onToggleDescendants = () => dataSource?.selection.forEach(node => dataSource?.toggleDescendants(node)),
       onExpandAll = () => dataSource?.expandAll(),
@@ -242,7 +241,7 @@ export default {
         .dataSource=${dataSource}
         .renderer=${renderer}
         .scopedElements=${scopedElements}
-        ?show-guides=${showGuides}
+        ?hide-guides=${hideGuides}
         aria-label="Tree label"
         style="max-inline-size: ${maxWidth ?? '300px'}"
       ></sl-tree>
@@ -317,10 +316,10 @@ export const Buttons: Story = {
   }
 };
 
-export const Guides: Story = {
+export const HideGuides: Story = {
   args: {
     ...Basic.args,
-    showGuides: true
+    hideGuides: true
   }
 };
 
@@ -342,7 +341,7 @@ export const Filter: Story = {
   args: {
     ...Icons.args
   },
-  render: ({ dataSource, showGuides }) => {
+  render: ({ dataSource, hideGuides: showGuides }) => {
     const onChange = (event: SlChangeEvent<string | undefined>): void => {
       const value = event.detail ?? '';
 
@@ -424,7 +423,7 @@ export const Multiple: Story = {
       isSelected: ({ name }) => ['tree-node.scss', 'tree-node.ts'].includes(name),
       multiple: true
     }),
-    showGuides: true
+    hideGuides: true
   }
 };
 
@@ -497,76 +496,5 @@ export const Skeleton: Story = {
         isExpandable: ({ expandable }) => !!expandable
       }
     )
-  }
-};
-
-export const SingleSelectWithActionButtons: Story = {
-  args: {
-    dataSource: new FlatTreeDataSource(flatData, {
-      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
-      getId: item => item.id,
-      getLabel: ({ name }) => name,
-      getLevel: ({ level }) => level,
-      isExpandable: ({ expandable }) => expandable,
-      isExpanded: ({ name }) => ['tree', 'src'].includes(name)
-    }),
-    renderer: node => {
-      const icon = node.label.includes('.') ? 'far-file-lines' : `far-folder${node.expanded ? '-open' : ''}`;
-
-      const onClickEdit = (event: Event) => {
-        event.stopPropagation();
-      };
-
-      const onClickRemove = (event: Event) => {
-        event.stopPropagation();
-      };
-
-      return html`
-        ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing}
-        <span>${node.label}</span>
-
-        <sl-button fill="ghost" size="sm" slot="actions" @click=${onClickEdit} aria-label="Edit">
-          <sl-icon name="far-pen"></sl-icon>
-        </sl-button>
-        <sl-button fill="ghost" size="sm" slot="actions" @click=${onClickRemove} aria-label="Remove">
-          <sl-icon name="far-trash"></sl-icon>
-        </sl-button>
-      `;
-    },
-    scopedElements: {
-      'sl-button': Button,
-      'sl-button-bar': ButtonBar,
-      'sl-icon': Icon
-    }
-  }
-};
-
-export const MultiSelectWithBadges: Story = {
-  args: {
-    dataSource: new FlatTreeDataSource(flatData, {
-      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
-      getId: item => item.id,
-      getLabel: ({ name }) => name,
-      getLevel: ({ level }) => level,
-      isExpandable: ({ expandable }) => expandable,
-      isExpanded: ({ name }) => ['tree', 'src'].includes(name),
-      multiple: true
-    }),
-    renderer: node => {
-      const icon = node.label.includes('.') ? 'far-file-lines' : `far-folder${node.expanded ? '-open' : ''}`;
-
-      return html`
-        ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing}
-        <span>${node.label}</span>
-
-        <sl-badge color="blue" slot="aside">99</sl-badge>
-      `;
-    },
-    scopedElements: {
-      'sl-badge': Badge,
-      'sl-button': Button,
-      'sl-button-bar': ButtonBar,
-      'sl-icon': Icon
-    }
   }
 };

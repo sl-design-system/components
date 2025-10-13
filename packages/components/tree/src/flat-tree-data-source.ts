@@ -10,8 +10,11 @@ export interface FlatTreeDataSourceMapping<T> extends TreeDataSourceMapping<T> {
 }
 
 export interface FlatTreeDataSourceOptions<T> extends FlatTreeDataSourceMapping<T> {
+  /** Provide this method to lazy load child nodes when a parent node is expanded. */
   loadChildren?(node: T): Promise<T[]>;
-  selects?: 'single' | 'multiple';
+
+  /** Enables multiple selection of tree nodes. */
+  multiple?: boolean;
 }
 
 /**
@@ -53,6 +56,7 @@ export class FlatTreeDataSource<T = any> extends TreeDataSource<T> {
     super({ ...options, loadChildren });
 
     this.#mapping = {
+      getAriaDescription: options.getAriaDescription,
       getChildrenCount: options.getChildrenCount,
       getIcon: options.getIcon,
       getId: options.getId ?? (item => item),
@@ -65,7 +69,7 @@ export class FlatTreeDataSource<T = any> extends TreeDataSource<T> {
 
     this.#nodes = this.#mapToTreeNodes(items);
 
-    if (this.selects === 'multiple') {
+    if (this.multiple) {
       Array.from(this.selection)
         .filter(node => node.parent)
         .forEach(node => {
@@ -119,13 +123,23 @@ export class FlatTreeDataSource<T = any> extends TreeDataSource<T> {
   }
 
   #mapToTreeNode(item: T, parent?: TreeDataSourceNode<T>, lastNodeInLevel?: boolean): TreeDataSourceNode<T> {
-    const { getChildrenCount, getIcon, getId, getLabel, getLevel, isExpandable, isExpanded, isSelected } =
-      this.#mapping;
+    const {
+      getAriaDescription,
+      getChildrenCount,
+      getIcon,
+      getId,
+      getLabel,
+      getLevel,
+      isExpandable,
+      isExpanded,
+      isSelected
+    } = this.#mapping;
 
     const treeNode: TreeDataSourceNode<T> = {
       id: getId(item),
       childrenCount: getChildrenCount?.(item),
       dataNode: item,
+      description: getAriaDescription?.(item),
       expandable: isExpandable(item),
       expanded: isExpanded?.(item) ?? false,
       expandedIcon: getIcon?.(item, true),

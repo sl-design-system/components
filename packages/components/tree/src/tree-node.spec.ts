@@ -8,7 +8,11 @@ import { TreeNode } from './tree-node.js';
 
 // We need to define sl-tree-node ourselves, since it's not
 // part of the public API of the tree.
-customElements.define('sl-tree-node', TreeNode);
+try {
+  customElements.define('sl-tree-node', TreeNode);
+} catch {
+  /* empty */
+}
 
 describe('sl-tree-node', () => {
   let el: TreeNode;
@@ -26,11 +30,6 @@ describe('sl-tree-node', () => {
       expect(el).to.have.attribute('role', 'row');
     });
 
-    it('should not be checked', () => {
-      expect(el).not.to.have.attribute('aria-checked');
-      expect(el.checked).to.not.be.true;
-    });
-
     it('should not be disabled', () => {
       expect(el).not.to.have.attribute('disabled');
       expect(el.disabled).to.not.be.true;
@@ -45,23 +44,12 @@ describe('sl-tree-node', () => {
 
     it('should not be expandable', () => {
       expect(el.expandable).to.not.be.true;
+      expect(el.renderRoot.querySelector('.expander')).to.not.exist;
     });
 
     it('should not be expanded', () => {
       expect(el).not.to.have.attribute('aria-expanded');
       expect(el.expanded).to.not.be.true;
-    });
-
-    it('should not hide the indentation guides', () => {
-      expect(el).not.to.have.attribute('hide-guides');
-      expect(el.hideGuides).to.not.be.true;
-    });
-
-    it('should hide the indentation guides when set', async () => {
-      el.hideGuides = true;
-      await el.updateComplete;
-
-      expect(el).to.have.attribute('hide-guides');
     });
 
     it('should not be indeterminate', () => {
@@ -77,24 +65,30 @@ describe('sl-tree-node', () => {
     });
 
     it('should not be selected', () => {
-      expect(el).not.to.have.attribute('aria-selected');
+      expect(el).to.have.attribute('aria-selected', 'false');
       expect(el.selected).to.not.be.true;
-    });
-
-    it('should not support selection', () => {
-      expect(el.selects).to.be.undefined;
     });
 
     it('should have a tabindex of 0', () => {
       expect(el.tabIndex).to.equal(0);
     });
 
-    it('should not have a type', () => {
-      expect(el.type).to.be.undefined;
+    it('should have indent guides', () => {
+      const indentGuides = el.renderRoot.querySelector('sl-indent-guides');
+
+      expect(indentGuides).to.exist;
+      expect(indentGuides).to.have.property('level', 0);
     });
 
-    it('should have a content with gridcell role', () => {
-      expect(el.renderRoot.querySelector('div')).to.have.attribute('role', 'gridcell');
+    it('should have a gridcell', () => {
+      const gridcell = el.renderRoot.querySelector('[role="gridcell"]');
+
+      expect(gridcell).to.exist;
+      expect(gridcell).to.have.attribute('aria-colindex', '1');
+    });
+
+    it('should not have a type', () => {
+      expect(el.type).to.be.undefined;
     });
 
     it('should render a spinner when type "placeholder"', async () => {
@@ -128,6 +122,13 @@ describe('sl-tree-node', () => {
     it('should not be expanded', () => {
       expect(el).to.have.attribute('aria-expanded', 'false');
       expect(el.expanded).not.to.be.true;
+    });
+
+    it('should be expanded when set', async () => {
+      el.expanded = true;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('aria-expanded', 'true');
     });
 
     it('should render an expander', () => {
@@ -212,7 +213,7 @@ describe('sl-tree-node', () => {
   describe('single select', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-tree-node .node=${{ hello: true }} selects="single">
+        <sl-tree-node .node=${{ hello: true }}>
           <span>Lorem</span>
         </sl-tree-node>
       `);
@@ -267,14 +268,14 @@ describe('sl-tree-node', () => {
   describe('multiple select', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-tree-node selects="multiple">
+        <sl-tree-node multiple>
           <span>Lorem</span>
         </sl-tree-node>
       `);
     });
 
-    it('should have an aria-checked attribute', () => {
-      expect(el).to.have.attribute('aria-checked', 'false');
+    it('should have an aria-selected attribute', () => {
+      expect(el).to.have.attribute('aria-selected', 'false');
     });
 
     it('should render a checkbox', () => {
@@ -287,13 +288,13 @@ describe('sl-tree-node', () => {
       el.querySelector('span')?.click();
       await el.updateComplete;
 
-      expect(el).to.have.attribute('aria-checked', 'true');
+      expect(el).to.have.attribute('aria-selected', 'true');
       expect(el.renderRoot.querySelector('sl-checkbox')).to.have.property('checked', true);
 
       el.querySelector('span')?.click();
       await el.updateComplete;
 
-      expect(el).to.have.attribute('aria-checked', 'false');
+      expect(el).to.have.attribute('aria-selected', 'false');
       expect(el.renderRoot.querySelector('sl-checkbox')).to.have.property('checked', false);
     });
 

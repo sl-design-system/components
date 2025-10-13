@@ -348,7 +348,7 @@ export const Tree: StoryObj = {
       getLevel: ({ level }: Item) => level,
       isExpandable: ({ expandable }: Item) => expandable,
       isExpanded: ({ name }: Item) => ['tree', 'src'].includes(name),
-      selects: 'multiple'
+      multiple: true
     });
 
     return {

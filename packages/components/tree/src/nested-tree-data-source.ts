@@ -11,7 +11,7 @@ export interface NestedTreeDataSourceMapping<T> extends TreeDataSourceMapping<T>
 
 export interface NestedTreeDataSourceOptions<T> extends NestedTreeDataSourceMapping<T> {
   loadChildren?(node: T): Promise<T[]>;
-  selects?: 'single' | 'multiple';
+  multiple?: boolean;
 }
 
 /**
@@ -48,6 +48,7 @@ export class NestedTreeDataSource<T = any> extends TreeDataSource<T> {
     super({ ...options, loadChildren });
 
     this.#mapping = {
+      getAriaDescription: options.getAriaDescription,
       getChildren: options.getChildren,
       getChildrenCount: options.getChildrenCount,
       getIcon: options.getIcon,
@@ -60,7 +61,7 @@ export class NestedTreeDataSource<T = any> extends TreeDataSource<T> {
 
     this.#nodes = items.map(item => this.#mapToTreeNode(item));
 
-    if (this.selects === 'multiple') {
+    if (this.multiple) {
       Array.from(this.selection)
         .filter(node => node.parent)
         .forEach(node => {
@@ -76,13 +77,23 @@ export class NestedTreeDataSource<T = any> extends TreeDataSource<T> {
   }
 
   #mapToTreeNode(item: T, parent?: TreeDataSourceNode<T>, lastNodeInLevel?: boolean): TreeDataSourceNode<T> {
-    const { getChildren, getChildrenCount, getIcon, getId, getLabel, isExpandable, isExpanded, isSelected } =
-      this.#mapping;
+    const {
+      getAriaDescription,
+      getChildren,
+      getChildrenCount,
+      getIcon,
+      getId,
+      getLabel,
+      isExpandable,
+      isExpanded,
+      isSelected
+    } = this.#mapping;
 
     const treeNode: TreeDataSourceNode<T> = {
       id: getId(item),
       childrenCount: getChildrenCount?.(item),
       dataNode: item,
+      description: getAriaDescription?.(item),
       expandable: isExpandable(item),
       expanded: isExpanded?.(item) ?? false,
       expandedIcon: getIcon?.(item, true),

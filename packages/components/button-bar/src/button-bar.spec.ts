@@ -63,6 +63,24 @@ describe('sl-button-bar', () => {
 
       expect(buttons.map(b => b.size)).to.deep.equal(['lg', 'lg', 'lg']);
     });
+
+    it('should propagate fill to the buttons', async () => {
+      const buttons = Array.from(el.querySelectorAll('sl-button'));
+
+      el.fill = 'ghost';
+      await el.updateComplete;
+
+      expect(buttons.map(b => b.fill)).to.deep.equal(['ghost', 'ghost', 'ghost']);
+    });
+
+    it('should propagate variant to the buttons', async () => {
+      const buttons = Array.from(el.querySelectorAll('sl-button'));
+
+      el.variant = 'primary';
+      await el.updateComplete;
+
+      expect(buttons.map(b => b.variant)).to.deep.equal(['primary', 'primary', 'primary']);
+    });
   });
 
   describe('icon only', () => {

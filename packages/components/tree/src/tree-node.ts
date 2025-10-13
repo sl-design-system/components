@@ -199,19 +199,18 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
                       <input slot="input" tabindex="-1" type="checkbox" />
                       <slot></slot>
                     </sl-checkbox>
-                    <slot name="aside"> </slot>
                   `
                 : html`
                     <div part="content">
                       <slot></slot>
                     </div>
-                    <slot name="aside">
-                      <sl-button-bar fill="ghost" part="button-bar" size="sm" variant="primary">
-                        <slot name="actions"></slot>
-                      </sl-button-bar>
-                    </slot>
                   `
           )}
+          <slot name="aside">
+            <sl-button-bar fill="ghost" part="button-bar" size="sm" variant="primary">
+              <slot name="actions"></slot>
+            </sl-button-bar>
+          </slot>
         </div>
       </div>
     `;

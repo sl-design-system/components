@@ -29,14 +29,10 @@
     outline-color: var(--sl-color-border-focused);
     z-index: 1;
   }
-
-  sl-button-bar {
-    display: flex;
-  }
 }
 
-:host(:focus-within) sl-button-bar {
-  @media not (hover: hover) {
+:host(:where(:focus-visible, :focus-within)) {
+  sl-button-bar {
     display: flex;
   }
 }

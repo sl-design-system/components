@@ -40,7 +40,7 @@
 .selected {
   background: var(--sl-elevation-surface-base-default);
   inline-size: calc(var(--sl-size-075) + var(--sl-size-010));
-  inset: 3px 3px 3px auto;
+  inset: 0 calc(var(--sl-size-010) + var(--sl-size-025)) 0 auto;
   position: absolute;
 
   &::before {
@@ -48,7 +48,7 @@
     block-size: var(--sl-size-300);
     border-radius: var(--sl-size-150);
     content: '';
-    inset: 50% 1px auto;
+    inset: 50% var(--sl-size-010) auto;
     margin-block-start: calc(var(--sl-size-150) / -1);
     position: absolute;
     z-index: 1;

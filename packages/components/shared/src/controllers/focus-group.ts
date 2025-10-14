@@ -49,6 +49,8 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
       this.cachedElements = this.#elements();
     }
 
+    // console.log('this.#elements in get elements', this.cachedElements);
+
     return this.cachedElements;
   }
 
@@ -114,6 +116,8 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
 
     this.#elements = elements;
     this.elementEnterAction = elementEnterAction || this.elementEnterAction;
+
+    console.log('this.#elements in focus group constructor', this.#elements);
 
     if (typeof focusInIndex === 'number') {
       this.#focusInIndex = () => focusInIndex;

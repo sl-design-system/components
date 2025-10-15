@@ -25,6 +25,10 @@ describe('FlatTreeDataSource', () => {
       ds.update();
     });
 
+    it('should have the correct size', () => {
+      expect(ds.size).to.equal(2);
+    });
+
     it('should have the correct number of items', () => {
       expect(ds.items).to.have.length(5);
     });
@@ -51,7 +55,6 @@ describe('FlatTreeDataSource', () => {
   describe('level guides', () => {
     beforeEach(() => {
       /**
-       * Tree structure (do not show the root; use ASCII art for the indent guides):
        * A (level 0, not last)
        * ├─ A.1 (level 1, not last)
        * └─ A.2 (level 1, last child)

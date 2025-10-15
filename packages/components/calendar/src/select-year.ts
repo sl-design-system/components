@@ -63,6 +63,11 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   /** @internal The year you can select from. */
   @state() years: number[] = [];
 
+  /**
+   * Number of columns in the years grid.
+   * Used by keyboard navigation and the roving tabindex controller to compute
+   * row/column movement and focus targets.
+   */
   #cols = 3;
 
   #rovingTabindexController?: RovingTabindexController<HTMLButtonElement>;
@@ -78,22 +83,18 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
       direction: 'grid',
       directionLength: this.#cols,
       elements: () => this.#getYearButtons() ?? [],
-      focusInIndex: els => {
-        if (!els.length) return -1;
-        const sel = els.findIndex(el => el.getAttribute('aria-selected') === 'true');
-        if (sel > -1) return sel;
-        const zero = els.findIndex(el => el.tabIndex === 0);
-        return zero > -1 ? zero : 0;
+      focusInIndex: elements => {
+        const index = elements.findIndex(el => el.hasAttribute('aria-selected'));
+
+        return index === -1 ? 0 : index;
       },
       listenerScope: (): HTMLElement => this.renderRoot.querySelector('ol.years')!
     });
 
-    this.#rovingTabindexController.focusToElement(0);
+    this.#rovingTabindexController?.focus();
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
-    console.log('SelectYear willUpdate changes', changes);
-
     if (changes.has('max') || changes.has('min') || changes.has('years') || changes.has('inert')) {
       this.#rovingTabindexController?.clearElementCache();
     }
@@ -126,13 +127,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
           </sl-button>
         </div>
       </div>
-      <ol
-        class="years"
-        role="grid"
-        @focusin=${this.#onYearsFocusIn}
-        @focusout=${this.#onYearsFocusOut}
-        @keydown=${this.#onKeydown}
-      >
+      <ol class="years" role="grid" @keydown=${this.#onKeydown}>
         ${this.years.map(year => {
           const disabled = this.#isUnselectable(year);
           const selected = !!(this.selected && this.selected.getFullYear() === year);
@@ -176,14 +171,6 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #onYearsFocusIn(_event: FocusEvent): void {
-    this.#rovingTabindexController?.clearElementCache();
-  }
-
-  #onYearsFocusOut(_event: FocusEvent): void {
-    this.#rovingTabindexController?.clearElementCache();
-  }
-
   #onKeydown(event: KeyboardEvent): void {
     console.log('SelectYear onKeydown...', event.key);
 
@@ -191,10 +178,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
       canGoNext = !this.#isUnselectable(this.years[this.years.length - 1] + 1),
       buttons = this.#getYearButtons(),
       activeElement = this.shadowRoot?.activeElement as HTMLButtonElement | null,
-      index = activeElement ? buttons.indexOf(activeElement) : -1,
-      cols = 3;
-
-    console.log('SelectYear onKeydown...222', event.key);
+      index = activeElement ? buttons.indexOf(activeElement) : -1;
 
     if (event.key === 'ArrowLeft' && canGoPrevious) {
       if (index === 0) {
@@ -229,11 +213,11 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     } else if (event.key === 'ArrowUp' && canGoPrevious) {
       // When on first row (any of the first 3 buttons), jump to previous range
       // and focus the button in the last row, same column.
-      if (index > -1 && index < cols) {
+      if (index > -1 && index < this.#cols) {
         event.preventDefault();
         event.stopPropagation();
 
-        const col = index % cols;
+        const col = index % this.#cols;
 
         this.#onPrevious();
 
@@ -248,7 +232,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
           }
 
           // Start index of last (possibly partial) row
-          const lastRowStart = total - (total % cols === 0 ? cols : total % cols);
+          const lastRowStart = total - (total % this.#cols === 0 ? this.#cols : total % this.#cols);
           const targetIndex = Math.min(lastRowStart + col, total - 1);
 
           const target = newButtons[targetIndex];
@@ -261,13 +245,13 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
       // console.log('down on last day of month');
       if (index > -1) {
         const total = buttons.length;
-        const lastRowStart = total - (total % cols === 0 ? cols : total % cols);
+        const lastRowStart = total - (total % this.#cols === 0 ? this.#cols : total % this.#cols);
         // If on any button in the last row, move to next range keeping column
         if (index >= lastRowStart) {
           event.preventDefault();
           event.stopPropagation();
 
-          const col = index % cols;
+          const col = index % this.#cols;
 
           this.#onNext();
 

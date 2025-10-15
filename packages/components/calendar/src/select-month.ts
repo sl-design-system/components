@@ -160,6 +160,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         <div class="arrows">
           <sl-button
             @click=${this.#onPrevious}
+            @keydown=${this.#onHeaderArrowKeydown}
             aria-label=${msg(str`Previous year, ${currentYear - 1}`, { id: 'sl.calendar.previousYear' })}
             fill="ghost"
             variant="secondary"
@@ -169,6 +170,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           </sl-button>
           <sl-button
             @click=${this.#onNext}
+            @keydown=${this.#onHeaderArrowKeydown}
             aria-label=${msg(str`Next year, ${currentYear + 1}`, { id: 'sl.calendar.nextYear' })}
             fill="ghost"
             variant="secondary"
@@ -358,6 +360,13 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       event.stopPropagation();
 
       this.selectEvent.emit(this.month);
+    }
+  }
+
+  #onHeaderArrowKeydown(event: KeyboardEvent): void {
+    // Prevent arrow keys on header buttons from being handled by the roving controller.
+    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+      event.stopPropagation();
     }
   }
 

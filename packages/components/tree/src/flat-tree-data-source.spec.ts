@@ -25,6 +25,10 @@ describe('FlatTreeDataSource', () => {
       ds.update();
     });
 
+    it('should not support multiple selection', () => {
+      expect(ds.multiple).not.to.be.true;
+    });
+
     it('should have the correct size', () => {
       expect(ds.size).to.equal(2);
     });

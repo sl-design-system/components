@@ -2,7 +2,7 @@ import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, RovingTabindexController, event } from '@sl-design-system/shared';
+import { type EventEmitter, EventsController, RovingTabindexController, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
@@ -30,9 +30,8 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  // #events = new EventsController(this, { keydown: this.#onKeydown });
-
-  // #focusLastOnRender = false;
+  // eslint-disable-next-line no-unused-private-class-members
+  #events = new EventsController(this, { keydown: this.#onSelectYearKeydown });
 
   /** @internal Emits when the user selects a year. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<Date>>;
@@ -66,62 +65,37 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
 
   #cols = 3;
 
-  #lastTabstopYear?: number;
-
   #rovingTabindexController?: RovingTabindexController<HTMLButtonElement>;
 
   override connectedCallback(): void {
     super.connectedCallback();
 
     this.#setYears(this.year.getFullYear() - 5, this.year.getFullYear() + 6);
-    this.addEventListener('focusout', this.#onFocusOut);
-  }
-
-  override disconnectedCallback(): void {
-    super.disconnectedCallback();
-
-    this.removeEventListener('focusout', this.#onFocusOut);
   }
 
   override firstUpdated(): void {
-    // this.#initRoving();
     this.#rovingTabindexController = new RovingTabindexController<HTMLButtonElement>(this, {
       direction: 'grid',
       directionLength: this.#cols,
-      elements: () => this.#getYearButtons(),
+      elements: () => this.#getYearButtons() ?? [],
       focusInIndex: els => {
         if (!els.length) return -1;
         const sel = els.findIndex(el => el.getAttribute('aria-selected') === 'true');
         if (sel > -1) return sel;
         const zero = els.findIndex(el => el.tabIndex === 0);
         return zero > -1 ? zero : 0;
-      }
+      },
+      listenerScope: (): HTMLElement => this.renderRoot.querySelector('ol.years')!
     });
 
-    this.#rovingTabindexController.hostConnected();
-    this.#enforceSingleTabstop();
+    this.#rovingTabindexController.focusToElement(0);
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
     console.log('SelectYear willUpdate changes', changes);
 
-    if (changes.has('selected')) {
-      this.#lastTabstopYear = this.selected?.getFullYear();
-    }
-  }
-
-  override updated(changes: PropertyValues<this>): void {
-    if (changes.has('years') || changes.has('selected') || changes.has('min') || changes.has('max')) {
-      this.#refreshRoving();
-    }
-  }
-
-  override focus(options?: FocusOptions): void {
-    const current = this.renderRoot.querySelector<HTMLButtonElement>('ol button[tabindex="0"]');
-    if (current) current.focus(options);
-    else {
-      this.#enforceSingleTabstop();
-      this.renderRoot.querySelector<HTMLButtonElement>('ol button[tabindex="0"]')?.focus(options);
+    if (changes.has('max') || changes.has('min') || changes.has('years') || changes.has('inert')) {
+      this.#rovingTabindexController?.clearElementCache();
     }
   }
 
@@ -132,6 +106,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
         <div class="arrows">
           <sl-button
             @click=${this.#onPrevious}
+            @keydown=${this.#onHeaderArrowKeydown}
             aria-label=${msg('Go back 12 years', { id: 'sl.calendar.previousYears' })}
             fill="ghost"
             variant="secondary"
@@ -141,6 +116,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
           </sl-button>
           <sl-button
             @click=${this.#onNext}
+            @keydown=${this.#onHeaderArrowKeydown}
             aria-label=${msg('Go forward 12 years', { id: 'sl.calendar.nextYears' })}
             fill="ghost"
             variant="secondary"
@@ -150,7 +126,13 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
           </sl-button>
         </div>
       </div>
-      <ol class="years" role="grid" @keydown=${this.#onKeydown}>
+      <ol
+        class="years"
+        role="grid"
+        @focusin=${this.#onYearsFocusIn}
+        @focusout=${this.#onYearsFocusOut}
+        @keydown=${this.#onKeydown}
+      >
         ${this.years.map(year => {
           const disabled = this.#isUnselectable(year);
           const selected = !!(this.selected && this.selected.getFullYear() === year);
@@ -182,222 +164,155 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     ].filter(Boolean);
   }
 
-  // #initRoving(): void {
-  //   this.#rovingTabindexController = new RovingTabindexController<HTMLButtonElement>(this, {
-  //     direction: 'grid',
-  //     directionLength: this.#cols,
-  //     elements: () => this.#getYearButtons(),
-  //     focusInIndex: els => {
-  //       if (!els.length) return -1;
-  //       const sel = els.findIndex(el => el.getAttribute('aria-selected') === 'true');
-  //       if (sel > -1) return sel;
-  //       const zero = els.findIndex(el => el.tabIndex === 0);
-  //       return zero > -1 ? zero : 0;
-  //     }
-  //   });
-  // }
-
-  #refreshRoving(): void {
-    this.#rovingTabindexController?.clearElementCache();
-    this.#rovingTabindexController?.hostUpdated();
-    // Re-assert the single tab stop (controller may have cleared it).
-    // this.#enforceSingleTabstop();
-    // queueMicrotask(() => this.#enforceSingleTabstop());
-
-    requestAnimationFrame(() => this.#enforceSingleTabstop());
-  }
-
   #onClick(year: number): void {
     this.selectEvent.emit(new Date(year, 0));
     this.selected = new Date(year, 0);
-    const btn = this.#findButtonByYear(year);
-    if (btn) {
-      this.#rovingTabindexController?.focusToElement(btn);
-      this.#setActiveButton(btn, false); // roving already focused
+  }
+
+  #onHeaderArrowKeydown(event: KeyboardEvent): void {
+    // Prevent arrow keys on header buttons from being handled by the roving controller.
+    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+      event.stopPropagation();
     }
   }
 
-  #onKeydown = (event: KeyboardEvent): void => {
-    const target = (event.target as HTMLElement).closest<HTMLButtonElement>('button[data-year]');
-    if (!target) return;
+  #onYearsFocusIn(_event: FocusEvent): void {
+    this.#rovingTabindexController?.clearElementCache();
+  }
 
-    const isArrow = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key);
-    if (isArrow) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
+  #onYearsFocusOut(_event: FocusEvent): void {
+    this.#rovingTabindexController?.clearElementCache();
+  }
 
-    const buttons = this.#getEnabledYearButtons();
-    const index = buttons.indexOf(target);
-    if (index === -1) return;
+  #onKeydown(event: KeyboardEvent): void {
+    console.log('SelectYear onKeydown...', event.key);
 
-    // const cols = this.#cols;
-    const canPrevRange = !this.#isUnselectable(this.years[0] - 1);
-    const canNextRange = !this.#isUnselectable(this.years[this.years.length - 1] + 1);
-    const lastRowStart =
-      buttons.length - (buttons.length % this.#cols === 0 ? this.#cols : buttons.length % this.#cols);
+    const canGoPrevious = !this.#isUnselectable(this.years[0] - 1),
+      canGoNext = !this.#isUnselectable(this.years[this.years.length - 1] + 1),
+      buttons = this.#getYearButtons(),
+      activeElement = this.shadowRoot?.activeElement as HTMLButtonElement | null,
+      index = activeElement ? buttons.indexOf(activeElement) : -1,
+      cols = 3;
 
-    const move = (btn: HTMLButtonElement) => {
-      this.#rovingTabindexController?.focusToElement(btn);
-      this.#setActiveButton(btn, false);
-    };
+    console.log('SelectYear onKeydown...222', event.key);
 
-    switch (event.key) {
-      case 'ArrowLeft':
-        if (index > 0) move(buttons[index - 1]);
-        else if (canPrevRange) this.#shiftRange(-1, false, () => this.#focusLast());
-        break;
-      case 'ArrowRight':
-        if (index < buttons.length - 1) move(buttons[index + 1]);
-        else if (canNextRange) this.#shiftRange(1, false, () => this.#focusFirst());
-        break;
-      case 'ArrowUp': {
-        const t = index - this.#cols;
-        if (t >= 0) move(buttons[t]);
-        else if (canPrevRange) {
-          const col = index % this.#cols;
-          this.#shiftRange(-1, false, () => this.#focusColumnFromBottom(col));
-        }
-        break;
-      }
-      case 'ArrowDown': {
-        const t = index + this.#cols;
-        if (t < buttons.length) move(buttons[t]);
-        else if (index >= lastRowStart && canNextRange) {
-          const col = index % this.#cols;
-          this.#shiftRange(1, false, () => this.#focusColumnFromTop(col));
-        }
-        break;
-      }
-      case 'Home':
-        event.preventDefault();
-        this.#focusFirst();
-        break;
-      case 'End':
-        event.preventDefault();
-        this.#focusLast();
-        break;
-      case 'Escape':
+    if (event.key === 'ArrowLeft' && canGoPrevious) {
+      if (index === 0) {
         event.preventDefault();
         event.stopPropagation();
 
-        this.selectEvent.emit(this.year);
-        break;
-    }
-  };
+        this.#onPrevious();
+        void this.updateComplete.then(() => {
+          this.#rovingTabindexController?.clearElementCache();
 
-  // header = true when triggered by arrow buttons (keep focus on arrow).
-  #shiftRange(direction: -1 | 1, header: boolean, after: () => void): void {
-    const first = this.years[0];
-    const last = this.years[this.years.length - 1];
-    if (direction === -1) this.#setYears(first - 12, first - 1);
-    else this.#setYears(last + 1, last + 12);
+          const newButtons = this.#getYearButtons();
 
-    const activeBefore = (this.getRootNode() as Document | ShadowRoot).activeElement as HTMLElement | null;
-
-    void this.updateComplete.then(() => {
-      this.#refreshRoving();
-      if (header) {
-        // Reapply a single tab stop without moving focus into the grid.
-        const candidate = this.#choosePreferredYearButton();
-        if (candidate) {
-          this.#setActiveButton(candidate, false);
-          requestAnimationFrame(() => this.#setActiveButton(candidate, false));
-        }
-        // Restore focus to the original arrow (avoid flicker).
-        if (activeBefore && activeBefore.isConnected) activeBefore.focus();
-      } else {
-        after();
+          this.#rovingTabindexController?.focusToElement(newButtons[newButtons.length - 1]);
+        });
       }
-    });
+    } else if (event.key === 'ArrowRight' && canGoNext) {
+      if (index === buttons.length - 1) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        this.#onNext();
+        void this.updateComplete.then(() => {
+          this.#rovingTabindexController?.clearElementCache();
+
+          const first = this.#getYearButtons()[0];
+
+          if (first) {
+            this.#rovingTabindexController?.focusToElement(first);
+          }
+        });
+      }
+    } else if (event.key === 'ArrowUp' && canGoPrevious) {
+      // When on first row (any of the first 3 buttons), jump to previous range
+      // and focus the button in the last row, same column.
+      if (index > -1 && index < cols) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const col = index % cols;
+
+        this.#onPrevious();
+
+        void this.updateComplete.then(() => {
+          this.#rovingTabindexController?.clearElementCache();
+
+          const newButtons = this.#getYearButtons();
+          const total = newButtons.length;
+
+          if (!total) {
+            return;
+          }
+
+          // Start index of last (possibly partial) row
+          const lastRowStart = total - (total % cols === 0 ? cols : total % cols);
+          const targetIndex = Math.min(lastRowStart + col, total - 1);
+
+          const target = newButtons[targetIndex];
+          if (target) {
+            this.#rovingTabindexController?.focusToElement(target);
+          }
+        });
+      }
+    } else if (event.key === 'ArrowDown' && canGoNext) {
+      // console.log('down on last day of month');
+      if (index > -1) {
+        const total = buttons.length;
+        const lastRowStart = total - (total % cols === 0 ? cols : total % cols);
+        // If on any button in the last row, move to next range keeping column
+        if (index >= lastRowStart) {
+          event.preventDefault();
+          event.stopPropagation();
+
+          const col = index % cols;
+
+          this.#onNext();
+
+          void this.updateComplete.then(() => {
+            this.#rovingTabindexController?.clearElementCache();
+
+            const newButtons = this.#getYearButtons();
+
+            if (!newButtons.length) {
+              return;
+            }
+
+            let target = newButtons[col];
+            if (!target) {
+              // Last button if fewer buttons than expected
+              target = newButtons[newButtons.length - 1];
+            }
+            if (target) {
+              this.#rovingTabindexController?.focusToElement(target);
+            }
+          });
+        }
+      }
+    }
+  }
+
+  #onSelectYearKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      event.stopPropagation();
+
+      this.selectEvent.emit(this.year);
+    }
   }
 
   #onPrevious(): void {
-    this.#shiftRange(-1, true, () => {});
+    this.#setYears(this.years[0] - 12, this.years[0] - 1);
   }
 
   #onNext(): void {
-    this.#shiftRange(1, true, () => {});
+    this.#setYears(this.years[this.years.length - 1] + 1, this.years[this.years.length - 1] + 12);
   }
-
-  #focusFirst(): void {
-    const btn = this.#getEnabledYearButtons()[0];
-    if (btn) {
-      this.#rovingTabindexController?.focusToElement(btn);
-      this.#setActiveButton(btn, false);
-    }
-  }
-
-  #focusLast(): void {
-    const btns = this.#getEnabledYearButtons();
-    const btn = btns[btns.length - 1];
-    if (btn) {
-      this.#rovingTabindexController?.focusToElement(btn);
-      this.#setActiveButton(btn, false);
-    }
-  }
-
-  #focusColumnFromBottom(col: number): void {
-    const btns = this.#getEnabledYearButtons();
-    if (!btns.length) return;
-    const total = btns.length;
-    const lastRowStart = total - (total % this.#cols === 0 ? this.#cols : total % this.#cols);
-    const target = btns[Math.min(lastRowStart + col, total - 1)];
-    if (target) {
-      this.#rovingTabindexController?.focusToElement(target);
-      this.#setActiveButton(target, false);
-    }
-  }
-
-  #focusColumnFromTop(col: number): void {
-    const btns = this.#getEnabledYearButtons();
-    if (!btns.length) return;
-    const target = btns[col] ?? btns[btns.length - 1];
-    if (target) {
-      this.#rovingTabindexController?.focusToElement(target);
-      this.#setActiveButton(target, false);
-    }
-  }
-
-  #setActiveButton(btn: HTMLButtonElement, focus: boolean): void {
-    this.#getYearButtons().forEach(b => (b.tabIndex = -1));
-    btn.tabIndex = 0;
-    this.#lastTabstopYear = Number(btn.dataset.year);
-    if (focus) btn.focus();
-  }
-
-  #choosePreferredYearButton(): HTMLButtonElement | undefined {
-    return (
-      (this.#lastTabstopYear && this.#findButtonByYear(this.#lastTabstopYear)) ||
-      (this.selected && this.#findButtonByYear(this.selected.getFullYear())) ||
-      this.#getEnabledYearButtons()[0]
-    );
-  }
-
-  #enforceSingleTabstop(): void {
-    const candidate = this.#choosePreferredYearButton();
-    if (!candidate) return;
-    this.#getYearButtons().forEach(b => (b.tabIndex = -1));
-    candidate.tabIndex = 0;
-  }
-
-  #findButtonByYear(year: number): HTMLButtonElement | undefined {
-    return this.renderRoot.querySelector<HTMLButtonElement>(`button[data-year="${year}"]`) || undefined;
-  }
-
-  #onFocusOut = (): void => {
-    requestAnimationFrame(() => {
-      const active = (this.getRootNode() as Document | ShadowRoot).activeElement;
-      if (!this.contains(active)) this.#enforceSingleTabstop();
-    });
-  };
 
   #getYearButtons(): HTMLButtonElement[] {
-    return Array.from(this.renderRoot.querySelectorAll<HTMLButtonElement>('ol button[data-year]'));
-  }
-
-  #getEnabledYearButtons(): HTMLButtonElement[] {
-    return this.#getYearButtons().filter(b => !b.disabled);
+    return Array.from(this.renderRoot.querySelectorAll<HTMLButtonElement>('ol.years button[part~="year"]'));
   }
 
   #setYears(start: number, end: number): void {

@@ -40,32 +40,25 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   static override styles: CSSResultGroup = styles;
 
   // eslint-disable-next-line no-unused-private-class-members
-  #events = new EventsController(this, { keydown: this.#onKeydown });
+  #events = new EventsController(this, { keydown: this.#onSelectMonthKeydown });
 
-  #rovingTabindexController = new RovingTabindexController(this, {
+  #rovingTabindexController = new RovingTabindexController<HTMLButtonElement>(this, {
     direction: 'grid',
     directionLength: 3,
-    // elements: (): HTMLElement[] => Array.from(this.renderRoot.querySelectorAll('ol button')),
-    elements: (): HTMLElement[] => {
+    elements: (): HTMLButtonElement[] => {
       const list = this.renderRoot.querySelector('ol');
       if (!list) return [];
-      console.log(
-        'in select month view: RovingTabindexController elements --- list',
-        list,
-        Array.from(list.querySelectorAll<HTMLButtonElement>('button')).filter(btn => !btn.disabled)
-      );
       return Array.from(list.querySelectorAll<HTMLButtonElement>('button')).filter(btn => !btn.disabled);
     },
     focusInIndex: elements => {
-      // const index = elements.findIndex(el => el.hasAttribute('aria-pressed'));
-      //
-      // return index === -1 ? 0 : index;
+      const index = elements.findIndex(el => el.hasAttribute('aria-selected') && !el.disabled);
 
-      if (!elements || elements.length === 0) return -1;
-      const buttons = elements as HTMLButtonElement[];
-      const selectedIndex = buttons.findIndex(el => el.hasAttribute('aria-pressed') && !el.disabled);
-      if (selectedIndex > -1) return selectedIndex;
-      return buttons.findIndex(el => !el.disabled);
+      if (index !== -1) {
+        return index;
+      }
+
+      const firstEnabled = elements.findIndex(el => !el.disabled);
+      return firstEnabled === -1 ? 0 : firstEnabled;
     },
     listenerScope: (): HTMLElement => this.renderRoot.querySelector('ol')!
   });
@@ -134,10 +127,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     }
 
     if (changes.has('month') || changes.has('min') || changes.has('max') || changes.has('inert')) {
-      // console.log('SelectMonth willUpdate --- changes in month, min, max, inert', changes);
       this.#rovingTabindexController.clearElementCache();
-      // this.#rovingTabindexController.focus();
-      // requestAnimationFrame(() => this.#rovingTabindexController.focus());
     }
   }
 
@@ -180,29 +170,32 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           </sl-button>
         </div>
       </div>
-      <ol class="months">
+      <ol
+        class="months"
+        role="grid"
+        @keydown=${this.#onKeydown}
+        aria-label=${msg(str`Months of ${currentYear}`, { id: 'sl.calendar.monthsLabel' })}
+      >
         ${this.months.map(month => {
           const parts = this.getMonthParts(month).join(' ');
           return html`
-            <li tabindex="-1">
-              ${month.unselectable
-                ? html`<button disabled .part=${parts}>${month.long}</button>`
-                : html`
-                    <button
-                      .part=${parts}
-                      @click=${() => this.#onClick(month.value)}
-                      ?autofocus=${currentMonth === month.value}
-                      aria-pressed=${ifDefined(currentMonth === month.value ? 'true' : undefined)}
-                    >
-                      ${month.long}
-                    </button>
-                  `}
+            <li role="row">
+              <button
+                role="gridcell"
+                .part=${parts}
+                @click=${() => this.#onClick(month.value)}
+                ?autofocus=${currentMonth === month.value}
+                ?disabled=${month.unselectable}
+                aria-selected=${currentMonth === month.value ? 'true' : 'false'}
+              >
+                ${month.long}
+              </button>
             </li>
           `;
         })}
       </ol>
     `;
-  } // TODO: sth wrong with focusing month and year, works when using shirt tab but not just tab?
+  }
 
   /** Returns an array of part names for a day. */
   getMonthParts = (month: Month): string[] => {
@@ -219,7 +212,6 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   };
 
   #onClick(month: number): void {
-    console.log('SelectMonth click event --- month', month, this.selected, new Date(this.month.getFullYear(), month));
     this.selectEvent.emit(new Date(this.month.getFullYear(), month));
     this.selected = new Date(this.month.getFullYear(), month);
   }
@@ -248,19 +240,15 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   #getMonthsButtons(): HTMLButtonElement[] {
     return Array.from(this.renderRoot.querySelectorAll('ol button'));
-    // return Array.from(this.renderRoot.querySelectorAll<HTMLButtonElement>('ol button:not([disabled])'));
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    console.log('SelectMonth #onKeydown --- event', event);
-
     const buttons = Array.from(this.renderRoot.querySelectorAll<HTMLButtonElement>('ol button')),
       activeElement = this.shadowRoot?.activeElement as HTMLButtonElement | null,
       index = activeElement ? buttons.indexOf(activeElement) : -1,
       cols = 3;
 
     if (event.key === 'ArrowLeft' && !this.#allPreviousUnselectable()) {
-      // console.log('SelectMonth #onKeydown --- ArrowLeft', event, 'index --> ', index);
       if (index === 0) {
         event.preventDefault();
         event.stopPropagation();
@@ -355,11 +343,6 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           });
         }
       }
-    } else if (event.key === 'Escape') {
-      event.preventDefault();
-      event.stopPropagation();
-
-      this.selectEvent.emit(this.month);
     }
   }
 
@@ -376,5 +359,14 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   #onPrevious(): void {
     this.month = new Date(this.month.getFullYear() - 1, this.month.getMonth(), this.month.getDate());
+  }
+
+  #onSelectMonthKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      event.stopPropagation();
+
+      this.selectEvent.emit(this.month);
+    }
   }
 }

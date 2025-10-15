@@ -1,4 +1,4 @@
-import { localized, msg } from '@lit/localize';
+import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
@@ -84,9 +84,14 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
       directionLength: this.#cols,
       elements: () => this.#getYearButtons() ?? [],
       focusInIndex: elements => {
-        const index = elements.findIndex(el => el.hasAttribute('aria-selected'));
+        const index = elements.findIndex(el => el.hasAttribute('aria-selected') && !el.disabled);
 
-        return index === -1 ? 0 : index;
+        if (index !== -1) {
+          return index;
+        }
+
+        const firstEnabled = elements.findIndex(el => !el.disabled);
+        return firstEnabled === -1 ? 0 : firstEnabled;
       },
       listenerScope: (): HTMLElement => this.renderRoot.querySelector('ol.years')!
     });
@@ -127,7 +132,14 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
           </sl-button>
         </div>
       </div>
-      <ol class="years" role="grid" @keydown=${this.#onKeydown}>
+      <ol
+        class="years"
+        role="grid"
+        @keydown=${this.#onKeydown}
+        aria-label=${msg(str`Years from ${this.years.at(0) ?? ''} to ${this.years.at(-1) ?? ''}`, {
+          id: 'sl.calendar.yearsLabel'
+        })}
+      >
         ${this.years.map(year => {
           const disabled = this.#isUnselectable(year);
           const selected = !!(this.selected && this.selected.getFullYear() === year);
@@ -139,7 +151,6 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
                 part=${this.getYearParts(year).join(' ')}
                 ?disabled=${disabled}
                 aria-selected=${selected ? 'true' : 'false'}
-                data-year=${year}
               >
                 ${year}
               </button>
@@ -172,8 +183,6 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    console.log('SelectYear onKeydown...', event.key);
-
     const canGoPrevious = !this.#isUnselectable(this.years[0] - 1),
       canGoNext = !this.#isUnselectable(this.years[this.years.length - 1] + 1),
       buttons = this.#getYearButtons(),
@@ -242,7 +251,6 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
         });
       }
     } else if (event.key === 'ArrowDown' && canGoNext) {
-      // console.log('down on last day of month');
       if (index > -1) {
         const total = buttons.length;
         const lastRowStart = total - (total % this.#cols === 0 ? this.#cols : total % this.#cols);

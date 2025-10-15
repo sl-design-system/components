@@ -18,13 +18,33 @@ describe('FlatTreeDataSource', () => {
           getId: ({ id }) => id,
           getLabel: ({ name }) => name,
           getLevel: ({ level }) => level,
-          isExpandable: ({ expandable }) => expandable
+          isExpandable: ({ expandable }) => expandable,
+          isExpanded: () => true
         }
       );
+      ds.update();
     });
 
-    it('should have the correct size', () => {
-      expect(ds.size).to.equal(2);
+    it('should have the correct number of items', () => {
+      expect(ds.items).to.have.length(5);
+    });
+
+    it('should have the correct labels', () => {
+      const labels = ds.items.map(n => n.label);
+
+      expect(labels).to.deep.equal(['1', '2', '3', '4', '5']);
+    });
+
+    it('should have the correct expandable state', () => {
+      const expandables = ds.items.map(n => n.expandable);
+
+      expect(expandables).to.deep.equal([true, true, false, false, false]);
+    });
+
+    it('should have the correct levels', () => {
+      const levels = ds.items.map(n => n.level);
+
+      expect(levels).to.deep.equal([0, 1, 2, 1, 0]);
     });
   });
 

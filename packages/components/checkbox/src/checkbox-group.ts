@@ -196,35 +196,34 @@ export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
     event.stopPropagation();
   }
 
-  async #onSlotChange(): Promise<void> {
+  #onSlotChange(): void {
     this.#rovingTabindexController.clearElementCache();
 
     this.#observer.disconnect();
 
-    for (const box of this.boxes ?? []) {
+    this.boxes?.forEach((box, index) => {
       box.name = this.name;
 
-      if (this.value !== undefined && box.value !== undefined) {
-        box.checked = this.value?.some(v => v == box.value) ?? false;
+      if (this.value !== undefined) {
+        if (box.value !== undefined) {
+          box.checked = this.value?.includes(box.value) ?? false;
+        } else {
+          box.formValue = this.value?.at(index) ?? null;
+        }
       }
 
       if (typeof this.disabled === 'boolean') {
-        box.disabled = this.disabled;
+        box.disabled = !!this.disabled;
       }
 
       if (this.size) {
         box.size = this.size;
       }
+    });
 
-      // Wait for the `<sl-checkbox>` to stabilize, otherwise we'll trigger the observer
-      await box.updateComplete;
-    }
-
-    // The value can also be determined by which boxes are checked
     this.value = this.boxes?.map(box => box.formValue) ?? [];
 
     this.#observer.observe(this, OBSERVER_OPTIONS);
-    this.#updateValidity();
   }
 
   #stopEvent(event: Event): void {

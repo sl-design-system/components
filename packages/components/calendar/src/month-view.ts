@@ -5,10 +5,10 @@ import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { LocaleMixin } from '@sl-design-system/shared/mixins.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './month-view.scss.js';
-import { type Calendar, type Day, createCalendar, getWeekdayNames, isSameDate } from './utils.js';
+import { type Calendar, type Day, createCalendar, getWeekdayNames, isDateInList, isSameDate } from './utils.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -16,7 +16,11 @@ declare global {
   }
 }
 
+export type IndicatorColor = 'blue' | 'red' | 'yellow' | 'green' | 'grey';
+
 export type MonthViewRenderer = (day: Day, monthView: MonthView) => TemplateResult;
+
+export type Indicator = { date: Date; color?: IndicatorColor };
 
 /**
  * Component that renders a single month of a calendar.
@@ -26,25 +30,111 @@ export class MonthView extends LocaleMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /*
   #rovingTabindexController = new RovingTabindexController<HTMLButtonElement>(this, {
     direction: 'grid',
     // NOTE: If we add the ability to toggle the weekend days, we'll need to update this value.
     directionLength: 7,
-    focusInIndex: elements => {
-      let index = elements.findIndex(el => el.part.contains('selected') && !el.disabled);
-      if (index > -1) {
-        return index;
-      }
+    focusInIndex: (elements: HTMLButtonElement[]) => {
+      // let index = elements.findIndex(el => el.part.contains('selected') && !el.disabled);
+      // console.log('looking for selected index...', index);
+      // if (index > -1) {
+      //   console.log('in focusInIndex: focusing selected?', index);
+      //   return index;
+      // }
+      //
+      // index = elements.findIndex(el => el.part.contains('today') && !el.disabled);
+      // console.log('looking for today index...', index);
+      // if (index > -1) {
+      //   console.log('in focusInIndex: focusing today?', index);
+      //   return index;
+      // }
+      //
+      // console.log(
+      //   'in focusInIndex: no selected or today, focusing first enabled element',
+      //   elements.findIndex(el => !el.disabled)
+      // );
+      //
+      // // TODO: maybe an issue here? when trying to use tab shift? problem with tabindex 0
+      //
+      // return elements.findIndex(el => !el.disabled);
+      console.log(
+        'elements in focusInIndex',
+        elements,
+        elements.findIndex(el => !el.disabled)
+      );
+      // return elements.findIndex(el => !el.disabled);
 
-      index = elements.findIndex(el => el.part.contains('today') && !el.disabled);
-      if (index > -1) {
-        return index;
-      }
+      // If there are no focusable elements (e.g. inert or focus left the grid), don't force any element to tabindex=0
+      if (!elements || elements.length === 0) return -1;
+
+      // Prefer selected -> today -> first enabled
+      const selectedIndex = elements.findIndex(el => el.getAttribute('aria-current') === 'date' && !el.disabled);
+      if (selectedIndex > -1) return selectedIndex;
+
+      const todayIndex = elements.findIndex(el => (el.getAttribute('part') ?? '').includes('today') && !el.disabled);
+      if (todayIndex > -1) return todayIndex;
 
       return elements.findIndex(el => !el.disabled);
     },
-    elements: (): HTMLButtonElement[] => Array.from(this.renderRoot.querySelectorAll('button')),
+    elements: (): HTMLButtonElement[] => {
+      console.log(
+        'elements in rovingtabindex controller in month view',
+        Array.from(this.renderRoot.querySelectorAll('button')),
+        this.renderRoot.querySelectorAll('button'),
+        'inert?',
+        this.inert
+      );
+
+      if (this.inert) {
+        return [];
+      }
+
+      // return Array.from(this.renderRoot.querySelectorAll('button'));
+      // return Array.from(this.renderRoot.querySelectorAll('button')).filter(btn => !btn.disabled);
+      return Array.from(this.renderRoot.querySelectorAll('button')); // keep disabled buttons to preserve grid alignment
+
+      // const buttons = Array.from(this.renderRoot.querySelectorAll('button')) as HTMLButtonElement[];
+      // // If `inert` is set we keep disabled buttons to preserve grid alignment,
+      // // otherwise return only focusable (not disabled) buttons.
+      // return this.inert ? buttons : buttons.filter(btn => !btn.disabled);
+    },
+    isFocusableElement: el => !el.disabled,
+    listenerScope: (): HTMLElement => this
+    // listenerScope: (): HTMLElement => this.days!
+   // listenerScope: (): HTMLElement => this.renderRoot.querySelector('button')!
+   //  listenerScope: (): HTMLElement => {
+   //    // if (this.inert) {
+   //    //   const el = this.renderRoot.querySelector('button') as HTMLElement | null;
+   //    //   console.log('listenerScope in month view...', el, this.days, this.renderRoot.querySelector('button'));
+   //    //
+   //    //   return this;
+   //    // }
+   //    console.log('listenerScope in month view...', 'not inert...', this.days, this.renderRoot.querySelector('button'));
+   //
+   //    return this.days ?? this; //this.renderRoot.querySelector('button') as HTMLElement;
+   //  }
+  });
+*/
+
+  #rovingTabindexController = new RovingTabindexController<HTMLButtonElement>(this, {
+    direction: 'grid',
+    directionLength: 7,
+    focusInIndex: (elements: HTMLButtonElement[]) => {
+      if (!elements || elements.length === 0) return -1;
+      const selectedIndex = elements.findIndex(el => el.getAttribute('aria-current') === 'date' && !el.disabled);
+      if (selectedIndex > -1) return selectedIndex;
+      const todayIndex = elements.findIndex(el => (el.getAttribute('part') ?? '').includes('today') && !el.disabled);
+      if (todayIndex > -1) return todayIndex;
+      return elements.findIndex(el => !el.disabled);
+    },
+    elements: (): HTMLButtonElement[] => {
+      if (this.inert) return [];
+      return Array.from(this.renderRoot.querySelectorAll('button'));
+    },
     isFocusableElement: el => !el.disabled
+    // Listen on the host so focus moves between shadow and light DOM are detected
+    // listenerScope: (): HTMLElement => this
   });
 
   /** @internal The calendar object. */
@@ -52,6 +142,12 @@ export class MonthView extends LocaleMixin(LitElement) {
 
   /** @internal Emits when the user uses the keyboard to navigate to the next/previous month. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<Date>>;
+
+  /** @internal Days elements. */
+  @query('.days') days?: HTMLElement;
+
+  /** The list of dates that should be disabled. */
+  @property({ converter: dateConverter }) disabled?: Date[];
 
   /**
    * The first day of the week; 0 for Sunday, 1 for Monday.
@@ -102,6 +198,48 @@ export class MonthView extends LocaleMixin(LitElement) {
   /** The selected date. */
   @property({ converter: dateConverter }) selected?: Date;
 
+  /** The list of dates that should have 'negative' styling. */
+  @property({ converter: dateConverter }) negative?: Date[];
+
+  /** The list of dates that should have an indicator. */
+  // @property({ converter: dateConverter }) indicator?: Indicator[]; // Date[];
+  // @property({ type: Object }) indicator?: Indicator[]; // Date[];
+
+  @property({
+    attribute: 'indicator',
+    converter: {
+      toAttribute: (value?: Indicator[]) =>
+        value
+          ? JSON.stringify(
+              value.map(i => ({
+                ...i,
+                date: dateConverter.toAttribute?.(i.date)
+              }))
+            )
+          : undefined,
+      fromAttribute: (value: string | null, _type?: unknown) =>
+        value
+          ? (JSON.parse(value) as Array<{ date: string; color?: IndicatorColor }>).map(i => ({
+              ...i,
+              date: dateConverter.fromAttribute?.(i.date)
+            }))
+          : undefined
+    }
+  })
+  indicator?: Indicator[];
+
+  // TODO: maybe implement indicator color and indicator (date) separately?
+
+  // /**
+  //  * The color of the indicator.
+  //  * Should be used together with the `indicator` property.
+  //  * @default 'blue'
+  //  */
+  // @property({ reflect: true, attribute: 'indicator-color' }) indicatorColor?: IndicatorColor;
+
+  // eslint-disable-next-line lit/no-native-attributes
+  @property({ type: Boolean }) override inert = false;
+
   /**
    * Highlights today's date when set.
    * @default false
@@ -116,6 +254,19 @@ export class MonthView extends LocaleMixin(LitElement) {
 
   /** @internal The translated days of the week. */
   @state() weekDays: Array<{ long: string; short: string }> = [];
+
+  // override connectedCallback(): void {
+  //   super.connectedCallback();
+  //   // capture so we see focusout/keydown before the roving controller acts
+  //   this.addEventListener('focusout', this.#onFocusOut, true);
+  //   this.addEventListener('keydown', this.#onHostKeydown, true);
+  // }
+  //
+  // override disconnectedCallback(): void {
+  //   this.removeEventListener('focusout', this.#onFocusOut, true);
+  //   this.removeEventListener('keydown', this.#onHostKeydown, true);
+  //   super.disconnectedCallback();
+  // }
 
   override willUpdate(changes: PropertyValues<this>): void {
     if (changes.has('firstDayOfWeek') || changes.has('locale')) {
@@ -132,15 +283,18 @@ export class MonthView extends LocaleMixin(LitElement) {
       );
     }
 
-    if (changes.has('max') || changes.has('min') || changes.has('month')) {
+    if (changes.has('max') || changes.has('min') || changes.has('month') || changes.has('showToday')) {
       const { firstDayOfWeek, max, min, showToday } = this;
 
       this.calendar = createCalendar(this.month ?? new Date(), { firstDayOfWeek, max, min, showToday });
     }
 
-    if (changes.has('month')) {
+    if (changes.has('max') || changes.has('min') || changes.has('month') || changes.has('inert')) {
       this.#rovingTabindexController.clearElementCache();
+      // this.#rovingTabindexController.focus();
     }
+
+    console.log('find all focusable elements in month view...', this.renderRoot.querySelectorAll('[tabindex="0"]'));
   }
 
   override render(): TemplateResult {
@@ -150,7 +304,7 @@ export class MonthView extends LocaleMixin(LitElement) {
         <tbody>
           ${this.calendar?.weeks.map(
             week => html`
-              <tr>
+              <tr class="days">
                 ${this.showWeekNumbers ? html`<td part="week-number">${week.number}</td>` : nothing}
                 ${week.days.map(day => this.renderDay(day))}
               </tr>
@@ -175,6 +329,8 @@ export class MonthView extends LocaleMixin(LitElement) {
   renderDay(day: Day): TemplateResult {
     let template: TemplateResult | undefined;
 
+    // TODO: fix roving tab index up and down when days are disabled
+
     if (this.renderer) {
       template = this.renderer(day, this);
     } else if (this.hideDaysOtherMonths && (day.nextMonth || day.previousMonth)) {
@@ -183,9 +339,24 @@ export class MonthView extends LocaleMixin(LitElement) {
       const parts = this.getDayParts(day).join(' '),
         ariaLabel = `${day.date.getDate()}, ${format(day.date, this.locale, { weekday: 'long' })} ${format(day.date, this.locale, { month: 'long', year: 'numeric' })}`;
 
+      // TODO: maybe disabled -> unselectable here as well?
+
+      // TODO: why the bunselectable is not disabled button in the DOM?
+
+      console.log(
+        'day before template',
+        day,
+        day.date.getDate(),
+        'readonly?',
+        this.readonly,
+        'day.unselectable?',
+        day.unselectable,
+        parts
+      );
+
       template =
-        this.readonly || !day.currentMonth || day.unselectable
-          ? html`<span .part=${parts} aria-label=${ariaLabel}>${day.date.getDate()}</span>`
+        this.readonly || day.unselectable || day.disabled || isDateInList(day.date, this.disabled)
+          ? html`<button .part=${parts} aria-label=${ariaLabel} disabled>${day.date.getDate()}</button>`
           : html`
               <button
                 @keydown=${(event: KeyboardEvent) => this.#onKeydown(event, day)}
@@ -201,16 +372,45 @@ export class MonthView extends LocaleMixin(LitElement) {
     return html`
       <td @click=${(event: Event) => this.#onClick(event, day)} data-date=${day.date.toISOString()}>${template}</td>
     `;
-  }
+  } // TODO: buttons instead of spans for unselectable days, still problems with disabled?
 
   /** Returns an array of part names for a day. */
   getDayParts = (day: Day): string[] => {
+    console.log(
+      'indicator in getDayParts',
+      this.indicator,
+      this.indicator ? this.indicator[0].date : 'no indicator',
+      this.indicator?.length
+    );
+    // console.log(
+    //   'indicator part applied?',
+    //   this.indicator &&
+    //     isDateInList(
+    //       day.date,
+    //       this.indicator.map(i => i.date)
+    //     )
+    //     ? 'indicator'
+    //     : ''
+    // );
+
     return [
       'day',
       day.nextMonth ? 'next-month' : '',
       day.previousMonth ? 'previous-month' : '',
       day.today ? 'today' : '',
       day.unselectable ? 'unselectable' : '',
+      this.disabled && isDateInList(day.date, this.disabled) ? 'unselectable' : '',
+      this.negative && isDateInList(day.date, this.negative) ? 'negative' : '',
+      this.indicator &&
+      isDateInList(
+        day.date,
+        this.indicator.map(i => i.date)
+      )
+        ? (() => {
+            const indicator = this.indicator && this.indicator.find(i => isSameDate(i.date, day.date));
+            return indicator?.color ? `indicator indicator-${indicator.color}` : 'indicator';
+          })()
+        : '',
       this.selected && isSameDate(day.date, this.selected) ? 'selected' : ''
     ].filter(part => part !== '');
   };
@@ -223,12 +423,23 @@ export class MonthView extends LocaleMixin(LitElement) {
   }
 
   #onClick(event: Event, day: Day): void {
+    console.log('click event in month view...', event, day);
     if (event.target instanceof HTMLButtonElement && !event.target.disabled) {
       this.selectEvent.emit(day.date);
+      this.selected = day.date;
     }
   }
 
   #onKeydown(event: KeyboardEvent, day: Day): void {
+    // if (event.key === 'Tab') {
+    //   // Allow default tab behaviour so focus can leave the month view naturally.
+    //   // Clear roving controller cache so it does not reset tabindex when focus leaves.
+    //   this.#rovingTabindexController.clearElementCache();
+    //   setTimeout(() => this.#rovingTabindexController.clearElementCache(), 0);
+    //   return;
+    // }
+
+    console.log('keydown event in month view...', event, day);
     if (event.key === 'ArrowLeft' && day.currentMonth && day.date.getDate() === 1) {
       event.preventDefault();
       event.stopPropagation();
@@ -239,11 +450,98 @@ export class MonthView extends LocaleMixin(LitElement) {
       event.stopPropagation();
 
       this.changeEvent.emit(new Date(day.date.getFullYear(), day.date.getMonth() + 1, 1));
+    } else if (event.key === 'ArrowUp' && day.currentMonth) {
+      // Whether it's possible to move to the same weekday in previous weeks (skipping disabled)
+      const possibleDay = this.#getEnabledSameWeekday(day.date, -1);
+
+      if (!possibleDay) {
+        return;
+      }
+
+      const crossesMonth =
+        possibleDay.getMonth() !== day.date.getMonth() || possibleDay.getFullYear() !== day.date.getFullYear();
+
+      if (crossesMonth) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        this.changeEvent.emit(possibleDay);
+      }
+    } else if (event.key === 'ArrowDown' && day.currentMonth) {
+      // Whether it's possible to move to the same weekday in following weeks (skipping disabled)
+      const possibleDay = this.#getEnabledSameWeekday(day.date, 1);
+
+      if (!possibleDay) {
+        return;
+      }
+
+      const crossesMonth =
+        possibleDay.getMonth() !== day.date.getMonth() || possibleDay.getFullYear() !== day.date.getFullYear();
+
+      if (crossesMonth) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        this.changeEvent.emit(possibleDay);
+      }
     } else if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
       event.stopPropagation();
 
       this.selectEvent.emit(day.date);
-    }
+      this.selected = day.date;
+    } /*else if (event.key === 'Tab') {
+      // Allow default tab behaviour so focus can leave the month view naturally.
+      // Do not stop propagation or prevent default.
+      // Clear roving controller cache so it does not reset tabindex when focus leaves.
+      this.#rovingTabindexController.clearElementCache();
+      setTimeout(() => this.#rovingTabindexController.clearElementCache(), 0);
+
+      return;
+    }*/
+  }
+
+  // /** Clear roving controller when focus actually leaves the component. */
+  // #onFocusOut = (e: FocusEvent): void => {
+  //   const related = e.relatedTarget as Node | null;
+  //
+  //   console.log('focusout event in month view...', e, related, this.contains(related));
+  //
+  //   // TODO: why focus target is null? when using shift tab...
+  //
+  //   // If focus moved to `null` (window) or to a node outside this host/shadow root, clear cache.
+  //   if (!related || !(this.contains(related) || (this.renderRoot && (this.renderRoot as Node).contains(related)))) {
+  //     this.#rovingTabindexController.clearElementCache();
+  //     // this.#rovingTabindexController.hostDisconnected();
+  //     // this.#rovingTabindexController.focus();
+  //   }
+  // };
+  //
+  // /** Clear cache when Tab is used so the controller doesn't force a focusable back into the grid. */
+  // #onHostKeydown = (e: KeyboardEvent): void => {
+  //   if (e.key === 'Tab') {
+  //     this.#rovingTabindexController.clearElementCache();
+  //     // also clear on next tick to handle async focus moves
+  //     setTimeout(() => this.#rovingTabindexController.clearElementCache(), 0);
+  //   }
+  // };
+
+  /** Nearest enabled same-weekday date (weekly steps: -1 or 1) */
+  #getEnabledSameWeekday(start: Date, direction: 1 | -1): Date | undefined {
+    const findEnabledSameWeekday = (current: Date): Date | undefined => {
+      const possibleDay = new Date(current.getFullYear(), current.getMonth(), current.getDate() + 7 * direction);
+
+      if ((this.min && possibleDay < this.min) || (this.max && possibleDay > this.max)) {
+        return undefined;
+      }
+
+      if (!(this.disabled && isDateInList(possibleDay, this.disabled))) {
+        return possibleDay;
+      }
+
+      return findEnabledSameWeekday(possibleDay);
+    };
+
+    return findEnabledSameWeekday(start);
   }
 }

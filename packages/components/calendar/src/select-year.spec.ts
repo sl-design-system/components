@@ -154,10 +154,14 @@ describe('sl-select-year', () => {
     it('should emit sl-select for Escape key returning current year', async () => {
       const currentYear = el.year.getFullYear();
       const onSelect = new Promise<CustomEvent>(resolve =>
-        el.addEventListener('sl-select', e => resolve(e as CustomEvent))
+        el.addEventListener('sl-select', e => resolve(e as CustomEvent), { once: true })
       );
-      el.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+
+      el.focus();
+      await userEvent.keyboard('{Escape}');
+
       const ev = await onSelect;
+      expect(ev.detail).to.be.instanceOf(Date);
       expect((ev.detail as Date).getFullYear()).to.equal(currentYear);
     });
   });

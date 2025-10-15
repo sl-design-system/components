@@ -217,14 +217,14 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #onKeydown = (e: KeyboardEvent): void => {
-    const target = (e.target as HTMLElement).closest<HTMLButtonElement>('button[data-year]');
+  #onKeydown = (event: KeyboardEvent): void => {
+    const target = (event.target as HTMLElement).closest<HTMLButtonElement>('button[data-year]');
     if (!target) return;
 
-    const isArrow = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key);
+    const isArrow = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key);
     if (isArrow) {
-      e.preventDefault();
-      e.stopPropagation();
+      event.preventDefault();
+      event.stopPropagation();
     }
 
     const buttons = this.#getEnabledYearButtons();
@@ -242,7 +242,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
       this.#setActiveButton(btn, false);
     };
 
-    switch (e.key) {
+    switch (event.key) {
       case 'ArrowLeft':
         if (index > 0) move(buttons[index - 1]);
         else if (canPrevRange) this.#shiftRange(-1, false, () => this.#focusLast());
@@ -270,15 +270,17 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
         break;
       }
       case 'Home':
-        e.preventDefault();
+        event.preventDefault();
         this.#focusFirst();
         break;
       case 'End':
-        e.preventDefault();
+        event.preventDefault();
         this.#focusLast();
         break;
       case 'Escape':
-        e.preventDefault();
+        event.preventDefault();
+        event.stopPropagation();
+
         this.selectEvent.emit(this.year);
         break;
     }
@@ -300,7 +302,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
         const candidate = this.#choosePreferredYearButton();
         if (candidate) {
           this.#setActiveButton(candidate, false);
-          queueMicrotask(() => this.#setActiveButton(candidate, false));
+          requestAnimationFrame(() => this.#setActiveButton(candidate, false));
         }
         // Restore focus to the original arrow (avoid flicker).
         if (activeBefore && activeBefore.isConnected) activeBefore.focus();
@@ -384,7 +386,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   }
 
   #onFocusOut = (): void => {
-    queueMicrotask(() => {
+    requestAnimationFrame(() => {
       const active = (this.getRootNode() as Document | ShadowRoot).activeElement;
       if (!this.contains(active)) this.#enforceSingleTabstop();
     });

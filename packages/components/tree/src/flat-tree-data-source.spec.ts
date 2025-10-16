@@ -62,6 +62,116 @@ describe('FlatTreeDataSource', () => {
     });
   });
 
+  describe('expanded state', () => {
+    beforeEach(() => {
+      ds = new FlatTreeDataSource(
+        [
+          { id: 1, name: '1', level: 0, expandable: true, expanded: true },
+          { id: 2, name: '2', level: 1, expandable: true, expanded: false },
+          { id: 3, name: '3', level: 2, expandable: false },
+          { id: 4, name: '4', level: 1, expandable: false },
+          { id: 5, name: '5', level: 0, expandable: false }
+        ],
+        {
+          getId: ({ id }) => id,
+          getLabel: ({ name }) => name,
+          getLevel: ({ level }) => level,
+          isExpandable: ({ expandable }) => expandable,
+          isExpanded: ({ expanded }) => expanded ?? false
+        }
+      );
+      ds.update();
+    });
+
+    it('should expand a node when calling expand()', () => {
+      const node = ds.items[1];
+
+      expect(node.expanded).to.be.false;
+      expect(ds.items).to.have.length(4);
+
+      ds.expand(node);
+
+      expect(node.expanded).to.be.true;
+      expect(ds.items).to.have.length(5);
+    });
+
+    it('should collapse a node when calling collapse()', () => {
+      const node = ds.items[0];
+
+      expect(node.expanded).to.be.true;
+      expect(ds.items).to.have.length(4);
+
+      ds.collapse(node);
+
+      expect(node.expanded).to.be.false;
+      expect(ds.items).to.have.length(2);
+    });
+
+    it('should toggle the expanded state of a node when calling toggle()', () => {
+      const node = ds.items[1];
+
+      expect(node.expanded).to.be.false;
+      expect(ds.items).to.have.length(4);
+
+      ds.toggle(node);
+
+      expect(node.expanded).to.be.true;
+      expect(ds.items).to.have.length(5);
+
+      ds.toggle(node);
+
+      expect(node.expanded).to.be.false;
+      expect(ds.items).to.have.length(4);
+    });
+
+    it('should expand all descendants when calling expandDescendants()', () => {
+      const node = ds.items[0];
+
+      expect(ds.items).to.have.length(4);
+
+      ds.expandDescendants(node);
+
+      expect(ds.items.filter(i => i.expandable).every(i => i.expanded)).to.be.true;
+      expect(ds.items).to.have.length(5);
+    });
+
+    it('should collapse all descendants when calling collapseDescendants()', () => {
+      const node = ds.items[0];
+
+      expect(ds.items).to.have.length(4);
+
+      ds.collapseDescendants(node);
+
+      expect(ds.items.every(i => !i.expanded)).to.be.true;
+      expect(ds.items).to.have.length(2);
+    });
+
+    it('should toggle all descendants when calling toggleDescendants()', () => {
+      const node = ds.items[0];
+
+      expect(ds.items).to.have.length(4);
+
+      ds.toggleDescendants(node);
+
+      expect(ds.items.map(i => i.expanded)).to.deep.equal([false, false]);
+      expect(ds.items).to.have.length(2);
+    });
+
+    it('should expand all nodes when calling expandAll()', () => {
+      ds.expandAll();
+
+      expect(ds.items.filter(i => i.expandable).every(i => i.expanded)).to.be.true;
+      expect(ds.items).to.have.length(5);
+    });
+
+    it('should collapse all nodes when calling collapseAll()', () => {
+      ds.collapseAll();
+
+      expect(ds.items.filter(i => i.expandable).every(i => !i.expanded)).to.be.true;
+      expect(ds.items).to.have.length(2);
+    });
+  });
+
   describe('level guides', () => {
     beforeEach(() => {
       /**

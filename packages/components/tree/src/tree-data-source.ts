@@ -200,7 +200,13 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
   toggleDescendants(node: TreeDataSourceNode<T>, force?: boolean): void {
     const traverse = (node: TreeDataSourceNode<T>): void => {
       if (node.expandable) {
-        if ((typeof force === 'boolean' && !force) || node.expanded) {
+        if (typeof force === 'boolean') {
+          if (force) {
+            this.expand(node, true);
+          } else {
+            this.collapse(node, true);
+          }
+        } else if (node.expanded) {
           this.collapse(node, false);
         } else {
           this.expand(node, false);
@@ -229,7 +235,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
   async expandAll(): Promise<void> {
     const traverse = async (node: TreeDataSourceNode<T>): Promise<void> => {
       if (node.expandable) {
-        this.expand(node, false);
+        this.expand(node, true);
 
         if (node.childrenLoading) {
           await node.childrenLoading;

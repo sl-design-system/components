@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { TreeDataSource, type TreeDataSourceOptions } from './tree-data-source';
+import { TreeDataSource, type TreeDataSourceNode, type TreeDataSourceOptions } from './tree-data-source';
 
 type TestItem = {
   id: number | string;
@@ -7,20 +7,45 @@ type TestItem = {
   children?: TestItem[];
 };
 
+const TEST_ITEMS: TestItem[] = [
+  { id: 1, name: 'Item 1' },
+  { id: 2, name: 'Item 2' }
+];
+
+const TEST_NODES: Array<TreeDataSourceNode<TestItem>> = [
+  {
+    id: 1,
+    dataNode: TEST_ITEMS[0],
+    expandable: false,
+    expanded: false,
+    label: 'Item 1',
+    level: 0,
+    type: 'node'
+  },
+  {
+    id: 2,
+    dataNode: TEST_ITEMS[1],
+    expandable: true,
+    expanded: false,
+    label: 'Item 2',
+    level: 0,
+    type: 'node'
+  }
+];
+
 class TestTreeDataSource extends TreeDataSource<TestItem> {
-  override nodes: [];
-  override items: [];
-  override size = 0;
+  override nodes: Array<TreeDataSourceNode<TestItem>>;
+  override items: Array<TreeDataSourceNode<TestItem>>;
+  override size: number;
 
-  constructor(_items: TestItem[], options?: TreeDataSourceOptions<TestItem>) {
+  constructor(nodes: Array<TreeDataSourceNode<TestItem>>, options?: TreeDataSourceOptions<TestItem>) {
     super(options);
-    this.nodes = [];
-    this.items = [];
+
+    this.items = this.nodes = nodes;
+    this.size = this.nodes.length;
   }
 
-  override update(): void {
-    throw new Error('Method not implemented.');
-  }
+  override update(): void {}
 }
 
 describe('TreeDataSource', () => {
@@ -28,7 +53,7 @@ describe('TreeDataSource', () => {
 
   describe('defaults', () => {
     beforeEach(() => {
-      ds = new TestTreeDataSource([]);
+      ds = new TestTreeDataSource(TEST_NODES);
     });
 
     it('should not support multiple selection', () => {
@@ -38,7 +63,7 @@ describe('TreeDataSource', () => {
 
   describe('filtering', () => {
     beforeEach(() => {
-      ds = new TestTreeDataSource([]);
+      ds = new TestTreeDataSource(TEST_NODES);
     });
 
     it('should throw an error when calling addFilter', () => {
@@ -53,28 +78,86 @@ describe('TreeDataSource', () => {
   describe('selection', () => {
     describe('single', () => {
       beforeEach(() => {
-        ds = new TestTreeDataSource([]);
+        ds = new TestTreeDataSource(TEST_NODES);
       });
 
       it('not support multiple selection by default', () => {
         expect(ds.multiple).not.to.be.true;
       });
+
+      it('should start with an empty selection', () => {
+        expect(ds.selection.size).to.equal(0);
+      });
+
+      it('should only allow a single selection', () => {
+        ds.select(ds.nodes[0]);
+        expect(ds.selection.size).to.equal(1);
+
+        ds.select(ds.nodes[1]);
+        expect(ds.selection.size).to.equal(1);
+      });
+
+      it('should allow deselecting the current selection', () => {
+        ds.select(ds.nodes[0]);
+        expect(ds.selection.size).to.equal(1);
+
+        ds.deselect(ds.nodes[0]);
+        expect(ds.selection.size).to.equal(0);
+      });
+
+      it('should allow deselecting all', () => {
+        ds.select(ds.nodes[0]);
+        expect(ds.selection.size).to.equal(1);
+
+        ds.deselectAll();
+        expect(ds.selection.size).to.equal(0);
+      });
     });
 
     describe('multiple', () => {
       beforeEach(() => {
-        ds = new TestTreeDataSource([], { multiple: true });
+        ds = new TestTreeDataSource(TEST_NODES, { multiple: true });
       });
 
       it('should support multiple selection when enabled', () => {
         expect(ds.multiple).to.be.true;
+      });
+
+      it('should start with an empty selection', () => {
+        expect(ds.selection.size).to.equal(0);
+      });
+
+      it('should allow multiple selections', () => {
+        ds.select(ds.nodes[0]);
+        expect(ds.selection.size).to.equal(1);
+
+        ds.select(ds.nodes[1]);
+        expect(ds.selection.size).to.equal(2);
+      });
+
+      it('should allow deselecting a selection', () => {
+        ds.select(ds.nodes[0]);
+        ds.select(ds.nodes[1]);
+        expect(ds.selection.size).to.equal(2);
+
+        ds.deselect(ds.nodes[0]);
+        expect(ds.selection.size).to.equal(1);
+      });
+
+      it('should allow deselecting all', () => {
+        ds.select(ds.nodes[0]);
+        ds.select(ds.nodes[1]);
+        expect(ds.selection.size).to.equal(2);
+
+        ds.deselectAll();
+        expect(ds.selection.size).to.equal(0);
       });
     });
   });
 
   describe('sorting', () => {
     beforeEach(() => {
-      ds = new TestTreeDataSource([]);
+      ds = new TestTreeDataSource(TEST_NODES);
     });
 
     it('should have a sort after calling setSort', () => {

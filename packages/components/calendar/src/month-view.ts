@@ -1,4 +1,4 @@
-import { localized } from '@lit/localize';
+import { localized, msg, str } from '@lit/localize';
 import { format } from '@sl-design-system/format-date';
 import { type EventEmitter, RovingTabindexController, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
@@ -189,10 +189,7 @@ export class MonthView extends LocaleMixin(LitElement) {
 
     if (changes.has('max') || changes.has('min') || changes.has('month') || changes.has('inert')) {
       this.#rovingTabindexController.clearElementCache();
-      // this.#rovingTabindexController.focus();
     }
-
-    console.log('find all focusable elements in month view...', this.renderRoot.querySelectorAll('[tabindex="0"]'));
   }
 
   override render(): TemplateResult {
@@ -203,7 +200,17 @@ export class MonthView extends LocaleMixin(LitElement) {
           ${this.calendar?.weeks.map(
             week => html`
               <tr role="row" class="days">
-                ${this.showWeekNumbers ? html`<td part="week-number">${week.number}</td>` : nothing}
+                ${this.showWeekNumbers
+                  ? html`
+                      <td
+                        role="rowheader"
+                        part="week-number"
+                        aria-label=${msg(str`Week ${week.number}`, { id: 'sl.monthView.week' })}
+                      >
+                        ${week.number}
+                      </td>
+                    `
+                  : nothing}
                 ${week.days.map(day => this.renderDay(day))}
               </tr>
             `
@@ -217,7 +224,13 @@ export class MonthView extends LocaleMixin(LitElement) {
     return html`
       <thead part="header">
         <tr role="row">
-          ${this.showWeekNumbers ? html`<th part="week-number">${this.localizedWeekOfYear}</th>` : nothing}
+          ${this.showWeekNumbers
+            ? html`
+                <th part="week-number" aria-label=${msg('Week', { id: 'sl.calendar.week' })}>
+                  ${this.localizedWeekOfYear}
+                </th>
+              `
+            : nothing}
           ${this.weekDays.map(day => html`<th aria-label=${day.long} part="week-day">${day.short}</th>`)}
         </tr>
       </thead>
@@ -230,17 +243,16 @@ export class MonthView extends LocaleMixin(LitElement) {
     if (this.renderer) {
       template = this.renderer(day, this);
     } else if (this.hideDaysOtherMonths && (day.nextMonth || day.previousMonth)) {
-      return html`<td></td>`;
+      return html`<td role="gridcell"></td>`;
     } else {
       const parts = this.getDayParts(day).join(' '),
         ariaLabel = `${day.date.getDate()}, ${format(day.date, this.locale, { weekday: 'long' })} ${format(day.date, this.locale, { month: 'long', year: 'numeric' })}`;
 
       template =
         this.readonly || day.unselectable || day.disabled || isDateInList(day.date, this.disabled)
-          ? html`<button role="gridcell" .part=${parts} aria-label=${ariaLabel} disabled>${day.date.getDate()}</button>`
+          ? html`<button .part=${parts} aria-label=${ariaLabel} disabled>${day.date.getDate()}</button>`
           : html`
               <button
-                role="gridcell"
                 @keydown=${(event: KeyboardEvent) => this.#onKeydown(event, day)}
                 .part=${parts}
                 aria-current=${ifDefined(parts.includes('selected') ? 'date' : undefined)}
@@ -252,7 +264,9 @@ export class MonthView extends LocaleMixin(LitElement) {
     }
 
     return html`
-      <td @click=${(event: Event) => this.#onClick(event, day)} data-date=${day.date.toISOString()}>${template}</td>
+      <td role="gridcell" @click=${(event: Event) => this.#onClick(event, day)} data-date=${day.date.toISOString()}>
+        ${template}
+      </td>
     `;
   } // TODO: buttons instead of spans for unselectable days, still problems with disabled?
 

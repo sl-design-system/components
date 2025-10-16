@@ -316,15 +316,17 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           </sl-button>
         </div>
       </div>
-      <div class="days-of-week">
+      <div class="days-of-week" role="list">
         ${this.showWeekNumbers
           ? html`
-              <span class="week-number" aria-label=${msg('Week', { id: 'sl.calendar.week' })}
+              <span role="listitem" class="week-number" aria-label=${msg('Week', { id: 'sl.calendar.week' })}
                 >${this.localizedWeekOfYear}</span
               >
             `
           : nothing}
-        ${this.weekDays.map(day => html`<span class="day-of-week" aria-label=${day.long}>${day.short}</span>`)}
+        ${this.weekDays.map(
+          day => html`<span role="listitem" class="day-of-week" aria-label=${day.long}>${day.short}</span>`
+        )}
       </div>
       <div class="scroller" tabindex="-1">
         <sl-month-view

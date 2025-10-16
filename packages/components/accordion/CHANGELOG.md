@@ -1,5 +1,16 @@
 # @sl-design-system/accordion
 
+## 1.2.1
+
+### Patch Changes
+
+- [#2765](https://github.com/sl-design-system/components/pull/2765) [`e03836f`](https://github.com/sl-design-system/components/commit/e03836fb034c14f627c8bd5335adf727a923f856) - Add icon part to `<sl-accordion-item>`
+
+- [#2644](https://github.com/sl-design-system/components/pull/2644) [`12cf7bc`](https://github.com/sl-design-system/components/commit/12cf7bc4e66b4e4cb02c4ce0cc2d1d7facb8b310) - Changed background to `--sl-elevation-surface-raised-default` so it has the lightest background possible (this is only a change for themes that has a base background colour that is not (almost) white
+
+- Updated dependencies [[`d0c4db2`](https://github.com/sl-design-system/components/commit/d0c4db220c6a5826a0c9e5bc8ab3943884dfcd9c)]:
+  - @sl-design-system/shared@0.9.2
+
 ## 1.2.0
 
 ### Minor Changes

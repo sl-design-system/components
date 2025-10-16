@@ -1,5 +1,11 @@
 # @sl-design-system/shared
 
+## 0.9.2
+
+### Patch Changes
+
+- [#2715](https://github.com/sl-design-system/components/pull/2715) [`d0c4db2`](https://github.com/sl-design-system/components/commit/d0c4db220c6a5826a0c9e5bc8ab3943884dfcd9c) - Fix `scrollParent` to work with overflow elements that do not scroll (yet)
+
 ## 0.9.1
 
 ### Patch Changes

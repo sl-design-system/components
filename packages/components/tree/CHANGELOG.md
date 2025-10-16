@@ -1,5 +1,21 @@
 # @sl-design-system/tree
 
+## 0.2.0
+
+### Minor Changes
+
+- [#2715](https://github.com/sl-design-system/components/pull/2715) [`d0c4db2`](https://github.com/sl-design-system/components/commit/d0c4db220c6a5826a0c9e5bc8ab3943884dfcd9c) - Replace `@lit-labs/virtualizer` with `@tanstack/lit-virtual`
+
+  This is a breaking change, but not worthy of a new major version, because the component still has draft status.
+
+### Patch Changes
+
+- Updated dependencies [[`0a615b1`](https://github.com/sl-design-system/components/commit/0a615b17e65995cf637dec9c2aa17b390bafcb7e), [`d0c4db2`](https://github.com/sl-design-system/components/commit/d0c4db220c6a5826a0c9e5bc8ab3943884dfcd9c), [`1e7b6f6`](https://github.com/sl-design-system/components/commit/1e7b6f629f79d77576c2cb19d20f8884bb2f30c4), [`d0c4db2`](https://github.com/sl-design-system/components/commit/d0c4db220c6a5826a0c9e5bc8ab3943884dfcd9c)]:
+  - @sl-design-system/checkbox@2.1.7
+  - @sl-design-system/button-bar@1.3.0
+  - @sl-design-system/icon@1.4.0
+  - @sl-design-system/shared@0.9.2
+
 ## 0.1.7
 
 ### Patch Changes

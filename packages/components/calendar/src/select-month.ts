@@ -46,7 +46,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     direction: 'grid',
     directionLength: 3,
     elements: (): HTMLButtonElement[] => {
-      const list = this.renderRoot.querySelector('ol');
+      const list = this.renderRoot.querySelector('table.months');
       if (!list) return [];
       return Array.from(list.querySelectorAll<HTMLButtonElement>('button')).filter(btn => !btn.disabled);
     },
@@ -60,7 +60,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       const firstEnabled = elements.findIndex(el => !el.disabled);
       return firstEnabled === -1 ? 0 : firstEnabled;
     },
-    listenerScope: (): HTMLElement => this.renderRoot.querySelector('ol')!
+    listenerScope: (): HTMLElement => this.renderRoot.querySelector('table.months')!
   });
 
   /** The month/year to display. */
@@ -137,6 +137,8 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       canSelectNextYear = !this.max || (this.max && this.month.getFullYear() + 1 <= this.max.getFullYear()),
       canSelectPreviousYear = !this.min || (this.min && this.month.getFullYear() - 1 >= this.min.getFullYear());
 
+    const monthRows = this.#getMonthRows();
+
     return html`
       <div part="header">
         ${canSelectPreviousYear || canSelectNextYear
@@ -170,30 +172,37 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           </sl-button>
         </div>
       </div>
-      <ol
+      <table
         class="months"
         role="grid"
         @keydown=${this.#onKeydown}
         aria-label=${msg(str`Months of ${currentYear}`, { id: 'sl.calendar.monthsLabel' })}
       >
-        ${this.months.map(month => {
-          const parts = this.getMonthParts(month).join(' ');
-          return html`
-            <li role="row">
-              <button
-                role="gridcell"
-                .part=${parts}
-                @click=${() => this.#onClick(month.value)}
-                ?autofocus=${currentMonth === month.value}
-                ?disabled=${month.unselectable}
-                aria-selected=${currentMonth === month.value ? 'true' : 'false'}
-              >
-                ${month.long}
-              </button>
-            </li>
-          `;
-        })}
-      </ol>
+        <tbody>
+          ${monthRows.map(
+            row => html`
+              <tr role="row">
+                ${row.map(month => {
+                  const parts = this.getMonthParts(month).join(' ');
+                  return html`
+                    <td>
+                      <button
+                        .part=${parts}
+                        @click=${() => this.#onClick(month.value)}
+                        ?autofocus=${currentMonth === month.value}
+                        ?disabled=${month.unselectable}
+                        aria-selected=${currentMonth === month.value ? 'true' : 'false'}
+                      >
+                        ${month.long}
+                      </button>
+                    </td>
+                  `;
+                })}
+              </tr>
+            `
+          )}
+        </tbody>
+      </table>
     `;
   }
 
@@ -239,11 +248,19 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #getMonthsButtons(): HTMLButtonElement[] {
-    return Array.from(this.renderRoot.querySelectorAll('ol button'));
+    return Array.from(this.renderRoot.querySelectorAll('.months button'));
+  }
+
+  #getMonthRows(): Month[][] {
+    const rows: Month[][] = [];
+    for (let i = 0; i < this.months.length; i += 3) {
+      rows.push(this.months.slice(i, i + 3));
+    }
+    return rows;
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    const buttons = Array.from(this.renderRoot.querySelectorAll<HTMLButtonElement>('ol button')),
+    const buttons = Array.from(this.renderRoot.querySelectorAll<HTMLButtonElement>('.months button')),
       activeElement = this.shadowRoot?.activeElement as HTMLButtonElement | null,
       index = activeElement ? buttons.indexOf(activeElement) : -1,
       cols = 3;

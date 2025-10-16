@@ -13,7 +13,6 @@
 }
 
 .current-range {
-  // font-size: 1.2em;
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
   margin-inline-end: auto;
 }
@@ -27,24 +26,19 @@ sl-button {
   user-select: none;
 }
 
-ol {
-  display: grid;
-  flex: 1;
-  gap: var(--sl-size-050);
-  gap: var(--sl-size-200) var(--sl-size-100);
-  grid-template-columns: repeat(3, auto);
-  justify-items: center;
-  list-style: none;
+table.years {
+  block-size: 100%;
+  border-collapse: separate;
+  border-spacing: var(--sl-size-100) var(--sl-size-200);
+  box-sizing: content-box;
+  inline-size: 100%;
   margin: 0;
-  padding: 0;
 }
 
-li {
-  align-items: center;
-  display: inline-flex;
-  justify-content: center;
+table.years td {
   margin: 0;
   padding: 0;
+  text-align: center;
 }
 
 button {

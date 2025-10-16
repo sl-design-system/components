@@ -30,9 +30,9 @@ table.months {
   block-size: 100%;
   border-collapse: separate;
   border-spacing: var(--sl-size-100) var(--sl-size-200);
+  box-sizing: content-box;
   inline-size: 100%;
   margin: 0;
-  padding: 0 var(--sl-size-100);
 }
 
 table.months td {

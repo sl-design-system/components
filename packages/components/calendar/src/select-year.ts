@@ -84,7 +84,11 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
       directionLength: this.#cols,
       elements: () => this.#getYearButtons() ?? [],
       focusInIndex: elements => {
-        const index = elements.findIndex(el => el.hasAttribute('aria-selected') && !el.disabled);
+        const index = elements.findIndex(el => {
+          if (el.disabled) return false;
+          const cell = el.closest('td[role="gridcell"]');
+          return !!cell && cell.getAttribute('aria-selected') === 'true';
+        });
 
         if (index !== -1) {
           return index;
@@ -93,7 +97,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
         const firstEnabled = elements.findIndex(el => !el.disabled);
         return firstEnabled === -1 ? 0 : firstEnabled;
       },
-      listenerScope: (): HTMLElement => this.renderRoot.querySelector('ol.years')!
+      listenerScope: (): HTMLElement => this.renderRoot.querySelector('table.years')!
     });
 
     this.#rovingTabindexController?.focus();
@@ -106,6 +110,12 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
+    // chunk years into rows of #cols
+    const rows: number[][] = [];
+    for (let i = 0; i < this.years.length; i += this.#cols) {
+      rows.push(this.years.slice(i, i + this.#cols));
+    }
+
     return html`
       <div part="header">
         <span class="current-range">${this.years.at(0)} - ${this.years.at(-1)}</span>
@@ -132,7 +142,8 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
           </sl-button>
         </div>
       </div>
-      <ol
+
+      <table
         class="years"
         role="grid"
         @keydown=${this.#onKeydown}
@@ -140,24 +151,35 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
           id: 'sl.calendar.yearsLabel'
         })}
       >
-        ${this.years.map(year => {
-          const disabled = this.#isUnselectable(year);
-          const selected = !!(this.selected && this.selected.getFullYear() === year);
-          return html`
-            <li role="row">
-              <button
-                role="gridcell"
-                @click=${() => !disabled && this.#onClick(year)}
-                part=${this.getYearParts(year).join(' ')}
-                ?disabled=${disabled}
-                aria-selected=${selected ? 'true' : 'false'}
-              >
-                ${year}
-              </button>
-            </li>
-          `;
-        })}
-      </ol>
+        <tbody>
+          ${rows.map(
+            (row, rowIndex) => html`
+              <tr role="row" aria-rowindex=${rowIndex + 1}>
+                ${row.map((year, colIndex) => {
+                  const disabled = this.#isUnselectable(year);
+                  const selected = !!(this.selected && this.selected.getFullYear() === year);
+                  return html`
+                    <td
+                      role="gridcell"
+                      aria-rowindex=${rowIndex + 1}
+                      aria-colindex=${colIndex + 1}
+                      aria-selected=${selected ? 'true' : 'false'}
+                    >
+                      <button
+                        @click=${() => !disabled && this.#onClick(year)}
+                        part=${this.getYearParts(year).join(' ')}
+                        ?disabled=${disabled}
+                      >
+                        ${year}
+                      </button>
+                    </td>
+                  `;
+                })}
+              </tr>
+            `
+          )}
+        </tbody>
+      </table>
     `;
   }
 
@@ -304,7 +326,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   }
 
   #getYearButtons(): HTMLButtonElement[] {
-    return Array.from(this.renderRoot.querySelectorAll<HTMLButtonElement>('ol.years button[part~="year"]'));
+    return Array.from(this.renderRoot.querySelectorAll<HTMLButtonElement>('table.years button[part~="year"]'));
   }
 
   #setYears(start: number, end: number): void {

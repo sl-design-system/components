@@ -237,9 +237,10 @@ export class MonthView extends LocaleMixin(LitElement) {
 
       template =
         this.readonly || day.unselectable || day.disabled || isDateInList(day.date, this.disabled)
-          ? html`<button .part=${parts} aria-label=${ariaLabel} disabled>${day.date.getDate()}</button>`
+          ? html`<button role="gridcell" .part=${parts} aria-label=${ariaLabel} disabled>${day.date.getDate()}</button>`
           : html`
               <button
+                role="gridcell"
                 @keydown=${(event: KeyboardEvent) => this.#onKeydown(event, day)}
                 .part=${parts}
                 aria-current=${ifDefined(parts.includes('selected') ? 'date' : undefined)}

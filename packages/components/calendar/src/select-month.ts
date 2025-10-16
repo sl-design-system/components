@@ -51,7 +51,13 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       return Array.from(list.querySelectorAll<HTMLButtonElement>('button')).filter(btn => !btn.disabled);
     },
     focusInIndex: elements => {
-      const index = elements.findIndex(el => el.hasAttribute('aria-selected') && !el.disabled);
+      const index = elements.findIndex(el => {
+        if (el.disabled) {
+          return false;
+        }
+        const cell = el.closest('td[role="gridcell"]');
+        return !!cell && cell.getAttribute('aria-selected') === 'true';
+      });
 
       if (index !== -1) {
         return index;
@@ -180,18 +186,22 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       >
         <tbody>
           ${monthRows.map(
-            row => html`
-              <tr role="row">
-                ${row.map(month => {
+            (row, rowIndex) => html`
+              <tr role="row" aria-rowindex=${rowIndex + 1}>
+                ${row.map((month, colIndex) => {
                   const parts = this.getMonthParts(month).join(' ');
                   return html`
-                    <td>
+                    <td
+                      role="gridcell"
+                      aria-rowindex=${rowIndex + 1}
+                      aria-colindex=${colIndex + 1}
+                      aria-selected=${currentMonth === month.value ? 'true' : 'false'}
+                    >
                       <button
                         .part=${parts}
                         @click=${() => this.#onClick(month.value)}
                         ?autofocus=${currentMonth === month.value}
                         ?disabled=${month.unselectable}
-                        aria-selected=${currentMonth === month.value ? 'true' : 'false'}
                       >
                         ${month.long}
                       </button>

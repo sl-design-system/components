@@ -59,6 +59,30 @@ describe('TreeDataSource', () => {
     it('should not support multiple selection', () => {
       expect(ds.multiple).not.to.be.true;
     });
+
+    it('should have a nodes property', () => {
+      expect(ds.nodes).to.be.an('array');
+    });
+
+    it('should have an items property', () => {
+      expect(ds.items).to.be.an('array');
+    });
+
+    it('should have a size property', () => {
+      expect(ds.size).to.be.a('number');
+    });
+
+    it('should have an empty selection', () => {
+      expect(ds.selection.size).to.equal(0);
+    });
+
+    it('should not have a filter', () => {
+      expect(ds.filters).to.be.empty;
+    });
+
+    it('should not have a sort', () => {
+      expect(ds.sort).to.be.undefined;
+    });
   });
 
   describe('filtering', () => {
@@ -81,7 +105,7 @@ describe('TreeDataSource', () => {
         ds = new TestTreeDataSource(TEST_NODES);
       });
 
-      it('not support multiple selection by default', () => {
+      it('should not support multiple selection', () => {
         expect(ds.multiple).not.to.be.true;
       });
 
@@ -89,7 +113,7 @@ describe('TreeDataSource', () => {
         expect(ds.selection.size).to.equal(0);
       });
 
-      it('should only allow a single selection', () => {
+      it('should only allow a single selected node at a time', () => {
         ds.select(ds.nodes[0]);
         expect(ds.selection.size).to.equal(1);
 
@@ -97,7 +121,7 @@ describe('TreeDataSource', () => {
         expect(ds.selection.size).to.equal(1);
       });
 
-      it('should allow deselecting the current selection', () => {
+      it('should allow deselecting the currently selected node', () => {
         ds.select(ds.nodes[0]);
         expect(ds.selection.size).to.equal(1);
 
@@ -105,7 +129,7 @@ describe('TreeDataSource', () => {
         expect(ds.selection.size).to.equal(0);
       });
 
-      it('should allow deselecting all', () => {
+      it('should allow deselecting all nodes', () => {
         ds.select(ds.nodes[0]);
         expect(ds.selection.size).to.equal(1);
 
@@ -119,7 +143,7 @@ describe('TreeDataSource', () => {
         ds = new TestTreeDataSource(TEST_NODES, { multiple: true });
       });
 
-      it('should support multiple selection when enabled', () => {
+      it('should support multiple selection', () => {
         expect(ds.multiple).to.be.true;
       });
 
@@ -127,7 +151,7 @@ describe('TreeDataSource', () => {
         expect(ds.selection.size).to.equal(0);
       });
 
-      it('should allow multiple selections', () => {
+      it('should allow multiple selected nodes', () => {
         ds.select(ds.nodes[0]);
         expect(ds.selection.size).to.equal(1);
 
@@ -135,7 +159,7 @@ describe('TreeDataSource', () => {
         expect(ds.selection.size).to.equal(2);
       });
 
-      it('should allow deselecting a selection', () => {
+      it('should allow deselecting a node', () => {
         ds.select(ds.nodes[0]);
         ds.select(ds.nodes[1]);
         expect(ds.selection.size).to.equal(2);
@@ -144,7 +168,12 @@ describe('TreeDataSource', () => {
         expect(ds.selection.size).to.equal(1);
       });
 
-      it('should allow deselecting all', () => {
+      it('should allow selecting all nodes', () => {
+        ds.selectAll();
+        expect(ds.selection.size).to.equal(2);
+      });
+
+      it('should allow deselecting all nodes', () => {
         ds.select(ds.nodes[0]);
         ds.select(ds.nodes[1]);
         expect(ds.selection.size).to.equal(2);

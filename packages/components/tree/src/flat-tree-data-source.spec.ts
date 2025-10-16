@@ -49,6 +49,12 @@ describe('FlatTreeDataSource', () => {
       expect(expandables).to.deep.equal([true, true, false, false, false]);
     });
 
+    it('should have the correct expanded state', () => {
+      const expanded = ds.items.map(n => n.expanded);
+
+      expect(expanded).to.deep.equal([true, true, false, false, false]);
+    });
+
     it('should have the correct levels', () => {
       const levels = ds.items.map(n => n.level);
 

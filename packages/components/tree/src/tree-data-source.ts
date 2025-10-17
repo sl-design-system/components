@@ -446,18 +446,13 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     };
 
     const traverse = (treeNode: TreeDataSourceNode<T>): Array<TreeDataSourceNode<T>> => {
-      // Calculate and set level guides for the current node
-      treeNode.levelGuides = calculateLevelGuides(treeNode);
-
-      // Set lastNodeInLevel based on whether this is the last child of its parent
-      const siblings = treeNode.parent?.children ?? this.nodes;
-
-      treeNode.lastNodeInLevel = siblings?.at(-1) === treeNode;
-
       if (treeNode.expandable && treeNode.expanded) {
         if (Array.isArray(treeNode.children)) {
-          // Sort children before traversing
+          // Sort children before doing anything else
           const sortedChildren = sortNodes(treeNode.children);
+
+          // Update the parent's children array with sorted nodes so level guides are calculated correctly
+          treeNode.children = sortedChildren;
 
           const array = sortedChildren.map(childNode => {
             if (childNode instanceof Promise) {
@@ -483,10 +478,23 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
       return [treeNode];
     };
 
-    // Sort root nodes before traversing
+    // Sort root nodes and update this.nodes before traversing
     const sortedRootNodes = sortNodes(this.nodes);
 
-    return sortedRootNodes.flatMap(treeNode => traverse(treeNode));
+    // First pass: traverse and sort all children recursively
+    const result = sortedRootNodes.flatMap(treeNode => traverse(treeNode));
+
+    // Second pass: calculate level guides and lastNodeInLevel based on sorted structure
+    result.forEach(node => {
+      // Calculate and set level guides for the current node
+      node.levelGuides = calculateLevelGuides(node);
+
+      // Set lastNodeInLevel based on whether this is the last child of its parent
+      const siblings = node.parent?.children ?? sortedRootNodes;
+      node.lastNodeInLevel = siblings?.at(-1) === node;
+    });
+
+    return result;
   }
 
   #createPlaceholderTreeNode(parent: TreeDataSourceNode<T>): TreeDataSourceNode<T> {

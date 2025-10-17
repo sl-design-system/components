@@ -498,3 +498,21 @@ export const Skeleton: Story = {
     )
   }
 };
+
+export const Sorting: Story = {
+  render: () => {
+    const ds = new NestedTreeDataSource(nestedData, {
+      getChildren: ({ children }) => children,
+      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
+      getId: item => item.id,
+      getLabel: ({ name }) => name,
+      isExpandable: ({ children }) => !!children,
+      isExpanded: ({ name }) => ['components', 'tree', 'src'].includes(name)
+    });
+
+    ds.setSort('name', 'asc');
+    ds.update();
+
+    return html`<sl-tree .dataSource=${ds} aria-label="Tree label" style="max-inline-size: 300px"></sl-tree>`;
+  }
+};

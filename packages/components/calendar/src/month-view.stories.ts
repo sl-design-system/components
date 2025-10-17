@@ -124,10 +124,6 @@ export default {
 
 export const Basic: Story = {};
 
-// TODO: selecting when clicking on it should work in the mont-view as well?
-
-// TODO: disabled days story is missing
-
 export const FirstDayOfWeek: Story = {
   args: {
     firstDayOfWeek: 0

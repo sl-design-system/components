@@ -92,7 +92,10 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** The list of dates that should have 'negative' styling. */
   @property({ converter: dateConverter }) negative?: Date[];
 
-  /** The list of dates that should have an indicator. */
+  /**
+   * The list of dates that should display an indicator.
+   * Each item is an Indicator with a `date`, an optional `color`
+   * and 'label' that is used to improve accessibility (added as a tooltip). */
   @property({
     attribute: 'indicator',
     converter: {
@@ -159,36 +162,20 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       this.observer = new IntersectionObserver(
         entries => {
           entries.forEach(entry => {
-            // console.log(
-            //   'entry in intersection observer',
-            //   entry,
-            //   'entry.isIntersecting && entry.intersectionRatio',
-            //   entry.isIntersecting,
-            //   'ratio:',
-            //   entry.intersectionRatio,
-            //   'month...',
-            //   normalizeDateTime((entry.target as MonthView).month!),
-            //   'root for intersection observer',
-            //   this.scroller,
-            //   'monthView....?',
-            //   this.monthView
-            // );
             if (entry.isIntersecting && entry.intersectionRatio === 1) {
               this.month = normalizeDateTime((entry.target as MonthView).month!);
-              console.log('month in intersection observer', this.month);
               this.#scrollToMonth(0);
             }
           });
         },
-        { root: this.scroller, rootMargin: `${totalHorizontal}px`, threshold: [0, 0.25, 0.5, 0.75, /*0.99,*/ 1] } // TODO: check maybe rootMargin 20px or sth?
+        { root: this.scroller, rootMargin: `${totalHorizontal}px`, threshold: [0, 0.25, 0.5, 0.75, 1] }
       );
 
       this.#scrollToMonth(0);
       const monthViews = this.renderRoot.querySelectorAll('sl-month-view');
       monthViews.forEach(mv => this.observer?.observe(mv));
-      console.log('monthViews observed', monthViews);
     });
-  } // TODO: maybe rovingtabindex for days should be added here as well? not only in the month view?
+  }
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
@@ -228,8 +215,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         ? !this.min ||
           (this.min && this.previousMonth?.getTime() >= new Date(this.min.getFullYear(), this.min.getMonth()).getTime())
         : false;
-
-    console.log('canSelectPreviousMonth in select day', canSelectPreviousMonth, this.previousMonth, this.min);
 
     return html`
       <div part="header">
@@ -393,7 +378,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
     requestAnimationFrame(() => {
       this.renderRoot.querySelector<MonthView>('sl-month-view:nth-child(2)')?.focusDay(event.detail);
-    }); // TODO: maybe focus next month shoudl be added explicitly here as well?
+    });
   }
 
   #onPrevious(): void {
@@ -401,7 +386,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onNext(): void {
-    // TODO: why the header is not updated when clicking next and week days are visible?
     this.#scrollToMonth(1, true);
   }
 
@@ -421,23 +405,10 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #scrollToMonth(month: -1 | 0 | 1, smooth = false): void {
-    console.log(
-      'scroll to month',
-      month,
-      smooth,
-      'left:',
-      parseInt(getComputedStyle(this).width) * month + parseInt(getComputedStyle(this).width)
-    );
-    // // Prefer scroller width (viewport of observed root). Fall back to host computed width
-    // const width = this.scroller?.clientWidth ?? parseInt(getComputedStyle(this).width), //parseInt(getComputedStyle(this).width),
-    //   left = width * month + width;
-
     // Prefer scroller width (viewport of observed root). Fall back to host computed width.
     const hostWidth = parseInt(getComputedStyle(this).width) || 0;
-    const width = /*this.scroller?.clientWidth ??*/ hostWidth;
+    const width = hostWidth;
     const left = width * month + width;
-
-    console.log('scroll to month - left', left, 'width used', width, 'hostWidth', hostWidth);
 
     this.scroller?.scrollTo({ left, behavior: smooth ? 'smooth' : 'instant' });
   }

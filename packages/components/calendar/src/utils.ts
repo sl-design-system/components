@@ -135,12 +135,6 @@ export function isDateInList(date: Date, list?: Date[] | string): boolean {
   if (typeof list === 'string') {
     list = list.split(',').map(item => new Date(item));
   }
-  console.log(
-    'is day in list',
-    date,
-    list,
-    list.some(item => isSameDate(item, date))
-  );
   return list.some(item => isSameDate(item, date));
 }
 

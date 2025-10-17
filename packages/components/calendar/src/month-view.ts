@@ -121,10 +121,10 @@ export class MonthView extends LocaleMixin(LitElement) {
   /** The list of dates that should have 'negative' styling. */
   @property({ converter: dateConverter }) negative?: Date[];
 
-  /** The list of dates that should have an indicator. */
-  // @property({ converter: dateConverter }) indicator?: Indicator[]; // Date[];
-  // @property({ type: Object }) indicator?: Indicator[]; // Date[];
-
+  /**
+   * The list of dates that should display an indicator.
+   * Each item is an Indicator with a `date`, an optional `color`
+   * and 'label' that is used to improve accessibility (added as a tooltip). */
   @property({
     attribute: 'indicator',
     converter: {
@@ -147,15 +147,6 @@ export class MonthView extends LocaleMixin(LitElement) {
     }
   })
   indicator?: Indicator[];
-
-  // TODO: maybe implement indicator color and indicator (date) separately?
-
-  // /**
-  //  * The color of the indicator.
-  //  * Should be used together with the `indicator` property.
-  //  * @default 'blue'
-  //  */
-  // @property({ reflect: true, attribute: 'indicator-color' }) indicatorColor?: IndicatorColor;
 
   // eslint-disable-next-line lit/no-native-attributes
   @property({ type: Boolean }) override inert = false;
@@ -205,8 +196,6 @@ export class MonthView extends LocaleMixin(LitElement) {
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
-
-    console.log('month view updated, changes:', changes);
 
     if (changes.has('indicator') || changes.has('calendar') || changes.has('disabled') || changes.has('month')) {
       // render toolips after a short delay
@@ -273,6 +262,9 @@ export class MonthView extends LocaleMixin(LitElement) {
   renderDay(day: Day): TemplateResult {
     let template: TemplateResult | undefined;
 
+    const partsArr = this.getDayParts(day);
+    const isSelected = partsArr.includes('selected');
+
     if (this.renderer) {
       template = this.renderer(day, this);
     } else if (this.hideDaysOtherMonths && (day.nextMonth || day.previousMonth)) {
@@ -313,8 +305,6 @@ export class MonthView extends LocaleMixin(LitElement) {
           ? `sl-calendar-indicator-${day.date.toISOString().replace(/[^a-z0-9_-]/gi, '-')}`
           : undefined;
 
-      console.log('indicators and describedById', indicators, describedById);
-
       template =
         this.readonly || day.unselectable || day.disabled || isDateInList(day.date, this.disabled)
           ? html`
@@ -326,23 +316,27 @@ export class MonthView extends LocaleMixin(LitElement) {
               <button
                 @keydown=${(event: KeyboardEvent) => this.#onKeydown(event, day)}
                 .part=${parts}
-                aria-current=${ifDefined(parts.includes('selected') ? 'date' : undefined)}
-                aria-label=${ariaLabel}
+                aria-current=${ifDefined(parts.includes('today') ? 'date' : undefined)}
                 aria-describedby=${ifDefined(describedById)}
+                aria-label=${ariaLabel}
+                aria-pressed=${parts.includes('selected') ? 'true' : 'false'}
               >
                 ${day.date.getDate()}
               </button>
             `;
-      //aria-describedby=${ifDefined(describedById)}
-      // this.#renderTooltip(describedById, indicatorDescriptions);
     }
 
     return html`
-      <td role="gridcell" @click=${(event: Event) => this.#onClick(event, day)} data-date=${day.date.toISOString()}>
+      <td
+        role="gridcell"
+        @click=${(event: Event) => this.#onClick(event, day)}
+        aria-selected=${isSelected ? 'true' : 'false'}
+        data-date=${day.date.toISOString()}
+      >
         ${template}
       </td>
     `;
-  } // TODO: buttons instead of spans for unselectable days, still problems with disabled?
+  }
 
   #renderTooltips(): TemplateResult | typeof nothing {
     if (!this.calendar) {
@@ -375,13 +369,6 @@ export class MonthView extends LocaleMixin(LitElement) {
 
   /** Returns an array of part names for a day. */
   getDayParts = (day: Day): string[] => {
-    console.log(
-      'indicator in getDayParts',
-      this.indicator,
-      this.indicator ? this.indicator[0].date : 'no indicator',
-      this.indicator?.length
-    );
-
     return [
       'day',
       day.nextMonth ? 'next-month' : '',
@@ -412,7 +399,6 @@ export class MonthView extends LocaleMixin(LitElement) {
   }
 
   #onClick(event: Event, day: Day): void {
-    console.log('click event in month view...', event, day);
     if (event.target instanceof HTMLButtonElement && !event.target.disabled) {
       this.selectEvent.emit(day.date);
       this.selected = day.date;
@@ -420,7 +406,6 @@ export class MonthView extends LocaleMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent, day: Day): void {
-    console.log('keydown event in month view...', event, day);
     if (event.key === 'ArrowLeft' && day.currentMonth && day.date.getDate() === 1) {
       event.preventDefault();
       event.stopPropagation();
@@ -493,4 +478,3 @@ export class MonthView extends LocaleMixin(LitElement) {
     return findEnabledSameWeekday(start);
   }
 }
-// TODO: role grid is missing?

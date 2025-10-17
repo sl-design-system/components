@@ -87,10 +87,7 @@ export default {
       return value instanceof Date ? value : new Date(value);
     };
 
-    // const selectedDate: Date | undefined = parseDate(selected);
-
     const onSelectDate = (event: CustomEvent<Date>) => {
-      console.log('Date selected:', event.detail.getFullYear(), event.detail.getMonth());
       updateArgs({ selected: new Date(event.detail).getTime() }); //needs to be set to the 'time' otherwise Storybook chokes on the date format 🤷
     };
 

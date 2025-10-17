@@ -7,6 +7,7 @@ import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './select-year.scss.js';
 
 declare global {
@@ -158,6 +159,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
                 ${row.map((year, colIndex) => {
                   const disabled = this.#isUnselectable(year);
                   const selected = !!(this.selected && this.selected.getFullYear() === year);
+                  const parts = this.getYearParts(year).join(' ');
                   return html`
                     <td
                       role="gridcell"
@@ -169,6 +171,8 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
                         @click=${() => !disabled && this.#onClick(year)}
                         part=${this.getYearParts(year).join(' ')}
                         ?disabled=${disabled}
+                        aria-current=${ifDefined(parts.includes('today') ? 'date' : undefined)}
+                        aria-pressed=${parts.includes('selected') ? 'true' : 'false'}
                       >
                         ${year}
                       </button>

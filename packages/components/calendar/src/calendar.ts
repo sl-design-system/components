@@ -77,12 +77,10 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   // TODO: make it possible to disable certain days of the week (e.g. all Sundays) ? or just exact dates?
 
-  // /** The list of dates that should have 'negative' styling. */
-  // @property({ converter: dateListConverter }) indicator?: Date[];
-
-  /** The list of dates that should have an indicator. */
-  // @property({ converter: dateConverter }) indicator?: Indicator[]; // Date[];
-
+  /**
+   * The list of dates that should display an indicator.
+   * Each item is an Indicator with a `date`, an optional `color`
+   * and 'label' that is used to improve accessibility (added as a tooltip). */
   @property({
     attribute: 'indicator',
     converter: {
@@ -115,7 +113,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    document.addEventListener('pointerdown', this.#onPointerDown, true); // TODO: or maybe click better?
+    document.addEventListener('pointerdown', this.#onPointerDown, true);
   }
 
   override disconnectedCallback(): void {
@@ -130,33 +128,14 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     if (changes.has('selected') && this.selected) {
       // If only the `selected` property is set, make sure the `month` property is set
       // to the same date, so the selected day is visible in the calendar.
-      // this.month ??= this.selected; //new Date(this.selected); // only assigns this.selected to this.month if this.month is null or undefined
       this.month = this.selected;
-      // TODO: jumping here when selected has changed?
-      console.log(
-        'willUpdate selected, setting month to',
-        this.month,
-        this.selected,
-        this.month.getMonth(),
-        this.selected.getMonth()
-      );
     } else {
       // Otherwise default to the current month.
       this.month ??= new Date();
-      console.log('willUpdate month - should be current', this.month, this.selected);
     }
   }
 
   override render(): TemplateResult {
-    console.log('in render', this.month, this.selected);
-
-    console.log('indicator in the calendar render', this.indicator);
-
-    console.log('disabled dates', this.disabled, 'min and max', this.min, this.max, 'month', this.month);
-
-    console.log('find all focusable elements in calendar...', this.renderRoot.querySelectorAll('[tabindex="0"]'));
-    // TODO: in each month view there is one focusable (tabindex 0) element, probably only in the currently visible one there should be a tabindex 0?
-
     return html`
       <sl-select-day
         @sl-select=${this.#onSelect}
@@ -216,23 +195,6 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       return;
     }
 
-    // TODO: when mode year and previous mode month, it should go back to month mode, not day mode directly
-
-    console.log(
-      'pointer down',
-      event,
-      event.target,
-      this,
-      'mode -> ',
-      this.mode,
-      'previousMode -> ',
-      this.#previousMode
-    );
-
-    // todo: after closing years view, when I'm back to months view, I cannot use arrow keys properly anymore... why?
-
-    // todo: if mode year and previous month, should go back to month, in other cases go back to day ???
-
     const path = event.composedPath();
     if (!path.includes(this)) {
       if (this.mode === 'year' && this.#previousMode === 'month') {
@@ -240,21 +202,14 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       } else {
         this.mode = 'day';
       }
-
-      // requestAnimationFrame(() => {
-      //   this.renderRoot.querySelector('sl-select-day')?.focus(); // TODO: really necessary?
-      // });
-      //
-      // this.requestUpdate();
     }
-  }; // TODO: stop Propagation needs to be added to prevent bubbling up? So it would not close the dialog for example?
+  };
 
   #onSelect(event: SlSelectEvent<Date>): void {
     event.preventDefault();
     event.stopPropagation();
 
     if (!this.selected || !isSameDate(this.selected, event.detail)) {
-      console.log('select date', event.detail, this.selected);
       this.selected = new Date(event.detail);
       this.changeEvent.emit(this.selected);
     }
@@ -285,7 +240,6 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onToggleMonthYear(event: SlToggleEvent<'month' | 'year'>): void {
-    // TODO: should be used when clicking outsie the component to close month/year views ??
     event.preventDefault();
     event.stopPropagation();
 
@@ -297,6 +251,3 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     });
   }
 }
-// TODO: there is an issue when I go to months view and then go to the years view and then select a year and go back to selecting month from months view - I cannot use arrow keays properly there... why?
-
-// TODO: what aria for current day (today) and what for selected day?

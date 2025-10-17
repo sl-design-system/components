@@ -47,7 +47,6 @@ export default {
     };
 
     const onSelectYear = (event: CustomEvent<Date>) => {
-      console.log('Year selected:', event.detail.getFullYear());
       updateArgs({ year: new Date(event.detail.getFullYear()).getTime() }); //needs to be set to the 'time' otherwise Storybook chokes on the date format 🤷
     };
 

@@ -202,6 +202,8 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                         @click=${() => this.#onClick(month.value)}
                         ?autofocus=${currentMonth === month.value}
                         ?disabled=${month.unselectable}
+                        aria-current=${ifDefined(parts.includes('today') ? 'date' : undefined)}
+                        aria-pressed=${parts.includes('selected') ? 'true' : 'false'}
                       >
                         ${month.long}
                       </button>

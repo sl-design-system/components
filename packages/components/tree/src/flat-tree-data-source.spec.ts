@@ -227,4 +227,57 @@ describe('FlatTreeDataSource', () => {
       ]);
     });
   });
+
+  describe('sorting', () => {
+    beforeEach(() => {
+      ds = new FlatTreeDataSource(
+        [
+          { id: 3, name: 'C', level: 0, expandable: true },
+          { id: '3.1', name: 'Z', level: 1, expandable: false },
+          { id: '3.2', name: 'Y', level: 1, expandable: false },
+          { id: 1, name: 'A', level: 0, expandable: false },
+          { id: 2, name: 'B', level: 0, expandable: false }
+        ],
+        {
+          getId: ({ id }) => id,
+          getLabel: ({ name }) => name,
+          getLevel: ({ level }) => level,
+          isExpandable: ({ expandable }) => expandable,
+          isExpanded: () => true
+        }
+      );
+      ds.update();
+    });
+
+    it('should not have a sort by default', () => {
+      expect(ds.sort).to.be.undefined;
+    });
+
+    it('should have a sort after calling setSort', () => {
+      ds.setSort('name', 'asc');
+
+      expect(ds.sort).to.deep.equal({ by: 'name', direction: 'asc' });
+    });
+
+    it('should remove the sort after calling removeSort', () => {
+      ds.setSort('name', 'asc');
+      ds.removeSort();
+
+      expect(ds.sort).to.be.undefined;
+    });
+
+    it('should sort the nodes when sorting is applied', () => {
+      expect(ds.items.map(n => n.label)).to.deep.equal(['C', 'Z', 'Y', 'A', 'B']);
+
+      ds.setSort('name', 'asc');
+      ds.update();
+
+      expect(ds.items.map(n => n.label)).to.deep.equal(['A', 'B', 'C', 'Y', 'Z']);
+
+      ds.setSort('name', 'desc');
+      ds.update();
+
+      expect(ds.items.map(n => n.label)).to.deep.equal(['C', 'Z', 'Y', 'B', 'A']);
+    });
+  });
 });

@@ -6,7 +6,7 @@ import {
   type DataSourceSortDirection,
   type DataSourceSortFunction
 } from '@sl-design-system/data-source';
-import { type PathKeys } from '@sl-design-system/shared';
+import { type PathKeys, getStringByPath } from '@sl-design-system/shared';
 import { type TreeNodeType } from './tree-node.js';
 
 export interface TreeDataSourceNode<T> {
@@ -406,6 +406,45 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
       return guides;
     };
 
+    /** Sort nodes at the same level using the configured sort function. */
+    const sortNodes = (nodes: Array<TreeDataSourceNode<T>>): Array<TreeDataSourceNode<T>> => {
+      if (!this.sort) {
+        return nodes;
+      }
+
+      let sortFn: DataSourceSortFunction<T>;
+
+      if (typeof this.sort.by === 'function') {
+        sortFn = this.sort.by;
+      } else {
+        const path = this.sort.by as PathKeys<T>;
+
+        sortFn = (a: T, b: T): number => {
+          const valueA = getStringByPath(a, path),
+            valueB = getStringByPath(b, path);
+
+          const numberA = Number(valueA),
+            numberB = Number(valueB);
+
+          if (!isNaN(numberA) && !isNaN(numberB)) {
+            return numberA - numberB;
+          }
+
+          return valueA.toLowerCase() === valueB.toLowerCase()
+            ? 0
+            : valueA.toLowerCase() < valueB.toLowerCase()
+              ? -1
+              : 1;
+        };
+      }
+
+      return [...nodes].sort((a, b) => {
+        const result = sortFn(a.dataNode, b.dataNode);
+
+        return this.sort?.direction === 'asc' ? result : -result;
+      });
+    };
+
     const traverse = (treeNode: TreeDataSourceNode<T>): Array<TreeDataSourceNode<T>> => {
       // Calculate and set level guides for the current node
       treeNode.levelGuides = calculateLevelGuides(treeNode);
@@ -417,7 +456,10 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
 
       if (treeNode.expandable && treeNode.expanded) {
         if (Array.isArray(treeNode.children)) {
-          const array = treeNode.children.map(childNode => {
+          // Sort children before traversing
+          const sortedChildren = sortNodes(treeNode.children);
+
+          const array = sortedChildren.map(childNode => {
             if (childNode instanceof Promise) {
               return this.#createPlaceholderTreeNode(treeNode);
             } else {
@@ -441,7 +483,10 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
       return [treeNode];
     };
 
-    return this.nodes.flatMap(treeNode => traverse(treeNode));
+    // Sort root nodes before traversing
+    const sortedRootNodes = sortNodes(this.nodes);
+
+    return sortedRootNodes.flatMap(treeNode => traverse(treeNode));
   }
 
   #createPlaceholderTreeNode(parent: TreeDataSourceNode<T>): TreeDataSourceNode<T> {

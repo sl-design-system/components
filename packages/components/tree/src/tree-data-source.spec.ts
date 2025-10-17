@@ -9,7 +9,9 @@ type TestItem = {
 
 const TEST_ITEMS: TestItem[] = [
   { id: 1, name: 'Item 1' },
-  { id: 2, name: 'Item 2' }
+  { id: 2, name: 'Item 2' },
+  { id: '2.1', name: 'Item 2.1' },
+  { id: '2.2', name: 'Item 2.2' }
 ];
 
 const TEST_NODES: Array<TreeDataSourceNode<TestItem>> = [
@@ -26,12 +28,34 @@ const TEST_NODES: Array<TreeDataSourceNode<TestItem>> = [
     id: 2,
     dataNode: TEST_ITEMS[1],
     expandable: true,
-    expanded: false,
+    expanded: true,
     label: 'Item 2',
     level: 0,
     type: 'node'
+  },
+  {
+    id: '2.1',
+    dataNode: TEST_ITEMS[2],
+    expandable: false,
+    expanded: false,
+    label: 'Item 2.1',
+    level: 1,
+    type: 'node'
+  },
+  {
+    id: '2.2',
+    dataNode: TEST_ITEMS[3],
+    expandable: false,
+    expanded: false,
+    label: 'Item 2.2',
+    level: 1,
+    type: 'node'
   }
 ];
+
+TEST_NODES[1].children = [TEST_NODES[2], TEST_NODES[3]];
+TEST_NODES[2].parent = TEST_NODES[1];
+TEST_NODES[3].parent = TEST_NODES[1];
 
 class TestTreeDataSource extends TreeDataSource<TestItem> {
   override nodes: Array<TreeDataSourceNode<TestItem>>;
@@ -156,30 +180,60 @@ describe('TreeDataSource', () => {
         expect(ds.selection.size).to.equal(1);
 
         ds.select(ds.nodes[1]);
-        expect(ds.selection.size).to.equal(2);
+        expect(ds.selection.size).to.equal(4);
       });
 
       it('should allow deselecting a node', () => {
         ds.select(ds.nodes[0]);
         ds.select(ds.nodes[1]);
-        expect(ds.selection.size).to.equal(2);
+        expect(ds.selection.size).to.equal(4);
 
         ds.deselect(ds.nodes[0]);
-        expect(ds.selection.size).to.equal(1);
+        expect(ds.selection.size).to.equal(3);
       });
 
       it('should allow selecting all nodes', () => {
         ds.selectAll();
-        expect(ds.selection.size).to.equal(2);
+        expect(ds.selection.size).to.equal(TEST_ITEMS.length);
       });
 
       it('should allow deselecting all nodes', () => {
         ds.select(ds.nodes[0]);
         ds.select(ds.nodes[1]);
-        expect(ds.selection.size).to.equal(2);
+        expect(ds.selection.size).to.equal(4);
 
         ds.deselectAll();
         expect(ds.selection.size).to.equal(0);
+      });
+
+      it('should select all child nodes when a parent node is selected', () => {
+        ds.select(ds.nodes[1]);
+
+        expect(ds.nodes[2].selected).to.be.true;
+        expect(ds.nodes[3].selected).to.be.true;
+      });
+
+      it('should deselect all child nodes when a parent node is deselected', () => {
+        ds.select(ds.nodes[1]);
+        ds.deselect(ds.nodes[1]);
+
+        expect(ds.nodes[2].selected).to.be.false;
+        expect(ds.nodes[3].selected).to.be.false;
+      });
+
+      it('should mark a parent node as indeterminate when some of its children are selected', () => {
+        ds.select(ds.nodes[2]);
+
+        expect(ds.nodes[1].indeterminate).to.be.true;
+        expect(ds.nodes[1].selected).to.be.false;
+      });
+
+      it('should mark a parent node as selected when all its children are selected', () => {
+        ds.select(ds.nodes[2]);
+        ds.select(ds.nodes[3]);
+
+        expect(ds.nodes[1].indeterminate).to.be.false;
+        expect(ds.nodes[1].selected).to.be.true;
       });
     });
   });

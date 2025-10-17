@@ -30,13 +30,18 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     };
   }
 
-  #previousMode: 'day' | 'month' | 'year' = 'day';
-
   /** @internal */
   static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
+
+  /**
+   * Tracks the previously active calendar mode (`'day' | 'month' | 'year'`) so the
+   * component can restore the correct view when closing or switching between
+   * month and year views.
+   */
+  #previousMode: 'day' | 'month' | 'year' = 'day';
 
   /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<Date>>;
@@ -46,6 +51,16 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /** The first day of the week; 0 for Sunday, 1 for Monday. */
   @property({ type: Number, attribute: 'first-day-of-week' }) firstDayOfWeek?: number;
+
+  /**
+   * The list of dates that should display an indicator.
+   * Each item is an Indicator with a `date`, an optional `color`
+   * and 'label' that is used to improve accessibility (added as a tooltip). */
+  @property({
+    attribute: 'indicator',
+    converter: indicatorConverter
+  })
+  indicator?: Indicator[];
 
   /**
    * The maximum date selectable in the calendar.
@@ -65,24 +80,14 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** The month that the calendar opens on. */
   @property({ converter: dateConverter }) month?: Date;
 
+  /** The list of dates that should have 'negative' styling. */
+  @property({ converter: dateListConverter }) negative?: Date[];
+
   /** Will disable the ability to select a date when set. */
   @property({ type: Boolean }) readonly?: boolean;
 
   /** The selected date. */
   @property({ converter: dateConverter }) selected?: Date;
-
-  /** The list of dates that should have 'negative' styling. */
-  @property({ converter: dateListConverter }) negative?: Date[];
-
-  /**
-   * The list of dates that should display an indicator.
-   * Each item is an Indicator with a `date`, an optional `color`
-   * and 'label' that is used to improve accessibility (added as a tooltip). */
-  @property({
-    attribute: 'indicator',
-    converter: indicatorConverter
-  })
-  indicator?: Indicator[];
 
   /** Highlights today's date when set. */
   @property({ type: Boolean, attribute: 'show-today' }) showToday?: boolean;
@@ -169,8 +174,8 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     `;
   }
 
+  /** Close month/year view when clicking outside the component */
   #onPointerDown = (event: PointerEvent): void => {
-    // Close month/year view when clicking outside the component
     if (this.mode === 'day') {
       return;
     }

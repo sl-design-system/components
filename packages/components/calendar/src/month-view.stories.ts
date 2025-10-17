@@ -17,6 +17,7 @@ type Props = Pick<
   | 'max'
   | 'min'
   | 'month'
+  | 'negative'
   | 'readonly'
   | 'renderer'
   | 'selected'
@@ -60,6 +61,9 @@ export default {
     month: {
       control: 'date'
     },
+    negative: {
+      control: 'date'
+    },
     renderer: {
       table: { disable: true }
     },
@@ -75,10 +79,11 @@ export default {
     firstDayOfWeek,
     hideDaysOtherMonths,
     indicator,
+    locale,
     max,
     min,
     month,
-    locale,
+    negative,
     readonly,
     renderer,
     selected,
@@ -99,6 +104,8 @@ export default {
       ?show-today=${showToday}
       ?show-week-numbers=${showWeekNumbers}
       .disabled=${ifDefined(disabled?.map(date => date.toISOString()).join(','))}
+      .negative=${ifDefined(negative?.map(date => date.toISOString()).join(','))}
+      .renderer=${renderer}
       first-day-of-week=${ifDefined(firstDayOfWeek)}
       indicator=${ifDefined(
         Array.isArray(indicator)
@@ -117,7 +124,6 @@ export default {
       min=${ifDefined(min?.toISOString())}
       month=${ifDefined(month?.toISOString())}
       selected=${ifDefined(selected?.toISOString())}
-      .renderer=${renderer}
     ></sl-month-view>
   `
 } satisfies Meta<Props>;
@@ -138,9 +144,9 @@ export const HideDaysOtherMonths: Story = {
 
 export const MinMax: Story = {
   args: {
-    month: new Date(2025, 0, 1),
     max: new Date(2025, 0, 20),
-    min: new Date(2025, 0, 10)
+    min: new Date(2025, 0, 10),
+    month: new Date(2025, 0, 1)
   }
 };
 
@@ -194,6 +200,20 @@ export const Selected: Story = {
   }
 };
 
+export const Negative: Story = {
+  args: {
+    month: new Date(2024, 11, 10),
+    negative: [
+      new Date(2024, 11, 4),
+      new Date(2024, 11, 8),
+      new Date(2024, 11, 15),
+      new Date(2024, 11, 22),
+      new Date(2024, 11, 29),
+      new Date(2024, 11, 30)
+    ]
+  }
+};
+
 export const Today: Story = {
   args: {
     showToday: true
@@ -212,8 +232,8 @@ export const Indicator: Story = {
       { date: new Date('2025-08-22'), color: 'green' },
       { date: new Date('2025-08-27'), color: 'yellow' }
     ],
-    showToday: true,
-    month: new Date(1755640800000)
+    month: new Date(1755640800000),
+    showToday: true
   }
 };
 

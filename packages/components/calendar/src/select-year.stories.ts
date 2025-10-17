@@ -14,15 +14,12 @@ export default {
   title: 'Date & Time/Select Year',
   tags: ['draft'],
   args: {
-    year: new Date(),
     max: new Date(new Date().getFullYear(), 11, 31),
     min: new Date(new Date().getFullYear(), 0, 1),
-    showToday: true
+    showToday: true,
+    year: new Date()
   },
   argTypes: {
-    year: {
-      control: 'date'
-    },
     max: {
       control: 'date'
     },
@@ -34,9 +31,12 @@ export default {
     },
     styles: {
       table: { disable: true }
+    },
+    year: {
+      control: 'date'
     }
   },
-  render: ({ year, max, min, styles, showToday }) => {
+  render: ({ max, min, styles, showToday, year }) => {
     const [_, updateArgs] = useArgs();
     const parseDate = (value: string | Date | undefined): Date | undefined => {
       if (!value) {
@@ -65,10 +65,10 @@ export default {
       <div class="container">
         <sl-select-year
           @sl-select=${onSelectYear}
-          year=${ifDefined(parseDate(year)?.toISOString())}
           max=${ifDefined(parseDate(max)?.toISOString())}
           min=${ifDefined(parseDate(min)?.toISOString())}
           show-today=${ifDefined(showToday)}
+          year=${ifDefined(parseDate(year)?.toISOString())}
         ></sl-select-year>
       </div>
     `;

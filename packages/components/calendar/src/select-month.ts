@@ -69,12 +69,6 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     listenerScope: (): HTMLElement => this.renderRoot.querySelector('table.months')!
   });
 
-  /** The month/year to display. */
-  @property({ converter: dateConverter }) month = new Date();
-
-  /** The currently selected date. (In order to style current month) */
-  @property({ converter: dateConverter }) selected?: Date;
-
   /**
    * The maximum date selectable in the month.
    * @default undefined
@@ -87,20 +81,26 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
    */
   @property({ converter: dateConverter }) min?: Date;
 
+  /** The month/year to display. */
+  @property({ converter: dateConverter }) month = new Date();
+
+  /** @internal The months to display. */
+  @state() months: Month[] = [];
+
+  /** The currently selected date. (In order to style current month) */
+  @property({ converter: dateConverter }) selected?: Date;
+
+  /** @internal Emits when the user selects a month. */
+  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<Date>>;
+
   /**
    * Highlights the current month when set.
    * @default false
    */
   @property({ type: Boolean, attribute: 'show-today' }) showToday?: boolean;
 
-  /** @internal The months to display. */
-  @state() months: Month[] = [];
-
   /** @internal Emits when the user clicks the month/year button. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<'month' | 'year'>>;
-
-  /** @internal Emits when the user selects a month. */
-  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<Date>>;
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
@@ -159,49 +159,49 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           <sl-button
             @click=${this.#onPrevious}
             @keydown=${this.#onHeaderArrowKeydown}
+            ?disabled=${!canSelectPreviousYear}
             aria-label=${msg(str`Previous year, ${currentYear - 1}`, { id: 'sl.calendar.previousYear' })}
             fill="ghost"
             variant="secondary"
-            ?disabled=${!canSelectPreviousYear}
           >
             <sl-icon name="chevron-left"></sl-icon>
           </sl-button>
           <sl-button
             @click=${this.#onNext}
             @keydown=${this.#onHeaderArrowKeydown}
+            ?disabled=${!canSelectNextYear}
             aria-label=${msg(str`Next year, ${currentYear + 1}`, { id: 'sl.calendar.nextYear' })}
             fill="ghost"
             variant="secondary"
-            ?disabled=${!canSelectNextYear}
           >
             <sl-icon name="chevron-right"></sl-icon>
           </sl-button>
         </div>
       </div>
       <table
-        class="months"
-        role="grid"
         @keydown=${this.#onKeydown}
         aria-label=${msg(str`Months of ${currentYear}`, { id: 'sl.calendar.monthsLabel' })}
+        class="months"
+        role="grid"
       >
         <tbody>
           ${monthRows.map(
             (row, rowIndex) => html`
-              <tr role="row" aria-rowindex=${rowIndex + 1}>
+              <tr aria-rowindex=${rowIndex + 1} role="row">
                 ${row.map((month, colIndex) => {
                   const parts = this.getMonthParts(month).join(' ');
                   return html`
                     <td
-                      role="gridcell"
-                      aria-rowindex=${rowIndex + 1}
                       aria-colindex=${colIndex + 1}
+                      aria-rowindex=${rowIndex + 1}
                       aria-selected=${currentMonth === month.value ? 'true' : 'false'}
+                      role="gridcell"
                     >
                       <button
-                        .part=${parts}
                         @click=${() => this.#onClick(month.value)}
                         ?autofocus=${currentMonth === month.value}
                         ?disabled=${month.unselectable}
+                        .part=${parts}
                         aria-current=${ifDefined(parts.includes('today') ? 'date' : undefined)}
                         aria-pressed=${parts.includes('selected') ? 'true' : 'false'}
                       >
@@ -218,6 +218,20 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     `;
   }
 
+  #allNextUnselectable(): boolean {
+    const nextY = this.month.getFullYear() + 1;
+    return this.months.every(m => this.#isUnselectable(nextY, m.value));
+  }
+
+  #allPreviousUnselectable(): boolean {
+    const prevY = this.month.getFullYear() - 1;
+    return this.months.every(m => this.#isUnselectable(prevY, m.value));
+  }
+
+  #getMonthsButtons(): HTMLButtonElement[] {
+    return Array.from(this.renderRoot.querySelectorAll('.months button'));
+  }
+
   /** Returns an array of part names for a day. */
   getMonthParts = (month: Month): string[] => {
     return [
@@ -232,13 +246,12 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     ].filter(part => part !== '');
   };
 
-  #onClick(month: number): void {
-    this.selectEvent.emit(new Date(this.month.getFullYear(), month));
-    this.selected = new Date(this.month.getFullYear(), month);
-  }
-
-  #onToggleYearSelect(): void {
-    this.toggleEvent.emit('year');
+  #getMonthRows(): Month[][] {
+    const rows: Month[][] = [];
+    for (let i = 0; i < this.months.length; i += 3) {
+      rows.push(this.months.slice(i, i + 3));
+    }
+    return rows;
   }
 
   #isUnselectable(year: number, month: number): boolean {
@@ -249,26 +262,16 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     return !!(this.max && date > new Date(this.max.getFullYear(), this.max.getMonth(), 1));
   }
 
-  #allPreviousUnselectable(): boolean {
-    const prevY = this.month.getFullYear() - 1;
-    return this.months.every(m => this.#isUnselectable(prevY, m.value));
+  #onClick(month: number): void {
+    this.selectEvent.emit(new Date(this.month.getFullYear(), month));
+    this.selected = new Date(this.month.getFullYear(), month);
   }
 
-  #allNextUnselectable(): boolean {
-    const nextY = this.month.getFullYear() + 1;
-    return this.months.every(m => this.#isUnselectable(nextY, m.value));
-  }
-
-  #getMonthsButtons(): HTMLButtonElement[] {
-    return Array.from(this.renderRoot.querySelectorAll('.months button'));
-  }
-
-  #getMonthRows(): Month[][] {
-    const rows: Month[][] = [];
-    for (let i = 0; i < this.months.length; i += 3) {
-      rows.push(this.months.slice(i, i + 3));
+  #onHeaderArrowKeydown(event: KeyboardEvent): void {
+    // Prevent arrow keys on header buttons from being handled by the roving controller.
+    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+      event.stopPropagation();
     }
-    return rows;
   }
 
   #onKeydown(event: KeyboardEvent): void {
@@ -375,13 +378,6 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     }
   }
 
-  #onHeaderArrowKeydown(event: KeyboardEvent): void {
-    // Prevent arrow keys on header buttons from being handled by the roving controller.
-    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
-      event.stopPropagation();
-    }
-  }
-
   #onNext(): void {
     this.month = new Date(this.month.getFullYear() + 1, this.month.getMonth(), this.month.getDate());
   }
@@ -397,5 +393,9 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
       this.selectEvent.emit(this.month);
     }
+  }
+
+  #onToggleYearSelect(): void {
+    this.toggleEvent.emit('year');
   }
 }

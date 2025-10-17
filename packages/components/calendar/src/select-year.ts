@@ -31,17 +31,17 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /**
+   * Number of columns in the years grid.
+   * Used by keyboard navigation and the roving tabindex controller to compute
+   * row/column movement and focus targets.
+   */
+  #cols = 3;
+
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { keydown: this.#onSelectYearKeydown });
 
-  /** @internal Emits when the user selects a year. */
-  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<Date>>;
-
-  /** The current year. */
-  @property({ converter: dateConverter }) year = new Date();
-
-  /** The currently selected date. (In order to style current month) */
-  @property({ converter: dateConverter }) selected?: Date;
+  #rovingTabindexController?: RovingTabindexController<HTMLButtonElement>;
 
   /**
    * The maximum date selectable in the month.
@@ -55,23 +55,23 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
    */
   @property({ converter: dateConverter }) min?: Date;
 
+  /** The currently selected date. (In order to style current month) */
+  @property({ converter: dateConverter }) selected?: Date;
+
+  /** @internal Emits when the user selects a year. */
+  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<Date>>;
+
   /**
    * Highlights the current month when set.
    * @default false
    */
   @property({ type: Boolean, attribute: 'show-today' }) showToday?: boolean;
 
+  /** The current year. */
+  @property({ converter: dateConverter }) year = new Date();
+
   /** @internal The year you can select from. */
   @state() years: number[] = [];
-
-  /**
-   * Number of columns in the years grid.
-   * Used by keyboard navigation and the roving tabindex controller to compute
-   * row/column movement and focus targets.
-   */
-  #cols = 3;
-
-  #rovingTabindexController?: RovingTabindexController<HTMLButtonElement>;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -124,20 +124,20 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
           <sl-button
             @click=${this.#onPrevious}
             @keydown=${this.#onHeaderArrowKeydown}
+            ?disabled=${this.#isUnselectable((this.years.at(0) || 0) - 1)}
             aria-label=${msg('Go back 12 years', { id: 'sl.calendar.previousYears' })}
             fill="ghost"
             variant="secondary"
-            ?disabled=${this.#isUnselectable((this.years.at(0) || 0) - 1)}
           >
             <sl-icon name="chevron-left"></sl-icon>
           </sl-button>
           <sl-button
             @click=${this.#onNext}
             @keydown=${this.#onHeaderArrowKeydown}
+            ?disabled=${this.#isUnselectable((this.years.at(-1) || 0) + 1)}
             aria-label=${msg('Go forward 12 years', { id: 'sl.calendar.nextYears' })}
             fill="ghost"
             variant="secondary"
-            ?disabled=${this.#isUnselectable((this.years.at(-1) || 0) + 1)}
           >
             <sl-icon name="chevron-right"></sl-icon>
           </sl-button>
@@ -145,34 +145,34 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
       </div>
 
       <table
-        class="years"
-        role="grid"
         @keydown=${this.#onKeydown}
         aria-label=${msg(str`Years from ${this.years.at(0) ?? ''} to ${this.years.at(-1) ?? ''}`, {
           id: 'sl.calendar.yearsLabel'
         })}
+        class="years"
+        role="grid"
       >
         <tbody>
           ${rows.map(
             (row, rowIndex) => html`
               <tr role="row" aria-rowindex=${rowIndex + 1}>
                 ${row.map((year, colIndex) => {
-                  const disabled = this.#isUnselectable(year);
-                  const selected = !!(this.selected && this.selected.getFullYear() === year);
-                  const parts = this.getYearParts(year).join(' ');
+                  const disabled = this.#isUnselectable(year),
+                    selected = !!(this.selected && this.selected.getFullYear() === year),
+                    parts = this.#getYearParts(year).join(' ');
                   return html`
                     <td
-                      role="gridcell"
                       aria-rowindex=${rowIndex + 1}
                       aria-colindex=${colIndex + 1}
                       aria-selected=${selected ? 'true' : 'false'}
+                      role="gridcell"
                     >
                       <button
                         @click=${() => !disabled && this.#onClick(year)}
-                        part=${this.getYearParts(year).join(' ')}
                         ?disabled=${disabled}
                         aria-current=${ifDefined(parts.includes('today') ? 'date' : undefined)}
                         aria-pressed=${parts.includes('selected') ? 'true' : 'false'}
+                        part=${this.#getYearParts(year).join(' ')}
                       >
                         ${year}
                       </button>
@@ -187,13 +187,21 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  getYearParts(year: number): string[] {
+  #getYearButtons(): HTMLButtonElement[] {
+    return Array.from(this.renderRoot.querySelectorAll<HTMLButtonElement>('table.years button[part~="year"]'));
+  }
+
+  #getYearParts(year: number): string[] {
     return [
       'year',
       year === new Date().getFullYear() ? 'today' : '',
       this.selected && this.selected.getFullYear() === year ? 'selected' : '',
       this.#isUnselectable(year) ? 'unselectable' : ''
     ].filter(Boolean);
+  }
+
+  #isUnselectable(year: number): boolean {
+    return !!((this.min && year < this.min.getFullYear()) || (this.max && year > this.max.getFullYear()));
   }
 
   #onClick(year: number): void {
@@ -312,6 +320,14 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  #onNext(): void {
+    this.#setYears(this.years[this.years.length - 1] + 1, this.years[this.years.length - 1] + 12);
+  }
+
+  #onPrevious(): void {
+    this.#setYears(this.years[0] - 12, this.years[0] - 1);
+  }
+
   #onSelectYearKeydown(event: KeyboardEvent): void {
     if (event.key === 'Escape') {
       event.preventDefault();
@@ -321,23 +337,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #onPrevious(): void {
-    this.#setYears(this.years[0] - 12, this.years[0] - 1);
-  }
-
-  #onNext(): void {
-    this.#setYears(this.years[this.years.length - 1] + 1, this.years[this.years.length - 1] + 12);
-  }
-
-  #getYearButtons(): HTMLButtonElement[] {
-    return Array.from(this.renderRoot.querySelectorAll<HTMLButtonElement>('table.years button[part~="year"]'));
-  }
-
   #setYears(start: number, end: number): void {
     this.years = Array.from({ length: end - start + 1 }, (_, i) => start + i);
-  }
-
-  #isUnselectable(year: number): boolean {
-    return !!((this.min && year < this.min.getFullYear()) || (this.max && year > this.max.getFullYear()));
   }
 }

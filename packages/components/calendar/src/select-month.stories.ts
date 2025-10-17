@@ -20,13 +20,13 @@ export default {
     showToday: true
   },
   argTypes: {
-    month: {
-      control: 'date'
-    },
     max: {
       control: 'date'
     },
     min: {
+      control: 'date'
+    },
+    month: {
       control: 'date'
     },
     showToday: {
@@ -36,7 +36,7 @@ export default {
       table: { disable: true }
     }
   },
-  render: ({ month, max, min, styles, showToday }) => {
+  render: ({ max, min, month, styles, showToday }) => {
     const [_, updateArgs] = useArgs();
     const parseDate = (value: string | Date | undefined): Date | undefined => {
       if (!value) {
@@ -60,9 +60,9 @@ export default {
         : nothing}
       <sl-select-month
         @sl-select=${onSelectMonth}
-        month=${ifDefined(parseDate(month)?.toISOString())}
         max=${ifDefined(parseDate(max)?.toISOString())}
         min=${ifDefined(parseDate(min)?.toISOString())}
+        month=${ifDefined(parseDate(month)?.toISOString())}
         show-today=${ifDefined(showToday)}
       ></sl-select-month>
     `;

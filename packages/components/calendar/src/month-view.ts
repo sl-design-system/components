@@ -90,6 +90,19 @@ export class MonthView extends LocaleMixin(LitElement) {
    */
   @property({ type: Boolean, attribute: 'hide-days-other-months' }) hideDaysOtherMonths?: boolean;
 
+  /**
+   * The list of dates that should display an indicator.
+   * Each item is an Indicator with a `date`, an optional `color`
+   * and 'label' that is used to improve accessibility (added as a tooltip). */
+  @property({
+    attribute: 'indicator',
+    converter: indicatorConverter
+  })
+  indicator?: Indicator[];
+
+  // eslint-disable-next-line lit/no-native-attributes
+  @property({ type: Boolean }) override inert = false;
+
   /** @internal The localized "week of year" label. */
   @state() localizedWeekOfYear?: string;
 
@@ -108,6 +121,9 @@ export class MonthView extends LocaleMixin(LitElement) {
   /** The current month to display. */
   @property({ converter: dateConverter }) month?: Date;
 
+  /** The list of dates that should have 'negative' styling. */
+  @property({ converter: dateConverter }) negative?: Date[];
+
   /**
    * If set, will not render buttons for each day.
    * @default false
@@ -122,22 +138,6 @@ export class MonthView extends LocaleMixin(LitElement) {
 
   /** The selected date. */
   @property({ converter: dateConverter }) selected?: Date;
-
-  /** The list of dates that should have 'negative' styling. */
-  @property({ converter: dateConverter }) negative?: Date[];
-
-  /**
-   * The list of dates that should display an indicator.
-   * Each item is an Indicator with a `date`, an optional `color`
-   * and 'label' that is used to improve accessibility (added as a tooltip). */
-  @property({
-    attribute: 'indicator',
-    converter: indicatorConverter
-  })
-  indicator?: Indicator[];
-
-  // eslint-disable-next-line lit/no-native-attributes
-  @property({ type: Boolean }) override inert = false;
 
   /**
    * Highlights today's date when set.
@@ -154,7 +154,8 @@ export class MonthView extends LocaleMixin(LitElement) {
   /** @internal The translated days of the week. */
   @state() weekDays: Array<{ long: string; short: string }> = [];
 
-  @state() private tooltipsRendered = false;
+  /** @internal Whether per day indicator tooltips are rendered into the DOM. */
+  @state() tooltipsRendered = false;
 
   override willUpdate(changes: PropertyValues<this>): void {
     if (changes.has('firstDayOfWeek') || changes.has('locale')) {
@@ -197,23 +198,23 @@ export class MonthView extends LocaleMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <table
-        role="grid"
         aria-label=${msg(
           str`Days of ${format(this.month ?? new Date(), this.locale, { month: 'long', year: 'numeric' })}`,
           { id: 'sl.calendar.monthsLabel' }
         )}
+        role="grid"
       >
         ${this.renderHeader()}
         <tbody>
           ${this.calendar?.weeks.map(
             week => html`
-              <tr role="row" class="days">
+              <tr class="days" role="row">
                 ${this.showWeekNumbers
                   ? html`
                       <td
-                        role="rowheader"
-                        part="week-number"
                         aria-label=${msg(str`Week ${week.number}`, { id: 'sl.monthView.week' })}
+                        part="week-number"
+                        role="rowheader"
                       >
                         ${week.number}
                       </td>
@@ -236,7 +237,7 @@ export class MonthView extends LocaleMixin(LitElement) {
         <tr role="row">
           ${this.showWeekNumbers
             ? html`
-                <th part="week-number" aria-label=${msg('Week', { id: 'sl.calendar.week' })}>
+                <th aria-label=${msg('Week', { id: 'sl.calendar.week' })} part="week-number">
                   ${this.localizedWeekOfYear}
                 </th>
               `
@@ -262,23 +263,14 @@ export class MonthView extends LocaleMixin(LitElement) {
 
       let ariaLabel = `${day.date.getDate()}, ${format(day.date, this.locale, { weekday: 'long' })} ${format(day.date, this.locale, { month: 'long', year: 'numeric' })}`;
 
-      // Append negative state to aria label if applicable
-      const isNegative =
-        this.negative &&
-        isDateInList(
-          day.date,
-          // this.negative is Date[]; ensure we map correctly
-          this.negative.map(d => d)
-        );
+      const isNegative = isDateInList(day.date, this.negative ?? []);
 
       if (isNegative) {
         ariaLabel += `, ${msg('Unavailable', { id: 'sl.calendar.unavailable' })}`;
       }
 
-      // Collect indicators for this date
       const indicators = (this.indicator ?? []).filter(i => isSameDate(i.date, day.date));
 
-      // Build accessible indicator description(s). Prefer semantic label; fall back to a generic localized label.
       const indicatorDescriptions = indicators.map(i =>
         i.label
           ? i.label
@@ -287,7 +279,6 @@ export class MonthView extends LocaleMixin(LitElement) {
             : msg('Indicator', { id: 'sl.calendar.indicator' })
       );
 
-      // If there are indicators, create a sanitized id and add aria-describedby
       const describedById =
         indicatorDescriptions.length > 0
           ? `sl-calendar-indicator-${day.date.toISOString().replace(/[^a-z0-9_-]/gi, '-')}`
@@ -296,7 +287,7 @@ export class MonthView extends LocaleMixin(LitElement) {
       template =
         this.readonly || day.unselectable || day.disabled || isDateInList(day.date, this.disabled)
           ? html`
-              <button .part=${parts} aria-label=${ariaLabel} aria-describedby=${ifDefined(describedById)} disabled>
+              <button .part=${parts} aria-describedby=${ifDefined(describedById)} aria-label=${ariaLabel} disabled>
                 ${day.date.getDate()}
               </button>
             `
@@ -316,10 +307,10 @@ export class MonthView extends LocaleMixin(LitElement) {
 
     return html`
       <td
-        role="gridcell"
         @click=${(event: Event) => this.#onClick(event, day)}
         aria-selected=${isSelected ? 'true' : 'false'}
         data-date=${day.date.toISOString()}
+        role="gridcell"
       >
         ${template}
       </td>

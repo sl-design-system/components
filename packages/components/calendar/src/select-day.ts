@@ -50,6 +50,19 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** The first day of the week; 0 for Sunday, 1 for Monday. */
   @property({ type: Number, attribute: 'first-day-of-week' }) firstDayOfWeek = 1;
 
+  /**
+   * The list of dates that should display an indicator.
+   * Each item is an Indicator with a `date`, an optional `color`
+   * and 'label' that is used to improve accessibility (added as a tooltip). */
+  @property({
+    attribute: 'indicator',
+    converter: indicatorConverter
+  })
+  indicator?: Indicator[];
+
+  // eslint-disable-next-line lit/no-native-attributes
+  @property({ type: Boolean }) override inert = false;
+
   /** @internal The localized "week of year" label. */
   @state() localizedWeekOfYear?: string;
 
@@ -71,6 +84,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal The month-view element. */
   @query('sl-month-view') monthView?: HTMLElement;
 
+  /** The list of dates that should have 'negative' styling. */
+  @property({ converter: dateConverter }) negative?: Date[];
+
   /** @internal The next month in the calendar. */
   @state() nextMonth?: Date;
 
@@ -86,19 +102,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** The selected date. */
   @property({ converter: dateConverter }) selected?: Date;
 
-  /** The list of dates that should have 'negative' styling. */
-  @property({ converter: dateConverter }) negative?: Date[];
-
-  /**
-   * The list of dates that should display an indicator.
-   * Each item is an Indicator with a `date`, an optional `color`
-   * and 'label' that is used to improve accessibility (added as a tooltip). */
-  @property({
-    attribute: 'indicator',
-    converter: indicatorConverter
-  })
-  indicator?: Indicator[];
-
   /** @internal Emits when the user selects a day. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<Date>>;
 
@@ -113,9 +116,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /** @internal The translated days of the week. */
   @state() weekDays: Array<{ long: string; short: string }> = [];
-
-  // eslint-disable-next-line lit/no-native-attributes
-  @property({ type: Boolean }) override inert = false;
 
   observer?: IntersectionObserver;
 
@@ -385,9 +385,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #scrollToMonth(month: -1 | 0 | 1, smooth = false): void {
-    // Prefer scroller width (viewport of observed root). Fall back to host computed width.
-    const hostWidth = parseInt(getComputedStyle(this).width) || 0;
-    const width = hostWidth;
+    const width = parseInt(getComputedStyle(this).width) || 0;
     const left = width * month + width;
 
     this.scroller?.scrollTo({ left, behavior: smooth ? 'smooth' : 'instant' });

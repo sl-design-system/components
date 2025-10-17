@@ -44,10 +44,7 @@ button {
 
 [part~='day'] {
   --_bg-color: transparent;
-  --_bg-mix-color: var(
-    --sl-color-background-neutral-interactive-bold
-  ); // var(--sl-color-background-info-interactive-plain);
-
+  --_bg-mix-color: var(--sl-color-background-neutral-interactive-bold);
   --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
 
   align-items: center;
@@ -137,19 +134,19 @@ button {
 }
 
 [part~='indicator-green']:not([part~='unselectable'])::after {
-  background: var(--sl-color-background-accent-green-bold); // TODO: change..
+  background: var(--sl-color-background-accent-green-bold);
 }
 
 [part~='indicator-grey']:not([part~='unselectable'])::after {
-  background: var(--sl-color-background-accent-grey-bold); // TODO: change..
+  background: var(--sl-color-background-accent-grey-bold);
 }
 
 [part~='indicator-red']:not([part~='unselectable'])::after {
-  background: var(--sl-color-background-accent-red-bold); // TODO: change..
+  background: var(--sl-color-background-accent-red-bold);
 }
 
 [part~='indicator-yellow']:not([part~='unselectable'])::after {
-  background: var(--sl-color-background-accent-yellow-bold); // TODO: change..
+  background: var(--sl-color-background-accent-yellow-bold);
 }
 
 [part~='week-day'],

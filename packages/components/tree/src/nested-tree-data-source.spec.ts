@@ -4,6 +4,7 @@ import { NestedTreeDataSource } from './nested-tree-data-source';
 type TestItem = {
   id: number | string;
   name: string;
+  expanded?: boolean;
   children?: TestItem[];
 };
 
@@ -70,6 +71,122 @@ describe('NestedTreeDataSource', () => {
       const levels = ds.items.map(n => n.level);
 
       expect(levels).to.deep.equal([0, 1, 1, 0, 1, 0]);
+    });
+  });
+
+  describe('expanded state', () => {
+    beforeEach(() => {
+      ds = new NestedTreeDataSource<TestItem>(
+        [
+          {
+            id: 1,
+            name: '1',
+            expanded: true,
+            children: [
+              { id: 11, name: '1.1', expanded: false, children: [{ id: 111, name: '1.1.1' }] },
+              { id: 12, name: '1.2' }
+            ]
+          },
+          { id: 2, name: '2', expanded: false, children: [{ id: 21, name: '2.1' }] },
+          { id: 3, name: '3' }
+        ],
+        {
+          getId: ({ id }) => id,
+          getLabel: ({ name }) => name,
+          getChildren: ({ children }) => children,
+          isExpandable: ({ children }) => !!children?.length,
+          isExpanded: ({ expanded }) => expanded ?? false
+        }
+      );
+      ds.update();
+    });
+
+    it('should expand a node when calling expand()', () => {
+      const node = ds.items[3];
+
+      expect(node.expanded).to.be.false;
+      expect(ds.items).to.have.length(5);
+
+      ds.expand(node);
+
+      expect(node.expanded).to.be.true;
+      expect(ds.items).to.have.length(6);
+    });
+
+    it('should collapse a node when calling collapse()', () => {
+      const node = ds.items[0];
+
+      expect(node.expanded).to.be.true;
+      expect(ds.items).to.have.length(5);
+
+      ds.collapse(node);
+
+      expect(node.expanded).to.be.false;
+      expect(ds.items).to.have.length(3);
+    });
+
+    it('should toggle the expanded state of a node when calling toggle()', () => {
+      const node = ds.items[0];
+
+      expect(node.expanded).to.be.true;
+      expect(ds.items).to.have.length(5);
+
+      ds.toggle(node);
+
+      expect(node.expanded).to.be.false;
+      expect(ds.items).to.have.length(3);
+
+      ds.toggle(node);
+
+      expect(node.expanded).to.be.true;
+      expect(ds.items).to.have.length(5);
+    });
+
+    it('should expand all descendants when calling expandDescendants()', () => {
+      const node = ds.items[3];
+
+      expect(ds.items).to.have.length(5);
+
+      ds.expandDescendants(node);
+
+      expect(ds.items.filter(i => i.expandable).map(i => i.expanded)).to.deep.equal([true, false, true]);
+      expect(ds.items).to.have.length(6);
+    });
+
+    it('should collapse all descendants when calling collapseDescendants()', () => {
+      const node = ds.items[0];
+
+      expect(ds.items).to.have.length(5);
+
+      ds.collapseDescendants(node);
+
+      expect(ds.items.every(i => !i.expanded)).to.be.true;
+      expect(ds.items).to.have.length(3);
+    });
+
+    it('should toggle all descendants when calling toggleDescendants()', () => {
+      const node = ds.items[0];
+
+      expect(ds.items).to.have.length(5);
+
+      ds.toggleDescendants(node);
+
+      expect(ds.items.map(i => i.expanded)).to.deep.equal([false, false, false]);
+      expect(ds.items).to.have.length(3);
+    });
+
+    it('should expand all nodes when calling expandAll()', async () => {
+      await ds.expandAll();
+
+      expect(ds.items.filter(i => i.expandable).every(i => i.expanded)).to.be.true;
+      expect(ds.items).to.have.length(7);
+    });
+
+    it('should collapse all nodes when calling collapseAll()', () => {
+      ds.collapseAll();
+
+      expect(ds.items.filter(i => i.expandable).every(i => !i.expanded)).to.be.true;
+      expect(ds.items).to.have.length(3);
     });
   });
 

@@ -135,14 +135,16 @@ export class FlatTreeDataSource<T = any> extends TreeDataSource<T> {
       isSelected
     } = this.#mapping;
 
+    const expandable = isExpandable(item);
+
     const treeNode: TreeDataSourceNode<T> = {
       id: getId(item),
       childrenCount: getChildrenCount?.(item),
       dataNode: item,
       description: getAriaDescription?.(item),
-      expandable: isExpandable(item),
-      expanded: isExpanded?.(item) ?? false,
-      expandedIcon: getIcon?.(item, true),
+      expandable,
+      expanded: (expandable && isExpanded?.(item)) ?? false,
+      expandedIcon: expandable ? getIcon?.(item, true) : undefined,
       icon: getIcon?.(item, false),
       label: getLabel(item),
       lastNodeInLevel,

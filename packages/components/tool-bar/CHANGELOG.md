@@ -1,5 +1,14 @@
 # @sl-design-system/tool-bar
 
+## 0.1.1
+
+### Patch Changes
+
+- [#2757](https://github.com/sl-design-system/components/pull/2757) [`2af40f7`](https://github.com/sl-design-system/components/commit/2af40f78d9d0f07f3c15c1d9f7926ceca48f12f9) - Propagate the `aria-disabled` state to the overflow menu.
+
+- Updated dependencies [[`1e7b6f6`](https://github.com/sl-design-system/components/commit/1e7b6f629f79d77576c2cb19d20f8884bb2f30c4)]:
+  - @sl-design-system/icon@1.4.0
+
 ## 0.1.0
 
 ### Minor Changes

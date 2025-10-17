@@ -1,9 +1,11 @@
 import { localized, msg, str } from '@lit/localize';
+import { type ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import { format } from '@sl-design-system/format-date';
 import { type EventEmitter, RovingTabindexController, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { LocaleMixin } from '@sl-design-system/shared/mixins.js';
+import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -20,13 +22,20 @@ export type IndicatorColor = 'blue' | 'red' | 'yellow' | 'green' | 'grey';
 
 export type MonthViewRenderer = (day: Day, monthView: MonthView) => TemplateResult;
 
-export type Indicator = { date: Date; color?: IndicatorColor };
+export type Indicator = { date: Date; color?: IndicatorColor; label?: string };
 
 /**
  * Component that renders a single month of a calendar.
  */
 @localized()
 export class MonthView extends LocaleMixin(LitElement) {
+  /** @internal */
+  static get scopedElements(): ScopedElementsMap {
+    return {
+      'sl-tooltip': Tooltip
+    };
+  }
+
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
@@ -166,6 +175,8 @@ export class MonthView extends LocaleMixin(LitElement) {
   /** @internal The translated days of the week. */
   @state() weekDays: Array<{ long: string; short: string }> = [];
 
+  @state() private tooltipsRendered = false;
+
   override willUpdate(changes: PropertyValues<this>): void {
     if (changes.has('firstDayOfWeek') || changes.has('locale')) {
       const { locale, firstDayOfWeek } = this,
@@ -192,9 +203,29 @@ export class MonthView extends LocaleMixin(LitElement) {
     }
   }
 
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    console.log('month view updated, changes:', changes);
+
+    if (changes.has('indicator') || changes.has('calendar') || changes.has('disabled') || changes.has('month')) {
+      // render toolips after a short delay
+      this.tooltipsRendered = false;
+      setTimeout(() => {
+        this.tooltipsRendered = true;
+      }, 100);
+    }
+  }
+
   override render(): TemplateResult {
     return html`
-      <table role="grid">
+      <table
+        role="grid"
+        aria-label=${msg(
+          str`Days of ${format(this.month ?? new Date(), this.locale, { month: 'long', year: 'numeric' })}`,
+          { id: 'sl.calendar.monthsLabel' }
+        )}
+      >
         ${this.renderHeader()}
         <tbody>
           ${this.calendar?.weeks.map(
@@ -217,6 +248,8 @@ export class MonthView extends LocaleMixin(LitElement) {
           )}
         </tbody>
       </table>
+
+      ${this.tooltipsRendered ? this.#renderTooltips() : nothing}
     `;
   }
 
@@ -245,22 +278,63 @@ export class MonthView extends LocaleMixin(LitElement) {
     } else if (this.hideDaysOtherMonths && (day.nextMonth || day.previousMonth)) {
       return html`<td role="gridcell"></td>`;
     } else {
-      const parts = this.getDayParts(day).join(' '),
-        ariaLabel = `${day.date.getDate()}, ${format(day.date, this.locale, { weekday: 'long' })} ${format(day.date, this.locale, { month: 'long', year: 'numeric' })}`;
+      const parts = this.getDayParts(day).join(' ');
+
+      let ariaLabel = `${day.date.getDate()}, ${format(day.date, this.locale, { weekday: 'long' })} ${format(day.date, this.locale, { month: 'long', year: 'numeric' })}`;
+
+      // Append negative state to aria label if applicable
+      const isNegative =
+        this.negative &&
+        isDateInList(
+          day.date,
+          // this.negative is Date[]; ensure we map correctly
+          this.negative.map(d => d)
+        );
+
+      if (isNegative) {
+        ariaLabel += `, ${msg('Unavailable', { id: 'sl.calendar.unavailable' })}`;
+      }
+
+      // Collect indicators for this date
+      const indicators = (this.indicator ?? []).filter(i => isSameDate(i.date, day.date));
+
+      // Build accessible indicator description(s). Prefer semantic label; fall back to a generic localized label.
+      const indicatorDescriptions = indicators.map(i =>
+        i.label
+          ? i.label
+          : i.color
+            ? msg(str`Indicator, ${i.color}`, { id: 'sl.calendar.indicatorWithColor' })
+            : msg('Indicator', { id: 'sl.calendar.indicator' })
+      );
+
+      // If there are indicators, create a sanitized id and add aria-describedby
+      const describedById =
+        indicatorDescriptions.length > 0
+          ? `sl-calendar-indicator-${day.date.toISOString().replace(/[^a-z0-9_-]/gi, '-')}`
+          : undefined;
+
+      console.log('indicators and describedById', indicators, describedById);
 
       template =
         this.readonly || day.unselectable || day.disabled || isDateInList(day.date, this.disabled)
-          ? html`<button .part=${parts} aria-label=${ariaLabel} disabled>${day.date.getDate()}</button>`
+          ? html`
+              <button .part=${parts} aria-label=${ariaLabel} aria-describedby=${ifDefined(describedById)} disabled>
+                ${day.date.getDate()}
+              </button>
+            `
           : html`
               <button
                 @keydown=${(event: KeyboardEvent) => this.#onKeydown(event, day)}
                 .part=${parts}
                 aria-current=${ifDefined(parts.includes('selected') ? 'date' : undefined)}
                 aria-label=${ariaLabel}
+                aria-describedby=${ifDefined(describedById)}
               >
                 ${day.date.getDate()}
               </button>
             `;
+      //aria-describedby=${ifDefined(describedById)}
+      // this.#renderTooltip(describedById, indicatorDescriptions);
     }
 
     return html`
@@ -269,6 +343,35 @@ export class MonthView extends LocaleMixin(LitElement) {
       </td>
     `;
   } // TODO: buttons instead of spans for unselectable days, still problems with disabled?
+
+  #renderTooltips(): TemplateResult | typeof nothing {
+    if (!this.calendar) {
+      return nothing;
+    }
+
+    const tooltips: TemplateResult[] = [];
+
+    for (const week of this.calendar.weeks) {
+      for (const day of week.days) {
+        const indicators = (this.indicator ?? []).filter(i => isSameDate(i.date, day.date));
+        if (!indicators.length) continue;
+
+        const indicatorDescriptions = indicators.map(i =>
+          i.label
+            ? i.label
+            : i.color
+              ? msg(str`Indicator, ${i.color}`, { id: 'sl.calendar.indicatorWithColor' })
+              : msg('Indicator', { id: 'sl.calendar.indicator' })
+        );
+
+        const describedById = `sl-calendar-indicator-${day.date.toISOString().replace(/[^a-z0-9_-]/gi, '-')}`;
+
+        tooltips.push(html`<sl-tooltip id=${describedById}>${indicatorDescriptions.join(', ')}</sl-tooltip>`);
+      }
+    }
+
+    return html`${tooltips}`;
+  }
 
   /** Returns an array of part names for a day. */
   getDayParts = (day: Day): string[] => {

@@ -61,7 +61,7 @@ export default {
     },
     indicator: {
       control: { type: 'object' },
-      description: 'Array of objects: {date: Date, color: string}'
+      description: 'Array of objects: {date: Date, color: string, label?: string}'
     }
   },
   render: ({
@@ -115,7 +115,8 @@ export default {
                   .filter(item => item?.date)
                   .map(item => ({
                     date: item.date.toISOString(),
-                    ...(item.color ? { color: item.color } : {})
+                    ...(item.color ? { color: item.color } : {}),
+                    ...(item.label ? { label: item.label } : {})
                   }))
               )
             : undefined
@@ -126,6 +127,28 @@ export default {
 } satisfies Meta<Props>;
 
 // [{date: new Date(), color: ''}, {date: new Date(), color: ''}, {date: new Date(), color: ''}]
+
+const INDICATOR_LABELS: Record<string, { label: string }> = {
+  red: {
+    label: 'Exam — Important'
+  },
+  blue: {
+    label: 'Homework Deadline'
+  },
+  green: {
+    label: 'Available — Open slot for study'
+  },
+  yellow: {
+    label: 'Reminder — A parent‑teacher meeting'
+  },
+  grey: {
+    label: 'Event — Informational'
+  },
+  default: {
+    // same as blue
+    label: 'Homework Deadline'
+  }
+};
 
 export const Basic: Story = {};
 
@@ -168,12 +191,13 @@ export const Negative: Story = {
 export const WithIndicator: Story = {
   args: {
     indicator: [
-      { date: new Date(), color: 'red' },
-      { date: new Date('2025-09-05'), color: 'blue' as IndicatorColor },
-      { date: new Date('2025-09-07') },
-      { date: new Date('2025-09-09'), color: 'green' as IndicatorColor },
-      { date: new Date('2025-09-11'), color: 'grey' as IndicatorColor },
-      { date: new Date('2025-09-12'), color: 'yellow' as IndicatorColor }
+      { date: new Date(), color: 'red', label: INDICATOR_LABELS.red.label },
+      { date: new Date('2025-09-05'), color: 'blue' as IndicatorColor, label: INDICATOR_LABELS.blue.label },
+      { date: new Date('2025-09-24'), label: INDICATOR_LABELS.default.label },
+      { date: new Date('2025-09-09'), color: 'green' as IndicatorColor, label: INDICATOR_LABELS.green.label },
+      { date: new Date('2025-09-11'), color: 'grey' as IndicatorColor, label: INDICATOR_LABELS.grey.label },
+      { date: new Date('2025-09-12'), color: 'yellow' as IndicatorColor, label: INDICATOR_LABELS.yellow.label },
+      { date: new Date('2025-09-18'), color: 'red', label: INDICATOR_LABELS.red.label }
     ],
     showToday: true,
     month: new Date('2025-09-01') //new Date(1755640800000)
@@ -235,7 +259,8 @@ export const All: Story = {
                     .filter(item => item?.date)
                     .map(item => ({
                       date: item.date.toISOString(),
-                      ...(item.color ? { color: item.color } : {})
+                      ...(item.color ? { color: item.color } : {}),
+                      ...(item.label ? { label: item.label } : {})
                     }))
                 )
               : undefined
@@ -243,11 +268,12 @@ export const All: Story = {
         ></sl-calendar>
       `;
     };
-    const monthEndDate = new Date(); //new Date(2025, 8, 29);
+    const monthEndDate = new Date();
     const monthEnd = {
       negative: [getOffsetDate(2, monthEndDate)],
-      // indicator: [getOffsetDate(3, monthEndDate)],
-      indicator: [{ date: getOffsetDate(3, monthEndDate), color: 'red' as IndicatorColor }],
+      indicator: [
+        { date: getOffsetDate(3, monthEndDate), color: 'red' as IndicatorColor, label: INDICATOR_LABELS.red.label }
+      ],
       selected: getOffsetDate(4, monthEndDate),
       showToday: false,
       month: monthEndDate,
@@ -257,12 +283,12 @@ export const All: Story = {
 
     const indicator = {
       indicator: [
-        { date: getOffsetDate(0), color: 'red' as IndicatorColor },
-        { date: getOffsetDate(1), color: 'blue' as IndicatorColor },
-        { date: getOffsetDate(2), color: 'yellow' as IndicatorColor },
-        { date: getOffsetDate(3), color: 'grey' as IndicatorColor },
-        { date: getOffsetDate(5), color: 'green' as IndicatorColor },
-        { date: getOffsetDate(8), color: 'green' as IndicatorColor }
+        { date: getOffsetDate(0), color: 'red' as IndicatorColor, label: INDICATOR_LABELS.red.label },
+        { date: getOffsetDate(1), color: 'blue' as IndicatorColor, label: INDICATOR_LABELS.blue.label },
+        { date: getOffsetDate(2), color: 'yellow' as IndicatorColor, label: INDICATOR_LABELS.yellow.label },
+        { date: getOffsetDate(3), color: 'grey' as IndicatorColor, label: INDICATOR_LABELS.grey.label },
+        { date: getOffsetDate(5), color: 'green' as IndicatorColor, label: INDICATOR_LABELS.green.label },
+        { date: getOffsetDate(8), color: 'green' as IndicatorColor, label: INDICATOR_LABELS.green.label }
       ], // make sure one is outside the min/max range
       selected: getOffsetDate(1),
       showToday: true,

@@ -248,6 +248,10 @@
 				"$type": "sizing",
 				"$value": "{size.400}"
 			},
+			"2xs": {
+				"$type": "sizing",
+				"$value": "{size.125}"
+			},
 			"3xl": {
 				"$type": "sizing",
 				"$value": "{size.600}"

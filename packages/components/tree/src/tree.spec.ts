@@ -18,6 +18,7 @@ interface FlatDataNode {
 interface NestedDataNode {
   id: number;
   name: string;
+  description?: string;
   children?: NestedDataNode[];
 }
 
@@ -64,11 +65,13 @@ const nestedData: NestedDataNode[] = [
   {
     id: 0,
     name: 'Actions',
-    children: [{ id: 1, name: 'Button' }]
+    description: 'Actions description',
+    children: [{ id: 1, name: 'Button', description: 'Button description' }]
   },
   {
     id: 2,
     name: 'Navigation',
+    description: 'Navigation description',
     children: [
       {
         id: 3,
@@ -105,12 +108,6 @@ describe('sl-tree', () => {
       expect(el.dataSource).to.be.undefined;
     });
 
-    it('should not have any tree nodes', () => {
-      const nodes = el.renderRoot.querySelectorAll('sl-tree-node');
-
-      expect(nodes).to.have.lengthOf(0);
-    });
-
     it('should proxy the aria-label attribute to the wrapper element', async () => {
       const wrapper = el.renderRoot.querySelector('[part="wrapper"]');
 
@@ -129,6 +126,93 @@ describe('sl-tree', () => {
 
       expect(el).to.not.have.attribute('aria-labelledby');
       expect(wrapper).to.have.attribute('aria-labelledby', 'id');
+    });
+
+    it('should not have any tree nodes', () => {
+      const nodes = el.renderRoot.querySelectorAll('sl-tree-node');
+
+      expect(nodes).to.have.lengthOf(0);
+    });
+  });
+
+  describe('accessibility', () => {
+    let ds: NestedTreeDataSource;
+
+    beforeEach(async () => {
+      ds = new NestedTreeDataSource(nestedData, {
+        getAriaDescription: ({ description }) => description ?? undefined,
+        getChildren: ({ children }) => children,
+        getId: item => item.id,
+        getLabel: ({ name }) => name,
+        isExpandable: ({ children }) => !!children,
+        isExpanded: () => true
+      });
+
+      el = await fixture(html`<sl-tree .dataSource=${ds}></sl-tree>`);
+    });
+
+    it('should have an aria-label for each node', () => {
+      const labels = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')).map(node => node.ariaLabel);
+
+      expect(labels).to.deep.equal([
+        'Actions',
+        'Button',
+        'Navigation',
+        'Tree',
+        'Flat Data Source',
+        'Nested Data Source'
+      ]);
+    });
+
+    it('should have an aria-description for each node if provided', () => {
+      const descriptions = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')).map(node => node.ariaDescription);
+
+      expect(descriptions).to.deep.equal([
+        'Actions description',
+        'Button description',
+        'Navigation description',
+        null,
+        null,
+        null
+      ]);
+    });
+
+    it('should have an aria-level for each node', () => {
+      const levels = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')).map(node => node.ariaLevel);
+
+      expect(levels).to.deep.equal(['1', '2', '1', '2', '3', '3']);
+    });
+
+    it('should have an aria-rowindex for each node', () => {
+      const rowIndices = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')).map(node => node.ariaRowIndex);
+
+      expect(rowIndices).to.deep.equal(['1', '2', '3', '4', '5', '6']);
+    });
+
+    it('should have an aria-posinset for each node', () => {
+      const posInSet = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')).map(node => node.ariaPosInSet);
+
+      expect(posInSet).to.deep.equal(['1', '1', '2', '1', '1', '2']);
+    });
+
+    it('should have an aria-setsize for each node', () => {
+      const setSize = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')).map(node => node.ariaSetSize);
+
+      expect(setSize).to.deep.equal(['2', '1', '2', '1', '2', '2']);
+    });
+
+    it('should have an aria-controls for each node with children', () => {
+      const nodes = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')),
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+        controls = nodes.map(node => node.ariaControlsElements);
+
+      expect(controls).to.have.length(6);
+      expect(controls[0]).to.deep.equal([nodes[1]]);
+      expect(controls[1]).to.be.null;
+      expect(controls[2]).to.deep.equal([nodes[3]]);
+      expect(controls[3]).to.deep.equal([nodes[4], nodes[5]]);
+      expect(controls[4]).to.be.null;
+      expect(controls[5]).to.be.null;
     });
   });
 

@@ -32,7 +32,7 @@ export interface TreeDataSourceNode<T> {
 
 export interface TreeDataSourceMapping<T> {
   /** Optional method for returning a custom aria description for a tree node. */
-  getAriaDescription?(item: T): string;
+  getAriaDescription?(item: T): string | undefined;
 
   /**
    * Returns the number of children. This can be used in combination with

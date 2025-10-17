@@ -4,7 +4,7 @@
 			"idle": {
 				"$type": "color",
 				"$value": "{base.color.link.idle}",
-				"$description": "Use for links in their default or hovered state."
+				"$description": "Use for links in idle state."
 			},
 			"hover": {
 				"$type": "color",
@@ -15,17 +15,17 @@
 				"idle": {
 					"$type": "color",
 					"$value": "{base.color.link.muted.idle}",
-					"$description": "Use for muted links in idle state."
+					"$description": "Use for low-emphasis links in idle state."
 				},
 				"hover": {
 					"$type": "color",
 					"$value": "{base.color.link.muted.hover}",
-					"$description": "Use for muted links in hover state."
+					"$description": "Use for low-emphasis links in hover state."
 				},
 				"active": {
 					"$type": "color",
 					"$value": "{base.color.link.muted.active}",
-					"$description": "Use for muted links in active state."
+					"$description": "Use for low-emphasis links in active state."
 				}
 			},
 			"active": {
@@ -37,17 +37,17 @@
 				"idle": {
 					"$type": "color",
 					"$value": "{base.color.link.focused.idle}",
-					"$description": "Used for the linkcolor of navigation aids in idle state, such as skip links, when they are focused or visible."
+					"$description": "Used as link color for navigation aids in idle state, such as skip links, when focused or visible."
 				},
 				"hover": {
 					"$type": "color",
 					"$value": "{base.color.link.focused.hover}",
-					"$description": "Used for the linkcolor of navigation aids in hovered state, such as skip links, when they are focused or visible."
+					"$description": "Used as link color for navigation aids in hover state, such as skip links, when focused or visible."
 				},
 				"active": {
 					"$type": "color",
 					"$value": "{base.color.link.focused.active}",
-					"$description": "Used for the linkcolor of navigation aids in pressed state, such as skip links, when they are focused or visible."
+					"$description": "Used as link color for navigation aids in active state, such as skip links, when focused or visible."
 				}
 			},
 			"inverted": {
@@ -72,7 +72,7 @@
 			"bold": {
 				"$type": "color",
 				"$value": "{base.color.border.bold}",
-				"$description": "A neutral border option that passes min 3:1 contrast ratios."
+				"$description": "A border option that passes min 3:1 contrast ratios."
 			},
 			"info": {
 				"bold": {
@@ -318,369 +318,457 @@
 			"red": {
 				"100": {
 					"$type": "color",
-					"$value": "{base.color.palette.red.100}"
+					"$value": "{base.color.palette.red.100}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"150": {
 					"$type": "color",
-					"$value": "{base.color.palette.red.150}"
+					"$value": "{base.color.palette.red.150}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"200": {
 					"$type": "color",
-					"$value": "{base.color.palette.red.200}"
+					"$value": "{base.color.palette.red.200}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"300": {
 					"$type": "color",
-					"$value": "{base.color.palette.red.300}"
+					"$value": "{base.color.palette.red.300}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"400": {
 					"$type": "color",
-					"$value": "{base.color.palette.red.400}"
+					"$value": "{base.color.palette.red.400}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"500": {
 					"$type": "color",
-					"$value": "{base.color.palette.red.500}"
+					"$value": "{base.color.palette.red.500}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"600": {
 					"$type": "color",
-					"$value": "{base.color.palette.red.600}"
+					"$value": "{base.color.palette.red.600}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"700": {
 					"$type": "color",
-					"$value": "{base.color.palette.red.700}"
+					"$value": "{base.color.palette.red.700}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"800": {
 					"$type": "color",
-					"$value": "{base.color.palette.red.800}"
+					"$value": "{base.color.palette.red.800}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"900": {
 					"$type": "color",
-					"$value": "{base.color.palette.red.900}"
+					"$value": "{base.color.palette.red.900}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"050": {
 					"$type": "color",
-					"$value": "{base.color.palette.red.050}"
+					"$value": "{base.color.palette.red.050}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				}
 			},
 			"blue": {
 				"100": {
 					"$type": "color",
-					"$value": "{base.color.palette.blue.100}"
+					"$value": "{base.color.palette.blue.100}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"150": {
 					"$type": "color",
-					"$value": "{base.color.palette.blue.150}"
+					"$value": "{base.color.palette.blue.150}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"200": {
 					"$type": "color",
-					"$value": "{base.color.palette.blue.200}"
+					"$value": "{base.color.palette.blue.200}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"300": {
 					"$type": "color",
-					"$value": "{base.color.palette.blue.300}"
+					"$value": "{base.color.palette.blue.300}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"400": {
 					"$type": "color",
-					"$value": "{base.color.palette.blue.400}"
+					"$value": "{base.color.palette.blue.400}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"500": {
 					"$type": "color",
-					"$value": "{base.color.palette.blue.500}"
+					"$value": "{base.color.palette.blue.500}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"600": {
 					"$type": "color",
-					"$value": "{base.color.palette.blue.600}"
+					"$value": "{base.color.palette.blue.600}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"700": {
 					"$type": "color",
-					"$value": "{base.color.palette.blue.700}"
+					"$value": "{base.color.palette.blue.700}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"800": {
 					"$type": "color",
-					"$value": "{base.color.palette.blue.800}"
+					"$value": "{base.color.palette.blue.800}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"900": {
 					"$type": "color",
-					"$value": "{base.color.palette.blue.900}"
+					"$value": "{base.color.palette.blue.900}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"050": {
 					"$type": "color",
-					"$value": "{base.color.palette.blue.050}"
+					"$value": "{base.color.palette.blue.050}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				}
 			},
 			"grey": {
 				"100": {
 					"$type": "color",
-					"$value": "{base.color.palette.grey.100}"
+					"$value": "{base.color.palette.grey.100}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"150": {
 					"$type": "color",
-					"$value": "{base.color.palette.grey.150}"
+					"$value": "{base.color.palette.grey.150}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"200": {
 					"$type": "color",
-					"$value": "{base.color.palette.grey.200}"
+					"$value": "{base.color.palette.grey.200}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"300": {
 					"$type": "color",
-					"$value": "{base.color.palette.grey.300}"
+					"$value": "{base.color.palette.grey.300}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"400": {
 					"$type": "color",
-					"$value": "{base.color.palette.grey.400}"
+					"$value": "{base.color.palette.grey.400}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"500": {
 					"$type": "color",
-					"$value": "{base.color.palette.grey.500}"
+					"$value": "{base.color.palette.grey.500}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"600": {
 					"$type": "color",
-					"$value": "{base.color.palette.grey.600}"
+					"$value": "{base.color.palette.grey.600}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"700": {
 					"$type": "color",
-					"$value": "{base.color.palette.grey.700}"
+					"$value": "{base.color.palette.grey.700}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"800": {
 					"$type": "color",
-					"$value": "{base.color.palette.grey.800}"
+					"$value": "{base.color.palette.grey.800}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"900": {
 					"$type": "color",
-					"$value": "{base.color.palette.grey.900}"
+					"$value": "{base.color.palette.grey.900}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"050": {
 					"$type": "color",
-					"$value": "{base.color.palette.grey.050}"
+					"$value": "{base.color.palette.grey.050}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				}
 			},
 			"teal": {
 				"100": {
 					"$type": "color",
-					"$value": "{base.color.palette.teal.100}"
+					"$value": "{base.color.palette.teal.100}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"150": {
 					"$type": "color",
-					"$value": "{base.color.palette.teal.150}"
+					"$value": "{base.color.palette.teal.150}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"200": {
 					"$type": "color",
-					"$value": "{base.color.palette.teal.200}"
+					"$value": "{base.color.palette.teal.200}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"300": {
 					"$type": "color",
-					"$value": "{base.color.palette.teal.300}"
+					"$value": "{base.color.palette.teal.300}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"400": {
 					"$type": "color",
-					"$value": "{base.color.palette.teal.400}"
+					"$value": "{base.color.palette.teal.400}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"500": {
 					"$type": "color",
-					"$value": "{base.color.palette.teal.500}"
+					"$value": "{base.color.palette.teal.500}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"600": {
 					"$type": "color",
-					"$value": "{base.color.palette.teal.600}"
+					"$value": "{base.color.palette.teal.600}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"700": {
 					"$type": "color",
-					"$value": "{base.color.palette.teal.700}"
+					"$value": "{base.color.palette.teal.700}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"800": {
 					"$type": "color",
-					"$value": "{base.color.palette.teal.800}"
+					"$value": "{base.color.palette.teal.800}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"900": {
 					"$type": "color",
-					"$value": "{base.color.palette.teal.900}"
+					"$value": "{base.color.palette.teal.900}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"050": {
 					"$type": "color",
-					"$value": "{base.color.palette.teal.050}"
+					"$value": "{base.color.palette.teal.050}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				}
 			},
 			"green": {
 				"100": {
 					"$type": "color",
-					"$value": "{base.color.palette.green.100}"
+					"$value": "{base.color.palette.green.100}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"150": {
 					"$type": "color",
-					"$value": "{base.color.palette.green.150}"
+					"$value": "{base.color.palette.green.150}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"200": {
 					"$type": "color",
-					"$value": "{base.color.palette.green.200}"
+					"$value": "{base.color.palette.green.200}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"300": {
 					"$type": "color",
-					"$value": "{base.color.palette.green.300}"
+					"$value": "{base.color.palette.green.300}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"400": {
 					"$type": "color",
-					"$value": "{base.color.palette.green.400}"
+					"$value": "{base.color.palette.green.400}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"500": {
 					"$type": "color",
-					"$value": "{base.color.palette.green.500}"
+					"$value": "{base.color.palette.green.500}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"600": {
 					"$type": "color",
-					"$value": "{base.color.palette.green.600}"
+					"$value": "{base.color.palette.green.600}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"700": {
 					"$type": "color",
-					"$value": "{base.color.palette.green.700}"
+					"$value": "{base.color.palette.green.700}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"800": {
 					"$type": "color",
-					"$value": "{base.color.palette.green.800}"
+					"$value": "{base.color.palette.green.800}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"900": {
 					"$type": "color",
-					"$value": "{base.color.palette.green.900}"
+					"$value": "{base.color.palette.green.900}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"050": {
 					"$type": "color",
-					"$value": "{base.color.palette.green.050}"
+					"$value": "{base.color.palette.green.050}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				}
 			},
 			"orange": {
 				"100": {
 					"$type": "color",
-					"$value": "{base.color.palette.orange.100}"
+					"$value": "{base.color.palette.orange.100}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"150": {
 					"$type": "color",
-					"$value": "{base.color.palette.orange.150}"
+					"$value": "{base.color.palette.orange.150}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"200": {
 					"$type": "color",
-					"$value": "{base.color.palette.orange.200}"
+					"$value": "{base.color.palette.orange.200}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"300": {
 					"$type": "color",
-					"$value": "{base.color.palette.orange.300}"
+					"$value": "{base.color.palette.orange.300}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"400": {
 					"$type": "color",
-					"$value": "{base.color.palette.orange.400}"
+					"$value": "{base.color.palette.orange.400}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"500": {
 					"$type": "color",
-					"$value": "{base.color.palette.orange.500}"
+					"$value": "{base.color.palette.orange.500}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"600": {
 					"$type": "color",
-					"$value": "{base.color.palette.orange.600}"
+					"$value": "{base.color.palette.orange.600}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"700": {
 					"$type": "color",
-					"$value": "{base.color.palette.orange.700}"
+					"$value": "{base.color.palette.orange.700}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"800": {
 					"$type": "color",
-					"$value": "{base.color.palette.orange.800}"
+					"$value": "{base.color.palette.orange.800}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"900": {
 					"$type": "color",
-					"$value": "{base.color.palette.orange.900}"
+					"$value": "{base.color.palette.orange.900}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"050": {
 					"$type": "color",
-					"$value": "{base.color.palette.orange.050}"
+					"$value": "{base.color.palette.orange.050}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				}
 			},
 			"purple": {
 				"100": {
 					"$type": "color",
-					"$value": "{base.color.palette.purple.100}"
+					"$value": "{base.color.palette.purple.100}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"150": {
 					"$type": "color",
-					"$value": "{base.color.palette.purple.150}"
+					"$value": "{base.color.palette.purple.150}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"200": {
 					"$type": "color",
-					"$value": "{base.color.palette.purple.200}"
+					"$value": "{base.color.palette.purple.200}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"300": {
 					"$type": "color",
-					"$value": "{base.color.palette.purple.300}"
+					"$value": "{base.color.palette.purple.300}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"400": {
 					"$type": "color",
-					"$value": "{base.color.palette.purple.400}"
+					"$value": "{base.color.palette.purple.400}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"500": {
 					"$type": "color",
-					"$value": "{base.color.palette.purple.500}"
+					"$value": "{base.color.palette.purple.500}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"600": {
 					"$type": "color",
-					"$value": "{base.color.palette.purple.600}"
+					"$value": "{base.color.palette.purple.600}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"700": {
 					"$type": "color",
-					"$value": "{base.color.palette.purple.700}"
+					"$value": "{base.color.palette.purple.700}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"800": {
 					"$type": "color",
-					"$value": "{base.color.palette.purple.800}"
+					"$value": "{base.color.palette.purple.800}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"900": {
 					"$type": "color",
-					"$value": "{base.color.palette.purple.900}"
+					"$value": "{base.color.palette.purple.900}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"050": {
 					"$type": "color",
-					"$value": "{base.color.palette.purple.050}"
+					"$value": "{base.color.palette.purple.050}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				}
 			},
 			"yellow": {
 				"100": {
 					"$type": "color",
-					"$value": "{base.color.palette.yellow.100}"
+					"$value": "{base.color.palette.yellow.100}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"150": {
 					"$type": "color",
-					"$value": "{base.color.palette.yellow.150}"
+					"$value": "{base.color.palette.yellow.150}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"200": {
 					"$type": "color",
-					"$value": "{base.color.palette.yellow.200}"
+					"$value": "{base.color.palette.yellow.200}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"300": {
 					"$type": "color",
-					"$value": "{base.color.palette.yellow.300}"
+					"$value": "{base.color.palette.yellow.300}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"400": {
 					"$type": "color",
-					"$value": "{base.color.palette.yellow.400}"
+					"$value": "{base.color.palette.yellow.400}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"500": {
 					"$type": "color",
-					"$value": "{base.color.palette.yellow.500}"
+					"$value": "{base.color.palette.yellow.500}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"600": {
 					"$type": "color",
-					"$value": "{base.color.palette.yellow.600}"
+					"$value": "{base.color.palette.yellow.600}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"700": {
 					"$type": "color",
-					"$value": "{base.color.palette.yellow.700}"
+					"$value": "{base.color.palette.yellow.700}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"800": {
 					"$type": "color",
-					"$value": "{base.color.palette.yellow.800}"
+					"$value": "{base.color.palette.yellow.800}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"900": {
 					"$type": "color",
-					"$value": "{base.color.palette.yellow.900}"
+					"$value": "{base.color.palette.yellow.900}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				},
 				"050": {
 					"$type": "color",
-					"$value": "{base.color.palette.yellow.050}"
+					"$value": "{base.color.palette.yellow.050}",
+					"$description": "Base color token for building semantic roles and accents. Not for direct use without mapping."
 				}
 			}
 		},

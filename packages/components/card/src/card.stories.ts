@@ -788,8 +788,8 @@ export const RealWorldExamples: Story = {
         }
 
         .npm2 sl-card {
-          --sl-card-image-backdrop: var(--sl-color-palette-primary-100);
-          background-color: var(--sl-color-palette-primary-100);
+          --sl-card-image-backdrop: var(--sl-elevation-surface-raised-sunken);
+          background-color: var(--sl-elevation-surface-raised-sunken);
         }
       </style>
       <h1>Max, chapter tile</h1>

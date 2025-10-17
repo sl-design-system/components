@@ -214,5 +214,72 @@
 			"$value": "950",
 			"$description": "ultra, ultra black, extra black"
 		}
+	},
+	"opacity-new": {
+		"50": {
+			"$type": "opacity",
+			"$value": "0.02",
+			"$description": "opacity.50"
+		},
+		"100": {
+			"$type": "opacity",
+			"$value": "0.04",
+			"$description": "opacity.100"
+		},
+		"150": {
+			"$type": "opacity",
+			"$value": "0.06",
+			"$description": "opacity.150"
+		},
+		"200": {
+			"$type": "opacity",
+			"$value": "0.08",
+			"$description": "opacity.200"
+		},
+		"300": {
+			"$type": "opacity",
+			"$value": "0.12",
+			"$description": "opacity.300"
+		},
+		"400": {
+			"$type": "opacity",
+			"$value": "0.16",
+			"$description": "opacity.400"
+		},
+		"500": {
+			"$type": "opacity",
+			"$value": "0.2",
+			"$description": "opacity.500"
+		},
+		"600": {
+			"$type": "opacity",
+			"$value": "0.32",
+			"$description": "opacity.600"
+		},
+		"700": {
+			"$type": "opacity",
+			"$value": "0.48",
+			"$description": "opacity.700"
+		},
+		"800": {
+			"$type": "opacity",
+			"$value": "0.64",
+			"$description": "opacity.800"
+		},
+		"900": {
+			"$type": "opacity",
+			"$value": "0.8",
+			"$description": "opacity.900"
+		},
+		"1000": {
+			"$type": "opacity",
+			"$value": "1",
+			"$description": "opacity.1000"
+		},
+		"transparent": {
+			"$type": "opacity",
+			"$value": "0",
+			"$description": "opacity.transparent"
+		}
 	}
 }

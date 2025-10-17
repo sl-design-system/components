@@ -7,11 +7,10 @@ import { property, state } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './calendar.scss.js';
-import { Indicator, IndicatorColor } from './month-view.js';
 import { SelectDay } from './select-day.js';
 import { SelectMonth } from './select-month.js';
 import { SelectYear } from './select-year.js';
-import { isSameDate } from './utils.js';
+import { Indicator, indicatorConverter, isSameDate } from './utils.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -75,32 +74,13 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** The list of dates that should have 'negative' styling. */
   @property({ converter: dateListConverter }) negative?: Date[];
 
-  // TODO: make it possible to disable certain days of the week (e.g. all Sundays) ? or just exact dates?
-
   /**
    * The list of dates that should display an indicator.
    * Each item is an Indicator with a `date`, an optional `color`
    * and 'label' that is used to improve accessibility (added as a tooltip). */
   @property({
     attribute: 'indicator',
-    converter: {
-      toAttribute: (value?: Indicator[]) =>
-        value
-          ? JSON.stringify(
-              value.map(i => ({
-                ...i,
-                date: dateConverter.toAttribute?.(i.date)
-              }))
-            )
-          : undefined,
-      fromAttribute: (value: string | null, _type?: unknown) =>
-        value
-          ? (JSON.parse(value) as Array<{ date: string; color?: IndicatorColor }>).map(i => ({
-              ...i,
-              date: dateConverter.fromAttribute?.(i.date)
-            }))
-          : undefined
-    }
+    converter: indicatorConverter
   })
   indicator?: Indicator[];
 

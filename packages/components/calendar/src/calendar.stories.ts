@@ -5,7 +5,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { useArgs } from 'storybook/internal/preview-api';
 import '../register.js';
 import { type Calendar } from './calendar.js';
-import { type IndicatorColor } from './month-view.js';
+import { IndicatorColor } from './utils.js';
 
 type Props = Pick<
   Calendar,

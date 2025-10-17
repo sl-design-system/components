@@ -10,7 +10,16 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './month-view.scss.js';
-import { type Calendar, type Day, createCalendar, getWeekdayNames, isDateInList, isSameDate } from './utils.js';
+import {
+  type Calendar,
+  type Day,
+  Indicator,
+  createCalendar,
+  getWeekdayNames,
+  indicatorConverter,
+  isDateInList,
+  isSameDate
+} from './utils.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -18,11 +27,7 @@ declare global {
   }
 }
 
-export type IndicatorColor = 'blue' | 'red' | 'yellow' | 'green' | 'grey';
-
 export type MonthViewRenderer = (day: Day, monthView: MonthView) => TemplateResult;
-
-export type Indicator = { date: Date; color?: IndicatorColor; label?: string };
 
 /**
  * Component that renders a single month of a calendar.
@@ -127,24 +132,7 @@ export class MonthView extends LocaleMixin(LitElement) {
    * and 'label' that is used to improve accessibility (added as a tooltip). */
   @property({
     attribute: 'indicator',
-    converter: {
-      toAttribute: (value?: Indicator[]) =>
-        value
-          ? JSON.stringify(
-              value.map(i => ({
-                ...i,
-                date: dateConverter.toAttribute?.(i.date)
-              }))
-            )
-          : undefined,
-      fromAttribute: (value: string | null, _type?: unknown) =>
-        value
-          ? (JSON.parse(value) as Array<{ date: string; color?: IndicatorColor }>).map(i => ({
-              ...i,
-              date: dateConverter.fromAttribute?.(i.date)
-            }))
-          : undefined
-    }
+    converter: indicatorConverter
   })
   indicator?: Indicator[];
 

@@ -1,3 +1,5 @@
+import { dateConverter } from '@sl-design-system/shared/converters.js';
+
 export interface Day {
   ariaCurrent?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false';
   ariaPressed?: 'true' | 'false' | 'mixed';
@@ -43,6 +45,10 @@ export type WeekDayNames = {
 export interface Calendar {
   weeks: Week[];
 }
+
+export type IndicatorColor = 'blue' | 'red' | 'yellow' | 'green' | 'grey';
+
+export type Indicator = { date: Date; color?: IndicatorColor; label?: string };
 
 const weekdayNamesCache: Record<string, WeekDayNames> = {};
 
@@ -285,3 +291,22 @@ export function createDay(
     weekOrder
   };
 }
+
+export const indicatorConverter = {
+  fromAttribute: (value: string | null) =>
+    value
+      ? (JSON.parse(value) as Array<{ date: string; color?: IndicatorColor; label?: string }>).map(i => ({
+          ...i,
+          date: dateConverter.fromAttribute?.(i.date)
+        }))
+      : undefined,
+  toAttribute: (value?: Indicator[]) =>
+    value
+      ? JSON.stringify(
+          value.map(i => ({
+            ...i,
+            date: dateConverter.toAttribute?.(i.date)
+          }))
+        )
+      : undefined
+};

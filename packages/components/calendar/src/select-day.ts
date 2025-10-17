@@ -9,9 +9,9 @@ import { type SlChangeEvent, type SlSelectEvent, SlToggleEvent } from '@sl-desig
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { Indicator, IndicatorColor, MonthView } from './month-view.js';
+import { MonthView } from './month-view.js';
 import styles from './select-day.scss.js';
-import { getWeekdayNames, normalizeDateTime } from './utils.js';
+import { Indicator, getWeekdayNames, indicatorConverter, normalizeDateTime } from './utils.js';
 
 declare global {
   // These are too new to be in every TypeScript version yet
@@ -83,9 +83,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal The scroller element. */
   @query('.scroller') scroller?: HTMLElement;
 
-  // /** @internal The scroller element. */
-  // @query('.scroll-wrapper') scrollWrapper?: HTMLElement;
-
   /** The selected date. */
   @property({ converter: dateConverter }) selected?: Date;
 
@@ -98,26 +95,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
    * and 'label' that is used to improve accessibility (added as a tooltip). */
   @property({
     attribute: 'indicator',
-    converter: {
-      toAttribute: (value?: Indicator[]) =>
-        value
-          ? JSON.stringify(
-              value.map(i => ({
-                ...i,
-                date: dateConverter.toAttribute?.(i.date)
-              }))
-            )
-          : undefined,
-      fromAttribute: (value: string | null, _type?: unknown) =>
-        value
-          ? (JSON.parse(value) as Array<{ date: string; color?: IndicatorColor }>).map(i => ({
-              ...i,
-              date: dateConverter.fromAttribute?.(i.date)
-            }))
-          : undefined
-    }
+    converter: indicatorConverter
   })
-  indicator?: Indicator[]; // TODO: maybe sth like dateConverter is needed here?
+  indicator?: Indicator[];
 
   /** @internal Emits when the user selects a day. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<Date>>;

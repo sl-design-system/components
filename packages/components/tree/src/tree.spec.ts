@@ -8,6 +8,14 @@ import { FlatTreeDataSource } from './flat-tree-data-source.js';
 import { NestedTreeDataSource } from './nested-tree-data-source.js';
 import { type Tree } from './tree.js';
 
+declare global {
+  interface ARIAMixin {
+    // Explicitly declare this since older versions of
+    // TypeScript's lib.dom.d.ts don't have it yet.
+    ariaControlsElements: readonly Element[] | null;
+  }
+}
+
 interface FlatDataNode {
   id: number;
   expandable: boolean;
@@ -203,7 +211,6 @@ describe('sl-tree', () => {
 
     it('should have an aria-controls for each node with children', () => {
       const nodes = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')),
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         controls = nodes.map(node => node.ariaControlsElements);
 
       expect(controls).to.have.length(6);

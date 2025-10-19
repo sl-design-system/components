@@ -9,6 +9,7 @@ import { type VirtualList } from './virtual-list.js';
 type Props = Pick<VirtualList, 'estimateSize' | 'gap' | 'overscan' | 'renderItem'> & {
   itemCount?: number;
   items?: unknown[];
+  overflow?: boolean;
 };
 type Story = StoryObj<Props>;
 
@@ -28,7 +29,7 @@ export default {
     renderItem: { table: { disable: true } },
     items: { table: { disable: true } }
   },
-  render: ({ estimateSize, gap, itemCount, items, overscan, renderItem }) => {
+  render: ({ estimateSize, gap, itemCount, items, overflow, overscan, renderItem }) => {
     items ??= Array.from({ length: itemCount ?? 10000 }, (_, i) => ({
       id: i,
       name: `Item ${i}`,
@@ -48,6 +49,26 @@ export default {
     };
 
     return html`
+      ${overflow
+        ? html`
+            <style>
+              sl-virtual-list {
+                block-size: 400px;
+                border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+                border-radius: var(--sl-size-borderRadius-default);
+                overflow: auto;
+                margin: var(--sl-size-200);
+              }
+            </style>
+          `
+        : html`
+            <style>
+              sl-virtual-list {
+                padding-inline: var(--sl-size-200);
+              }
+            </style>
+          `}
+
       <style>
         sl-button-bar {
           background: var(--sl-elevation-surface-base-default);
@@ -57,8 +78,6 @@ export default {
           z-index: 1;
         }
         sl-virtual-list {
-          padding-inline: var(--sl-size-200);
-
           &::part(item) {
             align-items: center;
             border-block-end: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
@@ -111,6 +130,12 @@ export const Basic: Story = {};
 export const Gap: Story = {
   args: {
     gap: 8
+  }
+};
+
+export const Overflow: Story = {
+  args: {
+    overflow: true
   }
 };
 

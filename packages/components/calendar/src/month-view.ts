@@ -200,7 +200,7 @@ export class MonthView extends LocaleMixin(LitElement) {
       <table
         aria-label=${msg(
           str`Days of ${format(this.month ?? new Date(), this.locale, { month: 'long', year: 'numeric' })}`,
-          { id: 'sl.calendar.monthsLabel' }
+          { id: 'sl.calendar.daysLabel' }
         )}
         role="grid"
       >
@@ -272,11 +272,7 @@ export class MonthView extends LocaleMixin(LitElement) {
       const indicators = (this.indicator ?? []).filter(i => isSameDate(i.date, day.date));
 
       const indicatorDescriptions = indicators.map(i =>
-        i.label
-          ? i.label
-          : i.color
-            ? msg(str`Indicator, ${i.color}`, { id: 'sl.calendar.indicatorWithColor' })
-            : msg('Indicator', { id: 'sl.calendar.indicator' })
+        i.label ? i.label : msg('Indicator', { id: 'sl.calendar.indicator' })
       );
 
       const describedById =
@@ -330,11 +326,7 @@ export class MonthView extends LocaleMixin(LitElement) {
         if (!indicators.length) continue;
 
         const indicatorDescriptions = indicators.map(i =>
-          i.label
-            ? i.label
-            : i.color
-              ? msg(str`Indicator, ${i.color}`, { id: 'sl.calendar.indicatorWithColor' })
-              : msg('Indicator', { id: 'sl.calendar.indicator' })
+          i.label ? i.label : msg('Indicator', { id: 'sl.calendar.indicator' })
         );
 
         const describedById = `sl-calendar-indicator-${day.date.toISOString().replace(/[^a-z0-9_-]/gi, '-')}`;

@@ -251,8 +251,8 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     // Set a short timeout to debounce multiple calls
     this.#announceTimeoutId = setTimeout(() => {
       announce(
-        msg(str`Months of year ${Intl.DateTimeFormat(this.locale, { year: 'numeric' }).format(month)}`, {
-          id: 'sl.calendar.announceYears'
+        msg(str`Months of the year ${Intl.DateTimeFormat(this.locale, { year: 'numeric' }).format(month)}`, {
+          id: 'sl.calendar.announceMonthsOfYear'
         }),
         'polite'
       );

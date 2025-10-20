@@ -66,7 +66,12 @@ export class VirtualizerController<TScrollElement extends Element | Window, TIte
   }
 
   updateOptions(options: Partial<VirtualizerControllerOptions<TScrollElement, TItemElement>>): void {
-    const resolvedOptions = { ...this.instance.options, ...options };
+    if (!this.instance) {
+      this.#options = { ...this.#options, ...options };
+      return;
+    }
+
+    const resolvedOptions = { ...this.instance?.options, ...options };
 
     if (this.#scrollElement === document.documentElement) {
       (this.instance as Virtualizer<Window, TItemElement>).setOptions(

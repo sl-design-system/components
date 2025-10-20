@@ -1,11 +1,10 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, ObserveAttributesMixin, event, getScrollParent } from '@sl-design-system/shared';
+import { type EventEmitter, ObserveAttributesMixin, event } from '@sl-design-system/shared';
 import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { Skeleton } from '@sl-design-system/skeleton';
 import { Spinner } from '@sl-design-system/spinner';
-import { VirtualizerController, WindowVirtualizerController } from '@tanstack/lit-virtual';
-import { type Virtualizer } from '@tanstack/virtual-core';
+import { VirtualizerController } from '@sl-design-system/virtual-list';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -56,8 +55,16 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
   /** The index of the currently focused node. */
   #indexOfFocusedNode: number = 0;
 
-  /** The virtualizer instance. */
-  #virtualizer?: VirtualizerController<Element, Element> | WindowVirtualizerController<Element>;
+  /** Manages the virtual list of tree nodes. */
+  #virtualizer = new VirtualizerController(this, {
+    count: this.dataSource?.items.length ?? 0,
+    estimateSize: () => 32, // this doesn't need to be exact
+    gap: 2, // var(--sl-size-025)
+    overscan: 3, // render a few extra nodes outside of the viewport
+    getItemKey: (index: number): number | string => {
+      return this.dataSource?.items?.at(index)?.id?.toString() ?? index;
+    }
+  });
 
   get dataSource() {
     return this.#dataSource;
@@ -103,26 +110,6 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
   override connectedCallback(): void {
     super.connectedCallback();
 
-    const options = {
-      count: this.dataSource?.items.length ?? 0,
-      estimateSize: () => 32, // this doesn't need to be exact
-      gap: 2, // var(--sl-size-025)
-      overscan: 3, // render a few extra nodes outside of the viewport
-      getItemKey: (index: number): number | string => {
-        return this.dataSource?.items?.at(index)?.id?.toString() ?? index;
-      }
-    };
-
-    const scrollParent = getScrollParent(this);
-    if (scrollParent === document.documentElement) {
-      this.#virtualizer = new WindowVirtualizerController(this, options);
-    } else {
-      this.#virtualizer = new VirtualizerController(this, {
-        ...options,
-        getScrollElement: () => scrollParent
-      });
-    }
-
     const selected = this.dataSource?.items.find(item => item.selected);
     if (selected) {
       this.#indexOfFocusedNode = this.dataSource?.items.indexOf(selected) ?? 0;
@@ -157,7 +144,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
 
   override render(): TemplateResult {
     const rootIds = this.dataSource?.nodes.map(child => String(child.id)).join(' '),
-      virtualizer = this.#virtualizer!.getVirtualizer(),
+      virtualizer = this.#virtualizer.instance,
       virtualItems = virtualizer.getVirtualItems();
 
     // Use role `treegrid` instead of `tree`; treegrid is a better
@@ -317,13 +304,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
   #onUpdate = (): void => {
     const count = this.dataSource?.items.length ?? 0;
 
-    if (this.#virtualizer) {
-      const virtualizer = this.#virtualizer.getVirtualizer() as Virtualizer<Element, Element>;
-      virtualizer.setOptions({
-        ...virtualizer.options,
-        count
-      });
-    }
+    this.#virtualizer.updateOptions({ count });
 
     if (this.#indexOfFocusedNode >= count) {
       this.#indexOfFocusedNode = 0;
@@ -333,7 +314,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
   };
 
   #scrollAndFocusNode(index: number): void {
-    this.#virtualizer!.getVirtualizer().scrollToIndex(index);
+    this.#virtualizer.instance.scrollToIndex(index);
 
     const currentlyFocusedNode = this.renderRoot.querySelector<HTMLElement>(
       `[data-index="${this.#indexOfFocusedNode}"]`

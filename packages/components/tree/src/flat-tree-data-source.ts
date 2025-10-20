@@ -6,6 +6,7 @@ import {
 } from './tree-data-source.js';
 
 export interface FlatTreeDataSourceMapping<T> extends TreeDataSourceMapping<T> {
+  /** Returns the level in the tree of the given item. */
   getLevel(item: T): number;
 }
 

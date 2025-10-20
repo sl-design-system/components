@@ -6,6 +6,7 @@ import {
 } from './tree-data-source.js';
 
 export interface NestedTreeDataSourceMapping<T> extends TreeDataSourceMapping<T> {
+  /** Returns the children of the given item. */
   getChildren(item: T): T[] | Promise<T[]> | undefined;
 }
 

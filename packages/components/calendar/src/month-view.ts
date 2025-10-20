@@ -191,7 +191,7 @@ export class MonthView extends LocaleMixin(LitElement) {
       this.tooltipsRendered = false;
       setTimeout(() => {
         this.tooltipsRendered = true;
-      }, 100);
+      }, 100); // TODO: sth wrong with this approach
     }
   }
 

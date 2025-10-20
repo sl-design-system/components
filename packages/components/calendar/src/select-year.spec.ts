@@ -22,7 +22,7 @@ describe('sl-select-year', () => {
 
     it('should render 12 years by default (current year -5 .. current year +6)', () => {
       const current = new Date().getFullYear();
-      const years = Array.from(el.renderRoot.querySelectorAll('ol li')); // list items (12)
+      const years = Array.from(el.renderRoot.querySelectorAll('table.years button')); // 12 year buttons
 
       expect(years).to.have.lengthOf(12);
       expect(el.years[0]).to.equal(current - 5);
@@ -144,7 +144,7 @@ describe('sl-select-year', () => {
         el.addEventListener('sl-select', e => resolve(e as CustomEvent))
       );
       // click middle year (should be a button) - choose the first button
-      const button = el.renderRoot.querySelector('ol button');
+      const button = el.renderRoot.querySelector('table.years button');
       (button as HTMLButtonElement | null)?.click?.();
       const ev = await onSelect;
       expect(ev.detail).to.be.instanceOf(Date);
@@ -175,7 +175,7 @@ describe('sl-select-year', () => {
 
     it('keydown ArrowLeft on first button should decrement year range by 12', async () => {
       const initialFirst = el.years[0];
-      const buttons = el.renderRoot.querySelectorAll('ol button');
+      const buttons = el.renderRoot.querySelectorAll('table.years button');
       const first = buttons[0] as HTMLButtonElement;
 
       first.focus();
@@ -188,7 +188,7 @@ describe('sl-select-year', () => {
 
     it('keydown ArrowRight on last button should increment year range by 12', async () => {
       const initialLast = el.years.at(-1)!;
-      const buttons = el.renderRoot.querySelectorAll('ol button');
+      const buttons = el.renderRoot.querySelectorAll('table.years button');
       const last = buttons[buttons.length - 1] as HTMLButtonElement;
 
       last.focus();
@@ -201,7 +201,7 @@ describe('sl-select-year', () => {
 
     it('keydown ArrowUp on a top-row button should decrement year range by 12', async () => {
       const initialFirst = el.years[0];
-      const buttons = el.renderRoot.querySelectorAll('ol button');
+      const buttons = el.renderRoot.querySelectorAll('table.years button');
       const target = buttons[1] as HTMLButtonElement; // top row (index 1)
 
       target.focus();
@@ -214,7 +214,7 @@ describe('sl-select-year', () => {
 
     it('keydown ArrowDown on a last-row button should increment year range by 12', async () => {
       const initialFirst = el.years[0];
-      const buttons = el.renderRoot.querySelectorAll('ol button');
+      const buttons = el.renderRoot.querySelectorAll('table.years button');
       const target = buttons[10] as HTMLButtonElement; // pick an index in the last row
 
       target.focus();

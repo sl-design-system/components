@@ -130,7 +130,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       childList: true,
       subtree: true,
       attributes: true,
-      attributeFilter: ['disabled']
+      attributeFilter: ['aria-disabled', 'disabled']
     });
     this.#resizeObserver.observe(this);
   }

@@ -382,6 +382,7 @@
   <source>Years between <x id="0" equiv-text="${yearsRange.at(0) ?? ''}"/> and <x id="1" equiv-text="${yearsRange.at(-1) ?? ''}"/></source>
   <source>Jaren tussen <x id="0" equiv-text="${yearsRange.at(0) ?? ''}"/> en <x id="1" equiv-text="${yearsRange.at(-1) ?? ''}"/></source>
   <source>Years between <x id="0" equiv-text="${yearsRange.at(0) ?? ''}"/> and <x id="1" equiv-text="${yearsRange.at(-1) ?? ''}"/></source>
+  <source>Years between <x id="0" equiv-text="${yearsRange.at(0) ?? ''}"/> and <x id="1" equiv-text="${yearsRange.at(-1) ?? ''}"/></source>
 </trans-unit>
 </body>
 </file>

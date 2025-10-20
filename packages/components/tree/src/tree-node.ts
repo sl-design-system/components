@@ -57,12 +57,6 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<boolean>>;
 
   /**
-   * Determines whether the checkbox is checked or not.
-   * @default false
-   */
-  @property({ type: Boolean }) checked?: boolean;
-
-  /**
    * Whether the node is disabled.
    * @default false
    */
@@ -79,12 +73,6 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
    * @default false
    */
   @property({ type: Boolean }) expanded?: boolean;
-
-  /**
-   * Hides the indentation guides when set.
-   * @default false
-   */
-  @property({ type: Boolean, attribute: 'hide-guides', reflect: true }) hideGuides?: boolean;
 
   /**
    * Indeterminate state of the checkbox. Used when not all children are checked.
@@ -104,23 +92,28 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
    */
   @property({ type: Number }) level = 0;
 
+  /**
+   * An array indicating which levels have a next sibling; used to render indentation guides.
+   */
+  @property({ type: Array, attribute: 'level-guides' }) levelGuides?: number[];
+
+  /**
+   * Will render a checkbox to allow for multiple selections.
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true }) multiple?: boolean;
+
   /** The tree model node. */
   @property({ attribute: false }) node?: TreeDataSourceNode<T>;
 
-  /** @internal Emits when the user clicks a the wrapper part of the tree node. */
-  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<TreeDataSourceNode<T>>>;
-
   /**
-   * Whether the node is currently selected.
+   * Determines whether the node is selected or not.
    * @default false
    */
   @property({ type: Boolean }) selected?: boolean;
 
-  /**
-   * If you are able to select one or more tree nodes (at the same time).
-   * @default undefined
-   */
-  @property() selects?: 'single' | 'multiple';
+  /** @internal Emits when the user clicks on the wrapper part of the tree node. */
+  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<TreeDataSourceNode<T>>>;
 
   /** @internal Emits when the expanded state changes. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
@@ -141,25 +134,15 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     /** We cannot use treeitem role, due to a11y issues with tree role and no group role with Virtualizer. */
     this.setAttribute('role', 'row');
 
-    this.tabIndex = 0;
+    this.setAttribute('aria-selected', Boolean(this.selected).toString());
+
+    if (!this.hasAttribute('tabindex')) {
+      this.tabIndex = 0;
+    }
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
-
-    if (changes.has('checked') || changes.has('indeterminate') || changes.has('selected') || changes.has('selects')) {
-      if (this.selects === 'multiple') {
-        this.setAttribute('aria-checked', this.checked ? 'true' : this.indeterminate ? 'mixed' : 'false');
-      } else {
-        this.removeAttribute('aria-checked');
-      }
-
-      if (this.selects === 'single') {
-        this.setAttribute('aria-selected', Boolean(this.selected).toString());
-      } else {
-        this.removeAttribute('aria-selected');
-      }
-    }
 
     if (changes.has('expandable') || changes.has('expanded')) {
       if (this.expandable) {
@@ -168,20 +151,27 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
         this.removeAttribute('aria-expanded');
       }
     }
+
+    if (changes.has('indeterminate') || changes.has('selected')) {
+      this.setAttribute('aria-selected', Boolean(this.selected).toString());
+    }
   }
 
   override render(): TemplateResult {
     return html`
-      <div id=${`${this.id}-cell`} role="gridcell" aria-colindex="1">
-        <sl-indent-guides
-          ?expandable=${this.expandable}
-          ?last-node-in-level=${this.lastNodeInLevel}
-          .level=${this.level}
-        ></sl-indent-guides>
+      <sl-indent-guides
+        ?last-node-in-level=${this.lastNodeInLevel}
+        .level=${this.level}
+        .levelGuides=${this.levelGuides}
+        ?selected=${!this.multiple && this.selected}
+      ></sl-indent-guides>
+      <div aria-colindex="1" role="gridcell">
         ${this.expandable
           ? html`
               <div class="expander">
-                <sl-icon name="chevron-right" size="xs"></sl-icon>
+                <div class="expander-inner">
+                  <sl-icon name="chevron-right" size="xs"></sl-icon>
+                </div>
               </div>
             `
           : nothing}
@@ -196,11 +186,11 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
               ]
             ],
             () =>
-              this.selects === 'multiple'
+              this.multiple
                 ? html`
                     <sl-checkbox
                       @sl-change=${this.#onChange}
-                      ?checked=${this.checked}
+                      ?checked=${this.selected}
                       ?indeterminate=${this.indeterminate}
                       exportparts="label"
                       part="checkbox"
@@ -209,19 +199,18 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
                       <input slot="input" tabindex="-1" type="checkbox" />
                       <slot></slot>
                     </sl-checkbox>
-                    <slot name="aside"> </slot>
                   `
                 : html`
                     <div part="content">
                       <slot></slot>
                     </div>
-                    <slot name="aside">
-                      <sl-button-bar part="button-bar">
-                        <slot name="actions"></slot>
-                      </sl-button-bar>
-                    </slot>
                   `
           )}
+          <slot name="aside">
+            <sl-button-bar fill="ghost" part="button-bar" size="sm" variant="primary">
+              <slot name="actions"></slot>
+            </sl-button-bar>
+          </slot>
         </div>
       </div>
     `;
@@ -236,9 +225,9 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     event.preventDefault();
     event.stopPropagation();
 
-    this.checked = event.detail;
+    this.selected = event.detail;
     this.indeterminate = false;
-    this.changeEvent.emit(this.checked);
+    this.changeEvent.emit(this.selected);
   }
 
   /**
@@ -257,12 +246,12 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     if (insideWrapper) {
       event.preventDefault();
 
-      if (this.selects === 'multiple') {
-        this.checked = !this.checked;
-        this.indeterminate = false;
-        this.changeEvent.emit(this.checked);
+      this.selected = !this.selected;
+      this.indeterminate = false;
+
+      if (this.multiple) {
+        this.changeEvent.emit(this.selected);
       } else {
-        this.selected = this.selects === 'single' ? true : this.selected;
         this.selectEvent.emit(this.node!);
       }
     } else if (this.expandable) {
@@ -275,12 +264,12 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
 
-      if (this.selects === 'multiple') {
-        this.checked = !this.checked;
-        this.indeterminate = false;
-        this.changeEvent.emit(this.checked);
+      this.selected = !this.selected;
+      this.indeterminate = false;
+
+      if (this.multiple) {
+        this.changeEvent.emit(this.selected);
       } else {
-        this.selected = this.selects === 'single' ? true : this.selected;
         this.selectEvent.emit(this.node!);
       }
     } else if (event.key === 'ArrowLeft') {

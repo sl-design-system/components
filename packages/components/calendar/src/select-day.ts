@@ -356,6 +356,23 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     `;
   }
 
+  // Announce if needed, we don't want to have the same message announced twice
+  #announce(month: Date): void {
+    // Clear any pending announcement
+    if (this.#announceTimeoutId) {
+      clearTimeout(this.#announceTimeoutId);
+    }
+
+    // Set a short timeout to debounce multiple calls
+    this.#announceTimeoutId = setTimeout(() => {
+      const monthFormatted = format(month, this.locale, { month: 'long', year: 'numeric' });
+
+      announce(`${monthFormatted}`, 'polite');
+
+      this.#announceTimeoutId = undefined;
+    }, 50);
+  }
+
   async #onChange(event: SlChangeEvent<Date>): Promise<void> {
     event.preventDefault();
     event.stopPropagation();
@@ -372,12 +389,18 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   #onPrevious(): void {
     this.#scrollToMonth(-1, true);
-    this.#announce();
+
+    if (this.previousMonth !== undefined) {
+      this.#announce(this.previousMonth);
+    }
   }
 
   #onNext(): void {
     this.#scrollToMonth(1, true);
-    this.#announce();
+
+    if (this.nextMonth !== undefined) {
+      this.#announce(this.nextMonth);
+    }
   }
 
   #onSelect(event: SlSelectEvent<Date>): void {
@@ -400,38 +423,5 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     const left = width * month + width;
 
     this.scroller?.scrollTo({ left, behavior: smooth ? 'smooth' : 'instant' });
-  }
-
-  // Announce if needed, we don't want to have the same message announced twice
-  #announce(): void {
-    // Clear any pending announcement
-    if (this.#announceTimeoutId) {
-      clearTimeout(this.#announceTimeoutId);
-    }
-
-    // Set a short timeout to debounce multiple calls, announce only when content actually changed
-    this.#announceTimeoutId = setTimeout(() => {
-      // if (this.#content !== this.#lastAnnouncedContent || this.#title !== this.#lastAnnouncedTitle) {
-      //   this.#lastAnnouncedContent = this.#content;
-      //   this.#lastAnnouncedTitle = this.#title;
-      //
-      //   announce(`${this.#title ?? ''} ${this.#content ?? ''}`, this.variant === 'danger' ? 'assertive' : 'polite');
-
-      if (!this.displayMonth) {
-        return;
-      }
-
-      const monthFormatted = format(this.displayMonth, this.locale, { month: 'long', year: 'numeric' });
-
-      console.log('monthFormatted to announce', monthFormatted);
-
-      announce(`${monthFormatted}`, 'polite');
-      // }
-      // TODO: announce logic here...
-
-      // TODO: add dependency of announcer as well
-
-      this.#announceTimeoutId = undefined;
-    }, 50);
   }
 }

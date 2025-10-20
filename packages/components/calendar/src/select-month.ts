@@ -1,5 +1,6 @@
 import { msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import { FormatDate } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
@@ -38,6 +39,9 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
+
+  /** Timeout id, to be used with `clearTimeout`. */
+  #announceTimeoutId?: ReturnType<typeof setTimeout>;
 
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { keydown: this.#onSelectMonthKeydown });
@@ -101,6 +105,15 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /** @internal Emits when the user clicks the month/year button. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<'month' | 'year'>>;
+
+  override disconnectedCallback(): void {
+    if (this.#announceTimeoutId) {
+      clearTimeout(this.#announceTimeoutId);
+      this.#announceTimeoutId = undefined;
+    }
+
+    super.disconnectedCallback();
+  }
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
@@ -226,6 +239,26 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   #allPreviousUnselectable(): boolean {
     const prevY = this.month.getFullYear() - 1;
     return this.months.every(m => this.#isUnselectable(prevY, m.value));
+  }
+
+  // Announce if needed, we don't want to have the same message announced twice
+  #announce(month: Date): void {
+    // Clear any pending announcement
+    if (this.#announceTimeoutId) {
+      clearTimeout(this.#announceTimeoutId);
+    }
+
+    // Set a short timeout to debounce multiple calls
+    this.#announceTimeoutId = setTimeout(() => {
+      announce(
+        msg(str`Months of year ${Intl.DateTimeFormat(this.locale, { year: 'numeric' }).format(month)}`, {
+          id: 'sl.calendar.announceYears'
+        }),
+        'polite'
+      );
+
+      this.#announceTimeoutId = undefined;
+    }, 50);
   }
 
   #getMonthsButtons(): HTMLButtonElement[] {
@@ -380,10 +413,14 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   #onNext(): void {
     this.month = new Date(this.month.getFullYear() + 1, this.month.getMonth(), this.month.getDate());
+
+    this.#announce(this.month);
   }
 
   #onPrevious(): void {
     this.month = new Date(this.month.getFullYear() - 1, this.month.getMonth(), this.month.getDate());
+
+    this.#announce(this.month);
   }
 
   #onSelectMonthKeydown(event: KeyboardEvent): void {

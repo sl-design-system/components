@@ -1,5 +1,6 @@
 import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, EventsController, RovingTabindexController, event } from '@sl-design-system/shared';
@@ -30,6 +31,9 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
+
+  /** Timeout id, to be used with `clearTimeout`. */
+  #announceTimeoutId?: ReturnType<typeof setTimeout>;
 
   /**
    * Number of columns in the years grid.
@@ -77,6 +81,15 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.#setYears(this.year.getFullYear() - 5, this.year.getFullYear() + 6);
+  }
+
+  override disconnectedCallback(): void {
+    if (this.#announceTimeoutId) {
+      clearTimeout(this.#announceTimeoutId);
+      this.#announceTimeoutId = undefined;
+    }
+
+    super.disconnectedCallback();
   }
 
   override firstUpdated(): void {
@@ -185,6 +198,26 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
         </tbody>
       </table>
     `;
+  }
+
+  // Announce if needed, we don't want to have the same message announced twice
+  #announce(yearsRange: number[]): void {
+    // Clear any pending announcement
+    if (this.#announceTimeoutId) {
+      clearTimeout(this.#announceTimeoutId);
+    }
+
+    // Set a short timeout to debounce multiple calls
+    this.#announceTimeoutId = setTimeout(() => {
+      announce(
+        msg(str`Years between ${yearsRange.at(0) ?? ''} and ${yearsRange.at(-1) ?? ''}`, {
+          id: 'sl.calendar.announceYears'
+        }),
+        'polite'
+      );
+
+      this.#announceTimeoutId = undefined;
+    }, 50);
   }
 
   #getYearButtons(): HTMLButtonElement[] {
@@ -322,10 +355,14 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
 
   #onNext(): void {
     this.#setYears(this.years[this.years.length - 1] + 1, this.years[this.years.length - 1] + 12);
+
+    this.#announce(this.years);
   }
 
   #onPrevious(): void {
     this.#setYears(this.years[0] - 12, this.years[0] - 1);
+
+    this.#announce(this.years);
   }
 
   #onSelectYearKeydown(event: KeyboardEvent): void {

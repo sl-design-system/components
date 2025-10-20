@@ -17,6 +17,7 @@ export default {
   title: 'Utilities/Virtual list',
   tags: ['draft'],
   parameters: {
+    chromatic: { disableSnapshot: true },
     layout: 'fullscreen'
   },
   args: {

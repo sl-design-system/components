@@ -8,7 +8,7 @@ import '@sl-design-system/menu/register.js';
 import '@sl-design-system/toggle-button/register.js';
 import '@sl-design-system/toggle-group/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
-import { html } from 'lit';
+import { LitElement, html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
@@ -23,10 +23,30 @@ import {
 
 Icon.register(faBell, faGear, faPen, faTrash, fasBell, fasGear);
 
-describe('sl-tool-bar', () => {
-  let el: ToolBar;
+class ToolBarNestedSlotTest extends LitElement {
+  get toolBar(): ToolBar | null {
+    return this.renderRoot.querySelector('sl-tool-bar');
+  }
 
+  override render() {
+    return html`
+      <sl-tool-bar>
+        <slot></slot>
+      </sl-tool-bar>
+    `;
+  }
+}
+
+try {
+  customElements.define('tool-bar-nested-slot-test', ToolBarNestedSlotTest);
+} catch {
+  /* empty */
+}
+
+describe('sl-tool-bar', () => {
   describe('defaults', () => {
+    let el: ToolBar;
+
     beforeEach(async () => {
       el = await fixture(html`
         <sl-tool-bar style="inline-size: 400px">
@@ -152,6 +172,8 @@ describe('sl-tool-bar', () => {
   });
 
   describe('overflow', () => {
+    let el: ToolBar;
+
     beforeEach(async () => {
       el = await fixture(html`
         <sl-tool-bar style="inline-size: 48px">
@@ -267,6 +289,70 @@ describe('sl-tool-bar', () => {
       el.renderRoot.querySelector('sl-menu-item')?.click();
 
       expect(onClick).to.have.been.calledOnce;
+    });
+  });
+
+  describe('nested slot', () => {
+    let el: ToolBarNestedSlotTest;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <tool-bar-nested-slot-test>
+          <sl-button>Button</sl-button>
+        </tool-bar-nested-slot-test>
+      `);
+    });
+
+    it('should find the initial button', () => {
+      expect(el.toolBar?.items).to.have.length(1);
+      expect(el.toolBar?.items[0]).to.have.property('type', 'button');
+      expect(el.toolBar?.items[0]).to.have.property('label', 'Button');
+    });
+
+    it('should not find buttons added later', async () => {
+      const button = document.createElement('sl-button');
+      button.textContent = 'New Button';
+      el.appendChild(button);
+
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(el.toolBar?.items).to.have.length(1);
+    });
+
+    it('should find buttons added later after calling refresh()', async () => {
+      const button = document.createElement('sl-button');
+      button.textContent = 'New Button';
+      el.appendChild(button);
+
+      await el.updateComplete;
+
+      el.toolBar?.refresh();
+
+      expect(el.toolBar?.items).to.have.length(2);
+      expect(el.toolBar?.items[1]).to.have.property('type', 'button');
+      expect(el.toolBar?.items[1]).to.have.property('label', 'New Button');
+    });
+
+    it('should not detect disabled state changes on the initial button', async () => {
+      expect(el.toolBar?.items[0]).to.have.property('disabled', false);
+
+      el.querySelector('sl-button')?.setAttribute('disabled', '');
+
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(el.toolBar?.items[0]).to.have.property('disabled', false);
+    });
+
+    it('should detect disabled state changes on the initial button after calling refresh()', async () => {
+      expect(el.toolBar?.items[0]).to.have.property('disabled', false);
+
+      el.querySelector('sl-button')?.setAttribute('disabled', '');
+
+      await el.updateComplete;
+
+      el.toolBar?.refresh();
+
+      expect(el.toolBar?.items[0]).to.have.property('disabled', true);
     });
   });
 });

@@ -126,6 +126,16 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /**
+   * Observe changes to the bulk actions slot and refresh the tool-bar.
+   *
+   * The bulk actions `<slot>` is nested in the default slot of `<sl-tool-bar>`. This
+   * means that changes to the bulk actions slot are not automatically observed by
+   * the tool-bar. To work around this, we explicitly call `refresh()` on the tool-bar
+   * when the bulk actions slot changes.
+   */
+  #bulkActionsObserver = new MutationObserver(() => this.renderRoot.querySelector('sl-tool-bar')?.refresh());
+
   /** The column definitions. */
   #columnDefinitions: Array<GridColumn<T>> = [];
 
@@ -334,6 +344,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#dataSource?.removeEventListener('sl-update', this.#onDataSourceUpdate);
     this.#dataSource?.removeEventListener('sl-selection-change', this.#onSelectionChange);
 
+    this.#bulkActionsObserver.disconnect();
     this.#mutationObserver?.disconnect();
     this.#resizeObserver?.disconnect();
 
@@ -349,6 +360,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   override async firstUpdated(): Promise<void> {
+    this.#bulkActionsObserver.observe(this, {
+      attributes: true,
+      attributeFilter: ['aria-disabled', 'disabled'],
+      childList: true,
+      subtree: true
+    });
     this.#mutationObserver?.observe(this.tbody, { attributes: true, attributeFilter: ['style'] });
 
     this.tbody.addEventListener('scroll', () => this.#onScroll(), { passive: true });

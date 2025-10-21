@@ -26,6 +26,7 @@ Tree has been promoted from draft to preview.
 - [`select`](https://github.com/sl-design-system/components/blob/main/packages/components/select/CHANGELOG.md) fixes weird behavior when selecting the last option in the list.
 - [`shared`](https://github.com/sl-design-system/components/blob/main/packages/components/shared/CHANGELOG.md) fixes `scrollParent` to work with overflow elements that do not (yet) scroll.
 - [`tool-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/tool-bar/CHANGELOG.md) fixes changes to slotted elements not propagating properly.
+- [`tree`](https://github.com/sl-design-system/components/blob/main/packages/components/tree/CHANGELOG.md) various fixes: improve look and behavior of the indent guides, better screen reader announcements, remove incorrect use of `aria-checked`.
 
 # October 1, 2025
 

@@ -137,10 +137,14 @@ export function isSameDate(day1?: Date, day2?: Date): boolean {
 }
 
 export function isDateInList(date: Date, list?: Date[] | string): boolean {
-  if (!list) return false;
+  if (!list) {
+    return false;
+  }
+
   if (typeof list === 'string') {
     list = list.split(',').map(item => new Date(item));
   }
+
   return list.some(item => isSameDate(item, date));
 }
 

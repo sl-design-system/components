@@ -99,7 +99,9 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
       elements: () => this.#getYearButtons() ?? [],
       focusInIndex: elements => {
         const index = elements.findIndex(el => {
-          if (el.disabled) return false;
+          if (el.disabled) {
+            return false;
+          }
           const cell = el.closest('td[role="gridcell"]');
           return !!cell && cell.getAttribute('aria-selected') === 'true';
         });

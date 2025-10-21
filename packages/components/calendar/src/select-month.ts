@@ -51,7 +51,11 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     directionLength: 3,
     elements: (): HTMLButtonElement[] => {
       const list = this.renderRoot.querySelector('table.months');
-      if (!list) return [];
+
+      if (!list) {
+        return [];
+      }
+
       return Array.from(list.querySelectorAll<HTMLButtonElement>('button')).filter(btn => !btn.disabled);
     },
     focusInIndex: elements => {

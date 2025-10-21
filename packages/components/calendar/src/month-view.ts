@@ -6,6 +6,7 @@ import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { LocaleMixin } from '@sl-design-system/shared/mixins.js';
 import { Tooltip } from '@sl-design-system/tooltip';
+import '@sl-design-system/tooltip/register.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -48,7 +49,9 @@ export class MonthView extends LocaleMixin(LitElement) {
     direction: 'grid',
     directionLength: 7,
     focusInIndex: (elements: HTMLButtonElement[]) => {
-      if (!elements || elements.length === 0) return -1;
+      if (!elements || elements.length === 0) {
+        return -1;
+      }
       const selectedIndex = elements.findIndex(el => el.getAttribute('aria-current') === 'date' && !el.disabled);
       if (selectedIndex > -1) return selectedIndex;
       const todayIndex = elements.findIndex(el => (el.getAttribute('part') ?? '').includes('today') && !el.disabled);
@@ -157,6 +160,20 @@ export class MonthView extends LocaleMixin(LitElement) {
   /** @internal Whether per day indicator tooltips are rendered into the DOM. */
   @state() tooltipsRendered = false;
 
+  override disconnectedCallback(): void {
+    this.renderRoot.querySelectorAll<HTMLButtonElement>('button[part~="indicator"]').forEach(button => {
+      const btn = button as unknown as { tooltip?: Tooltip | (() => void) | undefined };
+
+      if (btn.tooltip instanceof Tooltip) {
+        btn.tooltip.remove();
+      } else if (btn.tooltip) {
+        btn.tooltip();
+      }
+    });
+
+    super.disconnectedCallback();
+  }
+
   override willUpdate(changes: PropertyValues<this>): void {
     if (changes.has('firstDayOfWeek') || changes.has('locale')) {
       const { locale, firstDayOfWeek } = this,
@@ -187,11 +204,40 @@ export class MonthView extends LocaleMixin(LitElement) {
     super.updated(changes);
 
     if (changes.has('indicator') || changes.has('calendar') || changes.has('disabled') || changes.has('month')) {
-      // render toolips after a short delay
-      this.tooltipsRendered = false;
-      setTimeout(() => {
-        this.tooltipsRendered = true;
-      }, 100); // TODO: sth wrong with this approach
+      this.renderRoot.querySelectorAll<HTMLButtonElement>('button').forEach(button => {
+        const hasIndicator = button.matches('[part~="indicator"]'),
+          dataDate = button.closest('td')?.getAttribute('data-date'),
+          btn = button as unknown as { tooltip?: Tooltip | (() => void) | undefined };
+
+        // If the button no longer has the indicator part, remove the existing tooltip.
+        if (!hasIndicator) {
+          if (btn.tooltip instanceof Tooltip) {
+            btn.tooltip.remove();
+            btn.tooltip = undefined;
+          } else if (btn.tooltip) {
+            btn.tooltip();
+            btn.tooltip = undefined;
+          }
+          return;
+        }
+
+        if (!dataDate) {
+          return;
+        }
+
+        btn.tooltip ||= Tooltip.lazy(
+          button,
+          (tooltip: Tooltip) => {
+            btn.tooltip = tooltip;
+            const indicatorsForDay = (this.indicator ?? []).filter(i => isSameDate(i.date, new Date(dataDate)));
+            const indicatorDescriptions = indicatorsForDay.map(i =>
+              i.label ? i.label : msg('Indicator', { id: 'sl.calendar.indicator' })
+            );
+            tooltip.textContent = indicatorDescriptions.join(', ');
+          },
+          { context: this.shadowRoot! }
+        );
+      });
     }
   }
 
@@ -226,8 +272,6 @@ export class MonthView extends LocaleMixin(LitElement) {
           )}
         </tbody>
       </table>
-
-      ${this.tooltipsRendered ? this.#renderTooltips() : nothing}
     `;
   }
 
@@ -269,30 +313,14 @@ export class MonthView extends LocaleMixin(LitElement) {
         ariaLabel += `, ${msg('Unavailable', { id: 'sl.calendar.unavailable' })}`;
       }
 
-      const indicators = (this.indicator ?? []).filter(i => isSameDate(i.date, day.date));
-
-      const indicatorDescriptions = indicators.map(i =>
-        i.label ? i.label : msg('Indicator', { id: 'sl.calendar.indicator' })
-      );
-
-      const describedById =
-        indicatorDescriptions.length > 0
-          ? `sl-calendar-indicator-${day.date.toISOString().replace(/[^a-z0-9_-]/gi, '-')}`
-          : undefined;
-
       template =
         this.readonly || day.unselectable || day.disabled || isDateInList(day.date, this.disabled)
-          ? html`
-              <button .part=${parts} aria-describedby=${ifDefined(describedById)} aria-label=${ariaLabel} disabled>
-                ${day.date.getDate()}
-              </button>
-            `
+          ? html`<button .part=${parts} aria-label=${ariaLabel} disabled>${day.date.getDate()}</button>`
           : html`
               <button
                 @keydown=${(event: KeyboardEvent) => this.#onKeydown(event, day)}
                 .part=${parts}
                 aria-current=${ifDefined(parts.includes('today') ? 'date' : undefined)}
-                aria-describedby=${ifDefined(describedById)}
                 aria-label=${ariaLabel}
                 aria-pressed=${parts.includes('selected') ? 'true' : 'false'}
               >
@@ -313,31 +341,6 @@ export class MonthView extends LocaleMixin(LitElement) {
     `;
   }
 
-  #renderTooltips(): TemplateResult | typeof nothing {
-    if (!this.calendar) {
-      return nothing;
-    }
-
-    const tooltips: TemplateResult[] = [];
-
-    for (const week of this.calendar.weeks) {
-      for (const day of week.days) {
-        const indicators = (this.indicator ?? []).filter(i => isSameDate(i.date, day.date));
-        if (!indicators.length) continue;
-
-        const indicatorDescriptions = indicators.map(i =>
-          i.label ? i.label : msg('Indicator', { id: 'sl.calendar.indicator' })
-        );
-
-        const describedById = `sl-calendar-indicator-${day.date.toISOString().replace(/[^a-z0-9_-]/gi, '-')}`;
-
-        tooltips.push(html`<sl-tooltip id=${describedById}>${indicatorDescriptions.join(', ')}</sl-tooltip>`);
-      }
-    }
-
-    return html`${tooltips}`;
-  }
-
   /** Returns an array of part names for a day. */
   getDayParts = (day: Day): string[] => {
     return [
@@ -351,7 +354,7 @@ export class MonthView extends LocaleMixin(LitElement) {
       this.indicator &&
       isDateInList(
         day.date,
-        this.indicator.map(i => i.date)
+        this.indicator.map(indicator => indicator.date)
       )
         ? (() => {
             const indicator = this.indicator && this.indicator.find(i => isSameDate(i.date, day.date));

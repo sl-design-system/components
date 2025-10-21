@@ -1,5 +1,11 @@
 # @sl-design-system/icon
 
+## 1.4.0
+
+### Minor Changes
+
+- [#2761](https://github.com/sl-design-system/components/pull/2761) [`1e7b6f6`](https://github.com/sl-design-system/components/commit/1e7b6f629f79d77576c2cb19d20f8884bb2f30c4) - Support FontAwesome 7.1 (new "utility" icon pack)
+
 ## 1.3.1
 
 ### Patch Changes

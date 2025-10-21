@@ -1,7 +1,7 @@
 {
-  "name": "@sl-design-system/tree",
-  "version": "0.1.7",
-  "description": "Tree component for the SL Design System",
+  "name": "@sl-design-system/virtual-list",
+  "version": "0.0.1",
+  "description": "Virtual list component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -9,9 +9,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
-    "directory": "packages/components/tree"
+    "directory": "packages/components/virtual-list"
   },
-  "homepage": "https://sanomalearning.design/components/tree",
+  "homepage": "https://sanomalearning.design/components/virtual-list",
   "bugs": {
     "url": "https://github.com/sl-design-system/components/issues"
   },
@@ -38,21 +38,14 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/button-bar": "^1.2.1",
-    "@sl-design-system/checkbox": "^2.1.6",
-    "@sl-design-system/data-source": "^0.2.2",
-    "@sl-design-system/icon": "^1.3.1",
-    "@sl-design-system/shared": "^0.9.1",
-    "@sl-design-system/skeleton": "^1.0.1",
-    "@sl-design-system/spinner": "^2.0.1",
-    "@sl-design-system/virtual-list": "^0.0.1"
+    "@sl-design-system/shared": "^0.9.1"
   },
   "devDependencies": {
-    "@open-wc/scoped-elements": "^3.0.6",
+    "@tanstack/virtual-core": "^3.13.12",
     "lit": "^3.3.1"
   },
   "peerDependencies": {
-    "@open-wc/scoped-elements": "^3.0.6",
+    "@tanstack/virtual-core": "^3.13.12",
     "lit": "^3.1.4"
   }
 }

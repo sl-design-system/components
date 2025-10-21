@@ -24,10 +24,10 @@ eleventyNavigation:
 <sl-tree id="tree" aria-label="Subjects structure"></sl-tree>
 
 <script type="module">
-  import { FlatTreeDataSource } from '@sl-design-system/tree';
-  
-  const tree = document.querySelector('#tree');
-  
+    import { FlatTreeDataSource } from '@sl-design-system/tree';
+
+    const tree = document.querySelector('#tree');
+
     const flatData = [
       { id: 0, expandable: true, level: 0, name: 'Mathematics' },
       { id: 1, expandable: true, level: 1, name: 'Algebra' },
@@ -41,16 +41,15 @@ eleventyNavigation:
     ];
 
     const dataSource = new FlatTreeDataSource(flatData, {
-      getIcon: ({ name }, expanded) =>
-        name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`,
       getId: (item) => item.id,
       getLabel: ({ name }) => name,
       getLevel: ({ level }) => level,
       isExpandable: ({ expandable }) => expandable,
-      isExpanded: ({ name }) => ['tree', 'src'].includes(name),
-      selects: 'multiple'
+      isExpanded: ({ name }) => ['Mathematics', 'Algebra'].includes(name),
+      isSelected: ({ id }) => [2, 3, 12].includes(id),
+      multiple: true
     });
-  
+
     tree.dataSource = dataSource;
 </script>
   ```
@@ -64,9 +63,9 @@ eleventyNavigation:
 The following guidance describes when to use the tree component.
 
 ### Hierarchical Content
-The Tree is ideal for displaying and navigating hierarchical data, such as file systems or category structures. It groups related data with nested relationships in a clear and organised way. It is a powerful tool for organising subject lesson content in educational applications. For example, it represents a syllabus with modules as parent nodes and lessons as child nodes, enabling students to intuitively explore and navigate their coursework. 
+The Tree is ideal for displaying and navigating hierarchical data, such as file systems or category structures. It groups related data with nested relationships in a clear and organized way. It is a powerful tool for organizing subject lesson content in educational applications. For example, it represents a syllabus with modules as parent nodes and lessons as child nodes, enabling students to intuitively explore and navigate their coursework.
 
-### Collapsable Data
+### Collapsible Data
 The Tree allows users to dynamically expand or collapse data sections, enabling a cleaner interface that focuses only on relevant information. This interactive functionality is handy when managing large amounts of content, where each item contains complex data or detailed information. It ensures users can explore deeply without being overwhelmed.
 
 </section>
@@ -80,7 +79,7 @@ The Tree allows users to dynamically expand or collapse data sections, enabling 
 Do not use Tree as the primary navigation for your product’s UI. The tree component is not suitable for this purpose.
 
 ### Elements Toggle
-The tree is not ideal for showing and hiding UI elements or content within a page. If the interaction only involves collapsing or expanding content at a basic level, consider using other components like [accordions](/categories/components/accordion) or collapsable panels for a more straightforward solution.
+The tree is not ideal for showing and hiding UI elements or content within a page. If the interaction only involves collapsing or expanding content at a basic level, consider using other components like [accordions](/categories/components/accordion) or collapsible panels for a more straightforward solution.
 
 </section>
 
@@ -206,14 +205,13 @@ Indentation visually distinguishes parent nodes from their child nodes by shifti
     ];
 
     const dataSource = new FlatTreeDataSource(flatData, {
-      getIcon: ({ name }, expanded) =>
-        name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`,
       getId: (item) => item.id,
       getLabel: ({ name }) => name,
       getLevel: ({ level }) => level,
       isExpandable: ({ expandable }) => expandable,
-      isExpanded: ({ name }) => ['tree', 'src'].includes(name),
-      selects: 'multiple'
+      isExpanded: ({ name }) => ['Mathematics', 'Algebra'].includes(name),
+      isSelected: ({ id }) => [2, 3, 12].includes(id),
+      multiple: true
     });
 
     (async () => {

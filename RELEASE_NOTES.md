@@ -9,7 +9,7 @@ The release notes are ordered by the date the release was made. From latest, to 
 Tree has been promoted from draft to preview.
 
 ## New features
-- [`button`](https://github.com/sl-design-system/components/blob/main/packages/components/button/CHANGELOG.md) has new `fill` and `variant` properties that will apply to all buttons inside the button bar.
+- [`button-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/button-bar/CHANGELOG.md) has new `fill` and `variant` properties that will apply to all buttons inside the button bar.
 - [`clickedu`](https://github.com/sl-design-system/components/blob/main/packages/themes/clickedu/CHANGELOG.md) has an updated color palette with new brand colors.
 - [`icon`](https://github.com/sl-design-system/components/blob/main/packages/components/icon/CHANGELOG.md) Support Font Awesome 7.1.
 - [`tree`](https://github.com/sl-design-system/components/blob/main/packages/components/tree/CHANGELOG.md) now support sorting

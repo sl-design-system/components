@@ -455,6 +455,7 @@
     "@changesets/cli": "^2.29.7",
     "@changesets/get-github-info": "^0.6.0",
     "@custom-elements-manifest/analyzer": "^0.10.10",
+    "@faker-js/faker": "^10.1.0",
     "@lit/localize-tools": "^0.8.0",
     "@storybook/addon-a11y": "^9.1.10",
     "@storybook/addon-docs": "^9.1.10",

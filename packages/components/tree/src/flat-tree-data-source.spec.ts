@@ -18,20 +18,163 @@ describe('FlatTreeDataSource', () => {
           getId: ({ id }) => id,
           getLabel: ({ name }) => name,
           getLevel: ({ level }) => level,
-          isExpandable: ({ expandable }) => expandable
+          isExpandable: ({ expandable }) => expandable,
+          isExpanded: () => true
         }
       );
+      ds.update();
+    });
+
+    it('should not support multiple selection', () => {
+      expect(ds.multiple).not.to.be.true;
     });
 
     it('should have the correct size', () => {
       expect(ds.size).to.equal(2);
+    });
+
+    it('should have the correct number of items', () => {
+      expect(ds.items).to.have.length(5);
+    });
+
+    it('should have the correct labels', () => {
+      const labels = ds.items.map(n => n.label);
+
+      expect(labels).to.deep.equal(['1', '2', '3', '4', '5']);
+    });
+
+    it('should have the correct expandable state', () => {
+      const expandables = ds.items.map(n => n.expandable);
+
+      expect(expandables).to.deep.equal([true, true, false, false, false]);
+    });
+
+    it('should have the correct expanded state', () => {
+      const expanded = ds.items.map(n => n.expanded);
+
+      expect(expanded).to.deep.equal([true, true, false, false, false]);
+    });
+
+    it('should have the correct levels', () => {
+      const levels = ds.items.map(n => n.level);
+
+      expect(levels).to.deep.equal([0, 1, 2, 1, 0]);
+    });
+  });
+
+  describe('expanded state', () => {
+    beforeEach(() => {
+      ds = new FlatTreeDataSource(
+        [
+          { id: 1, name: '1', level: 0, expandable: true, expanded: true },
+          { id: 2, name: '2', level: 1, expandable: true, expanded: false },
+          { id: 3, name: '3', level: 2, expandable: false },
+          { id: 4, name: '4', level: 1, expandable: false },
+          { id: 5, name: '5', level: 0, expandable: false }
+        ],
+        {
+          getId: ({ id }) => id,
+          getLabel: ({ name }) => name,
+          getLevel: ({ level }) => level,
+          isExpandable: ({ expandable }) => expandable,
+          isExpanded: ({ expanded }) => expanded ?? false
+        }
+      );
+      ds.update();
+    });
+
+    it('should expand a node when calling expand()', () => {
+      const node = ds.items[1];
+
+      expect(node.expanded).to.be.false;
+      expect(ds.items).to.have.length(4);
+
+      ds.expand(node);
+
+      expect(node.expanded).to.be.true;
+      expect(ds.items).to.have.length(5);
+    });
+
+    it('should collapse a node when calling collapse()', () => {
+      const node = ds.items[0];
+
+      expect(node.expanded).to.be.true;
+      expect(ds.items).to.have.length(4);
+
+      ds.collapse(node);
+
+      expect(node.expanded).to.be.false;
+      expect(ds.items).to.have.length(2);
+    });
+
+    it('should toggle the expanded state of a node when calling toggle()', () => {
+      const node = ds.items[1];
+
+      expect(node.expanded).to.be.false;
+      expect(ds.items).to.have.length(4);
+
+      ds.toggle(node);
+
+      expect(node.expanded).to.be.true;
+      expect(ds.items).to.have.length(5);
+
+      ds.toggle(node);
+
+      expect(node.expanded).to.be.false;
+      expect(ds.items).to.have.length(4);
+    });
+
+    it('should expand all descendants when calling expandDescendants()', () => {
+      const node = ds.items[0];
+
+      expect(ds.items).to.have.length(4);
+
+      ds.expandDescendants(node);
+
+      expect(ds.items.filter(i => i.expandable).every(i => i.expanded)).to.be.true;
+      expect(ds.items).to.have.length(5);
+    });
+
+    it('should collapse all descendants when calling collapseDescendants()', () => {
+      const node = ds.items[0];
+
+      expect(ds.items).to.have.length(4);
+
+      ds.collapseDescendants(node);
+
+      expect(ds.items.every(i => !i.expanded)).to.be.true;
+      expect(ds.items).to.have.length(2);
+    });
+
+    it('should toggle all descendants when calling toggleDescendants()', () => {
+      const node = ds.items[0];
+
+      expect(ds.items).to.have.length(4);
+
+      ds.toggleDescendants(node);
+
+      expect(ds.items.map(i => i.expanded)).to.deep.equal([false, false]);
+      expect(ds.items).to.have.length(2);
+    });
+
+    it('should expand all nodes when calling expandAll()', () => {
+      ds.expandAll();
+
+      expect(ds.items.filter(i => i.expandable).every(i => i.expanded)).to.be.true;
+      expect(ds.items).to.have.length(5);
+    });
+
+    it('should collapse all nodes when calling collapseAll()', () => {
+      ds.collapseAll();
+
+      expect(ds.items.filter(i => i.expandable).every(i => !i.expanded)).to.be.true;
+      expect(ds.items).to.have.length(2);
     });
   });
 
   describe('level guides', () => {
     beforeEach(() => {
       /**
-       * Tree structure (do not show the root; use ASCII art for the indent guides):
        * A (level 0, not last)
        * ├─ A.1 (level 1, not last)
        * └─ A.2 (level 1, last child)
@@ -82,6 +225,59 @@ describe('FlatTreeDataSource', () => {
         [2], // A.2.a.1
         [] // B
       ]);
+    });
+  });
+
+  describe('sorting', () => {
+    beforeEach(() => {
+      ds = new FlatTreeDataSource(
+        [
+          { id: 3, name: 'C', level: 0, expandable: true },
+          { id: '3.1', name: 'Z', level: 1, expandable: false },
+          { id: '3.2', name: 'Y', level: 1, expandable: false },
+          { id: 1, name: 'A', level: 0, expandable: false },
+          { id: 2, name: 'B', level: 0, expandable: false }
+        ],
+        {
+          getId: ({ id }) => id,
+          getLabel: ({ name }) => name,
+          getLevel: ({ level }) => level,
+          isExpandable: ({ expandable }) => expandable,
+          isExpanded: () => true
+        }
+      );
+      ds.update();
+    });
+
+    it('should not have a sort by default', () => {
+      expect(ds.sort).to.be.undefined;
+    });
+
+    it('should have a sort after calling setSort', () => {
+      ds.setSort('name', 'asc');
+
+      expect(ds.sort).to.deep.equal({ by: 'name', direction: 'asc' });
+    });
+
+    it('should remove the sort after calling removeSort', () => {
+      ds.setSort('name', 'asc');
+      ds.removeSort();
+
+      expect(ds.sort).to.be.undefined;
+    });
+
+    it('should sort the nodes when sorting is applied', () => {
+      expect(ds.items.map(n => n.label)).to.deep.equal(['C', 'Z', 'Y', 'A', 'B']);
+
+      ds.setSort('name', 'asc');
+      ds.update();
+
+      expect(ds.items.map(n => n.label)).to.deep.equal(['A', 'B', 'C', 'Y', 'Z']);
+
+      ds.setSort('name', 'desc');
+      ds.update();
+
+      expect(ds.items.map(n => n.label)).to.deep.equal(['C', 'Z', 'Y', 'B', 'A']);
     });
   });
 });

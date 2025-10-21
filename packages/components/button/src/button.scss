@@ -206,20 +206,20 @@
   pointer-events: none;
 }
 
-:host(:where([disabled], [aria-disabled='true'])) {
+:host(:is([disabled], [aria-disabled='true'])) {
   color: var(--sl-color-foreground-disabled);
   cursor: default;
 }
 
-:host(:where([disabled], [aria-disabled='true']):where(:not([fill]), [fill='solid'])) {
+:host(:is([disabled], [aria-disabled='true']):where(:not([fill]), [fill='solid'])) {
   background: var(--sl-color-background-disabled);
 }
 
-:host(:where([disabled], [aria-disabled='true']):where([fill='ghost'], [fill='link'], [fill='outline'])) {
+:host(:is([disabled], [aria-disabled='true']):where([fill='ghost'], [fill='link'], [fill='outline'])) {
   background: transparent;
 }
 
-:host(:where([disabled], [aria-disabled='true'])[fill='outline']) {
+:host(:is([disabled], [aria-disabled='true'])[fill='outline']) {
   border-color: var(--sl-color-border-disabled);
 }
 

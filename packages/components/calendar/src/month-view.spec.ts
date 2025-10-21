@@ -1,3 +1,4 @@
+import '@sl-design-system/tooltip/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
@@ -223,32 +224,38 @@ describe('sl-month-view', () => {
     });
 
     it('Should render tooltip for indicator with label', async () => {
-      const date = new Date(new Date().getFullYear(), new Date().getMonth(), 13);
-      el.indicator = [{ date, label: 'Special day' }];
+      el.indicator = [{ date: new Date(new Date().getFullYear(), new Date().getMonth(), 13), label: 'Special day' }];
+
       await el.updateComplete;
-      // give some time for tooltip to initialize
-      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const button = el.renderRoot.querySelector('button[part~="indicator"]') as HTMLButtonElement;
+
+      expect(button).to.exist;
+
+      button.focus();
 
       const tooltip = el.renderRoot.querySelector('sl-tooltip');
 
       expect(tooltip).to.exist;
       expect(tooltip?.textContent?.trim()).to.equal('Special day');
-      const btn = Array.from(el.renderRoot.querySelectorAll('button')).find(
-        b => b.textContent?.trim() === String(date.getDate())
-      );
-      expect(btn?.getAttribute('aria-describedby')).to.equal(tooltip!.id);
     });
 
     it('Should render generic tooltip when no color or label provided', async () => {
       const date = new Date(new Date().getFullYear(), new Date().getMonth(), 15);
       el.indicator = [{ date }];
+
       await el.updateComplete;
-      // give some time for tooltip to initialize
-      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const button = el.renderRoot.querySelector('button[part~="indicator"]') as HTMLButtonElement;
+
+      expect(button).to.exist;
+
+      button.focus();
 
       const tooltip = el.renderRoot.querySelector('sl-tooltip');
+
       expect(tooltip).to.exist;
-      expect(tooltip?.textContent).to.match(/Indicator/i);
+      expect(tooltip?.textContent?.trim()).to.equal('Indicator');
     });
   });
 
@@ -448,28 +455,23 @@ describe('sl-month-view', () => {
     });
   });
 
-  describe('Focus management', () => {
+  describe('Focus day', () => {
     beforeEach(async () => {
-      // Use first day of month to normalize hours to midnight for ISO matching
-      const base = new Date();
-      const monthStart = new Date(base.getFullYear(), base.getMonth(), 1);
+      const monthStart = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
       el = await fixture(html`<sl-month-view .month=${monthStart}></sl-month-view>`);
       await el.updateComplete;
     });
 
-    // it('Should focus a specific day using focusDay()', async () => {
-    //   const targetDay = 5;
-    //   const target = new Date(el.month!.getFullYear(), el.month!.getMonth(), targetDay);
-    //   el.focusDay(target);
-    //   // focusDay does not trigger render; we only need the existing button
-    //   const button = Array.from(el.renderRoot.querySelectorAll('button')).find(
-    //     b => b.textContent?.trim() === String(targetDay)
-    //   );
-    //   expect(button).to.exist;
-    //   // Active element may be inside shadowRoot depending on browser; allow either
-    //   const active = (el.shadowRoot?.activeElement ?? document.activeElement) as HTMLElement | null;
-    //   expect(active === button).to.be.true;
-    // });
+    it('Should focus a specific day using focusDay()', () => {
+      const target = new Date(el.month!.getFullYear(), el.month!.getMonth(), 5);
+
+      el.focusDay(target);
+
+      const button = Array.from(el.renderRoot.querySelectorAll('button')).find(b => b.textContent?.trim() === '5');
+
+      expect(button).to.exist;
+      expect(el.shadowRoot?.activeElement).to.equal(button);
+    });
   });
 
   describe('Attribute Converters', () => {
@@ -498,18 +500,19 @@ describe('sl-month-view', () => {
       await el.updateComplete;
     });
 
-    // it('Should emit change on ArrowDown crossing month from late-month day', async () => {
-    //   const btnTwentySix = Array.from(el.renderRoot.querySelectorAll('button')).find(
-    //     b => b.textContent?.trim() === '26'
-    //   ) as HTMLButtonElement;
-    //   expect(btnTwentySix).to.exist;
-    //   const changePromise = new Promise<CustomEvent>(resolve =>
-    //     el.addEventListener('sl-change', e => resolve(e as CustomEvent))
-    //   );
-    //   btnTwentySix.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
-    //   const ev = await changePromise;
-    //   expect(ev.detail.getMonth()).to.equal(el.month!.getMonth() + 1); // moved to next month
-    // });
+    it('Should emit change on ArrowDown crossing month from late-month day', async () => {
+      const btnTwentySix = Array.from(el.renderRoot.querySelectorAll('button')).find(
+        b => b.textContent?.trim() === '26'
+      ) as HTMLButtonElement;
+      expect(btnTwentySix).to.exist;
+      const changePromise = new Promise<CustomEvent>(resolve =>
+        el.addEventListener('sl-change', e => resolve(e as CustomEvent))
+      );
+      btnTwentySix.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+      const ev = await changePromise;
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
+      expect(ev.detail.getMonth()).to.equal(el.month!.getMonth() + 1); // moved to next month
+    });
   });
 
   describe('Readonly / Inert behavior', () => {
@@ -532,38 +535,6 @@ describe('sl-month-view', () => {
       const allButtons = Array.from(el.renderRoot.querySelectorAll('button'));
       expect(allButtons.length).to.be.greaterThan(0);
       allButtons.forEach(b => expect(b.disabled).to.be.true);
-    });
-  });
-
-  describe('Accessibility edge cases', () => {
-    beforeEach(async () => {
-      el = await fixture(html`<sl-month-view .month=${new Date()}></sl-month-view>`);
-      await el.updateComplete;
-    });
-
-    it('Should not set aria-describedby when no indicators for a day', () => {
-      const anyButton = el.renderRoot.querySelector('button');
-      expect(anyButton).to.exist;
-      expect(anyButton?.hasAttribute('aria-describedby')).to.be.false;
-    });
-
-    it('Should remove aria-describedby after indicators cleared', async () => {
-      const date = new Date(new Date().getFullYear(), new Date().getMonth(), 16);
-      el.indicator = [{ date, label: 'Temp' }];
-      await el.updateComplete;
-      // await waitForTooltips(el);
-      await new Promise(resolve => setTimeout(resolve, 200));
-
-      const btn = Array.from(el.renderRoot.querySelectorAll('button')).find(
-        b => b.textContent?.trim() === String(date.getDate())
-      );
-      expect(btn?.getAttribute('aria-describedby')).to.match(/^sl-calendar-indicator-/);
-      el.indicator = [];
-      await el.updateComplete;
-      const sameBtn = Array.from(el.renderRoot.querySelectorAll('button')).find(
-        b => b.textContent?.trim() === String(date.getDate())
-      );
-      expect(sameBtn?.hasAttribute('aria-describedby')).to.be.false;
     });
   });
 

@@ -365,6 +365,7 @@ export class MonthView extends LocaleMixin(LitElement) {
     ].filter(part => part !== '');
   };
 
+  /** @internal */
   focusDay(day: Date): void {
     const button = this.renderRoot.querySelector<HTMLButtonElement>(`td[data-date="${day.toISOString()}"] button`)!;
 

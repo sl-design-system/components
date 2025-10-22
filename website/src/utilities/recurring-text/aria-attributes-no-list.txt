@@ -1,3 +1,3 @@
-In the component itself we use multiple aria-attributes to assure the component works well with a range of assistive technologies. For some attributes however it is not possible for the Design System to add a meaningfull value, because it relies on the context or way a component is used.
+In the component itself we use multiple aria-attributes to assure the component works well with a range of assistive technologies. For some attributes however it is not possible for the Design System to add a meaningful value, because it relies on the context or way a component is used.
 
 For this component we can't think of any common scenarios that require you to add specific attributes, but keep in mind that if you use images or icons that (partially) replace text you need to provide an alternative for assistive technology, by adding an `alt`text or `aria-label` as you normally would.

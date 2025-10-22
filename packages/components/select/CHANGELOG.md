@@ -1,5 +1,21 @@
 # @sl-design-system/select
 
+## 2.0.6
+
+### Patch Changes
+
+- [#2789](https://github.com/sl-design-system/components/pull/2789) [`063faff`](https://github.com/sl-design-system/components/commit/063faff05434c2e0dae8176d7ebe5f9b4562492f) - Fix cloning of selected option when there is only a single child
+
+- [#2789](https://github.com/sl-design-system/components/pull/2789) [`063faff`](https://github.com/sl-design-system/components/commit/063faff05434c2e0dae8176d7ebe5f9b4562492f) - Fix issue with cloning of selected option due to unexpected `<style>` element
+
+- [#2731](https://github.com/sl-design-system/components/pull/2731) [`d3fc554`](https://github.com/sl-design-system/components/commit/d3fc554054266612c6000c29a631386dcbc6e946) - Fixes issue in chrome where the dropdown would flicker when one of its parents has a transform:translate on it.
+
+- Updated dependencies [[`063faff`](https://github.com/sl-design-system/components/commit/063faff05434c2e0dae8176d7ebe5f9b4562492f), [`1e7b6f6`](https://github.com/sl-design-system/components/commit/1e7b6f629f79d77576c2cb19d20f8884bb2f30c4), [`d0c4db2`](https://github.com/sl-design-system/components/commit/d0c4db220c6a5826a0c9e5bc8ab3943884dfcd9c), [`b169507`](https://github.com/sl-design-system/components/commit/b1695074d53a1f26c274162eb3623c1ca5074d15)]:
+  - @sl-design-system/listbox@0.1.6
+  - @sl-design-system/icon@1.4.0
+  - @sl-design-system/shared@0.9.2
+  - @sl-design-system/form@1.3.2
+
 ## 2.0.5
 
 ### Patch Changes

@@ -78,7 +78,7 @@ summary {
   // align-items: center;
   background: color-mix(
     in srgb,
-    var(--sl-elevation-surface-base-default),
+    transparent,
     var(--sl-color-background-secondary-interactive-plain) calc(100% * var(--_bg-opacity))
   );
   color: var(--sl-color-foreground-plain);
@@ -161,7 +161,6 @@ g {
   animation-fill-mode: both;
   animation-iteration-count: 1;
   animation-timing-function: linear;
-  background: var(--sl-elevation-surface-raised-default);
   display: grid;
   overflow: hidden;
 

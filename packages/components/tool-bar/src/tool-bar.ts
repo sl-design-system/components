@@ -130,7 +130,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       childList: true,
       subtree: true,
       attributes: true,
-      attributeFilter: ['disabled']
+      attributeFilter: ['aria-disabled', 'disabled']
     });
     this.#resizeObserver.observe(this);
   }
@@ -181,6 +181,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     `;
   }
 
+  /** @internal */
   renderMenuItem(item: ToolBarItem): TemplateResult {
     if (item.type === 'group') {
       return html`
@@ -204,6 +205,16 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         </sl-menu-item>
       `;
     }
+  }
+
+  /**
+   * Manually trigger an update of the tool-bar layout. Tool-bar tries to automatically
+   * detect changes to its size and child elements, but in some cases you may need to
+   * call this method manually (for example when a nested slot is present: the `slotchange`
+   * event or the `MutationObserver` will not fire in the case of a nested slot).
+   */
+  refresh(): void {
+    this.#updateMapping();
   }
 
   #onResize(availableWidth: number): void {

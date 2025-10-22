@@ -8,6 +8,14 @@ import { FlatTreeDataSource } from './flat-tree-data-source.js';
 import { NestedTreeDataSource } from './nested-tree-data-source.js';
 import { type Tree } from './tree.js';
 
+declare global {
+  interface ARIAMixin {
+    // Explicitly declare this since older versions of
+    // TypeScript's lib.dom.d.ts don't have it yet.
+    ariaControlsElements: readonly Element[] | null;
+  }
+}
+
 interface FlatDataNode {
   id: number;
   expandable: boolean;
@@ -18,6 +26,7 @@ interface FlatDataNode {
 interface NestedDataNode {
   id: number;
   name: string;
+  description?: string;
   children?: NestedDataNode[];
 }
 
@@ -64,11 +73,13 @@ const nestedData: NestedDataNode[] = [
   {
     id: 0,
     name: 'Actions',
-    children: [{ id: 1, name: 'Button' }]
+    description: 'Actions description',
+    children: [{ id: 1, name: 'Button', description: 'Button description' }]
   },
   {
     id: 2,
     name: 'Navigation',
+    description: 'Navigation description',
     children: [
       {
         id: 3,
@@ -82,7 +93,7 @@ const nestedData: NestedDataNode[] = [
   }
 ];
 
-describe.skip('sl-tree', () => {
+describe('sl-tree', () => {
   let el: Tree;
 
   describe('defaults', () => {
@@ -105,12 +116,6 @@ describe.skip('sl-tree', () => {
       expect(el.dataSource).to.be.undefined;
     });
 
-    it('should not have any tree nodes', () => {
-      const nodes = el.renderRoot.querySelectorAll('sl-tree-node');
-
-      expect(nodes).to.have.lengthOf(0);
-    });
-
     it('should proxy the aria-label attribute to the wrapper element', async () => {
       const wrapper = el.renderRoot.querySelector('[part="wrapper"]');
 
@@ -130,6 +135,92 @@ describe.skip('sl-tree', () => {
       expect(el).to.not.have.attribute('aria-labelledby');
       expect(wrapper).to.have.attribute('aria-labelledby', 'id');
     });
+
+    it('should not have any tree nodes', () => {
+      const nodes = el.renderRoot.querySelectorAll('sl-tree-node');
+
+      expect(nodes).to.have.lengthOf(0);
+    });
+  });
+
+  describe('accessibility', () => {
+    let ds: NestedTreeDataSource;
+
+    beforeEach(async () => {
+      ds = new NestedTreeDataSource(nestedData, {
+        getAriaDescription: ({ description }) => description ?? undefined,
+        getChildren: ({ children }) => children,
+        getId: item => item.id,
+        getLabel: ({ name }) => name,
+        isExpandable: ({ children }) => !!children,
+        isExpanded: () => true
+      });
+
+      el = await fixture(html`<sl-tree .dataSource=${ds}></sl-tree>`);
+    });
+
+    it('should have an aria-label for each node', () => {
+      const labels = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')).map(node => node.ariaLabel);
+
+      expect(labels).to.deep.equal([
+        'Actions',
+        'Button',
+        'Navigation',
+        'Tree',
+        'Flat Data Source',
+        'Nested Data Source'
+      ]);
+    });
+
+    it('should have an aria-description for each node if provided', () => {
+      const descriptions = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')).map(node => node.ariaDescription);
+
+      expect(descriptions).to.deep.equal([
+        'Actions description',
+        'Button description',
+        'Navigation description',
+        null,
+        null,
+        null
+      ]);
+    });
+
+    it('should have an aria-level for each node', () => {
+      const levels = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')).map(node => node.ariaLevel);
+
+      expect(levels).to.deep.equal(['1', '2', '1', '2', '3', '3']);
+    });
+
+    it('should have an aria-rowindex for each node', () => {
+      const rowIndices = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')).map(node => node.ariaRowIndex);
+
+      expect(rowIndices).to.deep.equal(['1', '2', '3', '4', '5', '6']);
+    });
+
+    it('should have an aria-posinset for each node', () => {
+      const posInSet = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')).map(node => node.ariaPosInSet);
+
+      expect(posInSet).to.deep.equal(['1', '1', '2', '1', '1', '2']);
+    });
+
+    it('should have an aria-setsize for each node', () => {
+      const setSize = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')).map(node => node.ariaSetSize);
+
+      expect(setSize).to.deep.equal(['2', '1', '2', '1', '2', '2']);
+    });
+
+    it('should have an aria-controls for each node with children', () => {
+      const nodes = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')),
+        controls = nodes.map(node => node.ariaControlsElements);
+
+      expect(controls).to.have.length(6);
+      expect(controls[0]).to.deep.equal([nodes[1]]);
+      expect(controls[1]).to.be.null;
+      expect(controls[2]).to.deep.equal([nodes[3]]);
+      expect(controls[3]).to.deep.equal([nodes[4], nodes[5]]);
+      expect(controls[4]).to.be.null;
+      expect(controls[5]).to.be.null;
+    });
   });
 
   describe('keyboard navigation', () => {
@@ -146,7 +237,20 @@ describe.skip('sl-tree', () => {
       });
 
       el = await fixture(html`<sl-tree .dataSource=${ds}></sl-tree>`);
-      await el.layoutComplete;
+    });
+
+    it('should have a tabindex of 0 for the first node', () => {
+      const firstNode = el.renderRoot.querySelector('sl-tree-node');
+
+      expect(firstNode).to.have.attribute('tabindex', '0');
+    });
+
+    it('should have a tabindex of -1 for all other nodes', () => {
+      const tabIndices = Array.from(
+        el.renderRoot.querySelectorAll<HTMLElement>('sl-tree-node:not(:first-of-type)')
+      ).map(node => node.tabIndex);
+
+      expect(tabIndices).to.deep.equal([-1, -1, -1, -1]);
     });
 
     it('should focus the first tree node when focusing the tree', () => {
@@ -258,7 +362,6 @@ describe.skip('sl-tree', () => {
       });
 
       el = await fixture(html`<sl-tree .dataSource=${ds}></sl-tree>`);
-      await el.layoutComplete;
     });
 
     it('should render the visible tree nodes', () => {
@@ -294,7 +397,7 @@ describe.skip('sl-tree', () => {
         'Nested Data Source'
       ]);
       expect(nodes.map(g => g.ariaLevel)).to.deep.equal(['1', '1', '2', '3', '3']);
-      expect(nodes.map(g => g.ariaPosInSet)).to.deep.equal(['1', '1', '1', '1', '2']);
+      expect(nodes.map(g => g.ariaPosInSet)).to.deep.equal(['1', '2', '1', '1', '2']);
       expect(nodes.map(g => g.ariaRowIndex)).to.deep.equal(['1', '2', '3', '4', '5']);
       expect(nodes.map(g => g.ariaSetSize)).to.deep.equal(['2', '2', '1', '2', '2']);
     });
@@ -314,7 +417,6 @@ describe.skip('sl-tree', () => {
       });
 
       el = await fixture(html`<sl-tree .dataSource=${ds}></sl-tree>`);
-      await el.layoutComplete;
     });
 
     it('should render the visible tree nodes', () => {

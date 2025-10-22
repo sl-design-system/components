@@ -1,0 +1,11 @@
+{
+  "layout": "categories/components/components.njk",
+  "tags": "time-field",
+  "componentStatus": "stable",
+  "componentTagName": [
+    {
+      "name": "Time field",
+      "selector": "sl-time-field"
+    }
+  ]
+}

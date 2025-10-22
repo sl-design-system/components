@@ -4,6 +4,30 @@ This is a collection of release notes for the SL Design System. Each release not
 
 The release notes are ordered by the date the release was made. From latest, to oldest.
 
+# October 21, 2025
+
+Tree has been promoted from draft to preview.
+
+## New features
+- [`button-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/button-bar/CHANGELOG.md) has new `fill` and `variant` properties that will apply to all buttons inside the button bar.
+- [`clickedu`](https://github.com/sl-design-system/components/blob/main/packages/themes/clickedu/CHANGELOG.md) has an updated color palette with new brand colors.
+- [`icon`](https://github.com/sl-design-system/components/blob/main/packages/components/icon/CHANGELOG.md) Support Font Awesome 7.1.
+- [`tree`](https://github.com/sl-design-system/components/blob/main/packages/components/tree/CHANGELOG.md) now support sorting
+- [`virtual-list`](https://github.com/sl-design-system/components/blob/main/packages/components/virtual-list/CHANGELOG.md) is a new utility package that provides a virtual scrolling solution based on `@tanstack/virtual-core`.
+
+## Bug fixes
+- [`accordion`](https://github.com/sl-design-system/components/blob/main/packages/components/accordion/CHANGELOG.md) removes the background so the component now blends in better with the surrounding.
+- [`accordion`](https://github.com/sl-design-system/components/blob/main/packages/components/accordion/CHANGELOG.md) fixes missing `part="icon"` on the icon element.
+- [`button`](https://github.com/sl-design-system/components/blob/main/packages/components/button/CHANGELOG.md) fixes text color of disabled buttons with a variant.
+- [`checkbox`](https://github.com/sl-design-system/components/blob/main/packages/components/checkbox/CHANGELOG.md) removes superfluous `aria-checked` attribute.
+- [`grid`](https://github.com/sl-design-system/components/blob/main/packages/components/grid/CHANGELOG.md) fixes changes in the bulk actions slot not propagating to the tool-bar component.
+- [`panel`](https://github.com/sl-design-system/components/blob/main/packages/components/panel/CHANGELOG.md) fixes the background being too dark in certain themes.
+- [`select`](https://github.com/sl-design-system/components/blob/main/packages/components/select/CHANGELOG.md) fixes issue in Chrome where the dropdown would flicker when one of its parents had a `translate` transform applied.
+- [`select`](https://github.com/sl-design-system/components/blob/main/packages/components/select/CHANGELOG.md) fixes weird behavior when selecting the last option in the list.
+- [`shared`](https://github.com/sl-design-system/components/blob/main/packages/components/shared/CHANGELOG.md) fixes `scrollParent` to work with overflow elements that do not (yet) scroll.
+- [`tool-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/tool-bar/CHANGELOG.md) fixes changes to slotted elements not propagating properly.
+- [`tree`](https://github.com/sl-design-system/components/blob/main/packages/components/tree/CHANGELOG.md) various fixes: improve look and behavior of the indent guides, better screen reader announcements, remove incorrect use of `aria-checked`.
+
 # October 1, 2025
 
 Menu, number-field and tag have been promoted from draft to preview.

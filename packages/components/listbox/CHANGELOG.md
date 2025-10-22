@@ -1,5 +1,14 @@
 # @sl-design-system/listbox
 
+## 0.1.6
+
+### Patch Changes
+
+- [#2789](https://github.com/sl-design-system/components/pull/2789) [`063faff`](https://github.com/sl-design-system/components/commit/063faff05434c2e0dae8176d7ebe5f9b4562492f) - Fix issue with cloning of selected option due to unexpected `<style>` element
+
+- Updated dependencies [[`1e7b6f6`](https://github.com/sl-design-system/components/commit/1e7b6f629f79d77576c2cb19d20f8884bb2f30c4)]:
+  - @sl-design-system/icon@1.4.0
+
 ## 0.1.5
 
 ### Patch Changes

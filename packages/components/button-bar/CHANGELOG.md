@@ -1,5 +1,19 @@
 # @sl-design-system/button-bar
 
+## 1.3.0
+
+### Minor Changes
+
+- [#2715](https://github.com/sl-design-system/components/pull/2715) [`d0c4db2`](https://github.com/sl-design-system/components/commit/d0c4db220c6a5826a0c9e5bc8ab3943884dfcd9c) - `Add`fill`and`variant`properties, similar to`size` that will be applied
+  to all child buttons. This can especially be useful when embedding the button bar
+  in another component where the buttons are slotted. This way the developer doesn't
+  have to set the same properties on each button manually.
+
+### Patch Changes
+
+- Updated dependencies [[`d01fc71`](https://github.com/sl-design-system/components/commit/d01fc710e95210aa7c76b0fd68e849b988840dd9)]:
+  - @sl-design-system/button@1.3.1
+
 ## 1.2.1
 
 ### Patch Changes

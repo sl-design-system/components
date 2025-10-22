@@ -1,5 +1,14 @@
 # @sl-design-system/button
 
+## 1.3.1
+
+### Patch Changes
+
+- [#2787](https://github.com/sl-design-system/components/pull/2787) [`d01fc71`](https://github.com/sl-design-system/components/commit/d01fc710e95210aa7c76b0fd68e849b988840dd9) - Fix text color of disabled buttons with a variant
+
+- Updated dependencies [[`d0c4db2`](https://github.com/sl-design-system/components/commit/d0c4db220c6a5826a0c9e5bc8ab3943884dfcd9c)]:
+  - @sl-design-system/shared@0.9.2
+
 ## 1.3.0
 
 ### Minor Changes

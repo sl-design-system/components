@@ -289,7 +289,17 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     let label: string | undefined = button.getAttribute('aria-label') || button.textContent?.trim();
 
     if (button.hasAttribute('aria-labelledby')) {
-      label = this.querySelector(`#${button.getAttribute('aria-labelledby')}`)?.textContent?.trim();
+      const buttonLabelledby = button.getAttribute('aria-labelledby');
+
+      if (this.querySelector(`#${buttonLabelledby}`)) {
+        label = this.querySelector(`#${buttonLabelledby}`)?.textContent?.trim();
+      } else if (
+        button.nextElementSibling &&
+        button.nextElementSibling.tagName === 'SL-TOOLTIP' &&
+        buttonLabelledby === button.nextElementSibling.id
+      ) {
+        label = button.nextElementSibling.textContent?.trim();
+      }
     } else if (!label && button.hasAttribute('aria-describedby')) {
       label = this.querySelector(`#${button.getAttribute('aria-describedby')}`)?.textContent?.trim();
     }

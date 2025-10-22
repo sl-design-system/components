@@ -76,7 +76,7 @@
 :host([collapsible][has-actions]) {
   [part='header'] {
     grid-template-areas: 'toggle wrapper aside';
-    grid-template-columns: auto 1fr minmax(var(--sl-size-500), 20%);
+    grid-template-columns: auto 1fr minmax(var(--sl-size-500), 25%);
     padding-inline: var(--sl-size-075);
   }
 }
@@ -92,7 +92,7 @@
 :host([collapsible][toggle-placement='end']) {
   [part='header'] {
     grid-template-areas: 'wrapper aside toggle';
-    grid-template-columns: 1fr minmax(var(--sl-size-500), 20%) auto;
+    grid-template-columns: 1fr minmax(var(--sl-size-500), 25%) auto;
     padding-inline: var(--sl-size-200) var(--sl-size-075);
   }
 }
@@ -124,7 +124,7 @@
   flex: 1;
   gap: var(--sl-size-075);
   grid-template-areas: 'wrapper aside';
-  grid-template-columns: 1fr minmax(var(--sl-size-500), 20%);
+  grid-template-columns: 1fr minmax(var(--sl-size-500), 25%);
   min-block-size: var(--sl-size-600);
   padding-inline: var(--sl-size-200);
 }

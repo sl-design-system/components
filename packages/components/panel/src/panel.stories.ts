@@ -227,6 +227,54 @@ export const OverflowActions: Story = {
   }
 };
 
+export const ActionsWithTooltips: Story = {
+  args: {
+    ...Basic.args,
+    actions: () => html`
+      <sl-button aria-labelledby="edit-tooltip" fill="ghost" slot="actions">
+        <sl-icon name="far-pen"></sl-icon>
+      </sl-button>
+      <sl-tooltip id="edit-tooltip">Edit</sl-tooltip>
+      <sl-button aria-labelledby="copy-tooltip" fill="ghost" slot="actions">
+        <sl-icon name="far-copy"></sl-icon>
+      </sl-button>
+      <sl-tooltip id="copy-tooltip">Copy</sl-tooltip>
+      <sl-button aria-labelledby="paste-tooltip" fill="ghost" slot="actions">
+        <sl-icon name="far-paste"></sl-icon>
+      </sl-button>
+      <sl-tooltip id="paste-tooltip">Paste</sl-tooltip>
+      <sl-button aria-labelledby="share-tooltip" fill="ghost" slot="actions">
+        <sl-icon name="far-share"></sl-icon>
+      </sl-button>
+      <sl-tooltip id="share-tooltip">Paste</sl-tooltip>
+    `,
+    content: () => 'This panel contains action buttons with tooltips.'
+  }
+};
+
+export const FixedInlineSize: Story = {
+  args: {
+    ...Basic.args,
+    actions: () => html`
+      <sl-button fill="ghost" slot="actions" aria-label="Copy">
+        <sl-icon name="far-copy"></sl-icon>
+      </sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Book">
+        <sl-icon name="far-book"> </sl-icon>
+      </sl-button>
+    `,
+    content: () => html`
+      <style>
+        sl-panel {
+          inline-size: 350px;
+        }
+      </style>
+
+      This is a panel with a fixed inline size of 350px.
+    `
+  }
+};
+
 export const WithoutActions: Story = {
   args: {
     ...OverflowHeading.args,

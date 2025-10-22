@@ -168,7 +168,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     if (changes.has('value')) {
-      console.log(this.value);
       this.input.value = this.value && this.#formatter ? this.#formatter.format(this.value) : '';
       this.updateValidity();
     }

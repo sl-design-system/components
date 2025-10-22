@@ -8,7 +8,7 @@
 // This shows the HTML page in "ui.html".
 figma.showUI(__html__, {
   width: 280,
-  height: 128,
+  height: 434,
   themeColors: true
 });
 

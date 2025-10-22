@@ -1,6 +1,8 @@
 import { Button } from '@sl-design-system/button';
+import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
+import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { MonthView } from '../index.js';
 import { SelectDay } from './select-day.js';
@@ -52,47 +54,66 @@ describe('sl-select-day', () => {
       const month = new Date(2025, 5, 15); // June 2025
       const min = new Date(2025, 5, 1); // same month start
       const max = new Date(2025, 5, 30); // same month end
+
       el = await fixture(html`<sl-select-day .month=${month} .min=${min} .max=${max}></sl-select-day>`);
+
       await el.updateComplete;
     });
 
     it('should disable previous-month navigation when at min boundary', () => {
-      const prevBtn = el.renderRoot.querySelector('sl-button.previous-month');
-      expect(prevBtn).to.exist.and.match(':disabled');
+      const prevButton = el.renderRoot.querySelector('sl-button.previous-month');
+
+      expect(prevButton).to.have.attribute('disabled');
+      expect(prevButton).to.match(':disabled');
     });
 
     it('should disable next-month navigation when at max boundary', () => {
-      const nextBtn = el.renderRoot.querySelector('sl-button.next-month');
-      expect(nextBtn).to.exist.and.match(':disabled');
+      const nextButton = el.renderRoot.querySelector('sl-button.next-month');
+
+      expect(nextButton).to.have.attribute('disabled');
+      expect(nextButton).to.match(':disabled');
     });
   });
 
   describe('toggle events', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-select-day .month=${new Date()}></sl-select-day>`);
+
       await el.updateComplete;
     });
 
     it('should emit sl-toggle "month" when clicking current month button', async () => {
-      const onToggle = new Promise<CustomEvent>(resolve =>
-        el.addEventListener('sl-toggle', e => resolve(e as CustomEvent))
-      );
+      const onToggle = spy();
+
+      el.addEventListener('sl-toggle', (event: SlToggleEvent<boolean>) => {
+        onToggle(event.detail);
+      });
+
       const monthBtn = el.renderRoot.querySelector('sl-button.current-month');
+
       (monthBtn as HTMLButtonElement | null)?.click?.();
-      const ev = await onToggle;
-      expect(ev.detail).to.equal('month');
+
+      await el.updateComplete;
+
+      expect(onToggle).to.have.been.calledOnce;
+      expect(onToggle.lastCall.args[0]).to.equal('month');
     });
 
     it('should emit sl-toggle "year" when clicking current year button', async () => {
-      const onToggle = new Promise<CustomEvent>(resolve =>
-        el.addEventListener('sl-toggle', e => resolve(e as CustomEvent))
-      );
+      const onToggle = spy();
+      el.addEventListener('sl-toggle', (e: CustomEvent) => {
+        onToggle(e.detail);
+      });
+
       const yearBtn = Array.from(el.renderRoot.querySelectorAll('sl-button.current-year')).find(
         btn => !btn.classList.contains('previous-month') && !btn.classList.contains('next-month')
       );
       (yearBtn as HTMLButtonElement | null)?.click?.();
-      const ev = await onToggle;
-      expect(ev.detail).to.equal('year');
+
+      await el.updateComplete;
+
+      expect(onToggle).to.have.been.calledOnce;
+      expect(onToggle.lastCall.args[0]).to.equal('year');
     });
   });
 
@@ -113,17 +134,23 @@ describe('sl-select-day', () => {
     });
 
     it('should emit sl-select when inner month view emits sl-select', async () => {
-      const onSelect = new Promise<CustomEvent>(resolve =>
-        el.addEventListener('sl-select', e => resolve(e as CustomEvent))
-      );
+      const onSelect = spy();
+      el.addEventListener('sl-select', (e: CustomEvent) => {
+        onSelect(e.detail);
+      });
+
       const targetMonthView = el.renderRoot.querySelector('sl-month-view:nth-of-type(2)');
       const date = new Date(2025, 5, 20);
       targetMonthView?.dispatchEvent(
         new CustomEvent('sl-select', { detail: date, bubbles: true, composed: true, cancelable: true })
       );
-      const ev = await onSelect;
-      expect(ev.detail).to.be.instanceOf(Date);
-      expect((ev.detail as Date).getDate()).to.equal(20);
+
+      await el.updateComplete;
+
+      expect(onSelect).to.have.been.calledOnce;
+      const detail = onSelect.lastCall.args[0] as Date;
+      expect(detail).to.be.instanceOf(Date);
+      expect(detail.getDate()).to.equal(20);
     });
   });
 

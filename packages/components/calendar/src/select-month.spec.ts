@@ -1,6 +1,7 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
+import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { SelectMonth } from './select-month.js';
 
@@ -19,18 +20,18 @@ describe('sl-select-month', () => {
       el = await fixture(html`<sl-select-month></sl-select-month>`);
     });
 
-    it('Should generate 12 months', () => {
+    it('should generate 12 months', () => {
       expect(el.months).to.have.lengthOf(12);
       const monthButtons = el.renderRoot.querySelectorAll('table.months button');
       expect(monthButtons).to.have.lengthOf(12);
     });
 
-    it('Should show a year toggle button (because navigation is possible)', () => {
+    it('should show a year toggle button (because navigation is possible)', () => {
       const toggleBtn = el.renderRoot.querySelector('sl-button.current-year');
       expect(toggleBtn).to.exist;
     });
 
-    it('Should have enabled previous and next year buttons', () => {
+    it('should have enabled previous and next year buttons', () => {
       const prev = el.renderRoot.querySelector('sl-button[aria-label^="Previous year"]');
       const next = el.renderRoot.querySelector('sl-button[aria-label^="Next year"]');
       expect(prev).to.exist.and.not.match(':disabled');
@@ -50,7 +51,7 @@ describe('sl-select-month', () => {
       await el.updateComplete;
     });
 
-    it('Should mark months outside range as unselectable buttons', () => {
+    it('should mark months outside range as unselectable buttons', () => {
       const unselectableParts = Array.from(el.renderRoot.querySelectorAll('[part~="unselectable"]'));
       // Months 0,1,2 and 9,10,11 -> 6 unselectables
       expect(unselectableParts).to.have.lengthOf(6);
@@ -58,17 +59,21 @@ describe('sl-select-month', () => {
       expect(allButtons).to.be.true;
     });
 
-    it('Should disable navigating to a previous year (since min is current year)', () => {
+    it('should disable navigating to a previous year (since min is current year)', () => {
       const prev = el.renderRoot.querySelector('sl-button[aria-label^="Previous year"]');
-      expect(prev).to.exist.and.match(':disabled');
+      // expect(prev).to.exist.and.match(':disabled');
+      expect(prev).to.have.attribute('disabled');
+      expect(prev).to.match(':disabled');
     });
 
-    it('Should disable navigating to a next year (since max is current year)', () => {
+    it('should disable navigating to a next year (since max is current year)', () => {
       const next = el.renderRoot.querySelector('sl-button[aria-label^="Next year"]');
-      expect(next).to.exist.and.match(':disabled');
+      // expect(next).to.exist.and.match(':disabled');
+      expect(next).to.have.attribute('disabled');
+      expect(next).to.match(':disabled');
     });
 
-    it('Should have static year (span) when navigation is fully disabled by min and max', async () => {
+    it('should have static year (span) when navigation is fully disabled by min and max', async () => {
       el = await fixture(html`
         <sl-select-month
           .month=${new Date(2025, 5, 1)}
@@ -91,42 +96,62 @@ describe('sl-select-month', () => {
       el = await fixture(html`<sl-select-month></sl-select-month>`);
     });
 
-    it('Should emit sl-select when a month button is clicked', async () => {
-      const onSelect = new Promise<CustomEvent>(resolve =>
-        el.addEventListener('sl-select', e => resolve(e as CustomEvent))
-      );
+    it('should emit sl-select when a month button is clicked', async () => {
+      const onSelect = spy();
+      el.addEventListener('sl-select', (e: CustomEvent) => {
+        onSelect(e.detail);
+      });
+
       const firstButton = el.renderRoot.querySelector('table.months button');
 
       (firstButton as HTMLButtonElement | null)?.click?.();
-      const ev = await onSelect;
-      expect(ev.detail).to.be.instanceOf(Date);
-      expect((ev.detail as Date).getMonth()).to.equal(parseInt(firstButton!.textContent!.trim().slice(0, 2)) - 1 || 0); // simplistic, month names may vary but at least ensure Date returned
+
+      await el.updateComplete;
+
+      expect(onSelect).to.have.been.calledOnce;
+      const emitted = onSelect.lastCall.args[0] as Date;
+      expect(emitted).to.be.instanceOf(Date);
+      expect(emitted.getMonth()).to.equal(parseInt(firstButton!.textContent!.trim().slice(0, 2)) - 1 || 0); // keep the original simplistic month assertion
     });
 
-    it('Should update selected when clicking a month button', async () => {
+    it('should update selected when clicking a month button', async () => {
       const clickable = Array.from(el.renderRoot.querySelectorAll('table.months button')).find(
         b => !(b as HTMLButtonElement).disabled
       )!;
-      const onSelect = new Promise<CustomEvent>(resolve =>
-        el.addEventListener('sl-select', (e: Event) => resolve(e as CustomEvent))
-      );
+      const onSelect = spy();
+      el.addEventListener('sl-select', (e: CustomEvent) => {
+        onSelect(e.detail);
+      });
 
       (clickable as HTMLButtonElement).click();
-      const ev = await onSelect;
 
       await el.updateComplete;
+
+      expect(onSelect).to.have.been.calledOnce;
+      const evDetail = onSelect.lastCall.args[0] as Date;
+
       expect(el.selected).to.be.instanceOf(Date);
-      expect((el.selected as Date).getMonth()).to.equal((ev.detail as Date).getMonth());
+      expect((el.selected as Date).getMonth()).to.equal(evDetail.getMonth());
     });
 
-    it('Should emit sl-select with current month when Escape is pressed', async () => {
+    it('should emit sl-select with current month when Escape is pressed', async () => {
       const currentMonth = el.month.getMonth();
-      const onSelect = new Promise<CustomEvent>(resolve =>
-        el.addEventListener('sl-select', e => resolve(e as CustomEvent))
-      );
-      el.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
-      const ev = await onSelect;
-      expect((ev.detail as Date).getMonth()).to.equal(currentMonth);
+      const onSelect = spy();
+      el.addEventListener('sl-select', (e: CustomEvent) => {
+        onSelect(e.detail);
+      });
+
+      const firstBtn = el.renderRoot.querySelector<HTMLButtonElement>('table.months button');
+      if (firstBtn) {
+        firstBtn.focus();
+        await userEvent.keyboard('{Escape}');
+      }
+
+      await el.updateComplete;
+
+      expect(onSelect).to.have.been.calledOnce;
+      const evDetail = onSelect.lastCall.args[0] as Date;
+      expect(evDetail.getMonth()).to.equal(currentMonth);
     });
   });
 
@@ -135,7 +160,7 @@ describe('sl-select-month', () => {
       el = await fixture(html`<sl-select-month .month=${new Date(new Date().getFullYear(), 6, 1)}></sl-select-month>`);
     });
 
-    it('Should increment year when next is clicked', async () => {
+    it('should increment year when next is clicked', async () => {
       const startYear = el.month.getFullYear();
       const next = el.renderRoot.querySelector('sl-button[aria-label^="Next year"]');
       (next as HTMLButtonElement | null)?.click?.();
@@ -143,7 +168,7 @@ describe('sl-select-month', () => {
       expect(el.month.getFullYear()).to.equal(startYear + 1);
     });
 
-    it('Should decrement year when previous is clicked', async () => {
+    it('should decrement year when previous is clicked', async () => {
       const startYear = el.month.getFullYear();
       const prev = el.renderRoot.querySelector('sl-button[aria-label^="Previous year"]');
       (prev as HTMLButtonElement | null)?.click?.();
@@ -157,19 +182,24 @@ describe('sl-select-month', () => {
       el = await fixture(html`<sl-select-month></sl-select-month>`);
     });
 
-    it('Should emit sl-toggle with detail "year" when clicking current year button', async () => {
-      const onToggle = new Promise<CustomEvent>(resolve =>
-        el.addEventListener('sl-toggle', e => resolve(e as CustomEvent))
-      );
+    it('should emit sl-toggle with detail "year" when clicking current year button', async () => {
+      const onToggle = spy();
+      el.addEventListener('sl-toggle', (e: CustomEvent) => {
+        onToggle(e.detail);
+      });
+
       const toggleBtn = el.renderRoot.querySelector('sl-button.current-year');
       (toggleBtn as HTMLButtonElement | null)?.click?.();
-      const ev = await onToggle;
-      expect(ev.detail).to.equal('year');
+
+      await el.updateComplete;
+
+      expect(onToggle).to.have.been.calledOnce;
+      expect(onToggle.lastCall.args[0]).to.equal('year');
     });
   });
 
   describe('parts', () => {
-    it('Should add "today" and "selected" parts to the month button when month and selected equal the current month', async () => {
+    it('should add "today" and "selected" parts to the month button when month and selected equal the current month', async () => {
       const now = new Date();
       el = await fixture(
         html`<sl-select-month .month=${new Date(now.getFullYear(), now.getMonth(), 1)}></sl-select-month>`
@@ -184,8 +214,8 @@ describe('sl-select-month', () => {
       );
 
       expect(button).to.exist;
-      expect(button?.matches('[part~="today"]')).to.be.true;
-      expect(button?.matches('[part~="selected"]')).to.be.true;
+      expect(button).to.match('[part~="today"]');
+      expect(button).to.match('[part~="selected"]');
     });
   });
 
@@ -200,7 +230,7 @@ describe('sl-select-month', () => {
       await el.updateComplete;
     });
 
-    it('Should decrement year when ArrowLeft is pressed on first button', async () => {
+    it('should decrement year when ArrowLeft is pressed on first button', async () => {
       const buttons = el.renderRoot.querySelectorAll('table.months button');
       const first = buttons[0] as HTMLButtonElement;
 
@@ -212,7 +242,7 @@ describe('sl-select-month', () => {
       expect(el.month.getFullYear()).to.equal(month.getFullYear() - 1);
     });
 
-    it('Should increment year when ArrowRight is pressed on last button', async () => {
+    it('should increment year when ArrowRight is pressed on last button', async () => {
       const buttons = el.renderRoot.querySelectorAll('table.months button');
       const last = buttons[buttons.length - 1] as HTMLButtonElement;
 
@@ -223,7 +253,7 @@ describe('sl-select-month', () => {
       expect(el.month.getFullYear()).to.equal(month.getFullYear() + 1);
     });
 
-    it('Should decrement year when ArrowUp is pressed on a top row button', async () => {
+    it('should decrement year when ArrowUp is pressed on a top row button', async () => {
       const buttons = el.renderRoot.querySelectorAll('table.months button');
       // pick index 1 (top row, middle)
       const target = buttons[1] as HTMLButtonElement;
@@ -235,7 +265,7 @@ describe('sl-select-month', () => {
       expect(el.month.getFullYear()).to.equal(month.getFullYear() - 1);
     });
 
-    it('Should increment year when ArrowDown is pressed on a last row button', async () => {
+    it('should increment year when ArrowDown is pressed on a last row button', async () => {
       const buttons = el.renderRoot.querySelectorAll('table.months button');
       // For 12 months and 3 columns, lastRowStart is index 9, choose index 10
       const target = buttons[10] as HTMLButtonElement;

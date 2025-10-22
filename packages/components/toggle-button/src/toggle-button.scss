@@ -107,11 +107,11 @@
 }
 
 :host([text-only]) [part='wrapper'] {
-  --_check-compensation: calc((var(--sl-size-075) + var(--sl-size-icon-md)) / 2);
+  --_check-compensation: calc((var(--sl-size-075) + var(--sl-size-new-icon-md)) / 2);
 }
 
 :host([size='sm']) [part='wrapper'] {
-  --_check-compensation: calc((var(--sl-size-075) + var(--sl-size-icon-xs)) / 2);
+  --_check-compensation: calc((var(--sl-size-075) + var(--sl-size-new-icon-xs)) / 2);
 
   padding: calc(var(--sl-size-025) - var(--_border-compensation))
     calc(var(--sl-size-175) + var(--_check-compensation) - var(--_border-compensation) + var(--_group-compensation-end))
@@ -122,7 +122,7 @@
 }
 
 :host([text-only][size='sm']) [part='wrapper'] {
-  --_check-compensation: calc((var(--sl-size-075) + var(--sl-size-icon-xs)) / 2);
+  --_check-compensation: calc((var(--sl-size-075) + var(--sl-size-new-icon-xs)) / 2);
 }
 
 :host([size='lg']) [part='wrapper'] {

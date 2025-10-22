@@ -4809,17 +4809,5 @@
 			},
 			"$description": "boxShadow.focus"
 		}
-	},
-	"skeleton-copy": {
-		"plain": {
-			"$type": "color",
-			"$value": "{color.background.accent.grey.subtlest}",
-			"$description": "Use for skeleton loading states."
-		},
-		"subtle": {
-			"$type": "color",
-			"$value": "{color.background.accent.grey.subtle}",
-			"$description": "Use for the pulse or shimmer effect in skeleton loading states."
-		}
 	}
 }

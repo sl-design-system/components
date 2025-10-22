@@ -126,7 +126,10 @@ export const All: Story = {
               <span style="font-weight: ${emphasis ? 'var(--sl-text-new-typeset-fontWeight-semiBold)' : 'regular'}">
                 ${color}
               </span>
-              <sl-badge color=${ifDefined(color)} emphasis=${ifDefined(emphasis)} size="sm"></sl-badge>
+              <div class="wrapper">
+                <sl-badge color=${ifDefined(color)} emphasis=${ifDefined(emphasis)} size="sm">In progress</sl-badge>
+                <sl-badge color=${ifDefined(color)} emphasis=${ifDefined(emphasis)} size="sm"></sl-badge>
+              </div>
               <div class="wrapper">
                 <sl-badge color=${ifDefined(color)} emphasis=${ifDefined(emphasis)}>8</sl-badge>
                 <sl-badge color=${ifDefined(color)} emphasis=${ifDefined(emphasis)}>

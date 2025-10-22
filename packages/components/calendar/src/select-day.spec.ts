@@ -1,5 +1,4 @@
 import { Button } from '@sl-design-system/button';
-import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
@@ -36,15 +35,20 @@ describe('sl-select-day', () => {
     it('should update weekday ordering when firstDayOfWeek changes', async () => {
       const firstBefore = el.weekDays[0].short;
       el.firstDayOfWeek = 0; // Sunday
+
       await el.updateComplete;
+
       const firstAfter = el.weekDays[0].short;
+
       expect(firstAfter).to.not.equal(firstBefore);
     });
 
     it('should show week number header when show-week-numbers set', async () => {
       el.showWeekNumbers = true;
+
       await el.updateComplete;
       const weekHeader = el.renderRoot.querySelector('.days-of-week .week-number');
+
       expect(weekHeader).to.exist;
     });
   });
@@ -73,6 +77,23 @@ describe('sl-select-day', () => {
       expect(nextButton).to.have.attribute('disabled');
       expect(nextButton).to.match(':disabled');
     });
+
+    it('should not allow navigation beyond min/max', async () => {
+      el = await fixture(html`
+        <sl-select-day
+          .month=${new Date(2025, 5, 15)}
+          .min=${new Date(2025, 5, 1)}
+          .max=${new Date(2025, 5, 30)}
+        ></sl-select-day>
+      `);
+      await el.updateComplete;
+
+      const prevBtn = el.renderRoot.querySelector('sl-button.previous-month');
+      const nextBtn = el.renderRoot.querySelector('sl-button.next-month');
+
+      expect(prevBtn).to.have.attribute('disabled');
+      expect(nextBtn).to.have.attribute('disabled');
+    });
   });
 
   describe('toggle events', () => {
@@ -85,9 +106,7 @@ describe('sl-select-day', () => {
     it('should emit sl-toggle "month" when clicking current month button', async () => {
       const onToggle = spy();
 
-      el.addEventListener('sl-toggle', (event: SlToggleEvent<boolean>) => {
-        onToggle(event.detail);
-      });
+      el.addEventListener('sl-toggle', onToggle);
 
       const monthBtn = el.renderRoot.querySelector('sl-button.current-month');
 
@@ -96,14 +115,15 @@ describe('sl-select-day', () => {
       await el.updateComplete;
 
       expect(onToggle).to.have.been.calledOnce;
-      expect(onToggle.lastCall.args[0]).to.equal('month');
+
+      const event = onToggle.lastCall.firstArg as CustomEvent;
+
+      expect(event.detail).to.equal('month');
     });
 
     it('should emit sl-toggle "year" when clicking current year button', async () => {
       const onToggle = spy();
-      el.addEventListener('sl-toggle', (e: CustomEvent) => {
-        onToggle(e.detail);
-      });
+      el.addEventListener('sl-toggle', onToggle);
 
       const yearBtn = Array.from(el.renderRoot.querySelectorAll('sl-button.current-year')).find(
         btn => !btn.classList.contains('previous-month') && !btn.classList.contains('next-month')
@@ -113,7 +133,10 @@ describe('sl-select-day', () => {
       await el.updateComplete;
 
       expect(onToggle).to.have.been.calledOnce;
-      expect(onToggle.lastCall.args[0]).to.equal('year');
+
+      const event = onToggle.lastCall.firstArg as CustomEvent;
+
+      expect(event.detail).to.equal('year');
     });
   });
 
@@ -125,19 +148,20 @@ describe('sl-select-day', () => {
 
     it('should re-set month when receiving sl-change from inner month view', async () => {
       const targetMonthView = el.renderRoot.querySelector('sl-month-view:nth-of-type(2)');
-      const date = new Date(2025, 7, 10); // August 2025
+      const date = new Date(2025, 7, 10);
+
       targetMonthView?.dispatchEvent(
         new CustomEvent('sl-change', { detail: date, bubbles: true, composed: true, cancelable: true })
       );
+
       await el.updateComplete;
+
       expect(el.month?.getMonth()).to.equal(7);
     });
 
     it('should emit sl-select when inner month view emits sl-select', async () => {
       const onSelect = spy();
-      el.addEventListener('sl-select', (e: CustomEvent) => {
-        onSelect(e.detail);
-      });
+      el.addEventListener('sl-select', onSelect);
 
       const targetMonthView = el.renderRoot.querySelector('sl-month-view:nth-of-type(2)');
       const date = new Date(2025, 5, 20);
@@ -148,13 +172,13 @@ describe('sl-select-day', () => {
       await el.updateComplete;
 
       expect(onSelect).to.have.been.calledOnce;
-      const detail = onSelect.lastCall.args[0] as Date;
-      expect(detail).to.be.instanceOf(Date);
-      expect(detail.getDate()).to.equal(20);
+
+      const event = onSelect.lastCall.firstArg as CustomEvent<Date>;
+
+      expect(event.detail).to.be.instanceOf(Date);
+      expect(event.detail.getDate()).to.equal(20);
     });
   });
-
-  // New tests exercising the next/previous navigation (invoking #onNext / #onPrevious indirectly)
 
   describe('month navigation', () => {
     it('should go to next month when next button clicked', async () => {

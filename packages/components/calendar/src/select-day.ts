@@ -406,6 +406,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   #onSelect(event: SlSelectEvent<Date>): void {
     event.preventDefault();
     event.stopPropagation();
+    if (this.readonly) {
+      return;
+    }
 
     this.selectEvent.emit(event.detail);
   }

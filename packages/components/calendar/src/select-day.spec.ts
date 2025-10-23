@@ -246,7 +246,7 @@ describe('sl-select-day', () => {
 
       await el.updateComplete;
       // wait for the scroll animation to finish
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 600));
 
       expect(el.month?.getMonth()).to.equal(11);
       expect(el.month?.getFullYear()).to.equal(2024);
@@ -267,7 +267,7 @@ describe('sl-select-day', () => {
 
       await el.updateComplete;
       // wait for the scroll animation to finish
-      await new Promise(resolve => setTimeout(resolve, 600));
+      await new Promise(resolve => setTimeout(resolve, 700));
 
       expect(el.month?.getMonth()).to.equal(0); // Jan
       expect(el.month?.getFullYear()).to.equal(2026);

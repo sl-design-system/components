@@ -9,12 +9,15 @@ import { type Day } from './utils.js';
 
 type Props = Pick<
   MonthView,
+  | 'disabled'
   | 'firstDayOfWeek'
   | 'hideDaysOtherMonths'
+  | 'indicator'
   | 'locale'
   | 'max'
   | 'min'
   | 'month'
+  | 'negative'
   | 'readonly'
   | 'renderer'
   | 'selected'
@@ -36,8 +39,14 @@ export default {
     showWeekNumbers: false
   },
   argTypes: {
+    disabled: {
+      control: 'date'
+    },
     firstDayOfWeek: {
       control: 'number'
+    },
+    indicator: {
+      control: 'date'
     },
     locale: {
       control: 'inline-radio',
@@ -52,6 +61,9 @@ export default {
     month: {
       control: 'date'
     },
+    negative: {
+      control: 'date'
+    },
     renderer: {
       table: { disable: true }
     },
@@ -63,12 +75,15 @@ export default {
     }
   },
   render: ({
+    disabled,
     firstDayOfWeek,
     hideDaysOtherMonths,
+    indicator,
+    locale,
     max,
     min,
     month,
-    locale,
+    negative,
     readonly,
     renderer,
     selected,
@@ -88,13 +103,27 @@ export default {
       ?readonly=${readonly}
       ?show-today=${showToday}
       ?show-week-numbers=${showWeekNumbers}
+      .disabled=${ifDefined(disabled?.map(date => date.toISOString()).join(','))}
+      .negative=${ifDefined(negative?.map(date => date.toISOString()).join(','))}
+      .renderer=${renderer}
       first-day-of-week=${ifDefined(firstDayOfWeek)}
+      indicator=${ifDefined(
+        Array.isArray(indicator)
+          ? JSON.stringify(
+              indicator
+                .filter(item => item?.date)
+                .map(item => ({
+                  date: item.date.toISOString(),
+                  ...(item.color ? { color: item.color } : {})
+                }))
+            )
+          : undefined
+      )}
       locale=${ifDefined(locale)}
       max=${ifDefined(max?.toISOString())}
       min=${ifDefined(min?.toISOString())}
       month=${ifDefined(month?.toISOString())}
       selected=${ifDefined(selected?.toISOString())}
-      .renderer=${renderer}
     ></sl-month-view>
   `
 } satisfies Meta<Props>;
@@ -115,9 +144,9 @@ export const HideDaysOtherMonths: Story = {
 
 export const MinMax: Story = {
   args: {
-    month: new Date(2025, 0, 1),
     max: new Date(2025, 0, 20),
-    min: new Date(2025, 0, 10)
+    min: new Date(2025, 0, 10),
+    month: new Date(2025, 0, 1)
   }
 };
 
@@ -171,9 +200,49 @@ export const Selected: Story = {
   }
 };
 
+export const Negative: Story = {
+  args: {
+    month: new Date(2024, 11, 10),
+    negative: [
+      new Date(2024, 11, 4),
+      new Date(2024, 11, 8),
+      new Date(2024, 11, 15),
+      new Date(2024, 11, 22),
+      new Date(2024, 11, 29),
+      new Date(2024, 11, 30)
+    ]
+  }
+};
+
 export const Today: Story = {
   args: {
     showToday: true
+  }
+};
+
+export const Indicator: Story = {
+  args: {
+    indicator: [
+      { date: new Date('2025-08-05') },
+      { date: new Date('2025-08-06'), color: 'blue' },
+      { date: new Date('2025-08-07'), color: 'red' },
+      { date: new Date('2025-08-09'), color: 'yellow' },
+      { date: new Date('2025-08-10'), color: 'green' },
+      { date: new Date('2025-08-20'), color: 'grey' },
+      { date: new Date('2025-08-22'), color: 'green' },
+      { date: new Date('2025-08-27'), color: 'yellow' }
+    ],
+    month: new Date(1755640800000),
+    showToday: true
+  }
+};
+
+export const DisabledDays: Story = {
+  args: {
+    disabled: [new Date('2025-10-06'), new Date('2025-10-07'), new Date('2025-10-17')],
+    max: new Date(2025, 9, 25),
+    min: new Date(2025, 9, 4),
+    month: new Date(2025, 9, 1)
   }
 };
 

@@ -362,6 +362,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onBeforeToggle(event: ToggleEvent): void {
+    console.log('beforetoggle', event, event.newState);
     if (event.newState === 'open') {
       this.button?.setAttribute('aria-expanded', 'true');
     } else {
@@ -371,9 +372,14 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onButtonClick(): void {
+    console.log('this.#popoverJustClosed on button click', this.#popoverJustClosed);
     // Prevents the popover from reopening immediately after it was just closed
     if (!this.#popoverJustClosed) {
       this.dialog?.togglePopover();
+    } else {
+      console.log('not reopening popover');
+      // this.dialog?.togglePopover();
+      // this.dialog?.hidePopover();
     }
   }
 
@@ -592,11 +598,18 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onToggle(event: ToggleEvent): void {
+    console.log('toggle', event, event.newState);
+
     if (event.newState === 'closed') {
       this.#popoverJustClosed = false;
     } else {
-      this.#scrollAndFocusStartTime();
+      requestAnimationFrame(() => {
+        this.#scrollAndFocusStartTime();
+      });
     }
+
+    // Trigger a rerender
+    // this.requestUpdate();
   }
 
   #formatTime(hours: number, minutes: number): string | undefined {

@@ -185,17 +185,18 @@ describe('sl-select-day', () => {
       const startMonth = 5; // June
       el = await fixture(html`<sl-select-day .month=${new Date(2025, startMonth, 15)}></sl-select-day>`); // June 2025
 
-      // wait for the scroll animation to finish
-      await new Promise(resolve => setTimeout(resolve, 200));
       await el.updateComplete;
+      // wait for the scroll animation to finish
+      await new Promise(resolve => setTimeout(resolve, 300));
 
       const nextBtn: Button | null = el.renderRoot.querySelector('sl-button.next-month');
-      expect(nextBtn, 'next-month button should exist').to.exist;
+      expect(nextBtn).to.exist;
+
       nextBtn?.click();
 
-      // wait for the scroll animation to finish
-      await new Promise(resolve => setTimeout(resolve, 500));
       await el.updateComplete;
+      // wait for the scroll animation to finish
+      await new Promise(resolve => setTimeout(resolve, 300));
 
       expect(el.displayMonth?.getMonth()).to.equal((startMonth + 1) % 12);
     });
@@ -205,9 +206,9 @@ describe('sl-select-day', () => {
 
       el = await fixture(html`<sl-select-day .month=${new Date(2025, startMonth, 15)}></sl-select-day>`); // June 2025
 
-      // wait for the scroll animation to finish
-      await new Promise(resolve => setTimeout(resolve, 200));
       await el.updateComplete;
+      // wait for the scroll animation to finish
+      await new Promise(resolve => setTimeout(resolve, 300));
 
       const prevBtn = el.renderRoot.querySelector('sl-button.previous-month') as Button;
 
@@ -215,9 +216,9 @@ describe('sl-select-day', () => {
 
       prevBtn.click();
 
-      // wait for the scroll animation to finish
-      await new Promise(resolve => setTimeout(resolve, 500));
       await el.updateComplete;
+      // wait for the scroll animation to finish
+      await new Promise(resolve => setTimeout(resolve, 300));
 
       const expected = (startMonth + 11) % 12;
       expect(el.month?.getMonth()).to.equal(expected);
@@ -226,10 +227,9 @@ describe('sl-select-day', () => {
     it('should handle year decrement when navigating from January to previous month', async () => {
       el = await fixture(html`<sl-select-day .month=${new Date(2025, 0, 10)}></sl-select-day>`);
 
-      // wait for the scroll animation to finish
-      await new Promise(resolve => setTimeout(resolve, 200));
-
       await el.updateComplete;
+      // wait for the scroll animation to finish
+      await new Promise(resolve => setTimeout(resolve, 300));
 
       const prevBtn: Button | null = el.renderRoot.querySelector('sl-button.previous-month');
 
@@ -237,9 +237,9 @@ describe('sl-select-day', () => {
 
       prevBtn!.click();
 
-      // wait for the scroll animation to finish
-      await new Promise(resolve => setTimeout(resolve, 700));
       await el.updateComplete;
+      // wait for the scroll animation to finish
+      await new Promise(resolve => setTimeout(resolve, 300));
 
       expect(el.month?.getMonth()).to.equal(11);
       expect(el.month?.getFullYear()).to.equal(2024);
@@ -248,17 +248,17 @@ describe('sl-select-day', () => {
     it('should handle year increment when navigating from December to next month', async () => {
       el = await fixture(html`<sl-select-day .month=${new Date(2025, 11, 10)}></sl-select-day>`); // Dec 2025
 
-      // wait for the scroll animation to finish
-      await new Promise(resolve => setTimeout(resolve, 200));
-
       await el.updateComplete;
+      // wait for the scroll animation to finish
+      await new Promise(resolve => setTimeout(resolve, 300));
+
       const nextBtn: Button | null = el.renderRoot.querySelector('sl-button.next-month');
       nextBtn?.click();
 
-      // wait for the scroll animation to finish
-      await new Promise(resolve => setTimeout(resolve, 600));
-
       await el.updateComplete;
+      // wait for the scroll animation to finish
+      await new Promise(resolve => setTimeout(resolve, 300));
+
       expect(el.month?.getMonth()).to.equal(0); // Jan
       expect(el.month?.getFullYear()).to.equal(2026);
     });
@@ -280,10 +280,10 @@ describe('sl-select-day', () => {
       const yearButton = el.renderRoot.querySelector('sl-button.current-year');
       const yearSpan = el.renderRoot.querySelector('span.current-year');
 
-      expect(monthButton, 'month should not be a button').to.not.exist;
-      expect(monthSpan, 'month should render as span').to.exist;
-      expect(yearButton, 'year should not be a button').to.not.exist;
-      expect(yearSpan, 'year should render as span').to.exist;
+      expect(monthButton).to.not.exist;
+      expect(monthSpan).to.exist;
+      expect(yearButton).to.not.exist;
+      expect(yearSpan).to.exist;
     });
 
     it('should disable all interactive header controls when readonly', async () => {

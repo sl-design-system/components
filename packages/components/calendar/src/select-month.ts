@@ -206,7 +206,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
             (row, rowIndex) => html`
               <tr aria-rowindex=${rowIndex + 1} role="row">
                 ${row.map((month, colIndex) => {
-                  const parts = this.getMonthParts(month).join(' ');
+                  const parts = this.#getMonthParts(month).join(' ');
                   return html`
                     <td
                       aria-colindex=${colIndex + 1}
@@ -270,7 +270,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   /** Returns an array of part names for a day. */
-  getMonthParts = (month: Month): string[] => {
+  #getMonthParts = (month: Month): string[] => {
     return [
       'month',
       month.value === new Date().getMonth() && this.month.getFullYear() === new Date().getFullYear() ? 'today' : '',

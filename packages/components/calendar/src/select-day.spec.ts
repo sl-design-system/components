@@ -108,9 +108,11 @@ describe('sl-select-day', () => {
 
       el.addEventListener('sl-toggle', onToggle);
 
-      const monthBtn = el.renderRoot.querySelector('sl-button.current-month');
+      const monthBtn = el.renderRoot.querySelector('sl-button.current-month') as Button;
 
-      (monthBtn as HTMLButtonElement | null)?.click?.();
+      expect(monthBtn).to.exist;
+
+      monthBtn.click();
 
       await el.updateComplete;
 
@@ -127,8 +129,11 @@ describe('sl-select-day', () => {
 
       const yearBtn = Array.from(el.renderRoot.querySelectorAll('sl-button.current-year')).find(
         btn => !btn.classList.contains('previous-month') && !btn.classList.contains('next-month')
-      );
-      (yearBtn as HTMLButtonElement | null)?.click?.();
+      ) as Button;
+
+      expect(yearBtn).to.exist;
+
+      yearBtn.click();
 
       await el.updateComplete;
 
@@ -163,8 +168,9 @@ describe('sl-select-day', () => {
       const onSelect = spy();
       el.addEventListener('sl-select', onSelect);
 
-      const targetMonthView = el.renderRoot.querySelector('sl-month-view:nth-of-type(2)');
-      const date = new Date(2025, 5, 20);
+      const targetMonthView = el.renderRoot.querySelector('sl-month-view:nth-of-type(2)'),
+        date = new Date(2025, 5, 20);
+
       targetMonthView?.dispatchEvent(
         new CustomEvent('sl-select', { detail: date, bubbles: true, composed: true, cancelable: true })
       );
@@ -182,17 +188,18 @@ describe('sl-select-day', () => {
 
   describe('month navigation', () => {
     it('should go to next month when next button clicked', async () => {
-      const startMonth = 5; // June
+      const startMonth = 5;
       el = await fixture(html`<sl-select-day .month=${new Date(2025, startMonth, 15)}></sl-select-day>`); // June 2025
 
       await el.updateComplete;
       // wait for the scroll animation to finish
       await new Promise(resolve => setTimeout(resolve, 300));
 
-      const nextBtn: Button | null = el.renderRoot.querySelector('sl-button.next-month');
+      const nextBtn: Button | null = el.renderRoot.querySelector('sl-button.next-month') as Button;
+
       expect(nextBtn).to.exist;
 
-      nextBtn?.click();
+      nextBtn.click();
 
       await el.updateComplete;
       // wait for the scroll animation to finish
@@ -253,7 +260,10 @@ describe('sl-select-day', () => {
       await new Promise(resolve => setTimeout(resolve, 300));
 
       const nextBtn: Button | null = el.renderRoot.querySelector('sl-button.next-month');
-      nextBtn?.click();
+
+      expect(nextBtn).to.exist;
+
+      nextBtn!.click();
 
       await el.updateComplete;
       // wait for the scroll animation to finish
@@ -275,10 +285,10 @@ describe('sl-select-day', () => {
       `);
       await el.updateComplete;
 
-      const monthButton = el.renderRoot.querySelector('sl-button.current-month');
-      const monthSpan = el.renderRoot.querySelector('span.current-month');
-      const yearButton = el.renderRoot.querySelector('sl-button.current-year');
-      const yearSpan = el.renderRoot.querySelector('span.current-year');
+      const monthButton = el.renderRoot.querySelector('sl-button.current-month'),
+        monthSpan = el.renderRoot.querySelector('span.current-month'),
+        yearButton = el.renderRoot.querySelector('sl-button.current-year'),
+        yearSpan = el.renderRoot.querySelector('span.current-year');
 
       expect(monthButton).to.not.exist;
       expect(monthSpan).to.exist;

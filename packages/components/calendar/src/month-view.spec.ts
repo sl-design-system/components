@@ -597,7 +597,7 @@ describe('sl-month-view', () => {
     });
   });
 
-  describe('Enabled same weekday recursion', () => {
+  describe('Enabled same weekday', () => {
     beforeEach(async () => {
       // Start late in month so ArrowDown crosses to next month (e.g., 26 -> +7 days)
       const base = new Date(2025, 9, 26); // Oct 26 2025
@@ -614,15 +614,17 @@ describe('sl-month-view', () => {
       expect(buttonTwentySix).to.exist;
 
       const onChange = spy();
+
       el.addEventListener('sl-change', (e: CustomEvent) => {
         onChange(e.detail);
       });
       buttonTwentySix.focus();
-      await userEvent.keyboard('{ArrowDown}');
 
+      await userEvent.keyboard('{ArrowDown}');
       await el.updateComplete;
 
       expect(onChange).to.have.been.calledOnce;
+
       const emitted = onChange.lastCall.args[0] as Date;
 
       expect(emitted.getMonth()).to.equal(el.month!.getMonth() + 1); // moved to next month

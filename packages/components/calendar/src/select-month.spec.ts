@@ -1,3 +1,4 @@
+import { Button } from '@sl-design-system/button';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
@@ -53,22 +54,25 @@ describe('sl-select-month', () => {
 
     it('should mark months outside range as unselectable buttons', () => {
       const unselectableParts = Array.from(el.renderRoot.querySelectorAll('[part~="unselectable"]'));
+
       // Months 0,1,2 and 9,10,11 -> 6 unselectables
       expect(unselectableParts).to.have.lengthOf(6);
+
       const allButtons = unselectableParts.every(node => node.tagName === 'BUTTON' && node.hasAttribute('disabled'));
+
       expect(allButtons).to.be.true;
     });
 
     it('should disable navigating to a previous year (since min is current year)', () => {
       const prev = el.renderRoot.querySelector('sl-button[aria-label^="Previous year"]');
-      // expect(prev).to.exist.and.match(':disabled');
+
       expect(prev).to.have.attribute('disabled');
       expect(prev).to.match(':disabled');
     });
 
     it('should disable navigating to a next year (since max is current year)', () => {
       const next = el.renderRoot.querySelector('sl-button[aria-label^="Next year"]');
-      // expect(next).to.exist.and.match(':disabled');
+
       expect(next).to.have.attribute('disabled');
       expect(next).to.match(':disabled');
     });
@@ -83,8 +87,8 @@ describe('sl-select-month', () => {
       `);
       await el.updateComplete;
 
-      const yearButton = el.renderRoot.querySelector('sl-button.current-year');
-      const yearSpan = el.renderRoot.querySelector('span.current-year');
+      const yearButton = el.renderRoot.querySelector('sl-button.current-year'),
+        yearSpan = el.renderRoot.querySelector('span.current-year');
 
       expect(yearButton).to.not.exist;
       expect(yearSpan).to.exist;
@@ -102,23 +106,29 @@ describe('sl-select-month', () => {
         onSelect(e.detail);
       });
 
-      const firstButton = el.renderRoot.querySelector('table.months button');
+      const firstButton = el.renderRoot.querySelector('table.months button') as HTMLButtonElement;
 
-      (firstButton as HTMLButtonElement | null)?.click?.();
+      expect(firstButton).to.exist;
+
+      firstButton.click();
 
       await el.updateComplete;
 
       expect(onSelect).to.have.been.calledOnce;
+
       const emitted = onSelect.lastCall.args[0] as Date;
+
       expect(emitted).to.be.instanceOf(Date);
-      expect(emitted.getMonth()).to.equal(parseInt(firstButton!.textContent!.trim().slice(0, 2)) - 1 || 0); // keep the original simplistic month assertion
+      expect(emitted.getMonth()).to.equal(parseInt(firstButton.textContent!.trim().slice(0, 2)) - 1 || 0); // keep the original month assertion
     });
 
     it('should update selected when clicking a month button', async () => {
       const clickable = Array.from(el.renderRoot.querySelectorAll('table.months button')).find(
         b => !(b as HTMLButtonElement).disabled
       )!;
+
       const onSelect = spy();
+
       el.addEventListener('sl-select', (e: CustomEvent) => {
         onSelect(e.detail);
       });
@@ -128,6 +138,7 @@ describe('sl-select-month', () => {
       await el.updateComplete;
 
       expect(onSelect).to.have.been.calledOnce;
+
       const evDetail = onSelect.lastCall.args[0] as Date;
 
       expect(el.selected).to.be.instanceOf(Date);
@@ -136,21 +147,26 @@ describe('sl-select-month', () => {
 
     it('should emit sl-select with current month when Escape is pressed', async () => {
       const currentMonth = el.month.getMonth();
+
       const onSelect = spy();
+
       el.addEventListener('sl-select', (e: CustomEvent) => {
         onSelect(e.detail);
       });
 
-      const firstBtn = el.renderRoot.querySelector<HTMLButtonElement>('table.months button');
-      if (firstBtn) {
-        firstBtn.focus();
-        await userEvent.keyboard('{Escape}');
-      }
+      const firstBtn = el.renderRoot.querySelector<HTMLButtonElement>('table.months button') as HTMLButtonElement;
 
+      expect(firstBtn).to.exist;
+
+      firstBtn.focus();
+
+      await userEvent.keyboard('{Escape}');
       await el.updateComplete;
 
       expect(onSelect).to.have.been.calledOnce;
+
       const evDetail = onSelect.lastCall.args[0] as Date;
+
       expect(evDetail.getMonth()).to.equal(currentMonth);
     });
   });
@@ -162,17 +178,27 @@ describe('sl-select-month', () => {
 
     it('should increment year when next is clicked', async () => {
       const startYear = el.month.getFullYear();
-      const next = el.renderRoot.querySelector('sl-button[aria-label^="Next year"]');
-      (next as HTMLButtonElement | null)?.click?.();
+      const next = el.renderRoot.querySelector('sl-button[aria-label^="Next year"]') as Button;
+
+      expect(next).to.exist;
+
+      next.click();
+
       await el.updateComplete;
+
       expect(el.month.getFullYear()).to.equal(startYear + 1);
     });
 
     it('should decrement year when previous is clicked', async () => {
-      const startYear = el.month.getFullYear();
-      const prev = el.renderRoot.querySelector('sl-button[aria-label^="Previous year"]');
-      (prev as HTMLButtonElement | null)?.click?.();
+      const startYear = el.month.getFullYear(),
+        prev = el.renderRoot.querySelector('sl-button[aria-label^="Previous year"]') as Button;
+
+      expect(prev).to.exist;
+
+      prev.click();
+
       await el.updateComplete;
+
       expect(el.month.getFullYear()).to.equal(startYear - 1);
     });
   });
@@ -184,12 +210,16 @@ describe('sl-select-month', () => {
 
     it('should emit sl-toggle with detail "year" when clicking current year button', async () => {
       const onToggle = spy();
+
       el.addEventListener('sl-toggle', (e: CustomEvent) => {
         onToggle(e.detail);
       });
 
-      const toggleBtn = el.renderRoot.querySelector('sl-button.current-year');
-      (toggleBtn as HTMLButtonElement | null)?.click?.();
+      const toggleBtn = el.renderRoot.querySelector('sl-button.current-year') as Button;
+
+      expect(toggleBtn).to.exist;
+
+      toggleBtn.click();
 
       await el.updateComplete;
 

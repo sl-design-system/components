@@ -1,3 +1,4 @@
+import { Button } from '@sl-design-system/button';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
@@ -34,8 +35,9 @@ describe('sl-select-year', () => {
       el.showToday = true;
       await el.updateComplete;
 
-      const today = new Date().getFullYear();
-      const todayButton = el.renderRoot.querySelector('[part~="today"]');
+      const today = new Date().getFullYear(),
+        todayButton = el.renderRoot.querySelector('[part~="today"]');
+
       expect(todayButton).to.exist;
       expect(todayButton?.textContent?.trim()).to.equal(String(today));
     });
@@ -48,17 +50,27 @@ describe('sl-select-year', () => {
 
     it('should go to previous 12 years when previous button clicked', async () => {
       const initialFirst = el.years[0];
-      const prevBtn = el.renderRoot.querySelector('sl-button:nth-of-type(1)');
-      (prevBtn as HTMLButtonElement | null)?.click?.();
+      const prevBtn = el.renderRoot.querySelector('sl-button:nth-of-type(1)') as Button;
+
+      expect(prevBtn).to.exist;
+
+      prevBtn.click();
+
       await el.updateComplete;
+
       expect(el.years[0]).to.equal(initialFirst - 12);
     });
 
     it('should go to next 12 years when next button clicked', async () => {
       const initialLast = el.years.at(-1)!;
-      const nextBtn = el.renderRoot.querySelector('sl-button:nth-of-type(2)');
-      (nextBtn as HTMLButtonElement | null)?.click?.();
+      const nextBtn = el.renderRoot.querySelector('sl-button:nth-of-type(2)') as Button;
+
+      expect(nextBtn).to.exist;
+
+      nextBtn.click();
+
       await el.updateComplete;
+
       expect(el.years.at(-1)).to.equal(initialLast + 12);
     });
   });
@@ -77,6 +89,7 @@ describe('sl-select-year', () => {
 
       // ensure they are disabled buttons
       const allDisabled = unselectable.every(node => node.tagName === 'BUTTON' && node.hasAttribute('disabled'));
+
       expect(allDisabled).to.be.true;
     });
 
@@ -85,10 +98,17 @@ describe('sl-select-year', () => {
       for (let i = 0; i < 5; i++) {
         const prev = el.renderRoot.querySelector('sl-button:nth-of-type(1)');
         if (!prev || prev.hasAttribute('disabled')) break;
-        (prev as HTMLButtonElement | null)?.click?.();
+
+        expect(prev).to.exist;
+
+        (prev as Button).click();
+
         await el.updateComplete;
       }
+
       const prevBtn = el.renderRoot.querySelector('sl-button:nth-of-type(1)');
+
+      expect(prevBtn).to.exist;
       expect(prevBtn).to.have.attribute('disabled');
     });
 
@@ -103,8 +123,8 @@ describe('sl-select-year', () => {
       `);
       await el.updateComplete;
 
-      const prevBtn = el.renderRoot.querySelector('sl-button:nth-of-type(1)');
-      const nextBtn = el.renderRoot.querySelector('sl-button:nth-of-type(2)');
+      const prevBtn = el.renderRoot.querySelector('sl-button:nth-of-type(1)'),
+        nextBtn = el.renderRoot.querySelector('sl-button:nth-of-type(2)');
 
       expect(prevBtn).to.have.attribute('disabled');
       expect(nextBtn).to.have.attribute('disabled');
@@ -126,6 +146,7 @@ describe('sl-select-year', () => {
       // make current year unselectable by moving min/max beyond it
       el.min = new Date(new Date().getFullYear() + 1, 0, 1);
       el.max = new Date(new Date().getFullYear() + 2, 11, 31);
+
       await el.updateComplete;
 
       const yearUnselectable = el.renderRoot.querySelector('[part~="today"]');
@@ -147,20 +168,27 @@ describe('sl-select-year', () => {
       });
 
       // click middle year (should be a button) - choose the first button
-      const button = el.renderRoot.querySelector('table.years button');
-      (button as HTMLButtonElement | null)?.click?.();
+      const button = el.renderRoot.querySelector('table.years button') as HTMLButtonElement;
+
+      expect(button).to.exist;
+
+      button.click();
 
       await el.updateComplete;
 
       expect(onSelect).to.have.been.calledOnce;
+
       const evDetail = onSelect.lastCall.args[0] as Date;
+
       expect(evDetail).to.be.instanceOf(Date);
-      expect(evDetail.getFullYear()).to.equal(parseInt(button!.textContent!.trim()));
+      expect(evDetail.getFullYear()).to.equal(parseInt(button.textContent!.trim()));
     });
 
     it('should emit sl-select for Escape key returning current year', async () => {
       const currentYear = el.year.getFullYear();
+
       const onSelect = spy();
+
       el.addEventListener(
         'sl-select',
         (e: CustomEvent) => {
@@ -170,15 +198,18 @@ describe('sl-select-year', () => {
       );
 
       const target = el.renderRoot.querySelector('table.years button') as HTMLButtonElement;
+
       expect(target).to.exist;
 
       target.focus();
-      await userEvent.keyboard('{Escape}');
 
+      await userEvent.keyboard('{Escape}');
       await el.updateComplete;
 
       expect(onSelect).to.have.been.calledOnce;
+
       const evDetail = onSelect.lastCall.args[0] as Date;
+
       expect(evDetail).to.be.instanceOf(Date);
       expect(evDetail.getFullYear()).to.equal(currentYear);
     });

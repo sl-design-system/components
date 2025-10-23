@@ -53,13 +53,23 @@ export class MonthView extends LocaleMixin(LitElement) {
         return -1;
       }
       const selectedIndex = elements.findIndex(el => el.getAttribute('aria-current') === 'date' && !el.disabled);
-      if (selectedIndex > -1) return selectedIndex;
+
+      if (selectedIndex > -1) {
+        return selectedIndex;
+      }
       const todayIndex = elements.findIndex(el => (el.getAttribute('part') ?? '').includes('today') && !el.disabled);
-      if (todayIndex > -1) return todayIndex;
+
+      if (todayIndex > -1) {
+        return todayIndex;
+      }
+
       return elements.findIndex(el => !el.disabled);
     },
     elements: (): HTMLButtonElement[] => {
-      if (this.inert) return [];
+      if (this.inert) {
+        return [];
+      }
+
       return Array.from(this.renderRoot.querySelectorAll('button'));
     },
     isFocusableElement: el => !el.disabled
@@ -230,8 +240,8 @@ export class MonthView extends LocaleMixin(LitElement) {
           (tooltip: Tooltip) => {
             btn.tooltip = tooltip;
             const indicatorsForDay = (this.indicator ?? []).filter(i => isSameDate(i.date, new Date(dataDate)));
-            const indicatorDescriptions = indicatorsForDay.map(i =>
-              i.label ? i.label : msg('Indicator', { id: 'sl.calendar.indicator' })
+            const indicatorDescriptions = indicatorsForDay.map(indicator =>
+              indicator.label ? indicator.label : msg('Indicator', { id: 'sl.calendar.indicator' })
             );
             tooltip.textContent = indicatorDescriptions.join(', ');
           },
@@ -295,8 +305,8 @@ export class MonthView extends LocaleMixin(LitElement) {
   renderDay(day: Day): TemplateResult {
     let template: TemplateResult | undefined;
 
-    const partsArr = this.getDayParts(day);
-    const isSelected = partsArr.includes('selected');
+    const partsArr = this.getDayParts(day),
+      isSelected = partsArr.includes('selected');
 
     if (this.renderer) {
       template = this.renderer(day, this);

@@ -422,8 +422,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #scrollToMonth(month: -1 | 0 | 1, smooth = false): void {
-    const width = parseInt(getComputedStyle(this).width) || 0;
-    const left = width * month + width;
+    const width = parseInt(getComputedStyle(this).width) || 0,
+      left = width * month + width;
 
     this.scroller?.scrollTo({ left, behavior: smooth ? 'smooth' : 'instant' });
   }

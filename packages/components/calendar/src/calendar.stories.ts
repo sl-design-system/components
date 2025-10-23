@@ -204,7 +204,7 @@ export const DisabledDays: Story = {
     disabled: [new Date('2025-10-06'), new Date('2025-10-07'), new Date('2025-10-10')],
     max: new Date(2025, 10, 20),
     min: new Date(2025, 9, 4),
-    month: new Date(2025, 9, 20) //new Date(1755640800000)
+    month: new Date(2025, 9, 20)
   }
 };
 

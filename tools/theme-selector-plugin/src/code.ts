@@ -1,4 +1,4 @@
-/// <reference types="@figma/plugin-typings" />
+/// <reference types="../@figma/plugin-typings" />
 
 // This file holds the main code for plugins. Code in this file has access to
 // the *figma document* via the figma global object.
@@ -11,6 +11,8 @@ figma.showUI(__html__, {
   height: 434,
   themeColors: true
 });
+
+figma.root.setRelaunchData({ open: '' });
 
 type VariableCollectionWithModeId = VariableCollection & {
   modeId?: string;
@@ -50,7 +52,8 @@ const themeFonts = {
   Max: [{ family: 'Open Sans', style: 'SemiBold' }],
   'My Digital Book': [{ family: 'Open Sans', style: 'SemiBold' }],
   Neon: [{ family: 'Open Sans', style: 'SemiBold' }],
-  Teas: [{ family: 'Open Sans', style: 'SemiBold' }]
+  Teas: [{ family: 'Open Sans', style: 'SemiBold' }],
+  Tig: [{ family: 'Open Sans', style: 'SemiBold' }]
 };
 
 const getFromLibrary = async () => {
@@ -120,7 +123,7 @@ const getSubCollections = async (collection: VariableCollection | VariableCollec
   );
 };
 
-const getCollectionFromKey = async (key: string) => {
+const getCollectionFromKey = async (key: string): Promise<VariableCollection | null> => {
   let variables = await figma.teamLibrary.getVariablesInLibraryCollectionAsync(key);
   variables = variables.filter(v => v.resolvedType === 'STRING');
   let variableByKey,
@@ -129,6 +132,7 @@ const getCollectionFromKey = async (key: string) => {
   // loop through the variables and try to import them until we find one that works
   while (!variableByKey && i < variables.length) {
     variableByKey = await figma.variables.importVariableByKeyAsync(variables[i].key);
+    console.log('[slds]', 'variableByKey:', variables[i].name, `(${i + 1} of ${variables.length})`, variableByKey);
     i++;
   }
 
@@ -136,6 +140,9 @@ const getCollectionFromKey = async (key: string) => {
     const baseId = variableByKey.variableCollectionId;
     return await figma.variables.getVariableCollectionByIdAsync(baseId);
   } else {
+    figma.notify(`Could not find a variable to load the collection for collection ${variables[i].name}`, {
+      error: true
+    });
     return await new Promise<VariableCollection>(() => {});
   }
 };

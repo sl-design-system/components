@@ -238,7 +238,7 @@ describe('sl-select-day', () => {
       prevBtn!.click();
 
       // wait for the scroll animation to finish
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 600));
       await el.updateComplete;
 
       expect(el.month?.getMonth()).to.equal(11);
@@ -256,7 +256,7 @@ describe('sl-select-day', () => {
       nextBtn?.click();
 
       // wait for the scroll animation to finish
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 600));
 
       await el.updateComplete;
       expect(el.month?.getMonth()).to.equal(0); // Jan

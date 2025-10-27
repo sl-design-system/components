@@ -354,9 +354,7 @@ const setPageTheme = (
   Promise.all(themeIds.fonts.map(font => figma.loadFontAsync({ family: font.family, style: font.style })))
     .then(() => {
       figma.currentPage.setExplicitVariableModeForCollection(base, themeIds.collectionModeId);
-
       figma.currentPage.setExplicitVariableModeForCollection(collection, themeIds.themeCollectionModeId);
-
       figma.currentPage.setExplicitVariableModeForCollection(themeCollection, themeIds.themeModeId);
 
       if (theme && themeIds.variantId) {

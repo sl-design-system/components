@@ -371,16 +371,43 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
   }
 
-  #onButtonClick(): void {
+  #onButtonClick(event: MouseEvent): void {
     console.log('this.#popoverJustClosed on button click', this.#popoverJustClosed);
-    // Prevents the popover from reopening immediately after it was just closed
+    /*    // Prevents the popover from reopening immediately after it was just closed
     if (!this.#popoverJustClosed) {
       this.dialog?.togglePopover();
     } else {
       console.log('not reopening popover');
       // this.dialog?.togglePopover();
       // this.dialog?.hidePopover();
+    }*/
+
+    console.log('button click event', event);
+
+    event.stopPropagation();
+
+    if (this.disabled || this.readonly) {
+      return;
     }
+
+    // const isOpen = this.dialog?.matches(':popover-open');
+    //
+    // if (isOpen) {
+    //   this.dialog?.hidePopover();
+    //   return;
+    // }
+    //
+    // if (!this.#popoverJustClosed) {
+    //   this.dialog?.showPopover();
+    // }
+
+    if (!this.#popoverJustClosed) {
+      this.dialog?.togglePopover();
+    } /*else {
+      console.log('not reopening popover');
+      // this.dialog?.togglePopover();
+      // this.dialog?.hidePopover();
+    }*/
   }
 
   #onHourClick(hours: number): void {
@@ -598,18 +625,11 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onToggle(event: ToggleEvent): void {
-    console.log('toggle', event, event.newState);
-
     if (event.newState === 'closed') {
       this.#popoverJustClosed = false;
     } else {
-      requestAnimationFrame(() => {
-        this.#scrollAndFocusStartTime();
-      });
+      this.#scrollAndFocusStartTime();
     }
-
-    // Trigger a rerender
-    // this.requestUpdate();
   }
 
   #formatTime(hours: number, minutes: number): string | undefined {

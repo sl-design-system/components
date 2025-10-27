@@ -362,7 +362,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onBeforeToggle(event: ToggleEvent): void {
-    console.log('beforetoggle', event, event.newState);
     if (event.newState === 'open') {
       this.button?.setAttribute('aria-expanded', 'true');
     } else {
@@ -372,42 +371,16 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onButtonClick(event: MouseEvent): void {
-    console.log('this.#popoverJustClosed on button click', this.#popoverJustClosed);
-    /*    // Prevents the popover from reopening immediately after it was just closed
-    if (!this.#popoverJustClosed) {
-      this.dialog?.togglePopover();
-    } else {
-      console.log('not reopening popover');
-      // this.dialog?.togglePopover();
-      // this.dialog?.hidePopover();
-    }*/
-
-    console.log('button click event', event);
-
     event.stopPropagation();
 
     if (this.disabled || this.readonly) {
       return;
     }
 
-    // const isOpen = this.dialog?.matches(':popover-open');
-    //
-    // if (isOpen) {
-    //   this.dialog?.hidePopover();
-    //   return;
-    // }
-    //
-    // if (!this.#popoverJustClosed) {
-    //   this.dialog?.showPopover();
-    // }
-
+    // Prevents the popover from reopening immediately after it was just closed
     if (!this.#popoverJustClosed) {
       this.dialog?.togglePopover();
-    } /*else {
-      console.log('not reopening popover');
-      // this.dialog?.togglePopover();
-      // this.dialog?.hidePopover();
-    }*/
+    }
   }
 
   #onHourClick(hours: number): void {

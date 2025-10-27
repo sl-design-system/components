@@ -1,5 +1,16 @@
 # @sl-design-system/panel
 
+## 0.2.5
+
+### Patch Changes
+
+- [#2644](https://github.com/sl-design-system/components/pull/2644) [`12cf7bc`](https://github.com/sl-design-system/components/commit/12cf7bc4e66b4e4cb02c4ce0cc2d1d7facb8b310) - Changed background to `--sl-elevation-surface-raised-default` so it has the lightest background possible (this is only a change for themes that has a base background colour that is not (almost) white
+
+- Updated dependencies [[`1e7b6f6`](https://github.com/sl-design-system/components/commit/1e7b6f629f79d77576c2cb19d20f8884bb2f30c4), [`2af40f7`](https://github.com/sl-design-system/components/commit/2af40f78d9d0f07f3c15c1d9f7926ceca48f12f9), [`d0c4db2`](https://github.com/sl-design-system/components/commit/d0c4db220c6a5826a0c9e5bc8ab3943884dfcd9c), [`55e879d`](https://github.com/sl-design-system/components/commit/55e879d6553fe93d5a811754d83edf79a2b18b6c)]:
+  - @sl-design-system/icon@1.4.0
+  - @sl-design-system/tool-bar@0.1.1
+  - @sl-design-system/shared@0.9.2
+
 ## 0.2.4
 
 ### Patch Changes

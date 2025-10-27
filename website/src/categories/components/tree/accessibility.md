@@ -13,7 +13,7 @@ eleventyNavigation:
 
 | Command       | Description                                                                                                                                                      |
 |---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Tab           | Moves focus into the tree (to the first visible node) or to the next focusable element when leaving the tree. Inline action controls inside a node are tabbable. |
+| Tab           | Moves focus into the tree (to the first selected node, or the first visible node) or to the next focusable element when leaving the tree. Inline action controls inside a node are tabbable. |
 | Shift + Tab   | Moves focus to the previous focusable element (can move focus out of the tree).                                                                                  |
 | Arrow Down    | Moves focus to the next visible node.                                                                                                                            |
 | Arrow Up      | Moves focus to the previous visible node.                                                                                                                        |
@@ -43,18 +43,6 @@ eleventyNavigation:
 |-|-|-----------------------------------------------------------------------------|
 |`aria-label`|string| Accessible name for the `sl-tree`.                                          |
 |`aria-labelledby`|string| References (via id) a visible element that labels the tree (e.g. a heading).|
-
-{.ds-table .ds-table-align-top}
-
-</div>
-
-### Tree node
-
-<div class="ds-table-wrapper">
-
-|Attribute|Value| Description                                                                              |
-|-|-|------------------------------------------------------------------------------------------|
-|`aria-label`|string| Accessible name for icon‑only buttons placed in `slot="actions"`.|
 
 {.ds-table .ds-table-align-top}
 

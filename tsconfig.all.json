@@ -67,6 +67,7 @@
     { "path": "./packages/components/tool-bar" },
     { "path": "./packages/components/tooltip" },
     { "path": "./packages/components/tree" },
+    { "path": "./packages/components/virtual-list" },
     { "path": "./packages/locales" },
     { "path": "./packages/themes/bingel-dc" },
     { "path": "./packages/themes/bingel-int" },

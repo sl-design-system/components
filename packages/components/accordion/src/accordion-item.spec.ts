@@ -41,6 +41,7 @@ describe('sl-accordion-item', () => {
       const icon = el.renderRoot.querySelector('svg');
 
       expect(icon).to.exist;
+      expect(icon).to.have.attribute('part', 'icon');
       expect(icon).to.contain('g.horizontal-line');
       expect(icon).to.contain('g.vertical-line');
     });
@@ -52,6 +53,7 @@ describe('sl-accordion-item', () => {
       const icon = el.renderRoot.querySelector('sl-icon');
       expect(icon).to.exist;
       expect(icon).to.have.attribute('name', 'chevron-down');
+      expect(icon).to.have.attribute('part', 'icon');
     });
 
     it('should have the correct attributes', () => {

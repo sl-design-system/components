@@ -334,9 +334,37 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** @internal */
   override updateInternalValidity(): void {
-    if (this.required && !this.value) {
+    // TODO: maybe when required 'Please fill out this field.'
+    const time = this.#parseTime(this.textField.input.value);
+    console.log(
+      'updateInternalValidity called',
+      this.value,
+      this.required,
+      this.required && !this.value,
+      this.#value,
+      'time...',
+      time,
+      'this.textField.input.value',
+      this.textField.input.value,
+      'input.value',
+      this.input.value,
+      'this.#valueAsNumbers',
+      this.#valueAsNumbers,
+      'value missing:',
+      this.textField.validity.valueMissing
+    );
+    if (!time && this.textField.input.value) {
+      console.log('type mismatch', 'should report::: Please enter a valid time.');
+      // msg('Please fill in this field.', { id: 'sl.form.validation.valueMissing' })
       this.setCustomValidity(msg('Please enter a time.', { id: 'sl.timeField.valueMissing' }));
-    } else if (this.value && (this.min || this.max)) {
+    }
+    // this.setCustomValidity(msg('Please enter a valid time.', { id: 'sl.timeField.validation.typeMismatch' }));
+    // }
+
+    /* if (this.required && !this.value) {
+      this.setCustomValidity(msg('Please enter a time.', { id: 'sl.timeField.valueMissing' }));
+    }*/
+    else if (this.value && (this.min || this.max)) {
       const time = this.#valueAsNumbers,
         minTime = this.min ? this.#parseTime(this.min) : undefined,
         maxTime = this.max ? this.#parseTime(this.max) : undefined;

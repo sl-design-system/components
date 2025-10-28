@@ -164,6 +164,19 @@ describe('sl-time-field', () => {
       expect(dialog).to.exist;
       expect(dialog).to.match(':popover-open');
     });
+
+    it('should toggle the popover when clicking the clock button', () => {
+      const dialog = el.renderRoot.querySelector<HTMLElement>('dialog')!;
+
+      expect(dialog).to.exist;
+      expect(dialog?.matches(':popover-open')).to.be.false;
+
+      button?.click();
+      expect(dialog?.matches(':popover-open')).to.be.true;
+
+      button?.click();
+      expect(dialog?.matches(':popover-open')).to.be.false;
+    });
   });
 
   describe('text field', () => {

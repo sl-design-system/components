@@ -505,9 +505,19 @@ describe('sl-time-field', () => {
       expect(el.valid).to.be.true;
     });
 
+    it('should be invalid when the input is empty', async () => {
+      el.value = '';
+      await el.updateComplete;
+
+      expect(el.valid).to.be.false;
+      expect(el.validationMessage).to.equal('Please fill out this field.');
+    });
+
     it('should be invalid when the time has the wrong syntax', async () => {
       el.value = 'ab:cd';
       await el.updateComplete;
+
+      console.log('eeel value2', el.value);
 
       expect(el.valid).to.be.false;
       expect(el.validationMessage).to.equal('Please enter a time.');

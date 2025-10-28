@@ -140,11 +140,14 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   @query('sl-text-field') textField!: TextField;
 
   override get value(): string | undefined {
+    console.log('get value called', this.#value);
     return this.#value;
   }
 
   @property()
   override set value(value: string | undefined) {
+    console.log('set value called with', value);
+
     if (value) {
       const time = this.#parseTime(value);
 
@@ -200,6 +203,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     if (changes.has('value')) {
+      console.log('willUpdate detected value change to', this.#value); // no value change on input?
       this.input.value = this.value || '';
       this.updateValidity();
     }
@@ -334,7 +338,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** @internal */
   override updateInternalValidity(): void {
-    console.log('updateInternalValidity called');
+    console.log('updateInternalValidity called - before time parse?');
 
     if (!this.textField || !this.textField.input) {
       // TODO: really necessary?
@@ -359,9 +363,34 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       'this.#valueAsNumbers',
       this.#valueAsNumbers,
       'value missing:',
-      this.textField.validity.valueMissing
+      this.textField.validity.valueMissing,
+      'should be invalid time?',
+      !time || Number.isNaN(time.hours) || Number.isNaN(time.minutes),
+      'this.value...',
+      this.value
     );
-    if (!time && this.textField.input.value) {
+    console.log(
+      'should be ivalid time? ',
+      (!time || Number.isNaN(time.hours) || Number.isNaN(time.minutes)) && !!this.textField.input.value,
+      'time',
+      time,
+      '!!this.textField.input.value',
+      !!this.textField.input.value
+    );
+
+    console.log(
+      'min and max:',
+      this.min,
+      this.max,
+      'this.value:',
+      this.value,
+      'this.#value',
+      this.#value,
+      'input value',
+      this.input.value
+    );
+
+    if (/*!time*/ (!time || Number.isNaN(time.hours) || Number.isNaN(time.minutes)) && !!this.textField.input.value) {
       console.log('type mismatch', 'should report::: Please enter a valid time.');
       // msg('Please fill in this field.', { id: 'sl.form.validation.valueMissing' })
       this.setCustomValidity(msg('Please enter a time.', { id: 'sl.timeField.valueMissing' }));
@@ -372,7 +401,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     /* if (this.required && !this.value) {
       this.setCustomValidity(msg('Please enter a time.', { id: 'sl.timeField.valueMissing' }));
     }*/
-    else if (this.value && (this.min || this.max)) {
+    else if (/*this.value*/ this.input.value && (this.min || this.max)) {
       const time = this.#valueAsNumbers,
         minTime = this.min ? this.#parseTime(this.min) : undefined,
         maxTime = this.max ? this.#parseTime(this.max) : undefined;
@@ -420,7 +449,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onHourClick(hours: number): void {
-    this.#valueAsNumbers = { hours, minutes: this.#valueAsNumbers?.minutes ?? 0 };
+    this.#valueAsNumbers = { hours, minutes: this.#valueAsNumbers?.minutes ?? 0 }; // TODO: needs to be set on input value change?
     this.#value = this.#formatTime(this.#valueAsNumbers.hours ?? 0, this.#valueAsNumbers.minutes ?? 0);
     this.requestUpdate('value');
 
@@ -496,7 +525,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     const time = this.#parseTime(this.textField.input.value);
     if (!time || Number.isNaN(time.hours) || Number.isNaN(time.minutes)) {
       this.#valueAsNumbers = undefined;
-      this.#value = undefined;
+      this.#value = undefined; // TODO: is it really ok?
       this.requestUpdate();
 
       this.changeEvent.emit(this.value ?? '');
@@ -517,8 +546,15 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     event.preventDefault();
     event.stopPropagation();
 
+    console.log('onTextFieldChange event...', event);
+
+    // this.changeEvent.emit(this.value ?? ''); // TODO: necessary or not?
+    // this.requestUpdate('value');
+
     this.updateState({ dirty: true });
     this.updateValidity();
+
+    // this.requestUpdate('value');
   }
 
   #onTextFieldClick(event: MouseEvent): void {

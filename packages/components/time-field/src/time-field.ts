@@ -370,7 +370,13 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
   }
 
-  #onButtonClick(): void {
+  #onButtonClick(event: MouseEvent): void {
+    event.stopPropagation();
+
+    if (this.disabled || this.readonly) {
+      return;
+    }
+
     // Prevents the popover from reopening immediately after it was just closed
     if (!this.#popoverJustClosed) {
       this.dialog?.togglePopover();

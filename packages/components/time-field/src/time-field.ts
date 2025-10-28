@@ -334,8 +334,16 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** @internal */
   override updateInternalValidity(): void {
+    console.log('updateInternalValidity called');
+
+    if (!this.textField || !this.textField.input) {
+      // TODO: really necessary?
+      return;
+    }
+
     // TODO: maybe when required 'Please fill out this field.'
     const time = this.#parseTime(this.textField.input.value);
+    // const time = this.#parseTime(this.input.value);
     console.log(
       'updateInternalValidity called',
       this.value,

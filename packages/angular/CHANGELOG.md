@@ -1,5 +1,12 @@
 # @sl-design-system/angular
 
+## 3.4.1
+
+### Patch Changes
+
+- Updated dependencies [[`c8eab5b`](https://github.com/sl-design-system/components/commit/c8eab5b28863fa41981a6e9f7e7caa7db5766ba0)]:
+  - @sl-design-system/time-field@0.0.2
+
 ## 3.4.0
 
 ### Minor Changes

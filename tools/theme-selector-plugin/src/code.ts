@@ -8,7 +8,7 @@
 // This shows the HTML page in "ui.html".
 figma.showUI(__html__, {
   width: 280,
-  height: 450,
+  height: 436,
   themeColors: true
 });
 
@@ -54,7 +54,10 @@ const themeFonts = {
   'My Digital Book': [{ family: 'Open Sans', style: 'SemiBold' }],
   Neon: [{ family: 'Open Sans', style: 'SemiBold' }],
   Teas: [{ family: 'Open Sans', style: 'SemiBold' }],
-  Tig: [{ family: 'Open Sans', style: 'SemiBold' }]
+  Tig: [
+    { family: 'Open Sans', style: 'SemiBold' },
+    { family: 'Montserrat', style: 'SemiBold' }
+  ]
 };
 
 const getFromLibrary = async () => {
@@ -320,7 +323,8 @@ const setFrameTheme = (
   Promise.all(themeIds.fonts.map(font => figma.loadFontAsync({ family: font.family, style: font.style })))
     .then(() => {
       frames.forEach(frame => {
-        removeCurrentVariableModes(frame.explicitVariableModes, frame);
+        console.log('[slds]', frame.name, 'setting theme to', theme.name);
+        // removeCurrentVariableModes(frame.explicitVariableModes, frame);
 
         frame.setExplicitVariableModeForCollection(base, themeIds.collectionModeId);
         frame.setExplicitVariableModeForCollection(collection, themeIds.themeCollectionModeId);

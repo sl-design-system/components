@@ -34,7 +34,7 @@ describe('sl-upload', () => {
       expect(el).not.to.have.attribute('required');
     });
 
-    it('should allow multiple files by default', () => {
+    it('should not allow multiple files by default', () => {
       expect(el.multiple).to.be.false;
     });
 

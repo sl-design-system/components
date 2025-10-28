@@ -286,7 +286,7 @@ export class Upload extends FormControlMixin(ScopedElementsMixin(LitElement)) {
 
     // Filter files based on max size
     if (this.maxSize) {
-      filteredFiles = filteredFiles.filter(file => file.size <= this.maxSize!);
+      filteredFiles = filteredFiles.filter(file => file.size <= this.maxSize);
     }
 
     // Handle multiple files
@@ -328,9 +328,14 @@ export class Upload extends FormControlMixin(ScopedElementsMixin(LitElement)) {
     this.requestUpdate();
 
     // Update the native input's files (this is limited by browser APIs)
-    const dataTransfer = new DataTransfer();
-    this.#files.forEach(file => dataTransfer.items.add(file));
-    this.input.files = dataTransfer.files;
+    try {
+      const dataTransfer = new DataTransfer();
+      this.#files.forEach(file => dataTransfer.items.add(file));
+      this.input.files = dataTransfer.files;
+    } catch (error) {
+      // DataTransfer API may fail in some browsers; the component's files array is the source of truth
+      console.warn('Failed to update native input files:', error);
+    }
 
     // Emit change event
     this.changeEvent.emit({ value: this.#files });

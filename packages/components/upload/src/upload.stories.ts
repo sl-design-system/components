@@ -3,6 +3,7 @@ import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type Upload } from './upload.js';
 
@@ -55,9 +56,9 @@ export default {
       ?drag-drop=${dragDrop}
       ?multiple=${multiple}
       ?required=${required}
-      accept=${accept || ''}
-      max-size=${maxSize || ''}
-      size=${size || ''}
+      accept=${ifDefined(accept)}
+      max-size=${ifDefined(maxSize)}
+      size=${ifDefined(size)}
     ></sl-upload>
   `
 } satisfies Meta<Props>;
@@ -120,9 +121,9 @@ export const CustomContent: Story = {
       ?drag-drop=${dragDrop}
       ?multiple=${multiple}
       ?required=${required}
-      accept=${accept || ''}
-      max-size=${maxSize || ''}
-      size=${size || ''}
+      accept=${ifDefined(accept)}
+      max-size=${ifDefined(maxSize)}
+      size=${ifDefined(size)}
     >
       <div style="text-align: center; padding: 2rem;">
         <h3 style="margin: 0 0 0.5rem;">Drop your files here</h3>
@@ -157,9 +158,9 @@ export const InForm: Story = {
             ?drag-drop=${dragDrop}
             ?multiple=${multiple}
             ?required=${required}
-            accept=${accept || ''}
-            max-size=${maxSize || ''}
-            size=${size || ''}
+            accept=${ifDefined(accept)}
+            max-size=${ifDefined(maxSize)}
+            size=${ifDefined(size)}
           ></sl-upload>
         </sl-form-field>
 

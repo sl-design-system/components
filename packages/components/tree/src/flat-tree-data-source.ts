@@ -50,7 +50,18 @@ export class FlatTreeDataSource<T = any> extends TreeDataSource<T> {
       loadChildren = async (node: TreeDataSourceNode<T>) => {
         const children = await options.loadChildren!(node.dataNode);
 
-        return children.map((child, index) => this.#mapToTreeNode(child, node, index === children.length - 1));
+        return children.map((child, index) => {
+          const childNode = this.#mapToTreeNode(child, node, index === children.length - 1);
+
+          // If the parent is selected and we have multiple selection enabled,
+          // ensure all lazy-loaded children are also selected
+          if (this.multiple && node.selected) {
+            childNode.selected = true;
+            this.selection.add(childNode);
+          }
+
+          return childNode;
+        });
       };
     }
 

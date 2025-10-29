@@ -54,6 +54,56 @@ export class Upload
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** Track if we are dragging over the dropzone. */
+  #dragCounter = 0;
+
+  /** The files that have been selected. */
+  #files: File[] = [];
+
+  #onDragEnter = (event: DragEvent): void => {
+    if (!this.dragDrop || this.disabled) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.#dragCounter++;
+    if (this.#dragCounter === 1) {
+      this.dragOver = true;
+    }
+  };
+
+  #onDragOver = (event: DragEvent): void => {
+    if (!this.dragDrop || this.disabled) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+  };
+
+  #onDragLeave = (event: DragEvent): void => {
+    if (!this.dragDrop || this.disabled) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.#dragCounter--;
+    if (this.#dragCounter === 0) {
+      this.dragOver = false;
+    }
+  };
+
+  #onDrop = (event: DragEvent): void => {
+    if (!this.dragDrop || this.disabled) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.#dragCounter = 0;
+    this.dragOver = false;
+
+    const files = Array.from(event.dataTransfer?.files || []);
+    this.#setFiles(files);
+  };
+
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
     dragenter: this.#onDragEnter,
@@ -61,12 +111,6 @@ export class Upload
     dragleave: this.#onDragLeave,
     drop: this.#onDrop
   });
-
-  /** Track if we are dragging over the dropzone. */
-  #dragCounter = 0;
-
-  /** The files that have been selected. */
-  #files: File[] = [];
 
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
@@ -130,11 +174,11 @@ export class Upload
   }
 
   /** The files as the component value. */
-  get value(): File[] {
+  override get value(): File[] {
     return this.#files;
   }
 
-  set value(files: File[]) {
+  override set value(files: File[]) {
     this.#files = Array.isArray(files) ? files : [];
     this.updateValidity();
     this.requestUpdate();
@@ -202,9 +246,7 @@ export class Upload
           <div class="default-content">
             <sl-icon name="cloud-arrow-up" class="upload-icon"></sl-icon>
             <p class="upload-text">
-              ${this.dragDrop
-                ? msg('Drag and drop files here or click to browse')
-                : msg('Click to select files')}
+              ${this.dragDrop ? msg('Drag and drop files here or click to browse') : msg('Click to select files')}
             </p>
           </div>
         </slot>
@@ -251,50 +293,6 @@ export class Upload
     this.#setFiles(files);
   };
 
-  #onDragEnter = (event: DragEvent): void => {
-    if (!this.dragDrop || this.disabled) return;
-
-    event.preventDefault();
-    event.stopPropagation();
-
-    this.#dragCounter++;
-    if (this.#dragCounter === 1) {
-      this.dragOver = true;
-    }
-  };
-
-  #onDragOver = (event: DragEvent): void => {
-    if (!this.dragDrop || this.disabled) return;
-
-    event.preventDefault();
-    event.stopPropagation();
-  };
-
-  #onDragLeave = (event: DragEvent): void => {
-    if (!this.dragDrop || this.disabled) return;
-
-    event.preventDefault();
-    event.stopPropagation();
-
-    this.#dragCounter--;
-    if (this.#dragCounter === 0) {
-      this.dragOver = false;
-    }
-  };
-
-  #onDrop = (event: DragEvent): void => {
-    if (!this.dragDrop || this.disabled) return;
-
-    event.preventDefault();
-    event.stopPropagation();
-
-    this.#dragCounter = 0;
-    this.dragOver = false;
-
-    const files = Array.from(event.dataTransfer?.files || []);
-    this.#setFiles(files);
-  };
-
   #setFiles(files: File[]): void {
     const rejectedFiles: File[] = [];
     const rejectionReasons: string[] = [];
@@ -315,14 +313,14 @@ export class Upload
     }
 
     // Filter files based on max size
-    if (this.maxSize) {
+    if (this.maxSize !== undefined) {
       const sizedFiles: File[] = [];
       filteredFiles.forEach(file => {
-        if (file.size <= this.maxSize) {
+        if (file.size <= this.maxSize!) {
           sizedFiles.push(file);
         } else {
           rejectedFiles.push(file);
-          rejectionReasons.push(`${file.name}: File size exceeds maximum (${this.#formatFileSize(this.maxSize)})`);
+          rejectionReasons.push(`${file.name}: File size exceeds maximum (${this.#formatFileSize(this.maxSize!)})`);
         }
       });
       filteredFiles = sizedFiles;
@@ -349,7 +347,7 @@ export class Upload
     this.requestUpdate();
 
     // Emit change event
-    this.changeEvent.emit({ value: this.#files });
+    this.changeEvent.emit(this.#files);
   }
 
   #isFileAccepted(file: File): boolean {
@@ -388,7 +386,7 @@ export class Upload
     }
 
     // Emit change event
-    this.changeEvent.emit({ value: this.#files });
+    this.changeEvent.emit(this.#files);
   }
 
   #formatFileSize(bytes: number): string {

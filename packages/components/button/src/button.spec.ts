@@ -97,6 +97,13 @@ describe('sl-button', () => {
       it('should have an icon-only attribute', () => {
         expect(el).to.have.attribute('icon-only');
       });
+
+      it('should not have an icon-only attribute when text is added', async () => {
+        el.appendChild(document.createTextNode('Favorite'));
+        await el.updateComplete;
+
+        expect(el).not.to.have.attribute('icon-only');
+      });
     });
 
     describe('icon only, wrapped in container', () => {

@@ -400,6 +400,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       }
     }
 
+    if (changes.has('selects') && this.dataSource?.selects !== this.selects) {
+      this.dataSource!.selects = this.selects;
+    }
+
     if (changes.has('scopedElements')) {
       this.#addScopedElements(this.scopedElements);
     }

@@ -452,4 +452,62 @@ describe('NestedTreeDataSource', () => {
       expect(ds.selection.has(children[1])).to.be.true;
     });
   });
+
+  describe('sorting', () => {
+    beforeEach(() => {
+      ds = new NestedTreeDataSource<TestItem>(
+        [
+          {
+            id: 3,
+            name: 'C',
+            children: [
+              { id: '3.1', name: 'Z' },
+              { id: '3.2', name: 'Y' }
+            ]
+          },
+          { id: 1, name: 'A' },
+          { id: 2, name: 'B' }
+        ],
+        {
+          getId: ({ id }) => id,
+          getLabel: ({ name }) => name,
+          getChildren: ({ children }) => children,
+          isExpandable: ({ children }) => !!children?.length,
+          isExpanded: () => true
+        }
+      );
+      ds.update();
+    });
+
+    it('should not have a sort by default', () => {
+      expect(ds.sort).to.be.undefined;
+    });
+
+    it('should have a sort after calling setSort', () => {
+      ds.setSort('name', 'asc');
+
+      expect(ds.sort).to.deep.equal({ by: 'name', direction: 'asc' });
+    });
+
+    it('should remove the sort after calling removeSort', () => {
+      ds.setSort('name', 'asc');
+      ds.removeSort();
+
+      expect(ds.sort).to.be.undefined;
+    });
+
+    it('should sort the nodes when sorting is applied', () => {
+      expect(ds.items.map(n => n.label)).to.deep.equal(['C', 'Z', 'Y', 'A', 'B']);
+
+      ds.setSort('name', 'asc');
+      ds.update();
+
+      expect(ds.items.map(n => n.label)).to.deep.equal(['A', 'B', 'C', 'Y', 'Z']);
+
+      ds.setSort('name', 'desc');
+      ds.update();
+
+      expect(ds.items.map(n => n.label)).to.deep.equal(['C', 'Z', 'Y', 'B', 'A']);
+    });
+  });
 });

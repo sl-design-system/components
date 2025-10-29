@@ -87,6 +87,16 @@ describe('FetchListDataSource', () => {
         expect(ds.fetchPage).to.have.been.calledWithMatch({ page: 0, pageSize: 2 });
       });
 
+      it('should not be called again when accessing another item on the same page', () => {
+        spy(ds, 'fetchPage');
+
+        ds.items.at(0);
+        expect(ds.fetchPage).to.have.been.calledOnce;
+
+        ds.items.at(1);
+        expect(ds.fetchPage).to.have.been.calledOnce;
+      });
+
       it('should be called for the second page when accessing an item with a greater index than the page size', () => {
         spy(ds, 'fetchPage');
 
@@ -150,6 +160,26 @@ describe('FetchListDataSource', () => {
         expect(options?.filters).to.deep.equal([
           { id: 'membership', by: 'membership', value: 'Regular' },
           { id: 'profession', by: 'profession', value: 'Gastroenterologist' }
+        ]);
+      });
+
+      it('should invalidate cached data and call fetchPage again when adding a filter and calling update()', () => {
+        const fetchPageSpy = spy(ds, 'fetchPage');
+
+        // First fetch to populate cache
+        ds.items.at(0);
+        expect(fetchPageSpy).to.have.been.calledOnce;
+
+        // Add a filter and call update() - this should invalidate cache
+        ds.addFilter('membership', 'membership', 'Regular');
+        ds.update();
+
+        // Access the data again - this should trigger another fetch due to cache invalidation
+        ds.items.at(0);
+        expect(fetchPageSpy).to.have.been.calledTwice;
+        expect(fetchPageSpy.secondCall.args[0].filters).to.have.length(1);
+        expect(fetchPageSpy.secondCall.args[0].filters).to.deep.equal([
+          { id: 'membership', by: 'membership', value: 'Regular' }
         ]);
       });
 

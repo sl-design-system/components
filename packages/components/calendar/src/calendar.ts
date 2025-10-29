@@ -57,7 +57,6 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
    * Each item is an Indicator with a `date`, an optional `color`
    * and 'label' that is used to improve accessibility (added as a tooltip). */
   @property({
-    attribute: 'indicator',
     converter: indicatorConverter
   })
   indicator?: Indicator[];

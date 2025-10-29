@@ -51,6 +51,12 @@ export class SearchField extends TextField {
     this.prepend(style);
   }
 
+  override disconnectedCallback(): void {
+    this.#clearDebounceTimer();
+
+    super.disconnectedCallback();
+  }
+
   override renderPrefix(): TemplateResult {
     return html`
       <slot name="prefix">

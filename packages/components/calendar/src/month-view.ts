@@ -108,9 +108,10 @@ export class MonthView extends LocaleMixin(LitElement) {
    * Each item is an Indicator with a `date`, an optional `color`
    * and 'label' that is used to improve accessibility (added as a tooltip). */
   @property({
+    attribute: 'indicator-dates',
     converter: indicatorConverter
   })
-  indicator?: Indicator[];
+  indicatorDates?: Indicator[];
 
   // eslint-disable-next-line lit/no-native-attributes
   @property({ type: Boolean }) override inert = false;
@@ -212,40 +213,47 @@ export class MonthView extends LocaleMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('indicator') || changes.has('calendar') || changes.has('disabled') || changes.has('month')) {
+    if (changes.has('indicatorDates') || changes.has('calendar') || changes.has('disabled') || changes.has('month')) {
       this.renderRoot.querySelectorAll<HTMLButtonElement>('button').forEach(button => {
-        const hasIndicator = button.matches('[part~="indicator"]'),
-          dataDate = button.closest('td')?.getAttribute('data-date'),
-          btn = button as unknown as { tooltip?: Tooltip | (() => void) | undefined };
+        const dataDate = button.closest('td')?.getAttribute('data-date'),
+          dayButton = button as unknown as { tooltip?: Tooltip | (() => void) | undefined };
 
-        // If the button no longer has the indicator part, remove the existing tooltip.
-        if (!hasIndicator) {
-          if (btn.tooltip instanceof Tooltip) {
-            btn.tooltip.remove();
-            btn.tooltip = undefined;
-          } else if (btn.tooltip) {
-            btn.tooltip();
-            btn.tooltip = undefined;
+        const indicatorsForDay = dataDate
+          ? (this.indicatorDates ?? []).filter(i => isSameDate(i.date, new Date(dataDate)))
+          : [];
+        const labels = indicatorsForDay.map(i => i.label).filter(Boolean) as string[];
+
+        const removeTooltip = () => {
+          if (dayButton.tooltip instanceof Tooltip) {
+            dayButton.tooltip.remove();
+            dayButton.tooltip = undefined;
+          } else if (dayButton.tooltip) {
+            dayButton.tooltip();
+            dayButton.tooltip = undefined;
           }
+        };
+
+        // If no labels or no data-date, ensure tooltip is removed
+        if (!dataDate || labels.length === 0) {
+          removeTooltip();
           return;
         }
 
-        if (!dataDate) {
+        // If element doesn't actually have an indicator part, remove tooltip
+        if (!button.matches('[part~="indicator"]')) {
+          removeTooltip();
           return;
         }
 
-        btn.tooltip ||= Tooltip.lazy(
+        dayButton.tooltip ||= Tooltip.lazy(
           button,
           (tooltip: Tooltip) => {
-            btn.tooltip = tooltip;
-            const indicatorsForDay = (this.indicator ?? []).filter(i => isSameDate(i.date, new Date(dataDate)));
-            const indicatorDescriptions = indicatorsForDay.map(indicator =>
-              indicator.label ? indicator.label : msg('Indicator', { id: 'sl.calendar.indicator' })
-            );
-            tooltip.textContent = indicatorDescriptions.join(', ');
+            dayButton.tooltip = tooltip;
+            tooltip.textContent = labels.join(', ');
           },
           { context: this.shadowRoot! }
         );
+        Tooltip.offset = 8;
       });
     }
   }
@@ -360,13 +368,13 @@ export class MonthView extends LocaleMixin(LitElement) {
       day.unselectable ? 'unselectable' : '',
       this.disabled && isDateInList(day.date, this.disabled) ? 'unselectable' : '',
       this.negative && isDateInList(day.date, this.negative) ? 'negative' : '',
-      this.indicator &&
+      this.indicatorDates &&
       isDateInList(
         day.date,
-        this.indicator.map(indicator => indicator.date)
+        this.indicatorDates.map(indicator => indicator.date)
       )
         ? (() => {
-            const indicator = this.indicator && this.indicator.find(i => isSameDate(i.date, day.date));
+            const indicator = this.indicatorDates && this.indicatorDates.find(i => isSameDate(i.date, day.date));
             return indicator?.color ? `indicator indicator-${indicator.color}` : 'indicator';
           })()
         : '',

@@ -59,9 +59,10 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
    * Each item is an Indicator with a `date`, an optional `color`
    * and 'label' that is used to improve accessibility (added as a tooltip). */
   @property({
+    attribute: 'indicator-dates',
     converter: indicatorConverter
   })
-  indicator?: Indicator[];
+  indicatorDates?: Indicator[];
 
   // eslint-disable-next-line lit/no-native-attributes
   @property({ type: Boolean }) override inert = false;
@@ -308,7 +309,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           ?show-week-numbers=${this.showWeekNumbers}
           .disabled=${this.disabled}
           .firstDayOfWeek=${this.firstDayOfWeek}
-          .indicator=${this.indicator}
+          .indicatorDates=${this.indicatorDates}
           .month=${this.previousMonth}
           .negative=${this.negative}
           .selected=${this.selected}
@@ -326,7 +327,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           ?show-week-numbers=${this.showWeekNumbers}
           .disabled=${this.disabled}
           .firstDayOfWeek=${this.firstDayOfWeek}
-          .indicator=${this.indicator}
+          .indicatorDates=${this.indicatorDates}
           .month=${this.month}
           .negative=${this.negative}
           .selected=${this.selected}
@@ -341,7 +342,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           ?show-week-numbers=${this.showWeekNumbers}
           .disabled=${this.disabled}
           .firstDayOfWeek=${this.firstDayOfWeek}
-          .indicator=${this.indicator}
+          .indicatorDates=${this.indicatorDates}
           .month=${this.nextMonth}
           .negative=${this.negative}
           .selected=${this.selected}

@@ -12,7 +12,7 @@ type Props = Pick<
   | 'disabled'
   | 'firstDayOfWeek'
   | 'hideDaysOtherMonths'
-  | 'indicator'
+  | 'indicatorDates'
   | 'locale'
   | 'max'
   | 'min'
@@ -45,7 +45,7 @@ export default {
     firstDayOfWeek: {
       control: 'number'
     },
-    indicator: {
+    indicatorDates: {
       control: 'date'
     },
     locale: {
@@ -78,7 +78,7 @@ export default {
     disabled,
     firstDayOfWeek,
     hideDaysOtherMonths,
-    indicator,
+    indicatorDates,
     locale,
     max,
     min,
@@ -107,14 +107,15 @@ export default {
       .negative=${ifDefined(negative?.map(date => date.toISOString()).join(','))}
       .renderer=${renderer}
       first-day-of-week=${ifDefined(firstDayOfWeek)}
-      indicator=${ifDefined(
-        Array.isArray(indicator)
+      indicator-dates=${ifDefined(
+        Array.isArray(indicatorDates)
           ? JSON.stringify(
-              indicator
+              indicatorDates
                 .filter(item => item?.date)
                 .map(item => ({
                   date: item.date.toISOString(),
-                  ...(item.color ? { color: item.color } : {})
+                  ...(item.color ? { color: item.color } : {}),
+                  ...(item.label ? { label: item.label } : {})
                 }))
             )
           : undefined
@@ -127,6 +128,28 @@ export default {
     ></sl-month-view>
   `
 } satisfies Meta<Props>;
+
+const indicatorLabels: Record<string, { label: string }> = {
+  red: {
+    label: 'Exam — Important'
+  },
+  blue: {
+    label: 'Homework Deadline'
+  },
+  green: {
+    label: 'Available — Open slot for study'
+  },
+  yellow: {
+    label: 'Reminder — A parent‑teacher meeting'
+  },
+  grey: {
+    label: 'Event — Informational'
+  },
+  default: {
+    // same as blue
+    label: 'Homework Deadline'
+  }
+};
 
 export const Basic: Story = {};
 
@@ -220,17 +243,17 @@ export const Today: Story = {
   }
 };
 
-export const Indicator: Story = {
+export const IndicatorDates: Story = {
   args: {
-    indicator: [
-      { date: new Date('2025-08-05') },
-      { date: new Date('2025-08-06'), color: 'blue' },
-      { date: new Date('2025-08-07'), color: 'red' },
-      { date: new Date('2025-08-09'), color: 'yellow' },
-      { date: new Date('2025-08-10'), color: 'green' },
-      { date: new Date('2025-08-20'), color: 'grey' },
-      { date: new Date('2025-08-22'), color: 'green' },
-      { date: new Date('2025-08-27'), color: 'yellow' }
+    indicatorDates: [
+      { date: new Date('2025-08-05'), label: indicatorLabels.default.label },
+      { date: new Date('2025-08-06'), color: 'blue', label: indicatorLabels.blue.label },
+      { date: new Date('2025-08-07'), color: 'red', label: indicatorLabels.red.label },
+      { date: new Date('2025-08-09'), color: 'yellow', label: indicatorLabels.yellow.label },
+      { date: new Date('2025-08-10'), color: 'green', label: indicatorLabels.green.label },
+      { date: new Date('2025-08-20'), color: 'grey', label: indicatorLabels.grey.label },
+      { date: new Date('2025-08-22'), color: 'green', label: indicatorLabels.green.label },
+      { date: new Date('2025-08-27'), color: 'yellow', label: indicatorLabels.yellow.label }
     ],
     month: new Date(1755640800000),
     showToday: true

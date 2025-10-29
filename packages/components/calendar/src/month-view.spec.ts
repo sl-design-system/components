@@ -224,7 +224,7 @@ describe('sl-month-view', () => {
     });
 
     it('should apply indicator part', async () => {
-      el.indicator = [{ date: new Date(new Date().getFullYear(), new Date().getMonth(), 12) }];
+      el.indicatorDates = [{ date: new Date(new Date().getFullYear(), new Date().getMonth(), 12) }];
 
       await el.updateComplete;
       const indBtn = Array.from(el.renderRoot.querySelectorAll('button')).find(
@@ -236,7 +236,7 @@ describe('sl-month-view', () => {
     });
 
     it('should apply colored indicator part (red)', async () => {
-      el.indicator = [{ date: new Date(new Date().getFullYear(), new Date().getMonth(), 12), color: 'red' }];
+      el.indicatorDates = [{ date: new Date(new Date().getFullYear(), new Date().getMonth(), 12), color: 'red' }];
 
       await el.updateComplete;
       const indBtn = Array.from(el.renderRoot.querySelectorAll('button')).find(
@@ -249,7 +249,9 @@ describe('sl-month-view', () => {
     });
 
     it('should render tooltip for indicator with label', async () => {
-      el.indicator = [{ date: new Date(new Date().getFullYear(), new Date().getMonth(), 13), label: 'Special day' }];
+      el.indicatorDates = [
+        { date: new Date(new Date().getFullYear(), new Date().getMonth(), 13), label: 'Special day' }
+      ];
 
       await el.updateComplete;
 
@@ -267,7 +269,7 @@ describe('sl-month-view', () => {
 
     it('should render generic tooltip when no color or label provided', async () => {
       const date = new Date(new Date().getFullYear(), new Date().getMonth(), 15);
-      el.indicator = [{ date }];
+      el.indicatorDates = [{ date }];
 
       await el.updateComplete;
 
@@ -590,10 +592,10 @@ describe('sl-month-view', () => {
 
       await el.updateComplete;
 
-      expect(el.indicator).to.exist;
-      expect(el.indicator![0].date).to.be.instanceOf(Date);
-      expect(el.indicator![0].label).to.equal('Attr label');
-      expect(el.indicator![0].color).to.equal('grey');
+      expect(el.indicatorDates).to.exist;
+      expect(el.indicatorDates![0].date).to.be.instanceOf(Date);
+      expect(el.indicatorDates![0].label).to.equal('Attr label');
+      expect(el.indicatorDates![0].color).to.equal('grey');
     });
   });
 
@@ -673,7 +675,7 @@ describe('sl-month-view', () => {
       const day = 18;
       const date = new Date(el.month!.getFullYear(), el.month!.getMonth(), day);
 
-      el.indicator = [{ date, color: 'yellow' }];
+      el.indicatorDates = [{ date, color: 'yellow' }];
       el.negative = [date];
 
       await el.updateComplete;

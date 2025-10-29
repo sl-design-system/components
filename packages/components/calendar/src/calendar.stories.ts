@@ -11,7 +11,7 @@ type Props = Pick<
   Calendar,
   | 'disabled'
   | 'firstDayOfWeek'
-  | 'indicator'
+  | 'indicatorDates'
   | 'locale'
   | 'max'
   | 'min'
@@ -40,7 +40,7 @@ export default {
     firstDayOfWeek: {
       control: 'number'
     },
-    indicator: {
+    indicatorDates: {
       control: { type: 'object' },
       description: 'Array of objects: {date: Date, color: string, label?: string}'
     },
@@ -67,7 +67,7 @@ export default {
   render: ({
     disabled,
     firstDayOfWeek,
-    indicator,
+    indicatorDates,
     locale,
     max,
     min,
@@ -99,10 +99,10 @@ export default {
         ?show-week-numbers=${showWeekNumbers}
         disabled=${ifDefined(disabled?.map(date => date.toISOString()).join(','))}
         first-day-of-week=${ifDefined(firstDayOfWeek)}
-        indicator=${ifDefined(
-          Array.isArray(indicator)
+        indicator-dates=${ifDefined(
+          Array.isArray(indicatorDates)
             ? JSON.stringify(
-                indicator
+                indicatorDates
                   .filter(item => item?.date)
                   .map(item => ({
                     date: item.date.toISOString(),
@@ -183,9 +183,9 @@ export const Negative: Story = {
   }
 };
 
-export const WithIndicator: Story = {
+export const IndicatorDates: Story = {
   args: {
-    indicator: [
+    indicatorDates: [
       { date: new Date(), color: 'red', label: indicatorLabels.red.label },
       { date: new Date('2025-09-05'), color: 'blue' as IndicatorColor, label: indicatorLabels.blue.label },
       { date: new Date('2025-09-24'), label: indicatorLabels.default.label },
@@ -240,10 +240,10 @@ export const All: Story = {
       return html`
         <sl-calendar
           ?show-today=${ifDefined(settings.showToday)}
-          indicator=${ifDefined(
-            Array.isArray(settings.indicator)
+          indicator-dates=${ifDefined(
+            Array.isArray(settings.indicatorDates)
               ? JSON.stringify(
-                  settings.indicator
+                  settings.indicatorDates
                     .filter(item => item?.date)
                     .map(item => ({
                       date: item.date.toISOString(),
@@ -264,7 +264,7 @@ export const All: Story = {
     };
     const monthEndDate = new Date();
     const monthEnd = {
-      indicator: [
+      indicatorDates: [
         { date: getOffsetDate(3, monthEndDate), color: 'red' as IndicatorColor, label: indicatorLabels.red.label }
       ],
       max: getOffsetDate(5, monthEndDate),
@@ -275,8 +275,8 @@ export const All: Story = {
       showToday: false
     };
 
-    const indicator = {
-      indicator: [
+    const indicatorDates = {
+      indicatorDates: [
         { date: getOffsetDate(0), color: 'red' as IndicatorColor, label: indicatorLabels.red.label },
         { date: getOffsetDate(1), color: 'blue' as IndicatorColor, label: indicatorLabels.blue.label },
         { date: getOffsetDate(2), color: 'yellow' as IndicatorColor, label: indicatorLabels.yellow.label },
@@ -291,7 +291,7 @@ export const All: Story = {
       showToday: true
     };
     const indicatorToday = {
-      ...indicator,
+      ...indicatorDates,
       selected: getOffsetDate(0)
     };
     const negative = {
@@ -323,7 +323,7 @@ export const All: Story = {
       <h1>Today</h1>
       <p>Shows current month with 'today' highlighted, in combination with selected, indicator and negative</p>
       <h2>Indicator</h2>
-      <div class="container">${renderMonth(indicator)} ${renderMonth(indicatorToday)}</div>
+      <div class="container">${renderMonth(indicatorDates)} ${renderMonth(indicatorToday)}</div>
       <h2>Negative</h2>
       <div class="container">${renderMonth(negative)} ${renderMonth(negativeToday)}</div>
     `;

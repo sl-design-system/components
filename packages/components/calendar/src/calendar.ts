@@ -57,9 +57,10 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
    * Each item is an Indicator with a `date`, an optional `color`
    * and 'label' that is used to improve accessibility (added as a tooltip). */
   @property({
+    attribute: 'indicator-dates',
     converter: indicatorConverter
   })
-  indicator?: Indicator[];
+  indicatorDates?: Indicator[];
 
   /**
    * The maximum date selectable in the calendar.
@@ -117,7 +118,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         ?show-today=${this.showToday}
         ?show-week-numbers=${this.showWeekNumbers}
         .disabled=${this.disabled}
-        .indicator=${this.indicator}
+        .indicatorDates=${ifDefined(this.indicatorDates)}
         .month=${this.month}
         .negative=${this.negative}
         .selected=${this.selected}

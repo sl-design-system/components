@@ -90,5 +90,9 @@ export const templates = {
   'sl.timeField.validation.rangeUnderflow': str`Voer een tijd in die niet eerder is dan ${0}.`,
   'sl.timeField.valueMissing': 'Voer een tijd in.',
   'sl.toolBar.showMore': 'Meer tonen',
-  'sl.tree.loadingMessage': 'Laden'
+  'sl.tree.loadingMessage': 'Laden',
+  sb55ec70961475eca: 'Drag and drop files here or click to browse',
+  s8da08bc9ce08b7c3: 'Click to select files',
+  sa1d4559f0fcc5219: 'Remove file',
+  s5bda4d11dcd422bf: 'Please select at least one file'
 };

@@ -9,7 +9,7 @@ import { type Day } from './utils.js';
 
 type Props = Pick<
   MonthView,
-  | 'disabled'
+  | 'disabledDates'
   | 'firstDayOfWeek'
   | 'hideDaysOtherMonths'
   | 'indicatorDates'
@@ -39,7 +39,7 @@ export default {
     showWeekNumbers: false
   },
   argTypes: {
-    disabled: {
+    disabledDates: {
       control: 'date'
     },
     firstDayOfWeek: {
@@ -75,7 +75,7 @@ export default {
     }
   },
   render: ({
-    disabled,
+    disabledDates,
     firstDayOfWeek,
     hideDaysOtherMonths,
     indicatorDates,
@@ -103,7 +103,7 @@ export default {
       ?readonly=${readonly}
       ?show-today=${showToday}
       ?show-week-numbers=${showWeekNumbers}
-      .disabled=${ifDefined(disabled?.map(date => date.toISOString()).join(','))}
+      .disabled-dates=${ifDefined(disabledDates?.map(date => date.toISOString()).join(','))}
       .negative=${ifDefined(negative?.map(date => date.toISOString()).join(','))}
       .renderer=${renderer}
       first-day-of-week=${ifDefined(firstDayOfWeek)}
@@ -260,9 +260,9 @@ export const IndicatorDates: Story = {
   }
 };
 
-export const DisabledDays: Story = {
+export const DisabledDates: Story = {
   args: {
-    disabled: [new Date('2025-10-06'), new Date('2025-10-07'), new Date('2025-10-17')],
+    disabledDates: [new Date('2025-10-06'), new Date('2025-10-07'), new Date('2025-10-17')],
     max: new Date(2025, 9, 25),
     min: new Date(2025, 9, 4),
     month: new Date(2025, 9, 1)

@@ -46,7 +46,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   #announceTimeoutId?: ReturnType<typeof setTimeout>;
 
   /** The list of dates that should be set as disabled. */
-  @property({ converter: dateConverter }) disabled?: Date[];
+  @property({ attribute: 'disabled-dates', converter: dateConverter }) disabledDates?: Date[];
 
   /** @internal The month/year that will be displayed in the header. */
   @state() displayMonth?: Date;
@@ -307,7 +307,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           ?readonly=${this.readonly}
           ?show-today=${this.showToday}
           ?show-week-numbers=${this.showWeekNumbers}
-          .disabled=${this.disabled}
+          .disabledDates=${this.disabledDates}
           .firstDayOfWeek=${this.firstDayOfWeek}
           .indicatorDates=${this.indicatorDates}
           .month=${this.previousMonth}
@@ -325,7 +325,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           ?readonly=${this.readonly}
           ?show-today=${this.showToday}
           ?show-week-numbers=${this.showWeekNumbers}
-          .disabled=${this.disabled}
+          .disabledDates=${this.disabledDates}
           .firstDayOfWeek=${this.firstDayOfWeek}
           .indicatorDates=${this.indicatorDates}
           .month=${this.month}
@@ -340,7 +340,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           ?readonly=${this.readonly}
           ?show-today=${this.showToday}
           ?show-week-numbers=${this.showWeekNumbers}
-          .disabled=${this.disabled}
+          .disabledDates=${this.disabledDates}
           .firstDayOfWeek=${this.firstDayOfWeek}
           .indicatorDates=${this.indicatorDates}
           .month=${this.nextMonth}

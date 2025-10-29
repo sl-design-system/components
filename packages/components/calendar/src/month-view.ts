@@ -85,7 +85,7 @@ export class MonthView extends LocaleMixin(LitElement) {
   @query('.days') days?: HTMLElement;
 
   /** The list of dates that should be disabled. */
-  @property({ converter: dateConverter }) disabled?: Date[];
+  @property({ attribute: 'disabled-dates', converter: dateConverter }) disabledDates?: Date[];
 
   /**
    * The first day of the week; 0 for Sunday, 1 for Monday.
@@ -213,7 +213,12 @@ export class MonthView extends LocaleMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('indicatorDates') || changes.has('calendar') || changes.has('disabled') || changes.has('month')) {
+    if (
+      changes.has('indicatorDates') ||
+      changes.has('calendar') ||
+      changes.has('disabledDates') ||
+      changes.has('month')
+    ) {
       this.renderRoot.querySelectorAll<HTMLButtonElement>('button').forEach(button => {
         const dataDate = button.closest('td')?.getAttribute('data-date'),
           dayButton = button as unknown as { tooltip?: Tooltip | (() => void) | undefined };
@@ -331,7 +336,7 @@ export class MonthView extends LocaleMixin(LitElement) {
       }
 
       template =
-        this.readonly || day.unselectable || day.disabled || isDateInList(day.date, this.disabled)
+        this.readonly || day.unselectable || day.disabled || isDateInList(day.date, this.disabledDates)
           ? html`<button .part=${parts} aria-label=${ariaLabel} disabled>${day.date.getDate()}</button>`
           : html`
               <button
@@ -366,7 +371,7 @@ export class MonthView extends LocaleMixin(LitElement) {
       day.previousMonth ? 'previous-month' : '',
       day.today ? 'today' : '',
       day.unselectable ? 'unselectable' : '',
-      this.disabled && isDateInList(day.date, this.disabled) ? 'unselectable' : '',
+      this.disabledDates && isDateInList(day.date, this.disabledDates) ? 'unselectable' : '',
       this.negative && isDateInList(day.date, this.negative) ? 'negative' : '',
       this.indicatorDates &&
       isDateInList(
@@ -460,7 +465,7 @@ export class MonthView extends LocaleMixin(LitElement) {
         return undefined;
       }
 
-      if (!(this.disabled && isDateInList(possibleDay, this.disabled))) {
+      if (!(this.disabledDates && isDateInList(possibleDay, this.disabledDates))) {
         return possibleDay;
       }
 

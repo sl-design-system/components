@@ -172,7 +172,7 @@ describe('sl-month-view', () => {
     });
 
     it('should apply "unselectable" for disabled days', async () => {
-      el.disabled = [new Date(new Date().getFullYear(), new Date().getMonth(), 10)];
+      el.disabledDates = [new Date(new Date().getFullYear(), new Date().getMonth(), 10)];
 
       await el.updateComplete;
       const disabledDay = Array.from(el.renderRoot.querySelectorAll('button')).find(

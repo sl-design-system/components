@@ -9,7 +9,7 @@ import { IndicatorColor } from './utils.js';
 
 type Props = Pick<
   Calendar,
-  | 'disabled'
+  | 'disabledDates'
   | 'firstDayOfWeek'
   | 'indicatorDates'
   | 'locale'
@@ -34,7 +34,7 @@ export default {
     month: new Date(2025, 8, 15)
   },
   argTypes: {
-    disabled: {
+    disabledDates: {
       control: 'date'
     },
     firstDayOfWeek: {
@@ -65,7 +65,7 @@ export default {
     }
   },
   render: ({
-    disabled,
+    disabledDates,
     firstDayOfWeek,
     indicatorDates,
     locale,
@@ -97,7 +97,7 @@ export default {
         ?readonly=${readonly}
         ?show-today=${showToday}
         ?show-week-numbers=${showWeekNumbers}
-        disabled=${ifDefined(disabled?.map(date => date.toISOString()).join(','))}
+        disabled-dates=${ifDefined(disabledDates?.map(date => date.toISOString()).join(','))}
         first-day-of-week=${ifDefined(firstDayOfWeek)}
         indicator-dates=${ifDefined(
           Array.isArray(indicatorDates)
@@ -199,9 +199,9 @@ export const IndicatorDates: Story = {
   }
 };
 
-export const DisabledDays: Story = {
+export const DisabledDates: Story = {
   args: {
-    disabled: [new Date('2025-10-06'), new Date('2025-10-07'), new Date('2025-10-10')],
+    disabledDates: [new Date('2025-10-06'), new Date('2025-10-07'), new Date('2025-10-10')],
     max: new Date(2025, 10, 20),
     min: new Date(2025, 9, 4),
     month: new Date(2025, 9, 20)

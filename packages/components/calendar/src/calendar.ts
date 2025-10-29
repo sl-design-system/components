@@ -47,7 +47,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<Date>>;
 
   /** The list of dates that should be set as disabled. */
-  @property({ converter: dateListConverter }) disabled?: Date[];
+  @property({ attribute: 'disabled-dates', converter: dateListConverter }) disabledDates?: Date[];
 
   /** The first day of the week; 0 for Sunday, 1 for Monday. */
   @property({ type: Number, attribute: 'first-day-of-week' }) firstDayOfWeek?: number;
@@ -117,7 +117,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         ?readonly=${this.readonly}
         ?show-today=${this.showToday}
         ?show-week-numbers=${this.showWeekNumbers}
-        .disabled=${this.disabled}
+        .disabledDates=${this.disabledDates}
         .indicatorDates=${ifDefined(this.indicatorDates)}
         .month=${this.month}
         .negative=${this.negative}

@@ -404,7 +404,8 @@ export const LazyLoad: Story = {
         getChildren: () => undefined,
         getId: ({ id }) => id,
         getLabel: ({ id }) => id,
-        isExpandable: ({ expandable }) => !!expandable
+        isExpandable: ({ expandable }) => !!expandable,
+        multiple: true
       }
     ),
     styles: 'sl-button-bar { display: none; }'

@@ -278,7 +278,6 @@ const build = async (production = false, path) => {
               ? ['core.json', 'base.json']
               : ['system.json', 'primitives.json', 'base-new.json'])
           },
-          //--------
           {
             destination: old ? `${themeBase}/${theme}/css/${variant}-deprecated.css` : `${themeBase}/${theme}/css/${variant}.css`,
             // filter: excludeSpaceTokens,

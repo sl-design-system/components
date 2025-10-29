@@ -119,9 +119,9 @@
 :host([size='sm'][round])::before {
   background: var(--_background, var(--sl-color-background-accent-grey-subtle));
   block-size: var(--sl-size-100);
-  border-radius: var(--sl-size-borderRadius-full);
+  border-radius: 50%;
   content: '';
-  display: inline-block;
+  display: inline-flex;
   inline-size: var(--sl-size-100);
   margin-block-start: calc(0.8em - var(--sl-size-100)); // This will  be overwritten when 1cap is supported.
   margin-inline-end: var(--sl-size-050);

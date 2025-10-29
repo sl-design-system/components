@@ -192,8 +192,8 @@ export const All: Story = {
       <style>
         section {
           display: grid;
-          grid-template-columns: repeat(auto-fill, var(--sl-size-icon-3xl));
-          grid-auto-rows: var(--sl-size-icon-3xl);
+          grid-template-columns: repeat(auto-fill, var(--sl-size-new-icon-3xl));
+          grid-auto-rows: var(--sl-size-new-icon-3xl);
           gap: 8px;
           justify-items: center;
         }
@@ -225,8 +225,8 @@ export const AllIcons: Story = {
       <style>
         section {
           display: grid;
-          grid-template-columns: repeat(auto-fill, var(--sl-size-icon-3xl));
-          grid-auto-rows: var(--sl-size-icon-3xl);
+          grid-template-columns: repeat(auto-fill, var(--sl-size-new-icon-3xl));
+          grid-auto-rows: var(--sl-size-new-icon-3xl);
           gap: 8px;
           justify-items: center;
         }

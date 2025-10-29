@@ -15,5 +15,8 @@
     "allowedDomains": [
       "none"
     ]
-  }
+  },
+  "relaunchButtons": [
+    {"command": "open", "name": "SLDS Theme Selector"}
+  ]
 }

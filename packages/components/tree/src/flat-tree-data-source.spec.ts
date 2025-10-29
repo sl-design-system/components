@@ -298,8 +298,8 @@ describe('FlatTreeDataSource', () => {
       loadChildrenSpy = spy((node: TestItem) => {
         if (node.id === 1) {
           return Promise.resolve([
-            { id: 11, name: 'Child 1.1', level: 1, expandable: false, selected: true },
-            { id: 12, name: 'Child 1.2', level: 1, expandable: false, selected: false }
+            { id: 11, name: 'Child 1.1', level: 1, expandable: false },
+            { id: 12, name: 'Child 1.2', level: 1, expandable: false }
           ]);
         } else if (node.id === 3) {
           return Promise.resolve([{ id: 31, name: 'Child 3.1', level: 1, expandable: false }]);
@@ -466,7 +466,6 @@ describe('FlatTreeDataSource', () => {
       const children = parentNode.children!;
       expect(children).to.have.length(2);
 
-      // This is the behavior that should be implemented but currently fails:
       // When a selected parent is expanded and lazy-loads children, all children
       // should automatically be selected to maintain consistent selection state
       expect(children[0].selected).to.be.true; // Child 1.1 should be selected

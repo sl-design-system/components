@@ -268,8 +268,8 @@ describe('NestedTreeDataSource', () => {
       loadChildrenSpy = spy((node: TestItem) => {
         if (node.id === 1) {
           return Promise.resolve([
-            { id: 11, name: 'Child 1.1', selected: true }, // This child should be selected
-            { id: 12, name: 'Child 1.2', selected: false }
+            { id: 11, name: 'Child 1.1' },
+            { id: 12, name: 'Child 1.2' }
           ]);
         } else if (node.id === 2) {
           return Promise.resolve([{ id: 21, name: 'Child 2.1' }]);

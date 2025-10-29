@@ -155,6 +155,7 @@ export class Upload
     }
 
     this.setFormControlElement(this.input);
+    this.setAttributesTarget(this.input);
 
     this.input.addEventListener('change', this.#onInputChange);
   }

@@ -94,18 +94,6 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** Shows the week numbers. */
   @property({ type: Boolean, attribute: 'show-week-numbers' }) showWeekNumbers?: boolean;
 
-  override connectedCallback(): void {
-    super.connectedCallback();
-
-    document.addEventListener('pointerdown', this.#onPointerDown, true);
-  }
-
-  override disconnectedCallback(): void {
-    document.removeEventListener('pointerdown', this.#onPointerDown, true);
-
-    super.disconnectedCallback();
-  }
-
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
@@ -172,22 +160,6 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       ])}
     `;
   }
-
-  /** Close month/year view when clicking outside the component */
-  #onPointerDown = (event: PointerEvent): void => {
-    if (this.mode === 'day') {
-      return;
-    }
-
-    const path = event.composedPath();
-    if (!path.includes(this)) {
-      if (this.mode === 'year' && this.#previousMode === 'month') {
-        this.mode = 'month';
-      } else {
-        this.mode = 'day';
-      }
-    }
-  };
 
   #onSelect(event: SlSelectEvent<Date>): void {
     event.preventDefault();

@@ -2,7 +2,13 @@ import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  EventsController,
+  ObserveAttributesMixin,
+  ObserveAttributesMixinInterface,
+  event
+} from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -27,7 +33,14 @@ let nextUniqueId = 0;
  * @slot default - The content shown in the dropzone
  */
 @localized()
-export class Upload extends FormControlMixin(ScopedElementsMixin(LitElement)) {
+export class Upload
+  extends ObserveAttributesMixin(FormControlMixin(ScopedElementsMixin(LitElement)), [
+    'aria-disabled',
+    'aria-label',
+    'aria-labelledby'
+  ])
+  implements ObserveAttributesMixinInterface
+{
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {

@@ -14,40 +14,10 @@ export interface CustomIconDefinition {
 
 // Copied from FontAwesome so we don't rely on it as a dependency
 export type IconStyle = 'solid' | 'regular' | 'light' | 'thin' | 'duotone' | 'brands' | 'semibold';
-export type IconPrefix =
-  | 'fas'
-  | 'fass'
-  | 'far'
-  | 'fasr'
-  | 'fal'
-  | 'fasl'
-  | 'fat'
-  | 'fast'
-  | 'fad'
-  | 'fadr'
-  | 'fadl'
-  | 'fadt'
-  | 'fasds'
-  | 'fasdr'
-  | 'fasdl'
-  | 'fasdt'
-  | 'fab'
-  | 'faslr'
-  | 'faslpr'
-  | 'fawsb'
-  | 'fatl'
-  | 'fans'
-  | 'fands'
-  | 'faes'
-  | 'fajr'
-  | 'fajfr'
-  | 'fajdr'
-  | 'facr'
-  | 'fausb'
-  | 'faudsb'
-  | 'faufsb'
-  | 'fak'
-  | 'fakd';
+
+// Use a flexible type that matches FontAwesome's prefix pattern (fa + lowercase letters)
+// This prevents TypeScript errors when FontAwesome adds new prefixes
+export type IconPrefix = `fa${string}`;
 export type IconPathData = string | string[];
 
 export interface IconLookup {

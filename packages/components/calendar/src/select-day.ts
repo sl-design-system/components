@@ -45,6 +45,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** Timeout id, to be used with `clearTimeout`. */
   #announceTimeoutId?: ReturnType<typeof setTimeout>;
 
+  #observer?: IntersectionObserver;
+
   /** The list of dates that should be set as disabled. */
   @property({ attribute: 'disabled-dates', converter: dateConverter }) disabledDates?: Date[];
 
@@ -63,9 +65,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     converter: indicatorConverter
   })
   indicatorDates?: Indicator[];
-
-  // eslint-disable-next-line lit/no-native-attributes
-  @property({ type: Boolean }) override inert = false;
 
   /** @internal The localized "week of year" label. */
   @state() localizedWeekOfYear?: string;
@@ -121,10 +120,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal The translated days of the week. */
   @state() weekDays: Array<{ long: string; short: string }> = [];
 
-  observer?: IntersectionObserver;
-
   override disconnectedCallback(): void {
-    this.observer?.disconnect();
+    this.#observer?.disconnect();
 
     if (this.#announceTimeoutId) {
       clearTimeout(this.#announceTimeoutId);
@@ -148,7 +145,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       }
 
       // Create the observer after the scroller exists so `root` is the scroller element
-      this.observer = new IntersectionObserver(
+      this.#observer = new IntersectionObserver(
         entries => {
           entries.forEach(entry => {
             if (entry.isIntersecting && entry.intersectionRatio === 1) {
@@ -162,7 +159,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
       this.#scrollToMonth(0);
       const monthViews = this.renderRoot.querySelectorAll('sl-month-view');
-      monthViews.forEach(mv => this.observer?.observe(mv));
+      monthViews.forEach(mv => this.#observer?.observe(mv));
     });
   }
 
@@ -207,16 +204,10 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
     return html`
       <div part="header">
-        <div>
+        <div class="month-year">
           ${canSelectPreviousMonth || canSelectNextMonth
             ? html`
-                <sl-button
-                  @click=${this.#onToggleMonthSelect}
-                  ?disabled=${this.readonly}
-                  class="current-month"
-                  fill="link"
-                  variant="secondary"
-                >
+                <sl-button @click=${this.#onToggleMonthSelect} class="current-month" fill="link" variant="secondary">
                   <sl-format-date
                     .date=${this.displayMonth}
                     locale=${ifDefined(this.locale)}
@@ -236,13 +227,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
               `}
           ${canSelectPreviousYear || canSelectNextYear
             ? html`
-                <sl-button
-                  @click=${this.#onToggleYearSelect}
-                  ?disabled=${this.readonly}
-                  class="current-year"
-                  fill="link"
-                  variant="secondary"
-                >
+                <sl-button @click=${this.#onToggleYearSelect} class="current-year" fill="link" variant="secondary">
                   <sl-format-date
                     .date=${this.displayMonth}
                     locale=${ifDefined(this.locale)}
@@ -271,7 +256,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
             class="previous-month"
             fill="ghost"
             variant="secondary"
-            ?disabled=${!canSelectPreviousMonth || this.readonly}
+            ?disabled=${!canSelectPreviousMonth}
           >
             <sl-icon name="chevron-left"></sl-icon>
           </sl-button>
@@ -284,7 +269,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
             class="next-month"
             fill="ghost"
             variant="secondary"
-            ?disabled=${!canSelectNextMonth || this.readonly}
+            ?disabled=${!canSelectNextMonth}
           >
             <sl-icon name="chevron-right"></sl-icon>
           </sl-button>
@@ -389,6 +374,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   #onPrevious(): void {
     this.#scrollToMonth(-1, true);
+    // TODO: it should not be possible to scroll to a month that is out of range (min and max...)
 
     if (this.previousMonth !== undefined) {
       this.#announce(this.previousMonth);
@@ -406,6 +392,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   #onSelect(event: SlSelectEvent<Date>): void {
     event.preventDefault();
     event.stopPropagation();
+
     if (this.readonly) {
       return;
     }

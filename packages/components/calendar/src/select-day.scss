@@ -1,17 +1,20 @@
 :host {
+  --_days-in-week: 7;
+
   display: inline-flex;
   flex-direction: column;
 }
 
 :host([show-week-numbers]) {
   .days-of-week {
-    grid-template-columns: var(--sl-size-600) repeat(7, var(--sl-size-450));
+    grid-template-columns: var(--sl-size-600) repeat(var(--_days-in-week), var(--sl-size-450));
     padding: var(--sl-size-050) var(--sl-size-075) 0 0;
   }
 
   .scroller {
     max-inline-size: calc(
-      var(--sl-size-600) + var(--sl-size-borderWidth-subtle) + 7 * var(--sl-size-450) + var(--sl-size-100)
+      var(--sl-size-600) + var(--sl-size-borderWidth-subtle) + var(--_days-in-week) * var(--sl-size-450) +
+        var(--sl-size-100)
     );
   }
 }
@@ -22,6 +25,11 @@
   justify-content: space-between;
   padding-block: var(--sl-size-075);
   padding-inline: var(--sl-size-150) var(--sl-size-050);
+}
+
+.month-year {
+  align-items: center;
+  display: inline-flex;
 }
 
 .current-month,
@@ -42,7 +50,7 @@
   color: var(--sl-color-foreground-disabled);
   display: grid;
   font-weight: normal;
-  grid-template-columns: repeat(7, var(--sl-size-450));
+  grid-template-columns: repeat(var(--_days-in-week), var(--sl-size-450));
   padding: var(--sl-size-050) var(--sl-size-075);
 }
 
@@ -59,7 +67,7 @@
   align-items: start;
   display: flex;
   flex-grow: 1;
-  max-inline-size: calc(7 * var(--sl-size-450) + var(--sl-size-100));
+  max-inline-size: calc(var(--_days-in-week) * var(--sl-size-450) + var(--sl-size-100));
   outline: none;
   overflow: scroll hidden;
   scroll-snap-type: x mandatory;

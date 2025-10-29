@@ -26,7 +26,7 @@ sl-button {
   user-select: none;
 }
 
-table.months {
+table {
   block-size: 100%;
   border-collapse: separate;
   border-spacing: var(--sl-size-100) var(--sl-size-200);
@@ -35,7 +35,7 @@ table.months {
   margin: 0;
 }
 
-table.months td {
+table td {
   margin: 0;
   padding: 0;
   text-align: center;

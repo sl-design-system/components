@@ -50,7 +50,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     direction: 'grid',
     directionLength: 3,
     elements: (): HTMLButtonElement[] => {
-      const list = this.renderRoot.querySelector('table.months');
+      const list = this.renderRoot.querySelector('table');
 
       if (!list) {
         return [];
@@ -74,7 +74,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       const firstEnabled = elements.findIndex(el => !el.disabled);
       return firstEnabled === -1 ? 0 : firstEnabled;
     },
-    listenerScope: (): HTMLElement => this.renderRoot.querySelector('table.months')!
+    listenerScope: (): HTMLElement => this.renderRoot.querySelector('table')!
   });
 
   /**
@@ -168,7 +168,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           ? html`
               <sl-button @click=${this.#onToggleYearSelect} class="current-year" fill="link" variant="secondary">
                 <sl-format-date .date=${this.month} locale=${ifDefined(this.locale)} year="numeric"></sl-format-date>
-                <sl-icon name="caret-down-solid" size="md"></sl-icon>
+                <sl-icon name="caret-down-solid"></sl-icon>
               </sl-button>
             `
           : html`<span class="current-year">${currentYear}</span>`}
@@ -198,7 +198,6 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       <table
         @keydown=${this.#onKeydown}
         aria-label=${msg(str`Months of ${currentYear}`, { id: 'sl.calendar.monthsLabel' })}
-        class="months"
         role="grid"
       >
         <tbody>
@@ -266,7 +265,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #getMonthsButtons(): HTMLButtonElement[] {
-    return Array.from(this.renderRoot.querySelectorAll('.months button'));
+    return Array.from(this.renderRoot.querySelectorAll('table button'));
   }
 
   /** Returns an array of part names for a day. */
@@ -312,7 +311,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    const buttons = Array.from(this.renderRoot.querySelectorAll<HTMLButtonElement>('.months button')),
+    const buttons = Array.from(this.renderRoot.querySelectorAll<HTMLButtonElement>('table button')),
       activeElement = this.shadowRoot?.activeElement as HTMLButtonElement | null,
       index = activeElement ? buttons.indexOf(activeElement) : -1,
       cols = 3;

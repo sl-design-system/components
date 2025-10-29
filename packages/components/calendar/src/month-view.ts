@@ -379,7 +379,7 @@ export class MonthView extends LocaleMixin(LitElement) {
         this.indicatorDates.map(indicator => indicator.date)
       )
         ? (() => {
-            const indicator = this.indicatorDates && this.indicatorDates.find(i => isSameDate(i.date, day.date));
+            const indicator = this.indicatorDates?.find(i => isSameDate(i.date, day.date));
             return indicator?.color ? `indicator indicator-${indicator.color}` : 'indicator';
           })()
         : '',

@@ -3,12 +3,10 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { MonthView } from '../index.js';
 import { SelectDay } from './select-day.js';
 
 try {
   customElements.define('sl-select-day', SelectDay);
-  customElements.define('sl-month-view', MonthView);
 } catch {
   /* already defined */
 }

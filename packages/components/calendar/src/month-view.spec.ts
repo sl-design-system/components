@@ -267,7 +267,7 @@ describe('sl-month-view', () => {
       expect(tooltip?.textContent?.trim()).to.equal('Special day');
     });
 
-    it('should render generic tooltip when no color or label provided', async () => {
+    it('should render no tooltip when no color or label provided', async () => {
       const date = new Date(new Date().getFullYear(), new Date().getMonth(), 15);
       el.indicatorDates = [{ date }];
 
@@ -281,8 +281,7 @@ describe('sl-month-view', () => {
 
       const tooltip = el.renderRoot.querySelector('sl-tooltip');
 
-      expect(tooltip).to.exist;
-      expect(tooltip?.textContent?.trim()).to.equal('Indicator');
+      expect(tooltip).not.to.exist;
     });
   });
 
@@ -316,7 +315,7 @@ describe('sl-month-view', () => {
   describe('Click', () => {
     beforeEach(async () => {
       el = await fixture(
-        html`<sl-month-view .month=${new Date(2025, 9, 1)} .disabled=${[new Date(2025, 9, 10)]}></sl-month-view>`
+        html`<sl-month-view .month=${new Date(2025, 9, 1)} .disabledDates=${[new Date(2025, 9, 10)]}></sl-month-view>`
       );
       await el.updateComplete;
     });
@@ -588,7 +587,10 @@ describe('sl-month-view', () => {
     it('should parse indicator attribute JSON into Date instances', async () => {
       const date = new Date();
 
-      el.setAttribute('indicator', JSON.stringify([{ date: date.toISOString(), color: 'grey', label: 'Attr label' }]));
+      el.setAttribute(
+        'indicator-dates',
+        JSON.stringify([{ date: date.toISOString(), color: 'grey', label: 'Attr label' }])
+      );
 
       await el.updateComplete;
 

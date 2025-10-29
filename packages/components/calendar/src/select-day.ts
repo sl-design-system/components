@@ -222,7 +222,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                     locale=${ifDefined(this.locale)}
                     month="long"
                   ></sl-format-date>
-                  <sl-icon name="caret-down-solid" size="md"></sl-icon>
+                  <sl-icon name="caret-down-solid"></sl-icon>
                 </sl-button>
               `
             : html`
@@ -248,7 +248,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                     locale=${ifDefined(this.locale)}
                     year="numeric"
                   ></sl-format-date>
-                  <sl-icon name="caret-down-solid" size="md"></sl-icon>
+                  <sl-icon name="caret-down-solid"></sl-icon>
                 </sl-button>
               `
             : html`

@@ -23,7 +23,7 @@ describe('sl-select-month', () => {
 
     it('should generate 12 months', () => {
       expect(el.months).to.have.lengthOf(12);
-      const monthButtons = el.renderRoot.querySelectorAll('table.months button');
+      const monthButtons = el.renderRoot.querySelectorAll('table button');
       expect(monthButtons).to.have.lengthOf(12);
     });
 
@@ -106,7 +106,7 @@ describe('sl-select-month', () => {
         onSelect(e.detail);
       });
 
-      const firstButton = el.renderRoot.querySelector('table.months button') as HTMLButtonElement;
+      const firstButton = el.renderRoot.querySelector('table button') as HTMLButtonElement;
 
       expect(firstButton).to.exist;
 
@@ -123,7 +123,7 @@ describe('sl-select-month', () => {
     });
 
     it('should update selected when clicking a month button', async () => {
-      const clickable = Array.from(el.renderRoot.querySelectorAll('table.months button')).find(
+      const clickable = Array.from(el.renderRoot.querySelectorAll('table button')).find(
         b => !(b as HTMLButtonElement).disabled
       )!;
 
@@ -154,7 +154,7 @@ describe('sl-select-month', () => {
         onSelect(e.detail);
       });
 
-      const firstBtn = el.renderRoot.querySelector<HTMLButtonElement>('table.months button') as HTMLButtonElement;
+      const firstBtn = el.renderRoot.querySelector<HTMLButtonElement>('table button') as HTMLButtonElement;
 
       expect(firstBtn).to.exist;
 
@@ -239,7 +239,7 @@ describe('sl-select-month', () => {
       el.selected = new Date(now.getFullYear(), now.getMonth(), 1);
       await el.updateComplete;
 
-      const button = Array.from(el.renderRoot.querySelectorAll('table.months button')).find(button =>
+      const button = Array.from(el.renderRoot.querySelectorAll('table button')).find(button =>
         (button.getAttribute('part') || '').includes('selected')
       );
 
@@ -261,7 +261,7 @@ describe('sl-select-month', () => {
     });
 
     it('should decrement year when ArrowLeft is pressed on first button', async () => {
-      const buttons = el.renderRoot.querySelectorAll('table.months button');
+      const buttons = el.renderRoot.querySelectorAll('table button');
       const first = buttons[0] as HTMLButtonElement;
 
       first.focus();
@@ -273,7 +273,7 @@ describe('sl-select-month', () => {
     });
 
     it('should increment year when ArrowRight is pressed on last button', async () => {
-      const buttons = el.renderRoot.querySelectorAll('table.months button');
+      const buttons = el.renderRoot.querySelectorAll('table button');
       const last = buttons[buttons.length - 1] as HTMLButtonElement;
 
       last.focus();
@@ -284,7 +284,7 @@ describe('sl-select-month', () => {
     });
 
     it('should decrement year when ArrowUp is pressed on a top row button', async () => {
-      const buttons = el.renderRoot.querySelectorAll('table.months button');
+      const buttons = el.renderRoot.querySelectorAll('table button');
       // pick index 1 (top row, middle)
       const target = buttons[1] as HTMLButtonElement;
 
@@ -296,7 +296,7 @@ describe('sl-select-month', () => {
     });
 
     it('should increment year when ArrowDown is pressed on a last row button', async () => {
-      const buttons = el.renderRoot.querySelectorAll('table.months button');
+      const buttons = el.renderRoot.querySelectorAll('table button');
       // For 12 months and 3 columns, lastRowStart is index 9, choose index 10
       const target = buttons[10] as HTMLButtonElement;
 

@@ -1,8 +1,8 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
-import { spy, stub } from 'sinon';
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { spy } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { Upload } from './upload.js';
 
@@ -264,6 +264,61 @@ describe('sl-upload', () => {
 
       expect(el.files).to.have.lengthOf(1);
       expect(el.files[0].name).to.equal('small.txt');
+    });
+
+    it('should emit invalid-files event when files are rejected by accept', async () => {
+      const invalidSpy = spy();
+      el.addEventListener('sl-invalid-files', invalidSpy);
+
+      const imageFile = new File(['image'], 'test.png', { type: 'image/png' });
+      const textFile = new File(['text'], 'test.txt', { type: 'text/plain' });
+      const dataTransfer = new DataTransfer();
+      dataTransfer.items.add(imageFile);
+      dataTransfer.items.add(textFile);
+
+      Object.defineProperty(el.input, 'files', {
+        value: dataTransfer.files,
+        writable: false
+      });
+
+      el.input.dispatchEvent(new Event('change'));
+      await el.updateComplete;
+
+      expect(invalidSpy).to.have.been.calledOnce;
+      const eventDetail = invalidSpy.firstCall.args[0].detail;
+      expect(eventDetail.files).to.have.lengthOf(1);
+      expect(eventDetail.files[0].name).to.equal('test.txt');
+      expect(eventDetail.reasons).to.have.lengthOf(1);
+      expect(eventDetail.reasons[0]).to.include('File type not accepted');
+    });
+
+    it('should emit invalid-files event when files exceed max size', async () => {
+      el.maxSize = 100;
+      await el.updateComplete;
+
+      const invalidSpy = spy();
+      el.addEventListener('sl-invalid-files', invalidSpy);
+
+      const smallFile = new File(['x'.repeat(50)], 'small.txt', { type: 'text/plain' });
+      const largeFile = new File(['x'.repeat(200)], 'large.txt', { type: 'text/plain' });
+      const dataTransfer = new DataTransfer();
+      dataTransfer.items.add(smallFile);
+      dataTransfer.items.add(largeFile);
+
+      Object.defineProperty(el.input, 'files', {
+        value: dataTransfer.files,
+        writable: false
+      });
+
+      el.input.dispatchEvent(new Event('change'));
+      await el.updateComplete;
+
+      expect(invalidSpy).to.have.been.calledOnce;
+      const eventDetail = invalidSpy.firstCall.args[0].detail;
+      expect(eventDetail.files).to.have.lengthOf(1);
+      expect(eventDetail.files[0].name).to.equal('large.txt');
+      expect(eventDetail.reasons).to.have.lengthOf(1);
+      expect(eventDetail.reasons[0]).to.include('File size exceeds maximum');
     });
   });
 

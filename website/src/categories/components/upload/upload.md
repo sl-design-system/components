@@ -128,6 +128,7 @@ The upload component is fully accessible:
 | Event | Description |
 |-------|-------------|
 | `sl-change` | Emitted when files are selected or changed |
+| `sl-invalid-files` | Emitted when files are rejected due to validation (type, size, or multiple constraints). Event detail contains `files` (rejected files) and `reasons` (array of rejection reasons) |
 | `sl-blur` | Emitted when the component loses focus |
 | `sl-focus` | Emitted when the component gains focus |
 

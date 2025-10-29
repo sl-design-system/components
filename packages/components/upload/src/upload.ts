@@ -5,7 +5,7 @@ import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import styles from './upload.scss.js';
 
@@ -63,6 +63,10 @@ export class Upload extends FormControlMixin(ScopedElementsMixin(LitElement)) {
 
   /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
+
+  /** @internal Emits when files are rejected due to validation. */
+  @event({ name: 'sl-invalid-files' })
+  invalidFilesEvent!: EventEmitter<CustomEvent<{ files: File[]; reasons: string[] }>>;
 
   /** Accepted file types (e.g., "image/*,.pdf"). */
   @property() accept?: string;
@@ -278,20 +282,52 @@ export class Upload extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   };
 
   #setFiles(files: File[]): void {
+    const rejectedFiles: File[] = [];
+    const rejectionReasons: string[] = [];
+
     // Filter files based on accept attribute
     let filteredFiles = files;
     if (this.accept) {
-      filteredFiles = files.filter(file => this.#isFileAccepted(file));
+      const acceptedFiles: File[] = [];
+      files.forEach(file => {
+        if (this.#isFileAccepted(file)) {
+          acceptedFiles.push(file);
+        } else {
+          rejectedFiles.push(file);
+          rejectionReasons.push(`${file.name}: File type not accepted`);
+        }
+      });
+      filteredFiles = acceptedFiles;
     }
 
     // Filter files based on max size
     if (this.maxSize) {
-      filteredFiles = filteredFiles.filter(file => file.size <= this.maxSize);
+      const sizedFiles: File[] = [];
+      filteredFiles.forEach(file => {
+        if (file.size <= this.maxSize) {
+          sizedFiles.push(file);
+        } else {
+          rejectedFiles.push(file);
+          rejectionReasons.push(`${file.name}: File size exceeds maximum (${this.#formatFileSize(this.maxSize)})`);
+        }
+      });
+      filteredFiles = sizedFiles;
     }
 
     // Handle multiple files
     if (!this.multiple && filteredFiles.length > 0) {
+      // Only keep the first file, reject the rest
+      const extraFiles = filteredFiles.slice(1);
+      extraFiles.forEach(file => {
+        rejectedFiles.push(file);
+        rejectionReasons.push(`${file.name}: Multiple files not allowed`);
+      });
       filteredFiles = [filteredFiles[0]];
+    }
+
+    // Emit event for rejected files to inform users
+    if (rejectedFiles.length > 0) {
+      this.invalidFilesEvent.emit({ files: rejectedFiles, reasons: rejectionReasons });
     }
 
     this.#files = filteredFiles;
@@ -346,7 +382,8 @@ export class Upload extends FormControlMixin(ScopedElementsMixin(LitElement)) {
 
     const k = 1024;
     const sizes = ['B', 'KB', 'MB', 'GB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    let i = Math.floor(Math.log(bytes) / Math.log(k));
+    i = Math.min(i, sizes.length - 1);
 
     return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`;
   }

@@ -690,7 +690,7 @@ describe('sl-select', () => {
           <sl-select>
             <sl-option value="short">Short</sl-option>
             <sl-option value="medium-length">Medium length option</sl-option>
-            <sl-option value="longer">This is an longer option text.</sl-option>
+            <sl-option value="longer">This is a longer option text.</sl-option>
           </sl-select>
         </div>
       `);

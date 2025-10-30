@@ -461,52 +461,52 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
       return;
     }
 
+    // Set up cached elements for efficient text width measurement
+    const measureElement = this.#setupMeasureElement();
+
     let maxWidth = 0;
 
     // Get all options (including those in option groups)
     this.options.forEach(option => {
       const textContent = option.textContent?.trim() || '';
       if (textContent) {
-        const textWidth = this.#measureTextWidth(textContent);
+        measureElement.textContent = textContent;
+
         // Add icon width (16px) and gap (8px) for options
-        const totalWidth = textWidth + 16 + 8;
+        const totalWidth = measureElement.getBoundingClientRect().width + 16 + 8;
         maxWidth = Math.max(maxWidth, totalWidth);
       }
     });
 
     // Also consider the placeholder text (without icon/gap)
     if (this.placeholder) {
-      const placeholderWidth = this.#measureTextWidth(this.placeholder);
-      maxWidth = Math.max(maxWidth, placeholderWidth);
+      measureElement.textContent = this.placeholder;
+      maxWidth = Math.max(maxWidth, measureElement.getBoundingClientRect().width);
     }
+
+    // Clean up measure element
+    document.body.removeChild(measureElement);
 
     // Pass the largest width to the button
     this.button.optionSize = maxWidth;
   }
 
-  #measureTextWidth(text: string): number {
-    // Create a temporary element to measure text width
-    const tempElement = document.createElement('span');
-    tempElement.style.visibility = 'hidden';
-    tempElement.style.position = 'absolute';
-    tempElement.style.whiteSpace = 'nowrap';
+  #setupMeasureElement(): HTMLElement {
+    const measureElement = document.createElement('span');
+    measureElement.style.visibility = 'hidden';
+    measureElement.style.position = 'absolute';
+    measureElement.style.whiteSpace = 'nowrap';
 
-    // Use the same font styling as the button to ensure accurate measurement
-    if (this.button) {
-      const buttonComputedStyle = getComputedStyle(this.button);
-      tempElement.style.font = buttonComputedStyle.font;
-      tempElement.style.fontSize = buttonComputedStyle.fontSize;
-      tempElement.style.fontFamily = buttonComputedStyle.fontFamily;
-      tempElement.style.fontWeight = buttonComputedStyle.fontWeight;
-    }
+    document.body.appendChild(measureElement);
 
-    tempElement.textContent = text;
-    document.body.appendChild(tempElement);
+    const buttonComputedStyle = getComputedStyle(this.button);
 
-    const width = tempElement.getBoundingClientRect().width;
-    document.body.removeChild(tempElement);
+    measureElement.style.font = buttonComputedStyle.font;
+    measureElement.style.fontFamily = buttonComputedStyle.fontFamily;
+    measureElement.style.fontSize = buttonComputedStyle.fontSize;
+    measureElement.style.fontWeight = buttonComputedStyle.fontWeight;
 
-    return width;
+    return measureElement;
   }
 
   /** Returns a flattened array of all options (also the options in groups). */

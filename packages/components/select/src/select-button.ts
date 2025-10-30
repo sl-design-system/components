@@ -102,13 +102,17 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
       selected = this.selected?.textContent?.trim();
     }
 
+    let inlineSize = '100%';
+
+    if (this.optionSize) {
+      const shouldAccountForClearButton = this.clearable && !this.selected,
+        clearButtonTotalWidth = 4 /* clear button margin */ + 34 /* clear button width */ + 4; /* status icon padding */
+
+      inlineSize = `${this.optionSize + (shouldAccountForClearButton ? clearButtonTotalWidth : 0)}px`;
+    }
+
     return html`
-      <div
-        part=${this.placeholder && !selected ? 'placeholder' : 'selected-option'}
-        style="inline-size: ${this.optionSize
-          ? `${this.optionSize + (this.clearable && !this.selected ? 4 /* margin of clear button */ + 34 /* width of clear button */ + 4 /* extra padding of status icon */ : 0)}px`
-          : '100%'}"
-      >
+      <div part=${this.placeholder && !selected ? 'placeholder' : 'selected-option'} style="inline-size: ${inlineSize}">
         ${selected || this.placeholder || '\u00a0'}
       </div>
       ${!this.disabled && this.clearable && this.selected

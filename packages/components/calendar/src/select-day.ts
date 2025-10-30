@@ -202,6 +202,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           (this.min && this.previousMonth?.getTime() >= new Date(this.min.getFullYear(), this.min.getMonth()).getTime())
         : false;
 
+    const scrollerLocked = !canSelectNextMonth && !canSelectPreviousMonth;
+
     return html`
       <div part="header">
         <div class="month-year">
@@ -287,7 +289,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           day => html`<span role="listitem" class="day-of-week" aria-label=${day.long}>${day.short}</span>`
         )}
       </div>
-      <div class="scroller" tabindex="-1">
+      <div class="scroller" data-locked=${ifDefined(scrollerLocked ? 'true' : undefined)} tabindex="-1">
         <sl-month-view
           ?readonly=${this.readonly}
           ?show-today=${this.showToday}

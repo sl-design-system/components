@@ -70,6 +70,7 @@
   max-inline-size: calc(var(--_days-in-week) * var(--sl-size-450) + var(--sl-size-100));
   outline: none;
   overflow: scroll hidden;
+  scroll-padding-inline: 0;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
 }

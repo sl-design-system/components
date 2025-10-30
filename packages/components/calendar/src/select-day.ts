@@ -135,14 +135,14 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     super.firstUpdated(changes);
 
     requestAnimationFrame(() => {
-      let totalHorizontal = 0;
+      // let totalHorizontal = 0;
 
-      if (this.monthView) {
-        const cs = getComputedStyle(this.monthView);
-        const left = parseFloat(cs.paddingLeft) || 0;
-        const right = parseFloat(cs.paddingRight) || 0;
-        totalHorizontal = Math.round(left + right);
-      }
+      // if (this.monthView) {
+      //   const cs = getComputedStyle(this.monthView);
+      //   const left = parseFloat(cs.paddingLeft) || 0;
+      //   const right = parseFloat(cs.paddingRight) || 0;
+      //   // totalHorizontal = Math.round(left + right);
+      // }
 
       // Create the observer after the scroller exists so `root` is the scroller element
       this.#observer = new IntersectionObserver(
@@ -154,10 +154,10 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
             }
           });
         },
-        { root: this.scroller, rootMargin: `${totalHorizontal}px`, threshold: [0, 0.25, 0.5, 0.75, 1] }
+        { root: this.scroller, /*rootMargin: `${totalHorizontal}px`,*/ threshold: [0, 0.25, 0.5, 0.75, 1] }
       );
 
-      this.#scrollToMonth(0);
+      this.#scrollToMonth(0); // TODO: maybe min and max needs to be taken here into account?
       const monthViews = this.renderRoot.querySelectorAll('sl-month-view');
       monthViews.forEach(mv => this.#observer?.observe(mv));
     });
@@ -409,9 +409,47 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #scrollToMonth(month: -1 | 0 | 1, smooth = false): void {
+    const canSelectNextYear = this.displayMonth
+        ? !this.max || (this.max && this.displayMonth.getFullYear() + 1 <= this.max.getFullYear())
+        : false,
+      canSelectPreviousYear = this.displayMonth
+        ? !this.min || (this.min && this.displayMonth.getFullYear() - 1 >= this.min.getFullYear())
+        : false,
+      canSelectNextMonth = this.nextMonth
+        ? !this.max || (this.max && this.nextMonth?.getTime() + 1 <= this.max.getTime())
+        : false,
+      canSelectPreviousMonth = this.previousMonth
+        ? !this.min ||
+          (this.min && this.previousMonth?.getTime() >= new Date(this.min.getFullYear(), this.min.getMonth()).getTime())
+        : false;
+
+    console.log(
+      'scrollToMonth',
+      month,
+      smooth,
+      'min and max',
+      this.min,
+      this.max,
+      'canSelectPreviousMonth, canSelectNextMonth',
+      canSelectPreviousMonth,
+      canSelectNextMonth
+    );
+    console.log('next and previous month', this.nextMonth, this.previousMonth);
+
+    console.log('canSelectPreviousYear and canSelectNextYear', canSelectPreviousYear, canSelectNextYear);
+
+    if (!canSelectPreviousMonth || !canSelectNextMonth) {
+      console.log('should return', 'month?', month, smooth);
+      // return;
+    }
+
     const width = parseInt(getComputedStyle(this).width) || 0,
       left = width * month + width;
 
+    // requestAnimationFrame(() => {
+    //   this.scroller?.scrollTo({ left, behavior: smooth ? 'smooth' : 'instant' });
+    //
+    // });
     this.scroller?.scrollTo({ left, behavior: smooth ? 'smooth' : 'instant' });
   }
 }

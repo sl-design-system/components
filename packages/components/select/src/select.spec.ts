@@ -695,7 +695,7 @@ describe('sl-select', () => {
         </div>
       `);
 
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve));
 
       button = el.querySelector('sl-select-button')!;
       expect(button.getBoundingClientRect().width).to.be.lessThan(800);
@@ -715,7 +715,7 @@ describe('sl-select', () => {
         </div>
       `);
 
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve));
 
       button = el.querySelector('sl-select-button')!;
       expect(button.getBoundingClientRect().width).to.equal(400);

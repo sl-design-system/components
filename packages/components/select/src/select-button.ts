@@ -50,7 +50,7 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   /** The width of the longest option. */
   @property({ type: Number, attribute: 'option-size' }) optionSize?: number;
 
-  /** The placeholder for when there is no selected option.s */
+  /** The placeholder for when there is no selected option. */
   @property() placeholder?: string;
 
   /** Mirrors the same property on the sl-select parent. */

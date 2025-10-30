@@ -31,9 +31,6 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { keydown: this.#onKeydown });
 
-  /** The minimum size where every option is fully visible and does not wrap. */
-  #inlineSize?: number;
-
   /** Will display a clear button when an option is selected. */
   @property({ type: Boolean, reflect: true }) clearable?: boolean;
 
@@ -42,6 +39,9 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
 
   /** Whether the button is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
+
+  /** The width of the longest option. */
+  @property({ type: Number, attribute: 'option-size' }) optionSize?: number;
 
   /** The placeholder for when there is no selected option.s */
   @property() placeholder?: string;
@@ -98,7 +98,7 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
     return html`
       <div
         class=${this.placeholder && !selected ? 'placeholder' : ''}
-        style="inline-size: ${this.#inlineSize ? `${this.#inlineSize}px` : '100%'}"
+        style="inline-size: ${this.optionSize ? `${this.optionSize}px` : '100%'}"
       >
         ${selected || this.placeholder || '\u00a0'}
       </div>

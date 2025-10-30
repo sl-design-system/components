@@ -157,6 +157,16 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         { root: this.scroller, /*rootMargin: `${totalHorizontal}px`,*/ threshold: [0, 0.25, 0.5, 0.75, 1] }
       );
 
+      // Prevent manual scroll when locked
+      this.scroller?.addEventListener('scroll', () => {
+        if (this.scroller?.dataset.locked === 'true') {
+          const width = this.scroller.clientWidth;
+          if (this.scroller.scrollLeft !== width) {
+            this.scroller.scrollLeft = width; // keep center month in view
+          }
+        }
+      });
+
       this.#scrollToMonth(0); // TODO: maybe min and max needs to be taken here into account?
       const monthViews = this.renderRoot.querySelectorAll('sl-month-view');
       monthViews.forEach(mv => this.#observer?.observe(mv));
@@ -411,19 +421,10 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #scrollToMonth(month: -1 | 0 | 1, smooth = false): void {
-    const canSelectNextYear = this.displayMonth
-        ? !this.max || (this.max && this.displayMonth.getFullYear() + 1 <= this.max.getFullYear())
-        : false,
-      canSelectPreviousYear = this.displayMonth
-        ? !this.min || (this.min && this.displayMonth.getFullYear() - 1 >= this.min.getFullYear())
-        : false,
-      canSelectNextMonth = this.nextMonth
-        ? !this.max || (this.max && this.nextMonth?.getTime() + 1 <= this.max.getTime())
-        : false,
-      canSelectPreviousMonth = this.previousMonth
-        ? !this.min ||
-          (this.min && this.previousMonth?.getTime() >= new Date(this.min.getFullYear(), this.min.getMonth()).getTime())
-        : false;
+    const canSelectNextMonth = this.nextMonth ? !this.max || this.nextMonth.getTime() + 1 <= this.max.getTime() : false;
+    const canSelectPreviousMonth = this.previousMonth
+      ? !this.min || this.previousMonth.getTime() >= new Date(this.min.getFullYear(), this.min.getMonth()).getTime()
+      : false;
 
     console.log(
       'scrollToMonth',
@@ -438,11 +439,14 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     );
     console.log('next and previous month', this.nextMonth, this.previousMonth);
 
-    console.log('canSelectPreviousYear and canSelectNextYear', canSelectPreviousYear, canSelectNextYear);
+    // if (!canSelectPreviousMonth || !canSelectNextMonth) {
+    //   console.log('should return', 'month?', month, smooth);
+    //   // return;
+    // }
 
-    if (!canSelectPreviousMonth || !canSelectNextMonth) {
-      console.log('should return', 'month?', month, smooth);
-      // return;
+    // Block programmatic scroll when target month is not selectable
+    if ((month === -1 && !canSelectPreviousMonth) || (month === 1 && !canSelectNextMonth)) {
+      return;
     }
 
     const width = parseInt(getComputedStyle(this).width) || 0,

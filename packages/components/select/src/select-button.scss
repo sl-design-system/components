@@ -9,8 +9,7 @@
   border-radius: var(--sl-size-borderRadius-default);
   color: var(--sl-color-foreground-plain);
   cursor: pointer;
-  display: flex;
-  flex: 1;
+  display: inline-flex;
   max-inline-size: 100%;
   min-inline-size: 0;
   outline: transparent solid var(--sl-size-borderWidth-focusRing);

@@ -31,6 +31,9 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { keydown: this.#onKeydown });
 
+  /** The minimum size where every option is fully visible and does not wrap. */
+  #inlineSize?: number;
+
   /** Will display a clear button when an option is selected. */
   @property({ type: Boolean, reflect: true }) clearable?: boolean;
 
@@ -43,14 +46,14 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   /** The placeholder for when there is no selected option.s */
   @property() placeholder?: string;
 
+  /** Mirrors the same property on the sl-select parent. */
+  @property({ type: Boolean }) required?: boolean;
+
   /** The selected option. */
   @property({ attribute: false }) selected?: Option | null;
 
   /** The size of the parent select. */
   @property({ reflect: true }) size?: SelectSize;
-
-  /** Mirrors the same property on the sl-select parent. */
-  @property({ type: Boolean }) required?: boolean;
 
   /** Indicates whether the control should indicate it is valid. */
   @property({ type: Boolean, attribute: 'show-valid', reflect: true }) showValid?: boolean;
@@ -93,7 +96,12 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
     }
 
     return html`
-      <div class=${this.placeholder && !selected ? 'placeholder' : ''}>${selected || this.placeholder || '\u00a0'}</div>
+      <div
+        class=${this.placeholder && !selected ? 'placeholder' : ''}
+        style="inline-size: ${this.#inlineSize ? `${this.#inlineSize}px` : '100%'}"
+      >
+        ${selected || this.placeholder || '\u00a0'}
+      </div>
       ${!this.disabled && this.clearable && this.selected
         ? html`
             <button

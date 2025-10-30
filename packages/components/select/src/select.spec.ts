@@ -701,53 +701,9 @@ describe('sl-select', () => {
       expect(button.getBoundingClientRect().width).to.be.lessThan(800);
     });
 
-    it.skip('should automatically adjust width to the widest option', async () => {
-      el = await fixture(html`
-        <div style="inline-size: 800px; inset: 0 auto auto 0; position: fixed">
-          <sl-select>
-            <sl-option value="short">Short</sl-option>
-            <sl-option value="medium-length">Medium length option</sl-option>
-            <sl-option value="longer">This is an longer option text.</sl-option>
-          </sl-select>
-        </div>
-      `);
-
-      button = el.querySelector('sl-select-button')!;
-
-      // This test should fail initially as auto-sizing is not yet implemented
-      const buttonComputedStyle = getComputedStyle(button);
-
-      // The select should have a width that accommodates the longest option text
-      const longestOption = el.querySelector('sl-option[value="longer"]')!;
-      const longestOptionText = longestOption.textContent!.trim();
-
-      // Create a temporary element to measure the text width
-      const testEl = document.createElement('span');
-      testEl.style.visibility = 'hidden';
-      testEl.style.position = 'absolute';
-      testEl.style.whiteSpace = 'nowrap';
-      testEl.style.font = buttonComputedStyle.font;
-      testEl.textContent = longestOptionText;
-      document.body.appendChild(testEl);
-
-      const textWidth = testEl.getBoundingClientRect().width;
-      document.body.removeChild(testEl);
-
-      // The button should be at least as wide as the longest option text
-      // (accounting for padding and other styling)
-      const buttonWidth = button.getBoundingClientRect().width;
-
-      // This assertion should fail until auto-sizing is implemented
-      // The select currently uses a fixed default width, not content-based sizing
-      // Test that the width is specifically calculated based on content
-      // Using a much larger expected width to ensure this test fails until auto-sizing is implemented
-      const expectedMinWidth = textWidth + 500; // Very generous padding to ensure test failure
-      expect(buttonWidth).to.be.at.least(expectedMinWidth, 'Select should auto-size to fit the widest option');
-    });
-
     it('should respect parent max-width when option text is wider', async () => {
       el = await fixture(html`
-        <div style="inline-size: 400px; inset: 0 auto auto 0; position: fixed">
+        <div style="max-inline-size: 400px; inset: 0 auto auto 0; position: fixed">
           <sl-select>
             <sl-option value="short">Short</sl-option>
             <sl-option value="medium-length">Medium length option</sl-option>

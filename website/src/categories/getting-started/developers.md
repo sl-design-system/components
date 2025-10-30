@@ -137,6 +137,12 @@ To initialize the theme you need to run theme's `setup` function in a global JS 
 
 When you're using Angular this can be done in `main.ts` in the root folder of your application for example.
 
+### Deprecated tokens
+
+Sometimes new insights or techniques cause us to no longer use a certain token. To keep things clean and maintainable we will remove this after a deprecation period of at least a year. The latest version of a component is, at the time of release, always compatible with the (at that time) latest version of a theme.
+
+If one of the tokens we deprecated is still being used, either directly in your application or in a component you cannot update yet, you can find the deprecated tokens in separate files; `light-deprecated.css` and `dark-deprecated.css` (or `*.scss`). You can include these in the same places and way as the original (s)css files.
+
 </section>
 
 <section>

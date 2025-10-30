@@ -47,7 +47,8 @@ export type IconPrefix =
   | 'faudsb'
   | 'faufsb'
   | 'fak'
-  | 'fakd';
+  | 'fakd'
+  | `fa${string}`; // Flexible type to match any future prefixes
 export type IconPathData = string | string[];
 
 export interface IconLookup {

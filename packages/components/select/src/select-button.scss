@@ -54,7 +54,7 @@
   color: var(--sl-color-foreground-disabled);
   pointer-events: none;
 
-  .placeholder {
+  [part='placeholder'] {
     color: var(--sl-color-foreground-disabled);
   }
 }
@@ -92,7 +92,7 @@
   }
 }
 
-.placeholder {
+[part='placeholder'] {
   color: var(--sl-color-foreground-subtlest);
 }
 

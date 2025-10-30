@@ -16,6 +16,13 @@ declare global {
   }
 }
 
+/**
+ * SelectButton is used internally by the Select component to display the selected
+ * option and handle user interactions.
+ *
+ * @csspart placeholder - The placeholder text when no option is selected.
+ * @csspart selected-option - The container for the selected option.
+ */
 @localized()
 export class SelectButton extends ScopedElementsMixin(LitElement) {
   /** @internal */
@@ -97,8 +104,10 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
 
     return html`
       <div
-        class=${this.placeholder && !selected ? 'placeholder' : ''}
-        style="inline-size: ${this.optionSize ? `${this.optionSize}px` : '100%'}"
+        part=${this.placeholder && !selected ? 'placeholder' : 'selected-option'}
+        style="inline-size: ${this.optionSize
+          ? `${this.optionSize + (this.clearable && !this.selected ? 4 /* margin of clear button */ + 34 /* width of clear button */ + 4 /* extra padding of status icon */ : 0)}px`
+          : '100%'}"
       >
         ${selected || this.placeholder || '\u00a0'}
       </div>

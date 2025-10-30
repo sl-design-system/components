@@ -432,6 +432,9 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
         group.classList.add('bottom-divider');
       }
     });
+
+    // Calculate the width of the widest option text and pass it to the button
+    this.#calculateLargestOptionWidth();
   }
 
   #onToggle(event: ToggleEvent): void {
@@ -445,6 +448,65 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
       this.#popoverClosing = false;
     }
+  }
+
+  #calculateLargestOptionWidth(): void {
+    if (!this.button) {
+      return;
+    }
+
+    // If some options contains HTML, then we cannot calculate the width accurately
+    const notAllOptionsAreTextOnly = this.options.some(option => !!option.children.length);
+    if (notAllOptionsAreTextOnly) {
+      return;
+    }
+
+    let maxWidth = 0;
+
+    // Get all options (including those in option groups)
+    this.options.forEach(option => {
+      const textContent = option.textContent?.trim() || '';
+      if (textContent) {
+        const textWidth = this.#measureTextWidth(textContent);
+        // Add icon width (16px) and gap (8px) for options
+        const totalWidth = textWidth + 16 + 8;
+        maxWidth = Math.max(maxWidth, totalWidth);
+      }
+    });
+
+    // Also consider the placeholder text (without icon/gap)
+    if (this.placeholder) {
+      const placeholderWidth = this.#measureTextWidth(this.placeholder);
+      maxWidth = Math.max(maxWidth, placeholderWidth);
+    }
+
+    // Pass the largest width to the button
+    this.button.optionSize = maxWidth;
+  }
+
+  #measureTextWidth(text: string): number {
+    // Create a temporary element to measure text width
+    const tempElement = document.createElement('span');
+    tempElement.style.visibility = 'hidden';
+    tempElement.style.position = 'absolute';
+    tempElement.style.whiteSpace = 'nowrap';
+
+    // Use the same font styling as the button to ensure accurate measurement
+    if (this.button) {
+      const buttonComputedStyle = getComputedStyle(this.button);
+      tempElement.style.font = buttonComputedStyle.font;
+      tempElement.style.fontSize = buttonComputedStyle.fontSize;
+      tempElement.style.fontFamily = buttonComputedStyle.fontFamily;
+      tempElement.style.fontWeight = buttonComputedStyle.fontWeight;
+    }
+
+    tempElement.textContent = text;
+    document.body.appendChild(tempElement);
+
+    const width = tempElement.getBoundingClientRect().width;
+    document.body.removeChild(tempElement);
+
+    return width;
   }
 
   /** Returns a flattened array of all options (also the options in groups). */

@@ -104,15 +104,11 @@ export const EmbeddedComponents: Story = {
     placeholder: 'Select a student',
     slot: () => html`
       <style>
-        sl-select-button::part(selected),
-        sl-option {
-          align-items: center;
-          display: flex;
+        sl-select-button::part(selected-option) {
+          inline-size: 200px;
+          padding-block: 5px;
         }
-        sl-select-button::part(selected) {
-          padding-block: 3px;
-        }
-        sl-option {
+        sl-option::part(container) {
           padding-block: 4px;
         }
       </style>

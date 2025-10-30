@@ -455,7 +455,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
       return;
     }
 
-    // If some options contains HTML, then we cannot calculate the width accurately
+    // If some options contain HTML, then we cannot calculate the width accurately
     const notAllOptionsAreTextOnly = this.options.some(option => !!option.children.length);
     if (notAllOptionsAreTextOnly) {
       return;

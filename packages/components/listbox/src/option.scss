@@ -2,7 +2,6 @@
   --_bg-color: transparent;
   --_bg-mix-color: var(--sl-color-background-input-interactive);
   --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
-  --_gap: var(--sl-size-100);
 
   color: var(--sl-color-foreground-plain);
   display: block;
@@ -81,7 +80,7 @@
   cursor: pointer;
   display: flex;
   flex: 1;
-  gap: var(--_gap);
+  gap: var(--sl-size-100);
   padding: var(--sl-size-075) var(--sl-size-100);
 }
 

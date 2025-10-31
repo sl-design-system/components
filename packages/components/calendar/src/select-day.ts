@@ -148,6 +148,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       this.#observer = new IntersectionObserver(
         entries => {
           entries.forEach(entry => {
+            console.log('intersection observer entry', entry);
+
             if (entry.isIntersecting && entry.intersectionRatio === 1) {
               this.month = normalizeDateTime((entry.target as MonthView).month!);
               this.#scrollToMonth(0);
@@ -157,13 +159,29 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         { root: this.scroller, /*rootMargin: `${totalHorizontal}px`,*/ threshold: [0, 0.25, 0.5, 0.75, 1] }
       );
 
-      // Prevent manual scroll when locked
+      // // Prevent manual scroll when locked
+      // this.scroller?.addEventListener('scroll', () => {
+      //   if (this.scroller?.dataset.locked === 'true') {
+      //     const width = this.scroller.clientWidth;
+      //     if (this.scroller.scrollLeft !== width) {
+      //       this.scroller.scrollLeft = width; // keep center month in view
+      //     }
+      //   }
+      // });
+
+      // Clamp manual scroll when either adjacent month is disabled
       this.scroller?.addEventListener('scroll', () => {
-        if (this.scroller?.dataset.locked === 'true') {
-          const width = this.scroller.clientWidth;
-          if (this.scroller.scrollLeft !== width) {
-            this.scroller.scrollLeft = width; // keep center month in view
-          }
+        if (!this.scroller) return;
+        const width = this.scroller.clientWidth;
+        const left = this.scroller.scrollLeft;
+        const lockPrev = this.scroller.dataset.lockPrev === 'true';
+        const lockNext = this.scroller.dataset.lockNext === 'true';
+
+        // Center month should stay at scrollLeft === width
+        if (lockPrev && left < width) {
+          this.scroller.scrollLeft = width;
+        } else if (lockNext && left > width) {
+          this.scroller.scrollLeft = width;
         }
       });
 
@@ -196,6 +214,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       this.previousMonth = new Date(this.month.getFullYear(), this.month.getMonth() - 1);
     }
   }
+
+  // TODO: sl-month-view blocked when it's not possible to select previous/next month? and then use it in intersection observer entry.target?
 
   override render(): TemplateResult {
     const canSelectNextYear = this.displayMonth
@@ -299,7 +319,13 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           day => html`<span role="listitem" class="day-of-week" aria-label=${day.long}>${day.short}</span>`
         )}
       </div>
-      <div class="scroller" data-locked=${ifDefined(scrollerLocked ? 'true' : undefined)} tabindex="-1">
+      <div
+        class="scroller"
+        data-locked=${ifDefined(scrollerLocked ? 'true' : undefined)}
+        data-lock-prev=${ifDefined(!canSelectPreviousMonth ? 'true' : undefined)}
+        data-lock-next=${ifDefined(!canSelectNextMonth ? 'true' : undefined)}
+        tabindex="-1"
+      >
         <sl-month-view
           ?readonly=${this.readonly}
           ?show-today=${this.showToday}
@@ -421,41 +447,56 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #scrollToMonth(month: -1 | 0 | 1, smooth = false): void {
+    // const canSelectNextMonth = this.nextMonth ? !this.max || this.nextMonth.getTime() + 1 <= this.max.getTime() : false;
+    // const canSelectPreviousMonth = this.previousMonth
+    //   ? !this.min || this.previousMonth.getTime() >= new Date(this.min.getFullYear(), this.min.getMonth()).getTime()
+    //   : false;
+    //
+    // console.log(
+    //   'scrollToMonth',
+    //   month,
+    //   smooth,
+    //   'min and max',
+    //   this.min,
+    //   this.max,
+    //   'canSelectPreviousMonth, canSelectNextMonth',
+    //   canSelectPreviousMonth,
+    //   canSelectNextMonth
+    // );
+    // console.log('next and previous month', this.nextMonth, this.previousMonth);
+    //
+    // // if (!canSelectPreviousMonth || !canSelectNextMonth) {
+    // //   console.log('should return', 'month?', month, smooth);
+    // //   // return;
+    // // }
+    //
+    // // Block programmatic scroll when target month is not selectable
+    // if ((month === -1 && !canSelectPreviousMonth) || (month === 1 && !canSelectNextMonth)) {
+    //   return;
+    // }
+    //
+    // const width = parseInt(getComputedStyle(this).width) || 0,
+    //   left = width * month + width;
+    //
+    // // requestAnimationFrame(() => {
+    // //   this.scroller?.scrollTo({ left, behavior: smooth ? 'smooth' : 'instant' });
+    // //
+    // // });
+    // this.scroller?.scrollTo({ left, behavior: smooth ? 'smooth' : 'instant' });
+
     const canSelectNextMonth = this.nextMonth ? !this.max || this.nextMonth.getTime() + 1 <= this.max.getTime() : false;
     const canSelectPreviousMonth = this.previousMonth
       ? !this.min || this.previousMonth.getTime() >= new Date(this.min.getFullYear(), this.min.getMonth()).getTime()
       : false;
 
-    console.log(
-      'scrollToMonth',
-      month,
-      smooth,
-      'min and max',
-      this.min,
-      this.max,
-      'canSelectPreviousMonth, canSelectNextMonth',
-      canSelectPreviousMonth,
-      canSelectNextMonth
-    );
-    console.log('next and previous month', this.nextMonth, this.previousMonth);
-
-    // if (!canSelectPreviousMonth || !canSelectNextMonth) {
-    //   console.log('should return', 'month?', month, smooth);
-    //   // return;
-    // }
-
     // Block programmatic scroll when target month is not selectable
     if ((month === -1 && !canSelectPreviousMonth) || (month === 1 && !canSelectNextMonth)) {
+      console.log('should not scroll to month? return...', month);
       return;
     }
 
-    const width = parseInt(getComputedStyle(this).width) || 0,
-      left = width * month + width;
-
-    // requestAnimationFrame(() => {
-    //   this.scroller?.scrollTo({ left, behavior: smooth ? 'smooth' : 'instant' });
-    //
-    // });
+    const width = parseInt(getComputedStyle(this).width) || 0;
+    const left = width * month + width;
     this.scroller?.scrollTo({ left, behavior: smooth ? 'smooth' : 'instant' });
   }
 }

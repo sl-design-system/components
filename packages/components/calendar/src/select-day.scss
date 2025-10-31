@@ -82,6 +82,19 @@
   // touch-action: none;
 }
 
+.scroller[data-lock-prev='true'],
+.scroller[data-lock-next='true'] {
+  overscroll-behavior-x: contain;
+
+  // overflow: hidden;
+  scrollbar-width: none;
+} /// todo: test if this is needed
+
+// When only one panel (both locked or one side pruned), remove snap to avoid redundant physics.
+.scroller:has(sl-month-view:nth-child(1):last-child) {
+  scroll-snap-type: none;
+}
+
 sl-button {
   user-select: none;
 }

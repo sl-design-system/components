@@ -1,7 +1,7 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
-import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
@@ -127,9 +127,7 @@ export const CustomContent: Story = {
     >
       <div style="text-align: center; padding: 2rem;">
         <h3 style="margin: 0 0 0.5rem;">Drop your files here</h3>
-        <p style="margin: 0; color: var(--sl-color-text-subtle);">
-          or click to browse
-        </p>
+        <p style="margin: 0; color: var(--sl-color-text-subtle);">or click to browse</p>
       </div>
     </sl-upload>
   `
@@ -175,7 +173,7 @@ export const InForm: Story = {
 
 export const All: StoryObj = {
   render: () => {
-    const stories: [string, () => TemplateResult][] = [
+    const stories: Array<[string, () => TemplateResult]> = [
       ['Basic', () => html`<sl-upload></sl-upload>`],
       ['Multiple', () => html`<sl-upload multiple></sl-upload>`],
       ['Accept Images Only', () => html`<sl-upload accept="image/*"></sl-upload>`],

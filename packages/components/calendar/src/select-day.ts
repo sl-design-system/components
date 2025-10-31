@@ -152,18 +152,17 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
               const mv = entry.target as MonthView;
               const observedMonth = mv.month ? normalizeDateTime(mv.month) : undefined;
 
-              console.log('intersection observer entry', entry, 'mv', mv, 'observedMonth', observedMonth);
-
               if (!observedMonth) {
                 this.#scrollToMonth(0);
                 return;
               }
-              // Only adopt the observed month if the entire month overlaps the selectable range
-              if (!this.#isMonthSelectable(observedMonth)) {
-                // Re-center; don't change current month to an out-of-range month
+
+              // Skip adopting month if corresponding month-view is marked as unselectable
+              if (mv.hasAttribute('unselectable-previous-month') || mv.hasAttribute('unselectable-next-month')) {
                 this.#scrollToMonth(0);
                 return;
               }
+
               this.month = observedMonth;
               this.#scrollToMonth(0);
             }
@@ -171,32 +170,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         },
         { root: this.scroller, threshold: [0, 0.25, 0.5, 0.75, 1] }
       );
-
-      // // Prevent manual scroll when locked
-      // this.scroller?.addEventListener('scroll', () => {
-      //   if (this.scroller?.dataset.locked === 'true') {
-      //     const width = this.scroller.clientWidth;
-      //     if (this.scroller.scrollLeft !== width) {
-      //       this.scroller.scrollLeft = width; // keep center month in view
-      //     }
-      //   }
-      // });
-
-      // Clamp manual scroll when either adjacent month is disabled
-      this.scroller?.addEventListener('scroll', () => {
-        if (!this.scroller) return;
-        const width = this.scroller.clientWidth;
-        const left = this.scroller.scrollLeft;
-        const lockPrev = this.scroller.dataset.lockPrev === 'true';
-        const lockNext = this.scroller.dataset.lockNext === 'true';
-
-        // Center month should stay at scrollLeft === width
-        if (lockPrev && left < width) {
-          this.scroller.scrollLeft = width;
-        } else if (lockNext && left > width) {
-          this.scroller.scrollLeft = width;
-        }
-      });
 
       this.#scrollToMonth(0); // TODO: maybe min and max needs to be taken here into account?
       const monthViews = this.renderRoot.querySelectorAll('sl-month-view');
@@ -335,14 +308,15 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       <div
         class="scroller"
         data-locked=${ifDefined(scrollerLocked ? 'true' : undefined)}
-        data-lock-prev=${ifDefined(!canSelectPreviousMonth ? 'true' : undefined)}
-        data-lock-next=${ifDefined(!canSelectNextMonth ? 'true' : undefined)}
+        data-locked-prev=${ifDefined(!canSelectPreviousMonth ? 'true' : undefined)}
+        data-locked-next=${ifDefined(!canSelectNextMonth ? 'true' : undefined)}
         tabindex="-1"
       >
         <sl-month-view
           ?readonly=${this.readonly}
           ?show-today=${this.showToday}
           ?show-week-numbers=${this.showWeekNumbers}
+          ?unselectable-previous-month=${!canSelectPreviousMonth}
           .disabledDates=${this.disabledDates}
           .firstDayOfWeek=${this.firstDayOfWeek}
           .indicatorDates=${this.indicatorDates}
@@ -354,7 +328,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           max=${ifDefined(this.max?.toISOString())}
           min=${ifDefined(this.min?.toISOString())}
           locale=${ifDefined(this.locale)}
-          ?unselectable-previous-month=${!canSelectPreviousMonth}
         ></sl-month-view>
         <sl-month-view
           @sl-change=${this.#onChange}
@@ -377,6 +350,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           ?readonly=${this.readonly}
           ?show-today=${this.showToday}
           ?show-week-numbers=${this.showWeekNumbers}
+          ?unselectable-next-month=${!canSelectNextMonth}
           .disabledDates=${this.disabledDates}
           .firstDayOfWeek=${this.firstDayOfWeek}
           .indicatorDates=${this.indicatorDates}
@@ -388,7 +362,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           locale=${ifDefined(this.locale)}
           max=${ifDefined(this.max?.toISOString())}
           min=${ifDefined(this.min?.toISOString())}
-          ?unselectable-next-month=${!canSelectNextMonth}
         ></sl-month-view>
       </div>
     `;
@@ -427,7 +400,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   #onPrevious(): void {
     this.#scrollToMonth(-1, true);
-    // TODO: it should not be possible to scroll to a month that is out of range (min and max...)
 
     if (this.previousMonth !== undefined) {
       this.#announce(this.previousMonth);
@@ -462,74 +434,19 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #scrollToMonth(month: -1 | 0 | 1, smooth = false): void {
-    // const canSelectNextMonth = this.nextMonth ? !this.max || this.nextMonth.getTime() + 1 <= this.max.getTime() : false;
-    // const canSelectPreviousMonth = this.previousMonth
-    //   ? !this.min || this.previousMonth.getTime() >= new Date(this.min.getFullYear(), this.min.getMonth()).getTime()
-    //   : false;
-    //
-    // console.log(
-    //   'scrollToMonth',
-    //   month,
-    //   smooth,
-    //   'min and max',
-    //   this.min,
-    //   this.max,
-    //   'canSelectPreviousMonth, canSelectNextMonth',
-    //   canSelectPreviousMonth,
-    //   canSelectNextMonth
-    // );
-    // console.log('next and previous month', this.nextMonth, this.previousMonth);
-    //
-    // // if (!canSelectPreviousMonth || !canSelectNextMonth) {
-    // //   console.log('should return', 'month?', month, smooth);
-    // //   // return;
-    // // }
-    //
-    // // Block programmatic scroll when target month is not selectable
-    // if ((month === -1 && !canSelectPreviousMonth) || (month === 1 && !canSelectNextMonth)) {
-    //   return;
-    // }
-    //
-    // const width = parseInt(getComputedStyle(this).width) || 0,
-    //   left = width * month + width;
-    //
-    // // requestAnimationFrame(() => {
-    // //   this.scroller?.scrollTo({ left, behavior: smooth ? 'smooth' : 'instant' });
-    // //
-    // // });
-    // this.scroller?.scrollTo({ left, behavior: smooth ? 'smooth' : 'instant' });
+    const canSelectNextMonth = this.nextMonth ? !this.max || this.nextMonth.getTime() + 1 <= this.max.getTime() : false,
+      canSelectPreviousMonth = this.previousMonth
+        ? !this.min || this.previousMonth.getTime() >= new Date(this.min.getFullYear(), this.min.getMonth()).getTime()
+        : false;
 
-    const canSelectNextMonth = this.nextMonth ? !this.max || this.nextMonth.getTime() + 1 <= this.max.getTime() : false;
-    const canSelectPreviousMonth = this.previousMonth
-      ? !this.min || this.previousMonth.getTime() >= new Date(this.min.getFullYear(), this.min.getMonth()).getTime()
-      : false;
-
-    // Block programmatic scroll when target month is not selectable
+    // Block scroll when target month is not selectable
     if ((month === -1 && !canSelectPreviousMonth) || (month === 1 && !canSelectNextMonth)) {
-      console.log('should not scroll to month? return...', month);
       return;
     }
 
     const width = parseInt(getComputedStyle(this).width) || 0;
     const left = width * month + width;
+
     this.scroller?.scrollTo({ left, behavior: smooth ? 'smooth' : 'auto' });
-  }
-
-  #isMonthSelectable(month: Date): boolean {
-    // Derive month start and end boundaries
-    const start = new Date(month.getFullYear(), month.getMonth(), 1).getTime();
-    const end = new Date(month.getFullYear(), month.getMonth() + 1, 0).getTime();
-
-    if (this.min) {
-      const minTime = this.min.getTime();
-      // Entire month ends before min date
-      if (end < minTime) return false;
-    }
-    if (this.max) {
-      const maxTime = this.max.getTime();
-      // Entire month starts after max date
-      if (start > maxTime) return false;
-    }
-    return true;
   }
 }

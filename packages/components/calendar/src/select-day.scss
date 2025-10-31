@@ -79,8 +79,8 @@
   overflow: hidden;
 }
 
-.scroller[data-lock-prev='true'],
-.scroller[data-lock-next='true'] {
+.scroller[data-locked-prev='true'],
+.scroller[data-locked-next='true'] {
   overscroll-behavior-x: contain;
   scrollbar-width: none;
 }
@@ -102,7 +102,5 @@ sl-month-view {
 
 sl-month-view[unselectable-previous-month],
 sl-month-view[unselectable-next-month] {
-  opacity: 0;
   pointer-events: none;
-  visibility: hidden;
 }

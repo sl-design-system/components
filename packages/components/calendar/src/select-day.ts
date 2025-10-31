@@ -148,15 +148,28 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       this.#observer = new IntersectionObserver(
         entries => {
           entries.forEach(entry => {
-            console.log('intersection observer entry', entry);
-
             if (entry.isIntersecting && entry.intersectionRatio === 1) {
-              this.month = normalizeDateTime((entry.target as MonthView).month!);
+              const mv = entry.target as MonthView;
+              const observedMonth = mv.month ? normalizeDateTime(mv.month) : undefined;
+
+              console.log('intersection observer entry', entry, 'mv', mv, 'observedMonth', observedMonth);
+
+              if (!observedMonth) {
+                this.#scrollToMonth(0);
+                return;
+              }
+              // Only adopt the observed month if the entire month overlaps the selectable range
+              if (!this.#isMonthSelectable(observedMonth)) {
+                // Re-center; don't change current month to an out-of-range month
+                this.#scrollToMonth(0);
+                return;
+              }
+              this.month = observedMonth;
               this.#scrollToMonth(0);
             }
           });
         },
-        { root: this.scroller, /*rootMargin: `${totalHorizontal}px`,*/ threshold: [0, 0.25, 0.5, 0.75, 1] }
+        { root: this.scroller, threshold: [0, 0.25, 0.5, 0.75, 1] }
       );
 
       // // Prevent manual scroll when locked
@@ -341,6 +354,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           max=${ifDefined(this.max?.toISOString())}
           min=${ifDefined(this.min?.toISOString())}
           locale=${ifDefined(this.locale)}
+          ?unselectable-previous-month=${!canSelectPreviousMonth}
         ></sl-month-view>
         <sl-month-view
           @sl-change=${this.#onChange}
@@ -374,6 +388,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           locale=${ifDefined(this.locale)}
           max=${ifDefined(this.max?.toISOString())}
           min=${ifDefined(this.min?.toISOString())}
+          ?unselectable-next-month=${!canSelectNextMonth}
         ></sl-month-view>
       </div>
     `;
@@ -497,6 +512,24 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
     const width = parseInt(getComputedStyle(this).width) || 0;
     const left = width * month + width;
-    this.scroller?.scrollTo({ left, behavior: smooth ? 'smooth' : 'instant' });
+    this.scroller?.scrollTo({ left, behavior: smooth ? 'smooth' : 'auto' });
+  }
+
+  #isMonthSelectable(month: Date): boolean {
+    // Derive month start and end boundaries
+    const start = new Date(month.getFullYear(), month.getMonth(), 1).getTime();
+    const end = new Date(month.getFullYear(), month.getMonth() + 1, 0).getTime();
+
+    if (this.min) {
+      const minTime = this.min.getTime();
+      // Entire month ends before min date
+      if (end < minTime) return false;
+    }
+    if (this.max) {
+      const maxTime = this.max.getTime();
+      // Entire month starts after max date
+      if (start > maxTime) return false;
+    }
+    return true;
   }
 }

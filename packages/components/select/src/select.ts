@@ -474,7 +474,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
         /**
          * Add extra space for the icon and gap in the option:
-         * - icon width: 16px, --sl-icon-size: var(--sl-size-200) in option.scss
+         * - icon width: 16px, --sl-icon-size: var(--sl-size-200) in icon.scss
          * - gap: 8px, gap: var(--sl-size-100) in option.scss
          */
         const totalWidth = measureElement.getBoundingClientRect().width + 16 + 8;

@@ -15,7 +15,9 @@
   "scripts": {
     "build": "wireit",
     "start": "wireit",
-    "storybook": "wireit"
+    "storybook": "wireit",
+    "extract-templates": "node ../../scripts/extract-story-templates.js",
+    "extract-templates:watch": "node ../../scripts/extract-story-templates.js --watch"
   },
   "wireit": {
     "build": {
@@ -70,7 +72,8 @@
     "@sl-design-system/switch": "^1.1.5",
     "@sl-design-system/text-area": "^1.1.4",
     "@sl-design-system/text-field": "^1.6.6",
-    "@sl-design-system/time-field": "^0.0.1"
+    "@sl-design-system/time-field": "^0.0.1",
+    "@storybook/addon-docs": "^9.1.13"
   },
   "devDependencies": {
     "@angular-devkit/architect": "^0.1902.14",

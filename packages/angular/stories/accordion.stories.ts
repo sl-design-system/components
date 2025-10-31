@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { type Meta, StoryFn, moduleMetadata } from '@storybook/angular';
+import { type Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { AccordionComponent } from '../src/accordion/accordion.component';
 import { ButtonComponent } from '../src/button/button.component';
 
@@ -35,14 +35,16 @@ export class AccordionExternalActionsComponent {
 
 export default {
   title: 'Accordion',
+  component: AccordionComponent,
   decorators: [
     moduleMetadata({
-      declarations: [AccordionExternalActionsComponent],
-      imports: [AccordionComponent, ButtonComponent]
+      imports: [AccordionComponent, ButtonComponent, AccordionExternalActionsComponent]
     })
   ]
 } as Meta;
 
-export const ExternalActions: StoryFn = () => ({
-  template: '<sla-accordion-external-actions></sla-accordion-external-actions>'
-});
+export const ExternalActions: StoryObj = {
+  render: () => ({
+    template: '<sla-accordion-external-actions></sla-accordion-external-actions>'
+  })
+};

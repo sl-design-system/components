@@ -168,14 +168,13 @@ export const Combobox: StoryObj = {
 };
 
 export const Dialog: StoryObj = {
-  render: () => {
-    const onClick = (event: Event & { target: HTMLElement }) => {
-      (event.target.nextElementSibling as DialogElement).showModal();
-    };
-
-    return {
-      props: { onClick },
-      template: `
+  render: () => ({
+    props: {
+      onClick: (event: Event & { target: HTMLElement }) => {
+        (event.target.nextElementSibling as DialogElement).showModal();
+      }
+    },
+    template: `
         <sl-button (click)="onClick($event)">Open dialog</sl-button>
         <sl-dialog>
           <span slot="title">Title</span>
@@ -185,8 +184,7 @@ export const Dialog: StoryObj = {
           <sl-button sl-dialog-close slot="actions" variant="primary">Action</sl-button>
         </sl-dialog>
       `
-    };
-  }
+  })
 };
 
 export const Icon: StoryObj = {

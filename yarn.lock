@@ -4502,6 +4502,7 @@ __metadata:
     "@sl-design-system/text-area": "npm:^1.1.4"
     "@sl-design-system/text-field": "npm:^1.6.6"
     "@sl-design-system/time-field": "npm:^0.0.1"
+    "@storybook/addon-docs": "npm:^9.1.13"
     "@storybook/angular": "npm:^9.1.13"
     "@types/jasmine": "npm:~5.1.12"
     jasmine-core: "npm:~5.12.0"

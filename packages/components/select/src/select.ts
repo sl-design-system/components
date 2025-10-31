@@ -432,6 +432,9 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
         group.classList.add('bottom-divider');
       }
     });
+
+    // Calculate the width of the widest option text and pass it to the button
+    this.#calculateLargestOptionWidth();
   }
 
   #onToggle(event: ToggleEvent): void {
@@ -445,6 +448,69 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
       this.#popoverClosing = false;
     }
+  }
+
+  #calculateLargestOptionWidth(): void {
+    if (!this.button) {
+      return;
+    }
+
+    // If some options contain HTML, then we cannot calculate the width accurately
+    const notAllOptionsAreTextOnly = this.options.some(option => !!option.children.length);
+    if (notAllOptionsAreTextOnly) {
+      return;
+    }
+
+    // Set up cached elements for efficient text width measurement
+    const measureElement = this.#setupMeasureElement();
+
+    let maxWidth = 0;
+
+    // Get all options (including those in option groups)
+    this.options.forEach(option => {
+      const textContent = option.textContent?.trim() || '';
+      if (textContent) {
+        measureElement.textContent = textContent;
+
+        /**
+         * Add extra space for the icon and gap in the option:
+         * - icon width: 16px, --sl-icon-size: var(--sl-size-200) in icon.scss
+         * - gap: 8px, gap: var(--sl-size-100) in option.scss
+         */
+        const totalWidth = measureElement.getBoundingClientRect().width + 16 + 8;
+        maxWidth = Math.max(maxWidth, totalWidth);
+      }
+    });
+
+    // Also consider the placeholder text (without icon/gap)
+    if (this.placeholder) {
+      measureElement.textContent = this.placeholder;
+      maxWidth = Math.max(maxWidth, measureElement.getBoundingClientRect().width);
+    }
+
+    // Clean up measure element
+    document.body.removeChild(measureElement);
+
+    // Pass the largest width to the button
+    this.button.optionSize = maxWidth;
+  }
+
+  #setupMeasureElement(): HTMLElement {
+    const measureElement = document.createElement('span');
+    measureElement.style.visibility = 'hidden';
+    measureElement.style.position = 'absolute';
+    measureElement.style.whiteSpace = 'nowrap';
+
+    document.body.appendChild(measureElement);
+
+    const buttonComputedStyle = getComputedStyle(this.button);
+
+    measureElement.style.font = buttonComputedStyle.font;
+    measureElement.style.fontFamily = buttonComputedStyle.fontFamily;
+    measureElement.style.fontSize = buttonComputedStyle.fontSize;
+    measureElement.style.fontWeight = buttonComputedStyle.fontWeight;
+
+    return measureElement;
   }
 
   /** Returns a flattened array of all options (also the options in groups). */

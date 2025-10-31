@@ -4620,6 +4620,7 @@ __metadata:
     "@sl-design-system/button": "npm:^1.2.5"
     "@sl-design-system/format-date": "npm:^0.1.3"
     "@sl-design-system/icon": "npm:^1.3.0"
+    "@sl-design-system/tooltip": "npm:^1.3.0"
     lit: "npm:^3.3.1"
   peerDependencies:
     "@lit/localize": ^0.12.1

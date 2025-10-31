@@ -1,5 +1,11 @@
 # @sl-design-system/time-field
 
+## 0.0.2
+
+### Patch Changes
+
+- [#2802](https://github.com/sl-design-system/components/pull/2802) [`c8eab5b`](https://github.com/sl-design-system/components/commit/c8eab5b28863fa41981a6e9f7e7caa7db5766ba0) - Fixes toggling time picker when clicking on the clock button.
+
 ## 0.0.1
 
 ### Patch Changes

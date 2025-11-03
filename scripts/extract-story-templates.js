@@ -203,16 +203,7 @@ To add custom introduction content, create ${fileName}.intro.md */}
 `;
     }
 
-    // Add component information
-    if (components.length > 0) {
-      mdx += `## Component Information
-
-- **Angular Wrapper:** \`${components[0].name}\`
-- **Selector:** \`${components[0].selector}\`
-- **Package:** \`@sl-design-system/angular\`
-
-`;
-    }    // Add stories documentation
+    // Add stories documentation
     stories.forEach((story, index) => {
       const component = components.find(c => story.template && story.template.includes(c.selector));
 
@@ -289,7 +280,7 @@ ${story.props}
         const outputFile = path.join(this.outputPath, `${storyData.fileName}.mdx`);
 
         fs.writeFileSync(outputFile, mdxContent);
-        console.log(`✅ Generated: ${outputFile}`);
+        console.log(`✅ Generated: ${storyData.fileName}.mdx`);
       } else {
         console.log(`⚠️  Skipped ${file}: No components or stories found`);
       }
@@ -297,10 +288,6 @@ ${story.props}
 
     console.log('\n🎉 Template extraction complete!');
     console.log(`📁 Generated files are in: ${this.outputPath}`);
-    console.log('\n📝 Next steps:');
-    console.log('1. Review the generated .mdx files');
-    console.log('2. Update your Storybook configuration to include generated files');
-    console.log('3. Add "yarn extract-templates" to your build process');
   }
 
   /**

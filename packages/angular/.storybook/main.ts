@@ -5,7 +5,8 @@ const config: StorybookConfig = {
     '@storybook/addon-docs' // 👈 Add the docs addon
   ],
   stories: [
-    '../stories/generated/*.mdx', // 👈 Auto-generated MDX files
+    '../stories/*.mdx', // 👈 Higher level MDX files, hand written
+    '../stories/generated/*.mdx', // 👈 Auto-generated MDX files based on stories and *.intro.md files
     '../stories/*.stories.ts'
   ],
   core: {

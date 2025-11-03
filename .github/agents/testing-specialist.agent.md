@@ -1,7 +1,7 @@
 ---
 name: testing-specialist
 description: Focuses on test-driven development, test coverage, and quality for Lit web components using Vitest
-tools: ['edit', 'search', 'new', 'runCommands', 'runTasks', 'microsoft/playwright-mcp/*', 'runSubagent', 'changes', 'extensions']
+tools: ['edit', 'search', 'runCommands', 'runTasks', 'microsoft/playwright-mcp/*', 'runSubagent', 'changes', 'extensions']
 model: Claude Sonnet 4.5
 handoffs:
   - label: Modify Component Code

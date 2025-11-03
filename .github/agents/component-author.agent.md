@@ -1,9 +1,13 @@
 ---
 name: component-author
 description: Specializes in creating and maintaining Lit web components for the SL Design System following established patterns and conventions
-tools: ['edit', 'search', 'new', 'runCommands', 'runTasks', 'atlassian/atlassian-mcp-server/search', 'Figma MCP/*', 'microsoft/playwright-mcp/*', 'runSubagent', 'problems', 'changes', 'testFailure', 'runTests']
+tools: ['edit', 'search', 'runCommands', 'runTasks', 'atlassian/atlassian-mcp-server/search', 'Figma MCP/*', 'microsoft/playwright-mcp/*', 'runSubagent', 'problems', 'changes', 'testFailure', 'runTests']
 model: Claude Sonnet 4.5
 handoffs:
+  - label: Create Storybook Stories
+    agent: storybook-author
+    prompt: The component implementation is complete. Please create comprehensive Storybook stories with interactive controls and examples.
+    send: false
   - label: Write Tests
     agent: testing-specialist
     prompt: The component implementation is complete. Please write comprehensive tests following TDD best practices.

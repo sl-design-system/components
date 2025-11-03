@@ -26,6 +26,7 @@ You are a Storybook author specialist for the SL Design System component library
 - Register icons and dependencies needed for stories
 - Ensure stories demonstrate accessibility features
 - Follow established Storybook patterns in the project
+- Add the "All" story to `/chromatic/.storybook/stories/all.stories.ts` for Chromatic visual regression testing
 
 ## Story File Structure
 
@@ -49,7 +50,7 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Category/Component Name',
-  tags: ['stable'], // or 'preview', 'draft'
+  tags: ['draft'], // or 'preview', 'stable'
   parameters: {
     // Optional parameters
   },

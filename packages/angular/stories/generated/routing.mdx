@@ -11,22 +11,11 @@ To add custom introduction content, create routing.intro.md */}
 
 ## Component Information
 
-**Angular Wrapper:** `RoutingComponent`
-**Selector:** `sla-routing`
-**Package:** `@sl-design-system/angular`
+- **Angular Wrapper:** `RoutingComponent`
+- **Selector:** `sla-routing`
+- **Package:** `@sl-design-system/angular`
 
 ## Routing Example
-
-### Template
-
-```html
-<sl-tab-group>
-      <sl-tab *ngFor="let tab of tabs" [routerLink]="tab.path">
-        {{ tab.label }}
-      </sl-tab>
-      <router-outlet></router-outlet>
-    </sl-tab-group>
-```
 
 ### Component Code
 
@@ -57,6 +46,3 @@ tabs = [
 }
 ```
 
----
-
-*This documentation is automatically generated from the story files. To update this content, modify the corresponding .stories.ts file and run `yarn extract-templates`.*

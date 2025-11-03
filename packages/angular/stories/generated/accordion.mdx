@@ -36,30 +36,11 @@ Use accordions when you need to:
 
 ## Component Information
 
-**Angular Wrapper:** `AccordionExternalActionsComponent`
-**Selector:** `sla-accordion-external-actions`
-**Package:** `@sl-design-system/angular`
+- **Angular Wrapper:** `AccordionExternalActionsComponent`
+- **Selector:** `sla-accordion-external-actions`
+- **Package:** `@sl-design-system/angular`
 
 ## External Actions
-
-### Template
-
-```html
-<sl-button (click)="this.onClick('dino')">Toggle 🦖</sl-button>
-    <sl-button (click)="this.onClick('alien')">Toggle 👽</sl-button>
-    dinoState:{{ this.dinoState }} alienState:{{ this.alienState }}
-    <sl-accordion>
-      <sl-accordion-item summary="Discovering Dinosaurs: A Prehistoric Adventure" [open]="dinoState">
-        Embark on a thrilling journey back in time to the age of dinosaurs! 🌎🦕🌿🦖
-      </sl-accordion-item>
-      <sl-accordion-item summary="Journey Through Ancient Civilizations">
-        Pack your virtual bags and travel through time to ancient Egypt, Greece, Rome, and beyond 🌍🏛️🔍🏺
-      </sl-accordion-item>
-      <sl-accordion-item summary="Space Odyssey: Exploring Planets and Stars" [open]="alienState">
-        Buckle up for a cosmic adventure! 🚀🪐👽
-      </sl-accordion-item>
-    </sl-accordion>
-```
 
 ### Component Code
 
@@ -95,6 +76,3 @@ dinoState = true;
 }
 ```
 
----
-
-*This documentation is automatically generated from the story files. To update this content, modify the corresponding .stories.ts file and run `yarn extract-templates`.*

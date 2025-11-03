@@ -11,87 +11,11 @@ To add custom introduction content, create forms.intro.md */}
 
 ## Component Information
 
-**Angular Wrapper:** `AllFormControlsReactiveComponent`
-**Selector:** `sla-all-form-controls-reactive`
-**Package:** `@sl-design-system/angular`
+- **Angular Wrapper:** `AllFormControlsReactiveComponent`
+- **Selector:** `sla-all-form-controls-reactive`
+- **Package:** `@sl-design-system/angular`
 
 ## All Reactive
-
-### Template
-
-```html
-<sl-form [formGroup]="formGroup">
-      <sl-form-field label="Text field">
-        <sl-text-field formControlName="textField" autofocus></sl-text-field>
-      </sl-form-field>
-
-      <sl-form-field label="Number field">
-        <sl-number-field formControlName="numberField"></sl-number-field>
-      </sl-form-field>
-
-      <sl-form-field label="Time field">
-        <sl-time-field formControlName="timeField"></sl-time-field>
-      </sl-form-field>
-
-      <sl-form-field label="Textarea">
-        <sl-text-area formControlName="textArea"></sl-text-area>
-      </sl-form-field>
-
-      <sl-form-field label="Checkbox">
-        <sl-checkbox formControlName="checkbox" value="checked">Checkbox</sl-checkbox>
-      </sl-form-field>
-
-      <sl-form-field label="Select">
-        <sl-select formControlName="select">
-          @for (option of options(); track option.value) {
-            <sl-option [value]="option.value">{{ option.label }}</sl-option>
-          }
-        </sl-select>
-      </sl-form-field>
-
-      <sl-form-field label="Combobox - single select">
-        <sl-combobox formControlName="comboboxSingle" placeholder="Select an option">
-          <sl-listbox>
-            @for (option of options(); track option.value) {
-              <sl-option>{{ option.label }}</sl-option>
-            }
-          </sl-listbox>
-        </sl-combobox>
-      </sl-form-field>
-
-      <sl-form-field label="Combobox - multiple select">
-        <sl-combobox formControlName="comboboxMultiple" multiple placeholder="Select one or more options">
-          <sl-listbox>
-            @for (option of options(); track option.value) {
-              <sl-option>{{ option.label }}</sl-option>
-            }
-          </sl-listbox>
-        </sl-combobox>
-      </sl-form-field>
-
-      <sl-form-field label="Switch">
-        <sl-switch formControlName="switch" reverse value="toggled">Toggle me</sl-switch>
-      </sl-form-field>
-
-      <sl-form-field label="Checkbox group">
-        <sl-checkbox-group formControlName="checkboxGroup">
-          <sl-checkbox value="0">One</sl-checkbox>
-          <sl-checkbox value="1">Two</sl-checkbox>
-          <sl-checkbox value="2">Three</sl-checkbox>
-        </sl-checkbox-group>
-      </sl-form-field>
-
-      <sl-form-field label="Radio group">
-        <sl-radio-group formControlName="radioGroup">
-          <sl-radio value="1">One</sl-radio>
-          <sl-radio value="2">Two</sl-radio>
-          <sl-radio value="3">Three</sl-radio>
-        </sl-radio-group>
-      </sl-form-field>
-    </sl-form>
-
-    <pre>{{ formGroup.value | json }}</pre>
-```
 
 ### Component Code
 
@@ -200,86 +124,6 @@ formGroup = new FormGroup({
 ```
 
 ## All Empty Reactive
-
-### Template
-
-```html
-<sl-form #form [formGroup]="formGroup">
-      <sl-form-field label="Text field">
-        <sl-text-field formControlName="textField" required autofocus></sl-text-field>
-      </sl-form-field>
-
-      <sl-form-field label="Number field">
-        <sl-number-field formControlName="numberField" required></sl-number-field>
-      </sl-form-field>
-
-      <sl-form-field label="Time field">
-        <sl-time-field formControlName="timeField" required></sl-time-field>
-      </sl-form-field>
-
-      <sl-form-field label="Text area">
-        <sl-text-area formControlName="textArea" required></sl-text-area>
-      </sl-form-field>
-
-      <sl-form-field label="Checkbox">
-        <sl-checkbox formControlName="checkbox" required>Checkbox</sl-checkbox>
-      </sl-form-field>
-
-      <sl-form-field label="Select">
-        <sl-select formControlName="select" required>
-          @for (option of options(); track option.value) {
-            <sl-option [value]="option.value">{{ option.label }}</sl-option>
-          }
-        </sl-select>
-      </sl-form-field>
-
-      <sl-form-field label="Combobox - single select">
-        <sl-combobox formControlName="comboboxSingle" required>
-          <sl-listbox>
-            @for (option of options(); track option.value) {
-              <sl-option>{{ option.label }}</sl-option>
-            }
-          </sl-listbox>
-        </sl-combobox>
-      </sl-form-field>
-
-      <sl-form-field label="Combobox - multiple select">
-        <sl-combobox formControlName="comboboxMultiple" multiple required>
-          <sl-listbox>
-            @for (option of options(); track option.value) {
-              <sl-option>{{ option.label }}</sl-option>
-            }
-          </sl-listbox>
-        </sl-combobox>
-      </sl-form-field>
-
-      <sl-form-field label="Switch">
-        <sl-switch formControlName="switch" reverse>Toggle me</sl-switch>
-      </sl-form-field>
-
-      <sl-form-field label="Checkbox group">
-        <sl-checkbox-group formControlName="checkboxGroup" required>
-          <sl-checkbox value="0">One</sl-checkbox>
-          <sl-checkbox value="1">Two</sl-checkbox>
-          <sl-checkbox value="2">Three</sl-checkbox>
-        </sl-checkbox-group>
-      </sl-form-field>
-
-      <sl-form-field label="Radio group">
-        <sl-radio-group formControlName="radioGroup" required>
-          <sl-radio value="1">One</sl-radio>
-          <sl-radio value="2">Two</sl-radio>
-          <sl-radio value="3">Three</sl-radio>
-        </sl-radio-group>
-      </sl-form-field>
-
-      <sl-button-bar align="end">
-        <sl-button (click)="onClick()" variant="primary">Report validity</sl-button>
-      </sl-button-bar>
-    </sl-form>
-
-    <pre>{{ formGroup.value | json }}</pre>
-```
 
 ### Component Code
 
@@ -399,82 +243,6 @@ export class AllFormControlsEmptyReactiveComponent {
 
 ## All Template
 
-### Template
-
-```html
-<sl-form>
-      <sl-form-field label="Text field">
-        <sl-text-field [(ngModel)]="formGroup.textField" autofocus></sl-text-field>
-      </sl-form-field>
-
-      <sl-form-field label="Number field">
-        <sl-number-field [(ngModel)]="formGroup.numberField"></sl-number-field>
-      </sl-form-field>
-
-      <sl-form-field label="Time field">
-        <sl-time-field [(ngModel)]="formGroup.timeField"></sl-time-field>
-      </sl-form-field>
-
-      <sl-form-field label="Text area">
-        <sl-text-area [(ngModel)]="formGroup.textArea"></sl-text-area>
-      </sl-form-field>
-
-      <sl-form-field label="Checkbox">
-        <sl-checkbox [(ngModel)]="formGroup.checkbox" value="checked">Checkbox</sl-checkbox>
-      </sl-form-field>
-
-      <sl-form-field label="Select">
-        <sl-select [(ngModel)]="formGroup.select">
-          <sl-option value="1">Option 1</sl-option>
-          <sl-option value="2">Option 2</sl-option>
-          <sl-option value="3">Option 3</sl-option>
-        </sl-select>
-      </sl-form-field>
-
-      <sl-form-field label="Combobox - single select">
-        <sl-combobox [(ngModel)]="formGroup.comboboxSingle">
-          <sl-listbox>
-            <sl-option>Option 1</sl-option>
-            <sl-option>Option 2</sl-option>
-            <sl-option>Option 3</sl-option>
-          </sl-listbox>
-        </sl-combobox>
-      </sl-form-field>
-
-      <sl-form-field label="Combobox - multiple select">
-        <sl-combobox [(ngModel)]="formGroup.comboboxMultiple" multiple>
-          <sl-listbox>
-            <sl-option>Option 1</sl-option>
-            <sl-option>Option 2</sl-option>
-            <sl-option>Option 3</sl-option>
-          </sl-listbox>
-        </sl-combobox>
-      </sl-form-field>
-
-      <sl-form-field label="Switch">
-        <sl-switch [(ngModel)]="formGroup.switch" reverse value="toggled">Toggle me</sl-switch>
-      </sl-form-field>
-
-      <sl-form-field label="Checkbox group">
-        <sl-checkbox-group [(ngModel)]="formGroup.checkboxGroup">
-          <sl-checkbox value="0">Check me</sl-checkbox>
-          <sl-checkbox value="1">No me</sl-checkbox>
-          <sl-checkbox value="2">I was here first</sl-checkbox>
-        </sl-checkbox-group>
-      </sl-form-field>
-
-      <sl-form-field label="Radio group">
-        <sl-radio-group [(ngModel)]="formGroup.radioGroup">
-          <sl-radio value="1">One</sl-radio>
-          <sl-radio value="2">Two</sl-radio>
-          <sl-radio value="3">Three</sl-radio>
-        </sl-radio-group>
-      </sl-form-field>
-    </sl-form>
-
-    <pre>{{ formGroup | json }}</pre>
-```
-
 ### Component Code
 
 ```typescript
@@ -570,82 +338,6 @@ formGroup = {
 ```
 
 ## All Empty Template
-
-### Template
-
-```html
-<sl-form #form>
-      <sl-form-field label="Text field">
-        <sl-text-field [(ngModel)]="formGroup.textField" required autofocus></sl-text-field>
-      </sl-form-field>
-
-      <sl-form-field label="Number field">
-        <sl-number-field [(ngModel)]="formGroup.numberField" min="5" max="15" required></sl-number-field>
-      </sl-form-field>
-
-      <sl-form-field label="Text area">
-        <sl-text-area [(ngModel)]="formGroup.textArea" required></sl-text-area>
-      </sl-form-field>
-
-      <sl-form-field label="Checkbox">
-        <sl-checkbox [(ngModel)]="formGroup.checkbox" required>Checkbox</sl-checkbox>
-      </sl-form-field>
-
-      <sl-form-field label="Select">
-        <sl-select [(ngModel)]="formGroup.select" required>
-          <sl-option value="1">Option 1</sl-option>
-          <sl-option value="2">Option 2</sl-option>
-          <sl-option value="3">Option 3</sl-option>
-        </sl-select>
-      </sl-form-field>
-
-      <sl-form-field label="Combobox - single select">
-        <sl-combobox [(ngModel)]="formGroup.comboboxSingle" required>
-          <sl-listbox>
-            <sl-option>Option 1</sl-option>
-            <sl-option>Option 2</sl-option>
-            <sl-option>Option 3</sl-option>
-          </sl-listbox>
-        </sl-combobox>
-      </sl-form-field>
-
-      <sl-form-field label="Combobox - multiple select">
-        <sl-combobox [(ngModel)]="formGroup.comboboxMultiple" multiple required>
-          <sl-listbox>
-            <sl-option>Option 1</sl-option>
-            <sl-option>Option 2</sl-option>
-            <sl-option>Option 3</sl-option>
-          </sl-listbox>
-        </sl-combobox>
-      </sl-form-field>
-
-      <sl-form-field label="Switch">
-        <sl-switch [(ngModel)]="formGroup.switch" reverse>Toggle me</sl-switch>
-      </sl-form-field>
-
-      <sl-form-field label="Checkbox group">
-        <sl-checkbox-group [(ngModel)]="formGroup.checkboxGroup" required>
-          <sl-checkbox value="0">Check me</sl-checkbox>
-          <sl-checkbox value="1">No me</sl-checkbox>
-          <sl-checkbox value="2">I was here first</sl-checkbox>
-        </sl-checkbox-group>
-      </sl-form-field>
-
-      <sl-form-field label="Radio group">
-        <sl-radio-group [(ngModel)]="formGroup.radioGroup" required>
-          <sl-radio value="1">One</sl-radio>
-          <sl-radio value="2">Two</sl-radio>
-          <sl-radio value="3">Three</sl-radio>
-        </sl-radio-group>
-      </sl-form-field>
-
-      <sl-button-bar align="end">
-        <sl-button (click)="onClick()" variant="primary">Report validity</sl-button>
-      </sl-button-bar>
-    </sl-form>
-
-    <pre>{{ formGroup | json }}</pre>
-```
 
 ### Component Code
 
@@ -749,40 +441,6 @@ export class AllFormControlsEmptyTemplateComponent {
 
 ## Login
 
-### Template
-
-```html
-<sl-form #form [formGroup]="formGroup">
-      @if (showValidity && formGroup.errors?.invalidCredentials) {
-        <sl-inline-message variant="danger">Please enter admin/admin to gain access.</sl-inline-message>
-      }
-
-      <sl-form-field label="Username">
-        <sl-text-field
-          formControlName="username"
-          placeholder="Enter your username or email address here"
-          required
-          [customValidity]="
-            showValidity && formGroup.controls.username.errors?.invalidUsername ? 'Invalid username, enter admin.' : ''
-          "
-        ></sl-text-field>
-      </sl-form-field>
-
-      <sl-form-field label="Password">
-        <sl-text-field formControlName="password" type="password" required></sl-text-field>
-      </sl-form-field>
-
-      <sl-form-field>
-        <sl-checkbox formControlName="remember">Remember me</sl-checkbox>
-      </sl-form-field>
-
-      <sl-button-bar align="space-between">
-        <sl-button fill="link">Forgot password?</sl-button>
-        <sl-button (click)="onSubmit()" variant="primary">Log in</sl-button>
-      </sl-button-bar>
-    </sl-form>
-```
-
 ### Component Code
 
 ```typescript
@@ -858,6 +516,3 @@ export class LoginFormComponent {
 }
 ```
 
----
-
-*This documentation is automatically generated from the story files. To update this content, modify the corresponding .stories.ts file and run `yarn extract-templates`.*

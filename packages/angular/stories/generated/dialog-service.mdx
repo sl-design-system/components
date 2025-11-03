@@ -11,21 +11,11 @@ To add custom introduction content, create dialog-service.intro.md */}
 
 ## Component Information
 
-**Angular Wrapper:** `DialogServiceExampleComponent`
-**Selector:** `sla-dialog-service`
-**Package:** `@sl-design-system/angular`
+- **Angular Wrapper:** `DialogServiceExampleComponent`
+- **Selector:** `sla-dialog-service`
+- **Package:** `@sl-design-system/angular`
 
 ## Dialog Service Example
-
-### Template
-
-```html
-<h3>Dialog Service examples</h3>
-    <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
-      <sl-button (click)="openBasicDialog()">Open dialog</sl-button>
-      <sl-button (click)="openNonCancellableDialog()">Open dialog without close button</sl-button>
-    </div>
-```
 
 ### Component Code
 
@@ -80,23 +70,6 @@ lastResult: string | undefined;
 
 ## Form In Dialog Example
 
-### Template
-
-```html
-<span slot="title">{{ data.title }}</span>
-    <span>{{ data.details }}</span>
-    <sl-form #form>
-      <sl-form-field label="Text field">
-        <sl-text-field [(ngModel)]="formGroup.textField" required></sl-text-field>
-      </sl-form-field>
-      <sl-form-field label="Text area">
-        <sl-text-area [(ngModel)]="formGroup.textArea"></sl-text-area>
-      </sl-form-field>
-    </sl-form>
-    <sl-button slot="primary-actions" (click)="dialogRef.close()">Cancel</sl-button>
-    <sl-button slot="primary-actions" variant="primary" (click)="submitForm()">Save</sl-button>
-```
-
 ### Component Code
 
 ```typescript
@@ -143,6 +116,3 @@ interface DialogFormResult {
 }
 ```
 
----
-
-*This documentation is automatically generated from the story files. To update this content, modify the corresponding .stories.ts file and run `yarn extract-templates`.*

@@ -207,9 +207,9 @@ To add custom introduction content, create ${fileName}.intro.md */}
     if (components.length > 0) {
       mdx += `## Component Information
 
-**Angular Wrapper:** \`${components[0].name}\`
-**Selector:** \`${components[0].selector}\`
-**Package:** \`@sl-design-system/angular\`
+- **Angular Wrapper:** \`${components[0].name}\`
+- **Selector:** \`${components[0].selector}\`
+- **Package:** \`@sl-design-system/angular\`
 
 `;
     }    // Add stories documentation
@@ -227,13 +227,7 @@ To add custom introduction content, create ${fileName}.intro.md */}
       }
 
       if (component) {
-        mdx += `### Template
-
-\`\`\`html
-${component.template}
-\`\`\`
-
-### Component Code
+        mdx += `### Component Code
 
 \`\`\`typescript
 @Component({
@@ -263,11 +257,6 @@ ${story.props}
 `;
       }
     });
-
-    mdx += `---
-
-*This documentation is automatically generated from the story files. To update this content, modify the corresponding .stories.ts file and run \`yarn extract-templates\`.*
-`;
 
     return mdx;
   }

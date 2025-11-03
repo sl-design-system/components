@@ -495,7 +495,7 @@ describe('sl-time-field', () => {
     });
 
     it('should have a validation message', () => {
-      expect(el.validationMessage).to.equal('Please enter a time.');
+      expect(el.validationMessage).to.equal('Please fill out this field.');
     });
 
     it('should be valid when a time is selected', async () => {
@@ -514,10 +514,11 @@ describe('sl-time-field', () => {
     });
 
     it('should be invalid when the time has the wrong syntax', async () => {
-      el.value = 'ab:cd';
-      await el.updateComplete;
+      el.textField.focus();
+      await userEvent.keyboard('ab:cd');
 
-      console.log('eeel value2', el.value);
+      el.textField.input.blur();
+      await el.updateComplete;
 
       expect(el.valid).to.be.false;
       expect(el.validationMessage).to.equal('Please enter a time.');
@@ -594,10 +595,12 @@ describe('sl-time-field', () => {
       for (let i = 0; i < 5; i++) {
         await userEvent.keyboard('{Delete}');
       }
+
       el.textField.input.blur();
+      await el.updateComplete;
 
       expect(el.value).to.be.undefined;
-      expect(el.textField.value).to.equal('');
+      expect(el.textField.value).to.equal(null);
       expect(el.textField.input.selectionStart).to.equal(0);
       expect(el.textField.input.selectionEnd).to.equal(0);
     });

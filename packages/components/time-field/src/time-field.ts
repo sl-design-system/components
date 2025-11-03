@@ -140,7 +140,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   @query('sl-text-field') textField!: TextField;
 
   override get value(): string | undefined {
-    console.log('get value called', this.#value);
     return this.#value;
   }
 
@@ -156,6 +155,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         this.#valueAsNumbers = time;
       } else {
         this.#value = undefined;
+        // this.#value = value; //undefined;
         this.#valueAsNumbers = undefined;
       }
     } else {
@@ -303,6 +303,8 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       }
     }
 
+    console.log('this.#valueAsNumbers in renderHours:', this.#valueAsNumbers);
+
     return hours.map(
       hour => html`
         <li
@@ -390,18 +392,14 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.input.value
     );
 
-    if (/*!time*/ (!time || Number.isNaN(time.hours) || Number.isNaN(time.minutes)) && !!this.textField.input.value) {
-      console.log('type mismatch', 'should report::: Please enter a valid time.');
-      // msg('Please fill in this field.', { id: 'sl.form.validation.valueMissing' })
-      this.setCustomValidity(msg('Please enter a time.', { id: 'sl.timeField.valueMissing' }));
-    }
-    // this.setCustomValidity(msg('Please enter a valid time.', { id: 'sl.timeField.validation.typeMismatch' }));
-    // }
+    // TODO: his.#formatTime(hours, minutes)
 
-    /* if (this.required && !this.value) {
+    const isInvalidTime =
+      !time || Number.isNaN(time.hours) || Number.isNaN(time.minutes) || !this.#formatTime(time?.hours, time?.minutes);
+
+    if (isInvalidTime && !!this.textField.input.value) {
       this.setCustomValidity(msg('Please enter a time.', { id: 'sl.timeField.valueMissing' }));
-    }*/
-    else if (/*this.value*/ this.input.value && (this.min || this.max)) {
+    } else if (this.input.value && (this.min || this.max)) {
       const time = this.#valueAsNumbers,
         minTime = this.min ? this.#parseTime(this.min) : undefined,
         maxTime = this.max ? this.#parseTime(this.max) : undefined;
@@ -529,12 +527,17 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.requestUpdate();
 
       this.changeEvent.emit(this.value ?? '');
-    } else if (time && time.hours !== this.#valueAsNumbers?.hours && time.minutes !== this.#valueAsNumbers?.minutes) {
+    } else if (
+      time /*&& time.hours !== this.#valueAsNumbers?.hours && time.minutes !== this.#valueAsNumbers?.minutes*/
+    ) {
+      // TODO: or instead of and?
       this.#valueAsNumbers = time;
       this.#value = this.#formatTime(time.hours, time.minutes);
       this.requestUpdate();
 
       this.changeEvent.emit(this.value ?? '');
+
+      this.#scrollTimeIntoView(time.hours, time.minutes);
     }
 
     this.blurEvent.emit();
@@ -546,15 +549,8 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     event.preventDefault();
     event.stopPropagation();
 
-    console.log('onTextFieldChange event...', event);
-
-    // this.changeEvent.emit(this.value ?? ''); // TODO: necessary or not?
-    // this.requestUpdate('value');
-
     this.updateState({ dirty: true });
     this.updateValidity();
-
-    // this.requestUpdate('value');
   }
 
   #onTextFieldClick(event: MouseEvent): void {

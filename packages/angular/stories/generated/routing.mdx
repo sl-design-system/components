@@ -16,27 +16,27 @@ To add custom introduction content, create routing.intro.md */}
 @Component({
   selector: 'sla-routing',
   template: `<sl-tab-group>
-  <sl-tab *ngFor="let tab of tabs" [routerLink]="tab.path">
-    {{ tab.label }}
-  </sl-tab>
-  <router-outlet></router-outlet>
-</sl-tab-group>`
+    <sl-tab *ngFor="let tab of tabs" [routerLink]="tab.path">
+      {{ tab.label }}
+    </sl-tab>
+    <router-outlet></router-outlet>
+  </sl-tab-group>`
 })
 export class RoutingComponent {
 
-tabs = [
-  { path: '/dashboard', label: 'Dashboard' },
-  { path: '/assignments', label: 'Assignments' },
-  { path: '/grades', label: 'Grades' },
-  { path: '/homework', label: 'Homework' },
-  { path: '/exams', label: 'Exams' },
-  { path: '/announcements', label: 'Announcements' },
-  { path: '/library', label: 'Library' },
-  { path: '/events', label: 'Events' },
-  { path: '/resources', label: 'Resources' },
-  { path: '/profile', label: 'Profile' },
-  { path: '/settings', label: 'Settings' }
-];
+  tabs = [
+    { path: '/dashboard', label: 'Dashboard' },
+    { path: '/assignments', label: 'Assignments' },
+    { path: '/grades', label: 'Grades' },
+    { path: '/homework', label: 'Homework' },
+    { path: '/exams', label: 'Exams' },
+    { path: '/announcements', label: 'Announcements' },
+    { path: '/library', label: 'Library' },
+    { path: '/events', label: 'Events' },
+    { path: '/resources', label: 'Resources' },
+    { path: '/profile', label: 'Profile' },
+    { path: '/settings', label: 'Settings' }
+  ];
 
 }
 ```

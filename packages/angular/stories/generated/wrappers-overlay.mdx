@@ -15,14 +15,14 @@ To add custom introduction content, create wrappers-overlay.intro.md */}
 
 ```html
 
-<sl-button (click)="onClick($event)">Open dialog</sl-button>
-<sl-dialog>
-  <span slot="title">Title</span>
-  <span slot="subtitle">Subtitle</span>
-  <p>Proident nulla enim est excepteur exercitation minim ea proident nisi.</p>
-  <sl-button sl-dialog-close fill="ghost" slot="actions">Cancel</sl-button>
-  <sl-button sl-dialog-close slot="actions" variant="primary">Action</sl-button>
-</sl-dialog>
+  <sl-button (click)="onClick($event)">Open dialog</sl-button>
+  <sl-dialog>
+    <span slot="title">Title</span>
+    <span slot="subtitle">Subtitle</span>
+    <p>Proident nulla enim est excepteur exercitation minim ea proident nisi.</p>
+    <sl-button sl-dialog-close fill="ghost" slot="actions">Cancel</sl-button>
+    <sl-button sl-dialog-close slot="actions" variant="primary">Action</sl-button>
+  </sl-dialog>
 
 ```
 
@@ -45,8 +45,8 @@ onClick: (event: Event & { target: HTMLElement }) => {
 
 ```html
 
-<sl-button aria-describedby="tooltip">Hover me</sl-button>
-<sl-tooltip id="tooltip">Tooltip content</sl-tooltip>
+  <sl-button aria-describedby="tooltip">Hover me</sl-button>
+  <sl-tooltip id="tooltip">Tooltip content</sl-tooltip>
 
 ```
 

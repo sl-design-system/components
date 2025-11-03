@@ -19,7 +19,7 @@ class StoryTemplateExtractor {
   /**
    * Normalize indentation by removing common leading whitespace
    */
-  normalizeIndentation(text) {
+  normalizeIndentation(text, extraIndentation = 0) {
     if (!text) return text;
 
     const lines = text.split('\n');
@@ -46,7 +46,7 @@ class StoryTemplateExtractor {
     // Remove the common indentation from all lines
     return lines.map(line => {
       if (line.trim().length === 0) return ''; // Keep empty lines empty
-      return line.substring(minIndent);
+      return line.substring(minIndent-extraIndentation);
     }).join('\n');
   }
 
@@ -68,7 +68,7 @@ class StoryTemplateExtractor {
 
       // Extract template
       const templateMatch = componentBlock.match(/template:\s*`([\s\S]*?)`/);
-      const template = templateMatch ? this.normalizeIndentation(templateMatch[1]) : null;
+      const template = templateMatch ? this.normalizeIndentation(templateMatch[1],2) : null;
 
       // Extract selector
       const selectorMatch = componentBlock.match(/selector:\s*['"`]([^'"`]+)['"`]/);
@@ -76,7 +76,7 @@ class StoryTemplateExtractor {
 
       // Extract class content (properties and methods)
       const classMatch = componentBlock.match(/export\s+class\s+\w+\s*{([\s\S]*?)}\s*$/);
-      const classContent = classMatch ? this.normalizeIndentation(classMatch[1]) : null;
+      const classContent = classMatch ? this.normalizeIndentation(classMatch[1],2) : null;
 
       if (template && selector) {
         components.push({
@@ -106,7 +106,7 @@ class StoryTemplateExtractor {
       // Try to match template literals (backticks) for multi-line templates
       const templateLiteralMatch = storyContent.match(/template:\s*`([\s\S]*?)`/);
       if (templateLiteralMatch) {
-        template = this.normalizeIndentation(templateLiteralMatch[1]);
+        template = this.normalizeIndentation(templateLiteralMatch[1], 2);
       } else {
         // For quoted templates, we need to handle nested quotes properly
         // Try single quotes first

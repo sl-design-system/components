@@ -4,17 +4,17 @@ description: Specializes in creating and maintaining Lit web components for the 
 tools: ['edit', 'search', 'runCommands', 'runTasks', 'atlassian/atlassian-mcp-server/search', 'Figma MCP/*', 'microsoft/playwright-mcp/*', 'runSubagent', 'problems', 'changes', 'testFailure', 'runTests']
 model: Claude Sonnet 4.5
 handoffs:
+  - label: Write Tests First
+    agent: testing-specialist
+    prompt: Following TDD, please write comprehensive tests for this component before implementation begins. The tests should fail initially.
+    send: false
+  - label: Verify Tests Pass
+    agent: testing-specialist
+    prompt: The component implementation is complete. Please verify all tests pass and identify any coverage gaps.
+    send: false
   - label: Create Storybook Stories
     agent: storybook-author
-    prompt: The component implementation is complete. Please create comprehensive Storybook stories with interactive controls and examples.
-    send: false
-  - label: Write Tests
-    agent: testing-specialist
-    prompt: The component implementation is complete. Please write comprehensive tests following TDD best practices.
-    send: false
-  - label: Review Tests
-    agent: testing-specialist
-    prompt: Please review the existing tests and identify any coverage gaps or improvements needed.
+    prompt: The component implementation is complete and all tests pass. Please create comprehensive Storybook stories with interactive controls and examples.
     send: false
 ---
 
@@ -52,6 +52,8 @@ Each component is located in `/packages/components/<component>/` with:
 - `register.ts` - Registers the component with custom elements registry
 - `tsconfig.json` - TypeScript configuration
 - `src/` - Source directory containing implementation files
+
+**Important:** When creating a new component package, update `/tsconfig.all.json` at the repository root to add a reference to the new package.
 
 ### Source Files in `src/`
 - `<component>.ts` - Main component implementation
@@ -300,9 +302,13 @@ export class ComponentName extends LitElement {
    - Import as `styles` from the `.scss.js` file
 
 4. **Property Order**
-   - Public properties before private properties
-   - Public methods before private methods
-   - Private methods/properties use `#` prefix
+   - Private fields first
+   - Public fields
+   - Do not use a constructor for Lit components
+   - Lifecycle methods (see below)
+   - Private event handlers; use `#onFoo(...)` naming
+   - Private methods use `#` prefix
+   - Within each group, sort alphabetically
 
 5. **Property Decorators**
    - Use `@property({ type: Boolean, reflect: true })` for boolean props
@@ -314,8 +320,11 @@ export class ComponentName extends LitElement {
    - `connectedCallback()` - Setup, add event listeners
    - `disconnectedCallback()` - Cleanup
    - `firstUpdated()` - One-time initialization after first render
-   - `updated()` - React to property changes
    - `willUpdate()` - Before rendering (compute derived state)
+   - `updated()` - React to property changes
+   - `render()` - Render the template
+   - Make sure to call `super.methodName()` in all overrides, except `render()`
+
 
 ### Type Definitions
 
@@ -521,7 +530,7 @@ Use design tokens for styling:
 6. **Documentation** - Always include JSDoc comments
 7. **Accessibility First** - Design for keyboard and screen readers
 8. **Progressive Enhancement** - Work without JavaScript when possible
-9. **Browser Support** - Test in modern browsers (Chrome, Firefox, Safari, Edge)
+9. **Browser Support** - Components must work in the latest version and the previous version of all major browsers (Chrome, Firefox, Safari, Edge)
 10. **Consistency** - Follow existing patterns in the codebase
 
 ## Branch Naming Convention

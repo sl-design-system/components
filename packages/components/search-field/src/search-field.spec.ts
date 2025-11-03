@@ -105,4 +105,121 @@ describe('sl-search-field', () => {
       expect(onSearch).to.be.calledWith('Foo');
     });
   });
+
+  describe('debounced search', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-search-field></sl-search-field>`);
+    });
+
+    it('should emit sl-search event 300ms after typing stops', async () => {
+      const onSearch: (value: string) => void = spy();
+
+      el.addEventListener('sl-search', (event: SlSearchEvent) => onSearch(event.detail));
+      el.focus();
+
+      // Type a character
+      await userEvent.type(el.input, 'a');
+
+      // Should not emit immediately
+      expect(onSearch).not.to.have.been.called;
+
+      // Wait for debounce (300ms)
+      await new Promise(resolve => setTimeout(resolve, 350));
+
+      // Should have emitted after debounce period
+      expect(onSearch).to.have.been.calledOnce;
+      expect(onSearch).to.have.been.calledWith('a');
+    });
+
+    it('should reset debounce timer when typing continues', async () => {
+      const onSearch: (value: string) => void = spy();
+
+      el.addEventListener('sl-search', (event: SlSearchEvent) => onSearch(event.detail));
+      el.focus();
+
+      // Type first character
+      await userEvent.type(el.input, 'h');
+
+      // Wait 200ms (less than debounce period)
+      await new Promise(resolve => setTimeout(resolve, 200));
+
+      // Type second character - should reset timer
+      await userEvent.type(el.input, 'e');
+
+      // Wait another 200ms (still less than 300ms from second character)
+      await new Promise(resolve => setTimeout(resolve, 200));
+
+      // Should not have emitted yet
+      expect(onSearch).not.to.have.been.called;
+
+      // Wait for remaining debounce time
+      await new Promise(resolve => setTimeout(resolve, 150));
+
+      // Should have emitted with full text
+      expect(onSearch).to.have.been.calledOnce;
+      expect(onSearch).to.have.been.calledWith('he');
+    });
+
+    it('should emit multiple events for separate typing sessions', async () => {
+      const onSearch: (value: string) => void = spy();
+
+      el.addEventListener('sl-search', (event: SlSearchEvent) => onSearch(event.detail));
+      el.focus();
+
+      // First typing session
+      await userEvent.type(el.input, 'hello');
+      await new Promise(resolve => setTimeout(resolve, 350));
+
+      expect(onSearch).to.have.been.calledOnce;
+      expect(onSearch).to.have.been.calledWith('hello');
+
+      // Clear and start new typing session
+      el.clear();
+      await userEvent.type(el.input, 'world');
+      await new Promise(resolve => setTimeout(resolve, 350));
+
+      expect(onSearch).to.have.been.calledTwice;
+      expect(onSearch).to.have.been.calledWith('world');
+    });
+
+    it('should not emit search event for empty value after debounce', async () => {
+      const onSearch: (value: string) => void = spy();
+
+      el.addEventListener('sl-search', (event: SlSearchEvent) => onSearch(event.detail));
+      el.focus();
+
+      // Type and then delete
+      await userEvent.type(el.input, 'a');
+      await userEvent.keyboard('{Backspace}');
+
+      // Wait for debounce
+      await new Promise(resolve => setTimeout(resolve, 350));
+
+      // Should not emit for empty value
+      expect(onSearch).not.to.have.been.called;
+    });
+
+    it('should cancel debounced search when Enter is pressed', async () => {
+      const onSearch: (value: string) => void = spy();
+
+      el.addEventListener('sl-search', (event: SlSearchEvent) => onSearch(event.detail));
+      el.focus();
+
+      // Type some text
+      await userEvent.type(el.input, 'test');
+
+      // Press Enter before debounce completes
+      await userEvent.keyboard('{Enter}');
+
+      // Should emit immediately from Enter press
+      expect(onSearch).to.have.been.calledOnce;
+      expect(onSearch).to.have.been.calledWith('test');
+
+      // Wait for where debounce would have fired
+      await new Promise(resolve => setTimeout(resolve, 350));
+
+      // Should still only have been called once (debounce was cancelled)
+      expect(onSearch).to.have.been.calledOnce;
+    });
+  });
 });

@@ -1,7 +1,7 @@
 <form>
   <div>
-    <label>Select a theme</label>
-    <select id="theme"></select>
+    <h1>Select a theme:</h1>
+    <ul id="theme"></ul>
   </div>
   <button id="select">Set theme</button>
 </form>
@@ -34,41 +34,28 @@ span {
   place-content: center;
 }
 
-label {
+h1 {
   color: var(--figma-color-text-secondary);
-}
-select,
-::picker(select) {
-  appearance: base-select;
-}
-select {
-  flex: 1;
-  border: 1px solid var(--figma-color-border);
-  background: #fff;
-  padding: 4px 8px;
-  transition: 0.4s;
-  border-radius: 5px;
-  font-weight: 450;
-  font-size: 11px;
-  line-height: 16px;
+  font-size: 14px;
+  margin: 0;
 }
 
-select:hover,
-select:focus {
-  background: #3366FF1F;
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
-select::picker-icon {
-  color: var(--color-icon-tertiary);
-  transition: 0.4s rotate;
+li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
-select:open::picker-icon {
-  rotate: 180deg;
-}
-::picker(select) {
-  border: none;
-}
-option {
-  padding: 4px;
+
+input[type="radio"] {
+  margin: 0;
 }
 
 button {
@@ -85,17 +72,25 @@ button {
 <script>
 
 document.getElementById('select').onclick = () => {
-  const theme = document.getElementById('theme').value;
-  parent.postMessage({ pluginMessage: { type: 'selectTheme', theme } }, '*')
+  const theme = document.querySelector('input[name="theme"]:checked').value;
+  parent.postMessage({ pluginMessage: { type: 'selectTheme', theme } }, '*');
 }
 
 window.onmessage = (e) => {
   if(e.data.pluginMessage){
     const theme = document.getElementById('theme');
     e.data.pluginMessage.forEach((item) => {
-      const option = document.createElement('option');
-      option.value = item.compoundId;
-      option.innerText = item.name;
+      const option = document.createElement('li');
+      const input = document.createElement('input');
+      input.type = 'radio';
+      input.name = 'theme';
+      input.value = item.compoundId;
+      input.id = item.compoundId;
+      const label = document.createElement('label');
+      label.innerText = item.name;
+      label.htmlFor = item.compoundId;
+      option.appendChild(input);
+      option.appendChild(label);
       theme.appendChild(option);
     });
 

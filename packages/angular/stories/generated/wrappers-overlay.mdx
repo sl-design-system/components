@@ -14,22 +14,26 @@ To add custom introduction content, create wrappers-overlay.intro.md */}
 ### Template
 
 ```html
+
 <sl-button (click)="onClick($event)">Open dialog</sl-button>
-        <sl-dialog>
-          <span slot="title">Title</span>
-          <span slot="subtitle">Subtitle</span>
-          <p>Proident nulla enim est excepteur exercitation minim ea proident nisi.</p>
-          <sl-button sl-dialog-close fill="ghost" slot="actions">Cancel</sl-button>
-          <sl-button sl-dialog-close slot="actions" variant="primary">Action</sl-button>
-        </sl-dialog>
+<sl-dialog>
+  <span slot="title">Title</span>
+  <span slot="subtitle">Subtitle</span>
+  <p>Proident nulla enim est excepteur exercitation minim ea proident nisi.</p>
+  <sl-button sl-dialog-close fill="ghost" slot="actions">Cancel</sl-button>
+  <sl-button sl-dialog-close slot="actions" variant="primary">Action</sl-button>
+</sl-dialog>
+
 ```
 
 ### Props
 
 ```typescript
+
 onClick: (event: Event & { target: HTMLElement }) => {
-        (event.target.nextElementSibling as DialogElement).showModal();
-      }
+  (event.target.nextElementSibling as DialogElement).showModal();
+}
+
 ```
 
 
@@ -40,8 +44,10 @@ onClick: (event: Event & { target: HTMLElement }) => {
 ### Template
 
 ```html
+
 <sl-button aria-describedby="tooltip">Hover me</sl-button>
-      <sl-tooltip id="tooltip">Tooltip content</sl-tooltip>
+<sl-tooltip id="tooltip">Tooltip content</sl-tooltip>
+
 ```
 
 

@@ -17,6 +17,40 @@ class StoryTemplateExtractor {
   }
 
   /**
+   * Normalize indentation by removing common leading whitespace
+   */
+  normalizeIndentation(text) {
+    if (!text) return text;
+
+    const lines = text.split('\n');
+
+    // Filter out empty lines for indentation calculation
+    const nonEmptyLines = lines.filter(line => line.trim().length > 0);
+    if (nonEmptyLines.length === 0) return text;
+
+    // Find the minimum indentation (excluding the first line if it starts at column 0)
+    let minIndent = Infinity;
+    for (let i = 0; i < nonEmptyLines.length; i++) {
+      const line = nonEmptyLines[i];
+      const leadingWhitespace = line.match(/^(\s*)/)[1].length;
+
+      // Skip the first line if it has no indentation (starts at column 0)
+      if (i === 0 && leadingWhitespace === 0) continue;
+
+      minIndent = Math.min(minIndent, leadingWhitespace);
+    }
+
+    // If no indentation found, return as-is
+    if (minIndent === Infinity || minIndent === 0) return text;
+
+    // Remove the common indentation from all lines
+    return lines.map(line => {
+      if (line.trim().length === 0) return ''; // Keep empty lines empty
+      return line.substring(minIndent);
+    }).join('\n');
+  }
+
+  /**
    * Parse a TypeScript story file and extract component information
    */
   parseStoryFile(filePath) {
@@ -34,7 +68,7 @@ class StoryTemplateExtractor {
 
       // Extract template
       const templateMatch = componentBlock.match(/template:\s*`([\s\S]*?)`/);
-      const template = templateMatch ? templateMatch[1] : null;
+      const template = templateMatch ? this.normalizeIndentation(templateMatch[1]) : null;
 
       // Extract selector
       const selectorMatch = componentBlock.match(/selector:\s*['"`]([^'"`]+)['"`]/);
@@ -42,7 +76,7 @@ class StoryTemplateExtractor {
 
       // Extract class content (properties and methods)
       const classMatch = componentBlock.match(/export\s+class\s+\w+\s*{([\s\S]*?)}\s*$/);
-      const classContent = classMatch ? classMatch[1].trim() : null;
+      const classContent = classMatch ? this.normalizeIndentation(classMatch[1]) : null;
 
       if (template && selector) {
         components.push({
@@ -72,7 +106,7 @@ class StoryTemplateExtractor {
       // Try to match template literals (backticks) for multi-line templates
       const templateLiteralMatch = storyContent.match(/template:\s*`([\s\S]*?)`/);
       if (templateLiteralMatch) {
-        template = templateLiteralMatch[1].trim();
+        template = this.normalizeIndentation(templateLiteralMatch[1]);
       } else {
         // For quoted templates, we need to handle nested quotes properly
         // Try single quotes first
@@ -92,12 +126,23 @@ class StoryTemplateExtractor {
       let props = null;
       const propsMatch = storyContent.match(/props:\s*{([\s\S]*?)},?\s*template:/);
       if (propsMatch) {
-        props = propsMatch[1].trim();
+        props = this.normalizeIndentation(propsMatch[1]);
       }
 
-      // Extract parameters/description
-      const descriptionMatch = storyContent.match(/description:\s*{\s*story:\s*`([\s\S]*?)`/);
-      const description = descriptionMatch ? descriptionMatch[1].trim() : null;
+      // Extract parameters/description - handle multiple formats
+      let description = null;
+
+      // Try format: description: { story: 'text' }
+      let descriptionMatch = storyContent.match(/description:\s*{\s*story:\s*['"`]([\s\S]*?)['"`]/);
+      if (descriptionMatch) {
+        description = descriptionMatch[1].trim();
+      } else {
+        // Try format: description: 'text'
+        descriptionMatch = storyContent.match(/description:\s*['"`]([\s\S]*?)['"`]/);
+        if (descriptionMatch) {
+          description = descriptionMatch[1].trim();
+        }
+      }
 
       stories.push({
         name: storyName,
@@ -119,7 +164,7 @@ class StoryTemplateExtractor {
 
       const templateLiteralMatch = storyContent.match(/template:\s*`([\s\S]*?)`/);
       if (templateLiteralMatch) {
-        template = templateLiteralMatch[1].trim();
+        template = this.normalizeIndentation(templateLiteralMatch[1]);
       } else {
         const singleQuoteMatch = storyContent.match(/template:\s*'((?:[^'\\]|\\.)*)'/);
         if (singleQuoteMatch) {
@@ -136,14 +181,29 @@ class StoryTemplateExtractor {
       let props = null;
       const propsMatch = storyContent.match(/props:\s*{([\s\S]*?)},?\s*template:/);
       if (propsMatch) {
-        props = propsMatch[1].trim();
+        props = this.normalizeIndentation(propsMatch[1]);
+      }
+
+      // Extract parameters/description - handle multiple formats
+      let description = null;
+
+      // Try format: description: { story: 'text' }
+      let descriptionMatch = storyContent.match(/description:\s*{\s*story:\s*['"`]([\s\S]*?)['"`]/);
+      if (descriptionMatch) {
+        description = descriptionMatch[1].trim();
+      } else {
+        // Try format: description: 'text'
+        descriptionMatch = storyContent.match(/description:\s*['"`]([\s\S]*?)['"`]/);
+        if (descriptionMatch) {
+          description = descriptionMatch[1].trim();
+        }
       }
 
       stories.push({
         name: storyName,
         template,
         props,
-        description: null,
+        description,
         fullStory: fnMatch[0]
       });
     }
@@ -198,7 +258,7 @@ To add custom introduction content, create ${fileName}.intro.md */}
 
     // Add custom introduction if available
     if (customIntro) {
-      mdx += `${customIntro}
+      mdx += ` ${customIntro}
 
 `;
     }
@@ -218,8 +278,7 @@ To add custom introduction content, create ${fileName}.intro.md */}
       }
 
       if (component) {
-        mdx += `### Component Code
-
+        mdx += `
 \`\`\`typescript
 @Component({
   selector: '${component.selector}',

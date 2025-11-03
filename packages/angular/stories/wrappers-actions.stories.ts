@@ -18,7 +18,13 @@ export const Button: StoryObj = {
 };
 
 export const ButtonBar: StoryObj = {
+  globals: {
+    Description: 'A button bar groups multiple buttons together.'
+  },
   render: () => ({
+    description: {
+      story: 'A button bar groups multiple buttons together.'
+    },
     template: `
       <sl-button-bar>
         <sl-button>Button 1</sl-button>

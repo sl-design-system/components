@@ -1,7 +1,7 @@
 ---
 name: storybook-author
 description: Specializes in creating and maintaining Storybook stories for web components with proper args, argTypes, and interactive examples
-tools: ['edit', 'search', 'runCommands', 'runTasks', 'microsoft/playwright-mcp/*', 'runSubagent', 'usages', 'problems', 'changes', 'openSimpleBrowser', 'runTests']
+tools: ['edit', 'search', 'runCommands', 'runTasks', 'microsoft/playwright-mcp/*', 'runSubagent', 'usages', 'problems', 'changes', 'openSimpleBrowser']
 model: Claude Sonnet 4.5
 handoffs:
   - label: Implement Component

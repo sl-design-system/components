@@ -153,7 +153,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         this.#valueAsNumbers = time;
       } else {
         this.#value = undefined;
-        // this.#value = value; //undefined;
         this.#valueAsNumbers = undefined;
       }
     } else {
@@ -396,7 +395,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onHourClick(hours: number): void {
-    this.#valueAsNumbers = { hours, minutes: this.#valueAsNumbers?.minutes ?? 0 }; // TODO: needs to be set on input value change?
+    this.#valueAsNumbers = { hours, minutes: this.#valueAsNumbers?.minutes ?? 0 };
     this.#value = this.#formatTime(this.#valueAsNumbers.hours ?? 0, this.#valueAsNumbers.minutes ?? 0);
     this.requestUpdate('value');
 
@@ -472,13 +471,11 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     const time = this.#parseTime(this.textField.input.value);
     if (!time || Number.isNaN(time.hours) || Number.isNaN(time.minutes)) {
       this.#valueAsNumbers = undefined;
-      this.#value = undefined; // TODO: is it really ok?
+      this.#value = undefined;
       this.requestUpdate();
 
       this.changeEvent.emit(this.value ?? '');
-    } else if (
-      time /*&& time.hours !== this.#valueAsNumbers?.hours && time.minutes !== this.#valueAsNumbers?.minutes*/
-    ) {
+    } else if (time && (time.hours !== this.#valueAsNumbers?.hours || time.minutes !== this.#valueAsNumbers?.minutes)) {
       // TODO: or instead of and?
       this.#valueAsNumbers = time;
       this.#value = this.#formatTime(time.hours, time.minutes);

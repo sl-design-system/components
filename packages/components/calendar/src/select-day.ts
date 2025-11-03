@@ -135,31 +135,26 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     super.firstUpdated(changes);
 
     requestAnimationFrame(() => {
-      // let totalHorizontal = 0;
-
-      // if (this.monthView) {
-      //   const cs = getComputedStyle(this.monthView);
-      //   const left = parseFloat(cs.paddingLeft) || 0;
-      //   const right = parseFloat(cs.paddingRight) || 0;
-      //   // totalHorizontal = Math.round(left + right);
-      // }
-
       // Create the observer after the scroller exists so `root` is the scroller element
       this.#observer = new IntersectionObserver(
         entries => {
           entries.forEach(entry => {
             if (entry.isIntersecting && entry.intersectionRatio === 1) {
-              const mv = entry.target as MonthView;
-              const observedMonth = mv.month ? normalizeDateTime(mv.month) : undefined;
+              const monthView = entry.target as MonthView,
+                observedMonth = monthView.month ? normalizeDateTime(monthView.month) : undefined;
 
               if (!observedMonth) {
                 this.#scrollToMonth(0);
                 return;
               }
 
-              // Skip adopting month if corresponding month-view is marked as unselectable
-              if (mv.hasAttribute('unselectable-previous-month') || mv.hasAttribute('unselectable-next-month')) {
-                this.#scrollToMonth(0);
+              if (monthView.hasAttribute('unselectable-previous-month')) {
+                this.#scrollToMonth(-1);
+                return;
+              }
+
+              if (monthView.hasAttribute('unselectable-next-month')) {
+                this.#scrollToMonth(1);
                 return;
               }
 
@@ -171,7 +166,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         { root: this.scroller, threshold: [0, 0.25, 0.5, 0.75, 1] }
       );
 
-      this.#scrollToMonth(0); // TODO: maybe min and max needs to be taken here into account?
+      this.#scrollToMonth(0);
       const monthViews = this.renderRoot.querySelectorAll('sl-month-view');
       monthViews.forEach(mv => this.#observer?.observe(mv));
     });
@@ -200,8 +195,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       this.previousMonth = new Date(this.month.getFullYear(), this.month.getMonth() - 1);
     }
   }
-
-  // TODO: sl-month-view blocked when it's not possible to select previous/next month? and then use it in intersection observer entry.target?
 
   override render(): TemplateResult {
     const canSelectNextYear = this.displayMonth
@@ -439,13 +432,15 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         ? !this.min || this.previousMonth.getTime() >= new Date(this.min.getFullYear(), this.min.getMonth()).getTime()
         : false;
 
+    const width = parseInt(getComputedStyle(this).width) || 0,
+      left = width * month + width;
+
     // Block scroll when target month is not selectable
     if ((month === -1 && !canSelectPreviousMonth) || (month === 1 && !canSelectNextMonth)) {
+      console.log('blocked scroll to month...', month);
+      this.scroller?.scrollTo({ left: width, behavior: 'auto' });
       return;
     }
-
-    const width = parseInt(getComputedStyle(this).width) || 0;
-    const left = width * month + width;
 
     this.scroller?.scrollTo({ left, behavior: smooth ? 'smooth' : 'auto' });
   }

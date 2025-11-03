@@ -11,7 +11,7 @@ type Story = StoryObj<Props>;
 customElements.define('sl-select-year', SelectYear);
 
 export default {
-  title: 'Date & Time/Select Year',
+  title: 'Date & Time/Calendar/Select Year',
   tags: ['draft'],
   args: {
     max: new Date(new Date().getFullYear(), 11, 31),

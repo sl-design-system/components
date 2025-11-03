@@ -11,7 +11,7 @@ type Story = StoryObj<Props>;
 customElements.define('sl-select-month', SelectMonth);
 
 export default {
-  title: 'Date & Time/Select Month',
+  title: 'Date & Time/Calendar/Select Month',
   tags: ['draft'],
   args: {
     month: new Date(),

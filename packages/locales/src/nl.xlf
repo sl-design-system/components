@@ -362,10 +362,6 @@
   <source>Unavailable</source>
   <target>Niet beschikbaar</target>
 </trans-unit>
-<trans-unit id="sl.calendar.indicator">
-  <source>Indicator</source>
-  <target>Indicator</target>
-</trans-unit>
 <trans-unit id="sl.calendar.monthsLabel">
   <source>Months of <x id="0" equiv-text="${currentYear}"/></source>
   <target>Maanden van <x id="0" equiv-text="${currentYear}"/></target>
@@ -380,9 +376,7 @@
 </trans-unit>
 <trans-unit id="sl.calendar.announceYears">
   <source>Years between <x id="0" equiv-text="${yearsRange.at(0) ?? ''}"/> and <x id="1" equiv-text="${yearsRange.at(-1) ?? ''}"/></source>
-  <source>Jaren tussen <x id="0" equiv-text="${yearsRange.at(0) ?? ''}"/> en <x id="1" equiv-text="${yearsRange.at(-1) ?? ''}"/></source>
-  <source>Years between <x id="0" equiv-text="${yearsRange.at(0) ?? ''}"/> and <x id="1" equiv-text="${yearsRange.at(-1) ?? ''}"/></source>
-  <source>Years between <x id="0" equiv-text="${yearsRange.at(0) ?? ''}"/> and <x id="1" equiv-text="${yearsRange.at(-1) ?? ''}"/></source>
+  <target>Jaren tussen <x id="0" equiv-text="${yearsRange.at(0) ?? ''}"/> en <x id="1" equiv-text="${yearsRange.at(-1) ?? ''}"/></target>
 </trans-unit>
 </body>
 </file>

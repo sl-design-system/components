@@ -103,9 +103,8 @@ export default {
       ?readonly=${readonly}
       ?show-today=${showToday}
       ?show-week-numbers=${showWeekNumbers}
-      .disabled-dates=${ifDefined(disabledDates?.map(date => date.toISOString()).join(','))}
-      .negative=${ifDefined(negative?.map(date => date.toISOString()).join(','))}
       .renderer=${renderer}
+      disabled-dates=${ifDefined(disabledDates?.map(date => date.toISOString()).join(','))}
       first-day-of-week=${ifDefined(firstDayOfWeek)}
       indicator-dates=${ifDefined(
         Array.isArray(indicatorDates)
@@ -123,8 +122,9 @@ export default {
       locale=${ifDefined(locale)}
       max=${ifDefined(max?.toISOString())}
       min=${ifDefined(min?.toISOString())}
-      month=${ifDefined(month?.toISOString())}
-      selected=${ifDefined(selected?.toISOString())}
+      negative=${ifDefined(negative?.map(date => date.toISOString()).join(','))}
+      month=${ifDefined(month ? new Date(month).toISOString() : undefined)}
+      selected=${ifDefined(selected ? new Date(selected).toISOString() : undefined)}
     ></sl-month-view>
   `
 } satisfies Meta<Props>;
@@ -182,35 +182,24 @@ export const Readonly: Story = {
 export const Renderer: Story = {
   args: {
     renderer: (day: Day, monthView: MonthView) => {
-      const parts = monthView.getDayParts(day);
-
-      if (day.currentMonth && [2, 4, 7, 10, 16, 22].includes(day.date.getDate())) {
-        parts.push('highlight');
-      }
-
       if (day.currentMonth && day.date.getDate() === 24) {
-        parts.push('finish');
+        const label = `${monthView.getDayLabel(day)}, Goal achieved!`,
+          parts = [...monthView.getDayParts(day), 'finish'];
 
-        return html`<button .part=${parts.join(' ')}><sl-icon name="far-flag"></sl-icon></button>`;
-      } else if (day.currentMonth) {
-        return html`<button .part=${parts.join(' ')}>${day.date.getDate()}</button>`;
+        return html`
+          <button aria-label=${label} .part=${parts.join(' ')}>
+            <span><sl-icon name="far-flag"></sl-icon></span>
+          </button>
+        `;
       } else {
-        return html`<span .part=${parts.join(' ')}>${day.date.getDate()}</span>`;
+        // Returning undefined will fallback to the default rendering
+        return undefined;
       }
     },
     styles: `
       sl-month-view::part(finish) {
-        background: var(--sl-color-success-plain);
-        border-radius: 50%;
-        color: var(--sl-color-text-inverted);
-      }
-
-      sl-month-view::part(finish):hover {
-        background: var(--sl-color-success-bold);
-      }
-
-      sl-month-view::part(finish):active {
-        background: var(--sl-color-success-heavy);
+        --_bg-color: var(--sl-color-background-positive-subtle);
+        --_bg-mix-color: var(--sl-color-background-positive-interactive-bold);
       }
     `
   }

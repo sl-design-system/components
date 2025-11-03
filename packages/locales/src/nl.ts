@@ -8,8 +8,8 @@ export const templates = {
   'sl.breadcrumbs.home': 'Home',
   'sl.breadcrumbs.moreBreadcrumbs': 'Meer links',
   'sl.calendar.announceMonthsOfYear': str`Maanden van het jaar ${0}`,
+  'sl.calendar.announceYears': str`Jaren tussen ${0} en ${1}`,
   'sl.calendar.daysLabel': str`Dagen van ${0}`,
-  'sl.calendar.indicator': 'Indicator',
   'sl.calendar.monthsLabel': str`Maanden van ${0}`,
   'sl.calendar.nextMonth': str`Volgende maand, ${0}`,
   'sl.calendar.nextYear': str`Volgend jaar, ${0}`,
@@ -97,6 +97,5 @@ export const templates = {
   'sl.timeField.validation.rangeUnderflow': str`Voer een tijd in die niet eerder is dan ${0}.`,
   'sl.timeField.valueMissing': 'Voer een tijd in.',
   'sl.toolBar.showMore': 'Meer tonen',
-  'sl.tree.loadingMessage': 'Laden',
-  'sl.calendar.announceYears': str`Years between ${0} and ${1}`
+  'sl.tree.loadingMessage': 'Laden'
 };

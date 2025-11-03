@@ -37,6 +37,11 @@ export type MonthViewRenderer = (day: Day, monthView: MonthView) => TemplateResu
 @localized()
 export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
+  static override get observedAttributes(): string[] {
+    return [...(super.observedAttributes ?? []), 'inert'];
+  }
+
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon,
@@ -55,26 +60,24 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         return -1;
       }
 
-      const selectedIndex = elements.findIndex(el => el.getAttribute('aria-current') === 'date' && !el.disabled);
+      const selectedIndex = elements.findIndex(el => !el.disabled && el.getAttribute('aria-current') === 'date');
       if (selectedIndex > -1) {
         return selectedIndex;
       }
 
-      const todayIndex = elements.findIndex(el => el.part.contains('today') && !el.disabled);
+      const todayIndex = elements.findIndex(el => !el.disabled && el.part.contains('today'));
       if (todayIndex > -1) {
         return todayIndex;
       }
 
-      return elements.findIndex(el => !el.disabled);
+      return elements.findIndex(
+        el => !el.disabled && !el.part.contains('previous-month') && !el.part.contains('next-month')
+      );
     },
     elements: (): HTMLButtonElement[] => {
-      return this.inert
-        ? []
-        : Array.from(
-            this.renderRoot.querySelectorAll('button:not([part~="previous-month"]):not([part~="next-month"])')
-          );
+      return this.inert ? [] : Array.from(this.renderRoot.querySelectorAll('button'));
     },
-    isFocusableElement: el => !el.disabled && el.part.contains('previous-month')
+    isFocusableElement: el => !el.disabled && !el.part.contains('previous-month') && !el.part.contains('next-month')
   });
 
   /** @internal The calendar object. */
@@ -110,9 +113,6 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
    * optional `color` and 'label' that is used to improve accessibility (added as a tooltip).
    */
   @property({ attribute: 'indicator-dates', converter: indicatorConverter }) indicatorDates?: Indicator[];
-
-  // eslint-disable-next-line lit/no-native-attributes
-  @property({ type: Boolean }) override inert = false;
 
   /** @internal The localized "week of year" label. */
   @state() localizedWeekOfYear?: string;
@@ -183,6 +183,14 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     super.disconnectedCallback();
   }
 
+  override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null): void {
+    super.attributeChangedCallback(name, oldValue, newValue);
+
+    if (name === 'inert') {
+      this.#rovingTabindexController.clearElementCache();
+    }
+  }
+
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
@@ -206,7 +214,7 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       this.calendar = createCalendar(this.month ?? new Date(), { firstDayOfWeek, max, min, showToday });
     }
 
-    if (changes.has('inert') || changes.has('max') || changes.has('min') || changes.has('month')) {
+    if (changes.has('max') || changes.has('min') || changes.has('month')) {
       this.#rovingTabindexController.clearElementCache();
     }
   }
@@ -398,16 +406,17 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onClick(event: Event & { target: HTMLElement }, day: Day): void {
-    const button = event.target.closest('button'),
-      inDateField = (this.getRootNode() as ShadowRoot).host?.tagName === 'SL-SELECT-DAY';
-
-    if ((button?.part.contains('previous-month') || button?.part.contains('next-month')) && !inDateField) {
-      this.changeEvent.emit(day.date);
-    }
+    const button = event.target.closest('button');
 
     if (!button?.disabled) {
       this.selectEvent.emit(day.date);
       this.selected = day.date;
+    }
+
+    // Emit the `sl-select` event before the `sl-change` event, so the date-field
+    // can choose to close the popover containing the month-view before it changes month.
+    if (button?.part.contains('previous-month') || button?.part.contains('next-month')) {
+      this.changeEvent.emit(day.date);
     }
   }
 

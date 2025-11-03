@@ -285,10 +285,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.updateState({ dirty: true });
     this.updateValidity();
 
-    setTimeout(() => {
-      this.wrapper?.hidePopover();
-      this.input.focus();
-    }, 500);
+    this.wrapper?.hidePopover();
+    this.input.focus();
   }
 
   #onTextFieldBlur(event: SlBlurEvent): void {

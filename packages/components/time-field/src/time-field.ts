@@ -145,8 +145,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   @property()
   override set value(value: string | undefined) {
-    console.log('set value called with', value);
-
     if (value) {
       const time = this.#parseTime(value);
 
@@ -203,7 +201,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     if (changes.has('value')) {
-      console.log('willUpdate detected value change to', this.#value); // no value change on input?
       this.input.value = this.value || '';
       this.updateValidity();
     }
@@ -303,8 +300,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       }
     }
 
-    console.log('this.#valueAsNumbers in renderHours:', this.#valueAsNumbers);
-
     return hours.map(
       hour => html`
         <li
@@ -340,62 +335,16 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** @internal */
   override updateInternalValidity(): void {
-    console.log('updateInternalValidity called - before time parse?');
-
     if (!this.textField || !this.textField.input) {
-      // TODO: really necessary?
       return;
     }
 
-    // TODO: maybe when required 'Please fill out this field.'
-    const time = this.#parseTime(this.textField.input.value);
-    // const time = this.#parseTime(this.input.value);
-    console.log(
-      'updateInternalValidity called',
-      this.value,
-      this.required,
-      this.required && !this.value,
-      this.#value,
-      'time...',
-      time,
-      'this.textField.input.value',
-      this.textField.input.value,
-      'input.value',
-      this.input.value,
-      'this.#valueAsNumbers',
-      this.#valueAsNumbers,
-      'value missing:',
-      this.textField.validity.valueMissing,
-      'should be invalid time?',
-      !time || Number.isNaN(time.hours) || Number.isNaN(time.minutes),
-      'this.value...',
-      this.value
-    );
-    console.log(
-      'should be ivalid time? ',
-      (!time || Number.isNaN(time.hours) || Number.isNaN(time.minutes)) && !!this.textField.input.value,
-      'time',
-      time,
-      '!!this.textField.input.value',
-      !!this.textField.input.value
-    );
-
-    console.log(
-      'min and max:',
-      this.min,
-      this.max,
-      'this.value:',
-      this.value,
-      'this.#value',
-      this.#value,
-      'input value',
-      this.input.value
-    );
-
-    // TODO: his.#formatTime(hours, minutes)
-
-    const isInvalidTime =
-      !time || Number.isNaN(time.hours) || Number.isNaN(time.minutes) || !this.#formatTime(time?.hours, time?.minutes);
+    const time = this.#parseTime(this.textField.input.value),
+      isInvalidTime =
+        !time ||
+        Number.isNaN(time.hours) ||
+        Number.isNaN(time.minutes) ||
+        !this.#formatTime(time?.hours, time?.minutes);
 
     if (isInvalidTime && !!this.textField.input.value) {
       this.setCustomValidity(msg('Please enter a time.', { id: 'sl.timeField.valueMissing' }));

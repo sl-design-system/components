@@ -1,8 +1,8 @@
 ---
 name: component-author
 description: Specializes in creating and maintaining Lit web components for the SL Design System following established patterns and conventions
-tools: ["*"]
-model: Claude Sonnet 4
+tools: ['edit', 'search', 'new', 'runCommands', 'runTasks', 'atlassian/atlassian-mcp-server/search', 'Figma MCP/*', 'microsoft/playwright-mcp/*', 'runSubagent', 'problems', 'changes', 'testFailure', 'runTests']
+model: Claude Sonnet 4.5
 handoffs:
   - label: Write Tests
     agent: testing-specialist

@@ -381,6 +381,8 @@ override updated(changes: PropertyValues<this>): void {
 }
 ```
 
+Use the `RovingTabindexController` where it makes sense.
+
 ## Slot Usage
 
 Document all slots in JSDoc:

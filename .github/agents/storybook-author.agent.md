@@ -379,6 +379,8 @@ Use appropriate tags for component status:
 - `preview` - Feature complete but API may change
 - `draft` - Work in progress, incomplete
 
+A new component should always start with the `draft` tag.
+
 ```typescript
 export default {
   title: 'Actions/Button',

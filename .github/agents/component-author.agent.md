@@ -302,13 +302,13 @@ export class ComponentName extends LitElement {
    - Import as `styles` from the `.scss.js` file
 
 4. **Property Order**
-   - Private fields first
-   - Public fields
-   - Do not use a constructor for Lit components
-   - Lifecycle methods (see below)
-   - Private event handlers; use `#onFoo(...)` naming
-   - Private methods use `#` prefix
-   - Within each group, sort alphabetically
+   1. Private fields (without decorators)
+   2. Public fields
+   3. Public properties with decorators (e.g., `@property`)
+   4. Lifecycle methods (see below)
+   5. Private event handlers (use `#onFoo(...)` naming)
+   6. Private methods (use `#` prefix)
+   - Within each group, sort members alphabetically.
 
 5. **Property Decorators**
    - Use `@property({ type: Boolean, reflect: true })` for boolean props

@@ -413,6 +413,22 @@ describe('sl-time-field', () => {
       expect(el.value).to.equal('12:55');
       expect(el.textField.value).to.equal('12:55');
     });
+
+    it('should update the dialog selection when the timeField value is changed', async () => {
+      el.value = '10:30';
+      await el.updateComplete;
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      const selectedHour = el.renderRoot.querySelector<HTMLElement>('.hours li[aria-selected="true"]'),
+        selectedMinute = el.renderRoot.querySelector<HTMLElement>('.minutes li[aria-selected="true"]');
+
+      expect(selectedHour).to.exist;
+      expect(selectedHour).to.have.trimmed.text('10');
+      expect(selectedMinute).to.exist;
+      expect(selectedMinute).to.have.trimmed.text('30');
+    });
   });
 
   describe('min/max', () => {

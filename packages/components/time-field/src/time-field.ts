@@ -476,7 +476,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
       this.changeEvent.emit(this.value ?? '');
     } else if (time && (time.hours !== this.#valueAsNumbers?.hours || time.minutes !== this.#valueAsNumbers?.minutes)) {
-      // TODO: or instead of and?
       this.#valueAsNumbers = time;
       this.#value = this.#formatTime(time.hours, time.minutes);
       this.requestUpdate();

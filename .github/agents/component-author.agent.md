@@ -323,7 +323,9 @@ export class ComponentName extends LitElement {
    - `willUpdate()` - Before rendering (compute derived state)
    - `updated()` - React to property changes
    - `render()` - Render the template
-   - Make sure to call `super.methodName()` in all overrides, except `render()`
+   - For `connectedCallback()` and `disconnectedCallback()`, always call `super.methodName()` (Lit implements logic in these).
+   - For other standard Lit lifecycle methods (`firstUpdated`, `willUpdate`, `updated`), only call `super.methodName()` if you are extending a custom base class or mixin that implements logic in that method.
+   - Never call `super.render()` in `render()` (Lit does not implement a base render).
 
 
 ### Type Definitions

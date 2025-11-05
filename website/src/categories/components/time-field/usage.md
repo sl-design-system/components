@@ -10,15 +10,14 @@ eleventyNavigation:
 
 <div class="ds-example">
   <sl-time-field
-    id="first-name"
-    aria-label="First name"
+    aria-label="Lesson start time"
   ></sl-time-field>
 </div>
 
 <div class="ds-code">
 
   ```html
-    <sl-time-field id="first-name" aria-label="First name"></sl-time-field>
+    <sl-time-field aria-label="Lesson start time"></sl-time-field>
   ```
 
 </div>
@@ -46,7 +45,7 @@ Use the Time Field when forms must support speed and accessibility for keyboard-
 ## When not to use
 Text fields may not be the best choice in the following scenarios:
 
-### relative timeframes
+### Relative timeframes
 Avoid the Time Field when only approximate periods or relative notions of time are needed (e.g., “morning,” “after lunch,” “end of day”). In these cases, prefer radios, a segmented control, or a select that reflects coarse time choices without implying exact HH:MM precision.
 
 </section>
@@ -75,6 +74,7 @@ Avoid the Time Field when only approximate periods or relative notions of time a
 <section>
 
 ## States
+
 - **Idle:** Empty, showing the placeholder, or with a formatted time as the value.
 - **Hover:** Visual hover effects that show the user that the field is interactive.
 - **Focus:** Display the focus ring. It's shown when the field is active by clicking or keyboard navigation.
@@ -111,7 +111,7 @@ With these options you can tweak the appearance of the text field in Figma. They
 
 <section>
   
-## Behaviours
+## Behavior
 
 ### Free Typing (Default)
 Users can type any valid HH:MM time, regardless of whether it is a step time. The component validates for format and parsability (e.g., two-digit hours/minutes within valid ranges). Step alignment is not enforced unless enforceSteps=true.

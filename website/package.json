@@ -10,6 +10,7 @@
   },
   "type": "module",
   "main": "index.js",
+  "customElements": "src/_data/custom-elements/custom-elements.json",
   "scripts": {
     "build": "wireit",
     "lint": "wireit",

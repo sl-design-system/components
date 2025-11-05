@@ -9,21 +9,21 @@ eleventyNavigation:
 <section class="no-heading">
 
 <div class="ds-example">
-  <sl-text-field
+  <sl-time-field
     id="last-name"
     aria-label="Last name"
-    value="Smith"
-  ></sl-text-field>
+    value="10:00"
+  ></sl-time-field>
 </div>
 
 <div class="ds-code">
 
   ```html
-    <sl-text-field id="last-name" aria-label="Last name" value="Smith"></sl-text-field>
+    <sl-time-field id="last-name" aria-label="Last name" value="10:00"></sl-time-field>
   ```
 
 </div>
 
 </section>
-<ds-install-info link-in-navigation package="text-field"></ds-install-info>
+<ds-install-info link-in-navigation package="time-field"></ds-install-info>
 {% include "../component-table.njk" %}

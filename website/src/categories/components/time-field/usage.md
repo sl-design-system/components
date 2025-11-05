@@ -9,17 +9,16 @@ eleventyNavigation:
 <section class="no-heading">
 
 <div class="ds-example">
-  <sl-text-field
+  <sl-time-field
     id="first-name"
-    value="John"
     aria-label="First name"
-  ></sl-text-field>
+  ></sl-time-field>
 </div>
 
 <div class="ds-code">
 
   ```html
-    <sl-text-field id="first-name" value="John" aria-label="First name"></sl-text-field>
+    <sl-time-field id="first-name" aria-label="First name"></sl-time-field>
   ```
 
 </div>

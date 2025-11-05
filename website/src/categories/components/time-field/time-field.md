@@ -10,6 +10,6 @@ storybookCategory: form
 eleventyNavigation:
   parent: Components
   key: Time field
-  status: ready
+  status: new
 ---
 

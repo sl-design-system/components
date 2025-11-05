@@ -1,7 +1,7 @@
 {
   "layout": "categories/components/components.njk",
   "tags": "time-field",
-  "componentStatus": "stable",
+  "componentStatus": "draft",
   "componentTagName": [
     {
       "name": "Time field",

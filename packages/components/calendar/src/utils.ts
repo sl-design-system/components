@@ -1,3 +1,5 @@
+import { dateConverter } from '@sl-design-system/shared/converters.js';
+
 export interface Day {
   ariaCurrent?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false';
   ariaPressed?: 'true' | 'false' | 'mixed';
@@ -9,6 +11,7 @@ export interface Day {
   future?: boolean;
   highlight?: boolean;
   lastDayOfMonth?: boolean;
+  negative?: boolean;
   nextMonth?: boolean;
   past?: boolean;
   previousMonth?: boolean;
@@ -25,6 +28,14 @@ export interface Week {
   days: Day[];
 }
 
+export interface Month {
+  short: string;
+  long: string;
+  value: number;
+  date: Date;
+  unselectable?: boolean;
+}
+
 export type WeekDayNamesStyle = 'long' | 'short' | 'narrow';
 
 export type WeekDayNames = {
@@ -34,6 +45,10 @@ export type WeekDayNames = {
 export interface Calendar {
   weeks: Week[];
 }
+
+export type IndicatorColor = 'blue' | 'red' | 'yellow' | 'green' | 'grey';
+
+export type Indicator = { date: Date; color?: IndicatorColor; label?: string };
 
 const weekdayNamesCache: Record<string, WeekDayNames> = {};
 
@@ -119,6 +134,18 @@ export function isSameDate(day1?: Date, day2?: Date): boolean {
     day1.getMonth() === day2.getMonth() &&
     day1.getFullYear() === day2.getFullYear()
   );
+}
+
+export function isDateInList(date: Date, list?: Date[] | string): boolean {
+  if (!list) {
+    return false;
+  }
+
+  if (typeof list === 'string') {
+    list = list.split(',').map(item => new Date(item));
+  }
+
+  return list.some(item => isSameDate(item, date));
 }
 
 export function normalizeDateTime(date: Date): Date {
@@ -268,3 +295,22 @@ export function createDay(
     weekOrder
   };
 }
+
+export const indicatorConverter = {
+  fromAttribute: (value: string | null) =>
+    value
+      ? (JSON.parse(value) as Array<{ date: string; color?: IndicatorColor; label?: string }>).map(i => ({
+          ...i,
+          date: dateConverter.fromAttribute?.(i.date)
+        }))
+      : undefined,
+  toAttribute: (value?: Indicator[]) =>
+    value
+      ? JSON.stringify(
+          value.map(i => ({
+            ...i,
+            date: dateConverter.toAttribute?.(i.date)
+          }))
+        )
+      : undefined
+};

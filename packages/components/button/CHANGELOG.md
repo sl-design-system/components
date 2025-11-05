@@ -1,5 +1,13 @@
 # @sl-design-system/button
 
+## 1.3.2
+
+### Patch Changes
+
+- [#2809](https://github.com/sl-design-system/components/pull/2809) [`ef77be3`](https://github.com/sl-design-system/components/commit/ef77be3c11c6811d2f220c898847bd351c657435) - Replace `slotchange` with `MutationObserver` so text changes are also detected.
+
+  This fixes a bug in Angular where the text content of the button is changed after the custom element has been initialized, but the `slotchange` event does not fire. Due to `slotchange` not firing, the `icon-only` attribute isn't removed and the button styling breaks. Using a `MutationObserver` allows us to detect changes to the text content within the slot and fix the bug.
+
 ## 1.3.1
 
 ### Patch Changes

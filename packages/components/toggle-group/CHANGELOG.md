@@ -1,5 +1,14 @@
 # @sl-design-system/toggle-group
 
+## 0.0.11
+
+### Patch Changes
+
+- [#2734](https://github.com/sl-design-system/components/pull/2734) [`f676dd5`](https://github.com/sl-design-system/components/commit/f676dd52c83ef2f3429d9a393b5ec634fc05bf0e) - Refactored token for focus ring, this was still using tokens that have now moved to the deprecated css files.
+
+- Updated dependencies [[`f676dd5`](https://github.com/sl-design-system/components/commit/f676dd52c83ef2f3429d9a393b5ec634fc05bf0e)]:
+  - @sl-design-system/toggle-button@0.0.11
+
 ## 0.0.10
 
 ### Patch Changes

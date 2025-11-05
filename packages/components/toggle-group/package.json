@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/toggle-group",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Toggle group component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@sl-design-system/shared": "^0.9.1",
-    "@sl-design-system/toggle-button": "^0.0.10"
+    "@sl-design-system/toggle-button": "^0.0.11"
   },
   "devDependencies": {
     "@open-wc/scoped-elements": "^3.0.6",

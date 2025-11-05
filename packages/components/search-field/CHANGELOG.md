@@ -1,5 +1,13 @@
 # @sl-design-system/search-field
 
+## 0.2.2
+
+### Patch Changes
+
+- [#2816](https://github.com/sl-design-system/components/pull/2816) [`891f599`](https://github.com/sl-design-system/components/commit/891f599ea42ba8c01c08310abe945d20e11f9978) - Debounce the `sl-search` event while typing
+
+  Previously applications using the search field component would have to debounce the `sl-search` event themselves. With this change the component now debounces the event internally with a default delay of 300ms.
+
 ## 0.2.1
 
 ### Patch Changes

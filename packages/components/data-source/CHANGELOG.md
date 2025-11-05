@@ -1,5 +1,13 @@
 # @sl-design-system/data-source
 
+## 0.2.3
+
+### Patch Changes
+
+- [#2815](https://github.com/sl-design-system/components/pull/2815) [`df7af95`](https://github.com/sl-design-system/components/commit/df7af9509ebf675a572267f30cf36e835075b0fe) - Fix data not being invalidated when calling `FetchListDataSource.update()`
+
+  This fixes a bug where after adding a filter and calling `update()`, the `fetchPage` callback was not being called again. Instead the data source was still serving the old data from the previous `fetchPage` calls.
+
 ## 0.2.2
 
 ### Patch Changes

@@ -34,21 +34,19 @@ export const Dialog: StoryObj = {
 };
 
 export const Popover: StoryObj = {
-  render: () => {
-    const onClick = (event: Event & { target: HTMLElement }) => {
-      (event.target.nextElementSibling as HTMLElement).showPopover();
-    };
-
-    return {
-      props: { onClick },
-      template: `
+  render: () => ({
+    props: {
+      onClick: (event: Event & { target: HTMLElement }) => {
+        (event.target.nextElementSibling as HTMLElement).showPopover();
+      }
+    },
+    template: `
         <sl-button (click)="onClick($event)" id="button">Open popover</sl-button>
         <sl-popover anchor="button" style="width: 300px">
           Consectetur qui ut occaecat excepteur id. Eu reprehenderit mollit aliquip ullamco ex fugiat mollit. Dolore adipisicing laboris et nostrud enim irure nisi ea.
         </sl-popover>
       `
-    };
-  }
+  })
 };
 
 export const Tooltip: StoryObj = {

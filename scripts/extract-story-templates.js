@@ -19,7 +19,7 @@ class StoryTemplateExtractor {
   /**
    * Normalize indentation by removing common leading whitespace
    */
-  normalizeIndentation(text, extraIndentation = 0) {
+  normalizeIndentation(text) {
     if (!text) return text;
 
     const lines = text.split('\n');
@@ -46,8 +46,119 @@ class StoryTemplateExtractor {
     // Remove the common indentation from all lines
     return lines.map(line => {
       if (line.trim().length === 0) return ''; // Keep empty lines empty
-      return line.substring(minIndent-extraIndentation);
+      return line.substring(minIndent);
     }).join('\n');
+  }
+
+  /**
+   * Extract stories using JSON parsing for simple objects
+   */
+  extractStoriesWithJSON(content) {
+    const stories = [];
+
+    // Find all story exports
+    const storyExportRegex = /export\s+const\s+(\w+):\s*StoryObj\s*=\s*{([\s\S]*?)};/g;
+
+    let match;
+    while ((match = storyExportRegex.exec(content)) !== null) {
+      const storyName = match[1];
+      const storyObjectContent = match[2];
+
+      try {
+        // Extract the render function content
+        const renderMatch = storyObjectContent.match(/render:\s*\(\)\s*=>\s*\(([\s\S]*?)\)/);
+        if (renderMatch) {
+          const renderObjectContent = renderMatch[1].trim();
+
+          // Try to parse as JSON
+          const storyObject = this.parseStoryObjectAsJSON(renderObjectContent);
+
+          stories.push({
+            name: storyName,
+            template: storyObject.template || null,
+            props: storyObject.props || null,
+            description: storyObject.description || null,
+            fullStory: match[0]
+          });
+        }
+      } catch (error) {
+        console.warn(`Failed to parse story ${storyName}:`, error.message);
+        // Fallback to regex for this story
+        stories.push(this.extractStoryWithRegex(storyName, storyObjectContent, match[0]));
+      }
+    }
+
+    return stories;
+  }
+
+  /**
+   * Parse story object content as JSON
+   */
+  parseStoryObjectAsJSON(objectContent) {
+    try {
+      // For simple string properties, we can convert to JSON format
+      // Replace single quotes with double quotes for JSON compatibility
+      let jsonContent = objectContent
+        .replace(/'/g, '"')  // Convert single quotes to double quotes
+        .replace(/(\w+):/g, '"$1":');  // Add quotes around property names
+
+      // Wrap in braces to make it a valid JSON object
+      const wrappedContent = `{${jsonContent}}`;
+
+      return JSON.parse(wrappedContent);
+    } catch (error) {
+      throw new Error(`Could not parse as JSON: ${error.message}`);
+    }
+  }
+
+  /**
+   * Fallback regex parsing for stories that can't be parsed as JSON
+   */
+  extractStoryWithRegex(storyName, storyContent, fullStory) {
+    let template = null;
+    let props = null;
+    let description = null;
+
+    // Extract template
+    const templateLiteralMatch = storyContent.match(/template:\s*`([\s\S]*?)`/);
+    if (templateLiteralMatch) {
+      template = this.normalizeIndentation(templateLiteralMatch[1], 2);
+    } else {
+      const singleQuoteMatch = storyContent.match(/template:\s*'((?:[^'\\]|\\.)*)'/);
+      if (singleQuoteMatch) {
+        template = singleQuoteMatch[1];
+      } else {
+        const doubleQuoteMatch = storyContent.match(/template:\s*"((?:[^"\\]|\\.)*)"/);
+        if (doubleQuoteMatch) {
+          template = doubleQuoteMatch[1];
+        }
+      }
+    }
+
+    // Extract props
+    const propsMatch = storyContent.match(/props:\s*{([\s\S]*?)},?\s*template:/);
+    if (propsMatch) {
+      props = this.normalizeIndentation(propsMatch[1], 2);
+    }
+
+    // Extract description
+    let descriptionMatch = storyContent.match(/description:\s*{\s*story:\s*['"`]([\s\S]*?)['"`]/);
+    if (descriptionMatch) {
+      description = descriptionMatch[1].trim();
+    } else {
+      descriptionMatch = storyContent.match(/description:\s*['"`]([\s\S]*?)['"`]/);
+      if (descriptionMatch) {
+        description = descriptionMatch[1].trim();
+      }
+    }
+
+    return {
+      name: storyName,
+      template,
+      props,
+      description,
+      fullStory
+    };
   }
 
   /**
@@ -57,7 +168,7 @@ class StoryTemplateExtractor {
     const content = fs.readFileSync(filePath, 'utf-8');
     const fileName = path.basename(filePath, '.stories.ts');
 
-    // Extract component definitions
+    // Extract component definitions using regex (still needed for @Component classes)
     const componentRegex = /@Component\s*\(\s*{[\s\S]*?}\s*\)\s*export\s+class\s+(\w+)[\s\S]*?(?=@Component|export\s+default|$)/g;
     const components = [];
 
@@ -66,9 +177,26 @@ class StoryTemplateExtractor {
       const componentBlock = match[0];
       const componentName = match[1];
 
-      // Extract template
-      const templateMatch = componentBlock.match(/template:\s*`([\s\S]*?)`/);
-      const template = templateMatch ? this.normalizeIndentation(templateMatch[1],2) : null;
+      // Extract template - handle backticks, single quotes, and double quotes
+      let template = null;
+
+      // Try backticks first (for multi-line templates)
+      const templateLiteralMatch = componentBlock.match(/template:\s*`([\s\S]*?)`/);
+      if (templateLiteralMatch) {
+        template = this.normalizeIndentation(templateLiteralMatch[1], 2);
+      } else {
+        // Try single quotes
+        const singleQuoteMatch = componentBlock.match(/template:\s*'((?:[^'\\]|\\.)*)'/);
+        if (singleQuoteMatch) {
+          template = singleQuoteMatch[1];
+        } else {
+          // Try double quotes
+          const doubleQuoteMatch = componentBlock.match(/template:\s*"((?:[^"\\]|\\.)*)"/);
+          if (doubleQuoteMatch) {
+            template = doubleQuoteMatch[1];
+          }
+        }
+      }
 
       // Extract selector
       const selectorMatch = componentBlock.match(/selector:\s*['"`]([^'"`]+)['"`]/);
@@ -76,7 +204,7 @@ class StoryTemplateExtractor {
 
       // Extract class content (properties and methods)
       const classMatch = componentBlock.match(/export\s+class\s+\w+\s*{([\s\S]*?)}\s*$/);
-      const classContent = classMatch ? this.normalizeIndentation(classMatch[1],2) : null;
+      const classContent = classMatch ? this.normalizeIndentation(classMatch[1], 4) : null;
 
       if (template && selector) {
         components.push({
@@ -89,124 +217,8 @@ class StoryTemplateExtractor {
       }
     }
 
-    // Extract stories - handle both StoryObj and StoryFn
-    const storyObjRegex = /export\s+const\s+(\w+):\s*StoryObj\s*=\s*{([\s\S]*?)};/g;
-    const storyFnRegex = /export\s+const\s+(\w+):\s*StoryFn\s*=\s*\(\)\s*=>\s*\(\s*{([\s\S]*?)}\s*\);/g;
-    const stories = [];
-
-    // Process StoryObj exports
-    let objMatch;
-    while ((objMatch = storyObjRegex.exec(content)) !== null) {
-      const storyName = objMatch[1];
-      const storyContent = objMatch[2];
-
-      // Extract template from render function - handle both single line and multi-line templates
-      let template = null;
-
-      // Try to match template literals (backticks) for multi-line templates
-      const templateLiteralMatch = storyContent.match(/template:\s*`([\s\S]*?)`/);
-      if (templateLiteralMatch) {
-        template = this.normalizeIndentation(templateLiteralMatch[1], 2);
-      } else {
-        // For quoted templates, we need to handle nested quotes properly
-        // Try single quotes first
-        const singleQuoteMatch = storyContent.match(/template:\s*'((?:[^'\\]|\\.)*)'/);
-        if (singleQuoteMatch) {
-          template = singleQuoteMatch[1];
-        } else {
-          // Try double quotes with escaped quote handling
-          const doubleQuoteMatch = storyContent.match(/template:\s*"((?:[^"\\]|\\.)*)"/);
-          if (doubleQuoteMatch) {
-            template = doubleQuoteMatch[1];
-          }
-        }
-      }
-
-      // Extract props from render function
-      let props = null;
-      const propsMatch = storyContent.match(/props:\s*{([\s\S]*?)},?\s*template:/);
-      if (propsMatch) {
-        props = this.normalizeIndentation(propsMatch[1]);
-      }
-
-      // Extract parameters/description - handle multiple formats
-      let description = null;
-
-      // Try format: description: { story: 'text' }
-      let descriptionMatch = storyContent.match(/description:\s*{\s*story:\s*['"`]([\s\S]*?)['"`]/);
-      if (descriptionMatch) {
-        description = descriptionMatch[1].trim();
-      } else {
-        // Try format: description: 'text'
-        descriptionMatch = storyContent.match(/description:\s*['"`]([\s\S]*?)['"`]/);
-        if (descriptionMatch) {
-          description = descriptionMatch[1].trim();
-        }
-      }
-
-      stories.push({
-        name: storyName,
-        template,
-        props,
-        description,
-        fullStory: objMatch[0]
-      });
-    }
-
-    // Process StoryFn exports
-    let fnMatch;
-    while ((fnMatch = storyFnRegex.exec(content)) !== null) {
-      const storyName = fnMatch[1];
-      const storyContent = fnMatch[2];
-
-      // Extract template from StoryFn content
-      let template = null;
-
-      const templateLiteralMatch = storyContent.match(/template:\s*`([\s\S]*?)`/);
-      if (templateLiteralMatch) {
-        template = this.normalizeIndentation(templateLiteralMatch[1]);
-      } else {
-        const singleQuoteMatch = storyContent.match(/template:\s*'((?:[^'\\]|\\.)*)'/);
-        if (singleQuoteMatch) {
-          template = singleQuoteMatch[1];
-        } else {
-          const doubleQuoteMatch = storyContent.match(/template:\s*"((?:[^"\\]|\\.)*)"/);
-          if (doubleQuoteMatch) {
-            template = doubleQuoteMatch[1];
-          }
-        }
-      }
-
-      // Extract props from StoryFn
-      let props = null;
-      const propsMatch = storyContent.match(/props:\s*{([\s\S]*?)},?\s*template:/);
-      if (propsMatch) {
-        props = this.normalizeIndentation(propsMatch[1]);
-      }
-
-      // Extract parameters/description - handle multiple formats
-      let description = null;
-
-      // Try format: description: { story: 'text' }
-      let descriptionMatch = storyContent.match(/description:\s*{\s*story:\s*['"`]([\s\S]*?)['"`]/);
-      if (descriptionMatch) {
-        description = descriptionMatch[1].trim();
-      } else {
-        // Try format: description: 'text'
-        descriptionMatch = storyContent.match(/description:\s*['"`]([\s\S]*?)['"`]/);
-        if (descriptionMatch) {
-          description = descriptionMatch[1].trim();
-        }
-      }
-
-      stories.push({
-        name: storyName,
-        template,
-        props,
-        description,
-        fullStory: fnMatch[0]
-      });
-    }
+    // Extract stories using JSON parsing (more reliable than regex for simple objects)
+    const stories = this.extractStoriesWithJSON(content);
 
     // Extract meta information
     const metaMatch = content.match(/export\s+default\s+{([\s\S]*?)}\s+as\s+Meta/);
@@ -258,7 +270,7 @@ To add custom introduction content, create ${fileName}.intro.md */}
 
     // Add custom introduction if available
     if (customIntro) {
-      mdx += ` ${customIntro}
+      mdx += `${customIntro}
 
 `;
     }
@@ -307,7 +319,6 @@ ${story.props}
 `;
       }
     });
-
     return mdx;
   }
 

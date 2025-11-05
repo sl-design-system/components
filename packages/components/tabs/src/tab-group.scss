@@ -45,7 +45,7 @@
 
   [part='container'] {
     border-block-end: 0;
-    border-inline-end: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+    border-inline-end: var(--sl-size-borderWidth-bold) solid var(--sl-color-border-plain);
     display: inline-flex;
     flex: 0 0 auto;
     flex-direction: column;
@@ -89,6 +89,7 @@
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
+    margin-inline-end: calc(var(--sl-size-borderWidth-bold) * -1);
     overflow: clip scroll;
     overscroll-behavior-y: contain;
     scroll-snap-points-y: repeat(100%);
@@ -102,7 +103,8 @@
 
   .indicator {
     block-size: 100px;
-    inline-size: var(--sl-size-025);
+    border-radius: var(--sl-size-050) 0 0 var(--sl-size-050);
+    inline-size: var(--sl-size-050);
     inset: 0 0 auto auto;
     transform-origin: center top;
   }
@@ -115,7 +117,7 @@
 
 [part='container'] {
   background: var(--sl-elevation-surface-raised-default);
-  border-block-end: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+  border-block-end: var(--sl-size-borderWidth-bold) solid var(--sl-color-border-plain);
   display: flex;
   inline-size: 100%;
 }
@@ -159,6 +161,7 @@
 [part='scroller'] {
   display: flex;
   justify-content: inherit;
+  margin-block-end: calc(var(--sl-size-borderWidth-bold) * -1);
   overflow: scroll clip;
   overscroll-behavior-x: contain;
   scroll-behavior: auto;
@@ -184,7 +187,8 @@
 
 .indicator {
   background: var(--sl-color-border-selected);
-  block-size: var(--sl-size-025);
+  block-size: var(--sl-size-050);
+  border-radius: var(--sl-size-050) var(--sl-size-050) 0 0;
   inline-size: 100px; // Default value; actual width depends on calculated value
   inset: auto auto 0 0;
   opacity: 0;

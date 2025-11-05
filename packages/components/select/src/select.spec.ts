@@ -682,4 +682,43 @@ describe('sl-select', () => {
       expect(selectedOption).to.have.attribute('aria-selected', 'true');
     });
   });
+
+  describe('automatic sizing', () => {
+    it('should not use the full available width if options are smaller', async () => {
+      el = await fixture(html`
+        <div style="inline-size: 800px; inset: 0 auto auto 0; position: fixed">
+          <sl-select>
+            <sl-option value="short">Short</sl-option>
+            <sl-option value="medium-length">Medium length option</sl-option>
+            <sl-option value="longer">This is a longer option text.</sl-option>
+          </sl-select>
+        </div>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve));
+
+      button = el.querySelector('sl-select-button')!;
+      expect(button.getBoundingClientRect().width).to.be.lessThan(800);
+    });
+
+    it('should respect parent max-width when option text is wider', async () => {
+      el = await fixture(html`
+        <div style="max-inline-size: 400px; inset: 0 auto auto 0; position: fixed">
+          <sl-select>
+            <sl-option value="short">Short</sl-option>
+            <sl-option value="medium-length">Medium length option</sl-option>
+            <sl-option value="very-long"
+              >This is an extremely long option text that should be much wider than the parent max-width
+              constraint</sl-option
+            >
+          </sl-select>
+        </div>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve));
+
+      button = el.querySelector('sl-select-button')!;
+      expect(button.getBoundingClientRect().width).to.equal(400);
+    });
+  });
 });

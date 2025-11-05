@@ -212,7 +212,10 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
 
   update(emitEvent = true): void {
     // Reset the cached items
-    this.#groups.forEach(group => (group.pages = {}));
+    this.#groups.forEach(group => {
+      group.members = undefined;
+      group.pages = {};
+    });
 
     this.#items = this.#createItemsArray();
     this.#proxy = this.#createProxy(this.#items);

@@ -230,19 +230,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
   #propagateEmphasis(): void {
     const slot = this.renderRoot.querySelector('slot');
 
-    // This is a workaround because we can't (yet) target combinations of ::slotted children using :has()
-    const style = document.createElement('style');
-    style.innerHTML = `
-         sl-option-group:has(+ sl-option) {
-            border-block-end: var(--sl-color-border-plain) solid var(--sl-size-borderWidth-default);
-            margin-block-end: var(--sl-size-075);
-            padding-block-end: var(--sl-size-100);
-        }
-      `;
-
     slot?.assignedElements({ flatten: true }).forEach(el => {
-      el.append(style);
-
       if (el instanceof Option) {
         el.emphasis = this.emphasis;
       } else if (el instanceof OptionGroup) {

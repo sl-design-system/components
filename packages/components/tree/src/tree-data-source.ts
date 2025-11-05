@@ -6,7 +6,7 @@ import {
   type DataSourceSortDirection,
   type DataSourceSortFunction
 } from '@sl-design-system/data-source';
-import { type PathKeys } from '@sl-design-system/shared';
+import { type PathKeys, getStringByPath } from '@sl-design-system/shared';
 import { type TreeNodeType } from './tree-node.js';
 
 export interface TreeDataSourceNode<T> {
@@ -15,6 +15,7 @@ export interface TreeDataSourceNode<T> {
   childrenCount?: number;
   childrenLoading?: Promise<void>;
   dataNode: T;
+  description?: string;
   expandable: boolean;
   expanded: boolean;
   expandedIcon?: string;
@@ -23,12 +24,16 @@ export interface TreeDataSourceNode<T> {
   label: string;
   lastNodeInLevel?: boolean;
   level: number;
+  levelGuides?: number[];
   parent?: TreeDataSourceNode<T>;
   selected?: boolean;
   type: TreeNodeType;
 }
 
 export interface TreeDataSourceMapping<T> {
+  /** Optional method for returning a custom aria description for a tree node. */
+  getAriaDescription?(item: T): string | undefined;
+
   /**
    * Returns the number of children. This can be used in combination with
    * lazy loading children. This way, the tree component can show skeletons
@@ -71,8 +76,8 @@ export interface TreeDataSourceOptions<T> {
   /** Provide this method to lazy load child nodes when a parent node is expanded. */
   loadChildren?(node: TreeDataSourceNode<T>): Promise<Array<TreeDataSourceNode<T>>>;
 
-  /** Enables single or multiple selection of tree nodes. */
-  selects?: 'single' | 'multiple';
+  /** Enables multiple selection of tree nodes. */
+  multiple?: boolean;
 }
 
 /**
@@ -89,8 +94,8 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
   /** A set containing the selected node(s) in the tree. */
   #selection: Set<TreeDataSourceNode<T>> = new Set();
 
-  /** The selection type for the tree model. */
-  #selects?: 'single' | 'multiple';
+  /** Whether multiple nodes can be selected. */
+  #multiple?: boolean;
 
   /**
    * The value and path/function to use for sorting. When setting this property,
@@ -102,17 +107,17 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     return this.#filters;
   }
 
+  /** Indicates whether the data source allows single or multiple selection. */
+  get multiple() {
+    return this.#multiple;
+  }
+
   /** A hierarchical representation of the items in the tree. */
   abstract readonly nodes: Array<TreeDataSourceNode<T>>;
 
   /** The current selection of tree node(s). */
   get selection() {
     return this.#selection;
-  }
-
-  /** Indicates whether the data source allows single or multiple selection. */
-  get selects() {
-    return this.#selects;
   }
 
   get sort() {
@@ -123,18 +128,18 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     super();
 
     this.#loadChildren = options.loadChildren;
-    this.#selects = options.selects;
+    this.#multiple = options.multiple;
   }
 
-  addFilter(id: string, by: PathKeys<T> | DataSourceFilterFunction<T>, value?: unknown): void {
-    this.#filters.set(id, { id, by, value } as DataSourceFilter<T>);
+  addFilter(_id: string, _by: string | PathKeys<T> | DataSourceFilterFunction<T>, _value?: unknown): void {
+    throw new Error('Filtering is not yet supported in tree data sources.');
   }
 
-  removeFilter(id: string): void {
-    this.#filters.delete(id);
+  removeFilter(_id: string): void {
+    throw new Error('Filtering is not yet supported in tree data sources.');
   }
 
-  setSort(by: PathKeys<T> | DataSourceSortFunction<T>, direction: DataSourceSortDirection): void {
+  setSort(by: string | PathKeys<T> | DataSourceSortFunction<T>, direction: DataSourceSortDirection): void {
     this.#sort = { by, direction };
   }
 
@@ -195,7 +200,13 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
   toggleDescendants(node: TreeDataSourceNode<T>, force?: boolean): void {
     const traverse = (node: TreeDataSourceNode<T>): void => {
       if (node.expandable) {
-        if ((typeof force === 'boolean' && !force) || node.expanded) {
+        if (typeof force === 'boolean') {
+          if (force) {
+            this.expand(node, true);
+          } else {
+            this.collapse(node, true);
+          }
+        } else if (node.expanded) {
           this.collapse(node, false);
         } else {
           this.expand(node, false);
@@ -224,7 +235,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
   async expandAll(): Promise<void> {
     const traverse = async (node: TreeDataSourceNode<T>): Promise<void> => {
       if (node.expandable) {
-        this.expand(node, false);
+        this.expand(node, true);
 
         if (node.childrenLoading) {
           await node.childrenLoading;
@@ -260,7 +271,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
 
   /** Selects the given node and any children. */
   select(node: TreeDataSourceNode<T>, emitEvent = true): void {
-    if (this.selects === 'single') {
+    if (!this.multiple) {
       this.deselectAll();
     }
 
@@ -268,7 +279,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     node.selected = true;
     this.#selection.add(node);
 
-    if (this.selects === 'multiple') {
+    if (this.multiple) {
       // Select all children
       if (node.expandable) {
         const traverse = (node: TreeDataSourceNode<T>): void => {
@@ -304,7 +315,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     node.indeterminate = node.selected = false;
     this.#selection.delete(node);
 
-    if (this.selects === 'multiple') {
+    if (this.multiple) {
       // Deselect all children
       if (node.expandable) {
         const traverse = (node: TreeDataSourceNode<T>): void => {
@@ -369,10 +380,81 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
 
   /** Flattens the tree nodes to an array based on the expansion state. */
   toViewArray(): Array<TreeDataSourceNode<T>> {
+    /**
+     * Calculate level guides for a node by walking up the parent chain.
+     * Always add the parent's level, but stop walking up when we reach a last child.
+     */
+    const calculateLevelGuides = (node: TreeDataSourceNode<T>): number[] => {
+      const guides: number[] = [];
+
+      let current = node.parent;
+      while (current) {
+        const siblings = current.parent?.children ?? this.nodes;
+
+        // Always add the current parent's level
+        guides.push(current.level);
+
+        // Stop propagating if this parent is the last child
+        if (siblings?.at(-1) === current) {
+          break;
+        }
+
+        // Move up to the next parent
+        current = current.parent;
+      }
+
+      return guides;
+    };
+
+    /** Sort nodes at the same level using the configured sort function. */
+    const sortNodes = (nodes: Array<TreeDataSourceNode<T>>): Array<TreeDataSourceNode<T>> => {
+      if (!this.sort) {
+        return nodes;
+      }
+
+      let sortFn: DataSourceSortFunction<T>;
+
+      if (typeof this.sort.by === 'function') {
+        sortFn = this.sort.by;
+      } else {
+        const path = this.sort.by as PathKeys<T>;
+
+        sortFn = (a: T, b: T): number => {
+          const valueA = getStringByPath(a, path),
+            valueB = getStringByPath(b, path);
+
+          const numberA = Number(valueA),
+            numberB = Number(valueB);
+
+          if (!isNaN(numberA) && !isNaN(numberB)) {
+            return numberA - numberB;
+          }
+
+          return valueA.toLowerCase() === valueB.toLowerCase()
+            ? 0
+            : valueA.toLowerCase() < valueB.toLowerCase()
+              ? -1
+              : 1;
+        };
+      }
+
+      return [...nodes].sort((a, b) => {
+        const result = sortFn(a.dataNode, b.dataNode);
+
+        return this.sort?.direction === 'asc' ? result : -result;
+      });
+    };
+
     const traverse = (treeNode: TreeDataSourceNode<T>): Array<TreeDataSourceNode<T>> => {
       if (treeNode.expandable && treeNode.expanded) {
         if (Array.isArray(treeNode.children)) {
-          const array = treeNode.children.map(childNode => {
+          // Sort children before doing anything else
+          const sortedChildren = sortNodes(treeNode.children);
+
+          // Update the parent's children array with sorted nodes so level guides are calculated correctly
+          treeNode.children = sortedChildren;
+
+          const array = sortedChildren.map(childNode => {
             if (childNode instanceof Promise) {
               return this.#createPlaceholderTreeNode(treeNode);
             } else {
@@ -396,10 +478,36 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
       return [treeNode];
     };
 
-    return this.nodes.flatMap(treeNode => traverse(treeNode));
+    // Sort root nodes and update this.nodes before traversing
+    const sortedRootNodes = sortNodes(this.nodes);
+
+    // First pass: traverse and sort all children recursively
+    const result = sortedRootNodes.flatMap(treeNode => traverse(treeNode));
+
+    // Second pass: calculate level guides and lastNodeInLevel based on sorted structure
+    result.forEach(node => {
+      // Calculate and set level guides for the current node
+      node.levelGuides = calculateLevelGuides(node);
+
+      // Set lastNodeInLevel based on whether this is the last child of its parent
+      const siblings = node.parent?.children ?? sortedRootNodes;
+      node.lastNodeInLevel = siblings?.at(-1) === node;
+    });
+
+    return result;
   }
 
   #createPlaceholderTreeNode(parent: TreeDataSourceNode<T>): TreeDataSourceNode<T> {
+    let levelGuides: number[] = [];
+
+    const siblings = parent.parent?.children ?? this.nodes;
+    if (siblings?.at(-1) === parent && parent.levelGuides) {
+      // If parent is last child, don't include guides from higher levels
+      levelGuides = [parent.level];
+    } else {
+      levelGuides = [parent.level, ...(parent.levelGuides ?? [])];
+    }
+
     return {
       dataNode: null as unknown as T,
       expandable: false,
@@ -407,12 +515,23 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
       id: 'placeholder',
       label: '',
       level: parent.level + 1,
+      levelGuides,
       parent,
       type: 'placeholder'
     };
   }
 
   #createSkeletonTreeNode(parent: TreeDataSourceNode<T>): TreeDataSourceNode<T> {
+    let levelGuides: number[] = [];
+
+    const siblings = parent.parent?.children ?? this.nodes;
+    if (siblings?.at(-1) === parent && parent.levelGuides) {
+      // If parent is last child, don't include guides from higher levels
+      levelGuides = [parent.level];
+    } else {
+      levelGuides = [parent.level, ...(parent.levelGuides ?? [])];
+    }
+
     return {
       dataNode: null as unknown as T,
       expandable: false,
@@ -420,6 +539,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
       id: 'skeleton',
       label: '',
       level: parent.level + 1,
+      levelGuides,
       parent,
       type: 'skeleton'
     };

@@ -87,7 +87,7 @@ slot[name='error'] {
   align-items: stretch;
   background: var(--sl-color-border-plain);
   block-size: var(--sl-size-050);
-  border-radius: var(--sl-border-radius-full);
+  border-radius: var(--sl-size-borderRadius-full);
   display: flex;
   inline-size: 100%;
   overflow: hidden;
@@ -96,7 +96,7 @@ slot[name='error'] {
 
 .progress {
   background: var(--_fill-color);
-  border-radius: var(--sl-border-radius-full);
+  border-radius: var(--sl-size-borderRadius-full);
   transform-origin: left;
   transition:
     400ms transform,

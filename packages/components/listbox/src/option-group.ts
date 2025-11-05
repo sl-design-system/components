@@ -33,6 +33,17 @@ export class OptionGroup extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.setAttribute('role', 'group');
+
+    // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
+    const style = document.createElement('style');
+    style.innerHTML = `
+      sl-option-group:has(+ sl-option) {
+        border-block-end: var(--sl-color-border-plain) solid var(--sl-size-borderWidth-default);
+        margin-block-end: var(--sl-size-075);
+        padding-block-end: var(--sl-size-100);
+      }
+    `;
+    this.prepend(style);
   }
 
   override updated(changes: PropertyValues<this>): void {

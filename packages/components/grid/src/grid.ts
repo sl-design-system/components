@@ -126,6 +126,16 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /**
+   * Observe changes to the bulk actions slot and refresh the tool-bar.
+   *
+   * The bulk actions `<slot>` is nested in the default slot of `<sl-tool-bar>`. This
+   * means that changes to the bulk actions slot are not automatically observed by
+   * the tool-bar. To work around this, we explicitly call `refresh()` on the tool-bar
+   * when the bulk actions slot changes.
+   */
+  #bulkActionsObserver = new MutationObserver(() => this.renderRoot.querySelector('sl-tool-bar')?.refresh());
+
   /** The column definitions. */
   #columnDefinitions: Array<GridColumn<T>> = [];
 
@@ -303,6 +313,14 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal Emits when the selection in the grid changes. */
   @event({ name: 'sl-grid-selection-change' }) selectionChangeEvent!: EventEmitter<SlSelectionChangeEvent<T>>;
 
+  /**
+   * The selection mode for the grid. If you are using a `ListDataSource`, you should
+   * set the selection mode on the data source instead of on the grid. If you are using the
+   * `items` property, then you need to set the selection mode on the grid itself.
+   * @default undefined
+   */
+  @property() selects?: 'single' | 'multiple';
+
   /** @internal Emits when the state in the grid has changed. */
   @event({ name: 'sl-grid-state-change' }) stateChangeEvent!: EventEmitter<SlStateChangeEvent<T>>;
 
@@ -334,6 +352,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#dataSource?.removeEventListener('sl-update', this.#onDataSourceUpdate);
     this.#dataSource?.removeEventListener('sl-selection-change', this.#onSelectionChange);
 
+    this.#bulkActionsObserver.disconnect();
     this.#mutationObserver?.disconnect();
     this.#resizeObserver?.disconnect();
 
@@ -349,6 +368,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   override async firstUpdated(): Promise<void> {
+    this.#bulkActionsObserver.observe(this, {
+      attributes: true,
+      attributeFilter: ['aria-disabled', 'disabled'],
+      childList: true,
+      subtree: true
+    });
     this.#mutationObserver?.observe(this.tbody, { attributes: true, attributeFilter: ['style'] });
 
     this.tbody.addEventListener('scroll', () => this.#onScroll(), { passive: true });
@@ -368,11 +393,15 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
 
     if (changes.has('items')) {
-      this.dataSource = this.items ? new ArrayListDataSource(this.items) : undefined;
+      this.dataSource = this.items ? new ArrayListDataSource(this.items, { selects: this.selects }) : undefined;
 
       if (this.dataSource) {
         this.#updateDataSource();
       }
+    }
+
+    if (changes.has('selects') && this.dataSource?.selects !== this.selects) {
+      this.dataSource!.selects = this.selects;
     }
 
     if (changes.has('scopedElements')) {

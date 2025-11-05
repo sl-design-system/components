@@ -17,6 +17,7 @@ declare global {
  *
  * @csspart details - Details element of the accordion-item
  * @csspart summary - Header element of the accordion-item
+ * @csspart icon - The icon in the header of the accordion-item
  * @csspart panel - The body of the accordion-item
  *
  * @slot default - Body content for the accordion
@@ -71,9 +72,9 @@ export class AccordionItem extends LitElement {
           tabindex=${this.disabled ? -1 : 0}
         >
           ${this.iconType === 'chevron'
-            ? html`<sl-icon name="chevron-down"></sl-icon>`
+            ? html`<sl-icon name="chevron-down" part="icon"></sl-icon>`
             : html`
-                <svg viewBox="-8 -8 16 16" xmlns="http://www.w3.org/2000/svg">
+                <svg part="icon" viewBox="-8 -8 16 16" xmlns="http://www.w3.org/2000/svg">
                   <g class="horizontal-line">
                     <rect x="-1" y="-7" width="2" height="14" rx="0.82" fill="currentColor" />
                   </g>

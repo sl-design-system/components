@@ -104,15 +104,11 @@ export const EmbeddedComponents: Story = {
     placeholder: 'Select a student',
     slot: () => html`
       <style>
-        sl-select-button::part(selected),
-        sl-option {
-          align-items: center;
-          display: flex;
+        sl-select-button::part(selected-option) {
+          inline-size: 200px;
+          padding-block: 5px;
         }
-        sl-select-button::part(selected) {
-          padding-block: 3px;
-        }
-        sl-option {
+        sl-option::part(container) {
           padding-block: 4px;
         }
       </style>
@@ -341,7 +337,7 @@ export const HideWhenOutOfView: StoryObj = {
         }
 
         header {
-          background: var(--sl-color-palette-accent-100);
+          background: var(--sl-color-background-subtle);
           position: sticky;
           top: 0;
           padding: 24px;
@@ -352,7 +348,7 @@ export const HideWhenOutOfView: StoryObj = {
           height: 400px;
           overflow: auto;
           margin-top: 24px;
-          border: 1px solid var(--sl-color-palette-neutral-200);
+          border: 1px solid var(--sl-color-border-neutral-subtle);
         }
         .scrollcontent {
           height: 800px;

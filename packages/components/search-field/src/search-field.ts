@@ -26,8 +26,11 @@ export class SearchField extends TextField {
   /** @internal */
   static override styles: CSSResultGroup = [TextField.styles, styles];
 
+  /** @internal Debounce timer for search events */
+  #debounceTimer?: ReturnType<typeof setTimeout>;
+
   // eslint-disable-next-line no-unused-private-class-members
-  #events = new EventsController(this, { keydown: this.#onKeyDown });
+  #events = new EventsController(this, { keydown: this.#onKeyDown, input: this.#onInput });
 
   /** @internal Emits when the user clears the field. */
   @event({ name: 'sl-clear' }) clearEvent!: EventEmitter<SlClearEvent>;
@@ -46,6 +49,12 @@ export class SearchField extends TextField {
        }
       `;
     this.prepend(style);
+  }
+
+  override disconnectedCallback(): void {
+    this.#clearDebounceTimer();
+
+    super.disconnectedCallback();
   }
 
   override renderPrefix(): TemplateResult {
@@ -74,12 +83,17 @@ export class SearchField extends TextField {
   /** Clears the value in the input element. */
   clear(): void {
     this.value = '';
+    this.#clearDebounceTimer();
     this.clearEvent.emit();
   }
 
   #onClick(): void {
     this.clear();
     this.input.focus();
+  }
+
+  #onInput(): void {
+    this.#startDebounceTimer();
   }
 
   #onKeyDown(event: KeyboardEvent): void {
@@ -90,11 +104,33 @@ export class SearchField extends TextField {
     if (event.key === 'Enter') {
       event.preventDefault();
 
+      // Cancel debounced search and emit immediately
+      this.#clearDebounceTimer();
       this.searchEvent.emit(this.value?.toString() ?? '');
     } else if (event.key === 'Escape') {
       event.preventDefault();
 
       this.clear();
+    }
+  }
+
+  #startDebounceTimer(): void {
+    this.#clearDebounceTimer();
+
+    this.#debounceTimer = setTimeout(() => {
+      const value = this.value?.toString() ?? '';
+
+      // Only emit search event if value is not empty
+      if (value.trim() !== '') {
+        this.searchEvent.emit(value);
+      }
+    }, 300);
+  }
+
+  #clearDebounceTimer(): void {
+    if (this.#debounceTimer !== undefined) {
+      clearTimeout(this.#debounceTimer);
+      this.#debounceTimer = undefined;
     }
   }
 }

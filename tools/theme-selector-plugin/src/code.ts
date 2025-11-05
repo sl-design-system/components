@@ -1,4 +1,4 @@
-/// <reference types="@figma/plugin-typings" />
+/// <reference types="../@figma/plugin-typings" />
 
 // This file holds the main code for plugins. Code in this file has access to
 // the *figma document* via the figma global object.
@@ -8,18 +8,17 @@
 // This shows the HTML page in "ui.html".
 figma.showUI(__html__, {
   width: 280,
-  height: 128,
+  height: 436,
   themeColors: true
 });
+
+figma.root.setRelaunchData({ open: '' });
 
 type VariableCollectionWithModeId = VariableCollection & {
   modeId?: string;
   fonts?: Array<{ family: string; style: string }>;
 };
-
-let libVariables: LibraryVariableCollection[] = [];
-let variableCollections: VariableCollectionWithModeId[] = [];
-let themes: Array<{
+type Theme = {
   fonts: Array<{ family: string; style: string }>;
   collectionId: string;
   collectionModeId: string;
@@ -30,7 +29,11 @@ let themes: Array<{
   variantId?: string;
   compoundId: string;
   name: string;
-}> = [];
+};
+
+let libVariables: LibraryVariableCollection[] = [];
+let variableCollections: VariableCollectionWithModeId[] = [];
+let themes: Theme[] = [];
 
 const themeFonts = {
   'Sanoma Learning': [{ family: 'Roboto', style: 'SemiBold' }],
@@ -50,7 +53,11 @@ const themeFonts = {
   Max: [{ family: 'Open Sans', style: 'SemiBold' }],
   'My Digital Book': [{ family: 'Open Sans', style: 'SemiBold' }],
   Neon: [{ family: 'Open Sans', style: 'SemiBold' }],
-  Teas: [{ family: 'Open Sans', style: 'SemiBold' }]
+  Teas: [{ family: 'Open Sans', style: 'SemiBold' }],
+  Tig: [
+    { family: 'Open Sans', style: 'SemiBold' },
+    { family: 'Montserrat', style: 'SemiBold' }
+  ]
 };
 
 const getFromLibrary = async () => {
@@ -120,7 +127,7 @@ const getSubCollections = async (collection: VariableCollection | VariableCollec
   );
 };
 
-const getCollectionFromKey = async (key: string) => {
+const getCollectionFromKey = async (key: string): Promise<VariableCollection | null> => {
   let variables = await figma.teamLibrary.getVariablesInLibraryCollectionAsync(key);
   variables = variables.filter(v => v.resolvedType === 'STRING');
   let variableByKey,
@@ -129,6 +136,7 @@ const getCollectionFromKey = async (key: string) => {
   // loop through the variables and try to import them until we find one that works
   while (!variableByKey && i < variables.length) {
     variableByKey = await figma.variables.importVariableByKeyAsync(variables[i].key);
+    console.log('[slds]', 'variableByKey:', variables[i].name, `(${i + 1} of ${variables.length})`, variableByKey);
     i++;
   }
 
@@ -136,6 +144,9 @@ const getCollectionFromKey = async (key: string) => {
     const baseId = variableByKey.variableCollectionId;
     return await figma.variables.getVariableCollectionByIdAsync(baseId);
   } else {
+    figma.notify(`Could not find a variable to load the collection for collection ${variables[i].name}`, {
+      error: true
+    });
     return await new Promise<VariableCollection>(() => {});
   }
 };
@@ -247,23 +258,36 @@ const findParentCollection = (child: string) => {
 };
 
 /** Removes all explicit variable modes from the current page. */
-const removeCurrentVariableModes = () => {
-  Object.keys(figma.currentPage.explicitVariableModes).forEach(key => {
+const removeCurrentVariableModes = (keys: { [collectionId: string]: string }, node: PageNode | FrameNode) => {
+  Object.keys(keys).forEach(key => {
     const collectionForKey = variableCollections.find(c => c.id === key);
 
     if (collectionForKey) {
-      figma.currentPage.clearExplicitVariableModeForCollection(collectionForKey);
+      node.clearExplicitVariableModeForCollection(collectionForKey);
     }
   });
 };
 
 // Listen to events from the UI
-figma.ui.onmessage = (msg: { type: string; theme: string }) => {
+figma.ui.onmessage = (msg: { type: string; theme: string; origin: string }) => {
   if (msg.type === 'selectTheme') {
-    removeCurrentVariableModes();
+    const frames = figma.currentPage.selection.filter(node => node.type === 'FRAME');
 
+    if (frames.length === 0 && figma.currentPage.selection.length > 0) {
+      figma.notify(
+        'You can only select frames to set the theme on. Either select a frame or deselect everything to set the theme on the whole page',
+        { error: true }
+      );
+      figma.closePlugin();
+      return;
+    }
     const themeIds = themes.find(t => t.compoundId === msg.theme);
     const base = variableCollections.find(c => c.name === 'Base');
+
+    if (!base) {
+      figma.notify('Base collection not found', { error: true });
+      return;
+    }
 
     if (!themeIds) {
       figma.notify(`Theme not found for ${msg.theme}`, { error: true });
@@ -280,31 +304,76 @@ figma.ui.onmessage = (msg: { type: string; theme: string }) => {
       return;
     }
 
-    Promise.all(themeIds.fonts.map(font => figma.loadFontAsync({ family: font.family, style: font.style })))
-      .then(() => {
-        if (base) {
-          figma.currentPage.setExplicitVariableModeForCollection(base, themeIds.collectionModeId);
-        }
-        if (collection) {
-          figma.currentPage.setExplicitVariableModeForCollection(collection, themeIds.themeCollectionModeId);
-        }
-        if (themeCollection) {
-          figma.currentPage.setExplicitVariableModeForCollection(themeCollection, themeIds.themeModeId);
-        }
-        if (theme && themeIds.variantId) {
-          figma.currentPage.setExplicitVariableModeForCollection(theme, themeIds.variantId);
-        }
-        figma.closePlugin();
-        figma.notify(`Theme is set to ${theme.name}`);
-      })
-      .catch(() => {
-        const fontNames = themeIds.fonts.map(font => `${font.family} ${font.style}`).join(', ');
-        figma.notify(
-          `Error loading fonts. Make sure the following fonts are on your page and try again: ${fontNames}`,
-          { error: true }
-        );
-      });
+    if (frames.length >= 1) {
+      setFrameTheme(base, collection, themeCollection, theme, themeIds, frames);
+    } else {
+      setPageTheme(base, collection, themeCollection, theme, themeIds);
+    }
   }
+};
+
+const setFrameTheme = (
+  base: VariableCollectionWithModeId,
+  collection: VariableCollectionWithModeId,
+  themeCollection: VariableCollectionWithModeId,
+  theme: VariableCollectionWithModeId,
+  themeIds: Theme,
+  frames: FrameNode[]
+) => {
+  Promise.all(themeIds.fonts.map(font => figma.loadFontAsync({ family: font.family, style: font.style })))
+    .then(() => {
+      frames.forEach(frame => {
+        console.log('[slds]', frame.name, 'setting theme to', theme.name);
+        // removeCurrentVariableModes(frame.explicitVariableModes, frame);
+
+        frame.setExplicitVariableModeForCollection(base, themeIds.collectionModeId);
+        frame.setExplicitVariableModeForCollection(collection, themeIds.themeCollectionModeId);
+        frame.setExplicitVariableModeForCollection(themeCollection, themeIds.themeModeId);
+
+        if (theme && themeIds.variantId) {
+          frame.setExplicitVariableModeForCollection(theme, themeIds.variantId);
+        }
+      });
+
+      figma.notify(`Theme is set to ${theme.name} on ${frames.length} frame${frames.length === 1 ? '' : 's'}`);
+      figma.closePlugin();
+    })
+    .catch(() => {
+      const fontNames = themeIds.fonts.map(font => `${font.family} ${font.style}`).join(', ');
+      figma.notify(`Error loading fonts. Make sure the following fonts are on your page and try again: ${fontNames}`, {
+        error: true
+      });
+    });
+};
+
+const setPageTheme = (
+  base: VariableCollectionWithModeId,
+  collection: VariableCollectionWithModeId,
+  themeCollection: VariableCollectionWithModeId,
+  theme: VariableCollectionWithModeId,
+  themeIds: Theme
+) => {
+  removeCurrentVariableModes(figma.currentPage.explicitVariableModes, figma.currentPage);
+
+  Promise.all(themeIds.fonts.map(font => figma.loadFontAsync({ family: font.family, style: font.style })))
+    .then(() => {
+      figma.currentPage.setExplicitVariableModeForCollection(base, themeIds.collectionModeId);
+      figma.currentPage.setExplicitVariableModeForCollection(collection, themeIds.themeCollectionModeId);
+      figma.currentPage.setExplicitVariableModeForCollection(themeCollection, themeIds.themeModeId);
+
+      if (theme && themeIds.variantId) {
+        figma.currentPage.setExplicitVariableModeForCollection(theme, themeIds.variantId);
+      }
+
+      figma.closePlugin();
+      figma.notify(`Theme is set to ${theme.name}`);
+    })
+    .catch(() => {
+      const fontNames = themeIds.fonts.map(font => `${font.family} ${font.style}`).join(', ');
+      figma.notify(`Error loading fonts. Make sure the following fonts are on your page and try again: ${fontNames}`, {
+        error: true
+      });
+    });
 };
 
 getFromLibrary()

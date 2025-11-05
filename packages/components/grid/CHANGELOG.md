@@ -1,5 +1,22 @@
 # @sl-design-system/grid
 
+## 0.6.3
+
+### Patch Changes
+
+- [#2788](https://github.com/sl-design-system/components/pull/2788) [`55e879d`](https://github.com/sl-design-system/components/commit/55e879d6553fe93d5a811754d83edf79a2b18b6c) - Fix changes in the nested bulk actions slot in `<sl-grid>` not propagating to `<sl-tool-bar>`
+
+  The bulk actions `<slot>` is nested in the default slot of `<sl-tool-bar>`. This means that changes to the bulk actions slot are not automatically observed by the tool-bar. To work around this, we explicitly call `refresh()` on the tool-bar when the bulk actions slot changes. `refresh()` will update the mapping of the tool-bar actions.
+
+- Updated dependencies [[`063faff`](https://github.com/sl-design-system/components/commit/063faff05434c2e0dae8176d7ebe5f9b4562492f), [`0a615b1`](https://github.com/sl-design-system/components/commit/0a615b17e65995cf637dec9c2aa17b390bafcb7e), [`063faff`](https://github.com/sl-design-system/components/commit/063faff05434c2e0dae8176d7ebe5f9b4562492f), [`d01fc71`](https://github.com/sl-design-system/components/commit/d01fc710e95210aa7c76b0fd68e849b988840dd9), [`d3fc554`](https://github.com/sl-design-system/components/commit/d3fc554054266612c6000c29a631386dcbc6e946), [`1e7b6f6`](https://github.com/sl-design-system/components/commit/1e7b6f629f79d77576c2cb19d20f8884bb2f30c4), [`2af40f7`](https://github.com/sl-design-system/components/commit/2af40f78d9d0f07f3c15c1d9f7926ceca48f12f9), [`d0c4db2`](https://github.com/sl-design-system/components/commit/d0c4db220c6a5826a0c9e5bc8ab3943884dfcd9c), [`55e879d`](https://github.com/sl-design-system/components/commit/55e879d6553fe93d5a811754d83edf79a2b18b6c)]:
+  - @sl-design-system/select@2.0.6
+  - @sl-design-system/checkbox@2.1.7
+  - @sl-design-system/listbox@0.1.6
+  - @sl-design-system/button@1.3.1
+  - @sl-design-system/icon@1.4.0
+  - @sl-design-system/tool-bar@0.1.1
+  - @sl-design-system/shared@0.9.2
+
 ## 0.6.2
 
 ### Patch Changes

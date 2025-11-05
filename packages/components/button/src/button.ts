@@ -41,6 +41,9 @@ export class Button extends LitElement {
     keydown: this.#onKeydown
   });
 
+  /** Observe changes to the slotted content that aren't caught by the `slotchange` event. */
+  #observer = new MutationObserver(() => this.#onUpdate());
+
   /** @internal. */
   readonly internals = this.attachInternals();
 
@@ -85,6 +88,21 @@ export class Button extends LitElement {
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = 0;
     }
+
+    this.#observer.observe(this, { characterData: true, childList: true, subtree: true });
+  }
+
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    // Initial update
+    this.#onUpdate();
+  }
+
+  override disconnectedCallback(): void {
+    this.#observer.disconnect();
+
+    super.disconnectedCallback();
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -96,7 +114,7 @@ export class Button extends LitElement {
   }
 
   override render(): TemplateResult {
-    return html`<slot @slotchange=${this.#onSlotChange}></slot>`;
+    return html`<slot></slot>`;
   }
 
   #onClick(event: Event): void {
@@ -129,14 +147,17 @@ export class Button extends LitElement {
     }
   }
 
-  #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    const filteredNodes = event.target.assignedNodes({ flatten: true }).filter(node => {
-      return node.nodeType === Node.ELEMENT_NODE || (node.textContent && node.textContent.trim().length > 0);
-    });
+  #onUpdate(): void {
+    const filteredNodes = this.renderRoot
+      .querySelector('slot')
+      ?.assignedNodes({ flatten: true })
+      .filter(node => {
+        return node.nodeType === Node.ELEMENT_NODE || (node.textContent && node.textContent.trim().length > 0);
+      });
 
     let hasIcon = false;
 
-    if (filteredNodes.length === 1) {
+    if (filteredNodes?.length === 1) {
       const el = filteredNodes[0] as HTMLElement;
       // This button is icon-only if it only contains an icon.
       hasIcon = el.nodeName === 'SL-ICON' || this.#hasOnlyIconAsChild(el);

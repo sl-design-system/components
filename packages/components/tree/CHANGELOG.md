@@ -1,5 +1,15 @@
 # @sl-design-system/tree
 
+## 0.2.1
+
+### Patch Changes
+
+- [#2811](https://github.com/sl-design-system/components/pull/2811) [`1d21347`](https://github.com/sl-design-system/components/commit/1d213470811d7711442fde1367fe301d784d32eb) - Fix lazy loaded children to inherit the selected state of the parent node
+
+- Updated dependencies [[`df7af95`](https://github.com/sl-design-system/components/commit/df7af9509ebf675a572267f30cf36e835075b0fe), [`f676dd5`](https://github.com/sl-design-system/components/commit/f676dd52c83ef2f3429d9a393b5ec634fc05bf0e), [`d807cb2`](https://github.com/sl-design-system/components/commit/d807cb22702dc5ac1399cf0528f9ceeeb1f09f60)]:
+  - @sl-design-system/data-source@0.2.3
+  - @sl-design-system/icon@1.4.1
+
 ## 0.2.0
 
 ### Minor Changes

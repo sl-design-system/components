@@ -1,5 +1,15 @@
 # @sl-design-system/tabs
 
+## 1.2.4
+
+### Patch Changes
+
+- [#2828](https://github.com/sl-design-system/components/pull/2828) [`538bedd`](https://github.com/sl-design-system/components/commit/538bedd8dbf94cc3ecf6b5e71e258a02252d5536) - Align the styling with Figma of the tab `indicator` (increased width and border radius) and the `part="container"` (increased border width).
+
+- Updated dependencies [[`f676dd5`](https://github.com/sl-design-system/components/commit/f676dd52c83ef2f3429d9a393b5ec634fc05bf0e), [`d807cb2`](https://github.com/sl-design-system/components/commit/d807cb22702dc5ac1399cf0528f9ceeeb1f09f60), [`f676dd5`](https://github.com/sl-design-system/components/commit/f676dd52c83ef2f3429d9a393b5ec634fc05bf0e)]:
+  - @sl-design-system/icon@1.4.1
+  - @sl-design-system/menu@0.2.7
+
 ## 1.2.3
 
 ### Patch Changes

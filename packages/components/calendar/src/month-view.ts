@@ -31,13 +31,26 @@ declare global {
 
 export type MonthViewRenderer = (day: Day, monthView: MonthView) => TemplateResult | undefined;
 
+const DAYS_IN_WEEK = 7;
+
 /**
  * Component that renders a single month of a calendar.
+ *
+ * @csspart day - The day button.
+ * @csspart disabled - The day button when shown as disabled.
+ * @csspart indicator - The day button for a date with an indicator.
+ * @csspart next-month - The day button for a day in the next month.
+ * @csspart previous-month - The day button for a day in the previous month.
+ * @csspart selected - The day button for the selected date.
+ * @csspart today - The day button for today's date.
+ * @csspart week-day - The week day header cell.
+ * @csspart week-number - The week number cell.
  */
 @localized()
 export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
   static override get observedAttributes(): string[] {
+    // Observe the `inert` attribute to update the roving tabindex
     return [...(super.observedAttributes ?? []), 'inert'];
   }
 
@@ -50,26 +63,36 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   /** @internal */
+  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** The current month. */
+  #month = new Date();
+
+  /** Manage roving tabindex for day buttons. */
   #rovingTabindexController = new RovingTabindexController<HTMLButtonElement>(this, {
     direction: 'grid',
-    directionLength: 7,
+    directionLength: DAYS_IN_WEEK,
     focusInIndex: (elements: HTMLButtonElement[]) => {
       if (!elements || elements.length === 0) {
         return -1;
       }
 
-      const selectedIndex = elements.findIndex(el => !el.disabled && el.getAttribute('aria-current') === 'date');
+      // If there is a selected day, focus that one
+      const selectedIndex = elements.findIndex(el => !el.disabled && el.getAttribute('aria-pressed') === 'true');
       if (selectedIndex > -1) {
         return selectedIndex;
       }
 
+      // Otherwise, focus today if visible
       const todayIndex = elements.findIndex(el => !el.disabled && el.part.contains('today'));
       if (todayIndex > -1) {
         return todayIndex;
       }
 
+      // Otherwise, focus the first available day of the month
       return elements.findIndex(
         el => !el.disabled && !el.part.contains('previous-month') && !el.part.contains('next-month')
       );
@@ -129,11 +152,18 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
    */
   @property({ converter: dateConverter }) min?: Date;
 
-  /** The current month to display. */
-  @property({ converter: dateConverter }) month?: Date;
+  get month(): Date {
+    return this.#month;
+  }
 
-  /** The list of dates that should have 'negative' styling. */
-  @property({ converter: dateListConverter }) negative?: Date[];
+  /**
+   * The current month to display.
+   * @default new Date()
+   */
+  @property({ converter: dateConverter })
+  set month(value: Date) {
+    this.#month = value;
+  }
 
   /**
    * If set, will not render buttons for each day.
@@ -147,7 +177,10 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal Emits when the user selects a day. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<Date>>;
 
-  /** The selected date. */
+  /**
+   * The selected date.
+   * @default undefined
+   */
   @property({ converter: dateConverter }) selected?: Date;
 
   /**
@@ -167,21 +200,6 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /** @internal The translated days of the week. */
   @state() weekDays: Array<{ long: string; short: string }> = [];
-
-  override disconnectedCallback(): void {
-    // Cleanup tooltips
-    this.renderRoot.querySelectorAll<HTMLButtonElement>('button[part~="indicator"]').forEach(button => {
-      const btn = button as unknown as { tooltip?: Tooltip | (() => void) | undefined };
-
-      if (btn.tooltip instanceof Tooltip) {
-        btn.tooltip.remove();
-      } else if (btn.tooltip) {
-        btn.tooltip();
-      }
-    });
-
-    super.disconnectedCallback();
-  }
 
   override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null): void {
     super.attributeChangedCallback(name, oldValue, newValue);
@@ -208,67 +226,28 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       );
     }
 
-    if (changes.has('max') || changes.has('min') || changes.has('month') || changes.has('showToday')) {
-      const { firstDayOfWeek, max, min, showToday } = this;
+    if (
+      changes.has('disabledDates') ||
+      changes.has('indicatorDates') ||
+      changes.has('max') ||
+      changes.has('min') ||
+      changes.has('month') ||
+      changes.has('showToday')
+    ) {
+      const { disabledDates, firstDayOfWeek, indicatorDates, max, min, showToday } = this;
 
-      this.calendar = createCalendar(this.month ?? new Date(), { firstDayOfWeek, max, min, showToday });
+      this.calendar = createCalendar(this.month, {
+        disabledDates,
+        firstDayOfWeek,
+        indicatorDates,
+        max,
+        min,
+        showToday
+      });
     }
 
     if (changes.has('max') || changes.has('min') || changes.has('month')) {
       this.#rovingTabindexController.clearElementCache();
-    }
-  }
-
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    if (
-      changes.has('indicatorDates') ||
-      changes.has('calendar') ||
-      changes.has('disabledDates') ||
-      changes.has('month')
-    ) {
-      this.renderRoot.querySelectorAll<HTMLButtonElement>('button').forEach(button => {
-        const dataDate = button.closest('td')?.getAttribute('data-date'),
-          dayButton = button as unknown as { tooltip?: Tooltip | (() => void) | undefined };
-
-        const indicatorsForDay = dataDate
-          ? (this.indicatorDates ?? []).filter(i => isSameDate(i.date, new Date(dataDate)))
-          : [];
-        const labels = indicatorsForDay.map(i => i.label).filter(Boolean) as string[];
-
-        const removeTooltip = () => {
-          if (dayButton.tooltip instanceof Tooltip) {
-            dayButton.tooltip.remove();
-            dayButton.tooltip = undefined;
-          } else if (dayButton.tooltip) {
-            dayButton.tooltip();
-            dayButton.tooltip = undefined;
-          }
-        };
-
-        // If no labels or no data-date, ensure tooltip is removed
-        if (!dataDate || labels.length === 0) {
-          removeTooltip();
-          return;
-        }
-
-        // If element doesn't actually have an indicator part, remove tooltip
-        if (!button.matches('[part~="indicator"]')) {
-          removeTooltip();
-          return;
-        }
-
-        dayButton.tooltip ||= Tooltip.lazy(
-          button,
-          (tooltip: Tooltip) => {
-            dayButton.tooltip = tooltip;
-            tooltip.textContent = labels.join(', ');
-          },
-          { context: this.shadowRoot! }
-        );
-        Tooltip.offset = 8;
-      });
     }
   }
 
@@ -308,7 +287,7 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   renderHeader(): TemplateResult {
     return html`
-      <thead part="header">
+      <thead>
         <tr role="row">
           ${this.showWeekNumbers
             ? html`
@@ -326,45 +305,56 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   renderDay(day: Day): TemplateResult {
     let template: TemplateResult | undefined;
 
-    const partsArr = this.getDayParts(day),
-      isSelected = partsArr.includes('selected');
-
     if (this.renderer) {
       template = this.renderer(day, this);
     } else if (this.hideDaysOtherMonths && (day.nextMonth || day.previousMonth)) {
       return html`<td role="gridcell"></td>`;
     }
 
+    const parts = this.getDayParts(day),
+      selected = parts.includes('selected');
+
     // If the custom renderer returned `undefined`, we fall back to the default rendering
     if (!template) {
-      const parts = this.getDayParts(day).join(' ');
-
-      let ariaLabel = this.getDayLabel(day);
-      if (isDateInList(day.date, this.negative ?? [])) {
-        ariaLabel += `, ${msg('Unavailable', { id: 'sl.calendar.unavailable' })}`;
-      }
+      /**
+       * A button should autofocus when:
+       * - it is the selected date
+       * - it is today and there is no selected date
+       * - it is the first of the month and there is no selected date or today
+       */
+      const autofocus =
+        selected ||
+        (day.today && !this.selected) ||
+        (day.date.getDate() === 1 && day.currentMonth && !this.selected && !this.showToday);
 
       template =
-        this.readonly || day.unselectable || day.disabled || isDateInList(day.date, this.disabledDates)
-          ? html`<button .part=${parts} aria-label=${ariaLabel} disabled><span>${day.date.getDate()}</span></button>`
+        this.readonly || day.disabled || day.outOfRange
+          ? html`
+              <button aria-label=${this.getDayLabel(day)} disabled part=${parts.join(' ')}>
+                <span>${day.date.getDate()}</span>
+              </button>
+            `
           : html`
               <button
                 @click=${(event: Event & { target: HTMLElement }) => this.#onClick(event, day)}
                 @keydown=${(event: KeyboardEvent) => this.#onKeydown(event, day)}
-                .part=${parts}
+                ?autofocus=${autofocus}
                 aria-current=${ifDefined(parts.includes('today') ? 'date' : undefined)}
-                aria-label=${ariaLabel}
-                aria-pressed=${parts.includes('selected') ? 'true' : 'false'}
+                aria-describedby=${ifDefined(day.indicator?.label ? `indicator-${day.date.toISOString()}` : undefined)}
+                aria-label=${this.getDayLabel(day)}
+                aria-pressed=${selected.toString()}
+                part=${parts.join(' ')}
               >
                 <span>${day.date.getDate()}</span>
               </button>
+              ${day.indicator?.label
+                ? html`<sl-tooltip id="indicator-${day.date.toISOString()}">${day.indicator.label}</sl-tooltip>`
+                : nothing}
             `;
     }
 
     return html`
-      <td aria-selected=${Boolean(isSelected).toString()} data-date=${day.date.toISOString()} role="gridcell">
-        ${template}
-      </td>
+      <td aria-selected=${selected.toString()} data-date=${day.date.toISOString()} role="gridcell">${template}</td>
     `;
   }
 
@@ -377,22 +367,13 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   getDayParts = (day: Day): string[] => {
     return [
       'day',
+      day.disabled ? 'disabled' : '',
+      day.indicator ? 'indicator' : '',
+      day.indicator?.color ? `indicator-${day.indicator.color}` : '',
       day.nextMonth ? 'next-month' : '',
+      day.outOfRange ? 'out-of-range' : '',
       day.previousMonth ? 'previous-month' : '',
       day.today ? 'today' : '',
-      day.unselectable ? 'unselectable' : '',
-      this.disabledDates && isDateInList(day.date, this.disabledDates) ? 'unselectable' : '',
-      this.negative && isDateInList(day.date, this.negative) ? 'negative' : '',
-      this.indicatorDates &&
-      isDateInList(
-        day.date,
-        this.indicatorDates.map(indicator => indicator.date)
-      )
-        ? (() => {
-            const indicator = this.indicatorDates?.find(i => isSameDate(i.date, day.date));
-            return indicator?.color ? `indicator indicator-${indicator.color}` : 'indicator';
-          })()
-        : '',
       this.selected && isSameDate(day.date, this.selected) ? 'selected' : ''
     ].filter(part => part !== '');
   };
@@ -434,7 +415,6 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     } else if (event.key === 'ArrowUp' && day.currentMonth) {
       // Whether it's possible to move to the same weekday in previous weeks (skipping disabled)
       const possibleDay = this.#getEnabledSameWeekday(day.date, -1);
-
       if (!possibleDay) {
         return;
       }
@@ -451,7 +431,6 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     } else if (event.key === 'ArrowDown' && day.currentMonth) {
       // Whether it's possible to move to the same weekday in following weeks (skipping disabled)
       const possibleDay = this.#getEnabledSameWeekday(day.date, 1);
-
       if (!possibleDay) {
         return;
       }
@@ -477,7 +456,11 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** Nearest enabled same-weekday date (weekly steps: -1 or 1) */
   #getEnabledSameWeekday(start: Date, direction: 1 | -1): Date | undefined {
     const findEnabledSameWeekday = (current: Date): Date | undefined => {
-      const possibleDay = new Date(current.getFullYear(), current.getMonth(), current.getDate() + 7 * direction);
+      const possibleDay = new Date(
+        current.getFullYear(),
+        current.getMonth(),
+        current.getDate() + DAYS_IN_WEEK * direction
+      );
 
       if ((this.min && possibleDay < this.min) || (this.max && possibleDay > this.max)) {
         return undefined;

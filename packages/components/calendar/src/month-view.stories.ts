@@ -17,7 +17,6 @@ type Props = Pick<
   | 'max'
   | 'min'
   | 'month'
-  | 'negative'
   | 'readonly'
   | 'renderer'
   | 'selected'
@@ -61,9 +60,6 @@ export default {
     month: {
       control: 'date'
     },
-    negative: {
-      control: 'date'
-    },
     renderer: {
       table: { disable: true }
     },
@@ -83,7 +79,6 @@ export default {
     max,
     min,
     month,
-    negative,
     readonly,
     renderer,
     selected,
@@ -122,7 +117,6 @@ export default {
       locale=${ifDefined(locale)}
       max=${ifDefined(max?.toISOString())}
       min=${ifDefined(min?.toISOString())}
-      negative=${ifDefined(negative?.map(date => date.toISOString()).join(','))}
       month=${ifDefined(month ? new Date(month).toISOString() : undefined)}
       selected=${ifDefined(selected ? new Date(selected).toISOString() : undefined)}
     ></sl-month-view>
@@ -212,20 +206,6 @@ export const Selected: Story = {
   }
 };
 
-export const Negative: Story = {
-  args: {
-    month: new Date(2024, 11, 10),
-    negative: [
-      new Date(2024, 11, 4),
-      new Date(2024, 11, 8),
-      new Date(2024, 11, 15),
-      new Date(2024, 11, 22),
-      new Date(2024, 11, 29),
-      new Date(2024, 11, 30)
-    ]
-  }
-};
-
 export const Today: Story = {
   args: {
     showToday: true
@@ -262,4 +242,87 @@ export const WeekNumbers: Story = {
   args: {
     showWeekNumbers: true
   }
+};
+
+export const All: Story = {
+  render: () => html`
+    <style>
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+      }
+      .grid > div {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .grid h3 {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 600;
+      }
+    </style>
+    <div class="grid">
+      <div>
+        <h3>Basic</h3>
+        <sl-month-view .month=${new Date()}></sl-month-view>
+      </div>
+      <div>
+        <h3>First day of week (Sunday)</h3>
+        <sl-month-view .firstDayOfWeek=${0} .month=${new Date()}></sl-month-view>
+      </div>
+      <div>
+        <h3>Hide days from other months</h3>
+        <sl-month-view hide-days-other-months .month=${new Date()}></sl-month-view>
+      </div>
+      <div>
+        <h3>Min/Max range</h3>
+        <sl-month-view
+          .max=${new Date(2025, 0, 20)}
+          .min=${new Date(2025, 0, 10)}
+          .month=${new Date(2025, 0, 1)}
+        ></sl-month-view>
+      </div>
+      <div>
+        <h3>Readonly</h3>
+        <sl-month-view readonly .month=${new Date()}></sl-month-view>
+      </div>
+      <div>
+        <h3>Selected date</h3>
+        <sl-month-view .month=${new Date(2024, 11, 10)} .selected=${new Date(2024, 11, 4)}></sl-month-view>
+      </div>
+      <div>
+        <h3>Show today</h3>
+        <sl-month-view show-today .month=${new Date()}></sl-month-view>
+      </div>
+      <div>
+        <h3>Indicator dates</h3>
+        <sl-month-view
+          .indicatorDates=${[
+            { date: new Date('2025-08-05'), label: indicatorLabels.default.label },
+            { date: new Date('2025-08-06'), color: 'blue', label: indicatorLabels.blue.label },
+            { date: new Date('2025-08-07'), color: 'red', label: indicatorLabels.red.label },
+            { date: new Date('2025-08-09'), color: 'yellow', label: indicatorLabels.yellow.label },
+            { date: new Date('2025-08-10'), color: 'green', label: indicatorLabels.green.label }
+          ]}
+          .month=${new Date(1755640800000)}
+          show-today
+        ></sl-month-view>
+      </div>
+      <div>
+        <h3>Disabled dates</h3>
+        <sl-month-view
+          .disabledDates=${[new Date('2025-10-06'), new Date('2025-10-07'), new Date('2025-10-17')]}
+          .max=${new Date(2025, 9, 25)}
+          .min=${new Date(2025, 9, 4)}
+          .month=${new Date(2025, 9, 1)}
+        ></sl-month-view>
+      </div>
+      <div>
+        <h3>Week numbers</h3>
+        <sl-month-view show-week-numbers .month=${new Date()}></sl-month-view>
+      </div>
+    </div>
+  `
 };

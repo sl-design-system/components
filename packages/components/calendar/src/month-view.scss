@@ -12,11 +12,7 @@
     box-shadow: inset 0 0 0 var(--sl-size-borderWidth-subtle) var(--sl-elevation-surface-raised-default);
   }
 
-  [part~='negative'][part~='today'] span {
-    border-color: var(--sl-color-border-negative-plain);
-  }
-
-  [part~='unselectable'][part~='today'] span {
+  [part~='today'][part~='disabled'] span {
     border-color: var(--sl-color-border-disabled);
   }
 }
@@ -70,11 +66,16 @@ button {
   outline: none;
   padding: var(--sl-size-050);
 
-  &:hover:not([part~='unselectable'], [disabled]) {
+  &:disabled {
+    cursor: default;
+    pointer-events: none;
+  }
+
+  &:hover {
     --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
   }
 
-  &:active:not([part~='unselectable'], [disabled]) {
+  &:active {
     --_bg-opacity: var(--sl-opacity-interactive-plain-active);
   }
 
@@ -111,37 +112,20 @@ button {
   color: var(--sl-color-foreground-selected-onBold);
 }
 
-[part~='negative']:not([part~='unselectable']) {
-  --_bg-color: var(--sl-color-background-negative-subtlest);
-  --_bg-mix-color: var(--sl-color-background-negative-interactive-plain);
-
-  color: var(--sl-color-foreground-negative-bold);
-}
-
-[part~='negative'][part~='selected'] {
-  --_bg-color: var(--sl-color-background-negative-bold);
-  --_bg-mix-color: var(--sl-color-background-negative-interactive-bold);
-
-  color: var(--sl-color-foreground-negative-onBold);
-}
-
-[disabled] {
-  cursor: default;
-}
-
-[part~='unselectable'] {
+[part~='disabled'],
+[part~='out-of-range'] {
   color: var(--sl-color-foreground-disabled);
   cursor: default;
-
-  &[part~='selected'] {
-    --_bg-color: var(--sl-color-background-disabled);
-    --_bg-mix-color: var(--sl-color-background-disabled);
-
-    color: var(--sl-color-foreground-disabled);
-  }
 }
 
-[part~='indicator']:not([part~='unselectable'])::after {
+[part~='disabled'][part~='selected'] {
+  --_bg-color: var(--sl-color-background-disabled);
+  --_bg-mix-color: var(--sl-color-background-disabled);
+
+  color: var(--sl-color-foreground-disabled);
+}
+
+[part~='indicator']::after {
   background: var(--sl-color-background-accent-blue-bold);
   block-size: var(--sl-size-075);
   border: var(--sl-size-borderWidth-default) solid var(--sl-elevation-surface-raised-default);
@@ -155,18 +139,18 @@ button {
   position: absolute;
 }
 
-[part~='indicator-green']:not([part~='unselectable'])::after {
+[part~='indicator-green']::after {
   background: var(--sl-color-background-accent-green-bold);
 }
 
-[part~='indicator-grey']:not([part~='unselectable'])::after {
+[part~='indicator-grey']::after {
   background: var(--sl-color-background-accent-grey-bold);
 }
 
-[part~='indicator-red']:not([part~='unselectable'])::after {
+[part~='indicator-red']::after {
   background: var(--sl-color-background-accent-red-bold);
 }
 
-[part~='indicator-yellow']:not([part~='unselectable'])::after {
+[part~='indicator-yellow']::after {
   background: var(--sl-color-background-accent-yellow-bold);
 }

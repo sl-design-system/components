@@ -1,33 +1,75 @@
+import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import '@sl-design-system/tooltip/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { userEvent } from '@vitest/browser/context';
-import { html } from 'lit';
-import { spy } from 'sinon';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { type TemplateResult, html } from 'lit';
+import { type SinonFakeTimers, spy, useFakeTimers } from 'sinon';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { MonthView } from './month-view.js';
-
-try {
-  customElements.define('sl-month-view', MonthView);
-} catch {
-  /* already defined */
-}
+import { type Day } from './utils.js';
 
 describe('sl-month-view', () => {
-  let el: MonthView;
+  let clock: SinonFakeTimers, el: MonthView;
 
-  describe('Defaults', () => {
-    const month = new Date();
+  beforeEach(() => {
+    // March 2023
+    // --------------------
+    // Mo Tu We Th Fr Sa Su
+    // 27 28  1  2  3  4  5
+    //  6  7  8  9 10 11 12
+    // 13 14 15 16 17 18 19
+    // 20 21 22 23 24 25 26
+    // 27 28 29 30 31  1  2
+    clock = useFakeTimers(new Date(2023, 2, 14).getTime());
+  });
 
+  afterEach(() => clock.restore());
+
+  describe('defaults', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-month-view .month=${month}></sl-month-view>`);
-      await el.updateComplete;
+      el = await fixture(html`<sl-month-view></sl-month-view>`);
     });
 
-    it('should render a header with weekday names', () => {
+    it('should use the english locale', () => {
+      expect(el.locale).to.equal('en');
+    });
+
+    it('should use the current month', () => {
+      const now = new Date();
+
+      expect(el.month.getFullYear()).to.equal(now.getFullYear());
+      expect(el.month.getMonth()).to.equal(now.getMonth());
+    });
+
+    it('should not have a min date', () => {
+      expect(el.min).to.be.undefined;
+    });
+
+    it('should not have a max date', () => {
+      expect(el.max).to.be.undefined;
+    });
+
+    it('should not be readonly', () => {
+      expect(el.readonly).not.to.be.true;
+      expect(el).not.to.have.attribute('readonly');
+    });
+
+    it('should be readonly when set', async () => {
+      el.readonly = true;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('readonly');
+    });
+
+    it('should not show today', () => {
+      expect(el.showToday).not.to.be.true;
+    });
+
+    it('should render the weekday short names', () => {
       const weekdays = Array.from(el.renderRoot.querySelectorAll('thead th[part~="week-day"]'));
 
-      expect(weekdays.length).to.equal(7);
+      expect(weekdays).to.have.length(7);
       expect(weekdays.map(th => th.textContent?.trim())).to.deep.equal([
         'Mon',
         'Tue',
@@ -39,30 +81,13 @@ describe('sl-month-view', () => {
       ]);
     });
 
-    it('should apply day part to day buttons', async () => {
-      el.month = new Date(el.month!.getFullYear(), el.month!.getMonth(), 1);
-
-      await el.updateComplete;
-      const buttons = Array.from(el.renderRoot.querySelectorAll('button'));
-
-      expect(buttons).to.exist;
-      expect(buttons.length).to.be.greaterThan(0);
-      buttons.forEach(button => expect(button).to.match('[part~="day"]'));
-    });
-  });
-
-  describe('Header / Localization', () => {
-    beforeEach(async () => {
-      el = await fixture(html`<sl-month-view></sl-month-view>`);
-      await el.updateComplete;
-    });
-
     it('should render localized weekday short names', async () => {
-      el.locale = 'it-IT';
+      el.locale = 'it';
       await el.updateComplete;
+
       const weekdays = Array.from(el.renderRoot.querySelectorAll('thead th[part~="week-day"]'));
 
-      expect(weekdays.length).to.equal(7);
+      expect(weekdays).to.have.length(7);
       expect(weekdays.map(th => th.textContent?.trim())).to.deep.equal([
         'lun',
         'mar',
@@ -74,622 +99,644 @@ describe('sl-month-view', () => {
       ]);
     });
 
-    it('should render week numbers column when showWeekNumbers is set', async () => {
-      el.showWeekNumbers = true;
-      await el.updateComplete;
-      const firstTh = el.renderRoot.querySelector('thead th[part~="week-number"]');
+    it('should not show the week numbers', () => {
+      const weekNumbers = el.renderRoot.querySelectorAll('[part~="week-number"]');
 
-      expect(firstTh).to.exist;
-      expect(firstTh).to.have.trimmed.text('wk.');
+      expect(el.showWeekNumbers).not.to.be.true;
+      expect(weekNumbers).to.have.length(0);
     });
 
-    it('should render localized week numbers header', async () => {
+    it('should show the week numbers when set', async () => {
       el.showWeekNumbers = true;
-      el.locale = 'it-IT';
-
       await el.updateComplete;
-      const firstTh = el.renderRoot.querySelector('thead th[part~="week-number"]');
 
-      expect(firstTh).to.exist;
-      expect(firstTh).to.have.trimmed.text('sett.');
+      expect(el.showWeekNumbers).to.be.true;
+
+      const weekNumbers = el.renderRoot.querySelectorAll('[part~="week-number"]');
+      expect(weekNumbers.length).to.be.greaterThan(0);
+    });
+
+    it('should render week number column header when showWeekNumbers is set', async () => {
+      el.showWeekNumbers = true;
+      await el.updateComplete;
+
+      const weekNumberHeader = el.renderRoot.querySelector('th[part~="week-number"]');
+
+      expect(weekNumberHeader).to.have.trimmed.text('wk.');
+    });
+
+    it('should render localized week number header', async () => {
+      el.locale = 'it';
+      el.showWeekNumbers = true;
+      await el.updateComplete;
+
+      const weekNumberHeader = el.renderRoot.querySelector('th[part~="week-number"]');
+
+      expect(weekNumberHeader).to.have.trimmed.text('sett.');
+    });
+
+    it('should have Monday as the first day of the week', () => {
+      expect(el.firstDayOfWeek).to.equal(1);
     });
 
     it('should reorder weekdays when firstDayOfWeek changes', async () => {
       el.firstDayOfWeek = 0; // Sunday
       await el.updateComplete;
-      const weekdays = Array.from(el.renderRoot.querySelectorAll('thead th[part~="week-day"]'));
 
-      expect(weekdays[0].textContent?.trim()).to.equal('Sun');
-    });
-  });
-
-  describe('Custom renderer', () => {
-    beforeEach(async () => {
-      el = await fixture(html`<sl-month-view .month=${new Date()}></sl-month-view>`);
-      await el.updateComplete;
-    });
-
-    it('should use custom renderer when provided', async () => {
-      el.renderer = day => html`<div class="custom">${day.date.getDate()}</div>`;
-
-      await el.updateComplete;
-      const custom = el.renderRoot.querySelector('.custom');
-
-      expect(custom).to.exist;
-    });
-  });
-
-  describe('Hiding other months', () => {
-    beforeEach(async () => {
-      const month = new Date(2025, 9, 1);
-      el = await fixture(html`<sl-month-view .month=${month} .hideDaysOtherMonths=${true}></sl-month-view>`);
-      await el.updateComplete;
+      const weekdays = Array.from(el.renderRoot.querySelectorAll('th[part~="week-day"]'));
+      expect(weekdays.map(th => th.textContent?.trim())).to.deep.equal([
+        'Sun',
+        'Mon',
+        'Tue',
+        'Wed',
+        'Thu',
+        'Fri',
+        'Sat'
+      ]);
     });
 
-    it('should hide days from other months when hideDaysOtherMonths is set', () => {
-      const tds = Array.from(el.renderRoot.querySelectorAll('tbody td'));
-      const emptyTds = tds.filter(td => td.querySelector('button') === null && td.textContent?.trim() === '');
+    it('should render the days of the month', () => {
+      const dayButtons = Array.from(el.renderRoot.querySelectorAll('button[part~="day"]')),
+        dayNumbers = dayButtons.map(button => Number(button.textContent?.trim()));
 
-      expect(emptyTds.length).to.be.greaterThan(0);
+      expect(dayNumbers).to.deep.equal([
+        27, 28, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+        29, 30, 31, 1, 2
+      ]);
     });
-  });
 
-  describe('Parts', () => {
-    beforeEach(async () => {
-      const now = new Date();
-      el = await fixture(
-        html`<sl-month-view .month=${new Date(now.getFullYear(), now.getMonth(), 1)}></sl-month-view>`
+    it('should not hide the days from the other months', () => {
+      expect(el.hideDaysOtherMonths).not.to.be.true;
+
+      const daysFromOtherMonths = Array.from(
+        el.renderRoot.querySelectorAll(':where([part~="next-month"], [part~="previous-month"])')
       );
-      await el.updateComplete;
+
+      expect(daysFromOtherMonths.length).to.be.greaterThan(0);
     });
 
-    it('should apply today part when showToday is set', async () => {
-      el.month = new Date(el.month!.getFullYear(), el.month!.getMonth(), 1);
-      el.showToday = true;
-
+    it('should hide days from other months when hideDaysOtherMonths is set', async () => {
+      el.hideDaysOtherMonths = true;
       await el.updateComplete;
-      const button = Array.from(el.renderRoot.querySelectorAll('button')).find(btn =>
-        (btn.getAttribute('part') || '').includes('today')
+
+      const daysFromOtherMonths = Array.from(
+        el.renderRoot.querySelectorAll(':where([part~="next-month"], [part~="previous-month"])')
       );
+
+      expect(daysFromOtherMonths).to.have.length(0);
+    });
+  });
+
+  describe('custom renderer', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-month-view show-today></sl-month-view>`);
+    });
+
+    it('should not have a custom renderer by default', () => {
+      expect(el.renderer).to.be.undefined;
+    });
+
+    it('should call the renderer callback for every day', async () => {
+      const renderer = spy(() => undefined);
+
+      el.renderer = renderer;
+      await el.updateComplete;
+
+      expect(renderer.callCount).to.equal(7 * 5);
+    });
+
+    it('should render custom content from the renderer', async () => {
+      el.renderer = (day: Day, monthView: MonthView): TemplateResult | undefined => {
+        if (day.today) {
+          return html`<button .part=${monthView.getDayParts(day).join(' ')}><span>TODAY</span></button>`;
+        }
+
+        return undefined;
+      };
+      await el.updateComplete;
+
+      const dayButtons = Array.from(el.renderRoot.querySelectorAll('button[part~="day"]')),
+        dayLabels = dayButtons.map(button => button.textContent?.trim());
+
+      expect(dayLabels).to.deep.equal([
+        '27',
+        '28',
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+        '10',
+        '11',
+        '12',
+        '13',
+        'TODAY',
+        '15',
+        '16',
+        '17',
+        '18',
+        '19',
+        '20',
+        '21',
+        '22',
+        '23',
+        '24',
+        '25',
+        '26',
+        '27',
+        '28',
+        '29',
+        '30',
+        '31',
+        '1',
+        '2'
+      ]);
+    });
+
+    it('should fallback to default rendering when undefined is returned', async () => {
+      el.renderer = () => undefined;
+      await el.updateComplete;
+
+      const dayButtons = Array.from(el.renderRoot.querySelectorAll('button[part~="day"]')),
+        dayNumbers = dayButtons.map(button => Number(button.textContent?.trim()));
+
+      expect(dayNumbers).to.deep.equal([
+        27, 28, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+        29, 30, 31, 1, 2
+      ]);
+    });
+  });
+
+  describe('parts', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-month-view show-today show-week-numbers></sl-month-view>`);
+    });
+
+    it('should apply "week-number" to the column header', () => {
+      const weekNumber = el.renderRoot.querySelector('th[part~="week-number"]');
+
+      expect(weekNumber).to.exist;
+    });
+
+    it('should apply "week-number" to week number cells', () => {
+      const weekNumbers = Array.from(el.renderRoot.querySelectorAll('td[part~="week-number"]'));
+
+      expect(weekNumbers).to.have.length(5);
+    });
+
+    it('should apply "week-day" to the days of the week headers', () => {
+      const weekDays = Array.from(el.renderRoot.querySelectorAll('th[part~="week-day"]'));
+
+      expect(weekDays).to.have.length(7);
+    });
+
+    it('should apply "day" to the day buttons', () => {
+      const days = Array.from(el.renderRoot.querySelectorAll('button[part~="day"]'));
+
+      expect(days).to.be.length(7 * 5);
+    });
+
+    it('should apply "previous-month" to days from previous month', () => {
+      const prevMonthDays = Array.from(el.renderRoot.querySelectorAll('button[part~="previous-month"]'));
+
+      expect(prevMonthDays).to.have.length(2);
+    });
+
+    it('should apply "next-month" to days from next month', () => {
+      const nextMonthDays = Array.from(el.renderRoot.querySelectorAll('button[part~="next-month"]'));
+
+      expect(nextMonthDays).to.have.length(2);
+    });
+
+    it('should apply "today" part when showToday is set', () => {
+      const today = el.renderRoot.querySelector('button[part~="today"]');
+
+      expect(today).to.exist;
+      expect(today?.textContent?.trim()).to.equal('14');
+    });
+
+    it('should apply "selected" to the selected day', async () => {
+      el.selected = new Date(el.month.getFullYear(), el.month.getMonth(), 15);
+      await el.updateComplete;
+
+      const selected = el.renderRoot.querySelector('button[part~="selected"]');
+
+      expect(selected).to.exist;
+      expect(selected?.textContent?.trim()).to.equal('15');
+    });
+
+    it('should apply "indicator" part when indicator dates provided', async () => {
+      el.indicatorDates = [{ date: new Date(el.month.getFullYear(), el.month.getMonth(), 20) }];
+      await el.updateComplete;
+
+      const indicator = el.renderRoot.querySelector('button[part~="indicator"]');
+
+      expect(indicator).to.exist;
+      expect(indicator?.textContent?.trim()).to.equal('20');
+    });
+
+    it('should apply "indicator-<color>" part when indicator with color is provided', async () => {
+      el.indicatorDates = [{ date: new Date(el.month.getFullYear(), el.month.getMonth(), 20), color: 'red' }];
+      await el.updateComplete;
+
+      const indicator = el.renderRoot.querySelector('button[part~="indicator-red"]');
+
+      expect(indicator).to.exist;
+      expect(indicator?.textContent?.trim()).to.equal('20');
+    });
+
+    it('should apply "disabled" part when disabled dates provided', async () => {
+      el.disabledDates = [new Date(el.month.getFullYear(), el.month.getMonth(), 25)];
+      await el.updateComplete;
+
+      const disabled = el.renderRoot.querySelector('button[part~="disabled"]');
+
+      expect(disabled).to.exist;
+      expect(disabled?.textContent?.trim()).to.equal('25');
+    });
+
+    it('should apply "out-of-range" part when min and max are set', async () => {
+      el.min = new Date(el.month.getFullYear(), el.month.getMonth(), 10);
+      el.max = new Date(el.month.getFullYear(), el.month.getMonth(), 20);
+      await el.updateComplete;
+
+      const outOfRange = Array.from(el.renderRoot.querySelectorAll('button[part~="out-of-range"]')),
+        outOfRangeDays = outOfRange.map(button => Number(button.textContent?.trim()));
+
+      expect(outOfRangeDays).to.deep.equal([
+        27, 28, 1, 2, 3, 4, 5, 6, 7, 8, 9, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 1, 2
+      ]);
+    });
+  });
+
+  describe('disabled dates', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-month-view></sl-month-view>`);
+    });
+
+    it('should not disable dates by default', () => {
+      const buttons = Array.from(el.renderRoot.querySelectorAll('button[disabled]'));
+
+      expect(buttons).to.have.length(0);
+    });
+
+    it('should disable specified dates', async () => {
+      el.disabledDates = [new Date(el.month.getFullYear(), el.month.getMonth(), 10)];
+      await el.updateComplete;
+
+      const button = el.renderRoot.querySelector('button[disabled]');
 
       expect(button).to.exist;
-      expect(button).to.match('[part~="today"]');
-    });
-
-    it('should apply today and selected parts when appropriate', async () => {
-      el.month = new Date(el.month!.getFullYear(), el.month!.getMonth(), 1);
-      el.showToday = true;
-      el.selected = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
-
-      await el.updateComplete;
-      const button = Array.from(el.renderRoot.querySelectorAll('button')).find(btn =>
-        (btn.getAttribute('part') || '').includes('selected')
-      );
-
-      expect(button).to.exist;
-      expect(button).to.match('[part~="today"]');
-      expect(button).to.match('[part~="selected"]');
-    });
-
-    it('should apply "unselectable" for disabled days', async () => {
-      el.disabledDates = [new Date(new Date().getFullYear(), new Date().getMonth(), 10)];
-
-      await el.updateComplete;
-      const disabledDay = Array.from(el.renderRoot.querySelectorAll('button')).find(
-        day => day.textContent?.trim() === '10'
-      );
-
-      expect(disabledDay).to.exist;
-      expect(disabledDay?.hasAttribute('disabled')).to.be.true;
-      expect(disabledDay).to.match('[part~="unselectable"]');
-    });
-
-    it('should apply "unselectable" for outside min/max days', async () => {
-      el.min = new Date(new Date().getFullYear(), new Date().getMonth(), 15);
-      el.max = new Date(new Date().getFullYear(), new Date().getMonth(), 20);
-
-      await el.updateComplete;
-      const disabledBtnPrevious = Array.from(el.renderRoot.querySelectorAll('button')).find(
-        b => b.textContent?.trim() === '14'
-      );
-      const disabledBtnNext = Array.from(el.renderRoot.querySelectorAll('button')).find(
-        b => b.textContent?.trim() === '21'
-      );
-
-      expect(disabledBtnPrevious).to.exist;
-      expect(disabledBtnNext).to.exist;
-      expect(disabledBtnPrevious?.hasAttribute('disabled')).to.be.true;
-      expect(disabledBtnNext?.hasAttribute('disabled')).to.be.true;
-      expect(disabledBtnPrevious).to.match('[part~="unselectable"]');
-      expect(disabledBtnNext).to.match('[part~="unselectable"]');
-    });
-
-    it('should apply "negative" part when negative dates provided', async () => {
-      el.negative = [new Date(new Date().getFullYear(), new Date().getMonth(), 11)];
-
-      await el.updateComplete;
-      const negativeBtn = Array.from(el.renderRoot.querySelectorAll('button')).find(
-        button => button.textContent?.trim() === '11'
-      );
-
-      expect(negativeBtn).to.exist;
-      expect(negativeBtn).to.match('[part~="negative"]');
+      expect(button?.textContent?.trim()).to.equal('10');
     });
   });
 
-  describe('Indicators', () => {
+  describe('indicator dates', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-month-view .month=${new Date()}></sl-month-view>`);
-      await el.updateComplete;
+      el = await fixture(html`<sl-month-view></sl-month-view>`);
     });
 
-    it('should apply indicator part', async () => {
-      el.indicatorDates = [{ date: new Date(new Date().getFullYear(), new Date().getMonth(), 12) }];
+    it('should not have indicator dates by default', () => {
+      const buttons = Array.from(el.renderRoot.querySelectorAll('button[part~="indicator"]'));
 
-      await el.updateComplete;
-      const indBtn = Array.from(el.renderRoot.querySelectorAll('button')).find(
-        button => button.textContent?.trim() === '12'
-      );
-
-      expect(indBtn).to.exist;
-      expect(indBtn).to.match('[part~="indicator"]');
+      expect(buttons).to.have.length(0);
     });
 
-    it('should apply colored indicator part (red)', async () => {
-      el.indicatorDates = [{ date: new Date(new Date().getFullYear(), new Date().getMonth(), 12), color: 'red' }];
-
-      await el.updateComplete;
-      const indBtn = Array.from(el.renderRoot.querySelectorAll('button')).find(
-        button => button.textContent?.trim() === '12'
-      );
-
-      expect(indBtn).to.exist;
-      expect(indBtn).to.match('[part~="indicator"]');
-      expect(indBtn).to.match('[part~="indicator-red"]');
-    });
-
-    it('should render tooltip for indicator with label', async () => {
-      el.indicatorDates = [
-        { date: new Date(new Date().getFullYear(), new Date().getMonth(), 13), label: 'Special day' }
-      ];
-
+    it('should render a tooltip for the indicator with label', async () => {
+      el.indicatorDates = [{ date: new Date(el.month.getFullYear(), el.month.getMonth(), 13), label: 'Special day' }];
       await el.updateComplete;
 
-      const button = el.renderRoot.querySelector('button[part~="indicator"]') as HTMLButtonElement;
+      const button = el.renderRoot.querySelector<HTMLElement>('button[part~="indicator"]'),
+        tooltip = button?.nextElementSibling;
 
       expect(button).to.exist;
+      expect(button).to.have.attribute('aria-describedby', tooltip?.id);
 
-      button.focus();
-
-      const tooltip = el.renderRoot.querySelector('sl-tooltip');
-
-      expect(tooltip).to.exist;
+      expect(tooltip).to.match('sl-tooltip');
+      expect(tooltip).to.have.attribute('id');
       expect(tooltip?.textContent?.trim()).to.equal('Special day');
     });
 
     it('should render no tooltip when no color or label provided', async () => {
-      const date = new Date(new Date().getFullYear(), new Date().getMonth(), 15);
-      el.indicatorDates = [{ date }];
-
+      el.indicatorDates = [{ date: new Date(el.month.getFullYear(), el.month.getMonth(), 15) }];
       await el.updateComplete;
 
-      const button = el.renderRoot.querySelector('button[part~="indicator"]') as HTMLButtonElement;
+      const button = el.renderRoot.querySelector<HTMLElement>('button[part~="indicator"]');
 
       expect(button).to.exist;
-
-      button.focus();
-
-      const tooltip = el.renderRoot.querySelector('sl-tooltip');
-
-      expect(tooltip).not.to.exist;
+      expect(button?.nextElementSibling).to.be.null;
     });
   });
 
-  describe('Aria attributes', () => {
+  describe('min/max', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-month-view .showToday=${true} .month=${new Date()}></sl-month-view>`);
-      await el.updateComplete;
+      el = await fixture(html`<sl-month-view></sl-month-view>`);
     });
 
-    it('should set aria-current="date" on today when showToday is set', () => {
-      const todayBtn = Array.from(el.renderRoot.querySelectorAll('button')).find(btn => btn.matches('[part~="today"]'));
+    it('should not set min/max by default', () => {
+      expect(el.min).to.be.undefined;
+      expect(el.max).to.be.undefined;
+    });
 
-      expect(todayBtn).to.exist;
-      expect(todayBtn?.getAttribute('aria-current')).to.equal('date');
+    it('should not have any out of range dates by default', () => {
+      const buttons = Array.from(el.renderRoot.querySelectorAll('button[part~="out-of-range"]'));
+
+      expect(buttons).to.have.length(0);
+    });
+
+    it('should disable dates before min', async () => {
+      el.min = new Date(el.month.getFullYear(), el.month.getMonth(), 10);
+      await el.updateComplete;
+
+      const buttons = Array.from(el.renderRoot.querySelectorAll<HTMLButtonElement>('button[part~="out-of-range"]')),
+        days = buttons.map(button => Number(button.textContent?.trim()));
+
+      expect(buttons.every(b => b.disabled)).to.be.true;
+      expect(days).to.deep.equal([27, 28, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    });
+
+    it('should disable dates after max', async () => {
+      el.max = new Date(el.month.getFullYear(), el.month.getMonth(), 20);
+      await el.updateComplete;
+
+      const buttons = Array.from(el.renderRoot.querySelectorAll<HTMLButtonElement>('button[part~="out-of-range"]')),
+        days = buttons.map(button => Number(button.textContent?.trim()));
+
+      expect(buttons.every(b => b.disabled)).to.be.true;
+      expect(days).to.deep.equal([21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 1, 2]);
+    });
+  });
+
+  describe('accessibility', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-month-view show-today show-week-numbers></sl-month-view>`);
+    });
+
+    it('should have an aria-label on the table', () => {
+      const table = el.renderRoot.querySelector('table');
+
+      expect(table).to.have.attribute('aria-label', 'Days of March 2023');
+    });
+
+    it('should have an aria-label for the week number column header', () => {
+      const weekNumberHeader = el.renderRoot.querySelector('th[part~="week-number"]');
+
+      expect(weekNumberHeader).to.have.attribute('aria-label', 'Week');
+    });
+
+    it('should have an aria-label for the week number cells', () => {
+      const weekNumberCells = Array.from(el.renderRoot.querySelectorAll('td[part~="week-number"]')),
+        labels = weekNumberCells.map(td => td.getAttribute('aria-label'));
+
+      expect(labels).to.deep.equal(['Week 9', 'Week 10', 'Week 11', 'Week 12', 'Week 13']);
+    });
+
+    it('should have an aria-label for the days of the week headers', () => {
+      const weekDayHeaders = Array.from(el.renderRoot.querySelectorAll('th[part~="week-day"]')),
+        labels = weekDayHeaders.map(th => th.getAttribute('aria-label'));
+
+      expect(labels).to.deep.equal(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']);
+    });
+
+    it('should set aria-current="date" on today', () => {
+      const today = el.renderRoot.querySelector('button[part~="today"]');
+
+      expect(today).to.have.attribute('aria-current', 'date');
     });
 
     it('should set aria-pressed="true" on selected day', async () => {
-      const today = new Date();
-      el.selected = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-
+      el.selected = new Date(el.month.getFullYear(), el.month.getMonth(), el.month.getDate());
       await el.updateComplete;
-      const selectedBtn = Array.from(el.renderRoot.querySelectorAll('button')).find(btn =>
-        btn.matches('[part~="selected"]')
-      );
 
-      expect(selectedBtn).to.exist;
-      expect(selectedBtn?.getAttribute('aria-pressed')).to.equal('true');
+      const selected = el.renderRoot.querySelector('button[part~="selected"]');
+
+      expect(selected).to.exist;
+      expect(selected).to.have.attribute('aria-pressed', 'true');
     });
   });
 
-  describe('Click', () => {
+  describe('selection', () => {
     beforeEach(async () => {
-      el = await fixture(
-        html`<sl-month-view .month=${new Date(2025, 9, 1)} .disabledDates=${[new Date(2025, 9, 10)]}></sl-month-view>`
-      );
-      await el.updateComplete;
+      el = await fixture(html`<sl-month-view></sl-month-view>`);
     });
 
-    it('should emit sl-select and update selected when clicking an enabled day', async () => {
-      const onSelect = spy();
-      el.addEventListener('sl-select', onSelect);
+    describe('current month', () => {
+      it('should select a day when clicked', () => {
+        let date: Date | null = null;
 
-      const button = Array.from(el.renderRoot.querySelectorAll('button')).find(
-        b => !b.hasAttribute('disabled')
-      ) as HTMLButtonElement;
+        el.addEventListener('sl-select', (event: SlChangeEvent<Date>) => (date = event.detail));
+        el.renderRoot
+          .querySelector<HTMLElement>('button[part~="day"]:not([part~="previous-month"]):not([part~="next-month"])')
+          ?.click();
 
-      expect(button).to.exist;
+        expect(date).to.equalDate(new Date(2023, 2, 1));
+        expect(el.selected).to.equalDate(new Date(2023, 2, 1));
+      });
 
-      button.click();
+      it('should select a day when focused and Enter is pressed', async () => {
+        let date: Date | null = null;
 
-      await el.updateComplete;
+        el.addEventListener('sl-select', (event: SlChangeEvent<Date>) => (date = event.detail));
+        el.focus();
 
-      expect(onSelect).to.have.been.calledOnce;
+        await userEvent.keyboard('{Enter}');
 
-      const event = onSelect.lastCall.firstArg as CustomEvent<Date>;
+        expect(date).to.equalDate(new Date(2023, 2, 1));
+        expect(el.selected).to.equalDate(new Date(2023, 2, 1));
+      });
 
-      expect(el.selected).to.be.instanceOf(Date);
-      expect((el.selected as Date).getDate()).to.equal(event.detail.getDate());
+      it('should select a day when focused and Space is pressed', async () => {
+        let date: Date | null = null;
+
+        el.addEventListener('sl-select', (event: SlChangeEvent<Date>) => (date = event.detail));
+        el.focus();
+
+        await userEvent.keyboard('{Space}');
+
+        expect(date).to.equalDate(new Date(2023, 2, 1));
+        expect(el.selected).to.equalDate(new Date(2023, 2, 1));
+      });
+
+      it('should toggle the selection when a different day is selected', async () => {
+        el.selected = new Date(2023, 2, 5);
+        await el.updateComplete;
+
+        el.renderRoot
+          .querySelector<HTMLElement>('button[part~="day"]:not([part~="previous-month"]):not([part~="next-month"])')
+          ?.click();
+        await el.updateComplete;
+
+        expect(el.selected).to.equalDate(new Date(2023, 2, 1));
+      });
     });
 
-    it('should not emit sl-select when clicking a disabled day', async () => {
-      const onSelect = spy();
-      el.addEventListener('sl-select', onSelect);
+    describe('not the current month', () => {
+      it('should select a day when clicked', async () => {
+        let date: Date | null = null;
 
-      const button = Array.from(el.renderRoot.querySelectorAll('button')).find(b =>
-        b.hasAttribute('disabled')
-      ) as HTMLButtonElement;
+        el.addEventListener('sl-select', (event: SlChangeEvent<Date>) => (date = event.detail));
+        el.renderRoot.querySelector<HTMLElement>('button[part~="next-month"]')?.click();
+        await el.updateComplete;
 
-      expect(button).to.exist;
+        expect(date).to.equalDate(new Date(2023, 3, 1));
+        expect(el.selected).to.equalDate(new Date(2023, 3, 1));
+      });
 
-      button.click();
+      it('should emit an sl-change event when the month changes due to selection', () => {
+        let date: Date | null = null;
 
-      await el.updateComplete;
+        el.addEventListener('sl-change', (event: SlChangeEvent<Date>) => (date = event.detail));
+        el.renderRoot.querySelector<HTMLElement>('button[part~="next-month"]')?.click();
 
-      expect(onSelect).not.to.have.been.calledOnce;
-    });
-
-    it('should not emit sl-select when readonly is set', async () => {
-      el.readonly = true;
-
-      await el.updateComplete;
-
-      const onSelect = spy();
-      el.addEventListener('sl-select', onSelect);
-
-      const button = el.renderRoot.querySelector('button');
-
-      expect(button).to.exist;
-
-      (button as HTMLButtonElement).click();
-
-      await el.updateComplete;
-
-      expect(onSelect).not.to.have.been.called;
+        expect(date).to.equalDate(new Date(2023, 3, 1));
+      });
     });
   });
 
-  describe('Keyboard navigation (selection)', () => {
+  describe('keyboard navigation', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-month-view .month=${new Date(2025, 9, 1)}></sl-month-view>`);
-      await el.updateComplete;
+      el = await fixture(html`<sl-month-view></sl-month-view>`);
     });
 
-    it('should emit sl-select on Enter', async () => {
-      const onSelect = spy();
+    it('should focus the first day of the month on initial focus', () => {
+      el.focus();
 
-      el.addEventListener('sl-select', onSelect);
-
-      const button = Array.from(el.renderRoot.querySelectorAll('button')).find(
-        b => !b.hasAttribute('disabled')
-      ) as HTMLButtonElement;
-
-      button.focus();
-
-      await userEvent.keyboard('{Enter}');
-      await el.updateComplete;
-
-      expect(onSelect).to.have.been.calledOnce;
-
-      const event = onSelect.lastCall.firstArg as CustomEvent<Date>;
-
-      expect(el.selected).to.be.instanceOf(Date);
-      expect(event.detail.getDate()).to.equal((el.selected as Date).getDate());
+      expect(el.shadowRoot?.activeElement).to.exist;
+      expect(el.shadowRoot?.activeElement).to.match('button[part~="day"]');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('1');
     });
 
-    it('should emit sl-select on Space', async () => {
-      const onSelect = spy();
-      el.addEventListener('sl-select', onSelect);
-
-      const button = Array.from(el.renderRoot.querySelectorAll('button')).find(
-        b => !b.hasAttribute('disabled')
-      ) as HTMLButtonElement;
-
-      button.focus();
-
-      await userEvent.keyboard('{Space}');
+    it('should focus today on initial focus when showToday is set', async () => {
+      el.showToday = true;
       await el.updateComplete;
 
-      expect(onSelect).to.have.been.calledOnce;
+      el.focus();
 
-      const event = onSelect.lastCall.firstArg as CustomEvent<Date>;
-
-      expect(el.selected).to.be.instanceOf(Date);
-      expect(event.detail.getDate()).to.equal((el.selected as Date).getDate());
+      expect(el.shadowRoot?.activeElement).to.exist;
+      expect(el.shadowRoot?.activeElement).to.match('button[part~="today"]');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('14');
     });
 
-    it('should emit change with previous month last day on ArrowLeft at 1st of month', async () => {
-      const btnOne = Array.from(el.renderRoot.querySelectorAll('button')).find(
-        b => b.textContent?.trim() === '1'
-      ) as HTMLButtonElement;
-
-      expect(btnOne).to.exist;
-
-      const onChange = spy();
-      el.addEventListener('sl-change', (e: CustomEvent) => {
-        onChange(e.detail);
-      });
-
-      btnOne.focus();
-      await userEvent.keyboard('{ArrowLeft}');
+    it('should focus the selected day on initial focus if set', async () => {
+      el.selected = new Date(el.month.getFullYear(), el.month.getMonth(), 20);
       await el.updateComplete;
 
-      expect(onChange).to.have.been.calledOnce;
-      const emitted = onChange.lastCall.args[0] as Date;
-      const prevLast = new Date(emitted.getFullYear(), emitted.getMonth() + 1, 0).getDate();
+      el.focus();
 
-      expect(emitted.getDate()).to.equal(prevLast);
+      expect(el.shadowRoot?.activeElement).to.exist;
+      expect(el.shadowRoot?.activeElement).to.match('button[part~="selected"]');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('20');
     });
 
-    it('should emit change with next month first day on ArrowRight at last day', async () => {
-      const month = el.month!,
-        lastDayNum = new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate(),
-        lastButton = Array.from(el.renderRoot.querySelectorAll('button')).find(
-          b => b.textContent?.trim() === String(lastDayNum)
-        ) as HTMLButtonElement;
+    it('should focus the next day on arrow right', async () => {
+      el.focus();
 
-      expect(lastButton).to.exist;
-
-      const onChange = spy();
-      el.addEventListener('sl-change', (e: CustomEvent) => {
-        onChange(e.detail);
-      });
-      lastButton.focus();
       await userEvent.keyboard('{ArrowRight}');
 
-      await el.updateComplete;
-      const emitted = onChange.lastCall.args[0] as Date;
-
-      expect(onChange).to.have.been.calledOnce;
-      expect(emitted.getDate()).to.equal(1);
-      expect(emitted.getMonth()).to.equal(month.getMonth() + 1);
+      expect(el.shadowRoot?.activeElement).to.exist;
+      expect(el.shadowRoot?.activeElement).to.match('button[part~="day"]');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('2');
     });
 
-    it('should emit change on ArrowUp weekly step crossing month', async () => {
-      const btnSeven = Array.from(el.renderRoot.querySelectorAll('button')).find(
-        b => b.textContent?.trim() === '7'
-      ) as HTMLButtonElement;
+    it('should focus the previous day on arrow left', async () => {
+      el.showToday = true;
+      await el.updateComplete;
 
-      expect(btnSeven).to.exist;
+      el.focus();
 
-      const onChange = spy();
-      el.addEventListener('sl-change', (e: CustomEvent) => {
-        onChange(e.detail);
-      });
-      btnSeven.focus();
+      await userEvent.keyboard('{ArrowLeft}');
+
+      expect(el.shadowRoot?.activeElement).to.exist;
+      expect(el.shadowRoot?.activeElement).to.match('button[part~="day"]');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('13');
+    });
+
+    it('should focus the day below on arrow down', async () => {
+      el.focus();
+
+      await userEvent.keyboard('{ArrowDown}');
+
+      expect(el.shadowRoot?.activeElement).to.exist;
+      expect(el.shadowRoot?.activeElement).to.match('button[part~="day"]');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('8');
+    });
+
+    it('should focus the day above on arrow up', async () => {
+      el.showToday = true;
+      await el.updateComplete;
+
+      el.focus();
+
       await userEvent.keyboard('{ArrowUp}');
 
-      await el.updateComplete;
-
-      expect(onChange).to.have.been.calledOnce;
-      const emitted = onChange.lastCall.args[0] as Date;
-
-      expect(emitted.getMonth()).to.not.equal(el.month?.getMonth());
+      expect(el.shadowRoot?.activeElement).to.exist;
+      expect(el.shadowRoot?.activeElement).to.match('button[part~="day"]');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('7');
     });
 
-    it('should emit change on ArrowDown weekly step crossing month', async () => {
-      const month = el.month!,
-        lastDayNum = new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate(),
-        targetNum = lastDayNum - 3,
-        targetBtn = Array.from(el.renderRoot.querySelectorAll('button')).find(
-          button => button.textContent?.trim() === String(targetNum)
-        ) as HTMLButtonElement;
+    it('should emit an sl-change event after pressing arrow left on the first day of the current month', async () => {
+      let date: Date | null = null;
 
-      expect(targetBtn).to.exist;
+      el.addEventListener('sl-change', (event: SlChangeEvent<Date>) => (date = event.detail));
+      el.focus();
 
-      const onChange = spy();
-      el.addEventListener('sl-change', (e: CustomEvent) => {
-        onChange(e.detail);
-      });
-      targetBtn.focus();
-      await userEvent.keyboard('{ArrowDown}');
+      await userEvent.keyboard('{ArrowLeft}');
 
-      await el.updateComplete;
-      expect(onChange).to.have.been.calledOnce;
-      const emitted = onChange.lastCall.args[0] as Date;
-
-      expect(emitted.getMonth()).to.not.equal(month.getMonth());
+      expect(date).to.equalDate(new Date(2023, 1, 28));
     });
 
-    it('should not emit change when ArrowUp weekly step stays within month', async () => {
-      const buttonFifteen = Array.from(el.renderRoot.querySelectorAll('button')).find(
-        button => button.textContent?.trim() === '15'
-      ) as HTMLButtonElement;
+    it('should emit an sl-change event after pressing arrow right on the last day of the current month', async () => {
+      let date: Date | null = null;
 
-      expect(buttonFifteen).to.exist;
+      el.selected = new Date(2023, 2, 31);
+      await el.updateComplete;
 
-      const onChangeSpy = spy();
+      el.addEventListener('sl-change', (event: SlChangeEvent<Date>) => (date = event.detail));
+      el.focus();
 
-      el.addEventListener('sl-change', onChangeSpy);
-      buttonFifteen.focus();
+      await userEvent.keyboard('{ArrowRight}');
+
+      expect(date).to.equalDate(new Date(2023, 3, 1));
+    });
+
+    it('should emit an sl-change event after pressing arrow up on a day in the first week of the current month', async () => {
+      let date: Date | null = null;
+
+      el.addEventListener('sl-change', (event: SlChangeEvent<Date>) => (date = event.detail));
+      el.focus();
+
       await userEvent.keyboard('{ArrowUp}');
 
-      await el.updateComplete;
-
-      expect(onChangeSpy).not.to.have.been.called;
+      expect(date).to.equalDate(new Date(2023, 1, 22));
     });
 
-    it('should not emit change when ArrowDown weekly step stays within month', async () => {
-      const buttonTen = Array.from(el.renderRoot.querySelectorAll('button')).find(
-        button => button.textContent?.trim() === '10'
-      ) as HTMLButtonElement;
+    it('should emit an sl-change event after pressing arrow down on a day in the last week of the current month', async () => {
+      let date: Date | null = null;
 
-      expect(buttonTen).to.exist;
+      el.selected = new Date(2023, 2, 30);
+      await el.updateComplete;
 
-      const onChangeSpy = spy();
+      el.addEventListener('sl-change', (event: SlChangeEvent<Date>) => (date = event.detail));
+      el.focus();
 
-      el.addEventListener('sl-change', onChangeSpy);
-      buttonTen.focus();
       await userEvent.keyboard('{ArrowDown}');
 
-      await el.updateComplete;
-
-      expect(onChangeSpy).not.to.have.been.called;
-    });
-  });
-
-  describe('Focus day', () => {
-    beforeEach(async () => {
-      const monthStart = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
-      el = await fixture(html`<sl-month-view .month=${monthStart}></sl-month-view>`);
-
-      await el.updateComplete;
+      expect(date).to.equalDate(new Date(2023, 3, 6));
     });
 
-    it('should focus a specific day using focusDay()', () => {
-      const target = new Date(el.month!.getFullYear(), el.month!.getMonth(), 5);
-
-      el.focusDay(target);
-
-      const button = Array.from(el.renderRoot.querySelectorAll('button')).find(b => b.textContent?.trim() === '5');
-
-      expect(button).to.exist;
-      expect(el.shadowRoot?.activeElement).to.equal(button);
-    });
-  });
-
-  describe('Attribute Converter', () => {
-    beforeEach(async () => {
-      el = await fixture(html`<sl-month-view .month=${new Date()}></sl-month-view>`);
-      await el.updateComplete;
-    });
-
-    it('should parse indicator attribute JSON into Date instances', async () => {
-      const date = new Date();
-
-      el.setAttribute(
-        'indicator-dates',
-        JSON.stringify([{ date: date.toISOString(), color: 'grey', label: 'Attr label' }])
-      );
-
-      await el.updateComplete;
-
-      expect(el.indicatorDates).to.exist;
-      expect(el.indicatorDates![0].date).to.be.instanceOf(Date);
-      expect(el.indicatorDates![0].label).to.equal('Attr label');
-      expect(el.indicatorDates![0].color).to.equal('grey');
-    });
-  });
-
-  describe('Enabled same weekday', () => {
-    beforeEach(async () => {
-      // Start late in month so ArrowDown crosses to next month (e.g., 26 -> +7 days)
-      const base = new Date(2025, 9, 26); // Oct 26 2025
-      el = await fixture(html`<sl-month-view .month=${base}></sl-month-view>`);
-
-      await el.updateComplete;
-    });
-
-    it('should emit change on ArrowDown crossing month from late-month day', async () => {
-      const buttonTwentySix = Array.from(el.renderRoot.querySelectorAll('button')).find(
-        button => button.textContent?.trim() === '26'
-      ) as HTMLButtonElement;
-
-      expect(buttonTwentySix).to.exist;
-
+    it('should not emit an sl-change event when navigating within the current month', async () => {
       const onChange = spy();
 
-      el.addEventListener('sl-change', (e: CustomEvent) => {
-        onChange(e.detail);
-      });
-      buttonTwentySix.focus();
+      el.addEventListener('sl-change', onChange);
+      el.focus();
 
-      await userEvent.keyboard('{ArrowDown}');
-      await el.updateComplete;
+      await userEvent.keyboard('{ArrowRight}{ArrowRight}{ArrowDown}{ArrowLeft}{ArrowUp}');
 
-      expect(onChange).to.have.been.calledOnce;
-
-      const emitted = onChange.lastCall.args[0] as Date;
-
-      expect(emitted.getMonth()).to.equal(el.month!.getMonth() + 1); // moved to next month
-    });
-  });
-
-  describe('Readonly / Inert behavior', () => {
-    beforeEach(async () => {
-      el = await fixture(html`<sl-month-view .month=${new Date()} .readonly=${true} .inert=${true}></sl-month-view>`);
-      await el.updateComplete;
-    });
-
-    it('should render days but prevent selection when readonly', async () => {
-      const onSelect = spy();
-
-      el.addEventListener('sl-select', onSelect);
-
-      const button = el.renderRoot.querySelector('button');
-
-      expect(button).to.exist;
-      button?.click();
-
-      await el.updateComplete;
-
-      expect(onSelect).not.to.have.been.called;
-    });
-
-    it('should render buttons disabled when inert', () => {
-      const allButtons = Array.from(el.renderRoot.querySelectorAll('button'));
-
-      expect(allButtons.length).to.be.greaterThan(0);
-      allButtons.forEach(b => expect(b.disabled).to.be.true);
-    });
-  });
-
-  describe('Combined states', () => {
-    beforeEach(async () => {
-      const base = new Date();
-      el = await fixture(
-        html`<sl-month-view .month=${new Date(base.getFullYear(), base.getMonth(), 1)}></sl-month-view>`
-      );
-      await el.updateComplete;
-    });
-
-    it('should apply both indicator color and negative part when date matches both', async () => {
-      const day = 18;
-      const date = new Date(el.month!.getFullYear(), el.month!.getMonth(), day);
-
-      el.indicatorDates = [{ date, color: 'yellow' }];
-      el.negative = [date];
-
-      await el.updateComplete;
-
-      const button = Array.from(el.renderRoot.querySelectorAll('button')).find(
-        btn => btn.textContent?.trim() === String(day)
-      );
-
-      expect(button).to.exist;
-      expect(button).to.match('[part~="indicator"]');
-      expect(button).to.match('[part~="indicator-yellow"]');
-      expect(button).to.match('[part~="negative"]');
+      expect(onChange).to.not.have.been.called;
     });
   });
 });

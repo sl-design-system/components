@@ -5080,6 +5080,7 @@ __metadata:
     "@storybook/addon-vitest": "npm:^9.1.13"
     "@storybook/web-components": "npm:^9.1.13"
     "@storybook/web-components-vite": "npm:^9.1.13"
+    "@types/chai-datetime": "npm:^1.0.0"
     "@types/chai-dom": "npm:^1.11.3"
     "@types/sinon": "npm:^17.0.4"
     "@types/sinon-chai": "npm:^4.0.0"
@@ -5088,6 +5089,7 @@ __metadata:
     "@vitest/ui": "npm:^3.2.4"
     "@webcomponents/scoped-custom-element-registry": "npm:^0.0.10"
     chai: "npm:^6.2.0"
+    chai-datetime: "npm:^1.8.1"
     chai-dom: "npm:^1.12.1"
     chromatic: "npm:^13.3.0"
     eslint: "npm:^9.27.0"
@@ -6046,6 +6048,15 @@ __metadata:
   dependencies:
     "@types/node": "npm:*"
   checksum: 10c0/eebedbca185ac3c39dd5992ef18d9e2a9f99e7f3c2f52f5561f90e9ed482c5d224c7962db95362712f580ed5713264e777a98d8f0bd8747f4eadf62937baed16
+  languageName: node
+  linkType: hard
+
+"@types/chai-datetime@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@types/chai-datetime@npm:1.0.0"
+  dependencies:
+    "@types/chai": "npm:*"
+  checksum: 10c0/a2f741e407fcbdb5ddbf7dfd9880ea7393679b628ad01838b1721149f1396d3700ca606a23ea3ce2b5fa8fde51e7a3195e32f7ec2c2a684333098ef425a266ba
   languageName: node
   linkType: hard
 
@@ -8705,12 +8716,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"chai-datetime@npm:^1.8.1":
+  version: 1.8.1
+  resolution: "chai-datetime@npm:1.8.1"
+  dependencies:
+    chai: "npm:>1.9.0"
+  checksum: 10c0/3bb2e342a517027fbef4d8ab7907dfb478a6260b77263ea2359cecbac4bf4c429e8ccbf9371bfc6b08dc00c61fe49ee0ce28e0cd8573f8e29859c429be26b95e
+  languageName: node
+  linkType: hard
+
 "chai-dom@npm:^1.12.1":
   version: 1.12.1
   resolution: "chai-dom@npm:1.12.1"
   peerDependencies:
     chai: ">= 3"
   checksum: 10c0/a64d3e7374f64e697678dfa577e5f7192153e059704b791715d8960c62d9d06e12a4827c8719214f0bab1c3e04c351208c811e3e72e05c35199ed27f8a8f0f6f
+  languageName: node
+  linkType: hard
+
+"chai@npm:>1.9.0, chai@npm:^6.2.0":
+  version: 6.2.0
+  resolution: "chai@npm:6.2.0"
+  checksum: 10c0/a4b7d7f5907187e09f1847afa838d6d1608adc7d822031b7900813c4ed5d9702911ac2468bf290676f22fddb3d727b1be90b57c1d0a69b902534ee29cdc6ff8a
   languageName: node
   linkType: hard
 
@@ -8724,13 +8751,6 @@ __metadata:
     loupe: "npm:^3.1.0"
     pathval: "npm:^2.0.0"
   checksum: 10c0/dfd1cb719c7cebb051b727672d382a35338af1470065cb12adb01f4ee451bbf528e0e0f9ab2016af5fc1eea4df6e7f4504dc8443f8f00bd8fb87ad32dc516f7d
-  languageName: node
-  linkType: hard
-
-"chai@npm:^6.2.0":
-  version: 6.2.0
-  resolution: "chai@npm:6.2.0"
-  checksum: 10c0/a4b7d7f5907187e09f1847afa838d6d1608adc7d822031b7900813c4ed5d9702911ac2468bf290676f22fddb3d727b1be90b57c1d0a69b902534ee29cdc6ff8a
   languageName: node
   linkType: hard
 

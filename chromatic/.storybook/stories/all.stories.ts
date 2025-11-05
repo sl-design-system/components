@@ -4,6 +4,7 @@ import { Colors, Sizes } from '../../../packages/components/avatar/src/avatar.st
 import { All as AllBadge } from '../../../packages/components/badge/src/badge.stories';
 import { All as AllBreadcrumbs } from '../../../packages/components/breadcrumbs/src/breadcrumbs.stories';
 import { All as AllButton } from '../../../packages/components/button/src/button.stories';
+import { All as AllMonthView } from '../../../packages/components/calendar/src/month-view.stories';
 import { All as AllCard } from '../../../packages/components/card/src/card.stories';
 import { All as AllCheckbox } from '../../../packages/components/checkbox/src/root.stories';
 import { All as AllCombobox } from '../../../packages/components/combobox/src/combobox.stories';
@@ -76,6 +77,7 @@ export const Icon = { render: AllIcon.render };
 export const InlineMessage = { render: AllInlineMessage.render };
 export const Menu = { render: AllMenu.render };
 export const MenuButton = { render: AllMenuButton.render };
+export const MonthView = { render: AllMonthView.render };
 export const Popover = { render: AllPopover.render };
 export const RadioGroup = { render: AllRadioGroup.render };
 export const SearchField = { render: AllSearchField.render };

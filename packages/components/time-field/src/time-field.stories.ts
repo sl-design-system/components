@@ -65,6 +65,8 @@ export default {
       event.target.closest('sl-form')?.reportValidity();
     };
 
+    reportValidity = reportValidity ?? true;
+
     return html`
       <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>

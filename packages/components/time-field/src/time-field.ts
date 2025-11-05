@@ -346,6 +346,10 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         !this.#formatTime(time?.hours, time?.minutes);
 
     if (isInvalidTime && !!this.textField.input.value) {
+      this.setCustomValidity(
+        msg(str`Please enter a valid time in HH${this.#getTimeSeparator()}MM.`, { id: 'sl.timeField.timeValueMissing' })
+      );
+    } else if (this.required && !this.value) {
       this.setCustomValidity(msg('Please enter a time.', { id: 'sl.timeField.valueMissing' }));
     } else if (this.input.value && (this.min || this.max)) {
       const time = this.#valueAsNumbers,

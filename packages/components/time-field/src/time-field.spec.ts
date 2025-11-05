@@ -511,7 +511,7 @@ describe('sl-time-field', () => {
     });
 
     it('should have a validation message', () => {
-      expect(el.validationMessage).to.equal('Please fill out this field.');
+      expect(el.validationMessage).to.equal('Please enter a time.');
     });
 
     it('should be valid when a time is selected', async () => {
@@ -526,7 +526,7 @@ describe('sl-time-field', () => {
       await el.updateComplete;
 
       expect(el.valid).to.be.false;
-      expect(el.validationMessage).to.equal('Please fill out this field.');
+      expect(el.validationMessage).to.equal('Please enter a time.');
     });
 
     it('should be invalid when the time has the wrong syntax', async () => {
@@ -537,7 +537,7 @@ describe('sl-time-field', () => {
       await el.updateComplete;
 
       expect(el.valid).to.be.false;
-      expect(el.validationMessage).to.equal('Please enter a time.');
+      expect(el.validationMessage).to.equal('Please enter a valid time in HH:MM.');
     });
 
     it('should be valid when the time has the correct syntax', async () => {

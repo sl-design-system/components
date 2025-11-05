@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
 import { faFileLines, faFolder, faFolderOpen } from '@fortawesome/pro-regular-svg-icons';
+import { BreadcrumbsComponent } from '@sl-design-system/angular/breadcrumbs';
+import { TabComponent, TabGroupComponent, TabPanelComponent } from '@sl-design-system/angular/tabs';
+import { TreeComponent } from '@sl-design-system/angular/tree';
 import { Icon as SlIcon } from '@sl-design-system/icon';
 import { FlatTreeDataSource } from '@sl-design-system/tree';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
-import { BreadcrumbsComponent } from '../src/breadcrumbs/breadcrumbs.component';
-import { TabGroupComponent } from '../src/tabs/tab-group.component';
-import { TabPanelComponent } from '../src/tabs/tab-panel.component';
-import { TabComponent } from '../src/tabs/tab.component';
-import { TreeComponent } from '../src/tree/tree.component';
 
 SlIcon.register(faFileLines, faFolder, faFolderOpen);
 
@@ -91,6 +89,8 @@ export const Breadcrumbs: StoryObj = {
 
 export const Tabs: StoryObj = {
   render: () => ({
+    description:
+      'If you want to use routing and lazy-loaded components as the tab contents, there is an example called <em>Routing</em> in the root of the Angular stories.',
     template: `
       <sl-tab-group>
         <sl-tab>First tab</sl-tab>

@@ -1,6 +1,6 @@
+import { AvatarComponent } from '@sl-design-system/angular/avatar';
+import { IconComponent } from '@sl-design-system/angular/icon';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
-import { AvatarComponent } from '../src/avatar/avatar.component';
-import { IconComponent } from '../src/icon/icon.component';
 
 export default {
   title: 'Wrappers/Media',

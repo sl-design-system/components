@@ -1,20 +1,23 @@
+import { DialogComponent } from '@sl-design-system/angular/dialog';
+import { MessageDialogComponent } from '@sl-design-system/angular/message-dialog';
+import { PopoverComponent } from '@sl-design-system/angular/popover';
+import { TooltipComponent } from '@sl-design-system/angular/tooltip';
 import { Dialog as DialogElement } from '@sl-design-system/dialog';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
-import { DialogComponent } from '../src/dialog/dialog.component';
-import { PopoverComponent } from '../src/popover/popover.component';
-import { TooltipComponent } from '../src/tooltip/tooltip.component';
 
 export default {
   title: 'Wrappers/Overlay',
   decorators: [
     moduleMetadata({
-      imports: [DialogComponent, PopoverComponent, TooltipComponent]
+      imports: [DialogComponent, MessageDialogComponent, PopoverComponent, TooltipComponent]
     })
   ]
 } as Meta;
 
 export const Dialog: StoryObj = {
   render: () => ({
+    description:
+      'If you want to use the dialog for a simple alert of confirmation you can use the <em>Dialog service</em> as described in a story of the same name in the root of the Angular stories.',
     props: {
       onClick: (event: Event & { target: HTMLElement }) => {
         (event.target.nextElementSibling as DialogElement).showModal();

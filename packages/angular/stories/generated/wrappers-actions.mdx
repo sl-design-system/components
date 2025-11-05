@@ -11,10 +11,20 @@ To add custom introduction content, create wrappers-actions.intro.md */}
 
 ## Button
 
+You can bind actions to buttons using the (click) event.
+
 ### Template
 
 ```html
-<sl-button>Button</sl-button>
+<sl-button  (click)="action()">Button</sl-button>
+```
+
+### Props
+
+```typescript
+
+  action: () => console.log('Button clicked')
+
 ```
 
 
@@ -26,10 +36,64 @@ A button bar groups multiple buttons together.
 
 ```html
 
-<sl-button-bar>
-  <sl-button>Button 1</sl-button>
-  <sl-button>Button 2</sl-button>
-</sl-button-bar>
+  <sl-button-bar>
+    <sl-button>Button 1</sl-button>
+    <sl-button>Button 2</sl-button>
+  </sl-button-bar>
+
+```
+
+
+## Menu Button
+
+### Template
+
+```html
+
+  <sl-menu-button>
+      <sl-menu-item>Option 1</sl-menu-item>
+      <sl-menu-item>Option 2</sl-menu-item>
+      <sl-menu-item>Option 3</sl-menu-item>
+  </sl-menu-button>
+
+```
+
+
+## Toggle Button
+
+### Template
+
+```html
+<sl-toggle-button>Toggle me</sl-toggle-button>
+```
+
+
+## Toggle Group
+
+### Template
+
+```html
+
+  <sl-toggle-group>
+    <sl-toggle-button>Option 1</sl-toggle-button>
+    <sl-toggle-button>Option 2</sl-toggle-button>
+    <sl-toggle-button>Option 3</sl-toggle-button>
+  </sl-toggle-group>
+
+```
+
+
+## Tool Bar
+
+### Template
+
+```html
+
+  <sl-tool-bar>
+    <sl-button>Button 1</sl-button>
+    <sl-button>Button 2</sl-button>
+    <sl-button>Button 3</sl-button>
+  </sl-tool-bar>
 
 ```
 

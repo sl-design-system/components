@@ -1,13 +1,13 @@
+import { AccordionComponent, AccordionItemComponent } from '@sl-design-system/angular/accordion';
+import { CardComponent } from '@sl-design-system/angular/card';
+import { PanelComponent } from '@sl-design-system/angular/panel';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
-import { AccordionItemComponent } from '../src/accordion/accordion-item.component';
-import { AccordionComponent } from '../src/accordion/accordion.component';
-import { CardComponent } from '../src/card/card.component';
 
 export default {
   title: 'Wrappers/Layout',
   decorators: [
     moduleMetadata({
-      imports: [AccordionComponent, AccordionItemComponent, CardComponent]
+      imports: [AccordionComponent, AccordionItemComponent, CardComponent, PanelComponent]
     })
   ]
 } as Meta;
@@ -32,6 +32,18 @@ export const Card: StoryObj = {
         <span slot="header">Subheader</span>
         <p slot="body">Exercitation excepteur voluptate proident veniam duis cillum aute.</p>
       </sl-card>
+    `
+  })
+};
+
+export const Panel: StoryObj = {
+  render: () => ({
+    template: `
+      <sl-panel>
+        <span slot="header">Panel Title</span>
+        <p>This is the panel content area.</p>
+        <p>You can add any content here.</p>
+      </sl-panel>
     `
   })
 };

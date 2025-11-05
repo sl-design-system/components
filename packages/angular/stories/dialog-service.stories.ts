@@ -225,9 +225,7 @@ export default {
 } as Meta;
 
 export const DialogServiceExample: StoryFn = () => ({
-  description: {
-    story: 'A button bar groups multiple buttons together.'
-  },
+  description: 'A button bar groups multiple buttons together.',
   template: '<sla-dialog-service></sla-dialog-service>'
 });
 

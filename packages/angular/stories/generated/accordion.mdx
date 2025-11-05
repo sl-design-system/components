@@ -20,34 +20,34 @@ There are scenarios where you want to be able to controle the state of the accor
 @Component({
   selector: 'sla-accordion-external-actions',
   template: `<sl-button (click)="this.onClick('dino')">Toggle 🦖</sl-button>
-   <sl-button (click)="this.onClick('alien')">Toggle 👽</sl-button>
+    <sl-button (click)="this.onClick('alien')">Toggle 👽</sl-button>
 
-   dinoState:{{ this.dinoState }} alienState:{{ this.alienState }}
+    dinoState:{{ this.dinoState }} alienState:{{ this.alienState }}
 
-   <sl-accordion>
-     <sl-accordion-item summary="Discovering Dinosaurs: A Prehistoric Adventure" [open]="dinoState">
-       Embark on a thrilling journey back in time to the age of dinosaurs! 🌎🦕🌿🦖
-     </sl-accordion-item>
-     <sl-accordion-item summary="Journey Through Ancient Civilizations">
-       Pack your virtual bags and travel through time to ancient Egypt, Greece, Rome, and beyond 🌍🏛️🔍🏺
-     </sl-accordion-item>
-     <sl-accordion-item summary="Space Odyssey: Exploring Planets and Stars" [open]="alienState">
-       Buckle up for a cosmic adventure! 🚀🪐👽
-     </sl-accordion-item>
-   </sl-accordion>`
+    <sl-accordion>
+      <sl-accordion-item summary="Discovering Dinosaurs: A Prehistoric Adventure" [open]="dinoState">
+        Embark on a thrilling journey back in time to the age of dinosaurs! 🌎🦕🌿🦖
+      </sl-accordion-item>
+      <sl-accordion-item summary="Journey Through Ancient Civilizations">
+        Pack your virtual bags and travel through time to ancient Egypt, Greece, Rome, and beyond 🌍🏛️🔍🏺
+      </sl-accordion-item>
+      <sl-accordion-item summary="Space Odyssey: Exploring Planets and Stars" [open]="alienState">
+        Buckle up for a cosmic adventure! 🚀🪐👽
+      </sl-accordion-item>
+    </sl-accordion>`
 })
 export class AccordionExternalActionsComponent {
 
-dinoState = true;
-alienState = true;
-onClick(item: string): void {
-  if (item === 'dino') {
-    this.dinoState = !this.dinoState;
+  dinoState = true;
+  alienState = true;
+  onClick(item: string): void {
+    if (item === 'dino') {
+      this.dinoState = !this.dinoState;
+    }
+    if (item === 'alien') {
+      this.alienState = !this.alienState;
+    }
   }
-  if (item === 'alien') {
-    this.alienState = !this.alienState;
-  }
-}
 
 }
 ```

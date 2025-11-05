@@ -1,15 +1,16 @@
+import { CheckboxComponent, CheckboxGroupComponent } from '@sl-design-system/angular/checkbox';
+import { ComboboxComponent } from '@sl-design-system/angular/combobox';
+import { DateFieldComponent } from '@sl-design-system/angular/date-field';
+import { OptionComponent } from '@sl-design-system/angular/listbox';
+import { NumberFieldComponent } from '@sl-design-system/angular/number-field';
+import { RadioComponent, RadioGroupComponent } from '@sl-design-system/angular/radio-group';
+import { SearchFieldComponent } from '@sl-design-system/angular/search-field';
+import { SelectComponent } from '@sl-design-system/angular/select';
+import { SwitchComponent } from '@sl-design-system/angular/switch';
+import { TextAreaComponent } from '@sl-design-system/angular/text-area';
+import { TextFieldComponent } from '@sl-design-system/angular/text-field';
+import { TimeFieldComponent } from '@sl-design-system/angular/time-field';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
-import { CheckboxGroupComponent } from '../src/checkbox/checkbox-group.component';
-import { CheckboxComponent } from '../src/checkbox/checkbox.component';
-import { ComboboxComponent } from '../src/combobox/combobox.component';
-import { OptionComponent } from '../src/listbox/option.component';
-import { NumberFieldComponent } from '../src/number-field/number-field.component';
-import { RadioGroupComponent } from '../src/radio-group/radio-group.component';
-import { RadioComponent } from '../src/radio-group/radio.component';
-import { SelectComponent } from '../src/select/select.component';
-import { SwitchComponent } from '../src/switch/switch.component';
-import { TextAreaComponent } from '../src/text-area/text-area.component';
-import { TextFieldComponent } from '../src/text-field/text-field.component';
 
 export default {
   title: 'Wrappers/Form',
@@ -19,14 +20,17 @@ export default {
         CheckboxComponent,
         CheckboxGroupComponent,
         ComboboxComponent,
+        DateFieldComponent,
         NumberFieldComponent,
         OptionComponent,
         RadioComponent,
         RadioGroupComponent,
+        SearchFieldComponent,
         SelectComponent,
         SwitchComponent,
         TextFieldComponent,
-        TextAreaComponent
+        TextAreaComponent,
+        TimeFieldComponent
       ]
     })
   ]
@@ -76,6 +80,12 @@ export const RadioGroup: StoryObj = {
   })
 };
 
+export const SearchField: StoryObj = {
+  render: () => ({
+    template: '<sl-search-field placeholder="Search..."></sl-search-field>'
+  })
+};
+
 export const Select: StoryObj = {
   render: () => ({
     template: `
@@ -103,5 +113,17 @@ export const TextField: StoryObj = {
 export const TextArea: StoryObj = {
   render: () => ({
     template: '<sl-text-area></sl-text-area>'
+  })
+};
+
+export const DateField: StoryObj = {
+  render: () => ({
+    template: '<sl-date-field></sl-date-field>'
+  })
+};
+
+export const TimeField: StoryObj = {
+  render: () => ({
+    template: '<sl-time-field></sl-time-field>'
   })
 };

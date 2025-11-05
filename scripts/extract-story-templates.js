@@ -19,7 +19,7 @@ class StoryTemplateExtractor {
   /**
    * Normalize indentation by removing common leading whitespace
    */
-  normalizeIndentation(text) {
+  normalizeIndentation(text, baseIndent = 0) {
     if (!text) return text;
 
     const lines = text.split('\n');
@@ -46,7 +46,7 @@ class StoryTemplateExtractor {
     // Remove the common indentation from all lines
     return lines.map(line => {
       if (line.trim().length === 0) return ''; // Keep empty lines empty
-      return line.substring(minIndent);
+      return line.substring(Math.max(minIndent - baseIndent, 0));
     }).join('\n');
   }
 
@@ -56,11 +56,11 @@ class StoryTemplateExtractor {
   extractStoriesWithJSON(content) {
     const stories = [];
 
-    // Find all story exports
-    const storyExportRegex = /export\s+const\s+(\w+):\s*StoryObj\s*=\s*{([\s\S]*?)};/g;
+    // Pattern 1: StoryObj format - export const Name: StoryObj = { ... }
+    const storyObjRegex = /export\s+const\s+(\w+):\s*StoryObj\s*=\s*{([\s\S]*?)};/g;
 
     let match;
-    while ((match = storyExportRegex.exec(content)) !== null) {
+    while ((match = storyObjRegex.exec(content)) !== null) {
       const storyName = match[1];
       const storyObjectContent = match[2];
 
@@ -82,9 +82,46 @@ class StoryTemplateExtractor {
           });
         }
       } catch (error) {
-        console.warn(`Failed to parse story ${storyName}:`, error.message);
-        // Fallback to regex for this story
-        stories.push(this.extractStoryWithRegex(storyName, storyObjectContent, match[0]));
+        // Try regex fallback for this story
+        const regexResult = this.extractStoryWithRegex(storyName, storyObjectContent, match[0]);
+
+        // Only warn if regex also failed to extract a template
+        if (!regexResult.template) {
+          console.warn(`Failed to parse story ${storyName}: No template found with JSON or regex parsing`);
+        }
+
+        stories.push(regexResult);
+      }
+    }
+
+    // Pattern 2: StoryFn format - export const Name: StoryFn = () => ({ ... })
+    const storyFnRegex = /export\s+const\s+(\w+):\s*StoryFn\s*=\s*\(\)\s*=>\s*\({([\s\S]*?)}\);/g;
+
+    while ((match = storyFnRegex.exec(content)) !== null) {
+      const storyName = match[1];
+      const storyObjectContent = match[2];
+
+      try {
+        // Try to parse as JSON
+        const storyObject = this.parseStoryObjectAsJSON(storyObjectContent);
+
+        stories.push({
+          name: storyName,
+          template: storyObject.template || null,
+          props: storyObject.props || null,
+          description: storyObject.description || null,
+          fullStory: match[0]
+        });
+      } catch (error) {
+        // Try regex fallback for this story
+        const regexResult = this.extractStoryWithRegex(storyName, storyObjectContent, match[0]);
+
+        // Only warn if regex also failed to extract a template
+        if (!regexResult.template) {
+          console.warn(`Failed to parse story ${storyName}: No template found with JSON or regex parsing`);
+        }
+
+        stories.push(regexResult);
       }
     }
 

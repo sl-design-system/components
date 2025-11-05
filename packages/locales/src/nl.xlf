@@ -350,7 +350,7 @@
   <source>Select minutes</source>
   <target>Selecteer minuten</target>
 </trans-unit>
-<trans-unit id="sl.timeField.timeValueMissing">
+<trans-unit id="sl.timeField.typeMismatch">
   <source>Please enter a valid time in HH<x id="0" equiv-text="${this.#getTimeSeparator()}"/>MM.</source>
   <target>Voer een geldige tijd in als HH<x id="0" equiv-text="${this.#getTimeSeparator()}"/>MM.</target>
 </trans-unit>

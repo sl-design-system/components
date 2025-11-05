@@ -347,7 +347,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     if (isInvalidTime && !!this.textField.input.value) {
       this.setCustomValidity(
-        msg(str`Please enter a valid time in HH${this.#getTimeSeparator()}MM.`, { id: 'sl.timeField.timeValueMissing' })
+        msg(str`Please enter a valid time in HH${this.#getTimeSeparator()}MM.`, { id: 'sl.timeField.typeMismatch' })
       );
     } else if (this.required && !this.value) {
       this.setCustomValidity(msg('Please enter a time.', { id: 'sl.timeField.valueMissing' }));

@@ -62,7 +62,7 @@ Avoid the Time Field when only approximate periods or relative notions of time a
 |1|Container	|Wraps input and trigger, provides focus ring and error visuals. |no|
 |2|Input |Editable text field for time entry. |no|
 |3|Placeholder |Hint text when no value is set (e.g., “HH:MM”). |no|
-|3|Icon Button |Opens the dropdown. |no|
+|4|Icon Button |Opens the dropdown. |no|
 
 {.ds-table .ds-table-align-top}
 

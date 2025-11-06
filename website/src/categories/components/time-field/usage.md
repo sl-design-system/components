@@ -28,7 +28,7 @@ eleventyNavigation:
 
 ## When to use
 
-The following guidance describes when to use the text field component.
+The following guidance describes when to use the time field component.
 
 ### Precise input and fast selection
 Use the Time Field when the task requires an exact clock time and you want to accelerate entry with predictable stepped options. The split-column dropdown provides quick, scannable choices for common schedules (e.g., every 5/10/15/30 minutes) while still allowing direct typing. This is ideal for meetings, bookings, reminders, and any workflow where consistent, granular time values matter.

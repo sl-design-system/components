@@ -43,7 +43,7 @@ Use the Time Field when forms must support speed and accessibility for keyboard-
 <section>
 
 ## When not to use
-Text fields may not be the best choice in the following scenarios:
+Time fields may not be the best choice in the following scenarios:
 
 ### Relative timeframes
 Avoid the Time Field when only approximate periods or relative notions of time are needed (e.g., “morning,” “after lunch,” “end of day”). In these cases, prefer radios, a segmented control, or a select that reflects coarse time choices without implying exact HH:MM precision.

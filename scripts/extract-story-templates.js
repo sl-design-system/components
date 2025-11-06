@@ -77,13 +77,12 @@ class StoryTemplateExtractor {
             name: storyName,
             template: storyObject.template || null,
             props: storyObject.props || null,
-            description: storyObject.description || null,
-            fullStory: match[0]
+            description: storyObject.description || null
           });
         }
       } catch (error) {
         // Try regex fallback for this story
-        const regexResult = this.extractStoryWithRegex(storyName, storyObjectContent, match[0]);
+        const regexResult = this.extractStoryWithRegex(storyName, storyObjectContent);
 
         // Only warn if regex also failed to extract a template
         if (!regexResult.template) {
@@ -109,12 +108,11 @@ class StoryTemplateExtractor {
           name: storyName,
           template: storyObject.template || null,
           props: storyObject.props || null,
-          description: storyObject.description || null,
-          fullStory: match[0]
+          description: storyObject.description || null
         });
       } catch (error) {
         // Try regex fallback for this story
-        const regexResult = this.extractStoryWithRegex(storyName, storyObjectContent, match[0]);
+        const regexResult = this.extractStoryWithRegex(storyName, storyObjectContent);
 
         // Only warn if regex also failed to extract a template
         if (!regexResult.template) {
@@ -151,7 +149,7 @@ class StoryTemplateExtractor {
   /**
    * Fallback regex parsing for stories that can't be parsed as JSON
    */
-  extractStoryWithRegex(storyName, storyContent, fullStory) {
+  extractStoryWithRegex(storyName, storyContent) {
     let template = null;
     let props = null;
     let description = null;
@@ -193,8 +191,7 @@ class StoryTemplateExtractor {
       name: storyName,
       template,
       props,
-      description,
-      fullStory
+      description
     };
   }
 
@@ -248,8 +245,7 @@ class StoryTemplateExtractor {
           name: componentName,
           selector,
           template: template.trim(),
-          classContent,
-          fullComponent: componentBlock
+          classContent
         });
       }
     }
@@ -273,8 +269,7 @@ class StoryTemplateExtractor {
       fileName,
       title,
       components,
-      stories,
-      originalContent: content
+      stories
     };
   }
 

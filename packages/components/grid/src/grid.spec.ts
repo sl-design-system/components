@@ -121,6 +121,124 @@ describe('sl-grid', () => {
       expect(toggleSpy).to.have.been.calledOnce;
       expect(toggleSpy.firstCall.args[0]).to.have.property('data', el.items?.at(0));
     });
+
+    it('should set the selects property on the new data source when items are updated', async () => {
+      const newItems = [
+        { firstName: 'Alice', lastName: 'Johnson' },
+        { firstName: 'Bob', lastName: 'Wilson' }
+      ];
+
+      el.items = newItems;
+      await el.updateComplete;
+
+      expect(el.dataSource?.selects).to.equal('multiple');
+    });
+  });
+
+  describe('single select', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-grid
+          .items=${[
+            { firstName: 'John', lastName: 'Doe' },
+            { firstName: 'Jane', lastName: 'Smith' },
+            { firstName: 'Alice', lastName: 'Johnson' }
+          ]}
+          selects="single"
+          row-action="select"
+        >
+          <sl-grid-column path="firstName"></sl-grid-column>
+          <sl-grid-column path="lastName"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+    });
+
+    it('should have the selects property set to "single"', () => {
+      expect(el.selects).to.equal('single');
+      expect(el.dataSource?.selects).to.equal('single');
+    });
+
+    it('should toggle the "selected" part of the row when clicking in the row', async () => {
+      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
+      expect(row?.part.contains('selected')).to.be.true;
+    });
+
+    it('should allow only one row to be selected at a time', async () => {
+      // Select first row
+      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      let selectedRows = el.renderRoot.querySelectorAll<HTMLTableRowElement>('tbody tr[part~="selected"]');
+      expect(selectedRows).to.have.lengthOf(1);
+
+      // Select second row - should deselect first row
+      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:nth-of-type(2) td:last-of-type')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      selectedRows = el.renderRoot.querySelectorAll<HTMLTableRowElement>('tbody tr[part~="selected"]');
+      expect(selectedRows).to.have.lengthOf(1);
+
+      // Verify first row is no longer selected
+      const firstRow = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
+      expect(firstRow?.part.contains('selected')).to.be.false;
+
+      // Verify second row is selected
+      const secondRow = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:nth-of-type(2)');
+      expect(secondRow?.part.contains('selected')).to.be.true;
+    });
+
+    it('should deselect a row when clicking it again', async () => {
+      // Select a row
+      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      let row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
+      expect(row?.part.contains('selected')).to.be.true;
+
+      // Click again to deselect
+      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
+      expect(row?.part.contains('selected')).to.be.false;
+    });
+
+    it('should emit an sl-grid-selection-change event when the selection changes', () => {
+      const onSelectionChange = spy();
+
+      el.addEventListener('sl-grid-selection-change', onSelectionChange);
+
+      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
+      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:nth-of-type(2) td:last-of-type')?.click();
+
+      expect(onSelectionChange).to.have.been.calledTwice;
+    });
+
+    it('should call toggle() on the data source when a row is selected', () => {
+      const toggleSpy = spy(el.dataSource!, 'toggle');
+
+      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
+
+      expect(toggleSpy).to.have.been.calledOnce;
+      expect(toggleSpy.firstCall.args[0]).to.have.property('data', el.items?.at(0));
+    });
+
+    it('should set the selects property on the new data source when items are updated', async () => {
+      const newItems = [
+        { firstName: 'Alice', lastName: 'Johnson' },
+        { firstName: 'Bob', lastName: 'Wilson' }
+      ];
+
+      el.items = newItems;
+      await el.updateComplete;
+
+      expect(el.dataSource?.selects).to.equal('single');
+    });
   });
 
   describe('row action activate', () => {

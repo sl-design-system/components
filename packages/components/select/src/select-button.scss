@@ -9,8 +9,7 @@
   border-radius: var(--sl-size-borderRadius-default);
   color: var(--sl-color-foreground-plain);
   cursor: pointer;
-  display: flex;
-  flex: 1;
+  display: inline-flex;
   max-inline-size: 100%;
   min-inline-size: 0;
   outline: transparent solid var(--sl-size-borderWidth-focusRing);
@@ -55,7 +54,7 @@
   color: var(--sl-color-foreground-disabled);
   pointer-events: none;
 
-  .placeholder {
+  [part='placeholder'] {
     color: var(--sl-color-foreground-disabled);
   }
 }
@@ -93,7 +92,7 @@
   }
 }
 
-.placeholder {
+[part='placeholder'] {
   color: var(--sl-color-foreground-subtlest);
 }
 

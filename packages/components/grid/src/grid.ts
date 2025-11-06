@@ -313,6 +313,14 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal Emits when the selection in the grid changes. */
   @event({ name: 'sl-grid-selection-change' }) selectionChangeEvent!: EventEmitter<SlSelectionChangeEvent<T>>;
 
+  /**
+   * The selection mode for the grid. If you are using a `ListDataSource`, you should
+   * set the selection mode on the data source instead of on the grid. If you are using the
+   * `items` property, then you need to set the selection mode on the grid itself.
+   * @default undefined
+   */
+  @property() selects?: 'single' | 'multiple';
+
   /** @internal Emits when the state in the grid has changed. */
   @event({ name: 'sl-grid-state-change' }) stateChangeEvent!: EventEmitter<SlStateChangeEvent<T>>;
 
@@ -385,11 +393,15 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
 
     if (changes.has('items')) {
-      this.dataSource = this.items ? new ArrayListDataSource(this.items) : undefined;
+      this.dataSource = this.items ? new ArrayListDataSource(this.items, { selects: this.selects }) : undefined;
 
       if (this.dataSource) {
         this.#updateDataSource();
       }
+    }
+
+    if (changes.has('selects') && this.dataSource?.selects !== this.selects) {
+      this.dataSource!.selects = this.selects;
     }
 
     if (changes.has('scopedElements')) {

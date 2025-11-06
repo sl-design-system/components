@@ -60,7 +60,7 @@ Avoid the Time Field when only approximate periods or relative notions of time a
 |Item|Name| Description | Optional|
 |-|-|-|-|
 |1|Container	|Wraps input and trigger, provides focus ring and error visuals. |no|
-|2|Input |Editable text field for time entry. |no|
+|2|Input |Editable time field for time entry. |no|
 |3|Placeholder |Hint text when no value is set (e.g., “HH:MM”). |no|
 |4|Icon Button |Opens the dropdown. |no|
 
@@ -94,9 +94,9 @@ With these options you can tweak the appearance of the time field in Figma. They
 
 |Item|Options|Description|
 |-|-|-|
-|Open|`on` or `off`|The text field is available in two sizes. If not specified the default value is `md` (medium).|
+|Open|`on` or `off`|The time field is available in two sizes. If not specified the default value is `md` (medium).|
 |Variant|`default` `valid` `invalid`| When you're working on a scenario where you show what happens when a field is skipped or filled in incorrectly you can choose a different variant to show this.|
-|Size|`md` `lg`|The text field is available in two sizes. If not specified the default value is `md` (medium).|
+|Size|`md` `lg`|The time field is available in two sizes. If not specified the default value is `md` (medium).|
 |Placeholder|`on` or `off`|If the setting is enabled, the placeholder will be visible, whereas if it is disabled, the user's input will be displayed. Default value is `off`.|
 |Text|`value`|Use placeholder text to give the user a short hint about what they need to input (e.g. a sample value or a short description of the expected format). Placeholder is not a replacement for labels. It's an optional feature that disappears once users begin entering their data. |
 |Placeholder text|`value`|Use placeholder text to give the user a short hint about what they need to input (e.g. a sample value or a short description of the expected format). Placeholder is not a replacement for labels. It's an optional feature that disappears once users begin entering their data. |

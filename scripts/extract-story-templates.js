@@ -360,9 +360,49 @@ ${story.props}
   }
 
   /**
+   * Check if source file is newer than output file
+   */
+  isSourceNewer(sourceFile, outputFile) {
+    if (!fs.existsSync(outputFile)) {
+      return true; // Output doesn't exist, need to generate
+    }
+
+    const sourceStats = fs.statSync(sourceFile);
+    const outputStats = fs.statSync(outputFile);
+
+    return sourceStats.mtime > outputStats.mtime;
+  }
+
+  /**
+   * Process a single story file
+   */
+  processSingleStory(file, forceRegenerate = false) {
+    const filePath = path.join(this.angularStoriesPath, file);
+    const fileName = path.basename(file, '.stories.ts');
+    const outputFile = path.join(this.outputPath, `${fileName}.mdx`);
+
+    // Check if regeneration is needed
+    if (!forceRegenerate && !this.isSourceNewer(filePath, outputFile)) {
+      return { skipped: true, reason: 'up-to-date' };
+    }
+
+    const storyData = this.parseStoryFile(filePath);
+
+    if (storyData.components.length > 0 || storyData.stories.length > 0) {
+      const mdxContent = this.generateMDX(storyData);
+      fs.writeFileSync(outputFile, mdxContent);
+      return { success: true, outputFile: `${fileName}.mdx` };
+    } else {
+      return { skipped: true, reason: 'no-content' };
+    }
+  }
+
+  /**
    * Process all story files in the Angular stories directory
    */
-  processAllStories() {
+  processAllStories(forceRegenerate = false) {
+    const startTime = Date.now();
+
     if (!fs.existsSync(this.angularStoriesPath)) {
       console.error(`Stories directory not found: ${this.angularStoriesPath}`);
       return;
@@ -378,22 +418,28 @@ ${story.props}
 
     console.log(`Found ${storyFiles.length} story files to process...`);
 
+    let processed = 0;
+    let skipped = 0;
+    let upToDate = 0;
+
     storyFiles.forEach(file => {
-      const filePath = path.join(this.angularStoriesPath, file);
-      const storyData = this.parseStoryFile(filePath);
+      const result = this.processSingleStory(file, forceRegenerate);
 
-      if (storyData.components.length > 0 || storyData.stories.length > 0) {
-        const mdxContent = this.generateMDX(storyData);
-        const outputFile = path.join(this.outputPath, `${storyData.fileName}.mdx`);
-
-        fs.writeFileSync(outputFile, mdxContent);
-        console.log(`✅ Generated: ${storyData.fileName}.mdx`);
+      if (result.success) {
+        console.log(`✅ Generated: ${result.outputFile}`);
+        processed++;
+      } else if (result.reason === 'up-to-date') {
+        console.log(`⏭️  Skipped: ${file} (up-to-date)`);
+        upToDate++;
       } else {
-        console.log(`⚠️  Skipped ${file}: No components or stories found`);
+        console.log(`⚠️  Skipped: ${file} (${result.reason})`);
+        skipped++;
       }
     });
 
-    console.log('\n🎉 Template extraction complete!');
+    const duration = Date.now() - startTime;
+    console.log(`\n🎉 Template extraction complete! (${duration}ms)`);
+    console.log(`📊 Processed: ${processed}, Up-to-date: ${upToDate}, Skipped: ${skipped}`);
     console.log(`📁 Generated files are in: ${this.outputPath}`);
   }
 
@@ -409,13 +455,44 @@ ${story.props}
         const filePath = path.join(this.angularStoriesPath, filename);
 
         if (fs.existsSync(filePath)) {
-          const storyData = this.parseStoryFile(filePath);
-          const mdxContent = this.generateMDX(storyData);
-          const outputFile = path.join(this.outputPath, `${storyData.fileName}.mdx`);
+          const result = this.processSingleStory(filename, true); // Force regenerate for changed files
 
-          fs.writeFileSync(outputFile, mdxContent);
-          console.log(`✅ Regenerated: ${outputFile}`);
+          if (result.success) {
+            console.log(`✅ Regenerated: ${result.outputFile}`);
+          } else {
+            console.log(`⚠️  Failed to regenerate ${filename}: ${result.reason}`);
+          }
         }
+      }
+    });
+  }
+
+  /**
+   * Process specific files (for CLI usage)
+   */
+  processSpecificFiles(filePatterns) {
+    const storyFiles = fs.readdirSync(this.angularStoriesPath)
+      .filter(file => file.endsWith('.stories.ts'))
+      .filter(file => {
+        return filePatterns.some(pattern => {
+          return file.includes(pattern) || file === pattern;
+        });
+      });
+
+    if (storyFiles.length === 0) {
+      console.log(`No matching files found for patterns: ${filePatterns.join(', ')}`);
+      return;
+    }
+
+    console.log(`Processing ${storyFiles.length} matching files...`);
+
+    storyFiles.forEach(file => {
+      const result = this.processSingleStory(file, true);
+
+      if (result.success) {
+        console.log(`✅ Generated: ${result.outputFile}`);
+      } else {
+        console.log(`⚠️  Skipped: ${file} (${result.reason})`);
       }
     });
   }
@@ -425,9 +502,44 @@ ${story.props}
 const args = process.argv.slice(2);
 const extractor = new StoryTemplateExtractor();
 
-if (args.includes('--watch')) {
-  extractor.processAllStories();
+// Parse command line arguments
+const hasWatch = args.includes('--watch');
+const hasForce = args.includes('--force');
+const hasHelp = args.includes('--help') || args.includes('-h');
+
+// Extract file patterns (arguments that don't start with --)
+const filePatterns = args.filter(arg => !arg.startsWith('--'));
+
+if (hasHelp) {
+  console.log(`
+📚 Story Template Extractor
+
+Usage:
+  node extract-story-templates.js [options] [file-patterns]
+
+Options:
+  --watch         Watch for changes and regenerate automatically
+  --force         Force regeneration of all files (ignore timestamps)
+  --help, -h      Show this help message
+
+Examples:
+  node extract-story-templates.js                    # Process all files (incremental)
+  node extract-story-templates.js --force            # Force regenerate all files
+  node extract-story-templates.js --watch            # Watch mode
+  node extract-story-templates.js wrappers-form      # Process only wrappers-form.stories.ts
+  node extract-story-templates.js accordion tooltip  # Process specific files
+`);
+  process.exit(0);
+}
+
+if (filePatterns.length > 0) {
+  // Process specific files
+  extractor.processSpecificFiles(filePatterns);
+} else if (hasWatch) {
+  // Watch mode: process all files once, then watch
+  extractor.processAllStories(hasForce);
   extractor.watch();
 } else {
-  extractor.processAllStories();
+  // Normal mode: process all files
+  extractor.processAllStories(hasForce);
 }

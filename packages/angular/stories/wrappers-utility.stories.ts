@@ -14,6 +14,8 @@ export default {
 
 export const EllipsizeText: StoryObj = {
   render: () => ({
+    description:
+      'The ellipsize-text component truncates long text with an ellipsis when it exceeds the container width.',
     template: `
       <sl-ellipsize-text style="width: 200px;">
         This is a very long text that will be ellipsized when it exceeds the container width

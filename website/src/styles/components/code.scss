@@ -147,7 +147,7 @@ pre[class*='language-'] {
 .token.constant,
 .token.symbol,
 .token.deleted {
-  color: var(--control-color-code-text-danger); // TODO: deprecated used... needs to be replaced
+  color: var(--control-color-code-text-danger);
 }
 
 .token.keyword,

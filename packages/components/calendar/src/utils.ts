@@ -5,26 +5,52 @@ export type IndicatorColor = 'blue' | 'red' | 'yellow' | 'green' | 'grey';
 export type Indicator = { date: Date; color?: IndicatorColor; label?: string };
 
 export interface Day {
-  ariaCurrent?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false';
-  ariaPressed?: 'true' | 'false' | 'mixed';
-  autosuggest?: boolean;
+  /** Whether this day is in the current month. */
   currentMonth?: boolean;
+
+  /** The date of the day. */
   date: Date;
+
+  /** Whether this day is disabled. */
   disabled?: boolean;
-  focused?: boolean;
+
+  /**
+   * Whether this day is the first enabled day of the month. You cannot navigate
+   * past this day using keyboard navigation.
+   */
+  firstActiveDayOfMonth?: boolean;
+
+  /** Whether this day is in the future. */
   future?: boolean;
-  highlight?: boolean;
+
+  /** Whether this day has an indicator. */
   indicator?: { color?: IndicatorColor; label?: string };
-  lastDayOfMonth?: boolean;
-  negative?: boolean;
+
+  /**
+   * Whether this day is the last enabled day of the month. You cannot navigate
+   * past this date using keyboard navigation.
+   */
+  lastActiveDayOfMonth?: boolean;
+
+  /** Whether this day is in the next month. */
   nextMonth?: boolean;
+
+  /** Whether this day is out of range (before min, after max). */
   outOfRange?: boolean;
+
+  /** Whether this day is in the past. */
   past?: boolean;
+
+  /** Whether this day is in the previous month. */
   previousMonth?: boolean;
-  range?: boolean;
+
+  /** Whether this day is the first day of the week. */
   startOfWeek?: boolean;
-  tabindex?: string;
+
+  /** Whether this day is today. */
   today?: boolean;
+
+  /** The index of the day within the week (0..6). */
   weekOrder?: number;
 }
 
@@ -197,6 +223,15 @@ export function createPeriod(
     nextWeek = createWeek(firstDayOfNextWeek, weekOptions);
   } while (nextWeek.days[0].date <= end);
 
+  // Mark the first and last selectable days in the period
+  const allDays = calendar.weeks.flatMap(week => week.days);
+  const selectableDays = allDays.filter(day => !day.disabled && !day.outOfRange);
+
+  if (selectableDays.length > 0) {
+    selectableDays[0].firstActiveDayOfMonth = true;
+    selectableDays[selectableDays.length - 1].lastActiveDayOfMonth = true;
+  }
+
   return calendar;
 }
 
@@ -235,6 +270,16 @@ export function createMonth(
     firstDayOfNextWeek.setDate(firstDayOfNextWeek.getDate() + 1); // make it first day of next week
     nextWeek = createWeek(firstDayOfNextWeek, weekOptions);
   } while (nextWeek.days[0].date.getMonth() === monthNumber);
+
+  // Find and mark the first and last active (selectable) days of the current month
+  const currentMonthDays = month.weeks
+    .flatMap(week => week.days)
+    .filter(day => day.currentMonth && !day.disabled && !day.outOfRange);
+
+  if (currentMonthDays.length > 0) {
+    currentMonthDays[0].firstActiveDayOfMonth = true;
+    currentMonthDays[currentMonthDays.length - 1].lastActiveDayOfMonth = true;
+  }
 
   return month;
 }
@@ -301,23 +346,19 @@ export function createDay(
   const today = normalizeDateTime(new Date()),
     indicator = indicatorDates?.find(i => isSameDate(i.date, date)),
     currentMonth = relativeMonth.getMonth(),
-    isToday = showToday && isSameDate(date, today),
-    lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+    isToday = showToday && isSameDate(date, today);
 
   return {
-    ariaCurrent: isToday ? 'date' : undefined,
     currentMonth: date.getMonth() === currentMonth,
     date,
     disabled: isDateInList(date, disabledDates),
     future: date > today,
     indicator: indicator ? { color: indicator.color, label: indicator.label } : undefined,
-    lastDayOfMonth: date.getDate() === lastDayOfMonth,
     nextMonth: date.getMonth() > currentMonth,
     outOfRange: (min && date < min) || (max && date > max),
     past: date < today,
     previousMonth: date.getMonth() < currentMonth,
     startOfWeek,
-    tabindex: '-1',
     today: isToday,
     weekOrder
   };

@@ -244,9 +244,7 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         min,
         showToday
       });
-    }
 
-    if (changes.has('max') || changes.has('min') || changes.has('month')) {
       this.#rovingTabindexController.clearElementCache();
     }
   }
@@ -316,16 +314,7 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
     // If the custom renderer returned `undefined`, we fall back to the default rendering
     if (!template) {
-      /**
-       * A button should autofocus when:
-       * - it is the selected date
-       * - it is today and there is no selected date
-       * - it is the first of the month and there is no selected date or today
-       */
-      const autofocus =
-        selected ||
-        (day.today && !this.selected) ||
-        (day.date.getDate() === 1 && day.currentMonth && !this.selected && !this.showToday);
+      const autofocus = this.#hasAutofocus(day, selected);
 
       template =
         this.readonly || day.disabled || day.outOfRange
@@ -402,12 +391,12 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onKeydown(event: KeyboardEvent, day: Day): void {
-    if (event.key === 'ArrowLeft' && day.currentMonth && day.date.getDate() === 1) {
+    if (event.key === 'ArrowLeft' && day.firstActiveDayOfMonth) {
       event.preventDefault();
       event.stopPropagation();
 
       this.changeEvent.emit(new Date(day.date.getFullYear(), day.date.getMonth(), 0));
-    } else if (event.key === 'ArrowRight' && day.currentMonth && day.lastDayOfMonth) {
+    } else if (event.key === 'ArrowRight' && day.lastActiveDayOfMonth) {
       event.preventDefault();
       event.stopPropagation();
 
@@ -416,6 +405,8 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       // Whether it's possible to move to the same weekday in previous weeks (skipping disabled)
       const possibleDay = this.#getEnabledSameWeekday(day.date, -1);
       if (!possibleDay) {
+        event.preventDefault();
+        event.stopPropagation();
         return;
       }
 
@@ -432,6 +423,8 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       // Whether it's possible to move to the same weekday in following weeks (skipping disabled)
       const possibleDay = this.#getEnabledSameWeekday(day.date, 1);
       if (!possibleDay) {
+        event.preventDefault();
+        event.stopPropagation();
         return;
       }
 
@@ -474,5 +467,26 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     };
 
     return findEnabledSameWeekday(start);
+  }
+
+  /**
+   * Determines if a button should autofocus.
+   * A button should autofocus when:
+   * - it is the selected date
+   * - or it is today
+   * - or it is the first enabled day of the month
+   */
+  #hasAutofocus(day: Day, selected: boolean): boolean {
+    const isFirstEnabledDay =
+      day.currentMonth &&
+      !day.disabled &&
+      !day.outOfRange &&
+      !this.selected &&
+      !this.showToday &&
+      !this.calendar?.weeks.some(week =>
+        week.days.some(d => d.currentMonth && !d.disabled && !d.outOfRange && d.date < day.date)
+      );
+
+    return !!(selected || (day.today && !this.selected) || isFirstEnabledDay);
   }
 }

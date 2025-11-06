@@ -606,8 +606,37 @@ describe('sl-month-view', () => {
       el.focus();
 
       expect(el.shadowRoot?.activeElement).to.exist;
-      expect(el.shadowRoot?.activeElement).to.match('button[part~="day"]');
+      expect(el.shadowRoot?.activeElement).to.have.attribute('autofocus');
       expect(el.shadowRoot?.activeElement).to.have.trimmed.text('1');
+      expect(el.shadowRoot?.activeElement).to.match('button[part~="day"]');
+    });
+
+    it('should focus the first enabled day of the month on initial focus', async () => {
+      el.disabledDates = [
+        new Date(el.month.getFullYear(), el.month.getMonth(), 1),
+        new Date(el.month.getFullYear(), el.month.getMonth(), 2),
+        new Date(el.month.getFullYear(), el.month.getMonth(), 3)
+      ];
+      await el.updateComplete;
+
+      el.focus();
+
+      expect(el.shadowRoot?.activeElement).to.exist;
+      expect(el.shadowRoot?.activeElement).to.have.attribute('autofocus');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('4');
+      expect(el.shadowRoot?.activeElement).to.match('button[part~="day"]');
+    });
+
+    it('should focus the first day that is not out of range on initial focus', async () => {
+      el.min = new Date(el.month.getFullYear(), el.month.getMonth(), 5);
+      await el.updateComplete;
+
+      el.focus();
+
+      expect(el.shadowRoot?.activeElement).to.exist;
+      expect(el.shadowRoot?.activeElement).to.have.attribute('autofocus');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('5');
+      expect(el.shadowRoot?.activeElement).to.match('button[part~="day"]');
     });
 
     it('should focus today on initial focus when showToday is set', async () => {
@@ -617,8 +646,9 @@ describe('sl-month-view', () => {
       el.focus();
 
       expect(el.shadowRoot?.activeElement).to.exist;
-      expect(el.shadowRoot?.activeElement).to.match('button[part~="today"]');
+      expect(el.shadowRoot?.activeElement).to.have.attribute('autofocus');
       expect(el.shadowRoot?.activeElement).to.have.trimmed.text('14');
+      expect(el.shadowRoot?.activeElement).to.match('button[part~="today"]');
     });
 
     it('should focus the selected day on initial focus if set', async () => {
@@ -628,8 +658,9 @@ describe('sl-month-view', () => {
       el.focus();
 
       expect(el.shadowRoot?.activeElement).to.exist;
-      expect(el.shadowRoot?.activeElement).to.match('button[part~="selected"]');
+      expect(el.shadowRoot?.activeElement).to.have.attribute('autofocus');
       expect(el.shadowRoot?.activeElement).to.have.trimmed.text('20');
+      expect(el.shadowRoot?.activeElement).to.match('button[part~="selected"]');
     });
 
     it('should focus the next day on arrow right', async () => {
@@ -655,6 +686,33 @@ describe('sl-month-view', () => {
       expect(el.shadowRoot?.activeElement).to.have.trimmed.text('13');
     });
 
+    it('should not change focus when pressing arrow left on the first enabled day of the month', async () => {
+      el.min = new Date(el.month.getFullYear(), el.month.getMonth(), 10);
+      await el.updateComplete;
+
+      el.focus();
+
+      await userEvent.keyboard('{ArrowLeft}');
+
+      expect(el.shadowRoot?.activeElement).to.exist;
+      expect(el.shadowRoot?.activeElement).to.match('button[part~="day"]');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('10');
+    });
+
+    it('should not change focus when pressing arrow right on the last enabled day of the month', async () => {
+      el.selected = new Date(2023, 2, 20);
+      el.max = new Date(el.month.getFullYear(), el.month.getMonth(), 20);
+      await el.updateComplete;
+
+      el.focus();
+
+      await userEvent.keyboard('{ArrowRight}');
+
+      expect(el.shadowRoot?.activeElement).to.exist;
+      expect(el.shadowRoot?.activeElement).to.match('button[part~="day"]');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('20');
+    });
+
     it('should focus the day below on arrow down', async () => {
       el.focus();
 
@@ -663,6 +721,20 @@ describe('sl-month-view', () => {
       expect(el.shadowRoot?.activeElement).to.exist;
       expect(el.shadowRoot?.activeElement).to.match('button[part~="day"]');
       expect(el.shadowRoot?.activeElement).to.have.trimmed.text('8');
+    });
+
+    it('should not change focus when pressing arrow down where there is no enabled day of the month below it', async () => {
+      el.selected = new Date(2023, 2, 24);
+      el.max = new Date(el.month.getFullYear(), el.month.getMonth(), 30);
+      await el.updateComplete;
+
+      el.focus();
+
+      await userEvent.keyboard('{ArrowDown}');
+
+      expect(el.shadowRoot?.activeElement).to.exist;
+      expect(el.shadowRoot?.activeElement).to.match('button[part~="day"]');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('24');
     });
 
     it('should focus the day above on arrow up', async () => {
@@ -676,6 +748,20 @@ describe('sl-month-view', () => {
       expect(el.shadowRoot?.activeElement).to.exist;
       expect(el.shadowRoot?.activeElement).to.match('button[part~="day"]');
       expect(el.shadowRoot?.activeElement).to.have.trimmed.text('7');
+    });
+
+    it('should not change focus when pressing arrow up where there is no enabled day of the month above it', async () => {
+      el.min = new Date(el.month.getFullYear(), el.month.getMonth(), 2);
+      el.selected = new Date(2023, 2, 8);
+      await el.updateComplete;
+
+      el.focus();
+
+      await userEvent.keyboard('{ArrowUp}');
+
+      expect(el.shadowRoot?.activeElement).to.exist;
+      expect(el.shadowRoot?.activeElement).to.match('button[part~="day"]');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('8');
     });
 
     it('should emit an sl-change event after pressing arrow left on the first day of the current month', async () => {

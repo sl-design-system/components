@@ -88,7 +88,7 @@ Avoid the Time Field when only approximate periods or relative notions of time a
 
 ## Figma Options
 
-With these options you can tweak the appearance of the text field in Figma. They are available in the Design Panel so you can compose the text field to exactly fit the user experience need for the uses case you are working on.
+With these options you can tweak the appearance of the time field in Figma. They are available in the Design Panel so you can compose the time field to exactly fit the user experience need for the use case you are working on.
 
 <div class="ds-table-wrapper">
 

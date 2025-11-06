@@ -321,7 +321,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /**
    * Renders minute options using minuteStep and marks the selected one with aria-selected.
    * Can be overridden.
-   *  */
+   */
   renderMinutes(): TemplateResult[] {
     const minutes = Array.from({ length: 60 / this.minuteStep }, (_, i) => i * this.minuteStep);
 

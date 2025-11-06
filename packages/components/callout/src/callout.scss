@@ -1,0 +1,104 @@
+:host {
+  align-items: center;
+  background: var(--sl-color-background-info-subtlest);
+  border-radius: var(--sl-size-borderRadius-default);
+  color: var(--sl-color-foreground-info-bold);
+  display: flex;
+  gap: 0 var(--sl-size-100);
+  overflow: clip;
+  padding-block: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default));
+  padding-inline: calc(var(--sl-size-300) - var(--sl-size-borderWidth-default))
+    calc(var(--sl-size-150) - var(--sl-size-borderWidth-default));
+  position: relative;
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: 0.2s cubic-bezier(0.25, 0, 0.3, 1);
+    transition-behavior: allow-discrete;
+    transition-property: display, opacity;
+  }
+
+  @starting-style {
+    display: flex;
+    opacity: 0;
+  }
+}
+
+sl-button {
+  margin-inline-start: auto;
+}
+
+:host([no-title]) {
+  [part='title'] {
+    display: none;
+  }
+
+  [part='content'] {
+    grid-area: 1 / 2;
+  }
+}
+
+:host([size='lg']) {
+  display: grid;
+  grid-template-columns: auto 1fr var(--sl-size-300);
+  padding: calc(var(--sl-size-300) - var(--sl-size-borderWidth-default));
+
+  [part='icon'] {
+    align-self: start;
+  }
+
+  sl-button {
+    align-self: start;
+    grid-area: 1 / 3;
+    inset-block-start: calc(var(--sl-size-150) * -1);
+    position: absolute;
+  }
+
+  [part='content'] {
+    grid-column: 2;
+  }
+}
+
+:host([size='lg'][indismissible]) {
+  grid-template-columns: auto 1fr;
+}
+
+:host([variant='success']) {
+  background: var(--sl-color-background-positive-subtlest);
+  color: var(--sl-color-foreground-positive-bold);
+}
+
+:host([variant='danger']) {
+  background: var(--sl-color-background-negative-subtlest);
+  color: var(--sl-color-foreground-negative-bold);
+}
+
+:host([variant='warning']) {
+  background: var(--sl-color-background-caution-subtlest);
+  color: var(--sl-color-foreground-caution-bold);
+}
+
+[part='icon'] {
+  align-items: center;
+  block-size: 1lh;
+  display: inline-flex;
+}
+
+[part='title'] {
+  align-self: start;
+  /* stylelint-disable-next-line number-max-precision */
+  font-size: 1.1428571429em;
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+  grid-area: 1 / 2;
+  margin-block-end: var(--sl-size-025);
+
+  slot {
+    display: block;
+  }
+}
+
+[part='content'] {
+  slot {
+    display: block;
+    text-wrap: pretty;
+  }
+}

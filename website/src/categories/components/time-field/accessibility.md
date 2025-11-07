@@ -32,7 +32,7 @@ The time field supports keyboard navigation for both the input and the dropdown 
 
 ## WAI-ARIA
 
-WAI-ARIA roles, states, and properties used in the time field component:
+{{ 'aria-attributes' | recurringText }}
 
 <div class="ds-table-wrapper">
 

@@ -100,7 +100,7 @@ With these options you can tweak the appearance of the time field in Figma. They
 |Placeholder|`on` or `off`|If the setting is enabled, the placeholder will be visible, whereas if it is disabled, the user's input will be displayed. Default value is `off`.|
 |Text|`value`|Use placeholder text to give the user a short hint about what they need to input (e.g. a sample value or a short description of the expected format). Placeholder is not a replacement for labels. It's an optional feature that disappears once users begin entering their data. |
 |Placeholder text|`value`|Use placeholder text to give the user a short hint about what they need to input (e.g. a sample value or a short description of the expected format). Placeholder is not a replacement for labels. It's an optional feature that disappears once users begin entering their data. |
-|Label|`value`|Provide users with additional context about the time field's functionality by adding a label, ensuring clarity and ease of use.|
+|Label|`value`|Provide users with a clear, concise label of what input you expect in this field.|
 
 {.ds-table .ds-table-align-top}
 
@@ -120,13 +120,13 @@ Users can type any valid HH:MM time, regardless of whether it is a step time. Th
 When steps are configured, the dropdown shows fixed, non-reordering stepped options in the hour and/or minute columns. These options act as shortcuts while typed input remains unrestricted. The dropdown content and order remain unchanged regardless of the user's input.
 
 ### Enforced Steps (Optional)
-When enforceSteps=true, only stepped values are valid. If a user types an invalid time, a validation message appears after the field is blurred (i.e., when the user leaves the field). The typed value remains visible until corrected. The dropdown content and order still do not change.
+When `enforceSteps` = `true`, only stepped values are valid. If a user types an invalid time, a validation message appears after the field is blurred (i.e., when the user leaves the field). The typed value remains visible until corrected. The dropdown content and order still do not change.
 
 ### Keyboard Navigation
-Press Tab to focus the field, and then press Enter/Space to open the dropdown. Use the Arrow keys to navigate the hour and minute columns. Typing in the input updates the value; in strict mode, off-step values are validated when the field loses focus. Press Esc to close the dropdown and return focus to the input.
+Press Tab to focus the field and start typing or press tab again so the focus moves to the clock icon and then press Enter/Space to open the dropdown. Use the Arrow keys to navigate the hour and minute columns. Typing in the input updates the value; in strict mode, off-step values are validated when the field loses focus. Press Esc to close the dropdown and return focus to the input.
 
 ### How to Open the Dropdown
-Click on the field or dropdown button, or press Enter/Space when the field has focus.
+Click on the field or dropdown button, or press Enter/Space when the button with the clock icon has focus.
 
 ### Formatting & Validation
 The control accepts and normalises valid times as HH:MM. Optional minTime / maxTime constraints may be applied with clear validation messages. When enforceSteps=true, error text should indicate the required step pattern (e.g., “Select a time in 15-minute steps: 00, 15, 30, 45”).

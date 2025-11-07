@@ -20,7 +20,7 @@ The time field supports keyboard navigation for both the input and the dropdown 
 |Escape| Closes the time picker dropdown.                                                                                                                                         |
 |Arrow Up/Down (in dropdown)| Navigates through the hour or minute options in the currently focused column.                                                                                            |
 |Arrow Left/Right (in dropdown)| Switches focus between the hour and minute columns.                                                                                                                      |
-|Enter (in dropdown)| Selects the currently focused time option and closes the dropdown.                                                                                                       ||
+|Enter (in dropdown)| Selects the currently focused time option and closes the dropdown.                                                                                                       |
 
 {.ds-table .ds-table-align-top}
 

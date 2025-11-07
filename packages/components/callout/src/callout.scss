@@ -58,9 +58,9 @@ sl-button {
   }
 }
 
-:host([size='lg'][indismissible]) {
-  grid-template-columns: auto 1fr;
-}
+// :host([size='lg'][indismissible]) {
+//  grid-template-columns: auto 1fr;
+// }
 
 :host([variant='success']) {
   background: var(--sl-color-background-positive-subtlest);

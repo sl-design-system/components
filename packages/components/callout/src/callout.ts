@@ -1,17 +1,11 @@
 import { localized } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { announce } from '@sl-design-system/announcer';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './callout.scss.js';
 
 declare global {
-  interface GlobalEventHandlersEventMap {
-    'sl-dismiss': SlDismissEvent;
-  }
-
   interface HTMLElementTagNameMap {
     'sl-callout': Callout;
   }
@@ -20,8 +14,6 @@ declare global {
 export type CalloutSize = 'auto' | 'sm' | 'md' | 'lg';
 
 export type CalloutVariant = 'info' | 'success' | 'warning' | 'danger';
-
-export type SlDismissEvent = CustomEvent<void>;
 
 /**
  * A callout component for displaying additional information. Meant to be used with actions and should not be dynamically shown as the inline-message.
@@ -42,20 +34,17 @@ export class Callout extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** Timeout id, to be used with `clearTimeout`. */
-  #announceTimeoutId?: ReturnType<typeof setTimeout>;
-
   /** Timer used for breaking a possible resize observer loop. */
   #breakResizeObserverLoop?: ReturnType<typeof setTimeout>;
 
-  /** @internal Body content that will be sent to the announcer. */
-  #content?: string;
+  // /** @internal Body content that will be sent to the announcer. */
+  // #content?: string;
 
-  /** The last announced content, used to prevent duplicate announcements. */
-  #lastAnnouncedContent?: string;
-
-  /** The last announced title, used to prevent duplicate announcements. */
-  #lastAnnouncedTitle?: string;
+  // /** The last announced content, used to prevent duplicate announcements. */
+  // #lastAnnouncedContent?: string;
+  //
+  // /** The last announced title, used to prevent duplicate announcements. */
+  // #lastAnnouncedTitle?: string;
 
   /** Observe the size and determine where to place the action button if present. */
   #observer = new ResizeObserver(entries => this.#onResize(entries[0]));
@@ -66,14 +55,11 @@ export class Callout extends ScopedElementsMixin(LitElement) {
   /** The current size. */
   #size: CalloutSize = 'auto';
 
-  /** @internal Title (if visible) that will be sent to the announcer. */
-  #title?: string;
+  // /** @internal Title (if visible) that will be sent to the announcer. */
+  // #title?: string;
 
   /** @internal If the content spans more than 2 lines, this will be true. */
   @state() contentOverflow?: boolean;
-
-  /** @internal Emits when the inline message is dismissed. */
-  @event({ name: 'sl-dismiss' }) dismissEvent!: EventEmitter<SlDismissEvent>;
 
   /** @internal The name of the icon, depending on the variant. */
   get iconName(): string {
@@ -89,12 +75,12 @@ export class Callout extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  /**
-   * If set, will remove the ability to dismiss the inline message by removing
-   * the close button.
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true }) indismissible?: boolean;
+  // /**
+  //  * If set, will remove the ability to dismiss the inline message by removing
+  //  * the close button.
+  //  * @default false
+  //  */
+  // @property({ type: Boolean, reflect: true }) indismissible?: boolean;
 
   /** @internal If the action is missing, we need to hide the action part. */
   @property({ type: Boolean, attribute: 'no-action', reflect: true }) noAction = true;
@@ -141,11 +127,6 @@ export class Callout extends ScopedElementsMixin(LitElement) {
       this.#breakResizeObserverLoop = undefined;
     }
 
-    if (this.#announceTimeoutId) {
-      clearTimeout(this.#announceTimeoutId);
-      this.#announceTimeoutId = undefined;
-    }
-
     super.disconnectedCallback();
   }
 
@@ -176,11 +157,6 @@ export class Callout extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  // #onClick(): void {
-  //   this.dismissEvent.emit();
-  //   this.remove();
-  // }
-
   #onResize(entry: ResizeObserverEntry): void {
     const lineHeight = parseInt(getComputedStyle(this).lineHeight),
       contentOverflow = entry.contentRect.height / lineHeight > 2;
@@ -206,18 +182,20 @@ export class Callout extends ScopedElementsMixin(LitElement) {
   }
 
   #onContentSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    this.#content = Array.from(event.target.assignedNodes({ flatten: true }))
-      .flatMap(node => {
-        if (node.nodeType === Node.TEXT_NODE) {
-          return [node.textContent?.trim()];
-        } else if (node.nodeType === Node.ELEMENT_NODE && !(node instanceof HTMLStyleElement)) {
-          return Array.from((node as HTMLElement).innerText.split(' ')).map(text => text.trim());
-        }
-        return [];
-      })
-      .join(' ');
+    console.log('content slot changed', event.target.assignedNodes({ flatten: true }));
 
-    this.#announce();
+    // this.#content = Array.from(event.target.assignedNodes({ flatten: true }))
+    //   .flatMap(node => {
+    //     if (node.nodeType === Node.TEXT_NODE) {
+    //       return [node.textContent?.trim()];
+    //     } else if (node.nodeType === Node.ELEMENT_NODE && !(node instanceof HTMLStyleElement)) {
+    //       return Array.from((node as HTMLElement).innerText.split(' ')).map(text => text.trim());
+    //     }
+    //     return [];
+    //   })
+    //   .join(' ');
+
+    // this.#announce();
   }
 
   #onTitleSlotChange(event: Event & { target: HTMLSlotElement }): void {
@@ -225,39 +203,19 @@ export class Callout extends ScopedElementsMixin(LitElement) {
       node => node.nodeType === Node.ELEMENT_NODE || node.textContent?.trim()
     );
 
-    this.#title = event.target
-      .assignedNodes({ flatten: true })
-      .flatMap(node =>
-        node.nodeType === Node.TEXT_NODE
-          ? [node.textContent?.trim()]
-          : node.nodeType === Node.ELEMENT_NODE
-            ? Array.from(node.childNodes)
-                .filter(child => child.nodeType === Node.TEXT_NODE)
-                .map(child => child.textContent?.trim())
-            : []
-      )
-      .join(' ');
+    // this.#title = event.target
+    //   .assignedNodes({ flatten: true })
+    //   .flatMap(node =>
+    //     node.nodeType === Node.TEXT_NODE
+    //       ? [node.textContent?.trim()]
+    //       : node.nodeType === Node.ELEMENT_NODE
+    //         ? Array.from(node.childNodes)
+    //             .filter(child => child.nodeType === Node.TEXT_NODE)
+    //             .map(child => child.textContent?.trim())
+    //         : []
+    //   )
+    //   .join(' ');
 
-    this.#announce();
-  }
-
-  // Announce if needed, we don't want to have the same message announced twice
-  #announce(): void {
-    // Clear any pending announcement
-    if (this.#announceTimeoutId) {
-      clearTimeout(this.#announceTimeoutId);
-    }
-
-    // Set a short timeout to debounce multiple calls, announce only when content actually changed
-    this.#announceTimeoutId = setTimeout(() => {
-      if (this.#content !== this.#lastAnnouncedContent || this.#title !== this.#lastAnnouncedTitle) {
-        this.#lastAnnouncedContent = this.#content;
-        this.#lastAnnouncedTitle = this.#title;
-
-        announce(`${this.#title ?? ''} ${this.#content ?? ''}`, this.variant === 'danger' ? 'assertive' : 'polite');
-      }
-
-      this.#announceTimeoutId = undefined;
-    }, 50);
+    // this.#announce();
   }
 }

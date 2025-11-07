@@ -6,7 +6,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { Callout, type CalloutVariant } from './callout';
 
-interface Props extends Pick<Callout, 'indismissible' | 'size' | 'variant'> {
+interface Props extends Pick<Callout, 'size' | 'variant'> {
   title: string;
   button: string;
   body: string | (() => TemplateResult);
@@ -41,8 +41,8 @@ export default {
       options: variants
     }
   },
-  render: ({ body, indismissible, size, title, variant }) => html`
-    <sl-callout ?indismissible=${indismissible} .size=${size ?? 'auto'} variant=${ifDefined(variant)}>
+  render: ({ body, size, title, variant }) => html`
+    <sl-callout .size=${size ?? 'auto'} variant=${ifDefined(variant)}>
       ${title ? html`<span slot="title">${title}</span>` : nothing} ${typeof body === 'string' ? body : body()}
     </sl-callout>
   `
@@ -126,6 +126,21 @@ export const Sizes: Story = {
   `
 };
 
+export const WithActions: Story = {
+  render: ({ variant }) => html`
+    <style>
+      sl-callout {
+        margin-block-end: 1rem;
+      }
+    </style>
+    <sl-callout size="md" variant=${ifDefined(variant)}>
+      <span slot="title">Inline message title</span>
+      Student data export requires encrypted storage.
+      <sl-button fill="outline" variant="warning">View guide</sl-button>
+    </sl-callout>
+  `
+};
+
 export const All: StoryObj = {
   render: () => html`
     <style>
@@ -141,7 +156,7 @@ export const All: StoryObj = {
       }
     </style>
     <div class="wrapper">
-      <sl-callout indismissible>The main content of the message</sl-callout>
+      <sl-callout>The main content of the message</sl-callout>
       <sl-callout>
         Duis deserunt ad quis Lorem. Consectetur non deserunt fugiat consequat pariatur amet commodo velit ut est sunt.
         Exercitation culpa ea officia fugiat culpa laborum sit fugiat esse proident.

@@ -182,6 +182,10 @@ pre[class*='language-'] {
   color: var(--control-color-code-text-warning);
 }
 
+.token.class-name {
+  color: var(--control-color-code-text-warning);
+}
+
 .token.important,
 .token.bold {
   font-weight: 700;

@@ -85,6 +85,7 @@ import '@sl-design-system/tabs/register.js';
 import '@sl-design-system/tag/register.js';
 import '@sl-design-system/text-area/register.js';
 import '@sl-design-system/text-field/register.js';
+import '@sl-design-system/time-field/register.js';
 import '@sl-design-system/toggle-button/register.js';
 import '@sl-design-system/toggle-group/register.js';
 import '@sl-design-system/tooltip/register.js';

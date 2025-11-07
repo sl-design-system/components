@@ -1,3 +1,4 @@
+/* stylelint-disable color-no-hex */
 @media (prefers-color-scheme: dark) {
   :root {
     --component-color-input-field-background: #3366ff14;
@@ -82,10 +83,10 @@
     --control-color-visuals-guide-clickable-area: var(--colors-warning-400-warning);
     --control-color-visuals-guide-fill: var(--colors-accent-500-accent);
     --control-color-visuals-guide-text: var(--colors-neutral-base-white);
-    --control-color-code-text-neutral: var(--sl-color-palette-neutral-100);
-    --control-color-code-text-accent: var(--sl-color-palette-accent-200);
-    --control-color-code-text-danger: var(--sl-color-palette-danger-200);
-    --control-color-code-text-warning: var(--sl-color-palette-warning-200);
-    --control-color-code-text-success: var(--sl-color-palette-success-200);
+    --control-color-code-text-neutral: var(--sl-color-palette-grey-500);
+    --control-color-code-text-accent: var(--sl-color-palette-blue-500);
+    --control-color-code-text-danger: var(--sl-color-palette-red-500);
+    --control-color-code-text-warning: var(--sl-color-palette-orange-500);
+    --control-color-code-text-success: var(--sl-color-palette-green-500);
   }
 }

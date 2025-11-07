@@ -100,7 +100,7 @@ With these options you can tweak the appearance of the time field in Figma. They
 |Placeholder|`on` or `off`|If the setting is enabled, the placeholder will be visible, whereas if it is disabled, the user's input will be displayed. Default value is `off`.|
 |Text|`value`|Use placeholder text to give the user a short hint about what they need to input (e.g. a sample value or a short description of the expected format). Placeholder is not a replacement for labels. It's an optional feature that disappears once users begin entering their data. |
 |Placeholder text|`value`|Use placeholder text to give the user a short hint about what they need to input (e.g. a sample value or a short description of the expected format). Placeholder is not a replacement for labels. It's an optional feature that disappears once users begin entering their data. |
-|Label|`value`|Provide users with additional context about button functionality by adding a label, ensuring clarity and ease of use.|
+|Label|`value`|Provide users with additional context about the time field's functionality by adding a label, ensuring clarity and ease of use.|
 
 {.ds-table .ds-table-align-top}
 

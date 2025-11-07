@@ -114,7 +114,7 @@ With these options you can tweak the appearance of the time field in Figma. They
 ## Behavior
 
 ### Free Typing (Default)
-Users can type any valid HH:MM time, regardless of whether it is a step time. The component validates for format and parsability (e.g., two-digit hours/minutes within valid ranges). Step alignment is not enforced unless enforceSteps=true.
+Users can type any valid HH:MM time, regardless of whether it is a step time. The component validates for format and parsability (e.g., two-digit hours/minutes within valid ranges). Step alignment is not enforced unless `enforceSteps` = `true`.
 
 ### Stepped Options (Shortcuts)
 When steps are configured, the dropdown shows fixed, non-reordering stepped options in the hour and/or minute columns. These options act as shortcuts while typed input remains unrestricted. The dropdown content and order remain unchanged regardless of the user's input.
@@ -129,7 +129,7 @@ Press Tab to focus the field and start typing or press tab again so the focus mo
 Click on the field or dropdown button, or press Enter/Space when the button with the clock icon has focus.
 
 ### Formatting & Validation
-The control accepts and normalises valid times as HH:MM. Optional minTime / maxTime constraints may be applied with clear validation messages. When enforceSteps=true, error text should indicate the required step pattern (e.g., “Select a time in 15-minute steps: 00, 15, 30, 45”).
+The control accepts and normalises valid times as HH:MM. Optional minTime / maxTime constraints may be applied with clear validation messages. When `enforceSteps` = `true`, error text should indicate the required step pattern (e.g., “Select a time in 15-minute steps: 00, 15, 30, 45”).
 
 </section>
 

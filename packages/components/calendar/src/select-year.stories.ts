@@ -1,22 +1,22 @@
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { useArgs } from 'storybook/internal/preview-api';
 import '../register.js';
 import { SelectYear } from './select-year.js';
 
-type Props = Pick<SelectYear, 'year' | 'max' | 'min' | 'showToday'> & { styles?: string };
+type Props = Pick<SelectYear, 'max' | 'min' | 'showCurrent' | 'year'>;
 type Story = StoryObj<Props>;
 
-customElements.define('sl-select-year', SelectYear);
+try {
+  customElements.define('sl-select-year', SelectYear);
+} catch {
+  /* empty */
+}
 
 export default {
   title: 'Date & Time/Calendar/Select Year',
   tags: ['draft'],
   args: {
-    max: new Date(new Date().getFullYear(), 11, 31),
-    min: new Date(new Date().getFullYear(), 0, 1),
-    showToday: true,
     year: new Date()
   },
   argTypes: {
@@ -26,59 +26,37 @@ export default {
     min: {
       control: 'date'
     },
-    showToday: {
+    showCurrent: {
       control: 'boolean'
-    },
-    styles: {
-      table: { disable: true }
     },
     year: {
       control: 'date'
     }
   },
-  render: ({ max, min, styles, showToday, year }) => {
-    const [_, updateArgs] = useArgs();
-    const parseDate = (value: string | Date | undefined): Date | undefined => {
-      if (!value) {
-        return undefined;
-      }
-
-      return value instanceof Date ? value : new Date(value);
-    };
-
-    const onSelectYear = (event: CustomEvent<Date>) => {
-      updateArgs({ year: new Date(event.detail.getFullYear()).getTime() }); //needs to be set to the 'time' otherwise Storybook chokes on the date format 🤷
-    };
-
+  render: ({ max, min, showCurrent, year }) => {
     return html`
-      <style>
-        ${styles} .container {
-          display: inline-grid;
-          grid-template-columns: 1fr;
-        }
-
-        sl-select-year {
-          grid-area: 1 / 1;
-          inline-size: 100%;
-        }
-      </style>
-      <div class="container">
-        <sl-select-year
-          @sl-select=${onSelectYear}
-          max=${ifDefined(parseDate(max)?.toISOString())}
-          min=${ifDefined(parseDate(min)?.toISOString())}
-          show-today=${ifDefined(showToday)}
-          year=${ifDefined(parseDate(year)?.toISOString())}
-        ></sl-select-year>
-      </div>
+      <sl-select-year
+        ?show-current=${showCurrent}
+        max=${ifDefined(max?.toISOString())}
+        min=${ifDefined(min?.toISOString())}
+        year=${ifDefined(year?.toISOString())}
+      ></sl-select-year>
     `;
   }
 } satisfies Meta<Props>;
 
-export const Basic: Story = {
+export const Basic: Story = {};
+
+export const MinMax: Story = {
   args: {
     max: new Date(2025, 10, 1),
     min: new Date(2022, 2, 1),
     year: new Date(2025, 7, 1)
+  }
+};
+
+export const ShowCurrent: Story = {
+  args: {
+    showCurrent: true
   }
 };

@@ -5,7 +5,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { useArgs } from 'storybook/internal/preview-api';
 import '../register.js';
 import { type Calendar } from './calendar.js';
-import { IndicatorColor } from './utils.js';
+import { type Indicator, IndicatorColor } from './utils.js';
 
 type Props = Pick<
   Calendar,
@@ -16,7 +16,6 @@ type Props = Pick<
   | 'max'
   | 'min'
   | 'month'
-  | 'negative'
   | 'readonly'
   | 'selected'
   | 'showToday'
@@ -57,9 +56,6 @@ export default {
     month: {
       control: 'date'
     },
-    negative: {
-      control: 'date'
-    },
     selected: {
       control: 'date'
     }
@@ -72,7 +68,6 @@ export default {
     max,
     min,
     month,
-    negative,
     readonly,
     selected,
     showToday,
@@ -116,7 +111,6 @@ export default {
         max=${ifDefined(parseDate(max)?.toISOString())}
         min=${ifDefined(parseDate(min)?.toISOString())}
         month=${ifDefined(parseDate(month)?.toISOString())}
-        negative=${ifDefined(negative?.map(date => date.toISOString()).join(','))}
         selected=${ifDefined(parseDate(selected)?.toISOString())}
       ></sl-calendar>
     `;
@@ -171,14 +165,6 @@ export const Selected: Story = {
   args: {
     month: new Date(1755640800000),
     selected: new Date(1755640800000),
-    showToday: true
-  }
-};
-
-export const Negative: Story = {
-  args: {
-    month: new Date(1755640800000),
-    negative: [new Date(), new Date('2025-08-07')],
     showToday: true
   }
 };
@@ -239,7 +225,7 @@ export const All: Story = {
     const renderMonth = (settings: Props): TemplateResult => {
       return html`
         <sl-calendar
-          ?show-today=${ifDefined(settings.showToday)}
+          ?show-today=${settings.showToday}
           indicator-dates=${ifDefined(
             Array.isArray(settings.indicatorDates)
               ? JSON.stringify(
@@ -256,7 +242,6 @@ export const All: Story = {
           max=${ifDefined(parseDate(settings.max)?.toISOString())}
           min=${ifDefined(parseDate(settings.min)?.toISOString())}
           month=${ifDefined(parseDate(settings.month)?.toISOString())}
-          negative=${ifDefined(settings.negative?.map(date => date.toISOString()).join(','))}
           selected=${ifDefined(parseDate(settings.selected)?.toISOString())}
           show-week-numbers="true"
         ></sl-calendar>
@@ -277,13 +262,13 @@ export const All: Story = {
 
     const indicatorDates = {
       indicatorDates: [
-        { date: getOffsetDate(0), color: 'red' as IndicatorColor, label: indicatorLabels.red.label },
-        { date: getOffsetDate(1), color: 'blue' as IndicatorColor, label: indicatorLabels.blue.label },
-        { date: getOffsetDate(2), color: 'yellow' as IndicatorColor, label: indicatorLabels.yellow.label },
-        { date: getOffsetDate(3), color: 'grey' as IndicatorColor, label: indicatorLabels.grey.label },
-        { date: getOffsetDate(5), color: 'green' as IndicatorColor, label: indicatorLabels.green.label },
-        { date: getOffsetDate(8), color: 'green' as IndicatorColor, label: indicatorLabels.green.label }
-      ], // make sure one is outside the min/max range
+        { date: getOffsetDate(0), color: 'red', label: indicatorLabels.red.label },
+        { date: getOffsetDate(1), color: 'blue', label: indicatorLabels.blue.label },
+        { date: getOffsetDate(2), color: 'yellow', label: indicatorLabels.yellow.label },
+        { date: getOffsetDate(3), color: 'grey', label: indicatorLabels.grey.label },
+        { date: getOffsetDate(5), color: 'green', label: indicatorLabels.green.label },
+        { date: getOffsetDate(8), color: 'green', label: indicatorLabels.green.label }
+      ] as Indicator[], // make sure one is outside the min/max range
       max: getOffsetDate(5),
       min: getOffsetDate(-5),
       month: new Date(),

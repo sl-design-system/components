@@ -22,6 +22,7 @@ declare global {
  * A calendar component for displaying and selecting dates.
  */
 export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-select-day': SelectDay,
@@ -53,14 +54,10 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   @property({ type: Number, attribute: 'first-day-of-week' }) firstDayOfWeek?: number;
 
   /**
-   * The list of dates that should display an indicator.
-   * Each item is an Indicator with a `date`, an optional `color`
-   * and 'label' that is used to improve accessibility (added as a tooltip). */
-  @property({
-    attribute: 'indicator-dates',
-    converter: indicatorConverter
-  })
-  indicatorDates?: Indicator[];
+   * The list of dates that should display an indicator. Each item has a `date` and optional `color`
+   * and `label` values that are used to improve accessibility.
+   */
+  @property({ attribute: 'indicator-dates', converter: indicatorConverter }) indicatorDates?: Indicator[];
 
   /**
    * The maximum date selectable in the calendar.
@@ -79,9 +76,6 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /** The month that the calendar opens on. */
   @property({ converter: dateConverter }) month?: Date;
-
-  /** The list of dates that should have 'negative' styling. */
-  @property({ converter: dateListConverter }) negative?: Date[];
 
   /** Will disable the ability to select a date when set. */
   @property({ type: Boolean }) readonly?: boolean;
@@ -118,9 +112,8 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         ?show-today=${this.showToday}
         ?show-week-numbers=${this.showWeekNumbers}
         .disabledDates=${this.disabledDates}
-        .indicatorDates=${ifDefined(this.indicatorDates)}
+        .indicatorDates=${this.indicatorDates}
         .month=${this.month}
-        .negative=${this.negative}
         .selected=${this.selected}
         aria-hidden=${this.mode !== 'day'}
         first-day-of-week=${ifDefined(this.firstDayOfWeek)}

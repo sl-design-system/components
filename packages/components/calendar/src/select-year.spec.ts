@@ -7,11 +7,10 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { SelectYear } from './select-year.js';
 
-// Ensure the element is defined for direct usage if not already via calendar/register
 try {
   customElements.define('sl-select-year', SelectYear);
 } catch {
-  /* already defined */
+  /* empty */
 }
 
 describe('sl-select-year', () => {
@@ -32,7 +31,7 @@ describe('sl-select-year', () => {
     });
 
     it('should highlight today year when show-today is set', async () => {
-      el.showToday = true;
+      el.showCurrent = true;
       await el.updateComplete;
 
       const today = new Date().getFullYear(),

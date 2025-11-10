@@ -36,7 +36,8 @@ providers: [
       {{ tab.label }}
     </sl-tab>
     <router-outlet></router-outlet>
-  </sl-tab-group>`
+  </sl-tab-group>`,
+  imports: [TabGroupComponent, TabComponent, MenuComponent, RouterLink, NgForOf, RouterOutlet]
 })
 export class RoutingComponent {
 

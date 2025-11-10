@@ -21,7 +21,8 @@ A button bar groups multiple buttons together.
   <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
     <sl-button (click)="openBasicDialog()">Open dialog</sl-button>
     <sl-button (click)="openNonCancellableDialog()">Open dialog without close button</sl-button>
-  </div>`
+  </div>`,
+  imports: [ButtonComponent, CommonModule]
 })
 export class DialogServiceExampleComponent {
 
@@ -84,7 +85,19 @@ Example of using a form inside a dialog.
     </sl-form-field>
   </sl-form>
   <sl-button slot="primary-actions" (click)="dialogRef.close()">Cancel</sl-button>
-  <sl-button slot="primary-actions" variant="primary" (click)="submitForm()">Save</sl-button>`
+  <sl-button slot="primary-actions" variant="primary" (click)="submitForm()">Save</sl-button>`,
+  imports: [
+    ButtonComponent,
+    CommonModule,
+    FormComponent,
+    FormFieldComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    TextAreaComponent,
+    TextAreaDirective,
+    TextFieldComponent,
+    TextFieldDirective
+]
 })
 export class DialogFormComponent {
 

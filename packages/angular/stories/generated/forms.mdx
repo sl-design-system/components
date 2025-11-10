@@ -87,7 +87,21 @@ An example form that includes all form controls using reactive forms.
     </sl-form-field>
   </sl-form>
 
-  <pre>{{ formGroup.value | json }}</pre>`
+  <pre>{{ formGroup.value | json }}</pre>`,
+  imports: [
+    JsonPipe,
+    ReactiveFormsModule,
+    CheckboxDirective,
+    CheckboxGroupDirective,
+    ComboboxDirective,
+    NumberFieldDirective,
+    RadioGroupDirective,
+    SelectDirective,
+    SwitchDirective,
+    TextAreaDirective,
+    TextFieldDirective,
+    TimeFieldDirective
+]
 })
 export class AllFormControlsReactiveComponent {
 
@@ -202,7 +216,23 @@ An example form that includes all form controls using reactive forms with empty 
     </sl-button-bar>
   </sl-form>
 
-  <pre>{{ formGroup.value | json }}</pre>`
+  <pre>{{ formGroup.value | json }}</pre>`,
+  imports: [
+    JsonPipe,
+    ReactiveFormsModule,
+    ButtonComponent,
+    ButtonBarComponent,
+    CheckboxDirective,
+    CheckboxGroupDirective,
+    ComboboxDirective,
+    NumberFieldDirective,
+    RadioGroupDirective,
+    SelectDirective,
+    SwitchDirective,
+    TextAreaDirective,
+    TextFieldDirective,
+    TimeFieldDirective
+]
 })
 export class AllFormControlsEmptyReactiveComponent {
 
@@ -319,7 +349,21 @@ An example form that includes all form controls using template-driven forms.
     </sl-form-field>
   </sl-form>
 
-  <pre>{{ formGroup | json }}</pre>`
+  <pre>{{ formGroup | json }}</pre>`,
+  imports: [
+    JsonPipe,
+    FormsModule,
+    CheckboxDirective,
+    CheckboxGroupDirective,
+    ComboboxDirective,
+    NumberFieldDirective,
+    RadioGroupDirective,
+    SelectDirective,
+    SwitchDirective,
+    TextAreaDirective,
+    TextFieldDirective,
+    TimeFieldDirective
+]
 })
 export class AllFormControlsTemplateComponent {
 
@@ -418,7 +462,22 @@ An example form that includes all form controls using template-driven forms with
     </sl-button-bar>
   </sl-form>
 
-  <pre>{{ formGroup | json }}</pre>`
+  <pre>{{ formGroup | json }}</pre>`,
+  imports: [
+    JsonPipe,
+    FormsModule,
+    ButtonComponent,
+    ButtonBarComponent,
+    CheckboxDirective,
+    CheckboxGroupDirective,
+    ComboboxDirective,
+    NumberFieldDirective,
+    RadioGroupDirective,
+    SelectDirective,
+    SwitchDirective,
+    TextAreaDirective,
+    TextFieldDirective
+]
 })
 export class AllFormControlsEmptyTemplateComponent {
 
@@ -481,7 +540,16 @@ A simple login form example using reactive forms with custom validation.
       <sl-button fill="link">Forgot password?</sl-button>
       <sl-button (click)="onSubmit()" variant="primary">Log in</sl-button>
     </sl-button-bar>
-  </sl-form>`
+  </sl-form>`,
+  imports: [
+    JsonPipe,
+    ReactiveFormsModule,
+    ButtonComponent,
+    ButtonBarComponent,
+    CheckboxDirective,
+    InlineMessageComponent,
+    TextFieldDirective
+]
 })
 export class LoginFormComponent {
 

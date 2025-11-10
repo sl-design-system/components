@@ -103,7 +103,7 @@ class StoryTemplateExtractor {
       try {
         // Try to parse as JSON
         const storyObject = this.parseStoryObjectAsJSON(storyObjectContent);
-
+        console.log('Parsed story object via JSON:',storyName, storyObject);
         stories.push({
           name: storyName,
           template: storyObject.template || null,
@@ -232,6 +232,13 @@ class StoryTemplateExtractor {
         }
       }
 
+      // Extract imports
+      let imports = null;
+      const importsLiteralMatch = componentBlock.match(/imports:\s*\[([\s\S]*?)\]/);
+      if (importsLiteralMatch) {
+        imports = this.normalizeIndentation(importsLiteralMatch[1], 4);
+      }
+
       // Extract selector
       const selectorMatch = componentBlock.match(/selector:\s*['"`]([^'"`]+)['"`]/);
       const selector = selectorMatch ? selectorMatch[1] : null;
@@ -245,6 +252,7 @@ class StoryTemplateExtractor {
           name: componentName,
           selector,
           template: template.trim(),
+          imports,
           classContent
         });
       }
@@ -326,7 +334,8 @@ To add custom introduction content, create ${fileName}.intro.md */}
 \`\`\`typescript
 @Component({
   selector: '${component.selector}',
-  template: \`${component.template}\`
+  template: \`${component.template}\`${component.imports ? `,
+  imports: [${component.imports}]` : ''}
 })
 export class ${component.name} {
 ${component.classContent || '  // Component logic here'}

@@ -15,7 +15,10 @@
   "scripts": {
     "build": "wireit",
     "start": "wireit",
-    "storybook": "wireit"
+    "storybook": "wireit",
+    "extract-templates": "wireit",
+    "extract-templates:force": "node ../../scripts/extract-story-templates.js --force",
+    "extract-templates:watch": "node ../../scripts/extract-story-templates.js --watch"
   },
   "wireit": {
     "build": {
@@ -38,6 +41,10 @@
     },
     "start": {
       "command": "ng run angular:storybook",
+      "dependencies": [
+        "extract-templates",
+        "../..:build"
+      ],
       "service": {
         "readyWhen": {
           "lineMatches": "Storybook \\S+ for .*angular.* started"
@@ -46,15 +53,24 @@
       "files": [
         "angular.json",
         "./storybook/main.ts"
-      ],
-      "dependencies": [
-        "../..:build"
       ]
     },
     "storybook": {
       "command": "ng run angular:build-storybook",
       "dependencies": [
-        "build"
+        "build",
+        "extract-templates"
+      ]
+    },
+    "extract-templates": {
+      "command": "node ../../scripts/extract-story-templates.js",
+      "files": [
+        "stories/*.stories.ts",
+        "stories/*.intro.md",
+        "../../scripts/extract-story-templates.js"
+      ],
+      "output": [
+        "stories/generated/*.mdx"
       ]
     }
   },
@@ -70,7 +86,8 @@
     "@sl-design-system/switch": "^1.1.5",
     "@sl-design-system/text-area": "^1.1.4",
     "@sl-design-system/text-field": "^1.6.6",
-    "@sl-design-system/time-field": "^0.0.1"
+    "@sl-design-system/time-field": "^0.0.1",
+    "@storybook/addon-docs": "^9.1.13"
   },
   "devDependencies": {
     "@angular-devkit/architect": "^0.1902.14",

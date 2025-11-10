@@ -618,21 +618,26 @@ export default {
 } as Meta;
 
 export const AllReactive: StoryFn = () => ({
+  description: 'An example form that includes all form controls using reactive forms.',
   template: '<sla-all-form-controls-reactive></sla-all-form-controls-reactive>'
 });
 
 export const AllEmptyReactive: StoryFn = () => ({
+  description: 'An example form that includes all form controls using reactive forms with empty initial values.',
   template: '<sla-all-form-controls-empty-reactive></sla-all-form-controls-empty-reactive>'
 });
 
 export const AllTemplate: StoryFn = () => ({
+  description: 'An example form that includes all form controls using template-driven forms.',
   template: '<sla-all-form-controls-template></sla-all-form-controls-template>'
 });
 
 export const AllEmptyTemplate: StoryFn = () => ({
+  description: 'An example form that includes all form controls using template-driven forms with empty initial values.',
   template: '<sla-all-form-controls-empty-template></sla-all-form-controls-empty-template>'
 });
 
 export const Login: StoryFn = () => ({
+  description: 'A simple login form example using reactive forms with custom validation.',
   template: '<sla-login-form></sla-login-form>'
 });

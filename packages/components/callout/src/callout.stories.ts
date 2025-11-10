@@ -1,5 +1,9 @@
+import { faArrowRightToBracket } from '@fortawesome/pro-regular-svg-icons';
+import { faShield as fasShield } from '@fortawesome/pro-solid-svg-icons';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
+import { Icon } from '@sl-design-system/icon';
+import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -14,6 +18,8 @@ interface Props extends Pick<Callout, 'size' | 'variant'> {
 type Story = StoryObj<Props>;
 
 const variants: CalloutVariant[] = ['info', 'success', 'warning', 'danger'];
+
+Icon.register(faArrowRightToBracket, fasShield);
 
 export default {
   title: 'Feedback & status/Callout',
@@ -54,32 +60,14 @@ export const Basic: Story = {
   }
 };
 
-export const Details: Story = {
+export const Title: Story = {
   args: {
     title: 'Inline message title',
-    body: () => html`
-      <style>
-        p {
-          margin-block: 0 0.5rem;
-        }
-        ul {
-          list-style-position: inside;
-          margin: 0;
-          padding: 0;
-        }
-      </style>
-      <p>The main content of the message</p>
-      <ul>
-        <li>Error 1</li>
-        <li>Error 2</li>
-        <li>Error 3</li>
-        <li>Error 4</li>
-      </ul>
-    `
+    body: () => html`A content of the callout.`
   }
 };
 
-export const Icon: Story = {
+export const CustomIcon: Story = {
   args: {
     ...Basic.args,
     body: () => html`
@@ -104,7 +92,6 @@ export const Sizes: Story = {
         margin-block-end: 1rem;
       }
     </style>
-    <sl-callout size="sm" variant=${ifDefined(variant)}> Small inline message </sl-callout>
     <sl-callout size="md" variant=${ifDefined(variant)}>
       Medium inline message; If set explicitly (unlike auto), it will not grow automatically depending on the amount of
       content. Sit nostrud id non commodo nostrud voluptate nostrud sunt voluptate adipisicing.
@@ -127,16 +114,64 @@ export const Sizes: Story = {
 };
 
 export const WithActions: Story = {
-  render: ({ variant }) => html`
+  render: () => html`
     <style>
       sl-callout {
         margin-block-end: 1rem;
+        max-inline-size: 544px;
+      }
+
+      .content {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      sl-callout sl-button {
+        /* margin-block-start: 0.5rem; */
+        align-self: flex-start;
       }
     </style>
-    <sl-callout size="md" variant=${ifDefined(variant)}>
+    <sl-callout size="md" variant="warning">
+      <sl-icon slot="icon" name="fas-shield"></sl-icon>
+      <div class="content">
+        Student data export requires encrypted storage.
+        <sl-button fill="outline" variant="warning">
+          <sl-icon name="far-arrow-right-to-bracket"></sl-icon>
+          View guide
+        </sl-button>
+      </div>
+    </sl-callout>
+    <sl-callout size="lg" variant="warning">
+      <sl-icon slot="icon" name="fas-shield"></sl-icon>
       <span slot="title">Inline message title</span>
-      Student data export requires encrypted storage.
-      <sl-button fill="outline" variant="warning">View guide</sl-button>
+      <div class="content">
+        Student data export requires encrypted storage.
+        <sl-button fill="outline" variant="warning">
+          <sl-icon name="far-arrow-right-to-bracket"></sl-icon>
+          View guide
+        </sl-button>
+      </div>
+    </sl-callout>
+    <sl-callout size="md" variant="info">
+      <span slot="title">Field trip consent</span>
+      <div class="content">
+        The 6th-grade museum visit is on 21 Nov. Please review the details and submit a consent form. <br />
+        <p>
+          View trip details & packing list checking this
+          <sl-button fill="link" variant="info">LINK</sl-button>
+        </p>
+        <sl-button fill="solid" variant="primary">Review & Sign</sl-button>
+        <sl-button fill="outline" variant="info">Download PDF</sl-button>
+      </div>
+    </sl-callout>
+    <sl-callout size="lg" variant="info">
+      <span slot="title">Field trip consent</span>
+      <div class="content">
+        The 6th-grade museum visit is on 21 Nov. Please review the details and submit a consent form.
+        <sl-button fill="solid" variant="primary">Review & Sign</sl-button>
+        <sl-button fill="outline" variant="info">Download PDF</sl-button>
+      </div>
     </sl-callout>
   `
 };

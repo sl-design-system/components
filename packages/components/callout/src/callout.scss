@@ -3,8 +3,11 @@
   background: var(--sl-color-background-info-subtlest);
   border-radius: var(--sl-size-borderRadius-default);
   color: var(--sl-color-foreground-info-bold);
-  display: flex;
-  gap: 0 var(--sl-size-100);
+
+  // display: flex;
+  display: grid;
+  gap: 0 var(--sl-size-100); // TODO: needs to be changed?
+  grid-template-columns: auto 1fr;
   overflow: clip;
   padding-block: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default));
   padding-inline: calc(var(--sl-size-300) - var(--sl-size-borderWidth-default))
@@ -23,8 +26,21 @@
   }
 }
 
-sl-button {
-  margin-inline-start: auto;
+// sl-button {
+//  margin-inline-start: auto;
+// }
+
+[part='content'] {
+  grid-column: 2;
+
+  slot {
+    display: block;
+    text-wrap: pretty;
+  }
+}
+
+[part='content'] > * {
+  display: block;
 }
 
 :host([no-title]) {
@@ -39,18 +55,11 @@ sl-button {
 
 :host([size='lg']) {
   display: grid;
-  grid-template-columns: auto 1fr var(--sl-size-300);
+  grid-template-columns: auto 1fr;
   padding: calc(var(--sl-size-300) - var(--sl-size-borderWidth-default));
 
   [part='icon'] {
     align-self: start;
-  }
-
-  sl-button {
-    align-self: start;
-    grid-area: 1 / 3;
-    inset-block-start: calc(var(--sl-size-150) * -1);
-    position: absolute;
   }
 
   [part='content'] {
@@ -96,9 +105,9 @@ sl-button {
   }
 }
 
-[part='content'] {
-  slot {
-    display: block;
-    text-wrap: pretty;
-  }
-}
+// [part='content'] {
+//  slot {
+//    display: block;
+//    text-wrap: pretty;
+//  }
+// }

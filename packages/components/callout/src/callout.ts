@@ -11,9 +11,9 @@ declare global {
   }
 }
 
-export type CalloutSize = 'auto' | 'sm' | 'md' | 'lg';
+export type CalloutSize = 'auto' | 'md' | 'lg'; // no small size for callouts // TODO: what about 'auto'? Is is still needed?
 
-export type CalloutVariant = 'info' | 'success' | 'warning' | 'danger';
+export type CalloutVariant = 'info' | 'success' | 'warning' | 'danger'; // TODO: in Figma: 'positive', 'caution' and 'negative', should be renamed here as well?
 
 /**
  * A callout component for displaying additional information. Meant to be used with actions and should not be dynamically shown as the inline-message.
@@ -36,15 +36,6 @@ export class Callout extends ScopedElementsMixin(LitElement) {
 
   /** Timer used for breaking a possible resize observer loop. */
   #breakResizeObserverLoop?: ReturnType<typeof setTimeout>;
-
-  // /** @internal Body content that will be sent to the announcer. */
-  // #content?: string;
-
-  // /** The last announced content, used to prevent duplicate announcements. */
-  // #lastAnnouncedContent?: string;
-  //
-  // /** The last announced title, used to prevent duplicate announcements. */
-  // #lastAnnouncedTitle?: string;
 
   /** Observe the size and determine where to place the action button if present. */
   #observer = new ResizeObserver(entries => this.#onResize(entries[0]));

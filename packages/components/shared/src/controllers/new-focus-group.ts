@@ -51,6 +51,7 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
   #cachedElements?: T[];
   #currentIndex = -1;
   #focused = false;
+  #listenersAdded = false;
   #managed = true;
   #manageIndexesAnimationFrame = 0;
 
@@ -159,7 +160,7 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
 
   // Lifecycle methods
   hostConnected(): void {
-    this.#addEventListeners();
+    // Event listeners are added in hostUpdated to ensure scope element exists
   }
 
   hostDisconnected(): void {
@@ -167,6 +168,11 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
   }
 
   hostUpdated(): void {
+    if (!this.#listenersAdded) {
+      this.#addEventListeners();
+      this.#listenersAdded = true;
+    }
+
     if (!this.#host.hasUpdated) {
       this.#manageTabindexes();
     }
@@ -349,21 +355,6 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
     }
   };
 
-  #acceptsEventKey(key: string): boolean {
-    if (key === 'End' || key === 'Home') {
-      return true;
-    }
-    switch (this.direction) {
-      case 'horizontal':
-        return key === 'ArrowLeft' || key === 'ArrowRight';
-      case 'vertical':
-        return key === 'ArrowUp' || key === 'ArrowDown';
-      case 'both':
-      case 'grid':
-        return key.startsWith('Arrow');
-    }
-  }
-
   #onKeydown = (event: KeyboardEvent): void => {
     if (!this.#acceptsEventKey(event.key) || event.defaultPrevented) {
       return;
@@ -408,6 +399,21 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
       this.#setCurrentIndexCircularly(diff);
     }
   };
+
+  #acceptsEventKey(key: string): boolean {
+    if (key === 'End' || key === 'Home') {
+      return true;
+    }
+    switch (this.direction) {
+      case 'horizontal':
+        return key === 'ArrowLeft' || key === 'ArrowRight';
+      case 'vertical':
+        return key === 'ArrowUp' || key === 'ArrowDown';
+      case 'both':
+      case 'grid':
+        return key.startsWith('Arrow');
+    }
+  }
 
   // Tabindex management
   #manageTabindexes(): void {
@@ -459,7 +465,9 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
       const updatable = el as unknown as {
         requestUpdate?(): void;
       };
-      if (updatable.requestUpdate) updatable.requestUpdate();
+      if (updatable.requestUpdate) {
+        updatable.requestUpdate();
+      }
     });
   }
 
@@ -474,5 +482,7 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
     scope.removeEventListener('focusin', this.#onFocusin);
     scope.removeEventListener('focusout', this.#onFocusout);
     scope.removeEventListener('keydown', this.#onKeydown);
+
+    this.#listenersAdded = false;
   }
 }

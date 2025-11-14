@@ -3,7 +3,7 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, EventsController, NewFocusGroupController, event } from '@sl-design-system/shared';
+import { type EventEmitter, NewFocusGroupController, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
@@ -37,56 +37,19 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   #announceTimeoutId?: ReturnType<typeof setTimeout>;
 
   /**
-   * Number of columns in the years grid.
-   * Used by keyboard navigation and the roving tabindex controller to compute
-   * row/column movement and focus targets.
+   * Number of columns in the years grid. Used by keyboard navigation and the roving tabindex
+   * controller to compute row/column movement and focus targets.
    */
   #cols = 3;
-
-  // eslint-disable-next-line no-unused-private-class-members
-  #events = new EventsController(this, { keydown: this.#onSelectYearKeydown });
 
   #focusGroupController = new NewFocusGroupController<HTMLButtonElement>(this, {
     autofocus: true,
     direction: 'grid',
     directionLength: this.#cols,
     elements: (): HTMLButtonElement[] => Array.from(this.renderRoot.querySelectorAll('table button')),
-    focusInIndex: elements => {
-      const index = elements.findIndex(el => {
-        if (el.disabled) {
-          return false;
-        }
-        const cell = el.closest('td[role="gridcell"]');
-        return !!cell && cell.getAttribute('aria-selected') === 'true';
-      });
-
-      if (index !== -1) {
-        return index;
-      }
-
-      const firstEnabled = elements.findIndex(el => !el.disabled);
-      return firstEnabled === -1 ? 0 : firstEnabled;
-    },
     isFocusableElement: (el: HTMLButtonElement) => !el.disabled,
     scope: (): HTMLElement => this.renderRoot.querySelector('table')!
   });
-
-  // #rovingTabindexController = new RovingTabindexController<HTMLButtonElement>(this, {
-  //   direction: 'grid',
-  //   directionLength: this.#cols,
-  //   listenerScope: (): HTMLElement => this.renderRoot.querySelector('table')!,
-  //   focusInIndex: elements => {
-  //     const index = elements.findIndex(el => !el.disabled);
-  //     if (index > -1) {
-  //       return index;
-  //     }
-
-  //     const firstEnabled = elements.findIndex(el => !el.disabled);
-  //     return firstEnabled === -1 ? 0 : firstEnabled;
-  //   },
-  //   elements: (): HTMLButtonElement[] => Array.from(this.renderRoot.querySelectorAll('table button')),
-  //   isFocusableElement: (el: HTMLButtonElement) => !el.disabled
-  // });
 
   /**
    * The maximum date selectable in the month.
@@ -236,15 +199,6 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   #onPrevious(): void {
     this.#setYears(this.years[0] - 12, this.years[0] - 1);
     this.#announce(this.years);
-  }
-
-  #onSelectYearKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Escape') {
-      event.preventDefault();
-      event.stopPropagation();
-
-      this.selectEvent.emit(this.year);
-    }
   }
 
   #setYears(start: number, end: number): void {

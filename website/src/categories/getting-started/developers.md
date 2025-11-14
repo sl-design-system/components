@@ -32,7 +32,7 @@ A lot of products are getting their packages from nexus already, so you can chec
 
 ### Github
 
-First the SL Design System team needs to add you to the list of users who can access the packages. To be added, you need to provide your @sanoma.com (or other company) email address to us in [our Slack channel](https://sanoma.slack.com/archives/C03SA9HUUA3) or you can <a href="mailto:designsystem@sanoma.com">send us an email</a>.
+First the SL Design System team needs to add you to the list of users who can access the packages. To be added, you need to provide your @sanoma.com (or other company) email address to us in [our Slack channel](https://sanoma.slack.com/archives/C03SA9HUUA3) or you can <a href="mailto:designsystem@sanoma.com">send us an email</a>. Please mention which product you are working on so we can put you in the right team. For our admin it's also really helpful if you have a recognizable username, or use your actual name, so we can trace an account back to you if we ever need to contact you.
 You don't have to create a new, separate GitHub account with your Sanoma Learning email address if you have an existing GitHub account and want to use that. Just add your @sanoma.com email address to the list of email addresses in GitHub.
 
 Once you are added you need to [create a *classic* personal access token on GitHub](https://docs.GitHub.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic). Make sure that this token has at least the `read_packages` privilege. This newly created token needs to be added to the `.npmrc` file in your home directory, along with a reference to where the `@sl-design-system` packages can be found:

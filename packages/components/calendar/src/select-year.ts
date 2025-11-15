@@ -122,7 +122,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
 
         <sl-button
           @click=${this.#onPrevious}
-          ?disabled=${this.min && this.years[0] < this.min.getFullYear()}
+          ?disabled=${this.min && this.years.at(0)! < this.min.getFullYear()}
           aria-label=${msg('Go back 12 years', { id: 'sl.calendar.previousYears' })}
           fill="ghost"
           variant="secondary"
@@ -131,7 +131,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
         </sl-button>
         <sl-button
           @click=${this.#onNext}
-          ?disabled=${this.max && this.years[this.years.length - 1] > this.max.getFullYear()}
+          ?disabled=${this.max && this.years.at(-1)! > this.max.getFullYear()}
           aria-label=${msg('Go forward 12 years', { id: 'sl.calendar.nextYears' })}
           fill="ghost"
           variant="secondary"
@@ -205,8 +205,8 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    const firstYear = this.years[0],
-      lastYear = this.years[this.years.length - 1],
+    const firstYear = this.years.at(0)!,
+      lastYear = this.years.at(-1)!,
       canGoEarlier = !this.min || firstYear > this.min.getFullYear(),
       canGoLater = !this.max || lastYear < this.max.getFullYear();
 
@@ -234,14 +234,15 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
 
     if (shouldLoadNewRange) {
       void this.updateComplete.then(() => {
-        const newButtons = Array.from(this.renderRoot.querySelectorAll<HTMLButtonElement>('table button'));
-        const newEnabledButtons = newButtons.filter(b => !b.disabled);
+        const newButtons = Array.from(this.buttons),
+          newEnabledButtons = newButtons.filter(b => !b.disabled);
+
         let targetButton: HTMLButtonElement | undefined;
 
         if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
-          targetButton = newEnabledButtons[newEnabledButtons.length - 1];
+          targetButton = newEnabledButtons.at(-1);
         } else {
-          targetButton = newEnabledButtons[0];
+          targetButton = newEnabledButtons.at(0);
         }
 
         targetButton?.focus();
@@ -251,12 +252,12 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   }
 
   #onNext(): void {
-    this.#setYears(this.years[this.years.length - 1] + 1, this.years[this.years.length - 1] + 12);
+    this.#setYears(this.years.at(-1)! + 1, this.years.at(-1)! + 12);
     this.#announce(this.years);
   }
 
   #onPrevious(): void {
-    this.#setYears(this.years[0] - 12, this.years[0] - 1);
+    this.#setYears(this.years.at(0)! - 12, this.years.at(0)! - 1);
     this.#announce(this.years);
   }
 

@@ -385,15 +385,29 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
     }
     event.preventDefault();
 
-    // For grid navigation, directly move to target position without wrapping or skipping
+    // For grid navigation, calculate target position
     if (this.direction === 'grid') {
       const targetIndex = this.currentIndex + diff;
-      if (targetIndex < 0) {
-        this.focusToElement(0);
-      } else if (targetIndex >= this.elements.length) {
-        this.focusToElement(this.elements.length - 1);
+
+      if (targetIndex < 0 || targetIndex >= this.elements.length) {
+        // Beyond boundaries
+        if (this.#wrap) {
+          // Wrap around - use circular logic
+          this.#setCurrentIndexCircularly(diff);
+        }
+        // Otherwise stay at current position (don't move)
       } else {
-        this.focusToElement(targetIndex);
+        // Within boundaries - try to focus the target element
+        const targetElement = this.elements[targetIndex];
+
+        if (this.isFocusableElement(targetElement)) {
+          // Target is focusable, move to it
+          this.focusToElement(targetIndex);
+        } else if (this.#wrap) {
+          // Target is not focusable and wrap is enabled, skip to next focusable
+          this.#setCurrentIndexCircularly(diff);
+        }
+        // If target is not focusable and wrap is disabled, stay at current position
       }
     } else {
       this.#setCurrentIndexCircularly(diff);

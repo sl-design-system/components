@@ -192,6 +192,11 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     this.selected = date;
   }
 
+  /**
+   * For arrow keys, we need to detect if we're at a visual boundary (first/last button position)
+   * and trying to navigate beyond it AND navigation is not blocked by min/max constraints.
+   * If we can load a new range, do so. Otherwise, let the focus group controller handle it.
+   */
   #onKeydown(event: KeyboardEvent & { target: HTMLButtonElement }): void {
     const buttons = Array.from(this.buttons);
 
@@ -200,22 +205,28 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
       return;
     }
 
+    const firstYear = this.years[0],
+      lastYear = this.years[this.years.length - 1],
+      canGoEarlier = !this.min || firstYear > this.min.getFullYear(),
+      canGoLater = !this.max || lastYear < this.max.getFullYear();
+
     let shouldLoadNewRange = false;
 
-    // Check boundary conditions before the controller handles the event
-    if (event.key === 'ArrowLeft' && currentIndex === 0) {
+    // Check if we're at a visual boundary position, trying to navigate beyond it,
+    // and not blocked by min/max constraints
+    if (event.key === 'ArrowLeft' && currentIndex === 0 && canGoEarlier) {
       shouldLoadNewRange = true;
       event.preventDefault();
       this.#onPrevious();
-    } else if (event.key === 'ArrowRight' && currentIndex === buttons.length - 1) {
+    } else if (event.key === 'ArrowRight' && currentIndex === buttons.length - 1 && canGoLater) {
       shouldLoadNewRange = true;
       event.preventDefault();
       this.#onNext();
-    } else if (event.key === 'ArrowUp' && currentIndex < this.#cols) {
+    } else if (event.key === 'ArrowUp' && currentIndex < this.#cols && canGoEarlier) {
       shouldLoadNewRange = true;
       event.preventDefault();
       this.#onPrevious();
-    } else if (event.key === 'ArrowDown' && currentIndex >= buttons.length - this.#cols) {
+    } else if (event.key === 'ArrowDown' && currentIndex >= buttons.length - this.#cols && canGoLater) {
       shouldLoadNewRange = true;
       event.preventDefault();
       this.#onNext();
@@ -224,17 +235,19 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     if (shouldLoadNewRange) {
       void this.updateComplete.then(() => {
         const newButtons = Array.from(this.renderRoot.querySelectorAll<HTMLButtonElement>('table button'));
+        const newEnabledButtons = newButtons.filter(b => !b.disabled);
         let targetButton: HTMLButtonElement | undefined;
 
         if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
-          targetButton = newButtons[newButtons.length - 1];
+          targetButton = newEnabledButtons[newEnabledButtons.length - 1];
         } else {
-          targetButton = newButtons[0];
+          targetButton = newEnabledButtons[0];
         }
 
         targetButton?.focus();
       });
     }
+    // Otherwise, let the event bubble to the focus group controller
   }
 
   #onNext(): void {

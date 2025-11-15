@@ -411,9 +411,9 @@ describe('NewFocusGroupController', () => {
       el.controller!.elements[0].focus();
       await userEvent.keyboard('{ArrowDown}');
 
-      // Element 2 is disabled, so it gets tabindex=0 but can't receive actual DOM focus
-      expect(el.controller!.elements[2]).to.have.attribute('tabindex', '0');
-      expect(el.controller!.currentIndex).to.equal(2);
+      // Element 2 is disabled, so grid navigation skips it and moves to element 3
+      expect(el.shadowRoot!.activeElement).to.equal(el.controller!.elements[3]);
+      expect(el.controller!.currentIndex).to.equal(3);
     });
 
     it('should navigate left in grid', async () => {

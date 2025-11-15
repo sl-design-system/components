@@ -358,10 +358,6 @@
   <source>Week <x id="0" equiv-text="${week.number}"/></source>
   <target>Week <x id="0" equiv-text="${week.number}"/></target>
 </trans-unit>
-<trans-unit id="sl.calendar.unavailable">
-  <source>Unavailable</source>
-  <target>Niet beschikbaar</target>
-</trans-unit>
 <trans-unit id="sl.calendar.monthsLabel">
   <source>Months of <x id="0" equiv-text="${currentYear}"/></source>
   <target>Maanden van <x id="0" equiv-text="${currentYear}"/></target>
@@ -371,8 +367,8 @@
   <target>Maanden van het jaar <x id="0" equiv-text="${Intl.DateTimeFormat(this.locale, { year: 'numeric' }).format(month)}"/></target>
 </trans-unit>
 <trans-unit id="sl.calendar.yearsLabel">
-  <source>Years from <x id="0" equiv-text="${this.years.at(0) ?? ''}"/> to <x id="1" equiv-text="${this.years.at(-1) ?? ''}"/></source>
-  <target>Jaren van <x id="0" equiv-text="${this.years.at(0) ?? ''}"/> tot <x id="1" equiv-text="${this.years.at(-1) ?? ''}"/></target>
+  <source>Years from <x id="0" equiv-text="${this.years.at(0)!}"/> to <x id="1" equiv-text="${this.years.at(-1)!}"/></source>
+  <target>Jaren van <x id="0" equiv-text="${this.years.at(0)!}"/> tot <x id="1" equiv-text="${this.years.at(-1)!}"/></target>
 </trans-unit>
 <trans-unit id="sl.calendar.announceYears">
   <source>Years between <x id="0" equiv-text="${yearsRange.at(0) ?? ''}"/> and <x id="1" equiv-text="${yearsRange.at(-1) ?? ''}"/></source>

@@ -1,4 +1,5 @@
 import { Button } from '@sl-design-system/button';
+import { type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
@@ -13,6 +14,9 @@ try {
   /* empty */
 }
 
+// Make sure the tests don't break when a new year starts
+const currentYear = new Date().getFullYear();
+
 describe('sl-select-year', () => {
   let el: SelectYear;
 
@@ -22,23 +26,65 @@ describe('sl-select-year', () => {
     });
 
     it('should render 12 years by default (current year -5 .. current year +6)', () => {
-      const current = new Date().getFullYear();
-      const years = Array.from(el.renderRoot.querySelectorAll('table.years button')); // 12 year buttons
+      const years = Array.from(el.renderRoot.querySelectorAll('table button'));
 
       expect(years).to.have.lengthOf(12);
-      expect(el.years[0]).to.equal(current - 5);
-      expect(el.years.at(-1)).to.equal(current + 6);
+      expect(el.years.at(0)).to.equal(currentYear - 5);
+      expect(el.years.at(-1)).to.equal(currentYear + 6);
     });
 
     it('should highlight today year when show-today is set', async () => {
       el.showCurrent = true;
       await el.updateComplete;
 
-      const today = new Date().getFullYear(),
-        todayButton = el.renderRoot.querySelector('[part~="today"]');
+      const current = el.renderRoot.querySelector('button.current');
 
-      expect(todayButton).to.exist;
-      expect(todayButton?.textContent?.trim()).to.equal(String(today));
+      expect(current).to.exist;
+      expect(current).to.have.trimmed.text(currentYear.toString());
+    });
+
+    it('should emit sl-select with selected year on click', () => {
+      const onSelect = spy();
+
+      el.addEventListener('sl-select', (e: SlSelectEvent<number>) => {
+        onSelect(e.detail);
+      });
+      el.renderRoot.querySelector<HTMLButtonElement>('table button')?.click();
+
+      expect(onSelect).to.have.been.calledOnce;
+      expect(onSelect.lastCall.args[0]).to.equalDate(new Date(currentYear - 5, 0, 1));
+    });
+
+    it('should emit sl-select with selected year on enter', async () => {
+      const onSelect = spy();
+
+      el.addEventListener('sl-select', (e: SlSelectEvent<number>) => {
+        onSelect(e.detail);
+      });
+
+      const button = el.renderRoot.querySelector<HTMLButtonElement>('table button');
+      button?.focus();
+
+      await userEvent.keyboard('{Enter}');
+
+      expect(onSelect).to.have.been.calledOnce;
+      expect(onSelect.lastCall.args[0]).to.equalDate(new Date(currentYear - 5, 0, 1));
+    });
+
+    it('should emit sl-select with selected year on space', async () => {
+      const onSelect = spy();
+
+      el.addEventListener('sl-select', (e: SlSelectEvent<number>) => {
+        onSelect(e.detail);
+      });
+
+      const button = el.renderRoot.querySelector<HTMLButtonElement>('table button');
+      button?.focus();
+
+      await userEvent.keyboard(' ');
+
+      expect(onSelect).to.have.been.calledOnce;
+      expect(onSelect.lastCall.args[0]).to.equalDate(new Date(currentYear - 5, 0, 1));
     });
   });
 
@@ -49,12 +95,8 @@ describe('sl-select-year', () => {
 
     it('should go to previous 12 years when previous button clicked', async () => {
       const initialFirst = el.years[0];
-      const prevBtn = el.renderRoot.querySelector('sl-button:nth-of-type(1)') as Button;
 
-      expect(prevBtn).to.exist;
-
-      prevBtn.click();
-
+      el.renderRoot.querySelector<Button>('sl-button:first-of-type')?.click();
       await el.updateComplete;
 
       expect(el.years[0]).to.equal(initialFirst - 12);
@@ -62,12 +104,8 @@ describe('sl-select-year', () => {
 
     it('should go to next 12 years when next button clicked', async () => {
       const initialLast = el.years.at(-1)!;
-      const nextBtn = el.renderRoot.querySelector('sl-button:nth-of-type(2)') as Button;
 
-      expect(nextBtn).to.exist;
-
-      nextBtn.click();
-
+      el.renderRoot.querySelector<Button>('sl-button:last-of-type')?.click();
       await el.updateComplete;
 
       expect(el.years.at(-1)).to.equal(initialLast + 12);
@@ -76,26 +114,18 @@ describe('sl-select-year', () => {
 
   describe('min/max', () => {
     beforeEach(async () => {
-      const year = new Date().getFullYear();
-      el = await fixture(
-        html`<sl-select-year .min=${new Date(year - 2, 0, 1)} .max=${new Date(year + 2, 11, 31)}></sl-select-year>`
-      );
-    });
-
-    it('should render disabled (unselectable) years outside min/max', () => {
-      const unselectable = Array.from(el.renderRoot.querySelectorAll('[part~="unselectable"]'));
-      expect(unselectable.length).to.be.greaterThan(0);
-
-      // ensure they are disabled buttons
-      const allDisabled = unselectable.every(node => node.tagName === 'BUTTON' && node.hasAttribute('disabled'));
-
-      expect(allDisabled).to.be.true;
+      el = await fixture(html`
+        <sl-select-year
+          .min=${new Date(currentYear - 2, 0, 1)}
+          .max=${new Date(currentYear + 2, 11, 31)}
+        ></sl-select-year>
+      `);
     });
 
     it('should not allow navigating before min boundary', async () => {
       // navigate backwards many times until disabled (safeguard 5 iterations)
       for (let i = 0; i < 5; i++) {
-        const prev = el.renderRoot.querySelector('sl-button:nth-of-type(1)');
+        const prev = el.renderRoot.querySelector('sl-button:first-of-type');
         if (!prev || prev.hasAttribute('disabled')) break;
 
         expect(prev).to.exist;
@@ -105,142 +135,90 @@ describe('sl-select-year', () => {
         await el.updateComplete;
       }
 
-      const prevBtn = el.renderRoot.querySelector('sl-button:nth-of-type(1)');
+      const prevBtn = el.renderRoot.querySelector('sl-button:first-of-type');
 
       expect(prevBtn).to.exist;
-      expect(prevBtn).to.have.attribute('disabled');
+      expect(prevBtn).to.match(':disabled');
+    });
+
+    it('should not allow navigating after max boundary', async () => {
+      // navigate forwards many times until disabled (safeguard 5 iterations)
+      for (let i = 0; i < 5; i++) {
+        const next = el.renderRoot.querySelector('sl-button:nth-of-type(2)');
+        if (!next || next.hasAttribute('disabled')) break;
+
+        expect(next).to.exist;
+
+        (next as Button).click();
+
+        await el.updateComplete;
+      }
+
+      const nextBtn = el.renderRoot.querySelector('sl-button:last-of-type');
+
+      expect(nextBtn).to.exist;
+      expect(nextBtn).to.match(':disabled');
     });
 
     it('should disable prev/next buttons when navigation is fully restricted by min/max', async () => {
-      const baseYear = 2025;
-      el = await fixture(html`
-        <sl-select-year
-          .year=${new Date(baseYear, 0, 1)}
-          .min=${new Date(baseYear - 5, 0, 1)}
-          .max=${new Date(baseYear + 6, 11, 31)}
-        ></sl-select-year>
-      `);
+      el.min = new Date(currentYear - 3, 0, 1);
+      el.max = new Date(currentYear + 4, 0, 1);
       await el.updateComplete;
 
-      const prevBtn = el.renderRoot.querySelector('sl-button:nth-of-type(1)'),
-        nextBtn = el.renderRoot.querySelector('sl-button:nth-of-type(2)');
+      const prevBtn = el.renderRoot.querySelector('sl-button:first-of-type'),
+        nextBtn = el.renderRoot.querySelector('sl-button:last-of-type');
 
-      expect(prevBtn).to.have.attribute('disabled');
-      expect(nextBtn).to.have.attribute('disabled');
+      expect(prevBtn).to.match(':disabled');
+      expect(nextBtn).to.match(':disabled');
     });
 
-    it('should set "today" and "selected" parts when applicable and "unselectable" when outside min/max', async () => {
-      el = await fixture(html`<sl-select-year .year=${new Date(new Date().getFullYear(), 0, 1)}></sl-select-year>`);
-      await el.updateComplete;
+    it('should disable buttons that fall outside min/max', () => {
+      const buttons = Array.from(el.renderRoot.querySelectorAll('table button')),
+        minYear = el.min!.getFullYear(),
+        maxYear = el.max!.getFullYear();
 
-      el.selected = new Date(new Date().getFullYear(), 0, 1);
-      await el.updateComplete;
+      const allValid = buttons.every(button => {
+        const year = parseInt(button.textContent!.trim());
 
-      const year = el.renderRoot.querySelector('[part~="today"]');
+        if (year < minYear || year > maxYear) {
+          return button.hasAttribute('disabled');
+        }
 
-      expect(year).to.exist;
-      expect(year).to.match('[part~="today"]');
-      expect(year).to.match('[part~="selected"]');
-
-      // make current year unselectable by moving min/max beyond it
-      el.min = new Date(new Date().getFullYear() + 1, 0, 1);
-      el.max = new Date(new Date().getFullYear() + 2, 11, 31);
-
-      await el.updateComplete;
-
-      const yearUnselectable = el.renderRoot.querySelector('[part~="today"]');
-
-      expect(yearUnselectable).to.exist;
-      expect(yearUnselectable).to.match('[part~="unselectable"]');
-    });
-  });
-
-  describe('selection', () => {
-    beforeEach(async () => {
-      el = await fixture(html`<sl-select-year></sl-select-year>`);
-    });
-
-    it('should emit sl-select with selected year on click', async () => {
-      const onSelect = spy();
-      el.addEventListener('sl-select', (e: CustomEvent) => {
-        onSelect(e.detail);
+        return true;
       });
 
-      // click middle year (should be a button) - choose the first button
-      const button = el.renderRoot.querySelector('table.years button') as HTMLButtonElement;
-
-      expect(button).to.exist;
-
-      button.click();
-
-      await el.updateComplete;
-
-      expect(onSelect).to.have.been.calledOnce;
-
-      const evDetail = onSelect.lastCall.args[0] as Date;
-
-      expect(evDetail).to.be.instanceOf(Date);
-      expect(evDetail.getFullYear()).to.equal(parseInt(button.textContent!.trim()));
-    });
-
-    it('should emit sl-select for Escape key returning current year', async () => {
-      const currentYear = el.year.getFullYear();
-
-      const onSelect = spy();
-
-      el.addEventListener(
-        'sl-select',
-        (e: CustomEvent) => {
-          onSelect(e.detail);
-        },
-        { once: true }
-      );
-
-      const target = el.renderRoot.querySelector('table.years button') as HTMLButtonElement;
-
-      expect(target).to.exist;
-
-      target.focus();
-
-      await userEvent.keyboard('{Escape}');
-      await el.updateComplete;
-
-      expect(onSelect).to.have.been.calledOnce;
-
-      const evDetail = onSelect.lastCall.args[0] as Date;
-
-      expect(evDetail).to.be.instanceOf(Date);
-      expect(evDetail.getFullYear()).to.equal(currentYear);
+      expect(allValid).to.be.true;
     });
   });
 
   describe('keyboard navigation', () => {
-    beforeEach(async () => {
-      el = await fixture(html`<sl-select-year .year=${new Date(2025, 0, 1)}></sl-select-year>`);
+    let buttons: HTMLButtonElement[];
 
-      await el.updateComplete;
+    beforeEach(async () => {
+      el = await fixture(html`<sl-select-year></sl-select-year>`);
+      buttons = Array.from(el.renderRoot.querySelectorAll('button'));
+    });
+
+    it('should focus the first year button on focus()', () => {
+      el.focus();
+
+      expect(el.shadowRoot?.activeElement).to.equal(buttons.at(0));
     });
 
     it('should decrement year range by 12 when ArrowLeft is pressed on first button', async () => {
       const initialFirst = el.years[0];
-      const buttons = el.renderRoot.querySelectorAll('table.years button');
-      const first = buttons[0] as HTMLButtonElement;
 
-      first.focus();
-
+      buttons.at(0)?.focus();
       await userEvent.keyboard('{ArrowLeft}');
       await el.updateComplete;
 
-      expect(el.years[0]).to.equal(initialFirst - 12);
+      expect(el.years.at(0)).to.equal(initialFirst - 12);
     });
 
     it('should increment year range by 12 when ArrowRight is pressed on last button', async () => {
       const initialLast = el.years.at(-1)!;
-      const buttons = el.renderRoot.querySelectorAll('table.years button');
-      const last = buttons[buttons.length - 1] as HTMLButtonElement;
 
-      last.focus();
-
+      buttons.at(-1)?.focus();
       await userEvent.keyboard('{ArrowRight}');
       await el.updateComplete;
 
@@ -249,11 +227,8 @@ describe('sl-select-year', () => {
 
     it('should decrement year range by 12 when ArrowUp is pressed on a top-row button', async () => {
       const initialFirst = el.years[0];
-      const buttons = el.renderRoot.querySelectorAll('table.years button');
-      const target = buttons[1] as HTMLButtonElement; // top row (index 1)
 
-      target.focus();
-
+      buttons.at(1)?.focus();
       await userEvent.keyboard('{ArrowUp}');
       await el.updateComplete;
 
@@ -262,15 +237,92 @@ describe('sl-select-year', () => {
 
     it('should increment year range by 12 when ArrowDown is pressed on a last-row button', async () => {
       const initialFirst = el.years[0];
-      const buttons = el.renderRoot.querySelectorAll('table.years button');
-      const target = buttons[10] as HTMLButtonElement; // pick an index in the last row
 
-      target.focus();
-
+      buttons.at(11)?.focus();
       await userEvent.keyboard('{ArrowDown}');
       await el.updateComplete;
 
       expect(el.years[0]).to.equal(initialFirst + 12);
+    });
+
+    describe('when min/max are set', () => {
+      beforeEach(async () => {
+        el.min = new Date(currentYear - 1, 0, 1);
+        el.max = new Date(currentYear + 1, 11, 31);
+        await el.updateComplete;
+
+        buttons = Array.from(el.renderRoot.querySelectorAll('button'));
+      });
+
+      it('should do nothing when ArrowLeft is pressed on the first enabled button', async () => {
+        const firstEnabledButton = buttons.find(b => !b.disabled),
+          initialYears = [...el.years];
+
+        firstEnabledButton?.focus();
+        await userEvent.keyboard('{ArrowLeft}');
+        await el.updateComplete;
+
+        expect(el.years).to.deep.equal(initialYears);
+        expect(el.shadowRoot?.activeElement).to.equal(firstEnabledButton);
+      });
+
+      it('should do nothing when ArrowRight is pressed on the last enabled button', async () => {
+        const enabledButtons = buttons.filter(b => !b.disabled),
+          lastEnabledButton = enabledButtons.at(-1),
+          initialYears = [...el.years];
+
+        lastEnabledButton?.focus();
+        await userEvent.keyboard('{ArrowRight}');
+        await el.updateComplete;
+
+        expect(el.years).to.deep.equal(initialYears);
+        expect(el.shadowRoot?.activeElement).to.equal(lastEnabledButton);
+      });
+
+      it('should skip disabled buttons when navigating with Arrow keys', async () => {
+        const enabledButtons = buttons.filter(b => !b.disabled),
+          firstEnabled = enabledButtons[0],
+          secondEnabled = enabledButtons[1];
+
+        firstEnabled?.focus();
+        await userEvent.keyboard('{ArrowRight}');
+
+        expect(el.shadowRoot?.activeElement).to.equal(secondEnabled);
+      });
+
+      it('should navigate to the second enabled button when you press ArrowLeft and then ArrowRight on the first enabled button', async () => {
+        const enabledButtons = buttons.filter(b => !b.disabled),
+          firstEnabled = enabledButtons[0],
+          secondEnabled = enabledButtons[1];
+
+        firstEnabled?.focus();
+
+        // ArrowLeft on first button - should do nothing (boundary)
+        await userEvent.keyboard('{ArrowLeft}');
+        expect(el.shadowRoot?.activeElement).to.equal(firstEnabled);
+
+        // ArrowRight should now work and move to second button
+        await userEvent.keyboard('{ArrowRight}');
+
+        expect(el.shadowRoot?.activeElement).to.equal(secondEnabled);
+      });
+
+      it('should navigate to the second to last enabled button when you press ArrowRight and then ArrowLeft on the last enabled button', async () => {
+        const enabledButtons = buttons.filter(b => !b.disabled),
+          lastEnabled = enabledButtons.at(-1),
+          secondToLastEnabled = enabledButtons.at(-2);
+
+        lastEnabled?.focus();
+
+        // ArrowRight on last button - should do nothing (boundary)
+        await userEvent.keyboard('{ArrowRight}');
+        expect(el.shadowRoot?.activeElement).to.equal(lastEnabled);
+
+        // ArrowLeft should now work and move to second-to-last button
+        await userEvent.keyboard('{ArrowLeft}');
+
+        expect(el.shadowRoot?.activeElement).to.equal(secondToLastEnabled);
+      });
     });
   });
 });

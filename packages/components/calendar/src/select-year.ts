@@ -7,7 +7,7 @@ import { type EventEmitter, NewFocusGroupController, event } from '@sl-design-sy
 import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property, queryAll, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './select-year.scss.js';
@@ -42,14 +42,19 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
    */
   #cols = 3;
 
+  /** Focus management. */
   #focusGroupController = new NewFocusGroupController<HTMLButtonElement>(this, {
     autofocus: true,
     direction: 'grid',
     directionLength: this.#cols,
-    elements: (): HTMLButtonElement[] => Array.from(this.renderRoot.querySelectorAll('table button')),
+    elements: (): HTMLButtonElement[] => Array.from(this.buttons),
     isFocusableElement: (el: HTMLButtonElement) => !el.disabled,
-    scope: (): HTMLElement => this.renderRoot.querySelector('table')!
+    scope: (): HTMLElement => this.renderRoot.querySelector('table')!,
+    wrap: false
   });
+
+  /** The buttons representing each year. */
+  @queryAll('button') buttons!: NodeListOf<HTMLButtonElement>;
 
   /**
    * The maximum date selectable in the month.
@@ -187,8 +192,49 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     this.selected = date;
   }
 
-  #onKeydown(event: KeyboardEvent): void {
-    console.log(event.key);
+  #onKeydown(event: KeyboardEvent & { target: HTMLButtonElement }): void {
+    const buttons = Array.from(this.buttons);
+
+    const currentIndex = buttons.indexOf(event.target);
+    if (currentIndex === -1) {
+      return;
+    }
+
+    let shouldLoadNewRange = false;
+
+    // Check boundary conditions before the controller handles the event
+    if (event.key === 'ArrowLeft' && currentIndex === 0) {
+      shouldLoadNewRange = true;
+      event.preventDefault();
+      this.#onPrevious();
+    } else if (event.key === 'ArrowRight' && currentIndex === buttons.length - 1) {
+      shouldLoadNewRange = true;
+      event.preventDefault();
+      this.#onNext();
+    } else if (event.key === 'ArrowUp' && currentIndex < this.#cols) {
+      shouldLoadNewRange = true;
+      event.preventDefault();
+      this.#onPrevious();
+    } else if (event.key === 'ArrowDown' && currentIndex >= buttons.length - this.#cols) {
+      shouldLoadNewRange = true;
+      event.preventDefault();
+      this.#onNext();
+    }
+
+    if (shouldLoadNewRange) {
+      void this.updateComplete.then(() => {
+        const newButtons = Array.from(this.renderRoot.querySelectorAll<HTMLButtonElement>('table button'));
+        let targetButton: HTMLButtonElement | undefined;
+
+        if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+          targetButton = newButtons[newButtons.length - 1];
+        } else {
+          targetButton = newButtons[0];
+        }
+
+        targetButton?.focus();
+      });
+    }
   }
 
   #onNext(): void {

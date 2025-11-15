@@ -17,7 +17,6 @@ export const templates = {
   'sl.calendar.previousMonth': str`Vorige maand, ${0}`,
   'sl.calendar.previousYear': str`Vorig jaar, ${0}`,
   'sl.calendar.previousYears': 'Ga 12 jaar vooruit',
-  'sl.calendar.unavailable': 'Niet beschikbaar',
   'sl.calendar.week': 'Week',
   'sl.calendar.yearsLabel': str`Jaren van ${0} tot ${1}`,
   'sl.checkbox.validation.valueMissing': 'Vink dit vakje aan.',

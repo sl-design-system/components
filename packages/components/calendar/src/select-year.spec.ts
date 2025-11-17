@@ -33,7 +33,11 @@ describe('sl-select-year', () => {
       expect(el.years.at(-1)).to.equal(currentYear + 6);
     });
 
-    it('should highlight today year when show-today is set', async () => {
+    it('should not show the current year', () => {
+      expect(el.showCurrent).not.to.be.true;
+    });
+
+    it('should highlight the current year when show-current is set', async () => {
       el.showCurrent = true;
       await el.updateComplete;
 
@@ -41,6 +45,31 @@ describe('sl-select-year', () => {
 
       expect(current).to.exist;
       expect(current).to.have.trimmed.text(currentYear.toString());
+    });
+
+    it('should not have a selected year', () => {
+      const selectedMonthButton = el.renderRoot.querySelector<HTMLButtonElement>('button.selected');
+
+      expect(selectedMonthButton).to.not.exist;
+      expect(el.selected).to.be.undefined;
+    });
+
+    it('should show the selected year when set', async () => {
+      el.selected = new Date(currentYear, 0, 1);
+      await el.updateComplete;
+
+      const selectedMonthButton = el.renderRoot.querySelector<HTMLButtonElement>('button.selected');
+
+      expect(selectedMonthButton).to.exist;
+      expect(selectedMonthButton).to.have.trimmed.text(currentYear.toString());
+    });
+
+    it('should have enabled back and forward buttons', () => {
+      const prev = el.renderRoot.querySelector('sl-button[aria-label^="Go back 12 years"]'),
+        next = el.renderRoot.querySelector('sl-button[aria-label^="Go forward 12 years"]');
+
+      expect(prev).to.exist.and.not.match(':disabled');
+      expect(next).to.exist.and.not.match(':disabled');
     });
 
     it('should emit sl-select with selected year on click', () => {
@@ -122,72 +151,26 @@ describe('sl-select-year', () => {
       `);
     });
 
-    it('should not allow navigating before min boundary', async () => {
-      // navigate backwards many times until disabled (safeguard 5 iterations)
-      for (let i = 0; i < 5; i++) {
-        const prev = el.renderRoot.querySelector('sl-button:first-of-type');
-        if (!prev || prev.hasAttribute('disabled')) break;
+    it('should not allow navigating before min boundary', () => {
+      const prev = el.renderRoot.querySelector('sl-button:first-of-type');
 
-        expect(prev).to.exist;
-
-        (prev as Button).click();
-
-        await el.updateComplete;
-      }
-
-      const prevBtn = el.renderRoot.querySelector('sl-button:first-of-type');
-
-      expect(prevBtn).to.exist;
-      expect(prevBtn).to.match(':disabled');
+      expect(prev).to.exist;
+      expect(prev).to.match(':disabled');
     });
 
-    it('should not allow navigating after max boundary', async () => {
-      // navigate forwards many times until disabled (safeguard 5 iterations)
-      for (let i = 0; i < 5; i++) {
-        const next = el.renderRoot.querySelector('sl-button:nth-of-type(2)');
-        if (!next || next.hasAttribute('disabled')) break;
+    it('should not allow navigating after max boundary', () => {
+      const next = el.renderRoot.querySelector('sl-button:last-of-type');
 
-        expect(next).to.exist;
-
-        (next as Button).click();
-
-        await el.updateComplete;
-      }
-
-      const nextBtn = el.renderRoot.querySelector('sl-button:last-of-type');
-
-      expect(nextBtn).to.exist;
-      expect(nextBtn).to.match(':disabled');
-    });
-
-    it('should disable prev/next buttons when navigation is fully restricted by min/max', async () => {
-      el.min = new Date(currentYear - 3, 0, 1);
-      el.max = new Date(currentYear + 4, 0, 1);
-      await el.updateComplete;
-
-      const prevBtn = el.renderRoot.querySelector('sl-button:first-of-type'),
-        nextBtn = el.renderRoot.querySelector('sl-button:last-of-type');
-
-      expect(prevBtn).to.match(':disabled');
-      expect(nextBtn).to.match(':disabled');
+      expect(next).to.exist;
+      expect(next).to.match(':disabled');
     });
 
     it('should disable buttons that fall outside min/max', () => {
-      const buttons = Array.from(el.renderRoot.querySelectorAll('table button')),
-        minYear = el.min!.getFullYear(),
-        maxYear = el.max!.getFullYear();
+      const disabled = Array.from(el.renderRoot.querySelectorAll('button')).map(button =>
+        button.hasAttribute('disabled')
+      );
 
-      const allValid = buttons.every(button => {
-        const year = parseInt(button.textContent!.trim());
-
-        if (year < minYear || year > maxYear) {
-          return button.hasAttribute('disabled');
-        }
-
-        return true;
-      });
-
-      expect(allValid).to.be.true;
+      expect(disabled).to.deep.equal([true, true, true, false, false, false, false, false, true, true, true, true]);
     });
   });
 

@@ -4,7 +4,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { SelectYear } from './select-year.js';
 
-type Props = Pick<SelectYear, 'max' | 'min' | 'showCurrent' | 'year'>;
+type Props = Pick<SelectYear, 'max' | 'min' | 'selected' | 'showCurrent' | 'year'>;
 type Story = StoryObj<Props>;
 
 try {
@@ -26,6 +26,9 @@ export default {
     min: {
       control: 'date'
     },
+    selected: {
+      control: 'date'
+    },
     showCurrent: {
       control: 'boolean'
     },
@@ -33,12 +36,13 @@ export default {
       control: 'date'
     }
   },
-  render: ({ max, min, showCurrent, year }) => {
+  render: ({ max, min, selected, showCurrent, year }) => {
     return html`
       <sl-select-year
         ?show-current=${showCurrent}
         max=${ifDefined(max?.toISOString())}
         min=${ifDefined(min?.toISOString())}
+        selected=${ifDefined(selected?.toISOString())}
         year=${ifDefined(year?.toISOString())}
       ></sl-select-year>
     `;
@@ -51,6 +55,13 @@ export const MinMax: Story = {
   args: {
     max: new Date(2025, 10, 1),
     min: new Date(2022, 2, 1),
+    year: new Date(2025, 7, 1)
+  }
+};
+
+export const Selected: Story = {
+  args: {
+    selected: new Date(2025, 7, 1),
     year: new Date(2025, 7, 1)
   }
 };

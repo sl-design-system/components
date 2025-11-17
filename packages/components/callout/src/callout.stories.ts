@@ -1,5 +1,5 @@
-import { faArrowRightToBracket } from '@fortawesome/pro-regular-svg-icons';
-import { faShield as fasShield } from '@fortawesome/pro-solid-svg-icons';
+import { faArrowDownToLine, faArrowRightToBracket } from '@fortawesome/pro-regular-svg-icons';
+import { faFileSignature as fasFileSignature, faShield as fasShield } from '@fortawesome/pro-solid-svg-icons';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import { Icon } from '@sl-design-system/icon';
@@ -17,9 +17,9 @@ interface Props extends Pick<Callout, 'size' | 'variant'> {
 }
 type Story = StoryObj<Props>;
 
-const variants: CalloutVariant[] = ['info', 'success', 'warning', 'danger'];
+const variants: CalloutVariant[] = ['info', 'positive', 'caution', 'negative'];
 
-Icon.register(faArrowRightToBracket, fasShield);
+Icon.register(faArrowDownToLine, faArrowRightToBracket, fasFileSignature, fasShield);
 
 export default {
   title: 'Feedback & status/Callout',
@@ -40,7 +40,7 @@ export default {
     },
     size: {
       control: 'inline-radio',
-      options: ['auto', 'sm', 'md', 'lg']
+      options: ['md', 'lg']
     },
     variant: {
       control: 'inline-radio',
@@ -56,13 +56,13 @@ export default {
 
 export const Basic: Story = {
   args: {
-    body: 'The main content of the message'
+    body: 'The main content of the callout'
   }
 };
 
 export const Title: Story = {
   args: {
-    title: 'Inline message title',
+    title: 'Callout title',
     body: () => html`A content of the callout.`
   }
 };
@@ -92,33 +92,28 @@ export const Sizes: Story = {
         margin-block-end: 1rem;
       }
     </style>
-    <sl-callout size="md" variant=${ifDefined(variant)}>
-      Medium inline message; If set explicitly (unlike auto), it will not grow automatically depending on the amount of
-      content. Sit nostrud id non commodo nostrud voluptate nostrud sunt voluptate adipisicing.
+    <sl-callout size="md" variant=${ifDefined(variant)}> Medium (default) callout component. </sl-callout>
+    <sl-callout variant=${ifDefined(variant)}>
+      <span slot="title">Callout title</span>
+      Medium (default) callout component.
     </sl-callout>
     <sl-callout size="lg" variant=${ifDefined(variant)}>
-      <span slot="title">Inline message title</span>
-      Large inline message
+      <span slot="title">Callout title</span>
+      Large callout component.
     </sl-callout>
-    <sl-callout variant=${ifDefined(variant)}> Auto inline message is the same as md by default </sl-callout>
-    <sl-callout variant=${ifDefined(variant)}>
-      Auto inline message will grow to large if the content span more than 2 lines; Sit nostrud id non commodo nostrud
-      voluptate nostrud sunt voluptate adipisicing. Aliqua mollit eiusmod sunt enim enim tempor cillum labore commodo
-      duis.
-    </sl-callout>
-    <sl-callout variant=${ifDefined(variant)}>
-      <span slot="title">Inline message title</span>
-      Auto inline message will switch to large if a title is present.
-    </sl-callout>
+    <sl-callout size="lg" variant=${ifDefined(variant)}> Large callout component without title. </sl-callout>
   `
 };
 
 export const WithActions: Story = {
   render: () => html`
     <style>
+      .container {
+        max-width: 544px;
+      }
+
       sl-callout {
         margin-block-end: 1rem;
-        max-inline-size: 544px;
       }
 
       .content {
@@ -127,52 +122,86 @@ export const WithActions: Story = {
         gap: 8px;
       }
 
+      .link-info {
+        align-items: center;
+        display: inline-flex;
+        gap: 4px;
+      }
+
+      .actions {
+        display: flex;
+        gap: 8px;
+      }
+
       sl-callout sl-button {
         /* margin-block-start: 0.5rem; */
         align-self: flex-start;
       }
     </style>
-    <sl-callout size="md" variant="warning">
-      <sl-icon slot="icon" name="fas-shield"></sl-icon>
-      <div class="content">
-        Student data export requires encrypted storage.
-        <sl-button fill="outline" variant="warning">
-          <sl-icon name="far-arrow-right-to-bracket"></sl-icon>
-          View guide
-        </sl-button>
-      </div>
-    </sl-callout>
-    <sl-callout size="lg" variant="warning">
-      <sl-icon slot="icon" name="fas-shield"></sl-icon>
-      <span slot="title">Inline message title</span>
-      <div class="content">
-        Student data export requires encrypted storage.
-        <sl-button fill="outline" variant="warning">
-          <sl-icon name="far-arrow-right-to-bracket"></sl-icon>
-          View guide
-        </sl-button>
-      </div>
-    </sl-callout>
-    <sl-callout size="md" variant="info">
-      <span slot="title">Field trip consent</span>
-      <div class="content">
-        The 6th-grade museum visit is on 21 Nov. Please review the details and submit a consent form. <br />
-        <p>
-          View trip details & packing list checking this
-          <sl-button fill="link" variant="info">LINK</sl-button>
-        </p>
-        <sl-button fill="solid" variant="primary">Review & Sign</sl-button>
-        <sl-button fill="outline" variant="info">Download PDF</sl-button>
-      </div>
-    </sl-callout>
-    <sl-callout size="lg" variant="info">
-      <span slot="title">Field trip consent</span>
-      <div class="content">
-        The 6th-grade museum visit is on 21 Nov. Please review the details and submit a consent form.
-        <sl-button fill="solid" variant="primary">Review & Sign</sl-button>
-        <sl-button fill="outline" variant="info">Download PDF</sl-button>
-      </div>
-    </sl-callout>
+    <div class="container">
+      <sl-callout size="md" variant="caution">
+        <sl-icon slot="icon" name="fas-shield"></sl-icon>
+        <div class="content">
+          Student data export requires encrypted storage.
+          <sl-button fill="outline" variant="warning">
+            <sl-icon name="far-arrow-right-to-bracket"></sl-icon>
+            View guide
+          </sl-button>
+        </div>
+      </sl-callout>
+      <sl-callout size="lg" variant="caution">
+        <sl-icon slot="icon" name="fas-shield"></sl-icon>
+        <div class="content">
+          Student data export requires encrypted storage.
+          <sl-button fill="outline" variant="warning">
+            <sl-icon name="far-arrow-right-to-bracket"></sl-icon>
+            View guide
+          </sl-button>
+        </div>
+      </sl-callout>
+      <sl-callout size="md" variant="info">
+        <sl-icon slot="icon" name="fas-file-signature"></sl-icon>
+        <span slot="title">Field trip consent</span>
+        <div class="content">
+          The 6th-grade museum visit is on 21 Nov. Please review the details and submit a consent form. <br />
+          <div class="link-info">
+            View trip details & packing list checking this
+            <sl-button fill="link" variant="info">LINK</sl-button>
+          </div>
+          <div class="actions">
+            <sl-button fill="solid" variant="primary">
+              <sl-icon name="far-arrow-right-to-bracket"></sl-icon>
+              Review & Sign
+            </sl-button>
+            <sl-button fill="outline" variant="info">
+              <sl-icon name="far-arrow-down-to-line"></sl-icon>
+              Download PDF
+            </sl-button>
+          </div>
+        </div>
+      </sl-callout>
+      <sl-callout size="lg" variant="info">
+        <sl-icon slot="icon" name="fas-file-signature"></sl-icon>
+        <span slot="title">Field trip consent</span>
+        <div class="content">
+          The 6th-grade museum visit is on 21 Nov. Please review the details and submit a consent form. <br />
+          <div class="link-info">
+            View trip details & packing list checking this
+            <sl-button fill="link" variant="info">LINK</sl-button>
+          </div>
+          <div class="actions">
+            <sl-button fill="solid" variant="primary">
+              <sl-icon name="far-arrow-right-to-bracket"></sl-icon>
+              Review & Sign
+            </sl-button>
+            <sl-button fill="outline" variant="info">
+              <sl-icon name="far-arrow-down-to-line"></sl-icon>
+              Download PDF
+            </sl-button>
+          </div>
+        </div>
+      </sl-callout>
+    </div>
   `
 };
 
@@ -191,17 +220,18 @@ export const All: StoryObj = {
       }
     </style>
     <div class="wrapper">
-      <sl-callout>The main content of the message</sl-callout>
-      <sl-callout>
-        Duis deserunt ad quis Lorem. Consectetur non deserunt fugiat consequat pariatur amet commodo velit ut est sunt.
-        Exercitation culpa ea officia fugiat culpa laborum sit fugiat esse proident.
-      </sl-callout>
       ${variants.map(
         variant => html`
-          <sl-callout variant=${variant}> The main content of the message </sl-callout>
+          <sl-callout variant=${variant}> The main content of the callout </sl-callout>
           <sl-callout variant=${variant}>
+            <span slot="title"> Callout title </span>
+            The main content of the callout
+          </sl-callout>
+          <sl-callout size="lg" variant=${variant}> The main content of the callout </sl-callout>
+          <sl-callout size="lg" variant=${variant}>
             <span slot="title">
-              "info" inline message title esse laboris nisi ut quis ullamco dolor elit do commodo ea mollit eu irure.
+              The "${variant}" callout title, esse laboris nisi ut quis ullamco dolor elit do commodo ea mollit eu
+              irure.
             </span>
             Duis ut magna commodo minim cillum voluptate incididunt ea labore adipisicing do ad anim. Incididunt non
             consequat eiusmod aliqua consequat Lorem eu culpa labore aute laboris eiusmod.
@@ -211,5 +241,3 @@ export const All: StoryObj = {
     </div>
   `
 };
-
-// TODO: add a story with more complex content and actions

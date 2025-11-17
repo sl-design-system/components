@@ -4,17 +4,12 @@ import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import { FormatDate } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
-import {
-  type EventEmitter,
-  EventsController,
-  LocaleMixin,
-  RovingTabindexController,
-  event
-} from '@sl-design-system/shared';
+import { type EventEmitter, LocaleMixin, NewFocusGroupController, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { type SlSelectEvent, SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property, queryAll, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './select-month.scss.js';
 import { Month } from './utils.js';
@@ -43,39 +38,25 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** Timeout id, to be used with `clearTimeout`. */
   #announceTimeoutId?: ReturnType<typeof setTimeout>;
 
-  // eslint-disable-next-line no-unused-private-class-members
-  #events = new EventsController(this, { keydown: this.#onSelectMonthKeydown });
+  /**
+   * Number of columns in the months grid. Used by keyboard navigation and the focus group
+   * controller to compute row/column movement and focus targets.
+   */
+  #cols = 3;
 
-  #rovingTabindexController = new RovingTabindexController<HTMLButtonElement>(this, {
+  /** Focus management. */
+  #focusGroupController = new NewFocusGroupController<HTMLButtonElement>(this, {
+    autofocus: true,
     direction: 'grid',
-    directionLength: 3,
-    elements: (): HTMLButtonElement[] => {
-      const list = this.renderRoot.querySelector('table');
-
-      if (!list) {
-        return [];
-      }
-
-      return Array.from(list.querySelectorAll<HTMLButtonElement>('button')).filter(btn => !btn.disabled);
-    },
-    focusInIndex: elements => {
-      const index = elements.findIndex(el => {
-        if (el.disabled) {
-          return false;
-        }
-        const cell = el.closest('td[role="gridcell"]');
-        return !!cell && cell.getAttribute('aria-selected') === 'true';
-      });
-
-      if (index !== -1) {
-        return index;
-      }
-
-      const firstEnabled = elements.findIndex(el => !el.disabled);
-      return firstEnabled === -1 ? 0 : firstEnabled;
-    },
-    listenerScope: (): HTMLElement => this.renderRoot.querySelector('table')!
+    directionLength: this.#cols,
+    elements: (): HTMLButtonElement[] => Array.from(this.buttons),
+    isFocusableElement: (el: HTMLButtonElement) => !el.disabled,
+    scope: (): HTMLElement => this.renderRoot.querySelector('table')!,
+    wrap: false
   });
+
+  /** The buttons representing each month. */
+  @queryAll('button') buttons!: NodeListOf<HTMLButtonElement>;
 
   /**
    * The maximum date selectable in the month.
@@ -105,7 +86,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
    * Highlights the current month when set.
    * @default false
    */
-  @property({ type: Boolean, attribute: 'show-today' }) showToday?: boolean;
+  @property({ type: Boolean, attribute: 'show-current' }) showCurrent?: boolean;
 
   /** @internal Emits when the user clicks the month/year button. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<'month' | 'year'>>;
@@ -117,13 +98,6 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     }
 
     super.disconnectedCallback();
-  }
-
-  override firstUpdated(changes: PropertyValues<this>): void {
-    super.firstUpdated(changes);
-
-    this.#rovingTabindexController.clearElementCache();
-    this.#rovingTabindexController.focus();
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -141,7 +115,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           long: formatLong.format(date),
           date,
           value: i,
-          unselectable: !(
+          disabled: !(
             (!this.min || date >= new Date(this.min.getFullYear(), this.min.getMonth(), 1)) &&
             (!this.max || date <= new Date(this.max.getFullYear(), this.max.getMonth(), 1))
           )
@@ -149,22 +123,22 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       });
     }
 
-    if (changes.has('month') || changes.has('min') || changes.has('max') || changes.has('inert')) {
-      this.#rovingTabindexController.clearElementCache();
+    if (changes.has('min') || changes.has('max') || changes.has('month')) {
+      this.#focusGroupController.clearElementCache();
     }
   }
 
   override render(): TemplateResult {
-    const currentMonth = this.month.getMonth(),
-      currentYear = this.month.getFullYear(),
-      canSelectNextYear = !this.max || (this.max && this.month.getFullYear() + 1 <= this.max.getFullYear()),
-      canSelectPreviousYear = !this.min || (this.min && this.month.getFullYear() - 1 >= this.min.getFullYear());
+    const currentYear = this.month.getFullYear();
 
-    const monthRows = this.#getMonthRows();
+    const rows: Month[][] = [];
+    for (let i = 0; i < this.months.length; i += 3) {
+      rows.push(this.months.slice(i, i + 3));
+    }
 
     return html`
-      <div part="header">
-        ${canSelectPreviousYear || canSelectNextYear
+      <header>
+        ${this.#canSelectYear(-1) || this.#canSelectYear(1)
           ? html`
               <sl-button @click=${this.#onToggleYearSelect} class="current-year" fill="link" variant="secondary">
                 <sl-format-date .date=${this.month} locale=${ifDefined(this.locale)} year="numeric"></sl-format-date>
@@ -175,8 +149,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         <div class="arrows">
           <sl-button
             @click=${this.#onPrevious}
-            @keydown=${this.#onHeaderArrowKeydown}
-            ?disabled=${!canSelectPreviousYear}
+            ?disabled=${!this.#canSelectYear(-1)}
             aria-label=${msg(str`Previous year, ${currentYear - 1}`, { id: 'sl.calendar.previousYear' })}
             fill="ghost"
             variant="secondary"
@@ -185,8 +158,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           </sl-button>
           <sl-button
             @click=${this.#onNext}
-            @keydown=${this.#onHeaderArrowKeydown}
-            ?disabled=${!canSelectNextYear}
+            ?disabled=${!this.#canSelectYear(1)}
             aria-label=${msg(str`Next year, ${currentYear + 1}`, { id: 'sl.calendar.nextYear' })}
             fill="ghost"
             variant="secondary"
@@ -194,38 +166,14 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
             <sl-icon name="chevron-right"></sl-icon>
           </sl-button>
         </div>
-      </div>
-      <table
-        @keydown=${this.#onKeydown}
-        aria-label=${msg(str`Months of ${currentYear}`, { id: 'sl.calendar.monthsLabel' })}
-        role="grid"
-      >
+      </header>
+
+      <table aria-label=${msg(str`Months of ${currentYear}`, { id: 'sl.calendar.monthsLabel' })} role="grid">
         <tbody>
-          ${monthRows.map(
+          ${rows.map(
             (row, rowIndex) => html`
               <tr aria-rowindex=${rowIndex + 1} role="row">
-                ${row.map((month, colIndex) => {
-                  const parts = this.#getMonthParts(month).join(' ');
-                  return html`
-                    <td
-                      aria-colindex=${colIndex + 1}
-                      aria-rowindex=${rowIndex + 1}
-                      aria-selected=${currentMonth === month.value ? 'true' : 'false'}
-                      role="gridcell"
-                    >
-                      <button
-                        @click=${() => this.#onClick(month.value)}
-                        ?autofocus=${currentMonth === month.value}
-                        ?disabled=${month.unselectable}
-                        .part=${parts}
-                        aria-current=${ifDefined(parts.includes('today') ? 'date' : undefined)}
-                        aria-pressed=${parts.includes('selected') ? 'true' : 'false'}
-                      >
-                        ${month.long}
-                      </button>
-                    </td>
-                  `;
-                })}
+                ${row.map((month, colIndex) => this.renderMonth(month, rowIndex, colIndex))}
               </tr>
             `
           )}
@@ -234,14 +182,138 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     `;
   }
 
-  #allNextUnselectable(): boolean {
-    const nextY = this.month.getFullYear() + 1;
-    return this.months.every(m => this.#isUnselectable(nextY, m.value));
+  renderMonth(month: Month, rowIndex: number, colIndex: number): TemplateResult {
+    const current = month.value === new Date().getMonth() && this.month.getFullYear() === new Date().getFullYear(),
+      selected = !!(
+        this.selected &&
+        this.selected.getMonth() === month.value &&
+        this.selected.getFullYear() === month.date.getFullYear()
+      );
+
+    return html`
+      <td
+        aria-rowindex=${rowIndex + 1}
+        aria-colindex=${colIndex + 1}
+        aria-selected=${selected.toString()}
+        role="gridcell"
+      >
+        <button
+          @click=${() => this.#onClick(month.value)}
+          @keydown=${this.#onKeydown}
+          ?disabled=${month.disabled}
+          aria-current=${ifDefined(current ? 'date' : undefined)}
+          aria-pressed=${selected.toString()}
+          class=${classMap({ current, selected })}
+        >
+          <span>${month.long}</span>
+        </button>
+      </td>
+    `;
   }
 
-  #allPreviousUnselectable(): boolean {
-    const prevY = this.month.getFullYear() - 1;
-    return this.months.every(m => this.#isUnselectable(prevY, m.value));
+  #onClick(month: number): void {
+    this.selectEvent.emit(new Date(this.month.getFullYear(), month));
+    this.selected = new Date(this.month.getFullYear(), month);
+  }
+
+  /**
+   * For arrow keys, we need to detect if we're at a visual boundary (first/last button position)
+   * and trying to navigate beyond it AND navigation is not blocked by min/max constraints.
+   * If we can load a new range, do so. Otherwise, let the focus group controller handle it.
+   */
+  async #onKeydown(event: KeyboardEvent & { target: HTMLButtonElement }): Promise<void> {
+    const buttons = Array.from(this.buttons);
+
+    const currentIndex = buttons.indexOf(event.target);
+    if (currentIndex === -1) {
+      return;
+    }
+
+    const canGoEarlier = !this.#allYearDisabled(-1);
+    const canGoLater = !this.#allYearDisabled(1);
+
+    let shouldLoadNewRange = false;
+
+    // Check if we're at a visual boundary position, trying to navigate beyond it,
+    // and not blocked by min/max constraints
+    if (event.key === 'ArrowLeft' && currentIndex === 0 && canGoEarlier) {
+      shouldLoadNewRange = true;
+      event.preventDefault();
+      this.#onPrevious();
+    } else if (event.key === 'ArrowRight' && currentIndex === buttons.length - 1 && canGoLater) {
+      shouldLoadNewRange = true;
+      event.preventDefault();
+      this.#onNext();
+    } else if (event.key === 'ArrowUp' && currentIndex < this.#cols && canGoEarlier) {
+      shouldLoadNewRange = true;
+      event.preventDefault();
+      this.#onPrevious();
+    } else if (event.key === 'ArrowDown' && currentIndex >= buttons.length - this.#cols && canGoLater) {
+      shouldLoadNewRange = true;
+      event.preventDefault();
+      this.#onNext();
+    }
+
+    if (shouldLoadNewRange) {
+      await this.updateComplete;
+
+      const newButtons = Array.from(this.buttons),
+        newEnabledButtons = newButtons.filter(b => !b.disabled);
+
+      let targetButton: HTMLButtonElement | undefined;
+
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+        targetButton = newEnabledButtons.at(-1);
+      } else {
+        targetButton = newEnabledButtons.at(0);
+      }
+
+      targetButton?.focus();
+    }
+
+    // Otherwise, let the event bubble to the focus group controller
+  }
+
+  #onNext(): void {
+    this.month = new Date(this.month.getFullYear() + 1, this.month.getMonth(), this.month.getDate());
+
+    this.#announce(this.month);
+  }
+
+  #onPrevious(): void {
+    this.month = new Date(this.month.getFullYear() - 1, this.month.getMonth(), this.month.getDate());
+
+    this.#announce(this.month);
+  }
+
+  #onToggleYearSelect(): void {
+    this.toggleEvent.emit('year');
+  }
+
+  #isDisabled(year: number, month: number): boolean {
+    const date = new Date(year, month, 1);
+
+    if (this.min && date < new Date(this.min.getFullYear(), this.min.getMonth(), 1)) {
+      return true;
+    }
+
+    return !!(this.max && date > new Date(this.max.getFullYear(), this.max.getMonth(), 1));
+  }
+
+  #allYearDisabled(offset: number): boolean {
+    const year = this.month.getFullYear() + offset;
+
+    return this.months.every(m => this.#isDisabled(year, m.value));
+  }
+
+  #canSelectYear(offset: number): boolean {
+    const targetYear = this.month.getFullYear() + offset;
+
+    if (offset > 0) {
+      return !this.max || targetYear <= this.max.getFullYear();
+    } else {
+      return !this.min || targetYear >= this.min.getFullYear();
+    }
   }
 
   // Announce if needed, we don't want to have the same message announced twice
@@ -262,180 +334,5 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
       this.#announceTimeoutId = undefined;
     }, 50);
-  }
-
-  #getMonthsButtons(): HTMLButtonElement[] {
-    return Array.from(this.renderRoot.querySelectorAll('table button'));
-  }
-
-  /** Returns an array of part names for a day. */
-  #getMonthParts = (month: Month): string[] => {
-    return [
-      'month',
-      month.value === new Date().getMonth() && this.month.getFullYear() === new Date().getFullYear() ? 'today' : '',
-      month.unselectable ? 'unselectable' : '',
-      this.selected &&
-      this.selected.getMonth() === month.value &&
-      this.selected.getFullYear() === month.date.getFullYear()
-        ? 'selected'
-        : ''
-    ].filter(part => part !== '');
-  };
-
-  #getMonthRows(): Month[][] {
-    const rows: Month[][] = [];
-    for (let i = 0; i < this.months.length; i += 3) {
-      rows.push(this.months.slice(i, i + 3));
-    }
-    return rows;
-  }
-
-  #isUnselectable(year: number, month: number): boolean {
-    const date = new Date(year, month, 1);
-    if (this.min && date < new Date(this.min.getFullYear(), this.min.getMonth(), 1)) {
-      return true;
-    }
-    return !!(this.max && date > new Date(this.max.getFullYear(), this.max.getMonth(), 1));
-  }
-
-  #onClick(month: number): void {
-    this.selectEvent.emit(new Date(this.month.getFullYear(), month));
-    this.selected = new Date(this.month.getFullYear(), month);
-  }
-
-  #onHeaderArrowKeydown(event: KeyboardEvent): void {
-    // Prevent arrow keys on header buttons from being handled by the roving controller.
-    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
-      event.stopPropagation();
-    }
-  }
-
-  #onKeydown(event: KeyboardEvent): void {
-    const buttons = Array.from(this.renderRoot.querySelectorAll<HTMLButtonElement>('table button')),
-      activeElement = this.shadowRoot?.activeElement as HTMLButtonElement | null,
-      index = activeElement ? buttons.indexOf(activeElement) : -1,
-      cols = 3;
-
-    if (event.key === 'ArrowLeft' && !this.#allPreviousUnselectable()) {
-      if (index === 0) {
-        event.preventDefault();
-        event.stopPropagation();
-
-        this.#onPrevious();
-
-        void this.updateComplete.then(() => {
-          this.#rovingTabindexController.clearElementCache();
-
-          const newButtons = this.#getMonthsButtons();
-
-          this.#rovingTabindexController.focusToElement(newButtons[newButtons.length - 1]);
-        });
-      }
-    } else if (event.key === 'ArrowRight' && !this.#allNextUnselectable()) {
-      if (index === buttons.length - 1) {
-        event.preventDefault();
-        event.stopPropagation();
-
-        this.#onNext();
-
-        void this.updateComplete.then(() => {
-          this.#rovingTabindexController.clearElementCache();
-
-          const first = this.#getMonthsButtons()[0];
-
-          if (first) {
-            this.#rovingTabindexController.focusToElement(first);
-          }
-        });
-      }
-    } else if (event.key === 'ArrowUp' && !this.#allPreviousUnselectable()) {
-      if (index > -1 && index < cols) {
-        event.preventDefault();
-        event.stopPropagation();
-
-        const col = index % cols;
-
-        this.#onPrevious();
-
-        void this.updateComplete.then(() => {
-          this.#rovingTabindexController.clearElementCache();
-
-          const newButtons = this.#getMonthsButtons(),
-            total = newButtons.length;
-
-          if (!total) {
-            return;
-          }
-
-          // Start index of last (possibly partial) row
-          const lastRowStart = total - (total % cols === 0 ? cols : total % cols),
-            targetIndex = Math.min(lastRowStart + col, total - 1),
-            target = newButtons[targetIndex];
-
-          if (target) {
-            this.#rovingTabindexController.focusToElement(target);
-          }
-        });
-      }
-    } else if (event.key === 'ArrowDown' && !this.#allNextUnselectable()) {
-      if (index > -1) {
-        const total = buttons.length,
-          lastRowStart = total - (total % cols === 0 ? cols : total % cols);
-
-        // If on any button in the last row, move to next range keeping column
-        if (index >= lastRowStart) {
-          event.preventDefault();
-          event.stopPropagation();
-
-          const col = index % cols;
-
-          this.#onNext();
-
-          void this.updateComplete.then(() => {
-            this.#rovingTabindexController.clearElementCache();
-
-            const newButtons = this.#getMonthsButtons();
-
-            if (!newButtons.length) {
-              return;
-            }
-
-            let target = newButtons[col];
-            if (!target) {
-              // Last button if fewer buttons than expected
-              target = newButtons[newButtons.length - 1];
-            }
-            if (target) {
-              this.#rovingTabindexController.focusToElement(target);
-            }
-          });
-        }
-      }
-    }
-  }
-
-  #onNext(): void {
-    this.month = new Date(this.month.getFullYear() + 1, this.month.getMonth(), this.month.getDate());
-
-    this.#announce(this.month);
-  }
-
-  #onPrevious(): void {
-    this.month = new Date(this.month.getFullYear() - 1, this.month.getMonth(), this.month.getDate());
-
-    this.#announce(this.month);
-  }
-
-  #onSelectMonthKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Escape') {
-      event.preventDefault();
-      event.stopPropagation();
-
-      this.selectEvent.emit(this.month);
-    }
-  }
-
-  #onToggleYearSelect(): void {
-    this.toggleEvent.emit('year');
   }
 }

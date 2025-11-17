@@ -1,23 +1,23 @@
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
-import { html, nothing } from 'lit';
+import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { useArgs } from 'storybook/internal/preview-api';
 import '../register.js';
 import { SelectMonth } from './select-month.js';
 
-type Props = Pick<SelectMonth, 'month' | 'max' | 'min' | 'showToday'> & { styles?: string };
+type Props = Pick<SelectMonth, 'max' | 'min' | 'month' | 'showCurrent'>;
 type Story = StoryObj<Props>;
 
-customElements.define('sl-select-month', SelectMonth);
+try {
+  customElements.define('sl-select-month', SelectMonth);
+} catch {
+  /* empty */
+}
 
 export default {
   title: 'Date & Time/Calendar/Select Month',
   tags: ['draft'],
   args: {
-    month: new Date(),
-    max: new Date(new Date().getFullYear(), 11, 31),
-    min: new Date(new Date().getFullYear(), 0, 1),
-    showToday: true
+    month: new Date()
   },
   argTypes: {
     max: {
@@ -29,50 +29,34 @@ export default {
     month: {
       control: 'date'
     },
-    showToday: {
+    showCurrent: {
       control: 'boolean'
-    },
-    styles: {
-      table: { disable: true }
     }
   },
-  render: ({ max, min, month, styles, showToday }) => {
-    const [_, updateArgs] = useArgs();
-    const parseDate = (value: string | Date | undefined): Date | undefined => {
-      if (!value) {
-        return undefined;
-      }
-
-      return value instanceof Date ? value : new Date(value);
-    };
-
-    const onSelectMonth = (event: CustomEvent<Date>) => {
-      updateArgs({ month: new Date(event.detail.getFullYear(), event.detail.getMonth(), 1).getTime() }); //needs to be set to the 'time' otherwise Storybook chokes on the date format 🤷
-    };
-
+  render: ({ max, min, month, showCurrent }) => {
     return html`
-      ${styles
-        ? html`
-            <style>
-              ${styles}
-            </style>
-          `
-        : nothing}
       <sl-select-month
-        @sl-select=${onSelectMonth}
-        max=${ifDefined(parseDate(max)?.toISOString())}
-        min=${ifDefined(parseDate(min)?.toISOString())}
-        month=${ifDefined(parseDate(month)?.toISOString())}
-        show-today=${ifDefined(showToday)}
+        ?show-current=${showCurrent}
+        max=${ifDefined(max?.toISOString())}
+        min=${ifDefined(min?.toISOString())}
+        month=${ifDefined(month?.toISOString())}
       ></sl-select-month>
     `;
   }
 } satisfies Meta<Props>;
 
-export const Basic: Story = {
+export const Basic: Story = {};
+
+export const MinMax: Story = {
   args: {
     max: new Date(2025, 10, 1),
     min: new Date(2025, 2, 1),
     month: new Date(2025, 7, 1)
+  }
+};
+
+export const ShowCurrent: Story = {
+  args: {
+    showCurrent: true
   }
 };

@@ -197,7 +197,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
    * and trying to navigate beyond it AND navigation is not blocked by min/max constraints.
    * If we can load a new range, do so. Otherwise, let the focus group controller handle it.
    */
-  #onKeydown(event: KeyboardEvent & { target: HTMLButtonElement }): void {
+  async #onKeydown(event: KeyboardEvent & { target: HTMLButtonElement }): Promise<void> {
     const buttons = Array.from(this.buttons);
 
     const currentIndex = buttons.indexOf(event.target);
@@ -233,21 +233,22 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     }
 
     if (shouldLoadNewRange) {
-      void this.updateComplete.then(() => {
-        const newButtons = Array.from(this.buttons),
-          newEnabledButtons = newButtons.filter(b => !b.disabled);
+      await this.updateComplete;
 
-        let targetButton: HTMLButtonElement | undefined;
+      const newButtons = Array.from(this.buttons),
+        newEnabledButtons = newButtons.filter(b => !b.disabled);
 
-        if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
-          targetButton = newEnabledButtons.at(-1);
-        } else {
-          targetButton = newEnabledButtons.at(0);
-        }
+      let targetButton: HTMLButtonElement | undefined;
 
-        targetButton?.focus();
-      });
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+        targetButton = newEnabledButtons.at(-1);
+      } else {
+        targetButton = newEnabledButtons.at(0);
+      }
+
+      targetButton?.focus();
     }
+
     // Otherwise, let the event bubble to the focus group controller
   }
 

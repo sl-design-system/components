@@ -25,7 +25,7 @@ describe('sl-select-year', () => {
       el = await fixture(html`<sl-select-year></sl-select-year>`);
     });
 
-    it('should render 12 years by default (current year -5 .. current year +6)', () => {
+    it('should render 12 years', () => {
       const years = Array.from(el.renderRoot.querySelectorAll('table button'));
 
       expect(years).to.have.lengthOf(12);

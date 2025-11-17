@@ -64,7 +64,7 @@ export interface Month {
   long: string;
   value: number;
   date: Date;
-  unselectable?: boolean;
+  disabled?: boolean;
 }
 
 export type WeekDayNamesStyle = 'long' | 'short' | 'narrow';

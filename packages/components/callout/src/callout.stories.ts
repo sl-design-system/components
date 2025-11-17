@@ -48,7 +48,7 @@ export default {
     }
   },
   render: ({ body, size, title, variant }) => html`
-    <sl-callout .size=${size ?? 'auto'} variant=${ifDefined(variant)}>
+    <sl-callout .size=${size} variant=${ifDefined(variant)}>
       ${title ? html`<span slot="title">${title}</span>` : nothing} ${typeof body === 'string' ? body : body()}
     </sl-callout>
   `

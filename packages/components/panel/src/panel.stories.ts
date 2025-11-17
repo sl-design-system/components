@@ -32,7 +32,7 @@ type Props = Pick<
 };
 type Story = StoryObj<Props>;
 
-const densities: PanelDensity[] = ['plain', 'comfortable'];
+const densities: PanelDensity[] = ['compact', 'default', 'relaxed'];
 
 const elevations: PanelElevation[] = ['none', 'raised', 'sunken'];
 
@@ -88,7 +88,7 @@ export default {
   tags: ['draft'],
   args: {
     collapsible: false,
-    density: 'plain',
+    density: 'default',
     divider: false,
     elevation: 'none',
     noBorder: false,

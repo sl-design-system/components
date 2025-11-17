@@ -16,8 +16,8 @@
   justify-content: center;
   outline: transparent solid var(--sl-size-borderWidth-focusRing);
   outline-offset: var(--sl-size-outlineOffset-default);
-  padding: calc(var(--sl-size-100) - var(--sl-size-borderWidth-action))
-    calc(var(--sl-size-200) - var(--sl-size-borderWidth-action));
+  padding: calc((var(--sl-size-100) - var(--sl-size-borderWidth-action)) * var(--_audience-scale, 1))
+    calc((var(--sl-size-200) - var(--sl-size-borderWidth-action)) * var(--_audience-scale, 1));
   user-select: none;
   vertical-align: middle;
 }
@@ -174,8 +174,8 @@
 }
 
 :host([size='sm']) {
-  padding: calc(var(--sl-size-025) - var(--sl-size-borderWidth-action))
-    calc(var(--sl-size-175) - var(--sl-size-borderWidth-action));
+  padding: calc((var(--sl-size-025) - var(--sl-size-borderWidth-action)) * var(--_audience-scale, 1))
+    calc((var(--sl-size-175) - var(--sl-size-borderWidth-action)) * var(--_audience-scale, 1));
 
   ::slotted(sl-icon) {
     --sl-icon-size: var(--sl-size-150);
@@ -189,8 +189,8 @@
 
 :host([size='lg']) {
   gap: var(--sl-size-100);
-  padding: calc(var(--sl-size-175) - var(--sl-size-borderWidth-action))
-    calc(var(--sl-size-300) - var(--sl-size-borderWidth-action));
+  padding: calc((var(--sl-size-175) - var(--sl-size-borderWidth-action)) * var(--_audience-scale, 1))
+    calc((var(--sl-size-300) - var(--sl-size-borderWidth-action)) * var(--_audience-scale, 1));
 }
 
 :host([size='lg'][icon-only]) {

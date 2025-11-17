@@ -1,5 +1,5 @@
 :host {
-  --sl-panel-content-padding: var(--sl-size-200);
+  --sl-panel-content-padding: calc(var(--sl-size-200) * var(--_audience-scale, 1));
 
   background: var(--sl-elevation-surface-raised-default);
   border: var(--sl-color-border-plain) solid var(--sl-size-borderWidth-subtle);
@@ -11,28 +11,33 @@
 :host([divider]) {
   [part='content'] {
     border-block-start: var(--sl-color-border-plain) solid var(--sl-size-borderWidth-default);
-    padding-block-start: var(--sl-size-125);
+    padding-block-start: calc(var(--sl-size-125) * var(--_audience-scale, 1));
   }
 }
 
-:host([density='comfortable'][has-actions]) {
+:host([density='relaxed'][has-actions]) {
   [part='header'] {
-    min-block-size: var(--sl-size-700);
-    padding-inline: var(--sl-size-300) var(--sl-size-125);
+    min-block-size: calc(var(--sl-size-700) * var(--_audience-scale, 1));
+    padding-inline: calc(var(--sl-size-300) * var(--_audience-scale, 1))
+      calc(var(--sl-size-125) * var(--_audience-scale, 1));
   }
 }
 
-:host([density='comfortable']) {
-  --sl-panel-content-padding: var(--sl-size-300);
+:host([density='relaxed']) {
+  --sl-panel-content-padding: calc(var(--sl-size-300) * var(--_audience-scale, 1));
 
   [part='header'] {
-    padding-inline: var(--sl-size-300);
+    padding-inline: calc(var(--sl-size-300) * var(--_audience-scale, 1));
   }
 }
 
-:host([density='comfortable'][divider]) {
+:host([density='compact']) {
+  --sl-panel-content-padding: calc(var(--sl-size-150) * var(--_audience-scale, 1));
+}
+
+:host([density='relaxed'][divider]) {
   [part='content'] {
-    padding-block-start: var(--sl-size-200);
+    padding-block-start: calc(var(--sl-size-200) * var(--_audience-scale, 1));
   }
 }
 
@@ -40,21 +45,21 @@
   border: 0;
 }
 
-:host([density='comfortable'][collapsible][has-actions]) {
+:host([density='relaxed'][collapsible][has-actions]) {
   [part='header'] {
-    padding-inline: var(--sl-size-125);
+    padding-inline: calc(var(--sl-size-125) * var(--_audience-scale, 1));
   }
 }
 
-:host([density='comfortable'][collapsible]) {
+:host([density='relaxed'][collapsible]) {
   [part='header'] {
-    padding-inline: var(--sl-size-125) var(--sl-size-300);
+    padding-inline: calc(var(--sl-size-125) * var(--_audience-scale, 1)) var(--sl-panel-content-padding);
   }
 }
 
-:host([density='comfortable'][collapsible][toggle-placement='end']) {
+:host([density='relaxed'][collapsible][toggle-placement='end']) {
   [part='header'] {
-    padding-inline: var(--sl-size-300) var(--sl-size-125);
+    padding-inline: var(--sl-panel-content-padding) calc(var(--sl-size-125) * var(--_audience-scale, 1));
   }
 }
 
@@ -77,7 +82,7 @@
   [part='header'] {
     grid-template-areas: 'toggle wrapper aside';
     grid-template-columns: auto 1fr minmax(var(--sl-size-500), 25%);
-    padding-inline: var(--sl-size-075);
+    padding-inline: calc(var(--sl-size-075) * var(--_audience-scale, 1));
   }
 }
 
@@ -85,7 +90,8 @@
   [part='header'] {
     grid-template-areas: 'toggle wrapper aside';
     grid-template-columns: auto 1fr;
-    padding-inline: var(--sl-size-075) var(--sl-size-200);
+    padding-inline: calc(var(--sl-size-075) * var(--_audience-scale, 1))
+      calc(var(--sl-size-200) * var(--_audience-scale, 1));
   }
 }
 
@@ -93,7 +99,8 @@
   [part='header'] {
     grid-template-areas: 'wrapper aside toggle';
     grid-template-columns: 1fr minmax(var(--sl-size-500), 25%) auto;
-    padding-inline: var(--sl-size-200) var(--sl-size-075);
+    padding-inline: calc(var(--sl-size-200) * var(--_audience-scale, 1))
+      calc(var(--sl-size-075) * var(--_audience-scale, 1));
   }
 }
 
@@ -125,13 +132,14 @@
   gap: var(--sl-size-075);
   grid-template-areas: 'wrapper aside';
   grid-template-columns: 1fr minmax(var(--sl-size-500), 25%);
-  min-block-size: var(--sl-size-600);
-  padding-inline: var(--sl-size-200);
+  min-block-size: calc(var(--sl-size-600) * var(--_audience-scale, 1));
+  padding-inline: var(--sl-panel-content-padding);
 }
 
 :host([has-actions]) {
   [part='header'] {
-    padding-inline: var(--sl-size-200) var(--sl-size-075);
+    padding-inline: calc(var(--sl-size-200) * var(--_audience-scale, 1))
+      calc(var(--sl-size-075) * var(--_audience-scale, 1));
   }
 }
 
@@ -147,7 +155,7 @@ slot[name='heading']::slotted(*) {
   color: var(--sl-color-foreground-bold);
   font-size: 1.143em;
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
-  padding-block: var(--sl-size-100);
+  padding-block: calc(var(--sl-size-100) * var(--_audience-scale, 1));
 }
 
 slot[name='heading'] {

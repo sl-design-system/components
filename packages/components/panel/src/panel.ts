@@ -16,7 +16,7 @@ declare global {
   }
 }
 
-export type PanelDensity = 'plain' | 'comfortable';
+export type PanelDensity = 'compact' | 'default' | 'relaxed';
 
 export type PanelElevation = 'none' | 'raised' | 'sunken';
 

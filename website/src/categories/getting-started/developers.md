@@ -24,13 +24,13 @@ Please follow the steps below when first getting started:
 ## Make sure you have access
 
 Even though the SL Design System is open source, the packages are not publicly available. That is why you need to get access to the npm packages in order to install them locally. 
-For use in a Sanoma Learning product it is possible to load the SLDS packages (and Font Awesome), via the company provided Nexus server. If you don't have access to that it is also possible to access the packages via Github.
+For use in a Sanoma Learning product it is possible to load the SLDS packages (and Font Awesome), via the company provided Nexus server. If you don't have access to that it is also possible to access the packages via GitHub.
 
 ### Nexus
 
 A lot of products are getting their packages from nexus already, so you can check your team's documentation for the url and how to set up access. For technical questions about access to nexus you can contact TechOps. If you have access to the correct server but encounter a problem specific to the Design System packages you can contact us of course.
 
-### Github
+### GitHub
 
 First the SL Design System team needs to add you to the list of users who can access the packages. To be added, you need to provide your @sanoma.com (or other company) email address to us in [our Slack channel](https://sanoma.slack.com/archives/C03SA9HUUA3) or you can <a href="mailto:designsystem@sanoma.com">send us an email</a>. Please mention which product you are working on so we can put you in the right team. For our admin it's also really helpful if you have a recognizable username, or use your actual name, so we can trace an account back to you if we ever need to contact you.
 You don't have to create a new, separate GitHub account with your Sanoma Learning email address if you have an existing GitHub account and want to use that. Just add your @sanoma.com email address to the list of email addresses in GitHub.
@@ -168,20 +168,17 @@ The following web standards require polyfills at this time:
 
 To use these polyfills, you need to install the following packages:
 - `@webcomponents/scoped-custom-element-registry`
-- `element-internals-polyfill`
 
 Once installed you need to import the polyfills in your application. You can do this by importing the polyfills in your main JS file:
 
 ```js
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
-import 'element-internals-polyfill';
 ```
 
 Another option is to include them in your HTML:
 
 ```html
 <script src="./node_modules/@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js"></script>
-<script src="./node_modules/element-internals-polyfill"></script>
 ```
 
 </section>

@@ -36,13 +36,7 @@
 }
 
 :host([size='lg']) {
-  display: grid;
-  grid-template-columns: auto 1fr;
   padding: var(--sl-size-300);
-
-  [part='content'] {
-    grid-column: 2;
-  }
 }
 
 :host([variant='positive']) {

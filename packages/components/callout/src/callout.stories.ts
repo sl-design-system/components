@@ -134,7 +134,6 @@ export const WithActions: Story = {
       }
 
       sl-callout sl-button {
-        /* margin-block-start: 0.5rem; */
         align-self: flex-start;
       }
     </style>

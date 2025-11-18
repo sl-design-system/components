@@ -2,7 +2,7 @@ import { localized } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import styles from './callout.scss.js';
 
 declare global {
@@ -17,7 +17,8 @@ export type CalloutVariant = 'info' | 'positive' | 'caution' | 'negative';
 
 /**
  * A callout component for displaying additional information.
- * Meant to be used with actions and should not be dynamically shown like the inline-message.
+ * Meant to be used with actions and should not be shown/hidden dynamically in response to user actions (unlike the inline-message).
+ * This means the callout should remain visible as part of the static page layout, rather than appearing or disappearing based on user interaction.
  * There is no aria role on this component as it is not meant to interrupt the user.
  *
  * @slot default - The body of the callout.
@@ -35,9 +36,6 @@ export class Callout extends ScopedElementsMixin(LitElement) {
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
-
-  /** @internal If the content spans more than 2 lines, this will be true. */
-  @state() contentOverflow?: boolean;
 
   /** @internal The name of the icon, depending on the variant. */
   get iconName(): string {

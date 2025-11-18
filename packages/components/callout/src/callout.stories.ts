@@ -48,8 +48,15 @@ export default {
     }
   },
   render: ({ body, size, title, variant }) => html`
+    <style>
+      h2 {
+        font-size: inherit;
+        font-weight: inherit;
+        margin: 0;
+      }
+    </style>
     <sl-callout .size=${size} variant=${ifDefined(variant)}>
-      ${title ? html`<span slot="title">${title}</span>` : nothing} ${typeof body === 'string' ? body : body()}
+      ${title ? html`<h2 slot="title">${title}</h2>` : nothing} ${typeof body === 'string' ? body : body()}
     </sl-callout>
   `
 } satisfies Meta<Props>;
@@ -91,14 +98,20 @@ export const Sizes: Story = {
       sl-callout {
         margin-block-end: 1rem;
       }
+
+      h2 {
+        font-size: inherit;
+        font-weight: inherit;
+        margin: 0;
+      }
     </style>
     <sl-callout size="md" variant=${ifDefined(variant)}> Medium (default) callout component. </sl-callout>
     <sl-callout variant=${ifDefined(variant)}>
-      <span slot="title">Callout title</span>
+      <h2 slot="title">Callout title</h2>
       Medium (default) callout component.
     </sl-callout>
     <sl-callout size="lg" variant=${ifDefined(variant)}>
-      <span slot="title">Callout title</span>
+      <h2 slot="title">Callout title</h2>
       Large callout component.
     </sl-callout>
     <sl-callout size="lg" variant=${ifDefined(variant)}> Large callout component without title. </sl-callout>
@@ -136,6 +149,12 @@ export const WithActions: Story = {
       sl-callout sl-button {
         align-self: flex-start;
       }
+
+      h2 {
+        font-size: inherit;
+        font-weight: inherit;
+        margin: 0;
+      }
     </style>
     <div class="container">
       <sl-callout size="md" variant="caution">
@@ -160,7 +179,7 @@ export const WithActions: Story = {
       </sl-callout>
       <sl-callout size="md" variant="info">
         <sl-icon slot="icon" name="fas-file-signature"></sl-icon>
-        <span slot="title">Field trip consent</span>
+        <h2 slot="title">Field trip consent</h2>
         <div class="content">
           The 6th-grade museum visit is on 21 Nov. Please review the details and submit a consent form. <br />
           <div class="link-info">
@@ -181,7 +200,7 @@ export const WithActions: Story = {
       </sl-callout>
       <sl-callout size="lg" variant="info">
         <sl-icon slot="icon" name="fas-file-signature"></sl-icon>
-        <span slot="title">Field trip consent</span>
+        <h2 slot="title">Field trip consent</h2>
         <div class="content">
           The 6th-grade museum visit is on 21 Nov. Please review the details and submit a consent form. <br />
           <div class="link-info">
@@ -207,6 +226,12 @@ export const WithActions: Story = {
 export const All: StoryObj = {
   render: () => html`
     <style>
+      h2 {
+        font-size: inherit;
+        font-weight: inherit;
+        margin: 0;
+      }
+
       .wrapper {
         display: flex;
         flex-direction: column;
@@ -214,6 +239,7 @@ export const All: StoryObj = {
         margin: 0 auto;
         max-inline-size: min(600px, 80vw);
       }
+
       sl-callout::part(title):first-letter {
         text-transform: capitalize;
       }
@@ -223,15 +249,15 @@ export const All: StoryObj = {
         variant => html`
           <sl-callout variant=${variant}> The main content of the callout </sl-callout>
           <sl-callout variant=${variant}>
-            <span slot="title"> Callout title </span>
+            <h2 slot="title">Callout title</h2>
             The main content of the callout
           </sl-callout>
           <sl-callout size="lg" variant=${variant}> The main content of the callout </sl-callout>
           <sl-callout size="lg" variant=${variant}>
-            <span slot="title">
+            <h2 slot="title">
               The "${variant}" callout title, esse laboris nisi ut quis ullamco dolor elit do commodo ea mollit eu
               irure.
-            </span>
+            </h2>
             Duis ut magna commodo minim cillum voluptate incididunt ea labore adipisicing do ad anim. Incididunt non
             consequat eiusmod aliqua consequat Lorem eu culpa labore aute laboris eiusmod.
           </sl-callout>

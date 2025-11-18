@@ -17,8 +17,11 @@ export type CalloutVariant = 'info' | 'positive' | 'caution' | 'negative';
 
 /**
  * A callout component for displaying additional information.
- * Meant to be used with actions and should not be shown/hidden dynamically in response to user actions (unlike the inline-message).
- * This means the callout should remain visible as part of the static page layout, rather than appearing or disappearing based on user interaction.
+ * The component can contain actions (e.g. buttons)
+ * and should not be shown/hidden dynamically in response to user actions
+ * (unlike the inline-message).
+ * This means the callout should remain visible as part of the static page layout,
+ * rather than appearing or disappearing based on user interaction.
  * There is no aria role on this component as it is not meant to interrupt the user.
  *
  * @slot default - The body of the callout.

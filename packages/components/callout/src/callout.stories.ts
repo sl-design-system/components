@@ -1,7 +1,6 @@
 import { faArrowDownToLine, faArrowRightToBracket } from '@fortawesome/pro-regular-svg-icons';
 import { faFileSignature as fasFileSignature, faShield as fasShield } from '@fortawesome/pro-solid-svg-icons';
 import '@sl-design-system/button/register.js';
-import '@sl-design-system/button-bar/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';

@@ -19,6 +19,7 @@ import { All as AllSelect } from '../../../packages/components/select/src/select
 import { All as AllSkeleton } from '../../../packages/components/skeleton/src/skeleton.stories';
 import { All as AllSpinner } from '../../../packages/components/spinner/src/spinner.stories';
 import { All as AllSwitch } from '../../../packages/components/switch/src/switch.stories';
+import { All as AllTag } from '../../../packages/components/tag/src/root.stories';
 import { All as AllTextArea } from '../../../packages/components/text-area/src/text-area.stories';
 import { All as AllTextField } from '../../../packages/components/text-field/src/text-field.stories';
 import { All as AllToggleButton } from '../../../packages/components/toggle-button/src/toggle-button.stories';
@@ -83,6 +84,7 @@ export const Select = { render: AllSelect.render };
 export const Skeleton = { render: AllSkeleton.render };
 export const Spinner = { render: AllSpinner.render };
 export const Switch = { render: AllSwitch.render };
+export const Tag = { render: AllTag.render };
 export const TextArea = { render: AllTextArea.render };
 export const TextField = { render: AllTextField.render };
 export const ToggleButton = { render: AllToggleButton.render };

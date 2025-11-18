@@ -10,7 +10,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { Callout, type CalloutVariant } from './callout';
 
-interface Props extends Pick<Callout, 'size' | 'variant'> {
+interface Props extends Pick<Callout, 'density' | 'variant'> {
   title: string;
   button: string;
   body: string | (() => TemplateResult);
@@ -38,16 +38,16 @@ export default {
         disable: true
       }
     },
-    size: {
+    density: {
       control: 'inline-radio',
-      options: ['md', 'lg']
+      options: ['plain', 'comfortable']
     },
     variant: {
       control: 'inline-radio',
       options: variants
     }
   },
-  render: ({ body, size, title, variant }) => html`
+  render: ({ body, density, title, variant }) => html`
     <style>
       h2 {
         font-size: inherit;
@@ -55,7 +55,7 @@ export default {
         margin: 0;
       }
     </style>
-    <sl-callout .size=${size} variant=${ifDefined(variant)}>
+    <sl-callout .density=${density} variant=${ifDefined(variant)}>
       ${title ? html`<h2 slot="title">${title}</h2>` : nothing} ${typeof body === 'string' ? body : body()}
     </sl-callout>
   `
@@ -92,7 +92,7 @@ export const Overflow: Story = {
   }
 };
 
-export const Sizes: Story = {
+export const Density: Story = {
   render: ({ variant }) => html`
     <style>
       sl-callout {
@@ -105,16 +105,18 @@ export const Sizes: Story = {
         margin: 0;
       }
     </style>
-    <sl-callout size="md" variant=${ifDefined(variant)}> Medium (default) callout component. </sl-callout>
+    <sl-callout density="plain" variant=${ifDefined(variant)}> Plain (default) callout component. </sl-callout>
     <sl-callout variant=${ifDefined(variant)}>
       <h2 slot="title">Callout title</h2>
-      Medium (default) callout component.
+      Plain (default) callout component.
     </sl-callout>
-    <sl-callout size="lg" variant=${ifDefined(variant)}>
+    <sl-callout density="comfortable" variant=${ifDefined(variant)}>
       <h2 slot="title">Callout title</h2>
-      Large callout component.
+      Comfortable callout component.
     </sl-callout>
-    <sl-callout size="lg" variant=${ifDefined(variant)}> Large callout component without title. </sl-callout>
+    <sl-callout density="comfortable" variant=${ifDefined(variant)}>
+      Comfortable callout component without title.
+    </sl-callout>
   `
 };
 
@@ -157,7 +159,7 @@ export const WithActions: Story = {
       }
     </style>
     <div class="container">
-      <sl-callout size="md" variant="caution">
+      <sl-callout density="plain" variant="caution">
         <sl-icon slot="icon" name="fas-shield"></sl-icon>
         <div class="content">
           Student data export requires encrypted storage.
@@ -167,7 +169,7 @@ export const WithActions: Story = {
           </sl-button>
         </div>
       </sl-callout>
-      <sl-callout size="lg" variant="caution">
+      <sl-callout density="comfortable" variant="caution">
         <sl-icon slot="icon" name="fas-shield"></sl-icon>
         <div class="content">
           Student data export requires encrypted storage.
@@ -177,7 +179,7 @@ export const WithActions: Story = {
           </sl-button>
         </div>
       </sl-callout>
-      <sl-callout size="md" variant="info">
+      <sl-callout density="plain" variant="info">
         <sl-icon slot="icon" name="fas-file-signature"></sl-icon>
         <h2 slot="title">Field trip consent</h2>
         <div class="content">
@@ -198,7 +200,7 @@ export const WithActions: Story = {
           </div>
         </div>
       </sl-callout>
-      <sl-callout size="lg" variant="info">
+      <sl-callout density="comfortable" variant="info">
         <sl-icon slot="icon" name="fas-file-signature"></sl-icon>
         <h2 slot="title">Field trip consent</h2>
         <div class="content">
@@ -252,8 +254,8 @@ export const All: StoryObj = {
             <h2 slot="title">Callout title</h2>
             The main content of the callout
           </sl-callout>
-          <sl-callout size="lg" variant=${variant}> The main content of the callout </sl-callout>
-          <sl-callout size="lg" variant=${variant}>
+          <sl-callout density="comfortable" variant=${variant}> The main content of the callout </sl-callout>
+          <sl-callout density="comfortable" variant=${variant}>
             <h2 slot="title">
               The "${variant}" callout title, esse laboris nisi ut quis ullamco dolor elit do commodo ea mollit eu
               irure.

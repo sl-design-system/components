@@ -12,9 +12,9 @@ describe('sl-callout', () => {
       el = await fixture(html`<sl-callout>Callout component</sl-callout>`);
     });
 
-    it('should not have an explicit size', () => {
-      expect(el).not.to.have.attribute('size');
-      expect(el.size).to.be.undefined;
+    it('should not have an explicit density', () => {
+      expect(el).not.to.have.attribute('density');
+      expect(el.density).to.be.undefined;
     });
 
     it('should not have an explicit variant', () => {

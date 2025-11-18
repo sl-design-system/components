@@ -11,7 +11,7 @@ declare global {
   }
 }
 
-export type CalloutSize = 'md' | 'lg';
+export type CalloutDensity = 'plain' | 'comfortable';
 
 export type CalloutVariant = 'info' | 'positive' | 'caution' | 'negative';
 
@@ -58,10 +58,10 @@ export class Callout extends ScopedElementsMixin(LitElement) {
   @property({ type: Boolean, attribute: 'no-title', reflect: true }) noTitle = true;
 
   /**
-   * The size of the callout.
-   * @default md
+   * The density of the callout.
+   * @default plain
    */
-  @property({ reflect: true }) size?: CalloutSize;
+  @property({ reflect: true }) density?: CalloutDensity;
 
   /**
    * The variant of the callout.

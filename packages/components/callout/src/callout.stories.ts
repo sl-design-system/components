@@ -23,7 +23,7 @@ Icon.register(faArrowDownToLine, faArrowRightToBracket, fasFileSignature, fasShi
 
 export default {
   title: 'Feedback & status/Callout',
-  tags: ['stable'],
+  tags: ['draft'],
   args: {
     variant: 'info'
   },

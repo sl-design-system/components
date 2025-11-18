@@ -69,7 +69,6 @@ const preview: Preview = {
     }
   },
   parameters: {
-    // date: new Date('2025-06-01T00:00:00Z'),
     backgrounds: {
       values: [
         { name: 'Default', value: 'var(--sl-elevation-surface-base-default)' },

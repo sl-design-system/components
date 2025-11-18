@@ -5093,6 +5093,7 @@ __metadata:
     husky: "npm:^9.1.7"
     lint-staged: "npm:^16.2.5"
     lit: "npm:^3.3.1"
+    mockdate: "npm:^3.0.5"
     playwright: "npm:^1.56.1"
     sinon: "npm:^21.0.0"
     sinon-chai: "npm:^4.0.1"
@@ -16523,6 +16524,13 @@ __metadata:
     _mocha: bin/_mocha
     mocha: bin/mocha.js
   checksum: 10c0/f84252dd93b7d67e20e3ca09c6be0da77d43795d502132a976450c5c19025de632bbaab6751dd1d8fd6311a3063d2f3647e61db84feb17900995d52e01cfb3b8
+  languageName: node
+  linkType: hard
+
+"mockdate@npm:^3.0.5":
+  version: 3.0.5
+  resolution: "mockdate@npm:3.0.5"
+  checksum: 10c0/36ab00c4b94d3e3cc8b9ecec27730dcf396d47d2ba046ad96635e7f9bc4bba0fff6125dedaba7313b1cadc0cefc0eb3f3ac0d5c3655707afd3b82fa4550aae92
   languageName: node
   linkType: hard
 

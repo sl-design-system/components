@@ -63,7 +63,7 @@ export const Basic: Story = {
 export const Title: Story = {
   args: {
     title: 'Callout title',
-    body: () => html`A content of the callout.`
+    body: () => html`The content of the callout.`
   }
 };
 

@@ -70,18 +70,10 @@ header {
   max-inline-size: calc(var(--_days-in-week) * var(--sl-size-450) + var(--sl-size-100));
   outline: none;
   overflow: scroll hidden;
+  overscroll-behavior-x: contain;
   scroll-padding-inline: 0;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
-
-  &[data-locked] {
-    overflow: hidden;
-  }
-
-  &[data-locked-prev='true'],
-  &[data-locked-next='true'] {
-    overscroll-behavior-x: contain;
-  }
 }
 
 sl-button {
@@ -97,9 +89,4 @@ sl-month-view {
   &::part(header) {
     display: none;
   }
-}
-
-sl-month-view[unselectable-previous-month],
-sl-month-view[unselectable-next-month] {
-  pointer-events: none;
 }

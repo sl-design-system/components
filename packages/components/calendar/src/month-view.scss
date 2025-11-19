@@ -5,6 +5,7 @@
 :host([show-today]) {
   [part~='today'] span {
     border: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-bold);
+    inline-size: calc(var(--sl-size-300) - var(--sl-size-borderWidth-subtle) * 2);
   }
 
   [part~='today'][part~='selected'] span {

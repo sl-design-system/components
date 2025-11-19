@@ -305,10 +305,38 @@ describe('sl-select-day', () => {
       el = await fixture(html`<sl-select-day></sl-select-day>`);
     });
 
-    it('should render three month views (previous, current, next)', () => {
+    it('should render three month views (previous, current, next) when no boundaries', () => {
       const monthViews = el.renderRoot.querySelectorAll('sl-month-view');
 
       expect(monthViews).to.have.lengthOf(3);
+    });
+
+    it('should render only two month views when at min boundary', async () => {
+      el.min = new Date(2023, 2, 1); // March 2023 (current month)
+      await el.updateComplete;
+
+      const monthViews = el.renderRoot.querySelectorAll('sl-month-view');
+
+      expect(monthViews).to.have.lengthOf(2); // current and next only
+    });
+
+    it('should render only two month views when at max boundary', async () => {
+      el.max = new Date(2023, 2, 31); // March 2023 (current month)
+      await el.updateComplete;
+
+      const monthViews = el.renderRoot.querySelectorAll('sl-month-view');
+
+      expect(monthViews).to.have.lengthOf(2); // previous and current only
+    });
+
+    it('should render only one month view when at both boundaries', async () => {
+      el.min = new Date(2023, 2, 1);
+      el.max = new Date(2023, 2, 31);
+      await el.updateComplete;
+
+      const monthViews = el.renderRoot.querySelectorAll('sl-month-view');
+
+      expect(monthViews).to.have.lengthOf(1); // current only
     });
 
     it('should set previous and next month views as inert', () => {
@@ -352,84 +380,6 @@ describe('sl-select-day', () => {
       expect(el.displayMonth).not.to.equalDate(initialDisplayMonth!);
     });
 
-    it('should not scroll beyond min boundary', async () => {
-      el.min = new Date(2023, 2, 1); // March 2023 (current month)
-      await el.updateComplete;
-
-      const scroller = el.renderRoot.querySelector<HTMLElement>('.scroller');
-
-      // Wait for initial scroll to center
-      await new Promise(resolve => requestAnimationFrame(resolve));
-      await new Promise(resolve => requestAnimationFrame(resolve));
-
-      const initialScrollLeft = scroller?.scrollLeft;
-
-      // Try to scroll to previous month (should be blocked)
-      el.renderRoot.querySelector<HTMLElement>('sl-button.previous-month')?.click();
-      await el.updateComplete;
-
-      // Wait a bit for scroll to settle
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      // Scroll position should snap back to center (blocked at boundary)
-      expect(scroller?.scrollLeft).to.equal(initialScrollLeft);
-    });
-
-    it('should not scroll beyond max boundary', async () => {
-      el.max = new Date(2023, 2, 31); // March 2023 (current month)
-      await el.updateComplete;
-
-      const scroller = el.renderRoot.querySelector<HTMLElement>('.scroller');
-
-      // Wait for initial scroll to center
-      await new Promise(resolve => requestAnimationFrame(resolve));
-      await new Promise(resolve => requestAnimationFrame(resolve));
-
-      const initialScrollLeft = scroller?.scrollLeft;
-
-      // Try to scroll to next month (should be blocked)
-      el.renderRoot.querySelector<HTMLElement>('sl-button.next-month')?.click();
-      await el.updateComplete;
-
-      // Wait a bit for scroll to settle
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      // Scroll position should snap back to center (blocked at boundary)
-      expect(scroller?.scrollLeft).to.equal(initialScrollLeft);
-    });
-
-    it('should lock scroller when both min and max prevent navigation', async () => {
-      el.min = new Date(2023, 2, 1);
-      el.max = new Date(2023, 2, 31);
-      await el.updateComplete;
-
-      const scroller = el.renderRoot.querySelector<HTMLElement>('.scroller');
-
-      expect(scroller).to.have.attribute('data-locked', 'true');
-      expect(scroller).to.have.attribute('data-locked-prev', 'true');
-      expect(scroller).to.have.attribute('data-locked-next', 'true');
-    });
-
-    it('should set data-locked-prev when at min boundary', async () => {
-      el.min = new Date(2023, 2, 1); // Current month
-      await el.updateComplete;
-
-      const scroller = el.renderRoot.querySelector<HTMLElement>('.scroller');
-
-      expect(scroller).to.have.attribute('data-locked-prev', 'true');
-      expect(scroller).not.to.have.attribute('data-locked-next');
-    });
-
-    it('should set data-locked-next when at max boundary', async () => {
-      el.max = new Date(2023, 2, 31); // Current month
-      await el.updateComplete;
-
-      const scroller = el.renderRoot.querySelector<HTMLElement>('.scroller');
-
-      expect(scroller).not.to.have.attribute('data-locked-prev');
-      expect(scroller).to.have.attribute('data-locked-next', 'true');
-    });
-
     it('should use smooth scrolling when clicking navigation buttons', async () => {
       const scrollToSpy = spy(el.scroller!, 'scrollTo');
 
@@ -460,6 +410,84 @@ describe('sl-select-day', () => {
       expect(monthViews[0].month).to.equalDate(new Date(2023, 4, 1));
       expect(monthViews[1].month).to.equalDate(new Date(2023, 5, 15));
       expect(monthViews[2].month).to.equalDate(new Date(2023, 6, 1));
+    });
+
+    it('should scroll to position 0 when at min boundary', async () => {
+      el.min = new Date(2023, 2, 1);
+      await el.updateComplete;
+
+      const scroller = el.renderRoot.querySelector<HTMLElement>('.scroller');
+
+      // Wait for resize observer to trigger scroll
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      // Current month should be at position 0 (no previous month rendered)
+      expect(scroller?.scrollLeft).to.equal(0);
+    });
+
+    it('should scroll to position 1 width when at max boundary', async () => {
+      el.max = new Date(2023, 2, 31);
+      await el.updateComplete;
+
+      const scroller = el.renderRoot.querySelector<HTMLElement>('.scroller'),
+        { width } = scroller!.getBoundingClientRect();
+
+      // Wait for resize observer to trigger scroll
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      expect(scroller?.scrollLeft).to.equal(width);
+    });
+
+    it('should keep current month view active (not inert) when only one view', async () => {
+      el.min = new Date(2023, 2, 1);
+      el.max = new Date(2023, 2, 31);
+      await el.updateComplete;
+
+      const monthView = el.renderRoot.querySelector('sl-month-view');
+
+      expect(monthView).not.to.have.attribute('inert');
+      expect(monthView).not.to.have.attribute('aria-hidden');
+    });
+
+    it('should update intersection observer after scrollend', async () => {
+      // Simulate scrolling to next month
+      el.renderRoot.querySelector<HTMLElement>('sl-button.next-month')?.click();
+
+      // Wait for smooth scroll
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      // Manually update displayMonth (simulating intersection observer)
+      el.displayMonth = new Date(2023, 3, 1);
+
+      // Trigger scrollend event
+      const scroller = el.renderRoot.querySelector<HTMLElement>('.scroller');
+      scroller?.dispatchEvent(new Event('scrollend'));
+
+      await el.updateComplete;
+
+      // Month should be updated
+      expect(el.month).to.equalDate(new Date(2023, 3, 1));
+    });
+
+    it('should re-observe new month views after scrollend', async () => {
+      const initialMonthViews = el.renderRoot.querySelectorAll('sl-month-view');
+      expect(initialMonthViews).to.have.lengthOf(3);
+
+      // Simulate scrolling and displayMonth change
+      el.displayMonth = new Date(2023, 3, 1);
+      const scroller = el.renderRoot.querySelector<HTMLElement>('.scroller');
+      scroller?.dispatchEvent(new Event('scrollend'));
+
+      await el.updateComplete;
+
+      // New month views should be rendered
+      const newMonthViews = el.renderRoot.querySelectorAll('sl-month-view');
+      expect(newMonthViews).to.have.lengthOf(3);
+
+      // Verify they represent different months
+      expect(el.previousMonth).to.equalDate(new Date(2023, 2, 1));
+      expect(el.displayMonth).to.equalDate(new Date(2023, 3, 1));
+      expect(el.nextMonth).to.equalDate(new Date(2023, 4, 1));
     });
   });
 });

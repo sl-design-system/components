@@ -1,1 +1,1 @@
-export * from './src/callout';
+export * from './src/callout.js';

@@ -20,6 +20,7 @@ declare global {
 
 @localized()
 export class SelectYear extends ScopedElementsMixin(LitElement) {
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,

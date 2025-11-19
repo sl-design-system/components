@@ -1,4 +1,4 @@
-import { msg, str } from '@lit/localize';
+import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
@@ -20,7 +20,9 @@ declare global {
   }
 }
 
+@localized()
 export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,

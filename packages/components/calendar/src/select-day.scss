@@ -19,7 +19,7 @@
   }
 }
 
-[part='header'] {
+header {
   align-items: center;
   display: flex;
   justify-content: space-between;
@@ -73,16 +73,15 @@
   scroll-padding-inline: 0;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
-}
 
-.scroller[data-locked] {
-  overflow: hidden;
-}
+  &[data-locked] {
+    overflow: hidden;
+  }
 
-.scroller[data-locked-prev='true'],
-.scroller[data-locked-next='true'] {
-  overscroll-behavior-x: contain;
-  scrollbar-width: none;
+  &[data-locked-prev='true'],
+  &[data-locked-next='true'] {
+    overscroll-behavior-x: contain;
+  }
 }
 
 sl-button {

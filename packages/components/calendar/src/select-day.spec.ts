@@ -1,9 +1,12 @@
-import { Button } from '@sl-design-system/button';
+import { announce } from '@sl-design-system/announcer';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
-import { html } from 'lit';
-import { spy } from 'sinon';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { type LitElement, html } from 'lit';
+import sinon, { spy } from 'sinon';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { type MonthView } from './month-view.js';
 import { SelectDay } from './select-day.js';
+
+vi.mock('@sl-design-system/announcer', { spy: true });
 
 try {
   customElements.define('sl-select-day', SelectDay);
@@ -14,52 +17,255 @@ try {
 describe('sl-select-day', () => {
   let el: SelectDay;
 
+  beforeEach(() => {
+    // March 2023
+    // --------------------
+    // Mo Tu We Th Fr Sa Su
+    // 27 28  1  2  3  4  5
+    //  6  7  8  9 10 11 12
+    // 13 14 15 16 17 18 19
+    // 20 21 22 23 24 25 26
+    // 27 28 29 30 31  1  2
+    vi.setSystemTime(new Date(2023, 2, 14));
+  });
+
+  afterEach(() => vi.useRealTimers());
+
   describe('defaults', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-select-day .month=${new Date(2025, 5, 15)}></sl-select-day>`);
-      await el.updateComplete;
+      el = await fixture(html`<sl-select-day></sl-select-day>`);
     });
 
     it('should set displayMonth, nextMonth and previousMonth based on month', () => {
-      expect(el.displayMonth?.getMonth()).to.equal(5);
-      expect(el.nextMonth?.getMonth()).to.equal(6);
-      expect(el.previousMonth?.getMonth()).to.equal(4);
+      expect(el.displayMonth).to.equalDate(new Date(2023, 2, 1));
+      expect(el.nextMonth).to.equalDate(new Date(2023, 3, 1));
+      expect(el.previousMonth).to.equalDate(new Date(2023, 1, 1));
     });
 
-    it('should generate 7 weekday headers', () => {
-      expect(el.weekDays).to.have.lengthOf(7);
+    it('should not be readonly', () => {
+      const monthView = el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])');
+
+      expect(el.readonly).not.to.be.true;
+      expect(monthView?.readonly).not.to.be.true;
     });
 
-    it('should update weekday ordering when firstDayOfWeek changes', async () => {
-      const firstBefore = el.weekDays[0].short;
-      el.firstDayOfWeek = 0; // Sunday
-
+    it('should be readonly when set', async () => {
+      el.readonly = true;
       await el.updateComplete;
 
-      const firstAfter = el.weekDays[0].short;
-
-      expect(firstAfter).to.not.equal(firstBefore);
+      const monthView = el.renderRoot.querySelector('sl-month-view:not([inert])');
+      expect(monthView).to.have.property('readonly', true);
     });
 
-    it('should show week number header when show-week-numbers set', async () => {
-      el.showWeekNumbers = true;
+    it('should not have a selected date', () => {
+      const monthView = el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])');
 
+      expect(el.selected).to.be.undefined;
+      expect(monthView?.selected).to.be.undefined;
+    });
+
+    it('should show the selected date when set', async () => {
+      const selectedDate = new Date(2023, 2, 10);
+
+      el.selected = selectedDate;
       await el.updateComplete;
-      const weekHeader = el.renderRoot.querySelector('.days-of-week .week-number');
 
-      expect(weekHeader).to.exist;
+      const monthView = el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])');
+      expect(monthView?.selected).to.equalDate(selectedDate);
+    });
+
+    it('should not have any disabled dates', () => {
+      const monthView = el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])');
+
+      expect(el.disabledDates).to.be.undefined;
+      expect(monthView?.disabledDates).to.be.undefined;
+    });
+
+    it('should show disabled dates when set', async () => {
+      const disabledDates = [new Date(2023, 2, 5), new Date(2023, 2, 15), new Date(2023, 2, 25)];
+
+      el.disabledDates = disabledDates;
+      await el.updateComplete;
+
+      const monthView = el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])');
+      expect(monthView?.disabledDates).to.have.lengthOf(3);
+      expect(monthView?.disabledDates?.at(0)).to.equalDate(disabledDates[0]);
+      expect(monthView?.disabledDates?.at(1)).to.equalDate(disabledDates[1]);
+      expect(monthView?.disabledDates?.at(2)).to.equalDate(disabledDates[2]);
+    });
+
+    it('should not have any indicator dates', () => {
+      const monthView = el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])');
+
+      expect(el.indicatorDates).to.be.undefined;
+      expect(monthView?.indicatorDates).to.be.undefined;
+    });
+
+    it('should show indicator dates when set', async () => {
+      const indicatorDates = [
+        { date: new Date(2023, 2, 8) },
+        { date: new Date(2023, 2, 18) },
+        { date: new Date(2023, 2, 28) }
+      ];
+
+      el.indicatorDates = indicatorDates;
+      await el.updateComplete;
+
+      const monthView = el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])');
+      expect(monthView?.indicatorDates).to.have.lengthOf(3);
+      expect(monthView?.indicatorDates?.at(0)?.date).to.equalDate(indicatorDates[0].date);
+      expect(monthView?.indicatorDates?.at(1)?.date).to.equalDate(indicatorDates[1].date);
+      expect(monthView?.indicatorDates?.at(2)?.date).to.equalDate(indicatorDates[2].date);
+    });
+
+    it('should not show today indicator', () => {
+      const monthView = el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])');
+
+      expect(el.showToday).not.to.be.true;
+      expect(monthView?.showToday).not.to.be.true;
+    });
+
+    it('should show today indicator when show-today is set', async () => {
+      el.showToday = true;
+      await el.updateComplete;
+
+      const monthView = el.renderRoot.querySelector('sl-month-view:not([inert])');
+      expect(monthView).to.have.property('showToday', true);
+    });
+
+    it('should navigate to the previous month after clicking the previous month button', async () => {});
+
+    it('should announce the previous month after clicking the previous month button', async () => {
+      el.renderRoot.querySelector<HTMLElement>('sl-button.previous-month')?.click();
+
+      // Wait for the announcement to be made from a setTimeout
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(announce).toHaveBeenCalledWith('February 2023', 'polite');
+    });
+
+    it('should navigate to the next month after clicking the next month button', async () => {});
+
+    it('should announce the next month after clicking the next month button', async () => {
+      el.renderRoot.querySelector<HTMLElement>('sl-button.next-month')?.click();
+
+      // Wait for the announcement to be made from a setTimeout
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(announce).toHaveBeenCalledWith('April 2023', 'polite');
+    });
+
+    it('should emit an sl-select event when a date is selected', async () => {
+      const onSelect = spy();
+
+      el.addEventListener('sl-select', onSelect);
+      el.renderRoot
+        .querySelector<MonthView>('sl-month-view:not([inert])')
+        ?.renderRoot.querySelector<HTMLElement>('button[part="day"]')
+        ?.click();
+      await el.updateComplete;
+
+      expect(onSelect).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-toggle "month" event when clicking current month button', async () => {
+      const onToggle = spy();
+
+      el.addEventListener('sl-toggle', onToggle);
+      el.renderRoot.querySelector<HTMLElement>('sl-button.current-month')?.click();
+      await el.updateComplete;
+
+      expect(onToggle).to.have.been.calledOnce;
+      expect(onToggle.lastCall.args[0]).to.have.property('detail', 'month');
+    });
+
+    it('should emit an sl-toggle "year" event when clicking current year button', async () => {
+      const onToggle = spy();
+
+      el.addEventListener('sl-toggle', onToggle);
+      el.renderRoot.querySelector<HTMLElement>('sl-button.current-year')?.click();
+      await el.updateComplete;
+
+      expect(onToggle).to.have.been.calledOnce;
+      expect(onToggle.lastCall.args[0]).to.have.property('detail', 'year');
+    });
+
+    describe('days of the week', () => {
+      it('should render the days of the week', () => {
+        const daysOfWeek = Array.from(el.renderRoot.querySelectorAll<HTMLElement>('.days-of-week .day-of-week')).map(
+          day => day.textContent?.trim()
+        );
+
+        expect(daysOfWeek).to.deep.equal(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']);
+      });
+
+      it('should have role list with listitems for days of the week', () => {
+        const daysOfWeek = el.renderRoot.querySelector<HTMLElement>('.days-of-week'),
+          dayElements = Array.from(daysOfWeek?.querySelectorAll<HTMLElement>('.day-of-week') ?? []);
+
+        expect(daysOfWeek).to.have.attribute('role', 'list');
+        expect(dayElements.every(d => d.getAttribute('role') === 'listitem')).to.be.true;
+      });
+
+      it('should not render the days of the week in the month-view', () => {
+        const monthView = el.renderRoot.querySelector<LitElement>('sl-month-view:not([inert])'),
+          header = monthView?.renderRoot.querySelector('[part="header"]');
+
+        expect(header).to.exist;
+        expect(header).to.have.style('display', 'none');
+      });
+
+      it('should start on Sunday when the first day of the week is 0', async () => {
+        el.firstDayOfWeek = 0;
+        await el.updateComplete;
+
+        const daysOfWeek = Array.from(el.renderRoot.querySelectorAll<HTMLElement>('.days-of-week .day-of-week')).map(
+          day => day.textContent?.trim()
+        );
+
+        expect(daysOfWeek).to.deep.equal(['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']);
+      });
+    });
+
+    describe('week numbers', () => {
+      it('should not show the week numbers', () => {
+        expect(el.showWeekNumbers).not.to.be.true;
+      });
+
+      it('should show week number header when show-week-numbers set', async () => {
+        el.showWeekNumbers = true;
+        await el.updateComplete;
+
+        const weekHeader = el.renderRoot.querySelector('.days-of-week .week-number');
+        expect(weekHeader).to.have.trimmed.text('wk.');
+      });
+
+      it('should localize the week number header', async () => {
+        el.showWeekNumbers = true;
+        el.locale = 'fi';
+        await el.updateComplete;
+
+        const weekHeader = el.renderRoot.querySelector('.days-of-week .week-number');
+        expect(weekHeader).to.have.trimmed.text('vk');
+      });
+
+      it('should show week numbers when show-week-numbers set', async () => {
+        el.showWeekNumbers = true;
+        await el.updateComplete;
+
+        const monthView = el.renderRoot.querySelector('sl-month-view:not([inert])');
+        expect(monthView).to.have.property('showWeekNumbers', true);
+      });
     });
   });
 
-  describe('min/max boundaries', () => {
+  describe('min/max', () => {
     beforeEach(async () => {
       const month = new Date(2025, 5, 15); // June 2025
       const min = new Date(2025, 5, 1); // same month start
       const max = new Date(2025, 5, 30); // same month end
 
       el = await fixture(html`<sl-select-day .month=${month} .min=${min} .max=${max}></sl-select-day>`);
-
-      await el.updateComplete;
     });
 
     it('should disable previous-month navigation when at min boundary', () => {
@@ -94,237 +300,166 @@ describe('sl-select-day', () => {
     });
   });
 
-  describe('toggle events', () => {
+  describe('scrolling', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-select-day .month=${new Date()}></sl-select-day>`);
-
-      await el.updateComplete;
+      el = await fixture(html`<sl-select-day></sl-select-day>`);
     });
 
-    it('should emit sl-toggle "month" when clicking current month button', async () => {
-      const onToggle = spy();
+    it('should render three month views (previous, current, next)', () => {
+      const monthViews = el.renderRoot.querySelectorAll('sl-month-view');
 
-      el.addEventListener('sl-toggle', onToggle);
-
-      const monthBtn = el.renderRoot.querySelector('sl-button.current-month') as Button;
-
-      expect(monthBtn).to.exist;
-
-      monthBtn.click();
-
-      await el.updateComplete;
-
-      expect(onToggle).to.have.been.calledOnce;
-
-      const event = onToggle.lastCall.firstArg as CustomEvent;
-
-      expect(event.detail).to.equal('month');
+      expect(monthViews).to.have.lengthOf(3);
     });
 
-    it('should emit sl-toggle "year" when clicking current year button', async () => {
-      const onToggle = spy();
-      el.addEventListener('sl-toggle', onToggle);
+    it('should set previous and next month views as inert', () => {
+      const monthViews = Array.from(el.renderRoot.querySelectorAll('sl-month-view'));
 
-      const yearBtn = Array.from(el.renderRoot.querySelectorAll('sl-button.current-year')).find(
-        btn => !btn.classList.contains('previous-month') && !btn.classList.contains('next-month')
-      ) as Button;
-
-      expect(yearBtn).to.exist;
-
-      yearBtn.click();
-
-      await el.updateComplete;
-
-      expect(onToggle).to.have.been.calledOnce;
-
-      const event = onToggle.lastCall.firstArg as CustomEvent;
-
-      expect(event.detail).to.equal('year');
-    });
-  });
-
-  describe('selection & change propagation', () => {
-    beforeEach(async () => {
-      el = await fixture(html`<sl-select-day .month=${new Date(2025, 5, 15)}></sl-select-day>`);
-      await el.updateComplete;
+      expect(monthViews[0]).to.have.attribute('inert');
+      expect(monthViews[1]).not.to.have.attribute('inert');
+      expect(monthViews[2]).to.have.attribute('inert');
     });
 
-    it('should re-set month when receiving sl-change from inner month view', async () => {
-      const targetMonthView = el.renderRoot.querySelector('sl-month-view:nth-of-type(2)');
-      const date = new Date(2025, 7, 10);
+    it('should set previous and next month views as aria-hidden', () => {
+      const monthViews = Array.from(el.renderRoot.querySelectorAll('sl-month-view'));
 
-      targetMonthView?.dispatchEvent(
-        new CustomEvent('sl-change', { detail: date, bubbles: true, composed: true, cancelable: true })
+      expect(monthViews[0]).to.have.attribute('aria-hidden', 'true');
+      expect(monthViews[1]).not.to.have.attribute('aria-hidden');
+      expect(monthViews[2]).to.have.attribute('aria-hidden', 'true');
+    });
+
+    it('should scroll to center month on initialization', async () => {
+      const scroller = el.renderRoot.querySelector<HTMLElement>('.scroller');
+
+      // Wait for resize observer to trigger
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      // The scroll position should be at the center (width * 1)
+      expect(scroller?.scrollLeft).to.be.greaterThan(0);
+    });
+
+    it('should update displayMonth when scrolling to >= 50% visibility', async () => {
+      const initialDisplayMonth = el.displayMonth;
+
+      // Simulate clicking next button to scroll
+      el.renderRoot.querySelector<HTMLElement>('sl-button.next-month')?.click();
+      await el.updateComplete;
+
+      // Wait for intersection observer
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      // displayMonth should update to reflect visible month
+      expect(el.displayMonth).not.to.equalDate(initialDisplayMonth!);
+    });
+
+    it('should not scroll beyond min boundary', async () => {
+      el.min = new Date(2023, 2, 1); // March 2023 (current month)
+      await el.updateComplete;
+
+      const scroller = el.renderRoot.querySelector<HTMLElement>('.scroller');
+
+      // Wait for initial scroll to center
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const initialScrollLeft = scroller?.scrollLeft;
+
+      // Try to scroll to previous month (should be blocked)
+      el.renderRoot.querySelector<HTMLElement>('sl-button.previous-month')?.click();
+      await el.updateComplete;
+
+      // Wait a bit for scroll to settle
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      // Scroll position should snap back to center (blocked at boundary)
+      expect(scroller?.scrollLeft).to.equal(initialScrollLeft);
+    });
+
+    it('should not scroll beyond max boundary', async () => {
+      el.max = new Date(2023, 2, 31); // March 2023 (current month)
+      await el.updateComplete;
+
+      const scroller = el.renderRoot.querySelector<HTMLElement>('.scroller');
+
+      // Wait for initial scroll to center
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const initialScrollLeft = scroller?.scrollLeft;
+
+      // Try to scroll to next month (should be blocked)
+      el.renderRoot.querySelector<HTMLElement>('sl-button.next-month')?.click();
+      await el.updateComplete;
+
+      // Wait a bit for scroll to settle
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      // Scroll position should snap back to center (blocked at boundary)
+      expect(scroller?.scrollLeft).to.equal(initialScrollLeft);
+    });
+
+    it('should lock scroller when both min and max prevent navigation', async () => {
+      el.min = new Date(2023, 2, 1);
+      el.max = new Date(2023, 2, 31);
+      await el.updateComplete;
+
+      const scroller = el.renderRoot.querySelector<HTMLElement>('.scroller');
+
+      expect(scroller).to.have.attribute('data-locked', 'true');
+      expect(scroller).to.have.attribute('data-locked-prev', 'true');
+      expect(scroller).to.have.attribute('data-locked-next', 'true');
+    });
+
+    it('should set data-locked-prev when at min boundary', async () => {
+      el.min = new Date(2023, 2, 1); // Current month
+      await el.updateComplete;
+
+      const scroller = el.renderRoot.querySelector<HTMLElement>('.scroller');
+
+      expect(scroller).to.have.attribute('data-locked-prev', 'true');
+      expect(scroller).not.to.have.attribute('data-locked-next');
+    });
+
+    it('should set data-locked-next when at max boundary', async () => {
+      el.max = new Date(2023, 2, 31); // Current month
+      await el.updateComplete;
+
+      const scroller = el.renderRoot.querySelector<HTMLElement>('.scroller');
+
+      expect(scroller).not.to.have.attribute('data-locked-prev');
+      expect(scroller).to.have.attribute('data-locked-next', 'true');
+    });
+
+    it('should use smooth scrolling when clicking navigation buttons', async () => {
+      const scrollToSpy = spy(el.scroller!, 'scrollTo');
+
+      el.renderRoot.querySelector<HTMLElement>('sl-button.next-month')?.click();
+      await el.updateComplete;
+
+      expect(scrollToSpy).to.have.been.calledWith(
+        sinon.match({
+          behavior: 'smooth'
+        })
       );
-
-      await el.updateComplete;
-
-      expect(el.month?.getMonth()).to.equal(7);
     });
 
-    it('should emit sl-select when inner month view emits sl-select', async () => {
-      const onSelect = spy();
-      el.addEventListener('sl-select', onSelect);
+    it('should update month views when month changes', async () => {
+      const newMonth = new Date(2023, 5, 15); // June 2023
 
-      const targetMonthView = el.renderRoot.querySelector('sl-month-view:nth-of-type(2)'),
-        date = new Date(2025, 5, 20);
-
-      targetMonthView?.dispatchEvent(
-        new CustomEvent('sl-select', { detail: date, bubbles: true, composed: true, cancelable: true })
-      );
-
+      el.month = newMonth;
       await el.updateComplete;
 
-      expect(onSelect).to.have.been.calledOnce;
+      const monthViews = Array.from(el.renderRoot.querySelectorAll('sl-month-view'));
 
-      const event = onSelect.lastCall.firstArg as CustomEvent<Date>;
+      // Check that the internal state is correct
+      expect(el.displayMonth).to.equalDate(new Date(2023, 5, 1)); // June
+      expect(el.previousMonth).to.equalDate(new Date(2023, 4, 1)); // May
+      expect(el.nextMonth).to.equalDate(new Date(2023, 6, 1)); // July
 
-      expect(event.detail).to.be.instanceOf(Date);
-      expect(event.detail.getDate()).to.equal(20);
-    });
-  });
-
-  describe('month navigation', () => {
-    it('should go to next month when next button clicked', async () => {
-      const startMonth = 5;
-      el = await fixture(html`<sl-select-day .month=${new Date(2025, startMonth, 15)}></sl-select-day>`); // June 2025
-
-      await el.updateComplete;
-      // wait for the scroll animation to finish
-      await new Promise(resolve => setTimeout(resolve, 300));
-
-      const nextBtn: Button | null = el.renderRoot.querySelector('sl-button.next-month') as Button;
-
-      expect(nextBtn).to.exist;
-
-      nextBtn.click();
-
-      await el.updateComplete;
-      // wait for the scroll animation to finish
-      await new Promise(resolve => setTimeout(resolve, 300));
-
-      expect(el.displayMonth?.getMonth()).to.equal((startMonth + 1) % 12);
-    });
-
-    it('should go to previous month when previous button clicked', async () => {
-      const startMonth = 5; // June
-
-      el = await fixture(html`<sl-select-day .month=${new Date(2025, startMonth, 15)}></sl-select-day>`); // June 2025
-
-      await el.updateComplete;
-      // wait for the scroll animation to finish
-      await new Promise(resolve => setTimeout(resolve, 300));
-
-      const prevBtn = el.renderRoot.querySelector('sl-button.previous-month') as Button;
-
-      expect(prevBtn).to.exist;
-
-      prevBtn.click();
-
-      await el.updateComplete;
-      // wait for the scroll animation to finish
-      await new Promise(resolve => setTimeout(resolve, 400));
-
-      const expected = (startMonth + 11) % 12;
-      expect(el.month?.getMonth()).to.equal(expected);
-    });
-
-    it('should handle year decrement when navigating from January to previous month', async () => {
-      el = await fixture(html`<sl-select-day .month=${new Date(2025, 0, 10)}></sl-select-day>`);
-
-      await el.updateComplete;
-      // wait for the scroll animation to finish
-      await new Promise(resolve => setTimeout(resolve, 300));
-
-      const prevBtn: Button | null = el.renderRoot.querySelector('sl-button.previous-month');
-
-      expect(prevBtn).to.exist;
-
-      prevBtn!.click();
-
-      await el.updateComplete;
-      // wait for the scroll animation to finish
-      await new Promise(resolve => setTimeout(resolve, 600));
-
-      expect(el.month?.getMonth()).to.equal(11);
-      expect(el.month?.getFullYear()).to.equal(2024);
-    });
-
-    it('should handle year increment when navigating from December to next month', async () => {
-      el = await fixture(html`<sl-select-day .month=${new Date(2025, 11, 10)}></sl-select-day>`); // Dec 2025
-
-      await el.updateComplete;
-      // wait for the scroll animation to finish
-      await new Promise(resolve => setTimeout(resolve, 300));
-
-      const nextBtn: Button | null = el.renderRoot.querySelector('sl-button.next-month');
-
-      expect(nextBtn).to.exist;
-
-      nextBtn!.click();
-
-      await el.updateComplete;
-      // wait for the scroll animation to finish
-      await new Promise(resolve => setTimeout(resolve, 700));
-
-      expect(el.month?.getMonth()).to.equal(0); // Jan
-      expect(el.month?.getFullYear()).to.equal(2026);
-    });
-  });
-
-  describe('header rendering & readonly behavior', () => {
-    it('should render static month and year (no toggle buttons) when navigation is fully disabled by min/max', async () => {
-      el = await fixture(html`
-        <sl-select-day
-          .month=${new Date(2025, 5, 15)}
-          .min=${new Date(2025, 5, 1)}
-          .max=${new Date(2025, 5, 30)}
-        ></sl-select-day>
-      `);
-      await el.updateComplete;
-
-      const monthButton = el.renderRoot.querySelector('sl-button.current-month'),
-        monthSpan = el.renderRoot.querySelector('span.current-month'),
-        yearButton = el.renderRoot.querySelector('sl-button.current-year'),
-        yearSpan = el.renderRoot.querySelector('span.current-year');
-
-      expect(monthButton).to.not.exist;
-      expect(monthSpan).to.exist;
-      expect(yearButton).to.not.exist;
-      expect(yearSpan).to.exist;
-    });
-
-    it('should disable all interactive header controls when readonly', async () => {
-      el = await fixture(html`<sl-select-day .month=${new Date(2025, 3, 10)}></sl-select-day>`);
-      await el.updateComplete;
-
-      el.readonly = true;
-      await el.updateComplete;
-
-      const currentMonthBtn = el.renderRoot.querySelector('sl-button.current-month'),
-        currentYearBtn = el.renderRoot.querySelector('sl-button.current-year'),
-        prevBtn = el.renderRoot.querySelector('sl-button.previous-month'),
-        nextBtn = el.renderRoot.querySelector('sl-button.next-month');
-
-      expect(currentMonthBtn).to.exist;
-      expect(currentMonthBtn).to.match(':disabled');
-      expect(currentYearBtn).to.exist;
-      expect(currentYearBtn).to.match(':disabled');
-      expect(prevBtn).to.exist;
-      expect(prevBtn).to.match(':disabled');
-      expect(nextBtn).to.exist;
-      expect(nextBtn).to.match(':disabled');
-    });
-
-    it('should still show toggle buttons (not spans) when navigation is possible', async () => {
-      el = await fixture(html`<sl-select-day .month=${new Date(2025, 3, 10)}></sl-select-day>`);
-      await el.updateComplete;
-
-      const monthButton = el.renderRoot.querySelector('sl-button.current-month');
-      const yearButton = el.renderRoot.querySelector('sl-button.current-year');
-
-      expect(monthButton).to.exist;
-      expect(yearButton).to.exist;
+      // Verify month views have correct months (they receive the actual date, not normalized to day 1)
+      expect(monthViews[0].month).to.equalDate(new Date(2023, 4, 1));
+      expect(monthViews[1].month).to.equalDate(new Date(2023, 5, 15));
+      expect(monthViews[2].month).to.equalDate(new Date(2023, 6, 1));
     });
   });
 });

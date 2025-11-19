@@ -182,7 +182,7 @@ export function normalizeDateTime(date: Date): Date {
 export interface CreateCalendarOptions {
   disabledDates?: Date[];
   end?: Date;
-  firstDayOfWeek?: number;
+  firstDayOfWeek: number;
   indicatorDates?: Indicator[];
   max?: Date;
   min?: Date;
@@ -191,7 +191,7 @@ export interface CreateCalendarOptions {
 
 export function createCalendar(
   date: Date,
-  { disabledDates, end, firstDayOfWeek = 0, indicatorDates, max, min, showToday = false }: CreateCalendarOptions
+  { disabledDates, end, firstDayOfWeek, indicatorDates, max, min, showToday = false }: CreateCalendarOptions
 ): Calendar {
   const weekOptions = { disabledDates, firstDayOfWeek, indicatorDates, max, min, showToday };
 

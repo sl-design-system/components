@@ -285,7 +285,7 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   renderHeader(): TemplateResult {
     return html`
-      <thead>
+      <thead part="header">
         <tr role="row">
           ${this.showWeekNumbers
             ? html`

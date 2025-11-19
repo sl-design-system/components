@@ -1,10 +1,10 @@
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import '@sl-design-system/tooltip/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
-import { userEvent } from '@vitest/browser/context';
 import { type TemplateResult, html } from 'lit';
 import { type SinonFakeTimers, spy, useFakeTimers } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { MonthView } from './month-view.js';
 import { type Day } from './utils.js';
@@ -64,6 +64,12 @@ describe('sl-month-view', () => {
 
     it('should not show today', () => {
       expect(el.showToday).not.to.be.true;
+    });
+
+    it('should set a header part on the thead element', () => {
+      const thead = el.renderRoot.querySelector('thead');
+
+      expect(thead).to.have.attribute('part', 'header');
     });
 
     it('should render the weekday short names', () => {

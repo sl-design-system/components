@@ -1,7 +1,6 @@
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
-import { html, nothing } from 'lit';
+import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { useArgs } from 'storybook/internal/preview-api';
 import '../register.js';
 import { SelectDay } from './select-day.js';
 
@@ -13,25 +12,25 @@ type Props = Pick<
   | 'max'
   | 'min'
   | 'month'
-  | 'negative'
   | 'readonly'
   | 'selected'
   | 'showToday'
   | 'showWeekNumbers'
-> & { styles?: string };
+>;
 type Story = StoryObj<Props>;
 
-customElements.define('sl-select-day', SelectDay);
+try {
+  customElements.define('sl-select-day', SelectDay);
+} catch {
+  /* empty */
+}
 
 export default {
   title: 'Date & Time/Calendar/Select Day',
   tags: ['draft'],
   args: {
-    firstDayOfWeek: 1,
     month: new Date(),
-    readonly: false,
-    showToday: true,
-    showWeekNumbers: false
+    showToday: true
   },
   argTypes: {
     disabledDates: {
@@ -53,9 +52,6 @@ export default {
     month: {
       control: 'date'
     },
-    negative: {
-      control: 'object'
-    },
     readonly: {
       control: 'boolean'
     },
@@ -67,9 +63,6 @@ export default {
     },
     showWeekNumbers: {
       control: 'boolean'
-    },
-    styles: {
-      table: { disable: true }
     }
   },
   render: ({
@@ -79,69 +72,67 @@ export default {
     max,
     min,
     month,
-    negative,
     readonly,
     selected,
     showToday,
-    showWeekNumbers,
-    styles
-  }) => {
-    const [_, updateArgs] = useArgs();
-    const parseDate = (value: string | Date | undefined): Date | undefined => {
-      if (!value) {
-        return undefined;
-      }
-
-      return value instanceof Date ? value : new Date(value);
-    };
-
-    const onSelectDay = (event: CustomEvent<Date>) => {
-      updateArgs({ selected: event.detail.getTime() }); // needs to be set to the 'time' otherwise Storybook chokes on the date format 🤷
-    };
-
-    return html`
-      ${styles
-        ? html`
-            <style>
-              ${styles}
-            </style>
-          `
-        : nothing}
-      <sl-select-day
-        @sl-select=${onSelectDay}
-        .disabledDates=${disabledDates}
-        .firstDayOfWeek=${firstDayOfWeek}
-        .indicatorDates=${indicatorDates}
-        .negative=${negative}
-        ?readonly=${readonly}
-        ?show-today=${showToday}
-        ?show-week-numbers=${showWeekNumbers}
-        max=${ifDefined(parseDate(max)?.toISOString())}
-        min=${ifDefined(parseDate(min)?.toISOString())}
-        month=${ifDefined(parseDate(month)?.toISOString())}
-        selected=${ifDefined(parseDate(selected)?.toISOString())}
-      ></sl-select-day>
-    `;
-  }
+    showWeekNumbers
+  }) => html`
+    <sl-select-day
+      .disabledDates=${disabledDates}
+      .indicatorDates=${indicatorDates}
+      ?readonly=${readonly}
+      ?show-today=${showToday}
+      ?show-week-numbers=${showWeekNumbers}
+      first-day-of-week=${ifDefined(firstDayOfWeek)}
+      max=${ifDefined(max?.toISOString())}
+      min=${ifDefined(min?.toISOString())}
+      month=${ifDefined(month?.toISOString())}
+      selected=${ifDefined(selected?.toISOString())}
+    ></sl-select-day>
+  `
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
 
-export const WithSelection: Story = {
+export const DisabledDates: Story = {
   args: {
-    selected: new Date()
+    disabledDates: [
+      new Date(new Date().getFullYear(), new Date().getMonth(), 5),
+      new Date(new Date().getFullYear(), new Date().getMonth(), 12),
+      new Date(new Date().getFullYear(), new Date().getMonth(), 19)
+    ]
   }
 };
 
-export const WithWeekNumbers: Story = {
+export const Indicators: Story = {
   args: {
-    showWeekNumbers: true
+    indicatorDates: [
+      { date: new Date(new Date().getFullYear(), new Date().getMonth(), 3), color: 'blue', label: 'Meeting' },
+      { date: new Date(new Date().getFullYear(), new Date().getMonth(), 8), color: 'green', label: 'Event' },
+      { date: new Date(new Date().getFullYear(), new Date().getMonth(), 15), color: 'red', label: 'Deadline' }
+    ]
   }
 };
 
-export const SundayFirst: Story = {
+export const Max: Story = {
   args: {
-    firstDayOfWeek: 0
+    max: new Date(new Date().getFullYear(), new Date().getMonth(), 20),
+    month: new Date()
+  }
+};
+
+export const Min: Story = {
+  args: {
+    min: new Date(new Date().getFullYear(), new Date().getMonth(), 10),
+    month: new Date()
+  }
+};
+
+export const MinMax: Story = {
+  args: {
+    min: new Date(new Date().getFullYear(), new Date().getMonth(), 10),
+    max: new Date(new Date().getFullYear(), new Date().getMonth(), 20),
+    month: new Date()
   }
 };
 
@@ -152,41 +143,21 @@ export const Readonly: Story = {
   }
 };
 
-export const WithMinMax: Story = {
+export const Selected: Story = {
   args: {
-    min: new Date(new Date().getFullYear(), new Date().getMonth(), 10),
-    max: new Date(new Date().getFullYear(), new Date().getMonth(), 20),
-    month: new Date()
+    selected: new Date()
   }
 };
 
-export const WithDisabledDates: Story = {
+export const SundayFirst: Story = {
   args: {
-    disabledDates: [
-      new Date(new Date().getFullYear(), new Date().getMonth(), 5),
-      new Date(new Date().getFullYear(), new Date().getMonth(), 12),
-      new Date(new Date().getFullYear(), new Date().getMonth(), 19)
-    ]
+    firstDayOfWeek: 0
   }
 };
 
-export const WithIndicators: Story = {
+export const WeekNumbers: Story = {
   args: {
-    indicatorDates: [
-      { date: new Date(new Date().getFullYear(), new Date().getMonth(), 3), color: 'blue', label: 'Meeting' },
-      { date: new Date(new Date().getFullYear(), new Date().getMonth(), 8), color: 'green', label: 'Event' },
-      { date: new Date(new Date().getFullYear(), new Date().getMonth(), 15), color: 'red', label: 'Deadline' }
-    ]
-  }
-};
-
-export const WithNegativeDates: Story = {
-  args: {
-    negative: [
-      new Date(new Date().getFullYear(), new Date().getMonth(), 7),
-      new Date(new Date().getFullYear(), new Date().getMonth(), 14),
-      new Date(new Date().getFullYear(), new Date().getMonth(), 21)
-    ]
+    showWeekNumbers: true
   }
 };
 

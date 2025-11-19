@@ -3,7 +3,7 @@ import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 import { TooltipDirective } from '../src/tooltip.directive';
 
 export default {
-  title: 'Tooltip',
+  title: 'Components/Tooltip',
   decorators: [
     moduleMetadata({
       imports: [ButtonComponent, TooltipDirective]

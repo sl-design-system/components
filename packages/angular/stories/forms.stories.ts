@@ -588,7 +588,7 @@ export class LoginFormComponent {
 }
 
 export default {
-  title: 'Forms',
+  title: 'Components/Forms',
   decorators: [
     moduleMetadata({
       imports: [

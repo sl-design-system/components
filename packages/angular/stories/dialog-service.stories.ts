@@ -196,7 +196,7 @@ export class DialogFormExampleComponent {
 }
 
 export default {
-  title: 'Dialog Service',
+  title: 'Components/Dialog Service',
   tags: ['draft'],
   decorators: [
     applicationConfig({

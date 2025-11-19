@@ -36,7 +36,7 @@ export class AccordionExternalActionsComponent {
 }
 
 export default {
-  title: 'Accordion',
+  title: 'Components/Accordion',
   component: AccordionComponent,
   decorators: [
     moduleMetadata({

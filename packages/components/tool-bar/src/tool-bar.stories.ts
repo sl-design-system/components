@@ -120,9 +120,9 @@ export default {
 export const Basic: Story = {
   args: {
     description:
-      'This example shows a typical tool bar with buttons. You can resize the tool bar by dragging the right edge. This showcases how the tool bar can adapt to different widths and overflow items in a menu.',
+      'This example shows a typical tool bar with buttons and menus. You can resize the tool bar by dragging the right edge. This showcases how the tool bar can adapt to different widths and overflow items in a menu.',
     items: () => html`
-      <sl-button disabled fill="outline">
+      <sl-button fill="outline">
         <sl-icon name="far-scissors"></sl-icon>
         Cut
       </sl-button>
@@ -144,6 +144,21 @@ export const Basic: Story = {
         <sl-menu-item>
           <sl-icon name="far-trash"></sl-icon>
           Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-menu-button>
+        <div slot="button">More</div>
+        <sl-menu-item>
+          <sl-icon name="far-copy"></sl-icon>
+          Duplicate
+        </sl-menu-item>
+        <sl-menu-item disabled>
+          <sl-icon name="far-trash"></sl-icon>
+          Remove (disabled)
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-paste"></sl-icon>
+          Paste special...
         </sl-menu-item>
       </sl-menu-button>
     `

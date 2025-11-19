@@ -26,6 +26,7 @@ export interface ToolBarItemBase {
 export interface ToolBarItemButton extends ToolBarItemBase {
   type: 'button';
   disabled?: boolean;
+  fill?: ButtonFill;
   icon?: string | null;
   label?: string | null;
   selectable?: boolean;
@@ -304,10 +305,13 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       label = this.querySelector(`#${button.getAttribute('aria-describedby')}`)?.textContent?.trim();
     }
 
+    console.log('fill in mapButtonToItem:', this.fill, button, label);
+
     return {
       element: button,
       type: 'button',
       disabled: button.hasAttribute('disabled') || button.getAttribute('aria-disabled') === 'true',
+      fill: this.fill,
       icon: button.querySelector('sl-icon')?.getAttribute('name'),
       label,
       selectable: button.hasAttribute('aria-pressed'),

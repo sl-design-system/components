@@ -39,7 +39,7 @@ export default {
     },
     density: {
       control: 'inline-radio',
-      options: ['plain', 'comfortable']
+      options: ['default', 'relaxed']
     },
     variant: {
       control: 'inline-radio',
@@ -104,18 +104,16 @@ export const Density: Story = {
         margin: 0;
       }
     </style>
-    <sl-callout density="plain" variant=${ifDefined(variant)}> Plain (default) callout component. </sl-callout>
+    <sl-callout density="default" variant=${ifDefined(variant)}> Default callout component. </sl-callout>
     <sl-callout variant=${ifDefined(variant)}>
       <h2 slot="title">Callout title</h2>
-      Plain (default) callout component.
+      Default callout component.
     </sl-callout>
-    <sl-callout density="comfortable" variant=${ifDefined(variant)}>
+    <sl-callout density="relaxed" variant=${ifDefined(variant)}>
       <h2 slot="title">Callout title</h2>
-      Comfortable callout component.
+      Relaxed callout component.
     </sl-callout>
-    <sl-callout density="comfortable" variant=${ifDefined(variant)}>
-      Comfortable callout component without title.
-    </sl-callout>
+    <sl-callout density="relaxed" variant=${ifDefined(variant)}> Relaxed callout component without title. </sl-callout>
   `
 };
 
@@ -158,7 +156,7 @@ export const WithActions: Story = {
       }
     </style>
     <div class="container">
-      <sl-callout density="plain" variant="caution">
+      <sl-callout density="default" variant="caution">
         <sl-icon slot="icon" name="fas-shield"></sl-icon>
         <div class="content">
           Student data export requires encrypted storage.
@@ -168,7 +166,7 @@ export const WithActions: Story = {
           </sl-button>
         </div>
       </sl-callout>
-      <sl-callout density="comfortable" variant="caution">
+      <sl-callout density="relaxed" variant="caution">
         <sl-icon slot="icon" name="fas-shield"></sl-icon>
         <div class="content">
           Student data export requires encrypted storage.
@@ -178,7 +176,7 @@ export const WithActions: Story = {
           </sl-button>
         </div>
       </sl-callout>
-      <sl-callout density="plain" variant="info">
+      <sl-callout density="default" variant="info">
         <sl-icon slot="icon" name="fas-file-signature"></sl-icon>
         <h2 slot="title">Field trip consent</h2>
         <div class="content">
@@ -199,7 +197,7 @@ export const WithActions: Story = {
           </div>
         </div>
       </sl-callout>
-      <sl-callout density="comfortable" variant="info">
+      <sl-callout density="relaxed" variant="info">
         <sl-icon slot="icon" name="fas-file-signature"></sl-icon>
         <h2 slot="title">Field trip consent</h2>
         <div class="content">
@@ -253,8 +251,8 @@ export const All: StoryObj = {
             <h2 slot="title">Callout title</h2>
             The main content of the callout
           </sl-callout>
-          <sl-callout density="comfortable" variant=${variant}> The main content of the callout </sl-callout>
-          <sl-callout density="comfortable" variant=${variant}>
+          <sl-callout density="relaxed" variant=${variant}> The main content of the callout </sl-callout>
+          <sl-callout density="relaxed" variant=${variant}>
             <h2 slot="title">
               The "${variant}" callout title, esse laboris nisi ut quis ullamco dolor elit do commodo ea mollit eu
               irure.

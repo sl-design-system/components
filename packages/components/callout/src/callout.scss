@@ -9,7 +9,7 @@
   padding: var(--sl-size-150) var(--sl-size-200);
 }
 
-:host([density='comfortable']) {
+:host([density='relaxed']) {
   padding: var(--sl-size-300);
 }
 

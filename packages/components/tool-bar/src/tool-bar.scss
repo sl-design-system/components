@@ -13,6 +13,11 @@
   justify-content: end;
 }
 
+:host([contained]) {
+  border-radius: var(--sl-size-borderRadius-lg); // var(--sl-size-borderRadius-default); // TODO: but not for inverted
+  padding: var(--sl-size-100);
+}
+
 :host([empty]) {
   padding: 0;
 
@@ -60,3 +65,5 @@ sl-menu-button {
 hr + hr {
   display: none;
 }
+
+// TODO: contained and not-contained (default)

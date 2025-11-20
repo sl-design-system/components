@@ -90,6 +90,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
    */
   @property({ reflect: true }) align?: 'start' | 'end';
 
+  /** @internal The version of a tool-bar with spacing around. */
+  @property({ type: Boolean, reflect: true }) contained?: boolean;
+
   /**
    * If true, the tool-bar is disabled and cannot be interacted with.
    * @default false
@@ -242,7 +245,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     });
 
     this.requestUpdate('items');
-  }
+  } // TODO: maybe display: none instead of visibility hidden and no flex: 1 on the wrapper?
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }) {
     // Ignore events from nested slots.

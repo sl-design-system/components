@@ -3,6 +3,7 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { type LitElement, html } from 'lit';
 import sinon, { spy } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { userEvent } from 'vitest/browser';
 import { type MonthView } from './month-view.js';
 import { SelectDay } from './select-day.js';
 
@@ -131,28 +132,6 @@ describe('sl-select-day', () => {
 
       const monthView = el.renderRoot.querySelector('sl-month-view:not([inert])');
       expect(monthView).to.have.property('showToday', true);
-    });
-
-    it('should navigate to the previous month after clicking the previous month button', async () => {});
-
-    it('should announce the previous month after clicking the previous month button', async () => {
-      el.renderRoot.querySelector<HTMLElement>('sl-button.previous-month')?.click();
-
-      // Wait for the announcement to be made from a setTimeout
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(announce).toHaveBeenCalledWith('February 2023', 'polite');
-    });
-
-    it('should navigate to the next month after clicking the next month button', async () => {});
-
-    it('should announce the next month after clicking the next month button', async () => {
-      el.renderRoot.querySelector<HTMLElement>('sl-button.next-month')?.click();
-
-      // Wait for the announcement to be made from a setTimeout
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(announce).toHaveBeenCalledWith('April 2023', 'polite');
     });
 
     it('should emit an sl-select event when a date is selected', async () => {
@@ -308,6 +287,107 @@ describe('sl-select-day', () => {
       const monthViews = el.renderRoot.querySelectorAll('sl-month-view');
 
       expect(monthViews).to.have.lengthOf(1);
+    });
+  });
+
+  describe('navigation', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-select-day></sl-select-day>`);
+
+      // Wait for any initial scrolls to complete
+      await new Promise(resolve => setTimeout(resolve, 10));
+    });
+
+    describe('back', () => {
+      it('should show the previous month when using the keyboard', async () => {
+        el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')?.focus();
+
+        await userEvent.keyboard('{ArrowLeft}');
+        await new Promise(resolve => requestAnimationFrame(resolve));
+
+        expect(el.month).to.equalDate(new Date(2023, 1, 1));
+      });
+
+      it('should scroll to the previous month when using the mouse', async () => {
+        const scrollendPromise = new Promise<void>(resolve => {
+          el.renderRoot
+            .querySelector<HTMLElement>('.scroller')
+            ?.addEventListener('scrollend', () => resolve(), { once: true });
+        });
+
+        el.renderRoot.querySelector<HTMLElement>('sl-button.previous-month')?.click();
+        await scrollendPromise;
+
+        expect(el.month).to.equalDate(new Date(2023, 1, 1));
+      });
+
+      it('should focus the last day of the previous month when using the keyboard', async () => {
+        el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')?.focus();
+
+        await userEvent.keyboard('{ArrowLeft}');
+        await new Promise(resolve => requestAnimationFrame(resolve));
+
+        const monthView = el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])');
+
+        expect(monthView?.shadowRoot?.activeElement).to.exist;
+        expect(monthView?.shadowRoot?.activeElement?.tagName).to.equal('BUTTON');
+        expect(monthView?.shadowRoot?.activeElement).to.have.trimmed.text('28');
+      });
+
+      it('should announce the previous month when using the mouse', async () => {
+        el.renderRoot.querySelector<HTMLElement>('sl-button.previous-month')?.click();
+
+        // Wait for the announcement to be made from a setTimeout
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(announce).toHaveBeenCalledWith('February 2023', 'polite');
+      });
+    });
+
+    describe('forward', () => {
+      it('should show the next month when using the keyboard', async () => {
+        el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')?.focus(new Date(2023, 2, 31));
+
+        await userEvent.keyboard('{ArrowRight}');
+        await new Promise(resolve => requestAnimationFrame(resolve));
+
+        expect(el.month).to.equalDate(new Date(2023, 3, 1));
+      });
+
+      it('should scroll to the next month when using the mouse', async () => {
+        const scrollendPromise = new Promise<void>(resolve => {
+          el.renderRoot
+            .querySelector<HTMLElement>('.scroller')
+            ?.addEventListener('scrollend', () => resolve(), { once: true });
+        });
+
+        el.renderRoot.querySelector<HTMLElement>('sl-button.next-month')?.click();
+        await scrollendPromise;
+
+        expect(el.month).to.equalDate(new Date(2023, 3, 1));
+      });
+
+      it('should focus the first day of the next month when using the keyboard', async () => {
+        el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')?.focus(new Date(2023, 2, 31));
+
+        await userEvent.keyboard('{ArrowRight}');
+        await new Promise(resolve => requestAnimationFrame(resolve));
+
+        const monthView = el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])');
+
+        expect(monthView?.shadowRoot?.activeElement).to.exist;
+        expect(monthView?.shadowRoot?.activeElement?.tagName).to.equal('BUTTON');
+        expect(monthView?.shadowRoot?.activeElement).to.have.trimmed.text('1');
+      });
+
+      it('should announce the next month when using the mouse', async () => {
+        el.renderRoot.querySelector<HTMLElement>('sl-button.next-month')?.click();
+
+        // Wait for the announcement to be made from a setTimeout
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(announce).toHaveBeenCalledWith('April 2023', 'polite');
+      });
     });
   });
 

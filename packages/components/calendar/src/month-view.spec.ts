@@ -706,20 +706,6 @@ describe('sl-month-view', () => {
       expect(el.shadowRoot?.activeElement).to.match('button[part~="selected"]');
       expect(el.shadowRoot?.activeElement).to.have.trimmed.text('20');
     });
-
-    it('should clear the roving tabindex cache before focusing a specific date', async () => {
-      const targetDate = new Date(2023, 2, 10);
-
-      // Focus initially to set up roving tabindex state
-      el.focus();
-      await el.updateComplete;
-
-      // Focus a specific date
-      el.focus(targetDate);
-
-      expect(el.shadowRoot?.activeElement).to.exist;
-      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('10');
-    });
   });
 
   describe('keyboard navigation', () => {

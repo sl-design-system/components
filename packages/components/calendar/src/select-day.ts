@@ -346,12 +346,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
     this.month = new Date(event.detail.getFullYear(), event.detail.getMonth());
 
-    // // Wait for the month views to rerender before focusing the day
-    // await this.updateComplete;
-
-    // requestAnimationFrame(() => {
-    //   this.renderRoot.querySelector<MonthView>('sl-month-view:nth-child(2)')?.focusDay(event.detail);
-    // });
+    requestAnimationFrame(() => {
+      this.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')?.focus(event.detail);
+    });
   }
 
   #onPrevious(): void {
@@ -435,9 +432,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       return;
     }
 
-    const width = parseInt(getComputedStyle(this).width) || 0;
-    const canSelectPrevious = this.#canSelectPreviousMonth();
-    const canSelectNext = this.#canSelectNextMonth();
+    const width = parseInt(getComputedStyle(this).width) || 0,
+      canSelectPrevious = this.#canSelectPreviousMonth(),
+      canSelectNext = this.#canSelectNextMonth();
 
     // Calculate scroll position based on which month views are rendered
     // If previous month is not rendered, current month is at position 0

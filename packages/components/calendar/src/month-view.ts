@@ -367,12 +367,19 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     ].filter(part => part !== '');
   };
 
-  /** @internal */
-  focusDay(day: Date): void {
-    const button = this.renderRoot.querySelector<HTMLButtonElement>(`td[data-date="${day.toISOString()}"] button`)!;
+  override focus(options?: FocusOptions): void;
+  override focus(date: Date): void;
+  override focus(dateOrOptions?: Date | FocusOptions): void {
+    if (dateOrOptions instanceof Date) {
+      const button = this.renderRoot.querySelector<HTMLButtonElement>(
+        `td[data-date="${dateOrOptions.toISOString()}"] button`
+      )!;
 
-    this.#rovingTabindexController.clearElementCache();
-    this.#rovingTabindexController.focusToElement(button);
+      this.#rovingTabindexController.clearElementCache();
+      this.#rovingTabindexController.focusToElement(button);
+    } else {
+      super.focus(dateOrOptions);
+    }
   }
 
   #onClick(event: Event & { target: HTMLElement }, day: Day): void {

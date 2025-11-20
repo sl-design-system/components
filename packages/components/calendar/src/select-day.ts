@@ -282,7 +282,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         )}
       </div>
 
-      <div @scrollend=${this.#onScrollEnd} class="scroller">
+      <div @scrollend=${this.#onScrollEnd} class="scroller" tabindex="-1">
         ${canSelectPreviousMonth
           ? html`
               <sl-month-view

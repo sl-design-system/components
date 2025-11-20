@@ -603,7 +603,7 @@ describe('sl-month-view', () => {
     });
   });
 
-  describe('keyboard navigation', () => {
+  describe('focus', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-month-view></sl-month-view>`);
     });
@@ -667,6 +667,64 @@ describe('sl-month-view', () => {
       expect(el.shadowRoot?.activeElement).to.have.attribute('autofocus');
       expect(el.shadowRoot?.activeElement).to.have.trimmed.text('20');
       expect(el.shadowRoot?.activeElement).to.match('button[part~="selected"]');
+    });
+
+    it('should focus the first day of the month when called without arguments', () => {
+      el.focus();
+
+      expect(el.shadowRoot?.activeElement).to.exist;
+      expect(el.shadowRoot?.activeElement).to.match('button[part~="day"]');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('1');
+    });
+
+    it('should accept focus options', () => {
+      el.focus({ preventScroll: true });
+
+      expect(el.shadowRoot?.activeElement).to.exist;
+      expect(el.shadowRoot?.activeElement).to.match('button[part~="day"]');
+    });
+
+    it('should focus a specific date when a Date is passed', () => {
+      const targetDate = new Date(2023, 2, 15);
+
+      el.focus(targetDate);
+
+      expect(el.shadowRoot?.activeElement).to.exist;
+      expect(el.shadowRoot?.activeElement).to.match('button[part~="day"]');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('15');
+    });
+
+    it('should focus the selected date when it exists', async () => {
+      el.selected = new Date(2023, 2, 20);
+      await el.updateComplete;
+
+      const targetDate = new Date(2023, 2, 20);
+
+      el.focus(targetDate);
+
+      expect(el.shadowRoot?.activeElement).to.exist;
+      expect(el.shadowRoot?.activeElement).to.match('button[part~="selected"]');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('20');
+    });
+
+    it('should clear the roving tabindex cache before focusing a specific date', async () => {
+      const targetDate = new Date(2023, 2, 10);
+
+      // Focus initially to set up roving tabindex state
+      el.focus();
+      await el.updateComplete;
+
+      // Focus a specific date
+      el.focus(targetDate);
+
+      expect(el.shadowRoot?.activeElement).to.exist;
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('10');
+    });
+  });
+
+  describe('keyboard navigation', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-month-view></sl-month-view>`);
     });
 
     it('should focus the next day on arrow right', async () => {

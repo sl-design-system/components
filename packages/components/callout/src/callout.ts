@@ -59,7 +59,7 @@ export class Callout extends ScopedElementsMixin(LitElement) {
 
   /**
    * The density of the callout.
-   * @default plain
+   * @default 'plain'
    */
   @property({ reflect: true }) density?: CalloutDensity;
 

@@ -7,7 +7,7 @@ import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
-import { Callout, type CalloutVariant } from './callout';
+import { Callout, type CalloutVariant } from './callout.js';
 
 interface Props extends Pick<Callout, 'density' | 'variant'> {
   title: string;

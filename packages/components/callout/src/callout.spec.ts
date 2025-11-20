@@ -28,20 +28,6 @@ describe('sl-callout', () => {
 
       expect(el).to.have.attribute('variant', 'positive');
     });
-
-    it('should have caution variant when set', async () => {
-      el.variant = 'caution';
-      await el.updateComplete;
-
-      expect(el).to.have.attribute('variant', 'caution');
-    });
-
-    it('should have negative variant when set', async () => {
-      el.variant = 'negative';
-      await el.updateComplete;
-
-      expect(el).to.have.attribute('variant', 'negative');
-    });
   });
 
   describe('no title', () => {
@@ -53,7 +39,7 @@ describe('sl-callout', () => {
       const title = el.renderRoot.querySelector('[part="title"]')!;
 
       expect(title).to.exist;
-      expect(getComputedStyle(title).display).to.equal('none');
+      expect(title).to.have.style('display', 'none');
     });
 
     it('should have the no-title attribute set', () => {

@@ -101,8 +101,7 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       return this.inert ? [] : Array.from(this.renderRoot.querySelectorAll('button'));
     },
     isFocusableElement: el =>
-      !!el && !el.disabled && !el.part.contains('previous-month') && !el.part.contains('next-month'),
-    wrap: true
+      !!el && !el.disabled && !el.part.contains('previous-month') && !el.part.contains('next-month')
   });
 
   /** @internal The calendar object. */

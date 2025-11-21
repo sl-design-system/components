@@ -6,6 +6,11 @@ import * as locales from '@sl-design-system/locales';
 import { type Preview } from '@storybook/web-components-vite';
 import { INITIAL_VIEWPORTS } from 'storybook/viewport';
 import { updateTheme, themes } from './themes.js';
+import MockDate from 'mockdate';
+
+if (!import.meta.env?.DEV) {
+  MockDate.set('2025-06-01T00:00:00Z');
+}
 
 const { setLocale } = configureLocalization({
   sourceLocale: locales.sourceLocale,

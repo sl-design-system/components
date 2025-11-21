@@ -413,6 +413,22 @@ describe('sl-time-field', () => {
       expect(el.value).to.equal('12:55');
       expect(el.textField.value).to.equal('12:55');
     });
+
+    it('should update the dialog selection when the timeField value is changed', async () => {
+      el.value = '10:30';
+      await el.updateComplete;
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      const selectedHour = el.renderRoot.querySelector<HTMLElement>('.hours li[aria-selected="true"]'),
+        selectedMinute = el.renderRoot.querySelector<HTMLElement>('.minutes li[aria-selected="true"]');
+
+      expect(selectedHour).to.exist;
+      expect(selectedHour).to.have.trimmed.text('10');
+      expect(selectedMinute).to.exist;
+      expect(selectedMinute).to.have.trimmed.text('30');
+    });
   });
 
   describe('min/max', () => {
@@ -505,12 +521,23 @@ describe('sl-time-field', () => {
       expect(el.valid).to.be.true;
     });
 
-    it('should be invalid when the time has the wrong syntax', async () => {
-      el.value = 'ab:cd';
+    it('should be invalid when the input is empty', async () => {
+      el.value = '';
       await el.updateComplete;
 
       expect(el.valid).to.be.false;
       expect(el.validationMessage).to.equal('Please enter a time.');
+    });
+
+    it('should be invalid when the time has the wrong syntax', async () => {
+      el.textField.focus();
+      await userEvent.keyboard('ab:cd');
+
+      el.textField.input.blur();
+      await el.updateComplete;
+
+      expect(el.valid).to.be.false;
+      expect(el.validationMessage).to.equal('Please enter a valid time in HH:MM.');
     });
 
     it('should be valid when the time has the correct syntax', async () => {
@@ -584,10 +611,12 @@ describe('sl-time-field', () => {
       for (let i = 0; i < 5; i++) {
         await userEvent.keyboard('{Delete}');
       }
+
       el.textField.input.blur();
+      await el.updateComplete;
 
       expect(el.value).to.be.undefined;
-      expect(el.textField.value).to.equal('');
+      expect(el.textField.value).to.equal(null);
       expect(el.textField.input.selectionStart).to.equal(0);
       expect(el.textField.input.selectionEnd).to.equal(0);
     });

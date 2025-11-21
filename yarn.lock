@@ -4646,6 +4646,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/callout@workspace:packages/components/callout":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/callout@workspace:packages/components/callout"
+  dependencies:
+    "@lit/localize": "npm:^0.12.2"
+    "@open-wc/scoped-elements": "npm:^3.0.6"
+    "@sl-design-system/icon": "npm:^1.3.0"
+    "@sl-design-system/shared": "npm:^0.9.0"
+  peerDependencies:
+    "@lit/localize": ^0.12.1
+    "@open-wc/scoped-elements": ^3.0.6
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/card@workspace:packages/components/card":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/card@workspace:packages/components/card"
@@ -5114,6 +5128,7 @@ __metadata:
     husky: "npm:^9.1.7"
     lint-staged: "npm:^16.2.5"
     lit: "npm:^3.3.1"
+    mockdate: "npm:^3.0.5"
     playwright: "npm:^1.56.1"
     sinon: "npm:^21.0.0"
     sinon-chai: "npm:^4.0.1"
@@ -16549,6 +16564,13 @@ __metadata:
     _mocha: bin/_mocha
     mocha: bin/mocha.js
   checksum: 10c0/e6150cba85345aaabbc5b2e7341b1e6706b878f5a9782960cad57fd4cc458730a76d08c5f1a3e05d3ebb49cad93b455764bb00727bd148dcaf0c6dd4fa665b3d
+  languageName: node
+  linkType: hard
+
+"mockdate@npm:^3.0.5":
+  version: 3.0.5
+  resolution: "mockdate@npm:3.0.5"
+  checksum: 10c0/36ab00c4b94d3e3cc8b9ecec27730dcf396d47d2ba046ad96635e7f9bc4bba0fff6125dedaba7313b1cadc0cefc0eb3f3ac0d5c3655707afd3b82fa4550aae92
   languageName: node
   linkType: hard
 

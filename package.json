@@ -479,6 +479,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.2.5",
     "lit": "^3.3.1",
+    "mockdate": "^3.0.5",
     "playwright": "^1.56.1",
     "sinon": "^21.0.0",
     "sinon-chai": "^4.0.1",

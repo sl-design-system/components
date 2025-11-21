@@ -4,6 +4,7 @@ import { Colors, Sizes } from '../../../packages/components/avatar/src/avatar.st
 import { All as AllBadge } from '../../../packages/components/badge/src/badge.stories';
 import { All as AllBreadcrumbs } from '../../../packages/components/breadcrumbs/src/breadcrumbs.stories';
 import { All as AllButton } from '../../../packages/components/button/src/button.stories';
+import { All as AllCallout } from '../../../packages/components/callout/src/callout.stories';
 import { All as AllCard } from '../../../packages/components/card/src/card.stories';
 import { All as AllCheckbox } from '../../../packages/components/checkbox/src/root.stories';
 import { All as AllCombobox } from '../../../packages/components/combobox/src/combobox.stories';
@@ -69,6 +70,7 @@ export const AvatarSizes = { render: Sizes.render };
 export const Badge = { render: AllBadge.render };
 export const Breadcrumbs = { render: AllBreadcrumbs.render };
 export const Button = { render: AllButton.render };
+export const Callout = { render: AllCallout.render };
 export const Card = { render: AllCard.render };
 export const Checkbox = { render: AllCheckbox.render };
 export const Combobox = { render: AllCombobox.render };

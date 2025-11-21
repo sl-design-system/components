@@ -2,15 +2,15 @@ import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import '@sl-design-system/tooltip/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { type TemplateResult, html } from 'lit';
-import { type SinonFakeTimers, spy, useFakeTimers } from 'sinon';
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { spy } from 'sinon';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { MonthView } from './month-view.js';
 import { type Day } from './utils.js';
 
 describe('sl-month-view', () => {
-  let clock: SinonFakeTimers, el: MonthView;
+  let el: MonthView;
 
   beforeEach(() => {
     // March 2023
@@ -21,10 +21,10 @@ describe('sl-month-view', () => {
     // 13 14 15 16 17 18 19
     // 20 21 22 23 24 25 26
     // 27 28 29 30 31  1  2
-    clock = useFakeTimers(new Date(2023, 2, 14).getTime());
+    vi.setSystemTime(new Date(2023, 2, 14));
   });
 
-  afterEach(() => clock.restore());
+  afterEach(() => vi.useRealTimers());
 
   describe('defaults', () => {
     beforeEach(async () => {
@@ -541,6 +541,21 @@ describe('sl-month-view', () => {
 
         expect(date).to.equalDate(new Date(2023, 2, 1));
         expect(el.selected).to.equalDate(new Date(2023, 2, 1));
+      });
+
+      it('should not emit an sl-select event when clicking an already selected day', async () => {
+        const onSelect = spy();
+
+        el.selected = new Date(2023, 2, 1);
+        await el.updateComplete;
+
+        el.addEventListener('sl-select', onSelect);
+        el.renderRoot
+          .querySelector<HTMLElement>('button[part~="day"]:not([part~="previous-month"]):not([part~="next-month"])')
+          ?.click();
+        await el.updateComplete;
+
+        expect(onSelect).to.not.have.been.called;
       });
 
       it('should select a day when focused and Enter is pressed', async () => {

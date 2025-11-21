@@ -36,6 +36,22 @@ All components are built using Lit and TypeScript. All components follow the fol
 - Public properties should come before public properties
 - Public methods should come before private methods
 
+### Code style
+
+When declaring multiple constants, use a single multiline `const` statement instead of multiple separate statements:
+
+```typescript
+// ✅ Good
+const foo = 'bar',
+  baz = 'qux',
+  another = 'value';
+
+// ❌ Bad
+const foo = 'bar';
+const baz = 'qux';
+const another = 'value';
+```
+
 ## Tools
 
 To build the components, use the following command from the root of the repository:

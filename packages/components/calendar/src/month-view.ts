@@ -386,8 +386,12 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     const button = event.target.closest('button');
 
     if (!button?.disabled) {
-      this.selectEvent.emit(day.date);
-      this.selected = day.date;
+      const isAlreadySelected = this.selected && isSameDate(day.date, this.selected);
+
+      if (!isAlreadySelected) {
+        this.selectEvent.emit(day.date);
+        this.selected = day.date;
+      }
     }
 
     // Emit the `sl-select` event before the `sl-change` event, so the date-field

@@ -2,7 +2,7 @@ import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-regi
 import chaiDatetime from 'chai-datetime';
 import chaiDom from 'chai-dom';
 import sinonChai from 'sinon-chai';
-import { chai, vi } from 'vitest';
+import { chai } from 'vitest';
 import { commands } from 'vitest/browser'
 
 chai.use(chaiDatetime);

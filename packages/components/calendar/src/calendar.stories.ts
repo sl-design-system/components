@@ -1,11 +1,11 @@
 import '@sl-design-system/format-date/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
-import { TemplateResult, html } from 'lit';
+import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { useArgs } from 'storybook/internal/preview-api';
 import '../register.js';
 import { type Calendar } from './calendar.js';
-import { type Indicator, IndicatorColor } from './utils.js';
+import { IndicatorColor } from './utils.js';
 
 type Props = Pick<
   Calendar,
@@ -29,8 +29,7 @@ export default {
   args: {
     readonly: false,
     showToday: false,
-    showWeekNumbers: false,
-    month: new Date(2025, 8, 15)
+    showWeekNumbers: false
   },
   argTypes: {
     disabledDates: {
@@ -209,108 +208,96 @@ export const WeekNumbers: Story = {
 
 export const All: Story = {
   render: () => {
-    const parseDate = (value: string | Date | undefined): Date | undefined => {
-      if (!value) {
-        return undefined;
-      }
+    // Mock date in Chromatic is 2025-06-01
+    const mockDate = new Date('2025-06-01'),
+      selectedDate = new Date('2025-06-15');
 
-      return value instanceof Date ? value : new Date(value);
-    };
-    const getOffsetDate = (offset: number, setDate?: Date): Date => {
-      const date = setDate ? new Date(setDate) : new Date();
-      date.setDate(date.getDate() + offset);
-      return date;
-    };
-
-    const renderMonth = (settings: Props): TemplateResult => {
-      return html`
-        <sl-calendar
-          ?show-today=${settings.showToday}
-          indicator-dates=${ifDefined(
-            Array.isArray(settings.indicatorDates)
-              ? JSON.stringify(
-                  settings.indicatorDates
-                    .filter(item => item?.date)
-                    .map(item => ({
-                      date: item.date.toISOString(),
-                      ...(item.color ? { color: item.color } : {}),
-                      ...(item.label ? { label: item.label } : {})
-                    }))
-                )
-              : undefined
-          )}
-          max=${ifDefined(parseDate(settings.max)?.toISOString())}
-          min=${ifDefined(parseDate(settings.min)?.toISOString())}
-          month=${ifDefined(parseDate(settings.month)?.toISOString())}
-          selected=${ifDefined(parseDate(settings.selected)?.toISOString())}
-          show-week-numbers="true"
-        ></sl-calendar>
-      `;
-    };
-    const monthEndDate = new Date();
-    const monthEnd = {
-      indicatorDates: [
-        { date: getOffsetDate(3, monthEndDate), color: 'red' as IndicatorColor, label: indicatorLabels.red.label }
-      ],
-      max: getOffsetDate(5, monthEndDate),
-      min: getOffsetDate(-5, monthEndDate),
-      month: monthEndDate,
-      negative: [getOffsetDate(2, monthEndDate)],
-      selected: getOffsetDate(4, monthEndDate),
-      showToday: false
-    };
-
-    const indicatorDates = {
-      indicatorDates: [
-        { date: getOffsetDate(0), color: 'red', label: indicatorLabels.red.label },
-        { date: getOffsetDate(1), color: 'blue', label: indicatorLabels.blue.label },
-        { date: getOffsetDate(2), color: 'yellow', label: indicatorLabels.yellow.label },
-        { date: getOffsetDate(3), color: 'grey', label: indicatorLabels.grey.label },
-        { date: getOffsetDate(5), color: 'green', label: indicatorLabels.green.label },
-        { date: getOffsetDate(8), color: 'green', label: indicatorLabels.green.label }
-      ] as Indicator[], // make sure one is outside the min/max range
-      max: getOffsetDate(5),
-      min: getOffsetDate(-5),
-      month: new Date(),
-      selected: getOffsetDate(1),
-      showToday: true
-    };
-    const indicatorToday = {
-      ...indicatorDates,
-      selected: getOffsetDate(0)
-    };
-    const negative = {
-      max: getOffsetDate(5),
-      min: getOffsetDate(-5),
-      month: new Date(),
-      negative: [getOffsetDate(0), getOffsetDate(1), getOffsetDate(6)], // make sure one it outside the min/max range
-      selected: getOffsetDate(1),
-      showToday: true
-    };
-
-    const negativeToday = {
-      ...negative,
-      selected: getOffsetDate(0)
-    };
     return html`
       <style>
-        .container {
+        section {
+          display: inline-grid;
+          gap: 2rem;
+          grid-template-columns: repeat(2, auto);
+        }
+        .calendar-wrapper {
           display: flex;
-          gap: 1.2rem;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+        .calendar-wrapper > span {
+          font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
         }
       </style>
-      <h1>Month End (${monthEndDate.toLocaleDateString()})</h1>
-      <p>
-        Selected, negative and date with indicator are all in the next month, but have the same styling as they would
-        within the current month.
-      </p>
-      ${renderMonth(monthEnd)}
-      <h1>Today</h1>
-      <p>Shows current month with 'today' highlighted, in combination with selected, indicator and negative</p>
-      <h2>Indicator</h2>
-      <div class="container">${renderMonth(indicatorDates)} ${renderMonth(indicatorToday)}</div>
-      <h2>Negative</h2>
-      <div class="container">${renderMonth(negative)} ${renderMonth(negativeToday)}</div>
+      <section>
+        <div class="calendar-wrapper">
+          <span>Basic</span>
+          <sl-calendar month=${mockDate.toISOString()}></sl-calendar>
+        </div>
+
+        <div class="calendar-wrapper">
+          <span>Selected</span>
+          <sl-calendar month=${mockDate.toISOString()} selected=${selectedDate.toISOString()}></sl-calendar>
+        </div>
+
+        <div class="calendar-wrapper">
+          <span>Show Today</span>
+          <sl-calendar month=${mockDate.toISOString()} show-today></sl-calendar>
+        </div>
+
+        <div class="calendar-wrapper">
+          <span>Week Numbers</span>
+          <sl-calendar month=${mockDate.toISOString()} show-week-numbers></sl-calendar>
+        </div>
+
+        <div class="calendar-wrapper">
+          <span>First Day Sunday</span>
+          <sl-calendar first-day-of-week="0" month=${mockDate.toISOString()}></sl-calendar>
+        </div>
+
+        <div class="calendar-wrapper">
+          <span>Min/Max</span>
+          <sl-calendar
+            max=${new Date('2025-06-20').toISOString()}
+            min=${new Date('2025-06-05').toISOString()}
+            month=${mockDate.toISOString()}
+          ></sl-calendar>
+        </div>
+
+        <div class="calendar-wrapper">
+          <span>Disabled Dates</span>
+          <sl-calendar
+            disabled-dates=${[
+              new Date('2025-06-10'),
+              new Date('2025-06-11'),
+              new Date('2025-06-12'),
+              new Date('2025-06-18')
+            ]
+              .map(date => date.toISOString())
+              .join(',')}
+            month=${mockDate.toISOString()}
+          ></sl-calendar>
+        </div>
+
+        <div class="calendar-wrapper">
+          <span>Indicator Dates</span>
+          <sl-calendar
+            indicator-dates=${JSON.stringify([
+              { date: new Date('2025-06-05').toISOString(), color: 'red', label: 'Important' },
+              { date: new Date('2025-06-10').toISOString(), color: 'blue', label: 'Event' },
+              { date: new Date('2025-06-15').toISOString(), color: 'green', label: 'Available' },
+              { date: new Date('2025-06-20').toISOString(), color: 'yellow', label: 'Reminder' },
+              { date: new Date('2025-06-25').toISOString(), color: 'grey', label: 'Note' }
+            ])}
+            month=${mockDate.toISOString()}
+            show-today
+          ></sl-calendar>
+        </div>
+
+        <div class="calendar-wrapper">
+          <span>Readonly</span>
+          <sl-calendar month=${mockDate.toISOString()} readonly selected=${selectedDate.toISOString()}></sl-calendar>
+        </div>
+      </section>
     `;
   }
 };

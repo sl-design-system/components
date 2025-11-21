@@ -8,14 +8,14 @@
 :host([show-week-numbers]) {
   .days-of-week {
     grid-template-columns: var(--sl-size-600) repeat(var(--_days-in-week), var(--sl-size-450));
-    padding: var(--sl-size-050) var(--sl-size-075) 0 0;
   }
 
   .scroller {
-    max-inline-size: calc(
-      var(--sl-size-600) + var(--sl-size-borderWidth-subtle) + var(--_days-in-week) * var(--sl-size-450) +
-        var(--sl-size-100)
-    );
+    max-inline-size: calc(var(--sl-size-600) + var(--_days-in-week) * var(--sl-size-450) + var(--sl-size-100));
+  }
+
+  sl-month-view::part(week-number) {
+    min-inline-size: calc(var(--sl-size-500) + 2 * var(--sl-size-025));
   }
 }
 
@@ -51,7 +51,7 @@ header {
   display: grid;
   font-weight: normal;
   grid-template-columns: repeat(var(--_days-in-week), var(--sl-size-450));
-  padding: var(--sl-size-050) var(--sl-size-075);
+  padding: var(--sl-size-050) var(--sl-size-050) 0 var(--sl-size-050);
 }
 
 .day-of-week,

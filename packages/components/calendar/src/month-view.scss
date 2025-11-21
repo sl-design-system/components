@@ -36,6 +36,7 @@ th {
 
 [part='week-day'] {
   block-size: var(--sl-size-250);
+  padding-inline: 0;
   position: relative;
 
   span {
@@ -46,9 +47,19 @@ th {
 }
 
 [part~='week-number'] {
-  border-inline-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-neutral-plain);
-  inline-size: calc(var(--sl-size-400) - var(--sl-size-010));
+  min-inline-size: var(--sl-size-400);
+  position: relative;
   text-align: center;
+
+  // Use a pseudo-element to prevent weird resizing within the table
+  // With a border, the sibling td was suddenly 0.5px wider
+  &::after {
+    background: var(--sl-color-border-neutral-plain);
+    content: '';
+    inline-size: var(--sl-size-borderWidth-subtle);
+    inset: 0 0 0 auto;
+    position: absolute;
+  }
 }
 
 button {

@@ -37,7 +37,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type ToolBar } from './tool-bar.js';
 
-type Props = Pick<ToolBar, 'align' | 'disabled' | 'inverted' | 'noBorder'> & {
+type Props = Pick<ToolBar, 'align' | 'contained' | 'disabled' | 'inverted'> & {
   description?: string | TemplateResult;
   items?(): TemplateResult;
   resizable?: boolean;
@@ -71,13 +71,15 @@ export default {
   title: 'Actions/Tool bar',
   tags: ['draft'],
   args: {
-    noBorder: false,
     resizable: true
   },
   argTypes: {
     align: {
       control: 'inline-radio',
       options: ['start', 'end']
+    },
+    contained: {
+      control: 'boolean'
     },
     description: {
       table: { disable: true }
@@ -95,7 +97,7 @@ export default {
       control: 'boolean'
     }
   },
-  render: ({ align, description, disabled, inverted, items, noBorder, resizable, width }) => {
+  render: ({ align, contained, description, disabled, inverted, items, resizable, width }) => {
     return html`
       ${description ? html`<p>${description}</p>` : nothing}
       <style>
@@ -105,9 +107,9 @@ export default {
       <div class="container">
         <sl-tool-bar
           align=${ifDefined(align)}
+          ?contained=${contained}
           ?disabled=${disabled}
           ?inverted=${inverted}
-          ?no-border=${noBorder}
           style="inline-size: ${width ?? 'auto'}"
         >
           ${items?.()}
@@ -165,6 +167,15 @@ export const Basic: Story = {
   }
 };
 
+export const Contained: Story = {
+  args: {
+    ...Basic.args,
+    description:
+      'This example shows a tool bar without a border. Without a border, it also does not have any inline padding. Please make sure that the focus outlines of the buttons are still visible.',
+    contained: true
+  }
+};
+
 export const AlignEnd: Story = {
   args: {
     ...Basic.args,
@@ -183,7 +194,8 @@ export const Disabled: Story = {
 
 export const Empty: Story = {
   args: {
-    description: 'This example shows an empty tool bar. It should not take up any space.'
+    description: 'This example shows an empty (contained) tool bar. It should not take up any space.',
+    contained: true,
   }
 };
 
@@ -191,7 +203,8 @@ export const FitContent: Story = {
   args: {
     description: 'This example shows a tool bar with a single button that fits its content.',
     items: () => html`<sl-button>Simple</sl-button>`,
-    width: 'fit-content'
+    width: 'fit-content',
+    contained: true
   }
 };
 
@@ -214,18 +227,30 @@ export const Inverted: Story = {
   }
 };
 
-export const NoBorder: Story = {
+export const InvertedContained: Story = {
   args: {
-    ...Basic.args,
-    description:
-      'This example shows a tool bar without a border. Without a border, it also does not have any inline padding. Please make sure that the focus outlines of the buttons are still visible.',
-    noBorder: true
+    contained: true,
+    description: html`
+      This example shows a tool bar with inverted buttons. You have to set the
+      <code>inverted</code> attribute on the tool bar, otherwise the menu button will not be inverted.
+    `,
+    inverted: true,
+    items: () => html`
+      <sl-button fill="outline" variant="inverted">Action 1</sl-button>
+      <sl-button fill="outline" variant="inverted">Action 2</sl-button>
+      <sl-button fill="outline" variant="inverted">Action 3</sl-button>
+      <sl-button fill="outline" variant="inverted">Action 4</sl-button>
+      <sl-button fill="outline" variant="inverted">Action 5</sl-button>
+      <sl-button fill="outline" variant="inverted">Action 6</sl-button>
+    `,
+    width: '400px'
   }
 };
 
 export const Overflow: Story = {
   args: {
     ...Basic.args,
+    contained: true,
     description:
       'This example shows a tool bar with many items that overflow into a menu. You can resize the tool bar by dragging the right edge.',
     width: '100px'
@@ -276,6 +301,54 @@ export const Tooltips: Story = {
     `
   }
 };
+
+export const IconOnly: Story = {
+  args: {
+    description: 'This example shows a tool bar with different tooltip techniques on the buttons.',
+    items: () => html`
+      <sl-button aria-describedby="tooltip-bold">
+        <sl-icon name="far-bold"></sl-icon>
+      </sl-button>
+      <sl-tooltip id="tooltip-bold">Bold</sl-tooltip>
+
+      <sl-button ${tooltip('Italic')}>
+        <sl-icon name="far-italic"></sl-icon>
+      </sl-button>
+
+      <sl-button aria-disabled="true" ${tooltip('Underline (disabled)')}>
+        <sl-icon name="far-underline"></sl-icon>
+      </sl-button>
+
+      <sl-button aria-label="Underline">
+        <sl-icon name="far-underline"></sl-icon>
+      </sl-button>
+
+      <sl-menu-button aria-label="Settings" style="align-self:center;justify-self:center;">
+        <sl-icon name="far-pen" slot="button"></sl-icon>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+
+      <sl-menu-button aria-label="Settings" style="align-self:center;justify-self:center;" ${tooltip('tooltip test')}>
+        <sl-icon name="far-pen" slot="button"></sl-icon>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+    `
+  }
+}; // TODO: icon only aria-label not working with overflow
 
 export const Combination: Story = {
   render: () => html`

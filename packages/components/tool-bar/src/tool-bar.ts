@@ -114,13 +114,13 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** @internal The tool bar items that should be shown in the overflow menu. */
   @state() menuItems: ToolBarItem[] = [];
 
-  /**
-   * If true, will cause the tool bar to not have a border; useful when embedding
-   * the tool-bar inside another component. If you set this, make sure there is enough
-   * space around the tool bar to show focus outlines.
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true, attribute: 'no-border' }) noBorder?: boolean;
+  // /**
+  //  * If true, will cause the tool bar to not have a border; useful when embedding
+  //  * the tool-bar inside another component. If you set this, make sure there is enough
+  //  * space around the tool bar to show focus outlines.
+  //  * @default false
+  //  */
+  // @property({ type: Boolean, reflect: true, attribute: 'no-border' }) noBorder?: boolean;
 
   /** Use this if you want the menu button to use the "inverted" variant. */
   @property({ type: Boolean }) inverted?: boolean;
@@ -237,14 +237,100 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     }
 
     // Now iterate through the items and set their visibility based on the available width.
+    // this.items.toReversed().forEach(item => {
+    //   item.visible = Math.round(totalWidth) <= Math.round(availableWidth);
+    //   item.element.style.visibility = item.visible ? 'visible' : 'hidden';
+    //   // item.element.style.display = item.visible ? 'flex' : 'none';
+    //   // if (!item.visible) {
+    //   //   item.element.style.display = 'none';
+    //   // } else {
+    //   //   item.element.style.display = '';
+    //   // }
+    //
+    //   console.log('item visibility:', item, item.visible, totalWidth, availableWidth);
+    //
+    //   totalWidth -= item.element.getBoundingClientRect().width + gap;
+    // });
+
     this.items.toReversed().forEach(item => {
       item.visible = Math.round(totalWidth) <= Math.round(availableWidth);
       item.element.style.visibility = item.visible ? 'visible' : 'hidden';
+      // item.element.style.display = item.visible ? 'flex' : 'none';
+      // if (!item.visible) {
+      //   item.element.style.display = 'none';
+      // } else {
+      //   item.element.style.display = '';
+      // }
+
+      console.log('item visibility:', item, item.visible, totalWidth, availableWidth);
 
       totalWidth -= item.element.getBoundingClientRect().width + gap;
+
+      if (!item.visible) {
+        item.element.style.display = 'none';
+      } else {
+        item.element.style.display = '';
+      }
     });
 
+    // this.items.toReversed();
+
+    // this.items.reverse();
+
+
+/*    const wrapper = this.renderRoot.querySelector('[part="wrapper"]')!,
+      gap = parseInt(getComputedStyle(wrapper).gap) || 0;
+
+    // Precompute widths so toggling `display: none` doesn't affect measurements mid-loop.
+    const widths = this.items.map(item => item.element.getBoundingClientRect().width);
+
+    // First calculate how much space we need for all the items, including gaps.
+    let totalWidth = widths.reduce((sum, w, index) => {
+      return sum + w + (index < widths.length - 1 ? gap : 0);
+    }, 0);
+
+    // If it doesn't fit, remove space for the menu button and its gap.
+    if (Math.round(totalWidth) > Math.round(availableWidth)) {
+      // The menu button has an aspect ratio of 1:1, so we can use the wrapper's height as the button width.
+      availableWidth -= wrapper.getBoundingClientRect().height + gap;
+    }
+
+    // Now iterate through the items (from end) and set their visibility using `display`.
+    for (let i = this.items.length - 1; i >= 0; i--) {
+      const item = this.items[i];
+      const itemWidth = widths[i];
+
+      item.visible = Math.round(totalWidth) <= Math.round(availableWidth);
+      item.element.style.display = item.visible ? '' : 'none';
+
+      totalWidth -= itemWidth + gap;
+    }*/
+
+    // this.items = [...this.items].reverse();
+    // this.items.forEach(item => this.appendChild(item.element));
+
     this.requestUpdate('items');
+
+    // this.items = [...this.items].reverse();
+    // this.items.forEach(item => this.appendChild(item.element));
+
+    console.log('items after resize:', this.items, [...this.items].reverse());
+
+    const hasOverflow = this.items.some(item => !item.visible);
+
+    console.log('hasOverflow:', hasOverflow);
+    //
+    // if (hasOverflow) {
+    //   // Reverse order so overflowed (hidden) items are moved to the end
+    //   this.items = [...this.items].reverse();
+    //   this.items.forEach(item => this.appendChild(item.element));
+    // } else {
+    //   // Keep original DOM order when nothing is overflowed
+    //   this.items.forEach(item => this.appendChild(item.element));
+    // }
+
+    // this.items.reverse();
+    // this.items = [...this.items].reverse();
   } // TODO: maybe display: none instead of visibility hidden and no flex: 1 on the wrapper?
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }) {

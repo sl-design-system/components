@@ -1,7 +1,7 @@
+import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { type SlChangeEvent } from '../../shared/src/events/change.js';
 import '../register.js';
 import { Calendar } from './calendar.js';
 import { type MonthView } from './month-view.js';

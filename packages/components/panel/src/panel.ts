@@ -64,6 +64,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   /**
    * The density of the panel.
    * Note: the `plain` and `comfortable` density values are deprecated and will be removed in the future.
+   * @param {'plain' | 'comfortable'} - These density values are deprecated and will be removed in the future.
    * @default 'default'
    */
   @property({ reflect: true }) density?: PanelDensity;

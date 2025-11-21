@@ -2,7 +2,7 @@ import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { format } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, RovingTabindexController, event } from '@sl-design-system/shared';
+import { type EventEmitter, NewFocusGroupController, event } from '@sl-design-system/shared';
 import { dateConverter, dateListConverter } from '@sl-design-system/shared/converters.js';
 import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { LocaleMixin } from '@sl-design-system/shared/mixins.js';
@@ -71,8 +71,8 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** The current month. */
   #month = new Date();
 
-  /** Manage roving tabindex for day buttons. */
-  #rovingTabindexController = new RovingTabindexController<HTMLButtonElement>(this, {
+  /** Manage focus group for day buttons. */
+  #focusGroupController = new NewFocusGroupController<HTMLButtonElement>(this, {
     direction: 'grid',
     directionLength: DAYS_IN_WEEK,
     focusInIndex: (elements: HTMLButtonElement[]) => {
@@ -100,7 +100,9 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     elements: (): HTMLButtonElement[] => {
       return this.inert ? [] : Array.from(this.renderRoot.querySelectorAll('button'));
     },
-    isFocusableElement: el => !el.disabled && !el.part.contains('previous-month') && !el.part.contains('next-month')
+    isFocusableElement: el =>
+      !!el && !el.disabled && !el.part.contains('previous-month') && !el.part.contains('next-month'),
+    wrap: true
   });
 
   /** @internal The calendar object. */
@@ -205,7 +207,7 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     super.attributeChangedCallback(name, oldValue, newValue);
 
     if (name === 'inert') {
-      this.#rovingTabindexController.clearElementCache();
+      this.#focusGroupController.clearElementCache();
     }
   }
 
@@ -245,7 +247,7 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         showToday
       });
 
-      this.#rovingTabindexController.clearElementCache();
+      this.#focusGroupController.clearElementCache();
     }
   }
 
@@ -375,8 +377,8 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         `td[data-date="${dateOrOptions.toISOString()}"] button`
       )!;
 
-      this.#rovingTabindexController.clearElementCache();
-      this.#rovingTabindexController.focusToElement(button);
+      this.#focusGroupController.clearElementCache();
+      this.#focusGroupController.focusToElement(button);
     } else {
       super.focus(dateOrOptions);
     }

@@ -288,6 +288,32 @@ describe('sl-select-day', () => {
 
       expect(monthViews).to.have.lengthOf(1);
     });
+
+    it('should not change month when at the min boundary and using the keyboard', async () => {
+      el.min = new Date(2023, 2, 1);
+      await el.updateComplete;
+
+      const originalMonth = el.month;
+      el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')?.focus();
+
+      await userEvent.keyboard('{ArrowLeft}');
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      expect(el.month).to.equalDate(originalMonth);
+    });
+
+    it('should not change month when at the max boundary and using the keyboard', async () => {
+      el.max = new Date(2023, 2, 31);
+      await el.updateComplete;
+
+      const originalMonth = el.month;
+      el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')?.focus(new Date(2023, 2, 31));
+
+      await userEvent.keyboard('{ArrowRight}');
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      expect(el.month).to.equalDate(originalMonth);
+    });
   });
 
   describe('navigation', () => {

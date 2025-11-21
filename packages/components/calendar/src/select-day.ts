@@ -344,7 +344,24 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     event.preventDefault();
     event.stopPropagation();
 
-    this.month = new Date(event.detail.getFullYear(), event.detail.getMonth());
+    const newMonth = new Date(event.detail.getFullYear(), event.detail.getMonth());
+
+    // Check if the new month is within min/max boundaries
+    if (this.min) {
+      const minMonth = new Date(this.min.getFullYear(), this.min.getMonth());
+      if (newMonth < minMonth) {
+        return; // Don't change month if it would go below min
+      }
+    }
+
+    if (this.max) {
+      const maxMonth = new Date(this.max.getFullYear(), this.max.getMonth());
+      if (newMonth > maxMonth) {
+        return; // Don't change month if it would go above max
+      }
+    }
+
+    this.month = newMonth;
 
     requestAnimationFrame(() => {
       this.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')?.focus(event.detail);

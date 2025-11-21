@@ -16,7 +16,7 @@ declare global {
   }
 }
 
-export type PanelDensity = 'plain' | 'comfortable';
+export type PanelDensity = 'default' | 'relaxed' | 'plain' | 'comfortable'; // 'plain' and 'comfortable' are deprecated, should be removed in the future
 
 export type PanelElevation = 'none' | 'raised' | 'sunken';
 
@@ -63,7 +63,9 @@ export class Panel extends ScopedElementsMixin(LitElement) {
 
   /**
    * The density of the panel.
-   * @default plain
+   * Note: the `plain` and `comfortable` density values are deprecated and will be removed in the future.
+   * @param {'plain' | 'comfortable'} - These density values are deprecated and will be removed in the future.
+   * @default 'default'
    */
   @property({ reflect: true }) density?: PanelDensity;
 

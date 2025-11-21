@@ -13,7 +13,7 @@ type Props = Pick<TagList, 'size' | 'stacked' | 'variant'> & {
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'Feedback & status/Tag list',
+  title: 'Feedback & status/Tag/Tag list',
   tags: ['preview'],
   args: {
     count: 50,

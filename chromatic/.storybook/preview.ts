@@ -3,6 +3,7 @@ import { type Preview } from '@storybook/web-components';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import { html } from 'lit';
 import { themes, updateTheme } from '../../.storybook/themes';
+import MockDate from 'mockdate';
 
 // Id's of components that only need to be rendered once, not in all mock states.
 const singleState = [
@@ -17,6 +18,10 @@ const singleState = [
   'all--spinner',
   'all--tooltip'
 ];
+
+if (!import.meta.env?.DEV) {
+  MockDate.set('2025-06-01T00:00:00Z');
+}
 
 const preview: Preview = {
   decorators: [

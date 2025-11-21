@@ -342,6 +342,7 @@ describe('sl-select-day', () => {
         });
 
         el.renderRoot.querySelector<HTMLElement>('sl-button.previous-month')?.click();
+        await el.updateComplete;
         await scrollendPromise;
 
         expect(el.month).to.equalDate(new Date(2023, 1, 1));

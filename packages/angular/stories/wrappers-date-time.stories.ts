@@ -12,6 +12,7 @@ export default {
 
 export const Calendar: StoryObj = {
   render: () => ({
+    description: 'A calendar component for selecting dates.',
     template: '<sl-calendar></sl-calendar>'
   })
 };

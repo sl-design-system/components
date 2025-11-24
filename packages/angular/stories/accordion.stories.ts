@@ -47,7 +47,7 @@ export default {
 
 export const ExternalActions: StoryObj = {
   render: () => ({
-    description: `There are scenarios where you want to be able to controle the state of the accordion with an external trigger, for example when the user selects an option elsewhere on the page.
+    description: `There are scenarios where you want to be able to control the state of the accordion with an external trigger, for example when the user selects an option elsewhere on the page.
 
               This example shows how to bind a boolean that exist in your angular component to the open state of the accordion item. It also shows how to update your boolean when the value is changed from within the accordion itself.`,
     template: '<sla-accordion-external-actions></sla-accordion-external-actions>'

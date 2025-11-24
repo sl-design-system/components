@@ -41,9 +41,6 @@ export const Button: StoryObj = {
 };
 
 export const ButtonBar: StoryObj = {
-  globals: {
-    Description: 'A button bar groups multiple buttons together.'
-  },
   render: () => ({
     description: 'A button bar groups multiple buttons together.',
     template: `
@@ -57,6 +54,7 @@ export const ButtonBar: StoryObj = {
 
 export const MenuButton: StoryObj = {
   render: () => ({
+    description: 'A menu button combines a button with a dropdown menu of options.',
     template: `
       <sl-menu-button>
           <sl-menu-item>Option 1</sl-menu-item>
@@ -69,12 +67,18 @@ export const MenuButton: StoryObj = {
 
 export const ToggleButton: StoryObj = {
   render: () => ({
-    template: '<sl-toggle-button>Toggle me</sl-toggle-button>'
+    description: 'You can bind actions to buttons using the (sl-toggle) event to respond to toggle state changes.',
+    props: {
+      action: (event: Event) => console.log('Button toggled, current value:', event)
+    },
+    template: '<sl-toggle-button (sl-toggle)="action($event)">Toggle me</sl-toggle-button>'
   })
 };
 
 export const ToggleGroup: StoryObj = {
   render: () => ({
+    description:
+      'A toggle group lets users control related actions with clear visual feedback in a compact UI element.',
     template: `
       <sl-toggle-group>
         <sl-toggle-button>Option 1</sl-toggle-button>
@@ -87,6 +91,7 @@ export const ToggleGroup: StoryObj = {
 
 export const ToolBar: StoryObj = {
   render: () => ({
+    description: 'A toolbar groups multiple actions together in a single horizontal row.',
     template: `
       <sl-tool-bar>
         <sl-button>Button 1</sl-button>

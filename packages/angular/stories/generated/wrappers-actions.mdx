@@ -46,6 +46,8 @@ A button bar groups multiple buttons together.
 
 ## Menu Button
 
+A menu button combines a button with a dropdown menu of options.
+
 ### Template
 
 ```html
@@ -61,14 +63,26 @@ A button bar groups multiple buttons together.
 
 ## Toggle Button
 
+You can bind actions to buttons using the (sl-toggle) event to respond to toggle state changes.
+
 ### Template
 
 ```html
-<sl-toggle-button>Toggle me</sl-toggle-button>
+<sl-toggle-button (sl-toggle)="action($event)">Toggle me</sl-toggle-button>
+```
+
+### Props
+
+```typescript
+
+  action: (event: Event) => console.log('Button toggled, current value:', event)
+
 ```
 
 
 ## Toggle Group
+
+A toggle group lets users control related actions with clear visual feedback in a compact UI element.
 
 ### Template
 
@@ -84,6 +98,8 @@ A button bar groups multiple buttons together.
 
 
 ## Tool Bar
+
+A toolbar groups multiple actions together in a single horizontal row.
 
 ### Template
 

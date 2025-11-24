@@ -11,10 +11,20 @@ To add custom introduction content, create dialog-service.intro.md */}
 
 ## Dialog Service Example
 
-A button bar groups multiple buttons together.
+A simple example of using the DialogService to open a dialog. This works with any dialog. How you can create a dialog can be seen in the next example.<br/><br/>Note the <code>@Inject(DIALOG_DATA)</code> that is used to get the data passed to the dialog component.
 
 
 ```typescript
+import { ButtonComponent } from '../src/button/button.component';
+import { DialogComponent } from '../src/dialog/dialog.component';
+import { FormFieldComponent } from '../src/form/form-field.component';
+import { FormComponent } from '../src/form/form.component';
+import { TextAreaDirective } from '../src/forms/text-area.directive';
+import { TextFieldDirective } from '../src/forms/text-field.directive';
+import { DialogRef, DialogService } from '../src/services/dialog.service';
+import { TextAreaComponent } from '../src/text-area/text-area.component';
+import { TextFieldComponent } from '../src/text-field/text-field.component';
+
 @Component({
   selector: 'sla-dialog-service',
   template: `<h3>Dialog Service examples</h3>
@@ -72,6 +82,16 @@ Example of using a form inside a dialog.
 
 
 ```typescript
+import { ButtonComponent } from '../src/button/button.component';
+import { DialogComponent } from '../src/dialog/dialog.component';
+import { FormFieldComponent } from '../src/form/form-field.component';
+import { FormComponent } from '../src/form/form.component';
+import { TextAreaDirective } from '../src/forms/text-area.directive';
+import { TextFieldDirective } from '../src/forms/text-field.directive';
+import { DialogRef, DialogService } from '../src/services/dialog.service';
+import { TextAreaComponent } from '../src/text-area/text-area.component';
+import { TextFieldComponent } from '../src/text-field/text-field.component';
+
 @Component({
   selector: 'sla-dialog-form',
   template: `<span slot="title">{{ data.title }}</span>

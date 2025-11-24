@@ -196,11 +196,42 @@ class StoryTemplateExtractor {
   }
 
   /**
+   * Extract import statements from the file
+   */
+  extractImports(content) {
+    const importRegex = /^import\s+(?:{[^}]+}|[^;]+)\s+from\s+['"]([^'"]+)['"];?$/gm;
+    const imports = [];
+    let match;
+
+    while ((match = importRegex.exec(content)) !== null) {
+      let importLine = match[0].trim();
+      const source = match[1];
+
+      // Skip Angular core and Storybook imports
+      if (source.startsWith('@angular/') || source.includes('storybook')) {
+        continue;
+      }
+
+      // Ensure semicolon at the end
+      if (!importLine.endsWith(';')) {
+        importLine += ';';
+      }
+
+      imports.push(importLine);
+    }
+
+    return imports.join('\n');
+  }
+
+  /**
    * Parse a TypeScript story file and extract component information
    */
   parseStoryFile(filePath) {
     const content = fs.readFileSync(filePath, 'utf-8');
     const fileName = path.basename(filePath, '.stories.ts');
+
+    // Extract file-level imports
+    const fileImports = this.extractImports(content);
 
     // Extract component definitions using regex (still needed for @Component classes)
     const componentRegex = /@Component\s*\(\s*{[\s\S]*?}\s*\)\s*export\s+class\s+(\w+)[\s\S]*?(?=@Component|export\s+default|$)/g;
@@ -277,7 +308,8 @@ class StoryTemplateExtractor {
       fileName,
       title,
       components,
-      stories
+      stories,
+      fileImports
     };
   }
 
@@ -285,7 +317,7 @@ class StoryTemplateExtractor {
    * Generate MDX content from parsed story data
    */
   generateMDX(storyData) {
-    const { title, components, stories, fileName } = storyData;
+    const { title, components, stories, fileName, fileImports } = storyData;
 
     // Check for custom introduction file
     const introFile = path.join(this.angularStoriesPath, `${fileName}.intro.md`);
@@ -332,7 +364,7 @@ To add custom introduction content, create ${fileName}.intro.md */}
       if (component) {
         mdx += `
 \`\`\`typescript
-@Component({
+${fileImports ? fileImports + '\n\n' : ''}@Component({
   selector: '${component.selector}',
   template: \`${component.template}\`${component.imports ? `,
   imports: [${component.imports}]` : ''}

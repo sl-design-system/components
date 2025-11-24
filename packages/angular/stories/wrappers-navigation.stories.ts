@@ -77,6 +77,8 @@ SlIcon.register(faFileLines, faFolder, faFolderOpen);
 
 export const Breadcrumbs: StoryObj = {
   render: () => ({
+    descrioption:
+      'Breadcrumbs provide a navigation scheme that reveals the user’s location in a website or web application.',
     template: `
       <sl-breadcrumbs>
         <a href="javascript:void(0)">Lorem</a>

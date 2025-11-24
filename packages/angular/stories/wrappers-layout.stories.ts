@@ -14,6 +14,8 @@ export default {
 
 export const Accordion: StoryObj = {
   render: () => ({
+    description:
+      'An accordion is a vertically stacked set of interactive headings that each contain a title, content snippet, or thumbnail representing a section of content. You can use external variables to control which accordion items are expanded or collapsed, this is shown in the Accordion Story in the root.',
     template: `
       <sl-accordion>
         <sl-accordion-item summary="Item 1">Cupidatat id id velit aliqua ad ea do cillum do cillum qui.</sl-accordion-item>
@@ -26,6 +28,7 @@ export const Accordion: StoryObj = {
 
 export const Card: StoryObj = {
   render: () => ({
+    description: 'A card is a flexible and extensible content container with multiple variants and options.',
     template: `
       <sl-card>
         <h1>Title</h1>
@@ -38,6 +41,7 @@ export const Card: StoryObj = {
 
 export const Panel: StoryObj = {
   render: () => ({
+    description: 'A panel is a bordered box with an optional header section.',
     template: `
       <sl-panel>
         <span slot="header">Panel Title</span>

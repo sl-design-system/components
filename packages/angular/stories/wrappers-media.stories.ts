@@ -13,12 +13,14 @@ export default {
 
 export const Avatar: StoryObj = {
   render: () => ({
+    description: 'The avatar component is used to represent a user with an image or initials.',
     template: '<sl-avatar displayName="Jan Janssen"></sl-avatar>'
   })
 };
 
 export const Icon: StoryObj = {
   render: () => ({
+    description: 'The icon component is used to display icons from the design system library.',
     template: '<sl-icon name="face-smile"></sl-icon>'
   })
 };

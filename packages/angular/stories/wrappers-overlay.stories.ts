@@ -17,7 +17,7 @@ export default {
 export const Dialog: StoryObj = {
   render: () => ({
     description:
-      'If you want to use the dialog for a simple alert of confirmation you can use the <em>Dialog service</em> as described in a story of the same name in the root of the Angular stories.',
+      'This is the way to show a dialog when you have the code in your template, if you want to show a component via a service you can use the <em>Dialog service</em> as described in a story of the same name in the root of the Angular stories.',
     props: {
       onClick: (event: Event & { target: HTMLElement }) => {
         (event.target.nextElementSibling as DialogElement).showModal();
@@ -38,6 +38,8 @@ export const Dialog: StoryObj = {
 
 export const Popover: StoryObj = {
   render: () => ({
+    description:
+      'You can show a popover by associating it with an element using the anchor attribute and referring to the id of the element you need to trigger the popover.',
     props: {
       onClick: (event: Event & { target: HTMLElement }) => {
         (event.target.nextElementSibling as HTMLElement).showPopover();
@@ -54,6 +56,8 @@ export const Popover: StoryObj = {
 
 export const Tooltip: StoryObj = {
   render: () => ({
+    description:
+      'You can show a tooltip by associating it with an element using the aria-describedby attribute and referring to the id of the element you need to trigger the tooltip.',
     template: `
       <sl-button aria-describedby="tooltip">Hover me</sl-button>
       <sl-tooltip id="tooltip">Tooltip content</sl-tooltip>

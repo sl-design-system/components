@@ -11,12 +11,15 @@ To add custom introduction content, create accordion.intro.md */}
 
 ## External Actions
 
-There are scenarios where you want to be able to controle the state of the accordion with an external trigger, for example when the user selects an option elsewhere on the page.
+There are scenarios where you want to be able to control the state of the accordion with an external trigger, for example when the user selects an option elsewhere on the page.
 
               This example shows how to bind a boolean that exist in your angular component to the open state of the accordion item. It also shows how to update your boolean when the value is changed from within the accordion itself.
 
 
 ```typescript
+import { AccordionComponent } from '@sl-design-system/angular/accordion';
+import { ButtonComponent } from '@sl-design-system/angular/button';
+
 @Component({
   selector: 'sla-accordion-external-actions',
   template: `<sl-button (click)="this.onClick('dino')">Toggle 🦖</sl-button>

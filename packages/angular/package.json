@@ -17,8 +17,8 @@
     "start": "wireit",
     "storybook": "wireit",
     "extract-templates": "wireit",
-    "extract-templates:force": "node ../../scripts/extract-story-templates.js --force",
-    "extract-templates:watch": "node ../../scripts/extract-story-templates.js --watch"
+    "extract-templates:force": "wireit",
+    "extract-templates:watch": "wireit"
   },
   "wireit": {
     "build": {
@@ -72,6 +72,16 @@
       "output": [
         "stories/generated/*.mdx"
       ]
+    },
+    "extract-templates:force": {
+      "command": "node ../../scripts/extract-story-templates.js --force",
+      "output": [
+        "stories/generated/*.mdx"
+      ]
+    },
+    "extract-templates:watch": {
+      "command": "node ../../scripts/extract-story-templates.js --watch",
+      "service": true
     }
   },
   "dependencies": {

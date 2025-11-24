@@ -13,11 +13,13 @@ For examples of the different types of forms and how to bind and read values you
 
 ## Checkbox
 
+You can bind actions to buttons using the (sl-change) event to respond to value changes.
+
 ### Template
 
 ```html
 
-  <sl-checkbox-group>
+  <sl-checkbox-group (sl-change)="action($event)">
     <sl-checkbox>Checkbox 1</sl-checkbox>
     <sl-checkbox>Checkbox 2</sl-checkbox>
     <sl-checkbox>Checkbox 3</sl-checkbox>
@@ -25,14 +27,24 @@ For examples of the different types of forms and how to bind and read values you
 
 ```
 
+### Props
+
+```typescript
+
+  action: (event: Event) => console.log('Checkbox toggled, current value:', event)
+
+```
+
 
 ## Combobox
+
+You can bind actions to the combobox using the (sl-change) event to respond to value changes.
 
 ### Template
 
 ```html
 
-  <sl-combobox placeholder="Select an option">
+  <sl-combobox placeholder="Select an option" (sl-change)="action($event)">
     <sl-listbox>
       <sl-option>Option 1</sl-option>
       <sl-option>Option 2</sl-option>
@@ -42,23 +54,43 @@ For examples of the different types of forms and how to bind and read values you
 
 ```
 
+### Props
+
+```typescript
+
+  action: (event: Event) => console.log('Combobox changed, current value:', event)
+
+```
+
 
 ## Number Field
+
+You can bind actions to buttons using the (sl-change) event to respond to value changes.
 
 ### Template
 
 ```html
-<sl-number-field></sl-number-field>
+<sl-number-field (sl-change)="action($event)"></sl-number-field>
+```
+
+### Props
+
+```typescript
+
+  action: (event: Event) => console.log('NumberField changed, current value:', event)
+
 ```
 
 
 ## Radio Group
 
+You can bind actions to buttons using the (sl-change) event to respond to value changes.
+
 ### Template
 
 ```html
 
-  <sl-radio-group>
+  <sl-radio-group (sl-change)="action($event)">
     <sl-radio value="1">Radio 1</sl-radio>
     <sl-radio value="2">Radio 2</sl-radio>
     <sl-radio value="3">Radio 3</sl-radio>
@@ -66,23 +98,44 @@ For examples of the different types of forms and how to bind and read values you
 
 ```
 
+### Props
+
+```typescript
+
+  action: (event: Event) => console.log('RadioGroup changed, current value:', event)
+
+```
+
 
 ## Search Field
+
+You can bind actions to the search field using the (sl-search) event when the user submits a search, or (sl-clear) when they clear the field.
 
 ### Template
 
 ```html
-<sl-search-field placeholder="Search..."></sl-search-field>
+<sl-search-field placeholder="Search..." (sl-search)="onSearch($event)" (sl-clear)="onClear($event)"></sl-search-field>
+```
+
+### Props
+
+```typescript
+
+  onSearch: (event: Event) => console.log('Search submitted:', event),
+  onClear: (event: Event) => console.log('Search cleared:', event)
+
 ```
 
 
 ## Select
 
+You can bind actions to the select using the (sl-change) event to respond to selection changes.
+
 ### Template
 
 ```html
 
-  <sl-select>
+  <sl-select (sl-change)="action($event)">
     <sl-option value="1">Option 1</sl-option>
     <sl-option value="2">Option 2</sl-option>
     <sl-option value="3">Option 3</sl-option>
@@ -90,49 +143,107 @@ For examples of the different types of forms and how to bind and read values you
 
 ```
 
+### Props
+
+```typescript
+
+  action: (event: Event) => console.log('Select changed, current value:', event)
+
+```
+
 
 ## Switch
+
+You can bind actions to the switch using the (sl-change) event to respond to toggle changes.
 
 ### Template
 
 ```html
-<sl-switch></sl-switch>
+<sl-switch (sl-change)="action($event)">Toggle me</sl-switch>
+```
+
+### Props
+
+```typescript
+
+  action: (event: Event) => console.log('Switch toggled, current value:', event)
+
 ```
 
 
 ## Text Field
 
+You can bind actions to the text field using the (sl-change) event to respond to input changes.
+
 ### Template
 
 ```html
-<sl-text-field></sl-text-field>
+<sl-text-field (sl-change)="action($event)" placeholder="Type something..."></sl-text-field>
+```
+
+### Props
+
+```typescript
+
+  action: (event: Event) => console.log('TextField changed, current value:', event)
+
 ```
 
 
 ## Text Area
 
+You can bind actions to the text area using the (sl-change) event to respond to input changes.
+
 ### Template
 
 ```html
-<sl-text-area></sl-text-area>
+<sl-text-area (sl-change)="action($event)" placeholder="Enter text..."></sl-text-area>
+```
+
+### Props
+
+```typescript
+
+  action: (event: Event) => console.log('TextArea changed, current value:', event)
+
 ```
 
 
 ## Date Field
 
+You can bind actions to the date field using the (sl-change) event to respond to date selection changes.
+
 ### Template
 
 ```html
-<sl-date-field></sl-date-field>
+<sl-date-field (sl-change)="action($event)"></sl-date-field>
+```
+
+### Props
+
+```typescript
+
+  action: (event: Event) => console.log('DateField changed, current value:', event)
+
 ```
 
 
 ## Time Field
 
+You can bind actions to the time field using the (sl-change) event to respond to time selection changes.
+
 ### Template
 
 ```html
-<sl-time-field></sl-time-field>
+<sl-time-field (sl-change)="action($event)"></sl-time-field>
+```
+
+### Props
+
+```typescript
+
+  action: (event: Event) => console.log('TimeField changed, current value:', event)
+
 ```
 
 

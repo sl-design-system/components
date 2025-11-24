@@ -53,6 +53,13 @@ The TreeComponent provides a flexible way to render hierarchical data structures
 
 
 ```typescript
+import { faFileLines, faFolder, faFolderOpen } from '@fortawesome/pro-regular-svg-icons';
+import { BreadcrumbsComponent } from '@sl-design-system/angular/breadcrumbs';
+import { TabComponent, TabGroupComponent, TabPanelComponent } from '@sl-design-system/angular/tabs';
+import { TreeComponent } from '@sl-design-system/angular/tree';
+import { Icon as SlIcon } from '@sl-design-system/icon';
+import { FlatTreeDataSource } from '@sl-design-system/tree';
+
 @Component({
   selector: 'sla-tree-example',
   template: `<sl-tree [dataSource]="dataSource" aria-label="Subjects structure"></sl-tree>`

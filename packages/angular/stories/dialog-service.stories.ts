@@ -225,7 +225,8 @@ export default {
 } as Meta;
 
 export const DialogServiceExample: StoryFn = () => ({
-  description: 'A button bar groups multiple buttons together.',
+  description:
+    'A simple example of using the DialogService to open a dialog. This works with any dialog. How you can create a dialog can be seen in the next example.<br/><br/>Note the <code>@Inject(DIALOG_DATA)</code> that is used to get the data passed to the dialog component.',
   template: '<sla-dialog-service></sla-dialog-service>'
 });
 

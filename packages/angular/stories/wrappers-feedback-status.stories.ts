@@ -16,12 +16,14 @@ export default {
 
 export const Badge: StoryObj = {
   render: () => ({
+    description: 'A badge component for displaying status or counts.',
     template: '<sl-badge>badge</sl-badge>'
   })
 };
 
 export const InlineMessage: StoryObj = {
   render: () => ({
+    description: 'An inline message component for displaying messages with a dismiss option.',
     props: {
       onDismiss: () => console.log('Dismissed')
     },
@@ -36,18 +38,21 @@ export const InlineMessage: StoryObj = {
 
 export const ProgressBar: StoryObj = {
   render: () => ({
+    description: 'A progress bar component for indicating progress.',
     template: '<sl-progress-bar value="65" max="100"></sl-progress-bar>'
   })
 };
 
 export const Skeleton: StoryObj = {
   render: () => ({
+    description: 'A skeleton component for displaying loading placeholders.',
     template: '<sl-skeleton></sl-skeleton>'
   })
 };
 
 export const Spinner: StoryObj = {
   render: () => ({
+    description: 'A spinner component for indicating loading state.',
     template: '<sl-spinner></sl-spinner>'
   })
 };

@@ -8,35 +8,34 @@ import {
   ReactiveFormsModule,
   type ValidationErrors
 } from '@angular/forms';
+import { ButtonComponent } from '@sl-design-system/angular/button';
+import { ButtonBarComponent } from '@sl-design-system/angular/button-bar';
+import { CheckboxComponent, CheckboxGroupComponent } from '@sl-design-system/angular/checkbox';
+import { ComboboxComponent } from '@sl-design-system/angular/combobox';
+import { FormComponent, FormFieldComponent } from '@sl-design-system/angular/form';
+import {
+  CheckboxDirective,
+  CheckboxGroupDirective,
+  ComboboxDirective,
+  NumberFieldDirective,
+  RadioGroupDirective,
+  SelectDirective,
+  SwitchDirective,
+  TextAreaDirective,
+  TextFieldDirective,
+  TimeFieldDirective
+} from '@sl-design-system/angular/forms';
+import { InlineMessageComponent } from '@sl-design-system/angular/inline-message';
+import { OptionComponent } from '@sl-design-system/angular/listbox';
+import { NumberFieldComponent } from '@sl-design-system/angular/number-field';
+import { RadioComponent, RadioGroupComponent } from '@sl-design-system/angular/radio-group';
+import { SelectComponent } from '@sl-design-system/angular/select';
+import { SwitchComponent } from '@sl-design-system/angular/switch';
+import { TextAreaComponent } from '@sl-design-system/angular/text-area';
+import { TextFieldComponent } from '@sl-design-system/angular/text-field';
+import { TimeFieldComponent } from '@sl-design-system/angular/time-field';
 import { Form } from '@sl-design-system/form';
 import { type Meta, type StoryFn, moduleMetadata } from '@storybook/angular';
-import { ButtonComponent } from '../src/button/button.component';
-import { ButtonBarComponent } from '../src/button-bar/button-bar.component';
-import { CheckboxGroupComponent } from '../src/checkbox/checkbox-group.component';
-import { CheckboxComponent } from '../src/checkbox/checkbox.component';
-import { ComboboxComponent } from '../src/combobox/combobox.component';
-import { FormFieldComponent } from '../src/form/form-field.component';
-import { FormComponent } from '../src/form/form.component';
-import { CheckboxGroupDirective } from '../src/forms/checkbox-group.directive';
-import { CheckboxDirective } from '../src/forms/checkbox.directive';
-import { ComboboxDirective } from '../src/forms/combobox-directive';
-import { NumberFieldDirective } from '../src/forms/number-field.directive';
-import { RadioGroupDirective } from '../src/forms/radio-group.directive';
-import { SelectDirective } from '../src/forms/select.directive';
-import { SwitchDirective } from '../src/forms/switch.directive';
-import { TextAreaDirective } from '../src/forms/text-area.directive';
-import { TextFieldDirective } from '../src/forms/text-field.directive';
-import { TimeFieldDirective } from '../src/forms/time-field.directive';
-import { InlineMessageComponent } from '../src/inline-message/inline-message.component';
-import { OptionComponent } from '../src/listbox/option.component';
-import { NumberFieldComponent } from '../src/number-field/number-field.component';
-import { RadioGroupComponent } from '../src/radio-group/radio-group.component';
-import { RadioComponent } from '../src/radio-group/radio.component';
-import { SelectComponent } from '../src/select/select.component';
-import { SwitchComponent } from '../src/switch/switch.component';
-import { TextAreaComponent } from '../src/text-area/text-area.component';
-import { TextFieldComponent } from '../src/text-field/text-field.component';
-import { TimeFieldComponent } from '../src/time-field/time-field.component';
 
 @Component({
   selector: 'sla-all-form-controls-reactive',

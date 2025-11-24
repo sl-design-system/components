@@ -37,7 +37,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type ToolBar } from './tool-bar.js';
 
-type Props = Pick<ToolBar, 'align' | 'contained' | 'disabled' | 'inverted'> & {
+type Props = Pick<ToolBar, 'align' | 'contained' | 'disabled' | 'inverted' | 'type'> & {
   description?: string | TemplateResult;
   items?(): TemplateResult;
   resizable?: boolean;
@@ -95,21 +95,28 @@ export default {
     },
     resizable: {
       control: 'boolean'
+    },
+    type: {
+      control: 'inline-radio',
+      options: ['ghost', 'outline']
     }
   },
-  render: ({ align, contained, description, disabled, inverted, items, resizable, width }) => {
+  render: ({ align, contained, description, disabled, inverted, items, resizable, type, width }) => {
     return html`
       ${description ? html`<p>${description}</p>` : nothing}
       <style>
-        ${inverted ? 'sl-tool-bar { background: var(--sl-color-background-selected-bold); }' : nothing}
+        ${inverted && !contained
+          ? '.container { background: var(--sl-color-background-primary-bold); padding: 1.2rem; }'
+          : nothing}
         ${resizable ? '.container { overflow: auto; resize: horizontal; }' : nothing}
       </style>
       <div class="container">
         <sl-tool-bar
-          align=${ifDefined(align)}
           ?contained=${contained}
           ?disabled=${disabled}
           ?inverted=${inverted}
+          align=${ifDefined(align)}
+          type=${ifDefined(type)}
           style="inline-size: ${width ?? 'auto'}"
         >
           ${items?.()}
@@ -124,6 +131,7 @@ export const Basic: Story = {
     description:
       'This example shows a typical tool bar with buttons and menus. You can resize the tool bar by dragging the right edge. This showcases how the tool bar can adapt to different widths and overflow items in a menu.',
     items: () => html`
+      <sl-button fill="outline" size="md">Button</sl-button>
       <sl-button fill="outline">
         <sl-icon name="far-scissors"></sl-icon>
         Cut
@@ -148,7 +156,7 @@ export const Basic: Story = {
           Delete...
         </sl-menu-item>
       </sl-menu-button>
-      <sl-menu-button>
+      <sl-menu-button fill="outline">
         <div slot="button">More</div>
         <sl-menu-item>
           <sl-icon name="far-copy"></sl-icon>
@@ -195,7 +203,7 @@ export const Disabled: Story = {
 export const Empty: Story = {
   args: {
     description: 'This example shows an empty (contained) tool bar. It should not take up any space.',
-    contained: true,
+    contained: true
   }
 };
 
@@ -381,14 +389,16 @@ export const Combination: Story = {
     <div class="container">
       <span>Some text in front</span>
       <sl-tool-bar align="end" no-border>
-        <sl-button>Button 1</sl-button>
-        <sl-button>Button 2</sl-button>
-        <sl-button>Button 3</sl-button>
-        <sl-button>Button 4</sl-button>
-        <sl-button>Button 5</sl-button>
-        <sl-button>Button 6</sl-button>
-        <sl-button>Button 7</sl-button>
+        <sl-button fill="outline">Button 1</sl-button>
+        <sl-button fill="outline">Button 2</sl-button>
+        <sl-button fill="outline">Button 3</sl-button>
+        <sl-button fill="outline">Button 4</sl-button>
+        <sl-button fill="outline">Button 5</sl-button>
+        <sl-button fill="outline">Button 6</sl-button>
+        <sl-button fill="outline">Button 7</sl-button>
       </sl-tool-bar>
     </div>
   `
 };
+
+// TODO: check and fix panel and bulk actions

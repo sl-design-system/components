@@ -26,7 +26,7 @@ export interface ToolBarItemBase {
 export interface ToolBarItemButton extends ToolBarItemBase {
   type: 'button';
   disabled?: boolean;
-  fill?: ButtonFill;
+  // fill?: ButtonFill;
   icon?: string | null;
   label?: string | null;
   selectable?: boolean;
@@ -82,7 +82,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   #mutationObserver = new MutationObserver(() => this.#updateMapping());
 
   /** Observe changes to the size of the element. */
-  #resizeObserver = new ResizeObserver(entries => this.#onResize(entries.at(0)?.contentBoxSize.at(0)?.inlineSize ?? 0));
+  // #resizeObserver = new ResizeObserver(entries => this.#onResize(entries.at(0)?.contentBoxSize.at(0)?.inlineSize ?? 0));
+  #resizeObserver = new ResizeObserver(() => this.#onResize());
 
   /**
    * The horizontal alignment within the tool-bar.
@@ -103,10 +104,10 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   @property({ type: Boolean, reflect: true }) empty?: boolean;
 
   /**
-   * The fill of the button.
+   * The type of buttons and menu buttons (also overflow menu button).
    * @default 'outline'
    */
-  @property() fill: ButtonFill = 'outline';
+  @property() type?: Extract<ButtonFill, 'ghost' | 'outline'>;
 
   /** @internal The tool bar items. */
   @state() items: ToolBarItem[] = [];
@@ -162,9 +163,31 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     if (changes.has('items')) {
       this.menuItems = this.items.filter(item => !item.visible);
     }
+
+    // When `type` changes, update fills of assigned sl-button / sl-menu-button elements.
+    if (changes.has('type')) {
+      const slot = this.renderRoot.querySelector('slot');
+      const assigned = slot?.assignedElements({ flatten: true }) ?? [];
+
+      assigned.forEach(el => {
+        const targets: Element[] = [];
+
+        if (el.tagName === 'SL-BUTTON' || el.tagName === 'SL-MENU-BUTTON') targets.push(el);
+        targets.push(...Array.from(el.querySelectorAll('sl-button, sl-menu-button')));
+
+        targets.forEach(btn => {
+          if (typeof this.type === 'string' && this.type.length) {
+            btn.setAttribute('fill', this.type);
+          } else {
+            // btn.removeAttribute('fill');
+          }
+        });
+      });
+    }
   }
 
   override render(): TemplateResult {
+    console.log('type in render:', this.type, this.items, this.menuItems);
     return html`
       <div part="wrapper">
         <slot @slotchange=${this.#onSlotChange}></slot>
@@ -174,7 +197,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         ? html`
             <sl-menu-button
               aria-label=${msg('Show more', { id: 'sl.toolBar.showMore' })}
-              fill=${ifDefined(this.fill)}
+              fill=${ifDefined(this.type)}
               variant=${ifDefined(this.inverted ? 'inverted' : undefined)}
             >
               <sl-icon name="ellipsis-vertical" slot="button"></sl-icon>
@@ -221,7 +244,53 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     this.#updateMapping();
   }
 
-  #onResize(availableWidth: number): void {
+  // Robust availableWidth + precompute widths before mutating DOM
+  #onResize(): void {
+    // const availableWidth =
+    //   typeof entries === 'number'
+    //     ? entries
+    //     : Array.isArray(entries)
+    //       ? (entries[0]?.contentBoxSize?.[0]?.inlineSize ??
+    //         entries[0]?.contentRect?.width ??
+    //         this.getBoundingClientRect().width)
+    //       : this.getBoundingClientRect().width;
+
+    // Use element's current width to avoid inconsistent ResizeObserver entry shapes.
+    const availableWidth = this.getBoundingClientRect().width;
+
+    if (!availableWidth) return;
+
+    const wrapper = this.renderRoot.querySelector('[part="wrapper"]')!;
+    const gap = parseInt(getComputedStyle(wrapper).gap) || 0;
+
+    // Freeze widths so toggling display doesn't affect measurements
+    const widths = this.items.map(item => item.element.getBoundingClientRect().width);
+    const totalWidth = widths.reduce((sum, w, i) => sum + w + (i < widths.length - 1 ? gap : 0), 0);
+
+    // Reserve space for menu button if needed
+    let spaceForMenu = 0;
+    if (Math.round(totalWidth) > Math.round(availableWidth)) {
+      spaceForMenu = Math.round(wrapper.getBoundingClientRect().height) + gap;
+    }
+    const effectiveAvailable = availableWidth - spaceForMenu;
+
+    // Decide visibility using frozen widths (walk from end)
+    let acc = totalWidth;
+    for (let i = this.items.length - 1; i >= 0; i--) {
+      const fits = Math.round(acc) <= Math.round(effectiveAvailable);
+      this.items[i].visible = fits;
+      acc -= widths[i] + gap;
+    }
+
+    // Apply DOM changes in one pass
+    this.items.forEach(item => {
+      item.element.style.display = item.visible ? '' : 'none';
+    });
+
+    this.requestUpdate('items');
+  }
+
+  /*  #onResize(availableWidth: number): void {
     const wrapper = this.renderRoot.querySelector('[part="wrapper"]')!,
       gap = parseInt(getComputedStyle(wrapper).gap);
 
@@ -266,6 +335,13 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
       totalWidth -= item.element.getBoundingClientRect().width + gap;
 
+      // requestAnimationFrame(() => {
+      //   if (!item.visible) {
+      //     item.element.style.display = 'none';
+      //   } else {
+      //     item.element.style.display = '';
+      //   }
+      // });
       if (!item.visible) {
         item.element.style.display = 'none';
       } else {
@@ -278,7 +354,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     // this.items.reverse();
 
 
-/*    const wrapper = this.renderRoot.querySelector('[part="wrapper"]')!,
+/!*    const wrapper = this.renderRoot.querySelector('[part="wrapper"]')!,
       gap = parseInt(getComputedStyle(wrapper).gap) || 0;
 
     // Precompute widths so toggling `display: none` doesn't affect measurements mid-loop.
@@ -304,12 +380,15 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       item.element.style.display = item.visible ? '' : 'none';
 
       totalWidth -= itemWidth + gap;
-    }*/
+    }*!/
 
     // this.items = [...this.items].reverse();
     // this.items.forEach(item => this.appendChild(item.element));
 
-    this.requestUpdate('items');
+    requestAnimationFrame(() => {
+      this.requestUpdate('items');
+    });
+    // this.requestUpdate('items');
 
     // this.items = [...this.items].reverse();
     // this.items.forEach(item => this.appendChild(item.element));
@@ -331,7 +410,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     // this.items.reverse();
     // this.items = [...this.items].reverse();
-  } // TODO: maybe display: none instead of visibility hidden and no flex: 1 on the wrapper?
+  } */ // TODO: maybe display: none instead of visibility hidden and no flex: 1 on the wrapper?
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }) {
     // Ignore events from nested slots.
@@ -339,9 +418,50 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       return;
     }
 
+    const assigned = event.target.assignedElements({ flatten: true });
+
     if (typeof this.disabled === 'boolean') {
       event.target.assignedElements({ flatten: true }).forEach(el => el.toggleAttribute('disabled', this.disabled));
     }
+
+    // TODO: set for each sl-button inside the slot the fill to this.type
+
+    // // set for each sl-button inside the slot the fill to this.type
+    // assigned.forEach(el => {
+    //   // include direct sl-button elements and any nested sl-button elements
+    //   const buttons: Element[] = [];
+    //   if (el.tagName === 'SL-BUTTON') buttons.push(el);
+    //   buttons.push(...Array.from(el.querySelectorAll('sl-button')));
+    //
+    //   buttons.forEach(btn => {
+    //     if (typeof this.type === 'string' && this.type.length) {
+    //       btn.setAttribute('fill', this.type);
+    //     } else {
+    //       btn.removeAttribute('fill');
+    //     }
+    //   });
+    // });
+
+    // set for each sl-button and sl-menu-button inside the slot the fill to this.type
+    assigned.forEach(el => {
+      const targets: Element[] = [];
+
+      // include direct sl-button and sl-menu-button elements
+      if (el.tagName === 'SL-BUTTON' || el.tagName === 'SL-MENU-BUTTON') targets.push(el);
+
+      // include any nested sl-button and sl-menu-button elements
+      targets.push(...Array.from(el.querySelectorAll('sl-button, sl-menu-button')));
+
+      console.log('setting fill for targets:', targets);
+
+      targets.forEach(btn => {
+        if (this.type) {
+          btn.setAttribute('fill', this.type);
+        } /*else {
+          btn.removeAttribute('fill');
+        }*/
+      });
+    });
 
     this.#updateMapping();
   }
@@ -370,6 +490,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       })
       .filter(item => item !== undefined) as ToolBarItem[];
 
+    console.log('updated items mapping:', this.items);
+
     // Reconnect the resize observer to ensure we measure the correct widths
     this.#resizeObserver.disconnect();
     this.#resizeObserver.observe(this);
@@ -394,13 +516,13 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       label = this.querySelector(`#${button.getAttribute('aria-describedby')}`)?.textContent?.trim();
     }
 
-    console.log('fill in mapButtonToItem:', this.fill, button, label);
+    console.log('fill in mapButtonToItem:', this.type, button, label);
 
     return {
       element: button,
       type: 'button',
       disabled: button.hasAttribute('disabled') || button.getAttribute('aria-disabled') === 'true',
-      fill: this.fill,
+      // fill: button.getAttribute('aria-disabled') as ButtonFill | undefined, // this.type,
       icon: button.querySelector('sl-icon')?.getAttribute('name'),
       label,
       selectable: button.hasAttribute('aria-pressed'),
@@ -428,6 +550,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     } else if (!label && menuButton.hasAttribute('aria-describedby')) {
       label = this.querySelector(`#${menuButton.getAttribute('aria-describedby')}`)?.textContent?.trim();
     }
+
+    console.log('label for menu button or button:', label, 'element', menuButton);
 
     const menuItems = Array.from(menuButton.querySelectorAll('sl-menu-item')).map(el => this.#mapButtonToItem(el));
 

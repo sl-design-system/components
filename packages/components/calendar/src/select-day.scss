@@ -27,9 +27,8 @@ header {
   padding-inline: var(--sl-size-150) var(--sl-size-050);
 }
 
-.month-year {
-  align-items: center;
-  display: inline-flex;
+sl-button {
+  user-select: none;
 }
 
 .current-month,
@@ -38,12 +37,11 @@ header {
 }
 
 .current-year {
-  margin-inline-start: var(--sl-size-200);
+  margin-inline-start: var(--sl-size-100);
 }
 
-.arrows {
-  display: inline-flex;
-  gap: var(--sl-size-100);
+.previous-month {
+  margin-inline-start: auto;
 }
 
 .days-of-week {
@@ -51,7 +49,8 @@ header {
   display: grid;
   font-weight: normal;
   grid-template-columns: repeat(var(--_days-in-week), var(--sl-size-450));
-  padding: var(--sl-size-050) var(--sl-size-050) 0 var(--sl-size-050);
+  line-height: calc((24 / 14) * 1em);
+  padding: var(--sl-size-050);
 }
 
 .day-of-week,
@@ -60,7 +59,15 @@ header {
 }
 
 .week-number {
-  border-inline-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-neutral-plain);
+  position: relative;
+
+  &::after {
+    background: var(--sl-color-border-neutral-plain);
+    content: '';
+    inline-size: var(--sl-size-borderWidth-subtle);
+    inset: calc(var(--sl-size-050) * -1) 0 calc(var(--sl-size-050) * -1) auto;
+    position: absolute;
+  }
 }
 
 .scroller {
@@ -74,10 +81,6 @@ header {
   scroll-padding-inline: 0;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
-}
-
-sl-button {
-  user-select: none;
 }
 
 sl-month-view {

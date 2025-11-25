@@ -44,6 +44,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** Use an intersection observer as a workaround until `scrollsnapchange` events are widely supported. */
   #intersectionObserver?: IntersectionObserver;
 
+  /** The currently observed month views. */
+  #observedMonths?: NodeListOf<MonthView>;
+
   /**
    * Use a resize observer as a cross browser solution to know when to initialize the intersection observer
    * and also to know when to center the current month in the scroller during initialization.
@@ -66,11 +69,13 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         { root: this.scroller, threshold: [0, 0.5, 1] }
       );
 
-      this.renderRoot.querySelectorAll('sl-month-view').forEach(mv => this.#intersectionObserver?.observe(mv));
-    }
+      // Start observing month views
+      this.#observedMonths = this.renderRoot.querySelectorAll('sl-month-view');
+      this.#observedMonths.forEach(mv => this.#intersectionObserver?.observe(mv));
 
-    // Whenever the size of the calendar changes, make sure the current month is centered
-    this.#scrollToMonth(0);
+      // Center the current month initially
+      void this.#scrollToMonth(0);
+    }
   });
 
   /** The list of dates that should be set as disabled. */
@@ -183,6 +188,22 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       this.nextMonth = new Date(this.month.getFullYear(), this.month.getMonth() + 1);
       this.previousMonth = new Date(this.month.getFullYear(), this.month.getMonth() - 1);
     }
+
+    if (changes.has('max') || changes.has('min') || changes.has('month')) {
+      this.#observedMonths?.forEach(mv => this.#intersectionObserver?.unobserve(mv));
+      this.#observedMonths = undefined;
+    }
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('max') || changes.has('min') || changes.has('month')) {
+      void this.#scrollToMonth(0).then(() => {
+        this.#observedMonths = this.renderRoot.querySelectorAll('sl-month-view');
+        this.#observedMonths.forEach(mv => this.#intersectionObserver?.observe(mv));
+      });
+    }
   }
 
   override render(): TemplateResult {
@@ -197,76 +218,73 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
     return html`
       <header>
-        <div class="month-year">
-          ${canSelectPreviousMonth || canSelectNextMonth
-            ? html`
-                <sl-button @click=${this.#onToggleMonthSelect} class="current-month" fill="link" variant="secondary">
-                  <sl-format-date
-                    .date=${this.displayMonth}
-                    locale=${ifDefined(this.locale)}
-                    month="long"
-                  ></sl-format-date>
-                  <sl-icon name="caret-down-solid"></sl-icon>
-                </sl-button>
-              `
-            : html`
-                <span class="current-month">
-                  <sl-format-date
-                    .date=${this.displayMonth}
-                    locale=${ifDefined(this.locale)}
-                    month="long"
-                  ></sl-format-date>
-                </span>
-              `}
-          ${canSelectPreviousYear || canSelectNextYear
-            ? html`
-                <sl-button @click=${this.#onToggleYearSelect} class="current-year" fill="link" variant="secondary">
-                  <sl-format-date
-                    .date=${this.displayMonth}
-                    locale=${ifDefined(this.locale)}
-                    year="numeric"
-                  ></sl-format-date>
-                  <sl-icon name="caret-down-solid"></sl-icon>
-                </sl-button>
-              `
-            : html`
-                <span class="current-year">
-                  <sl-format-date
-                    .date=${this.displayMonth}
-                    locale=${ifDefined(this.locale)}
-                    year="numeric"
-                  ></sl-format-date>
-                </span>
-              `}
-        </div>
-        <div class="arrows">
-          <sl-button
-            @click=${this.#onPrevious}
-            ?disabled=${!canSelectPreviousMonth}
-            aria-label=${msg(
-              str`Previous month, ${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}`,
-              { id: 'sl.calendar.previousMonth' }
-            )}
-            class="previous-month"
-            fill="ghost"
-            variant="secondary"
-          >
-            <sl-icon name="chevron-left"></sl-icon>
-          </sl-button>
-          <sl-button
-            @click=${this.#onNext}
-            ?disabled=${!canSelectNextMonth}
-            aria-label=${msg(
-              str`Next month, ${format(this.nextMonth!, this.locale, { month: 'long', year: 'numeric' })}`,
-              { id: 'sl.calendar.nextMonth' }
-            )}
-            class="next-month"
-            fill="ghost"
-            variant="secondary"
-          >
-            <sl-icon name="chevron-right"></sl-icon>
-          </sl-button>
-        </div>
+        ${canSelectPreviousMonth || canSelectNextMonth
+          ? html`
+              <sl-button @click=${this.#onToggleMonthSelect} class="current-month" fill="link" variant="secondary">
+                <sl-format-date
+                  .date=${this.displayMonth}
+                  locale=${ifDefined(this.locale)}
+                  month="long"
+                ></sl-format-date>
+                <sl-icon name="caret-down-solid"></sl-icon>
+              </sl-button>
+            `
+          : html`
+              <span class="current-month">
+                <sl-format-date
+                  .date=${this.displayMonth}
+                  locale=${ifDefined(this.locale)}
+                  month="long"
+                ></sl-format-date>
+              </span>
+            `}
+        ${canSelectPreviousYear || canSelectNextYear
+          ? html`
+              <sl-button @click=${this.#onToggleYearSelect} class="current-year" fill="link" variant="secondary">
+                <sl-format-date
+                  .date=${this.displayMonth}
+                  locale=${ifDefined(this.locale)}
+                  year="numeric"
+                ></sl-format-date>
+                <sl-icon name="caret-down-solid"></sl-icon>
+              </sl-button>
+            `
+          : html`
+              <span class="current-year">
+                <sl-format-date
+                  .date=${this.displayMonth}
+                  locale=${ifDefined(this.locale)}
+                  year="numeric"
+                ></sl-format-date>
+              </span>
+            `}
+
+        <sl-button
+          @click=${this.#onPrevious}
+          ?disabled=${!canSelectPreviousMonth}
+          aria-label=${msg(
+            str`Previous month, ${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}`,
+            { id: 'sl.calendar.previousMonth' }
+          )}
+          class="previous-month"
+          fill="ghost"
+          variant="secondary"
+        >
+          <sl-icon name="chevron-left"></sl-icon>
+        </sl-button>
+        <sl-button
+          @click=${this.#onNext}
+          ?disabled=${!canSelectNextMonth}
+          aria-label=${msg(
+            str`Next month, ${format(this.nextMonth!, this.locale, { month: 'long', year: 'numeric' })}`,
+            { id: 'sl.calendar.nextMonth' }
+          )}
+          class="next-month"
+          fill="ghost"
+          variant="secondary"
+        >
+          <sl-icon name="chevron-right"></sl-icon>
+        </sl-button>
       </header>
 
       <div class="days-of-week" role="list">
@@ -369,12 +387,14 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onPrevious(): void {
-    this.#scrollToMonth(-1, true);
+    void this.#scrollToMonth(-1, true);
+
     this.#announce(this.previousMonth);
   }
 
   #onNext(): void {
-    this.#scrollToMonth(1, true);
+    void this.#scrollToMonth(1, true);
+
     this.#announce(this.nextMonth);
   }
 
@@ -383,20 +403,22 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       return;
     }
 
-    const oldMonthViews = this.renderRoot.querySelectorAll('sl-month-view');
+    // Unobserve the "old" month views
+    this.#observedMonths?.forEach(mv => this.#intersectionObserver?.unobserve(mv));
+    this.#observedMonths = undefined;
 
     // Update the month, so it rerenders the month-views
     this.month = normalizeDateTime(this.displayMonth);
 
-    // Now instantly scroll back to the center month (so the user doesn't notice)
-    this.#scrollToMonth(0);
-
-    // Wait for the month views to rerender
+    // Wait for the month views to rerender; do NOT scroll before this is done
     await this.updateComplete;
 
-    // Update the intersection observer to observe the new month views
-    oldMonthViews.forEach(mv => this.#intersectionObserver?.unobserve(mv));
-    this.renderRoot.querySelectorAll('sl-month-view').forEach(mv => this.#intersectionObserver?.observe(mv));
+    // Now instantly scroll back to the center month (so the user doesn't notice)
+    await this.#scrollToMonth(0);
+
+    // Observe the new month views
+    this.#observedMonths = this.renderRoot.querySelectorAll('sl-month-view');
+    this.#observedMonths.forEach(mv => this.#intersectionObserver?.observe(mv));
   }
 
   #onSelect(event: SlSelectEvent<Date>): void {
@@ -435,16 +457,36 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #canSelectNextMonth(): boolean {
-    return this.nextMonth ? !this.max || this.nextMonth.getTime() + 1 <= this.max.getTime() : false;
+    if (!this.nextMonth) {
+      return false;
+    }
+
+    if (!this.max) {
+      return true;
+    }
+
+    const nextMonthNormalized = new Date(this.nextMonth.getFullYear(), this.nextMonth.getMonth()),
+      maxMonthNormalized = new Date(this.max.getFullYear(), this.max.getMonth());
+
+    return nextMonthNormalized <= maxMonthNormalized;
   }
 
   #canSelectPreviousMonth(): boolean {
-    return this.previousMonth
-      ? !this.min || this.previousMonth.getTime() >= new Date(this.min.getFullYear(), this.min.getMonth()).getTime()
-      : false;
+    if (!this.previousMonth) {
+      return false;
+    }
+
+    if (!this.min) {
+      return true;
+    }
+
+    const previousMonthNormalized = new Date(this.previousMonth.getFullYear(), this.previousMonth.getMonth()),
+      minMonthNormalized = new Date(this.min.getFullYear(), this.min.getMonth());
+
+    return previousMonthNormalized >= minMonthNormalized;
   }
 
-  #scrollToMonth(month: -1 | 0 | 1, smooth = false): void {
+  async #scrollToMonth(month: -1 | 0 | 1, smooth = false): Promise<void> {
     if (!this.scroller) {
       return;
     }
@@ -476,6 +518,18 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       left = width * currentMonthPosition;
     }
 
-    this.scroller.scrollTo({ left, behavior: smooth ? 'smooth' : 'auto' });
+    if (smooth) {
+      this.scroller.scrollTo({ left, behavior: 'smooth' });
+    } else if (left !== this.scroller.scrollLeft) {
+      const scrollendPromise = new Promise<void>(resolve => {
+        this.scroller?.addEventListener('scrollend', () => resolve(), { once: true });
+      });
+
+      this.scroller.scrollTo({ left, behavior: 'instant' });
+
+      // Wait for the scroll to finish before continuing: this is important to avoid
+      // the intersection observer triggering too early and messing up the displayMonth
+      await scrollendPromise;
+    }
   }
 }

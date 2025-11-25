@@ -23,7 +23,10 @@ export interface Day {
   /** Whether this day is in the future. */
   future?: boolean;
 
-  /** Whether this day has an indicator. */
+  /**
+   * Whether this day has an indicator.
+   * @default { color: 'blue', label: undefined }
+   */
   indicator?: { color?: IndicatorColor; label?: string };
 
   /**
@@ -224,8 +227,8 @@ export function createPeriod(
   } while (nextWeek.days[0].date <= end);
 
   // Mark the first and last selectable days in the period
-  const allDays = calendar.weeks.flatMap(week => week.days);
-  const selectableDays = allDays.filter(day => !day.disabled && !day.outOfRange);
+  const allDays = calendar.weeks.flatMap(week => week.days),
+    selectableDays = allDays.filter(day => !day.disabled && !day.outOfRange);
 
   if (selectableDays.length > 0) {
     selectableDays[0].firstActiveDayOfMonth = true;

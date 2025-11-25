@@ -106,7 +106,6 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     }
 
     if (changes.has('max') || changes.has('min') || changes.has('years')) {
-      // this.#rovingTabindexController?.clearElementCache();
       this.#focusGroupController?.clearElementCache();
     }
   }

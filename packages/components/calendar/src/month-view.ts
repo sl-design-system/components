@@ -338,7 +338,9 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                 <span>${day.date.getDate()}</span>
               </button>
               ${day.indicator?.label
-                ? html`<sl-tooltip id="indicator-${day.date.toISOString()}">${day.indicator.label}</sl-tooltip>`
+                ? html`
+                    <sl-tooltip id="indicator-${day.date.toISOString()}" offset="4">${day.indicator.label}</sl-tooltip>
+                  `
                 : nothing}
             `;
     }

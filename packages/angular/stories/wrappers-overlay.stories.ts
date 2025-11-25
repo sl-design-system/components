@@ -1,5 +1,4 @@
 import { DialogComponent } from '@sl-design-system/angular/dialog';
-import { MessageDialogComponent } from '@sl-design-system/angular/message-dialog';
 import { PopoverComponent } from '@sl-design-system/angular/popover';
 import { TooltipComponent } from '@sl-design-system/angular/tooltip';
 import { Dialog as DialogElement } from '@sl-design-system/dialog';
@@ -9,7 +8,7 @@ export default {
   title: 'Wrappers/Overlay',
   decorators: [
     moduleMetadata({
-      imports: [DialogComponent, MessageDialogComponent, PopoverComponent, TooltipComponent]
+      imports: [DialogComponent, PopoverComponent, TooltipComponent]
     })
   ]
 } as Meta;

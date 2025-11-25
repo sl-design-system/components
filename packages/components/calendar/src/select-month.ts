@@ -224,15 +224,15 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
    * If we can load a new range, do so. Otherwise, let the focus group controller handle it.
    */
   async #onKeydown(event: KeyboardEvent & { target: HTMLButtonElement }): Promise<void> {
-    const buttons = Array.from(this.buttons);
+    const buttons = Array.from(this.buttons),
+      currentIndex = buttons.indexOf(event.target);
 
-    const currentIndex = buttons.indexOf(event.target);
     if (currentIndex === -1) {
       return;
     }
 
-    const canGoEarlier = !this.#allYearDisabled(-1);
-    const canGoLater = !this.#allYearDisabled(1);
+    const canGoEarlier = !this.#allYearDisabled(-1),
+      canGoLater = !this.#allYearDisabled(1);
 
     let shouldLoadNewRange = false;
 

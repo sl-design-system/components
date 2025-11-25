@@ -244,7 +244,7 @@
 				"fontFamily": {
 					"body": {
 						"$type": "fontFamilies",
-						"$value": "Open Sans"
+						"$value": "EnOhPee"
 					},
 					"icon": {
 						"$type": "fontFamilies",
@@ -253,7 +253,7 @@
 					},
 					"heading": {
 						"$type": "fontFamilies",
-						"$value": "Open Sans"
+						"$value": "EnOhPee"
 					}
 				},
 				"fontWeight": {

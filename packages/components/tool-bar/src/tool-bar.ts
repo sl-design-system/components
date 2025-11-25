@@ -123,6 +123,10 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   //  */
   // @property({ type: Boolean, reflect: true, attribute: 'no-border' }) noBorder?: boolean;
 
+  #totalWidth: number = 0;
+
+  #widths: number[] = [];
+
   /** Use this if you want the menu button to use the "inverted" variant. */
   @property({ type: Boolean }) inverted?: boolean;
 
@@ -149,6 +153,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
+
+    // TODO: maybe totalwidth should be checked here? insteda of in onResize?
 
     if (changes.has('disabled')) {
       const children = this.renderRoot.querySelector('slot')?.assignedElements({ flatten: true }) ?? [];
@@ -184,6 +190,30 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         });
       });
     }
+
+    // // const wrapper = this.renderRoot.querySelector('[part="wrapper"]')!;
+    // // const gap = parseInt(getComputedStyle(wrapper).gap) || 0;
+    //
+    // const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
+    // const gap = wrapper instanceof Element ? parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0 : 0;
+    //
+    // const widths = this.items.map(item => item.element.getBoundingClientRect().width);
+    // this.#totalWidth = widths.reduce((sum, w, i) => sum + w + (i < widths.length - 1 ? gap : 0), 0);
+  }
+
+  override firstUpdated(): void {
+    requestAnimationFrame(() => {
+      // const wrapper = this.renderRoot.querySelector('[part="wrapper"]')!;
+      // const gap = parseInt(getComputedStyle(wrapper).gap) || 0;
+
+      const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
+      const gap = wrapper instanceof Element ? parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0 : 0;
+
+      this.#widths = this.items.map(item => item.element.getBoundingClientRect().width);
+      this.#totalWidth = this.#widths.reduce((sum, w, i) => sum + w + (i < this.#widths.length - 1 ? gap : 0), 0);
+
+      console.log('firstUpdated totalWidth:', this.#totalWidth);
+    });
   }
 
   override render(): TemplateResult {
@@ -246,41 +276,88 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
   // Robust availableWidth + precompute widths before mutating DOM
   #onResize(): void {
-    // const availableWidth =
-    //   typeof entries === 'number'
-    //     ? entries
-    //     : Array.isArray(entries)
-    //       ? (entries[0]?.contentBoxSize?.[0]?.inlineSize ??
-    //         entries[0]?.contentRect?.width ??
-    //         this.getBoundingClientRect().width)
-    //       : this.getBoundingClientRect().width;
-
     // Use element's current width to avoid inconsistent ResizeObserver entry shapes.
     const availableWidth = this.getBoundingClientRect().width;
 
     if (!availableWidth) return;
 
-    const wrapper = this.renderRoot.querySelector('[part="wrapper"]')!;
-    const gap = parseInt(getComputedStyle(wrapper).gap) || 0;
+    console.log('availableWidth:', availableWidth);
+
+    // const wrapper = this.renderRoot.querySelector('[part="wrapper"]')!;
+    // const gap = parseInt(getComputedStyle(wrapper).gap) || 0;
+
+    const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
+
+    if (!wrapper) {
+      return;
+    }
+
+    const gap = parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0;
 
     // Freeze widths so toggling display doesn't affect measurements
     const widths = this.items.map(item => item.element.getBoundingClientRect().width);
-    const totalWidth = widths.reduce((sum, w, i) => sum + w + (i < widths.length - 1 ? gap : 0), 0);
+    const totalWidth = this.#widths.reduce((sum, w, i) => sum + w + (i < this.#widths.length - 1 ? gap : 0), 0);
 
+    console.log(
+      'Math.round(totalWidth) > Math.round(availableWidth)',
+      Math.round(totalWidth) > Math.round(availableWidth),
+      Math.round(totalWidth),
+      Math.round(availableWidth),
+      'widths:',
+      widths,
+      'this.#totalWidth:',
+      this.#totalWidth,
+      'availableWidth:',
+      availableWidth,
+      'this.#widths:',
+      this.#widths
+    );
+
+    /*
     // Reserve space for menu button if needed
     let spaceForMenu = 0;
     if (Math.round(totalWidth) > Math.round(availableWidth)) {
       spaceForMenu = Math.round(wrapper.getBoundingClientRect().height) + gap;
     }
-    const effectiveAvailable = availableWidth - spaceForMenu;
+    const effectiveAvailable = availableWidth - spaceForMenu; // sometimes is the same as availableWidth, when menu is not visible
 
-    // Decide visibility using frozen widths (walk from end)
+    console.log('effectiveAvailable:', effectiveAvailable, 'spaceForMenu:', spaceForMenu);
+
+// Decide visibility using frozen widths (walk from end)
+    this.#totalWidth = totalWidth;
     let acc = totalWidth;
     for (let i = this.items.length - 1; i >= 0; i--) {
       const fits = Math.round(acc) <= Math.round(effectiveAvailable);
       this.items[i].visible = fits;
       acc -= widths[i] + gap;
     }
+
+// Apply DOM changes in one pass
+    this.items.forEach(item => {
+      item.element.style.display = item.visible ? '' : 'none';
+    });
+
+    this.requestUpdate('items');
+*/
+
+    // Reserve space for menu button if needed
+    let spaceForMenu = 0;
+    if (Math.round(this.#totalWidth) > Math.round(availableWidth)) {
+      spaceForMenu = Math.round(wrapper.getBoundingClientRect().height) + gap;
+    }
+    const effectiveAvailable = availableWidth - spaceForMenu - gap; // sometimes is the same as availableWidth, when menu is not visible
+
+    console.log('effectiveAvailable:', effectiveAvailable, 'spaceForMenu:', spaceForMenu);
+
+    // Decide visibility using frozen widths (walk from end)
+    let acc = this.#totalWidth; //totalWidth;
+    for (let i = this.items.length - 1; i >= 0; i--) {
+      const fits = acc <= effectiveAvailable; // Math.round(acc) <= Math.round(effectiveAvailable);
+      this.items[i].visible = fits;
+      acc -= this.#widths[i] + gap;
+    }
+
+    console.log('acc:', acc, 'gap', gap);
 
     // Apply DOM changes in one pass
     this.items.forEach(item => {
@@ -413,6 +490,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   } */ // TODO: maybe display: none instead of visibility hidden and no flex: 1 on the wrapper?
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }) {
+    console.log('slotchange event:', event);
     // Ignore events from nested slots.
     if (event.target !== this.renderRoot.querySelector('slot')) {
       return;

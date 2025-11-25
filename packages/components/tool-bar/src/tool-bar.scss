@@ -40,9 +40,9 @@
 }
 
 // for inverted border: --color-border-primary-plain, ? but inverted can be used at any dark background?
-:host([inverted]) {
-  --_border-color: var(--sl-color-border-primary-plain); // TODO: background --size-borderWidth-default,
-}
+// :host([inverted]) {
+//  --_border-color: var(--sl-color-border-primary-plain); // TODO: background --size-borderWidth-default,
+// }
 
 // :host([no-border]) {
 //  border: 0;
@@ -84,5 +84,3 @@ sl-menu-button {
 hr + hr {
   display: none;
 }
-
-// TODO: contained and not-contained (default)

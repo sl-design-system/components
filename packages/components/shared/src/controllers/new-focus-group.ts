@@ -403,11 +403,88 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
         if (this.isFocusableElement(targetElement)) {
           // Target is focusable, move to it
           this.focusToElement(targetIndex);
-        } else if (this.#wrap) {
-          // Target is not focusable and wrap is enabled, skip to next focusable
-          this.#setCurrentIndexCircularly(diff);
+        } else {
+          // Target is not focusable - search for next focusable element
+          const isVerticalMove = Math.abs(diff) > 1;
+
+          if (isVerticalMove) {
+            // Vertical move - if target is disabled, first try to continue vertically in the same column
+            const direction = diff > 0 ? this.#directionLength() : -this.#directionLength();
+            const targetColumn = targetIndex % this.#directionLength();
+            let searchIndex = targetIndex + direction;
+            let found = false;
+
+            // Continue searching vertically in the same column
+            while (searchIndex >= 0 && searchIndex < this.elements.length) {
+              const searchColumn = searchIndex % this.#directionLength();
+
+              // Check if we're still in the same column
+              if (searchColumn === targetColumn && this.isFocusableElement(this.elements[searchIndex])) {
+                this.focusToElement(searchIndex);
+                found = true;
+                break;
+              }
+
+              // If we've gone past the same column or reached the end, stop
+              if (searchColumn !== targetColumn) {
+                break;
+              }
+
+              searchIndex += direction;
+            }
+
+            // If not found vertically, search horizontally in the target row
+            if (!found) {
+              const targetRow = Math.floor(targetIndex / this.#directionLength());
+              const rowStart = targetRow * this.#directionLength();
+              const rowEnd = Math.min(rowStart + this.#directionLength(), this.elements.length);
+
+              // Search right from target in the same row
+              for (let i = targetIndex + 1; i < rowEnd; i++) {
+                if (this.isFocusableElement(this.elements[i])) {
+                  this.focusToElement(i);
+                  found = true;
+                  break;
+                }
+              }
+
+              // If not found, search left from target in the same row
+              if (!found) {
+                for (let i = targetIndex - 1; i >= rowStart; i--) {
+                  if (this.isFocusableElement(this.elements[i])) {
+                    this.focusToElement(i);
+                    found = true;
+                    break;
+                  }
+                }
+              }
+            }
+
+            // If not found horizontally and wrap is enabled, use circular logic
+            if (!found && this.#wrap) {
+              this.#setCurrentIndexCircularly(diff);
+            }
+          } else {
+            // Horizontal move - skip to next focusable element
+            if (this.#wrap) {
+              this.#setCurrentIndexCircularly(diff);
+            } else {
+              // Search for next focusable element in the same direction without wrapping
+              const direction = diff > 0 ? 1 : -1;
+              let searchIndex = targetIndex;
+
+              while (searchIndex >= 0 && searchIndex < this.elements.length) {
+                searchIndex += direction;
+                if (searchIndex < 0 || searchIndex >= this.elements.length) break;
+
+                if (this.isFocusableElement(this.elements[searchIndex])) {
+                  this.focusToElement(searchIndex);
+                  break;
+                }
+              }
+            }
+          }
         }
-        // If target is not focusable and wrap is disabled, stay at current position
       }
     } else {
       this.#setCurrentIndexCircularly(diff);

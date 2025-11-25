@@ -411,9 +411,9 @@ describe('NewFocusGroupController', () => {
       el.controller!.elements[0].focus();
       await userEvent.keyboard('{ArrowDown}');
 
-      // Element 2 is disabled, so grid navigation doesn't move
-      expect(el.shadowRoot!.activeElement).to.equal(el.controller!.elements[0]);
-      expect(el.controller!.currentIndex).to.equal(0);
+      // Element 2 is disabled, so grid navigation searches horizontally in the same row and finds element 3
+      expect(el.shadowRoot!.activeElement).to.equal(el.controller!.elements[3]);
+      expect(el.controller!.currentIndex).to.equal(3);
     });
 
     it('should navigate left in grid', async () => {

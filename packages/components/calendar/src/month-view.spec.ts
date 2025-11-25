@@ -399,6 +399,64 @@ describe('sl-month-view', () => {
       expect(button).to.exist;
       expect(button?.textContent?.trim()).to.equal('10');
     });
+
+    it('should skip disabled dates when navigating using arrow left/right', async () => {
+      // Disable days 11 and 12
+      el.disabledDates = [
+        new Date(el.month.getFullYear(), el.month.getMonth(), 11),
+        new Date(el.month.getFullYear(), el.month.getMonth(), 12)
+      ];
+      await el.updateComplete;
+
+      // Focus on day 10
+      el.focus(new Date(2023, 2, 10));
+
+      // Press arrow right - should skip 11 and 12, landing on 13
+      await userEvent.keyboard('{ArrowRight}');
+
+      expect(el.shadowRoot?.activeElement).to.exist;
+      expect(el.shadowRoot?.activeElement).to.match('button[part~="day"]');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('13');
+
+      // Press arrow left - should skip 12 and 11, landing back on 10
+      await userEvent.keyboard('{ArrowLeft}');
+
+      expect(el.shadowRoot?.activeElement).to.exist;
+      expect(el.shadowRoot?.activeElement).to.match('button[part~="day"]');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('10');
+    });
+
+    it('should skip disabled dates when navigating using arrow up/down', async () => {
+      // Looking at the calendar grid:
+      // Mo Tu We Th Fr Sa Su
+      //  6  7  8  9 10 11 12
+      // 13 14 15 16 17 18 19
+      // 20 21 22 23 24 25 26
+      //
+      // Disable days 13 and 20 (same column as 6 - Monday)
+      el.disabledDates = [
+        new Date(el.month.getFullYear(), el.month.getMonth(), 13),
+        new Date(el.month.getFullYear(), el.month.getMonth(), 20)
+      ];
+      await el.updateComplete;
+
+      // Focus on day 6 (Monday, week 2)
+      el.focus(new Date(2023, 2, 6));
+
+      // Press arrow down - should skip 13 and 20, landing on 27
+      await userEvent.keyboard('{ArrowDown}');
+
+      expect(el.shadowRoot?.activeElement).to.exist;
+      expect(el.shadowRoot?.activeElement).to.match('button[part~="day"]');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('27');
+
+      // Press arrow up - should skip 20 and 13, landing back on 6
+      await userEvent.keyboard('{ArrowUp}');
+
+      expect(el.shadowRoot?.activeElement).to.exist;
+      expect(el.shadowRoot?.activeElement).to.match('button[part~="day"]');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('6');
+    });
   });
 
   describe('indicator dates', () => {

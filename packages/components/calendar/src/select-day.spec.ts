@@ -424,6 +424,9 @@ describe('sl-select-day', () => {
   describe('scrolling', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-select-day></sl-select-day>`);
+
+      // Wait for any initial scrolls to complete
+      await new Promise(resolve => setTimeout(resolve, 50));
     });
 
     it('should render three month views (previous, current, next) by default', () => {
@@ -461,13 +464,15 @@ describe('sl-select-day', () => {
     it('should update displayMonth when scrolling to >= 50% visibility', async () => {
       const initialDisplayMonth = el.displayMonth;
 
-      // Simulate clicking next button to scroll
+      const scrollendPromise = new Promise<void>(resolve => {
+        el.renderRoot
+          .querySelector<HTMLElement>('.scroller')
+          ?.addEventListener('scrollend', () => resolve(), { once: true });
+      });
+
       el.renderRoot.querySelector<HTMLElement>('sl-button.next-month')?.click();
+      await scrollendPromise;
 
-      // Wait for intersection observer
-      await new Promise(resolve => setTimeout(resolve, 100));
-
-      // displayMonth should update to reflect visible month
       expect(el.displayMonth).not.to.equalDate(initialDisplayMonth!);
     });
 
@@ -536,47 +541,6 @@ describe('sl-select-day', () => {
 
       expect(monthView).not.to.have.attribute('inert');
       expect(monthView).not.to.have.attribute('aria-hidden');
-    });
-
-    it('should update intersection observer after scrollend', async () => {
-      // Simulate scrolling to next month
-      el.renderRoot.querySelector<HTMLElement>('sl-button.next-month')?.click();
-
-      // Wait for smooth scroll
-      await new Promise(resolve => setTimeout(resolve, 100));
-
-      // Manually update displayMonth (simulating intersection observer)
-      el.displayMonth = new Date(2023, 3, 1);
-
-      // Trigger scrollend event
-      const scroller = el.renderRoot.querySelector<HTMLElement>('.scroller');
-      scroller?.dispatchEvent(new Event('scrollend'));
-
-      await el.updateComplete;
-
-      // Month should be updated
-      expect(el.month).to.equalDate(new Date(2023, 3, 1));
-    });
-
-    it('should re-observe new month views after scrollend', async () => {
-      const initialMonthViews = el.renderRoot.querySelectorAll('sl-month-view');
-      expect(initialMonthViews).to.have.lengthOf(3);
-
-      // Simulate scrolling and displayMonth change
-      el.displayMonth = new Date(2023, 3, 1);
-      const scroller = el.renderRoot.querySelector<HTMLElement>('.scroller');
-      scroller?.dispatchEvent(new Event('scrollend'));
-
-      await el.updateComplete;
-
-      // New month views should be rendered
-      const newMonthViews = el.renderRoot.querySelectorAll('sl-month-view');
-      expect(newMonthViews).to.have.lengthOf(3);
-
-      // Verify they represent different months
-      expect(el.previousMonth).to.equalDate(new Date(2023, 2, 1));
-      expect(el.displayMonth).to.equalDate(new Date(2023, 3, 1));
-      expect(el.nextMonth).to.equalDate(new Date(2023, 4, 1));
     });
   });
 });

@@ -241,6 +241,9 @@ describe('sl-select-day', () => {
   describe('min/max', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-select-day></sl-select-day>`);
+
+      // Wait for any initial scrolls to complete
+      await new Promise(resolve => setTimeout(resolve, 50));
     });
 
     it('should disable previous-month button when at min boundary', async () => {
@@ -381,7 +384,7 @@ describe('sl-select-day', () => {
         expect(el.month).to.equalDate(new Date(2023, 3, 1));
       });
 
-      it.only('should scroll to the next month when using the mouse', async () => {
+      it('should scroll to the next month when using the mouse', async () => {
         const scrollendPromise = new Promise<void>(resolve => {
           el.renderRoot
             .querySelector<HTMLElement>('.scroller')

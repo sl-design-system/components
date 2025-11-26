@@ -39,6 +39,10 @@
   background: var(--sl-color-background-primary-bold);
 }
 
+// :host([inverted])::slotted(sl-tool-bar-divider) {
+//  background: var(--sl-color-border-inverted);
+// }
+
 // for inverted border: --color-border-primary-plain, ? but inverted can be used at any dark background?
 // :host([inverted]) {
 //  --_border-color: var(--sl-color-border-primary-plain); // TODO: background --size-borderWidth-default,

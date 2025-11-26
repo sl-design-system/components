@@ -1,7 +1,13 @@
 :host {
-  align-self: stretch;
-  background: var(--sl-color-border-neutral-subtle);
+  // align-self: stretch;
+  background: var(--sl-color-border-plain);
+  block-size: var(--sl-size-300);
   display: inline-flex;
   flex-shrink: 0;
-  inline-size: 1px;
+  inline-size: var(--sl-size-010);
+  margin-inline: var(--sl-size-100);
+}
+
+:host([inverted]) {
+  background: var(--sl-color-border-inverted);
 }

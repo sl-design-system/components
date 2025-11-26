@@ -226,6 +226,7 @@ export const Inverted: Story = {
     items: () => html`
       <sl-button fill="outline" variant="inverted">Action 1</sl-button>
       <sl-button fill="outline" variant="inverted">Action 2</sl-button>
+      <sl-tool-bar-divider inverted></sl-tool-bar-divider>
       <sl-button fill="outline" variant="inverted">Action 3</sl-button>
       <sl-button fill="outline" variant="inverted">Action 4</sl-button>
       <sl-button fill="outline" variant="inverted">Action 5</sl-button>

@@ -3,9 +3,6 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Button, type ButtonFill } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { Menu, MenuButton, MenuItem, MenuItemGroup } from '@sl-design-system/menu';
-import { ToggleButton } from '@sl-design-system/toggle-button';
-import { ToggleGroup } from '@sl-design-system/toggle-group';
-import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -127,6 +124,12 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
   #widths: number[] = [];
 
+  #menuButtonSize?: number;
+
+  #menuButtonSizeCache = 44;
+
+  #needsMeasurement = true;
+
   /** Use this if you want the menu button to use the "inverted" variant. */
   @property({ type: Boolean }) inverted?: boolean;
 
@@ -207,12 +210,16 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       // const gap = parseInt(getComputedStyle(wrapper).gap) || 0;
 
       const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
-      const gap = wrapper instanceof Element ? parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0 : 0;
+      // const gap = wrapper instanceof Element ? parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0 : 0;
 
-      this.#widths = this.items.map(item => item.element.getBoundingClientRect().width);
-      this.#totalWidth = this.#widths.reduce((sum, w, i) => sum + w + (i < this.#widths.length - 1 ? gap : 0), 0);
+      // this.#widths = this.items.map(item => item.element.getBoundingClientRect().width);
+      // this.#totalWidth = this.#widths.reduce((sum, w, i) => sum + w + (i < this.#widths.length - 1 ? gap : 0), 0);
 
-      console.log('firstUpdated totalWidth:', this.#totalWidth);
+      console.log('firstUpdated totalWidth:', this.#totalWidth, this.#widths);
+
+      if (wrapper) {
+        this.#measureItems(wrapper);
+      }
     });
   }
 
@@ -279,7 +286,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     // Use element's current width to avoid inconsistent ResizeObserver entry shapes.
     const availableWidth = this.getBoundingClientRect().width;
 
-    if (!availableWidth) return;
+    if (!availableWidth) {
+      return;
+    }
 
     console.log('availableWidth:', availableWidth);
 
@@ -295,16 +304,33 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     const gap = parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0;
 
     // Freeze widths so toggling display doesn't affect measurements
-    const widths = this.items.map(item => item.element.getBoundingClientRect().width);
-    const totalWidth = this.#widths.reduce((sum, w, i) => sum + w + (i < this.#widths.length - 1 ? gap : 0), 0);
+    // const widths = this.items.map(item => item.element.getBoundingClientRect().width);
+    // const totalWidth = this.#widths.reduce((sum, w, i) => sum + w + (i < this.#widths.length - 1 ? gap : 0), 0);
+
+    // const widths = this.items.map(item => item.element.getBoundingClientRect().width);
+    // const totalWidth = widths.reduce((sum, w, i) => sum + w + (i < widths.length - 1 ? gap : 0), 0);
+    //
+    // if (!totalWidth) return;
+
+    if (this.#needsMeasurement || !this.#totalWidth || !this.#widths.length) {
+      this.#measureItems(wrapper);
+    }
+
+    if (!this.#totalWidth || !this.#widths.length) return;
+
+    // this.#widths = widths;
+    // this.#totalWidth = totalWidth;
+
+    // this.#widths = widths;
+    // this.#totalWidth = totalWidth;
 
     console.log(
       'Math.round(totalWidth) > Math.round(availableWidth)',
-      Math.round(totalWidth) > Math.round(availableWidth),
-      Math.round(totalWidth),
+      // Math.round(totalWidth) > Math.round(availableWidth),
+      // Math.round(totalWidth),
       Math.round(availableWidth),
       'widths:',
-      widths,
+      // widths,
       'this.#totalWidth:',
       this.#totalWidth,
       'availableWidth:',
@@ -341,13 +367,43 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 */
 
     // Reserve space for menu button if needed
+    /*
     let spaceForMenu = 0;
-    if (Math.round(this.#totalWidth) > Math.round(availableWidth)) {
-      spaceForMenu = Math.round(wrapper.getBoundingClientRect().height) + gap;
+    if (this.#totalWidth > availableWidth /!*Math.round(this.#totalWidth) > Math.round(availableWidth)*!/) {
+      spaceForMenu = Math.round(wrapper.getBoundingClientRect().height) + gap; // 44px
     }
     const effectiveAvailable = availableWidth - spaceForMenu - gap; // sometimes is the same as availableWidth, when menu is not visible
 
-    console.log('effectiveAvailable:', effectiveAvailable, 'spaceForMenu:', spaceForMenu);
+*/
+
+    let spaceForMenu = 0;
+    let effectiveAvailable = availableWidth;
+    if (this.#totalWidth > availableWidth) {
+      let buttonSize = this.#menuButtonSize ?? this.#menuButtonSizeCache;
+      const wrapperHeight = Math.round(wrapper.getBoundingClientRect().height);
+
+      if (this.#menuButtonSize == null && wrapperHeight > 0) {
+        this.#menuButtonSizeCache = wrapperHeight;
+        buttonSize = wrapperHeight;
+      }
+
+      spaceForMenu = buttonSize + gap;
+    }
+    // const effectiveAvailable = availableWidth - spaceForMenu - gap;
+
+    effectiveAvailable -= spaceForMenu + gap;
+
+    console.log(
+      'effectiveAvailable:',
+      effectiveAvailable,
+      'spaceForMenu:',
+      spaceForMenu,
+      this.#totalWidth > availableWidth,
+      'this.#totalWidth:',
+      this.#totalWidth,
+      'availableWidth:',
+      availableWidth
+    );
 
     // Decide visibility using frozen widths (walk from end)
     let acc = this.#totalWidth; //totalWidth;
@@ -363,6 +419,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     this.items.forEach(item => {
       item.element.style.display = item.visible ? '' : 'none';
     });
+
+    this.menuItems = this.items.filter(item => !item.visible);
 
     this.requestUpdate('items');
   }
@@ -550,15 +608,19 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     this.empty = elements.length === 0;
 
+    console.log('elements', elements);
+
     this.items = elements
       .map(element => {
-        if (element instanceof Button || element instanceof ToggleButton) {
+        console.log('mapping element:', element, element instanceof Button, element instanceof MenuButton);
+
+        if (element instanceof Button /*|| element instanceof ToggleButton*/) {
           return this.#mapButtonToItem(element);
         } else if (element instanceof MenuButton) {
           return this.#mapMenuButtonToItem(element);
-        } else if (element instanceof ToggleGroup) {
+        } /* else if (element instanceof ToggleGroup) {
           return this.#mapToggleGroupToItem(element);
-        } else if (element instanceof ToolBarDivider) {
+        }*/ else if (element instanceof ToolBarDivider) {
           return { element, type: 'divider' };
         } else if (!['SL-TOOLTIP'].includes(element.tagName)) {
           console.warn(`Unknown element type: ${element.tagName} in sl-tool-bar.`);
@@ -568,11 +630,24 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       })
       .filter(item => item !== undefined) as ToolBarItem[];
 
+    this.#needsMeasurement = true;
     console.log('updated items mapping:', this.items);
 
     // Reconnect the resize observer to ensure we measure the correct widths
     this.#resizeObserver.disconnect();
     this.#resizeObserver.observe(this);
+  }
+
+  #measureItems(wrapper: Element): void {
+    if (this.offsetParent === null) {
+      this.#needsMeasurement = true;
+      return;
+    }
+
+    const gap = parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0;
+    this.#widths = this.items.map(item => item.element.getBoundingClientRect().width);
+    this.#totalWidth = this.#widths.reduce((sum, w, i) => sum + w + (i < this.#widths.length - 1 ? gap : 0), 0);
+    this.#needsMeasurement = false;
   }
 
   #mapButtonToItem(button: HTMLElement): ToolBarItemButton {
@@ -594,7 +669,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       label = this.querySelector(`#${button.getAttribute('aria-describedby')}`)?.textContent?.trim();
     }
 
-    console.log('fill in mapButtonToItem:', this.type, button, label);
+    console.log('fill in mapButtonToItem:', this.type, button, label); // TODO: label not always visible, why?
 
     return {
       element: button,
@@ -610,8 +685,25 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   }
 
   #mapMenuButtonToItem(menuButton: MenuButton): ToolBarItemMenu {
+    // let label: string | undefined =
+    //   menuButton.querySelector('[slot="button"]')?.getAttribute('aria-label') ||
+    //   menuButton.querySelector('[slot="button"]')?.textContent?.trim();
+
     let label: string | undefined =
-      menuButton.getAttribute('aria-label') || menuButton.querySelector('[slot="button"]')?.textContent?.trim();
+      menuButton.renderRoot.querySelector('sl-button')?.getAttribute('aria-label') ||
+      menuButton.querySelector('[slot="button"]')?.textContent?.trim();
+
+    console.log(
+      'initial label for menu button or button:',
+      label,
+      'element',
+      menuButton,
+      'button slot?',
+      menuButton.querySelector('[slot="button"]'),
+      menuButton.renderRoot.querySelector('sl-button'),
+      'menuButton.querySelector(\'[slot="button"]\')?.textContent?.trim()',
+      menuButton.querySelector('[slot="button"]')?.textContent?.trim()
+    );
 
     if (menuButton.hasAttribute('aria-labelledby')) {
       const buttonLabelledby = menuButton.getAttribute('aria-labelledby');
@@ -644,7 +736,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     };
   }
 
-  #mapToggleGroupToItem(group: ToggleGroup): ToolBarItemGroup {
+  /*  #mapToggleGroupToItem(group: ToggleGroup): ToolBarItemGroup {
     return {
       element: group,
       type: 'group',
@@ -655,5 +747,5 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       selects: group.multiple ? 'multiple' : 'single',
       visible: true
     };
-  }
+  } // TODO: we don't need this one...*/
 }

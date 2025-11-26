@@ -331,7 +331,7 @@ export const IconOnly: Story = {
         <sl-icon name="far-underline"></sl-icon>
       </sl-button>
 
-      <sl-menu-button aria-label="Settings" style="align-self:center;justify-self:center;">
+      <sl-menu-button aria-label="Settings">
         <sl-icon name="far-pen" slot="button"></sl-icon>
         <sl-menu-item>
           <sl-icon name="far-pen"></sl-icon>
@@ -343,7 +343,7 @@ export const IconOnly: Story = {
         </sl-menu-item>
       </sl-menu-button>
 
-      <sl-menu-button aria-label="Settings" style="align-self:center;justify-self:center;" ${tooltip('tooltip test')}>
+      <sl-menu-button style="align-self:center;justify-self:center;" ${tooltip('Edit...')}>
         <sl-icon name="far-pen" slot="button"></sl-icon>
         <sl-menu-item>
           <sl-icon name="far-pen"></sl-icon>

@@ -51,7 +51,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
    * Use a resize observer as a cross browser solution to know when to initialize the intersection observer
    * and also to know when to center the current month in the scroller during initialization.
    */
-  #resizeObserver = new ResizeObserver(() => {
+  #resizeObserver = new ResizeObserver(async () => {
     if (!this.#intersectionObserver) {
       this.#intersectionObserver = new IntersectionObserver(
         entries => {
@@ -59,22 +59,29 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
             .filter(entry => entry.isIntersecting)
             .forEach(entry => {
               if (entry.intersectionRatio >= 0.5) {
-                const monthView = entry.target as MonthView;
+                const monthView = entry.target as MonthView,
+                  displayMonth = normalizeDateTime(monthView.month);
 
-                // Make sure the header reflects the currently visible month
-                this.displayMonth = normalizeDateTime(monthView.month);
+                // Do not trigger unnecessary renders
+                if (!isSameDate(this.displayMonth, displayMonth)) {
+                  this.displayMonth = displayMonth;
+                }
               }
             });
         },
         { root: this.scroller, threshold: [0, 0.5, 1] }
       );
 
+      // Firefox only: wait for the scroller and month views to be rendered
+      await new Promise(requestAnimationFrame);
+      await new Promise(requestAnimationFrame);
+
+      // Center the current month initially
+      this.#scrollToMonth(0);
+
       // Start observing month views
       this.#observedMonths = this.renderRoot.querySelectorAll('sl-month-view');
       this.#observedMonths.forEach(mv => this.#intersectionObserver?.observe(mv));
-
-      // Center the current month initially
-      void this.#scrollToMonth(0);
     }
   });
 
@@ -189,21 +196,21 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       this.previousMonth = new Date(this.month.getFullYear(), this.month.getMonth() - 1);
     }
 
-    if (changes.has('max') || changes.has('min') || changes.has('month')) {
-      this.#observedMonths?.forEach(mv => this.#intersectionObserver?.unobserve(mv));
-      this.#observedMonths = undefined;
-    }
+    // if (changes.has('max') || changes.has('min') || changes.has('month')) {
+    //   this.#observedMonths?.forEach(mv => this.#intersectionObserver?.unobserve(mv));
+    //   this.#observedMonths = undefined;
+    // }
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('max') || changes.has('min') || changes.has('month')) {
-      void this.#scrollToMonth(0).then(() => {
-        this.#observedMonths = this.renderRoot.querySelectorAll('sl-month-view');
-        this.#observedMonths.forEach(mv => this.#intersectionObserver?.observe(mv));
-      });
-    }
+    // if (changes.has('max') || changes.has('min') || changes.has('month')) {
+    //   this.#scrollToMonth(0);
+
+    //   this.#observedMonths = this.renderRoot.querySelectorAll('sl-month-view');
+    //   this.#observedMonths.forEach(mv => this.#intersectionObserver?.observe(mv));
+    // }
   }
 
   override render(): TemplateResult {
@@ -359,9 +366,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onChange(event: SlChangeEvent<Date>): void {
-    event.preventDefault();
-    event.stopPropagation();
-
     const newMonth = new Date(event.detail.getFullYear(), event.detail.getMonth());
 
     // Check if the new month is within min/max boundaries
@@ -387,14 +391,12 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onPrevious(): void {
-    void this.#scrollToMonth(-1, true);
-
+    this.#scrollToMonth(-1, true);
     this.#announce(this.previousMonth);
   }
 
   #onNext(): void {
-    void this.#scrollToMonth(1, true);
-
+    this.#scrollToMonth(1, true);
     this.#announce(this.nextMonth);
   }
 
@@ -403,20 +405,25 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       return;
     }
 
-    // Unobserve the "old" month views
+    // Stop observing month views while we adjust the scroll position
     this.#observedMonths?.forEach(mv => this.#intersectionObserver?.unobserve(mv));
     this.#observedMonths = undefined;
 
     // Update the month, so it rerenders the month-views
     this.month = normalizeDateTime(this.displayMonth);
 
-    // Wait for the month views to rerender; do NOT scroll before this is done
-    await this.updateComplete;
+    if ('onscrollend' in this.scroller!) {
+      await this.updateComplete;
+    } else {
+      // Safari <= 26 only: wait for the scroller and month views to be rendered
+      await new Promise(requestAnimationFrame);
+      await new Promise(requestAnimationFrame);
+    }
 
     // Now instantly scroll back to the center month (so the user doesn't notice)
-    await this.#scrollToMonth(0);
+    this.#scrollToMonth(0);
 
-    // Observe the new month views
+    // Start observing month views again
     this.#observedMonths = this.renderRoot.querySelectorAll('sl-month-view');
     this.#observedMonths.forEach(mv => this.#intersectionObserver?.observe(mv));
   }
@@ -486,7 +493,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     return previousMonthNormalized >= minMonthNormalized;
   }
 
-  async #scrollToMonth(month: -1 | 0 | 1, smooth = false): Promise<void> {
+  #scrollToMonth(month: -1 | 0 | 1, smooth = false): void {
     if (!this.scroller) {
       return;
     }
@@ -520,16 +527,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
     if (smooth) {
       this.scroller.scrollTo({ left, behavior: 'smooth' });
-    } else if (left !== this.scroller.scrollLeft) {
-      const scrollendPromise = new Promise<void>(resolve => {
-        this.scroller?.addEventListener('scrollend', () => resolve(), { once: true });
-      });
-
-      this.scroller.scrollTo({ left, behavior: 'instant' });
-
-      // Wait for the scroll to finish before continuing: this is important to avoid
-      // the intersection observer triggering too early and messing up the displayMonth
-      await scrollendPromise;
+    } else if (this.scroller.scrollLeft !== left) {
+      this.scroller.scrollLeft = left;
     }
   }
 }

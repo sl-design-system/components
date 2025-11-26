@@ -4,6 +4,7 @@ export * from './src/controllers/anchor.js';
 export * from './src/controllers/events.js';
 export * from './src/controllers/focus-group.js';
 export * from './src/controllers/media.js';
+export * from './src/controllers/new-focus-group.js';
 export * from './src/controllers/roving-tabindex.js';
 export * from './src/controllers/shortcut.js';
 export * from './src/css.js';

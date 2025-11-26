@@ -1,7 +1,7 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
-import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { Accordion } from './accordion.js';
 

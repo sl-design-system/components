@@ -150,6 +150,21 @@ it('should emit a click event when clicked', () => { ... });
 it('should be disabled when disabled prop is set', () => { ... });
 ```
 
+**Important**: Do not use "by default" in test descriptions within the `defaults` describe block, as this is redundant:
+```typescript
+// ✅ Good
+describe('defaults', () => {
+  it('should not be disabled', () => { ... });
+  it('should not show week numbers', () => { ... });
+});
+
+// ❌ Bad
+describe('defaults', () => {
+  it('should not be disabled by default', () => { ... });
+  it('should not show week numbers by default', () => { ... });
+});
+```
+
 ## What to Test
 
 ### Essential Tests

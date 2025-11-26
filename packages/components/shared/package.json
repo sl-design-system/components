@@ -20,6 +20,10 @@
       "import": "./index.js",
       "types": "./index.d.ts"
     },
+    "./controllers/focus-group.js": {
+      "import": "./src/controllers/new-focus-group.js",
+      "types": "./src/controllers/new-focus-group.d.ts"
+    },
     "./converters.js": {
       "import": "./src/converters.js",
       "types": "./src/converters.d.ts"

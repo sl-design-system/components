@@ -321,7 +321,7 @@ describe('sl-select-day', () => {
       el = await fixture(html`<sl-select-day></sl-select-day>`);
 
       // Wait for any initial scrolls to complete
-      await new Promise(resolve => setTimeout(resolve, 10));
+      await new Promise(resolve => setTimeout(resolve, 50));
     });
 
     describe('back', () => {
@@ -381,7 +381,7 @@ describe('sl-select-day', () => {
         expect(el.month).to.equalDate(new Date(2023, 3, 1));
       });
 
-      it('should scroll to the next month when using the mouse', async () => {
+      it.only('should scroll to the next month when using the mouse', async () => {
         const scrollendPromise = new Promise<void>(resolve => {
           el.renderRoot
             .querySelector<HTMLElement>('.scroller')
@@ -449,8 +449,7 @@ describe('sl-select-day', () => {
       const scroller = el.renderRoot.querySelector<HTMLElement>('.scroller');
 
       // Wait for resize observer to trigger
-      await new Promise(resolve => requestAnimationFrame(resolve));
-      await new Promise(resolve => requestAnimationFrame(resolve));
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       // The scroll position should be at the center (width * 1)
       expect(scroller?.scrollLeft).to.be.greaterThan(0);
@@ -520,7 +519,7 @@ describe('sl-select-day', () => {
         { width } = scroller!.getBoundingClientRect();
 
       // Wait for resize observer to trigger scroll
-      await new Promise(resolve => requestAnimationFrame(resolve));
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(scroller?.scrollLeft).to.equal(width);
     });

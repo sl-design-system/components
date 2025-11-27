@@ -1,15 +1,15 @@
 import { ButtonComponent } from '@sl-design-system/angular/button';
+import { ButtonBarComponent } from '@sl-design-system/angular/button-bar';
 import {
   MenuButtonComponent,
   MenuComponent,
   MenuItemComponent,
   MenuItemGroupComponent
 } from '@sl-design-system/angular/menu';
+import { ToggleButtonComponent } from '@sl-design-system/angular/toggle-button';
+import { ToggleGroupComponent } from '@sl-design-system/angular/toggle-group';
+import { ToolBarComponent } from '@sl-design-system/angular/tool-bar';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
-import { ButtonBarComponent } from '../src/button-bar/button-bar.component';
-import { ToggleButtonComponent } from '../src/toggle-button/public-api';
-import { ToggleGroupComponent } from '../src/toggle-group/public-api';
-import { ToolBarComponent } from '../src/tool-bar/public-api';
 
 export default {
   title: 'Wrappers/Actions',

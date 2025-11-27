@@ -1,10 +1,9 @@
 import { NgForOf } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet, provideRouter, withHashLocation } from '@angular/router';
+import { MenuComponent } from '@sl-design-system/angular/menu';
+import { TabComponent, TabGroupComponent } from '@sl-design-system/angular/tabs';
 import { type Meta, StoryFn, applicationConfig, moduleMetadata } from '@storybook/angular';
-import { MenuComponent } from '../src/menu/menu.component';
-import { TabGroupComponent } from '../src/tabs/tab-group.component';
-import { TabComponent } from '../src/tabs/tab.component';
 
 @Component({
   selector: 'sla-dashboard',

@@ -1,6 +1,6 @@
+import { TooltipDirective } from '@sl-design-system/angular';
 import { ButtonComponent } from '@sl-design-system/angular/button';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
-import { TooltipDirective } from '../src/tooltip.directive';
 
 export default {
   title: 'Components/Tooltip',

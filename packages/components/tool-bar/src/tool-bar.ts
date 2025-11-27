@@ -284,7 +284,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   // Robust availableWidth + precompute widths before mutating DOM
   #onResize(): void {
     // Use element's current width to avoid inconsistent ResizeObserver entry shapes.
-    const availableWidth = this.getBoundingClientRect().width;
+    const availableWidth = this.#getAvailableWidth(); // this.getBoundingClientRect().width;
 
     if (!availableWidth) {
       return;
@@ -302,6 +302,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     }
 
     const gap = parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0;
+
+    // const gap = parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0;
+    // let reservedInlineEnd = 0;
 
     // Freeze widths so toggling display doesn't affect measurements
     // const widths = this.items.map(item => item.element.getBoundingClientRect().width);
@@ -328,7 +331,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       'Math.round(totalWidth) > Math.round(availableWidth)',
       // Math.round(totalWidth) > Math.round(availableWidth),
       // Math.round(totalWidth),
-      Math.round(availableWidth),
+      // Math.round(availableWidth),
       'widths:',
       // widths,
       'this.#totalWidth:',
@@ -378,6 +381,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     let spaceForMenu = 0;
     let effectiveAvailable = availableWidth;
+
     if (this.#totalWidth > availableWidth) {
       let buttonSize = this.#menuButtonSize ?? this.#menuButtonSizeCache;
       const wrapperHeight = Math.round(wrapper.getBoundingClientRect().height);
@@ -387,11 +391,16 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         buttonSize = wrapperHeight;
       }
 
-      spaceForMenu = buttonSize + gap;
+      spaceForMenu = buttonSize; // + gap;
+      effectiveAvailable -= spaceForMenu + gap;
+
+      // spaceForMenu = buttonSize;
+      // reservedInlineEnd = spaceForMenu + gap;
+      // effectiveAvailable -= reservedInlineEnd;
     }
     // const effectiveAvailable = availableWidth - spaceForMenu - gap;
 
-    effectiveAvailable -= spaceForMenu + gap;
+    // effectiveAvailable -= spaceForMenu + gap;
 
     console.log(
       'effectiveAvailable:',
@@ -408,17 +417,38 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     // Decide visibility using frozen widths (walk from end)
     let acc = this.#totalWidth; //totalWidth;
     for (let i = this.items.length - 1; i >= 0; i--) {
-      const fits = acc <= effectiveAvailable; // Math.round(acc) <= Math.round(effectiveAvailable);
-      this.items[i].visible = fits;
+      // const fits = acc <= effectiveAvailable; // Math.round(acc) <= Math.round(effectiveAvailable);
+      // this.items[i].visible = fits;
+      // acc -= this.#widths[i] + gap;
+      this.items[i].visible = acc <= effectiveAvailable;
       acc -= this.#widths[i] + gap;
     }
 
     console.log('acc:', acc, 'gap', gap);
 
+    // // Apply padding to the last visible item instead of the wrapper
+    // let lastVisibleIndex = -1;
+    // for (let i = this.items.length - 1; i >= 0; i--) {
+    //   if (this.items[i].visible) {
+    //     lastVisibleIndex = i;
+    //     break;
+    //   }
+    // }
+
     // Apply DOM changes in one pass
     this.items.forEach(item => {
       item.element.style.display = item.visible ? '' : 'none';
+
+      // if (item.element instanceof HTMLElement) {
+      //   item.element.style.marginInlineEnd =
+      //     index === lastVisibleIndex && spaceForMenu
+      //       ? `${spaceForMenu + gap}px`
+      //       : '';
+      // }
     });
+
+    // Reserve space in the DOM so the menu button doesn't overlap the last visible item
+    // (wrapper as HTMLElement).style.paddingInlineEnd = spaceForMenu ? `${spaceForMenu}px` : '';
 
     this.menuItems = this.items.filter(item => !item.visible);
 
@@ -546,6 +576,21 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     // this.items.reverse();
     // this.items = [...this.items].reverse();
   } */ // TODO: maybe display: none instead of visibility hidden and no flex: 1 on the wrapper?
+
+  #getAvailableWidth(): number {
+    const hostWidth = this.getBoundingClientRect().width;
+    const parent = this.parentElement instanceof HTMLElement ? this.parentElement : null;
+
+    if (!parent) {
+      return hostWidth;
+    }
+
+    const parentStyles = getComputedStyle(parent);
+    const parentPadding = parseFloat(parentStyles.paddingLeft || '0') + parseFloat(parentStyles.paddingRight || '0');
+    const parentWidth = parent.getBoundingClientRect().width - parentPadding;
+
+    return Math.max(parentWidth, hostWidth);
+  }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }) {
     console.log('slotchange event:', event);

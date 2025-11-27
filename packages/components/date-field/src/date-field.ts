@@ -167,9 +167,10 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.#formatter = new Intl.DateTimeFormat(this.locale, this.dateTimeFormat);
     }
 
-    if (changes.has('value')) {
-      this.input.value = this.value && this.#formatter ? this.#formatter.format(this.value) : '';
-      this.updateValidity();
+    if (changes.has('required')) {
+      if (this.textField) {
+        this.textField.required = !!this.required;
+      }
     }
 
     if (changes.has('showValid') || changes.has('showValidity')) {
@@ -178,20 +179,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       }
     }
 
-    if (changes.has('required')) {
-      if (this.textField) {
-        this.textField.required = !!this.required;
-      }
-    }
-  }
-
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    if (changes.has('required')) {
-      if (this.textField) {
-        this.textField.required = !!this.required;
-      }
+    if (changes.has('value')) {
+      this.input.value = this.value && this.#formatter ? this.#formatter.format(this.value) : '';
+      this.updateValidity();
     }
   }
 

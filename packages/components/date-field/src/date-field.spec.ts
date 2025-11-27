@@ -346,34 +346,33 @@ describe('sl-date-field', () => {
       expect(wrapper?.matches(':popover-open')).to.be.false;
     });
 
-    it('should show calendar when button is clicked', async () => {
-      const button = el.renderRoot.querySelector('sl-field-button') as HTMLElement;
-      await userEvent.click(button);
-
+    it('should show calendar when button is clicked', () => {
       const wrapper = el.renderRoot.querySelector('[popover]');
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+
       expect(wrapper?.matches(':popover-open')).to.be.true;
     });
 
     it('should render calendar when popover is open', async () => {
-      const button = el.renderRoot.querySelector('sl-field-button') as HTMLElement;
-      await userEvent.click(button);
-      await el.updateComplete;
+      el.renderRoot.querySelector('sl-field-button')?.click();
 
-      const calendar = el.renderRoot.querySelector('sl-calendar');
-      expect(calendar).to.exist;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(el.renderRoot.querySelector('sl-calendar')).to.exist;
     });
 
     it('should not render calendar when popover is closed', () => {
-      const calendar = el.renderRoot.querySelector('sl-calendar');
-
-      expect(calendar).not.to.exist;
+      expect(el.renderRoot.querySelector('sl-calendar')).not.to.exist;
     });
 
     it('should set aria-expanded to true when popover opens', async () => {
-      const button = el.renderRoot.querySelector('sl-field-button') as HTMLElement;
-      input = el.querySelector('input')!;
+      const input = el.querySelector('input');
 
-      await userEvent.click(button);
+      expect(input).not.to.have.attribute('aria-expanded');
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
 
       expect(input).to.have.attribute('aria-expanded', 'true');
     });

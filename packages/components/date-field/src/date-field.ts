@@ -68,6 +68,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   @property({ type: Object, attribute: 'date-time-format' })
   dateTimeFormat: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'numeric', year: 'numeric' };
 
+  /** @internal The dialog element that is also the popover. */
+  @query('dialog') dialog?: HTMLDialogElement;
+
   /** Whether the date field is disabled; when set no interaction is possible. */
   @property({ type: Boolean }) override disabled?: boolean;
 
@@ -131,9 +134,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** The selected date in the calendar. */
   @property({ converter: dateConverter }) override value?: Date;
-
-  /** @internal The wrapper element that is also the popover. */
-  @query('[part="wrapper"]') wrapper?: HTMLSlotElement;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -212,7 +212,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         </sl-field-button>
       </sl-text-field>
 
-      <slot
+      <dialog
         ${anchor({
           element: this,
           offset: DateField.offset,
@@ -222,27 +222,27 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         @beforetoggle=${this.#onBeforeToggle}
         @toggle=${this.#onToggle}
         @keydown=${this.#onKeydown}
-        name="calendar"
-        part="wrapper"
+        id="dialog"
         popover
-        tabindex="-1"
       >
-        ${this.wrapper?.matches(':popover-open')
-          ? html`
-              <sl-calendar
-                @sl-change=${this.#onChange}
-                .selected=${this.value}
-                ?show-week-numbers=${this.showWeekNumbers}
-                first-day-of-week=${ifDefined(this.firstDayOfWeek)}
-                locale=${ifDefined(this.locale)}
-                max=${ifDefined(this.max?.toISOString())}
-                min=${ifDefined(this.min?.toISOString())}
-                month=${ifDefined(this.month?.toISOString())}
-                show-today
-              ></sl-calendar>
-            `
-          : nothing}
-      </slot>
+        <slot name="calendar">
+          ${this.dialog?.matches(':popover-open')
+            ? html`
+                <sl-calendar
+                  @sl-change=${this.#onChange}
+                  .selected=${this.value}
+                  ?show-week-numbers=${this.showWeekNumbers}
+                  first-day-of-week=${ifDefined(this.firstDayOfWeek)}
+                  locale=${ifDefined(this.locale)}
+                  max=${ifDefined(this.max?.toISOString())}
+                  min=${ifDefined(this.min?.toISOString())}
+                  month=${ifDefined(this.month?.toISOString())}
+                  show-today
+                ></sl-calendar>
+              `
+            : nothing}
+        </slot>
+      </dialog>
     `;
   }
 
@@ -258,7 +258,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   #onButtonClick(): void {
     // Prevents the popover from reopening immediately after it was just closed
     if (!this.#popoverJustClosed) {
-      this.wrapper?.togglePopover();
+      this.dialog?.togglePopover();
     }
   }
 
@@ -275,7 +275,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.updateState({ dirty: true });
     this.updateValidity();
 
-    this.wrapper?.hidePopover();
+    this.dialog?.hidePopover();
     this.input.focus();
   }
 

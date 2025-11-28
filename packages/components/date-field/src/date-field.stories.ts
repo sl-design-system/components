@@ -1,6 +1,7 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
+import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -129,6 +130,32 @@ export const Basic: Story = {};
 export const Disabled: Story = {
   args: {
     disabled: true
+  }
+};
+
+export const ExtraControls: Story = {
+  args: {
+    slot: () => {
+      const onClear = (): void => {};
+
+      const onToday = (): void => {};
+
+      return html`
+        <style>
+          sl-button.confirm {
+            margin-inline-start: auto;
+          }
+        </style>
+        <sl-button-bar variant="primary">
+          <sl-button @click=${onToday} fill="link">Today</sl-button>
+          <sl-button @click=${onClear} fill="link">Clear</sl-button>
+          <sl-button fill="solid" class="confirm">
+            Confirm
+            <sl-icon name="check"></sl-icon>
+          </sl-button>
+        </sl-button-bar>
+      `;
+    }
   }
 };
 

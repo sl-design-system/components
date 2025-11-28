@@ -117,6 +117,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         .month=${this.month}
         .selected=${this.selected}
         aria-hidden=${ifDefined(this.mode !== 'day' ? 'true' : undefined)}
+        autofocus
         first-day-of-week=${ifDefined(this.firstDayOfWeek)}
         locale=${ifDefined(this.locale)}
         max=${ifDefined(this.max?.toISOString())}

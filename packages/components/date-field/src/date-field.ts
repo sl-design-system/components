@@ -12,7 +12,7 @@ import {
   type SlSelectEvent
 } from '@sl-design-system/shared/events.js';
 import { FieldButton, TextField } from '@sl-design-system/text-field';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './date-field.scss.js';
@@ -226,21 +226,18 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         popover
       >
         <slot name="calendar">
-          ${this.dialog?.matches(':popover-open')
-            ? html`
-                <sl-calendar
-                  @sl-change=${this.#onChange}
-                  .selected=${this.value}
-                  ?show-week-numbers=${this.showWeekNumbers}
-                  first-day-of-week=${ifDefined(this.firstDayOfWeek)}
-                  locale=${ifDefined(this.locale)}
-                  max=${ifDefined(this.max?.toISOString())}
-                  min=${ifDefined(this.min?.toISOString())}
-                  month=${ifDefined(this.month?.toISOString())}
-                  show-today
-                ></sl-calendar>
-              `
-            : nothing}
+          <sl-calendar
+            @sl-change=${this.#onChange}
+            .selected=${this.value}
+            ?show-week-numbers=${this.showWeekNumbers}
+            first-day-of-week=${ifDefined(this.firstDayOfWeek)}
+            locale=${ifDefined(this.locale)}
+            max=${ifDefined(this.max?.toISOString())}
+            min=${ifDefined(this.min?.toISOString())}
+            month=${ifDefined(this.month?.toISOString())}
+            show-today
+          ></sl-calendar>
+          <slot></slot>
         </slot>
       </dialog>
     `;

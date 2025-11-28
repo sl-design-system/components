@@ -7,6 +7,11 @@
   pointer-events: none;
 }
 
+::slotted(sl-button-bar) {
+  gap: var(--sl-size-300);
+  margin: var(--sl-size-100) var(--sl-size-150);
+}
+
 dialog {
   background: var(--sl-elevation-surface-raised-default);
   border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
@@ -14,6 +19,7 @@ dialog {
   box-shadow: var(--sl-elevation-shadow-overlay);
   box-sizing: border-box;
   display: none;
+  gap: var(--sl-size-100);
   margin: 0;
   opacity: 0;
   padding: calc(var(--sl-size-050) - var(--sl-size-borderWidth-default));

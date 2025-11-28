@@ -422,6 +422,18 @@ describe('sl-date-field', () => {
       expect(calendar).to.have.attribute('show-today');
     });
 
+    it("should focus today's date when popover opens", async () => {
+      const calendar = el.renderRoot.querySelector('sl-calendar'),
+        selectDay = calendar?.shadowRoot?.querySelector('sl-select-day'),
+        monthView = selectDay?.shadowRoot?.querySelector('sl-month-view[autofocus]');
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      expect(monthView?.shadowRoot?.activeElement).to.exist;
+      expect(monthView?.shadowRoot?.activeElement).to.have.attribute('aria-current', 'date');
+    });
+
     it('should emit sl-change when calendar date is selected', async () => {
       const changeSpy = spy();
       el.addEventListener('sl-change', changeSpy);

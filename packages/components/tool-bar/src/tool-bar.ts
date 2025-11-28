@@ -89,6 +89,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
   #resizeTimeout?: ReturnType<typeof setTimeout>;
 
+  #breakResizeObserverLoop?: ReturnType<typeof setTimeout>;
+
   /**
    * The horizontal alignment within the tool-bar.
    * @default 'start'
@@ -135,7 +137,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
   #menuButtonSizeCache = 44; // menu button + gap
 
-  // #needsMeasurement = true;
+  #needsMeasurement = true;
 
   /** Use this if you want the menu button to use the "inverted" variant. */
   @property({ type: Boolean }) inverted?: boolean;
@@ -167,6 +169,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     // super.disconnectedCallback();
 
     clearTimeout(this.#resizeTimeout);
+    clearTimeout(this.#breakResizeObserverLoop);
     this.#resizeObserver.disconnect();
     this.#mutationObserver.disconnect();
 
@@ -301,6 +304,91 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   }
 
   #onResize(): void {
+    if (this.#breakResizeObserverLoop) {
+      return;
+    }
+
+    this.#breakResizeObserverLoop = setTimeout(() => {
+      try {
+        this.#performResize();
+      } finally {
+        this.#breakResizeObserverLoop = undefined;
+      }
+    }, 180);
+  }
+
+  #performResize(): void {
+    const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
+    if (!wrapper) {
+      return;
+    }
+
+    const requiresMeasurement =
+      this.#needsMeasurement ||
+      !this.#widths.length ||
+      this.#widths.length !== this.items.length ||
+      this.#totalWidth === 0;
+
+    if (requiresMeasurement) {
+      const previousDisplays = this.items.map(item => item.element.style.display);
+
+      this.items.forEach(item => {
+        item.element.style.display = '';
+      });
+
+      void wrapper.getBoundingClientRect();
+      this.#measureItems(wrapper);
+
+      previousDisplays.forEach((display, index) => {
+        const item = this.items[index];
+        if (item) {
+          item.element.style.display = display;
+        }
+      });
+
+      if (this.#needsMeasurement || !this.#widths.length || this.#widths.length !== this.items.length) {
+        return;
+      }
+    }
+
+    const availableWidth = this.#getAvailableWidth();
+    if (!availableWidth) {
+      return;
+    }
+
+    const previousVisibility = this.items.map(item => item.visible);
+    const gap = parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0;
+
+    let effectiveAvailable = availableWidth;
+
+    if (this.#totalWidth > availableWidth) {
+      const buttonSize = this.#menuButtonSize ?? this.#menuButtonSizeCache;
+      const wrapperHeight = Math.round(wrapper.getBoundingClientRect().height);
+
+      if (this.#menuButtonSize == null && wrapperHeight > 0) {
+        this.#menuButtonSizeCache = wrapperHeight + gap;
+      }
+
+      effectiveAvailable -= buttonSize + gap;
+    }
+
+    let acc = this.#totalWidth;
+    for (let i = this.items.length - 1; i >= 0; i--) {
+      this.items[i].visible = acc <= effectiveAvailable;
+      acc -= this.#widths[i] + gap;
+    }
+
+    const visibilityChanged = this.items.some((item, i) => item.visible !== previousVisibility[i]);
+    if (visibilityChanged) {
+      this.items.forEach(item => {
+        item.element.style.display = item.visible ? '' : 'none';
+      });
+
+      this.menuItems = this.items.filter(item => !item.visible);
+      this.requestUpdate('items');
+    }
+  }
+  /*  #onResize(): void {
     const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
     if (!wrapper) {
       return;
@@ -364,7 +452,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       this.menuItems = this.items.filter(item => !item.visible);
       this.requestUpdate('items');
     }
-  }
+  }*/
 
   // Robust availableWidth + precompute widths before mutating DOM
   /*  #onResize(): void {
@@ -644,6 +732,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     );
 
     return Math.min(Math.max(availableWidth, 0), hostWidth);
+    // return Math.max(hostWidth, Math.max(availableWidth, 0));
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }) {

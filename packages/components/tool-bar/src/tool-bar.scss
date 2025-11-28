@@ -67,6 +67,7 @@
   // flex-direction: row-reverse;
   gap: var(--sl-size-100);
   min-inline-size: 0;
+  overflow: clip;
 }
 
 :host([icon-only]) [part='wrapper'] {

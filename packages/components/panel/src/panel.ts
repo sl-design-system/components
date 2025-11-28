@@ -135,7 +135,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
             `
           : html`<div part="wrapper">${this.#renderHeading()}</div>`}
         <slot name="aside">
-          <sl-tool-bar align="end" no-border fill=${ifDefined(this.fill)}>
+          <sl-tool-bar align="end" no-border type=${ifDefined(this.fill)}>
             <slot @slotchange=${this.#onActionsSlotChange} name="actions"></slot>
           </sl-tool-bar>
         </slot>

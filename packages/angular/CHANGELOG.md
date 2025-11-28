@@ -2,6 +2,7 @@
 
 ## 3.4.0
 
+
 ### Minor Changes
 
 - [#2618](https://github.com/sl-design-system/components/pull/2618) [`1115612`](https://github.com/sl-design-system/components/commit/1115612e1fdf4ee38d9e484e92cc324e767f0e56) - Add support for `<sl-time-field>`:

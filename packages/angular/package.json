@@ -12,6 +12,11 @@
     "directory": "packages/angular"
   },
   "type": "module",
+  "peerDependencies": {
+    "@angular/common": "^19.0.0 || ^20.0.0 || ^21.0.0",
+    "@angular/core": "^19.0.0 || ^20.0.0 || ^21.0.0",
+    "typescript": ">=5.9.0 <6.0.0"
+  },
   "scripts": {
     "build": "wireit",
     "start": "wireit",

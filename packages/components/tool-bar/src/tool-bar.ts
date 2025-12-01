@@ -80,16 +80,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
   /** Observe changes to the size of the element. */
   // #resizeObserver = new ResizeObserver(entries => this.#onResize(entries.at(0)?.contentBoxSize.at(0)?.inlineSize ?? 0));
-  // #resizeObserver = new ResizeObserver(() => this.#onResize());
-
-  #resizeObserver = new ResizeObserver(() => {
-    clearTimeout(this.#resizeTimeout);
-    this.#resizeTimeout = setTimeout(() => this.#onResize(), 16);
-  });
-
-  #resizeTimeout?: ReturnType<typeof setTimeout>;
-
-  #breakResizeObserverLoop?: ReturnType<typeof setTimeout>;
+  #resizeObserver = new ResizeObserver(() => this.#onResize());
 
   /**
    * The horizontal alignment within the tool-bar.
@@ -154,22 +145,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       attributeFilter: ['aria-disabled', 'disabled']
     });
     this.#resizeObserver.observe(this);
-
-    if (this.parentElement) {
-      this.#resizeObserver.observe(this.parentElement);
-    }
   }
 
   override disconnectedCallback(): void {
-    // this.#resizeObserver.disconnect();
-
-    // this.#resizeObserver.disconnect();
-    // this.#mutationObserver.disconnect();
-    //
-    // super.disconnectedCallback();
-
-    clearTimeout(this.#resizeTimeout);
-    clearTimeout(this.#breakResizeObserverLoop);
     this.#resizeObserver.disconnect();
     this.#mutationObserver.disconnect();
 
@@ -303,215 +281,30 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     this.#updateMapping();
   }
 
-  #onResize(): void {
-    if (this.#breakResizeObserverLoop) {
-      return;
-    }
-
-    this.#breakResizeObserverLoop = setTimeout(() => {
-      try {
-        this.#performResize();
-      } finally {
-        this.#breakResizeObserverLoop = undefined;
-      }
-    }, 180);
-  }
-
-  #performResize(): void {
-    const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
-    if (!wrapper) {
-      return;
-    }
-
-    const requiresMeasurement =
-      this.#needsMeasurement ||
-      !this.#widths.length ||
-      this.#widths.length !== this.items.length ||
-      this.#totalWidth === 0;
-
-    if (requiresMeasurement) {
-      const previousDisplays = this.items.map(item => item.element.style.display);
-
-      this.items.forEach(item => {
-        item.element.style.display = '';
-      });
-
-      void wrapper.getBoundingClientRect();
-      this.#measureItems(wrapper);
-
-      previousDisplays.forEach((display, index) => {
-        const item = this.items[index];
-        if (item) {
-          item.element.style.display = display;
-        }
-      });
-
-      if (this.#needsMeasurement || !this.#widths.length || this.#widths.length !== this.items.length) {
-        return;
-      }
-    }
-
-    const availableWidth = this.#getAvailableWidth();
-    if (!availableWidth) {
-      return;
-    }
-
-    const previousVisibility = this.items.map(item => item.visible);
-    const gap = parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0;
-
-    let effectiveAvailable = availableWidth;
-
-    if (this.#totalWidth > availableWidth) {
-      const buttonSize = this.#menuButtonSize ?? this.#menuButtonSizeCache;
-      const wrapperHeight = Math.round(wrapper.getBoundingClientRect().height);
-
-      if (this.#menuButtonSize == null && wrapperHeight > 0) {
-        this.#menuButtonSizeCache = wrapperHeight + gap;
-      }
-
-      effectiveAvailable -= buttonSize + gap;
-    }
-
-    let acc = this.#totalWidth;
-    for (let i = this.items.length - 1; i >= 0; i--) {
-      this.items[i].visible = acc <= effectiveAvailable;
-      acc -= this.#widths[i] + gap;
-    }
-
-    const visibilityChanged = this.items.some((item, i) => item.visible !== previousVisibility[i]);
-    if (visibilityChanged) {
-      this.items.forEach(item => {
-        item.element.style.display = item.visible ? '' : 'none';
-      });
-
-      this.menuItems = this.items.filter(item => !item.visible);
-      this.requestUpdate('items');
-    }
-  }
-  /*  #onResize(): void {
-    const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
-    if (!wrapper) {
-      return;
-    }
-
-    // const availableWidth = this.getBoundingClientRect().width;
-    // if (!availableWidth) {
-    //   return;
-    // }
-
-    const availableWidth = this.#getAvailableWidth();
-    if (!availableWidth) {
-      return;
-    }
-
-    // Always temporarily show all items to get accurate measurements
-    const previousVisibility = this.items.map(item => item.visible);
-    this.items.forEach(item => {
-      item.element.style.display = '';
-    });
-
-    // Force layout
-    void wrapper.getBoundingClientRect();
-
-    // Re-measure all items
-    const gap = parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0;
-    this.#widths = this.items.map(item => item.element.getBoundingClientRect().width);
-    this.#totalWidth = this.#widths.reduce((sum, w, i) => sum + w + (i < this.#widths.length - 1 ? gap : 0), 0);
-
-    // Calculate effective available width
-    let effectiveAvailable = availableWidth;
-
-    console.log('this.#menuButtonSize', this.#menuButtonSize);
-
-    if (this.#totalWidth > availableWidth) {
-      const buttonSize = this.#menuButtonSize ?? this.#menuButtonSizeCache;
-      const wrapperHeight = Math.round(wrapper.getBoundingClientRect().height);
-
-      if (this.#menuButtonSize == null && wrapperHeight > 0) {
-        this.#menuButtonSizeCache = wrapperHeight + gap;
-      }
-
-      effectiveAvailable -= buttonSize + gap;
-    }
-
-    // Calculate visibility from end
-    let acc = this.#totalWidth;
-    for (let i = this.items.length - 1; i >= 0; i--) {
-      this.items[i].visible = acc <= effectiveAvailable;
-      acc -= this.#widths[i] + gap;
-    }
-
-    // Only update DOM if visibility changed
-    const visibilityChanged = this.items.some((item, i) => item.visible !== previousVisibility[i]);
-    console.log('visibilityChanged:', visibilityChanged);
-    if (visibilityChanged) {
-      this.items.forEach(item => {
-        item.element.style.display = item.visible ? '' : 'none';
-      });
-
-      this.menuItems = this.items.filter(item => !item.visible);
-      this.requestUpdate('items');
-    }
-  }*/
-
   // Robust availableWidth + precompute widths before mutating DOM
-  /*  #onResize(): void {
-// Force all items visible for accurate measurement
-    const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
-    if (!wrapper) {
-      return;
-    }
+  #onResize(): void {
+    // Use element's current width to avoid inconsistent ResizeObserver entry shapes.
+    const availableWidth = this.#getAvailableWidth(); // this.getBoundingClientRect().width;
 
-    // Re-measure if needed
-    if (this.#needsMeasurement || !this.#totalWidth || !this.#widths.length) {
-      // Temporarily show all items for measurement
-      this.items.forEach(item => {
-        item.element.style.display = '';
-      });
-
-      // Force a layout
-      void wrapper.getBoundingClientRect();
-
-      this.#measureItems(wrapper);
-    }
-
-    if (!this.#totalWidth || !this.#widths.length) {
-      return;
-    }
-
-    const availableWidth = this.#getAvailableWidth();
     if (!availableWidth) {
       return;
     }
 
-    if (!this.#totalWidth || !this.#widths.length) {
+    console.log('availableWidth:', availableWidth);
+
+    // const wrapper = this.renderRoot.querySelector('[part="wrapper"]')!;
+    // const gap = parseInt(getComputedStyle(wrapper).gap) || 0;
+
+    const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
+
+    if (!wrapper) {
       return;
     }
 
-
-    // // Use element's current width to avoid inconsistent ResizeObserver entry shapes.
-    // // const availableWidth = this.getBoundingClientRect().width;
-    // const availableWidth = this.#getAvailableWidth(); // this.getBoundingClientRect().width;
-    //
-    // if (!availableWidth) {
-    //   return;
-    // }
-    //
-    // console.log('availableWidth:', availableWidth);
-    //
-    // // const wrapper = this.renderRoot.querySelector('[part="wrapper"]')!;
-    // // const gap = parseInt(getComputedStyle(wrapper).gap) || 0;
-    //
-    // const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
-    //
-    // if (!wrapper) {
-    //   return;
-    // }
-    //
     const gap = parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0;
 
     // const gap = parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0;
-    // let reservedInlineEnd = 0;
+    // const reservedInlineEnd = 0;
 
     // Freeze widths so toggling display doesn't affect measurements
     // const widths = this.items.map(item => item.element.getBoundingClientRect().width);
@@ -522,11 +315,11 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     //
     // if (!totalWidth) return;
 
-    // if (this.#needsMeasurement || !this.#totalWidth || !this.#widths.length) {
-    //   this.#measureItems(wrapper);
-    // }
-    //
-    // if (!this.#totalWidth || !this.#widths.length) return;
+    if (this.#needsMeasurement || !this.#totalWidth || !this.#widths.length) {
+      this.#measureItems(wrapper);
+    }
+
+    if (!this.#totalWidth || !this.#widths.length) return;
 
     // this.#widths = widths;
     // this.#totalWidth = totalWidth;
@@ -538,7 +331,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       'Math.round(totalWidth) > Math.round(availableWidth)',
       // Math.round(totalWidth) > Math.round(availableWidth),
       // Math.round(totalWidth),
-     // Math.round(availableWidth),
+      // Math.round(availableWidth),
       'widths:',
       // widths,
       'this.#totalWidth:',
@@ -549,7 +342,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       this.#widths
     );
 
-    /!*
+    /*
     // Reserve space for menu button if needed
     let spaceForMenu = 0;
     if (Math.round(totalWidth) > Math.round(availableWidth)) {
@@ -574,19 +367,19 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     });
 
     this.requestUpdate('items');
-*!/
+*/
 
     // Reserve space for menu button if needed
-    /!*
+    /*
     let spaceForMenu = 0;
     if (this.#totalWidth > availableWidth /!*Math.round(this.#totalWidth) > Math.round(availableWidth)*!/) {
       spaceForMenu = Math.round(wrapper.getBoundingClientRect().height) + gap; // 44px
     }
     const effectiveAvailable = availableWidth - spaceForMenu - gap; // sometimes is the same as availableWidth, when menu is not visible
 
-*!/
+*/
 
-    let spaceForMenu = 0;
+    /*let spaceForMenu = 0;
     let effectiveAvailable = availableWidth;
 
     if (this.#totalWidth > availableWidth) {
@@ -629,9 +422,97 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       // acc -= this.#widths[i] + gap;
       this.items[i].visible = acc <= effectiveAvailable;
       acc -= this.#widths[i] + gap;
+    }*/
+
+    /*let spaceForMenu = 0;
+    let effectiveAvailable = availableWidth;
+
+// First pass: check if we need the overflow menu at all
+    if (this.#totalWidth > availableWidth) {
+      let buttonSize = this.#menuButtonSize ?? this.#menuButtonSizeCache;
+      const wrapperHeight = Math.round(wrapper.getBoundingClientRect().height);
+
+      if (this.#menuButtonSize == null && wrapperHeight > 0) {
+        this.#menuButtonSizeCache = wrapperHeight;
+        buttonSize = wrapperHeight;
+      }
+
+      spaceForMenu = buttonSize;
+      effectiveAvailable -= spaceForMenu + gap;
     }
 
-    console.log('acc:', acc, 'gap', gap);
+// Decide visibility using frozen widths (walk from end)
+    let acc = this.#totalWidth;
+    let visibleCount = 0;
+    for (let i = this.items.length - 1; i >= 0; i--) {
+      this.items[i].visible = acc <= effectiveAvailable;
+      if (this.items[i].visible) visibleCount++;
+      acc -= this.#widths[i] + gap;
+    }
+
+// // Second pass: if all items fit, recalculate without menu button space
+//     if (visibleCount === this.items.length && this.#totalWidth <= availableWidth) {
+//       effectiveAvailable = availableWidth;
+//       acc = this.#totalWidth;
+//       for (let i = this.items.length - 1; i >= 0; i--) {
+//         this.items[i].visible = acc <= effectiveAvailable;
+//         acc -= this.#widths[i] + gap;
+//       }
+//     }
+
+    // // Second pass: if all items became visible, check if we actually need the menu button
+    // if (visibleCount === this.items.length) {
+    //   effectiveAvailable = availableWidth;
+    //   acc = this.#totalWidth;
+    //   for (let i = this.items.length - 1; i >= 0; i--) {
+    //     this.items[i].visible = acc <= effectiveAvailable;
+    //     acc -= this.#widths[i] + gap;
+    //   }
+    // }
+
+    // Second pass: if all items became visible, check if we actually need the menu button
+    if (visibleCount === this.items.length) {
+      effectiveAvailable = availableWidth;
+      acc = 0;
+      for (let i = 0; i < this.items.length; i++) {
+        acc += this.#widths[i];
+        this.items[i].visible = acc <= effectiveAvailable;
+        if (i < this.items.length - 1) acc += gap;
+      }
+    }*/
+
+    // First pass: calculate visibility assuming no menu button
+    let acc = 0;
+    for (let i = 0; i < this.items.length; i++) {
+      acc += this.#widths[i];
+      this.items[i].visible = acc <= availableWidth;
+      if (i < this.items.length - 1) acc += gap;
+    }
+
+    // Check if we need the overflow menu
+    const allVisible = this.items.every(item => item.visible);
+
+    if (!allVisible) {
+      // Second pass: recalculate with space reserved for menu button
+      let buttonSize = this.#menuButtonSize ?? this.#menuButtonSizeCache;
+      const wrapperHeight = Math.round(wrapper.getBoundingClientRect().height);
+
+      if (this.#menuButtonSize == null && wrapperHeight > 0) {
+        this.#menuButtonSizeCache = wrapperHeight;
+        buttonSize = wrapperHeight;
+      }
+
+      const effectiveAvailable = availableWidth - buttonSize - gap;
+      acc = 0;
+
+      for (let i = 0; i < this.items.length; i++) {
+        acc += this.#widths[i];
+        this.items[i].visible = acc <= effectiveAvailable;
+        if (i < this.items.length - 1) acc += gap;
+      }
+    }
+
+    console.log('acc:', acc, 'gap', gap /*, 'effectiveAvailable:', effectiveAvailable*/);
 
     // // Apply padding to the last visible item instead of the wrapper
     // let lastVisibleIndex = -1;
@@ -645,42 +526,191 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     // Apply DOM changes in one pass
     this.items.forEach(item => {
       item.element.style.display = item.visible ? '' : 'none';
-
-      // if (item.element instanceof HTMLElement) {
-      //   item.element.style.marginInlineEnd =
-      //     index === lastVisibleIndex && spaceForMenu
-      //       ? `${spaceForMenu + gap}px`
-      //       : '';
-      // }
+      //
+      //   // if (item.element instanceof HTMLElement) {
+      //   //   item.element.style.marginInlineEnd =
+      //   //     index === lastVisibleIndex && spaceForMenu
+      //   //       ? `${spaceForMenu + gap}px`
+      //   //       : '';
+      //   // }
     });
 
+    // // Instead of display: none, use visibility + position to remove from layout
+    // this.items.forEach(item => {
+    //   if (item.visible) {
+    //     item.element.style.visibility = '';
+    //     item.element.style.position = '';
+    //   } else {
+    //     item.element.style.visibility = 'hidden';
+    //     item.element.style.position = 'absolute';
+    //   }
+    // });
+
+    // // Use the hidden attribute to remove items from layout
+    // this.items.forEach(item => {
+    //   item.element.toggleAttribute('hidden', !item.visible);
+    // });
+
+    // Hide items using CSS that removes them from layout
+    // this.items.forEach(item => {
+    //   if (item.visible) {
+    //     item.element.style.display = '';
+    //     item.element.style.visibility = '';
+    //     item.element.style.position = '';
+    //   } else {
+    //     item.element.style.display = 'none';
+    //   }
+    // });
+
     // Reserve space in the DOM so the menu button doesn't overlap the last visible item
-   // (wrapper as HTMLElement).style.paddingInlineEnd = spaceForMenu ? `${spaceForMenu}px` : '';
+    // (wrapper as HTMLElement).style.paddingInlineEnd = spaceForMenu ? `${spaceForMenu}px` : '';
 
     this.menuItems = this.items.filter(item => !item.visible);
 
+    console.log('menuItems:', this.menuItems, 'this.items:', this.items);
+
     this.requestUpdate('items');
-  }*/
+  }
+
+  /*  #onResize(availableWidth: number): void {
+    const wrapper = this.renderRoot.querySelector('[part="wrapper"]')!,
+      gap = parseInt(getComputedStyle(wrapper).gap);
+
+    // First calculate how much space we need for all the items, including gaps.
+    let totalWidth = this.items.reduce((sum, item, index) => {
+      return sum + item.element.getBoundingClientRect().width + (index < this.items.length - 1 ? gap : 0);
+    }, 0);
+
+    // If it doesn't fit, remove space for the menu button and its gap.
+    if (Math.round(totalWidth) > Math.round(availableWidth)) {
+      // The menu button has an aspect ratio of 1:1, so we can use the wrapper's height as the button width.
+      availableWidth -= wrapper.getBoundingClientRect().height + gap;
+    }
+
+    // Now iterate through the items and set their visibility based on the available width.
+    // this.items.toReversed().forEach(item => {
+    //   item.visible = Math.round(totalWidth) <= Math.round(availableWidth);
+    //   item.element.style.visibility = item.visible ? 'visible' : 'hidden';
+    //   // item.element.style.display = item.visible ? 'flex' : 'none';
+    //   // if (!item.visible) {
+    //   //   item.element.style.display = 'none';
+    //   // } else {
+    //   //   item.element.style.display = '';
+    //   // }
+    //
+    //   console.log('item visibility:', item, item.visible, totalWidth, availableWidth);
+    //
+    //   totalWidth -= item.element.getBoundingClientRect().width + gap;
+    // });
+
+    this.items.toReversed().forEach(item => {
+      item.visible = Math.round(totalWidth) <= Math.round(availableWidth);
+      item.element.style.visibility = item.visible ? 'visible' : 'hidden';
+      // item.element.style.display = item.visible ? 'flex' : 'none';
+      // if (!item.visible) {
+      //   item.element.style.display = 'none';
+      // } else {
+      //   item.element.style.display = '';
+      // }
+
+      console.log('item visibility:', item, item.visible, totalWidth, availableWidth);
+
+      totalWidth -= item.element.getBoundingClientRect().width + gap;
+
+      // requestAnimationFrame(() => {
+      //   if (!item.visible) {
+      //     item.element.style.display = 'none';
+      //   } else {
+      //     item.element.style.display = '';
+      //   }
+      // });
+      if (!item.visible) {
+        item.element.style.display = 'none';
+      } else {
+        item.element.style.display = '';
+      }
+    });
+
+    // this.items.toReversed();
+
+    // this.items.reverse();
+
+
+/!*    const wrapper = this.renderRoot.querySelector('[part="wrapper"]')!,
+      gap = parseInt(getComputedStyle(wrapper).gap) || 0;
+
+    // Precompute widths so toggling `display: none` doesn't affect measurements mid-loop.
+    const widths = this.items.map(item => item.element.getBoundingClientRect().width);
+
+    // First calculate how much space we need for all the items, including gaps.
+    let totalWidth = widths.reduce((sum, w, index) => {
+      return sum + w + (index < widths.length - 1 ? gap : 0);
+    }, 0);
+
+    // If it doesn't fit, remove space for the menu button and its gap.
+    if (Math.round(totalWidth) > Math.round(availableWidth)) {
+      // The menu button has an aspect ratio of 1:1, so we can use the wrapper's height as the button width.
+      availableWidth -= wrapper.getBoundingClientRect().height + gap;
+    }
+
+    // Now iterate through the items (from end) and set their visibility using `display`.
+    for (let i = this.items.length - 1; i >= 0; i--) {
+      const item = this.items[i];
+      const itemWidth = widths[i];
+
+      item.visible = Math.round(totalWidth) <= Math.round(availableWidth);
+      item.element.style.display = item.visible ? '' : 'none';
+
+      totalWidth -= itemWidth + gap;
+    }*!/
+
+    // this.items = [...this.items].reverse();
+    // this.items.forEach(item => this.appendChild(item.element));
+
+    requestAnimationFrame(() => {
+      this.requestUpdate('items');
+    });
+    // this.requestUpdate('items');
+
+    // this.items = [...this.items].reverse();
+    // this.items.forEach(item => this.appendChild(item.element));
+
+    console.log('items after resize:', this.items, [...this.items].reverse());
+
+    const hasOverflow = this.items.some(item => !item.visible);
+
+    console.log('hasOverflow:', hasOverflow);
+    //
+    // if (hasOverflow) {
+    //   // Reverse order so overflowed (hidden) items are moved to the end
+    //   this.items = [...this.items].reverse();
+    //   this.items.forEach(item => this.appendChild(item.element));
+    // } else {
+    //   // Keep original DOM order when nothing is overflowed
+    //   this.items.forEach(item => this.appendChild(item.element));
+    // }
+
+    // this.items.reverse();
+    // this.items = [...this.items].reverse();
+  } */ // TODO: maybe display: none instead of visibility hidden and no flex: 1 on the wrapper?
 
   #getAvailableWidth(): number {
-    //  const hostWidth = this.getBoundingClientRect().width;
-    //  const parent = this.parentElement instanceof HTMLElement ? this.parentElement : null;
+    // const hostWidth = this.getBoundingClientRect().width;
+    // const parent = this.parentElement instanceof HTMLElement ? this.parentElement : null;
     //
-    //  if (!parent) {
-    //    return hostWidth;
-    //  }
+    // if (!parent) {
+    //   return hostWidth;
+    // }
     //
-    //  const parentStyles = getComputedStyle(parent);
-    //  const parentPadding =
-    //    parseFloat(parentStyles.paddingLeft || '0') + parseFloat(parentStyles.paddingRight || '0');
-    //  const parentWidth = parent.getBoundingClientRect().width - parentPadding;
+    // const parentStyles = getComputedStyle(parent);
+    // const parentPadding =
+    //   parseFloat(parentStyles.paddingLeft || '0') + parseFloat(parentStyles.paddingRight || '0');
+    // const parentWidth = parent.getBoundingClientRect().width - parentPadding;
     //
-    //  console.log('hostWidth:', hostWidth, 'parentWidth:', parentWidth, 'parentPadding:', parentPadding);
-    //
-    //  // return hostWidth; //Math.max(parentWidth, hostWidth);
     // return Math.max(parentWidth, hostWidth);
 
-    const hostWidth = this.getBoundingClientRect().width;
+    // const hostWidth = this.renderRoot.querySelector('[part="wrapper"]')!.getBoundingClientRect().width; //this.getBoundingClientRect().width;
+    /*    const hostWidth = this.getBoundingClientRect().width;
     const parent = this.parentElement instanceof HTMLElement ? this.parentElement : null;
 
     if (!parent) {
@@ -688,51 +718,66 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     }
 
     const parentStyles = getComputedStyle(parent);
+    const parentPadding =
+      parseFloat(parentStyles.paddingLeft || '0') + parseFloat(parentStyles.paddingRight || '0');
+    const parentWidth = parent.getBoundingClientRect().width - parentPadding;
+
+    // Respect explicit inline-size constraints on the host element
+    return Math.min(Math.max(parentWidth, hostWidth), hostWidth);*/
+
+    /*    const hostWidth = this.getBoundingClientRect().width;
+    const parent = this.parentElement instanceof HTMLElement ? this.parentElement : null;
+
+    if (!parent) {
+      return hostWidth;
+    }
+
+    const parentStyles = getComputedStyle(parent);
+    const parentPadding =
+      parseFloat(parentStyles.paddingLeft || '0') + parseFloat(parentStyles.paddingRight || '0');
+    const parentWidth = parent.getBoundingClientRect().width - parentPadding;
+
+    // Account for the toolbar's own padding
+    const hostStyles = getComputedStyle(this);
+    const hostPadding =
+      parseFloat(hostStyles.paddingLeft || '0') + parseFloat(hostStyles.paddingRight || '0');
+
+    // Use the smaller of parent width and host width, then subtract host padding
+    return Math.min(parentWidth, hostWidth) - hostPadding;*/
+
+    const parent = this.parentElement instanceof HTMLElement ? this.parentElement : null;
+
+    if (!parent) {
+      const hostStyles = getComputedStyle(this);
+      const hostPadding = parseFloat(hostStyles.paddingLeft || '0') + parseFloat(hostStyles.paddingRight || '0');
+      return this.getBoundingClientRect().width - hostPadding;
+    }
+
+    const parentStyles = getComputedStyle(parent);
     const parentPadding = parseFloat(parentStyles.paddingLeft || '0') + parseFloat(parentStyles.paddingRight || '0');
     const parentWidth = parent.getBoundingClientRect().width - parentPadding;
 
-    // Calculate space taken by siblings
-    const siblings = Array.from(parent.children).filter(child => child !== this);
-    const siblingsWidth = siblings.reduce((sum, sibling) => {
-      return sum + sibling.getBoundingClientRect().width;
-    }, 0);
+    // Account for the toolbar's own padding
+    const hostStyles = getComputedStyle(this);
+    const hostPadding = parseFloat(hostStyles.paddingLeft || '0') + parseFloat(hostStyles.paddingRight || '0');
 
-    // Account for gap between flex/grid items if parent uses flex or grid
-    const parentDisplay = parentStyles.display;
-    let gapSpace = 0;
-    // if (parentDisplay.includes('flex') || parentDisplay.includes('grid')) {
-    //   const gap = parseFloat(parentStyles.gap || '0');
-    //   if (gap > 0 && siblings.length > 0) {
-    //     // gapSpace = gap * siblings.length;
-    //     gapSpace = gap * siblings.length; // One gap per sibling (gaps between all children)
-    //   }
-    // }
+    // Check if there's an explicit width constraint on the toolbar
+    const explicitWidth = parseFloat(hostStyles.inlineSize || hostStyles.width || '');
+    const maxWidth = parseFloat(hostStyles.maxInlineSize || hostStyles.maxWidth || '');
 
-    if (parentDisplay.includes('flex') || parentDisplay.includes('grid')) {
-      const gap = parseFloat(parentStyles.gap || '0');
-      if (gap > 0 && siblings.length > 0) {
-        // Gap appears between each child, so total gaps = number of children - 1
-        gapSpace = gap * siblings.length;
-      }
+    let availableWidth = parentWidth;
+
+    // Respect explicit size constraints
+    if (!isNaN(explicitWidth) && explicitWidth > 0) {
+      availableWidth = Math.min(availableWidth, explicitWidth);
+    }
+    if (!isNaN(maxWidth) && maxWidth > 0) {
+      availableWidth = Math.min(availableWidth, maxWidth);
     }
 
-    const availableWidth = parentWidth - siblingsWidth - gapSpace;
+    console.log('availableWidth calculation:', { parentWidth, explicitWidth, maxWidth, availableWidth, hostPadding });
 
-    console.log(
-      'hostWidth:',
-      hostWidth,
-      'parentWidth:',
-      parentWidth,
-      'siblingsWidth:',
-      siblingsWidth,
-      'gapSpace:',
-      gapSpace,
-      'availableWidth:',
-      availableWidth
-    );
-
-    return Math.min(Math.max(availableWidth, 0), hostWidth);
-    // return Math.max(hostWidth, Math.max(availableWidth, 0));
+    return availableWidth - hostPadding;
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }) {
@@ -821,27 +866,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     this.#needsMeasurement = true;
     console.log('updated items mapping:', this.items);
 
-    // TODO: sth is wrong here... elements are not always hidden to the overflow menu in the right, proper order
-
-    // // Reconnect the resize observer to ensure we measure the correct widths
-    // this.#resizeObserver.disconnect();
-    // this.#resizeObserver.observe(this);
-
-    // // Reconnect the resize observer to ensure we measure the correct widths
-    // this.#resizeObserver.disconnect();
-    // this.#resizeObserver.observe(this);
-    // if (this.parentElement) {
-    //   this.#resizeObserver.observe(this.parentElement);
-    // }
+    // Reconnect the resize observer to ensure we measure the correct widths
     this.#resizeObserver.disconnect();
     this.#resizeObserver.observe(this);
-    if (this.parentElement) {
-      this.#resizeObserver.observe(this.parentElement);
-    }
-
-    // Trigger immediate measurement with longer delay to ensure DOM is ready
-    clearTimeout(this.#resizeTimeout);
-    this.#resizeTimeout = setTimeout(() => this.#onResize(), 50);
   }
 
   #measureItems(wrapper: Element): void {

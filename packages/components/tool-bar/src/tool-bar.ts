@@ -565,7 +565,20 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     // Reserve space in the DOM so the menu button doesn't overlap the last visible item
     // (wrapper as HTMLElement).style.paddingInlineEnd = spaceForMenu ? `${spaceForMenu}px` : '';
 
+    // this.menuItems = this.items.filter(item => !item.visible);
+    //
+    // console.log('menuItems:', this.menuItems, 'this.items:', this.items);
+    //
+    // this.requestUpdate('items');
+
     this.menuItems = this.items.filter(item => !item.visible);
+
+    // Check if all items are hidden and update menu button class
+    const allHidden = this.items.every(item => !item.visible);
+    requestAnimationFrame(() => {
+      const menuButton = this.renderRoot.querySelector('sl-menu-button');
+      menuButton?.classList.toggle('all-hidden', allHidden);
+    });
 
     console.log('menuItems:', this.menuItems, 'this.items:', this.items);
 

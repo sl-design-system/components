@@ -78,8 +78,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** Observe changes to the child elements. */
   #mutationObserver = new MutationObserver(() => this.#updateMapping());
 
-  /** Observe changes to the size of the element. */
-  // #resizeObserver = new ResizeObserver(entries => this.#onResize(entries.at(0)?.contentBoxSize.at(0)?.inlineSize ?? 0));
+  /** Observe changes to the size of the host element. */
   #resizeObserver = new ResizeObserver(() => this.#onResize());
 
   /**
@@ -130,6 +129,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
   #needsMeasurement = true;
 
+  #lastAvailableWidth = 0;
+
   /** Use this if you want the menu button to use the "inverted" variant. */
   @property({ type: Boolean }) inverted?: boolean;
 
@@ -144,7 +145,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       attributes: true,
       attributeFilter: ['aria-disabled', 'disabled']
     });
-    this.#resizeObserver.observe(this);
   }
 
   override disconnectedCallback(): void {
@@ -197,20 +197,17 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
   override firstUpdated(): void {
     requestAnimationFrame(() => {
-      // const wrapper = this.renderRoot.querySelector('[part="wrapper"]')!;
-      // const gap = parseInt(getComputedStyle(wrapper).gap) || 0;
-
       const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
-      // const gap = wrapper instanceof Element ? parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0 : 0;
-
-      // this.#widths = this.items.map(item => item.element.getBoundingClientRect().width);
-      // this.#totalWidth = this.#widths.reduce((sum, w, i) => sum + w + (i < this.#widths.length - 1 ? gap : 0), 0);
 
       console.log('firstUpdated totalWidth:', this.#totalWidth, this.#widths);
 
       if (wrapper) {
         this.#measureItems(wrapper);
       }
+
+      // Observe the host element for size changes
+      // The host is what has flex constraints from parent containers
+      this.#resizeObserver.observe(this);
     });
   }
 
@@ -291,9 +288,15 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     const gap = parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0;
 
-    if (this.#needsMeasurement || !this.#totalWidth || !this.#widths.length) {
+    // If available width has changed significantly, re-measure to get accurate item widths
+    // This is important when items were hidden and now there's more space, or when parent constraints change
+    const widthChanged = Math.abs(availableWidth - this.#lastAvailableWidth) > 5; // 5px threshold to avoid jitter
+
+    if (this.#needsMeasurement || !this.#totalWidth || !this.#widths.length || widthChanged) {
       this.#measureItems(wrapper);
     }
+
+    this.#lastAvailableWidth = availableWidth;
 
     if (!this.#totalWidth || !this.#widths.length) return;
 
@@ -365,39 +368,19 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   }
 
   #getAvailableWidth(): number {
-    const parent = this.parentElement instanceof HTMLElement ? this.parentElement : null;
+    // The host element's bounding box width reflects all CSS constraints
+    // including flex containers, max-inline-size, and parent constraints
+    const hostWidth = this.getBoundingClientRect().width;
 
-    if (!parent) {
-      const hostStyles = getComputedStyle(this);
-      const hostPadding = parseFloat(hostStyles.paddingLeft || '0') + parseFloat(hostStyles.paddingRight || '0');
-      return this.getBoundingClientRect().width - hostPadding;
-    }
-
-    const parentStyles = getComputedStyle(parent);
-    const parentPadding = parseFloat(parentStyles.paddingLeft || '0') + parseFloat(parentStyles.paddingRight || '0');
-    const parentWidth = parent.getBoundingClientRect().width - parentPadding;
-
-    // Account for the toolbar's own padding
+    // Account for any padding on the host element
     const hostStyles = getComputedStyle(this);
     const hostPadding = parseFloat(hostStyles.paddingLeft || '0') + parseFloat(hostStyles.paddingRight || '0');
 
-    // Check if there's an explicit width constraint on the toolbar
-    const explicitWidth = parseFloat(hostStyles.inlineSize || hostStyles.width || '');
-    const maxWidth = parseFloat(hostStyles.maxInlineSize || hostStyles.maxWidth || '');
+    const availableWidth = hostWidth - hostPadding;
 
-    let availableWidth = parentWidth;
+    console.log('availableWidth calculation:', { hostWidth, hostPadding, availableWidth });
 
-    // Respect explicit size constraints
-    if (!isNaN(explicitWidth) && explicitWidth > 0) {
-      availableWidth = Math.min(availableWidth, explicitWidth);
-    }
-    if (!isNaN(maxWidth) && maxWidth > 0) {
-      availableWidth = Math.min(availableWidth, maxWidth);
-    }
-
-    console.log('availableWidth calculation:', { parentWidth, explicitWidth, maxWidth, availableWidth, hostPadding });
-
-    return availableWidth - hostPadding;
+    return availableWidth;
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }) {
@@ -464,7 +447,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     this.#needsMeasurement = true;
     console.log('updated items mapping:', this.items);
 
-    // Reconnect the resize observer to ensure we measure the correct widths
+    // Reconnect the resize observer to the host
     this.#resizeObserver.disconnect();
     this.#resizeObserver.observe(this);
   }
@@ -476,8 +459,22 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     }
 
     const gap = parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0;
+
+    // Temporarily show all items to get accurate measurements
+    const previousDisplayValues: string[] = [];
+    this.items.forEach((item, i) => {
+      previousDisplayValues[i] = item.element.style.display;
+      item.element.style.display = '';
+    });
+
     this.#widths = this.items.map(item => item.element.getBoundingClientRect().width);
     this.#totalWidth = this.#widths.reduce((sum, w, i) => sum + w + (i < this.#widths.length - 1 ? gap : 0), 0);
+
+    // Restore previous display values
+    this.items.forEach((item, i) => {
+      item.element.style.display = previousDisplayValues[i];
+    });
+
     this.#needsMeasurement = false;
   }
 

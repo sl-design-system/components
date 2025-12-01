@@ -193,15 +193,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         });
       });
     }
-
-    // // const wrapper = this.renderRoot.querySelector('[part="wrapper"]')!;
-    // // const gap = parseInt(getComputedStyle(wrapper).gap) || 0;
-    //
-    // const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
-    // const gap = wrapper instanceof Element ? parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0 : 0;
-    //
-    // const widths = this.items.map(item => item.element.getBoundingClientRect().width);
-    // this.#totalWidth = widths.reduce((sum, w, i) => sum + w + (i < widths.length - 1 ? gap : 0), 0);
   }
 
   override firstUpdated(): void {
@@ -292,9 +283,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     console.log('availableWidth:', availableWidth);
 
-    // const wrapper = this.renderRoot.querySelector('[part="wrapper"]')!;
-    // const gap = parseInt(getComputedStyle(wrapper).gap) || 0;
-
     const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
 
     if (!wrapper) {
@@ -303,29 +291,11 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     const gap = parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0;
 
-    // const gap = parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0;
-    // const reservedInlineEnd = 0;
-
-    // Freeze widths so toggling display doesn't affect measurements
-    // const widths = this.items.map(item => item.element.getBoundingClientRect().width);
-    // const totalWidth = this.#widths.reduce((sum, w, i) => sum + w + (i < this.#widths.length - 1 ? gap : 0), 0);
-
-    // const widths = this.items.map(item => item.element.getBoundingClientRect().width);
-    // const totalWidth = widths.reduce((sum, w, i) => sum + w + (i < widths.length - 1 ? gap : 0), 0);
-    //
-    // if (!totalWidth) return;
-
     if (this.#needsMeasurement || !this.#totalWidth || !this.#widths.length) {
       this.#measureItems(wrapper);
     }
 
     if (!this.#totalWidth || !this.#widths.length) return;
-
-    // this.#widths = widths;
-    // this.#totalWidth = totalWidth;
-
-    // this.#widths = widths;
-    // this.#totalWidth = totalWidth;
 
     console.log(
       'Math.round(totalWidth) > Math.round(availableWidth)',
@@ -341,145 +311,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       'this.#widths:',
       this.#widths
     );
-
-    /*
-    // Reserve space for menu button if needed
-    let spaceForMenu = 0;
-    if (Math.round(totalWidth) > Math.round(availableWidth)) {
-      spaceForMenu = Math.round(wrapper.getBoundingClientRect().height) + gap;
-    }
-    const effectiveAvailable = availableWidth - spaceForMenu; // sometimes is the same as availableWidth, when menu is not visible
-
-    console.log('effectiveAvailable:', effectiveAvailable, 'spaceForMenu:', spaceForMenu);
-
-// Decide visibility using frozen widths (walk from end)
-    this.#totalWidth = totalWidth;
-    let acc = totalWidth;
-    for (let i = this.items.length - 1; i >= 0; i--) {
-      const fits = Math.round(acc) <= Math.round(effectiveAvailable);
-      this.items[i].visible = fits;
-      acc -= widths[i] + gap;
-    }
-
-// Apply DOM changes in one pass
-    this.items.forEach(item => {
-      item.element.style.display = item.visible ? '' : 'none';
-    });
-
-    this.requestUpdate('items');
-*/
-
-    // Reserve space for menu button if needed
-    /*
-    let spaceForMenu = 0;
-    if (this.#totalWidth > availableWidth /!*Math.round(this.#totalWidth) > Math.round(availableWidth)*!/) {
-      spaceForMenu = Math.round(wrapper.getBoundingClientRect().height) + gap; // 44px
-    }
-    const effectiveAvailable = availableWidth - spaceForMenu - gap; // sometimes is the same as availableWidth, when menu is not visible
-
-*/
-
-    /*let spaceForMenu = 0;
-    let effectiveAvailable = availableWidth;
-
-    if (this.#totalWidth > availableWidth) {
-      let buttonSize = this.#menuButtonSize ?? this.#menuButtonSizeCache;
-      const wrapperHeight = Math.round(wrapper.getBoundingClientRect().height);
-
-      if (this.#menuButtonSize == null && wrapperHeight > 0) {
-        this.#menuButtonSizeCache = wrapperHeight;
-        buttonSize = wrapperHeight;
-      }
-
-      spaceForMenu = buttonSize; // + gap;
-      effectiveAvailable -= spaceForMenu + gap;
-
-      // spaceForMenu = buttonSize;
-      // reservedInlineEnd = spaceForMenu + gap;
-      // effectiveAvailable -= reservedInlineEnd;
-    }
-    // const effectiveAvailable = availableWidth - spaceForMenu - gap;
-
-    // effectiveAvailable -= spaceForMenu + gap;
-
-    console.log(
-      'effectiveAvailable:',
-      effectiveAvailable,
-      'spaceForMenu:',
-      spaceForMenu,
-      this.#totalWidth > availableWidth,
-      'this.#totalWidth:',
-      this.#totalWidth,
-      'availableWidth:',
-      availableWidth
-    );
-
-    // Decide visibility using frozen widths (walk from end)
-    let acc = this.#totalWidth; //totalWidth;
-    for (let i = this.items.length - 1; i >= 0; i--) {
-      // const fits = acc <= effectiveAvailable; // Math.round(acc) <= Math.round(effectiveAvailable);
-      // this.items[i].visible = fits;
-      // acc -= this.#widths[i] + gap;
-      this.items[i].visible = acc <= effectiveAvailable;
-      acc -= this.#widths[i] + gap;
-    }*/
-
-    /*let spaceForMenu = 0;
-    let effectiveAvailable = availableWidth;
-
-// First pass: check if we need the overflow menu at all
-    if (this.#totalWidth > availableWidth) {
-      let buttonSize = this.#menuButtonSize ?? this.#menuButtonSizeCache;
-      const wrapperHeight = Math.round(wrapper.getBoundingClientRect().height);
-
-      if (this.#menuButtonSize == null && wrapperHeight > 0) {
-        this.#menuButtonSizeCache = wrapperHeight;
-        buttonSize = wrapperHeight;
-      }
-
-      spaceForMenu = buttonSize;
-      effectiveAvailable -= spaceForMenu + gap;
-    }
-
-// Decide visibility using frozen widths (walk from end)
-    let acc = this.#totalWidth;
-    let visibleCount = 0;
-    for (let i = this.items.length - 1; i >= 0; i--) {
-      this.items[i].visible = acc <= effectiveAvailable;
-      if (this.items[i].visible) visibleCount++;
-      acc -= this.#widths[i] + gap;
-    }
-
-// // Second pass: if all items fit, recalculate without menu button space
-//     if (visibleCount === this.items.length && this.#totalWidth <= availableWidth) {
-//       effectiveAvailable = availableWidth;
-//       acc = this.#totalWidth;
-//       for (let i = this.items.length - 1; i >= 0; i--) {
-//         this.items[i].visible = acc <= effectiveAvailable;
-//         acc -= this.#widths[i] + gap;
-//       }
-//     }
-
-    // // Second pass: if all items became visible, check if we actually need the menu button
-    // if (visibleCount === this.items.length) {
-    //   effectiveAvailable = availableWidth;
-    //   acc = this.#totalWidth;
-    //   for (let i = this.items.length - 1; i >= 0; i--) {
-    //     this.items[i].visible = acc <= effectiveAvailable;
-    //     acc -= this.#widths[i] + gap;
-    //   }
-    // }
-
-    // Second pass: if all items became visible, check if we actually need the menu button
-    if (visibleCount === this.items.length) {
-      effectiveAvailable = availableWidth;
-      acc = 0;
-      for (let i = 0; i < this.items.length; i++) {
-        acc += this.#widths[i];
-        this.items[i].visible = acc <= effectiveAvailable;
-        if (i < this.items.length - 1) acc += gap;
-      }
-    }*/
 
     // First pass: calculate visibility assuming no menu button
     let acc = 0;
@@ -514,62 +345,10 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     console.log('acc:', acc, 'gap', gap /*, 'effectiveAvailable:', effectiveAvailable*/);
 
-    // // Apply padding to the last visible item instead of the wrapper
-    // let lastVisibleIndex = -1;
-    // for (let i = this.items.length - 1; i >= 0; i--) {
-    //   if (this.items[i].visible) {
-    //     lastVisibleIndex = i;
-    //     break;
-    //   }
-    // }
-
     // Apply DOM changes in one pass
     this.items.forEach(item => {
       item.element.style.display = item.visible ? '' : 'none';
-      //
-      //   // if (item.element instanceof HTMLElement) {
-      //   //   item.element.style.marginInlineEnd =
-      //   //     index === lastVisibleIndex && spaceForMenu
-      //   //       ? `${spaceForMenu + gap}px`
-      //   //       : '';
-      //   // }
     });
-
-    // // Instead of display: none, use visibility + position to remove from layout
-    // this.items.forEach(item => {
-    //   if (item.visible) {
-    //     item.element.style.visibility = '';
-    //     item.element.style.position = '';
-    //   } else {
-    //     item.element.style.visibility = 'hidden';
-    //     item.element.style.position = 'absolute';
-    //   }
-    // });
-
-    // // Use the hidden attribute to remove items from layout
-    // this.items.forEach(item => {
-    //   item.element.toggleAttribute('hidden', !item.visible);
-    // });
-
-    // Hide items using CSS that removes them from layout
-    // this.items.forEach(item => {
-    //   if (item.visible) {
-    //     item.element.style.display = '';
-    //     item.element.style.visibility = '';
-    //     item.element.style.position = '';
-    //   } else {
-    //     item.element.style.display = 'none';
-    //   }
-    // });
-
-    // Reserve space in the DOM so the menu button doesn't overlap the last visible item
-    // (wrapper as HTMLElement).style.paddingInlineEnd = spaceForMenu ? `${spaceForMenu}px` : '';
-
-    // this.menuItems = this.items.filter(item => !item.visible);
-    //
-    // console.log('menuItems:', this.menuItems, 'this.items:', this.items);
-    //
-    // this.requestUpdate('items');
 
     this.menuItems = this.items.filter(item => !item.visible);
 
@@ -585,179 +364,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     this.requestUpdate('items');
   }
 
-  /*  #onResize(availableWidth: number): void {
-    const wrapper = this.renderRoot.querySelector('[part="wrapper"]')!,
-      gap = parseInt(getComputedStyle(wrapper).gap);
-
-    // First calculate how much space we need for all the items, including gaps.
-    let totalWidth = this.items.reduce((sum, item, index) => {
-      return sum + item.element.getBoundingClientRect().width + (index < this.items.length - 1 ? gap : 0);
-    }, 0);
-
-    // If it doesn't fit, remove space for the menu button and its gap.
-    if (Math.round(totalWidth) > Math.round(availableWidth)) {
-      // The menu button has an aspect ratio of 1:1, so we can use the wrapper's height as the button width.
-      availableWidth -= wrapper.getBoundingClientRect().height + gap;
-    }
-
-    // Now iterate through the items and set their visibility based on the available width.
-    // this.items.toReversed().forEach(item => {
-    //   item.visible = Math.round(totalWidth) <= Math.round(availableWidth);
-    //   item.element.style.visibility = item.visible ? 'visible' : 'hidden';
-    //   // item.element.style.display = item.visible ? 'flex' : 'none';
-    //   // if (!item.visible) {
-    //   //   item.element.style.display = 'none';
-    //   // } else {
-    //   //   item.element.style.display = '';
-    //   // }
-    //
-    //   console.log('item visibility:', item, item.visible, totalWidth, availableWidth);
-    //
-    //   totalWidth -= item.element.getBoundingClientRect().width + gap;
-    // });
-
-    this.items.toReversed().forEach(item => {
-      item.visible = Math.round(totalWidth) <= Math.round(availableWidth);
-      item.element.style.visibility = item.visible ? 'visible' : 'hidden';
-      // item.element.style.display = item.visible ? 'flex' : 'none';
-      // if (!item.visible) {
-      //   item.element.style.display = 'none';
-      // } else {
-      //   item.element.style.display = '';
-      // }
-
-      console.log('item visibility:', item, item.visible, totalWidth, availableWidth);
-
-      totalWidth -= item.element.getBoundingClientRect().width + gap;
-
-      // requestAnimationFrame(() => {
-      //   if (!item.visible) {
-      //     item.element.style.display = 'none';
-      //   } else {
-      //     item.element.style.display = '';
-      //   }
-      // });
-      if (!item.visible) {
-        item.element.style.display = 'none';
-      } else {
-        item.element.style.display = '';
-      }
-    });
-
-    // this.items.toReversed();
-
-    // this.items.reverse();
-
-
-/!*    const wrapper = this.renderRoot.querySelector('[part="wrapper"]')!,
-      gap = parseInt(getComputedStyle(wrapper).gap) || 0;
-
-    // Precompute widths so toggling `display: none` doesn't affect measurements mid-loop.
-    const widths = this.items.map(item => item.element.getBoundingClientRect().width);
-
-    // First calculate how much space we need for all the items, including gaps.
-    let totalWidth = widths.reduce((sum, w, index) => {
-      return sum + w + (index < widths.length - 1 ? gap : 0);
-    }, 0);
-
-    // If it doesn't fit, remove space for the menu button and its gap.
-    if (Math.round(totalWidth) > Math.round(availableWidth)) {
-      // The menu button has an aspect ratio of 1:1, so we can use the wrapper's height as the button width.
-      availableWidth -= wrapper.getBoundingClientRect().height + gap;
-    }
-
-    // Now iterate through the items (from end) and set their visibility using `display`.
-    for (let i = this.items.length - 1; i >= 0; i--) {
-      const item = this.items[i];
-      const itemWidth = widths[i];
-
-      item.visible = Math.round(totalWidth) <= Math.round(availableWidth);
-      item.element.style.display = item.visible ? '' : 'none';
-
-      totalWidth -= itemWidth + gap;
-    }*!/
-
-    // this.items = [...this.items].reverse();
-    // this.items.forEach(item => this.appendChild(item.element));
-
-    requestAnimationFrame(() => {
-      this.requestUpdate('items');
-    });
-    // this.requestUpdate('items');
-
-    // this.items = [...this.items].reverse();
-    // this.items.forEach(item => this.appendChild(item.element));
-
-    console.log('items after resize:', this.items, [...this.items].reverse());
-
-    const hasOverflow = this.items.some(item => !item.visible);
-
-    console.log('hasOverflow:', hasOverflow);
-    //
-    // if (hasOverflow) {
-    //   // Reverse order so overflowed (hidden) items are moved to the end
-    //   this.items = [...this.items].reverse();
-    //   this.items.forEach(item => this.appendChild(item.element));
-    // } else {
-    //   // Keep original DOM order when nothing is overflowed
-    //   this.items.forEach(item => this.appendChild(item.element));
-    // }
-
-    // this.items.reverse();
-    // this.items = [...this.items].reverse();
-  } */ // TODO: maybe display: none instead of visibility hidden and no flex: 1 on the wrapper?
-
   #getAvailableWidth(): number {
-    // const hostWidth = this.getBoundingClientRect().width;
-    // const parent = this.parentElement instanceof HTMLElement ? this.parentElement : null;
-    //
-    // if (!parent) {
-    //   return hostWidth;
-    // }
-    //
-    // const parentStyles = getComputedStyle(parent);
-    // const parentPadding =
-    //   parseFloat(parentStyles.paddingLeft || '0') + parseFloat(parentStyles.paddingRight || '0');
-    // const parentWidth = parent.getBoundingClientRect().width - parentPadding;
-    //
-    // return Math.max(parentWidth, hostWidth);
-
-    // const hostWidth = this.renderRoot.querySelector('[part="wrapper"]')!.getBoundingClientRect().width; //this.getBoundingClientRect().width;
-    /*    const hostWidth = this.getBoundingClientRect().width;
-    const parent = this.parentElement instanceof HTMLElement ? this.parentElement : null;
-
-    if (!parent) {
-      return hostWidth;
-    }
-
-    const parentStyles = getComputedStyle(parent);
-    const parentPadding =
-      parseFloat(parentStyles.paddingLeft || '0') + parseFloat(parentStyles.paddingRight || '0');
-    const parentWidth = parent.getBoundingClientRect().width - parentPadding;
-
-    // Respect explicit inline-size constraints on the host element
-    return Math.min(Math.max(parentWidth, hostWidth), hostWidth);*/
-
-    /*    const hostWidth = this.getBoundingClientRect().width;
-    const parent = this.parentElement instanceof HTMLElement ? this.parentElement : null;
-
-    if (!parent) {
-      return hostWidth;
-    }
-
-    const parentStyles = getComputedStyle(parent);
-    const parentPadding =
-      parseFloat(parentStyles.paddingLeft || '0') + parseFloat(parentStyles.paddingRight || '0');
-    const parentWidth = parent.getBoundingClientRect().width - parentPadding;
-
-    // Account for the toolbar's own padding
-    const hostStyles = getComputedStyle(this);
-    const hostPadding =
-      parseFloat(hostStyles.paddingLeft || '0') + parseFloat(hostStyles.paddingRight || '0');
-
-    // Use the smaller of parent width and host width, then subtract host padding
-    return Math.min(parentWidth, hostWidth) - hostPadding;*/
-
     const parent = this.parentElement instanceof HTMLElement ? this.parentElement : null;
 
     if (!parent) {
@@ -806,24 +413,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       event.target.assignedElements({ flatten: true }).forEach(el => el.toggleAttribute('disabled', this.disabled));
     }
 
-    // TODO: set for each sl-button inside the slot the fill to this.type
-
-    // // set for each sl-button inside the slot the fill to this.type
-    // assigned.forEach(el => {
-    //   // include direct sl-button elements and any nested sl-button elements
-    //   const buttons: Element[] = [];
-    //   if (el.tagName === 'SL-BUTTON') buttons.push(el);
-    //   buttons.push(...Array.from(el.querySelectorAll('sl-button')));
-    //
-    //   buttons.forEach(btn => {
-    //     if (typeof this.type === 'string' && this.type.length) {
-    //       btn.setAttribute('fill', this.type);
-    //     } else {
-    //       btn.removeAttribute('fill');
-    //     }
-    //   });
-    // });
-
     // set for each sl-button and sl-menu-button inside the slot the fill to this.type
     assigned.forEach(el => {
       const targets: Element[] = [];
@@ -839,9 +428,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       targets.forEach(btn => {
         if (this.type) {
           btn.setAttribute('fill', this.type);
-        } /*else {
-          btn.removeAttribute('fill');
-        }*/
+        }
       });
     });
 
@@ -864,9 +451,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
           return this.#mapButtonToItem(element);
         } else if (element instanceof MenuButton) {
           return this.#mapMenuButtonToItem(element);
-        } /* else if (element instanceof ToggleGroup) {
-          return this.#mapToggleGroupToItem(element);
-        }*/ else if (element instanceof ToolBarDivider) {
+        } else if (element instanceof ToolBarDivider) {
           return { element, type: 'divider' };
         } else if (!['SL-TOOLTIP'].includes(element.tagName)) {
           console.warn(`Unknown element type: ${element.tagName} in sl-tool-bar.`);
@@ -921,7 +506,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       element: button,
       type: 'button',
       disabled: button.hasAttribute('disabled') || button.getAttribute('aria-disabled') === 'true',
-      // fill: button.getAttribute('aria-disabled') as ButtonFill | undefined, // this.type,
       icon: button.querySelector('sl-icon')?.getAttribute('name'),
       label,
       selectable: button.hasAttribute('aria-pressed'),
@@ -931,10 +515,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   }
 
   #mapMenuButtonToItem(menuButton: MenuButton): ToolBarItemMenu {
-    // let label: string | undefined =
-    //   menuButton.querySelector('[slot="button"]')?.getAttribute('aria-label') ||
-    //   menuButton.querySelector('[slot="button"]')?.textContent?.trim();
-
     let label: string | undefined =
       menuButton.renderRoot.querySelector('sl-button')?.getAttribute('aria-label') ||
       menuButton.querySelector('[slot="button"]')?.textContent?.trim();
@@ -981,17 +561,4 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       visible: true
     };
   }
-
-  /*  #mapToggleGroupToItem(group: ToggleGroup): ToolBarItemGroup {
-    return {
-      element: group,
-      type: 'group',
-      label: group.getAttribute('aria-label'),
-      buttons: Array.from(group.children)
-        .filter(el => !(el instanceof Tooltip))
-        .map(button => this.#mapButtonToItem(button as HTMLElement)),
-      selects: group.multiple ? 'multiple' : 'single',
-      visible: true
-    };
-  } // TODO: we don't need this one...*/
 }

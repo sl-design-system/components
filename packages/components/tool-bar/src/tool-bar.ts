@@ -171,6 +171,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('items')) {
       this.menuItems = this.items.filter(item => !item.visible);
+      console.log('willUpdate items changed, menuItems:', this.menuItems);
     }
 
     // When `type` changes, update fills of assigned sl-button / sl-menu-button elements.
@@ -189,6 +190,29 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
             btn.setAttribute('fill', this.type);
           } else {
             // btn.removeAttribute('fill');
+          }
+        });
+      });
+    }
+
+    // When `inverted` changes, set inverted on sl-button / sl-menu-button elements.
+    if (changes.has('inverted')) {
+      const slot = this.renderRoot.querySelector('slot');
+      const assigned = slot?.assignedElements({ flatten: true }) ?? [];
+
+      console.log('inverted changed:', this.inverted, assigned);
+
+      assigned.forEach(el => {
+        const targets: Element[] = [];
+
+        if (el.tagName === 'SL-BUTTON' || el.tagName === 'SL-MENU-BUTTON') targets.push(el);
+        targets.push(...Array.from(el.querySelectorAll('sl-button, sl-menu-button')));
+
+        targets.forEach(btn => {
+          if (this.inverted) {
+            btn.setAttribute('variant', 'inverted');
+          } else {
+            btn.removeAttribute('variant');
           }
         });
       });
@@ -415,7 +439,10 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       });
     });
 
-    this.#updateMapping();
+    requestAnimationFrame(() => {
+      this.#updateMapping();
+    });
+    // this.#updateMapping();
   }
 
   #updateMapping(): void {

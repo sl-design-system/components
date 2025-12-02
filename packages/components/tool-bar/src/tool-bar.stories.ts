@@ -4,14 +4,22 @@ import {
   faAlignJustify,
   faAlignLeft,
   faAlignRight,
+  faArrowDownWideShort,
+  faArrowTurnLeftDown,
+  faBarsFilter,
   faBold,
+  faBoxArchive,
   faCopy,
+  faFont,
+  faGear,
   faItalic,
+  faPaperPlane,
   faPaste,
   faPen,
   faScissors,
   faTrash,
-  faUnderline
+  faUnderline,
+  faUniversalAccess
 } from '@fortawesome/pro-regular-svg-icons';
 import {
   faAlignCenter as fasAlignCenter,
@@ -50,9 +58,16 @@ Icon.register(
   faAlignJustify,
   faAlignLeft,
   faAlignRight,
+  faArrowDownWideShort,
+  faArrowTurnLeftDown,
+  faBarsFilter,
   faBold,
+  faBoxArchive,
   faCopy,
+  faFont,
+  faGear,
   faItalic,
+  faPaperPlane,
   faPaste,
   faPen,
   faScissors,
@@ -64,7 +79,8 @@ Icon.register(
   fasAlignRight,
   fasBold,
   fasItalic,
-  fasUnderline
+  fasUnderline,
+  faUniversalAccess
 );
 
 export default {
@@ -210,7 +226,7 @@ export const Empty: Story = {
 export const FitContent: Story = {
   args: {
     description: 'This example shows a tool bar with a single button that fits its content.',
-    items: () => html`<sl-button>Simple</sl-button>`,
+    items: () => html`<sl-button fill="outline">Simple</sl-button>`,
     width: 'fit-content',
     contained: true
   }
@@ -282,10 +298,10 @@ export const State: Story = {
       };
 
       return html`
-        <sl-button @click=${onClick}>Toggle disabled</sl-button>
-        <sl-button>Action 1</sl-button>
-        <sl-button>Action 2</sl-button>
-        <sl-button>Action 3</sl-button>
+        <sl-button @click=${onClick} fill="outline">Toggle disabled</sl-button>
+        <sl-button fill="outline">Action 1</sl-button>
+        <sl-button fill="outline">Action 2</sl-button>
+        <sl-button fill="outline">Action 3</sl-button>
       `;
     }
   }
@@ -295,16 +311,16 @@ export const Tooltips: Story = {
   args: {
     description: 'This example shows a tool bar with different tooltip techniques on the buttons.',
     items: () => html`
-      <sl-button aria-describedby="tooltip-bold">
+      <sl-button aria-describedby="tooltip-bold" fill="outline">
         <sl-icon name="far-bold"></sl-icon>
       </sl-button>
       <sl-tooltip id="tooltip-bold">Bold</sl-tooltip>
 
-      <sl-button ${tooltip('Italic')}>
+      <sl-button ${tooltip('Italic')} fill="outline">
         <sl-icon name="far-italic"></sl-icon>
       </sl-button>
 
-      <sl-button aria-disabled="true" ${tooltip('Underline (disabled)')}>
+      <sl-button aria-disabled="true" ${tooltip('Underline (disabled)')} fill="outline">
         <sl-icon name="far-underline"></sl-icon>
       </sl-button>
     `
@@ -312,52 +328,126 @@ export const Tooltips: Story = {
 };
 
 export const IconOnly: Story = {
-  args: {
-    description: 'This example shows a tool bar with different tooltip techniques on the buttons.',
-    items: () => html`
-      <sl-button aria-describedby="tooltip-bold">
-        <sl-icon name="far-bold"></sl-icon>
-      </sl-button>
-      <sl-tooltip id="tooltip-bold">Bold</sl-tooltip>
+  render: ({ align, contained, disabled, inverted, resizable, type, width }) => {
+    return html`
+      <style>
+        ${inverted && !contained
+          ? '.container { background: var(--sl-color-background-primary-bold); padding: 1.2rem; }'
+          : nothing}
+        ${resizable ? '.container { overflow: auto; resize: horizontal; }' : nothing}
+      </style>
+      <p>This example shows a tool bar with icon only buttons / menu buttons with tooltips.</p>
+      <div class="container">
+        <sl-tool-bar
+          ?contained=${contained}
+          ?disabled=${disabled}
+          ?inverted=${inverted}
+          align=${ifDefined(align)}
+          type=${ifDefined(type)}
+          style="inline-size: ${width ?? 'auto'}"
+        >
+          <sl-button aria-describedby="tooltip-bold" fill="outline">
+            <sl-icon name="far-bold"></sl-icon>
+          </sl-button>
+          <sl-tooltip id="tooltip-bold">Bold</sl-tooltip>
 
-      <sl-button ${tooltip('Italic')}>
-        <sl-icon name="far-italic"></sl-icon>
-      </sl-button>
+          <sl-button aria-describedby="tooltip-italic" fill="outline">
+            <sl-icon name="far-italic"></sl-icon>
+          </sl-button>
+          <sl-tooltip id="tooltip-italic">Italic</sl-tooltip>
 
-      <sl-button aria-disabled="true" ${tooltip('Underline (disabled)')}>
-        <sl-icon name="far-underline"></sl-icon>
-      </sl-button>
+          <sl-button aria-disabled="true" aria-describedby="tooltip-underline-disabled" fill="outline">
+            <sl-icon name="far-underline"></sl-icon>
+          </sl-button>
+          <sl-tooltip id="tooltip-underline-disabled">Underline (disabled)</sl-tooltip>
 
-      <sl-button aria-label="Underline">
-        <sl-icon name="far-underline"></sl-icon>
-      </sl-button>
+          <sl-button aria-describedby="tooltip-underline" fill="outline">
+            <sl-icon name="far-underline"></sl-icon>
+          </sl-button>
+          <sl-tooltip id="tooltip-underline">Underline</sl-tooltip>
 
-      <sl-menu-button aria-label="Settings">
-        <sl-icon name="far-pen" slot="button"></sl-icon>
-        <sl-menu-item>
-          <sl-icon name="far-pen"></sl-icon>
-          Rename...
-        </sl-menu-item>
-        <sl-menu-item>
-          <sl-icon name="far-trash"></sl-icon>
-          Delete...
-        </sl-menu-item>
-      </sl-menu-button>
+          <sl-menu-button aria-describedby="tooltip-settings" fill="outline">
+            <sl-icon name="far-gear" slot="button"></sl-icon>
+            <sl-menu-item>
+              <sl-icon name="far-pen"></sl-icon>
+              Rename...
+            </sl-menu-item>
+            <sl-menu-item>
+              <sl-icon name="far-trash"></sl-icon>
+              Delete...
+            </sl-menu-item>
+          </sl-menu-button>
+          <sl-tooltip id="tooltip-settings">Settings</sl-tooltip>
 
-      <sl-menu-button style="align-self:center;justify-self:center;" ${tooltip('Edit...')}>
-        <sl-icon name="far-pen" slot="button"></sl-icon>
-        <sl-menu-item>
-          <sl-icon name="far-pen"></sl-icon>
-          Rename...
-        </sl-menu-item>
-        <sl-menu-item>
-          <sl-icon name="far-trash"></sl-icon>
-          Delete...
-        </sl-menu-item>
-      </sl-menu-button>
-    `
+          <sl-menu-button aria-describedby="tooltip-edit" fill="outline">
+            <sl-icon name="far-pen" slot="button"></sl-icon>
+            <sl-menu-item>
+              <sl-icon name="far-pen"></sl-icon>
+              Rename...
+            </sl-menu-item>
+            <sl-menu-item>
+              <sl-icon name="far-trash"></sl-icon>
+              Delete...
+            </sl-menu-item>
+          </sl-menu-button>
+          <sl-tooltip id="tooltip-edit">Edit</sl-tooltip>
+        </sl-tool-bar>
+      </div>
+
+      <p>This example shows a tool bar with icon only buttons / menu buttons with aria-label.</p>
+      <div class="container">
+        <sl-tool-bar
+          ?contained=${contained}
+          ?disabled=${disabled}
+          ?inverted=${inverted}
+          align=${ifDefined(align)}
+          type=${ifDefined(type)}
+          style="inline-size: ${width ?? 'auto'}"
+        >
+          <sl-button aria-label="Bold" fill="outline">
+            <sl-icon name="far-bold"></sl-icon>
+          </sl-button>
+
+          <sl-button aria-label="Italic" fill="outline">
+            <sl-icon name="far-italic"></sl-icon>
+          </sl-button>
+
+          <sl-button aria-disabled="true" aria-label="Underline (disabled)" fill="outline">
+            <sl-icon name="far-underline"></sl-icon>
+          </sl-button>
+
+          <sl-button aria-label="Underline" fill="outline">
+            <sl-icon name="far-underline"></sl-icon>
+          </sl-button>
+
+          <sl-menu-button aria-label="Settings" fill="outline">
+            <sl-icon name="far-gear" slot="button"></sl-icon>
+            <sl-menu-item>
+              <sl-icon name="far-pen"></sl-icon>
+              Rename...
+            </sl-menu-item>
+            <sl-menu-item>
+              <sl-icon name="far-trash"></sl-icon>
+              Delete...
+            </sl-menu-item>
+          </sl-menu-button>
+
+          <sl-menu-button aria-label="Edit" fill="outline">
+            <sl-icon name="far-pen" slot="button"></sl-icon>
+            <sl-menu-item>
+              <sl-icon name="far-pen"></sl-icon>
+              Rename...
+            </sl-menu-item>
+            <sl-menu-item>
+              <sl-icon name="far-trash"></sl-icon>
+              Delete...
+            </sl-menu-item>
+          </sl-menu-button>
+        </sl-tool-bar>
+      </div>
+    `;
   }
-}; // TODO: icon only aria-label not working with overflow
+};
 
 export const Combination: Story = {
   render: () => html`
@@ -402,4 +492,113 @@ export const Combination: Story = {
   `
 };
 
-// TODO: check and fix panel and bulk actions
+export const Examples: Story = {
+  render: () => html`
+    <style>
+      sl-tool-bar {
+        margin-block-end: var(--sl-size-300);
+      }
+    </style>
+    <p>
+      This story shows various real-world toolbar configurations: icon-only buttons, menu buttons with icons, buttons
+      with ARIA labels, primary/danger/inverted variants, and toolbar types such as outline and ghost.
+    </p>
+    <sl-tool-bar aria-label="Text formatting" contained type="outline" style="inline-size: fit-content">
+      <sl-button aria-label="Accessibility">
+        <sl-icon name="far-universal-access"></sl-icon>
+      </sl-button>
+
+      <sl-menu-button aria-label="Font">
+        <span slot="button"><sl-icon style="vertical-align: text-top;" name="far-font"></sl-icon></span>
+        <sl-menu-item> 10 pt </sl-menu-item>
+        <sl-menu-item> 12 pt </sl-menu-item>
+        <sl-menu-item> 14 pt </sl-menu-item>
+        <sl-menu-item> 16 pt </sl-menu-item>
+        <sl-menu-item> 18 pt </sl-menu-item>
+        <sl-menu-item> 20 pt </sl-menu-item>
+      </sl-menu-button>
+
+      <sl-menu-button aria-label="Edit">
+        <span slot="button"><sl-icon style="vertical-align: text-top;" name="far-align-center"></sl-icon></span>
+        <sl-menu-item>
+          <sl-icon name="far-align-justify"></sl-icon>
+          Justify
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-align-center"></sl-icon>
+          Align center
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-align-left"></sl-icon>
+          Align left
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-align-right"></sl-icon>
+          Align right
+        </sl-menu-item>
+      </sl-menu-button>
+
+      <sl-button aria-label="Edit">
+        <sl-icon name="far-pen"></sl-icon>
+      </sl-button>
+    </sl-tool-bar>
+
+    <sl-tool-bar aria-label="Options" contained type="ghost" style="inline-size: fit-content">
+      <sl-button aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
+      <sl-button aria-label="Edit"><sl-icon name="far-pen"></sl-icon></sl-button>
+      <sl-tool-bar-divider></sl-tool-bar-divider>
+      <sl-button aria-label="Archive"><sl-icon name="far-box-archive"></sl-icon>Archive</sl-button>
+      <sl-button aria-label="Delete" variant="danger"> <sl-icon name="far-trash"></sl-icon>Delete</sl-button>
+      <sl-tool-bar-divider></sl-tool-bar-divider>
+      <sl-button aria-label="Send" variant="primary"><sl-icon name="far-paper-plane"></sl-icon>Send</sl-button>
+    </sl-tool-bar>
+
+    <sl-tool-bar aria-label="Options" contained inverted type="ghost" style="inline-size: fit-content">
+      <sl-button aria-label="Copy" variant="inverted"><sl-icon name="far-copy"></sl-icon></sl-button>
+      <sl-button aria-label="Edit" variant="inverted"><sl-icon name="far-pen"></sl-icon></sl-button>
+      <sl-tool-bar-divider inverted></sl-tool-bar-divider>
+      <sl-button aria-label="Archive" variant="inverted"> <sl-icon name="far-box-archive"></sl-icon>Archive </sl-button>
+      <sl-button aria-label="Delete" variant="inverted"> <sl-icon name="far-trash"></sl-icon>Delete</sl-button>
+      <sl-tool-bar-divider inverted></sl-tool-bar-divider>
+      <sl-button aria-label="Send" variant="inverted"> <sl-icon name="far-paper-plane"></sl-icon>Send </sl-button>
+    </sl-tool-bar>
+
+    <sl-tool-bar aria-label="Filtering and sorting" contained type="ghost" style="inline-size: fit-content">
+      <sl-button aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
+      <sl-button aria-label="Enter"><sl-icon name="far-arrow-turn-left-down"></sl-icon></sl-button>
+      <sl-tool-bar-divider></sl-tool-bar-divider>
+      <sl-button aria-label="Filter"><sl-icon name="far-bars-filter"></sl-icon></sl-button>
+      <sl-button aria-label="Sort descending"> <sl-icon name="far-arrow-down-wide-short"></sl-icon></sl-button>
+      <sl-tool-bar-divider></sl-tool-bar-divider>
+      <sl-menu-button aria-label="Sort by">
+        <span slot="button">Date</span>
+        <sl-menu-item-group heading="Sort by">
+          <sl-menu-item> From </sl-menu-item>
+          <sl-menu-item> Category </sl-menu-item>
+          <sl-menu-item> Size </sl-menu-item>
+          <sl-menu-item> Importance </sl-menu-item>
+        </sl-menu-item-group>
+      </sl-menu-button>
+    </sl-tool-bar>
+
+    <sl-tool-bar aria-label="Filtering and sorting" contained inverted type="ghost" style="inline-size: fit-content">
+      <sl-button aria-label="Copy" variant="inverted"><sl-icon name="far-copy"></sl-icon></sl-button>
+      <sl-button aria-label="Enter" variant="inverted"><sl-icon name="far-arrow-turn-left-down"></sl-icon></sl-button>
+      <sl-tool-bar-divider inverted></sl-tool-bar-divider>
+      <sl-button aria-label="Filter" variant="inverted"><sl-icon name="far-bars-filter"></sl-icon></sl-button>
+      <sl-button aria-label="Sort descending" variant="inverted">
+        <sl-icon name="far-arrow-down-wide-short"></sl-icon>
+      </sl-button>
+      <sl-tool-bar-divider inverted></sl-tool-bar-divider>
+      <sl-menu-button aria-label="Sort by" variant="inverted">
+        <span slot="button">Date</span>
+        <sl-menu-item-group heading="Sort by">
+          <sl-menu-item> From </sl-menu-item>
+          <sl-menu-item> Category </sl-menu-item>
+          <sl-menu-item> Size </sl-menu-item>
+          <sl-menu-item> Importance </sl-menu-item>
+        </sl-menu-item-group>
+      </sl-menu-button>
+    </sl-tool-bar>
+  `
+};

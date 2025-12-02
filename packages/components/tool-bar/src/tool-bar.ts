@@ -75,27 +75,34 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** Most recent available width (in pixels) used to detect significant size changes and avoid flickering. */
+  #lastAvailableWidth = 0;
+
+  /** Default and fallback cache for the menu button size (pixels).
+   * Used when actual size is unavailable.
+   * - menu button width/height: 36px, icon-only block-size + border-width in button.scss
+   * - gap: 8px, gap: var(--sl-size-100) in tool-bar.scss
+   * */
+  #menuButtonSizeCache = 44; // menu button + gap
+
+  /** Cached measured width (in pixels) of the overflow/menu button. */
+  #menuButtonSize?: number;
+
   /** Observe changes to the child elements. */
   #mutationObserver = new MutationObserver(() => this.#updateMapping());
+
+  /** Flag indicating whether item width measurements are required before recalculating layout. */
+  #needsMeasurement = true;
 
   /** Observe changes to the size of the host element. */
   #resizeObserver = new ResizeObserver(() => this.#onResize());
 
   /** Manage the keyboard navigation. */
-  // #rovingTabindexController = new RovingTabindexController(this, {
-  //   direction: 'horizontal',
-  //   focusInIndex: (elements: []) => elements.findIndex(el => !el.disabled),
-  //   elements: () => this.items || this.menuItems || [],
-  //   isFocusableElement: (el) => !el.disabled
-  // });
-
   #rovingTabindexController = new RovingTabindexController<HTMLElement>(this, {
     direction: 'horizontal',
     focusInIndex: (elements: HTMLElement[]) => elements.findIndex(el => !el.hasAttribute('disabled')),
     elements: () => (this.items || []).map(item => item.element),
-    // isFocusableElement: (el: HTMLElement) => !el.hasAttribute('disabled')
     isFocusableElement: (el: HTMLElement) => {
-      // Exclude divider elements from focusability
       if (el instanceof ToolBarDivider) {
         return false;
       }
@@ -103,6 +110,18 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       return !el.hasAttribute('disabled');
     }
   });
+
+  /**
+   * Cached total width (in pixels) of all toolbar items including gaps.
+   * Used to decide when items overflow into the menu.
+   */
+  #totalWidth: number = 0;
+
+  /**
+   * Cached measured widths (in pixels) for each tool-bar item.
+   * Used to determine item visibility.
+   */
+  #widths: number[] = [];
 
   /**
    * The horizontal alignment within the tool-bar.
@@ -134,26 +153,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** @internal The tool bar items that should be shown in the overflow menu. */
   @state() menuItems: ToolBarItem[] = [];
 
-  // /**
-  //  * If true, will cause the tool bar to not have a border; useful when embedding
-  //  * the tool-bar inside another component. If you set this, make sure there is enough
-  //  * space around the tool bar to show focus outlines.
-  //  * @default false
-  //  */
-  // @property({ type: Boolean, reflect: true, attribute: 'no-border' }) noBorder?: boolean;
-
-  #totalWidth: number = 0;
-
-  #widths: number[] = [];
-
-  #menuButtonSize?: number;
-
-  #menuButtonSizeCache = 44; // menu button + gap
-
-  #needsMeasurement = true;
-
-  #lastAvailableWidth = 0;
-
   /** Use this if you want the menu button to use the "inverted" variant. */
   @property({ type: Boolean }) inverted?: boolean;
 
@@ -180,8 +179,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    // TODO: maybe totalwidth should be checked here? insteda of in onResize?
-
     if (changes.has('disabled')) {
       const children = this.renderRoot.querySelector('slot')?.assignedElements({ flatten: true }) ?? [];
 
@@ -194,10 +191,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('items')) {
       this.menuItems = this.items.filter(item => !item.visible);
-      console.log('willUpdate items changed, menuItems:', this.menuItems);
     }
 
-    // When `type` changes, update fills of assigned sl-button / sl-menu-button elements.
+    // When `type` changes, update fill of assigned sl-button / sl-menu-button elements.
     if (changes.has('type')) {
       const slot = this.renderRoot.querySelector('slot');
       const assigned = slot?.assignedElements({ flatten: true }) ?? [];
@@ -211,8 +207,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         targets.forEach(btn => {
           if (typeof this.type === 'string' && this.type.length) {
             btn.setAttribute('fill', this.type);
-          } else {
-            // btn.removeAttribute('fill');
           }
         });
       });
@@ -222,8 +216,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     if (changes.has('inverted')) {
       const slot = this.renderRoot.querySelector('slot');
       const assigned = slot?.assignedElements({ flatten: true }) ?? [];
-
-      console.log('inverted changed:', this.inverted, assigned);
 
       assigned.forEach(el => {
         const targets: Element[] = [];
@@ -246,8 +238,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     requestAnimationFrame(() => {
       const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
 
-      console.log('firstUpdated totalWidth:', this.#totalWidth, this.#widths);
-
       if (wrapper) {
         this.#measureItems(wrapper);
       }
@@ -261,7 +251,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    console.log('type in render:', this.type, this.items, this.menuItems);
     return html`
       <div part="wrapper">
         <slot @slotchange=${this.#onSlotChange}></slot>
@@ -322,16 +311,13 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     this.#updateMapping();
   }
 
-  // Robust availableWidth + precompute widths before mutating DOM
   #onResize(): void {
     // Use element's current width to avoid inconsistent ResizeObserver entry shapes.
-    const availableWidth = this.#getAvailableWidth(); // this.getBoundingClientRect().width;
+    const availableWidth = this.#getAvailableWidth();
 
     if (!availableWidth) {
       return;
     }
-
-    console.log('availableWidth:', availableWidth);
 
     const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
 
@@ -351,22 +337,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     this.#lastAvailableWidth = availableWidth;
 
-    if (!this.#totalWidth || !this.#widths.length) return;
-
-    console.log(
-      'Math.round(totalWidth) > Math.round(availableWidth)',
-      // Math.round(totalWidth) > Math.round(availableWidth),
-      // Math.round(totalWidth),
-      // Math.round(availableWidth),
-      'widths:',
-      // widths,
-      'this.#totalWidth:',
-      this.#totalWidth,
-      'availableWidth:',
-      availableWidth,
-      'this.#widths:',
-      this.#widths
-    );
+    if (!this.#totalWidth || !this.#widths.length) {
+      return;
+    }
 
     // First pass: calculate visibility assuming no menu button
     let acc = 0;
@@ -399,8 +372,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       }
     }
 
-    console.log('acc:', acc, 'gap', gap /*, 'effectiveAvailable:', effectiveAvailable*/);
-
     // Apply DOM changes in one pass
     this.items.forEach(item => {
       item.element.style.display = item.visible ? '' : 'none';
@@ -414,8 +385,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       const menuButton = this.renderRoot.querySelector('sl-menu-button');
       menuButton?.classList.toggle('all-hidden', allHidden);
     });
-
-    console.log('menuItems:', this.menuItems, 'this.items:', this.items);
 
     this.requestUpdate('items');
   }
@@ -431,13 +400,10 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     const availableWidth = hostWidth - hostPadding;
 
-    console.log('availableWidth calculation:', { hostWidth, hostPadding, availableWidth });
-
     return availableWidth;
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }) {
-    console.log('slotchange event:', event);
     // Ignore events from nested slots.
     if (event.target !== this.renderRoot.querySelector('slot')) {
       return;
@@ -459,8 +425,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       // include any nested sl-button and sl-menu-button elements
       targets.push(...Array.from(el.querySelectorAll('sl-button, sl-menu-button')));
 
-      console.log('setting fill for targets:', targets);
-
       targets.forEach(btn => {
         if (this.type) {
           btn.setAttribute('fill', this.type);
@@ -471,7 +435,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     requestAnimationFrame(() => {
       this.#updateMapping();
     });
-    // this.#updateMapping();
   }
 
   #updateMapping(): void {
@@ -480,13 +443,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     this.empty = elements.length === 0;
 
-    console.log('elements', elements);
-
     this.items = elements
       .map(element => {
-        console.log('mapping element:', element, element instanceof Button, element instanceof MenuButton);
-
-        if (element instanceof Button /*|| element instanceof ToggleButton*/) {
+        if (element instanceof Button) {
           return this.#mapButtonToItem(element);
         } else if (element instanceof MenuButton) {
           return this.#mapMenuButtonToItem(element);
@@ -501,7 +460,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       .filter(item => item !== undefined) as ToolBarItem[];
 
     this.#needsMeasurement = true;
-    console.log('updated items mapping:', this.items);
 
     // Reconnect the resize observer to the host
     this.#resizeObserver.disconnect();
@@ -511,6 +469,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   #measureItems(wrapper: Element): void {
     if (this.offsetParent === null) {
       this.#needsMeasurement = true;
+
       return;
     }
 
@@ -553,8 +512,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       label = this.querySelector(`#${button.getAttribute('aria-describedby')}`)?.textContent?.trim();
     }
 
-    console.log('fill in mapButtonToItem:', this.type, button, label); // TODO: label not always visible, why?
-
     return {
       element: button,
       type: 'button',
@@ -572,18 +529,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       menuButton.renderRoot.querySelector('sl-button')?.getAttribute('aria-label') ||
       menuButton.querySelector('[slot="button"]')?.textContent?.trim();
 
-    console.log(
-      'initial label for menu button or button:',
-      label,
-      'element',
-      menuButton,
-      'button slot?',
-      menuButton.querySelector('[slot="button"]'),
-      menuButton.renderRoot.querySelector('sl-button'),
-      'menuButton.querySelector(\'[slot="button"]\')?.textContent?.trim()',
-      menuButton.querySelector('[slot="button"]')?.textContent?.trim()
-    );
-
     if (menuButton.hasAttribute('aria-labelledby')) {
       const buttonLabelledby = menuButton.getAttribute('aria-labelledby');
 
@@ -599,8 +544,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     } else if (!label && menuButton.hasAttribute('aria-describedby')) {
       label = this.querySelector(`#${menuButton.getAttribute('aria-describedby')}`)?.textContent?.trim();
     }
-
-    console.log('label for menu button or button:', label, 'element', menuButton);
 
     const menuItems = Array.from(menuButton.querySelectorAll('sl-menu-item')).map(el => this.#mapButtonToItem(el));
 

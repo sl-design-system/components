@@ -3,6 +3,7 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Button, type ButtonFill } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { Menu, MenuButton, MenuItem, MenuItemGroup } from '@sl-design-system/menu';
+import { RovingTabindexController } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -23,7 +24,6 @@ export interface ToolBarItemBase {
 export interface ToolBarItemButton extends ToolBarItemBase {
   type: 'button';
   disabled?: boolean;
-  // fill?: ButtonFill;
   icon?: string | null;
   label?: string | null;
   selectable?: boolean;
@@ -80,6 +80,29 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
   /** Observe changes to the size of the host element. */
   #resizeObserver = new ResizeObserver(() => this.#onResize());
+
+  /** Manage the keyboard navigation. */
+  // #rovingTabindexController = new RovingTabindexController(this, {
+  //   direction: 'horizontal',
+  //   focusInIndex: (elements: []) => elements.findIndex(el => !el.disabled),
+  //   elements: () => this.items || this.menuItems || [],
+  //   isFocusableElement: (el) => !el.disabled
+  // });
+
+  #rovingTabindexController = new RovingTabindexController<HTMLElement>(this, {
+    direction: 'horizontal',
+    focusInIndex: (elements: HTMLElement[]) => elements.findIndex(el => !el.hasAttribute('disabled')),
+    elements: () => (this.items || []).map(item => item.element),
+    // isFocusableElement: (el: HTMLElement) => !el.hasAttribute('disabled')
+    isFocusableElement: (el: HTMLElement) => {
+      // Exclude divider elements from focusability
+      if (el instanceof ToolBarDivider) {
+        return false;
+      }
+
+      return !el.hasAttribute('disabled');
+    }
+  });
 
   /**
    * The horizontal alignment within the tool-bar.
@@ -232,6 +255,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       // Observe the host element for size changes
       // The host is what has flex constraints from parent containers
       this.#resizeObserver.observe(this);
+
+      this.#rovingTabindexController.clearElementCache();
     });
   }
 
@@ -255,6 +280,10 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
           `
         : nothing}
     `;
+  }
+
+  override focus(): void {
+    this.#rovingTabindexController.focus();
   }
 
   /** @internal */

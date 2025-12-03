@@ -125,7 +125,7 @@ export default {
           ? '.container { background: var(--sl-color-background-primary-bold); padding: 1.2rem; }'
           : nothing}
         ${resizable ? '.container { overflow: auto; resize: horizontal; }' : nothing}
-        ${!contained ? 'sl-tool-bar { margin:  6px; }' : nothing}
+        ${!contained ? 'sl-tool-bar { margin: 6px; }' : nothing}
       </style>
       <div class="container">
         <sl-tool-bar
@@ -146,7 +146,7 @@ export default {
 export const Basic: Story = {
   args: {
     description:
-      'This example shows a typical tool bar with buttons and menus. You can resize the tool bar by dragging the right edge. This showcases how the tool bar can adapt to different widths and overflow items in a menu. This example shows a typical tool bar with buttons and menus. You can resize the tool bar by dragging the right edge. This showcases how the tool bar can adapt to different widths and overflow items in a menu.\n' +
+      'This example shows a typical tool bar with buttons and menus. You can resize the tool bar by dragging the right edge. This showcases how the tool bar can adapt to different widths and overflow items in a menu.\n' +
       '    By default a tool bar does not have any padding and has no border. Please make sure that the focus outlines of the buttons are still visible.',
     items: () => html`
       <sl-button fill="outline" size="md">Button</sl-button>
@@ -559,10 +559,10 @@ export const Examples: Story = {
       <sl-button aria-label="Copy" variant="inverted"><sl-icon name="far-copy"></sl-icon></sl-button>
       <sl-button aria-label="Edit" variant="inverted"><sl-icon name="far-pen"></sl-icon></sl-button>
       <sl-tool-bar-divider inverted></sl-tool-bar-divider>
-      <sl-button aria-label="Archive" variant="inverted"> <sl-icon name="far-box-archive"></sl-icon>Archive </sl-button>
-      <sl-button aria-label="Delete" variant="inverted"> <sl-icon name="far-trash"></sl-icon>Delete</sl-button>
+      <sl-button aria-label="Archive" variant="inverted"><sl-icon name="far-box-archive"></sl-icon>Archive </sl-button>
+      <sl-button aria-label="Delete" variant="inverted"><sl-icon name="far-trash"></sl-icon>Delete</sl-button>
       <sl-tool-bar-divider inverted></sl-tool-bar-divider>
-      <sl-button aria-label="Send" variant="inverted"> <sl-icon name="far-paper-plane"></sl-icon>Send </sl-button>
+      <sl-button aria-label="Send" variant="inverted"><sl-icon name="far-paper-plane"></sl-icon>Send </sl-button>
     </sl-tool-bar>
 
     <sl-tool-bar aria-label="Filtering and sorting" contained type="ghost" style="inline-size: fit-content">
@@ -570,7 +570,7 @@ export const Examples: Story = {
       <sl-button aria-label="Enter"><sl-icon name="far-arrow-turn-left-down"></sl-icon></sl-button>
       <sl-tool-bar-divider></sl-tool-bar-divider>
       <sl-button aria-label="Filter"><sl-icon name="far-bars-filter"></sl-icon></sl-button>
-      <sl-button aria-label="Sort descending"> <sl-icon name="far-arrow-down-wide-short"></sl-icon></sl-button>
+      <sl-button aria-label="Sort descending"><sl-icon name="far-arrow-down-wide-short"></sl-icon></sl-button>
       <sl-tool-bar-divider></sl-tool-bar-divider>
       <sl-menu-button aria-label="Sort by">
         <span slot="button">Date</span>

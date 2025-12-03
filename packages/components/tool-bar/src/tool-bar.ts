@@ -415,7 +415,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     const RESIZE_THRESHOLD = 5; // Pixel threshold that prevents flickering caused by slight measurement fluctuations
     const widthChanged = Math.abs(availableWidth - this.#lastAvailableWidth) > RESIZE_THRESHOLD;
 
-
     if (this.#needsMeasurement || !this.#totalWidth || !this.#widths.length || widthChanged) {
       this.#measureItems(wrapper);
     }

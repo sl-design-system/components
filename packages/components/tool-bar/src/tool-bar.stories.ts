@@ -149,7 +149,7 @@ export const Basic: Story = {
       'This example shows a typical tool bar with buttons and menus. You can resize the tool bar by dragging the right edge. This showcases how the tool bar can adapt to different widths and overflow items in a menu.\n' +
       '    By default a tool bar does not have any padding and has no border. Please make sure that the focus outlines of the buttons are still visible.',
     items: () => html`
-      <sl-button fill="outline" size="md">Button</sl-button>
+      <sl-button fill="outline">Button</sl-button>
       <sl-button fill="outline">
         <sl-icon name="far-scissors"></sl-icon>
         Cut
@@ -562,7 +562,7 @@ export const Examples: Story = {
       <sl-button aria-label="Archive" variant="inverted"><sl-icon name="far-box-archive"></sl-icon>Archive </sl-button>
       <sl-button aria-label="Delete" variant="inverted"><sl-icon name="far-trash"></sl-icon>Delete</sl-button>
       <sl-tool-bar-divider inverted></sl-tool-bar-divider>
-      <sl-button aria-label="Send" variant="inverted"><sl-icon name="far-paper-plane"></sl-icon>Send </sl-button>
+      <sl-button aria-label="Send" variant="inverted"><sl-icon name="far-paper-plane"></sl-icon>Send</sl-button>
     </sl-tool-bar>
 
     <sl-tool-bar aria-label="Filtering and sorting" contained type="ghost" style="inline-size: fit-content">

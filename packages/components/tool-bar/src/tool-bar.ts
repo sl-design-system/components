@@ -4,7 +4,7 @@ import { Button, type ButtonFill } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { Menu, MenuButton, MenuItem, MenuItemGroup } from '@sl-design-system/menu';
 import { RovingTabindexController } from '@sl-design-system/shared';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, html, LitElement, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { ToolBarDivider } from './tool-bar-divider.js';
@@ -149,7 +149,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
    */
   @property({ reflect: true }) align?: 'start' | 'end';
 
-  /** @internal The version of a tool-bar with spacing around. */
+  /** The version of a tool-bar with spacing around. */
   @property({ type: Boolean, reflect: true }) contained?: boolean;
 
   /**
@@ -161,8 +161,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** @internal True when the tool-bar is empty. */
   @property({ type: Boolean, reflect: true }) empty?: boolean;
 
-  /** The type of buttons and menu buttons (also overflow menu button). */
-  @property() type?: Extract<ButtonFill, 'ghost' | 'outline'>;
+  /** Use this if you want the menu button to use the "inverted" variant. */
+  @property({ type: Boolean }) inverted?: boolean;
 
   /** @internal The tool bar items. */
   @state() items: ToolBarItem[] = [];
@@ -170,8 +170,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** @internal The tool bar items that should be shown in the overflow menu. */
   @state() menuItems: ToolBarItem[] = [];
 
-  /** Use this if you want the menu button to use the "inverted" variant. */
-  @property({ type: Boolean }) inverted?: boolean;
+  /** The type of buttons and menu buttons (also overflow menu button). */
+  @property() type?: Extract<ButtonFill, 'ghost' | 'outline'>;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -226,8 +226,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         this.#measureItems(wrapper);
       }
 
-      // Observe the host element for size changes
-      // The host is what has flex constraints from parent containers
       this.#resizeObserver.observe(this);
 
       this.#rovingTabindexController.clearElementCache();
@@ -295,190 +293,13 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     this.#updateMapping();
   }
 
-  #onResize(): void {
-    // Use element's current width to avoid inconsistent ResizeObserver entry shapes.
-    const availableWidth = this.#getAvailableWidth();
-
-    if (!availableWidth) {
-      return;
-    }
-
-    const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
-
-    if (!wrapper) {
-      return;
-    }
-
-    const gap = parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0;
-
-    // If available width has changed significantly, re-measure to get accurate item widths
-    // This is important when items were hidden and now there's more space, or when parent constraints change
-    const widthChanged = Math.abs(availableWidth - this.#lastAvailableWidth) > 5; // 5px threshold to avoid jitter
-
-    if (this.#needsMeasurement || !this.#totalWidth || !this.#widths.length || widthChanged) {
-      this.#measureItems(wrapper);
-    }
-
-    this.#lastAvailableWidth = availableWidth;
-
-    if (!this.#totalWidth || !this.#widths.length) {
-      return;
-    }
-
-    // First pass: calculate visibility assuming no menu button
-    let acc = 0;
-    for (let i = 0; i < this.items.length; i++) {
-      acc += this.#widths[i];
-      this.items[i].visible = acc <= availableWidth;
-      if (i < this.items.length - 1) acc += gap;
-    }
-
-    // Check if we need the overflow menu
-    const allVisible = this.items.every(item => item.visible);
-
-    if (!allVisible) {
-      // Second pass: recalculate with space reserved for menu button
-      let buttonSize = this.#menuButtonSize ?? this.#menuButtonSizeCache;
-      const wrapperHeight = Math.round(wrapper.getBoundingClientRect().height);
-
-      if (this.#menuButtonSize == null && wrapperHeight > 0) {
-        this.#menuButtonSizeCache = wrapperHeight;
-        buttonSize = wrapperHeight;
-      }
-
-      const effectiveAvailable = availableWidth - buttonSize - gap;
-      acc = 0;
-
-      for (let i = 0; i < this.items.length; i++) {
-        acc += this.#widths[i];
-        this.items[i].visible = acc <= effectiveAvailable;
-        if (i < this.items.length - 1) acc += gap;
-      }
-    }
-
-    // Apply DOM changes in one pass
-    this.items.forEach(item => {
-      item.element.style.display = item.visible ? '' : 'none';
-    });
-
-    this.menuItems = this.items.filter(item => !item.visible);
-
-    // Check if all items are hidden and update menu button class
-    const allHidden = this.items.every(item => !item.visible);
-    requestAnimationFrame(() => {
-      const menuButton = this.renderRoot.querySelector('sl-menu-button');
-      menuButton?.classList.toggle('all-hidden', allHidden);
-    });
-
-    this.requestUpdate('items');
-
-    this.#rovingTabindexController.clearElementCache();
-  }
-
   #getAvailableWidth(): number {
-    // The host element's bounding box width reflects all CSS constraints
-    // including flex containers, max-inline-size, and parent constraints
     const hostWidth = this.getBoundingClientRect().width;
 
-    // Account for any padding on the host element
-    const hostStyles = getComputedStyle(this);
-    const hostPadding = parseFloat(hostStyles.paddingLeft || '0') + parseFloat(hostStyles.paddingRight || '0');
+    const hostStyles = getComputedStyle(this),
+      hostPadding = parseFloat(hostStyles.paddingLeft || '0') + parseFloat(hostStyles.paddingRight || '0');
 
-    const availableWidth = hostWidth - hostPadding;
-
-    return availableWidth;
-  }
-
-  #onSlotChange(event: Event & { target: HTMLSlotElement }) {
-    // Ignore events from nested slots.
-    if (event.target !== this.renderRoot.querySelector('slot')) {
-      return;
-    }
-
-    const assigned = event.target.assignedElements({ flatten: true });
-
-    this.#updateButtonAttributes(assigned);
-
-    requestAnimationFrame(() => {
-      this.#updateMapping();
-    });
-  }
-
-  #updateButtonAttributes(elements: Element[]): void {
-    elements.forEach(el => {
-      const targets: Element[] = [];
-
-      if (el.tagName === 'SL-BUTTON' || el.tagName === 'SL-MENU-BUTTON') targets.push(el);
-      targets.push(...Array.from(el.querySelectorAll('sl-button, sl-menu-button')));
-
-      targets.forEach(btn => {
-        if (this.type) {
-          btn.setAttribute('fill', this.type);
-        }
-
-        if (this.inverted) {
-          btn.setAttribute('variant', 'inverted');
-        } else {
-          btn.removeAttribute('variant');
-        }
-      });
-    });
-  }
-
-  #updateMapping(): void {
-    const slot = this.renderRoot.querySelector('slot')!,
-      elements = slot.assignedElements({ flatten: true });
-
-    this.empty = elements.length === 0;
-
-    this.items = elements
-      .map(element => {
-        if (element instanceof Button) {
-          return this.#mapButtonToItem(element);
-        } else if (element instanceof MenuButton) {
-          return this.#mapMenuButtonToItem(element);
-        } else if (element instanceof ToolBarDivider) {
-          return { element, type: 'divider' };
-        } else if (!['SL-TOOLTIP'].includes(element.tagName)) {
-          console.warn(`Unknown element type: ${element.tagName} in sl-tool-bar.`);
-        }
-
-        return undefined;
-      })
-      .filter(item => item !== undefined) as ToolBarItem[];
-
-    this.#needsMeasurement = true;
-
-    // Reconnect the resize observer to the host
-    this.#resizeObserver.disconnect();
-    this.#resizeObserver.observe(this);
-  }
-
-  #measureItems(wrapper: Element): void {
-    if (this.offsetParent === null) {
-      this.#needsMeasurement = true;
-
-      return;
-    }
-
-    const gap = parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0;
-
-    // Temporarily show all items to get accurate measurements
-    const previousDisplayValues: string[] = [];
-    this.items.forEach((item, i) => {
-      previousDisplayValues[i] = item.element.style.display;
-      item.element.style.display = '';
-    });
-
-    this.#widths = this.items.map(item => item.element.getBoundingClientRect().width);
-    this.#totalWidth = this.#widths.reduce((sum, w, i) => sum + w + (i < this.#widths.length - 1 ? gap : 0), 0);
-
-    // Restore previous display values
-    this.items.forEach((item, i) => {
-      item.element.style.display = previousDisplayValues[i];
-    });
-
-    this.#needsMeasurement = false;
+    return hostWidth - hostPadding;
   }
 
   #mapButtonToItem(button: HTMLElement): ToolBarItemButton {
@@ -544,5 +365,178 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       menuItems,
       visible: true
     };
+  }
+
+  #measureItems(wrapper: Element): void {
+    if (this.offsetParent === null) {
+      this.#needsMeasurement = true;
+
+      return;
+    }
+
+    const gap = parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0;
+
+    // Temporarily show all items to get accurate measurements
+    const previousDisplayValues: string[] = [];
+    this.items.forEach((item, i) => {
+      previousDisplayValues[i] = item.element.style.display;
+      item.element.style.display = '';
+    });
+
+    this.#widths = this.items.map(item => item.element.getBoundingClientRect().width);
+    this.#totalWidth = this.#widths.reduce((sum, w, i) => sum + w + (i < this.#widths.length - 1 ? gap : 0), 0);
+
+    // Restore previous display values
+    this.items.forEach((item, i) => {
+      item.element.style.display = previousDisplayValues[i];
+    });
+
+    this.#needsMeasurement = false;
+  }
+
+  #onResize(): void {
+    const availableWidth = this.#getAvailableWidth();
+
+    if (!availableWidth) {
+      return;
+    }
+
+    const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
+
+    if (!wrapper) {
+      return;
+    }
+
+    const gap = parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0;
+
+    // If available width has changed significantly, re-measure to get accurate item widths
+    // This is important when items were hidden and now there's more space, or when parent constraints change
+    const RESIZE_THRESHOLD = 5; // Pixel threshold that prevents flickering caused by slight measurement fluctuations
+    const widthChanged = Math.abs(availableWidth - this.#lastAvailableWidth) > RESIZE_THRESHOLD;
+
+
+    if (this.#needsMeasurement || !this.#totalWidth || !this.#widths.length || widthChanged) {
+      this.#measureItems(wrapper);
+    }
+
+    this.#lastAvailableWidth = availableWidth;
+
+    if (!this.#totalWidth || !this.#widths.length) {
+      return;
+    }
+
+    // First pass: calculate visibility assuming no menu button
+    let acc = 0;
+    for (let i = 0; i < this.items.length; i++) {
+      acc += this.#widths[i];
+      this.items[i].visible = acc <= availableWidth;
+      if (i < this.items.length - 1) acc += gap;
+    }
+
+    // Check if we need the overflow menu
+    const allVisible = this.items.every(item => item.visible);
+
+    if (!allVisible) {
+      // Second pass: recalculate with space reserved for menu button
+      let buttonSize = this.#menuButtonSize ?? this.#menuButtonSizeCache;
+      const wrapperHeight = Math.round(wrapper.getBoundingClientRect().height);
+
+      if (this.#menuButtonSize == null && wrapperHeight > 0) {
+        this.#menuButtonSizeCache = wrapperHeight;
+        buttonSize = wrapperHeight;
+      }
+
+      const effectiveAvailable = availableWidth - buttonSize - gap;
+      acc = 0;
+
+      for (let i = 0; i < this.items.length; i++) {
+        acc += this.#widths[i];
+        this.items[i].visible = acc <= effectiveAvailable;
+        if (i < this.items.length - 1) acc += gap;
+      }
+    }
+
+    this.items.forEach(item => {
+      item.element.style.display = item.visible ? '' : 'none';
+    });
+
+    this.menuItems = this.items.filter(item => !item.visible);
+
+    // Check if all items are hidden and update menu button class
+    const allHidden = this.items.every(item => !item.visible);
+
+    requestAnimationFrame(() => {
+      const menuButton = this.renderRoot.querySelector('sl-menu-button');
+      menuButton?.classList.toggle('all-hidden', allHidden);
+    });
+
+    this.requestUpdate('items');
+
+    this.#rovingTabindexController.clearElementCache();
+  }
+
+  #onSlotChange(event: Event & { target: HTMLSlotElement }) {
+    // Ignore events from nested slots.
+    if (event.target !== this.renderRoot.querySelector('slot')) {
+      return;
+    }
+
+    const assigned = event.target.assignedElements({ flatten: true });
+
+    this.#updateButtonAttributes(assigned);
+
+    requestAnimationFrame(() => {
+      this.#updateMapping();
+    });
+  }
+
+  #updateButtonAttributes(elements: Element[]): void {
+    elements.forEach(el => {
+      const targets: Element[] = [];
+
+      if (el.tagName === 'SL-BUTTON' || el.tagName === 'SL-MENU-BUTTON') targets.push(el);
+      targets.push(...Array.from(el.querySelectorAll('sl-button, sl-menu-button')));
+
+      targets.forEach(btn => {
+        if (this.type) {
+          btn.setAttribute('fill', this.type);
+        }
+
+        if (this.inverted) {
+          btn.setAttribute('variant', 'inverted');
+        } else {
+          btn.removeAttribute('variant');
+        }
+      });
+    });
+  }
+
+  #updateMapping(): void {
+    const slot = this.renderRoot.querySelector('slot')!,
+      elements = slot.assignedElements({ flatten: true });
+
+    this.empty = elements.length === 0;
+
+    this.items = elements
+      .map(element => {
+        if (element instanceof Button) {
+          return this.#mapButtonToItem(element);
+        } else if (element instanceof MenuButton) {
+          return this.#mapMenuButtonToItem(element);
+        } else if (element instanceof ToolBarDivider) {
+          return { element, type: 'divider' };
+        } else if (!['SL-TOOLTIP'].includes(element.tagName)) {
+          console.warn(`Unknown element type: ${element.tagName} in sl-tool-bar.`);
+        }
+
+        return undefined;
+      })
+      .filter(item => item !== undefined) as ToolBarItem[];
+
+    this.#needsMeasurement = true;
+
+    // Reconnect the resize observer to the host
+    this.#resizeObserver.disconnect();
+    this.#resizeObserver.observe(this);
   }
 }

@@ -5,8 +5,6 @@ import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { type MenuItem } from '@sl-design-system/menu';
 import '@sl-design-system/menu/register.js';
-import '@sl-design-system/toggle-button/register.js';
-import '@sl-design-system/toggle-group/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, html } from 'lit';
 import { spy } from 'sinon';
@@ -55,17 +53,6 @@ describe('sl-tool-bar', () => {
           </sl-button>
 
           <sl-tool-bar-divider></sl-tool-bar-divider>
-
-          <sl-toggle-group>
-            <sl-toggle-button aria-label="Bell">
-              <sl-icon name="far-bell" slot="default"></sl-icon>
-              <sl-icon name="fas-bell" slot="pressed"></sl-icon>
-            </sl-toggle-button>
-            <sl-toggle-button aria-label="Gear">
-              <sl-icon name="far-gear" slot="default"></sl-icon>
-              <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-            </sl-toggle-button>
-          </sl-toggle-group>
 
           <sl-tool-bar-divider></sl-tool-bar-divider>
 
@@ -137,7 +124,6 @@ describe('sl-tool-bar', () => {
     });
 
     it('should map the slotted items', () => {
-      // Currently maps: button, divider, divider, menu-button (toggle-group not mapped) = 4 items
       expect(el.items).to.have.length(4);
 
       let item: ToolBarItem = el.items[0] as ToolBarItemButton;
@@ -184,17 +170,6 @@ describe('sl-tool-bar', () => {
           </sl-button>
 
           <sl-tool-bar-divider></sl-tool-bar-divider>
-
-          <sl-toggle-group multiple>
-            <sl-toggle-button aria-label="Bell">
-              <sl-icon name="far-bell" slot="default"></sl-icon>
-              <sl-icon name="fas-bell" slot="pressed"></sl-icon>
-            </sl-toggle-button>
-            <sl-toggle-button aria-label="Gear">
-              <sl-icon name="far-gear" slot="default"></sl-icon>
-              <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-            </sl-toggle-button>
-          </sl-toggle-group>
 
           <sl-button aria-labelledby="edit-tooltip" fill="ghost">
             <sl-icon name="far-pen"></sl-icon>
@@ -249,27 +224,7 @@ describe('sl-tool-bar', () => {
       expect(hr).to.exist;
     });
 
-    it.skip('should have a menu group for the toggle group', () => {
-      // Toggle group is not currently mapped by the component
-      const group = el.renderRoot.querySelector('sl-menu-item-group');
-
-      expect(group).to.exist;
-      expect(group?.selects).to.equal('multiple');
-      expect(group?.children).to.have.length(2);
-
-      const firstChild = group?.children.item(0);
-      expect(firstChild).to.have.attribute('selectable');
-      expect(firstChild).to.have.trimmed.text('Bell');
-      expect(firstChild).to.contain('sl-icon[name="far-bell"]');
-
-      const lastChild = group?.children.item(1);
-      expect(lastChild).to.have.attribute('selectable');
-      expect(lastChild).to.have.trimmed.text('Gear');
-      expect(lastChild).to.contain('sl-icon[name="far-gear"]');
-    });
-
     it('should have a menu item for the icon only button with tooltip connected via aria-labelledby', () => {
-      // Since toggle group is not mapped, the button with tooltip is at index 1 (after Button and divider)
       const menuItems = el.renderRoot.querySelectorAll('sl-menu-item');
       // Find the menu item with far-pen icon (not the one inside submenu)
       const editButton = Array.from(menuItems).find(
@@ -327,18 +282,6 @@ describe('sl-tool-bar', () => {
       expect(el.toolBar?.items[0]).to.have.property('label', 'Button');
     });
 
-    it.skip('should not automatically find buttons added later without refresh', async () => {
-      const button = document.createElement('sl-button');
-      button.textContent = 'New Button';
-      el.appendChild(button);
-
-      await new Promise(resolve => setTimeout(resolve));
-
-      // MutationObserver doesn't reliably detect nested slot changes
-      // This test is skipped because the behavior is inconsistent
-      expect(el.toolBar?.items).to.have.length(1);
-    });
-
     it('should find buttons added later after calling refresh()', async () => {
       const button = document.createElement('sl-button');
       button.textContent = 'New Button';
@@ -351,19 +294,6 @@ describe('sl-tool-bar', () => {
       expect(el.toolBar?.items).to.have.length(2);
       expect(el.toolBar?.items[1]).to.have.property('type', 'button');
       expect(el.toolBar?.items[1]).to.have.property('label', 'New Button');
-    });
-
-    it.skip('should not automatically detect disabled state changes without refresh', async () => {
-      // After initial refresh in beforeEach, items[0] exists
-      expect(el.toolBar?.items[0]).to.have.property('disabled', false);
-
-      el.querySelector('sl-button')?.setAttribute('disabled', '');
-
-      await new Promise(resolve => setTimeout(resolve));
-
-      // MutationObserver doesn't reliably detect attribute changes in nested slots
-      // This test is skipped because the behavior is inconsistent
-      expect(el.toolBar?.items[0]).to.have.property('disabled', false);
     });
 
     it('should detect disabled state changes on the initial button after calling refresh()', async () => {

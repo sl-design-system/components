@@ -83,10 +83,11 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** Most recent available width (in pixels) used to detect significant size changes and avoid flickering. */
   #lastAvailableWidth = 0;
 
-  /** Default and fallback cache for the menu button size (pixels).
+  /**
+   * Default and fallback cache for the menu button size (pixels).
    * Used when actual size is unavailable.
-   * - menu button width/height: 36px, icon-only block-size + border-width in button.scss
-   * */
+   *   - menu button width/height: 36px, icon-only block-size + border-width in button.scss
+   */
   #menuButtonSizeCache = 36;
 
   /** Cached measured width (in pixels) of the overflow/menu button. */

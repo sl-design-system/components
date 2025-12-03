@@ -5,6 +5,8 @@ import { ButtonComponent } from '../src/button/button.component';
 
 @Component({
   selector: 'sla-accordion-external-actions',
+  standalone: true,
+  imports: [AccordionComponent, ButtonComponent],
   template: `<sl-button (click)="this.onClick('dino')">Toggle 🦖</sl-button>
     <sl-button (click)="this.onClick('alien')">Toggle 👽</sl-button>
     dinoState:{{ this.dinoState }} alienState:{{ this.alienState }}
@@ -37,8 +39,7 @@ export default {
   title: 'Accordion',
   decorators: [
     moduleMetadata({
-      declarations: [AccordionExternalActionsComponent],
-      imports: [AccordionComponent, ButtonComponent]
+      imports: [AccordionExternalActionsComponent]
     })
   ]
 } as Meta;

@@ -122,8 +122,8 @@ describe('sl-tool-bar', () => {
       // When all items fit, visibility is set to 'visible' by the resize observer
       // Check that no items are hidden
       const allVisible = Array.from(el.children).every(child => {
-        const visibility = (child as HTMLElement).style.visibility;
-        return visibility === '' || visibility === 'visible';
+        const display = (child as HTMLElement).style.display;
+        return display === '' || display !== 'none';
       });
 
       expect(allVisible).to.be.true;

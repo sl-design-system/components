@@ -146,7 +146,8 @@ export default {
 export const Basic: Story = {
   args: {
     description:
-      'This example shows a typical tool bar with buttons and menus. You can resize the tool bar by dragging the right edge. This showcases how the tool bar can adapt to different widths and overflow items in a menu.',
+      'This example shows a typical tool bar with buttons and menus. You can resize the tool bar by dragging the right edge. This showcases how the tool bar can adapt to different widths and overflow items in a menu. This example shows a typical tool bar with buttons and menus. You can resize the tool bar by dragging the right edge. This showcases how the tool bar can adapt to different widths and overflow items in a menu.\n' +
+      '    By default a tool bar does not have any padding and has no border. Please make sure that the focus outlines of the buttons are still visible.',
     items: () => html`
       <sl-button fill="outline" size="md">Button</sl-button>
       <sl-button fill="outline">
@@ -196,7 +197,7 @@ export const Contained: Story = {
   args: {
     ...Basic.args,
     description:
-      'This example shows a tool bar without a border. Without a border, it also does not have any inline padding. Please make sure that the focus outlines of the buttons are still visible.',
+      'This example shows a contained tool bar with a border and padding. The border and spacing help distinguish the tool bar from the surrounding content.',
     contained: true
   }
 };
@@ -257,7 +258,7 @@ export const InvertedContained: Story = {
   args: {
     contained: true,
     description: html`
-      This example shows a tool bar with inverted buttons. You have to set the
+      This example shows a contained tool bar with inverted buttons. You have to set the
       <code>inverted</code> attribute on the tool bar, otherwise the menu button will not be inverted.
     `,
     inverted: true,

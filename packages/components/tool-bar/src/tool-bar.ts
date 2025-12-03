@@ -161,10 +161,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** @internal True when the tool-bar is empty. */
   @property({ type: Boolean, reflect: true }) empty?: boolean;
 
-  /**
-   * The type of buttons and menu buttons (also overflow menu button).
-   * @default 'outline'
-   */
+  /** The type of buttons and menu buttons (also overflow menu button). */
   @property() type?: Extract<ButtonFill, 'ghost' | 'outline'>;
 
   /** @internal The tool bar items. */
@@ -213,44 +210,11 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       this.menuItems = this.items.filter(item => !item.visible);
     }
 
-    // When `type` changes, update fill of assigned sl-button / sl-menu-button elements.
-    if (changes.has('type')) {
-      const slot = this.renderRoot.querySelector('slot');
-      const assigned = slot?.assignedElements({ flatten: true }) ?? [];
+    if (changes.has('type') || changes.has('inverted')) {
+      const slot = this.renderRoot.querySelector('slot'),
+        assigned = slot?.assignedElements({ flatten: true }) ?? [];
 
-      assigned.forEach(el => {
-        const targets: Element[] = [];
-
-        if (el.tagName === 'SL-BUTTON' || el.tagName === 'SL-MENU-BUTTON') targets.push(el);
-        targets.push(...Array.from(el.querySelectorAll('sl-button, sl-menu-button')));
-
-        targets.forEach(btn => {
-          if (typeof this.type === 'string' && this.type.length) {
-            btn.setAttribute('fill', this.type);
-          }
-        });
-      });
-    }
-
-    // When `inverted` changes, set inverted on sl-button / sl-menu-button elements.
-    if (changes.has('inverted')) {
-      const slot = this.renderRoot.querySelector('slot');
-      const assigned = slot?.assignedElements({ flatten: true }) ?? [];
-
-      assigned.forEach(el => {
-        const targets: Element[] = [];
-
-        if (el.tagName === 'SL-BUTTON' || el.tagName === 'SL-MENU-BUTTON') targets.push(el);
-        targets.push(...Array.from(el.querySelectorAll('sl-button, sl-menu-button')));
-
-        targets.forEach(btn => {
-          if (this.inverted) {
-            btn.setAttribute('variant', 'inverted');
-          } else {
-            btn.removeAttribute('variant');
-          }
-        });
-      });
+      this.#updateButtonAttributes(assigned);
     }
   }
 
@@ -433,18 +397,18 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     const assigned = event.target.assignedElements({ flatten: true });
 
-    if (typeof this.disabled === 'boolean') {
-      assigned.forEach(el => el.toggleAttribute('disabled', this.disabled));
-    }
+    this.#updateButtonAttributes(assigned);
 
-    // set for each sl-button and sl-menu-button inside the slot the fill to this.type
-    assigned.forEach(el => {
+    requestAnimationFrame(() => {
+      this.#updateMapping();
+    });
+  }
+
+  #updateButtonAttributes(elements: Element[]): void {
+    elements.forEach(el => {
       const targets: Element[] = [];
 
-      // include direct sl-button and sl-menu-button elements
       if (el.tagName === 'SL-BUTTON' || el.tagName === 'SL-MENU-BUTTON') targets.push(el);
-
-      // include any nested sl-button and sl-menu-button elements
       targets.push(...Array.from(el.querySelectorAll('sl-button, sl-menu-button')));
 
       targets.forEach(btn => {
@@ -458,10 +422,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
           btn.removeAttribute('variant');
         }
       });
-    });
-
-    requestAnimationFrame(() => {
-      this.#updateMapping();
     });
   }
 

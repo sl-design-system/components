@@ -1,10 +1,12 @@
 import { faBell, faGear, faPen, faTrash } from '@fortawesome/pro-regular-svg-icons';
 import { faBell as fasBell, faGear as fasGear } from '@fortawesome/pro-solid-svg-icons';
+import { userEvent } from '@vitest/browser/context';
 import '@sl-design-system/button/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { type MenuItem } from '@sl-design-system/menu';
 import '@sl-design-system/menu/register.js';
+import { closestElementComposed } from '@sl-design-system/shared';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, html } from 'lit';
 import { spy } from 'sinon';
@@ -315,6 +317,119 @@ describe('sl-tool-bar', () => {
       await el.toolBar?.updateComplete;
 
       expect(el.toolBar?.items[0]).to.have.property('disabled', true);
+    });
+  });
+
+  describe('contained', () => {
+    let el: ToolBar;
+
+    beforeEach(async () => {
+      el = await fixture(html`<sl-tool-bar></sl-tool-bar>`);
+    });
+
+    it('should not be contained by default', () => {
+      expect(el.contained).not.to.be.true;
+      expect(el).not.to.have.attribute('contained');
+    });
+
+    it('should be contained when set', async () => {
+      el.contained = true;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('contained');
+    });
+
+    it('should reflect the contained attribute', async () => {
+      el.setAttribute('contained', '');
+      await el.updateComplete;
+
+      expect(el.contained).to.be.true;
+    });
+
+    it('should remove the contained attribute when set to false', async () => {
+      el.contained = true;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('contained');
+
+      el.contained = false;
+      await el.updateComplete;
+
+      expect(el).not.to.have.attribute('contained');
+    });
+  });
+
+  describe('keyboard navigation', () => {
+    let el: ToolBar;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-tool-bar style="inline-size: 400px">
+          <sl-button>
+            <sl-icon name="far-bell"></sl-icon>
+            Notifications
+          </sl-button>
+          <sl-button>
+            <sl-icon name="far-gear"></sl-icon>
+            Settings
+          </sl-button>
+          <sl-button disabled>
+            <sl-icon name="far-pen"></sl-icon>
+            Disabled
+          </sl-button>
+          <sl-button>
+            <sl-icon name="far-trash"></sl-icon>
+            Delete
+          </sl-button>
+        </sl-tool-bar>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+    });
+
+    it('should focus the first enabled button when calling focus()', () => {
+      el.focus();
+
+      const firstButton = el.querySelector('sl-button:not([disabled])');
+
+      expect(closestElementComposed(document.activeElement!, 'sl-button')).to.equal(firstButton);
+    });
+
+    it('should include overflow menu button in navigation when items overflow', async () => {
+      el.style.inlineSize = '48px';
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const menuButton = el.shadowRoot?.querySelector('sl-menu-button');
+      expect(menuButton).to.exist;
+
+      el.focus();
+      await el.updateComplete;
+
+      expect(document.activeElement).to.exist;
+    });
+
+    it('should wrap focus from last to first item', async () => {
+      const buttons = Array.from(el.querySelectorAll('sl-button'));
+
+      buttons[buttons.length - 1].focus();
+      await el.updateComplete;
+
+      await userEvent.keyboard('{ArrowRight}');
+      await el.updateComplete;
+
+      expect(buttons[0].tabIndex).to.equal(0);
+    });
+
+    it('should wrap focus from first to last item', async () => {
+      const buttons = Array.from(el.querySelectorAll('sl-button'));
+
+      buttons[0].focus();
+      await el.updateComplete;
+
+      await userEvent.keyboard('{ArrowLeft}');
+      await el.updateComplete;
+
+      expect(buttons[buttons.length - 1].tabIndex).to.equal(0);
     });
   });
 });

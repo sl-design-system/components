@@ -125,6 +125,7 @@ export default {
           ? '.container { background: var(--sl-color-background-primary-bold); padding: 1.2rem; }'
           : nothing}
         ${resizable ? '.container { overflow: auto; resize: horizontal; }' : nothing}
+        ${!contained ? 'sl-tool-bar { margin:  6px; }' : nothing}
       </style>
       <div class="container">
         <sl-tool-bar
@@ -479,7 +480,7 @@ export const Combination: Story = {
     </p>
     <div class="container">
       <span>Some text in front</span>
-      <sl-tool-bar align="end" no-border>
+      <sl-tool-bar align="end">
         <sl-button fill="outline">Button 1</sl-button>
         <sl-button fill="outline">Button 2</sl-button>
         <sl-button fill="outline">Button 3</sl-button>

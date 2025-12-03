@@ -4,7 +4,6 @@
   align-items: center;
   background: transparent;
   display: flex;
-  margin: var(--sl-size-075); // necessary to avoid cutting off focus ring of sl-button/sl-menu-button inside
 }
 
 :host([align='end']) [part='wrapper'] {

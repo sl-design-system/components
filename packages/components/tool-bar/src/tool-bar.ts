@@ -55,6 +55,11 @@ export type ToolBarItem = ToolBarItemButton | ToolBarItemDivider | ToolBarItemGr
 /**
  * A responsive container that automatically hides items in an overflow menu when space is limited.
  *
+ * By default, the tool bar doesn't have a border or padding around it; it's useful when embedding
+ * the tool bar inside another component. Please make sure there is enough
+ * space around the tool bar to show focus outlines.
+ * If you want a tool-bar with spacing, use the `contained` attribute.
+ *
  * @csspart wrapper - The wrapper element that contains the tool bar items.
  *
  * @slot - The tool bar items.
@@ -81,9 +86,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** Default and fallback cache for the menu button size (pixels).
    * Used when actual size is unavailable.
    * - menu button width/height: 36px, icon-only block-size + border-width in button.scss
-   * - gap: 8px, gap: var(--sl-size-100) in tool-bar.scss
    * */
-  #menuButtonSizeCache = 44; // menu button + gap
+  #menuButtonSizeCache = 36;
 
   /** Cached measured width (in pixels) of the overflow/menu button. */
   #menuButtonSize?: number;
@@ -101,7 +105,23 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   #rovingTabindexController = new RovingTabindexController<HTMLElement>(this, {
     direction: 'horizontal',
     focusInIndex: (elements: HTMLElement[]) => elements.findIndex(el => !el.hasAttribute('disabled')),
-    elements: () => (this.items || []).map(item => item.element),
+    elements: (): HTMLElement[] => {
+      const visibleItems: HTMLElement[] = (this.items || [])
+        .filter(item => item.visible)
+        .map(item => {
+          // For menu buttons, get the internal sl-button element
+          if (item.element instanceof MenuButton) {
+            return item.element.renderRoot.querySelector('sl-button') as HTMLElement;
+          }
+          return item.element;
+        })
+        .filter((el): el is HTMLElement => el !== null);
+
+      const menuButton = this.renderRoot.querySelector('sl-menu-button'),
+        menuButtonElement = menuButton?.renderRoot.querySelector('sl-button') as HTMLElement | null;
+
+      return menuButtonElement ? [...visibleItems, menuButtonElement] : visibleItems;
+    },
     isFocusableElement: (el: HTMLElement) => {
       if (el instanceof ToolBarDivider) {
         return false;
@@ -387,6 +407,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     });
 
     this.requestUpdate('items');
+
+    this.#rovingTabindexController.clearElementCache();
   }
 
   #getAvailableWidth(): number {
@@ -412,7 +434,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     const assigned = event.target.assignedElements({ flatten: true });
 
     if (typeof this.disabled === 'boolean') {
-      event.target.assignedElements({ flatten: true }).forEach(el => el.toggleAttribute('disabled', this.disabled));
+      assigned.forEach(el => el.toggleAttribute('disabled', this.disabled));
     }
 
     // set for each sl-button and sl-menu-button inside the slot the fill to this.type
@@ -428,6 +450,12 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       targets.forEach(btn => {
         if (this.type) {
           btn.setAttribute('fill', this.type);
+        }
+
+        if (this.inverted) {
+          btn.setAttribute('variant', 'inverted');
+        } else {
+          btn.removeAttribute('variant');
         }
       });
     });

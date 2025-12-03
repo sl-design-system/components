@@ -468,7 +468,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             id: 'sl.grid.selectionStatusMessage'
           })}
         </span>
-        <sl-tool-bar align="end" inverted no-border>
+        <sl-tool-bar align="end" inverted>
           <slot name="bulk-actions"></slot>
         </sl-tool-bar>
         <sl-button @click=${this.#onCancelSelection} aria-describedby="tooltip" fill="ghost" variant="inverted">

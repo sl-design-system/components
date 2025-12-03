@@ -559,7 +559,7 @@ export const Examples: Story = {
       <sl-button aria-label="Copy" variant="inverted"><sl-icon name="far-copy"></sl-icon></sl-button>
       <sl-button aria-label="Edit" variant="inverted"><sl-icon name="far-pen"></sl-icon></sl-button>
       <sl-tool-bar-divider inverted></sl-tool-bar-divider>
-      <sl-button aria-label="Archive" variant="inverted"><sl-icon name="far-box-archive"></sl-icon>Archive </sl-button>
+      <sl-button aria-label="Archive" variant="inverted"><sl-icon name="far-box-archive"></sl-icon>Archive</sl-button>
       <sl-button aria-label="Delete" variant="inverted"><sl-icon name="far-trash"></sl-icon>Delete</sl-button>
       <sl-tool-bar-divider inverted></sl-tool-bar-divider>
       <sl-button aria-label="Send" variant="inverted"><sl-icon name="far-paper-plane"></sl-icon>Send</sl-button>

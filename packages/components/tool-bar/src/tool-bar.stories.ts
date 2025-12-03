@@ -147,7 +147,7 @@ export const Basic: Story = {
   args: {
     description:
       'This example shows a typical tool bar with buttons and menus. You can resize the tool bar by dragging the right edge. This showcases how the tool bar can adapt to different widths and overflow items in a menu.\n' +
-      '    By default a tool bar does not have any padding and has no border. Please make sure that the focus outlines of the buttons are still visible.',
+      'By default a tool bar does not have any padding and has no border. Please make sure that the focus outlines of the buttons are still visible.',
     items: () => html`
       <sl-button fill="outline">Button</sl-button>
       <sl-button fill="outline">

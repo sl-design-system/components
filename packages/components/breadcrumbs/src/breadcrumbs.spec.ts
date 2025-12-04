@@ -158,6 +158,7 @@ describe('sl-breadcrumbs', () => {
 
       expect(homeLink).to.have.trimmed.text('Home');
       expect(homeLink.querySelector('sl-icon')).to.have.attribute('name', 'home-blank');
+      expect(homeLink).not.to.have.attribute('aria-label');
     });
 
     it('should hide the home label when hideHomeLabel is set', async () => {
@@ -193,6 +194,7 @@ describe('sl-breadcrumbs', () => {
 
       homeLink = el.renderRoot.querySelector('li.home a')!;
       expect(homeLink).to.have.trimmed.text('Home');
+      expect(homeLink).not.to.have.attribute('aria-label');
     });
   });
 

@@ -5,13 +5,14 @@ import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type Breadcrumbs } from './breadcrumbs.js';
 
-type Props = Pick<Breadcrumbs, 'inverted' | 'homeUrl' | 'noHome'> & { breadcrumbs(): TemplateResult };
+type Props = Pick<Breadcrumbs, 'hideHomeLabel' | 'inverted' | 'homeUrl' | 'noHome'> & { breadcrumbs(): TemplateResult };
 type Story = StoryObj<Props>;
 
 export default {
   title: 'Navigation/Breadcrumbs',
   tags: ['stable'],
   args: {
+    hideHomeLabel: false,
     inverted: false,
     homeUrl: '/',
     noHome: false
@@ -28,7 +29,7 @@ export default {
       defaultViewport: 'reset'
     }
   },
-  render: ({ breadcrumbs, inverted, homeUrl, noHome }) => html`
+  render: ({ breadcrumbs, hideHomeLabel, inverted, homeUrl, noHome }) => html`
     <style>
       sl-breadcrumbs[inverted] {
         background: var(--sl-color-palette-grey-900);
@@ -37,7 +38,9 @@ export default {
         max-width: calc(100vw - 2rem);
       }
     </style>
-    <sl-breadcrumbs .homeUrl=${homeUrl} ?inverted=${inverted} ?no-home=${noHome}>${breadcrumbs()}</sl-breadcrumbs>
+    <sl-breadcrumbs .hideHomeLabel=${hideHomeLabel} .homeUrl=${homeUrl} ?inverted=${inverted} ?no-home=${noHome}
+      >${breadcrumbs()}</sl-breadcrumbs
+    >
   `
 } satisfies Meta<Props>;
 

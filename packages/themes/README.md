@@ -4,7 +4,7 @@ In the release of December 4th we deprecated a large number of css-tokens. These
 
 With this action we removed the old tokens from the default CSS files, and moved all legacy tokens to a separate file. If you have components in your application that are not updated yet to the version that uses the new tokens, the styling will be broken if you don't take action after using this version of the theme. To support these older component versions you can include `light-deprecated.css` in all places where you now include `light.css` until all components are updated and you can remove the legacy file. (`light.css` is taken as an example, this of course goes for all files, also `dark`, `base` and the `scss` files)
 
-If you're using component versions **older** than the versions listed above, you need to include the deprecated CSS files (`light-deprecated.css`, `dark-deprecated.css`) for backward compatibility. These files maintain the legacy token structure that was replaced by the contextual token system.
+If you're using component versions **older** than the versions listed below, you need to include the deprecated CSS files (`light-deprecated.css`, `dark-deprecated.css`) for backward compatibility. These files maintain the legacy token structure that was replaced by the contextual token system.
 
 |Component|version|
 |---|---|

@@ -700,7 +700,6 @@ describe('sl-tool-bar', () => {
       expect(button).to.have.attribute('variant', 'inverted');
 
       el.type = 'outline';
-      el.inverted = false;
       await el.updateComplete;
 
       // Give attribute propagation a tick

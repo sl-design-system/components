@@ -553,8 +553,11 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         }
       });
 
-      // Also update dividers
-      const dividers = Array.from(el.querySelectorAll('sl-tool-bar-divider'));
+      // Also update dividers (both direct children and nested)
+      const dividers: Element[] = [];
+      if (el.tagName === 'SL-TOOL-BAR-DIVIDER') dividers.push(el);
+      dividers.push(...Array.from(el.querySelectorAll('sl-tool-bar-divider')));
+
       dividers.forEach(divider => {
         if (this.inverted) {
           divider.setAttribute('inverted', '');

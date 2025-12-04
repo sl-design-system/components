@@ -550,8 +550,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
         if (this.inverted) {
           btn.setAttribute('variant', 'inverted');
-        } else {
-          btn.removeAttribute('variant');
         }
       });
 

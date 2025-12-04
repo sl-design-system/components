@@ -13,12 +13,5 @@ export default [
       'packages/components/shared/src/vendor/*.ts',
     ]
   },
-  ...config,
-  {
-    languageOptions: {
-      parserOptions: {
-        project: 'packages/components/tsconfig.json'
-      }
-    }
-  }
+  ...config
 ];

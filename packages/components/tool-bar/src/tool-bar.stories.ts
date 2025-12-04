@@ -121,17 +121,20 @@ export default {
     return html`
       ${description ? html`<p>${description}</p>` : nothing}
       <style>
-        ${inverted && !contained
-          ? '.container { background: var(--sl-color-background-primary-bold); padding: 1.2rem; }'
-          : nothing}
-        ${resizable ? '.container { overflow: auto; resize: horizontal; }' : nothing}
-        ${!contained ? 'sl-tool-bar { margin: 6px; }' : nothing}
+        ${resizable ? '.container { overflow: auto; resize: horizontal; }' : nothing} sl-tool-bar:not([contained]) {
+          margin: 6px;
+        }
+
+        .container:has(sl-tool-bar[inverted]:not([contained])) {
+          background: var(--sl-color-background-primary-bold);
+          padding: 1.2rem;
+        }
       </style>
       <div class="container">
         <sl-tool-bar
           ?contained=${contained}
-          ?disabled=${disabled}
           ?inverted=${inverted}
+          .disabled=${ifDefined(disabled)}
           align=${ifDefined(align)}
           type=${ifDefined(type)}
           style="inline-size: ${width ?? 'auto'}"
@@ -242,13 +245,13 @@ export const Inverted: Story = {
     `,
     inverted: true,
     items: () => html`
-      <sl-button fill="outline" variant="inverted">Action 1</sl-button>
-      <sl-button fill="outline" variant="inverted">Action 2</sl-button>
-      <sl-tool-bar-divider inverted></sl-tool-bar-divider>
-      <sl-button fill="outline" variant="inverted">Action 3</sl-button>
-      <sl-button fill="outline" variant="inverted">Action 4</sl-button>
-      <sl-button fill="outline" variant="inverted">Action 5</sl-button>
-      <sl-button fill="outline" variant="inverted">Action 6</sl-button>
+      <sl-button fill="outline">Action 1</sl-button>
+      <sl-button fill="outline">Action 2</sl-button>
+      <sl-tool-bar-divider></sl-tool-bar-divider>
+      <sl-button fill="outline">Action 3</sl-button>
+      <sl-button fill="outline">Action 4</sl-button>
+      <sl-button fill="outline">Action 5</sl-button>
+      <sl-button fill="outline">Action 6</sl-button>
     `,
     width: '400px'
   }
@@ -257,20 +260,54 @@ export const Inverted: Story = {
 export const InvertedContained: Story = {
   args: {
     contained: true,
-    description: html`
-      This example shows a contained tool bar with inverted buttons. You have to set the
-      <code>inverted</code> attribute on the tool bar, otherwise the menu button will not be inverted.
-    `,
+    description: html`This example shows a contained tool bar with inverted buttons.`,
     inverted: true,
     items: () => html`
-      <sl-button fill="outline" variant="inverted">Action 1</sl-button>
-      <sl-button fill="outline" variant="inverted">Action 2</sl-button>
-      <sl-button fill="outline" variant="inverted">Action 3</sl-button>
-      <sl-button fill="outline" variant="inverted">Action 4</sl-button>
-      <sl-button fill="outline" variant="inverted">Action 5</sl-button>
-      <sl-button fill="outline" variant="inverted">Action 6</sl-button>
+      <sl-button fill="outline">Action 1</sl-button>
+      <sl-button fill="outline">Action 2</sl-button>
+      <sl-button fill="outline">Action 3</sl-button>
+      <sl-button fill="outline">Action 4</sl-button>
+      <sl-button fill="outline">Action 5</sl-button>
+      <sl-button fill="outline">Action 6</sl-button>
     `,
     width: '400px'
+  }
+};
+
+export const ClickEvents: Story = {
+  args: {
+    width: '240px',
+    description: 'This example shows a tool bar with buttons that log click events to the console.',
+    items: () => {
+      const handleClick = (event: Event, actionName: string) => {
+        console.log(`${actionName} clicked`, event);
+        alert(`${actionName} clicked`);
+      };
+
+      return html`
+        <sl-button @click=${(e: Event) => handleClick(e, 'Button 1')} fill="outline">Button 1</sl-button>
+        <sl-button @click=${(e: Event) => handleClick(e, 'Button 2')} fill="outline">
+          <sl-icon name="far-gear"></sl-icon>
+          Button 2
+        </sl-button>
+        <sl-tool-bar-divider></sl-tool-bar-divider>
+        <sl-button @click=${(e: Event) => handleClick(e, 'Button 3')} fill="outline">
+          <sl-icon name="far-pen"></sl-icon>
+          Button 3
+        </sl-button>
+        <sl-menu-button @click=${(e: Event) => handleClick(e, 'Menu Button')}>
+          <div slot="button">Menu</div>
+          <sl-menu-item @click=${(e: Event) => handleClick(e, 'Menu Item 1')}>
+            <sl-icon name="far-pen"></sl-icon>
+            Item 1
+          </sl-menu-item>
+          <sl-menu-item @click=${(e: Event) => handleClick(e, 'Menu Item 2')}>
+            <sl-icon name="far-trash"></sl-icon>
+            Item 2
+          </sl-menu-item>
+        </sl-menu-button>
+      `;
+    }
   }
 };
 

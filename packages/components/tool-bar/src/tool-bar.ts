@@ -4,7 +4,7 @@ import { Button, type ButtonFill } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { Menu, MenuButton, MenuItem, MenuItemGroup } from '@sl-design-system/menu';
 import { RovingTabindexController } from '@sl-design-system/shared';
-import { type CSSResultGroup, html, LitElement, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { ToolBarDivider } from './tool-bar-divider.js';
@@ -474,31 +474,80 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     // First pass: calculate visibility assuming no menu button
     let acc = 0;
     for (let i = 0; i < this.items.length; i++) {
-      acc += this.#widths[i];
-      this.items[i].visible = acc <= availableWidth;
-      if (i < this.items.length - 1) acc += gap;
+      const gapBefore = acc > 0 ? gap : 0;
+      const widthNeeded = acc + this.#widths[i] + gapBefore;
+      this.items[i].visible = widthNeeded <= availableWidth;
+      if (this.items[i].visible) {
+        acc = widthNeeded;
+      }
     }
 
     // Check if we need the overflow menu
-    const allVisible = this.items.every(item => item.visible);
+    const allVisible = availableWidth - 2 * gap > this.#totalWidth;
 
     if (!allVisible) {
       // Second pass: recalculate with space reserved for menu button
       let buttonSize = this.#menuButtonSize ?? this.#menuButtonSizeCache;
-      const wrapperHeight = Math.round(wrapper.getBoundingClientRect().height);
 
+      // Try to measure existing menu button from previous render
+      const menuButton = this.renderRoot.querySelector('sl-menu-button');
+      if (menuButton && this.#menuButtonSize == null) {
+        const actualSize = Math.round(menuButton.getBoundingClientRect().width);
+        if (actualSize > 0) {
+          this.#menuButtonSize = actualSize;
+          buttonSize = actualSize;
+        }
+      }
+
+      // Fallback to wrapper height if no measured size yet
+      const wrapperHeight = Math.round(wrapper.getBoundingClientRect().height);
       if (this.#menuButtonSize == null && wrapperHeight > 0) {
         this.#menuButtonSizeCache = wrapperHeight;
         buttonSize = wrapperHeight;
       }
 
-      const effectiveAvailable = availableWidth - buttonSize - gap;
-      acc = 0;
+      const effectiveAvailable = availableWidth - buttonSize - 2 * gap;
+      acc = 0; // Reset accumulator for second pass
 
       for (let i = 0; i < this.items.length; i++) {
-        acc += this.#widths[i];
-        this.items[i].visible = acc <= effectiveAvailable;
-        if (i < this.items.length - 1) acc += gap;
+        const gapBefore = acc > 0 ? gap : 0;
+        const widthNeeded = acc + this.#widths[i] + gapBefore;
+        this.items[i].visible = widthNeeded <= effectiveAvailable;
+        if (this.items[i].visible) {
+          acc = widthNeeded;
+        }
+      }
+
+      // Hide dividers with no visible items before or after them
+      for (let i = 0; i < this.items.length; i++) {
+        if (this.items[i].type === 'divider' && this.items[i].visible) {
+          const hasVisibleBefore =
+            i > 0 && this.items.slice(0, i).some(item => item.visible && item.type !== 'divider');
+          const hasVisibleAfter =
+            i < this.items.length - 1 && this.items.slice(i + 1).some(item => item.visible && item.type !== 'divider');
+
+          if (!hasVisibleBefore || !hasVisibleAfter) {
+            this.items[i].visible = false;
+          }
+        }
+      }
+
+      // After hiding dividers, verify that visible items still fit
+      acc = 0;
+      for (let i = 0; i < this.items.length; i++) {
+        if (this.items[i].visible) {
+          acc += this.#widths[i] + gap;
+        }
+      }
+
+      // If total width exceeds available space, hide items from the end
+      if (acc > effectiveAvailable) {
+        for (let i = this.items.length - 1; i >= 0 && acc > effectiveAvailable; i--) {
+          if (this.items[i].visible && this.items[i].type !== 'divider') {
+            this.items[i].visible = false;
+            acc -= this.#widths[i] + gap;
+          }
+        }
       }
     }
 

@@ -1,7 +1,7 @@
 {
   "name": "@sl-design-system/my-digital-book",
   "description": "My Digital Book theme for the SL Design System",
-  "version": "0.4.1",
+  "version": "1.0.0",
   "license": "Apache 2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -38,6 +38,6 @@
     "CHANGELOG.md"
   ],
   "dependencies": {
-    "@sl-design-system/icon": "1.4.0"
+    "@sl-design-system/icon": "1.4.1"
   }
 }

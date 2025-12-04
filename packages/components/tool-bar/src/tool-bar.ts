@@ -99,13 +99,16 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** Flag indicating whether item width measurements are required before recalculating layout. */
   #needsMeasurement = true;
 
+  /** Flag indicating whether the component has completed its first update. */
+  #isInitialized = false;
+
   /** Observe changes to the size of the host element. */
   #resizeObserver = new ResizeObserver(() => this.#onResize());
 
   /** Manage the keyboard navigation. */
   #rovingTabindexController = new RovingTabindexController<HTMLElement>(this, {
     direction: 'horizontal',
-    focusInIndex: (elements: HTMLElement[]) => elements.findIndex(el => !el.hasAttribute('disabled')),
+    focusInIndex: (elements: HTMLElement[]) => elements.findIndex(el => !this.#isElementDisabled(el)),
     elements: (): HTMLElement[] => {
       const visibleItems: HTMLElement[] = (this.items || [])
         .filter(item => item.visible)
@@ -128,7 +131,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         return false;
       }
 
-      return !el.hasAttribute('disabled');
+      return !this.#isElementDisabled(el);
     }
   });
 
@@ -232,6 +235,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       this.#resizeObserver.observe(this);
 
       this.#rovingTabindexController.clearElementCache();
+
+      this.#isInitialized = true;
     });
   }
 
@@ -294,6 +299,45 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
    */
   refresh(): void {
     this.#updateMapping();
+  }
+
+  /**
+   * Check if an element is disabled.
+   * For menu buttons, the element might be the internal sl-button from the shadow DOM,
+   * so we need to find the original item to get the correct disabled state.
+   */
+  #isElementDisabled(el: HTMLElement): boolean {
+    // Check direct disabled attribute first
+    if (el.hasAttribute('disabled') || el.getAttribute('aria-disabled') === 'true') {
+      return true;
+    }
+
+    // For elements that might be internal buttons from menu buttons, find the original item
+    const item = this.items?.find(item => {
+      // Check if this is the element itself
+      if (item.element === el) {
+        return true;
+      }
+      // Check if this is an internal button of a menu button
+      if (item.element instanceof MenuButton) {
+        const internalButton = item.element.renderRoot.querySelector('sl-button');
+        return internalButton === el;
+      }
+      return false;
+    });
+
+    // If we found the item, use its disabled state
+    if (item && 'disabled' in item) {
+      return item.disabled ?? false;
+    }
+
+    // Check parent element for overflow menu button
+    const parentMenuButton = el.closest('sl-menu-button');
+    if (parentMenuButton && parentMenuButton !== el) {
+      return parentMenuButton.hasAttribute('disabled') || parentMenuButton.getAttribute('aria-disabled') === 'true';
+    }
+
+    return false;
   }
 
   #getAvailableWidth(): number {
@@ -510,6 +554,16 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
           btn.removeAttribute('variant');
         }
       });
+
+      // Also update dividers
+      const dividers = Array.from(el.querySelectorAll('sl-tool-bar-divider'));
+      dividers.forEach(divider => {
+        if (this.inverted) {
+          divider.setAttribute('inverted', '');
+        } else {
+          divider.removeAttribute('inverted');
+        }
+      });
     });
   }
 
@@ -537,8 +591,10 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     this.#needsMeasurement = true;
 
-    // Reconnect the resize observer to the host
-    this.#resizeObserver.disconnect();
-    this.#resizeObserver.observe(this);
+    // Reconnect the resize observer to the host, but only after initialization
+    if (this.#isInitialized) {
+      this.#resizeObserver.disconnect();
+      this.#resizeObserver.observe(this);
+    }
   }
 }

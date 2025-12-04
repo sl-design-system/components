@@ -2,6 +2,7 @@ import { faBell, faGear, faPen, faTrash } from '@fortawesome/pro-regular-svg-ico
 import { faBell as fasBell, faGear as fasGear } from '@fortawesome/pro-solid-svg-icons';
 import { userEvent } from '@vitest/browser/context';
 import '@sl-design-system/button/register.js';
+import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { type MenuItem } from '@sl-design-system/menu';
@@ -111,8 +112,7 @@ describe('sl-tool-bar', () => {
       // When all items fit, visibility is set to 'visible' by the resize observer
       // Check that no items are hidden
       const allVisible = Array.from(el.children).every(child => {
-        const display = (child as HTMLElement).style.display;
-        return display === '' || display !== 'none';
+        return getComputedStyle(child).display !== 'none';
       });
 
       expect(allVisible).to.be.true;
@@ -359,12 +359,399 @@ describe('sl-tool-bar', () => {
     });
   });
 
-  describe('keyboard navigation', () => {
+  describe('type', () => {
     let el: ToolBar;
 
     beforeEach(async () => {
       el = await fixture(html`
         <sl-tool-bar style="inline-size: 400px">
+          <sl-button>
+            <sl-icon name="far-gear"></sl-icon>
+            Button 1
+          </sl-button>
+          <sl-menu-button>
+            <div slot="button">Menu</div>
+            <sl-menu-item>Item 1</sl-menu-item>
+          </sl-menu-button>
+          <sl-button>
+            <sl-icon name="far-pen"></sl-icon>
+            Button 2
+          </sl-button>
+        </sl-tool-bar>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+    });
+
+    it('should not have a type by default', () => {
+      expect(el.type).to.be.undefined;
+    });
+
+    it('should have a type when set', async () => {
+      el.type = 'ghost';
+      await el.updateComplete;
+
+      expect(el.type).to.equal('ghost');
+    });
+
+    it('should update child button fill attributes when type is set to ghost', async () => {
+      el.type = 'ghost';
+      await el.updateComplete;
+
+      const buttons = el.querySelectorAll('sl-button');
+      expect(buttons[0]).to.have.attribute('fill', 'ghost');
+      expect(buttons[1]).to.have.attribute('fill', 'ghost');
+    });
+
+    it('should update child button fill attributes when type is set to outline', async () => {
+      el.type = 'outline';
+      await el.updateComplete;
+
+      const buttons = el.querySelectorAll('sl-button');
+      expect(buttons[0]).to.have.attribute('fill', 'outline');
+      expect(buttons[1]).to.have.attribute('fill', 'outline');
+    });
+
+    it('should update child menu button fill attributes when type is set', async () => {
+      el.type = 'ghost';
+      await el.updateComplete;
+
+      const menuButton = el.querySelector('sl-menu-button');
+      expect(menuButton).to.have.attribute('fill', 'ghost');
+    });
+
+    it('should handle dynamic changes to the type property', async () => {
+      el.type = 'ghost';
+      await el.updateComplete;
+
+      const buttons = el.querySelectorAll('sl-button');
+      expect(buttons[0]).to.have.attribute('fill', 'ghost');
+
+      el.type = 'outline';
+      await el.updateComplete;
+
+      expect(buttons[0]).to.have.attribute('fill', 'outline');
+      expect(buttons[1]).to.have.attribute('fill', 'outline');
+    });
+
+    it('should apply type to the overflow menu button when items overflow', async () => {
+      el.type = 'ghost';
+      el.style.inlineSize = '48px';
+      await el.updateComplete;
+
+      // Give the resize observer time to do its thing
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const overflowMenuButton = el.shadowRoot?.querySelector('sl-menu-button');
+      expect(overflowMenuButton).to.exist;
+      expect(overflowMenuButton).to.have.attribute('fill', 'ghost');
+    });
+
+    it('should update overflow menu button fill when type changes dynamically', async () => {
+      el.style.inlineSize = '48px';
+      await el.updateComplete;
+
+      // Give the resize observer time to do its thing
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      el.type = 'outline';
+      await el.updateComplete;
+
+      const overflowMenuButton = el.shadowRoot?.querySelector('sl-menu-button');
+      expect(overflowMenuButton).to.exist;
+      expect(overflowMenuButton).to.have.attribute('fill', 'outline');
+    });
+
+    it('should update nested buttons inside child elements', async () => {
+      const wrapper = document.createElement('div');
+      const nestedButton = document.createElement('sl-button');
+      nestedButton.textContent = 'Nested Button';
+      wrapper.appendChild(nestedButton);
+      el.appendChild(wrapper);
+      await el.updateComplete;
+
+      el.type = 'ghost';
+      await el.updateComplete;
+
+      expect(nestedButton).to.have.attribute('fill', 'ghost');
+    });
+  });
+
+  describe('inverted', () => {
+    let el: ToolBar;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-tool-bar style="inline-size: 400px">
+          <sl-button>
+            <sl-icon name="far-gear"></sl-icon>
+            Button 1
+          </sl-button>
+          <sl-menu-button>
+            <div slot="button">Menu</div>
+            <sl-menu-item>Item 1</sl-menu-item>
+          </sl-menu-button>
+          <sl-button>
+            <sl-icon name="far-pen"></sl-icon>
+            Button 2
+          </sl-button>
+        </sl-tool-bar>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+    });
+
+    it('should not be inverted by default', () => {
+      expect(el.inverted).not.to.be.true;
+    });
+
+    it('should set variant attribute on child buttons when inverted is true', async () => {
+      el.inverted = true;
+      await el.updateComplete;
+
+      const buttons = el.querySelectorAll('sl-button');
+      expect(buttons[0]).to.have.attribute('variant', 'inverted');
+      expect(buttons[1]).to.have.attribute('variant', 'inverted');
+    });
+
+    it('should set variant attribute on child menu buttons when inverted is true', async () => {
+      el.inverted = true;
+      await el.updateComplete;
+
+      const menuButton = el.querySelector('sl-menu-button');
+      expect(menuButton).to.have.attribute('variant', 'inverted');
+    });
+
+    it('should remove variant attribute when inverted is set to false', async () => {
+      el.inverted = true;
+      await el.updateComplete;
+
+      const buttons = el.querySelectorAll('sl-button');
+      expect(buttons[0]).to.have.attribute('variant', 'inverted');
+
+      el.inverted = false;
+      await el.updateComplete;
+
+      expect(buttons[0]).not.to.have.attribute('variant');
+      expect(buttons[1]).not.to.have.attribute('variant');
+    });
+
+    it('should handle dynamic changes to inverted property', async () => {
+      const buttons = el.querySelectorAll('sl-button');
+
+      el.inverted = true;
+      await el.updateComplete;
+      expect(buttons[0]).to.have.attribute('variant', 'inverted');
+
+      el.inverted = false;
+      await el.updateComplete;
+      expect(buttons[0]).not.to.have.attribute('variant');
+    });
+
+    it('should update nested buttons inside child elements when inverted changes', async () => {
+      const wrapper = document.createElement('div');
+      const nestedButton = document.createElement('sl-button');
+      nestedButton.textContent = 'Nested Button';
+      wrapper.appendChild(nestedButton);
+      el.appendChild(wrapper);
+      await el.updateComplete;
+
+      el.inverted = true;
+      await el.updateComplete;
+
+      expect(nestedButton).to.have.attribute('variant', 'inverted');
+    });
+
+    it('should apply inverted variant to overflow menu button when items overflow', async () => {
+      el.inverted = true;
+      el.style.inlineSize = '48px';
+      await el.updateComplete;
+
+      // Give the resize observer time to do its thing
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const overflowMenuButton = el.shadowRoot?.querySelector('sl-menu-button');
+      expect(overflowMenuButton).to.exist;
+      expect(overflowMenuButton).to.have.attribute('variant', 'inverted');
+    });
+  });
+
+  describe('#updateButtonAttributes', () => {
+    let el: ToolBar;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-tool-bar style="inline-size: 400px">
+          <sl-button>
+            <sl-icon name="far-gear"></sl-icon>
+            Button 1
+          </sl-button>
+          <sl-menu-button>
+            <div slot="button">Menu</div>
+            <sl-menu-item>Item 1</sl-menu-item>
+          </sl-menu-button>
+          <div id="wrapper">
+            <sl-button>
+              <sl-icon name="far-pen"></sl-icon>
+              Nested Button
+            </sl-button>
+            <sl-menu-button>
+              <div slot="button">Nested Menu</div>
+              <sl-menu-item>Item 2</sl-menu-item>
+            </sl-menu-button>
+          </div>
+        </sl-tool-bar>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+    });
+
+    it('should set fill attribute on direct child buttons when type is defined', async () => {
+      el.type = 'ghost';
+      await el.updateComplete;
+
+      const directButton = el.querySelector(':scope > sl-button');
+      expect(directButton).to.have.attribute('fill', 'ghost');
+    });
+
+    it('should set fill attribute on direct child menu-buttons when type is defined', async () => {
+      el.type = 'outline';
+      await el.updateComplete;
+
+      const directMenuButton = el.querySelector(':scope > sl-menu-button');
+      expect(directMenuButton).to.have.attribute('fill', 'outline');
+    });
+
+    it('should set fill attribute on nested buttons when type is defined', async () => {
+      el.type = 'ghost';
+      await el.updateComplete;
+
+      const nestedButton = el.querySelector('#wrapper sl-button');
+      expect(nestedButton).to.have.attribute('fill', 'ghost');
+    });
+
+    it('should set fill attribute on nested menu-buttons when type is defined', async () => {
+      el.type = 'outline';
+      await el.updateComplete;
+
+      const nestedMenuButton = el.querySelector('#wrapper sl-menu-button');
+      expect(nestedMenuButton).to.have.attribute('fill', 'outline');
+    });
+
+    it('should set variant attribute on all buttons when inverted is true', async () => {
+      el.inverted = true;
+      await el.updateComplete;
+
+      const allButtons = el.querySelectorAll('sl-button');
+      allButtons.forEach(button => {
+        expect(button).to.have.attribute('variant', 'inverted');
+      });
+    });
+
+    it('should set variant attribute on all menu-buttons when inverted is true', async () => {
+      el.inverted = true;
+      await el.updateComplete;
+
+      const allMenuButtons = el.querySelectorAll('sl-menu-button');
+      allMenuButtons.forEach(menuButton => {
+        expect(menuButton).to.have.attribute('variant', 'inverted');
+      });
+    });
+
+    it('should remove variant attribute when inverted is false', async () => {
+      el.inverted = true;
+      await el.updateComplete;
+
+      const allButtons = el.querySelectorAll('sl-button');
+      expect(allButtons[0]).to.have.attribute('variant', 'inverted');
+
+      el.inverted = false;
+      await el.updateComplete;
+
+      allButtons.forEach(button => {
+        expect(button).not.to.have.attribute('variant');
+      });
+    });
+
+    it('should handle both type and inverted together', async () => {
+      el.type = 'ghost';
+      el.inverted = true;
+      await el.updateComplete;
+
+      const button = el.querySelector('sl-button');
+      expect(button).to.have.attribute('fill', 'ghost');
+      expect(button).to.have.attribute('variant', 'inverted');
+    });
+
+    it('should handle dynamic changes to type property', async () => {
+      el.type = 'ghost';
+      await el.updateComplete;
+
+      const button = el.querySelector('sl-button');
+      expect(button).to.have.attribute('fill', 'ghost');
+
+      el.type = 'outline';
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('fill', 'outline');
+    });
+
+    it('should handle dynamic changes to inverted property', async () => {
+      el.inverted = true;
+      await el.updateComplete;
+
+      const button = el.querySelector('sl-button');
+      expect(button).to.have.attribute('variant', 'inverted');
+
+      el.inverted = false;
+      await el.updateComplete;
+
+      expect(button).not.to.have.attribute('variant');
+    });
+
+    it('should update all buttons including deeply nested ones', async () => {
+      const deepWrapper = document.createElement('div');
+      const deeperWrapper = document.createElement('div');
+      const deepButton = document.createElement('sl-button');
+      deepButton.textContent = 'Deep Button';
+      deeperWrapper.appendChild(deepButton);
+      deepWrapper.appendChild(deeperWrapper);
+      el.appendChild(deepWrapper);
+      await el.updateComplete;
+
+      el.type = 'ghost';
+      el.inverted = true;
+      await el.updateComplete;
+
+      expect(deepButton).to.have.attribute('fill', 'ghost');
+      expect(deepButton).to.have.attribute('variant', 'inverted');
+    });
+
+    it('should handle simultaneous type and inverted changes', async () => {
+      const button = el.querySelector('sl-button');
+
+      el.type = 'ghost';
+      el.inverted = true;
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('fill', 'ghost');
+      expect(button).to.have.attribute('variant', 'inverted');
+
+      el.type = 'outline';
+      el.inverted = false;
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('fill', 'outline');
+      expect(button).not.to.have.attribute('variant');
+    });
+  });
+
+  describe('keyboard navigation', () => {
+    let el: ToolBar;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-tool-bar style="inline-size: 600px">
           <sl-button>
             <sl-icon name="far-bell"></sl-icon>
             Notifications
@@ -417,7 +804,8 @@ describe('sl-tool-bar', () => {
       await userEvent.keyboard('{ArrowRight}');
       await el.updateComplete;
 
-      expect(buttons[0].tabIndex).to.equal(0);
+      const focusedButton = closestElementComposed(document.activeElement!, 'sl-button');
+      expect(focusedButton).to.equal(buttons[0]);
     });
 
     it('should wrap focus from first to last item', async () => {
@@ -429,7 +817,205 @@ describe('sl-tool-bar', () => {
       await userEvent.keyboard('{ArrowLeft}');
       await el.updateComplete;
 
-      expect(buttons[buttons.length - 1].tabIndex).to.equal(0);
+      const focusedButton = closestElementComposed(document.activeElement!, 'sl-button');
+      expect(focusedButton).to.equal(buttons[buttons.length - 1]);
+    });
+
+    it('should move focus to next item when pressing ArrowRight', async () => {
+      const buttons = Array.from(el.querySelectorAll('sl-button'));
+
+      buttons[0].focus();
+      await el.updateComplete;
+
+      expect(closestElementComposed(document.activeElement!, 'sl-button')).to.equal(buttons[0]);
+
+      await userEvent.keyboard('{ArrowRight}');
+      await el.updateComplete;
+
+      expect(closestElementComposed(document.activeElement!, 'sl-button')).to.equal(buttons[1]);
+    });
+
+    it('should move focus to previous item when pressing ArrowLeft', async () => {
+      const buttons = Array.from(el.querySelectorAll('sl-button'));
+
+      buttons[1].focus();
+      await el.updateComplete;
+
+      expect(closestElementComposed(document.activeElement!, 'sl-button')).to.equal(buttons[1]);
+
+      await userEvent.keyboard('{ArrowLeft}');
+      await el.updateComplete;
+
+      expect(closestElementComposed(document.activeElement!, 'sl-button')).to.equal(buttons[0]);
+    });
+
+    it('should skip disabled items when navigating with ArrowRight', async () => {
+      const buttons = Array.from(el.querySelectorAll('sl-button'));
+      const disabledIndex = buttons.findIndex(btn => btn.hasAttribute('disabled'));
+
+      buttons[disabledIndex - 1].focus();
+      await el.updateComplete;
+
+      await userEvent.keyboard('{ArrowRight}');
+      await el.updateComplete;
+
+      // Should skip the disabled button and move to the next enabled one
+      const focusedButton = closestElementComposed(document.activeElement!, 'sl-button');
+      expect(focusedButton).to.equal(buttons[disabledIndex + 1]);
+    });
+
+    it('should skip disabled items when navigating with ArrowLeft', async () => {
+      const buttons = Array.from(el.querySelectorAll('sl-button'));
+      const disabledIndex = buttons.findIndex(btn => btn.hasAttribute('disabled'));
+
+      buttons[disabledIndex + 1].focus();
+      await el.updateComplete;
+
+      await userEvent.keyboard('{ArrowLeft}');
+      await el.updateComplete;
+
+      // Should skip the disabled button and move to the previous enabled one
+      const focusedButton = closestElementComposed(document.activeElement!, 'sl-button');
+      expect(focusedButton).to.equal(buttons[disabledIndex - 1]);
+    });
+
+    it('should navigate through multiple items with multiple arrow key presses', async () => {
+      const buttons = Array.from(el.querySelectorAll('sl-button'));
+
+      buttons[0].focus();
+      await el.updateComplete;
+
+      // Press ArrowRight twice
+      await userEvent.keyboard('{ArrowRight}');
+      await el.updateComplete;
+      await userEvent.keyboard('{ArrowRight}');
+      await el.updateComplete;
+
+      // Should skip disabled button and be on the delete button
+      const focusedButton = closestElementComposed(document.activeElement!, 'sl-button');
+      expect(focusedButton).to.equal(buttons[3]);
+    });
+
+    it('should navigate backwards through multiple items', async () => {
+      const buttons = Array.from(el.querySelectorAll('sl-button'));
+
+      // Start from the last button (Delete)
+      buttons[3].focus();
+      await el.updateComplete;
+
+      // Press ArrowLeft once - should move to Settings (index 1), skipping Disabled (index 2)
+      await userEvent.keyboard('{ArrowLeft}');
+      await el.updateComplete;
+
+      // Should be on the settings button (index 1)
+      const focusedButton = closestElementComposed(document.activeElement!, 'sl-button');
+      expect(focusedButton).to.equal(buttons[1]);
+    });
+
+    it('should maintain focus order with menu buttons', async () => {
+      const toolbar = await fixture(html`
+        <sl-tool-bar style="inline-size: 600px">
+          <sl-button>Button 1</sl-button>
+          <sl-menu-button>
+            <div slot="button">Menu</div>
+            <sl-menu-item>Item 1</sl-menu-item>
+          </sl-menu-button>
+          <sl-button>Button 2</sl-button>
+        </sl-tool-bar>
+      `) as ToolBar;
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const button1 = toolbar.querySelector('sl-button');
+      const button2 = toolbar.querySelectorAll('sl-button')[1];
+
+      button1?.focus();
+      await toolbar.updateComplete;
+
+      // Navigate right twice - should go through menu button to button 2
+      await userEvent.keyboard('{ArrowRight}');
+      await toolbar.updateComplete;
+      await userEvent.keyboard('{ArrowRight}');
+      await toolbar.updateComplete;
+
+      // Should end up at button 2
+      const focusedAfterSecond = closestElementComposed(document.activeElement!, 'sl-button');
+      expect(focusedAfterSecond).to.equal(button2);
+    });
+
+    it('should include overflow menu button in arrow key navigation', async () => {
+      const overflowToolbar = await fixture(html`
+        <sl-tool-bar style="inline-size: 120px">
+          <sl-button>A</sl-button>
+          <sl-button>B</sl-button>
+          <sl-button>C</sl-button>
+        </sl-tool-bar>
+      `) as ToolBar;
+      await new Promise(resolve => setTimeout(resolve, 150));
+
+      const menuButton = overflowToolbar.shadowRoot?.querySelector('sl-menu-button');
+      expect(menuButton).to.exist;
+
+      // Start from first visible button and navigate right
+      const firstVisibleButton = overflowToolbar.querySelector('sl-button:not([style*="display: none"])') as Button;
+      firstVisibleButton?.focus();
+      await overflowToolbar.updateComplete;
+
+      const initialFocus = closestElementComposed(document.activeElement!, 'sl-button');
+      expect(initialFocus).to.equal(firstVisibleButton);
+
+      // Press right arrow key - should navigate to another element
+      await userEvent.keyboard('{ArrowRight}');
+      await overflowToolbar.updateComplete;
+
+      const focusedAfterRight = closestElementComposed(document.activeElement!, 'sl-button');
+      // Focus should have moved away from the first button
+      expect(focusedAfterRight).to.not.equal(firstVisibleButton);
+    });
+
+    it('should navigate from overflow menu button back to visible items with ArrowLeft', async () => {
+      const overflowToolbar = await fixture(html`
+        <sl-tool-bar style="inline-size: 120px">
+          <sl-button>A</sl-button>
+          <sl-button>B</sl-button>
+          <sl-button>C</sl-button>
+        </sl-tool-bar>
+      `) as ToolBar;
+      await new Promise(resolve => setTimeout(resolve, 150));
+
+      const menuButton = overflowToolbar.shadowRoot?.querySelector('sl-menu-button');
+      const menuButtonInternal = menuButton?.renderRoot.querySelector('sl-button') as HTMLElement;
+
+      expect(menuButton).to.exist;
+      expect(menuButtonInternal).to.exist;
+
+      menuButtonInternal?.focus();
+      await overflowToolbar.updateComplete;
+
+      await userEvent.keyboard('{ArrowLeft}');
+      await overflowToolbar.updateComplete;
+
+      // Should move focus away from overflow menu button
+      const focusedButton = closestElementComposed(document.activeElement!, 'sl-button');
+      // Verify focus moved to a different button (not the menu button internal)
+      expect(focusedButton).to.not.equal(menuButtonInternal);
+    });
+
+    it('should navigate continuously through all enabled items in order', async () => {
+      const buttons = Array.from(el.querySelectorAll('sl-button'));
+      const enabledButtons = buttons.filter(btn => !btn.hasAttribute('disabled'));
+
+      buttons[0].focus();
+      await el.updateComplete;
+
+      // Navigate forward twice (first -> second -> third enabled button)
+      await userEvent.keyboard('{ArrowRight}');
+      await el.updateComplete;
+      expect(closestElementComposed(document.activeElement!, 'sl-button')).to.equal(enabledButtons[1]);
+
+      await userEvent.keyboard('{ArrowRight}');
+      await el.updateComplete;
+      expect(closestElementComposed(document.activeElement!, 'sl-button')).to.equal(enabledButtons[2]);
     });
   });
 });

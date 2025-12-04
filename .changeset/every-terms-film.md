@@ -3,7 +3,7 @@
 ---
 
 **Breaking Changes:**
-- Removed `fill` property - use `type` property instead.
+- Removed `fill` property - use `type` property instead. If you were using `fill="outline"`, change it to `type="outline"`. If you were using `fill="ghost"`, change it to `type="ghost"`.
 - Removed `no-border` property - border now only shows in `contained` variant (except when `inverted`).
 
 **New Features:**

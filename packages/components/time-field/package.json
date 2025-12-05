@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/time-field",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Time field component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@sl-design-system/form": "^1.3.1",
-    "@sl-design-system/icon": "^1.3.1",
+    "@sl-design-system/icon": "^1.4.1",
     "@sl-design-system/listbox": "^0.1.4",
     "@sl-design-system/text-field": "^1.6.5"
   },

@@ -1,5 +1,11 @@
 # @sl-design-system/badge
 
+## 1.1.4
+
+### Patch Changes
+
+- [#2734](https://github.com/sl-design-system/components/pull/2734) [`f676dd5`](https://github.com/sl-design-system/components/commit/f676dd52c83ef2f3429d9a393b5ec634fc05bf0e) - Added the option to add a label to `sm` badges; this will be shown behind the dot.
+
 ## 1.1.3
 
 ### Patch Changes

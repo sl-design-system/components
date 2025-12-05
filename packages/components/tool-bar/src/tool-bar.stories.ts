@@ -121,8 +121,10 @@ export default {
     return html`
       ${description ? html`<p>${description}</p>` : nothing}
       <style>
-        ${resizable ? '.container { overflow: auto; resize: horizontal; }' : nothing} sl-tool-bar:not([contained]) {
-          margin: 6px;
+        ${resizable ? '.container { overflow: auto; resize: horizontal; }' : nothing}
+
+        .container:has(sl-tool-bar:not([contained])) {
+            padding: 6px; // place for focus outline
         }
 
         .container:has(sl-tool-bar[inverted]:not([contained])) {
@@ -252,8 +254,9 @@ export const Inverted: Story = {
       <sl-button fill="outline">Action 4</sl-button>
       <sl-button fill="outline">Action 5</sl-button>
       <sl-button fill="outline">Action 6</sl-button>
-    `,
-    width: '400px'
+      <sl-button fill="outline">Action 7</sl-button>
+      <sl-button fill="outline">Action 8</sl-button>
+    `
   }
 };
 
@@ -315,8 +318,7 @@ export const Overflow: Story = {
   args: {
     ...Basic.args,
     contained: true,
-    description:
-      'This example shows a tool bar with many items that overflow into a menu. You can resize the tool bar by dragging the right edge.',
+    description: 'This example shows a tool bar with many items that overflow into a menu.',
     width: '100px'
   }
 };

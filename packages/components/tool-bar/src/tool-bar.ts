@@ -423,22 +423,26 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     const gap = parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0;
 
-    // Temporarily show all items to get accurate measurements
-    const previousDisplayValues: string[] = [];
-    this.items.forEach((item, i) => {
-      previousDisplayValues[i] = item.element.style.display;
+    // Ensure all items are visible for accurate measurements
+    this.items.forEach(item => {
       item.element.style.display = '';
+      item.visible = true;
     });
+
+    // Force layout before measuring
+    void this.offsetHeight; // Force reflow
 
     this.#widths = this.items.map(item => item.element.getBoundingClientRect().width);
     this.#totalWidth = this.#widths.reduce((sum, w, i) => sum + w + (i < this.#widths.length - 1 ? gap : 0), 0);
 
-    // Restore previous display values
-    this.items.forEach((item, i) => {
-      item.element.style.display = previousDisplayValues[i];
-    });
+    // If measurements are invalid (any width is zero for non-divider items), mark as needing re-measurement
+    const hasInvalidMeasurements = this.items.some((item, i) => item.type !== 'divider' && this.#widths[i] === 0);
 
-    this.#needsMeasurement = false;
+    if (hasInvalidMeasurements && this.#isInitialized) {
+      this.#needsMeasurement = true;
+    } else {
+      this.#needsMeasurement = false;
+    }
   }
 
   #onResize(): void {
@@ -461,14 +465,21 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     const RESIZE_THRESHOLD = 5; // Pixel threshold that prevents flickering caused by slight measurement fluctuations
     const widthChanged = Math.abs(availableWidth - this.#lastAvailableWidth) > RESIZE_THRESHOLD;
 
-    if (this.#needsMeasurement || !this.#totalWidth || !this.#widths.length || widthChanged) {
+    const needsInitialMeasurement = this.#needsMeasurement || !this.#totalWidth || !this.#widths.length;
+
+    if (needsInitialMeasurement) {
       this.#measureItems(wrapper);
+      this.#lastAvailableWidth = availableWidth;
+
+      // Skip visibility calculation on first measurement to allow the container
+      // to establish its natural size before determining which items need overflow.
+      if (needsInitialMeasurement && availableWidth >= this.#totalWidth) {
+        return;
+      }
     }
 
-    this.#lastAvailableWidth = availableWidth;
-
-    if (!this.#totalWidth || !this.#widths.length) {
-      return;
+    if (widthChanged) {
+      this.#lastAvailableWidth = availableWidth;
     }
 
     // First pass: calculate visibility assuming no menu button

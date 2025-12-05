@@ -597,13 +597,13 @@ export const Examples: Story = {
     </sl-tool-bar>
 
     <sl-tool-bar aria-label="Options" contained inverted type="ghost" style="inline-size: fit-content">
-      <sl-button aria-label="Copy" variant="inverted"><sl-icon name="far-copy"></sl-icon></sl-button>
-      <sl-button aria-label="Edit" variant="inverted"><sl-icon name="far-pen"></sl-icon></sl-button>
-      <sl-tool-bar-divider inverted></sl-tool-bar-divider>
-      <sl-button aria-label="Archive" variant="inverted"><sl-icon name="far-box-archive"></sl-icon>Archive</sl-button>
-      <sl-button aria-label="Delete" variant="inverted"><sl-icon name="far-trash"></sl-icon>Delete</sl-button>
-      <sl-tool-bar-divider inverted></sl-tool-bar-divider>
-      <sl-button aria-label="Send" variant="inverted"><sl-icon name="far-paper-plane"></sl-icon>Send</sl-button>
+      <sl-button aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
+      <sl-button aria-label="Edit"><sl-icon name="far-pen"></sl-icon></sl-button>
+      <sl-tool-bar-divider></sl-tool-bar-divider>
+      <sl-button aria-label="Archive"><sl-icon name="far-box-archive"></sl-icon>Archive</sl-button>
+      <sl-button aria-label="Delete"><sl-icon name="far-trash"></sl-icon>Delete</sl-button>
+      <sl-tool-bar-divider></sl-tool-bar-divider>
+      <sl-button aria-label="Send"><sl-icon name="far-paper-plane"></sl-icon>Send</sl-button>
     </sl-tool-bar>
 
     <sl-tool-bar aria-label="Filtering and sorting" contained type="ghost" style="inline-size: fit-content">
@@ -625,15 +625,15 @@ export const Examples: Story = {
     </sl-tool-bar>
 
     <sl-tool-bar aria-label="Filtering and sorting" contained inverted type="ghost" style="inline-size: fit-content">
-      <sl-button aria-label="Copy" variant="inverted"><sl-icon name="far-copy"></sl-icon></sl-button>
-      <sl-button aria-label="Enter" variant="inverted"><sl-icon name="far-arrow-turn-left-down"></sl-icon></sl-button>
-      <sl-tool-bar-divider inverted></sl-tool-bar-divider>
-      <sl-button aria-label="Filter" variant="inverted"><sl-icon name="far-bars-filter"></sl-icon></sl-button>
-      <sl-button aria-label="Sort descending" variant="inverted">
+      <sl-button aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
+      <sl-button aria-label="Enter"><sl-icon name="far-arrow-turn-left-down"></sl-icon></sl-button>
+      <sl-tool-bar-divider></sl-tool-bar-divider>
+      <sl-button aria-label="Filter"><sl-icon name="far-bars-filter"></sl-icon></sl-button>
+      <sl-button aria-label="Sort descending">
         <sl-icon name="far-arrow-down-wide-short"></sl-icon>
       </sl-button>
-      <sl-tool-bar-divider inverted></sl-tool-bar-divider>
-      <sl-menu-button aria-label="Sort by" variant="inverted">
+      <sl-tool-bar-divider></sl-tool-bar-divider>
+      <sl-menu-button aria-label="Sort by">
         <span slot="button">Date</span>
         <sl-menu-item-group heading="Sort by">
           <sl-menu-item> From </sl-menu-item>

@@ -67,7 +67,7 @@ eleventyNavigation:
 ### Large Datasets   
 When there is too much data to display within a single page or component view, and you want to break it into manageable chunks so users can scan, compare, and keep their place more easily. Also when loading all available data at once would be slow, heavy, or resource-intensive, and you need to keep performance predictable.
 
-## Precise Navigation
+### Precise Navigation
 When users need explicit control over where they are in a list, for example, jumping to a specific page, returning to a remembered page number, or sharing a URL that always opens the same subset of results.
 
 </section>

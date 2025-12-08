@@ -110,7 +110,7 @@ describe('sl-tool-bar', () => {
 
     it('should preserve originally disabled buttons when toolbar is re-enabled', async () => {
       // Create a toolbar with one button already disabled
-      const toolbar = await fixture(html`
+      el = await fixture(html`
         <sl-tool-bar style="inline-size: 400px">
           <sl-button>Enabled Button</sl-button>
           <sl-button disabled>Originally Disabled</sl-button>
@@ -119,7 +119,7 @@ describe('sl-tool-bar', () => {
       `);
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      const buttons = Array.from(toolbar.querySelectorAll('sl-button'));
+      const buttons = Array.from(el.querySelectorAll('sl-button'));
 
       // Verify initial state
       expect(buttons[0]).not.to.have.attribute('disabled');
@@ -127,8 +127,8 @@ describe('sl-tool-bar', () => {
       expect(buttons[2]).not.to.have.attribute('disabled');
 
       // Disable the toolbar
-      toolbar.disabled = true;
-      await toolbar.updateComplete;
+      el.disabled = true;
+      await el.updateComplete;
 
       // All buttons should be disabled
       expect(buttons[0]).to.have.attribute('disabled');
@@ -136,8 +136,8 @@ describe('sl-tool-bar', () => {
       expect(buttons[2]).to.have.attribute('disabled');
 
       // Re-enable the toolbar
-      toolbar.disabled = false;
-      await toolbar.updateComplete;
+      el.disabled = false;
+      await el.updateComplete;
 
       // Originally enabled buttons should be enabled again
       // but originally disabled button should remain disabled
@@ -932,13 +932,14 @@ describe('sl-tool-bar', () => {
       const button2 = toolbar.querySelectorAll('sl-button')[1];
 
       button1?.focus();
-      await toolbar.updateComplete;
+      await (toolbar as ToolBar).updateComplete;
 
       // Navigate right twice - should go through menu button to button 2
       await userEvent.keyboard('{ArrowRight}');
-      await toolbar.updateComplete;
+      await (toolbar as ToolBar).updateComplete;
+
       await userEvent.keyboard('{ArrowRight}');
-      await toolbar.updateComplete;
+      await (toolbar as ToolBar).updateComplete;
 
       // Should end up at button 2
       const focusedAfterSecond = closestElementComposed(document.activeElement!, 'sl-button');
@@ -961,14 +962,14 @@ describe('sl-tool-bar', () => {
       // Start from first visible button and navigate right
       const firstVisibleButton = overflowToolbar.querySelector('sl-button:not([style*="display: none"])') as Button;
       firstVisibleButton?.focus();
-      await overflowToolbar.updateComplete;
+      await (overflowToolbar as ToolBar).updateComplete;
 
       const initialFocus = closestElementComposed(document.activeElement!, 'sl-button');
       expect(initialFocus).to.equal(firstVisibleButton);
 
       // Press right arrow key - should navigate to another element
       await userEvent.keyboard('{ArrowRight}');
-      await overflowToolbar.updateComplete;
+      await (overflowToolbar as ToolBar).updateComplete;
 
       const focusedAfterRight = closestElementComposed(document.activeElement!, 'sl-button');
       // Focus should have moved away from the first button
@@ -992,10 +993,10 @@ describe('sl-tool-bar', () => {
       expect(menuButtonInternal).to.exist;
 
       menuButtonInternal?.focus();
-      await overflowToolbar.updateComplete;
+      await (overflowToolbar as ToolBar).updateComplete;
 
       await userEvent.keyboard('{ArrowLeft}');
-      await overflowToolbar.updateComplete;
+      await (overflowToolbar as ToolBar).updateComplete;
 
       // Should move focus away from overflow menu button
       const focusedButton = closestElementComposed(document.activeElement!, 'sl-button');

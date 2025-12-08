@@ -210,14 +210,21 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         children.forEach(el => {
           // Only set disabled on interactive elements (buttons, menu-buttons)
           if (el.tagName === 'SL-BUTTON' || el.tagName === 'SL-MENU-BUTTON') {
-            el.setAttribute('disabled', '');
+            // Only disable if not already disabled, and mark that we disabled it
+            if (!el.hasAttribute('disabled')) {
+              el.setAttribute('disabled', '');
+              el.setAttribute('data-toolbar-disabled', '');
+            }
           }
         });
       } else {
         children.forEach(el => {
-          // Only remove disabled from buttons/menu-buttons that we added it to
+          // Only remove disabled from buttons/menu-buttons that the toolbar disabled
           if (el.tagName === 'SL-BUTTON' || el.tagName === 'SL-MENU-BUTTON') {
-            el.removeAttribute('disabled');
+            if (el.hasAttribute('data-toolbar-disabled')) {
+              el.removeAttribute('disabled');
+              el.removeAttribute('data-toolbar-disabled');
+            }
           }
         });
       }
@@ -621,6 +628,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
         if (this.inverted) {
           btn.setAttribute('variant', 'inverted');
+        } else {
+          btn.removeAttribute('variant');
         }
       });
 

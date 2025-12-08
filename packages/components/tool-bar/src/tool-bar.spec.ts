@@ -1,14 +1,14 @@
 import { faBell, faGear, faPen, faTrash } from '@fortawesome/pro-regular-svg-icons';
 import { faBell as fasBell, faGear as fasGear } from '@fortawesome/pro-solid-svg-icons';
-import { userEvent } from '@vitest/browser/context';
-import '@sl-design-system/button/register.js';
 import { Button } from '@sl-design-system/button';
+import '@sl-design-system/button/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { type MenuItem } from '@sl-design-system/menu';
 import '@sl-design-system/menu/register.js';
 import { closestElementComposed } from '@sl-design-system/shared';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { userEvent } from '@vitest/browser/context';
 import { LitElement, html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
@@ -103,9 +103,47 @@ describe('sl-tool-bar', () => {
       await el.updateComplete;
 
       const children = el.children;
-      expect(children.item(0)).to.have.attribute('disabled');
-      expect(children.item(1)).to.have.attribute('disabled');
-      expect(children.item(2)).to.have.attribute('disabled');
+      // Only check interactive elements (buttons and menu-buttons), not dividers
+      expect(children.item(0)).to.have.attribute('disabled'); // sl-button
+      expect(children.item(3)).to.have.attribute('disabled'); // sl-menu-button
+    });
+
+    it('should preserve originally disabled buttons when toolbar is re-enabled', async () => {
+      // Create a toolbar with one button already disabled
+      const toolbar = await fixture(html`
+        <sl-tool-bar style="inline-size: 400px">
+          <sl-button>Enabled Button</sl-button>
+          <sl-button disabled>Originally Disabled</sl-button>
+          <sl-button>Another Enabled</sl-button>
+        </sl-tool-bar>
+      `);
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const buttons = Array.from(toolbar.querySelectorAll('sl-button'));
+
+      // Verify initial state
+      expect(buttons[0]).not.to.have.attribute('disabled');
+      expect(buttons[1]).to.have.attribute('disabled');
+      expect(buttons[2]).not.to.have.attribute('disabled');
+
+      // Disable the toolbar
+      toolbar.disabled = true;
+      await toolbar.updateComplete;
+
+      // All buttons should be disabled
+      expect(buttons[0]).to.have.attribute('disabled');
+      expect(buttons[1]).to.have.attribute('disabled');
+      expect(buttons[2]).to.have.attribute('disabled');
+
+      // Re-enable the toolbar
+      toolbar.disabled = false;
+      await toolbar.updateComplete;
+
+      // Originally enabled buttons should be enabled again
+      // but originally disabled button should remain disabled
+      expect(buttons[0]).not.to.have.attribute('disabled');
+      expect(buttons[1]).to.have.attribute('disabled');
+      expect(buttons[2]).not.to.have.attribute('disabled');
     });
 
     it('should have made all slotted elements visible', () => {
@@ -886,7 +924,7 @@ describe('sl-tool-bar', () => {
           </sl-menu-button>
           <sl-button>Button 2</sl-button>
         </sl-tool-bar>
-      `) as ToolBar;
+      `);
 
       await new Promise(resolve => setTimeout(resolve, 50));
 
@@ -914,7 +952,7 @@ describe('sl-tool-bar', () => {
           <sl-button>B</sl-button>
           <sl-button>C</sl-button>
         </sl-tool-bar>
-      `) as ToolBar;
+      `);
       await new Promise(resolve => setTimeout(resolve, 150));
 
       const menuButton = overflowToolbar.shadowRoot?.querySelector('sl-menu-button');
@@ -944,7 +982,7 @@ describe('sl-tool-bar', () => {
           <sl-button>B</sl-button>
           <sl-button>C</sl-button>
         </sl-tool-bar>
-      `) as ToolBar;
+      `);
       await new Promise(resolve => setTimeout(resolve, 150));
 
       const menuButton = overflowToolbar.shadowRoot?.querySelector('sl-menu-button');

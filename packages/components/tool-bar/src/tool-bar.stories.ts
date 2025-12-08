@@ -374,10 +374,16 @@ export const IconOnly: Story = {
   render: ({ align, contained, disabled, inverted, resizable, type, width }) => {
     return html`
       <style>
-        ${inverted && !contained
-          ? '.container { background: var(--sl-color-background-primary-bold); padding: 1.2rem; }'
-          : nothing}
         ${resizable ? '.container { overflow: auto; resize: horizontal; }' : nothing}
+
+        .container {
+          padding: 0.4rem; // place for focus outline
+        }
+
+        .container:has(sl-tool-bar[inverted]:not([contained])) {
+          background: var(--sl-color-background-primary-bold);
+          padding: 1.2rem;
+        }
       </style>
       <p>This example shows a tool bar with icon only buttons / menu buttons with tooltips.</p>
       <div class="container">

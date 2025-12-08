@@ -153,7 +153,10 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
    */
   @property({ reflect: true }) align?: 'start' | 'end';
 
-  /** The version of a tool-bar with spacing around. */
+  /**
+   * If true, the tool-bar will have a border (when there is no inverted set) and padding around it.
+   * Use this when you want the tool-bar to be visually distinct from surrounding content.
+   */
   @property({ type: Boolean, reflect: true }) contained?: boolean;
 
   /**
@@ -243,19 +246,19 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   }
 
   override firstUpdated(): void {
-    requestAnimationFrame(() => {
-      const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
+    // requestAnimationFrame(() => {
+    const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
 
-      if (wrapper) {
-        this.#measureItems(wrapper);
-      }
+    if (wrapper) {
+      this.#measureItems(wrapper);
+    }
 
-      this.#resizeObserver.observe(this);
+    this.#resizeObserver.observe(this);
 
-      this.#rovingTabindexController.clearElementCache();
+    this.#rovingTabindexController.clearElementCache();
 
-      this.#isInitialized = true;
-    });
+    this.#isInitialized = true;
+    // });
   }
 
   override render(): TemplateResult {
@@ -433,6 +436,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   }
 
   #measureItems(wrapper: Element): void {
+    // TODO: we need to check whether all elements are rendered and visible
+
     if (this.offsetParent === null) {
       this.#needsMeasurement = true;
 

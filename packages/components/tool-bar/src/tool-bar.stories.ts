@@ -300,7 +300,7 @@ export const ClickEvents: Story = {
           <sl-icon name="far-pen"></sl-icon>
           Button 3
         </sl-button>
-        <sl-menu-button @click=${(e: Event) => handleClick(e, 'Menu Button')}>
+        <sl-menu-button @click=${(e: Event) => handleClick(e, 'Menu Button')} fill="outline">
           <div slot="button">Menu</div>
           <sl-menu-item @click=${(e: Event) => handleClick(e, 'Menu Item 1')}>
             <sl-icon name="far-pen"></sl-icon>

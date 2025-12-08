@@ -497,12 +497,13 @@ export const Combination: Story = {
     <style>
       .container {
         align-items: center;
-        border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
         border-radius: var(--sl-size-borderRadius-default);
+        box-shadow: var(--sl-elevation-shadow-overflow);
         display: flex;
         gap: var(--sl-size-100);
         inline-size: 400px;
         overflow: auto;
+        padding: var(--sl-size-100);
         padding-inline: var(--sl-size-100);
         resize: horizontal;
 

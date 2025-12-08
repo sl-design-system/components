@@ -203,12 +203,23 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     super.willUpdate(changes);
 
     if (changes.has('disabled')) {
-      const children = this.renderRoot.querySelector('slot')?.assignedElements({ flatten: true }) ?? [];
+      // Get direct children from the light DOM (slotted content)
+      const children = Array.from(this.children);
 
       if (this.disabled) {
-        children.forEach(el => el.setAttribute('disabled', ''));
+        children.forEach(el => {
+          // Only set disabled on interactive elements (buttons, menu-buttons)
+          if (el.tagName === 'SL-BUTTON' || el.tagName === 'SL-MENU-BUTTON') {
+            el.setAttribute('disabled', '');
+          }
+        });
       } else {
-        children.forEach(el => el.removeAttribute('disabled'));
+        children.forEach(el => {
+          // Only remove disabled from buttons/menu-buttons that we added it to
+          if (el.tagName === 'SL-BUTTON' || el.tagName === 'SL-MENU-BUTTON') {
+            el.removeAttribute('disabled');
+          }
+        });
       }
     }
 

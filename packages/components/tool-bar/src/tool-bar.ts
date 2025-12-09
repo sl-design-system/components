@@ -219,9 +219,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     // Reset measurements to ensure clean state on reconnect
     this.#needsMeasurement = true;
-    this.#lastAvailableWidth = 0;
-    this.#widths = [];
-    this.#totalWidth = 0;
     this.#menuButtonSize = undefined;
 
     super.disconnectedCallback();
@@ -518,174 +515,46 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     }
 
     const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
-
     if (!wrapper) {
       return;
     }
 
     const gap = parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0;
 
-    // If available width has changed significantly, re-measure to get accurate item widths
-    // This is important when items were hidden and now there's more space, or when parent constraints change
-    const RESIZE_THRESHOLD = 5; // Pixel threshold that prevents flickering caused by slight measurement fluctuations
-    const widthChanged = Math.abs(availableWidth - this.#lastAvailableWidth) > RESIZE_THRESHOLD;
-
-    // Only measure if we have no measurements yet, or if the width changed significantly
-    const needsInitialMeasurement =
-      this.#needsMeasurement && (!this.#totalWidth || !this.#widths.length || widthChanged);
-
-    if (needsInitialMeasurement) {
+    // Re-measure items if needed
+    if (this.#shouldRemeasure(availableWidth)) {
       this.#measureItems(wrapper);
       this.#lastAvailableWidth = availableWidth;
 
-      // Skip visibility calculation on first measurement to allow the container
-      // to establish its natural size before determining which items need overflow.
-      // If the container width matches or exceeds the content width, keep all items visible.
+      // If all items fit, show them all
       if (availableWidth >= this.#totalWidth) {
-        this.items.forEach(item => {
-          item.element.style.display = '';
-          item.visible = true;
-        });
-        this.menuItems = [];
-        this.requestUpdate('items');
-        this.#rovingTabindexController.clearElementCache();
-        return;
-      }
-      this.#lastAvailableWidth = availableWidth;
-    }
-
-    if (widthChanged) {
-      this.#lastAvailableWidth = availableWidth;
-      // If width changed significantly, and we previously had measurements force re-measurement
-      if (this.#widths.length > 0) {
-        this.#needsMeasurement = true;
-        this.#measureItems(wrapper);
-      }
-    }
-
-    if (this.#totalWidth > 0 && this.items.length > 0) {
-      const widthDifference = availableWidth - this.#totalWidth;
-      // If available width is within a reasonable range of total width, assume intrinsic sizing
-      // We allow negative values (slightly less width) to account for rounding/measurement timing issues
-      // Wider range needed for Safari
-      const looksLikeIntrinsicSizing = widthDifference >= -10 && widthDifference <= 20;
-
-      if (looksLikeIntrinsicSizing) {
-        this.items.forEach(item => {
-          item.element.style.display = '';
-          item.visible = true;
-        });
-        this.menuItems = [];
-        this.requestUpdate('items');
-        this.#rovingTabindexController.clearElementCache();
+        this.#showAllItems();
         return;
       }
     }
 
-    // First pass: calculate visibility assuming no menu button
-    let acc = 0;
-    for (let i = 0; i < this.items.length; i++) {
-      const gapBefore = acc > 0 ? gap : 0;
-      const widthNeeded = acc + this.#widths[i] + gapBefore;
-      this.items[i].visible = widthNeeded <= availableWidth;
-      if (this.items[i].visible) {
-        acc = widthNeeded;
-      }
+    // Check for intrinsic sizing (container fits content)
+    if (this.#isIntrinsicSizing(availableWidth)) {
+      this.#showAllItems();
+      return;
     }
 
-    // Check if we need the overflow menu
-    const allVisible = availableWidth - 2 * gap > this.#totalWidth;
+    // Calculate which items should be visible
+    const menuButtonSize = this.#getMenuButtonSize(wrapper);
+    this.#calculateVisibility(availableWidth, gap, menuButtonSize);
 
-    if (!allVisible) {
-      // Second pass: recalculate with space reserved for menu button
-      let buttonSize = this.#menuButtonSize ?? this.#menuButtonSizeCache;
+    // Hide orphaned dividers
+    this.#hideOrphanedDividers();
 
-      // Try to measure existing menu button from previous render
-      const menuButton = this.renderRoot.querySelector('sl-menu-button');
-      if (menuButton && this.#menuButtonSize == null) {
-        const actualSize = Math.round(menuButton.getBoundingClientRect().width);
-        if (actualSize > 0) {
-          this.#menuButtonSize = actualSize;
-          buttonSize = actualSize;
-        }
-      }
-
-      // Fallback to wrapper height if no measured size yet
-      const wrapperHeight = Math.round(wrapper.getBoundingClientRect().height);
-      if (this.#menuButtonSize == null && wrapperHeight > 0) {
-        this.#menuButtonSizeCache = wrapperHeight;
-        buttonSize = wrapperHeight;
-      }
-
-      const effectiveAvailable = availableWidth - buttonSize - 2 * gap;
-      acc = 0; // Reset accumulator for second pass
-
-      for (let i = 0; i < this.items.length; i++) {
-        const gapBefore = acc > 0 ? gap : 0;
-        const widthNeeded = acc + this.#widths[i] + gapBefore;
-        this.items[i].visible = widthNeeded <= effectiveAvailable;
-        if (this.items[i].visible) {
-          acc = widthNeeded;
-        }
-      }
-
-      // Hide dividers with no visible items before or after them
-      for (let i = 0; i < this.items.length; i++) {
-        if (this.items[i].type === 'divider' && this.items[i].visible) {
-          const hasVisibleBefore =
-            i > 0 && this.items.slice(0, i).some(item => item.visible && item.type !== 'divider');
-          const hasVisibleAfter =
-            i < this.items.length - 1 && this.items.slice(i + 1).some(item => item.visible && item.type !== 'divider');
-
-          if (!hasVisibleBefore || !hasVisibleAfter) {
-            this.items[i].visible = false;
-          }
-        }
-      }
-
-      // After hiding dividers, verify that visible items still fit
-      acc = 0;
-      for (let i = 0; i < this.items.length; i++) {
-        if (this.items[i].visible) {
-          acc += this.#widths[i] + gap;
-        }
-      }
-
-      // If total width exceeds available space, hide items from the end
-      if (acc > effectiveAvailable) {
-        for (let i = this.items.length - 1; i >= 0 && acc > effectiveAvailable; i--) {
-          if (this.items[i].visible && this.items[i].type !== 'divider') {
-            this.items[i].visible = false;
-            acc -= this.#widths[i] + gap;
-          }
-        }
-      }
+    // Handle edge case where all items are hidden due to invalid measurements
+    if (this.#handleAllHiddenCase()) {
+      return;
     }
 
-    const allHidden = this.items.every(item => !item.visible);
-    if (allHidden && this.items.length > 0) {
-      const hasInvalidMeasurements = this.#widths.some((w, i) => this.items[i].type !== 'divider' && w === 0);
+    // Apply visibility changes to DOM
+    this.#applyVisibility();
 
-      if (hasInvalidMeasurements) {
-        this.items.forEach(item => {
-          item.element.style.display = '';
-          item.visible = true;
-        });
-        this.menuItems = [];
-        this.requestUpdate('items');
-        this.#rovingTabindexController.clearElementCache();
-        // Mark for re-measurement on next resize
-        this.#needsMeasurement = true;
-        return;
-      }
-    }
-
-    this.items.forEach(item => {
-      item.element.style.display = item.visible ? '' : 'none';
-    });
-
-    this.menuItems = this.items.filter(item => !item.visible);
-
+    // Update overflow menu button styling
     requestAnimationFrame(() => {
       const menuButton = this.renderRoot.querySelector('sl-menu-button');
       const allHidden = this.items.every(item => !item.visible);
@@ -693,8 +562,118 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     });
 
     this.requestUpdate('items');
-
     this.#rovingTabindexController.clearElementCache();
+  }
+
+  #shouldRemeasure(availableWidth: number): boolean {
+    const resizeThreshold = 5;
+    const widthChanged = Math.abs(availableWidth - this.#lastAvailableWidth) > resizeThreshold;
+
+    return this.#needsMeasurement && (!this.#totalWidth || !this.#widths.length || widthChanged);
+  }
+
+  #isIntrinsicSizing(availableWidth: number): boolean {
+    if (this.#totalWidth <= 0 || this.items.length === 0) {
+      return false;
+    }
+
+    const widthDifference = availableWidth - this.#totalWidth;
+    return widthDifference >= -10 && widthDifference <= 20;
+  }
+
+  #showAllItems(): void {
+    this.items.forEach(item => {
+      item.element.style.display = '';
+      item.visible = true;
+    });
+    this.menuItems = [];
+    this.requestUpdate('items');
+    this.#rovingTabindexController.clearElementCache();
+  }
+
+  #getMenuButtonSize(wrapper: Element): number {
+    const willNeedMenu = this.#totalWidth > this.#getAvailableWidth();
+
+    if (!willNeedMenu) {
+      return 0;
+    }
+
+    // Try to get actual menu button size
+    const existingMenuButton = this.renderRoot.querySelector('sl-menu-button');
+    if (existingMenuButton && this.#menuButtonSize == null) {
+      const actualSize = Math.round(existingMenuButton.getBoundingClientRect().width);
+      if (actualSize > 0) {
+        this.#menuButtonSize = actualSize;
+      }
+    }
+
+    // Use cached or fallback size
+    let menuButtonSize = this.#menuButtonSize ?? this.#menuButtonSizeCache;
+
+    // Update cache from wrapper height if needed
+    const wrapperHeight = Math.round(wrapper.getBoundingClientRect().height);
+    if (this.#menuButtonSize == null && wrapperHeight > 0) {
+      this.#menuButtonSizeCache = wrapperHeight;
+      menuButtonSize = wrapperHeight;
+    }
+
+    return menuButtonSize;
+  }
+
+  #calculateVisibility(availableWidth: number, gap: number, menuButtonSize: number): void {
+    const effectiveAvailable = availableWidth - menuButtonSize - 2 * gap;
+
+    let acc = 0;
+    for (let i = 0; i < this.items.length; i++) {
+      const widthNeeded = acc + this.#widths[i] + gap;
+      this.items[i].visible = widthNeeded <= effectiveAvailable;
+
+      if (this.items[i].visible) {
+        acc = widthNeeded;
+      }
+    }
+  }
+
+  #hideOrphanedDividers(): void {
+    for (let i = 0; i < this.items.length; i++) {
+      if (this.items[i].type !== 'divider' || !this.items[i].visible) {
+        continue;
+      }
+
+      const hasVisibleBefore = i > 0 && this.items.slice(0, i).some(item => item.visible && item.type !== 'divider');
+      const hasVisibleAfter =
+        i < this.items.length - 1 && this.items.slice(i + 1).some(item => item.visible && item.type !== 'divider');
+
+      if (!hasVisibleBefore || !hasVisibleAfter) {
+        this.items[i].visible = false;
+      }
+    }
+  }
+
+  #handleAllHiddenCase(): boolean {
+    const allHidden = this.items.every(item => !item.visible);
+
+    if (!allHidden || this.items.length === 0) {
+      return false;
+    }
+
+    const hasInvalidMeasurements = this.#widths.some((w, i) => this.items[i].type !== 'divider' && w === 0);
+
+    if (hasInvalidMeasurements) {
+      this.#showAllItems();
+      this.#needsMeasurement = true;
+      return true;
+    }
+
+    return false;
+  }
+
+  #applyVisibility(): void {
+    this.items.forEach(item => {
+      item.element.style.display = item.visible ? '' : 'none';
+    });
+
+    this.menuItems = this.items.filter(item => !item.visible);
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }) {

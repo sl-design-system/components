@@ -103,8 +103,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   #isInitialized = false;
 
   /** Observe changes to the size of the host element. */
-  // #resizeObserver = new ResizeObserver(() => this.#onResize());
-
   #resizeObserver = new ResizeObserver(() => this.#onResize());
 
   /** Timeout for debouncing resize events. */
@@ -187,19 +185,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** The type of buttons and menu buttons (also overflow menu button). */
   @property() type?: Extract<ButtonFill, 'ghost' | 'outline'>;
 
-  // override connectedCallback(): void {
-  //   super.connectedCallback();
-  //
-  //   this.setAttribute('role', 'toolbar');
-  //
-  //   this.#mutationObserver.observe(this, {
-  //     childList: true,
-  //     subtree: true,
-  //     attributes: true,
-  //     attributeFilter: ['aria-disabled', 'disabled']
-  //   });
-  // }
-
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -212,13 +197,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       attributeFilter: ['aria-disabled', 'disabled']
     });
 
-    // // Force a resize check when reconnecting (e.g., navigating between stories)
-    // if (this.#isInitialized && this.#needsMeasurement) {
-    //   requestAnimationFrame(() => {
-    //     this.#onResize();
-    //   });
-    // }
-
     // Force a resize check when reconnecting if measurements are invalid
     if (this.#isInitialized && this.#needsMeasurement) {
       requestAnimationFrame(() => {
@@ -230,17 +208,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       });
     }
   }
-
-  // override disconnectedCallback(): void {
-  //   this.#resizeObserver.disconnect();
-  //   this.#mutationObserver.disconnect();
-  //
-  //   if (this.#resizeTimeout) {
-  //     cancelAnimationFrame(this.#resizeTimeout);
-  //   }
-  //
-  //   super.disconnectedCallback();
-  // }
 
   override disconnectedCallback(): void {
     this.#resizeObserver.disconnect();
@@ -302,38 +269,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       this.#updateButtonAttributes(assigned);
     }
   }
-
-  // override firstUpdated(): void {
-  //   const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
-  //
-  //   if (wrapper) {
-  //     this.#measureItems(wrapper);
-  //   }
-  //
-  //   this.#resizeObserver.observe(this);
-  //
-  //   this.#rovingTabindexController.clearElementCache();
-  //
-  //   this.#isInitialized = true;
-  //
-  //   // Use multiple strategies to detect when fonts/content are ready
-  //   // This is needed because different browsers (especially Safari) handle this differently
-  //
-  //   // Strategy 1: Font loading API (works well in most browsers)
-  //   // document.fonts.ready.then(() => {
-  //   //   this.#needsMeasurement = true;
-  //   //   this.#onResize();
-  //   // });
-  //
-  //   // Strategy 2: Check after a short delay (Safari fallback)
-  //   // Safari sometimes resolves fonts.ready before fonts are actually rendered
-  // //  requestAnimationFrame(() => {
-  //    // setTimeout(() => {
-  //       this.#needsMeasurement = true;
-  //       this.#onResize();
-  //    // }, 50);
-  // //  });
-  // }
 
   override firstUpdated(): void {
     const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
@@ -524,8 +459,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   }
 
   #measureItems(wrapper: Element): void {
-    // TODO: we need to check whether all elements are rendered and visible
-
     if (this.offsetParent === null) {
       this.#needsMeasurement = true;
 
@@ -580,8 +513,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   #performResize(): void {
     const availableWidth = this.#getAvailableWidth();
 
-    console.log('availableWidth:', availableWidth);
-
     if (!availableWidth) {
       return;
     }
@@ -596,12 +527,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     // If available width has changed significantly, re-measure to get accurate item widths
     // This is important when items were hidden and now there's more space, or when parent constraints change
-    // const RESIZE_THRESHOLD = 5; // Pixel threshold that prevents flickering caused by slight measurement fluctuations
-    // const widthChanged = Math.abs(availableWidth - this.#lastAvailableWidth) > RESIZE_THRESHOLD;
-    //
-    // const needsInitialMeasurement = this.#needsMeasurement || !this.#totalWidth || !this.#widths.length;
-
-    const RESIZE_THRESHOLD = 5;
+    const RESIZE_THRESHOLD = 5; // Pixel threshold that prevents flickering caused by slight measurement fluctuations
     const widthChanged = Math.abs(availableWidth - this.#lastAvailableWidth) > RESIZE_THRESHOLD;
 
     // Only measure if we have no measurements yet, or if the width changed significantly
@@ -616,7 +542,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       // to establish its natural size before determining which items need overflow.
       // If the container width matches or exceeds the content width, keep all items visible.
       if (availableWidth >= this.#totalWidth) {
-        // Ensure all items are visible and menu is cleared
         this.items.forEach(item => {
           item.element.style.display = '';
           item.visible = true;
@@ -631,22 +556,19 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     if (widthChanged) {
       this.#lastAvailableWidth = availableWidth;
-      // If width changed significantly and we previously had measurements,
-      // force re-measurement as fonts/styles may have loaded
+      // If width changed significantly, and we previously had measurements force re-measurement
       if (this.#widths.length > 0) {
         this.#needsMeasurement = true;
         this.#measureItems(wrapper);
       }
     }
 
-    // Early check: If container width is very close to content width, it's likely using intrinsic sizing.
-    // In this case, all items should be visible. This check happens before overflow calculation.
     if (this.#totalWidth > 0 && this.items.length > 0) {
       const widthDifference = availableWidth - this.#totalWidth;
       // If available width is within a reasonable range of total width, assume intrinsic sizing
       // We allow negative values (slightly less width) to account for rounding/measurement timing issues
-      // Wider range needed for Safari which can have more measurement variance
-      const looksLikeIntrinsicSizing = widthDifference >= -20 && widthDifference <= 50;
+      // Wider range needed for Safari
+      const looksLikeIntrinsicSizing = widthDifference >= -10 && widthDifference <= 20;
 
       if (looksLikeIntrinsicSizing) {
         this.items.forEach(item => {
@@ -740,20 +662,11 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       }
     }
 
-    // Safeguard: If all items would be hidden, check if this is a measurement error.
-    // This can happen during slow page loads when measurements occur before fonts/icons load.
-    // If the container width is close to (or larger than) the content width, or if we have
-    // invalid measurements, then show all items instead of hiding them.
     const allHidden = this.items.every(item => !item.visible);
     if (allHidden && this.items.length > 0) {
-      // Calculate how close the available width is to the total content width
-      const widthDifference = Math.abs(availableWidth - this.#totalWidth);
-      const isCloseToContentWidth = widthDifference < 50; // Wider tolerance for Safari
       const hasInvalidMeasurements = this.#widths.some((w, i) => this.items[i].type !== 'divider' && w === 0);
 
-      // If container is sized close to its content (intrinsic sizing) or measurements are invalid,
-      // this is likely an error - show all items
-      if (isCloseToContentWidth || hasInvalidMeasurements) {
+      if (hasInvalidMeasurements) {
         this.items.forEach(item => {
           item.element.style.display = '';
           item.visible = true;
@@ -773,7 +686,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     this.menuItems = this.items.filter(item => !item.visible);
 
-    // Update menu button class
     requestAnimationFrame(() => {
       const menuButton = this.renderRoot.querySelector('sl-menu-button');
       const allHidden = this.items.every(item => !item.visible);

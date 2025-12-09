@@ -4,6 +4,36 @@ This is a collection of release notes for the SL Design System. Each release not
 
 The release notes are ordered by the date the release was made. From latest, to oldest.
 
+# December 4, 2025
+
+## Breaking changes
+
+- All theme packages have a major version bump. This is a breaking change after the refactoring of the Figma tokens and subsequently the web components. With this release we removed the old tokens from the default CSS files, and moved all legacy tokens to a separate file. If you have components in your application that are not updated yet to the version that uses the new tokens, the styling will be broken if you don't take action after using this version of the theme. To support these older component versions you can include `light-deprecated.css` in all places where you now include `light.css` until all components are updated and you can remove the legacy file. (`light.css` is taken as an example, this of course goes for all files, also `dark`, `base` and the `scss` files)
+You can find information on whether your component version needs the deprecated css file in the [Readme file in the themes folder](https://github.com/sl-design-system/components/tree/main/packages/themes/README.md)
+
+- [`angular`](https://github.com/sl-design-system/components/blob/main/packages/angular/CHANGELOG.md) has been updated to support Angular 21 and requires Angular 19.0 or higher (tested with Angular 21.0) and TypeScript 5.9.0 or higher. This means that support for Angular 18 is removed.
+
+## New features
+
+- [`badge`](https://github.com/sl-design-system/components/blob/main/packages/components/badge/CHANGELOG.md) can now have a label on `sm` badges; this will be shown behind the dot.
+- [`callout`](https://github.com/sl-design-system/components/blob/main/packages/components/callout/CHANGELOG.md) is a new component, visually similar to the `inline-message` but with a different purpose: it can be used to provide additional, non-interrupting information and may include actions (e.g. buttons). It must not be shown/hidden dynamically in response to user actions (unlike the `inline-message`). There is no ARIA role on this component as it is not meant to interrupt the user (no live region).
+- [`panel`](https://github.com/sl-design-system/components/blob/main/packages/components/panel/CHANGELOG.md) has improved `density` property values. From now on, use `default` and `relaxed` for the `density` property. The `plain` and `comfortable` values are deprecated, they will be kept for backward compatibility for now but removed in the future.
+- [`search-field`](https://github.com/sl-design-system/components/blob/main/packages/components/search-field/CHANGELOG.md) now debounces the `sl-search` event while typing. Previously applications using the search field component would have to debounce the `sl-search` event themselves. With this change the component now debounces the event internally with a default delay of 300ms.
+- [`select`](https://github.com/sl-design-system/components/blob/main/packages/components/select/CHANGELOG.md) now automatically adjusts its width based on the largest option available. If any of the options contain HTML elements, the automatic sizing is disabled to ensure accurate rendering. This enhancement improves the user experience by preventing text truncation and ensuring that all options are fully visible.
+- [`tabs`](https://github.com/sl-design-system/components/blob/main/packages/components/tabs/CHANGELOG.md) has updated styling to align with Figma of the tab `indicator` (increased width and border radius) and the `part="container"` (increased border width).
+
+## Bug fixes
+
+- [`button`](https://github.com/sl-design-system/components/blob/main/packages/components/button/CHANGELOG.md) fixes a bug in Angular where the text content of the button is changed after the custom element has been initialized, but the `slotchange` event does not fire. Now uses a `MutationObserver` to detect changes to the text content.
+- [`data-source`](https://github.com/sl-design-system/components/blob/main/packages/components/data-source/CHANGELOG.md) fixes data not being invalidated when calling `FetchListDataSource.update()`.
+- [`emoji`](https://github.com/sl-design-system/components/blob/main/packages/components/emoji/CHANGELOG.md) refactored tokens for headings that were still using deprecated tokens.
+- [`grid`](https://github.com/sl-design-system/components/blob/main/packages/components/grid/CHANGELOG.md) improves reliability of selection mode. When you add an `<sl-grid-selection-column>` to a grid, the selection column automatically enables multiple selection mode on the data source.
+- [`icon`](https://github.com/sl-design-system/components/blob/main/packages/components/icon/CHANGELOG.md) changes `IconPrefix` type so we no longer get errors every time a new prefix is added in FontAwesome, and refactored token for multi-colour icons.
+- [`magister`](https://github.com/sl-design-system/components/blob/main/packages/themes/magister/CHANGELOG.md) inverted onBold colour changed to blue.
+- [`menu`](https://github.com/sl-design-system/components/blob/main/packages/components/menu/CHANGELOG.md), [`paginator`](https://github.com/sl-design-system/components/blob/main/packages/components/paginator/CHANGELOG.md), [`progress-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/progress-bar/CHANGELOG.md), [`tag`](https://github.com/sl-design-system/components/blob/main/packages/components/tag/CHANGELOG.md), [`toggle-button`](https://github.com/sl-design-system/components/blob/main/packages/components/toggle-button/CHANGELOG.md), [`toggle-group`](https://github.com/sl-design-system/components/blob/main/packages/components/toggle-group/CHANGELOG.md) refactored tokens that were still using deprecated tokens.
+- [`time-field`](https://github.com/sl-design-system/components/blob/main/packages/components/time-field/CHANGELOG.md) fixes several issues: for `required` time-field, native validation message is now used; fixes an issue where the dialog time picker value did not update when the user typed a new value; fixes toggling time picker when clicking on the clock button.
+- [`tree`](https://github.com/sl-design-system/components/blob/main/packages/components/tree/CHANGELOG.md) fixes lazy loaded children to inherit the selected state of the parent node.
+
 # October 21, 2025
 
 Tree has been promoted from draft to preview.

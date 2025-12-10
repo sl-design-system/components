@@ -103,6 +103,13 @@ export const NoHome: Story = {
   }
 };
 
+export const HideHomeLabel: Story = {
+  args: {
+    ...Basic.args,
+    hideHomeLabel: true
+  }
+};
+
 export const Overflow: Story = {
   args: {
     breadcrumbs: () => html`

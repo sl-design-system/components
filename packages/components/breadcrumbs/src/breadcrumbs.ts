@@ -51,7 +51,7 @@ const isMobile = (): boolean => matchMedia('(width <= 600px)').matches;
 @localized()
 export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   /**
-   * When true doesn't show a home label in the first breadcrumb next to the home icon.
+   * When true, doesn't show a home label in the first breadcrumb next to the home icon.
    *
    * By changing this static property you can change the default value for all future instances of the component.
    * Changing the static property won't affect already created instances.
@@ -122,7 +122,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   @property({ attribute: 'home-url' }) homeUrl = Breadcrumbs.homeUrl;
 
   /**
-   * When true doesn't show a home link as the first breadcrumb.
+   * When true, doesn't show a home link as the first breadcrumb.
    *
    * If you want to change the default value for all future instances of the component, you can change the static property.
    * If you want to change the property of an already created instance, you need to change this property.

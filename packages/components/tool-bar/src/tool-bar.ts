@@ -540,16 +540,24 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       }
     }
 
-    // Check if the container fits its content
-    if (this.#containerFitsContent(availableWidth)) {
+    // When expanding, always recalculate if some items are hidden
+    const hasHiddenItems = this.items.some(item => !item.visible);
+    const isExpanding = availableWidth > this.#lastAvailableWidth;
+
+    console.log('hasHiddenItems', hasHiddenItems, 'isExpanding', isExpanding);
+
+    if (isExpanding && hasHiddenItems) {
+      // Recalculate to potentially show more items
+      const menuButtonSize = this.#getMenuButtonSize(wrapper);
+      this.#calculateVisibility(availableWidth, gap, menuButtonSize);
+    } else if (this.#containerFitsContent(availableWidth)) {
       this.#showAllItems();
       return;
+    } else {
+      // Calculate which items should be visible
+      const menuButtonSize = this.#getMenuButtonSize(wrapper);
+      this.#calculateVisibility(availableWidth, gap, menuButtonSize);
     }
-
-    // Calculate which items should be visible
-    const menuButtonSize = this.#getMenuButtonSize(wrapper);
-
-    this.#calculateVisibility(availableWidth, gap, menuButtonSize);
 
     // Hide orphaned dividers
     this.#hideOrphanedDividers();
@@ -637,19 +645,21 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   }
 
   #calculateVisibility(availableWidth: number, gap: number, menuButtonSize: number): void {
-    const effectiveAvailable = availableWidth - menuButtonSize - 2 * gap;
+    const effectiveAvailable = availableWidth - menuButtonSize - gap;
 
     let cumulativeWidth = 0;
     let visibleCount = 0;
 
     for (let i = 0; i < this.items.length; i++) {
-      const widthNeeded = cumulativeWidth + this.#widths[i] + (visibleCount > 0 ? 2 * gap : 0);
+      const gapWidth = visibleCount > 0 ? gap : 0;
+      const widthNeeded = cumulativeWidth + this.#widths[i] + gapWidth;
 
-      this.items[i].visible = widthNeeded <= effectiveAvailable;
-
-      if (this.items[i].visible) {
-        cumulativeWidth += this.#widths[i] + (visibleCount > 0 ? 2 * gap : 0);
+      if (widthNeeded <= effectiveAvailable) {
+        this.items[i].visible = true;
+        cumulativeWidth = widthNeeded;
         visibleCount++;
+      } else {
+        this.items[i].visible = false;
       }
     }
   }

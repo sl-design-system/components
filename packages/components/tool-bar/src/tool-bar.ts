@@ -532,6 +532,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       this.#measureItems(wrapper);
       this.#lastAvailableWidth = availableWidth;
 
+      console.log('should show all items', availableWidth, this.#totalWidth, availableWidth >= this.#totalWidth);
+
       // If all items fit, show them all
       if (availableWidth >= this.#totalWidth) {
         this.#showAllItems();
@@ -539,8 +541,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       }
     }
 
-    // Check for intrinsic sizing (container fits content)
-    if (this.#isIntrinsicSizing(availableWidth)) {
+    // Check if the container fits its content
+    if (this.#containerFitsContent(availableWidth)) {
       this.#showAllItems();
       return;
     }
@@ -584,15 +586,15 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     return this.#needsMeasurement && (!this.#totalWidth || !this.#widths.length || widthChanged);
   }
 
-  #isIntrinsicSizing(availableWidth: number): boolean {
+  #containerFitsContent(availableWidth: number): boolean {
     if (this.#totalWidth <= 0 || this.items.length === 0) {
       return false;
     }
 
     const widthDifference = availableWidth - this.#totalWidth;
 
-    // Allow small tolerance for rounding errors
-    return widthDifference >= -10 && widthDifference <= 20;
+    // Small tolerance for rounding errors
+    return widthDifference >= -10 && widthDifference <= 10;
   }
 
   #showAllItems(): void {
@@ -639,13 +641,16 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     const effectiveAvailable = availableWidth - menuButtonSize - 2 * gap;
 
     let cumulativeWidth = 0;
+    let visibleCount = 0;
+
     for (let i = 0; i < this.items.length; i++) {
-      const widthNeeded = cumulativeWidth + this.#widths[i] + gap;
+      const widthNeeded = cumulativeWidth + this.#widths[i] + (visibleCount > 0 ? 2 * gap : 0);
 
       this.items[i].visible = widthNeeded <= effectiveAvailable;
 
       if (this.items[i].visible) {
-        cumulativeWidth = widthNeeded;
+        cumulativeWidth += this.#widths[i] + (visibleCount > 0 ? gap : 0);
+        visibleCount++;
       }
     }
   }

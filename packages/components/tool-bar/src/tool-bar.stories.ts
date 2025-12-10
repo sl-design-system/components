@@ -373,10 +373,8 @@ export const IconOnly: Story = {
   render: ({ align, contained, disabled, inverted, resizable, type, width }) => {
     return html`
       <style>
-        ${resizable ? '.container { overflow: auto; resize: horizontal; }' : nothing}
-
-        .container {
-          padding: 0.4rem; // place for focus outline
+        ${resizable ? '.container { overflow: auto; resize: horizontal; }' : nothing} .container {
+          padding: 0.4rem; /* place for focus outline */
         }
 
         .container:has(sl-tool-bar[inverted]:not([contained])) {

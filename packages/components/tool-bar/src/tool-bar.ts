@@ -533,8 +533,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       this.#measureItems(wrapper);
       this.#lastAvailableWidth = availableWidth;
 
-      console.log('should show all items', availableWidth, this.#totalWidth, availableWidth >= this.#totalWidth);
-
       // If all items fit, show them all
       if (availableWidth >= this.#totalWidth) {
         this.#showAllItems();
@@ -650,7 +648,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       this.items[i].visible = widthNeeded <= effectiveAvailable;
 
       if (this.items[i].visible) {
-        cumulativeWidth += this.#widths[i] + (visibleCount > 0 ? gap : 0);
+        cumulativeWidth += this.#widths[i] + (visibleCount > 0 ? 2 * gap : 0);
         visibleCount++;
       }
     }

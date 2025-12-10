@@ -6,7 +6,7 @@
 
 :host([align='end']) [part='wrapper'] {
   block-size: var(--sl-size-450);
-  flex: 1; // Allow the wrapper to grow, but only when aligned to the end, when aligned to start the overflow is broken
+  flex: 1; /* Allow the wrapper to grow, but only when aligned to the end, when aligned to start the overflow is broken */
   flex-wrap: wrap;
   justify-content: end;
 }

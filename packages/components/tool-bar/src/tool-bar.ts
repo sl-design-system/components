@@ -149,7 +149,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** @internal True when the tool-bar is empty. */
   @property({ type: Boolean, reflect: true }) empty?: boolean;
 
-  /** Use this if you want the menu button to use the "inverted" variant.
+  /**
+   * Use this if you want the menu button to use the "inverted" variant.
    * This also overrides all button variants to `inverted` when set.
    */
   @property({ type: Boolean }) inverted?: boolean;

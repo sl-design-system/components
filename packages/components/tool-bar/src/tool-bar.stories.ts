@@ -122,9 +122,8 @@ export default {
       ${description ? html`<p>${description}</p>` : nothing}
       <style>
         ${resizable ? '.container { overflow: auto; resize: horizontal; }' : nothing}
-
-        .container:has(sl-tool-bar:not([contained])) {
-            padding: 6px; // place for focus outline
+          .container:has(sl-tool-bar:not([contained])) {
+          padding: 6px; /* place for focus outline */
         }
 
         .container:has(sl-tool-bar[inverted]:not([contained])) {

@@ -100,7 +100,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   @state() collapseThreshold = COLLAPSE_THRESHOLD;
 
   /**
-   * When true doesn't show a home label in the first breadcrumb next to the home icon.
+   * When true, doesn't show a home label in the first breadcrumb next to the home icon.
    *
    * If you want to change the default value for all future instances of the component, you can change the static property.
    * If you want to change the property of an already created instance, you need to change this property.

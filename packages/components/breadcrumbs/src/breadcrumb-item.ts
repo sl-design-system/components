@@ -21,7 +21,6 @@ declare global {
  * ```
  *
  * @slot default - The content to display inside the breadcrumb item.
- * @slot icon - Optional icon shown on the left side of the component.
  */
 export class BreadcrumbItem extends ScopedElementsMixin(LitElement) {
   /** @internal */

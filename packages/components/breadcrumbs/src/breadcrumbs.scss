@@ -1,5 +1,7 @@
 :host {
-  display: block;
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-100);
 }
 
 :host([inverted]) {

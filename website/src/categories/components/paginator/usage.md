@@ -184,12 +184,44 @@ Ideally, match the Paginator size to the height of related controls, for example
 ## Figma Options
 With these options, you can tweak the appearance of the popover in Figma. They are available in the Design Panel so you can compose the popover to exactly fit the user experience need for the use case you are working on.
 
+
+### Paginator
 <div class="ds-table-wrapper">
 
 |Item|Options|Description|
 |-|-|-|
-|LABEL |`PROP`| DESCRIPTION.|
-|LABEL|`PROP`| DESCRIPTION. |
+|Size |`text`| DESCRIPTION. |
+|Width|`number`| DESCRIPTION. |
+|Emphasis|`number`| DESCRIPTION. |
+|Arrow Start|`number`| DESCRIPTION. |
+|Overflow Start|`number`| DESCRIPTION. |
+|Overflow End|`number`| DESCRIPTION. |
+|Arrow End|`number`| DESCRIPTION. |
+
+{.ds-table .ds-table-align-top}
+
+</div>
+
+### Paginator Status
+<div class="ds-table-wrapper">
+
+|Item|Options|Description|
+|-|-|-|
+|Item label |`text`| DESCRIPTION. |
+|Total Range|`number`| DESCRIPTION. |
+|High Range|`number`| DESCRIPTION. |
+|Low Range|`number`| DESCRIPTION. |
+
+{.ds-table .ds-table-align-top}
+
+</div>
+
+### Paginator Size
+<div class="ds-table-wrapper">
+
+|Item|Options|Description|
+|-|-|-|
+|Item label |`text`| DESCRIPTION. |
 
 {.ds-table .ds-table-align-top}
 

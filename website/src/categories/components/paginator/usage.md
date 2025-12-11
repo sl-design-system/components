@@ -97,8 +97,8 @@ Control that lets users choose how many items are shown per page. Changing this 
 
 |Item|Name| Description | Optional|
 |-|-|-|-|
-|1|Label | DESCRIPTION.| yes|
-|2|Select | DESCRIPTION.| yes|
+|1|Label | Text that describes the page size control (e.g. “Items per page”).| yes|
+|2|Select | Dropdown used to choose how many items are displayed per page.| yes|
 
 {.ds-table .ds-table-align-top}
 
@@ -127,8 +127,9 @@ Text that communicates where the user is in the full result set, typically:
 
 |Item|Name| Description | Optional|
 |-|-|-|-|
-|1|Label | DESCRIPTION.| yes|
-|3|Select | DESCRIPTION.| yes|
+|1|Range Items | Text element that displays the current range, the start and end of it. | yes|
+|2|Total Items | Text element that displays the total. | yes|
+|3|Items Label | Text that describes the items in the range (e.g. “items”, “results”). | yes|
 
 {.ds-table .ds-table-align-top}
 
@@ -190,13 +191,13 @@ With these options, you can tweak the appearance of the popover in Figma. They a
 
 |Item|Options|Description|
 |-|-|-|
-|Size |`text`| DESCRIPTION. |
-|Width|`number`| DESCRIPTION. |
-|Emphasis|`number`| DESCRIPTION. |
-|Arrow Start|`number`| DESCRIPTION. |
-|Overflow Start|`number`| DESCRIPTION. |
-|Overflow End|`number`| DESCRIPTION. |
-|Arrow End|`number`| DESCRIPTION. |
+|Size |`lg`, `md`, `sm`| Sets the paginator control size. |
+|Width|`lg`, `md`, `sm`, `xs`| Defines how many page buttons are visible before overflow. |
+|Emphasis|`subtle`, `bold`| Sets the visual impact style. |
+|Arrow Start|`boolean`| Controls visibility of the previous-page arrow. |
+|Overflow Start|`boolean`| Controls visibility of the leading overflow. |
+|Overflow End|`boolean`| Controls visibility of the trailing overflow. |
+|Arrow End|`boolean`| Controls visibility of the next-page arrow. |
 
 {.ds-table .ds-table-align-top}
 
@@ -207,10 +208,10 @@ With these options, you can tweak the appearance of the popover in Figma. They a
 
 |Item|Options|Description|
 |-|-|-|
-|Item label |`text`| DESCRIPTION. |
-|Total Range|`number`| DESCRIPTION. |
-|High Range|`number`| DESCRIPTION. |
-|Low Range|`number`| DESCRIPTION. |
+|Item label |`text`| Text label used for items (e.g. “items”, students). |
+|Total Range|`number`| Total number of items in the dataset. |
+|High Range|`number`| Last item index displayed on the current page. |
+|Low Range|`number`| First item index displayed on the current page. |
 
 {.ds-table .ds-table-align-top}
 
@@ -221,7 +222,7 @@ With these options, you can tweak the appearance of the popover in Figma. They a
 
 |Item|Options|Description|
 |-|-|-|
-|Item label |`text`| DESCRIPTION. |
+|Item label |`text`| Change the "Items" label for the page size control. |
 
 {.ds-table .ds-table-align-top}
 

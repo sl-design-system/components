@@ -7,6 +7,7 @@ import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { BreadcrumbItem } from './breadcrumb-item.js';
 import styles from './breadcrumbs.scss.js';
 
 declare global {
@@ -28,6 +29,7 @@ export interface Breadcrumb {
   label: string;
   tooltip?: Tooltip | (() => void);
   url?: string;
+  deferredClick?: BreadcrumbItem;
 }
 
 /**
@@ -190,7 +192,15 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
                 <sl-popover anchor="button">
                   ${this.breadcrumbs
                     .slice(0, -this.collapseThreshold)
-                    .map(({ url, label }) => (url ? html`<a href=${url}>${label}</a>` : label))}
+                    .map(({ url, label, deferredClick }) =>
+                      url || deferredClick
+                        ? html`
+                            ${url
+                              ? html`<a href=${url}>${label}</a>`
+                              : html`<a href="#" @click=${this.#onDeferredClick}>${label}</a>`}
+                          `
+                        : label
+                    )}
                 </sl-popover>
               </li>
               <sl-icon name="breadcrumb-separator"></sl-icon>
@@ -198,13 +208,25 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
           : nothing}
         ${this.breadcrumbs
           .filter(({ collapsed }) => !collapsed)
-          .map(({ url, label }, index, array) =>
-            url
+          .map(({ url, label, deferredClick }, index, array) =>
+            url || deferredClick
               ? html`
                   <li>
-                    <a aria-current=${ifDefined(index === array.length - 1 ? 'page' : undefined)} href=${url}>
-                      ${label}
-                    </a>
+                    ${url
+                      ? html`
+                          <a aria-current=${ifDefined(index === array.length - 1 ? 'page' : undefined)} href=${url}
+                            >${label}</a
+                          >
+                        `
+                      : html`
+                          <a
+                            aria-current=${ifDefined(index === array.length - 1 ? 'page' : undefined)}
+                            href="#"
+                            @click=${() => deferredClick?.click()}
+                          >
+                            ${label}
+                          </a>
+                        `}
                   </li>
                   ${index < array.length - 1 ? html`<sl-icon name="breadcrumb-separator"></sl-icon>` : nothing}
                 `
@@ -232,11 +254,18 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
     this.renderRoot.querySelector('sl-popover')?.togglePopover();
   };
 
+  #onDeferredClick = (event: Event & { breadcrumb: Breadcrumb }): void => {
+    event.preventDefault();
+    const { breadcrumb } = event;
+    breadcrumb.deferredClick?.click();
+  };
+
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
     this.breadcrumbs = event.target.assignedElements({ flatten: true }).map(element => {
       return {
         label: element.textContent?.trim() || '',
-        url: element.getAttribute('href') ?? undefined
+        url: element.getAttribute('href') ?? undefined,
+        deferredClick: element instanceof BreadcrumbItem ? element : undefined
       };
     });
   }

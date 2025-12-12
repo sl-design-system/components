@@ -91,13 +91,13 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   // #menuButtonSizeCache = 36;
 
   /** Cached measured width (in pixels) of the overflow/menu button. */
-  // #menuButtonSize?: number;
+  #menuButtonSize?: number;
 
   /** Observe changes to the child elements. */
   #mutationObserver = new MutationObserver(() => this.#updateMapping());
 
   /** Flag indicating whether item width measurements are required before recalculating layout. */
-  // #needsMeasurement = true;
+  #needsMeasurement = true;
 
   /** Flag indicating whether the component has completed its first update. */
   #isInitialized = false;
@@ -136,7 +136,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
    * Cached total width (in pixels) of all toolbar items including gaps.
    * Used to decide when items overflow into the menu.
    */
-  // #totalWidth = 0;
+  #totalWidth = 0;
 
   /**
    * Cached measured widths (in pixels) for each tool-bar item.

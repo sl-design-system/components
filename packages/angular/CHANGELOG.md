@@ -1,5 +1,21 @@
 # @sl-design-system/angular
 
+## 4.0.0
+
+### Major Changes
+
+- [#2865](https://github.com/sl-design-system/components/pull/2865) [`d354e0d`](https://github.com/sl-design-system/components/commit/d354e0d89aca54203b509cab75f67de4f9475ee6) - - **IMPORTANT**: This version adds support for Angular 21 and requires:
+  - Angular 19.0 or higher (tested with Angular 21.0) This means that support for Angular 18 is removed.
+  - TypeScript 5.9.0 or higher
+  - If upgrading from an older version, ensure your application meets these requirements
+
+### Patch Changes
+
+- Updated dependencies [[`f676dd5`](https://github.com/sl-design-system/components/commit/f676dd52c83ef2f3429d9a393b5ec634fc05bf0e), [`39b286c`](https://github.com/sl-design-system/components/commit/39b286c8937f2f9d8339864d44a1c666e50ec6ea), [`ff5b844`](https://github.com/sl-design-system/components/commit/ff5b8447d854505f9d8619f2d7489d909dd757d0), [`d807cb2`](https://github.com/sl-design-system/components/commit/d807cb22702dc5ac1399cf0528f9ceeeb1f09f60), [`c8eab5b`](https://github.com/sl-design-system/components/commit/c8eab5b28863fa41981a6e9f7e7caa7db5766ba0)]:
+  - @sl-design-system/icon@1.4.1
+  - @sl-design-system/select@2.1.0
+  - @sl-design-system/time-field@0.0.2
+
 ## 3.4.0
 
 ### Minor Changes

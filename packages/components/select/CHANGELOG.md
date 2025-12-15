@@ -1,5 +1,18 @@
 # @sl-design-system/select
 
+## 2.1.0
+
+### Minor Changes
+
+- [#2819](https://github.com/sl-design-system/components/pull/2819) [`39b286c`](https://github.com/sl-design-system/components/commit/39b286c8937f2f9d8339864d44a1c666e50ec6ea) - Make the select adjust size automatically to the largest option
+
+  This change updates the select component to automatically adjust its width based on the largest option available. If any of the options contain HTML elements, the automatic sizing is disabled to ensure accurate rendering. This enhancement improves the user experience by preventing text truncation and ensuring that all options are fully visible.
+
+### Patch Changes
+
+- Updated dependencies [[`f676dd5`](https://github.com/sl-design-system/components/commit/f676dd52c83ef2f3429d9a393b5ec634fc05bf0e), [`d807cb2`](https://github.com/sl-design-system/components/commit/d807cb22702dc5ac1399cf0528f9ceeeb1f09f60)]:
+  - @sl-design-system/icon@1.4.1
+
 ## 2.0.6
 
 ### Patch Changes

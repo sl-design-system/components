@@ -5,6 +5,8 @@ import { type Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 
 @Component({
   selector: 'sla-accordion-external-actions',
+  standalone: true,
+  imports: [AccordionComponent, ButtonComponent],
   template: ` <sl-button (click)="this.onClick('dino')">Toggle 🦖</sl-button>
     <sl-button (click)="this.onClick('alien')">Toggle 👽</sl-button>
 

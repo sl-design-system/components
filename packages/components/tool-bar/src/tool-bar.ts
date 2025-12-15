@@ -174,7 +174,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     this.#mutationObserver.disconnect();
 
     if (this.#resizeTimeout) {
-      clearTimeout(this.#resizeTimeout);
+      cancelAnimationFrame(this.#resizeTimeout);
     }
 
     // Reset measurements to ensure clean state on reconnect
@@ -480,7 +480,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         item.visible = true;
       });
 
-      void this.offsetHeight;
       this.#measureItems();
     }
 
@@ -549,9 +548,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     const allItemsHidden = this.items.every(item => !item.visible);
 
     this.menuItems = this.items.filter(item => !item.visible);
-
-    // Force synchronous layout
-    void this.offsetHeight;
 
     const menuButton = this.renderRoot.querySelector('sl-menu-button');
     if (menuButton) {

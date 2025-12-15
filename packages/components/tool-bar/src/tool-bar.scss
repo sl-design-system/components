@@ -2,6 +2,7 @@
   align-items: center;
   background: transparent;
   display: flex;
+  flex-wrap: nowrap;
 }
 
 :host([align='end']) [part='wrapper'] {
@@ -13,7 +14,7 @@
 
 :host([contained]) {
   background: var(--sl-elevation-surface-base-default);
-  border: var(--sl-size-borderWidth-default) solid var(--sl-color-foreground-secondary-onBold);
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-secondary-bold);
   border-radius: var(--sl-size-borderRadius-lg);
   margin: 0;
   padding: var(--sl-size-100);

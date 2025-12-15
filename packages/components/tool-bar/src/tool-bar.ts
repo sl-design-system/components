@@ -80,19 +80,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** Most recent available width (in pixels) used to detect significant size changes and avoid flickering. */
-  // #lastAvailableWidth = 0;
-
-  /**
-   * Default and fallback cache for the menu button size (pixels).
-   * Used when actual size is unavailable.
-   *   - menu button width/height: 36px, icon-only block-size + border-width in button.scss
-   */
-  // #menuButtonSizeCache = 36;
-
-  /** Cached measured width (in pixels) of the overflow/menu button. */
-  // #menuButtonSize?: number;
-
   /** Observe changes to the child elements. */
   #mutationObserver = new MutationObserver(() => this.#updateMapping());
 
@@ -100,11 +87,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   #needsMeasurement = true;
 
   /** Observe changes to the size of the host element. */
-  // #resizeObserver = new ResizeObserver(() => this.#onResize());
-  // #resizeObserver = new ResizeObserver(entries => {
-  //   console.log('ResizeObserver entries', entries);
-  //   this.#onResize(entries.at(0)?.contentBoxSize.at(0)?.inlineSize ?? 0);
-  // });
   #resizeObserver = new ResizeObserver(entries => {
     const entry = entries.at(0);
 
@@ -131,12 +113,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     elements: () => this.#getFocusableElements(),
     isFocusableElement: (el: HTMLElement) => !(el instanceof ToolBarDivider) && !this.#isElementDisabled(el)
   });
-
-  /**
-   * Cached total width (in pixels) of all toolbar items including gaps.
-   * Used to decide when items overflow into the menu.
-   */
-  // #totalWidth = 0;
 
   /**
    * Cached measured widths (in pixels) for each tool-bar item.
@@ -166,8 +142,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   @property({ type: Boolean, reflect: true }) empty?: boolean;
 
   /**
-   * Use this if you want the menu button to use the "inverted" variant.
-   * This also overrides all button variants to `inverted` when set.
+   * Use this if you want the menu button that appears when the tool bar overflows to use the "inverted" variant.
+   * This also overrides all slotted button variants and menu variants to `inverted` when set.
    */
   @property({ type: Boolean }) inverted?: boolean;
 

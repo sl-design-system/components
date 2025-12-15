@@ -661,6 +661,10 @@ export const All: Story = {
           gap: 1rem;
           justify-items: center;
         }
+
+        sl-tool-bar {
+          inline-size: fit-content;
+        }
       </style>
       <div class="wrapper">
         <span></span>
@@ -668,14 +672,14 @@ export const All: Story = {
         <span style="justify-self: center; grid-column: 3 / 3">Non-contained (default)</span>
 
         <span>Ghost</span>
-        <sl-tool-bar aria-label="Options" contained type="ghost" style="inline-size: fit-content">
+        <sl-tool-bar aria-label="Options" contained type="ghost">
           <sl-button aria-label="Copy">Button 1</sl-button>
           <sl-button aria-label="Edit">Button 2</sl-button>
           <sl-button aria-label="Archive">Button 3</sl-button>
           <sl-button aria-label="Delete">Button 4</sl-button>
           <sl-button aria-label="Send">Button 5</sl-button>
         </sl-tool-bar>
-        <sl-tool-bar aria-label="Options" type="ghost" style="inline-size: fit-content">
+        <sl-tool-bar aria-label="Options" type="ghost">
           <sl-button aria-label="Copy">Button 1</sl-button>
           <sl-button aria-label="Edit">Button 2</sl-button>
           <sl-button aria-label="Archive">Button 3</sl-button>
@@ -684,14 +688,14 @@ export const All: Story = {
         </sl-tool-bar>
 
         <span>Outline</span>
-        <sl-tool-bar aria-label="Options" contained type="outline" style="inline-size: fit-content">
+        <sl-tool-bar aria-label="Options" contained type="outline">
           <sl-button aria-label="Copy">Button 1</sl-button>
           <sl-button aria-label="Edit">Button 2</sl-button>
           <sl-button aria-label="Archive">Button 3</sl-button>
           <sl-button aria-label="Delete">Button 4</sl-button>
           <sl-button aria-label="Send">Button 5</sl-button>
         </sl-tool-bar>
-        <sl-tool-bar aria-label="Options" type="outline" style="inline-size: fit-content">
+        <sl-tool-bar aria-label="Options" type="outline">
           <sl-button aria-label="Copy">Button 1</sl-button>
           <sl-button aria-label="Edit">Button 2</sl-button>
           <sl-button aria-label="Archive">Button 3</sl-button>
@@ -700,7 +704,7 @@ export const All: Story = {
         </sl-tool-bar>
 
         <span>Ghost inverted</span>
-        <sl-tool-bar aria-label="Options" contained inverted type="ghost" style="inline-size: fit-content">
+        <sl-tool-bar aria-label="Options" contained inverted type="ghost">
           <sl-button aria-label="Copy">Button 1</sl-button>
           <sl-button aria-label="Edit">Button 2</sl-button>
           <sl-button aria-label="Archive">Button 3</sl-button>
@@ -708,7 +712,7 @@ export const All: Story = {
           <sl-button aria-label="Send">Button 5</sl-button>
         </sl-tool-bar>
         <div style="background: var(--sl-color-background-primary-bold); padding: 1.6rem;">
-          <sl-tool-bar aria-label="Options" inverted type="ghost" style="inline-size: fit-content">
+          <sl-tool-bar aria-label="Options" inverted type="ghost">
             <sl-button aria-label="Copy">Button 1</sl-button>
             <sl-button aria-label="Edit">Button 2</sl-button>
             <sl-button aria-label="Archive">Button 3</sl-button>
@@ -718,7 +722,7 @@ export const All: Story = {
         </div>
 
         <span>Outline inverted</span>
-        <sl-tool-bar aria-label="Options" contained inverted type="outline" style="inline-size: fit-content">
+        <sl-tool-bar aria-label="Options" contained inverted type="outline">
           <sl-button aria-label="Copy">Button 1</sl-button>
           <sl-button aria-label="Edit">Button 2</sl-button>
           <sl-button aria-label="Archive">Button 3</sl-button>
@@ -726,7 +730,7 @@ export const All: Story = {
           <sl-button aria-label="Send">Button 5</sl-button>
         </sl-tool-bar>
         <div style="background: var(--sl-color-background-primary-bold); padding: 1.6rem;">
-          <sl-tool-bar aria-label="Options" inverted type="outline" style="inline-size: fit-content">
+          <sl-tool-bar aria-label="Options" inverted type="outline">
             <sl-button aria-label="Copy">Button 1</sl-button>
             <sl-button aria-label="Edit">Button 2</sl-button>
             <sl-button aria-label="Archive">Button 3</sl-button>

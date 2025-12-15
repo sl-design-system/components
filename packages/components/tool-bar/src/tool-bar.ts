@@ -226,12 +226,26 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('menuItems')) {
+      const menuButton = this.renderRoot.querySelector('sl-menu-button');
+      if (menuButton) {
+        const allItemsHidden = this.items.every(item => !item.visible);
+        menuButton.toggleAttribute('all-items-hidden', allItemsHidden);
+      }
+    }
+  }
+
   override firstUpdated(): void {
-    this.#measureItems();
+    requestAnimationFrame(() => {
+      this.#measureItems();
 
-    this.#resizeObserver.observe(this);
+      this.#resizeObserver.observe(this);
 
-    this.#rovingTabindexController.clearElementCache();
+      this.#rovingTabindexController.clearElementCache();
+    });
   }
 
   override render(): TemplateResult {
@@ -452,6 +466,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
   #onResize(availableWidth: number): void {
     const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
+
     if (!wrapper) {
       return;
     }
@@ -478,18 +493,20 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     const menuButtonWidth = wrapper.getBoundingClientRect().height;
 
     // First pass: determine if we need overflow menu
-    let cumulativeWidth = 0;
-    let needsMenu = false;
+    let cumulativeWidth = 0,
+      needsMenu = false;
 
     for (let i = 0; i < this.items.length; i++) {
-      const itemWidth = this.#widths[i];
-      const gapWidth = i > 0 ? gap : 0;
-      cumulativeWidth += gapWidth + itemWidth;
+      const itemWidth = this.#widths[i],
+        gapWidth = i > 0 ? 2 * gap : 0,
+        requiredWidth = cumulativeWidth + gapWidth + itemWidth;
 
-      if (cumulativeWidth > availableWidth) {
+      if (requiredWidth > availableWidth) {
         needsMenu = true;
         break;
       }
+
+      cumulativeWidth = requiredWidth;
     }
 
     // Calculate effective width (reserve space for menu button + gap before it + gap after last item)
@@ -500,7 +517,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     cumulativeWidth = 0;
     for (let i = 0; i < this.items.length; i++) {
       const itemWidth = this.#widths[i];
-      const gapWidth = i > 0 ? gap : 0;
+      const gapWidth = i > 0 ? 2 * gap : 0;
       const requiredWidth = cumulativeWidth + gapWidth + itemWidth;
 
       this.items[i].visible = requiredWidth <= effectiveWidth;
@@ -525,27 +542,23 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       }
     }
 
-    // Apply visibility to DOM synchronously
     this.items.forEach(item => {
       item.element.style.display = item.visible ? '' : 'none';
     });
 
-    // Check if all items are hidden
     const allItemsHidden = this.items.every(item => !item.visible);
 
-    // Update menuItems
     this.menuItems = this.items.filter(item => !item.visible);
 
     // Force synchronous layout
     void this.offsetHeight;
 
-    // Apply menu button styling synchronously after layout
     const menuButton = this.renderRoot.querySelector('sl-menu-button');
     if (menuButton) {
       if (allItemsHidden) {
-        (menuButton as HTMLElement).style.marginInlineStart = '0';
+        menuButton.toggleAttribute('all-items-hidden', true);
       } else {
-        (menuButton as HTMLElement).style.marginInlineStart = '';
+        menuButton.toggleAttribute('all-items-hidden', false);
       }
     }
 

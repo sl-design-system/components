@@ -55,13 +55,13 @@
 sl-menu-button {
   margin-inline-start: var(--sl-size-100);
 
-  &.all-hidden {
-    margin-inline-start: 0;
-  }
-
   sl-icon + hr {
     display: none;
   }
+}
+
+sl-menu-button[all-items-hidden] {
+  margin-inline-start: 0;
 }
 
 hr + hr {

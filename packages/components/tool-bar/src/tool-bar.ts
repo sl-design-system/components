@@ -104,7 +104,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   });
 
   /** Timeout for debouncing resize events. */
-  #resizeTimeout?: number;
+  #resizeTimeout?: ReturnType<typeof requestAnimationFrame>;
 
   /** Manage the keyboard navigation. */
   #rovingTabindexController = new RovingTabindexController<HTMLElement>(this, {

@@ -373,7 +373,12 @@ export const IconOnly: Story = {
   render: ({ align, contained, disabled, inverted, resizable, type, width }) => {
     return html`
       <style>
-        ${resizable ? '.container { overflow: auto; resize: horizontal; }' : nothing} .container {
+        .container[resizable] {
+          overflow: auto;
+          resize: horizontal;
+        }
+
+        .container {
           padding: 0.4rem; /* place for focus outline */
         }
 
@@ -383,7 +388,7 @@ export const IconOnly: Story = {
         }
       </style>
       <p>This example shows a tool bar with icon only buttons / menu buttons with tooltips.</p>
-      <div class="container">
+      <div class="container" ?resizable=${resizable}>
         <sl-tool-bar
           ?contained=${contained}
           ?disabled=${disabled}
@@ -441,7 +446,7 @@ export const IconOnly: Story = {
       </div>
 
       <p>This example shows a tool bar with icon only buttons / menu buttons with aria-label.</p>
-      <div class="container">
+      <div class="container" ?resizable=${resizable}>
         <sl-tool-bar
           ?contained=${contained}
           ?disabled=${disabled}
@@ -507,7 +512,6 @@ export const Combination: Story = {
         inline-size: 400px;
         overflow: auto;
         padding: var(--sl-size-100);
-        padding-inline: var(--sl-size-100);
         resize: horizontal;
 
         sl-tool-bar {

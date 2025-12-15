@@ -183,7 +183,8 @@ Ideally, match the Paginator size to the height of related controls, for example
 <section>
 
 ## Figma Options
-With these options, you can tweak the appearance of the popover in Figma. They are available in the Design Panel so you can compose the popover to exactly fit the user experience need for the use case you are working on.
+With these options, you can tweak the appearance of the paginator in Figma.
+They are available in the Design Panel so you can compose the paginator to exactly fit the user experience need for the use case you are working on.
 
 
 ### Paginator

@@ -10,6 +10,6 @@ storybookCategory: overlay
 eleventyNavigation:
   parent: Components
   key: Paginator
-  status: ready
+  status: new
 ---
 

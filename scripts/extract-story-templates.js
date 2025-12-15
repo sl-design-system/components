@@ -103,7 +103,6 @@ class StoryTemplateExtractor {
       try {
         // Try to parse as JSON
         const storyObject = this.parseStoryObjectAsJSON(storyObjectContent);
-        console.log('Parsed story object via JSON:',storyName, storyObject);
         stories.push({
           name: storyName,
           template: storyObject.template || null,

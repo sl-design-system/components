@@ -36,7 +36,7 @@ export const Button: StoryObj = {
     props: {
       action: () => console.log('Button clicked')
     },
-    template: '<sl-button  (click)="action()">Button</sl-button>'
+    template: '<sl-button (click)="action()">Button</sl-button>'
   })
 };
 

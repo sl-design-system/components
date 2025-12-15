@@ -77,7 +77,7 @@ SlIcon.register(faFileLines, faFolder, faFolderOpen);
 
 export const Breadcrumbs: StoryObj = {
   render: () => ({
-    descrioption:
+    description:
       'Breadcrumbs provide a navigation scheme that reveals the user’s location in a website or web application.',
     template: `
       <sl-breadcrumbs>
@@ -106,7 +106,6 @@ export const Tabs: StoryObj = {
   })
 };
 
-//turn this into a storyFN with a component
 export const Tree: StoryObj = {
   render: () => ({
     description: `The TreeComponent provides a flexible way to render hierarchical data structures in Angular applications.

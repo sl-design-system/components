@@ -197,7 +197,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
                         ? html`
                             ${url
                               ? html`<a href=${url}>${label}</a>`
-                              : html`<a href="#" @click=${this.#onDeferredClick}>${label}</a>`}
+                              : html`<a href="javascript:void(0)" @click=${this.#onDeferredClick}>${label}</a>`}
                           `
                         : label
                     )}
@@ -221,7 +221,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
                       : html`
                           <a
                             aria-current=${ifDefined(index === array.length - 1 ? 'page' : undefined)}
-                            href="#"
+                            href="javascript:void(0)"
                             @click=${() => deferredClick?.click()}
                           >
                             ${label}

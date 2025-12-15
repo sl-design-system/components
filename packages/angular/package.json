@@ -15,7 +15,10 @@
   "scripts": {
     "build": "wireit",
     "start": "wireit",
-    "storybook": "wireit"
+    "storybook": "wireit",
+    "extract-templates": "wireit",
+    "extract-templates:force": "wireit",
+    "extract-templates:watch": "wireit"
   },
   "wireit": {
     "build": {
@@ -38,6 +41,10 @@
     },
     "start": {
       "command": "ng run angular:storybook",
+      "dependencies": [
+        "extract-templates",
+        "../..:build"
+      ],
       "service": {
         "readyWhen": {
           "lineMatches": "Storybook \\S+ for .*angular.* started"
@@ -46,16 +53,35 @@
       "files": [
         "angular.json",
         "./storybook/main.ts"
-      ],
-      "dependencies": [
-        "../..:build"
       ]
     },
     "storybook": {
       "command": "ng run angular:build-storybook",
       "dependencies": [
-        "build"
+        "build",
+        "extract-templates"
       ]
+    },
+    "extract-templates": {
+      "command": "node ../../scripts/extract-story-templates.js",
+      "files": [
+        "stories/*.stories.ts",
+        "stories/*.intro.md",
+        "../../scripts/extract-story-templates.js"
+      ],
+      "output": [
+        "stories/generated/*.mdx"
+      ]
+    },
+    "extract-templates:force": {
+      "command": "node ../../scripts/extract-story-templates.js --force",
+      "output": [
+        "stories/generated/*.mdx"
+      ]
+    },
+    "extract-templates:watch": {
+      "command": "node ../../scripts/extract-story-templates.js --watch",
+      "service": true
     }
   },
   "dependencies": {
@@ -86,6 +112,7 @@
     "@angular/platform-browser": "^21.0.0",
     "@angular/platform-browser-dynamic": "^21.0.0",
     "@angular/router": "^21.0.0",
+    "@storybook/addon-docs": "^9.1.13",
     "@storybook/angular": "^9.1.13",
     "@types/jasmine": "~5.1.12",
     "jasmine-core": "~5.12.0",

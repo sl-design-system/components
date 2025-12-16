@@ -485,7 +485,7 @@ describe('sl-text-area', () => {
         expect(textArea.style.height).to.not.equal('');
       });
 
-      it('should update from auto to vertical and clear height', async () => {
+      it('should update from auto to vertical and restore default height', async () => {
         el.resize = 'auto';
         await el.updateComplete;
 
@@ -497,7 +497,7 @@ describe('sl-text-area', () => {
 
         expect(el.resize).to.equal('vertical');
         expect(textArea.style.resize).to.equal('vertical');
-        expect(textArea.style.height).to.equal('');
+        expect(textArea.style.height).to.equal('74px');
       });
 
       it('should update from vertical to none', async () => {
@@ -567,11 +567,11 @@ describe('sl-text-area', () => {
       expect(longHeight).to.not.equal(shortHeight);
     });
 
-    it('should remove custom height when resize is changed to vertical', async () => {
+    it('should restore the default height when resize is changed from auto to vertical', async () => {
       el.resize = 'vertical';
       await el.updateComplete;
 
-      expect(textArea.style.height).to.equal('');
+      expect(textArea.style.height).to.equal('74px');
       expect(textArea.style.resize).to.equal('vertical');
     });
   });

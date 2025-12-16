@@ -227,7 +227,7 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
       this.textarea.style.height = `${this.textarea.scrollHeight}px`;
       this.textarea.style.resize = 'none';
     } else {
-      this.textarea.style.height = '';
+      (this.textarea.style.height as string | undefined) = undefined;
     }
   }
 

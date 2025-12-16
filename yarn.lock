@@ -5027,7 +5027,7 @@ __metadata:
     "@sl-design-system/radio-group": "npm:^1.1.5"
     "@sl-design-system/select": "npm:^2.1.0"
     "@sl-design-system/switch": "npm:^1.1.5"
-    "@sl-design-system/text-area": "npm:^1.1.4"
+    "@sl-design-system/text-area": "npm:^1.1.5"
     "@sl-design-system/text-field": "npm:^1.6.6"
     "@sl-design-system/time-field": "npm:^0.0.2"
     "@storybook/addon-docs": "npm:^9.1.13"
@@ -5945,7 +5945,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/text-area@npm:^1.1.4, @sl-design-system/text-area@workspace:packages/components/text-area":
+"@sl-design-system/text-area@npm:^1.1.5, @sl-design-system/text-area@workspace:packages/components/text-area":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/text-area@workspace:packages/components/text-area"
   dependencies:

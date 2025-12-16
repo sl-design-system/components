@@ -21,20 +21,27 @@ eleventyNavigation:
 #example-content p {
   margin-block: 0;
 }
+
+.pagination {
+ align-items: center;
+ display: inline-flex;
+ justify-content: space-between;
+ inline-size: 100%;
+}
+
+sl-paginator {
+ inline-size: 440px;
+ justify-content: center;
+}
 </style>
 
 <section class="no-heading">
 
 <div class="ds-example">
 <div class="pagination">
-  <sl-paginator-status
-    .itemLabel=${'students'}
-    .totalItems=${(students as Student[]).length}
-  ></sl-paginator-status>
-  <sl-paginator @sl-page-change=${onPageChange} .totalItems=${(students as Student[]).length}></sl-paginator>
+  <sl-paginator-status></sl-paginator-status>
+  <sl-paginator></sl-paginator>
   <sl-paginator-page-size
-    @sl-page-size-change=${onPageSizeChange}
-    .itemLabel=${'Students'}
     page-size="10"
     page-sizes="[5,10,15]"
   ></sl-paginator-page-size>
@@ -44,15 +51,12 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-<sl-button id="anchor" popovertarget="popover-1">Show more information</sl-button>
-
-<sl-popover id="popover-1" anchor="anchor" aria-label="More information about John">
-    <header>Project Overview <sl-button autofocus>...</sl-button></header>
-    <hr>
-    <section>
-      Assigned to...
-    </section>
-</sl-popover>
+  <sl-paginator-status></sl-paginator-status>
+  <sl-paginator></sl-paginator>
+  <sl-paginator-page-size
+    page-size="10"
+    page-sizes="[5,10,15]"
+  ></sl-paginator-page-size>
   ```
 
 </div>
@@ -261,30 +265,57 @@ const popoverExample = document.querySelector("#popover-1");
 const closeBtn = document.querySelector("#close-btn");
 
 requestAnimationFrame(() => {
-    const update = ({ page, pageSize }: { page?: number; pageSize?: number }) => {
-      const grid = document.querySelector('sl-grid')!;
-      const paginator = document.querySelector('sl-paginator')!;
-        const size = document.querySelector('sl-paginator-page-size')!,
-       const status = document.querySelector('sl-paginator-status')!;
+    const students =
+      Array.from({ length: 120 }).map(
+        (_, index) => `Student ${index + 1}`
+      );
 
-      if (typeof pageSize === 'number' && pageSize !== paginator.pageSize) {
-        page = 0;
-      } else {
-        page ??= paginator.page;
-      }
+console.log('students', students);
 
-      pageSize ??= paginator.pageSize;
 
-      paginator.page = status.page = page;
-      paginator.pageSize = size.pageSize = status.pageSize = pageSize;
+const update = ({ page, pageSize }) => {
+  const paginator = document.querySelector('sl-paginator');
+    const size = document.querySelector('sl-paginator-page-size');
+   const status = document.querySelector('sl-paginator-status');
 
-      const startIndex = page * pageSize,
-        endIndex = Math.min(startIndex + pageSize, (students).length - 1);
+  if (typeof pageSize === 'number' && pageSize !== paginator.pageSize) {
+    page = 0;
+  } else {
+    page ??= paginator.page;
+  }
 
-      grid.items = (students).slice(startIndex, endIndex);
-    };
+console.log('update called with', { page, pageSize });
 
-    const onPageChange = ({ detail: page }) => update({ page }),
-      onPageSizeChange = ({ detail: pageSize }) => update({ pageSize });
+console.log('paginator', paginator, 'size', size, 'status', status);
 
+  pageSize ??= paginator.pageSize;
+
+  paginator.page = status.page = page;
+  paginator.pageSize = size.pageSize = status.pageSize = pageSize;
+
+  const startIndex = page * pageSize;
+  const endIndex = Math.min(startIndex + pageSize, (students).length - 1);
+};
+
+const onPageChange = ({ detail: page }) => update({ page });
+
+const onPageSizeChange = ({ detail: pageSize }) => update({ pageSize });
+
+const paginatorStatus = document.querySelector('sl-paginator-status'); 
+
+const paginator = document.querySelector('sl-paginator'); 
+
+paginator?.addEventListener('sl-page-change', onPageChange);
+
+const paginatorPageSize = document.querySelector('sl-paginator-page-size');
+paginatorPageSize?.addEventListener('sl-page-size-change', onPageSizeChange);
+
+paginator.totalItems=(students).length;
+
+paginatorStatus.itemLabel='students';
+paginatorStatus.totalItems=(students).length;
+
+paginatorPageSize.itemLabel='Students';
+
+});
 </script>

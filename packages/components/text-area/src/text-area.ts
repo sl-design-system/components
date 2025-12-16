@@ -150,6 +150,7 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
       'minLength',
       'placeholder',
       'readonly',
+      'resize',
       'required',
       'rows',
       'wrap'
@@ -224,8 +225,9 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
     if (this.resize === 'auto') {
       this.textarea.style.height = 'auto';
       this.textarea.style.height = `${this.textarea.scrollHeight}px`;
+      this.textarea.style.resize = 'none';
     } else {
-      (this.textarea.style.height as string | undefined) = undefined;
+      this.textarea.style.height = '';
     }
   }
 
@@ -238,6 +240,7 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
     textarea.readOnly = !!this.readonly;
     textarea.required = !!this.required;
     textarea.rows = this.rows ?? 2;
+    textarea.style.resize = this.resize ?? 'vertical';
     textarea.wrap = this.wrap ?? 'soft';
 
     this.setAttributesTarget(textarea);
@@ -253,5 +256,7 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
     } else {
       textarea.removeAttribute('minlength');
     }
+
+    this.#setSize();
   }
 }

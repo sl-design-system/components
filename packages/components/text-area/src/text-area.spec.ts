@@ -160,6 +160,7 @@ describe('sl-text-area', () => {
     it('should resize vertically', () => {
       expect(el).to.have.attribute('resize', 'vertical');
       expect(el.resize).to.equal('vertical');
+      expect(textArea.style.resize).to.equal('vertical');
     });
 
     it('should resize automatically when set', async () => {
@@ -167,6 +168,15 @@ describe('sl-text-area', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('resize', 'auto');
+    });
+
+    it('should set resize to none when set', async () => {
+      el.resize = 'none';
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('resize', 'none');
+      expect(el.resize).to.equal('none');
+      expect(textArea.style.resize).to.equal('none');
     });
 
     it('should proxy the aria-disabled attribute to the textarea element', async () => {
@@ -423,23 +433,147 @@ describe('sl-text-area', () => {
     });
   });
 
-  describe.skip('auto resize', () => {
-    beforeEach(async () => {
-      el = await fixture(html`<sl-text-area resize="auto"></sl-text-area>`);
+  describe('resize', () => {
+    describe('vertical (default)', () => {
+      beforeEach(async () => {
+        el = await fixture(html`<sl-text-area></sl-text-area>`);
+        textArea = el.querySelector('textarea')!;
+      });
+
+      it('should default to vertical', () => {
+        expect(el.resize).to.equal('vertical');
+        expect(el).to.have.attribute('resize', 'vertical');
+        expect(textArea.style.resize).to.equal('vertical');
+      });
+
+      it('should not set a custom height', () => {
+        expect(textArea.style.height).to.equal('');
+      });
     });
 
-    // it('should set the textarea height to the value of the scrollHeight', async () => {
-    //   const textarea = el.querySelector('textarea') as HTMLTextAreaElement,
-    //    textareaStyleStub = stub(Object.getPrototypeOf(textarea), 'scrollHeight').get(() => 100);
+    describe('none', () => {
+      beforeEach(async () => {
+        el = await fixture(html`<sl-text-area resize="none"></sl-text-area>`);
+        textArea = el.querySelector('textarea')!;
+      });
 
-    //   textarea.value = 'Test input event on textarea';
-    //   const event = new Event('input', { bubbles: true });
-    //   textarea.dispatchEvent(event);
+      it('should have resize set to none', () => {
+        expect(el.resize).to.equal('none');
+        expect(el).to.have.attribute('resize', 'none');
+        expect(textArea.style.resize).to.equal('none');
+      });
 
-    //   expect(textarea.style.height).to.equal('100px');
-    //   textareaStyleStub.restore();
-    //   el.disconnectedCallback();
-    // });
+      it('should not set a custom height', () => {
+        expect(textArea.style.height).to.equal('');
+      });
+    });
+
+    describe('switching between resize types', () => {
+      beforeEach(async () => {
+        el = await fixture(html`<sl-text-area></sl-text-area>`);
+        textArea = el.querySelector('textarea')!;
+      });
+
+      it('should update from vertical to auto', async () => {
+        expect(el.resize).to.equal('vertical');
+
+        el.resize = 'auto';
+        await el.updateComplete;
+
+        expect(el.resize).to.equal('auto');
+        expect(textArea.style.resize).to.equal('none');
+        expect(textArea.style.height).to.not.equal('');
+      });
+
+      it('should update from auto to vertical and clear height', async () => {
+        el.resize = 'auto';
+        await el.updateComplete;
+
+        const customHeight = textArea.style.height;
+        expect(customHeight).to.not.equal('');
+
+        el.resize = 'vertical';
+        await el.updateComplete;
+
+        expect(el.resize).to.equal('vertical');
+        expect(textArea.style.resize).to.equal('vertical');
+        expect(textArea.style.height).to.equal('');
+      });
+
+      it('should update from vertical to none', async () => {
+        el.resize = 'none';
+        await el.updateComplete;
+
+        expect(el.resize).to.equal('none');
+        expect(textArea.style.resize).to.equal('none');
+      });
+
+      it('should update from none to auto', async () => {
+        el.resize = 'none';
+        await el.updateComplete;
+
+        el.resize = 'auto';
+        await el.updateComplete;
+
+        expect(el.resize).to.equal('auto');
+        expect(textArea.style.resize).to.equal('none');
+        expect(textArea.style.height).to.not.equal('');
+      });
+    });
+  });
+
+  describe('auto resize', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-text-area resize="auto"></sl-text-area>`);
+      textArea = el.querySelector('textarea')!;
+    });
+
+    it('should have resize set to auto', () => {
+      expect(el.resize).to.equal('auto');
+      expect(el).to.have.attribute('resize', 'auto');
+      expect(textArea.style.resize).to.equal('none');
+    });
+
+    it('should set the textarea height based on scrollHeight', () => {
+      expect(textArea.style.height).to.not.equal('');
+      expect(textArea.style.height).to.not.equal('auto');
+    });
+
+    it('should update height when content changes', async () => {
+      const initialHeight = textArea.style.height;
+
+      el.focus();
+      await userEvent.keyboard('Line 1\nLine 2\nLine 3\nLine 4\nLine 5');
+      await el.updateComplete;
+
+      // The height should be updated after adding multiple lines
+      expect(textArea.style.height).to.not.equal(initialHeight);
+      expect(textArea.style.height).to.not.equal('auto');
+    });
+
+    it('should recalculate height on input', async () => {
+      el.focus();
+
+      await userEvent.keyboard('Short text');
+      await el.updateComplete;
+
+      const shortHeight = textArea.style.height;
+
+      await userEvent.keyboard('\nLonger text that spans multiple lines\nAnd another line\nAnd yet another line');
+      await el.updateComplete;
+
+      const longHeight = textArea.style.height;
+
+      expect(longHeight).to.not.equal(shortHeight);
+    });
+
+    it('should remove custom height when resize is changed to vertical', async () => {
+      el.resize = 'vertical';
+      await el.updateComplete;
+
+      expect(textArea.style.height).to.equal('');
+      expect(textArea.style.resize).to.equal('vertical');
+    });
   });
 
   describe('slotted textarea', () => {

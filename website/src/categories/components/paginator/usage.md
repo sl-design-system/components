@@ -26,21 +26,19 @@ eleventyNavigation:
 <section class="no-heading">
 
 <div class="ds-example">
-  <sl-button id="anchor" popovertarget="popover-1" variant="primary">Show more information</sl-button>
-  <sl-popover id="popover-1" anchor="anchor" aria-label="More information about John">
-  <header class="ds-heading-3">
-  Project Overview
-  <sl-button id="close-btn" fill="ghost" variant="default" size="sm" aria-label="Close the popover" autofocus>
-  <sl-icon name="xmark"></sl-icon>
-  </sl-button>
-  </header>
-  <hr color="#D9D9D9" />
-  <div id="example-content">
-    <p>Assigned to</p> <p>John Smith</p>
-    <p>Class</p> <p>2a</p>
-    <p>Due</p> <p>March 10, 2024</p>
-  </div>
-  </sl-popover>
+<div class="pagination">
+  <sl-paginator-status
+    .itemLabel=${'students'}
+    .totalItems=${(students as Student[]).length}
+  ></sl-paginator-status>
+  <sl-paginator @sl-page-change=${onPageChange} .totalItems=${(students as Student[]).length}></sl-paginator>
+  <sl-paginator-page-size
+    @sl-page-size-change=${onPageSizeChange}
+    .itemLabel=${'Students'}
+    page-size="10"
+    page-sizes="[5,10,15]"
+  ></sl-paginator-page-size>
+</div>
 </div>
 
 <div class="ds-code">
@@ -263,16 +261,30 @@ const popoverExample = document.querySelector("#popover-1");
 const closeBtn = document.querySelector("#close-btn");
 
 requestAnimationFrame(() => {
-popoverBtn.addEventListener("click", () => {
-    if (popoverExample) {
-      popoverExample.togglePopover();
-    }
-  });
+    const update = ({ page, pageSize }: { page?: number; pageSize?: number }) => {
+      const grid = document.querySelector('sl-grid')!;
+      const paginator = document.querySelector('sl-paginator')!;
+        const size = document.querySelector('sl-paginator-page-size')!,
+       const status = document.querySelector('sl-paginator-status')!;
 
-closeBtn.addEventListener("click", () => {
-    if (popoverExample) {
-      popoverExample.hidePopover();
-    }
-  });
-})
+      if (typeof pageSize === 'number' && pageSize !== paginator.pageSize) {
+        page = 0;
+      } else {
+        page ??= paginator.page;
+      }
+
+      pageSize ??= paginator.pageSize;
+
+      paginator.page = status.page = page;
+      paginator.pageSize = size.pageSize = status.pageSize = pageSize;
+
+      const startIndex = page * pageSize,
+        endIndex = Math.min(startIndex + pageSize, (students).length - 1);
+
+      grid.items = (students).slice(startIndex, endIndex);
+    };
+
+    const onPageChange = ({ detail: page }) => update({ page }),
+      onPageSizeChange = ({ detail: pageSize }) => update({ pageSize });
+
 </script>

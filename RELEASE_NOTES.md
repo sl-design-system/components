@@ -4,6 +4,17 @@ This is a collection of release notes for the SL Design System. Each release not
 
 The release notes are ordered by the date the release was made. From latest, to oldest.
 
+# December 17, 2025
+
+## New features
+
+- [`breadcrumbs`](https://github.com/sl-design-system/components/blob/main/packages/components/breadcrumbs/CHANGELOG.md) has a new `hideHomeLabel` property (and static option) to allow hiding the "Home" label text in the first home breadcrumb.
+
+## Bug fixes
+
+- [`angular`](https://github.com/sl-design-system/components/blob/main/packages/angular/CHANGELOG.md) fixes the combobox filename and added it to the list of exported components in the public API.
+- [`text-area`](https://github.com/sl-design-system/components/blob/main/packages/components/text-area/CHANGELOG.md) fixes `resize` `none` and `auto` in the text-area component.
+
 # December 4, 2025
 
 ## Breaking changes

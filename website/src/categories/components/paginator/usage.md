@@ -6,22 +6,6 @@ eleventyNavigation:
   key: PaginatorUsage
 ---
 <style>
-.ds-example header {
-  margin-block: var(--scale-100-scale);
-  display: flex;
-  justify-content: space-between;
-}
-
-#example-content {
-  display: grid;
-  gap: 0.4rem;
-  grid-template-columns: 1fr 1fr;
-}
-
-#example-content p {
-  margin-block: 0;
-}
-
 .pagination {
  align-items: center;
  display: inline-flex;
@@ -53,10 +37,44 @@ sl-paginator {
   ```html
   <sl-paginator-status></sl-paginator-status>
   <sl-paginator></sl-paginator>
-  <sl-paginator-page-size
-    page-size="10"
-    page-sizes="[5,10,15]"
-  ></sl-paginator-page-size>
+  <sl-paginator-page-size page-size="10" page-sizes="[5,10,15]"></sl-paginator-page-size>
+
+<script>
+    // This is an example with manual management of the pagination state
+  
+    const paginatorStatus = document.querySelector('sl-paginator-status');
+    const paginator = document.querySelector('sl-paginator');
+    const paginatorPageSize = document.querySelector('sl-paginator-page-size');
+  
+    const students = Array.from({ length: 120 }).map((_, index) => `Student ${index + 1}`);
+  
+    const update = ({ page, pageSize }) => {
+      if (typeof pageSize === 'number' && pageSize !== paginator.pageSize) {
+        page = 0;
+      } else {
+        page ??= paginator.page;
+      }
+  
+      pageSize ??= paginator.pageSize;
+  
+      paginator.page = paginatorPageSize.page = page;
+      paginator.pageSize = paginatorPageSize.pageSize = paginatorPageSize.pageSize = pageSize;
+    };
+  
+    const onPageChange = ({ detail: page }) => update({ page });
+  
+    const onPageSizeChange = ({ detail: pageSize }) => update({ pageSize });
+  
+    paginator?.addEventListener('sl-page-change', onPageChange);
+    
+    paginatorPageSize?.addEventListener('sl-page-size-change', onPageSizeChange);
+  
+    paginator.totalItems=(students).length;
+    paginatorStatus.totalItems=(students).length;
+  
+    paginatorStatus.itemLabel='students';
+    paginatorPageSize.itemLabel='Students';
+</script>
   ```
 
 </div>
@@ -260,18 +278,8 @@ On larger viewports, the Paginator can show more page buttons alongside Previous
 
 
 <script>
-const popoverBtn = document.querySelector("#anchor");
-const popoverExample = document.querySelector("#popover-1");
-const closeBtn = document.querySelector("#close-btn");
-
 requestAnimationFrame(() => {
-    const students =
-      Array.from({ length: 120 }).map(
-        (_, index) => `Student ${index + 1}`
-      );
-
-console.log('students', students);
-
+const students = Array.from({ length: 120 }).map((_, index) => `Student ${index + 1}`);
 
 const update = ({ page, pageSize }) => {
   const paginator = document.querySelector('sl-paginator');
@@ -284,25 +292,17 @@ const update = ({ page, pageSize }) => {
     page ??= paginator.page;
   }
 
-console.log('update called with', { page, pageSize });
-
-console.log('paginator', paginator, 'size', size, 'status', status);
-
   pageSize ??= paginator.pageSize;
 
   paginator.page = status.page = page;
   paginator.pageSize = size.pageSize = status.pageSize = pageSize;
-
-  const startIndex = page * pageSize;
-  const endIndex = Math.min(startIndex + pageSize, (students).length - 1);
 };
 
 const onPageChange = ({ detail: page }) => update({ page });
 
 const onPageSizeChange = ({ detail: pageSize }) => update({ pageSize });
 
-const paginatorStatus = document.querySelector('sl-paginator-status'); 
-
+const paginatorStatus = document.querySelector('sl-paginator-status');
 const paginator = document.querySelector('sl-paginator'); 
 
 paginator?.addEventListener('sl-page-change', onPageChange);
@@ -311,10 +311,9 @@ const paginatorPageSize = document.querySelector('sl-paginator-page-size');
 paginatorPageSize?.addEventListener('sl-page-size-change', onPageSizeChange);
 
 paginator.totalItems=(students).length;
-
-paginatorStatus.itemLabel='students';
 paginatorStatus.totalItems=(students).length;
 
+paginatorStatus.itemLabel='students';
 paginatorPageSize.itemLabel='Students';
 
 });

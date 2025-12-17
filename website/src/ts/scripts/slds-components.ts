@@ -57,9 +57,7 @@ import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/card/register.js';
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/combobox/register.js';
-// eslint-disable-next-line import/no-duplicates
-// import '@sl-design-system/data-source';
-import { FetchListDataSource, FetchListDataSourceError } from '@sl-design-system/data-source';
+import { ArrayListDataSource, FetchListDataSource, FetchListDataSourceError } from '@sl-design-system/data-source';
 import '@sl-design-system/dialog/register.js';
 import '@sl-design-system/drawer/register.js';
 import '@sl-design-system/editor/register.js';
@@ -145,6 +143,7 @@ Icon.register(
 
 declare global {
   interface Window {
+    ArrayListDataSource: typeof ArrayListDataSource;
     MessageDialog: typeof MessageDialog;
     FetchListDataSourceError: typeof FetchListDataSourceError;
     FetchListDataSource: typeof FetchListDataSource;
@@ -152,7 +151,8 @@ declare global {
   }
 }
 
-// This is a hack so we can access the MessageDialog and FlatTreeDataSource and FetchListDataSource class from markdown files
+// This is a hack so we can access the ArrayListDataSource, MessageDialog, FlatTreeDataSource and FetchListDataSource class from markdown files
+window.ArrayListDataSource = ArrayListDataSource;
 window.MessageDialog = MessageDialog;
 window.FetchListDataSourceError = FetchListDataSourceError;
 window.FetchListDataSource = FetchListDataSource;

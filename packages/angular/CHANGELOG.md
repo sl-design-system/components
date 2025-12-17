@@ -1,5 +1,14 @@
 # @sl-design-system/angular
 
+## 4.0.1
+
+### Patch Changes
+
+- [#2831](https://github.com/sl-design-system/components/pull/2831) [`6ebd73f`](https://github.com/sl-design-system/components/commit/6ebd73f8ccdba56be970ce5ab60a725a50d16000) - Changed the filename for combobox and added it to the list of exported components in the public api
+
+- Updated dependencies [[`7f4bce7`](https://github.com/sl-design-system/components/commit/7f4bce770a362d17ea3465219a4f8f6a1bfbdb13)]:
+  - @sl-design-system/text-area@1.1.5
+
 ## 4.0.0
 
 ### Major Changes

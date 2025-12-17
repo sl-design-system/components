@@ -1,5 +1,11 @@
 # @sl-design-system/text-area
 
+## 1.1.5
+
+### Patch Changes
+
+- [#2898](https://github.com/sl-design-system/components/pull/2898) [`7f4bce7`](https://github.com/sl-design-system/components/commit/7f4bce770a362d17ea3465219a4f8f6a1bfbdb13) - Fixes `resize` `none` and `auto` in the text-area component.
+
 ## 1.1.4
 
 ### Patch Changes

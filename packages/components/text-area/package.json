@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/text-area",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Text area component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

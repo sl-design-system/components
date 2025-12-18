@@ -100,7 +100,7 @@ When users need explicit control over where they are in a list, for example, jum
 ### Linear Journeys Flows**  
 For multi-step processes such as forms, wizards, or checkout flows where the user should move forward or backward step by step. In these cases, use buttons or a progress indicator instead of paginator.
 
-### Short, Small, or Simple Content**  
+### Short, Small, or Simple Content  
 When the content fits comfortably on a single page without performance issues, or when the dataset is small gives a simpler, more natural experience.
 
 </section>

@@ -97,7 +97,7 @@ When users need explicit control over where they are in a list, for example, jum
 
 ## When not to use
 
-### Linear Journeys Flows**  
+### Linear Journeys Flows 
 For multi-step processes such as forms, wizards, or checkout flows where the user should move forward or backward step by step. In these cases, use buttons or a progress indicator instead of paginator.
 
 ### Short, Small, or Simple Content  

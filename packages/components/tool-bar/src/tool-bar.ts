@@ -110,6 +110,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** Timeout for debouncing resize events. */
   #resizeTimeout?: ReturnType<typeof requestAnimationFrame>;
 
+  /** Timeout for debouncing forceRecalculation calls. */
+  #forceRecalculationTimeout?: ReturnType<typeof setTimeout>;
+
   /** Manage the keyboard navigation. */
   #rovingTabindexController = new RovingTabindexController<HTMLElement>(this, {
     direction: 'horizontal',
@@ -179,6 +182,10 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     if (this.#resizeTimeout) {
       cancelAnimationFrame(this.#resizeTimeout);
+    }
+
+    if (this.#forceRecalculationTimeout) {
+      clearTimeout(this.#forceRecalculationTimeout);
     }
 
     // Reset measurements to ensure clean state on reconnect
@@ -314,33 +321,42 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   }
 
   forceRecalculation(): void {
-    const firstHidden = this.items.filter(item => !item.visible)[0];
-    if (!firstHidden) {
-      return;
+    // Clear any pending recalculation
+    if (this.#forceRecalculationTimeout) {
+      clearTimeout(this.#forceRecalculationTimeout);
     }
-    const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
-    firstHidden.visible = true;
-    if (wrapper) {
-      firstHidden.visible = true;
-      const gap = parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0;
 
-      // Calculate menu button width (square button based on wrapper height)
-      const menuButtonWidth = wrapper.getBoundingClientRect().height;
-      console.log(
-        'Forcing recalculation with width:',
-        wrapper.getBoundingClientRect().width,
-        firstHidden.element.getBoundingClientRect().width,
-        menuButtonWidth + 2 * gap
-      );
-      this.#onResize(
-        wrapper.getBoundingClientRect().width +
-          firstHidden.element.getBoundingClientRect().width +
-          (menuButtonWidth + 2 * gap) +
-          100
-      );
-    }
-    this.#needsMeasurement = true;
-    this.#measureItems();
+    // Debounce with 300ms delay
+    this.#forceRecalculationTimeout = setTimeout(() => {
+      const firstHidden = this.items.filter(item => !item.visible)[0];
+      if (!firstHidden) {
+        return;
+      }
+      const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
+      firstHidden.visible = true;
+      if (wrapper) {
+        firstHidden.visible = true;
+        const gap = parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0;
+
+        // Calculate menu button width (square button based on wrapper height)
+        const menuButtonWidth = wrapper.getBoundingClientRect().height;
+        console.log(
+          'Forcing recalculation with width:',
+          wrapper.getBoundingClientRect().width,
+          firstHidden.element.getBoundingClientRect().width,
+          menuButtonWidth + 2 * gap
+        );
+        // this.#onResize(
+        //   wrapper.getBoundingClientRect().width +
+        //     firstHidden.element.getBoundingClientRect().width +
+        //     (menuButtonWidth + 2 * gap) +
+        //     100
+        // );
+        this.#onResize(wrapper.getBoundingClientRect().width + 500);
+      }
+      this.#needsMeasurement = true;
+      this.#measureItems();
+    }, 300);
   }
 
   /**

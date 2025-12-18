@@ -134,7 +134,7 @@ The main navigation for moving across pages.
 |1|Prev/Next buttons | Move one page backward or forward. `Previous` is disabled on the first page, and `Next` is disabled on the last page.| yes|
 |2|Page Button | A numbered button that takes the user to a specific page.| yes|
 |3|Selected page | The current page, visually highlighted.| yes|
-|3|Overflow Button | A menu button that exposes hidden pages when there are more pages than can be displayed at once.| yes|
+|4|Overflow Button | A menu button that exposes hidden pages when there are more pages than can be displayed at once.| yes|
 
 {.ds-table .ds-table-align-top}
 

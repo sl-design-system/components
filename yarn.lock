@@ -5041,7 +5041,7 @@ __metadata:
     karma-jasmine-html-reporter: "npm:~2.1.0"
     ng-packagr: "npm:^21.0.0"
     rxjs: "npm:~7.8.2"
-    storybook: "npm:^9.1.13"
+    storybook: "npm:^9.1.17"
     tslib: "npm:^2.8.1"
     typescript: "npm:~5.9.0"
     wireit: "npm:^0.14.12"
@@ -5381,7 +5381,7 @@ __metadata:
     eslint-plugin-unused-imports: "npm:^4.1.4"
     eslint-plugin-wc: "npm:^3.0.1"
     prettier: "npm:^3.6.2"
-    storybook: "npm:^9.1.13"
+    storybook: "npm:^9.1.17"
     typescript: "npm:^5.5.4"
     typescript-eslint: "npm:^8.33.0"
   peerDependencies:
@@ -22058,33 +22058,6 @@ __metadata:
   peerDependencies:
     storybook: ^9.1.17
   checksum: 10c0/62fa1fb94a14cdef8514b055f584dde0233a63f1422d5aec2d20d7cad2d9982caa38d6407fd808c1466f873b6aa381f8149ce0192ad064119a4ec5546f6b3261
-  languageName: node
-  linkType: hard
-
-"storybook@npm:^9.1.13":
-  version: 9.1.13
-  resolution: "storybook@npm:9.1.13"
-  dependencies:
-    "@storybook/global": "npm:^5.0.0"
-    "@testing-library/jest-dom": "npm:^6.6.3"
-    "@testing-library/user-event": "npm:^14.6.1"
-    "@vitest/expect": "npm:3.2.4"
-    "@vitest/mocker": "npm:3.2.4"
-    "@vitest/spy": "npm:3.2.4"
-    better-opn: "npm:^3.0.2"
-    esbuild: "npm:^0.18.0 || ^0.19.0 || ^0.20.0 || ^0.21.0 || ^0.22.0 || ^0.23.0 || ^0.24.0 || ^0.25.0"
-    esbuild-register: "npm:^3.5.0"
-    recast: "npm:^0.23.5"
-    semver: "npm:^7.6.2"
-    ws: "npm:^8.18.0"
-  peerDependencies:
-    prettier: ^2 || ^3
-  peerDependenciesMeta:
-    prettier:
-      optional: true
-  bin:
-    storybook: ./bin/index.cjs
-  checksum: 10c0/0f5cd0fa3af164a312148bbe38555fe171050be75ce9136e9148ea78a2c8ea243ea0c8fa3f15028a4952676cdda2d0c83883dadf17cb5bae895571ca7746e8a4
   languageName: node
   linkType: hard
 

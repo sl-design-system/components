@@ -1,12 +1,22 @@
 :host {
-  background: var(--sl-color-border-plain);
+  background: linear-gradient(
+    to right,
+    transparent 0 var(--sl-size-100),
+    var(--sl-color-border-plain) var(--sl-size-100) calc(var(--sl-size-100) + var(--sl-size-010)),
+    transparent calc(var(--sl-size-100) + var(--sl-size-010)) 100%
+  );
   block-size: var(--sl-size-300);
   display: inline-flex;
   flex-shrink: 0;
   inline-size: var(--sl-size-010);
-  margin-inline: var(--sl-size-100);
+  padding-inline: var(--sl-size-100);
 }
 
 :host([inverted]) {
-  background: var(--sl-color-border-inverted);
+  background: linear-gradient(
+    to right,
+    transparent 0 var(--sl-size-100),
+    var(--sl-color-border-inverted) var(--sl-size-100) calc(var(--sl-size-100) + var(--sl-size-010)),
+    transparent calc(var(--sl-size-100) + var(--sl-size-010)) 100%
+  );
 }

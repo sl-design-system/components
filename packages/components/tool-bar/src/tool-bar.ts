@@ -102,7 +102,11 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
     if (!wrapper) return;
-    if (wrapper.clientWidth < wrapper.scrollWidth || wrapper.clientHeight < wrapper.scrollHeight) {
+    if (
+      availableWidth > 0 ||
+      wrapper.clientWidth < wrapper.scrollWidth ||
+      wrapper.clientHeight < wrapper.scrollHeight
+    ) {
       this.#onResize(availableWidth);
     }
   });
@@ -333,30 +337,12 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         return;
       }
       const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
-      firstHidden.visible = true;
       if (wrapper) {
-        firstHidden.visible = true;
-        const gap = parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0;
-
-        // Calculate menu button width (square button based on wrapper height)
-        const menuButtonWidth = wrapper.getBoundingClientRect().height;
-        console.log(
-          'Forcing recalculation with width:',
-          wrapper.getBoundingClientRect().width,
-          firstHidden.element.getBoundingClientRect().width,
-          menuButtonWidth + 2 * gap
-        );
-        // this.#onResize(
-        //   wrapper.getBoundingClientRect().width +
-        //     firstHidden.element.getBoundingClientRect().width +
-        //     (menuButtonWidth + 2 * gap) +
-        //     100
-        // );
-        this.#onResize(wrapper.getBoundingClientRect().width + 500);
+        this.#onResize(5000); // make this a value based on something rather than a hardcoded huge number
       }
       this.#needsMeasurement = true;
       this.#measureItems();
-    }, 300);
+    }, 200);
   }
 
   /**
@@ -512,7 +498,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     this.#widths = this.items.map(item => item.element.getBoundingClientRect().width);
 
-    console.log('Tool-bar item measurements:', this.items);
     // If measurements are invalid (any width is zero for non-divider items), mark as needing re-measurement
     const hasInvalidMeasurements = this.items.some((item, i) => item.type !== 'divider' && this.#widths[i] === 0);
 
@@ -520,7 +505,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   }
 
   #onResize(availableWidth: number): void {
-    console.log('Tool-bar resize detected, available width:', availableWidth);
     const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
 
     if (!wrapper) {
@@ -532,7 +516,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     // If we need measurements, show all items first and measure
     if (this.#needsMeasurement || this.#widths.length === 0) {
       this.items.forEach(item => {
-        item.element.style.display = '';
         item.element.style.visibility = '';
         item.element.style.position = '';
         item.visible = true;
@@ -543,7 +526,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     // If measurements failed or items changed, don't proceed
     if (this.#widths.length === 0 || this.#widths.length !== this.items.length) {
-      console.log('Tool-bar measurement invalid, skipping layout update.');
       return;
     }
 
@@ -556,7 +538,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     for (let i = 0; i < this.items.length; i++) {
       const itemWidth = this.#widths[i],
-        gapWidth = i > 0 ? 2 * gap : 0,
+        gapWidth = i > 0 ? gap : 0,
         requiredWidth = cumulativeWidth + gapWidth + itemWidth;
 
       if (requiredWidth > availableWidth) {
@@ -568,22 +550,14 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     }
 
     // Calculate effective width (reserve space for menu button + gap before it + gap after last item)
-    const menuButtonTotalWidth = needsMenu ? menuButtonWidth + 2 * gap : 0;
+    const menuButtonTotalWidth = needsMenu ? menuButtonWidth + gap : 0;
     const effectiveWidth = availableWidth - menuButtonTotalWidth;
-
-    console.log('Tool-bar layout calculation:', {
-      widths: this.#widths,
-      availableWidth,
-      effectiveWidth,
-      needsMenu,
-      cumulativeWidth
-    });
 
     // Second pass: set visibility based on effective width
     cumulativeWidth = 0;
     for (let i = 0; i < this.items.length; i++) {
       const itemWidth = this.#widths[i];
-      const gapWidth = i > 0 ? 2 * gap : 0;
+      const gapWidth = i > 0 ? gap : 0;
       const requiredWidth = cumulativeWidth + gapWidth + itemWidth;
 
       this.items[i].visible = requiredWidth <= effectiveWidth;

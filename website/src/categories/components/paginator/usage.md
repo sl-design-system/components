@@ -168,7 +168,7 @@ Control how many page buttons are visible at once before pages are moved into th
 - **SM:** Shows up to **9** page items.  
 - **XS:** When the available space is very limited, page buttons are replaced by a single **select field** so users can pick a page from a dropdown.
 
-Use wider vesions when the Paginator is a primary control, for example, at the bottom of a data table and narrower vesions when space is constrained or the pagination is secondary.
+Use wider versions when the Paginator is a primary control, for example, at the bottom of a data table and narrower versions when space is constrained or the pagination is secondary.
 
 </section>
 

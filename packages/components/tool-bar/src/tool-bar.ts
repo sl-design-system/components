@@ -95,10 +95,10 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    const borderBox = entry.borderBoxSize?.at(0);
-    if (!borderBox) return;
+    const contentBox = entry.contentBoxSize?.at(0);
+    if (!contentBox) return;
 
-    const availableWidth = borderBox.inlineSize;
+    const availableWidth = contentBox.inlineSize;
 
     const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
     if (!wrapper) return;

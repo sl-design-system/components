@@ -43,23 +43,23 @@ sl-paginator {
 <script>
   // This is an example with DataSource managing the pagination state
   
-    import { ArrayListDataSource } from '@sl-design-system/data-source';
-    
-    const paginatorStatus = document.querySelector("#status");
-    const paginator = document.querySelector("#paginator");
-    const pageSize = document.querySelector("#page-size");
+  import { ArrayListDataSource } from '@sl-design-system/data-source';
   
-    const exams = Array.from({ length: 60 }).map((_, index) => `Exam ${index + 1}`);
+  const paginatorStatus = document.querySelector("#status");
+  const paginator = document.querySelector("#paginator");
+  const pageSize = document.querySelector("#page-size");
   
-    const ds = new ArrayListDataSource(exams, {
-      pagination: true,
-      page: 1,
-      pageSize: 10
-    });
+  const exams = Array.from({ length: 60 }).map((_, index) => `Exam ${index + 1}`);
   
-    paginatorStatus.dataSource = ds;
-    paginator.dataSource = ds;
-    pageSize.dataSource = ds;
+  const ds = new ArrayListDataSource(exams, {
+    pagination: true,
+    page: 1,
+    pageSize: 10
+  });
+  
+  paginatorStatus.dataSource = ds;
+  paginator.dataSource = ds;
+  pageSize.dataSource = ds;
 </script>
   ```
 

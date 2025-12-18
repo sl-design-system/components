@@ -39,42 +39,42 @@ sl-paginator {
   <sl-paginator></sl-paginator>
   <sl-paginator-page-size page-size="10" page-sizes="[5,10,15]"></sl-paginator-page-size>
 
-<script>
+  <script>
     // This is an example with manual management of the pagination state
-  
+
     const paginatorStatus = document.querySelector('sl-paginator-status');
     const paginator = document.querySelector('sl-paginator');
     const paginatorPageSize = document.querySelector('sl-paginator-page-size');
-  
+
     const students = Array.from({ length: 120 }).map((_, index) => `Student ${index + 1}`);
-  
+
     const update = ({ page, pageSize }) => {
       if (typeof pageSize === 'number' && pageSize !== paginator.pageSize) {
         page = 0;
       } else {
         page ??= paginator.page;
       }
-  
+
       pageSize ??= paginator.pageSize;
-  
+
       paginator.page = paginatorPageSize.page = page;
       paginator.pageSize = paginatorPageSize.pageSize = paginatorPageSize.pageSize = pageSize;
     };
-  
+
     const onPageChange = ({ detail: page }) => update({ page });
-  
+
     const onPageSizeChange = ({ detail: pageSize }) => update({ pageSize });
-  
+
     paginator?.addEventListener('sl-page-change', onPageChange);
-    
+
     paginatorPageSize?.addEventListener('sl-page-size-change', onPageSizeChange);
-  
-    paginator.totalItems=(students).length;
-    paginatorStatus.totalItems=(students).length;
-  
-    paginatorStatus.itemLabel='students';
-    paginatorPageSize.itemLabel='Students';
-</script>
+
+    paginator.totalItems = students.length;
+    paginatorStatus.totalItems = students.length;
+
+    paginatorStatus.itemLabel = 'students';
+    paginatorPageSize.itemLabel = 'Students';
+  </script>
   ```
 
 </div>

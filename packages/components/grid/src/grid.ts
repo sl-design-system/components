@@ -203,6 +203,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     this.style.setProperty('--sl-grid-width', `${inlineSize}px`);
 
+    if (this.renderRoot.querySelector<HTMLElement>('[part="bulk-actions"]:popover-open')) {
+      const toolbar = this.renderRoot.querySelector('sl-tool-bar') as ToolBar;
+      toolbar?.forceRecalculation();
+    }
+
     // Update the scroll state
     this.#onScroll();
   });

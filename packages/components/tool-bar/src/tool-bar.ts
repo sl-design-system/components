@@ -88,6 +88,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
   /** Observe changes to the size of the host element. */
   #resizeObserver = new ResizeObserver(entries => {
+    // this gets called when the tool-bar size changes, but that changes when the size of the toolbar itself is flexible. That causes an infinite loop that stops when all the buttons that can be hidden are hidden. We need to stop that loop when the actual vertical overflow is gone.
     const entry = entries.at(0);
 
     if (!entry) {
@@ -98,7 +99,10 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     if (!borderBox) return;
 
     const availableWidth = borderBox.inlineSize;
-    if (availableWidth > 0) {
+
+    const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
+    if (!wrapper) return;
+    if (wrapper.clientWidth < wrapper.scrollWidth || wrapper.clientHeight < wrapper.scrollHeight) {
       this.#onResize(availableWidth);
     }
   });
@@ -309,6 +313,36 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     this.#updateMapping();
   }
 
+  forceRecalculation(): void {
+    const firstHidden = this.items.filter(item => !item.visible)[0];
+    if (!firstHidden) {
+      return;
+    }
+    const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
+    firstHidden.visible = true;
+    if (wrapper) {
+      firstHidden.visible = true;
+      const gap = parseInt(getComputedStyle(wrapper).getPropertyValue('gap')) || 0;
+
+      // Calculate menu button width (square button based on wrapper height)
+      const menuButtonWidth = wrapper.getBoundingClientRect().height;
+      console.log(
+        'Forcing recalculation with width:',
+        wrapper.getBoundingClientRect().width,
+        firstHidden.element.getBoundingClientRect().width,
+        menuButtonWidth + 2 * gap
+      );
+      this.#onResize(
+        wrapper.getBoundingClientRect().width +
+          firstHidden.element.getBoundingClientRect().width +
+          (menuButtonWidth + 2 * gap) +
+          100
+      );
+    }
+    this.#needsMeasurement = true;
+    this.#measureItems();
+  }
+
   /**
    * Get all focusable elements including visible toolbar items and overflow menu button.
    */
@@ -442,7 +476,11 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   }
 
   #measureItems(): void {
-    if (this.offsetParent === null) {
+    const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
+    if (
+      this.offsetParent === null ||
+      (wrapper?.clientWidth === wrapper?.scrollWidth && wrapper?.clientHeight === wrapper?.scrollHeight)
+    ) {
       this.#needsMeasurement = true;
       return;
     }
@@ -458,6 +496,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     this.#widths = this.items.map(item => item.element.getBoundingClientRect().width);
 
+    console.log('Tool-bar item measurements:', this.items);
     // If measurements are invalid (any width is zero for non-divider items), mark as needing re-measurement
     const hasInvalidMeasurements = this.items.some((item, i) => item.type !== 'divider' && this.#widths[i] === 0);
 
@@ -465,6 +504,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   }
 
   #onResize(availableWidth: number): void {
+    console.log('Tool-bar resize detected, available width:', availableWidth);
     const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
 
     if (!wrapper) {
@@ -477,6 +517,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     if (this.#needsMeasurement || this.#widths.length === 0) {
       this.items.forEach(item => {
         item.element.style.display = '';
+        item.element.style.visibility = '';
+        item.element.style.position = '';
         item.visible = true;
       });
 
@@ -485,6 +527,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     // If measurements failed or items changed, don't proceed
     if (this.#widths.length === 0 || this.#widths.length !== this.items.length) {
+      console.log('Tool-bar measurement invalid, skipping layout update.');
       return;
     }
 
@@ -511,6 +554,14 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     // Calculate effective width (reserve space for menu button + gap before it + gap after last item)
     const menuButtonTotalWidth = needsMenu ? menuButtonWidth + 2 * gap : 0;
     const effectiveWidth = availableWidth - menuButtonTotalWidth;
+
+    console.log('Tool-bar layout calculation:', {
+      widths: this.#widths,
+      availableWidth,
+      effectiveWidth,
+      needsMenu,
+      cumulativeWidth
+    });
 
     // Second pass: set visibility based on effective width
     cumulativeWidth = 0;
@@ -542,7 +593,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     }
 
     this.items.forEach(item => {
-      item.element.style.display = item.visible ? '' : 'none';
+      // item.element.style.display = item.visible ? '' : 'none';
+      item.element.style.visibility = item.visible ? '' : 'hidden';
+      item.element.style.position = item.visible ? '' : 'absolute';
     });
 
     const allItemsHidden = this.items.every(item => !item.visible);

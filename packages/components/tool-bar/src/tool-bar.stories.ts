@@ -659,15 +659,10 @@ export const All: Story = {
     return html`
       <style>
         .wrapper {
+          display: grid;
           align-items: center;
-          display: inline-grid;
           grid-template-columns: auto 1fr 1fr;
           gap: 1rem;
-          justify-items: center;
-        }
-
-        sl-tool-bar {
-          inline-size: fit-content;
         }
       </style>
       <div class="wrapper">

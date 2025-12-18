@@ -58,7 +58,7 @@ sl-paginator {
       pageSize ??= paginator.pageSize;
 
       paginator.page = paginatorPageSize.page = page;
-      paginator.pageSize = paginatorPageSize.pageSize = paginatorPageSize.pageSize = pageSize;
+      paginator.pageSize = paginatorPageSize.pageSize = pageSize;
     };
 
     const onPageChange = ({ detail: page }) => update({ page });

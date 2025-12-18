@@ -50,9 +50,9 @@ These announcements help users understand pagination changes without needing to 
 
 <div class="ds-table-wrapper">
 
-|Attribute | Value | Description                                                             |
-|-|-|-------------------------------------------------------------------------|
-|`aria-label`|string| Labels the navigation region. Defaults to "Pagination" if not provided. |
+|Attribute|Value|Description|
+|-|-|-|
+|`aria-label`|string|Labels the navigation region. Defaults to "Pagination" if not provided.|
 
 {.ds-table .ds-table-align-top}
 

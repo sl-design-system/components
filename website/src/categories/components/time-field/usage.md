@@ -50,8 +50,8 @@ Time fields may not be the best choice in the following scenarios:
 Avoid the Time Field when only approximate periods or relative notions of time are needed
 (e.g., "morning," "after lunch," "end of day").
 Similarly, do not use it for durations (e.g., selecting "01:30" to indicate 90 minutes).
-In these cases, prefer radios, a segmented control,
-or a select that reflects coarse time choices or duration values without implying exact clock time precision.
+In these cases, it might be better to use radio buttons, a segmented control,
+or a select that reflects a certain duration rather than a timestamp.
 </section>
 
 

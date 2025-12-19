@@ -88,7 +88,10 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
   /** Observe changes to the size of the host element. */
   #resizeObserver = new ResizeObserver(entries => {
-    // this gets called when the tool-bar size changes, but that changes when the size of the toolbar itself is flexible. That causes an infinite loop that stops when all the buttons that can be hidden are hidden. We need to stop that loop when the actual vertical overflow is gone.
+    // This is called when the tool bar size changes. When the tool bar is flexible,
+    // its size changes as buttons are hidden, which can cause an infinite loop that
+    // only stops when all hideable buttons are hidden. We stop that loop when the
+    // actual vertical overflow is gone.
     const entry = entries.at(0);
 
     if (!entry) {
@@ -324,6 +327,21 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     this.#updateMapping();
   }
 
+  /**
+   * Forces a recalculation of the tool-bar layout using a debounced measurement.
+   *
+   * In most cases, the tool-bar reacts automatically to size changes and DOM mutations,
+   * or can be updated explicitly by calling {@link refresh}. Call this method only in
+   * advanced scenarios where those mechanisms are insufficient, such as when the layout
+   * is affected by changes outside the tool-bar (e.g. complex nested slots or container
+   * size changes that are not observed).
+   *
+   * When invoked, any pending recalculation is canceled and a new one is scheduled
+   * with a 200&nbsp;ms delay. Once the timeout elapses, the tool-bar temporarily reveals
+   * the first hidden item, measures the wrapper and items, and internally triggers a
+   * resize/measurement pass to recompute which items should be visible or moved into
+   * the overflow menu.
+   */
   forceRecalculation(): void {
     // Clear any pending recalculation
     if (this.#forceRecalculationTimeout) {

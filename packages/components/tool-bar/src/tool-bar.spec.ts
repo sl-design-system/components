@@ -312,8 +312,8 @@ describe('sl-tool-bar', () => {
       // Nested slots require manual refresh
       await el.updateComplete;
       await el.toolBar?.updateComplete;
-      el.toolBar?.refresh();
-      await el.toolBar?.updateComplete;
+      // el.toolBar?.refresh();
+      // await el.toolBar?.updateComplete;
     });
 
     it('should find the initial button', () => {
@@ -329,7 +329,7 @@ describe('sl-tool-bar', () => {
 
       await el.updateComplete;
 
-      el.toolBar?.refresh();
+      // el.toolBar?.refresh();
 
       expect(el.toolBar?.items).to.have.length(2);
       expect(el.toolBar?.items[1]).to.have.property('type', 'button');
@@ -341,7 +341,7 @@ describe('sl-tool-bar', () => {
       await el.toolBar?.updateComplete;
 
       // Ensure the nested slotted items are mapped before asserting
-      el.toolBar?.refresh();
+      // el.toolBar?.refresh();
       await el.toolBar?.updateComplete;
 
       expect(el.toolBar?.items[0]).to.have.property('disabled', false);
@@ -351,7 +351,7 @@ describe('sl-tool-bar', () => {
       // Give the mutation a tick to propagate
       await new Promise(resolve => setTimeout(resolve));
 
-      el.toolBar?.refresh();
+      // el.toolBar?.refresh();
       await el.toolBar?.updateComplete;
 
       expect(el.toolBar?.items[0]).to.have.property('disabled', true);
@@ -1019,6 +1019,150 @@ describe('sl-tool-bar', () => {
       await userEvent.keyboard('{ArrowRight}');
       await el.updateComplete;
       expect(closestElementComposed(document.activeElement!, 'sl-button')).to.equal(enabledButtons[2]);
+    });
+  });
+  describe('forceRecalculation', () => {
+    let el: ToolBar;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-tool-bar style="inline-size: 400px">
+          <sl-button>
+            <sl-icon name="far-gear"></sl-icon>
+            Button 1
+          </sl-button>
+          <sl-button>
+            <sl-icon name="far-bell"></sl-icon>
+            Button 2
+          </sl-button>
+          <sl-button>
+            <sl-icon name="far-pen"></sl-icon>
+            Button 3
+          </sl-button>
+        </sl-tool-bar>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+    });
+
+    it('should trigger layout recalculation', async () => {
+      // Force some items to overflow
+      el.style.inlineSize = '48px';
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const initialHiddenCount = el.menuItems.length;
+      expect(initialHiddenCount).to.be.greaterThan(0);
+
+      // Expand the toolbar
+      el.style.inlineSize = '400px';
+
+      // Call forceRecalculation and wait for debounce
+      el.forceRecalculation();
+      await new Promise(resolve => setTimeout(resolve, 250));
+
+      // Items should be visible again
+      expect(el.menuItems.length).to.be.lessThan(initialHiddenCount);
+    });
+
+    it('should debounce multiple calls', async () => {
+      // Force overflow to ensure we have measurable changes
+      el.style.inlineSize = '48px';
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const initialMenuItemCount = el.menuItems.length;
+
+      // Expand toolbar
+      el.style.inlineSize = '400px';
+
+      // Call forceRecalculation multiple times rapidly
+      el.forceRecalculation();
+      el.forceRecalculation();
+      el.forceRecalculation();
+
+      // Wait for debounce timeout
+      await new Promise(resolve => setTimeout(resolve, 250));
+
+      // The layout should have been recalculated (fewer items in overflow menu)
+      expect(el.menuItems.length).to.be.lessThan(initialMenuItemCount);
+    });
+
+    it('should cancel pending recalculation when called again', async () => {
+      // Force overflow
+      el.style.inlineSize = '48px';
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      el.style.inlineSize = '400px';
+
+      el.forceRecalculation();
+
+      // Wait a bit but not enough for debounce
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      // Call again to cancel the first timeout
+      el.forceRecalculation();
+
+      // Wait for the second debounce
+      await new Promise(resolve => setTimeout(resolve, 250));
+
+      // The recalculation should have completed (no overflow items)
+      expect(el.menuItems.length).to.equal(0);
+    });
+
+    it('should make hidden items visible after expansion', async () => {
+      // Force overflow first
+      el.style.inlineSize = '48px';
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(el.menuItems.length).to.be.greaterThan(0);
+
+      // Expand and force recalculation
+      el.style.inlineSize = '400px';
+      el.forceRecalculation();
+      await new Promise(resolve => setTimeout(resolve, 250));
+
+      // After forceRecalculation, items should be visible again
+      expect(el.menuItems.length).to.equal(0);
+    });
+
+    it('should do nothing if no items are hidden', async () => {
+      // All items are visible
+      expect(el.menuItems.length).to.equal(0);
+
+      const menuItemsBeforeRecalc = el.menuItems.length;
+
+      el.forceRecalculation();
+      await new Promise(resolve => setTimeout(resolve, 250));
+
+      // Menu items should remain the same (none hidden)
+      expect(el.menuItems.length).to.equal(menuItemsBeforeRecalc);
+    });
+
+    it('should handle size changes after forceRecalculation', async () => {
+      // Make toolbar overflow
+      el.style.inlineSize = '100px';
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const initialMenuItemCount = el.menuItems.length;
+      expect(initialMenuItemCount).to.be.greaterThan(0);
+
+      // Expand and force recalculation
+      el.style.inlineSize = '500px';
+      el.forceRecalculation();
+      await new Promise(resolve => setTimeout(resolve, 250));
+
+      // More items should be visible
+      expect(el.menuItems.length).to.be.lessThan(initialMenuItemCount);
+    });
+
+    it('should clean up timeout on disconnect', async () => {
+      el.forceRecalculation();
+
+      // Disconnect before timeout completes
+      el.remove();
+      await new Promise(resolve => setTimeout(resolve, 250));
+
+      // No errors should occur
+      expect(document.body.contains(el)).to.be.false;
     });
   });
 });

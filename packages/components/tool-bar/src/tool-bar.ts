@@ -583,7 +583,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     }
 
     this.items.forEach(item => {
-      // item.element.style.display = item.visible ? '' : 'none';
+      item.element.style.display = item.visible ? '' : 'none';
       item.element.style.visibility = item.visible ? '' : 'hidden';
       item.element.style.position = item.visible ? '' : 'absolute';
     });
@@ -674,6 +674,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     this.items = elements
       .map(element => {
         if (element instanceof Button) {
+          element.style.visibility = '';
+          element.style.position = '';
           return this.#mapButtonToItem(element);
         } else if (element instanceof MenuButton) {
           return this.#mapMenuButtonToItem(element);
@@ -688,5 +690,10 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       .filter(item => item !== undefined) as ToolBarItem[];
 
     this.#needsMeasurement = true;
+
+    // The menu-button may have appeared or disappeared, so we need to re-measure
+    this.#measureItems();
+    const contentBox = this.getBoundingClientRect();
+    this.#onResize(contentBox.width);
   }
 }

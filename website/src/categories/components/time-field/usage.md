@@ -46,8 +46,12 @@ Use the Time Field when forms must support speed and accessibility for keyboard-
 Time fields may not be the best choice in the following scenarios:
 
 ### Relative timeframes
-Avoid the Time Field when only approximate periods or relative notions of time are needed (e.g., “morning,” “after lunch,” “end of day”). In these cases, prefer radios, a segmented control, or a select that reflects coarse time choices without implying exact HH:MM precision.
 
+Avoid the Time Field when only approximate periods or relative notions of time are needed
+(e.g., "morning," "after lunch," "end of day").
+Similarly, do not use it for durations (e.g., selecting "01:30" to indicate 90 minutes).
+In these cases, prefer radios, a segmented control,
+or a select that reflects coarse time choices or duration values without implying exact clock time precision.
 </section>
 
 
@@ -92,15 +96,15 @@ With these options you can tweak the appearance of the time field in Figma. They
 
 <div class="ds-table-wrapper">
 
-|Item|Options|Description|
-|-|-|-|
-|Open|`on` or `off`|The time field is available in two sizes. If not specified the default value is `md` (medium).|
-|Variant|`default` `valid` `invalid`| When you're working on a scenario where you show what happens when a field is skipped or filled in incorrectly you can choose a different variant to show this.|
-|Size|`md` `lg`|The time field is available in two sizes. If not specified the default value is `md` (medium).|
-|Placeholder|`on` or `off`|If the setting is enabled, the placeholder will be visible, whereas if it is disabled, the user's input will be displayed. Default value is `off`.|
-|Text|`value`|Use placeholder text to give the user a short hint about what they need to input (e.g. a sample value or a short description of the expected format). Placeholder is not a replacement for labels. It's an optional feature that disappears once users begin entering their data. |
-|Placeholder text|`value`|Use placeholder text to give the user a short hint about what they need to input (e.g. a sample value or a short description of the expected format). Placeholder is not a replacement for labels. It's an optional feature that disappears once users begin entering their data. |
-|Label|`value`|Provide users with a clear, concise label of what input you expect in this field.|
+|Item|Options| Description                                                                                                                                                                                                                                                                       |
+|-|-|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|Open|`on` or `off`| Opens a dropdown with hours and minutes options for time selection.                                                                                                                                                                                                               |
+|Variant|`default` `valid` `invalid`| When you're working on a scenario where you show what happens when a field is skipped or filled in incorrectly you can choose a different variant to show this.                                                                                                                   |
+|Size|`md` `lg`| The time field is available in two sizes. If not specified the default value is `md` (medium).                                                                                                                                                                                    |
+|Placeholder|`on` or `off`| If the setting is enabled, the placeholder will be visible, whereas if it is disabled, the user's input will be displayed. Default value is `off`.                                                                                                                                |
+|Text|`value`| Use placeholder text to give the user a short hint about what they need to input (e.g. a sample value or a short description of the expected format). Placeholder is not a replacement for labels. It's an optional feature that disappears once users begin entering their data. |
+|Placeholder text|`value`| Use placeholder text to show the expected time format (e.g., "HH:MM" or "14:30"). The placeholder disappears once users begin typing. It should not replace the label but serve as a format hint.|
+|Label|`value`| Provide users with a clear, concise label that describes the time being requested (e.g., "Start time", "Appointment time", "Exam time").                                                                                                                                          |
 
 {.ds-table .ds-table-align-top}
 
@@ -117,7 +121,7 @@ With these options you can tweak the appearance of the time field in Figma. They
 Users can type any valid HH:MM time, regardless of whether it is a step time. The component validates for format and parsability (e.g., two-digit hours/minutes within valid ranges). Step alignment is not enforced unless `enforceSteps` = `true`.
 
 ### Stepped Options (Shortcuts)
-When steps are configured, the dropdown shows fixed, non-reordering stepped options in the hour and/or minute columns. These options act as shortcuts while typed input remains unrestricted. The dropdown content and order remain unchanged regardless of the user's input.
+When steps are configured, the dropdown shows stepped options in the hour and/or minute columns (e.g., 00, 15, 30, 45). These options act as shortcuts while typed input remains unrestricted. The dropdown options always display in ascending order and do not dynamically adjust based on the current input value.
 
 ### Enforced Steps (Optional)
 When `enforceSteps` = `true`, only stepped values are valid. If a user types an invalid time, a validation message appears after the field is blurred (i.e., when the user leaves the field). The typed value remains visible until corrected. The dropdown content and order still do not change.

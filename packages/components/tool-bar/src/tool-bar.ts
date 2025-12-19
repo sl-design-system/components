@@ -356,7 +356,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       }
       const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
       if (wrapper) {
-        this.#onResize(5000); // make this a value based on something rather than a hardcoded huge number
+        this.#onResize(window.innerWidth);
       }
       this.#needsMeasurement = true;
       this.#measureItems();
@@ -656,6 +656,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     targets.forEach(btn => {
       if (this.type) {
         btn.setAttribute('fill', this.type);
+      } else {
+        btn.removeAttribute('fill');
       }
 
       if (this.inverted) {

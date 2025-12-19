@@ -87,7 +87,7 @@ With these options you can tweak the appearance of the text field in Figma. They
 |Placeholder text|`value`|Use placeholder text to give the user a short hint about what they need to input (e.g. a sample value or a short description of the expected format). Placeholder is not a replacement for labels. It's an optional feature that disappears once users begin entering their data. |
 |Hint|`boolean`|To turn to hint on or off. Default value is `off`.|
 |Input Text |`value`|Will be shown as the value of the text field|
-|Label|`value`|Provide users with additional context about button functionality by adding a label, ensuring clarity and ease of use.|
+|Label|`value`|Provide users with a clear, concise label of what input you expect in this field.|
 |Focus ring|`boolean`|Turn the focus ring option to show the focus state of the text field. Default value is `off`.|
 
 {.ds-table .ds-table-align-top}

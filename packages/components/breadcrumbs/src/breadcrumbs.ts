@@ -51,6 +51,14 @@ const isMobile = (): boolean => matchMedia('(width <= 600px)').matches;
 @localized()
 export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   /**
+   * When true, doesn't show a home label in the first breadcrumb next to the home icon.
+   *
+   * By changing this static property you can change the default value for all future instances of the component.
+   * Changing the static property won't affect already created instances.
+   */
+  static hideHomeLabel = false;
+
+  /**
    * The url for the home link, defaults to the root url.
    *
    * By changing this static property you can change the default value for all future instances of the component.
@@ -92,6 +100,14 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   @state() collapseThreshold = COLLAPSE_THRESHOLD;
 
   /**
+   * When true, doesn't show a home label in the first breadcrumb next to the home icon.
+   *
+   * If you want to change the default value for all future instances of the component, you can change the static property.
+   * If you want to change the property of an already created instance, you need to change this property.
+   */
+  @property({ type: Boolean, attribute: 'hide-home-label' }) hideHomeLabel = Breadcrumbs.hideHomeLabel;
+
+  /**
    * Set this to true to invert the color of the breadcrumbs. This should be used
    * when the breadcrumbs are displayed on a dark background.
    */
@@ -106,7 +122,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   @property({ attribute: 'home-url' }) homeUrl = Breadcrumbs.homeUrl;
 
   /**
-   * When true doesn't show a home link as the first breadcrumb.
+   * When true, doesn't show a home link as the first breadcrumb.
    *
    * If you want to change the default value for all future instances of the component, you can change the static property.
    * If you want to change the property of an already created instance, you need to change this property.
@@ -147,9 +163,14 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
           ? nothing
           : html`
               <li class="home">
-                <a href=${this.homeUrl}>
+                <a
+                  href=${this.homeUrl}
+                  aria-label=${ifDefined(
+                    isMobile() || this.hideHomeLabel ? msg('Home', { id: 'sl.breadcrumbs.home' }) : undefined
+                  )}
+                >
                   <sl-icon name="home-blank"></sl-icon>
-                  ${isMobile() ? '' : msg('Home', { id: 'sl.breadcrumbs.home' })}
+                  ${isMobile() || this.hideHomeLabel ? '' : msg('Home', { id: 'sl.breadcrumbs.home' })}
                 </a>
               </li>
               <sl-icon name="breadcrumb-separator"></sl-icon>

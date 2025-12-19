@@ -1,7 +1,7 @@
 {
   "name": "@sl-design-system/angular",
   "description": "Angular support for the SL Design System",
-  "version": "3.4.0",
+  "version": "4.0.1",
   "publishConfig": {
     "directory": "dist",
     "registry": "https://npm.pkg.github.com"
@@ -15,7 +15,10 @@
   "scripts": {
     "build": "wireit",
     "start": "wireit",
-    "storybook": "wireit"
+    "storybook": "wireit",
+    "extract-templates": "wireit",
+    "extract-templates:force": "wireit",
+    "extract-templates:watch": "wireit"
   },
   "wireit": {
     "build": {
@@ -38,6 +41,10 @@
     },
     "start": {
       "command": "ng run angular:storybook",
+      "dependencies": [
+        "extract-templates",
+        "../..:build"
+      ],
       "service": {
         "readyWhen": {
           "lineMatches": "Storybook \\S+ for .*angular.* started"
@@ -46,47 +53,67 @@
       "files": [
         "angular.json",
         "./storybook/main.ts"
-      ],
-      "dependencies": [
-        "../..:build"
       ]
     },
     "storybook": {
       "command": "ng run angular:build-storybook",
       "dependencies": [
-        "build"
+        "build",
+        "extract-templates"
       ]
+    },
+    "extract-templates": {
+      "command": "node ../../scripts/extract-story-templates.js",
+      "files": [
+        "stories/*.stories.ts",
+        "stories/*.intro.md",
+        "../../scripts/extract-story-templates.js"
+      ],
+      "output": [
+        "stories/generated/*.mdx"
+      ]
+    },
+    "extract-templates:force": {
+      "command": "node ../../scripts/extract-story-templates.js --force",
+      "output": [
+        "stories/generated/*.mdx"
+      ]
+    },
+    "extract-templates:watch": {
+      "command": "node ../../scripts/extract-story-templates.js --watch",
+      "service": true
     }
   },
   "dependencies": {
     "@sl-design-system/checkbox": "^2.1.6",
     "@sl-design-system/combobox": "^0.1.5",
     "@sl-design-system/form": "^1.3.1",
-    "@sl-design-system/icon": "^1.3.1",
+    "@sl-design-system/icon": "^1.4.1",
     "@sl-design-system/locales": "^0.1.0",
     "@sl-design-system/number-field": "^0.1.5",
     "@sl-design-system/radio-group": "^1.1.5",
-    "@sl-design-system/select": "^2.0.5",
+    "@sl-design-system/select": "^2.1.0",
     "@sl-design-system/switch": "^1.1.5",
-    "@sl-design-system/text-area": "^1.1.4",
+    "@sl-design-system/text-area": "^1.1.5",
     "@sl-design-system/text-field": "^1.6.6",
-    "@sl-design-system/time-field": "^0.0.1"
+    "@sl-design-system/time-field": "^0.0.2"
   },
   "devDependencies": {
-    "@angular-devkit/architect": "^0.1902.14",
-    "@angular-devkit/build-angular": "^19.2.14",
-    "@angular-devkit/core": "^19.2.14",
-    "@angular/animations": "^19.2.14",
-    "@angular/cli": "^19.2.14",
-    "@angular/common": "^19.2.14",
-    "@angular/compiler": "^19.2.14",
-    "@angular/compiler-cli": "^19.2.14",
-    "@angular/core": "^19.2.14",
-    "@angular/forms": "^19.2.14",
-    "@angular/platform-browser": "^19.2.14",
-    "@angular/platform-browser-dynamic": "^19.2.14",
-    "@angular/router": "^19.2.14",
-    "@storybook/angular": "^9.1.13",
+    "@angular-devkit/architect": "^0.2100.0",
+    "@angular-devkit/build-angular": "^21.0.0",
+    "@angular-devkit/core": "^21.0.0",
+    "@angular/animations": "^21.0.0",
+    "@angular/cli": "^21.0.0",
+    "@angular/common": "^21.0.0",
+    "@angular/compiler": "^21.0.0",
+    "@angular/compiler-cli": "^21.0.0",
+    "@angular/core": "^21.0.0",
+    "@angular/forms": "^21.0.0",
+    "@angular/platform-browser": "^21.0.0",
+    "@angular/platform-browser-dynamic": "^21.0.0",
+    "@angular/router": "^21.0.0",
+    "@storybook/addon-docs": "^9.1.17",
+    "@storybook/angular": "^9.1.17",
     "@types/jasmine": "~5.1.12",
     "jasmine-core": "~5.12.0",
     "karma": "~6.4.4",
@@ -94,11 +121,11 @@
     "karma-coverage": "~2.2.1",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "ng-packagr": "^19.2.2",
+    "ng-packagr": "^21.0.0",
     "rxjs": "~7.8.2",
-    "storybook": "^9.1.13",
+    "storybook": "^9.1.17",
     "tslib": "^2.8.1",
-    "typescript": "~5.5.4",
+    "typescript": "~5.9.0",
     "wireit": "^0.14.12",
     "zone.js": "~0.15.1"
   },

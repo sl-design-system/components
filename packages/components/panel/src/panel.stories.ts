@@ -32,7 +32,7 @@ type Props = Pick<
 };
 type Story = StoryObj<Props>;
 
-const densities: PanelDensity[] = ['plain', 'comfortable'];
+const densities: PanelDensity[] = ['default', 'relaxed'];
 
 const elevations: PanelElevation[] = ['none', 'raised', 'sunken'];
 
@@ -88,7 +88,7 @@ export default {
   tags: ['draft'],
   args: {
     collapsible: false,
-    density: 'plain',
+    density: 'default',
     divider: false,
     elevation: 'none',
     noBorder: false,
@@ -480,8 +480,8 @@ export const All: Story = {
 
         <h3>Density</h3>
         Density adjusts the internal spacing of content within the panel.
-        <sl-panel heading="Plain"> The default spacing for general use. </sl-panel>
-        <sl-panel density="comfortable" heading="Comfortable"> Adds extra padding for a more relaxed layout. </sl-panel>
+        <sl-panel heading="Default"> The default spacing for general use. </sl-panel>
+        <sl-panel density="relaxed" heading="Relaxed"> Adds extra padding for a more relaxed layout. </sl-panel>
 
         <h3>Divider</h3>
         Dividers can be added to visually separate sections within a panel.

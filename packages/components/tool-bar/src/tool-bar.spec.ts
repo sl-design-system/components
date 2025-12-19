@@ -312,8 +312,8 @@ describe('sl-tool-bar', () => {
       // Nested slots require manual refresh
       await el.updateComplete;
       await el.toolBar?.updateComplete;
-      // el.toolBar?.refresh();
-      // await el.toolBar?.updateComplete;
+      el.toolBar?.refresh();
+      await el.toolBar?.updateComplete;
     });
 
     it('should find the initial button', () => {
@@ -329,7 +329,7 @@ describe('sl-tool-bar', () => {
 
       await el.updateComplete;
 
-      // el.toolBar?.refresh();
+      el.toolBar?.refresh();
 
       expect(el.toolBar?.items).to.have.length(2);
       expect(el.toolBar?.items[1]).to.have.property('type', 'button');
@@ -341,7 +341,7 @@ describe('sl-tool-bar', () => {
       await el.toolBar?.updateComplete;
 
       // Ensure the nested slotted items are mapped before asserting
-      // el.toolBar?.refresh();
+      el.toolBar?.refresh();
       await el.toolBar?.updateComplete;
 
       expect(el.toolBar?.items[0]).to.have.property('disabled', false);
@@ -351,7 +351,7 @@ describe('sl-tool-bar', () => {
       // Give the mutation a tick to propagate
       await new Promise(resolve => setTimeout(resolve));
 
-      // el.toolBar?.refresh();
+      el.toolBar?.refresh();
       await el.toolBar?.updateComplete;
 
       expect(el.toolBar?.items[0]).to.have.property('disabled', true);

@@ -348,7 +348,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       clearTimeout(this.#forceRecalculationTimeout);
     }
 
-    // Debounce with 300ms delay
+    // Debounce with 200ms delay
     this.#forceRecalculationTimeout = setTimeout(() => {
       const firstHidden = this.items.filter(item => !item.visible)[0];
       if (!firstHidden) {

@@ -153,10 +153,10 @@ export const Lazy: Story = {
       dialog.innerHTML = `
         <style>
           h2 {
-              font-size: inherit;
-              font-weight: inherit;
-              margin: 0;
-           }
+            font-size: inherit;
+            font-weight: inherit;
+            margin: 0;
+          }
         </style>
         <h2 slot="title">Lazy dialog</h2>
         This dialog is not created until you click the button. It is added to the DOM in the click event handler, and removed in the close event handler.

@@ -1,7 +1,7 @@
 {
   "name": "@sl-design-system/angular",
   "description": "Angular support for the SL Design System",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "publishConfig": {
     "directory": "dist",
     "registry": "https://npm.pkg.github.com"
@@ -94,7 +94,7 @@
     "@sl-design-system/radio-group": "^1.1.5",
     "@sl-design-system/select": "^2.1.0",
     "@sl-design-system/switch": "^1.1.5",
-    "@sl-design-system/text-area": "^1.1.4",
+    "@sl-design-system/text-area": "^1.1.5",
     "@sl-design-system/text-field": "^1.6.6",
     "@sl-design-system/time-field": "^0.0.2"
   },
@@ -112,8 +112,8 @@
     "@angular/platform-browser": "^21.0.0",
     "@angular/platform-browser-dynamic": "^21.0.0",
     "@angular/router": "^21.0.0",
-    "@storybook/addon-docs": "^9.1.13",
-    "@storybook/angular": "^9.1.13",
+    "@storybook/addon-docs": "^9.1.17",
+    "@storybook/angular": "^9.1.17",
     "@types/jasmine": "~5.1.12",
     "jasmine-core": "~5.12.0",
     "karma": "~6.4.4",
@@ -123,7 +123,7 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "ng-packagr": "^21.0.0",
     "rxjs": "~7.8.2",
-    "storybook": "^9.1.13",
+    "storybook": "^9.1.17",
     "tslib": "^2.8.1",
     "typescript": "~5.9.0",
     "wireit": "^0.14.12",

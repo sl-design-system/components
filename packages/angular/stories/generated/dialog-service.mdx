@@ -90,7 +90,14 @@ import { TextFieldComponent } from '@sl-design-system/angular/text-field';
 
 @Component({
   selector: 'sla-dialog-form',
-  template: `<span slot="title">{{ data.title }}</span>
+  template: `<style>
+    h2 {
+      font-size: inherit;
+      font-weight: inherit;
+      margin: 0;
+    }
+  </style>
+  <h2 slot="title">{{ data.title }}</h2>
   <span>{{ data.details }}</span>
   <sl-form #form>
     <sl-form-field label="Text field">

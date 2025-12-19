@@ -19,22 +19,12 @@ This is the way to show a dialog when you have the code in your template, if you
 
   <sl-button (click)="onClick($event)">Open dialog</sl-button>
   <sl-dialog>
-    <span slot="title">Title</span>
+    <h2 slot="title">Title</h2>
     <span slot="subtitle">Subtitle</span>
     <p>Proident nulla enim est excepteur exercitation minim ea proident nisi.</p>
     <sl-button sl-dialog-close fill="ghost" slot="actions">Cancel</sl-button>
     <sl-button sl-dialog-close slot="actions" variant="primary">Action</sl-button>
   </sl-dialog>
-
-```
-
-### Props
-
-```typescript
-
-  onClick: (event: Event & { target: HTMLElement }) => {
-    (event.target.nextElementSibling as DialogElement).showModal();
-  }
 
 ```
 

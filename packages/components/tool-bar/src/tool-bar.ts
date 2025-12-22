@@ -157,7 +157,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
   /**
    * Use this if you want the menu button that appears when the tool bar overflows to use the "inverted" variant.
-   * This also overrides all slotted button variants and menu variants to `inverted` when set.
+   * This also overrides all slotted button and menu-button variants to `inverted` when set.
    */
   @property({ type: Boolean }) inverted?: boolean;
 
@@ -547,8 +547,13 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    // Calculate menu button width (square button based on wrapper height)
-    const menuButtonWidth = wrapper.getBoundingClientRect().height;
+    // Calculate menu button width (square button based on wrapper height) but this doesn't work if there are no items in the wrapper!! :D
+    let menuButtonWidth = wrapper.getBoundingClientRect().height;
+    const menuButton = this.renderRoot.querySelector('sl-menu-button');
+
+    if ((isNaN(menuButtonWidth) || menuButtonWidth === 0) && menuButton) {
+      menuButtonWidth = menuButton.getBoundingClientRect().width;
+    }
 
     // First pass: determine if we need overflow menu
     let cumulativeWidth = 0,
@@ -601,7 +606,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     }
 
     this.items.forEach(item => {
-      item.element.style.display = item.visible ? '' : 'none';
       item.element.style.visibility = item.visible ? '' : 'hidden';
       item.element.style.position = item.visible ? '' : 'absolute';
     });
@@ -610,7 +614,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     this.menuItems = this.items.filter(item => !item.visible);
 
-    const menuButton = this.renderRoot.querySelector('sl-menu-button');
     if (menuButton) {
       if (allItemsHidden) {
         menuButton.toggleAttribute('all-items-hidden', true);
@@ -656,10 +659,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     targets.forEach(btn => {
       if (this.type) {
         btn.setAttribute('fill', this.type);
-      } else {
-        btn.removeAttribute('fill');
       }
-
       if (this.inverted) {
         btn.setAttribute('variant', 'inverted');
       } else {

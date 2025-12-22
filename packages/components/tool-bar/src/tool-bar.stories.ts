@@ -240,7 +240,8 @@ export const FitContent: Story = {
 
 export const NestedContent: Story = {
   args: {
-    description: 'This example shows a tool bar with a single button that fits its content.',
+    description:
+      'This example shows a tool bar with a single button that is wrapped in two <div> elements. This is to check that nested content is handled correctly.',
     items: () => html`
       <div>
         <div><sl-button fill="outline">Simple</sl-button></div>

@@ -205,28 +205,30 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     super.willUpdate(changes);
 
     if (changes.has('disabled')) {
-      // Get direct children from the light DOM (slotted content)
-      const children = Array.from(this.children);
+      // Get all buttons including nested ones (consistent with #updateButtonFillAndVariant)
+      const buttons: Element[] = [];
+
+      Array.from(this.children).forEach(el => {
+        if (el.tagName === 'SL-BUTTON' || el.tagName === 'SL-MENU-BUTTON') {
+          buttons.push(el);
+        }
+        buttons.push(...Array.from(el.querySelectorAll('sl-button, sl-menu-button')));
+      });
 
       if (this.disabled) {
-        children.forEach(el => {
-          // Only set disabled on interactive elements (buttons, menu-buttons)
-          if (el.tagName === 'SL-BUTTON' || el.tagName === 'SL-MENU-BUTTON') {
-            // Only disable if not already disabled, and mark that we disabled it
-            if (!el.hasAttribute('disabled')) {
-              el.setAttribute('disabled', '');
-              el.setAttribute('data-toolbar-disabled', '');
-            }
+        buttons.forEach(el => {
+          // Only disable if not already disabled, and mark that we disabled it
+          if (!el.hasAttribute('disabled')) {
+            el.setAttribute('disabled', '');
+            el.setAttribute('data-toolbar-disabled', '');
           }
         });
       } else {
-        children.forEach(el => {
+        buttons.forEach(el => {
           // Only remove disabled from buttons/menu-buttons that the toolbar disabled
-          if (el.tagName === 'SL-BUTTON' || el.tagName === 'SL-MENU-BUTTON') {
-            if (el.hasAttribute('data-toolbar-disabled')) {
-              el.removeAttribute('disabled');
-              el.removeAttribute('data-toolbar-disabled');
-            }
+          if (el.hasAttribute('data-toolbar-disabled')) {
+            el.removeAttribute('disabled');
+            el.removeAttribute('data-toolbar-disabled');
           }
         });
       }

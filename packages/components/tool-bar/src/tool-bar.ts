@@ -378,8 +378,11 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       })
       .filter((el): el is HTMLElement => el !== null);
 
-    const menuButton = this.renderRoot.querySelector('sl-menu-button'),
-      menuButtonElement = menuButton?.renderRoot.querySelector('sl-button') as HTMLElement | null;
+    const menuButton = this.renderRoot.querySelector('sl-menu-button');
+    if (!menuButton) {
+      return visibleItems;
+    }
+    const menuButtonElement = menuButton.renderRoot?.querySelector('sl-button') as HTMLElement | null;
 
     return menuButtonElement ? [...visibleItems, menuButtonElement] : visibleItems;
   }

@@ -238,6 +238,19 @@ export const FitContent: Story = {
   }
 };
 
+export const NestedContent: Story = {
+  args: {
+    description: 'This example shows a tool bar with a single button that fits its content.',
+    items: () => html`
+      <div>
+        <div><sl-button fill="outline">Simple</sl-button></div>
+      </div>
+    `,
+    width: 'fit-content',
+    contained: true
+  }
+};
+
 export const Inverted: Story = {
   args: {
     description: html`

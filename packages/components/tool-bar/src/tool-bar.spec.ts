@@ -728,11 +728,10 @@ describe('sl-tool-bar', () => {
     });
 
     it('should handle simultaneous type and inverted changes', async () => {
-      const button = el.querySelector('sl-button');
-
       el.type = 'ghost';
       el.inverted = true;
       await el.updateComplete;
+      const button = el.querySelector('sl-button');
 
       expect(button).to.have.attribute('fill', 'ghost');
       expect(button).to.have.attribute('variant', 'inverted');

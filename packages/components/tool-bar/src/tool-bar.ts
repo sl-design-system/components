@@ -512,7 +512,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     // Ensure all items are visible for accurate measurements
     this.items.forEach(item => {
-      item.element.style.display = '';
+      item.element.style.visibility = '';
+      item.element.style.position = '';
       item.visible = true;
     });
 
@@ -698,9 +699,12 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     this.items = elements
       .map(element => {
-        if (element instanceof Button) {
+        if (element instanceof HTMLElement) {
           element.style.visibility = '';
           element.style.position = '';
+        }
+
+        if (element instanceof Button) {
           return this.#mapButtonToItem(element);
         } else if (element instanceof MenuButton) {
           return this.#mapMenuButtonToItem(element);

@@ -21,7 +21,14 @@ import { type Meta, StoryFn, applicationConfig, moduleMetadata } from '@storyboo
   standalone: true,
   imports: [ButtonComponent, CommonModule],
   template: `
-    <span slot="title">{{ data.title }}</span>
+    <style>
+      h2 {
+        font-size: inherit;
+        font-weight: inherit;
+        margin: 0;
+      }
+    </style>
+    <h2 slot="title">{{ data.title }}</h2>
     <p>{{ data.message }}</p>
     <div>Example content.</div>
     <sl-button (click)="dialogRef.close('cancelled')" slot="primary-actions">Cancel</sl-button>
@@ -103,7 +110,14 @@ export class DialogServiceExampleComponent {
     TextFieldDirective
   ],
   template: `
-    <span slot="title">{{ data.title }}</span>
+    <style>
+      h2 {
+        font-size: inherit;
+        font-weight: inherit;
+        margin: 0;
+      }
+    </style>
+    <h2 slot="title">{{ data.title }}</h2>
     <span>{{ data.details }}</span>
     <sl-form #form>
       <sl-form-field label="Text field">

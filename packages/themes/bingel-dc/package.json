@@ -22,6 +22,7 @@
     "./light.min.css": "./light.min.css",
     "./light-deprecated.css": "./light-deprecated.css",
     "./light-deprecated.min.css": "./light-deprecated.min.css",
+    "./fonts.css": "./fonts.css",
     "./package.json": "./package.json",
     "./css/*.css": "./css/*.css"
   },

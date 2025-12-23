@@ -167,8 +167,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** @internal The tool bar items that should be shown in the overflow menu. */
   @state() menuItems: ToolBarItem[] = [];
 
-  /** The type of buttons and menu buttons (also overflow menu button). */
-  @property() type?: Extract<ButtonFill, 'ghost' | 'outline'>;
+  /** The fill of buttons and menu buttons (also overflow menu button). */
+  @property() fill?: Extract<ButtonFill, 'ghost' | 'outline'>;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -238,7 +238,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       this.menuItems = this.items.filter(item => !item.visible);
     }
 
-    if (changes.has('type') || changes.has('inverted')) {
+    if (changes.has('fill') || changes.has('inverted')) {
       const slot = this.renderRoot.querySelector('slot'),
         assigned = slot?.assignedElements({ flatten: true }) ?? [];
 
@@ -278,7 +278,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         ? html`
             <sl-menu-button
               aria-label=${msg('Show more', { id: 'sl.toolBar.showMore' })}
-              fill=${ifDefined(this.type)}
+              fill=${ifDefined(this.fill)}
               variant=${ifDefined(this.inverted ? 'inverted' : undefined)}
             >
               <sl-icon name="ellipsis-vertical" slot="button"></sl-icon>
@@ -663,8 +663,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     targets.push(...Array.from(el.querySelectorAll('sl-button, sl-menu-button')));
 
     targets.forEach(btn => {
-      if (this.type) {
-        btn.setAttribute('fill', this.type);
+      if (this.fill) {
+        btn.setAttribute('fill', this.fill);
       }
       if (this.inverted) {
         btn.setAttribute('variant', 'inverted');

@@ -397,7 +397,7 @@ describe('sl-tool-bar', () => {
     });
   });
 
-  describe('type', () => {
+  describe('fill', () => {
     let el: ToolBar;
 
     beforeEach(async () => {
@@ -421,19 +421,19 @@ describe('sl-tool-bar', () => {
       await new Promise(resolve => setTimeout(resolve, 50));
     });
 
-    it('should not have a type by default', () => {
-      expect(el.type).to.be.undefined;
+    it('should not have a fill by default', () => {
+      expect(el.fill).to.be.undefined;
     });
 
-    it('should have a type when set', async () => {
-      el.type = 'ghost';
+    it('should have a fill when set', async () => {
+      el.fill = 'ghost';
       await el.updateComplete;
 
-      expect(el.type).to.equal('ghost');
+      expect(el.fill).to.equal('ghost');
     });
 
-    it('should update child button fill attributes when type is set to ghost', async () => {
-      el.type = 'ghost';
+    it('should update child button fill attributes when fill is set to ghost', async () => {
+      el.fill = 'ghost';
       await el.updateComplete;
 
       const buttons = el.querySelectorAll('sl-button');
@@ -441,8 +441,8 @@ describe('sl-tool-bar', () => {
       expect(buttons[1]).to.have.attribute('fill', 'ghost');
     });
 
-    it('should update child button fill attributes when type is set to outline', async () => {
-      el.type = 'outline';
+    it('should update child button fill attributes when fill is set to outline', async () => {
+      el.fill = 'outline';
       await el.updateComplete;
 
       const buttons = el.querySelectorAll('sl-button');
@@ -450,30 +450,30 @@ describe('sl-tool-bar', () => {
       expect(buttons[1]).to.have.attribute('fill', 'outline');
     });
 
-    it('should update child menu button fill attributes when type is set', async () => {
-      el.type = 'ghost';
+    it('should update child menu button fill attributes when fill is set', async () => {
+      el.fill = 'ghost';
       await el.updateComplete;
 
       const menuButton = el.querySelector('sl-menu-button');
       expect(menuButton).to.have.attribute('fill', 'ghost');
     });
 
-    it('should handle dynamic changes to the type property', async () => {
-      el.type = 'ghost';
+    it('should handle dynamic changes to the fill property', async () => {
+      el.fill = 'ghost';
       await el.updateComplete;
 
       const buttons = el.querySelectorAll('sl-button');
       expect(buttons[0]).to.have.attribute('fill', 'ghost');
 
-      el.type = 'outline';
+      el.fill = 'outline';
       await el.updateComplete;
 
       expect(buttons[0]).to.have.attribute('fill', 'outline');
       expect(buttons[1]).to.have.attribute('fill', 'outline');
     });
 
-    it('should apply type to the overflow menu button when items overflow', async () => {
-      el.type = 'ghost';
+    it('should apply fill to the overflow menu button when items overflow', async () => {
+      el.fill = 'ghost';
       el.style.inlineSize = '48px';
       await el.updateComplete;
 
@@ -485,14 +485,14 @@ describe('sl-tool-bar', () => {
       expect(overflowMenuButton).to.have.attribute('fill', 'ghost');
     });
 
-    it('should update overflow menu button fill when type changes dynamically', async () => {
+    it('should update overflow menu button fill when fill changes dynamically', async () => {
       el.style.inlineSize = '48px';
       await el.updateComplete;
 
       // Give the resize observer time to do its thing
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      el.type = 'outline';
+      el.fill = 'outline';
       await el.updateComplete;
 
       const overflowMenuButton = el.shadowRoot?.querySelector('sl-menu-button');
@@ -508,7 +508,7 @@ describe('sl-tool-bar', () => {
       el.appendChild(wrapper);
       await el.updateComplete;
 
-      el.type = 'ghost';
+      el.fill = 'ghost';
       await el.updateComplete;
 
       expect(nestedButton).to.have.attribute('fill', 'ghost');
@@ -626,32 +626,32 @@ describe('sl-tool-bar', () => {
       await new Promise(resolve => setTimeout(resolve, 50));
     });
 
-    it('should set fill attribute on direct child buttons when type is defined', async () => {
-      el.type = 'ghost';
+    it('should set fill attribute on direct child buttons when fill is defined', async () => {
+      el.fill = 'ghost';
       await el.updateComplete;
 
       const directButton = el.querySelector(':scope > sl-button');
       expect(directButton).to.have.attribute('fill', 'ghost');
     });
 
-    it('should set fill attribute on direct child menu-buttons when type is defined', async () => {
-      el.type = 'outline';
+    it('should set fill attribute on direct child menu-buttons when fill is defined', async () => {
+      el.fill = 'outline';
       await el.updateComplete;
 
       const directMenuButton = el.querySelector(':scope > sl-menu-button');
       expect(directMenuButton).to.have.attribute('fill', 'outline');
     });
 
-    it('should set fill attribute on nested buttons when type is defined', async () => {
-      el.type = 'ghost';
+    it('should set fill attribute on nested buttons when fill is defined', async () => {
+      el.fill = 'ghost';
       await el.updateComplete;
 
       const nestedButton = el.querySelector('#wrapper sl-button');
       expect(nestedButton).to.have.attribute('fill', 'ghost');
     });
 
-    it('should set fill attribute on nested menu-buttons when type is defined', async () => {
-      el.type = 'outline';
+    it('should set fill attribute on nested menu-buttons when fill is defined', async () => {
+      el.fill = 'outline';
       await el.updateComplete;
 
       const nestedMenuButton = el.querySelector('#wrapper sl-menu-button');
@@ -678,8 +678,8 @@ describe('sl-tool-bar', () => {
       });
     });
 
-    it('should handle both type and inverted together', async () => {
-      el.type = 'ghost';
+    it('should handle both fill and inverted together', async () => {
+      el.fill = 'ghost';
       el.inverted = true;
       await el.updateComplete;
 
@@ -688,14 +688,14 @@ describe('sl-tool-bar', () => {
       expect(button).to.have.attribute('variant', 'inverted');
     });
 
-    it('should handle dynamic changes to type property', async () => {
-      el.type = 'ghost';
+    it('should handle dynamic changes to fill property', async () => {
+      el.fill = 'ghost';
       await el.updateComplete;
 
       const button = el.querySelector('sl-button');
       expect(button).to.have.attribute('fill', 'ghost');
 
-      el.type = 'outline';
+      el.fill = 'outline';
       await el.updateComplete;
 
       expect(button).to.have.attribute('fill', 'outline');
@@ -719,7 +719,7 @@ describe('sl-tool-bar', () => {
       el.appendChild(deepWrapper);
       await el.updateComplete;
 
-      el.type = 'ghost';
+      el.fill = 'ghost';
       el.inverted = true;
       await el.updateComplete;
 
@@ -727,8 +727,8 @@ describe('sl-tool-bar', () => {
       expect(deepButton).to.have.attribute('variant', 'inverted');
     });
 
-    it('should handle simultaneous type and inverted changes', async () => {
-      el.type = 'ghost';
+    it('should handle simultaneous fill and inverted changes', async () => {
+      el.fill = 'ghost';
       el.inverted = true;
       await el.updateComplete;
       const button = el.querySelector('sl-button');
@@ -736,7 +736,7 @@ describe('sl-tool-bar', () => {
       expect(button).to.have.attribute('fill', 'ghost');
       expect(button).to.have.attribute('variant', 'inverted');
 
-      el.type = 'outline';
+      el.fill = 'outline';
       await el.updateComplete;
 
       // Give attribute propagation a tick

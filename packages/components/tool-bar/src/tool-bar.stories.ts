@@ -45,7 +45,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type ToolBar } from './tool-bar.js';
 
-type Props = Pick<ToolBar, 'align' | 'contained' | 'disabled' | 'inverted' | 'type'> & {
+type Props = Pick<ToolBar, 'align' | 'contained' | 'disabled' | 'inverted' | 'fill'> & {
   description?: string | TemplateResult;
   items?(): TemplateResult;
   resizable?: boolean;
@@ -112,12 +112,12 @@ export default {
     resizable: {
       control: 'boolean'
     },
-    type: {
+    fill: {
       control: 'inline-radio',
       options: ['ghost', 'outline']
     }
   },
-  render: ({ align, contained, description, disabled, inverted, items, resizable, type, width }) => {
+  render: ({ align, contained, description, disabled, inverted, items, resizable, fill, width }) => {
     return html`
       ${description ? html`<p>${description}</p>` : nothing}
       <style>
@@ -137,7 +137,7 @@ export default {
           ?inverted=${inverted}
           .disabled=${ifDefined(disabled)}
           align=${ifDefined(align)}
-          type=${ifDefined(type)}
+          fill=${ifDefined(fill)}
           style="inline-size: ${width ?? 'auto'}"
         >
           ${items?.()}
@@ -384,7 +384,7 @@ export const Tooltips: Story = {
 };
 
 export const IconOnly: Story = {
-  render: ({ align, contained, disabled, inverted, resizable, type, width }) => {
+  render: ({ align, contained, disabled, inverted, resizable, fill, width }) => {
     return html`
       <style>
         .container[resizable] {
@@ -408,7 +408,7 @@ export const IconOnly: Story = {
           ?disabled=${disabled}
           ?inverted=${inverted}
           align=${ifDefined(align)}
-          type=${ifDefined(type)}
+          fill=${ifDefined(fill)}
           style="inline-size: ${width ?? 'auto'}"
         >
           <sl-button aria-describedby="tooltip-bold" fill="outline">
@@ -466,7 +466,7 @@ export const IconOnly: Story = {
           ?disabled=${disabled}
           ?inverted=${inverted}
           align=${ifDefined(align)}
-          type=${ifDefined(type)}
+          fill=${ifDefined(fill)}
           style="inline-size: ${width ?? 'auto'}"
         >
           <sl-button aria-label="Bold" fill="outline">
@@ -566,9 +566,9 @@ export const Examples: Story = {
     </style>
     <p>
       This story shows various real-world toolbar configurations: icon-only buttons, menu buttons with icons, buttons
-      with ARIA labels, primary/danger/inverted variants, and toolbar types such as outline and ghost.
+      with ARIA labels, primary/danger/inverted variants, and toolbar fills such as outline and ghost.
     </p>
-    <sl-tool-bar aria-label="Text formatting" contained type="outline" style="inline-size: fit-content">
+    <sl-tool-bar aria-label="Text formatting" contained fill="outline" style="inline-size: fit-content">
       <sl-button aria-label="Accessibility">
         <sl-icon name="far-universal-access"></sl-icon>
       </sl-button>
@@ -608,7 +608,7 @@ export const Examples: Story = {
       </sl-button>
     </sl-tool-bar>
 
-    <sl-tool-bar aria-label="Options" contained type="ghost" style="inline-size: fit-content">
+    <sl-tool-bar aria-label="Options" contained fill="ghost" style="inline-size: fit-content">
       <sl-button aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
       <sl-button aria-label="Edit"><sl-icon name="far-pen"></sl-icon></sl-button>
       <sl-tool-bar-divider></sl-tool-bar-divider>
@@ -618,7 +618,7 @@ export const Examples: Story = {
       <sl-button aria-label="Send" variant="primary"><sl-icon name="far-paper-plane"></sl-icon>Send</sl-button>
     </sl-tool-bar>
 
-    <sl-tool-bar aria-label="Options" contained inverted type="ghost" style="inline-size: fit-content">
+    <sl-tool-bar aria-label="Options" contained inverted fill="ghost" style="inline-size: fit-content">
       <sl-button aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
       <sl-button aria-label="Edit"><sl-icon name="far-pen"></sl-icon></sl-button>
       <sl-tool-bar-divider></sl-tool-bar-divider>
@@ -628,7 +628,7 @@ export const Examples: Story = {
       <sl-button aria-label="Send"><sl-icon name="far-paper-plane"></sl-icon>Send</sl-button>
     </sl-tool-bar>
 
-    <sl-tool-bar aria-label="Filtering and sorting" contained type="ghost" style="inline-size: fit-content">
+    <sl-tool-bar aria-label="Filtering and sorting" contained fill="ghost" style="inline-size: fit-content">
       <sl-button aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
       <sl-button aria-label="Enter"><sl-icon name="far-arrow-turn-left-down"></sl-icon></sl-button>
       <sl-tool-bar-divider></sl-tool-bar-divider>
@@ -646,7 +646,7 @@ export const Examples: Story = {
       </sl-menu-button>
     </sl-tool-bar>
 
-    <sl-tool-bar aria-label="Filtering and sorting" contained inverted type="ghost" style="inline-size: fit-content">
+    <sl-tool-bar aria-label="Filtering and sorting" contained inverted fill="ghost" style="inline-size: fit-content">
       <sl-button aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
       <sl-button aria-label="Enter"><sl-icon name="far-arrow-turn-left-down"></sl-icon></sl-button>
       <sl-tool-bar-divider></sl-tool-bar-divider>
@@ -685,14 +685,14 @@ export const All: Story = {
         <span style="justify-self: center; grid-column: 3 / 3">Non-contained (default)</span>
 
         <span>Ghost</span>
-        <sl-tool-bar aria-label="Options" contained type="ghost">
+        <sl-tool-bar aria-label="Options" contained fill="ghost">
           <sl-button aria-label="Copy">Button 1</sl-button>
           <sl-button aria-label="Edit">Button 2</sl-button>
           <sl-button aria-label="Archive">Button 3</sl-button>
           <sl-button aria-label="Delete">Button 4</sl-button>
           <sl-button aria-label="Send">Button 5</sl-button>
         </sl-tool-bar>
-        <sl-tool-bar aria-label="Options" type="ghost">
+        <sl-tool-bar aria-label="Options" fill="ghost">
           <sl-button aria-label="Copy">Button 1</sl-button>
           <sl-button aria-label="Edit">Button 2</sl-button>
           <sl-button aria-label="Archive">Button 3</sl-button>
@@ -701,14 +701,14 @@ export const All: Story = {
         </sl-tool-bar>
 
         <span>Outline</span>
-        <sl-tool-bar aria-label="Options" contained type="outline">
+        <sl-tool-bar aria-label="Options" contained fill="outline">
           <sl-button aria-label="Copy">Button 1</sl-button>
           <sl-button aria-label="Edit">Button 2</sl-button>
           <sl-button aria-label="Archive">Button 3</sl-button>
           <sl-button aria-label="Delete">Button 4</sl-button>
           <sl-button aria-label="Send">Button 5</sl-button>
         </sl-tool-bar>
-        <sl-tool-bar aria-label="Options" type="outline">
+        <sl-tool-bar aria-label="Options" fill="outline">
           <sl-button aria-label="Copy">Button 1</sl-button>
           <sl-button aria-label="Edit">Button 2</sl-button>
           <sl-button aria-label="Archive">Button 3</sl-button>
@@ -717,7 +717,7 @@ export const All: Story = {
         </sl-tool-bar>
 
         <span>Ghost inverted</span>
-        <sl-tool-bar aria-label="Options" contained inverted type="ghost">
+        <sl-tool-bar aria-label="Options" contained inverted fill="ghost">
           <sl-button aria-label="Copy">Button 1</sl-button>
           <sl-button aria-label="Edit">Button 2</sl-button>
           <sl-button aria-label="Archive">Button 3</sl-button>
@@ -725,7 +725,7 @@ export const All: Story = {
           <sl-button aria-label="Send">Button 5</sl-button>
         </sl-tool-bar>
         <div style="background: var(--sl-color-background-primary-bold); padding: 1.6rem;">
-          <sl-tool-bar aria-label="Options" inverted type="ghost">
+          <sl-tool-bar aria-label="Options" inverted fill="ghost">
             <sl-button aria-label="Copy">Button 1</sl-button>
             <sl-button aria-label="Edit">Button 2</sl-button>
             <sl-button aria-label="Archive">Button 3</sl-button>
@@ -735,7 +735,7 @@ export const All: Story = {
         </div>
 
         <span>Outline inverted</span>
-        <sl-tool-bar aria-label="Options" contained inverted type="outline">
+        <sl-tool-bar aria-label="Options" contained inverted fill="outline">
           <sl-button aria-label="Copy">Button 1</sl-button>
           <sl-button aria-label="Edit">Button 2</sl-button>
           <sl-button aria-label="Archive">Button 3</sl-button>
@@ -743,7 +743,7 @@ export const All: Story = {
           <sl-button aria-label="Send">Button 5</sl-button>
         </sl-tool-bar>
         <div style="background: var(--sl-color-background-primary-bold); padding: 1.6rem;">
-          <sl-tool-bar aria-label="Options" inverted type="outline">
+          <sl-tool-bar aria-label="Options" inverted fill="outline">
             <sl-button aria-label="Copy">Button 1</sl-button>
             <sl-button aria-label="Edit">Button 2</sl-button>
             <sl-button aria-label="Archive">Button 3</sl-button>

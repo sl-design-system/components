@@ -80,8 +80,8 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
 
   /**
    * By setting a dataSource, the paginator will listen for changes on the data source
-   * and control the data source when the user selects a new page in the component. This
-   * can be very useful when the paginator is used in combination with a data source fed
+   * and control the data source when the user selects a new page in the component.
+   * This can be very useful when the paginator is used in combination with a data source-driven
    * component, such as `<sl-grid>`.
    */
   @property({ attribute: false })

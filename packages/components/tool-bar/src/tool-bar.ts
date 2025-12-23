@@ -665,9 +665,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     targets.forEach(btn => {
       if (this.fill) {
         btn.setAttribute('fill', this.fill);
-      } else {
-        btn.removeAttribute('fill');
       }
+
       if (this.inverted) {
         btn.setAttribute('variant', 'inverted');
       } else {

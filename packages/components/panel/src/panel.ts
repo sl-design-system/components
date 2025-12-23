@@ -135,7 +135,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
             `
           : html`<div part="wrapper">${this.#renderHeading()}</div>`}
         <slot name="aside">
-          <sl-tool-bar align="end" no-border fill=${ifDefined(this.fill)}>
+          <sl-tool-bar align="end" type=${ifDefined(this.fill)}>
             <slot @slotchange=${this.#onActionsSlotChange} name="actions"></slot>
           </sl-tool-bar>
         </slot>
@@ -172,20 +172,36 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   }
 
   #onHeaderSlotChange(): void {
-    const headerSlots = this.renderRoot.querySelectorAll('div[part="header"] slot'),
-      hasContent = Array.from(headerSlots).find(slot =>
-        (slot as HTMLSlotElement)
-          .assignedNodes({ flatten: true })
-          .some(
-            node =>
-              node.textContent?.trim() !== '' ||
-              (node.nodeType === Node.ELEMENT_NODE &&
-                (node as Element)?.tagName === 'SL-TOOL-BAR' &&
-                !(node as Element)?.hasAttribute('empty'))
-          )
-      );
+    const headerSlots = this.renderRoot.querySelectorAll('div[part="header"] slot');
 
-    this.toggleAttribute('no-header', !hasContent && !this.heading && !this.collapsible);
+    const hasSlottedContent = Array.from(headerSlots).some(slot => {
+      const slotElement = slot as HTMLSlotElement;
+
+      // Skip the 'actions' slot - we'll check it separately
+      if (slotElement.name === 'actions') {
+        return false;
+      }
+
+      const assignedNodes = slotElement.assignedNodes({ flatten: true });
+      return assignedNodes.some(node => {
+        // Check text nodes
+        if (node.nodeType === Node.TEXT_NODE) {
+          return node.textContent?.trim() !== '';
+        }
+        // Check element nodes - but ignore if it's just whitespace
+        if (node.nodeType === Node.ELEMENT_NODE) {
+          const element = node as Element;
+          return element.textContent?.trim() !== '';
+        }
+        return false;
+      });
+    });
+
+    // Check if there are any actions slotted
+    const actionsSlot = this.renderRoot.querySelector('slot[name="actions"]') as HTMLSlotElement,
+      hasActions = actionsSlot?.assignedElements({ flatten: true }).length > 0;
+
+    this.toggleAttribute('no-header', !hasSlottedContent && !hasActions && !this.heading && !this.collapsible);
   }
 
   #onActionsSlotChange(event: Event & { target: HTMLSlotElement }): void {

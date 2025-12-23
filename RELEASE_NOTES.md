@@ -8,13 +8,13 @@ The release notes are ordered by the date the release was made. From latest, to 
 
 ## New features
 
-- [`tool-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/tool-bar/CHANGELOG.md) has major improvements including a new `contained` property to enable contained mode, keyboard navigation support for arrow keys when toolbar is focused, and an `inverted` property for the divider component. The overall styling has been improved and overflow behavior issues have been fixed. The `no-border` property has been removed; the border now only shows in `contained` variant (except when `inverted`). When using this version of the tool-bar make sure to use panel v0.3.1 or later
+- [`tool-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/tool-bar/CHANGELOG.md) has major improvements including a new `contained` property to enable contained mode, keyboard navigation support for arrow keys when toolbar is focused, and an `inverted` property for the divider component. The overall styling has been improved and overflow behavior issues have been fixed. The `no-border` property has been removed; the border now only shows in `contained` variant (except when `inverted`). When updating to this version of the tool-bar, while also using a panel make sure to update the panel to version v0.3.1 or later.
 
 ## Bug fixes
 
 - [`grid`](https://github.com/sl-design-system/components/blob/main/packages/components/grid/CHANGELOG.md) fixes styling issues in bulk-actions and moves the close button outside the tool-bar in the bulk-actions.
 - [`message-dialog`](https://github.com/sl-design-system/components/blob/main/packages/components/message-dialog/CHANGELOG.md) accessibility improvement - the message dialog now uses `<h2>` for the title.
-- [`panel`](https://github.com/sl-design-system/components/blob/main/packages/components/panel/CHANGELOG.md) fixes `no-header` attribute not being set correctly when header is empty. When using this version of the panel make sure to use tool-bar v0.2.0 or later
+- [`panel`](https://github.com/sl-design-system/components/blob/main/packages/components/panel/CHANGELOG.md) fixes `no-header` attribute not being set correctly when header is empty. When using this version of the panel make sure to use tool-bar v0.2.0 or later.
 
 # December 17, 2025
 

@@ -79,7 +79,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
    * The fill of the buttons in the tool-bar.
    * @default 'ghost'
    */
-  @property() fill: ButtonFill = 'ghost';
+  @property() fill: Extract<ButtonFill, 'ghost' | 'outline'> = 'ghost';
 
   /**
    * The text shown in the header. Use this property if your heading is a string. If you need
@@ -135,7 +135,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
             `
           : html`<div part="wrapper">${this.#renderHeading()}</div>`}
         <slot name="aside">
-          <sl-tool-bar align="end" type=${ifDefined(this.fill)}>
+          <sl-tool-bar align="end" fill=${ifDefined(this.fill)}>
             <slot @slotchange=${this.#onActionsSlotChange} name="actions"></slot>
           </sl-tool-bar>
         </slot>

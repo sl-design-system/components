@@ -1,5 +1,25 @@
 # @sl-design-system/tool-bar
 
+## 0.2.0
+
+### Minor Changes
+
+- [#2867](https://github.com/sl-design-system/components/pull/2867) [`198b92f`](https://github.com/sl-design-system/components/commit/198b92f8ef43283e9809b80e348e03ed45103fe9) - **Breaking Changes:**
+  - Removed `fill` property - use `type` property instead. If you were using `fill="outline"`, change it to `type="outline"`. If you were using `fill="ghost"`, change it to `type="ghost"`.
+  - Removed `no-border` property - border now only shows in `contained` variant (except when `inverted`).
+
+  **New Features:**
+  - Added `contained` property to enable contained mode
+  - Added keyboard navigation support for arrow keys when toolbar is focused
+  - Added `inverted` property to the divider component
+
+  **Improvements:**
+  - Improved overall styling and fixed overflow behavior issues
+
+### Patch Changes
+
+- [#2917](https://github.com/sl-design-system/components/pull/2917) [`73fbd20`](https://github.com/sl-design-system/components/commit/73fbd2021c53a4729d9bbe5dcb697c0449a33a75) - Reverted the breaking change from the previous version; the `fill` property is now supported again as it was in earlier versions.
+
 ## 0.1.2
 
 ### Patch Changes

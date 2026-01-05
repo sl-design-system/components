@@ -1,5 +1,14 @@
 # @sl-design-system/grid
 
+## 0.6.5
+
+### Patch Changes
+
+- [#2867](https://github.com/sl-design-system/components/pull/2867) [`198b92f`](https://github.com/sl-design-system/components/commit/198b92f8ef43283e9809b80e348e03ed45103fe9) - Fixes styling issues in bulk-actions and moves the close button outside the tool-bar in the bulk-actions.
+
+- Updated dependencies [[`73fbd20`](https://github.com/sl-design-system/components/commit/73fbd2021c53a4729d9bbe5dcb697c0449a33a75), [`198b92f`](https://github.com/sl-design-system/components/commit/198b92f8ef43283e9809b80e348e03ed45103fe9)]:
+  - @sl-design-system/tool-bar@0.2.0
+
 ## 0.6.4
 
 ### Patch Changes

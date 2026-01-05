@@ -1,5 +1,11 @@
 # @sl-design-system/breadcrumbs
 
+## 1.2.0
+
+### Minor Changes
+
+- [#2871](https://github.com/sl-design-system/components/pull/2871) [`e2e1445`](https://github.com/sl-design-system/components/commit/e2e1445cec083d692686e90f815cdc16931bd042) - New `hideHomeLabel` property (and static option) to allow hiding the "Home" label text in the first home breadcrumb.
+
 ## 1.1.2
 
 ### Patch Changes

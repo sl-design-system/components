@@ -1,5 +1,16 @@
 # @sl-design-system/panel
 
+## 0.3.1
+
+### Patch Changes
+
+- [#2918](https://github.com/sl-design-system/components/pull/2918) [`dd9bff2`](https://github.com/sl-design-system/components/commit/dd9bff28bb6d29d0c738f4cf7f0dce10623a45cd) - Update panel to match recent change to toolbar, that means the `fill` options are limited to `ghost` and `outline`
+
+- [#2867](https://github.com/sl-design-system/components/pull/2867) [`198b92f`](https://github.com/sl-design-system/components/commit/198b92f8ef43283e9809b80e348e03ed45103fe9) - Changed `fill` property to `type` on a tool bar component in the header. Fixed `no-header` attribute not being set correctly when header is empty.
+
+- Updated dependencies [[`73fbd20`](https://github.com/sl-design-system/components/commit/73fbd2021c53a4729d9bbe5dcb697c0449a33a75), [`198b92f`](https://github.com/sl-design-system/components/commit/198b92f8ef43283e9809b80e348e03ed45103fe9)]:
+  - @sl-design-system/tool-bar@0.2.0
+
 ## 0.3.0
 
 ### Minor Changes

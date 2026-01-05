@@ -22,10 +22,11 @@ export const Dialog: StoryObj = {
         (event.target.nextElementSibling as DialogElement).showModal();
       }
     },
+    styles: ['h2 { font-size: inherit; font-weight: inherit; margin: 0; }'],
     template: `
         <sl-button (click)="onClick($event)">Open dialog</sl-button>
         <sl-dialog>
-          <span slot="title">Title</span>
+          <h2 slot="title">Title</h2>
           <span slot="subtitle">Subtitle</span>
           <p>Proident nulla enim est excepteur exercitation minim ea proident nisi.</p>
           <sl-button sl-dialog-close fill="ghost" slot="actions">Cancel</sl-button>

@@ -1,7 +1,6 @@
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import { LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './breadcrumb-item.scss.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -11,6 +10,9 @@ declare global {
 
 /**
  * A breadcrumb item component - part of the breadcrumbs component.
+ * This component can be used when you can't use an anchor tag but need bind click events to a different tag.
+ * This component will not be visible but will be referred to by the breadcrumbs component that delegates the
+ * click on the link inside the breadcrumbs component to this component.
  *
  * ```html
  *   <sl-breadcrumb-item>
@@ -19,23 +21,20 @@ declare global {
  * ```
  *
  * @slot default - The content to display inside the breadcrumb item.
- * @slot icon - Optional icon shown on the left side of the component.
  */
 export class BreadcrumbItem extends ScopedElementsMixin(LitElement) {
-  /** @internal */
-  static override styles: CSSResultGroup = styles;
-
   /** Whether this breadcrumb item represents the current page. */
   @property({ type: Boolean, reflect: true }) current?: boolean;
-
-  /** Whether the breadcrumb item is disabled. */
-  @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
     if (changes.has('current')) {
-      this.setAttribute('aria-current', this.current ? 'page' : 'false');
+      if (this.current) {
+        this.setAttribute('aria-current', 'page');
+      } else {
+        this.removeAttribute('aria-current');
+      }
     }
   }
 

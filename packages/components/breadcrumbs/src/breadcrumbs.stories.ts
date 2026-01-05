@@ -1,11 +1,14 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/popover/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
-import { type TemplateResult, html } from 'lit';
+import { type TemplateResult, html, nothing } from 'lit';
 import '../register.js';
 import { type Breadcrumbs } from './breadcrumbs.js';
 
-type Props = Pick<Breadcrumbs, 'hideHomeLabel' | 'inverted' | 'homeUrl' | 'noHome'> & { breadcrumbs(): TemplateResult };
+type Props = Pick<Breadcrumbs, 'hideHomeLabel' | 'inverted' | 'homeUrl' | 'noHome'> & {
+  breadcrumbs(): TemplateResult;
+  explanation(): TemplateResult | typeof nothing;
+};
 type Story = StoryObj<Props>;
 
 export default {
@@ -15,9 +18,16 @@ export default {
     hideHomeLabel: false,
     inverted: false,
     homeUrl: '/',
-    noHome: false
+    noHome: false,
+    explanation: () => nothing
   },
   argTypes: {
+    explanation: {
+      description: 'An explanation of the story.',
+      table: {
+        disable: true
+      }
+    },
     breadcrumbs: {
       table: {
         disable: true
@@ -29,7 +39,7 @@ export default {
       defaultViewport: 'reset'
     }
   },
-  render: ({ breadcrumbs, hideHomeLabel, inverted, homeUrl, noHome }) => html`
+  render: ({ explanation, breadcrumbs, hideHomeLabel, inverted, homeUrl, noHome }) => html`
     <style>
       sl-breadcrumbs[inverted] {
         background: var(--sl-color-palette-grey-900);
@@ -38,6 +48,7 @@ export default {
         max-width: calc(100vw - 2rem);
       }
     </style>
+    ${explanation()}
     <sl-breadcrumbs .hideHomeLabel=${hideHomeLabel} .homeUrl=${homeUrl} ?inverted=${inverted} ?no-home=${noHome}
       >${breadcrumbs()}</sl-breadcrumbs
     >
@@ -126,6 +137,16 @@ export const Overflow: Story = {
 
 export const BasicBreadcrumbItem: Story = {
   args: {
+    explanation: () => html`
+      <p>
+        This story uses <code>sl-breadcrumb-item</code> components instead of anchor tags. This can come in handy when
+        you can't use an anchor tag but need to bind click events to a different tag.
+      </p>
+      <p>
+        <code>sl-breadcrumb-item</code> itself will not be visible but will be referred to by the breadcrumbs component,
+        which delegates the click on the link inside the breadcrumbs component to this component.
+      </p>
+    `,
     breadcrumbs: () => html`
       <sl-breadcrumb-item @click=${() => console.log('Lorem button clicked')}>Lorem</sl-breadcrumb-item>
       <sl-breadcrumb-item @click=${() => console.log('Ipsum button clicked')}>Ipsum</sl-breadcrumb-item>
@@ -136,6 +157,16 @@ export const BasicBreadcrumbItem: Story = {
 
 export const OverflowBreadcrumbItem: Story = {
   args: {
+    explanation: () => html`
+      <p>
+        This story uses <code>sl-breadcrumb-item</code> components instead of anchor tags. This can come in handy when
+        you can't use an anchor tag but need to bind click events to a different tag.
+      </p>
+      <p>
+        <code>sl-breadcrumb-item</code> itself will not be visible but will be referred to by the breadcrumbs component,
+        which delegates the click on the link inside the breadcrumbs component to this component.
+      </p>
+    `,
     breadcrumbs: () => html`
       <sl-breadcrumb-item @click=${() => console.log('Lorem 1 button clicked')}>Lorem 1</sl-breadcrumb-item>
       <sl-breadcrumb-item @click=${() => console.log('Ipsum 1 button clicked')}>Ipsum 1</sl-breadcrumb-item>

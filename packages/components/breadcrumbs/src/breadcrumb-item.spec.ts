@@ -12,11 +12,6 @@ describe('sl-breadcrumb-item', () => {
       el = await fixture(html`<sl-breadcrumb-item>Item</sl-breadcrumb-item>`);
     });
 
-    it('should not be disabled by default', () => {
-      expect(el).not.to.have.attribute('disabled');
-      expect(el.disabled).not.to.be.true;
-    });
-
     it('should not be current by default', () => {
       expect(el).not.to.have.attribute('current');
       expect(el.current).not.to.be.true;

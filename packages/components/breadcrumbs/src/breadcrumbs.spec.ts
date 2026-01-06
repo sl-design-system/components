@@ -350,11 +350,11 @@ describe('sl-breadcrumbs', () => {
       expect(menuItems[2]).to.have.text('3');
     });
 
-    it('should have href="javascript:void(0)" for visible breadcrumb items', () => {
+    it('should have href="#" for visible breadcrumb items', () => {
       const visibleLinks = Array.from(el.renderRoot.querySelectorAll('li:not(.home):not(.more-menu) a'));
 
       visibleLinks.forEach(link => {
-        expect(link).to.have.attribute('href', 'javascript:void(0)');
+        expect(link).to.have.attribute('href', '#');
       });
     });
 

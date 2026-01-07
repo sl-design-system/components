@@ -23,7 +23,8 @@ export default {
   },
   argTypes: {
     explanation: {
-      description: 'An explanation of the story.',
+      description:
+        'Adds explanatory content above the breadcrumbs example to describe the purpose or behavior of this story variant.',
       table: {
         disable: true
       }

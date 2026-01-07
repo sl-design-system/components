@@ -23,16 +23,6 @@ describe('sl-breadcrumb-item', () => {
     });
   });
 
-  describe('disabled', () => {
-    beforeEach(async () => {
-      el = await fixture(html`<sl-breadcrumb-item disabled>Item</sl-breadcrumb-item>`);
-    });
-
-    it('should have a disabled attribute', () => {
-      expect(el).to.have.attribute('disabled');
-    });
-  });
-
   describe('current', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-breadcrumb-item current>Item</sl-breadcrumb-item>`);

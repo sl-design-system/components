@@ -29,7 +29,7 @@ export interface Breadcrumb {
   label: string;
   tooltip?: Tooltip | (() => void);
   url?: string;
-  deferredClick?: BreadcrumbItem;
+  breadcrumbItem?: BreadcrumbItem;
 }
 
 /**
@@ -190,21 +190,18 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
                   <sl-icon name="ellipsis"></sl-icon>
                 </sl-button>
                 <sl-popover anchor="button">
-                  ${this.breadcrumbs
-                    .slice(0, -this.collapseThreshold)
-                    .map(({ url, label, deferredClick }) =>
-                      url || deferredClick
-                        ? html`
-                            ${url
-                              ? html`<a href=${url}>${label}</a>`
-                              : html`
-                                  <a href="#" @click=${(event: Event) => this.#onDeferredClick(event, deferredClick!)}
-                                    >${label}</a
-                                  >
-                                `}
-                          `
-                        : label
-                    )}
+                  ${this.breadcrumbs.slice(0, -this.collapseThreshold).map(({ url, label, breadcrumbItem }) => {
+                    if (url) {
+                      return html`<a href=${url}>${label}</a>`;
+                    } else if (breadcrumbItem) {
+                      return html`
+                        <a href="#" @click=${(event: Event) => this.#onDeferredClick(event, breadcrumbItem)}
+                          >${label}</a
+                        >
+                      `;
+                    }
+                    return label;
+                  })}
                 </sl-popover>
               </li>
               <sl-icon name="breadcrumb-separator"></sl-icon>
@@ -212,8 +209,8 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
           : nothing}
         ${this.breadcrumbs
           .filter(({ collapsed }) => !collapsed)
-          .map(({ url, label, deferredClick }, index, array) =>
-            url || deferredClick
+          .map(({ url, label, breadcrumbItem }, index, array) =>
+            url || breadcrumbItem
               ? html`
                   <li>
                     ${url
@@ -226,7 +223,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
                           <a
                             aria-current=${ifDefined(index === array.length - 1 ? 'page' : undefined)}
                             href="#"
-                            @click=${(event: Event) => this.#onDeferredClick(event, deferredClick!)}
+                            @click=${(event: Event) => this.#onDeferredClick(event, breadcrumbItem!)}
                           >
                             ${label}
                           </a>

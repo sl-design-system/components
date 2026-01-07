@@ -142,6 +142,86 @@ describe('sl-breadcrumbs', () => {
     });
   });
 
+  describe('hideHomeLabel', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-breadcrumbs>
+          <a href="/docs">Docs</a>
+          <a href="/docs/getting-started">Getting Started</a>
+          <a href="/docs/getting-started/developers">Developers</a>
+        </sl-breadcrumbs>
+      `);
+    });
+
+    it('should show the home label by default', () => {
+      const homeLink = el.renderRoot.querySelector('li.home a')!;
+
+      expect(homeLink).to.have.trimmed.text('Home');
+      expect(homeLink.querySelector('sl-icon')).to.have.attribute('name', 'home-blank');
+      expect(homeLink).not.to.have.attribute('aria-label');
+    });
+
+    it('should hide the home label when hideHomeLabel is set', async () => {
+      el.hideHomeLabel = true;
+      await el.updateComplete;
+
+      const homeLink = el.renderRoot.querySelector('li.home a')!;
+
+      expect(homeLink).to.have.trimmed.text('');
+      expect(homeLink).to.have.attribute('aria-label', 'Home');
+      expect(homeLink.querySelector('sl-icon')).to.have.attribute('name', 'home-blank');
+    });
+
+    it('should hide the home label when the attribute is set', async () => {
+      el.setAttribute('hide-home-label', '');
+      await el.updateComplete;
+
+      const homeLink = el.renderRoot.querySelector('li.home a')!;
+
+      expect(homeLink).to.have.trimmed.text('');
+      expect(homeLink).to.have.attribute('aria-label', 'Home');
+    });
+
+    it('should show the home label again when hideHomeLabel is unset', async () => {
+      el.hideHomeLabel = true;
+      await el.updateComplete;
+
+      let homeLink = el.renderRoot.querySelector('li.home a')!;
+      expect(homeLink).to.have.trimmed.text('');
+
+      el.hideHomeLabel = false;
+      await el.updateComplete;
+
+      homeLink = el.renderRoot.querySelector('li.home a')!;
+      expect(homeLink).to.have.trimmed.text('Home');
+      expect(homeLink).not.to.have.attribute('aria-label');
+    });
+  });
+
+  describe('static hideHomeLabel default', () => {
+    beforeEach(async () => {
+      Breadcrumbs.hideHomeLabel = true;
+
+      el = await fixture(html`
+        <sl-breadcrumbs>
+          <a href="/docs">Docs</a>
+          <a href="/docs/getting-started">Getting Started</a>
+          <a href="/docs/getting-started/developers">Developers</a>
+        </sl-breadcrumbs>
+      `);
+    });
+
+    afterEach(() => (Breadcrumbs.hideHomeLabel = false));
+
+    it('should hide the home label when the static property is set', () => {
+      const homeLink = el.renderRoot.querySelector('li.home a')!;
+
+      expect(homeLink).to.have.trimmed.text('');
+      expect(homeLink).to.have.attribute('aria-label', 'Home');
+      expect(homeLink.querySelector('sl-icon')).to.have.attribute('name', 'home-blank');
+    });
+  });
+
   describe('collapsing behavior', () => {
     beforeEach(async () => {
       el = await fixture(html`

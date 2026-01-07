@@ -1,14 +1,13 @@
 :host(:defined) {
   background: var(--sl-elevation-surface-base-default);
   border: var(--sl-color-border-plain) solid var(--sl-size-borderWidth-subtle);
-  border-radius: var(--sl-border-radius-2xl);
+  border-radius: var(--sl-size-200);
   box-shadow: var(--sl-elevation-shadow-overlay);
-  color: var(--_color);
   display: inline-flex;
   flex-direction: column;
   margin: 1rem;
   max-inline-size: min(80vw, 500px);
-  padding: var(--sl-size-2xl);
+  padding: var(--sl-size-400);
 }
 
 h1 {

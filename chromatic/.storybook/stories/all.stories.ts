@@ -26,6 +26,7 @@ import { All as AllTag } from '../../../packages/components/tag/src/root.stories
 import { All as AllTextArea } from '../../../packages/components/text-area/src/text-area.stories';
 import { All as AllTextField } from '../../../packages/components/text-field/src/text-field.stories';
 import { All as AllToggleButton } from '../../../packages/components/toggle-button/src/toggle-button.stories';
+import { All as AllToolbar } from '../../../packages/components/tool-bar/src/tool-bar.stories';
 import { All as AllTooltip } from '../../../packages/components/tooltip/src/tooltip.stories';
 import { allModes } from "../modes";
 
@@ -94,4 +95,5 @@ export const Tag = { render: AllTag.render };
 export const TextArea = { render: AllTextArea.render };
 export const TextField = { render: AllTextField.render };
 export const ToggleButton = { render: AllToggleButton.render };
+export const Toolbar = { render: AllToolbar.render };
 export const Tooltip = { render: AllTooltip.render };

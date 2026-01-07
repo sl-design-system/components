@@ -145,7 +145,7 @@
       ]
     },
     "build:locales:code": {
-      "command": "lit-localize build && eslint --fix 'packages/locales/src/*.ts'",
+      "command": "lit-localize build && eslint --fix 'packages/locales/src/*.ts' --ignore-pattern '**/*.d.ts'",
       "clean": false,
       "files": [
         "lit-localize.json",

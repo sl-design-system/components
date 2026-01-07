@@ -43,7 +43,7 @@ describe('sl-listbox', () => {
       `);
 
       // Give the virtualizer time to render
-      await new Promise(resolve => setTimeout(resolve, 10));
+      await new Promise(resolve => setTimeout(resolve, 50));
     });
 
     it('should render a virtualizer', () => {
@@ -65,7 +65,9 @@ describe('sl-listbox', () => {
       el.optionLabelPath = undefined;
       el.optionSelectedPath = undefined;
       el.optionValuePath = undefined;
-      await new Promise(resolve => setTimeout(resolve, 10));
+
+      // wait for virtualizer to pick up the change
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       const renderedOptions = Array.from(el.querySelectorAll('sl-option'));
 

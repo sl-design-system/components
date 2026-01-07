@@ -73,9 +73,16 @@ export default {
             </style>
           `
         : nothing}
+      <style>
+        h2 {
+          font-size: inherit;
+          font-weight: inherit;
+          margin: 0;
+        }
+      </style>
       <sl-button @click=${onClick}>Show Dialog</sl-button>
       <sl-dialog ?close-button=${closeButton} ?disable-cancel=${disableCancel}>
-        <span slot="title">${title}</span>
+        <h2 slot="title">${title}</h2>
         ${subtitle ? html`<span slot="subtitle">${subtitle}</span>` : nothing} ${body?.()}
         ${headerButtons ? headerButtons(args) : nothing} ${primaryActions ? primaryActions() : nothing}
         ${secondaryActions ? secondaryActions() : nothing} ${footerButtons ? footerButtons(args) : nothing}
@@ -144,7 +151,14 @@ export const Lazy: Story = {
     const onClick = async (event: Event & { target: HTMLElement }) => {
       const dialog = document.createElement('sl-dialog');
       dialog.innerHTML = `
-        <span slot="title">Lazy dialog</span>
+        <style>
+          h2 {
+            font-size: inherit;
+            font-weight: inherit;
+            margin: 0;
+          }
+        </style>
+        <h2 slot="title">Lazy dialog</h2>
         This dialog is not created until you click the button. It is added to the DOM in the click event handler, and removed in the close event handler.
         <sl-button slot="primary-actions" sl-dialog-close variant="primary">Close</sl-button>
       `;
@@ -225,9 +239,16 @@ export const All: Story = {
     };
 
     return html`
+      <style>
+        h2 {
+          font-size: inherit;
+          font-weight: inherit;
+          margin: 0;
+        }
+      </style>
       <sl-button fill="outline" size="md" @click=${onClick} data-testid="button">Show Dialog</sl-button>
       <sl-dialog close-button disable-cancel>
-        <span slot="title">Title</span>
+        <h2 slot="title">Title</h2>
         Body text
         <sl-button slot="primary-actions" sl-dialog-close autofocus>Cancel</sl-button>
         <sl-button slot="primary-actions" variant="primary" sl-dialog-close>Action</sl-button>
@@ -252,7 +273,14 @@ export const DialogWithOverlayComponents: Story = {
       };
 
       dialog.innerHTML = `
-        <span slot="title">Dialog with overlay components</span>
+        <style>
+          h2 {
+            font-size: inherit;
+            font-weight: inherit;
+            margin: 0;
+          }
+        </style>
+        <h2 slot="title">Dialog with overlay components</h2>
         <div class="container">
           This dialog should not close when any overlay component is closed using the Escape key.
           <sl-form>

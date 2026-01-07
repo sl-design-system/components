@@ -4997,6 +4997,7 @@ __metadata:
   resolution: "@sl-design-system/accordion@workspace:packages/components/accordion"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.6"
+    "@sl-design-system/icon": "npm:^1.4.1"
     "@sl-design-system/shared": "npm:^0.9.2"
   languageName: unknown
   linkType: soft

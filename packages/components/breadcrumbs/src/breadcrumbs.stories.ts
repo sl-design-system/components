@@ -61,7 +61,7 @@ export const Basic: Story = {
     breadcrumbs: () => html`
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
-      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Dolor</a>
     `
   }
 };
@@ -71,7 +71,7 @@ export const Collapse: Story = {
     breadcrumbs: () => html`
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
-      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Dolor</a>
       <a href="javascript:void(0)">Sit</a>
       <a href="javascript:void(0)">Amet</a>
       <a href="javascript:void(0)">Foo</a>
@@ -151,7 +151,7 @@ export const BasicBreadcrumbItem: Story = {
     breadcrumbs: () => html`
       <sl-breadcrumb-item @click=${() => console.log('Lorem button clicked')}>Lorem</sl-breadcrumb-item>
       <sl-breadcrumb-item @click=${() => console.log('Ipsum button clicked')}>Ipsum</sl-breadcrumb-item>
-      <sl-breadcrumb-item @click=${() => console.log('Dolar button clicked')}>Dolar</sl-breadcrumb-item>
+      <sl-breadcrumb-item @click=${() => console.log('Dolor button clicked')}>Dolor</sl-breadcrumb-item>
     `
   }
 };
@@ -171,13 +171,13 @@ export const OverflowBreadcrumbItem: Story = {
     breadcrumbs: () => html`
       <sl-breadcrumb-item @click=${() => console.log('Lorem 1 button clicked')}>Lorem 1</sl-breadcrumb-item>
       <sl-breadcrumb-item @click=${() => console.log('Ipsum 1 button clicked')}>Ipsum 1</sl-breadcrumb-item>
-      <sl-breadcrumb-item @click=${() => console.log('Dolar 1 button clicked')}>Dolar 1</sl-breadcrumb-item>
+      <sl-breadcrumb-item @click=${() => console.log('Dolor 1 button clicked')}>Dolor 1</sl-breadcrumb-item>
       <sl-breadcrumb-item @click=${() => console.log('Lorem 2 button clicked')}>Lorem 2</sl-breadcrumb-item>
       <sl-breadcrumb-item @click=${() => console.log('Ipsum 2 button clicked')}>Ipsum 2</sl-breadcrumb-item>
-      <sl-breadcrumb-item @click=${() => console.log('Dolar 2 button clicked')}>Dolar 2</sl-breadcrumb-item>
+      <sl-breadcrumb-item @click=${() => console.log('Dolor 2 button clicked')}>Dolor 2</sl-breadcrumb-item>
       <sl-breadcrumb-item @click=${() => console.log('Lorem 3 button clicked')}>Lorem 3</sl-breadcrumb-item>
       <sl-breadcrumb-item @click=${() => console.log('Ipsum 3 button clicked')}>Ipsum 3</sl-breadcrumb-item>
-      <sl-breadcrumb-item @click=${() => console.log('Dolar 3 button clicked')}>Dolar 3</sl-breadcrumb-item>
+      <sl-breadcrumb-item @click=${() => console.log('Dolor 3 button clicked')}>Dolor 3</sl-breadcrumb-item>
     `
   }
 };
@@ -195,12 +195,12 @@ export const All: Story = {
     <sl-breadcrumbs aria-label="Breadcrumb trail 1" no-home>
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
-      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Dolor</a>
     </sl-breadcrumbs>
     <sl-breadcrumbs aria-label="Breadcrumb trail 2">
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
-      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Dolor</a>
     </sl-breadcrumbs>
     <sl-breadcrumbs aria-label="Breadcrumb trail 3">
       <a href="javascript:void(0)">Adipisicing sint excepteur officia voluptate tempor ea veniam veniam duis.</a>
@@ -214,24 +214,24 @@ export const All: Story = {
     <sl-breadcrumbs aria-label="Breadcrumb trail 4">
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
-      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Dolor</a>
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
-      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Dolor</a>
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
-      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Dolor</a>
     </sl-breadcrumbs>
     <sl-breadcrumbs aria-label="Breadcrumb trail 5" inverted>
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
-      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Dolor</a>
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
-      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Dolor</a>
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
-      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Dolor</a>
     </sl-breadcrumbs>
   `
 };

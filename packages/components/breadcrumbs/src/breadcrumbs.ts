@@ -265,7 +265,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
       return {
         label: element.textContent?.trim() || '',
         url: element.getAttribute('href') ?? undefined,
-        deferredClick: element instanceof BreadcrumbItem ? element : undefined
+        breadcrumbItem: element instanceof BreadcrumbItem ? element : undefined
       };
     });
   }

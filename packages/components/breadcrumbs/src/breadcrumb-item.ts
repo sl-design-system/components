@@ -9,7 +9,7 @@ declare global {
 
 /**
  * A breadcrumb item component - part of the breadcrumbs component.
- * This component can be used when you can't use an anchor tag but need to bind click events to a different tag.
+ * This component can be used when you can't use an anchor tag with an href attribute but still need to handle click events.
  * This component will not be visible but will be referred to by the breadcrumbs component that delegates the
  * click on the link inside the breadcrumbs component to this component.
  *

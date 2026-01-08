@@ -22,13 +22,9 @@ declare global {
  * @slot default - The content to display inside the breadcrumb item.
  */
 export class BreadcrumbItem extends ScopedElementsMixin(LitElement) {
+  static override styles = [];
+
   override render(): TemplateResult {
-    return html`<slot @slotchange=${this.#onSlotChange}></slot>`;
-  }
-
-  #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    const hasContent = event.target.assignedNodes({ flatten: true }).some(node => !!node.textContent?.trim());
-
-    this.toggleAttribute('has-content', hasContent);
+    return html`<slot></slot>`;
   }
 }

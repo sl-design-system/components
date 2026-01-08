@@ -195,7 +195,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
                       return html`<a href=${url}>${label}</a>`;
                     } else if (breadcrumbItem) {
                       return html`
-                        <a href="#" @click=${(event: Event) => this.#onDeferredClick(event, breadcrumbItem)}
+                        <a href="#" @click=${(event: Event) => this.#onDelegateClick(event, breadcrumbItem)}
                           >${label}</a
                         >
                       `;
@@ -223,7 +223,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
                           <a
                             aria-current=${ifDefined(index === array.length - 1 ? 'page' : undefined)}
                             href="#"
-                            @click=${(event: Event) => this.#onDeferredClick(event, breadcrumbItem!)}
+                            @click=${(event: Event) => this.#onDelegateClick(event, breadcrumbItem!)}
                           >
                             ${label}
                           </a>
@@ -255,9 +255,10 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
     this.renderRoot.querySelector('sl-popover')?.togglePopover();
   };
 
-  #onDeferredClick(event: Event, breadcrumbItem: BreadcrumbItem): void {
+  #onDelegateClick(event: Event, breadcrumbItem: BreadcrumbItem): void {
     event.preventDefault();
-    breadcrumbItem.click();
+    // Defer the click to a future macrotask to align with the method name.
+    setTimeout(() => breadcrumbItem.click());
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {

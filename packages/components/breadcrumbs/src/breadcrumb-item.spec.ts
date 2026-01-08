@@ -22,9 +22,22 @@ describe('sl-breadcrumb-item', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-breadcrumb-item>Item content</sl-breadcrumb-item>`);
     });
+  });
 
-    it('should have has-content attribute when content is provided', () => {
-      expect(el).to.have.attribute('has-content');
+  describe('click events', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-breadcrumb-item>Item</sl-breadcrumb-item>`);
+    });
+
+    it('should trigger a click event when click method is called', () => {
+      let clicked = false;
+      el.addEventListener('click', () => {
+        clicked = true;
+      });
+
+      el.click();
+
+      expect(clicked).to.be.true;
     });
   });
 });

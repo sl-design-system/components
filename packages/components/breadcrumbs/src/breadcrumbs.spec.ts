@@ -379,8 +379,10 @@ describe('sl-breadcrumbs', () => {
       const visibleLinks = Array.from(el.renderRoot.querySelectorAll('li:not(.home):not(.more-menu) a'));
       const firstVisibleLink = visibleLinks[0] as HTMLAnchorElement;
 
-      firstVisibleLink.click();
+      const clickEvent = new MouseEvent('click', { bubbles: true, cancelable: true });
+      firstVisibleLink.dispatchEvent(clickEvent);
       await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 0));
 
       expect(clickedItem).to.equal(items[3]);
     });
@@ -405,6 +407,45 @@ describe('sl-breadcrumbs', () => {
 
       expect(clickEvent.defaultPrevented).to.be.true;
       expect(clickedItem).to.equal(items[0]);
+    });
+  });
+
+  describe('collapsing with mixed elements', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-breadcrumbs>
+          <a href="/1">1</a>
+          <sl-breadcrumb-item>2</sl-breadcrumb-item>
+          <a href="/3">3</a>
+          <sl-breadcrumb-item>4</sl-breadcrumb-item>
+          <a href="/5">5</a>
+          <sl-breadcrumb-item>6</sl-breadcrumb-item>
+        </sl-breadcrumbs>
+      `);
+    });
+
+    it('should collapse mixed elements into popover', () => {
+      const popoverLinks = Array.from(el.renderRoot.querySelectorAll('sl-popover a'));
+
+      expect(popoverLinks).to.have.length(3);
+      expect(popoverLinks[0]).to.have.text('1');
+      expect(popoverLinks[0]).to.have.attribute('href', '/1');
+      expect(popoverLinks[1]).to.have.text('2');
+      expect(popoverLinks[1]).to.have.attribute('href', '#');
+      expect(popoverLinks[2]).to.have.text('3');
+      expect(popoverLinks[2]).to.have.attribute('href', '/3');
+    });
+
+    it('should show last 3 items with mixed types', () => {
+      const visibleLinks = Array.from(el.renderRoot.querySelectorAll('li:not(.home):not(.more-menu) a'));
+
+      expect(visibleLinks).to.have.length(3);
+      expect(visibleLinks[0].textContent.trim()).to.equal('4');
+      expect(visibleLinks[0]).to.have.attribute('href', '#');
+      expect(visibleLinks[1].textContent.trim()).to.equal('5');
+      expect(visibleLinks[1]).to.have.attribute('href', '/5');
+      expect(visibleLinks[2].textContent.trim()).to.equal('6');
+      expect(visibleLinks[2]).to.have.attribute('href', '#');
     });
   });
 });

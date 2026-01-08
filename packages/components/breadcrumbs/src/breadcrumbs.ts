@@ -209,30 +209,30 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
           : nothing}
         ${this.breadcrumbs
           .filter(({ collapsed }) => !collapsed)
-          .map(({ url, label, breadcrumbItem }, index, array) =>
-            url || breadcrumbItem
-              ? html`
-                  <li>
-                    ${url
-                      ? html`
-                          <a aria-current=${ifDefined(index === array.length - 1 ? 'page' : undefined)} href=${url}
-                            >${label}</a
-                          >
-                        `
-                      : html`
-                          <a
-                            aria-current=${ifDefined(index === array.length - 1 ? 'page' : undefined)}
-                            href="#"
-                            @click=${(event: Event) => this.#onDelegateClick(event, breadcrumbItem!)}
-                          >
-                            ${label}
-                          </a>
-                        `}
-                  </li>
-                  ${index < array.length - 1 ? html`<sl-icon name="breadcrumb-separator"></sl-icon>` : nothing}
-                `
-              : html`<li>${label}</li>`
-          )}
+          .map(({ url, label, breadcrumbItem }, index, array) => {
+            if (url) {
+              return html`
+                <li>
+                  <a aria-current=${ifDefined(index === array.length - 1 ? 'page' : undefined)} href=${url}>${label}</a>
+                </li>
+                ${index < array.length - 1 ? html`<sl-icon name="breadcrumb-separator"></sl-icon>` : nothing}
+              `;
+            } else if (breadcrumbItem) {
+              return html`
+                <li>
+                  <a
+                    aria-current=${ifDefined(index === array.length - 1 ? 'page' : undefined)}
+                    href="#"
+                    @click=${(event: Event) => this.#onDelegateClick(event, breadcrumbItem)}
+                  >
+                    ${label}
+                  </a>
+                </li>
+                ${index < array.length - 1 ? html`<sl-icon name="breadcrumb-separator"></sl-icon>` : nothing}
+              `;
+            }
+            return html`<li>${label}</li>`;
+          })}
       </ul>
       <slot @slotchange=${this.#onSlotchange} style="display:none"></slot>
     `;

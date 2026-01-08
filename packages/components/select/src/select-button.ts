@@ -93,8 +93,88 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
     console.log('this.selected?.childElementCount', this.selected?.childElementCount, 'this.selected:', this.selected);
 
     if (this.selected?.childElementCount === 1) {
-      selected = this.selected.children[0].cloneNode(true) as HTMLElement;
-      selected.part.add('selected');
+      // selected = this.selected.children[0].cloneNode(true) as HTMLElement;
+      // this.selected?.renderRoot.querySelector('slot')?.assignedNodes().cloneNode(true);
+      // selected = this.selected?.renderRoot.querySelector('slot')?.assignedNodes()[0]?.cloneNode(true) as HTMLElement;
+      // selected.part.add('selected');
+
+      /*      const slotNodes = this.selected?.renderRoot.querySelector('slot')?.assignedNodes();
+      if (slotNodes?.length) {
+        const container = document.createElement('span');
+        slotNodes.forEach(node => {
+          container.appendChild(node.cloneNode(true));
+        });
+        container.part.add('selected');
+        selected = container;
+      }*/
+
+      /*      const slotNodes = this.selected?.renderRoot.querySelector('slot')?.assignedNodes();
+      if (slotNodes?.length) {
+        const container = document.createElement('span');
+        slotNodes.forEach(node => {
+          const clonedNode = node.cloneNode(true);
+          // Copy computed styles if it's an element
+          if (node instanceof HTMLElement && clonedNode instanceof HTMLElement) {
+            const styles = window.getComputedStyle(node);
+            clonedNode.style.cssText = styles.cssText;
+          }
+          container.appendChild(clonedNode);
+        });
+        container.part.add('selected');
+        selected = container;
+      }*/
+
+      /*      const slotNodes = this.selected?.renderRoot.querySelector('slot')?.assignedNodes();
+      if (slotNodes?.length) {
+        // Clone the entire selected option to preserve styling
+        selected = this.selected.cloneNode(true) as HTMLElement;
+        selected.removeAttribute('aria-selected');
+        selected.removeAttribute('selected');
+        selected.part.add('selected');
+      }*/
+
+      /*      const slotNodes = this.selected?.renderRoot.querySelector('slot')?.assignedNodes();
+      if (slotNodes?.length) {
+        const container = document.createElement('span');
+        slotNodes.forEach(node => {
+          const clonedNode = node.cloneNode(true);
+          // Copy computed styles if it's an element
+          if (node instanceof HTMLElement && clonedNode instanceof HTMLElement) {
+            const styles = window.getComputedStyle(node);
+            // Copy all relevant style properties
+            Array.from(styles).forEach(property => {
+              clonedNode.style.setProperty(property, styles.getPropertyValue(property));
+            });
+          }
+          container.appendChild(clonedNode);
+        });
+        container.part.add('selected');
+        selected = container; // TODO: it copies styles from the selected option as well, so e.g. color blue etc.
+      }*/
+
+      const slotNodes = this.selected?.renderRoot.querySelector('slot')?.assignedNodes();
+      if (slotNodes?.length) {
+        const container = document.createElement('span');
+        slotNodes.forEach(node => {
+          const clonedNode = node.cloneNode(true);
+          // Copy computed styles that differ from browser defaults
+          if (node instanceof HTMLElement && clonedNode instanceof HTMLElement) {
+            const styles = window.getComputedStyle(node);
+            // Apply all computed styles as inline styles to preserve them in shadow DOM
+            for (let i = 0; i < styles.length; i++) {
+              const property = styles[i];
+              clonedNode.style.setProperty(
+                property,
+                styles.getPropertyValue(property),
+                styles.getPropertyPriority(property)
+              );
+            }
+          }
+          container.appendChild(clonedNode);
+        });
+        container.part.add('selected');
+        selected = container;
+      }
     } else if (this.selected?.childElementCount) {
       selected = this.selected.cloneNode(true) as HTMLElement;
       selected.removeAttribute('aria-selected');
@@ -103,6 +183,18 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
     } else {
       selected = this.selected?.textContent?.trim();
     }
+
+    console.log(
+      'Selected content:',
+      selected,
+      'this.selected?.childElementCount ',
+      this.selected?.childElementCount,
+      'this.selected',
+      this.selected,
+      this.selected?.children.length,
+      'wrapper?',
+      this.selected?.renderRoot.querySelector('slot')?.assignedNodes()
+    );
 
     let inlineSize = '100%';
 

@@ -141,7 +141,8 @@ export const BasicBreadcrumbItem: Story = {
     explanation: () => html`
       <p>
         This story uses <code>sl-breadcrumb-item</code> components instead of anchor tags. This can come in handy when
-        you can't use an anchor tag but need to bind click events to a different tag.
+        you can't use an anchor tag with an <code>href</code> attribute (for example, when using client-side routing)
+        but still need to handle click events.
       </p>
       <p>
         <code>sl-breadcrumb-item</code> itself will not be visible but will be referred to by the breadcrumbs component,
@@ -161,7 +162,8 @@ export const OverflowBreadcrumbItem: Story = {
     explanation: () => html`
       <p>
         This story uses <code>sl-breadcrumb-item</code> components instead of anchor tags. This can come in handy when
-        you can't use an anchor tag but need to bind click events to a different tag.
+        you can't use an anchor tag with an <code>href</code> attribute (for example, when using client-side routing)
+        but still need to handle click events.
       </p>
       <p>
         <code>sl-breadcrumb-item</code> itself will not be visible but will be referred to by the breadcrumbs component,

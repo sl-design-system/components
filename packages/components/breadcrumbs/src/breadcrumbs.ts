@@ -257,8 +257,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
 
   #onDelegateClick(event: Event, breadcrumbItem: BreadcrumbItem): void {
     event.preventDefault();
-    // Defer the click to a future macrotask to align with the method name.
-    setTimeout(() => breadcrumbItem.click());
+    breadcrumbItem.click();
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {

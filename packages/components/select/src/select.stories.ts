@@ -1,7 +1,14 @@
+import {
+  faCircle as fasCircle,
+  faHexagon as fasHexagon,
+  faSquare as fasSquare,
+  faTriangle as fasTriangle
+} from '@fortawesome/pro-solid-svg-icons';
 import '@sl-design-system/avatar/register.js';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
+import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/listbox/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
@@ -19,6 +26,8 @@ type Props = Pick<Select, 'clearable' | 'disabled' | 'placeholder' | 'required' 
 type Story = StoryObj<Props>;
 
 const sizes: SelectSize[] = ['md', 'lg'];
+
+Icon.register(fasCircle, fasTriangle, fasHexagon, fasSquare);
 
 export default {
   title: 'Form/Select',
@@ -156,6 +165,25 @@ export const EmbeddedComponents: Story = {
             <span>Blue</span>
           </div>
         </sl-option>
+      </sl-select>
+
+      <sl-select id="level">
+        <sl-option value="avi_start">
+          <span class="option-content">
+            <sl-icon name="fas-circle"></sl-icon>
+            AVI Start
+          </span>
+        </sl-option>
+
+        <sl-option value="avi_m3">
+          <span class="option-content"> <sl-icon name="fas-triangle"></sl-icon>AVI M3</span></sl-option
+        >
+        <sl-option value="avi_e3">
+          <span class="option-content"> <sl-icon name="fas-square"></sl-icon>AVI E3</span></sl-option
+        >
+        <sl-option value="avi_m4">
+          <span class="option-content"> <sl-icon name="fas-hexagon"></sl-icon>AVI M4</span></sl-option
+        >
       </sl-select>
     `
   }

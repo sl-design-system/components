@@ -384,6 +384,7 @@ describe('sl-breadcrumbs', () => {
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 50));
 
+      expect(clickEvent.defaultPrevented).to.be.true;
       expect(clickedItem).to.equal(items[3]);
     });
 

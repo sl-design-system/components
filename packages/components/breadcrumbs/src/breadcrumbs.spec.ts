@@ -325,7 +325,7 @@ describe('sl-breadcrumbs', () => {
       expect(menuItems[3]).to.have.text('4');
     });
   });
-  describe('deferredClick in popover', () => {
+  describe('breadcrumb items with click delegation', () => {
     let el: Breadcrumbs;
 
     beforeEach(async () => {

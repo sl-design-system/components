@@ -1,5 +1,5 @@
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { LitElement, type TemplateResult, html } from 'lit';
+import { CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -22,7 +22,7 @@ declare global {
  * @slot default - The content to display inside the breadcrumb item.
  */
 export class BreadcrumbItem extends ScopedElementsMixin(LitElement) {
-  static override styles = [];
+  static override styles: CSSResultGroup = [];
 
   override render(): TemplateResult {
     return html`<slot></slot>`;

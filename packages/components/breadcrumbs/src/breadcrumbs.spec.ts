@@ -382,7 +382,7 @@ describe('sl-breadcrumbs', () => {
       const clickEvent = new MouseEvent('click', { bubbles: true, cancelable: true });
       firstVisibleLink.dispatchEvent(clickEvent);
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(clickedItem).to.equal(items[3]);
     });
@@ -406,6 +406,94 @@ describe('sl-breadcrumbs', () => {
       await new Promise(resolve => setTimeout(resolve, 0));
 
       expect(clickEvent.defaultPrevented).to.be.true;
+      expect(clickedItem).to.equal(items[0]);
+    });
+
+    it('should call click on breadcrumb item when Enter key is pressed on visible link', async () => {
+      const items = el.querySelectorAll<BreadcrumbItem>('sl-breadcrumb-item');
+      let clickedItem: BreadcrumbItem | null = null;
+
+      items.forEach(item => {
+        item.addEventListener('click', () => {
+          clickedItem = item;
+        });
+      });
+
+      const visibleLinks = Array.from(el.renderRoot.querySelectorAll('li:not(.home):not(.more-menu) a'));
+      const firstVisibleLink = visibleLinks[0] as HTMLAnchorElement;
+
+      const keyEvent = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true });
+      firstVisibleLink.dispatchEvent(keyEvent);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 0));
+
+      expect(keyEvent.defaultPrevented).to.be.true;
+      expect(clickedItem).to.equal(items[3]);
+    });
+
+    it('should call click on breadcrumb item when Space key is pressed on visible link', async () => {
+      const items = el.querySelectorAll<BreadcrumbItem>('sl-breadcrumb-item');
+      let clickedItem: BreadcrumbItem | null = null;
+
+      items.forEach(item => {
+        item.addEventListener('click', () => {
+          clickedItem = item;
+        });
+      });
+
+      const visibleLinks = Array.from(el.renderRoot.querySelectorAll('li:not(.home):not(.more-menu) a'));
+      const firstVisibleLink = visibleLinks[0] as HTMLAnchorElement;
+
+      const keyEvent = new KeyboardEvent('keydown', { key: ' ', bubbles: true, cancelable: true });
+      firstVisibleLink.dispatchEvent(keyEvent);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 0));
+
+      expect(keyEvent.defaultPrevented).to.be.true;
+      expect(clickedItem).to.equal(items[3]);
+    });
+
+    it('should call click on breadcrumb item when Enter key is pressed on popover link', async () => {
+      const items = el.querySelectorAll<BreadcrumbItem>('sl-breadcrumb-item');
+      let clickedItem: BreadcrumbItem | null = null;
+
+      items.forEach(item => {
+        item.addEventListener('click', () => {
+          clickedItem = item;
+        });
+      });
+
+      const popoverLinks = Array.from(el.renderRoot.querySelectorAll('sl-popover a'));
+      const firstPopoverLink = popoverLinks[0] as HTMLAnchorElement;
+
+      const keyEvent = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true });
+      firstPopoverLink.dispatchEvent(keyEvent);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 0));
+
+      expect(keyEvent.defaultPrevented).to.be.true;
+      expect(clickedItem).to.equal(items[0]);
+    });
+
+    it('should call click on breadcrumb item when Space key is pressed on popover link', async () => {
+      const items = el.querySelectorAll<BreadcrumbItem>('sl-breadcrumb-item');
+      let clickedItem: BreadcrumbItem | null = null;
+
+      items.forEach(item => {
+        item.addEventListener('click', () => {
+          clickedItem = item;
+        });
+      });
+
+      const popoverLinks = Array.from(el.renderRoot.querySelectorAll('sl-popover a'));
+      const firstPopoverLink = popoverLinks[0] as HTMLAnchorElement;
+
+      const keyEvent = new KeyboardEvent('keydown', { key: ' ', bubbles: true, cancelable: true });
+      firstPopoverLink.dispatchEvent(keyEvent);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 0));
+
+      expect(keyEvent.defaultPrevented).to.be.true;
       expect(clickedItem).to.equal(items[0]);
     });
   });

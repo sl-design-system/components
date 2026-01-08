@@ -195,7 +195,10 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
                       return html`<a href=${url}>${label}</a>`;
                     } else if (breadcrumbItem) {
                       return html`
-                        <a href="#" @click=${(event: Event) => this.#onDelegateClick(event, breadcrumbItem)}
+                        <a
+                          href="#"
+                          @click=${(event: Event) => this.#onDelegateClick(event, breadcrumbItem)}
+                          @keydown=${(event: KeyboardEvent) => this.#onDelegateKeydown(event, breadcrumbItem)}
                           >${label}</a
                         >
                       `;
@@ -224,6 +227,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
                     aria-current=${ifDefined(index === array.length - 1 ? 'page' : undefined)}
                     href="#"
                     @click=${(event: Event) => this.#onDelegateClick(event, breadcrumbItem)}
+                    @keydown=${(event: KeyboardEvent) => this.#onDelegateKeydown(event, breadcrumbItem)}
                   >
                     ${label}
                   </a>
@@ -258,6 +262,13 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   #onDelegateClick(event: Event, breadcrumbItem: BreadcrumbItem): void {
     event.preventDefault();
     breadcrumbItem.click();
+  }
+
+  #onDelegateKeydown(event: KeyboardEvent, breadcrumbItem: BreadcrumbItem): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      breadcrumbItem.click();
+    }
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {

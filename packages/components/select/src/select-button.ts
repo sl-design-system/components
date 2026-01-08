@@ -90,6 +90,8 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     let selected: string | HTMLElement | undefined = undefined;
 
+    console.log('this.selected?.childElementCount', this.selected?.childElementCount, 'this.selected:', this.selected);
+
     if (this.selected?.childElementCount === 1) {
       selected = this.selected.children[0].cloneNode(true) as HTMLElement;
       selected.part.add('selected');
@@ -114,8 +116,14 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
       inlineSize = `${this.optionSize + (shouldAccountForClearButton ? clearButtonTotalWidth : 0)}px`;
     }
 
+    console.log('selected:', selected);
+
     return html`
-      <div part=${this.placeholder && !selected ? 'placeholder' : 'selected-option'} style="inline-size: ${inlineSize}">
+      <div
+        class="wrapper"
+        part=${this.placeholder && !selected ? 'placeholder' : 'selected-option'}
+        style="inline-size: ${inlineSize}"
+      >
         ${selected || this.placeholder || '\u00a0'}
       </div>
       ${!this.disabled && this.clearable && this.selected

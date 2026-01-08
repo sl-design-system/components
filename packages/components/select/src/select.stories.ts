@@ -111,6 +111,16 @@ export const EmbeddedComponents: Story = {
         sl-option::part(container) {
           padding-block: 4px;
         }
+
+        .custom-content,
+        sl-select-button::part(selected) {
+          background-color: red;
+        }
+
+        sl-option::part(wrapper) {
+          display: block;
+          background-color: red;
+        }
       </style>
       <sl-select value="2">
         <sl-option value="1">
@@ -130,6 +140,21 @@ export const EmbeddedComponents: Story = {
         </sl-option>
         <sl-option value="6">
           <sl-avatar size="sm" display-name="Zoe Robinson"></sl-avatar>
+        </sl-option>
+      </sl-select>
+
+      <sl-select>
+        <sl-option value="red">
+          <div class="custom-content">
+            <div class="colorball" style="background-color: red; width: 20px; height: 20px;"></div>
+            <span>Red</span>
+          </div>
+        </sl-option>
+        <sl-option value="blue">
+          <div class="custom-content">
+            <div class="colorball" style="background-color: blue; width: 20px; height: 20px;"></div>
+            <span>Blue</span>
+          </div>
         </sl-option>
       </sl-select>
     `

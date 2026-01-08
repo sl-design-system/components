@@ -18,12 +18,6 @@ describe('sl-breadcrumb-item', () => {
     });
   });
 
-  describe('content slot', () => {
-    beforeEach(async () => {
-      el = await fixture(html`<sl-breadcrumb-item>Item content</sl-breadcrumb-item>`);
-    });
-  });
-
   describe('click events', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-breadcrumb-item>Item</sl-breadcrumb-item>`);

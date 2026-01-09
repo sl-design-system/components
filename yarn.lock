@@ -5790,7 +5790,7 @@ __metadata:
     "@fortawesome/sharp-regular-svg-icons": "npm:^7.1.0"
     "@fortawesome/sharp-solid-svg-icons": "npm:^7.1.0"
     "@tokens-studio/sd-transforms": "npm:^2.0.1"
-    "@tokens-studio/sdk": "npm:^3.0.0"
+    "@tokens-studio/sdk": "npm:^3.0.1"
     cssnano: "npm:^7.1.1"
     esbuild: "npm:^0.25.11"
     fast-glob: "npm:^3.3.3"
@@ -6480,9 +6480,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tokens-studio/sdk@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "@tokens-studio/sdk@npm:3.0.0"
+"@tokens-studio/sdk@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "@tokens-studio/sdk@npm:3.0.1"
   dependencies:
     "@apollo/client": "npm:^3.11.4"
     "@tokens-studio/cli-kit": "npm:^0.0.1"
@@ -6502,7 +6502,7 @@ __metadata:
     ws: "npm:^8.18.0"
   bin:
     tokensstudio: dist/cli/index.js
-  checksum: 10c0/dd1e5a12bdd63ba83e8ec7eb9f77ed5b891a8c6924c6af0dd9947c57a68b00be4ba974d58a1f38ac6d30f6176108773fdfcbb17dcfe6c898ad7aeefec4f62830
+  checksum: 10c0/40ec8afa115af0b69cd8450278d983ca47740f0ab154c732c0a00345255ba92a71379c1d0bb4c9a9e4093384f7b69c8382c51dbb0ae1a024e3a8bbf9732d2e52
   languageName: node
   linkType: hard
 

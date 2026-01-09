@@ -6,6 +6,10 @@
     {
       "name": "Breadcrumbs",
       "selector": "sl-breadcrumbs"
+    },
+    {
+      "name": "Breadcrumb Item",
+      "selector": "sl-breadcrumb-item"
     }
   ]
 }

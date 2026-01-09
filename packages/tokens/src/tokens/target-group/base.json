@@ -1,0 +1,7 @@
+{
+	"target-group": {
+		"$type": "text",
+		"$value": "{target.target-group}",
+		"$description": ""
+	}
+}

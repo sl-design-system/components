@@ -194,6 +194,7 @@ const getThemes = async folder => {
   }));
 
   return themes;
+  // return ['sanoma-learning'];
 };
 
 const build = async (production = false, path) => {
@@ -352,4 +353,4 @@ const build = async (production = false, path) => {
   }
 };
 
-build(argv.includes('--production'), '../packages/tokens/src');
+build(argv.includes('--production'), '../packages/tokens/src/tokens');

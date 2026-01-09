@@ -121,22 +121,31 @@ export const EmbeddedComponents: Story = {
           padding-block: 4px;
         }
 
-        .custom-content,
-        sl-select-button::part(selected) {
+        .custom-content/*,
+        sl-select-button::part(selected)*/ {
           background-color: red;
         }
 
-        sl-option::part(wrapper) {
+        .option-content {
           display: block;
           background-color: red;
         }
 
+        sl-select-button::part(selected),
         .colorball {
-          width: 20px;
-          height: 20px;
-          border-radius: 50%;
           display: inline-block;
-          margin-right: 8px;
+          width: 1em;
+          height: 1em;
+          border-radius: 50%;
+          margin-inline-end: 0.5em;
+        }
+
+        sl-select-button::part(selected) > .colorball {
+          display: inline-block;
+          width: 1em;
+          height: 1em;
+          border-radius: 50%;
+          margin-inline-end: 0.5em;
         }
       </style>
       <sl-select value="2">
@@ -193,7 +202,6 @@ export const EmbeddedComponents: Story = {
           <span class="option-content"> <sl-icon name="fas-hexagon"></sl-icon>AVI M4</span></sl-option
         >
       </sl-select>
-      \`
 
       <sl-select>
         <sl-option value="red">

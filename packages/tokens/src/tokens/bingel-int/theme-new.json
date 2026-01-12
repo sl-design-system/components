@@ -1,5 +1,5 @@
 {
-	"I-A": {
+	"I": {
 		"color": {
 			"link": {
 				"idle": {
@@ -1190,6 +1190,11 @@
 							"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
 						}
 					}
+				},
+				"highlight": {
+					"$type": "color",
+					"$value": "{bingel-int.color.background.highlight}",
+					"$description": ""
 				},
 				"secondary": {
 					"bold": {

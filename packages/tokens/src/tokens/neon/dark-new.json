@@ -1195,6 +1195,11 @@
 						}
 					}
 				},
+				"highlight": {
+					"$type": "color",
+					"$value": "{neon.color.palette.yellow.100}",
+					"$description": ""
+				},
 				"secondary": {
 					"bold": {
 						"$type": "color",

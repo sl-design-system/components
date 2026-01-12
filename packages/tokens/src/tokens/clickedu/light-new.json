@@ -1195,6 +1195,11 @@
 						}
 					}
 				},
+				"highlight": {
+					"$type": "color",
+					"$value": "{clickedu.color.palette.yellow.150}",
+					"$description": ""
+				},
 				"secondary": {
 					"bold": {
 						"$type": "color",

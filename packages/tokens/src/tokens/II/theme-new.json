@@ -1191,6 +1191,11 @@
 						}
 					}
 				},
+				"highlight": {
+					"$type": "color",
+					"$value": "{II.color.background.highlight}",
+					"$description": ""
+				},
 				"secondary": {
 					"bold": {
 						"$type": "color",

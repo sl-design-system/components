@@ -106,12 +106,12 @@
 					"red": {
 						"bold": {
 							"$type": "color",
-							"$value": "{magister.color.background.accent.red.bold}",
+							"$value": "{magister.color.foreground.accent.red.bold}",
 							"$description": "Use for bold red borders for purely stylistic purposes with no specific meaning."
 						},
 						"plain": {
 							"$type": "color",
-							"$value": "{magister.color.background.accent.red.bold}",
+							"$value": "{magister.color.foreground.accent.red.plain}",
 							"$description": "Use for plain red borders for purely stylistic purposes with no specific meaning."
 						}
 					},
@@ -130,12 +130,12 @@
 					"grey": {
 						"bold": {
 							"$type": "color",
-							"$value": "{magister.color.palette.grey.300}",
+							"$value": "{magister.color.palette.grey.500}",
 							"$description": "Use for bold grey borders for purely stylistic purposes with no specific meaning."
 						},
 						"faint": {
 							"$type": "color",
-							"$value": "{magister.color.palette.grey.100}",
+							"$value": "{magister.color.palette.grey.150}",
 							"$description": "Use for faint grey borders for purely stylistic purposes with no specific meaning."
 						},
 						"heavy": {
@@ -145,7 +145,7 @@
 						},
 						"plain": {
 							"$type": "color",
-							"$value": "{magister.color.palette.grey.150}",
+							"$value": "{magister.color.palette.grey.400}",
 							"$description": "Use for plain grey borders for purely stylistic purposes with no specific meaning."
 						}
 					},
@@ -176,12 +176,12 @@
 					"orange": {
 						"bold": {
 							"$type": "color",
-							"$value": "{magister.color.background.accent.orange.bold}",
+							"$value": "{magister.color.foreground.accent.orange.bold}",
 							"$description": "Use for bold orange borders for purely stylistic purposes with no specific meaning."
 						},
 						"plain": {
 							"$type": "color",
-							"$value": "{magister.color.background.accent.orange.bold}",
+							"$value": "{magister.color.foreground.accent.orange.plain}",
 							"$description": "Use for plain orange borders for purely stylistic purposes with no specific meaning."
 						}
 					},
@@ -411,39 +411,39 @@
 				"grey": {
 					"100": {
 						"$type": "color",
-						"$value": "#e7e7e7"
+						"$value": "#F0F2F5"
 					},
 					"150": {
 						"$type": "color",
-						"$value": "#d1d1d1"
+						"$value": "#E0E6EA"
 					},
 					"200": {
 						"$type": "color",
-						"$value": "#b0b0b0"
+						"$value": "#DAE0E7"
 					},
 					"300": {
 						"$type": "color",
-						"$value": "#888888"
+						"$value": "#D0D9E0"
 					},
 					"400": {
 						"$type": "color",
-						"$value": "#6d6d6d"
+						"$value": "#C8D1DA"
 					},
 					"500": {
 						"$type": "color",
-						"$value": "#5d5d5d"
+						"$value": "#818B98"
 					},
 					"600": {
 						"$type": "color",
-						"$value": "#4f4f4f"
+						"$value": "#59636E"
 					},
 					"700": {
 						"$type": "color",
-						"$value": "#454545"
+						"$value": "#393F46"
 					},
 					"800": {
 						"$type": "color",
-						"$value": "#3d3d3d"
+						"$value": "#25292F"
 					},
 					"900": {
 						"$type": "color",
@@ -455,7 +455,7 @@
 					},
 					"050": {
 						"$type": "color",
-						"$value": "#f6f6f6"
+						"$value": "#F6F8FA"
 					}
 				},
 				"teal": {
@@ -786,12 +786,12 @@
 						},
 						"subtle": {
 							"$type": "color",
-							"$value": "rgba({magister.color.background.accent.blue.bold}, {magister.opacity.subtle})",
+							"$value": "rgba({magister.color.palette.blue.150}, 25%)",
 							"$description": "A subtle blue background option in idle state, applied purely for stylistic purposes without specific meaning."
 						},
 						"subtlest": {
 							"$type": "color",
-							"$value": "rgba({magister.color.background.accent.blue.bold}, {magister.opacity.subtlest})",
+							"$value": "rgba({magister.color.palette.blue.150}, 20%)",
 							"$description": "The subtlest blue background option for interactive elements, applied purely for stylistic purposes without specific meaning."
 						},
 						"interactive": {
@@ -802,7 +802,7 @@
 							},
 							"plain": {
 								"$type": "color",
-								"$value": "{magister.color.palette.blue.400}",
+								"$value": "{magister.color.palette.blue.150}",
 								"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
 							}
 						}
@@ -810,7 +810,7 @@
 					"grey": {
 						"bold": {
 							"$type": "color",
-							"$value": "{magister.color.palette.grey.150}",
+							"$value": "{magister.color.palette.grey.900}",
 							"$description": "A vibrant grey background option, applied purely for stylistic purposes without specific meaning."
 						},
 						"subtle": {
@@ -820,7 +820,7 @@
 						},
 						"subtlest": {
 							"$type": "color",
-							"$value": "rgba( {magister.color.palette.grey.700}, {magister.opacity.subtlest})",
+							"$value": "rgba( {magister.color.palette.grey.400}, {magister.opacity.subtlest})",
 							"$description": "The subtlest grey background option for interactive elements, applied purely for stylistic purposes without specific meaning."
 						},
 						"interactive": {
@@ -1195,6 +1195,11 @@
 						}
 					}
 				},
+				"highlight": {
+					"$type": "color",
+					"$value": "{magister.color.palette.yellow.100}",
+					"$description": ""
+				},
 				"secondary": {
 					"bold": {
 						"$type": "color",
@@ -1313,7 +1318,7 @@
 						},
 						"faint": {
 							"$type": "color",
-							"$value": "{magister.color.palette.grey.200}",
+							"$value": "{magister.color.palette.grey.300}",
 							"$description": "Use for faint text on neutral backgrounds, providing low contrast. Not intended for primary content, as it does not meet WCAG 2.2 AA contrast requirements. Use sparingly where accessibility isn't a critical concern."
 						},
 						"plain": {
@@ -1323,17 +1328,17 @@
 						},
 						"onBold": {
 							"$type": "color",
-							"$value": "{magister.color.foreground.bold}",
+							"$value": "{magister.color.foreground.inverted.plain}",
 							"$description": "Use for text on 'color.background.accent.grey.bold', when used purely for stylistic purposes without specific meaning."
 						},
 						"subtle": {
 							"$type": "color",
-							"$value": "{magister.color.palette.grey.600}",
+							"$value": "{magister.color.palette.grey.700}",
 							"$description": "Use for subtle grey text for purely stylistic purposes with no specific meaning."
 						},
 						"subtlest": {
 							"$type": "color",
-							"$value": "{magister.color.palette.grey.400}",
+							"$value": "{magister.color.palette.grey.600}",
 							"$description": "Use for muted grey text for purely stylistic purposes with no specific meaning."
 						},
 						"onInverted": {

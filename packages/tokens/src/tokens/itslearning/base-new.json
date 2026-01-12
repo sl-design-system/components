@@ -1,5 +1,5 @@
 {
-	"I-B": {
+	"I": {
 		"icon": {
 			"typeset": {
 				"fontWeight": {
@@ -40,6 +40,10 @@
 					"2xl": {
 						"$type": "fontSizes",
 						"$value": "{size-new.icon.2xl}"
+					},
+					"2xs": {
+						"$type": "fontSizes",
+						"$value": "{size-new.icon.2xs}"
 					},
 					"3xl": {
 						"$type": "fontSizes",
@@ -121,12 +125,12 @@
 				"focusRing": {
 					"inside": {
 						"$type": "borderRadius",
-						"$value": "{I-B.size.borderRadius.default} - 1px",
+						"$value": "{I.size.borderRadius.default} - 1px",
 						"$description": "Use for focusring inside of component when outside focus ring is not possible"
 					},
 					"outside": {
 						"$type": "borderRadius",
-						"$value": "{I-B.size.borderRadius.default} + 2px",
+						"$value": "{I.size.borderRadius.default} + 2px",
 						"$description": "Use for focusring outside of component"
 					}
 				}
@@ -153,27 +157,27 @@
 				"lg": {
 					"$type": "typography",
 					"$value": {
-						"fontSize": "{I-B.size.text-new.body.lg}",
-						"fontFamily": "{I-B.text-new.typeset.fontFamily.body}",
-						"fontWeight": "{I-B.text-new.typeset.fontWeight.regular}",
+						"fontSize": "{I.size.text-new.body.lg}",
+						"fontFamily": "{I.text-new.typeset.fontFamily.body}",
+						"fontWeight": "{I.text-new.typeset.fontWeight.regular}",
 						"lineHeight": "{size.lineHeight.300}"
 					}
 				},
 				"md": {
 					"$type": "typography",
 					"$value": {
-						"fontSize": "{I-B.size.text-new.body.md}",
-						"fontFamily": "{I-B.text-new.typeset.fontFamily.body}",
-						"fontWeight": "{I-B.text-new.typeset.fontWeight.regular}",
+						"fontSize": "{I.size.text-new.body.md}",
+						"fontFamily": "{I.text-new.typeset.fontFamily.body}",
+						"fontWeight": "{I.text-new.typeset.fontWeight.regular}",
 						"lineHeight": "{size.lineHeight.250}"
 					}
 				},
 				"sm": {
 					"$type": "typography",
 					"$value": {
-						"fontSize": "{I-B.size.text-new.body.sm}",
-						"fontFamily": "{I-B.text-new.typeset.fontFamily.body}",
-						"fontWeight": "{I-B.text-new.typeset.fontWeight.regular}",
+						"fontSize": "{I.size.text-new.body.sm}",
+						"fontFamily": "{I.text-new.typeset.fontFamily.body}",
+						"fontWeight": "{I.text-new.typeset.fontWeight.regular}",
 						"lineHeight": "{size.lineHeight.200}"
 					}
 				}
@@ -198,16 +202,16 @@
 				"lg": {
 					"$type": "typography",
 					"$value": {
-						"fontSize": "{I-B.size.text-new.body.md}",
-						"fontFamily": "{I-B.text-new.typeset.fontFamily.body}",
+						"fontSize": "{I.size.text-new.body.md}",
+						"fontFamily": "{I.text-new.typeset.fontFamily.body}",
 						"lineHeight": "{size.lineHeight.400}"
 					}
 				},
 				"md": {
 					"$type": "typography",
 					"$value": {
-						"fontSize": "{I-B.size.text-new.body.md}",
-						"fontFamily": "{I-B.text-new.typeset.fontFamily.body}",
+						"fontSize": "{I.size.text-new.body.md}",
+						"fontFamily": "{I.text-new.typeset.fontFamily.body}",
 						"lineHeight": "{size.lineHeight.300}"
 					}
 				}
@@ -216,40 +220,40 @@
 				"lg": {
 					"$type": "typography",
 					"$value": {
-						"fontSize": "{I-B.size.text-new.heading.lg}",
-						"fontFamily": "{I-B.text-new.typeset.fontFamily.body}",
+						"fontSize": "{I.size.text-new.heading.lg}",
+						"fontFamily": "{I.text-new.typeset.fontFamily.body}",
 						"lineHeight": "{size.lineHeight.400}"
 					}
 				},
 				"md": {
 					"$type": "typography",
 					"$value": {
-						"fontSize": "{I-B.size.text-new.heading.md}",
-						"fontFamily": "{I-B.text-new.typeset.fontFamily.body}",
+						"fontSize": "{I.size.text-new.heading.md}",
+						"fontFamily": "{I.text-new.typeset.fontFamily.body}",
 						"lineHeight": "{size.lineHeight.250}"
 					}
 				},
 				"sm": {
 					"$type": "typography",
 					"$value": {
-						"fontSize": "{I-B.size.text-new.heading.sm}",
-						"fontFamily": "{I-B.text-new.typeset.fontFamily.body}",
+						"fontSize": "{I.size.text-new.heading.sm}",
+						"fontFamily": "{I.text-new.typeset.fontFamily.body}",
 						"lineHeight": "{size.lineHeight.250}"
 					}
 				},
 				"xl": {
 					"$type": "typography",
 					"$value": {
-						"fontSize": "{I-B.size.text-new.heading.xl}",
-						"fontFamily": "{I-B.text-new.typeset.fontFamily.body}",
+						"fontSize": "{I.size.text-new.heading.xl}",
+						"fontFamily": "{I.text-new.typeset.fontFamily.body}",
 						"lineHeight": "{size.lineHeight.500}"
 					}
 				},
 				"2xl": {
 					"$type": "typography",
 					"$value": {
-						"fontSize": "{I-B.size.text-new.heading.2xl}",
-						"fontFamily": "{I-B.text-new.typeset.fontFamily.heading}",
+						"fontSize": "{I.size.text-new.heading.2xl}",
+						"fontFamily": "{I.text-new.typeset.fontFamily.heading}",
 						"lineHeight": "{size.lineHeight.600}"
 					}
 				}

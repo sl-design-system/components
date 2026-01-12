@@ -41,6 +41,10 @@
 						"$type": "fontSizes",
 						"$value": "{I.size.icon.font.2xl}"
 					},
+					"2xs": {
+						"$type": "fontSizes",
+						"$value": "{size.icon.font.2xs}"
+					},
 					"3xl": {
 						"$type": "fontSizes",
 						"$value": "{I.size.icon.font.3xl}"

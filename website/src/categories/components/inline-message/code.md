@@ -10,7 +10,7 @@ eleventyNavigation:
 
 <div class="ds-example">
   <sl-inline-message variant="danger" style="inline-size: 80%;">
-      <span slot="title">There are some problems</span>
+      <h2 slot="title">There are some problems</h2>
       Please fulfill all required fields:
       <ul>
         <li style="font-size: 1.4rem;">Last name is required</li>
@@ -23,7 +23,7 @@ eleventyNavigation:
 
   ```html
     <sl-inline-message variant="danger">
-      <span slot="title">There are some problems</span>
+      <h2 slot="title">There are some problems</h2>
       Please fulfill all...
       <ul>
         <li>Last name is required</li>

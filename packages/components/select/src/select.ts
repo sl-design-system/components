@@ -327,7 +327,6 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
       container = document.createElement('span');
 
     container.setAttribute('slot', 'selected-content');
-    container.setAttribute('part', 'selected');
 
     if (slotNodes?.length) {
       slotNodes.forEach(node => {

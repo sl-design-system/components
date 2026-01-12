@@ -145,7 +145,7 @@ export const EmbeddedComponents: Story = {
   }
 };
 
-export const EmbeddedComponents2: Story = {
+export const CustomStyling: Story = {
   args: {
     placeholder: 'Select a student',
     slot: () => html`
@@ -170,23 +170,6 @@ export const EmbeddedComponents2: Story = {
           border-radius: 50%;
           margin-inline-end: 0.5em;
         }
-
-        /* sl-select-button::part(selected),
-        .colorball {
-          display: inline-block;
-          width: 1em;
-          height: 1em;
-          border-radius: 50%;
-          margin-inline-end: 0.5em;
-        }
-
-        sl-select-button::part(selected) > .colorball {
-          display: inline-block;
-          width: 1em;
-          height: 1em;
-          border-radius: 50%;
-          margin-inline-end: 0.5em;
-        }*/
       </style>
 
       <sl-select>
@@ -255,10 +238,10 @@ export const EmbeddedComponents2: Story = {
 export const WithListboxRenderer: Story = {
   render: () => {
     const options = [
-      { value: 'avi_start', label: 'AVI Start', icon: 'fas-circle' },
-      { value: 'avi_m3', label: 'AVI M3', icon: 'fas-triangle' },
-      { value: 'avi_e3', label: 'AVI E3', icon: 'fas-square' },
-      { value: 'avi_m4', label: 'AVI M4', icon: 'fas-hexagon' }
+      { value: 'circle', label: 'Circle', icon: 'fas-circle' },
+      { value: 'triangle', label: 'Triangle', icon: 'fas-triangle' },
+      { value: 'square', label: 'Square', icon: 'fas-square' },
+      { value: 'hexagon', label: 'Hexagon', icon: 'fas-hexagon' }
     ];
 
     type OptionType = { value: string; label: string; icon: string };
@@ -266,6 +249,12 @@ export const WithListboxRenderer: Story = {
     const optionsRenderer = (option: OptionType) => {
       return html`
         <style>
+          .option-element {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+          }
+
           .colorball {
             display: inline-block;
             width: 1em;
@@ -273,83 +262,16 @@ export const WithListboxRenderer: Story = {
             border-radius: 50%;
             margin-inline-end: 0.5em;
           }
-        </style>
-        <sl-option value=${option.value}>
-          <div class="colorball" style="background-color: yellow; width: 20px; height: 20px;"></div>
-          <sl-icon name=${option.icon}></sl-icon>
-          ${option.label}
-        </sl-option>
-      `;
-    };
 
-    return html`
-      <style>
-        sl-select-button::part(selected-option) {
-          inline-size: 200px;
-          padding-block: 5px;
-        }
-        sl-option::part(container) {
-          padding-block: 4px;
-        }
-
-        sl-option::part(selected) > .colorball {
-          display: inline-block;
-          width: 1em;
-          height: 1em;
-          border-radius: 50%;
-          margin-inline-end: 0.5em;
-        }
-      </style>
-      <h2>With listbox renderer</h2>
-      <sl-select value="avi_start">${options.map(optionsRenderer)} </sl-select>
-    `;
-  }
-};
-
-export const WithListboxRenderer2: Story = {
-  render: () => {
-    const options = [
-      {
-        value: 'avi_start',
-        label: 'AVI Start',
-        icon: 'fas-circle',
-        style: 'background-color: red; width: 20px; height: 20px;'
-      },
-      {
-        value: 'avi_m3',
-        label: 'AVI M3',
-        icon: 'fas-triangle',
-        style: 'background-color: blue; width: 20px; height: 20px;'
-      },
-      {
-        value: 'avi_e3',
-        label: 'AVI E3',
-        icon: 'fas-square',
-        style: 'background-color: green; width: 20px; height: 20px;'
-      },
-      {
-        value: 'avi_m4',
-        label: 'AVI M4',
-        icon: 'fas-hexagon',
-        style: 'background-color: grey; width: 20px; height: 20px;'
-      }
-    ];
-
-    type OptionType = { value: string; label: string; icon: string; style?: string };
-
-    const optionsRenderer = (option: OptionType) => {
-      return html`
-        <style>
-          .custom-content {
-            background-color: red;
-            color: white;
+          sl-icon {
+            color: var(--sl-color-foreground-primary-bold);
           }
         </style>
-        <sl-option value="red">
-          <div class="custom-content">
+        <sl-option value=${option.value}>
+          <div class="option-element">
+            <div class="colorball" style="background-color: yellow; width: 20px; height: 20px;"></div>
             <sl-icon name=${option.icon}></sl-icon>
-            <div class="colorball" style=${option.style}></div>
-            <span>${option.label}</span>
+            ${option.label}
           </div>
         </sl-option>
       `;
@@ -359,11 +281,19 @@ export const WithListboxRenderer2: Story = {
       <style>
         sl-select-button::part(selected-option) {
           inline-size: 200px;
-          padding-block: 5px;
+          padding-block: 7px;
+        }
+
+        sl-option::part(container) {
+          padding-block: 6px;
         }
       </style>
-      <h2>With listbox renderer</h2>
-      <sl-select value="avi_start">${options.map(optionsRenderer)} </sl-select>
+      <p>
+        This story demonstrates the use of a sl-listbox <code>renderer</code> function to render select options with
+        custom content, including icons and styled elements. Each option displays a colored circle, an sl-icon, and a
+        label. label. The story shows how to style the selected option display and individual option containers.
+      </p>
+      <sl-select value="circle">${options.map(optionsRenderer)} </sl-select>
     `;
   }
 };

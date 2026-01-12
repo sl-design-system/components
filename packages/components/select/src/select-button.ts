@@ -110,7 +110,9 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
         part=${this.placeholder && !hasSelected ? 'placeholder' : 'selected-option'}
         style="inline-size: ${inlineSize}"
       >
-        ${hasSelected ? html`<slot name="selected-content"></slot>` : this.placeholder || '\u00a0'}
+        ${hasSelected
+          ? html`<span part="selected"><slot name="selected-content"></slot></span>`
+          : this.placeholder || '\u00a0'}
       </div>
       ${!this.disabled && this.clearable && this.selected
         ? html`

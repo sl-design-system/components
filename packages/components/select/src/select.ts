@@ -312,6 +312,35 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     this.button?.focus(options);
   }
 
+  #renderSelectedContent(): void {
+    const existingContent = this.button.querySelector('[slot="selected-content"]');
+
+    if (existingContent) {
+      existingContent.remove();
+    }
+
+    if (!this.selectedOption) {
+      return;
+    }
+
+    const slotNodes = this.selectedOption.renderRoot.querySelector('slot')?.assignedNodes(),
+      container = document.createElement('span');
+
+    container.setAttribute('slot', 'selected-content');
+    container.setAttribute('part', 'selected');
+
+    if (slotNodes?.length) {
+      slotNodes.forEach(node => {
+        container.appendChild(node.cloneNode(true));
+      });
+    } else {
+      container.textContent = this.selectedOption.textContent?.trim() || '';
+    }
+
+    // Append the selected content as a child of the button (in the button's light DOM)
+    this.button.appendChild(container);
+  }
+
   #onBeforetoggle({ newState }: ToggleEvent): void {
     if (newState === 'open') {
       this.button.setAttribute('aria-expanded', 'true');
@@ -542,6 +571,9 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
     this.button.selected = this.selectedOption;
     this.value = this.selectedOption?.value;
+
+    // Update the selected content in the light DOM
+    this.#renderSelectedContent();
 
     if (emitEvent) {
       this.changeEvent.emit(this.value);

@@ -163,7 +163,15 @@ export const EmbeddedComponents2: Story = {
           background-color: red;
         }
 
-        sl-select-button::part(selected),
+        .colorball {
+          display: inline-block;
+          width: 1em;
+          height: 1em;
+          border-radius: 50%;
+          margin-inline-end: 0.5em;
+        }
+
+        /* sl-select-button::part(selected),
         .colorball {
           display: inline-block;
           width: 1em;
@@ -178,7 +186,7 @@ export const EmbeddedComponents2: Story = {
           height: 1em;
           border-radius: 50%;
           margin-inline-end: 0.5em;
-        }
+        }*/
       </style>
 
       <sl-select>
@@ -225,6 +233,21 @@ export const EmbeddedComponents2: Story = {
           Blue
         </sl-option>
       </sl-select>
+
+      <sl-select>
+        <sl-option value="red">
+          <div class="custom-content">
+            <div class="colorball" style="background-color: red; width: 20px; height: 20px;"></div>
+            <span>Red</span>
+          </div>
+        </sl-option>
+        <sl-option value="blue">
+          <div class="custom-content">
+            <div class="colorball" style="background-color: blue; width: 20px; height: 20px;"></div>
+            <span>Blue</span>
+          </div>
+        </sl-option>
+      </sl-select>
     `
   }
 };
@@ -242,7 +265,17 @@ export const WithListboxRenderer: Story = {
 
     const optionsRenderer = (option: OptionType) => {
       return html`
+        <style>
+          .colorball {
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            border-radius: 50%;
+            margin-inline-end: 0.5em;
+          }
+        </style>
         <sl-option value=${option.value}>
+          <div class="colorball" style="background-color: yellow; width: 20px; height: 20px;"></div>
           <sl-icon name=${option.icon}></sl-icon>
           ${option.label}
         </sl-option>
@@ -257,6 +290,14 @@ export const WithListboxRenderer: Story = {
         }
         sl-option::part(container) {
           padding-block: 4px;
+        }
+
+        sl-option::part(selected) > .colorball {
+          display: inline-block;
+          width: 1em;
+          height: 1em;
+          border-radius: 50%;
+          margin-inline-end: 0.5em;
         }
       </style>
       <h2>With listbox renderer</h2>

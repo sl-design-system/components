@@ -90,47 +90,7 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    let selected: string | HTMLElement | undefined = undefined;
-
-    console.log('this.selected?.childElementCount', this.selected?.childElementCount, 'this.selected:', this.selected);
-
-    if (this.selected?.childElementCount === 1) {
-      // selected = this.selected.children[0].cloneNode(true) as HTMLElement;
-      // this.selected?.renderRoot.querySelector('slot')?.assignedNodes().cloneNode(true);
-      // selected = this.selected?.renderRoot.querySelector('slot')?.assignedNodes()[0]?.cloneNode(true) as HTMLElement;
-      // selected.part.add('selected');
-
-      // CSS custom properties (CSS variables) and ::part() pseudo-elements are the standard way to customize shadow DOM components.
-
-      const slotNodes = this.selected?.renderRoot.querySelector('slot')?.assignedNodes();
-      if (slotNodes?.length) {
-        const container = document.createElement('span');
-        slotNodes.forEach(node => {
-          container.appendChild(node.cloneNode(true));
-        });
-        container.part.add('selected');
-        selected = container;
-      }
-    } else if (this.selected?.childElementCount) {
-      selected = this.selected.cloneNode(true) as HTMLElement;
-      selected.removeAttribute('aria-selected');
-      selected.removeAttribute('selected');
-      selected.part.add('selected');
-    } else {
-      selected = this.selected?.textContent?.trim();
-    }
-
-    console.log(
-      'Selected content:',
-      selected,
-      'this.selected?.childElementCount ',
-      this.selected?.childElementCount,
-      'this.selected',
-      this.selected,
-      this.selected?.children.length,
-      'wrapper?',
-      this.selected?.renderRoot.querySelector('slot')?.assignedNodes()
-    );
+    const hasSelected = !!this.selected;
 
     let inlineSize = '100%';
 
@@ -144,15 +104,13 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
       inlineSize = `${this.optionSize + (shouldAccountForClearButton ? clearButtonTotalWidth : 0)}px`;
     }
 
-    console.log('selected:', selected);
-
     return html`
       <div
         class="wrapper"
-        part=${this.placeholder && !selected ? 'placeholder' : 'selected-option'}
+        part=${this.placeholder && !hasSelected ? 'placeholder' : 'selected-option'}
         style="inline-size: ${inlineSize}"
       >
-        ${selected || this.placeholder || '\u00a0'}
+        ${hasSelected ? html`<slot name="selected-content"></slot>` : this.placeholder || '\u00a0'}
       </div>
       ${!this.disabled && this.clearable && this.selected
         ? html`

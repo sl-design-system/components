@@ -120,33 +120,6 @@ export const EmbeddedComponents: Story = {
         sl-option::part(container) {
           padding-block: 4px;
         }
-
-        .custom-content/*,
-        sl-select-button::part(selected)*/ {
-          background-color: red;
-        }
-
-        .option-content {
-          display: block;
-          background-color: red;
-        }
-
-        sl-select-button::part(selected),
-        .colorball {
-          display: inline-block;
-          width: 1em;
-          height: 1em;
-          border-radius: 50%;
-          margin-inline-end: 0.5em;
-        }
-
-        sl-select-button::part(selected) > .colorball {
-          display: inline-block;
-          width: 1em;
-          height: 1em;
-          border-radius: 50%;
-          margin-inline-end: 0.5em;
-        }
       </style>
       <sl-select value="2">
         <sl-option value="1">
@@ -168,6 +141,45 @@ export const EmbeddedComponents: Story = {
           <sl-avatar size="sm" display-name="Zoe Robinson"></sl-avatar>
         </sl-option>
       </sl-select>
+    `
+  }
+};
+
+export const EmbeddedComponents2: Story = {
+  args: {
+    placeholder: 'Select a student',
+    slot: () => html`
+      <style>
+        sl-select-button::part(selected-option) {
+          inline-size: 200px;
+          padding-block: 5px;
+        }
+        sl-option::part(container) {
+          padding-block: 4px;
+        }
+
+        .custom-content/*,
+        sl-select-button::part(selected)*/ {
+          background-color: red;
+        }
+
+        sl-select-button::part(selected),
+        .colorball {
+          display: inline-block;
+          width: 1em;
+          height: 1em;
+          border-radius: 50%;
+          margin-inline-end: 0.5em;
+        }
+
+        sl-select-button::part(selected) > .colorball {
+          display: inline-block;
+          width: 1em;
+          height: 1em;
+          border-radius: 50%;
+          margin-inline-end: 0.5em;
+        }
+      </style>
 
       <sl-select>
         <sl-option value="red">
@@ -245,6 +257,68 @@ export const WithListboxRenderer: Story = {
         }
         sl-option::part(container) {
           padding-block: 4px;
+        }
+      </style>
+      <h2>With listbox renderer</h2>
+      <sl-select value="avi_start">${options.map(optionsRenderer)} </sl-select>
+    `;
+  }
+};
+
+export const WithListboxRenderer2: Story = {
+  render: () => {
+    const options = [
+      {
+        value: 'avi_start',
+        label: 'AVI Start',
+        icon: 'fas-circle',
+        style: 'background-color: red; width: 20px; height: 20px;'
+      },
+      {
+        value: 'avi_m3',
+        label: 'AVI M3',
+        icon: 'fas-triangle',
+        style: 'background-color: blue; width: 20px; height: 20px;'
+      },
+      {
+        value: 'avi_e3',
+        label: 'AVI E3',
+        icon: 'fas-square',
+        style: 'background-color: green; width: 20px; height: 20px;'
+      },
+      {
+        value: 'avi_m4',
+        label: 'AVI M4',
+        icon: 'fas-hexagon',
+        style: 'background-color: grey; width: 20px; height: 20px;'
+      }
+    ];
+
+    type OptionType = { value: string; label: string; icon: string; style?: string };
+
+    const optionsRenderer = (option: OptionType) => {
+      return html`
+        <style>
+          .custom-content {
+            background-color: red;
+            color: white;
+          }
+        </style>
+        <sl-option value="red">
+          <div class="custom-content">
+            <sl-icon name=${option.icon}></sl-icon>
+            <div class="colorball" style=${option.style}></div>
+            <span>${option.label}</span>
+          </div>
+        </sl-option>
+      `;
+    };
+
+    return html`
+      <style>
+        sl-select-button::part(selected-option) {
+          inline-size: 200px;
+          padding-block: 5px;
         }
       </style>
       <h2>With listbox renderer</h2>

@@ -95,161 +95,22 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
     console.log('this.selected?.childElementCount', this.selected?.childElementCount, 'this.selected:', this.selected);
 
     if (this.selected?.childElementCount === 1) {
-      //  selected = this.selected.children[0].cloneNode(true) as HTMLElement;
+      // selected = this.selected.children[0].cloneNode(true) as HTMLElement;
       // this.selected?.renderRoot.querySelector('slot')?.assignedNodes().cloneNode(true);
       // selected = this.selected?.renderRoot.querySelector('slot')?.assignedNodes()[0]?.cloneNode(true) as HTMLElement;
       // selected.part.add('selected');
 
-      /*      const slotNodes = this.selected?.renderRoot.querySelector('slot')?.assignedNodes();
-      if (slotNodes?.length) {
-        const container = document.createElement('span');
-        slotNodes.forEach(node => {
-          container.appendChild(node.cloneNode(true));
-        });
-        container.part.add('selected');
-        selected = container;
-      }*/
-
-      /*      const slotNodes = this.selected?.renderRoot.querySelector('slot')?.assignedNodes();
-      if (slotNodes?.length) {
-        const container = document.createElement('span');
-        slotNodes.forEach(node => {
-          const clonedNode = node.cloneNode(true);
-          // Copy computed styles if it's an element
-          if (node instanceof HTMLElement && clonedNode instanceof HTMLElement) {
-            const styles = window.getComputedStyle(node);
-            clonedNode.style.cssText = styles.cssText;
-          }
-          container.appendChild(clonedNode);
-        });
-        container.part.add('selected');
-        selected = container;
-      }*/
-
-      /*      const slotNodes = this.selected?.renderRoot.querySelector('slot')?.assignedNodes();
-      if (slotNodes?.length) {
-        // Clone the entire selected option to preserve styling
-        selected = this.selected.cloneNode(true) as HTMLElement;
-        selected.removeAttribute('aria-selected');
-        selected.removeAttribute('selected');
-        selected.part.add('selected');
-      }*/
-
-      /*      const slotNodes = this.selected?.renderRoot.querySelector('slot')?.assignedNodes();
-      if (slotNodes?.length) {
-        const container = document.createElement('span');
-        slotNodes.forEach(node => {
-          const clonedNode = node.cloneNode(true);
-          // Copy computed styles if it's an element
-          if (node instanceof HTMLElement && clonedNode instanceof HTMLElement) {
-            const styles = window.getComputedStyle(node);
-            // Copy all relevant style properties
-            Array.from(styles).forEach(property => {
-              clonedNode.style.setProperty(property, styles.getPropertyValue(property));
-            });
-          }
-          container.appendChild(clonedNode);
-        });
-        container.part.add('selected');
-        selected = container; // TODO: it copies styles from the selected option as well, so e.g. color blue etc.
-      }*/
+      // CSS custom properties (CSS variables) and ::part() pseudo-elements are the standard way to customize shadow DOM components.
 
       const slotNodes = this.selected?.renderRoot.querySelector('slot')?.assignedNodes();
       if (slotNodes?.length) {
         const container = document.createElement('span');
         slotNodes.forEach(node => {
-          const clonedNode = node.cloneNode(true);
-          // Copy computed styles that differ from browser defaults
-          if (node instanceof HTMLElement && clonedNode instanceof HTMLElement) {
-            const styles = window.getComputedStyle(node);
-            // Apply all computed styles as inline styles to preserve them in shadow DOM
-            for (let i = 0; i < styles.length; i++) {
-              const property = styles[i];
-              clonedNode.style.setProperty(
-                property,
-                styles.getPropertyValue(property),
-                styles.getPropertyPriority(property)
-              );
-            }
-          }
-          container.appendChild(clonedNode);
+          container.appendChild(node.cloneNode(true));
         });
         container.part.add('selected');
         selected = container;
       }
-
-      /* // works partially, but without classes
-      const slotNodes = this.selected?.renderRoot.querySelector('slot')?.assignedNodes();
-      if (slotNodes?.length) {
-        const container = document.createElement('span');
-        slotNodes.forEach(node => {
-          const clonedNode = node.cloneNode(true);
-          // Only copy inline styles that were explicitly set
-          if (node instanceof HTMLElement && clonedNode instanceof HTMLElement) {
-            // Copy only inline styles that were explicitly set on the element
-            if (node.hasAttribute('style')) {
-              clonedNode.setAttribute('style', node.getAttribute('style') || '');
-            }
-          }
-          container.appendChild(clonedNode);
-        });
-        container.part.add('selected');
-        selected = container;
-      }*/
-
-      /*  // partially works, preserves classes and inline styles
-      const slotNodes = this.selected?.renderRoot.querySelector('slot')?.assignedNodes();
-      if (slotNodes?.length) {
-        const container = document.createElement('span');
-        slotNodes.forEach(node => {
-          const clonedNode = node.cloneNode(true);
-          // Only copy inline styles that were explicitly set
-          if (node instanceof HTMLElement && clonedNode instanceof HTMLElement) {
-            // Copy only inline styles that were explicitly set on the element
-            if (node.hasAttribute('style')) {
-              clonedNode.setAttribute('style', node.getAttribute('style') || '');
-            }
-            // Ensure class attribute is preserved (it should be by cloneNode, but let's be explicit)
-            if (node.hasAttribute('class')) {
-              clonedNode.setAttribute('class', node.getAttribute('class') || '');
-            }
-          }
-          container.appendChild(clonedNode);
-        });
-        container.part.add('selected');
-        selected = container;
-      }*/
-
-      /*  // copying too much:
-      // Clone slotted content and inject styles to preserve appearance across shadow DOM boundaries
-      const slotNodes = this.selected?.renderRoot.querySelector('slot')?.assignedNodes();
-      if (slotNodes?.length) {
-        const container = document.createElement('span');
-
-        // Collect all stylesheets from the document
-        const styles = Array.from(document.styleSheets)
-          .map(sheet => {
-            try {
-              return Array.from(sheet.cssRules)
-                .map(rule => rule.cssText)
-                .join('\n');
-            } catch {
-              return '';
-            }
-          })
-          .join('\n');
-
-        // Create a style element with the collected styles
-        const styleElement = document.createElement('style');
-        styleElement.textContent = styles;
-        this.renderRoot.appendChild(styleElement);
-
-        slotNodes.forEach(node => {
-          container.appendChild(node.cloneNode(true));
-        });
-        container.part.add('selected');
-        selected = container;
-      }*/
     } else if (this.selected?.childElementCount) {
       selected = this.selected.cloneNode(true) as HTMLElement;
       selected.removeAttribute('aria-selected');

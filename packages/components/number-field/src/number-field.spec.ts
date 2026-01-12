@@ -283,7 +283,7 @@ describe('sl-number-field', () => {
     });
   });
 
-  describe.only('dynamic min/max changes', () => {
+  describe('dynamic min/max changes', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-number-field value="50"></sl-number-field>`);
     });

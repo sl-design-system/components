@@ -62,7 +62,7 @@ const stripPrefix = (dictionary, prefix) => {
 StyleDictionary.registerPreprocessor({
   name: 'strip-routing-prefix',
   preprocessor: (dictionary, { theme }) => {
-    ['I-A', 'I-B', 'I-C', 'II-E', 'II-F', theme].forEach(prefix => {
+    ['I','II', theme].forEach(prefix => {
       // Return early if the prefix is not present
       if (!dictionary[prefix]) {
         return;
@@ -194,7 +194,6 @@ const getThemes = async folder => {
   }));
 
   return themes;
-  // return ['sanoma-learning'];
 };
 
 const build = async (production = false, path) => {

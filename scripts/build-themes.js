@@ -177,7 +177,7 @@ StyleDictionary.registerTransform({
 // Returns an array of themes and their variants
 // e.g. [['sanoma-learning', 'light'], ['sanoma-learning', 'dark']]
 const getThemes = async folder => {
-  const folders = (await readdir(folder)).filter(f => !f.endsWith('.json') && !f.endsWith('_onhold') && !['I', 'II', 'device', 'placeholder', 'tokens'].includes(f));
+  const folders = (await readdir(folder)).filter(f => !f.endsWith('.json') && !f.endsWith('_onhold') && !f.endsWith('.tsgraph') &&!['I', 'II', 'device', 'placeholder', 'tokens'].includes(f));
 
   const themes = [];
 

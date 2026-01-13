@@ -146,21 +146,19 @@ export const EmbeddedComponents: Story = {
 };
 
 export const CustomStyling: Story = {
-  args: {
-    placeholder: 'Select a student',
-    slot: () => html`
+  render: () => {
+    return html`
       <style>
-        sl-select-button::part(selected-option) {
+        sl-select-button {
           inline-size: 200px;
-          padding-block: 5px;
-        }
-        sl-option::part(container) {
-          padding-block: 4px;
         }
 
-        .custom-content/*,
-        sl-select-button::part(selected)*/ {
-          background-color: red;
+        sl-select-button::part(selected-option) {
+          padding-block: 5px;
+        }
+
+        sl-option::part(container) {
+          padding-block: 4px;
         }
 
         .colorball {
@@ -172,41 +170,9 @@ export const CustomStyling: Story = {
         }
       </style>
 
-      <sl-select>
-        <sl-option value="red">
-          <div class="custom-content">
-            <div class="colorball" style="background-color: red; width: 20px; height: 20px;"></div>
-            <span>Red</span>
-          </div>
-        </sl-option>
-        <sl-option value="blue">
-          <div class="custom-content">
-            <div class="colorball" style="background-color: blue; width: 20px; height: 20px;"></div>
-            <span>Blue</span>
-          </div>
-        </sl-option>
-      </sl-select>
+      <p>This story shows a select component with custom styling.</p>
 
-      <sl-select id="level">
-        <sl-option value="avi_start">
-          <span class="option-content">
-            <sl-icon name="fas-circle"></sl-icon>
-            AVI Start
-          </span>
-        </sl-option>
-
-        <sl-option value="avi_m3">
-          <span class="option-content"> <sl-icon name="fas-triangle"></sl-icon>AVI M3</span></sl-option
-        >
-        <sl-option value="avi_e3">
-          <span class="option-content"> <sl-icon name="fas-square"></sl-icon>AVI E3</span></sl-option
-        >
-        <sl-option value="avi_m4">
-          <span class="option-content"> <sl-icon name="fas-hexagon"></sl-icon>AVI M4</span></sl-option
-        >
-      </sl-select>
-
-      <sl-select>
+      <sl-select placeholder="Select a color">
         <sl-option value="red">
           <span class="colorball" style="background-color: red;"></span>
           Red
@@ -215,23 +181,12 @@ export const CustomStyling: Story = {
           <span class="colorball" style="background-color: blue;"></span>
           Blue
         </sl-option>
-      </sl-select>
-
-      <sl-select>
-        <sl-option value="red">
-          <div class="custom-content">
-            <div class="colorball" style="background-color: red; width: 20px; height: 20px;"></div>
-            <span>Red</span>
-          </div>
-        </sl-option>
-        <sl-option value="blue">
-          <div class="custom-content">
-            <div class="colorball" style="background-color: blue; width: 20px; height: 20px;"></div>
-            <span>Blue</span>
-          </div>
+        <sl-option value="green">
+          <span class="colorball" style="background-color: green;"></span>
+          Green
         </sl-option>
       </sl-select>
-    `
+    `;
   }
 };
 

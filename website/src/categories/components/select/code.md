@@ -2,7 +2,9 @@
 title: Select code
 tags: code
 APIdescription: {
-  sl-select: "Select component has a range of properties, attributes etc. to define the experience in different use cases, and it can be used as the replacement of the HTML native select element."
+  sl-select: "Select component has a range of properties, attributes etc. to define the experience in different use cases, and it can be used as the replacement of the HTML native select element.",
+  sl-listbox: "Listbox is a reusable container component for a list of options, used internally by Select component (and a few other components).",
+  sl-option: "Option represents a single option in a list of options, used internally by components like Select and Listbox.",
 }
 eleventyNavigation:
   parent: Select

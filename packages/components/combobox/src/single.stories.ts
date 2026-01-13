@@ -1,10 +1,7 @@
-import { faCaretDown, faCircle, faCircleDot, faSquare, faSquareCheck } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/badge/register.js';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
-import { Icon } from '@sl-design-system/icon';
-import '@sl-design-system/icon/register.js';
 import '@sl-design-system/listbox/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
@@ -32,8 +29,6 @@ type Props = Pick<
   virtualList?: boolean;
 };
 export type Story = StoryObj<Props>;
-
-Icon.register(faCircle, faSquare, faSquareCheck, faCircleDot, faCaretDown);
 
 export default {
   title: 'Form/Combobox/Single',
@@ -220,52 +215,5 @@ export const VirtualListWithGroups: Story = {
     })),
     value: 3000,
     virtualList: true
-  }
-};
-
-export const WithListboxRenderer: Story = {
-  render: () => {
-    const options = [
-      { value: 'button', label: ' Button', icon: 'far-circle' },
-      { value: 'checkbox', label: ' Checkbox', icon: 'far-square-check' },
-      { value: 'radio', label: ' Radio group', icon: 'far-circle-dot' },
-      { value: 'select', label: ' Select', icon: 'far-caret-down' }
-    ];
-
-    type OptionType = { value: string; label: string; icon: string };
-
-    const optionsRenderer = (option: OptionType) => {
-      return html`
-        <style>
-          .option-element,
-          sl-option::part(wrapper) {
-            display: flex;
-            gap: 0.5rem;
-          }
-        </style>
-        <sl-option class="option-element" value=${option.value}>
-          <sl-icon name=${option.icon}></sl-icon>
-          ${option.label}
-        </sl-option>
-      `;
-    };
-
-    return html`
-      <style>
-        sl-combobox::part(input) {
-          inline-size: 250px;
-        }
-        sl-option::part(container) {
-          gap: 0.5rem;
-          padding-block: 4px;
-        }
-        sl-option sl-icon {
-          flex-shrink: 0;
-        }
-      </style>
-      <sl-combobox placeholder="Choose a component">
-        <sl-listbox>${options.map(optionsRenderer)}</sl-listbox>
-      </sl-combobox>
-    `;
   }
 };

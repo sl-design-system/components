@@ -5,27 +5,32 @@ eleventyNavigation:
   parent: Inline message
   key: InlineMessageUsage
 ---
+<style>
+  h2 {
+    font-size: inherit;
+    font-weight: inherit;
+    margin: 0;
+  }
+</style>
 
 <section class="no-heading">
-
-<div class="ds-example">
-  <sl-inline-message variant="success">
-    <h2 slot="title">Congratulations!</h2>
-    The exercise has been solved and saved.
-  </sl-inline-message>
-</div>
-
-<div class="ds-code">
-
-  ```html
+  <div class="ds-example">
     <sl-inline-message variant="success">
       <h2 slot="title">Congratulations!</h2>
-      The exercise has...
+      The exercise has been solved and saved.
     </sl-inline-message>
-  ```
+  </div>
 
-</div>
+  <div class="ds-code">
 
+    ```html
+      <sl-inline-message variant="success">
+        <h2 slot="title">Congratulations!</h2>
+        The exercise has...
+      </sl-inline-message>
+    ```
+
+  </div>
 </section>
 
 <section>

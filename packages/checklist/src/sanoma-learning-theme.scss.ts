@@ -2,17 +2,17 @@ import { css } from 'lit';
 
 export default css`
   /**
-   * Copyright 2025 Sanoma Learning
+   * Copyright 2026 Sanoma Learning
    * SPDX-License-Identifier: Apache-2.0
    */
 
   /**
-   * Copyright 2025 Sanoma Learning
+   * Copyright 2026 Sanoma Learning
    * SPDX-License-Identifier: Apache-2.0
    */
 
   /**
-   * Copyright 2025 Sanoma Learning
+   * Copyright 2026 Sanoma Learning
    * SPDX-License-Identifier: Apache-2.0
    */
   :host {

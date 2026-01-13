@@ -1,7 +1,22 @@
 :host {
-  align-self: stretch;
-  background: var(--sl-color-border-neutral-subtle);
+  background: linear-gradient(
+    to right,
+    transparent 0 var(--sl-size-100),
+    var(--sl-color-border-plain) var(--sl-size-100) calc(var(--sl-size-100) + var(--sl-size-010)),
+    transparent calc(var(--sl-size-100) + var(--sl-size-010)) 100%
+  );
+  block-size: var(--sl-size-300);
   display: inline-flex;
   flex-shrink: 0;
-  inline-size: 1px;
+  inline-size: var(--sl-size-010);
+  padding-inline: var(--sl-size-100);
+}
+
+:host([inverted]) {
+  background: linear-gradient(
+    to right,
+    transparent 0 var(--sl-size-100),
+    var(--sl-color-border-inverted) var(--sl-size-100) calc(var(--sl-size-100) + var(--sl-size-010)),
+    transparent calc(var(--sl-size-100) + var(--sl-size-010)) 100%
+  );
 }

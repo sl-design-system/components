@@ -162,6 +162,7 @@ slot[name='heading'] {
 }
 
 slot[name='aside'] {
+  display: block;
   grid-area: aside;
 }
 

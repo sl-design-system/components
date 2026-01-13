@@ -1,16 +1,23 @@
 :host {
   align-items: center;
   background: transparent;
-  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
-  border-radius: var(--sl-size-borderRadius-default);
   display: flex;
-  padding: var(--sl-size-100);
+  flex-wrap: nowrap;
 }
 
 :host([align='end']) [part='wrapper'] {
   block-size: var(--sl-size-450);
+  flex: 1; /* Allow the wrapper to grow, but only when aligned to the end, when aligned to start the overflow is broken */
   flex-wrap: wrap;
   justify-content: end;
+}
+
+:host([contained]) {
+  background: var(--sl-elevation-surface-base-default);
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-secondary-bold);
+  border-radius: var(--sl-size-borderRadius-lg);
+  margin: 0;
+  padding: var(--sl-size-100);
 }
 
 :host([empty]) {
@@ -21,10 +28,9 @@
   }
 }
 
-:host([no-border]) {
-  border: 0;
-  border-radius: 0;
-  padding-inline: 0;
+:host([contained][inverted]) {
+  background: var(--sl-color-background-primary-bold);
+  border-color: var(--sl-color-border-primary-plain);
 }
 
 ::slotted(*) {
@@ -34,7 +40,6 @@
 [part='wrapper'] {
   align-items: center;
   display: flex;
-  flex: 1;
   gap: var(--sl-size-100);
   min-inline-size: 0;
 }
@@ -53,6 +58,10 @@ sl-menu-button {
   sl-icon + hr {
     display: none;
   }
+}
+
+sl-menu-button[all-items-hidden] {
+  margin-inline-start: 0;
 }
 
 hr + hr {

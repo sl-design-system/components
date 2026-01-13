@@ -10,6 +10,7 @@
   },
   "type": "module",
   "main": "index.js",
+  "customElements": "src/_data/custom-elements/custom-elements.json",
   "scripts": {
     "build": "wireit",
     "lint": "wireit",
@@ -191,6 +192,5 @@
     "tiny-glob": "^0.2.9",
     "typescript": "^5.5.4",
     "wireit": "^0.14.12"
-  },
-  "customElements": "src/_data/custom-elements/custom-elements.json"
+  }
 }

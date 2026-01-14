@@ -6,9 +6,11 @@ eleventyNavigation:
   key: InlineMessageUsage
 ---
 <style>
-  h2 {
+ .title {
     font-size: inherit;
     font-weight: inherit;
+    line-height: inherit;
+    font-family: inherit;
     margin: 0;
   }
 </style>
@@ -16,7 +18,7 @@ eleventyNavigation:
 <section class="no-heading">
   <div class="ds-example">
     <sl-inline-message variant="success">
-      <h2 slot="title">Congratulations!</h2>
+      <h2 class="title" slot="title">Congratulations!</h2>
       The exercise has been solved and saved.
     </sl-inline-message>
   </div>

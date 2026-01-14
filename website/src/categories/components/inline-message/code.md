@@ -7,9 +7,11 @@ eleventyNavigation:
   key: InlineMessageCode
 ---
 <style>
-  h2 {
+  .title {
     font-size: inherit;
     font-weight: inherit;
+    line-height: inherit;
+    font-family: inherit;
     margin: 0;
   }
 </style>
@@ -17,7 +19,7 @@ eleventyNavigation:
 <section class="no-heading">
   <div class="ds-example">
     <sl-inline-message variant="danger" style="inline-size: 80%;">
-        <h2 slot="title">There are some problems</h2>
+        <h2 class="title" slot="title">There are some problems</h2>
         Please fulfill all required fields:
         <ul>
           <li style="font-size: 1.4rem;">Last name is required</li>

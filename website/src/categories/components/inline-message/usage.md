@@ -24,14 +24,14 @@ eleventyNavigation:
   </div>
 
   <div class="ds-code">
-
-    ```html
-      <sl-inline-message variant="success">
-        <h2 slot="title">Congratulations!</h2>
-        The exercise has...
-      </sl-inline-message>
-    ```
-
+  
+  ```html
+    <sl-inline-message variant="success">
+      <h2 slot="title">Congratulations!</h2>
+      The exercise has...
+    </sl-inline-message>
+  ```
+  
   </div>
 </section>
 

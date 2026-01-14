@@ -30,16 +30,16 @@ eleventyNavigation:
 
   <div class="ds-code">
 
-    ```html
-      <sl-inline-message variant="danger">
-        <h2 slot="title">There are some problems</h2>
-        Please fulfill all...
-        <ul>
-          <li>Last name is required</li>
-          <li>...</li>
-        </ul>
-      </sl-inline-message>
-    ```
+  ```html
+    <sl-inline-message variant="danger">
+      <h2 slot="title">There are some problems</h2>
+      Please fulfill all...
+      <ul>
+        <li>Last name is required</li>
+        <li>...</li>
+      </ul>
+    </sl-inline-message>
+  ```
 
   </div>
 </section>

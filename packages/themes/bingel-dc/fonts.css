@@ -1,0 +1,10 @@
+@font-face {
+  font-family: EnOhPee;
+  font-weight: 400;
+  src: url('./fonts/EnOhPee-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: EnOhPee;
+  font-weight: 700;
+  src: url('./fonts/EnOhPee-Bold.woff2') format('woff2');
+}

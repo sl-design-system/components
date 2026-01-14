@@ -1,0 +1,432 @@
+[
+	{
+		"name": "Tokens",
+		"group": "Tokens",
+		"selectedTokenSets": {
+			"primitives": "enabled",
+			"system": "enabled",
+			"tokens/base-new": "enabled",
+			"tokens/theme-new": "enabled"
+		}
+	},
+	{
+		"name": "Collection I",
+		"group": "Base",
+		"selectedTokenSets": {
+			"I/theme-new": "enabled",
+			"I/base-new": "enabled"
+		}
+	},
+	{
+		"name": "Collection II",
+		"group": "Base",
+		"selectedTokenSets": {
+			"II/base-new": "enabled",
+			"II/theme-new": "enabled"
+		}
+	},
+	{
+		"name": "Sanoma Learning",
+		"group": "Themes I",
+		"selectedTokenSets": {
+			"sanoma-learning/theme-new": "enabled",
+			"sanoma-learning/base-new": "enabled"
+		}
+	},
+	{
+		"name": "Tig",
+		"group": "Themes I",
+		"selectedTokenSets": {
+			"tig/theme-new": "enabled",
+			"tig/base-new": "enabled"
+		}
+	},
+	{
+		"name": "Max",
+		"group": "Themes I",
+		"selectedTokenSets": {
+			"max/theme-new": "enabled",
+			"max/base-new": "enabled"
+		}
+	},
+	{
+		"name": "Bingel DC",
+		"group": "Themes I",
+		"selectedTokenSets": {
+			"bingel-dc/theme-new": "enabled",
+			"bingel-dc/base-new": "enabled"
+		}
+	},
+	{
+		"name": "Bingel INT",
+		"group": "Themes I",
+		"selectedTokenSets": {
+			"bingel-int/theme-new": "enabled",
+			"bingel-int/base-new": "enabled"
+		}
+	},
+	{
+		"name": "Click Edu",
+		"group": "Themes I",
+		"selectedTokenSets": {
+			"clickedu/theme-new": "enabled",
+			"clickedu/base-new": "enabled"
+		}
+	},
+	{
+		"name": "Magister",
+		"group": "Themes I",
+		"selectedTokenSets": {
+			"magister/theme-new": "enabled",
+			"magister/base-new": "enabled"
+		}
+	},
+	{
+		"name": "Neon",
+		"group": "Themes I",
+		"selectedTokenSets": {
+			"neon/theme-new": "enabled",
+			"neon/base-new": "enabled"
+		}
+	},
+	{
+		"name": "Editorial Suite",
+		"group": "Themes I",
+		"selectedTokenSets": {
+			"editorial-suite/theme-new": "enabled",
+			"editorial-suite/base-new": "enabled"
+		}
+	},
+	{
+		"name": "Its Learning",
+		"group": "Themes I",
+		"selectedTokenSets": {
+			"itslearning/theme-new": "enabled",
+			"itslearning/base-new": "enabled"
+		}
+	},
+	{
+		"name": "My Digital Book",
+		"group": "Themes I",
+		"selectedTokenSets": {
+			"my-digital-book/theme-new": "enabled",
+			"my-digital-book/base-new": "enabled"
+		}
+	},
+	{
+		"name": "Kampus",
+		"group": "Themes I",
+		"selectedTokenSets": {
+			"kampus/theme-new": "enabled",
+			"kampus/base-new": "enabled"
+		}
+	},
+	{
+		"name": "Teas",
+		"group": "Themes I",
+		"selectedTokenSets": {
+			"teas/theme-new": "enabled",
+			"teas/base-new": "enabled"
+		}
+	},
+	{
+		"name": "Placeholder",
+		"group": "Themes II",
+		"selectedTokenSets": {
+			"placeholder/theme-new": "enabled",
+			"placeholder/base-new": "enabled"
+		}
+	},
+	{
+		"name": "Light",
+		"group": "Sanoma Learning",
+		"selectedTokenSets": {
+			"sanoma-learning/light-new": "enabled"
+		}
+	},
+	{
+		"name": "Dark",
+		"group": "Sanoma Learning",
+		"selectedTokenSets": {
+			"sanoma-learning/dark-new": "enabled"
+		}
+	},
+	{
+		"name": "Light",
+		"group": "Bingel DC",
+		"selectedTokenSets": {
+			"bingel-dc/light-new": "enabled"
+		}
+	},
+	{
+		"name": "Light",
+		"group": "Bingel Int",
+		"selectedTokenSets": {
+			"bingel-int/light-new": "enabled"
+		}
+	},
+	{
+		"name": "Light",
+		"group": "Click edu",
+		"selectedTokenSets": {
+			"clickedu/light-new": "enabled"
+		}
+	},
+	{
+		"name": "Light",
+		"group": "Editorial Suite",
+		"selectedTokenSets": {
+			"editorial-suite/light-new": "enabled"
+		}
+	},
+	{
+		"name": "Light",
+		"group": "Its Learning",
+		"selectedTokenSets": {
+			"itslearning/light-new": "enabled"
+		}
+	},
+	{
+		"name": "Light",
+		"group": "Kampus",
+		"selectedTokenSets": {
+			"kampus/light-new": "enabled"
+		}
+	},
+	{
+		"name": "Light",
+		"group": "Magister",
+		"selectedTokenSets": {
+			"magister/light-new": "enabled"
+		}
+	},
+	{
+		"name": "Dark",
+		"group": "Magister",
+		"selectedTokenSets": {
+			"magister/dark-new": "enabled"
+		}
+	},
+	{
+		"name": "Light",
+		"group": "Max",
+		"selectedTokenSets": {
+			"max/light-new": "enabled"
+		}
+	},
+	{
+		"name": "Light",
+		"group": "My Digital Book",
+		"selectedTokenSets": {
+			"my-digital-book/light-new": "enabled"
+		}
+	},
+	{
+		"name": "Light",
+		"group": "Neon",
+		"selectedTokenSets": {
+			"neon/light-new": "enabled"
+		}
+	},
+	{
+		"name": "Dark",
+		"group": "Neon",
+		"selectedTokenSets": {
+			"neon/dark-new": "enabled"
+		}
+	},
+	{
+		"name": "Light",
+		"group": "Teas",
+		"selectedTokenSets": {
+			"teas/light-new": "enabled"
+		}
+	},
+	{
+		"name": "Light",
+		"group": "Tig",
+		"selectedTokenSets": {
+			"tig/light-new": "enabled"
+		}
+	},
+	{
+		"name": "Tig",
+		"group": "Legacy",
+		"selectedTokenSets": {
+			"tig/base": "enabled",
+			"tig/light": "enabled"
+		}
+	},
+	{
+		"name": "Bingel DC",
+		"group": "Legacy",
+		"selectedTokenSets": {
+			"bingel-dc/light": "enabled",
+			"bingel-dc/base": "enabled"
+		}
+	},
+	{
+		"name": "My Digital Book",
+		"group": "Legacy",
+		"selectedTokenSets": {
+			"my-digital-book/light": "enabled",
+			"my-digital-book/base": "enabled"
+		}
+	},
+	{
+		"name": "Neon",
+		"group": "Legacy",
+		"selectedTokenSets": {
+			"neon/light": "enabled",
+			"neon/dark": "enabled",
+			"neon/base": "enabled"
+		}
+	},
+	{
+		"name": "Sanoma Learning",
+		"group": "Legacy",
+		"selectedTokenSets": {
+			"sanoma-learning/base": "enabled",
+			"sanoma-learning/light": "enabled",
+			"sanoma-learning/dark": "enabled"
+		}
+	},
+	{
+		"name": "Teas",
+		"group": "Legacy",
+		"selectedTokenSets": {
+			"teas/light": "enabled",
+			"teas/base": "enabled"
+		}
+	},
+	{
+		"name": "Magister",
+		"group": "Legacy",
+		"selectedTokenSets": {
+			"magister/light": "enabled",
+			"magister/base": "enabled",
+			"magister/dark": "enabled"
+		}
+	},
+	{
+		"name": "Max",
+		"group": "Legacy",
+		"selectedTokenSets": {
+			"max/base": "enabled",
+			"max/light": "enabled"
+		}
+	},
+	{
+		"name": "Kampus",
+		"group": "Legacy",
+		"selectedTokenSets": {
+			"kampus/light": "enabled",
+			"kampus/base": "enabled"
+		}
+	},
+	{
+		"name": "Editorial Suite",
+		"group": "Legacy",
+		"selectedTokenSets": {
+			"editorial-suite/light": "enabled",
+			"editorial-suite/base": "enabled"
+		}
+	},
+	{
+		"name": "Its Learning",
+		"group": "Legacy",
+		"selectedTokenSets": {
+			"itslearning/light": "enabled",
+			"itslearning/base": "enabled"
+		}
+	},
+	{
+		"name": "Bingel INT",
+		"group": "Legacy",
+		"selectedTokenSets": {
+			"bingel-int/base": "enabled",
+			"bingel-int/light": "enabled"
+		}
+	},
+	{
+		"name": "Click Edu",
+		"group": "Legacy",
+		"selectedTokenSets": {
+			"clickedu/base": "enabled",
+			"clickedu/light": "enabled"
+		}
+	},
+	{
+		"name": "Compact",
+		"group": "Early readers",
+		"selectedTokenSets": {
+			"target-group/early/compact": "enabled"
+		}
+	},
+	{
+		"name": "Relaxed",
+		"group": "Early readers",
+		"selectedTokenSets": {
+			"target-group/early/relaxed": "enabled"
+		}
+	},
+	{
+		"name": "Default",
+		"group": "Early readers",
+		"selectedTokenSets": {
+			"target-group/early/default": "enabled"
+		}
+	},
+	{
+		"name": "Compact",
+		"group": "Advanced readers",
+		"selectedTokenSets": {
+			"target-group/advanced/compact": "enabled"
+		}
+	},
+	{
+		"name": "Default",
+		"group": "Advanced readers",
+		"selectedTokenSets": {
+			"target-group/advanced/default": "enabled"
+		}
+	},
+	{
+		"name": "Relaxed",
+		"group": "Advanced readers",
+		"selectedTokenSets": {
+			"target-group/advanced/relaxed": "enabled"
+		}
+	},
+	{
+		"name": "Early",
+		"group": "Target group",
+		"selectedTokenSets": {
+			"target-group/spacing": "enabled",
+			"target-group/typography": "enabled",
+			"target-group/base": "enabled",
+			"target-group/early/base": "enabled",
+			"target-group/early/spacing": "enabled",
+			"target-group/early/typography": "enabled"
+		}
+	},
+	{
+		"name": "Advanced",
+		"group": "Target group",
+		"selectedTokenSets": {
+			"target-group/spacing": "enabled",
+			"target-group/typography": "enabled",
+			"target-group/base": "enabled",
+			"target-group/advanced/base": "enabled",
+			"target-group/advanced/spacing": "enabled",
+			"target-group/advanced/typography": "enabled"
+		}
+	},
+	{
+		"name": "Light",
+		"group": "Placeholder",
+		"selectedTokenSets": {
+			"placeholder/light-new": "enabled"
+		}
+	}
+]

@@ -367,6 +367,19 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     }
 
     if (changes.has('autocomplete') || changes.has('selectOnly')) {
+      const value = this.#ariaAutocomplete;
+
+      // Warn developers about conflicting configuration
+      if (this.selectOnly && this.autocomplete && this.autocomplete !== 'off') {
+        console.warn(
+          `sl-combobox: The 'autocomplete="${this.autocomplete}"' property is ignored when 'selectOnly' is true. ` +
+            'Select-only comboboxes are readonly and cannot have autocomplete. ' +
+            'The component will use aria-autocomplete="none" instead.'
+        );
+      }
+
+      // Set ARIA-compliant aria-autocomplete value (maps 'off' to 'none')
+      this.input.setAttribute('aria-autocomplete', value);
       this.input.readOnly = this.selectOnly ?? this.autocomplete === 'off';
     }
 

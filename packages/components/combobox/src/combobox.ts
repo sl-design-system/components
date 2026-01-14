@@ -240,6 +240,15 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   /** @internal The wrapper element that is also the popover. */
   @query('[part="wrapper"]') wrapper?: HTMLSlotElement;
 
+  /** @internal The aria-autocomplete value based on the component state. */
+  get #ariaAutocomplete(): 'none' | 'inline' | 'list' | 'both' {
+    if (this.selectOnly || this.autocomplete === 'off') {
+      return 'none';
+    }
+
+    return this.autocomplete || 'both';
+  }
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -254,7 +263,8 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     }
 
     this.input.setAttribute('role', 'combobox');
-    this.input.setAttribute('aria-autocomplete', this.autocomplete || 'both');
+    // this.input.setAttribute('aria-autocomplete', this.autocomplete || 'both');
+    this.input.setAttribute('aria-autocomplete', this.#ariaAutocomplete);
     this.input.setAttribute('aria-expanded', 'false');
     this.input.setAttribute('aria-haspopup', 'listbox');
 

@@ -10,10 +10,6 @@
     {
       "name": "Option",
       "selector": "sl-option"
-    },
-    {
-      "name": "Listbox",
-      "selector": "sl-listbox"
     }
-      ]
+  ]
 }

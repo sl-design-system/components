@@ -3,8 +3,7 @@ title: Select code
 tags: code
 APIdescription: {
   sl-select: "Select component has a range of properties, attributes etc. to define the experience in different use cases, and it can be used as the replacement of the HTML native select element.",
-  sl-listbox: "Listbox is a reusable container component for a list of options, used internally by Select component (and a few other components).",
-  sl-option: "Option represents a single option in a list of options, used internally by components like Select and Listbox.",
+  sl-option: "Option represents a single option in a list of options, used internally by components like Select (and Listbox).",
 }
 eleventyNavigation:
   parent: Select
@@ -55,4 +54,15 @@ eleventyNavigation:
 
 </section>
 <ds-install-info link-in-navigation package="select"></ds-install-info>
+<section>
+
+## Listbox
+
+Listbox is a reusable container component for a list of options, used internally by Select component (and a few other components).
+
+For rendering select options you can also use a listbox `renderer` to customize how an option in the `options` array is rendered.
+
+The listbox component can be used standalone or as part of other components like Select.
+
+</section>
 {% include "../component-table.njk" %}

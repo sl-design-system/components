@@ -37,9 +37,9 @@ export type SelectSize = 'md' | 'lg';
  *
  * @slot default - Place for `sl-option` and `sl-option-group` elements
  * @csspart listbox - Set `--sl-popover-max-block-size` and/or `--sl-popover-min-block-size` to control the minimum and maximum height of the dropdown (within the limits of the available screen real estate)
- * @csspart selected - The selected option element (from `sl-select-button`)
- * @csspart selected-option - The container for the selected option (from `sl-select-button`)
- * @csspart placeholder - The placeholder text when no option is selected (from `sl-select-button`)
+ * @csspart selected - The selected option element (for `sl-select-button`)
+ * @csspart selected-option - The container for the selected option (for `sl-select-button`)
+ * @csspart placeholder - The placeholder text when no option is selected (for `sl-select-button`)
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

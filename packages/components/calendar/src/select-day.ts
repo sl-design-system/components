@@ -366,6 +366,10 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onChange(event: SlChangeEvent<Date>): void {
+    // Do not let the event bubble up to `<sl-calendar>`
+    event.preventDefault();
+    event.stopPropagation();
+
     const newMonth = new Date(event.detail.getFullYear(), event.detail.getMonth());
 
     // Check if the new month is within min/max boundaries

@@ -137,6 +137,8 @@ describe('sl-grid-filter-column', () => {
       const filter = el.renderRoot.querySelector<GridFilter>('thead tr:last-of-type th:last-of-type sl-grid-filter')!,
         selectButton = filter.renderRoot.querySelector('sl-select-button');
 
+      console.log('selectButton', selectButton, 'renderRoot', selectButton?.renderRoot);
+
       expect(selectButton?.renderRoot).to.have.trimmed.text('Premium');
     });
 

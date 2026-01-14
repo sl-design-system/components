@@ -78,6 +78,11 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   /** The initial state when the form was associated with the select. Used to reset the select. */
   #initialState?: T;
 
+  /** Track when focus is intentionally leaving the component (e.g. by clicking outside or tabbing away).
+   * Set to true in #onFocusout when the listbox is open, and we're not already programmatically closing it.
+   * Used to prevent restoring focus to the button when the user intentionally moved focus elsewhere. */
+  #focusLeavingComponent = false;
+
   /** Detect when options are added to the host, or a nested option group and clear the cache. */
   #observer = new MutationObserver(() => this.#rovingTabindexController.clearElementCache());
 
@@ -412,9 +417,17 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
       (!(event.relatedTarget instanceof Element) || event.relatedTarget?.closest('sl-select') !== this);
 
     if (leavingComponent) {
-      if (this.listbox?.matches(':popover-open')) {
-        this.listbox.hidePopover();
+      const listboxIsOpen = this.listbox?.matches(':popover-open');
 
+      // Mark as "focus leaving component" when:
+      // - We're not already in the process of programmatically closing (#popoverClosing),
+      // - The listbox is currently open (if open, we'll close it, which means this is initiated by user).
+      if (!this.#popoverClosing && listboxIsOpen) {
+        this.#focusLeavingComponent = true;
+      }
+
+      if (listboxIsOpen) {
+        this.listbox!.hidePopover();
         this.#popoverClosing = true;
       }
 
@@ -452,6 +465,8 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
     if (option) {
       this.#setSelectedOption(option);
+      // Programmatically closing, not because user moved focus away
+      this.#popoverClosing = true; // TODO: really necessary here?
       this.listbox?.hidePopover();
     }
   }
@@ -502,12 +517,14 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     if (event.newState === 'open') {
       this.#rovingTabindexController.focus();
     } else if (event.newState === 'closed') {
-      const activeElement = (this.getRootNode() as Document | ShadowRoot).activeElement;
-      if (activeElement?.closest('sl-select') === this) {
+      // Only restore focus to the button if the popover was closed by selecting an option,
+      // not when focus was moved away intentionally (e.g. by clicking outside or tabbing away)
+      if (!this.#focusLeavingComponent) {
         this.button.focus();
       }
 
       this.#popoverClosing = false;
+      this.#focusLeavingComponent = false;
     }
   }
 

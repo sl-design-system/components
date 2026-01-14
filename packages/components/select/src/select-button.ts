@@ -32,8 +32,6 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
     };
   }
 
-  // TODO: maybe add description of the listbox as well? Or at least information about parts from the listbox?
-
   /** @internal */
   static override styles: CSSResultGroup = styles;
 

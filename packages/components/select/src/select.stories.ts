@@ -170,7 +170,9 @@ export const CustomStyling: Story = {
         }
       </style>
 
-      <p>This story shows a select component with custom styling.</p>
+      <p>
+        This story shows a select component with custom styling. Each option displays a colored circle, and a label.
+      </p>
 
       <sl-select placeholder="Select a color">
         <sl-option value="red">
@@ -190,7 +192,7 @@ export const CustomStyling: Story = {
   }
 };
 
-export const WithListboxRenderer: Story = {
+export const OptionsStyling: Story = {
   render: () => {
     const options = [
       { value: 'circle', label: 'Circle', icon: 'fas-circle' },
@@ -244,9 +246,9 @@ export const WithListboxRenderer: Story = {
         }
       </style>
       <p>
-        This story demonstrates the use of a sl-listbox <code>renderer</code> function to render select options with
-        custom content, including icons and styled elements. Each option displays a colored circle, an sl-icon, and a
-        label. label. The story shows how to style the selected option display and individual option containers.
+        This story demonstrates select options with custom content, including icons and styled elements. Each option
+        displays a colored circle, an sl-icon, and a label. label. The story shows how to style the selected option
+        display and individual option containers.
       </p>
       <sl-select value="circle">${options.map(optionsRenderer)} </sl-select>
     `;

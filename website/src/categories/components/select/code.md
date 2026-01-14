@@ -58,9 +58,8 @@ eleventyNavigation:
 
 ## Listbox
 
-Listbox is a reusable container component for a list of options, used internally by Select component (and a few other components).
-
-For rendering select options you can also use a listbox `renderer` to customize how an option in the `options` array is rendered.
+Listbox is a reusable container component for a list of options, used internally by Select component
+(and a few other components that need to present a selectable list).
 
 The listbox component can be used standalone or as part of other components like Select.
 

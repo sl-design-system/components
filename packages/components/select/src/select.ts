@@ -97,6 +97,10 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     listenerScope: (): HTMLElement => this.listbox!
   });
 
+  #selectedContentContainer?: HTMLElement;
+
+  #lastRenderedOption?: Option | null;
+
   /**
    * @internal Since we move the aria-label to the button, we need to proxy it here,
    * otherwise the `<sl-form-validation-errors>` component will not be able to read it.
@@ -313,31 +317,57 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   }
 
   #renderSelectedContent(): void {
-    const existingContent = this.button.querySelector('[slot="selected-content"]');
-
-    if (existingContent) {
-      existingContent.remove();
-    }
-
-    if (!this.selectedOption) {
+    if (!this.button) {
       return;
     }
 
-    const slotNodes = this.selectedOption.renderRoot.querySelector('slot')?.assignedNodes(),
+    // Avoid unnecessary DOM work if the selected option hasn't changed
+    if (this.#lastRenderedOption === this.selectedOption) {
+      return;
+    }
+
+    let container =
+      this.#selectedContentContainer ??
+      this.button.querySelector<HTMLElement>('[slot="selected-content"]') ??
+      undefined;
+
+    if (!this.selectedOption) {
+      // No selected option: remove any existing selected-content container
+      if (container && container.parentNode === this.button) {
+        container.remove();
+      }
+
+      this.#selectedContentContainer = undefined;
+      this.#lastRenderedOption = null;
+
+      return;
+    }
+
+    if (!container) {
       container = document.createElement('span');
+      container.setAttribute('slot', 'selected-content');
 
-    container.setAttribute('slot', 'selected-content');
+      // Append the selected content as a child of the button (in the button's light DOM)
+      this.button.appendChild(container);
+    }
 
-    if (slotNodes?.length) {
+    this.#selectedContentContainer = container;
+
+    const slotNodes = this.selectedOption.renderRoot.querySelector('slot')?.assignedNodes() ?? [];
+
+    if (slotNodes.length) {
+      const clones: Node[] = [];
+
       slotNodes.forEach(node => {
-        container.appendChild(node.cloneNode(true));
+        clones.push(node.cloneNode(true));
       });
+
+      container.replaceChildren(...clones);
     } else {
       container.textContent = this.selectedOption.textContent?.trim() || '';
     }
 
-    // Append the selected content as a child of the button (in the button's light DOM)
-    this.button.appendChild(container);
+    this.#lastRenderedOption = this.selectedOption;
   }
 
   #onBeforetoggle({ newState }: ToggleEvent): void {

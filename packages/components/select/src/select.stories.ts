@@ -214,8 +214,6 @@ export const OptionsStyling: Story = {
 
           .colorball {
             display: inline-block;
-            width: 1em;
-            height: 1em;
             border-radius: 50%;
             margin-inline-end: 0.5em;
           }

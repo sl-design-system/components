@@ -10993,6 +10993,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"deprecated-tokens@workspace:scripts/deprecated-tokens":
+  version: 0.0.0-use.local
+  resolution: "deprecated-tokens@workspace:scripts/deprecated-tokens"
+  dependencies:
+    "@tokens-studio/sd-transforms": "npm:^2.0.1"
+    "@tokens-studio/sdk": "npm:^3.0.1"
+  languageName: unknown
+  linkType: soft
+
 "dequal@npm:^2.0.0, dequal@npm:^2.0.3":
   version: 2.0.3
   resolution: "dequal@npm:2.0.3"

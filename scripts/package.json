@@ -7,8 +7,12 @@
   "type": "module",
   "scripts": {
     "import-tokens": "yarn exec tokensstudio pull --host graphql.prod.tokens.studio",
+    "import-tokens-deprecated": "yarn workspace deprecated-tokens exec tokensstudio pull --host graphql.prod.tokens.studio",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "workspaces": [
+    "deprecated-tokens"
+  ],
   "devDependencies": {
     "@figma-export/cli": "^6.2.3",
     "@figma-export/output-components-as-svg": "^6.2.3",

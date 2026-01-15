@@ -404,4 +404,4 @@ const build = async (production = false, path, deprecated) => {
   }
 };
 
-build(argv.includes('--production'), '../packages/tokens/src/tokens', '../packages/tokens/src/deprecated/tokens')
+build(argv.includes('--production'), '../packages/tokens/src/tokens', '../packages/tokens/src/deprecated/tokens');

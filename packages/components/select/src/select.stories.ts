@@ -245,8 +245,8 @@ export const OptionsStyling: Story = {
       </style>
       <p>
         This story demonstrates select options with custom content, including icons and styled elements. Each option
-        displays a colored circle, an sl-icon, and a label. label. The story shows how to style the selected option
-        display and individual option containers.
+        displays a colored circle, an sl-icon, and a label. The story shows how to style the selected option display and
+        individual option containers.
       </p>
       <sl-select value="circle">${options.map(optionsRenderer)} </sl-select>
     `;

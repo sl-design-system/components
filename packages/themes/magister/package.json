@@ -1,7 +1,7 @@
 {
   "name": "@sl-design-system/magister",
   "description": "Magister theme for the SL Design System",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "license": "Apache 2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -20,8 +20,12 @@
     "./global.css": "./global.css",
     "./light.css": "./light.css",
     "./light.min.css": "./light.min.css",
+    "./light-deprecated.css": "./light-deprecated.css",
+    "./light-deprecated.min.css": "./light-deprecated.min.css",
     "./dark.css": "./dark.css",
     "./dark.min.css": "./dark.min.css",
+    "./dark-deprecated.css": "./dark-deprecated.css",
+    "./dark-deprecated.min.css": "./dark-deprecated.min.css",
     "./package.json": "./package.json",
     "./css/*.css": "./css/*.css"
   },
@@ -37,6 +41,6 @@
     "CHANGELOG.md"
   ],
   "dependencies": {
-    "@sl-design-system/icon": "1.3.1"
+    "@sl-design-system/icon": "1.4.1"
   }
 }

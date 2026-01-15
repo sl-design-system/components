@@ -6,24 +6,33 @@ eleventyNavigation:
   parent: Inline message
   key: InlineMessageCode
 ---
+<style>
+  .title {
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    font-family: inherit;
+    margin: 0;
+  }
+</style>
+
 <section class="no-heading">
+  <div class="ds-example">
+    <sl-inline-message variant="danger" style="inline-size: 80%;">
+        <h2 class="title" slot="title">There are some problems</h2>
+        Please fulfill all required fields:
+        <ul>
+          <li style="font-size: 1.4rem;">Last name is required</li>
+          <li style="font-size: 1.4rem;">School name is required</li>
+        </ul>
+      </sl-inline-message>
+  </div>
 
-<div class="ds-example">
-  <sl-inline-message variant="danger" style="inline-size: 80%;">
-      <span slot="title">There are some problems</span>
-      Please fulfill all required fields:
-      <ul>
-        <li style="font-size: 1.4rem;">Last name is required</li>
-        <li style="font-size: 1.4rem;">School name is required</li>
-      </ul>
-    </sl-inline-message>
-</div>
-
-<div class="ds-code">
+  <div class="ds-code">
 
   ```html
     <sl-inline-message variant="danger">
-      <span slot="title">There are some problems</span>
+      <h2 slot="title">There are some problems</h2>
       Please fulfill all...
       <ul>
         <li>Last name is required</li>
@@ -32,8 +41,7 @@ eleventyNavigation:
     </sl-inline-message>
   ```
 
-</div>
-
+  </div>
 </section>
 <ds-install-info link-in-navigation package="inline-message"></ds-install-info>
 {% include "../component-table.njk" %}

@@ -16,6 +16,13 @@ declare global {
   }
 }
 
+/**
+ * SelectButton is used internally by the Select component to display the selected
+ * option and handle user interactions.
+ *
+ * @csspart placeholder - The placeholder text when no option is selected.
+ * @csspart selected-option - The container for the selected option.
+ */
 @localized()
 export class SelectButton extends ScopedElementsMixin(LitElement) {
   /** @internal */
@@ -40,17 +47,20 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   /** Whether the button is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
-  /** The placeholder for when there is no selected option.s */
+  /** The width of the longest option. */
+  @property({ type: Number, attribute: 'option-size' }) optionSize?: number;
+
+  /** The placeholder for when there is no selected option. */
   @property() placeholder?: string;
+
+  /** Mirrors the same property on the sl-select parent. */
+  @property({ type: Boolean }) required?: boolean;
 
   /** The selected option. */
   @property({ attribute: false }) selected?: Option | null;
 
   /** The size of the parent select. */
   @property({ reflect: true }) size?: SelectSize;
-
-  /** Mirrors the same property on the sl-select parent. */
-  @property({ type: Boolean }) required?: boolean;
 
   /** Indicates whether the control should indicate it is valid. */
   @property({ type: Boolean, attribute: 'show-valid', reflect: true }) showValid?: boolean;
@@ -80,16 +90,34 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     let selected: string | HTMLElement | undefined = undefined;
 
-    if (this.selected?.childElementCount) {
+    if (this.selected?.childElementCount === 1) {
+      selected = this.selected.children[0].cloneNode(true) as HTMLElement;
+      selected.part.add('selected');
+    } else if (this.selected?.childElementCount) {
       selected = this.selected.cloneNode(true) as HTMLElement;
+      selected.removeAttribute('aria-selected');
       selected.removeAttribute('selected');
       selected.part.add('selected');
     } else {
       selected = this.selected?.textContent?.trim();
     }
 
+    let inlineSize = '100%';
+
+    if (this.optionSize) {
+      const shouldAccountForClearButton = this.clearable && !this.selected,
+        clearButtonTotalWidth =
+          4 /* clear button margin: margin-inline-start: var(--sl-size-050) */ +
+          34 /* clear button width: block-size: calc(1lh + (var(--sl-size-100) - var(--sl-size-borderWidth-default)) * 2);  */ +
+          4; /* status icon padding: difference between the padding-inline-start with and without the clear button */
+
+      inlineSize = `${this.optionSize + (shouldAccountForClearButton ? clearButtonTotalWidth : 0)}px`;
+    }
+
     return html`
-      <div class=${this.placeholder && !selected ? 'placeholder' : ''}>${selected || this.placeholder || '\u00a0'}</div>
+      <div part=${this.placeholder && !selected ? 'placeholder' : 'selected-option'} style="inline-size: ${inlineSize}">
+        ${selected || this.placeholder || '\u00a0'}
+      </div>
       ${!this.disabled && this.clearable && this.selected
         ? html`
             <button

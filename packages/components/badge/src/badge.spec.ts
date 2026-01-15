@@ -63,6 +63,16 @@ describe('sl-badge', () => {
     });
   });
 
+  describe('small with label', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-badge size="sm">In progress</sl-badge>`);
+    });
+
+    it('should have a round attribute', () => {
+      expect(el).to.have.attribute('round');
+    });
+  });
+
   describe('single character', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-badge>9</sl-badge>`);

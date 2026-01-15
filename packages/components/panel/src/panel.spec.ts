@@ -274,7 +274,8 @@ describe('sl-panel', () => {
       await new Promise(resolve => setTimeout(resolve, 400));
     });
 
-    it('should have no header attribute when there is nothing in the header', () => {
+    it('should have no header attribute when there is nothing in the header', async () => {
+      await el.updateComplete;
       expect(el).to.have.attribute('no-header');
     });
 

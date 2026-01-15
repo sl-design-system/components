@@ -1,5 +1,38 @@
 # @sl-design-system/tree
 
+## 0.2.1
+
+### Patch Changes
+
+- [#2811](https://github.com/sl-design-system/components/pull/2811) [`1d21347`](https://github.com/sl-design-system/components/commit/1d213470811d7711442fde1367fe301d784d32eb) - Fix lazy loaded children to inherit the selected state of the parent node
+
+- Updated dependencies [[`df7af95`](https://github.com/sl-design-system/components/commit/df7af9509ebf675a572267f30cf36e835075b0fe), [`f676dd5`](https://github.com/sl-design-system/components/commit/f676dd52c83ef2f3429d9a393b5ec634fc05bf0e), [`d807cb2`](https://github.com/sl-design-system/components/commit/d807cb22702dc5ac1399cf0528f9ceeeb1f09f60)]:
+  - @sl-design-system/data-source@0.2.3
+  - @sl-design-system/icon@1.4.1
+
+## 0.2.0
+
+### Minor Changes
+
+- [#2715](https://github.com/sl-design-system/components/pull/2715) [`d0c4db2`](https://github.com/sl-design-system/components/commit/d0c4db220c6a5826a0c9e5bc8ab3943884dfcd9c) - Replace `@lit-labs/virtualizer` with `@tanstack/lit-virtual`
+
+  This is a breaking change, but not worthy of a new major version, because the component still has draft status.
+
+- [#2781](https://github.com/sl-design-system/components/pull/2781) [`781f288`](https://github.com/sl-design-system/components/commit/781f288265cad6b19215eb2815fc8eccef610403) - Various improvements:
+  - Replace `@tanstack/lit-virtual` with `@sl-design-system/virtual-list`
+  - Implement sorting of tree nodes
+  - Fix `TreeDataSource` bugs in `toggleDescendants()` and `expandAll()` methods
+  - Better documentation
+
+### Patch Changes
+
+- Updated dependencies [[`0a615b1`](https://github.com/sl-design-system/components/commit/0a615b17e65995cf637dec9c2aa17b390bafcb7e), [`781f288`](https://github.com/sl-design-system/components/commit/781f288265cad6b19215eb2815fc8eccef610403), [`d0c4db2`](https://github.com/sl-design-system/components/commit/d0c4db220c6a5826a0c9e5bc8ab3943884dfcd9c), [`1e7b6f6`](https://github.com/sl-design-system/components/commit/1e7b6f629f79d77576c2cb19d20f8884bb2f30c4), [`d0c4db2`](https://github.com/sl-design-system/components/commit/d0c4db220c6a5826a0c9e5bc8ab3943884dfcd9c)]:
+  - @sl-design-system/checkbox@2.1.7
+  - @sl-design-system/virtual-list@0.0.2
+  - @sl-design-system/button-bar@1.3.0
+  - @sl-design-system/icon@1.4.0
+  - @sl-design-system/shared@0.9.2
+
 ## 0.1.7
 
 ### Patch Changes

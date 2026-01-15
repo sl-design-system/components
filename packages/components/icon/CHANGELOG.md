@@ -1,5 +1,19 @@
 # @sl-design-system/icon
 
+## 1.4.1
+
+### Patch Changes
+
+- [#2734](https://github.com/sl-design-system/components/pull/2734) [`f676dd5`](https://github.com/sl-design-system/components/commit/f676dd52c83ef2f3429d9a393b5ec634fc05bf0e) - Refactored token for multi-colour icons, this was still using tokens that have now moved to the deprecated css files.
+
+- [#2812](https://github.com/sl-design-system/components/pull/2812) [`d807cb2`](https://github.com/sl-design-system/components/commit/d807cb22702dc5ac1399cf0528f9ceeeb1f09f60) - Change `IconPrefix` type so we no longer get errors every time a new prefix is added in FontAwesome
+
+## 1.4.0
+
+### Minor Changes
+
+- [#2761](https://github.com/sl-design-system/components/pull/2761) [`1e7b6f6`](https://github.com/sl-design-system/components/commit/1e7b6f629f79d77576c2cb19d20f8884bb2f30c4) - Support FontAwesome 7.1 (new "utility" icon pack)
+
 ## 1.3.1
 
 ### Patch Changes

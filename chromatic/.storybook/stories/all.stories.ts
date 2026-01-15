@@ -4,6 +4,7 @@ import { Colors, Sizes } from '../../../packages/components/avatar/src/avatar.st
 import { All as AllBadge } from '../../../packages/components/badge/src/badge.stories';
 import { All as AllBreadcrumbs } from '../../../packages/components/breadcrumbs/src/breadcrumbs.stories';
 import { All as AllButton } from '../../../packages/components/button/src/button.stories';
+import { All as AllCallout } from '../../../packages/components/callout/src/callout.stories';
 import { All as AllCard } from '../../../packages/components/card/src/card.stories';
 import { All as AllCheckbox } from '../../../packages/components/checkbox/src/root.stories';
 import { All as AllCombobox } from '../../../packages/components/combobox/src/combobox.stories';
@@ -19,9 +20,11 @@ import { All as AllSelect } from '../../../packages/components/select/src/select
 import { All as AllSkeleton } from '../../../packages/components/skeleton/src/skeleton.stories';
 import { All as AllSpinner } from '../../../packages/components/spinner/src/spinner.stories';
 import { All as AllSwitch } from '../../../packages/components/switch/src/switch.stories';
+import { All as AllTag } from '../../../packages/components/tag/src/root.stories';
 import { All as AllTextArea } from '../../../packages/components/text-area/src/text-area.stories';
 import { All as AllTextField } from '../../../packages/components/text-field/src/text-field.stories';
 import { All as AllToggleButton } from '../../../packages/components/toggle-button/src/toggle-button.stories';
+import { All as AllToolbar } from '../../../packages/components/tool-bar/src/tool-bar.stories';
 import { All as AllTooltip } from '../../../packages/components/tooltip/src/tooltip.stories';
 import { allModes } from "../modes";
 
@@ -68,6 +71,7 @@ export const AvatarSizes = { render: Sizes.render };
 export const Badge = { render: AllBadge.render };
 export const Breadcrumbs = { render: AllBreadcrumbs.render };
 export const Button = { render: AllButton.render };
+export const Callout = { render: AllCallout.render };
 export const Card = { render: AllCard.render };
 export const Checkbox = { render: AllCheckbox.render };
 export const Combobox = { render: AllCombobox.render };
@@ -83,7 +87,9 @@ export const Select = { render: AllSelect.render };
 export const Skeleton = { render: AllSkeleton.render };
 export const Spinner = { render: AllSpinner.render };
 export const Switch = { render: AllSwitch.render };
+export const Tag = { render: AllTag.render };
 export const TextArea = { render: AllTextArea.render };
 export const TextField = { render: AllTextField.render };
 export const ToggleButton = { render: AllToggleButton.render };
+export const Toolbar = { render: AllToolbar.render };
 export const Tooltip = { render: AllTooltip.render };

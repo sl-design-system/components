@@ -6,11 +6,15 @@ import {
 } from './tree-data-source.js';
 
 export interface NestedTreeDataSourceMapping<T> extends TreeDataSourceMapping<T> {
+  /** Returns the children of the given item. */
   getChildren(item: T): T[] | Promise<T[]> | undefined;
 }
 
 export interface NestedTreeDataSourceOptions<T> extends NestedTreeDataSourceMapping<T> {
+  /** Provide this method to lazy load child nodes when a parent node is expanded. */
   loadChildren?(node: T): Promise<T[]>;
+
+  /** Enables multiple selection of tree nodes. */
   multiple?: boolean;
 }
 
@@ -19,8 +23,13 @@ export interface NestedTreeDataSourceOptions<T> extends NestedTreeDataSourceMapp
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class NestedTreeDataSource<T = any> extends TreeDataSource<T> {
+  /** The mapping from the source model to the tree model. */
   #mapping: NestedTreeDataSourceMapping<T>;
+
+  /** Array of tree nodes that were mapped from the source model. */
   #nodes: Array<TreeDataSourceNode<T>> = [];
+
+  /** Array of view nodes that represent the current state of the tree. */
   #viewNodes: Array<TreeDataSourceNode<T>> = [];
 
   get items(): Array<TreeDataSourceNode<T>> {
@@ -41,7 +50,18 @@ export class NestedTreeDataSource<T = any> extends TreeDataSource<T> {
       loadChildren = async (node: TreeDataSourceNode<T>) => {
         const children = await options.loadChildren!(node.dataNode);
 
-        return children.map((child, index) => this.#mapToTreeNode(child, node, index === children.length - 1));
+        return children.map((child, index) => {
+          const childNode = this.#mapToTreeNode(child, node, index === children.length - 1);
+
+          // If the parent is selected and we have multiple selection enabled,
+          // ensure all lazy-loaded children are also selected
+          if (this.multiple && node.selected) {
+            childNode.selected = true;
+            this.selection.add(childNode);
+          }
+
+          return childNode;
+        });
       };
     }
 
@@ -89,14 +109,16 @@ export class NestedTreeDataSource<T = any> extends TreeDataSource<T> {
       isSelected
     } = this.#mapping;
 
+    const expandable = isExpandable(item);
+
     const treeNode: TreeDataSourceNode<T> = {
       id: getId(item),
       childrenCount: getChildrenCount?.(item),
       dataNode: item,
       description: getAriaDescription?.(item),
-      expandable: isExpandable(item),
-      expanded: isExpanded?.(item) ?? false,
-      expandedIcon: getIcon?.(item, true),
+      expandable,
+      expanded: (expandable && isExpanded?.(item)) ?? false,
+      expandedIcon: expandable ? getIcon?.(item, true) : undefined,
       icon: getIcon?.(item, false),
       label: getLabel(item),
       lastNodeInLevel,

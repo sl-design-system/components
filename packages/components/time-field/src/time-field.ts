@@ -282,6 +282,10 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     `;
   }
 
+  /**
+   * Renders hour options (00–23) using hourStep, applies min/max constraints, and marks the selected hour with aria-selected.
+   * Can be overridden.
+   */
   renderHours(): TemplateResult[] {
     let hours = Array.from({ length: 24 / this.hourStep }, (_, i) => i * this.hourStep);
 
@@ -314,6 +318,10 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     );
   }
 
+  /**
+   * Renders minute options using minuteStep and marks the selected one with aria-selected.
+   * Can be overridden.
+   */
   renderMinutes(): TemplateResult[] {
     const minutes = Array.from({ length: 60 / this.minuteStep }, (_, i) => i * this.minuteStep);
 
@@ -334,9 +342,24 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** @internal */
   override updateInternalValidity(): void {
-    if (this.required && !this.value) {
+    if (!this.textField || !this.textField.input) {
+      return;
+    }
+
+    const time = this.#parseTime(this.textField.input.value),
+      isInvalidTime =
+        !time ||
+        Number.isNaN(time.hours) ||
+        Number.isNaN(time.minutes) ||
+        !this.#formatTime(time?.hours, time?.minutes);
+
+    if (isInvalidTime && !!this.textField.input.value) {
+      this.setCustomValidity(
+        msg(str`Please enter a valid time in HH${this.#getTimeSeparator()}MM.`, { id: 'sl.timeField.typeMismatch' })
+      );
+    } else if (this.required && !this.value) {
       this.setCustomValidity(msg('Please enter a time.', { id: 'sl.timeField.valueMissing' }));
-    } else if (this.value && (this.min || this.max)) {
+    } else if (this.input.value && (this.min || this.max)) {
       const time = this.#valueAsNumbers,
         minTime = this.min ? this.#parseTime(this.min) : undefined,
         maxTime = this.max ? this.#parseTime(this.max) : undefined;
@@ -370,7 +393,13 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
   }
 
-  #onButtonClick(): void {
+  #onButtonClick(event: MouseEvent): void {
+    event.stopPropagation();
+
+    if (this.disabled || this.readonly) {
+      return;
+    }
+
     // Prevents the popover from reopening immediately after it was just closed
     if (!this.#popoverJustClosed) {
       this.dialog?.togglePopover();
@@ -458,12 +487,14 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.requestUpdate();
 
       this.changeEvent.emit(this.value ?? '');
-    } else if (time && time.hours !== this.#valueAsNumbers?.hours && time.minutes !== this.#valueAsNumbers?.minutes) {
+    } else if (time && (time.hours !== this.#valueAsNumbers?.hours || time.minutes !== this.#valueAsNumbers?.minutes)) {
       this.#valueAsNumbers = time;
       this.#value = this.#formatTime(time.hours, time.minutes);
       this.requestUpdate();
 
       this.changeEvent.emit(this.value ?? '');
+
+      this.#scrollTimeIntoView(time.hours, time.minutes);
     }
 
     this.blurEvent.emit();

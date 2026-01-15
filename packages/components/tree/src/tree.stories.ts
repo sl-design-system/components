@@ -188,7 +188,7 @@ export const nestedData: NestedDataNode[] = [
 
 export default {
   title: 'Navigation/Tree',
-  tags: ['draft'],
+  tags: ['preview'],
   excludeStories: ['flatData', 'nestedData'],
   parameters: {
     a11y: {
@@ -404,7 +404,8 @@ export const LazyLoad: Story = {
         getChildren: () => undefined,
         getId: ({ id }) => id,
         getLabel: ({ id }) => id,
-        isExpandable: ({ expandable }) => !!expandable
+        isExpandable: ({ expandable }) => !!expandable,
+        multiple: true
       }
     ),
     styles: 'sl-button-bar { display: none; }'
@@ -496,5 +497,23 @@ export const Skeleton: Story = {
         isExpandable: ({ expandable }) => !!expandable
       }
     )
+  }
+};
+
+export const Sorting: Story = {
+  render: () => {
+    const ds = new NestedTreeDataSource(nestedData, {
+      getChildren: ({ children }) => children,
+      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
+      getId: item => item.id,
+      getLabel: ({ name }) => name,
+      isExpandable: ({ children }) => !!children,
+      isExpanded: ({ name }) => ['components', 'tree', 'src'].includes(name)
+    });
+
+    ds.setSort('name', 'asc');
+    ds.update();
+
+    return html`<sl-tree .dataSource=${ds} aria-label="Tree label" style="max-inline-size: 300px"></sl-tree>`;
   }
 };

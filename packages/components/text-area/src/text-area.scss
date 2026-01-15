@@ -3,6 +3,7 @@
   --_bg-mix-color: var(--sl-color-background-input-interactive);
   --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
   --_border: var(--sl-color-border-input);
+  --sl-text-area-rows: 3;
 
   align-items: start;
   background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));

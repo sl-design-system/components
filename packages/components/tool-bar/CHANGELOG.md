@@ -1,5 +1,50 @@
 # @sl-design-system/tool-bar
 
+## 0.2.0
+
+### Minor Changes
+
+- [#2867](https://github.com/sl-design-system/components/pull/2867) [`198b92f`](https://github.com/sl-design-system/components/commit/198b92f8ef43283e9809b80e348e03ed45103fe9) - **Breaking Changes:**
+  - Removed `fill` property - use `type` property instead. If you were using `fill="outline"`, change it to `type="outline"`. If you were using `fill="ghost"`, change it to `type="ghost"`.
+  - Removed `no-border` property - border now only shows in `contained` variant (except when `inverted`).
+
+  **New Features:**
+  - Added `contained` property to enable contained mode
+  - Added keyboard navigation support for arrow keys when toolbar is focused
+  - Added `inverted` property to the divider component
+
+  **Improvements:**
+  - Improved overall styling and fixed overflow behavior issues
+
+### Patch Changes
+
+- [#2917](https://github.com/sl-design-system/components/pull/2917) [`73fbd20`](https://github.com/sl-design-system/components/commit/73fbd2021c53a4729d9bbe5dcb697c0449a33a75) - Reverted the breaking change from the previous version; the `fill` property is now supported again as it was in earlier versions.
+
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies [[`f676dd5`](https://github.com/sl-design-system/components/commit/f676dd52c83ef2f3429d9a393b5ec634fc05bf0e), [`f676dd5`](https://github.com/sl-design-system/components/commit/f676dd52c83ef2f3429d9a393b5ec634fc05bf0e), [`f676dd5`](https://github.com/sl-design-system/components/commit/f676dd52c83ef2f3429d9a393b5ec634fc05bf0e), [`d807cb2`](https://github.com/sl-design-system/components/commit/d807cb22702dc5ac1399cf0528f9ceeeb1f09f60), [`f676dd5`](https://github.com/sl-design-system/components/commit/f676dd52c83ef2f3429d9a393b5ec634fc05bf0e), [`ef77be3`](https://github.com/sl-design-system/components/commit/ef77be3c11c6811d2f220c898847bd351c657435)]:
+  - @sl-design-system/toggle-button@0.0.11
+  - @sl-design-system/icon@1.4.1
+  - @sl-design-system/toggle-group@0.0.11
+  - @sl-design-system/menu@0.2.7
+  - @sl-design-system/button@1.3.2
+
+## 0.1.1
+
+### Patch Changes
+
+- [#2757](https://github.com/sl-design-system/components/pull/2757) [`2af40f7`](https://github.com/sl-design-system/components/commit/2af40f78d9d0f07f3c15c1d9f7926ceca48f12f9) - Propagate the `aria-disabled` state to the overflow menu.
+
+- [#2788](https://github.com/sl-design-system/components/pull/2788) [`55e879d`](https://github.com/sl-design-system/components/commit/55e879d6553fe93d5a811754d83edf79a2b18b6c) - Fix changes in the nested bulk actions slot in `<sl-grid>` not propagating to `<sl-tool-bar>`
+
+  The bulk actions `<slot>` is nested in the default slot of `<sl-tool-bar>`. This means that changes to the bulk actions slot are not automatically observed by the tool-bar. To work around this, we explicitly call `refresh()` on the tool-bar when the bulk actions slot changes. `refresh()` will update the mapping of the tool-bar actions.
+
+- Updated dependencies [[`d01fc71`](https://github.com/sl-design-system/components/commit/d01fc710e95210aa7c76b0fd68e849b988840dd9), [`1e7b6f6`](https://github.com/sl-design-system/components/commit/1e7b6f629f79d77576c2cb19d20f8884bb2f30c4)]:
+  - @sl-design-system/button@1.3.1
+  - @sl-design-system/icon@1.4.0
+
 ## 0.1.0
 
 ### Minor Changes

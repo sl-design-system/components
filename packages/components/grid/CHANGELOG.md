@@ -1,5 +1,48 @@
 # @sl-design-system/grid
 
+## 0.6.5
+
+### Patch Changes
+
+- [#2867](https://github.com/sl-design-system/components/pull/2867) [`198b92f`](https://github.com/sl-design-system/components/commit/198b92f8ef43283e9809b80e348e03ed45103fe9) - Fixes styling issues in bulk-actions and moves the close button outside the tool-bar in the bulk-actions.
+
+- Updated dependencies [[`73fbd20`](https://github.com/sl-design-system/components/commit/73fbd2021c53a4729d9bbe5dcb697c0449a33a75), [`198b92f`](https://github.com/sl-design-system/components/commit/198b92f8ef43283e9809b80e348e03ed45103fe9)]:
+  - @sl-design-system/tool-bar@0.2.0
+
+## 0.6.4
+
+### Patch Changes
+
+- [#2813](https://github.com/sl-design-system/components/pull/2813) [`8ef0b55`](https://github.com/sl-design-system/components/commit/8ef0b553f42a8287bde1b2d5d2e123a3386e13d3) - Improve reliability of selection mode
+
+  When you add an `<sl-grid-selection-column>` to a grid, the selection column automatically enables multiple selection mode on the data source. However, if you then changed the `items` property, the new data source would not have selection enabled. This fixes both cases by having a `selects` property on grid that is kept in sync with the data source. The selection column also sets the `selects` property on the grid.
+
+- Updated dependencies [[`df7af95`](https://github.com/sl-design-system/components/commit/df7af9509ebf675a572267f30cf36e835075b0fe), [`f676dd5`](https://github.com/sl-design-system/components/commit/f676dd52c83ef2f3429d9a393b5ec634fc05bf0e), [`39b286c`](https://github.com/sl-design-system/components/commit/39b286c8937f2f9d8339864d44a1c666e50ec6ea), [`f676dd5`](https://github.com/sl-design-system/components/commit/f676dd52c83ef2f3429d9a393b5ec634fc05bf0e), [`891f599`](https://github.com/sl-design-system/components/commit/891f599ea42ba8c01c08310abe945d20e11f9978), [`d807cb2`](https://github.com/sl-design-system/components/commit/d807cb22702dc5ac1399cf0528f9ceeeb1f09f60), [`ef77be3`](https://github.com/sl-design-system/components/commit/ef77be3c11c6811d2f220c898847bd351c657435)]:
+  - @sl-design-system/data-source@0.2.3
+  - @sl-design-system/icon@1.4.1
+  - @sl-design-system/select@2.1.0
+  - @sl-design-system/toggle-group@0.0.11
+  - @sl-design-system/search-field@0.2.2
+  - @sl-design-system/button@1.3.2
+  - @sl-design-system/tool-bar@0.1.2
+
+## 0.6.3
+
+### Patch Changes
+
+- [#2788](https://github.com/sl-design-system/components/pull/2788) [`55e879d`](https://github.com/sl-design-system/components/commit/55e879d6553fe93d5a811754d83edf79a2b18b6c) - Fix changes in the nested bulk actions slot in `<sl-grid>` not propagating to `<sl-tool-bar>`
+
+  The bulk actions `<slot>` is nested in the default slot of `<sl-tool-bar>`. This means that changes to the bulk actions slot are not automatically observed by the tool-bar. To work around this, we explicitly call `refresh()` on the tool-bar when the bulk actions slot changes. `refresh()` will update the mapping of the tool-bar actions.
+
+- Updated dependencies [[`063faff`](https://github.com/sl-design-system/components/commit/063faff05434c2e0dae8176d7ebe5f9b4562492f), [`0a615b1`](https://github.com/sl-design-system/components/commit/0a615b17e65995cf637dec9c2aa17b390bafcb7e), [`063faff`](https://github.com/sl-design-system/components/commit/063faff05434c2e0dae8176d7ebe5f9b4562492f), [`d01fc71`](https://github.com/sl-design-system/components/commit/d01fc710e95210aa7c76b0fd68e849b988840dd9), [`d3fc554`](https://github.com/sl-design-system/components/commit/d3fc554054266612c6000c29a631386dcbc6e946), [`1e7b6f6`](https://github.com/sl-design-system/components/commit/1e7b6f629f79d77576c2cb19d20f8884bb2f30c4), [`2af40f7`](https://github.com/sl-design-system/components/commit/2af40f78d9d0f07f3c15c1d9f7926ceca48f12f9), [`d0c4db2`](https://github.com/sl-design-system/components/commit/d0c4db220c6a5826a0c9e5bc8ab3943884dfcd9c), [`55e879d`](https://github.com/sl-design-system/components/commit/55e879d6553fe93d5a811754d83edf79a2b18b6c)]:
+  - @sl-design-system/select@2.0.6
+  - @sl-design-system/checkbox@2.1.7
+  - @sl-design-system/listbox@0.1.6
+  - @sl-design-system/button@1.3.1
+  - @sl-design-system/icon@1.4.0
+  - @sl-design-system/tool-bar@0.1.1
+  - @sl-design-system/shared@0.9.2
+
 ## 0.6.2
 
 ### Patch Changes

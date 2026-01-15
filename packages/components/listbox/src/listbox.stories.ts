@@ -96,6 +96,7 @@ export const Groups: Story = {
         <sl-option>Option 1</sl-option>
         <sl-option>Option 2</sl-option>
       </sl-option-group>
+      <sl-option>I am not in a group</sl-option>
       <sl-option-group label="Group 2">
         <sl-option>Option 3</sl-option>
         <sl-option>Option 4</sl-option>

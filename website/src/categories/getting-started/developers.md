@@ -23,7 +23,16 @@ Please follow the steps below when first getting started:
 
 ## Make sure you have access
 
-Even though the SL Design System is open source, the packages are not publicly available. That is why you need to get access to the GitHub npm packages in order to install them locally. First the SL Design System team needs to add you to the list of users who can access the packages. To be added, you need to provide your @sanoma.com (or other company) email address to us in [our Slack channel](https://sanoma.slack.com/archives/C03SA9HUUA3) or you can <a href="mailto:designsystem@sanoma.com">send us an email</a>.
+Even though the SL Design System is open source, the packages are not publicly available. That is why you need to get access to the npm packages in order to install them locally. 
+For use in a Sanoma Learning product it is possible to load the SLDS packages (and Font Awesome), via the company provided Nexus server. If you don't have access to that it is also possible to access the packages via GitHub.
+
+### Nexus
+
+A lot of products are getting their packages from nexus already, so you can check your team's documentation for the url and how to set up access. For technical questions about access to nexus you can contact TechOps. If you have access to the correct server but encounter a problem specific to the Design System packages you can contact us of course.
+
+### GitHub
+
+First the SL Design System team needs to add you to the list of users who can access the packages. To be added, you need to provide your @sanoma.com (or other company) email address to us in [our Slack channel](https://sanoma.slack.com/archives/C03SA9HUUA3) or you can <a href="mailto:designsystem@sanoma.com">send us an email</a>. Please mention which product you are working on so we can put you in the right team. For our admin it's also really helpful if you have a recognizable username, or use your actual name, so we can trace an account back to you if we ever need to contact you.
 You don't have to create a new, separate GitHub account with your Sanoma Learning email address if you have an existing GitHub account and want to use that. Just add your @sanoma.com email address to the list of email addresses in GitHub.
 
 Once you are added you need to [create a *classic* personal access token on GitHub](https://docs.GitHub.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic). Make sure that this token has at least the `read_packages` privilege. This newly created token needs to be added to the `.npmrc` file in your home directory, along with a reference to where the `@sl-design-system` packages can be found:
@@ -137,6 +146,12 @@ To initialize the theme you need to run theme's `setup` function in a global JS 
 
 When you're using Angular this can be done in `main.ts` in the root folder of your application for example.
 
+### Deprecated tokens
+
+Sometimes new insights or techniques cause us to no longer use a certain token. To keep things clean and maintainable we will remove this after a deprecation period of at least a year. The latest version of a component is, at the time of release, always compatible with the (at that time) latest version of a theme.
+
+If one of the tokens we deprecated is still being used, either directly in your application or in a component you cannot update yet, you can find the deprecated tokens in separate files; `light-deprecated.css` and `dark-deprecated.css` (or `*.scss`). You can include these in the same places and way as the original (s)css files.
+
 </section>
 
 <section>
@@ -148,29 +163,22 @@ The SL Design System tries to use modern web standards as much as possible. This
 Make sure you include the polyfills before you include the SLDS components. This is because the polyfills need to be loaded before the components are loaded.
 
 The following web standards require polyfills at this time:
-- [Popover](https://caniuse.com/mdn-api_htmlelement_popover)
 - [Scoped Custom Element Registry](https://github.com/WICG/webcomponents/blob/gh-pages/proposals/Scoped-Custom-Element-Registries.md)
 - [Element Internals](https://caniuse.com/mdn-api_elementinternals)
 
 To use these polyfills, you need to install the following packages:
-- `@oddbird/popover-polyfill`
 - `@webcomponents/scoped-custom-element-registry`
-- `element-internals-polyfill`
 
 Once installed you need to import the polyfills in your application. You can do this by importing the polyfills in your main JS file:
 
 ```js
-import '@oddbird/popover-polyfill';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
-import 'element-internals-polyfill';
 ```
 
 Another option is to include them in your HTML:
 
 ```html
-<script src="./node_modules/@oddbird/popover-polyfill/dist/popover.min.js"></script>
 <script src="./node_modules/@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js"></script>
-<script src="./node_modules/element-internals-polyfill"></script>
 ```
 
 </section>

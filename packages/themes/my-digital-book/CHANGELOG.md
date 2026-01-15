@@ -1,5 +1,25 @@
 # @sl-design-system/my-digital-book
 
+## 1.0.0
+
+### Major Changes
+
+- [#2734](https://github.com/sl-design-system/components/pull/2734) [`f676dd5`](https://github.com/sl-design-system/components/commit/f676dd52c83ef2f3429d9a393b5ec634fc05bf0e) - This is a major change after the refactoring of the Figma tokens and subsequently the webcomponents; with this release we removed the old tokens from the default css files, and moved all legacy tokens to a separate file. This means a breaking change; if you have components in your application that are not updated yet to the version that uses the new tokens the styling will be broken if you don't take action after using this version of the theme.
+  To support these older component versions you can include `light-deprecated.css` in all places where you now include `light.css` until all components are updated and you can remove the legacy file.
+  (`light.css` is taken as an example, this of course goes for all files, also `dark`, `base` and the `scss` files)
+
+### Patch Changes
+
+- Updated dependencies [[`f676dd5`](https://github.com/sl-design-system/components/commit/f676dd52c83ef2f3429d9a393b5ec634fc05bf0e), [`d807cb2`](https://github.com/sl-design-system/components/commit/d807cb22702dc5ac1399cf0528f9ceeeb1f09f60)]:
+  - @sl-design-system/icon@1.4.1
+
+## 0.4.1
+
+### Patch Changes
+
+- Updated dependencies [[`1e7b6f6`](https://github.com/sl-design-system/components/commit/1e7b6f629f79d77576c2cb19d20f8884bb2f30c4)]:
+  - @sl-design-system/icon@1.4.0
+
 ## 0.4.0
 
 ### Minor Changes

@@ -1,5 +1,41 @@
 # @sl-design-system/panel
 
+## 0.3.1
+
+### Patch Changes
+
+- [#2918](https://github.com/sl-design-system/components/pull/2918) [`dd9bff2`](https://github.com/sl-design-system/components/commit/dd9bff28bb6d29d0c738f4cf7f0dce10623a45cd) - Update panel to match recent change to toolbar, that means the `fill` options are limited to `ghost` and `outline`
+
+- [#2867](https://github.com/sl-design-system/components/pull/2867) [`198b92f`](https://github.com/sl-design-system/components/commit/198b92f8ef43283e9809b80e348e03ed45103fe9) - Changed `fill` property to `type` on a tool bar component in the header. Fixed `no-header` attribute not being set correctly when header is empty.
+
+- Updated dependencies [[`73fbd20`](https://github.com/sl-design-system/components/commit/73fbd2021c53a4729d9bbe5dcb697c0449a33a75), [`198b92f`](https://github.com/sl-design-system/components/commit/198b92f8ef43283e9809b80e348e03ed45103fe9)]:
+  - @sl-design-system/tool-bar@0.2.0
+
+## 0.3.0
+
+### Minor Changes
+
+- [#2842](https://github.com/sl-design-system/components/pull/2842) [`be3b2b8`](https://github.com/sl-design-system/components/commit/be3b2b8e80cb0248f445f5a865f373f6523d2457) - From now on, use `default` and `relaxed` for the `density` property.
+  The `plain` and `comfortable` values are deprecated, they will be kept for the backward compatibility for now but removed in the future.
+  Please use `default` or `relaxed` from now on.
+
+### Patch Changes
+
+- Updated dependencies [[`f676dd5`](https://github.com/sl-design-system/components/commit/f676dd52c83ef2f3429d9a393b5ec634fc05bf0e), [`d807cb2`](https://github.com/sl-design-system/components/commit/d807cb22702dc5ac1399cf0528f9ceeeb1f09f60)]:
+  - @sl-design-system/icon@1.4.1
+  - @sl-design-system/tool-bar@0.1.2
+
+## 0.2.5
+
+### Patch Changes
+
+- [#2644](https://github.com/sl-design-system/components/pull/2644) [`12cf7bc`](https://github.com/sl-design-system/components/commit/12cf7bc4e66b4e4cb02c4ce0cc2d1d7facb8b310) - Changed background to `--sl-elevation-surface-raised-default` so it has the lightest background possible (this is only a change for themes that has a base background colour that is not (almost) white
+
+- Updated dependencies [[`1e7b6f6`](https://github.com/sl-design-system/components/commit/1e7b6f629f79d77576c2cb19d20f8884bb2f30c4), [`2af40f7`](https://github.com/sl-design-system/components/commit/2af40f78d9d0f07f3c15c1d9f7926ceca48f12f9), [`d0c4db2`](https://github.com/sl-design-system/components/commit/d0c4db220c6a5826a0c9e5bc8ab3943884dfcd9c), [`55e879d`](https://github.com/sl-design-system/components/commit/55e879d6553fe93d5a811754d83edf79a2b18b6c)]:
+  - @sl-design-system/icon@1.4.0
+  - @sl-design-system/tool-bar@0.1.1
+  - @sl-design-system/shared@0.9.2
+
 ## 0.2.4
 
 ### Patch Changes

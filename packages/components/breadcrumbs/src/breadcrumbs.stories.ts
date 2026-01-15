@@ -1,11 +1,14 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/popover/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
-import { type TemplateResult, html } from 'lit';
+import { type TemplateResult, html, nothing } from 'lit';
 import '../register.js';
 import { type Breadcrumbs } from './breadcrumbs.js';
 
-type Props = Pick<Breadcrumbs, 'hideHomeLabel' | 'inverted' | 'homeUrl' | 'noHome'> & { breadcrumbs(): TemplateResult };
+type Props = Pick<Breadcrumbs, 'hideHomeLabel' | 'inverted' | 'homeUrl' | 'noHome'> & {
+  breadcrumbs(): TemplateResult;
+  explanation(): TemplateResult | typeof nothing;
+};
 type Story = StoryObj<Props>;
 
 export default {
@@ -15,9 +18,17 @@ export default {
     hideHomeLabel: false,
     inverted: false,
     homeUrl: '/',
-    noHome: false
+    noHome: false,
+    explanation: () => nothing
   },
   argTypes: {
+    explanation: {
+      description:
+        'Adds explanatory content above the breadcrumbs example to describe the purpose or behavior of this story variant.',
+      table: {
+        disable: true
+      }
+    },
     breadcrumbs: {
       table: {
         disable: true
@@ -29,7 +40,7 @@ export default {
       defaultViewport: 'reset'
     }
   },
-  render: ({ breadcrumbs, hideHomeLabel, inverted, homeUrl, noHome }) => html`
+  render: ({ explanation, breadcrumbs, hideHomeLabel, inverted, homeUrl, noHome }) => html`
     <style>
       sl-breadcrumbs[inverted] {
         background: var(--sl-color-palette-grey-900);
@@ -38,6 +49,7 @@ export default {
         max-width: calc(100vw - 2rem);
       }
     </style>
+    ${explanation()}
     <sl-breadcrumbs .hideHomeLabel=${hideHomeLabel} .homeUrl=${homeUrl} ?inverted=${inverted} ?no-home=${noHome}
       >${breadcrumbs()}</sl-breadcrumbs
     >
@@ -49,7 +61,7 @@ export const Basic: Story = {
     breadcrumbs: () => html`
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
-      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Dolor</a>
     `
   }
 };
@@ -59,7 +71,7 @@ export const Collapse: Story = {
     breadcrumbs: () => html`
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
-      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Dolor</a>
       <a href="javascript:void(0)">Sit</a>
       <a href="javascript:void(0)">Amet</a>
       <a href="javascript:void(0)">Foo</a>
@@ -124,6 +136,54 @@ export const Overflow: Story = {
   }
 };
 
+export const BasicBreadcrumbItem: Story = {
+  args: {
+    explanation: () => html`
+      <p>
+        This story uses <code>sl-breadcrumb-item</code> components instead of anchor tags. This can come in handy when
+        you can't use an anchor tag with an <code>href</code> attribute (for example, when using client-side routing)
+        but still need to handle click events.
+      </p>
+      <p>
+        <code>sl-breadcrumb-item</code> itself will not be visible but will be referred to by the breadcrumbs component,
+        which delegates the click on the link inside the breadcrumbs component to this component.
+      </p>
+    `,
+    breadcrumbs: () => html`
+      <sl-breadcrumb-item @click=${() => console.log('Lorem button clicked')}>Lorem</sl-breadcrumb-item>
+      <sl-breadcrumb-item @click=${() => console.log('Ipsum button clicked')}>Ipsum</sl-breadcrumb-item>
+      <sl-breadcrumb-item @click=${() => console.log('Dolor button clicked')}>Dolor</sl-breadcrumb-item>
+    `
+  }
+};
+
+export const OverflowBreadcrumbItem: Story = {
+  args: {
+    explanation: () => html`
+      <p>
+        This story uses <code>sl-breadcrumb-item</code> components instead of anchor tags. This can come in handy when
+        you can't use an anchor tag with an <code>href</code> attribute (for example, when using client-side routing)
+        but still need to handle click events.
+      </p>
+      <p>
+        <code>sl-breadcrumb-item</code> itself will not be visible but will be referred to by the breadcrumbs component,
+        which delegates the click on the link inside the breadcrumbs component to this component.
+      </p>
+    `,
+    breadcrumbs: () => html`
+      <sl-breadcrumb-item @click=${() => console.log('Lorem 1 button clicked')}>Lorem 1</sl-breadcrumb-item>
+      <sl-breadcrumb-item @click=${() => console.log('Ipsum 1 button clicked')}>Ipsum 1</sl-breadcrumb-item>
+      <sl-breadcrumb-item @click=${() => console.log('Dolor 1 button clicked')}>Dolor 1</sl-breadcrumb-item>
+      <sl-breadcrumb-item @click=${() => console.log('Lorem 2 button clicked')}>Lorem 2</sl-breadcrumb-item>
+      <sl-breadcrumb-item @click=${() => console.log('Ipsum 2 button clicked')}>Ipsum 2</sl-breadcrumb-item>
+      <sl-breadcrumb-item @click=${() => console.log('Dolor 2 button clicked')}>Dolor 2</sl-breadcrumb-item>
+      <sl-breadcrumb-item @click=${() => console.log('Lorem 3 button clicked')}>Lorem 3</sl-breadcrumb-item>
+      <sl-breadcrumb-item @click=${() => console.log('Ipsum 3 button clicked')}>Ipsum 3</sl-breadcrumb-item>
+      <sl-breadcrumb-item @click=${() => console.log('Dolor 3 button clicked')}>Dolor 3</sl-breadcrumb-item>
+    `
+  }
+};
+
 export const All: Story = {
   render: () => html`
     <style>
@@ -137,12 +197,12 @@ export const All: Story = {
     <sl-breadcrumbs aria-label="Breadcrumb trail 1" no-home>
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
-      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Dolor</a>
     </sl-breadcrumbs>
     <sl-breadcrumbs aria-label="Breadcrumb trail 2">
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
-      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Dolor</a>
     </sl-breadcrumbs>
     <sl-breadcrumbs aria-label="Breadcrumb trail 3">
       <a href="javascript:void(0)">Adipisicing sint excepteur officia voluptate tempor ea veniam veniam duis.</a>
@@ -156,24 +216,24 @@ export const All: Story = {
     <sl-breadcrumbs aria-label="Breadcrumb trail 4">
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
-      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Dolor</a>
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
-      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Dolor</a>
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
-      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Dolor</a>
     </sl-breadcrumbs>
     <sl-breadcrumbs aria-label="Breadcrumb trail 5" inverted>
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
-      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Dolor</a>
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
-      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Dolor</a>
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
-      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Dolor</a>
     </sl-breadcrumbs>
   `
 };

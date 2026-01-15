@@ -7,6 +7,7 @@ import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { BreadcrumbItem } from './breadcrumb-item.js';
 import styles from './breadcrumbs.scss.js';
 
 declare global {
@@ -28,6 +29,7 @@ export interface Breadcrumb {
   label: string;
   tooltip?: Tooltip | (() => void);
   url?: string;
+  breadcrumbItem?: BreadcrumbItem;
 }
 
 /**
@@ -188,9 +190,21 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
                   <sl-icon name="ellipsis"></sl-icon>
                 </sl-button>
                 <sl-popover anchor="button">
-                  ${this.breadcrumbs
-                    .slice(0, -this.collapseThreshold)
-                    .map(({ url, label }) => (url ? html`<a href=${url}>${label}</a>` : label))}
+                  ${this.breadcrumbs.slice(0, -this.collapseThreshold).map(({ url, label, breadcrumbItem }) => {
+                    if (url) {
+                      return html`<a href=${url}>${label}</a>`;
+                    } else if (breadcrumbItem) {
+                      return html`
+                        <a
+                          href="#"
+                          @click=${(event: Event) => this.#onDelegateClick(event, breadcrumbItem)}
+                          @keydown=${(event: KeyboardEvent) => this.#onDelegateKeydown(event, breadcrumbItem)}
+                          >${label}</a
+                        >
+                      `;
+                    }
+                    return label;
+                  })}
                 </sl-popover>
               </li>
               <sl-icon name="breadcrumb-separator"></sl-icon>
@@ -198,18 +212,31 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
           : nothing}
         ${this.breadcrumbs
           .filter(({ collapsed }) => !collapsed)
-          .map(({ url, label }, index, array) =>
-            url
-              ? html`
-                  <li>
-                    <a aria-current=${ifDefined(index === array.length - 1 ? 'page' : undefined)} href=${url}>
-                      ${label}
-                    </a>
-                  </li>
-                  ${index < array.length - 1 ? html`<sl-icon name="breadcrumb-separator"></sl-icon>` : nothing}
-                `
-              : html`<li>${label}</li>`
-          )}
+          .map(({ url, label, breadcrumbItem }, index, array) => {
+            if (url) {
+              return html`
+                <li>
+                  <a aria-current=${ifDefined(index === array.length - 1 ? 'page' : undefined)} href=${url}>${label}</a>
+                </li>
+                ${index < array.length - 1 ? html`<sl-icon name="breadcrumb-separator"></sl-icon>` : nothing}
+              `;
+            } else if (breadcrumbItem) {
+              return html`
+                <li>
+                  <a
+                    aria-current=${ifDefined(index === array.length - 1 ? 'page' : undefined)}
+                    href="#"
+                    @click=${(event: Event) => this.#onDelegateClick(event, breadcrumbItem)}
+                    @keydown=${(event: KeyboardEvent) => this.#onDelegateKeydown(event, breadcrumbItem)}
+                  >
+                    ${label}
+                  </a>
+                </li>
+                ${index < array.length - 1 ? html`<sl-icon name="breadcrumb-separator"></sl-icon>` : nothing}
+              `;
+            }
+            return html`<li>${label}</li>`;
+          })}
       </ul>
       <slot @slotchange=${this.#onSlotchange} style="display:none"></slot>
     `;
@@ -232,11 +259,24 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
     this.renderRoot.querySelector('sl-popover')?.togglePopover();
   };
 
+  #onDelegateClick(event: Event, breadcrumbItem: BreadcrumbItem): void {
+    event.preventDefault();
+    breadcrumbItem.click();
+  }
+
+  #onDelegateKeydown(event: KeyboardEvent, breadcrumbItem: BreadcrumbItem): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      breadcrumbItem.click();
+    }
+  }
+
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
     this.breadcrumbs = event.target.assignedElements({ flatten: true }).map(element => {
       return {
         label: element.textContent?.trim() || '',
-        url: element.getAttribute('href') ?? undefined
+        url: element.getAttribute('href') ?? undefined,
+        breadcrumbItem: element instanceof BreadcrumbItem ? element : undefined
       };
     });
   }

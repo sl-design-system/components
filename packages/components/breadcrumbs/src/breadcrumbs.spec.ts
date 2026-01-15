@@ -3,6 +3,7 @@ import { page } from '@vitest/browser/context';
 import { html } from 'lit';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
+import { BreadcrumbItem } from './breadcrumb-item.js';
 import { Breadcrumbs } from './breadcrumbs.js';
 
 describe('sl-breadcrumbs', () => {
@@ -322,6 +323,218 @@ describe('sl-breadcrumbs', () => {
       expect(menuItems[1]).to.have.text('2');
       expect(menuItems[2]).to.have.text('3');
       expect(menuItems[3]).to.have.text('4');
+    });
+  });
+  describe('breadcrumb items with click delegation', () => {
+    let el: Breadcrumbs;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-breadcrumbs>
+          <sl-breadcrumb-item>1</sl-breadcrumb-item>
+          <sl-breadcrumb-item>2</sl-breadcrumb-item>
+          <sl-breadcrumb-item>3</sl-breadcrumb-item>
+          <sl-breadcrumb-item>4</sl-breadcrumb-item>
+          <sl-breadcrumb-item>5</sl-breadcrumb-item>
+          <sl-breadcrumb-item>6</sl-breadcrumb-item>
+        </sl-breadcrumbs>
+      `);
+    });
+
+    it('should render breadcrumb items in the popover', () => {
+      const menuItems = Array.from(el.renderRoot.querySelectorAll('sl-popover a') ?? []);
+
+      expect(menuItems).to.have.length(3);
+      expect(menuItems[0]).to.have.text('1');
+      expect(menuItems[1]).to.have.text('2');
+      expect(menuItems[2]).to.have.text('3');
+    });
+
+    it('should have href="#" for visible breadcrumb items', () => {
+      const visibleLinks = Array.from(el.renderRoot.querySelectorAll('li:not(.home):not(.more-menu) a'));
+
+      visibleLinks.forEach(link => {
+        expect(link).to.have.attribute('href', '#');
+      });
+    });
+
+    it('should have href="#" for collapsed breadcrumb items in popover', () => {
+      const popoverLinks = Array.from(el.renderRoot.querySelectorAll('sl-popover a'));
+
+      popoverLinks.forEach(link => {
+        expect(link).to.have.attribute('href', '#');
+      });
+    });
+
+    it('should call click on the breadcrumb item when visible link is clicked', async () => {
+      const items = el.querySelectorAll('sl-breadcrumb-item');
+      let clickedItem: BreadcrumbItem | null = null;
+
+      items.forEach(item => {
+        item.addEventListener('click', () => {
+          clickedItem = item;
+        });
+      });
+
+      const visibleLinks = Array.from(el.renderRoot.querySelectorAll('li:not(.home):not(.more-menu) a'));
+      const firstVisibleLink = visibleLinks[0] as HTMLAnchorElement;
+
+      const clickEvent = new MouseEvent('click', { bubbles: true, cancelable: true });
+      firstVisibleLink.dispatchEvent(clickEvent);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(clickEvent.defaultPrevented).to.be.true;
+      expect(clickedItem).to.equal(items[3]);
+    });
+
+    it('should prevent default and call click on breadcrumb item when popover link is clicked', async () => {
+      const items = el.querySelectorAll<BreadcrumbItem>('sl-breadcrumb-item');
+      let clickedItem: BreadcrumbItem | null = null;
+
+      items.forEach(item => {
+        item.addEventListener('click', () => {
+          clickedItem = item;
+        });
+      });
+
+      const popoverLinks = Array.from(el.renderRoot.querySelectorAll('sl-popover a'));
+      const firstPopoverLink = popoverLinks[0] as HTMLAnchorElement;
+
+      const clickEvent = new MouseEvent('click', { bubbles: true, cancelable: true });
+      firstPopoverLink.dispatchEvent(clickEvent);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 0));
+
+      expect(clickEvent.defaultPrevented).to.be.true;
+      expect(clickedItem).to.equal(items[0]);
+    });
+
+    it('should call click on breadcrumb item when Enter key is pressed on visible link', async () => {
+      const items = el.querySelectorAll<BreadcrumbItem>('sl-breadcrumb-item');
+      let clickedItem: BreadcrumbItem | null = null;
+
+      items.forEach(item => {
+        item.addEventListener('click', () => {
+          clickedItem = item;
+        });
+      });
+
+      const visibleLinks = Array.from(el.renderRoot.querySelectorAll('li:not(.home):not(.more-menu) a'));
+      const firstVisibleLink = visibleLinks[0] as HTMLAnchorElement;
+
+      const keyEvent = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true });
+      firstVisibleLink.dispatchEvent(keyEvent);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 0));
+
+      expect(keyEvent.defaultPrevented).to.be.true;
+      expect(clickedItem).to.equal(items[3]);
+    });
+
+    it('should call click on breadcrumb item when Space key is pressed on visible link', async () => {
+      const items = el.querySelectorAll<BreadcrumbItem>('sl-breadcrumb-item');
+      let clickedItem: BreadcrumbItem | null = null;
+
+      items.forEach(item => {
+        item.addEventListener('click', () => {
+          clickedItem = item;
+        });
+      });
+
+      const visibleLinks = Array.from(el.renderRoot.querySelectorAll('li:not(.home):not(.more-menu) a'));
+      const firstVisibleLink = visibleLinks[0] as HTMLAnchorElement;
+
+      const keyEvent = new KeyboardEvent('keydown', { key: ' ', bubbles: true, cancelable: true });
+      firstVisibleLink.dispatchEvent(keyEvent);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 0));
+
+      expect(keyEvent.defaultPrevented).to.be.true;
+      expect(clickedItem).to.equal(items[3]);
+    });
+
+    it('should call click on breadcrumb item when Enter key is pressed on popover link', async () => {
+      const items = el.querySelectorAll<BreadcrumbItem>('sl-breadcrumb-item');
+      let clickedItem: BreadcrumbItem | null = null;
+
+      items.forEach(item => {
+        item.addEventListener('click', () => {
+          clickedItem = item;
+        });
+      });
+
+      const popoverLinks = Array.from(el.renderRoot.querySelectorAll('sl-popover a'));
+      const firstPopoverLink = popoverLinks[0] as HTMLAnchorElement;
+
+      const keyEvent = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true });
+      firstPopoverLink.dispatchEvent(keyEvent);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 0));
+
+      expect(keyEvent.defaultPrevented).to.be.true;
+      expect(clickedItem).to.equal(items[0]);
+    });
+
+    it('should call click on breadcrumb item when Space key is pressed on popover link', async () => {
+      const items = el.querySelectorAll<BreadcrumbItem>('sl-breadcrumb-item');
+      let clickedItem: BreadcrumbItem | null = null;
+
+      items.forEach(item => {
+        item.addEventListener('click', () => {
+          clickedItem = item;
+        });
+      });
+
+      const popoverLinks = Array.from(el.renderRoot.querySelectorAll('sl-popover a'));
+      const firstPopoverLink = popoverLinks[0] as HTMLAnchorElement;
+
+      const keyEvent = new KeyboardEvent('keydown', { key: ' ', bubbles: true, cancelable: true });
+      firstPopoverLink.dispatchEvent(keyEvent);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 0));
+
+      expect(keyEvent.defaultPrevented).to.be.true;
+      expect(clickedItem).to.equal(items[0]);
+    });
+  });
+
+  describe('collapsing with mixed elements', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-breadcrumbs>
+          <a href="/1">1</a>
+          <sl-breadcrumb-item>2</sl-breadcrumb-item>
+          <a href="/3">3</a>
+          <sl-breadcrumb-item>4</sl-breadcrumb-item>
+          <a href="/5">5</a>
+          <sl-breadcrumb-item>6</sl-breadcrumb-item>
+        </sl-breadcrumbs>
+      `);
+    });
+
+    it('should collapse mixed elements into popover', () => {
+      const popoverLinks = Array.from(el.renderRoot.querySelectorAll('sl-popover a'));
+
+      expect(popoverLinks).to.have.length(3);
+      expect(popoverLinks[0]).to.have.text('1');
+      expect(popoverLinks[0]).to.have.attribute('href', '/1');
+      expect(popoverLinks[1]).to.have.text('2');
+      expect(popoverLinks[1]).to.have.attribute('href', '#');
+      expect(popoverLinks[2]).to.have.text('3');
+      expect(popoverLinks[2]).to.have.attribute('href', '/3');
+    });
+
+    it('should show last 3 items with mixed types', () => {
+      const visibleLinks = Array.from(el.renderRoot.querySelectorAll('li:not(.home):not(.more-menu) a'));
+
+      expect(visibleLinks).to.have.length(3);
+      expect(visibleLinks[0].textContent.trim()).to.equal('4');
+      expect(visibleLinks[0]).to.have.attribute('href', '#');
+      expect(visibleLinks[1].textContent.trim()).to.equal('5');
+      expect(visibleLinks[1]).to.have.attribute('href', '/5');
+      expect(visibleLinks[2].textContent.trim()).to.equal('6');
+      expect(visibleLinks[2]).to.have.attribute('href', '#');
     });
   });
 });

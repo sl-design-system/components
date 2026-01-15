@@ -33,5 +33,23 @@ eleventyNavigation:
 
 </section>
 <ds-install-info link-in-navigation package="breadcrumbs"></ds-install-info>
+<section>
 
+  ## Breadcrumb items
+  
+  When using the breadcrumb component in combination with routing technology from your framework it could be that you can't use `a` tags with an `href` property. In that case you can use the breadcrumb item component. Those are read and handled the same way as `a` tags, so they appear in the menu when the breadcrumbs are collapsed and styled the same as regular links.
+
+  For example:
+  <div class="ds-code">
+
+  ```html
+    <sl-breadcrumbs>
+      <sl-breadcrumb-item navigateTo="learning-teaching">Learning and Teaching</sl-breadcrumb-item>
+      <sl-breadcrumb-item navigateTo="pupils">Pupils</sl-breadcrumb-item>
+      ...
+      <sl-breadcrumb-item navigateTo="learning-materials">Learning Materials</sl-breadcrumb-item>
+    </sl-breadcrumbs>
+  ```
+  </div>
+</section>
 {% include "../component-table.njk" %}

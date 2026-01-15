@@ -1,0 +1,110 @@
+{
+	"target": {
+		"size-rem": {
+			"font": {
+				"150": {
+					"$type": "fontSizes",
+					"$value": "roundTo({advanced.font-rem-base} * 0.75, 0)"
+				},
+				"175": {
+					"$type": "fontSizes",
+					"$value": "roundTo({advanced.font-rem-base} * 0.875, 0)"
+				},
+				"200": {
+					"$type": "fontSizes",
+					"$value": "roundTo({advanced.font-rem-base} * 1, 0)"
+				},
+				"250": {
+					"$type": "fontSizes",
+					"$value": "roundTo({advanced.font-rem-base} * 1.25, 0)"
+				},
+				"300": {
+					"$type": "fontSizes",
+					"$value": "roundTo({advanced.font-rem-base} * 1.5, 0)"
+				},
+				"400": {
+					"$type": "fontSizes",
+					"$value": "roundTo({advanced.font-rem-base} * 2, 0)"
+				},
+				"500": {
+					"$type": "fontSizes",
+					"$value": "roundTo({advanced.font-rem-base} * 2.5, 0)"
+				},
+				"600": {
+					"$type": "fontSizes",
+					"$value": "roundTo({advanced.font-rem-base} * 3, 0)"
+				},
+				"800": {
+					"$type": "fontSizes",
+					"$value": "roundTo({advanced.font-rem-base} * 4, 0)"
+				},
+				"1000": {
+					"$type": "fontSizes",
+					"$value": "roundTo({advanced.font-rem-base} * 5, 0)"
+				}
+			}
+		},
+		"lineHeigt": {
+			"hero": {
+				"$type": "lineHeights",
+				"$value": "{advanced.font-rem-base} * 1.17",
+				"$description": ""
+			}
+		},
+		"lineHeight": {
+			"body": {
+				"lg": {
+					"$type": "lineHeights",
+					"$value": "{advanced.font-rem-base} * 1.56",
+					"$description": ""
+				},
+				"md": {
+					"$type": "lineHeights",
+					"$value": "{advanced.font-rem-base} * 1.5",
+					"$description": ""
+				},
+				"sm": {
+					"$type": "lineHeights",
+					"$value": "{advanced.font-rem-base} * 1.43",
+					"$description": ""
+				}
+			},
+			"label": {
+				"$type": "lineHeights",
+				"$value": "{advanced.font-rem-base} * 1.33",
+				"$description": ""
+			},
+			"heading": {
+				"lg": {
+					"$type": "lineHeights",
+					"$value": "{advanced.font-rem-base} * 1.27",
+					"$description": ""
+				},
+				"md": {
+					"$type": "lineHeights",
+					"$value": "{advanced.font-rem-base} * 1.33",
+					"$description": ""
+				},
+				"xl": {
+					"$type": "lineHeights",
+					"$value": "{advanced.font-rem-base} * 1.22",
+					"$description": ""
+				}
+			}
+		},
+		"typeset-test": {
+			"fontfamily": {
+				"$type": "fontFamilies",
+				"$value": "Roboto",
+				"$description": ""
+			}
+		}
+	},
+	"advanced": {
+		"font-rem-base": {
+			"$type": "number",
+			"$value": "16",
+			"$description": ""
+		}
+	}
+}

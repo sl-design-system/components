@@ -1,0 +1,16 @@
+{
+  "name": "deprecated-tokens",
+  "license": "ISC",
+  "description": "Build scripts for SLDS monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "import-tokens": "yarn exec tokensstudio pull --host graphql.prod.tokens.studio",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@tokens-studio/sd-transforms": "^2.0.1",
+    "@tokens-studio/sdk": "^3.0.1"
+  }
+}

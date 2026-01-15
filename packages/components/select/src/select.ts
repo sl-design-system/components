@@ -37,9 +37,9 @@ export type SelectSize = 'md' | 'lg';
  *
  * @slot default - Place for `sl-option` and `sl-option-group` elements
  * @csspart listbox - Set `--sl-popover-max-block-size` and/or `--sl-popover-min-block-size` to control the minimum and maximum height of the dropdown (within the limits of the available screen real estate)
- * @csspart selected - The selected option element (for `sl-select-button`)
- * @csspart selected-option - The container for the selected option (for `sl-select-button`)
- * @csspart placeholder - The placeholder text when no option is selected (for `sl-select-button`)
+ * @csspart selected - The selected option element within the select's internal `sl-select-button`, exposed for styling via `<sl-select>`
+ * @csspart selected-option - The container for the selected option within the select's internal `sl-select-button`, exposed for styling via `<sl-select>`
+ * @csspart placeholder - The placeholder text when no option is selected within the select's internal `sl-select-button`, exposed for styling via `<sl-select>`
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -479,6 +479,8 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
       event.stopPropagation();
 
       this.#setSelectedOption(event.target);
+      // Programmatically closing, not because user moved focus away
+      this.#popoverClosing = true;
       this.listbox?.hidePopover();
     } else if (event.key === 'Escape') {
       // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the select

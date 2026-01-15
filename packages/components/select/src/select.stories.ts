@@ -205,26 +205,9 @@ export const OptionsStyling: Story = {
 
     const optionsRenderer = (option: OptionType) => {
       return html`
-        <style>
-          .option-element {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-          }
-
-          .colorball {
-            display: inline-block;
-            border-radius: 50%;
-            margin-inline-end: 0.5em;
-          }
-
-          sl-icon {
-            color: var(--sl-color-foreground-primary-bold);
-          }
-        </style>
         <sl-option value=${option.value}>
           <div class="option-element">
-            <div class="colorball" style="background-color: yellow; width: 20px; height: 20px;"></div>
+            <div class="colorball"></div>
             <sl-icon name=${option.icon}></sl-icon>
             ${option.label}
           </div>
@@ -241,6 +224,25 @@ export const OptionsStyling: Story = {
 
         sl-option::part(container) {
           padding-block: 6px;
+        }
+
+        .option-element {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+
+        .colorball {
+          background-color: yellow;
+          display: inline-block;
+          border-radius: 50%;
+          margin-inline-end: 0.5em;
+          width: 20px;
+          height: 20px;
+        }
+
+        sl-icon {
+          color: var(--sl-color-foreground-primary-bold);
         }
       </style>
       <p>

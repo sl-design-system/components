@@ -682,6 +682,47 @@ describe('sl-select', () => {
       expect(selectedOption).to.have.attribute('selected');
       expect(selectedOption).to.have.attribute('aria-selected', 'true');
     });
+
+    it('should focus a select-button when clicking an option', async () => {
+      button.focus();
+
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      const option = el.querySelector<Option>('sl-option')!;
+
+      option.click();
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(document.activeElement).to.equal(button);
+    });
+
+    it('should focus a select-button when selecting an option with Enter key', async () => {
+      button.focus();
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(document.activeElement).to.equal(button);
+    });
+
+    it('should focus a select-button when selecting an option with Space key', async () => {
+      button.focus();
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      await userEvent.keyboard(' ');
+      await el.updateComplete;
+
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(document.activeElement).to.equal(button);
+    });
   });
 
   describe('automatic sizing', () => {

@@ -43,8 +43,15 @@ export default {
     }
   },
   render: ({ body, indismissible, size, title, variant }) => html`
+    <style>
+      h2 {
+        font-size: inherit;
+        font-weight: inherit;
+        margin: 0;
+      }
+    </style>
     <sl-inline-message ?indismissible=${indismissible} .size=${size ?? 'auto'} variant=${ifDefined(variant)}>
-      ${title ? html`<span slot="title">${title}</span>` : nothing} ${typeof body === 'string' ? body : body()}
+      ${title ? html`<h2 slot="title">${title}</h2>` : nothing} ${typeof body === 'string' ? body : body()}
     </sl-inline-message>
   `
 } satisfies Meta<Props>;
@@ -92,7 +99,7 @@ export const Dynamic: Story = {
 
       const msg = document.createElement('sl-inline-message');
       msg.indismissible = indismissible;
-      msg.innerHTML = `<span slot="title">${title} ${count + 1}</span>${body as string}`;
+      msg.innerHTML = `<h2 slot="title">${title} ${count + 1}</h2>${body as string}`;
       msg.variant = variant;
 
       buttonBar?.after(msg);
@@ -115,6 +122,11 @@ export const Dynamic: Story = {
         }
         sl-inline-message + sl-inline-message {
           margin-block-start: 1rem;
+        }
+        h2 {
+          font-size: inherit;
+          font-weight: inherit;
+          margin: 0;
         }
       </style>
       <sl-button-bar>
@@ -167,6 +179,11 @@ export const Sizes: Story = {
       sl-inline-message {
         margin-block-end: 1rem;
       }
+      h2 {
+        font-size: inherit;
+        font-weight: inherit;
+        margin: 0;
+      }
     </style>
     <sl-inline-message size="sm" variant=${ifDefined(variant)}> Small inline message </sl-inline-message>
     <sl-inline-message size="md" variant=${ifDefined(variant)}>
@@ -174,7 +191,7 @@ export const Sizes: Story = {
       content. Sit nostrud id non commodo nostrud voluptate nostrud sunt voluptate adipisicing.
     </sl-inline-message>
     <sl-inline-message size="lg" variant=${ifDefined(variant)}>
-      <span slot="title">Inline message title</span>
+      <h2 slot="title">Inline message title</h2>
       Large inline message
     </sl-inline-message>
     <sl-inline-message variant=${ifDefined(variant)}>
@@ -186,7 +203,7 @@ export const Sizes: Story = {
       duis.
     </sl-inline-message>
     <sl-inline-message variant=${ifDefined(variant)}>
-      <span slot="title">Inline message title</span>
+      <h2 slot="title">Inline message title</h2>
       Auto inline message will switch to large if a title is present.
     </sl-inline-message>
   `
@@ -205,6 +222,11 @@ export const All: StoryObj = {
       sl-inline-message::part(title):first-letter {
         text-transform: capitalize;
       }
+      h2 {
+        font-size: inherit;
+        font-weight: inherit;
+        margin: 0;
+      }
     </style>
     <div class="wrapper">
       <sl-inline-message indismissible>The main content of the message</sl-inline-message>
@@ -216,9 +238,9 @@ export const All: StoryObj = {
         variant => html`
           <sl-inline-message variant=${variant}> The main content of the message </sl-inline-message>
           <sl-inline-message variant=${variant}>
-            <span slot="title">
+            <h2 slot="title">
               "info" inline message title esse laboris nisi ut quis ullamco dolor elit do commodo ea mollit eu irure.
-            </span>
+            </h2>
             Duis ut magna commodo minim cillum voluptate incididunt ea labore adipisicing do ad anim. Incididunt non
             consequat eiusmod aliqua consequat Lorem eu culpa labore aute laboris eiusmod.
           </sl-inline-message>

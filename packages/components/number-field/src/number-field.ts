@@ -143,6 +143,10 @@ export class NumberField extends LocaleMixin(TextField) {
       this.requestUpdate('formattedValue');
       this.updateValidity();
     }
+
+    if (changes.has('min') || changes.has('max')) {
+      this.updateValidity();
+    }
   }
 
   /** @internal */

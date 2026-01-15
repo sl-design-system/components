@@ -83,6 +83,9 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
    * Used to prevent restoring focus to the button when the user intentionally moved focus elsewhere. */
   #focusLeavingComponent = false;
 
+  /** The last option that was rendered in the button's selected content. Used to avoid unnecessary DOM updates. */
+  #lastRenderedOption?: Option | null;
+
   /** Detect when options are added to the host, or a nested option group and clear the cache. */
   #observer = new MutationObserver(() => this.#rovingTabindexController.clearElementCache());
 
@@ -102,9 +105,8 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     listenerScope: (): HTMLElement => this.listbox!
   });
 
+  /** @internal The container element for the selected option's content in the button's light DOM. */
   #selectedContentContainer?: HTMLElement;
-
-  #lastRenderedOption?: Option | null;
 
   /**
    * @internal Since we move the aria-label to the button, we need to proxy it here,
@@ -466,7 +468,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     if (option) {
       this.#setSelectedOption(option);
       // Programmatically closing, not because user moved focus away
-      this.#popoverClosing = true; // TODO: really necessary here?
+      this.#popoverClosing = true;
       this.listbox?.hidePopover();
     }
   }

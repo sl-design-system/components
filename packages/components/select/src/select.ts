@@ -37,6 +37,9 @@ export type SelectSize = 'md' | 'lg';
  *
  * @slot default - Place for `sl-option` and `sl-option-group` elements
  * @csspart listbox - Set `--sl-popover-max-block-size` and/or `--sl-popover-min-block-size` to control the minimum and maximum height of the dropdown (within the limits of the available screen real estate)
+ * @csspart selected - The selected option element within the select's internal `sl-select-button`, exposed for styling via `<sl-select>`
+ * @csspart selected-option - The container for the selected option within the select's internal `sl-select-button`, exposed for styling via `<sl-select>`
+ * @csspart placeholder - The placeholder text when no option is selected within the select's internal `sl-select-button`, exposed for styling via `<sl-select>`
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -75,6 +78,16 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   /** The initial state when the form was associated with the select. Used to reset the select. */
   #initialState?: T;
 
+  /**
+   * Track when focus is intentionally leaving the component (e.g. by clicking outside or tabbing away).
+   * Set to true in #onFocusout when the listbox is open, and we're not already programmatically closing it.
+   * Used to prevent restoring focus to the button when the user intentionally moved focus elsewhere.
+   */
+  #focusLeavingComponent = false;
+
+  /** The last option that was rendered in the button's selected content. Used to avoid unnecessary DOM updates. */
+  #lastRenderedOption?: Option | null;
+
   /** Detect when options are added to the host, or a nested option group and clear the cache. */
   #observer = new MutationObserver(() => this.#rovingTabindexController.clearElementCache());
 
@@ -93,6 +106,9 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     isFocusableElement: (el: Option) => !el.disabled,
     listenerScope: (): HTMLElement => this.listbox!
   });
+
+  /** @internal The container element for the selected option's content in the button's light DOM. */
+  #selectedContentContainer?: HTMLElement;
 
   /**
    * @internal Since we move the aria-label to the button, we need to proxy it here,
@@ -309,6 +325,60 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     this.button?.focus(options);
   }
 
+  #renderSelectedContent(): void {
+    if (!this.button) {
+      return;
+    }
+
+    // Avoid unnecessary DOM work if the selected option hasn't changed
+    if (this.#lastRenderedOption === this.selectedOption) {
+      return;
+    }
+
+    let container =
+      this.#selectedContentContainer ??
+      this.button.querySelector<HTMLElement>('[slot="selected-content"]') ??
+      undefined;
+
+    if (!this.selectedOption) {
+      // No selected option: remove any existing selected-content container
+      if (container && container.parentNode === this.button) {
+        container.remove();
+      }
+
+      this.#selectedContentContainer = undefined;
+      this.#lastRenderedOption = null;
+
+      return;
+    }
+
+    if (!container) {
+      container = document.createElement('span');
+      container.setAttribute('slot', 'selected-content');
+
+      // Append the selected content as a child of the button (in the button's light DOM)
+      this.button.appendChild(container);
+    }
+
+    this.#selectedContentContainer = container;
+
+    const slotNodes = this.selectedOption.renderRoot.querySelector('slot')?.assignedNodes() ?? [];
+
+    if (slotNodes.length) {
+      const clones: Node[] = [];
+
+      slotNodes.forEach(node => {
+        clones.push(node.cloneNode(true));
+      });
+
+      container.replaceChildren(...clones);
+    } else {
+      container.textContent = this.selectedOption.textContent?.trim() || '';
+    }
+
+    this.#lastRenderedOption = this.selectedOption;
+  }
+
   #onBeforetoggle({ newState }: ToggleEvent): void {
     if (newState === 'open') {
       this.button.setAttribute('aria-expanded', 'true');
@@ -351,9 +421,17 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
       (!(event.relatedTarget instanceof Element) || event.relatedTarget?.closest('sl-select') !== this);
 
     if (leavingComponent) {
-      if (this.listbox?.matches(':popover-open')) {
-        this.listbox.hidePopover();
+      const listboxIsOpen = this.listbox?.matches(':popover-open');
 
+      // Mark as "focus leaving component" when:
+      // - We're not already in the process of programmatically closing (#popoverClosing),
+      // - The listbox is currently open (if open, we'll close it, which means this is initiated by user).
+      if (!this.#popoverClosing && listboxIsOpen) {
+        this.#focusLeavingComponent = true;
+      }
+
+      if (listboxIsOpen) {
+        this.listbox!.hidePopover();
         this.#popoverClosing = true;
       }
 
@@ -391,6 +469,8 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
     if (option) {
       this.#setSelectedOption(option);
+      // Programmatically closing, not because user moved focus away
+      this.#popoverClosing = true;
       this.listbox?.hidePopover();
     }
   }
@@ -401,6 +481,8 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
       event.stopPropagation();
 
       this.#setSelectedOption(event.target);
+      // Programmatically closing, not because user moved focus away
+      this.#popoverClosing = true;
       this.listbox?.hidePopover();
     } else if (event.key === 'Escape') {
       // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the select
@@ -441,12 +523,14 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     if (event.newState === 'open') {
       this.#rovingTabindexController.focus();
     } else if (event.newState === 'closed') {
-      const activeElement = (this.getRootNode() as Document | ShadowRoot).activeElement;
-      if (activeElement?.closest('sl-select') === this) {
+      // Only restore focus to the button if the popover was closed by selecting an option,
+      // not when focus was moved away intentionally (e.g. by clicking outside or tabbing away)
+      if (!this.#focusLeavingComponent) {
         this.button.focus();
       }
 
       this.#popoverClosing = false;
+      this.#focusLeavingComponent = false;
     }
   }
 
@@ -539,6 +623,9 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
     this.button.selected = this.selectedOption;
     this.value = this.selectedOption?.value;
+
+    // Update the selected content in the light DOM
+    this.#renderSelectedContent();
 
     if (emitEvent) {
       this.changeEvent.emit(this.value);

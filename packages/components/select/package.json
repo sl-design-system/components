@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/select",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Select component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

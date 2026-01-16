@@ -1,5 +1,12 @@
 # @sl-design-system/select
 
+## 2.1.1
+
+### Patch Changes
+
+- [#2929](https://github.com/sl-design-system/components/pull/2929) [`00dfe6c`](https://github.com/sl-design-system/components/commit/00dfe6c7dee443324748524b45dd25c4ca39278e) - The selected option's content is now rendered in the `sl-select-button`'s light DOM via a slotted element instead of being cloned into its shadow DOM,
+  ensuring proper style inheritance from the selected `sl-option` element.
+
 ## 2.1.0
 
 ### Minor Changes

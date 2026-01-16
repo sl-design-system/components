@@ -9,7 +9,7 @@ eleventyNavigation:
 
 ## Keyboard interactions
 
-The paginator provides full keyboard navigation to move between pages:
+The paginator provides full keyboard navigation to move between the pages of a list:
 
 <div class="ds-table-wrapper">
 
@@ -34,7 +34,7 @@ The paginator provides screen reader announcements for important state changes:
 
 - **Page changes**: When navigating between pages using previous/next buttons or selecting a page directly, the new page number and total pages are announced.
 - **Page size changes**: When changing the number of items per page, the new page size is announced to inform users of the updated display.
-- **Status updates**: The current page range and total item count are available to screen readers to provide context about the displayed content.
+- **Status updates**: When the page, page size, or total items change, the current page range and total item count are immediately announced to screen readers to provide context about the displayed content.
 
 These announcements help users understand pagination changes without needing to navigate back to check the current state.
 

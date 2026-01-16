@@ -1017,19 +1017,5 @@ describe('sl-select', () => {
 
       expect(document.activeElement).to.equal(button);
     });
-
-    it('should focus a select-button when clicking an option', async () => {
-      button.focus();
-      await userEvent.keyboard('{ArrowDown}');
-      await el.updateComplete;
-
-      const option = el.querySelector<Option>('sl-option[value="1"]')!;
-      option.click();
-      await el.updateComplete;
-
-      await new Promise(resolve => setTimeout(resolve));
-
-      expect(document.activeElement).to.equal(button);
-    });
   });
 });

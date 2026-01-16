@@ -78,9 +78,11 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   /** The initial state when the form was associated with the select. Used to reset the select. */
   #initialState?: T;
 
-  /** Track when focus is intentionally leaving the component (e.g. by clicking outside or tabbing away).
+  /**
+   * Track when focus is intentionally leaving the component (e.g. by clicking outside or tabbing away).
    * Set to true in #onFocusout when the listbox is open, and we're not already programmatically closing it.
-   * Used to prevent restoring focus to the button when the user intentionally moved focus elsewhere. */
+   * Used to prevent restoring focus to the button when the user intentionally moved focus elsewhere.
+   */
   #focusLeavingComponent = false;
 
   /** The last option that was rendered in the button's selected content. Used to avoid unnecessary DOM updates. */

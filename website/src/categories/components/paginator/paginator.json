@@ -1,0 +1,19 @@
+{
+  "layout": "categories/components/components.njk",
+  "tags": "Paginator",
+  "componentStatus": "draft",
+  "componentTagName": [
+    {
+      "name": "Paginator",
+      "selector": "sl-paginator"
+    },
+    {
+      "name": "Paginator status",
+      "selector": "sl-paginator-status"
+    },
+    {
+      "name": "Paginator page size",
+      "selector": "sl-paginator-page-size"
+    }
+  ]
+}

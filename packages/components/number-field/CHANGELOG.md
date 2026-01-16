@@ -1,5 +1,11 @@
 # @sl-design-system/number-field
 
+## 0.1.6
+
+### Patch Changes
+
+- [#2925](https://github.com/sl-design-system/components/pull/2925) [`a4b0830`](https://github.com/sl-design-system/components/commit/a4b08300a281271465ccf0c322354faf3e2d0938) - Trigger validity check for min/max changes
+
 ## 0.1.5
 
 ### Patch Changes

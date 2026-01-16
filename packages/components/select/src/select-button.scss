@@ -82,7 +82,7 @@
 :host([size='lg']) {
   padding-inline-end: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default));
 
-  div {
+  .wrapper {
     padding-block: calc(var(--sl-size-175) - var(--sl-size-borderWidth-default));
     padding-inline-start: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default));
   }
@@ -96,7 +96,7 @@
   color: var(--sl-color-foreground-subtlest);
 }
 
-div {
+.wrapper {
   flex: 1;
   overflow: hidden;
   padding-block: calc(var(--sl-size-100) - var(--sl-size-borderWidth-default));

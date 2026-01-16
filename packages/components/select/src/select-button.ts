@@ -88,19 +88,7 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    let selected: string | HTMLElement | undefined = undefined;
-
-    if (this.selected?.childElementCount === 1) {
-      selected = this.selected.children[0].cloneNode(true) as HTMLElement;
-      selected.part.add('selected');
-    } else if (this.selected?.childElementCount) {
-      selected = this.selected.cloneNode(true) as HTMLElement;
-      selected.removeAttribute('aria-selected');
-      selected.removeAttribute('selected');
-      selected.part.add('selected');
-    } else {
-      selected = this.selected?.textContent?.trim();
-    }
+    const hasSelected = !!this.selected;
 
     let inlineSize = '100%';
 
@@ -115,8 +103,14 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
     }
 
     return html`
-      <div part=${this.placeholder && !selected ? 'placeholder' : 'selected-option'} style="inline-size: ${inlineSize}">
-        ${selected || this.placeholder || '\u00a0'}
+      <div
+        class="wrapper"
+        part=${this.placeholder && !hasSelected ? 'placeholder' : 'selected-option'}
+        style="inline-size: ${inlineSize}"
+      >
+        ${hasSelected
+          ? html`<span part="selected"><slot name="selected-content"></slot></span>`
+          : this.placeholder || '\u00a0'}
       </div>
       ${!this.disabled && this.clearable && this.selected
         ? html`

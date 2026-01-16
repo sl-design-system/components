@@ -137,7 +137,7 @@ describe('sl-grid-filter-column', () => {
       const filter = el.renderRoot.querySelector<GridFilter>('thead tr:last-of-type th:last-of-type sl-grid-filter')!,
         selectButton = filter.renderRoot.querySelector('sl-select-button');
 
-      expect(selectButton?.renderRoot).to.have.trimmed.text('Premium');
+      expect(selectButton).to.have.trimmed.text('Premium');
     });
 
     it('should remove the filter when the select field is cleared', async () => {

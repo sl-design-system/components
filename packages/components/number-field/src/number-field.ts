@@ -17,6 +17,12 @@ export type NumberFieldButtonsAlignment = 'end' | 'edges';
 
 /**
  * A number field component.
+ *
+ * @omit type - we should not document the type property from TextField in the NumberField, as it is always 'text' internally
+ * @omit-method onPrefixSlotChange - we should not document this method from TextField in the NumberField, as it is used for step buttons internally
+ * @omit-method onSuffixSlotChange - we should not document this method from TextField in the NumberField, as it is used for step buttons internally
+ * @omit-slot prefix - we should not document the prefix slot from TextField in the NumberField, as it is used for step buttons internally
+ * @omit-slot suffix - we should not document the suffix slot from TextField in the NumberField, as it is used for step buttons internally
  */
 @localized()
 export class NumberField extends LocaleMixin(TextField) {
@@ -87,6 +93,9 @@ export class NumberField extends LocaleMixin(TextField) {
 
   /** Step buttons placement for incrementing / decrementing. No step buttons by default. */
   @property({ reflect: true, attribute: 'step-buttons' }) stepButtons?: NumberFieldButtonsAlignment;
+
+  /** @internal we should not document the type property from TextField in the NumberField */
+  // declare type: never;
 
   override get value(): string | undefined {
     return this.#value;

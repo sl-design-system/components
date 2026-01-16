@@ -28,7 +28,6 @@ let nextUniqueId = 0;
 /**
  * Single line text field component.
  *
- * @csspart wrapper - The input's wrapper
  * @slot prefix - Content shown before the input
  * @slot input - The slot for the input element
  * @slot suffix - Content shown after the input

@@ -1,9 +1,9 @@
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
-import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { Popover } from './popover.js';
 

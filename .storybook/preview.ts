@@ -1,12 +1,14 @@
+import '@af-utils/scrollend-polyfill';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import '@sl-design-system/announcer/register.js';
 import { configureLocalization } from '@lit/localize';
 import * as locales from '@sl-design-system/locales';
 import { type Preview } from '@storybook/web-components-vite';
+import MockDate from 'mockdate';
 import { INITIAL_VIEWPORTS } from 'storybook/viewport';
 import { updateTheme, themes } from './themes.js';
-import MockDate from 'mockdate';
 
+// Set a fixed date in non-development environments for consistent Storybook snapshots
 if (!import.meta.env?.DEV) {
   MockDate.set('2025-06-01T00:00:00Z');
 }

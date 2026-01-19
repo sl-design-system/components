@@ -44,10 +44,12 @@ export class Option<T = any> extends ScopedElementsMixin(LitElement) {
   /** Whether this option is selected. */
   @property({ type: Boolean, reflect: true }) selected?: boolean;
 
+  /** @internal */
   override get textContent(): string {
     return this.#getSlottedTextContent();
   }
 
+  /** @internal */
   override set textContent(textContent: string) {
     super.textContent = textContent;
   }

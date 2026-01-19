@@ -336,7 +336,7 @@ export class TextField
   }
 
   /**
-   * Handles the `keydown` event for the text field.
+   * Handles the `keydown` event for the field.
    * Simulates the native behavior of submitting a form when the Enter key is pressed.
    */
   protected onKeydown(event: KeyboardEvent): void {

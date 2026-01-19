@@ -88,6 +88,30 @@ module.exports = function(eleventyConfig) {
     return weight;
   });
 
+  // Filter to convert markdown syntax (links and inline code) to HTML, used in component descriptions (e.g. component-table.njk)
+  eleventyConfig.addFilter("markdownLinks", function(text) {
+    if (!text) {
+      return "";
+    }
+
+    // Convert markdown links [text](url) to HTML <a> tags
+    text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+
+    // Convert backtick code blocks `code` to HTML <code> tags
+    text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+
+    return text;
+  });
+
+  eleventyConfig.addFilter("normalizeBreaks", function(text) {
+    if (!text) {
+      return "";
+    }
+
+    // Replace multiple <br> tags with a single one
+    return text.replace(/(<br\s*\/?>){2,}/gi, '<br>');
+  });
+
   eleventyConfig.addLiquidFilter('svgImage', async function(src) {
     let metadata = await image(`./src/assets/images/${src}`, {
       formats: ['svg'],

@@ -105,6 +105,13 @@ export class NumberField extends LocaleMixin(TextField) {
   /** Step buttons placement for incrementing / decrementing. No step buttons by default. */
   @property({ reflect: true, attribute: 'step-buttons' }) stepButtons?: NumberFieldButtonsAlignment;
 
+  /**
+   * The input type is always 'text' for number fields and cannot be changed.
+   * @override
+   */
+  @property({ attribute: false })
+  override type!: 'text';
+
   override get value(): string | undefined {
     return this.#value;
   }

@@ -97,5 +97,4 @@ console.log(isValid); // Now correctly reflects the new state
 
 </section>
 
-
 {% include "../component-table.njk" %}

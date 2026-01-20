@@ -356,7 +356,7 @@ export const ValidateAsync: StoryObj = {
       <p style="margin-bottom: 16px; max-width: 400px;">
         This demo shows how to correctly check form validity after a programmatic change. Clicking the buttons will
         automatically set the required select to an invalid state (empty) and then immediately check the form's validity
-        - <a href="(https://lit.dev/docs/components/lifecycle/#async-updates">explanation</a>.
+        - <a href="https://lit.dev/docs/components/lifecycle/#async-updates">explanation</a>.
       </p>
       <sl-form id="validate-async-form">
         <sl-form-field label="Select (required)">

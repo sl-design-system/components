@@ -110,7 +110,7 @@ export class NumberField extends LocaleMixin(TextField) {
    * @override
    */
   @property({ attribute: false })
-  override type!: 'text';
+  override type = 'text' as const;
 
   override get value(): string | undefined {
     return this.#value;

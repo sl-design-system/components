@@ -121,8 +121,6 @@ export function omitPlugin() {
       if (!jsDocTags?.length) {
         return;
       }
-
-
       const omitTags = {
         properties: new Set(),
         events: new Set(),

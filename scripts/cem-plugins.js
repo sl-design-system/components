@@ -162,7 +162,6 @@ export function omitPlugin() {
         }
       }
 
-
       omitTagsByClass[className] = omitTags;
     },
 

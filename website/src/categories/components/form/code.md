@@ -80,4 +80,22 @@ You can query the state of the entire form by simply getting the `valid` propert
 
 </section>
 
+<section>
+
+## Async validation
+
+When you change a form control value programmatically, the `valid` property doesn't update immediately due to [Lit's async update cycle](https://lit.dev/docs/components/lifecycle/#async-updates).
+
+Use the `validateAsync()` method instead of checking the `valid` property directly when you need to check validity immediately after programmatically changing form control values.
+
+```typescript
+// After changing a value programmatically:
+this.select.value = undefined;
+const isValid = await this.form.validateAsync();
+console.log(isValid); // Now correctly reflects the new state
+```
+
+</section>
+
+
 {% include "../component-table.njk" %}

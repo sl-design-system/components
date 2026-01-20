@@ -141,9 +141,12 @@ export function omitPlugin() {
           // In newer TypeScript versions, tag.comment can be an array of JSDoc comment parts.
           if (typeof ts.getTextOfJSDocComment === 'function') {
             rawComment = ts.getTextOfJSDocComment(tag.comment)?.trim();
-          } else {
-            rawComment = String(tag.comment).trim();
+          } else if (Array.isArray(tag.comment)) {
+            // Fallback for older TypeScript versions with array-based comments
+            rawComment = tag.comment.map(part => (typeof part === 'string' ? part : part.text || '')).join('').trim();
           }
+        } else {
+          rawComment = '';
         }
 
         if (!rawComment) {
@@ -213,7 +216,7 @@ export function omitPlugin() {
           });
 
           declaration.slots = declaration.slots?.filter(slot => {
-            const slotName = slot.name && slot.name.length > 0 ? slot.name : 'default';
+            const slotName = slot.name || 'default';
             return !omitTags.slots.has(slotName);
           });
 

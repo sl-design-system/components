@@ -20,9 +20,9 @@ let nextUniqueId = 0;
 /**
  * A checkbox with 3 states; unchecked, checked and intermediate.
  *
- * @csspart - outer - The outer container of the checkbox
- * @csspart - inner - The inner container of the checkbox
- * @csspart - label - The label of the checkbox
+ * @csspart outer - The outer container of the checkbox.
+ * @csspart inner - The inner container of the checkbox.
+ * @csspart label - The label of the checkbox.
  *
  * @slot default - Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.
  * @slot input - The slot for the input element

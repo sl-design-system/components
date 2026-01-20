@@ -28,7 +28,6 @@ let nextUniqueId = 0;
 /**
  * Single line text field component.
  *
- * @csspart wrapper - The input's wrapper
  * @slot prefix - Content shown before the input
  * @slot input - The slot for the input element
  * @slot suffix - Content shown after the input
@@ -337,7 +336,7 @@ export class TextField
   }
 
   /**
-   * Handles the `keydown` event for the text field.
+   * Handles the `keydown` event for the field.
    * Simulates the native behavior of submitting a form when the Enter key is pressed.
    */
   protected onKeydown(event: KeyboardEvent): void {

@@ -34,6 +34,17 @@ describe('sl-number-field', () => {
       expect(el.querySelector('input')).to.have.attribute('inputmode', 'numeric');
     });
 
+    it('should always have type "text"', () => {
+      expect(el.type).to.equal('text');
+    });
+
+    it('should not allow changing the type property via attribute', async () => {
+      el.setAttribute('type', 'number');
+      await el.updateComplete;
+
+      expect(el.type).to.equal('text');
+    });
+
     it('should not have a placeholder', () => {
       expect(el.placeholder).to.be.undefined;
       expect(el.querySelector('input')).to.not.have.attribute('placeholder');

@@ -22,7 +22,9 @@
       "files": [
         "../packages/components/**/*.ts",
         "!../packages/components/**/*.{d,spec,stories}.ts",
-        "custom-elements-manifest.config.js"
+        "custom-elements-manifest.config.js",
+        "../scripts/cem-plugins.js",
+        "../scripts/cem-plugin-event-decorator.js"
       ],
       "output": [
         "src/_data/custom-elements/custom-elements.{json,md}"

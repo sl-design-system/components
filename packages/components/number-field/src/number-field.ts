@@ -46,8 +46,6 @@ export class NumberField extends LocaleMixin(TextField) {
   /**
    * Number formatting options.
    * See [Intl.NumberFormat options documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat) for more details.
-   *
-   * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat
    */
   @property({ type: Object, attribute: 'format-options' }) formatOptions?: Intl.NumberFormatOptions;
 
@@ -93,7 +91,7 @@ export class NumberField extends LocaleMixin(TextField) {
   @property({ type: Number }) min?: number;
 
   /**
-   *  Whether the number field is a required field.
+   * Whether the number field is a required field.
    * @override
    */
   @property({ type: Boolean, reflect: true }) override required?: boolean;

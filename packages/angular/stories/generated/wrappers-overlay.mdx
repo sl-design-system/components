@@ -69,3 +69,155 @@ You can show a tooltip by associating it with an element using the aria-describe
 ```
 
 
+## Message Dialog Alert
+
+You can show an alert message using the static <code>MessageDialog.alert()</code> method. This displays a simple message with an OK button.
+
+### Template
+
+```html
+
+  <sl-button (click)="onShowAlert()" variant="primary">Show Alert</sl-button>
+
+```
+
+### Props
+
+```typescript
+
+  onShowAlert: async () => {
+    await MessageDialogElement.alert('This is an important alert message!', 'Alert');
+    console.log('Alert was closed');
+  }
+
+```
+
+
+## Message Dialog Confirm
+
+You can show a confirmation dialog using the static <code>MessageDialog.confirm()</code> method. This returns a promise that resolves with <code>true</code> if OK is clicked, <code>false</code> if Cancel is clicked, or <code>undefined</code> if the dialog is closed.
+
+### Template
+
+```html
+
+  <sl-button (click)="onShowConfirm()" variant="danger">Delete Item</sl-button>
+
+```
+
+### Props
+
+```typescript
+
+  onShowConfirm: async () => {
+    const result = await MessageDialogElement.confirm(
+      'Are you sure you want to delete this item?',
+      'Confirm Delete'
+    );
+    console.log('Confirmation result:', result);
+    alert(`User selected: ${result === true ? 'OK' : result === false ? 'Cancel' : 'Closed dialog'}`);
+  }
+
+```
+
+
+## Message Dialog Custom
+
+You can create custom dialogs with any number of buttons using the static <code>MessageDialog.show()</code> method. Each button can have its own action and return value.
+
+### Template
+
+```html
+
+  <sl-button (click)="onShowCustom()" variant="primary">Open Custom Dialog</sl-button>
+
+```
+
+### Props
+
+```typescript
+
+  onShowCustom: async () => {
+    const result = await MessageDialogElement.show({
+      title: 'Save Changes?',
+      message: 'You have unsaved changes. What would you like to do?',
+      buttons: [
+        { text: 'Discard', value: 'discard', fill: 'ghost' },
+        { text: 'Save as Draft', value: 'draft', fill: 'outline', variant: 'primary' },
+        { text: 'Publish', value: 'publish', variant: 'primary', autofocus: true }
+      ]
+    });
+    console.log('User selected:', result);
+    if (result) {
+      alert(`User selected: ${result}`);
+    }
+  }
+
+```
+
+
+## Message Dialog Custom Message
+
+You can use HTML content in the message by passing a Lit <code>TemplateResult</code> instead of a plain string. This allows you to customize the message with rich formatting.
+
+### Template
+
+```html
+
+  <sl-button (click)="onShowCustomMessage()" variant="primary">Show Custom Message</sl-button>
+
+```
+
+### Props
+
+```typescript
+
+  onShowCustomMessage: async () => {
+    const { html } = await import('lit');
+    await MessageDialogElement.show({
+      title: 'Custom message',
+      message: html`You can <em>customize</em> the message with <strong>HTML</strong>!`,
+      buttons: [{ text: 'OK', variant: 'primary' }],
+      disableCancel: true
+    });
+  }
+
+```
+
+
+## Message Dialog Declarative
+
+You can also use the <code>&lt;sl-message-dialog&gt;</code> component declaratively in your template by binding the <code>config</code> property and calling <code>showModal()</code>. However, using the static methods (<code>MessageDialog.alert()</code>, <code>MessageDialog.confirm()</code>, <code>MessageDialog.show()</code>) is the recommended approach.
+
+### Template
+
+```html
+
+  <sl-button (click)="onShowDeclarative($event)" variant="primary">Show Declarative Dialog</sl-button>
+  <sl-message-dialog [config]="dialogConfig" (slCancel)="onCancel()"></sl-message-dialog>
+
+```
+
+### Props
+
+```typescript
+
+  dialogConfig: {
+    title: 'Declarative Dialog',
+    message: 'This message dialog was created using the Angular wrapper component declaratively.',
+    buttons: [
+      { text: 'Cancel', fill: 'ghost' },
+      { text: 'OK', variant: 'primary', autofocus: true }
+    ]
+  },
+  onShowDeclarative: (event: Event & { target: HTMLElement }) => {
+    const dialog = event.target.nextElementSibling as MessageDialogElement;
+    dialog.showModal();
+  },
+  onCancel: () => {
+    console.log('Dialog was cancelled');
+  }
+
+```
+
+

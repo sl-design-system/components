@@ -98,6 +98,8 @@ module.exports = function(eleventyConfig) {
     text = text.replace(/\[((?:\\.|[^\]\\])*)\]\(((?:\\.|[^\)\\])*)\)/g, '<a href="$2">$1</a>');
 
     // Convert backtick code blocks `code` to HTML <code> tags, supporting escaped backticks (\`) inside code
+    // Limitations: Does not handle escaped backslashes before backticks (e.g., \\``)
+    // Assumes a single backslash before a backtick always means the backtick is escaped
     text = text.replace(/(?<!\\)`((?:\\`|[^`])+)(?<!\\)`/g, (match, code) => `<code>${code.replace(/\\`/g, '`')}</code>`);
 
     return text;

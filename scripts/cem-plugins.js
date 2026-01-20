@@ -132,10 +132,18 @@ export function omitPlugin() {
       };
 
       for (const tag of jsDocTags) {
-        const tagName = tag.tagName.text;
-        const value = tag.comment?.trim().split(/\s+/)[0];
+        const tagName = tag.tagName.text,
+         rawComment = tag.comment?.trim();
 
-        if (!value) {
+        if (!rawComment) {
+          continue;
+        }
+
+        const parts = rawComment.split(/\s+/),
+         value = parts[0];
+
+        // Ensure the comment consists of a single, identifier-like token.
+        if (!value || parts.length !== 1 || !/^[A-Za-z0-9._-]+$/.test(value)) {
           continue;
         }
 
@@ -174,10 +182,15 @@ export function omitPlugin() {
           }
 
           declaration.members = declaration.members?.filter(member => {
-            if (member.kind === 'method' && omitTags.methods.has(member.name)) {
-              return false;
+            if (member.kind === 'method') {
+              return !omitTags.methods.has(member.name);
             }
-            return !((member.kind === 'field' || !member.kind) && omitTags.properties.has(member.name));
+
+            if (member.kind === 'field' || !member.kind) {
+              return !omitTags.properties.has(member.name);
+            }
+
+            return true;
           });
 
           declaration.attributes = declaration.attributes?.filter(attr => {

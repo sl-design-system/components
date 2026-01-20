@@ -135,7 +135,6 @@ export function omitPlugin() {
         const tagName = tag.tagName.text;
         const value = tag.comment?.trim().split(/\s+/)[0];
 
-
         if (!value) {
           continue;
         }

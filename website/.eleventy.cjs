@@ -94,8 +94,8 @@ module.exports = function(eleventyConfig) {
       return "";
     }
 
-    // Convert markdown links [text](url) to HTML <a> tags
-    text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+    // Convert markdown links [text](url) to HTML <a> tags, supporting escaped brackets/parentheses
+    text = text.replace(/\[((?:\\.|[^\]\\])*)\]\(((?:\\.|[^\)\\])*)\)/g, '<a href="$2">$1</a>');
 
     // Convert backtick code blocks `code` to HTML <code> tags
     text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
@@ -109,7 +109,7 @@ module.exports = function(eleventyConfig) {
     }
 
     // Replace multiple <br> tags with a single one
-    return text.replace(/(<br\s*\/?>){2,}/gi, '<br>');
+    return text.replace(/(<br\s*\/?>){2,}/g, '<br>');
   });
 
   eleventyConfig.addLiquidFilter('svgImage', async function(src) {

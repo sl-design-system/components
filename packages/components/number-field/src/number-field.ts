@@ -88,7 +88,7 @@ export class NumberField extends LocaleMixin(TextField) {
   /**
    * The minimum value that is acceptable and valid.
    * If the value is less, the control will be invalid.
-   * @default Infinity
+   * @default -Infinity
    */
   @property({ type: Number }) min?: number;
 

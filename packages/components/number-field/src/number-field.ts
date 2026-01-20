@@ -193,7 +193,7 @@ export class NumberField extends LocaleMixin(TextField) {
    *
    * Remember that if you override this method, the step buttons will no longer be rendered automatically.
    * You will need to implement your own button logic if needed.
-   * */
+   */
   override renderSuffix(): TemplateResult | typeof nothing {
     return this.stepButtons
       ? this.stepButtons === 'end'

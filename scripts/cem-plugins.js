@@ -114,13 +114,14 @@ export function omitPlugin() {
         return;
       }
 
+      const className = node.name.text;
+
       const jsDocTags = ts.getJSDocTags(node);
 
       if (!jsDocTags?.length) {
         return;
       }
 
-      const className = node.name.text;
 
       const omitTags = {
         properties: new Set(),
@@ -154,8 +155,8 @@ export function omitPlugin() {
         const parts = rawComment.split(/\s+/),
          value = parts[0];
 
-        // Ensure the comment consists of a single, identifier-like token.
-        if (!value || parts.length !== 1 || !/^[A-Za-z0-9._-]+$/.test(value)) {
+        // Ensure we have a valid identifier-like token as the first part.
+        if (!value || !/^[A-Za-z0-9._-]+$/.test(value)) {
           continue;
         }
 

@@ -132,8 +132,20 @@ export function omitPlugin() {
       };
 
       for (const tag of jsDocTags) {
-        const tagName = tag.tagName.text,
-         rawComment = tag.comment?.trim();
+        const tagName = tag.tagName.text;
+
+        let rawComment;
+
+        if (typeof tag.comment === 'string') {
+          rawComment = tag.comment.trim();
+        } else if (tag.comment) {
+          // In newer TypeScript versions, tag.comment can be an array of JSDoc comment parts.
+          if (typeof ts.getTextOfJSDocComment === 'function') {
+            rawComment = ts.getTextOfJSDocComment(tag.comment)?.trim();
+          } else {
+            rawComment = String(tag.comment).trim();
+          }
+        }
 
         if (!rawComment) {
           continue;
@@ -202,7 +214,8 @@ export function omitPlugin() {
           });
 
           declaration.slots = declaration.slots?.filter(slot => {
-            return !omitTags.slots.has(slot.name || '');
+            const slotName = slot.name && slot.name.length > 0 ? slot.name : 'default';
+            return !omitTags.slots.has(slotName);
           });
 
           declaration.cssParts = declaration.cssParts?.filter(part => {

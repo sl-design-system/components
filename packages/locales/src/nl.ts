@@ -9,6 +9,8 @@ export const templates = {
   'sl.breadcrumbs.moreBreadcrumbs': 'Meer links',
   'sl.calendar.announceMonthsOfYear': str`Maanden van het jaar ${0}`,
   'sl.calendar.announceYears': str`Jaren tussen ${0} en ${1}`,
+  'sl.calendar.changeMonth': str`${0}, verander maand`,
+  'sl.calendar.changeYear': str`${0}, verander jaar`,
   'sl.calendar.daysLabel': str`Dagen van ${0}`,
   'sl.calendar.monthsLabel': str`Maanden van ${0}`,
   'sl.calendar.nextMonth': str`Volgende maand, ${0}`,

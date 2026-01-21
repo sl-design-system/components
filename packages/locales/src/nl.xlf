@@ -378,6 +378,14 @@
   <source>Please enter a valid time in HH<x id="0" equiv-text="${this.#getTimeSeparator()}"/>MM.</source>
   <target>Voer een geldige tijd in als HH<x id="0" equiv-text="${this.#getTimeSeparator()}"/>MM.</target>
 </trans-unit>
+<trans-unit id="sl.calendar.changeMonth">
+  <source><x id="0" equiv-text="${format(this.displayMonth!, this.locale, { month: 'long' })}"/>, change month</source>
+  <target><x id="0" equiv-text="${format(this.displayMonth!, this.locale, { month: 'long' })}"/>, verander maand</target>
+</trans-unit>
+<trans-unit id="sl.calendar.changeYear">
+  <source><x id="0" equiv-text="${format(this.displayMonth!, this.locale, { year: 'numeric' })}"/>, change year</source>
+  <target><x id="0" equiv-text="${format(this.displayMonth!, this.locale, { year: 'numeric' })}"/>, verander jaar</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

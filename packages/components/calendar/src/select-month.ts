@@ -2,7 +2,7 @@ import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
-import { FormatDate } from '@sl-design-system/format-date';
+import { FormatDate, format } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, LocaleMixin, NewFocusGroupController, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
@@ -142,7 +142,15 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       <header>
         ${this.#canSelectYear(-1) || this.#canSelectYear(1)
           ? html`
-              <sl-button @click=${this.#onToggleYearSelect} class="current-year" fill="link" variant="secondary">
+              <sl-button
+                @click=${this.#onToggleYearSelect}
+                aria-label=${msg(str`${format(this.month, this.locale, { year: 'numeric' })}, change year`, {
+                  id: 'sl.calendar.changeYear'
+                })}
+                class="current-year"
+                fill="link"
+                variant="secondary"
+              >
                 <sl-format-date .date=${this.month} locale=${ifDefined(this.locale)} year="numeric"></sl-format-date>
                 <sl-icon name="caret-down-solid"></sl-icon>
               </sl-button>

@@ -227,7 +227,15 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       <header>
         ${canSelectPreviousMonth || canSelectNextMonth
           ? html`
-              <sl-button @click=${this.#onToggleMonthSelect} class="current-month" fill="link" variant="secondary">
+              <sl-button
+                @click=${this.#onToggleMonthSelect}
+                aria-label=${msg(str`${format(this.displayMonth!, this.locale, { month: 'long' })}, change month`, {
+                  id: 'sl.calendar.changeMonth'
+                })}
+                class="current-month"
+                fill="link"
+                variant="secondary"
+              >
                 <sl-format-date
                   .date=${this.displayMonth}
                   locale=${ifDefined(this.locale)}
@@ -247,7 +255,15 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
             `}
         ${canSelectPreviousYear || canSelectNextYear
           ? html`
-              <sl-button @click=${this.#onToggleYearSelect} class="current-year" fill="link" variant="secondary">
+              <sl-button
+                @click=${this.#onToggleYearSelect}
+                aria-label=${msg(str`${format(this.displayMonth!, this.locale, { year: 'numeric' })}, change year`, {
+                  id: 'sl.calendar.changeYear'
+                })}
+                class="current-year"
+                fill="link"
+                variant="secondary"
+              >
                 <sl-format-date
                   .date=${this.displayMonth}
                   locale=${ifDefined(this.locale)}

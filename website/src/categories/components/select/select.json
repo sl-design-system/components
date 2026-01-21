@@ -6,6 +6,10 @@
     {
       "name": "Select",
       "selector": "sl-select"
+    },
+    {
+      "name": "Option",
+      "selector": "sl-option"
     }
   ]
 }

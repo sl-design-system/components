@@ -1,7 +1,14 @@
+import {
+  faCircle as fasCircle,
+  faHexagon as fasHexagon,
+  faSquare as fasSquare,
+  faTriangle as fasTriangle
+} from '@fortawesome/pro-solid-svg-icons';
 import '@sl-design-system/avatar/register.js';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
+import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/listbox/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
@@ -19,6 +26,8 @@ type Props = Pick<Select, 'clearable' | 'disabled' | 'placeholder' | 'required' 
 type Story = StoryObj<Props>;
 
 const sizes: SelectSize[] = ['md', 'lg'];
+
+Icon.register(fasCircle, fasTriangle, fasHexagon, fasSquare);
 
 export default {
   title: 'Form/Select',
@@ -133,6 +142,116 @@ export const EmbeddedComponents: Story = {
         </sl-option>
       </sl-select>
     `
+  }
+};
+
+export const CustomStyling: Story = {
+  render: () => {
+    return html`
+      <style>
+        sl-select-button {
+          inline-size: 200px;
+        }
+
+        sl-select-button::part(selected-option) {
+          padding-block: 5px;
+        }
+
+        sl-option::part(container) {
+          padding-block: 4px;
+        }
+
+        .colorball {
+          display: inline-block;
+          width: 1em;
+          height: 1em;
+          border-radius: 50%;
+          margin-inline-end: 0.5em;
+        }
+      </style>
+
+      <p>
+        This story shows a select component with custom styling. Each option displays a colored circle, and a label.
+      </p>
+
+      <sl-select placeholder="Select a color">
+        <sl-option value="red">
+          <span class="colorball" style="background-color: red;"></span>
+          Red
+        </sl-option>
+        <sl-option value="blue">
+          <span class="colorball" style="background-color: blue;"></span>
+          Blue
+        </sl-option>
+        <sl-option value="green">
+          <span class="colorball" style="background-color: green;"></span>
+          Green
+        </sl-option>
+      </sl-select>
+    `;
+  }
+};
+
+export const OptionsStyling: Story = {
+  render: () => {
+    const options = [
+      { value: 'circle', label: 'Circle', icon: 'fas-circle' },
+      { value: 'triangle', label: 'Triangle', icon: 'fas-triangle' },
+      { value: 'square', label: 'Square', icon: 'fas-square' },
+      { value: 'hexagon', label: 'Hexagon', icon: 'fas-hexagon' }
+    ];
+
+    type OptionType = { value: string; label: string; icon: string };
+
+    const optionsRenderer = (option: OptionType) => {
+      return html`
+        <sl-option value=${option.value}>
+          <div class="option-element">
+            <div class="colorball"></div>
+            <sl-icon name=${option.icon}></sl-icon>
+            ${option.label}
+          </div>
+        </sl-option>
+      `;
+    };
+
+    return html`
+      <style>
+        sl-select-button::part(selected-option) {
+          inline-size: 200px;
+          padding-block: 7px;
+        }
+
+        sl-option::part(container) {
+          padding-block: 6px;
+        }
+
+        .option-element {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+
+        .colorball {
+          background-color: yellow;
+          display: inline-block;
+          border-radius: 50%;
+          margin-inline-end: 0.5em;
+          width: 20px;
+          height: 20px;
+        }
+
+        sl-icon {
+          color: var(--sl-color-foreground-primary-bold);
+        }
+      </style>
+      <p>
+        This story demonstrates select options with custom content, including icons and styled elements. Each option
+        displays a colored circle, an sl-icon, and a label. The story shows how to style the selected option display and
+        individual option containers.
+      </p>
+      <sl-select value="circle">${options.map(optionsRenderer)} </sl-select>
+    `;
   }
 };
 

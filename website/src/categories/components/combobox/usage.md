@@ -144,6 +144,11 @@ Filters the options list in real time based on user input, displaying only relev
 ### Autocomplete Suggestions
 The Combobox provides real-time autocomplete suggestions as users type. This behavior helps narrow down options by displaying only relevant matches, making the selection process faster and more efficient, especially in large datasets. Users can select a suggestion or continue typing to refine their input further.
 
+### Select Only
+When the `select-only` attribute is enabled, the combobox behaves similarly to a native `<select>` element. The input field becomes read-only, meaning users cannot type to filter results.
+
+In this mode, any `autocomplete` property values are ignored, and the component effectively uses `aria-autocomplete="none"`. This ensures a consistent experience where the component correctly reports no autocomplete capabilities to assistive technologies when typing is disabled.
+
 </section>
 
 

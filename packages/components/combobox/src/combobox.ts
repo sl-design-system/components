@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin, type SlFormControlEvent, type SlUpdateStateEvent } from '@sl-design-system/form';
@@ -370,7 +371,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       const value = this.#ariaAutocomplete;
 
       // Warn developers about conflicting configuration
-      if (this.selectOnly && this.autocomplete && this.autocomplete !== 'off') {
+      if (import.meta.env?.DEV && this.selectOnly && this.autocomplete && this.autocomplete !== 'off') {
         console.warn(
           `sl-combobox: The 'autocomplete="${this.autocomplete}"' property is ignored when 'selectOnly' is true. ` +
             'Select-only comboboxes are readonly and cannot have autocomplete. ' +

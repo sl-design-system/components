@@ -88,6 +88,32 @@ module.exports = function(eleventyConfig) {
     return weight;
   });
 
+  // Filter to convert markdown syntax (links and inline code) to HTML, used in component descriptions (e.g. component-table.njk)
+  eleventyConfig.addFilter("markdownLinks", function(text) {
+    if (!text) {
+      return "";
+    }
+
+    // Convert markdown links [text](url) to HTML <a> tags, supporting escaped brackets/parentheses
+    text = text.replace(/\[((?:\\.|[^\]\\])*)\]\(((?:\\.|[^\)\\])*)\)/g, '<a href="$2">$1</a>');
+
+    // Convert backtick code blocks `code` to HTML <code> tags, supporting escaped backticks (\`) inside code
+    // Limitations: Does not handle escaped backslashes before backticks (e.g., \\``)
+    // Assumes a single backslash before a backtick always means the backtick is escaped
+    text = text.replace(/(?<!\\)`((?:\\`|[^`])+)(?<!\\)`/g, (match, code) => `<code>${code.replace(/\\`/g, '`')}</code>`);
+
+    return text;
+  });
+
+  eleventyConfig.addFilter("normalizeBreaks", function(text) {
+    if (!text) {
+      return "";
+    }
+
+    // Replace multiple <br> tags (optionally separated by whitespace) with a single one
+    return text.replace(/(<br\s*\/?>\s*){2,}/g, '<br>');
+  });
+
   eleventyConfig.addLiquidFilter('svgImage', async function(src) {
     let metadata = await image(`./src/assets/images/${src}`, {
       formats: ['svg'],

@@ -120,7 +120,7 @@ describe('sl-inline-message', () => {
     it('should automatically change the size to lg when a title is present', async () => {
       el = await fixture(html`
         <sl-inline-message>
-          <span slot="title">Title</span>
+          <h2 slot="title">Title</h2>
           Inline message
         </sl-inline-message>
       `);
@@ -156,7 +156,7 @@ describe('sl-inline-message', () => {
 
       el = await fixture(html`
         <sl-inline-message>
-          <span slot="title">Title</span>
+          <h2 slot="title">Title</h2>
           Inline message
         </sl-inline-message>
       `);

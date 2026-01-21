@@ -1,5 +1,6 @@
 import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
+import { Option } from '@sl-design-system/listbox';
 import '@sl-design-system/listbox/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, type TemplateResult, html } from 'lit';
@@ -681,6 +682,47 @@ describe('sl-select', () => {
       expect(selectedOption).to.have.attribute('selected');
       expect(selectedOption).to.have.attribute('aria-selected', 'true');
     });
+
+    it('should focus a select-button when clicking an option', async () => {
+      button.focus();
+
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      const option = el.querySelector<Option>('sl-option')!;
+
+      option.click();
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(document.activeElement).to.equal(button);
+    });
+
+    it('should focus a select-button when selecting an option with Enter key', async () => {
+      button.focus();
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(document.activeElement).to.equal(button);
+    });
+
+    it('should focus a select-button when selecting an option with Space key', async () => {
+      button.focus();
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      await userEvent.keyboard(' ');
+      await el.updateComplete;
+
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(document.activeElement).to.equal(button);
+    });
   });
 
   describe('automatic sizing', () => {
@@ -719,6 +761,261 @@ describe('sl-select', () => {
 
       button = el.querySelector('sl-select-button')!;
       expect(button.getBoundingClientRect().width).to.equal(400);
+    });
+  });
+
+  describe('selected content rendering', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-select>
+          <sl-option value="1">Option 1</sl-option>
+          <sl-option value="2">Option 2</sl-option>
+          <sl-option value="3">Option 3</sl-option>
+        </sl-select>
+      `);
+
+      button = el.querySelector('sl-select-button')!;
+    });
+
+    it('should not have selected content container when no option is selected', () => {
+      const container = button.querySelector('[slot="selected-content"]');
+
+      expect(container).to.be.null;
+    });
+
+    it('should create selected content container when option is selected', async () => {
+      el.value = '1';
+      await el.updateComplete;
+
+      const container = button.querySelector('[slot="selected-content"]');
+
+      expect(container).to.exist;
+      expect(container).to.have.attribute('slot', 'selected-content');
+    });
+
+    it('should correctly clone text content from selected option', async () => {
+      el.value = '1';
+      await el.updateComplete;
+
+      const container = button.querySelector('[slot="selected-content"]');
+      expect(container).to.have.trimmed.text('Option 1');
+    });
+
+    it('should update content when different option is selected', async () => {
+      el.value = '1';
+      await el.updateComplete;
+
+      let container = button.querySelector('[slot="selected-content"]');
+
+      expect(container).to.have.trimmed.text('Option 1');
+
+      el.value = '2';
+      await el.updateComplete;
+
+      container = button.querySelector('[slot="selected-content"]');
+
+      expect(container).to.have.trimmed.text('Option 2');
+    });
+
+    it('should not re-render when the same option is selected again', async () => {
+      el.value = '1';
+      await el.updateComplete;
+
+      const containerRef = button.querySelector('[slot="selected-content"]');
+
+      el.value = '1';
+      await el.updateComplete;
+
+      const containerAfter = button.querySelector('[slot="selected-content"]');
+
+      expect(containerAfter).to.equal(containerRef);
+      expect(containerAfter).to.have.trimmed.text('Option 1');
+    });
+
+    it('should remove selected content container when an option is deselected', async () => {
+      el.value = '1';
+      await el.updateComplete;
+
+      let container = button.querySelector('[slot="selected-content"]');
+      expect(container).to.exist;
+
+      el.value = undefined;
+      await el.updateComplete;
+
+      container = button.querySelector('[slot="selected-content"]');
+      expect(container).to.be.null;
+    });
+
+    it('should handle options with slotted element content', async () => {
+      el = await fixture(html`
+        <sl-select>
+          <sl-option value="1"> <strong>Bold</strong> text </sl-option>
+          <sl-option value="2">Normal text</sl-option>
+        </sl-select>
+      `);
+
+      button = el.querySelector('sl-select-button')!;
+
+      el.value = '1';
+      await el.updateComplete;
+
+      const container = button.querySelector('[slot="selected-content"]');
+
+      expect(container).to.exist;
+
+      const boldText = container!.querySelector('strong');
+
+      expect(boldText).to.exist;
+      expect(boldText).to.have.text('Bold');
+      expect(container).to.have.trimmed.text('Bold text');
+    });
+
+    it('should handle options with multiple slotted nodes', async () => {
+      el = await fixture(html`
+        <sl-select>
+          <sl-option value="1">
+            <span>First</span>
+            <span>Second</span>
+            <span>Third</span>
+          </sl-option>
+        </sl-select>
+      `);
+
+      button = el.querySelector('sl-select-button')!;
+
+      el.value = '1';
+      await el.updateComplete;
+
+      const container = button.querySelector('[slot="selected-content"]');
+
+      expect(container).to.exist;
+
+      const spans = container!.querySelectorAll('span');
+
+      expect(spans).to.have.length(3);
+      expect(spans[0]).to.have.text('First');
+      expect(spans[1]).to.have.text('Second');
+      expect(spans[2]).to.have.text('Third');
+    });
+
+    it('should clone slotted nodes deeply', async () => {
+      el = await fixture(html`
+        <sl-select>
+          <sl-option value="1">
+            <div>
+              <span class="nested"> <strong>Deep</strong> content </span>
+            </div>
+          </sl-option>
+        </sl-select>
+      `);
+
+      button = el.querySelector('sl-select-button')!;
+
+      el.value = '1';
+      await el.updateComplete;
+
+      const container = button.querySelector('[slot="selected-content"]');
+
+      expect(container).to.exist;
+
+      const div = container!.querySelector('div'),
+        span = container!.querySelector('.nested'),
+        boldText = container!.querySelector('strong');
+
+      expect(div).to.exist;
+      expect(span).to.exist;
+      expect(boldText).to.exist;
+      expect(boldText).to.have.text('Deep');
+    });
+
+    it('should handle empty option text', async () => {
+      el = await fixture(html`
+        <sl-select>
+          <sl-option value="empty"></sl-option>
+          <sl-option value="filled">Has text</sl-option>
+        </sl-select>
+      `);
+
+      button = el.querySelector('sl-select-button')!;
+
+      el.value = 'empty';
+
+      await el.updateComplete;
+
+      const container = button.querySelector('[slot="selected-content"]');
+      expect(container).to.exist;
+      expect(container).to.have.text('');
+    });
+
+    it('should update content when option content changes', async () => {
+      el = await fixture(html`
+        <sl-select>
+          <sl-option value="1">Initial</sl-option>
+        </sl-select>
+      `);
+
+      button = el.querySelector('sl-select-button')!;
+
+      el.value = '1';
+      await el.updateComplete;
+
+      let container = button.querySelector('[slot="selected-content"]');
+      expect(container).to.have.trimmed.text('Initial');
+
+      const option = el.querySelector('sl-option')!;
+
+      option.textContent = 'Updated';
+      await el.updateComplete;
+
+      el.value = undefined;
+      await el.updateComplete;
+      el.value = '1';
+      await el.updateComplete;
+
+      container = button.querySelector('[slot="selected-content"]');
+      expect(container).to.have.trimmed.text('Updated');
+    });
+  });
+
+  describe('focus management', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-select>
+          <sl-option value="1">Option 1</sl-option>
+          <sl-option value="2">Option 2</sl-option>
+          <sl-option value="3">Option 3</sl-option>
+        </sl-select>
+      `);
+
+      button = el.querySelector('sl-select-button')!;
+    });
+
+    it('should move focus away from select-button when tabbing out of an open select', async () => {
+      button.focus();
+
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      await userEvent.keyboard('{Tab}');
+      await el.updateComplete;
+
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(document.activeElement).not.to.equal(button);
+    });
+
+    it('should focus a select-button when pressing Escape', async () => {
+      button.focus();
+
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      await userEvent.keyboard('{Escape}');
+      await el.updateComplete;
+
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(document.activeElement).to.equal(button);
     });
   });
 });

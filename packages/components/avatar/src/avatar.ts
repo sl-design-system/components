@@ -27,7 +27,7 @@ export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
  *
  * @csspart avatar - The container for positioning the badge.
  * @csspart initials - The initials to display when no picture is set.
- * @csspart name - The display name, either a <span> or <a> if `href` is set.
+ * @csspart name - The display name, either a `<span>` or `<a>` if `href` is set.
  * @csspart picture - The element containing the image, initials or fallback content.
  * @csspart wrapper - The wrapper element around the image and name.
  *

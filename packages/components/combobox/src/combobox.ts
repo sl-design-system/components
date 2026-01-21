@@ -264,7 +264,6 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     }
 
     this.input.setAttribute('role', 'combobox');
-    // this.input.setAttribute('aria-autocomplete', this.autocomplete || 'both');
     this.input.setAttribute('aria-autocomplete', this.#ariaAutocomplete);
     this.input.setAttribute('aria-expanded', 'false');
     this.input.setAttribute('aria-haspopup', 'listbox');

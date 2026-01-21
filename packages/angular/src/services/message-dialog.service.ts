@@ -95,6 +95,9 @@ export class MessageDialogRef<T = unknown> {
   /** Message dialog element reference. */
   dialog: MessageDialog;
 
+  /** Internal dialog element reference (for event listening). */
+  #internalDialog?: HTMLDialogElement;
+
   constructor(
     dialog: MessageDialog,
     private ngZone: NgZone
@@ -123,7 +126,16 @@ export class MessageDialogRef<T = unknown> {
       });
     };
 
-    this.dialog.addEventListener('sl-close', this.#onClose);
+    // Wait for the component to be ready and get the internal dialog element
+    void this.dialog.updateComplete.then(() => {
+      this.#internalDialog = this.dialog.shadowRoot?.querySelector('dialog') ?? undefined;
+      if (this.#internalDialog) {
+        // Listen to native 'close' event from the internal dialog element
+        this.#internalDialog.addEventListener('close', this.#onClose);
+      }
+    });
+
+    // Listen to sl-cancel event from the custom element
     this.dialog.addEventListener('sl-cancel', this.#onCancel);
   }
 
@@ -139,9 +151,17 @@ export class MessageDialogRef<T = unknown> {
     this.dialog.close();
   }
 
+  /** Set the result value (used internally by the service). */
+  setResult(result: T): void {
+    this.#manualClose = true;
+    this.#result = result;
+  }
+
   /** A method to clean up the event listeners */
   destroy(): void {
-    this.dialog.removeEventListener('sl-close', this.#onClose);
+    if (this.#internalDialog) {
+      this.#internalDialog.removeEventListener('close', this.#onClose);
+    }
     this.dialog.removeEventListener('sl-cancel', this.#onCancel);
   }
 }
@@ -213,8 +233,13 @@ export class MessageDialogService {
         buttons: config.buttons?.map(button => ({
           ...button,
           action: () => {
+            // Store the button value BEFORE the dialog closes
+            // The button action is called before the dialog's close event fires
+            if (button.value !== undefined) {
+              dialogRef.setResult(button.value);
+            }
+            // Call the original action if provided
             button.action?.();
-            dialogRef.close(button.value);
           }
         })),
         disableCancel: config.disableCancel
@@ -248,12 +273,19 @@ export class MessageDialogService {
                 componentChangeDetector.markForCheck();
               }
             });
+
+            // Set up cleanup when dialog closes
+            // We need to listen to the internal dialog element's close event
+            const internalDialog = dialog.shadowRoot?.querySelector('dialog');
+            if (internalDialog) {
+              const cleanupHandler = () => {
+                this.#cleanup(dialogRef, componentRef, dialog);
+                internalDialog.removeEventListener('close', cleanupHandler);
+              };
+              internalDialog.addEventListener('close', cleanupHandler);
+            }
           });
         });
-      });
-
-      dialog.addEventListener('sl-close', () => {
-        this.#cleanup(dialogRef, componentRef, dialog);
       });
 
       dialog.addEventListener('sl-cancel', () => {
@@ -282,12 +314,18 @@ export class MessageDialogService {
         requestAnimationFrame(() => {
           void dialog.updateComplete.then(() => {
             dialog.showModal();
+
+            // Set up cleanup when dialog closes
+            const internalDialog = dialog.shadowRoot?.querySelector('dialog');
+            if (internalDialog) {
+              const cleanupHandler = () => {
+                this.#cleanup(dialogRef, undefined, dialog);
+                internalDialog.removeEventListener('close', cleanupHandler);
+              };
+              internalDialog.addEventListener('close', cleanupHandler);
+            }
           });
         });
-      });
-
-      dialog.addEventListener('sl-close', () => {
-        this.#cleanup(dialogRef, undefined, dialog);
       });
 
       dialog.addEventListener('sl-cancel', () => {

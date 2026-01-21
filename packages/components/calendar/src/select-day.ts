@@ -195,22 +195,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       this.nextMonth = new Date(this.month.getFullYear(), this.month.getMonth() + 1);
       this.previousMonth = new Date(this.month.getFullYear(), this.month.getMonth() - 1);
     }
-
-    // if (changes.has('max') || changes.has('min') || changes.has('month')) {
-    //   this.#observedMonths?.forEach(mv => this.#intersectionObserver?.unobserve(mv));
-    //   this.#observedMonths = undefined;
-    // }
-  }
-
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    // if (changes.has('max') || changes.has('min') || changes.has('month')) {
-    //   this.#scrollToMonth(0);
-
-    //   this.#observedMonths = this.renderRoot.querySelectorAll('sl-month-view');
-    //   this.#observedMonths.forEach(mv => this.#intersectionObserver?.observe(mv));
-    // }
   }
 
   override render(): TemplateResult {
@@ -405,6 +389,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
     this.month = newMonth;
 
+    // Wait until the new month has rendered before focusing the month view
     requestAnimationFrame(() => {
       this.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')?.focus(event.detail);
     });

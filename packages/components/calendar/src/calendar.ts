@@ -196,6 +196,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     this.#previousMode = this.mode;
     this.mode = event.detail;
 
+    // Wait until the new mode has rendered before focusing the correct element
     requestAnimationFrame(() => {
       this.renderRoot.querySelector(event.detail === 'month' ? 'sl-select-month' : 'sl-select-year')?.focus();
     });

@@ -136,18 +136,13 @@ Let's explore the behavior of the Combobox
 Provides organizational structure for selected items by categorizing them under specific groups or labels. This behavior is especially beneficial in complex datasets where selections belong to distinct categories.
 
 ### Stacked Selections
-Displays multiple selected items as a visually stacked list at the top of the dropdow list or within tag list. This approach keeps the interface tidy and ensures users can quickly review or edit their choices without scrolling through a long dropdown.
+Displays multiple selected items as a visually stacked list at the top of the dropdown list or within tag list. This approach keeps the interface tidy and ensures users can quickly review or edit their choices without scrolling through a long dropdown.
 
 ### Dynamic Filtering
 Filters the options list in real time based on user input, displaying only relevant matches. This functionality enhances usability, particularly for lists with many similar or closely related items.
 
 ### Autocomplete Suggestions
 The Combobox provides real-time autocomplete suggestions as users type. This behavior helps narrow down options by displaying only relevant matches, making the selection process faster and more efficient, especially in large datasets. Users can select a suggestion or continue typing to refine their input further.
-
-### Select Only
-When the `select-only` attribute is enabled, the combobox behaves similarly to a native `<select>` element. The input field becomes read-only, meaning users cannot type to filter results.
-
-In this mode, any `autocomplete` property values are ignored, and the component effectively uses `aria-autocomplete="none"`. This ensures a consistent experience where the component correctly reports no autocomplete capabilities to assistive technologies when typing is disabled.
 
 </section>
 

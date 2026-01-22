@@ -185,7 +185,7 @@ export class MessageDialogServiceExampleComponent {
         </div>
       </div>
 
-      <div style="margin-top: 1rem; padding: 1rem; background: var(--sl-color-container-tertiary); border-radius: 4px;">
+      <div>
         <strong>Status:</strong> {{ status }}
       </div>
     </div>
@@ -303,6 +303,29 @@ export class MessageDialogAdvancedExampleComponent {
   }
 }
 
+@Component({
+  selector: 'sla-message-dialog-custom-message',
+  standalone: true,
+  imports: [ButtonComponent],
+  template: `
+    <div style="padding: 1rem;">
+      <p>Example showing how to use HTML content with the static MessageDialog API.</p>
+      <sl-button (click)="showCustomMessage()" variant="primary">Show Custom HTML Message</sl-button>
+    </div>
+  `
+})
+export class MessageDialogCustomMessageExampleComponent {
+  async showCustomMessage(): Promise<void> {
+    const { html } = await import('lit');
+    await MessageDialogElement.show({
+      title: 'Custom message',
+      message: html`You can <em>customize</em> the message with <strong>HTML</strong>!`,
+      buttons: [{ text: 'OK', variant: 'primary' }],
+      disableCancel: true
+    });
+  }
+}
+
 export default {
   title: 'Components/Message Dialog Service',
   tags: ['draft'],
@@ -316,6 +339,7 @@ export default {
         CommonModule,
         CustomMessageComponent,
         MessageDialogAdvancedExampleComponent,
+        MessageDialogCustomMessageExampleComponent,
         MessageDialogServiceExampleComponent
       ]
     })
@@ -353,49 +377,8 @@ export const AdvancedExample: StoryFn = () => ({
   template: '<sla-message-dialog-advanced></sla-message-dialog-advanced>'
 });
 
-export const Mobile: StoryFn = () => ({
-  parameters: {
-    viewport: {
-      defaultViewport: 'iphone5'
-    }
-  },
-  description:
-    '<p>Example of a message dialog optimized for mobile devices. The dialog adapts to smaller screens while maintaining usability.</p>' +
-    '<p>This demonstrates how the MessageDialogService works seamlessly across different screen sizes.</p>',
-  props: {
-    onShowMobile: async () => {
-      const result = await MessageDialogElement.show({
-        title: 'Allow SLDS?',
-        message: 'The SL Design System is an amazing tool that will make your app look so much better.',
-        buttons: [
-          { text: "Don't allow", fill: 'outline', value: false, variant: 'primary' },
-          { text: 'Allow', value: true, variant: 'primary' }
-        ]
-      });
-      console.log('Mobile dialog result:', result);
-    }
-  },
-  template: `
-    <sl-button (click)="onShowMobile()" variant="primary">Show Mobile Dialog</sl-button>
-  `
-});
-
 export const CustomMessage: StoryFn = () => ({
   description:
-    '<p>Example showing how to use HTML content in message dialogs using the static <code>MessageDialog.show()</code> method with Lit HTML.</p>' +
-    '<p>For Angular components, use the <code>showModal()</code> method with a custom component instead (see the main example).</p>',
-  props: {
-    onShowCustomMessage: async () => {
-      const { html } = await import('lit');
-      await MessageDialogElement.show({
-        title: 'Custom message',
-        message: html`You can <em>customize</em> the message with <strong>HTML</strong>!`,
-        buttons: [{ text: 'OK', variant: 'primary' }],
-        disableCancel: true
-      });
-    }
-  },
-  template: `
-    <sl-button (click)="onShowCustomMessage()" variant="primary">Show Custom HTML Message</sl-button>
-  `
+    '<p>Example showing how to use HTML content in message dialogs using the static <code>MessageDialog.show()</code> method with Lit HTML. <br /> For Angular components, use the <code>showModal()</code> method with a custom component instead (see the main example).</p>',
+  template: '<sla-message-dialog-custom-message></sla-message-dialog-custom-message>'
 });

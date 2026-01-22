@@ -70,6 +70,13 @@ describe('sl-combobox', () => {
       expect(input).to.have.attribute('readonly');
     });
 
+    it('should be readonly when autocomplete is "off"', async () => {
+      el.autocomplete = 'off';
+      await el.updateComplete;
+
+      expect(input).to.have.attribute('readonly');
+    });
+
     it('should have aria-autocomplete="none" when select-only is true even if autocomplete is not "off"', async () => {
       el.selectOnly = true;
       el.autocomplete = 'both';

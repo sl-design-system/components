@@ -37,7 +37,7 @@ Buttons should be used in user interfaces when you want to provide users with a 
   {{'components/button/sl-button-when-use-actions.svg' | svgImage}}
 <figcaption>
 
-### To Initiate Actions 
+### To Initiate Actions
 Buttons are used to trigger specific actions or functions. For example, you can use a "Submit" button in a form to send user input to a server, or a "Save" button to save changes in an application.
 </figcaption>
 </figure>
@@ -138,7 +138,7 @@ Take a look at our button options designed for different user needs and situatio
       <sl-button fill="solid" variant="primary" size="lg">Primary</sl-button>
     </div>
     <figcaption>
-  
+
   ### Primary
   Primary buttons are like the interface's guiding stars, drawing immediate attention to critical actions. They're best used for the primary user flow, making them stand out for important tasks.
   </figcaption>
@@ -149,23 +149,23 @@ Take a look at our button options designed for different user needs and situatio
       <sl-button fill="solid" variant="default" size="lg">Default</sl-button>
     </div>
     <figcaption>
-  
+
   ### Default
   These buttons stand below the primary button in the hierarchy. They serve well in secondary user flows on a page, such as adding an extra timeslot, or additional feedback when marking students' work. <br/> When there is no clear hierarchy in user flows on the page (for example a dashboard or overview page) this is your go-to button.
   </figcaption>
   </figure>
-  <figure>    
+  <figure>
     <div class="ds-example">
       <sl-icon name="fas-hand-back-point-up" aria-describedby="interactiveexample" size="sm"></sl-icon>
       <sl-button fill="solid" variant="success" size="lg">Success</sl-button>
     </div>
     <figcaption>
-  
-  ### Success 
-  Success buttons act as digital applause, marking successful task completion and enhancing the user experience. This addition can effectively communicate achievement and contribute to overall user satisfaction. 
+
+  ### Success
+  Success buttons act as digital applause, marking successful task completion and enhancing the user experience. This addition can effectively communicate achievement and contribute to overall user satisfaction.
   </figcaption>
   </figure>
-  <figure>    
+  <figure>
     <div class="ds-example">
       <sl-icon name="fas-hand-back-point-up" aria-describedby="interactiveexample" size="sm"></sl-icon>
       <sl-button fill="solid" variant="warning" size="lg">Warning</sl-button>
@@ -173,16 +173,16 @@ Take a look at our button options designed for different user needs and situatio
     <figcaption>
 
   ### Warning
-  A warning button signals the need for careful consideration and double-checking. Its purpose is to prevent unintended actions and confirm the right choice. 
+  A warning button signals the need for careful consideration and double-checking. Its purpose is to prevent unintended actions and confirm the right choice.
   </figcaption>
   </figure>
-  <figure>    
+  <figure>
     <div class="ds-example">
       <sl-icon name="fas-hand-back-point-up" aria-describedby="interactiveexample" size="sm"></sl-icon>
       <sl-button fill="solid" variant="danger" size="lg">Danger</sl-button>
     </div>
     <figcaption>
-  
+
   ### Danger
   The danger button is a clear warning of risky actions, typically associated with irreversible outcomes or significant data loss
 </figcaption>
@@ -228,7 +228,7 @@ With these options you can tweak the appearance of the button in Figma. They are
 |Type|`solid` `outline` `ghost` `link`|There are four button types to choose from so you can differentiate between buttons, depending on how essential they are.  <br> [More info about button types](#types)|
 |Variant|`default` `primary` `success` `warning` `danger` `info`|Indicates the variant of the button. <br> [More info about button variants](#variants) |
 |Size|`small` `medium` `large`|The button is available in three sizes. If not specified the default value is `medium`.|
-|Icon |`start` `end`|Indictes the position of the icon.|
+|Icon |`start` `end`|Indicates the position of the icon.|
 |Label|`text`|Value of the button.|
 |Icon only|`boolean`|Indicates if it is an icon only button.|
 
@@ -247,5 +247,5 @@ Users can activate a button by clicking anywhere within the button container.
 When the button label is concealed, a tooltip appears on hover, revealing the label text and, when applicable, a keyboard shortcut.
 
 ### Transition
-Hover and Active State Transitions: When users hover over a button or the button is in an active state, the background color and/or border color smoothly transition to provide visual feedback. 
+Hover and Active State Transitions: When users hover over a button or the button is in an active state, the background color and/or border color smoothly transition to provide visual feedback.
 </section>

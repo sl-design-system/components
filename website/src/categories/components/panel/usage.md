@@ -69,7 +69,7 @@ sl-panel::part(content){
       <li><a href="#"><sl-icon name="far-eye-slash"></sl-icon> 1. Find ...</a></li>
       ...
     </ul>
-    
+
     <sl-button-bar align="end">
       <sl-button fill="ghost"><sl-icon name="far-file-pen"></sl-icon>Edit</sl-button>
       <sl-button fill="ghost"><sl-icon name="far-trash"></sl-icon>Delete</sl-button>
@@ -85,10 +85,10 @@ sl-panel::part(content){
 ## When to use
 
 ### Layout Wrappers
-Nesting Panels lets you group subtopics and local controls inside a parent section, improving scanability, and enabling progressive disclosure without overwhelming the page. Panels can be collapsible or always-on to act as structural wrappers. Adjust visual weight using the Density, Border/Divider, and Elevation properties to keep hierarchy clear even without collapse.
+Nesting Panels lets you group subtopics and local controls inside a parent section, improving scannability, and enabling progressive disclosure without overwhelming the page. Panels can be collapsible or always-on to act as structural wrappers. Adjust visual weight using the Density, Border/Divider, and Elevation properties to keep hierarchy clear even without collapse.
 
 ### Progressive Content
-Use Panel to progressively reveal either interactive controls (filters, advanced settings, long forms) or dense supporting details (explanations, specs, logs) that don’t need to be always visible. Keep them collapsed by default to reduce scanning effort and distraction, and let users expand on demand. Wrap tools related to a specific area of a page (e.g., “Lesson details” actions) so the header acts as a clear anchor. 
+Use Panel to progressively reveal either interactive controls (filters, advanced settings, long forms) or dense supporting details (explanations, specs, logs) that don’t need to be always visible. Keep them collapsed by default to reduce scanning effort and distraction, and let users expand on demand. Wrap tools related to a specific area of a page (e.g., “Lesson details” actions) so the header acts as a clear anchor.
 
 </section>
 
@@ -204,8 +204,8 @@ With these options, you can tweak the appearance of the popover in Figma. They a
 |-|-|-|
 |Prefix|`'on', 'of'`| Enables a leading slot before the heading (e.g., an icon). |
 |Prefix Instance|`select`| Choose which prefix component appears in the leading slot. |
-|Sufix|`'on', 'of'`| Enables a trailing slot after the heading (e.g., a badge). |
-|Sufix Instance|`select`| Choose which suffix component appears in the trailing slot. |
+|Suffix|`'on', 'of'`| Enables a trailing slot after the heading (e.g., a badge). |
+|Suffix Instance|`select`| Choose which suffix component appears in the trailing slot. |
 |Actions|`'on', 'of'`| Shows an actions area in the header (buttons/menu) for context-specific tools. |
 
 {.ds-table .ds-table-align-top}
@@ -232,7 +232,7 @@ With these options, you can tweak the appearance of the popover in Figma. They a
 Let's explore the behaviour of the Panel.
 
 ### Nested structure
-Supports nesting a Panel inside another to group subtopics and local tools within a parent section. Each Panel keeps its own header, state, and affordances, improving scanability without overwhelming the page.
+Supports nesting a Panel inside another to group subtopics and local tools within a parent section. Each Panel keeps its own header, state, and affordances, improving scannability without overwhelming the page.
 
 ### Collapsable Toggle
 Opens and closes via the header toggle to reveal content on demand. In controlled mode, the component reflects the app’s state (e.g., open=true/false) and “remembers” it across renders and navigation patterns you manage.

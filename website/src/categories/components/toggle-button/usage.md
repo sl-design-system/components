@@ -54,7 +54,7 @@ Users typically expect to see switches when enabling or disabling features. If y
 
 |Item|Name| Description | Optional|
 |-|-|-|-|
-|1|Container|THTML button  element 	|no|
+|1|Container|HTML button  element 	|no|
 |2|Icon|The outline icon appears in the default state, while the filled icon is displayed when the toggle button is selected|no|
 |3|Tooltip|The tooltip appears on hover to provide additional information about the toggle button's action|no|
 

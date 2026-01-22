@@ -13,19 +13,19 @@ eleventyNavigation:
       <sl-radio value="dog">Dog</sl-radio>
       <sl-radio value="cat">Cat</sl-radio>
       <sl-radio value="hamster">Hamster</sl-radio>
-    </sl-radio-group> 
+    </sl-radio-group>
   </sl-form-field>
 </div>
 
 <div class="ds-code">
-  
+
   ```html
   <sl-form-field label="Which animal do you like best?">
     <sl-radio-group value="cat">
       <sl-radio value="dog">Dog</sl-radio>
       <sl-radio value="cat">Cat</sl-radio>
       <sl-radio value="hamster">Hamster</sl-radio>
-    </sl-radio-group> 
+    </sl-radio-group>
   </sl-form-field>
   ```
 
@@ -39,7 +39,7 @@ eleventyNavigation:
 ## When to use
 Radio buttons are best used in situations where users need to make a single selection from multiple options within a defined group. Here are two common scenarios:
 
-### In forms 
+### In forms
 Radio buttons are commonly used in forms where users need to choose one option from a list, such as selecting a gender, indicating a preference, or specifying a category.
 
 ### Settings and Filters
@@ -85,9 +85,9 @@ Radio buttons become less practical as the number of options in a list grows. If
 
 ## Sizing
 
-Radio Group come in two sizes, to match diferents scenarios:
+Radio Group comes in two sizes, to match different scenarios:
 
-  - **Medium:** The medium-sized radio buttons function as the default option across our user interfaces. It achieves a balanced blend of size and clarity, establishing itself as the standard and user-friendly choice for single-choice. 
+  - **Medium:** The medium-sized radio buttons function as the default option across our user interfaces. It achieves a balanced blend of size and clarity, establishing itself as the standard and user-friendly choice for single-choice.
 
   - **Large:** Opting for the large radio buttons for touch-based devices can offer advantages since it presents a larger tap target. This size facilitates more accessible user interactions.
 
@@ -98,7 +98,7 @@ Radio Group come in two sizes, to match diferents scenarios:
 
 ## Status
 
-Radio Group come in two sizes, to match diferents scenarios:
+Radio Group comes in two sizes, to match different scenarios:
 
   - **Checked:** The checked status signifies that a user has actively selected that option from a group of choices. It visually indicates the chosen state, this visual cue helps users easily identify which option they have selected among the available choices.
 
@@ -111,7 +111,7 @@ Radio Group come in two sizes, to match diferents scenarios:
 
 ## Variants
 
-Radio Group come in various versions, each suited for specific situations:
+Radio Group comes in various versions, each suited for specific situations:
 
   - **Default:** The default radio button variant allows users to check or uncheck an option. When a radio button is checked, it indicates that the option is chosen, while when it's unchecked, it means the option is not chosen.
 
@@ -154,7 +154,7 @@ When a label is too long for the available horizontal space, it wraps to form an
 The radio has a clickable area around both the checkbox and label for more space to press. We've left a bit of space on the left side to ensure smooth alignment and avoid any unexpected layout issues.
 
 ### Focusable area
-Both the radio input and label are interactive elements, allowing users to interact with them. However, when it comes to focusing, whether through keyboard navigation or voice commands, the visible focus state is only visible on the checkbox itself. 
+Both the radio input and label are interactive elements, allowing users to interact with them. However, when it comes to focusing, whether through keyboard navigation or voice commands, the visible focus state is only visible on the checkbox itself.
 
 ### Validation
 If an issue arises after submitting a form, the radio button and the help text will switch to an 'invalid' state. This serves as a valuable guide for users, clearly explaining the necessary actions to resolve any problems.

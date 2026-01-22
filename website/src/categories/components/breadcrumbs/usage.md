@@ -76,9 +76,9 @@ Users might jump directly from one section to another, use search functionality,
 With these options, you can tweak the appearance of the breadcrumbs in Figma. They are available in the Design Panel so you can compose the breadcrumbs to exactly fit the user experience need for the use case you are working on.
 
 <div class="ds-table-wrapper">
-  
+
 ###  Base settings
-  
+
 |Item|Options|Description|
 |-|-|-|
 |Type|`desktop` `mobile` `home`|To indicate the sizing of the breadcrumb|
@@ -90,9 +90,9 @@ With these options, you can tweak the appearance of the breadcrumbs in Figma. Th
 </div>
 
 <div class="ds-table-wrapper">
-  
+
 ###  Home item
-  
+
 |Item|Options|Description|
 |-|-|-|
 |State|`idle` `hover` `active` `current`|Indicate the state of the home item|
@@ -104,12 +104,12 @@ With these options, you can tweak the appearance of the breadcrumbs in Figma. Th
 </div>
 
 <div class="ds-table-wrapper">
-  
+
 ###  Page up to and including 3
-  
+
 |Item|Options|Description|
 |-|-|-|
-|Overflow|`boolean`|Indicates if the page is visble or truncated |
+|Overflow|`boolean`|Indicates if the page is visible or truncated |
 |State|`idle` `hover` `active` `current`|Indicates if the icon is visible|
 |Text|`value`|The title of the page|
 
@@ -118,10 +118,10 @@ With these options, you can tweak the appearance of the breadcrumbs in Figma. Th
 </div>
 
 <div class="ds-table-wrapper">
-  
+
 ###  Menu
 The option below is only shown when the **overflow** option is selected.
-  
+
 |Item|Options|Description|
 |-|-|-|
 |Menu|`boolean`|Indicates if the menu with truncated pages is open or closed |

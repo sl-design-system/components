@@ -3149,6 +3149,78 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fortawesome/pro-duotone-svg-icons@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "@fortawesome/pro-duotone-svg-icons@npm:7.1.0"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:7.1.0"
+  checksum: 10c0/081ee85e784bef3441170a363878eb6773f9c303a5aade0d5147ab3ef963f98ca4c27fd85ec08689a0e118519608547a447f4186e843c6194137b6e97478ab10
+  languageName: node
+  linkType: hard
+
+"@fortawesome/pro-light-svg-icons@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "@fortawesome/pro-light-svg-icons@npm:7.1.0"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:7.1.0"
+  checksum: 10c0/7e50123a0013e5503910aac3ac8a01fd6b67809b0faabd01691d21981b19774fd323c59429c2983d35748ad32de1faf1de23e8d5d6a2bd2bf44ebc9cd376fe55
+  languageName: node
+  linkType: hard
+
+"@fortawesome/pro-regular-svg-icons@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "@fortawesome/pro-regular-svg-icons@npm:7.1.0"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:7.1.0"
+  checksum: 10c0/1707b75623e190c74e1c839168e058ce6f783c7b9419d6064ce8991e9016d162c5076a462edb985b52e5b5adbe9122e7e486c8d16aeeef8d8fbca1c17db3d51d
+  languageName: node
+  linkType: hard
+
+"@fortawesome/pro-solid-svg-icons@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "@fortawesome/pro-solid-svg-icons@npm:7.1.0"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:7.1.0"
+  checksum: 10c0/7f3745ce2044f642f4f94fb69ec58d4e82e0201c573f1784b8ad82d39488c4b1fdeb54a5154b94eb7cd51af539ead20788ce6287d28cf1b231893a5dcbc2f3e4
+  languageName: node
+  linkType: hard
+
+"@fortawesome/pro-thin-svg-icons@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "@fortawesome/pro-thin-svg-icons@npm:7.1.0"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:7.1.0"
+  checksum: 10c0/3a372b48d79389f451275dacf9f0f6c7cb6816bf22510768495ccf69069855ae630a45fa79fc7db072b5fa46ea3232c1f034fd3ae1014aa7af03598fab0cc576
+  languageName: node
+  linkType: hard
+
+"@fortawesome/sharp-light-svg-icons@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "@fortawesome/sharp-light-svg-icons@npm:7.1.0"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:7.1.0"
+  checksum: 10c0/45a74ad5fa658aeb929318241ab9fab62a9f2cc4d6c95729e8532eda48255b45695c956d4b87d8432d9f91aa16d1cc87291ec05e3d7384dd7f33a10211c86046
+  languageName: node
+  linkType: hard
+
+"@fortawesome/sharp-regular-svg-icons@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "@fortawesome/sharp-regular-svg-icons@npm:7.1.0"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:7.1.0"
+  checksum: 10c0/ef6364646a29527e6a93834a4924df6b4d855559df8c291a214ddb8f7d633dd02b90b563240ea040c7f383170f9908034b2fa65d61c87ab1148ab02fe409bbb7
+  languageName: node
+  linkType: hard
+
+"@fortawesome/sharp-solid-svg-icons@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "@fortawesome/sharp-solid-svg-icons@npm:7.1.0"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:7.1.0"
+  checksum: 10c0/3db1da9b6f3a9ec5ac0735681fba88eb841da2688d2dab144e95668d905e840458332ceadd97314ea1ef65d68978c3a7c84e9c9fd4b25d41bc16fa601b133c29
+  languageName: node
+  linkType: hard
+
 "@github/catalyst@npm:^1.6.0":
   version: 1.6.0
   resolution: "@github/catalyst@npm:1.6.0"
@@ -5126,6 +5198,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/checklist@workspace:packages/checklist"
   dependencies:
+    "@fortawesome/pro-solid-svg-icons": "npm:^7.1.0"
     "@open-wc/scoped-elements": "npm:^3.0.6"
     "@sl-design-system/icon": "npm:^1.0.0"
     "@sl-design-system/skeleton": "npm:^1.0.0"
@@ -5708,6 +5781,14 @@ __metadata:
     "@figma-export/transform-svg-with-svgo": "npm:^6.2.3"
     "@fortawesome/fontawesome-svg-core": "npm:^7.1.0"
     "@fortawesome/free-brands-svg-icons": "npm:^7.1.0"
+    "@fortawesome/pro-duotone-svg-icons": "npm:^7.1.0"
+    "@fortawesome/pro-light-svg-icons": "npm:^7.1.0"
+    "@fortawesome/pro-regular-svg-icons": "npm:^7.1.0"
+    "@fortawesome/pro-solid-svg-icons": "npm:^7.1.0"
+    "@fortawesome/pro-thin-svg-icons": "npm:^7.1.0"
+    "@fortawesome/sharp-light-svg-icons": "npm:^7.1.0"
+    "@fortawesome/sharp-regular-svg-icons": "npm:^7.1.0"
+    "@fortawesome/sharp-solid-svg-icons": "npm:^7.1.0"
     "@tokens-studio/sd-transforms": "npm:^2.0.1"
     "@tokens-studio/sdk": "npm:^3.0.0"
     cssnano: "npm:^7.1.1"

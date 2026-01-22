@@ -88,11 +88,11 @@ Menus should not be used for primary navigation in applications because they are
 |-|-|-|-|
 |1|Button Menu|This is the trigger button to open the menu. |no|
 |2|Menu Popover |This is the container for all the options of the menu, and appears close to the button menu. |no|
-|3|Option Items | This are the menu options that can be separete on "Option Button" that behave like a regular button, "Selection Option" that can behave like a checkbox or radio button, and "Sub-Menu Button" to open a nested menu. |no|
-|4|Group Heading |Title for the option groups to make eaiser to understand the function of the options. |yes|
+|3|Option Items | This are the menu options that can be separate on "Option Button" that behave like a regular button, "Selection Option" that can behave like a checkbox or radio button, and "Sub-Menu Button" to open a nested menu. |no|
+|4|Group Heading |Title for the option groups to make easier to understand the function of the options. |yes|
 |5|Option Icons |You can display an icon in each option to enhance the readability. |yes|
 |6|Option Shortcuts |Adding shortcuts to the options to improve usability. |yes|
-|7|Group Heading |Title for the option groups to make eaiser to understand the function of the options. |yes|
+|7|Group Heading |Title for the option groups to make easier to understand the function of the options. |yes|
 |8|Danger Option |Specific danger option of the menu. |yes|
 
 {.ds-table .ds-table-align-top}

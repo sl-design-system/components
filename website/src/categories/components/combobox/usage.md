@@ -136,7 +136,7 @@ Let's explore the behavior of the Combobox
 Provides organizational structure for selected items by categorizing them under specific groups or labels. This behavior is especially beneficial in complex datasets where selections belong to distinct categories.
 
 ### Stacked Selections
-Displays multiple selected items as a visually stacked list at the top of the dropdow list or within tag list. This approach keeps the interface tidy and ensures users can quickly review or edit their choices without scrolling through a long dropdown.
+Displays multiple selected items as a visually stacked list at the top of the dropdown list or within tag list. This approach keeps the interface tidy and ensures users can quickly review or edit their choices without scrolling through a long dropdown.
 
 ### Dynamic Filtering
 Filters the options list in real time based on user input, displaying only relevant matches. This functionality enhances usability, particularly for lists with many similar or closely related items.

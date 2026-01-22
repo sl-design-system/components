@@ -106,7 +106,7 @@ export class Icon extends LitElement {
   @property({ reflect: true }) name?: string;
 
   /**
-   * The minumum size of the icon.
+   * The minimum size of the icon.
    * @type {'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl'}
    */
   @property({ reflect: true }) size?: IconSize;

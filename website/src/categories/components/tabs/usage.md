@@ -104,7 +104,7 @@ Tabs are a combination of a tab list and a tab panel. The tab list contains the 
 {.ds-table .ds-table-align-top}
 
 ### Tabs Popover
-When overflow occurs, we provide a "more button" to display the hidden tabs. We are using the popover; you can check more details here. 
+When overflow occurs, we provide a "more button" to display the hidden tabs. We are using the popover; you can check more details here.
 
 </section>
 
@@ -124,7 +124,7 @@ Tabs come with multiple states, each suited for different interactions, and two 
 <section>
 
 ## Orientation
-The orientation of tabs plays a significant role in determining the layout and functionality of the user. 
+The orientation of tabs plays a significant role in determining the layout and functionality of the user.
 
   - **Horizontal:** In this orientation, tabs are arranged side by side, at the top of the content area. It provides much more space optimization. They offer easy access to the content and are commonly used in desktop applications or website interfaces.
 
@@ -144,17 +144,17 @@ The tab list provides the options to set up the version of the component that yo
 |Item|Options|Description|
 |-|-|-|
 |Subtitles|`boolean`|Toggle to display the subtitle in the tabs. |
-|Alignement|`left` `filled`|Define the behaviour of the tab related to the tab list. |
+|Alignment|`left` `filled`|Define the behaviour of the tab related to the tab list. |
 |More Button|`boolean`|Toggle to display the overflow button in the tabs list. |
 
 {.ds-table .ds-table-align-top}
 
 ### Tabs
-This are the tab buttons to switch between content. 
+This are the tab buttons to switch between content.
 
 |Item|Options|Description|
 |-|-|-|
-|State|`default` `hover` `active` `aisabled`|Define the behaviour of the tab related to the tab list. |
+|State|`default` `hover` `active` `disabled`|Define the behaviour of the tab related to the tab list. |
 |Badge|`boolean`|Toggle to display the badge in the tabs. |
 |Icon|`boolean`|Toggle to display the icon in the tabs. |
 |Icon Only|`boolean`|Toggle to switch only icon tabs. |
@@ -178,6 +178,6 @@ When the labels may exceed the available space, especially in lengthy titles. We
 Tabs should provide a focusable area to accommodate keyboard navigation. The focusable area allows users to navigate between tabs, enhancing usability and accessibility for all users.
 
 ### Overflow Tabs
-In cases where the number of tabs exceeds the available space, overflow buttons offer a solution for managing tab visibility. The overflow tabs menu provides a solution for accessing hidden tabs. The tabs list is also scrollable, allowing users to move horizontally to view additional tabs. 
+In cases where the number of tabs exceeds the available space, overflow buttons offer a solution for managing tab visibility. The overflow tabs menu provides a solution for accessing hidden tabs. The tabs list is also scrollable, allowing users to move horizontally to view additional tabs.
 
 </section>

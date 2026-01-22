@@ -24,6 +24,15 @@ type Props = Pick<Form, 'disabled' | 'value'> & {
   reportValidity?: boolean;
 };
 type Story = StoryObj<Props>;
+interface FormElement extends HTMLElement {
+  updateComplete: Promise<boolean>;
+  valid: boolean;
+  validateAsync(): Promise<boolean>;
+}
+
+interface SelectElement extends HTMLElement {
+  value?: string | undefined;
+}
 
 class customComponent extends ScopedElementsMixin(LitElement) {
   constructor() {
@@ -315,5 +324,52 @@ export const AllValid: Story = {
       textField: 'Text field',
       timeField: '12:00'
     }
+  }
+};
+
+export const ValidateAsync: StoryObj = {
+  render: () => {
+    const onClick = async (event: MouseEvent): Promise<void> => {
+      const btn = event.target as HTMLElement;
+      const form = document.querySelector<FormElement>('#validate-async-form');
+      const select = form?.querySelector<SelectElement>('sl-select');
+      const way = btn.innerText.includes('Sync') ? 'sync' : 'async';
+
+      if (!form || !select) return;
+
+      select.value = '1';
+      await form.updateComplete;
+
+      select.value = undefined;
+
+      if (way === 'sync') {
+        // This shows true even though the form should be invalid!
+        alert(`Synchronous (form.valid): ${form.valid}\n(Returns true because the update cycle hasn't finished)`);
+      } else {
+        // Use validateAsync() to wait for the update cycle
+        const isValid = await form.validateAsync();
+        alert(`Asynchronous (form.validateAsync()): ${isValid}\n(Correctly waits and reflects the invalid state)`);
+      }
+    };
+
+    return html`
+      <p style="margin-bottom: 16px; max-width: 400px;">
+        This demo shows how to correctly check form validity after a programmatic change. Clicking the buttons will
+        automatically set the required select to an invalid state (empty) and then immediately check the form's validity
+        - <a href="https://lit.dev/docs/components/lifecycle/#async-updates">explanation</a>.
+      </p>
+      <sl-form id="validate-async-form">
+        <sl-form-field label="Select (required)">
+          <sl-select value="1" required placeholder="Select an option">
+            <sl-option value="1">Option 1</sl-option>
+            <sl-option value="2">Option 2</sl-option>
+          </sl-select>
+        </sl-form-field>
+        <sl-button-bar style="margin-top: 16px;">
+          <sl-button @click=${onClick}>Sync way (buggy)</sl-button>
+          <sl-button @click=${onClick} variant="primary">Async way (correct)</sl-button>
+        </sl-button-bar>
+      </sl-form>
+    `;
   }
 };

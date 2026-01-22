@@ -159,6 +159,16 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
     return this.controls.map(c => c.reportValidity()).every(Boolean);
   }
 
+  /** Waits for all form controls to complete their update cycle, then returns
+   * the current validity state of the form.
+   * Use this method instead of checking the `valid` property directly when you
+   * need to check validity immediately after programmatically changing form
+   * control values. */
+  async validateAsync(): Promise<boolean> {
+    await Promise.all(this.controls.map(c => c.updateComplete));
+    return this.valid;
+  }
+
   /** If the form is valid, it will emit an `sl-submit` event. */
   requestSubmit(): void {
     if (this.reportValidity()) {

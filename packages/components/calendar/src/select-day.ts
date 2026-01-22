@@ -55,33 +55,25 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     if (!this.#intersectionObserver) {
       this.#intersectionObserver = new IntersectionObserver(
         entries => {
-          entries
+          // Find the first month view that is at least 50% visible
+          const visibleEntry = entries
             .filter(entry => entry.isIntersecting)
-            .forEach(entry => {
-              if (entry.intersectionRatio >= 0.5) {
-                const monthView = entry.target as MonthView,
-                  displayMonth = normalizeDateTime(monthView.month);
+            .find(entry => entry.intersectionRatio >= 0.5);
 
-                // Do not trigger unnecessary renders
-                if (!isSameDate(this.displayMonth, displayMonth)) {
-                  this.displayMonth = displayMonth;
-                }
-              }
-            });
+          if (visibleEntry) {
+            const monthView = visibleEntry.target as MonthView,
+              displayMonth = normalizeDateTime(monthView.month);
+
+            // Do not trigger unnecessary renders
+            if (!isSameDate(this.displayMonth, displayMonth)) {
+              this.displayMonth = displayMonth;
+            }
+          }
         },
         { root: this.scroller, threshold: [0, 0.5, 1] }
       );
 
-      // Firefox only: wait for the scroller and month views to be rendered
-      await new Promise(requestAnimationFrame);
-      await new Promise(requestAnimationFrame);
-
-      // Center the current month initially
-      this.#scrollToMonth(0);
-
-      // Start observing month views
-      this.#observedMonths = this.renderRoot.querySelectorAll('sl-month-view');
-      this.#observedMonths.forEach(mv => this.#intersectionObserver?.observe(mv));
+      await this.#updateMonthViews();
     }
   });
 
@@ -194,6 +186,19 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       this.displayMonth = new Date(this.month.getFullYear(), this.month.getMonth());
       this.nextMonth = new Date(this.month.getFullYear(), this.month.getMonth() + 1);
       this.previousMonth = new Date(this.month.getFullYear(), this.month.getMonth() - 1);
+    }
+
+    if (changes.has('max') || changes.has('min') || changes.has('month')) {
+      this.#observedMonths?.forEach(mv => this.#intersectionObserver?.unobserve(mv));
+      this.#observedMonths = undefined;
+    }
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('max') || changes.has('min') || changes.has('month')) {
+      void this.#updateMonthViews();
     }
   }
 
@@ -535,5 +540,18 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     } else if (this.scroller.scrollLeft !== left) {
       this.scroller.scrollLeft = left;
     }
+  }
+
+  async #updateMonthViews(): Promise<void> {
+    // Make sure the scroller and month views elements have been updated
+    await new Promise(requestAnimationFrame);
+    await new Promise(requestAnimationFrame);
+
+    // Center the current month initially
+    this.#scrollToMonth(0);
+
+    // Start observing month views
+    this.#observedMonths = this.renderRoot.querySelectorAll('sl-month-view');
+    this.#observedMonths.forEach(mv => this.#intersectionObserver?.observe(mv));
   }
 }

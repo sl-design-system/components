@@ -386,7 +386,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
       // Set ARIA-compliant aria-autocomplete value (maps 'off' to 'none')
       this.input.setAttribute('aria-autocomplete', value);
-      this.input.readOnly = !!this.selectOnly || this.autocomplete === 'off';
+      this.input.readOnly = !!this.selectOnly;
     }
 
     if (changes.has('disabled')) {

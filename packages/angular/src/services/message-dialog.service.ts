@@ -23,61 +23,13 @@ type MessageDialogProps = Omit<
   'component' | 'data'
 >;
 
-/**
- * Configuration interface for opening a message dialog with the MessageDialogService.
- *
- * This interface defines all the options you can pass to `MessageDialogService.showModal()`.
- *
- * ## Configuration Options
- *
- * ### For Component-based Dialogs:
- * ```typescript
- * {
- *   component: MyComponent,      // Angular component to render
- *   data: { userId: 123 },       // Data to pass to the component
- *   title: 'Edit User',          // Dialog title
- *   buttons: [                   // Custom buttons
- *     { text: 'Cancel', value: 'cancel' },
- *     { text: 'Save', variant: 'primary', value: 'save' }
- *   ],
- *   disableCancel: false         // Allow Escape key and backdrop clicks
- * }
- * ```
- *
- * ### For Message-based Dialogs:
- * ```typescript
- * {
- *   title: 'Warning',            // Dialog title
- *   message: 'Are you sure?',    // Message text
- *   buttons: [                   // Custom buttons
- *     { text: 'No', value: 'no' },
- *     { text: 'Yes', variant: 'primary', value: 'yes' }
- *   ],
- *   disableCancel: true          // Prevent Escape key and backdrop clicks
- * }
- * ```
- *
- * @template T - The type of the component (if using a component)
- * @template R - The type of the result value returned when the dialog closes
- */
-export interface MessageDialogServiceConfig<T, R = unknown> extends Partial<MessageDialogProps> {
-  /** Angular component to render in the message dialog's content area. */
+/** Configuration for opening a message dialog with the MessageDialogService. */
+export interface MessageDialogServiceConfig<T> extends Partial<MessageDialogProps> {
+  /** Component to render in the message dialog. */
   component?: Type<T>;
 
-  /** Data to pass to the component via the `MESSAGE_DIALOG_DATA` injection token. */
+  /** Data to pass to the component. */
   data?: unknown;
-
-  /** The title displayed at the top of the message dialog. */
-  title?: string;
-
-  /** The message text to display (for non-component dialogs). Can be a string or Lit TemplateResult. */
-  message?: string | TemplateResult;
-
-  /** Array of button configurations. Each button can have text, variant, and a value that will be returned when clicked. */
-  buttons?: Array<MessageDialogButton<R>>;
-
-  /** If true, prevents the dialog from being closed via Escape key or backdrop clicks. Default is false. */
-  disableCancel?: boolean;
 }
 
 /** Helper to assign all config properties to the message dialog element */
@@ -214,6 +166,7 @@ export class MessageDialogRef<T = unknown> {
     void this.dialog.updateComplete.then(() => {
       this.#internalDialog = this.dialog.shadowRoot?.querySelector('dialog') ?? undefined;
       if (this.#internalDialog) {
+        console.log('internal dialog', this.#internalDialog);
         // Listen to native 'close' event from the internal dialog element
         this.#internalDialog.addEventListener('close', this.#onClose);
       }
@@ -446,7 +399,7 @@ export class MessageDialogService {
    * @param config.disableCancel - If true, prevents closing via Escape key or backdrop click
    * @returns A `MessageDialogRef` instance that can be used to interact with the dialog and observe when it closes
    */
-  showModal<T, R = unknown>(config: MessageDialogServiceConfig<T, R>): MessageDialogRef<R> {
+  showModal<T, R = unknown>(config: MessageDialogServiceConfig<T>): MessageDialogRef<R> {
     const dialog = document.createElement('sl-message-dialog') as MessageDialog<R>;
 
     // Create message from component if provided
@@ -464,9 +417,9 @@ export class MessageDialogService {
 
       // Set up the dialog config
       const dialogConfig: MessageDialogConfig<R> = {
-        title: config.title,
+        title: (config as { title?: string }).title,
         message,
-        buttons: config.buttons?.map(button => ({
+        buttons: (config as { buttons?: Array<MessageDialogButton<R>> }).buttons?.map(button => ({
           ...button,
           action: () => {
             // Store the button value BEFORE the dialog closes
@@ -478,7 +431,7 @@ export class MessageDialogService {
             button.action?.();
           }
         })),
-        disableCancel: config.disableCancel
+        disableCancel: (config as { disableCancel?: boolean }).disableCancel
       };
 
       dialog.config = dialogConfig;
@@ -532,10 +485,10 @@ export class MessageDialogService {
     } else {
       // If no component, just use the config as-is
       const dialogConfig: MessageDialogConfig<R> = {
-        title: config.title,
-        message: config.message || '',
-        buttons: config.buttons,
-        disableCancel: config.disableCancel
+        title: (config as { title?: string }).title,
+        message: (config as { message?: string | TemplateResult }).message || '',
+        buttons: (config as { buttons?: Array<MessageDialogButton<R>> }).buttons,
+        disableCancel: (config as { disableCancel?: boolean }).disableCancel
       };
 
       dialog.config = dialogConfig;

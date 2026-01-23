@@ -2,6 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, Inject, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideRouter, withHashLocation } from '@angular/router';
+import { DialogRef, DialogService } from '@sl-design-system/angular';
+import { ButtonComponent } from '@sl-design-system/angular/button';
+import { DialogComponent } from '@sl-design-system/angular/dialog';
+import { FormComponent, FormFieldComponent } from '@sl-design-system/angular/form';
+import { TextAreaDirective, TextFieldDirective } from '@sl-design-system/angular/forms';
+import { TextAreaComponent } from '@sl-design-system/angular/text-area';
+import { TextFieldComponent } from '@sl-design-system/angular/text-field';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
@@ -9,21 +16,19 @@ import '@sl-design-system/icon/register.js';
 import '@sl-design-system/text-area/register.js';
 import '@sl-design-system/text-field/register.js';
 import { type Meta, StoryFn, applicationConfig, moduleMetadata } from '@storybook/angular';
-import { ButtonComponent } from '../src/button/button.component';
-import { DialogComponent } from '../src/dialog/dialog.component';
-import { FormFieldComponent } from '../src/form/form-field.component';
-import { FormComponent } from '../src/form/form.component';
-import { TextAreaDirective } from '../src/forms/text-area.directive';
-import { TextFieldDirective } from '../src/forms/text-field.directive';
-import { DialogRef, DialogService } from '../src/services/dialog.service';
-import { TextAreaComponent } from '../src/text-area/text-area.component';
-import { TextFieldComponent } from '../src/text-field/text-field.component';
 
 @Component({
   standalone: true,
   imports: [ButtonComponent, CommonModule],
   template: `
-    <span slot="title">{{ data.title }}</span>
+    <style>
+      h2 {
+        font-size: inherit;
+        font-weight: inherit;
+        margin: 0;
+      }
+    </style>
+    <h2 slot="title">{{ data.title }}</h2>
     <p>{{ data.message }}</p>
     <div>Example content.</div>
     <sl-button (click)="dialogRef.close('cancelled')" slot="primary-actions">Cancel</sl-button>
@@ -105,7 +110,14 @@ export class DialogServiceExampleComponent {
     TextFieldDirective
   ],
   template: `
-    <span slot="title">{{ data.title }}</span>
+    <style>
+      h2 {
+        font-size: inherit;
+        font-weight: inherit;
+        margin: 0;
+      }
+    </style>
+    <h2 slot="title">{{ data.title }}</h2>
     <span>{{ data.details }}</span>
     <sl-form #form>
       <sl-form-field label="Text field">
@@ -196,7 +208,7 @@ export class DialogFormExampleComponent {
 }
 
 export default {
-  title: 'Dialog Service',
+  title: 'Components/Dialog Service',
   tags: ['draft'],
   decorators: [
     applicationConfig({
@@ -225,9 +237,12 @@ export default {
 } as Meta;
 
 export const DialogServiceExample: StoryFn = () => ({
+  description:
+    'A simple example of using the DialogService to open a dialog. This works with any dialog. How you can create a dialog can be seen in the next example.<br/><br/>Note the <code>@Inject(DIALOG_DATA)</code> that is used to get the data passed to the dialog component.',
   template: '<sla-dialog-service></sla-dialog-service>'
 });
 
 export const FormInDialogExample: StoryFn = () => ({
+  description: 'Example of using a form inside a dialog.',
   template: '<sla-dialog-form-example></sla-dialog-form-example>'
 });

@@ -3,6 +3,7 @@
 
   display: inline-flex;
   flex-direction: column;
+  max-inline-size: fit-content;
 }
 
 :host([show-week-numbers]) {

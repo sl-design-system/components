@@ -1,4 +1,4 @@
-import '@sl-design-system/format-date/register.js';
+import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -22,6 +22,28 @@ type Props = Pick<
   | 'showWeekNumbers'
 >;
 type Story = StoryObj<Props>;
+
+const indicatorLabels: Record<string, { label: string }> = {
+  red: {
+    label: 'Exam — Important'
+  },
+  blue: {
+    label: 'Homework Deadline'
+  },
+  green: {
+    label: 'Available — Open slot for study'
+  },
+  yellow: {
+    label: 'Reminder — A parent‑teacher meeting'
+  },
+  grey: {
+    label: 'Event — Informational'
+  },
+  default: {
+    // same as blue
+    label: 'Homework Deadline'
+  }
+};
 
 export default {
   title: 'Date & Time/Calendar',
@@ -81,8 +103,8 @@ export default {
       return value instanceof Date ? value : new Date(value);
     };
 
-    const onSelectDate = (event: CustomEvent<Date>) => {
-      updateArgs({ selected: new Date(event.detail).getTime() }); //needs to be set to the 'time' otherwise Storybook chokes on the date format 🤷
+    const onSelectDate = (event: SlChangeEvent<Date>) => {
+      updateArgs({ selected: event.detail.getTime() }); //needs to be set to the 'time' otherwise Storybook chokes on the date format 🤷
     };
 
     return html`
@@ -115,28 +137,6 @@ export default {
     `;
   }
 } satisfies Meta<Props>;
-
-const indicatorLabels: Record<string, { label: string }> = {
-  red: {
-    label: 'Exam — Important'
-  },
-  blue: {
-    label: 'Homework Deadline'
-  },
-  green: {
-    label: 'Available — Open slot for study'
-  },
-  yellow: {
-    label: 'Reminder — A parent‑teacher meeting'
-  },
-  grey: {
-    label: 'Event — Informational'
-  },
-  default: {
-    // same as blue
-    label: 'Homework Deadline'
-  }
-};
 
 export const Basic: Story = {};
 

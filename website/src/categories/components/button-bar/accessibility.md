@@ -8,19 +8,13 @@ eleventyNavigation:
 
 <section>
 
-## WAI-ARIA
+## Accessibility considerations
 
-{{ 'aria-attributes' | recurringText }}
-
-<div class="ds-table-wrapper">
-
-|Attribute|Value|Description|
-|-|-|-|
-|`aria-label`|string|Provides a label describing the group of buttons wrapped by button bar component. Please remember to add `aria-label` to the icon-only buttons (when used) as well.|
-
-{.ds-table .ds-table-align-top}
-
-</div>
+The button bar component serves as a purely visual container for grouping buttons together.
+It does not have any semantic meaning or ARIA role,
+therefore ARIA attributes applied directly to the button bar itself will not be interpreted by assistive technologies.
+Instead, ensure that each individual button within the button bar has appropriate accessible labeling,
+especially for icon-only buttons which should include an `aria-label` attribute.
 
 </section>
 

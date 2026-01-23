@@ -282,6 +282,10 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     `;
   }
 
+  /**
+   * Renders hour options (00–23) using hourStep, applies min/max constraints, and marks the selected hour with aria-selected.
+   * Can be overridden.
+   */
   renderHours(): TemplateResult[] {
     let hours = Array.from({ length: 24 / this.hourStep }, (_, i) => i * this.hourStep);
 
@@ -314,6 +318,10 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     );
   }
 
+  /**
+   * Renders minute options using minuteStep and marks the selected one with aria-selected.
+   * Can be overridden.
+   */
   renderMinutes(): TemplateResult[] {
     const minutes = Array.from({ length: 60 / this.minuteStep }, (_, i) => i * this.minuteStep);
 

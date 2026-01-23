@@ -167,7 +167,7 @@ describe('sl-month-view', () => {
 
       expect(dayNumbers).to.deep.equal([
         27, 28, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
-        29, 30, 31, 1, 2
+        29, 30, 31, 1, 2, 3, 4, 5, 6, 7, 8, 9
       ]);
     });
 
@@ -208,7 +208,7 @@ describe('sl-month-view', () => {
       el.renderer = renderer;
       await el.updateComplete;
 
-      expect(renderer.callCount).to.equal(7 * 5);
+      expect(renderer.callCount).to.equal(7 * 6);
     });
 
     it('should render custom content from the renderer', async () => {
@@ -259,7 +259,14 @@ describe('sl-month-view', () => {
         '30',
         '31',
         '1',
-        '2'
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9'
       ]);
     });
 
@@ -272,7 +279,7 @@ describe('sl-month-view', () => {
 
       expect(dayNumbers).to.deep.equal([
         27, 28, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
-        29, 30, 31, 1, 2
+        29, 30, 31, 1, 2, 3, 4, 5, 6, 7, 8, 9
       ]);
     });
   });
@@ -291,7 +298,7 @@ describe('sl-month-view', () => {
     it('should apply "week-number" to week number cells', () => {
       const weekNumbers = Array.from(el.renderRoot.querySelectorAll('td[part~="week-number"]'));
 
-      expect(weekNumbers).to.have.length(5);
+      expect(weekNumbers).to.have.length(6);
     });
 
     it('should apply "week-day" to the days of the week headers', () => {
@@ -303,7 +310,7 @@ describe('sl-month-view', () => {
     it('should apply "day" to the day buttons', () => {
       const days = Array.from(el.renderRoot.querySelectorAll('button[part~="day"]'));
 
-      expect(days).to.be.length(7 * 5);
+      expect(days).to.be.length(7 * 6);
     });
 
     it('should apply "previous-month" to days from previous month', () => {
@@ -315,7 +322,7 @@ describe('sl-month-view', () => {
     it('should apply "next-month" to days from next month', () => {
       const nextMonthDays = Array.from(el.renderRoot.querySelectorAll('button[part~="next-month"]'));
 
-      expect(nextMonthDays).to.have.length(2);
+      expect(nextMonthDays).to.have.length(9);
     });
 
     it('should apply "today" part when showToday is set', () => {
@@ -374,7 +381,7 @@ describe('sl-month-view', () => {
         outOfRangeDays = outOfRange.map(button => Number(button.textContent?.trim()));
 
       expect(outOfRangeDays).to.deep.equal([
-        27, 28, 1, 2, 3, 4, 5, 6, 7, 8, 9, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 1, 2
+        27, 28, 1, 2, 3, 4, 5, 6, 7, 8, 9, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 1, 2, 3, 4, 5, 6, 7, 8, 9
       ]);
     });
   });
@@ -531,7 +538,7 @@ describe('sl-month-view', () => {
         days = buttons.map(button => Number(button.textContent?.trim()));
 
       expect(buttons.every(b => b.disabled)).to.be.true;
-      expect(days).to.deep.equal([21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 1, 2]);
+      expect(days).to.deep.equal([21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
     });
   });
 
@@ -556,7 +563,7 @@ describe('sl-month-view', () => {
       const weekNumberCells = Array.from(el.renderRoot.querySelectorAll('td[part~="week-number"]')),
         labels = weekNumberCells.map(td => td.getAttribute('aria-label'));
 
-      expect(labels).to.deep.equal(['Week 9', 'Week 10', 'Week 11', 'Week 12', 'Week 13']);
+      expect(labels).to.deep.equal(['Week 9', 'Week 10', 'Week 11', 'Week 12', 'Week 13', 'Week 14']);
     });
 
     it('should have an aria-label for the days of the week headers', () => {

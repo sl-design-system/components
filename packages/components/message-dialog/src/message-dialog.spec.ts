@@ -26,11 +26,11 @@ describe('sl-message-dialog', () => {
 
     it('should have a dialog that is labelled by a heading', () => {
       expect(dialog).to.have.attribute('aria-labelledby', 'title');
-      expect(dialog.querySelector('h1')).to.have.id('title');
+      expect(dialog.querySelector('h2')).to.have.id('title');
     });
 
     it('should have an "Alert" title', () => {
-      expect(dialog.querySelector('h1')).to.have.text('Alert');
+      expect(dialog.querySelector('h2')).to.have.text('Alert');
     });
 
     it('should have a message', () => {
@@ -84,7 +84,7 @@ describe('sl-message-dialog', () => {
     });
 
     it('should have a custom title', () => {
-      expect(dialog.querySelector('h1')).to.have.text('Custom title');
+      expect(dialog.querySelector('h2')).to.have.text('Custom title');
     });
   });
 
@@ -103,7 +103,7 @@ describe('sl-message-dialog', () => {
     });
 
     it('should have an "Confirm" title', () => {
-      expect(dialog.querySelector('h1')).to.have.text('Confirm');
+      expect(dialog.querySelector('h2')).to.have.text('Confirm');
     });
 
     it('should have a message', () => {
@@ -169,7 +169,7 @@ describe('sl-message-dialog', () => {
     });
 
     it('should have a custom title', () => {
-      expect(dialog.querySelector('h1')).to.have.text('Custom title');
+      expect(dialog.querySelector('h2')).to.have.text('Custom title');
     });
   });
 
@@ -196,7 +196,7 @@ describe('sl-message-dialog', () => {
     });
 
     it('should have a title', () => {
-      expect(dialog.querySelector('h1')).to.have.text('Title');
+      expect(dialog.querySelector('h2')).to.have.text('Title');
     });
 
     it('should have a custom message', () => {

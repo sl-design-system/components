@@ -1,5 +1,36 @@
 # @sl-design-system/tool-bar
 
+## 0.2.0
+
+### Minor Changes
+
+- [#2867](https://github.com/sl-design-system/components/pull/2867) [`198b92f`](https://github.com/sl-design-system/components/commit/198b92f8ef43283e9809b80e348e03ed45103fe9) - **Breaking Changes:**
+  - Removed `fill` property - use `type` property instead. If you were using `fill="outline"`, change it to `type="outline"`. If you were using `fill="ghost"`, change it to `type="ghost"`.
+  - Removed `no-border` property - border now only shows in `contained` variant (except when `inverted`).
+
+  **New Features:**
+  - Added `contained` property to enable contained mode
+  - Added keyboard navigation support for arrow keys when toolbar is focused
+  - Added `inverted` property to the divider component
+
+  **Improvements:**
+  - Improved overall styling and fixed overflow behavior issues
+
+### Patch Changes
+
+- [#2917](https://github.com/sl-design-system/components/pull/2917) [`73fbd20`](https://github.com/sl-design-system/components/commit/73fbd2021c53a4729d9bbe5dcb697c0449a33a75) - Reverted the breaking change from the previous version; the `fill` property is now supported again as it was in earlier versions.
+
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies [[`f676dd5`](https://github.com/sl-design-system/components/commit/f676dd52c83ef2f3429d9a393b5ec634fc05bf0e), [`f676dd5`](https://github.com/sl-design-system/components/commit/f676dd52c83ef2f3429d9a393b5ec634fc05bf0e), [`f676dd5`](https://github.com/sl-design-system/components/commit/f676dd52c83ef2f3429d9a393b5ec634fc05bf0e), [`d807cb2`](https://github.com/sl-design-system/components/commit/d807cb22702dc5ac1399cf0528f9ceeeb1f09f60), [`f676dd5`](https://github.com/sl-design-system/components/commit/f676dd52c83ef2f3429d9a393b5ec634fc05bf0e), [`ef77be3`](https://github.com/sl-design-system/components/commit/ef77be3c11c6811d2f220c898847bd351c657435)]:
+  - @sl-design-system/toggle-button@0.0.11
+  - @sl-design-system/icon@1.4.1
+  - @sl-design-system/toggle-group@0.0.11
+  - @sl-design-system/menu@0.2.7
+  - @sl-design-system/button@1.3.2
+
 ## 0.1.1
 
 ### Patch Changes

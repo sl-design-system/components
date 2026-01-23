@@ -46,13 +46,12 @@
       line-height: 1.6rem;
       overflow-wrap: break-word;
       padding: 0.4rem 1.2rem;
-      text-wrap: balance;
     }
 
     /* stylelint-disable-next-line max-nesting-depth, selector-max-compound-selectors */
     code > code {
+      overflow-wrap: break-word;
       padding: 0;
-      word-break: break-word;
     }
   }
 

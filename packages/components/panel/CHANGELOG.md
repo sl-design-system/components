@@ -1,5 +1,30 @@
 # @sl-design-system/panel
 
+## 0.3.1
+
+### Patch Changes
+
+- [#2918](https://github.com/sl-design-system/components/pull/2918) [`dd9bff2`](https://github.com/sl-design-system/components/commit/dd9bff28bb6d29d0c738f4cf7f0dce10623a45cd) - Update panel to match recent change to toolbar, that means the `fill` options are limited to `ghost` and `outline`
+
+- [#2867](https://github.com/sl-design-system/components/pull/2867) [`198b92f`](https://github.com/sl-design-system/components/commit/198b92f8ef43283e9809b80e348e03ed45103fe9) - Changed `fill` property to `type` on a tool bar component in the header. Fixed `no-header` attribute not being set correctly when header is empty.
+
+- Updated dependencies [[`73fbd20`](https://github.com/sl-design-system/components/commit/73fbd2021c53a4729d9bbe5dcb697c0449a33a75), [`198b92f`](https://github.com/sl-design-system/components/commit/198b92f8ef43283e9809b80e348e03ed45103fe9)]:
+  - @sl-design-system/tool-bar@0.2.0
+
+## 0.3.0
+
+### Minor Changes
+
+- [#2842](https://github.com/sl-design-system/components/pull/2842) [`be3b2b8`](https://github.com/sl-design-system/components/commit/be3b2b8e80cb0248f445f5a865f373f6523d2457) - From now on, use `default` and `relaxed` for the `density` property.
+  The `plain` and `comfortable` values are deprecated, they will be kept for the backward compatibility for now but removed in the future.
+  Please use `default` or `relaxed` from now on.
+
+### Patch Changes
+
+- Updated dependencies [[`f676dd5`](https://github.com/sl-design-system/components/commit/f676dd52c83ef2f3429d9a393b5ec634fc05bf0e), [`d807cb2`](https://github.com/sl-design-system/components/commit/d807cb22702dc5ac1399cf0528f9ceeeb1f09f60)]:
+  - @sl-design-system/icon@1.4.1
+  - @sl-design-system/tool-bar@0.1.2
+
 ## 0.2.5
 
 ### Patch Changes

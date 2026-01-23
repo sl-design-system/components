@@ -1,5 +1,11 @@
 # @sl-design-system/message-dialog
 
+## 1.1.3
+
+### Patch Changes
+
+- [#2913](https://github.com/sl-design-system/components/pull/2913) [`ce9c4ae`](https://github.com/sl-design-system/components/commit/ce9c4ae7b63b365e95289f2de2f9f13f6120a197) - Accessibility improvement - the message dialog uses `<h2>` for title.
+
 ## 1.1.2
 
 ### Patch Changes

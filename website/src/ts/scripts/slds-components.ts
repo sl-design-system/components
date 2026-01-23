@@ -57,7 +57,7 @@ import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/card/register.js';
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/combobox/register.js';
-import '@sl-design-system/data-source';
+import { ArrayListDataSource, FetchListDataSource, FetchListDataSourceError } from '@sl-design-system/data-source';
 import '@sl-design-system/dialog/register.js';
 import '@sl-design-system/drawer/register.js';
 import '@sl-design-system/editor/register.js';
@@ -71,6 +71,7 @@ import '@sl-design-system/menu/register.js';
 import { MessageDialog } from '@sl-design-system/message-dialog';
 import '@sl-design-system/message-dialog/register.js';
 import '@sl-design-system/number-field/register.js';
+import '@sl-design-system/paginator/register.js';
 import '@sl-design-system/panel/register.js';
 import '@sl-design-system/popover/register.js';
 import '@sl-design-system/progress-bar/register.js';
@@ -85,6 +86,7 @@ import '@sl-design-system/tabs/register.js';
 import '@sl-design-system/tag/register.js';
 import '@sl-design-system/text-area/register.js';
 import '@sl-design-system/text-field/register.js';
+import '@sl-design-system/time-field/register.js';
 import '@sl-design-system/toggle-button/register.js';
 import '@sl-design-system/toggle-group/register.js';
 import '@sl-design-system/tooltip/register.js';
@@ -142,11 +144,17 @@ Icon.register(
 
 declare global {
   interface Window {
+    ArrayListDataSource: typeof ArrayListDataSource;
     MessageDialog: typeof MessageDialog;
+    FetchListDataSourceError: typeof FetchListDataSourceError;
+    FetchListDataSource: typeof FetchListDataSource;
     FlatTreeDataSource: typeof FlatTreeDataSource;
   }
 }
 
-// This is a hack so we can access the MessageDialog and FlatTreeDataSource class from markdown files
+// This is a hack so we can access the ArrayListDataSource, MessageDialog, FlatTreeDataSource and FetchListDataSource class from markdown files
+window.ArrayListDataSource = ArrayListDataSource;
 window.MessageDialog = MessageDialog;
+window.FetchListDataSourceError = FetchListDataSourceError;
+window.FetchListDataSource = FetchListDataSource;
 window.FlatTreeDataSource = FlatTreeDataSource;

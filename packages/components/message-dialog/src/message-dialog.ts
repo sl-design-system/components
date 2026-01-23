@@ -75,9 +75,10 @@ export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
   /**
    * Shows a confirmation dialog to the user with OK and Cancel buttons by default.
    *
+   * Returns a promise that resolves with `true` if the user clicks OK, `false` if the user clicks Cancel, or `undefined` if the user closes the dialog.
+   *
    * @param message - The message to display.
    * @param title - The title of the dialog.
-   * @returns A promise that resolves with `true` if the user clicks OK, `false` if the user clicks Cancel, or `undefined` if the user closes the dialog.
    */
   static async confirm(
     message: string,
@@ -102,8 +103,9 @@ export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
   /**
    * Shows a message dialog to the user. Use this method to display custom dialogs with any number of buttons.
    *
+   * Returns a promise that resolves with the value of the button that was clicked, or `undefined` if the dialog was closed.
+   *
    * @param config - The configuration for the dialog.
-   * @returns A promise that resolves with the value of the button that was clicked, or `undefined` if the dialog was closed.
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static async show<T = any>(config: MessageDialogConfig<T>): Promise<T | undefined> {
@@ -148,7 +150,7 @@ export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
         aria-labelledby="title"
         role="alertdialog"
       >
-        <h1 id="title">${title}</h1>
+        <h2 id="title">${title}</h2>
         <p>${message}</p>
         <sl-button-bar align="end">
           ${buttons?.map(

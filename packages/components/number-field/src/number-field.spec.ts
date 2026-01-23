@@ -34,6 +34,17 @@ describe('sl-number-field', () => {
       expect(el.querySelector('input')).to.have.attribute('inputmode', 'numeric');
     });
 
+    it('should always have type "text"', () => {
+      expect(el.type).to.equal('text');
+    });
+
+    it('should not allow changing the type property via attribute', async () => {
+      el.setAttribute('type', 'number');
+      await el.updateComplete;
+
+      expect(el.type).to.equal('text');
+    });
+
     it('should not have a placeholder', () => {
       expect(el.placeholder).to.be.undefined;
       expect(el.querySelector('input')).to.not.have.attribute('placeholder');
@@ -280,6 +291,76 @@ describe('sl-number-field', () => {
 
     it('should have a validation message', () => {
       expect(el.input.validationMessage).to.equal('The value must be less than or equal to 12.');
+    });
+  });
+
+  describe('dynamic min/max changes', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-number-field value="50"></sl-number-field>`);
+    });
+
+    it('should be valid initially without min/max', () => {
+      expect(el.valid).to.be.true;
+    });
+
+    it('should become invalid when max is set below the current value', async () => {
+      el.max = 40;
+      await el.updateComplete;
+
+      expect(el.valid).to.be.false;
+      expect(el.validationMessage).to.equal('The value must be less than or equal to 40.');
+    });
+
+    it('should become invalid when min is set above the current value', async () => {
+      el.min = 60;
+      await el.updateComplete;
+
+      expect(el.valid).to.be.false;
+      expect(el.validationMessage).to.equal('The value must be greater than or equal to 60.');
+    });
+
+    it('should become valid again when max is increased above the current value', async () => {
+      el.max = 40;
+      await el.updateComplete;
+      expect(el.valid).to.be.false;
+
+      el.max = 100;
+      await el.updateComplete;
+      expect(el.valid).to.be.true;
+      expect(el.validationMessage).to.equal('');
+    });
+
+    it('should become valid again when min is decreased below the current value', async () => {
+      el.min = 60;
+      await el.updateComplete;
+
+      expect(el.valid).to.be.false;
+
+      el.min = 10;
+      await el.updateComplete;
+
+      expect(el.valid).to.be.true;
+      expect(el.validationMessage).to.equal('');
+    });
+
+    it('should emit an sl-update-validity event when min changes', async () => {
+      const onUpdateValidity = spy();
+
+      el.addEventListener('sl-update-validity', onUpdateValidity);
+      el.min = 60;
+      await el.updateComplete;
+
+      expect(onUpdateValidity).to.have.been.called;
+    });
+
+    it('should emit an sl-update-validity event when max changes', async () => {
+      const onUpdateValidity = spy();
+
+      el.addEventListener('sl-update-validity', onUpdateValidity);
+      el.max = 40;
+      await el.updateComplete;
+
+      expect(onUpdateValidity).to.have.been.called;
     });
   });
 

@@ -55,33 +55,25 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     if (!this.#intersectionObserver) {
       this.#intersectionObserver = new IntersectionObserver(
         entries => {
-          entries
+          // Find the first month view that is at least 50% visible
+          const visibleEntry = entries
             .filter(entry => entry.isIntersecting)
-            .forEach(entry => {
-              if (entry.intersectionRatio >= 0.5) {
-                const monthView = entry.target as MonthView,
-                  displayMonth = normalizeDateTime(monthView.month);
+            .find(entry => entry.intersectionRatio >= 0.5);
 
-                // Do not trigger unnecessary renders
-                if (!isSameDate(this.displayMonth, displayMonth)) {
-                  this.displayMonth = displayMonth;
-                }
-              }
-            });
+          if (visibleEntry) {
+            const monthView = visibleEntry.target as MonthView,
+              displayMonth = normalizeDateTime(monthView.month);
+
+            // Do not trigger unnecessary renders
+            if (!isSameDate(this.displayMonth, displayMonth)) {
+              this.displayMonth = displayMonth;
+            }
+          }
         },
         { root: this.scroller, threshold: [0, 0.5, 1] }
       );
 
-      // Firefox only: wait for the scroller and month views to be rendered
-      await new Promise(requestAnimationFrame);
-      await new Promise(requestAnimationFrame);
-
-      // Center the current month initially
-      this.#scrollToMonth(0);
-
-      // Start observing month views
-      this.#observedMonths = this.renderRoot.querySelectorAll('sl-month-view');
-      this.#observedMonths.forEach(mv => this.#intersectionObserver?.observe(mv));
+      await this.#updateMonthViews();
     }
   });
 
@@ -196,21 +188,18 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       this.previousMonth = new Date(this.month.getFullYear(), this.month.getMonth() - 1);
     }
 
-    // if (changes.has('max') || changes.has('min') || changes.has('month')) {
-    //   this.#observedMonths?.forEach(mv => this.#intersectionObserver?.unobserve(mv));
-    //   this.#observedMonths = undefined;
-    // }
+    if (changes.has('max') || changes.has('min') || changes.has('month')) {
+      this.#observedMonths?.forEach(mv => this.#intersectionObserver?.unobserve(mv));
+      this.#observedMonths = undefined;
+    }
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    // if (changes.has('max') || changes.has('min') || changes.has('month')) {
-    //   this.#scrollToMonth(0);
-
-    //   this.#observedMonths = this.renderRoot.querySelectorAll('sl-month-view');
-    //   this.#observedMonths.forEach(mv => this.#intersectionObserver?.observe(mv));
-    // }
+    if (changes.has('max') || changes.has('min') || changes.has('month')) {
+      void this.#updateMonthViews();
+    }
   }
 
   override render(): TemplateResult {
@@ -227,7 +216,15 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       <header>
         ${canSelectPreviousMonth || canSelectNextMonth
           ? html`
-              <sl-button @click=${this.#onToggleMonthSelect} class="current-month" fill="link" variant="secondary">
+              <sl-button
+                @click=${this.#onToggleMonthSelect}
+                aria-label=${msg(str`${format(this.displayMonth!, this.locale, { month: 'long' })}, change month`, {
+                  id: 'sl.calendar.changeMonth'
+                })}
+                class="current-month"
+                fill="link"
+                variant="secondary"
+              >
                 <sl-format-date
                   .date=${this.displayMonth}
                   locale=${ifDefined(this.locale)}
@@ -247,7 +244,15 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
             `}
         ${canSelectPreviousYear || canSelectNextYear
           ? html`
-              <sl-button @click=${this.#onToggleYearSelect} class="current-year" fill="link" variant="secondary">
+              <sl-button
+                @click=${this.#onToggleYearSelect}
+                aria-label=${msg(str`${format(this.displayMonth!, this.locale, { year: 'numeric' })}, change year`, {
+                  id: 'sl.calendar.changeYear'
+                })}
+                class="current-year"
+                fill="link"
+                variant="secondary"
+              >
                 <sl-format-date
                   .date=${this.displayMonth}
                   locale=${ifDefined(this.locale)}
@@ -335,7 +340,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           ?show-week-numbers=${this.showWeekNumbers}
           .disabledDates=${this.disabledDates}
           .indicatorDates=${this.indicatorDates}
-          autofocus
           first-day-of-week=${ifDefined(this.firstDayOfWeek)}
           locale=${ifDefined(this.locale)}
           max=${ifDefined(this.max?.toISOString())}
@@ -367,6 +371,10 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onChange(event: SlChangeEvent<Date>): void {
+    // Do not let the event bubble up to `<sl-calendar>`
+    event.preventDefault();
+    event.stopPropagation();
+
     const newMonth = new Date(event.detail.getFullYear(), event.detail.getMonth());
 
     // Check if the new month is within min/max boundaries
@@ -386,6 +394,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
     this.month = newMonth;
 
+    // Wait until the new month has rendered before focusing the month view
     requestAnimationFrame(() => {
       this.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')?.focus(event.detail);
     });
@@ -531,5 +540,18 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     } else if (this.scroller.scrollLeft !== left) {
       this.scroller.scrollLeft = left;
     }
+  }
+
+  async #updateMonthViews(): Promise<void> {
+    // Make sure the scroller and month views elements have been updated
+    await new Promise(requestAnimationFrame);
+    await new Promise(requestAnimationFrame);
+
+    // Center the current month initially
+    this.#scrollToMonth(0);
+
+    // Start observing month views
+    this.#observedMonths = this.renderRoot.querySelectorAll('sl-month-view');
+    this.#observedMonths.forEach(mv => this.#intersectionObserver?.observe(mv));
   }
 }

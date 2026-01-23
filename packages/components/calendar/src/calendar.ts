@@ -1,6 +1,6 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { type EventEmitter, LocaleMixin, event } from '@sl-design-system/shared';
-import { dateConverter } from '@sl-design-system/shared/converters.js';
+import { dateConverter, dateListConverter } from '@sl-design-system/shared/converters.js';
 import { type SlChangeEvent, type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -10,7 +10,7 @@ import styles from './calendar.scss.js';
 import { SelectDay } from './select-day.js';
 import { SelectMonth } from './select-month.js';
 import { SelectYear } from './select-year.js';
-import { isSameDate } from './utils.js';
+import { Indicator, indicatorConverter, isSameDate } from './utils.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -22,6 +22,7 @@ declare global {
  * A calendar component for displaying and selecting dates.
  */
 export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-select-day': SelectDay,
@@ -36,11 +37,27 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /**
+   * Tracks the previously active calendar mode (`'day' | 'month' | 'year'`) so the
+   * component can restore the correct view when closing or switching between
+   * month and year views.
+   */
+  #previousMode: 'day' | 'month' | 'year' = 'day';
+
   /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<Date>>;
 
+  /** The list of dates that should be set as disabled. */
+  @property({ attribute: 'disabled-dates', converter: dateListConverter }) disabledDates?: Date[];
+
   /** The first day of the week; 0 for Sunday, 1 for Monday. */
   @property({ type: Number, attribute: 'first-day-of-week' }) firstDayOfWeek?: number;
+
+  /**
+   * The list of dates that should display an indicator. Each item has a `date` and optional `color`
+   * and `label` values that are used to improve accessibility.
+   */
+  @property({ attribute: 'indicator-dates', converter: indicatorConverter }) indicatorDates?: Indicator[];
 
   /**
    * The maximum date selectable in the calendar.
@@ -78,7 +95,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     if (changes.has('selected') && this.selected) {
       // If only the `selected` property is set, make sure the `month` property is set
       // to the same date, so the selected day is visible in the calendar.
-      this.month ??= new Date(this.selected);
+      this.month = this.selected;
     } else {
       // Otherwise default to the current month.
       this.month ??= new Date();
@@ -94,9 +111,11 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         ?readonly=${this.readonly}
         ?show-today=${this.showToday}
         ?show-week-numbers=${this.showWeekNumbers}
+        .disabledDates=${this.disabledDates}
+        .indicatorDates=${this.indicatorDates}
         .month=${this.month}
         .selected=${this.selected}
-        aria-hidden=${this.mode !== 'day'}
+        aria-hidden=${ifDefined(this.mode !== 'day' ? 'true' : undefined)}
         first-day-of-week=${ifDefined(this.firstDayOfWeek)}
         locale=${ifDefined(this.locale)}
         max=${ifDefined(this.max?.toISOString())}
@@ -109,15 +128,27 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           () => html`
             <sl-select-month
               @sl-select=${this.#onSelectMonth}
+              @sl-toggle=${this.#onToggleMonthYear}
+              ?show-today=${this.showToday}
+              .selected=${this.selected}
               .month=${this.month}
               locale=${ifDefined(this.locale)}
+              max=${ifDefined(this.max?.toISOString())}
+              min=${ifDefined(this.min?.toISOString())}
             ></sl-select-month>
           `
         ],
         [
           'year',
           () => html`
-            <sl-select-year @sl-select=${this.#onSelectYear} .year=${this.month!.getFullYear()}></sl-select-year>
+            <sl-select-year
+              @sl-select=${this.#onSelectYear}
+              ?show-today=${this.showToday}
+              .selected=${this.selected}
+              .year=${this.month}
+              max=${ifDefined(this.max?.toISOString())}
+              min=${ifDefined(this.min?.toISOString())}
+            ></sl-select-year>
           `
         ]
       ])}
@@ -129,7 +160,6 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     event.stopPropagation();
 
     if (!this.selected || !isSameDate(this.selected, event.detail)) {
-      this.month = new Date(event.detail.getFullYear(), event.detail.getMonth());
       this.selected = new Date(event.detail);
       this.changeEvent.emit(this.selected);
     }
@@ -152,7 +182,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     event.stopPropagation();
 
     this.month = new Date(event.detail.getFullYear(), this.month!.getMonth(), this.month!.getDate());
-    this.mode = 'day';
+    this.mode = this.#previousMode ?? 'day';
 
     requestAnimationFrame(() => {
       this.renderRoot.querySelector('sl-select-day')?.focus();
@@ -163,8 +193,10 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     event.preventDefault();
     event.stopPropagation();
 
+    this.#previousMode = this.mode;
     this.mode = event.detail;
 
+    // Wait until the new mode has rendered before focusing the correct element
     requestAnimationFrame(() => {
       this.renderRoot.querySelector(event.detail === 'month' ? 'sl-select-month' : 'sl-select-year')?.focus();
     });

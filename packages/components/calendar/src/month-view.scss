@@ -2,6 +2,22 @@
   display: inline-flex;
 }
 
+:host([show-today]) {
+  [part~='today'] span {
+    border: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-bold);
+    inline-size: calc(var(--sl-size-300) - var(--sl-size-borderWidth-subtle) * 2);
+  }
+
+  [part~='today'][part~='selected'] span {
+    border-color: var(--sl-color-border-primary-plain);
+    box-shadow: inset 0 0 0 var(--sl-size-borderWidth-subtle) var(--sl-elevation-surface-raised-default);
+  }
+
+  [part~='today'][part~='disabled'] span {
+    border-color: var(--sl-color-border-disabled);
+  }
+}
+
 table {
   border-collapse: collapse;
 }
@@ -9,22 +25,62 @@ table {
 td,
 th {
   padding: var(--sl-size-025);
+  position: relative;
+}
+
+[part~='week-day'],
+[part~='week-number'] {
+  color: var(--sl-color-foreground-disabled);
+  font-weight: normal;
+}
+
+[part='week-day'] {
+  block-size: var(--sl-size-250);
+  padding-inline: 0;
+  position: relative;
+
+  span {
+    inset: 50% auto auto 50%;
+    position: absolute;
+    translate: -50% -50%;
+  }
+}
+
+[part~='week-number'] {
+  min-inline-size: var(--sl-size-400);
+  position: relative;
+  text-align: center;
+
+  // Use a pseudo-element to prevent weird resizing within the table
+  // With a border, the sibling td was suddenly 0.5px wider
+  &::after {
+    background: var(--sl-color-border-neutral-plain);
+    content: '';
+    inline-size: var(--sl-size-borderWidth-subtle);
+    inset: 0 0 0 auto;
+    position: absolute;
+  }
 }
 
 button {
+  --_bg-color: transparent;
+  --_bg-mix-color: var(--sl-color-background-neutral-interactive-bold);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
+
   appearance: none;
+  background: transparent;
   border: 0;
   border-radius: var(--sl-size-borderRadius-default);
   color: var(--sl-color-foreground-plain);
   cursor: pointer;
+  display: inline-flex;
   font: inherit;
-  outline: transparent solid var(--sl-size-borderWidth-focusRing);
-  outline-offset: var(--sl-size-outlineOffset-default);
-  padding: 0;
+  outline: none;
+  padding: var(--sl-size-050);
 
-  @media (prefers-reduced-motion: no-preference) {
-    transition: 0.2s ease-in-out;
-    transition-property: background, border-radius, color;
+  &:disabled {
+    cursor: default;
+    pointer-events: none;
   }
 
   &:hover {
@@ -35,60 +91,78 @@ button {
     --_bg-opacity: var(--sl-opacity-interactive-plain-active);
   }
 
-  &:focus-visible {
+  &:focus-visible span {
     outline-color: var(--sl-color-border-focused);
+  }
+
+  span {
+    aspect-ratio: 1;
+    background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+    border-radius: inherit;
+    display: inline-grid;
+    inline-size: var(--sl-size-300);
+    outline: transparent solid var(--sl-size-borderWidth-focusRing);
+    outline-offset: var(--sl-size-outlineOffset-default);
+    place-items: center;
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition: 0.2s ease-in-out;
+      transition-property: background, border-radius, color;
+    }
   }
 }
 
-[part~='day'] {
-  --_bg-color: transparent;
-  --_bg-mix-color: var(--sl-color-background-info-interactive-plain);
-  --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
-
-  align-items: center;
-  aspect-ratio: 1;
-  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
-  box-sizing: border-box;
-  color: var(--sl-color-foreground-plain);
-  display: inline-flex;
-  inline-size: var(--sl-size-400);
-  justify-content: center;
-}
-
 [part~='previous-month'],
-[part~='next-month'],
-[part~='unselectable'] {
-  color: var(--sl-color-foreground-disabled);
-}
-
-[part~='highlight'] {
-  --_bg-color: var(--sl-color-background-info-subtle);
-
-  border-radius: 50%;
-  color: var(--sl-color-foreground-info-plain);
-}
-
-[part~='today'] {
-  border: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-neutral-plain);
-  border-radius: var(--sl-size-borderRadius-full);
+[part~='next-month'] {
+  color: var(--sl-color-foreground-subtlest);
 }
 
 [part~='selected'] {
   --_bg-color: var(--sl-color-background-selected-bold);
   --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);
 
-  border-radius: var(--sl-size-borderRadius-default);
   color: var(--sl-color-foreground-selected-onBold);
 }
 
-[part~='week-day'],
-[part~='week-number'] {
-  color: var(--sl-color-foreground-subtlest);
-  font-weight: normal;
+[part~='disabled'],
+[part~='out-of-range'] {
+  color: var(--sl-color-foreground-disabled);
+  cursor: default;
 }
 
-[part~='week-number'] {
-  border-inline-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain);
-  inline-size: calc(var(--sl-size-400) - var(--sl-size-010));
-  text-align: center;
+[part~='disabled'][part~='selected'] {
+  --_bg-color: var(--sl-color-background-disabled);
+  --_bg-mix-color: var(--sl-color-background-disabled);
+
+  color: var(--sl-color-foreground-disabled);
+}
+
+[part~='indicator']::after {
+  background: var(--sl-color-background-accent-blue-bold);
+  block-size: var(--sl-size-075);
+  border: var(--sl-size-borderWidth-default) solid var(--sl-elevation-surface-raised-default);
+  border-radius: var(--sl-size-borderRadius-full);
+  box-sizing: border-box;
+  color: var(--sl-color-foreground-info-onBold);
+  content: '';
+  inline-size: var(--sl-size-075);
+  inset-block-end: calc(-1 * var(--sl-size-010));
+  inset-inline-start: calc(50% - var(--sl-size-075) / 2);
+  position: absolute;
+}
+
+[part~='indicator-green']::after {
+  background: var(--sl-color-background-accent-green-bold);
+}
+
+[part~='indicator-grey']::after {
+  background: var(--sl-color-background-accent-grey-bold);
+}
+
+[part~='indicator-red']::after {
+  background: var(--sl-color-background-accent-red-bold);
+}
+
+[part~='indicator-yellow']::after {
+  background: var(--sl-color-background-accent-yellow-bold);
 }

@@ -277,6 +277,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     event.stopPropagation();
 
     this.value = event.detail;
+    this.value.setHours(0, 0, 0); // we don't need a time for the date picker.
     this.changeEvent.emit(this.value);
 
     this.textField?.updateValidity();
@@ -284,10 +285,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.updateState({ dirty: true });
     this.updateValidity();
 
-    setTimeout(() => {
-      this.wrapper?.hidePopover();
-      this.input.focus();
-    }, 500);
+    this.wrapper?.hidePopover();
+    this.input.focus();
   }
 
   #onTextFieldBlur(event: SlBlurEvent): void {

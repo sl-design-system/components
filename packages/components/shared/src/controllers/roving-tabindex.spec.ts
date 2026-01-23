@@ -1,9 +1,9 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
-import { userEvent } from '@vitest/browser/context';
 import { LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { fake } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
 import { type RovingTabindexConfig, RovingTabindexController } from './roving-tabindex.js';
 
 class RovingTabindexFixture extends LitElement {

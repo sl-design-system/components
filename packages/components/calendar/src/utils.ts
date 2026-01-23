@@ -1,28 +1,73 @@
+import { dateConverter } from '@sl-design-system/shared/converters.js';
+
+export type IndicatorColor = 'blue' | 'red' | 'yellow' | 'green' | 'grey';
+
+export type Indicator = { date: Date; color?: IndicatorColor; label?: string };
+
 export interface Day {
-  ariaCurrent?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false';
-  ariaPressed?: 'true' | 'false' | 'mixed';
-  autosuggest?: boolean;
+  /** Whether this day is in the current month. */
   currentMonth?: boolean;
+
+  /** The date of the day. */
   date: Date;
+
+  /** Whether this day is disabled. */
   disabled?: boolean;
-  focused?: boolean;
+
+  /**
+   * Whether this day is the first enabled day of the month. You cannot navigate
+   * past this day using keyboard navigation.
+   */
+  firstActiveDayOfMonth?: boolean;
+
+  /** Whether this day is in the future. */
   future?: boolean;
-  highlight?: boolean;
-  lastDayOfMonth?: boolean;
+
+  /**
+   * Whether this day has an indicator.
+   * @default { color: 'blue', label: undefined }
+   */
+  indicator?: { color?: IndicatorColor; label?: string };
+
+  /**
+   * Whether this day is the last enabled day of the month. You cannot navigate
+   * past this date using keyboard navigation.
+   */
+  lastActiveDayOfMonth?: boolean;
+
+  /** Whether this day is in the next month. */
   nextMonth?: boolean;
+
+  /** Whether this day is out of range (before min, after max). */
+  outOfRange?: boolean;
+
+  /** Whether this day is in the past. */
   past?: boolean;
+
+  /** Whether this day is in the previous month. */
   previousMonth?: boolean;
-  range?: boolean;
+
+  /** Whether this day is the first day of the week. */
   startOfWeek?: boolean;
-  tabindex?: string;
+
+  /** Whether this day is today. */
   today?: boolean;
-  unselectable?: boolean;
+
+  /** The index of the day within the week (0..6). */
   weekOrder?: number;
 }
 
 export interface Week {
   number: number;
   days: Day[];
+}
+
+export interface Month {
+  short: string;
+  long: string;
+  value: number;
+  date: Date;
+  disabled?: boolean;
 }
 
 export type WeekDayNamesStyle = 'long' | 'short' | 'narrow';
@@ -121,13 +166,27 @@ export function isSameDate(day1?: Date, day2?: Date): boolean {
   );
 }
 
+export function isDateInList(date: Date, list?: Date[] | string): boolean {
+  if (!list) {
+    return false;
+  }
+
+  if (typeof list === 'string') {
+    list = list.split(',').map(item => new Date(item));
+  }
+
+  return list.some(item => isSameDate(item, date));
+}
+
 export function normalizeDateTime(date: Date): Date {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate());
 }
 
 export interface CreateCalendarOptions {
+  disabledDates?: Date[];
   end?: Date;
-  firstDayOfWeek?: number;
+  firstDayOfWeek: number;
+  indicatorDates?: Indicator[];
   max?: Date;
   min?: Date;
   showToday?: boolean;
@@ -135,15 +194,17 @@ export interface CreateCalendarOptions {
 
 export function createCalendar(
   date: Date,
-  { end, firstDayOfWeek = 0, max, min, showToday = false }: CreateCalendarOptions
+  { disabledDates, end, firstDayOfWeek, indicatorDates, max, min, showToday = false }: CreateCalendarOptions
 ): Calendar {
-  const weekOptions = { firstDayOfWeek, max, min, showToday };
+  const weekOptions = { disabledDates, firstDayOfWeek, indicatorDates, max, min, showToday };
 
   return end ? createPeriod(date, end, weekOptions) : createMonth(date, weekOptions);
 }
 
 export interface CreatePeriodOptions {
+  disabledDates?: Date[];
   firstDayOfWeek: number;
+  indicatorDates?: Indicator[];
   max?: Date;
   min?: Date;
   showToday: boolean;
@@ -152,10 +213,10 @@ export interface CreatePeriodOptions {
 export function createPeriod(
   start: Date,
   end: Date,
-  { firstDayOfWeek, max, min, showToday }: CreatePeriodOptions
+  { disabledDates, firstDayOfWeek, indicatorDates, max, min, showToday }: CreatePeriodOptions
 ): Calendar {
   const calendar: Calendar = { weeks: [] },
-    weekOptions = { firstDayOfWeek, max, min, relativeMonth: start, showToday };
+    weekOptions = { disabledDates, firstDayOfWeek, indicatorDates, max, min, relativeMonth: start, showToday };
 
   let nextWeek = createWeek(start, weekOptions);
   do {
@@ -165,21 +226,43 @@ export function createPeriod(
     nextWeek = createWeek(firstDayOfNextWeek, weekOptions);
   } while (nextWeek.days[0].date <= end);
 
+  // Mark the first and last selectable days in the period
+  const allDays = calendar.weeks.flatMap(week => week.days),
+    selectableDays = allDays.filter(day => !day.disabled && !day.outOfRange);
+
+  if (selectableDays.length > 0) {
+    selectableDays[0].firstActiveDayOfMonth = true;
+    selectableDays[selectableDays.length - 1].lastActiveDayOfMonth = true;
+  }
+
   return calendar;
 }
 
 export interface CreateMonthOptions {
+  disabledDates?: Date[];
   firstDayOfWeek: number;
+  indicatorDates?: Indicator[];
   max?: Date;
   min?: Date;
   showToday: boolean;
 }
 
-export function createMonth(date: Date, { firstDayOfWeek, max, min, showToday }: CreateMonthOptions): Calendar {
+export function createMonth(
+  date: Date,
+  { disabledDates, firstDayOfWeek, indicatorDates, max, min, showToday }: CreateMonthOptions
+): Calendar {
   const firstDayOfMonth = new Date(date);
   firstDayOfMonth.setDate(1);
   const monthNumber = firstDayOfMonth.getMonth();
-  const weekOptions = { firstDayOfWeek, max, min, relativeMonth: firstDayOfMonth, showToday };
+  const weekOptions = {
+    disabledDates,
+    firstDayOfWeek,
+    indicatorDates,
+    max,
+    min,
+    relativeMonth: firstDayOfMonth,
+    showToday
+  };
 
   const month: Calendar = { weeks: [] };
 
@@ -191,11 +274,30 @@ export function createMonth(date: Date, { firstDayOfWeek, max, min, showToday }:
     nextWeek = createWeek(firstDayOfNextWeek, weekOptions);
   } while (nextWeek.days[0].date.getMonth() === monthNumber);
 
+  // Make sure we have a consistent number of weeks (6) for layout purposes
+  while (month.weeks.length < 6) {
+    const firstDayOfNextWeek = new Date(month.weeks[month.weeks.length - 1].days[6].date); // last day of last week
+    firstDayOfNextWeek.setDate(firstDayOfNextWeek.getDate() + 1); // make it first day of next week
+    month.weeks.push(createWeek(firstDayOfNextWeek, weekOptions));
+  }
+
+  // Find and mark the first and last active (selectable) days of the current month
+  const currentMonthDays = month.weeks
+    .flatMap(week => week.days)
+    .filter(day => day.currentMonth && !day.disabled && !day.outOfRange);
+
+  if (currentMonthDays.length > 0) {
+    currentMonthDays[0].firstActiveDayOfMonth = true;
+    currentMonthDays[currentMonthDays.length - 1].lastActiveDayOfMonth = true;
+  }
+
   return month;
 }
 
 export interface CreateWeekOptions {
+  disabledDates?: Date[];
   firstDayOfWeek: number;
+  indicatorDates?: Indicator[];
   max?: Date;
   min?: Date;
   relativeMonth: Date;
@@ -204,7 +306,7 @@ export interface CreateWeekOptions {
 
 export function createWeek(
   date: Date,
-  { firstDayOfWeek, max, min, relativeMonth, showToday }: CreateWeekOptions
+  { disabledDates, firstDayOfWeek, indicatorDates, max, min, relativeMonth, showToday }: CreateWeekOptions
 ): Week {
   let weekStartDate = new Date(date);
 
@@ -222,12 +324,14 @@ export function createWeek(
 
     week.days.push(
       createDay(new Date(weekStartDate), {
-        relativeMonth,
+        disabledDates,
+        indicatorDates,
         max,
         min,
-        weekOrder: i,
+        relativeMonth,
         showToday,
-        startOfWeek: i === 0
+        startOfWeek: i === 0,
+        weekOrder: i
       })
     );
   }
@@ -235,9 +339,11 @@ export function createWeek(
 }
 
 export interface CreateDayOptions {
-  relativeMonth: Date;
+  disabledDates?: Date[];
+  indicatorDates?: Indicator[];
   max?: Date;
   min?: Date;
+  relativeMonth: Date;
   showToday: boolean;
   startOfWeek: boolean;
   weekOrder: number;
@@ -245,26 +351,44 @@ export interface CreateDayOptions {
 
 export function createDay(
   date: Date,
-  { relativeMonth, max, min, showToday, startOfWeek, weekOrder }: CreateDayOptions
+  { disabledDates, indicatorDates, max, min, relativeMonth, showToday, startOfWeek, weekOrder }: CreateDayOptions
 ): Day {
   const today = normalizeDateTime(new Date()),
+    indicator = indicatorDates?.find(i => isSameDate(i.date, date)),
     currentMonth = relativeMonth.getMonth(),
-    isToday = showToday && isSameDate(date, today),
-    lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+    isToday = showToday && isSameDate(date, today);
 
   return {
-    ariaCurrent: isToday ? 'date' : undefined,
     currentMonth: date.getMonth() === currentMonth,
     date,
+    disabled: isDateInList(date, disabledDates),
     future: date > today,
-    lastDayOfMonth: date.getDate() === lastDayOfMonth,
+    indicator: indicator ? { color: indicator.color, label: indicator.label } : undefined,
     nextMonth: date.getMonth() > currentMonth,
+    outOfRange: (min && date < min) || (max && date > max),
     past: date < today,
     previousMonth: date.getMonth() < currentMonth,
     startOfWeek,
-    tabindex: '-1',
     today: isToday,
-    unselectable: (min && date < min) || (max && date > max),
     weekOrder
   };
 }
+
+export const indicatorConverter = {
+  fromAttribute: (value: string | null) =>
+    value
+      ? (JSON.parse(value) as Array<{ date: string; color?: IndicatorColor; label?: string }>).map(i => ({
+          ...i,
+          date: dateConverter.fromAttribute?.(i.date)
+        }))
+      : undefined,
+  toAttribute: (value?: Indicator[]) =>
+    value
+      ? JSON.stringify(
+          value.map(i => ({
+            ...i,
+            date: dateConverter.toAttribute?.(i.date)
+          }))
+        )
+      : undefined
+};

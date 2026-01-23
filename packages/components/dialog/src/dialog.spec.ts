@@ -1,10 +1,10 @@
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { fixture, oneEvent } from '@sl-design-system/vitest-browser-lit';
-import { userEvent } from '@vitest/browser/context';
 import { type LitElement, type TemplateResult, html } from 'lit';
 import { spy, stub } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { Dialog } from './dialog.js';
 

@@ -1,7 +1,7 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
-import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { type TagList } from './tag-list.js';
 
@@ -124,8 +124,8 @@ describe('sl-tag', () => {
       const tagContent = tooltip!.textContent?.trim();
 
       expect(tagContent).to.exist;
-      expect(tagContent!.includes('List of hidden elements:')).to.be.true;
-      expect(tagContent!.includes('My label 1, My label 2, My label 3, My label 4, My label 5, My label 6, My label 7'))
+      expect(tagContent.includes('List of hidden elements:')).to.be.true;
+      expect(tagContent.includes('My label 1, My label 2, My label 3, My label 4, My label 5, My label 6, My label 7'))
         .to.be.true;
     });
 

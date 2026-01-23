@@ -3,10 +3,10 @@ import '@sl-design-system/form/register.js';
 import '@sl-design-system/listbox/register.js';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
-import { userEvent } from '@vitest/browser/context';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { type Combobox } from './combobox.js';
 import { type CustomOption } from './custom-option.js';
@@ -47,6 +47,71 @@ describe('sl-combobox', () => {
     it('should autocomplete both the input and list', () => {
       expect(el.autocomplete).to.equal('both');
       expect(input).to.have.attribute('aria-autocomplete', 'both');
+    });
+
+    it('should have aria-autocomplete="none" when autocomplete is "off"', async () => {
+      el.autocomplete = 'off';
+      await el.updateComplete;
+
+      expect(input).to.have.attribute('aria-autocomplete', 'none');
+    });
+
+    it('should have aria-autocomplete="none" when select-only is true', async () => {
+      el.selectOnly = true;
+      await el.updateComplete;
+
+      expect(input).to.have.attribute('aria-autocomplete', 'none');
+    });
+
+    it('should be readonly when select-only is true', async () => {
+      el.selectOnly = true;
+      await el.updateComplete;
+
+      expect(input).to.have.attribute('readonly');
+    });
+
+    it('should have aria-autocomplete="none" when select-only is true even if autocomplete is not "off"', async () => {
+      el.selectOnly = true;
+      el.autocomplete = 'both';
+      await el.updateComplete;
+
+      expect(input).to.have.attribute('aria-autocomplete', 'none');
+    });
+
+    it('should reflect the autocomplete property in aria-autocomplete', async () => {
+      el.autocomplete = 'list';
+      await el.updateComplete;
+      expect(input).to.have.attribute('aria-autocomplete', 'list');
+
+      el.autocomplete = 'inline';
+      await el.updateComplete;
+      expect(input).to.have.attribute('aria-autocomplete', 'inline');
+    });
+
+    it('should warn when select-only is true and autocomplete is not "off"', async () => {
+      const warnSpy = spy(console, 'warn');
+
+      el.selectOnly = true;
+      el.autocomplete = 'both';
+      await el.updateComplete;
+
+      expect(warnSpy).to.have.been.calledWithMatch(
+        /sl-combobox: The 'autocomplete="both"' property is ignored when 'selectOnly' is true/
+      );
+
+      warnSpy.restore();
+    });
+
+    it('should not warn when select-only is true and autocomplete is "off"', async () => {
+      const warnSpy = spy(console, 'warn');
+
+      el.selectOnly = true;
+      el.autocomplete = 'off';
+      await el.updateComplete;
+
+      expect(warnSpy).to.not.have.been.called;
+
+      warnSpy.restore();
     });
 
     it('should not filter the results in the list', () => {

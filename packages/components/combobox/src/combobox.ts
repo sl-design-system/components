@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin, type SlFormControlEvent, type SlUpdateStateEvent } from '@sl-design-system/form';
@@ -135,10 +136,13 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
   /**
    * The behavior of the combobox when it comes to suggesting options based on user input.
-   * - 'off': Suggest is off
+   * - 'off': Suggest is off; the input field is read-only.
    * - 'inline': Only suggest options inside the input
    * - 'list': Filter options in the list based on user input
    * - 'both': Use both inline and list suggestions
+   *
+   * Note: This property is ignored when `select-only` is true, as the input field
+   * is read-only in that case.
    *
    * @see https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-autocomplete
    */
@@ -211,8 +215,11 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   @property() placeholder?: string;
 
   /**
-   * Whether the component is select only. This means you cannot type in the text field,
-   * but you can still select options.
+   * Whether the component is select only. This means the input field is read-only
+   * and you cannot type to filter results but you can still select options.
+   *
+   * When enabled, any `autocomplete` property values are ignored and the
+   * component effectively uses `aria-autocomplete="none"`.
    */
   @property({ type: Boolean, reflect: true, attribute: 'select-only' }) selectOnly?: boolean;
 
@@ -240,6 +247,15 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   /** @internal The wrapper element that is also the popover. */
   @query('[part="wrapper"]') wrapper?: HTMLSlotElement;
 
+  /** @internal The aria-autocomplete value based on the component state. */
+  get #ariaAutocomplete(): 'none' | 'inline' | 'list' | 'both' {
+    if (this.selectOnly || this.autocomplete === 'off') {
+      return 'none';
+    }
+
+    return this.autocomplete || 'both';
+  }
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -254,7 +270,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     }
 
     this.input.setAttribute('role', 'combobox');
-    this.input.setAttribute('aria-autocomplete', this.autocomplete || 'both');
+    this.input.setAttribute('aria-autocomplete', this.#ariaAutocomplete);
     this.input.setAttribute('aria-expanded', 'false');
     this.input.setAttribute('aria-haspopup', 'listbox');
 
@@ -357,7 +373,20 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     }
 
     if (changes.has('autocomplete') || changes.has('selectOnly')) {
-      this.input.readOnly = this.selectOnly ?? this.autocomplete === 'off';
+      const value = this.#ariaAutocomplete;
+
+      // Warn developers about conflicting configuration
+      if (import.meta.env?.DEV && this.selectOnly && this.autocomplete && this.autocomplete !== 'off') {
+        console.warn(
+          `sl-combobox: The 'autocomplete="${this.autocomplete}"' property is ignored when 'selectOnly' is true. ` +
+            'Select-only comboboxes have a read-only input field and therefore cannot have autocomplete. ' +
+            'The component will use aria-autocomplete="none" instead.'
+        );
+      }
+
+      // Set ARIA-compliant aria-autocomplete value (maps 'off' to 'none')
+      this.input.setAttribute('aria-autocomplete', value);
+      this.input.readOnly = !!this.selectOnly;
     }
 
     if (changes.has('disabled')) {

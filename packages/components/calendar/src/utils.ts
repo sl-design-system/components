@@ -274,6 +274,13 @@ export function createMonth(
     nextWeek = createWeek(firstDayOfNextWeek, weekOptions);
   } while (nextWeek.days[0].date.getMonth() === monthNumber);
 
+  // Make sure we have a consistent number of weeks (6) for layout purposes
+  while (month.weeks.length < 6) {
+    const firstDayOfNextWeek = new Date(month.weeks[month.weeks.length - 1].days[6].date); // last day of last week
+    firstDayOfNextWeek.setDate(firstDayOfNextWeek.getDate() + 1); // make it first day of next week
+    month.weeks.push(createWeek(firstDayOfNextWeek, weekOptions));
+  }
+
   // Find and mark the first and last active (selectable) days of the current month
   const currentMonthDays = month.weeks
     .flatMap(week => week.days)

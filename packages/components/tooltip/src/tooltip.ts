@@ -216,6 +216,12 @@ export class Tooltip extends LitElement {
   @property({ type: Number, attribute: 'max-width' }) maxWidth?: number;
 
   /**
+   * The offset distance of the tooltip from its anchor.
+   * @default Tooltip.offset (12px)
+   */
+  @property({ type: Number }) offset?: number;
+
+  /**
    * Position of the tooltip relative to its anchor.
    * @type {'top' | 'right' | 'bottom' | 'left' | 'top-start' | 'top-end' | 'right-start' | 'right-end' | 'bottom-start' | 'bottom-end' | 'left-start' | 'left-end'}
    */
@@ -243,6 +249,10 @@ export class Tooltip extends LitElement {
 
     if (changes.has('maxWidth')) {
       this.#anchor.maxWidth = this.maxWidth;
+    }
+
+    if (changes.has('offset')) {
+      this.#anchor.offset = this.offset ?? Tooltip.offset;
     }
 
     if (changes.has('position')) {

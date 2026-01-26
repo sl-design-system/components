@@ -1,2 +1,2 @@
-export * from './src/announce.js';
-export * from './src/announcer.js';
+export { announce } from './src/announce.js';
+export { type SlAnnounceEvent, Announcer } from './src/announcer.js';

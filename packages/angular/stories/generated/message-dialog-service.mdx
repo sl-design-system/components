@@ -458,18 +458,86 @@ export class MessageDialogStaticMethodsComponent {
 
 ## With Custom Component
 
-<p>Use <strong>showModal()</strong> to render a custom Angular component as the message content. This is useful for complex dialogs with forms, interactive content, or custom layouts.</p>
+<p>Use <strong>showModal()</strong> to render a custom Angular component as the message content.</p>
 
-### Template
 
-```html
-&lt;p&gt;Data: {{ data }}&lt;/p&gt;
+```typescript
+import { MessageDialogService } from '@sl-design-system/angular';
+import { ButtonComponent } from '@sl-design-system/angular/button';
+
+@Component({
+  selector: 'sla-message-dialog-custom-component',
+  template: `<style>
+    .container {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      flex-direction: column;
+      max-width: 700px;
+    }
+  </style>
+  <h3>Custom Component Examples</h3>
+  <div class="container">
+    <div>
+      <h4>showModal() with Custom Component</h4>
+      <p>
+        Use <code>showModal()</code> to render a custom Angular component as the message content. Pass data via the
+        <code>data</code> property and access it with <code>&#64;Inject('MESSAGE_DIALOG_DATA')</code>.
+      </p>
+      <sl-button (click)="showWithComponent()" variant="primary">Show with Component</sl-button>
+    </div>
+
+    <div>
+      <h4>Non-cancellable Dialog with Component</h4>
+      <p>
+        Use <code>disableCancel: true</code> to prevent users from dismissing critical dialogs. When enabled, the
+        dialog cannot be closed by pressing Escape or clicking the backdrop, ensuring users must explicitly respond.
+      </p>
+      <sl-button (click)="showCriticalAction()" variant="danger">Critical Action</sl-button>
+    </div>
+  </div>`,
+  imports: [ButtonComponent, CommonModule]
+})
+export class MessageDialogCustomComponentExampleComponent {
+
+  constructor(private messageDialogService: MessageDialogService) {}
+
+  showWithComponent(): void {
+    const dialogRef = this.messageDialogService.showModal<CustomMessageComponent, string>({
+      component: CustomMessageComponent,
+      data: 'This is some data passed to the component!',
+      title: 'Custom Component Message',
+      buttons: [
+        { text: 'Cancel', fill: 'ghost', value: 'cancel' },
+        { text: 'OK', variant: 'primary', autofocus: true, value: 'ok' }
+      ]
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Component dialog closed with result:', result);
+    });
+  }
+
+  showCriticalAction(): void {
+    const dialogRef = this.messageDialogService.showModal<CustomMessageComponent, string>({
+      component: CustomMessageComponent,
+      data: 'You are about to perform a critical action that requires confirmation.',
+      title: 'Critical Action Required',
+      buttons: [{ text: 'I Understand, Proceed', variant: 'danger', autofocus: true, value: 'proceed' }],
+      disableCancel: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Critical action dialog closed with result:', result);
+    });
+  }
+
+}
 ```
-
 
 ## Advanced Example
 
-<p>Advanced examples demonstrating powerful features of the MessageDialogService:</p>
+<p>These examples show more ways to use the MessageDialogService:</p> <ul> <li><strong>Multiple dialogs</strong>: Open multiple dialogs at the same time.</li><li><strong>Sequential dialogs</strong>: Show dialogs one after another, like a step-by-step guide.</li></ul>
 
 
 ```typescript
@@ -478,27 +546,30 @@ import { ButtonComponent } from '@sl-design-system/angular/button';
 
 @Component({
   selector: 'sla-message-dialog-advanced',
-  template: `<h3>Advanced Message Dialog Service examples</h3>
-  <p>Demonstrates programmatic control, multiple dialogs, and complex scenarios.</p>
-  <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; flex-direction: column; max-width: 700px;">
+  template: `<style>
+    .container {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      flex-direction: column;
+    }
+  </style>
+  <h3>Advanced Message Dialog Service examples</h3>
+  <div class="container">
     <div>
-      <h4>Multiple Dialogs</h4>
+      <h4>Multiple dialogs</h4>
       <p>Open multiple dialogs simultaneously and manage them independently.</p>
-      <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
-        <sl-button (click)="openMultipleDialogs()" variant="primary">Open Multiple Dialogs</sl-button>
-      </div>
-      <p style="margin-top: 0.5rem; font-size: 0.875rem; color: var(--sl-color-text-muted);">
+      <sl-button (click)="openMultipleDialogs()" variant="primary">Open Multiple Dialogs</sl-button>
+      <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--sl-color-foreground-subtlest);">
         Each dialog has its own close button. You can also programmatically close all dialogs using
         <code>closeAll()</code> in your code.
       </p>
     </div>
 
     <div>
-      <h4>Sequential Dialogs (Wizard)</h4>
-      <p>Create wizard-like flows where dialogs appear one after another based on user choices.</p>
-      <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
-        <sl-button (click)="showSequentialDialogs()" variant="info">Start Wizard</sl-button>
-      </div>
+      <h4>Sequential dialogs</h4>
+      <p>Show dialogs one after another based on what the user chooses.</p>
+      <sl-button (click)="showSequentialDialogs()" variant="info">Show sequential dialogs</sl-button>
     </div>
   </div>`,
   imports: [ButtonComponent]

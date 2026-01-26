@@ -368,9 +368,9 @@ export class MessageDialogServiceExampleComponent {
       </div>
 
       <div>
-        <h4>Sequential dialogs (Wizard)</h4>
-        <p>Create wizard-like flows where dialogs appear one after another based on user choices.</p>
-        <sl-button (click)="showSequentialDialogs()" variant="info">Start Wizard</sl-button>
+        <h4>Sequential dialogs</h4>
+        <p>Show dialogs one after another based on what the user chooses.</p>
+        <sl-button (click)="showSequentialDialogs()" variant="info">Show sequential dialogs</sl-button>
       </div>
     </div>
   `
@@ -491,32 +491,12 @@ export const StaticMethods: StoryFn = () => ({
 
 export const WithCustomComponent: StoryFn = () => ({
   description:
-    '<p>Use <strong>showModal()</strong> to render a custom Angular component as the message content. This is useful for complex dialogs with forms, interactive content, or custom layouts.</p>' +
-    '<h4>Key Features:</h4>' +
-    '<ul>' +
-    '<li><strong>Component-based</strong>: Render any Angular component inside the message dialog.</li>' +
-    "<li><strong>Data injection</strong>: Pass data to your component via <code>@Inject('MESSAGE_DIALOG_DATA')</code>.</li>" +
-    '<li><strong>Observable results</strong>: Use <code>MessageDialogRef.afterClosed()</code> to reactively handle dialog results.</li>' +
-    '<li><strong>Full control</strong>: Configure buttons, disable cancel behavior, and control the dialog programmatically.</li>' +
-    '</ul>' +
-    '<h4>Example Component:</h4>' +
-    '<pre><code>@Component({' +
-    '\n  template: `&lt;p&gt;Data: {{ data }}&lt;/p&gt;`' +
-    '\n})' +
-    '\nclass MyComponent {' +
-    "\n  constructor(@Inject('MESSAGE_DIALOG_DATA') public data: string) {}" +
-    '\n}</code></pre>' +
-    '<p><strong>Tip:</strong> The <code>MessageDialogRef</code> returned by <code>showModal()</code> allows you to close the dialog programmatically and observe when it closes.</p>',
+    '<p>Use <strong>showModal()</strong> to render a custom Angular component as the message content.</p>',
   template: '<sla-message-dialog-custom-component></sla-message-dialog-custom-component>'
 });
 
 export const AdvancedExample: StoryFn = () => ({
   description:
-    '<p>Advanced examples demonstrating powerful features of the MessageDialogService:</p>' +
-    '<ul>' +
-    '<li><strong>Multiple dialogs</strong>: Open several dialogs simultaneously and manage them individually.</li>' +
-    '<li><strong>Sequential dialogs</strong>: Create wizard-like flows where dialogs appear one after another based on user choices.</li>' +
-    '</ul>' +
-    '<p><strong>Tip:</strong> The <code>afterClosed()</code> observable is perfect for handling dialog results reactively in your Angular application.</p>',
+    '<p>These examples show more ways to use the MessageDialogService:</p> <ul> <li><strong>Multiple dialogs</strong>: Open multiple dialogs at the same time.</li><li><strong>Sequential dialogs</strong>: Show dialogs one after another, like a step-by-step guide.</li></ul>',
   template: '<sla-message-dialog-advanced></sla-message-dialog-advanced>'
 });

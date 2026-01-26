@@ -16,9 +16,9 @@ const singleState = [
   'all--message-dialog',
   'all--month-view',
   'all--popover',
-  'all--select-day',
-  'all--select-month',
-  'all--select-year',
+  'all--calendar-select-day',
+  'all--calendar-select-month',
+  'all--calendar-select-year',
   'all--skeleton',
   'all--spinner',
   'all--tooltip'

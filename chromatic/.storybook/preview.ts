@@ -7,13 +7,18 @@ import MockDate from 'mockdate';
 
 // Id's of components that only need to be rendered once, not in all mock states.
 const singleState = [
-  'all--dialog',
-  'all--message-dialog',
   'all--badge',
+  'all--calendar',
   'all--card',
+  'all--dialog',
   'all--icon',
   'all--inline-message',
+  'all--message-dialog',
+  'all--month-view',
   'all--popover',
+  'all--select-day',
+  'all--select-month',
+  'all--select-year',
   'all--skeleton',
   'all--spinner',
   'all--tooltip'

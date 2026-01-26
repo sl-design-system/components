@@ -136,14 +136,17 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       entry => entry.target instanceof HTMLElement && entry.target.matches('[part="scroller"]')
     );
 
-    this.#shouldAnimate = false;
-    this.#updateSize(hostResized, scrollerResized);
-    this.#shouldAnimate = true;
+    // This is needed to prevent the 'ResizeObserver loop completed with undelivered notifications' error
+    requestAnimationFrame(() => {
+      this.#shouldAnimate = false;
+      this.#updateSize(hostResized, scrollerResized);
+      this.#shouldAnimate = true;
 
-    if (this.selectedTab) {
-      this.#updateSelectedTab(this.selectedTab, false);
-      this.#scrollToTabPanelStart();
-    }
+      if (this.selectedTab) {
+        this.#updateSelectedTab(this.selectedTab, false);
+        this.#scrollToTabPanelStart();
+      }
+    });
   });
 
   /** Manage keyboard navigation between tabs. */
@@ -289,7 +292,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
                   @keydown=${this.#onKeydown}
                   aria-label=${msg('Show all', { id: 'sl.tabs.showAll' })}
                   fill="ghost"
-                  size="lg"
+                  size="md"
                 >
                   <sl-icon name="ellipsis" slot="button"></sl-icon>
                   ${this.menuItems?.map(

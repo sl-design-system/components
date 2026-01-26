@@ -142,6 +142,10 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
       this.input.autocomplete = 'off';
       this.input.slot = 'input';
+      this.input.addEventListener('blur', (event: Event) => this.#onInputBlur(event));
+      this.input.addEventListener('click', (event: Event) => this.#onInputClick(event));
+      this.input.addEventListener('focus', (event: Event) => this.#onInputFocus(event));
+      this.input.addEventListener('keydown', (event: KeyboardEvent) => this.#onInputKeydown(event));
 
       if (!this.input.parentElement) {
         this.append(this.input);
@@ -280,6 +284,40 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.input.focus();
   }
 
+  #onInputBlur(event: Event & { target: HTMLInputElement }): void {
+    if (this.value) {
+      return;
+    } else if (this.placeholder) {
+      event.target.value = '';
+    }
+  }
+
+  #onInputClick(event: Event & { target: HTMLInputElement }): void {
+    console.log('click', event.target.selectionStart, event.target.selectionEnd);
+  }
+
+  #onInputFocus(event: Event & { target: HTMLInputElement }): void {
+    console.log('focus', event);
+
+    if (this.value) {
+      return;
+    }
+
+    event.target.value = 'dd-mm-jjjj';
+  }
+
+  #onInputKeydown(event: KeyboardEvent): void {
+    console.log(event.key);
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape') {
+      // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the date field
+      // does not close parent containers (such as dialogs).
+      event.stopPropagation();
+    }
+  }
+
   #onTextFieldBlur(event: SlBlurEvent): void {
     event.preventDefault();
     event.stopPropagation();
@@ -326,13 +364,5 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     // Trigger a rerender so the calendar will be rendered
     this.requestUpdate();
-  }
-
-  #onKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Escape') {
-      // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the date field
-      // does not close parent containers (such as dialogs).
-      event.stopPropagation();
-    }
   }
 }

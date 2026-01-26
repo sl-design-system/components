@@ -383,7 +383,7 @@ describe('sl-form', () => {
     });
   });
 
-  describe('validateAsync', () => {
+  describe('updateComplete', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-form>
@@ -400,21 +400,23 @@ describe('sl-form', () => {
       await new Promise(resolve => setTimeout(resolve, 50));
     });
 
-    it('should return true when the form is valid', async () => {
+    it('should be valid when the form is valid', async () => {
       expect(el.valid).to.be.true;
 
-      const result = await el.validateAsync();
-      expect(result).to.be.true;
+      await el.updateComplete;
+
+      expect(el.valid).to.be.true;
     });
 
-    it('should return false when the form is invalid', async () => {
+    it('should be invalid when the form is invalid', async () => {
       const textField = el.querySelector<TextField>('sl-text-field[name="bar"]');
       if (textField) {
         textField.value = '';
       }
 
-      const result = await el.validateAsync();
-      expect(result).to.be.false;
+      await el.updateComplete;
+
+      expect(el.valid).to.be.false;
     });
 
     it('should wait for form controls to update before returning validity', async () => {
@@ -425,7 +427,9 @@ describe('sl-form', () => {
       }
 
       const syncValid = el.valid;
-      const asyncValid = await el.validateAsync();
+
+      await el.updateComplete;
+      const asyncValid = el.valid;
 
       expect(syncValid).to.be.true;
       expect(asyncValid).to.be.false;
@@ -438,20 +442,20 @@ describe('sl-form', () => {
       if (fooField) fooField.value = '';
       if (barField) barField.value = '';
 
-      const result = await el.validateAsync();
-      expect(result).to.be.false;
+      await el.updateComplete;
+      expect(el.valid).to.be.false;
     });
 
     it('should return correct validity after field becomes valid again', async () => {
       const barField = el.querySelector<TextField>('sl-text-field[name="bar"]');
 
       if (barField) barField.value = '';
-      let result = await el.validateAsync();
-      expect(result).to.be.false;
+      await el.updateComplete;
+      expect(el.valid).to.be.false;
 
       if (barField) barField.value = 'new value';
-      result = await el.validateAsync();
-      expect(result).to.be.true;
+      await el.updateComplete;
+      expect(el.valid).to.be.true;
     });
   });
 });

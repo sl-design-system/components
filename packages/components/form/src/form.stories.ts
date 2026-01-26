@@ -27,7 +27,6 @@ type Story = StoryObj<Props>;
 interface FormElement extends HTMLElement {
   updateComplete: Promise<boolean>;
   valid: boolean;
-  validateAsync(): Promise<boolean>;
 }
 
 interface SelectElement extends HTMLElement {
@@ -327,11 +326,11 @@ export const AllValid: Story = {
   }
 };
 
-export const ValidateAsync: StoryObj = {
+export const AsyncValidation: StoryObj = {
   render: () => {
     const onClick = async (event: MouseEvent): Promise<void> => {
       const btn = event.target as HTMLElement;
-      const form = document.querySelector<FormElement>('#validate-async-form');
+      const form = document.querySelector<FormElement>('#async-validation-form');
       const select = form?.querySelector<SelectElement>('sl-select');
       const way = btn.innerText.includes('Sync') ? 'sync' : 'async';
 
@@ -339,26 +338,24 @@ export const ValidateAsync: StoryObj = {
 
       select.value = '1';
       await form.updateComplete;
-
       select.value = undefined;
 
       if (way === 'sync') {
-        // This shows true even though the form should be invalid!
         alert(`Synchronous (form.valid): ${form.valid}\n(Returns true because the update cycle hasn't finished)`);
       } else {
-        // Use validateAsync() to wait for the update cycle
-        const isValid = await form.validateAsync();
-        alert(`Asynchronous (form.validateAsync()): ${isValid}\n(Correctly waits and reflects the invalid state)`);
+        await form.updateComplete;
+        const isValid = form.valid;
+        alert(`Asynchronous (form.updateComplete): ${isValid}\n(Correctly waits and reflects the invalid state)`);
       }
     };
 
     return html`
-      <p style="margin-bottom: 16px; max-width: 400px;">
+      <p style="margin-bottom: 16px;">
         This demo shows how to correctly check form validity after a programmatic change. Clicking the buttons will
-        automatically set the required select to an invalid state (empty) and then immediately check the form's validity
-        - <a href="https://lit.dev/docs/components/lifecycle/#async-updates">explanation</a>.
+        automatically set the required select to an invalid state (empty) and then immediately check the form's
+        validity.
       </p>
-      <sl-form id="validate-async-form">
+      <sl-form id="async-validation-form">
         <sl-form-field label="Select (required)">
           <sl-select value="1" required placeholder="Select an option">
             <sl-option value="1">Option 1</sl-option>

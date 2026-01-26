@@ -71,3 +71,53 @@ export const ShowCurrent: Story = {
     showCurrent: true
   }
 };
+
+export const Year: Story = {
+  args: {
+    year: new Date(2000, 0, 1)
+  }
+};
+
+export const All: Story = {
+  render: () => html`
+    <style>
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(308px, 1fr));
+        gap: 2rem;
+      }
+      .grid > div {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .grid h3 {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 600;
+      }
+    </style>
+    <div class="grid">
+      <div>
+        <h3>Basic</h3>
+        <sl-select-year></sl-select-year>
+      </div>
+      <div>
+        <h3>Min Max</h3>
+        <sl-select-year max="2027" min="2022"></sl-select-year>
+      </div>
+      <div>
+        <h3>With Selection</h3>
+        <sl-select-year .selected=${new Date()}></sl-select-year>
+      </div>
+      <div>
+        <h3>Show Current</h3>
+        <sl-select-year show-current></sl-select-year>
+      </div>
+      <div>
+        <h3>Year</h3>
+        <sl-select-year year="2000"></sl-select-year>
+      </div>
+    </div>
+  `
+};

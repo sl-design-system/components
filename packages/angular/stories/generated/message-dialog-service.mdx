@@ -135,7 +135,7 @@ if (result === 'publish') {
 
 #### `closeAll(result?: unknown): void`
 
-Closes all currently opened message dialogs. This method is useful when you need to close multiple message dialogs at once, for example when navigating away from a page or when a critical error occurs.
+Closes all currently opened message dialogs. This method is useful when you need to close multiple message dialogs at once.
 
 **Parameters:**
 - `result` - Optional result to pass to all dialogs. This value will be emitted to all `afterClosed()` subscribers.
@@ -240,7 +240,7 @@ interface MessageDialogServiceConfig<T> extends Partial<MessageDialogProps> {
 }
 ```
 
-**Note:** `MessageDialogServiceConfig` extends `Partial<MessageDialogProps>`, which includes all public properties from the MessageDialog component such as `title`, `message`, `buttons`, `disableCancel`, etc. See the [MessageDialog documentation](https://sanomalearning.design/categories/components/message-dialog/code/) for all available configuration options.
+The `MessageDialogServiceConfig` extends `Partial<MessageDialogProps>`, which includes all public properties from the MessageDialog component such as `title`, `message`, `buttons`, `disableCancel`, etc. See the [MessageDialog documentation](https://sanomalearning.design/categories/components/message-dialog/code/) for all available configuration options.
 
 ---
 
@@ -255,10 +255,7 @@ await this.messageDialogService.alert('Operation completed successfully!', 'Succ
 ### Confirmation Dialog
 
 ```typescript
-const confirmed = await this.messageDialogService.confirm(
-  'Are you sure you want to delete this item?',
-  'Confirm Deletion'
-);
+const confirmed = await this.messageDialogService.confirm('Are you sure you want to delete this item?');
 
 if (confirmed) {
   this.deleteItem();
@@ -329,15 +326,14 @@ this.router.events.pipe(
 
 ---
 
-## Message Dialog Service Example
+## Static Methods
 
-<p>The <strong>MessageDialogService</strong> provides a comprehensive API for displaying message dialogs in Angular applications.</p>
+<p>The <strong>MessageDialogService</strong> provides static methods for displaying simple message dialogs. These methods are perfect for alerts, confirmations, and simple user interactions.</p>
 
 
 ```typescript
 import { MessageDialogService } from '@sl-design-system/angular';
 import { ButtonComponent } from '@sl-design-system/angular/button';
-import { MessageDialog as MessageDialogElement } from '@sl-design-system/message-dialog';
 
 @Component({
   selector: 'sla-message-dialog-service',
@@ -350,38 +346,40 @@ import { MessageDialog as MessageDialogElement } from '@sl-design-system/message
       max-width: 700px;
     }
   </style>
-  <h3>Message Dialog Service examples</h3>
+  <h3>Static Methods Examples</h3>
   <div class="container">
     <div>
-      <h4>Static methods (recommended for simple cases)</h4>
-      <p>These methods use the MessageDialog static API and work well for simple alerts and confirmations:</p>
+      <h4>alert(message, title?)</h4>
+      <p>Shows a simple alert message with an OK button.</p>
       <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
         <sl-button (click)="showAlert()" variant="primary">Show Alert</sl-button>
         <sl-button (click)="showAlertNonCancellable()" variant="primary" fill="outline"
           >Alert (Non-cancellable)</sl-button
         >
-        <sl-button (click)="showConfirm()" variant="secondary">Show Confirm</sl-button>
-        <sl-button (click)="showCustomButtons()" variant="info">Custom Buttons</sl-button>
       </div>
     </div>
 
     <div>
-      <h4>With Custom Angular Component</h4>
-      <p>
-        Use <code>showModal()</code> to render a custom Angular component as the message content. This is useful for
-        complex dialogs with forms or interactive content:
-      </p>
-      <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
-        <sl-button (click)="showWithComponent()" variant="primary">Show with Component</sl-button>
-        <sl-button (click)="showCriticalAction()" variant="danger">Critical Action</sl-button>
-      </div>
+      <h4>confirm(message, title?)</h4>
+      <p>Shows a confirmation dialog with Cancel and OK buttons.</p>
+      <sl-button (click)="showConfirm()" variant="secondary">Show confirm</sl-button>
+    </div>
+
+    <div>
+      <h4>show(config)</h4>
+      <p>Shows a message dialog with custom configuration, in this case with custom buttons.</p>
+      <sl-button (click)="showCustomButtons()" variant="info">Custom buttons</sl-button>
+    </div>
+
+    <div>
+      <h4>show() with HTML Content</h4>
+      <p>You can use <code>show()</code> method to render HTML content in the message.</p>
+      <sl-button (click)="showCustomMessage()" variant="primary">Show custom HTML message</sl-button>
     </div>
   </div>`,
   imports: [ButtonComponent, CommonModule]
 })
-export class MessageDialogServiceExampleComponent {
-
-  lastResult: string | undefined;
+export class MessageDialogStaticMethodsComponent {
 
   constructor(private messageDialogService: MessageDialogService) {}
 
@@ -390,7 +388,6 @@ export class MessageDialogServiceExampleComponent {
       'This is an alert message. Use this to alert the user about something. This is the design system equivalent of calling window.alert().',
       'Alert'
     );
-    this.lastResult = 'Alert closed';
     console.log('Alert was closed');
   }
 
@@ -401,7 +398,6 @@ export class MessageDialogServiceExampleComponent {
       buttons: [{ text: 'OK', variant: 'primary', autofocus: true }],
       disableCancel: true
     });
-    this.lastResult = 'Non-cancellable alert closed';
     console.log('Non-cancellable alert was closed');
   }
 
@@ -414,8 +410,6 @@ export class MessageDialogServiceExampleComponent {
     if (result !== undefined) {
       await this.messageDialogService.alert(`The result was: ${result}`);
     }
-
-    this.lastResult = `Confirm: ${result === true ? 'OK' : result === false ? 'Cancel' : 'Closed'}`;
 
     console.log('Confirmation result:', result);
   }
@@ -430,44 +424,48 @@ export class MessageDialogServiceExampleComponent {
       ],
       disableCancel: true
     });
-    this.lastResult = `Custom: ${result ?? 'Cancelled'}`;
     console.log('User selected:', result);
   }
 
-  showWithComponent(): void {
-    const dialogRef = this.messageDialogService.showModal<CustomMessageComponent, string>({
-      component: CustomMessageComponent,
-      data: 'This is some data passed to the component!',
-      title: 'Custom Component Message',
+  async showCustomMessage(): Promise<void> {
+    const { html } = await import('lit');
+    const result = await this.messageDialogService.show({
+      title: 'Rich Content Message',
+      message: html`
+        <style>
+          .message {
+            color: var(--sl-color-foreground-negative-bold);
+          }
+        </style>
+        <p>This is a message with customized <strong>HTML</strong></p>
+        <ul>
+          <li><strong>Bold</strong> and <em>italic</em> text</li>
+          <li>Lists and structured content</li>
+          <li><a href="https://example.com" target="_blank">Links</a></li>
+        </ul>
+        <p class="message">You can style content using CSS!</p>
+      `,
       buttons: [
-        { text: 'Cancel', fill: 'ghost', value: 'cancel' },
-        { text: 'OK', variant: 'primary', autofocus: true, value: 'ok' }
+        { text: 'Cancel', fill: 'outline', value: 'cancel' },
+        { text: 'OK', variant: 'primary', value: 'ok' }
       ]
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.lastResult = `Component dialog: ${result ?? 'Cancelled'}`;
-      console.log('Component dialog closed with result:', result);
-    });
-  }
-
-  showCriticalAction(): void {
-    const dialogRef = this.messageDialogService.showModal<CustomMessageComponent, string>({
-      component: CustomMessageComponent,
-      data: 'You are about to perform a critical action that requires confirmation.',
-      title: 'Critical Action Required',
-      buttons: [{ text: 'I Understand, Proceed', variant: 'danger', autofocus: true, value: 'proceed' }],
-      disableCancel: true
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.lastResult = `Critical action: ${result ?? 'Should not happen'}`;
-      console.log('Critical action dialog closed with result:', result);
-    });
+    console.log('Custom message result:', result);
   }
 
 }
 ```
+
+## With Custom Component
+
+<p>Use <strong>showModal()</strong> to render a custom Angular component as the message content. This is useful for complex dialogs with forms, interactive content, or custom layouts.</p>
+
+### Template
+
+```html
+&lt;p&gt;Data: {{ data }}&lt;/p&gt;
+```
+
 
 ## Advanced Example
 
@@ -477,7 +475,6 @@ export class MessageDialogServiceExampleComponent {
 ```typescript
 import { MessageDialogService } from '@sl-design-system/angular';
 import { ButtonComponent } from '@sl-design-system/angular/button';
-import { MessageDialog as MessageDialogElement } from '@sl-design-system/message-dialog';
 
 @Component({
   selector: 'sla-message-dialog-advanced',
@@ -486,44 +483,31 @@ import { MessageDialog as MessageDialogElement } from '@sl-design-system/message
   <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; flex-direction: column; max-width: 700px;">
     <div>
       <h4>Multiple Dialogs</h4>
-      <p>Open and manage multiple dialogs simultaneously:</p>
+      <p>Open multiple dialogs simultaneously and manage them independently.</p>
       <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
         <sl-button (click)="openMultipleDialogs()" variant="primary">Open Multiple Dialogs</sl-button>
-        <sl-button (click)="closeAll()" variant="danger">Close All Dialogs</sl-button>
       </div>
+      <p style="margin-top: 0.5rem; font-size: 0.875rem; color: var(--sl-color-text-muted);">
+        Each dialog has its own close button. You can also programmatically close all dialogs using
+        <code>closeAll()</code> in your code.
+      </p>
     </div>
 
     <div>
-      <h4>Sequential Dialogs</h4>
-      <p>Show dialogs one after another based on user actions:</p>
+      <h4>Sequential Dialogs (Wizard)</h4>
+      <p>Create wizard-like flows where dialogs appear one after another based on user choices.</p>
       <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
         <sl-button (click)="showSequentialDialogs()" variant="info">Start Wizard</sl-button>
       </div>
     </div>
-
-    <div>
-      <h4>Programmatic Control</h4>
-      <p>Control dialogs programmatically with timeouts or conditions:</p>
-      <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
-        <sl-button (click)="showAutoClosingDialog()" variant="warning">Auto-closing Dialog</sl-button>
-      </div>
-    </div>
-
-    <div>
-      <strong>Status:</strong> {{ status }}
-    </div>
   </div>`,
-  imports: [ButtonComponent, CommonModule]
+  imports: [ButtonComponent]
 })
 export class MessageDialogAdvancedExampleComponent {
-
-  status = 'Ready';
 
   constructor(private messageDialogService: MessageDialogService) {}
 
   openMultipleDialogs(): void {
-    this.status = 'Opening multiple dialogs...';
-
     // Open first dialog
     const dialog1 = this.messageDialogService.showModal({
       title: 'First Dialog',
@@ -533,7 +517,6 @@ export class MessageDialogAdvancedExampleComponent {
 
     dialog1.afterClosed().subscribe(result => {
       console.log('First dialog result:', result);
-      this.status = `First dialog closed with: ${result}`;
     });
 
     // Open second dialog after a short delay
@@ -546,20 +529,11 @@ export class MessageDialogAdvancedExampleComponent {
 
       dialog2.afterClosed().subscribe(result => {
         console.log('Second dialog result:', result);
-        this.status = `Second dialog closed with: ${result}`;
       });
     }, 500);
   }
 
-  closeAll(): void {
-    this.messageDialogService.closeAll();
-    this.status = 'All dialogs closed programmatically';
-    console.log('All dialogs closed');
-  }
-
   async showSequentialDialogs(): Promise<void> {
-    this.status = 'Starting wizard...';
-
     // Step 1
     const step1 = await this.messageDialogService.show({
       title: 'Step 1: Welcome',
@@ -571,7 +545,7 @@ export class MessageDialogAdvancedExampleComponent {
     });
 
     if (step1 !== 'next') {
-      this.status = 'Wizard cancelled at Step 1';
+      console.log('Wizard cancelled at Step 1');
       return;
     }
 
@@ -586,7 +560,7 @@ export class MessageDialogAdvancedExampleComponent {
     });
 
     if (step2 !== 'next') {
-      this.status = 'Wizard cancelled at Step 2';
+      console.log('Wizard cancelled at Step 2');
       return;
     }
 
@@ -598,66 +572,7 @@ export class MessageDialogAdvancedExampleComponent {
       disableCancel: true
     });
 
-    this.status = 'Wizard completed successfully!';
-  }
-
-  showAutoClosingDialog(): void {
-    this.status = 'Opening auto-closing dialog...';
-
-    const dialogRef = this.messageDialogService.showModal({
-      title: 'Auto-closing Dialog',
-      message: 'This dialog will automatically close in 5 seconds unless you click OK first.',
-      buttons: [{ text: 'OK', variant: 'primary', value: 'ok' }]
-    });
-
-    // Auto-close after 5 seconds
-    const timeout = setTimeout(() => {
-      dialogRef.close('timeout');
-      this.status = 'Dialog auto-closed after timeout';
-    }, 5000);
-
-    dialogRef.afterClosed().subscribe(result => {
-      clearTimeout(timeout);
-      if (result === 'timeout') {
-        console.log('Dialog was auto-closed');
-      } else {
-        this.status = `Dialog closed by user: ${result}`;
-        console.log('Dialog closed by user:', result);
-      }
-    });
-  }
-
-}
-```
-
-## Custom Message
-
-<p>Example showing how to use HTML content in message dialogs using the static <code>MessageDialog.show()</code> method with Lit HTML. <br /> For Angular components, use the <code>showModal()</code> method with a custom component instead (see the main example).</p>
-
-
-```typescript
-import { MessageDialogService } from '@sl-design-system/angular';
-import { ButtonComponent } from '@sl-design-system/angular/button';
-import { MessageDialog as MessageDialogElement } from '@sl-design-system/message-dialog';
-
-@Component({
-  selector: 'sla-message-dialog-custom-message',
-  template: `<div style="padding: 1rem;">
-    <p>Example showing how to use HTML content with the static MessageDialog API.</p>
-    <sl-button (click)="showCustomMessage()" variant="primary">Show Custom HTML Message</sl-button>
-  </div>`,
-  imports: [ButtonComponent]
-})
-export class MessageDialogCustomMessageExampleComponent {
-
-  async showCustomMessage(): Promise<void> {
-    const { html } = await import('lit');
-    await MessageDialogElement.show({
-      title: 'Custom message',
-      message: html`You can <em>customize</em> the message with <strong>HTML</strong>!`,
-      buttons: [{ text: 'OK', variant: 'primary' }],
-      disableCancel: true
-    });
+    console.log('Wizard completed successfully');
   }
 
 }

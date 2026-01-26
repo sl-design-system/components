@@ -44,14 +44,13 @@ const applyMessageDialogProps = (dialog: MessageDialog, config: MessageDialogSer
 /**
  * MessageDialogRef is a handle for interacting with an opened message dialog instance.
  *
- * This class provides methods to control the dialog lifecycle and observe when it closes.
- * It's returned by `MessageDialogService.showModal()` and allows you to:
- * - Close the dialog programmatically with `close()`
- * - Subscribe to dialog close events with `afterClosed()`
- * - Pass a result value when closing that will be emitted to subscribers
+ * Provides methods to control the dialog and observe when it closes.
+ * It's returned by `MessageDialogService.showModal()` and allows to:
+ * - Close the dialog programmatically with `close()`,
+ * - Subscribe to dialog close events with `afterClosed()`,
+ * - Pass a result value when closing that will be emitted to subscribers.
  *
- * ## Basic Usage
- *
+ * Example usage:
  * ```typescript
  * const dialogRef = this.messageDialogService.showModal<MyComponent, string>({
  *   component: MyComponent,
@@ -74,35 +73,6 @@ const applyMessageDialogProps = (dialog: MessageDialog, config: MessageDialogSer
  *   dialogRef.close('timeout');
  * }, 5000);
  * ```
- *
- * ## Closing from Inside a Component
- *
- * Components rendered inside the dialog can inject `MessageDialogRef` to close themselves:
- *
- * ```typescript
- * import { Component } from '@angular/core';
- * import { MessageDialogRef } from '@sl-design-system/angular';
- *
- * @Component({
- *   template: `
- *     <button (click)="save()">Save</button>
- *     <button (click)="cancel()">Cancel</button>
- *   `
- * })
- * export class MyDialogComponent {
- *   constructor(private dialogRef: MessageDialogRef<string>) {}
- *
- *   save() {
- *     this.dialogRef.close('save');
- *   }
- *
- *   cancel() {
- *     this.dialogRef.close('cancel');
- *   }
- * }
- * ```
- *
- * @template T - The type of the result value that can be passed when closing the dialog
  */
 export class MessageDialogRef<T = unknown> {
   /** Subject that emits when the dialog closes. */
@@ -172,51 +142,18 @@ export class MessageDialogRef<T = unknown> {
       }
     });
 
-    // Listen to sl-cancel event from the custom element
     this.dialog.addEventListener('sl-cancel', this.#onCancel);
   }
 
-  /**
-   * Returns an Observable that emits when the dialog closes.
-   *
-   * The Observable will emit the result value passed to `close()`, or `undefined` if the dialog
-   * was dismissed without a result (e.g., via Escape key or backdrop click).
-   *
-   * The Observable completes immediately after emitting the result.
-   *
-   * Example usage:
-   * ```typescript
-   * dialogRef.afterClosed().subscribe(result => {
-   *   if (result) {
-   *     console.log('Dialog closed with result:', result);
-   *   } else {
-   *     console.log('Dialog was dismissed');
-   *   }
-   * });
-   * ```
-   *
-   * @returns An Observable that emits the dialog result when it closes
-   */
+  /** Returns an Observable that emits when the dialog closes. */
   afterClosed(): Observable<T | undefined> {
     return this.#afterClosedSubject.asObservable();
   }
 
   /**
    * Closes the dialog with an optional result value.
-   *
    * The result value will be emitted to all subscribers of `afterClosed()`.
    * If no result is provided, `undefined` will be emitted.
-   *
-   * Example usage:
-   * ```typescript
-   * // Close with a specific result
-   * dialogRef.close('save');
-   *
-   * // Close without a result
-   * dialogRef.close();
-   * ```
-   *
-   * @param result - Optional result value to pass to subscribers
    */
   close(result?: T): void {
     this.#manualClose = true;
@@ -224,7 +161,7 @@ export class MessageDialogRef<T = unknown> {
     this.dialog.close();
   }
 
-  /** Set the result value (used internally by the service). */
+  /** @internal Set the result value (used internally by the service). */
   setResult(result: T): void {
     this.#manualClose = true;
     this.#result = result;
@@ -240,96 +177,11 @@ export class MessageDialogRef<T = unknown> {
 }
 
 /**
- * MessageDialogService provides a comprehensive API for displaying and managing message dialogs in Angular applications.
- *
- * This service offers multiple methods for showing message dialogs:
- * - **`showModal()`** - Opens a message dialog with a custom Angular component or simple message
- * - **`alert()`** - Shows a simple alert message with an OK button (static method wrapper)
- * - **`confirm()`** - Shows a confirmation dialog with OK and Cancel buttons (static method wrapper)
- * - **`show()`** - Shows a message dialog with custom configuration (static method wrapper)
- * - **`closeAll()`** - Closes all currently opened message dialogs
- *
- * ## Key Features
- * - Support for custom Angular components as message content
- * - Data injection into custom components via `MESSAGE_DIALOG_DATA` token
- * - Dialog lifecycle management with `MessageDialogRef`
- * - Observable-based result handling via `afterClosed()`
- * - Multiple button configurations with custom actions
- * - Control over cancel behavior (Escape key and backdrop clicks)
- *
- * ## Basic Usage Examples
- *
- * ### Simple Alert
- * ```typescript
- * await this.messageDialogService.alert('Operation completed successfully!', 'Success');
- * ```
- *
- * ### Confirmation Dialog
- * ```typescript
- * const confirmed = await this.messageDialogService.confirm(
- *   'Are you sure you want to delete this item?',
- *   'Confirm Deletion'
- * );
- * if (confirmed) {
- *   // User clicked OK
- * }
- * ```
- *
- * ### Custom Component Dialog
- * ```typescript
- * const dialogRef = this.messageDialogService.showModal<MyComponent, string>({
- *   component: MyComponent,
- *   data: { userId: 123, userName: 'John' },
- *   title: 'Edit User',
- *   buttons: [
- *     { text: 'Cancel', value: 'cancel' },
- *     { text: 'Save', variant: 'primary', value: 'save' }
- *   ],
- *   disableCancel: false
- * });
- *
- * dialogRef.afterClosed().subscribe(result => {
- *   if (result === 'save') {
- *     // Handle save action
- *   }
- * });
- * ```
- *
- * ### Simple Message Dialog
- * ```typescript
- * const dialogRef = this.messageDialogService.showModal({
- *   title: 'Important Notice',
- *   message: 'Please review the terms and conditions.',
- *   buttons: [
- *     { text: 'OK', variant: 'primary', value: 'ok' }
- *   ]
- * });
- * ```
- *
- * ### Non-Cancellable Dialog
- * ```typescript
- * const dialogRef = this.messageDialogService.showModal({
- *   title: 'Processing',
- *   message: 'Please wait while we process your request...',
- *   buttons: [{ text: 'OK', variant: 'primary', value: 'ok' }],
- *   disableCancel: true // Prevents Escape key and backdrop clicks
- * });
- * ```
- *
- * ## Injecting Data into Custom Components
- *
- * Custom components can receive data through dependency injection:
- *
- * ```typescript
- * import { Component, Inject } from '@angular/core';
- *
- * @Component({
- *   template: `<p>User ID: {{ data.userId }}</p>`
- * })
- * export class MyComponent {
- *   constructor(@Inject('MESSAGE_DIALOG_DATA') public data: any) {}
- * }
- * ```
+ * MessageDialogService is a service for displaying and managing message dialogs in Angular applications.
+ * Provides methods to show message dialogs with custom components or simple messages,
+ * pass data, and handle dialog lifecycle events.
+ * Supports alert, confirm, and custom button configurations.
+ * Tracks all opened dialogs and allows closing them programmatically.
  */
 @Injectable({
   providedIn: 'root'
@@ -344,255 +196,158 @@ export class MessageDialogService {
     private ngZone: NgZone
   ) {}
 
-  /**
-   * Opens a message dialog with a custom Angular component or simple message content.
-   *
-   * This is the primary method for showing message dialogs. It supports both simple text messages
-   * and complex Angular components with data injection.
-   *
-   * ## With Custom Component
-   *
-   * When using a custom component, the component will be rendered inside the message dialog's content area.
-   * You can pass data to the component via the `data` property, which will be available through
-   * the `MESSAGE_DIALOG_DATA` injection token.
-   *
-   * ```typescript
-   * const dialogRef = this.messageDialogService.showModal<MyComponent, string>({
-   *   component: MyComponent,
-   *   data: { name: 'John', age: 30 },
-   *   title: 'User Details',
-   *   buttons: [
-   *     { text: 'Close', value: 'close' },
-   *     { text: 'Save', variant: 'primary', value: 'save' }
-   *   ]
-   * });
-   *
-   * dialogRef.afterClosed().subscribe(result => {
-   *   console.log('Dialog closed with:', result);
-   * });
-   * ```
-   *
-   * ## With Simple Message
-   *
-   * For simple text messages, omit the `component` property and use the `message` property instead:
-   *
-   * ```typescript
-   * const dialogRef = this.messageDialogService.showModal({
-   *   title: 'Warning',
-   *   message: 'This action cannot be undone.',
-   *   buttons: [
-   *     { text: 'Cancel', value: 'cancel' },
-   *     { text: 'Continue', variant: 'warning', value: 'continue' }
-   *   ],
-   *   disableCancel: false
-   * });
-   * ```
-   *
-   * @template T - The type of the component to render (if using a component)
-   * @template R - The type of the result value returned when the dialog closes
-   * @param config - Configuration object for the message dialog
-   * @param config.component - Optional Angular component to render as the message content
-   * @param config.data - Optional data to pass to the component (available via `MESSAGE_DIALOG_DATA` injection token)
-   * @param config.title - The title of the message dialog
-   * @param config.message - The message to display (for non-component dialogs)
-   * @param config.buttons - Array of button configurations with text, variant, and value
-   * @param config.disableCancel - If true, prevents closing via Escape key or backdrop click
-   * @returns A `MessageDialogRef` instance that can be used to interact with the dialog and observe when it closes
-   */
+  /** Opens a message dialog with the given component or message and configuration. */
   showModal<T, R = unknown>(config: MessageDialogServiceConfig<T>): MessageDialogRef<R> {
-    const dialog = document.createElement('sl-message-dialog') as MessageDialog<R>;
+    const dialog = document.createElement('sl-message-dialog') as MessageDialog<R>,
+      dialogRef = new MessageDialogRef<R>(dialog, this.ngZone);
 
-    // Create message from component if provided
-    let message: string | TemplateResult = '';
-    let componentRef: ComponentRef<T> | undefined = undefined;
+    let componentRef: ComponentRef<T> | undefined;
 
     if (config.component) {
-      const dialogRef = new MessageDialogRef<R>(dialog, this.ngZone);
       componentRef = this.#createComponent<T, R>(config.component, config.data, dialogRef);
-      const hostElement = componentRef.location.nativeElement as HTMLElement;
-
-      // We'll set the message to be the rendered component
-      // For now, we'll use a placeholder and update after render
-      message = '';
-
-      // Set up the dialog config
-      const dialogConfig: MessageDialogConfig<R> = {
-        title: (config as { title?: string }).title,
-        message,
-        buttons: (config as { buttons?: Array<MessageDialogButton<R>> }).buttons?.map(button => ({
-          ...button,
-          action: () => {
-            // Store the button value BEFORE the dialog closes
-            // The button action is called before the dialog's close event fires
-            if (button.value !== undefined) {
-              dialogRef.setResult(button.value);
-            }
-            // Call the original action if provided
-            button.action?.();
-          }
-        })),
-        disableCancel: (config as { disableCancel?: boolean }).disableCancel
-      };
-
-      dialog.config = dialogConfig;
-      applyMessageDialogProps(dialog, config);
-
-      this.#openedDialogs.push(dialogRef as MessageDialogRef<unknown>);
-
-      document.body.appendChild(dialog);
-
-      // Wait for the component to render and move content
-      this.ngZone.runOutsideAngular(() => {
-        requestAnimationFrame(() => {
-          // Find the <p> element in the message dialog and replace its content with the component
-          void dialog.updateComplete.then(() => {
-            const messageElement = dialog.shadowRoot?.querySelector('p');
-            if (messageElement && hostElement.firstChild) {
-              messageElement.innerHTML = '';
-              while (hostElement.firstChild) {
-                messageElement.appendChild(hostElement.firstChild);
-              }
-            }
-
-            dialog.showModal();
-
-            this.ngZone.run(() => {
-              const componentChangeDetector = componentRef?.injector.get(ChangeDetectorRef, null);
-              if (componentChangeDetector) {
-                componentChangeDetector.markForCheck();
-              }
-            });
-
-            // Set up cleanup when dialog closes
-            // We need to listen to the internal dialog element's close event
-            const internalDialog = dialog.shadowRoot?.querySelector('dialog');
-            if (internalDialog) {
-              const cleanupHandler = () => {
-                this.#cleanup(dialogRef, componentRef, dialog);
-                internalDialog.removeEventListener('close', cleanupHandler);
-              };
-              internalDialog.addEventListener('close', cleanupHandler);
-            }
-          });
-        });
-      });
-
-      dialog.addEventListener('sl-cancel', () => {
-        this.#cleanup(dialogRef, componentRef, dialog);
-      });
-
-      return dialogRef;
+      this.#setupComponentDialog(dialog, dialogRef, componentRef, config);
     } else {
-      // If no component, just use the config as-is
-      const dialogConfig: MessageDialogConfig<R> = {
-        title: (config as { title?: string }).title,
-        message: (config as { message?: string | TemplateResult }).message || '',
-        buttons: (config as { buttons?: Array<MessageDialogButton<R>> }).buttons,
-        disableCancel: (config as { disableCancel?: boolean }).disableCancel
-      };
+      this.#setupMessageDialog(dialog, dialogRef, config);
+    }
 
-      dialog.config = dialogConfig;
-      applyMessageDialogProps(dialog, config);
+    return dialogRef;
+  }
 
-      const dialogRef = new MessageDialogRef<R>(dialog, this.ngZone);
-      this.#openedDialogs.push(dialogRef as MessageDialogRef<unknown>);
+  #setupComponentDialog<T, R>(
+    dialog: MessageDialog<R>,
+    dialogRef: MessageDialogRef<R>,
+    componentRef: ComponentRef<T>,
+    config: MessageDialogServiceConfig<T>
+  ): void {
+    const hostElement = componentRef.location.nativeElement as HTMLElement;
 
-      document.body.appendChild(dialog);
+    dialog.config = this.#createDialogConfig<R>(config, '', dialogRef);
 
-      this.ngZone.runOutsideAngular(() => {
-        requestAnimationFrame(() => {
-          void dialog.updateComplete.then(() => {
-            dialog.showModal();
+    applyMessageDialogProps(dialog, config);
 
-            // Set up cleanup when dialog closes
-            const internalDialog = dialog.shadowRoot?.querySelector('dialog');
-            if (internalDialog) {
-              const cleanupHandler = () => {
-                this.#cleanup(dialogRef, undefined, dialog);
-                internalDialog.removeEventListener('close', cleanupHandler);
-              };
-              internalDialog.addEventListener('close', cleanupHandler);
+    this.#openedDialogs.push(dialogRef as MessageDialogRef<unknown>);
+
+    document.body.appendChild(dialog);
+
+    // Render and show dialog
+    this.ngZone.runOutsideAngular(() => {
+      requestAnimationFrame(() => {
+        void dialog.updateComplete.then(() => {
+          // Move component content into message dialog
+          const messageElement = dialog.shadowRoot?.querySelector('p');
+
+          if (messageElement && hostElement.firstChild) {
+            messageElement.innerHTML = '';
+
+            while (hostElement.firstChild) {
+              messageElement.appendChild(hostElement.firstChild);
             }
+          }
+
+          dialog.showModal();
+
+          this.ngZone.run(() => {
+            componentRef.injector.get(ChangeDetectorRef, null)?.markForCheck();
           });
+
+          this.#setupCleanupListeners(dialog, dialogRef, componentRef);
         });
       });
+    });
 
-      dialog.addEventListener('sl-cancel', () => {
-        this.#cleanup(dialogRef, undefined, dialog);
+    dialog.addEventListener('sl-cancel', () => {
+      this.#cleanup(dialogRef, componentRef, dialog);
+    });
+  }
+
+  #setupMessageDialog<R>(
+    dialog: MessageDialog<R>,
+    dialogRef: MessageDialogRef<R>,
+    config: MessageDialogServiceConfig<unknown>
+  ): void {
+    const messageConfig = config as { message?: string | TemplateResult };
+
+    dialog.config = this.#createDialogConfig<R>(config, messageConfig.message || '', dialogRef);
+
+    applyMessageDialogProps(dialog, config);
+
+    this.#openedDialogs.push(dialogRef as MessageDialogRef<unknown>);
+
+    document.body.appendChild(dialog);
+
+    this.ngZone.runOutsideAngular(() => {
+      void dialog.updateComplete.then(() => {
+        dialog.showModal();
+        this.#setupCleanupListeners(dialog, dialogRef, undefined);
       });
+    });
 
-      return dialogRef;
+    dialog.addEventListener('sl-cancel', () => {
+      this.#cleanup(dialogRef, undefined, dialog);
+    });
+  }
+
+  #createDialogConfig<R>(
+    config: MessageDialogServiceConfig<unknown>,
+    message: string | TemplateResult,
+    dialogRef: MessageDialogRef<R>
+  ): MessageDialogConfig<R> {
+    const { title, buttons, disableCancel } = config as {
+      title?: string;
+      buttons?: Array<MessageDialogButton<R>>;
+      disableCancel?: boolean;
+    };
+
+    return {
+      title,
+      message,
+      buttons: buttons?.map(button => ({
+        ...button,
+        action: () => {
+          if (button.value !== undefined) {
+            dialogRef.setResult(button.value);
+          }
+          button.action?.();
+        }
+      })),
+      disableCancel
+    };
+  }
+
+  #setupCleanupListeners<T, R>(
+    dialog: MessageDialog,
+    dialogRef: MessageDialogRef<R>,
+    componentRef: ComponentRef<T> | undefined
+  ): void {
+    const internalDialog = dialog.shadowRoot?.querySelector('dialog');
+
+    if (internalDialog) {
+      internalDialog.addEventListener('close', () => this.#cleanup(dialogRef, componentRef, dialog), { once: true });
     }
   }
 
   /**
-   * Shows a simple alert message to the user with an OK button.
+   * Shows a simple alert message to the user with an `OK` button.
    *
-   * This is a convenience method that wraps the static `MessageDialog.alert()` method.
+   * This is a method that wraps the static `MessageDialog.alert()` method.
    * The dialog will automatically close when the user clicks OK or presses Escape.
    *
-   * **Note:** This method uses the static MessageDialog API and does not return a `MessageDialogRef`.
+   * This method uses the static MessageDialog API and does not return a `MessageDialogRef`.
    * If you need more control over the dialog lifecycle, use `showModal()` instead.
-   *
-   * Example usage:
-   * ```typescript
-   * // Simple alert
-   * await this.messageDialogService.alert('Operation completed successfully!');
-   *
-   * // Alert with custom title
-   * await this.messageDialogService.alert('Your changes have been saved.', 'Success');
-   *
-   * // Wait for user to dismiss alert
-   * await this.messageDialogService.alert('Please check your email.', 'Verification Required');
-   * console.log('User dismissed the alert');
-   * ```
-   *
-   * @param message - The message to display in the alert dialog
-   * @param title - Optional title for the alert dialog
-   * @returns A promise that resolves when the dialog is closed
    */
   async alert(message: string, title?: string): Promise<void> {
     await MessageDialog.alert(message, title);
   }
 
   /**
-   * Shows a confirmation dialog with OK and Cancel buttons.
+   * Shows a confirmation dialog with `OK` and `Cancel` buttons.
    *
-   * This is a convenience method that wraps the static `MessageDialog.confirm()` method.
+   * This is a method that wraps the static `MessageDialog.confirm()` method.
    * The dialog returns `true` if the user clicks OK, `false` if they click Cancel,
    * or `undefined` if they close the dialog using Escape or backdrop click.
    *
-   * **Note:** This method uses the static MessageDialog API and does not return a `MessageDialogRef`.
+   * This method uses the static MessageDialog API and does not return a `MessageDialogRef`.
    * If you need more control over the dialog lifecycle, use `showModal()` instead.
-   *
-   * Example usage:
-   * ```typescript
-   * // Simple confirmation
-   * const confirmed = await this.messageDialogService.confirm(
-   *   'Are you sure you want to proceed?'
-   * );
-   * if (confirmed) {
-   *   // User clicked OK
-   *   this.proceedWithAction();
-   * }
-   *
-   * // Confirmation with custom title
-   * const result = await this.messageDialogService.confirm(
-   *   'This will permanently delete the item.',
-   *   'Confirm Deletion'
-   * );
-   * if (result === true) {
-   *   this.deleteItem();
-   * } else if (result === false) {
-   *   console.log('User clicked Cancel');
-   * } else {
-   *   console.log('User closed dialog without choosing');
-   * }
-   * ```
-   *
-   * @param message - The confirmation message to display
-   * @param title - Optional title for the confirmation dialog
-   * @returns A promise that resolves with `true` if OK is clicked, `false` if Cancel is clicked, or `undefined` if the dialog is dismissed
    */
   async confirm(message: string, title?: string): Promise<boolean | undefined> {
     return await MessageDialog.confirm(message, title);
@@ -601,50 +356,11 @@ export class MessageDialogService {
   /**
    * Shows a message dialog with custom configuration using the static MessageDialog API.
    *
-   * This is a convenience method that wraps the static `MessageDialog.show()` method.
+   * This is a method that wraps the static `MessageDialog.show()` method.
    * It allows you to create custom message dialogs with multiple buttons and custom actions.
    *
-   * **Note:** This method uses the static MessageDialog API and does not return a `MessageDialogRef`.
+   * This method uses the static MessageDialog API and does not return a `MessageDialogRef`.
    * If you need more control over the dialog lifecycle or want to use Angular components, use `showModal()` instead.
-   *
-   * Example usage:
-   * ```typescript
-   * // Dialog with custom buttons
-   * const result = await this.messageDialogService.show({
-   *   title: 'Choose an option',
-   *   message: 'Please select how you want to proceed.',
-   *   buttons: [
-   *     { text: 'Cancel', value: 'cancel' },
-   *     { text: 'Save Draft', variant: 'default', value: 'draft' },
-   *     { text: 'Publish', variant: 'primary', value: 'publish' }
-   *   ]
-   * });
-   *
-   * if (result === 'publish') {
-   *   this.publishContent();
-   * } else if (result === 'draft') {
-   *   this.saveDraft();
-   * }
-   *
-   * // Non-cancellable dialog
-   * const choice = await this.messageDialogService.show({
-   *   title: 'Important Decision',
-   *   message: 'You must make a choice to continue.',
-   *   buttons: [
-   *     { text: 'Option A', value: 'a' },
-   *     { text: 'Option B', value: 'b' }
-   *   ],
-   *   disableCancel: true
-   * });
-   * ```
-   *
-   * @template T - The type of the button value returned when a button is clicked
-   * @param config - Configuration object for the message dialog
-   * @param config.title - The title of the dialog
-   * @param config.message - The message to display
-   * @param config.buttons - Array of button configurations with text, variant, and value
-   * @param config.disableCancel - If true, prevents closing via Escape key or backdrop click
-   * @returns A promise that resolves with the value of the clicked button, or `undefined` if the dialog is dismissed
    */
   async show<T = unknown>(config: MessageDialogConfig<T>): Promise<T | undefined> {
     return await MessageDialog.show(config);
@@ -656,7 +372,7 @@ export class MessageDialogService {
    * This method is useful when you need to close multiple message dialogs at once, for example when navigating
    * away from a page or when a critical error occurs that should dismiss all open dialogs.
    *
-   * Example usage:
+   * Example:
    * ```typescript
    * // Close all dialogs without passing a result
    * messageDialogService.closeAll();
@@ -664,8 +380,6 @@ export class MessageDialogService {
    * // Close all dialogs with a specific result
    * messageDialogService.closeAll('cancelled');
    * ```
-   *
-   * @param result - Optional result to pass to all dialogs. This value will be emitted to all `afterClosed()` subscribers.
    */
   closeAll(result?: unknown): void {
     const dialogs = [...this.#openedDialogs];
@@ -695,8 +409,6 @@ export class MessageDialogService {
             parent: this.injector
           })
         : this.injector;
-
-    console.log('providers:', providers);
 
     const componentRef = createComponent(component, {
       environmentInjector: this.appRef.injector,

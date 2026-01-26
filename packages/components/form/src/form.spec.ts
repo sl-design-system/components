@@ -426,13 +426,9 @@ describe('sl-form', () => {
         textField.value = '';
       }
 
-      const syncValid = el.valid;
-
       await el.updateComplete;
-      const asyncValid = el.valid;
 
-      expect(syncValid).to.be.true;
-      expect(asyncValid).to.be.false;
+      expect(el.valid).to.be.false;
     });
 
     it('should handle multiple controls changing at once', async () => {

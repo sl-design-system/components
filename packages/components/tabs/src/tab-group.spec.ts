@@ -275,7 +275,6 @@ describe('sl-tab-group', () => {
       const menuButton = el.renderRoot.querySelector('sl-menu-button');
 
       expect(menuButton).to.exist;
-      expect(menuButton).to.have.attribute('size', 'md');
     });
 
     it('should have menu items for all the tabs', () => {

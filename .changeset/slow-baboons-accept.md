@@ -2,4 +2,4 @@
 '@sl-design-system/tabs': patch
 ---
 
-Change sl-menu-button size which is showing in tab group on resize
+Fix sl-menu-button in tab groups using the wrong size after resize so it uses the correct default size

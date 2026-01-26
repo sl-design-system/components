@@ -3,23 +3,34 @@
 }
 
 :host([inverted]) {
-  li > a {
-    color: var(--sl-color-link-inverted-idle);
+  li:not(.more-menu) a,
+  li:not(.more-menu) ::slotted(a) {
+    color: var(
+      --sl-color-link-inverted-idle
+    ) !important; // There is now way to do this with a selector that has more weight than what is set in the global styles
 
     &:focus-visible {
-      outline-color: var(--sl-color-border-inverted);
+      outline-color: var(
+        --sl-color-border-inverted
+      ) !important; // There is now way to do this with a selector that has more weight than what is set in the global styles
     }
 
     &:hover {
-      color: var(--sl-color-link-inverted-hover);
+      color: var(
+        --sl-color-link-inverted-hover
+      ) !important; // There is now way to do this with a selector that has more weight than what is set in the global styles
     }
 
     &:active {
-      color: var(--sl-color-link-inverted-active);
+      color: var(
+        --sl-color-link-inverted-active
+      ) !important; // There is now way to do this with a selector that has more weight than what is set in the global styles
     }
 
     &[aria-current='page'] {
-      color: var(--sl-color-link-inverted-idle);
+      color: var(
+        --sl-color-link-inverted-idle
+      ) !important; // There is now way to do this with a selector that has more weight than what is set in the global styles
     }
   }
 
@@ -44,6 +55,7 @@ li {
   &.home {
     flex-shrink: 0;
 
+    ::slotted(a[href]),
     a {
       align-items: center;
       display: flex;
@@ -60,8 +72,12 @@ li {
   }
 }
 
-a {
-  color: var(--sl-color-link-muted-idle);
+a,
+::slotted(a[href]) {
+  color: var(
+    --sl-color-link-muted-idle
+  ) !important; // There is now way to do this with a selector that has more weight than what is set in the global styles
+
   display: block;
   overflow: clip visible;
   padding: var(--sl-size-100);
@@ -72,12 +88,17 @@ a {
   white-space: nowrap;
 
   &:hover {
-    color: var(--sl-color-link-muted-hover);
+    color: var(
+      --sl-color-link-muted-hover
+    ) !important; // There is now way to do this with a selector that has more weight than what is set in the global styles
+
     text-decoration-thickness: var(--sl-size-borderWidth-bold);
   }
 
   &:active {
-    color: var(--sl-color-link-muted-active);
+    color: var(
+      --sl-color-link-muted-active
+    ) !important; // There is now way to do this with a selector that has more weight than what is set in the global styles
   }
 
   &:focus-visible {
@@ -87,7 +108,10 @@ a {
   }
 
   &[aria-current='page'] {
-    color: var(--sl-color-foreground-plain);
+    color: var(
+      --sl-color-foreground-plain
+    ) !important; // There is now way to do this with a selector that has more weight than what is set in the global styles
+
     text-decoration: none;
   }
 

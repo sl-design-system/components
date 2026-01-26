@@ -50,6 +50,11 @@ const isMobile = (): boolean => matchMedia('(width <= 600px)').matches;
  */
 @localized()
 export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
+  static override shadowRootOptions: ShadowRootInit = {
+    ...LitElement.shadowRootOptions,
+    slotAssignment: 'manual'
+  };
+
   /**
    * When true, doesn't show a home label in the first breadcrumb next to the home icon.
    *
@@ -93,8 +98,12 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
    */
   #observer = new ResizeObserver(() => this.#update());
 
+  #mutationObserver = new MutationObserver(() => this.#onMutation());
+
   /** @internal The slotted breadcrumbs. */
   @state() breadcrumbs: Breadcrumb[] = [];
+  @state() breadcrumbLinks: HTMLElement[] = [];
+  @state() customHomelink: HTMLElement | undefined = undefined;
 
   /** @internal The threshold for when breadcrumbs should be collapsed into a menu. */
   @state() collapseThreshold = COLLAPSE_THRESHOLD;
@@ -139,10 +148,12 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
     this.setAttribute('role', 'navigation');
 
     this.#observer.observe(this);
+    this.#mutationObserver.observe(this, { characterData: true, childList: true, subtree: true });
   }
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
+    this.#mutationObserver.disconnect();
 
     this.breadcrumbs.forEach(breadcrumb => {
       if (breadcrumb.tooltip instanceof Tooltip) {
@@ -163,19 +174,23 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
           ? nothing
           : html`
               <li class="home">
-                <a
-                  href=${this.homeUrl}
-                  aria-label=${ifDefined(
-                    isMobile() || this.hideHomeLabel ? msg('Home', { id: 'sl.breadcrumbs.home' }) : undefined
-                  )}
-                >
-                  <sl-icon name="home-blank"></sl-icon>
-                  ${isMobile() || this.hideHomeLabel ? '' : msg('Home', { id: 'sl.breadcrumbs.home' })}
-                </a>
+                ${!this.customHomelink
+                  ? html`
+                      <a
+                        href=${this.homeUrl}
+                        aria-label=${ifDefined(
+                          isMobile() || this.hideHomeLabel ? msg('Home', { id: 'sl.breadcrumbs.home' }) : undefined
+                        )}
+                      >
+                        <sl-icon name="home-blank"></sl-icon>
+                        ${isMobile() || this.hideHomeLabel ? '' : msg('Home', { id: 'sl.breadcrumbs.home' })}
+                      </a>
+                    `
+                  : html`<slot name="home"></slot>`}
               </li>
               <sl-icon name="breadcrumb-separator"></sl-icon>
             `}
-        ${this.breadcrumbs.length > this.collapseThreshold
+        ${this.breadcrumbLinks.length > this.collapseThreshold
           ? html`
               <li class="more-menu">
                 <sl-button
@@ -188,31 +203,29 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
                   <sl-icon name="ellipsis"></sl-icon>
                 </sl-button>
                 <sl-popover anchor="button">
-                  ${this.breadcrumbs
+                  ${this.breadcrumbLinks
                     .slice(0, -this.collapseThreshold)
-                    .map(({ url, label }) => (url ? html`<a href=${url}>${label}</a>` : label))}
+                    .map((_, index) => html`<slot name="breadcrumb-menu-${index}"></slot>` as TemplateResult)}
                 </sl-popover>
               </li>
               <sl-icon name="breadcrumb-separator"></sl-icon>
             `
           : nothing}
-        ${this.breadcrumbs
-          .filter(({ collapsed }) => !collapsed)
-          .map(({ url, label }, index, array) =>
-            url
-              ? html`
-                  <li>
-                    <a aria-current=${ifDefined(index === array.length - 1 ? 'page' : undefined)} href=${url}>
-                      ${label}
-                    </a>
-                  </li>
-                  ${index < array.length - 1 ? html`<sl-icon name="breadcrumb-separator"></sl-icon>` : nothing}
-                `
-              : html`<li>${label}</li>`
-          )}
+        ${this.breadcrumbLinks.slice(this.breadcrumbLinks.length - this.collapseThreshold).map((_, index, array) =>
+          index < array.length
+            ? html`
+                <li><slot name="breadcrumb-${index}" @slotchange=${this.#setTooltip}></slot></li>
+                ${index < array.length - 1 ? html`<sl-icon name="breadcrumb-separator"></sl-icon>` : nothing}
+              `
+            : html`<li>end</li>`
+        )}
       </ul>
-      <slot @slotchange=${this.#onSlotchange} style="display:none"></slot>
     `;
+  }
+
+  override firstUpdated(): void {
+    // Process initial light DOM children
+    this.#onMutation();
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -232,40 +245,52 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
     this.renderRoot.querySelector('sl-popover')?.togglePopover();
   };
 
-  #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
-    this.breadcrumbs = event.target.assignedElements({ flatten: true }).map(element => {
-      return {
-        label: element.textContent?.trim() || '',
-        url: element.getAttribute('href') ?? undefined
-      };
+  #onMutation = (): void => {
+    const children = Array.from(this.children);
+
+    // Filter for elements without a slot attribute (default slot content)
+    this.breadcrumbLinks = children
+      .filter(el => !el.hasAttribute('slot') && !(el instanceof Tooltip))
+      .map(el => el as HTMLElement);
+    this.customHomelink = children.find(el => el.getAttribute('slot') === 'home') as HTMLElement | undefined;
+
+    requestAnimationFrame(() => {
+      if (this.customHomelink) {
+        const slot = this.renderRoot.querySelector('slot[name="home"]') as HTMLSlotElement;
+        slot.assign(this.customHomelink);
+      }
+      this.breadcrumbLinks.slice(0, -this.collapseThreshold).forEach((link, index) => {
+        const slot = this.renderRoot.querySelector(`slot[name="breadcrumb-menu-${index}"]`) as HTMLSlotElement;
+        slot.assign(link);
+      });
+      this.breadcrumbLinks.slice(this.breadcrumbLinks.length - this.collapseThreshold).forEach((link, index) => {
+        const slot = this.renderRoot.querySelector(`slot[name="breadcrumb-${index}"]`) as HTMLSlotElement;
+        slot.assign(link);
+      });
     });
-  }
+  };
 
   #update(): void {
     this.collapseThreshold = isMobile() ? MOBILE_COLLAPSE_THRESHOLD : COLLAPSE_THRESHOLD;
 
-    this.renderRoot.querySelectorAll<HTMLAnchorElement>('li:not(.home) > a').forEach(link => {
-      const breadcrumb = this.breadcrumbs.find(el => el.label === link.textContent?.trim())!;
+    this.#onMutation();
+  }
 
-      if (link.offsetWidth < link.scrollWidth) {
-        breadcrumb.tooltip ||= Tooltip.lazy(
-          link,
-          tooltip => {
-            breadcrumb.tooltip = tooltip;
-            tooltip.position = 'bottom';
-            tooltip.textContent = link.textContent?.trim() || '';
-          },
-          { context: this.shadowRoot! }
-        );
-      } else if (breadcrumb.tooltip instanceof Tooltip) {
-        link.removeAttribute('aria-describedby');
-
-        breadcrumb.tooltip.remove();
-        breadcrumb.tooltip = undefined;
-      } else if (breadcrumb.tooltip) {
-        breadcrumb.tooltip();
-        breadcrumb.tooltip = undefined;
-      }
-    });
+  #setTooltip(event: { target: HTMLSlotElement }): void {
+    const assignedElements = event.target.assignedElements({ flatten: true });
+    if (assignedElements.length !== 1) {
+      return;
+      // We only expect one element per breadcrumb slot
+    }
+    console.log('setTooltip for slot', { assignedElements }, event.target.getAttribute('name'));
+    Tooltip.lazy(
+      assignedElements[0],
+      tooltip => {
+        // tooltip.id = 'sl-tooltip';
+        tooltip.position = 'bottom';
+        tooltip.textContent = assignedElements[0].textContent?.trim() || '';
+      },
+      { context: this.shadowRoot! }
+    );
   }
 }

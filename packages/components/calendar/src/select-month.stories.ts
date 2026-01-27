@@ -70,3 +70,47 @@ export const ShowCurrent: Story = {
     showCurrent: true
   }
 };
+
+export const All: Story = {
+  render: () => html`
+    <style>
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(308px, 1fr));
+        gap: 2rem;
+      }
+      .grid > div {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .grid h3 {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 600;
+      }
+    </style>
+    <div class="grid">
+      <div>
+        <h3>Basic</h3>
+        <sl-select-month></sl-select-month>
+      </div>
+      <div>
+        <h3>Min Max</h3>
+        <sl-select-month
+          max=${new Date(2025, 10, 1).toISOString()}
+          min=${new Date(2025, 2, 1).toISOString()}
+          month=${new Date(2025, 7, 1).toISOString()}
+        ></sl-select-month>
+      </div>
+      <div>
+        <h3>With Selection</h3>
+        <sl-select-month .selected=${new Date()}></sl-select-month>
+      </div>
+      <div>
+        <h3>Show Current</h3>
+        <sl-select-month show-current></sl-select-month>
+      </div>
+    </div>
+  `
+};

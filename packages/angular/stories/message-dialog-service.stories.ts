@@ -470,28 +470,12 @@ export default {
 
 export const StaticMethods: StoryFn = () => ({
   description:
-    '<p>The <strong>MessageDialogService</strong> provides static methods for displaying simple message dialogs. These methods are perfect for alerts, confirmations, and simple user interactions.</p>' +
-    '<h4>Available Static Methods:</h4>' +
-    '<ul>' +
-    '<li><strong>alert(message, title?)</strong>: Shows a simple alert with an OK button. Returns a Promise that resolves when dismissed.</li>' +
-    '<li><strong>confirm(message, title?)</strong>: Shows a confirmation dialog with Cancel and OK buttons. Returns a Promise&lt;boolean | undefined&gt;.</li>' +
-    '<li><strong>show(config)</strong>: Shows a message dialog with custom configuration including custom buttons. Returns a Promise with the button value.</li>' +
-    '</ul>' +
-    '<h4>HTML Content Support:</h4>' +
-    '<p>The <code>show()</code> method supports Lit HTML templates for the <code>message</code> property, allowing you to use rich HTML content with formatting, links, and styles.</p>' +
-    '<h4>When to use <code>disableCancel: true</code>:</h4>' +
-    '<ul>' +
-    '<li>Critical alerts that require user acknowledgment</li>' +
-    '<li>Success/completion messages that should not be dismissed accidentally</li>' +
-    '<li>Final steps in wizards or workflows</li>' +
-    '</ul>' +
-    '<p>All static methods return Promises, making them easy to use with async/await. For complex dialogs with Angular components, use <code>showModal()</code> instead.</p>',
+    '<p>The <strong>MessageDialogService</strong> provides static methods for displaying simple message dialogs. These methods are perfect for alerts, confirmations, and simple user interactions.</p>',
   template: '<sla-message-dialog-service></sla-message-dialog-service>'
 });
 
 export const WithCustomComponent: StoryFn = () => ({
-  description:
-    '<p>Use <strong>showModal()</strong> to render a custom Angular component as the message content.</p>',
+  description: '<p>Use <strong>showModal()</strong> to render a custom Angular component as the message content.</p>',
   template: '<sla-message-dialog-custom-component></sla-message-dialog-custom-component>'
 });
 

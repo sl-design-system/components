@@ -322,7 +322,7 @@ export const AllValid: Story = {
   }
 };
 
-export const AsyncValidation: StoryObj = {
+export const AsyncValidation: Story = {
   render: () => {
     const onSync = async (): Promise<void> => {
       const form = document.querySelector<Form>('sl-form');

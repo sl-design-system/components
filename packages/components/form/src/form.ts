@@ -147,7 +147,7 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
     }
   }
 
-  // Waits for the form and all its controls to complete their update cycle.
+  // Waits for the form and all controls that implement `updateComplete` to complete their update cycle
   protected override async getUpdateComplete(): Promise<boolean> {
     const superComplete = await super.getUpdateComplete();
     await Promise.all(this.controls.map(c => c.updateComplete).filter((p): p is Promise<boolean> => p !== undefined));

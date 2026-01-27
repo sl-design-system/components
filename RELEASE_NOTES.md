@@ -17,7 +17,7 @@ The release notes are ordered by the date the release was made. From latest, to 
 - [`announcer`](https://github.com/sl-design-system/components/blob/main/packages/components/announcer/CHANGELOG.md) Remove wildcard exports because of vitest errors
 - [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md) Fix aria-autocomplete property behaviour when selectOnly is applied
 - [`date-field`](https://github.com/sl-design-system/components/blob/main/packages/components/date-field/CHANGELOG.md) Make a date-field working with dates (not dates and hours).
-- [`number-field`](https://github.com/sl-design-system/components/blob/main/packages/components/number-field/CHANGELOG.md) Trigger validity check for min/max changes and Fixes `type` attribute to always be set to `text`. It is no longer possible to set other `type` values like `number`, which were invalid.
+- [`number-field`](https://github.com/sl-design-system/components/blob/main/packages/components/number-field/CHANGELOG.md) Trigger validity check for min/max changes. Fixes `type` attribute to always be set to `text`. It is no longer possible to set other `type` values like `number`, which were invalid.
 - [`select`](https://github.com/sl-design-system/components/blob/main/packages/components/select/CHANGELOG.md) The selected option's content is now rendered in the `sl-select-button`'s light DOM via a slotted element instead of being cloned into its shadow DOM, ensuring proper style inheritance from the selected `sl-option` element.
 - [`tabs`](https://github.com/sl-design-system/components/blob/main/packages/components/tabs/CHANGELOG.md) Fix sl-menu-button in tab groups using the wrong size
 

@@ -17,19 +17,40 @@ interface DurationFormatConstructor {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
 const DurationFormat = (Intl as any).DurationFormat as DurationFormatConstructor;
 
-const dateFormatCache: Record<string, Intl.DateTimeFormatPart[]> = {},
+export interface DateFormatPart extends Intl.DateTimeFormatPart {
+  start: number;
+  end: number;
+}
+
+const dateFormatCache: Record<string, DateFormatPart[]> = {},
   dateUnitCache: Record<string, Record<string, string>> = {};
 
 /** Returns the date format parts for a given locale. */
-export function getDateFormat(locale: string): Intl.DateTimeFormatPart[] {
-  if (dateFormatCache[locale]) {
+export function getDateFormat(locale: string, date?: Date): DateFormatPart[] {
+  // Only cache when no date is provided
+  if (!date && dateFormatCache[locale]) {
     return dateFormatCache[locale];
   }
 
-  // Use January 1, 2026 as a sample date so we know how many digits each part should have
-  const parts = new Intl.DateTimeFormat(locale).formatToParts(new Date(2026, 0, 1));
+  // Default to December 31, 2026 so we know the maximum number of characters of each
+  // part (e.g., 31 for day, 12 for month, 2026 for year). This is required for the date
+  // template generation.
+  const intlParts = new Intl.DateTimeFormat(locale).formatToParts(date ?? new Date(2026, 0, 0));
 
-  dateFormatCache[locale] = parts;
+  // Extend the parts to include the indices of each part in the formatted string
+  let index = 0;
+  const parts: DateFormatPart[] = intlParts.map(part => {
+    const start = index,
+      end = index + part.value.length;
+
+    index = end;
+
+    return { ...part, start, end };
+  });
+
+  if (!date) {
+    dateFormatCache[locale] = parts;
+  }
 
   return parts;
 }
@@ -44,11 +65,10 @@ function getDateUnitLetters(locale: string): Record<string, string> {
     units: Record<string, string> = {};
 
   for (const unit of ['days', 'months', 'years'] as const) {
-    const parts = df.formatToParts({ [unit]: 1 }),
-      unitPart = parts.find((part: DurationFormatPart) => part.type === unit);
+    const part = df.formatToParts({ [unit]: 1 }).find(part => part.type === 'unit');
 
     // Get the first letter of the unit name (uppercased)
-    units[unit.slice(0, -1)] = unitPart?.value.trim().charAt(0).toUpperCase() ?? unit.charAt(0).toUpperCase();
+    units[unit] = part?.value.charAt(0).toUpperCase() ?? unit.charAt(0).toUpperCase();
   }
 
   dateUnitCache[locale] = units;
@@ -68,11 +88,11 @@ export function getDateTemplate(locale: string): string {
     .map(part => {
       switch (part.type) {
         case 'day':
-          return units.day.repeat(2);
+          return units.days.repeat(part.value.length);
         case 'month':
-          return units.month.repeat(2);
+          return units.months.repeat(part.value.length);
         case 'year':
-          return units.year.repeat(part.value.length);
+          return units.years.repeat(part.value.length);
         default:
           return part.value;
       }

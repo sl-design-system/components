@@ -11,7 +11,7 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './date-field.scss.js';
-import { getDateTemplate } from './utils';
+import { getDateFormat, getDateTemplate } from './utils.js';
 
 /**
  * A form component that allows the user to pick a date from a calendar.
@@ -292,14 +292,14 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     const { selectionStart, selectionEnd } = this.input;
 
     if (selectionStart === 0 && selectionEnd === this.input.value.length) {
+      // If the user has selected the entire input, don't change the selection
       return;
     } else if (selectionStart !== null) {
-      if (selectionStart < 3) {
-        this.input.setSelectionRange(0, 2);
-      } else if (selectionStart < 6) {
-        this.input.setSelectionRange(3, 5);
-      } else {
-        this.input.setSelectionRange(6, 10);
+      const parts = getDateFormat(this.locale ?? 'default'),
+        part = parts.find(p => p.type !== 'literal' && selectionStart >= p.start && selectionStart <= p.end);
+
+      if (part) {
+        this.input.setSelectionRange(part.start, part.end);
       }
     }
   }

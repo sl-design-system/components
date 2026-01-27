@@ -10,8 +10,8 @@ import { type Meta, StoryFn, applicationConfig, moduleMetadata } from '@storyboo
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div style="padding: 1rem;">
-      <h3 style="margin-top: 0;">Custom Message Content</h3>
+    <div>
+      <h3>Custom Message Content</h3>
       <p>You can <em>customize</em> the message with <strong>HTML</strong>!</p>
       <p>Message data: {{ data }}</p>
     </div>
@@ -405,7 +405,6 @@ export class MessageDialogAdvancedExampleComponent {
   }
 
   async showSequentialDialogs(): Promise<void> {
-    // Step 1
     const step1 = await this.messageDialogService.show({
       title: 'Step 1: Welcome',
       message: 'Welcome to the setup wizard. Click Next to continue.',
@@ -420,7 +419,6 @@ export class MessageDialogAdvancedExampleComponent {
       return;
     }
 
-    // Step 2
     const step2 = await this.messageDialogService.show({
       title: 'Step 2: Configuration',
       message: 'Please confirm your configuration settings.',
@@ -435,7 +433,6 @@ export class MessageDialogAdvancedExampleComponent {
       return;
     }
 
-    // Step 3 - Final confirmation
     await this.messageDialogService.show({
       title: 'Step 3: Confirmation',
       message: 'Setup complete! Your changes have been saved.',

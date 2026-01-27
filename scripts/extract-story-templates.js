@@ -277,11 +277,12 @@ class StoryTemplateExtractor {
       const classMatch = componentBlock.match(/export\s+class\s+\w+\s*{([\s\S]*?)}\s*$/);
       const classContent = classMatch ? this.normalizeIndentation(classMatch[1], 4) : null;
 
-      if (template && selector) {
+      // Include component even if it doesn't have a selector (e.g., dialog content components)
+      if (template) {
         components.push({
           name: componentName,
-          selector,
-          template: template.trim(),
+          selector: selector || null,
+          template,
           imports,
           classContent
         });
@@ -374,6 +375,48 @@ ${component.classContent || '  // Component logic here'}
 \`\`\`
 
 `;
+
+        // Find and include any additional components referenced in this component's code
+        if (component.classContent) {
+          // Look for component references in generic type parameters like <CustomMessageComponent, string>
+          const referencedComponentRegex = /<(\w+Component),/g;
+          let refMatch;
+          const referencedComponents = new Set();
+
+          while ((refMatch = referencedComponentRegex.exec(component.classContent)) !== null) {
+            const refComponentName = refMatch[1];
+            // Find this component in our extracted components
+            const refComponent = components.find(c => c.name === refComponentName);
+            if (refComponent && refComponent.name !== component.name) {
+              referencedComponents.add(refComponent);
+            }
+          }
+
+          // Add any referenced components to the documentation
+          if (referencedComponents.size > 0) {
+            mdx += `**Referenced Components:**
+
+The examples above use the following custom component(s):
+
+`;
+            referencedComponents.forEach(refComp => {
+              mdx += `
+\`\`\`typescript
+@Component({${refComp.selector ? `
+  selector: '${refComp.selector}',` : ''}
+  standalone: true,${refComp.imports ? `
+  imports: [${refComp.imports}],` : ''}
+  template: \`${refComp.template}\`
+})
+export class ${refComp.name} {
+${refComp.classContent || '  // Component logic here'}
+}
+\`\`\`
+
+`;
+            });
+          }
+        }
       } else if (story.template) {
         mdx += `### Template
 

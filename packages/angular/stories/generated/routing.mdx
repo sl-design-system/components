@@ -34,12 +34,14 @@ import { TabComponent, TabGroupComponent } from '@sl-design-system/angular/tabs'
 
 @Component({
   selector: 'sla-routing',
-  template: `<sl-tab-group>
+  template: `
+  <sl-tab-group>
     <sl-tab *ngFor="let tab of tabs" [routerLink]="tab.path">
       {{ tab.label }}
     </sl-tab>
     <router-outlet></router-outlet>
-  </sl-tab-group>`,
+  </sl-tab-group>
+`,
   imports: [TabGroupComponent, TabComponent, MenuComponent, RouterLink, NgForOf, RouterOutlet]
 })
 export class RoutingComponent {

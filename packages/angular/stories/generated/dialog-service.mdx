@@ -209,11 +209,13 @@ import { TextFieldComponent } from '@sl-design-system/angular/text-field';
 
 @Component({
   selector: 'sla-dialog-service',
-  template: `<h3>Dialog Service examples</h3>
+  template: `
+  <h3>Dialog Service examples</h3>
   <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
     <sl-button (click)="openBasicDialog()">Open dialog</sl-button>
     <sl-button (click)="openNonCancellableDialog()">Open dialog without close button</sl-button>
-  </div>`,
+  </div>
+`,
   imports: [ButtonComponent, CommonModule]
 })
 export class DialogServiceExampleComponent {
@@ -258,6 +260,40 @@ export class DialogServiceExampleComponent {
 }
 ```
 
+**Referenced Components:**
+
+The examples above use the following custom component(s):
+
+
+```typescript
+@Component({
+  standalone: true,
+  imports: [ButtonComponent, CommonModule],
+  template: `
+  <style>
+    h2 {
+      font-size: inherit;
+      font-weight: inherit;
+      margin: 0;
+    }
+  </style>
+  <h2 slot="title">{{ data.title }}</h2>
+  <p>{{ data.message }}</p>
+  <div>Example content.</div>
+  <sl-button (click)="dialogRef.close('cancelled')" slot="primary-actions">Cancel</sl-button>
+  <sl-button (click)="dialogRef.close('confirmed')" slot="primary-actions" variant="primary">Confirm</sl-button>
+`
+})
+export class ExampleDialogComponent {
+
+  constructor(
+    public dialogRef: DialogRef<string>,
+    @Inject('DIALOG_DATA') public data: { title: string; message: string }
+  ) {}
+
+}
+```
+
 ## Form In Dialog Example
 
 <p>This example demonstrates how to use a form inside a dialog opened with the DialogService.</p>
@@ -274,7 +310,8 @@ import { TextFieldComponent } from '@sl-design-system/angular/text-field';
 
 @Component({
   selector: 'sla-dialog-form',
-  template: `<style>
+  template: `
+  <style>
     h2 {
       font-size: inherit;
       font-weight: inherit;
@@ -292,7 +329,8 @@ import { TextFieldComponent } from '@sl-design-system/angular/text-field';
     </sl-form-field>
   </sl-form>
   <sl-button slot="primary-actions" (click)="dialogRef.close()">Cancel</sl-button>
-  <sl-button slot="primary-actions" variant="primary" (click)="submitForm()">Save</sl-button>`,
+  <sl-button slot="primary-actions" variant="primary" (click)="submitForm()">Save</sl-button>
+`,
   imports: [
     ButtonComponent,
     CommonModule,

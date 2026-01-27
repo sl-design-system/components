@@ -5,17 +5,13 @@ import { FormControlMixin, type SlFormControlEvent, type SlUpdateStateEvent } fr
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, LocaleMixin, anchor, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
-import {
-  type SlBlurEvent,
-  type SlChangeEvent,
-  type SlFocusEvent,
-  type SlSelectEvent
-} from '@sl-design-system/shared/events.js';
+import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { FieldButton, TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './date-field.scss.js';
+import { getDateTemplate } from './utils';
 
 /**
  * A form component that allows the user to pick a date from a calendar.
@@ -142,9 +138,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
       this.input.autocomplete = 'off';
       this.input.slot = 'input';
-      this.input.addEventListener('blur', (event: Event) => this.#onInputBlur(event));
-      this.input.addEventListener('click', (event: Event) => this.#onInputClick(event));
-      this.input.addEventListener('focus', (event: Event) => this.#onInputFocus(event));
+      this.input.addEventListener('blur', () => this.#onInputBlur());
+      this.input.addEventListener('click', () => this.#onInputClick());
+      this.input.addEventListener('focus', () => this.#onInputFocus());
       this.input.addEventListener('keydown', (event: KeyboardEvent) => this.#onInputKeydown(event));
 
       if (!this.input.parentElement) {
@@ -267,7 +263,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
   }
 
-  #onChange(event: SlSelectEvent<Date>): void {
+  #onChange(event: SlChangeEvent<Date>): void {
     event.preventDefault();
     event.stopPropagation();
 
@@ -284,30 +280,61 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.input.focus();
   }
 
-  #onInputBlur(event: Event & { target: HTMLInputElement }): void {
+  #onInputBlur(): void {
     if (this.value) {
       return;
     } else if (this.placeholder) {
-      event.target.value = '';
+      this.input.value = '';
     }
   }
 
-  #onInputClick(event: Event & { target: HTMLInputElement }): void {
-    console.log('click', event.target.selectionStart, event.target.selectionEnd);
+  #onInputClick(): void {
+    const { selectionStart, selectionEnd } = this.input;
+
+    if (selectionStart === 0 && selectionEnd === this.input.value.length) {
+      return;
+    } else if (selectionStart !== null) {
+      if (selectionStart < 3) {
+        this.input.setSelectionRange(0, 2);
+      } else if (selectionStart < 6) {
+        this.input.setSelectionRange(3, 5);
+      } else {
+        this.input.setSelectionRange(6, 10);
+      }
+    }
   }
 
-  #onInputFocus(event: Event & { target: HTMLInputElement }): void {
-    console.log('focus', event);
-
+  #onInputFocus(): void {
     if (this.value) {
       return;
     }
 
-    event.target.value = 'dd-mm-jjjj';
+    this.input.value = getDateTemplate(this.locale ?? 'default');
   }
 
   #onInputKeydown(event: KeyboardEvent): void {
-    console.log(event.key);
+    switch (event.key) {
+      case 'ArrowLeft':
+        event.preventDefault();
+
+        this.input.setSelectionRange(
+          Math.max(0, (this.input.selectionStart ?? 0) - 3),
+          Math.max(0, (this.input.selectionEnd ?? 0) - 3)
+        );
+        break;
+      case 'ArrowRight':
+        event.preventDefault();
+
+        this.input.setSelectionRange(
+          Math.min(this.input.value.length, (this.input.selectionStart ?? 0) + 3),
+          Math.min(this.input.value.length, (this.input.selectionEnd ?? 0) + 3)
+        );
+        break;
+      case 'ArrowUp':
+      case 'ArrowDown':
+        event.preventDefault();
+        break;
+    }
   }
 
   #onKeydown(event: KeyboardEvent): void {

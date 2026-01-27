@@ -309,6 +309,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       return;
     }
 
+    // Replace any placeholder with the date template
     this.input.value = getDateTemplate(this.locale ?? 'default');
   }
 

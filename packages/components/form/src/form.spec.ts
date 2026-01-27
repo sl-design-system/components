@@ -421,13 +421,12 @@ describe('sl-form', () => {
 
     it('should wait for form controls to update before returning validity', async () => {
       const textField = el.querySelector<TextField>('sl-text-field[name="bar"]');
+      expect(el.valid).to.be.true;
 
-      if (textField) {
-        textField.value = '';
-      }
+      if (textField) textField.value = '';
 
+      expect(el.valid).to.be.true;
       await el.updateComplete;
-
       expect(el.valid).to.be.false;
     });
 

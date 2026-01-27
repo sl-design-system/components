@@ -24,13 +24,9 @@ type Props = Pick<Form, 'disabled' | 'value'> & {
   reportValidity?: boolean;
 };
 type Story = StoryObj<Props>;
-interface FormElement extends HTMLElement {
-  updateComplete: Promise<boolean>;
-  valid: boolean;
-}
 
 interface SelectElement extends HTMLElement {
-  value?: string | undefined;
+  value?: string;
 }
 
 class customComponent extends ScopedElementsMixin(LitElement) {
@@ -328,29 +324,38 @@ export const AllValid: Story = {
 
 export const AsyncValidation: StoryObj = {
   render: () => {
-    const onClick = async (event: MouseEvent): Promise<void> => {
-      const btn = event.target as HTMLElement;
-      const form = document.querySelector<FormElement>('#async-validation-form');
+    const onSync = async (): Promise<void> => {
+      const form = document.querySelector<Form>('sl-form');
       const select = form?.querySelector<SelectElement>('sl-select');
-      const way = btn.innerText.includes('Sync') ? 'sync' : 'async';
 
       if (!form || !select) return;
 
       select.value = '1';
       await form.updateComplete;
+
       select.value = undefined;
 
-      if (way === 'sync') {
-        alert(`Synchronous (form.valid): ${form.valid}\n(Returns true because the update cycle hasn't finished)`);
-      } else {
-        await form.updateComplete;
-        const isValid = form.valid;
-        alert(`Asynchronous (form.updateComplete): ${isValid}\n(Correctly waits and reflects the invalid state)`);
-      }
+      alert(`Synchronous (form.valid): ${form.valid}\n(Returns true because the update cycle hasn't finished)`);
+    };
+
+    const onAsync = async (): Promise<void> => {
+      const form = document.querySelector<Form>('sl-form');
+      const select = form?.querySelector<SelectElement>('sl-select');
+
+      if (!form || !select) return;
+
+      select.value = '1';
+      await form.updateComplete;
+
+      select.value = undefined;
+
+      await form.updateComplete;
+      const isValid = form.valid;
+      alert(`Asynchronous (form.updateComplete): ${isValid}\n(Correctly waits and reflects the invalid state)`);
     };
 
     return html`
-      <p style="margin-bottom: 16px;">
+      <p style="margin-bottom: var(--sl-size-200);">
         This demo shows how to correctly check form validity after a programmatic change. Clicking the buttons will
         automatically set the required select to an invalid state (empty) and then immediately check the form's
         validity.
@@ -362,9 +367,9 @@ export const AsyncValidation: StoryObj = {
             <sl-option value="2">Option 2</sl-option>
           </sl-select>
         </sl-form-field>
-        <sl-button-bar style="margin-top: 16px;">
-          <sl-button @click=${onClick}>Sync way (buggy)</sl-button>
-          <sl-button @click=${onClick} variant="primary">Async way (correct)</sl-button>
+        <sl-button-bar>
+          <sl-button @click=${onSync}>Sync way (buggy)</sl-button>
+          <sl-button @click=${onAsync} variant="primary">Async way (correct)</sl-button>
         </sl-button-bar>
       </sl-form>
     `;

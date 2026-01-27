@@ -10,11 +10,9 @@ import { type Meta, StoryFn, applicationConfig, moduleMetadata } from '@storyboo
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div>
-      <h3>Custom Message Content</h3>
-      <p>You can <em>customize</em> the message with <strong>HTML</strong>!</p>
-      <p>Message data: {{ data }}</p>
-    </div>
+    <h3>Custom Message Content</h3>
+    <p>You can <em>customize</em> the message with <strong>HTML</strong>!</p>
+    <p>Message data: {{ data }}</p>
   `
 })
 export class CustomMessageComponent {
@@ -379,7 +377,6 @@ export class MessageDialogAdvancedExampleComponent {
   constructor(private messageDialogService: MessageDialogService) {}
 
   openMultipleDialogs(): void {
-    // Open first dialog
     const dialog1 = this.messageDialogService.showModal({
       title: 'First Dialog',
       message: 'This is the first dialog. You can open multiple dialogs at once.',
@@ -390,7 +387,6 @@ export class MessageDialogAdvancedExampleComponent {
       console.log('First dialog result:', result);
     });
 
-    // Open second dialog after a short delay
     setTimeout(() => {
       const dialog2 = this.messageDialogService.showModal({
         title: 'Second Dialog',
@@ -467,17 +463,17 @@ export default {
 
 export const StaticMethods: StoryFn = () => ({
   description:
-    '<p>The <strong>MessageDialogService</strong> provides static methods for displaying simple message dialogs. These methods are perfect for alerts, confirmations, and simple user interactions.</p>',
+    'The <strong>MessageDialogService</strong> provides static methods for displaying simple message dialogs. These methods are perfect for alerts, confirmations, and simple user interactions.',
   template: '<sla-message-dialog-service></sla-message-dialog-service>'
 });
 
 export const WithCustomComponent: StoryFn = () => ({
-  description: '<p>Use <strong>showModal()</strong> to render a custom Angular component as the message content.</p>',
+  description: 'Use <strong>showModal()</strong> to render a custom Angular component as the message content.',
   template: '<sla-message-dialog-custom-component></sla-message-dialog-custom-component>'
 });
 
 export const AdvancedExample: StoryFn = () => ({
   description:
-    '<p>These examples show more ways to use the MessageDialogService:</p> <ul> <li><strong>Multiple dialogs</strong>: Open multiple dialogs at the same time.</li><li><strong>Sequential dialogs</strong>: Show dialogs one after another, like a step-by-step guide.</li></ul>',
+    'These examples show more ways to use the MessageDialogService: <ul> <li><strong>Multiple dialogs</strong>: Open multiple dialogs at the same time.</li><li><strong>Sequential dialogs</strong>: Show dialogs one after another, like a step-by-step guide.</li></ul>',
   template: '<sla-message-dialog-advanced></sla-message-dialog-advanced>'
 });

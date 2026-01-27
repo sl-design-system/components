@@ -22,7 +22,7 @@ Opens a message dialog with a custom Angular component or simple message content
 **Configuration:**
 - `component` (optional) - Angular component to render as the message content
 - `data` (optional) - Data to pass to the component via `@Inject('MESSAGE_DIALOG_DATA')`
-- `message` (optional) - Simple text or HTML message (use instead of `component` for basic dialogs)
+- `message` (optional) - Simple text or HTML message (use instead of `component` for basic message dialogs)
 
 For the message dialog configuration options like `title`, `buttons`, `disableCancel`, etc., see the [MessageDialog documentation](https://sanomalearning.design/categories/components/message-dialog/code/).
 
@@ -328,7 +328,7 @@ this.router.events.pipe(
 
 ## Static Methods
 
-<p>The <strong>MessageDialogService</strong> provides static methods for displaying simple message dialogs. These methods are perfect for alerts, confirmations, and simple user interactions.</p>
+The <strong>MessageDialogService</strong> provides static methods for displaying simple message dialogs. These methods are perfect for alerts, confirmations, and simple user interactions.
 
 
 ```typescript
@@ -337,7 +337,8 @@ import { ButtonComponent } from '@sl-design-system/angular/button';
 
 @Component({
   selector: 'sla-message-dialog-service',
-  template: `<style>
+  template: `
+  <style>
     .container {
       display: flex;
       gap: 0.8rem;
@@ -376,7 +377,8 @@ import { ButtonComponent } from '@sl-design-system/angular/button';
       <p>You can use <code>show()</code> method to render HTML content in the message.</p>
       <sl-button (click)="showCustomMessage()" variant="primary">Show custom HTML message</sl-button>
     </div>
-  </div>`,
+  </div>
+`,
   imports: [ButtonComponent, CommonModule]
 })
 export class MessageDialogStaticMethodsComponent {
@@ -458,7 +460,7 @@ export class MessageDialogStaticMethodsComponent {
 
 ## With Custom Component
 
-<p>Use <strong>showModal()</strong> to render a custom Angular component as the message content.</p>
+Use <strong>showModal()</strong> to render a custom Angular component as the message content.
 
 
 ```typescript
@@ -467,7 +469,8 @@ import { ButtonComponent } from '@sl-design-system/angular/button';
 
 @Component({
   selector: 'sla-message-dialog-custom-component',
-  template: `<style>
+  template: `
+  <style>
     .container {
       display: flex;
       gap: 0.8rem;
@@ -495,7 +498,8 @@ import { ButtonComponent } from '@sl-design-system/angular/button';
       </p>
       <sl-button (click)="showCriticalAction()" variant="danger">Critical Action</sl-button>
     </div>
-  </div>`,
+  </div>
+`,
   imports: [ButtonComponent, CommonModule]
 })
 export class MessageDialogCustomComponentExampleComponent {
@@ -535,9 +539,31 @@ export class MessageDialogCustomComponentExampleComponent {
 }
 ```
 
+**Referenced Components:**
+
+The examples above use the following custom component(s):
+
+
+```typescript
+@Component({
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+  <h3>Custom Message Content</h3>
+  <p>You can <em>customize</em> the message with <strong>HTML</strong>!</p>
+  <p>Message data: {{ data }}</p>
+`
+})
+export class CustomMessageComponent {
+
+  constructor(@Inject('MESSAGE_DIALOG_DATA') public data: string) {}
+
+}
+```
+
 ## Advanced Example
 
-<p>These examples show more ways to use the MessageDialogService:</p> <ul> <li><strong>Multiple dialogs</strong>: Open multiple dialogs at the same time.</li><li><strong>Sequential dialogs</strong>: Show dialogs one after another, like a step-by-step guide.</li></ul>
+These examples show more ways to use the MessageDialogService: <ul> <li><strong>Multiple dialogs</strong>: Open multiple dialogs at the same time.</li><li><strong>Sequential dialogs</strong>: Show dialogs one after another, like a step-by-step guide.</li></ul>
 
 
 ```typescript
@@ -546,7 +572,8 @@ import { ButtonComponent } from '@sl-design-system/angular/button';
 
 @Component({
   selector: 'sla-message-dialog-advanced',
-  template: `<style>
+  template: `
+  <style>
     .container {
       display: flex;
       gap: 0.5rem;
@@ -571,7 +598,8 @@ import { ButtonComponent } from '@sl-design-system/angular/button';
       <p>Show dialogs one after another based on what the user chooses.</p>
       <sl-button (click)="showSequentialDialogs()" variant="info">Show sequential dialogs</sl-button>
     </div>
-  </div>`,
+  </div>
+`,
   imports: [ButtonComponent]
 })
 export class MessageDialogAdvancedExampleComponent {
@@ -579,7 +607,6 @@ export class MessageDialogAdvancedExampleComponent {
   constructor(private messageDialogService: MessageDialogService) {}
 
   openMultipleDialogs(): void {
-    // Open first dialog
     const dialog1 = this.messageDialogService.showModal({
       title: 'First Dialog',
       message: 'This is the first dialog. You can open multiple dialogs at once.',
@@ -590,7 +617,6 @@ export class MessageDialogAdvancedExampleComponent {
       console.log('First dialog result:', result);
     });
 
-    // Open second dialog after a short delay
     setTimeout(() => {
       const dialog2 = this.messageDialogService.showModal({
         title: 'Second Dialog',

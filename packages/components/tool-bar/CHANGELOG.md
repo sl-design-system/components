@@ -1,5 +1,15 @@
 # @sl-design-system/tool-bar
 
+## 0.2.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sl-design-system/button@1.3.3
+  - @sl-design-system/menu@0.2.8
+  - @sl-design-system/toggle-button@0.0.12
+  - @sl-design-system/toggle-group@0.0.12
+
 ## 0.2.0
 
 ### Minor Changes

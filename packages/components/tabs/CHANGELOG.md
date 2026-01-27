@@ -1,5 +1,15 @@
 # @sl-design-system/tabs
 
+## 1.2.5
+
+### Patch Changes
+
+- [#2944](https://github.com/sl-design-system/components/pull/2944) [`4f90d75`](https://github.com/sl-design-system/components/commit/4f90d75597f80b54d4e3f4259176935dedee8d9e) - Fix sl-menu-button in tab groups using the wrong size after resize so it uses the correct default size
+
+- Updated dependencies [[`e3eb2de`](https://github.com/sl-design-system/components/commit/e3eb2de61e86203aab22cd55bbad4cc058e66a2d)]:
+  - @sl-design-system/shared@0.10.0
+  - @sl-design-system/menu@0.2.8
+
 ## 1.2.4
 
 ### Patch Changes

@@ -101,7 +101,6 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   #mutationObserver = new MutationObserver(() => this.#onMutation());
 
   /** @internal The slotted breadcrumbs. */
-  @state() breadcrumbs: Breadcrumb[] = [];
   @state() breadcrumbLinks: HTMLElement[] = [];
   @state() customHomelink: HTMLElement | undefined = undefined;
 
@@ -155,15 +154,6 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
     this.#observer.disconnect();
     this.#mutationObserver.disconnect();
 
-    this.breadcrumbs.forEach(breadcrumb => {
-      if (breadcrumb.tooltip instanceof Tooltip) {
-        breadcrumb.tooltip.remove();
-      } else if (breadcrumb.tooltip) {
-        breadcrumb.tooltip();
-      }
-    });
-    this.breadcrumbs = [];
-
     super.disconnectedCallback();
   }
 
@@ -214,12 +204,13 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
         ${this.breadcrumbLinks.slice(this.breadcrumbLinks.length - this.collapseThreshold).map((_, index, array) =>
           index < array.length
             ? html`
-                <li><slot name="breadcrumb-${index}" @slotchange=${this.#setTooltip}></slot></li>
+                <li><slot name="breadcrumb-${index}"></slot></li>
                 ${index < array.length - 1 ? html`<sl-icon name="breadcrumb-separator"></sl-icon>` : nothing}
               `
             : html`<li>end</li>`
         )}
       </ul>
+      <slot name="tooltips"></slot>
     `;
   }
 
@@ -231,14 +222,14 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    if (changes.has('breadcrumbs') || changes.has('collapseThreshold')) {
-      this.breadcrumbs = this.breadcrumbs.map((breadcrumb, index) => {
-        const collapsed =
-          this.breadcrumbs.length > this.collapseThreshold && index < this.breadcrumbs.length - this.collapseThreshold;
+    // if (changes.has('breadcrumbs') || changes.has('collapseThreshold')) {
+    //   this.breadcrumbs = this.breadcrumbs.map((breadcrumb, index) => {
+    //     const collapsed =
+    //       this.breadcrumbs.length > this.collapseThreshold && index < this.breadcrumbs.length - this.collapseThreshold;
 
-        return { ...breadcrumb, collapsed };
-      });
-    }
+    //     return { ...breadcrumb, collapsed };
+    //   });
+    // }
   }
 
   #onClick = (): void => {
@@ -265,6 +256,12 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
       });
       this.breadcrumbLinks.slice(this.breadcrumbLinks.length - this.collapseThreshold).forEach((link, index) => {
         const slot = this.renderRoot.querySelector(`slot[name="breadcrumb-${index}"]`) as HTMLSlotElement;
+        if (link.offsetWidth < link.scrollWidth) {
+          console.log('renderTooltip');
+          this.#setTooltip(link);
+        } else {
+          // Remove the existing tooltip for this link if it is no longer truncated
+        }
         slot.assign(link);
       });
     });
@@ -276,19 +273,22 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
     this.#onMutation();
   }
 
-  #setTooltip(event: { target: HTMLSlotElement }): void {
-    const assignedElements = event.target.assignedElements({ flatten: true });
-    if (assignedElements.length !== 1) {
+  #setTooltip(link: HTMLElement): void {
+    // const assignedElements = event.target.assignedElements({ flatten: true });
+
+    const tooltipsSlot = this.renderRoot.querySelector('slot[name="tooltips"]') as HTMLSlotElement;
+    if (!tooltipsSlot) {
       return;
-      // We only expect one element per breadcrumb slot
     }
-    console.log('setTooltip for slot', { assignedElements }, event.target.getAttribute('name'));
+
     Tooltip.lazy(
-      assignedElements[0],
+      link,
       tooltip => {
-        // tooltip.id = 'sl-tooltip';
         tooltip.position = 'bottom';
-        tooltip.textContent = assignedElements[0].textContent?.trim() || '';
+        tooltip.textContent = link.textContent?.trim() || '';
+        requestAnimationFrame(() => {
+          tooltipsSlot.assign(...(tooltipsSlot.assignedElements() || []), tooltip);
+        });
       },
       { context: this.shadowRoot! }
     );

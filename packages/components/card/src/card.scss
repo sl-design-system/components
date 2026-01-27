@@ -193,7 +193,7 @@
   slot.title::slotted(a[href]) {
     color: var(
       --sl-color-foreground-plain
-    ) !important; // There is now way to do this with a selector that has more weight than what is set in the global styles
+    ) !important; // There is no way to do this with a selector that has more weight than what is set in the global styles
 
     text-decoration: none;
   }

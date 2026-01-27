@@ -1,6 +1,5 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/popover/register.js';
-import { tooltip } from '@sl-design-system/tooltip';
 import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
@@ -43,7 +42,6 @@ export default {
     <sl-breadcrumbs .hideHomeLabel=${hideHomeLabel} .homeUrl=${homeUrl} ?inverted=${inverted} ?no-home=${noHome}
       >${breadcrumbs()}</sl-breadcrumbs
     >
-    <sl-button ${tooltip('Hover me to test tooltip in breadcrumbs context', { position: 'top' })}>Hover me</sl-button>
   `
 } satisfies Meta<Props>;
 
@@ -128,13 +126,9 @@ export const CustomHome: Story = {
 export const Overflow: Story = {
   args: {
     breadcrumbs: () => html`
-      <a href="javascript:void(0)">Adipisicing sint excepteur officia voluptate tempor ea veniam veniam duis.</a>
-      <a href="javascript:void(0)"
-        >Nostrud ad fugiat amet officia anim qui sit tempor veniam magna irure adipisicing ea adipisicing.</a
-      >
-      <a href="javascript:void(0)"
-        >Lorem adipisicing do duis sunt laboris magna officia irure fugiat velit deserunt duis enim in.</a
-      >
+      <a href="javascript:void(0)">Adipisicing sint excepteur officia voluptate.</a>
+      <a href="javascript:void(0)">Nostrud ad fugiat amet officia anim qui sit tempor veniam magna.</a>
+      <a href="javascript:void(0)">Lorem adipisicing do duis sunt laboris magna officia irure fugiat.</a>
     `
   }
 };

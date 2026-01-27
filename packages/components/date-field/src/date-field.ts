@@ -11,7 +11,7 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './date-field.scss.js';
-import { getDateFormat, getDateTemplate } from './utils.js';
+import { DateFormatPart, getDateFormat, getDateTemplate } from './utils.js';
 
 /**
  * A form component that allows the user to pick a date from a calendar.
@@ -299,7 +299,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         part = parts.find(p => p.type !== 'literal' && selectionStart >= p.start && selectionStart <= p.end);
 
       if (part) {
-        this.input.setSelectionRange(part.start, part.end);
+        this.#setSelectedPart(part);
       }
     }
   }
@@ -313,27 +313,25 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onInputKeydown(event: KeyboardEvent): void {
-    switch (event.key) {
-      case 'ArrowLeft':
-        event.preventDefault();
+    if (!event.key.startsWith('Arrow')) {
+      return;
+    }
 
-        this.input.setSelectionRange(
-          Math.max(0, (this.input.selectionStart ?? 0) - 3),
-          Math.max(0, (this.input.selectionEnd ?? 0) - 3)
-        );
-        break;
-      case 'ArrowRight':
-        event.preventDefault();
+    const selectedPart = this.#getSelectedPart();
+    if (!selectedPart) {
+      return;
+    }
 
-        this.input.setSelectionRange(
-          Math.min(this.input.value.length, (this.input.selectionStart ?? 0) + 3),
-          Math.min(this.input.value.length, (this.input.selectionEnd ?? 0) + 3)
-        );
-        break;
-      case 'ArrowUp':
-      case 'ArrowDown':
-        event.preventDefault();
-        break;
+    event.preventDefault();
+
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+      const parts = getDateFormat(this.locale ?? 'default', this.value).filter(p => p.type !== 'literal'),
+        index = parts.indexOf(selectedPart),
+        newIndex = event.key === 'ArrowLeft' ? Math.max(0, index - 1) : Math.min(parts.length - 1, index + 1);
+
+      this.#setSelectedPart(parts[newIndex]);
+    } else {
+      console.log(event.key);
     }
   }
 
@@ -391,5 +389,22 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     // Trigger a rerender so the calendar will be rendered
     this.requestUpdate();
+  }
+
+  #getSelectedPart(): DateFormatPart | null {
+    const selectionStart = this.input.selectionStart;
+
+    if (selectionStart !== null) {
+      const parts = getDateFormat(this.locale ?? 'default'),
+        part = parts.find(p => p.type !== 'literal' && selectionStart >= p.start && selectionStart <= p.end);
+
+      return part || null;
+    }
+
+    return null;
+  }
+
+  #setSelectedPart(part: DateFormatPart): void {
+    this.input.setSelectionRange(part.start, part.end);
   }
 }

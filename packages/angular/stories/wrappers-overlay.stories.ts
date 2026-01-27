@@ -155,7 +155,7 @@ export const MessageDialogCustomMessage: StoryObj = {
 export const MessageDialogDeclarative: StoryObj = {
   render: () => ({
     description:
-      'You can also use the <code>sl-message-dialog</code> component declaratively in your template by binding the <code>config</code> property and calling <code>showModal()</code>. However, the recommended approach is to use either the static methods (<code>MessageDialog.alert()</code>, <code>MessageDialog.confirm()</code>, <code>MessageDialog.show()</code>) or the <em>Message Dialog Service</em> available in Angular (see the corresponding story for details).',
+      'You can also use the <code>sl-message-dialog</code> component declaratively in your template by binding the <code>config</code> property and calling <code>showModal()</code>. However, the recommended approach is to use either the static methods (<code>MessageDialog.alert()</code>, <code>MessageDialog.confirm()</code>, <code>MessageDialog.show()</code>) or even better the <strong>Message Dialog Service</strong> available in Angular package (as described in a story of the same name in the root of the Angular stories).',
     props: {
       dialogConfig: {
         title: 'Declarative Dialog',

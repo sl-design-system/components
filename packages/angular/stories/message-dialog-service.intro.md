@@ -127,7 +127,7 @@ if (result === 'publish') {
 Closes all currently opened message dialogs. This method is useful when you need to close multiple message dialogs at once.
 
 **Parameters:**
-- `result` - Optional result to pass to all dialogs. This value will be emitted to all `afterClosed()` subscribers.
+- `result` (optional) - Result to pass to all dialogs. This value will be emitted to all `afterClosed()` subscribers.
 
 **Example:**
 ```typescript
@@ -219,9 +219,6 @@ export class MyDialogComponent {
 
 Configuration interface for opening a message dialog with the MessageDialogService.
 
-**Type Parameter:**
-- `T` - Type of the component to render (only needed when using a custom component)
-
 ```typescript
 interface MessageDialogServiceConfig<T> extends Partial<MessageDialogProps> {
   /** Angular component to render as message content */
@@ -232,6 +229,6 @@ interface MessageDialogServiceConfig<T> extends Partial<MessageDialogProps> {
 }
 ```
 
-The `MessageDialogServiceConfig` extends `Partial<MessageDialogProps>`, which includes all public properties from the MessageDialog component such as `title`, `buttons`, `disableCancel`, etc. See the [MessageDialog documentation](https://sanomalearning.design/categories/components/message-dialog/code/) for all available configuration options.
+The `MessageDialogServiceConfig` extends `Partial<MessageDialogProps>`, which includes all public properties from the MessageDialog component such as `title`, `message`, `buttons`, `disableCancel` etc. See the [MessageDialog documentation](https://sanomalearning.design/categories/components/message-dialog/code/) for all available configuration options.
 
 ---

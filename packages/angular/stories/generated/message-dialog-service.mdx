@@ -26,7 +26,7 @@ Opens a message dialog with a custom Angular component or simple message content
 
 For the message dialog configuration options like `title`, `buttons`, `disableCancel`, etc., see the [MessageDialog documentation](https://sanomalearning.design/categories/components/message-dialog/code/).
 
-**Returns:** A `MessageDialogRef<R>` to control the dialog and observe when it closes.
+**Returns:** a `MessageDialogRef<R>` to control the dialog and observe when it closes.
 
 **Example with Component:**
 
@@ -112,7 +112,7 @@ if (confirmed) {
 
 Shows a message dialog with custom configuration using the static MessageDialog API.
 
-**Note:** This method uses the static MessageDialog API and does not return a `MessageDialogRef`.
+This method uses the static MessageDialog API and does not return a `MessageDialogRef`.
 
 **Example:**
 ```typescript
@@ -138,7 +138,7 @@ if (result === 'publish') {
 Closes all currently opened message dialogs. This method is useful when you need to close multiple message dialogs at once.
 
 **Parameters:**
-- `result` - Optional result to pass to all dialogs. This value will be emitted to all `afterClosed()` subscribers.
+- `result` (optional) - Result to pass to all dialogs. This value will be emitted to all `afterClosed()` subscribers.
 
 **Example:**
 ```typescript
@@ -152,11 +152,14 @@ this.messageDialogService.closeAll('cancelled');
 ---
 
 ## MessageDialogRef API
+  
+The `MessageDialogRef` is a handle for interacting with an opened message dialog instance.
 
-The `MessageDialogRef<R>` class provides methods to control the dialog lifecycle and observe when it closes.
-
-**Type Parameter:**
-- `R` - Type of the value returned when the dialog closes
+Provides methods to control the dialog and observe when it closes.
+It's returned by `MessageDialogService.showModal()` and allows to:
+- Close the dialog programmatically with `close()`,
+- Subscribe to dialog close events with `afterClosed()`,
+- Pass a result value when closing that will be emitted to subscribers.
 
 ### Methods
 
@@ -227,9 +230,6 @@ export class MyDialogComponent {
 
 Configuration interface for opening a message dialog with the MessageDialogService.
 
-**Type Parameter:**
-- `T` - Type of the component to render (only needed when using a custom component)
-
 ```typescript
 interface MessageDialogServiceConfig<T> extends Partial<MessageDialogProps> {
   /** Angular component to render as message content */
@@ -240,89 +240,7 @@ interface MessageDialogServiceConfig<T> extends Partial<MessageDialogProps> {
 }
 ```
 
-The `MessageDialogServiceConfig` extends `Partial<MessageDialogProps>`, which includes all public properties from the MessageDialog component such as `title`, `message`, `buttons`, `disableCancel`, etc. See the [MessageDialog documentation](https://sanomalearning.design/categories/components/message-dialog/code/) for all available configuration options.
-
----
-
-## Common Use Cases
-
-### Simple Alert
-
-```typescript
-await this.messageDialogService.alert('Operation completed successfully!', 'Success');
-```
-
-### Confirmation Dialog
-
-```typescript
-const confirmed = await this.messageDialogService.confirm('Are you sure you want to delete this item?');
-
-if (confirmed) {
-  this.deleteItem();
-}
-```
-
-### Custom Dialog with Multiple Options
-
-```typescript
-const result = await this.messageDialogService.show({
-  title: 'Choose an option',
-  message: 'Please select how you want to proceed.',
-  buttons: [
-    { text: 'Cancel', value: 'cancel' },
-    { text: 'Save Draft', variant: 'default', value: 'draft' },
-    { text: 'Publish', variant: 'primary', value: 'publish' }
-  ]
-});
-
-if (result === 'publish') {
-  this.publishContent();
-}
-```
-
-### Dialog with Custom Component
-
-```typescript
-const dialogRef = this.messageDialogService.showModal<FormComponent, FormData>({
-  component: FormComponent,
-  data: { userId: 123 },
-  title: 'Edit User',
-  buttons: [
-    { text: 'Cancel', value: null },
-    { text: 'Save', variant: 'primary', value: 'save' }
-  ]
-});
-
-dialogRef.afterClosed().subscribe(result => {
-  if (result) {
-    this.saveFormData(result);
-  }
-});
-```
-
-### Non-Cancellable Dialog
-
-Use `disableCancel: true` for critical messages that require user acknowledgment:
-
-```typescript
-const dialogRef = this.messageDialogService.showModal({
-  title: 'Critical Error',
-  message: 'An error occurred. Please contact support.',
-  buttons: [{ text: 'OK', variant: 'primary', value: 'ok' }],
-  disableCancel: true  // Prevents Escape key and backdrop click
-});
-```
-
-### Close All Dialogs
-
-```typescript
-// Close all dialogs when navigating away
-this.router.events.pipe(
-  filter(event => event instanceof NavigationStart)
-).subscribe(() => {
-  this.messageDialogService.closeAll();
-});
-```
+The `MessageDialogServiceConfig` extends `Partial<MessageDialogProps>`, which includes all public properties from the MessageDialog component such as `title`, `message`, `buttons`, `disableCancel` etc. See the [MessageDialog documentation](https://sanomalearning.design/categories/components/message-dialog/code/) for all available configuration options.
 
 ---
 
@@ -355,7 +273,7 @@ import { ButtonComponent } from '@sl-design-system/angular/button';
       <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
         <sl-button (click)="showAlert()" variant="primary">Show Alert</sl-button>
         <sl-button (click)="showAlertNonCancellable()" variant="primary" fill="outline"
-          >Alert (Non-cancellable)</sl-button
+          >Alert (non-cancellable)</sl-button
         >
       </div>
     </div>
@@ -426,6 +344,7 @@ export class MessageDialogStaticMethodsComponent {
       ],
       disableCancel: true
     });
+
     console.log('User selected:', result);
   }
 
@@ -479,24 +398,24 @@ import { ButtonComponent } from '@sl-design-system/angular/button';
       max-width: 700px;
     }
   </style>
-  <h3>Custom Component Examples</h3>
+  <h3>Custom Angular component examples</h3>
   <div class="container">
     <div>
-      <h4>showModal() with Custom Component</h4>
+      <h4>showModal() with custom Angular component</h4>
       <p>
         Use <code>showModal()</code> to render a custom Angular component as the message content. Pass data via the
         <code>data</code> property and access it with <code>&#64;Inject('MESSAGE_DIALOG_DATA')</code>.
       </p>
-      <sl-button (click)="showWithComponent()" variant="primary">Show with Component</sl-button>
+      <sl-button (click)="showWithComponent()" variant="primary">Show with custom component</sl-button>
     </div>
 
     <div>
-      <h4>Non-cancellable Dialog with Component</h4>
+      <h4>Non-cancellable dialog with Angular component</h4>
       <p>
         Use <code>disableCancel: true</code> to prevent users from dismissing critical dialogs. When enabled, the
         dialog cannot be closed by pressing Escape or clicking the backdrop, ensuring users must explicitly respond.
       </p>
-      <sl-button (click)="showCriticalAction()" variant="danger">Critical Action</sl-button>
+      <sl-button (click)="showCriticalAction()" variant="danger">Critical action</sl-button>
     </div>
   </div>
 `,
@@ -549,7 +468,7 @@ The examples above use the following custom component(s):
   standalone: true,
   imports: [CommonModule],
   template: `
-  <h3>Custom Message Content</h3>
+  <h3>Custom message content</h3>
   <p>You can <em>customize</em> the message with <strong>HTML</strong>!</p>
   <p>Message data: {{ data }}</p>
 `
@@ -586,7 +505,7 @@ import { ButtonComponent } from '@sl-design-system/angular/button';
     <div>
       <h4>Multiple dialogs</h4>
       <p>Open multiple dialogs simultaneously and manage them independently.</p>
-      <sl-button (click)="openMultipleDialogs()" variant="primary">Open Multiple Dialogs</sl-button>
+      <sl-button (click)="openMultipleDialogs()" variant="primary">Open multiple dialogs</sl-button>
       <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--sl-color-foreground-subtlest);">
         Each dialog has its own close button. You can also programmatically close all dialogs using
         <code>closeAll()</code> in your code.

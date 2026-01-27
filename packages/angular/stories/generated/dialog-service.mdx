@@ -26,7 +26,7 @@ Opens a dialog with a custom Angular component.
 
 For general dialog configuration options like `closeButton`, `disableCancel`, etc., see the [Dialog API documentation](https://sanomalearning.design/categories/components/dialog/code/).
 
-**Returns:** `DialogRef<R>` - A reference to control the dialog and observe when it closes.
+**Returns:** `DialogRef<R>` a reference to control the dialog and observe when it closes.
 
 **Example:**
 
@@ -65,7 +65,7 @@ dialogRef.afterClosed().subscribe(result => {
 
 #### `closeAll(result?: unknown): void`
 
-Closes all currently opened dialogs at once. This is useful when you need to close multiple dialogs simultaneously.
+Closes all currently opened dialogs at once. This could be useful when you need to close multiple dialogs simultaneously.
 
 **Parameters:**
 - `result` - Optional result value to pass to all dialogs. This value will be emitted to all `afterClosed()` subscribers.

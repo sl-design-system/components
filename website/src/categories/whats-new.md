@@ -20,6 +20,35 @@ eleventyNavigation:
 <section>
 
 ## SL Design System Update
+<small>January 2026</small>
+
+Here’s an update on what we’ve been working on recently:
+
+### New Components and Features
+- **Calendar** - New version of the component with improved styling and accessibility. <ds-status status="draft"></ds-status>
+- **Shared** - New utilities added to the shared package for potential reuse across components:
+  - `dateListConverter` - Utility for date list conversions
+  - `NewFocusGroupController` - Utility for focus management
+  
+  Both utilities are currently used in the Calendar component and have been added to `@sl-design-system/shared` for potential reuse in other packages in the future.
+
+### Other Improvements
+We have been working on a lot of bug fixes, the details can be found on our [release notes page](https://github.com/sl-design-system/components/blob/main/RELEASE_NOTES.md). The following components have one or more issues resolved:
+- [`accordion`](https://github.com/sl-design-system/components/blob/main/packages/components/accordion/CHANGELOG.md)
+- [`announcer`](https://github.com/sl-design-system/components/blob/main/packages/components/announcer/CHANGELOG.md)
+- [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md)
+- [`date-field`](https://github.com/sl-design-system/components/blob/main/packages/components/date-field/CHANGELOG.md)
+- [`number-field`](https://github.com/sl-design-system/components/blob/main/packages/components/number-field/CHANGELOG.md)
+- [`select`](https://github.com/sl-design-system/components/blob/main/packages/components/select/CHANGELOG.md)
+- [`tabs`](https://github.com/sl-design-system/components/blob/main/packages/components/tabs/CHANGELOG.md)
+
+### Documentation Updates
+- [Number Field](/categories/components/number-field/code/) - API documentation has been improved.
+
+</section>
+<section>
+
+## SL Design System Update
 <small>August - December 2025</small>
 
 Here's an update on what we've been working on recently:

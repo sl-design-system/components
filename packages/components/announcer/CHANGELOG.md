@@ -1,5 +1,14 @@
 # @sl-design-system/announcer
 
+## 0.0.6
+
+### Patch Changes
+
+- [#2636](https://github.com/sl-design-system/components/pull/2636) [`e3eb2de`](https://github.com/sl-design-system/components/commit/e3eb2de61e86203aab22cd55bbad4cc058e66a2d) - Remove wildcard exports because of vitest errors
+
+- Updated dependencies [[`e3eb2de`](https://github.com/sl-design-system/components/commit/e3eb2de61e86203aab22cd55bbad4cc058e66a2d)]:
+  - @sl-design-system/shared@0.10.0
+
 ## 0.0.5
 
 ### Patch Changes

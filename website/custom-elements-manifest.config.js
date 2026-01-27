@@ -1,5 +1,5 @@
 import { getTsProgram, expandTypesPlugin } from 'cem-plugin-expanded-types';
-import { methodAndFieldPlugin, noPrivateFieldsPlugin, sortMembersPlugin } from '../scripts/cem-plugins.js';
+import { methodAndFieldPlugin, noPrivateFieldsPlugin, sortMembersPlugin, omitPlugin } from '../scripts/cem-plugins.js';
 import { eventDecoratorPlugin } from '../scripts/cem-plugin-event-decorator.js';
 
 export default {
@@ -13,7 +13,8 @@ export default {
     methodAndFieldPlugin('method'),
     methodAndFieldPlugin('field'),
     sortMembersPlugin(),
-    expandTypesPlugin()
+    expandTypesPlugin(),
+    omitPlugin()
   ],
 
   /** Overrides default module creation: */

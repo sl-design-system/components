@@ -1,8 +1,8 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
-import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { type NumberField } from './number-field.js';
 
@@ -32,6 +32,17 @@ describe('sl-number-field', () => {
 
     it('should have a numeric inputmode', () => {
       expect(el.querySelector('input')).to.have.attribute('inputmode', 'numeric');
+    });
+
+    it('should always have type "text"', () => {
+      expect(el.type).to.equal('text');
+    });
+
+    it('should not allow changing the type property via attribute', async () => {
+      el.setAttribute('type', 'number');
+      await el.updateComplete;
+
+      expect(el.type).to.equal('text');
     });
 
     it('should not have a placeholder', () => {

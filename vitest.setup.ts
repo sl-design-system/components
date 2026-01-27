@@ -1,9 +1,11 @@
-import { commands } from '@vitest/browser/context'
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
+import chaiDatetime from 'chai-datetime';
 import chaiDom from 'chai-dom';
 import sinonChai from 'sinon-chai';
 import { chai } from 'vitest';
+import { commands } from 'vitest/browser'
 
+chai.use(chaiDatetime);
 chai.use(chaiDom);
 chai.use(sinonChai);
 

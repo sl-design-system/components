@@ -1,5 +1,12 @@
 # @sl-design-system/tooltip
 
+## 1.3.1
+
+### Patch Changes
+
+- Updated dependencies [[`e3eb2de`](https://github.com/sl-design-system/components/commit/e3eb2de61e86203aab22cd55bbad4cc058e66a2d)]:
+  - @sl-design-system/shared@0.10.0
+
 ## 1.3.0
 
 ### Minor Changes

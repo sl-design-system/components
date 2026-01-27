@@ -1,5 +1,16 @@
 # @sl-design-system/date-field
 
+## 0.0.5
+
+### Patch Changes
+
+- [#2636](https://github.com/sl-design-system/components/pull/2636) [`e3eb2de`](https://github.com/sl-design-system/components/commit/e3eb2de61e86203aab22cd55bbad4cc058e66a2d) - Make a date-field working with dates (not dates and hours).
+
+- Updated dependencies [[`e3eb2de`](https://github.com/sl-design-system/components/commit/e3eb2de61e86203aab22cd55bbad4cc058e66a2d)]:
+  - @sl-design-system/calendar@0.0.4
+  - @sl-design-system/form@1.3.3
+  - @sl-design-system/text-field@1.6.7
+
 ## 0.0.4
 
 ### Patch Changes

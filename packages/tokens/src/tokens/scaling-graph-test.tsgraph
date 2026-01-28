@@ -1,0 +1,32 @@
+{
+	"edges": [],
+	"nodes": [
+		{
+			"id": "3655289d-7b19-4249-9485-a3b3ac4b7610",
+			"type": "studio.tokens.generic.output",
+			"inputs": [
+				{
+					"name": "tokenSet",
+					"type": {
+						"$id": "https://schemas.tokens.studio/tokenSet.json",
+						"type": "object",
+						"title": "Token Set"
+					},
+					"value": {},
+					"annotations": {
+						"ui.editable": false,
+						"engine.deletable": false
+					}
+				}
+			],
+			"annotations": {
+				"engine.singleton": true,
+				"engine.dynamicInputs": false
+			}
+		}
+	],
+	"annotations": {
+		"engine.id": "8b373552-9193-4af1-988c-a06a866dc63a",
+		"engine.version": "0.12.0"
+	}
+}

@@ -735,7 +735,7 @@ describe('sl-time-field', () => {
     });
   });
 
-  describe.only('locale', () => {
+  describe('locale', () => {
     it('should set the lang attribute on the input when lang prop is set', async () => {
       el = await fixture(html`<sl-time-field lang="fi"></sl-time-field>`);
       expect(el.input).to.have.attribute('lang', 'fi');

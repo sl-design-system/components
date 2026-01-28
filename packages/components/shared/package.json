@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/shared",
-  "version": "0.9.2",
+  "version": "0.10.0",
   "description": "Shared code for the SL Design System components",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -19,6 +19,10 @@
     ".": {
       "import": "./index.js",
       "types": "./index.d.ts"
+    },
+    "./controllers/focus-group.js": {
+      "import": "./src/controllers/new-focus-group.js",
+      "types": "./src/controllers/new-focus-group.d.ts"
     },
     "./converters.js": {
       "import": "./src/converters.js",

@@ -350,9 +350,41 @@
   <source>Select minutes</source>
   <target>Selecteer minuten</target>
 </trans-unit>
+<trans-unit id="sl.calendar.daysLabel">
+  <source>Days of <x id="0" equiv-text="${format(this.month ?? new Date(), this.locale, { month: 'long', year: 'numeric' })}"/></source>
+  <target>Dagen van <x id="0" equiv-text="${format(this.month ?? new Date(), this.locale, { month: 'long', year: 'numeric' })}"/></target>
+</trans-unit>
+<trans-unit id="sl.monthView.week">
+  <source>Week <x id="0" equiv-text="${week.number}"/></source>
+  <target>Week <x id="0" equiv-text="${week.number}"/></target>
+</trans-unit>
+<trans-unit id="sl.calendar.monthsLabel">
+  <source>Months of <x id="0" equiv-text="${currentYear}"/></source>
+  <target>Maanden van <x id="0" equiv-text="${currentYear}"/></target>
+</trans-unit>
+<trans-unit id="sl.calendar.announceMonthsOfYear">
+  <source>Months of the year <x id="0" equiv-text="${Intl.DateTimeFormat(this.locale, { year: 'numeric' }).format(month)}"/></source>
+  <target>Maanden van het jaar <x id="0" equiv-text="${Intl.DateTimeFormat(this.locale, { year: 'numeric' }).format(month)}"/></target>
+</trans-unit>
+<trans-unit id="sl.calendar.yearsLabel">
+  <source>Years from <x id="0" equiv-text="${this.years.at(0)!}"/> to <x id="1" equiv-text="${this.years.at(-1)!}"/></source>
+  <target>Jaren van <x id="0" equiv-text="${this.years.at(0)!}"/> tot <x id="1" equiv-text="${this.years.at(-1)!}"/></target>
+</trans-unit>
+<trans-unit id="sl.calendar.announceYears">
+  <source>Years between <x id="0" equiv-text="${yearsRange.at(0) ?? ''}"/> and <x id="1" equiv-text="${yearsRange.at(-1) ?? ''}"/></source>
+  <target>Jaren tussen <x id="0" equiv-text="${yearsRange.at(0) ?? ''}"/> en <x id="1" equiv-text="${yearsRange.at(-1) ?? ''}"/></target>
+</trans-unit>
 <trans-unit id="sl.timeField.typeMismatch">
   <source>Please enter a valid time in HH<x id="0" equiv-text="${this.#getTimeSeparator()}"/>MM.</source>
   <target>Voer een geldige tijd in als HH<x id="0" equiv-text="${this.#getTimeSeparator()}"/>MM.</target>
+</trans-unit>
+<trans-unit id="sl.calendar.changeMonth">
+  <source><x id="0" equiv-text="${format(this.displayMonth!, this.locale, { month: 'long' })}"/>, change month</source>
+  <target><x id="0" equiv-text="${format(this.displayMonth!, this.locale, { month: 'long' })}"/>, verander maand</target>
+</trans-unit>
+<trans-unit id="sl.calendar.changeYear">
+  <source><x id="0" equiv-text="${format(this.displayMonth!, this.locale, { year: 'numeric' })}"/>, change year</source>
+  <target><x id="0" equiv-text="${format(this.displayMonth!, this.locale, { year: 'numeric' })}"/>, verander jaar</target>
 </trans-unit>
 </body>
 </file>

@@ -1,5 +1,18 @@
 # @sl-design-system/number-field
 
+## 0.1.6
+
+### Patch Changes
+
+- [#2925](https://github.com/sl-design-system/components/pull/2925) [`a4b0830`](https://github.com/sl-design-system/components/commit/a4b08300a281271465ccf0c322354faf3e2d0938) - Trigger validity check for min/max changes
+
+- [#2933](https://github.com/sl-design-system/components/pull/2933) [`b0189d1`](https://github.com/sl-design-system/components/commit/b0189d1f673e35a8d2b8ad54b514292314854649) - Fixes `type` attribute to always be set to `text`. It is no longer possible to set other `type` values like `number`, which were invalid.
+
+- Updated dependencies [[`e3eb2de`](https://github.com/sl-design-system/components/commit/e3eb2de61e86203aab22cd55bbad4cc058e66a2d)]:
+  - @sl-design-system/shared@0.10.0
+  - @sl-design-system/format-number@0.0.6
+  - @sl-design-system/text-field@1.6.7
+
 ## 0.1.5
 
 ### Patch Changes

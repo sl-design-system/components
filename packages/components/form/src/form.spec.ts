@@ -2,10 +2,10 @@ import { ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements
 import { TextField } from '@sl-design-system/text-field';
 import '@sl-design-system/text-field/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
-import { userEvent } from '@vitest/browser/context';
 import { LitElement, html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { FormField } from './form-field.js';
 import { Form } from './form.js';
@@ -380,6 +380,87 @@ describe('sl-form', () => {
 
       const types = el.controls.map(c => c.constructor.name);
       expect(types).to.deep.equal(['TextField', 'TextField']);
+    });
+  });
+
+  describe('updateComplete', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-form>
+          <sl-form-field label="Foo">
+            <sl-text-field name="foo" value="lorem"></sl-text-field>
+          </sl-form-field>
+
+          <sl-form-field label="Bar">
+            <sl-text-field name="bar" value="ipsum" required></sl-text-field>
+          </sl-form-field>
+        </sl-form>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+    });
+
+    it('should be valid when the form is valid', async () => {
+      expect(el.valid).to.be.true;
+
+      await el.updateComplete;
+
+      expect(el.valid).to.be.true;
+    });
+
+    it('should be invalid when the form is invalid', async () => {
+      const textField = el.querySelector<TextField>('sl-text-field[name="bar"]');
+      if (textField) {
+        textField.value = '';
+      }
+
+      await el.updateComplete;
+
+      expect(el.valid).to.be.false;
+    });
+
+    it('should wait for form controls to update before returning validity', async () => {
+      const textField = el.querySelector<TextField>('sl-text-field[name="bar"]');
+      expect(el.valid).to.be.true;
+
+      if (textField) {
+        textField.value = '';
+      }
+
+      expect(el.valid).to.be.true;
+      await el.updateComplete;
+      expect(el.valid).to.be.false;
+    });
+
+    it('should handle multiple controls changing at once', async () => {
+      const fooField = el.querySelector<TextField>('sl-text-field[name="foo"]');
+      const barField = el.querySelector<TextField>('sl-text-field[name="bar"]');
+
+      if (fooField) {
+        fooField.value = '';
+      }
+      if (barField) {
+        barField.value = '';
+      }
+
+      await el.updateComplete;
+      expect(el.valid).to.be.false;
+    });
+
+    it('should return correct validity after field becomes valid again', async () => {
+      const barField = el.querySelector<TextField>('sl-text-field[name="bar"]');
+
+      if (barField) {
+        barField.value = '';
+      }
+      await el.updateComplete;
+      expect(el.valid).to.be.false;
+
+      if (barField) {
+        barField.value = 'new value';
+      }
+      await el.updateComplete;
+      expect(el.valid).to.be.true;
     });
   });
 });

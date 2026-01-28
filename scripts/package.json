@@ -7,8 +7,12 @@
   "type": "module",
   "scripts": {
     "import-tokens": "yarn exec tokensstudio pull --host graphql.prod.tokens.studio",
+    "import-tokens-deprecated": "yarn workspace deprecated-tokens exec tokensstudio pull --host graphql.prod.tokens.studio",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "workspaces": [
+    "deprecated-tokens"
+  ],
   "devDependencies": {
     "@figma-export/cli": "^6.2.3",
     "@figma-export/output-components-as-svg": "^6.2.3",
@@ -24,7 +28,7 @@
     "@fortawesome/sharp-regular-svg-icons": "^7.1.0",
     "@fortawesome/sharp-solid-svg-icons": "^7.1.0",
     "@tokens-studio/sd-transforms": "^2.0.1",
-    "@tokens-studio/sdk": "^3.0.0",
+    "@tokens-studio/sdk": "^3.0.1",
     "cssnano": "^7.1.1",
     "esbuild": "^0.25.11",
     "fast-glob": "^3.3.3",

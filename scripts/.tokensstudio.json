@@ -1,7 +1,7 @@
 {
-  "version": "2",
+  "version": "3",
   "org": "6913ed26-3287-4d08-acea-44c122978e4f",
-  "project": "baa983ae-54f5-4d92-93a3-fbda703c196d",
+  "project": "f074556e-aefb-4766-a712-659c98718f3d",
   "branch": "main",
   "release": "",
   "output": "../packages/tokens/src"

@@ -223,7 +223,7 @@ export class MyDialogComponent {
 Configuration interface for opening a message dialog with the MessageDialogService.
 
 ```typescript
-interface MessageDialogServiceConfig<T> extends Partial<MessageDialogProps> {
+interface MessageDialogServiceConfig<T> {
   /** Component to render in the message dialog */
   component?: Type<T>;
   
@@ -244,6 +244,6 @@ interface MessageDialogServiceConfig<T> extends Partial<MessageDialogProps> {
 }
 ```
 
-The `MessageDialogServiceConfig` extends `Partial<MessageDialogProps>`, which includes all public properties from the MessageDialog component. The most commonly used properties (`message`, `title`, `buttons`, `disableCancel`) are explicitly listed above for type safety.
+All properties are optional, allowing you to customize the message dialog based on your needs. Use `component` and `data` for complex dialogs with custom Angular components, or use `message` for simple message dialogs.
 
 ---

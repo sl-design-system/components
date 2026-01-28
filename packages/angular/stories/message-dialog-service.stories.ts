@@ -240,8 +240,8 @@ export class MessageDialogCustomComponentExampleComponent {
         <h4>Multiple dialogs</h4>
         <p>Open multiple dialogs simultaneously and manage them independently.</p>
         <sl-button (click)="openMultipleDialogs()" variant="primary">Open multiple dialogs</sl-button>
-        <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--sl-color-foreground-subtlest);">
-          Each dialog has its own close button. You can also programmatically close all dialogs using
+        <p style="margin-block-start: 0.5rem; font-size: 0.85rem; color: var(--sl-color-foreground-subtlest);">
+          You can also programmatically close all dialogs using
           <code>closeAll()</code> in your code.
         </p>
       </div>

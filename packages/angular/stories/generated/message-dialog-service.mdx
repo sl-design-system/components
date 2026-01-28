@@ -234,7 +234,7 @@ export class MyDialogComponent {
 Configuration interface for opening a message dialog with the MessageDialogService.
 
 ```typescript
-interface MessageDialogServiceConfig<T> extends Partial<MessageDialogProps> {
+interface MessageDialogServiceConfig<T> {
   /** Component to render in the message dialog */
   component?: Type<T>;
   
@@ -255,7 +255,7 @@ interface MessageDialogServiceConfig<T> extends Partial<MessageDialogProps> {
 }
 ```
 
-The `MessageDialogServiceConfig` extends `Partial<MessageDialogProps>`, which includes all public properties from the MessageDialog component. The most commonly used properties (`message`, `title`, `buttons`, `disableCancel`) are explicitly listed above for type safety.
+All properties are optional, allowing you to customize the message dialog based on your needs. Use `component` and `data` for complex dialogs with custom Angular components, or use `message` for simple message dialogs.
 
 ---
 
@@ -524,8 +524,8 @@ import { ButtonComponent } from '@sl-design-system/angular/button';
       <h4>Multiple dialogs</h4>
       <p>Open multiple dialogs simultaneously and manage them independently.</p>
       <sl-button (click)="openMultipleDialogs()" variant="primary">Open multiple dialogs</sl-button>
-      <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--sl-color-foreground-subtlest);">
-        Each dialog has its own close button. You can also programmatically close all dialogs using
+      <p style="margin-block-start: 0.5rem; font-size: 0.85rem; color: var(--sl-color-foreground-subtlest);">
+        You can also programmatically close all dialogs using
         <code>closeAll()</code> in your code.
       </p>
     </div>

@@ -13,18 +13,8 @@ import '@sl-design-system/message-dialog/register.js';
 import { type TemplateResult } from 'lit';
 import { Observable, Subject } from 'rxjs';
 
-/**  Utility type to get all public properties from the MessageDialog, plus 'component' and 'data' properties additionally. */
-type MessageDialogProps = Omit<
-  {
-    [K in keyof MessageDialog as MessageDialog[K] extends (...args: unknown[]) => unknown
-      ? never
-      : K]: MessageDialog[K];
-  },
-  'component' | 'data'
->;
-
 /** Configuration for opening a message dialog with the MessageDialogService. */
-export interface MessageDialogServiceConfig<T> extends Partial<MessageDialogProps> {
+export interface MessageDialogServiceConfig<T> {
   /** Component to render in the message dialog. */
   component?: Type<T>;
 
@@ -84,64 +74,14 @@ export class MessageDialogRef<T = unknown> {
   /** Result passed when closing the dialog. */
   #result?: T;
 
-  /**
-   * Callback function for handling the native close event from the internal dialog element.
-   * This is invoked when the native `<dialog>` element fires its 'close' event.
-   * It notifies subscribers via afterClosed() when the dialog is closed, either by user action or programmatically.
-   */
-  #onClose: () => void;
-
-  /**
-   * Callback function for handling the sl-cancel event from the message dialog.
-   * This is invoked when the message dialog emits the 'sl-cancel' custom event.
-   * It notifies subscribers via afterClosed() when the dialog is cancelled.
-   */
-  #onCancel: () => void;
-
   /** Message dialog element reference. */
   dialog: MessageDialog;
-
-  /** Internal dialog element reference (for event listening). */
-  #internalDialog?: HTMLDialogElement;
 
   constructor(
     dialog: MessageDialog,
     private ngZone: NgZone
   ) {
     this.dialog = dialog;
-
-    this.#onClose = () => {
-      requestAnimationFrame(() => {
-        this.ngZone.run(() => {
-          if (this.#manualClose) {
-            this.#afterClosedSubject.next(this.#result);
-          } else {
-            this.#afterClosedSubject.next(undefined);
-          }
-          this.#afterClosedSubject.complete();
-        });
-      });
-    };
-
-    this.#onCancel = () => {
-      requestAnimationFrame(() => {
-        this.ngZone.run(() => {
-          this.#afterClosedSubject.next(undefined);
-          this.#afterClosedSubject.complete();
-        });
-      });
-    };
-
-    // Wait for the component to be ready and get the internal dialog element
-    void this.dialog.updateComplete.then(() => {
-      this.#internalDialog = this.dialog.shadowRoot?.querySelector('dialog') ?? undefined;
-      if (this.#internalDialog) {
-        // Listen to native 'close' event from the internal dialog element
-        this.#internalDialog.addEventListener('close', this.#onClose);
-      }
-    });
-
-    this.dialog.addEventListener('sl-cancel', this.#onCancel);
   }
 
   /** Returns an Observable that emits when the dialog closes. */
@@ -157,7 +97,11 @@ export class MessageDialogRef<T = unknown> {
   close(result?: T): void {
     this.#manualClose = true;
     this.#result = result;
-    this.dialog.close();
+
+    // Wait for the dialog to be ready before closing it
+    void this.dialog.updateComplete.then(() => {
+      this.dialog.close();
+    });
   }
 
   /** @internal Set the result value (used internally by the service). */
@@ -166,12 +110,32 @@ export class MessageDialogRef<T = unknown> {
     this.#result = result;
   }
 
-  /** A method to clean up the event listeners. */
-  destroy(): void {
-    if (this.#internalDialog) {
-      this.#internalDialog.removeEventListener('close', this.#onClose);
-    }
-    this.dialog.removeEventListener('sl-cancel', this.#onCancel);
+  /**
+   * @internal
+   * Emit the result when the dialog closes.
+   * Called by the service after animations complete.
+   */
+  emitClose(): void {
+    this.ngZone.run(() => {
+      if (this.#manualClose) {
+        this.#afterClosedSubject.next(this.#result);
+      } else {
+        this.#afterClosedSubject.next(undefined);
+      }
+      this.#afterClosedSubject.complete();
+    });
+  }
+
+  /**
+   * @internal
+   * Emit undefined when the dialog is cancelled.
+   * Called by the service when the sl-cancel event fires.
+   */
+  emitCancel(): void {
+    this.ngZone.run(() => {
+      this.#afterClosedSubject.next(undefined);
+      this.#afterClosedSubject.complete();
+    });
   }
 }
 
@@ -295,7 +259,7 @@ export class MessageDialogService {
     config: MessageDialogServiceConfig<unknown>
   ): void {
     const buttons = dialog.shadowRoot?.querySelectorAll('sl-button'),
-     configButtons = config.buttons as Array<MessageDialogButton<R>> | undefined;
+      configButtons = config.buttons as Array<MessageDialogButton<R>> | undefined;
 
     if (buttons && configButtons) {
       buttons.forEach((buttonElement, index) => {
@@ -351,8 +315,35 @@ export class MessageDialogService {
     const internalDialog = dialog.shadowRoot?.querySelector('dialog');
 
     if (internalDialog) {
-      internalDialog.addEventListener('close', () => this.#cleanup(dialogRef, componentRef, dialog), { once: true });
+      internalDialog.addEventListener(
+        'close',
+        async () => {
+          // Wait until all animations have finished before cleaning up
+          await Promise.allSettled(internalDialog.getAnimations({ subtree: true }).map(a => a.finished));
+
+          // Emit the result to subscribers
+          dialogRef.emitClose();
+
+          // Clean up after animations complete
+          this.#cleanup(dialogRef, componentRef, dialog);
+        },
+        { once: true }
+      );
     }
+
+    dialog.addEventListener(
+      'sl-cancel',
+      async () => {
+        // Wait until all animations have finished before emitting cancel
+        const internalDialogElement = dialog.shadowRoot?.querySelector('dialog');
+        if (internalDialogElement) {
+          await Promise.allSettled(internalDialogElement.getAnimations({ subtree: true }).map(a => a.finished));
+        }
+
+        dialogRef.emitCancel();
+      },
+      { once: true }
+    );
   }
 
   /**
@@ -463,9 +454,6 @@ export class MessageDialogService {
 
       // Remove from opened dialogs list
       this.#openedDialogs.splice(index, 1);
-
-      // Clean up event listeners
-      dialogRef.destroy();
 
       // Clean up component if it exists
       if (componentRef) {

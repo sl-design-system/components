@@ -125,7 +125,9 @@ if (result === 'publish') {
 
 #### `closeAll(result?: unknown): void`
 
-Closes all currently opened message dialogs. This method is useful when you need to close multiple message dialogs at once.
+Closes all currently opened message dialogs.
+
+This method is useful when you need to close multiple message dialogs at once, for example when navigating away from a page or when a critical error occurs that should dismiss all open dialogs.
 
 **Parameters:**
 - `result` (optional) - Result to pass to all dialogs. This value will be emitted to all `afterClosed()` subscribers.

@@ -88,16 +88,16 @@ export class MessageDialogRef<T = unknown> {
   #result?: T;
 
   /**
-   * Callback function type for handling the dialog close event.
-   * This property holds a reference to a function that is invoked when the dialog emits the `sl-close` event.
-   * It is used internally to notify subscribers and perform cleanup when the dialog is closed, either by user action or programmatically.
+   * Callback function for handling the native close event from the internal dialog element.
+   * This is invoked when the native `<dialog>` element fires its 'close' event.
+   * It notifies subscribers via afterClosed() when the dialog is closed, either by user action or programmatically.
    */
   #onClose: () => void;
 
   /**
-   * Callback function type for handling the dialog cancel event.
-   * This property holds a reference to a function that is invoked when the dialog emits the `sl-cancel` event.
-   * It is used internally to notify subscribers when the dialog is cancelled.
+   * Callback function for handling the sl-cancel event from the message dialog.
+   * This is invoked when the message dialog emits the 'sl-cancel' custom event.
+   * It notifies subscribers via afterClosed() when the dialog is cancelled.
    */
   #onCancel: () => void;
 
@@ -223,7 +223,8 @@ export class MessageDialogService {
   ): void {
     const hostElement = componentRef.location.nativeElement as HTMLElement;
 
-    dialog.config = this.#createDialogConfig<R>(config, '', dialogRef);
+    // Create the dialog config - pass button values but don't use them to set result
+    dialog.config = this.#createDialogConfig<R>(config, '', dialogRef, false);
 
     this.#openedDialogs.push(dialogRef as MessageDialogRef<unknown>);
 
@@ -233,16 +234,21 @@ export class MessageDialogService {
     this.ngZone.runOutsideAngular(() => {
       requestAnimationFrame(() => {
         void dialog.updateComplete.then(() => {
-          // Move component content into message dialog
+          // Move component content into the message dialog
+          // MessageDialog renders the message inside a <p> element by default.
+          // We replace it with a <div> to avoid invalid HTML when the component contains block-level elements.
           const messageElement = dialog.shadowRoot?.querySelector('p');
 
           if (messageElement && hostElement.firstChild) {
-            messageElement.innerHTML = '';
-
+            const container = document.createElement('div');
             while (hostElement.firstChild) {
-              messageElement.appendChild(hostElement.firstChild);
+              container.appendChild(hostElement.firstChild);
             }
+            messageElement.replaceWith(container);
           }
+
+          // Set up button click listeners to capture result
+          this.#setupButtonClickListeners(dialog, dialogRef, config);
 
           dialog.showModal();
 
@@ -254,10 +260,6 @@ export class MessageDialogService {
         });
       });
     });
-
-    dialog.addEventListener('sl-cancel', () => {
-      this.#cleanup(dialogRef, componentRef, dialog);
-    });
   }
 
   #setupMessageDialog<R>(
@@ -267,7 +269,8 @@ export class MessageDialogService {
   ): void {
     const messageConfig = config as { message?: string | TemplateResult };
 
-    dialog.config = this.#createDialogConfig<R>(config, messageConfig.message || '', dialogRef);
+    // Create the dialog config - pass button values but don't use them to set result
+    dialog.config = this.#createDialogConfig<R>(config, messageConfig.message || '', dialogRef, false);
 
     this.#openedDialogs.push(dialogRef as MessageDialogRef<unknown>);
 
@@ -275,20 +278,50 @@ export class MessageDialogService {
 
     this.ngZone.runOutsideAngular(() => {
       void dialog.updateComplete.then(() => {
+        // Set up button click listeners to capture result
+        this.#setupButtonClickListeners(dialog, dialogRef, config);
+
         dialog.showModal();
         this.#setupCleanupListeners(dialog, dialogRef, undefined);
       });
     });
+  }
 
-    dialog.addEventListener('sl-cancel', () => {
-      this.#cleanup(dialogRef, undefined, dialog);
-    });
+  /**
+   * Set up click listeners on buttons in the shadow DOM to capture the result
+   * before the native close event fires.
+   * This ensures afterClosed() emits the correct value.
+   */
+  #setupButtonClickListeners<R>(
+    dialog: MessageDialog<R>,
+    dialogRef: MessageDialogRef<R>,
+    config: MessageDialogServiceConfig<unknown>
+  ): void {
+    const buttons = dialog.shadowRoot?.querySelectorAll('sl-button'),
+     configButtons = config.buttons as Array<MessageDialogButton<R>> | undefined;
+
+    if (buttons && configButtons) {
+      buttons.forEach((buttonElement, index) => {
+        const configButton = configButtons[index];
+
+        if (configButton && configButton.value !== undefined) {
+          buttonElement.addEventListener(
+            'click',
+            () => {
+              dialogRef.setResult(configButton.value as R);
+            },
+            { once: true, capture: true }
+          );
+        }
+      });
+    }
   }
 
   #createDialogConfig<R>(
     config: MessageDialogServiceConfig<unknown>,
     message: string | TemplateResult,
-    dialogRef: MessageDialogRef<R>
+    dialogRef: MessageDialogRef<R>,
+    includeValueInAction = true
   ): MessageDialogConfig<R> {
     const { title, buttons, disableCancel } = config as {
       title?: string;
@@ -302,7 +335,8 @@ export class MessageDialogService {
       buttons: buttons?.map(button => ({
         ...button,
         action: () => {
-          if (button.value !== undefined) {
+          // Only set result in action if explicitly requested
+          if (includeValueInAction && button.value !== undefined) {
             dialogRef.setResult(button.value);
           }
           button.action?.();
@@ -424,18 +458,28 @@ export class MessageDialogService {
   ): void {
     this.ngZone.run(() => {
       const index = this.#openedDialogs.indexOf(dialogRef as MessageDialogRef<unknown>);
-      if (index > -1) {
-        this.#openedDialogs.splice(index, 1);
+
+      // If dialog is not in the list, it's already been cleaned up
+      if (index === -1) {
+        return;
       }
 
+      // Remove from opened dialogs list
+      this.#openedDialogs.splice(index, 1);
+
+      // Clean up event listeners
       dialogRef.destroy();
 
+      // Clean up component if it exists
       if (componentRef) {
         this.appRef.detachView(componentRef.hostView);
         componentRef.destroy();
       }
 
-      dialog.parentNode?.removeChild(dialog);
+      // Remove dialog from DOM if it's still there
+      if (dialog.parentNode) {
+        dialog.parentNode.removeChild(dialog);
+      }
     });
   }
 }

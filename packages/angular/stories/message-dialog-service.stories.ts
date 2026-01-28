@@ -193,6 +193,13 @@ export class MessageDialogCustomComponentExampleComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('Component dialog closed with result:', result);
+      if (result === 'ok') {
+        console.log('User clicked OK button');
+      } else if (result === 'cancel') {
+        console.log('User clicked Cancel button');
+      } else {
+        console.log('Dialog was dismissed without clicking a button');
+      }
     });
   }
 
@@ -207,6 +214,9 @@ export class MessageDialogCustomComponentExampleComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('Critical action dialog closed with result:', result);
+      if (result === 'proceed') {
+        console.log('User acknowledged and proceeded with critical action');
+      }
     });
   }
 }
@@ -255,7 +265,10 @@ export class MessageDialogAdvancedExampleComponent {
     });
 
     dialog1.afterClosed().subscribe(result => {
-      console.log('First dialog result:', result);
+      console.log('First dialog closed with result:', result);
+      if (result === 'ok1') {
+        console.log('✓ First dialog button value received correctly!');
+      }
     });
 
     setTimeout(() => {
@@ -266,7 +279,10 @@ export class MessageDialogAdvancedExampleComponent {
       });
 
       dialog2.afterClosed().subscribe(result => {
-        console.log('Second dialog result:', result);
+        console.log('Second dialog closed with result:', result);
+        if (result === 'ok2') {
+          console.log('✓ Second dialog button value received correctly!');
+        }
       });
     }, 500);
   }

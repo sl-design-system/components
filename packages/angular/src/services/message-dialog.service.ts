@@ -389,8 +389,7 @@ export class MessageDialogService {
   /**
    * Closes all currently opened message dialogs.
    *
-   * This method is useful when you need to close multiple message dialogs at once, for example when navigating
-   * away from a page or when a critical error occurs that should dismiss all open dialogs.
+   * This method can be useful when you need to close multiple message dialogs at once.
    *
    * Example:
    * ```typescript

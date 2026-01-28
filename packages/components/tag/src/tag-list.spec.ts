@@ -121,11 +121,11 @@ describe('sl-tag', () => {
       expect(tooltip).to.exist;
       expect(tooltip?.id).to.equal(tag?.getAttribute('aria-labelledby'));
 
-      const tagContent = tooltip!.textContent?.trim();
+      const tagContent = tooltip?.textContent?.trim();
 
       expect(tagContent).to.exist;
-      expect(tagContent.includes('List of hidden elements:')).to.be.true;
-      expect(tagContent.includes('My label 1, My label 2, My label 3, My label 4, My label 5, My label 6, My label 7'))
+      expect(tagContent?.includes('List of hidden elements:')).to.be.true;
+      expect(tagContent?.includes('My label 1, My label 2, My label 3, My label 4, My label 5, My label 6, My label 7'))
         .to.be.true;
     });
 

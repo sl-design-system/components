@@ -1,0 +1,697 @@
+[
+	{
+		"name": "Tokens",
+		"selectedTokenSets": {
+			"primitives": "enabled",
+			"system": "enabled",
+			"tokens/base-new": "enabled",
+			"tokens/theme-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Collection I",
+		"selectedTokenSets": {
+			"I/base-new": "enabled",
+			"I/theme-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Collection II",
+		"selectedTokenSets": {
+			"II/base-new": "enabled",
+			"II/theme-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Themes A",
+		"selectedTokenSets": {
+			"I/A/base-new": "enabled",
+			"I/A/theme-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Themes B",
+		"selectedTokenSets": {
+			"I/B/theme-new": "enabled",
+			"I/B/base-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Themes C",
+		"selectedTokenSets": {
+			"I/C/base-new": "enabled",
+			"I/C/theme-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Themes E",
+		"selectedTokenSets": {
+			"II/E/theme-new": "enabled",
+			"II/E/base-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Themes F",
+		"selectedTokenSets": {
+			"II/F/base-new": "enabled",
+			"II/F/theme-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Sanoma Learning",
+		"selectedTokenSets": {
+			"sanoma-learning/theme-new": "enabled",
+			"sanoma-learning/base-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Bingel DC",
+		"selectedTokenSets": {
+			"bingel-dc/base-new": "enabled",
+			"bingel-dc/theme-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Bingel Int",
+		"selectedTokenSets": {
+			"bingel-int/theme-new": "enabled",
+			"bingel-int/base-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Click edu",
+		"selectedTokenSets": {
+			"clickedu/theme-new": "enabled",
+			"clickedu/base-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Editorial Suite",
+		"selectedTokenSets": {
+			"editorial-suite/theme-new": "enabled",
+			"editorial-suite/base-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Its Learning",
+		"selectedTokenSets": {
+			"itslearning/base-new": "enabled",
+			"itslearning/theme-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Kampus",
+		"selectedTokenSets": {
+			"kampus/theme-new": "enabled",
+			"kampus/base-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Magister",
+		"selectedTokenSets": {
+			"magister/base-new": "enabled",
+			"magister/theme-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Max",
+		"selectedTokenSets": {
+			"max/theme-new": "enabled",
+			"max/base-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "My Digital Book",
+		"selectedTokenSets": {
+			"my-digital-book/theme-new": "enabled",
+			"my-digital-book/base-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Neon",
+		"selectedTokenSets": {
+			"neon/theme-new": "enabled",
+			"neon/base-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Teas",
+		"selectedTokenSets": {
+			"teas/theme-new": "enabled",
+			"teas/base-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Light",
+		"selectedTokenSets": {
+			"sanoma-learning/light-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Dark",
+		"selectedTokenSets": {
+			"sanoma-learning/dark-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Light",
+		"selectedTokenSets": {
+			"bingel-dc/light-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Light",
+		"selectedTokenSets": {
+			"bingel-int/light-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Light",
+		"selectedTokenSets": {
+			"clickedu/light-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Light",
+		"selectedTokenSets": {
+			"editorial-suite/light-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Light",
+		"selectedTokenSets": {
+			"itslearning/light-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Light",
+		"selectedTokenSets": {
+			"kampus/light-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Light",
+		"selectedTokenSets": {
+			"magister/light-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Dark",
+		"selectedTokenSets": {
+			"magister/dark-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Light",
+		"selectedTokenSets": {
+			"max/light-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Light",
+		"selectedTokenSets": {
+			"my-digital-book/light-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Light",
+		"selectedTokenSets": {
+			"neon/light-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Dark",
+		"selectedTokenSets": {
+			"neon/dark-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Light",
+		"selectedTokenSets": {
+			"teas/light-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Placeholder",
+		"selectedTokenSets": {
+			"placeholder/base-new": "enabled",
+			"placeholder/theme-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Tig",
+		"selectedTokenSets": {
+			"tig/theme-new": "enabled",
+			"tig/base-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Sanoma-Utbildning",
+		"selectedTokenSets": {
+			"sanoma-utbildning_onhold/theme-new": "enabled",
+			"sanoma-utbildning_onhold/base-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Sanoma-Pro",
+		"selectedTokenSets": {
+			"sanoma-pro_onhold/theme-new": "enabled",
+			"sanoma-pro_onhold/base-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Light",
+		"selectedTokenSets": {
+			"tig/light-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Tig",
+		"selectedTokenSets": {
+			"tig/base": "enabled",
+			"tig/light": "enabled",
+			"core": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Bingel DC",
+		"selectedTokenSets": {
+			"bingel-dc/light": "enabled",
+			"bingel-dc/base": "enabled",
+			"core": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "My Digital Book",
+		"selectedTokenSets": {
+			"my-digital-book/light": "enabled",
+			"my-digital-book/base": "enabled",
+			"core": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Neon",
+		"selectedTokenSets": {
+			"neon/light": "enabled",
+			"neon/dark": "enabled",
+			"neon/base": "enabled",
+			"core": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Sanoma Learning",
+		"selectedTokenSets": {
+			"sanoma-learning/base": "enabled",
+			"sanoma-learning/light": "enabled",
+			"sanoma-learning/dark": "enabled",
+			"core": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Teas",
+		"selectedTokenSets": {
+			"teas/light": "enabled",
+			"teas/base": "enabled",
+			"core": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Magister",
+		"selectedTokenSets": {
+			"magister/light": "enabled",
+			"magister/base": "enabled",
+			"magister/dark": "enabled",
+			"core": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Max",
+		"selectedTokenSets": {
+			"max/base": "enabled",
+			"max/light": "enabled",
+			"core": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Kampus",
+		"selectedTokenSets": {
+			"kampus/light": "enabled",
+			"kampus/base": "enabled",
+			"core": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Editorial Suite",
+		"selectedTokenSets": {
+			"editorial-suite/light": "enabled",
+			"editorial-suite/base": "enabled",
+			"core": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Its Learning",
+		"selectedTokenSets": {
+			"itslearning/light": "enabled",
+			"itslearning/base": "enabled",
+			"core": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Bingel INT",
+		"selectedTokenSets": {
+			"bingel-int/base": "enabled",
+			"bingel-int/light": "enabled",
+			"core": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Click Edu",
+		"selectedTokenSets": {
+			"clickedu/base": "enabled",
+			"clickedu/light": "enabled",
+			"core": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Compact",
+		"selectedTokenSets": {
+			"target-group/early/compact": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Relaxed",
+		"selectedTokenSets": {
+			"target-group/early/relaxed": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Default",
+		"selectedTokenSets": {
+			"target-group/early/default": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Compact",
+		"selectedTokenSets": {
+			"target-group/advanced/compact": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Default",
+		"selectedTokenSets": {
+			"target-group/advanced/default": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Relaxed",
+		"selectedTokenSets": {
+			"target-group/advanced/relaxed": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Early",
+		"selectedTokenSets": {
+			"target-group/spacing": "enabled",
+			"target-group/typography": "enabled",
+			"target-group/base": "enabled",
+			"target-group/early/base": "enabled",
+			"target-group/early/spacing": "enabled",
+			"target-group/early/typography": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Advanced",
+		"selectedTokenSets": {
+			"target-group/spacing": "enabled",
+			"target-group/typography": "enabled",
+			"target-group/base": "enabled",
+			"target-group/advanced/base": "enabled",
+			"target-group/advanced/spacing": "enabled",
+			"target-group/advanced/typography": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Light",
+		"selectedTokenSets": {
+			"sanoma-utbildning_onhold/light-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Light",
+		"selectedTokenSets": {
+			"sanoma-pro_onhold/light-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	}
+]

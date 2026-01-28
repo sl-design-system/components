@@ -12,8 +12,8 @@ const mathPresent = /^(?!calc|color-mix|rgb|hsl).*\s[\+\-\*\/]\s.*/;
 
 register(StyleDictionary);
 
-const isObject = (item) => {
-  return (item && typeof item === 'object' && !Array.isArray(item));
+const isObject = item => {
+  return item && typeof item === 'object' && !Array.isArray(item);
 };
 
 const mergeDeep = (target, source) => {
@@ -22,10 +22,8 @@ const mergeDeep = (target, source) => {
   if (isObject(target) && isObject(source)) {
     Object.keys(source).forEach(key => {
       if (isObject(source[key])) {
-        if (!(key in target))
-          Object.assign(output, { [key]: source[key] });
-        else
-          output[key] = mergeDeep(target[key], source[key]);
+        if (!(key in target)) Object.assign(output, { [key]: source[key] });
+        else output[key] = mergeDeep(target[key], source[key]);
       } else {
         Object.assign(output, { [key]: source[key] });
       }
@@ -89,7 +87,10 @@ StyleDictionary.registerTransform({
     const { filePath, path } = token;
 
     // If the token is a new contextual token, do not kebab-case it
-    if (filePath && (filePath.includes('primitives.json') || filePath.includes('system.json') || filePath.endsWith('-new.json'))) {
+    if (
+      filePath &&
+      (filePath.includes('primitives.json') || filePath.includes('system.json') || filePath.endsWith('-new.json'))
+    ) {
       return [config.prefix].concat(path).join('-');
     } else {
       return kebabCase([config.prefix].concat(path).join(' '));
@@ -100,10 +101,7 @@ StyleDictionary.registerTransform({
 StyleDictionary.registerFileHeader({
   name: 'sl/legal',
   fileHeader: () => {
-    return [
-      `Copyright ${new Date().getFullYear()} Sanoma Learning`,
-      'SPDX-License-Identifier: Apache-2.0'
-    ];
+    return [`Copyright ${new Date().getFullYear()} Sanoma Learning`, 'SPDX-License-Identifier: Apache-2.0'];
   }
 });
 
@@ -133,7 +131,7 @@ StyleDictionary.registerTransform({
   name: 'sl/name/css/fontFamilies',
   type: 'value',
   filter: token => token.$type === 'fontFamily',
-  transform: token => token.$value.replace(/\s+/g, '-').replaceAll('\'', '').toLowerCase()
+  transform: token => token.$value.replace(/\s+/g, '-').replaceAll("'", '').toLowerCase()
 });
 
 // Transform line heights to px if they are not percentages
@@ -177,21 +175,29 @@ StyleDictionary.registerTransform({
 // Returns an array of themes and their variants
 // e.g. [['sanoma-learning', 'light'], ['sanoma-learning', 'dark']]
 const getThemes = async folder => {
-  const folders = (await readdir(folder)).filter(f => !f.endsWith('.json') && !f.endsWith('_onhold') && !['I', 'II', 'device', 'placeholder', 'tokens'].includes(f));
+  const folders = (await readdir(folder)).filter(
+    f =>
+      !f.endsWith('.json') &&
+      !f.endsWith('_onhold') &&
+      !f.endsWith('.tsgraph') &&
+      !['I', 'II', 'device', 'placeholder', 'tokens', 'target-group'].includes(f)
+  );
 
   const themes = [];
 
-  await Promise.all(folders.map(async f => {
-    const files = await readdir(join(folder, f));
+  await Promise.all(
+    folders.map(async f => {
+      const files = await readdir(join(folder, f));
 
-    if (files.some(file => file.startsWith('light'))) {
-      themes.push([f, 'light']);
-    }
+      if (files.some(file => file.startsWith('light'))) {
+        themes.push([f, 'light']);
+      }
 
-    if (files.some(file => file.startsWith('dark'))) {
-      themes.push([f, 'dark']);
-    }
-  }));
+      if (files.some(file => file.startsWith('dark'))) {
+        themes.push([f, 'dark']);
+      }
+    })
+  );
 
   return themes;
 };
@@ -200,7 +206,12 @@ const build = async (production = false, path) => {
   const cwd = new URL('.', import.meta.url).pathname,
     themeBase = join(cwd, '../packages/themes'),
     themes = await getThemes(join(cwd, path));
-    const oldThemes = [ ...themes ];
+  // if you want to debug the build to see which themes are being built, uncomment the console.log line below and replace the line above with
+  // themes = [<result of the console.log>];
+  // you can (un)comment out each theme until you find the one that is causing issues
+  // console.log('Building themes:', themes);
+
+  const oldThemes = [...themes];
 
   // Filter out files that are not in the `files` array
   const filterFiles = files => async token => {
@@ -208,7 +219,6 @@ const build = async (production = false, path) => {
 
     return files.some(file => filePath.endsWith(file));
   };
-
 
   /**
    * Filter out the `space.<number>` tokens since they are just aliases
@@ -228,16 +238,9 @@ const build = async (production = false, path) => {
 
   const createConfigForThemeVariant = (theme, variant, old) => {
     {
-      const tokensets =  old ? [
-        'core',
-        `${theme}/base`,
-        `${theme}/${variant}`
-      ]: [
-        'system',
-        'primitives',
-        `${theme}/base-new`,
-        `${theme}/${variant}-new`
-      ];
+      const tokensets = old
+        ? ['core', `${theme}/base`, `${theme}/${variant}`]
+        : ['system', 'primitives', `${theme}/base-new`, `${theme}/${variant}-new`];
 
       const files = [
         {
@@ -261,12 +264,12 @@ const build = async (production = false, path) => {
               fileHeader: 'sl/legal',
               outputReferences: true
             },
-            filter: filterFiles(old
-              ? ['core.json', 'base.json']
-              : ['system.json', 'primitives.json', 'base-new.json'])
+            filter: filterFiles(old ? ['core.json', 'base.json'] : ['system.json', 'primitives.json', 'base-new.json'])
           },
           {
-            destination: old ? `${themeBase}/${theme}/scss/base-deprecated.scss` : `${themeBase}/${theme}/scss/base.scss`,
+            destination: old
+              ? `${themeBase}/${theme}/scss/base-deprecated.scss`
+              : `${themeBase}/${theme}/scss/base.scss`,
             // filter: excludeSpaceTokens,
             format: 'css/variables',
             options: {
@@ -274,12 +277,12 @@ const build = async (production = false, path) => {
               outputReferences: true,
               selector: '@mixin sl-theme-base'
             },
-            filter: filterFiles(old
-              ? ['core.json', 'base.json']
-              : ['system.json', 'primitives.json', 'base-new.json'])
+            filter: filterFiles(old ? ['core.json', 'base.json'] : ['system.json', 'primitives.json', 'base-new.json'])
           },
           {
-            destination: old ? `${themeBase}/${theme}/css/${variant}-deprecated.css` : `${themeBase}/${theme}/css/${variant}.css`,
+            destination: old
+              ? `${themeBase}/${theme}/css/${variant}-deprecated.css`
+              : `${themeBase}/${theme}/css/${variant}.css`,
             // filter: excludeSpaceTokens,
             format: 'css/variables',
             options: {
@@ -289,7 +292,9 @@ const build = async (production = false, path) => {
             filter: filterFiles([old ? `${variant}.json` : `${variant}-new.json`])
           },
           {
-            destination: old ? `${themeBase}/${theme}/scss/${variant}-deprecated.scss` : `${themeBase}/${theme}/scss/${variant}.scss`,
+            destination: old
+              ? `${themeBase}/${theme}/scss/${variant}-deprecated.scss`
+              : `${themeBase}/${theme}/scss/${variant}.scss`,
             // filter: excludeSpaceTokens,
             format: 'css/variables',
             options: {
@@ -343,13 +348,11 @@ const build = async (production = false, path) => {
         to = join(themeBase, cfg.theme, cfg.variant + '.min.css'),
         css = await readFile(from, 'utf8');
 
-      const result = await postcss([
-        cssnano({ preset: 'default' })
-      ]).process(css, { from, to });
+      const result = await postcss([cssnano({ preset: 'default' })]).process(css, { from, to });
 
       await writeFile(to, result.css, 'utf8');
     }
   }
 };
 
-build(argv.includes('--production'), '../packages/tokens/src');
+build(argv.includes('--production'), '../packages/tokens/src/tokens');

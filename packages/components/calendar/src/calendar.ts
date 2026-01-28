@@ -105,8 +105,10 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   override render(): TemplateResult {
     return html`
       <sl-select-day
+        @sl-change=${this.#onChange}
         @sl-select=${this.#onSelect}
         @sl-toggle=${this.#onToggleMonthYear}
+        ?autofocus=${this.mode === 'day'}
         ?inert=${this.mode !== 'day'}
         ?readonly=${this.readonly}
         ?show-today=${this.showToday}
@@ -153,6 +155,11 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         ]
       ])}
     `;
+  }
+
+  #onChange(event: SlChangeEvent<Date>): void {
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   #onSelect(event: SlSelectEvent<Date>): void {

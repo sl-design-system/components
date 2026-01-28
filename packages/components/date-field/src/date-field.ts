@@ -5,17 +5,13 @@ import { FormControlMixin, type SlFormControlEvent, type SlUpdateStateEvent } fr
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, LocaleMixin, anchor, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
-import {
-  type SlBlurEvent,
-  type SlChangeEvent,
-  type SlFocusEvent,
-  type SlSelectEvent
-} from '@sl-design-system/shared/events.js';
+import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { FieldButton, TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './date-field.scss.js';
+import { type DateFormatPart, getDateFormat, getDateTemplate, getDateUnitLetter } from './utils.js';
 
 /**
  * A form component that allows the user to pick a date from a calendar.
@@ -41,6 +37,12 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** @internal The default margin between the popover and the viewport. */
   static viewportMargin = 8;
 
+  /**
+   * Stores the individual date parts when the user is editing.
+   * These are stored separately from `value` to support partial dates.
+   */
+  #dateParts: { day?: number; month?: number; year?: number } = {};
+
   /** Formatter for displaying the value in the input. */
   #formatter?: Intl.DateTimeFormat;
 
@@ -60,13 +62,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<Date>>;
 
-  /**
-   * Date and time format that will be used for formatting the date in the input.
-   * This support the `Intl.DateTimeFormatOptions` format.
-   * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat
-   */
-  @property({ type: Object, attribute: 'date-time-format' })
-  dateTimeFormat: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'numeric', year: 'numeric' };
+  /** @internal The dialog element that is also the popover. */
+  @query('dialog') dialog?: HTMLDialogElement;
 
   /** Whether the date field is disabled; when set no interaction is possible. */
   @property({ type: Boolean }) override disabled?: boolean;
@@ -132,9 +129,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** The selected date in the calendar. */
   @property({ converter: dateConverter }) override value?: Date;
 
-  /** @internal The wrapper element that is also the popover. */
-  @query('[part="wrapper"]') wrapper?: HTMLSlotElement;
-
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -142,6 +136,10 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
       this.input.autocomplete = 'off';
       this.input.slot = 'input';
+      this.input.addEventListener('blur', () => this.#onInputBlur());
+      this.input.addEventListener('click', () => this.#onInputClick());
+      this.input.addEventListener('focus', () => this.#onInputFocus());
+      this.input.addEventListener('keydown', (event: KeyboardEvent) => this.#onInputKeydown(event));
 
       if (!this.input.parentElement) {
         this.append(this.input);
@@ -163,13 +161,16 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    if (changes.has('dateTimeFormat') && changes.has('locale')) {
-      this.#formatter = new Intl.DateTimeFormat(this.locale, this.dateTimeFormat);
+    if (changes.has('locale')) {
+      // Always use 2 digits for day and month and 4 digits for year to prevent
+      // shifting when the user types in the input. This matches the behavior in getDateFormat.
+      this.#formatter = new Intl.DateTimeFormat(this.locale, { day: '2-digit', month: '2-digit', year: 'numeric' });
     }
 
-    if (changes.has('value')) {
-      this.input.value = this.value && this.#formatter ? this.#formatter.format(this.value) : '';
-      this.updateValidity();
+    if (changes.has('required')) {
+      if (this.textField) {
+        this.textField.required = !!this.required;
+      }
     }
 
     if (changes.has('showValid') || changes.has('showValidity')) {
@@ -178,20 +179,21 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       }
     }
 
-    if (changes.has('required')) {
-      if (this.textField) {
-        this.textField.required = !!this.required;
-      }
-    }
-  }
+    if (changes.has('locale') || changes.has('value')) {
+      if (this.value) {
+        // Sync date parts from value
+        this.#dateParts = {
+          day: this.value.getDate(),
+          month: this.value.getMonth() + 1,
+          year: this.value.getFullYear()
+        };
 
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    if (changes.has('required')) {
-      if (this.textField) {
-        this.textField.required = !!this.required;
+        this.input.value = this.#formatter ? this.#formatter.format(this.value) : '';
+      } else {
+        this.input.value = '';
       }
+
+      this.updateValidity();
     }
   }
 
@@ -206,9 +208,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         ?disabled=${this.disabled}
         ?readonly=${this.readonly || this.selectOnly}
         ?required=${this.required}
-        .showValidity=${this.showValidity}
         part="text-field"
         placeholder=${ifDefined(this.placeholder)}
+        show-validity=${ifDefined(this.showValidity)}
       >
         <slot name="input" slot="input"></slot>
         <sl-field-button
@@ -222,7 +224,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         </sl-field-button>
       </sl-text-field>
 
-      <slot
+      <dialog
         ${anchor({
           element: this,
           offset: DateField.offset,
@@ -232,27 +234,28 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         @beforetoggle=${this.#onBeforeToggle}
         @toggle=${this.#onToggle}
         @keydown=${this.#onKeydown}
-        name="calendar"
-        part="wrapper"
+        id="dialog"
         popover
-        tabindex="-1"
       >
-        ${this.wrapper?.matches(':popover-open')
-          ? html`
-              <sl-calendar
-                @sl-change=${this.#onChange}
-                .selected=${this.value}
-                ?show-week-numbers=${this.showWeekNumbers}
-                first-day-of-week=${ifDefined(this.firstDayOfWeek)}
-                locale=${ifDefined(this.locale)}
-                max=${ifDefined(this.max?.toISOString())}
-                min=${ifDefined(this.min?.toISOString())}
-                month=${ifDefined(this.month?.toISOString())}
-                show-today
-              ></sl-calendar>
-            `
-          : nothing}
-      </slot>
+        <slot name="calendar">
+          ${this.dialog?.matches(':popover-open')
+            ? html`
+                <sl-calendar
+                  @sl-change=${this.#onChange}
+                  .selected=${this.value}
+                  ?show-week-numbers=${this.showWeekNumbers}
+                  first-day-of-week=${ifDefined(this.firstDayOfWeek)}
+                  locale=${ifDefined(this.locale)}
+                  max=${ifDefined(this.max?.toISOString())}
+                  min=${ifDefined(this.min?.toISOString())}
+                  month=${ifDefined(this.month?.toISOString())}
+                  show-today
+                ></sl-calendar>
+                <slot></slot>
+              `
+            : nothing}
+        </slot>
+      </dialog>
     `;
   }
 
@@ -268,11 +271,11 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   #onButtonClick(): void {
     // Prevents the popover from reopening immediately after it was just closed
     if (!this.#popoverJustClosed) {
-      this.wrapper?.togglePopover();
+      this.dialog?.togglePopover();
     }
   }
 
-  #onChange(event: SlSelectEvent<Date>): void {
+  #onChange(event: SlChangeEvent<Date>): void {
     event.preventDefault();
     event.stopPropagation();
 
@@ -285,8 +288,76 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.updateState({ dirty: true });
     this.updateValidity();
 
-    this.wrapper?.hidePopover();
+    this.dialog?.hidePopover();
     this.input.focus();
+  }
+
+  #onInputBlur(): void {
+    if (this.value) {
+      return;
+    }
+
+    if (this.#hasPartialDate()) {
+      this.#updateInputDisplay();
+    } else if (this.placeholder) {
+      this.input.value = '';
+    }
+  }
+
+  #onInputClick(): void {
+    const { selectionStart, selectionEnd } = this.input;
+
+    if (selectionStart === 0 && selectionEnd === this.input.value.length) {
+      // If the user has selected the entire input, don't change the selection
+      return;
+    } else if (selectionStart !== null) {
+      const parts = getDateFormat(this.locale ?? 'default'),
+        part = parts.find(p => p.type !== 'literal' && selectionStart >= p.start && selectionStart <= p.end);
+
+      if (part) {
+        this.#setSelectedPart(part);
+      }
+    }
+  }
+
+  #onInputFocus(): void {
+    if (this.value || this.#hasPartialDate()) {
+      return;
+    }
+
+    // Replace any placeholder with the date template
+    this.input.value = getDateTemplate(this.locale ?? 'default');
+  }
+
+  #onInputKeydown(event: KeyboardEvent): void {
+    if (!event.key.startsWith('Arrow')) {
+      return;
+    }
+
+    const selectedPart = this.#getSelectedPart();
+    if (!selectedPart) {
+      return;
+    }
+
+    event.preventDefault();
+
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+      const parts = getDateFormat(this.locale ?? 'default', this.value).filter(p => p.type !== 'literal'),
+        index = parts.indexOf(selectedPart),
+        newIndex = event.key === 'ArrowLeft' ? Math.max(0, index - 1) : Math.min(parts.length - 1, index + 1);
+
+      this.#setSelectedPart(parts[newIndex]);
+    } else if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+      this.#adjustDatePart(selectedPart.type, event.key === 'ArrowUp' ? 1 : -1);
+    }
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape') {
+      // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the date field
+      // does not close parent containers (such as dialogs).
+      event.stopPropagation();
+    }
   }
 
   #onTextFieldBlur(event: SlBlurEvent): void {
@@ -337,11 +408,129 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.requestUpdate();
   }
 
-  #onKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Escape') {
-      // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the date field
-      // does not close parent containers (such as dialogs).
-      event.stopPropagation();
+  #getSelectedPart(): DateFormatPart | null {
+    const selectionStart = this.input.selectionStart;
+
+    if (selectionStart !== null) {
+      const parts = getDateFormat(this.locale ?? 'default'),
+        part = parts.find(p => p.type !== 'literal' && selectionStart >= p.start && selectionStart <= p.end);
+
+      return part || null;
+    }
+
+    return null;
+  }
+
+  #setSelectedPart(part: DateFormatPart): void {
+    this.input.setSelectionRange(part.start, part.end);
+  }
+
+  /**
+   * Adjusts a date part by the given delta, with wrapping.
+   * @param partType The type of part to adjust ('day', 'month', 'year')
+   * @param delta The amount to adjust by (1 or -1)
+   */
+  #adjustDatePart(partType: string, delta: number): void {
+    if (partType !== 'day' && partType !== 'month' && partType !== 'year') {
+      return;
+    }
+
+    const currentValue = this.#dateParts[partType];
+
+    if (currentValue === undefined) {
+      // No value yet: ArrowUp sets to min, ArrowDown sets to max
+      if (partType === 'day') {
+        this.#dateParts.day = delta > 0 ? 1 : 31;
+      } else if (partType === 'month') {
+        this.#dateParts.month = delta > 0 ? 1 : 12;
+      } else {
+        // For year, use current year as a reasonable default
+        this.#dateParts.year = new Date().getFullYear();
+      }
+    } else {
+      // Increment/decrement with wrapping
+      if (partType === 'day') {
+        this.#dateParts.day = currentValue + delta;
+        if (this.#dateParts.day > 31) this.#dateParts.day = 1;
+        if (this.#dateParts.day < 1) this.#dateParts.day = 31;
+      } else if (partType === 'month') {
+        this.#dateParts.month = currentValue + delta;
+        if (this.#dateParts.month > 12) this.#dateParts.month = 1;
+        if (this.#dateParts.month < 1) this.#dateParts.month = 12;
+      } else {
+        // Year doesn't wrap, but we can set reasonable bounds
+        this.#dateParts.year = Math.max(1, Math.min(9999, currentValue + delta));
+      }
+    }
+
+    this.#updateInputDisplay();
+    this.#trySetValue();
+
+    // Re-select the same part after updating
+    requestAnimationFrame(() => {
+      const parts = getDateFormat(this.locale ?? 'default').filter(p => p.type !== 'literal'),
+        part = parts.find(p => p.type === partType);
+
+      if (part) {
+        this.#setSelectedPart(part);
+      }
+    });
+  }
+
+  #hasPartialDate(): boolean {
+    return (
+      this.#dateParts.day !== undefined || this.#dateParts.month !== undefined || this.#dateParts.year !== undefined
+    );
+  }
+
+  /** Updates the input display based on current date parts. */
+  #updateInputDisplay(): void {
+    const locale = this.locale ?? 'default',
+      parts = getDateFormat(locale);
+
+    const display = parts
+      .map(part => {
+        if (part.type === 'day') {
+          if (this.#dateParts.day !== undefined) {
+            return String(this.#dateParts.day).padStart(part.value.length, '0');
+          }
+
+          return getDateUnitLetter(locale, 'day').repeat(part.value.length);
+        } else if (part.type === 'month') {
+          if (this.#dateParts.month !== undefined) {
+            return String(this.#dateParts.month).padStart(part.value.length, '0');
+          }
+
+          return getDateUnitLetter(locale, 'month').repeat(part.value.length);
+        } else if (part.type === 'year') {
+          if (this.#dateParts.year !== undefined) {
+            return String(this.#dateParts.year);
+          }
+          return getDateUnitLetter(locale, 'year').repeat(part.value.length);
+        }
+
+        return part.value;
+      })
+      .join('');
+
+    this.input.value = display;
+  }
+
+  /** Tries to set the value if all date parts are defined. */
+  #trySetValue(): void {
+    const { day, month, year } = this.#dateParts;
+
+    if (day !== undefined && month !== undefined && year !== undefined) {
+      // Validate the date
+      const date = new Date(year, month - 1, day);
+
+      // Check if the date is valid (e.g., Feb 30 would roll over to March)
+      if (date.getDate() === day && date.getMonth() === month - 1 && date.getFullYear() === year) {
+        this.value = date;
+        this.changeEvent.emit(this.value);
+        this.updateState({ dirty: true });
+        this.updateValidity();
+      }
     }
   }
 }

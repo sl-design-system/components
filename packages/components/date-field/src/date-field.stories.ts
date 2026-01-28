@@ -1,3 +1,7 @@
+import '@sl-design-system/button/register.js';
+import '@sl-design-system/button-bar/register.js';
+import '@sl-design-system/form/register.js';
+import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -7,7 +11,6 @@ import { type DateField } from './date-field.js';
 type Props = Pick<
   DateField,
   | 'disabled'
-  | 'locale'
   | 'max'
   | 'min'
   | 'month'
@@ -46,10 +49,6 @@ export default {
     label: {
       table: { disable: true }
     },
-    locale: {
-      control: 'inline-radio',
-      options: ['de', 'en-GB', 'es', 'fi', 'fr', 'it', 'nl', 'nl-BE', 'no', 'pl', 'sv']
-    },
     max: {
       control: 'date'
     },
@@ -70,7 +69,6 @@ export default {
     disabled,
     hint,
     label,
-    locale,
     max,
     min,
     month,
@@ -99,7 +97,6 @@ export default {
             ?show-week-numbers=${showWeekNumbers}
             .value=${value}
             .show-valid=${showValid}
-            locale=${ifDefined(locale)}
             max=${ifDefined(max?.toISOString())}
             min=${ifDefined(min?.toISOString())}
             month=${ifDefined(month?.toISOString())}
@@ -126,6 +123,32 @@ export const Basic: Story = {};
 export const Disabled: Story = {
   args: {
     disabled: true
+  }
+};
+
+export const ExtraControls: Story = {
+  args: {
+    slot: () => {
+      const onClear = (): void => {};
+
+      const onToday = (): void => {};
+
+      return html`
+        <style>
+          sl-button.confirm {
+            margin-inline-start: auto;
+          }
+        </style>
+        <sl-button-bar variant="primary">
+          <sl-button @click=${onToday} fill="link">Today</sl-button>
+          <sl-button @click=${onClear} fill="link">Clear</sl-button>
+          <sl-button fill="solid" class="confirm">
+            Confirm
+            <sl-icon name="check"></sl-icon>
+          </sl-button>
+        </sl-button-bar>
+      `;
+    }
   }
 };
 
@@ -166,5 +189,92 @@ export const ShowWeekNumbers: Story = {
 export const Value: Story = {
   args: {
     value: new Date(2024, 8, 12)
+  }
+};
+
+export const All: Story = {
+  render: () => {
+    // Mock date in Chromatic is 2025-06-01
+    const mockDate = new Date('2025-06-15');
+
+    return html`
+      <style>
+        section {
+          display: inline-grid;
+          gap: 2rem;
+          grid-template-columns: repeat(2, auto);
+        }
+        .date-field-wrapper {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+        .date-field-wrapper > span {
+          font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+        }
+      </style>
+      <section>
+        <div class="date-field-wrapper">
+          <span>Basic</span>
+          <sl-form-field label="Date">
+            <sl-date-field placeholder="Pick a date"></sl-date-field>
+          </sl-form-field>
+        </div>
+
+        <div class="date-field-wrapper">
+          <span>With Value</span>
+          <sl-form-field label="Date">
+            <sl-date-field .value=${mockDate} placeholder="Pick a date"></sl-date-field>
+          </sl-form-field>
+        </div>
+
+        <div class="date-field-wrapper">
+          <span>Required</span>
+          <sl-form-field label="Date">
+            <sl-date-field placeholder="Pick a date" required></sl-date-field>
+          </sl-form-field>
+        </div>
+
+        <div class="date-field-wrapper">
+          <span>Disabled</span>
+          <sl-form-field label="Date">
+            <sl-date-field disabled placeholder="Pick a date"></sl-date-field>
+          </sl-form-field>
+        </div>
+
+        <div class="date-field-wrapper">
+          <span>Readonly</span>
+          <sl-form-field label="Date">
+            <sl-date-field .value=${mockDate} placeholder="Pick a date" readonly></sl-date-field>
+          </sl-form-field>
+        </div>
+
+        <div class="date-field-wrapper">
+          <span>Select Only</span>
+          <sl-form-field label="Date">
+            <sl-date-field placeholder="Pick a date" select-only></sl-date-field>
+          </sl-form-field>
+        </div>
+
+        <div class="date-field-wrapper">
+          <span>Week Numbers</span>
+          <sl-form-field label="Date">
+            <sl-date-field placeholder="Pick a date" show-week-numbers></sl-date-field>
+          </sl-form-field>
+        </div>
+
+        <div class="date-field-wrapper">
+          <span>Min/Max</span>
+          <sl-form-field label="Date">
+            <sl-date-field
+              max=${new Date('2025-06-20').toISOString()}
+              min=${new Date('2025-06-10').toISOString()}
+              month=${new Date('2025-06-01').toISOString()}
+              placeholder="Pick a date"
+            ></sl-date-field>
+          </sl-form-field>
+        </div>
+      </section>
+    `;
   }
 };

@@ -1,5 +1,21 @@
 # @sl-design-system/grid
 
+## 0.6.6
+
+### Patch Changes
+
+- Updated dependencies [[`e3eb2de`](https://github.com/sl-design-system/components/commit/e3eb2de61e86203aab22cd55bbad4cc058e66a2d), [`00dfe6c`](https://github.com/sl-design-system/components/commit/00dfe6c7dee443324748524b45dd25c4ca39278e)]:
+  - @sl-design-system/shared@0.10.0
+  - @sl-design-system/select@2.1.1
+  - @sl-design-system/button@1.3.3
+  - @sl-design-system/checkbox@2.1.8
+  - @sl-design-system/data-source@0.2.4
+  - @sl-design-system/search-field@0.2.3
+  - @sl-design-system/text-field@1.6.7
+  - @sl-design-system/toggle-group@0.0.12
+  - @sl-design-system/tooltip@1.3.1
+  - @sl-design-system/tool-bar@0.2.1
+
 ## 0.6.5
 
 ### Patch Changes

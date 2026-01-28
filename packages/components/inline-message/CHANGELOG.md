@@ -1,5 +1,14 @@
 # @sl-design-system/inline-message
 
+## 2.0.3
+
+### Patch Changes
+
+- Updated dependencies [[`e3eb2de`](https://github.com/sl-design-system/components/commit/e3eb2de61e86203aab22cd55bbad4cc058e66a2d), [`e3eb2de`](https://github.com/sl-design-system/components/commit/e3eb2de61e86203aab22cd55bbad4cc058e66a2d)]:
+  - @sl-design-system/shared@0.10.0
+  - @sl-design-system/announcer@0.0.6
+  - @sl-design-system/button@1.3.3
+
 ## 2.0.2
 
 ### Patch Changes

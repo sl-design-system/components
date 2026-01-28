@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/tabs",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Tabs components for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -39,8 +39,8 @@
   },
   "dependencies": {
     "@sl-design-system/icon": "^1.4.1",
-    "@sl-design-system/menu": "^0.2.7",
-    "@sl-design-system/shared": "^0.9.0"
+    "@sl-design-system/menu": "^0.2.8",
+    "@sl-design-system/shared": "^0.10.0"
   },
   "devDependencies": {
     "@lit/localize": "^0.12.2",

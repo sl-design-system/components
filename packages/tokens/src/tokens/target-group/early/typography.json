@@ -51,13 +51,6 @@
 				}
 			}
 		},
-		"lineHeigt": {
-			"hero": {
-				"$type": "lineHeights",
-				"$value": "roundTo({early.font-rem-base} * 1.17, 0)",
-				"$description": ""
-			}
-		},
 		"lineHeight": {
 			"body": {
 				"lg": {
@@ -75,6 +68,11 @@
 					"$value": "roundTo({early.font-rem-base} * 1.43, 0)",
 					"$description": ""
 				}
+			},
+			"hero": {
+				"$type": "lineHeights",
+				"$value": "roundTo({early.font-rem-base} * 1.17, 0)",
+				"$description": ""
 			},
 			"label": {
 				"$type": "lineHeights",

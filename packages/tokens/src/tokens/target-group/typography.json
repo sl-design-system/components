@@ -58,7 +58,7 @@
 		},
 		"hero": {
 			"$type": "lineHeights",
-			"$value": "{target.lineHeigt.hero}",
+			"$value": "{target.lineHeight.hero}",
 			"$description": ""
 		},
 		"label": {

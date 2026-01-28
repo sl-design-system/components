@@ -1,5 +1,6 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/popover/register.js';
+import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
@@ -110,16 +111,24 @@ export const HideHomeLabel: Story = {
   }
 };
 
+export const CustomHome: Story = {
+  args: {
+    ...Basic.args,
+    breadcrumbs: () => html`
+      <a href="javascript:void(0)" slot="home"><sl-icon name="home-blank"></sl-icon> Custom Home</a>
+      <a href="javascript:void(0)">Page 1</a>
+      <a href="javascript:void(0)">Page 2</a>
+      <a href="javascript:void(0)">Page 3</a>
+    `
+  }
+};
+
 export const Overflow: Story = {
   args: {
     breadcrumbs: () => html`
-      <a href="javascript:void(0)">Adipisicing sint excepteur officia voluptate tempor ea veniam veniam duis.</a>
-      <a href="javascript:void(0)"
-        >Nostrud ad fugiat amet officia anim qui sit tempor veniam magna irure adipisicing ea adipisicing.</a
-      >
-      <a href="javascript:void(0)"
-        >Lorem adipisicing do duis sunt laboris magna officia irure fugiat velit deserunt duis enim in.</a
-      >
+      <a href="javascript:void(0)">Adipisicing sint excepteur officia voluptate.</a>
+      <a href="javascript:void(0)">Nostrud ad fugiat amet officia anim qui sit tempor veniam magna.</a>
+      <a href="javascript:void(0)">Lorem adipisicing do duis sunt laboris magna officia irure fugiat.</a>
     `
   }
 };
@@ -154,26 +163,26 @@ export const All: Story = {
       </a>
     </sl-breadcrumbs>
     <sl-breadcrumbs aria-label="Breadcrumb trail 4">
-      <a href="javascript:void(0)">Lorem</a>
-      <a href="javascript:void(0)">Ipsum</a>
-      <a href="javascript:void(0)">Dolar</a>
-      <a href="javascript:void(0)">Lorem</a>
-      <a href="javascript:void(0)">Ipsum</a>
-      <a href="javascript:void(0)">Dolar</a>
-      <a href="javascript:void(0)">Lorem</a>
-      <a href="javascript:void(0)">Ipsum</a>
-      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Lorem 1</a>
+      <a href="javascript:void(0)">Ipsum 2</a>
+      <a href="javascript:void(0)">Dolar 3</a>
+      <a href="javascript:void(0)">Lorem 4</a>
+      <a href="javascript:void(0)">Ipsum 5</a>
+      <a href="javascript:void(0)">Dolar 6</a>
+      <a href="javascript:void(0)">Lorem 7</a>
+      <a href="javascript:void(0)">Ipsum 8</a>
+      <a href="javascript:void(0)">Dolar 9</a>
     </sl-breadcrumbs>
     <sl-breadcrumbs aria-label="Breadcrumb trail 5" inverted>
-      <a href="javascript:void(0)">Lorem</a>
-      <a href="javascript:void(0)">Ipsum</a>
-      <a href="javascript:void(0)">Dolar</a>
-      <a href="javascript:void(0)">Lorem</a>
-      <a href="javascript:void(0)">Ipsum</a>
-      <a href="javascript:void(0)">Dolar</a>
-      <a href="javascript:void(0)">Lorem</a>
-      <a href="javascript:void(0)">Ipsum</a>
-      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Lorem 1</a>
+      <a href="javascript:void(0)">Ipsum 2</a>
+      <a href="javascript:void(0)">Dolar 3</a>
+      <a href="javascript:void(0)">Lorem 4</a>
+      <a href="javascript:void(0)">Ipsum 5</a>
+      <a href="javascript:void(0)">Dolar 6</a>
+      <a href="javascript:void(0)">Lorem 7</a>
+      <a href="javascript:void(0)">Ipsum 8</a>
+      <a href="javascript:void(0)">Dolar 9</a>
     </sl-breadcrumbs>
   `
 };

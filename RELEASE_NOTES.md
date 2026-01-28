@@ -4,6 +4,17 @@ This is a collection of release notes for the SL Design System. Each release not
 
 The release notes are ordered by the date the release was made. From latest, to oldest.
 
+# January 28, 2026
+
+## Theme updates
+
+- All Themes have been updated with 2 new tokens; `icon.2xs` for use in `badge.MD` and `color.background.highlight`
+- [Magister](https://github.com/sl-design-system/components/blob/main/packages/components/magister/CHANGELOG.md) has new values for `color.palette.orange` and `color.palette.grey`. Adjusted other Tokens that use these `color.palette.orange` and `color.palette.grey` accordingly.
+
+## Bug fixes
+
+- [`form`](https://github.com/sl-design-system/components/blob/main/packages/components/form/CHANGELOG.md) Fixes a timing issue where sl-form's valid property would not update immediately after programmatic changes to child controls
+
 # January 27, 2026
 
 ## New features

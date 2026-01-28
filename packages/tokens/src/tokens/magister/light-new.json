@@ -258,7 +258,7 @@
 				},
 				"disabled": {
 					"$type": "color",
-					"$value": "{magister.color.foreground.disabled}",
+					"$value": "{magister.color.border.accent.grey.faint}",
 					"$description": "Use for borders of elements in a disabled state."
 				},
 				"inverted": {
@@ -786,12 +786,12 @@
 						},
 						"subtle": {
 							"$type": "color",
-							"$value": "rgba({magister.color.palette.blue.150}, 25%)",
+							"$value": "rgba({magister.color.palette.blue.400}, 25%)",
 							"$description": "A subtle blue background option in idle state, applied purely for stylistic purposes without specific meaning."
 						},
 						"subtlest": {
 							"$type": "color",
-							"$value": "rgba({magister.color.palette.blue.150}, 20%)",
+							"$value": "rgba({magister.color.palette.blue.400}, 20%)",
 							"$description": "The subtlest blue background option for interactive elements, applied purely for stylistic purposes without specific meaning."
 						},
 						"interactive": {
@@ -802,7 +802,7 @@
 							},
 							"plain": {
 								"$type": "color",
-								"$value": "{magister.color.palette.blue.150}",
+								"$value": "{magister.color.palette.blue.400}",
 								"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
 							}
 						}
@@ -820,7 +820,7 @@
 						},
 						"subtlest": {
 							"$type": "color",
-							"$value": "rgba( {magister.color.palette.grey.400}, {magister.opacity.subtlest})",
+							"$value": "rgba({magister.color.palette.grey.400}, {magister.opacity.subtlest})",
 							"$description": "The subtlest grey background option for interactive elements, applied purely for stylistic purposes without specific meaning."
 						},
 						"interactive": {
@@ -1296,7 +1296,7 @@
 					"blue": {
 						"bold": {
 							"$type": "color",
-							"$value": "{magister.color.palette.blue.600}",
+							"$value": "{magister.color.palette.blue.700}",
 							"$description": "Use for blue text on 'color.background.accent.blue.muted' or 'color.background.accent.blue.subtle', when used purely for stylistic purposes without specific meaning."
 						},
 						"plain": {
@@ -1486,7 +1486,7 @@
 				},
 				"disabled": {
 					"$type": "color",
-					"$value": "{magister.color.foreground.accent.grey.faint}",
+					"$value": "{magister.color.palette.grey.500}",
 					"$description": "Use for text in a disabled state."
 				},
 				"inverted": {

@@ -820,7 +820,7 @@
 						},
 						"subtlest": {
 							"$type": "color",
-							"$value": "rgba( {sanoma-learning.color.palette.grey.400}, {sanoma-learning.opacity.subtlest})",
+							"$value": "rgba({sanoma-learning.color.palette.grey.400}, {sanoma-learning.opacity.subtlest})",
 							"$description": "The subtlest grey background option for interactive elements, applied purely for stylistic purposes without specific meaning."
 						},
 						"interactive": {

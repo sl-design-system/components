@@ -156,15 +156,15 @@ class StoryTemplateExtractor {
     // Extract template
     const templateLiteralMatch = storyContent.match(/template:\s*`([\s\S]*?)`/);
     if (templateLiteralMatch) {
-      template = this.normalizeIndentation(templateLiteralMatch[1], 2);
+      template = this.normalizeIndentation(templateLiteralMatch[1], 2).trim();
     } else {
       const singleQuoteMatch = storyContent.match(/template:\s*'((?:[^'\\]|\\.)*)'/);
       if (singleQuoteMatch) {
-        template = singleQuoteMatch[1];
+        template = singleQuoteMatch[1].trim();
       } else {
         const doubleQuoteMatch = storyContent.match(/template:\s*"((?:[^"\\]|\\.)*)"/);
         if (doubleQuoteMatch) {
-          template = doubleQuoteMatch[1];
+          template = doubleQuoteMatch[1].trim();
         }
       }
     }
@@ -247,17 +247,17 @@ class StoryTemplateExtractor {
       // Try backticks first (for multi-line templates)
       const templateLiteralMatch = componentBlock.match(/template:\s*`([\s\S]*?)`/);
       if (templateLiteralMatch) {
-        template = this.normalizeIndentation(templateLiteralMatch[1], 2);
+        template = this.normalizeIndentation(templateLiteralMatch[1], 2).trim();
       } else {
         // Try single quotes
         const singleQuoteMatch = componentBlock.match(/template:\s*'((?:[^'\\]|\\.)*)'/);
         if (singleQuoteMatch) {
-          template = singleQuoteMatch[1];
+          template = singleQuoteMatch[1].trim();
         } else {
           // Try double quotes
           const doubleQuoteMatch = componentBlock.match(/template:\s*"((?:[^"\\]|\\.)*)"/);
           if (doubleQuoteMatch) {
-            template = doubleQuoteMatch[1];
+            template = doubleQuoteMatch[1].trim();
           }
         }
       }

@@ -139,7 +139,6 @@ export class MessageDialogRef<T = unknown> {
     void this.dialog.updateComplete.then(() => {
       this.#internalDialog = this.dialog.shadowRoot?.querySelector('dialog') ?? undefined;
       if (this.#internalDialog) {
-        console.log('internal dialog', this.#internalDialog);
         // Listen to native 'close' event from the internal dialog element
         this.#internalDialog.addEventListener('close', this.#onClose);
       }
@@ -385,12 +384,11 @@ export class MessageDialogService {
 
     dialogs.forEach(dialogRef => {
       dialogRef.close(result);
-      dialogRef.destroy();
     });
   }
 
   #createComponent<T, D = unknown>(component: Type<T>, data?: unknown, dialogRef?: MessageDialogRef<D>) {
-    // Create providers for MessageDialogRef and DIALOG_DATA
+    // Create providers for MessageDialogRef and MESSAGE_DIALOG_DATA
     const providers = [];
 
     if (dialogRef) {

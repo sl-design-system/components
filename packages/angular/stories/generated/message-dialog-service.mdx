@@ -253,7 +253,7 @@ interface MessageDialogServiceConfig<T> extends Partial<MessageDialogProps> {
 }
 ```
 
-The `MessageDialogServiceConfig` extends `Partial<MessageDialogProps>`, which includes all public properties from the MessageDialog component. The most commonly used properties (`message`, `title`, `buttons`, `disableCancel`) are explicitly listed above for convenience and type safety.
+The `MessageDialogServiceConfig` extends `Partial<MessageDialogProps>`, which includes all public properties from the MessageDialog component. The most commonly used properties (`message`, `title`, `buttons`, `disableCancel`) are explicitly listed above for type safety.
 
 ---
 
@@ -268,8 +268,7 @@ import { ButtonComponent } from '@sl-design-system/angular/button';
 
 @Component({
   selector: 'sla-message-dialog-service',
-  template: `
-  <style>
+  template: `<style>
     .container {
       display: flex;
       gap: 0.8rem;
@@ -308,8 +307,7 @@ import { ButtonComponent } from '@sl-design-system/angular/button';
       <p>You can use <code>show()</code> method to render HTML content in the message.</p>
       <sl-button (click)="showCustomMessage()" variant="primary">Show custom HTML message</sl-button>
     </div>
-  </div>
-`,
+  </div>`,
   imports: [ButtonComponent, CommonModule]
 })
 export class MessageDialogStaticMethodsComponent {
@@ -401,8 +399,7 @@ import { ButtonComponent } from '@sl-design-system/angular/button';
 
 @Component({
   selector: 'sla-message-dialog-custom-component',
-  template: `
-  <style>
+  template: `<style>
     .container {
       display: flex;
       gap: 0.8rem;
@@ -430,8 +427,7 @@ import { ButtonComponent } from '@sl-design-system/angular/button';
       </p>
       <sl-button (click)="showCriticalAction()" variant="danger">Critical action</sl-button>
     </div>
-  </div>
-`,
+  </div>`,
   imports: [ButtonComponent, CommonModule]
 })
 export class MessageDialogCustomComponentExampleComponent {
@@ -480,11 +476,9 @@ The examples above use the following custom component(s):
 @Component({
   standalone: true,
   imports: [CommonModule],
-  template: `
-  <h3>Custom message content</h3>
+  template: `<h3>Custom message content</h3>
   <p>You can <em>customize</em> the message with <strong>HTML</strong>!</p>
-  <p>Message data: {{ data }}</p>
-`
+  <p>Message data: {{ data }}</p>`
 })
 export class CustomMessageComponent {
 
@@ -504,8 +498,7 @@ import { ButtonComponent } from '@sl-design-system/angular/button';
 
 @Component({
   selector: 'sla-message-dialog-advanced',
-  template: `
-  <style>
+  template: `<style>
     .container {
       display: flex;
       gap: 0.5rem;
@@ -530,8 +523,7 @@ import { ButtonComponent } from '@sl-design-system/angular/button';
       <p>Show dialogs one after another based on what the user chooses.</p>
       <sl-button (click)="showSequentialDialogs()" variant="info">Show sequential dialogs</sl-button>
     </div>
-  </div>
-`,
+  </div>`,
   imports: [ButtonComponent]
 })
 export class MessageDialogAdvancedExampleComponent {

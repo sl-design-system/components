@@ -38,13 +38,6 @@
 			}
 		}
 	},
-	"lineHeigt": {
-		"hero": {
-			"$type": "lineHeights",
-			"$value": "{target.lineHeigt.hero}",
-			"$description": ""
-		}
-	},
 	"lineHeight": {
 		"body": {
 			"lg": {
@@ -62,6 +55,11 @@
 				"$value": "{target.lineHeight.body.sm}",
 				"$description": ""
 			}
+		},
+		"hero": {
+			"$type": "lineHeights",
+			"$value": "{target.lineHeigt.hero}",
+			"$description": ""
 		},
 		"label": {
 			"$type": "lineHeights",

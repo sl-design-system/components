@@ -267,7 +267,7 @@ export class MessageDialogAdvancedExampleComponent {
     dialog1.afterClosed().subscribe(result => {
       console.log('First dialog closed with result:', result);
       if (result === 'ok1') {
-        console.log('✓ First dialog button value received correctly!');
+        console.log('First dialog button value received correctly!');
       }
     });
 
@@ -281,7 +281,7 @@ export class MessageDialogAdvancedExampleComponent {
       dialog2.afterClosed().subscribe(result => {
         console.log('Second dialog closed with result:', result);
         if (result === 'ok2') {
-          console.log('✓ Second dialog button value received correctly!');
+          console.log('Second dialog button value received correctly!');
         }
       });
     }, 500);

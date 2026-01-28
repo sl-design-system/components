@@ -201,13 +201,11 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
               <sl-icon name="breadcrumb-separator"></sl-icon>
             `
           : nothing}
-        ${this.breadcrumbLinks.slice(this.breadcrumbLinks.length - this.collapseThreshold).map((_, index, array) =>
-          index < array.length
-            ? html`
-                <li><slot name="breadcrumb-${index}"></slot></li>
-                ${index < array.length - 1 ? html`<sl-icon name="breadcrumb-separator"></sl-icon>` : nothing}
-              `
-            : html`<li>end</li>`
+        ${this.breadcrumbLinks.slice(this.breadcrumbLinks.length - this.collapseThreshold).map(
+          (_, index, array) => html`
+            <li><slot name="breadcrumb-${index}"></slot></li>
+            ${index < array.length - 1 ? html`<sl-icon name="breadcrumb-separator"></sl-icon>` : nothing}
+          `
         )}
       </ul>
       <slot name="tooltips"></slot>
@@ -261,6 +259,15 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
           this.#setTooltip(link);
         } else {
           // Remove the existing tooltip for this link if it is no longer truncated
+          const tooltipsSlot = this.renderRoot.querySelector('slot[name="tooltips"]') as HTMLSlotElement;
+          const assignedTooltips = tooltipsSlot.assignedElements({ flatten: true });
+          console.log('assignedTooltips', assignedTooltips);
+          assignedTooltips.forEach(tooltipEl => {
+            if (tooltipEl instanceof Tooltip && tooltipEl.id === link.getAttribute('aria-describedby')) {
+              console.log('remove tooltip', tooltipEl);
+              tooltipEl.remove();
+            }
+          });
         }
         slot.assign(link);
       });
@@ -276,7 +283,8 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   #setTooltip(link: HTMLElement): void {
     // const assignedElements = event.target.assignedElements({ flatten: true });
 
-    const tooltipsSlot = this.renderRoot.querySelector('slot[name="tooltips"]') as HTMLSlotElement;
+    const tooltipsSlot = link.assignedSlot as HTMLSlotElement;
+    console.log('setTooltip for', link, 'in', tooltipsSlot);
     if (!tooltipsSlot) {
       return;
     }
@@ -287,6 +295,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
         tooltip.position = 'bottom';
         tooltip.textContent = link.textContent?.trim() || '';
         requestAnimationFrame(() => {
+          console.log('assign tooltip', tooltip);
           tooltipsSlot.assign(...(tooltipsSlot.assignedElements() || []), tooltip);
         });
       },

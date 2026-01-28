@@ -1,5 +1,16 @@
 # @sl-design-system/combobox
 
+## 0.1.6
+
+### Patch Changes
+
+- [#2931](https://github.com/sl-design-system/components/pull/2931) [`44bbe8a`](https://github.com/sl-design-system/components/commit/44bbe8a224712e118d4294af11f904417ec14a2b) - fix aria-autocomplete property behaviour when selectOnly is applied
+
+- Updated dependencies []:
+  - @sl-design-system/form@1.3.3
+  - @sl-design-system/tag@0.1.9
+  - @sl-design-system/text-field@1.6.7
+
 ## 0.1.5
 
 ### Patch Changes

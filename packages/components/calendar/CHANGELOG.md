@@ -1,5 +1,16 @@
 # @sl-design-system/calendar
 
+## 0.0.4
+
+### Patch Changes
+
+- [#2636](https://github.com/sl-design-system/components/pull/2636) [`e3eb2de`](https://github.com/sl-design-system/components/commit/e3eb2de61e86203aab22cd55bbad4cc058e66a2d) - New version of the calendar component. Improved styling and accessibility.
+
+- Updated dependencies []:
+  - @sl-design-system/button@1.3.3
+  - @sl-design-system/format-date@0.1.4
+  - @sl-design-system/tooltip@1.3.1
+
 ## 0.0.3
 
 ### Patch Changes

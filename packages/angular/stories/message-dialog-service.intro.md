@@ -4,22 +4,27 @@ The **MessageDialogService** provides an API for displaying and managing message
 
 ### Main Methods
 
-#### `showModal<T, R>(config: MessageDialogServiceConfig<T>): MessageDialogRef<R>`
+#### `showModal(config): MessageDialogRef`
 
-Opens a message dialog with a custom Angular component or simple message content.
+Opens a message dialog with a custom Angular component or a text message.
 
 **Configuration:**
-- `component` (optional) - Angular component to render as the message content
-- `data` (optional) - Data to pass to the component via `@Inject('MESSAGE_DIALOG_DATA')`
-- `message` (optional) - Simple text or HTML message (use instead of `component` for basic message dialogs)
-- `title` (optional) - The title of the message dialog
-- `buttons` (optional) - Array of button configurations
-- `disableCancel` (optional) - If true, prevents closing via Escape key or backdrop click
+- For message dialogs with a custom Angular component:
+  - `component` (required) - The component to show
+  - `data` (optional) - Data to pass to the component
+  - `title` (optional) - The dialog title
+  - `buttons` (optional) - Buttons to show
+  - `disableCancel` (optional) - Set to `true` to prevent closing with Escape or clicking outside
 
-**Returns:** a `MessageDialogRef<R>` to control the dialog and observe when it closes.
+- For message dialogs with a text message:
+  - `message` (required) - The text or HTML to show
+  - `title` (optional) - The dialog title
+  - `buttons` (optional) - Buttons to show
+  - `disableCancel` (optional) - Set to `true` to prevent closing with Escape or clicking outside
 
-**Example with Component:**
+**Returns:** a `MessageDialogRef` to control the dialog.
 
+**Example with component:**
 ```typescript
 // Define your dialog component
 @Component({
@@ -34,13 +39,13 @@ class MyComponent {
 }
 
 // Open the dialog
-const dialogRef = this.messageDialogService.showModal<MyComponent, string>({
+const dialogRef = this.messageDialogService.showModal({
   component: MyComponent,
   data: { name: 'John', age: 30 },
   title: 'User Details',
   buttons: [
     { text: 'Close', value: 'close' },
-    { text: 'Save', variant: 'primary', value: 'save' }
+    { text: 'Save', value: 'save' }
   ]
 });
 
@@ -49,7 +54,7 @@ dialogRef.afterClosed().subscribe(result => {
 });
 ```
 
-**Example with Message:**
+**Example with message:**
 
 ```typescript
 const dialogRef = this.messageDialogService.showModal({
@@ -57,7 +62,7 @@ const dialogRef = this.messageDialogService.showModal({
   message: 'This action cannot be undone.',
   buttons: [
     { text: 'Cancel', value: 'cancel' },
-    { text: 'Continue', variant: 'warning', value: 'continue' }
+    { text: 'Continue', value: 'continue' }
   ],
   disableCancel: true
 });
@@ -67,22 +72,18 @@ const dialogRef = this.messageDialogService.showModal({
 
 #### `alert(message: string, title?: string): Promise<void>`
 
-Shows a simple alert message to the user with an `OK` button.
-
-This method uses the static MessageDialog API and does not return a `MessageDialogRef`.
+Shows an alert message with an `OK` button.
 
 **Example:**
 ```typescript
-await this.messageDialogService.alert('Operation completed successfully!', 'Success');
+await this.messageDialogService.alert('Operation completed!', 'Success');
 ```
 
 ---
 
 #### `confirm(message: string, title?: string): Promise<boolean | undefined>`
 
-Shows a confirmation dialog with `OK` and `Cancel` buttons. Returns `true` if `OK` is clicked, `false` if `Cancel` is clicked, or `undefined` if dismissed.
-
-This method uses the static MessageDialog API and does not return a `MessageDialogRef`.
+Shows a confirmation dialog with `OK` and `Cancel` buttons. Returns `true` if `OK` is clicked, `false` if `Cancel` is clicked, or `undefined` if closed without clicking a button.
 
 **Example:**
 ```typescript
@@ -91,7 +92,6 @@ const confirmed = await this.messageDialogService.confirm(
   'Confirm Deletion'
 );
 if (confirmed) {
-  // User clicked OK
   this.deleteItem();
 }
 ```
@@ -111,7 +111,7 @@ const result = await this.messageDialogService.show({
   message: 'Please select how you want to proceed.',
   buttons: [
     { text: 'Cancel', value: 'cancel' },
-    { text: 'Save Draft', variant: 'default', value: 'draft' },
+    { text: 'Save Draft', variant: 'secondary', value: 'draft' },
     { text: 'Publish', variant: 'primary', value: 'publish' }
   ]
 });
@@ -125,19 +125,17 @@ if (result === 'publish') {
 
 #### `closeAll(result?: unknown): void`
 
-Closes all currently opened message dialogs.
-
-This method can be useful when you need to close multiple message dialogs at once.
+Closes all open message dialogs at once.
 
 **Parameters:**
-- `result` (optional) - Result to pass to all dialogs. This value will be emitted to all `afterClosed()` subscribers.
+- `result` (optional) - Value to pass to all dialogs. All `afterClosed()` subscribers will receive this value.
 
 **Example:**
 ```typescript
-// Close all dialogs without passing a result
+// Close all dialogs
 this.messageDialogService.closeAll();
 
-// Close all dialogs with a specific result
+// Close all dialogs with a value
 this.messageDialogService.closeAll('cancelled');
 ```
 
@@ -145,19 +143,18 @@ this.messageDialogService.closeAll('cancelled');
 
 ## MessageDialogRef API
   
-The `MessageDialogRef` is a handle for interacting with an opened message dialog instance.
+The `MessageDialogRef` is a handle for controlling an open message dialog.
 
-Provides methods to control the dialog and observe when it closes.
-It's returned by `MessageDialogService.showModal()` and allows to:
-- Close the dialog programmatically with `close()`,
-- Subscribe to dialog close events with `afterClosed()`,
-- Pass a result value when closing that will be emitted to subscribers.
+It lets you:
+- Close the dialog with `close()`
+- Get notified when the dialog closes with `afterClosed()`
+- Pass a value when closing
 
 ### Methods
 
 #### `afterClosed(): Observable<T | undefined>`
 
-Returns an Observable that emits when the dialog closes. The Observable will emit the result value passed to `close()`, or `undefined` if the dialog was dismissed without a result.
+Returns an Observable that emits when the dialog closes. It emits the value passed to `close()`, or `undefined` if the dialog was closed without a value.
 
 **Example:**
 ```typescript
@@ -174,14 +171,14 @@ dialogRef.afterClosed().subscribe(result => {
 
 #### `close(result?: T): void`
 
-Closes the dialog with an optional result value. The result value will be emitted to all subscribers of `afterClosed()`.
+Closes the dialog. You can optionally pass a value that will be sent to `afterClosed()` subscribers.
 
 **Example:**
 ```typescript
-// Close with a specific result
+// Close with a value
 dialogRef.close('save');
 
-// Close without a result
+// Close without a value
 dialogRef.close();
 ```
 
@@ -189,7 +186,7 @@ dialogRef.close();
 
 ## Injecting MessageDialogRef into Components
 
-Components rendered inside the dialog can inject `MessageDialogRef` to close themselves:
+Components shown inside the dialog can inject `MessageDialogRef` to close themselves:
 
 ```typescript
 import { Component } from '@angular/core';
@@ -220,30 +217,46 @@ export class MyDialogComponent {
 
 ### MessageDialogServiceConfig
 
-Configuration interface for opening a message dialog with the MessageDialogService.
+Configuration for opening a message dialog.
+
+You must provide **either** a `component` **or** a `message` (not both).
+
+#### For message dialogs with a custom Angular component:
 
 ```typescript
-interface MessageDialogServiceConfig<T> {
-  /** Component to render in the message dialog */
-  component?: Type<T>;
+{
+  /** The component to show */
+  component: Type<T>;
   
-  /** Data to pass to the component */
+  /** Data to pass to the component (use @Inject('MESSAGE_DIALOG_DATA') to access) */
   data?: unknown;
   
-  /** The message to display (for non-component dialogs) */
-  message?: string | TemplateResult;
-  
-  /** The title of the message dialog */
+  /** The dialog title */
   title?: string;
   
-  /** Array of button configurations */
-  buttons?: Array<MessageDialogButton<unknown>>;
+  /** Buttons to show */
+  buttons?: Array<MessageDialogButton>;
   
-  /** If true, prevents closing via Escape key or backdrop click */
+  /** Set to true to prevent closing with Escape or clicking outside */
   disableCancel?: boolean;
 }
 ```
 
-All properties are optional, allowing you to customize the message dialog based on your needs. Use `component` and `data` for complex dialogs with custom Angular components, or use `message` for simple message dialogs.
+#### For message dialogs with a text message:
 
+```typescript
+{
+  /** The text or HTML to show */
+  message: string | TemplateResult;
+  
+  /** The dialog title */
+  title?: string;
+  
+  /** Buttons to show */
+  buttons?: Array<MessageDialogButton>;
+  
+  /** Set to true to prevent closing with Escape or clicking outside */
+  disableCancel?: boolean;
+}
+```
 ---

@@ -181,7 +181,7 @@ export class MessageDialogCustomComponentExampleComponent {
   constructor(private messageDialogService: MessageDialogService) {}
 
   showWithComponent(): void {
-    const dialogRef = this.messageDialogService.showModal<CustomMessageComponent, string>({
+    const dialogRef = this.messageDialogService.showModal({
       component: CustomMessageComponent,
       data: 'This is some data passed to the component!',
       title: 'Custom Component Message',
@@ -204,7 +204,7 @@ export class MessageDialogCustomComponentExampleComponent {
   }
 
   showCriticalAction(): void {
-    const dialogRef = this.messageDialogService.showModal<CustomMessageComponent, string>({
+    const dialogRef = this.messageDialogService.showModal({
       component: CustomMessageComponent,
       data: 'You are about to perform a critical action that requires confirmation.',
       title: 'Critical Action Required',

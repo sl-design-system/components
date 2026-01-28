@@ -13,52 +13,61 @@ import '@sl-design-system/message-dialog/register.js';
 import { type TemplateResult } from 'lit';
 import { Observable, Subject } from 'rxjs';
 
-/** Configuration for opening a message dialog with the MessageDialogService. */
-export interface MessageDialogServiceConfig<T> {
-  /** Component to render in the message dialog. */
-  component?: Type<T>;
-
-  /** Data to pass to the component. */
-  data?: unknown;
-
-  /** The message to display (when there is no Angular component applied). */
-  message?: string | TemplateResult;
-
-  /** The title of the message dialog. */
+/** Base configuration shared by both message dialog types. */
+interface MessageDialogServiceConfigBase<R = unknown> {
+  /** The message dialog title. */
   title?: string;
 
   /** Array of button configurations. */
-  buttons?: Array<MessageDialogButton<unknown>>;
+  buttons?: Array<MessageDialogButton<R>>;
 
-  /** If true, prevents closing via Escape key or backdrop click. */
+  /** Set to true to prevent closing with Escape or clicking outside. */
   disableCancel?: boolean;
 }
 
+/** Configuration for a message dialog with an Angular component. */
+export interface MessageDialogServiceComponentConfig<T, R = unknown> extends MessageDialogServiceConfigBase<R> {
+  /** The component to show. */
+  component: Type<T>;
+
+  /** Data to pass to the component. Access with @Inject('MESSAGE_DIALOG_DATA'). */
+  data?: unknown;
+}
+
+/** Configuration for a message dialog with a text message. */
+export interface MessageDialogServiceMessageConfig<R = unknown> extends MessageDialogServiceConfigBase<R> {
+  /** The message to show. */
+  message: string | TemplateResult;
+}
+
 /**
- * MessageDialogRef is a handle for interacting with an opened message dialog instance.
+ * Configuration for opening a message dialog.
+ * You must provide either `component` or `message`.
+ */
+export type MessageDialogServiceConfig<T = unknown, R = unknown> =
+  | MessageDialogServiceComponentConfig<T, R>
+  | MessageDialogServiceMessageConfig<R>;
+
+/**
+ * MessageDialogRef is a handle for controlling an open message dialog.
  *
- * Provides methods to control the dialog and observe when it closes.
- * It's returned by `MessageDialogService.showModal()`.
+ * Use it to close the dialog and get notified when it closes.
  *
- * Example usage:
+ * Example:
  * ```typescript
- * const dialogRef = this.messageDialogService.showModal<MyComponent, string>({
+ * const dialogRef = this.messageDialogService.showModal({
  *   component: MyComponent,
  *   title: 'Edit User'
  * });
  *
- * // Subscribe to close events
+ * // Get notified when the dialog closes
  * dialogRef.afterClosed().subscribe(result => {
  *   if (result === 'save') {
- *     console.log('User saved changes');
- *   } else if (result === 'cancel') {
- *     console.log('User cancelled');
- *   } else {
- *     console.log('Dialog was dismissed');
+ *     console.log('User saved');
  *   }
  * });
  *
- * // Close the dialog programmatically after 5 seconds
+ * // Close after 5 seconds
  * setTimeout(() => {
  *   dialogRef.close('timeout');
  * }, 5000);
@@ -90,9 +99,7 @@ export class MessageDialogRef<T = unknown> {
   }
 
   /**
-   * Closes the dialog with an optional result value.
-   * The result value will be emitted to all subscribers of `afterClosed()`.
-   * If no result is provided, `undefined` will be emitted.
+   * Closes the dialog. You can pass a value to send to subscribers.
    */
   close(result?: T): void {
     this.#manualClose = true;
@@ -104,7 +111,7 @@ export class MessageDialogRef<T = unknown> {
     });
   }
 
-  /** @internal Set the result value (used internally by the service). */
+  /** @internal Set the result value. */
   setResult(result: T): void {
     this.#manualClose = true;
     this.#result = result;
@@ -112,8 +119,7 @@ export class MessageDialogRef<T = unknown> {
 
   /**
    * @internal
-   * Emit the result when the dialog closes.
-   * Called by the service after animations complete.
+   * Send the result to subscribers after the dialog closes.
    */
   emitClose(): void {
     this.ngZone.run(() => {
@@ -128,8 +134,7 @@ export class MessageDialogRef<T = unknown> {
 
   /**
    * @internal
-   * Emit undefined when the dialog is cancelled.
-   * Called by the service when the sl-cancel event fires.
+   * Send undefined to subscribers when the dialog is cancelled.
    */
   emitCancel(): void {
     this.ngZone.run(() => {
@@ -140,11 +145,10 @@ export class MessageDialogRef<T = unknown> {
 }
 
 /**
- * MessageDialogService is a service for displaying and managing message dialogs in Angular applications.
- * Provides methods to show message dialogs with custom components or simple messages,
- * pass data, and handle dialog lifecycle events.
- * Supports alert, confirm, and custom button configurations.
- * Tracks all opened dialogs and allows closing them programmatically.
+ * Service for showing message dialogs.
+ *
+ * Use it to show message dialogs with custom components or simple messages.
+ * You can pass data, handle when dialogs close, and use custom buttons.
  */
 @Injectable({
   providedIn: 'root'
@@ -159,14 +163,19 @@ export class MessageDialogService {
     private ngZone: NgZone
   ) {}
 
-  /** Opens a message dialog with the given component or message and configuration. */
-  showModal<T, R = unknown>(config: MessageDialogServiceConfig<T>): MessageDialogRef<R> {
+  /**
+   * Opens a message dialog.
+   *
+   * @param config - Message dialog configuration
+   * @returns A MessageDialogRef to control the dialog
+   */
+  showModal<T, R>(config: MessageDialogServiceConfig<T, R>): MessageDialogRef<R> {
     const dialog = document.createElement('sl-message-dialog') as MessageDialog<R>,
       dialogRef = new MessageDialogRef<R>(dialog, this.ngZone);
 
     let componentRef: ComponentRef<T> | undefined;
 
-    if (config.component) {
+    if ('component' in config) {
       componentRef = this.#createComponent<T, R>(config.component, config.data, dialogRef);
       this.#setupComponentDialog(dialog, dialogRef, componentRef, config);
     } else {
@@ -180,7 +189,7 @@ export class MessageDialogService {
     dialog: MessageDialog<R>,
     dialogRef: MessageDialogRef<R>,
     componentRef: ComponentRef<T>,
-    config: MessageDialogServiceConfig<T>
+    config: MessageDialogServiceComponentConfig<T, R>
   ): void {
     const hostElement = componentRef.location.nativeElement as HTMLElement;
 
@@ -226,12 +235,10 @@ export class MessageDialogService {
   #setupMessageDialog<R>(
     dialog: MessageDialog<R>,
     dialogRef: MessageDialogRef<R>,
-    config: MessageDialogServiceConfig<unknown>
+    config: MessageDialogServiceMessageConfig<R>
   ): void {
-    const messageConfig = config as { message?: string | TemplateResult };
-
     // Create the dialog config - pass button values but don't use them to set result
-    dialog.config = this.#createDialogConfig<R>(config, messageConfig.message || '', dialogRef, false);
+    dialog.config = this.#createDialogConfig<R>(config, config.message, dialogRef, false);
 
     this.#openedDialogs.push(dialogRef as MessageDialogRef<unknown>);
 
@@ -249,17 +256,15 @@ export class MessageDialogService {
   }
 
   /**
-   * Set up click listeners on buttons in the shadow DOM to capture the result
-   * before the native close event fires.
-   * This ensures afterClosed() emits the correct value.
+   * Set up click listeners on buttons to capture the result before the dialog closes.
    */
   #setupButtonClickListeners<R>(
     dialog: MessageDialog<R>,
     dialogRef: MessageDialogRef<R>,
-    config: MessageDialogServiceConfig<unknown>
+    config: MessageDialogServiceConfigBase<R>
   ): void {
     const buttons = dialog.shadowRoot?.querySelectorAll('sl-button'),
-      configButtons = config.buttons as Array<MessageDialogButton<R>> | undefined;
+      configButtons = config.buttons;
 
     if (buttons && configButtons) {
       buttons.forEach((buttonElement, index) => {
@@ -279,16 +284,12 @@ export class MessageDialogService {
   }
 
   #createDialogConfig<R>(
-    config: MessageDialogServiceConfig<unknown>,
+    config: MessageDialogServiceConfigBase<R>,
     message: string | TemplateResult,
     dialogRef: MessageDialogRef<R>,
     includeValueInAction = true
   ): MessageDialogConfig<R> {
-    const { title, buttons, disableCancel } = config as {
-      title?: string;
-      buttons?: Array<MessageDialogButton<R>>;
-      disableCancel?: boolean;
-    };
+    const { title, buttons, disableCancel } = config;
 
     return {
       title,

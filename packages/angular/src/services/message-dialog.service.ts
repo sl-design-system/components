@@ -31,7 +31,7 @@ export interface MessageDialogServiceConfig<T> extends Partial<MessageDialogProp
   /** Data to pass to the component. */
   data?: unknown;
 
-  /** The message to display (for non-component dialogs). */
+  /** The message to display (when there is no Angular component applied). */
   message?: string | TemplateResult;
 
   /** The title of the message dialog. */
@@ -48,10 +48,7 @@ export interface MessageDialogServiceConfig<T> extends Partial<MessageDialogProp
  * MessageDialogRef is a handle for interacting with an opened message dialog instance.
  *
  * Provides methods to control the dialog and observe when it closes.
- * It's returned by `MessageDialogService.showModal()` and allows to:
- * - Close the dialog programmatically with `close()`,
- * - Subscribe to dialog close events with `afterClosed()`,
- * - Pass a result value when closing that will be emitted to subscribers.
+ * It's returned by `MessageDialogService.showModal()`.
  *
  * Example usage:
  * ```typescript

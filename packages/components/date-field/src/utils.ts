@@ -32,10 +32,13 @@ export function getDateFormat(locale: string, date?: Date): DateFormatPart[] {
     return dateFormatCache[locale];
   }
 
-  // Default to December 31, 2026 so we know the maximum number of characters of each
-  // part (e.g., 31 for day, 12 for month, 2026 for year). This is required for the date
-  // template generation.
-  const intlParts = new Intl.DateTimeFormat(locale).formatToParts(date ?? new Date(2026, 0, 0));
+  // To prevent the format changing from 2 digits day/month to 1 digit
+  // when the value is set in DateField, we force 2-digit formatting
+  const intlParts = new Intl.DateTimeFormat(locale, {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  }).formatToParts(date ?? new Date());
 
   // Extend the parts to include the indices of each part in the formatted string
   let index = 0;
@@ -74,6 +77,13 @@ function getDateUnitLetters(locale: string): Record<string, string> {
   dateUnitCache[locale] = units;
 
   return units;
+}
+
+/** Returns the localized unit letters for public use. */
+export function getDateUnitLetter(locale: string, unit: 'day' | 'month' | 'year'): string {
+  const units = getDateUnitLetters(locale);
+
+  return units[`${unit}s`] ?? unit.charAt(0).toUpperCase();
 }
 
 /**

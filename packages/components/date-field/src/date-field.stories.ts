@@ -11,7 +11,6 @@ import { type DateField } from './date-field.js';
 type Props = Pick<
   DateField,
   | 'disabled'
-  | 'locale'
   | 'max'
   | 'min'
   | 'month'
@@ -50,10 +49,6 @@ export default {
     label: {
       table: { disable: true }
     },
-    locale: {
-      control: 'inline-radio',
-      options: ['de', 'en-GB', 'es', 'fi', 'fr', 'it', 'nl', 'nl-BE', 'no', 'pl', 'sv']
-    },
     max: {
       control: 'date'
     },
@@ -74,7 +69,6 @@ export default {
     disabled,
     hint,
     label,
-    locale,
     max,
     min,
     month,
@@ -103,7 +97,6 @@ export default {
             ?show-week-numbers=${showWeekNumbers}
             .value=${value}
             .show-valid=${showValid}
-            locale=${ifDefined(locale)}
             max=${ifDefined(max?.toISOString())}
             min=${ifDefined(min?.toISOString())}
             month=${ifDefined(month?.toISOString())}

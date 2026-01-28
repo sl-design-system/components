@@ -202,28 +202,6 @@ describe('sl-date-field', () => {
       expect(el.max).to.equalDate(maxDate);
     });
 
-    it('should have default date-time format', () => {
-      expect(el.dateTimeFormat).to.deep.equal({
-        day: 'numeric',
-        month: 'numeric',
-        year: 'numeric'
-      });
-    });
-
-    it('should use custom date-time format when set', async () => {
-      const testDate = new Date(2023, 5, 15);
-      el = await fixture(html`
-        <sl-date-field
-          .value=${testDate}
-          .dateTimeFormat=${{ year: 'numeric', month: 'long', day: 'numeric' }}
-        ></sl-date-field>
-      `);
-      input = el.querySelector('input')!;
-
-      expect(input.value).to.contain('June');
-      expect(input.value).to.contain('2023');
-    });
-
     it('should set first day of week when set', async () => {
       el.firstDayOfWeek = 0;
       await el.updateComplete;

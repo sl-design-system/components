@@ -23,7 +23,15 @@ const preview: Preview = {
   decorators: [
     (story, { globals: { locale = locales.sourceLocale } }) => {
       document.documentElement.lang = locale;
-      setLocale(locale);
+
+      try {
+        // Try and set the @lit/localize locale; will throw an error if the
+        // locale is not available. Ignore those errors since the locale can
+        // still be valid for components that use the Intl APIs.
+        setLocale(locale);
+      } catch {
+        // empty
+      }
 
       return story();
     },
@@ -59,13 +67,22 @@ const preview: Preview = {
     locale: {
       name: 'Locale',
       description: 'Internationalization locale',
-      defaultValue: 'en',
+      defaultValue: 'en-GB',
       toolbar: {
         dynamicTitle: true,
         icon: 'globe',
         items: [
-          { value: 'en', right: '🇺🇸', title: 'English' },
-          { value: 'nl', right: '🇳🇱', title: 'Nederlands' }
+          { value: 'de', right: '🇩🇪', title: 'Deutsch' },
+          { value: 'en-GB', right: '🇬🇧', title: 'English (UK)' },
+          { value: 'es', right: '🇪🇸', title: 'Español' },
+          { value: 'fr', right: '🇫🇷', title: 'Français' },
+          { value: 'it', right: '🇮🇹', title: 'Italiano' },
+          { value: 'nl', right: '🇳🇱', title: 'Nederlands' },
+          { value: 'nl-BE', right: '🇧🇪', title: 'Nederlands (België)' },
+          { value: 'no', right: '🇳🇴', title: 'Norsk' },
+          { value: 'pl', right: '🇵🇱', title: 'Polski' },
+          { value: 'fi', right: '🇫🇮', title: 'Suomi' },
+          { value: 'sv', right: '🇸🇪', title: 'Svenska' }
         ]
       }
     }

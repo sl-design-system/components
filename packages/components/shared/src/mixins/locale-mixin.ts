@@ -14,7 +14,7 @@ const documentElementObserver = new MutationObserver(() => {
 
   [...connectedElements.keys()].forEach((el: ReactiveElement) => {
     if (typeof el.requestUpdate === 'function') {
-      el.requestUpdate();
+      el.requestUpdate('locale');
     }
   });
 });

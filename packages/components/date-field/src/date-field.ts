@@ -11,7 +11,7 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './date-field.scss.js';
-import { DateFormatPart, getDateFormat, getDateTemplate } from './utils.js';
+import { type DateFormatPart, getDateFormat, getDateTemplate, getDateUnitLetter } from './utils.js';
 
 /**
  * A form component that allows the user to pick a date from a calendar.
@@ -37,6 +37,12 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** @internal The default margin between the popover and the viewport. */
   static viewportMargin = 8;
 
+  /**
+   * Stores the individual date parts when the user is editing.
+   * These are stored separately from `value` to support partial dates.
+   */
+  #dateParts: { day?: number; month?: number; year?: number } = {};
+
   /** Formatter for displaying the value in the input. */
   #formatter?: Intl.DateTimeFormat;
 
@@ -55,14 +61,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<Date>>;
-
-  /**
-   * Date and time format that will be used for formatting the date in the input.
-   * This support the `Intl.DateTimeFormatOptions` format.
-   * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat
-   */
-  @property({ type: Object, attribute: 'date-time-format' })
-  dateTimeFormat: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'numeric', year: 'numeric' };
 
   /** @internal The dialog element that is also the popover. */
   @query('dialog') dialog?: HTMLDialogElement;
@@ -163,8 +161,10 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    if (changes.has('dateTimeFormat') && changes.has('locale')) {
-      this.#formatter = new Intl.DateTimeFormat(this.locale, this.dateTimeFormat);
+    if (changes.has('locale')) {
+      // Always use 2 digits for day and month and 4 digits for year to prevent
+      // shifting when the user types in the input. This matches the behavior in getDateFormat.
+      this.#formatter = new Intl.DateTimeFormat(this.locale, { day: '2-digit', month: '2-digit', year: 'numeric' });
     }
 
     if (changes.has('required')) {
@@ -179,8 +179,20 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       }
     }
 
-    if (changes.has('value')) {
-      this.input.value = this.value && this.#formatter ? this.#formatter.format(this.value) : '';
+    if (changes.has('locale') || changes.has('value')) {
+      if (this.value) {
+        // Sync date parts from value
+        this.#dateParts = {
+          day: this.value.getDate(),
+          month: this.value.getMonth() + 1,
+          year: this.value.getFullYear()
+        };
+
+        this.input.value = this.#formatter ? this.#formatter.format(this.value) : '';
+      } else {
+        this.input.value = '';
+      }
+
       this.updateValidity();
     }
   }
@@ -283,6 +295,10 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   #onInputBlur(): void {
     if (this.value) {
       return;
+    }
+
+    if (this.#hasPartialDate()) {
+      this.#updateInputDisplay();
     } else if (this.placeholder) {
       this.input.value = '';
     }
@@ -305,7 +321,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onInputFocus(): void {
-    if (this.value) {
+    if (this.value || this.#hasPartialDate()) {
       return;
     }
 
@@ -331,8 +347,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         newIndex = event.key === 'ArrowLeft' ? Math.max(0, index - 1) : Math.min(parts.length - 1, index + 1);
 
       this.#setSelectedPart(parts[newIndex]);
-    } else {
-      console.log(event.key);
+    } else if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+      this.#adjustDatePart(selectedPart.type, event.key === 'ArrowUp' ? 1 : -1);
     }
   }
 
@@ -407,5 +423,114 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   #setSelectedPart(part: DateFormatPart): void {
     this.input.setSelectionRange(part.start, part.end);
+  }
+
+  /**
+   * Adjusts a date part by the given delta, with wrapping.
+   * @param partType The type of part to adjust ('day', 'month', 'year')
+   * @param delta The amount to adjust by (1 or -1)
+   */
+  #adjustDatePart(partType: string, delta: number): void {
+    if (partType !== 'day' && partType !== 'month' && partType !== 'year') {
+      return;
+    }
+
+    const currentValue = this.#dateParts[partType];
+
+    if (currentValue === undefined) {
+      // No value yet: ArrowUp sets to min, ArrowDown sets to max
+      if (partType === 'day') {
+        this.#dateParts.day = delta > 0 ? 1 : 31;
+      } else if (partType === 'month') {
+        this.#dateParts.month = delta > 0 ? 1 : 12;
+      } else {
+        // For year, use current year as a reasonable default
+        this.#dateParts.year = new Date().getFullYear();
+      }
+    } else {
+      // Increment/decrement with wrapping
+      if (partType === 'day') {
+        this.#dateParts.day = currentValue + delta;
+        if (this.#dateParts.day > 31) this.#dateParts.day = 1;
+        if (this.#dateParts.day < 1) this.#dateParts.day = 31;
+      } else if (partType === 'month') {
+        this.#dateParts.month = currentValue + delta;
+        if (this.#dateParts.month > 12) this.#dateParts.month = 1;
+        if (this.#dateParts.month < 1) this.#dateParts.month = 12;
+      } else {
+        // Year doesn't wrap, but we can set reasonable bounds
+        this.#dateParts.year = Math.max(1, Math.min(9999, currentValue + delta));
+      }
+    }
+
+    this.#updateInputDisplay();
+    this.#trySetValue();
+
+    // Re-select the same part after updating
+    requestAnimationFrame(() => {
+      const parts = getDateFormat(this.locale ?? 'default').filter(p => p.type !== 'literal'),
+        part = parts.find(p => p.type === partType);
+
+      if (part) {
+        this.#setSelectedPart(part);
+      }
+    });
+  }
+
+  #hasPartialDate(): boolean {
+    return (
+      this.#dateParts.day !== undefined || this.#dateParts.month !== undefined || this.#dateParts.year !== undefined
+    );
+  }
+
+  /** Updates the input display based on current date parts. */
+  #updateInputDisplay(): void {
+    const locale = this.locale ?? 'default',
+      parts = getDateFormat(locale);
+
+    const display = parts
+      .map(part => {
+        if (part.type === 'day') {
+          if (this.#dateParts.day !== undefined) {
+            return String(this.#dateParts.day).padStart(part.value.length, '0');
+          }
+
+          return getDateUnitLetter(locale, 'day').repeat(part.value.length);
+        } else if (part.type === 'month') {
+          if (this.#dateParts.month !== undefined) {
+            return String(this.#dateParts.month).padStart(part.value.length, '0');
+          }
+
+          return getDateUnitLetter(locale, 'month').repeat(part.value.length);
+        } else if (part.type === 'year') {
+          if (this.#dateParts.year !== undefined) {
+            return String(this.#dateParts.year);
+          }
+          return getDateUnitLetter(locale, 'year').repeat(part.value.length);
+        }
+
+        return part.value;
+      })
+      .join('');
+
+    this.input.value = display;
+  }
+
+  /** Tries to set the value if all date parts are defined. */
+  #trySetValue(): void {
+    const { day, month, year } = this.#dateParts;
+
+    if (day !== undefined && month !== undefined && year !== undefined) {
+      // Validate the date
+      const date = new Date(year, month - 1, day);
+
+      // Check if the date is valid (e.g., Feb 30 would roll over to March)
+      if (date.getDate() === day && date.getMonth() === month - 1 && date.getFullYear() === year) {
+        this.value = date;
+        this.changeEvent.emit(this.value);
+        this.updateState({ dirty: true });
+        this.updateValidity();
+      }
+    }
   }
 }

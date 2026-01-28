@@ -20,6 +20,117 @@ eleventyNavigation:
 <section>
 
 ## SL Design System Update
+<small>January 2026</small>
+
+Here’s an update on what we’ve been working on recently:
+
+### New Components and Features
+- **Calendar** - New version of the component with improved styling and accessibility. <ds-status status="draft"></ds-status>
+- **Shared** - New utilities added to the shared package for potential reuse across components:
+  - `dateListConverter` - Utility for date list conversions
+  - `NewFocusGroupController` - Utility for focus management
+  
+  Both utilities are currently used in the Calendar component and have been added to `@sl-design-system/shared` for potential reuse in other packages in the future.
+
+### Other Improvements
+We have been working on a lot of bug fixes, the details can be found on our [release notes page](https://github.com/sl-design-system/components/blob/main/RELEASE_NOTES.md). The following components have one or more issues resolved:
+- [`accordion`](https://github.com/sl-design-system/components/blob/main/packages/components/accordion/CHANGELOG.md)
+- [`announcer`](https://github.com/sl-design-system/components/blob/main/packages/components/announcer/CHANGELOG.md)
+- [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md)
+- [`date-field`](https://github.com/sl-design-system/components/blob/main/packages/components/date-field/CHANGELOG.md)
+- [`number-field`](https://github.com/sl-design-system/components/blob/main/packages/components/number-field/CHANGELOG.md)
+- [`select`](https://github.com/sl-design-system/components/blob/main/packages/components/select/CHANGELOG.md)
+- [`tabs`](https://github.com/sl-design-system/components/blob/main/packages/components/tabs/CHANGELOG.md)
+
+### Documentation Updates
+- [Number Field](/categories/components/number-field/code/) - API documentation has been improved.
+
+</section>
+<section>
+
+## SL Design System Update
+<small>August - December 2025</small>
+
+Here's an update on what we've been working on recently:
+
+### New Components
+- **Callout** is a new component, visually similar to the inline-message but with a different purpose: it can be used to provide additional, non-interrupting information and may include actions (e.g. buttons). Unlike inline-message, it's not meant to be shown/hidden dynamically in response to user actions. <ds-status status="draft"></ds-status>
+- **Time Field** component is now available for time input with a built-in time picker dialog. <ds-status status="draft"></ds-status>
+- **Virtual List** is a new utility package that provides a virtual scrolling solution based on `@tanstack/virtual-core`. <ds-status status="draft"></ds-status>
+
+### Component Status Updates
+- **Menu** has been promoted from draft to preview. <ds-status status="preview"></ds-status>
+- **Number Field** has been promoted from draft to preview. <ds-status status="preview"></ds-status>
+- **Tag** has been promoted from draft to preview. <ds-status status="preview"></ds-status>
+- **Tree** has been promoted from draft to preview and now supports sorting. <ds-status status="preview"></ds-status>
+
+### Major Component Updates
+- **Angular** now requires Angular 19.0 or higher (tested with Angular 21.0) and TypeScript 5.9.0 or higher. Support for Angular 18 has been removed. The package also includes new bindings for `<sl-time-field>`, `<sl-combobox>`, and `<sl-number-field>`.
+- **Accordion** has a new `iconType` property that allows you to use a chevron icon instead of plus/minus, and now uses contextual tokens for styling. <ds-status status="stable"></ds-status>
+- **Avatar** has new `color`, `emphasis` and `shape` properties for easier customization (similar to `<sl-badge>`). <ds-status status="stable"></ds-status>
+- **Badge** can now have a label on `sm` badges; this will be shown behind the dot. <ds-status status="stable"></ds-status>
+- **Breadcrumbs** has a new `hideHomeLabel` property to allow hiding the "Home" label text in the first home breadcrumb. <ds-status status="stable"></ds-status>
+- **Button** now supports `aria-disabled="true"` to disable a button while keeping it focusable (useful for tooltips). <ds-status status="stable"></ds-status>
+- **Button Bar** has new `fill` and `variant` properties that will apply to all buttons inside the button bar. <ds-status status="stable"></ds-status>
+- **Form** now supports more than 1 form control per field. <ds-status status="stable"></ds-status>
+- **Icon** now supports Font Awesome 7.1 and scales with the text size when no explicit size is set. <ds-status status="stable"></ds-status>
+- **Panel** has improved `density` property values - use `default` and `relaxed` going forward. The `plain` and `comfortable` values are deprecated, they will be kept for backward compatibility for now but removed in the future. <ds-status status="draft"></ds-status>
+- **Search Field** now debounces the `sl-search` event while typing with a default delay of 300ms. <ds-status status="preview"></ds-status>
+- **Select** now automatically adjusts its width based on the largest option available. <ds-status status="stable"></ds-status>
+- **Tabs** has updated styling to align with Figma design (increased width and border radius of the indicator). <ds-status status="stable"></ds-status>
+- **Tool Bar** has major improvements including a new `contained` property to enable contained mode, keyboard navigation support for arrow keys when toolbar is focused, and an `inverted` property for the divider component. The overall styling has been improved and overflow behavior issues have been fixed. The `no-border` property has been removed; the border now only shows in `contained` variant (except when `inverted`). When updating to this version of the tool-bar while also using a panel, make sure to update the panel to version v0.3.1 or later. <ds-status status="draft"></ds-status>
+- **Tooltip** now supports passing a config object to the Lit directive and has an `ariaRelation` option to use `aria-describedby` or `aria-labelledby`. <ds-status status="stable"></ds-status>
+
+### Theme Updates & Breaking Changes
+All theme packages have a major version bump after the refactoring of Figma tokens. Legacy tokens have been moved to separate `-deprecated.css` files. If you have components that are not updated to use the new tokens, include `light-deprecated.css` until all components are updated. See the [themes README](https://github.com/sl-design-system/components/tree/main/packages/themes/README.md) for details. The Clickedu theme has an updated color palette with new brand colors.
+
+### Bug Fixes & Improvements
+We've been working on numerous bug fixes and improvements. The following components have one or more issues resolved:
+- [`accordion`](https://github.com/sl-design-system/components/blob/main/packages/components/accordion/CHANGELOG.md)
+- [`button`](https://github.com/sl-design-system/components/blob/main/packages/components/button/CHANGELOG.md)
+- [`checkbox`](https://github.com/sl-design-system/components/blob/main/packages/components/checkbox/CHANGELOG.md)
+- [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md)
+- [`data-source`](https://github.com/sl-design-system/components/blob/main/packages/components/data-source/CHANGELOG.md)
+- [`date-field`](https://github.com/sl-design-system/components/blob/main/packages/components/date-field/CHANGELOG.md)
+- [`dialog`](https://github.com/sl-design-system/components/blob/main/packages/components/dialog/CHANGELOG.md)
+- [`form`](https://github.com/sl-design-system/components/blob/main/packages/components/form/CHANGELOG.md)
+- [`grid`](https://github.com/sl-design-system/components/blob/main/packages/components/grid/CHANGELOG.md)
+- [`icon`](https://github.com/sl-design-system/components/blob/main/packages/components/icon/CHANGELOG.md)
+- [`inline-message`](https://github.com/sl-design-system/components/blob/main/packages/components/inline-message/CHANGELOG.md)
+- [`listbox`](https://github.com/sl-design-system/components/blob/main/packages/components/listbox/CHANGELOG.md)
+- [`menu`](https://github.com/sl-design-system/components/blob/main/packages/components/menu/CHANGELOG.md)
+- [`message-dialog`](https://github.com/sl-design-system/components/blob/main/packages/components/message-dialog/CHANGELOG.md)
+- [`number-field`](https://github.com/sl-design-system/components/blob/main/packages/components/number-field/CHANGELOG.md)
+- [`panel`](https://github.com/sl-design-system/components/blob/main/packages/components/panel/CHANGELOG.md)
+- [`popover`](https://github.com/sl-design-system/components/blob/main/packages/components/popover/CHANGELOG.md)
+- [`radio-group`](https://github.com/sl-design-system/components/blob/main/packages/components/radio-group/CHANGELOG.md)
+- [`select`](https://github.com/sl-design-system/components/blob/main/packages/components/select/CHANGELOG.md)
+- [`skeleton`](https://github.com/sl-design-system/components/blob/main/packages/components/skeleton/CHANGELOG.md)
+- [`tabs`](https://github.com/sl-design-system/components/blob/main/packages/components/tabs/CHANGELOG.md)
+- [`tag`](https://github.com/sl-design-system/components/blob/main/packages/components/tag/CHANGELOG.md)
+- [`text-area`](https://github.com/sl-design-system/components/blob/main/packages/components/text-area/CHANGELOG.md)
+- [`time-field`](https://github.com/sl-design-system/components/blob/main/packages/components/time-field/CHANGELOG.md)
+- [`tool-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/tool-bar/CHANGELOG.md)
+- [`tooltip`](https://github.com/sl-design-system/components/blob/main/packages/components/tooltip/CHANGELOG.md)
+- [`tree`](https://github.com/sl-design-system/components/blob/main/packages/components/tree/CHANGELOG.md)
+
+### Developer Tools
+- **ESLint Plugin** - New `@sl-design-system/eslint-plugin-slds` package provides an ESLint plugin for the SL Design System. This plugin includes a rule for ensuring any `<sl-button>` you use has an accessible name. There are 2 more rules that deal with `html` tagged templates. The `@sl-design-system/eslint-config` package has been updated to include the new plugin.
+
+### Documentation Updates
+We've been working on improving and expanding our documentation.
+The following components received new or updated documentation:
+- [Time Field](/categories/components/time-field/) - New documentation added with usage guidelines and examples.
+- [Button Bar](/categories/components/button-bar/) - Documentation has been updated with improved examples and usage guidelines.
+- [Paginator](/categories/components/paginator/) - New documentation added including examples with data sources.
+- [Panel](/categories/components/panel/) - New documentation added with usage, accessibility, and examples.
+- [Tree](/categories/components/tree/) - Documentation improvements with better examples and API descriptions.
+- [Angular Wrappers](https://storybook.sanomalearning.design/?path=/docs/angular_welcome--documentation) - Added Storybook documentation for Angular wrappers and directives, making it easier to use the design system in Angular applications.
+
+</section>
+<section>
+
+## SL Design System Update
 <small>June & July 2025</small>
 
 Here’s an update on what we’ve been working on recently:

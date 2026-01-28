@@ -41,6 +41,12 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     };
   }
 
+  /** @internal Observe native lang attribute changes */
+  static override get observedAttributes(): string[] {
+    const parentAttrs = super.observedAttributes || [];
+    return [...parentAttrs, 'lang'];
+  }
+
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
@@ -175,6 +181,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     this.setFormControlElement(this.input);
+    this.input.lang = this.getAttribute('lang') || this.locale || '';
 
     // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
     const style = document.createElement('style');
@@ -184,6 +191,14 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       }
     `;
     this.prepend(style);
+  }
+
+  override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null): void {
+    super.attributeChangedCallback(name, oldValue, newValue);
+
+    if (name === 'lang' && this.input) {
+      this.input.lang = newValue || this.locale || '';
+    }
   }
 
   override firstUpdated(changes: PropertyValues<this>): void {
@@ -210,6 +225,10 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     if (changes.has('required') && this.textField) {
       this.textField.required = !!this.required;
+    }
+
+    if (changes.has('locale')) {
+      this.input.lang = this.getAttribute('lang') || this.locale || '';
     }
   }
 

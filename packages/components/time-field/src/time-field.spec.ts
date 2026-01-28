@@ -734,4 +734,53 @@ describe('sl-time-field', () => {
       expect(el.textField.input.selectionEnd).to.equal(5);
     });
   });
+
+  describe.only('locale', () => {
+    it('should set the lang attribute on the input when lang prop is set', async () => {
+      el = await fixture(html`<sl-time-field lang="fi"></sl-time-field>`);
+      expect(el.input).to.have.attribute('lang', 'fi');
+    });
+
+    it('should set the lang attribute on the input when locale prop is set', async () => {
+      el = await fixture(html`<sl-time-field locale="de-DE"></sl-time-field>`);
+      expect(el.input).to.have.attribute('lang', 'de-DE');
+    });
+
+    it('should prioritize lang over locale when both are set', async () => {
+      el = await fixture(html`<sl-time-field lang="fr" locale="de-DE"></sl-time-field>`);
+      expect(el.input).to.have.attribute('lang', 'fr');
+    });
+
+    it('should update the lang attribute when lang prop changes', async () => {
+      el = await fixture(html`<sl-time-field lang="fi"></sl-time-field>`);
+      expect(el.input).to.have.attribute('lang', 'fi');
+
+      el.setAttribute('lang', 'sv');
+      await el.updateComplete;
+      expect(el.input).to.have.attribute('lang', 'sv');
+    });
+
+    it('should update the lang attribute when locale prop changes', async () => {
+      el = await fixture(html`<sl-time-field locale="fi"></sl-time-field>`);
+      expect(el.input).to.have.attribute('lang', 'fi');
+
+      el.locale = 'sv';
+      await el.updateComplete;
+      expect(el.input).to.have.attribute('lang', 'sv');
+    });
+
+    it('should fall back to locale when lang is removed', async () => {
+      el = await fixture(html`<sl-time-field lang="fr" locale="de-DE"></sl-time-field>`);
+      expect(el.input).to.have.attribute('lang', 'fr');
+
+      el.removeAttribute('lang');
+      await el.updateComplete;
+      expect(el.input).to.have.attribute('lang', 'de-DE');
+    });
+
+    it('should have lang attribute reflecting resolved locale when neither lang nor locale is set', async () => {
+      el = await fixture(html`<sl-time-field></sl-time-field>`);
+      expect(el.input.lang).to.equal(el.locale);
+    });
+  });
 });

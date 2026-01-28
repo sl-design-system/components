@@ -12,8 +12,9 @@ Opens a message dialog with a custom Angular component or simple message content
 - `component` (optional) - Angular component to render as the message content
 - `data` (optional) - Data to pass to the component via `@Inject('MESSAGE_DIALOG_DATA')`
 - `message` (optional) - Simple text or HTML message (use instead of `component` for basic message dialogs)
-
-For the message dialog configuration options like `title`, `buttons`, `disableCancel`, etc., see the [MessageDialog documentation](https://sanomalearning.design/categories/components/message-dialog/code/).
+- `title` (optional) - The title of the message dialog
+- `buttons` (optional) - Array of button configurations
+- `disableCancel` (optional) - If true, prevents closing via Escape key or backdrop click
 
 **Returns:** a `MessageDialogRef<R>` to control the dialog and observe when it closes.
 
@@ -221,14 +222,26 @@ Configuration interface for opening a message dialog with the MessageDialogServi
 
 ```typescript
 interface MessageDialogServiceConfig<T> extends Partial<MessageDialogProps> {
-  /** Angular component to render as message content */
+  /** Component to render in the message dialog */
   component?: Type<T>;
   
-  /** Data to pass to the component via @Inject('MESSAGE_DIALOG_DATA') */
+  /** Data to pass to the component */
   data?: unknown;
+  
+  /** The message to display (for non-component dialogs) */
+  message?: string | TemplateResult;
+  
+  /** The title of the message dialog */
+  title?: string;
+  
+  /** Array of button configurations */
+  buttons?: Array<MessageDialogButton<unknown>>;
+  
+  /** If true, prevents closing via Escape key or backdrop click */
+  disableCancel?: boolean;
 }
 ```
 
-The `MessageDialogServiceConfig` extends `Partial<MessageDialogProps>`, which includes all public properties from the MessageDialog component such as `title`, `message`, `buttons`, `disableCancel` etc. See the [MessageDialog documentation](https://sanomalearning.design/categories/components/message-dialog/code/) for all available configuration options.
+The `MessageDialogServiceConfig` extends `Partial<MessageDialogProps>`, which includes all public properties from the MessageDialog component. The most commonly used properties (`message`, `title`, `buttons`, `disableCancel`) are explicitly listed above for type safety.
 
 ---

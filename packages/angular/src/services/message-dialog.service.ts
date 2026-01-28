@@ -30,16 +30,19 @@ export interface MessageDialogServiceConfig<T> extends Partial<MessageDialogProp
 
   /** Data to pass to the component. */
   data?: unknown;
-}
 
-/** Helper to assign all config properties to the message dialog element */
-const applyMessageDialogProps = (dialog: MessageDialog, config: MessageDialogServiceConfig<unknown>): void => {
-  Object.keys(config).forEach(key => {
-    if (key !== 'component' && key !== 'data' && key in dialog) {
-      (dialog as unknown as Record<string, unknown>)[key] = (config as unknown as Record<string, unknown>)[key];
-    }
-  });
-};
+  /** The message to display (for non-component dialogs). */
+  message?: string | TemplateResult;
+
+  /** The title of the message dialog. */
+  title?: string;
+
+  /** Array of button configurations. */
+  buttons?: Array<MessageDialogButton<unknown>>;
+
+  /** If true, prevents closing via Escape key or backdrop click. */
+  disableCancel?: boolean;
+}
 
 /**
  * MessageDialogRef is a handle for interacting with an opened message dialog instance.
@@ -223,8 +226,6 @@ export class MessageDialogService {
 
     dialog.config = this.#createDialogConfig<R>(config, '', dialogRef);
 
-    applyMessageDialogProps(dialog, config);
-
     this.#openedDialogs.push(dialogRef as MessageDialogRef<unknown>);
 
     document.body.appendChild(dialog);
@@ -268,8 +269,6 @@ export class MessageDialogService {
     const messageConfig = config as { message?: string | TemplateResult };
 
     dialog.config = this.#createDialogConfig<R>(config, messageConfig.message || '', dialogRef);
-
-    applyMessageDialogProps(dialog, config);
 
     this.#openedDialogs.push(dialogRef as MessageDialogRef<unknown>);
 

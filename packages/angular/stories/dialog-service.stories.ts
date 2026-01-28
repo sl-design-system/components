@@ -238,58 +238,11 @@ export default {
 
 export const DialogServiceExample: StoryFn = () => ({
   description:
-    '<p>The <strong>DialogService</strong> provides a way to programmatically open and manage dialogs in Angular applications.</p>' +
-    '<h4>Key Features:</h4>' +
-    '<ul>' +
-    '<li><strong>showModal()</strong> - Opens a dialog with a custom Angular component</li>' +
-    '<li><strong>closeAll()</strong> - Closes all currently open dialogs</li>' +
-    '<li><strong>DialogRef</strong> - Handle to control individual dialogs and observe when they close</li>' +
-    "<li><strong>Data injection</strong> - Pass data to dialog components using <code>@Inject('DIALOG_DATA')</code></li>" +
-    '</ul>' +
-    '<h4>DialogService Methods:</h4>' +
-    '<p><strong>showModal&lt;T, R&gt;(config: DialogConfig&lt;T&gt;): DialogRef&lt;R&gt;</strong></p>' +
-    '<p>Opens a dialog with the specified component and configuration. Returns a <code>DialogRef</code> that can be used to interact with the dialog.</p>' +
-    '<p><strong>Parameters:</strong></p>' +
-    '<ul>' +
-    '<li><code>config.component</code> - The Angular component to render in the dialog</li>' +
-    "<li><code>config.data</code> - Optional data to pass to the component (accessible via <code>@Inject('DIALOG_DATA')</code>)</li>" +
-    '<li><code>config.closeButton</code> - Whether to show a close button (default: false)</li>' +
-    '<li><code>config.disableCancel</code> - If true, prevents closing via Escape key or backdrop click (default: false)</li>' +
-    '</ul>' +
-    '<p><strong>closeAll(result?: unknown): void</strong></p>' +
-    '<p>Closes all currently opened dialogs. Optionally pass a result value that will be emitted to all <code>afterClosed()</code> subscribers.</p>' +
-    '<p><strong>Example:</strong></p>' +
-    "<pre><code>// Close all dialogs without a result\nthis.dialogService.closeAll();\n\n// Close all with a specific result\nthis.dialogService.closeAll('cancelled');</code></pre>" +
-    '<h4>DialogRef API:</h4>' +
-    '<p>The <code>DialogRef</code> returned by <code>showModal()</code> provides methods to control the dialog:</p>' +
-    '<ul>' +
-    '<li><strong>afterClosed(): Observable&lt;R | undefined&gt;</strong> - Returns an Observable that emits when the dialog closes with the result value</li>' +
-    '<li><strong>close(result?: R): void</strong> - Closes the dialog with an optional result value</li>' +
-    '</ul>' +
-    '<h4>Passing Data to Dialog Components:</h4>' +
-    "<p>Use <code>@Inject('DIALOG_DATA')</code> in your component constructor to receive data passed via the <code>data</code> property:</p>" +
-    "<pre><code>constructor(\n  public dialogRef: DialogRef&lt;string&gt;,\n  @Inject('DIALOG_DATA') public data: { title: string; message: string }\n) {}</code></pre>" +
-    '<h4>Usage Examples:</h4>' +
-    '<p>See the examples below for basic dialogs and non-cancellable dialogs. The next example shows how to use forms inside dialogs.</p>',
+    'This example demonstrates using the <strong>DialogService</strong> to programmatically open and manage dialogs in Angular applications. The service works with any Angular component as dialog content.<br/><br/>The dialog component receives data through @Inject(DIALOG_DATA), allowing you to pass configuration and content to your dialogs. Use DialogRef to control the dialog and return results when closing.<br/><br/>This example shows basic dialogs with and without close buttons. See the next example for implementing forms inside dialogs.',
   template: '<sla-dialog-service></sla-dialog-service>'
 });
 
 export const FormInDialogExample: StoryFn = () => ({
-  description:
-    '<p>This example demonstrates how to use a form inside a dialog opened with the DialogService.</p>' +
-    '<h4>Key Points:</h4>' +
-    '<ul>' +
-    '<li>Use <code>@ViewChild</code> to access the form component</li>' +
-    '<li>Call <code>form.el.reportValidity()</code> to trigger validation messages</li>' +
-    '<li>Close the dialog with form data using <code>dialogRef.close(data)</code></li>' +
-    '<li>Handle the result in <code>afterClosed()</code> subscription</li>' +
-    '</ul>' +
-    '<h4>Form Validation:</h4>' +
-    '<p>Before closing the dialog, check if the form is valid:</p>' +
-    '<pre><code>if (!this.form.el.valid) {\n  this.form.el.reportValidity();\n} else {\n  this.dialogRef.close(this.formData);\n}</code></pre>' +
-    '<h4>Styling Dialog Content:</h4>' +
-    '<p>You can style dialog parts using <code>::part()</code> selectors:</p>' +
-    '<pre><code>sl-dialog::part(body) {\n  display: flex;\n  flex-direction: column;\n  gap: 0.2rem;\n}</code></pre>' +
-    '<p><strong>Note:</strong> Use <code>ViewEncapsulation.None</code> in the component to allow styling web component parts.</p>',
+  description: 'This example demonstrates how to use a form inside a dialog opened with the DialogService.',
   template: '<sla-dialog-form-example></sla-dialog-form-example>'
 });

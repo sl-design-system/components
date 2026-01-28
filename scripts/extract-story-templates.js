@@ -380,11 +380,14 @@ ${component.classContent || '  // Component logic here'}
         if (component.classContent) {
           // Look for component references in generic type parameters like <CustomMessageComponent, string>
           const referencedComponentRegex = /<(\w+Component),/g;
+
           let refMatch;
+
           const referencedComponents = new Set();
 
           while ((refMatch = referencedComponentRegex.exec(component.classContent)) !== null) {
             const refComponentName = refMatch[1];
+
             // Find this component in our extracted components
             const refComponent = components.find(c => c.name === refComponentName);
             if (refComponent && refComponent.name !== component.name) {

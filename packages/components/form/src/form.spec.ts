@@ -423,7 +423,9 @@ describe('sl-form', () => {
       const textField = el.querySelector<TextField>('sl-text-field[name="bar"]');
       expect(el.valid).to.be.true;
 
-      if (textField) textField.value = '';
+      if (textField) {
+        textField.value = '';
+      }
 
       expect(el.valid).to.be.true;
       await el.updateComplete;
@@ -434,8 +436,12 @@ describe('sl-form', () => {
       const fooField = el.querySelector<TextField>('sl-text-field[name="foo"]');
       const barField = el.querySelector<TextField>('sl-text-field[name="bar"]');
 
-      if (fooField) fooField.value = '';
-      if (barField) barField.value = '';
+      if (fooField) {
+        fooField.value = '';
+      }
+      if (barField) {
+        barField.value = '';
+      }
 
       await el.updateComplete;
       expect(el.valid).to.be.false;
@@ -444,11 +450,15 @@ describe('sl-form', () => {
     it('should return correct validity after field becomes valid again', async () => {
       const barField = el.querySelector<TextField>('sl-text-field[name="bar"]');
 
-      if (barField) barField.value = '';
+      if (barField) {
+        barField.value = '';
+      }
       await el.updateComplete;
       expect(el.valid).to.be.false;
 
-      if (barField) barField.value = 'new value';
+      if (barField) {
+        barField.value = 'new value';
+      }
       await el.updateComplete;
       expect(el.valid).to.be.true;
     });

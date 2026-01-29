@@ -736,22 +736,23 @@ describe('sl-time-field', () => {
   });
 
   describe('locale', () => {
-    it('should set the lang attribute on the input when lang prop is set', async () => {
+    it('should set the lang attribute on the input when lang attribute is set', async () => {
       el = await fixture(html`<sl-time-field lang="fi"></sl-time-field>`);
+
       expect(el.input).to.have.attribute('lang', 'fi');
     });
 
-    it('should set the lang attribute on the input when locale prop is set', async () => {
+    it('should set the lang attribute on the input when locale attribute is set', async () => {
       el = await fixture(html`<sl-time-field locale="de-DE"></sl-time-field>`);
       expect(el.input).to.have.attribute('lang', 'de-DE');
     });
 
-    it('should prioritize lang over locale when both are set', async () => {
+    it('should prioritize lang attribute over locale attribute when both are set', async () => {
       el = await fixture(html`<sl-time-field lang="fr" locale="de-DE"></sl-time-field>`);
       expect(el.input).to.have.attribute('lang', 'fr');
     });
 
-    it('should update the lang attribute when lang prop changes', async () => {
+    it('should update the input lang when lang attribute changes', async () => {
       el = await fixture(html`<sl-time-field lang="fi"></sl-time-field>`);
       expect(el.input).to.have.attribute('lang', 'fi');
 
@@ -760,7 +761,7 @@ describe('sl-time-field', () => {
       expect(el.input).to.have.attribute('lang', 'sv');
     });
 
-    it('should update the lang attribute when locale prop changes', async () => {
+    it('should update the input lang when locale property changes', async () => {
       el = await fixture(html`<sl-time-field locale="fi"></sl-time-field>`);
       expect(el.input).to.have.attribute('lang', 'fi');
 
@@ -769,7 +770,7 @@ describe('sl-time-field', () => {
       expect(el.input).to.have.attribute('lang', 'sv');
     });
 
-    it('should fall back to locale when lang is removed', async () => {
+    it('should fall back to locale when lang attribute is removed', async () => {
       el = await fixture(html`<sl-time-field lang="fr" locale="de-DE"></sl-time-field>`);
       expect(el.input).to.have.attribute('lang', 'fr');
 

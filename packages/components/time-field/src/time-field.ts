@@ -78,6 +78,16 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** The value in HH:mm format. */
   #value: string | undefined;
 
+  /**
+   * Syncs the input's lang attribute with the component's lang attribute,
+   * falling back to the locale if no lang is explicitly set.
+   */
+  #syncInputLang(): void {
+    if (!this.input) return;
+    const langAttr = this.getAttribute('lang');
+    this.input.lang = langAttr !== null ? langAttr : (this.locale ?? '');
+  }
+
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
@@ -181,7 +191,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     this.setFormControlElement(this.input);
-    this.input.lang = this.getAttribute('lang') || this.locale || '';
+    this.#syncInputLang();
 
     // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
     const style = document.createElement('style');
@@ -196,8 +206,8 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null): void {
     super.attributeChangedCallback(name, oldValue, newValue);
 
-    if (name === 'lang' && this.input) {
-      this.input.lang = newValue || this.locale || '';
+    if (name === 'lang') {
+      this.#syncInputLang();
     }
   }
 
@@ -228,7 +238,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     if (changes.has('locale')) {
-      this.input.lang = this.getAttribute('lang') || this.locale || '';
+      this.#syncInputLang();
     }
   }
 

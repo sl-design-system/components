@@ -41,6 +41,12 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     };
   }
 
+  /** @internal Observe native lang attribute changes */
+  static override get observedAttributes(): string[] {
+    const parentAttrs = super.observedAttributes || [];
+    return [...parentAttrs, 'lang'];
+  }
+
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
@@ -71,6 +77,18 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** The value in HH:mm format. */
   #value: string | undefined;
+
+  /**
+   * Syncs the input's lang attribute with the component's lang attribute,
+   * falling back to the locale if no lang is explicitly set.
+   * Empty or whitespace-only lang attributes are treated as "not set".
+   */
+  #syncInputLang(): void {
+    if (!this.input) return;
+    const langAttr = this.getAttribute('lang'),
+      trimmedLang = langAttr?.trim();
+    this.input.lang = trimmedLang ? trimmedLang : (this.locale ?? '');
+  }
 
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
@@ -175,6 +193,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     this.setFormControlElement(this.input);
+    this.#syncInputLang();
 
     // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
     const style = document.createElement('style');
@@ -184,6 +203,14 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       }
     `;
     this.prepend(style);
+  }
+
+  override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null): void {
+    super.attributeChangedCallback(name, oldValue, newValue);
+
+    if (name === 'lang') {
+      this.#syncInputLang();
+    }
   }
 
   override firstUpdated(changes: PropertyValues<this>): void {
@@ -210,6 +237,11 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     if (changes.has('required') && this.textField) {
       this.textField.required = !!this.required;
+    }
+
+    const langAttr = this.getAttribute('lang');
+    if (changes.has('locale') || !langAttr?.trim()) {
+      this.#syncInputLang();
     }
   }
 

@@ -17,7 +17,7 @@ The **MessageDialogService** provides an API for displaying and managing message
 
 #### `showModal(config): MessageDialogRef`
 
-Opens a message dialog with a custom Angular component or a message.
+Opens a message dialog with a custom Angular component or a text message.
 
 **Configuration:**
 - For message dialogs with a custom Angular component:
@@ -488,6 +488,26 @@ export class MessageDialogCustomComponentExampleComponent {
       }
     });
   }
+
+}
+```
+
+**Referenced Components:**
+
+The examples above use the following custom component(s):
+
+
+```typescript
+@Component({
+  standalone: true,
+  imports: [CommonModule],
+  template: `<h3>Custom message content</h3>
+  <p>You can <em>customize</em> the message with <strong>HTML</strong>!</p>
+  <p>Message data: {{ data }}</p>`
+})
+export class CustomMessageComponent {
+
+  constructor(@Inject('MESSAGE_DIALOG_DATA') public data: string) {}
 
 }
 ```

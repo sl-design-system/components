@@ -202,32 +202,30 @@ export class MessageDialogService {
 
     // Render and show dialog
     this.ngZone.runOutsideAngular(() => {
-      requestAnimationFrame(() => {
-        void dialog.updateComplete.then(() => {
-          // Move component content into the message dialog
-          // MessageDialog renders the message inside a <p> element by default.
-          // We replace it with a <div> to avoid invalid HTML when the component contains block-level elements.
-          const messageElement = dialog.shadowRoot?.querySelector('p');
+      void dialog.updateComplete.then(() => {
+        // Move component content into the message dialog
+        // MessageDialog renders the message inside a <p> element by default.
+        // We replace it with a <div> to avoid invalid HTML when the component contains block-level elements.
+        const messageElement = dialog.shadowRoot?.querySelector('p');
 
-          if (messageElement && hostElement.firstChild) {
-            const container = document.createElement('div');
-            while (hostElement.firstChild) {
-              container.appendChild(hostElement.firstChild);
-            }
-            messageElement.replaceWith(container);
+        if (messageElement && hostElement.firstChild) {
+          const container = document.createElement('div');
+          while (hostElement.firstChild) {
+            container.appendChild(hostElement.firstChild);
           }
+          messageElement.replaceWith(container);
+        }
 
-          // Set up button click listeners to capture result
-          this.#setupButtonClickListeners(dialog, dialogRef, config);
+        // Set up button click listeners to capture result
+        this.#setupButtonClickListeners(dialog, dialogRef, config);
 
-          dialog.showModal();
+        dialog.showModal();
 
-          this.ngZone.run(() => {
-            componentRef.injector.get(ChangeDetectorRef, null)?.markForCheck();
-          });
-
-          this.#setupCleanupListeners(dialog, dialogRef, componentRef);
+        this.ngZone.run(() => {
+          componentRef.injector.get(ChangeDetectorRef, null)?.markForCheck();
         });
+
+        this.#setupCleanupListeners(dialog, dialogRef, componentRef);
       });
     });
   }

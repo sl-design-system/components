@@ -378,15 +378,21 @@ ${component.classContent || '  // Component logic here'}
 
         // Find and include any additional components referenced in this component's code
         if (component.classContent) {
-          // Look for component references in generic type parameters like <CustomMessageComponent, string>
-          const referencedComponentRegex = /<(\w+Component),/g;
+          // Look for component references in:
+          // - generic type parameters like <CustomMessageComponent, string>
+          // - config objects like component: CustomMessageComponent
+          const referencedComponentRegex = /<(\w+Component),|component:\s*(\w+Component)/g;
 
           let refMatch;
 
           const referencedComponents = new Set();
 
           while ((refMatch = referencedComponentRegex.exec(component.classContent)) !== null) {
-            const refComponentName = refMatch[1];
+            const refComponentName = refMatch[1] || refMatch[2];
+
+            if (!refComponentName) {
+              continue;
+            }
 
             // Find this component in our extracted components
             const refComponent = components.find(c => c.name === refComponentName);

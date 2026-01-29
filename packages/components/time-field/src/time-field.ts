@@ -43,7 +43,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** @internal Observe native lang attribute changes */
   static override get observedAttributes(): string[] {
-    const parentAttrs = super.observedAttributes || [];
+    const parentAttrs = super.observedAttributes ?? [];
     return [...parentAttrs, 'lang'];
   }
 
@@ -78,16 +78,25 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** The value in HH:mm format. */
   #value: string | undefined;
 
+  /** Cache of the last applied lang value to avoid unnecessary DOM mutations. */
+  #lastAppliedLang: string | undefined;
+
   /**
    * Syncs the input's lang attribute with the component's lang attribute,
    * falling back to the locale if no lang is explicitly set.
    * Empty or whitespace-only lang attributes are treated as "not set".
+   * Only updates if the computed value has changed to avoid unnecessary DOM mutations.
    */
   #syncInputLang(): void {
     if (!this.input) return;
     const langAttr = this.getAttribute('lang'),
-      trimmedLang = langAttr?.trim();
-    this.input.lang = trimmedLang ? trimmedLang : (this.locale ?? '');
+      computedLang = langAttr?.trim() ? langAttr : (this.locale ?? '');
+
+    // Only update if the value actually changed
+    if (computedLang !== this.#lastAppliedLang) {
+      this.#lastAppliedLang = computedLang;
+      this.input.lang = computedLang;
+    }
   }
 
   /** @internal Emits when the focus leaves the component. */

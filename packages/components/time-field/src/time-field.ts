@@ -85,8 +85,8 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
    */
   #syncInputLang(): void {
     if (!this.input) return;
-    const langAttr = this.getAttribute('lang');
-    const trimmedLang = langAttr?.trim();
+    const langAttr = this.getAttribute('lang'),
+      trimmedLang = langAttr?.trim();
     this.input.lang = trimmedLang ? trimmedLang : (this.locale ?? '');
   }
 

@@ -81,11 +81,12 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /**
    * Syncs the input's lang attribute with the component's lang attribute,
    * falling back to the locale if no lang is explicitly set.
+   * Empty or whitespace-only lang attributes are treated as "not set".
    */
   #syncInputLang(): void {
     if (!this.input) return;
     const langAttr = this.getAttribute('lang');
-    this.input.lang = langAttr !== null ? langAttr : (this.locale ?? '');
+    this.input.lang = langAttr?.trim() ? langAttr : (this.locale ?? '');
   }
 
   /** @internal Emits when the focus leaves the component. */
@@ -237,7 +238,8 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.textField.required = !!this.required;
     }
 
-    if (changes.has('locale')) {
+    const langAttr = this.getAttribute('lang');
+    if (changes.has('locale') || !langAttr?.trim()) {
       this.#syncInputLang();
     }
   }

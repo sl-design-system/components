@@ -115,8 +115,8 @@ export const Finnish: Story = {
 export const MinMax: Story = {
   args: {
     hint: 'The allowed time range is between 08:00 and 18:00',
-    min: '08:00',
-    max: '18:00',
+    min: '08:40',
+    max: '18:20',
     start: '09:00'
   }
 };

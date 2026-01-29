@@ -291,15 +291,19 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     if (this.min) {
       const minHour = this.#parseTime(this.min)?.hours;
+      console.log('minHour', minHour);
       if (minHour !== undefined) {
         hours = hours.filter(h => h >= minHour);
+        console.log('filtered hours in min', hours);
       }
     }
 
     if (this.max) {
       const maxHour = this.#parseTime(this.max)?.hours;
+      console.log('maxHour', maxHour);
       if (maxHour !== undefined) {
         hours = hours.filter(h => h <= maxHour);
+        console.log('filtered hours in max', hours);
       }
     }
 
@@ -323,7 +327,50 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
    * Can be overridden.
    */
   renderMinutes(): TemplateResult[] {
-    const minutes = Array.from({ length: 60 / this.minuteStep }, (_, i) => i * this.minuteStep);
+    let minutes = Array.from({ length: 60 / this.minuteStep }, (_, i) => i * this.minuteStep);
+
+    /*    if (this.min) {
+      const minMinutes = this.#parseTime(this.min)?.minutes;
+      console.log('minMinutes', minMinutes);
+      if (minMinutes !== undefined) {
+        minutes = minutes.filter(h => h >= minMinutes);
+        console.log('filtered minutes in min', minutes);
+      }
+    }
+
+    if (this.max) {
+      const maxMinutes = this.#parseTime(this.max)?.hours;
+      console.log('maxMinutes', maxMinutes);
+      if (maxMinutes !== undefined) {
+        // minutes = minutes.filter(h => h <= maxMinutes);
+        console.log('filtered minutes in max', minutes);
+      }
+    }*/
+
+    if (this.min && this.#valueAsNumbers?.hours !== undefined) {
+      const minTime = this.#parseTime(this.min);
+      console.log('minTime', minTime);
+      if (minTime && this.#valueAsNumbers.hours === minTime.hours) {
+        minutes = minutes.filter(m => m >= minTime.minutes);
+        console.log('filtered minutes in min', minutes);
+      }
+    }
+
+    if (this.max && this.#valueAsNumbers?.hours !== undefined) {
+      const maxTime = this.#parseTime(this.max);
+      console.log('maxTime', maxTime);
+      if (maxTime && this.#valueAsNumbers.hours === maxTime.hours) {
+        minutes = minutes.filter(m => m <= maxTime.minutes);
+        console.log('filtered minutes in max', minutes);
+      }
+    }
+
+    console.log(
+      'this.#valueAsNumbers?.minutes',
+      this.#valueAsNumbers?.minutes,
+      'this.#valueAsNumbers',
+      this.#valueAsNumbers
+    );
 
     return minutes.map(
       minute => html`

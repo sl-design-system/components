@@ -66,11 +66,6 @@ export type MessageDialogServiceConfig<T = unknown, R = unknown> =
  *     console.log('User saved');
  *   }
  * });
- *
- * // Close after 5 seconds
- * setTimeout(() => {
- *   dialogRef.close('timeout');
- * }, 5000);
  * ```
  */
 export class MessageDialogRef<T = unknown> {
@@ -382,7 +377,13 @@ export class MessageDialogService {
    * If you need more control over the dialog lifecycle or want to use Angular components, use `showModal()` instead.
    */
   async show<T = unknown>(config: MessageDialogConfig<T>): Promise<T | undefined> {
-    return await MessageDialog.show(config);
+    // Make a copy to prevent changes to the original config object
+    const clonedConfig: MessageDialogConfig<T> = {
+      ...config,
+      buttons: config.buttons?.map(button => ({ ...button }))
+    };
+
+    return await MessageDialog.show(clonedConfig);
   }
 
   /**

@@ -329,42 +329,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   renderMinutes(): TemplateResult[] {
     const minutes = Array.from({ length: 60 / this.minuteStep }, (_, i) => i * this.minuteStep);
 
-    /*    if (this.min) {
-      const minMinutes = this.#parseTime(this.min)?.minutes;
-      console.log('minMinutes', minMinutes);
-      if (minMinutes !== undefined) {
-        minutes = minutes.filter(h => h >= minMinutes);
-        console.log('filtered minutes in min', minutes);
-      }
-    }
-
-    if (this.max) {
-      const maxMinutes = this.#parseTime(this.max)?.hours;
-      console.log('maxMinutes', maxMinutes);
-      if (maxMinutes !== undefined) {
-        // minutes = minutes.filter(h => h <= maxMinutes);
-        console.log('filtered minutes in max', minutes);
-      }
-    }*/
-
-    /*    if (this.min && this.#valueAsNumbers?.hours !== undefined) {
-      const minTime = this.#parseTime(this.min);
-      console.log('minTime', minTime);
-      if (minTime && this.#valueAsNumbers.hours === minTime.hours) {
-        minutes = minutes.filter(m => m >= minTime.minutes);
-        console.log('filtered minutes in min', minutes);
-      }
-    }
-
-    if (this.max && this.#valueAsNumbers?.hours !== undefined) {
-      const maxTime = this.#parseTime(this.max);
-      console.log('maxTime', maxTime);
-      if (maxTime && this.#valueAsNumbers.hours === maxTime.hours) {
-        minutes = minutes.filter(m => m <= maxTime.minutes);
-        console.log('filtered minutes in max', minutes);
-      }
-    }*/
-
     const isMinuteDisabled = (minute: number): boolean => {
       if (this.min && this.#valueAsNumbers?.hours !== undefined) {
         const minTime = this.#parseTime(this.min);
@@ -404,7 +368,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         </li>
       `
     );
-  }
+  } // TODO: should we use 'disabled' or 'aria-disabled' for the minute options?
 
   /** @internal */
   override updateInternalValidity(): void {
@@ -637,7 +601,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           const minHour = this.#parseTime(this.min)?.hours;
           if (minHour !== undefined && hours <= minHour) {
             hours = minHour;
-            // TODO: Adjust minutes as well
           }
         }
 
@@ -645,12 +608,35 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           const maxHour = this.#parseTime(this.max)?.hours;
           if (maxHour !== undefined && hours > maxHour) {
             hours = maxHour;
-            // TODO: Adjust minutes as well
           }
         }
       } else {
         minutes += event.key === 'ArrowUp' ? 1 : -1;
         minutes = (minutes + 60) % 60;
+
+        if (this.min) {
+          const minTime = this.#parseTime(this.min);
+          if (minTime !== undefined) {
+            if (hours < minTime.hours) {
+              hours = minTime.hours;
+              minutes = minTime.minutes;
+            } else if (hours === minTime.hours && minutes < minTime.minutes) {
+              minutes = minTime.minutes;
+            }
+          }
+        }
+
+        if (this.max) {
+          const maxTime = this.#parseTime(this.max);
+          if (maxTime !== undefined) {
+            if (hours > maxTime.hours) {
+              hours = maxTime.hours;
+              minutes = maxTime.minutes;
+            } else if (hours === maxTime.hours && minutes > maxTime.minutes) {
+              minutes = maxTime.minutes;
+            }
+          }
+        }
       }
 
       this.#valueAsNumbers = { hours, minutes };

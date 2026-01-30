@@ -85,6 +85,10 @@ li {
   }
 }
 
+li[disabled] {
+  color: var(--sl-color-foreground-disabled);
+}
+
 hr {
   background: var(--sl-color-border-plain);
   border: 0;

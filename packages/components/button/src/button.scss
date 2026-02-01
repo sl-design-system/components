@@ -135,8 +135,30 @@
 }
 
 :host([variant='inverted']:where([disabled], [aria-disabled='true'])) {
-  color: var(--sl-color-foreground-disabled);
+  color: var(--sl-color-foreground-inverted-bold);
   opacity: var(--sl-opacity-disabled);
+}
+
+:host([variant='inverted']:where([disabled], [aria-disabled='true']):where(:not([fill]), [fill='solid'])) {
+  background: color-mix(
+    in srgb,
+    var(--sl-color-background-inverted-bold),
+    var(--sl-color-background-inverted-interactive-bold) calc(100% * var(--sl-opacity-interactive-bold-idle))
+  );
+  color: var(--sl-color-foreground-inverted-onBold);
+}
+
+:host([variant='inverted']:where([disabled], [aria-disabled='true']):where([fill='ghost'])) {
+  background: transparent;
+}
+
+:host([variant='inverted']:where([disabled], [aria-disabled='true']):where([fill='link'])) {
+  background: transparent;
+}
+
+:host([variant='inverted']:where([disabled], [aria-disabled='true']):where([fill='outline'])) {
+  background: transparent;
+  border-color: var(--sl-color-border-inverted);
 }
 
 :host(:is(:not([fill]), [fill='ghost'], [fill='link'], [fill='solid'])) {

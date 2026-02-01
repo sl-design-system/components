@@ -84,18 +84,28 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /**
    * Syncs the input's lang attribute with the component's lang attribute,
    * falling back to the locale if no lang is explicitly set.
-   * Empty or whitespace-only lang attributes are treated as "not set".
+   * Empty or whitespace-only lang attributes and the special "default" locale are
+   * treated as "not set" so the language can inherit naturally.
    * Only updates if the computed value has changed to avoid unnecessary DOM mutations.
    */
   #syncInputLang(): void {
     if (!this.input) return;
+
     const langAttr = this.getAttribute('lang'),
-      computedLang = langAttr?.trim() ? langAttr : (this.locale ?? '');
+      explicitLang = langAttr?.trim() || undefined,
+      computedLang = explicitLang ?? (this.locale && this.locale !== 'default' ? this.locale : undefined);
+
+    const normalizedLang = computedLang ?? '';
 
     // Only update if the value actually changed
-    if (computedLang !== this.#lastAppliedLang) {
-      this.#lastAppliedLang = computedLang;
-      this.input.lang = computedLang;
+    if (normalizedLang !== this.#lastAppliedLang) {
+      this.#lastAppliedLang = normalizedLang;
+
+      if (computedLang) {
+        this.input.lang = computedLang;
+      } else {
+        this.input.removeAttribute('lang');
+      }
     }
   }
 
@@ -249,7 +259,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     const langAttr = this.getAttribute('lang');
-    if (changes.has('locale') || !langAttr?.trim()) {
+    if (changes.has('locale') && !langAttr?.trim()) {
       this.#syncInputLang();
     }
   }
@@ -702,11 +712,13 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #getTimeSeparator(): string {
-    if (this.locale && timeSeparators.has(this.locale)) {
-      return timeSeparators.get(this.locale)!;
+    const locale = this.locale && this.locale !== 'default' ? this.locale : undefined;
+
+    if (locale && timeSeparators.has(locale)) {
+      return timeSeparators.get(locale)!;
     }
 
-    const formatter = new Intl.DateTimeFormat(this.locale, { hour: '2-digit', minute: '2-digit' }),
+    const formatter = new Intl.DateTimeFormat(locale, { hour: '2-digit', minute: '2-digit' }),
       parts = formatter.formatToParts(new Date()),
       separator = parts.find(part => part.type === 'literal')?.value ?? ':';
 

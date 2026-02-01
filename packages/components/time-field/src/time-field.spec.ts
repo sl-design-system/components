@@ -781,7 +781,47 @@ describe('sl-time-field', () => {
 
     it('should have lang attribute reflecting resolved locale when neither lang nor locale is set', async () => {
       el = await fixture(html`<sl-time-field></sl-time-field>`);
-      expect(el.input.lang).to.equal(el.locale);
+
+      if (el.locale === 'default') {
+        expect(el.input).not.to.have.attribute('lang');
+      } else {
+        expect(el.input.lang).to.equal(el.locale);
+      }
+    });
+
+    it('should trim whitespace from the lang attribute', async () => {
+      el = await fixture(html`<sl-time-field lang="  fi  "></sl-time-field>`);
+      expect(el.input).to.have.attribute('lang', 'fi');
+    });
+
+    it('should treat whitespace-only lang attribute as unset (inherit from locale)', async () => {
+      el = await fixture(html`<sl-time-field lang="   " locale="de-DE"></sl-time-field>`);
+      expect(el.input).to.have.attribute('lang', 'de-DE');
+    });
+
+    it('should remove the lang attribute from input when locale is "default" and no lang attribute is set', async () => {
+      el = await fixture(html`<sl-time-field locale="default"></sl-time-field>`);
+      expect(el.input).not.to.have.attribute('lang');
+    });
+
+    it('should remove the lang attribute when switching from a specific locale to "default"', async () => {
+      el = await fixture(html`<sl-time-field locale="fi"></sl-time-field>`);
+      expect(el.input).to.have.attribute('lang', 'fi');
+
+      el.locale = 'default';
+      await el.updateComplete;
+      expect(el.input).not.to.have.attribute('lang');
+    });
+
+    it('should gracefully handle "default" and empty locale strings without crashing', async () => {
+      // We want to ensure no RangeError is thrown by Intl.DateTimeFormat
+      const el1 = await fixture<TimeField>(html`<sl-time-field locale="default" value="00:00"></sl-time-field>`);
+      const el2 = await fixture<TimeField>(html`<sl-time-field locale="" value="00:00"></sl-time-field>`);
+
+      expect(el1).to.exist;
+      expect(el2).to.exist;
+      expect(el1.value).to.equal('00:00');
+      expect(el2.value).to.equal('00:00');
     });
   });
 });

@@ -395,9 +395,9 @@ export const All: Story = {
 
       <style>
         .inverted-showcase {
-          background: #222;
+          background: var(--sl-color-foreground-accent-grey-bold);
           padding: 2rem;
-          border-radius: 10px;
+          border-radius: var(--sl-size-borderRadius-default);
           margin-top: 2rem;
           display: grid;
           grid-template-columns: auto auto auto;
@@ -469,41 +469,6 @@ export const All: Story = {
           <sl-icon name="far-universal-access"></sl-icon>
         </sl-button>
       </section>
-    `;
-  }
-};
-
-export const InvertedDisabled: Story = {
-  render: () => {
-    return html`
-      <style>
-        .inverted-wrapper {
-          background: var(--sl-color-background-primary-bold);
-          padding: 1rem;
-          display: inline-flex;
-          flex-direction: column;
-          gap: 1rem;
-        }
-      </style>
-      <div class="inverted-wrapper">
-        <p style="color: white">Inverted Disabled States</p>
-        <sl-button disabled variant="inverted">
-          <sl-icon name="far-universal-access"></sl-icon>
-          Solid Disabled
-        </sl-button>
-        <sl-button disabled fill="outline" variant="inverted">
-          <sl-icon name="far-universal-access"></sl-icon>
-          Outline Disabled
-        </sl-button>
-        <sl-button disabled fill="ghost" variant="inverted">
-          <sl-icon name="far-universal-access"></sl-icon>
-          Ghost Disabled
-        </sl-button>
-        <sl-button disabled fill="link" variant="inverted">
-          <sl-icon name="far-universal-access"></sl-icon>
-          Link Disabled
-        </sl-button>
-      </div>
     `;
   }
 };

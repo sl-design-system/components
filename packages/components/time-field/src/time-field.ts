@@ -41,12 +41,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     };
   }
 
-  /** @internal Observe native lang attribute changes */
-  static override get observedAttributes(): string[] {
-    const parentAttrs = super.observedAttributes ?? [];
-    return [...parentAttrs, 'lang'];
-  }
-
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
@@ -78,34 +72,16 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** The value in HH:mm format. */
   #value: string | undefined;
 
-  /** Cache of the last applied lang value to avoid unnecessary DOM mutations. */
-  #lastAppliedLang: string | undefined;
-
   /**
-   * Syncs the input's lang attribute with the component's lang attribute,
-   * falling back to the locale if no lang is explicitly set.
-   * Empty or whitespace-only lang attributes and the special "default" locale are
-   * treated as "not set" so the language can inherit naturally.
-   * Only updates if the computed value has changed to avoid unnecessary DOM mutations.
+   * Syncs the input's lang attribute with the component's locale.
    */
   #syncInputLang(): void {
     if (!this.input) return;
 
-    const langAttr = this.getAttribute('lang'),
-      explicitLang = langAttr?.trim() || undefined,
-      computedLang = explicitLang ?? (this.locale && this.locale !== 'default' ? this.locale : undefined);
-
-    const normalizedLang = computedLang ?? '';
-
-    // Only update if the value actually changed
-    if (normalizedLang !== this.#lastAppliedLang) {
-      this.#lastAppliedLang = normalizedLang;
-
-      if (computedLang) {
-        this.input.lang = computedLang;
-      } else {
-        this.input.removeAttribute('lang');
-      }
+    if (this.locale && this.locale !== 'default') {
+      this.input.lang = this.locale;
+    } else {
+      this.input.removeAttribute('lang');
     }
   }
 
@@ -224,14 +200,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.prepend(style);
   }
 
-  override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null): void {
-    super.attributeChangedCallback(name, oldValue, newValue);
-
-    if (name === 'lang') {
-      this.#syncInputLang();
-    }
-  }
-
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
@@ -258,8 +226,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.textField.required = !!this.required;
     }
 
-    const langAttr = this.getAttribute('lang');
-    if (changes.has('locale') && !langAttr?.trim()) {
+    if (changes.has('locale')) {
       this.#syncInputLang();
     }
   }

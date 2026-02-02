@@ -148,7 +148,11 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
     this.setAttribute('role', 'navigation');
 
     this.#observer.observe(this);
-    this.#mutationObserver.observe(this, { characterData: true, childList: true, subtree: true });
+    this.#mutationObserver.observe(this, {
+      characterData: true,
+      childList: true,
+      subtree: true
+    });
   }
 
   override disconnectedCallback(): void {
@@ -267,7 +271,6 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
       this.breadcrumbLinks.slice(this.breadcrumbLinks.length - this.collapseThreshold).forEach((link, index) => {
         const slot = this.renderRoot.querySelector(`slot[name="breadcrumb-${index}"]`) as HTMLSlotElement;
         if (link.offsetWidth < link.scrollWidth) {
-          console.log('renderTooltip');
           this.#setTooltip(link);
         }
         slot.assign(link);
@@ -285,31 +288,31 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
     // const assignedElements = event.target.assignedElements({ flatten: true });
 
     const tooltipsSlot = this.renderRoot.querySelector('slot[name="tooltips"]') as HTMLSlotElement;
-    console.log('tooltipsSlot', tooltipsSlot);
+
     if (!tooltipsSlot) {
       console.log('no tooltips slot');
       return;
     }
 
-    // const link = assignedElements[0] as HTMLElement;
     if (link.offsetWidth < link.scrollWidth) {
-      if (link.hasAttribute('aria-describedby')) {
-        console.log('tooltip already set yo', link.getAttribute('aria-describedby'));
+      if (link.hasAttribute('data-has-tooltip')) {
+        console.log('🔴 tooltip already set for', link.textContent, link.getAttribute('data-has-tooltip'));
         return;
       } else {
-        console.log('setting aria-describedby');
+        console.log('🟢 Tooltip.lazy for', link.textContent);
+        Tooltip.lazy(
+          link,
+          tooltip => {
+            tooltip.position = 'bottom';
+            tooltip.textContent = link.textContent?.trim() || '';
+            requestAnimationFrame(() => {
+              tooltipsSlot.assign(...(tooltipsSlot.assignedElements() || []), tooltip);
+            });
+          },
+          { context: this.shadowRoot! }
+        );
+        link.dataset.hasTooltip = 'true';
       }
-      Tooltip.lazy(
-        link,
-        tooltip => {
-          tooltip.position = 'bottom';
-          tooltip.textContent = link.textContent?.trim() || '';
-          requestAnimationFrame(() => {
-            tooltipsSlot.assign(...(tooltipsSlot.assignedElements() || []), tooltip);
-          });
-        },
-        { context: this.shadowRoot! }
-      );
     } else {
       console.log('no tooltip needed');
     }

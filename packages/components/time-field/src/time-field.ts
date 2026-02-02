@@ -41,6 +41,12 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     };
   }
 
+  /** @internal Observe native lang attribute changes */
+  static override get observedAttributes(): string[] {
+    const parentAttrs = super.observedAttributes ?? [];
+    return [...parentAttrs, 'lang'];
+  }
+
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
@@ -72,14 +78,28 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** The value in HH:mm format. */
   #value: string | undefined;
 
-  /**
-   * Syncs the input's lang attribute with the component's locale.
-   */
+  /** Syncs the input's lang attribute with the component's locale. */
   #syncInputLang(): void {
     if (!this.input) return;
 
-    if (this.locale && this.locale !== 'default') {
-      this.input.lang = this.locale;
+    const hostLang = this.getAttribute('lang');
+
+    // If the host has a lang attribute, the input will automatically inherit it.
+    // In this case, we should remove any explicitly set lang attribute on the input
+    // so that it correctly inherits from the host.
+    if (hostLang) {
+      this.input.removeAttribute('lang');
+      return;
+    }
+
+    // If there is no host lang, we check the effective locale.
+    // If the locale property is set to something specific (and not just inheriting 'default' or matching the document),
+    // we set the lang attribute on the input to ensure it is pronounced correctly.
+    const effectiveLocale = this.locale,
+      documentLanguage = document.documentElement.lang || navigator.language;
+
+    if (effectiveLocale && effectiveLocale !== 'default' && effectiveLocale !== documentLanguage) {
+      this.input.lang = effectiveLocale;
     } else {
       this.input.removeAttribute('lang');
     }
@@ -198,6 +218,14 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       }
     `;
     this.prepend(style);
+  }
+
+  override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null): void {
+    super.attributeChangedCallback(name, oldValue, newValue);
+
+    if (name === 'lang') {
+      this.#syncInputLang();
+    }
   }
 
   override firstUpdated(changes: PropertyValues<this>): void {

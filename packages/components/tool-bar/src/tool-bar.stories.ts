@@ -231,8 +231,13 @@ export const Empty: Story = {
 
 export const FitContent: Story = {
   args: {
-    description: 'This example shows a tool bar with a single button that fits its content.',
-    items: () => html`<sl-button fill="outline">Simple</sl-button>`,
+    description: 'This example shows a tool bar with items that fit their content.',
+    items: () => html`
+      <sl-button fill="outline">Bold</sl-button>
+      <sl-button fill="outline">Italic</sl-button>
+      <sl-button fill="outline">Underline</sl-button>
+      <sl-button fill="outline">Other</sl-button>
+    `,
     width: 'fit-content',
     contained: true
   }

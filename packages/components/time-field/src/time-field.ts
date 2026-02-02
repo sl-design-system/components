@@ -82,12 +82,10 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   #syncInputLang(): void {
     if (!this.input) return;
 
-    const hostLang = this.getAttribute('lang');
-
     // If the host has a lang attribute, the input will automatically inherit it.
     // In this case, we should remove any explicitly set lang attribute on the input
     // so that it correctly inherits from the host.
-    if (hostLang) {
+    if (this.hasAttribute('lang')) {
       this.input.removeAttribute('lang');
       return;
     }
@@ -705,17 +703,20 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #getTimeSeparator(): string {
-    const locale = this.locale && this.locale !== 'default' ? this.locale : undefined;
+    const locale = this.locale || 'default';
 
-    if (locale && timeSeparators.has(locale)) {
+    if (timeSeparators.has(locale)) {
       return timeSeparators.get(locale)!;
     }
 
-    const formatter = new Intl.DateTimeFormat(locale, { hour: '2-digit', minute: '2-digit' }),
+    const formatter = new Intl.DateTimeFormat(locale === 'default' ? undefined : locale, {
+        hour: '2-digit',
+        minute: '2-digit'
+      }),
       parts = formatter.formatToParts(new Date()),
       separator = parts.find(part => part.type === 'literal')?.value ?? ':';
 
-    timeSeparators.set(this.locale || 'default', separator);
+    timeSeparators.set(locale, separator);
 
     return separator;
   }

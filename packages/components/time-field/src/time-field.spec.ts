@@ -742,6 +742,11 @@ describe('sl-time-field', () => {
       expect(el.input).not.to.have.attribute('lang');
     });
 
+    it('should prioritise empty lang attribute on the host', async () => {
+      el = await fixture(html`<sl-time-field lang="" locale="de-DE"></sl-time-field>`);
+      expect(el.input).not.to.have.attribute('lang');
+    });
+
     it('should set the lang attribute on the input when locale property is set and differs from document', async () => {
       el = await fixture(html`<sl-time-field locale="fi"></sl-time-field>`);
       expect(el.input).to.have.attribute('lang', 'fi');

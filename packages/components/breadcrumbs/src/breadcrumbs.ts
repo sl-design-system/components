@@ -101,6 +101,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   #mutationObserver = new MutationObserver(() => this.#onMutation());
 
   /** @internal The slotted breadcrumbs. */
+  @state() breadcrumbs: Breadcrumb[] = [];
   @state() breadcrumbLinks: HTMLElement[] = [];
   @state() customHomelink: HTMLElement | undefined = undefined;
 
@@ -154,11 +155,21 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
     this.#observer.disconnect();
     this.#mutationObserver.disconnect();
 
+    this.breadcrumbs.forEach(breadcrumb => {
+      if (breadcrumb.tooltip instanceof Tooltip) {
+        breadcrumb.tooltip.remove();
+      } else if (breadcrumb.tooltip) {
+        breadcrumb.tooltip();
+      }
+    });
+    this.breadcrumbs = [];
+
     super.disconnectedCallback();
   }
 
   override render(): TemplateResult {
     return html`
+      <slot name="tooltips"></slot>
       <ul>
         ${this.noHome
           ? nothing
@@ -201,14 +212,15 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
               <sl-icon name="breadcrumb-separator"></sl-icon>
             `
           : nothing}
-        ${this.breadcrumbLinks.slice(this.breadcrumbLinks.length - this.collapseThreshold).map(
-          (_, index, array) => html`
-            <li><slot name="breadcrumb-${index}"></slot></li>
-            ${index < array.length - 1 ? html`<sl-icon name="breadcrumb-separator"></sl-icon>` : nothing}
-          `
+        ${this.breadcrumbLinks.slice(this.breadcrumbLinks.length - this.collapseThreshold).map((_, index, array) =>
+          index < array.length
+            ? html`
+                <li><slot name="breadcrumb-${index}"></slot></li>
+                ${index < array.length - 1 ? html`<sl-icon name="breadcrumb-separator"></sl-icon>` : nothing}
+              `
+            : html`<li>end</li>`
         )}
       </ul>
-      <slot name="tooltips"></slot>
     `;
   }
 
@@ -220,14 +232,14 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    // if (changes.has('breadcrumbs') || changes.has('collapseThreshold')) {
-    //   this.breadcrumbs = this.breadcrumbs.map((breadcrumb, index) => {
-    //     const collapsed =
-    //       this.breadcrumbs.length > this.collapseThreshold && index < this.breadcrumbs.length - this.collapseThreshold;
+    if (changes.has('breadcrumbs') || changes.has('collapseThreshold')) {
+      this.breadcrumbs = this.breadcrumbs.map((breadcrumb, index) => {
+        const collapsed =
+          this.breadcrumbs.length > this.collapseThreshold && index < this.breadcrumbs.length - this.collapseThreshold;
 
-    //     return { ...breadcrumb, collapsed };
-    //   });
-    // }
+        return { ...breadcrumb, collapsed };
+      });
+    }
   }
 
   #onClick = (): void => {
@@ -257,17 +269,6 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
         if (link.offsetWidth < link.scrollWidth) {
           console.log('renderTooltip');
           this.#setTooltip(link);
-        } else {
-          // Remove the existing tooltip for this link if it is no longer truncated
-          const tooltipsSlot = this.renderRoot.querySelector('slot[name="tooltips"]') as HTMLSlotElement;
-          const assignedTooltips = tooltipsSlot.assignedElements({ flatten: true });
-          console.log('assignedTooltips', assignedTooltips);
-          assignedTooltips.forEach(tooltipEl => {
-            if (tooltipEl instanceof Tooltip && tooltipEl.id === link.getAttribute('aria-describedby')) {
-              console.log('remove tooltip', tooltipEl);
-              tooltipEl.remove();
-            }
-          });
         }
         slot.assign(link);
       });
@@ -283,23 +284,34 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   #setTooltip(link: HTMLElement): void {
     // const assignedElements = event.target.assignedElements({ flatten: true });
 
-    const tooltipsSlot = link.assignedSlot as HTMLSlotElement;
-    console.log('setTooltip for', link, 'in', tooltipsSlot);
+    const tooltipsSlot = this.renderRoot.querySelector('slot[name="tooltips"]') as HTMLSlotElement;
+    console.log('tooltipsSlot', tooltipsSlot);
     if (!tooltipsSlot) {
+      console.log('no tooltips slot');
       return;
     }
 
-    Tooltip.lazy(
-      link,
-      tooltip => {
-        tooltip.position = 'bottom';
-        tooltip.textContent = link.textContent?.trim() || '';
-        requestAnimationFrame(() => {
-          console.log('assign tooltip', tooltip);
-          tooltipsSlot.assign(...(tooltipsSlot.assignedElements() || []), tooltip);
-        });
-      },
-      { context: this.shadowRoot! }
-    );
+    // const link = assignedElements[0] as HTMLElement;
+    if (link.offsetWidth < link.scrollWidth) {
+      if (link.hasAttribute('aria-describedby')) {
+        console.log('tooltip already set yo', link.getAttribute('aria-describedby'));
+        return;
+      } else {
+        console.log('setting aria-describedby');
+      }
+      Tooltip.lazy(
+        link,
+        tooltip => {
+          tooltip.position = 'bottom';
+          tooltip.textContent = link.textContent?.trim() || '';
+          requestAnimationFrame(() => {
+            tooltipsSlot.assign(...(tooltipsSlot.assignedElements() || []), tooltip);
+          });
+        },
+        { context: this.shadowRoot! }
+      );
+    } else {
+      console.log('no tooltip needed');
+    }
   }
 }

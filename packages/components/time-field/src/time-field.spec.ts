@@ -783,7 +783,7 @@ describe('sl-time-field', () => {
 
       document.documentElement.lang = 'es';
       // Wait for MutationObserver in LocaleMixin
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(requestAnimationFrame);
       await el.updateComplete;
 
       expect(el.input).to.have.attribute('lang', 'es');

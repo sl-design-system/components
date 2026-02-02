@@ -736,65 +736,59 @@ describe('sl-time-field', () => {
   });
 
   describe('locale', () => {
-    it('should prioritise the lang attribute on the host over the locale property', async () => {
-      el = await fixture(html`<sl-time-field lang="de-DE" locale="en-GB"></sl-time-field>`);
-
-      expect(el.input).not.to.have.attribute('lang');
+    it('should set the lang attribute on the input when locale attribute is set', async () => {
+      el = await fixture(html`<sl-time-field locale="de-DE"></sl-time-field>`);
+      expect(el.input).to.have.attribute('lang', 'de-DE');
     });
 
-    it('should prioritise empty lang attribute on the host', async () => {
-      el = await fixture(html`<sl-time-field lang="" locale="de-DE"></sl-time-field>`);
-      expect(el.input).not.to.have.attribute('lang');
-    });
-
-    it('should set the lang attribute on the input when locale property is set and differs from document', async () => {
-      el = await fixture(html`<sl-time-field locale="fi"></sl-time-field>`);
-      expect(el.input).to.have.attribute('lang', 'fi');
-    });
-
-    it('should NOT set the lang attribute on the input when locale property matches document', async () => {
-      const docLang = document.documentElement.lang || navigator.language;
-      const locale = docLang || 'en';
-
-      const originalLang = document.documentElement.lang;
-      document.documentElement.lang = locale;
-
-      el = await fixture(html`<sl-time-field .locale=${locale}></sl-time-field>`);
-      expect(el.input).not.to.have.attribute('lang');
-
-      document.documentElement.lang = originalLang;
-    });
-
-    it('should update appropriately when host lang attribute is added/removed', async () => {
+    it('should update the input lang when locale property changes', async () => {
       el = await fixture(html`<sl-time-field locale="fi"></sl-time-field>`);
       expect(el.input).to.have.attribute('lang', 'fi');
 
-      el.setAttribute('lang', 'de');
+      el.locale = 'sv';
       await el.updateComplete;
-      expect(el.input).not.to.have.attribute('lang');
-
-      el.removeAttribute('lang');
-      await el.updateComplete;
-      expect(el.input).to.have.attribute('lang', 'fi');
+      expect(el.input).to.have.attribute('lang', 'sv');
     });
 
+    it('should remove the lang attribute from input when locale is "default" and no lang attribute is set', async () => {
+      el = await fixture(html`<sl-time-field locale="default"></sl-time-field>`);
+      expect(el.input).not.to.have.attribute('lang');
+    });
+
+    it('should remove the lang attribute when switching from a specific locale to "default"', async () => {
+      el = await fixture(html`<sl-time-field locale="fi"></sl-time-field>`);
+      expect(el.input).to.have.attribute('lang', 'fi');
+
+      el.locale = 'default';
+      await el.updateComplete;
+      expect(el.input).not.to.have.attribute('lang');
+    });
+
+    it('should gracefully handle "default" and empty locale strings without crashing', async () => {
+      // We want to ensure no RangeError is thrown by Intl.DateTimeFormat
+      const el1 = await fixture<TimeField>(html`<sl-time-field locale="default" value="00:00"></sl-time-field>`);
+      const el2 = await fixture<TimeField>(html`<sl-time-field locale="" value="00:00"></sl-time-field>`);
+
+      expect(el1).to.exist;
+      expect(el2).to.exist;
+      expect(el1.value).to.equal('00:00');
+      expect(el2.value).to.equal('00:00');
+    });
     it('should update the input lang when document language changes', async () => {
       const originalLang = document.documentElement.lang;
       document.documentElement.lang = 'fr';
 
       el = await fixture(html`<sl-time-field></sl-time-field>`);
-      expect(el.input).not.to.have.attribute('lang');
+      expect(el.input).to.have.attribute('lang', 'fr');
 
-      el.locale = 'de';
-      await el.updateComplete;
-      expect(el.input).to.have.attribute('lang', 'de');
-
-      document.documentElement.lang = 'de';
-      await new Promise(requestAnimationFrame);
+      document.documentElement.lang = 'es';
+      // Wait for MutationObserver in LocaleMixin
+      await new Promise(resolve => setTimeout(resolve, 50));
       await el.updateComplete;
 
-      expect(el.input).not.to.have.attribute('lang');
+      expect(el.input).to.have.attribute('lang', 'es');
 
+      // Cleanup
       document.documentElement.lang = originalLang;
     });
   });

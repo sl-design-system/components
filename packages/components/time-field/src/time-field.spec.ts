@@ -785,7 +785,7 @@ describe('sl-time-field', () => {
       expect(el.input).to.have.attribute('lang', 'de');
 
       document.documentElement.lang = 'de';
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(requestAnimationFrame);
       await el.updateComplete;
 
       expect(el.input).not.to.have.attribute('lang');

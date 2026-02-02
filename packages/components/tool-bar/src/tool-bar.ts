@@ -175,6 +175,63 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     this.setAttribute('role', 'toolbar');
 
+    // Prevent roving tabindex from handling arrow keys when focus is in a menu
+    // this.addEventListener(
+    //   'keydown',
+    //   (event: KeyboardEvent) => {
+    //     if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') {
+    //       return;
+    //     }
+    //
+    //     const target = event.composedPath()[0] as Element;
+    //
+    //     console.log('keydown event target:', target);
+    //
+    //     // Check if the event originates from within a menu (including menu items in shadow DOM)
+    //     if (target?.closest('sl-menu-item') || target?.closest('sl-menu')) {
+    //       event.stopImmediatePropagation();
+    //     }
+    //   },
+    //   { capture: true }
+    // );
+
+    this.addEventListener(
+      'keydown',
+      (event: KeyboardEvent) => {
+        if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') {
+          return;
+        }
+
+        const target = event.composedPath()[0] as Element;
+
+        // Walk up the composed path to find if we're inside a menu item
+        let menuItem: Element | null = null;
+
+        for (const element of event.composedPath()) {
+          if (element instanceof Element && element.tagName === 'SL-MENU-ITEM') {
+            menuItem = element;
+            break;
+          }
+        }
+
+        console.log('keydown event target:', target, 'menuItem:', menuItem);
+
+        // Only prevent roving tabindex for items in top-level menus
+        if (menuItem) {
+          const parentMenu = menuItem.closest('sl-menu');
+          const isSubmenu = parentMenu?.hasAttribute('slot') && parentMenu.getAttribute('slot') === 'submenu';
+
+          console.log('parentMenu:', parentMenu, 'isSubmenu:', isSubmenu);
+
+          if (!isSubmenu) {
+            // event.stopImmediatePropagation();
+            event.preventDefault();
+          }
+        }
+      },
+      { capture: true }
+    );
+
     this.#mutationObserver.observe(this, {
       childList: true,
       subtree: true,
@@ -380,11 +437,21 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       })
       .filter((el): el is HTMLElement => el !== null);
 
-    const menuButton = this.renderRoot.querySelector('sl-menu-button');
+    console.log('Visible items in #getFocusableElements:', visibleItems); // TODO: exclude divider from the list
+
+    const menuButton = this.renderRoot.querySelector('sl-menu-button'); // TODO: maybe not sl-menu-button since there can be other menu buttons in the tool bar?
+
     if (!menuButton) {
       return visibleItems;
     }
+
     const menuButtonElement = menuButton.renderRoot?.querySelector('sl-button') as HTMLElement | null;
+
+    console.log(
+      'menuButtonElement',
+      menuButtonElement,
+      menuButtonElement ? [...visibleItems, menuButtonElement] : visibleItems
+    );
 
     return menuButtonElement ? [...visibleItems, menuButtonElement] : visibleItems;
   }

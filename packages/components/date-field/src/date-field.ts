@@ -1,4 +1,4 @@
-import { localized, msg } from '@lit/localize';
+import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Calendar } from '@sl-design-system/calendar';
 import { FormControlMixin, type SlFormControlEvent, type SlUpdateStateEvent } from '@sl-design-system/form';
@@ -139,6 +139,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.input.addEventListener('blur', () => this.#onInputBlur());
       this.input.addEventListener('click', () => this.#onInputClick());
       this.input.addEventListener('focus', () => this.#onInputFocus());
+      this.input.addEventListener('input', (event: InputEvent) => this.#onInputInput(event));
       this.input.addEventListener('keydown', (event: KeyboardEvent) => this.#onInputKeydown(event));
 
       if (!this.input.parentElement) {
@@ -259,6 +260,41 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     `;
   }
 
+  /** @internal */
+  override updateInternalValidity(): void {
+    const hasPartialDate = this.#hasPartialDate(),
+      hasCompleteDate =
+        this.#dateParts.day !== undefined && this.#dateParts.month !== undefined && this.#dateParts.year !== undefined;
+
+    if (hasCompleteDate && !this.value) {
+      // User entered all parts but the date is invalid (e.g., Feb 30)
+      this.setCustomValidity(msg('Please enter a valid date.', { id: 'sl.dateField.typeMismatch' }));
+    } else if (hasPartialDate && !this.value) {
+      // User entered some parts but not all
+      this.setCustomValidity(msg('Please enter a complete date.', { id: 'sl.dateField.incomplete' }));
+    } else if (this.required && !this.value) {
+      this.setCustomValidity(msg('Please enter a date.', { id: 'sl.dateField.valueMissing' }));
+    } else if (this.value && this.min && this.value < this.min) {
+      const formattedMin = this.#formatter?.format(this.min) ?? this.min.toLocaleDateString();
+
+      this.setCustomValidity(
+        msg(str`Please select a date that is no earlier than ${formattedMin}.`, {
+          id: 'sl.dateField.rangeUnderflow'
+        })
+      );
+    } else if (this.value && this.max && this.value > this.max) {
+      const formattedMax = this.#formatter?.format(this.max) ?? this.max.toLocaleDateString();
+
+      this.setCustomValidity(
+        msg(str`Please select a date that is no later than ${formattedMax}.`, {
+          id: 'sl.dateField.rangeOverflow'
+        })
+      );
+    } else {
+      this.setCustomValidity('');
+    }
+  }
+
   #onBeforeToggle(event: ToggleEvent): void {
     if (event.newState === 'open') {
       this.input.setAttribute('aria-expanded', 'true');
@@ -280,7 +316,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     event.stopPropagation();
 
     this.value = event.detail;
-    this.value.setHours(0, 0, 0); // we don't need a time for the date picker.
+    this.value.setHours(0, 0, 0, 0); // We don't need a time for the date picker.
     this.changeEvent.emit(this.value);
 
     this.textField?.updateValidity();
@@ -329,6 +365,12 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.input.value = getDateTemplate(this.locale ?? 'default');
   }
 
+  #onInputInput(event: InputEvent): void {
+    console.log(event, this.input.value);
+
+    this.#updateDateParts();
+  }
+
   #onInputKeydown(event: KeyboardEvent): void {
     if (!event.key.startsWith('Arrow')) {
       return;
@@ -343,7 +385,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
       const parts = getDateFormat(this.locale ?? 'default', this.value).filter(p => p.type !== 'literal'),
-        index = parts.indexOf(selectedPart),
+        index = parts.findIndex(
+          p => p.start === selectedPart.start && p.end === selectedPart.end && p.type === selectedPart.type
+        ),
         newIndex = event.key === 'ArrowLeft' ? Math.max(0, index - 1) : Math.min(parts.length - 1, index + 1);
 
       this.#setSelectedPart(parts[newIndex]);
@@ -464,23 +508,32 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     this.#updateInputDisplay();
-    this.#trySetValue();
-
-    // Re-select the same part after updating
-    requestAnimationFrame(() => {
-      const parts = getDateFormat(this.locale ?? 'default').filter(p => p.type !== 'literal'),
-        part = parts.find(p => p.type === partType);
-
-      if (part) {
-        this.#setSelectedPart(part);
-      }
-    });
+    this.#updateDateParts();
   }
 
   #hasPartialDate(): boolean {
     return (
       this.#dateParts.day !== undefined || this.#dateParts.month !== undefined || this.#dateParts.year !== undefined
     );
+  }
+
+  #updateDateParts(): void {
+    this.#trySetValue();
+
+    const selectedPart = this.#getSelectedPart();
+    if (!selectedPart) {
+      return;
+    }
+
+    // Re-select the same part after updating
+    requestAnimationFrame(() => {
+      const parts = getDateFormat(this.locale ?? 'default').filter(p => p.type !== 'literal'),
+        part = parts.find(p => p.type === selectedPart.type);
+
+      if (part) {
+        this.#setSelectedPart(part);
+      }
+    });
   }
 
   /** Updates the input display based on current date parts. */
@@ -530,6 +583,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         this.changeEvent.emit(this.value);
         this.updateState({ dirty: true });
         this.updateValidity();
+      } else {
+        this.reportValidity();
       }
     }
   }

@@ -774,5 +774,22 @@ describe('sl-time-field', () => {
       expect(el1.value).to.equal('00:00');
       expect(el2.value).to.equal('00:00');
     });
+    it('should update the input lang when document language changes', async () => {
+      const originalLang = document.documentElement.lang;
+      document.documentElement.lang = 'fr';
+
+      el = await fixture(html`<sl-time-field></sl-time-field>`);
+      expect(el.input).to.have.attribute('lang', 'fr');
+
+      document.documentElement.lang = 'es';
+      // Wait for MutationObserver in LocaleMixin
+      await new Promise(resolve => setTimeout(resolve, 50));
+      await el.updateComplete;
+
+      expect(el.input).to.have.attribute('lang', 'es');
+
+      // Cleanup
+      document.documentElement.lang = originalLang;
+    });
   });
 });

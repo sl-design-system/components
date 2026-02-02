@@ -226,9 +226,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.textField.required = !!this.required;
     }
 
-    if (changes.has('locale')) {
-      this.#syncInputLang();
-    }
+    this.#syncInputLang();
   }
 
   override render(): TemplateResult {

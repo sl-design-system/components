@@ -774,6 +774,7 @@ describe('sl-time-field', () => {
       expect(el1.value).to.equal('00:00');
       expect(el2.value).to.equal('00:00');
     });
+
     it('should update the input lang when document language changes', async () => {
       const originalLang = document.documentElement.lang;
       document.documentElement.lang = 'fr';
@@ -788,7 +789,6 @@ describe('sl-time-field', () => {
 
       expect(el.input).to.have.attribute('lang', 'es');
 
-      // Cleanup
       document.documentElement.lang = originalLang;
     });
   });

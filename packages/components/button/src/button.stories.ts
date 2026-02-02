@@ -421,18 +421,6 @@ export const All: Story = {
         <strong>Inverted Idle</strong>
         <strong>Inverted Disabled</strong>
 
-        <span>Solid</span>
-        <sl-button variant="inverted">
-          <sl-icon name="far-universal-access"></sl-icon>
-          Button
-          <sl-icon name="far-universal-access"></sl-icon>
-        </sl-button>
-        <sl-button variant="inverted" disabled>
-          <sl-icon name="far-universal-access"></sl-icon>
-          Button
-          <sl-icon name="far-universal-access"></sl-icon>
-        </sl-button>
-
         <span>Outline</span>
         <sl-button variant="inverted" fill="outline">
           <sl-icon name="far-universal-access"></sl-icon>
@@ -440,6 +428,18 @@ export const All: Story = {
           <sl-icon name="far-universal-access"></sl-icon>
         </sl-button>
         <sl-button variant="inverted" fill="outline" disabled>
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+
+        <span>Solid</span>
+        <sl-button variant="inverted">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button variant="inverted" disabled>
           <sl-icon name="far-universal-access"></sl-icon>
           Button
           <sl-icon name="far-universal-access"></sl-icon>

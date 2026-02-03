@@ -578,4 +578,195 @@ describe('sl-date-field', () => {
       expect(calendar).to.exist;
     });
   });
+
+  describe('keyboard entry', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-date-field></sl-date-field>`);
+      input = el.querySelector('input')!;
+    });
+
+    it('should show date template on focus', async () => {
+      await userEvent.click(input);
+
+      expect(input.value).to.equal('MM/DD/YYYY');
+    });
+
+    it('should select first part on focus', async () => {
+      await userEvent.click(input);
+
+      expect(input.selectionStart).to.equal(0);
+      expect(input.selectionEnd).to.equal(2);
+    });
+
+    it('should enter single digit in month part', async () => {
+      await userEvent.click(input);
+      await userEvent.keyboard('5');
+
+      expect(input.value).to.equal('05/DD/YYYY');
+    });
+
+    it('should keep focus on month part after entering one digit', async () => {
+      await userEvent.click(input);
+      await userEvent.keyboard('5');
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      expect(input.selectionStart).to.equal(0);
+      expect(input.selectionEnd).to.equal(2);
+    });
+
+    it('should combine two digits in month part', async () => {
+      await userEvent.click(input);
+      await userEvent.keyboard('1');
+      await userEvent.keyboard('2');
+
+      expect(input.value).to.equal('12/DD/YYYY');
+    });
+
+    it('should advance to day part after entering two digits in month', async () => {
+      await userEvent.click(input);
+      await userEvent.keyboard('1');
+      await userEvent.keyboard('2');
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      expect(input.selectionStart).to.equal(3);
+      expect(input.selectionEnd).to.equal(5);
+    });
+
+    it('should enter digits in day part', async () => {
+      await userEvent.click(input);
+      await userEvent.keyboard('0');
+      await userEvent.keyboard('6');
+      await userEvent.keyboard('1');
+      await userEvent.keyboard('2');
+
+      expect(input.value).to.equal('06/12/YYYY');
+    });
+
+    it('should advance to year part after entering two digits in day', async () => {
+      await userEvent.click(input);
+      await userEvent.keyboard('0');
+      await userEvent.keyboard('6');
+      await userEvent.keyboard('1');
+      await userEvent.keyboard('2');
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      expect(input.selectionStart).to.equal(6);
+      expect(input.selectionEnd).to.equal(10);
+    });
+
+    it('should enter four digits in year part', async () => {
+      await userEvent.click(input);
+      await userEvent.keyboard('0');
+      await userEvent.keyboard('6');
+      await userEvent.keyboard('1');
+      await userEvent.keyboard('2');
+      await userEvent.keyboard('2');
+      await userEvent.keyboard('0');
+      await userEvent.keyboard('2');
+      await userEvent.keyboard('3');
+
+      expect(input.value).to.equal('06/12/2023');
+    });
+
+    it('should stay on year part after entering four digits', async () => {
+      await userEvent.click(input);
+      await userEvent.keyboard('0');
+      await userEvent.keyboard('6');
+      await userEvent.keyboard('1');
+      await userEvent.keyboard('2');
+      await userEvent.keyboard('2');
+      await userEvent.keyboard('0');
+      await userEvent.keyboard('2');
+      await userEvent.keyboard('3');
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      expect(input.selectionStart).to.equal(6);
+      expect(input.selectionEnd).to.equal(10);
+    });
+
+    it('should set value after entering complete valid date', async () => {
+      await userEvent.click(input);
+      await userEvent.keyboard('0');
+      await userEvent.keyboard('6');
+      await userEvent.keyboard('1');
+      await userEvent.keyboard('2');
+      await userEvent.keyboard('2');
+      await userEvent.keyboard('0');
+      await userEvent.keyboard('2');
+      await userEvent.keyboard('3');
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      expect(el.value).to.exist;
+      expect(el.value).to.equalDate(new Date(2023, 5, 12));
+    });
+
+    it('should not set value for incomplete date', async () => {
+      await userEvent.click(input);
+      await userEvent.keyboard('1');
+      await userEvent.keyboard('2');
+
+      expect(el.value).to.be.undefined;
+    });
+
+    it('should not set value for invalid date', async () => {
+      await userEvent.click(input);
+      await userEvent.keyboard('0');
+      await userEvent.keyboard('2');
+      await userEvent.keyboard('3');
+      await userEvent.keyboard('1');
+      await userEvent.keyboard('2');
+      await userEvent.keyboard('0');
+      await userEvent.keyboard('2');
+      await userEvent.keyboard('3');
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      expect(el.value).to.be.undefined;
+    });
+
+    it('should allow entering date starting from day part', async () => {
+      await userEvent.click(input);
+      await userEvent.keyboard('{ArrowRight}');
+      await userEvent.keyboard('1');
+      await userEvent.keyboard('5');
+
+      expect(input.value).to.equal('MM/15/YYYY');
+    });
+
+    it('should allow entering date starting from year part', async () => {
+      await userEvent.click(input);
+      await userEvent.keyboard('{ArrowRight}');
+      await userEvent.keyboard('{ArrowRight}');
+      await userEvent.keyboard('2');
+      await userEvent.keyboard('0');
+      await userEvent.keyboard('2');
+      await userEvent.keyboard('3');
+
+      expect(input.value).to.equal('MM/DD/2023');
+    });
+
+    it('should emit sl-change when complete valid date is entered', async () => {
+      const changeSpy = spy();
+      el.addEventListener('sl-change', changeSpy);
+
+      await userEvent.click(input);
+      await userEvent.keyboard('0');
+      await userEvent.keyboard('6');
+      await userEvent.keyboard('1');
+      await userEvent.keyboard('2');
+      await userEvent.keyboard('2');
+      await userEvent.keyboard('0');
+      await userEvent.keyboard('2');
+      await userEvent.keyboard('3');
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      expect(changeSpy).to.have.been.called;
+    });
+  });
 });

@@ -379,6 +379,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     if (firstPart) {
       this.#editingPartType = firstPart.type;
       this.#enteredDigits = 0;
+      this.#setSelectedPart(firstPart);
     }
   }
 

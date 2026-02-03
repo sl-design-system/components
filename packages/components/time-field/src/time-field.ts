@@ -76,7 +76,9 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
    * Syncs the input's lang attribute with the component's locale.
    */
   #syncInputLang(): void {
-    if (!this.input) return;
+    if (!this.input) {
+      return;
+    }
 
     if (this.locale && this.locale !== 'default') {
       this.input.lang = this.locale;

@@ -43,6 +43,12 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
    */
   #dateParts: { day?: number; month?: number; year?: number } = {};
 
+  /** Tracks the type of the currently selected/editing part. */
+  #editingPartType?: string;
+
+  /** Tracks how many digits have been entered for the current part. */
+  #enteredDigits = 0;
+
   /** Formatter for displaying the value in the input. */
   #formatter?: Intl.DateTimeFormat;
 
@@ -139,7 +145,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.input.addEventListener('blur', () => this.#onInputBlur());
       this.input.addEventListener('click', () => this.#onInputClick());
       this.input.addEventListener('focus', () => this.#onInputFocus());
-      this.input.addEventListener('input', (event: InputEvent) => this.#onInputInput(event));
+      this.input.addEventListener('input', () => this.#onInputInput());
       this.input.addEventListener('keydown', (event: KeyboardEvent) => this.#onInputKeydown(event));
 
       if (!this.input.parentElement) {
@@ -347,10 +353,12 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       // If the user has selected the entire input, don't change the selection
       return;
     } else if (selectionStart !== null) {
-      const parts = getDateFormat(this.locale ?? 'default'),
+      const parts = this.#getCurrentParts(),
         part = parts.find(p => p.type !== 'literal' && selectionStart >= p.start && selectionStart <= p.end);
 
       if (part) {
+        this.#editingPartType = part.type;
+        this.#enteredDigits = 0;
         this.#setSelectedPart(part);
       }
     }
@@ -363,12 +371,32 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     // Replace any placeholder with the date template
     this.input.value = getDateTemplate(this.locale ?? 'default');
+
+    // Set the editing part type to the first non-literal part
+    const parts = this.#getCurrentParts(),
+      firstPart = parts.find(p => p.type !== 'literal');
+
+    if (firstPart) {
+      this.#editingPartType = firstPart.type;
+      this.#enteredDigits = 0;
+    }
   }
 
-  #onInputInput(event: InputEvent): void {
-    console.log(event, this.input.value);
+  #onInputInput(): void {
+    const partType = this.#editingPartType;
+    if (!partType) {
+      return;
+    }
 
-    this.#updateDateParts();
+    const newDigit = this.#parseInputDigit(partType);
+    if (newDigit === undefined) {
+      return;
+    }
+
+    this.#applyDigitToDatePart(partType, newDigit);
+    this.#updateInputDisplay();
+    this.#handlePartNavigation(partType);
+    this.#trySetValue();
   }
 
   #onInputKeydown(event: KeyboardEvent): void {
@@ -384,13 +412,14 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     event.preventDefault();
 
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-      const parts = getDateFormat(this.locale ?? 'default', this.value).filter(p => p.type !== 'literal'),
-        index = parts.findIndex(
-          p => p.start === selectedPart.start && p.end === selectedPart.end && p.type === selectedPart.type
-        ),
-        newIndex = event.key === 'ArrowLeft' ? Math.max(0, index - 1) : Math.min(parts.length - 1, index + 1);
+      const parts = this.#getCurrentParts().filter(p => p.type !== 'literal'),
+        index = parts.findIndex(p => p.type === selectedPart.type),
+        newIndex = event.key === 'ArrowLeft' ? Math.max(0, index - 1) : Math.min(parts.length - 1, index + 1),
+        newPart = parts[newIndex];
 
-      this.#setSelectedPart(parts[newIndex]);
+      this.#editingPartType = newPart.type;
+      this.#enteredDigits = 0;
+      this.#setSelectedPart(newPart);
     } else if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
       this.#adjustDatePart(selectedPart.type, event.key === 'ArrowUp' ? 1 : -1);
     }
@@ -452,23 +481,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.requestUpdate();
   }
 
-  #getSelectedPart(): DateFormatPart | null {
-    const selectionStart = this.input.selectionStart;
-
-    if (selectionStart !== null) {
-      const parts = getDateFormat(this.locale ?? 'default'),
-        part = parts.find(p => p.type !== 'literal' && selectionStart >= p.start && selectionStart <= p.end);
-
-      return part || null;
-    }
-
-    return null;
-  }
-
-  #setSelectedPart(part: DateFormatPart): void {
-    this.input.setSelectionRange(part.start, part.end);
-  }
-
   /**
    * Adjusts a date part by the given delta, with wrapping.
    * @param partType The type of part to adjust ('day', 'month', 'year')
@@ -508,7 +520,130 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     this.#updateInputDisplay();
-    this.#updateDateParts();
+    this.#trySetValue();
+
+    // Re-select the same part after updating
+    requestAnimationFrame(() => {
+      const parts = this.#getCurrentParts().filter(p => p.type !== 'literal'),
+        part = parts.find(p => p.type === partType);
+
+      if (part) {
+        this.#setSelectedPart(part);
+      }
+    });
+  }
+
+  /** Applies a new digit to the specified date part, combining with existing digits if continuing to type. */
+  #applyDigitToDatePart(partType: string, newDigit: number): void {
+    const maxDigits = partType === 'year' ? 4 : 2;
+    let currentValue: number | undefined;
+
+    if (partType === 'day') {
+      currentValue = this.#dateParts.day;
+    } else if (partType === 'month') {
+      currentValue = this.#dateParts.month;
+    } else if (partType === 'year') {
+      currentValue = this.#dateParts.year;
+    }
+
+    // Calculate the new value by combining existing digits with the new one
+    let newValue: number;
+    if (this.#enteredDigits > 0 && this.#enteredDigits < maxDigits && currentValue !== undefined) {
+      newValue = currentValue * 10 + newDigit;
+    } else {
+      newValue = newDigit;
+      this.#enteredDigits = 0;
+    }
+
+    this.#enteredDigits++;
+
+    if (partType === 'day') {
+      this.#dateParts.day = newValue;
+    } else if (partType === 'month') {
+      this.#dateParts.month = newValue;
+    } else if (partType === 'year') {
+      this.#dateParts.year = newValue;
+    }
+  }
+
+  /**
+   * Gets the current date format parts with correct start/end indices
+   * based on the actual values in #dateParts (padded to match the display).
+   */
+  #getCurrentParts(): DateFormatPart[] {
+    const locale = this.locale ?? 'default',
+      templateParts = getDateFormat(locale);
+
+    let index = 0;
+    return templateParts.map(part => {
+      let value: string;
+
+      if (part.type === 'day') {
+        value =
+          this.#dateParts.day !== undefined
+            ? String(this.#dateParts.day).padStart(part.value.length, '0')
+            : getDateUnitLetter(locale, 'day').repeat(part.value.length);
+      } else if (part.type === 'month') {
+        value =
+          this.#dateParts.month !== undefined
+            ? String(this.#dateParts.month).padStart(part.value.length, '0')
+            : getDateUnitLetter(locale, 'month').repeat(part.value.length);
+      } else if (part.type === 'year') {
+        value =
+          this.#dateParts.year !== undefined
+            ? String(this.#dateParts.year)
+            : getDateUnitLetter(locale, 'year').repeat(part.value.length);
+      } else {
+        value = part.value;
+      }
+
+      const start = index,
+        end = index + value.length;
+
+      index = end;
+
+      return { ...part, value, start, end };
+    });
+  }
+
+  #getSelectedPart(): DateFormatPart | null {
+    const selectionStart = this.input.selectionStart;
+
+    if (selectionStart !== null) {
+      const parts = this.#getCurrentParts(),
+        part = parts.find(p => p.type !== 'literal' && selectionStart >= p.start && selectionStart <= p.end);
+
+      return part || null;
+    }
+
+    return null;
+  }
+
+  /** Handles navigation to the next part or staying on current part after input. */
+  #handlePartNavigation(partType: string): void {
+    const maxDigits = partType === 'year' ? 4 : 2;
+
+    requestAnimationFrame(() => {
+      const parts = this.#getCurrentParts().filter(p => p.type !== 'literal');
+
+      if (this.#enteredDigits >= maxDigits) {
+        const currentIndex = parts.findIndex(p => p.type === partType);
+
+        if (currentIndex < parts.length - 1) {
+          const nextPart = parts[currentIndex + 1];
+          this.#editingPartType = nextPart.type;
+          this.#enteredDigits = 0;
+          this.#setSelectedPart(nextPart);
+        } else {
+          this.#setSelectedPart(parts[currentIndex]);
+        }
+      } else {
+        const currentPart = parts.find(p => p.type === partType);
+        if (currentPart) {
+          this.#setSelectedPart(currentPart);
+        }
+      }
+    });
   }
 
   #hasPartialDate(): boolean {
@@ -517,23 +652,57 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     );
   }
 
-  #updateDateParts(): void {
-    this.#trySetValue();
+  /** Parses the current input to extract the newly typed digit for the given part. */
+  #parseInputDigit(partType: string): number | undefined {
+    const inputValue = this.input.value,
+      currentParts = this.#getCurrentParts();
 
-    const selectedPart = this.#getSelectedPart();
-    if (!selectedPart) {
-      return;
+    for (const part of currentParts) {
+      if (part.type === partType) {
+        // Extract the value from the current input at this part's position
+        const valueStr = inputValue.slice(part.start, part.end).replace(/\D/g, '');
+
+        if (valueStr.length === 0) {
+          return undefined;
+        }
+
+        const value = parseInt(valueStr, 10);
+        // Get the last digit typed (the new one)
+        return isNaN(value) ? undefined : value % 10;
+      }
     }
 
-    // Re-select the same part after updating
-    requestAnimationFrame(() => {
-      const parts = getDateFormat(this.locale ?? 'default').filter(p => p.type !== 'literal'),
-        part = parts.find(p => p.type === selectedPart.type);
+    return undefined;
+  }
 
-      if (part) {
-        this.#setSelectedPart(part);
+  #setSelectedPart(part: DateFormatPart): void {
+    // Recalculate the part position based on current input values
+    const parts = this.#getCurrentParts(),
+      currentPart = parts.find(p => p.type === part.type);
+
+    if (currentPart) {
+      this.input.setSelectionRange(currentPart.start, currentPart.end);
+    }
+  }
+
+  /** Tries to set the value if all date parts are defined. */
+  #trySetValue(): void {
+    const { day, month, year } = this.#dateParts;
+
+    if (day !== undefined && month !== undefined && year !== undefined) {
+      // Validate the date
+      const date = new Date(year, month - 1, day);
+
+      // Check if the date is valid (e.g., Feb 30 would roll over to March)
+      if (date.getDate() === day && date.getMonth() === month - 1 && date.getFullYear() === year) {
+        this.value = date;
+        this.changeEvent.emit(this.value);
+        this.updateState({ dirty: true });
+        this.updateValidity();
+      } else {
+        this.reportValidity();
       }
-    });
+    }
   }
 
   /** Updates the input display based on current date parts. */
@@ -567,25 +736,5 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       .join('');
 
     this.input.value = display;
-  }
-
-  /** Tries to set the value if all date parts are defined. */
-  #trySetValue(): void {
-    const { day, month, year } = this.#dateParts;
-
-    if (day !== undefined && month !== undefined && year !== undefined) {
-      // Validate the date
-      const date = new Date(year, month - 1, day);
-
-      // Check if the date is valid (e.g., Feb 30 would roll over to March)
-      if (date.getDate() === day && date.getMonth() === month - 1 && date.getFullYear() === year) {
-        this.value = date;
-        this.changeEvent.emit(this.value);
-        this.updateState({ dirty: true });
-        this.updateValidity();
-      } else {
-        this.reportValidity();
-      }
-    }
   }
 }

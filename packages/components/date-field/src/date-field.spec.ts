@@ -47,6 +47,10 @@ describe('sl-date-field', () => {
       expect(icon).to.exist;
     });
 
+    it('should not have a calendar by default', () => {
+      expect(el.renderRoot.querySelector('sl-calendar')).not.to.exist;
+    });
+
     it('should not be disabled', () => {
       expect(el).not.to.have.attribute('disabled');
       expect(el.disabled).not.to.be.true;
@@ -242,7 +246,17 @@ describe('sl-date-field', () => {
       const dialog = el.renderRoot.querySelector('dialog');
 
       expect(dialog).to.have.attribute('popover');
-      expect(dialog).to.contain('sl-calendar');
+      expect(dialog).not.to.contain('sl-calendar');
+    });
+
+    it('should render the calendar when the popover is opened', async () => {
+      const wrapper = el.renderRoot.querySelector('[popover]');
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(wrapper?.matches(':popover-open')).to.be.true;
+      expect(el.renderRoot.querySelector('sl-calendar')).to.exist;
     });
 
     it('should show calendar when button is clicked', () => {
@@ -406,7 +420,7 @@ describe('sl-date-field', () => {
         monthView = selectDay?.shadowRoot?.querySelector('sl-month-view[autofocus]');
 
       el.renderRoot.querySelector('sl-field-button')?.click();
-      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
 
       expect(monthView?.shadowRoot?.activeElement).to.exist;
       expect(monthView?.shadowRoot?.activeElement).to.have.attribute('aria-current', 'date');

@@ -133,17 +133,26 @@ export class Menu extends LitElement {
   }
 
   #onKeydown(event: KeyboardEvent): void {
+    // Prevent arrow left/right from bubbling up to parent elements (e.g. toolbar)
+    // This applies to all menus, not just submenus
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+      event.stopPropagation();
+    }
+
+    if (event.key === 'Escape') {
+      // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the menu
+      // does not close parent containers (such as dialogs).
+      event.stopPropagation();
+    }
+
+    // The following logic only applies to submenus (anchored to a menu item)
     if (!(this.anchorElement instanceof MenuItem)) {
       return;
     }
 
     const placement = this.getAttribute('actual-placement');
 
-    if (event.key === 'Escape') {
-      // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the menu
-      // does not close parent containers (such as dialogs).
-      event.stopPropagation();
-    } else if (
+    if (
       (placement?.startsWith('right') && event.key === 'ArrowLeft') ||
       (placement?.startsWith('left') && event.key === 'ArrowRight')
     ) {

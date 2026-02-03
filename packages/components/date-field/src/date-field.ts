@@ -401,22 +401,47 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onInputKeydown(event: KeyboardEvent): void {
-    if (!event.key.startsWith('Arrow')) {
+    const selectedPart = this.#getSelectedPart();
+    if (!selectedPart) {
       return;
     }
 
-    const selectedPart = this.#getSelectedPart();
-    if (!selectedPart) {
+    // Check if the key is a separator character (literal part)
+    const parts = this.#getCurrentParts(),
+      separators = parts.filter(p => p.type === 'literal').map(p => p.value);
+
+    if (separators.includes(event.key)) {
+      event.preventDefault();
+
+      // Move to the next part
+      const nonLiteralParts = parts.filter(p => p.type !== 'literal'),
+        index = nonLiteralParts.findIndex(p => p.type === selectedPart.type);
+
+      if (index < nonLiteralParts.length - 1) {
+        const nextPart = nonLiteralParts[index + 1];
+        this.#editingPartType = nextPart.type;
+        this.#enteredDigits = 0;
+
+        // Set selection synchronously for separator key
+        const currentPart = parts.find(p => p.type === nextPart.type);
+        if (currentPart) {
+          this.input.setSelectionRange(currentPart.start, currentPart.end);
+        }
+      }
+      return;
+    }
+
+    if (!event.key.startsWith('Arrow')) {
       return;
     }
 
     event.preventDefault();
 
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-      const parts = this.#getCurrentParts().filter(p => p.type !== 'literal'),
-        index = parts.findIndex(p => p.type === selectedPart.type),
-        newIndex = event.key === 'ArrowLeft' ? Math.max(0, index - 1) : Math.min(parts.length - 1, index + 1),
-        newPart = parts[newIndex];
+      const nonLiteralParts = parts.filter(p => p.type !== 'literal'),
+        index = nonLiteralParts.findIndex(p => p.type === selectedPart.type),
+        newIndex = event.key === 'ArrowLeft' ? Math.max(0, index - 1) : Math.min(nonLiteralParts.length - 1, index + 1),
+        newPart = nonLiteralParts[newIndex];
 
       this.#editingPartType = newPart.type;
       this.#enteredDigits = 0;

@@ -768,5 +768,53 @@ describe('sl-date-field', () => {
 
       expect(changeSpy).to.have.been.called;
     });
+
+    it('should move to next part when separator character is typed', async () => {
+      await userEvent.click(input);
+      await userEvent.keyboard('0');
+      await userEvent.keyboard('6');
+
+      // Wait for auto-advance to day part
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      await userEvent.keyboard('/');
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      // Should be on year part after typing separator (moved from day to year)
+      expect(input.selectionStart).to.equal(6);
+      expect(input.selectionEnd).to.equal(10);
+    });
+
+    it('should not add separator character to input', async () => {
+      await userEvent.click(input);
+      await userEvent.keyboard('0');
+      await userEvent.keyboard('6');
+
+      // Wait for auto-advance
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      await userEvent.keyboard('/');
+
+      expect(input.value).to.equal('06/DD/YYYY');
+    });
+
+    it('should allow completing date entry with separators', async () => {
+      await userEvent.click(input);
+      await userEvent.keyboard('6');
+      await userEvent.keyboard('/');
+      await userEvent.keyboard('1');
+      await userEvent.keyboard('2');
+      await userEvent.keyboard('/');
+      await userEvent.keyboard('2');
+      await userEvent.keyboard('0');
+      await userEvent.keyboard('2');
+      await userEvent.keyboard('3');
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      expect(el.value).to.exist;
+      expect(el.value).to.equalDate(new Date(2023, 5, 12));
+    });
   });
 });

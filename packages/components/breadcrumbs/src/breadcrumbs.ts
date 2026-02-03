@@ -103,7 +103,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   /** @internal The slotted breadcrumbs. */
   @state() breadcrumbs: Breadcrumb[] = [];
   @state() breadcrumbLinks: HTMLElement[] = [];
-  @state() customHomelink: HTMLElement | undefined = undefined;
+  @state() customHomeLink: HTMLElement | undefined = undefined;
 
   /** @internal The threshold for when breadcrumbs should be collapsed into a menu. */
   @state() collapseThreshold = COLLAPSE_THRESHOLD;
@@ -179,7 +179,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
           ? nothing
           : html`
               <li class="home">
-                ${!this.customHomelink
+                ${!this.customHomeLink
                   ? html`
                       <a
                         href=${this.homeUrl}
@@ -257,12 +257,12 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
     this.breadcrumbLinks = children
       .filter(el => !el.hasAttribute('slot') && !(el instanceof Tooltip))
       .map(el => el as HTMLElement);
-    this.customHomelink = children.find(el => el.getAttribute('slot') === 'home') as HTMLElement | undefined;
+    this.customHomeLink = children.find(el => el.getAttribute('slot') === 'home') as HTMLElement | undefined;
 
     requestAnimationFrame(() => {
-      if (this.customHomelink) {
+      if (this.customHomeLink) {
         const slot = this.renderRoot.querySelector('slot[name="home"]') as HTMLSlotElement;
-        slot.assign(this.customHomelink);
+        slot.assign(this.customHomeLink);
       }
       this.breadcrumbLinks.slice(0, -this.collapseThreshold).forEach((link, index) => {
         const slot = this.renderRoot.querySelector(`slot[name="breadcrumb-menu-${index}"]`) as HTMLSlotElement;
@@ -283,21 +283,16 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   }
 
   #setTooltip(link: HTMLElement): void {
-    // const assignedElements = event.target.assignedElements({ flatten: true });
-
     const tooltipsSlot = this.renderRoot.querySelector('slot[name="tooltips"]') as HTMLSlotElement;
 
     if (!tooltipsSlot) {
-      console.log('no tooltips slot');
       return;
     }
 
     if (link.offsetWidth < link.scrollWidth) {
       if (link.hasAttribute('data-has-tooltip')) {
-        console.log('🔴 tooltip already set for', link.textContent, link.getAttribute('data-has-tooltip'));
         return;
       } else {
-        console.log('🟢 Tooltip.lazy for', link.textContent);
         Tooltip.lazy(
           link,
           tooltip => {
@@ -312,17 +307,12 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
         link.dataset.hasTooltip = 'true';
       }
     } else if (link.hasAttribute('data-has-tooltip') && link.hasAttribute('aria-describedby')) {
-      // const tooltip = this.renderRoot.querySelector(`#${link.getAttribute('aria-describedby')}`);
       const tooltip = tooltipsSlot.assignedElements().find(el => el.id === link.getAttribute('aria-describedby')) as
         | Tooltip
         | undefined;
-      console.log('🟠 remove tooltip', link.textContent, link, link.getAttribute('aria-describedby'), tooltip);
-
       tooltip?.remove();
       link.removeAttribute('data-has-tooltip');
       link.removeAttribute('aria-describedby');
-    } else {
-      console.log('⚪️ no tooltip needed', link.textContent);
     }
   }
 }

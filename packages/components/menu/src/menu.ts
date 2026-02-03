@@ -143,6 +143,15 @@ export class Menu extends LitElement {
       // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the menu
       // does not close parent containers (such as dialogs).
       event.stopPropagation();
+
+      // If this is a submenu, close it and focus the parent menu item
+      if (this.anchorElement instanceof MenuItem) {
+        // Prevent from closing all popovers at once
+        event.preventDefault();
+
+        this.hidePopover();
+        this.anchorElement.focus();
+      }
     }
 
     // The following logic only applies to submenus (anchored to a menu item)

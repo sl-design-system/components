@@ -270,9 +270,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
       });
       this.breadcrumbLinks.slice(this.breadcrumbLinks.length - this.collapseThreshold).forEach((link, index) => {
         const slot = this.renderRoot.querySelector(`slot[name="breadcrumb-${index}"]`) as HTMLSlotElement;
-        if (link.offsetWidth < link.scrollWidth) {
-          this.#setTooltip(link);
-        }
+        this.#setTooltip(link);
         slot.assign(link);
       });
     });
@@ -313,8 +311,18 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
         );
         link.dataset.hasTooltip = 'true';
       }
+    } else if (link.hasAttribute('data-has-tooltip') && link.hasAttribute('aria-describedby')) {
+      // const tooltip = this.renderRoot.querySelector(`#${link.getAttribute('aria-describedby')}`);
+      const tooltip = tooltipsSlot.assignedElements().find(el => el.id === link.getAttribute('aria-describedby')) as
+        | Tooltip
+        | undefined;
+      console.log('🟠 remove tooltip', link.textContent, link, link.getAttribute('aria-describedby'), tooltip);
+
+      tooltip?.remove();
+      link.removeAttribute('data-has-tooltip');
+      link.removeAttribute('aria-describedby');
     } else {
-      console.log('no tooltip needed');
+      console.log('⚪️ no tooltip needed', link.textContent);
     }
   }
 }

@@ -555,40 +555,32 @@ describe('sl-date-field', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-date-field></sl-date-field>`);
       input = el.querySelector('input')!;
+      input.focus();
     });
 
-    it('should show date template on focus', async () => {
-      await userEvent.click(input);
-
+    it('should show date template on focus', () => {
       expect(input.value).to.equal('MM/DD/YYYY');
     });
 
-    it('should select first part on focus', async () => {
-      await userEvent.click(input);
-
+    it('should select first part on focus', () => {
       expect(input.selectionStart).to.equal(0);
       expect(input.selectionEnd).to.equal(2);
     });
 
     it('should enter single digit in month part', async () => {
-      await userEvent.click(input);
       await userEvent.keyboard('5');
 
       expect(input.value).to.equal('05/DD/YYYY');
     });
 
     it('should keep focus on month part after entering one digit', async () => {
-      await userEvent.click(input);
       await userEvent.keyboard('5');
-
-      await new Promise(resolve => requestAnimationFrame(resolve));
 
       expect(input.selectionStart).to.equal(0);
       expect(input.selectionEnd).to.equal(2);
     });
 
     it('should combine two digits in month part', async () => {
-      await userEvent.click(input);
       await userEvent.keyboard('1');
       await userEvent.keyboard('2');
 
@@ -596,18 +588,14 @@ describe('sl-date-field', () => {
     });
 
     it('should advance to day part after entering two digits in month', async () => {
-      await userEvent.click(input);
       await userEvent.keyboard('1');
       await userEvent.keyboard('2');
-
-      await new Promise(resolve => requestAnimationFrame(resolve));
 
       expect(input.selectionStart).to.equal(3);
       expect(input.selectionEnd).to.equal(5);
     });
 
     it('should enter digits in day part', async () => {
-      await userEvent.click(input);
       await userEvent.keyboard('0');
       await userEvent.keyboard('6');
       await userEvent.keyboard('1');
@@ -617,20 +605,16 @@ describe('sl-date-field', () => {
     });
 
     it('should advance to year part after entering two digits in day', async () => {
-      await userEvent.click(input);
       await userEvent.keyboard('0');
       await userEvent.keyboard('6');
       await userEvent.keyboard('1');
       await userEvent.keyboard('2');
-
-      await new Promise(resolve => requestAnimationFrame(resolve));
 
       expect(input.selectionStart).to.equal(6);
       expect(input.selectionEnd).to.equal(10);
     });
 
     it('should enter four digits in year part', async () => {
-      await userEvent.click(input);
       await userEvent.keyboard('0');
       await userEvent.keyboard('6');
       await userEvent.keyboard('1');
@@ -644,7 +628,6 @@ describe('sl-date-field', () => {
     });
 
     it('should stay on year part after entering four digits', async () => {
-      await userEvent.click(input);
       await userEvent.keyboard('0');
       await userEvent.keyboard('6');
       await userEvent.keyboard('1');
@@ -653,15 +636,12 @@ describe('sl-date-field', () => {
       await userEvent.keyboard('0');
       await userEvent.keyboard('2');
       await userEvent.keyboard('3');
-
-      await new Promise(resolve => requestAnimationFrame(resolve));
 
       expect(input.selectionStart).to.equal(6);
       expect(input.selectionEnd).to.equal(10);
     });
 
     it('should set value after entering complete valid date', async () => {
-      await userEvent.click(input);
       await userEvent.keyboard('0');
       await userEvent.keyboard('6');
       await userEvent.keyboard('1');
@@ -671,14 +651,10 @@ describe('sl-date-field', () => {
       await userEvent.keyboard('2');
       await userEvent.keyboard('3');
 
-      await new Promise(resolve => requestAnimationFrame(resolve));
-
-      expect(el.value).to.exist;
       expect(el.value).to.equalDate(new Date(2023, 5, 12));
     });
 
     it('should not set value for incomplete date', async () => {
-      await userEvent.click(input);
       await userEvent.keyboard('1');
       await userEvent.keyboard('2');
 
@@ -686,7 +662,6 @@ describe('sl-date-field', () => {
     });
 
     it('should not set value for invalid date', async () => {
-      await userEvent.click(input);
       await userEvent.keyboard('0');
       await userEvent.keyboard('2');
       await userEvent.keyboard('3');
@@ -696,13 +671,10 @@ describe('sl-date-field', () => {
       await userEvent.keyboard('2');
       await userEvent.keyboard('3');
 
-      await new Promise(resolve => requestAnimationFrame(resolve));
-
       expect(el.value).to.be.undefined;
     });
 
     it('should allow entering date starting from day part', async () => {
-      await userEvent.click(input);
       await userEvent.keyboard('{ArrowRight}');
       await userEvent.keyboard('1');
       await userEvent.keyboard('5');
@@ -711,7 +683,6 @@ describe('sl-date-field', () => {
     });
 
     it('should allow entering date starting from year part', async () => {
-      await userEvent.click(input);
       await userEvent.keyboard('{ArrowRight}');
       await userEvent.keyboard('{ArrowRight}');
       await userEvent.keyboard('2');
@@ -723,10 +694,9 @@ describe('sl-date-field', () => {
     });
 
     it('should emit sl-change when complete valid date is entered', async () => {
-      const changeSpy = spy();
-      el.addEventListener('sl-change', changeSpy);
+      const onChange = spy();
+      el.addEventListener('sl-change', onChange);
 
-      await userEvent.click(input);
       await userEvent.keyboard('0');
       await userEvent.keyboard('6');
       await userEvent.keyboard('1');
@@ -736,22 +706,13 @@ describe('sl-date-field', () => {
       await userEvent.keyboard('2');
       await userEvent.keyboard('3');
 
-      await new Promise(resolve => requestAnimationFrame(resolve));
-
-      expect(changeSpy).to.have.been.called;
+      expect(onChange).to.have.been.called;
     });
 
     it('should move to next part when separator character is typed', async () => {
-      await userEvent.click(input);
       await userEvent.keyboard('0');
       await userEvent.keyboard('6');
-
-      // Wait for auto-advance to day part
-      await new Promise(resolve => requestAnimationFrame(resolve));
-
       await userEvent.keyboard('/');
-
-      await new Promise(resolve => requestAnimationFrame(resolve));
 
       // Should be on year part after typing separator (moved from day to year)
       expect(input.selectionStart).to.equal(6);
@@ -759,20 +720,14 @@ describe('sl-date-field', () => {
     });
 
     it('should not add separator character to input', async () => {
-      await userEvent.click(input);
       await userEvent.keyboard('0');
       await userEvent.keyboard('6');
-
-      // Wait for auto-advance
-      await new Promise(resolve => requestAnimationFrame(resolve));
-
       await userEvent.keyboard('/');
 
       expect(input.value).to.equal('06/DD/YYYY');
     });
 
     it('should allow completing date entry with separators', async () => {
-      await userEvent.click(input);
       await userEvent.keyboard('6');
       await userEvent.keyboard('/');
       await userEvent.keyboard('1');
@@ -782,8 +737,6 @@ describe('sl-date-field', () => {
       await userEvent.keyboard('0');
       await userEvent.keyboard('2');
       await userEvent.keyboard('3');
-
-      await new Promise(resolve => requestAnimationFrame(resolve));
 
       expect(el.value).to.exist;
       expect(el.value).to.equalDate(new Date(2023, 5, 12));

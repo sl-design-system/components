@@ -59,13 +59,17 @@ export function getDateFormat(locale: string, date?: Date): DateFormatPart[] {
 }
 
 /** Returns the first letter of the localized unit name for day, month, and year. */
-function getDateUnitLetters(locale: string): Record<string, string> {
+function getDateUnitLetters(locale: string): Record<'days' | 'months' | 'years', string> {
   if (dateUnitCache[locale]) {
     return dateUnitCache[locale];
   }
 
   const df = new DurationFormat(locale, { style: 'long' }),
-    units: Record<string, string> = {};
+    units: Record<'days' | 'months' | 'years', string> = {
+      days: '',
+      months: '',
+      years: ''
+    };
 
   for (const unit of ['days', 'months', 'years'] as const) {
     const part = df.formatToParts({ [unit]: 1 }).find(part => part.type === 'unit');

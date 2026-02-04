@@ -276,20 +276,23 @@ describe('sl-date-field', () => {
       expect(input).to.have.attribute('aria-expanded', 'true');
     });
 
-    it('should set aria-expanded to false when popover closes', async () => {
-      const button = el.renderRoot.querySelector('sl-field-button') as HTMLElement;
+    it('should set aria-expanded to false when popover closes', () => {
+      const button = el.renderRoot.querySelector('sl-field-button');
 
-      await userEvent.click(button);
-      await userEvent.click(button);
+      expect(input).to.have.attribute('aria-expanded', 'false');
 
+      button?.click();
+      expect(input).to.have.attribute('aria-expanded', 'true');
+
+      button?.click();
       expect(input).to.have.attribute('aria-expanded', 'false');
     });
 
     it('should hide popover when calendar date is selected', async () => {
-      const button = el.renderRoot.querySelector('sl-field-button') as HTMLElement;
-      await userEvent.click(button);
-      await el.updateComplete;
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
 
+      // Simulate the user selecting a date
       const calendar = el.renderRoot.querySelector('sl-calendar')!;
       calendar.dispatchEvent(
         new CustomEvent('sl-change', {
@@ -300,32 +303,21 @@ describe('sl-date-field', () => {
       );
       await el.updateComplete;
 
-      const wrapper = el.renderRoot.querySelector('[popover]');
-      expect(wrapper?.matches(':popover-open')).to.be.false;
+      expect(el.renderRoot.querySelector('dialog')?.matches(':popover-open')).to.be.false;
     });
 
     it('should stop Escape key propagation', async () => {
-      const escapeSpy = spy();
-      document.addEventListener('keydown', escapeSpy);
+      const onKeydown = spy();
 
-      const button = el.renderRoot.querySelector('sl-field-button') as HTMLElement;
-      await userEvent.click(button);
-      await el.updateComplete;
+      document.addEventListener('keydown', onKeydown);
 
-      const wrapper = el.renderRoot.querySelector('[popover]') as HTMLElement;
-      wrapper.focus();
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+      await userEvent.type(el.renderRoot.querySelector('dialog')!, '{Escape}');
 
-      wrapper.dispatchEvent(
-        new KeyboardEvent('keydown', {
-          key: 'Escape',
-          bubbles: true,
-          composed: true
-        })
-      );
+      expect(onKeydown).not.to.have.been.called;
 
-      expect(escapeSpy).not.to.have.been.called;
-
-      document.removeEventListener('keydown', escapeSpy);
+      document.removeEventListener('keydown', onKeydown);
     });
 
     it('should pass selected date to calendar', async () => {
@@ -333,9 +325,8 @@ describe('sl-date-field', () => {
       el.value = testDate;
       await el.updateComplete;
 
-      const button = el.renderRoot.querySelector('sl-field-button') as HTMLElement;
-      await userEvent.click(button);
-      await el.updateComplete;
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
 
       const calendar = el.renderRoot.querySelector('sl-calendar');
       expect(calendar).to.exist;
@@ -346,24 +337,20 @@ describe('sl-date-field', () => {
       el.showWeekNumbers = true;
       await el.updateComplete;
 
-      const button = el.renderRoot.querySelector('sl-field-button') as HTMLElement;
-      await userEvent.click(button);
-      await el.updateComplete;
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
 
-      const calendar = el.renderRoot.querySelector('sl-calendar');
-      expect(calendar).to.have.attribute('show-week-numbers');
+      expect(el.renderRoot.querySelector('sl-calendar')).to.have.attribute('show-week-numbers');
     });
 
     it('should pass first-day-of-week to calendar', async () => {
       el.firstDayOfWeek = 0;
       await el.updateComplete;
 
-      const button = el.renderRoot.querySelector('sl-field-button') as HTMLElement;
-      await userEvent.click(button);
-      await el.updateComplete;
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
 
-      const calendar = el.renderRoot.querySelector('sl-calendar');
-      expect(calendar).to.have.attribute('first-day-of-week', '0');
+      expect(el.renderRoot.querySelector('sl-calendar')).to.have.attribute('first-day-of-week', '0');
     });
 
     it('should pass min to calendar', async () => {
@@ -371,12 +358,10 @@ describe('sl-date-field', () => {
       el.min = minDate;
       await el.updateComplete;
 
-      const button = el.renderRoot.querySelector('sl-field-button') as HTMLElement;
-      await userEvent.click(button);
-      await el.updateComplete;
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
 
-      const calendar = el.renderRoot.querySelector('sl-calendar');
-      expect(calendar).to.have.attribute('min', minDate.toISOString());
+      expect(el.renderRoot.querySelector('sl-calendar')).to.have.attribute('min', minDate.toISOString());
     });
 
     it('should pass max to calendar', async () => {
@@ -384,12 +369,10 @@ describe('sl-date-field', () => {
       el.max = maxDate;
       await el.updateComplete;
 
-      const button = el.renderRoot.querySelector('sl-field-button') as HTMLElement;
-      await userEvent.click(button);
-      await el.updateComplete;
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
 
-      const calendar = el.renderRoot.querySelector('sl-calendar');
-      expect(calendar).to.have.attribute('max', maxDate.toISOString());
+      expect(el.renderRoot.querySelector('sl-calendar')).to.have.attribute('max', maxDate.toISOString());
     });
 
     it('should pass month to calendar', async () => {
@@ -397,43 +380,39 @@ describe('sl-date-field', () => {
       el.month = monthDate;
       await el.updateComplete;
 
-      const button = el.renderRoot.querySelector('sl-field-button') as HTMLElement;
-      await userEvent.click(button);
-      await el.updateComplete;
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
 
-      const calendar = el.renderRoot.querySelector('sl-calendar');
-      expect(calendar).to.have.attribute('month', monthDate.toISOString());
+      expect(el.renderRoot.querySelector('sl-calendar')).to.have.attribute('month', monthDate.toISOString());
     });
 
     it('should have show-today on calendar', async () => {
-      const button = el.renderRoot.querySelector('sl-field-button') as HTMLElement;
-      await userEvent.click(button);
-      await el.updateComplete;
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
 
-      const calendar = el.renderRoot.querySelector('sl-calendar');
-      expect(calendar).to.have.attribute('show-today');
+      expect(el.renderRoot.querySelector('sl-calendar')).to.have.attribute('show-today');
     });
 
     it("should focus today's date when popover opens", async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
       const calendar = el.renderRoot.querySelector('sl-calendar'),
         selectDay = calendar?.shadowRoot?.querySelector('sl-select-day'),
         monthView = selectDay?.shadowRoot?.querySelector('sl-month-view[autofocus]');
-
-      el.renderRoot.querySelector('sl-field-button')?.click();
-      await new Promise(resolve => setTimeout(resolve));
 
       expect(monthView?.shadowRoot?.activeElement).to.exist;
       expect(monthView?.shadowRoot?.activeElement).to.have.attribute('aria-current', 'date');
     });
 
     it('should emit sl-change when calendar date is selected', async () => {
-      const changeSpy = spy();
-      el.addEventListener('sl-change', changeSpy);
+      const onChange = spy();
 
-      const button = el.renderRoot.querySelector('sl-field-button') as HTMLElement;
-      await userEvent.click(button);
-      await el.updateComplete;
+      el.addEventListener('sl-change', onChange);
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
 
+      // Simulate the user selecting a date
       const testDate = new Date(2023, 5, 15);
       const calendar = el.renderRoot.querySelector('sl-calendar')!;
       calendar.dispatchEvent(
@@ -444,15 +423,14 @@ describe('sl-date-field', () => {
         })
       );
 
-      expect(changeSpy).to.have.been.calledOnce;
+      expect(onChange).to.have.been.calledOnce;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      expect(changeSpy.firstCall.args[0].detail).to.equalDate(testDate);
+      expect(onChange.firstCall.args[0].detail).to.equalDate(testDate);
     });
 
     it('should update value when calendar date is selected', async () => {
-      const button = el.renderRoot.querySelector('sl-field-button') as HTMLElement;
-      await userEvent.click(button);
-      await el.updateComplete;
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
 
       const testDate = new Date(2023, 5, 15);
       const calendar = el.renderRoot.querySelector('sl-calendar')!;
@@ -468,15 +446,14 @@ describe('sl-date-field', () => {
     });
 
     it('should set time to 00:00:00 when date is selected', async () => {
-      const button = el.renderRoot.querySelector('sl-field-button') as HTMLElement;
-      await userEvent.click(button);
-      await el.updateComplete;
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
 
-      const testDate = new Date(2023, 5, 15, 12, 30, 45);
+      // Simulate the user selecting a date
       const calendar = el.renderRoot.querySelector('sl-calendar')!;
       calendar.dispatchEvent(
         new CustomEvent('sl-change', {
-          detail: testDate,
+          detail: new Date(2023, 5, 15, 12, 30, 45),
           bubbles: true,
           composed: true
         })
@@ -488,15 +465,14 @@ describe('sl-date-field', () => {
     });
 
     it('should focus input after calendar date selection', async () => {
-      const button = el.renderRoot.querySelector('sl-field-button') as HTMLElement;
-      await userEvent.click(button);
-      await el.updateComplete;
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
 
-      const testDate = new Date(2023, 5, 15);
+      // Simulate the user selecting a date
       const calendar = el.renderRoot.querySelector('sl-calendar')!;
       calendar.dispatchEvent(
         new CustomEvent('sl-change', {
-          detail: testDate,
+          detail: new Date(2023, 5, 15),
           bubbles: true,
           composed: true
         })
@@ -565,17 +541,6 @@ describe('sl-date-field', () => {
       const button = el.renderRoot.querySelector('sl-field-button');
 
       expect(button).to.have.attribute('tabindex', '0');
-    });
-
-    it('should attempt to focus calendar when popover opens', async () => {
-      const button = el.renderRoot.querySelector('sl-field-button') as HTMLElement;
-      await userEvent.click(button);
-      await el.updateComplete;
-
-      // The calendar should exist and be rendered
-      const calendar = el.renderRoot.querySelector('sl-calendar');
-
-      expect(calendar).to.exist;
     });
   });
 

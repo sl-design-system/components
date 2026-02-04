@@ -133,6 +133,30 @@ export const Overflow: Story = {
   }
 };
 
+export const CustomStyledLinks: Story = {
+  render: () => html`
+    <style>
+      a[href] {
+        color: var(--sl-color-foreground-accent-red-bold);
+      }
+
+      a[href]:hover {
+        color: var(--sl-color-foreground-accent-orange-bold);
+      }
+
+      a[href]:active {
+        color: var(--sl-color-foreground-accent-purple-bold);
+      }
+    </style>
+    <a href="javascript:void(0)">Custom Styled Link 1</a>
+    <sl-breadcrumbs aria-label="Breadcrumb trail 1" no-home>
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
+    </sl-breadcrumbs>
+  `
+};
+
 export const All: Story = {
   render: () => html`
     <style>

@@ -47,6 +47,7 @@ const isMobile = (): boolean => matchMedia('(width <= 600px)').matches;
  * A component to display a breadcrumb trail.
  *
  * @slot default - The breadcrumbs to display.
+ * @slot home - Custom home link element.
  */
 @localized()
 export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
@@ -209,13 +210,11 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
               <sl-icon name="breadcrumb-separator"></sl-icon>
             `
           : nothing}
-        ${this.breadcrumbLinks.slice(this.breadcrumbLinks.length - this.collapseThreshold).map((_, index, array) =>
-          index < array.length
-            ? html`
-                <li><slot name="breadcrumb-${index}"></slot></li>
-                ${index < array.length - 1 ? html`<sl-icon name="breadcrumb-separator"></sl-icon>` : nothing}
-              `
-            : html`<li>end</li>`
+        ${this.breadcrumbLinks.slice(this.breadcrumbLinks.length - this.collapseThreshold).map(
+          (_, index, array) => html`
+            <li><slot name="breadcrumb-${index}"></slot></li>
+            ${index < array.length - 1 ? html`<sl-icon name="breadcrumb-separator"></sl-icon>` : nothing}
+          `
         )}
       </ul>
     `;

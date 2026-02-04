@@ -482,23 +482,23 @@ describe('sl-date-field', () => {
       expect(document.activeElement).to.equal(input);
     });
 
-    it('should emit sl-focus when text field gains focus', async () => {
-      const focusSpy = spy();
-      el.addEventListener('sl-focus', focusSpy);
+    it('should emit sl-focus when text field gains focus', () => {
+      const onFocus = spy();
+      el.addEventListener('sl-focus', onFocus);
 
-      await userEvent.click(input);
+      input.focus();
 
-      expect(focusSpy).to.have.been.calledOnce;
+      expect(onFocus).to.have.been.calledOnce;
     });
 
-    it('should emit sl-blur when text field loses focus', async () => {
-      const blurSpy = spy();
-      el.addEventListener('sl-blur', blurSpy);
+    it('should emit sl-blur when text field loses focus', () => {
+      const onBlur = spy();
+      el.addEventListener('sl-blur', onBlur);
 
-      await userEvent.click(input);
+      input.focus();
       input.blur();
 
-      expect(blurSpy).to.have.been.calledOnce;
+      expect(onBlur).to.have.been.calledOnce;
     });
   });
 
@@ -529,6 +529,13 @@ describe('sl-date-field', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-date-field></sl-date-field>`);
       input = el.querySelector('input')!;
+    });
+
+    it('should have aria-controls on the calendar button', () => {
+      const button = el.renderRoot.querySelector('sl-field-button'),
+        dialog = el.renderRoot.querySelector('dialog');
+
+      expect(button).to.have.attribute('aria-controls', dialog?.id);
     });
 
     it('should have aria-label on calendar button', () => {

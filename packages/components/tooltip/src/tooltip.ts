@@ -166,7 +166,13 @@ export class Tooltip extends LitElement {
     if (toChild) {
       return;
     }
-    if ((this.#matchesAnchor(event.target as Element) && !toTooltip) || fromTooltip) {
+
+    // Check if event target or any element in composed path (for shadow DOM) matches the anchor
+    const matchesAnchor =
+      this.#matchesAnchor(event.target as Element) ||
+      event.composedPath().some(el => el instanceof Element && this.#matchesAnchor(el));
+
+    if ((matchesAnchor && !toTooltip) || fromTooltip) {
       this.hidePopover();
     }
   };
@@ -185,7 +191,9 @@ export class Tooltip extends LitElement {
     });
   };
 
-  #onShow = ({ target, type }: Event): void => {
+  #onShow = (event: Event): void => {
+    const { target, type } = event;
+
     if (!this.#matchesAnchor(target as HTMLElement)) {
       return;
     }
@@ -193,7 +201,12 @@ export class Tooltip extends LitElement {
     // For keyboard navigation (focus events)
     if (type === 'focusin') {
       requestAnimationFrame(() => {
-        if ((target as Element).matches(':focus-visible')) {
+        // Check if the target or any element in the composed path (for shadow DOM) has :focus-visible
+        const hasFocusVisible =
+          (target as Element).matches(':focus-visible') ||
+          event.composedPath().some(el => el instanceof Element && el.matches(':focus-visible'));
+
+        if (hasFocusVisible) {
           this.#showTooltip(target as HTMLElement);
         }
       });

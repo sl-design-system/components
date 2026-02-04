@@ -48,6 +48,9 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
   }
 
   /** @internal */
+  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** The state of the menu popover. */
@@ -102,6 +105,12 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
 
     this.button.setAttribute('aria-controls', this.menu.id);
     this.menu.anchorElement = this.button;
+
+    // Copy aria-describedby to the button
+    const ariaDescribedBy = this.getAttribute('aria-describedby');
+    if (ariaDescribedBy) {
+      this.button.setAttribute('aria-describedby', ariaDescribedBy);
+    } // TODO: maybe aria-labelledby as well?
   }
 
   override render(): TemplateResult {
@@ -138,6 +147,12 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
       </sl-menu>
     `;
   }
+
+  // /** @internal */
+  // override focus(): void {
+  //   console.log('menu button gets focus');
+  //   this.button.focus();
+  // }
 
   #onClick(): void {
     this.menu.togglePopover();

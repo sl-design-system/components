@@ -11,6 +11,7 @@ import {
 import '@sl-design-system/avatar/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
+import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -190,6 +191,25 @@ export const Avatar: Story = {
   }
 };
 
+export const Tooltip: Story = {
+  render: () => html`
+    <div class="container">
+      <sl-menu-button aria-describedby="settings-tooltip" aria-label="Label">
+        <sl-icon name="far-gear" slot="button"></sl-icon>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-tooltip id="settings-tooltip" placement="top">Settings</sl-tooltip>
+    </div>
+  `
+};
+
 export const All: Story = {
   render: () => html`
     <style>
@@ -315,6 +335,58 @@ export const All: Story = {
           Delete...
         </sl-menu-item>
       </sl-menu-button>
+    </div>
+  `
+};
+
+export const WithTooltips: Story = {
+  render: () => html`
+    <style>
+      .tooltip-demo {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        padding: 2rem;
+      }
+    </style>
+    <div class="tooltip-demo">
+      <p>Hover or use Tab to focus the menu buttons below to see tooltips:</p>
+
+      <sl-menu-button aria-describedby="tooltip-settings" fill="outline">
+        <sl-icon name="far-gear" slot="button"></sl-icon>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-tooltip id="tooltip-settings">Settings</sl-tooltip>
+
+      <sl-menu-button aria-describedby="tooltip-edit" fill="outline">
+        <sl-icon name="far-pen" slot="button"></sl-icon>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-tooltip id="tooltip-edit">Edit</sl-tooltip>
+
+      <sl-menu-button aria-describedby="tooltip-delete" fill="outline">
+        <sl-icon name="far-trash" slot="button"></sl-icon>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete permanently...
+        </sl-menu-item>
+        <sl-menu-item>Move to trash</sl-menu-item>
+      </sl-menu-button>
+      <sl-tooltip id="tooltip-delete">Delete</sl-tooltip>
     </div>
   `
 };

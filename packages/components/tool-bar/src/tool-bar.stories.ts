@@ -436,7 +436,7 @@ export const IconOnly: Story = {
           </sl-button>
           <sl-tooltip id="tooltip-underline">Underline</sl-tooltip>
 
-          <sl-menu-button aria-describedby="tooltip-settings" fill="outline">
+          <sl-menu-button ${tooltip('Settings')} fill="outline">
             <sl-icon name="far-gear" slot="button"></sl-icon>
             <sl-menu-item>
               <sl-icon name="far-pen"></sl-icon>
@@ -447,9 +447,8 @@ export const IconOnly: Story = {
               Delete...
             </sl-menu-item>
           </sl-menu-button>
-          <sl-tooltip id="tooltip-settings">Settings</sl-tooltip>
 
-          <sl-menu-button aria-describedby="tooltip-edit" fill="outline">
+          <sl-menu-button ${tooltip('Edit')} fill="outline">
             <sl-icon name="far-pen" slot="button"></sl-icon>
             <sl-menu-item>
               <sl-icon name="far-pen"></sl-icon>
@@ -460,7 +459,6 @@ export const IconOnly: Story = {
               Delete...
             </sl-menu-item>
           </sl-menu-button>
-          <sl-tooltip id="tooltip-edit">Edit</sl-tooltip>
         </sl-tool-bar>
       </div>
 

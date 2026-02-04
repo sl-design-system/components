@@ -291,15 +291,19 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     if (this.min) {
       const minHour = this.#parseTime(this.min)?.hours;
+      console.log('minHour', minHour);
       if (minHour !== undefined) {
         hours = hours.filter(h => h >= minHour);
+        console.log('filtered hours in min', hours);
       }
     }
 
     if (this.max) {
       const maxHour = this.#parseTime(this.max)?.hours;
+      console.log('maxHour', maxHour);
       if (maxHour !== undefined) {
         hours = hours.filter(h => h <= maxHour);
+        console.log('filtered hours in max', hours);
       }
     }
 
@@ -325,12 +329,38 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   renderMinutes(): TemplateResult[] {
     const minutes = Array.from({ length: 60 / this.minuteStep }, (_, i) => i * this.minuteStep);
 
+    const isMinuteDisabled = (minute: number): boolean => {
+      if (this.min && this.#valueAsNumbers?.hours !== undefined) {
+        const minTime = this.#parseTime(this.min);
+        if (minTime && this.#valueAsNumbers.hours === minTime.hours && minute < minTime.minutes) {
+          return true;
+        }
+      }
+
+      if (this.max && this.#valueAsNumbers?.hours !== undefined) {
+        const maxTime = this.#parseTime(this.max);
+        if (maxTime && this.#valueAsNumbers.hours === maxTime.hours && minute > maxTime.minutes) {
+          return true;
+        }
+      }
+
+      return false;
+    };
+
+    console.log(
+      'this.#valueAsNumbers?.minutes',
+      this.#valueAsNumbers?.minutes,
+      'this.#valueAsNumbers',
+      this.#valueAsNumbers
+    );
+
     return minutes.map(
       minute => html`
         <li
-          @click=${() => this.#onMinuteClick(minute)}
-          @keydown=${(event: KeyboardEvent) => this.#onMinuteKeydown(event, minute)}
-          aria-selected=${minute === this.#valueAsNumbers?.minutes}
+          @click=${() => !isMinuteDisabled(minute) && this.#onMinuteClick(minute)}
+          @keydown=${(event: KeyboardEvent) => !isMinuteDisabled(minute) && this.#onMinuteKeydown(event, minute)}
+          aria-selected=${minute === this.#valueAsNumbers?.minutes && !isMinuteDisabled(minute)}
+          ?disabled=${isMinuteDisabled(minute)}
           role="option"
           tabindex="-1"
         >
@@ -338,7 +368,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         </li>
       `
     );
-  }
+  } // TODO: should we use 'disabled' or 'aria-disabled' for the minute options?
 
   /** @internal */
   override updateInternalValidity(): void {
@@ -437,7 +467,10 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         return;
       }
 
-      const elements = Array.from(activeElement.parentElement?.querySelectorAll('li') ?? []);
+      // const elements = Array.from(activeElement.parentElement?.querySelectorAll('li') ?? []);
+      const elements = Array.from(activeElement.parentElement?.querySelectorAll('li') ?? []).filter(
+        li => !li.hasAttribute('disabled')
+      );
       let index = elements.indexOf(activeElement);
 
       if (event.key === 'ArrowUp') {
@@ -580,6 +613,30 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       } else {
         minutes += event.key === 'ArrowUp' ? 1 : -1;
         minutes = (minutes + 60) % 60;
+
+        if (this.min) {
+          const minTime = this.#parseTime(this.min);
+          if (minTime !== undefined) {
+            if (hours < minTime.hours) {
+              hours = minTime.hours;
+              minutes = minTime.minutes;
+            } else if (hours === minTime.hours && minutes < minTime.minutes) {
+              minutes = minTime.minutes;
+            }
+          }
+        }
+
+        if (this.max) {
+          const maxTime = this.#parseTime(this.max);
+          if (maxTime !== undefined) {
+            if (hours > maxTime.hours) {
+              hours = maxTime.hours;
+              minutes = maxTime.minutes;
+            } else if (hours === maxTime.hours && minutes > maxTime.minutes) {
+              minutes = maxTime.minutes;
+            }
+          }
+        }
       }
 
       this.#valueAsNumbers = { hours, minutes };
@@ -675,11 +732,26 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #scrollAndFocusStartTime(focus: 'hour' | 'minute' = 'hour'): void {
-    const time = (this.#startTime = this.#getStartTime());
+    const time = (this.#startTime = this.#getStartTime()),
+      minTime = this.min ? this.#parseTime(this.min) : undefined,
+      maxTime = this.max ? this.#parseTime(this.max) : undefined;
 
     // Find the closest hour and minute based on the steps
     time.hours = Math.round(time.hours / this.hourStep) * this.hourStep;
     time.minutes = Math.round(time.minutes / this.minuteStep) * this.minuteStep;
+
+    // Apply min/max constraints
+    if (minTime && (time.hours < minTime.hours || (time.hours === minTime.hours && time.minutes < minTime.minutes))) {
+      time.hours = minTime.hours;
+      time.minutes = Math.ceil(minTime.minutes / this.minuteStep) * this.minuteStep;
+    }
+
+    if (maxTime && (time.hours > maxTime.hours || (time.hours === maxTime.hours && time.minutes > maxTime.minutes))) {
+      time.hours = maxTime.hours;
+      time.minutes = Math.floor(maxTime.minutes / this.minuteStep) * this.minuteStep;
+    }
+
+    console.log('Scrolling to time', time);
 
     // Scroll to the start time
     this.#scrollTimeIntoView(time.hours, time.minutes, 'start');

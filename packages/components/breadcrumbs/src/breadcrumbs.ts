@@ -4,7 +4,7 @@ import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { Popover } from '@sl-design-system/popover';
 import { Tooltip } from '@sl-design-system/tooltip';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './breadcrumbs.scss.js';
@@ -101,7 +101,6 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   #mutationObserver = new MutationObserver(() => this.#onMutation());
 
   /** @internal The slotted breadcrumbs. */
-  @state() breadcrumbs: Breadcrumb[] = [];
   @state() breadcrumbLinks: HTMLElement[] = [];
   @state() customHomeLink: HTMLElement | undefined = undefined;
 
@@ -149,9 +148,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
 
     this.#observer.observe(this);
     this.#mutationObserver.observe(this, {
-      characterData: true,
-      childList: true,
-      subtree: true
+      childList: true
     });
   }
 
@@ -159,14 +156,10 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
     this.#observer.disconnect();
     this.#mutationObserver.disconnect();
 
-    this.breadcrumbs.forEach(breadcrumb => {
-      if (breadcrumb.tooltip instanceof Tooltip) {
-        breadcrumb.tooltip.remove();
-      } else if (breadcrumb.tooltip) {
-        breadcrumb.tooltip();
-      }
+    // Clean up any tooltips projected into the "tooltips" slot to avoid memory leaks.
+    this.querySelectorAll('[slot="tooltips"]').forEach(tooltip => {
+      tooltip.remove();
     });
-    this.breadcrumbs = [];
 
     super.disconnectedCallback();
   }
@@ -233,19 +226,6 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
     this.#onMutation();
   }
 
-  override willUpdate(changes: PropertyValues<this>): void {
-    super.willUpdate(changes);
-
-    if (changes.has('breadcrumbs') || changes.has('collapseThreshold')) {
-      this.breadcrumbs = this.breadcrumbs.map((breadcrumb, index) => {
-        const collapsed =
-          this.breadcrumbs.length > this.collapseThreshold && index < this.breadcrumbs.length - this.collapseThreshold;
-
-        return { ...breadcrumb, collapsed };
-      });
-    }
-  }
-
   #onClick = (): void => {
     this.renderRoot.querySelector('sl-popover')?.togglePopover();
   };
@@ -262,16 +242,21 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
     requestAnimationFrame(() => {
       if (this.customHomeLink) {
         const slot = this.renderRoot.querySelector('slot[name="home"]') as HTMLSlotElement;
-        slot.assign(this.customHomeLink);
+        slot?.assign(this.customHomeLink);
       }
       this.breadcrumbLinks.slice(0, -this.collapseThreshold).forEach((link, index) => {
         const slot = this.renderRoot.querySelector(`slot[name="breadcrumb-menu-${index}"]`) as HTMLSlotElement;
-        slot.assign(link);
+        link.removeAttribute('aria-current');
+        slot?.assign(link);
       });
       this.breadcrumbLinks.slice(this.breadcrumbLinks.length - this.collapseThreshold).forEach((link, index) => {
         const slot = this.renderRoot.querySelector(`slot[name="breadcrumb-${index}"]`) as HTMLSlotElement;
+        link.removeAttribute('aria-current');
         this.#setTooltip(link);
-        slot.assign(link);
+        slot?.assign(link);
+      });
+      this.breadcrumbLinks.slice(this.breadcrumbLinks.length - 1).forEach(link => {
+        link.setAttribute('aria-current', 'page');
       });
     });
   };

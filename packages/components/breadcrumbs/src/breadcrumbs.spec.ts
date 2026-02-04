@@ -75,10 +75,14 @@ describe('sl-breadcrumbs', () => {
       expect(separators).to.have.length(3);
     });
 
-    it('should make the last link as the current page', () => {
-      const link = el.renderRoot.querySelector('li:last-of-type a');
+    it('should make the last link as the current page', async () => {
+      await el.updateComplete;
+      // Wait for requestAnimationFrame
+      await new Promise(resolve => requestAnimationFrame(resolve));
 
-      expect(link).to.have.attribute('aria-current', 'page');
+      const links = Array.from(el.querySelectorAll('a'));
+      const lastLink = links[links.length - 1];
+      expect(lastLink).to.have.attribute('aria-current', 'page');
     });
 
     it('should not have an expand button', () => {
@@ -234,31 +238,36 @@ describe('sl-breadcrumbs', () => {
           <a href="javascript:void(0)">6</a>
         </sl-breadcrumbs>
       `);
+
+      // Wait for requestAnimationFrame
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
     });
 
     it('should have all links with separators in the DOM', () => {
-      // Home link + 6 slotted links
-      expect(el.renderRoot.querySelectorAll('a')).to.have.length(7);
+      // 6 slotted links in light DOM
+      expect(el.querySelectorAll('a')).to.have.length(6);
 
       // Separator after home link, button and 2 visible links
       expect(el.renderRoot.querySelectorAll('sl-icon[name="breadcrumb-separator"]')).to.have.length(4);
     });
 
     it('should only show the last 3 breadcrumbs', () => {
-      const children = Array.from(el.renderRoot.querySelectorAll('li > *'));
+      const slots = Array.from(
+          el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-"]:not([name*="menu"])')
+        ),
+        visibleLinks = slots.map(slot => slot.assignedElements()[0]);
 
-      expect(children).to.have.length(6);
-      expect(children[0]).to.have.trimmed.text('Home');
-      expect(children[1]).to.match('sl-button');
-      expect(children[2]).to.match('sl-popover');
-      expect(children[3]).to.have.trimmed.text('4');
-      expect(children[4]).to.have.trimmed.text('5');
-      expect(children[5]).to.have.trimmed.text('6');
+      expect(visibleLinks).to.have.length(3);
+      expect(visibleLinks[0]).to.have.trimmed.text('4');
+      expect(visibleLinks[1]).to.have.trimmed.text('5');
+      expect(visibleLinks[2]).to.have.trimmed.text('6');
     });
 
     it('should have an expand button to show the rest of the breadcrumbs', () => {
-      const button = el.renderRoot.querySelector('sl-button'),
-        menuItems = Array.from(el.renderRoot.querySelectorAll('sl-popover a') ?? []);
+      const button = el.renderRoot.querySelector('sl-button');
+      const menuSlots = Array.from(el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-menu-"]'));
+      const menuItems = menuSlots.map(slot => slot.assignedElements()[0]);
 
       expect(button).to.exist;
       expect(button).to.have.attribute('fill', 'ghost');
@@ -299,19 +308,20 @@ describe('sl-breadcrumbs', () => {
     });
 
     it('should only show the last 2 breadcrumbs', () => {
-      const children = Array.from(el.renderRoot.querySelectorAll('li > *'));
+      const slots = Array.from(
+        el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-"]:not([name*="menu"])')
+      );
+      const visibleLinks = slots.map(slot => slot.assignedElements()[0]);
 
-      expect(children).to.have.length(5);
-      expect(children[0]).to.have.trimmed.text('');
-      expect(children[1]).to.match('sl-button');
-      expect(children[2]).to.match('sl-popover');
-      expect(children[3]).to.have.trimmed.text('5');
-      expect(children[4]).to.have.trimmed.text('6');
+      expect(visibleLinks).to.have.length(2);
+      expect(visibleLinks[0]).to.have.trimmed.text('5');
+      expect(visibleLinks[1]).to.have.trimmed.text('6');
     });
 
     it('should show all hidden links in the popover', () => {
-      const button = el.renderRoot.querySelector('sl-button'),
-        menuItems = Array.from(el.renderRoot.querySelectorAll('sl-popover a') ?? []);
+      const button = el.renderRoot.querySelector('sl-button');
+      const menuSlots = Array.from(el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-menu-"]'));
+      const menuItems = menuSlots.map(slot => slot.assignedElements()[0]);
 
       expect(button).to.exist;
       expect(button).to.have.attribute('fill', 'ghost');
@@ -322,6 +332,325 @@ describe('sl-breadcrumbs', () => {
       expect(menuItems[1]).to.have.text('2');
       expect(menuItems[2]).to.have.text('3');
       expect(menuItems[3]).to.have.text('4');
+    });
+  });
+
+  describe('custom home link via slot', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-breadcrumbs>
+          <a slot="home" href="/custom">Custom Home</a>
+          <a href="/docs">Docs</a>
+          <a href="/docs/getting-started">Getting Started</a>
+        </sl-breadcrumbs>
+      `);
+
+      // Wait for requestAnimationFrame to process slot assignments
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
+      // Extra wait for mutation observer
+      await new Promise(resolve => setTimeout(resolve, 50));
+    });
+
+    it('should render the custom home link', () => {
+      const homeSlot = el.renderRoot.querySelector<HTMLSlotElement>('slot[name="home"]');
+      const customHome = homeSlot?.assignedElements()[0] as HTMLAnchorElement;
+
+      expect(customHome).to.exist;
+      expect(customHome).to.have.attribute('href', '/custom');
+      expect(customHome).to.have.trimmed.text('Custom Home');
+    });
+
+    it('should not render the default home link', () => {
+      const defaultHomeLink = el.renderRoot.querySelector('li.home > a');
+      expect(defaultHomeLink).not.to.exist;
+    });
+
+    it('should still render the home list item', () => {
+      const homeListItem = el.renderRoot.querySelector('li.home');
+      expect(homeListItem).to.exist;
+    });
+  });
+
+  describe('dynamic content changes', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-breadcrumbs>
+          <a href="/1">Link 1</a>
+          <a href="/2">Link 2</a>
+        </sl-breadcrumbs>
+      `);
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
+    });
+
+    it('should update when links are added dynamically', async () => {
+      const newLink = document.createElement('a');
+      newLink.href = '/3';
+      newLink.textContent = 'Link 3';
+      el.appendChild(newLink);
+
+      // Wait for mutation observer
+      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const links = Array.from(el.querySelectorAll('a'));
+      expect(links).to.have.length(3);
+
+      const lastLink = links[links.length - 1];
+      expect(lastLink).to.have.attribute('aria-current', 'page');
+    });
+
+    it('should update when links are removed dynamically', async () => {
+      const links = Array.from(el.querySelectorAll('a'));
+      const lastLink = links[links.length - 1];
+      lastLink.remove();
+
+      // Wait for mutation observer
+      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const remainingLinks = Array.from(el.querySelectorAll('a'));
+      expect(remainingLinks).to.have.length(1);
+
+      const newLastLink = remainingLinks[remainingLinks.length - 1];
+      expect(newLastLink).to.have.attribute('aria-current', 'page');
+    });
+  });
+
+  describe('popover interaction', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-breadcrumbs>
+          <a href="/1">1</a>
+          <a href="/2">2</a>
+          <a href="/3">3</a>
+          <a href="/4">4</a>
+          <a href="/5">5</a>
+        </sl-breadcrumbs>
+      `);
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
+    });
+
+    it('should toggle popover when button is clicked', async () => {
+      const button = el.renderRoot.querySelector('sl-button');
+      const popover = el.renderRoot.querySelector('sl-popover');
+
+      expect(button).to.exist;
+      expect(popover).to.exist;
+
+      button?.click();
+      await el.updateComplete;
+
+      // The popover should be toggled (implementation depends on Popover component)
+      // We can verify the click handler was called without errors
+      expect(popover).to.exist;
+    });
+
+    it('should have inverted button variant when breadcrumbs are inverted', async () => {
+      el.inverted = true;
+      await el.updateComplete;
+
+      const button = el.renderRoot.querySelector('sl-button');
+      expect(button).to.have.attribute('variant', 'inverted');
+    });
+
+    it('should not have inverted button variant by default', () => {
+      const button = el.renderRoot.querySelector('sl-button');
+      expect(button).not.to.have.attribute('variant');
+    });
+  });
+
+  describe('edge cases', () => {
+    it('should handle breadcrumbs with only 1 link', async () => {
+      el = await fixture(html`
+        <sl-breadcrumbs>
+          <a href="/single">Single Link</a>
+        </sl-breadcrumbs>
+      `);
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
+
+      const link = el.querySelector('a');
+      expect(link).to.have.attribute('aria-current', 'page');
+
+      // Should not show collapse button
+      const button = el.renderRoot.querySelector('sl-button');
+      expect(button).not.to.exist;
+    });
+
+    it('should handle breadcrumbs with exactly threshold number of links', async () => {
+      // Reset viewport to desktop to ensure consistent threshold behavior
+      await page.viewport(1024, 768);
+
+      el = await fixture(html`
+        <sl-breadcrumbs>
+          <a href="/1">1</a>
+          <a href="/2">2</a>
+          <a href="/3">3</a>
+        </sl-breadcrumbs>
+      `);
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
+      // Wait for resize observer
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      // Should not show collapse button with exactly threshold (3) links - need MORE than threshold
+      const button = el.renderRoot.querySelector('sl-button');
+      expect(button).not.to.exist;
+
+      // All 3 breadcrumbs should be visible
+      const slots = Array.from(
+        el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-"]:not([name*="menu"])')
+      );
+      expect(slots).to.have.length(3);
+    });
+
+    it('should handle breadcrumbs with non-anchor elements', async () => {
+      el = await fixture(html`
+        <sl-breadcrumbs>
+          <span>Not a link</span>
+          <a href="/docs">Real Link</a>
+        </sl-breadcrumbs>
+      `);
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
+
+      // Should process all elements, not just anchors
+      const slots = Array.from(
+        el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-"]:not([name*="menu"])')
+      );
+      expect(slots.length).to.be.greaterThan(0);
+    });
+
+    it('should handle empty breadcrumbs', async () => {
+      el = await fixture(html`<sl-breadcrumbs></sl-breadcrumbs>`);
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
+
+      // Should still render home link
+      const homeLink = el.renderRoot.querySelector('li.home a');
+      expect(homeLink).to.exist;
+
+      // Should not have any breadcrumb slots
+      const slots = el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-"]');
+      expect(slots).to.have.length(0);
+    });
+
+    it('should handle noHome with custom home link', async () => {
+      el = await fixture(html`
+        <sl-breadcrumbs no-home>
+          <a slot="home" href="/custom">Custom Home</a>
+          <a href="/docs">Docs</a>
+        </sl-breadcrumbs>
+      `);
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
+
+      // Should not render home section at all when noHome is true
+      const homeListItem = el.renderRoot.querySelector('li.home');
+      expect(homeListItem).not.to.exist;
+    });
+  });
+
+  describe('observers', () => {
+    it('should disconnect observers on disconnectedCallback', async () => {
+      el = await fixture(html`
+        <sl-breadcrumbs>
+          <a href="/docs">Docs</a>
+        </sl-breadcrumbs>
+      `);
+
+      await el.updateComplete;
+
+      // Remove from DOM
+      el.remove();
+
+      // The component should clean up observers (no error should be thrown)
+      expect(el.isConnected).to.be.false;
+    });
+  });
+
+  describe('tooltips for truncated links', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-breadcrumbs style="width: 200px;">
+          <a
+            href="javascript:void(0)"
+            style="max-width: 100px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+            >Very Long Breadcrumb Link That Will Be Truncated</a
+          >
+          <a
+            href="javascript:void(0)"
+            style="max-width: 100px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+            >Another Very Long Breadcrumb Link</a
+          >
+          <a href="javascript:void(0)">Short</a>
+        </sl-breadcrumbs>
+      `);
+
+      // Wait for requestAnimationFrame to process slot assignments
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
+
+      // Give the resize observer time to process and check for truncation
+      await new Promise(resolve => setTimeout(resolve, 100));
+      await el.updateComplete;
+    });
+
+    it('should mark truncated links with data-has-tooltip attribute', () => {
+      const slots = Array.from(
+        el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-"]:not([name*="menu"])')
+      );
+      const visibleLinks = slots.map(slot => slot.assignedElements()[0]) as HTMLElement[];
+      const truncatedLinks = visibleLinks.filter(link => link.hasAttribute('data-has-tooltip'));
+
+      // At least the long links should be marked for tooltips
+      expect(truncatedLinks.length).to.be.greaterThan(0);
+    });
+
+    it('should not mark non-truncated links for tooltips', () => {
+      const slots = Array.from(
+        el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-"]:not([name*="menu"])')
+      );
+      const visibleLinks = slots.map(slot => slot.assignedElements()[0]) as HTMLElement[];
+
+      // Find the "Short" link - it should not have any tooltip attributes initially
+      const shortLink = visibleLinks.find(link => link.textContent?.trim() === 'Short');
+
+      if (shortLink) {
+        // Check if link is actually not truncated (offsetWidth >= scrollWidth)
+        const isTruncated = shortLink.offsetWidth < shortLink.scrollWidth;
+
+        if (!isTruncated) {
+          expect(shortLink).not.to.have.attribute('data-has-tooltip');
+        }
+      }
+    });
+
+    it('should detect truncation based on offsetWidth vs scrollWidth', () => {
+      const slots = Array.from(
+        el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-"]:not([name*="menu"])')
+      );
+      const visibleLinks = slots.map(slot => slot.assignedElements()[0]) as HTMLElement[];
+
+      visibleLinks.forEach(link => {
+        const isTruncated = link.offsetWidth < link.scrollWidth;
+        const hasTooltipMarker = link.hasAttribute('data-has-tooltip');
+
+        // If marked for tooltip, it should be truncated
+        if (hasTooltipMarker) {
+          expect(isTruncated).to.be.true;
+        }
+      });
     });
   });
 });

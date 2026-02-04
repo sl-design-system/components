@@ -2,6 +2,7 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { type MenuItem } from './menu-item.js';
 import { type Menu } from './menu.js';
@@ -140,6 +141,202 @@ describe('sl-menu', () => {
       const slot = el.renderRoot.querySelector('slot')!;
 
       expect(slot).to.have.attribute('style', '--sl-menu-item-indent: 1');
+    });
+  });
+
+  describe('keyboard navigation', () => {
+    describe('arrow key propagation', () => {
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-menu>
+            <sl-menu-item>Item 1</sl-menu-item>
+            <sl-menu-item>Item 2</sl-menu-item>
+          </sl-menu>
+        `);
+        el.showPopover();
+
+        await el.updateComplete;
+      });
+
+      it('should stop propagation of ArrowLeft key events', async () => {
+        const onKeydown = spy();
+
+        document.addEventListener('keydown', onKeydown);
+
+        el.focus();
+        await userEvent.keyboard('{ArrowLeft}');
+
+        expect(onKeydown).not.to.have.been.called;
+
+        document.removeEventListener('keydown', onKeydown);
+      });
+
+      it('should stop propagation of ArrowRight key events', async () => {
+        const onKeydown = spy();
+
+        document.addEventListener('keydown', onKeydown);
+
+        el.focus();
+        await userEvent.keyboard('{ArrowRight}');
+
+        expect(onKeydown).not.to.have.been.called;
+
+        document.removeEventListener('keydown', onKeydown);
+      });
+
+      it('should allow ArrowUp to propagate normally', async () => {
+        const onKeydown = spy();
+
+        document.addEventListener('keydown', onKeydown);
+
+        el.focus();
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(onKeydown).to.have.been.called;
+
+        document.removeEventListener('keydown', onKeydown);
+      });
+
+      it('should allow ArrowDown to propagate normally', async () => {
+        const onKeydown = spy();
+
+        document.addEventListener('keydown', onKeydown);
+
+        el.focus();
+        await userEvent.keyboard('{ArrowDown}');
+
+        expect(onKeydown).to.have.been.called;
+
+        document.removeEventListener('keydown', onKeydown);
+      });
+    });
+
+    describe('arrow left/right in submenu', () => {
+      let parentMenuItem: MenuItem;
+      let submenu: Menu;
+
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-menu>
+            <sl-menu-item>
+              Item with submenu
+              <sl-menu slot="submenu">
+                <sl-menu-item>Subitem 1</sl-menu-item>
+                <sl-menu-item>Subitem 2</sl-menu-item>
+              </sl-menu>
+            </sl-menu-item>
+          </sl-menu>
+        `);
+
+        el.showPopover();
+        await el.updateComplete;
+
+        parentMenuItem = el.querySelector('sl-menu-item')!;
+        submenu = parentMenuItem.querySelector('sl-menu')!;
+
+        // Manually set placement for testing
+        submenu.setAttribute('actual-placement', 'right-start');
+      });
+
+      it('should close submenu and focus parent when ArrowLeft is pressed', async () => {
+        submenu.showPopover();
+        await submenu.updateComplete;
+
+        const submenuItem = submenu.querySelector('sl-menu-item')!;
+        submenuItem.focus();
+
+        await userEvent.keyboard('{ArrowLeft}');
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(submenu.matches(':popover-open')).to.be.false;
+        expect(document.activeElement).to.equal(parentMenuItem);
+      });
+
+      it('should not close submenu when ArrowRight is pressed', async () => {
+        submenu.showPopover();
+        await submenu.updateComplete;
+
+        const submenuItem = submenu.querySelector('sl-menu-item')!;
+        submenuItem.focus();
+
+        await userEvent.keyboard('{ArrowRight}');
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(submenu.matches(':popover-open')).to.be.true;
+      });
+    });
+
+    describe('escape key in submenu', () => {
+      let parentMenuItem: MenuItem;
+      let submenu: Menu;
+      let submenuItem: MenuItem;
+
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-menu>
+            <sl-menu-item>Item 1</sl-menu-item>
+            <sl-menu-item>
+              Item 2
+              <sl-menu slot="submenu">
+                <sl-menu-item>Subitem 1</sl-menu-item>
+                <sl-menu-item>Subitem 2</sl-menu-item>
+              </sl-menu>
+            </sl-menu-item>
+          </sl-menu>
+        `);
+
+        el.showPopover();
+        await el.updateComplete;
+
+        parentMenuItem = el.querySelectorAll('sl-menu-item')[1];
+        submenu = parentMenuItem.querySelector('sl-menu')!;
+        submenuItem = submenu.querySelector('sl-menu-item')!;
+      });
+
+      it('should close only the submenu when Escape key is pressed', async () => {
+        submenu.showPopover();
+        await submenu.updateComplete;
+
+        expect(submenu.matches(':popover-open')).to.be.true;
+        expect(el.matches(':popover-open')).to.be.true;
+
+        submenuItem.focus();
+        await userEvent.keyboard('{Escape}');
+
+        // Give time for the popover to close
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(submenu.matches(':popover-open')).to.be.false;
+        expect(el.matches(':popover-open')).to.be.true;
+      });
+
+      it('should focus the parent menu item when Escape closes submenu', async () => {
+        submenu.showPopover();
+        await submenu.updateComplete;
+
+        submenuItem.focus();
+        await userEvent.keyboard('{Escape}');
+
+        // Wait for focus to change
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(document.activeElement).to.equal(parentMenuItem);
+      });
+
+      it('should stop propagation of Escape key', async () => {
+        const onKeydown = spy();
+        document.addEventListener('keydown', onKeydown);
+
+        submenu.showPopover();
+        await submenu.updateComplete;
+
+        submenuItem.focus();
+        await userEvent.keyboard('{Escape}');
+
+        expect(onKeydown).not.to.have.been.called;
+
+        document.removeEventListener('keydown', onKeydown);
+      });
     });
   });
 });

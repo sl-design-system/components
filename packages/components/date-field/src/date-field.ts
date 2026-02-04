@@ -140,6 +140,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     if (!this.input) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
+      this.input.ariaExpanded = 'false';
       this.input.autocomplete = 'off';
       this.input.slot = 'input';
       this.input.addEventListener('blur', () => this.#onInputBlur());

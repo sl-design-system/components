@@ -268,7 +268,7 @@ describe('sl-date-field', () => {
     });
 
     it('should set aria-expanded to true when popover opens', async () => {
-      expect(input).not.to.have.attribute('aria-expanded');
+      expect(input).to.have.attribute('aria-expanded', 'false');
 
       el.renderRoot.querySelector('sl-field-button')?.click();
       await el.updateComplete;
@@ -395,7 +395,7 @@ describe('sl-date-field', () => {
 
     it("should focus today's date when popover opens", async () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
-      await new Promise(resolve => setTimeout(resolve));
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       const calendar = el.renderRoot.querySelector('sl-calendar'),
         selectDay = calendar?.shadowRoot?.querySelector('sl-select-day'),

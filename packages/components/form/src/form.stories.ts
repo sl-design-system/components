@@ -25,6 +25,10 @@ type Props = Pick<Form, 'disabled' | 'value'> & {
 };
 type Story = StoryObj<Props>;
 
+interface SelectElement extends HTMLElement {
+  value?: string;
+}
+
 class customComponent extends ScopedElementsMixin(LitElement) {
   constructor() {
     super();
@@ -315,5 +319,59 @@ export const AllValid: Story = {
       textField: 'Text field',
       timeField: '12:00'
     }
+  }
+};
+
+export const AsyncValidation: Story = {
+  render: () => {
+    const onSync = async (): Promise<void> => {
+      const form = document.querySelector<Form>('sl-form');
+      const select = form?.querySelector<SelectElement>('sl-select');
+
+      if (!form || !select) return;
+
+      select.value = '1';
+      await form.updateComplete;
+
+      select.value = undefined;
+
+      alert(`Synchronous (form.valid): ${form.valid}\n(Returns true because the update cycle hasn't finished)`);
+    };
+
+    const onAsync = async (): Promise<void> => {
+      const form = document.querySelector<Form>('sl-form');
+      const select = form?.querySelector<SelectElement>('sl-select');
+
+      if (!form || !select) return;
+
+      select.value = '1';
+      await form.updateComplete;
+
+      select.value = undefined;
+
+      await form.updateComplete;
+      const isValid = form.valid;
+      alert(`Asynchronous (form.updateComplete): ${isValid}\n(Correctly waits and reflects the invalid state)`);
+    };
+
+    return html`
+      <p style="margin-bottom: var(--sl-size-200);">
+        This demo shows how to correctly check form validity after a programmatic change. Clicking the buttons will
+        automatically set the required select to an invalid state (empty) and then immediately check the form's
+        validity.
+      </p>
+      <sl-form id="async-validation-form">
+        <sl-form-field label="Select (required)">
+          <sl-select value="1" required placeholder="Select an option">
+            <sl-option value="1">Option 1</sl-option>
+            <sl-option value="2">Option 2</sl-option>
+          </sl-select>
+        </sl-form-field>
+        <sl-button-bar>
+          <sl-button @click=${onSync}>Sync way (buggy)</sl-button>
+          <sl-button @click=${onAsync} variant="primary">Async way (correct)</sl-button>
+        </sl-button-bar>
+      </sl-form>
+    `;
   }
 };

@@ -1,5 +1,12 @@
 # @sl-design-system/my-digital-book
 
+## 1.0.1
+
+### Patch Changes
+
+- [#2759](https://github.com/sl-design-system/components/pull/2759) [`7a7fd56`](https://github.com/sl-design-system/components/commit/7a7fd5650207f0f6be6c015d8f735345323ef5ff) - Added `icon.2xs` for use in `badge.MD`
+  Added `color.background.highlight`
+
 ## 1.0.0
 
 ### Major Changes

@@ -1,5 +1,15 @@
 # @sl-design-system/shared
 
+## 0.10.0
+
+### Minor Changes
+
+- [#2636](https://github.com/sl-design-system/components/pull/2636) [`e3eb2de`](https://github.com/sl-design-system/components/commit/e3eb2de61e86203aab22cd55bbad4cc058e66a2d) - New utilities:
+  - `dateListConverter` added
+  - `NewFocusGroupController` added
+
+  Both of these are currently only in use within the `calendar` package, but are being added to `@sl-design-system/shared` for potential reuse in other packages in the future.
+
 ## 0.9.2
 
 ### Patch Changes

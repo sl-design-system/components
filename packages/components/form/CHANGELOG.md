@@ -1,5 +1,19 @@
 # @sl-design-system/form
 
+## 1.3.4
+
+### Patch Changes
+
+- [#2936](https://github.com/sl-design-system/components/pull/2936) [`d4fe761`](https://github.com/sl-design-system/components/commit/d4fe76108ea4bf3d88f7abd5cb7bb826614c2710) - Await form and all controls that implement `updateComplete` to complete their update cycles
+
+## 1.3.3
+
+### Patch Changes
+
+- Updated dependencies [[`e3eb2de`](https://github.com/sl-design-system/components/commit/e3eb2de61e86203aab22cd55bbad4cc058e66a2d)]:
+  - @sl-design-system/shared@0.10.0
+  - @sl-design-system/inline-message@2.0.3
+
 ## 1.3.2
 
 ### Patch Changes

@@ -14,4 +14,4 @@
 '@sl-design-system/tig': minor
 ---
 
-Improvements in svg icons paths which should't affect visual side
+Improvements in svg icons paths which shouldn't affect visual side

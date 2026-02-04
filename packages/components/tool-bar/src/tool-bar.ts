@@ -125,7 +125,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     direction: 'horizontal',
     focusInIndex: (elements: HTMLElement[]) => elements.findIndex(el => !this.#isElementDisabled(el)),
     elements: () => this.#getFocusableElements(),
-    isFocusableElement: (el: HTMLElement) => !(el instanceof ToolBarDivider) && !this.#isElementDisabled(el) // TODO: exclude from focusable elements from inside the menu
+    isFocusableElement: (el: HTMLElement) => !(el instanceof ToolBarDivider) && !this.#isElementDisabled(el)
   });
 
   /**
@@ -380,23 +380,11 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       })
       .filter((el): el is HTMLElement => el !== null);
 
-    console.log('Visible items in #getFocusableElements:', visibleItems); // TODO: exclude divider from the list
-
-    const menuButton = this.renderRoot.querySelector('sl-menu-button'); // TODO: maybe not sl-menu-button since there can be other menu buttons in the tool bar?
-
-    console.log('menuButton', menuButton);
-
+    const menuButton = this.renderRoot.querySelector('sl-menu-button');
     if (!menuButton) {
       return visibleItems;
     }
-
     const menuButtonElement = menuButton.renderRoot?.querySelector('sl-button') as HTMLElement | null;
-
-    console.log(
-      'menuButtonElement',
-      menuButtonElement,
-      menuButtonElement ? [...visibleItems, menuButtonElement] : visibleItems
-    );
 
     return menuButtonElement ? [...visibleItems, menuButtonElement] : visibleItems;
   }

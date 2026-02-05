@@ -30,11 +30,6 @@ if (!import.meta.env?.DEV) {
 
 const preview: Preview = {
   decorators: [
-    (story, { globals: { mode = 'light', theme = 'sanoma-learning' } }) => {
-      updateTheme(theme, mode as Mode);
-
-      return story();
-    },
     (story, data) => {
       return html`
       <style>
@@ -76,6 +71,11 @@ const preview: Preview = {
 
       return story();
     },
+  ],
+  loaders: [
+    async ({ globals: { mode = 'light', theme = 'sanoma-learning' } }) => {
+      await updateTheme(theme, mode as Mode);
+    }
   ],
   parameters: {
     pseudo: {

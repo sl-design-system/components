@@ -185,7 +185,12 @@ export class Tooltip extends LitElement {
       this.setAttribute('slot', anchorSlot); // make sure the tooltip is slotted correctly, otherwise it might inherit styles from the wrong slot
     }
 
-    this.showPopover();
+    console.log('this and isPopoverOpen', this, isPopoverOpen(this));
+
+    if (!isPopoverOpen(this)) {
+      this.showPopover();
+    }
+
     requestAnimationFrame(() => {
       this.#calculateSafeTriangle();
     });
@@ -200,16 +205,21 @@ export class Tooltip extends LitElement {
 
     // For keyboard navigation (focus events)
     if (type === 'focusin') {
+      const path = event.composedPath();
+
       requestAnimationFrame(() => {
         // Check if the target or any element in the composed path (for shadow DOM) has :focus-visible
         const hasFocusVisible =
           (target as Element).matches(':focus-visible') ||
-          event.composedPath().some(el => el instanceof Element && el.matches(':focus-visible'));
+          path.some(el => el instanceof Element && el.matches(':focus-visible'));
+
+        console.log('target in focusin', target, 'hasFocusVisible', hasFocusVisible);
 
         if (hasFocusVisible) {
           this.#showTooltip(target as HTMLElement);
         }
       });
+
       return;
     }
 

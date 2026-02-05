@@ -101,6 +101,8 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
 
   #mutationObserver = new MutationObserver(() => this.#onMutation());
 
+  #updateScheduled = false;
+
   /** @internal The slotted breadcrumbs. */
   @state() breadcrumbLinks: HTMLElement[] = [];
   @state() customHomeLink: HTMLElement | undefined = undefined;
@@ -146,6 +148,9 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
     }
 
     this.setAttribute('role', 'navigation');
+
+    // Process initial light DOM children before first render
+    this.#processChildren();
 
     this.#observer.observe(this);
     this.#mutationObserver.observe(this, {
@@ -221,15 +226,15 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   }
 
   override firstUpdated(): void {
-    // Process initial light DOM children
-    this.#onMutation();
+    // Perform slot assignments after first render
+    this.#assignSlots();
   }
 
   #onClick = (): void => {
     this.renderRoot.querySelector('sl-popover')?.togglePopover();
   };
 
-  #onMutation = (): void => {
+  #processChildren(): void {
     const children = Array.from(this.children);
 
     // Filter for elements without a slot attribute (default slot content)
@@ -237,7 +242,9 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
       .filter(el => !el.hasAttribute('slot') && !(el instanceof Tooltip))
       .map(el => el as HTMLElement);
     this.customHomeLink = children.find(el => el.getAttribute('slot') === 'home') as HTMLElement | undefined;
+  }
 
+  #assignSlots(): void {
     requestAnimationFrame(() => {
       if (this.customHomeLink) {
         const slot = this.renderRoot.querySelector('slot[name="home"]') as HTMLSlotElement;
@@ -258,12 +265,24 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
         link.setAttribute('aria-current', 'page');
       });
     });
+  }
+
+  #onMutation = (): void => {
+    this.#processChildren();
+    this.#assignSlots();
   };
 
   #update(): void {
-    this.collapseThreshold = isMobile() ? MOBILE_COLLAPSE_THRESHOLD : COLLAPSE_THRESHOLD;
+    if (this.#updateScheduled) {
+      return;
+    }
 
-    this.#onMutation();
+    this.#updateScheduled = true;
+    requestAnimationFrame(() => {
+      this.#updateScheduled = false;
+      this.collapseThreshold = isMobile() ? MOBILE_COLLAPSE_THRESHOLD : COLLAPSE_THRESHOLD;
+      this.#onMutation();
+    });
   }
 
   #setTooltip(link: HTMLElement): void {

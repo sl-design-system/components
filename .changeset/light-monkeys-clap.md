@@ -14,4 +14,4 @@
 '@sl-design-system/tig': minor
 ---
 
-Improvements in svg icons paths which shouldn't affect visual side
+Caret icons have been updated to implement the new alignment strategy used in Font Awesome 7

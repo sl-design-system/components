@@ -178,16 +178,8 @@ export const FlexContainer: Story = {
 
 export const All: Story = {
   render: () => {
-    const icons = Object.keys(window.SLDS?.icons);
+    const icons = Object.keys(window.SLDS?.icons || {});
 
-    if (icons.length === 0) {
-      setTimeout(() => {
-        addons.getChannel().emit(Events.UPDATE_STORY_ARGS, {
-          storyId,
-          updatedArgs: { icons: Object.keys(window.SLDS.icons) }
-        });
-      }, 200);
-    }
     return html`
       <style>
         section {
@@ -212,15 +204,9 @@ export const All: Story = {
 };
 
 export const AllIcons: Story = {
-  render: ({ icons }) => {
-    if (icons.length === 0) {
-      setTimeout(() => {
-        addons.getChannel().emit(Events.UPDATE_STORY_ARGS, {
-          storyId,
-          updatedArgs: { icons: Object.keys(window.SLDS.icons) }
-        });
-      }, 200);
-    }
+  render: () => {
+    const icons = Object.keys(window.SLDS?.icons || {});
+
     return html`
       <style>
         section {

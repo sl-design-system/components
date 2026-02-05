@@ -2,7 +2,7 @@ import { withThemeFromJSXProvider } from '@storybook/addon-themes';
 import { type Preview } from '@storybook/web-components';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import { html } from 'lit';
-import { themes, updateTheme } from '../../.storybook/themes';
+import { themes, updateTheme, type Mode } from '../../.storybook/themes';
 import MockDate from 'mockdate';
 
 // Id's of components that only need to be rendered once, not in all mock states.
@@ -16,9 +16,9 @@ const singleState = [
   'all--message-dialog',
   'all--month-view',
   'all--popover',
-  'all--calendar-select-day',
-  'all--calendar-select-month',
-  'all--calendar-select-year',
+  'all--select-day',
+  'all--select-month',
+  'all--select-year',
   'all--skeleton',
   'all--spinner',
   'all--tooltip'
@@ -31,7 +31,7 @@ if (!import.meta.env?.DEV) {
 const preview: Preview = {
   decorators: [
     (story, { globals: { mode = 'light', theme = 'sanoma-learning' } }) => {
-      updateTheme(theme, mode);
+      updateTheme(theme, mode as Mode);
 
       return story();
     },
@@ -70,27 +70,12 @@ const preview: Preview = {
     },
     (story) => {
       withThemeFromJSXProvider({
-        themes: {
-          'bingel-dc': themes['bingel-dc'],
-          'bingel-int': themes['bingel-int'],
-          clickedu: themes['clickedu'],
-          'editorial-suite': themes['editorial-suite'],
-          itslearning: themes['itslearning'],
-          kampus: themes['kampus'],
-          magister: themes['magister'],
-          max: themes['max'],
-          'my-digital-book': themes['my-digital-book'],
-          neon: themes['neon'],
-          'sanoma-learning': themes['sanoma-learning'],
-          teas: themes['teas'],
-          tig: themes['tig'],
-        },
+        themes: Object.fromEntries(themes.map(t => [t.id, t])),
         defaultTheme: 'sanoma-learning'
       });
 
       return story();
     },
-
   ],
   parameters: {
     pseudo: {

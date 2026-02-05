@@ -85,12 +85,6 @@ a,
   text-underline-offset: var(--sl-size-025);
   white-space: nowrap;
 
-  &:focus-visible {
-    border-radius: var(--sl-size-borderRadius-default);
-    outline: var(--sl-size-borderWidth-focusRing) solid var(--sl-color-border-focused);
-    outline-offset: var(--sl-size-offset-focused);
-  }
-
   @media (width <= 600px) {
     padding-block: var(--sl-size-100);
   }

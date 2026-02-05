@@ -48,6 +48,7 @@ const isMobile = (): boolean => matchMedia('(width <= 600px)').matches;
  *
  * @slot default - The breadcrumbs to display.
  * @slot home - Custom home link element.
+ * @slot tooltips - Internal tooltip elements that may be rendered into the light DOM at runtime.
  */
 @localized()
 export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
@@ -100,6 +101,8 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   #observer = new ResizeObserver(() => this.#update());
 
   #mutationObserver = new MutationObserver(() => this.#onMutation());
+
+  #tooltipCleanupFunctions = new Map<HTMLElement, () => void>();
 
   #updateScheduled = false;
 
@@ -162,6 +165,20 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
     this.#observer.disconnect();
     this.#mutationObserver.disconnect();
 
+    // Call cleanup functions to remove event listeners before removing tooltips
+    this.#tooltipCleanupFunctions.forEach(cleanup => cleanup());
+    this.#tooltipCleanupFunctions.clear();
+
+    // Clean up any tooltips projected into or assigned to the "tooltips" slot to avoid memory leaks.
+    const tooltipsSlot = this.renderRoot?.querySelector<HTMLSlotElement>('slot[name="tooltips"]');
+
+    if (tooltipsSlot) {
+      tooltipsSlot.assignedElements({ flatten: true }).forEach(tooltip => {
+        tooltip.remove();
+      });
+    }
+
+    // Also remove any light DOM elements explicitly using slot="tooltips" for backwards compatibility.
     // Clean up any tooltips projected into the "tooltips" slot to avoid memory leaks.
     this.querySelectorAll('[slot="tooltips"]').forEach(tooltip => {
       tooltip.remove();
@@ -215,7 +232,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
               <sl-icon name="breadcrumb-separator"></sl-icon>
             `
           : nothing}
-        ${this.breadcrumbLinks.slice(this.breadcrumbLinks.length - this.collapseThreshold).map(
+        ${this.breadcrumbLinks.slice(-this.collapseThreshold).map(
           (_, index, array) => html`
             <li><slot name="breadcrumb-${index}"></slot></li>
             ${index < array.length - 1 ? html`<sl-icon name="breadcrumb-separator"></sl-icon>` : nothing}
@@ -255,15 +272,17 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
         link.removeAttribute('aria-current');
         slot?.assign(link);
       });
-      this.breadcrumbLinks.slice(this.breadcrumbLinks.length - this.collapseThreshold).forEach((link, index) => {
+      this.breadcrumbLinks.slice(-this.collapseThreshold).forEach((link, index) => {
         const slot = this.renderRoot.querySelector(`slot[name="breadcrumb-${index}"]`) as HTMLSlotElement;
         link.removeAttribute('aria-current');
         this.#setTooltip(link);
         slot?.assign(link);
       });
-      this.breadcrumbLinks.slice(this.breadcrumbLinks.length - 1).forEach(link => {
-        link.setAttribute('aria-current', 'page');
-      });
+
+      const lastLink = this.breadcrumbLinks[this.breadcrumbLinks.length - 1];
+      if (lastLink) {
+        lastLink.setAttribute('aria-current', 'page');
+      }
     });
   }
 
@@ -296,7 +315,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
       if (link.hasAttribute('data-has-tooltip')) {
         return;
       } else {
-        Tooltip.lazy(
+        const cleanup = Tooltip.lazy(
           link,
           tooltip => {
             tooltip.position = 'bottom';
@@ -307,9 +326,13 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
           },
           { context: this.shadowRoot! }
         );
+        this.#tooltipCleanupFunctions.set(link, cleanup);
         link.dataset.hasTooltip = 'true';
       }
     } else if (link.hasAttribute('data-has-tooltip') && link.hasAttribute('aria-describedby')) {
+      // Note: No need to call cleanup() here - it was already called when the tooltip was created
+      this.#tooltipCleanupFunctions.delete(link);
+
       const tooltip = tooltipsSlot.assignedElements().find(el => el.id === link.getAttribute('aria-describedby')) as
         | Tooltip
         | undefined;

@@ -49,7 +49,7 @@ export default {
   title: 'Media/Icon',
   tags: ['stable'],
   args: {
-    icons: Object.keys(window.SLDS?.icons)
+    icons: Object.keys(window.SLDS?.icons || {})
   },
   argTypes: {
     icons: {

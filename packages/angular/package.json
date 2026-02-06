@@ -1,7 +1,7 @@
 {
   "name": "@sl-design-system/angular",
   "description": "Angular support for the SL Design System",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "publishConfig": {
     "directory": "dist",
     "registry": "https://npm.pkg.github.com"
@@ -96,7 +96,7 @@
     "@sl-design-system/switch": "^1.1.5",
     "@sl-design-system/text-area": "^1.1.5",
     "@sl-design-system/text-field": "^1.6.6",
-    "@sl-design-system/time-field": "^0.0.2"
+    "@sl-design-system/time-field": "^0.0.3"
   },
   "devDependencies": {
     "@angular-devkit/architect": "^0.2100.0",

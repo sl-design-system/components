@@ -1,5 +1,18 @@
 # @sl-design-system/angular
 
+## 4.1.0
+
+### Minor Changes
+
+- [#2950](https://github.com/sl-design-system/components/pull/2950) [`c5b7466`](https://github.com/sl-design-system/components/commit/c5b746664936488023c610f1886a0dcd8de401f6) - A new `MessageDialogService` for Angular applications that simplifies opening and managing message dialogs programmatically.
+  The service provides methods to display confirmation, alert, and custom message dialogs with proper lifecycle management and Angular integration.
+  Dialogs can be created with simple text messages or by passing custom Angular components for more complex scenarios.
+
+### Patch Changes
+
+- Updated dependencies [[`49eab13`](https://github.com/sl-design-system/components/commit/49eab1323d08cb12f995d20845391009cdb4217d)]:
+  - @sl-design-system/time-field@0.0.3
+
 ## 4.0.1
 
 ### Patch Changes

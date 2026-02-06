@@ -135,12 +135,7 @@ export class Menu extends LitElement {
   #onKeydown(event: KeyboardEvent): void {
     // Prevent arrow keys from bubbling up to parent elements (e.g. toolbar)
     // This applies to all menus, not just submenus
-    if (
-      event.key === 'ArrowLeft' ||
-      event.key === 'ArrowRight' ||
-      event.key === 'ArrowUp' ||
-      event.key === 'ArrowDown'
-    ) {
+    if (event.key.startsWith('Arrow')) {
       event.stopPropagation();
     }
 

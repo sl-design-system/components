@@ -162,33 +162,31 @@ describe('sl-menu', () => {
         el.showPopover();
 
         await el.updateComplete;
+
+        el.focus();
       });
 
       afterEach(() => document.body.removeEventListener('keydown', onKeydown));
 
       it('should stop propagation of ArrowLeft key events', async () => {
-        el.focus();
         await userEvent.keyboard('{ArrowLeft}');
 
         expect(onKeydown).not.to.have.been.called;
       });
 
       it('should stop propagation of ArrowRight key events', async () => {
-        el.focus();
         await userEvent.keyboard('{ArrowRight}');
 
         expect(onKeydown).not.to.have.been.called;
       });
 
       it('should stop propagation of ArrowUp key events', async () => {
-        el.focus();
         await userEvent.keyboard('{ArrowUp}');
 
         expect(onKeydown).not.to.have.been.called;
       });
 
       it('should stop propagation of ArrowDown key events', async () => {
-        el.focus();
         await userEvent.keyboard('{ArrowDown}');
 
         expect(onKeydown).not.to.have.been.called;

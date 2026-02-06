@@ -342,7 +342,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
           { context: this.shadowRoot! }
         );
         this.#tooltipCleanupFunctions.set(link, cleanup);
-        link.dataset.hasTooltip = 'true';
+        link.dataset['hasTooltip'] = 'true';
       }
     } else if (link.hasAttribute('data-has-tooltip') && link.hasAttribute('aria-describedby')) {
       // Note: No need to call cleanup() here - it was already called when the tooltip was created

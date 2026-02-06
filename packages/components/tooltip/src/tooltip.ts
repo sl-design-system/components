@@ -166,13 +166,7 @@ export class Tooltip extends LitElement {
     if (toChild) {
       return;
     }
-
-    // Check if event target or any element in composed path (for shadow DOM) matches the anchor
-    const matchesAnchor =
-      this.#matchesAnchor(event.target as Element) ||
-      event.composedPath().some(el => el instanceof Element && this.#matchesAnchor(el));
-
-    if ((matchesAnchor && !toTooltip) || fromTooltip) {
+    if ((this.#matchesAnchor(event.target as Element) && !toTooltip) || fromTooltip) {
       this.hidePopover();
     }
   };
@@ -185,41 +179,24 @@ export class Tooltip extends LitElement {
       this.setAttribute('slot', anchorSlot); // make sure the tooltip is slotted correctly, otherwise it might inherit styles from the wrong slot
     }
 
-    console.log('this and isPopoverOpen', this, isPopoverOpen(this));
-
-    if (!isPopoverOpen(this)) {
-      this.showPopover();
-    }
-
+    this.showPopover();
     requestAnimationFrame(() => {
       this.#calculateSafeTriangle();
     });
   };
 
-  #onShow = (event: Event): void => {
-    const { target, type } = event;
-
+  #onShow = ({ target, type }: Event): void => {
     if (!this.#matchesAnchor(target as HTMLElement)) {
       return;
     }
 
     // For keyboard navigation (focus events)
     if (type === 'focusin') {
-      const path = event.composedPath();
-
       requestAnimationFrame(() => {
-        // Check if the target or any element in the composed path (for shadow DOM) has :focus-visible
-        const hasFocusVisible =
-          (target as Element).matches(':focus-visible') ||
-          path.some(el => el instanceof Element && el.matches(':focus-visible'));
-
-        console.log('target in focusin', target, 'hasFocusVisible', hasFocusVisible);
-
-        if (hasFocusVisible) {
+        if ((target as Element).matches(':focus-visible')) {
           this.#showTooltip(target as HTMLElement);
         }
       });
-
       return;
     }
 

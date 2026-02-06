@@ -1,7 +1,7 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
-import { spy } from 'sinon';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { type SinonSpy, spy } from 'sinon';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { type MenuItem } from './menu-item.js';
@@ -146,7 +146,13 @@ describe('sl-menu', () => {
 
   describe('keyboard navigation', () => {
     describe('arrow key propagation', () => {
+      let onKeydown: SinonSpy;
+
       beforeEach(async () => {
+        onKeydown = spy();
+
+        document.body.addEventListener('keydown', onKeydown);
+
         el = await fixture(html`
           <sl-menu>
             <sl-menu-item>Item 1</sl-menu-item>
@@ -158,56 +164,34 @@ describe('sl-menu', () => {
         await el.updateComplete;
       });
 
+      afterEach(() => document.body.removeEventListener('keydown', onKeydown));
+
       it('should stop propagation of ArrowLeft key events', async () => {
-        const onKeydown = spy();
-
-        document.addEventListener('keydown', onKeydown);
-
         el.focus();
         await userEvent.keyboard('{ArrowLeft}');
 
         expect(onKeydown).not.to.have.been.called;
-
-        document.removeEventListener('keydown', onKeydown);
       });
 
       it('should stop propagation of ArrowRight key events', async () => {
-        const onKeydown = spy();
-
-        document.addEventListener('keydown', onKeydown);
-
         el.focus();
         await userEvent.keyboard('{ArrowRight}');
 
         expect(onKeydown).not.to.have.been.called;
-
-        document.removeEventListener('keydown', onKeydown);
       });
 
       it('should allow ArrowUp to propagate normally', async () => {
-        const onKeydown = spy();
-
-        document.addEventListener('keydown', onKeydown);
-
         el.focus();
         await userEvent.keyboard('{ArrowUp}');
 
         expect(onKeydown).to.have.been.called;
-
-        document.removeEventListener('keydown', onKeydown);
       });
 
       it('should allow ArrowDown to propagate normally', async () => {
-        const onKeydown = spy();
-
-        document.addEventListener('keydown', onKeydown);
-
         el.focus();
         await userEvent.keyboard('{ArrowDown}');
 
         expect(onKeydown).to.have.been.called;
-
-        document.removeEventListener('keydown', onKeydown);
       });
     });
 

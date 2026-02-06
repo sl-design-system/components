@@ -180,18 +180,18 @@ describe('sl-menu', () => {
         expect(onKeydown).not.to.have.been.called;
       });
 
-      it('should allow ArrowUp to propagate normally', async () => {
+      it('should stop propagation of ArrowUp key events', async () => {
         el.focus();
         await userEvent.keyboard('{ArrowUp}');
 
-        expect(onKeydown).to.have.been.called;
+        expect(onKeydown).not.to.have.been.called;
       });
 
-      it('should allow ArrowDown to propagate normally', async () => {
+      it('should stop propagation of ArrowDown key events', async () => {
         el.focus();
         await userEvent.keyboard('{ArrowDown}');
 
-        expect(onKeydown).to.have.been.called;
+        expect(onKeydown).not.to.have.been.called;
       });
     });
 

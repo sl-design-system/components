@@ -4985,7 +4985,7 @@ __metadata:
     "@sl-design-system/switch": "npm:^1.1.5"
     "@sl-design-system/text-area": "npm:^1.1.5"
     "@sl-design-system/text-field": "npm:^1.6.6"
-    "@sl-design-system/time-field": "npm:^0.0.2"
+    "@sl-design-system/time-field": "npm:^0.0.3"
     "@storybook/addon-docs": "npm:^10.0.7"
     "@storybook/angular": "npm:^10.0.7"
     "@types/jasmine": "npm:~5.1.12"
@@ -5939,7 +5939,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/time-field@npm:^0.0.2, @sl-design-system/time-field@workspace:packages/components/time-field":
+"@sl-design-system/time-field@npm:^0.0.3, @sl-design-system/time-field@workspace:packages/components/time-field":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/time-field@workspace:packages/components/time-field"
   dependencies:

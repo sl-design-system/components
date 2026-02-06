@@ -774,6 +774,7 @@ describe('sl-time-field', () => {
       expect(el1.value).to.equal('00:00');
       expect(el2.value).to.equal('00:00');
     });
+
     it('should update the input lang when document language changes', async () => {
       const originalLang = document.documentElement.lang;
       document.documentElement.lang = 'fr';
@@ -783,13 +784,36 @@ describe('sl-time-field', () => {
 
       document.documentElement.lang = 'es';
       // Wait for MutationObserver in LocaleMixin
-      await new Promise(requestAnimationFrame);
-      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
 
       expect(el.input).to.have.attribute('lang', 'es');
 
-      // Cleanup
       document.documentElement.lang = originalLang;
+    });
+
+    it('should not set the lang attribute on the input when no locale matches', async () => {
+      const originalLang = document.documentElement.lang;
+      const originalNavigatorLang = navigator.language;
+
+      Object.defineProperty(navigator, 'language', {
+        value: '',
+        configurable: true
+      });
+
+      document.documentElement.lang = 'temp';
+      document.documentElement.removeAttribute('lang');
+      await new Promise(resolve => setTimeout(resolve));
+
+      el = await fixture(html`<sl-time-field></sl-time-field>`);
+      expect(el.input).not.to.have.attribute('lang');
+
+      Object.defineProperty(navigator, 'language', {
+        value: originalNavigatorLang,
+        configurable: true
+      });
+
+      document.documentElement.lang = originalLang;
+      await new Promise(resolve => setTimeout(resolve));
     });
   });
 });

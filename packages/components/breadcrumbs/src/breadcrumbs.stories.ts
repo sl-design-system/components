@@ -127,9 +127,9 @@ export const CustomHome: Story = {
 export const Overflow: Story = {
   args: {
     breadcrumbs: () => html`
-      <a href="javascript:void(0)">1 Adipisicing sint excepteur officia voluptate.</a>
-      <a href="javascript:void(0)">2 Nostrud ad fugiat amet officia anim qui sit tempor veniam magna.</a>
-      <a href="javascript:void(0)">3 Lorem adipisicing do duis sunt laboris magna officia irure fugiat.</a>
+      <a href="javascript:void(0)">Adipisicing sint excepteur officia voluptate.</a>
+      <a href="javascript:void(0)">Nostrud ad fugiat amet officia anim qui sit tempor veniam magna.</a>
+      <a href="javascript:void(0)">Lorem adipisicing do duis sunt laboris magna officia irure fugiat.</a>
     `
   }
 };
@@ -150,7 +150,7 @@ export const CustomStyledLinks: Story = {
       }
     </style>
     <a href="javascript:void(0)">Custom Styled Link</a> has css styles applied to it. This is to demonstrate that the
-    links in the breadcrumbs alway have the component styling applied even when global styles are used.
+    links in the breadcrumbs always have the component styling applied even when global styles are used.
     <sl-breadcrumbs aria-label="Breadcrumb trail 1">
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>

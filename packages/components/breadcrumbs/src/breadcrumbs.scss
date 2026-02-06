@@ -1,6 +1,5 @@
 :host {
   display: block;
-  line-height: 0;
 }
 
 :host([inverted]) {
@@ -68,9 +67,9 @@ li {
     flex-shrink: 0;
   }
 
-  &:not(:has(a)) {
-    padding: var(--sl-size-100);
-  }
+  // &:not(:has(a)) {
+  //   padding: var(--sl-size-100);
+  // }
 }
 
 a,
@@ -125,6 +124,11 @@ sl-icon[name='breadcrumb-separator'] {
 sl-popover::part(container) {
   display: flex;
   flex-direction: column;
-  gap: var(--sl-size-100);
-  padding: var(--sl-size-050) 0;
+  gap: var(--sl-space-new-2xs);
+  padding: var(--sl-size-100) 0;
+}
+
+sl-popover ::slotted(a[href]) {
+  margin-inline: var(--sl-size-100);
+  padding: var(--sl-size-075) var(--sl-size-100);
 }

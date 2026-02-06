@@ -10,15 +10,15 @@ describe('sl-date-field', () => {
   let el: DateField, input: HTMLInputElement;
 
   beforeEach(() => {
-    // March 2023
+    // March 2026
     // --------------------
-    // Mo Tu We Th Fr Sa Su
-    // 27 28  1  2  3  4  5
-    //  6  7  8  9 10 11 12
-    // 13 14 15 16 17 18 19
-    // 20 21 22 23 24 25 26
-    // 27 28 29 30 31  1  2
-    vi.setSystemTime(new Date(2023, 2, 14));
+    // Su Mo Tu We Th Fr Sa
+    //  1  2  3  4  5  6  7
+    //  8  9 10 11 12 13 14
+    // 15 16 17 18 19 20 21
+    // 22 23 24 25 26 27 28
+    // 29 30 31  1  2  3  4
+    vi.setSystemTime(new Date(2026, 2, 14));
   });
 
   afterEach(() => vi.useRealTimers());
@@ -52,42 +52,46 @@ describe('sl-date-field', () => {
     });
 
     it('should not be disabled', () => {
+      const button = el.renderRoot.querySelector('sl-field-button'),
+        textField = el.renderRoot.querySelector('sl-text-field');
+
       expect(el).not.to.have.attribute('disabled');
       expect(el.disabled).not.to.be.true;
       expect(input.disabled).to.be.false;
+      expect(button).not.to.have.attribute('disabled');
+      expect(textField).not.to.have.attribute('disabled');
     });
 
     it('should be disabled when set', async () => {
+      const button = el.renderRoot.querySelector('sl-field-button'),
+        textField = el.renderRoot.querySelector('sl-text-field');
+
       el.disabled = true;
       await el.updateComplete;
 
       expect(el.disabled).to.be.true;
       expect(input.disabled).to.be.true;
-
-      const textField = el.renderRoot.querySelector('sl-text-field');
-      expect(textField).to.have.attribute('disabled');
-
-      const button = el.renderRoot.querySelector('sl-field-button');
       expect(button).to.have.attribute('disabled');
-      expect(button).to.have.attribute('tabindex', '-1');
+      expect(textField).to.have.attribute('disabled');
     });
 
     it('should not be readonly', () => {
       expect(el).not.to.have.attribute('readonly');
       expect(el.readonly).not.to.be.true;
+      expect(input.readOnly).to.be.false;
     });
 
     it('should be readonly when set', async () => {
+      const button = el.renderRoot.querySelector('sl-field-button'),
+        textField = el.renderRoot.querySelector('sl-text-field');
+
       el.readonly = true;
       await el.updateComplete;
 
       expect(el.readonly).to.be.true;
-
-      const textField = el.renderRoot.querySelector('sl-text-field');
-      expect(textField).to.have.attribute('readonly');
-
-      const button = el.renderRoot.querySelector('sl-field-button');
+      expect(input.readOnly).to.be.true;
       expect(button).to.have.attribute('disabled');
+      expect(textField).to.have.attribute('readonly');
     });
 
     it('should not be required', () => {
@@ -112,13 +116,15 @@ describe('sl-date-field', () => {
     });
 
     it('should be select-only when set', async () => {
+      const button = el.renderRoot.querySelector('sl-field-button'),
+        textField = el.renderRoot.querySelector('sl-text-field');
+
       el.selectOnly = true;
       await el.updateComplete;
 
       expect(el).to.have.attribute('select-only');
       expect(el.selectOnly).to.be.true;
-
-      const textField = el.renderRoot.querySelector('sl-text-field');
+      expect(button).not.to.have.attribute('disabled');
       expect(textField).to.have.attribute('readonly');
     });
 

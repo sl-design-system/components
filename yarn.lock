@@ -5218,6 +5218,8 @@ __metadata:
   resolution: "@sl-design-system/date-field@workspace:packages/components/date-field"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.6"
+    "@sl-design-system/button": "npm:^1.3.3"
+    "@sl-design-system/button-bar": "npm:^1.3.0"
     "@sl-design-system/calendar": "npm:^0.0.4"
     "@sl-design-system/form": "npm:^1.3.3"
     "@sl-design-system/icon": "npm:^1.3.0"

@@ -406,6 +406,10 @@
   <source>Please select a date that is no later than <x id="0" equiv-text="${formattedMax}"/>.</source>
   <target>Voer een datum in die niet later is dan <x id="0" equiv-text="${formattedMax}"/>.</target>
 </trans-unit>
+<trans-unit id="sl.dateField.confirm">
+  <source>Confirm</source>
+  <target>Bevestigen</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

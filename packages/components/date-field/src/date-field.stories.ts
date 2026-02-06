@@ -16,6 +16,7 @@ type Props = Pick<
   | 'month'
   | 'placeholder'
   | 'readonly'
+  | 'requireConfirmation'
   | 'required'
   | 'selectOnly'
   | 'showValid'
@@ -37,6 +38,7 @@ export default {
     label: 'Date',
     placeholder: 'Pick a date',
     readonly: false,
+    requireConfirmation: false,
     required: false,
     selectOnly: false,
     showValid: true,
@@ -75,6 +77,7 @@ export default {
     placeholder,
     readonly,
     reportValidity,
+    requireConfirmation,
     required,
     selectOnly,
     showValid,
@@ -92,6 +95,7 @@ export default {
           <sl-date-field
             ?disabled=${disabled}
             ?readonly=${readonly}
+            ?require-confirmation=${requireConfirmation}
             ?required=${required}
             ?select-only=${selectOnly}
             ?show-week-numbers=${showWeekNumbers}
@@ -128,25 +132,29 @@ export const Disabled: Story = {
 
 export const ExtraControls: Story = {
   args: {
+    requireConfirmation: true,
     slot: () => {
-      const onClear = (): void => {};
+      const onClear = (): void => {
+        const dateField = document.querySelector('sl-date-field'),
+          calendar = dateField?.renderRoot.querySelector('sl-calendar');
 
-      const onToday = (): void => {};
+        if (calendar) {
+          calendar.selected = undefined;
+        }
+      };
+
+      const onToday = (): void => {
+        const dateField = document.querySelector('sl-date-field'),
+          calendar = dateField?.renderRoot.querySelector('sl-calendar');
+
+        if (calendar) {
+          calendar.selected = new Date();
+        }
+      };
 
       return html`
-        <style>
-          sl-button.confirm {
-            margin-inline-start: auto;
-          }
-        </style>
-        <sl-button-bar variant="primary">
-          <sl-button @click=${onToday} fill="link">Today</sl-button>
-          <sl-button @click=${onClear} fill="link">Clear</sl-button>
-          <sl-button fill="solid" class="confirm">
-            Confirm
-            <sl-icon name="check"></sl-icon>
-          </sl-button>
-        </sl-button-bar>
+        <sl-button @click=${onToday} fill="link">Today</sl-button>
+        <sl-button @click=${onClear} fill="link">Clear</sl-button>
       `;
     }
   }

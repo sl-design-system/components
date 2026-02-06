@@ -1,4 +1,5 @@
 import '@sl-design-system/button/register.js';
+import '@sl-design-system/icon/register.js';
 import '@sl-design-system/popover/register.js';
 import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
@@ -148,8 +149,9 @@ export const CustomStyledLinks: Story = {
         color: var(--sl-color-foreground-accent-purple-bold);
       }
     </style>
-    <a href="javascript:void(0)">Custom Styled Link 1</a>
-    <sl-breadcrumbs aria-label="Breadcrumb trail 1" no-home>
+    <a href="javascript:void(0)">Custom Styled Link</a> has css styles applied to it. This is to demonstrate that the
+    links in the breadcrumbs alway have the component styling applied even when global styles are used.
+    <sl-breadcrumbs aria-label="Breadcrumb trail 1">
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
       <a href="javascript:void(0)">Dolar</a>

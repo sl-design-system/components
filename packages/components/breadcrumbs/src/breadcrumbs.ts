@@ -239,7 +239,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   }
 
   override firstUpdated(): void {
-    // Process initial light DOM children before first render
+    // Process initial light DOM children after first render
     this.#processChildren();
     // Perform slot assignments after first render
     this.#assignSlots();
@@ -336,7 +336,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
             tooltip.position = 'bottom';
             tooltip.textContent = link.textContent?.trim() || '';
             requestAnimationFrame(() => {
-              tooltipsSlot.assign(...(tooltipsSlot.assignedElements() || []), tooltip);
+              tooltipsSlot.assign(...tooltipsSlot.assignedElements(), tooltip);
             });
           },
           { context: this.shadowRoot! }
@@ -345,7 +345,10 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
         link.dataset['hasTooltip'] = 'true';
       }
     } else if (link.hasAttribute('data-has-tooltip') && link.hasAttribute('aria-describedby')) {
-      // Note: No need to call cleanup() here - it was already called when the tooltip was created
+      const cleanup = this.#tooltipCleanupFunctions.get(link);
+      if (cleanup) {
+        cleanup();
+      }
       this.#tooltipCleanupFunctions.delete(link);
 
       const tooltip = tooltipsSlot.assignedElements().find(el => el.id === link.getAttribute('aria-describedby')) as

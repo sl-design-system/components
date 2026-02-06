@@ -189,26 +189,26 @@ export const All: Story = {
       </a>
     </sl-breadcrumbs>
     <sl-breadcrumbs aria-label="Breadcrumb trail 4">
-      <a href="javascript:void(0)">Lorem 1</a>
-      <a href="javascript:void(0)">Ipsum 2</a>
-      <a href="javascript:void(0)">Dolar 3</a>
-      <a href="javascript:void(0)">Lorem 4</a>
-      <a href="javascript:void(0)">Ipsum 5</a>
-      <a href="javascript:void(0)">Dolar 6</a>
-      <a href="javascript:void(0)">Lorem 7</a>
-      <a href="javascript:void(0)">Ipsum 8</a>
-      <a href="javascript:void(0)">Dolar 9</a>
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
     </sl-breadcrumbs>
     <sl-breadcrumbs aria-label="Breadcrumb trail 5" inverted>
-      <a href="javascript:void(0)">Lorem 1</a>
-      <a href="javascript:void(0)">Ipsum 2</a>
-      <a href="javascript:void(0)">Dolar 3</a>
-      <a href="javascript:void(0)">Lorem 4</a>
-      <a href="javascript:void(0)">Ipsum 5</a>
-      <a href="javascript:void(0)">Dolar 6</a>
-      <a href="javascript:void(0)">Lorem 7</a>
-      <a href="javascript:void(0)">Ipsum 8</a>
-      <a href="javascript:void(0)">Dolar 9</a>
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
     </sl-breadcrumbs>
   `
 };

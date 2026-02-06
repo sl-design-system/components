@@ -50,12 +50,24 @@ describe('sl-menu-button', () => {
       expect(el.button).to.have.attribute('aria-label', 'Label');
     });
 
-    it('should proxy the aria-labelledby attribute to the input element', async () => {
-      el.setAttribute('aria-labelledby', 'id');
+    it('should set ariaLabelledByElements on button internals via ElementInternals', async () => {
+      const label = document.createElement('span');
+      label.id = 'test-label-id';
+      label.textContent = 'Test Label';
+      document.body.appendChild(label);
+
+      el.setAttribute('aria-labelledby', 'test-label-id');
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      expect(el).to.not.have.attribute('aria-labelledby');
-      expect(el.button).to.have.attribute('aria-labelledby', 'id');
+      // The attribute should remain on the host for the observer
+      expect(el).to.have.attribute('aria-labelledby', 'test-label-id');
+
+      // The button internals should have the element reference
+      expect(el.button.internals.ariaLabelledByElements).to.exist;
+      expect(el.button.internals.ariaLabelledByElements).to.have.lengthOf(1);
+      expect(el.button.internals.ariaLabelledByElements?.[0]).to.equal(label);
+
+      label.remove();
     });
 
     describe('button', () => {
@@ -299,39 +311,136 @@ describe('sl-menu-button', () => {
     });
   });
 
-  // describe('tooltip integration', () => {
-  //   beforeEach(async () => {
-  //     el = await fixture(html`
-  //       <sl-menu-button aria-describedby="tooltip-test">
-  //         <sl-icon name="far-gear" slot="button"></sl-icon>
-  //
-  //         <sl-menu-item>Item 1</sl-menu-item>
-  //         <sl-menu-item>Item 2</sl-menu-item>
-  //       </sl-menu-button>
-  //       <sl-tooltip id="tooltip-test">Test tooltip</sl-tooltip>
-  //     `);
-  //
-  //     button = el.renderRoot.querySelector('sl-button') as Button;
-  //
-  //     // Wait for components to be fully initialized
-  //     await el.updateComplete;
-  //     await new Promise(resolve => setTimeout(resolve, 50));
-  //   });
-  //
-  //   it('should keep aria-describedby on host for tooltip hover detection', () => {
-  //     // Host needs aria-describedby for tooltip to work on hover
-  //     expect(el).to.have.attribute('aria-describedby', 'tooltip-test');
-  //   });
-  //
-  //   it('should copy aria-describedby to button for tooltip event matching', () => {
-  //     // Button needs aria-describedby so tooltip can match it in composed path
-  //     expect(button).to.have.attribute('aria-describedby', 'tooltip-test');
-  //   });
-  //
-  //   it('should enable delegatesFocus for keyboard navigation', () => {
-  //     // delegatesFocus makes the host focusable when internal button receives focus
-  //     // This allows tooltips to detect keyboard focus on shadow DOM components
-  //     expect(el.shadowRoot?.delegatesFocus).to.be.true;
-  //   });
-  // });
+  describe('tooltip integration', () => {
+    let tooltip: HTMLElement;
+
+    beforeEach(async () => {
+      const container = document.createElement('div');
+      container.innerHTML = `
+        <sl-menu-button aria-describedby="tooltip-test">
+          <sl-icon name="far-gear" slot="button"></sl-icon>
+          <sl-menu-item>Item 1</sl-menu-item>
+          <sl-menu-item>Item 2</sl-menu-item>
+        </sl-menu-button>
+        <sl-tooltip id="tooltip-test">Test tooltip</sl-tooltip>
+      `;
+      document.body.appendChild(container);
+
+      el = container.querySelector('sl-menu-button') as MenuButton;
+      tooltip = container.querySelector('#tooltip-test') as HTMLElement;
+
+      // Wait for components to be fully initialized
+      await el.updateComplete;
+
+      // Get button after update complete
+      button = el.renderRoot.querySelector('sl-button') as Button;
+
+      // Wait for the button to be ready
+      await new Promise(resolve => setTimeout(resolve, 50));
+    });
+
+    it('should set ariaDescribedByElements on button internals when aria-describedby is present', () => {
+      expect(button.internals.ariaDescribedByElements).to.exist;
+      expect(button.internals.ariaDescribedByElements).to.have.lengthOf(1);
+      expect(button.internals.ariaDescribedByElements?.[0]).to.equal(tooltip);
+    });
+
+    it('should update ariaDescribedByElements when aria-describedby changes', async () => {
+      const newTooltip = document.createElement('div');
+      newTooltip.id = 'new-tooltip';
+      newTooltip.textContent = 'New tooltip';
+      document.body.appendChild(newTooltip);
+
+      el.setAttribute('aria-describedby', 'new-tooltip');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(button.internals.ariaDescribedByElements).to.exist;
+      expect(button.internals.ariaDescribedByElements).to.have.lengthOf(1);
+      expect(button.internals.ariaDescribedByElements?.[0]).to.equal(newTooltip);
+
+      newTooltip.remove();
+    });
+
+    it('should clear ariaDescribedByElements when aria-describedby is removed', async () => {
+      el.removeAttribute('aria-describedby');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(button.internals.ariaDescribedByElements).to.be.null;
+    });
+
+    it('should handle multiple aria-describedby IDs', async () => {
+      const tooltip2 = document.createElement('div');
+      tooltip2.id = 'tooltip-test-2';
+      tooltip2.textContent = 'Second tooltip';
+      document.body.appendChild(tooltip2);
+
+      el.setAttribute('aria-describedby', 'tooltip-test tooltip-test-2');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(button.internals.ariaDescribedByElements).to.exist;
+      expect(button.internals.ariaDescribedByElements).to.have.lengthOf(2);
+      expect(button.internals.ariaDescribedByElements?.[0]?.id).to.equal('tooltip-test');
+      expect(button.internals.ariaDescribedByElements?.[1]?.id).to.equal('tooltip-test-2');
+
+      tooltip2.remove();
+    });
+  });
+
+  describe('aria-labelledby integration', () => {
+    let label: HTMLElement;
+
+    beforeEach(async () => {
+      const container = document.createElement('div');
+      container.innerHTML = `
+        <span id="label-test">Menu button label</span>
+        <sl-menu-button aria-labelledby="label-test">
+          <sl-icon name="far-gear" slot="button"></sl-icon>
+          <sl-menu-item>Item 1</sl-menu-item>
+          <sl-menu-item>Item 2</sl-menu-item>
+        </sl-menu-button>
+      `;
+      document.body.appendChild(container);
+
+      el = container.querySelector('sl-menu-button') as MenuButton;
+      label = container.querySelector('#label-test') as HTMLElement;
+
+      // Wait for components to be fully initialized
+      await el.updateComplete;
+
+      // Get button after update complete
+      button = el.renderRoot.querySelector('sl-button') as Button;
+
+      // Wait for the button to be ready
+      await new Promise(resolve => setTimeout(resolve, 50));
+    });
+
+    it('should set ariaLabelledByElements on button internals when aria-labelledby is present', () => {
+      expect(button.internals.ariaLabelledByElements).to.exist;
+      expect(button.internals.ariaLabelledByElements).to.have.lengthOf(1);
+      expect(button.internals.ariaLabelledByElements?.[0]).to.equal(label);
+    });
+
+    it('should update ariaLabelledByElements when aria-labelledby changes', async () => {
+      const newLabel = document.createElement('span');
+      newLabel.id = 'new-label';
+      newLabel.textContent = 'New label';
+      document.body.appendChild(newLabel);
+
+      el.setAttribute('aria-labelledby', 'new-label');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(button.internals.ariaLabelledByElements).to.exist;
+      expect(button.internals.ariaLabelledByElements).to.have.lengthOf(1);
+      expect(button.internals.ariaLabelledByElements?.[0]).to.equal(newLabel);
+
+      newLabel.remove();
+    });
+
+    it('should clear ariaLabelledByElements when aria-labelledby is removed', async () => {
+      el.removeAttribute('aria-labelledby');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(button.internals.ariaLabelledByElements).to.be.null;
+    });
+  });
 });

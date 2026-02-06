@@ -35,8 +35,7 @@ declare global {
 @localized()
 export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitElement), [
   'aria-disabled',
-  'aria-label',
-  'aria-labelledby'
+  'aria-label'
 ]) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
@@ -52,6 +51,9 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
+
+  /** Observe changes to aria-describedby and aria-labelledby attributes. */
+  #observer = new MutationObserver(() => this.#updateAriaReferences());
 
   /** The state of the menu popover. */
   #popoverState?: string;
@@ -98,6 +100,15 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
    */
   @property() variant?: ButtonVariant;
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.#observer.observe(this, {
+      attributes: true,
+      attributeFilter: ['aria-describedby', 'aria-labelledby']
+    });
+  }
+
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
@@ -106,11 +117,13 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
     this.button.setAttribute('aria-controls', this.menu.id);
     this.menu.anchorElement = this.button;
 
-    // Copy aria-describedby to the button
-    const ariaDescribedBy = this.getAttribute('aria-describedby');
-    if (ariaDescribedBy) {
-      this.button.setAttribute('aria-describedby', ariaDescribedBy);
-    } // TODO: maybe aria-labelledby as well?
+    this.#updateAriaReferences();
+  }
+
+  override disconnectedCallback(): void {
+    this.#observer.disconnect();
+
+    super.disconnectedCallback();
   }
 
   override render(): TemplateResult {
@@ -147,12 +160,6 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
       </sl-menu>
     `;
   }
-
-  // /** @internal */
-  // override focus(): void {
-  //   console.log('menu button gets focus');
-  //   this.button.focus();
-  // }
 
   #onClick(): void {
     this.menu.togglePopover();
@@ -201,6 +208,48 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
 
     if (event.newState === 'closed' && this.menu.matches(':focus-within')) {
       this.button.focus();
+    }
+  }
+
+  /**
+   * Update the aria-describedby and aria-labelledby references on the button using
+   * ElementInternals.ariaDescribedByElements and ElementInternals.ariaLabelledByElements
+   * to get the references working across shadow DOM boundaries.
+   */
+  #updateAriaReferences(): void {
+    if (!this.button?.internals) {
+      return;
+    }
+
+    const rootNode = this.getRootNode() as Document | ShadowRoot,
+      ariaDescribedBy = this.getAttribute('aria-describedby');
+
+    if (ariaDescribedBy) {
+      const elements = ariaDescribedBy
+        .split(' ')
+        .map(id => rootNode.querySelector(`#${id}`))
+        .filter((el): el is Element => el !== null);
+
+      if (elements.length > 0) {
+        this.button.internals.ariaDescribedByElements = elements;
+      }
+    } else {
+      this.button.internals.ariaDescribedByElements = null;
+    }
+
+    const ariaLabelledBy = this.getAttribute('aria-labelledby');
+
+    if (ariaLabelledBy) {
+      const elements = ariaLabelledBy
+        .split(' ')
+        .map(id => rootNode.querySelector(`#${id}`))
+        .filter((el): el is Element => el !== null);
+
+      if (elements.length > 0) {
+        this.button.internals.ariaLabelledByElements = elements;
+      }
+    } else {
+      this.button.internals.ariaLabelledByElements = null;
     }
   }
 }

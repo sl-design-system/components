@@ -387,6 +387,18 @@ export const WithTooltips: Story = {
         <sl-menu-item>Move to trash</sl-menu-item>
       </sl-menu-button>
       <sl-tooltip id="tooltip-delete">Delete</sl-tooltip>
+
+      <sl-menu-button aria-labelledby="tooltip" fill="solid" shape="pill">
+        <sl-icon name="face-smile"></sl-icon>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete permanently...
+        </sl-menu-item>
+        <sl-menu-item>Move to trash</sl-menu-item>
+      </sl-menu-button>
+      <sl-tooltip id="tooltip" position="top">
+        This is the tooltip message that labels the icon only button.
+      </sl-tooltip>
     </div>
   `
 };

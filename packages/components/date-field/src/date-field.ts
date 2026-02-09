@@ -85,7 +85,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   /** @internal Emits when the value changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<Date>>;
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<Date | undefined>>;
 
   /** @internal The dialog element that is also the popover. */
   @query('dialog') dialog?: HTMLDialogElement;
@@ -230,6 +230,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         this.input.value = this.#formatter ? this.#formatter.format(this.value) : '';
       } else {
         this.input.value = '';
+        this.#dateParts = {};
+        this.#editingPartType = undefined;
+        this.#enteredDigits = 0;
       }
     }
 
@@ -391,12 +394,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onConfirm(): void {
-    if (this.calendar?.selected) {
-      this.#setValueAndCloseDialog(this.calendar.selected);
-    } else {
-      this.value = undefined;
-      this.dialog?.hidePopover();
-    }
+    this.#setValueAndCloseDialog(this.calendar?.selected);
   }
 
   #onInputBlur(): void {
@@ -783,9 +781,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
   }
 
-  #setValueAndCloseDialog(date: Date): void {
+  #setValueAndCloseDialog(date: Date | undefined): void {
     this.value = date;
-    this.value.setHours(0, 0, 0, 0); // We don't need a time for the date picker.
+    this.value?.setHours(0, 0, 0, 0); // We don't need a time for the date picker.
     this.changeEvent.emit(this.value);
 
     this.textField?.updateValidity();

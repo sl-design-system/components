@@ -47,7 +47,7 @@ describe('sl-button-bar', () => {
       expect(el).to.have.attribute('reverse');
     });
 
-    it('should not be icon-only when there are no only icon-only buttons', () => {
+    it('should not be icon-only', () => {
       expect(el).not.to.have.attribute('icon-only');
       expect(el).not.to.match(':state(icon-only)');
       expect(el.iconOnly).not.to.be.true;
@@ -168,9 +168,6 @@ describe('sl-button-bar', () => {
   describe('empty', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-button-bar></sl-button-bar>`);
-
-      // Give the component a chance to update
-      await el.updateComplete;
     });
 
     it('should have the empty state', () => {
@@ -186,6 +183,10 @@ describe('sl-button-bar', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       expect(el).not.to.match(':state(empty)');
+    });
+
+    it('should not have the icon-only state', () => {
+      expect(el).not.to.match(':state(icon-only)');
     });
   });
 });

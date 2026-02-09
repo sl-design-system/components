@@ -112,7 +112,7 @@ export class ButtonBar extends LitElement {
       })
     );
 
-    this.iconOnly = icons.every(Boolean);
+    this.iconOnly = !!icons.length && icons.every(Boolean);
 
     if (this.iconOnly) {
       this.#internals.states.add('icon-only');

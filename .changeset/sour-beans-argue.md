@@ -1,5 +1,6 @@
 ---
-'@sl-design-system/shared': patch
+'@sl-design-system/shared': minor
 ---
 
-Fix for `LocaleMixin` to explicitly update the `locale` property
+- fix for `LocaleMixin` to explicitly update the `locale` property
+- move common date utils from the calendar package so they can be used in date-field as well

@@ -7,6 +7,7 @@ import { FormControlMixin, type SlFormControlEvent, type SlUpdateStateEvent } fr
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, LocaleMixin, anchor, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
+import { isSameDate } from '@sl-design-system/shared/date.js';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { FieldButton, TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
@@ -80,7 +81,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
    * this to customize the calendar itself. Use the calendar slot for that.
    */
   get calendar(): Calendar | null {
-    return this.renderRoot.querySelector('sl-calendar') ?? this.querySelector('sl-calendar[slot="calendar"]');
+    return this.querySelector('sl-calendar[slot="calendar"]') ?? this.renderRoot.querySelector('sl-calendar');
   }
 
   /** @internal Emits when the value changes. */
@@ -232,6 +233,13 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       }
     }
 
+    if (changes.has('value')) {
+      // If the calendar is slotted, we need to keep the value in sync
+      if (this.calendar && !isSameDate(this.value, this.calendar?.selected)) {
+        this.calendar.selected = this.value;
+      }
+    }
+
     if (changes.has('min') || changes.has('max') || changes.has('required') || changes.has('value')) {
       this.updateValidity();
     }
@@ -280,9 +288,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       >
         ${this.dialog?.matches(':popover-open')
           ? html`
-              <slot name="calendar">
+              <slot @slotchange=${this.#onSlotChange} @sl-change=${this.#onChange} name="calendar">
                 <sl-calendar
-                  @sl-change=${this.#onChange}
                   .selected=${this.value}
                   ?show-week-numbers=${this.showWeekNumbers}
                   first-day-of-week=${ifDefined(this.firstDayOfWeek)}
@@ -515,6 +522,15 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       // does not close parent containers (such as dialogs).
       event.stopPropagation();
     }
+  }
+
+  #onSlotChange(): void {
+    if (!this.calendar) {
+      return;
+    }
+
+    // If the calendar is slotted, we need to explicitly set the selected date
+    this.calendar.selected = this.value;
   }
 
   #onTextFieldBlur(event: SlBlurEvent): void {

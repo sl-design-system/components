@@ -1,5 +1,6 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
+import '@sl-design-system/calendar/register.js';
 import '@sl-design-system/form/register.js';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
@@ -195,6 +196,12 @@ export const ShowWeekNumbers: Story = {
 export const Value: Story = {
   args: {
     value: new Date(2024, 8, 12)
+  }
+};
+
+export const CustomCalendar: Story = {
+  args: {
+    slot: () => html`<sl-calendar slot="calendar" show-today></sl-calendar>`
   }
 };
 

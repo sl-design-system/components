@@ -1,3 +1,5 @@
+import { type Calendar, type MonthView } from '@sl-design-system/calendar';
+import '@sl-design-system/calendar/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
@@ -885,6 +887,108 @@ describe('sl-date-field', () => {
       await el.updateComplete;
 
       expect(el.valid).to.be.false;
+    });
+  });
+
+  describe('custom calendar', () => {
+    let calendar: Calendar;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-date-field>
+          <sl-calendar slot="calendar" show-today></sl-calendar>
+        </sl-date-field>
+      `);
+      calendar = el.querySelector('sl-calendar[slot="calendar"]')!;
+    });
+
+    it('should work with a slotted calendar for date selection', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      const testDate = new Date(2026, 5, 15);
+      calendar.dispatchEvent(
+        new CustomEvent('sl-change', {
+          detail: testDate,
+          bubbles: true,
+          composed: true
+        })
+      );
+      await el.updateComplete;
+
+      expect(el.value).to.equalDate(testDate);
+    });
+
+    it('should emit sl-change event when slotted calendar date is selected', async () => {
+      const onChange = spy();
+      el.addEventListener('sl-change', onChange);
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      const testDate = new Date(2026, 5, 15);
+      calendar.dispatchEvent(
+        new CustomEvent('sl-change', {
+          detail: testDate,
+          bubbles: true,
+          composed: true
+        })
+      );
+      await el.updateComplete;
+
+      expect(onChange).to.have.been.calledOnce;
+    });
+
+    describe('with requireConfirmation', () => {
+      beforeEach(async () => {
+        el.requireConfirmation = true;
+        await el.updateComplete;
+      });
+
+      it('should not update value immediately when calendar date is selected', async () => {
+        el.renderRoot.querySelector('sl-field-button')?.click();
+        await new Promise(resolve => setTimeout(resolve));
+
+        calendar.renderRoot
+          .querySelector('sl-select-day')
+          ?.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')
+          ?.renderRoot.querySelector<HTMLElement>('button[part~="today"]')
+          ?.click();
+
+        // Value should not be updated immediately
+        expect(el.value).to.be.undefined;
+
+        // Click confirm button
+        el.renderRoot.querySelector('sl-button')?.click();
+        await el.updateComplete;
+
+        // Now value should be updated
+        expect(el.value).to.equalDate(new Date(2026, 2, 14));
+      });
+
+      it('should not emit sl-change immediately when calendar date is selected', async () => {
+        const onChange = spy();
+        el.addEventListener('sl-change', onChange);
+
+        el.renderRoot.querySelector('sl-field-button')?.click();
+        await new Promise(resolve => setTimeout(resolve));
+
+        calendar.renderRoot
+          .querySelector('sl-select-day')
+          ?.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')
+          ?.renderRoot.querySelector<HTMLElement>('button[part~="today"]')
+          ?.click();
+
+        // Event should not be emitted yet
+        expect(onChange).not.to.have.been.called;
+
+        // Click confirm button
+        el.renderRoot.querySelector('sl-button')?.click();
+        await el.updateComplete;
+
+        // Now event should be emitted
+        expect(onChange).to.have.been.calledOnce;
+      });
     });
   });
 });

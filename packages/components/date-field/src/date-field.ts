@@ -404,7 +404,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     if (this.#hasPartialDate()) {
       this.#updateInputDisplay();
-    } else if (this.placeholder) {
+    } else {
       this.input.value = '';
     }
   }

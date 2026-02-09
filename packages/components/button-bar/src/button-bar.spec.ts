@@ -136,7 +136,7 @@ describe('sl-button-bar', () => {
       expect(el).not.to.have.attribute('icon-only');
     });
 
-    it('should have the icon-only state', () => {
+    it('should not have the icon-only state', () => {
       expect(el).not.to.match(':state(icon-only)');
     });
   });
@@ -161,7 +161,7 @@ describe('sl-button-bar', () => {
     });
 
     it('should not match :state(icon-only)', () => {
-      expect(el.matches(':state(icon-only)')).to.be.false;
+      expect(el).not.to.match(':state(icon-only)');
     });
   });
 

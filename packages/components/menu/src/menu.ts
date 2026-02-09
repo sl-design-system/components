@@ -45,7 +45,10 @@ export class Menu extends LitElement {
   #anchor = new AnchorController(this, { offset: Menu.offset, viewportMargin: Menu.viewportMargin });
 
   // eslint-disable-next-line no-unused-private-class-members
-  #events = new EventsController(this, { keydown: this.#onKeydown });
+  #events = new EventsController(this, {
+    keydown: this.#onKeydown,
+    focusout: this.#onFocusout
+  });
 
   /** The menu items. */
   #menuItems: MenuItem[] = [];
@@ -168,6 +171,87 @@ export class Menu extends LitElement {
       this.hidePopover();
       this.anchorElement.focus();
     }
+  }
+
+  #onFocusout(event: FocusEvent): void {
+    if (this.#shouldIgnoreFocusout(event)) {
+      return;
+    }
+
+    // const relatedTarget = event.relatedTarget as Node | null;
+
+    if (this.#shouldKeepMenuOpen(event.relatedTarget as Node)) {
+      return;
+    }
+
+    this.hidePopover();
+  }
+
+  /**
+   * Determines if the menu should stay open based on the focus target.
+   */
+  #shouldKeepMenuOpen(relatedTarget: Node | null): boolean {
+    // Don't close if focus stays within this menu
+    if (relatedTarget && this.contains(relatedTarget)) {
+      return true;
+    }
+
+    // Don't close if focus moves to a menu item that belongs to this menu
+    if (relatedTarget instanceof MenuItem && this.#menuItems.includes(relatedTarget)) {
+      return true;
+    }
+
+    // Don't close if focus moves to a submenu
+    if (relatedTarget instanceof HTMLElement) {
+      const targetMenu = relatedTarget.closest('sl-menu');
+
+      if (targetMenu && (this.#isDirectSubmenu(targetMenu) || this.#isSubmenuOf(targetMenu, this))) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  /**
+   * Determines if the focusout event should be ignored.
+   */
+  #shouldIgnoreFocusout(event: FocusEvent): boolean {
+    // Only apply this behavior to top-level menus (not submenus) or ignore focusout events from submenus
+    if (this.anchorElement instanceof MenuItem || (event.target instanceof Menu && event.target !== this)) {
+      return true;
+    }
+
+    return !this.matches(':popover-open');
+  }
+
+  /**
+   * Check if a menu is a direct submenu of any menu item in this menu.
+   */
+  #isDirectSubmenu(menu: Menu): boolean {
+    return this.#menuItems.some(item => item.submenu === menu);
+  }
+
+  /**
+   * Check if a menu is a submenu (direct or nested) of a parent menu.
+   */
+  #isSubmenuOf(menu: Menu, parentMenu: Menu): boolean {
+    let currentMenu: Menu | null = menu;
+
+    while (currentMenu) {
+      if (currentMenu === parentMenu) {
+        return true;
+      }
+
+      if (!currentMenu.anchorElement || !(currentMenu.anchorElement instanceof MenuItem)) {
+        return false;
+      }
+
+      // Get the parent menu by finding the closest menu element to the menu item
+      currentMenu = currentMenu.anchorElement.closest('sl-menu');
+    }
+
+    return false;
   }
 
   async #onSelect(event: Event): Promise<void> {

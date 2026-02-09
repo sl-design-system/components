@@ -150,7 +150,7 @@ describe('sl-date-field', () => {
       await el.updateComplete;
 
       expect(el.value).to.equalDate(testDate);
-      expect(input.value).to.match(/6\/15\/2023|15\/6\/2023|2023-06-15/);
+      expect(input.value).to.equal('06/15/2023');
     });
 
     it('should update input when value changes', async () => {
@@ -161,7 +161,7 @@ describe('sl-date-field', () => {
       el.value = newDate;
       await el.updateComplete;
 
-      expect(input.value).to.match(/12\/25\/2023|25\/12\/2023|2023-12-25/);
+      expect(input.value).to.equal('12/25/2023');
     });
 
     it('should clear input when value is undefined', async () => {

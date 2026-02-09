@@ -231,6 +231,10 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
       this.updateValidity();
     }
+
+    if (changes.has('min') || changes.has('max') || changes.has('required') || changes.has('value')) {
+      this.updateValidity();
+    }
   }
 
   override render(): TemplateResult {

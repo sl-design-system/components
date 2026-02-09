@@ -736,4 +736,94 @@ describe('sl-date-field', () => {
       expect(el.value).to.equalDate(new Date(2023, 5, 12));
     });
   });
+
+  describe('validation', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-date-field></sl-date-field>`);
+      input = el.querySelector('input')!;
+    });
+
+    it('should be invalid when value is before min date', async () => {
+      el.min = new Date(2026, 5, 1);
+      el.value = new Date(2026, 4, 31);
+      await el.updateComplete;
+
+      expect(el.valid).to.be.false;
+      expect(el.validationMessage).to.equal('Please select a date that is no earlier than 06/01/2026.');
+    });
+
+    it('should be valid when value is equal to min date', async () => {
+      el.min = new Date(2026, 5, 1);
+      el.value = new Date(2026, 5, 1);
+      await el.updateComplete;
+
+      expect(el.valid).to.be.true;
+    });
+
+    it('should be valid when value is after min date', async () => {
+      el.min = new Date(2026, 5, 1);
+      el.value = new Date(2026, 5, 15);
+      await el.updateComplete;
+
+      expect(el.valid).to.be.true;
+    });
+
+    it('should be invalid when value is after max date', async () => {
+      el.max = new Date(2026, 5, 30);
+      el.value = new Date(2026, 6, 1);
+      await el.updateComplete;
+
+      expect(el.valid).to.be.false;
+      expect(el.validationMessage).to.equal('Please select a date that is no later than 06/30/2026.');
+    });
+
+    it('should be valid when value is equal to max date', async () => {
+      el.max = new Date(2026, 5, 30);
+      el.value = new Date(2026, 5, 30);
+      await el.updateComplete;
+
+      expect(el.valid).to.be.true;
+    });
+
+    it('should be valid when value is before max date', async () => {
+      el.max = new Date(2026, 5, 30);
+      el.value = new Date(2026, 5, 15);
+      await el.updateComplete;
+
+      expect(el.valid).to.be.true;
+    });
+
+    it('should be valid when value is between min and max dates', async () => {
+      el.min = new Date(2026, 5, 1);
+      el.max = new Date(2026, 5, 30);
+      el.value = new Date(2026, 5, 15);
+      await el.updateComplete;
+
+      expect(el.valid).to.be.true;
+    });
+
+    it('should update validation state when min changes', async () => {
+      el.value = new Date(2026, 5, 15);
+      await el.updateComplete;
+
+      expect(el.valid).to.be.true;
+
+      el.min = new Date(2026, 5, 20);
+      await el.updateComplete;
+
+      expect(el.valid).to.be.false;
+    });
+
+    it('should update validation state when max changes', async () => {
+      el.value = new Date(2026, 5, 15);
+      await el.updateComplete;
+
+      expect(el.valid).to.be.true;
+
+      el.max = new Date(2026, 5, 10);
+      await el.updateComplete;
+
+      expect(el.valid).to.be.false;
+    });
+  });
 });

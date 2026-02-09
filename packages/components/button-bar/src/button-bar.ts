@@ -29,7 +29,7 @@ export class ButtonBar extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** ELement internals. */
+  /** Element internals. */
   #internals = this.attachInternals();
 
   /** Observer for slot changes to update button states. */

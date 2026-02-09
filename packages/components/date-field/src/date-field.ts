@@ -228,8 +228,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       } else {
         this.input.value = '';
       }
-
-      this.updateValidity();
     }
 
     if (changes.has('min') || changes.has('max') || changes.has('required') || changes.has('value')) {

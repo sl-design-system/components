@@ -331,8 +331,8 @@
       "clean": false,
       "files": [
         "scripts/import-icons.js",
-        "packages/tokens/src/core.json",
-        "packages/tokens/src/*/base.json"
+        "packages/tokens/src/tokens/core.json",
+        "packages/tokens/src/tokens/*/base.json"
       ],
       "output": [
         "packages/themes/*/icons.ts",

@@ -1,12 +1,12 @@
 import '@af-utils/scrollend-polyfill';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import '@sl-design-system/announcer/register.js';
-import { configureLocalization } from '@lit/localize';
+import { type LocaleModule, configureLocalization } from '@lit/localize';
 import * as locales from '@sl-design-system/locales';
 import { type Preview } from '@storybook/web-components-vite';
 import MockDate from 'mockdate';
 import { INITIAL_VIEWPORTS } from 'storybook/viewport';
-import { updateTheme, themes } from './themes.js';
+import { updateTheme, themes, type Mode } from './themes.js';
 
 // Set a fixed date in non-development environments for consistent Storybook snapshots
 if (!import.meta.env?.DEV) {
@@ -16,7 +16,7 @@ if (!import.meta.env?.DEV) {
 const { setLocale } = configureLocalization({
   sourceLocale: locales.sourceLocale,
   targetLocales: locales.targetLocales,
-  loadLocale: locale => Promise.resolve(locales[locale])
+  loadLocale: locale => Promise.resolve((locales as Record<string, unknown>)[locale] as LocaleModule)
 });
 
 const preview: Preview = {
@@ -34,11 +34,11 @@ const preview: Preview = {
       }
 
       return story();
-    },
-    (story, { globals: { mode = 'light', theme = 'sanoma-learning' } }) => {
-      updateTheme(theme, mode);
-
-      return story();
+    }
+  ],
+  loaders: [
+    async ({ globals: { mode = 'light', theme = 'sanoma-learning' } }) => {
+      await updateTheme(theme, mode as Mode);
     }
   ],
   globalTypes: {

@@ -91,6 +91,9 @@ export class VirtualizerController<TScrollElement extends Element | Window, TIte
   }
 
   #initialize(): void {
+    this.#disposed = false;
+    this.#updateTaskId = undefined;
+
     const options = {
       ...this.#options,
       onChange: (instance: Virtualizer<Element, TItemElement> | Virtualizer<Window, TItemElement>, sync: boolean) => {
@@ -124,7 +127,9 @@ export class VirtualizerController<TScrollElement extends Element | Window, TIte
 
       // Debounced scrollMargin update to prevent excessive recalculations
       const updateScrollMargin = () => {
-        if (this.#disposed || this.#updateTaskId || typeof options.scrollMargin === 'number') {
+        const virtualizer = this.#virtualizer as Virtualizer<Window, TItemElement>;
+
+        if (this.#disposed || this.#updateTaskId || typeof virtualizer.options.scrollMargin === 'number') {
           return;
         }
 
@@ -136,8 +141,6 @@ export class VirtualizerController<TScrollElement extends Element | Window, TIte
           }
 
           const newMargin = getOffset();
-          const virtualizer = this.#virtualizer as Virtualizer<Window, TItemElement>;
-
           if (Math.abs(newMargin - (virtualizer.options.scrollMargin || 0)) > 1) {
             virtualizer.setOptions({
               ...virtualizer.options,

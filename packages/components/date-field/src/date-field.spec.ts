@@ -188,6 +188,11 @@ describe('sl-date-field', () => {
       expect(textField).to.have.attribute('placeholder', 'Select a date');
     });
 
+    it('should not require confirmation', () => {
+      expect(el.requireConfirmation).not.to.be.true;
+      expect(el).not.to.contain('sl-button');
+    });
+
     it('should not have min date', () => {
       expect(el.min).to.be.undefined;
     });
@@ -734,6 +739,62 @@ describe('sl-date-field', () => {
 
       expect(el.value).to.exist;
       expect(el.value).to.equalDate(new Date(2023, 5, 12));
+    });
+  });
+
+  describe('require confirmation', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-date-field require-confirmation></sl-date-field>`);
+    });
+
+    it('should require confirmation', () => {
+      expect(el.requireConfirmation).to.be.true;
+    });
+
+    it('should render a confirmation button in the popover', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      const button = el.renderRoot.querySelector('sl-button');
+      expect(button).to.exist;
+      expect(button).to.have.trimmed.text('Confirm');
+    });
+
+    it('should not close the popover when a date is selected', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      const calendar = el.renderRoot.querySelector('sl-calendar')!;
+      calendar.dispatchEvent(
+        new CustomEvent('sl-change', {
+          detail: new Date(2023, 5, 15),
+          bubbles: true,
+          composed: true
+        })
+      );
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('dialog')).to.match(':popover-open');
+    });
+
+    it('should close the popover when the confirm button is clicked', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      const calendar = el.renderRoot.querySelector('sl-calendar')!;
+      calendar.dispatchEvent(
+        new CustomEvent('sl-change', {
+          detail: new Date(2023, 5, 15),
+          bubbles: true,
+          composed: true
+        })
+      );
+      await el.updateComplete;
+
+      el.renderRoot.querySelector('sl-button')?.click();
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('dialog')).not.to.match(':popover-open');
     });
   });
 

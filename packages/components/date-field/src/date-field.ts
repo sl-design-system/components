@@ -382,7 +382,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onConfirm(): void {
-    const calendar = this.renderRoot.querySelector('sl-calendar');
+    const calendar = this.renderRoot.querySelector('sl-calendar') ?? this.querySelector('sl-calendar[slot="calendar"]');
 
     if (calendar?.selected) {
       this.#setValueAndCloseDialog(calendar.selected);
@@ -557,7 +557,10 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     } else {
       // Wait for the calendar to render in the popover
       requestAnimationFrame(() => {
-        this.renderRoot.querySelector('sl-calendar')?.focus();
+        const calendar =
+          this.renderRoot.querySelector('sl-calendar') ?? this.querySelector('sl-calendar[slot="calendar"]');
+
+        calendar?.focus();
       });
     }
 

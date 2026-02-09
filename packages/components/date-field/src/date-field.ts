@@ -495,10 +495,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       return;
     }
 
-    if (event.key === 'Backspace' || event.key === 'Delete') {
-      event.preventDefault();
-    }
-
     if (!event.key.startsWith('Arrow')) {
       return;
     }
@@ -708,9 +704,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #getSelectedPart(): DateFormatPart | null {
-    const selectionStart = this.input.selectionStart;
+    const { selectionStart, selectionEnd } = this.input;
 
-    if (selectionStart !== null) {
+    if (selectionStart !== null && selectionStart !== selectionEnd) {
       const parts = this.#getCurrentParts(),
         part = parts.find(p => p.type !== 'literal' && selectionStart >= p.start && selectionStart <= p.end);
 

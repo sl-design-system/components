@@ -274,9 +274,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         id="dialog"
         popover
       >
-        <slot name="calendar">
-          ${this.dialog?.matches(':popover-open')
-            ? html`
+        ${this.dialog?.matches(':popover-open')
+          ? html`
+              <slot name="calendar">
                 <sl-calendar
                   @sl-change=${this.#onChange}
                   .selected=${this.value}
@@ -288,20 +288,20 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
                   month=${ifDefined(this.month?.toISOString())}
                   show-today
                 ></sl-calendar>
-                <sl-button-bar>
-                  <slot></slot>
-                  ${this.requireConfirmation
-                    ? html`
-                        <sl-button @click=${this.#onConfirm} variant="primary">
-                          ${msg('Confirm', { id: 'sl.dateField.confirm' })}
-                          <sl-icon name="check"></sl-icon>
-                        </sl-button>
-                      `
-                    : nothing}
-                </sl-button-bar>
-              `
-            : nothing}
-        </slot>
+              </slot>
+              <sl-button-bar>
+                <slot></slot>
+                ${this.requireConfirmation
+                  ? html`
+                      <sl-button @click=${this.#onConfirm} variant="primary">
+                        ${msg('Confirm', { id: 'sl.dateField.confirm' })}
+                        <sl-icon name="check"></sl-icon>
+                      </sl-button>
+                    `
+                  : nothing}
+              </sl-button-bar>
+            `
+          : nothing}
       </dialog>
     `;
   }

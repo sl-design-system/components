@@ -3,7 +3,7 @@
   --sl-icon-fill-default: currentcolor;
   --sl-icon-size: var(
     --sl-size-200,
-    1.25rem
+    1rem
   ); // we need a fallback to prevent the icon flashing at the default size before the CSS variables from the theme are applied
 
   aspect-ratio: 1 / 1;
@@ -23,31 +23,31 @@
 }
 
 :host([size='2xs']) {
-  --sl-icon-size: var(--sl-size-125, 0.8rem);
+  --sl-icon-size: var(--sl-size-125, 0.625rem);
 }
 
 :host([size='xs']) {
-  --sl-icon-size: var(--sl-size-150, 0.9rem);
+  --sl-icon-size: var(--sl-size-150, 0.75rem);
 }
 
 :host([size='sm']) {
-  --sl-icon-size: var(--sl-size-175, 1rem);
+  --sl-icon-size: var(--sl-size-175, 0.875rem);
 }
 
 :host([size='md']) {
-  --sl-icon-size: var(--sl-size-200, 1.25rem);
+  --sl-icon-size: var(--sl-size-200, 1rem);
 }
 
 :host([size='lg']) {
-  --sl-icon-size: var(--sl-size-250, 1.5rem);
+  --sl-icon-size: var(--sl-size-250, 1.25rem);
 }
 
 :host([size='xl']) {
-  --sl-icon-size: var(--sl-size-300, 1.75rem);
+  --sl-icon-size: var(--sl-size-300, 1.5rem);
 }
 
 :host([size='2xl']) {
-  --sl-icon-size: var(--sl-size-400, 2.25rem);
+  --sl-icon-size: var(--sl-size-400, 2rem);
 }
 
 :host([size='3xl']) {

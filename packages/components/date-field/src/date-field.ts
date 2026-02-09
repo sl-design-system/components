@@ -79,7 +79,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
    * can interact with the calendar (e.g., "Today" or "Clear" buttons). Do NOT use
    * this to customize the calendar itself. Use the calendar slot for that.
    */
-  @query('sl-calendar') calendar?: Calendar;
+  get calendar(): Calendar | null {
+    return this.renderRoot.querySelector('sl-calendar') ?? this.querySelector('sl-calendar[slot="calendar"]');
+  }
 
   /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<Date>>;
@@ -382,10 +384,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onConfirm(): void {
-    const calendar = this.renderRoot.querySelector('sl-calendar') ?? this.querySelector('sl-calendar[slot="calendar"]');
-
-    if (calendar?.selected) {
-      this.#setValueAndCloseDialog(calendar.selected);
+    if (this.calendar?.selected) {
+      this.#setValueAndCloseDialog(this.calendar.selected);
     } else {
       this.value = undefined;
       this.dialog?.hidePopover();
@@ -556,12 +556,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.#popoverJustClosed = false;
     } else {
       // Wait for the calendar to render in the popover
-      requestAnimationFrame(() => {
-        const calendar =
-          this.renderRoot.querySelector('sl-calendar') ?? this.querySelector('sl-calendar[slot="calendar"]');
-
-        calendar?.focus();
-      });
+      requestAnimationFrame(() => this.calendar?.focus());
     }
 
     // Trigger a rerender so the calendar will be rendered

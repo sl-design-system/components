@@ -26,6 +26,9 @@ export class VirtualizerController<TScrollElement extends Element | Window, TIte
   /** Cleanup function to be called when disconnected. */
   #cleanup: () => void = () => {};
 
+  /** Whether the controller has been disposed. */
+  #disposed = false;
+
   /** The host element. */
   #host: ReactiveControllerHost & HTMLElement;
 
@@ -37,6 +40,9 @@ export class VirtualizerController<TScrollElement extends Element | Window, TIte
 
   /** The virtualizer instance. */
   #virtualizer!: Virtualizer<Element, TItemElement> | Virtualizer<Window, TItemElement>;
+
+  /** The ID of the pending scrollMargin update task. */
+  #updateTaskId?: number;
 
   /** Get the virtualizer instance. */
   get instance(): Virtualizer<Element, TItemElement> | Virtualizer<Window, TItemElement> {
@@ -102,7 +108,7 @@ export class VirtualizerController<TScrollElement extends Element | Window, TIte
         return rect.top + window.scrollY;
       };
 
-      const initialScrollMargin = getOffset();
+      const initialScrollMargin = options.scrollMargin ?? getOffset();
 
       const resolvedOptions: VirtualizerOptions<Window, TItemElement> = {
         ...options,
@@ -117,16 +123,18 @@ export class VirtualizerController<TScrollElement extends Element | Window, TIte
       this.#virtualizer = new Virtualizer(resolvedOptions);
 
       // Debounced scrollMargin update to prevent excessive recalculations
-      let updatePending = false;
       const updateScrollMargin = () => {
-        if (updatePending) {
+        if (this.#disposed || this.#updateTaskId || typeof options.scrollMargin === 'number') {
           return;
         }
 
-        updatePending = true;
+        this.#updateTaskId = requestAnimationFrame(() => {
+          this.#updateTaskId = undefined;
 
-        requestAnimationFrame(() => {
-          updatePending = false;
+          if (this.#disposed) {
+            return;
+          }
+
           const newMargin = getOffset();
           const virtualizer = this.#virtualizer as Virtualizer<Window, TItemElement>;
 
@@ -139,12 +147,12 @@ export class VirtualizerController<TScrollElement extends Element | Window, TIte
         });
       };
 
-      // ResizeObserver: detects size changes to the host element or its ancestors
+      // ResizeObserver: detects size changes to the host element or its ancestors.
+      // We observe the host and its direct parent to catch layout shifts that
+      // might affect the tree's position relative to the viewport.
       const resizeObserver = new ResizeObserver(() => updateScrollMargin());
       resizeObserver.observe(this.#host);
 
-      // Also observe parent elements up to the body to catch layout shifts
-      // Optimization: Only observe the direct parent. Observing all ancestors is expensive.
       if (this.#host.parentElement) {
         resizeObserver.observe(this.#host.parentElement);
       }
@@ -154,6 +162,10 @@ export class VirtualizerController<TScrollElement extends Element | Window, TIte
 
       const originalCleanup = this.instance._didMount();
       this.#cleanup = () => {
+        this.#disposed = true;
+        if (this.#updateTaskId) {
+          cancelAnimationFrame(this.#updateTaskId);
+        }
         window.removeEventListener('resize', updateScrollMargin);
         resizeObserver.disconnect();
         originalCleanup();

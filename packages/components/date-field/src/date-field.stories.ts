@@ -135,20 +135,18 @@ export const ExtraControls: Story = {
     requireConfirmation: true,
     slot: () => {
       const onClear = (): void => {
-        const dateField = document.querySelector('sl-date-field'),
-          calendar = dateField?.renderRoot.querySelector('sl-calendar');
+        const dateField = document.querySelector('sl-date-field');
 
-        if (calendar) {
-          calendar.selected = undefined;
+        if (dateField?.calendar) {
+          dateField.calendar.selected = undefined;
         }
       };
 
       const onToday = (): void => {
-        const dateField = document.querySelector('sl-date-field'),
-          calendar = dateField?.renderRoot.querySelector('sl-calendar');
+        const dateField = document.querySelector('sl-date-field');
 
-        if (calendar) {
-          calendar.selected = new Date();
+        if (dateField?.calendar) {
+          dateField.calendar.selected = new Date();
         }
       };
 

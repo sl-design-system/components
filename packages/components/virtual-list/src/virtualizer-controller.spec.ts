@@ -106,7 +106,6 @@ describe('VirtualizerController', () => {
     const host = el.querySelector('test-host') as TestHost;
     await host.updateComplete;
 
-    // Verify initial state - items should be visible starting from index 0
     let items = Array.from(host.renderRoot.querySelectorAll<HTMLElement>('div[data-index]'));
     expect(items.length).to.be.greaterThan(0);
     expect(items[0].getAttribute('data-index')).to.equal('0');
@@ -115,7 +114,9 @@ describe('VirtualizerController', () => {
     // This is a scenario that previously broke the virtualizer
     spacer.style.height = '400px';
 
-    // Wait for ResizeObserver to fire and rAF to complete
+    // Wait an extra frame and Lit update to allow the virtualizer's onChange
+    // (scheduled via host.updateComplete.then(...)) to fully apply
+    await new Promise(resolve => requestAnimationFrame(resolve));
     await new Promise(resolve => requestAnimationFrame(resolve));
     await host.updateComplete;
 

@@ -75,6 +75,12 @@ export class ButtonBar extends LitElement {
    */
   @property() variant?: ButtonVariant;
 
+  override disconnectedCallback(): void {
+    this.#observer.disconnect();
+
+    super.disconnectedCallback();
+  }
+
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 

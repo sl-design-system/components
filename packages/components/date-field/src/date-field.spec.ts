@@ -243,34 +243,22 @@ describe('sl-date-field', () => {
     });
 
     it('should not show calendar initially', () => {
-      const wrapper = el.renderRoot.querySelector('[popover]');
+      const dialog = el.renderRoot.querySelector('dialog[popover]');
 
-      expect(wrapper?.matches(':popover-open')).to.be.false;
-    });
-
-    it('should render calendar in a dialog with popover', () => {
-      const dialog = el.renderRoot.querySelector('dialog');
-
-      expect(dialog).to.have.attribute('popover');
-      expect(dialog).not.to.contain('sl-calendar');
+      expect(dialog).not.to.match(':popover-open');
     });
 
     it('should render the calendar when the popover is opened', async () => {
-      const wrapper = el.renderRoot.querySelector('[popover]');
+      const dialog = el.renderRoot.querySelector('dialog[popover]');
+
+      expect(dialog).not.to.match(':popover-open');
+      expect(dialog).not.to.contain('sl-calendar');
 
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      expect(wrapper?.matches(':popover-open')).to.be.true;
-      expect(el.renderRoot.querySelector('sl-calendar')).to.exist;
-    });
-
-    it('should show calendar when button is clicked', () => {
-      const wrapper = el.renderRoot.querySelector('[popover]');
-
-      el.renderRoot.querySelector('sl-field-button')?.click();
-
-      expect(wrapper?.matches(':popover-open')).to.be.true;
+      expect(dialog).to.match(':popover-open');
+      expect(dialog).to.contain('sl-calendar');
     });
 
     it('should set aria-expanded to true when popover opens', async () => {
@@ -309,7 +297,7 @@ describe('sl-date-field', () => {
       );
       await el.updateComplete;
 
-      expect(el.renderRoot.querySelector('dialog')?.matches(':popover-open')).to.be.false;
+      expect(el.renderRoot.querySelector('dialog')).not.to.match(':popover-open');
     });
 
     it('should stop Escape key propagation', async () => {

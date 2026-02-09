@@ -95,17 +95,71 @@ export class VirtualizerController<TScrollElement extends Element | Window, TIte
     };
 
     this.#scrollElement = getScrollParent(this.#host);
+
     if (this.#scrollElement === document.documentElement) {
+      const getOffset = () => {
+        const rect = this.#host.getBoundingClientRect();
+        return rect.top + window.scrollY;
+      };
+
+      const initialScrollMargin = getOffset();
+
       const resolvedOptions: VirtualizerOptions<Window, TItemElement> = {
         ...options,
         getScrollElement: () => window,
         observeElementRect: observeWindowRect,
         observeElementOffset: observeWindowOffset,
+        scrollMargin: initialScrollMargin,
         scrollToFn: windowScroll,
         initialOffset: () => (typeof document !== 'undefined' ? window.scrollY : 0)
       } as VirtualizerOptions<Window, TItemElement>;
 
       this.#virtualizer = new Virtualizer(resolvedOptions);
+
+      // Debounced scrollMargin update to prevent excessive recalculations
+      let updatePending = false;
+      const updateScrollMargin = () => {
+        if (updatePending) {
+          return;
+        }
+
+        updatePending = true;
+
+        requestAnimationFrame(() => {
+          updatePending = false;
+          const newMargin = getOffset();
+          const virtualizer = this.#virtualizer as Virtualizer<Window, TItemElement>;
+
+          if (Math.abs(newMargin - (virtualizer.options.scrollMargin || 0)) > 1) {
+            virtualizer.setOptions({
+              ...virtualizer.options,
+              scrollMargin: newMargin
+            });
+          }
+        });
+      };
+
+      // ResizeObserver: detects size changes to the host element or its ancestors
+      const resizeObserver = new ResizeObserver(() => updateScrollMargin());
+      resizeObserver.observe(this.#host);
+
+      // Also observe parent elements up to the body to catch layout shifts
+      // Optimization: Only observe the direct parent. Observing all ancestors is expensive.
+      if (this.#host.parentElement) {
+        resizeObserver.observe(this.#host.parentElement);
+      }
+
+      // Keep window.resize as fallback for edge cases
+      window.addEventListener('resize', updateScrollMargin);
+
+      const originalCleanup = this.instance._didMount();
+      this.#cleanup = () => {
+        window.removeEventListener('resize', updateScrollMargin);
+        resizeObserver.disconnect();
+        originalCleanup();
+      };
+
+      return;
     } else {
       const resolvedOptions: VirtualizerOptions<Element, TItemElement> = {
         ...options,

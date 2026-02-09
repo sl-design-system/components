@@ -30,6 +30,7 @@ import {
   faItalic as fasItalic,
   faUnderline as fasUnderline
 } from '@fortawesome/pro-solid-svg-icons';
+import { announce } from '@sl-design-system/announcer';
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { Icon } from '@sl-design-system/icon';
@@ -130,6 +131,16 @@ export default {
           background: var(--sl-color-background-primary-bold);
           padding: 1.2rem;
         }
+
+        #logging {
+          margin-top: 1rem;
+          max-height: 300px;
+          overflow: auto;
+        }
+        #logging:not(:empty) {
+          border: 1px solid var(--sl-color-border-accent-grey-plain);
+          padding: 0.5rem;
+        }
       </style>
       <div class="container">
         <sl-tool-bar
@@ -143,6 +154,7 @@ export default {
           ${items?.()}
         </sl-tool-bar>
       </div>
+      <div id="logging"></div>
     `;
   }
 } satisfies Meta<Props>;
@@ -300,11 +312,18 @@ export const InvertedContained: Story = {
 export const ClickEvents: Story = {
   args: {
     width: '240px',
-    description: 'This example shows a tool bar with buttons that log click events to the console.',
+    description:
+      'This example shows a tool bar with buttons that log click events to the console to show how to handle click events on buttons and menu items.',
     items: () => {
       const handleClick = (event: Event, actionName: string) => {
         console.log(`${actionName} clicked`, event);
-        alert(`${actionName} clicked`);
+        const logging = document.getElementById('logging');
+        if (logging) {
+          const logEntry = document.createElement('div');
+          logEntry.textContent = `${actionName} clicked`;
+          logging.prepend(logEntry);
+          announce(`${actionName} clicked`); // for screen readers
+        }
       };
 
       return html`
@@ -318,7 +337,7 @@ export const ClickEvents: Story = {
           <sl-icon name="far-pen"></sl-icon>
           Button 3
         </sl-button>
-        <sl-menu-button @click=${(e: Event) => handleClick(e, 'Menu Button')} fill="outline">
+        <sl-menu-button fill="outline">
           <div slot="button">Menu</div>
           <sl-menu-item @click=${(e: Event) => handleClick(e, 'Menu Item 1')}>
             <sl-icon name="far-pen"></sl-icon>
@@ -578,8 +597,8 @@ export const Examples: Story = {
         <sl-icon name="far-universal-access"></sl-icon>
       </sl-button>
 
-      <sl-menu-button aria-label="Font">
-        <span slot="button"><sl-icon style="vertical-align: text-top;" name="far-font"></sl-icon></span>
+      <sl-menu-button aria-label="View">
+        <span slot="button"><sl-icon name="far-font"></sl-icon></span>
         <sl-menu-item> 10 pt </sl-menu-item>
         <sl-menu-item> 12 pt </sl-menu-item>
         <sl-menu-item> 14 pt </sl-menu-item>

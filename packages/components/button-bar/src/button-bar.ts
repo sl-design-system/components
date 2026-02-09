@@ -142,20 +142,22 @@ export class ButtonBar extends LitElement {
   }
 
   #updateButtons(): void {
-    this.buttons?.forEach(element => {
-      const button = element as { fill?: ButtonFill; size?: ButtonSize; variant?: ButtonVariant };
+    this.buttons
+      ?.filter(el => el.tagName !== 'STYLE')
+      .forEach(element => {
+        const button = element as { fill?: ButtonFill; size?: ButtonSize; variant?: ButtonVariant };
 
-      if (this.size) {
-        button.size = this.size;
-      }
+        if (this.size) {
+          button.size = this.size;
+        }
 
-      if (this.fill) {
-        button.fill = this.fill;
-      }
+        if (this.fill) {
+          button.fill = this.fill;
+        }
 
-      if (this.variant) {
-        button.variant = this.variant;
-      }
-    });
+        if (this.variant) {
+          button.variant = this.variant;
+        }
+      });
   }
 }

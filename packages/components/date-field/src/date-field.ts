@@ -74,11 +74,12 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
   /**
-   * The calendar element. This will only return an instance of the calendar
-   * when the popover is shown. Otherwise it will return undefined. This is meant
-   * to be used for the extra controls that are slotted into the popover, so they
-   * can interact with the calendar (e.g., "Today" or "Clear" buttons). Do NOT use
-   * this to customize the calendar itself. Use the calendar slot for that.
+   * The calendar element. This will return an instance of the calendar
+   * when the popover is shown or always when the calendar is slotted. Otherwise
+   * it will return undefined. This is meant to be used for the extra controls
+   * that are slotted into the popover, so they can interact with the calendar
+   * (e.g., "Today" or "Clear" buttons). Do NOT use this to customize the
+   * calendar itself. Use the calendar slot for that.
    */
   get calendar(): Calendar | null {
     return this.querySelector('sl-calendar[slot="calendar"]') ?? this.renderRoot.querySelector('sl-calendar');
@@ -270,7 +271,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           aria-controls="dialog"
           aria-label=${msg('Toggle calendar', { id: 'sl.dateField.toggleCalendar' })}
           slot="suffix"
-          tabindex=${this.disabled ? '-1' : '0'}
+          tabindex=${this.disabled || this.readonly ? '-1' : '0'}
         >
           <sl-icon name="calendar"></sl-icon>
         </sl-field-button>
@@ -428,7 +429,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onInputFocus(): void {
-    if (this.value || this.#hasPartialDate()) {
+    if (this.readonly || this.selectOnly || this.value || this.#hasPartialDate()) {
       return;
     }
 
@@ -465,7 +466,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   #onInputKeydown(event: KeyboardEvent): void {
     const selectedPart = this.#getSelectedPart();
-    if (!selectedPart) {
+    if (!selectedPart || this.selectOnly) {
       return;
     }
 
@@ -492,6 +493,10 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         }
       }
       return;
+    }
+
+    if (event.key === 'Backspace' || event.key === 'Delete') {
+      event.preventDefault();
     }
 
     if (!event.key.startsWith('Arrow')) {

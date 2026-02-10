@@ -8,6 +8,7 @@
 }
 
 dialog {
+  align-content: start; // WebKit fix where the dialog takes up the entire height of the viewport
   background: var(--sl-elevation-surface-raised-default);
   border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
   border-radius: var(--sl-size-borderRadius-default);

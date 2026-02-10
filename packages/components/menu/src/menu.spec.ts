@@ -249,6 +249,79 @@ describe('sl-menu', () => {
 
         expect(el.matches(':popover-open')).to.be.true;
       });
+
+      it('should not close the menu when focus stays within the menu element', async () => {
+        const firstItem = el.querySelector('sl-menu-item')!;
+
+        firstItem.focus();
+
+        expect(el.matches(':popover-open')).to.be.true;
+
+        firstItem.focus();
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(el.matches(':popover-open')).to.be.true;
+      });
+
+      it('should close the menu when relatedTarget is null', async () => {
+        const firstItem = el.querySelector('sl-menu-item')!;
+
+        firstItem.focus();
+
+        expect(el.matches(':popover-open')).to.be.true;
+
+        // Simulate focusout with null relatedTarget
+        const focusoutEvent = new FocusEvent('focusout', {
+          bubbles: true,
+          relatedTarget: null
+        });
+
+        el.dispatchEvent(focusoutEvent);
+
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(el.matches(':popover-open')).to.be.false;
+      });
+
+      it('should close the menu when relatedTarget is undefined', async () => {
+        const firstItem = el.querySelector('sl-menu-item')!;
+
+        firstItem.focus();
+
+        expect(el.matches(':popover-open')).to.be.true;
+
+        // Simulate focusout with undefined relatedTarget
+        const focusoutEvent = new FocusEvent('focusout', {
+          bubbles: true,
+          relatedTarget: undefined
+        });
+
+        el.dispatchEvent(focusoutEvent);
+
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(el.matches(':popover-open')).to.be.false;
+      });
+
+      it('should close the menu when relatedTarget is an external element', async () => {
+        const firstItem = el.querySelector('sl-menu-item')!;
+
+        firstItem.focus();
+
+        expect(el.matches(':popover-open')).to.be.true;
+
+        // focusout with external element as relatedTarget
+        const focusoutEvent = new FocusEvent('focusout', {
+          bubbles: true,
+          relatedTarget: document.body
+        });
+
+        el.dispatchEvent(focusoutEvent);
+
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(el.matches(':popover-open')).to.be.false;
+      });
     });
 
     describe('menu with submenu', () => {
@@ -329,6 +402,7 @@ describe('sl-menu', () => {
         await new Promise(resolve => setTimeout(resolve, 50));
 
         expect(el.matches(':popover-open')).to.be.false;
+        expect(submenu.matches(':popover-open')).to.be.false;
 
         document.body.removeChild(outsideButton);
       });
@@ -348,6 +422,150 @@ describe('sl-menu', () => {
 
         expect(el.matches(':popover-open')).to.be.true;
         expect(submenu.matches(':popover-open')).to.be.true;
+      });
+
+      it('should not close parent menu when submenu is the event target', async () => {
+        submenu.showPopover();
+        await submenu.updateComplete;
+
+        const submenuItem = submenu.querySelector('sl-menu-item')!;
+
+        submenuItem.focus();
+
+        expect(el.matches(':popover-open')).to.be.true;
+        expect(submenu.matches(':popover-open')).to.be.true;
+
+        // Simulate focusout event from the submenu itself (not parent menu)
+        const focusoutEvent = new FocusEvent('focusout', {
+          bubbles: true,
+          relatedTarget: parentMenuItem
+        });
+
+        // Dispatch on submenu - parent menu should ignore this since event.target !== parent menu
+        submenu.dispatchEvent(focusoutEvent);
+
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        // Parent menu should ignore the focusout from submenu
+        expect(el.matches(':popover-open')).to.be.true;
+      });
+
+      it('should not close submenu on its own focusout event (submenus ignore focusout)', async () => {
+        submenu.showPopover();
+        await submenu.updateComplete;
+
+        const submenuItem = submenu.querySelector('sl-menu-item')!;
+
+        submenuItem.focus();
+
+        expect(submenu.matches(':popover-open')).to.be.true;
+
+        // Simulate focusout on submenu itself - should be ignored because submenu has anchorElement
+        const focusoutEvent = new FocusEvent('focusout', {
+          bubbles: true,
+          relatedTarget: document.body
+        });
+
+        submenu.dispatchEvent(focusoutEvent);
+
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        // Submenu should still be open (it ignores its own focusout)
+        expect(submenu.matches(':popover-open')).to.be.true;
+      });
+
+      it('should not close parent menu when relatedTarget is a submenu item', async () => {
+        submenu.showPopover();
+        await submenu.updateComplete;
+
+        const parentItem = el.querySelectorAll('sl-menu-item')[0];
+        const submenuItem = submenu.querySelector('sl-menu-item')!;
+
+        parentItem.focus();
+
+        expect(el.matches(':popover-open')).to.be.true;
+
+        // Focus moves from parent menu item to submenu item
+        submenuItem.focus();
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        // Parent menu should detect that relatedTarget is in its hierarchy
+        expect(el.matches(':popover-open')).to.be.true;
+        expect(submenu.matches(':popover-open')).to.be.true;
+      });
+    });
+
+    describe('submenu hierarchy detection', () => {
+      let parentMenuItem: MenuItem, submenu: Menu;
+
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-menu>
+            <sl-menu-item>Item 1</sl-menu-item>
+            <sl-menu-item>
+              Item 2 with submenu
+              <sl-menu slot="submenu">
+                <sl-menu-item>Subitem 1</sl-menu-item>
+                <sl-menu-item>Subitem 2</sl-menu-item>
+              </sl-menu>
+            </sl-menu-item>
+          </sl-menu>
+        `);
+
+        el.showPopover();
+        await el.updateComplete;
+
+        parentMenuItem = el.querySelectorAll('sl-menu-item')[1];
+        submenu = parentMenuItem.querySelector('sl-menu')!;
+      });
+
+      it('should recognize submenu as part of menu hierarchy when checking relatedTarget', async () => {
+        const firstItem = el.querySelector('sl-menu-item')!;
+
+        firstItem.focus();
+
+        submenu.showPopover();
+        await submenu.updateComplete;
+
+        const submenuItem = submenu.querySelector('sl-menu-item')!;
+
+        // Simulate focusout from parent menu with relatedTarget being submenu item
+        const focusoutEvent = new FocusEvent('focusout', {
+          bubbles: true,
+          relatedTarget: submenuItem
+        });
+
+        el.dispatchEvent(focusoutEvent);
+
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        // Menu should stay open because relatedTarget is in submenu hierarchy
+        expect(el.matches(':popover-open')).to.be.true;
+      });
+
+      it('should close menu when relatedTarget is not in hierarchy', async () => {
+        const externalButton = document.createElement('button');
+
+        document.body.appendChild(externalButton);
+
+        const firstItem = el.querySelector('sl-menu-item')!;
+
+        firstItem.focus();
+
+        // Simulate focusout with external element as relatedTarget
+        const focusoutEvent = new FocusEvent('focusout', {
+          bubbles: true,
+          relatedTarget: externalButton
+        });
+
+        el.dispatchEvent(focusoutEvent);
+
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        // Menu should close because relatedTarget is not in hierarchy
+        expect(el.matches(':popover-open')).to.be.false;
+
+        document.body.removeChild(externalButton);
       });
     });
 
@@ -425,6 +643,8 @@ describe('sl-menu', () => {
         await new Promise(resolve => setTimeout(resolve, 50));
 
         expect(el.matches(':popover-open')).to.be.false;
+        expect(submenu.matches(':popover-open')).to.be.false;
+        expect(nestedSubmenu.matches(':popover-open')).to.be.false;
 
         document.body.removeChild(outsideButton);
       });
@@ -535,12 +755,11 @@ describe('sl-menu', () => {
     });
 
     describe('escape key in submenu', () => {
-      let parentMenuItem: MenuItem, submenu: Menu, submenuItem: MenuItem;
-
-      let onKeydown: SinonSpy;
+      let parentMenuItem: MenuItem, submenu: Menu, submenuItem: MenuItem, onKeydown: SinonSpy;
 
       beforeEach(async () => {
         onKeydown = spy();
+        document.addEventListener('keydown', onKeydown);
 
         el = await fixture(html`
           <sl-menu>
@@ -596,8 +815,6 @@ describe('sl-menu', () => {
       });
 
       it('should stop propagation of Escape key', async () => {
-        document.addEventListener('keydown', onKeydown);
-
         submenu.showPopover();
         await submenu.updateComplete;
 

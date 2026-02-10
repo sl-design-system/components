@@ -135,6 +135,38 @@ export class Menu extends LitElement {
     this.#rovingTabindexController.focusToElement(this.#menuItems.length - 1);
   }
 
+  /** Check if a menu is a direct submenu of any menu item in this menu. */
+  #isDirectSubmenu(menu: Menu): boolean {
+    return this.#menuItems.some(item => item.submenu === menu);
+  }
+
+  /** Check if a menu is a submenu (direct or nested) of a parent menu. */
+  #isSubmenuOf(menu: Menu, parentMenu: Menu): boolean {
+    let currentMenu: Menu | null = menu;
+
+    while (currentMenu) {
+      if (currentMenu === parentMenu) {
+        return true;
+      }
+
+      if (!currentMenu.anchorElement || !(currentMenu.anchorElement instanceof MenuItem)) {
+        return false;
+      }
+
+      currentMenu = currentMenu.anchorElement.closest('sl-menu');
+    }
+
+    return false;
+  }
+
+  #onFocusout(event: FocusEvent): void {
+    if (this.#shouldIgnoreFocusout(event) || this.#shouldKeepMenuOpen(event.relatedTarget as Node)) {
+      return;
+    }
+
+    this.hidePopover();
+  }
+
   #onKeydown(event: KeyboardEvent): void {
     // Prevent arrow keys from bubbling up to parent elements (e.g. toolbar)
     // This applies to all menus, not just submenus
@@ -149,7 +181,7 @@ export class Menu extends LitElement {
 
       // If this is a submenu, close it and focus the parent menu item
       if (this.anchorElement instanceof MenuItem) {
-        // Prevent from closing all popovers at once
+        // Prevents closing all popovers at once
         event.preventDefault();
 
         this.hidePopover();
@@ -171,87 +203,6 @@ export class Menu extends LitElement {
       this.hidePopover();
       this.anchorElement.focus();
     }
-  }
-
-  #onFocusout(event: FocusEvent): void {
-    if (this.#shouldIgnoreFocusout(event)) {
-      return;
-    }
-
-    // const relatedTarget = event.relatedTarget as Node | null;
-
-    if (this.#shouldKeepMenuOpen(event.relatedTarget as Node)) {
-      return;
-    }
-
-    this.hidePopover();
-  }
-
-  /**
-   * Determines if the menu should stay open based on the focus target.
-   */
-  #shouldKeepMenuOpen(relatedTarget: Node | null): boolean {
-    // Don't close if focus stays within this menu
-    if (relatedTarget && this.contains(relatedTarget)) {
-      return true;
-    }
-
-    // Don't close if focus moves to a menu item that belongs to this menu
-    if (relatedTarget instanceof MenuItem && this.#menuItems.includes(relatedTarget)) {
-      return true;
-    }
-
-    // Don't close if focus moves to a submenu
-    if (relatedTarget instanceof HTMLElement) {
-      const targetMenu = relatedTarget.closest('sl-menu');
-
-      if (targetMenu && (this.#isDirectSubmenu(targetMenu) || this.#isSubmenuOf(targetMenu, this))) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  /**
-   * Determines if the focusout event should be ignored.
-   */
-  #shouldIgnoreFocusout(event: FocusEvent): boolean {
-    // Only apply this behavior to top-level menus (not submenus) or ignore focusout events from submenus
-    if (this.anchorElement instanceof MenuItem || (event.target instanceof Menu && event.target !== this)) {
-      return true;
-    }
-
-    return !this.matches(':popover-open');
-  }
-
-  /**
-   * Check if a menu is a direct submenu of any menu item in this menu.
-   */
-  #isDirectSubmenu(menu: Menu): boolean {
-    return this.#menuItems.some(item => item.submenu === menu);
-  }
-
-  /**
-   * Check if a menu is a submenu (direct or nested) of a parent menu.
-   */
-  #isSubmenuOf(menu: Menu, parentMenu: Menu): boolean {
-    let currentMenu: Menu | null = menu;
-
-    while (currentMenu) {
-      if (currentMenu === parentMenu) {
-        return true;
-      }
-
-      if (!currentMenu.anchorElement || !(currentMenu.anchorElement instanceof MenuItem)) {
-        return false;
-      }
-
-      // Get the parent menu by finding the closest menu element to the menu item
-      currentMenu = currentMenu.anchorElement.closest('sl-menu');
-    }
-
-    return false;
   }
 
   async #onSelect(event: Event): Promise<void> {
@@ -320,5 +271,37 @@ export class Menu extends LitElement {
     submenus?.forEach(submenu => {
       submenu.emphasis = this.emphasis;
     });
+  }
+
+  /** Determines if the focusout event should be ignored. */
+  #shouldIgnoreFocusout(event: FocusEvent): boolean {
+    // Ignore focusout if this is a submenu or the event came from a submenu (not this menu)
+    if (this.anchorElement instanceof MenuItem || (event.target instanceof Menu && event.target !== this)) {
+      return true;
+    }
+
+    return !this.matches(':popover-open');
+  }
+
+  /** Determines if the menu should stay open based on the focus target. */
+  #shouldKeepMenuOpen(relatedTarget: Node | null): boolean {
+    // Don't close if focus stays within this menu or when focus moves to a menu item that belongs to this menu
+    if (
+      (relatedTarget && this.contains(relatedTarget)) ||
+      (relatedTarget instanceof MenuItem && this.#menuItems.includes(relatedTarget))
+    ) {
+      return true;
+    }
+
+    // Don't close if focus moves to a submenu
+    if (relatedTarget instanceof HTMLElement) {
+      const targetMenu = relatedTarget.closest('sl-menu');
+
+      if (targetMenu && (this.#isDirectSubmenu(targetMenu) || this.#isSubmenuOf(targetMenu, this))) {
+        return true;
+      }
+    }
+
+    return false;
   }
 }

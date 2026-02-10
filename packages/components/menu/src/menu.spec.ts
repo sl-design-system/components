@@ -144,6 +144,293 @@ describe('sl-menu', () => {
     });
   });
 
+  describe('initial focus', () => {
+    it('should focus the first menu item when the menu is opened', async () => {
+      el = await fixture(html`
+        <sl-menu>
+          <sl-menu-item>Item 1</sl-menu-item>
+          <sl-menu-item>Item 2</sl-menu-item>
+          <sl-menu-item>Item 3</sl-menu-item>
+        </sl-menu>
+      `);
+
+      el.showPopover();
+      await el.updateComplete;
+
+      el.focus();
+
+      const firstItem = el.querySelector('sl-menu-item');
+
+      expect(document.activeElement).to.equal(firstItem);
+    });
+
+    it('should skip disabled menu items when focusing initially', async () => {
+      el = await fixture(html`
+        <sl-menu>
+          <sl-menu-item disabled>Item 1</sl-menu-item>
+          <sl-menu-item>Item 2</sl-menu-item>
+          <sl-menu-item>Item 3</sl-menu-item>
+        </sl-menu>
+      `);
+
+      el.showPopover();
+      await el.updateComplete;
+
+      el.focus();
+
+      const secondItem = el.querySelectorAll('sl-menu-item')[1];
+
+      expect(document.activeElement).to.equal(secondItem);
+    });
+
+    it('should focus the first not disabled menu item in a menu with multiple disabled items', async () => {
+      el = await fixture(html`
+        <sl-menu>
+          <sl-menu-item disabled>Item 1</sl-menu-item>
+          <sl-menu-item disabled>Item 2</sl-menu-item>
+          <sl-menu-item>Item 3</sl-menu-item>
+          <sl-menu-item>Item 4</sl-menu-item>
+        </sl-menu>
+      `);
+
+      el.showPopover();
+      await el.updateComplete;
+
+      el.focus();
+
+      const thirdItem = el.querySelectorAll('sl-menu-item')[2];
+
+      expect(document.activeElement).to.equal(thirdItem);
+    });
+  });
+
+  describe('focusout handling', () => {
+    describe('menu without submenu', () => {
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-menu>
+            <sl-menu-item>Item 1</sl-menu-item>
+            <sl-menu-item>Item 2</sl-menu-item>
+            <sl-menu-item>Item 3</sl-menu-item>
+          </sl-menu>
+        `);
+
+        el.showPopover();
+        await el.updateComplete;
+      });
+
+      it('should close the menu when focus moves outside', async () => {
+        const outsideButton = document.createElement('button');
+
+        document.body.appendChild(outsideButton);
+
+        el.focus();
+
+        expect(el.matches(':popover-open')).to.be.true;
+
+        outsideButton.focus();
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(el.matches(':popover-open')).to.be.false;
+
+        document.body.removeChild(outsideButton);
+      });
+
+      it('should not close the menu when focus moves between menu items', async () => {
+        const firstItem = el.querySelector('sl-menu-item')!,
+          secondItem = el.querySelectorAll('sl-menu-item')[1];
+
+        firstItem.focus();
+
+        expect(el.matches(':popover-open')).to.be.true;
+
+        secondItem.focus();
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(el.matches(':popover-open')).to.be.true;
+      });
+    });
+
+    describe('menu with submenu', () => {
+      let parentMenuItem: MenuItem, submenu: Menu;
+
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-menu>
+            <sl-menu-item>Item 1</sl-menu-item>
+            <sl-menu-item>
+              Item 2 with submenu
+              <sl-menu slot="submenu">
+                <sl-menu-item>Subitem 1</sl-menu-item>
+                <sl-menu-item>Subitem 2</sl-menu-item>
+                <sl-menu-item>Subitem 3</sl-menu-item>
+              </sl-menu>
+            </sl-menu-item>
+            <sl-menu-item>Item 3</sl-menu-item>
+          </sl-menu>
+        `);
+
+        el.showPopover();
+        await el.updateComplete;
+
+        parentMenuItem = el.querySelectorAll('sl-menu-item')[1];
+        submenu = parentMenuItem.querySelector('sl-menu')!;
+      });
+
+      it('should not close parent menu when focus moves to submenu', async () => {
+        parentMenuItem.focus();
+        expect(el.matches(':popover-open')).to.be.true;
+
+        submenu.showPopover();
+        await submenu.updateComplete;
+
+        const submenuItem = submenu.querySelector('sl-menu-item')!;
+
+        submenuItem.focus();
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(el.matches(':popover-open')).to.be.true;
+        expect(submenu.matches(':popover-open')).to.be.true;
+      });
+
+      it('should not close parent menu when focus returns from submenu to parent menu item', async () => {
+        submenu.showPopover();
+        await submenu.updateComplete;
+
+        const submenuItem = submenu.querySelector('sl-menu-item')!;
+        submenuItem.focus();
+
+        expect(el.matches(':popover-open')).to.be.true;
+        expect(submenu.matches(':popover-open')).to.be.true;
+
+        submenu.hidePopover();
+        parentMenuItem.focus();
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(el.matches(':popover-open')).to.be.true;
+        expect(submenu.matches(':popover-open')).to.be.false;
+      });
+
+      it('should close all menus when focus moves outside from submenu', async () => {
+        const outsideButton = document.createElement('button');
+
+        document.body.appendChild(outsideButton);
+
+        submenu.showPopover();
+        await submenu.updateComplete;
+
+        const submenuItem = submenu.querySelector('sl-menu-item')!;
+        submenuItem.focus();
+
+        expect(el.matches(':popover-open')).to.be.true;
+        expect(submenu.matches(':popover-open')).to.be.true;
+
+        outsideButton.focus();
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(el.matches(':popover-open')).to.be.false;
+
+        document.body.removeChild(outsideButton);
+      });
+
+      it('should not close parent menu when navigating within submenu', async () => {
+        submenu.showPopover();
+        await submenu.updateComplete;
+
+        const submenuItems = submenu.querySelectorAll('sl-menu-item');
+        submenuItems[0].focus();
+
+        expect(el.matches(':popover-open')).to.be.true;
+        expect(submenu.matches(':popover-open')).to.be.true;
+
+        submenuItems[1].focus();
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(el.matches(':popover-open')).to.be.true;
+        expect(submenu.matches(':popover-open')).to.be.true;
+      });
+    });
+
+    describe('nested submenus', () => {
+      let submenu: Menu, nestedSubmenu: Menu;
+
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-menu>
+            <sl-menu-item>Item 1</sl-menu-item>
+            <sl-menu-item>
+              Item 2 with submenu
+              <sl-menu slot="submenu">
+                <sl-menu-item>Subitem 1</sl-menu-item>
+                <sl-menu-item>
+                  Subitem 2 with nested submenu
+                  <sl-menu slot="submenu">
+                    <sl-menu-item>Nested item 1</sl-menu-item>
+                    <sl-menu-item>Nested item 2</sl-menu-item>
+                  </sl-menu>
+                </sl-menu-item>
+              </sl-menu>
+            </sl-menu-item>
+          </sl-menu>
+        `);
+
+        el.showPopover();
+        await el.updateComplete;
+
+        const parentMenuItem = el.querySelectorAll('sl-menu-item')[1];
+        submenu = parentMenuItem.querySelector('sl-menu')!;
+
+        submenu.showPopover();
+        await submenu.updateComplete;
+
+        const submenuMenuItem = submenu.querySelectorAll('sl-menu-item')[1];
+        nestedSubmenu = submenuMenuItem.querySelector('sl-menu')!;
+      });
+
+      it('should not close parent menus when focus moves to nested submenu', async () => {
+        const submenuItem = submenu.querySelectorAll('sl-menu-item')[1];
+
+        submenuItem.focus();
+
+        nestedSubmenu.showPopover();
+        await nestedSubmenu.updateComplete;
+
+        const nestedItem = nestedSubmenu.querySelector('sl-menu-item')!;
+
+        nestedItem.focus();
+
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(el.matches(':popover-open')).to.be.true;
+        expect(submenu.matches(':popover-open')).to.be.true;
+        expect(nestedSubmenu.matches(':popover-open')).to.be.true;
+      });
+
+      it('should close all menus when focus moves outside from nested submenu', async () => {
+        const outsideButton = document.createElement('button');
+
+        document.body.appendChild(outsideButton);
+
+        nestedSubmenu.showPopover();
+        await nestedSubmenu.updateComplete;
+
+        const nestedItem = nestedSubmenu.querySelector('sl-menu-item')!;
+        nestedItem.focus();
+
+        expect(el.matches(':popover-open')).to.be.true;
+        expect(submenu.matches(':popover-open')).to.be.true;
+        expect(nestedSubmenu.matches(':popover-open')).to.be.true;
+
+        outsideButton.focus();
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(el.matches(':popover-open')).to.be.false;
+
+        document.body.removeChild(outsideButton);
+      });
+    });
+  });
+
   describe('keyboard navigation', () => {
     describe('arrow key propagation', () => {
       let onKeydown: SinonSpy;
@@ -309,7 +596,6 @@ describe('sl-menu', () => {
       });
 
       it('should stop propagation of Escape key', async () => {
-        const onKeydown = spy();
         document.addEventListener('keydown', onKeydown);
 
         submenu.showPopover();

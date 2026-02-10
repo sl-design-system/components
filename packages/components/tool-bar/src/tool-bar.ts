@@ -4,6 +4,7 @@ import { Button, type ButtonFill } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { Menu, MenuButton, MenuItem, MenuItemGroup } from '@sl-design-system/menu';
 import { RovingTabindexController } from '@sl-design-system/shared';
+import { ToggleButton } from '@sl-design-system/toggle-button';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -73,7 +74,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       'sl-menu': Menu,
       'sl-menu-button': MenuButton,
       'sl-menu-item': MenuItem,
-      'sl-menu-item-group': MenuItemGroup
+      'sl-menu-item-group': MenuItemGroup,
+      'sl-toggle-button': ToggleButton
     };
   }
 
@@ -209,10 +211,10 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       const buttons: Element[] = [];
 
       Array.from(this.children).forEach(el => {
-        if (el.tagName === 'SL-BUTTON' || el.tagName === 'SL-MENU-BUTTON') {
+        if (el.tagName === 'SL-BUTTON' || el.tagName === 'SL-MENU-BUTTON' || el.tagName === 'SL-TOGGLE-BUTTON') {
           buttons.push(el);
         }
-        buttons.push(...Array.from(el.querySelectorAll('sl-button, sl-menu-button')));
+        buttons.push(...Array.from(el.querySelectorAll('sl-button, sl-menu-button, sl-toggle-button')));
       });
 
       if (this.disabled) {
@@ -657,10 +659,10 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   #updateButtonFillAndVariant(el: Element): void {
     const targets: Element[] = [];
 
-    if (el.tagName === 'SL-BUTTON' || el.tagName === 'SL-MENU-BUTTON') {
+    if (el.tagName === 'SL-BUTTON' || el.tagName === 'SL-MENU-BUTTON' || el.tagName === 'SL-TOGGLE-BUTTON') {
       targets.push(el);
     }
-    targets.push(...Array.from(el.querySelectorAll('sl-button, sl-menu-button')));
+    targets.push(...Array.from(el.querySelectorAll('sl-button, sl-menu-button, sl-toggle-button')));
 
     targets.forEach(btn => {
       if (this.fill) {
@@ -706,6 +708,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         }
 
         if (element instanceof Button) {
+          return this.#mapButtonToItem(element);
+        } else if (element instanceof ToggleButton) {
           return this.#mapButtonToItem(element);
         } else if (element instanceof MenuButton) {
           return this.#mapMenuButtonToItem(element);

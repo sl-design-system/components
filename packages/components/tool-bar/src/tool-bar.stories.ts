@@ -28,13 +28,15 @@ import {
   faAlignRight as fasAlignRight,
   faBold as fasBold,
   faItalic as fasItalic,
-  faUnderline as fasUnderline
+  faUnderline as fasUnderline,
+  faUniversalAccess as fasUniversalAccess
 } from '@fortawesome/pro-solid-svg-icons';
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/menu/register.js';
+import { type ToggleButton } from '@sl-design-system/toggle-button';
 import '@sl-design-system/toggle-button/register.js';
 import '@sl-design-system/toggle-group/register.js';
 import { tooltip } from '@sl-design-system/tooltip';
@@ -80,6 +82,7 @@ Icon.register(
   fasBold,
   fasItalic,
   fasUnderline,
+  fasUniversalAccess,
   faUniversalAccess
 );
 
@@ -349,20 +352,38 @@ export const State: Story = {
       'This example shows a how the tool bar automatically updates when the disabled state of buttons changes.',
     items: () => {
       const onClick = (event: Event) => {
-        const buttons = (event.target as HTMLElement).parentElement?.querySelectorAll<Button>(
-          'sl-button:not(:first-child)'
-        );
+        const toggle = event.target as ToggleButton;
+        const buttons = toggle.parentElement?.querySelectorAll<Button>('sl-button');
+        const liveRegion = toggle.parentElement?.querySelector('#live-region');
 
-        buttons?.forEach(button => {
-          button.disabled = !button.disabled;
+        buttons?.forEach((button: Button) => {
+          button.disabled = toggle.pressed;
         });
+
+        if (liveRegion) {
+          liveRegion.textContent = toggle.pressed ? 'Actions disabled' : 'Actions enabled';
+        }
       };
 
       return html`
-        <sl-button @click=${onClick} fill="outline">Toggle disabled</sl-button>
-        <sl-button fill="outline">Action 1</sl-button>
-        <sl-button fill="outline">Action 2</sl-button>
-        <sl-button fill="outline">Action 3</sl-button>
+        <style>
+          sl-toggle-button {
+            --sl-size-075: var(--sl-size-100);
+          }
+        </style>
+        <sl-toggle-button aria-controls="action-1 action-2 action-3" @sl-toggle=${onClick} fill="outline">
+          <sl-icon name="far-universal-access" slot="default"></sl-icon>
+          <sl-icon name="fas-universal-access" slot="pressed"></sl-icon>
+          Toggle disabled
+        </sl-toggle-button>
+        <sl-button id="action-1" fill="outline">Action 1</sl-button>
+        <sl-button id="action-2" fill="outline">Action 2</sl-button>
+        <sl-button id="action-3" fill="outline">Action 3</sl-button>
+        <div
+          id="live-region"
+          aria-live="polite"
+          style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;"
+        ></div>
       `;
     }
   }

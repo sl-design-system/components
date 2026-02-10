@@ -1233,7 +1233,7 @@ describe('sl-tool-bar', () => {
           <sl-toggle-button>Toggle</sl-toggle-button>
           <sl-button>Button</sl-button>
         </sl-tool-bar>
-      `);
+      `) as ToolBar;
       await new Promise(resolve => setTimeout(resolve, 50));
 
       const toggleButton = toolbar.querySelector('sl-toggle-button') as HTMLElement;

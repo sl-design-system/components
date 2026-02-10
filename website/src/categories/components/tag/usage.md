@@ -57,7 +57,7 @@ For tracking the status of tasks or items, such as "In Progress," "Completed," o
 |Item|Name| Description | Optional|
 |-|-|-|-|
 |1|Container |The container contains the label and close button |no|
-|2|Label |The label is a brief text that described the tag |no|
+|2|Label |The label is a brief text that describes the tag |no|
 |3|Close button |To remove the tag |yes|
 
 {.ds-table .ds-table-align-top}

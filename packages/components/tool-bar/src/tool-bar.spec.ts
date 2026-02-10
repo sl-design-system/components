@@ -7,6 +7,7 @@ import '@sl-design-system/icon/register.js';
 import { type MenuItem } from '@sl-design-system/menu';
 import '@sl-design-system/menu/register.js';
 import { closestElementComposed } from '@sl-design-system/shared';
+import { ToggleButton } from '@sl-design-system/toggle-button';
 import '@sl-design-system/toggle-button/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, html } from 'lit';
@@ -1198,13 +1199,13 @@ describe('sl-tool-bar', () => {
       expect(toggleButton).to.have.attribute('fill', 'ghost');
     });
 
-    it('should set variant attribute on child toggle buttons when inverted is true', async () => {
+    it('should NOT set variant attribute on child toggle buttons when inverted is true', async () => {
       el.inverted = true;
       await el.updateComplete;
 
       const toggleButton = el.querySelector('sl-toggle-button');
 
-      expect(toggleButton).to.have.attribute('variant', 'inverted');
+      expect(toggleButton).to.not.have.attribute('variant', 'inverted');
     });
 
     it('should disable toggle buttons when toolbar is disabled', async () => {
@@ -1229,7 +1230,7 @@ describe('sl-tool-bar', () => {
           <sl-toggle-button>Toggle</sl-toggle-button>
           <sl-button>Button</sl-button>
         </sl-tool-bar>
-      `) as ToolBar;
+      `);
       await new Promise(resolve => setTimeout(resolve, 50));
 
       const toggleButton = toolbar.querySelector('sl-toggle-button') as HTMLElement;
@@ -1249,7 +1250,13 @@ describe('sl-tool-bar', () => {
       expect(document.activeElement).to.equal(toggleButton);
     });
 
-    it('should move toggle button to overflow menu', async () => {
+    it('should move toggle button to overflow menu and reflect pressed state', async () => {
+      const toggleButton = el.querySelector('sl-toggle-button') as ToggleButton;
+      toggleButton.pressed = true;
+      await toggleButton.updateComplete;
+      el.refresh();
+      await el.updateComplete;
+
       el.style.inlineSize = '20px'; // Force overflow
       await new Promise(resolve => setTimeout(resolve, 150));
 
@@ -1257,6 +1264,7 @@ describe('sl-tool-bar', () => {
       expect(menuButton).to.exist;
       expect(el.menuItems).to.have.length(1);
       expect((el.menuItems[0] as ToolBarItemButton).label).to.equal('Toggle');
+      expect((el.menuItems[0] as ToolBarItemButton).pressed).to.be.true;
     });
   });
 });

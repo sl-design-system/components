@@ -1,6 +1,6 @@
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { Button, type ButtonFill } from '@sl-design-system/button';
+import { type ButtonFill } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { Menu, MenuButton, MenuItem, MenuItemGroup } from '@sl-design-system/menu';
 import { RovingTabindexController } from '@sl-design-system/shared';
@@ -28,6 +28,7 @@ export interface ToolBarItemButton extends ToolBarItemBase {
   icon?: string | null;
   label?: string | null;
   selectable?: boolean;
+  pressed?: boolean;
 
   click?(): void;
 }
@@ -74,8 +75,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       'sl-menu': Menu,
       'sl-menu-button': MenuButton,
       'sl-menu-item': MenuItem,
-      'sl-menu-item-group': MenuItemGroup,
-      'sl-toggle-button': ToggleButton
+      'sl-menu-item-group': MenuItemGroup
     };
   }
 
@@ -181,7 +181,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       childList: true,
       subtree: true,
       attributes: true,
-      attributeFilter: ['aria-disabled', 'disabled']
+      attributeFilter: ['aria-disabled', 'disabled', 'aria-pressed']
     });
   }
 
@@ -307,7 +307,12 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       return html`<hr />`;
     } else if (item.type === 'button') {
       return html`
-        <sl-menu-item @click=${() => item.click?.()} ?disabled=${item.disabled} ?selectable=${item.selectable}>
+        <sl-menu-item
+          @click=${() => item.click?.()}
+          ?disabled=${item.disabled}
+          ?selectable=${item.selectable}
+          ?selected=${item.pressed}
+        >
           ${item.icon ? html`<sl-icon .name=${item.icon}></sl-icon>` : nothing} ${item.label}
         </sl-menu-item>
       `;
@@ -380,7 +385,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         }
         return item.element;
       })
-      .filter((el): el is HTMLElement => el !== null);
+      .filter((el): el is HTMLElement => !!el);
 
     const menuButton = this.renderRoot.querySelector('sl-menu-button');
     if (!menuButton) {
@@ -463,6 +468,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       icon: button.querySelector('sl-icon')?.getAttribute('name'),
       label,
       selectable: button.hasAttribute('aria-pressed'),
+      pressed: !!(button.getAttribute('aria-pressed') === 'true' || (button instanceof ToggleButton && button.pressed)),
       visible: true,
       click: () => button.click()
     };
@@ -669,7 +675,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         btn.setAttribute('fill', this.fill);
       }
 
-      if (this.inverted) {
+      if (this.inverted && btn.tagName !== 'SL-TOGGLE-BUTTON') {
         btn.setAttribute('variant', 'inverted');
       } else {
         btn.removeAttribute('variant');
@@ -707,14 +713,12 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
           element.style.position = '';
         }
 
-        if (element instanceof Button) {
-          return this.#mapButtonToItem(element);
-        } else if (element instanceof ToggleButton) {
-          return this.#mapButtonToItem(element);
-        } else if (element instanceof MenuButton) {
-          return this.#mapMenuButtonToItem(element);
-        } else if (element instanceof ToolBarDivider) {
-          return { element, type: 'divider', visible: true };
+        if (element.tagName === 'SL-BUTTON' || element.tagName === 'SL-TOGGLE-BUTTON') {
+          return this.#mapButtonToItem(element as HTMLElement);
+        } else if (element.tagName === 'SL-MENU-BUTTON') {
+          return this.#mapMenuButtonToItem(element as MenuButton);
+        } else if (element.tagName === 'SL-TOOL-BAR-DIVIDER') {
+          return { element: element as HTMLElement, type: 'divider', visible: true };
         } else if (!['SL-TOOLTIP'].includes(element.tagName)) {
           console.warn(`Unknown element type: ${element.tagName} in sl-tool-bar.`);
         }

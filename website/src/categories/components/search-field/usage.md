@@ -55,9 +55,9 @@ Search field are a combination of a tab list and a tab panel. The tab list conta
 |Item|Name| Description | Optional|
 |-|-|-|-|
 |1|Icon | The icon improves the visibility. |Yes|
-|2|Placeholder | The placeholder provide an clue to user. |Yes|
-|3|Input | When the user enter their inputs. |Yes|
-|4|Clear Button | This button clear the user's input. It only appears when there is an input. |Yes|
+|2|Placeholder | The placeholder provides a clue to user. |Yes|
+|3|Input | When the user enters their inputs. |Yes|
+|4|Clear Button | This button clears the user's input. It only appears when there is an input. |Yes|
 |5|Search Button | Search action button. |No|
 
 {.ds-table .ds-table-align-top}

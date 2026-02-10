@@ -185,8 +185,6 @@ export class Tooltip extends LitElement {
       this.setAttribute('slot', anchorSlot); // make sure the tooltip is slotted correctly, otherwise it might inherit styles from the wrong slot
     }
 
-    console.log('this and isPopoverOpen', this, isPopoverOpen(this));
-
     if (!isPopoverOpen(this)) {
       this.showPopover();
     }

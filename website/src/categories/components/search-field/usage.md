@@ -55,10 +55,10 @@ Search field are a combination of a tab list and a tab panel. The tab list conta
 |Item|Name| Description | Optional|
 |-|-|-|-|
 |1|Icon | The icon improves the visibility. |Yes|
-|2|Placeholder | The plaholder provide an clue to user. |Yes|
-|1|Input | When the user enter their inputs. |Yes|
-|1|Clear Button | This button clear the user's input. It only appears when there is an input. |Yes|
-|1|Search Button | Search action button. |No|
+|2|Placeholder | The placeholder provide an clue to user. |Yes|
+|3|Input | When the user enter their inputs. |Yes|
+|4|Clear Button | This button clear the user's input. It only appears when there is an input. |Yes|
+|5|Search Button | Search action button. |No|
 
 {.ds-table .ds-table-align-top}
 
@@ -82,8 +82,8 @@ With these options, you can tweak the appearance of the Search field in Figma. T
 |-|-|-|
 |Size|`'md', 'lg'`|This are the sizes of the Search field. The `md`is the default size.  |
 |State|`'Default', 'Hover', 'Active', 'Disabled'`|The states of the Search field. |
-|Placeholder|`'On', 'Off'`|Toogle to switch between the placeholder and the input value. |
-|Label|`'On', 'Off'`|Toogle to display the Field Label. |
+|Placeholder|`'On', 'Off'`|Toggle to switch between the placeholder and the input value. |
+|Label|`'On', 'Off'`|Toggle to display the Field Label. |
 
 {.ds-table .ds-table-align-top}
 

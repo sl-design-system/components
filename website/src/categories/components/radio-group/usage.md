@@ -85,7 +85,7 @@ Radio buttons become less practical as the number of options in a list grows. If
 
 ## Sizing
 
-Radio Group come in two sizes, to match diferents scenarios:
+Radio Group come in two sizes, to match different scenarios:
 
   - **Medium:** The medium-sized radio buttons function as the default option across our user interfaces. It achieves a balanced blend of size and clarity, establishing itself as the standard and user-friendly choice for single-choice. 
 
@@ -98,7 +98,7 @@ Radio Group come in two sizes, to match diferents scenarios:
 
 ## Status
 
-Radio Group come in two sizes, to match diferents scenarios:
+Radio Group come in two sizes, to match different scenarios:
 
   - **Checked:** The checked status signifies that a user has actively selected that option from a group of choices. It visually indicates the chosen state, this visual cue helps users easily identify which option they have selected among the available choices.
 

@@ -7,6 +7,7 @@ import '@sl-design-system/icon/register.js';
 import { type MenuItem } from '@sl-design-system/menu';
 import '@sl-design-system/menu/register.js';
 import { closestElementComposed } from '@sl-design-system/shared';
+import '@sl-design-system/toggle-button/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, html } from 'lit';
 import { spy } from 'sinon';
@@ -1162,6 +1163,100 @@ describe('sl-tool-bar', () => {
 
       // No errors should occur
       expect(document.body.contains(el)).to.be.false;
+    });
+  });
+
+  describe('sl-toggle-button', () => {
+    let el: ToolBar;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-tool-bar style="inline-size: 400px">
+          <sl-toggle-button>Toggle</sl-toggle-button>
+        </sl-tool-bar>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+    });
+
+    it('should map the toggle button item', () => {
+      expect(el.items).to.have.length(1);
+
+      const item = el.items[0] as ToolBarItemButton;
+
+      expect(item.type).to.equal('button');
+      expect(item.label).to.equal('Toggle');
+      expect(item.selectable).to.be.true;
+    });
+
+    it('should update child toggle button attributes when fill is set', async () => {
+      el.fill = 'ghost';
+      await el.updateComplete;
+
+      const toggleButton = el.querySelector('sl-toggle-button');
+
+      expect(toggleButton).to.have.attribute('fill', 'ghost');
+    });
+
+    it('should set variant attribute on child toggle buttons when inverted is true', async () => {
+      el.inverted = true;
+      await el.updateComplete;
+
+      const toggleButton = el.querySelector('sl-toggle-button');
+
+      expect(toggleButton).to.have.attribute('variant', 'inverted');
+    });
+
+    it('should disable toggle buttons when toolbar is disabled', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      const toggleButton = el.querySelector('sl-toggle-button');
+
+      expect(toggleButton).to.have.attribute('disabled');
+    });
+
+    it('should move focus to toggle button when calling focus()', () => {
+      el.focus();
+      const toggleButton = el.querySelector('sl-toggle-button');
+
+      expect(document.activeElement).to.equal(toggleButton);
+    });
+
+    it('should include toggle button in roving tabindex navigation', async () => {
+      const toolbar = await fixture(html`
+        <sl-tool-bar style="inline-size: 600px">
+          <sl-toggle-button>Toggle</sl-toggle-button>
+          <sl-button>Button</sl-button>
+        </sl-tool-bar>
+      `);
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const toggleButton = toolbar.querySelector('sl-toggle-button') as HTMLElement;
+      const button = toolbar.querySelector('sl-button') as HTMLElement;
+
+      toggleButton.focus();
+      await toolbar.updateComplete;
+
+      await userEvent.keyboard('{ArrowRight}');
+      await toolbar.updateComplete;
+
+      expect(document.activeElement).to.equal(button);
+
+      await userEvent.keyboard('{ArrowLeft}');
+      await toolbar.updateComplete;
+
+      expect(document.activeElement).to.equal(toggleButton);
+    });
+
+    it('should move toggle button to overflow menu', async () => {
+      el.style.inlineSize = '20px'; // Force overflow
+      await new Promise(resolve => setTimeout(resolve, 150));
+
+      const menuButton = el.shadowRoot?.querySelector('sl-menu-button');
+      expect(menuButton).to.exist;
+      expect(el.menuItems).to.have.length(1);
+      expect((el.menuItems[0] as ToolBarItemButton).label).to.equal('Toggle');
     });
   });
 });

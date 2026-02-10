@@ -83,7 +83,10 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   /** Observe changes to the child elements. */
-  #mutationObserver = new MutationObserver(() => this.#updateMapping());
+  #mutationObserver = new MutationObserver(mutations => {
+    const forceMeasurement = mutations.some(m => m.type === 'childList');
+    this.#updateMapping(forceMeasurement);
+  });
 
   /** Flag indicating whether item width measurements are required before recalculating layout. */
   #needsMeasurement = true;
@@ -651,7 +654,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     this.#updateButtonAttributes(assigned);
 
     requestAnimationFrame(() => {
-      this.#updateMapping();
+      this.#updateMapping(true);
     });
   }
 
@@ -704,11 +707,13 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     });
   }
 
-  #updateMapping(): void {
+  #updateMapping(forceMeasurement = true): void {
     const slot = this.renderRoot.querySelector('slot')!,
       elements = slot.assignedElements({ flatten: true });
 
     this.empty = elements.length === 0;
+
+    const previousItems = this.items;
 
     this.items = elements
       .map(element => {
@@ -717,25 +722,40 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
           element.style.position = '';
         }
 
+        let item: ToolBarItem | undefined;
         if (element.tagName === 'SL-BUTTON' || element.tagName === 'SL-TOGGLE-BUTTON') {
-          return this.#mapButtonToItem(element as HTMLElement);
+          item = this.#mapButtonToItem(element as HTMLElement);
         } else if (element.tagName === 'SL-MENU-BUTTON') {
-          return this.#mapMenuButtonToItem(element as MenuButton);
+          item = this.#mapMenuButtonToItem(element as MenuButton);
         } else if (element.tagName === 'SL-TOOL-BAR-DIVIDER') {
-          return { element: element as HTMLElement, type: 'divider', visible: true };
+          item = { element: element as HTMLElement, type: 'divider', visible: true };
         } else if (!['SL-TOOLTIP'].includes(element.tagName)) {
           console.warn(`Unknown element type: ${element.tagName} in sl-tool-bar.`);
         }
 
-        return undefined;
+        if (item && !forceMeasurement) {
+          const previousItem = previousItems.find(i => i.element === element);
+          if (previousItem) {
+            item.visible = previousItem.visible;
+          }
+        }
+
+        return item;
       })
-      .filter(item => item !== undefined) as ToolBarItem[];
+      .filter((item): item is ToolBarItem => !!item);
 
-    this.#needsMeasurement = true;
+    if (forceMeasurement) {
+      this.#needsMeasurement = true;
 
-    // The menu-button may have appeared or disappeared, so we need to re-measure
-    this.#measureItems();
-    const contentBox = this.getBoundingClientRect();
-    this.#onResize(contentBox.width);
+      // The menu-button may have appeared or disappeared, so we need to re-measure
+      this.#measureItems();
+      const contentBox = this.getBoundingClientRect();
+      this.#onResize(contentBox.width);
+    } else {
+      this.menuItems = this.items.filter(item => !item.visible);
+
+      this.requestUpdate();
+      this.#rovingTabindexController.clearElementCache();
+    }
   }
 }

@@ -717,7 +717,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     this.items = elements
       .map(element => {
-        if (element instanceof HTMLElement) {
+        if (element instanceof HTMLElement && forceMeasurement) {
           element.style.visibility = '';
           element.style.position = '';
         }

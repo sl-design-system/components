@@ -1233,7 +1233,7 @@ describe('sl-tool-bar', () => {
           <sl-toggle-button>Toggle</sl-toggle-button>
           <sl-button>Button</sl-button>
         </sl-tool-bar>
-      `) as ToolBar;
+      `);
       await new Promise(resolve => setTimeout(resolve, 50));
 
       const toggleButton = toolbar.querySelector('sl-toggle-button') as HTMLElement;
@@ -1268,6 +1268,19 @@ describe('sl-tool-bar', () => {
       expect(el.menuItems).to.have.length(1);
       expect((el.menuItems[0] as ToolBarItemButton).label).to.equal('Toggle');
       expect((el.menuItems[0] as ToolBarItemButton).pressed).to.be.true;
+
+      const visibleItems = el.items.filter(item => item.visible);
+      const hiddenItems = el.items.filter(item => !item.visible);
+
+      expect(visibleItems).to.have.length(0);
+      expect(hiddenItems).to.have.length(1);
+      expect(hiddenItems[0].element.style.visibility).to.equal('hidden');
+
+      toggleButton.pressed = false;
+      await toggleButton.updateComplete;
+
+      expect(hiddenItems[0].element.style.visibility).to.equal('hidden');
+      expect((el.menuItems[0] as ToolBarItemButton).pressed).to.be.false;
     });
   });
 });

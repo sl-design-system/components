@@ -1191,12 +1191,15 @@ describe('sl-tool-bar', () => {
     });
 
     it('should update child toggle button attributes when fill is set', async () => {
-      el.fill = 'ghost';
-      await el.updateComplete;
-
       const toggleButton = el.querySelector('sl-toggle-button');
 
-      expect(toggleButton).to.have.attribute('fill', 'ghost');
+      el.fill = 'ghost';
+      await el.updateComplete;
+      expect(toggleButton).to.not.have.attribute('fill');
+
+      el.fill = 'outline';
+      await el.updateComplete;
+      expect(toggleButton).to.have.attribute('fill', 'outline');
     });
 
     it('should NOT set variant attribute on child toggle buttons when inverted is true', async () => {

@@ -467,7 +467,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       disabled: button.hasAttribute('disabled') || button.getAttribute('aria-disabled') === 'true',
       icon: button.querySelector('sl-icon')?.getAttribute('name'),
       label,
-      selectable: button.hasAttribute('aria-pressed'),
+      selectable: button.hasAttribute('aria-pressed') || button instanceof ToggleButton,
       pressed: !!(button.getAttribute('aria-pressed') === 'true' || (button instanceof ToggleButton && button.pressed)),
       visible: true,
       click: () => button.click()
@@ -672,7 +672,11 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     targets.forEach(btn => {
       if (this.fill) {
-        btn.setAttribute('fill', this.fill);
+        if (btn.tagName === 'SL-TOGGLE-BUTTON' && this.fill === 'ghost') {
+          btn.removeAttribute('fill');
+        } else {
+          btn.setAttribute('fill', this.fill);
+        }
       }
 
       if (this.inverted && btn.tagName !== 'SL-TOGGLE-BUTTON') {

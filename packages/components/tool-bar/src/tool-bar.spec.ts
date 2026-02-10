@@ -1279,6 +1279,10 @@ describe('sl-tool-bar', () => {
       toggleButton.pressed = false;
       await toggleButton.updateComplete;
 
+      // Wait for the MutationObserver to trigger and the toolbar to update the items mapping
+      await new Promise(resolve => setTimeout(resolve, 0));
+      await el.updateComplete;
+
       expect(hiddenItems[0].element.style.visibility).to.equal('hidden');
       expect((el.menuItems[0] as ToolBarItemButton).pressed).to.be.false;
     });

@@ -194,8 +194,7 @@ describe('sl-menu', () => {
     });
 
     describe('arrow left/right in submenu', () => {
-      let parentMenuItem: MenuItem;
-      let submenu: Menu;
+      let parentMenuItem: MenuItem, submenu: Menu;
 
       beforeEach(async () => {
         el = await fixture(html`
@@ -249,11 +248,13 @@ describe('sl-menu', () => {
     });
 
     describe('escape key in submenu', () => {
-      let parentMenuItem: MenuItem;
-      let submenu: Menu;
-      let submenuItem: MenuItem;
+      let parentMenuItem: MenuItem, submenu: Menu, submenuItem: MenuItem;
+
+      let onKeydown: SinonSpy;
 
       beforeEach(async () => {
+        onKeydown = spy();
+
         el = await fixture(html`
           <sl-menu>
             <sl-menu-item>Item 1</sl-menu-item>
@@ -274,6 +275,8 @@ describe('sl-menu', () => {
         submenu = parentMenuItem.querySelector('sl-menu')!;
         submenuItem = submenu.querySelector('sl-menu-item')!;
       });
+
+      afterEach(() => document.removeEventListener('keydown', onKeydown));
 
       it('should close only the submenu when Escape key is pressed', async () => {
         submenu.showPopover();
@@ -316,8 +319,6 @@ describe('sl-menu', () => {
         await userEvent.keyboard('{Escape}');
 
         expect(onKeydown).not.to.have.been.called;
-
-        document.removeEventListener('keydown', onKeydown);
       });
     });
   });

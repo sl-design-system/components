@@ -191,25 +191,6 @@ export const Avatar: Story = {
   }
 };
 
-export const Tooltip: Story = {
-  render: () => html`
-    <div class="container">
-      <sl-menu-button aria-describedby="settings-tooltip" aria-label="Label">
-        <sl-icon name="far-gear" slot="button"></sl-icon>
-        <sl-menu-item>
-          <sl-icon name="far-pen"></sl-icon>
-          Rename...
-        </sl-menu-item>
-        <sl-menu-item>
-          <sl-icon name="far-trash"></sl-icon>
-          Delete...
-        </sl-menu-item>
-      </sl-menu-button>
-      <sl-tooltip id="settings-tooltip" placement="top">Settings</sl-tooltip>
-    </div>
-  `
-};
-
 export const All: Story = {
   render: () => html`
     <style>
@@ -342,16 +323,13 @@ export const All: Story = {
 export const WithTooltips: Story = {
   render: () => html`
     <style>
-      .tooltip-demo {
+      .container {
         display: flex;
-        gap: 1rem;
-        align-items: center;
-        padding: 2rem;
+        gap: 0.5rem;
       }
     </style>
-    <div class="tooltip-demo">
-      <p>Hover or use Tab to focus the menu buttons below to see tooltips:</p>
-
+    <p>Menu buttons with tooltips connected via <code>aria-describedby</code> and <code>aria-labelledby</code></p>
+    <div class="container">
       <sl-menu-button aria-describedby="tooltip-settings" fill="outline">
         <sl-icon name="far-gear" slot="button"></sl-icon>
         <sl-menu-item>
@@ -365,7 +343,7 @@ export const WithTooltips: Story = {
       </sl-menu-button>
       <sl-tooltip id="tooltip-settings">Settings</sl-tooltip>
 
-      <sl-menu-button aria-describedby="tooltip-edit" fill="outline">
+      <sl-menu-button aria-labelledby="tooltip-edit" fill="outline">
         <sl-icon name="far-pen" slot="button"></sl-icon>
         <sl-menu-item>
           <sl-icon name="far-pen"></sl-icon>
@@ -377,28 +355,6 @@ export const WithTooltips: Story = {
         </sl-menu-item>
       </sl-menu-button>
       <sl-tooltip id="tooltip-edit">Edit</sl-tooltip>
-
-      <sl-menu-button aria-describedby="tooltip-delete" fill="outline">
-        <sl-icon name="far-trash" slot="button"></sl-icon>
-        <sl-menu-item>
-          <sl-icon name="far-trash"></sl-icon>
-          Delete permanently...
-        </sl-menu-item>
-        <sl-menu-item>Move to trash</sl-menu-item>
-      </sl-menu-button>
-      <sl-tooltip id="tooltip-delete">Delete</sl-tooltip>
-
-      <sl-menu-button aria-labelledby="tooltip" fill="solid" shape="pill">
-        <sl-icon name="face-smile"></sl-icon>
-        <sl-menu-item>
-          <sl-icon name="far-trash"></sl-icon>
-          Delete permanently...
-        </sl-menu-item>
-        <sl-menu-item>Move to trash</sl-menu-item>
-      </sl-menu-button>
-      <sl-tooltip id="tooltip" position="top">
-        This is the tooltip message that labels the icon only button.
-      </sl-tooltip>
     </div>
   `
 };

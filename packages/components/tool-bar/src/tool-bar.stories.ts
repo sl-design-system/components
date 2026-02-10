@@ -1,15 +1,12 @@
 /* eslint-disable slds/button-has-label */
 import {
-  faAlignCenter,
-  faAlignJustify,
-  faAlignLeft,
-  faAlignRight,
   faArrowDownWideShort,
   faArrowTurnLeftDown,
   faBarsFilter,
   faBold,
   faBoxArchive,
   faCopy,
+  faFileExport,
   faFont,
   faGear,
   faItalic,
@@ -22,10 +19,6 @@ import {
   faUniversalAccess
 } from '@fortawesome/pro-regular-svg-icons';
 import {
-  faAlignCenter as fasAlignCenter,
-  faAlignJustify as fasAlignJustify,
-  faAlignLeft as fasAlignLeft,
-  faAlignRight as fasAlignRight,
   faBold as fasBold,
   faItalic as fasItalic,
   faUnderline as fasUnderline
@@ -55,16 +48,13 @@ type Props = Pick<ToolBar, 'align' | 'contained' | 'disabled' | 'inverted' | 'fi
 type Story = StoryObj<Props>;
 
 Icon.register(
-  faAlignCenter,
-  faAlignJustify,
-  faAlignLeft,
-  faAlignRight,
   faArrowDownWideShort,
   faArrowTurnLeftDown,
   faBarsFilter,
   faBold,
   faBoxArchive,
   faCopy,
+  faFileExport,
   faFont,
   faGear,
   faItalic,
@@ -74,10 +64,6 @@ Icon.register(
   faScissors,
   faTrash,
   faUnderline,
-  fasAlignCenter,
-  fasAlignJustify,
-  fasAlignLeft,
-  fasAlignRight,
   fasBold,
   fasItalic,
   fasUnderline,
@@ -590,41 +576,28 @@ export const Examples: Story = {
     </style>
     <p>
       This story shows various real-world toolbar configurations: icon-only buttons, menu buttons with icons, buttons
-      with ARIA labels, primary/danger/inverted variants, and toolbar fills such as outline and ghost.
+      with ARIA labels and toolbar fills such as outline and ghost.
     </p>
-    <sl-tool-bar aria-label="Text formatting" contained fill="outline" style="inline-size: fit-content">
+    <sl-tool-bar aria-label="Page options" contained fill="outline" style="inline-size: fit-content">
       <sl-button aria-label="Accessibility">
         <sl-icon name="far-universal-access"></sl-icon>
       </sl-button>
 
-      <sl-menu-button aria-label="View">
-        <span slot="button"><sl-icon name="far-font"></sl-icon></span>
-        <sl-menu-item> 10 pt </sl-menu-item>
-        <sl-menu-item> 12 pt </sl-menu-item>
-        <sl-menu-item> 14 pt </sl-menu-item>
-        <sl-menu-item> 16 pt </sl-menu-item>
-        <sl-menu-item> 18 pt </sl-menu-item>
-        <sl-menu-item> 20 pt </sl-menu-item>
+      <sl-menu-button>
+        <span slot="button">Insert</span>
+        <sl-menu-item> Image </sl-menu-item>
+        <sl-menu-item> Table </sl-menu-item>
+        <sl-menu-item> Link </sl-menu-item>
+        <sl-menu-item> Code snippet </sl-menu-item>
+        <sl-menu-item> Quote </sl-menu-item>
       </sl-menu-button>
 
-      <sl-menu-button aria-label="Edit">
-        <span slot="button"><sl-icon style="vertical-align: text-top;" name="far-align-center"></sl-icon></span>
-        <sl-menu-item>
-          <sl-icon name="far-align-justify"></sl-icon>
-          Justify
-        </sl-menu-item>
-        <sl-menu-item>
-          <sl-icon name="far-align-center"></sl-icon>
-          Align center
-        </sl-menu-item>
-        <sl-menu-item>
-          <sl-icon name="far-align-left"></sl-icon>
-          Align left
-        </sl-menu-item>
-        <sl-menu-item>
-          <sl-icon name="far-align-right"></sl-icon>
-          Align right
-        </sl-menu-item>
+      <sl-menu-button aria-label="Export">
+        <span slot="button"><sl-icon style="vertical-align: text-top;" name="far-file-export"></sl-icon></span>
+        <sl-menu-item> ... as PDF </sl-menu-item>
+        <sl-menu-item> ... as Word </sl-menu-item>
+        <sl-menu-item> ... as HTML </sl-menu-item>
+        <sl-menu-item> ... as Markdown </sl-menu-item>
       </sl-menu-button>
 
       <sl-button aria-label="Edit">
@@ -632,7 +605,7 @@ export const Examples: Story = {
       </sl-button>
     </sl-tool-bar>
 
-    <sl-tool-bar aria-label="Options" contained fill="ghost" style="inline-size: fit-content">
+    <sl-tool-bar aria-label="Actions" contained fill="ghost" style="inline-size: fit-content">
       <sl-button aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
       <sl-button aria-label="Edit"><sl-icon name="far-pen"></sl-icon></sl-button>
       <sl-tool-bar-divider></sl-tool-bar-divider>
@@ -642,7 +615,7 @@ export const Examples: Story = {
       <sl-button aria-label="Send" variant="primary"><sl-icon name="far-paper-plane"></sl-icon>Send</sl-button>
     </sl-tool-bar>
 
-    <sl-tool-bar aria-label="Options" contained inverted fill="ghost" style="inline-size: fit-content">
+    <sl-tool-bar aria-label="Actions" contained inverted fill="ghost" style="inline-size: fit-content">
       <sl-button aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
       <sl-button aria-label="Edit"><sl-icon name="far-pen"></sl-icon></sl-button>
       <sl-tool-bar-divider></sl-tool-bar-divider>
@@ -659,14 +632,13 @@ export const Examples: Story = {
       <sl-button aria-label="Filter"><sl-icon name="far-bars-filter"></sl-icon></sl-button>
       <sl-button aria-label="Sort descending"><sl-icon name="far-arrow-down-wide-short"></sl-icon></sl-button>
       <sl-tool-bar-divider></sl-tool-bar-divider>
-      <sl-menu-button aria-label="Sort by">
-        <span slot="button">Date</span>
-        <sl-menu-item-group heading="Sort by">
-          <sl-menu-item> From </sl-menu-item>
-          <sl-menu-item> Category </sl-menu-item>
-          <sl-menu-item> Size </sl-menu-item>
-          <sl-menu-item> Importance </sl-menu-item>
-        </sl-menu-item-group>
+      <sl-menu-button>
+        <span slot="button">Insert</span>
+        <sl-menu-item> Image </sl-menu-item>
+        <sl-menu-item> Table </sl-menu-item>
+        <sl-menu-item> Link </sl-menu-item>
+        <sl-menu-item> Code snippet </sl-menu-item>
+        <sl-menu-item> Quote </sl-menu-item>
       </sl-menu-button>
     </sl-tool-bar>
 
@@ -679,14 +651,13 @@ export const Examples: Story = {
         <sl-icon name="far-arrow-down-wide-short"></sl-icon>
       </sl-button>
       <sl-tool-bar-divider></sl-tool-bar-divider>
-      <sl-menu-button aria-label="Sort by">
-        <span slot="button">Date</span>
-        <sl-menu-item-group heading="Sort by">
-          <sl-menu-item> From </sl-menu-item>
-          <sl-menu-item> Category </sl-menu-item>
-          <sl-menu-item> Size </sl-menu-item>
-          <sl-menu-item> Importance </sl-menu-item>
-        </sl-menu-item-group>
+      <sl-menu-button>
+        <span slot="button">Insert</span>
+        <sl-menu-item> Image </sl-menu-item>
+        <sl-menu-item> Table </sl-menu-item>
+        <sl-menu-item> Link </sl-menu-item>
+        <sl-menu-item> Code snippet </sl-menu-item>
+        <sl-menu-item> Quote </sl-menu-item>
       </sl-menu-button>
     </sl-tool-bar>
   `

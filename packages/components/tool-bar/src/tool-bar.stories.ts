@@ -144,22 +144,33 @@ export default {
         }
 
         .container {
+          gap: 1rem;
+        }
+
+        .wrapper {
           display: flex;
           gap: 1rem;
         }
+
+        sl-tool-bar {
+          flex: 1 1 0;
+          min-inline-size: 0;
+        }
       </style>
       <div class="container">
-        ${itemsOutsideContainer?.(args)}
-        <sl-tool-bar
-          ?contained=${contained}
-          ?inverted=${inverted}
-          .disabled=${ifDefined(disabled)}
-          align=${ifDefined(align)}
-          fill=${ifDefined(fill)}
-          style="inline-size: ${width ?? 'auto'}"
-        >
-          ${items?.(args)}
-        </sl-tool-bar>
+        <div class="wrapper">
+          ${itemsOutsideContainer?.(args)}
+          <sl-tool-bar
+            ?contained=${contained}
+            ?inverted=${inverted}
+            .disabled=${ifDefined(disabled)}
+            align=${ifDefined(align)}
+            fill=${ifDefined(fill)}
+            style="inline-size: ${width ?? 'auto'}"
+          >
+            ${items?.(args)}
+          </sl-tool-bar>
+        </div>
       </div>
     `;
   }

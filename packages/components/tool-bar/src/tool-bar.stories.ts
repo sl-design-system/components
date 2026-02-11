@@ -31,6 +31,7 @@ import {
   faUnderline as fasUnderline,
   faUniversalAccess as fasUniversalAccess
 } from '@fortawesome/pro-solid-svg-icons';
+import { announce } from '@sl-design-system/announcer';
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { Icon } from '@sl-design-system/icon';
@@ -45,7 +46,7 @@ import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
-import { announce } from '@sl-design-system/announcer';
+
 import { type ToolBar } from './tool-bar.js';
 
 interface Props extends Pick<ToolBar, 'align' | 'contained' | 'disabled' | 'inverted' | 'fill'> {
@@ -126,7 +127,8 @@ export default {
     }
   },
   render: args => {
-    const { align, contained, description, disabled, inverted, items, resizable, fill, width, itemsOutsideContainer } = args;
+    const { align, contained, description, disabled, inverted, items, resizable, fill, width, itemsOutsideContainer } =
+      args;
     return html`
       ${description ? html`<p>${description}</p>` : nothing}
       <style>

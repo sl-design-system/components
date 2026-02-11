@@ -1,5 +1,5 @@
 ---
-'@sl-design-system/menu': patch
+'@sl-design-system/menu': minor
 ---
 
 Fixes keyboard navigation and focus management:

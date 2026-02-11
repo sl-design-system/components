@@ -135,30 +135,6 @@ export class Menu extends LitElement {
     this.#rovingTabindexController.focusToElement(this.#menuItems.length - 1);
   }
 
-  /** Check if a menu is a direct submenu of any menu item in this menu. */
-  #isDirectSubmenu(menu: Menu): boolean {
-    return this.#menuItems.some(item => item.submenu === menu);
-  }
-
-  /** Check if a menu is a submenu (direct or nested) of a parent menu. */
-  #isSubmenuOf(menu: Menu, parentMenu: Menu): boolean {
-    let currentMenu: Menu | null = menu;
-
-    while (currentMenu) {
-      if (currentMenu === parentMenu) {
-        return true;
-      }
-
-      if (!currentMenu.anchorElement || !(currentMenu.anchorElement instanceof MenuItem)) {
-        return false;
-      }
-
-      currentMenu = currentMenu.anchorElement.closest('sl-menu');
-    }
-
-    return false;
-  }
-
   #onFocusout(event: FocusEvent): void {
     if (this.#shouldIgnoreFocusout(event) || this.#shouldKeepMenuOpen(event.relatedTarget as Node)) {
       return;
@@ -259,6 +235,30 @@ export class Menu extends LitElement {
     this.#propagateEmphasis();
 
     this.#rovingTabindexController.clearElementCache();
+  }
+
+  /** Check if a menu is a direct submenu of any menu item in this menu. */
+  #isDirectSubmenu(menu: Menu): boolean {
+    return this.#menuItems.some(item => item.submenu === menu);
+  }
+
+  /** Check if a menu is a submenu (direct or nested) of a parent menu. */
+  #isSubmenuOf(menu: Menu, parentMenu: Menu): boolean {
+    let currentMenu: Menu | null = menu;
+
+    while (currentMenu) {
+      if (currentMenu === parentMenu) {
+        return true;
+      }
+
+      if (!currentMenu.anchorElement || !(currentMenu.anchorElement instanceof MenuItem)) {
+        return false;
+      }
+
+      currentMenu = currentMenu.anchorElement.closest('sl-menu');
+    }
+
+    return false;
   }
 
   #propagateEmphasis(): void {

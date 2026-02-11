@@ -325,7 +325,8 @@ export const WithTooltips: Story = {
     <style>
       .container {
         display: flex;
-        gap: 0.5rem;
+        gap: 0.6rem;
+        align-items: center;
       }
     </style>
     <p>Menu buttons with tooltips connected via <code>aria-labelledby</code></p>

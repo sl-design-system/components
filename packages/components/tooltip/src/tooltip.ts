@@ -211,8 +211,6 @@ export class Tooltip extends LitElement {
           (target as Element).matches(':focus-visible') ||
           path.some(el => el instanceof Element && el.matches(':focus-visible'));
 
-        console.log('target in focusin', target, 'hasFocusVisible', hasFocusVisible);
-
         if (hasFocusVisible) {
           this.#showTooltip(target as HTMLElement);
         }

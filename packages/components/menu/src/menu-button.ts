@@ -47,9 +47,6 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
   }
 
   /** @internal */
-  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
-
-  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** Observe changes to aria-describedby and aria-labelledby attributes. */
@@ -218,41 +215,36 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
    * Update the aria-describedby and aria-labelledby references on the button using
    * ElementInternals.ariaDescribedByElements and ElementInternals.ariaLabelledByElements
    * to get the references working across shadow DOM boundaries.
-   */
-  #updateAriaReferences(): void {
+   */ #updateAriaReferences(): void {
     if (!this.button?.internals) {
       return;
     }
 
-    const rootNode = this.getRootNode() as Document | ShadowRoot,
-      ariaDescribedBy = this.getAttribute('aria-describedby');
+    const rootNode = this.getRootNode() as Document | ShadowRoot;
 
-    if (ariaDescribedBy) {
-      const elements = ariaDescribedBy
+    this.#setAriaReference('aria-describedby', 'ariaDescribedByElements', rootNode);
+    this.#setAriaReference('aria-labelledby', 'ariaLabelledByElements', rootNode);
+  }
+
+  /** Set an ARIA reference on the button using ElementInternals. */
+  #setAriaReference(
+    attribute: string,
+    property: 'ariaDescribedByElements' | 'ariaLabelledByElements',
+    rootNode: Document | ShadowRoot
+  ): void {
+    const ariaValue = this.getAttribute(attribute);
+
+    if (ariaValue) {
+      const elements = ariaValue
         .split(' ')
         .map(id => rootNode.querySelector(`#${id}`))
         .filter((el): el is Element => el !== null);
 
       if (elements.length > 0) {
-        this.button.internals.ariaDescribedByElements = elements;
+        this.button.internals[property] = elements;
       }
     } else {
-      this.button.internals.ariaDescribedByElements = null;
-    }
-
-    const ariaLabelledBy = this.getAttribute('aria-labelledby');
-
-    if (ariaLabelledBy) {
-      const elements = ariaLabelledBy
-        .split(' ')
-        .map(id => rootNode.querySelector(`#${id}`))
-        .filter((el): el is Element => el !== null);
-
-      if (elements.length > 0) {
-        this.button.internals.ariaLabelledByElements = elements;
-      }
-    } else {
-      this.button.internals.ariaLabelledByElements = null;
+      this.button.internals[property] = null;
     }
   }
 }

@@ -328,9 +328,9 @@ export const WithTooltips: Story = {
         gap: 0.5rem;
       }
     </style>
-    <p>Menu buttons with tooltips connected via <code>aria-describedby</code> and <code>aria-labelledby</code></p>
+    <p>Menu buttons with tooltips connected via <code>aria-labelledby</code></p>
     <div class="container">
-      <sl-menu-button aria-describedby="tooltip-settings" fill="outline">
+      <sl-menu-button aria-labelledby="tooltip-settings" fill="outline">
         <sl-icon name="far-gear" slot="button"></sl-icon>
         <sl-menu-item>
           <sl-icon name="far-pen"></sl-icon>
@@ -343,7 +343,7 @@ export const WithTooltips: Story = {
       </sl-menu-button>
       <sl-tooltip id="tooltip-settings">Settings</sl-tooltip>
 
-      <sl-menu-button aria-labelledby="tooltip-edit" fill="outline">
+      <sl-menu-button aria-labelledby="tooltip-edit" fill="outline" size="lg">
         <sl-icon name="far-pen" slot="button"></sl-icon>
         <sl-menu-item>
           <sl-icon name="far-pen"></sl-icon>

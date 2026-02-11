@@ -40,6 +40,7 @@ import '@sl-design-system/menu/register.js';
 import { type ToggleButton } from '@sl-design-system/toggle-button';
 import '@sl-design-system/toggle-button/register.js';
 import '@sl-design-system/toggle-group/register.js';
+import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { tooltip } from '@sl-design-system/tooltip';
 import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
@@ -365,16 +366,16 @@ export const State: Story = {
     description:
       'This example shows a how the tool bar automatically updates when the disabled state of buttons changes.',
     itemsOutsideContainer: () => {
-      const onClick = (event: Event) => {
-        const toggle = event.target as ToggleButton;
+      const onClick = (event: SlToggleEvent<boolean>) => {
+        const toggle = event.currentTarget as ToggleButton;
         const container = toggle.closest('.container');
         const buttons = container?.querySelectorAll<Button>('sl-button');
 
         buttons?.forEach((button: Button) => {
-          button.disabled = toggle.pressed;
+          button.disabled = event.detail;
         });
 
-        announce(toggle.pressed ? 'Actions disabled' : 'Actions enabled');
+        announce(event.detail ? 'Actions disabled' : 'Actions enabled');
       };
 
       return html`

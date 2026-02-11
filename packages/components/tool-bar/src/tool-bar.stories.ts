@@ -37,10 +37,10 @@ import '@sl-design-system/button/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/menu/register.js';
+import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type ToggleButton } from '@sl-design-system/toggle-button';
 import '@sl-design-system/toggle-button/register.js';
 import '@sl-design-system/toggle-group/register.js';
-import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { tooltip } from '@sl-design-system/tooltip';
 import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
@@ -143,17 +143,13 @@ export default {
           padding: 1.2rem;
         }
 
-        .container {
-          gap: 1rem;
-        }
-
         .wrapper {
           display: flex;
           gap: 1rem;
         }
 
-        sl-tool-bar {
-          flex: 1 1 0;
+        .container sl-tool-bar {
+          flex: ${resizable && !width ? 1 : 0} 1 auto;
           min-inline-size: 0;
         }
       </style>
@@ -391,7 +387,7 @@ export const State: Story = {
 
       return html`
         <style>
-          sl-toggle-button {
+          .container sl-toggle-button {
             height: var(--sl-size-450);
           }
         </style>
@@ -448,6 +444,11 @@ export const IconOnly: Story = {
         .container:has(sl-tool-bar[inverted]:not([contained])) {
           background: var(--sl-color-background-primary-bold);
           padding: 1.2rem;
+        }
+
+        .container sl-tool-bar {
+          flex: 0 1 auto;
+          min-inline-size: 0;
         }
       </style>
       <p>This example shows a tool bar with icon only buttons / menu buttons with tooltips.</p>
@@ -577,14 +578,14 @@ export const Combination: Story = {
         padding: var(--sl-size-100);
         resize: horizontal;
 
-        sl-tool-bar {
-          flex: 1 1 0;
-          min-inline-size: 0;
-        }
-
         > span {
           flex-shrink: 0;
         }
+      }
+
+      .container sl-tool-bar {
+        flex: 1 1 auto;
+        min-inline-size: 0;
       }
     </style>
     <p>
@@ -609,111 +610,115 @@ export const Combination: Story = {
 export const Examples: Story = {
   render: () => html`
     <style>
-      sl-tool-bar {
+      .container sl-tool-bar {
+        flex: 0 1 auto;
+        min-inline-size: 0;
         margin-block-end: var(--sl-size-300);
       }
     </style>
-    <p>
-      This story shows various real-world toolbar configurations: icon-only buttons, menu buttons with icons, buttons
-      with ARIA labels, primary/danger/inverted variants, and toolbar fills such as outline and ghost.
-    </p>
-    <sl-tool-bar aria-label="Text formatting" contained fill="outline" style="inline-size: fit-content">
-      <sl-button aria-label="Accessibility">
-        <sl-icon name="far-universal-access"></sl-icon>
-      </sl-button>
+    <div class="container">
+      <p>
+        This story shows various real-world toolbar configurations: icon-only buttons, menu buttons with icons, buttons
+        with ARIA labels, primary/danger/inverted variants, and toolbar fills such as outline and ghost.
+      </p>
+      <sl-tool-bar aria-label="Text formatting" contained fill="outline" style="inline-size: fit-content">
+        <sl-button aria-label="Accessibility">
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
 
-      <sl-menu-button aria-label="Font">
-        <span slot="button"><sl-icon style="vertical-align: text-top;" name="far-font"></sl-icon></span>
-        <sl-menu-item> 10 pt </sl-menu-item>
-        <sl-menu-item> 12 pt </sl-menu-item>
-        <sl-menu-item> 14 pt </sl-menu-item>
-        <sl-menu-item> 16 pt </sl-menu-item>
-        <sl-menu-item> 18 pt </sl-menu-item>
-        <sl-menu-item> 20 pt </sl-menu-item>
-      </sl-menu-button>
+        <sl-menu-button aria-label="Font">
+          <span slot="button"><sl-icon style="vertical-align: text-top;" name="far-font"></sl-icon></span>
+          <sl-menu-item> 10 pt </sl-menu-item>
+          <sl-menu-item> 12 pt </sl-menu-item>
+          <sl-menu-item> 14 pt </sl-menu-item>
+          <sl-menu-item> 16 pt </sl-menu-item>
+          <sl-menu-item> 18 pt </sl-menu-item>
+          <sl-menu-item> 20 pt </sl-menu-item>
+        </sl-menu-button>
 
-      <sl-menu-button aria-label="Edit">
-        <span slot="button"><sl-icon style="vertical-align: text-top;" name="far-align-center"></sl-icon></span>
-        <sl-menu-item>
-          <sl-icon name="far-align-justify"></sl-icon>
-          Justify
-        </sl-menu-item>
-        <sl-menu-item>
-          <sl-icon name="far-align-center"></sl-icon>
-          Align center
-        </sl-menu-item>
-        <sl-menu-item>
-          <sl-icon name="far-align-left"></sl-icon>
-          Align left
-        </sl-menu-item>
-        <sl-menu-item>
-          <sl-icon name="far-align-right"></sl-icon>
-          Align right
-        </sl-menu-item>
-      </sl-menu-button>
+        <sl-menu-button aria-label="Edit">
+          <span slot="button"><sl-icon style="vertical-align: text-top;" name="far-align-center"></sl-icon></span>
+          <sl-menu-item>
+            <sl-icon name="far-align-justify"></sl-icon>
+            Justify
+          </sl-menu-item>
+          <sl-menu-item>
+            <sl-icon name="far-align-center"></sl-icon>
+            Align center
+          </sl-menu-item>
+          <sl-menu-item>
+            <sl-icon name="far-align-left"></sl-icon>
+            Align left
+          </sl-menu-item>
+          <sl-menu-item>
+            <sl-icon name="far-align-right"></sl-icon>
+            Align right
+          </sl-menu-item>
+        </sl-menu-button>
 
-      <sl-button aria-label="Edit">
-        <sl-icon name="far-pen"></sl-icon>
-      </sl-button>
-    </sl-tool-bar>
+        <sl-button aria-label="Edit">
+          <sl-icon name="far-pen"></sl-icon>
+        </sl-button>
+      </sl-tool-bar>
 
-    <sl-tool-bar aria-label="Options" contained fill="ghost" style="inline-size: fit-content">
-      <sl-button aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
-      <sl-button aria-label="Edit"><sl-icon name="far-pen"></sl-icon></sl-button>
-      <sl-tool-bar-divider></sl-tool-bar-divider>
-      <sl-button aria-label="Archive"><sl-icon name="far-box-archive"></sl-icon>Archive</sl-button>
-      <sl-button aria-label="Delete" variant="danger"> <sl-icon name="far-trash"></sl-icon>Delete</sl-button>
-      <sl-tool-bar-divider></sl-tool-bar-divider>
-      <sl-button aria-label="Send" variant="primary"><sl-icon name="far-paper-plane"></sl-icon>Send</sl-button>
-    </sl-tool-bar>
+      <sl-tool-bar aria-label="Options" contained fill="ghost" style="inline-size: fit-content">
+        <sl-button aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
+        <sl-button aria-label="Edit"><sl-icon name="far-pen"></sl-icon></sl-button>
+        <sl-tool-bar-divider></sl-tool-bar-divider>
+        <sl-button aria-label="Archive"><sl-icon name="far-box-archive"></sl-icon>Archive</sl-button>
+        <sl-button aria-label="Delete" variant="danger"> <sl-icon name="far-trash"></sl-icon>Delete</sl-button>
+        <sl-tool-bar-divider></sl-tool-bar-divider>
+        <sl-button aria-label="Send" variant="primary"><sl-icon name="far-paper-plane"></sl-icon>Send</sl-button>
+      </sl-tool-bar>
 
-    <sl-tool-bar aria-label="Options" contained inverted fill="ghost" style="inline-size: fit-content">
-      <sl-button aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
-      <sl-button aria-label="Edit"><sl-icon name="far-pen"></sl-icon></sl-button>
-      <sl-tool-bar-divider></sl-tool-bar-divider>
-      <sl-button aria-label="Archive"><sl-icon name="far-box-archive"></sl-icon>Archive</sl-button>
-      <sl-button aria-label="Delete"><sl-icon name="far-trash"></sl-icon>Delete</sl-button>
-      <sl-tool-bar-divider></sl-tool-bar-divider>
-      <sl-button aria-label="Send"><sl-icon name="far-paper-plane"></sl-icon>Send</sl-button>
-    </sl-tool-bar>
+      <sl-tool-bar aria-label="Options" contained inverted fill="ghost" style="inline-size: fit-content">
+        <sl-button aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
+        <sl-button aria-label="Edit"><sl-icon name="far-pen"></sl-icon></sl-button>
+        <sl-tool-bar-divider></sl-tool-bar-divider>
+        <sl-button aria-label="Archive"><sl-icon name="far-box-archive"></sl-icon>Archive</sl-button>
+        <sl-button aria-label="Delete"><sl-icon name="far-trash"></sl-icon>Delete</sl-button>
+        <sl-tool-bar-divider></sl-tool-bar-divider>
+        <sl-button aria-label="Send"><sl-icon name="far-paper-plane"></sl-icon>Send</sl-button>
+      </sl-tool-bar>
 
-    <sl-tool-bar aria-label="Filtering and sorting" contained fill="ghost" style="inline-size: fit-content">
-      <sl-button aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
-      <sl-button aria-label="Enter"><sl-icon name="far-arrow-turn-left-down"></sl-icon></sl-button>
-      <sl-tool-bar-divider></sl-tool-bar-divider>
-      <sl-button aria-label="Filter"><sl-icon name="far-bars-filter"></sl-icon></sl-button>
-      <sl-button aria-label="Sort descending"><sl-icon name="far-arrow-down-wide-short"></sl-icon></sl-button>
-      <sl-tool-bar-divider></sl-tool-bar-divider>
-      <sl-menu-button aria-label="Sort by">
-        <span slot="button">Date</span>
-        <sl-menu-item-group heading="Sort by">
-          <sl-menu-item> From </sl-menu-item>
-          <sl-menu-item> Category </sl-menu-item>
-          <sl-menu-item> Size </sl-menu-item>
-          <sl-menu-item> Importance </sl-menu-item>
-        </sl-menu-item-group>
-      </sl-menu-button>
-    </sl-tool-bar>
+      <sl-tool-bar aria-label="Filtering and sorting" contained fill="ghost" style="inline-size: fit-content">
+        <sl-button aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
+        <sl-button aria-label="Enter"><sl-icon name="far-arrow-turn-left-down"></sl-icon></sl-button>
+        <sl-tool-bar-divider></sl-tool-bar-divider>
+        <sl-button aria-label="Filter"><sl-icon name="far-bars-filter"></sl-icon></sl-button>
+        <sl-button aria-label="Sort descending"><sl-icon name="far-arrow-down-wide-short"></sl-icon></sl-button>
+        <sl-tool-bar-divider></sl-tool-bar-divider>
+        <sl-menu-button aria-label="Sort by">
+          <span slot="button">Date</span>
+          <sl-menu-item-group heading="Sort by">
+            <sl-menu-item> From </sl-menu-item>
+            <sl-menu-item> Category </sl-menu-item>
+            <sl-menu-item> Size </sl-menu-item>
+            <sl-menu-item> Importance </sl-menu-item>
+          </sl-menu-item-group>
+        </sl-menu-button>
+      </sl-tool-bar>
 
-    <sl-tool-bar aria-label="Filtering and sorting" contained inverted fill="ghost" style="inline-size: fit-content">
-      <sl-button aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
-      <sl-button aria-label="Enter"><sl-icon name="far-arrow-turn-left-down"></sl-icon></sl-button>
-      <sl-tool-bar-divider></sl-tool-bar-divider>
-      <sl-button aria-label="Filter"><sl-icon name="far-bars-filter"></sl-icon></sl-button>
-      <sl-button aria-label="Sort descending">
-        <sl-icon name="far-arrow-down-wide-short"></sl-icon>
-      </sl-button>
-      <sl-tool-bar-divider></sl-tool-bar-divider>
-      <sl-menu-button aria-label="Sort by">
-        <span slot="button">Date</span>
-        <sl-menu-item-group heading="Sort by">
-          <sl-menu-item> From </sl-menu-item>
-          <sl-menu-item> Category </sl-menu-item>
-          <sl-menu-item> Size </sl-menu-item>
-          <sl-menu-item> Importance </sl-menu-item>
-        </sl-menu-item-group>
-      </sl-menu-button>
-    </sl-tool-bar>
+      <sl-tool-bar aria-label="Filtering and sorting" contained inverted fill="ghost" style="inline-size: fit-content">
+        <sl-button aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
+        <sl-button aria-label="Enter"><sl-icon name="far-arrow-turn-left-down"></sl-icon></sl-button>
+        <sl-tool-bar-divider></sl-tool-bar-divider>
+        <sl-button aria-label="Filter"><sl-icon name="far-bars-filter"></sl-icon></sl-button>
+        <sl-button aria-label="Sort descending">
+          <sl-icon name="far-arrow-down-wide-short"></sl-icon>
+        </sl-button>
+        <sl-tool-bar-divider></sl-tool-bar-divider>
+        <sl-menu-button aria-label="Sort by">
+          <span slot="button">Date</span>
+          <sl-menu-item-group heading="Sort by">
+            <sl-menu-item> From </sl-menu-item>
+            <sl-menu-item> Category </sl-menu-item>
+            <sl-menu-item> Size </sl-menu-item>
+            <sl-menu-item> Importance </sl-menu-item>
+          </sl-menu-item-group>
+        </sl-menu-button>
+      </sl-tool-bar>
+    </div>
   `
 };
 
@@ -721,84 +726,91 @@ export const All: Story = {
   render: () => {
     return html`
       <style>
-        .wrapper {
+        .container .wrapper {
           display: grid;
           align-items: center;
           grid-template-columns: auto 1fr 1fr;
           gap: 1rem;
         }
+
+        .container sl-tool-bar {
+          flex: 0 1 auto;
+          min-inline-size: 0;
+        }
       </style>
-      <div class="wrapper">
-        <span></span>
-        <span style="justify-self: center; grid-column: 2 / 3">Contained</span>
-        <span style="justify-self: center; grid-column: 3 / 3">Non-contained (default)</span>
+      <div class="container">
+        <div class="wrapper">
+          <span></span>
+          <span style="justify-self: center; grid-column: 2 / 3">Contained</span>
+          <span style="justify-self: center; grid-column: 3 / 3">Non-contained (default)</span>
 
-        <span>Ghost</span>
-        <sl-tool-bar aria-label="Options" contained fill="ghost">
-          <sl-button aria-label="Copy">Button 1</sl-button>
-          <sl-button aria-label="Edit">Button 2</sl-button>
-          <sl-button aria-label="Archive">Button 3</sl-button>
-          <sl-button aria-label="Delete">Button 4</sl-button>
-          <sl-button aria-label="Send">Button 5</sl-button>
-        </sl-tool-bar>
-        <sl-tool-bar aria-label="Options" fill="ghost">
-          <sl-button aria-label="Copy">Button 1</sl-button>
-          <sl-button aria-label="Edit">Button 2</sl-button>
-          <sl-button aria-label="Archive">Button 3</sl-button>
-          <sl-button aria-label="Delete">Button 4</sl-button>
-          <sl-button aria-label="Send">Button 5</sl-button>
-        </sl-tool-bar>
-
-        <span>Outline</span>
-        <sl-tool-bar aria-label="Options" contained fill="outline">
-          <sl-button aria-label="Copy">Button 1</sl-button>
-          <sl-button aria-label="Edit">Button 2</sl-button>
-          <sl-button aria-label="Archive">Button 3</sl-button>
-          <sl-button aria-label="Delete">Button 4</sl-button>
-          <sl-button aria-label="Send">Button 5</sl-button>
-        </sl-tool-bar>
-        <sl-tool-bar aria-label="Options" fill="outline">
-          <sl-button aria-label="Copy">Button 1</sl-button>
-          <sl-button aria-label="Edit">Button 2</sl-button>
-          <sl-button aria-label="Archive">Button 3</sl-button>
-          <sl-button aria-label="Delete">Button 4</sl-button>
-          <sl-button aria-label="Send">Button 5</sl-button>
-        </sl-tool-bar>
-
-        <span>Ghost inverted</span>
-        <sl-tool-bar aria-label="Options" contained inverted fill="ghost">
-          <sl-button aria-label="Copy">Button 1</sl-button>
-          <sl-button aria-label="Edit">Button 2</sl-button>
-          <sl-button aria-label="Archive">Button 3</sl-button>
-          <sl-button aria-label="Delete">Button 4</sl-button>
-          <sl-button aria-label="Send">Button 5</sl-button>
-        </sl-tool-bar>
-        <div style="background: var(--sl-color-background-primary-bold); padding: 1.6rem;">
-          <sl-tool-bar aria-label="Options" inverted fill="ghost">
+          <span>Ghost</span>
+          <sl-tool-bar aria-label="Options" contained fill="ghost">
             <sl-button aria-label="Copy">Button 1</sl-button>
             <sl-button aria-label="Edit">Button 2</sl-button>
             <sl-button aria-label="Archive">Button 3</sl-button>
             <sl-button aria-label="Delete">Button 4</sl-button>
             <sl-button aria-label="Send">Button 5</sl-button>
           </sl-tool-bar>
-        </div>
-
-        <span>Outline inverted</span>
-        <sl-tool-bar aria-label="Options" contained inverted fill="outline">
-          <sl-button aria-label="Copy">Button 1</sl-button>
-          <sl-button aria-label="Edit">Button 2</sl-button>
-          <sl-button aria-label="Archive">Button 3</sl-button>
-          <sl-button aria-label="Delete">Button 4</sl-button>
-          <sl-button aria-label="Send">Button 5</sl-button>
-        </sl-tool-bar>
-        <div style="background: var(--sl-color-background-primary-bold); padding: 1.6rem;">
-          <sl-tool-bar aria-label="Options" inverted fill="outline">
+          <sl-tool-bar aria-label="Options" fill="ghost">
             <sl-button aria-label="Copy">Button 1</sl-button>
             <sl-button aria-label="Edit">Button 2</sl-button>
             <sl-button aria-label="Archive">Button 3</sl-button>
             <sl-button aria-label="Delete">Button 4</sl-button>
             <sl-button aria-label="Send">Button 5</sl-button>
           </sl-tool-bar>
+
+          <span>Outline</span>
+          <sl-tool-bar aria-label="Options" contained fill="outline">
+            <sl-button aria-label="Copy">Button 1</sl-button>
+            <sl-button aria-label="Edit">Button 2</sl-button>
+            <sl-button aria-label="Archive">Button 3</sl-button>
+            <sl-button aria-label="Delete">Button 4</sl-button>
+            <sl-button aria-label="Send">Button 5</sl-button>
+          </sl-tool-bar>
+          <sl-tool-bar aria-label="Options" fill="outline">
+            <sl-button aria-label="Copy">Button 1</sl-button>
+            <sl-button aria-label="Edit">Button 2</sl-button>
+            <sl-button aria-label="Archive">Button 3</sl-button>
+            <sl-button aria-label="Delete">Button 4</sl-button>
+            <sl-button aria-label="Send">Button 5</sl-button>
+          </sl-tool-bar>
+
+          <span>Ghost inverted</span>
+          <sl-tool-bar aria-label="Options" contained inverted fill="ghost">
+            <sl-button aria-label="Copy">Button 1</sl-button>
+            <sl-button aria-label="Edit">Button 2</sl-button>
+            <sl-button aria-label="Archive">Button 3</sl-button>
+            <sl-button aria-label="Delete">Button 4</sl-button>
+            <sl-button aria-label="Send">Button 5</sl-button>
+          </sl-tool-bar>
+          <div style="background: var(--sl-color-background-primary-bold); padding: 1.6rem;">
+            <sl-tool-bar aria-label="Options" inverted fill="ghost">
+              <sl-button aria-label="Copy">Button 1</sl-button>
+              <sl-button aria-label="Edit">Button 2</sl-button>
+              <sl-button aria-label="Archive">Button 3</sl-button>
+              <sl-button aria-label="Delete">Button 4</sl-button>
+              <sl-button aria-label="Send">Button 5</sl-button>
+            </sl-tool-bar>
+          </div>
+
+          <span>Outline inverted</span>
+          <sl-tool-bar aria-label="Options" contained inverted fill="outline">
+            <sl-button aria-label="Copy">Button 1</sl-button>
+            <sl-button aria-label="Edit">Button 2</sl-button>
+            <sl-button aria-label="Archive">Button 3</sl-button>
+            <sl-button aria-label="Delete">Button 4</sl-button>
+            <sl-button aria-label="Send">Button 5</sl-button>
+          </sl-tool-bar>
+          <div style="background: var(--sl-color-background-primary-bold); padding: 1.6rem;">
+            <sl-tool-bar aria-label="Options" inverted fill="outline">
+              <sl-button aria-label="Copy">Button 1</sl-button>
+              <sl-button aria-label="Edit">Button 2</sl-button>
+              <sl-button aria-label="Archive">Button 3</sl-button>
+              <sl-button aria-label="Delete">Button 4</sl-button>
+              <sl-button aria-label="Send">Button 5</sl-button>
+            </sl-tool-bar>
+          </div>
         </div>
       </div>
     `;

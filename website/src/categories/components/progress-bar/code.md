@@ -23,7 +23,7 @@ eleventyNavigation:
     Uploaded 60% of 100%
   </sl-progress-bar>
   <sl-progress-bar value="100" label="File upload" variant="success">
-    File uploaded succesfully
+    File uploaded successfully
   </sl-progress-bar>
   <sl-progress-bar value="30" label="File upload" variant="warning">
     File size is too big
@@ -44,7 +44,7 @@ eleventyNavigation:
       Uploaded 60% of 100%
     </sl-progress-bar>
     <sl-progress-bar value="100" label="File upload" variant="success">
-      File uploaded succesfully
+      File uploaded successfully
     </sl-progress-bar>
     <sl-progress-bar value="30" label="File upload" variant="warning">
       File size is too big

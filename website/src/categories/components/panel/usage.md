@@ -202,11 +202,11 @@ With these options, you can tweak the appearance of the popover in Figma. They a
 
 |Item|Options|Description|
 |-|-|-|
-|Prefix|`'on', 'of'`| Enables a leading slot before the heading (e.g., an icon). |
+|Prefix|`'on', 'off'`| Enables a leading slot before the heading (e.g., an icon). |
 |Prefix Instance|`select`| Choose which prefix component appears in the leading slot. |
-|Sufix|`'on', 'of'`| Enables a trailing slot after the heading (e.g., a badge). |
-|Sufix Instance|`select`| Choose which suffix component appears in the trailing slot. |
-|Actions|`'on', 'of'`| Shows an actions area in the header (buttons/menu) for context-specific tools. |
+|Suffix|`'on', 'off'`| Enables a trailing slot after the heading (e.g., a badge). |
+|Suffix Instance|`select`| Choose which suffix component appears in the trailing slot. |
+|Actions|`'on', 'off'`| Shows an actions area in the header (buttons/menu) for context-specific tools. |
 
 {.ds-table .ds-table-align-top}
 

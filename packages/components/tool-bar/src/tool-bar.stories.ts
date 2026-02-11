@@ -28,13 +28,15 @@ import {
   faAlignRight as fasAlignRight,
   faBold as fasBold,
   faItalic as fasItalic,
-  faUnderline as fasUnderline
+  faUnderline as fasUnderline,
+  faUniversalAccess as fasUniversalAccess
 } from '@fortawesome/pro-solid-svg-icons';
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/menu/register.js';
+import { type ToggleButton } from '@sl-design-system/toggle-button';
 import '@sl-design-system/toggle-button/register.js';
 import '@sl-design-system/toggle-group/register.js';
 import { tooltip } from '@sl-design-system/tooltip';
@@ -47,7 +49,8 @@ import { type ToolBar } from './tool-bar.js';
 
 type Props = Pick<ToolBar, 'align' | 'contained' | 'disabled' | 'inverted' | 'fill'> & {
   description?: string | TemplateResult;
-  items?(): TemplateResult;
+  itemsOutsideContainer?(args: Props): TemplateResult;
+  items?(args: Props): TemplateResult;
   resizable?: boolean;
   width?: string;
 };
@@ -80,6 +83,7 @@ Icon.register(
   fasBold,
   fasItalic,
   fasUnderline,
+  fasUniversalAccess,
   faUniversalAccess
 );
 
@@ -117,7 +121,8 @@ export default {
       options: ['ghost', 'outline']
     }
   },
-  render: ({ align, contained, description, disabled, inverted, items, resizable, fill, width }) => {
+  render: args => {
+    const { align, contained, description, disabled, inverted, items, resizable, fill, width, itemsOutsideContainer } = args;
     return html`
       ${description ? html`<p>${description}</p>` : nothing}
       <style>
@@ -130,8 +135,14 @@ export default {
           background: var(--sl-color-background-primary-bold);
           padding: 1.2rem;
         }
+
+        .container {
+          display: flex;
+          gap: 1rem;
+        }
       </style>
       <div class="container">
+        ${itemsOutsideContainer?.(args)}
         <sl-tool-bar
           ?contained=${contained}
           ?inverted=${inverted}
@@ -140,7 +151,7 @@ export default {
           fill=${ifDefined(fill)}
           style="inline-size: ${width ?? 'auto'}"
         >
-          ${items?.()}
+          ${items?.(args)}
         </sl-tool-bar>
       </div>
     `;
@@ -347,22 +358,45 @@ export const State: Story = {
   args: {
     description:
       'This example shows a how the tool bar automatically updates when the disabled state of buttons changes.',
-    items: () => {
+    itemsOutsideContainer: () => {
       const onClick = (event: Event) => {
-        const buttons = (event.target as HTMLElement).parentElement?.querySelectorAll<Button>(
-          'sl-button:not(:first-child)'
-        );
+        const toggle = event.target as ToggleButton;
+        const container = toggle.closest('.container');
+        const buttons = container?.querySelectorAll<Button>('sl-button');
+        const liveRegion = container?.querySelector('#live-region');
 
-        buttons?.forEach(button => {
-          button.disabled = !button.disabled;
+        buttons?.forEach((button: Button) => {
+          button.disabled = toggle.pressed;
         });
+
+        if (liveRegion) {
+          liveRegion.textContent = toggle.pressed ? 'Actions disabled' : 'Actions enabled';
+        }
       };
 
       return html`
-        <sl-button @click=${onClick} fill="outline">Toggle disabled</sl-button>
-        <sl-button fill="outline">Action 1</sl-button>
-        <sl-button fill="outline">Action 2</sl-button>
-        <sl-button fill="outline">Action 3</sl-button>
+        <style>
+          sl-toggle-button {
+            height: var(--sl-size-450);
+          }
+        </style>
+        <sl-toggle-button aria-controls="action-1 action-2 action-3" @sl-toggle=${onClick} fill="outline">
+          <sl-icon name="far-universal-access" slot="default"></sl-icon>
+          <sl-icon name="fas-universal-access" slot="pressed"></sl-icon>
+          Toggle disabled state
+        </sl-toggle-button>
+        <div
+          id="live-region"
+          aria-live="polite"
+          style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;"
+        ></div>
+      `;
+    },
+    items: () => {
+      return html`
+        <sl-button id="action-1" fill="outline">Action 1</sl-button>
+        <sl-button id="action-2" fill="outline">Action 2</sl-button>
+        <sl-button id="action-3" fill="outline">Action 3</sl-button>
       `;
     }
   }

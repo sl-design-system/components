@@ -45,15 +45,16 @@ import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
+import { announce } from '@sl-design-system/announcer';
 import { type ToolBar } from './tool-bar.js';
 
-type Props = Pick<ToolBar, 'align' | 'contained' | 'disabled' | 'inverted' | 'fill'> & {
+interface Props extends Pick<ToolBar, 'align' | 'contained' | 'disabled' | 'inverted' | 'fill'> {
   description?: string | TemplateResult;
   itemsOutsideContainer?(args: Props): TemplateResult;
   items?(args: Props): TemplateResult;
   resizable?: boolean;
   width?: string;
-};
+}
 type Story = StoryObj<Props>;
 
 Icon.register(
@@ -111,6 +112,9 @@ export default {
       control: 'boolean'
     },
     items: {
+      table: { disable: true }
+    },
+    itemsOutsideContainer: {
       table: { disable: true }
     },
     resizable: {
@@ -363,15 +367,12 @@ export const State: Story = {
         const toggle = event.target as ToggleButton;
         const container = toggle.closest('.container');
         const buttons = container?.querySelectorAll<Button>('sl-button');
-        const liveRegion = container?.querySelector('#live-region');
 
         buttons?.forEach((button: Button) => {
           button.disabled = toggle.pressed;
         });
 
-        if (liveRegion) {
-          liveRegion.textContent = toggle.pressed ? 'Actions disabled' : 'Actions enabled';
-        }
+        announce(toggle.pressed ? 'Actions disabled' : 'Actions enabled');
       };
 
       return html`
@@ -385,11 +386,6 @@ export const State: Story = {
           <sl-icon name="fas-universal-access" slot="pressed"></sl-icon>
           Toggle disabled state
         </sl-toggle-button>
-        <div
-          id="live-region"
-          aria-live="polite"
-          style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;"
-        ></div>
       `;
     },
     items: () => {

@@ -136,6 +136,7 @@ export default {
           align=${ifDefined(align)}
           fill=${ifDefined(fill)}
           style="inline-size: ${width ?? 'auto'}"
+          aria-label="Tool bar example"
         >
           ${items?.()}
         </sl-tool-bar>
@@ -420,6 +421,7 @@ export const IconOnly: Story = {
           align=${ifDefined(align)}
           fill=${ifDefined(fill)}
           style="inline-size: ${width ?? 'auto'}"
+          aria-label="Icon only tool bar with tooltips"
         >
           <sl-button aria-describedby="tooltip-bold" fill="outline">
             <sl-icon name="far-bold"></sl-icon>
@@ -478,6 +480,7 @@ export const IconOnly: Story = {
           align=${ifDefined(align)}
           fill=${ifDefined(fill)}
           style="inline-size: ${width ?? 'auto'}"
+          aria-label="Icon only tool bar with aria-labels"
         >
           <sl-button aria-label="Bold" fill="outline">
             <sl-icon name="far-bold"></sl-icon>
@@ -554,7 +557,7 @@ export const Combination: Story = {
     </p>
     <div class="container">
       <span>Some text in front</span>
-      <sl-tool-bar align="end">
+      <sl-tool-bar align="end" aria-label="Combination example">
         <sl-button fill="outline">Button 1</sl-button>
         <sl-button fill="outline">Button 2</sl-button>
         <sl-button fill="outline">Button 3</sl-button>

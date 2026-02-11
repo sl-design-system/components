@@ -208,6 +208,9 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
 
     if (event.newState === 'closed' && this.menu.matches(':focus-within')) {
       this.button.focus();
+    } else if (event.newState === 'open' && this.button.matches(':focus-within')) {
+      // If the menu is opening and the button is focused, move focus to the menu
+      this.menu.focus();
     }
   }
 

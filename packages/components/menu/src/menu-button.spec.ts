@@ -206,6 +206,26 @@ describe('sl-menu-button', () => {
           expect(menu).to.match(':popover-open');
         });
 
+        it('should not move focus when the button is clicked without being focused', async () => {
+          // Ensure button is not focused
+          document.body.focus();
+
+          button.click();
+          await new Promise(resolve => setTimeout(resolve, 50));
+
+          expect(menu).to.match(':popover-open');
+          expect(document.activeElement).not.to.equal(el.querySelector('sl-menu-item'));
+        });
+
+        it('should focus the first menu item when opened with Enter while button is focused', async () => {
+          button.focus();
+
+          await userEvent.keyboard('{Enter}');
+          await new Promise(resolve => setTimeout(resolve, 50));
+
+          expect(document.activeElement).to.equal(el.querySelector('sl-menu-item'));
+        });
+
         it('should show the menu when the button is focused and the down arrow key is pressed', async () => {
           button.focus();
           await userEvent.keyboard('{ArrowDown}');

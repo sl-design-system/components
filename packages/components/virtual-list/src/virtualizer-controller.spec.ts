@@ -89,7 +89,6 @@ describe('VirtualizerController', () => {
     await host.updateComplete;
 
     await new Promise(resolve => requestAnimationFrame(resolve));
-    await new Promise(resolve => requestAnimationFrame(resolve));
     await host.updateComplete;
 
     // Verify scrollMargin is set correctly (should be at least 200px from padding-top)
@@ -102,7 +101,7 @@ describe('VirtualizerController', () => {
     expect(items[0].getAttribute('data-index')).to.equal('0');
 
     // Scroll the window to the host's offset - this is the critical test!
-    // The bug occurred when window.scrollY reached the element's offset.
+    // The bug occurred when window.scrollY reached the element's offset
     window.scrollTo(0, scrollMargin);
 
     await new Promise(resolve => requestAnimationFrame(resolve));
@@ -122,11 +121,9 @@ describe('VirtualizerController', () => {
     const host = document.createElement('test-host') as TestHost;
     host.count = 50;
     container.appendChild(host);
-    await host.updateComplete;
 
-    await new Promise(resolve => requestAnimationFrame(resolve));
-    await new Promise(resolve => requestAnimationFrame(resolve));
     await host.updateComplete;
+    await new Promise(resolve => requestAnimationFrame(resolve));
 
     const initialScrollMargin = host.virtualizer.instance.options.scrollMargin ?? 0;
     expect(initialScrollMargin).to.be.greaterThan(0);
@@ -144,9 +141,6 @@ describe('VirtualizerController', () => {
     // This mimics the real-world scenario where devtools opening causes window resize
     window.dispatchEvent(new Event('resize'));
 
-    // Wait for ResizeObserver + rAF to update scrollMargin (may need multiple frames)
-    await new Promise(resolve => requestAnimationFrame(resolve));
-    await new Promise(resolve => requestAnimationFrame(resolve));
     await new Promise(resolve => requestAnimationFrame(resolve));
     await host.updateComplete;
 

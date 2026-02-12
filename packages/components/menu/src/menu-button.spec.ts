@@ -3,7 +3,7 @@ import { type Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { type MenuButton } from './menu-button.js';
@@ -312,10 +312,11 @@ describe('sl-menu-button', () => {
   });
 
   describe('aria-labelledby', () => {
-    let label: HTMLElement;
+    let label: HTMLElement, container: HTMLDivElement;
 
     beforeEach(async () => {
-      const container = document.createElement('div');
+      container = document.createElement('div');
+
       container.innerHTML = `
         <span id="label-test">Menu button label</span>
         <sl-menu-button aria-labelledby="label-test">
@@ -334,6 +335,10 @@ describe('sl-menu-button', () => {
       button = el.renderRoot.querySelector('sl-button') as Button;
 
       await new Promise(resolve => setTimeout(resolve, 50));
+    });
+
+    afterEach(() => {
+      container.remove();
     });
 
     it('should set ariaLabelledByElements on button internals when aria-labelledby is set', () => {
@@ -367,10 +372,11 @@ describe('sl-menu-button', () => {
   });
 
   describe('aria-describedby', () => {
-    let description: HTMLElement;
+    let description: HTMLElement, container: HTMLDivElement;
 
     beforeEach(async () => {
-      const container = document.createElement('div');
+      container = document.createElement('div');
+
       container.innerHTML = `
         <span id="description-test">Menu button description</span>
         <sl-menu-button aria-describedby="description-test">
@@ -389,6 +395,10 @@ describe('sl-menu-button', () => {
       button = el.renderRoot.querySelector('sl-button') as Button;
 
       await new Promise(resolve => setTimeout(resolve, 50));
+    });
+
+    afterEach(() => {
+      container.remove();
     });
 
     it('should set ariaDescribedByElements on button internals when aria-describedby is set', () => {

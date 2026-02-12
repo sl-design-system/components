@@ -143,14 +143,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       this.#shouldAnimate = true;
 
       if (this.selectedTab) {
-        const previousTab = this.selectedTab;
         this.#updateSelectedTab(this.selectedTab, false);
-
-        // Only scroll to the tab panel start if the selected tab actually changed;
-        // a resize alone should not force-scroll the page to the panel
-        if (this.selectedTab !== previousTab) {
-          this.#scrollToTabPanelStart();
-        }
       }
     });
   });

@@ -1,5 +1,16 @@
 # @sanomalearning/slds-itslearning
 
+## 1.1.0
+
+### Minor Changes
+
+- [#2970](https://github.com/sl-design-system/components/pull/2970) [`e92ebb1`](https://github.com/sl-design-system/components/commit/e92ebb16c596919aaa301be2604ab5f3539738a9) - Caret icons have been updated to implement the new alignment strategy used in Font Awesome 7
+
+### Patch Changes
+
+- Updated dependencies [[`330e06f`](https://github.com/sl-design-system/components/commit/330e06ff36c7a5c96cf313b60a5013d6307477c7)]:
+  - @sl-design-system/icon@1.4.2
+
 ## 1.0.1
 
 ### Patch Changes

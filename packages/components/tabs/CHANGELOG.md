@@ -1,5 +1,13 @@
 # @sl-design-system/tabs
 
+## 1.2.6
+
+### Patch Changes
+
+- Updated dependencies [[`86ea95d`](https://github.com/sl-design-system/components/commit/86ea95defd6ecf26eec20a46fd4545efd386951f), [`330e06f`](https://github.com/sl-design-system/components/commit/330e06ff36c7a5c96cf313b60a5013d6307477c7)]:
+  - @sl-design-system/menu@0.3.0
+  - @sl-design-system/icon@1.4.2
+
 ## 1.2.5
 
 ### Patch Changes

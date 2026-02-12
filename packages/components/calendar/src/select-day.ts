@@ -6,13 +6,14 @@ import { FormatDate, format } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, LocaleMixin, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
+import { isSameDate, normalizeDateTime } from '@sl-design-system/shared/date.js';
 import { type SlChangeEvent, type SlSelectEvent, SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { MonthView } from './month-view.js';
 import styles from './select-day.scss.js';
-import { Indicator, getWeekdayNames, indicatorConverter, isSameDate, normalizeDateTime } from './utils.js';
+import { Indicator, getWeekdayNames, indicatorConverter } from './utils.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -340,6 +341,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           ?show-week-numbers=${this.showWeekNumbers}
           .disabledDates=${this.disabledDates}
           .indicatorDates=${this.indicatorDates}
+          autofocus
           first-day-of-week=${ifDefined(this.firstDayOfWeek)}
           locale=${ifDefined(this.locale)}
           max=${ifDefined(this.max?.toISOString())}

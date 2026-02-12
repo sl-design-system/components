@@ -386,6 +386,30 @@
   <source><x id="0" equiv-text="${format(this.displayMonth!, this.locale, { year: 'numeric' })}"/>, change year</source>
   <target><x id="0" equiv-text="${format(this.displayMonth!, this.locale, { year: 'numeric' })}"/>, verander jaar</target>
 </trans-unit>
+<trans-unit id="sl.dateField.typeMismatch">
+  <source>Please enter a valid date.</source>
+  <target>Voer een geldige datum in.</target>
+</trans-unit>
+<trans-unit id="sl.dateField.incomplete">
+  <source>Please enter a complete date.</source>
+  <target>Voer een volledige datum in.</target>
+</trans-unit>
+<trans-unit id="sl.dateField.valueMissing">
+  <source>Please enter a date.</source>
+  <target>Voer een datum in.</target>
+</trans-unit>
+<trans-unit id="sl.dateField.rangeUnderflow">
+  <source>Please select a date that is no earlier than <x id="0" equiv-text="${formattedMin}"/>.</source>
+  <target>Voer een datum in die niet eerder is dan <x id="0" equiv-text="${formattedMin}"/>.</target>
+</trans-unit>
+<trans-unit id="sl.dateField.rangeOverflow">
+  <source>Please select a date that is no later than <x id="0" equiv-text="${formattedMax}"/>.</source>
+  <target>Voer een datum in die niet later is dan <x id="0" equiv-text="${formattedMax}"/>.</target>
+</trans-unit>
+<trans-unit id="sl.dateField.confirm">
+  <source>Confirm</source>
+  <target>Bevestigen</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

@@ -240,9 +240,7 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
         .map(id => rootNode.querySelector(`#${id}`))
         .filter((el): el is Element => el !== null);
 
-      if (elements.length > 0) {
-        this.button.internals[property] = elements;
-      }
+      this.button.internals[property] = elements.length > 0 ? elements : null;
     } else {
       this.button.internals[property] = null;
     }

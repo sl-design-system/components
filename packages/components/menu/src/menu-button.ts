@@ -106,7 +106,7 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
     });
   }
 
-  override firstUpdated(changes: PropertyValues<this>): void {
+  override async firstUpdated(changes: PropertyValues<this>): Promise<void> {
     super.firstUpdated(changes);
 
     this.setAttributesTarget(this.button);
@@ -114,6 +114,8 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
     this.button.setAttribute('aria-controls', this.menu.id);
     this.menu.anchorElement = this.button;
 
+    // Wait for next frame to ensure DOM is fully ready
+    await new Promise(resolve => requestAnimationFrame(resolve));
     this.#updateAriaReferences();
   }
 
@@ -215,7 +217,8 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
    * Update the aria-describedby and aria-labelledby references on the button using
    * ElementInternals.ariaDescribedByElements and ElementInternals.ariaLabelledByElements
    * to get the references working across shadow DOM boundaries.
-   */ #updateAriaReferences(): void {
+   */
+  #updateAriaReferences(): void {
     if (!this.button?.internals) {
       return;
     }
@@ -240,7 +243,19 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
         .map(id => rootNode.querySelector(`#${id}`))
         .filter((el): el is Element => el !== null);
 
-      this.button.internals[property] = elements.length > 0 ? elements : null;
+      if (elements.length > 0) {
+        this.button.internals[property] = elements;
+
+        // Disconnect observer before removing attribute to prevent it from seeing this as a user action
+        this.#observer.disconnect();
+        this.removeAttribute(attribute);
+
+        // Reconnect observer to watch for future user changes
+        this.#observer.observe(this, {
+          attributes: true,
+          attributeFilter: ['aria-describedby', 'aria-labelledby']
+        });
+      }
     } else {
       this.button.internals[property] = null;
     }

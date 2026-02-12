@@ -357,5 +357,36 @@ export const WithTooltips: Story = {
       </sl-menu-button>
       <sl-tooltip id="tooltip-edit">Edit</sl-tooltip>
     </div>
+
+    <p>Menu buttons with tooltips connected via <code>aria-describedby</code></p>
+    <div class="container">
+      <sl-menu-button aria-describedby="tooltip-settings-1" fill="outline">
+        <sl-icon name="far-gear" slot="button"></sl-icon>
+        <span slot="button">Settings</span>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-tooltip id="tooltip-settings-1">Open settings menu</sl-tooltip>
+
+      <sl-menu-button aria-describedby="tooltip-edit-1" fill="outline" size="lg">
+        <sl-icon name="far-pen" slot="button"></sl-icon>
+        <span slot="button">Edit</span>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-tooltip id="tooltip-edit-1">Open edit menu</sl-tooltip>
+    </div>
   `
 };

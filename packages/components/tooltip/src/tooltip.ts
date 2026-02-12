@@ -131,11 +131,48 @@ export class Tooltip extends LitElement {
   #events = new EventsController(this);
 
   #matchesAnchor = (element: Element): boolean => {
-    return (
-      !!this.id &&
-      element.nodeType === Node.ELEMENT_NODE &&
-      (this.id === element.getAttribute('aria-describedby') || this.id === element.getAttribute('aria-labelledby'))
-    );
+    if (!this.id || element.nodeType !== Node.ELEMENT_NODE) {
+      return false;
+    }
+
+    if (this.id === element.getAttribute('aria-describedby') || this.id === element.getAttribute('aria-labelledby')) {
+      return true;
+    }
+
+    // Check ElementInternals ariaDescribedByElements and ariaLabelledByElements
+    // This handles cases where elements use ElementInternals to set ARIA relationships
+    // (e.g. `sl-button` inside the `sl-menu-button`'s shadow DOM)
+    if (element instanceof HTMLElement) {
+      try {
+        const internals = (element as HTMLElement & { internals?: ElementInternals }).internals;
+
+        if (internals) {
+          if (internals.ariaDescribedByElements) {
+            const describedByElements = Array.isArray(internals.ariaDescribedByElements)
+              ? internals.ariaDescribedByElements
+              : Array.from(internals.ariaDescribedByElements);
+
+            if (describedByElements.some(el => el === this)) {
+              return true;
+            }
+          }
+
+          if (internals.ariaLabelledByElements) {
+            const labelledByElements = Array.isArray(internals.ariaLabelledByElements)
+              ? internals.ariaLabelledByElements
+              : Array.from(internals.ariaLabelledByElements);
+
+            if (labelledByElements.some(el => el === this)) {
+              return true;
+            }
+          }
+        }
+      } catch {
+        /* empty */
+      }
+    }
+
+    return false;
   };
 
   #getParentsUntil = (element: Element, selector: string) => {
@@ -195,24 +232,31 @@ export class Tooltip extends LitElement {
   };
 
   #onShow = (event: Event): void => {
-    const { target, type } = event;
+    const { type } = event;
 
-    if (!this.#matchesAnchor(target as HTMLElement)) {
+    // Find the anchor element in the composed path (handles shadow DOM and descendant elements)
+    const anchorElement = event.composedPath().find(el => el instanceof Element && this.#matchesAnchor(el)) as
+      | HTMLElement
+      | undefined;
+
+    if (!anchorElement) {
       return;
     }
+
+    console.log('Anchor element found:', anchorElement);
 
     // For keyboard navigation (focus events)
     if (type === 'focusin') {
       const path = event.composedPath();
 
       requestAnimationFrame(() => {
-        // Check if the target or any element in the composed path (for shadow DOM) has :focus-visible
+        // Check if the anchor or any element in the composed path (for shadow DOM) has :focus-visible
         const hasFocusVisible =
-          (target as Element).matches(':focus-visible') ||
+          anchorElement.matches(':focus-visible') ||
           path.some(el => el instanceof Element && el.matches(':focus-visible'));
 
         if (hasFocusVisible) {
-          this.#showTooltip(target as HTMLElement);
+          this.#showTooltip(anchorElement);
         }
       });
 
@@ -221,7 +265,7 @@ export class Tooltip extends LitElement {
 
     // For hover events
     if (type === 'pointerover') {
-      this.#showTooltip(target as HTMLElement);
+      this.#showTooltip(anchorElement);
     }
   };
 

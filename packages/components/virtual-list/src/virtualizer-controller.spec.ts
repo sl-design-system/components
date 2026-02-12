@@ -113,7 +113,7 @@ describe('VirtualizerController', () => {
     expect(items[0].getAttribute('data-index')).to.equal('0');
   });
 
-  it('should update scrollMargin when layout changes dynamically without window resize', async () => {
+  it('should update scrollMargin when layout changes dynamically with window resize', async () => {
     const container = document.createElement('div');
     container.className = 'test-window-scroll-container';
     container.style.cssText = 'min-height: 3000px; overflow: visible; padding-top: 50px;';

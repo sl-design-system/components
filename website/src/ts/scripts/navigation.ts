@@ -81,13 +81,13 @@ function toggleMenu(open = false): void {
     menu.classList.add('ds-sidebar--opened');
     topNavigation.classList.add('ds-menu--opened');
     closeButton.setAttribute('tabindex', '1');
-    closeButton.focus({ preventScroll: true });
+    closeButton.focus();
   } else {
     menuButton.setAttribute('aria-expanded', 'false');
     topNavigation.classList.remove('ds-menu--opened');
     menu.classList.remove('ds-sidebar--opened');
     menu.classList.add('ds-sidebar--closed');
-    menuButton.focus({ preventScroll: true });
+    menuButton.focus();
   }
 }
 

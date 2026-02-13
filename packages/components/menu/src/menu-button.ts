@@ -35,8 +35,7 @@ declare global {
 @localized()
 export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitElement), [
   'aria-disabled',
-  'aria-label',
-  'aria-labelledby'
+  'aria-label'
 ]) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
@@ -49,6 +48,9 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
+
+  /** Observe changes to aria-describedby and aria-labelledby attributes. */
+  #observer = new MutationObserver(() => this.#updateAriaReferences());
 
   /** The state of the menu popover. */
   #popoverState?: string;
@@ -95,6 +97,21 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
    */
   @property() variant?: ButtonVariant;
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.#observer.observe(this, {
+      attributes: true,
+      attributeFilter: ['aria-describedby', 'aria-labelledby']
+    });
+  }
+
+  override disconnectedCallback(): void {
+    this.#observer.disconnect();
+
+    super.disconnectedCallback();
+  }
+
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
@@ -102,6 +119,10 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
 
     this.button.setAttribute('aria-controls', this.menu.id);
     this.menu.anchorElement = this.button;
+
+    requestAnimationFrame(() => {
+      this.#updateAriaReferences();
+    });
   }
 
   override render(): TemplateResult {
@@ -190,5 +211,52 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
       // If the menu is opening and the button is focused, move focus to the menu
       this.menu.focus();
     }
+  }
+
+  /**
+   * Update aria-describedby and aria-labelledby references on the button using
+   * ElementInternals.ariaDescribedByElements and ElementInternals.ariaLabelledByElements
+   * to get it working across shadow DOM boundaries (e.g. with tooltips).
+   */
+  #updateAriaReferences(): void {
+    if (!this.button?.internals) {
+      return;
+    }
+
+    if (this.hasAttribute('aria-describedby')) {
+      this.#setAriaReference('aria-describedby', 'ariaDescribedByElements');
+    }
+
+    if (this.hasAttribute('aria-labelledby')) {
+      this.#setAriaReference('aria-labelledby', 'ariaLabelledByElements');
+    }
+  }
+
+  /** Set an aria reference on the button using ElementInternals. */
+  #setAriaReference(attribute: string, property: 'ariaDescribedByElements' | 'ariaLabelledByElements'): void {
+    const ariaValue = this.getAttribute(attribute);
+
+    // Clear internals if attribute was removed
+    if (!ariaValue) {
+      this.button.internals[property] = null;
+      return;
+    }
+
+    const elements = ariaValue
+      .split(' ')
+      .map(id => document.querySelector(`#${id}`))
+      .filter((el): el is Element => el !== null);
+
+    if (elements.length === 0) {
+      return;
+    }
+
+    this.button.internals[property] = elements;
+
+    // Temporarily stop observing so `removeAttribute` doesn't trigger the MutationObserver
+    this.#observer.disconnect();
+    this.removeAttribute(attribute);
+
+    this.#observer.observe(this, { attributes: true, attributeFilter: ['aria-describedby', 'aria-labelledby'] });
   }
 }

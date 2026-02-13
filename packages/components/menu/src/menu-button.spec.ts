@@ -3,7 +3,7 @@ import { type Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { type MenuButton } from './menu-button.js';
@@ -48,14 +48,6 @@ describe('sl-menu-button', () => {
 
       expect(el).to.not.have.attribute('aria-label');
       expect(el.button).to.have.attribute('aria-label', 'Label');
-    });
-
-    it('should proxy the aria-labelledby attribute to the input element', async () => {
-      el.setAttribute('aria-labelledby', 'id');
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(el).to.not.have.attribute('aria-labelledby');
-      expect(el.button).to.have.attribute('aria-labelledby', 'id');
     });
 
     describe('button', () => {
@@ -316,6 +308,367 @@ describe('sl-menu-button', () => {
 
     it('should not have a selected span', () => {
       expect(button.querySelector('.selected')).not.to.exist;
+    });
+  });
+
+  describe('aria-labelledby', () => {
+    let label: HTMLElement, container: HTMLDivElement;
+
+    beforeEach(async () => {
+      container = document.createElement('div');
+
+      container.innerHTML = `
+        <span id="label-test">Menu button label</span>
+        <sl-menu-button aria-labelledby="label-test">
+          <sl-icon name="far-gear" slot="button"></sl-icon>
+          <sl-menu-item>Item 1</sl-menu-item>
+          <sl-menu-item>Item 2</sl-menu-item>
+        </sl-menu-button>
+      `;
+      document.body.appendChild(container);
+
+      el = container.querySelector('sl-menu-button') as MenuButton;
+      label = container.querySelector('#label-test') as HTMLElement;
+
+      await el.updateComplete;
+
+      button = el.renderRoot.querySelector('sl-button') as Button;
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+    });
+
+    afterEach(() => {
+      container.remove();
+    });
+
+    it('should set ariaLabelledByElements on button internals when aria-labelledby is set', () => {
+      expect(button.internals.ariaLabelledByElements).to.exist;
+      expect(button.internals.ariaLabelledByElements).to.have.lengthOf(1);
+      expect(button.internals.ariaLabelledByElements?.[0]).to.equal(label);
+    });
+
+    it('should update ariaLabelledByElements when aria-labelledby changes', async () => {
+      const newLabel = document.createElement('span');
+      newLabel.id = 'new-label';
+      newLabel.textContent = 'New label';
+      document.body.appendChild(newLabel);
+
+      el.setAttribute('aria-labelledby', 'new-label');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(button.internals.ariaLabelledByElements).to.exist;
+      expect(button.internals.ariaLabelledByElements).to.have.lengthOf(1);
+      expect(button.internals.ariaLabelledByElements?.[0]).to.equal(newLabel);
+
+      newLabel.remove();
+    });
+
+    it('should not clear ariaLabelledByElements when aria-labelledby is removed via MutationObserver', async () => {
+      expect(button.internals.ariaLabelledByElements).to.exist;
+      expect(button.internals.ariaLabelledByElements).to.have.lengthOf(1);
+
+      el.removeAttribute('aria-labelledby');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(button.internals.ariaLabelledByElements).to.exist;
+      expect(button.internals.ariaLabelledByElements).to.have.lengthOf(1);
+    });
+
+    it('should handle multiple ids in aria-labelledby', async () => {
+      const label2 = document.createElement('span');
+      label2.id = 'label-test-2';
+      label2.textContent = 'Additional label';
+      document.body.appendChild(label2);
+
+      el.setAttribute('aria-labelledby', 'label-test label-test-2');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(button.internals.ariaLabelledByElements).to.exist;
+      expect(button.internals.ariaLabelledByElements).to.have.lengthOf(2);
+      expect(button.internals.ariaLabelledByElements?.[0]).to.equal(label);
+      expect(button.internals.ariaLabelledByElements?.[1]).to.equal(label2);
+
+      label2.remove();
+    });
+
+    it('should filter out not existing ids from aria-labelledby', async () => {
+      const label2 = document.createElement('span');
+      label2.id = 'valid-label';
+      label2.textContent = 'Valid label';
+      document.body.appendChild(label2);
+
+      el.setAttribute('aria-labelledby', 'abc valid-label def');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(button.internals.ariaLabelledByElements).to.exist;
+      expect(button.internals.ariaLabelledByElements).to.have.lengthOf(1);
+      expect(button.internals.ariaLabelledByElements?.[0]).to.equal(label2);
+
+      label2.remove();
+    });
+  });
+
+  describe('aria-describedby', () => {
+    let description: HTMLElement, container: HTMLDivElement;
+
+    beforeEach(async () => {
+      container = document.createElement('div');
+
+      container.innerHTML = `
+        <span id="description-test">Menu button description</span>
+        <sl-menu-button aria-describedby="description-test">
+          <sl-icon name="far-gear" slot="button"></sl-icon>
+          <sl-menu-item>Item 1</sl-menu-item>
+          <sl-menu-item>Item 2</sl-menu-item>
+        </sl-menu-button>
+      `;
+      document.body.appendChild(container);
+
+      el = container.querySelector('sl-menu-button') as MenuButton;
+      description = container.querySelector('#description-test') as HTMLElement;
+
+      await el.updateComplete;
+
+      button = el.renderRoot.querySelector('sl-button') as Button;
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+    });
+
+    afterEach(() => {
+      container.remove();
+    });
+
+    it('should set ariaDescribedByElements on button internals when aria-describedby is set', () => {
+      expect(button.internals.ariaDescribedByElements).to.exist;
+      expect(button.internals.ariaDescribedByElements).to.have.lengthOf(1);
+      expect(button.internals.ariaDescribedByElements?.[0]).to.equal(description);
+    });
+
+    it('should update ariaDescribedByElements when aria-describedby changes', async () => {
+      const newDescription = document.createElement('span');
+      newDescription.id = 'new-description';
+      newDescription.textContent = 'New description';
+      document.body.appendChild(newDescription);
+
+      el.setAttribute('aria-describedby', 'new-description');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(button.internals.ariaDescribedByElements).to.exist;
+      expect(button.internals.ariaDescribedByElements).to.have.lengthOf(1);
+      expect(button.internals.ariaDescribedByElements?.[0]).to.equal(newDescription);
+
+      newDescription.remove();
+    });
+
+    it('should not clear ariaDescribedByElements when aria-describedby is removed', async () => {
+      expect(button.internals.ariaDescribedByElements).to.exist;
+      expect(button.internals.ariaDescribedByElements).to.have.lengthOf(1);
+
+      el.removeAttribute('aria-describedby');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(button.internals.ariaDescribedByElements).to.exist;
+      expect(button.internals.ariaDescribedByElements).to.have.lengthOf(1);
+    });
+
+    it('should handle multiple ids in aria-describedby', async () => {
+      const description2 = document.createElement('span');
+      description2.id = 'description-test-2';
+      description2.textContent = 'Additional description';
+      document.body.appendChild(description2);
+
+      el.setAttribute('aria-describedby', 'description-test description-test-2');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(button.internals.ariaDescribedByElements).to.exist;
+      expect(button.internals.ariaDescribedByElements).to.have.lengthOf(2);
+      expect(button.internals.ariaDescribedByElements?.[0]).to.equal(description);
+      expect(button.internals.ariaDescribedByElements?.[1]).to.equal(description2);
+
+      description2.remove();
+    });
+
+    it('should filter out not existing ids from aria-describedby', async () => {
+      const description2 = document.createElement('span');
+      description2.id = 'valid-description';
+      description2.textContent = 'Valid description';
+      document.body.appendChild(description2);
+
+      el.setAttribute('aria-describedby', 'abc valid-description def');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(button.internals.ariaDescribedByElements).to.exist;
+      expect(button.internals.ariaDescribedByElements).to.have.lengthOf(1);
+      expect(button.internals.ariaDescribedByElements?.[0]).to.equal(description2);
+
+      description2.remove();
+    });
+
+    it('should handle both aria-describedby and aria-labelledby', async () => {
+      const newLabel = document.createElement('span');
+      newLabel.id = 'my-label';
+      newLabel.textContent = 'Label';
+      document.body.appendChild(newLabel);
+
+      el.setAttribute('aria-labelledby', 'my-label');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(button.internals.ariaLabelledByElements).to.exist;
+      expect(button.internals.ariaLabelledByElements).to.have.lengthOf(1);
+      expect(button.internals.ariaDescribedByElements).to.exist;
+      expect(button.internals.ariaDescribedByElements).to.have.lengthOf(1);
+
+      newLabel.remove();
+    });
+  });
+
+  describe('dynamic aria attribute updates', () => {
+    let container: HTMLDivElement;
+
+    beforeEach(async () => {
+      container = document.createElement('div');
+      container.innerHTML = `
+        <span id="observer-label">Label</span>
+        <span id="observer-description">Description</span>
+        <sl-menu-button aria-labelledby="observer-label" aria-describedby="observer-description">
+          <sl-icon name="far-gear" slot="button"></sl-icon>
+          <sl-menu-item>Item 1</sl-menu-item>
+          <sl-menu-item>Item 2</sl-menu-item>
+        </sl-menu-button>
+      `;
+      document.body.appendChild(container);
+
+      el = container.querySelector('sl-menu-button') as MenuButton;
+      await el.updateComplete;
+
+      button = el.renderRoot.querySelector('sl-button') as Button;
+
+      // Give the MutationObserver time to fire
+      await new Promise(resolve => setTimeout(resolve, 50));
+    });
+
+    afterEach(() => {
+      container.remove();
+    });
+
+    it('should update button ElementInternals when aria-labelledby attribute changes', async () => {
+      const newLabel = document.createElement('span');
+      newLabel.id = 'new-label';
+      newLabel.textContent = 'This is a new label';
+      document.body.appendChild(newLabel);
+
+      el.setAttribute('aria-labelledby', 'new-label');
+
+      // Give the MutationObserver time to fire
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(button.internals.ariaLabelledByElements).to.exist;
+      expect(button.internals.ariaLabelledByElements).to.have.lengthOf(1);
+      expect(button.internals.ariaLabelledByElements?.[0]).to.equal(newLabel);
+
+      newLabel.remove();
+    });
+
+    it('should update button internals when aria-describedby attribute changes', async () => {
+      const newDescription = document.createElement('span');
+      newDescription.id = 'new-description';
+      newDescription.textContent = 'This is a new description';
+      document.body.appendChild(newDescription);
+
+      el.setAttribute('aria-describedby', 'new-description');
+
+      // Give the MutationObserver time to fire
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(button.internals.ariaDescribedByElements).to.exist;
+      expect(button.internals.ariaDescribedByElements).to.have.lengthOf(1);
+      expect(button.internals.ariaDescribedByElements?.[0]).to.equal(newDescription);
+
+      newDescription.remove();
+    });
+
+    it('should update aria references after multiple attribute changes', async () => {
+      const newLabel = document.createElement('span');
+      newLabel.id = 'reconnect-label';
+      newLabel.textContent = 'Reconnect Label';
+      document.body.appendChild(newLabel);
+
+      // First change
+      el.setAttribute('aria-labelledby', 'reconnect-label');
+
+      // Give the MutationObserver time to fire
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      // Second change should still be observed
+      const anotherLabel = document.createElement('span');
+      anotherLabel.id = 'another-reconnect-label';
+      anotherLabel.textContent = 'Another Label';
+      document.body.appendChild(anotherLabel);
+
+      el.setAttribute('aria-labelledby', 'another-reconnect-label');
+
+      // Give the MutationObserver time to fire
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(button.internals.ariaLabelledByElements).to.exist;
+      expect(button.internals.ariaLabelledByElements).to.have.lengthOf(1);
+      expect(button.internals.ariaLabelledByElements?.[0]).to.equal(anotherLabel);
+
+      newLabel.remove();
+      anotherLabel.remove();
+    });
+  });
+
+  describe('aria initialization', () => {
+    it('should properly initialize aria references when connected to DOM', async () => {
+      const container = document.createElement('div');
+      container.innerHTML = `
+        <span id="lifecycle-label">Label</span>
+        <sl-menu-button aria-labelledby="lifecycle-label">
+          <sl-icon name="far-gear" slot="button"></sl-icon>
+          <sl-menu-item>Item 1</sl-menu-item>
+        </sl-menu-button>
+      `;
+      document.body.appendChild(container);
+
+      el = container.querySelector('sl-menu-button') as MenuButton;
+      await el.updateComplete;
+      button = el.renderRoot.querySelector('sl-button') as Button;
+
+      // Give the MutationObserver time to fire
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const label = container.querySelector('#lifecycle-label') as HTMLElement;
+      expect(button.internals.ariaLabelledByElements).to.exist;
+      expect(button.internals.ariaLabelledByElements?.[0]).to.equal(label);
+
+      container.remove();
+    });
+
+    it('should update aria references after first render', async () => {
+      const container = document.createElement('div');
+      container.innerHTML = `
+        <span id="first-updated-label">Label</span>
+        <sl-menu-button aria-labelledby="first-updated-label">
+          <sl-icon name="far-gear" slot="button"></sl-icon>
+          <sl-menu-item>Item 1</sl-menu-item>
+        </sl-menu-button>
+      `;
+      document.body.appendChild(container);
+
+      el = container.querySelector('sl-menu-button') as MenuButton;
+      await el.updateComplete;
+
+      // Give the MutationObserver time to fire
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      button = el.renderRoot.querySelector('sl-button') as Button;
+      const label = container.querySelector('#first-updated-label') as HTMLElement;
+
+      expect(button.internals.ariaLabelledByElements).to.exist;
+      expect(button.internals.ariaLabelledByElements?.[0]).to.equal(label);
+
+      container.remove();
     });
   });
 });

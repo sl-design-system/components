@@ -106,7 +106,13 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
     });
   }
 
-  override async firstUpdated(changes: PropertyValues<this>): Promise<void> {
+  override disconnectedCallback(): void {
+    this.#observer.disconnect();
+
+    super.disconnectedCallback();
+  }
+
+  override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
     this.setAttributesTarget(this.button);
@@ -114,15 +120,9 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
     this.button.setAttribute('aria-controls', this.menu.id);
     this.menu.anchorElement = this.button;
 
-    // Wait for next frame to ensure DOM is fully ready
-    await new Promise(resolve => requestAnimationFrame(resolve));
-    this.#updateAriaReferences();
-  }
-
-  override disconnectedCallback(): void {
-    this.#observer.disconnect();
-
-    super.disconnectedCallback();
+    requestAnimationFrame(() => {
+      this.#updateAriaReferences();
+    });
   }
 
   override render(): TemplateResult {
@@ -214,50 +214,49 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
   }
 
   /**
-   * Update the aria-describedby and aria-labelledby references on the button using
+   * Update aria-describedby and aria-labelledby references on the button using
    * ElementInternals.ariaDescribedByElements and ElementInternals.ariaLabelledByElements
-   * to get the references working across shadow DOM boundaries.
+   * to get it working across shadow DOM boundaries (e.g. with tooltips).
    */
   #updateAriaReferences(): void {
     if (!this.button?.internals) {
       return;
     }
 
-    const rootNode = this.getRootNode() as Document | ShadowRoot;
+    if (this.hasAttribute('aria-describedby')) {
+      this.#setAriaReference('aria-describedby', 'ariaDescribedByElements');
+    }
 
-    this.#setAriaReference('aria-describedby', 'ariaDescribedByElements', rootNode);
-    this.#setAriaReference('aria-labelledby', 'ariaLabelledByElements', rootNode);
+    if (this.hasAttribute('aria-labelledby')) {
+      this.#setAriaReference('aria-labelledby', 'ariaLabelledByElements');
+    }
   }
 
-  /** Set an ARIA reference on the button using ElementInternals. */
-  #setAriaReference(
-    attribute: string,
-    property: 'ariaDescribedByElements' | 'ariaLabelledByElements',
-    rootNode: Document | ShadowRoot
-  ): void {
+  /** Set an aria reference on the button using ElementInternals. */
+  #setAriaReference(attribute: string, property: 'ariaDescribedByElements' | 'ariaLabelledByElements'): void {
     const ariaValue = this.getAttribute(attribute);
 
-    if (ariaValue) {
-      const elements = ariaValue
-        .split(' ')
-        .map(id => rootNode.querySelector(`#${id}`))
-        .filter((el): el is Element => el !== null);
-
-      if (elements.length > 0) {
-        this.button.internals[property] = elements;
-
-        // Disconnect observer before removing attribute to prevent it from seeing this as a user action
-        this.#observer.disconnect();
-        this.removeAttribute(attribute);
-
-        // Reconnect observer to watch for future user changes
-        this.#observer.observe(this, {
-          attributes: true,
-          attributeFilter: ['aria-describedby', 'aria-labelledby']
-        });
-      }
-    } else {
+    // Clear internals if attribute was removed
+    if (!ariaValue) {
       this.button.internals[property] = null;
+      return;
     }
+
+    const elements = ariaValue
+      .split(' ')
+      .map(id => document.querySelector(`#${id}`))
+      .filter((el): el is Element => el !== null);
+
+    if (elements.length === 0) {
+      return;
+    }
+
+    this.button.internals[property] = elements;
+
+    // Temporarily stop observing so `removeAttribute` doesn't trigger the MutationObserver
+    this.#observer.disconnect();
+    this.removeAttribute(attribute);
+
+    this.#observer.observe(this, { attributes: true, attributeFilter: ['aria-describedby', 'aria-labelledby'] });
   }
 }

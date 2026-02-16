@@ -58,25 +58,29 @@ export function getDateFormat(locale: string, date?: Date): DateFormatPart[] {
   return parts;
 }
 
+/** Returns the full localized unit name (e.g. "Day", "Month", "Year") for a given date unit. */
+export function getDateUnitName(locale: string, unit: 'day' | 'month' | 'year'): string {
+  const pluralUnit = `${unit}s` as const,
+    df = new DurationFormat(locale, { style: 'long' }),
+    part = df.formatToParts({ [pluralUnit]: 1 }).find(p => p.type === 'unit');
+
+  // Capitalize the first letter
+  const name = part?.value ?? unit;
+
+  return name.charAt(0).toUpperCase() + name.slice(1);
+}
+
 /** Returns the first letter of the localized unit name for day, month, and year. */
 function getDateUnitLetters(locale: string): Record<'days' | 'months' | 'years', string> {
   if (dateUnitCache[locale]) {
     return dateUnitCache[locale];
   }
 
-  const df = new DurationFormat(locale, { style: 'long' }),
-    units: Record<'days' | 'months' | 'years', string> = {
-      days: '',
-      months: '',
-      years: ''
-    };
-
-  for (const unit of ['days', 'months', 'years'] as const) {
-    const part = df.formatToParts({ [unit]: 1 }).find(part => part.type === 'unit');
-
-    // Get the first letter of the unit name (uppercased)
-    units[unit] = part?.value.charAt(0).toUpperCase() ?? unit.charAt(0).toUpperCase();
-  }
+  const units: Record<'days' | 'months' | 'years', string> = {
+    days: getDateUnitName(locale, 'day').charAt(0),
+    months: getDateUnitName(locale, 'month').charAt(0),
+    years: getDateUnitName(locale, 'year').charAt(0)
+  };
 
   dateUnitCache[locale] = units;
 

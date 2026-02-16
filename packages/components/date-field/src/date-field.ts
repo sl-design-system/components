@@ -14,7 +14,7 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './date-field.scss.js';
-import { type DateFormatPart, getDateFormat, getDateUnitLetter, getMonthName } from './utils.js';
+import { type DateFormatPart, getDateFormat, getDateUnitLetter, getDateUnitName, getMonthName } from './utils.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -345,7 +345,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         .value=${displayValue}
         ?disabled=${this.disabled}
         ?readonly=${this.readonly || this.selectOnly}
-        aria-label=${this.#getLocalizedLabel(partType)}
+        aria-label=${getDateUnitName(locale, partType)}
         aria-valuemax=${this.#getMaxForType(partType)}
         aria-valuemin=${this.#getMinForType(partType)}
         aria-valuenow=${ifDefined(currentValue)}
@@ -681,17 +681,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         return getDateUnitLetter(locale, partType).repeat(part.value.length);
       })
       .join('');
-  }
-
-  #getLocalizedLabel(partType: DatePartType): string {
-    switch (partType) {
-      case 'day':
-        return msg('Day', { id: 'sl.dateField.day' });
-      case 'month':
-        return msg('Month', { id: 'sl.dateField.month' });
-      case 'year':
-        return msg('Year', { id: 'sl.dateField.year' });
-    }
   }
 
   #getMaxForType(partType: DatePartType): number {

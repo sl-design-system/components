@@ -298,9 +298,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
       // Update parent nodes
       let parent = node.parent;
       while (parent) {
-        parent.selected = parent.children!.every(child => child.selected);
-        parent.indeterminate =
-          !parent.selected && parent.children!.some(child => child.indeterminate || child.selected);
+        this.#updateParent(parent);
         parent = parent.parent;
       }
     }
@@ -333,9 +331,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
       // Update parent nodes
       let parent = node.parent;
       while (parent) {
-        parent.selected = parent.children!.every(child => child.selected);
-        parent.indeterminate =
-          !parent.selected && parent.children!.some(child => child.indeterminate || child.selected);
+        this.#updateParent(parent);
         parent = parent.parent;
       }
     }
@@ -543,5 +539,41 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
       parent,
       type: 'skeleton'
     };
+  }
+  /** Synchronizes the selection state of the entire tree. */
+  syncSelection(): void {
+    if (!this.multiple) {
+      return;
+    }
+
+    const traverse = (node: TreeDataSourceNode<T>): void => {
+      if (node.expandable) {
+        node.children?.forEach(traverse);
+        this.#updateParent(node);
+      } else if (node.selected) {
+        this.#selection.add(node);
+      } else {
+        this.#selection.delete(node);
+      }
+    };
+
+    this.nodes.forEach(traverse);
+  }
+
+  /** Update the selected and indeterminate state of the given parent node. */
+  #updateParent(node: TreeDataSourceNode<T>): void {
+    if (!node.children) {
+      return;
+    }
+
+    node.selected = (node.children.length ?? 0) > 0 && (node.children.every(child => child.selected) ?? false);
+    node.indeterminate =
+      !node.selected && (node.children.some(child => child.indeterminate || child.selected) ?? false);
+
+    if (node.selected) {
+      this.#selection.add(node);
+    } else {
+      this.#selection.delete(node);
+    }
   }
 }

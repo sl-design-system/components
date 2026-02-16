@@ -144,7 +144,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
       if (this.selectedTab) {
         this.#updateSelectedTab(this.selectedTab, false);
-        this.#scrollToTabPanelStart();
       }
     });
   });

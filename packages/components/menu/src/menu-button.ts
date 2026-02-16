@@ -240,21 +240,14 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
   #setAriaReference(attribute: string, property: 'ariaDescribedByElements' | 'ariaLabelledByElements'): void {
     const ariaValue = this.getAttribute(attribute);
 
-    // Clear internals if attribute was removed
-    if (!ariaValue) {
+    // Clear internals if attribute was removed or if the attribute only contained whitespace
+    if (!ariaValue || !ariaValue.trim()) {
       this.button.internals[property] = null;
       return;
     }
 
-    const trimmed = ariaValue.trim();
-
-    // Clear internals if the attribute only contained whitespace
-    if (!trimmed) {
-      this.button.internals[property] = null;
-      return;
-    }
-
-    const elements = trimmed
+    const elements = ariaValue
+      .trim()
       .split(/\s+/)
       .map(id => document.getElementById(id))
       .filter((el): el is HTMLElement => el !== null);

@@ -159,7 +159,10 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
         role="treegrid"
         style="block-size: ${virtualizer.getTotalSize()}px"
       >
-        <div class="starter" style="translate: 0px ${virtualItems[0]?.start ?? 0}px">
+        <div
+          class="starter"
+          style="translate: 0px ${(virtualItems[0]?.start ?? 0) - (virtualizer.options.scrollMargin ?? 0)}px"
+        >
           ${repeat(
             virtualItems,
             virtualItem => virtualItem.key,

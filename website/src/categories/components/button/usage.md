@@ -228,7 +228,7 @@ With these options you can tweak the appearance of the button in Figma. They are
 |Type|`solid` `outline` `ghost` `link`|There are four button types to choose from so you can differentiate between buttons, depending on how essential they are.  <br> [More info about button types](#types)|
 |Variant|`default` `primary` `success` `warning` `danger` `info`|Indicates the variant of the button. <br> [More info about button variants](#variants) |
 |Size|`small` `medium` `large`|The button is available in three sizes. If not specified the default value is `medium`.|
-|Icon |`start` `end`|Indictes the position of the icon.|
+|Icon |`start` `end`|Indicates the position of the icon.|
 |Label|`text`|Value of the button.|
 |Icon only|`boolean`|Indicates if it is an icon only button.|
 

@@ -93,7 +93,7 @@ With these options, you can tweak the appearance of the select in Figma. They ar
 |Label|`boolean`| To display a label.|
 |Size|`sm` `md` `lg`| The label come in three sizes small, medium (default) and large.|
 |Disabled|`boolean`| To show the disabled state of the label.|
-|Required|`boolean`| Indicates if it is requiered to select an option.|
+|Required|`boolean`| Indicates if it is required to select an option.|
 |Optional|`boolean`| Indicates if it is optional to select an  option.|
 |Info|`boolean`| To show a info icon with tooltip after the label.|
 |Text|`value`| To insert the text of the label.|

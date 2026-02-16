@@ -37,9 +37,7 @@ describe('sl-date-field2', () => {
     });
 
     it('should render separator spans between parts', () => {
-      const separators = el.renderRoot.querySelectorAll('span.separator');
-
-      expect(separators.length).to.be.greaterThan(0);
+      expect(el.renderRoot.querySelectorAll('.separator')).to.have.length(2);
     });
 
     it('should render parts in locale order', () => {

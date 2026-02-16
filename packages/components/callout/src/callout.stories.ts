@@ -199,9 +199,7 @@ export const WithActions: Story = {
         <h2 slot="title">Field trip consent</h2>
         <div class="content">
           <p>The 6th-grade museum visit is on 21 Nov. Please review the details and submit a consent form.</p>
-          <p>
-            Make sure you are prepared by checking the <a href="javascript:void(0)">trip details & packing list</a>.
-          </p>
+          <p>Make sure you are prepared by checking the <a href="#">trip details & packing list</a>.</p>
           <div class="actions">
             <sl-button fill="solid" variant="primary">
               <sl-icon name="far-arrow-right-to-bracket"></sl-icon>
@@ -255,7 +253,7 @@ export const All: StoryObj = {
             </h2>
             <p>
               Duis ut magna commodo minim cillum voluptate incididunt ea labore adipisicing do ad anim. Incididunt non
-              consequat eiusmod aliqua consequat Lorem eu culpa <a href="javascript:void(0)">aute laboris eiusmod</a>.
+              consequat eiusmod aliqua consequat Lorem eu culpa <a href="#">aute laboris eiusmod</a>.
             </p>
           </sl-callout>
         `

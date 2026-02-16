@@ -11,6 +11,10 @@
   --sl-color-component-link-idle: var(--sl-color-foreground-info-bold);
 }
 
+// this only works for links that are slotted directly into the content slot. If there are nested slots, the styles won't apply to links in those nested slots.
+// This is a limitation of the ::slotted() selector, which only applies styles to elements that are direct children of the slot.
+// If you need to style links in nested slots, use global.css that puts the --sl-color-component-link-idle variable on the link, and that variable will be set by the callout component.
+// This way, even if the link is in a nested slot, it will still inherit the correct color from the callout component.
 ::slotted(a[href]) {
   color: var(--sl-color-component-link-idle);
 }

@@ -120,7 +120,7 @@ sl-icon[name='breadcrumb-separator'] {
 sl-popover::part(container) {
   display: flex;
   flex-direction: column;
-  gap: var(--sl-space-new-2xs);
+  gap: var(--sl-size-025);
   padding: var(--sl-size-100) 0;
 }
 

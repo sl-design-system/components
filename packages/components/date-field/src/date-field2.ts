@@ -542,6 +542,11 @@ export class DateField2 extends LocaleMixin(FormControlMixin(ScopedElementsMixin
         }
         break;
     }
+
+    // Prevent any other character input (letters, symbols, etc.)
+    if (event.key.length === 1 && !event.ctrlKey && !event.metaKey) {
+      event.preventDefault();
+    }
   }
 
   #onSelectAllBlur(): void {

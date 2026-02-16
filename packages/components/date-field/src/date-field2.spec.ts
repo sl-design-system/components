@@ -895,6 +895,27 @@ describe('sl-date-field2', () => {
 
       expect(inputs[0].value).to.equal('MM');
     });
+
+    it('should not allow non-numeric characters to be entered', async () => {
+      inputs[0].focus();
+      await userEvent.keyboard('a');
+
+      expect(inputs[0].value).to.equal('MM');
+    });
+
+    it('should not allow symbol characters to be entered', async () => {
+      inputs[0].focus();
+      await userEvent.keyboard('!');
+
+      expect(inputs[0].value).to.equal('MM');
+    });
+
+    it('should not allow space to be entered', async () => {
+      inputs[0].focus();
+      await userEvent.keyboard(' ');
+
+      expect(inputs[0].value).to.equal('MM');
+    });
   });
 
   describe('select all', () => {

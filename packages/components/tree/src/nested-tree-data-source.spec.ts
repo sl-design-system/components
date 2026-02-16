@@ -540,7 +540,6 @@ describe('NestedTreeDataSource', () => {
       const parent = ds.items[0];
       ds.expand(parent);
 
-      // Select all
       ds.selectAll();
       expect(parent.selected).to.be.true;
       expect(parent.children![0].selected).to.be.true;

@@ -11,7 +11,7 @@ import { isSameDate } from '@sl-design-system/shared/date.js';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { FieldButton, TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
-import { property, query } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './date-field.scss.js';
 import { type DateFormatPart, getDateFormat, getDateTemplate, getDateUnitLetter } from './utils.js';
@@ -90,6 +90,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** @internal The dialog element that is also the popover. */
   @query('dialog') dialog?: HTMLDialogElement;
+
+  /** @internal Whether the dialog is visible. */
+  @state() dialogVisible?: boolean;
 
   /** Whether the date field is disabled; when set no interaction is possible. */
   @property({ type: Boolean }) override disabled?: boolean;
@@ -290,7 +293,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         id="dialog"
         popover
       >
-        ${this.dialog?.matches(':popover-open')
+        ${this.dialogVisible
           ? html`
               <slot @slotchange=${this.#onSlotChange} @sl-change=${this.#onChange} name="calendar">
                 <sl-calendar
@@ -368,6 +371,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   #onBeforeToggle(event: ToggleEvent): void {
     if (event.newState === 'open') {
+      this.dialogVisible = true;
       this.input.setAttribute('aria-expanded', 'true');
     } else {
       this.input.setAttribute('aria-expanded', 'false');
@@ -466,7 +470,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   #onInputKeydown(event: KeyboardEvent): void {
     const selectedPart = this.#getSelectedPart();
-    if (!selectedPart || this.selectOnly) {
+    if (!selectedPart) {
       return;
     }
 
@@ -510,7 +514,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.#editingPartType = newPart.type;
       this.#enteredDigits = 0;
       this.#setSelectedPart(newPart);
-    } else if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+    } else if (!this.readonly && !this.selectOnly && (event.key === 'ArrowUp' || event.key === 'ArrowDown')) {
       this.#adjustDatePart(selectedPart.type, event.key === 'ArrowUp' ? 1 : -1);
     }
   }
@@ -569,6 +573,17 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   #onToggle(event: ToggleEvent): void {
     if (event.newState === 'closed') {
       this.#popoverJustClosed = false;
+
+      // Wait for the close animation to finish before removing the calendar from the DOM
+      const animations = this.dialog?.getAnimations();
+
+      if (animations?.length) {
+        void Promise.all(animations.map(a => a.finished)).then(() => {
+          this.dialogVisible = false;
+        });
+      } else {
+        this.dialogVisible = false;
+      }
     } else {
       // Wait for the calendar to render in the popover
       requestAnimationFrame(() => this.calendar?.focus());

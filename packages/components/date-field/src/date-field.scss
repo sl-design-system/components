@@ -25,6 +25,11 @@ dialog {
     transition-property: display, opacity;
   }
 
+  &:focus-visible {
+    outline: var(--sl-size-borderWidth-default) solid var(--sl-color-border-input);
+    outline-offset: var(--sl-size-outlineOffset-default);
+  }
+
   &:popover-open {
     display: grid;
     opacity: 1;

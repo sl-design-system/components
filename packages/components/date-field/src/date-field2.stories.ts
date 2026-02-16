@@ -7,10 +7,10 @@ import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
-import { type DateField } from './date-field.js';
+import { type DateField2 } from './date-field2.js';
 
 type Props = Pick<
-  DateField,
+  DateField2,
   | 'disabled'
   | 'max'
   | 'min'
@@ -32,7 +32,7 @@ type Props = Pick<
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'Form/Date field',
+  title: 'Form/Date field 2',
   tags: ['draft'],
   args: {
     disabled: false,
@@ -93,7 +93,7 @@ export default {
     return html`
       <sl-form .value=${value}>
         <sl-form-field .hint=${hint} .label=${label}>
-          <sl-date-field
+          <sl-date-field2
             ?disabled=${disabled}
             ?readonly=${readonly}
             ?require-confirmation=${requireConfirmation}
@@ -109,7 +109,7 @@ export default {
             style="width: fit-content"
           >
             ${slot?.()}
-          </sl-date-field>
+          </sl-date-field2>
         </sl-form-field>
         ${reportValidity
           ? html`
@@ -136,7 +136,7 @@ export const ExtraControls: Story = {
     requireConfirmation: true,
     slot: () => {
       const onClear = (): void => {
-        const dateField = document.querySelector('sl-date-field');
+        const dateField = document.querySelector('sl-date-field2');
 
         if (dateField?.calendar) {
           dateField.calendar.selected = undefined;
@@ -144,7 +144,7 @@ export const ExtraControls: Story = {
       };
 
       const onToday = (): void => {
-        const dateField = document.querySelector('sl-date-field');
+        const dateField = document.querySelector('sl-date-field2');
 
         if (dateField?.calendar) {
           dateField.calendar.selected = new Date();
@@ -169,8 +169,7 @@ export const MinMax: Story = {
 
 export const Readonly: Story = {
   args: {
-    readonly: true,
-    value: new Date(2024, 8, 12)
+    readonly: true
   }
 };
 
@@ -231,61 +230,60 @@ export const All: Story = {
         <div class="date-field-wrapper">
           <span>Basic</span>
           <sl-form-field label="Date">
-            <sl-date-field placeholder="Pick a date"></sl-date-field>
+            <sl-date-field2></sl-date-field2>
           </sl-form-field>
         </div>
 
         <div class="date-field-wrapper">
           <span>With Value</span>
           <sl-form-field label="Date">
-            <sl-date-field .value=${mockDate} placeholder="Pick a date"></sl-date-field>
+            <sl-date-field2 .value=${mockDate}></sl-date-field2>
           </sl-form-field>
         </div>
 
         <div class="date-field-wrapper">
           <span>Required</span>
           <sl-form-field label="Date">
-            <sl-date-field placeholder="Pick a date" required></sl-date-field>
+            <sl-date-field2 required></sl-date-field2>
           </sl-form-field>
         </div>
 
         <div class="date-field-wrapper">
           <span>Disabled</span>
           <sl-form-field label="Date">
-            <sl-date-field disabled placeholder="Pick a date"></sl-date-field>
+            <sl-date-field2 disabled></sl-date-field2>
           </sl-form-field>
         </div>
 
         <div class="date-field-wrapper">
           <span>Readonly</span>
           <sl-form-field label="Date">
-            <sl-date-field .value=${mockDate} placeholder="Pick a date" readonly></sl-date-field>
+            <sl-date-field2 .value=${mockDate} readonly></sl-date-field2>
           </sl-form-field>
         </div>
 
         <div class="date-field-wrapper">
           <span>Select Only</span>
           <sl-form-field label="Date">
-            <sl-date-field placeholder="Pick a date" select-only></sl-date-field>
+            <sl-date-field2 select-only></sl-date-field2>
           </sl-form-field>
         </div>
 
         <div class="date-field-wrapper">
           <span>Week Numbers</span>
           <sl-form-field label="Date">
-            <sl-date-field placeholder="Pick a date" show-week-numbers></sl-date-field>
+            <sl-date-field2 show-week-numbers></sl-date-field2>
           </sl-form-field>
         </div>
 
         <div class="date-field-wrapper">
           <span>Min/Max</span>
           <sl-form-field label="Date">
-            <sl-date-field
+            <sl-date-field2
               max=${new Date('2025-06-20').toISOString()}
               min=${new Date('2025-06-10').toISOString()}
               month=${new Date('2025-06-01').toISOString()}
-              placeholder="Pick a date"
-            ></sl-date-field>
+            ></sl-date-field2>
           </sl-form-field>
         </div>
       </section>

@@ -113,3 +113,10 @@ export function getDateTemplate(locale: string): string {
     })
     .join('');
 }
+
+/** Returns the localized name of a month (e.g. "January") for a given 1-based month number. */
+export function getMonthName(locale: string, month: number): string {
+  const date = new Date(2000, month - 1, 1);
+
+  return new Intl.DateTimeFormat(locale, { month: 'long' }).format(date);
+}

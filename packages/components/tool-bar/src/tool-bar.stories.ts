@@ -440,7 +440,7 @@ export const IconOnly: Story = {
              */
             id: 'aria-command-name',
             enabled: false,
-            selector: 'sl-menu-button[icon-only]'
+            selector: 'sl-button[icon-only]'
           }
         ]
       }

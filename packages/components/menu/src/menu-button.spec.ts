@@ -395,6 +395,16 @@ describe('sl-menu-button', () => {
 
       label2.remove();
     });
+
+    it('should clear ariaLabelledByElements when all ids are not existing', async () => {
+      expect(button.internals.ariaLabelledByElements).to.exist;
+      expect(button.internals.ariaLabelledByElements).to.have.lengthOf(1);
+
+      el.setAttribute('aria-labelledby', 'non-existent-1 non-existent-2');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(button.internals.ariaLabelledByElements).to.be.null;
+    });
   });
 
   describe('aria-describedby', () => {
@@ -498,6 +508,19 @@ describe('sl-menu-button', () => {
       expect(button.internals.ariaDescribedByElements).to.have.lengthOf(1);
 
       newLabel.remove();
+    });
+
+    it('should clear ariaDescribedByElements when all IDs are non-existent', async () => {
+      // Initial setup has valid description
+      expect(button.internals.ariaDescribedByElements).to.exist;
+      expect(button.internals.ariaDescribedByElements).to.have.lengthOf(1);
+
+      // Update with only non-existent IDs
+      el.setAttribute('aria-describedby', 'non-existent-1 non-existent-2');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      // Should clear the stale reference
+      expect(button.internals.ariaDescribedByElements).to.be.null;
     });
   });
 

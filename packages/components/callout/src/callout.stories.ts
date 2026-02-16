@@ -253,8 +253,10 @@ export const All: StoryObj = {
               The "${variant}" callout title, esse laboris nisi ut quis ullamco dolor elit do commodo ea mollit eu
               irure.
             </h2>
-            Duis ut magna commodo minim cillum voluptate incididunt ea labore adipisicing do ad anim. Incididunt non
-            consequat eiusmod aliqua consequat Lorem eu culpa <a href="javascript:void(0)">aute laboris eiusmod</a>.
+            <p>
+              Duis ut magna commodo minim cillum voluptate incididunt ea labore adipisicing do ad anim. Incididunt non
+              consequat eiusmod aliqua consequat Lorem eu culpa <a href="javascript:void(0)">aute laboris eiusmod</a>.
+            </p>
           </sl-callout>
         `
       )}

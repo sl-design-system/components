@@ -175,11 +175,11 @@ export class Tooltip extends LitElement {
       toTooltip = (event.relatedTarget as Element)?.nodeName === 'SL-TOOLTIP';
       fromTooltip =
         (event.target as Element)?.nodeName === 'SL-TOOLTIP' && !this.#matchesAnchor(event.relatedTarget as Element);
-      toChild =
-        this.#getParentsUntil(
-          event.relatedTarget as Element,
-          "[aria-describedby='" + this.id + "'],[aria-labelledby='" + this.id + "']"
-        ).length > 0;
+
+      const relatedPath = (event as PointerEvent & { relatedTarget: Element }).relatedTarget
+        ? [event.relatedTarget as Element, ...this.#getParentsUntil(event.relatedTarget as Element, 'body')]
+        : [];
+      toChild = relatedPath.some(el => this.#matchesAnchor(el));
     }
 
     if (toChild) {

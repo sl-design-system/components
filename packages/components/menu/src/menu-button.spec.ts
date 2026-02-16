@@ -488,6 +488,7 @@ describe('sl-menu-button', () => {
       newLabel.textContent = 'Label';
       document.body.appendChild(newLabel);
 
+      el.setAttribute('aria-describedby', 'description-test');
       el.setAttribute('aria-labelledby', 'my-label');
       await new Promise(resolve => setTimeout(resolve, 50));
 

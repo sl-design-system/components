@@ -184,6 +184,139 @@ describe('sl-tooltip', () => {
     });
   });
 
+  describe('ElementInternals ariaDescribedByElements', () => {
+    let button: Button;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <div style="block-size: 400px; inline-size: 400px;">
+          <sl-button>Button</sl-button>
+          <sl-tooltip id="tooltip">Tooltip via ElementInternals</sl-tooltip>
+        </div>
+      `);
+
+      button = el.querySelector('sl-button') as Button;
+      tooltip = el.querySelector('sl-tooltip') as Tooltip;
+
+      // Manually set ariaDescribedByElements
+      if (button.internals) {
+        button.internals.ariaDescribedByElements = [tooltip];
+      }
+    });
+
+    it('should show tooltip when referenced via ElementInternals ariaDescribedByElements', async () => {
+      const pointerOver = new Event('pointerover', { bubbles: true });
+
+      button?.dispatchEvent(pointerOver);
+      await tooltip.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(tooltip).to.match(':popover-open');
+    });
+
+    it('should hide tooltip on pointerout when referenced via ElementInternals', async () => {
+      const pointerOver = new Event('pointerover', { bubbles: true });
+
+      button?.dispatchEvent(pointerOver);
+      await tooltip.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(tooltip).to.match(':popover-open');
+
+      const pointerOut = new Event('pointerout', { bubbles: true });
+      button?.dispatchEvent(pointerOut);
+
+      expect(tooltip).not.to.match(':popover-open');
+    });
+
+    it('should show tooltip on focus when referenced via ElementInternals', async () => {
+      button?.focus();
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(tooltip).to.match(':popover-open');
+    });
+  });
+
+  describe('ElementInternals ariaLabelledByElements', () => {
+    let button: Button;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <div style="block-size: 400px; inline-size: 400px;">
+          <sl-button>Button</sl-button>
+          <sl-tooltip id="tooltip">Tooltip label via ElementInternals</sl-tooltip>
+        </div>
+      `);
+
+      button = el.querySelector('sl-button') as Button;
+      tooltip = el.querySelector('sl-tooltip') as Tooltip;
+
+      // Manually set ariaLabelledByElements
+      if (button.internals) {
+        button.internals.ariaLabelledByElements = [tooltip];
+      }
+    });
+
+    it('should show tooltip when referenced via ElementInternals ariaLabelledByElements', async () => {
+      const pointerOver = new Event('pointerover', { bubbles: true });
+
+      button?.dispatchEvent(pointerOver);
+      await tooltip.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(tooltip).to.match(':popover-open');
+    });
+
+    it('should hide tooltip on pointerout when referenced via ElementInternals ariaLabelledByElements', async () => {
+      const pointerOver = new Event('pointerover', { bubbles: true });
+
+      button?.dispatchEvent(pointerOver);
+      await tooltip.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(tooltip).to.match(':popover-open');
+
+      const pointerOut = new Event('pointerout', { bubbles: true });
+      button?.dispatchEvent(pointerOut);
+
+      expect(tooltip).not.to.match(':popover-open');
+    });
+  });
+
+  describe('ElementInternals with multiple elements', () => {
+    let button: Button;
+    let otherElement: HTMLSpanElement;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <div style="block-size: 400px; inline-size: 400px;">
+          <span id="other-element">Other element</span>
+          <sl-button>Button</sl-button>
+          <sl-tooltip id="tooltip">Tooltip message</sl-tooltip>
+        </div>
+      `);
+
+      button = el.querySelector('sl-button') as Button;
+      tooltip = el.querySelector('sl-tooltip') as Tooltip;
+      otherElement = el.querySelector('#other-element') as HTMLSpanElement;
+
+      // Set multiple elements in ariaDescribedByElements
+      if (button.internals) {
+        button.internals.ariaDescribedByElements = [otherElement, tooltip];
+      }
+    });
+
+    it('should show tooltip when it is one of multiple elements in ariaDescribedByElements', async () => {
+      const pointerOver = new Event('pointerover', { bubbles: true });
+
+      button?.dispatchEvent(pointerOver);
+      await tooltip.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(tooltip).to.match(':popover-open');
+    });
+  });
+
   describe('Tooltip lazy()', () => {
     let el: HTMLElement;
     let button: Button;

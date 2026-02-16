@@ -225,10 +225,14 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
 
     if (this.hasAttribute('aria-describedby')) {
       this.#setAriaReference('aria-describedby', 'ariaDescribedByElements');
+    } else {
+      this.button.internals.ariaDescribedByElements = null;
     }
 
     if (this.hasAttribute('aria-labelledby')) {
       this.#setAriaReference('aria-labelledby', 'ariaLabelledByElements');
+    } else {
+      this.button.internals.ariaLabelledByElements = null;
     }
   }
 
@@ -242,10 +246,18 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
       return;
     }
 
-    const elements = ariaValue
-      .split(' ')
-      .map(id => document.querySelector(`#${id}`))
-      .filter((el): el is Element => el !== null);
+    const trimmed = ariaValue.trim();
+
+    // Clear internals if the attribute only contained whitespace
+    if (!trimmed) {
+      this.button.internals[property] = null;
+      return;
+    }
+
+    const elements = trimmed
+      .split(/\s+/)
+      .map(id => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
 
     if (elements.length === 0) {
       return;

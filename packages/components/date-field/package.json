@@ -42,8 +42,7 @@
     "@sl-design-system/button-bar": "^1.3.0",
     "@sl-design-system/calendar": "^0.0.4",
     "@sl-design-system/form": "^1.3.3",
-    "@sl-design-system/icon": "^1.3.0",
-    "@sl-design-system/text-field": "^1.6.7"
+    "@sl-design-system/icon": "^1.3.0"
   },
   "devDependencies": {
     "@open-wc/scoped-elements": "^3.0.6",

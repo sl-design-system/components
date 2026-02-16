@@ -7,6 +7,12 @@
   gap: 0 var(--sl-size-100);
   grid-template-columns: auto 1fr;
   padding: var(--sl-size-150) var(--sl-size-200);
+
+  --sl-color-component-link-idle: var(--sl-color-foreground-info-bold);
+}
+
+::slotted(a[href]) {
+  color: var(--sl-color-component-link-idle);
 }
 
 :host([density='relaxed']) {
@@ -26,16 +32,22 @@
 :host([variant='positive']) {
   background: var(--sl-color-background-positive-subtlest);
   color: var(--sl-color-foreground-positive-bold);
+
+  --sl-color-component-link-idle: var(--sl-color-foreground-positive-bold);
 }
 
 :host([variant='negative']) {
   background: var(--sl-color-background-negative-subtlest);
   color: var(--sl-color-foreground-negative-bold);
+
+  --sl-color-component-link-idle: var(--sl-color-foreground-negative-bold);
 }
 
 :host([variant='caution']) {
   background: var(--sl-color-background-caution-subtlest);
   color: var(--sl-color-foreground-caution-bold);
+
+  --sl-color-component-link-idle: var(--sl-color-foreground-caution-bold);
 }
 
 [part='content'] {

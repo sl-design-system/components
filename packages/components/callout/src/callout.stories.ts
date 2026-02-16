@@ -254,7 +254,7 @@ export const All: StoryObj = {
               irure.
             </h2>
             Duis ut magna commodo minim cillum voluptate incididunt ea labore adipisicing do ad anim. Incididunt non
-            consequat eiusmod aliqua consequat Lorem eu culpa labore aute laboris eiusmod.
+            consequat eiusmod aliqua consequat Lorem eu culpa <a href="javascript:void(0)">aute laboris eiusmod</a>.
           </sl-callout>
         `
       )}

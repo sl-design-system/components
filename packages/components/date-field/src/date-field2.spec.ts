@@ -897,6 +897,140 @@ describe('sl-date-field2', () => {
     });
   });
 
+  describe('select all', () => {
+    let inputs: NodeListOf<HTMLInputElement>;
+
+    beforeEach(async () => {
+      el = await fixture(html`<sl-date-field2 .value=${new Date(2026, 2, 15)}></sl-date-field2>`);
+      inputs = el.renderRoot.querySelectorAll<HTMLInputElement>('input[role="spinbutton"]');
+    });
+
+    it('should switch to a single select-all input on Ctrl+A', async () => {
+      inputs[0].focus();
+      await userEvent.keyboard('{Control>}a{/Control}');
+      await el.updateComplete;
+
+      const selectAllInput = el.renderRoot.querySelector<HTMLInputElement>('.select-all');
+
+      expect(selectAllInput).to.exist;
+      expect(selectAllInput!.value).to.equal('03/15/2026');
+      expect(el.renderRoot.querySelectorAll('input[role="spinbutton"]')).to.have.length(0);
+    });
+
+    it('should switch to a single select-all input on Meta+A', async () => {
+      inputs[0].focus();
+      await userEvent.keyboard('{Meta>}a{/Meta}');
+      await el.updateComplete;
+
+      const selectAllInput = el.renderRoot.querySelector<HTMLInputElement>('.select-all');
+
+      expect(selectAllInput).to.exist;
+      expect(selectAllInput!.value).to.equal('03/15/2026');
+    });
+
+    it('should have the text selected in select-all mode', async () => {
+      inputs[0].focus();
+      await userEvent.keyboard('{Control>}a{/Control}');
+      await el.updateComplete;
+
+      const selectAllInput = el.renderRoot.querySelector<HTMLInputElement>('.select-all');
+
+      expect(selectAllInput!.selectionStart).to.equal(0);
+      expect(selectAllInput!.selectionEnd).to.equal(10);
+    });
+
+    it('should exit select-all mode and restore spinbuttons on keydown', async () => {
+      inputs[0].focus();
+      await userEvent.keyboard('{Control>}a{/Control}');
+      await el.updateComplete;
+
+      await userEvent.keyboard('{ArrowRight}');
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('.select-all')).to.not.exist;
+      expect(el.renderRoot.querySelectorAll('input[role="spinbutton"]')).to.have.length(3);
+    });
+
+    it('should focus the first spinbutton when exiting select-all via keydown', async () => {
+      inputs[0].focus();
+      await userEvent.keyboard('{Control>}a{/Control}');
+      await el.updateComplete;
+
+      await userEvent.keyboard('{ArrowRight}');
+      await el.updateComplete;
+
+      const newInputs = el.renderRoot.querySelectorAll<HTMLInputElement>('input[role="spinbutton"]');
+
+      expect((el.renderRoot as ShadowRoot).activeElement).to.equal(newInputs[0]);
+    });
+
+    it('should not exit select-all mode on modifier key alone', async () => {
+      inputs[0].focus();
+      await userEvent.keyboard('{Control>}a{/Control}');
+      await el.updateComplete;
+
+      const selectAllInput = el.renderRoot.querySelector<HTMLInputElement>('.select-all')!;
+      selectAllInput.dispatchEvent(new KeyboardEvent('keydown', { key: 'Control', ctrlKey: true, bubbles: true }));
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('.select-all')).to.exist;
+    });
+
+    it('should allow Ctrl+C without exiting select-all mode', async () => {
+      inputs[0].focus();
+      await userEvent.keyboard('{Control>}a{/Control}');
+      await el.updateComplete;
+
+      const selectAllInput = el.renderRoot.querySelector<HTMLInputElement>('.select-all')!;
+      selectAllInput.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'c', ctrlKey: true, bubbles: true, cancelable: true })
+      );
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('.select-all')).to.exist;
+    });
+
+    it('should exit select-all mode on mousedown', async () => {
+      inputs[0].focus();
+      await userEvent.keyboard('{Control>}a{/Control}');
+      await el.updateComplete;
+
+      const selectAllInput = el.renderRoot.querySelector<HTMLInputElement>('.select-all')!;
+      selectAllInput.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true }));
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('.select-all')).to.not.exist;
+      expect(el.renderRoot.querySelectorAll('input[role="spinbutton"]')).to.have.length(3);
+    });
+
+    it('should exit select-all mode on blur', async () => {
+      inputs[0].focus();
+      await userEvent.keyboard('{Control>}a{/Control}');
+      await el.updateComplete;
+
+      const selectAllInput = el.renderRoot.querySelector<HTMLInputElement>('.select-all')!;
+      selectAllInput.dispatchEvent(new FocusEvent('blur', { bubbles: true }));
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('.select-all')).to.not.exist;
+    });
+
+    it('should show placeholder text for empty parts in select-all mode', async () => {
+      el = await fixture(html`<sl-date-field2></sl-date-field2>`);
+      const emptyInputs = el.renderRoot.querySelectorAll<HTMLInputElement>('input[role="spinbutton"]');
+
+      emptyInputs[0].focus();
+      await userEvent.keyboard('3');
+
+      await userEvent.keyboard('{Control>}a{/Control}');
+      await el.updateComplete;
+
+      const selectAllInput = el.renderRoot.querySelector<HTMLInputElement>('.select-all');
+
+      expect(selectAllInput!.value).to.equal('03/DD/YYYY');
+    });
+  });
+
   describe('require confirmation', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-date-field2 require-confirmation></sl-date-field2>`);

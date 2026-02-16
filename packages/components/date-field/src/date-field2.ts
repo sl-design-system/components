@@ -71,6 +71,9 @@ export class DateField2 extends LocaleMixin(FormControlMixin(ScopedElementsMixin
    */
   #preserveDateParts = false;
 
+  /** Whether the component is in "select all" mode, showing a single text input. */
+  #selectAll = false;
+
   /**
    * Flag indicating whether the popover was just closed. We need to know this so we can
    * properly handle button clicks that close the popover. If the popover was just closed,
@@ -246,8 +249,21 @@ export class DateField2 extends LocaleMixin(FormControlMixin(ScopedElementsMixin
     return html`
       <div class="field">
         <div class="wrapper">
-          <div class="inputs">${parts.map(part => this.renderPart(part, locale))}</div>
-          ${this.placeholder ? html`<div class="placeholder">${this.placeholder}</div>` : nothing}
+          ${this.#selectAll
+            ? html`
+                <input
+                  @blur=${this.#onSelectAllBlur}
+                  @keydown=${this.#onSelectAllKeydown}
+                  @mousedown=${this.#onSelectAllMouseDown}
+                  .value=${this.#getFormattedValue()}
+                  class="select-all"
+                  readonly
+                />
+              `
+            : html`
+                <div class="inputs">${parts.map(part => this.renderPart(part, locale))}</div>
+                ${this.placeholder ? html`<div class="placeholder">${this.placeholder}</div>` : nothing}
+              `}
         </div>
 
         <sl-field-button
@@ -447,6 +463,18 @@ export class DateField2 extends LocaleMixin(FormControlMixin(ScopedElementsMixin
       return;
     }
 
+    if ((event.ctrlKey || event.metaKey) && event.key === 'a') {
+      event.preventDefault();
+      this.#selectAll = true;
+      this.requestUpdate();
+      void this.updateComplete.then(() => {
+        const selectAllInput = this.renderRoot.querySelector<HTMLInputElement>('.select-all');
+        selectAllInput?.focus();
+        selectAllInput?.select();
+      });
+      return;
+    }
+
     if (event.key >= '0' && event.key <= '9') {
       event.preventDefault();
 
@@ -514,6 +542,30 @@ export class DateField2 extends LocaleMixin(FormControlMixin(ScopedElementsMixin
         }
         break;
     }
+  }
+
+  #onSelectAllBlur(): void {
+    this.#exitSelectAll();
+  }
+
+  #onSelectAllKeydown(event: KeyboardEvent): void {
+    // Allow modifier keys on their own (Ctrl, Meta, Shift, Alt) so copy shortcut works
+    if (['Control', 'Meta', 'Shift', 'Alt'].includes(event.key)) {
+      return;
+    }
+
+    // Allow copy shortcut
+    if ((event.ctrlKey || event.metaKey) && (event.key === 'c' || event.key === 'C')) {
+      return;
+    }
+
+    event.preventDefault();
+    this.#exitSelectAll(true);
+  }
+
+  #onSelectAllMouseDown(event: MouseEvent): void {
+    event.preventDefault();
+    this.#exitSelectAll(true);
   }
 
   #onSeparatorPointerDown(event: Event & { target: HTMLElement }): void {
@@ -589,6 +641,41 @@ export class DateField2 extends LocaleMixin(FormControlMixin(ScopedElementsMixin
 
     this.#enteredDigits++;
     this.#dateParts[partType] = newValue;
+  }
+
+  #exitSelectAll(refocus = false): void {
+    this.#selectAll = false;
+    this.requestUpdate();
+
+    if (refocus) {
+      void this.updateComplete.then(() => {
+        const firstInput = this.renderRoot.querySelector<HTMLInputElement>('input[role="spinbutton"]');
+        firstInput?.focus();
+      });
+    }
+  }
+
+  /** Returns the formatted date string for the select-all input. */
+  #getFormattedValue(): string {
+    const locale = this.locale ?? 'default',
+      parts = getDateFormat(locale);
+
+    return parts
+      .map(part => {
+        if (part.type === 'literal') {
+          return part.value;
+        }
+
+        const partType = part.type as DatePartType,
+          currentValue = this.#dateParts[partType];
+
+        if (currentValue !== undefined) {
+          return String(currentValue).padStart(part.value.length, '0');
+        }
+
+        return getDateUnitLetter(locale, partType).repeat(part.value.length);
+      })
+      .join('');
   }
 
   #getLocalizedLabel(partType: DatePartType): string {

@@ -71,6 +71,10 @@
   pointer-events: none;
 }
 
+.select-all {
+  grid-area: 1 / 1;
+}
+
 input {
   appearance: none;
   background: transparent;

@@ -429,6 +429,23 @@ export const Tooltips: Story = {
 };
 
 export const IconOnly: Story = {
+  parameters: {
+    a11y: {
+      config: {
+        rules: [
+          {
+            /**
+             * The rule is disabled for sl-menu-buttons because they use ElementInternals
+             * to set aria-labelledby across shadow DOM boundaries, which the a11y checker cannot detect.
+             */
+            id: 'aria-command-name',
+            enabled: false,
+            selector: 'sl-menu-button[icon-only]'
+          }
+        ]
+      }
+    }
+  },
   render: ({ align, contained, disabled, inverted, resizable, fill, width }) => {
     return html`
       <style>

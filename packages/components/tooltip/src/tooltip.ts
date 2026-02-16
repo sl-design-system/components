@@ -138,7 +138,11 @@ export class Tooltip extends LitElement {
     const describedBy = element.getAttribute('aria-describedby'),
       labelledBy = element.getAttribute('aria-labelledby');
 
-    if (this.id === describedBy || this.id === labelledBy) {
+    // There can be multiple ids in aria-describedby and aria-labelledby, so we need to check if any of them matches the tooltip's id
+    const matchesAria = (value: string | null): boolean =>
+      typeof value === 'string' && value.split(/\s+/).includes(this.id);
+
+    if (matchesAria(describedBy) || matchesAria(labelledBy)) {
       return true;
     }
 

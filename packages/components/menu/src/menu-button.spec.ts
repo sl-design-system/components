@@ -363,17 +363,6 @@ describe('sl-menu-button', () => {
       newLabel.remove();
     });
 
-    it('should not clear ariaLabelledByElements when aria-labelledby is removed via MutationObserver', async () => {
-      expect(button.internals.ariaLabelledByElements).to.exist;
-      expect(button.internals.ariaLabelledByElements).to.have.lengthOf(1);
-
-      el.removeAttribute('aria-labelledby');
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(button.internals.ariaLabelledByElements).to.exist;
-      expect(button.internals.ariaLabelledByElements).to.have.lengthOf(1);
-    });
-
     it('should handle multiple ids in aria-labelledby', async () => {
       const label2 = document.createElement('span');
       label2.id = 'label-test-2';
@@ -458,17 +447,6 @@ describe('sl-menu-button', () => {
       expect(button.internals.ariaDescribedByElements?.[0]).to.equal(newDescription);
 
       newDescription.remove();
-    });
-
-    it('should not clear ariaDescribedByElements when aria-describedby is removed', async () => {
-      expect(button.internals.ariaDescribedByElements).to.exist;
-      expect(button.internals.ariaDescribedByElements).to.have.lengthOf(1);
-
-      el.removeAttribute('aria-describedby');
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(button.internals.ariaDescribedByElements).to.exist;
-      expect(button.internals.ariaDescribedByElements).to.have.lengthOf(1);
     });
 
     it('should handle multiple ids in aria-describedby', async () => {

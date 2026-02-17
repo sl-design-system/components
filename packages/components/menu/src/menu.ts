@@ -114,11 +114,13 @@ export class Menu extends LitElement {
 
   override render(): TemplateResult {
     return html`
-      <slot
-        @slotchange=${this.#onSlotchange}
-        @sl-select=${this.#onSelect}
-        style="--sl-menu-item-indent: ${this.selects || this.selectableChildren ? '1' : '0'}"
-      ></slot>
+      <div part="menu">
+        <slot
+          @slotchange=${this.#onSlotchange}
+          @sl-select=${this.#onSelect}
+          style="--sl-menu-item-indent: ${this.selects || this.selectableChildren ? '1' : '0'}"
+        ></slot>
+      </div>
     `;
   }
 

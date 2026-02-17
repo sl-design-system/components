@@ -249,8 +249,8 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
     const elements = ariaValue
       .trim()
       .split(/\s+/)
-      .map(id => (this.getRootNode() as HTMLElement).querySelector(`#${id}`))
-      .filter((el): el is HTMLElement => el !== null);
+      .map(id => (this.getRootNode() as ParentNode).querySelector(`#${id}`))
+      .filter((el): el is Element => el !== null);
 
     if (elements.length === 0) {
       this.button.internals[property] = null;

@@ -33,16 +33,16 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
   @property() direction?: DataSourceSortDirection;
 
   override get scopedElements(): Record<string, typeof HTMLElement> {
-    return {
-      ...this.#scopedElements,
-      'sl-grid-sorter': GridSorter
-    };
+    return this.#scopedElements;
   }
 
   /** The custom elements necessary to render this column. */
   @property({ attribute: false })
   override set scopedElements(value: Record<string, typeof HTMLElement> | undefined) {
-    this.#scopedElements = value ?? {};
+    this.#scopedElements = {
+      ...(value ?? {}),
+      'sl-grid-sorter': GridSorter
+    };
   }
 
   /** If you want to provide a custom sort function, you can via this property. */

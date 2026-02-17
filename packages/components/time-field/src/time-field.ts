@@ -309,19 +309,17 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     if (this.min) {
       const minHour = this.#parseTime(this.min)?.hours;
-      console.log('minHour', minHour);
+
       if (minHour !== undefined) {
         hours = hours.filter(h => h >= minHour);
-        console.log('filtered hours in min', hours);
       }
     }
 
     if (this.max) {
       const maxHour = this.#parseTime(this.max)?.hours;
-      console.log('maxHour', maxHour);
+
       if (maxHour !== undefined) {
         hours = hours.filter(h => h <= maxHour);
-        console.log('filtered hours in max', hours);
       }
     }
 
@@ -350,6 +348,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     const isMinuteDisabled = (minute: number): boolean => {
       if (this.min && this.#valueAsNumbers?.hours !== undefined) {
         const minTime = this.#parseTime(this.min);
+
         if (minTime && this.#valueAsNumbers.hours === minTime.hours && minute < minTime.minutes) {
           return true;
         }
@@ -357,6 +356,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
       if (this.max && this.#valueAsNumbers?.hours !== undefined) {
         const maxTime = this.#parseTime(this.max);
+
         if (maxTime && this.#valueAsNumbers.hours === maxTime.hours && minute > maxTime.minutes) {
           return true;
         }
@@ -365,20 +365,13 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       return false;
     };
 
-    console.log(
-      'this.#valueAsNumbers?.minutes',
-      this.#valueAsNumbers?.minutes,
-      'this.#valueAsNumbers',
-      this.#valueAsNumbers
-    );
-
     return minutes.map(
       minute => html`
         <li
           @click=${() => !isMinuteDisabled(minute) && this.#onMinuteClick(minute)}
           @keydown=${(event: KeyboardEvent) => !isMinuteDisabled(minute) && this.#onMinuteKeydown(event, minute)}
-          aria-selected=${minute === this.#valueAsNumbers?.minutes && !isMinuteDisabled(minute)}
           ?disabled=${isMinuteDisabled(minute)}
+          aria-selected=${minute === this.#valueAsNumbers?.minutes && !isMinuteDisabled(minute)}
           role="option"
           tabindex="-1"
         >
@@ -456,22 +449,10 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   #onHourClick(hours: number): void {
     const constrainedMinutes = this.#getConstrainedMinutes(hours, this.#valueAsNumbers?.minutes ?? 0);
+
     this.#valueAsNumbers = { hours, minutes: constrainedMinutes };
     this.#value = this.#formatTime(this.#valueAsNumbers.hours, this.#valueAsNumbers.minutes);
-    // this.#valueAsNumbers = { hours, minutes: this.#valueAsNumbers?.minutes ?? 0 };
-    // this.#value = this.#formatTime(this.#valueAsNumbers.hours ?? 0, this.#valueAsNumbers.minutes ?? 0);
     this.requestUpdate('value');
-
-    console.log(
-      'Hour clicked',
-      hours,
-      'valueAsNumbers',
-      this.#valueAsNumbers,
-      'this.#value',
-      this.#value,
-      'this.value',
-      this.value
-    );
 
     this.changeEvent.emit(this.value ?? '');
     this.updateState({ dirty: true });
@@ -499,7 +480,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         return;
       }
 
-      // const elements = Array.from(activeElement.parentElement?.querySelectorAll('li') ?? []);
       const elements = Array.from(activeElement.parentElement?.querySelectorAll('li') ?? []).filter(
         li => !li.hasAttribute('disabled')
       );
@@ -799,8 +779,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       time.hours = maxTime.hours;
       time.minutes = Math.floor(maxTime.minutes / this.minuteStep) * this.minuteStep;
     }
-
-    console.log('Scrolling to time', time);
 
     // Scroll to the start time
     this.#scrollTimeIntoView(time.hours, time.minutes, 'start');

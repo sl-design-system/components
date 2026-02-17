@@ -153,6 +153,12 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
    * parameter determines whether the model should emit an `sl-update` event
    * after changing the state.
    */
+  /**
+   * Toggles the expansion state of a tree node. You can optionally force the
+   * state to a specific value using the `force` parameter. The `emitEvent`
+   * parameter determines whether the model should emit an `sl-update` event
+   * after changing the state.
+   */
   toggle(node: TreeDataSourceNode<T>, force?: boolean, emitEvent?: boolean): void {
     if ((typeof force === 'boolean' && !force) || node.expanded) {
       this.collapse(node, emitEvent);
@@ -179,7 +185,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     }
 
     if (emitEvent) {
-      this.update();
+      this.update(false);
     }
   }
 
@@ -192,7 +198,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     node.expanded = false;
 
     if (emitEvent) {
-      this.update();
+      this.update(false);
     }
   }
 
@@ -202,9 +208,9 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
       if (node.expandable) {
         if (typeof force === 'boolean') {
           if (force) {
-            this.expand(node, true);
+            this.expand(node, false);
           } else {
-            this.collapse(node, true);
+            this.collapse(node, false);
           }
         } else if (node.expanded) {
           this.collapse(node, false);
@@ -218,7 +224,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
 
     traverse(node);
 
-    this.update();
+    this.update(false);
   }
 
   /** Expands all descendants of a given tree node. */
@@ -235,7 +241,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
   async expandAll(): Promise<void> {
     const traverse = async (node: TreeDataSourceNode<T>): Promise<void> => {
       if (node.expandable) {
-        this.expand(node, true);
+        this.expand(node, false);
 
         if (node.childrenLoading) {
           await node.childrenLoading;
@@ -251,7 +257,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
       await traverse(node);
     }
 
-    this.update();
+    this.update(true); // Keep sync here, as async loading might have happened
   }
 
   /** Collapses all expandable tree nodes. */
@@ -266,7 +272,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
 
     this.nodes.forEach(traverse);
 
-    this.update();
+    this.update(false);
   }
 
   /** Selects the given node and any children. */
@@ -304,7 +310,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     }
 
     if (emitEvent) {
-      this.update();
+      this.update(false);
     }
   }
 
@@ -337,7 +343,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     }
 
     if (emitEvent) {
-      this.update();
+      this.update(false);
     }
   }
 
@@ -355,7 +361,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
 
     this.nodes.forEach(traverse);
 
-    this.update();
+    this.update(false);
   }
 
   /** Deselects all nodes in the tree. */
@@ -371,7 +377,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
 
     this.nodes.forEach(traverse);
 
-    this.update();
+    this.update(false);
   }
 
   /** Flattens the tree nodes to an array based on the expansion state. */
@@ -540,6 +546,16 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
       type: 'skeleton'
     };
   }
+  /**
+   * Updates the view of the data source.
+   * @param sync Whether to synchronize the selection state of the tree.
+   */
+  override update(sync = true): void {
+    if (this.multiple && sync) {
+      this.syncSelection();
+    }
+  }
+
   /** Synchronizes the selection state of the entire tree. */
   syncSelection(): void {
     if (!this.multiple) {
@@ -547,8 +563,8 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     }
 
     const traverse = (node: TreeDataSourceNode<T>): void => {
-      if (node.expandable) {
-        node.children?.forEach(traverse);
+      if (node.expandable && node.children) {
+        node.children.forEach(traverse);
         this.#updateParent(node);
       } else if (node.selected) {
         this.#selection.add(node);
@@ -566,9 +582,8 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
       return;
     }
 
-    node.selected = (node.children.length ?? 0) > 0 && (node.children.every(child => child.selected) ?? false);
-    node.indeterminate =
-      !node.selected && (node.children.some(child => child.indeterminate || child.selected) ?? false);
+    node.selected = node.children.length > 0 && node.children.every(child => child.selected);
+    node.indeterminate = !node.selected && node.children.some(child => child.indeterminate || child.selected);
 
     if (node.selected) {
       this.#selection.add(node);

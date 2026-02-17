@@ -167,8 +167,8 @@ describe('FlatTreeDataSource', () => {
       expect(ds.items).to.have.length(2);
     });
 
-    it('should expand all nodes when calling expandAll()', () => {
-      ds.expandAll();
+    it('should expand all nodes when calling expandAll()', async () => {
+      await ds.expandAll();
 
       expect(ds.items.filter(i => i.expandable).every(i => i.expanded)).to.be.true;
       expect(ds.items).to.have.length(5);
@@ -474,6 +474,66 @@ describe('FlatTreeDataSource', () => {
       // All children should be in the selection
       expect(ds.selection.has(children[0])).to.be.true;
       expect(ds.selection.has(children[1])).to.be.true;
+    });
+  });
+
+  describe('selection sync', () => {
+    beforeEach(() => {
+      ds = new FlatTreeDataSource(
+        [
+          { id: 1, name: 'Parent 1', level: 0, expandable: true, selected: true },
+          { id: 11, name: 'Child 1.1', level: 1, expandable: false, selected: true },
+          { id: 12, name: 'Child 1.2', level: 1, expandable: false, selected: true },
+          { id: 2, name: 'Parent 2', level: 0, expandable: true, selected: false },
+          { id: 21, name: 'Child 2.1', level: 1, expandable: false, selected: false },
+          { id: 22, name: 'Child 2.2', level: 1, expandable: false, selected: false }
+        ],
+        {
+          getId: ({ id }) => id,
+          getLabel: ({ name }) => name,
+          getLevel: ({ level }) => level,
+          isExpandable: ({ expandable }) => expandable,
+          isExpanded: () => true,
+          isSelected: ({ selected }) => selected ?? false,
+          multiple: true
+        }
+      );
+      ds.update();
+    });
+
+    it('should update parent selection state when a child selection changes', () => {
+      const parent = ds.items[0];
+      const child1 = ds.items[1];
+
+      // Initial state: all selected
+      expect(parent.selected).to.be.true;
+      expect(child1.selected).to.be.true;
+
+      // Deselect one child
+      child1.selected = false;
+      ds.update();
+
+      // Parent should become indeterminate
+      expect(parent.selected).to.be.false;
+      expect(parent.indeterminate).to.be.true;
+    });
+
+    it('should update parent selection state when all children are selected', () => {
+      const parent = ds.items[3];
+      const child1 = ds.items[4];
+      const child2 = ds.items[5];
+
+      // Initial state: none selected
+      expect(parent.selected).to.be.false;
+
+      // Select all children manually
+      child1.selected = true;
+      child2.selected = true;
+      ds.update();
+
+      // Parent should become selected
+      expect(parent.selected).to.be.true;
+      expect(parent.indeterminate).to.be.false;
     });
   });
 });

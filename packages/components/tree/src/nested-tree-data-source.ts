@@ -86,8 +86,8 @@ export class NestedTreeDataSource<T = any> extends TreeDataSource<T> {
     }
   }
 
-  override update(): void {
-    if (this.multiple) {
+  override update(sync = true): void {
+    if (this.multiple && sync) {
       this.syncSelection();
     }
 

@@ -20,6 +20,9 @@ let nextUniqueId = 0;
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridSortColumn<T = any> extends GridColumn<T> {
+  /** The scoped elements set on this column. */
+  #scopedElements: Record<string, typeof HTMLElement> = {};
+
   /** Reference to the rendered `<sl-grid-sorter>` element. */
   #sorterRef: Ref<GridSorter> = createRef();
 
@@ -28,6 +31,19 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
 
   /** The direction this columns should be sorted in. */
   @property() direction?: DataSourceSortDirection;
+
+  override get scopedElements(): Record<string, typeof HTMLElement> {
+    return {
+      ...this.#scopedElements,
+      'sl-grid-sorter': GridSorter
+    };
+  }
+
+  /** The custom elements necessary to render this column. */
+  @property({ attribute: false })
+  override set scopedElements(value: Record<string, typeof HTMLElement>) {
+    this.#scopedElements = value;
+  }
 
   /** If you want to provide a custom sort function, you can via this property. */
   @property({ attribute: false }) sorter?: DataSourceSortFunction<T>;
@@ -41,7 +57,6 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
     super.connectedCallback();
 
     this.id ||= `grid-sort-${nextUniqueId++}`;
-    this.scopedElements = { ...this.scopedElements, 'sl-grid-sorter': GridSorter };
   }
 
   override willUpdate(changes: PropertyValues<this>): void {

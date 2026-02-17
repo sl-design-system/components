@@ -49,6 +49,7 @@ interface Props extends Pick<ToolBar, 'align' | 'contained' | 'disabled' | 'inve
   items?(args: Props): TemplateResult;
   resizable?: boolean;
   width?: string;
+  enableLogging?: boolean;
 }
 type Story = StoryObj<Props>;
 
@@ -80,7 +81,8 @@ export default {
   title: 'Actions/Tool bar',
   tags: ['draft'],
   args: {
-    resizable: true
+    resizable: true,
+    enableLogging: false
   },
   argTypes: {
     align: {
@@ -114,8 +116,19 @@ export default {
     }
   },
   render: args => {
-    const { align, contained, description, disabled, inverted, items, resizable, fill, width, itemsOutsideContainer } =
-      args;
+    const {
+      align,
+      contained,
+      description,
+      disabled,
+      inverted,
+      items,
+      resizable,
+      fill,
+      width,
+      itemsOutsideContainer,
+      enableLogging
+    } = args;
     return html`
       ${description ? html`<p>${description}</p>` : nothing}
       <style>
@@ -165,7 +178,7 @@ export default {
           </sl-tool-bar>
         </div>
       </div>
-      <div id="logging"></div>
+      ${enableLogging ? html`<div id="logging"></div>` : nothing}
     `;
   }
 } satisfies Meta<Props>;
@@ -323,6 +336,7 @@ export const InvertedContained: Story = {
 export const ClickEvents: Story = {
   args: {
     width: '240px',
+    enableLogging: true,
     description:
       'This example shows a tool bar with buttons that log click events to the console to show how to handle click events on buttons and menu items.',
     items: () => {

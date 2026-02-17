@@ -94,7 +94,7 @@ describe('sl-menu-item-group', () => {
     expect(el).to.have.attribute('aria-label', 'Slotted header');
   });
 
-  it('should update aria-label when slotted header content changes', async () => {
+  it('should update aria-label when slotted header element is replaced', async () => {
     el = await fixture(html`
       <sl-menu-item-group>
         <span slot="header">Initial header</span>
@@ -104,6 +104,28 @@ describe('sl-menu-item-group', () => {
 
     expect(el).to.have.attribute('aria-label', 'Initial header');
 
+    const headerSlot = el.renderRoot.querySelector<HTMLSlotElement>('slot[name="header"]');
+
+    if (!headerSlot) {
+      throw new Error('Header slot not found');
+    }
+    const slotChangePromise = new Promise<void>((resolve, reject) => {
+      const onSlotChange = () => {
+        if (timeoutId !== undefined) {
+          clearTimeout(timeoutId);
+        }
+
+        headerSlot.removeEventListener('slotchange', onSlotChange);
+        resolve();
+      };
+
+      const timeoutId = window.setTimeout(() => {
+        headerSlot.removeEventListener('slotchange', onSlotChange);
+        reject(new Error('Timed out waiting for header slotchange'));
+      }, 1000);
+
+      headerSlot.addEventListener('slotchange', onSlotChange);
+    });
     const oldHeader = el.querySelector('[slot="header"]');
     oldHeader?.remove();
 
@@ -112,7 +134,7 @@ describe('sl-menu-item-group', () => {
     newHeader.textContent = 'Updated header';
     el.appendChild(newHeader);
 
-    await el.updateComplete;
+    await slotChangePromise;
 
     expect(el).to.have.attribute('aria-label', 'Updated header');
   });

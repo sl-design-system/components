@@ -553,7 +553,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     }
 
     const traverse = (node: TreeDataSourceNode<T>): void => {
-      if (node.expandable && node.children) {
+      if (node.expandable && node.children && node.children.length > 0) {
         node.children.forEach(traverse);
         this.#updateParent(node);
       } else if (node.selected) {

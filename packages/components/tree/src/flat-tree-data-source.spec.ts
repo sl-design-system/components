@@ -535,5 +535,14 @@ describe('FlatTreeDataSource', () => {
       expect(parent.selected).to.be.true;
       expect(parent.indeterminate).to.be.false;
     });
+    it('should not deselect a parent node if it has empty children array (e.g. lazy loaded empty)', () => {
+      const parent = ds.items[0];
+      parent.children = []; // Simulate lazy loaded but empty
+      parent.selected = true;
+
+      ds.update();
+
+      expect(parent.selected).to.be.true;
+    });
   });
 });

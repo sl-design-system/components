@@ -258,7 +258,7 @@
 				},
 				"disabled": {
 					"$type": "color",
-					"$value": "{magister.color.border.accent.grey.faint}",
+					"$value": "{magister.color.palette.grey.400}",
 					"$description": "Use for borders of elements in a disabled state."
 				},
 				"inverted": {
@@ -810,7 +810,7 @@
 					"grey": {
 						"bold": {
 							"$type": "color",
-							"$value": "{magister.color.palette.grey.900}",
+							"$value": "{magister.color.palette.grey.600}",
 							"$description": "A vibrant grey background option, applied purely for stylistic purposes without specific meaning."
 						},
 						"subtle": {
@@ -1040,7 +1040,7 @@
 						},
 						"plain": {
 							"$type": "color",
-							"$value": "{magister.color.background.accent.grey.interactive.plain}",
+							"$value": "{magister.color.background.accent.grey.interactive.bold}",
 							"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
 						}
 					}
@@ -1076,7 +1076,7 @@
 				},
 				"disabled": {
 					"$type": "color",
-					"$value": "{magister.color.palette.grey.100}",
+					"$value": "{magister.color.palette.grey.150}",
 					"$description": "Use for backgrounds of elements in disabled state."
 				},
 				"inverted": {
@@ -1661,6 +1661,11 @@
 						"$type": "color",
 						"$value": "{magister.color.palette.grey.000}",
 						"$description": "Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
+					},
+					"primary": {
+						"$type": "color",
+						"$value": "{magister.color.background.accent.blue.bold}",
+						"$description": "Background of elevated components with a Primary background color like a floating toolbar that sit on top of the base surface. Use in combination with Inverted buttons, 'color.foreground.inverted.bold' and 'elevation.shadow.raised'."
 					},
 					"inverted": {
 						"$type": "color",

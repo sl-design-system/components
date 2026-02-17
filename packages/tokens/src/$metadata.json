@@ -106,18 +106,18 @@
 		"target-group/early/typography",
 		"target-group/early/default",
 		"target-group/early/compact",
+		"target-group/early/relaxed",
 		"target-group/advanced/base",
 		"target-group/advanced/spacing",
 		"target-group/advanced/typography",
-		"target-group/early/relaxed",
 		"target-group/advanced/default",
 		"target-group/advanced/compact",
 		"target-group/advanced/relaxed",
-		"sanoma-pro_onhold/theme-new",
 		"sanoma-utbildning_onhold/theme-new",
+		"sanoma-pro_onhold/theme-new",
+		"sanoma-pro_onhold/base-new",
 		"sanoma-utbildning_onhold/base-new",
 		"sanoma-utbildning_onhold/light-new",
-		"sanoma-pro_onhold/base-new",
 		"sanoma-pro_onhold/light-new"
 	]
 }

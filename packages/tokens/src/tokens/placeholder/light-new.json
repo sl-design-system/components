@@ -1657,6 +1657,11 @@
 						"$value": "{placeholder.color.palette.grey.000}",
 						"$description": "Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
 					},
+					"primary": {
+						"$type": "color",
+						"$value": "{placeholder.color.background.accent.blue.bold}",
+						"$description": "A vibrant background option used for primary actions."
+					},
 					"inverted": {
 						"$type": "color",
 						"$value": "{placeholder.color.palette.grey.900}",

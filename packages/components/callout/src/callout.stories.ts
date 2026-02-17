@@ -134,12 +134,6 @@ export const WithActions: Story = {
         gap: 8px;
       }
 
-      .link-info {
-        align-items: center;
-        display: inline-flex;
-        gap: 4px;
-      }
-
       .actions {
         display: flex;
         gap: 8px;
@@ -152,6 +146,10 @@ export const WithActions: Story = {
       h2 {
         font-size: inherit;
         font-weight: inherit;
+        margin: 0;
+      }
+
+      p {
         margin: 0;
       }
     </style>
@@ -180,11 +178,10 @@ export const WithActions: Story = {
         <sl-icon slot="icon" name="fas-file-signature"></sl-icon>
         <h2 slot="title">Field trip consent</h2>
         <div class="content">
-          The 6th-grade museum visit is on 21 Nov. Please review the details and submit a consent form. <br />
-          <div class="link-info">
-            View trip details & packing list checking this
-            <sl-button fill="link" variant="info">LINK</sl-button>
-          </div>
+          <p>The 6th-grade museum visit is on 21 Nov. Please review the details and submit a consent form.</p>
+          <p>
+            Make sure you are prepared by checking the <a href="javascript:void(0)">trip details & packing list</a>.
+          </p>
           <div class="actions">
             <sl-button fill="solid" variant="primary">
               <sl-icon name="far-arrow-right-to-bracket"></sl-icon>
@@ -201,11 +198,8 @@ export const WithActions: Story = {
         <sl-icon slot="icon" name="fas-file-signature"></sl-icon>
         <h2 slot="title">Field trip consent</h2>
         <div class="content">
-          The 6th-grade museum visit is on 21 Nov. Please review the details and submit a consent form. <br />
-          <div class="link-info">
-            View trip details & packing list checking this
-            <sl-button fill="link" variant="info">LINK</sl-button>
-          </div>
+          <p>The 6th-grade museum visit is on 21 Nov. Please review the details and submit a consent form.</p>
+          <p>Make sure you are prepared by checking the <a href="#">trip details & packing list</a>.</p>
           <div class="actions">
             <sl-button fill="solid" variant="primary">
               <sl-icon name="far-arrow-right-to-bracket"></sl-icon>
@@ -257,8 +251,10 @@ export const All: StoryObj = {
               The "${variant}" callout title, esse laboris nisi ut quis ullamco dolor elit do commodo ea mollit eu
               irure.
             </h2>
-            Duis ut magna commodo minim cillum voluptate incididunt ea labore adipisicing do ad anim. Incididunt non
-            consequat eiusmod aliqua consequat Lorem eu culpa labore aute laboris eiusmod.
+            <p>
+              Duis ut magna commodo minim cillum voluptate incididunt ea labore adipisicing do ad anim. Incididunt non
+              consequat eiusmod aliqua consequat Lorem eu culpa <a href="#">aute laboris eiusmod</a>.
+            </p>
           </sl-callout>
         `
       )}

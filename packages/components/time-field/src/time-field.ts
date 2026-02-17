@@ -72,6 +72,21 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** The value in HH:mm format. */
   #value: string | undefined;
 
+  /**
+   * Syncs the input's lang attribute with the component's locale.
+   */
+  #syncInputLang(): void {
+    if (!this.input) {
+      return;
+    }
+
+    if (this.locale && this.locale !== 'default') {
+      this.input.lang = this.locale;
+    } else {
+      this.input.removeAttribute('lang');
+    }
+  }
+
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
@@ -175,6 +190,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     this.setFormControlElement(this.input);
+    this.#syncInputLang();
 
     // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
     const style = document.createElement('style');
@@ -211,6 +227,8 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     if (changes.has('required') && this.textField) {
       this.textField.required = !!this.required;
     }
+
+    this.#syncInputLang();
   }
 
   override render(): TemplateResult {
@@ -718,11 +736,13 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #getTimeSeparator(): string {
-    if (this.locale && timeSeparators.has(this.locale)) {
-      return timeSeparators.get(this.locale)!;
+    const locale = this.locale && this.locale !== 'default' ? this.locale : undefined;
+
+    if (locale && timeSeparators.has(locale)) {
+      return timeSeparators.get(locale)!;
     }
 
-    const formatter = new Intl.DateTimeFormat(this.locale, { hour: '2-digit', minute: '2-digit' }),
+    const formatter = new Intl.DateTimeFormat(locale, { hour: '2-digit', minute: '2-digit' }),
       parts = formatter.formatToParts(new Date()),
       separator = parts.find(part => part.type === 'literal')?.value ?? ':';
 

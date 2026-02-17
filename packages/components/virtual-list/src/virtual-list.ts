@@ -80,7 +80,11 @@ export class VirtualList<T = any> extends LitElement {
 
     return html`
       <div part="wrapper" style="block-size: ${virtualizer.getTotalSize()}px;">
-        <div part="container" style="gap: ${this.gap ?? 0}px; translate: 0px ${virtualItems[0]?.start ?? 0}px">
+        <div
+          part="container"
+          style="gap: ${this.gap ?? 0}px; translate: 0px ${(virtualItems[0]?.start ?? 0) -
+          (virtualizer.options.scrollMargin ?? 0)}px"
+        >
           ${repeat(
             virtualItems,
             virtualItem => virtualItem.key,

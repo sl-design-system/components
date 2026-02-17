@@ -54,7 +54,7 @@ When the selection involves a small, predefined set of numeric options, the [Sel
 | 1 | Input field | Area where users type the number. | No |
 | 2 | Stepper controls | Field buttons to increment or decrement the value. | Yes |
 | 3 | Label | Text describing the purpose of the field. | Yes |
-| 4 | Helper text | Trxt that provides extra guidance. | Yes |
+| 4 | Helper text | Text that provides extra guidance. | Yes |
 | 5 | Prefix | Text placed before the value. | Yes |
 | 6 | Suffix | Text placed after the value. | Yes |
 | 7 | Error message | Communicates validation issues. | Yes |
@@ -102,12 +102,12 @@ With these options, you can tweak the appearance of the number field in Figma. T
 |Variant|`Default` `Invalid` `disabled`|Indicates the state of the number field|
 |State|`idle` `hover` `active` `disabled`|Indicates the state of the number field|
 |Label|`value`|The text of the label|
-|Placeholader|`value`|The text of the placeholder|
+|Placeholder|`value`|The text of the placeholder|
 |Steppers|`End` `Edges`|Define the place of the stepper buttons|
-|Imput Text|`value`|The text of the value|
+|Input Text|`value`|The text of the value|
 |Focus|`On` `Off`|Shows the focus ring|
 |Prefix|`On` `Off`|Shows the prefix of the field|
-|Sufix|`On` `Off`|Shows the sufix of the field|
+|Suffix|`On` `Off`|Shows the suffix of the field|
 
 {.ds-table .ds-table-align-top}
 

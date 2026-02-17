@@ -386,7 +386,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         </li>
       `
     );
-  } // TODO: should we use 'disabled' or 'aria-disabled' for the minute options?
+  }
 
   /** @internal */
   override updateInternalValidity(): void {
@@ -455,9 +455,23 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onHourClick(hours: number): void {
-    this.#valueAsNumbers = { hours, minutes: this.#valueAsNumbers?.minutes ?? 0 };
-    this.#value = this.#formatTime(this.#valueAsNumbers.hours ?? 0, this.#valueAsNumbers.minutes ?? 0);
+    const constrainedMinutes = this.#getConstrainedMinutes(hours, this.#valueAsNumbers?.minutes ?? 0);
+    this.#valueAsNumbers = { hours, minutes: constrainedMinutes };
+    this.#value = this.#formatTime(this.#valueAsNumbers.hours, this.#valueAsNumbers.minutes);
+    // this.#valueAsNumbers = { hours, minutes: this.#valueAsNumbers?.minutes ?? 0 };
+    // this.#value = this.#formatTime(this.#valueAsNumbers.hours ?? 0, this.#valueAsNumbers.minutes ?? 0);
     this.requestUpdate('value');
+
+    console.log(
+      'Hour clicked',
+      hours,
+      'valueAsNumbers',
+      this.#valueAsNumbers,
+      'this.#value',
+      this.#value,
+      'this.value',
+      this.value
+    );
 
     this.changeEvent.emit(this.value ?? '');
     this.updateState({ dirty: true });
@@ -733,6 +747,21 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     time ||= { hours: new Date().getHours(), minutes: 0 };
 
     return time;
+  }
+
+  #getConstrainedMinutes(hours: number, minutes: number): number {
+    const minTime = this.min ? this.#parseTime(this.min) : undefined,
+      maxTime = this.max ? this.#parseTime(this.max) : undefined;
+
+    if (minTime && hours === minTime.hours && minutes < minTime.minutes) {
+      return Math.ceil(minTime.minutes / this.minuteStep) * this.minuteStep;
+    }
+
+    if (maxTime && hours === maxTime.hours && minutes > maxTime.minutes) {
+      return Math.floor(maxTime.minutes / this.minuteStep) * this.minuteStep;
+    }
+
+    return minutes;
   }
 
   #getTimeSeparator(): string {

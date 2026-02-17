@@ -48,6 +48,9 @@ export class GridColumn<T = any> extends LitElement {
   /** The state changed event callback. */
   #onStateChanged = () => this.stateChanged();
 
+  /** The scoped elements set on this column. */
+  #scopedElements: Record<string, typeof HTMLElement> = {};
+
   /** Actual width of the column. */
   #width?: number;
 
@@ -112,11 +115,18 @@ export class GridColumn<T = any> extends LitElement {
   /** Renderer function for the column value of each cell. */
   @property({ attribute: false }) renderer?: GridColumnDataRenderer<T>;
 
+  get scopedElements(): Record<string, typeof HTMLElement> {
+    return this.#scopedElements;
+  }
+
   /**
    * The custom elements used for rendering this column. Since the rendering the column cells is done
    * in the parent grid component, the custom elements need to be registered in the parent grid.
    */
-  @property({ attribute: false }) scopedElements?: Record<string, typeof HTMLElement>;
+  @property({ attribute: false })
+  set scopedElements(value: Record<string, typeof HTMLElement> | undefined) {
+    this.#scopedElements = value ?? {};
+  }
 
   /** Whether this column is sticky when the user scrolls horizontally. */
   @property({ type: Boolean }) sticky?: boolean;

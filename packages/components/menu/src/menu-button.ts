@@ -249,7 +249,7 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
     const elements = ariaValue
       .trim()
       .split(/\s+/)
-      .map(id => document.getElementById(id))
+      .map(id => (this.getRootNode() as HTMLElement).querySelector(`#${id}`))
       .filter((el): el is HTMLElement => el !== null);
 
     if (elements.length === 0) {

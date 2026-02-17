@@ -87,7 +87,7 @@ export class FlatTreeDataSource<T = any> extends TreeDataSource<T> {
   }
 
   override update(sync = true): void {
-    if (this.multiple && sync) {
+    if (sync) {
       this.syncSelection();
     }
 

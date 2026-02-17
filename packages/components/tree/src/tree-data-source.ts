@@ -153,12 +153,6 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
    * parameter determines whether the model should emit an `sl-update` event
    * after changing the state.
    */
-  /**
-   * Toggles the expansion state of a tree node. You can optionally force the
-   * state to a specific value using the `force` parameter. The `emitEvent`
-   * parameter determines whether the model should emit an `sl-update` event
-   * after changing the state.
-   */
   toggle(node: TreeDataSourceNode<T>, force?: boolean, emitEvent?: boolean): void {
     if ((typeof force === 'boolean' && !force) || node.expanded) {
       this.collapse(node, emitEvent);
@@ -550,11 +544,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
    * Updates the view of the data source.
    * @param sync Whether to synchronize the selection state of the tree.
    */
-  override update(sync = true): void {
-    if (this.multiple && sync) {
-      this.syncSelection();
-    }
-  }
+  abstract override update(sync?: boolean): void;
 
   /** Synchronizes the selection state of the entire tree. */
   syncSelection(): void {

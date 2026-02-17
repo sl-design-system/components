@@ -187,6 +187,17 @@ export const GroupWithHeading: Story = {
           Documentation
         </sl-menu-item>
       </sl-menu-item-group>
+      <sl-menu-item-group>
+        <span slot="header">Other</span>
+        <sl-menu-item>
+          <sl-icon name="far-rocket"></sl-icon>
+          What's new
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-book"></sl-icon>
+          Documentation
+        </sl-menu-item>
+      </sl-menu-item-group>
     `
   }
 };

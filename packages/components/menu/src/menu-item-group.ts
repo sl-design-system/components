@@ -1,4 +1,4 @@
-import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './menu-item-group.scss.js';
 import { MenuItem } from './menu-item.js';
@@ -29,13 +29,47 @@ export class MenuItemGroup extends LitElement {
   /** Determines whether if and how many menu items can be selected within this group. */
   @property() selects?: 'single' | 'multiple';
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.role = 'group';
+    this.#updateAriaLabel();
+  }
+
+  protected override update(changedProperties: PropertyValues): void {
+    super.update(changedProperties);
+
+    if (changedProperties.has('heading')) {
+      this.#updateAriaLabel();
+    }
+  }
+
   override render(): TemplateResult {
     return html`
       <div part="wrapper">
-        <slot name="header">${this.heading ? html`<div class="heading">${this.heading}</div>` : nothing}</slot>
+        <slot name="header" @slotchange=${this.#onHeaderSlotchange}
+          >${this.heading ? html`<div class="heading" aria-hidden="true">${this.heading}</div>` : nothing}</slot
+        >
         <slot @slotchange=${this.#onSlotchange} @sl-select=${this.#onSelect}></slot>
       </div>
     `;
+  }
+
+  #updateAriaLabel(): void {
+    const slottedHeader = this.querySelector('[slot="header"]');
+    const headerText = slottedHeader?.textContent?.trim();
+
+    if (headerText) {
+      this.setAttribute('aria-label', headerText);
+    } else if (this.heading) {
+      this.setAttribute('aria-label', this.heading);
+    } else {
+      this.removeAttribute('aria-label');
+    }
+  }
+
+  #onHeaderSlotchange(): void {
+    this.#updateAriaLabel();
   }
 
   #onSelect(event: Event): void {

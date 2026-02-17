@@ -124,8 +124,8 @@ export class GridColumn<T = any> extends LitElement {
    * in the parent grid component, the custom elements need to be registered in the parent grid.
    */
   @property({ attribute: false })
-  set scopedElements(value: Record<string, typeof HTMLElement>) {
-    this.#scopedElements = value;
+  set scopedElements(value: Record<string, typeof HTMLElement> | undefined) {
+    this.#scopedElements = value ?? {};
   }
 
   /** Whether this column is sticky when the user scrolls horizontally. */

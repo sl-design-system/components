@@ -41,8 +41,8 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
 
   /** The custom elements necessary to render this column. */
   @property({ attribute: false })
-  override set scopedElements(value: Record<string, typeof HTMLElement>) {
-    this.#scopedElements = value;
+  override set scopedElements(value: Record<string, typeof HTMLElement> | undefined) {
+    this.#scopedElements = value ?? {};
   }
 
   /** If you want to provide a custom sort function, you can via this property. */

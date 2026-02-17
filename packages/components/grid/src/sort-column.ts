@@ -21,7 +21,7 @@ let nextUniqueId = 0;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridSortColumn<T = any> extends GridColumn<T> {
   /** The scoped elements set on this column. */
-  #scopedElements: Record<string, typeof HTMLElement> = {};
+  #scopedElements: Record<string, typeof HTMLElement> = { 'sl-grid-sorter': GridSorter };
 
   /** Reference to the rendered `<sl-grid-sorter>` element. */
   #sorterRef: Ref<GridSorter> = createRef();

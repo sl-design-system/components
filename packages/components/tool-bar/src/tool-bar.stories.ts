@@ -1,5 +1,9 @@
 /* eslint-disable slds/button-has-label */
 import {
+  faAlignCenter,
+  faAlignJustify,
+  faAlignLeft,
+  faAlignRight,
   faArrowDownWideShort,
   faArrowTurnLeftDown,
   faBarsFilter,
@@ -19,6 +23,10 @@ import {
   faUniversalAccess
 } from '@fortawesome/pro-regular-svg-icons';
 import {
+  faAlignCenter as fasAlignCenter,
+  faAlignJustify as fasAlignJustify,
+  faAlignLeft as fasAlignLeft,
+  faAlignRight as fasAlignRight,
   faBold as fasBold,
   faItalic as fasItalic,
   faUnderline as fasUnderline,
@@ -54,6 +62,10 @@ interface Props extends Pick<ToolBar, 'align' | 'contained' | 'disabled' | 'inve
 type Story = StoryObj<Props>;
 
 Icon.register(
+  faAlignCenter,
+  faAlignJustify,
+  faAlignLeft,
+  faAlignRight,
   faArrowDownWideShort,
   faArrowTurnLeftDown,
   faBarsFilter,
@@ -70,6 +82,10 @@ Icon.register(
   faScissors,
   faTrash,
   faUnderline,
+  fasAlignCenter,
+  fasAlignJustify,
+  fasAlignLeft,
+  fasAlignRight,
   fasBold,
   fasItalic,
   fasUnderline,
@@ -656,12 +672,26 @@ export const Examples: Story = {
           <sl-menu-item> Quote </sl-menu-item>
         </sl-menu-button>
 
-        <sl-menu-button aria-label="Export">
-          <span slot="button"><sl-icon style="vertical-align: text-top;" name="far-file-export"></sl-icon></span>
-          <sl-menu-item> ... as PDF </sl-menu-item>
-          <sl-menu-item> ... as Word </sl-menu-item>
-          <sl-menu-item> ... as HTML </sl-menu-item>
-          <sl-menu-item> ... as Markdown </sl-menu-item>
+        <sl-menu-button>
+          <span slot="button">Alignment</span>
+          <sl-menu-item-group selects="single">
+            <sl-menu-item selected selectable>
+              <sl-icon name="far-align-justify"></sl-icon>
+              Justify
+            </sl-menu-item>
+            <sl-menu-item selectable>
+              <sl-icon name="far-align-center"></sl-icon>
+              Align center
+            </sl-menu-item>
+            <sl-menu-item selectable>
+              <sl-icon name="far-align-left"></sl-icon>
+              Align left
+            </sl-menu-item>
+            <sl-menu-item selectable>
+              <sl-icon name="far-align-right"></sl-icon>
+              Align right
+            </sl-menu-item>
+          </sl-menu-item-group>
         </sl-menu-button>
 
         <sl-button aria-label="Edit">

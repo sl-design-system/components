@@ -1,9 +1,12 @@
 import {
   faArrowUpShortWide,
+  faBook,
+  faCode,
   faGear,
   faList,
   faPen,
   faRectanglesMixed,
+  faRocket,
   faTableCells,
   faTableRows,
   faTrash
@@ -27,7 +30,19 @@ type Props = Pick<MenuButton, 'disabled' | 'fill' | 'position' | 'shape' | 'size
 };
 type Story = StoryObj<Props>;
 
-Icon.register(faArrowUpShortWide, faGear, faList, faPen, faRectanglesMixed, faTableCells, faTableRows, faTrash);
+Icon.register(
+  faArrowUpShortWide,
+  faBook,
+  faCode,
+  faGear,
+  faList,
+  faPen,
+  faRectanglesMixed,
+  faRocket,
+  faTableCells,
+  faTableRows,
+  faTrash
+);
 
 export default {
   title: 'Actions/Menu/Menu button',

@@ -498,6 +498,37 @@ describe('sl-time-field', () => {
 
       expect(el.valid).to.be.true;
     });
+
+    it('should disable minutes that would be invalid with the fallback hour', async () => {
+      el = await fixture(html`<sl-time-field min="08:40" start="08:00"></sl-time-field>`);
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      const minute30 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+        li => li.textContent?.trim() === '30'
+      );
+      const minute40 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+        li => li.textContent?.trim() === '40'
+      );
+      const minute45 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+        li => li.textContent?.trim() === '45'
+      );
+
+      expect(minute30).to.have.attribute('disabled');
+      expect(minute40).to.not.have.attribute('disabled');
+      expect(minute45).to.not.have.attribute('disabled');
+
+      (minute30 as HTMLElement)?.click();
+      await el.updateComplete;
+
+      expect(el.value).to.be.undefined;
+
+      (minute45 as HTMLElement)?.click();
+      await el.updateComplete;
+
+      expect(el.value).to.equal('08:45');
+    });
   });
 
   describe('required', () => {

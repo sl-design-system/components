@@ -345,33 +345,13 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   renderMinutes(): TemplateResult[] {
     const minutes = Array.from({ length: 60 / this.minuteStep }, (_, i) => i * this.minuteStep);
 
-    const isMinuteDisabled = (minute: number): boolean => {
-      if (this.min && this.#valueAsNumbers?.hours !== undefined) {
-        const minTime = this.#parseTime(this.min);
-
-        if (minTime && this.#valueAsNumbers.hours === minTime.hours && minute < minTime.minutes) {
-          return true;
-        }
-      }
-
-      if (this.max && this.#valueAsNumbers?.hours !== undefined) {
-        const maxTime = this.#parseTime(this.max);
-
-        if (maxTime && this.#valueAsNumbers.hours === maxTime.hours && minute > maxTime.minutes) {
-          return true;
-        }
-      }
-
-      return false;
-    };
-
     return minutes.map(
       minute => html`
         <li
-          @click=${() => !isMinuteDisabled(minute) && this.#onMinuteClick(minute)}
-          @keydown=${(event: KeyboardEvent) => !isMinuteDisabled(minute) && this.#onMinuteKeydown(event, minute)}
-          ?disabled=${isMinuteDisabled(minute)}
-          aria-selected=${minute === this.#valueAsNumbers?.minutes && !isMinuteDisabled(minute)}
+          @click=${() => this.#onMinuteClick(minute)}
+          @keydown=${(event: KeyboardEvent) => this.#onMinuteKeydown(event, minute)}
+          ?disabled=${this.#isMinuteDisabled(minute)}
+          aria-selected=${minute === this.#valueAsNumbers?.minutes && !this.#isMinuteDisabled(minute)}
           role="option"
           tabindex="-1"
         >
@@ -500,8 +480,12 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
   }
 
-  #onMinuteClick(minutes: number): void {
-    this.#valueAsNumbers = { hours: this.#valueAsNumbers?.hours ?? this.#startTime?.hours ?? 0, minutes };
+  #onMinuteClick(minute: number): void {
+    if (this.#isMinuteDisabled(minute)) {
+      return;
+    }
+
+    this.#valueAsNumbers = { hours: this.#valueAsNumbers?.hours ?? this.#startTime?.hours ?? 0, minutes: minute };
     this.#value = this.#formatTime(this.#valueAsNumbers.hours ?? 0, this.#valueAsNumbers.minutes ?? 0);
     this.requestUpdate('value');
 
@@ -513,11 +497,15 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.textField.focus();
   }
 
-  #onMinuteKeydown(event: KeyboardEvent, minutes: number): void {
+  #onMinuteKeydown(event: KeyboardEvent, minute: number): void {
+    if (this.#isMinuteDisabled(minute)) {
+      return;
+    }
+
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
 
-      this.#onMinuteClick(minutes);
+      this.#onMinuteClick(minute);
     }
   }
 
@@ -707,6 +695,28 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     return `${hours.toString().padStart(2, '0')}${this.#getTimeSeparator()}${minutes.toString().padStart(2, '0')}`;
   }
 
+  #isMinuteDisabled(minute: number): boolean {
+    const hour = this.#valueAsNumbers?.hours ?? this.#startTime?.hours ?? 0;
+
+    if (this.min) {
+      const minTime = this.#parseTime(this.min);
+
+      if (minTime && hour === minTime.hours && minute < minTime.minutes) {
+        return true;
+      }
+    }
+
+    if (this.max) {
+      const maxTime = this.#parseTime(this.max);
+
+      if (maxTime && hour === maxTime.hours && minute > maxTime.minutes) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   #parseTime(value: string): { hours: number; minutes: number } | undefined {
     const timeParts = value.split(this.#getTimeSeparator()).map(Number);
 
@@ -734,14 +744,16 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       maxTime = this.max ? this.#parseTime(this.max) : undefined;
 
     if (minTime && hours === minTime.hours && minutes < minTime.minutes) {
-      return Math.ceil(minTime.minutes / this.minuteStep) * this.minuteStep;
+      const constrained = Math.ceil(minTime.minutes / this.minuteStep) * this.minuteStep;
+      return Math.min(Math.max(constrained, 0), 59);
     }
 
     if (maxTime && hours === maxTime.hours && minutes > maxTime.minutes) {
-      return Math.floor(maxTime.minutes / this.minuteStep) * this.minuteStep;
+      const constrained = Math.floor(maxTime.minutes / this.minuteStep) * this.minuteStep;
+      return Math.min(Math.max(constrained, 0), 59);
     }
 
-    return minutes;
+    return Math.min(Math.max(minutes, 0), 59);
   }
 
   #getTimeSeparator(): string {

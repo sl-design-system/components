@@ -145,8 +145,7 @@ describe('sl-sort-column', () => {
       // Simulate Angular (or another framework) setting scopedElements after connectedCallback
       column.scopedElements = { 'sl-other-element': HTMLElement };
 
-      expect(column.scopedElements).to.have.property('sl-grid-sorter');
-      expect(column.scopedElements['sl-grid-sorter']).to.equal(GridSorter);
+      expect(column.scopedElements).to.have.property('sl-grid-sorter', GridSorter);
       expect(column.scopedElements).to.have.property('sl-other-element');
     });
   });

@@ -3,6 +3,7 @@ import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { Grid } from './grid.js';
+import { GridSortColumn } from './sort-column.js';
 import { GridSorter } from './sorter.js';
 import { waitForGridToRenderData } from './utils.js';
 
@@ -126,6 +127,27 @@ describe('sl-sort-column', () => {
       const ths = Array.from(el.renderRoot.querySelectorAll('th'));
 
       expect(ths.map(th => th.getAttribute('aria-sort'))).to.deep.equal(['ascending', null, null]);
+    });
+  });
+
+  describe('scopedElements', () => {
+    it('should retain sl-grid-sorter in scopedElements after they are set post-connectedCallback', async () => {
+      el = await fixture(html`
+        <sl-grid .items=${ITEMS}>
+          <sl-grid-sort-column path="firstName"></sl-grid-sort-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+
+      const column = el.querySelector<GridSortColumn>('sl-grid-sort-column')!;
+
+      // Simulate Angular (or another framework) setting scopedElements after connectedCallback
+      column.scopedElements = { 'sl-other-element': HTMLElement };
+
+      expect(column.scopedElements).to.have.property('sl-grid-sorter');
+      expect(column.scopedElements['sl-grid-sorter']).to.equal(GridSorter);
+      expect(column.scopedElements).to.have.property('sl-other-element');
     });
   });
 });

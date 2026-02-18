@@ -1,11 +1,9 @@
 /* eslint-disable slds/button-has-label */
 import {
-  faAlignCenter,
-  faAlignJustify,
-  faAlignLeft,
-  faAlignRight,
+  faArrowDownToLine,
   faArrowDownWideShort,
   faArrowTurnLeftDown,
+  faArrowUpFromBracket,
   faBarsFilter,
   faBold,
   faBoxArchive,
@@ -22,10 +20,6 @@ import {
   faUniversalAccess
 } from '@fortawesome/pro-regular-svg-icons';
 import {
-  faAlignCenter as fasAlignCenter,
-  faAlignJustify as fasAlignJustify,
-  faAlignLeft as fasAlignLeft,
-  faAlignRight as fasAlignRight,
   faBold as fasBold,
   faItalic as fasItalic,
   faUnderline as fasUnderline,
@@ -61,11 +55,9 @@ interface Props extends Pick<ToolBar, 'align' | 'contained' | 'disabled' | 'inve
 type Story = StoryObj<Props>;
 
 Icon.register(
-  faAlignCenter,
-  faAlignJustify,
-  faAlignLeft,
-  faAlignRight,
+  faArrowDownToLine,
   faArrowDownWideShort,
+  faArrowUpFromBracket,
   faArrowTurnLeftDown,
   faBarsFilter,
   faBold,
@@ -80,10 +72,6 @@ Icon.register(
   faScissors,
   faTrash,
   faUnderline,
-  fasAlignCenter,
-  fasAlignJustify,
-  fasAlignLeft,
-  fasAlignRight,
   fasBold,
   fasItalic,
   fasUnderline,
@@ -643,25 +631,14 @@ export const Combination: Story = {
 };
 
 export const Examples: Story = {
-  render: () => html`
-    <style>
-      .container sl-tool-bar {
-        flex: 0 1 auto;
-        min-inline-size: 0;
-        margin-block-end: var(--sl-size-300);
-      }
-    </style>
-    <div class="container">
-      <p>
-        This story shows various real-world toolbar configurations: icon-only buttons, menu buttons with icons, buttons
-        with ARIA labels, primary/danger/inverted variants, and toolbar fills such as outline and ghost.
-      </p>
-      <sl-tool-bar aria-label="Page options" contained fill="outline" style="inline-size: fit-content">
+  render: () => {
+    const pageOptions = html`
         <sl-button aria-label="Accessibility">
           <sl-icon name="far-universal-access"></sl-icon>
         </sl-button>
 
         <sl-menu-button>
+          <sl-icon name="far-arrow-down-to-line" slot="button"></sl-icon>
           <span slot="button">Insert</span>
           <sl-menu-item> Image </sl-menu-item>
           <sl-menu-item> Table </sl-menu-item>
@@ -671,79 +648,44 @@ export const Examples: Story = {
         </sl-menu-button>
 
         <sl-menu-button>
-          <span slot="button">Alignment</span>
-          <sl-menu-item-group selects="single">
-            <sl-menu-item selected selectable>
-              <sl-icon name="far-align-justify"></sl-icon>
-              Justify
-            </sl-menu-item>
-            <sl-menu-item selectable>
-              <sl-icon name="far-align-center"></sl-icon>
-              Align center
-            </sl-menu-item>
-            <sl-menu-item selectable>
-              <sl-icon name="far-align-left"></sl-icon>
-              Align left
-            </sl-menu-item>
-            <sl-menu-item selectable>
-              <sl-icon name="far-align-right"></sl-icon>
-              Align right
-            </sl-menu-item>
-          </sl-menu-item-group>
+          <sl-icon name="far-arrow-up-from-bracket" slot="button"></sl-icon>
+          <span slot="button">Export</span>
+          <sl-menu-item> ... as PDF </sl-menu-item>
+          <sl-menu-item> ... as txt </sl-menu-item>
+          <sl-menu-item> ...as HTML </sl-menu-item>
         </sl-menu-button>
 
         <sl-button aria-label="Edit">
           <sl-icon name="far-pen"></sl-icon>
         </sl-button>
-      </sl-tool-bar>
 
-      <sl-tool-bar aria-label="Options" contained fill="ghost" style="inline-size: fit-content">
+        <sl-tool-bar-divider></sl-tool-bar-divider>
+
+        <sl-button variant="danger">
+          <sl-icon name="xmark"></sl-icon>
+          Cancel
+        </sl-button>
+      `,
+      options = html`
         <sl-button aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
         <sl-button aria-label="Edit"><sl-icon name="far-pen"></sl-icon></sl-button>
         <sl-tool-bar-divider></sl-tool-bar-divider>
         <sl-button aria-label="Archive"><sl-icon name="far-box-archive"></sl-icon>Archive</sl-button>
-        <sl-button aria-label="Delete" variant="danger"> <sl-icon name="far-trash"></sl-icon>Delete</sl-button>
-        <sl-tool-bar-divider></sl-tool-bar-divider>
-        <sl-button aria-label="Send" variant="primary"><sl-icon name="far-paper-plane"></sl-icon>Send</sl-button>
-      </sl-tool-bar>
-
-      <sl-tool-bar aria-label="Options" contained inverted fill="ghost" style="inline-size: fit-content">
-        <sl-button aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
-        <sl-button aria-label="Edit"><sl-icon name="far-pen"></sl-icon></sl-button>
-        <sl-tool-bar-divider></sl-tool-bar-divider>
-        <sl-button aria-label="Archive"><sl-icon name="far-box-archive"></sl-icon>Archive</sl-button>
-        <sl-button aria-label="Delete"><sl-icon name="far-trash"></sl-icon>Delete</sl-button>
+        <sl-button aria-label="Delete"> <sl-icon name="far-trash"></sl-icon>Delete</sl-button>
         <sl-tool-bar-divider></sl-tool-bar-divider>
         <sl-button aria-label="Send"><sl-icon name="far-paper-plane"></sl-icon>Send</sl-button>
-      </sl-tool-bar>
-
-      <sl-tool-bar aria-label="Filtering and sorting" contained fill="ghost" style="inline-size: fit-content">
+      `,
+      filteringAndSorting = html`
         <sl-button aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
         <sl-button aria-label="Enter"><sl-icon name="far-arrow-turn-left-down"></sl-icon></sl-button>
         <sl-tool-bar-divider></sl-tool-bar-divider>
         <sl-button aria-label="Filter"><sl-icon name="far-bars-filter"></sl-icon></sl-button>
         <sl-button aria-label="Sort descending"><sl-icon name="far-arrow-down-wide-short"></sl-icon></sl-button>
-        <sl-tool-bar-divider></sl-tool-bar-divider>
-        <sl-menu-button>
-          <span slot="button">Insert</span>
-          <sl-menu-item> Image </sl-menu-item>
-          <sl-menu-item> Table </sl-menu-item>
-          <sl-menu-item> Link </sl-menu-item>
-          <sl-menu-item> Code snippet </sl-menu-item>
-          <sl-menu-item> Quote </sl-menu-item>
-        </sl-menu-button>
-      </sl-tool-bar>
 
-      <sl-tool-bar aria-label="Filtering and sorting" contained inverted fill="ghost" style="inline-size: fit-content">
-        <sl-button aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
-        <sl-button aria-label="Enter"><sl-icon name="far-arrow-turn-left-down"></sl-icon></sl-button>
         <sl-tool-bar-divider></sl-tool-bar-divider>
-        <sl-button aria-label="Filter"><sl-icon name="far-bars-filter"></sl-icon></sl-button>
-        <sl-button aria-label="Sort descending">
-          <sl-icon name="far-arrow-down-wide-short"></sl-icon>
-        </sl-button>
-        <sl-tool-bar-divider></sl-tool-bar-divider>
+
         <sl-menu-button>
+          <sl-icon name="far-arrow-down-to-line" slot="button"></sl-icon>
           <span slot="button">Insert</span>
           <sl-menu-item> Image </sl-menu-item>
           <sl-menu-item> Table </sl-menu-item>
@@ -751,9 +693,50 @@ export const Examples: Story = {
           <sl-menu-item> Code snippet </sl-menu-item>
           <sl-menu-item> Quote </sl-menu-item>
         </sl-menu-button>
-      </sl-tool-bar>
-    </div>
-  `
+      `;
+    return html`
+      <style>
+        sl-tool-bar[inverted]:not([contained]) {
+          background: var(--sl-color-palette-grey-900);
+        }
+        .grid {
+          display: grid;
+          gap: 1rem;
+          grid-template-columns: repeat(auto-fit, minmax(min(100%, max(480px, 100%/3)), 1fr));
+        }
+      </style>
+      <div class="container">
+        <p>
+          This story shows various real-world toolbar configurations: icon-only buttons, menu buttons with icons,
+          buttons with ARIA labels, primary/danger/inverted variants, and toolbar fills such as outline and ghost.
+        </p>
+        <div class="grid">
+          <sl-tool-bar aria-label="Page options" contained fill="outline" style="inline-size: fit-content">
+            ${pageOptions}
+          </sl-tool-bar>
+          <sl-tool-bar aria-label="Page options" contained inverted fill="outline" style="inline-size: fit-content">
+            ${pageOptions}
+          </sl-tool-bar>
+
+          <sl-tool-bar aria-label="Options" contained fill="ghost" style="inline-size: fit-content"
+            >${options}</sl-tool-bar
+          >
+
+          <sl-tool-bar aria-label="Options" contained inverted fill="ghost" style="inline-size: fit-content">
+            ${options}
+          </sl-tool-bar>
+
+          <sl-tool-bar aria-label="Filtering and sorting" fill="ghost" style="inline-size: fit-content">
+            ${filteringAndSorting}
+          </sl-tool-bar>
+
+          <sl-tool-bar aria-label="Filtering and sorting" inverted fill="ghost" style="inline-size: fit-content">
+            ${filteringAndSorting}
+          </sl-tool-bar>
+        </div>
+      </div>
+    `;
+  }
 };
 
 export const All: Story = {

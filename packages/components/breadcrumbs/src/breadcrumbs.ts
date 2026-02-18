@@ -94,20 +94,24 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  #mutationObserver = new MutationObserver(() => this.#onMutation());
+
   /**
    * Observe changes in size, so we can check whether we need to show tooltips
    * for truncated links.
    */
   #observer = new ResizeObserver(() => this.#update());
 
-  #mutationObserver = new MutationObserver(() => this.#onMutation());
-
+  /** Map to keep track of cleanup functions for tooltips associated with breadcrumb links. */
   #tooltipCleanupFunctions = new Map<HTMLElement, () => void>();
 
+  /** Flag to prevent multiple simultaneous updates. */
   #updateScheduled = false;
 
   /** @internal The slotted breadcrumbs. */
   @state() breadcrumbLinks: HTMLElement[] = [];
+
+  /** @internal The slotted custom home link, if any. */
   @state() customHomeLink: HTMLElement | undefined = undefined;
 
   /** @internal The threshold for when breadcrumbs should be collapsed into a menu. */

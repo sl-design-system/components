@@ -463,7 +463,17 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       const elements = Array.from(activeElement.parentElement?.querySelectorAll('li') ?? []).filter(
         li => !li.hasAttribute('disabled')
       );
+
+      if (elements.length === 0) {
+        return;
+      }
+
       let index = elements.indexOf(activeElement);
+
+      // If current element is not in the enabled list (e.g., it's disabled), start from first enabled
+      if (index === -1) {
+        index = 0;
+      }
 
       if (event.key === 'ArrowUp') {
         index = index === 0 ? elements.length - 1 : index - 1;

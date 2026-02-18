@@ -159,6 +159,29 @@ export const Text: Story = {
   }
 };
 
+export const LongMenu: Story = {
+  args: {
+    ...Basic.args,
+    menuItems: () => html`
+      <sl-menu-item>Menu item 1</sl-menu-item>
+      <sl-menu-item>Menu item 2</sl-menu-item>
+      <sl-menu-item>Menu item 3</sl-menu-item>
+      <sl-menu-item>Menu item 4</sl-menu-item>
+      <sl-menu-item>Menu item 5</sl-menu-item>
+      <sl-menu-item>Menu item 6</sl-menu-item>
+      <sl-menu-item>Menu item 7</sl-menu-item>
+      <sl-menu-item>Menu item 8</sl-menu-item>
+      <sl-menu-item>Menu item 9</sl-menu-item>
+      <sl-menu-item>Menu item 10</sl-menu-item>
+      <sl-menu-item>Menu item 11</sl-menu-item>
+      <sl-menu-item>Menu item 12</sl-menu-item>
+      <sl-menu-item>Menu item 13</sl-menu-item>
+      <sl-menu-item>Menu item 14</sl-menu-item>
+      <sl-menu-item>Menu item 15</sl-menu-item>
+    `
+  }
+};
+
 export const Submenu: Story = {
   args: {
     ...Basic.args,

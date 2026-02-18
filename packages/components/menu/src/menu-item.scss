@@ -9,7 +9,6 @@
   color: var(--sl-color-foreground-plain);
   display: block;
   flex-grow: 1;
-  inset-inline-start: -1px;
   outline: transparent solid var(--sl-size-borderWidth-focusRing);
   outline-offset: var(--sl-size-outlineOffset-default);
   overflow: visible;
@@ -20,15 +19,18 @@
     background: var(--sl-color-background-selected-bold);
     border-radius: var(--sl-size-borderRadius-none, 0) var(--sl-size-borderRadius-child, 2px)
       var(--sl-size-borderRadius-child, 2px) var(--sl-size-borderRadius-none, 0);
+    box-shadow: inset inset 1px 0 0 color-mix(in srgb, var(--sl-color-black) var(--sl-opacity-subtle), transparent);
     content: '';
     inline-size: var(--sl-size-050);
     inset-block: 2px;
     inset-inline-start: -8px;
-    opacity: 0.8;
     position: absolute;
     z-index: 1;
   }
 }
+
+// opacity: var(--opacity-subtle, 0.2);
+// background: var(--color-black, #000)
 
 :host(:focus-visible) {
   outline-color: var(--sl-color-border-focused);

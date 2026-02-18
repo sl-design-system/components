@@ -204,7 +204,6 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       <td
         aria-rowindex=${rowIndex + 1}
         aria-colindex=${colIndex + 1}
-        aria-selected=${selected.toString()}
         role="gridcell"
       >
         <button

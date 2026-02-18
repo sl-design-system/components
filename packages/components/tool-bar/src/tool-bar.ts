@@ -123,9 +123,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** Manage the keyboard navigation. */
   #rovingTabindexController = new RovingTabindexController<HTMLElement>(this, {
     direction: 'horizontal',
-    focusInIndex: (elements: HTMLElement[]) => elements.findIndex(el => !this.#isElementDisabled(el)),
+    focusInIndex: (elements: HTMLElement[]) => elements.findIndex(el => !this.#isElementDisabled(el, true)),
     elements: () => this.#getFocusableElements(),
-    isFocusableElement: (el: HTMLElement) => !(el instanceof ToolBarDivider) && !this.#isElementDisabled(el)
+    isFocusableElement: (el: HTMLElement) => !(el instanceof ToolBarDivider) && !this.#isElementDisabled(el, true)
   });
 
   /**
@@ -218,8 +218,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       if (this.disabled) {
         buttons.forEach(el => {
           // Only disable if not already disabled, and mark that we disabled it
-          if (!el.hasAttribute('disabled')) {
-            el.setAttribute('disabled', '');
+          if (!el.hasAttribute('aria-disabled') && !el.hasAttribute('disabled')) {
+            el.setAttribute('aria-disabled', 'true');
             el.setAttribute('data-toolbar-disabled', '');
           }
         });
@@ -227,7 +227,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         buttons.forEach(el => {
           // Only remove disabled from buttons/menu-buttons that the toolbar disabled
           if (el.hasAttribute('data-toolbar-disabled')) {
-            el.removeAttribute('disabled');
+            el.removeAttribute('aria-disabled');
             el.removeAttribute('data-toolbar-disabled');
           }
         });
@@ -278,6 +278,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         ? html`
             <sl-menu-button
               aria-label=${msg('Show more', { id: 'sl.toolBar.showMore' })}
+              ?aria-disabled=${this.disabled}
               fill=${ifDefined(this.fill)}
               variant=${ifDefined(this.inverted ? 'inverted' : undefined)}
             >
@@ -411,10 +412,13 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
    * Check if an element is disabled.
    * For menu buttons, the element might be the internal sl-button from the shadow DOM,
    * so we need to find the original item to get the correct disabled state.
+   *
+   * @param el The element to check.
+   * @param ignoreAria If true, only check for the native disabled attribute.
    */
-  #isElementDisabled(el: HTMLElement): boolean {
+  #isElementDisabled(el: HTMLElement, ignoreAria = false): boolean {
     // Check direct disabled attribute first
-    if (el.hasAttribute('disabled') || el.getAttribute('aria-disabled') === 'true') {
+    if (el.hasAttribute('disabled') || (!ignoreAria && el.getAttribute('aria-disabled') === 'true')) {
       return true;
     }
 
@@ -422,6 +426,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     const item = this.#findItemForElement(el);
 
     if (item && 'disabled' in item) {
+      if (ignoreAria && item.element.getAttribute('aria-disabled') === 'true') {
+        return false;
+      }
       return item.disabled ?? false;
     }
 
@@ -429,7 +436,10 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     const parentMenuButton = el.closest('sl-menu-button');
 
     if (parentMenuButton && parentMenuButton !== el) {
-      return parentMenuButton.hasAttribute('disabled') || parentMenuButton.getAttribute('aria-disabled') === 'true';
+      return (
+        parentMenuButton.hasAttribute('disabled') ||
+        (!ignoreAria && parentMenuButton.getAttribute('aria-disabled') === 'true')
+      );
     }
 
     return false;

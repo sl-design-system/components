@@ -104,8 +104,8 @@ describe('sl-tool-bar', () => {
 
       const children = el.children;
       // Only check interactive elements (buttons and menu-buttons), not dividers
-      expect(children.item(0)).to.have.attribute('disabled'); // sl-button
-      expect(children.item(3)).to.have.attribute('disabled'); // sl-menu-button
+      expect(children.item(0)).to.have.attribute('aria-disabled', 'true'); // sl-button
+      expect(children.item(3)).to.have.attribute('aria-disabled', 'true'); // sl-menu-button
     });
 
     it('should preserve originally disabled buttons when toolbar is re-enabled', async () => {
@@ -130,10 +130,10 @@ describe('sl-tool-bar', () => {
       el.disabled = true;
       await el.updateComplete;
 
-      // All buttons should be disabled
-      expect(buttons[0]).to.have.attribute('disabled');
+      // All buttons should be aria-disabled
+      expect(buttons[0]).to.have.attribute('aria-disabled', 'true');
       expect(buttons[1]).to.have.attribute('disabled');
-      expect(buttons[2]).to.have.attribute('disabled');
+      expect(buttons[2]).to.have.attribute('aria-disabled', 'true');
 
       // Re-enable the toolbar
       el.disabled = false;
@@ -141,9 +141,10 @@ describe('sl-tool-bar', () => {
 
       // Originally enabled buttons should be enabled again
       // but originally disabled button should remain disabled
-      expect(buttons[0]).not.to.have.attribute('disabled');
+      expect(buttons[0]).not.to.have.attribute('aria-disabled');
       expect(buttons[1]).to.have.attribute('disabled');
-      expect(buttons[2]).not.to.have.attribute('disabled');
+      expect(buttons[1]).not.to.have.attribute('aria-disabled');
+      expect(buttons[2]).not.to.have.attribute('aria-disabled');
     });
 
     it('should have made all slotted elements visible', () => {
@@ -820,6 +821,25 @@ describe('sl-tool-bar', () => {
 
       const focusedButton = closestElementComposed(document.activeElement!, 'sl-button');
       expect(focusedButton).to.equal(buttons[buttons.length - 1]);
+    });
+
+    it('should focus aria-disabled buttons using arrow keys', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      const buttons = Array.from(el.querySelectorAll('sl-button'));
+
+      el.focus();
+      await el.updateComplete;
+
+      // First button should be focused (aria-disabled)
+      expect(closestElementComposed(document.activeElement!, 'sl-button')).to.equal(buttons[0]);
+
+      await userEvent.keyboard('{ArrowRight}');
+      await el.updateComplete;
+
+      // Second button should be focused (aria-disabled)
+      expect(closestElementComposed(document.activeElement!, 'sl-button')).to.equal(buttons[1]);
     });
 
     it('should move focus to next item when pressing ArrowRight', async () => {

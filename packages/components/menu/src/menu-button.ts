@@ -140,10 +140,22 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
   }
 
   #onClick(): void {
+    if (this.disabled || this.getAttribute('aria-disabled') === 'true' || this.button.getAttribute('aria-disabled') === 'true') {
+      return;
+    }
+
     this.menu.togglePopover();
   }
 
   #onKeydown(event: KeyboardEvent): void {
+    if (this.disabled || this.getAttribute('aria-disabled') === 'true' || this.button.getAttribute('aria-disabled') === 'true') {
+      if (['Enter', ' ', 'ArrowDown', 'ArrowUp'].includes(event.key)) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      return;
+    }
+
     if (event.key === 'Escape') {
       // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the menu
       // does not close parent containers (such as dialogs).

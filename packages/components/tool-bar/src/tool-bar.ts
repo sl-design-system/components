@@ -23,6 +23,7 @@ export interface ToolBarItemBase {
 
 export interface ToolBarItemButton extends ToolBarItemBase {
   type: 'button';
+  ariaDisabled?: boolean;
   disabled?: boolean;
   icon?: string | null;
   label?: string | null;
@@ -44,6 +45,7 @@ export interface ToolBarItemGroup extends ToolBarItemBase {
 
 export interface ToolBarItemMenu extends ToolBarItemBase {
   type: 'menu';
+  ariaDisabled?: boolean;
   disabled?: boolean;
   icon?: string | null;
   label?: string | null;
@@ -278,7 +280,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         ? html`
             <sl-menu-button
               aria-label=${msg('Show more', { id: 'sl.toolBar.showMore' })}
-              ?aria-disabled=${this.disabled}
+              aria-disabled=${this.disabled ? 'true' : 'false'}
               fill=${ifDefined(this.fill)}
               variant=${ifDefined(this.inverted ? 'inverted' : undefined)}
             >
@@ -305,14 +307,18 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     } else if (item.type === 'divider') {
       return html`<hr />`;
     } else if (item.type === 'button') {
+      const isDisabled = item.disabled || item.ariaDisabled;
+
       return html`
-        <sl-menu-item @click=${() => item.click?.()} ?disabled=${item.disabled} ?selectable=${item.selectable}>
+        <sl-menu-item @click=${() => item.click?.()} ?disabled=${isDisabled} ?selectable=${item.selectable}>
           ${item.icon ? html`<sl-icon .name=${item.icon}></sl-icon>` : nothing} ${item.label}
         </sl-menu-item>
       `;
     } else {
+      const isDisabled = item.disabled || item.ariaDisabled;
+
       return html`
-        <sl-menu-item ?disabled=${item.disabled}>
+        <sl-menu-item ?disabled=${isDisabled}>
           ${item.icon ? html`<sl-icon .name=${item.icon}></sl-icon>` : nothing} ${item.label}
           <sl-menu slot="submenu">${item.menuItems.map(menuItem => this.renderMenuItem(menuItem))}</sl-menu>
         </sl-menu-item>
@@ -417,29 +423,61 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
    * @param ignoreAria If true, only check for the native disabled attribute.
    */
   #isElementDisabled(el: HTMLElement, ignoreAria = false): boolean {
-    // Check direct disabled attribute first
-    if (el.hasAttribute('disabled') || (!ignoreAria && el.getAttribute('aria-disabled') === 'true')) {
+    const isNativelyDisabled =
+      el.hasAttribute('disabled') || (el instanceof MenuButton ? el.disabled : (el as any).disabled);
+
+    if (isNativelyDisabled) {
       return true;
+    }
+
+    if (!ignoreAria) {
+      const ariaDisabled = el.getAttribute('aria-disabled');
+      if (ariaDisabled !== null && ariaDisabled !== 'false') {
+        return true;
+      }
+
+      // Check internal button for MenuButton since it might have been moved by ObserveAttributesMixin
+      if (el instanceof MenuButton) {
+        const internalButton = el.renderRoot.querySelector('sl-button');
+        const internalAriaDisabled = internalButton?.getAttribute('aria-disabled');
+        if (internalAriaDisabled !== null && internalAriaDisabled !== 'false') {
+          return true;
+        }
+      }
     }
 
     // Find the toolbar item for this element
     const item = this.#findItemForElement(el);
 
     if (item && 'disabled' in item) {
-      if (ignoreAria && item.element.getAttribute('aria-disabled') === 'true') {
-        return false;
+      if (item.disabled) {
+        return true;
       }
-      return item.disabled ?? false;
+      if (!ignoreAria && item.ariaDisabled) {
+        return true;
+      }
     }
 
     // Check parent menu button for overflow menu button
-    const parentMenuButton = el.closest('sl-menu-button');
+    const parentMenuButton = el.closest('sl-menu-button') as MenuButton | null;
 
     if (parentMenuButton && parentMenuButton !== el) {
-      return (
-        parentMenuButton.hasAttribute('disabled') ||
-        (!ignoreAria && parentMenuButton.getAttribute('aria-disabled') === 'true')
-      );
+      if (parentMenuButton.hasAttribute('disabled') || parentMenuButton.disabled) {
+        return true;
+      }
+
+      if (!ignoreAria) {
+        const parentAriaDisabled = parentMenuButton.getAttribute('aria-disabled');
+        if (parentAriaDisabled !== null && parentAriaDisabled !== 'false') {
+          return true;
+        }
+
+        const internalButton = parentMenuButton.renderRoot.querySelector('sl-button');
+        const internalAriaDisabled = internalButton?.getAttribute('aria-disabled');
+        if (internalAriaDisabled !== null && internalAriaDisabled !== 'false') {
+          return true;
+        }
+      }
     }
 
     return false;
@@ -467,7 +505,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     return {
       element: button,
       type: 'button',
-      disabled: button.hasAttribute('disabled') || button.getAttribute('aria-disabled') === 'true',
+      ariaDisabled: button.getAttribute('aria-disabled') === 'true',
+      disabled: button.hasAttribute('disabled'),
       icon: button.querySelector('sl-icon')?.getAttribute('name'),
       label,
       selectable: button.hasAttribute('aria-pressed'),
@@ -502,7 +541,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     return {
       element: menuButton,
       type: 'menu',
-      disabled: menuButton.hasAttribute('disabled') || menuButton.getAttribute('aria-disabled') === 'true',
+      ariaDisabled: menuButton.getAttribute('aria-disabled') === 'true',
+      disabled: menuButton.hasAttribute('disabled'),
       icon: menuButton.querySelector('sl-icon')?.getAttribute('name'),
       label,
       menuItems,

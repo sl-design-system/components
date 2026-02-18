@@ -115,6 +115,7 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
         @click=${this.#onClick}
         @keydown=${this.#onKeydown}
         ?disabled=${this.disabled}
+        aria-disabled=${this.getAttribute('aria-disabled') || (this.disabled ? 'true' : 'false')}
         aria-expanded="false"
         aria-haspopup="menu"
         fill=${ifDefined(this.fill)}
@@ -140,15 +141,33 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
   }
 
   #onClick(): void {
-    if (this.disabled || this.getAttribute('aria-disabled') === 'true' || this.button.getAttribute('aria-disabled') === 'true') {
+    if (this.#isAriaDisabled()) {
       return;
     }
 
     this.menu.togglePopover();
   }
 
+  #isAriaDisabled(): boolean {
+    if (this.disabled) {
+      return true;
+    }
+
+    const ariaDisabled = this.getAttribute('aria-disabled');
+    if (ariaDisabled !== null) {
+      return ariaDisabled !== 'false';
+    }
+
+    const buttonAriaDisabled = this.button?.getAttribute('aria-disabled');
+    if (buttonAriaDisabled !== null) {
+      return buttonAriaDisabled !== 'false';
+    }
+
+    return false;
+  }
+
   #onKeydown(event: KeyboardEvent): void {
-    if (this.disabled || this.getAttribute('aria-disabled') === 'true' || this.button.getAttribute('aria-disabled') === 'true') {
+    if (this.#isAriaDisabled()) {
       if (['Enter', ' ', 'ArrowDown', 'ArrowUp'].includes(event.key)) {
         event.preventDefault();
         event.stopPropagation();

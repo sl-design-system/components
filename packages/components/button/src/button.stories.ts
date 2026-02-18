@@ -100,7 +100,7 @@ export const Disabled: Story = {
         This example shows 2 disabled buttons. One via the <code>disabled</code> property. You can no longer interact
         with that button. You cannot focus it. It cannot receive pointer events. The second button is disabled using the
         <code>aria-disabled</code> attribute. This button is also visually disabled and cannot be interacted with, but you can still focus it.
-        This second button can used in combination with a tooltip to explain why the button is disabled.
+        This second button can be used in combination with a tooltip to explain why the button is disabled.
       </p>
       <div style="display: inline-flex; gap: 1rem">
         <sl-button

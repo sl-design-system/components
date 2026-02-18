@@ -519,9 +519,9 @@ describe('FlatTreeDataSource', () => {
     });
 
     it('should update parent selection state when all children are selected', () => {
-      const parent = ds.items[3];
-      const child1 = ds.items[4];
-      const child2 = ds.items[5];
+      const parent = ds.items[3],
+            child1 = ds.items[4],
+            child2 = ds.items[5];
 
       // Initial state: none selected
       expect(parent.selected).to.be.false;

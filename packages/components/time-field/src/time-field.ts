@@ -497,15 +497,15 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.textField.focus();
   }
 
-  #onMinuteKeydown(event: KeyboardEvent, minute: number): void {
-    if (this.#isMinuteDisabled(minute)) {
+  #onMinuteKeydown(event: KeyboardEvent, minutes: number): void {
+    if (this.#isMinuteDisabled(minutes)) {
       return;
     }
 
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
 
-      this.#onMinuteClick(minute);
+      this.#onMinuteClick(minutes);
     }
   }
 
@@ -695,13 +695,13 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     return `${hours.toString().padStart(2, '0')}${this.#getTimeSeparator()}${minutes.toString().padStart(2, '0')}`;
   }
 
-  #isMinuteDisabled(minute: number): boolean {
+  #isMinuteDisabled(minutes: number): boolean {
     const hour = this.#valueAsNumbers?.hours ?? this.#startTime?.hours ?? 0;
 
     if (this.min) {
       const minTime = this.#parseTime(this.min);
 
-      if (minTime && hour === minTime.hours && minute < minTime.minutes) {
+      if (minTime && hour === minTime.hours && minutes < minTime.minutes) {
         return true;
       }
     }
@@ -709,7 +709,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     if (this.max) {
       const maxTime = this.#parseTime(this.max);
 
-      if (maxTime && hour === maxTime.hours && minute > maxTime.minutes) {
+      if (maxTime && hour === maxTime.hours && minutes > maxTime.minutes) {
         return true;
       }
     }

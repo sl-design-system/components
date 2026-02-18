@@ -777,6 +777,8 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       minTime = this.min ? this.#parseTime(this.min) : undefined,
       maxTime = this.max ? this.#parseTime(this.max) : undefined;
 
+    this.requestUpdate();
+
     // Find the closest hour and minute based on the steps
     time.hours = Math.round(time.hours / this.hourStep) * this.hourStep;
     time.minutes = Math.round(time.minutes / this.minuteStep) * this.minuteStep;

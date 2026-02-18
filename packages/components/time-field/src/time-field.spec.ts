@@ -516,8 +516,8 @@ describe('sl-time-field', () => {
       );
 
       expect(minute30).to.have.attribute('disabled');
-      expect(minute40).to.not.have.attribute('disabled');
-      expect(minute45).to.not.have.attribute('disabled');
+      expect(minute40).not.to.have.attribute('disabled');
+      expect(minute45).not.to.have.attribute('disabled');
 
       (minute30 as HTMLElement)?.click();
       await el.updateComplete;
@@ -528,6 +528,321 @@ describe('sl-time-field', () => {
       await el.updateComplete;
 
       expect(el.value).to.equal('08:45');
+    });
+
+    describe('disabling minutes based on min/max', () => {
+      it('should disable minutes when selected hour equals min hour', async () => {
+        el = await fixture(html`<sl-time-field min="08:40" value="08:00"></sl-time-field>`);
+        await el.updateComplete;
+
+        el.renderRoot.querySelector('sl-field-button')?.click();
+        await el.updateComplete;
+
+        el.requestUpdate();
+        await el.updateComplete;
+
+        const minutes00 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+            li => li.textContent?.trim() === '00'
+          ),
+          minutes35 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+            li => li.textContent?.trim() === '35'
+          ),
+          minutes40 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+            li => li.textContent?.trim() === '40'
+          ),
+          minutes45 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+            li => li.textContent?.trim() === '45'
+          );
+
+        expect(minutes00).to.have.attribute('disabled');
+        expect(minutes35).to.have.attribute('disabled');
+        expect(minutes40).not.to.have.attribute('disabled');
+        expect(minutes45).not.to.have.attribute('disabled');
+      });
+
+      it('should disable minutes when selected hour equals max hour', async () => {
+        el = await fixture(html`<sl-time-field max="14:20" value="14:00"></sl-time-field>`);
+        await el.updateComplete;
+
+        el.renderRoot.querySelector('sl-field-button')?.click();
+        await el.updateComplete;
+
+        const minutes15 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+            li => li.textContent?.trim() === '15'
+          ),
+          minutes20 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+            li => li.textContent?.trim() === '20'
+          ),
+          minutes25 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+            li => li.textContent?.trim() === '25'
+          ),
+          minutes55 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+            li => li.textContent?.trim() === '55'
+          );
+
+        expect(minutes15).not.to.have.attribute('disabled');
+        expect(minutes20).not.to.have.attribute('disabled');
+        expect(minutes25).to.have.attribute('disabled');
+        expect(minutes55).to.have.attribute('disabled');
+      });
+
+      it('should not disable minutes when selected hour is between min and max hours', async () => {
+        el = await fixture(html`<sl-time-field min="08:40" max="14:20" value="10:00"></sl-time-field>`);
+        await el.updateComplete;
+
+        el.renderRoot.querySelector('sl-field-button')?.click();
+        await el.updateComplete;
+
+        const disabledMinutes = Array.from(el.renderRoot.querySelectorAll('.minutes li[disabled]'));
+        expect(disabledMinutes).to.have.length(0);
+      });
+
+      it('should not change value when clicking on a disabled minute', async () => {
+        el = await fixture(html`<sl-time-field min="08:40" value="08:50"></sl-time-field>`);
+        await el.updateComplete;
+
+        el.renderRoot.querySelector('sl-field-button')?.click();
+        await el.updateComplete;
+
+        const minutes30 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+          li => li.textContent?.trim() === '30'
+        );
+
+        expect(minutes30).to.have.attribute('disabled');
+
+        const originalValue = el.value;
+        (minutes30 as HTMLElement)?.click();
+        await el.updateComplete;
+
+        expect(el.value).to.equal(originalValue);
+      });
+
+      it('should focus first enabled minute when navigating to minutes column', async () => {
+        el = await fixture(html`<sl-time-field min="08:40" value="08:00" minute-step="5"></sl-time-field>`);
+        await el.updateComplete;
+
+        el.renderRoot.querySelector('sl-field-button')?.click();
+        await el.updateComplete;
+
+        const hour08 = Array.from(el.renderRoot.querySelectorAll('.hours li')).find(
+          li => li.textContent?.trim() === '08'
+        ) as HTMLElement;
+        hour08.focus();
+
+        await userEvent.keyboard('{ArrowRight}');
+
+        const focusedElement = el.shadowRoot?.activeElement;
+
+        expect(focusedElement).to.exist;
+        expect(focusedElement).to.have.trimmed.text('40');
+      });
+
+      it('should go to first enabled minutes when pressing ArrowDown from last enabled minutes', async () => {
+        el = await fixture(html`<sl-time-field max="14:20" value="14:00" minute-step="5"></sl-time-field>`);
+        await el.updateComplete;
+
+        el.renderRoot.querySelector('sl-field-button')?.click();
+        await el.updateComplete;
+
+        const minute20 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+          li => li.textContent?.trim() === '20'
+        ) as HTMLElement;
+        minute20.focus();
+
+        await userEvent.keyboard('{ArrowDown}');
+
+        expect(el.shadowRoot?.activeElement).to.have.trimmed.text('00');
+      });
+
+      it('should take into account minutes constraints when using arrow keys on input with min', async () => {
+        el = await fixture(html`<sl-time-field min="08:40" value="08:40"></sl-time-field>`);
+        await el.updateComplete;
+
+        el.textField.focus();
+        el.input.setSelectionRange(3, 5);
+
+        await userEvent.keyboard('{ArrowDown}');
+
+        expect(el.value).to.equal('08:40');
+      });
+
+      it('should take into account minutes constraints when using arrow keys on input with max', async () => {
+        el = await fixture(html`<sl-time-field max="14:20" value="14:20"></sl-time-field>`);
+        await el.updateComplete;
+
+        el.textField.focus();
+        el.input.setSelectionRange(3, 5);
+
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('14:20');
+      });
+
+      it('should pick a valid minute when an hour is clicked and some minutes are disabled and min is set', async () => {
+        el = await fixture(html`<sl-time-field min="08:40"></sl-time-field>`);
+        await el.updateComplete;
+
+        el.renderRoot.querySelector('sl-field-button')?.click();
+        await el.updateComplete;
+
+        const hour08 = Array.from(el.renderRoot.querySelectorAll('.hours li')).find(
+          li => li.textContent?.trim() === '08'
+        );
+        (hour08 as HTMLElement)?.click();
+        await el.updateComplete;
+
+        expect(el.value).to.equal('08:40');
+      });
+
+      it('should constrain minutes when selecting an hour via click and max is set', async () => {
+        el = await fixture(html`<sl-time-field max="14:20" value="10:00"></sl-time-field>`);
+        await el.updateComplete;
+
+        el.renderRoot.querySelector('sl-field-button')?.click();
+        await el.updateComplete;
+
+        const hour14 = Array.from(el.renderRoot.querySelectorAll('.hours li')).find(
+          li => li.textContent?.trim() === '14'
+        ) as HTMLElement;
+        hour14.click();
+        await el.updateComplete;
+
+        expect(el.value).to.equal('14:00');
+      });
+
+      it('should have aria-selected set to false for disabled minutes', async () => {
+        el = await fixture(html`<sl-time-field min="08:40" value="08:30"></sl-time-field>`);
+        await el.updateComplete;
+
+        el.renderRoot.querySelector('sl-field-button')?.click();
+        await el.updateComplete;
+
+        const minutes30 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+          li => li.textContent?.trim() === '30'
+        );
+
+        expect(minutes30).to.have.attribute('disabled');
+        expect(minutes30).to.have.attribute('aria-selected', 'false');
+      });
+
+      it('should scroll to constrained minute when opening picker with invalid minute', async () => {
+        el = await fixture(html`<sl-time-field min="08:40" value="08:30"></sl-time-field>`);
+        await el.updateComplete;
+
+        el.renderRoot.querySelector('sl-field-button')?.click();
+        await el.updateComplete;
+
+        const minutes30 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+            li => li.textContent?.trim() === '30'
+          ),
+          minutes40 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+            li => li.textContent?.trim() === '40'
+          );
+
+        expect(minutes30).to.have.attribute('disabled');
+        expect(minutes40).not.have.attribute('disabled');
+      });
+
+      it('should handle both min and max minute constraints for the same hour', async () => {
+        el = await fixture(html`<sl-time-field min="10:20" max="10:40" value="10:00"></sl-time-field>`);
+        await el.updateComplete;
+
+        el.renderRoot.querySelector('sl-field-button')?.click();
+        await el.updateComplete;
+
+        const minutes15 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+            li => li.textContent?.trim() === '15'
+          ),
+          minutes20 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+            li => li.textContent?.trim() === '20'
+          ),
+          minutes40 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+            li => li.textContent?.trim() === '40'
+          ),
+          minutes45 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+            li => li.textContent?.trim() === '45'
+          );
+
+        expect(minutes15).to.have.attribute('disabled');
+        expect(minutes20).not.to.have.attribute('disabled');
+        expect(minutes40).not.to.have.attribute('disabled');
+        expect(minutes45).to.have.attribute('disabled');
+      });
+
+      it('should handle minute step that does not align with min constraint', async () => {
+        el = await fixture(html`<sl-time-field min="08:42" minute-step="15" value="08:00"></sl-time-field>`);
+        await el.updateComplete;
+
+        el.renderRoot.querySelector('sl-field-button')?.click();
+        await el.updateComplete;
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        const minutes00 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+            li => li.textContent?.trim() === '00'
+          ),
+          minutes30 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+            li => li.textContent?.trim() === '30'
+          ),
+          minutes45 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+            li => li.textContent?.trim() === '45'
+          );
+
+        expect(minutes00).to.have.attribute('disabled');
+        expect(minutes30).to.have.attribute('disabled');
+        expect(minutes45).not.to.have.attribute('disabled');
+
+        const hour08 = Array.from(el.renderRoot.querySelectorAll('.hours li')).find(
+          li => li.textContent?.trim() === '08'
+        );
+        (hour08 as HTMLElement)?.click();
+        await el.updateComplete;
+
+        expect(el.value).to.equal('08:45');
+      });
+
+      it('should not allow using Enter to select minutes on disabled minutes', async () => {
+        el = await fixture(html`<sl-time-field min="08:40" value="08:50"></sl-time-field>`);
+        await el.updateComplete;
+
+        el.renderRoot.querySelector('sl-field-button')?.click();
+        await el.updateComplete;
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        const minutes30 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+          li => li.textContent?.trim() === '30'
+        ) as HTMLElement;
+
+        expect(minutes30).to.have.attribute('disabled');
+
+        const originalValue = el.value;
+        minutes30.focus();
+        await userEvent.keyboard('{Enter}');
+        await el.updateComplete;
+
+        expect(el.value).to.equal(originalValue);
+      });
+
+      it('should not allow using Space to select minutes on disabled minutes', async () => {
+        el = await fixture(html`<sl-time-field min="08:40" value="08:50"></sl-time-field>`);
+        await el.updateComplete;
+
+        el.renderRoot.querySelector('sl-field-button')?.click();
+        await el.updateComplete;
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        const minutes30 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+          li => li.textContent?.trim() === '30'
+        ) as HTMLElement;
+
+        expect(minutes30).to.have.attribute('disabled');
+
+        const originalValue = el.value;
+        minutes30.focus();
+        await userEvent.keyboard(' ');
+        await el.updateComplete;
+
+        expect(el.value).to.equal(originalValue);
+      });
     });
   });
 

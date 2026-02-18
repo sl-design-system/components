@@ -843,6 +843,81 @@ describe('sl-time-field', () => {
 
         expect(el.value).to.equal(originalValue);
       });
+
+      it('should not focus disabled minutes when value contains disabled minute', async () => {
+        el = await fixture(html`<sl-time-field min="08:40" value="08:30"></sl-time-field>`);
+        await el.updateComplete;
+
+        el.renderRoot.querySelector('sl-field-button')?.click();
+        await el.updateComplete;
+        await new Promise(resolve => setTimeout(resolve, 100));
+
+        const minutes30 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+          li => li.textContent?.trim() === '30'
+        );
+
+        expect(minutes30).to.have.attribute('disabled');
+
+        const originalValue = el.value;
+        (minutes30 as HTMLElement)?.click();
+        await el.updateComplete;
+
+        expect(el.value).to.equal(originalValue);
+      });
+
+      it('should handle min time with minutes 59 when minute-step is set to 5', async () => {
+        el = await fixture(html`<sl-time-field min="10:59" minute-step="5"></sl-time-field>`);
+        await el.updateComplete;
+
+        el.renderRoot.querySelector('sl-field-button')?.click();
+        await el.updateComplete;
+
+        const hour10 = Array.from(el.renderRoot.querySelectorAll('.hours li')).find(
+          li => li.textContent?.trim() === '10'
+        );
+
+        (hour10 as HTMLElement)?.click();
+        await el.updateComplete;
+
+        // Should be 10:59, not 10:60
+        expect(el.value).to.equal('10:59');
+      });
+
+      it('should handle min time at 23:59 when minute-step is set to 5', async () => {
+        el = await fixture(html`<sl-time-field min="23:59" minute-step="5"></sl-time-field>`);
+        await el.updateComplete;
+
+        el.renderRoot.querySelector('sl-field-button')?.click();
+        await el.updateComplete;
+
+        const hour23 = Array.from(el.renderRoot.querySelectorAll('.hours li')).find(
+          li => li.textContent?.trim() === '23'
+        );
+
+        (hour23 as HTMLElement)?.click();
+        await el.updateComplete;
+
+        // Should be 23:59, not 23:60 or 24:00
+        expect(el.value).to.equal('23:59');
+      });
+
+      it('should handle min time with large minute step near hour boundary', async () => {
+        el = await fixture(html`<sl-time-field min="10:58" minute-step="15"></sl-time-field>`);
+        await el.updateComplete;
+
+        el.renderRoot.querySelector('sl-field-button')?.click();
+        await el.updateComplete;
+
+        const hour10 = Array.from(el.renderRoot.querySelectorAll('.hours li')).find(
+          li => li.textContent?.trim() === '10'
+        );
+
+        (hour10 as HTMLElement).click();
+        await el.updateComplete;
+
+        // Should be 10:59, not 10:60 or 10:75
+        expect(el.value).to.equal('10:59');
+      });
     });
   });
 

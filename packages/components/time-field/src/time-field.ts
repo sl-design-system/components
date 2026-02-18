@@ -786,7 +786,21 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     // Apply min/max constraints
     if (minTime && (time.hours < minTime.hours || (time.hours === minTime.hours && time.minutes < minTime.minutes))) {
       time.hours = minTime.hours;
-      time.minutes = Math.ceil(minTime.minutes / this.minuteStep) * this.minuteStep;
+      const roundedMinutes = Math.ceil(minTime.minutes / this.minuteStep) * this.minuteStep;
+
+      if (roundedMinutes >= 60) {
+        // When rounding up crosses the hour boundary (e.g. 10:59 with 5-minute steps),
+        // Move to the next hour and reset minutes to 0, but avoid creating an invalid 24:xx time
+        if (minTime.hours < 23) {
+          time.hours = minTime.hours + 1;
+          time.minutes = 0;
+        } else {
+          // Edge case: 23:59 with a step that would round to 60
+          time.minutes = 59;
+        }
+      } else {
+        time.minutes = roundedMinutes;
+      }
     }
 
     if (maxTime && (time.hours > maxTime.hours || (time.hours === maxTime.hours && time.minutes > maxTime.minutes))) {
@@ -835,7 +849,17 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     if (focus === 'hour') {
       (hoursEl.children[hoursIndex] as HTMLElement)?.focus();
     } else if (focus === 'minute') {
-      (minutesEl.children[minutesIndex] as HTMLElement)?.focus();
+      const targetMinuteEl = minutesEl.children[minutesIndex] as HTMLElement;
+
+      if (targetMinuteEl?.hasAttribute('disabled')) {
+        const firstEnabledMinute = Array.from(minutesEl.children).find(
+          child => !child.hasAttribute('disabled')
+        ) as HTMLElement;
+
+        firstEnabledMinute?.focus();
+      } else {
+        targetMinuteEl?.focus();
+      }
     }
   }
 }

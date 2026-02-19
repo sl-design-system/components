@@ -214,38 +214,42 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
   }
 
   /**
-   * Update aria-describedby and aria-labelledby references on the button using
-   * ElementInternals.ariaDescribedByElements and ElementInternals.ariaLabelledByElements
-   * to get it working across shadow DOM boundaries (e.g. with tooltips).
+   * Update aria-describedby and aria-labelledby references on the button.
+   * Sets Element.ariaDescribedByElements and Element.ariaLabelledByElements properties
+   * to work across shadow DOM boundaries (e.g. with tooltips).
    */
   #updateAriaReferences(): void {
-    if (!this.button?.internals) {
+    if (!this.button) {
       return;
     }
 
     if (this.hasAttribute('aria-describedby')) {
       this.#setAriaReference('aria-describedby', 'ariaDescribedByElements');
     } else {
-      this.button.internals.ariaDescribedByElements = null;
+      this.button.ariaDescribedByElements = null;
+      this.button.removeAttribute('aria-describedby');
     }
 
     if (this.hasAttribute('aria-labelledby')) {
       this.#setAriaReference('aria-labelledby', 'ariaLabelledByElements');
     } else {
-      this.button.internals.ariaLabelledByElements = null;
+      this.button.ariaLabelledByElements = null;
+      this.button.removeAttribute('aria-labelledby');
     }
   }
 
-  /** Set an aria reference on the button using ElementInternals. */
+  /** Set an aria reference on the button using Element properties. */
   #setAriaReference(attribute: string, property: 'ariaDescribedByElements' | 'ariaLabelledByElements'): void {
     const ariaValue = this.getAttribute(attribute);
 
-    // Clear internals if attribute was removed or if the attribute only contained whitespace
+    // Clear if attribute was removed or if the attribute only contained whitespace
     if (!ariaValue || !ariaValue.trim()) {
-      this.button.internals[property] = null;
+      this.button[property] = null;
+      this.button.removeAttribute(attribute);
       return;
     }
 
+    // Query elements from the root node (to find elements outside shadow DOM)
     const elements = ariaValue
       .trim()
       .split(/\s+/)
@@ -253,11 +257,17 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
       .filter((el): el is Element => el !== null);
 
     if (elements.length === 0) {
-      this.button.internals[property] = null;
+      this.button[property] = null;
+      this.button.removeAttribute(attribute);
       return;
     }
 
-    this.button.internals[property] = elements;
+    // Set the Element property for cross-shadow-DOM element references
+    this.button[property] = elements;
+
+    console.log('this.button[property]', this.button[property], 'attribute', attribute, 'ariaValue', ariaValue);
+
+    // this.button[property] = elements;
 
     // Temporarily stop observing so `removeAttribute` doesn't trigger the MutationObserver
     this.#observer.disconnect();

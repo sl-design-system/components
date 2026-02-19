@@ -400,7 +400,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
    */
   #isElementDisabled(el: HTMLElement, ignoreAria = false): boolean {
     const isNativelyDisabled =
-      el.hasAttribute('disabled') || (el instanceof MenuButton ? el.disabled : (el as any).disabled);
+      el.hasAttribute('disabled') || (el instanceof Button || el instanceof MenuButton ? el.disabled : false);
 
     if (isNativelyDisabled) {
       return true;
@@ -435,7 +435,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     }
 
     // Check parent menu button for overflow menu button
-    const parentMenuButton = el.closest('sl-menu-button') as MenuButton | null;
+    const parentMenuButton = el.closest('sl-menu-button');
 
     if (parentMenuButton && parentMenuButton !== el) {
       if (parentMenuButton.hasAttribute('disabled') || parentMenuButton.disabled) {
@@ -702,15 +702,16 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     if (this.disabled) {
       buttons.forEach(el => {
         // If already has aria-disabled, store it and override (even if it's already "true" for robustness)
+        // Guard: only store if it's NOT already disabled by the toolbar (to maintain idempotency)
         const ariaDisabled = el.getAttribute('aria-disabled');
-        if (ariaDisabled !== null) {
+        if (ariaDisabled !== null && !el.hasAttribute('data-toolbar-disabled')) {
           if (!el.hasAttribute('data-toolbar-disabled-original')) {
             el.setAttribute('data-toolbar-disabled-original', ariaDisabled);
           }
           if (ariaDisabled !== 'true') {
             el.setAttribute('aria-disabled', 'true');
           }
-        } else if (!el.hasAttribute('disabled')) {
+        } else if (ariaDisabled === null && !el.hasAttribute('disabled')) {
           // Only disable if not already natively disabled, and mark that we disabled it
           el.setAttribute('aria-disabled', 'true');
           el.setAttribute('data-toolbar-disabled', '');
@@ -725,6 +726,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
             el.setAttribute('aria-disabled', originalValue);
           }
           el.removeAttribute('data-toolbar-disabled-original');
+          // Also cleanup the other tracking attribute for robustness
+          el.removeAttribute('data-toolbar-disabled');
         } else if (el.hasAttribute('data-toolbar-disabled')) {
           // Only remove disabled from buttons/menu-buttons that the toolbar disabled
           el.removeAttribute('aria-disabled');

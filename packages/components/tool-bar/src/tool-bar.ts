@@ -206,48 +206,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    if (changes.has('disabled')) {
-      // Get all buttons including nested ones (consistent with #updateButtonFillAndVariant)
-      const buttons: Element[] = [];
-
-      Array.from(this.children).forEach(el => {
-        if (el.tagName === 'SL-BUTTON' || el.tagName === 'SL-MENU-BUTTON') {
-          buttons.push(el);
-        }
-        buttons.push(...Array.from(el.querySelectorAll('sl-button, sl-menu-button')));
-      });
-
-      if (this.disabled) {
-        buttons.forEach(el => {
-          // If already has aria-disabled (even "false"), store it and override
-          const ariaDisabled = el.getAttribute('aria-disabled');
-          if (ariaDisabled !== null && ariaDisabled !== 'true') {
-            el.setAttribute('data-toolbar-disabled-original', ariaDisabled);
-            el.setAttribute('aria-disabled', 'true');
-          } else if (ariaDisabled === null && !el.hasAttribute('disabled')) {
-            // Only disable if not already disabled, and mark that we disabled it
-            el.setAttribute('aria-disabled', 'true');
-            el.setAttribute('data-toolbar-disabled', '');
-          }
-        });
-      } else {
-        buttons.forEach(el => {
-          // Restore original value if we stored it
-          if (el.hasAttribute('data-toolbar-disabled-original')) {
-            const originalValue = el.getAttribute('data-toolbar-disabled-original');
-            if (originalValue !== null) {
-              el.setAttribute('aria-disabled', originalValue);
-            }
-            el.removeAttribute('data-toolbar-disabled-original');
-          } else if (el.hasAttribute('data-toolbar-disabled')) {
-            // Only remove disabled from buttons/menu-buttons that the toolbar disabled
-            el.removeAttribute('aria-disabled');
-            el.removeAttribute('data-toolbar-disabled');
-          }
-        });
-      }
-    }
-
     if (changes.has('items')) {
       this.menuItems = this.items.filter(item => !item.visible);
     }
@@ -262,6 +220,12 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
+
+    if (changes.has('disabled') || this.disabled) {
+      // Sync children if the toolbar's disabled state changed, or if it's currently disabled
+      // (to ensure any newly added children are correctly disabled)
+      this.#syncChildrenDisabledState();
+    }
 
     if (changes.has('menuItems')) {
       const menuButton = this.renderRoot.querySelector('sl-menu-button');
@@ -718,6 +682,56 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       this.#updateButtonFillAndVariant(el);
       this.#updateDividerVariant(el);
     });
+
+    if (this.disabled) {
+      this.#syncChildrenDisabledState();
+    }
+  }
+
+  /**
+   * Sync the disabled state of the toolbar to its children.
+   * This is called when the toolbar's disabled state changes, or when new elements are added to the toolbar.
+   */
+  #syncChildrenDisabledState(): void {
+    // Get all buttons and menu-buttons that are children or nested children of this toolbar,
+    // but not those that belong to a nested toolbar.
+    const buttons = Array.from(this.querySelectorAll('sl-button, sl-menu-button')).filter(
+      btn => btn.closest('sl-tool-bar') === this
+    );
+
+    if (this.disabled) {
+      buttons.forEach(el => {
+        // If already has aria-disabled, store it and override (even if it's already "true" for robustness)
+        const ariaDisabled = el.getAttribute('aria-disabled');
+        if (ariaDisabled !== null) {
+          if (!el.hasAttribute('data-toolbar-disabled-original')) {
+            el.setAttribute('data-toolbar-disabled-original', ariaDisabled);
+          }
+          if (ariaDisabled !== 'true') {
+            el.setAttribute('aria-disabled', 'true');
+          }
+        } else if (!el.hasAttribute('disabled')) {
+          // Only disable if not already natively disabled, and mark that we disabled it
+          el.setAttribute('aria-disabled', 'true');
+          el.setAttribute('data-toolbar-disabled', '');
+        }
+      });
+    } else {
+      buttons.forEach(el => {
+        // Restore original value if we stored it
+        if (el.hasAttribute('data-toolbar-disabled-original')) {
+          const originalValue = el.getAttribute('data-toolbar-disabled-original');
+          if (originalValue !== null) {
+            el.setAttribute('aria-disabled', originalValue);
+          }
+          el.removeAttribute('data-toolbar-disabled-original');
+        } else if (el.hasAttribute('data-toolbar-disabled')) {
+          // Only remove disabled from buttons/menu-buttons that the toolbar disabled
+          el.removeAttribute('aria-disabled');
+          el.removeAttribute('data-toolbar-disabled');
+        }
+      });
+    }
   }
 
   #updateButtonFillAndVariant(el: Element): void {

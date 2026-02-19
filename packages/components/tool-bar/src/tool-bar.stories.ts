@@ -242,7 +242,8 @@ export const AlignEnd: Story = {
 export const Disabled: Story = {
   args: {
     ...Basic.args,
-    description: 'This example shows a disabled tool bar. It cannot be interacted with.',
+    description:
+      'This example shows a disabled tool bar. Note that the "Copy" button is intentionally truly disabled and therefore not focusable, unlike the other elements which are only aria-disabled.',
     disabled: true
   }
 };

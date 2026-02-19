@@ -906,7 +906,10 @@ describe('sl-time-field', () => {
         ) as HTMLElement;
 
         expect(minutes30).to.have.attribute('disabled');
-        expect(minutes30).not.to.have.attribute('tabindex');
+
+        minutes30.focus();
+
+        expect(el.shadowRoot?.activeElement).not.to.equal(minutes30);
 
         const minutes40 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
           li => li.textContent?.trim() === '40'
@@ -914,6 +917,10 @@ describe('sl-time-field', () => {
 
         expect(minutes40).not.to.have.attribute('disabled');
         expect(minutes40).to.have.attribute('tabindex', '-1');
+
+        minutes40.focus();
+
+        expect(el.shadowRoot?.activeElement).to.equal(minutes40);
       });
 
       it('should maintain keyboard navigation after clicking near disabled minute', async () => {
@@ -922,10 +929,13 @@ describe('sl-time-field', () => {
 
         el.renderRoot.querySelector('sl-field-button')?.click();
         await el.updateComplete;
+        await new Promise(resolve => setTimeout(resolve, 100));
 
         const minutes30 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
           li => li.textContent?.trim() === '30'
         ) as HTMLElement;
+
+        expect(minutes30).to.have.attribute('disabled');
 
         minutes30.click();
         await el.updateComplete;
@@ -935,10 +945,14 @@ describe('sl-time-field', () => {
         ) as HTMLElement;
 
         minutes40.focus();
+        await el.updateComplete;
 
+        expect(el.shadowRoot?.activeElement).to.equal(minutes40);
         await userEvent.keyboard('{ArrowDown}');
 
-        expect(el.shadowRoot?.activeElement).to.have.trimmed.text('45');
+        const focusedElement = el.shadowRoot?.activeElement;
+
+        expect(focusedElement).to.have.trimmed.text('45');
       });
 
       it('should handle min time with minutes 59 when minute-step is set to 5', async () => {

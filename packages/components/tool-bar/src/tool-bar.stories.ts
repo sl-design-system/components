@@ -801,7 +801,7 @@ export const All: Story = {
             <sl-button aria-label="Delete">Button 4</sl-button>
             <sl-button aria-label="Send">Button 5</sl-button>
           </sl-tool-bar>
-          <div style="background: var(--sl-color-background-primary-bold); padding: 1.6rem;">
+          <div style="background: var(--sl-elevation-surface-raised-primary); padding: 1.6rem;">
             <sl-tool-bar aria-label="Options" inverted fill="ghost">
               <sl-button aria-label="Copy">Button 1</sl-button>
               <sl-button aria-label="Edit">Button 2</sl-button>
@@ -819,7 +819,7 @@ export const All: Story = {
             <sl-button aria-label="Delete">Button 4</sl-button>
             <sl-button aria-label="Send">Button 5</sl-button>
           </sl-tool-bar>
-          <div style="background: var(--sl-color-background-primary-bold); padding: 1.6rem;">
+          <div style="background: var(--sl-elevation-surface-raised-primary); padding: 1.6rem;">
             <sl-tool-bar aria-label="Options" inverted fill="outline">
               <sl-button aria-label="Copy">Button 1</sl-button>
               <sl-button aria-label="Edit">Button 2</sl-button>

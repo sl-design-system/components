@@ -647,6 +647,66 @@ describe('sl-time-field', () => {
         expect(el.value).to.equal('14:20');
       });
 
+      it('should adjust minutes when arrowing hours down to min hour with minute constraints', async () => {
+        el = await fixture(html`<sl-time-field min="08:40" value="09:30"></sl-time-field>`);
+        await el.updateComplete;
+
+        el.textField.focus();
+        el.input.setSelectionRange(0, 2);
+
+        await userEvent.keyboard('{ArrowDown}');
+
+        expect(el.value).to.equal('08:40');
+      });
+
+      it('should adjust minutes when arrowing hours up to max hour with minute constraints', async () => {
+        el = await fixture(html`<sl-time-field max="14:20" value="13:30"></sl-time-field>`);
+        await el.updateComplete;
+
+        el.textField.focus();
+        el.input.setSelectionRange(0, 2);
+
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('14:20');
+      });
+
+      it('should handle arrowing hours below min hour and adjust both hours and minutes', async () => {
+        el = await fixture(html`<sl-time-field min="10:45" value="10:30"></sl-time-field>`);
+        await el.updateComplete;
+
+        el.textField.focus();
+        el.input.setSelectionRange(0, 2);
+
+        await userEvent.keyboard('{ArrowDown}');
+
+        expect(el.value).to.equal('10:45');
+      });
+
+      it('should handle arrowing hours above max hour and adjust both hours and minutes', async () => {
+        el = await fixture(html`<sl-time-field max="15:30" value="15:45"></sl-time-field>`);
+        await el.updateComplete;
+
+        el.textField.focus();
+        el.input.setSelectionRange(0, 2);
+
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('15:30');
+      });
+
+      it('should keep minutes when arrowing to hour that allows current minutes', async () => {
+        el = await fixture(html`<sl-time-field max="14:20" value="12:15"></sl-time-field>`);
+        await el.updateComplete;
+
+        el.textField.focus();
+        el.input.setSelectionRange(0, 2);
+
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('13:15');
+      });
+
       it('should pick a valid minute when an hour is clicked and some minutes are disabled and min is set', async () => {
         el = await fixture(html`<sl-time-field min="08:40"></sl-time-field>`);
         await el.updateComplete;
@@ -834,6 +894,53 @@ describe('sl-time-field', () => {
         expect(el.value).to.equal(originalValue);
       });
 
+      it('should not have tabindex on disabled minutes to prevent focus', async () => {
+        el = await fixture(html`<sl-time-field min="08:40" value="08:50"></sl-time-field>`);
+        await el.updateComplete;
+
+        el.renderRoot.querySelector('sl-field-button')?.click();
+        await el.updateComplete;
+
+        const minutes30 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+          li => li.textContent?.trim() === '30'
+        ) as HTMLElement;
+
+        expect(minutes30).to.have.attribute('disabled');
+        expect(minutes30).not.to.have.attribute('tabindex');
+
+        const minutes40 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+          li => li.textContent?.trim() === '40'
+        ) as HTMLElement;
+
+        expect(minutes40).not.to.have.attribute('disabled');
+        expect(minutes40).to.have.attribute('tabindex', '-1');
+      });
+
+      it('should maintain keyboard navigation after clicking near disabled minute', async () => {
+        el = await fixture(html`<sl-time-field min="08:40" value="08:50" minute-step="5"></sl-time-field>`);
+        await el.updateComplete;
+
+        el.renderRoot.querySelector('sl-field-button')?.click();
+        await el.updateComplete;
+
+        const minutes30 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+          li => li.textContent?.trim() === '30'
+        ) as HTMLElement;
+
+        minutes30.click();
+        await el.updateComplete;
+
+        const minutes40 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+          li => li.textContent?.trim() === '40'
+        ) as HTMLElement;
+
+        minutes40.focus();
+
+        await userEvent.keyboard('{ArrowDown}');
+
+        expect(el.shadowRoot?.activeElement).to.have.trimmed.text('45');
+      });
+
       it('should handle min time with minutes 59 when minute-step is set to 5', async () => {
         el = await fixture(html`<sl-time-field min="10:59" minute-step="5"></sl-time-field>`);
         await el.updateComplete;
@@ -886,6 +993,38 @@ describe('sl-time-field', () => {
 
         // Should be 10:59, not 10:60 or 10:75
         expect(el.value).to.equal('10:59');
+      });
+
+      it('should not change current value when opening dialog with constraints', async () => {
+        el = await fixture(html`<sl-time-field min="08:00" max="17:00" value="10:37"></sl-time-field>`);
+        await el.updateComplete;
+
+        const originalValue = el.value;
+        expect(originalValue).to.equal('10:37');
+
+        el.renderRoot.querySelector('sl-field-button')?.click();
+        await el.updateComplete;
+
+        expect(el.value).to.equal(originalValue);
+        expect(el.value).to.equal('10:37');
+
+        el.dialog?.hidePopover();
+        await el.updateComplete;
+
+        expect(el.value).to.equal('10:37');
+      });
+
+      it('should not change the value when opening dialog with minute step constraints', async () => {
+        el = await fixture(html`<sl-time-field minute-step="15" value="10:23"></sl-time-field>`);
+        await el.updateComplete;
+
+        const originalValue = el.value;
+        expect(originalValue).to.equal('10:23');
+
+        el.renderRoot.querySelector('sl-field-button')?.click();
+        await el.updateComplete;
+
+        expect(el.value).to.equal('10:23');
       });
     });
   });

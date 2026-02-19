@@ -345,20 +345,22 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   renderMinutes(): TemplateResult[] {
     const minutes = Array.from({ length: 60 / this.minuteStep }, (_, i) => i * this.minuteStep);
 
-    return minutes.map(
-      minute => html`
+    return minutes.map(minute => {
+      const isDisabled = this.#isMinuteDisabled(minute);
+
+      return html`
         <li
           @click=${() => this.#onMinuteClick(minute)}
           @keydown=${(event: KeyboardEvent) => this.#onMinuteKeydown(event, minute)}
-          ?disabled=${this.#isMinuteDisabled(minute)}
-          aria-selected=${minute === this.#valueAsNumbers?.minutes && !this.#isMinuteDisabled(minute)}
+          ?disabled=${isDisabled}
+          aria-selected=${minute === this.#valueAsNumbers?.minutes && !isDisabled}
           role="option"
-          tabindex="-1"
+          tabindex=${isDisabled ? null : '-1'}
         >
           ${minute.toString().padStart(2, '0')}
         </li>
-      `
-    );
+      `;
+    });
   }
 
   /** @internal */
@@ -447,7 +449,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
   }
 
-  #onKeydown(event: KeyboardEvent): void {
+  async #onKeydown(event: KeyboardEvent): Promise<void> {
     if (event.key === 'Escape') {
       // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the date field
       // does not close parent containers (such as dialogs).
@@ -486,7 +488,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     } else if (['ArrowLeft', 'ArrowRight'].includes(event.key)) {
       event.preventDefault();
 
-      this.#scrollAndFocusStartTime(event.key === 'ArrowRight' ? 'minute' : 'hour');
+      await this.#scrollAndFocusStartTime(event.key === 'ArrowRight' ? 'minute' : 'hour');
     }
   }
 
@@ -608,16 +610,28 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         hours = (hours + 24) % 24;
 
         if (this.min) {
-          const minHour = this.#parseTime(this.min)?.hours;
-          if (minHour !== undefined && hours <= minHour) {
-            hours = minHour;
+          const minTime = this.#parseTime(this.min);
+
+          if (minTime !== undefined) {
+            if (hours < minTime.hours) {
+              hours = minTime.hours;
+              minutes = minTime.minutes;
+            } else if (hours === minTime.hours && minutes < minTime.minutes) {
+              minutes = minTime.minutes;
+            }
           }
         }
 
         if (this.max) {
-          const maxHour = this.#parseTime(this.max)?.hours;
-          if (maxHour !== undefined && hours > maxHour) {
-            hours = maxHour;
+          const maxTime = this.#parseTime(this.max);
+
+          if (maxTime !== undefined) {
+            if (hours > maxTime.hours) {
+              hours = maxTime.hours;
+              minutes = maxTime.minutes;
+            } else if (hours === maxTime.hours && minutes > maxTime.minutes) {
+              minutes = maxTime.minutes;
+            }
           }
         }
       } else {
@@ -689,11 +703,11 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.updateValidity();
   }
 
-  #onToggle(event: ToggleEvent): void {
+  async #onToggle(event: ToggleEvent): Promise<void> {
     if (event.newState === 'closed') {
       this.#popoverJustClosed = false;
     } else {
-      this.#scrollAndFocusStartTime();
+      await this.#scrollAndFocusStartTime();
     }
   }
 
@@ -782,12 +796,10 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     return separator;
   }
 
-  #scrollAndFocusStartTime(focus: 'hour' | 'minute' = 'hour'): void {
-    const time = (this.#startTime = this.#getStartTime()),
+  async #scrollAndFocusStartTime(focus: 'hour' | 'minute' = 'hour'): Promise<void> {
+    const time = (this.#startTime = { ...this.#getStartTime() }),
       minTime = this.min ? this.#parseTime(this.min) : undefined,
       maxTime = this.max ? this.#parseTime(this.max) : undefined;
-
-    this.requestUpdate();
 
     // Find the closest hour and minute based on the steps
     time.hours = Math.round(time.hours / this.hourStep) * this.hourStep;
@@ -817,6 +829,10 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       time.hours = maxTime.hours;
       time.minutes = Math.floor(maxTime.minutes / this.minuteStep) * this.minuteStep;
     }
+
+    // Request update after calculating constrained time and then await it
+    this.requestUpdate();
+    await this.updateComplete;
 
     // Scroll to the start time
     this.#scrollTimeIntoView(time.hours, time.minutes, 'start');

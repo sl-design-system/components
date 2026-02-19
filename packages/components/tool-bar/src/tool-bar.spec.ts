@@ -195,6 +195,37 @@ describe('sl-tool-bar', () => {
       expect(el.menuItems).to.have.length(0);
     });
 
+     it('should preserve originally aria-disabled="false" buttons when toolbar is re-enabled', async () => {
+      el = await fixture(html`
+        <sl-tool-bar style="inline-size: 400px">
+          <sl-button>Enabled Button</sl-button>
+          <sl-button aria-disabled="false">Originally Aria Disabled False</sl-button>
+          <sl-button>Another Enabled</sl-button>
+        </sl-tool-bar>
+      `);
+      await new Promise(resolve => setTimeout(resolve, 50));
+      const buttons = Array.from(el.querySelectorAll('sl-button'));
+
+      expect(buttons[0]).not.to.have.attribute('aria-disabled');
+      expect(buttons[1]).to.have.attribute('aria-disabled', 'false');
+      expect(buttons[2]).not.to.have.attribute('aria-disabled');
+
+      el.disabled = true;
+      await el.updateComplete;
+
+      expect(buttons[0]).to.have.attribute('aria-disabled', 'true');
+      expect(buttons[1]).to.have.attribute('aria-disabled', 'true');
+      expect(buttons[2]).to.have.attribute('aria-disabled', 'true');
+
+      el.disabled = false;
+      await el.updateComplete;
+      // Originally enabled buttons should be enabled again
+      // and originally aria-disabled="false" button should return to aria-disabled="false"
+      expect(buttons[0]).not.to.have.attribute('aria-disabled');
+      expect(buttons[1]).to.have.attribute('aria-disabled', 'false');
+      expect(buttons[2]).not.to.have.attribute('aria-disabled');
+    });
+
     it('should not have a menu button', () => {
       const menuButton = el.shadowRoot?.querySelector('sl-menu-button');
 

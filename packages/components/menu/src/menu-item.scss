@@ -3,9 +3,7 @@
   --_bg-mix-color: var(--sl-color-background-primary-interactive-plain);
   --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
 
-  clip-path: margin-box;
-
-  // border-radius: var(--sl-size-borderRadius-default);
+  border-radius: var(--sl-size-borderRadius-default);
   color: var(--sl-color-foreground-plain);
   display: block;
   flex-grow: 1;
@@ -14,12 +12,16 @@
   overflow: visible;
   position: relative;
   z-index: 1;
+}
 
+:host(:hover),
+:host(:focus-visible) {
   &::before {
     background: var(--sl-color-background-selected-bold);
-    border-radius: var(--sl-size-borderRadius-none, 0) var(--sl-size-borderRadius-child, 2px)
-      var(--sl-size-borderRadius-child, 2px) var(--sl-size-borderRadius-none, 0);
-    box-shadow: inset inset 1px 0 0 color-mix(in srgb, var(--sl-color-black) var(--sl-opacity-subtle), transparent);
+    border-radius: var(--sl-size-borderRadius-none) var(--sl-size-borderRadius-child) var(--sl-size-borderRadius-child)
+      var(--sl-size-borderRadius-none);
+    box-shadow: inset 1px 0 0
+      color-mix(in srgb, var(--sl-color-black) calc(var(--sl-opacity-subtle) * 100%), transparent);
     content: '';
     inline-size: var(--sl-size-050);
     inset-block: 2px;
@@ -28,9 +30,6 @@
     z-index: 1;
   }
 }
-
-// opacity: var(--opacity-subtle, 0.2);
-// background: var(--color-black, #000)
 
 :host(:focus-visible) {
   outline-color: var(--sl-color-border-focused);
@@ -56,6 +55,10 @@
   --_bg-mix-color: var(--sl-color-background-negative-interactive-plain);
 
   color: var(--sl-color-foreground-negative-bold);
+
+  &::before {
+    background: var(--sl-color-background-negative-bold);
+  }
 }
 
 :host([emphasis='bold'][variant='danger']):not([disabled]) {
@@ -99,6 +102,7 @@ sl-icon[name='chevron-right'] {
   cursor: pointer;
   display: flex;
   gap: var(--sl-size-100);
+  overflow: visible;
   padding: var(--sl-size-075) var(--sl-size-100);
   padding-inline-start: calc(
     var(--sl-menu-item-indent, 0) * (var(--sl-size-new-icon-sm) + var(--sl-size-100)) + var(--sl-size-100)

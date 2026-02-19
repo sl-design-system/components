@@ -147,6 +147,43 @@ describe('sl-tool-bar', () => {
       expect(buttons[2]).not.to.have.attribute('aria-disabled');
     });
 
+    it('should preserve originally aria-disabled buttons when toolbar is re-enabled', async () => {
+      // Create a toolbar with one button already aria-disabled
+      el = await fixture(html`
+        <sl-tool-bar style="inline-size: 400px">
+          <sl-button>Enabled Button</sl-button>
+          <sl-button aria-disabled="true">Originally Aria Disabled</sl-button>
+          <sl-button>Another Enabled</sl-button>
+        </sl-tool-bar>
+      `);
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const buttons = Array.from(el.querySelectorAll('sl-button'));
+
+      // Verify initial state
+      expect(buttons[0]).not.to.have.attribute('aria-disabled');
+      expect(buttons[1]).to.have.attribute('aria-disabled', 'true');
+      expect(buttons[2]).not.to.have.attribute('aria-disabled');
+
+      // Disable the toolbar
+      el.disabled = true;
+      await el.updateComplete;
+
+      // All buttons should be aria-disabled, including the originally aria-disabled one
+      expect(buttons[0]).to.have.attribute('aria-disabled', 'true');
+      expect(buttons[1]).to.have.attribute('aria-disabled', 'true');
+      expect(buttons[2]).to.have.attribute('aria-disabled', 'true');
+
+      // Re-enable the toolbar
+      el.disabled = false;
+      await el.updateComplete;
+
+      // Originally enabled buttons should be enabled again
+      // but originally aria-disabled button should remain aria-disabled
+      expect(buttons[0]).not.to.have.attribute('aria-disabled');
+      expect(buttons[1]).to.have.attribute('aria-disabled', 'true');
+      expect(buttons[2]).not.to.have.attribute('aria-disabled');
+    });
     it('should have made all slotted elements visible', () => {
       // When all items fit, visibility is set to 'visible' by the resize observer
       // Check that no items are hidden

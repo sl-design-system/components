@@ -448,7 +448,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         return true;
       }
 
-      // Check internal button for MenuButton since it might have been moved by ObserveAttributesMixin
+      // Check internal button for MenuButton since aria-disabled is forwarded to it
       if (el instanceof MenuButton) {
         const internalButton = el.renderRoot.querySelector('sl-button');
         const internalAriaDisabled = internalButton?.getAttribute('aria-disabled');

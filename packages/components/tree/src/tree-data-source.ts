@@ -546,8 +546,11 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
    */
   abstract override update(sync?: boolean): void;
 
-  /** Synchronizes the selection state of the entire tree. */
-  syncSelection(): void {
+  /**
+   * Synchronizes the selection state of the entire tree.
+   * @internal
+   */
+  protected syncSelection(): void {
     if (!this.multiple) {
       return;
     }

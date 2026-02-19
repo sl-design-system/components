@@ -126,7 +126,13 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
         @click=${this.#onClick}
         @keydown=${this.#onKeydown}
         ?disabled=${this.disabled}
-        aria-disabled=${this.getAttribute('aria-disabled') || (this.disabled ? 'true' : 'false')}
+        aria-disabled=${this.hasAttribute('aria-disabled')
+          ? this.getAttribute('aria-disabled') !== 'false'
+            ? 'true'
+            : 'false'
+          : this.disabled
+          ? 'true'
+          : 'false'}
         aria-expanded="false"
         aria-haspopup="menu"
         fill=${ifDefined(this.fill)}

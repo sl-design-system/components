@@ -139,6 +139,14 @@ export class Button extends LitElement {
   }
 
   #onKeydown(event: KeyboardEvent): void {
+    if (this.disabled || (this.hasAttribute('aria-disabled') && this.getAttribute('aria-disabled') !== 'false')) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      return;
+    }
+
     if (event.key === 'Enter' || event.key === ' ') {
       this.click();
 

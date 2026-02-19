@@ -1,6 +1,6 @@
 import { type ButtonFill, type ButtonSize, type ButtonVariant } from '@sl-design-system/button';
 import { type CSSResultGroup, LitElement, type PropertyValues, ReactiveElement, type TemplateResult, html } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './button-bar.scss.js';
 
 declare global {
@@ -22,16 +22,27 @@ export type ButtonBarAlign = 'start' | 'center' | 'end' | 'space-between';
  * ```
  *
  * @slot default - Buttons to be grouped in the bar.
+ * @cssState icon-only - Set when all buttons in the bar are icon-only.
+ * @cssState empty - Set when there are no buttons in the bar.
  */
 export class ButtonBar extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
+
+  /** Element internals. */
+  #internals = this.attachInternals();
+
+  /** Observer for slot changes to update button states. */
+  #observer = new MutationObserver(() => this.#onMutate());
 
   /**
    * The alignment of the buttons within the bar.
    * @default 'start'
    */
   @property({ reflect: true }) align?: ButtonBarAlign;
+
+  /** @internal The slotted buttons. */
+  @queryAssignedElements({ flatten: true }) buttons?: HTMLElement[];
 
   /**
    * Determines the fill of all buttons in the bar.
@@ -64,6 +75,18 @@ export class ButtonBar extends LitElement {
    */
   @property() variant?: ButtonVariant;
 
+  override disconnectedCallback(): void {
+    this.#observer.disconnect();
+
+    super.disconnectedCallback();
+  }
+
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    void this.#onMutate();
+  }
+
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
@@ -76,11 +99,11 @@ export class ButtonBar extends LitElement {
     return html`<slot @slotchange=${this.#onSlotChange}></slot>`;
   }
 
-  async #onSlotChange(event: Event & { target: HTMLSlotElement }): Promise<void> {
-    const assignedElements = event.target.assignedElements({ flatten: true });
+  async #onMutate(): Promise<void> {
+    const buttons = (this.buttons ?? []).filter(el => el.tagName !== 'STYLE');
 
     const icons = await Promise.all(
-      assignedElements.map(async el => {
+      buttons.map(async el => {
         if (el instanceof ReactiveElement) {
           await el.updateComplete;
         }
@@ -89,15 +112,38 @@ export class ButtonBar extends LitElement {
       })
     );
 
-    this.iconOnly = icons.every(Boolean);
+    this.iconOnly = !!icons.length && icons.every(Boolean);
 
-    this.#updateButtons();
+    if (this.iconOnly) {
+      this.#internals.states.add('icon-only');
+    } else {
+      this.#internals.states.delete('icon-only');
+    }
+
+    if (buttons.length) {
+      this.#internals.states.delete('empty');
+      this.#updateButtons();
+    } else {
+      this.#internals.states.add('empty');
+    }
+  }
+
+  #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    this.#observer.disconnect();
+
+    // Workaround until `MutationObserver` can observe across slots; see
+    // https://github.com/whatwg/dom/issues/1415
+    const assigned = new Set(event.target.assignedElements({ flatten: true }));
+    assigned.forEach(el => {
+      this.#observer.observe(el, { attributes: true });
+    });
+
+    void this.#onMutate();
   }
 
   #updateButtons(): void {
-    this.renderRoot
-      .querySelector('slot')
-      ?.assignedElements({ flatten: true })
+    this.buttons
+      ?.filter(el => el.tagName !== 'STYLE')
       .forEach(element => {
         const button = element as { fill?: ButtonFill; size?: ButtonSize; variant?: ButtonVariant };
 

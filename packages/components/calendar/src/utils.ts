@@ -1,4 +1,5 @@
 import { dateConverter } from '@sl-design-system/shared/converters.js';
+import { isDateInList, isSameDate, normalizeDateTime } from '@sl-design-system/shared/date.js';
 
 export type IndicatorColor = 'blue' | 'red' | 'yellow' | 'green' | 'grey';
 
@@ -154,32 +155,6 @@ export function getWeekNumber(d: Date, firstDayOfWeek: number): number {
 
   // Adjust to Thursday in week 1 and count number of weeks from date to week1.
   return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + ((week1.getDay() + 6) % 7)) / 7);
-}
-
-export function isSameDate(day1?: Date, day2?: Date): boolean {
-  return (
-    day1 instanceof Date &&
-    day2 instanceof Date &&
-    day1.getDate() === day2.getDate() &&
-    day1.getMonth() === day2.getMonth() &&
-    day1.getFullYear() === day2.getFullYear()
-  );
-}
-
-export function isDateInList(date: Date, list?: Date[] | string): boolean {
-  if (!list) {
-    return false;
-  }
-
-  if (typeof list === 'string') {
-    list = list.split(',').map(item => new Date(item));
-  }
-
-  return list.some(item => isSameDate(item, date));
-}
-
-export function normalizeDateTime(date: Date): Date {
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
 }
 
 export interface CreateCalendarOptions {

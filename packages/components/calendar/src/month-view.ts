@@ -4,6 +4,7 @@ import { format } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, NewFocusGroupController, event } from '@sl-design-system/shared';
 import { dateConverter, dateListConverter } from '@sl-design-system/shared/converters.js';
+import { isDateInList, isSameDate } from '@sl-design-system/shared/date.js';
 import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { LocaleMixin } from '@sl-design-system/shared/mixins.js';
 import { Tooltip } from '@sl-design-system/tooltip';
@@ -12,16 +13,7 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './month-view.scss.js';
-import {
-  type Calendar,
-  type Day,
-  Indicator,
-  createCalendar,
-  getWeekdayNames,
-  indicatorConverter,
-  isDateInList,
-  isSameDate
-} from './utils.js';
+import { type Calendar, type Day, Indicator, createCalendar, getWeekdayNames, indicatorConverter } from './utils.js';
 
 declare global {
   interface HTMLElementTagNameMap {

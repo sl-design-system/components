@@ -96,6 +96,9 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<string>>;
 
+  /** @internal The dialog element that is also the popover. */
+  @query('dialog') dialog?: HTMLDialogElement;
+
   /** Whether the time field is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
@@ -107,9 +110,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** @internal The input element in the light DOM. */
   input!: HTMLInputElement;
-
-  /** @internal The dialog element that is also the popover. */
-  @query('dialog') dialog?: HTMLDialogElement;
 
   /**
    * The maximum time selectable in the field.

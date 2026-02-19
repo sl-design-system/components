@@ -36,9 +36,9 @@ describe('sl-menu-button', () => {
 
     it('should proxy the aria-disabled attribute to the input element', async () => {
       el.setAttribute('aria-disabled', 'true');
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await el.updateComplete;
 
-      expect(el).to.not.have.attribute('aria-disabled');
+      expect(el).to.have.attribute('aria-disabled', 'true');
       expect(el.button).to.have.attribute('aria-disabled', 'true');
     });
 

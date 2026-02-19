@@ -34,7 +34,6 @@ declare global {
  */
 @localized()
 export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitElement), [
-  'aria-disabled',
   'aria-label',
   'aria-labelledby'
 ]) {
@@ -94,6 +93,18 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
    * @default 'secondary'
    */
   @property() variant?: ButtonVariant;
+
+  static override get observedAttributes(): string[] {
+    return [...(super.observedAttributes ?? []), 'aria-disabled'];
+  }
+
+  override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null): void {
+    super.attributeChangedCallback(name, oldValue, newValue);
+
+    if (name === 'aria-disabled') {
+      this.requestUpdate();
+    }
+  }
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);

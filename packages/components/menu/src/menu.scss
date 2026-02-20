@@ -20,14 +20,11 @@
 }
 
 [part='menu'] {
+  display: flex;
   flex-direction: column;
-  gap: var(--sl-space-new-2xs);
-
-  // overflow: visible;
+  gap: var(--sl-size-050);
   margin-inline-start: -1px;
   overflow: auto;
-
-  // clip-path: margin-box;
   padding: var(--sl-size-100) 0;
   scrollbar-width: thin;
 }

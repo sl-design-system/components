@@ -169,7 +169,7 @@ export class Tooltip extends LitElement {
       if (parent.matches(selector)) return parents;
       else parent = parent.parentNode as HTMLElement | null;
     }
-    return [];
+    return parents;
   };
 
   #onHide = (event: Event): void => {

@@ -1,7 +1,6 @@
 ---
 '@sl-design-system/bingel-dc': minor
 '@sl-design-system/bingel-int': minor
-'@sl-design-system/clickedu': minor
 '@sl-design-system/editorial-suite': minor
 '@sl-design-system/itslearning': minor
 '@sl-design-system/kampus': minor
@@ -15,4 +14,8 @@
 '@sl-design-system/tig': minor
 ---
 
-Import new values for tokens
+Added
+- new elevation.surface.raised.primary token
+
+Fixed
+- form input interactive backgrounds (color.background.input.plain.interactive.plain) from plain to bold variants across all themes (e.g., accent.grey.interactive.bold) for better state contrast.

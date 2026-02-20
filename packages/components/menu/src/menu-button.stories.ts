@@ -1,9 +1,12 @@
 import {
   faArrowUpShortWide,
+  faBook,
+  faCode,
   faGear,
   faList,
   faPen,
   faRectanglesMixed,
+  faRocket,
   faTableCells,
   faTableRows,
   faTrash
@@ -27,7 +30,19 @@ type Props = Pick<MenuButton, 'disabled' | 'fill' | 'position' | 'shape' | 'size
 };
 type Story = StoryObj<Props>;
 
-Icon.register(faArrowUpShortWide, faGear, faList, faPen, faRectanglesMixed, faTableCells, faTableRows, faTrash);
+Icon.register(
+  faArrowUpShortWide,
+  faBook,
+  faCode,
+  faGear,
+  faList,
+  faPen,
+  faRectanglesMixed,
+  faRocket,
+  faTableCells,
+  faTableRows,
+  faTrash
+);
 
 export default {
   title: 'Actions/Menu/Menu button',
@@ -173,6 +188,42 @@ export const Submenu: Story = {
           <sl-menu-item selectable>Last name (Z-A)</sl-menu-item>
         </sl-menu>
       </sl-menu-item>
+    `
+  }
+};
+
+export const WithGroups: Story = {
+  args: {
+    ...Basic.args,
+    menuItems: () => html`
+      <sl-menu-item>
+        <sl-icon name="far-code"></sl-icon>
+        Components
+      </sl-menu-item>
+      <sl-menu-item>
+        <sl-icon name="far-gear"></sl-icon>
+        Settings
+      </sl-menu-item>
+      <sl-menu-item-group>
+        <sl-menu-item>
+          <sl-icon name="far-rocket"></sl-icon>
+          What's new
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-book"></sl-icon>
+          Documentation
+        </sl-menu-item>
+      </sl-menu-item-group>
+      <sl-menu-item-group heading="Design System">
+        <sl-menu-item>
+          <sl-icon name="far-rocket"></sl-icon>
+          What's new
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-book"></sl-icon>
+          Documentation
+        </sl-menu-item>
+      </sl-menu-item-group>
     `
   }
 };

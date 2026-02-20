@@ -267,7 +267,7 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
       this.button.removeAttribute(attribute);
     } else {
       // Set the Element property: ariaLabelledByElements/ariaDescribedByElements to get it working with shadow DOM boundary.
-      // Setting this property adds empty aria-labelledby/arua-describedby to the element,
+      // Setting this property adds empty aria-labelledby/aria-describedby to the element,
       // If we removed it by setting aria-labelledby/aria-describedby with ids, it would break the connection for the assistive technologies.
       // See: https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Reflected_attributes#setting_the_property_and_attribute
       this.button[property] = elements;

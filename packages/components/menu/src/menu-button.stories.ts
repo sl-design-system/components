@@ -198,12 +198,12 @@ export const WithTooltips: Story = {
         rules: [
           {
             /**
-             * The rule is disabled for icon-only sl-menu-buttons because they use ElementInternals
+             * The rule is disabled for icon-only sl-menu-buttons because they use ariaLabelledByElements
              * to set aria-labelledby across shadow DOM boundaries, which the a11y checker cannot detect.
              */
             id: 'aria-command-name',
             enabled: false,
-            selector: 'sl-button[icon-only]'
+            selector: 'sl-menu-button >> sl-button[icon-only]'
           }
         ]
       }

@@ -97,7 +97,6 @@
 		"device/digiboard",
 		"device/mobile",
 		"device/tablet",
-		"scaling-graph-test",
 		"target-group/base",
 		"target-group/spacing",
 		"target-group/typography",

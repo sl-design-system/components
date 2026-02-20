@@ -1660,7 +1660,7 @@
 					"primary": {
 						"$type": "color",
 						"$value": "{placeholder.color.background.accent.blue.bold}",
-						"$description": "A vibrant background option used for primary actions."
+						"$description": "Background of elevated components with a Primary background color like a floating toolbar that sit on top of the base surface. Use in combination with Inverted buttons, 'color.foreground.inverted.bold' and 'elevation.shadow.raised'."
 					},
 					"inverted": {
 						"$type": "color",

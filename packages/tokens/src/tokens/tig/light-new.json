@@ -1664,8 +1664,8 @@
 					},
 					"primary": {
 						"$type": "color",
-						"$value": "{tig.color.background.accent.teal.bold}",
-						"$description": "A vibrant background option used for primary actions."
+						"$value": "{tig.color.palette.teal.500}",
+						"$description": "Background of elevated components with a Primary background color like a floating toolbar that sit on top of the base surface. Use in combination with Inverted buttons, 'color.foreground.inverted.bold' and 'elevation.shadow.raised'."
 					},
 					"inverted": {
 						"$type": "color",

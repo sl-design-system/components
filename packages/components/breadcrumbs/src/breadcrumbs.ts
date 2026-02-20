@@ -94,6 +94,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** @internal Because of the manual slot assignment we need to observe mutations */
   #mutationObserver = new MutationObserver(() => this.#onMutation());
 
   /**

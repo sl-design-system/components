@@ -1,5 +1,11 @@
 # @sl-design-system/virtual-list
 
+## 0.0.4
+
+### Patch Changes
+
+- [#2979](https://github.com/sl-design-system/components/pull/2979) [`2776c1c`](https://github.com/sl-design-system/components/commit/2776c1c90fd5f7ee4bc8aafe676f383abda3cda9) - VirtualizerController now automatically calculates and updates scrollMargin when using window scrolling, keeping the virtual list correctly positioned during layout shifts and resize events.
+
 ## 0.0.3
 
 ### Patch Changes

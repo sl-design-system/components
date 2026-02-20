@@ -1,5 +1,15 @@
 # @sl-design-system/breadcrumbs
 
+## 1.2.1
+
+### Patch Changes
+
+- [#2947](https://github.com/sl-design-system/components/pull/2947) [`2f03d3a`](https://github.com/sl-design-system/components/commit/2f03d3af39464f2922cc2d240542601b2a3c6dc0) - Changed the way links are placed in the breadcrumbs; they are no longer copied but assigned to dynamic slots. This way classes and other attributes, for example Angular or Vue specific routing, will be unaffected.
+
+- Updated dependencies [[`9e361f4`](https://github.com/sl-design-system/components/commit/9e361f40a25242652c3f7878851fbfd2a75c8f3d), [`330e06f`](https://github.com/sl-design-system/components/commit/330e06ff36c7a5c96cf313b60a5013d6307477c7)]:
+  - @sl-design-system/button@1.3.4
+  - @sl-design-system/icon@1.4.2
+
 ## 1.2.0
 
 ### Minor Changes

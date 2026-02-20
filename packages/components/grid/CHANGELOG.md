@@ -1,5 +1,18 @@
 # @sl-design-system/grid
 
+## 0.6.7
+
+### Patch Changes
+
+- [#3018](https://github.com/sl-design-system/components/pull/3018) [`bbeba0e`](https://github.com/sl-design-system/components/commit/bbeba0ede6c4beb883b1a9b945f7874c7e64f9ab) - Fix scopedElements timing issue in sort-column when used in Angular
+
+  The sort column adds the `<sl-grid-sorter>` element to the scoped elements of the column. It did this in `connectedCallback`, which caused a timing issue in Angular. The fix is to have separate getters and setters for `scopedElements` and make sure the sorter is always part of the scoped elements.
+
+- Updated dependencies [[`9e361f4`](https://github.com/sl-design-system/components/commit/9e361f40a25242652c3f7878851fbfd2a75c8f3d), [`330e06f`](https://github.com/sl-design-system/components/commit/330e06ff36c7a5c96cf313b60a5013d6307477c7)]:
+  - @sl-design-system/button@1.3.4
+  - @sl-design-system/icon@1.4.2
+  - @sl-design-system/tool-bar@0.2.2
+
 ## 0.6.6
 
 ### Patch Changes

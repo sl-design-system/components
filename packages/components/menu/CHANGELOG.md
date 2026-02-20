@@ -1,5 +1,21 @@
 # @sl-design-system/menu
 
+## 0.3.0
+
+### Minor Changes
+
+- [#2974](https://github.com/sl-design-system/components/pull/2974) [`86ea95d`](https://github.com/sl-design-system/components/commit/86ea95defd6ecf26eec20a46fd4545efd386951f) - Fixes keyboard navigation and focus management:
+  - Prevents arrow key events from bubbling up to parent elements (e.g. toolbar), preventing unintended navigation in parent components,
+  - Fixes submenu behavior when pressing `Escape` key - now properly closes the submenu and returns focus to the parent menu item,
+  - Implements initial focus so the first menu item is automatically focused when the menu opens,
+  - Adds `focusout` handling to close all open menus when focus leaves the menu component.
+
+### Patch Changes
+
+- Updated dependencies [[`9e361f4`](https://github.com/sl-design-system/components/commit/9e361f40a25242652c3f7878851fbfd2a75c8f3d), [`330e06f`](https://github.com/sl-design-system/components/commit/330e06ff36c7a5c96cf313b60a5013d6307477c7)]:
+  - @sl-design-system/button@1.3.4
+  - @sl-design-system/icon@1.4.2
+
 ## 0.2.8
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @sl-design-system/tree
 
+## 0.2.3
+
+### Patch Changes
+
+- [#3015](https://github.com/sl-design-system/components/pull/3015) [`939f58b`](https://github.com/sl-design-system/components/commit/939f58bcebce54d8e17a68516a73ae6718abb24d) - Correctly update parent selection state when a child is selected or deselected
+
+- [#2979](https://github.com/sl-design-system/components/pull/2979) [`2776c1c`](https://github.com/sl-design-system/components/commit/2776c1c90fd5f7ee4bc8aafe676f383abda3cda9) - VirtualizerController now automatically calculates and updates scrollMargin when using window scrolling, keeping the virtual list correctly positioned during layout shifts and resize events.
+
+- Updated dependencies [[`330e06f`](https://github.com/sl-design-system/components/commit/330e06ff36c7a5c96cf313b60a5013d6307477c7), [`2776c1c`](https://github.com/sl-design-system/components/commit/2776c1c90fd5f7ee4bc8aafe676f383abda3cda9)]:
+  - @sl-design-system/icon@1.4.2
+  - @sl-design-system/virtual-list@0.0.4
+
 ## 0.2.2
 
 ### Patch Changes

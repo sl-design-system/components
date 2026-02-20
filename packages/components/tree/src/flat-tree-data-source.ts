@@ -82,15 +82,15 @@ export class FlatTreeDataSource<T = any> extends TreeDataSource<T> {
     this.#nodes = this.#mapToTreeNodes(items);
 
     if (this.multiple) {
-      Array.from(this.selection)
-        .filter(node => node.parent)
-        .forEach(node => {
-          this.#updateSelected(node.parent!);
-        });
+      this.syncSelection();
     }
   }
 
-  override update(): void {
+  override update(sync = true): void {
+    if (sync) {
+      this.syncSelection();
+    }
+
     this.#viewNodes = this.toViewArray();
 
     this.dispatchEvent(new CustomEvent('sl-update'));
@@ -167,18 +167,5 @@ export class FlatTreeDataSource<T = any> extends TreeDataSource<T> {
     };
 
     return treeNode;
-  }
-
-  /** Traverse up the tree and update the selected/indeterminate state. */
-  #updateSelected(node: TreeDataSourceNode<T>): void {
-    this.selection.add(node);
-
-    node.selected = node.children?.every(child => child.selected) ?? false;
-    node.indeterminate =
-      (!node.selected && node.children?.some(child => child.indeterminate || child.selected)) ?? false;
-
-    if (node.parent) {
-      this.#updateSelected(node.parent);
-    }
   }
 }

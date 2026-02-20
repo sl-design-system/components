@@ -1040,7 +1040,7 @@
 						},
 						"plain": {
 							"$type": "color",
-							"$value": "{my-digital-book.color.background.accent.grey.interactive.plain}",
+							"$value": "{my-digital-book.color.background.accent.grey.interactive.bold}",
 							"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
 						}
 					}
@@ -1661,6 +1661,11 @@
 						"$type": "color",
 						"$value": "{my-digital-book.color.palette.grey.000}",
 						"$description": "Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
+					},
+					"primary": {
+						"$type": "color",
+						"$value": "{my-digital-book.color.palette.blue.800}",
+						"$description": "Background of elevated components with a Primary background color like a floating toolbar that sit on top of the base surface. Use in combination with Inverted buttons, 'color.foreground.inverted.bold' and 'elevation.shadow.raised'."
 					},
 					"inverted": {
 						"$type": "color",

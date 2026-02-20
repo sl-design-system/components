@@ -165,11 +165,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
       selected = !!(this.selected && this.selected.getFullYear() === year);
 
     return html`
-      <td
-        aria-rowindex=${rowIndex + 1}
-        aria-colindex=${colIndex + 1}
-        role="gridcell"
-      >
+      <td aria-rowindex=${rowIndex + 1} aria-colindex=${colIndex + 1} role="gridcell">
         <button
           @click=${() => this.#onClick(year)}
           @keydown=${this.#onKeydown}

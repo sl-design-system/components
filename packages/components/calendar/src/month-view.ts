@@ -345,9 +345,7 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
             `;
     }
 
-    return html`
-      <td data-date=${day.date.toISOString()} role="gridcell">${template}</td>
-    `;
+    return html`<td data-date=${day.date.toISOString()} role="gridcell">${template}</td>`;
   }
 
   /** Returns the default aria-label for a given day. */

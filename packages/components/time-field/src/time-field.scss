@@ -65,15 +65,15 @@ li {
   outline-offset: var(--sl-size-outlineOffset-default);
   padding: var(--sl-size-100) var(--sl-size-200);
 
-  &:hover {
+  &:not([disabled]):hover {
     --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
   }
 
-  &:active {
+  &:not([disabled]):active {
     --_bg-opacity: var(--sl-opacity-interactive-plain-active);
   }
 
-  &:focus-visible {
+  &:not([disabled]):focus-visible {
     outline-color: var(--sl-color-border-focused);
   }
 
@@ -83,6 +83,12 @@ li {
 
     color: var(--sl-color-foreground-primary-onBold);
   }
+}
+
+li[disabled] {
+  color: var(--sl-color-foreground-disabled);
+  cursor: default;
+  pointer-events: none;
 }
 
 hr {

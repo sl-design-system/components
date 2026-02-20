@@ -149,7 +149,7 @@ describe('sl-button', () => {
         preventDefaultSpy = spy(clickEvent, 'preventDefault'),
         stopPropagationSpy = spy(clickEvent, 'stopPropagation');
 
-      el.setAttribute('aria-disabled', 'true');
+      el.disabled = true;
       await el.updateComplete;
 
       el.dispatchEvent(clickEvent);
@@ -184,6 +184,62 @@ describe('sl-button', () => {
 
       expect(preventDefaultSpy).to.have.been.called;
       expect(stopPropagationSpy).to.have.been.called;
+    });
+  });
+
+  describe('aria-disabled', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-button>Hello world</sl-button>`);
+    });
+
+    it('should prevent click events from bubbling up the DOM', async () => {
+      const clickEvent = new Event('click'),
+        preventDefaultSpy = spy(clickEvent, 'preventDefault'),
+        stopPropagationSpy = spy(clickEvent, 'stopPropagation');
+
+      el.setAttribute('aria-disabled', 'true');
+      await el.updateComplete;
+
+      el.dispatchEvent(clickEvent);
+
+      expect(preventDefaultSpy).to.have.been.called;
+      expect(stopPropagationSpy).to.have.been.called;
+    });
+
+    it('should prevent Enter keydown event from bubbling up the DOM', async () => {
+      const keydownEvent = new KeyboardEvent('keydown', { key: 'Enter' }),
+        preventDefaultSpy = spy(keydownEvent, 'preventDefault'),
+        stopPropagationSpy = spy(keydownEvent, 'stopPropagation');
+
+      el.setAttribute('aria-disabled', 'true');
+      await el.updateComplete;
+
+      el.dispatchEvent(keydownEvent);
+
+      expect(preventDefaultSpy).to.have.been.called;
+      expect(stopPropagationSpy).to.have.been.called;
+    });
+
+    it('should prevent Space keydown event from bubbling up the DOM', async () => {
+      const keydownEvent = new KeyboardEvent('keydown', { key: ' ' }),
+        preventDefaultSpy = spy(keydownEvent, 'preventDefault'),
+        stopPropagationSpy = spy(keydownEvent, 'stopPropagation');
+
+      el.setAttribute('aria-disabled', 'true');
+      await el.updateComplete;
+
+      el.dispatchEvent(keydownEvent);
+
+      expect(preventDefaultSpy).to.have.been.called;
+      expect(stopPropagationSpy).to.have.been.called;
+    });
+
+    it('should be focusable when aria-disabled is set', async () => {
+      el.setAttribute('aria-disabled', 'true');
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('tabindex', '0');
+      expect(el.tabIndex).to.equal(0);
     });
   });
 

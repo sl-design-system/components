@@ -118,7 +118,7 @@ export class Button extends LitElement {
   }
 
   #onClick(event: Event): void {
-    if (this.disabled || this.ariaDisabled === 'true') {
+    if (this.disabled || (this.hasAttribute('aria-disabled') && this.getAttribute('aria-disabled') !== 'false')) {
       event.preventDefault();
       event.stopPropagation();
     } else if (this.type === 'reset') {
@@ -139,6 +139,14 @@ export class Button extends LitElement {
   }
 
   #onKeydown(event: KeyboardEvent): void {
+    if (this.disabled || (this.hasAttribute('aria-disabled') && this.getAttribute('aria-disabled') !== 'false')) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      return;
+    }
+
     if (event.key === 'Enter' || event.key === ' ') {
       this.click();
 

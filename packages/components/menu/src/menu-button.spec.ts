@@ -36,10 +36,29 @@ describe('sl-menu-button', () => {
 
     it('should proxy the aria-disabled attribute to the input element', async () => {
       el.setAttribute('aria-disabled', 'true');
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await el.updateComplete;
 
-      expect(el).to.not.have.attribute('aria-disabled');
+      expect(el).to.have.attribute('aria-disabled', 'true');
       expect(el.button).to.have.attribute('aria-disabled', 'true');
+    });
+
+    it('should not show the menu when aria-disabled is set to true', async () => {
+      el.setAttribute('aria-disabled', 'true');
+      await new Promise(resolve => setTimeout(resolve, 50));
+      await el.updateComplete;
+
+      button.click();
+      expect(menu).not.to.match(':popover-open');
+
+      button.focus();
+      await userEvent.keyboard('{ArrowDown}');
+      expect(menu).not.to.match(':popover-open');
+
+      await userEvent.keyboard('{Enter}');
+      expect(menu).not.to.match(':popover-open');
+
+      await userEvent.keyboard('{ }');
+      expect(menu).not.to.match(':popover-open');
     });
 
     it('should proxy the aria-label attribute to the input element', async () => {

@@ -1,6 +1,7 @@
 ---
 '@sl-design-system/bingel-dc': minor
 '@sl-design-system/bingel-int': minor
+'@sl-design-system/clickedu': patch
 '@sl-design-system/editorial-suite': minor
 '@sl-design-system/itslearning': minor
 '@sl-design-system/kampus': minor

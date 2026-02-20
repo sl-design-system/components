@@ -346,7 +346,7 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     }
 
     return html`
-      <td aria-selected=${selected.toString()} data-date=${day.date.toISOString()} role="gridcell">${template}</td>
+      <td data-date=${day.date.toISOString()} role="gridcell">${template}</td>
     `;
   }
 

@@ -1,6 +1,7 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { type EventEmitter, LocaleMixin, event } from '@sl-design-system/shared';
 import { dateConverter, dateListConverter } from '@sl-design-system/shared/converters.js';
+import { isSameDate } from '@sl-design-system/shared/date.js';
 import { type SlChangeEvent, type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -10,7 +11,7 @@ import styles from './calendar.scss.js';
 import { SelectDay } from './select-day.js';
 import { SelectMonth } from './select-month.js';
 import { SelectYear } from './select-year.js';
-import { Indicator, indicatorConverter, isSameDate } from './utils.js';
+import { Indicator, indicatorConverter } from './utils.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -105,8 +106,10 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   override render(): TemplateResult {
     return html`
       <sl-select-day
+        @sl-change=${this.#onChange}
         @sl-select=${this.#onSelect}
         @sl-toggle=${this.#onToggleMonthYear}
+        ?autofocus=${this.mode === 'day'}
         ?inert=${this.mode !== 'day'}
         ?readonly=${this.readonly}
         ?show-today=${this.showToday}
@@ -153,6 +156,11 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         ]
       ])}
     `;
+  }
+
+  #onChange(event: SlChangeEvent<Date>): void {
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   #onSelect(event: SlSelectEvent<Date>): void {

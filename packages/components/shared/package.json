@@ -28,6 +28,10 @@
       "import": "./src/converters.js",
       "types": "./src/converters.d.ts"
     },
+    "./date.js": {
+      "import": "./src/date.js",
+      "types": "./src/date.d.ts"
+    },
     "./events.js": {
       "import": "./src/events.js",
       "types": "./src/events.d.ts"

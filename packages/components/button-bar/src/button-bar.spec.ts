@@ -47,8 +47,14 @@ describe('sl-button-bar', () => {
       expect(el).to.have.attribute('reverse');
     });
 
-    it('should not be icon-only when there are not only icon-only buttons', () => {
+    it('should not be icon-only', () => {
       expect(el).not.to.have.attribute('icon-only');
+      expect(el).not.to.match(':state(icon-only)');
+      expect(el.iconOnly).not.to.be.true;
+    });
+
+    it('should not be empty', () => {
+      expect(el).not.to.match(':state(empty)');
     });
 
     it('should not have a size', () => {
@@ -103,6 +109,10 @@ describe('sl-button-bar', () => {
     it('should have an icon-only attribute', () => {
       expect(el).to.have.attribute('icon-only');
     });
+
+    it('should have the icon-only state', () => {
+      expect(el).to.match(':state(icon-only)');
+    });
   });
 
   describe('icon only with non-ghost button', () => {
@@ -125,6 +135,10 @@ describe('sl-button-bar', () => {
     it('should not have an icon-only attribute', () => {
       expect(el).not.to.have.attribute('icon-only');
     });
+
+    it('should not have the icon-only state', () => {
+      expect(el).not.to.match(':state(icon-only)');
+    });
   });
 
   describe('mix of icon only and buttons with text', () => {
@@ -144,6 +158,35 @@ describe('sl-button-bar', () => {
 
     it('should not have an icon-only attribute', () => {
       expect(el).not.to.have.attribute('icon-only');
+    });
+
+    it('should not match :state(icon-only)', () => {
+      expect(el).not.to.match(':state(icon-only)');
+    });
+  });
+
+  describe('empty', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-button-bar></sl-button-bar>`);
+    });
+
+    it('should have the empty state', () => {
+      expect(el).to.match(':state(empty)');
+    });
+
+    it('should not have the empty state after adding buttons', async () => {
+      const button = document.createElement('sl-button');
+      button.textContent = 'Test';
+      el.appendChild(button);
+
+      // Wait for the slot change and update
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(el).not.to.match(':state(empty)');
+    });
+
+    it('should not have the icon-only state', () => {
+      expect(el).not.to.match(':state(icon-only)');
     });
   });
 });

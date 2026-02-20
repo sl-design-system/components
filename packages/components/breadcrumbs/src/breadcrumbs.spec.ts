@@ -82,6 +82,7 @@ describe('sl-breadcrumbs', () => {
 
       const links = Array.from(el.querySelectorAll('a'));
       const lastLink = links[links.length - 1];
+
       expect(lastLink).to.have.attribute('aria-current', 'page');
     });
 
@@ -197,6 +198,7 @@ describe('sl-breadcrumbs', () => {
       await el.updateComplete;
 
       homeLink = el.renderRoot.querySelector('li.home a')!;
+
       expect(homeLink).to.have.trimmed.text('Home');
       expect(homeLink).not.to.have.attribute('aria-label');
     });
@@ -265,9 +267,9 @@ describe('sl-breadcrumbs', () => {
     });
 
     it('should have an expand button to show the rest of the breadcrumbs', () => {
-      const button = el.renderRoot.querySelector('sl-button');
-      const menuSlots = Array.from(el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-menu-"]'));
-      const menuItems = menuSlots.map(slot => slot.assignedElements()[0]);
+      const button = el.renderRoot.querySelector('sl-button'),
+        menuSlots = Array.from(el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-menu-"]')),
+        menuItems = menuSlots.map(slot => slot.assignedElements()[0]);
 
       expect(button).to.exist;
       expect(button).to.have.attribute('fill', 'ghost');
@@ -319,9 +321,9 @@ describe('sl-breadcrumbs', () => {
     });
 
     it('should show all hidden links in the popover', () => {
-      const button = el.renderRoot.querySelector('sl-button');
-      const menuSlots = Array.from(el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-menu-"]'));
-      const menuItems = menuSlots.map(slot => slot.assignedElements()[0]);
+      const button = el.renderRoot.querySelector('sl-button'),
+        menuSlots = Array.from(el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-menu-"]')),
+        menuItems = menuSlots.map(slot => slot.assignedElements()[0]);
 
       expect(button).to.exist;
       expect(button).to.have.attribute('fill', 'ghost');
@@ -353,8 +355,8 @@ describe('sl-breadcrumbs', () => {
     });
 
     it('should render the custom home link', () => {
-      const homeSlot = el.renderRoot.querySelector<HTMLSlotElement>('slot[name="home"]');
-      const customHome = homeSlot?.assignedElements()[0] as HTMLAnchorElement;
+      const homeSlot = el.renderRoot.querySelector<HTMLSlotElement>('slot[name="home"]'),
+        customHome = homeSlot?.assignedElements()[0] as HTMLAnchorElement;
 
       expect(customHome).to.exist;
       expect(customHome).to.have.attribute('href', '/custom');
@@ -363,11 +365,13 @@ describe('sl-breadcrumbs', () => {
 
     it('should not render the default home link', () => {
       const defaultHomeLink = el.renderRoot.querySelector('li.home > a');
+
       expect(defaultHomeLink).not.to.exist;
     });
 
     it('should still render the home list item', () => {
       const homeListItem = el.renderRoot.querySelector('li.home');
+
       expect(homeListItem).to.exist;
     });
   });
@@ -395,10 +399,10 @@ describe('sl-breadcrumbs', () => {
       await new Promise(resolve => setTimeout(resolve, 50));
       await new Promise(resolve => requestAnimationFrame(resolve));
 
-      const links = Array.from(el.querySelectorAll('a'));
-      expect(links).to.have.length(3);
+      const links = Array.from(el.querySelectorAll('a')),
+        lastLink = links[links.length - 1];
 
-      const lastLink = links[links.length - 1];
+      expect(links).to.have.length(3);
       expect(lastLink).to.have.attribute('aria-current', 'page');
     });
 
@@ -411,10 +415,10 @@ describe('sl-breadcrumbs', () => {
       await new Promise(resolve => setTimeout(resolve, 50));
       await new Promise(resolve => requestAnimationFrame(resolve));
 
-      const remainingLinks = Array.from(el.querySelectorAll('a'));
-      expect(remainingLinks).to.have.length(1);
+      const remainingLinks = Array.from(el.querySelectorAll('a')),
+        newLastLink = remainingLinks[remainingLinks.length - 1];
 
-      const newLastLink = remainingLinks[remainingLinks.length - 1];
+      expect(remainingLinks).to.have.length(1);
       expect(newLastLink).to.have.attribute('aria-current', 'page');
     });
   });
@@ -436,8 +440,8 @@ describe('sl-breadcrumbs', () => {
     });
 
     it('should toggle popover when button is clicked', async () => {
-      const button = el.renderRoot.querySelector('sl-button');
-      const popover = el.renderRoot.querySelector('sl-popover');
+      const button = el.renderRoot.querySelector('sl-button'),
+        popover = el.renderRoot.querySelector('sl-popover');
 
       expect(button).to.exist;
       expect(popover).to.exist;
@@ -455,11 +459,13 @@ describe('sl-breadcrumbs', () => {
       await el.updateComplete;
 
       const button = el.renderRoot.querySelector('sl-button');
+
       expect(button).to.have.attribute('variant', 'inverted');
     });
 
     it('should not have inverted button variant by default', () => {
       const button = el.renderRoot.querySelector('sl-button');
+
       expect(button).not.to.have.attribute('variant');
     });
   });
@@ -475,11 +481,11 @@ describe('sl-breadcrumbs', () => {
       await new Promise(resolve => requestAnimationFrame(resolve));
       await el.updateComplete;
 
-      const link = el.querySelector('a');
-      expect(link).to.have.attribute('aria-current', 'page');
-
       // Should not show collapse button
-      const button = el.renderRoot.querySelector('sl-button');
+      const button = el.renderRoot.querySelector('sl-button'),
+        link = el.querySelector('a');
+
+      expect(link).to.have.attribute('aria-current', 'page');
       expect(button).not.to.exist;
     });
 
@@ -502,12 +508,14 @@ describe('sl-breadcrumbs', () => {
 
       // Should not show collapse button with exactly threshold (3) links - need MORE than threshold
       const button = el.renderRoot.querySelector('sl-button');
+
       expect(button).not.to.exist;
 
       // All 3 breadcrumbs should be visible
       const slots = Array.from(
         el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-"]:not([name*="menu"])')
       );
+
       expect(slots).to.have.length(3);
     });
 
@@ -526,6 +534,7 @@ describe('sl-breadcrumbs', () => {
       const slots = Array.from(
         el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-"]:not([name*="menu"])')
       );
+
       expect(slots.length).to.be.greaterThan(0);
     });
 
@@ -537,10 +546,12 @@ describe('sl-breadcrumbs', () => {
 
       // Should still render home link
       const homeLink = el.renderRoot.querySelector('li.home a');
+
       expect(homeLink).to.exist;
 
       // Should not have any breadcrumb slots
       const slots = el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-"]');
+
       expect(slots).to.have.length(0);
     });
 
@@ -557,6 +568,7 @@ describe('sl-breadcrumbs', () => {
 
       // Should not render home section at all when noHome is true
       const homeListItem = el.renderRoot.querySelector('li.home');
+
       expect(homeListItem).not.to.exist;
     });
   });
@@ -608,10 +620,10 @@ describe('sl-breadcrumbs', () => {
 
     it('should mark truncated links with data-has-tooltip attribute', () => {
       const slots = Array.from(
-        el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-"]:not([name*="menu"])')
-      );
-      const visibleLinks = slots.map(slot => slot.assignedElements()[0]) as HTMLElement[];
-      const truncatedLinks = visibleLinks.filter(link => link.hasAttribute('data-has-tooltip'));
+          el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-"]:not([name*="menu"])')
+        ),
+        visibleLinks = slots.map(slot => slot.assignedElements()[0]) as HTMLElement[],
+        truncatedLinks = visibleLinks.filter(link => link.hasAttribute('data-has-tooltip'));
 
       // At least the long links should be marked for tooltips
       expect(truncatedLinks.length).to.be.greaterThan(0);
@@ -619,9 +631,9 @@ describe('sl-breadcrumbs', () => {
 
     it('should not mark non-truncated links for tooltips', () => {
       const slots = Array.from(
-        el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-"]:not([name*="menu"])')
-      );
-      const visibleLinks = slots.map(slot => slot.assignedElements()[0]) as HTMLElement[];
+          el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-"]:not([name*="menu"])')
+        ),
+        visibleLinks = slots.map(slot => slot.assignedElements()[0]) as HTMLElement[];
 
       // Find the "Short" link - it should not have any tooltip attributes initially
       const shortLink = visibleLinks.find(link => link.textContent?.trim() === 'Short');
@@ -638,13 +650,13 @@ describe('sl-breadcrumbs', () => {
 
     it('should detect truncation based on offsetWidth vs scrollWidth', () => {
       const slots = Array.from(
-        el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-"]:not([name*="menu"])')
-      );
-      const visibleLinks = slots.map(slot => slot.assignedElements()[0]) as HTMLElement[];
+          el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-"]:not([name*="menu"])')
+        ),
+        visibleLinks = slots.map(slot => slot.assignedElements()[0]) as HTMLElement[];
 
       visibleLinks.forEach(link => {
-        const isTruncated = link.offsetWidth < link.scrollWidth;
-        const hasTooltipMarker = link.hasAttribute('data-has-tooltip');
+        const isTruncated = link.offsetWidth < link.scrollWidth,
+          hasTooltipMarker = link.hasAttribute('data-has-tooltip');
 
         // If marked for tooltip, it should be truncated
         if (hasTooltipMarker) {

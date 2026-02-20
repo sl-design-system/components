@@ -223,6 +223,9 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
       return;
     }
 
+    // Temporarily stop observing so removing attributes from the host doesn't retrigger this method
+    this.#observer.disconnect();
+
     if (this.hasAttribute('aria-describedby')) {
       this.#setAriaReference('aria-describedby', 'ariaDescribedByElements');
     } else {
@@ -236,6 +239,8 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
       this.button.ariaLabelledByElements = null;
       this.button.removeAttribute('aria-labelledby');
     }
+
+    this.#observer.observe(this, { attributes: true, attributeFilter: ['aria-describedby', 'aria-labelledby'] });
   }
 
   /** Set an aria reference on the button using Element properties. */
@@ -246,6 +251,7 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
     if (!ariaValue || !ariaValue.trim()) {
       this.button[property] = null;
       this.button.removeAttribute(attribute);
+      this.removeAttribute(attribute);
       return;
     }
 
@@ -259,20 +265,14 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
     if (elements.length === 0) {
       this.button[property] = null;
       this.button.removeAttribute(attribute);
-      return;
+    } else {
+      // Set the Element property: ariaLabelledByElements/ariaDescribedByElements to get it working with shadow DOM boundary.
+      // Setting this property adds empty aria-labelledby/arua-describedby to the element,
+      // If we removed it by setting aria-labelledby/aria-describedby with ids, it would break the connection for the assistive technologies.
+      // See: https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Reflected_attributes#setting_the_property_and_attribute
+      this.button[property] = elements;
     }
 
-    // Set the Element property for cross-shadow-DOM element references
-    this.button[property] = elements;
-
-    console.log('this.button[property]', this.button[property], 'attribute', attribute, 'ariaValue', ariaValue);
-
-    // this.button[property] = elements;
-
-    // Temporarily stop observing so `removeAttribute` doesn't trigger the MutationObserver
-    this.#observer.disconnect();
     this.removeAttribute(attribute);
-
-    this.#observer.observe(this, { attributes: true, attributeFilter: ['aria-describedby', 'aria-labelledby'] });
   }
 }

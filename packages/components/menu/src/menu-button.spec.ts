@@ -341,13 +341,13 @@ describe('sl-menu-button', () => {
       container.remove();
     });
 
-    it('should set ariaLabelledByElements on button internals when aria-labelledby is set', () => {
-      expect(button.internals.ariaLabelledByElements).to.exist;
-      expect(button.internals.ariaLabelledByElements).to.have.lengthOf(1);
-      expect(button.internals.ariaLabelledByElements?.[0]).to.equal(label);
+    it('should remove aria-labelledby from sl-menu-button and set it on the button', () => {
+      expect(el).not.to.have.attribute('aria-labelledby');
+      expect(button.ariaLabelledByElements).to.not.be.null;
+      expect(button.ariaLabelledByElements).to.deep.equal([label]);
     });
 
-    it('should update ariaLabelledByElements when aria-labelledby changes', async () => {
+    it('should update aria-labelledby on the button when aria-labelledby changes', async () => {
       const newLabel = document.createElement('span');
       newLabel.id = 'new-label';
       newLabel.textContent = 'New label';
@@ -356,9 +356,8 @@ describe('sl-menu-button', () => {
       el.setAttribute('aria-labelledby', 'new-label');
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      expect(button.internals.ariaLabelledByElements).to.exist;
-      expect(button.internals.ariaLabelledByElements).to.have.lengthOf(1);
-      expect(button.internals.ariaLabelledByElements?.[0]).to.equal(newLabel);
+      expect(el).not.to.have.attribute('aria-labelledby');
+      expect(button.ariaLabelledByElements).to.deep.equal([newLabel]);
 
       newLabel.remove();
     });
@@ -372,38 +371,18 @@ describe('sl-menu-button', () => {
       el.setAttribute('aria-labelledby', 'label-test label-test-2');
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      expect(button.internals.ariaLabelledByElements).to.exist;
-      expect(button.internals.ariaLabelledByElements).to.have.lengthOf(2);
-      expect(button.internals.ariaLabelledByElements?.[0]).to.equal(label);
-      expect(button.internals.ariaLabelledByElements?.[1]).to.equal(label2);
+      expect(el).not.to.have.attribute('aria-labelledby');
+      expect(button.ariaLabelledByElements).to.deep.equal([label, label2]);
 
       label2.remove();
     });
 
-    it('should filter out not existing ids from aria-labelledby', async () => {
-      const label2 = document.createElement('span');
-      label2.id = 'valid-label';
-      label2.textContent = 'Valid label';
-      document.body.appendChild(label2);
-
-      el.setAttribute('aria-labelledby', 'abc valid-label def');
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(button.internals.ariaLabelledByElements).to.exist;
-      expect(button.internals.ariaLabelledByElements).to.have.lengthOf(1);
-      expect(button.internals.ariaLabelledByElements?.[0]).to.equal(label2);
-
-      label2.remove();
-    });
-
-    it('should clear ariaLabelledByElements when all ids are not existing', async () => {
-      expect(button.internals.ariaLabelledByElements).to.exist;
-      expect(button.internals.ariaLabelledByElements).to.have.lengthOf(1);
-
+    it('should clear aria-labelledby when all ids are not existing', async () => {
       el.setAttribute('aria-labelledby', 'non-existent-1 non-existent-2');
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect(button.internals.ariaLabelledByElements).to.be.null;
+      expect(el).not.to.have.attribute('aria-labelledby');
+      expect(button.ariaLabelledByElements).to.be.null;
     });
   });
 
@@ -437,13 +416,13 @@ describe('sl-menu-button', () => {
       container.remove();
     });
 
-    it('should set ariaDescribedByElements on button internals when aria-describedby is set', () => {
-      expect(button.internals.ariaDescribedByElements).to.exist;
-      expect(button.internals.ariaDescribedByElements).to.have.lengthOf(1);
-      expect(button.internals.ariaDescribedByElements?.[0]).to.equal(description);
+    it('should remove aria-describedby from sl-menu-button and set it on the button', () => {
+      expect(el).not.to.have.attribute('aria-describedby');
+      expect(button.ariaDescribedByElements).to.not.be.null;
+      expect(button.ariaDescribedByElements).to.deep.equal([description]);
     });
 
-    it('should update ariaDescribedByElements when aria-describedby changes', async () => {
+    it('should update aria-describedby on the button when aria-describedby changes', async () => {
       const newDescription = document.createElement('span');
       newDescription.id = 'new-description';
       newDescription.textContent = 'New description';
@@ -452,9 +431,8 @@ describe('sl-menu-button', () => {
       el.setAttribute('aria-describedby', 'new-description');
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      expect(button.internals.ariaDescribedByElements).to.exist;
-      expect(button.internals.ariaDescribedByElements).to.have.lengthOf(1);
-      expect(button.internals.ariaDescribedByElements?.[0]).to.equal(newDescription);
+      expect(el).not.to.have.attribute('aria-describedby');
+      expect(button.ariaDescribedByElements).to.deep.equal([newDescription]);
 
       newDescription.remove();
     });
@@ -468,10 +446,8 @@ describe('sl-menu-button', () => {
       el.setAttribute('aria-describedby', 'description-test description-test-2');
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      expect(button.internals.ariaDescribedByElements).to.exist;
-      expect(button.internals.ariaDescribedByElements).to.have.lengthOf(2);
-      expect(button.internals.ariaDescribedByElements?.[0]).to.equal(description);
-      expect(button.internals.ariaDescribedByElements?.[1]).to.equal(description2);
+      expect(el).not.to.have.attribute('aria-describedby');
+      expect(button.ariaDescribedByElements).to.deep.equal([description, description2]);
 
       description2.remove();
     });
@@ -485,9 +461,8 @@ describe('sl-menu-button', () => {
       el.setAttribute('aria-describedby', 'abc valid-description def');
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      expect(button.internals.ariaDescribedByElements).to.exist;
-      expect(button.internals.ariaDescribedByElements).to.have.lengthOf(1);
-      expect(button.internals.ariaDescribedByElements?.[0]).to.equal(description2);
+      expect(el).not.to.have.attribute('aria-describedby');
+      expect(button.ariaDescribedByElements).to.deep.equal([description2]);
 
       description2.remove();
     });
@@ -502,25 +477,20 @@ describe('sl-menu-button', () => {
       el.setAttribute('aria-labelledby', 'my-label');
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      expect(button.internals.ariaLabelledByElements).to.exist;
-      expect(button.internals.ariaLabelledByElements).to.have.lengthOf(1);
-      expect(button.internals.ariaDescribedByElements).to.exist;
-      expect(button.internals.ariaDescribedByElements).to.have.lengthOf(1);
+      expect(el).not.to.have.attribute('aria-labelledby');
+      expect(el).not.to.have.attribute('aria-describedby');
+      expect(button.ariaLabelledByElements).to.deep.equal([newLabel]);
+      expect(button.ariaDescribedByElements).to.deep.equal([description]);
 
       newLabel.remove();
     });
 
-    it('should clear ariaDescribedByElements when all IDs are non-existent', async () => {
-      // Initial setup has valid description
-      expect(button.internals.ariaDescribedByElements).to.exist;
-      expect(button.internals.ariaDescribedByElements).to.have.lengthOf(1);
-
-      // Update with only non-existent IDs
+    it('should clear aria-describedby on the button when all ids are non-existent', async () => {
       el.setAttribute('aria-describedby', 'non-existent-1 non-existent-2');
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 100));
 
-      // Should clear the stale reference
-      expect(button.internals.ariaDescribedByElements).to.be.null;
+      expect(el).not.to.have.attribute('aria-describedby');
+      expect(button.ariaDescribedByElements).to.be.null;
     });
   });
 
@@ -538,6 +508,7 @@ describe('sl-menu-button', () => {
           <sl-menu-item>Item 2</sl-menu-item>
         </sl-menu-button>
       `;
+
       document.body.appendChild(container);
 
       el = container.querySelector('sl-menu-button') as MenuButton;
@@ -545,7 +516,6 @@ describe('sl-menu-button', () => {
 
       button = el.renderRoot.querySelector('sl-button') as Button;
 
-      // Give the MutationObserver time to fire
       await new Promise(resolve => setTimeout(resolve, 50));
     });
 
@@ -553,38 +523,32 @@ describe('sl-menu-button', () => {
       container.remove();
     });
 
-    it('should update button ElementInternals when aria-labelledby attribute changes', async () => {
+    it('should update aria-labelledby on the button when aria-labelledby attribute changes', async () => {
       const newLabel = document.createElement('span');
       newLabel.id = 'new-label';
       newLabel.textContent = 'This is a new label';
       document.body.appendChild(newLabel);
 
       el.setAttribute('aria-labelledby', 'new-label');
-
-      // Give the MutationObserver time to fire
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      expect(button.internals.ariaLabelledByElements).to.exist;
-      expect(button.internals.ariaLabelledByElements).to.have.lengthOf(1);
-      expect(button.internals.ariaLabelledByElements?.[0]).to.equal(newLabel);
+      expect(el).not.to.have.attribute('aria-labelledby');
+      expect(button.ariaLabelledByElements).to.deep.equal([newLabel]);
 
       newLabel.remove();
     });
 
-    it('should update button internals when aria-describedby attribute changes', async () => {
+    it('should update aria-describedby on the button when aria-describedby attribute changes', async () => {
       const newDescription = document.createElement('span');
       newDescription.id = 'new-description';
       newDescription.textContent = 'This is a new description';
       document.body.appendChild(newDescription);
 
       el.setAttribute('aria-describedby', 'new-description');
-
-      // Give the MutationObserver time to fire
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      expect(button.internals.ariaDescribedByElements).to.exist;
-      expect(button.internals.ariaDescribedByElements).to.have.lengthOf(1);
-      expect(button.internals.ariaDescribedByElements?.[0]).to.equal(newDescription);
+      expect(el).not.to.have.attribute('aria-describedby');
+      expect(button.ariaDescribedByElements).to.deep.equal([newDescription]);
 
       newDescription.remove();
     });
@@ -595,82 +559,22 @@ describe('sl-menu-button', () => {
       newLabel.textContent = 'Reconnect Label';
       document.body.appendChild(newLabel);
 
-      // First change
       el.setAttribute('aria-labelledby', 'reconnect-label');
-
-      // Give the MutationObserver time to fire
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      // Second change should still be observed
       const anotherLabel = document.createElement('span');
       anotherLabel.id = 'another-reconnect-label';
       anotherLabel.textContent = 'Another Label';
       document.body.appendChild(anotherLabel);
 
       el.setAttribute('aria-labelledby', 'another-reconnect-label');
-
-      // Give the MutationObserver time to fire
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      expect(button.internals.ariaLabelledByElements).to.exist;
-      expect(button.internals.ariaLabelledByElements).to.have.lengthOf(1);
-      expect(button.internals.ariaLabelledByElements?.[0]).to.equal(anotherLabel);
+      expect(el).not.to.have.attribute('aria-labelledby');
+      expect(button.ariaLabelledByElements).to.deep.equal([anotherLabel]);
 
       newLabel.remove();
       anotherLabel.remove();
-    });
-  });
-
-  describe('aria initialization', () => {
-    it('should properly initialize aria references when connected to DOM', async () => {
-      const container = document.createElement('div');
-      container.innerHTML = `
-        <span id="lifecycle-label">Label</span>
-        <sl-menu-button aria-labelledby="lifecycle-label">
-          <sl-icon name="far-gear" slot="button"></sl-icon>
-          <sl-menu-item>Item 1</sl-menu-item>
-        </sl-menu-button>
-      `;
-      document.body.appendChild(container);
-
-      el = container.querySelector('sl-menu-button') as MenuButton;
-      await el.updateComplete;
-      button = el.renderRoot.querySelector('sl-button') as Button;
-
-      // Give the MutationObserver time to fire
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      const label = container.querySelector('#lifecycle-label') as HTMLElement;
-      expect(button.internals.ariaLabelledByElements).to.exist;
-      expect(button.internals.ariaLabelledByElements?.[0]).to.equal(label);
-
-      container.remove();
-    });
-
-    it('should update aria references after first render', async () => {
-      const container = document.createElement('div');
-      container.innerHTML = `
-        <span id="first-updated-label">Label</span>
-        <sl-menu-button aria-labelledby="first-updated-label">
-          <sl-icon name="far-gear" slot="button"></sl-icon>
-          <sl-menu-item>Item 1</sl-menu-item>
-        </sl-menu-button>
-      `;
-      document.body.appendChild(container);
-
-      el = container.querySelector('sl-menu-button') as MenuButton;
-      await el.updateComplete;
-
-      // Give the MutationObserver time to fire
-      await new Promise(resolve => setTimeout(resolve, 100));
-
-      button = el.renderRoot.querySelector('sl-button') as Button;
-      const label = container.querySelector('#first-updated-label') as HTMLElement;
-
-      expect(button.internals.ariaLabelledByElements).to.exist;
-      expect(button.internals.ariaLabelledByElements?.[0]).to.equal(label);
-
-      container.remove();
     });
   });
 });

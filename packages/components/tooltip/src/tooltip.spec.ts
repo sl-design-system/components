@@ -317,6 +317,108 @@ describe('sl-tooltip', () => {
     });
   });
 
+  describe('Element ariaDescribedByElements', () => {
+    let button: Button;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <div style="block-size: 400px; inline-size: 400px;">
+          <sl-button>Button</sl-button>
+          <sl-tooltip id="tooltip">Tooltip via Element property</sl-tooltip>
+        </div>
+      `);
+
+      button = el.querySelector('sl-button') as Button;
+      tooltip = el.querySelector('sl-tooltip') as Tooltip;
+
+      // Set ariaDescribedByElements directly on the element (not via ElementInternals)
+      button.ariaDescribedByElements = [tooltip];
+    });
+
+    it('should show tooltip when referenced via Element ariaDescribedByElements', async () => {
+      const pointerOver = new Event('pointerover', { bubbles: true });
+
+      button?.dispatchEvent(pointerOver);
+      await tooltip.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(tooltip).to.match(':popover-open');
+    });
+
+    it('should hide tooltip on pointerout when referenced via Element ariaDescribedByElements', async () => {
+      const pointerOver = new Event('pointerover', { bubbles: true });
+
+      button?.dispatchEvent(pointerOver);
+      await tooltip.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(tooltip).to.match(':popover-open');
+
+      const pointerOut = new Event('pointerout', { bubbles: true });
+      button?.dispatchEvent(pointerOut);
+
+      expect(tooltip).not.to.match(':popover-open');
+    });
+
+    it('should show tooltip on focus when referenced via Element ariaDescribedByElements', async () => {
+      button?.focus();
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(tooltip).to.match(':popover-open');
+    });
+  });
+
+  describe('Element ariaLabelledByElements', () => {
+    let button: Button;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <div style="block-size: 400px; inline-size: 400px;">
+          <sl-button>Button</sl-button>
+          <sl-tooltip id="tooltip">Tooltip label via Element property</sl-tooltip>
+        </div>
+      `);
+
+      button = el.querySelector('sl-button') as Button;
+      tooltip = el.querySelector('sl-tooltip') as Tooltip;
+
+      // Set ariaLabelledByElements directly on the element (not via ElementInternals)
+      button.ariaLabelledByElements = [tooltip];
+    });
+
+    it('should show tooltip when referenced via Element ariaLabelledByElements', async () => {
+      const pointerOver = new Event('pointerover', { bubbles: true });
+
+      button?.dispatchEvent(pointerOver);
+      await tooltip.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(tooltip).to.match(':popover-open');
+    });
+
+    it('should hide tooltip on pointerout when referenced via Element ariaLabelledByElements', async () => {
+      const pointerOver = new Event('pointerover', { bubbles: true });
+
+      button?.dispatchEvent(pointerOver);
+      await tooltip.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(tooltip).to.match(':popover-open');
+
+      const pointerOut = new Event('pointerout', { bubbles: true });
+      button?.dispatchEvent(pointerOut);
+
+      expect(tooltip).not.to.match(':popover-open');
+    });
+
+    it('should show tooltip on focus when referenced via Element ariaLabelledByElements', async () => {
+      button?.focus();
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(tooltip).to.match(':popover-open');
+    });
+  });
+
   describe('Tooltip lazy()', () => {
     let el: HTMLElement;
     let button: Button;

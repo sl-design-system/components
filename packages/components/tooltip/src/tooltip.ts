@@ -146,9 +146,14 @@ export class Tooltip extends LitElement {
       return true;
     }
 
+    // Check Element.ariaDescribedByElements and Element.ariaLabelledByElements directly on the element
+    // This handles cases where the property is set directly on the element (e.g. `sl-button` inside `sl-menu-button`)
+    if (element.ariaDescribedByElements?.includes(this) || element.ariaLabelledByElements?.includes(this)) {
+      return true;
+    }
+
     // Check ElementInternals ariaDescribedByElements and ariaLabelledByElements
     // This handles cases where elements use ElementInternals to connect to the tooltip across shadow DOM boundaries
-    // (e.g. `sl-button` inside the `sl-menu-button`'s shadow DOM)
     const internals = (element as HTMLElement & { internals?: ElementInternals }).internals;
 
     return (

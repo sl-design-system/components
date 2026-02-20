@@ -1,5 +1,7 @@
 import '@sl-design-system/button/register.js';
+import '@sl-design-system/icon/register.js';
 import '@sl-design-system/popover/register.js';
+import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
@@ -110,18 +112,51 @@ export const HideHomeLabel: Story = {
   }
 };
 
+export const CustomHome: Story = {
+  args: {
+    ...Basic.args,
+    breadcrumbs: () => html`
+      <a href="javascript:void(0)" slot="home"><sl-icon name="home-blank"></sl-icon> Custom Home</a>
+      <a href="javascript:void(0)">Page 1</a>
+      <a href="javascript:void(0)">Page 2</a>
+      <a href="javascript:void(0)">Page 3</a>
+    `
+  }
+};
+
 export const Overflow: Story = {
   args: {
     breadcrumbs: () => html`
-      <a href="javascript:void(0)">Adipisicing sint excepteur officia voluptate tempor ea veniam veniam duis.</a>
-      <a href="javascript:void(0)"
-        >Nostrud ad fugiat amet officia anim qui sit tempor veniam magna irure adipisicing ea adipisicing.</a
-      >
-      <a href="javascript:void(0)"
-        >Lorem adipisicing do duis sunt laboris magna officia irure fugiat velit deserunt duis enim in.</a
-      >
+      <a href="javascript:void(0)">Adipisicing sint excepteur officia voluptate.</a>
+      <a href="javascript:void(0)">Nostrud ad fugiat amet officia anim qui sit tempor veniam magna.</a>
+      <a href="javascript:void(0)">Lorem adipisicing do duis sunt laboris magna officia irure fugiat.</a>
     `
   }
+};
+
+export const CustomStyledLinks: Story = {
+  render: () => html`
+    <style>
+      a[href] {
+        color: var(--sl-color-foreground-accent-red-bold);
+      }
+
+      a[href]:hover {
+        color: var(--sl-color-foreground-accent-orange-bold);
+      }
+
+      a[href]:active {
+        color: var(--sl-color-foreground-accent-purple-bold);
+      }
+    </style>
+    <a href="javascript:void(0)">Custom Styled Link</a> has css styles applied to it. This is to demonstrate that the
+    links in the breadcrumbs always have the component styling applied even when global styles are used.
+    <sl-breadcrumbs aria-label="Breadcrumb trail 1">
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
+    </sl-breadcrumbs>
+  `
 };
 
 export const All: Story = {

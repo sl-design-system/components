@@ -511,7 +511,6 @@ describe('NestedTreeDataSource', () => {
     });
   });
 
-
   describe('selection sync', () => {
     beforeEach(() => {
       ds = new NestedTreeDataSource<TestItem>(

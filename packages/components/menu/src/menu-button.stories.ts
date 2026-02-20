@@ -11,6 +11,7 @@ import {
 import '@sl-design-system/avatar/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
+import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -188,6 +189,94 @@ export const Avatar: Story = {
       <sl-menu-item>Log out</sl-menu-item>
     `
   }
+};
+
+export const WithTooltips: Story = {
+  parameters: {
+    a11y: {
+      config: {
+        rules: [
+          {
+            /**
+             * The rule is disabled for icon-only sl-menu-buttons because they use ariaLabelledByElements
+             * to set aria-labelledby across shadow DOM boundaries, which the a11y checker cannot detect.
+             */
+            id: 'aria-command-name',
+            enabled: false,
+            selector: 'sl-menu-button >> sl-button[icon-only]'
+          }
+        ]
+      }
+    }
+  },
+  render: () => html`
+    <style>
+      .container {
+        display: flex;
+        gap: 0.6rem;
+        align-items: center;
+      }
+    </style>
+    <p>Menu buttons with tooltips connected via <code>aria-labelledby</code></p>
+    <div class="container">
+      <sl-menu-button aria-labelledby="tooltip-settings" fill="outline">
+        <sl-icon name="far-gear" slot="button"></sl-icon>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-tooltip id="tooltip-settings">Settings</sl-tooltip>
+
+      <sl-menu-button aria-labelledby="tooltip-edit" fill="outline" size="lg">
+        <sl-icon name="far-pen" slot="button"></sl-icon>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-tooltip id="tooltip-edit">Edit</sl-tooltip>
+    </div>
+
+    <p>Menu buttons with tooltips connected via <code>aria-describedby</code></p>
+    <div class="container">
+      <sl-menu-button aria-describedby="tooltip-settings-1" fill="outline">
+        <sl-icon name="far-gear" slot="button"></sl-icon>
+        <span slot="button">Settings</span>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-tooltip id="tooltip-settings-1">Open settings menu</sl-tooltip>
+
+      <sl-menu-button aria-describedby="tooltip-edit-1" fill="outline" size="lg">
+        <sl-icon name="far-pen" slot="button"></sl-icon>
+        <span slot="button">Edit</span>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-tooltip id="tooltip-edit-1">Open edit menu</sl-tooltip>
+    </div>
+  `
 };
 
 export const All: Story = {

@@ -168,5 +168,4 @@ export class FlatTreeDataSource<T = any> extends TreeDataSource<T> {
 
     return treeNode;
   }
-
 }

@@ -156,5 +156,4 @@ export class NestedTreeDataSource<T = any> extends TreeDataSource<T> {
 
     return treeNode;
   }
-
 }

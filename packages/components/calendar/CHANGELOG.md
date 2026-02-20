@@ -1,5 +1,15 @@
 # @sl-design-system/calendar
 
+## 0.0.5
+
+### Patch Changes
+
+- [#3021](https://github.com/sl-design-system/components/pull/3021) [`192a51d`](https://github.com/sl-design-system/components/commit/192a51d63689cca9d91cdee60c7d4389905d8257) - Remove aria-selected attributes from grid cells
+
+- Updated dependencies [[`9e361f4`](https://github.com/sl-design-system/components/commit/9e361f40a25242652c3f7878851fbfd2a75c8f3d), [`330e06f`](https://github.com/sl-design-system/components/commit/330e06ff36c7a5c96cf313b60a5013d6307477c7)]:
+  - @sl-design-system/button@1.3.4
+  - @sl-design-system/icon@1.4.2
+
 ## 0.0.4
 
 ### Patch Changes

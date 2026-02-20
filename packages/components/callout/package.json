@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/callout",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "Callout component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -38,7 +38,7 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/icon": "^1.4.1",
+    "@sl-design-system/icon": "^1.4.2",
     "@sl-design-system/shared": "^0.10.0"
   },
   "devDependencies": {

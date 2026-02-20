@@ -1,5 +1,15 @@
 # @sl-design-system/tabs
 
+## 1.2.6
+
+### Patch Changes
+
+- [#2979](https://github.com/sl-design-system/components/pull/2979) [`2776c1c`](https://github.com/sl-design-system/components/commit/2776c1c90fd5f7ee4bc8aafe676f383abda3cda9) - The ResizeObserver in TabGroup unconditionally called scrollToTabPanelStart() on every resize, forcing the page to scroll to the active tab panel even when no tab change occurred. Removed scrollToTabPanelStart() from the ResizeObserver callback since resize events do not change the selected tab. Scrolling to the panel start is still triggered by user interaction and programmatic tab changes.
+
+- Updated dependencies [[`86ea95d`](https://github.com/sl-design-system/components/commit/86ea95defd6ecf26eec20a46fd4545efd386951f), [`330e06f`](https://github.com/sl-design-system/components/commit/330e06ff36c7a5c96cf313b60a5013d6307477c7)]:
+  - @sl-design-system/menu@0.3.0
+  - @sl-design-system/icon@1.4.2
+
 ## 1.2.5
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @sl-design-system/callout
 
+## 0.1.0
+
+### Minor Changes
+
+- [#2982](https://github.com/sl-design-system/components/pull/2982) [`5784b96`](https://github.com/sl-design-system/components/commit/5784b9682e183391f842b10f1d194ceb137606f0) - Improved the color contrast when using links in the body of the callout. When there is global styling for links, or when links nested in other elements (`p`, `span`, etc) we advise you to use the global.css provided in your theme package, because it is impossible to style nested slotted elements from a component.
+
+### Patch Changes
+
+- Updated dependencies [[`330e06f`](https://github.com/sl-design-system/components/commit/330e06ff36c7a5c96cf313b60a5013d6307477c7)]:
+  - @sl-design-system/icon@1.4.2
+
 ## 0.0.3
 
 ### Patch Changes

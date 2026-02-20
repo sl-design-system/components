@@ -1,5 +1,11 @@
 # @sl-design-system/form
 
+## 1.3.5
+
+### Patch Changes
+
+- [#3014](https://github.com/sl-design-system/components/pull/3014) [`ae8b9da`](https://github.com/sl-design-system/components/commit/ae8b9da97d3e5adc0a9ecb8feabec67699893bcc) - Change font-weight to normal for optional and required control's labels
+
 ## 1.3.4
 
 ### Patch Changes

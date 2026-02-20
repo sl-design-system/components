@@ -1,5 +1,15 @@
 # @sl-design-system/time-field
 
+## 0.0.3
+
+### Patch Changes
+
+- [#2954](https://github.com/sl-design-system/components/pull/2954) [`49eab13`](https://github.com/sl-design-system/components/commit/49eab1323d08cb12f995d20845391009cdb4217d) - Propagate `lang` attribute to the internal input element to improve screen reader accessibility for localized time formats.
+
+- Updated dependencies [[`330e06f`](https://github.com/sl-design-system/components/commit/330e06ff36c7a5c96cf313b60a5013d6307477c7), [`ae8b9da`](https://github.com/sl-design-system/components/commit/ae8b9da97d3e5adc0a9ecb8feabec67699893bcc)]:
+  - @sl-design-system/icon@1.4.2
+  - @sl-design-system/form@1.3.5
+
 ## 0.0.2
 
 ### Patch Changes

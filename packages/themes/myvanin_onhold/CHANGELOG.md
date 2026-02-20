@@ -1,5 +1,14 @@
 # @sl-design-system/myvanin
 
+## 1.0.2
+
+### Patch Changes
+
+- [#2982](https://github.com/sl-design-system/components/pull/2982) [`5784b96`](https://github.com/sl-design-system/components/commit/5784b9682e183391f842b10f1d194ceb137606f0) - Updated global.css so we have the opportunity to overwrite the link color from a component.
+
+- Updated dependencies [[`330e06f`](https://github.com/sl-design-system/components/commit/330e06ff36c7a5c96cf313b60a5013d6307477c7)]:
+  - @sl-design-system/icon@1.4.2
+
 ## 1.0.1
 
 ### Patch Changes

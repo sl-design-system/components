@@ -117,14 +117,55 @@ sl-icon[name='breadcrumb-separator'] {
   color: var(--sl-color-border-plain);
 }
 
+sl-popover {
+  box-shadow: var(--sl-elevation-shadow-overflow);
+
+  &::part(arrow) {
+    display: none;
+  }
+}
+
 sl-popover::part(container) {
   display: flex;
   flex-direction: column;
-  gap: var(--sl-size-025);
+  gap: var(--sl-size-050);
   padding: var(--sl-size-100) 0;
 }
 
 sl-popover ::slotted(a[href]) {
+  border-radius: var(--sl-size-borderRadius-default);
   margin-inline: var(--sl-size-100);
+  overflow: visible;
   padding: var(--sl-size-075) var(--sl-size-100);
+  position: relative;
+  text-decoration: none;
+}
+
+sl-popover ::slotted(a[href]:hover),
+sl-popover ::slotted(a[href]:focus-visible) {
+  background: color-mix(
+    in srgb,
+    transparent,
+    var(--sl-color-background-primary-interactive-plain) calc(100% * var(--sl-opacity-interactive-plain-hover))
+  );
+  color: var(--sl-color-foreground-plain) !important;
+}
+
+sl-popover ::slotted(a[href]:focus-visible) {
+  outline: var(--sl-size-borderWidth-focusRing) solid var(--sl-color-border-focused);
+  outline-offset: var(--sl-size-outlineOffset-default);
+}
+
+sl-popover ::slotted(a[href]:hover)::before,
+sl-popover ::slotted(a[href]:focus-visible)::before {
+  background: var(--sl-color-background-selected-bold);
+  border-radius: var(--sl-size-borderRadius-none) var(--sl-size-borderRadius-child) var(--sl-size-borderRadius-child)
+    var(--sl-size-borderRadius-none);
+  box-shadow: inset 1px 0 0 color-mix(in srgb, var(--sl-color-black) calc(var(--sl-opacity-subtle) * 100%), transparent);
+  content: '';
+  inline-size: var(--sl-size-050);
+  inset-block: 2px;
+  inset-inline-start: -8px;
+  position: absolute;
+  z-index: 1;
 }

@@ -295,8 +295,7 @@ describe('sl-panel', () => {
       const el = await fixture<Panel>(html`<sl-panel collapsible collapsed heading="Heading">Body content</sl-panel>`);
 
       // In connectedCallback, it should have been added
-      // But fixture() might wait until first update.
-      // Let's check if it's removed after updates.
+      // But fixture() might wait until first update
       await el.updateComplete;
 
       await new Promise(resolve => requestAnimationFrame(resolve));
@@ -308,7 +307,6 @@ describe('sl-panel', () => {
     it('should disable transitions when no-transition attribute is present', async () => {
       const el = await fixture<Panel>(html`<sl-panel collapsible heading="Heading">Body content</sl-panel>`);
 
-      // Wait for initialization to complete and no-transition to be removed
       for (let i = 0; i < 5; i++) {
         await new Promise(resolve => requestAnimationFrame(resolve));
       }
@@ -356,7 +354,7 @@ describe('sl-panel', () => {
       const el = await fixture<Panel>(html`<sl-panel collapsible heading="Heading">Body content</sl-panel>`);
 
       await el.updateComplete;
-      // Wait for no-transition to be removed
+
       for (let i = 0; i < 5; i++) {
         await new Promise(resolve => requestAnimationFrame(resolve));
       }

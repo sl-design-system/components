@@ -289,4 +289,97 @@ describe('sl-panel', () => {
       expect(content).to.have.style('padding', '0px');
     });
   });
+
+  describe('animations', () => {
+    it('should manage no-transition attribute during lifecycle', async () => {
+      const el = await fixture<Panel>(html`<sl-panel collapsible collapsed heading="Heading">Body content</sl-panel>`);
+
+      // In connectedCallback, it should have been added
+      // But fixture() might wait until first update.
+      // Let's check if it's removed after updates.
+      await el.updateComplete;
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      expect(el.hasAttribute('no-transition'), 'no-transition should be removed after initialization').to.be.false;
+    });
+
+    it('should disable transitions when no-transition attribute is present', async () => {
+      const el = await fixture<Panel>(html`<sl-panel collapsible heading="Heading">Body content</sl-panel>`);
+
+      // Wait for initialization to complete and no-transition to be removed
+      for (let i = 0; i < 5; i++) {
+        await new Promise(resolve => requestAnimationFrame(resolve));
+      }
+      expect(el.hasAttribute('no-transition'), 'no-transition should be removed initially').to.be.false;
+
+      const body = el.renderRoot.querySelector('[part="body"]') as HTMLElement;
+      const initialProperty = getComputedStyle(body).transitionProperty;
+      const initialDuration = getComputedStyle(body).transitionDuration;
+
+      el.setAttribute('no-transition', '');
+      await el.updateComplete;
+
+      const style = getComputedStyle(body);
+      const isNone =
+        style.transitionProperty === 'none' ||
+        (style.transitionProperty === 'all' && style.transitionDuration === '0s');
+      expect(
+        isNone,
+        `Transition should be disabled when no-transition attribute is present, got: ${style.transitionProperty} ${style.transitionDuration}`
+      ).to.be.true;
+
+      el.removeAttribute('no-transition');
+      await el.updateComplete;
+
+      expect(getComputedStyle(body).transitionProperty).to.equal(initialProperty);
+      expect(getComputedStyle(body).transitionDuration).to.equal(initialDuration);
+    });
+
+    it('should not animate on initial render when collapsed is true', async () => {
+      let transitionStarted = false;
+      const el = await fixture<Panel>(html`<sl-panel collapsible collapsed heading="Heading">Body content</sl-panel>`);
+
+      const body = el.renderRoot.querySelector('[part="body"]') as HTMLElement;
+      body.addEventListener('transitionrun', () => {
+        transitionStarted = true;
+      });
+
+      await new Promise(resolve => setTimeout(resolve, 200));
+
+      expect(transitionStarted, 'Animation should NOT have started on initial render').to.be.false;
+    });
+
+    it('should animate normally when toggling after initialization (if supported)', async () => {
+      let transitionStarted = false;
+      const el = await fixture<Panel>(html`<sl-panel collapsible heading="Heading">Body content</sl-panel>`);
+
+      await el.updateComplete;
+      // Wait for no-transition to be removed
+      for (let i = 0; i < 5; i++) {
+        await new Promise(resolve => requestAnimationFrame(resolve));
+      }
+
+      const body = el.renderRoot.querySelector('[part="body"]') as HTMLElement;
+      body.addEventListener('transitionrun', () => {
+        transitionStarted = true;
+      });
+
+      el.collapsed = true;
+      await el.updateComplete;
+
+      await new Promise(resolve => setTimeout(resolve, 200));
+
+      // Only assert if transitions are actually enabled in this environment
+      const style = getComputedStyle(body);
+      const transitionsEnabled = style.transitionDuration !== '0s' && style.transitionProperty !== 'none';
+
+      if (transitionsEnabled) {
+        expect(transitionStarted, 'Animation SHOULD start when toggling after initialization').to.be.true;
+      } else {
+        console.log('Skipping transition event assertion as transitions are disabled in this environment');
+      }
+    });
+  });
 });

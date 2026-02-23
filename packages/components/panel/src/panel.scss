@@ -178,6 +178,10 @@ sl-tool-bar {
   display: grid;
   grid-template-rows: 1fr;
 
+  :host([no-transition]) & {
+    transition: none;
+  }
+
   @media (prefers-reduced-motion: no-preference) {
     transition: grid-template-rows 300ms ease-in-out;
   }
@@ -194,6 +198,10 @@ sl-tool-bar {
 
 sl-icon {
   transform: scaleY(1);
+
+  :host([no-transition]) & {
+    transition: none;
+  }
 
   @media (prefers-reduced-motion: no-preference) {
     transition: transform 200ms ease-in-out;

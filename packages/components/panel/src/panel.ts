@@ -98,6 +98,12 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   /** @internal Emits when the panel expands/collapses. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.setAttribute('no-transition', '');
+  }
+
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
@@ -111,6 +117,11 @@ export class Panel extends ScopedElementsMixin(LitElement) {
 
     requestAnimationFrame(() => {
       this.#onHeaderSlotChange();
+
+      // We need to wait for the first render to complete before we can enable transitions
+      requestAnimationFrame(() => {
+        this.removeAttribute('no-transition');
+      });
     });
   }
 
@@ -165,10 +176,8 @@ export class Panel extends ScopedElementsMixin(LitElement) {
    * @param force Whether to force the panel to be collapsed or expanded.
    */
   toggle(force: boolean = !this.collapsed): void {
-    requestAnimationFrame(() => {
-      this.collapsed = force;
-      this.toggleEvent.emit(this.collapsed);
-    });
+    this.collapsed = force;
+    this.toggleEvent.emit(this.collapsed);
   }
 
   #onHeaderSlotChange(): void {

@@ -11,23 +11,20 @@
   outline-offset: var(--sl-size-outlineOffset-default);
   overflow: visible;
   position: relative;
-  z-index: 1;
 }
 
+:host,
 :host(:hover),
 :host(:focus-visible) {
   &::before {
     background: var(--sl-color-background-selected-bold);
     border-radius: var(--sl-size-borderRadius-none) var(--sl-size-borderRadius-child) var(--sl-size-borderRadius-child)
       var(--sl-size-borderRadius-none);
-    box-shadow: inset 1px 0 0
-      color-mix(in srgb, var(--sl-color-black) calc(var(--sl-opacity-subtle) * 100%), transparent);
     content: '';
     inline-size: var(--sl-size-050);
-    inset-block: 2px;
-    inset-inline-start: -8px;
+    inset-block: var(--sl-size-025);
+    inset-inline-start: calc(var(--sl-size-100) * -1);
     position: absolute;
-    z-index: 1;
   }
 }
 

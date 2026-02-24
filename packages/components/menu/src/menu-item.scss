@@ -13,7 +13,6 @@
   position: relative;
 }
 
-:host,
 :host(:hover),
 :host(:focus-visible) {
   &::before {

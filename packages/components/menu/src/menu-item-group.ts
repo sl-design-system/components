@@ -1,4 +1,4 @@
-import { type CSSResultGroup, LitElement, PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './menu-item-group.scss.js';
 import { MenuItem } from './menu-item.js';
@@ -36,10 +36,10 @@ export class MenuItemGroup extends LitElement {
     this.#updateAriaLabel();
   }
 
-  protected override update(changedProperties: PropertyValues): void {
-    super.update(changedProperties);
+  protected override update(changes: PropertyValues<this>): void {
+    super.update(changes);
 
-    if (changedProperties.has('heading')) {
+    if (changes.has('heading')) {
       this.#updateAriaLabel();
     }
   }

@@ -652,7 +652,7 @@ export const Examples: Story = {
           <span slot="button">Export</span>
           <sl-menu-item> ... as PDF </sl-menu-item>
           <sl-menu-item> ... as txt </sl-menu-item>
-          <sl-menu-item> ...as HTML </sl-menu-item>
+          <sl-menu-item> ... as HTML </sl-menu-item>
         </sl-menu-button>
 
         <sl-button aria-label="Edit">
@@ -697,7 +697,7 @@ export const Examples: Story = {
     return html`
       <style>
         sl-tool-bar[inverted]:not([contained]) {
-          background: var(--sl-color-palette-grey-900);
+          background: var(--sl-elevation-surface-raised-primary);
         }
         .grid {
           display: grid;

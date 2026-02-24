@@ -94,12 +94,6 @@ export class Menu extends LitElement {
     if (!this.hasAttribute('popover')) {
       this.setAttribute('popover', '');
     }
-
-    // Watch for when scrollbar appears and trigger reposition
-    const resizeObserver = new ResizeObserver(() => {
-      void this.offsetHeight;
-    });
-    resizeObserver.observe(this);
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -134,16 +128,6 @@ export class Menu extends LitElement {
    */
   override focus(): void {
     this.#rovingTabindexController.focus();
-
-    // Force Safari reflow after focus is processed
-    requestAnimationFrame(() => {
-      void this.offsetHeight;
-    });
-    setTimeout(() => {
-      console.log('updated');
-      void this.offsetHeight;
-      this.style.setProperty('margin-inline-start', '-1px');
-    }, 100);
   }
 
   /** @internal */
@@ -155,6 +139,8 @@ export class Menu extends LitElement {
     if (this.#shouldIgnoreFocusout(event) || this.#shouldKeepMenuOpen(event.relatedTarget as Node)) {
       return;
     }
+
+    this.hidePopover();
   }
 
   #onKeydown(event: KeyboardEvent): void {

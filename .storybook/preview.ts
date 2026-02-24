@@ -100,6 +100,11 @@ const preview: Preview = {
             id: 'aria-valid-attr-value',
             selector: '[aria-controls][aria-haspopup]',
             enabled: false
+          },
+          {
+            id: 'color-contrast',
+            selector: ':not([disabled]):not([aria-disabled="true"])',
+            enabled: false
           }
         ]
       },

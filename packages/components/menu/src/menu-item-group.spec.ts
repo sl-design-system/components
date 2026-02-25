@@ -166,4 +166,15 @@ describe('sl-menu-item-group', () => {
 
     expect(el).to.have.attribute('aria-label', 'Property heading');
   });
+
+  it('should set role="group" on the host element', async () => {
+    el = await fixture(html`
+      <sl-menu-item-group>
+        <sl-menu-item selectable>Item 1</sl-menu-item>
+        <sl-menu-item selectable>Item 2</sl-menu-item>
+      </sl-menu-item-group>
+    `);
+
+    expect(el).to.have.attribute('role', 'group');
+  });
 });

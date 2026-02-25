@@ -344,6 +344,7 @@ describe('sl-panel', () => {
 
       await el.updateComplete;
       await new Promise(resolve => requestAnimationFrame(resolve));
+      await new Promise(resolve => requestAnimationFrame(resolve));
 
       expect(el.hasAttribute('no-transition'), 'no-transition should STILL be present since the user provided it').to.be
         .true;

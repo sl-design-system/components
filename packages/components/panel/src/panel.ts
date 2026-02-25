@@ -108,6 +108,15 @@ export class Panel extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  override disconnectedCallback(): void {
+    if (this.#toggleRafId !== undefined) {
+      cancelAnimationFrame(this.#toggleRafId);
+      this.#toggleRafId = undefined;
+    }
+
+    super.disconnectedCallback();
+  }
+
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 

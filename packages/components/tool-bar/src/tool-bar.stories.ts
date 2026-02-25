@@ -429,6 +429,23 @@ export const Tooltips: Story = {
 };
 
 export const IconOnly: Story = {
+  parameters: {
+    a11y: {
+      config: {
+        rules: [
+          {
+            /**
+             * The rule is disabled for icon-only sl-menu-buttons because they use ariaLabelledByElements
+             * to set aria-labelledby across shadow DOM boundaries, which the a11y checker cannot detect.
+             */
+            id: 'aria-command-name',
+            enabled: false,
+            selector: 'sl-menu-button >> sl-button[icon-only]'
+          }
+        ]
+      }
+    }
+  },
   render: ({ align, contained, disabled, inverted, resizable, fill, width }) => {
     return html`
       <style>
@@ -461,27 +478,27 @@ export const IconOnly: Story = {
           fill=${ifDefined(fill)}
           style="inline-size: ${width ?? 'auto'}"
         >
-          <sl-button aria-describedby="tooltip-bold" fill="outline">
+          <sl-button aria-labelledby="tooltip-bold" fill="outline">
             <sl-icon name="far-bold"></sl-icon>
           </sl-button>
           <sl-tooltip id="tooltip-bold">Bold</sl-tooltip>
 
-          <sl-button aria-describedby="tooltip-italic" fill="outline">
+          <sl-button aria-labelledby="tooltip-italic" fill="outline">
             <sl-icon name="far-italic"></sl-icon>
           </sl-button>
           <sl-tooltip id="tooltip-italic">Italic</sl-tooltip>
 
-          <sl-button aria-disabled="true" aria-describedby="tooltip-underline-disabled" fill="outline">
+          <sl-button aria-disabled="true" aria-labelledby="tooltip-underline-disabled" fill="outline">
             <sl-icon name="far-underline"></sl-icon>
           </sl-button>
           <sl-tooltip id="tooltip-underline-disabled">Underline (disabled)</sl-tooltip>
 
-          <sl-button aria-describedby="tooltip-underline" fill="outline">
+          <sl-button aria-labelledby="tooltip-underline" fill="outline">
             <sl-icon name="far-underline"></sl-icon>
           </sl-button>
           <sl-tooltip id="tooltip-underline">Underline</sl-tooltip>
 
-          <sl-menu-button aria-describedby="tooltip-settings" fill="outline">
+          <sl-menu-button aria-labelledby="tooltip-settings" fill="outline">
             <sl-icon name="far-gear" slot="button"></sl-icon>
             <sl-menu-item>
               <sl-icon name="far-pen"></sl-icon>
@@ -494,7 +511,7 @@ export const IconOnly: Story = {
           </sl-menu-button>
           <sl-tooltip id="tooltip-settings">Settings</sl-tooltip>
 
-          <sl-menu-button aria-describedby="tooltip-edit" fill="outline">
+          <sl-menu-button aria-labelledby="tooltip-edit" fill="outline">
             <sl-icon name="far-pen" slot="button"></sl-icon>
             <sl-menu-item>
               <sl-icon name="far-pen"></sl-icon>

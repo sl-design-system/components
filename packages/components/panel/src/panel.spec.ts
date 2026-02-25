@@ -342,21 +342,28 @@ describe('sl-panel', () => {
 
       await el.updateComplete;
 
-      // Allow styles and layout to settle
+      const body = el.renderRoot.querySelector('[part="body"]') as HTMLElement;
+      let transitionStarted = false;
+
+      const onTransition = () => {
+        transitionStarted = true;
+      };
+
+      body.addEventListener('transitionrun', onTransition);
+      body.addEventListener('transitionstart', onTransition);
+
+      // Allow styles and layout to settle and any potential initial transitions to start
       for (let i = 0; i < 3; i++) {
         await new Promise(resolve => requestAnimationFrame(resolve));
       }
 
-      const body = el.renderRoot.querySelector('[part="body"]') as HTMLElement,
-        style = getComputedStyle(body),
-        isNotAnimating =
-          style.transitionProperty === 'none' ||
-          (style.transitionProperty === 'all' && style.transitionDuration === '0s');
+      body.removeEventListener('transitionrun', onTransition);
+      body.removeEventListener('transitionstart', onTransition);
 
       expect(
-        isNotAnimating,
-        `Animation should NOT be active on initial render when collapsed is true, got: ${style.transitionProperty} ${style.transitionDuration}`
-      ).to.be.true;
+        transitionStarted,
+        'Animation should NOT start on initial render when collapsed is true'
+      ).to.be.false;
     });
 
     it('should animate normally when toggling after initialization', async () => {

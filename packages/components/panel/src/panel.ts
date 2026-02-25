@@ -101,7 +101,9 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.setAttribute('no-transition', '');
+    if (!this.hasUpdated) {
+      this.setAttribute('no-transition', '');
+    }
   }
 
   override willUpdate(changes: PropertyValues<this>): void {

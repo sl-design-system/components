@@ -212,7 +212,6 @@ describe('sl-panel', () => {
       await el.updateComplete;
 
       // As the final state is false (same as initial), no event should be emitted
-      console.log('ARGS', onToggle.args);
       expect(onToggle).not.to.have.been.called;
       expect(el.collapsed).not.to.be.true;
 
@@ -336,6 +335,18 @@ describe('sl-panel', () => {
       await new Promise(resolve => requestAnimationFrame(resolve));
 
       expect(el.hasAttribute('no-transition'), 'no-transition should be removed after initialization').to.be.false;
+    });
+
+    it('should NOT remove no-transition if it was provided by the user', async () => {
+      const el = await fixture<Panel>(
+        html`<sl-panel collapsible collapsed no-transition heading="Heading">Body content</sl-panel>`
+      );
+
+      await el.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      expect(el.hasAttribute('no-transition'), 'no-transition should STILL be present since the user provided it').to.be
+        .true;
     });
 
     it('should disable transitions when no-transition attribute is present', async () => {

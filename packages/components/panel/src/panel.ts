@@ -99,12 +99,14 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
   #toggleRafId?: number;
+  #addedNoTransitionInternally = false;
 
   override connectedCallback(): void {
     super.connectedCallback();
 
-    if (!this.hasUpdated) {
+    if (!this.hasUpdated && !this.hasAttribute('no-transition')) {
       this.setAttribute('no-transition', '');
+      this.#addedNoTransitionInternally = true;
     }
   }
 
@@ -137,7 +139,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
 
       // We need to wait for the first render to complete before we can enable transitions
       requestAnimationFrame(() => {
-        if (this.isConnected) {
+        if (this.isConnected && this.#addedNoTransitionInternally) {
           this.removeAttribute('no-transition');
         }
       });

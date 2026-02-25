@@ -312,9 +312,9 @@ describe('sl-panel', () => {
       }
       expect(el.hasAttribute('no-transition'), 'no-transition should be removed initially').to.be.false;
 
-      const body = el.renderRoot.querySelector('[part="body"]') as HTMLElement;
-      const initialProperty = getComputedStyle(body).transitionProperty;
-      const initialDuration = getComputedStyle(body).transitionDuration;
+      const body = el.renderRoot.querySelector('[part="body"]') as HTMLElement,
+            initialProperty = getComputedStyle(body).transitionProperty,
+            initialDuration = getComputedStyle(body).transitionDuration;
 
       el.setAttribute('no-transition', '');
       await el.updateComplete;

@@ -365,7 +365,7 @@ describe('sl-panel', () => {
       `;
       el.shadowRoot!.appendChild(fallbackStyle);
 
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 3; i++) {
         await new Promise(resolve => requestAnimationFrame(resolve));
       }
 

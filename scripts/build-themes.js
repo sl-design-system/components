@@ -180,6 +180,7 @@ const getThemes = async folder => {
       !f.endsWith('.json') &&
       !f.endsWith('_onhold') &&
       !f.endsWith('.tsgraph') &&
+      !f.endsWith('.DS_Store') &&
       !['I', 'II', 'device', 'placeholder', 'tokens', 'target-group'].includes(f)
   );
 

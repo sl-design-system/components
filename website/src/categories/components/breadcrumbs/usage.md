@@ -109,7 +109,7 @@ With these options, you can tweak the appearance of the breadcrumbs in Figma. Th
   
 |Item|Options|Description|
 |-|-|-|
-|Overflow|`boolean`|Indicates if the page is visble or truncated |
+|Overflow|`boolean`|Indicates if the page is visible or truncated |
 |State|`idle` `hover` `active` `current`|Indicates if the icon is visible|
 |Text|`value`|The title of the page|
 

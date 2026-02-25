@@ -337,9 +337,9 @@ describe('sl-panel', () => {
 
     it('should not animate on initial render when collapsed is true', async () => {
       let transitionStarted = false;
-      const el = await fixture<Panel>(html`<sl-panel collapsible collapsed heading="Heading">Body content</sl-panel>`);
-
-      const body = el.renderRoot.querySelector('[part="body"]') as HTMLElement;
+      const el = await fixture<Panel>(html`<sl-panel collapsible collapsed heading="Heading">Body content</sl-panel>`),
+            body = el.renderRoot.querySelector('[part="body"]') as HTMLElement;
+      
       body.addEventListener('transitionrun', () => {
         transitionStarted = true;
       });

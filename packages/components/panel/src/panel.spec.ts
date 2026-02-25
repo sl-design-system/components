@@ -310,19 +310,21 @@ describe('sl-panel', () => {
       for (let i = 0; i < 5; i++) {
         await new Promise(resolve => requestAnimationFrame(resolve));
       }
+
       expect(el.hasAttribute('no-transition'), 'no-transition should be removed initially').to.be.false;
 
       const body = el.renderRoot.querySelector('[part="body"]') as HTMLElement,
-            initialProperty = getComputedStyle(body).transitionProperty,
-            initialDuration = getComputedStyle(body).transitionDuration;
+        initialProperty = getComputedStyle(body).transitionProperty,
+        initialDuration = getComputedStyle(body).transitionDuration;
 
       el.setAttribute('no-transition', '');
       await el.updateComplete;
 
       const style = getComputedStyle(body),
-            isNone =
-        style.transitionProperty === 'none' ||
-        (style.transitionProperty === 'all' && style.transitionDuration === '0s');
+        isNone =
+          style.transitionProperty === 'none' ||
+          (style.transitionProperty === 'all' && style.transitionDuration === '0s');
+
       expect(
         isNone,
         `Transition should be disabled when no-transition attribute is present, got: ${style.transitionProperty} ${style.transitionDuration}`
@@ -338,8 +340,8 @@ describe('sl-panel', () => {
     it('should not animate on initial render when collapsed is true', async () => {
       let transitionStarted = false;
       const el = await fixture<Panel>(html`<sl-panel collapsible collapsed heading="Heading">Body content</sl-panel>`),
-            body = el.renderRoot.querySelector('[part="body"]') as HTMLElement;
-      
+        body = el.renderRoot.querySelector('[part="body"]') as HTMLElement;
+
       body.addEventListener('transitionrun', () => {
         transitionStarted = true;
       });
@@ -349,11 +351,19 @@ describe('sl-panel', () => {
       expect(transitionStarted, 'Animation should NOT have started on initial render').to.be.false;
     });
 
-    it('should animate normally when toggling after initialization (if supported)', async () => {
+    it('should animate normally when toggling after initialization', async () => {
       let transitionStarted = false;
       const el = await fixture<Panel>(html`<sl-panel collapsible heading="Heading">Body content</sl-panel>`);
 
       await el.updateComplete;
+
+      const fallbackStyle = document.createElement('style');
+      fallbackStyle.textContent = `
+        [part="body"] {
+          transition: grid-template-rows 300ms ease-in-out;
+        }
+      `;
+      el.shadowRoot!.appendChild(fallbackStyle);
 
       for (let i = 0; i < 5; i++) {
         await new Promise(resolve => requestAnimationFrame(resolve));
@@ -369,15 +379,7 @@ describe('sl-panel', () => {
 
       await new Promise(resolve => setTimeout(resolve, 200));
 
-      // Only assert if transitions are actually enabled in this environment
-      const style = getComputedStyle(body);
-      const transitionsEnabled = style.transitionDuration !== '0s' && style.transitionProperty !== 'none';
-
-      if (transitionsEnabled) {
-        expect(transitionStarted, 'Animation SHOULD start when toggling after initialization').to.be.true;
-      } else {
-        console.log('Skipping transition event assertion as transitions are disabled in this environment');
-      }
+      expect(transitionStarted, 'Animation SHOULD start when toggling after initialization').to.be.true;
     });
   });
 });

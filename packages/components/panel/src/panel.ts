@@ -180,7 +180,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   }
 
   /**
-   * Toggle's the collapsed state of the panel. This only does something if the panel is collapsible.
+   * Toggles the collapsed state of the panel. This only does something if the panel is collapsible.
    * @param force Whether to force the panel to be collapsed or expanded.
    */
   toggle(force: boolean = !this.collapsed): void {
@@ -190,7 +190,6 @@ export class Panel extends ScopedElementsMixin(LitElement) {
     // especially when toggling rapidly. This avoids visual glitches that can occur when the
     // DOM/state is updated synchronously.
     if (this.collapsed === nextState) {
-      this.toggleEvent.emit(this.collapsed);
       return;
     }
 

@@ -307,7 +307,7 @@ describe('sl-panel', () => {
     it('should disable transitions when no-transition attribute is present', async () => {
       const el = await fixture<Panel>(html`<sl-panel collapsible heading="Heading">Body content</sl-panel>`);
 
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 3; i++) {
         await new Promise(resolve => requestAnimationFrame(resolve));
       }
 

@@ -196,6 +196,40 @@ describe('sl-panel', () => {
       expect(onToggle).to.have.been.calledTwice;
       expect(onToggle.lastCall.args[0]).to.be.false;
     });
+
+    it('should not emit intermediate sl-toggle events on rapid successive toggle calls', async () => {
+      const onToggle = spy();
+
+      el.addEventListener('sl-toggle', (event: SlToggleEvent<boolean>) => {
+        onToggle(event.detail);
+      });
+
+      // Rapidly toggle true then false before the next animation frame
+      el.toggle(true);
+      el.toggle(false);
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
+
+      // As the final state is false (same as initial), no event should be emitted
+      console.log('ARGS', onToggle.args);
+      expect(onToggle).not.to.have.been.called;
+      expect(el.collapsed).not.to.be.true;
+
+      onToggle.resetHistory();
+
+      // Rapidly toggle true then true then true
+      el.toggle(true);
+      el.toggle(true);
+      el.toggle(true);
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
+
+      expect(onToggle).to.have.been.calledOnce;
+      expect(onToggle.lastCall.args[0]).to.be.true;
+      expect(el.collapsed).to.be.true;
+    });
   });
 
   describe('slotted elements', () => {

@@ -98,6 +98,8 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   /** @internal Emits when the panel expands/collapses. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
+  #toggleRafId?: number;
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -193,9 +195,14 @@ export class Panel extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    requestAnimationFrame(() => {
+    if (this.#toggleRafId !== undefined) {
+      cancelAnimationFrame(this.#toggleRafId);
+    }
+
+    this.#toggleRafId = requestAnimationFrame(() => {
       this.collapsed = nextState;
       this.toggleEvent.emit(this.collapsed);
+      this.#toggleRafId = undefined;
     });
   }
 

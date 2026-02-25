@@ -340,8 +340,6 @@ describe('sl-panel', () => {
     it('should not animate on initial render when collapsed is true', async () => {
       const el = await fixture<Panel>(html`<sl-panel collapsible collapsed heading="Heading">Body content</sl-panel>`);
 
-      await el.updateComplete;
-
       const body = el.renderRoot.querySelector('[part="body"]') as HTMLElement;
       let transitionStarted = false;
 
@@ -360,10 +358,7 @@ describe('sl-panel', () => {
       body.removeEventListener('transitionrun', onTransition);
       body.removeEventListener('transitionstart', onTransition);
 
-      expect(
-        transitionStarted,
-        'Animation should NOT start on initial render when collapsed is true'
-      ).to.be.false;
+      expect(transitionStarted, 'Animation should NOT start on initial render when collapsed is true').to.be.false;
     });
 
     it('should animate normally when toggling after initialization', async () => {

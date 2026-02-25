@@ -116,11 +116,17 @@ export class Panel extends ScopedElementsMixin(LitElement) {
     super.firstUpdated(changes);
 
     requestAnimationFrame(() => {
+      if (!this.isConnected) {
+        return;
+      }
+
       this.#onHeaderSlotChange();
 
       // We need to wait for the first render to complete before we can enable transitions
       requestAnimationFrame(() => {
-        this.removeAttribute('no-transition');
+        if (this.isConnected) {
+          this.removeAttribute('no-transition');
+        }
       });
     });
   }

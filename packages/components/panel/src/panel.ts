@@ -176,8 +176,20 @@ export class Panel extends ScopedElementsMixin(LitElement) {
    * @param force Whether to force the panel to be collapsed or expanded.
    */
   toggle(force: boolean = !this.collapsed): void {
-    this.collapsed = force;
-    this.toggleEvent.emit(this.collapsed);
+    const nextState = force;
+
+    // Schedule the state change on the next animation frame to keep CSS transitions smooth,
+    // especially when toggling rapidly. This avoids visual glitches that can occur when the
+    // DOM/state is updated synchronously.
+    if (this.collapsed === nextState) {
+      this.toggleEvent.emit(this.collapsed);
+      return;
+    }
+
+    requestAnimationFrame(() => {
+      this.collapsed = nextState;
+      this.toggleEvent.emit(this.collapsed);
+    });
   }
 
   #onHeaderSlotChange(): void {

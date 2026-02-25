@@ -98,13 +98,11 @@ const preview: Preview = {
         rules: [
           {
             id: 'aria-valid-attr-value',
-            selector: '[aria-controls][aria-haspopup]',
-            enabled: false
+            selector: '*:not([aria-controls][aria-haspopup])'
           },
           {
             id: 'color-contrast',
-            selector: ':not([disabled]):not([aria-disabled="true"])',
-            enabled: false
+            selector: '*:not([aria-disabled="true"], [disabled])'
           }
         ]
       },

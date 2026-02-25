@@ -319,8 +319,8 @@ describe('sl-panel', () => {
       el.setAttribute('no-transition', '');
       await el.updateComplete;
 
-      const style = getComputedStyle(body);
-      const isNone =
+      const style = getComputedStyle(body),
+            isNone =
         style.transitionProperty === 'none' ||
         (style.transitionProperty === 'all' && style.transitionDuration === '0s');
       expect(

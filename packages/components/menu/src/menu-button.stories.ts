@@ -260,7 +260,7 @@ export const WithTooltips: Story = {
           Delete...
         </sl-menu-item>
       </sl-menu-button>
-      <sl-tooltip id="tooltip-settings-1">Open settings menu</sl-tooltip>
+      <sl-tooltip id="tooltip-settings-1" position="bottom">Open settings menu</sl-tooltip>
 
       <sl-menu-button aria-describedby="tooltip-edit-1" fill="outline" size="lg">
         <sl-icon name="far-pen" slot="button"></sl-icon>
@@ -274,7 +274,7 @@ export const WithTooltips: Story = {
           Delete...
         </sl-menu-item>
       </sl-menu-button>
-      <sl-tooltip id="tooltip-edit-1">Open edit menu</sl-tooltip>
+      <sl-tooltip id="tooltip-edit-1" position="bottom">Open edit menu</sl-tooltip>
     </div>
   `
 };

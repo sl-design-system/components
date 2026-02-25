@@ -147,7 +147,7 @@ export class Tooltip extends LitElement {
       else parent = parent.parentNode as HTMLElement | null;
     }
     return [];
-  };
+  }; // TODO: we should close the tooltip when popover opens e.g. in the menu component, but we should not close it when a tooltip opens. We can check if the relatedTarget is a tooltip or a child of the tooltip, and if so, we should not close the tooltip.
 
   #onHide = (event: Event): void => {
     let toTooltip = false;

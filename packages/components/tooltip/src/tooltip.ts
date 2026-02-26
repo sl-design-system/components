@@ -161,6 +161,36 @@ export class Tooltip extends LitElement {
     );
   };
 
+  /**
+   * Find the anchor element for a given event. First checks the composed path directly,
+   * then searches inside shadow roots of elements in the path. This handles cases where
+   * the pointer is over a host element (e.g. `sl-menu-button`) but the actual anchor
+   * (e.g. `sl-button` with `ariaDescribedByElements`) is inside its shadow DOM.
+   */
+  #findAnchorInEvent = (event: Event): HTMLElement | undefined => {
+    const path = event.composedPath();
+
+    // First check elements directly in the composed path
+    const direct = path.find(el => el instanceof Element && this.#matchesAnchor(el)) as HTMLElement | undefined;
+
+    if (direct) {
+      return direct;
+    }
+
+    // Check inside shadow roots of elements in the path
+    for (const el of path) {
+      if (el instanceof Element && el.shadowRoot) {
+        const anchor = Array.from(el.shadowRoot.querySelectorAll('*')).find(child => this.#matchesAnchor(child));
+
+        if (anchor) {
+          return anchor as HTMLElement;
+        }
+      }
+    }
+
+    return undefined;
+  };
+
   #getParentsUntil = (element: Element, selector: string) => {
     const parents: Element[] = [];
     let parent = element?.parentNode as HTMLElement | null;
@@ -192,9 +222,7 @@ export class Tooltip extends LitElement {
     }
 
     // Check if event target or any element in composed path (for shadow DOM) matches the anchor
-    const matchesAnchor =
-      this.#matchesAnchor(event.target as Element) ||
-      event.composedPath().some(el => el instanceof Element && this.#matchesAnchor(el));
+    const matchesAnchor = !!this.#findAnchorInEvent(event);
 
     if ((matchesAnchor && !toTooltip) || fromTooltip) {
       this.hidePopover();
@@ -219,9 +247,7 @@ export class Tooltip extends LitElement {
   };
 
   #onShow = (event: Event): void => {
-    const anchorElement = event.composedPath().find(el => el instanceof Element && this.#matchesAnchor(el)) as
-      | HTMLElement
-      | undefined;
+    const anchorElement = this.#findAnchorInEvent(event);
 
     if (!anchorElement) {
       return;

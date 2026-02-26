@@ -798,6 +798,37 @@ describe('sl-combobox', () => {
       });
     });
 
+    describe('disabled', () => {
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-combobox multiple disabled .value=${['Option 1', 'Option 2']}>
+            <sl-listbox>
+              <sl-option>Option 1</sl-option>
+              <sl-option>Option 2</sl-option>
+              <sl-option>Option 3</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+      });
+
+      it('should not set aria-hidden on sl-tag elements when disabled', () => {
+        const tags = Array.from(el.renderRoot.querySelectorAll('sl-tag'));
+
+        expect(tags).to.have.lengthOf(2);
+        expect(tags.every(tag => tag.hasAttribute('aria-hidden'))).to.be.false;
+      });
+
+      it('should set aria-hidden on sl-tag elements when not disabled', async () => {
+        el.disabled = false;
+        await el.updateComplete;
+
+        const tags = Array.from(el.renderRoot.querySelectorAll('sl-tag'));
+
+        expect(tags).to.have.lengthOf(2);
+        expect(tags.every(tag => tag.getAttribute('aria-hidden') === 'true')).to.be.true;
+      });
+    });
+
     describe('tags', () => {
       beforeEach(async () => {
         el = await fixture(html`

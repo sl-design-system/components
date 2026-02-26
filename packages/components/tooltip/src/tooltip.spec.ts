@@ -419,6 +419,70 @@ describe('sl-tooltip', () => {
     });
   });
 
+  describe('with an open popover', () => {
+    let popover: HTMLDivElement;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <div style="block-size: 400px; inline-size: 400px;">
+          <sl-button aria-describedby="tooltip">Button</sl-button>
+          <sl-tooltip id="tooltip">Tooltip message</sl-tooltip>
+          <div id="my-popover" popover="manual">
+            <button id="popover-btn">Inside popover</button>
+          </div>
+        </div>
+      `);
+
+      button = el.querySelector('sl-button') as Button;
+      tooltip = el.querySelector('sl-tooltip') as Tooltip;
+      popover = el.querySelector('#my-popover') as HTMLDivElement;
+    });
+
+    it('should not show tooltip on pointerover from inside an open popover', async () => {
+      popover.showPopover();
+
+      const popoverBtn = popover.querySelector('#popover-btn') as HTMLButtonElement;
+
+      popoverBtn.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
+      await tooltip.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(tooltip).not.to.match(':popover-open');
+    });
+
+    it('should not show tooltip on focusin from inside an open popover', async () => {
+      popover.showPopover();
+
+      const popoverBtn = popover.querySelector('#popover-btn') as HTMLButtonElement;
+
+      popoverBtn.focus();
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(tooltip).not.to.match(':popover-open');
+    });
+
+    it('should show tooltip on pointerover when popover is closed', async () => {
+      popover.showPopover();
+      popover.hidePopover();
+
+      button.dispatchEvent(new Event('pointerover', { bubbles: true }));
+      await tooltip.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(tooltip).to.match(':popover-open');
+    });
+
+    it('should show tooltip on pointerover on the button even when popover is open', async () => {
+      popover.showPopover();
+
+      button.dispatchEvent(new Event('pointerover', { bubbles: true }));
+      await tooltip.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(tooltip).to.match(':popover-open');
+    });
+  });
+
   describe('Tooltip lazy()', () => {
     let el: HTMLElement;
     let button: Button;

@@ -98,7 +98,10 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   /** @internal Emits when the panel expands/collapses. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
+  /** Tracks the active requestAnimationFrame ID for state updates to allow debouncing/cancellations on rapid toggles. */
   #toggleRafId?: number;
+
+  /** Tracks whether the `no-transition` attribute was added by the component's internal lifecycle rather than a user. */
   #addedNoTransitionInternally = false;
 
   override connectedCallback(): void {

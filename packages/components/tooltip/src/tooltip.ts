@@ -177,13 +177,19 @@ export class Tooltip extends LitElement {
       return direct;
     }
 
-    // Check inside shadow roots of elements in the path
     for (const el of path) {
       if (el instanceof Element && el.shadowRoot) {
-        const anchor = Array.from(el.shadowRoot.querySelectorAll('*')).find(child => this.#matchesAnchor(child));
+        const ariaSelector = `[aria-describedby~="${this.id}"], [aria-labelledby~="${this.id}"]`,
+          ariaMatch = el.shadowRoot.querySelector(ariaSelector);
 
-        if (anchor) {
-          return anchor as HTMLElement;
+        if (ariaMatch && this.#matchesAnchor(ariaMatch)) {
+          return ariaMatch as HTMLElement;
+        }
+
+        for (const child of el.shadowRoot.children) {
+          if (this.#matchesAnchor(child)) {
+            return child as HTMLElement;
+          }
         }
       }
     }

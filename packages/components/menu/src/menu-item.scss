@@ -57,11 +57,23 @@
   }
 }
 
+:host([variant='danger'][selected]) {
+  --sl-menu-item-indent: 0;
+  --_bg-color: var(--sl-color-background-negative-subtle);
+}
+
 :host([emphasis='bold'][variant='danger']):not([disabled]) {
   --_bg-color: var(--sl-color-background-negative-bold);
   --_bg-mix-color: var(--sl-color-background-negative-interactive-bold);
 
-  color: var(--sl-color-foreground-selected-onBold);
+  color: var(--sl-color-foreground-negative-onBold);
+}
+
+:host([emphasis='bold'][variant='danger'][selected]) {
+  --_bg-color: var(--sl-color-background-negative-bold);
+  --_bg-mix-color: var(--sl-color-background-negative-interactive-bold);
+
+  color: var(--sl-color-foreground-negative-onBold);
 }
 
 :host([disabled]) {

@@ -253,6 +253,16 @@ export class Tooltip extends LitElement {
       return;
     }
 
+    // Don't show the tooltip if the event comes from inside an open popover
+    // (e.g. hovering over or focusing a menu item in an open menu that belongs to the anchor)
+    const isInsideOpenPopover = event
+      .composedPath()
+      .some(el => el instanceof HTMLElement && el !== this && isPopoverOpen(el));
+
+    if (isInsideOpenPopover) {
+      return;
+    }
+
     // For hover events
     if (event.type === 'pointerover') {
       this.#showTooltip(anchorElement);

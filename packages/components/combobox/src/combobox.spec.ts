@@ -338,6 +338,18 @@ describe('sl-combobox', () => {
         expect(input).to.have.attribute('aria-controls', el.querySelector('sl-listbox')?.id);
       });
     });
+
+    it('should not have has-selected-items attribute when interacting with an empty combobox', async () => {
+      expect(el).not.to.have.attribute('has-selected-items');
+
+      input.click();
+      await el.updateComplete;
+
+      input.blur();
+      await el.updateComplete;
+
+      expect(el).not.to.have.attribute('has-selected-items');
+    });
   });
 
   describe('allow custom values', () => {

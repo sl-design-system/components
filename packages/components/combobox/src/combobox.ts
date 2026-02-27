@@ -352,7 +352,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     if (changes.has('selectedItems')) {
       // Workaround for Safari not allowing `::slotted(input)::placeholder`
       // See https://bugs.webkit.org/show_bug.cgi?id=223814
-      this.toggleAttribute('has-selected-items', this.multiple && this.selectedItems.length > 0);
+      this.toggleAttribute('has-selected-items', Boolean(this.multiple && this.selectedItems.length > 0));
       if (this.items.length) {
         this.#updateTextFieldValue(!this.#isInitialRender);
         this.#updateValue();

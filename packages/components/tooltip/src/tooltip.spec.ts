@@ -1,5 +1,7 @@
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
+import { Menu, MenuButton } from '@sl-design-system/menu';
+import '@sl-design-system/menu/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
@@ -420,62 +422,78 @@ describe('sl-tooltip', () => {
   });
 
   describe('with an open popover', () => {
-    let popover: HTMLDivElement;
+    let menuButton: MenuButton;
+    let innerButton: Button;
+    let menu: Menu;
 
     beforeEach(async () => {
       el = await fixture(html`
         <div style="block-size: 400px; inline-size: 400px;">
-          <sl-button aria-describedby="tooltip">Button</sl-button>
-          <sl-tooltip id="tooltip">Tooltip message</sl-tooltip>
-          <div id="my-popover" popover="manual">
-            <button id="popover-btn">Inside popover</button>
-          </div>
+          <sl-menu-button aria-describedby="tooltip" fill="outline">
+            <span slot="button">Settings</span>
+            <sl-menu-item>Rename...</sl-menu-item>
+            <sl-menu-item>Delete...</sl-menu-item>
+          </sl-menu-button>
+          <sl-tooltip id="tooltip">Open settings menu</sl-tooltip>
         </div>
       `);
 
-      button = el.querySelector('sl-button') as Button;
+      menuButton = el.querySelector('sl-menu-button') as MenuButton;
       tooltip = el.querySelector('sl-tooltip') as Tooltip;
-      popover = el.querySelector('#my-popover') as HTMLDivElement;
-    });
 
-    it('should not show tooltip on pointerover from inside an open popover', async () => {
-      popover.showPopover();
-
-      const popoverBtn = popover.querySelector('#popover-btn') as HTMLButtonElement;
-
-      popoverBtn.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
-      await tooltip.updateComplete;
+      // Wait for menu-button to set up aria references on the inner button
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      expect(tooltip).not.to.match(':popover-open');
+      innerButton = menuButton.shadowRoot!.querySelector('sl-button') as Button;
+      menu = menuButton.shadowRoot!.querySelector('sl-menu') as Menu;
     });
 
-    it('should not show tooltip on focusin from inside an open popover', async () => {
-      popover.showPopover();
-
-      const popoverBtn = popover.querySelector('#popover-btn') as HTMLButtonElement;
-
-      popoverBtn.focus();
-      await new Promise(resolve => setTimeout(resolve, 100));
-
-      expect(tooltip).not.to.match(':popover-open');
-    });
-
-    it('should show tooltip on pointerover when popover is closed', async () => {
-      popover.showPopover();
-      popover.hidePopover();
-
-      button.dispatchEvent(new Event('pointerover', { bubbles: true }));
+    it('should show tooltip on pointerover of the menu-button', async () => {
+      menuButton.dispatchEvent(new Event('pointerover', { bubbles: true }));
       await tooltip.updateComplete;
       await new Promise(resolve => setTimeout(resolve));
 
       expect(tooltip).to.match(':popover-open');
     });
 
-    it('should show tooltip on pointerover on the button even when popover is open', async () => {
-      popover.showPopover();
+    it('should not show tooltip on pointerover of a menu item when the menu is open', async () => {
+      innerButton.click();
+      await new Promise(resolve => setTimeout(resolve, 50));
 
-      button.dispatchEvent(new Event('pointerover', { bubbles: true }));
+      expect(menu).to.match(':popover-open');
+
+      const menuItem = el.querySelector('sl-menu-item') as HTMLElement;
+
+      menuItem.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
+      await tooltip.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(tooltip).not.to.match(':popover-open');
+    });
+
+    it('should not show tooltip on focusin of a menu item when the menu is open', async () => {
+      innerButton.click();
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(menu).to.match(':popover-open');
+
+      const menuItem = el.querySelector('sl-menu-item') as HTMLElement;
+
+      menuItem.focus();
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(tooltip).not.to.match(':popover-open');
+    });
+
+    it('should show tooltip on pointerover of the menu-button after the menu is closed', async () => {
+      innerButton.click();
+      await new Promise(resolve => setTimeout(resolve, 50));
+      innerButton.click();
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(menu).not.to.match(':popover-open');
+
+      menuButton.dispatchEvent(new Event('pointerover', { bubbles: true }));
       await tooltip.updateComplete;
       await new Promise(resolve => setTimeout(resolve));
 

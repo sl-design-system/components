@@ -34,19 +34,19 @@ export const icons = {
     value: 'caret-down',
     type: 'Icons',
     description: 'icon.core.caret-down-solid',
-    svg: '<svg viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg"><path d="M352 160c12.9 0 24.6 7.8 29.6 19.8s2.2 25.7-6.9 34.9l-160 160c-12.5 12.5-32.8 12.5-45.3 0l-160-160c-9.2-9.2-11.9-22.9-6.9-34.9S19.1 160 32 160l320 0z" fill="var(--sl-icon-fill-default)"></path></svg>'
+    svg: '<svg viewBox="0 0 320 512" xmlns="http://www.w3.org/2000/svg"><path d="M140.3 376.8c12.6 10.2 31.1 9.5 42.8-2.2l128-128c9.2-9.2 11.9-22.9 6.9-34.9S301.4 192 288.5 192l-256 0c-12.9 0-24.6 7.8-29.6 19.8S.7 237.5 9.9 246.6l128 128 2.4 2.2z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
   'caret-left-solid': {
     value: 'caret-left',
     type: 'Icons',
     description: 'icon.core.caret-left-solid',
-    svg: '<svg viewBox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><path d="M224 96c0-12.9-7.8-24.6-19.8-29.6s-25.7-2.2-34.9 6.9l-160 160c-12.5 12.5-12.5 32.8 0 45.3l160 160c9.2 9.2 22.9 11.9 34.9 6.9S224 428.9 224 416l0-320z" fill="var(--sl-icon-fill-default)"></path></svg>'
+    svg: '<svg viewBox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><path d="M7.7 235.8c-10.3 12.6-9.5 31.1 2.2 42.8l128 128c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6l0-256c0-12.9-7.8-24.6-19.8-29.6s-25.7-2.2-34.9 6.9l-128 128-2.2 2.4z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
   'caret-right-solid': {
     value: 'caret-right',
     type: 'Icons',
     description: 'icon.core.caret-right-solid',
-    svg: '<svg viewBox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><path d="M32.5 96c0-12.9 7.8-24.6 19.8-29.6S78 64.2 87.1 73.4l160 160c12.5 12.5 12.5 32.8 0 45.3l-160 160c-9.2 9.2-22.9 11.9-34.9 6.9S32.5 428.9 32.5 416l0-320z" fill="var(--sl-icon-fill-default)"></path></svg>'
+    svg: '<svg viewBox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><path d="M249.3 235.8c10.2 12.6 9.5 31.1-2.2 42.8l-128 128c-9.2 9.2-22.9 11.9-34.9 6.9S64.5 396.9 64.5 384l0-256c0-12.9 7.8-24.6 19.8-29.6s25.7-2.2 34.9 6.9l128 128 2.2 2.4z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
   check: {
     value: 'check',

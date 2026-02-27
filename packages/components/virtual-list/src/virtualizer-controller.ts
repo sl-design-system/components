@@ -26,6 +26,12 @@ export class VirtualizerController<TScrollElement extends Element | Window, TIte
   /** Cleanup function to be called when disconnected. */
   #cleanup: () => void = () => {};
 
+  /** Whether the controller has been disposed. */
+  #disposed = false;
+
+  /** Whether user provided a custom scrollMargin value. */
+  #hasCustomScrollMargin = false;
+
   /** The host element. */
   #host: ReactiveControllerHost & HTMLElement;
 
@@ -37,6 +43,9 @@ export class VirtualizerController<TScrollElement extends Element | Window, TIte
 
   /** The virtualizer instance. */
   #virtualizer!: Virtualizer<Element, TItemElement> | Virtualizer<Window, TItemElement>;
+
+  /** The ID of the pending scrollMargin update task. */
+  #updateTaskId?: number;
 
   /** Get the virtualizer instance. */
   get instance(): Virtualizer<Element, TItemElement> | Virtualizer<Window, TItemElement> {
@@ -54,6 +63,8 @@ export class VirtualizerController<TScrollElement extends Element | Window, TIte
   }
 
   hostConnected(): void {
+    // Reinitialize on every connect to pick up correct scroll parent.
+    // This handles the case where element was moved in DOM between connects.
     this.#initialize();
   }
 
@@ -73,7 +84,10 @@ export class VirtualizerController<TScrollElement extends Element | Window, TIte
 
     const resolvedOptions = { ...this.instance?.options, ...options };
 
-    if (this.#scrollElement === document.documentElement) {
+    // Check if we're using window scrolling (scroll parent is document.documentElement or document.body)
+    const isWindowScroll = this.#scrollElement === document.documentElement || this.#scrollElement === document.body;
+
+    if (isWindowScroll) {
       (this.instance as Virtualizer<Window, TItemElement>).setOptions(
         resolvedOptions as VirtualizerOptions<Window, TItemElement>
       );
@@ -85,6 +99,9 @@ export class VirtualizerController<TScrollElement extends Element | Window, TIte
   }
 
   #initialize(): void {
+    this.#disposed = false;
+    this.#updateTaskId = undefined;
+
     const options = {
       ...this.#options,
       onChange: (instance: Virtualizer<Element, TItemElement> | Virtualizer<Window, TItemElement>, sync: boolean) => {
@@ -95,17 +112,94 @@ export class VirtualizerController<TScrollElement extends Element | Window, TIte
     };
 
     this.#scrollElement = getScrollParent(this.#host);
-    if (this.#scrollElement === document.documentElement) {
+
+    // Check if we're using window scrolling (scroll parent is document.documentElement or document.body)
+    const isWindowScroll = this.#scrollElement === document.documentElement || this.#scrollElement === document.body;
+
+    if (isWindowScroll) {
+      const getOffset = () => {
+        const rect = this.#host.getBoundingClientRect();
+        return rect.top + window.scrollY;
+      };
+
+      // Track if user explicitly provided scrollMargin
+      this.#hasCustomScrollMargin = options.scrollMargin !== undefined;
+      const initialScrollMargin = options.scrollMargin ?? getOffset();
+
       const resolvedOptions: VirtualizerOptions<Window, TItemElement> = {
         ...options,
         getScrollElement: () => window,
         observeElementRect: observeWindowRect,
         observeElementOffset: observeWindowOffset,
+        scrollMargin: initialScrollMargin,
         scrollToFn: windowScroll,
         initialOffset: () => (typeof document !== 'undefined' ? window.scrollY : 0)
       } as VirtualizerOptions<Window, TItemElement>;
 
       this.#virtualizer = new Virtualizer(resolvedOptions);
+
+      // Core scrollMargin update logic
+      const doUpdateScrollMargin = () => {
+        const virtualizer = this.#virtualizer as Virtualizer<Window, TItemElement>;
+
+        // Skip if disposed, already pending update, or user provided custom scrollMargin
+        if (this.#disposed || this.#updateTaskId || this.#hasCustomScrollMargin) {
+          return;
+        }
+
+        this.#updateTaskId = requestAnimationFrame(() => {
+          this.#updateTaskId = undefined;
+
+          if (this.#disposed) {
+            return;
+          }
+
+          const newMargin = getOffset();
+          if (Math.abs(newMargin - (virtualizer.options.scrollMargin || 0)) > 1) {
+            virtualizer.setOptions({
+              ...virtualizer.options,
+              scrollMargin: newMargin
+            });
+          }
+        });
+      };
+
+      // ResizeObserver handler - skips during scroll to prevent mobile jumping
+      const onResize = () => {
+        const virtualizer = this.#virtualizer as Virtualizer<Window, TItemElement>;
+        if (!virtualizer.isScrolling) {
+          doUpdateScrollMargin();
+        }
+      };
+
+      // Window resize handler - always updates (for devtools/layout changes)
+      const onWindowResize = () => {
+        doUpdateScrollMargin();
+      };
+
+      // ResizeObserver to detect layout changes that affect element position
+      const resizeObserver = new ResizeObserver(onResize);
+      resizeObserver.observe(this.#host);
+
+      if (this.#host.parentElement) {
+        resizeObserver.observe(this.#host.parentElement);
+      }
+
+      // Window resize always triggers update
+      window.addEventListener('resize', onWindowResize);
+
+      const originalCleanup = this.instance._didMount();
+      this.#cleanup = () => {
+        this.#disposed = true;
+        if (this.#updateTaskId) {
+          cancelAnimationFrame(this.#updateTaskId);
+        }
+        window.removeEventListener('resize', onWindowResize);
+        resizeObserver.disconnect();
+        originalCleanup();
+      };
+
+      return;
     } else {
       const resolvedOptions: VirtualizerOptions<Element, TItemElement> = {
         ...options,

@@ -4,7 +4,7 @@ import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { Popover } from '@sl-design-system/popover';
 import { Tooltip } from '@sl-design-system/tooltip';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './breadcrumbs.scss.js';
@@ -47,9 +47,16 @@ const isMobile = (): boolean => matchMedia('(width <= 600px)').matches;
  * A component to display a breadcrumb trail.
  *
  * @slot default - The breadcrumbs to display.
+ * @slot home - Custom home link element.
+ * @slot tooltips - Internal slot for tooltip elements managed by the component.
  */
 @localized()
 export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
+  static override shadowRootOptions: ShadowRootInit = {
+    ...LitElement.shadowRootOptions,
+    slotAssignment: 'manual'
+  };
+
   /**
    * When true, doesn't show a home label in the first breadcrumb next to the home icon.
    *
@@ -87,14 +94,26 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** @internal Because of the manual slot assignment we need to observe mutations */
+  #mutationObserver = new MutationObserver(() => this.#onMutation());
+
   /**
    * Observe changes in size, so we can check whether we need to show tooltips
    * for truncated links.
    */
   #observer = new ResizeObserver(() => this.#update());
 
+  /** Map to keep track of cleanup functions for tooltips associated with breadcrumb links. */
+  #tooltipCleanupFunctions = new Map<HTMLElement, () => void>();
+
+  /** Flag to prevent multiple simultaneous updates. */
+  #updateScheduled = false;
+
   /** @internal The slotted breadcrumbs. */
-  @state() breadcrumbs: Breadcrumb[] = [];
+  @state() breadcrumbLinks: HTMLElement[] = [];
+
+  /** @internal The slotted custom home link, if any. */
+  @state() customHomeLink: HTMLElement | undefined = undefined;
 
   /** @internal The threshold for when breadcrumbs should be collapsed into a menu. */
   @state() collapseThreshold = COLLAPSE_THRESHOLD;
@@ -139,43 +158,61 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
     this.setAttribute('role', 'navigation');
 
     this.#observer.observe(this);
+    this.#mutationObserver.observe(this, {
+      childList: true
+    });
   }
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
+    this.#mutationObserver.disconnect();
 
-    this.breadcrumbs.forEach(breadcrumb => {
-      if (breadcrumb.tooltip instanceof Tooltip) {
-        breadcrumb.tooltip.remove();
-      } else if (breadcrumb.tooltip) {
-        breadcrumb.tooltip();
-      }
+    // Call cleanup functions to remove event listeners before removing tooltips
+    this.#tooltipCleanupFunctions.forEach(cleanup => cleanup());
+    this.#tooltipCleanupFunctions.clear();
+
+    // Clean up any tooltips projected into or assigned to the "tooltips" slot to avoid memory leaks.
+    const tooltipsSlot = this.renderRoot?.querySelector<HTMLSlotElement>('slot[name="tooltips"]');
+
+    if (tooltipsSlot) {
+      tooltipsSlot.assignedElements({ flatten: true }).forEach(tooltip => {
+        tooltip.remove();
+      });
+    }
+
+    // Also remove any light DOM elements explicitly using slot="tooltips" for backwards compatibility.
+    this.querySelectorAll('[slot="tooltips"]').forEach(tooltip => {
+      tooltip.remove();
     });
-    this.breadcrumbs = [];
 
     super.disconnectedCallback();
   }
 
   override render(): TemplateResult {
     return html`
+      <slot name="tooltips"></slot>
       <ul>
         ${this.noHome
           ? nothing
           : html`
               <li class="home">
-                <a
-                  href=${this.homeUrl}
-                  aria-label=${ifDefined(
-                    isMobile() || this.hideHomeLabel ? msg('Home', { id: 'sl.breadcrumbs.home' }) : undefined
-                  )}
-                >
-                  <sl-icon name="home-blank"></sl-icon>
-                  ${isMobile() || this.hideHomeLabel ? '' : msg('Home', { id: 'sl.breadcrumbs.home' })}
-                </a>
+                ${!this.customHomeLink
+                  ? html`
+                      <a
+                        href=${this.homeUrl}
+                        aria-label=${ifDefined(
+                          isMobile() || this.hideHomeLabel ? msg('Home', { id: 'sl.breadcrumbs.home' }) : undefined
+                        )}
+                      >
+                        <sl-icon name="home-blank"></sl-icon>
+                        ${isMobile() || this.hideHomeLabel ? '' : msg('Home', { id: 'sl.breadcrumbs.home' })}
+                      </a>
+                    `
+                  : html`<slot name="home"></slot>`}
               </li>
               <sl-icon name="breadcrumb-separator"></sl-icon>
             `}
-        ${this.breadcrumbs.length > this.collapseThreshold
+        ${this.breadcrumbLinks.length > this.collapseThreshold
           ? html`
               <li class="more-menu">
                 <sl-button
@@ -188,84 +225,143 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
                   <sl-icon name="ellipsis"></sl-icon>
                 </sl-button>
                 <sl-popover anchor="button">
-                  ${this.breadcrumbs
+                  ${this.breadcrumbLinks
                     .slice(0, -this.collapseThreshold)
-                    .map(({ url, label }) => (url ? html`<a href=${url}>${label}</a>` : label))}
+                    .map((_, index) => html`<slot name="breadcrumb-menu-${index}"></slot>` as TemplateResult)}
                 </sl-popover>
               </li>
               <sl-icon name="breadcrumb-separator"></sl-icon>
             `
           : nothing}
-        ${this.breadcrumbs
-          .filter(({ collapsed }) => !collapsed)
-          .map(({ url, label }, index, array) =>
-            url
-              ? html`
-                  <li>
-                    <a aria-current=${ifDefined(index === array.length - 1 ? 'page' : undefined)} href=${url}>
-                      ${label}
-                    </a>
-                  </li>
-                  ${index < array.length - 1 ? html`<sl-icon name="breadcrumb-separator"></sl-icon>` : nothing}
-                `
-              : html`<li>${label}</li>`
-          )}
+        ${this.breadcrumbLinks.slice(Math.max(0, this.breadcrumbLinks.length - this.collapseThreshold)).map(
+          (_, index, array) => html`
+            <li><slot name="breadcrumb-${index}"></slot></li>
+            ${index < array.length - 1 ? html`<sl-icon name="breadcrumb-separator"></sl-icon>` : nothing}
+          `
+        )}
       </ul>
-      <slot @slotchange=${this.#onSlotchange} style="display:none"></slot>
     `;
   }
 
-  override willUpdate(changes: PropertyValues<this>): void {
-    super.willUpdate(changes);
-
-    if (changes.has('breadcrumbs') || changes.has('collapseThreshold')) {
-      this.breadcrumbs = this.breadcrumbs.map((breadcrumb, index) => {
-        const collapsed =
-          this.breadcrumbs.length > this.collapseThreshold && index < this.breadcrumbs.length - this.collapseThreshold;
-
-        return { ...breadcrumb, collapsed };
-      });
-    }
+  override firstUpdated(): void {
+    // Process initial light DOM children after first render
+    this.#processChildren();
+    // Perform slot assignments after first render
+    this.#assignSlots();
   }
 
   #onClick = (): void => {
     this.renderRoot.querySelector('sl-popover')?.togglePopover();
   };
 
-  #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
-    this.breadcrumbs = event.target.assignedElements({ flatten: true }).map(element => {
-      return {
-        label: element.textContent?.trim() || '',
-        url: element.getAttribute('href') ?? undefined
-      };
+  #processChildren(): void {
+    const children = Array.from(this.children);
+
+    // Filter for elements without a slot attribute (default slot content)
+    this.breadcrumbLinks = children
+      .filter(el => !el.hasAttribute('slot') && !(el instanceof Tooltip))
+      .map(el => el as HTMLElement);
+    this.customHomeLink = children.find(el => el.getAttribute('slot') === 'home') as HTMLElement | undefined;
+  }
+
+  #assignSlots(): void {
+    requestAnimationFrame(() => {
+      if (this.customHomeLink) {
+        const slot = this.renderRoot.querySelector('slot[name="home"]') as HTMLSlotElement;
+        slot?.assign(this.customHomeLink);
+      }
+      // Assign breadcrumb links to either the menu area based on the collapse threshold
+      this.breadcrumbLinks.slice(0, -this.collapseThreshold).forEach((link, index) => {
+        const slot = this.renderRoot.querySelector(`slot[name="breadcrumb-menu-${index}"]`) as HTMLSlotElement;
+        link.removeAttribute('aria-current');
+        if (link.hasAttribute('data-has-tooltip') && link.hasAttribute('aria-describedby')) {
+          // Note: No need to call cleanup() here - it was already called when the tooltip was created
+          this.#tooltipCleanupFunctions.delete(link);
+
+          const tooltipsSlot = this.renderRoot.querySelector('slot[name="tooltips"]') as HTMLSlotElement;
+          const tooltip = tooltipsSlot
+            .assignedElements()
+            .find(el => el.id === link.getAttribute('aria-describedby')) as Tooltip | undefined;
+          tooltip?.remove();
+          link.removeAttribute('data-has-tooltip');
+          link.removeAttribute('aria-describedby');
+        }
+        slot?.assign(link);
+      });
+
+      // Assign the remaining breadcrumb links to the main breadcrumb area and set aria-current on the last one
+      this.breadcrumbLinks
+        .slice(Math.max(0, this.breadcrumbLinks.length - this.collapseThreshold))
+        .forEach((link, index) => {
+          const slot = this.renderRoot.querySelector(`slot[name="breadcrumb-${index}"]`) as HTMLSlotElement;
+          link.removeAttribute('aria-current');
+          this.#setTooltip(link);
+          slot?.assign(link);
+        });
+
+      const lastLink = this.breadcrumbLinks[this.breadcrumbLinks.length - 1];
+      if (lastLink) {
+        lastLink.setAttribute('aria-current', 'page');
+      }
     });
   }
 
+  #onMutation = (): void => {
+    this.#processChildren();
+    this.#assignSlots();
+  };
+
   #update(): void {
-    this.collapseThreshold = isMobile() ? MOBILE_COLLAPSE_THRESHOLD : COLLAPSE_THRESHOLD;
+    if (this.#updateScheduled) {
+      return;
+    }
 
-    this.renderRoot.querySelectorAll<HTMLAnchorElement>('li:not(.home) > a').forEach(link => {
-      const breadcrumb = this.breadcrumbs.find(el => el.label === link.textContent?.trim())!;
+    this.#updateScheduled = true;
+    requestAnimationFrame(() => {
+      this.#updateScheduled = false;
+      this.collapseThreshold = isMobile() ? MOBILE_COLLAPSE_THRESHOLD : COLLAPSE_THRESHOLD;
+      this.#onMutation();
+    });
+  }
 
-      if (link.offsetWidth < link.scrollWidth) {
-        breadcrumb.tooltip ||= Tooltip.lazy(
+  #setTooltip(link: HTMLElement): void {
+    const tooltipsSlot = this.renderRoot.querySelector('slot[name="tooltips"]') as HTMLSlotElement;
+
+    if (!tooltipsSlot) {
+      return;
+    }
+
+    if (link.offsetWidth < link.scrollWidth) {
+      if (link.hasAttribute('data-has-tooltip')) {
+        return;
+      } else {
+        const cleanup = Tooltip.lazy(
           link,
           tooltip => {
-            breadcrumb.tooltip = tooltip;
             tooltip.position = 'bottom';
             tooltip.textContent = link.textContent?.trim() || '';
+            requestAnimationFrame(() => {
+              tooltipsSlot.assign(...tooltipsSlot.assignedElements(), tooltip);
+            });
           },
           { context: this.shadowRoot! }
         );
-      } else if (breadcrumb.tooltip instanceof Tooltip) {
-        link.removeAttribute('aria-describedby');
-
-        breadcrumb.tooltip.remove();
-        breadcrumb.tooltip = undefined;
-      } else if (breadcrumb.tooltip) {
-        breadcrumb.tooltip();
-        breadcrumb.tooltip = undefined;
+        this.#tooltipCleanupFunctions.set(link, cleanup);
+        link.dataset['hasTooltip'] = 'true';
       }
-    });
+    } else if (link.hasAttribute('data-has-tooltip') && link.hasAttribute('aria-describedby')) {
+      const cleanup = this.#tooltipCleanupFunctions.get(link);
+      if (cleanup) {
+        cleanup();
+      }
+      this.#tooltipCleanupFunctions.delete(link);
+
+      const tooltip = tooltipsSlot.assignedElements().find(el => el.id === link.getAttribute('aria-describedby')) as
+        | Tooltip
+        | undefined;
+      tooltip?.remove();
+      link.removeAttribute('data-has-tooltip');
+      link.removeAttribute('aria-describedby');
+    }
   }
 }

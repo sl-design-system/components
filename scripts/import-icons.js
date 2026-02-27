@@ -22,7 +22,7 @@ const cwd = new URL('.', import.meta.url).pathname,
 
 const {
   default: { icon: coreIcons }
-} = await import('../packages/tokens/src/core.json', { with: { type: 'json' } });
+} = await import('../packages/tokens/src/tokens/core.json', { with: { type: 'json' } });
 
 const getFormattedIcons = (icons, collection) => {
   return Object.entries(icons).reduce((acc, cur) => {
@@ -76,7 +76,7 @@ const buildIcons = async theme => {
   // 1. Get icon tokens from `base.json`
   const {
     default: { icon: { style, themeIcons }, text }
-  } = await import(`../packages/tokens/src/${theme}/base.json`, { with: { type: 'json' } });
+  } = await import(`../packages/tokens/src/tokens/${theme}/base.json`, { with: { type: 'json' } });
 
   const icons = {
     ...getFormattedIcons(coreIcons, 'core'),
@@ -155,7 +155,7 @@ const buildAllIcons = async () => {
   folders
     .map(folder => basename(folder))
     .filter(theme => theme.indexOf('core') < 0)
-    .filter(theme => existsSync(join(cwd, `../packages/tokens/src/${theme}/base.json`)))
+    .filter(theme => existsSync(join(cwd, `../packages/tokens/src/tokens/${theme}/base.json`)))
     .forEach(component => buildIcons(basename(component)));
 };
 

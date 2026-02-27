@@ -1,4 +1,3 @@
-import { updateTheme } from '../../../.storybook/themes.js';
 import { All as AllAccordion } from '../../../packages/components/accordion/src/accordion.stories';
 import { Colors, Sizes } from '../../../packages/components/avatar/src/avatar.stories';
 import { All as AllBadge } from '../../../packages/components/badge/src/badge.stories';
@@ -37,28 +36,11 @@ export default {
   title: 'All',
   args: {
     theme: 'sanoma-learning',
-    icons: Object.keys(window.SLDS?.icons)
+    icons: Object.keys(window.SLDS?.icons || {})
   },
-  loaders: [
-    async ({ globals: { theme }}) => await updateTheme(theme)
-  ],
   parameters: {
     chromatic: {
-      modes: {
-        'bingel-dc': allModes['bingel-dc'],
-        'bingel-int': allModes['bingel-int'],
-        'clickedu': allModes['clickedu'],
-        'editorial-suite': allModes['editorial-suite'],
-        'itslearning': allModes['itslearning'],
-        'kampus': allModes['kampus'],
-        'magister': allModes['magister'],
-        'max': allModes['max'],
-        'my-digital-book': allModes['my-digital-book'],
-        'neon': allModes['neon'],
-        'sanoma-learning': allModes['sanoma-learning'],
-        'teas': allModes['teas'],
-        'tig': allModes['tig'],
-      }
+      modes: Object.fromEntries(Object.entries(allModes).filter(([key]) => key !== 'default'))
     }
   }
 };

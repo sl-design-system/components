@@ -235,6 +235,18 @@ describe('sl-tab-group', () => {
       expect(el.querySelector('sl-tab[selected]')).to.have.text('Tab 2');
       expect(el.querySelector('sl-tab-panel[aria-hidden="false"]')).to.have.text('Panel 2');
     });
+
+    it('should not scroll the page when the tab group is resized', async () => {
+      const scrollTo = spy(window, 'scrollTo');
+
+      el.style.width = '200px';
+      await el.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      expect(scrollTo).not.to.have.been.called;
+
+      scrollTo.restore();
+    });
   });
 
   describe('no panels', () => {

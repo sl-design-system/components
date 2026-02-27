@@ -392,6 +392,83 @@ export const All: Story = {
 
         <div class="inverted-background"></div>
       </section>
+
+      <style>
+        .inverted-showcase {
+          background: var(--sl-color-foreground-accent-grey-bold);
+          padding: 2rem;
+          border-radius: var(--sl-size-borderRadius-default);
+          margin-top: 2rem;
+          display: grid;
+          grid-template-columns: auto auto auto;
+          gap: 1rem 2rem;
+          align-items: center;
+          justify-content: start;
+        }
+        .inverted-showcase > span {
+          color: var(--sl-color-foreground-inverted-bold);
+          font-weight: bold;
+          justify-self: end;
+        }
+        .inverted-showcase > strong {
+          color: var(--sl-color-foreground-inverted-bold);
+          margin-bottom: 1rem;
+        }
+      </style>
+
+      <section class="inverted-showcase">
+        <span></span>
+        <strong>Inverted Idle</strong>
+        <strong>Inverted Disabled</strong>
+
+        <span>Outline</span>
+        <sl-button variant="inverted" fill="outline">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button variant="inverted" fill="outline" disabled>
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+
+        <span>Solid</span>
+        <sl-button variant="inverted">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button variant="inverted" disabled>
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+
+        <span>Ghost</span>
+        <sl-button variant="inverted" fill="ghost">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button variant="inverted" fill="ghost" disabled>
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+
+        <span>Link</span>
+        <sl-button variant="inverted" fill="link">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button variant="inverted" fill="link" disabled>
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+      </section>
     `;
   }
 };

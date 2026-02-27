@@ -1,12 +1,12 @@
 import '@af-utils/scrollend-polyfill';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import '@sl-design-system/announcer/register.js';
-import { configureLocalization } from '@lit/localize';
+import { type LocaleModule, configureLocalization } from '@lit/localize';
 import * as locales from '@sl-design-system/locales';
 import { type Preview } from '@storybook/web-components-vite';
 import MockDate from 'mockdate';
 import { INITIAL_VIEWPORTS } from 'storybook/viewport';
-import { updateTheme, themes } from './themes.js';
+import { updateTheme, themes, type Mode } from './themes.js';
 
 // Set a fixed date in non-development environments for consistent Storybook snapshots
 if (!import.meta.env?.DEV) {
@@ -16,7 +16,7 @@ if (!import.meta.env?.DEV) {
 const { setLocale } = configureLocalization({
   sourceLocale: locales.sourceLocale,
   targetLocales: locales.targetLocales,
-  loadLocale: locale => Promise.resolve(locales[locale])
+  loadLocale: locale => Promise.resolve((locales as Record<string, unknown>)[locale] as LocaleModule)
 });
 
 const preview: Preview = {
@@ -26,11 +26,11 @@ const preview: Preview = {
       setLocale(locale);
 
       return story();
-    },
-    (story, { globals: { mode = 'light', theme = 'sanoma-learning' } }) => {
-      updateTheme(theme, mode);
-
-      return story();
+    }
+  ],
+  loaders: [
+    async ({ globals: { mode = 'light', theme = 'sanoma-learning' } }) => {
+      await updateTheme(theme, mode as Mode);
     }
   ],
   globalTypes: {
@@ -52,8 +52,8 @@ const preview: Preview = {
         icon: 'mirror',
         items: [
           { value: 'light', left: '🌞', title: 'Light mode' },
-          { value: 'dark', left: '🌛', title: 'Dark mode' },
-        ],
+          { value: 'dark', left: '🌛', title: 'Dark mode' }
+        ]
       }
     },
     locale: {
@@ -77,7 +77,7 @@ const preview: Preview = {
         { name: 'Raised', value: 'var(--sl-elevation-surface-raised-default)' },
         { name: 'Raised alternative', value: 'var(--sl-elevation-surface-raised-alternative)' },
         { name: 'Raised sunken', value: 'var(--sl-elevation-surface-raised-sunken)' },
-        { name: 'Inverted', value: 'var(--sl-color-palette-grey-900)' },
+        { name: 'Inverted', value: 'var(--sl-color-palette-grey-900)' }
       ],
       default: 'Default'
     },
@@ -94,6 +94,18 @@ const preview: Preview = {
       viewports: INITIAL_VIEWPORTS
     },
     a11y: {
+      config: {
+        rules: [
+          {
+            id: 'aria-valid-attr-value',
+            selector: '*:not([aria-controls][aria-haspopup])'
+          },
+          {
+            id: 'color-contrast',
+            selector: '*:not([aria-disabled="true"], [disabled])'
+          }
+        ]
+      },
       options: {
         preload: false
       }

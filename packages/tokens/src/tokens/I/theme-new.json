@@ -1658,6 +1658,11 @@
 						"$value": "{I.elevation.surface.raised.default}",
 						"$description": "Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
 					},
+					"primary": {
+						"$type": "color",
+						"$value": "{I.elevation.surface.raised.primary}",
+						"$description": "Background of elevated components with a Primary background color like a floating toolbar that sit on top of the base surface. Use in combination with Inverted buttons, 'color.foreground.inverted.bold' and 'elevation.shadow.raised'."
+					},
 					"inverted": {
 						"$type": "color",
 						"$value": "{I.elevation.surface.raised.inverted}",

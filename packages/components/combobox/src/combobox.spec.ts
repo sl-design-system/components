@@ -339,7 +339,7 @@ describe('sl-combobox', () => {
       });
     });
 
-    it('should not have has-selected-items attribute when interacting with an empty combobox', async () => {
+    it('should not have has-selected-items attribute when interacting with a combobox with no selected items', async () => {
       expect(el).not.to.have.attribute('has-selected-items');
 
       input.click();

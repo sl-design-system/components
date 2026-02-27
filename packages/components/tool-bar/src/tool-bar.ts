@@ -62,7 +62,7 @@ export type ToolBarItem = ToolBarItemButton | ToolBarItemDivider | ToolBarItemGr
  *
  * @csspart wrapper - The wrapper element that contains the tool bar items.
  *
- * @slot - The tool bar items.
+ * @slot default - The tool bar items.
  */
 @localized()
 export class ToolBar extends ScopedElementsMixin(LitElement) {
@@ -289,6 +289,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     `;
   }
 
+  /** @internal */
   override focus(): void {
     this.#rovingTabindexController.focus();
   }

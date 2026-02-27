@@ -5,11 +5,20 @@ eleventyNavigation:
   parent: Callout
   key: CalloutUsage
 ---
+<style>
+.title {
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+</style>
 <section>
 <div class="ds-example">
   <sl-callout variant="info">
-    <span slot="title">Information</span>
-    This is an informational callout with helpful context.
+    <h2 class="title" slot="title">Practice mode</h2>
+    Answers in practice mode are not graded. You can retry each question as many times as you need. Check the <a class="callout-link" href="javascript:void(0)">grading policy</a> for more details.
   </sl-callout>
 </div>
 
@@ -17,8 +26,9 @@ eleventyNavigation:
 
   ```html
   <sl-callout variant="info">
-    <span slot="title">Information</span>
-    This is an informational callout with helpful context.
+    <h2 slot="title">Practice mode</h2>
+    Answers in practice mode are not graded. You can retry each question as many times as you need. Check the
+    <a href="/grading-policy">grading policy</a> for more details.
   </sl-callout>
   ```
 </div>

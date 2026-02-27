@@ -60,26 +60,30 @@ $transition-timing: 300ms;
 }
 
 *:where(.ds-subpage-section, .ds-tabs__tab-container) {
-  a {
+  a:not(.callout-link) {
     color: var(--link-color);
     cursor: pointer;
     transition: transform $transition-timing;
   }
 
-  a:hover {
+  a:not(.callout-link):hover {
     color: var(--link-hover-color);
   }
 
-  a:active {
+  a:not(.callout-link):active {
     color: var(--link-active-color);
   }
 
-  a:visited {
+  a:not(.callout-link):visited {
     color: var(--link-visited-color);
   }
 
   a.header-anchor {
     color: var(--font-color);
+  }
+
+  a.callout-link {
+    color: var(--sl-color-component-link-idle, var(--sl-color-link-idle));
   }
 }
 

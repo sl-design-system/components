@@ -17,9 +17,10 @@ For dynamic feedback messages that appear/disappear in response to user actions,
 
 <section>
 
-## Keyboard interactions
+## Callout title
 
-...
+We recommend using a heading element (e.g. `<h2>`) for the Callout title.
+This way, screen readers announce it as a heading, making it easier to find and understand what the callout is about.
 
 </section>
 

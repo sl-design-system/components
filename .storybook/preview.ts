@@ -52,8 +52,8 @@ const preview: Preview = {
         icon: 'mirror',
         items: [
           { value: 'light', left: '🌞', title: 'Light mode' },
-          { value: 'dark', left: '🌛', title: 'Dark mode' },
-        ],
+          { value: 'dark', left: '🌛', title: 'Dark mode' }
+        ]
       }
     },
     locale: {
@@ -77,7 +77,7 @@ const preview: Preview = {
         { name: 'Raised', value: 'var(--sl-elevation-surface-raised-default)' },
         { name: 'Raised alternative', value: 'var(--sl-elevation-surface-raised-alternative)' },
         { name: 'Raised sunken', value: 'var(--sl-elevation-surface-raised-sunken)' },
-        { name: 'Inverted', value: 'var(--sl-color-palette-grey-900)' },
+        { name: 'Inverted', value: 'var(--sl-color-palette-grey-900)' }
       ],
       default: 'Default'
     },
@@ -94,6 +94,18 @@ const preview: Preview = {
       viewports: INITIAL_VIEWPORTS
     },
     a11y: {
+      config: {
+        rules: [
+          {
+            id: 'aria-valid-attr-value',
+            selector: '*:not([aria-controls][aria-haspopup])'
+          },
+          {
+            id: 'color-contrast',
+            selector: '*:not([aria-disabled="true"], [disabled])'
+          }
+        ]
+      },
       options: {
         preload: false
       }

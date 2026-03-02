@@ -1359,4 +1359,113 @@ describe('sl-time-field', () => {
       await new Promise(resolve => setTimeout(resolve));
     });
   });
+  describe('field button', () => {
+    let button: HTMLElement;
+
+    beforeEach(async () => {
+      el = await fixture(html`<sl-time-field></sl-time-field>`);
+      button = el.renderRoot.querySelector('sl-field-button')!;
+    });
+
+    it('should exist', () => {
+      expect(button).to.exist;
+    });
+
+    it('should have a clock icon', () => {
+      expect(button).to.contain('sl-icon[name="clock"]');
+    });
+
+    it('should not be disabled', () => {
+      expect(button).not.to.have.attribute('disabled');
+    });
+
+    it('should be disabled when the time-field is disabled', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('disabled');
+    });
+
+    it('should be disabled when the time-field is readonly', async () => {
+      el.readonly = true;
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('disabled');
+    });
+
+    it('should show the popover when clicked', () => {
+      button.click();
+
+      const dialog = el.renderRoot.querySelector<HTMLElement>('dialog')!;
+
+      expect(dialog).to.exist;
+      expect(dialog).to.match(':popover-open');
+    });
+
+    it('should show the popover when focused and Enter is pressed', async () => {
+      button.focus();
+      await userEvent.keyboard('{Enter}');
+
+      const dialog = el.renderRoot.querySelector<HTMLElement>('dialog')!;
+
+      expect(dialog).to.exist;
+      expect(dialog).to.match(':popover-open');
+    });
+
+    it('should show the popover when focused and Space is pressed', async () => {
+      button.focus();
+      await userEvent.keyboard('{Space}');
+
+      const dialog = el.renderRoot.querySelector<HTMLElement>('dialog')!;
+
+      expect(dialog).to.exist;
+      expect(dialog).to.match(':popover-open');
+    });
+
+    it('should toggle the popover when clicking the clock button', () => {
+      const dialog = el.renderRoot.querySelector<HTMLElement>('dialog')!;
+
+      expect(dialog).to.exist;
+      expect(dialog?.matches(':popover-open')).to.be.false;
+
+      button?.click();
+      expect(dialog?.matches(':popover-open')).to.be.true;
+
+      button?.click();
+      expect(dialog?.matches(':popover-open')).to.be.false;
+    });
+
+    it('should have an accessible name', () => {
+      expect(button).to.have.attribute('aria-label');
+    });
+
+    it('should have aria-controls pointing to the dialog', () => {
+      expect(button).to.have.attribute('aria-controls', 'dialog');
+    });
+
+    it('should have aria-expanded set to false initially', () => {
+      expect(button).to.have.attribute('aria-expanded', 'false');
+    });
+
+    it('should update aria-expanded to true when popover is opened', async () => {
+      button.click();
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('aria-expanded', 'true');
+    });
+
+    it('should update aria-expanded to false when popover is closed', async () => {
+      button.click();
+      await el.updateComplete;
+
+      button.click();
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('aria-expanded', 'false');
+    });
+
+    it('should have aria-haspopup set to listbox', () => {
+      expect(button).to.have.attribute('aria-haspopup', 'listbox');
+    });
+  });
 });

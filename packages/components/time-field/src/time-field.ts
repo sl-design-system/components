@@ -255,7 +255,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         <sl-field-button
           @click=${this.#onButtonClick}
           ?disabled=${this.disabled || this.readonly}
-          aria-label=${msg('Select time', { id: 'sl.timeField.selectTime' })}
+          aria-label=${msg('Select time', { id: 'sl.timeField.toggleDropdown' })}
           aria-controls="dialog"
           aria-expanded="false"
           aria-haspopup="listbox"

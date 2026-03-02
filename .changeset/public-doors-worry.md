@@ -1,5 +1,5 @@
 ---
-'@sl-design-system/locales': patch
+'@sl-design-system/locales': minor
 ---
 
-Improved label for Time Field toggle dropdown button
+Improved label for Time Field toggle dropdown button.

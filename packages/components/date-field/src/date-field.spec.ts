@@ -30,10 +30,10 @@ describe('sl-date-field', () => {
       el = await fixture(html`<sl-date-field></sl-date-field>`);
     });
 
-    it('should render spinbutton inputs for each date part', () => {
-      const inputs = el.renderRoot.querySelectorAll('input[role="spinbutton"]');
+    it('should render spinbutton spans for each date part', () => {
+      const spans = el.renderRoot.querySelectorAll('span[role="spinbutton"]');
 
-      expect(inputs).to.have.length(3);
+      expect(spans).to.have.length(3);
     });
 
     it('should render separator spans between parts', () => {
@@ -42,11 +42,11 @@ describe('sl-date-field', () => {
 
     it('should render parts in locale order', () => {
       // Default locale (en-US): month / day / year
-      const inputs = el.renderRoot.querySelectorAll('input[role="spinbutton"]');
+      const spans = el.renderRoot.querySelectorAll('span[role="spinbutton"]');
 
-      expect(inputs[0]).to.have.attribute('aria-label', 'Month');
-      expect(inputs[1]).to.have.attribute('aria-label', 'Day');
-      expect(inputs[2]).to.have.attribute('aria-label', 'Year');
+      expect(spans[0]).to.have.attribute('aria-label', 'Month');
+      expect(spans[1]).to.have.attribute('aria-label', 'Day');
+      expect(spans[2]).to.have.attribute('aria-label', 'Year');
     });
 
     it('should render a calendar button', () => {
@@ -66,41 +66,45 @@ describe('sl-date-field', () => {
     });
 
     it('should not be disabled', () => {
-      const inputs = el.renderRoot.querySelectorAll<HTMLInputElement>('input[role="spinbutton"]'),
-        button = el.renderRoot.querySelector('sl-field-button');
-
       expect(el).not.to.have.attribute('disabled');
       expect(el.disabled).not.to.be.true;
-      inputs.forEach(input => expect(input.disabled).to.be.false);
-      expect(button).not.to.have.attribute('disabled');
+      expect(el.renderRoot.querySelector('sl-field-button')).not.to.have.attribute('disabled');
+
+      el.renderRoot
+        .querySelectorAll('span[role="spinbutton"]')
+        .forEach(span => expect(span).to.have.attribute('aria-disabled', 'false'));
     });
 
     it('should be disabled when set', async () => {
       el.disabled = true;
       await el.updateComplete;
 
-      const inputs = el.renderRoot.querySelectorAll<HTMLInputElement>('input[role="spinbutton"]'),
-        button = el.renderRoot.querySelector('sl-field-button');
-
       expect(el.disabled).to.be.true;
-      inputs.forEach(input => expect(input.disabled).to.be.true);
-      expect(button).to.have.attribute('disabled');
+      expect(el.renderRoot.querySelector('sl-field-button')).to.have.attribute('disabled');
+
+      el.renderRoot
+        .querySelectorAll('span[role="spinbutton"]')
+        .forEach(span => expect(span).to.have.attribute('aria-disabled', 'true'));
     });
 
     it('should not be readonly', () => {
       expect(el).not.to.have.attribute('readonly');
       expect(el.readonly).not.to.be.true;
+
+      el.renderRoot
+        .querySelectorAll('span[role="spinbutton"]')
+        .forEach(span => expect(span).to.have.attribute('aria-readonly', 'false'));
     });
 
     it('should be readonly when set', async () => {
       el.readonly = true;
       await el.updateComplete;
 
-      const inputs = el.renderRoot.querySelectorAll<HTMLInputElement>('input[role="spinbutton"]'),
+      const spans = el.renderRoot.querySelectorAll('span[role="spinbutton"]'),
         button = el.renderRoot.querySelector('sl-field-button');
 
       expect(el.readonly).to.be.true;
-      inputs.forEach(input => expect(input.readOnly).to.be.true);
+      spans.forEach(span => expect(span).to.have.attribute('aria-readonly', 'true'));
       expect(button).to.have.attribute('disabled');
     });
 
@@ -126,11 +130,11 @@ describe('sl-date-field', () => {
       el.selectOnly = true;
       await el.updateComplete;
 
-      const inputs = el.renderRoot.querySelectorAll<HTMLInputElement>('input[role="spinbutton"]');
+      const spans = el.renderRoot.querySelectorAll('span[role="spinbutton"]');
 
       expect(el).to.have.attribute('select-only');
       expect(el.selectOnly).to.be.true;
-      inputs.forEach(input => expect(input.readOnly).to.be.true);
+      spans.forEach(span => expect(span).to.have.attribute('aria-readonly', 'true'));
     });
 
     it('should not show week numbers', () => {
@@ -145,13 +149,13 @@ describe('sl-date-field', () => {
     });
 
     it('should not have a value', () => {
-      const inputs = el.renderRoot.querySelectorAll<HTMLInputElement>('input[role="spinbutton"]');
+      const inputs = el.renderRoot.querySelectorAll('span[role="spinbutton"]');
 
       expect(el.value).to.be.undefined;
-      // en-US: MM/DD/YYYY placeholder text as value
-      expect(inputs[0].value).to.equal('MM');
-      expect(inputs[1].value).to.equal('DD');
-      expect(inputs[2].value).to.equal('YYYY');
+      // en-US: MM/DD/YYYY placeholder text
+      expect(inputs[0]).to.have.trimmed.text('MM');
+      expect(inputs[1]).to.have.trimmed.text('DD');
+      expect(inputs[2]).to.have.trimmed.text('YYYY');
     });
 
     it('should have a value when set', async () => {
@@ -159,13 +163,13 @@ describe('sl-date-field', () => {
       el.value = testDate;
       await el.updateComplete;
 
-      const inputs = el.renderRoot.querySelectorAll<HTMLInputElement>('input[role="spinbutton"]');
+      const inputs = el.renderRoot.querySelectorAll('span[role="spinbutton"]');
 
       expect(el.value).to.equalDate(testDate);
       // en-US: month / day / year
-      expect(inputs[0].value).to.equal('06');
-      expect(inputs[1].value).to.equal('15');
-      expect(inputs[2].value).to.equal('2023');
+      expect(inputs[0]).to.have.trimmed.text('06');
+      expect(inputs[1]).to.have.trimmed.text('15');
+      expect(inputs[2]).to.have.trimmed.text('2023');
     });
 
     it('should update inputs when value changes', async () => {
@@ -176,11 +180,11 @@ describe('sl-date-field', () => {
       el.value = newDate;
       await el.updateComplete;
 
-      const inputs = el.renderRoot.querySelectorAll<HTMLInputElement>('input[role="spinbutton"]');
+      const inputs = el.renderRoot.querySelectorAll('span[role="spinbutton"]');
 
-      expect(inputs[0].value).to.equal('12');
-      expect(inputs[1].value).to.equal('25');
-      expect(inputs[2].value).to.equal('2023');
+      expect(inputs[0]).to.have.trimmed.text('12');
+      expect(inputs[1]).to.have.trimmed.text('25');
+      expect(inputs[2]).to.have.trimmed.text('2023');
     });
 
     it('should clear inputs when value is undefined', async () => {
@@ -190,12 +194,12 @@ describe('sl-date-field', () => {
       el.value = undefined;
       await el.updateComplete;
 
-      const inputs = el.renderRoot.querySelectorAll<HTMLInputElement>('input[role="spinbutton"]');
+      const inputs = el.renderRoot.querySelectorAll('span[role="spinbutton"]');
 
-      // en-US: MM/DD/YYYY placeholder text as value
-      expect(inputs[0].value).to.equal('MM');
-      expect(inputs[1].value).to.equal('DD');
-      expect(inputs[2].value).to.equal('YYYY');
+      // en-US: MM/DD/YYYY placeholder text
+      expect(inputs[0]).to.have.trimmed.text('MM');
+      expect(inputs[1]).to.have.trimmed.text('DD');
+      expect(inputs[2]).to.have.trimmed.text('YYYY');
     });
 
     it('should not require confirmation', () => {
@@ -453,16 +457,16 @@ describe('sl-date-field', () => {
       );
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      const firstInput = el.renderRoot.querySelector('input[role="spinbutton"]');
-      expect((el.renderRoot as ShadowRoot).activeElement).to.equal(firstInput);
+      const firstSpan = el.renderRoot.querySelector('span[role="spinbutton"]');
+      expect((el.renderRoot as ShadowRoot).activeElement).to.equal(firstSpan);
     });
 
     it('should emit sl-focus when component gains focus', () => {
       const onFocus = spy();
       el.addEventListener('sl-focus', onFocus);
 
-      const firstInput = el.renderRoot.querySelector<HTMLInputElement>('input[role="spinbutton"]')!;
-      firstInput.focus();
+      const firstSpan = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+      firstSpan.focus();
 
       expect(onFocus).to.have.been.calledOnce;
     });
@@ -471,9 +475,9 @@ describe('sl-date-field', () => {
       const onBlur = spy();
       el.addEventListener('sl-blur', onBlur);
 
-      const firstInput = el.renderRoot.querySelector<HTMLInputElement>('input[role="spinbutton"]')!;
-      firstInput.focus();
-      firstInput.blur();
+      const firstSpan = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+      firstSpan.focus();
+      firstSpan.blur();
 
       expect(onBlur).to.have.been.calledOnce;
     });
@@ -546,143 +550,143 @@ describe('sl-date-field', () => {
       expect(button).to.have.attribute('tabindex', '0');
     });
 
-    it('should have role="spinbutton" on each date input', () => {
-      const inputs = el.renderRoot.querySelectorAll('input[role="spinbutton"]');
+    it('should have role="spinbutton" on each date part', () => {
+      const spans = el.renderRoot.querySelectorAll('span[role="spinbutton"]');
 
-      expect(inputs).to.have.length(3);
-      inputs.forEach(input => expect(input).to.have.attribute('role', 'spinbutton'));
+      expect(spans).to.have.length(3);
+      spans.forEach(input => expect(input).to.have.attribute('role', 'spinbutton'));
     });
 
     it('should have aria-label on each spinbutton', () => {
-      const inputs = el.renderRoot.querySelectorAll('input[role="spinbutton"]');
+      const spans = el.renderRoot.querySelectorAll('span[role="spinbutton"]');
 
-      inputs.forEach(input => expect(input).to.have.attribute('aria-label'));
+      spans.forEach(input => expect(input).to.have.attribute('aria-label'));
     });
 
     it('should have aria-valuemin and aria-valuemax on each spinbutton', () => {
-      const inputs = el.renderRoot.querySelectorAll('input[role="spinbutton"]');
+      const spans = el.renderRoot.querySelectorAll('span[role="spinbutton"]');
 
-      inputs.forEach(input => {
+      spans.forEach(input => {
         expect(input).to.have.attribute('aria-valuemin');
         expect(input).to.have.attribute('aria-valuemax');
       });
 
       // en-US: month, day, year
-      expect(inputs[0]).to.have.attribute('aria-valuemin', '1');
-      expect(inputs[0]).to.have.attribute('aria-valuemax', '12');
-      expect(inputs[1]).to.have.attribute('aria-valuemin', '1');
-      expect(inputs[1]).to.have.attribute('aria-valuemax', '31');
-      expect(inputs[2]).to.have.attribute('aria-valuemin', '1');
-      expect(inputs[2]).to.have.attribute('aria-valuemax', '9999');
+      expect(spans[0]).to.have.attribute('aria-valuemin', '1');
+      expect(spans[0]).to.have.attribute('aria-valuemax', '12');
+      expect(spans[1]).to.have.attribute('aria-valuemin', '1');
+      expect(spans[1]).to.have.attribute('aria-valuemax', '31');
+      expect(spans[2]).to.have.attribute('aria-valuemin', '1');
+      expect(spans[2]).to.have.attribute('aria-valuemax', '9999');
     });
 
     it('should have aria-valuenow when part has a value', async () => {
       el.value = new Date(2026, 2, 14);
       await el.updateComplete;
 
-      const inputs = el.renderRoot.querySelectorAll('input[role="spinbutton"]');
+      const spans = el.renderRoot.querySelectorAll('span[role="spinbutton"]');
 
       // en-US: month=3, day=14, year=2026
-      expect(inputs[0]).to.have.attribute('aria-valuenow', '3');
-      expect(inputs[1]).to.have.attribute('aria-valuenow', '14');
-      expect(inputs[2]).to.have.attribute('aria-valuenow', '2026');
+      expect(spans[0]).to.have.attribute('aria-valuenow', '3');
+      expect(spans[1]).to.have.attribute('aria-valuenow', '14');
+      expect(spans[2]).to.have.attribute('aria-valuenow', '2026');
     });
 
     it('should have aria-valuetext on each spinbutton', async () => {
       el.value = new Date(2026, 2, 14);
       await el.updateComplete;
 
-      const inputs = el.renderRoot.querySelectorAll('input[role="spinbutton"]');
+      const spans = el.renderRoot.querySelectorAll('span[role="spinbutton"]');
 
-      expect(inputs[0]).to.have.attribute('aria-valuetext', 'March');
-      expect(inputs[1]).to.have.attribute('aria-valuetext', '14');
-      expect(inputs[2]).to.have.attribute('aria-valuetext', '2026');
+      expect(spans[0]).to.have.attribute('aria-valuetext', 'March');
+      expect(spans[1]).to.have.attribute('aria-valuetext', '14');
+      expect(spans[2]).to.have.attribute('aria-valuetext', '2026');
     });
 
     it('should have inputmode="numeric" on each spinbutton', () => {
-      const inputs = el.renderRoot.querySelectorAll('input[role="spinbutton"]');
+      const spans = el.renderRoot.querySelectorAll('span[role="spinbutton"]');
 
-      inputs.forEach(input => expect(input).to.have.attribute('inputmode', 'numeric'));
+      spans.forEach(input => expect(input).to.have.attribute('inputmode', 'numeric'));
     });
   });
 
   describe('keyboard entry', () => {
-    let inputs: NodeListOf<HTMLInputElement>;
+    let spans: NodeListOf<HTMLElement>;
 
     beforeEach(async () => {
       el = await fixture(html`<sl-date-field></sl-date-field>`);
-      inputs = el.renderRoot.querySelectorAll<HTMLInputElement>('input[role="spinbutton"]');
+      spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
     });
 
-    it('should show placeholder text as value on each input', () => {
+    it('should show placeholder text on each part', () => {
       // en-US: MM, DD, YYYY
-      expect(inputs[0].value).to.equal('MM');
-      expect(inputs[1].value).to.equal('DD');
-      expect(inputs[2].value).to.equal('YYYY');
+      expect(spans[0]).to.have.trimmed.text('MM');
+      expect(spans[1]).to.have.trimmed.text('DD');
+      expect(spans[2]).to.have.trimmed.text('YYYY');
     });
 
     it('should enter single digit in focused part', async () => {
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard('5');
 
-      expect(inputs[0].value).to.equal('05');
+      expect(spans[0]).to.have.trimmed.text('05');
     });
 
-    it('should select both digits after entering a single digit', async () => {
-      inputs[0].focus();
+    it('should select all text after entering a single digit', async () => {
+      spans[0].focus();
       await userEvent.keyboard('5');
 
       await new Promise(resolve => requestAnimationFrame(resolve));
 
-      expect(inputs[0].selectionStart).to.equal(0);
-      expect(inputs[0].selectionEnd).to.equal(2);
+      const selection = document.getSelection();
+      expect(selection?.toString()).to.equal('05');
     });
 
     it('should combine two digits in focused part', async () => {
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard('1');
       await userEvent.keyboard('2');
 
-      expect(inputs[0].value).to.equal('12');
+      expect(spans[0]).to.have.trimmed.text('12');
     });
 
     it('should auto-advance to next input after max digits', async () => {
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard('1');
       await userEvent.keyboard('2');
 
-      expect((el.renderRoot as ShadowRoot).activeElement).to.equal(inputs[1]);
+      expect((el.renderRoot as ShadowRoot).activeElement).to.equal(spans[1]);
     });
 
     it('should enter digits in day part', async () => {
-      inputs[1].focus();
+      spans[1].focus();
       await userEvent.keyboard('1');
       await userEvent.keyboard('5');
 
-      expect(inputs[1].value).to.equal('15');
+      expect(spans[1]).to.have.trimmed.text('15');
     });
 
     it('should auto-advance from day to year', async () => {
-      inputs[1].focus();
+      spans[1].focus();
       await userEvent.keyboard('1');
       await userEvent.keyboard('5');
 
-      expect((el.renderRoot as ShadowRoot).activeElement).to.equal(inputs[2]);
+      expect((el.renderRoot as ShadowRoot).activeElement).to.equal(spans[2]);
     });
 
     it('should enter four digits in year part', async () => {
-      inputs[2].focus();
+      spans[2].focus();
       await userEvent.keyboard('2');
       await userEvent.keyboard('0');
       await userEvent.keyboard('2');
       await userEvent.keyboard('3');
 
-      expect(inputs[2].value).to.equal('2023');
+      expect(spans[2]).to.have.trimmed.text('2023');
     });
 
     it('should set value after entering complete valid date', async () => {
       // Enter month
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard('0');
       await userEvent.keyboard('6');
       // Auto-advance to day
@@ -698,7 +702,7 @@ describe('sl-date-field', () => {
     });
 
     it('should not set value for incomplete date', async () => {
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard('1');
       await userEvent.keyboard('2');
 
@@ -707,7 +711,7 @@ describe('sl-date-field', () => {
 
     it('should not set value for invalid date (e.g. Feb 31)', async () => {
       // Enter month = 02
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard('0');
       await userEvent.keyboard('2');
       // Enter day = 31
@@ -723,42 +727,42 @@ describe('sl-date-field', () => {
     });
 
     it('should move focus to next input on ArrowRight', async () => {
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard('{ArrowRight}');
 
-      expect((el.renderRoot as ShadowRoot).activeElement).to.equal(inputs[1]);
+      expect((el.renderRoot as ShadowRoot).activeElement).to.equal(spans[1]);
     });
 
     it('should move focus to previous input on ArrowLeft', async () => {
-      inputs[1].focus();
+      spans[1].focus();
       await userEvent.keyboard('{ArrowLeft}');
 
-      expect((el.renderRoot as ShadowRoot).activeElement).to.equal(inputs[0]);
+      expect((el.renderRoot as ShadowRoot).activeElement).to.equal(spans[0]);
     });
 
     it('should increment value on ArrowUp', async () => {
       el.value = new Date(2026, 2, 14);
       await el.updateComplete;
 
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard('{ArrowUp}');
 
-      expect(inputs[0].value).to.equal('04');
+      expect(spans[0]).to.have.trimmed.text('04');
     });
 
     it('should decrement value on ArrowDown', async () => {
       el.value = new Date(2026, 2, 14);
       await el.updateComplete;
 
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard('{ArrowDown}');
 
-      expect(inputs[0].value).to.equal('02');
+      expect(spans[0]).to.have.trimmed.text('02');
     });
 
     it('should update day on ArrowDown after entering date with arrow keys', async () => {
       // Enter 01/01/2023 using arrow keys
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard('{ArrowUp}'); // month = 1
       await userEvent.keyboard('{ArrowRight}'); // focus day
       await userEvent.keyboard('{ArrowUp}'); // day = 1
@@ -773,12 +777,12 @@ describe('sl-date-field', () => {
       // Press ArrowDown on day
       await userEvent.keyboard('{ArrowDown}');
 
-      expect(inputs[1].value).to.equal('31');
+      expect(spans[1]).to.have.trimmed.text('31');
     });
 
     it('should update day on ArrowDown after typing complete date', async () => {
       // Type 01/01/2023
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard('0');
       await userEvent.keyboard('1');
       await userEvent.keyboard('0');
@@ -791,13 +795,13 @@ describe('sl-date-field', () => {
       await el.updateComplete;
 
       // Navigate back to day
-      inputs[1].focus();
+      spans[1].focus();
       await new Promise(resolve => requestAnimationFrame(resolve));
 
       // Press ArrowDown on day
       await userEvent.keyboard('{ArrowDown}');
 
-      expect(inputs[1].value).to.equal('31');
+      expect(spans[1]).to.have.trimmed.text('31');
     });
 
     it('should preserve parts when arrow adjustment creates an invalid date', async () => {
@@ -806,7 +810,7 @@ describe('sl-date-field', () => {
       await el.updateComplete;
 
       // Increment month to April (which only has 30 days, making April 31 invalid)
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard('{ArrowUp}');
 
       await el.updateComplete;
@@ -815,39 +819,39 @@ describe('sl-date-field', () => {
       expect(el.value).to.be.undefined;
 
       // But parts should be preserved, not cleared to placeholders
-      expect(inputs[0].value).to.equal('04');
-      expect(inputs[1].value).to.equal('31');
-      expect(inputs[2].value).to.equal('2023');
+      expect(spans[0]).to.have.trimmed.text('04');
+      expect(spans[1]).to.have.trimmed.text('31');
+      expect(spans[2]).to.have.trimmed.text('2023');
     });
 
     it('should wrap day from 31 to 1 on ArrowUp', async () => {
       el.value = new Date(2026, 0, 31);
       await el.updateComplete;
 
-      inputs[1].focus();
+      spans[1].focus();
       await userEvent.keyboard('{ArrowUp}');
 
-      expect(inputs[1].value).to.equal('01');
+      expect(spans[1]).to.have.trimmed.text('01');
     });
 
     it('should wrap month from 12 to 1 on ArrowUp', async () => {
       el.value = new Date(2026, 11, 14);
       await el.updateComplete;
 
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard('{ArrowUp}');
 
-      expect(inputs[0].value).to.equal('01');
+      expect(spans[0]).to.have.trimmed.text('01');
     });
 
     it('should clear part on Backspace', async () => {
       el.value = new Date(2026, 2, 14);
       await el.updateComplete;
 
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard('{Backspace}');
 
-      expect(inputs[0].value).to.equal('MM');
+      expect(spans[0]).to.have.trimmed.text('MM');
       expect(el.value).to.be.undefined;
     });
 
@@ -855,25 +859,25 @@ describe('sl-date-field', () => {
       el.value = new Date(2026, 2, 14);
       await el.updateComplete;
 
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard('{Delete}');
 
-      expect(inputs[0].value).to.equal('MM');
+      expect(spans[0]).to.have.trimmed.text('MM');
       expect(el.value).to.be.undefined;
     });
 
     it('should move focus to next input on separator key', async () => {
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard('/');
 
-      expect((el.renderRoot as ShadowRoot).activeElement).to.equal(inputs[1]);
+      expect((el.renderRoot as ShadowRoot).activeElement).to.equal(spans[1]);
     });
 
     it('should emit sl-change when complete valid date is entered', async () => {
       const onChange = spy();
       el.addEventListener('sl-change', onChange);
 
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard('0');
       await userEvent.keyboard('6');
       await userEvent.keyboard('1');
@@ -890,155 +894,153 @@ describe('sl-date-field', () => {
       el.selectOnly = true;
       await el.updateComplete;
 
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard('{ArrowUp}');
 
-      expect(inputs[0].value).to.equal('MM');
+      expect(spans[0]).to.have.trimmed.text('MM');
     });
 
     it('should not allow non-numeric characters to be entered', async () => {
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard('a');
 
-      expect(inputs[0].value).to.equal('MM');
+      expect(spans[0]).to.have.trimmed.text('MM');
     });
 
     it('should not allow symbol characters to be entered', async () => {
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard('!');
 
-      expect(inputs[0].value).to.equal('MM');
+      expect(spans[0]).to.have.trimmed.text('MM');
     });
 
     it('should not allow space to be entered', async () => {
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard(' ');
 
-      expect(inputs[0].value).to.equal('MM');
+      expect(spans[0]).to.have.trimmed.text('MM');
     });
   });
 
   describe('select all', () => {
-    let inputs: NodeListOf<HTMLInputElement>;
+    let spans: NodeListOf<HTMLElement>;
 
     beforeEach(async () => {
       el = await fixture(html`<sl-date-field .value=${new Date(2026, 2, 15)}></sl-date-field>`);
-      inputs = el.renderRoot.querySelectorAll<HTMLInputElement>('input[role="spinbutton"]');
+      spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
     });
 
     it('should switch to a single select-all input on Ctrl+A', async () => {
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard('{Control>}a{/Control}');
       await el.updateComplete;
 
-      const selectAllInput = el.renderRoot.querySelector<HTMLInputElement>('.select-all');
+      const input = el.renderRoot.querySelector<HTMLInputElement>('input');
 
-      expect(selectAllInput).to.exist;
-      expect(selectAllInput!.value).to.equal('03/15/2026');
-      expect(el.renderRoot.querySelectorAll('input[role="spinbutton"]')).to.have.length(0);
+      expect(input).to.exist;
+      expect(input!.value).to.equal('03/15/2026');
+      expect(el.renderRoot.querySelectorAll('span[role="spinbutton"]')).to.have.length(0);
     });
 
     it('should switch to a single select-all input on Meta+A', async () => {
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard('{Meta>}a{/Meta}');
       await el.updateComplete;
 
-      const selectAllInput = el.renderRoot.querySelector<HTMLInputElement>('.select-all');
+      const input = el.renderRoot.querySelector<HTMLInputElement>('input');
 
-      expect(selectAllInput).to.exist;
-      expect(selectAllInput!.value).to.equal('03/15/2026');
+      expect(input).to.exist;
+      expect(input!.value).to.equal('03/15/2026');
     });
 
     it('should have the text selected in select-all mode', async () => {
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard('{Control>}a{/Control}');
       await el.updateComplete;
 
-      const selectAllInput = el.renderRoot.querySelector<HTMLInputElement>('.select-all');
+      const input = el.renderRoot.querySelector<HTMLInputElement>('input');
 
-      expect(selectAllInput!.selectionStart).to.equal(0);
-      expect(selectAllInput!.selectionEnd).to.equal(10);
+      expect(input!.selectionStart).to.equal(0);
+      expect(input!.selectionEnd).to.equal(10);
     });
 
     it('should exit select-all mode and restore spinbuttons on keydown', async () => {
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard('{Control>}a{/Control}');
       await el.updateComplete;
 
       await userEvent.keyboard('{ArrowRight}');
       await el.updateComplete;
 
-      expect(el.renderRoot.querySelector('.select-all')).to.not.exist;
-      expect(el.renderRoot.querySelectorAll('input[role="spinbutton"]')).to.have.length(3);
+      expect(el.renderRoot.querySelector('input')).to.not.exist;
+      expect(el.renderRoot.querySelectorAll('span[role="spinbutton"]')).to.have.length(3);
     });
 
     it('should focus the first spinbutton when exiting select-all via keydown', async () => {
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard('{Control>}a{/Control}');
       await el.updateComplete;
 
       await userEvent.keyboard('{ArrowRight}');
       await el.updateComplete;
 
-      const newInputs = el.renderRoot.querySelectorAll<HTMLInputElement>('input[role="spinbutton"]');
+      const newSpans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
 
-      expect((el.renderRoot as ShadowRoot).activeElement).to.equal(newInputs[0]);
+      expect((el.renderRoot as ShadowRoot).activeElement).to.equal(newSpans[0]);
     });
 
     it('should not exit select-all mode on modifier key alone', async () => {
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard('{Control>}a{/Control}');
       await el.updateComplete;
 
-      const selectAllInput = el.renderRoot.querySelector<HTMLInputElement>('.select-all')!;
-      selectAllInput.dispatchEvent(new KeyboardEvent('keydown', { key: 'Control', ctrlKey: true, bubbles: true }));
+      const input = el.renderRoot.querySelector<HTMLInputElement>('input')!;
+      input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Control', ctrlKey: true, bubbles: true }));
       await el.updateComplete;
 
-      expect(el.renderRoot.querySelector('.select-all')).to.exist;
+      expect(el.renderRoot.querySelector('input')).to.exist;
     });
 
     it('should allow Ctrl+C without exiting select-all mode', async () => {
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard('{Control>}a{/Control}');
       await el.updateComplete;
 
-      const selectAllInput = el.renderRoot.querySelector<HTMLInputElement>('.select-all')!;
-      selectAllInput.dispatchEvent(
-        new KeyboardEvent('keydown', { key: 'c', ctrlKey: true, bubbles: true, cancelable: true })
-      );
+      const input = el.renderRoot.querySelector<HTMLInputElement>('input')!;
+      input.dispatchEvent(new KeyboardEvent('keydown', { key: 'c', ctrlKey: true, bubbles: true, cancelable: true }));
       await el.updateComplete;
 
-      expect(el.renderRoot.querySelector('.select-all')).to.exist;
+      expect(el.renderRoot.querySelector('input')).to.exist;
     });
 
     it('should exit select-all mode on mousedown', async () => {
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard('{Control>}a{/Control}');
       await el.updateComplete;
 
-      const selectAllInput = el.renderRoot.querySelector<HTMLInputElement>('.select-all')!;
-      selectAllInput.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true }));
+      const input = el.renderRoot.querySelector<HTMLInputElement>('input')!;
+      input.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true }));
       await el.updateComplete;
 
-      expect(el.renderRoot.querySelector('.select-all')).to.not.exist;
-      expect(el.renderRoot.querySelectorAll('input[role="spinbutton"]')).to.have.length(3);
+      expect(el.renderRoot.querySelector('input')).to.not.exist;
+      expect(el.renderRoot.querySelectorAll('span[role="spinbutton"]')).to.have.length(3);
     });
 
     it('should exit select-all mode on blur', async () => {
-      inputs[0].focus();
+      spans[0].focus();
       await userEvent.keyboard('{Control>}a{/Control}');
       await el.updateComplete;
 
-      const selectAllInput = el.renderRoot.querySelector<HTMLInputElement>('.select-all')!;
-      selectAllInput.dispatchEvent(new FocusEvent('blur', { bubbles: true }));
+      const input = el.renderRoot.querySelector<HTMLInputElement>('input')!;
+      input.dispatchEvent(new FocusEvent('blur', { bubbles: true }));
       await el.updateComplete;
 
-      expect(el.renderRoot.querySelector('.select-all')).to.not.exist;
+      expect(el.renderRoot.querySelector('input')).to.not.exist;
     });
 
     it('should show placeholder text for empty parts in select-all mode', async () => {
       el = await fixture(html`<sl-date-field></sl-date-field>`);
-      const emptyInputs = el.renderRoot.querySelectorAll<HTMLInputElement>('input[role="spinbutton"]');
+      const emptyInputs = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
 
       emptyInputs[0].focus();
       await userEvent.keyboard('3');
@@ -1046,9 +1048,8 @@ describe('sl-date-field', () => {
       await userEvent.keyboard('{Control>}a{/Control}');
       await el.updateComplete;
 
-      const selectAllInput = el.renderRoot.querySelector<HTMLInputElement>('.select-all');
-
-      expect(selectAllInput!.value).to.equal('03/DD/YYYY');
+      const input = el.renderRoot.querySelector('input');
+      expect(input!.value).to.equal('03/DD/YYYY');
     });
   });
 

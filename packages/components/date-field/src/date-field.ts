@@ -256,7 +256,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
                   @keydown=${this.#onSelectAllKeydown}
                   @mousedown=${this.#onSelectAllMouseDown}
                   .value=${this.#getFormattedValue()}
-                  class="select-all"
                   readonly
                 />
               `
@@ -339,20 +338,22 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         : placeholder;
 
     return html`
-      <input
+      <span
+        @beforeinput=${(e: Event) => e.preventDefault()}
         @focus=${this.#onPartFocus}
         @keydown=${(e: KeyboardEvent) => this.#onPartKeydown(e, partType)}
-        .value=${displayValue}
-        ?disabled=${this.disabled}
-        ?readonly=${this.readonly || this.selectOnly}
+        aria-disabled=${this.disabled ? 'true' : 'false'}
         aria-label=${getDateUnitName(locale, partType)}
+        aria-readonly=${this.readonly || this.selectOnly ? 'true' : 'false'}
         aria-valuemax=${this.#getMaxForType(partType)}
         aria-valuemin=${this.#getMinForType(partType)}
         aria-valuenow=${ifDefined(currentValue)}
         aria-valuetext=${valueText}
+        contenteditable=${this.disabled ? 'false' : 'true'}
         inputmode="numeric"
         role="spinbutton"
-      />
+        >${displayValue}</span
+      >
     `;
   }
 
@@ -443,14 +444,16 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onPartFocus(event: FocusEvent): void {
-    const input = event.target as HTMLInputElement;
+    const span = event.composedPath().at(0);
 
-    input.select();
     this.#enteredDigits = 0;
+
+    // Workaround for WebKit changing the selection on focus.
+    requestAnimationFrame(() => this.#selectContent(span as HTMLElement));
   }
 
   #onPartKeydown(event: KeyboardEvent, partType: DatePartType): void {
-    const input = event.target as HTMLInputElement;
+    const span = event.target as HTMLElement;
 
     // Check if the pressed key is a separator character
     const locale = this.locale ?? 'default',
@@ -459,19 +462,22 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     if (separators.includes(event.key)) {
       event.preventDefault();
-      this.#moveFocus(input, 1);
+      this.#moveFocus(span, 1);
       return;
     }
 
     if ((event.ctrlKey || event.metaKey) && event.key === 'a') {
       event.preventDefault();
+
       this.#selectAll = true;
       this.requestUpdate();
+
       void this.updateComplete.then(() => {
-        const selectAllInput = this.renderRoot.querySelector<HTMLInputElement>('.select-all');
-        selectAllInput?.focus();
-        selectAllInput?.select();
+        const input = this.renderRoot.querySelector<HTMLInputElement>('input');
+        input?.focus();
+        input?.select();
       });
+
       return;
     }
 
@@ -484,15 +490,15 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
       const digit = parseInt(event.key, 10);
       this.#applyDigitToDatePart(partType, digit);
-      this.#updatePartDisplay(input, partType);
+      this.requestUpdate();
 
       // Auto-advance when max digits reached
       const maxDigits = partType === 'year' ? 4 : 2;
       if (this.#enteredDigits >= maxDigits) {
         this.#enteredDigits = 0;
-        this.#moveFocus(input, 1);
+        this.#moveFocus(span, 1);
       } else {
-        requestAnimationFrame(() => input.select());
+        requestAnimationFrame(() => this.#selectContent(span));
       }
 
       this.#trySetValue();
@@ -504,8 +510,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         event.preventDefault();
         if (!this.selectOnly) {
           this.#adjustDatePart(partType, 1);
-          this.#updatePartDisplay(input, partType);
-          input.select();
+          this.requestUpdate();
+
+          this.#selectContent(span);
           this.#trySetValue();
         }
         break;
@@ -514,20 +521,21 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         event.preventDefault();
         if (!this.selectOnly) {
           this.#adjustDatePart(partType, -1);
-          this.#updatePartDisplay(input, partType);
-          input.select();
+          this.requestUpdate();
+
+          this.#selectContent(span);
           this.#trySetValue();
         }
         break;
 
       case 'ArrowLeft':
         event.preventDefault();
-        this.#moveFocus(input, -1);
+        this.#moveFocus(span, -1);
         break;
 
       case 'ArrowRight':
         event.preventDefault();
-        this.#moveFocus(input, 1);
+        this.#moveFocus(span, 1);
         break;
 
       case 'Backspace':
@@ -536,8 +544,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         if (!this.selectOnly) {
           this.#dateParts[partType] = undefined;
           this.#enteredDigits = 0;
-          this.#updatePartDisplay(input, partType);
-          input.select();
+          this.requestUpdate();
+          this.#selectContent(span);
           this.#trySetValue();
         }
         break;
@@ -576,8 +584,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   #onSeparatorPointerDown(event: Event & { target: HTMLElement }): void {
     event.preventDefault();
     event.stopImmediatePropagation();
-
-    console.log(event.target, event.target.previousElementSibling, event.target.nextElementSibling);
 
     (event.target.previousElementSibling as HTMLElement)?.focus();
   }
@@ -654,8 +660,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     if (refocus) {
       void this.updateComplete.then(() => {
-        const firstInput = this.renderRoot.querySelector<HTMLInputElement>('input[role="spinbutton"]');
-        firstInput?.focus();
+        const firstSpan = this.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]');
+        firstSpan?.focus();
       });
     }
   }
@@ -710,15 +716,24 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     );
   }
 
+  /** Selects all text content in a contenteditable element. */
+  #selectContent(element: HTMLElement): void {
+    const selection = element.ownerDocument.getSelection();
+
+    if (selection) {
+      selection.setBaseAndExtent(element, 0, element, element.childNodes.length);
+    }
+  }
+
   /** Moves focus to the next or previous spinbutton input. */
-  #moveFocus(current: HTMLInputElement, direction: 1 | -1): void {
-    const inputs = Array.from(this.renderRoot.querySelectorAll<HTMLInputElement>('input[role="spinbutton"]')),
-      index = inputs.indexOf(current),
-      target = inputs[index + direction];
+  #moveFocus(current: HTMLElement, direction: 1 | -1): void {
+    const spans = Array.from(this.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]')),
+      index = spans.indexOf(current),
+      target = spans[index + direction];
 
     if (target) {
       target.focus();
-      target.select();
+      this.#selectContent(target);
     }
   }
 
@@ -732,10 +747,10 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     this.dialog?.hidePopover();
 
-    // Focus the first spinbutton input after closing the dialog
+    // Focus the first spinbutton after closing the dialog
     requestAnimationFrame(() => {
-      const firstInput = this.renderRoot.querySelector<HTMLInputElement>('input[role="spinbutton"]');
-      firstInput?.focus();
+      const firstSpan = this.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]');
+      firstSpan?.focus();
     });
   }
 
@@ -760,20 +775,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.#preserveDateParts = true;
       this.value = undefined;
       this.updateValidity();
-    }
-  }
-
-  /** Updates a single spinbutton input's display value. */
-  #updatePartDisplay(input: HTMLInputElement, partType: DatePartType): void {
-    const locale = this.locale ?? 'default',
-      parts = getDateFormat(locale),
-      formatPart = parts.find(p => p.type === partType),
-      currentValue = this.#dateParts[partType];
-
-    if (formatPart && currentValue !== undefined) {
-      input.value = String(currentValue).padStart(formatPart.value.length, '0');
-    } else {
-      input.value = '';
     }
   }
 }

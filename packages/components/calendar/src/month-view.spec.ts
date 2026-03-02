@@ -464,6 +464,79 @@ describe('sl-month-view', () => {
       expect(el.shadowRoot?.activeElement).to.match('button[part~="day"]');
       expect(el.shadowRoot?.activeElement).to.have.trimmed.text('6');
     });
+
+    it('should not emit sl-select when an aria-disabled="true" date is activated', async () => {
+      const onSelect = spy();
+      el.disabledDates = [new Date(2023, 2, 10)];
+      await el.updateComplete;
+
+      el.addEventListener('sl-select', onSelect);
+
+      const button = el.renderRoot.querySelector<HTMLButtonElement>('button[aria-disabled="true"]');
+      button?.click();
+      await el.updateComplete;
+
+      button?.focus();
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+
+      await userEvent.keyboard(' ');
+      await el.updateComplete;
+
+      expect(onSelect).to.not.have.been.called;
+      expect(el.selected).to.be.undefined;
+    });
+
+    it('should not emit sl-select when an out-of-range date is activated', async () => {
+      const onSelect = spy();
+      el.min = new Date(2023, 2, 10);
+      await el.updateComplete;
+
+      el.addEventListener('sl-select', onSelect);
+
+      const button = el.renderRoot.querySelector<HTMLButtonElement>('button[part~="out-of-range"]');
+      button?.click();
+      await el.updateComplete;
+
+      button?.focus();
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+
+      await userEvent.keyboard(' ');
+      await el.updateComplete;
+
+      expect(onSelect).to.not.have.been.called;
+      expect(el.selected).to.be.undefined;
+    });
+
+    it('should land on a disabled date instead of skipping it and remain non-interactive', async () => {
+      const onChange = spy();
+      const onSelect = spy();
+      el.month = new Date(2023, 2, 1);
+      el.disabledDates = [new Date(2023, 2, 14)];
+      el.addEventListener('sl-change', onChange);
+      el.addEventListener('sl-select', onSelect);
+      await el.updateComplete;
+
+      // Focus Mar 7 (index 8)
+      el.focus(new Date(2023, 2, 7));
+      await el.updateComplete;
+
+      // Navigate to Mar 14 (index 15)
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('14');
+      expect(el.shadowRoot?.activeElement).to.have.attribute('aria-disabled', 'true');
+
+      // Try to activate it
+      await userEvent.keyboard('{Enter}');
+      await userEvent.keyboard(' ');
+      await el.updateComplete;
+
+      expect(onSelect).to.not.have.been.called;
+      expect(onChange).to.not.have.been.called;
+    });
   });
 
   describe('indicator dates', () => {
@@ -816,7 +889,7 @@ describe('sl-month-view', () => {
       expect(el.shadowRoot?.activeElement).to.have.trimmed.text('13');
     });
 
-    it('should not change focus when pressing arrow left on the first enabled day of the month', async () => {
+    it('should change focus to a disabled date when pressing arrow left', async () => {
       el.min = new Date(el.month.getFullYear(), el.month.getMonth(), 10);
       await el.updateComplete;
 
@@ -826,10 +899,10 @@ describe('sl-month-view', () => {
 
       expect(el.shadowRoot?.activeElement).to.exist;
       expect(el.shadowRoot?.activeElement).to.match('button[part~="day"]');
-      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('10');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('9');
     });
 
-    it('should not change focus when pressing arrow right on the last enabled day of the month', async () => {
+    it('should change focus to a disabled date when pressing arrow right', async () => {
       el.selected = new Date(2023, 2, 20);
       el.max = new Date(el.month.getFullYear(), el.month.getMonth(), 20);
       await el.updateComplete;
@@ -840,7 +913,7 @@ describe('sl-month-view', () => {
 
       expect(el.shadowRoot?.activeElement).to.exist;
       expect(el.shadowRoot?.activeElement).to.match('button[part~="day"]');
-      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('20');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('21');
     });
 
     it('should focus the day below on arrow down', async () => {
@@ -853,7 +926,7 @@ describe('sl-month-view', () => {
       expect(el.shadowRoot?.activeElement).to.have.trimmed.text('8');
     });
 
-    it('should not change focus when pressing arrow down where there is no enabled day of the month below it', async () => {
+    it('should change focus to a disabled date when pressing arrow down', async () => {
       el.selected = new Date(2023, 2, 24);
       el.max = new Date(el.month.getFullYear(), el.month.getMonth(), 30);
       await el.updateComplete;
@@ -864,7 +937,7 @@ describe('sl-month-view', () => {
 
       expect(el.shadowRoot?.activeElement).to.exist;
       expect(el.shadowRoot?.activeElement).to.match('button[part~="day"]');
-      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('24');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('31');
     });
 
     it('should focus the day above on arrow up', async () => {
@@ -880,7 +953,7 @@ describe('sl-month-view', () => {
       expect(el.shadowRoot?.activeElement).to.have.trimmed.text('7');
     });
 
-    it('should not change focus when pressing arrow up where there is no enabled day of the month above it', async () => {
+    it('should change focus to a disabled date when pressing arrow up', async () => {
       el.min = new Date(el.month.getFullYear(), el.month.getMonth(), 2);
       el.selected = new Date(2023, 2, 8);
       await el.updateComplete;
@@ -891,7 +964,7 @@ describe('sl-month-view', () => {
 
       expect(el.shadowRoot?.activeElement).to.exist;
       expect(el.shadowRoot?.activeElement).to.match('button[part~="day"]');
-      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('8');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('1');
     });
 
     it('should emit an sl-change event after pressing arrow left on the first day of the current month', async () => {

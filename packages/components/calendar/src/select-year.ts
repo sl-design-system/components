@@ -49,7 +49,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     direction: 'grid',
     directionLength: this.#cols,
     elements: (): HTMLButtonElement[] => Array.from(this.buttons),
-    isFocusableElement: (el: HTMLButtonElement) => el.getAttribute('aria-disabled') !== 'true',
+    isFocusableElement: (el: HTMLButtonElement) => !!el,
     focusInIndex: (): number => {
       const buttons = Array.from(this.buttons),
         index = buttons.findIndex(btn => btn.getAttribute('aria-disabled') !== 'true');

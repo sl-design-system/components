@@ -19,7 +19,6 @@ import {
   createCalendar,
   getWeekdayNames,
   indicatorConverter,
-  isDateInList,
   isSameDate
 } from './utils.js';
 
@@ -81,28 +80,19 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       }
 
       // If there is a selected day, focus that one
-      const selectedIndex = elements.findIndex(
-        el => el.getAttribute('aria-disabled') !== 'true' && el.getAttribute('aria-pressed') === 'true'
-      );
+      const selectedIndex = elements.findIndex(el => el.getAttribute('aria-pressed') === 'true');
       if (selectedIndex > -1) {
         return selectedIndex;
       }
 
       // Otherwise, focus today if visible
-      const todayIndex = elements.findIndex(
-        el => el.getAttribute('aria-disabled') !== 'true' && el.part.contains('today')
-      );
+      const todayIndex = elements.findIndex(el => el.part.contains('today'));
       if (todayIndex > -1) {
         return todayIndex;
       }
 
       // Otherwise, focus the first available day of the month
-      return elements.findIndex(
-        el =>
-          el.getAttribute('aria-disabled') !== 'true' &&
-          !el.part.contains('previous-month') &&
-          !el.part.contains('next-month')
-      );
+      return elements.findIndex(el => !el.part.contains('previous-month') && !el.part.contains('next-month'));
     },
     elements: (): HTMLButtonElement[] => {
       return this.inert ? [] : Array.from(this.renderRoot.querySelectorAll('button'));
@@ -414,53 +404,7 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onKeydown(event: KeyboardEvent, day: Day): void {
-    if (event.key === 'ArrowLeft' && day.firstActiveDayOfMonth) {
-      event.preventDefault();
-      event.stopPropagation();
-
-      this.changeEvent.emit(new Date(day.date.getFullYear(), day.date.getMonth(), 0));
-    } else if (event.key === 'ArrowRight' && day.lastActiveDayOfMonth) {
-      event.preventDefault();
-      event.stopPropagation();
-
-      this.changeEvent.emit(new Date(day.date.getFullYear(), day.date.getMonth() + 1, 1));
-    } else if (event.key === 'ArrowUp' && day.currentMonth) {
-      // Whether it's possible to move to the same weekday in previous weeks (skipping disabled)
-      const possibleDay = this.#getEnabledSameWeekday(day.date, -1);
-      if (!possibleDay) {
-        event.preventDefault();
-        event.stopPropagation();
-        return;
-      }
-
-      const crossesMonth =
-        possibleDay.getMonth() !== day.date.getMonth() || possibleDay.getFullYear() !== day.date.getFullYear();
-
-      if (crossesMonth) {
-        event.preventDefault();
-        event.stopPropagation();
-
-        this.changeEvent.emit(possibleDay);
-      }
-    } else if (event.key === 'ArrowDown' && day.currentMonth) {
-      // Whether it's possible to move to the same weekday in following weeks (skipping disabled)
-      const possibleDay = this.#getEnabledSameWeekday(day.date, 1);
-      if (!possibleDay) {
-        event.preventDefault();
-        event.stopPropagation();
-        return;
-      }
-
-      const crossesMonth =
-        possibleDay.getMonth() !== day.date.getMonth() || possibleDay.getFullYear() !== day.date.getFullYear();
-
-      if (crossesMonth) {
-        event.preventDefault();
-        event.stopPropagation();
-
-        this.changeEvent.emit(possibleDay);
-      }
-    } else if (event.key === 'Enter' || event.key === ' ') {
+    if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
       event.stopPropagation();
 
@@ -468,30 +412,33 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         this.selectEvent.emit(day.date);
         this.selected = day.date;
       }
+    } else {
+      let offset = 0;
+      if (event.key === 'ArrowLeft') {
+        offset = -1;
+      } else if (event.key === 'ArrowRight') {
+        offset = 1;
+      } else if (event.key === 'ArrowUp') {
+        offset = -7;
+      } else if (event.key === 'ArrowDown') {
+        offset = 7;
+      }
+
+      if (offset !== 0 && day.currentMonth) {
+        const targetDate = new Date(day.date.getFullYear(), day.date.getMonth(), day.date.getDate() + offset);
+        const crossesMonth =
+          targetDate.getMonth() !== day.date.getMonth() || targetDate.getFullYear() !== day.date.getFullYear();
+
+        if (crossesMonth) {
+          event.preventDefault();
+          event.stopPropagation();
+
+          if ((!this.min || targetDate >= this.min) && (!this.max || targetDate <= this.max)) {
+            this.changeEvent.emit(targetDate);
+          }
+        }
+      }
     }
-  }
-
-  /** Nearest enabled same-weekday date (weekly steps: -1 or 1) */
-  #getEnabledSameWeekday(start: Date, direction: 1 | -1): Date | undefined {
-    const findEnabledSameWeekday = (current: Date): Date | undefined => {
-      const possibleDay = new Date(
-        current.getFullYear(),
-        current.getMonth(),
-        current.getDate() + DAYS_IN_WEEK * direction
-      );
-
-      if ((this.min && possibleDay < this.min) || (this.max && possibleDay > this.max)) {
-        return undefined;
-      }
-
-      if (!(this.disabledDates && isDateInList(possibleDay, this.disabledDates))) {
-        return possibleDay;
-      }
-
-      return findEnabledSameWeekday(possibleDay);
-    };
-
-    return findEnabledSameWeekday(start);
   }
 
   /**

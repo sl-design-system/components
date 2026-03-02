@@ -172,6 +172,27 @@ describe('sl-select-year', () => {
 
       expect(disabled).to.deep.equal([true, true, true, false, false, false, false, false, true, true, true, true]);
     });
+
+    it('should not emit sl-select when an aria-disabled="true" year is activated', async () => {
+      const onSelect = spy();
+      el.addEventListener('sl-select', (e: SlSelectEvent<number>) => {
+        onSelect(e.detail);
+      });
+
+      const button = el.renderRoot.querySelector<HTMLButtonElement>('button[aria-disabled="true"]');
+      button?.click();
+      await el.updateComplete;
+
+      button?.focus();
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+
+      await userEvent.keyboard(' ');
+      await el.updateComplete;
+
+      expect(onSelect).to.not.have.been.called;
+      expect(el.selected).to.be.undefined;
+    });
   });
 
   describe('keyboard navigation', () => {

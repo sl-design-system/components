@@ -172,6 +172,25 @@ describe('sl-select-month', () => {
       expect(yearButton).to.not.exist;
       expect(yearSpan).to.exist;
     });
+
+    it('should not emit sl-select when an aria-disabled="true" month is activated', async () => {
+      const onSelect = spy();
+      el.addEventListener('sl-select', onSelect);
+
+      const button = el.renderRoot.querySelector<HTMLButtonElement>('button[aria-disabled="true"]');
+      button?.click();
+      await el.updateComplete;
+
+      button?.focus();
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+
+      await userEvent.keyboard(' ');
+      await el.updateComplete;
+
+      expect(onSelect).to.not.have.been.called;
+      expect(el.selected).to.be.undefined;
+    });
   });
 
   describe('keyboard navigation', () => {

@@ -338,6 +338,23 @@ describe('sl-combobox', () => {
         expect(input).to.have.attribute('aria-controls', el.querySelector('sl-listbox')?.id);
       });
     });
+
+    it('should not have has-selected-items attribute when interacting with a combobox with no selected items', async () => {
+      el.placeholder = 'Placeholder';
+      await el.updateComplete;
+
+      expect(el).not.to.have.attribute('has-selected-items');
+      expect(input.placeholder).to.equal('Placeholder');
+
+      await userEvent.click(input);
+      await el.updateComplete;
+
+      await userEvent.click(document.body);
+      await el.updateComplete;
+
+      expect(el).not.to.have.attribute('has-selected-items');
+      expect(input.placeholder).to.equal('Placeholder');
+    });
   });
 
   describe('allow custom values', () => {
@@ -796,6 +813,51 @@ describe('sl-combobox', () => {
         expect(onChange).to.have.been.calledOnce;
         expect(onChange.lastCall.args[0]).to.deep.equal(['Lorem']);
       });
+
+      it('should not have has-selected-items attribute when interacting with a combobox with no selected items', async () => {
+        el.placeholder = 'Placeholder';
+        await el.updateComplete;
+
+        expect(el).not.to.have.attribute('has-selected-items');
+        expect(input.placeholder).to.equal('Placeholder');
+
+        await userEvent.click(input);
+        await el.updateComplete;
+
+        await userEvent.click(document.body);
+        await el.updateComplete;
+
+        expect(el).not.to.have.attribute('has-selected-items');
+        expect(input.placeholder).to.equal('Placeholder');
+      });
+
+      it('should not poison form value with placeholder on blur', async () => {
+        const form = await fixture<HTMLFormElement>(html`
+          <form>
+            <sl-combobox name="test" multiple placeholder="Placeholder">
+              <sl-listbox>
+                <sl-option>Lorem</sl-option>
+                <sl-option>Ipsum</sl-option>
+                <sl-option>Ipsom</sl-option>
+              </sl-listbox>
+            </sl-combobox>
+          </form>
+        `);
+
+        const combobox = form.querySelector<Combobox>('sl-combobox')!,
+          formInput = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+        await combobox.updateComplete;
+        await userEvent.click(formInput);
+
+        await combobox.updateComplete;
+        await userEvent.click(document.body);
+
+        await combobox.updateComplete;
+        const formData = new FormData(form);
+
+        expect(formData.getAll('test')).to.deep.equal([]);
+      });
     });
 
     describe('disabled', () => {
@@ -1111,7 +1173,7 @@ describe('sl-combobox', () => {
     describe('required', () => {
       beforeEach(async () => {
         el = await fixture(html`
-          <sl-combobox required>
+          <sl-combobox multiple required>
             <sl-listbox>
               <sl-option value="1">Option 1</sl-option>
               <sl-option value="2">Option 2</sl-option>
@@ -1122,6 +1184,13 @@ describe('sl-combobox', () => {
       });
 
       it('should be invalid', () => {
+        expect(el.valid).to.be.false;
+      });
+
+      it('should be invalid when it has a placeholder', async () => {
+        el.placeholder = 'Placeholder';
+        await el.updateComplete;
+
         expect(el.valid).to.be.false;
       });
 
@@ -1172,6 +1241,67 @@ describe('sl-combobox', () => {
       expect(el.onFormControl).to.have.been.calledOnce;
     });
 
+    it('should not emit an sl-change event on initial render when an option is pre-selected via attribute', async () => {
+      const changeSpy = spy(),
+        el = await fixture<Combobox>(html`
+          <sl-combobox @sl-change=${changeSpy}>
+            <sl-listbox>
+              <sl-option selected>Option 1</sl-option>
+              <sl-option>Option 2</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(el.value).to.equal('Option 1');
+      expect(changeSpy).not.to.have.been.called;
+
+      // Ensure that subsequent user interaction DOES emit an sl-change event
+      const options = Array.from(el.querySelectorAll('sl-option'));
+
+      options.at(1)?.click();
+      await el.updateComplete;
+
+      expect(el.value).to.equal('Option 2');
+      expect(changeSpy).to.have.been.calledOnce;
+    });
+
+    it('should not overwrite custom validation errors', async () => {
+      const combobox = el.renderRoot.querySelector<Combobox>('sl-combobox')!;
+      combobox.setCustomValidity('Custom error message');
+      combobox.updateValidity();
+      await combobox.updateComplete;
+
+      expect(combobox.validity.customError).to.be.true;
+      expect(combobox.validationMessage).to.equal('Custom error message');
+
+      combobox.value = 'Option 1';
+      await combobox.updateComplete;
+
+      expect(combobox.validity.customError).to.be.true;
+      expect(combobox.validationMessage).to.equal('Custom error message');
+    });
+
+    it('should update validity when value is set programmatically on a required combobox', async () => {
+      const el = await fixture<Combobox>(html`
+        <sl-combobox required>
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      `);
+      await el.updateComplete;
+
+      expect(el.validity.valueMissing).to.be.true;
+
+      el.value = 'Option 1';
+      await el.updateComplete;
+
+      expect(el.validity.valueMissing).to.be.false;
+    });
+
     it('should focus the input when the label is clicked', async () => {
       const input = el.renderRoot.querySelector('input'),
         label = el.renderRoot.querySelector('label');
@@ -1180,6 +1310,42 @@ describe('sl-combobox', () => {
       await el.updateComplete;
 
       expect(el.shadowRoot!.activeElement).to.equal(input);
+    });
+  });
+
+  describe('virtual list', () => {
+    it('should submit index 0 for the first item in a virtual list', async () => {
+      const form = await fixture<HTMLFormElement>(html`
+        <form>
+          <sl-combobox name="test" .options=${['Option 1', 'Option 2']}></sl-combobox>
+        </form>
+      `);
+      const combobox = form.querySelector<Combobox>('sl-combobox')!;
+      await combobox.updateComplete;
+
+      combobox.value = 'Option 1';
+      await combobox.updateComplete;
+
+      const formData = new FormData(form);
+      expect(formData.get('test')).to.equal('0');
+      expect(combobox.value).to.equal('Option 1');
+    });
+
+    it('should submit index 1 for the second item in a virtual list', async () => {
+      const form = await fixture<HTMLFormElement>(html`
+        <form>
+          <sl-combobox name="test" .options=${['Option 1', 'Option 2']}></sl-combobox>
+        </form>
+      `);
+      const combobox = form.querySelector<Combobox>('sl-combobox')!;
+      await combobox.updateComplete;
+
+      combobox.value = 'Option 2';
+      await combobox.updateComplete;
+
+      const formData = new FormData(form);
+      expect(formData.get('test')).to.equal('1');
+      expect(combobox.value).to.equal('Option 2');
     });
   });
 });

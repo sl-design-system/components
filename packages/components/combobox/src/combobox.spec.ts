@@ -1279,6 +1279,7 @@ describe('sl-combobox', () => {
 
       const formData = new FormData(form);
       expect(formData.get('test')).to.equal('0');
+      expect(combobox.value).to.equal('Option 1');
     });
 
     it('should submit index 1 for the second item in a virtual list', async () => {
@@ -1295,6 +1296,7 @@ describe('sl-combobox', () => {
 
       const formData = new FormData(form);
       expect(formData.get('test')).to.equal('1');
+      expect(combobox.value).to.equal('Option 2');
     });
   });
 });

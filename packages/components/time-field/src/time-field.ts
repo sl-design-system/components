@@ -2,7 +2,7 @@ import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin, type SlFormControlEvent, type SlUpdateStateEvent } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, LocaleMixin, anchor, event } from '@sl-design-system/shared';
+import { type EventEmitter, EventsController, LocaleMixin, anchor, event } from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { FieldButton, TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
@@ -46,6 +46,18 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** @internal The default margin between the popover and the viewport. */
   static viewportMargin = 8;
+
+  /** Events controller. */
+  // eslint-disable-next-line no-unused-private-class-members
+  #events = new EventsController(this, {
+    focusout: this.#onFocusout
+  });
+
+  /**
+   * Track when focus is intentionally leaving the component (e.g. by tabbing away).
+   * Used to prevent restoring focus to the text field when the user intentionally moved focus elsewhere.
+   */
+  #focusLeavingComponent = false;
 
   /**
    * Flag indicating whether the popover was just closed. We need to know this so we can
@@ -416,6 +428,26 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
   }
 
+  #onFocusout(event: FocusEvent): void {
+    const relatedTarget = event.relatedTarget,
+      leavingComponent =
+        !(relatedTarget instanceof Node) ||
+        (!this.contains(relatedTarget) && !this.shadowRoot?.contains(relatedTarget));
+
+    console.log('relatedTarget', relatedTarget);
+
+    if (leavingComponent) {
+      const dialogIsOpen = this.dialog?.matches(':popover-open');
+
+      // TODO: maybe isPopoveropen...
+
+      if (dialogIsOpen) {
+        this.#focusLeavingComponent = true;
+        this.dialog?.hidePopover();
+      }
+    }
+  }
+
   #onButtonClick(event: MouseEvent): void {
     event.stopPropagation();
 
@@ -506,7 +538,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.updateValidity();
 
     this.dialog?.hidePopover();
-    this.textField.focus();
   }
 
   #onMinuteKeydown(event: KeyboardEvent, minutes: number): void {
@@ -705,7 +736,14 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   async #onToggle(event: ToggleEvent): Promise<void> {
     if (event.newState === 'closed') {
+      // Only restore focus to the text field if the popover was closed by selecting a time
+      // or pressing Escape, not when focus was moved away intentionally (e.g. by tabbing away)
+      if (!this.#focusLeavingComponent) {
+        this.textField.focus();
+      }
+
       this.#popoverJustClosed = false;
+      this.#focusLeavingComponent = false;
     } else {
       await this.#scrollAndFocusStartTime();
     }

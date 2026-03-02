@@ -427,14 +427,24 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.#setValueAndCloseDialog(this.calendar?.selected);
   }
 
-  #onFocusIn = (): void => {
-    this.focusEvent.emit();
+  #onFocusIn = (event: FocusEvent): void => {
+    // Only emit when focus enters from outside the component
+    const relatedTarget = event.relatedTarget as Node | null;
+
+    if (!relatedTarget || !this.contains(relatedTarget)) {
+      this.focusEvent.emit();
+    }
   };
 
-  #onFocusOut = (): void => {
-    this.blurEvent.emit();
-    this.updateState({ touched: true });
-    this.updateValidity();
+  #onFocusOut = (event: FocusEvent): void => {
+    // Only emit when focus leaves the component entirely
+    const relatedTarget = event.relatedTarget as Node | null;
+
+    if (!relatedTarget || !this.contains(relatedTarget)) {
+      this.blurEvent.emit();
+      this.updateState({ touched: true });
+      this.updateValidity();
+    }
   };
 
   #onKeydown(event: KeyboardEvent): void {

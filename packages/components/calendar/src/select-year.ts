@@ -6,7 +6,7 @@ import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, NewFocusGroupController, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { type SlSelectEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, queryAll, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -49,7 +49,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     direction: 'grid',
     directionLength: this.#cols,
     elements: (): HTMLButtonElement[] => Array.from(this.buttons),
-    isFocusableElement: (el: HTMLButtonElement) => !el.disabled,
+    isFocusableElement: (el: HTMLButtonElement) => !!el,
     scope: (): HTMLElement => this.renderRoot.querySelector('table')!,
     wrap: false
   });
@@ -167,9 +167,9 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     return html`
       <td aria-rowindex=${rowIndex + 1} aria-colindex=${colIndex + 1} role="gridcell">
         <button
-          @click=${() => this.#onClick(year)}
+          @click=${() => this.#onClick(year, disabled)}
           @keydown=${this.#onKeydown}
-          ?disabled=${disabled}
+          aria-disabled=${disabled ? 'true' : nothing}
           aria-current=${ifDefined(current ? 'date' : undefined)}
           aria-pressed=${selected.toString()}
           class=${classMap({ current, selected })}
@@ -180,11 +180,13 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  #onClick(year: number): void {
-    const date = new Date(year, 0, 1);
+  #onClick(year: number, disabled?: boolean): void {
+    if (!disabled) {
+      const date = new Date(year, 0, 1);
 
-    this.selectEvent.emit(date);
-    this.selected = date;
+      this.selectEvent.emit(date);
+      this.selected = date;
+    }
   }
 
   /**
@@ -231,7 +233,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
       await this.updateComplete;
 
       const newButtons = Array.from(this.buttons),
-        newEnabledButtons = newButtons.filter(b => !b.disabled);
+        newEnabledButtons = newButtons.filter(b => b.getAttribute('aria-disabled') !== 'true');
 
       let targetButton: HTMLButtonElement | undefined;
 

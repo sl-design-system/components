@@ -7,7 +7,7 @@ import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, LocaleMixin, NewFocusGroupController, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { type SlSelectEvent, SlToggleEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, queryAll, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -52,7 +52,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     direction: 'grid',
     directionLength: this.#cols,
     elements: (): HTMLButtonElement[] => Array.from(this.buttons),
-    isFocusableElement: (el: HTMLButtonElement) => !el.disabled,
+    isFocusableElement: (el: HTMLButtonElement) => !!el,
     scope: (): HTMLElement => this.renderRoot.querySelector('table')!,
     wrap: false
   });
@@ -203,9 +203,9 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     return html`
       <td aria-rowindex=${rowIndex + 1} aria-colindex=${colIndex + 1} role="gridcell">
         <button
-          @click=${() => this.#onClick(month.value)}
+          @click=${() => this.#onClick(month)}
           @keydown=${this.#onKeydown}
-          ?disabled=${month.disabled}
+          aria-disabled=${month.disabled ? 'true' : nothing}
           aria-current=${ifDefined(current ? 'date' : undefined)}
           aria-pressed=${selected.toString()}
           class=${classMap({ current, selected })}
@@ -216,9 +216,11 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     `;
   }
 
-  #onClick(month: number): void {
-    this.selectEvent.emit(new Date(this.month.getFullYear(), month));
-    this.selected = new Date(this.month.getFullYear(), month);
+  #onClick(month: Month): void {
+    if (!month.disabled) {
+      this.selectEvent.emit(new Date(this.month.getFullYear(), month.value));
+      this.selected = new Date(this.month.getFullYear(), month.value);
+    }
   }
 
   /**
@@ -263,7 +265,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       await this.updateComplete;
 
       const newButtons = Array.from(this.buttons),
-        newEnabledButtons = newButtons.filter(b => !b.disabled);
+        newEnabledButtons = newButtons.filter(b => b.getAttribute('aria-disabled') !== 'true');
 
       let targetButton: HTMLButtonElement | undefined;
 

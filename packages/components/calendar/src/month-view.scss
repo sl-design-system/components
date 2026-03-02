@@ -78,7 +78,7 @@ button {
   outline: none;
   padding: var(--sl-size-050);
 
-  &:disabled {
+  &[aria-disabled='true'] {
     cursor: default;
     pointer-events: none;
   }

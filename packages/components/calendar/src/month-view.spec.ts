@@ -392,7 +392,7 @@ describe('sl-month-view', () => {
     });
 
     it('should not disable dates by default', () => {
-      const buttons = Array.from(el.renderRoot.querySelectorAll('button[disabled]'));
+      const buttons = Array.from(el.renderRoot.querySelectorAll('button[aria-disabled="true"]'));
 
       expect(buttons).to.have.length(0);
     });
@@ -401,13 +401,13 @@ describe('sl-month-view', () => {
       el.disabledDates = [new Date(el.month.getFullYear(), el.month.getMonth(), 10)];
       await el.updateComplete;
 
-      const button = el.renderRoot.querySelector('button[disabled]');
+      const button = el.renderRoot.querySelector('button[aria-disabled="true"]');
 
       expect(button).to.exist;
       expect(button?.textContent?.trim()).to.equal('10');
     });
 
-    it('should skip disabled dates when navigating using arrow left/right', async () => {
+    it('should not skip disabled dates when navigating using arrow left/right', async () => {
       // Disable days 11 and 12
       el.disabledDates = [
         new Date(el.month.getFullYear(), el.month.getMonth(), 11),
@@ -418,14 +418,14 @@ describe('sl-month-view', () => {
       // Focus on day 10
       el.focus(new Date(2023, 2, 10));
 
-      // Press arrow right - should skip 11 and 12, landing on 13
+      // Press arrow right - should NOT skip 11
       await userEvent.keyboard('{ArrowRight}');
 
       expect(el.shadowRoot?.activeElement).to.exist;
       expect(el.shadowRoot?.activeElement).to.match('button[part~="day"]');
-      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('13');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('11');
 
-      // Press arrow left - should skip 12 and 11, landing back on 10
+      // Press arrow left - should NOT skip, landing back on 10
       await userEvent.keyboard('{ArrowLeft}');
 
       expect(el.shadowRoot?.activeElement).to.exist;
@@ -433,7 +433,7 @@ describe('sl-month-view', () => {
       expect(el.shadowRoot?.activeElement).to.have.trimmed.text('10');
     });
 
-    it('should skip disabled dates when navigating using arrow up/down', async () => {
+    it('should not skip disabled dates when navigating using arrow up/down', async () => {
       // Looking at the calendar grid:
       // Mo Tu We Th Fr Sa Su
       //  6  7  8  9 10 11 12
@@ -450,14 +450,14 @@ describe('sl-month-view', () => {
       // Focus on day 6 (Monday, week 2)
       el.focus(new Date(2023, 2, 6));
 
-      // Press arrow down - should skip 13 and 20, landing on 27
+      // Press arrow down - should NOT skip 13
       await userEvent.keyboard('{ArrowDown}');
 
       expect(el.shadowRoot?.activeElement).to.exist;
       expect(el.shadowRoot?.activeElement).to.match('button[part~="day"]');
-      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('27');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('13');
 
-      // Press arrow up - should skip 20 and 13, landing back on 6
+      // Press arrow up - should NOT skip
       await userEvent.keyboard('{ArrowUp}');
 
       expect(el.shadowRoot?.activeElement).to.exist;
@@ -526,7 +526,7 @@ describe('sl-month-view', () => {
       const buttons = Array.from(el.renderRoot.querySelectorAll<HTMLButtonElement>('button[part~="out-of-range"]')),
         days = buttons.map(button => Number(button.textContent?.trim()));
 
-      expect(buttons.every(b => b.disabled)).to.be.true;
+      expect(buttons.every(b => b.getAttribute('aria-disabled') === 'true')).to.be.true;
       expect(days).to.deep.equal([27, 28, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
     });
 
@@ -537,7 +537,7 @@ describe('sl-month-view', () => {
       const buttons = Array.from(el.renderRoot.querySelectorAll<HTMLButtonElement>('button[part~="out-of-range"]')),
         days = buttons.map(button => Number(button.textContent?.trim()));
 
-      expect(buttons.every(b => b.disabled)).to.be.true;
+      expect(buttons.every(b => b.getAttribute('aria-disabled') === 'true')).to.be.true;
       expect(days).to.deep.equal([21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
     });
   });

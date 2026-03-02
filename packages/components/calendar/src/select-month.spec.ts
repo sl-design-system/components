@@ -145,7 +145,7 @@ describe('sl-select-month', () => {
     });
 
     it('should mark months outside range as disabled buttons', () => {
-      const disabledButtons = Array.from(el.renderRoot.querySelectorAll('table button[disabled]'));
+      const disabledButtons = Array.from(el.renderRoot.querySelectorAll('table button[aria-disabled="true"]'));
 
       // Months 0,1,2 and 9,10,11 -> 6 disabled
       expect(disabledButtons).to.have.lengthOf(6);

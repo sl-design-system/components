@@ -166,8 +166,8 @@ describe('sl-select-year', () => {
     });
 
     it('should disable buttons that fall outside min/max', () => {
-      const disabled = Array.from(el.renderRoot.querySelectorAll('button')).map(button =>
-        button.hasAttribute('disabled')
+      const disabled = Array.from(el.renderRoot.querySelectorAll('button')).map(
+        button => button.getAttribute('aria-disabled') === 'true'
       );
 
       expect(disabled).to.deep.equal([true, true, true, false, false, false, false, false, true, true, true, true]);
@@ -237,74 +237,44 @@ describe('sl-select-year', () => {
         buttons = Array.from(el.renderRoot.querySelectorAll('button'));
       });
 
-      it('should do nothing when ArrowLeft is pressed on the first enabled button', async () => {
-        const firstEnabledButton = buttons.find(b => !b.disabled),
-          initialYears = [...el.years];
+      it('should focus the previous disabled button when ArrowLeft is pressed on the first enabled button', async () => {
+        const firstEnabledButtonIndex = buttons.findIndex(b => b.getAttribute('aria-disabled') !== 'true');
+        const firstEnabledButton = buttons[firstEnabledButtonIndex];
+        const previousButton = buttons[firstEnabledButtonIndex - 1]; // This is disabled
+        const initialYears = [...el.years];
 
         firstEnabledButton?.focus();
         await userEvent.keyboard('{ArrowLeft}');
         await el.updateComplete;
 
         expect(el.years).to.deep.equal(initialYears);
-        expect(el.shadowRoot?.activeElement).to.equal(firstEnabledButton);
+        expect(el.shadowRoot?.activeElement).to.equal(previousButton);
       });
 
-      it('should do nothing when ArrowRight is pressed on the last enabled button', async () => {
-        const enabledButtons = buttons.filter(b => !b.disabled),
+      it('should focus the next disabled button when ArrowRight is pressed on the last enabled button', async () => {
+        const enabledButtons = buttons.filter(b => b.getAttribute('aria-disabled') !== 'true'),
           lastEnabledButton = enabledButtons.at(-1),
-          initialYears = [...el.years];
+          lastEnabledButtonIndex = buttons.indexOf(lastEnabledButton!);
+        const nextButton = buttons[lastEnabledButtonIndex + 1]; // This is disabled
+        const initialYears = [...el.years];
 
         lastEnabledButton?.focus();
         await userEvent.keyboard('{ArrowRight}');
         await el.updateComplete;
 
         expect(el.years).to.deep.equal(initialYears);
-        expect(el.shadowRoot?.activeElement).to.equal(lastEnabledButton);
+        expect(el.shadowRoot?.activeElement).to.equal(nextButton);
       });
 
-      it('should skip disabled buttons when navigating with Arrow keys', async () => {
-        const enabledButtons = buttons.filter(b => !b.disabled),
-          firstEnabled = enabledButtons[0],
-          secondEnabled = enabledButtons[1];
+      it('should not skip disabled buttons when navigating with Arrow keys', async () => {
+        const firstEnabledButtonIndex = buttons.findIndex(b => b.getAttribute('aria-disabled') !== 'true');
+        const firstEnabled = buttons[firstEnabledButtonIndex];
+        const previousButton = buttons[firstEnabledButtonIndex - 1]; // disabled
 
         firstEnabled?.focus();
-        await userEvent.keyboard('{ArrowRight}');
-
-        expect(el.shadowRoot?.activeElement).to.equal(secondEnabled);
-      });
-
-      it('should navigate to the second enabled button when you press ArrowLeft and then ArrowRight on the first enabled button', async () => {
-        const enabledButtons = buttons.filter(b => !b.disabled),
-          firstEnabled = enabledButtons[0],
-          secondEnabled = enabledButtons[1];
-
-        firstEnabled?.focus();
-
-        // ArrowLeft on first button - should do nothing (boundary)
-        await userEvent.keyboard('{ArrowLeft}');
-        expect(el.shadowRoot?.activeElement).to.equal(firstEnabled);
-
-        // ArrowRight should now work and move to second button
-        await userEvent.keyboard('{ArrowRight}');
-
-        expect(el.shadowRoot?.activeElement).to.equal(secondEnabled);
-      });
-
-      it('should navigate to the second to last enabled button when you press ArrowRight and then ArrowLeft on the last enabled button', async () => {
-        const enabledButtons = buttons.filter(b => !b.disabled),
-          lastEnabled = enabledButtons.at(-1),
-          secondToLastEnabled = enabledButtons.at(-2);
-
-        lastEnabled?.focus();
-
-        // ArrowRight on last button - should do nothing (boundary)
-        await userEvent.keyboard('{ArrowRight}');
-        expect(el.shadowRoot?.activeElement).to.equal(lastEnabled);
-
-        // ArrowLeft should now work and move to second-to-last button
         await userEvent.keyboard('{ArrowLeft}');
 
-        expect(el.shadowRoot?.activeElement).to.equal(secondToLastEnabled);
+        expect(el.shadowRoot?.activeElement).to.equal(previousButton);
       });
     });
   });

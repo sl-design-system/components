@@ -81,27 +81,33 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       }
 
       // If there is a selected day, focus that one
-      const selectedIndex = elements.findIndex(el => !el.disabled && el.getAttribute('aria-pressed') === 'true');
+      const selectedIndex = elements.findIndex(
+        el => el.getAttribute('aria-disabled') !== 'true' && el.getAttribute('aria-pressed') === 'true'
+      );
       if (selectedIndex > -1) {
         return selectedIndex;
       }
 
       // Otherwise, focus today if visible
-      const todayIndex = elements.findIndex(el => !el.disabled && el.part.contains('today'));
+      const todayIndex = elements.findIndex(
+        el => el.getAttribute('aria-disabled') !== 'true' && el.part.contains('today')
+      );
       if (todayIndex > -1) {
         return todayIndex;
       }
 
       // Otherwise, focus the first available day of the month
       return elements.findIndex(
-        el => !el.disabled && !el.part.contains('previous-month') && !el.part.contains('next-month')
+        el =>
+          el.getAttribute('aria-disabled') !== 'true' &&
+          !el.part.contains('previous-month') &&
+          !el.part.contains('next-month')
       );
     },
     elements: (): HTMLButtonElement[] => {
       return this.inert ? [] : Array.from(this.renderRoot.querySelectorAll('button'));
     },
-    isFocusableElement: el =>
-      !!el && !el.disabled && !el.part.contains('previous-month') && !el.part.contains('next-month')
+    isFocusableElement: el => !!el && !el.part.contains('previous-month') && !el.part.contains('next-month')
   });
 
   /** @internal The calendar object. */
@@ -320,7 +326,12 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       template =
         this.readonly || day.disabled || day.outOfRange
           ? html`
-              <button aria-label=${this.getDayLabel(day)} disabled part=${parts.join(' ')}>
+              <button
+                @keydown=${(event: KeyboardEvent) => this.#onKeydown(event, day)}
+                aria-label=${this.getDayLabel(day)}
+                aria-disabled="true"
+                part=${parts.join(' ')}
+              >
                 <span>${day.date.getDate()}</span>
               </button>
             `
@@ -386,7 +397,7 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   #onClick(event: Event & { target: HTMLElement }, day: Day): void {
     const button = event.target.closest('button');
 
-    if (!button?.disabled) {
+    if (!day.disabled && !day.outOfRange && !this.readonly) {
       const isAlreadySelected = this.selected && isSameDate(day.date, this.selected);
 
       if (!isAlreadySelected) {
@@ -453,8 +464,10 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       event.preventDefault();
       event.stopPropagation();
 
-      this.selectEvent.emit(day.date);
-      this.selected = day.date;
+      if (!day.disabled && !day.outOfRange && !this.readonly) {
+        this.selectEvent.emit(day.date);
+        this.selected = day.date;
+      }
     }
   }
 

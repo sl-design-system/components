@@ -67,7 +67,7 @@ button {
   padding: var(--sl-size-050);
   place-items: center;
 
-  &:disabled {
+  &[aria-disabled='true'] {
     color: var(--sl-color-foreground-disabled);
     cursor: default;
     pointer-events: none;

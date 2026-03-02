@@ -88,9 +88,9 @@ Avoid Callout when the user must complete multiple steps, compare options, or fo
 ## Variants
 Use variants to match the intent of the message and the level of emphasis needed.
 
-- **Info:** Provides persistent guidance or contextual notes.
+- **Info (default):** Provides persistent guidance or contextual notes.
 - **Positive:** Confirms a state or outcome that remains relevant in the layout.
-- **Caution (default):** Highlights risk, incomplete setup, or conditions that may affect outcomes.
+- **Caution:** Highlights risk, incomplete setup, or conditions that may affect outcomes.
 - **Negative:** Indicates a problem that may block progress or requires attention.
 
 </section>

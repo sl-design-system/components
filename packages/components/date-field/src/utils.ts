@@ -60,13 +60,22 @@ export function getDateFormat(locale: string, date?: Date): DateFormatPart[] {
 
 /** Returns the full localized unit name (e.g. "Day", "Month", "Year") for a given date unit. */
 export function getDateUnitName(locale: string, unit: 'day' | 'month' | 'year'): string {
-  const pluralUnit = `${unit}s` as const,
-    df = new DurationFormat(locale, { style: 'long' }),
-    part = df.formatToParts({ [pluralUnit]: 1 }).find(p => p.type === 'unit');
+  let name: string = unit;
+
+  try {
+    if (typeof DurationFormat === 'function') {
+      const pluralUnit = `${unit}s` as const,
+        df = new DurationFormat(locale, { style: 'long' }),
+        part = df.formatToParts({ [pluralUnit]: 1 }).find(p => p.type === 'unit');
+
+      name = part?.value ?? unit;
+    }
+  } catch {
+    // Fallback to the non-localized unit name when Intl.DurationFormat is not available
+    name = unit;
+  }
 
   // Capitalize the first letter
-  const name = part?.value ?? unit;
-
   return name.charAt(0).toUpperCase() + name.slice(1);
 }
 

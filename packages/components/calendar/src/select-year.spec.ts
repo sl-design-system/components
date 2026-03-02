@@ -180,10 +180,11 @@ describe('sl-select-year', () => {
       });
 
       const button = el.renderRoot.querySelector<HTMLButtonElement>('button[aria-disabled="true"]');
-      button?.click();
+      expect(button).to.exist;
+      button!.click();
       await el.updateComplete;
 
-      button?.focus();
+      button!.focus();
       await userEvent.keyboard('{Enter}');
       await el.updateComplete;
 

@@ -171,7 +171,7 @@ export class Tooltip extends LitElement {
     const path = event.composedPath();
 
     // First check elements directly in the composed path
-    const direct = path.find(el => el instanceof Element && this.#matchesAnchor(el)) as HTMLElement | undefined;
+    const direct = path.find((el): el is HTMLElement => el instanceof Element && this.#matchesAnchor(el));
 
     if (direct) {
       return direct;

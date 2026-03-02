@@ -196,6 +196,39 @@ describe('sl-panel', () => {
       expect(onToggle).to.have.been.calledTwice;
       expect(onToggle.lastCall.args[0]).to.be.false;
     });
+
+    it('should not emit intermediate sl-toggle events on rapid successive toggle calls', async () => {
+      const onToggle = spy();
+
+      el.addEventListener('sl-toggle', (event: SlToggleEvent<boolean>) => {
+        onToggle(event.detail);
+      });
+
+      // Rapidly toggle true then false before the next animation frame
+      el.toggle(true);
+      el.toggle(false);
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
+
+      // As the final state is false (same as initial), no event should be emitted
+      expect(onToggle).not.to.have.been.called;
+      expect(el.collapsed).not.to.be.true;
+
+      onToggle.resetHistory();
+
+      // Rapidly toggle true then true then true
+      el.toggle(true);
+      el.toggle(true);
+      el.toggle(true);
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
+
+      expect(onToggle).to.have.been.calledOnce;
+      expect(onToggle.lastCall.args[0]).to.be.true;
+      expect(el.collapsed).to.be.true;
+    });
   });
 
   describe('slotted elements', () => {
@@ -287,6 +320,122 @@ describe('sl-panel', () => {
 
       expect(content).to.exist;
       expect(content).to.have.style('padding', '0px');
+    });
+  });
+
+  describe('animations', () => {
+    it('should manage no-transition attribute during lifecycle', async () => {
+      const el = await fixture<Panel>(html`<sl-panel collapsible collapsed heading="Heading">Body content</sl-panel>`);
+
+      // In connectedCallback, it should have been added
+      // But fixture() might wait until first update
+      await el.updateComplete;
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      expect(el.hasAttribute('no-transition'), 'no-transition should be removed after initialization').to.be.false;
+    });
+
+    it('should NOT remove no-transition if it was provided by the user', async () => {
+      const el = await fixture<Panel>(
+        html`<sl-panel collapsible collapsed no-transition heading="Heading">Body content</sl-panel>`
+      );
+
+      await el.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      expect(el.hasAttribute('no-transition'), 'no-transition should STILL be present since the user provided it').to.be
+        .true;
+    });
+
+    it('should disable transitions when no-transition attribute is present', async () => {
+      const el = await fixture<Panel>(html`<sl-panel collapsible heading="Heading">Body content</sl-panel>`);
+
+      for (let i = 0; i < 3; i++) {
+        await new Promise(resolve => requestAnimationFrame(resolve));
+      }
+
+      expect(el.hasAttribute('no-transition'), 'no-transition should be removed initially').to.be.false;
+
+      const body = el.renderRoot.querySelector('[part="body"]') as HTMLElement,
+        initialProperty = getComputedStyle(body).transitionProperty,
+        initialDuration = getComputedStyle(body).transitionDuration;
+
+      el.setAttribute('no-transition', '');
+      await el.updateComplete;
+
+      const style = getComputedStyle(body),
+        isNone =
+          style.transitionProperty === 'none' ||
+          (style.transitionProperty === 'all' && style.transitionDuration === '0s');
+
+      expect(
+        isNone,
+        `Transition should be disabled when no-transition attribute is present, got: ${style.transitionProperty} ${style.transitionDuration}`
+      ).to.be.true;
+
+      el.removeAttribute('no-transition');
+      await el.updateComplete;
+
+      expect(getComputedStyle(body).transitionProperty).to.equal(initialProperty);
+      expect(getComputedStyle(body).transitionDuration).to.equal(initialDuration);
+    });
+
+    it('should not animate on initial render when collapsed is true', async () => {
+      const el = await fixture<Panel>(html`<sl-panel collapsible collapsed heading="Heading">Body content</sl-panel>`);
+
+      const body = el.renderRoot.querySelector('[part="body"]') as HTMLElement;
+      let transitionStarted = false;
+
+      const onTransition = () => {
+        transitionStarted = true;
+      };
+
+      body.addEventListener('transitionrun', onTransition);
+      body.addEventListener('transitionstart', onTransition);
+
+      // Allow styles and layout to settle and any potential initial transitions to start
+      for (let i = 0; i < 3; i++) {
+        await new Promise(resolve => requestAnimationFrame(resolve));
+      }
+
+      body.removeEventListener('transitionrun', onTransition);
+      body.removeEventListener('transitionstart', onTransition);
+
+      expect(transitionStarted, 'Animation should NOT start on initial render when collapsed is true').to.be.false;
+    });
+
+    it('should animate normally when toggling after initialization', async () => {
+      let transitionStarted = false;
+      const el = await fixture<Panel>(html`<sl-panel collapsible heading="Heading">Body content</sl-panel>`);
+
+      await el.updateComplete;
+
+      const fallbackStyle = document.createElement('style');
+      fallbackStyle.textContent = `
+        [part="body"] {
+          transition: grid-template-rows 300ms ease-in-out;
+        }
+      `;
+      el.shadowRoot!.appendChild(fallbackStyle);
+
+      for (let i = 0; i < 3; i++) {
+        await new Promise(resolve => requestAnimationFrame(resolve));
+      }
+
+      const body = el.renderRoot.querySelector('[part="body"]') as HTMLElement;
+      body.addEventListener('transitionrun', () => {
+        transitionStarted = true;
+      });
+
+      el.collapsed = true;
+      await el.updateComplete;
+
+      await new Promise(resolve => setTimeout(resolve, 200));
+
+      expect(transitionStarted, 'Animation SHOULD start when toggling after initialization').to.be.true;
     });
   });
 });

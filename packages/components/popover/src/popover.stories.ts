@@ -1,11 +1,17 @@
+import { faGear, faPen } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/avatar/register.js';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
+import { Icon } from '@sl-design-system/icon';
+import '@sl-design-system/icon/register.js';
+import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import '../register.js';
 import { type Popover } from './popover.js';
+
+Icon.register(faGear, faPen);
 
 type Props = Pick<Popover, 'position'> & {
   alignSelf: string;
@@ -201,6 +207,78 @@ export const RichContent: Story = {
         </sl-button-bar>
       `;
     }
+  }
+};
+
+export const WithTooltips: Story = {
+  parameters: {
+    a11y: {
+      config: {
+        rules: [
+          {
+            /**
+             * The rule is disabled for icon-only sl-buttons because they use ariaLabelledByElements
+             * to set aria-labelledby across shadow DOM boundaries, which the a11y checker cannot detect.
+             */
+            id: 'button-name',
+            enabled: false,
+            selector: 'sl-button[icon-only]'
+          }
+        ]
+      }
+    }
+  },
+  render: () => {
+    const onClick = (event: Event): void => {
+      const button = event.currentTarget as HTMLElement,
+        popover =
+          button.nextElementSibling?.tagName === 'SL-POPOVER'
+            ? (button.nextElementSibling as HTMLElement)
+            : (button.parentElement?.querySelector(`sl-popover[anchor="${button.id}"]`) as HTMLElement);
+
+      popover?.togglePopover();
+    };
+
+    return html`
+      <style>
+        .container {
+          display: flex;
+          gap: 0.6rem;
+          align-items: center;
+        }
+      </style>
+      <p>Buttons with popovers and tooltips connected via <code>aria-labelledby</code></p>
+      <div class="container">
+        <sl-button @click=${onClick} aria-labelledby="tooltip-settings" variant="primary" id="btn-settings">
+          <sl-icon name="far-gear"></sl-icon>
+        </sl-button>
+        <sl-popover anchor="btn-settings">Popover content for Settings</sl-popover>
+        <sl-tooltip id="tooltip-settings">Settings</sl-tooltip>
+
+        <sl-button @click=${onClick} aria-labelledby="tooltip-edit" variant="primary" size="lg" id="btn-edit">
+          <sl-icon name="far-pen"></sl-icon>
+        </sl-button>
+        <sl-popover anchor="btn-edit">Popover content for Edit</sl-popover>
+        <sl-tooltip id="tooltip-edit">Edit</sl-tooltip>
+      </div>
+
+      <p>Buttons with popovers and tooltips connected via <code>aria-describedby</code></p>
+      <div class="container">
+        <sl-button @click=${onClick} aria-describedby="tooltip-settings-1" variant="primary" id="btn-settings-1">
+          <sl-icon name="far-gear"></sl-icon>
+          Settings
+        </sl-button>
+        <sl-popover anchor="btn-settings-1">Popover content for Settings</sl-popover>
+        <sl-tooltip id="tooltip-settings-1" position="bottom">Open settings popover</sl-tooltip>
+
+        <sl-button @click=${onClick} aria-describedby="tooltip-edit-1" variant="primary" size="lg" id="btn-edit-1">
+          <sl-icon name="far-pen"></sl-icon>
+          Edit
+        </sl-button>
+        <sl-popover anchor="btn-edit-1">Popover content for Edit</sl-popover>
+        <sl-tooltip id="tooltip-edit-1" position="bottom">Open edit popover</sl-tooltip>
+      </div>
+    `;
   }
 };
 

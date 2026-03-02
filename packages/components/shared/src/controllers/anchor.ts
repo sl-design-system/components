@@ -165,12 +165,22 @@ export class AnchorController implements ReactiveController {
     if (anchorElement?.tagName === 'SL-BUTTON') {
       if (expanded) {
         anchorElement.setAttribute('popover-opened', '');
-        if (!hasRichContent && !this.#host.hasAttribute('no-describedby')) {
+        if (
+          !hasRichContent &&
+          !this.#host.hasAttribute('no-describedby') &&
+          !anchorElement?.ariaDescribedByElements?.length
+        ) {
           anchorElement?.setAttribute('aria-describedby', this.#host.id);
         }
       } else {
         anchorElement.removeAttribute('popover-opened');
-        anchorElement?.removeAttribute('aria-describedby');
+
+        // Only remove aria-describedby if it was set by this controller (so matches the host ID).
+        // Otherwise, we might remove references set by other components
+        // (e.g. menu-button proxying tooltip references to the inner button).
+        if (anchorElement?.getAttribute('aria-describedby') === this.#host.id) {
+          anchorElement?.removeAttribute('aria-describedby');
+        }
       }
     }
   }

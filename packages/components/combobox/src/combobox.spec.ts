@@ -1210,6 +1210,22 @@ describe('sl-combobox', () => {
       expect(el.onFormControl).to.have.been.calledOnce;
     });
 
+    it('should not overwrite custom validation errors', async () => {
+      const combobox = el.renderRoot.querySelector<Combobox>('sl-combobox')!;
+      combobox.setCustomValidity('Custom error message');
+      combobox.updateValidity();
+      await combobox.updateComplete;
+
+      expect(combobox.validity.customError).to.be.true;
+      expect(combobox.validationMessage).to.equal('Custom error message');
+
+      combobox.value = 'Option 1';
+      await combobox.updateComplete;
+
+      expect(combobox.validity.customError).to.be.true;
+      expect(combobox.validationMessage).to.equal('Custom error message');
+    });
+
     it('should focus the input when the label is clicked', async () => {
       const input = el.renderRoot.querySelector('input'),
         label = el.renderRoot.querySelector('label');
@@ -1218,6 +1234,40 @@ describe('sl-combobox', () => {
       await el.updateComplete;
 
       expect(el.shadowRoot!.activeElement).to.equal(input);
+    });
+  });
+
+  describe('virtual list', () => {
+    it('should submit index 0 for the first item in a virtual list', async () => {
+      const form = await fixture<HTMLFormElement>(html`
+        <form>
+          <sl-combobox name="test" .options=${['Option 1', 'Option 2']}></sl-combobox>
+        </form>
+      `);
+      const combobox = form.querySelector<Combobox>('sl-combobox')!;
+      await combobox.updateComplete;
+
+      combobox.value = 'Option 1';
+      await combobox.updateComplete;
+
+      const formData = new FormData(form);
+      expect(formData.get('test')).to.equal('0');
+    });
+
+    it('should submit index 1 for the second item in a virtual list', async () => {
+      const form = await fixture<HTMLFormElement>(html`
+        <form>
+          <sl-combobox name="test" .options=${['Option 1', 'Option 2']}></sl-combobox>
+        </form>
+      `);
+      const combobox = form.querySelector<Combobox>('sl-combobox')!;
+      await combobox.updateComplete;
+
+      combobox.value = 'Option 2';
+      await combobox.updateComplete;
+
+      const formData = new FormData(form);
+      expect(formData.get('test')).to.equal('1');
     });
   });
 });

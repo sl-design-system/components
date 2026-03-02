@@ -498,16 +498,18 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   }
 
   override updateInternalValidity(): void {
-    if (this.multiple) {
-      this.internals.setValidity(
-        { valueMissing: this.required && this.selectedItems.length === 0 },
-        msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
-      );
-    } else {
-      this.internals.setValidity(
-        { valueMissing: this.required && !this.input.value },
-        msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
-      );
+    if (!this.validity.customError) {
+      if (this.multiple) {
+        this.internals.setValidity(
+          { valueMissing: this.required && this.selectedItems.length === 0 },
+          msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
+        );
+      } else {
+        this.internals.setValidity(
+          { valueMissing: this.required && !this.input.value },
+          msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
+        );
+      }
     }
   }
 
@@ -1396,9 +1398,12 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     } else {
       const item = this.selectedItems.at(0);
       if (item) {
-        this.formValue = this.#useVirtualList ? item.index : item.value?.toString() || item.label;
+        this.formValue =
+          this.#useVirtualList && item.index !== undefined ? item.index : item.value?.toString() || item.label;
         this.internals.setFormValue(
-          this.#useVirtualList && item.index ? item.index.toString() : item.value?.toString() || item.label
+          this.#useVirtualList && item.index !== undefined
+            ? item.index.toString()
+            : item.value?.toString() || item.label
         );
       } else {
         this.formValue = undefined;

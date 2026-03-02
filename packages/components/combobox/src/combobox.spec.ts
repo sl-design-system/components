@@ -1210,6 +1210,33 @@ describe('sl-combobox', () => {
       expect(el.onFormControl).to.have.been.calledOnce;
     });
 
+    it('should not emit an sl-change event on initial render when an option is pre-selected via attribute', async () => {
+      const changeSpy = spy(),
+        el = await fixture<Combobox>(html`
+          <sl-combobox @sl-change=${changeSpy}>
+            <sl-listbox>
+              <sl-option selected>Option 1</sl-option>
+              <sl-option>Option 2</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(el.value).to.equal('Option 1');
+      expect(changeSpy).not.to.have.been.called;
+
+      // Ensure that subsequent user interaction DOES emit an sl-change event
+      const options = Array.from(el.querySelectorAll('sl-option'));
+
+      options.at(1)?.click();
+      await el.updateComplete;
+
+      expect(el.value).to.equal('Option 2');
+      expect(changeSpy).to.have.been.calledOnce;
+    });
+
     it('should not overwrite custom validation errors', async () => {
       const combobox = el.renderRoot.querySelector<Combobox>('sl-combobox')!;
       combobox.setCustomValidity('Custom error message');

@@ -747,7 +747,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         // - The `selected` attribute on the option -> call `#updateValue`
         // - The `value` property -> call `#updateSelectedItems`
         if (hasSelected) {
-          this.#updateValue();
+          this.#updateValue(false);
         } else {
           this.#updateSelectedItems();
         }
@@ -1379,11 +1379,12 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       return;
     }
 
-    this.value = this.multiple ? values : values[0];
+    this.value = (this.multiple ? values : values[0]) as U | U[];
     this.#updateFormValue();
 
     if (emitEvent) {
       this.changeEvent.emit(this.value);
+      this.updateState({ dirty: true });
     }
     this.updateValidity();
   }

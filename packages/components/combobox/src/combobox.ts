@@ -1397,15 +1397,12 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     } else {
       const item = this.selectedItems.at(0);
       if (item) {
-        this.formValue =
-          this.#useVirtualList && item.index !== undefined ? item.index : item.value?.toString() || item.label;
         this.internals.setFormValue(
           this.#useVirtualList && item.index !== undefined
             ? item.index.toString()
             : item.value?.toString() || item.label
         );
       } else {
-        this.formValue = undefined;
         this.internals.setFormValue(null);
       }
     }

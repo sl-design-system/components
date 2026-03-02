@@ -9,17 +9,16 @@ eleventyNavigation:
 
 ## Keyboard interactions
 
-The tool bar supports full keyboard navigation using a roving tabindex pattern:
-
 <div class="ds-table-wrapper">
 
-|Command| Description                                                                   |
-|-|-------------------------------------------------------------------------------|
-|`Tab`| Moves focus into the tool bar (to the first focusable element) and out of it. |
-|`Arrow Left` / `Arrow Right`| Moves focus between items in the tool bar.                                    |
-|`Home`| Moves focus to the first item.                                                |
-|`End`| Moves focus to the last item.                                                 |
-|`Enter` or `Space`| Activates the focused button or opens a menu.                                 |
+| Command     | Description                                                                   |
+|-------------|-------------------------------------------------------------------------------|
+| Tab         | Moves focus into the tool bar (to the first focusable element) and out of it. |
+| Arrow Left  | Moves focus to the previous focusable element in the tool bar.                |
+| Arrow Right | Moves focus to the next focusable element in the tool bar.                    |
+| Home        | Moves focus to the first item.                                                |
+| End         | Moves focus to the last item.                                                 |
+| Enter/Space | Activates the focused button or opens a menu.                         |
 
 {.ds-table .ds-table-align-top}
 

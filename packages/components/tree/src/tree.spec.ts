@@ -6,6 +6,7 @@ import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { FlatTreeDataSource } from './flat-tree-data-source.js';
 import { NestedTreeDataSource } from './nested-tree-data-source.js';
+import { type TreeDataSourceNode } from './tree-data-source.js';
 import { type Tree } from './tree.js';
 
 declare global {
@@ -439,6 +440,63 @@ describe('sl-tree', () => {
 
       expect(guides).to.have.lengthOf(5);
       expect(guides.map(g => g.level)).to.deep.equal([0, 0, 1, 2, 2]);
+    });
+  });
+
+  describe('keyboard navigation with custom content', () => {
+    let ds: FlatTreeDataSource;
+
+    beforeEach(async () => {
+      ds = new FlatTreeDataSource(flatData, {
+        getId: item => item.id,
+        getLabel: ({ name }) => name,
+        getLevel: ({ level }) => level,
+        isExpandable: ({ expandable }) => expandable,
+        isExpanded: () => true
+      });
+
+      el = await fixture(html`
+        <sl-tree
+          .dataSource=${ds}
+          .renderer=${(node: TreeDataSourceNode<FlatDataNode>) => html`
+            <span>${node.label}</span>
+            <button id="btn-${node.id}">Button</button>
+          `}
+        ></sl-tree>
+      `);
+      await el.updateComplete;
+    });
+
+    it('should focus the next tree node when pressing ArrowDown while a button in the node has focus', async () => {
+      const node1 = el.renderRoot.querySelector('sl-tree-node[data-index="1"]') as HTMLElement,
+        btn1 = node1.querySelector('#btn-1') as HTMLElement;
+
+      btn1.focus();
+
+      await userEvent.keyboard('{ArrowDown}');
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const activeElement = el.shadowRoot?.activeElement as HTMLElement;
+
+      expect(activeElement?.dataset?.index).to.equal('2');
+      expect(activeElement?.ariaLabel).to.equal('Navigation');
+    });
+
+    it('should focus the previous tree node when pressing ArrowUp while a button in the node has focus', async () => {
+      const node1 = el.renderRoot.querySelector('sl-tree-node[data-index="1"]') as HTMLElement,
+        btn1 = node1.querySelector('#btn-1') as HTMLElement;
+
+      btn1.focus();
+
+      await userEvent.keyboard('{ArrowUp}');
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const activeElement = el.shadowRoot?.activeElement as HTMLElement;
+
+      expect(activeElement?.dataset?.index).to.equal('0');
+      expect(activeElement?.ariaLabel).to.equal('Actions');
     });
   });
 });

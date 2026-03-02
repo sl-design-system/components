@@ -922,6 +922,66 @@ describe('sl-date-field', () => {
     });
   });
 
+  describe('readonly', () => {
+    let spans: NodeListOf<HTMLElement>;
+
+    beforeEach(async () => {
+      el = await fixture(html`<sl-date-field readonly .value=${new Date(2026, 2, 14)}></sl-date-field>`);
+      spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+    });
+
+    it('should not allow digit entry', async () => {
+      spans[0].focus();
+      await userEvent.keyboard('5');
+
+      expect(spans[0]).to.have.trimmed.text('03');
+    });
+
+    it('should not change value on ArrowUp', async () => {
+      spans[0].focus();
+      await userEvent.keyboard('{ArrowUp}');
+
+      expect(spans[0]).to.have.trimmed.text('03');
+    });
+
+    it('should not change value on ArrowDown', async () => {
+      spans[0].focus();
+      await userEvent.keyboard('{ArrowDown}');
+
+      expect(spans[0]).to.have.trimmed.text('03');
+    });
+
+    it('should not clear value on Backspace', async () => {
+      spans[0].focus();
+      await userEvent.keyboard('{Backspace}');
+
+      expect(spans[0]).to.have.trimmed.text('03');
+      expect(el.value).to.equalDate(new Date(2026, 2, 14));
+    });
+
+    it('should not clear value on Delete', async () => {
+      spans[0].focus();
+      await userEvent.keyboard('{Delete}');
+
+      expect(spans[0]).to.have.trimmed.text('03');
+      expect(el.value).to.equalDate(new Date(2026, 2, 14));
+    });
+
+    it('should navigate to next part on ArrowRight', async () => {
+      spans[0].focus();
+      await userEvent.keyboard('{ArrowRight}');
+
+      expect((el.renderRoot as ShadowRoot).activeElement).to.equal(spans[1]);
+    });
+
+    it('should navigate to previous part on ArrowLeft', async () => {
+      spans[1].focus();
+      await userEvent.keyboard('{ArrowLeft}');
+
+      expect((el.renderRoot as ShadowRoot).activeElement).to.equal(spans[0]);
+    });
+  });
+
   describe('select all', () => {
     let spans: NodeListOf<HTMLElement>;
 

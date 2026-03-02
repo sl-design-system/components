@@ -127,7 +127,8 @@ export const Basic: Story = {};
 
 export const Disabled: Story = {
   args: {
-    disabled: true
+    disabled: true,
+    value: new Date(2025, 0, 15)
   }
 };
 
@@ -169,7 +170,8 @@ export const MinMax: Story = {
 
 export const Readonly: Story = {
   args: {
-    readonly: true
+    readonly: true,
+    value: new Date(2025, 0, 15)
   }
 };
 

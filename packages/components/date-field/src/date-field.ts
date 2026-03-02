@@ -494,7 +494,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     if (event.key >= '0' && event.key <= '9') {
       event.preventDefault();
 
-      if (this.selectOnly) {
+      if (this.readonly || this.selectOnly) {
         return;
       }
 
@@ -518,7 +518,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     switch (event.key) {
       case 'ArrowUp':
         event.preventDefault();
-        if (!this.selectOnly) {
+        if (!this.readonly && !this.selectOnly) {
           this.#adjustDatePart(partType, 1);
           this.requestUpdate();
 
@@ -529,7 +529,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
       case 'ArrowDown':
         event.preventDefault();
-        if (!this.selectOnly) {
+        if (!this.readonly && !this.selectOnly) {
           this.#adjustDatePart(partType, -1);
           this.requestUpdate();
 
@@ -551,7 +551,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       case 'Backspace':
       case 'Delete':
         event.preventDefault();
-        if (!this.selectOnly) {
+        if (!this.readonly && !this.selectOnly) {
           this.#dateParts[partType] = undefined;
           this.#enteredDigits = 0;
           this.requestUpdate();

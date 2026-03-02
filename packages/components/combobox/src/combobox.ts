@@ -439,7 +439,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
                       @sl-remove=${() => this.#onRemove(item)}
                       ?disabled=${this.disabled}
                       ?removable=${!this.disabled}
-                      aria-hidden="true"
+                      aria-hidden=${this.disabled ? nothing : 'true'}
                       class=${this.focusedTag === item ? 'focused' : ''}
                     >
                       ${item.label}

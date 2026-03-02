@@ -492,6 +492,20 @@ describe('sl-menu-button', () => {
       expect(el).not.to.have.attribute('aria-describedby');
       expect(button.ariaDescribedByElements).to.be.null;
     });
+
+    it('should keep ariaDescribedByElements after opening and closing the menu', async () => {
+      expect(button.ariaDescribedByElements).to.deep.equal([description]);
+
+      button.click();
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(button.ariaDescribedByElements).to.deep.equal([description]);
+
+      button.click();
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(button.ariaDescribedByElements).to.deep.equal([description]);
+    });
   });
 
   describe('dynamic aria attribute updates', () => {

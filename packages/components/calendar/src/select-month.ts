@@ -52,6 +52,13 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     direction: 'grid',
     directionLength: this.#cols,
     elements: (): HTMLButtonElement[] => Array.from(this.buttons),
+    focusInIndex: (elements: HTMLButtonElement[]): number => {
+      const enabledIndex = elements.findIndex(
+        el => el.getAttribute('aria-disabled') !== 'true'
+      );
+
+      return enabledIndex === -1 ? 0 : enabledIndex;
+    },
     isFocusableElement: (el: HTMLButtonElement) => !!el,
     scope: (): HTMLElement => this.renderRoot.querySelector('table')!,
     wrap: false

@@ -15,6 +15,9 @@ eleventyNavigation:
 .ds-example sl-callout sl-button {
   align-self: flex-start;
 }
+.ds-example sl-callout a {
+  color: var(--sl-color-component-link-idle, var(--sl-color-link-idle));
+}
 .title {
   font-size: inherit;
   font-weight: inherit;
@@ -28,7 +31,7 @@ eleventyNavigation:
   <sl-callout density="relaxed" variant="caution">
     <h2 class="title" slot="title">New learning module available</h2>
     <div class="content">
-      Your teacher has added a new module: <a class="callout-link" href="javascript:void(0)">Introduction to Fractions</a> Complete it before the end of the week to stay on track.
+      Your teacher has added a new module: <a href="javascript:void(0)">Introduction to Fractions</a> Complete it before the end of the week to stay on track.
       <sl-button class="callout-button" fill="outline" variant="warning">Start module</sl-button>
     </div>
   </sl-callout>

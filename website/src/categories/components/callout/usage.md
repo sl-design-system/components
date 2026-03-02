@@ -13,12 +13,17 @@ eleventyNavigation:
   font-family: inherit;
   margin: 0;
 }
+.ds-example sl-callout a {
+  color: var(--sl-color-component-link-idle, var(--sl-color-link-idle));
+}
 </style>
-<section>
+
+<section class="no-heading">
+
 <div class="ds-example">
   <sl-callout variant="info">
     <h2 class="title" slot="title">Practice mode</h2>
-    Answers in practice mode are not graded. You can retry each question as many times as you need. Check the <a class="callout-link" href="javascript:void(0)">grading policy</a> for more details.
+    Answers in practice mode are not graded. You can retry each question as many times as you need. Check the <a href="javascript:void(0)">grading policy</a> for more details.
   </sl-callout>
 </div>
 

@@ -354,8 +354,8 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       // See https://bugs.webkit.org/show_bug.cgi?id=223814
       this.toggleAttribute('has-selected-items', Boolean(this.multiple && this.selectedItems.length > 0));
       if (this.items.length) {
-        this.#updateTextFieldValue(!this.#isInitialRender);
-        this.#updateValue();
+        this.#updateTextFieldValue();
+        this.#updateValue(!this.#isInitialRender);
         this.#isInitialRender = false;
       }
     }
@@ -497,6 +497,20 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     }
   }
 
+  override updateInternalValidity(): void {
+    if (this.multiple) {
+      this.internals.setValidity(
+        { valueMissing: this.required && this.selectedItems.length === 0 },
+        msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
+      );
+    } else {
+      this.internals.setValidity(
+        { valueMissing: this.required && !this.input.value },
+        msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
+      );
+    }
+  }
+
   #onBeforeToggle(event: ToggleEvent): void {
     if (event.newState === 'open') {
       this.input.setAttribute('aria-expanded', 'true');
@@ -542,6 +556,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       // If we are leaving the component, make sure the input value reflects the selected items
       this.#updateCreateCustomOption();
       this.#updateTextFieldValue();
+      this.updateValidity();
     }
   }
 
@@ -1331,55 +1346,24 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   }
 
   /** Update the value in the text field. */
-  #updateTextFieldValue(emitEvent = true): void {
+  #updateTextFieldValue(): void {
     if (this.multiple) {
       this.input.placeholder = this.selectedItems.map(i => i.label).join(', ') || this.placeholder || '';
       this.input.value = '';
-
-      const values = this.selectedItems.map(i => i.value!);
-      this.internals.setFormValue(values.join(', ') || null);
-
-      this.internals.setValidity(
-        { valueMissing: this.required && this.selectedItems.length === 0 },
-        msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
-      );
-      this.updateValidity();
     } else {
       const item = this.selectedItems.at(0);
       if (item) {
         this.input.value = item.label;
         this.input.setSelectionRange(-1, -1);
-        this.formValue = this.#useVirtualList ? item.index : item.value?.toString() || item.label;
-        this.internals.setFormValue(
-          this.#useVirtualList && item.index ? item.index.toString() : item.value?.toString() || item.label
-        );
       } else {
         this.input.value = '';
-        this.formValue = null;
-        this.internals.setFormValue(null);
-      }
-
-      this.internals.setValidity(
-        { valueMissing: this.required && !this.input.value },
-        msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
-      );
-      this.updateValidity();
-
-      if (emitEvent) {
-        this.changeEvent.emit(this.value);
       }
     }
   }
 
   /** Updates the value based on the current selection. */
-  #updateValue(): void {
+  #updateValue(emitEvent = true): void {
     const values = this.selectedItems.map(i => i.value!);
-
-    if (this.value === undefined) {
-      this.value = this.multiple ? values : values[0];
-      const valueString = this.multiple ? values.join(', ') : values[0]?.toString();
-      this.internals.setFormValue(valueString);
-    }
 
     // Do nothing if the value hasn't changed
     if (
@@ -1388,16 +1372,38 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       this.value.length === values.length &&
       values.every(v => (this.value as U[]).includes(v))
     ) {
+      this.#updateFormValue();
       return;
     } else if (this.value === values[0]) {
+      this.#updateFormValue();
       return;
     }
 
     this.value = this.multiple ? values : values[0];
-    const valueString = this.multiple ? values.join(', ') : values[0]?.toString();
+    this.#updateFormValue();
 
-    this.internals.setFormValue(valueString);
-    this.changeEvent.emit(this.value);
+    if (emitEvent) {
+      this.changeEvent.emit(this.value);
+    }
     this.updateValidity();
+  }
+
+  /** Syncs the form value with the current selection. */
+  #updateFormValue(): void {
+    if (this.multiple) {
+      const values = this.selectedItems.map(i => i.value!);
+      this.internals.setFormValue(values.join(', ') || null);
+    } else {
+      const item = this.selectedItems.at(0);
+      if (item) {
+        this.formValue = this.#useVirtualList ? item.index : item.value?.toString() || item.label;
+        this.internals.setFormValue(
+          this.#useVirtualList && item.index ? item.index.toString() : item.value?.toString() || item.label
+        );
+      } else {
+        this.formValue = undefined;
+        this.internals.setFormValue(null);
+      }
+    }
   }
 }

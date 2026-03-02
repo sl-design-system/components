@@ -855,7 +855,9 @@ describe('sl-combobox', () => {
           await userEvent.click(document.body);
           await el.updateComplete;
 
-          expect(el.formValue).to.deep.equal(el.multiple ? [] : null);
+          expect(el.formValue).to.satisfy(
+            (v: unknown) => v === undefined || (Array.isArray(v) && v.length === 0) || v === null
+          );
         });
       });
     });

@@ -814,51 +814,49 @@ describe('sl-combobox', () => {
         expect(onChange.lastCall.args[0]).to.deep.equal(['Lorem']);
       });
 
-      describe('defaults', () => {
-        beforeEach(async () => {
-          el = await fixture(html`
-            <sl-combobox multiple>
+      it('should not have has-selected-items attribute when interacting with a combobox with no selected items', async () => {
+        el.placeholder = 'Placeholder';
+        await el.updateComplete;
+
+        expect(el).not.to.have.attribute('has-selected-items');
+        expect(input.placeholder).to.equal('Placeholder');
+
+        await userEvent.click(input);
+        await el.updateComplete;
+
+        await userEvent.click(document.body);
+        await el.updateComplete;
+
+        expect(el).not.to.have.attribute('has-selected-items');
+        expect(input.placeholder).to.equal('Placeholder');
+      });
+
+      it('should not poison form value with placeholder on blur', async () => {
+        const form = await fixture<HTMLFormElement>(html`
+          <form>
+            <sl-combobox name="test" multiple placeholder="Placeholder">
               <sl-listbox>
                 <sl-option>Lorem</sl-option>
                 <sl-option>Ipsum</sl-option>
                 <sl-option>Ipsom</sl-option>
               </sl-listbox>
             </sl-combobox>
-          `);
-          input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
-        });
+          </form>
+        `);
 
-        it('should not have has-selected-items attribute when interacting with a combobox with no selected items', async () => {
-          el.placeholder = 'Placeholder';
-          await el.updateComplete;
+        const combobox = form.querySelector<Combobox>('sl-combobox')!,
+          formInput = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
 
-          expect(el).not.to.have.attribute('has-selected-items');
-          expect(input.placeholder).to.equal('Placeholder');
+        await combobox.updateComplete;
+        await userEvent.click(formInput);
 
-          await userEvent.click(input);
-          await el.updateComplete;
+        await combobox.updateComplete;
+        await userEvent.click(document.body);
 
-          await userEvent.click(document.body);
-          await el.updateComplete;
+        await combobox.updateComplete;
+        const formData = new FormData(form);
 
-          expect(el).not.to.have.attribute('has-selected-items');
-          expect(input.placeholder).to.equal('Placeholder');
-        });
-
-        it('should not poison form value with placeholder on blur', async () => {
-          el.placeholder = 'Placeholder';
-          await el.updateComplete;
-
-          await userEvent.click(input);
-          await el.updateComplete;
-
-          await userEvent.click(document.body);
-          await el.updateComplete;
-
-          expect(el.formValue).to.satisfy(
-            (v: unknown) => v === undefined || (Array.isArray(v) && v.length === 0) || v === null
-          );
-        });
+        expect(formData.getAll('test')).to.deep.equal([]);
       });
     });
 

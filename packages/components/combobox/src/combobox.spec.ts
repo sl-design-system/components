@@ -814,21 +814,49 @@ describe('sl-combobox', () => {
         expect(onChange.lastCall.args[0]).to.deep.equal(['Lorem']);
       });
 
-      it('should not have has-selected-items attribute when interacting with a combobox with no selected items', async () => {
-        el.placeholder = 'Placeholder';
-        await el.updateComplete;
+      describe('defaults', () => {
+        beforeEach(async () => {
+          el = await fixture(html`
+            <sl-combobox multiple>
+              <sl-listbox>
+                <sl-option>Lorem</sl-option>
+                <sl-option>Ipsum</sl-option>
+                <sl-option>Ipsom</sl-option>
+              </sl-listbox>
+            </sl-combobox>
+          `);
+          input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+        });
 
-        expect(el).not.to.have.attribute('has-selected-items');
-        expect(input.placeholder).to.equal('Placeholder');
+        it('should not have has-selected-items attribute when interacting with a combobox with no selected items', async () => {
+          el.placeholder = 'Placeholder';
+          await el.updateComplete;
 
-        await userEvent.click(input);
-        await el.updateComplete;
+          expect(el).not.to.have.attribute('has-selected-items');
+          expect(input.placeholder).to.equal('Placeholder');
 
-        await userEvent.click(document.body);
-        await el.updateComplete;
+          await userEvent.click(input);
+          await el.updateComplete;
 
-        expect(el).not.to.have.attribute('has-selected-items');
-        expect(input.placeholder).to.equal('Placeholder');
+          await userEvent.click(document.body);
+          await el.updateComplete;
+
+          expect(el).not.to.have.attribute('has-selected-items');
+          expect(input.placeholder).to.equal('Placeholder');
+        });
+
+        it('should not poison form value with placeholder on blur', async () => {
+          el.placeholder = 'Placeholder';
+          await el.updateComplete;
+
+          await userEvent.click(input);
+          await el.updateComplete;
+
+          await userEvent.click(document.body);
+          await el.updateComplete;
+
+          expect(el.formValue).to.deep.equal(el.multiple ? [] : null);
+        });
       });
     });
 
@@ -1114,7 +1142,7 @@ describe('sl-combobox', () => {
     describe('required', () => {
       beforeEach(async () => {
         el = await fixture(html`
-          <sl-combobox required>
+          <sl-combobox multiple required>
             <sl-listbox>
               <sl-option value="1">Option 1</sl-option>
               <sl-option value="2">Option 2</sl-option>
@@ -1125,6 +1153,13 @@ describe('sl-combobox', () => {
       });
 
       it('should be invalid', () => {
+        expect(el.valid).to.be.false;
+      });
+
+      it('should be invalid when it has a placeholder', async () => {
+        el.placeholder = 'Placeholder';
+        await el.updateComplete;
+
         expect(el.valid).to.be.false;
       });
 

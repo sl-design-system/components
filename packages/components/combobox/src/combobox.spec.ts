@@ -340,15 +340,20 @@ describe('sl-combobox', () => {
     });
 
     it('should not have has-selected-items attribute when interacting with a combobox with no selected items', async () => {
-      expect(el).not.to.have.attribute('has-selected-items');
-
-      input.click();
-      await el.updateComplete;
-
-      input.blur();
+      el.placeholder = 'Placeholder';
       await el.updateComplete;
 
       expect(el).not.to.have.attribute('has-selected-items');
+      expect(input.placeholder).to.equal('Placeholder');
+
+      await userEvent.click(input);
+      await el.updateComplete;
+
+      await userEvent.click(document.body);
+      await el.updateComplete;
+
+      expect(el).not.to.have.attribute('has-selected-items');
+      expect(input.placeholder).to.equal('Placeholder');
     });
   });
 
@@ -807,6 +812,23 @@ describe('sl-combobox', () => {
 
         expect(onChange).to.have.been.calledOnce;
         expect(onChange.lastCall.args[0]).to.deep.equal(['Lorem']);
+      });
+
+      it('should not have has-selected-items attribute when interacting with a combobox with no selected items', async () => {
+        el.placeholder = 'Placeholder';
+        await el.updateComplete;
+
+        expect(el).not.to.have.attribute('has-selected-items');
+        expect(input.placeholder).to.equal('Placeholder');
+
+        await userEvent.click(input);
+        await el.updateComplete;
+
+        await userEvent.click(document.body);
+        await el.updateComplete;
+
+        expect(el).not.to.have.attribute('has-selected-items');
+        expect(input.placeholder).to.equal('Placeholder');
       });
     });
 

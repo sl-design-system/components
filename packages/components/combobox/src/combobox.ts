@@ -1333,7 +1333,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   /** Update the value in the text field. */
   #updateTextFieldValue(emitEvent = true): void {
     if (this.multiple) {
-      this.input.placeholder = this.selectedItems.map(i => i.label).join(', ') || '';
+      this.input.placeholder = this.selectedItems.map(i => i.label).join(', ') || this.placeholder || '';
       this.input.value = '';
       this.internals.setFormValue(this.input.placeholder);
       this.internals.setValidity(

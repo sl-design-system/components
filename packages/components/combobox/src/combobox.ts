@@ -1376,6 +1376,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     // Do nothing if the value hasn't changed
     if (isValueEqual) {
       this.#updateFormValue();
+      this.updateValidity();
       return;
     }
 

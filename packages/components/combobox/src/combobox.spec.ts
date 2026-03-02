@@ -1253,6 +1253,24 @@ describe('sl-combobox', () => {
       expect(combobox.validationMessage).to.equal('Custom error message');
     });
 
+    it('should update validity when value is set programmatically on a required combobox', async () => {
+      const el = await fixture<Combobox>(html`
+        <sl-combobox required>
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      `);
+      await el.updateComplete;
+
+      expect(el.validity.valueMissing).to.be.true;
+
+      el.value = 'Option 1';
+      await el.updateComplete;
+
+      expect(el.validity.valueMissing).to.be.false;
+    });
+
     it('should focus the input when the label is clicked', async () => {
       const input = el.renderRoot.querySelector('input'),
         label = el.renderRoot.querySelector('label');

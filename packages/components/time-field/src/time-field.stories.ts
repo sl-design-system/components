@@ -31,7 +31,7 @@ export default {
   args: {
     disabled: false,
     label: 'Time',
-    placeholder: 'Select time',
+    placeholder: 'HH:MM',
     readonly: false,
     required: false,
     value: ''

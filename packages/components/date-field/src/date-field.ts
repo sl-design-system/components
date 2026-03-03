@@ -11,7 +11,7 @@ import { isSameDate } from '@sl-design-system/shared/date.js';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { FieldButton } from '@sl-design-system/text-field';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
-import { property, query } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './date-field.scss.js';
 import { type DateFormatPart, getDateFormat, getDateUnitLetter, getDateUnitName, getMonthName } from './utils.js';
@@ -70,9 +70,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
    * to undefined internally (e.g. when the user enters an invalid date).
    */
   #preserveDateParts = false;
-
-  /** Whether the component is in "select all" mode, showing a single text input. */
-  #selectAll = false;
 
   /**
    * Flag indicating whether the popover was just closed. We need to know this so we can
@@ -152,6 +149,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
    * @default false
    */
   @property({ type: Boolean, reflect: true }) override required?: boolean;
+
+  /** @internal Whether the component is in "select all" mode, showing a single text input. */
+  @state() selectAll?: boolean;
 
   /**
    * Whether the component is select only. This means you cannot type in the inputs,
@@ -249,7 +249,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     return html`
       <div class="field">
         <div class="wrapper">
-          ${this.#selectAll
+          ${this.selectAll
             ? html`
                 <input
                   @blur=${this.#onSelectAllBlur}
@@ -479,11 +479,10 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     if ((event.ctrlKey || event.metaKey) && event.key === 'a') {
       event.preventDefault();
 
-      this.#selectAll = true;
-      this.requestUpdate();
+      this.selectAll = true;
 
-      void this.updateComplete.then(() => {
-        const input = this.renderRoot.querySelector<HTMLInputElement>('input');
+      requestAnimationFrame(() => {
+        const input = this.renderRoot.querySelector('input');
         input?.focus();
         input?.select();
       });
@@ -665,13 +664,11 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #exitSelectAll(refocus = false): void {
-    this.#selectAll = false;
-    this.requestUpdate();
+    this.selectAll = false;
 
     if (refocus) {
-      void this.updateComplete.then(() => {
-        const firstSpan = this.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]');
-        firstSpan?.focus();
+      requestAnimationFrame(() => {
+        this.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')?.focus();
       });
     }
   }

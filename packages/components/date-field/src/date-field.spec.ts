@@ -1027,10 +1027,10 @@ describe('sl-date-field', () => {
     it('should exit select-all mode and restore spinbuttons on keydown', async () => {
       spans[0].focus();
       await userEvent.keyboard('{Control>}a{/Control}');
-      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
 
       await userEvent.keyboard('{ArrowRight}');
-      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
 
       expect(el.renderRoot.querySelector('input')).to.not.exist;
       expect(el.renderRoot.querySelectorAll('span[role="spinbutton"]')).to.have.length(3);

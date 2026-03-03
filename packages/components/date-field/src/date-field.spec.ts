@@ -471,6 +471,18 @@ describe('sl-date-field', () => {
       expect(onFocus).to.have.been.calledOnce;
     });
 
+    it('should not emit sl-focus again when moving focus between date parts', () => {
+      const onFocus = spy();
+      el.addEventListener('sl-focus', onFocus);
+
+      const spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+      spans[0].focus();
+      spans[1].focus();
+      spans[2].focus();
+
+      expect(onFocus).to.have.been.calledOnce;
+    });
+
     it('should emit sl-blur when component loses focus', () => {
       const onBlur = spy();
       el.addEventListener('sl-blur', onBlur);
@@ -480,6 +492,18 @@ describe('sl-date-field', () => {
       firstSpan.blur();
 
       expect(onBlur).to.have.been.calledOnce;
+    });
+
+    it('should not emit sl-blur when moving focus between date parts', () => {
+      const onBlur = spy();
+      el.addEventListener('sl-blur', onBlur);
+
+      const spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+      spans[0].focus();
+      spans[1].focus();
+      spans[2].focus();
+
+      expect(onBlur).not.to.have.been.called;
     });
   });
 

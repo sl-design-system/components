@@ -452,7 +452,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     // Only emit when focus enters from outside the component
     const relatedTarget = event.relatedTarget as Node | null;
 
-    if (!relatedTarget || !this.contains(relatedTarget)) {
+    if (!relatedTarget || (!this.contains(relatedTarget) && !this.renderRoot.contains(relatedTarget))) {
       this.focusEvent.emit();
     }
   };
@@ -461,7 +461,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     // Only emit when focus leaves the component entirely
     const relatedTarget = event.relatedTarget as Node | null;
 
-    if (!relatedTarget || !this.contains(relatedTarget)) {
+    if (!relatedTarget || (!this.contains(relatedTarget) && !this.renderRoot.contains(relatedTarget))) {
       this.blurEvent.emit();
       this.updateState({ touched: true });
       this.updateValidity();

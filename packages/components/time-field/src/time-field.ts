@@ -2,7 +2,14 @@ import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin, type SlFormControlEvent, type SlUpdateStateEvent } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, EventsController, LocaleMixin, anchor, event } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  EventsController,
+  LocaleMixin,
+  anchor,
+  event,
+  isPopoverOpen
+} from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { FieldButton, TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
@@ -53,10 +60,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     focusout: this.#onFocusout
   });
 
-  /**
-   * Track when focus is intentionally leaving the component (e.g. by tabbing away).
-   * Used to prevent restoring focus to the text field when the user intentionally moved focus elsewhere.
-   */
+  /** Track when focus is intentionally leaving the component (e.g. by tabbing away). */
   #focusLeavingComponent = false;
 
   /**
@@ -439,9 +443,11 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     if (leavingComponent) {
       const dialogIsOpen = this.dialog?.matches(':popover-open');
 
+      console.log('dialogIsOpen', dialogIsOpen, isPopoverOpen(this.dialog));
+
       // TODO: maybe isPopoveropen...
 
-      if (dialogIsOpen) {
+      if (/*dialogIsOpen*/ isPopoverOpen(this.dialog)) {
         this.#focusLeavingComponent = true;
         this.dialog?.hidePopover();
       }

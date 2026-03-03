@@ -133,3 +133,56 @@ export function getMonthName(locale: string, month: number): string {
 
   return new Intl.DateTimeFormat(locale, { month: 'long' }).format(date);
 }
+
+/**
+ * Attempts to parse a date string.
+ * Supports ISO format (YYYY-MM-DD) and locale-specific format.
+ */
+export function parseDateString(text: string, locale: string): Date | undefined {
+  // Try ISO format first: YYYY-MM-DD
+  const isoMatch = /^(\d{4})-(\d{1,2})-(\d{1,2})$/.exec(text);
+  if (isoMatch) {
+    const [, yearStr, monthStr, dayStr] = isoMatch,
+      year = parseInt(yearStr, 10),
+      month = parseInt(monthStr, 10),
+      day = parseInt(dayStr, 10),
+      date = new Date(year, month - 1, day);
+
+    if (date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day) {
+      return date;
+    }
+  }
+
+  // Try locale-specific format
+  const parts = getDateFormat(locale),
+    dateParts = parts.filter(p => p.type !== 'literal'),
+    separators = parts.filter(p => p.type === 'literal').map(p => p.value),
+    separatorPattern = separators.map(s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'),
+    segments = text.split(new RegExp(separatorPattern));
+
+  if (segments.length === dateParts.length) {
+    const parsed: Record<string, number> = {};
+
+    for (let i = 0; i < dateParts.length; i++) {
+      const val = parseInt(segments[i], 10);
+      if (isNaN(val)) {
+        return undefined;
+      }
+      parsed[dateParts[i].type] = val;
+    }
+
+    if (parsed['day'] !== undefined && parsed['month'] !== undefined && parsed['year'] !== undefined) {
+      const date = new Date(parsed['year'], parsed['month'] - 1, parsed['day']);
+
+      if (
+        date.getFullYear() === parsed['year'] &&
+        date.getMonth() === parsed['month'] - 1 &&
+        date.getDate() === parsed['day']
+      ) {
+        return date;
+      }
+    }
+  }
+
+  return undefined;
+}

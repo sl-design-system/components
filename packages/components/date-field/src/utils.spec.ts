@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { getDateFormat, getDateTemplate, getDateUnitLetter, getDateUnitName, getMonthName } from './utils.js';
+import {
+  getDateFormat,
+  getDateTemplate,
+  getDateUnitLetter,
+  getDateUnitName,
+  getMonthName,
+  parseDateString
+} from './utils.js';
 
 describe('date-field utils', () => {
   describe('getDateFormat', () => {
@@ -211,6 +218,50 @@ describe('date-field utils', () => {
         monthLetter = getDateUnitLetter('en-US', 'month');
 
       expect(template).to.include(monthLetter.repeat(2));
+    });
+  });
+
+  describe('parseDateString', () => {
+    it('should parse an ISO-formatted date', () => {
+      const date = parseDateString('2026-03-14', 'en-US');
+
+      expect(date).to.deep.equal(new Date(2026, 2, 14));
+    });
+
+    it('should parse a locale-formatted date for en-US', () => {
+      const date = parseDateString('03/14/2026', 'en-US');
+
+      expect(date).to.deep.equal(new Date(2026, 2, 14));
+    });
+
+    it('should parse a locale-formatted date for nl-NL', () => {
+      const date = parseDateString('14-03-2026', 'nl-NL');
+
+      expect(date).to.deep.equal(new Date(2026, 2, 14));
+    });
+
+    it('should parse a locale-formatted date for de-DE', () => {
+      const date = parseDateString('14.03.2026', 'de-DE');
+
+      expect(date).to.deep.equal(new Date(2026, 2, 14));
+    });
+
+    it('should return undefined for an invalid date string', () => {
+      expect(parseDateString('not-a-date', 'en-US')).to.be.undefined;
+    });
+
+    it('should return undefined for an invalid date like Feb 30', () => {
+      expect(parseDateString('02/30/2026', 'en-US')).to.be.undefined;
+    });
+
+    it('should return undefined for empty string', () => {
+      expect(parseDateString('', 'en-US')).to.be.undefined;
+    });
+
+    it('should parse ISO dates with single-digit month and day', () => {
+      const date = parseDateString('2026-3-5', 'en-US');
+
+      expect(date).to.deep.equal(new Date(2026, 2, 5));
     });
   });
 

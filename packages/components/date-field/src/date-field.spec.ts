@@ -1153,6 +1153,103 @@ describe('sl-date-field', () => {
     });
   });
 
+  describe('paste', () => {
+    let spans: NodeListOf<HTMLElement>;
+
+    beforeEach(async () => {
+      el = await fixture(html`<sl-date-field></sl-date-field>`);
+      spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+    });
+
+    const paste = (target: HTMLElement, text: string): void => {
+      const dataTransfer = new DataTransfer();
+      dataTransfer.setData('text/plain', text);
+
+      target.dispatchEvent(
+        new ClipboardEvent('paste', { clipboardData: dataTransfer, bubbles: true, cancelable: true })
+      );
+    };
+
+    it('should set the value when pasting a locale-formatted date', async () => {
+      spans[0].focus();
+      paste(spans[0], '03/14/2026');
+      await el.updateComplete;
+
+      expect(el.value).to.deep.equal(new Date(2026, 2, 14));
+    });
+
+    it('should set the value when pasting an ISO-formatted date', async () => {
+      spans[0].focus();
+      paste(spans[0], '2026-03-14');
+      await el.updateComplete;
+
+      expect(el.value).to.deep.equal(new Date(2026, 2, 14));
+    });
+
+    it('should update the displayed parts after pasting', async () => {
+      spans[0].focus();
+      paste(spans[0], '03/14/2026');
+      await el.updateComplete;
+
+      spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+      expect(spans[0]).to.have.trimmed.text('03');
+      expect(spans[1]).to.have.trimmed.text('14');
+      expect(spans[2]).to.have.trimmed.text('2026');
+    });
+
+    it('should emit a change event when pasting a valid date', async () => {
+      const onChange = spy();
+      el.addEventListener('sl-change', onChange);
+
+      spans[0].focus();
+      paste(spans[0], '03/14/2026');
+      await el.updateComplete;
+
+      expect(onChange).to.have.been.calledOnce;
+    });
+
+    it('should not change the value when pasting an invalid string', async () => {
+      spans[0].focus();
+      paste(spans[0], 'not-a-date');
+      await el.updateComplete;
+
+      expect(el.value).to.be.undefined;
+    });
+
+    it('should not change the value when pasting an invalid date like Feb 30', async () => {
+      spans[0].focus();
+      paste(spans[0], '02/30/2026');
+      await el.updateComplete;
+
+      expect(el.value).to.be.undefined;
+    });
+
+    it('should not change the value when readonly', async () => {
+      el.readonly = true;
+      await el.updateComplete;
+      spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+
+      spans[0].focus();
+      paste(spans[0], '03/14/2026');
+      await el.updateComplete;
+
+      expect(el.value).to.be.undefined;
+    });
+
+    it('should not change the value when selectOnly', async () => {
+      el.selectOnly = true;
+      el.value = new Date(2025, 0, 1);
+      await el.updateComplete;
+      spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+
+      spans[0].focus();
+      paste(spans[0], '03/14/2026');
+      await el.updateComplete;
+
+      expect(el.value).to.deep.equal(new Date(2025, 0, 1));
+    });
+  });
+
   describe('require confirmation', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-date-field require-confirmation></sl-date-field>`);

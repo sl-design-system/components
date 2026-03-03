@@ -14,7 +14,14 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './date-field.scss.js';
-import { type DateFormatPart, getDateFormat, getDateUnitLetter, getDateUnitName, getMonthName } from './utils.js';
+import {
+  type DateFormatPart,
+  getDateFormat,
+  getDateUnitLetter,
+  getDateUnitName,
+  getMonthName,
+  parseDateString
+} from './utils.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -347,6 +354,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         @beforeinput=${(e: Event) => e.preventDefault()}
         @focus=${this.#onPartFocus}
         @keydown=${(e: KeyboardEvent) => this.#onPartKeydown(e, partType)}
+        @paste=${this.#onPaste}
         aria-disabled=${this.disabled ? 'true' : 'false'}
         aria-label=${getDateUnitName(locale, partType)}
         aria-readonly=${this.readonly || this.selectOnly ? 'true' : 'false'}
@@ -455,6 +463,27 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   #onKeydown(event: KeyboardEvent): void {
     if (event.key === 'Escape') {
       event.stopPropagation();
+    }
+  }
+
+  #onPaste(event: ClipboardEvent): void {
+    event.preventDefault();
+
+    if (this.readonly || this.selectOnly) {
+      return;
+    }
+
+    const text = event.clipboardData?.getData('text/plain')?.trim();
+    if (!text) {
+      return;
+    }
+
+    const date = parseDateString(text, this.locale ?? 'default');
+    if (date) {
+      this.value = date;
+      this.changeEvent.emit(this.value);
+      this.updateState({ dirty: true });
+      this.updateValidity();
     }
   }
 

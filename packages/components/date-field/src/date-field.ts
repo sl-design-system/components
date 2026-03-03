@@ -349,9 +349,13 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       currentValue = this.#dateParts[partType],
       hasValue = currentValue !== undefined,
       displayValue = hasValue ? String(currentValue).padStart(part.value.length, '0') : placeholder,
+      isMonth = partType === 'month',
+      isValidMonth = isMonth && typeof currentValue === 'number' && currentValue >= 1 && currentValue <= 12,
       valueText = hasValue
-        ? partType === 'month'
-          ? getMonthName(locale, currentValue)
+        ? isMonth
+          ? isValidMonth
+            ? getMonthName(locale, currentValue)
+            : String(currentValue).padStart(part.value.length, '0')
           : String(currentValue)
         : placeholder;
 

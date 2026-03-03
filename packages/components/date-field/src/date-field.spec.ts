@@ -666,6 +666,18 @@ describe('sl-date-field', () => {
       expect(spans[2]).to.have.attribute('aria-valuetext', '2026');
     });
 
+    it('should use the padded number for aria-valuetext when month is out of range', async () => {
+      el = await fixture(html`<sl-date-field></sl-date-field>`);
+      const spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+
+      // Type "0" in the month part to get month value 0 (out of range)
+      spans[0].focus();
+      await userEvent.keyboard('0');
+      await el.updateComplete;
+
+      expect(spans[0]).to.have.attribute('aria-valuetext', '00');
+    });
+
     it('should have inputmode="numeric" on each spinbutton', () => {
       const spans = el.renderRoot.querySelectorAll('span[role="spinbutton"]');
 

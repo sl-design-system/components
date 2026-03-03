@@ -202,6 +202,42 @@ describe('sl-date-field', () => {
       expect(inputs[2]).to.have.trimmed.text('YYYY');
     });
 
+    it('should have placeholder-shown state when placeholder is set and no value', async () => {
+      el.placeholder = 'Pick a date';
+      await el.updateComplete;
+
+      expect(el.internals.states.has('placeholder-shown')).to.be.true;
+    });
+
+    it('should not have placeholder-shown state when there is no placeholder', () => {
+      expect(el.internals.states.has('placeholder-shown')).to.be.false;
+    });
+
+    it('should remove placeholder-shown state when a value is set', async () => {
+      el.placeholder = 'Pick a date';
+      await el.updateComplete;
+
+      expect(el.internals.states.has('placeholder-shown')).to.be.true;
+
+      el.value = new Date(2026, 2, 14);
+      await el.updateComplete;
+
+      expect(el.internals.states.has('placeholder-shown')).to.be.false;
+    });
+
+    it('should restore placeholder-shown state when the value is cleared', async () => {
+      el.placeholder = 'Pick a date';
+      el.value = new Date(2026, 2, 14);
+      await el.updateComplete;
+
+      expect(el.internals.states.has('placeholder-shown')).to.be.false;
+
+      el.value = undefined;
+      await el.updateComplete;
+
+      expect(el.internals.states.has('placeholder-shown')).to.be.true;
+    });
+
     it('should not require confirmation', () => {
       expect(el.requireConfirmation).not.to.be.true;
     });

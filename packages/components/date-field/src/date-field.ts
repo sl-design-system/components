@@ -236,6 +236,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         this.internals.states.delete('placeholder-shown');
       } else if (this.placeholder) {
         this.internals.states.add('placeholder-shown');
+      } else {
+        this.internals.states.delete('placeholder-shown');
       }
     }
 

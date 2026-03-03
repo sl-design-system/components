@@ -11,7 +11,7 @@
   vertical-align: middle;
 }
 
-:host(:state(placeholder-shown)) .inputs {
+:host(:state(placeholder-shown)) .parts {
   opacity: 0;
 }
 
@@ -22,12 +22,12 @@
 :host(:focus-within) {
   outline-color: var(--sl-color-border-focused);
 
-  .placeholder {
-    opacity: 0;
+  .parts {
+    opacity: 1;
   }
 
-  .inputs {
-    opacity: 1;
+  .placeholder {
+    opacity: 0;
   }
 }
 
@@ -69,16 +69,6 @@
 
 .placeholder {
   pointer-events: none;
-}
-
-input {
-  appearance: none;
-  border: 0;
-  color: inherit;
-  font: inherit;
-  grid-area: 1 / 1;
-  inline-size: fit-content;
-  padding: var(--sl-size-050) 0;
 }
 
 span[contenteditable] {

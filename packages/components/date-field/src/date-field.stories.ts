@@ -99,9 +99,9 @@ export default {
             ?require-confirmation=${requireConfirmation}
             ?required=${required}
             ?select-only=${selectOnly}
+            ?show-valid=${showValid}
             ?show-week-numbers=${showWeekNumbers}
             .value=${value}
-            .show-valid=${showValid}
             max=${ifDefined(max?.toISOString())}
             min=${ifDefined(min?.toISOString())}
             month=${ifDefined(month?.toISOString())}

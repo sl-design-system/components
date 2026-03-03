@@ -251,16 +251,19 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         <div class="wrapper">
           ${this.selectAll
             ? html`
-                <input
+                <span
                   @blur=${this.#onSelectAllBlur}
                   @keydown=${this.#onSelectAllKeydown}
                   @mousedown=${this.#onSelectAllMouseDown}
-                  .value=${this.#getFormattedValue()}
+                  class="select-all"
+                  contenteditable="true"
                   readonly
-                />
+                >
+                  ${this.#getFormattedValue()}
+                </span>
               `
             : html`
-                <div class="inputs">${parts.map(part => this.renderPart(part, locale))}</div>
+                <div class="parts">${parts.map(part => this.renderPart(part, locale))}</div>
                 ${this.placeholder ? html`<div class="placeholder">${this.placeholder}</div>` : nothing}
               `}
         </div>
@@ -484,9 +487,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.selectAll = true;
 
       requestAnimationFrame(() => {
-        const input = this.renderRoot.querySelector('input');
-        input?.focus();
-        input?.select();
+        const selectAll = this.renderRoot.querySelector<HTMLElement>('.select-all')!;
+        selectAll.focus();
+        this.#selectContent(selectAll);
       });
 
       return;

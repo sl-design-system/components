@@ -1034,10 +1034,10 @@ describe('sl-date-field', () => {
       await userEvent.keyboard('{Control>}a{/Control}');
       await el.updateComplete;
 
-      const input = el.renderRoot.querySelector<HTMLInputElement>('input');
+      const selectAll = el.renderRoot.querySelector('.select-all');
 
-      expect(input).to.exist;
-      expect(input!.value).to.equal('03/15/2026');
+      expect(selectAll).to.exist;
+      expect(selectAll).to.have.trimmed.text('03/15/2026');
       expect(el.renderRoot.querySelectorAll('span[role="spinbutton"]')).to.have.length(0);
     });
 
@@ -1046,10 +1046,10 @@ describe('sl-date-field', () => {
       await userEvent.keyboard('{Meta>}a{/Meta}');
       await el.updateComplete;
 
-      const input = el.renderRoot.querySelector<HTMLInputElement>('input');
+      const selectAll = el.renderRoot.querySelector('.select-all');
 
-      expect(input).to.exist;
-      expect(input!.value).to.equal('03/15/2026');
+      expect(selectAll).to.exist;
+      expect(selectAll).to.have.trimmed.text('03/15/2026');
     });
 
     it('should have the text selected in select-all mode', async () => {
@@ -1057,10 +1057,9 @@ describe('sl-date-field', () => {
       await userEvent.keyboard('{Control>}a{/Control}');
       await el.updateComplete;
 
-      const input = el.renderRoot.querySelector<HTMLInputElement>('input');
-
-      expect(input!.selectionStart).to.equal(0);
-      expect(input!.selectionEnd).to.equal(10);
+      const selection = el.renderRoot.ownerDocument.getSelection()!;
+      expect(selection.rangeCount).to.equal(1);
+      expect(selection.toString()).to.equal('03/15/2026');
     });
 
     it('should exit select-all mode and restore spinbuttons on keydown', async () => {
@@ -1093,11 +1092,11 @@ describe('sl-date-field', () => {
       await userEvent.keyboard('{Control>}a{/Control}');
       await el.updateComplete;
 
-      const input = el.renderRoot.querySelector<HTMLInputElement>('input')!;
-      input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Control', ctrlKey: true, bubbles: true }));
+      const selectAll = el.renderRoot.querySelector('.select-all')!;
+      selectAll.dispatchEvent(new KeyboardEvent('keydown', { key: 'Control', ctrlKey: true, bubbles: true }));
       await el.updateComplete;
 
-      expect(el.renderRoot.querySelector('input')).to.exist;
+      expect(el.renderRoot.querySelector('.select-all')).to.exist;
     });
 
     it('should allow Ctrl+C without exiting select-all mode', async () => {
@@ -1105,11 +1104,13 @@ describe('sl-date-field', () => {
       await userEvent.keyboard('{Control>}a{/Control}');
       await el.updateComplete;
 
-      const input = el.renderRoot.querySelector<HTMLInputElement>('input')!;
-      input.dispatchEvent(new KeyboardEvent('keydown', { key: 'c', ctrlKey: true, bubbles: true, cancelable: true }));
+      const selectAll = el.renderRoot.querySelector('.select-all')!;
+      selectAll.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'c', ctrlKey: true, bubbles: true, cancelable: true })
+      );
       await el.updateComplete;
 
-      expect(el.renderRoot.querySelector('input')).to.exist;
+      expect(el.renderRoot.querySelector('.select-all')).to.exist;
     });
 
     it('should exit select-all mode on mousedown', async () => {
@@ -1117,11 +1118,11 @@ describe('sl-date-field', () => {
       await userEvent.keyboard('{Control>}a{/Control}');
       await el.updateComplete;
 
-      const input = el.renderRoot.querySelector<HTMLInputElement>('input')!;
-      input.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true }));
+      const selectAll = el.renderRoot.querySelector('.select-all')!;
+      selectAll.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true }));
       await el.updateComplete;
 
-      expect(el.renderRoot.querySelector('input')).to.not.exist;
+      expect(el.renderRoot.querySelector('.select-all')).to.not.exist;
       expect(el.renderRoot.querySelectorAll('span[role="spinbutton"]')).to.have.length(3);
     });
 
@@ -1130,11 +1131,11 @@ describe('sl-date-field', () => {
       await userEvent.keyboard('{Control>}a{/Control}');
       await el.updateComplete;
 
-      const input = el.renderRoot.querySelector<HTMLInputElement>('input')!;
-      input.dispatchEvent(new FocusEvent('blur', { bubbles: true }));
+      const selectAll = el.renderRoot.querySelector('.select-all')!;
+      selectAll.dispatchEvent(new FocusEvent('blur', { bubbles: true }));
       await el.updateComplete;
 
-      expect(el.renderRoot.querySelector('input')).to.not.exist;
+      expect(el.renderRoot.querySelector('.select-all')).to.not.exist;
     });
 
     it('should show placeholder text for empty parts in select-all mode', async () => {
@@ -1147,8 +1148,8 @@ describe('sl-date-field', () => {
       await userEvent.keyboard('{Control>}a{/Control}');
       await el.updateComplete;
 
-      const input = el.renderRoot.querySelector('input');
-      expect(input!.value).to.equal('03/DD/YYYY');
+      const selectAll = el.renderRoot.querySelector('.select-all')!;
+      expect(selectAll).to.have.trimmed.text('03/DD/YYYY');
     });
   });
 

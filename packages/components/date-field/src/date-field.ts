@@ -85,6 +85,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
    */
   #popoverJustClosed = false;
 
+  /** The index of the active date part for roving tabindex. */
+  #rovingIndex = 0;
+
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
@@ -339,6 +342,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     const partType = part.type as DatePartType,
+      formatParts = getDateFormat(locale),
+      datePartTypes = formatParts.filter(p => p.type !== 'literal').map(p => p.type),
+      datePartIndex = datePartTypes.indexOf(partType),
       placeholder = getDateUnitLetter(locale, partType).repeat(part.value.length),
       currentValue = this.#dateParts[partType],
       hasValue = currentValue !== undefined,
@@ -352,6 +358,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     return html`
       <span
         @beforeinput=${(e: Event) => e.preventDefault()}
+        @blur=${this.#onPartBlur}
         @focus=${this.#onPartFocus}
         @keydown=${(e: KeyboardEvent) => this.#onPartKeydown(e, partType)}
         @paste=${this.#onPaste}
@@ -365,6 +372,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         contenteditable=${this.disabled ? 'false' : 'true'}
         inputmode="numeric"
         role="spinbutton"
+        tabindex=${this.disabled ? undefined : datePartIndex === this.#rovingIndex ? '0' : '-1'}
         >${displayValue}</span
       >
     `;
@@ -466,34 +474,29 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
   }
 
-  #onPaste(event: ClipboardEvent): void {
-    event.preventDefault();
+  #onPartBlur(event: FocusEvent): void {
+    const relatedTarget = event.relatedTarget as HTMLElement | null,
+      isSpinbutton = relatedTarget?.getAttribute('role') === 'spinbutton' && this.renderRoot.contains(relatedTarget);
 
-    if (this.readonly || this.selectOnly) {
-      return;
-    }
-
-    const text = event.clipboardData?.getData('text/plain')?.trim();
-    if (!text) {
-      return;
-    }
-
-    const date = parseDateString(text, this.locale ?? 'default');
-    if (date) {
-      this.value = date;
-      this.changeEvent.emit(this.value);
-      this.updateState({ dirty: true });
-      this.updateValidity();
+    if (!isSpinbutton) {
+      this.renderRoot.ownerDocument.getSelection()?.removeAllRanges();
     }
   }
 
   #onPartFocus(event: FocusEvent): void {
-    const span = event.composedPath().at(0);
+    const span = event.composedPath().at(0) as HTMLElement,
+      spans = Array.from(this.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]')),
+      index = spans.indexOf(span);
+
+    if (index >= 0 && index !== this.#rovingIndex) {
+      this.#rovingIndex = index;
+      this.requestUpdate();
+    }
 
     this.#enteredDigits = 0;
 
     // Workaround for WebKit changing the selection on focus.
-    requestAnimationFrame(() => this.#selectContent(span as HTMLElement));
+    requestAnimationFrame(() => this.#selectContent(span));
   }
 
   #onPartKeydown(event: KeyboardEvent, partType: DatePartType): void {
@@ -597,6 +600,27 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     // Prevent any other character input (letters, symbols, etc.)
     if (event.key.length === 1 && !event.ctrlKey && !event.metaKey) {
       event.preventDefault();
+    }
+  }
+
+  #onPaste(event: ClipboardEvent): void {
+    event.preventDefault();
+
+    if (this.readonly || this.selectOnly) {
+      return;
+    }
+
+    const text = event.clipboardData?.getData('text/plain')?.trim();
+    if (!text) {
+      return;
+    }
+
+    const date = parseDateString(text, this.locale ?? 'default');
+    if (date) {
+      this.value = date;
+      this.changeEvent.emit(this.value);
+      this.updateState({ dirty: true });
+      this.updateValidity();
     }
   }
 

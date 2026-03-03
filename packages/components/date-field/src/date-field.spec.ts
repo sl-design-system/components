@@ -647,6 +647,58 @@ describe('sl-date-field', () => {
 
       spans.forEach(input => expect(input).to.have.attribute('inputmode', 'numeric'));
     });
+
+    it('should have tabindex 0 on the first spinbutton by default', () => {
+      const spans = el.renderRoot.querySelectorAll('span[role="spinbutton"]');
+
+      expect(spans[0]).to.have.attribute('tabindex', '0');
+    });
+
+    it('should have tabindex -1 on non-active spinbuttons', () => {
+      const spans = el.renderRoot.querySelectorAll('span[role="spinbutton"]');
+
+      expect(spans[1]).to.have.attribute('tabindex', '-1');
+      expect(spans[2]).to.have.attribute('tabindex', '-1');
+    });
+
+    it('should move tabindex 0 to the focused spinbutton', async () => {
+      const spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+
+      spans[1].focus();
+      await el.updateComplete;
+
+      expect(spans[0]).to.have.attribute('tabindex', '-1');
+      expect(spans[1]).to.have.attribute('tabindex', '0');
+      expect(spans[2]).to.have.attribute('tabindex', '-1');
+    });
+
+    it('should update roving tabindex when navigating with arrow keys', async () => {
+      const spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+
+      spans[0].focus();
+      await userEvent.keyboard('{ArrowRight}');
+      await el.updateComplete;
+
+      expect(spans[0]).to.have.attribute('tabindex', '-1');
+      expect(spans[1]).to.have.attribute('tabindex', '0');
+    });
+
+    it('should clear the selection when focus leaves all date parts', async () => {
+      el.value = new Date(2026, 2, 14);
+      await el.updateComplete;
+
+      const spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+
+      spans[0].focus();
+      await new Promise(resolve => setTimeout(resolve));
+
+      const selection = el.renderRoot.ownerDocument.getSelection()!;
+      expect(selection.rangeCount).to.be.greaterThan(0);
+
+      spans[0].blur();
+
+      expect(selection.rangeCount).to.equal(0);
+    });
   });
 
   describe('keyboard entry', () => {

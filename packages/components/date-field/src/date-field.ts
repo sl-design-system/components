@@ -269,6 +269,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           @click=${this.#onButtonClick}
           ?disabled=${this.disabled || this.readonly}
           aria-controls="dialog"
+          aria-expanded=${this.dialog?.matches(':popover-open') ? 'true' : 'false'}
+          aria-haspopup="dialog"
           aria-label=${msg('Toggle calendar', { id: 'sl.dateField.toggleCalendar' })}
           tabindex=${this.disabled || this.readonly ? '-1' : '0'}
         >

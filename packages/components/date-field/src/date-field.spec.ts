@@ -538,6 +538,27 @@ describe('sl-date-field', () => {
       expect(button).to.have.attribute('aria-controls', dialog?.id);
     });
 
+    it('should have aria-expanded false on the calendar button by default', () => {
+      const button = el.renderRoot.querySelector('sl-field-button');
+
+      expect(button).to.have.attribute('aria-expanded', 'false');
+    });
+
+    it('should have aria-expanded true on the calendar button when the popover is open', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      const button = el.renderRoot.querySelector('sl-field-button');
+
+      expect(button).to.have.attribute('aria-expanded', 'true');
+    });
+
+    it('should have aria-haspopup dialog on the calendar button', () => {
+      const button = el.renderRoot.querySelector('sl-field-button');
+
+      expect(button).to.have.attribute('aria-haspopup', 'dialog');
+    });
+
     it('should have aria-label on calendar button', () => {
       const button = el.renderRoot.querySelector('sl-field-button');
 
@@ -548,6 +569,24 @@ describe('sl-date-field', () => {
       const button = el.renderRoot.querySelector('sl-field-button');
 
       expect(button).to.have.attribute('tabindex', '0');
+    });
+
+    it('should have tabindex -1 on calendar button when disabled', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      const button = el.renderRoot.querySelector('sl-field-button');
+
+      expect(button).to.have.attribute('tabindex', '-1');
+    });
+
+    it('should have tabindex -1 on calendar button when readonly', async () => {
+      el.readonly = true;
+      await el.updateComplete;
+
+      const button = el.renderRoot.querySelector('sl-field-button');
+
+      expect(button).to.have.attribute('tabindex', '-1');
     });
 
     it('should have role="spinbutton" on each date part', () => {

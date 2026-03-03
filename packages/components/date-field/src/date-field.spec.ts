@@ -1227,6 +1227,43 @@ describe('sl-date-field', () => {
       const selectAll = el.renderRoot.querySelector('.select-all')!;
       expect(selectAll).to.have.trimmed.text('03/DD/YYYY');
     });
+
+    it('should exit select-all mode on Tab', async () => {
+      spans[0].focus();
+      await userEvent.keyboard('{Control>}a{/Control}');
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('.select-all')).to.exist;
+
+      await userEvent.keyboard('{Tab}');
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('.select-all')).to.not.exist;
+    });
+
+    it('should focus the field-button when pressing Tab in select-all mode', async () => {
+      spans[0].focus();
+      await userEvent.keyboard('{Control>}a{/Control}');
+      await el.updateComplete;
+
+      await userEvent.keyboard('{Tab}');
+      await el.updateComplete;
+
+      expect((el.renderRoot as ShadowRoot).activeElement).to.equal(el.renderRoot.querySelector('sl-field-button'));
+    });
+
+    it('should exit select-all mode on Shift-Tab', async () => {
+      spans[0].focus();
+      await userEvent.keyboard('{Control>}a{/Control}');
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('.select-all')).to.exist;
+
+      await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('.select-all')).to.not.exist;
+    });
   });
 
   describe('paste', () => {

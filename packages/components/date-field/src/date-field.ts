@@ -639,6 +639,20 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       return;
     }
 
+    // Tab focuses the field-button; Shift-Tab lets the browser move focus outside
+    if (event.key === 'Tab') {
+      event.preventDefault();
+      this.#exitSelectAll();
+
+      if (!event.shiftKey) {
+        requestAnimationFrame(() => {
+          this.renderRoot.querySelector<HTMLElement>('sl-field-button')?.focus();
+        });
+      }
+
+      return;
+    }
+
     event.preventDefault();
     this.#exitSelectAll(true);
   }

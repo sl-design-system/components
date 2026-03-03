@@ -433,24 +433,15 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onFocusout(event: FocusEvent): void {
-    const relatedTarget = event.relatedTarget,
-      leavingComponent =
-        !(relatedTarget instanceof Node) ||
-        (!this.contains(relatedTarget) && !this.shadowRoot?.contains(relatedTarget));
+    const leavingComponent =
+      !(event.relatedTarget instanceof Node) ||
+      (!this.contains(event.relatedTarget) && !this.shadowRoot?.contains(event.relatedTarget));
 
-    console.log('relatedTarget', relatedTarget);
+    console.log('leavingComponent', leavingComponent, 'relatedTarget', event.relatedTarget);
 
-    if (leavingComponent) {
-      const dialogIsOpen = this.dialog?.matches(':popover-open');
-
-      console.log('dialogIsOpen', dialogIsOpen, isPopoverOpen(this.dialog));
-
-      // TODO: maybe isPopoveropen...
-
-      if (/*dialogIsOpen*/ isPopoverOpen(this.dialog)) {
-        this.#focusLeavingComponent = true;
-        this.dialog?.hidePopover();
-      }
+    if (leavingComponent && isPopoverOpen(this.dialog)) {
+      this.#focusLeavingComponent = true;
+      this.dialog?.hidePopover();
     }
   }
 
@@ -742,8 +733,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   async #onToggle(event: ToggleEvent): Promise<void> {
     if (event.newState === 'closed') {
-      // Only restore focus to the text field if the popover was closed by selecting a time
-      // or pressing Escape, not when focus was moved away intentionally (e.g. by tabbing away)
       if (!this.#focusLeavingComponent) {
         this.textField.focus();
       }

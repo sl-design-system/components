@@ -99,7 +99,7 @@ export const templates = {
   'sl.tag.removalInstructions': 'Druk op de delete- of backspacetoets om dit item te verwijderen',
   'sl.timeField.selectHours': 'Selecteer uren',
   'sl.timeField.selectMinutes': 'Selecteer minuten',
-  'sl.timeField.toggleDropdown': 'Toon dropdown',
+  'sl.timeField.toggleDropdown': 'Selecteer tijd',
   'sl.timeField.typeMismatch': str`Voer een geldige tijd in als HH${0}MM.`,
   'sl.timeField.validation.rangeOverflow': str`Voer een tijd in die niet later is dan ${0}.`,
   'sl.timeField.validation.rangeUnderflow': str`Voer een tijd in die niet eerder is dan ${0}.`,

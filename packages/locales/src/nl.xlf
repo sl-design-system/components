@@ -322,10 +322,6 @@
   <source>error</source>
   <target>fout</target>
 </trans-unit>
-<trans-unit id="sl.timeField.toggleDropdown">
-  <source>Toggle dropdown</source>
-  <target>Toon dropdown</target>
-</trans-unit>
 <trans-unit id="sl.timeField.valueMissing">
   <source>Please enter a time.</source>
   <target>Voer een tijd in.</target>
@@ -409,6 +405,10 @@
 <trans-unit id="sl.dateField.selectDate">
   <source>Select date</source>
   <target>Selecteer datum</target>
+</trans-unit>
+<trans-unit id="sl.timeField.toggleDropdown">
+  <source>Select time</source>
+  <target>Selecteer tijd</target>
 </trans-unit>
 </body>
 </file>

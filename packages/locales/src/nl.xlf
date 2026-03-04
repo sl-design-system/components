@@ -382,10 +382,6 @@
   <source>Please enter a valid date.</source>
   <target>Voer een geldige datum in.</target>
 </trans-unit>
-<trans-unit id="sl.dateField.incomplete">
-  <source>Please enter a complete date.</source>
-  <target>Voer een volledige datum in.</target>
-</trans-unit>
 <trans-unit id="sl.dateField.valueMissing">
   <source>Please enter a date.</source>
   <target>Voer een datum in.</target>

@@ -412,14 +412,11 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** @internal */
   override updateInternalValidity(): void {
-    const hasPartialDate = this.#hasPartialDate(),
-      hasCompleteDate =
-        this.dateParts.day !== undefined && this.dateParts.month !== undefined && this.dateParts.year !== undefined;
+    const hasCompleteDate =
+      this.dateParts.day !== undefined && this.dateParts.month !== undefined && this.dateParts.year !== undefined;
 
     if (hasCompleteDate && !this.value) {
       this.setCustomValidity(msg('Please enter a valid date.', { id: 'sl.dateField.typeMismatch' }));
-    } else if (hasPartialDate && !this.value) {
-      this.setCustomValidity(msg('Please enter a complete date.', { id: 'sl.dateField.incomplete' }));
     } else if (this.required && !this.value) {
       this.setCustomValidity(msg('Please enter a date.', { id: 'sl.dateField.valueMissing' }));
     } else if (this.value && this.min && this.value < this.min) {

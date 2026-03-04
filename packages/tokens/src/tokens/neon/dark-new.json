@@ -263,7 +263,7 @@
 				},
 				"inverted": {
 					"$type": "color",
-					"$value": "{neon.color.foreground.accent.grey.bold}",
+					"$value": "{neon.color.palette.grey.000}",
 					"$description": "Use for borders on bold backgrounds."
 				},
 				"negative": {
@@ -1082,17 +1082,17 @@
 				"inverted": {
 					"bold": {
 						"$type": "color",
-						"$value": "{neon.color.foreground.accent.grey.bold}",
+						"$value": "{neon.color.palette.grey.000}",
 						"$description": "A solid inverted background option."
 					},
 					"subtle": {
 						"$type": "color",
-						"$value": "rgba({neon.color.palette.grey.900}, {neon.opacity.subtle})",
+						"$value": "rgba({neon.color.palette.grey.000}, {neon.opacity.subtle})",
 						"$description": "A subtle inverted background option."
 					},
 					"subtlest": {
 						"$type": "color",
-						"$value": "rgba( {neon.color.palette.grey.900}, {neon.opacity.subtlest})",
+						"$value": "rgba( {neon.color.palette.grey.000}, {neon.opacity.subtlest})",
 						"$description": "The subtlest inverted background option."
 					},
 					"interactive": {
@@ -1103,7 +1103,7 @@
 						},
 						"plain": {
 							"$type": "color",
-							"$value": "{neon.color.palette.grey.200}",
+							"$value": "{neon.color.palette.grey.900}",
 							"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
 						}
 					}
@@ -1492,17 +1492,17 @@
 				"inverted": {
 					"bold": {
 						"$type": "color",
-						"$value": "{neon.color.foreground.accent.grey.bold}",
+						"$value": "{neon.color.palette.grey.000}",
 						"$description": "Use for inverted text on 'color.background.inverted.subtlest', and 'color.background.inverted.subtle'."
 					},
 					"plain": {
 						"$type": "color",
-						"$value": "{neon.color.foreground.accent.grey.plain}",
+						"$value": "{neon.color.palette.grey.000}",
 						"$description": "Use for plain inverted text."
 					},
 					"onBold": {
 						"$type": "color",
-						"$value": "{neon.color.palette.grey.000}",
+						"$value": "{neon.color.foreground.bold}",
 						"$description": "Use for inverted text on 'color.background.inverted.bold'."
 					}
 				},
@@ -1661,6 +1661,11 @@
 						"$type": "color",
 						"$value": "{neon.color.palette.grey.050}",
 						"$description": "Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
+					},
+					"primary": {
+						"$type": "color",
+						"$value": "{neon.color.palette.blue.700}",
+						"$description": "Background of elevated components with a Primary background color like a floating toolbar that sit on top of the base surface. Use in combination with Inverted buttons, 'color.foreground.inverted.bold' and 'elevation.shadow.raised'."
 					},
 					"inverted": {
 						"$type": "color",

@@ -29,7 +29,7 @@
 }
 
 :host([contained][inverted]) {
-  background: var(--sl-color-background-primary-bold);
+  background: var(--sl-elevation-surface-raised-primary);
   border-color: var(--sl-color-border-primary-plain);
 }
 

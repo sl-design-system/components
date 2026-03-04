@@ -232,13 +232,15 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
     this.selectEvent.emit(node);
   }
 
-  #onKeydown(event: KeyboardEvent & { target: TreeNode<T> }): void {
+  #onKeydown(event: KeyboardEvent): void {
+    const target = event.currentTarget as TreeNode<T>;
+
     // Expands all siblings that are at the same level as the current node.
     // See https://www.w3.org/WAI/ARIA/apg/patterns/treeview/#keyboardinteraction
     if (event.key === '*') {
       event.preventDefault();
 
-      const treeNode = event.target.node as TreeDataSourceNode<T>,
+      const treeNode = target.node as TreeDataSourceNode<T>,
         siblings = treeNode.parent?.children ?? this.dataSource?.items;
 
       if (Array.isArray(siblings)) {
@@ -253,7 +255,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
 
       const direction = event.key === 'ArrowDown' ? 1 : -1;
 
-      let nextIndex = parseInt(event.target.dataset['index'] ?? '0') + direction;
+      let nextIndex = parseInt(target.dataset['index'] ?? '0') + direction;
       if (nextIndex < 0) {
         nextIndex = this.dataSource!.items.length - 1;
       } else if (nextIndex >= this.dataSource!.items.length) {
@@ -265,11 +267,11 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
       event.preventDefault();
 
       this.#scrollAndFocusNode(event.key === 'Home' ? 0 : this.dataSource!.items.length - 1);
-    } else if (event.key === 'ArrowLeft' && !event.target.expanded) {
+    } else if (event.key === 'ArrowLeft' && !target.expanded) {
       event.preventDefault();
 
-      let parent = event.target.previousElementSibling as TreeNode<T> | null;
-      while (parent && parent.level === event.target.level) {
+      let parent = target.previousElementSibling as TreeNode<T> | null;
+      while (parent && parent.level === target.level) {
         parent = parent.previousElementSibling as TreeNode<T> | null;
       }
 
@@ -279,8 +281,8 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
     } else if (event.key === 'ArrowRight') {
       event.preventDefault();
 
-      const nextElement = event.target.nextElementSibling as TreeNode<T> | null;
-      if (nextElement && nextElement.level > event.target.level) {
+      const nextElement = target.nextElementSibling as TreeNode<T> | null;
+      if (nextElement && nextElement.level > target.level) {
         this.#scrollAndFocusNode(parseInt(nextElement.dataset['index'] ?? '0'));
       }
     }

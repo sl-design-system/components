@@ -201,11 +201,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       );
 
     return html`
-      <td
-        aria-rowindex=${rowIndex + 1}
-        aria-colindex=${colIndex + 1}
-        role="gridcell"
-      >
+      <td aria-rowindex=${rowIndex + 1} aria-colindex=${colIndex + 1} role="gridcell">
         <button
           @click=${() => this.#onClick(month.value)}
           @keydown=${this.#onKeydown}

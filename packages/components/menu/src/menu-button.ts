@@ -34,8 +34,8 @@ declare global {
  */
 @localized()
 export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitElement), [
-  'aria-label',
-  'aria-labelledby'
+  'aria-disabled',
+  'aria-label'
 ]) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
@@ -48,6 +48,9 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
+
+  /** Observe changes to aria-describedby and aria-labelledby attributes. */
+  #observer = new MutationObserver(() => this.#updateAriaReferences());
 
   /** The state of the menu popover. */
   #popoverState?: string;
@@ -94,8 +97,13 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
    */
   @property() variant?: ButtonVariant;
 
-  static override get observedAttributes(): string[] {
-    return [...(super.observedAttributes ?? []), 'aria-disabled'];
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.#observer.observe(this, {
+      attributes: true,
+      attributeFilter: ['aria-describedby', 'aria-labelledby']
+    });
   }
 
   override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null): void {
@@ -106,6 +114,12 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
     }
   }
 
+  override disconnectedCallback(): void {
+    this.#observer.disconnect();
+
+    super.disconnectedCallback();
+  }
+
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
@@ -113,6 +127,10 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
 
     this.button.setAttribute('aria-controls', this.menu.id);
     this.menu.anchorElement = this.button;
+
+    requestAnimationFrame(() => {
+      this.#updateAriaReferences();
+    });
   }
 
   override render(): TemplateResult {
@@ -131,8 +149,8 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
             ? 'true'
             : 'false'
           : this.disabled
-          ? 'true'
-          : 'false'}
+            ? 'true'
+            : 'false'}
         aria-expanded="false"
         aria-haspopup="menu"
         fill=${ifDefined(this.fill)}
@@ -238,5 +256,68 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
       // If the menu is opening and the button is focused, move focus to the menu
       this.menu.focus();
     }
+  }
+
+  /**
+   * Update aria-describedby and aria-labelledby references on the button.
+   * Sets Element.ariaDescribedByElements and Element.ariaLabelledByElements properties
+   * to work across shadow DOM boundaries (e.g. with tooltips).
+   */
+  #updateAriaReferences(): void {
+    if (!this.button) {
+      return;
+    }
+
+    // Temporarily stop observing so removing attributes from the host doesn't retrigger this method
+    this.#observer.disconnect();
+
+    if (this.hasAttribute('aria-describedby')) {
+      this.#setAriaReference('aria-describedby', 'ariaDescribedByElements');
+    } else {
+      this.button.ariaDescribedByElements = null;
+      this.button.removeAttribute('aria-describedby');
+    }
+
+    if (this.hasAttribute('aria-labelledby')) {
+      this.#setAriaReference('aria-labelledby', 'ariaLabelledByElements');
+    } else {
+      this.button.ariaLabelledByElements = null;
+      this.button.removeAttribute('aria-labelledby');
+    }
+
+    this.#observer.observe(this, { attributes: true, attributeFilter: ['aria-describedby', 'aria-labelledby'] });
+  }
+
+  /** Set an aria reference on the button using Element properties. */
+  #setAriaReference(attribute: string, property: 'ariaDescribedByElements' | 'ariaLabelledByElements'): void {
+    const ariaValue = this.getAttribute(attribute);
+
+    // Clear if attribute was removed or if the attribute only contained whitespace
+    if (!ariaValue || !ariaValue.trim()) {
+      this.button[property] = null;
+      this.button.removeAttribute(attribute);
+      this.removeAttribute(attribute);
+      return;
+    }
+
+    // Query elements from the root node (to find elements outside shadow DOM)
+    const elements = ariaValue
+      .trim()
+      .split(/\s+/)
+      .map(id => (this.getRootNode() as ParentNode).querySelector(`#${id}`))
+      .filter((el): el is Element => el !== null);
+
+    if (elements.length === 0) {
+      this.button[property] = null;
+      this.button.removeAttribute(attribute);
+    } else {
+      // Set the Element property: ariaLabelledByElements/ariaDescribedByElements to get it working with shadow DOM boundary.
+      // Setting this property adds empty aria-labelledby/aria-describedby to the element,
+      // If we removed it by setting aria-labelledby/aria-describedby with ids, it would break the connection for the assistive technologies.
+      // See: https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Reflected_attributes#setting_the_property_and_attribute
+      this.button[property] = elements;
+    }
+
+    this.removeAttribute(attribute);
   }
 }

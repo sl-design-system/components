@@ -191,7 +191,17 @@ export const Required: Story = {
 
 export const SelectOnly: Story = {
   args: {
-    selectOnly: true
+    selectOnly: true,
+    slot: () => {
+      const onClear = (): void => {
+        const dateField = document.querySelector('sl-date-field')!;
+
+        dateField.value = undefined;
+        dateField.hidePicker();
+      };
+
+      return html`<sl-button @click=${onClear} fill="link">Clear date</sl-button>`;
+    }
   }
 };
 

@@ -238,6 +238,20 @@ describe('sl-date-field', () => {
       expect(el.internals.states.has('placeholder-shown')).to.be.true;
     });
 
+    it('should remove placeholder-shown state when a partial date is entered', async () => {
+      el.placeholder = 'Pick a date';
+      await el.updateComplete;
+
+      expect(el.internals.states.has('placeholder-shown')).to.be.true;
+
+      const spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+      spans[0].focus();
+      await userEvent.keyboard('5');
+      await el.updateComplete;
+
+      expect(el.internals.states.has('placeholder-shown')).to.be.false;
+    });
+
     it('should not have has-value state when there is no value', () => {
       expect(el.internals.states.has('has-value')).to.be.false;
     });

@@ -63,12 +63,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** @internal The default margin between the popover and the viewport. */
   static viewportMargin = 8;
 
-  /**
-   * Stores the individual date parts when the user is editing.
-   * These are stored separately from `value` to support partial dates.
-   */
-  #dateParts: { day?: number; month?: number; year?: number } = {};
-
   /** Tracks how many digits have been entered for the current part. */
   #enteredDigits = 0;
 
@@ -76,7 +70,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   #formatter?: Intl.DateTimeFormat;
 
   /**
-   * Flag to prevent willUpdate from clearing #dateParts when the value is set
+   * Flag to prevent willUpdate from clearing dateParts when the value is set
    * to undefined internally (e.g. when the user enters an invalid date).
    */
   #preserveDateParts = false;
@@ -105,6 +99,13 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<Date | undefined>>;
+
+  /**
+   * Stores the individual date parts when the user is editing.
+   * These are stored separately from `value` to support partial dates.
+   * @internal
+   */
+  @state() dateParts: { day?: number; month?: number; year?: number } = {};
 
   /** @internal The dialog element that is also the popover. */
   @query('dialog') dialog?: HTMLDialogElement;
@@ -230,22 +231,22 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     if (changes.has('locale') || changes.has('value')) {
       if (this.value) {
-        this.#dateParts = {
+        this.dateParts = {
           day: this.value.getDate(),
           month: this.value.getMonth() + 1,
           year: this.value.getFullYear()
         };
       } else if (changes.get('value') !== undefined && !this.#preserveDateParts) {
         // Only clear parts if value was explicitly set to undefined (not on first render)
-        this.#dateParts = {};
+        this.dateParts = {};
         this.#enteredDigits = 0;
       }
 
       this.#preserveDateParts = false;
     }
 
-    if (changes.has('placeholder') || changes.has('value')) {
-      if (this.value) {
+    if (changes.has('dateParts') || changes.has('placeholder') || changes.has('value')) {
+      if (this.value || this.#hasPartialDate()) {
         this.internals.states.delete('placeholder-shown');
       } else if (this.placeholder) {
         this.internals.states.add('placeholder-shown');
@@ -373,7 +374,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       datePartTypes = formatParts.filter(p => p.type !== 'literal').map(p => p.type),
       datePartIndex = datePartTypes.indexOf(partType),
       placeholder = getDateUnitLetter(locale, partType).repeat(part.value.length),
-      currentValue = this.#dateParts[partType],
+      currentValue = this.dateParts[partType],
       hasValue = currentValue !== undefined,
       displayValue = hasValue ? String(currentValue).padStart(part.value.length, '0') : placeholder,
       isMonth = partType === 'month',
@@ -413,7 +414,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   override updateInternalValidity(): void {
     const hasPartialDate = this.#hasPartialDate(),
       hasCompleteDate =
-        this.#dateParts.day !== undefined && this.#dateParts.month !== undefined && this.#dateParts.year !== undefined;
+        this.dateParts.day !== undefined && this.dateParts.month !== undefined && this.dateParts.year !== undefined;
 
     if (hasCompleteDate && !this.value) {
       this.setCustomValidity(msg('Please enter a valid date.', { id: 'sl.dateField.typeMismatch' }));
@@ -567,7 +568,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
       const digit = parseInt(event.key, 10);
       this.#applyDigitToDatePart(partType, digit);
-      this.requestUpdate();
 
       // Auto-advance when max digits reached
       const maxDigits = partType === 'year' ? 4 : 2;
@@ -587,8 +587,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         event.preventDefault();
         if (!this.readonly && !this.selectOnly) {
           this.#adjustDatePart(partType, 1);
-          this.requestUpdate();
-
           this.#selectContent(span);
           this.#trySetValue();
         }
@@ -598,8 +596,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         event.preventDefault();
         if (!this.readonly && !this.selectOnly) {
           this.#adjustDatePart(partType, -1);
-          this.requestUpdate();
-
           this.#selectContent(span);
           this.#trySetValue();
         }
@@ -619,9 +615,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       case 'Delete':
         event.preventDefault();
         if (!this.readonly && !this.selectOnly) {
-          this.#dateParts[partType] = undefined;
+          this.dateParts = { ...this.dateParts, [partType]: undefined };
           this.#enteredDigits = 0;
-          this.requestUpdate();
           this.#selectContent(span);
           this.#trySetValue();
         }
@@ -724,35 +719,38 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
    * @param delta The amount to adjust by (1 or -1)
    */
   #adjustDatePart(partType: DatePartType, delta: number): void {
-    const currentValue = this.#dateParts[partType];
+    const currentValue = this.dateParts[partType];
+    let newValue: number;
 
     if (currentValue === undefined) {
       if (partType === 'day') {
-        this.#dateParts.day = delta > 0 ? 1 : 31;
+        newValue = delta > 0 ? 1 : 31;
       } else if (partType === 'month') {
-        this.#dateParts.month = delta > 0 ? 1 : 12;
+        newValue = delta > 0 ? 1 : 12;
       } else {
-        this.#dateParts.year = new Date().getFullYear();
+        newValue = new Date().getFullYear();
       }
     } else {
       if (partType === 'day') {
-        this.#dateParts.day = currentValue + delta;
-        if (this.#dateParts.day > 31) this.#dateParts.day = 1;
-        if (this.#dateParts.day < 1) this.#dateParts.day = 31;
+        newValue = currentValue + delta;
+        if (newValue > 31) newValue = 1;
+        if (newValue < 1) newValue = 31;
       } else if (partType === 'month') {
-        this.#dateParts.month = currentValue + delta;
-        if (this.#dateParts.month > 12) this.#dateParts.month = 1;
-        if (this.#dateParts.month < 1) this.#dateParts.month = 12;
+        newValue = currentValue + delta;
+        if (newValue > 12) newValue = 1;
+        if (newValue < 1) newValue = 12;
       } else {
-        this.#dateParts.year = Math.max(1, Math.min(9999, currentValue + delta));
+        newValue = Math.max(1, Math.min(9999, currentValue + delta));
       }
     }
+
+    this.dateParts = { ...this.dateParts, [partType]: newValue };
   }
 
   /** Applies a new digit to the specified date part, combining with existing digits if continuing to type. */
   #applyDigitToDatePart(partType: DatePartType, newDigit: number): void {
     const maxDigits = partType === 'year' ? 4 : 2,
-      currentValue = this.#dateParts[partType];
+      currentValue = this.dateParts[partType];
 
     let newValue: number;
     if (this.#enteredDigits > 0 && this.#enteredDigits < maxDigits && currentValue !== undefined) {
@@ -763,7 +761,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     this.#enteredDigits++;
-    this.#dateParts[partType] = newValue;
+    this.dateParts = { ...this.dateParts, [partType]: newValue };
   }
 
   #exitSelectAll(refocus = false): void {
@@ -788,7 +786,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         }
 
         const partType = part.type as DatePartType,
-          currentValue = this.#dateParts[partType];
+          currentValue = this.dateParts[partType];
 
         if (currentValue !== undefined) {
           return String(currentValue).padStart(part.value.length, '0');
@@ -821,9 +819,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #hasPartialDate(): boolean {
-    return (
-      this.#dateParts.day !== undefined || this.#dateParts.month !== undefined || this.#dateParts.year !== undefined
-    );
+    return this.dateParts.day !== undefined || this.dateParts.month !== undefined || this.dateParts.year !== undefined;
   }
 
   /** Selects all text content in a contenteditable element. */
@@ -866,7 +862,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** Tries to set the value if all date parts are defined, or clears it. */
   #trySetValue(): void {
-    const { day, month, year } = this.#dateParts;
+    const { day, month, year } = this.dateParts;
 
     if (day !== undefined && month !== undefined && year !== undefined) {
       const date = new Date(year, month - 1, day);

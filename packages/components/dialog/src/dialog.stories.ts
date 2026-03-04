@@ -40,11 +40,6 @@ export default {
     disableCancel: false,
     title: 'Title'
   },
-  globals: {
-    viewport: {
-      value: 'reset'
-    }
-  },
   render: args => {
     const {
       body,

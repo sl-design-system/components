@@ -26,11 +26,6 @@ export default {
       }
     }
   },
-  globals: {
-    viewport: {
-      value: 'reset'
-    }
-  },
   render: ({ breadcrumbs, hideHomeLabel, inverted, homeUrl, noHome }) => html`
     <style>
       sl-breadcrumbs[inverted] {

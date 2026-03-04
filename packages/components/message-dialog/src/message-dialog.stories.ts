@@ -19,11 +19,6 @@ export default {
     // Disables Chromatic's snapshotting on a story level
     chromatic: { disableSnapshot: true }
   },
-  globals: {
-    viewport: {
-      value: 'reset'
-    }
-  },
   render: args => html`<sl-button @click=${() => args.onClick(args)}>Show message</sl-button>`
 } satisfies Meta<Props>;
 

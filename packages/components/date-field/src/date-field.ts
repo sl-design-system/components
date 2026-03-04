@@ -121,6 +121,28 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
+  override get formValue(): string | null {
+    if (!this.value) {
+      return null;
+    }
+
+    const y = this.value.getFullYear(),
+      m = String(this.value.getMonth() + 1).padStart(2, '0'),
+      d = String(this.value.getDate()).padStart(2, '0');
+
+    return `${y}-${m}-${d}`;
+  }
+
+  override set formValue(value: Date | string | null) {
+    if (value instanceof Date) {
+      this.value = value;
+    } else if (typeof value === 'string') {
+      this.value = parseDateString(value, this.locale ?? 'default');
+    } else {
+      this.value = undefined;
+    }
+  }
+
   /** @internal */
   readonly internals = this.attachInternals();
 
@@ -181,18 +203,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** The selected date in the calendar. */
   @property({ converter: dateConverter }) override value?: Date;
-
-  override get formValue(): string | null {
-    if (!this.value) {
-      return null;
-    }
-
-    const y = this.value.getFullYear(),
-      m = String(this.value.getMonth() + 1).padStart(2, '0'),
-      d = String(this.value.getDate()).padStart(2, '0');
-
-    return `${y}-${m}-${d}`;
-  }
 
   override connectedCallback(): void {
     super.connectedCallback();

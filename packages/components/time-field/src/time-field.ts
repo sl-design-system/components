@@ -72,21 +72,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** The value in HH:mm format. */
   #value: string | undefined;
 
-  /**
-   * Syncs the input's lang attribute with the component's locale.
-   */
-  #syncInputLang(): void {
-    if (!this.input) {
-      return;
-    }
-
-    if (this.locale && this.locale !== 'default') {
-      this.input.lang = this.locale;
-    } else {
-      this.input.removeAttribute('lang');
-    }
-  }
-
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
@@ -886,6 +871,21 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       } else {
         targetMinuteEl?.focus();
       }
+    }
+  }
+
+  /**
+   * Syncs the input's lang attribute with the component's locale.
+   */
+  #syncInputLang(): void {
+    if (!this.input) {
+      return;
+    }
+
+    if (this.locale && this.locale !== 'default') {
+      this.input.lang = this.locale;
+    } else {
+      this.input.removeAttribute('lang');
     }
   }
 }

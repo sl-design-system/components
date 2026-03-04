@@ -177,6 +177,39 @@ describe('sl-time-field', () => {
       button?.click();
       expect(dialog?.matches(':popover-open')).to.be.false;
     });
+
+    it('should have an accessible name', () => {
+      expect(button).to.have.attribute('aria-label');
+    });
+
+    it('should have aria-controls pointing to the dialog', () => {
+      expect(button).to.have.attribute('aria-controls', 'dialog');
+    });
+
+    it('should have aria-expanded set to false initially', () => {
+      expect(button).to.have.attribute('aria-expanded', 'false');
+    });
+
+    it('should update aria-expanded to true when popover is opened', async () => {
+      button.click();
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('aria-expanded', 'true');
+    });
+
+    it('should update aria-expanded to false when popover is closed', async () => {
+      button.click();
+      await el.updateComplete;
+
+      button.click();
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('aria-expanded', 'false');
+    });
+
+    it('should have aria-haspopup set to listbox', () => {
+      expect(button).to.have.attribute('aria-haspopup', 'listbox');
+    });
   });
 
   describe('text field', () => {

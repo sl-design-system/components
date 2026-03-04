@@ -63,7 +63,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** Track when focus is intentionally leaving the component (e.g. by tabbing away). */
   #focusLeavingComponent = false;
 
-  /** Track when the popover is being closed programmatically (e.g. by selecting a minute or pressing Escape). */
+  /** Track when the popover is in the process of closing. */
   #popoverClosing = false;
 
   /**
@@ -480,8 +480,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     if (leavingComponent) {
       const dialogIsOpen = isPopoverOpen(this.dialog);
 
-      // Only mark as "focus leaving" when we're not already programmatically closing
-      // (e.g. by selecting a minute or pressing Escape)
+      // Only mark as "focus leaving" when the popover is not already in the process of closing
       if (!this.#popoverClosing && dialogIsOpen) {
         this.#focusLeavingComponent = true;
       }
@@ -780,8 +779,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   async #onToggle(event: ToggleEvent): Promise<void> {
     if (event.newState === 'closed') {
-      this.input.removeAttribute('tabindex');
-
       if (!this.#focusLeavingComponent) {
         this.textField.focus();
       }
@@ -790,8 +787,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.#popoverJustClosed = false;
       this.#focusLeavingComponent = false;
     } else {
-      this.input.tabIndex = -1;
-
       await this.#scrollAndFocusStartTime();
     }
   }

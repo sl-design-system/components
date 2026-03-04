@@ -569,7 +569,6 @@ describe('sl-time-field', () => {
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(dialog).to.match(':popover-open');
-      expect(el.input.tabIndex).to.equal(-1);
 
       await userEvent.tab();
       await el.updateComplete;

@@ -13,7 +13,7 @@ import {
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { FieldButton, TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
-import { property, query, state } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './time-field.scss.js';
 
@@ -173,9 +173,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** @internal The text field. */
   @query('sl-text-field') textField!: TextField;
 
-  /** Track whether the dialog popover is open. */
-  @state() dialogOpen = false;
-
   override get value(): string | undefined {
     return this.#value;
   }
@@ -282,7 +279,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           aria-expanded="false"
           aria-haspopup="listbox"
           slot="suffix"
-          tabindex=${this.disabled || this.readonly || this.dialogOpen ? '-1' : '0'}
+          tabindex=${this.disabled || this.readonly ? '-1' : '0'}
         >
           <sl-icon name="clock"></sl-icon>
         </sl-field-button>
@@ -296,6 +293,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           viewportMargin: TimeField.viewportMargin
         })}
         @beforetoggle=${this.#onBeforeToggle}
+        @focusin=${this.#onDialogFocusin}
         @focusout=${this.#onDialogFocusout}
         @toggle=${this.#onToggle}
         @keydown=${this.#onKeydown}
@@ -440,17 +438,32 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
   }
 
+  #onDialogFocusin(event: FocusEvent): void {
+    const target = event.target;
+
+    if (!(target instanceof HTMLLIElement)) {
+      return;
+    }
+
+    // Reset previously focused <li> so only one has tabindex="0"
+    this.dialog?.querySelectorAll('li[tabindex="0"]').forEach(li => {
+      if (li !== target) {
+        li.setAttribute('tabindex', '-1');
+      }
+    });
+
+    target.tabIndex = 0;
+  }
+
   #onDialogFocusout(event: FocusEvent): void {
     const relatedTarget = event.relatedTarget;
-
-    console.log('relatedTarget', relatedTarget);
 
     if (
       this.#popoverClosing ||
       !(relatedTarget instanceof Node) ||
       this.dialog?.contains(relatedTarget) ||
-      this.contains(relatedTarget) ||
-      this.shadowRoot?.contains(relatedTarget)
+      relatedTarget === this.textField ||
+      relatedTarget === this.input
     ) {
       return;
     }
@@ -767,7 +780,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   async #onToggle(event: ToggleEvent): Promise<void> {
     if (event.newState === 'closed') {
-      this.dialogOpen = false;
       this.input.removeAttribute('tabindex');
 
       if (!this.#focusLeavingComponent) {
@@ -778,7 +790,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.#popoverJustClosed = false;
       this.#focusLeavingComponent = false;
     } else {
-      this.dialogOpen = true;
       this.input.tabIndex = -1;
 
       await this.#scrollAndFocusStartTime();

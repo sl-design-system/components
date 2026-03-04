@@ -1,8 +1,9 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, LocaleMixin, event } from '@sl-design-system/shared';
 import { dateConverter, dateListConverter } from '@sl-design-system/shared/converters.js';
 import { type SlChangeEvent, type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -25,6 +26,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
+      'sl-icon': Icon,
       'sl-select-day': SelectDay,
       'sl-select-month': SelectMonth,
       'sl-select-year': SelectYear
@@ -152,9 +154,17 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           `
         ]
       ])}
+      ${this.min && this.max
+        ? html`
+            <span id="min-max-helper-text"
+              ><sl-icon name="info"></sl-icon>Between the ${this.min?.toLocaleDateString()} and
+              ${this.max?.toLocaleDateString()}</span
+            >
+          `
+        : nothing}
     `;
-  }
-
+  } // TODO: make the text when only min is set and when only max is set, add aria-describedby to the select-day component that points to the helper text, and make sure the helper text is localized.
+  // TODO: maybe it needs to take into account formatter from the date-field?
   #onSelect(event: SlSelectEvent<Date>): void {
     event.preventDefault();
     event.stopPropagation();

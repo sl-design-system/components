@@ -60,7 +60,11 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     focusout: this.#onFocusout
   });
 
-  /** Track when focus is intentionally leaving the component (e.g. by tabbing away). */
+  /**
+   * Flag indicating that focus should not be restored to the text-field when the popover
+   * closes. This is set when focus moves away from the dialog to either an internal control
+   * (e.g. the clock button via Shift+Tab) or outside the component (e.g. via Tab).
+   */
   #focusLeavingComponent = false;
 
   /** Track when the popover is in the process of closing. */

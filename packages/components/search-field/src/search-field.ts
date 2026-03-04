@@ -84,6 +84,7 @@ export class SearchField extends TextField {
   clear(): void {
     this.value = '';
     this.#clearDebounceTimer();
+    this.searchEvent.emit('');
     this.clearEvent.emit();
   }
 
@@ -123,6 +124,9 @@ export class SearchField extends TextField {
       // Only emit search event if value is not empty
       if (value.trim() !== '') {
         this.searchEvent.emit(value);
+      } else {
+        this.searchEvent.emit('');
+        this.clearEvent.emit();
       }
     }, 300);
   }

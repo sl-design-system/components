@@ -326,10 +326,6 @@
   <source>error</source>
   <target>fout</target>
 </trans-unit>
-<trans-unit id="sl.timeField.toggleDropdown">
-  <source>Toggle dropdown</source>
-  <target>Toon dropdown</target>
-</trans-unit>
 <trans-unit id="sl.timeField.valueMissing">
   <source>Please enter a time.</source>
   <target>Voer een tijd in.</target>
@@ -385,6 +381,10 @@
 <trans-unit id="sl.calendar.changeYear">
   <source><x id="0" equiv-text="${format(this.displayMonth!, this.locale, { year: 'numeric' })}"/>, change year</source>
   <target><x id="0" equiv-text="${format(this.displayMonth!, this.locale, { year: 'numeric' })}"/>, verander jaar</target>
+</trans-unit>
+<trans-unit id="sl.timeField.toggleDropdown">
+  <source>Select time</source>
+  <target>Selecteer tijd</target>
 </trans-unit>
 </body>
 </file>

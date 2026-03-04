@@ -878,10 +878,16 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       const date = new Date(year, month - 1, day);
 
       if (date.getDate() === day && date.getMonth() === month - 1 && date.getFullYear() === year) {
-        this.value = date;
-        this.changeEvent.emit(this.value);
-        this.updateState({ dirty: true });
-        this.updateValidity();
+        if ((this.min && date < this.min) || (this.max && date > this.max)) {
+          this.#preserveDateParts = true;
+          this.value = undefined;
+          this.updateValidity();
+        } else {
+          this.value = date;
+          this.changeEvent.emit(this.value);
+          this.updateState({ dirty: true });
+          this.updateValidity();
+        }
       } else {
         this.#preserveDateParts = true;
         this.value = undefined;

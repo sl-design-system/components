@@ -1644,6 +1644,50 @@ describe('sl-date-field', () => {
 
       expect(el.valid).to.be.false;
     });
+
+    it('should not set value when typing a date before min', async () => {
+      el.min = new Date(2026, 2, 15);
+      await el.updateComplete;
+
+      const spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+
+      // Type 03/14/2026 (one day before min)
+      spans[0].focus();
+      await userEvent.keyboard('0');
+      await userEvent.keyboard('3');
+      await userEvent.keyboard('1');
+      await userEvent.keyboard('4');
+      await userEvent.keyboard('2');
+      await userEvent.keyboard('0');
+      await userEvent.keyboard('2');
+      await userEvent.keyboard('6');
+      await el.updateComplete;
+
+      expect(el.value).to.be.undefined;
+      expect(el.valid).to.be.false;
+    });
+
+    it('should not set value when typing a date after max', async () => {
+      el.max = new Date(2026, 2, 15);
+      await el.updateComplete;
+
+      const spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+
+      // Type 03/16/2026 (one day after max)
+      spans[0].focus();
+      await userEvent.keyboard('0');
+      await userEvent.keyboard('3');
+      await userEvent.keyboard('1');
+      await userEvent.keyboard('6');
+      await userEvent.keyboard('2');
+      await userEvent.keyboard('0');
+      await userEvent.keyboard('2');
+      await userEvent.keyboard('6');
+      await el.updateComplete;
+
+      expect(el.value).to.be.undefined;
+      expect(el.valid).to.be.false;
+    });
   });
 
   describe('custom calendar', () => {

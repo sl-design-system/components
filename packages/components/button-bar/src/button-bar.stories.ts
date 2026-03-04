@@ -31,9 +31,9 @@ export default {
       options: ['sm', 'md', 'lg']
     }
   },
-  parameters: {
+  globals: {
     viewport: {
-      defaultViewport: 'reset'
+      value: 'reset'
     }
   },
   render: ({ align, buttons, reverse, size }) => html`

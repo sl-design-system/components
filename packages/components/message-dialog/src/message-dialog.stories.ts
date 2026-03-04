@@ -17,9 +17,11 @@ export default {
   tags: ['preview'],
   parameters: {
     // Disables Chromatic's snapshotting on a story level
-    chromatic: { disableSnapshot: true },
+    chromatic: { disableSnapshot: true }
+  },
+  globals: {
     viewport: {
-      defaultViewport: 'reset'
+      value: 'reset'
     }
   },
   render: args => html`<sl-button @click=${() => args.onClick(args)}>Show message</sl-button>`
@@ -46,9 +48,9 @@ export const Confirm: Story = {
 };
 
 export const Mobile: Story = {
-  parameters: {
+  globals: {
     viewport: {
-      defaultViewport: 'iphone5'
+      value: 'iphone5'
     }
   },
   args: {

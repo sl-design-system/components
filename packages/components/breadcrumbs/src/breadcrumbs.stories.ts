@@ -26,9 +26,9 @@ export default {
       }
     }
   },
-  parameters: {
+  globals: {
     viewport: {
-      defaultViewport: 'reset'
+      value: 'reset'
     }
   },
   render: ({ breadcrumbs, hideHomeLabel, inverted, homeUrl, noHome }) => html`
@@ -91,9 +91,9 @@ export const Inverted: Story = {
 
 export const Mobile: Story = {
   ...Basic,
-  parameters: {
+  globals: {
     viewport: {
-      defaultViewport: 'iphone13'
+      value: 'iphone13'
     }
   }
 };

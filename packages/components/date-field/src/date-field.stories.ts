@@ -164,7 +164,8 @@ export const MinMax: Story = {
     hint: 'This story has a minimum date of June 10, 2025 and a maximum date of June 20, 2025. The calendar will open to June 2025 by default.',
     month: new Date(2025, 0, 1),
     max: new Date(2025, 0, 20),
-    min: new Date(2025, 0, 10)
+    min: new Date(2025, 0, 10),
+    reportValidity: true
   }
 };
 

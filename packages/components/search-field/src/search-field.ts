@@ -121,7 +121,7 @@ export class SearchField extends TextField {
     this.#debounceTimer = setTimeout(() => {
       const value = this.value?.toString() ?? '';
 
-      // Only emit search event if value is not empty
+      // Emit search event with current value; if empty, also emit clear event
       if (value.trim() !== '') {
         this.searchEvent.emit(value);
       } else {

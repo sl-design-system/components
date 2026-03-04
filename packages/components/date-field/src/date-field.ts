@@ -289,7 +289,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
                   @mousedown=${this.#onSelectAllMouseDown}
                   class="select-all"
                   contenteditable="true"
-                  readonly
                 >
                   ${this.#getFormattedValue()}
                 </span>
@@ -672,6 +671,20 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           this.renderRoot.querySelector<HTMLElement>('sl-field-button')?.focus();
         });
       }
+
+      return;
+    }
+
+    // Backspace/Delete clears the value and date parts
+    if (event.key === 'Backspace' || event.key === 'Delete') {
+      event.preventDefault();
+      this.dateParts = {};
+      this.#enteredDigits = 0;
+      this.value = undefined;
+      this.changeEvent.emit(this.value);
+      this.updateState({ dirty: true });
+      this.updateValidity();
+      this.#exitSelectAll(true);
 
       return;
     }

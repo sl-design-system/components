@@ -1376,6 +1376,32 @@ describe('sl-date-field', () => {
 
       expect(el.renderRoot.querySelector('.select-all')).to.not.exist;
     });
+
+    it('should clear the value and date parts when pressing Backspace', async () => {
+      spans[0].focus();
+      await userEvent.keyboard('{Control>}a{/Control}');
+      await el.updateComplete;
+
+      await userEvent.keyboard('{Backspace}');
+      await el.updateComplete;
+
+      expect(el.value).to.be.undefined;
+      expect(el.dateParts).to.deep.equal({});
+      expect(el.renderRoot.querySelector('.select-all')).to.not.exist;
+    });
+
+    it('should clear the value and date parts when pressing Delete', async () => {
+      spans[0].focus();
+      await userEvent.keyboard('{Control>}a{/Control}');
+      await el.updateComplete;
+
+      await userEvent.keyboard('{Delete}');
+      await el.updateComplete;
+
+      expect(el.value).to.be.undefined;
+      expect(el.dateParts).to.deep.equal({});
+      expect(el.renderRoot.querySelector('.select-all')).to.not.exist;
+    });
   });
 
   describe('paste', () => {

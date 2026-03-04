@@ -178,10 +178,6 @@
   <source><x id="0" equiv-text="${this.listbox?.matches(':popover-open') ? 'Hide' : 'Show'}"/> the options</source>
   <target><x id="0" equiv-text="${this.listbox?.matches(':popover-open') ? 'Verberg' : 'Toon'}"/> de opties</target>
 </trans-unit>
-<trans-unit id="sl.dateField.toggleCalendar">
-  <source>Toggle calendar</source>
-  <target>Toon kalender</target>
-</trans-unit>
 <trans-unit id="sl.radioGroup.validation.valueMissing">
   <source>Please select an option.</source>
   <target>Kies een optie.</target>
@@ -409,6 +405,10 @@
 <trans-unit id="sl.dateField.confirm">
   <source>Confirm</source>
   <target>Bevestigen</target>
+</trans-unit>
+<trans-unit id="sl.dateField.selectDate">
+  <source>Select date</source>
+  <target>Selecteer datum</target>
 </trans-unit>
 </body>
 </file>

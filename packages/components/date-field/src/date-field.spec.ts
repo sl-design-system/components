@@ -238,6 +238,50 @@ describe('sl-date-field', () => {
       expect(el.internals.states.has('placeholder-shown')).to.be.true;
     });
 
+    it('should not have has-value state when there is no value', () => {
+      expect(el.internals.states.has('has-value')).to.be.false;
+    });
+
+    it('should have has-value state when a value is set', async () => {
+      el.value = new Date(2026, 2, 14);
+      await el.updateComplete;
+
+      expect(el.internals.states.has('has-value')).to.be.true;
+    });
+
+    it('should remove has-value state when the value is cleared', async () => {
+      el.value = new Date(2026, 2, 14);
+      await el.updateComplete;
+
+      expect(el.internals.states.has('has-value')).to.be.true;
+
+      el.value = undefined;
+      await el.updateComplete;
+
+      expect(el.internals.states.has('has-value')).to.be.false;
+    });
+
+    it('should have aria-hidden on the placeholder when a value is set', async () => {
+      el.placeholder = 'Pick a date';
+      el.value = new Date(2026, 2, 14);
+      await el.updateComplete;
+
+      const placeholder = el.renderRoot.querySelector('.placeholder');
+
+      expect(placeholder).to.exist;
+      expect(placeholder).to.have.attribute('aria-hidden', 'true');
+    });
+
+    it('should not have aria-hidden on the placeholder when there is no value', async () => {
+      el.placeholder = 'Pick a date';
+      await el.updateComplete;
+
+      const placeholder = el.renderRoot.querySelector('.placeholder');
+
+      expect(placeholder).to.exist;
+      expect(placeholder).not.to.have.attribute('aria-hidden');
+    });
+
     it('should not require confirmation', () => {
       expect(el.requireConfirmation).not.to.be.true;
     });

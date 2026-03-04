@@ -24,7 +24,7 @@ type Props = Pick<
   | 'showWeekNumbers'
   | 'value'
 > & {
-  hint?: string;
+  hint?: string | TemplateResult;
   label?: string;
   reportValidity?: boolean;
   slot?(): TemplateResult;
@@ -37,7 +37,6 @@ export default {
   args: {
     disabled: false,
     label: 'Date',
-    placeholder: 'Pick a date',
     readonly: false,
     requireConfirmation: false,
     required: false,
@@ -165,6 +164,13 @@ export const MinMax: Story = {
     month: new Date(2025, 0, 1),
     max: new Date(2025, 0, 20),
     min: new Date(2025, 0, 10)
+  }
+};
+
+export const Placeholder: Story = {
+  args: {
+    hint: 'The component will show a default placeholder that is the date template. You can also set a custom placeholder, but be careful you are not degrading the user experience by doing so.',
+    placeholder: 'Pick a date'
   }
 };
 

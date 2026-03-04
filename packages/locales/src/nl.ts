@@ -37,7 +37,7 @@ export const templates = {
   'sl.dateField.incomplete': 'Voer een volledige datum in.',
   'sl.dateField.rangeOverflow': str`Voer een datum in die niet later is dan ${0}.`,
   'sl.dateField.rangeUnderflow': str`Voer een datum in die niet eerder is dan ${0}.`,
-  'sl.dateField.toggleCalendar': 'Toon kalender',
+  'sl.dateField.selectDate': 'Selecteer datum',
   'sl.dateField.typeMismatch': 'Voer een geldige datum in.',
   'sl.dateField.valueMissing': 'Voer een datum in.',
   'sl.emojiBrowser.frequentlyUsed': 'Vaak gebruikt',

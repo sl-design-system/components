@@ -34,6 +34,9 @@ type DatePartType = 'day' | 'month' | 'year';
 /**
  * A form component that allows the user to pick a date from a calendar.
  * Uses individual spinbutton inputs per date part for improved accessibility.
+ *
+ * @cssState has-value - Set when the date field has a value.
+ * @cssState placeholder-shown - Set when the date field is empty and has a placeholder.
  */
 @localized()
 export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(LitElement))) {
@@ -246,6 +249,12 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         this.calendar.selected = this.value;
       }
 
+      if (this.value) {
+        this.internals.states.add('has-value');
+      } else {
+        this.internals.states.delete('has-value');
+      }
+
       this.internals.setFormValue(this.formValue);
     }
 
@@ -276,7 +285,13 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
               `
             : html`
                 <div class="parts">${parts.map(part => this.renderPart(part, locale))}</div>
-                ${this.placeholder ? html`<div class="placeholder">${this.placeholder}</div>` : nothing}
+                ${this.placeholder
+                  ? html`
+                      <div aria-hidden=${ifDefined(this.value ? 'true' : undefined)} class="placeholder">
+                        ${this.placeholder}
+                      </div>
+                    `
+                  : nothing}
               `}
         </div>
 
@@ -286,7 +301,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           aria-controls="dialog"
           aria-expanded=${this.dialog?.matches(':popover-open') ? 'true' : 'false'}
           aria-haspopup="dialog"
-          aria-label=${msg('Toggle calendar', { id: 'sl.dateField.toggleCalendar' })}
+          aria-label=${msg('Select date', { id: 'sl.dateField.selectDate' })}
           tabindex=${this.disabled || this.readonly ? '-1' : '0'}
         >
           <sl-icon name="calendar"></sl-icon>

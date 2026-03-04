@@ -385,7 +385,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
             ? getMonthName(locale, currentValue)
             : String(currentValue).padStart(part.value.length, '0')
           : String(currentValue)
-        : placeholder;
+        : msg('Empty', { id: 'sl.dateField.empty' });
 
     return html`
       <span

@@ -772,6 +772,12 @@ describe('sl-date-field', () => {
       expect(spans[0]).to.have.attribute('aria-valuetext', '00');
     });
 
+    it('should have aria-valuetext "Empty" when no value is set', () => {
+      const spans = el.renderRoot.querySelectorAll('span[role="spinbutton"]');
+
+      spans.forEach(span => expect(span).to.have.attribute('aria-valuetext', 'Empty'));
+    });
+
     it('should have inputmode="numeric" on each spinbutton', () => {
       const spans = el.renderRoot.querySelectorAll('span[role="spinbutton"]');
 

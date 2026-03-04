@@ -406,6 +406,10 @@
   <source>Select time</source>
   <target>Selecteer tijd</target>
 </trans-unit>
+<trans-unit id="sl.dateField.empty">
+  <source>Empty</source>
+  <target>Leeg</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

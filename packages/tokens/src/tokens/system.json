@@ -281,8 +281,8 @@
 						"color": "{color.shadow.overlay1}"
 					},
 					{
-						"y": "{size.050}",
-						"blur": "{size.010}",
+						"y": "3px",
+						"blur": "{size.025}",
 						"type": "dropShadow",
 						"color": "{color.shadow.overlay2}"
 					}

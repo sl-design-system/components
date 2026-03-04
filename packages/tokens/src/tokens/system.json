@@ -278,8 +278,7 @@
 						"y": "{size.010}",
 						"blur": "{size.010}",
 						"type": "dropShadow",
-						"color": "{color.shadow.overlay1}",
-						"spread": "-3"
+						"color": "{color.shadow.overlay1}"
 					},
 					{
 						"y": "{size.050}",

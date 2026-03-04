@@ -2,7 +2,7 @@ import { type TextField } from '@sl-design-system/text-field';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { TimeField } from './time-field.js';
@@ -428,6 +428,139 @@ describe('sl-time-field', () => {
       expect(selectedHour).to.have.trimmed.text('10');
       expect(selectedMinute).to.exist;
       expect(selectedMinute).to.have.trimmed.text('30');
+    });
+  });
+
+  describe('focusout', () => {
+    let dialog: HTMLDialogElement, outsideButton: HTMLButtonElement;
+
+    beforeEach(async () => {
+      el = await fixture(html`<sl-time-field start="12:00"></sl-time-field>`);
+
+      dialog = el.renderRoot.querySelector('dialog')!;
+
+      outsideButton = document.createElement('button');
+      outsideButton.textContent = 'Outside';
+
+      document.body.appendChild(outsideButton);
+    });
+
+    afterEach(() => {
+      outsideButton?.remove();
+    });
+
+    it('should close the popover when focus moves outside the component', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      expect(dialog).to.match(':popover-open');
+
+      el.dispatchEvent(new FocusEvent('focusout', { bubbles: true, composed: true, relatedTarget: outsideButton }));
+      await el.updateComplete;
+
+      expect(dialog).not.to.match(':popover-open');
+    });
+
+    it('should not close the popover when focus moves within the component', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      expect(dialog).to.match(':popover-open');
+
+      el.dispatchEvent(new FocusEvent('focusout', { bubbles: true, composed: true, relatedTarget: el.textField }));
+      await el.updateComplete;
+
+      expect(dialog).to.match(':popover-open');
+    });
+
+    it('should close the popover when focus leaves the page entirely', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      expect(dialog).to.match(':popover-open');
+
+      el.dispatchEvent(new FocusEvent('focusout', { bubbles: true, composed: true, relatedTarget: null }));
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(dialog).not.to.match(':popover-open');
+    });
+
+    it('should not restore focus to the text-field when focus is leaving the component', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      outsideButton.focus();
+      el.dispatchEvent(new FocusEvent('focusout', { bubbles: true, composed: true, relatedTarget: outsideButton }));
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(document.activeElement).to.equal(outsideButton);
+    });
+
+    it('should restore focus to the text-field when the popover is closed by selecting a minute', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      expect(dialog).to.match(':popover-open');
+
+      el.renderRoot.querySelector<HTMLElement>('.minutes li')?.click();
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(dialog).not.to.match(':popover-open');
+      expect(el).to.match(':focus-within');
+    });
+
+    it('should restore focus to the text-field when the popover is closed by pressing Escape', async () => {
+      el.textField.focus();
+      await userEvent.tab();
+      await userEvent.keyboard('{Space}');
+      await el.updateComplete;
+
+      expect(dialog).to.match(':popover-open');
+
+      await userEvent.keyboard('{Escape}');
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(dialog).not.to.match(':popover-open');
+      expect(el).to.match(':focus-within');
+    });
+
+    it('should close the popover and move focus outside the component when pressing Tab', async () => {
+      el.textField.focus();
+      await userEvent.tab();
+      await userEvent.keyboard('{Space}');
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(dialog).to.match(':popover-open');
+      expect(el.input.tabIndex).to.equal(-1);
+
+      await userEvent.tab();
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(dialog).not.to.match(':popover-open');
+      expect(document.activeElement).to.equal(outsideButton);
+    });
+
+    it('should close the popover and move focus to the button when pressing Shift+Tab', async () => {
+      el.textField.focus();
+      await userEvent.tab();
+      await userEvent.keyboard('{Space}');
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(dialog).to.match(':popover-open');
+
+      await userEvent.tab({ shift: true });
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(dialog).not.to.match(':popover-open');
+      expect(el.shadowRoot?.activeElement).to.equal(el.button);
     });
   });
 

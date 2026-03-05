@@ -207,7 +207,7 @@ describe('sl-search-field', () => {
       expect(onSearch).to.have.been.calledWith('world');
     });
 
-    it('should emit sl-clear event and search event for empty value after debounce', async () => {
+    it('should emit search event with empty string and not emit clear event when value is cleared via backspace', async () => {
       const onSearch: (value: string) => void = spy();
       const onClear = spy();
 

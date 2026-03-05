@@ -157,22 +157,21 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       ])}
       ${this.min && this.max
         ? html`
-            <span id="min-max-helper-text"
-              ><sl-icon name="info"></sl-icon>Between
-              ${format(this.min, this.locale, { day: '2-digit', month: '2-digit', year: 'numeric' })} and
-              ${format(this.max, this.locale, { day: '2-digit', month: '2-digit', year: 'numeric' })}</span
+            <span id="min-max-helper-text" class="helper-text"
+              ><sl-icon name="info"></sl-icon>Between ${format(this.min, this.locale, this.#helperTextFormatOptions)}
+              and ${format(this.max, this.locale, this.#helperTextFormatOptions)}</span
             >
           `
         : this.min
           ? html`
-              <span id="min-max-helper-text"
+              <span id="min-max-helper-text" class="helper-text"
                 ><sl-icon name="info"></sl-icon>From
                 ${format(this.min, this.locale, { day: '2-digit', month: '2-digit', year: 'numeric' })}</span
               >
             `
           : this.max
             ? html`
-                <span id="min-max-helper-text"
+                <span id="min-max-helper-text" class="helper-text"
                   ><sl-icon name="info"></sl-icon>Until
                   ${format(this.max, this.locale, { day: '2-digit', month: '2-digit', year: 'numeric' })}</span
                 >
@@ -181,7 +180,13 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     `;
   } // TODO: add aria-describedby to the select-day component that points to the helper text, and make sure the helper text is localized.
   // TODO: maybe it needs to take into account formatter from the date-field?
-  // TODO: when during same year or same month, only show month and day in the helper text?
+
+  /** Returns the format options for the helper text, omitting the year when min and max are in the same year. */
+  get #helperTextFormatOptions(): Intl.DateTimeFormatOptions {
+    return this.min && this.max && this.min.getFullYear() === this.max.getFullYear()
+      ? { day: '2-digit', month: 'long' }
+      : { day: '2-digit', month: '2-digit', year: 'numeric' };
+  }
 
   #onSelect(event: SlSelectEvent<Date>): void {
     event.preventDefault();

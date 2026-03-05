@@ -239,6 +239,16 @@ describe('sl-date-field', () => {
       expect(el.internals.states.has('placeholder-shown')).to.be.false;
     });
 
+    it('should have aria-hidden on the placeholder when the placeholder is not shown', async () => {
+      el.placeholder = 'Pick a date';
+      el.value = new Date(2026, 2, 14);
+      await el.updateComplete;
+
+      const placeholder = el.renderRoot.querySelector('.placeholder');
+
+      expect(placeholder).to.have.attribute('aria-hidden', 'true');
+    });
+
     it('should restore placeholder-shown state when the value is cleared', async () => {
       el.placeholder = 'Pick a date';
       el.value = new Date(2026, 2, 14);

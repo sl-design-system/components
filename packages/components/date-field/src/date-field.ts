@@ -97,6 +97,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     return this.querySelector('sl-calendar[slot="calendar"]') ?? this.renderRoot.querySelector('sl-calendar');
   }
 
+  /** @internal Whether the calendar popover is currently visible. */
+  @state() calendarVisible?: boolean;
+
   /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<Date | undefined>>;
 
@@ -167,6 +170,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
    * @default undefined
    */
   @property() placeholder?: string;
+
+  /** @internal Whether the placeholder is currently shown. */
+  @state() placeholderShown?: boolean;
 
   /**
    * Whether the date field is readonly.
@@ -247,8 +253,16 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     if (changes.has('dateParts') || changes.has('placeholder') || changes.has('value')) {
       if (this.value || this.#hasPartialDate()) {
-        this.internals.states.delete('placeholder-shown');
+        this.placeholderShown = false;
       } else if (this.placeholder) {
+        this.placeholderShown = true;
+      } else {
+        this.placeholderShown = false;
+      }
+    }
+
+    if (changes.has('placeholderShown')) {
+      if (this.placeholderShown) {
         this.internals.states.add('placeholder-shown');
       } else {
         this.internals.states.delete('placeholder-shown');
@@ -297,7 +311,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
                 <div class="parts">${parts.map(part => this.renderPart(part, locale))}</div>
                 ${this.placeholder
                   ? html`
-                      <div aria-hidden=${ifDefined(this.value ? 'true' : undefined)} class="placeholder">
+                      <div aria-hidden=${ifDefined(this.placeholderShown ? undefined : 'true')} class="placeholder">
                         ${this.placeholder}
                       </div>
                     `
@@ -331,7 +345,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         id="dialog"
         popover
       >
-        ${this.dialog?.matches(':popover-open')
+        ${this.calendarVisible
           ? html`
               <slot @slotchange=${this.#onSlotChange} @sl-change=${this.#onChange} name="calendar">
                 <sl-calendar
@@ -452,6 +466,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   #onBeforeToggle(event: ToggleEvent): void {
     if (event.newState !== 'open') {
       this.#popoverJustClosed = true;
+    } else {
+      this.calendarVisible = true;
     }
   }
 
@@ -716,11 +732,15 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   #onToggle(event: ToggleEvent): void {
     if (event.newState === 'closed') {
       this.#popoverJustClosed = false;
+
+      // Wait until all dialog animations have resolved before hiding the calendar
+      // to prevent it being removed from the DOM too early.
+      void Promise.allSettled(this.dialog?.getAnimations().map(a => a.finished) ?? []).then(
+        () => (this.calendarVisible = false)
+      );
     } else {
       requestAnimationFrame(() => this.calendar?.focus());
     }
-
-    this.requestUpdate();
   }
 
   /**

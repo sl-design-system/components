@@ -509,7 +509,13 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onConfirm(): void {
-    this.#setValueAndCloseDialog(this.calendar?.selected);
+    const selected = this.calendar?.selected;
+
+    if (this.value !== selected && !isSameDate(this.value, selected)) {
+      this.#setValueAndCloseDialog(selected);
+    } else {
+      this.hidePicker();
+    }
   }
 
   #onFocusIn = (event: FocusEvent): void => {

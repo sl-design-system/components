@@ -1,4 +1,5 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { format } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, LocaleMixin, event } from '@sl-design-system/shared';
 import { dateConverter, dateListConverter } from '@sl-design-system/shared/converters.js';
@@ -157,14 +158,31 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       ${this.min && this.max
         ? html`
             <span id="min-max-helper-text"
-              ><sl-icon name="info"></sl-icon>Between the ${this.min?.toLocaleDateString()} and
-              ${this.max?.toLocaleDateString()}</span
+              ><sl-icon name="info"></sl-icon>Between
+              ${format(this.min, this.locale, { day: '2-digit', month: '2-digit', year: 'numeric' })} and
+              ${format(this.max, this.locale, { day: '2-digit', month: '2-digit', year: 'numeric' })}</span
             >
           `
-        : nothing}
+        : this.min
+          ? html`
+              <span id="min-max-helper-text"
+                ><sl-icon name="info"></sl-icon>From
+                ${format(this.min, this.locale, { day: '2-digit', month: '2-digit', year: 'numeric' })}</span
+              >
+            `
+          : this.max
+            ? html`
+                <span id="min-max-helper-text"
+                  ><sl-icon name="info"></sl-icon>Until
+                  ${format(this.max, this.locale, { day: '2-digit', month: '2-digit', year: 'numeric' })}</span
+                >
+              `
+            : nothing}
     `;
-  } // TODO: make the text when only min is set and when only max is set, add aria-describedby to the select-day component that points to the helper text, and make sure the helper text is localized.
+  } // TODO: add aria-describedby to the select-day component that points to the helper text, and make sure the helper text is localized.
   // TODO: maybe it needs to take into account formatter from the date-field?
+  // TODO: when during same year or same month, only show month and day in the helper text?
+
   #onSelect(event: SlSelectEvent<Date>): void {
     event.preventDefault();
     event.stopPropagation();

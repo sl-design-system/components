@@ -224,9 +224,9 @@ describe('sl-search-field', () => {
       // Wait for debounce + buffer
       await new Promise(resolve => setTimeout(resolve, 400));
 
-      // Should emit search with empty string for empty value, and should emit clear
+      // Should emit search with empty string for empty value, but should NOT emit clear
       expect(onSearch).to.have.been.calledOnceWith('');
-      expect(onClear).to.have.been.calledOnce;
+      expect(onClear).not.to.have.been.called;
     });
 
     it('should cancel debounced search when Enter is pressed', async () => {

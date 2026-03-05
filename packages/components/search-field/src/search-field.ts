@@ -126,7 +126,6 @@ export class SearchField extends TextField {
         this.searchEvent.emit(value);
       } else {
         this.searchEvent.emit('');
-        this.clearEvent.emit();
       }
     }, 300);
   }

@@ -62,14 +62,8 @@
   --_bg-color: var(--sl-color-background-negative-subtle);
 }
 
-:host([emphasis='bold'][variant='danger']):not([disabled]) {
-  --_bg-color: var(--sl-color-background-negative-bold);
-  --_bg-mix-color: var(--sl-color-background-negative-interactive-bold);
-
-  color: var(--sl-color-foreground-negative-onBold);
-}
-
-:host([emphasis='bold'][variant='danger'][selected]) {
+:host([emphasis='bold'][variant='danger']:not([disabled]):hover),
+:host([emphasis='bold'][variant='danger'][selected]:not([disabled])) {
   --_bg-color: var(--sl-color-background-negative-bold);
   --_bg-mix-color: var(--sl-color-background-negative-interactive-bold);
 

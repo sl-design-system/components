@@ -872,7 +872,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** Tries to set the value if all date parts are defined, or clears it. */
   #trySetValue(): void {
-    const { day, month, year } = this.dateParts;
+    const { day, month, year } = this.dateParts,
+      hadValue = this.value !== undefined;
 
     if (day !== undefined && month !== undefined && year !== undefined) {
       const date = new Date(year, month - 1, day);
@@ -881,6 +882,12 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         if ((this.min && date < this.min) || (this.max && date > this.max)) {
           this.#preserveDateParts = true;
           this.value = undefined;
+
+          if (hadValue) {
+            this.changeEvent.emit(this.value);
+            this.updateState({ dirty: true });
+          }
+
           this.updateValidity();
         } else {
           this.value = date;
@@ -891,11 +898,23 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       } else {
         this.#preserveDateParts = true;
         this.value = undefined;
+
+        if (hadValue) {
+          this.changeEvent.emit(this.value);
+          this.updateState({ dirty: true });
+        }
+
         this.updateValidity();
       }
     } else {
       this.#preserveDateParts = true;
       this.value = undefined;
+
+      if (hadValue) {
+        this.changeEvent.emit(this.value);
+        this.updateState({ dirty: true });
+      }
+
       this.updateValidity();
     }
   }

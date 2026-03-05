@@ -1147,6 +1147,59 @@ describe('sl-date-field', () => {
 
       expect(spans[0]).to.have.trimmed.text('MM');
     });
+
+    it('should unset the value if an invalid date is entered', async () => {
+      const onChange = spy();
+
+      el.addEventListener('sl-change', onChange);
+
+      spans[0].focus();
+
+      // Enter February 1st, 2026 (US locale)
+      await userEvent.keyboard('2');
+      await userEvent.keyboard('{ArrowRight}');
+      await userEvent.keyboard('1');
+      await userEvent.keyboard('{ArrowRight}');
+      await userEvent.keyboard('{ArrowUp}');
+
+      expect(el.value).to.equalDate(new Date(2026, 1, 1));
+      expect(onChange).to.have.been.calledOnce;
+
+      // Decrement the day to 31, which is invalid for February
+      await userEvent.keyboard('{ArrowLeft}');
+      await userEvent.keyboard('{ArrowDown}');
+
+      expect(el.dateParts).to.deep.equal({ month: 2, day: 31, year: 2026 });
+      expect(el.value).to.be.undefined;
+      expect(onChange).to.have.been.calledTwice;
+    });
+
+    it('should unset the value if a date is entered outside of min/max', async () => {
+      const onChange = spy();
+
+      el.min = new Date(2026, 0, 1);
+      el.max = new Date(2026, 11, 31);
+      el.addEventListener('sl-change', onChange);
+
+      spans[0].focus();
+
+      // Enter January 1st, 2025 (US locale)
+      await userEvent.keyboard('1');
+      await userEvent.keyboard('{ArrowRight}');
+      await userEvent.keyboard('1');
+      await userEvent.keyboard('{ArrowRight}');
+      await userEvent.keyboard('{ArrowDown}');
+
+      expect(el.value).to.equalDate(new Date(2026, 0, 1));
+      expect(onChange).to.have.been.calledOnce;
+
+      // Decrement the year to 2025, which is outside the min/max range
+      await userEvent.keyboard('{ArrowDown}');
+
+      expect(el.dateParts).to.deep.equal({ month: 1, day: 1, year: 2025 });
+      expect(el.value).to.be.undefined;
+      expect(onChange).to.have.been.calledTwice;
+    });
   });
 
   describe('readonly', () => {

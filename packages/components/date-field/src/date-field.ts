@@ -400,7 +400,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         aria-valuemin=${this.#getMinForType(partType)}
         aria-valuenow=${ifDefined(currentValue)}
         aria-valuetext=${valueText}
-        contenteditable=${this.disabled ? 'false' : 'true'}
+        contenteditable=${this.disabled || this.readonly || this.selectOnly ? 'false' : 'true'}
         inputmode="numeric"
         role="spinbutton"
         tabindex=${this.disabled ? undefined : datePartIndex === this.#rovingIndex ? '0' : '-1'}

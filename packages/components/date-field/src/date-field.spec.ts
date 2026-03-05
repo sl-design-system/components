@@ -73,6 +73,10 @@ describe('sl-date-field', () => {
       el.renderRoot
         .querySelectorAll('span[role="spinbutton"]')
         .forEach(span => expect(span).to.have.attribute('aria-disabled', 'false'));
+
+      el.renderRoot
+        .querySelectorAll('span[role="spinbutton"]')
+        .forEach(span => expect(span).to.have.attribute('contenteditable', 'true'));
     });
 
     it('should be disabled when set', async () => {
@@ -85,6 +89,10 @@ describe('sl-date-field', () => {
       el.renderRoot
         .querySelectorAll('span[role="spinbutton"]')
         .forEach(span => expect(span).to.have.attribute('aria-disabled', 'true'));
+
+      el.renderRoot
+        .querySelectorAll('span[role="spinbutton"]')
+        .forEach(span => expect(span).to.have.attribute('contenteditable', 'false'));
     });
 
     it('should not be readonly', () => {
@@ -94,6 +102,10 @@ describe('sl-date-field', () => {
       el.renderRoot
         .querySelectorAll('span[role="spinbutton"]')
         .forEach(span => expect(span).to.have.attribute('aria-readonly', 'false'));
+
+      el.renderRoot
+        .querySelectorAll('span[role="spinbutton"]')
+        .forEach(span => expect(span).to.have.attribute('contenteditable', 'true'));
     });
 
     it('should be readonly when set', async () => {
@@ -105,6 +117,7 @@ describe('sl-date-field', () => {
 
       expect(el.readonly).to.be.true;
       spans.forEach(span => expect(span).to.have.attribute('aria-readonly', 'true'));
+      spans.forEach(span => expect(span).to.have.attribute('contenteditable', 'false'));
       expect(button).to.have.attribute('disabled');
     });
 
@@ -135,6 +148,7 @@ describe('sl-date-field', () => {
       expect(el).to.have.attribute('select-only');
       expect(el.selectOnly).to.be.true;
       spans.forEach(span => expect(span).to.have.attribute('aria-readonly', 'true'));
+      spans.forEach(span => expect(span).to.have.attribute('contenteditable', 'false'));
     });
 
     it('should not show week numbers', () => {

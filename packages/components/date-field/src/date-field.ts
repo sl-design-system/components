@@ -425,11 +425,31 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** @internal */
   override updateInternalValidity(): void {
-    const hasCompleteDate =
-      this.dateParts.day !== undefined && this.dateParts.month !== undefined && this.dateParts.year !== undefined;
+    const { day, month, year } = this.dateParts,
+      hasCompleteDate = day !== undefined && month !== undefined && year !== undefined;
 
     if (hasCompleteDate && !this.value) {
-      this.setCustomValidity(msg('Please enter a valid date.', { id: 'sl.dateField.typeMismatch' }));
+      const date = new Date(year, month - 1, day);
+
+      if (this.min && date < this.min) {
+        const formattedMin = this.#formatter?.format(this.min) ?? this.min.toLocaleDateString();
+
+        this.setCustomValidity(
+          msg(str`Please select a date that is no earlier than ${formattedMin}.`, {
+            id: 'sl.dateField.rangeUnderflow'
+          })
+        );
+      } else if (this.max && date > this.max) {
+        const formattedMax = this.#formatter?.format(this.max) ?? this.max.toLocaleDateString();
+
+        this.setCustomValidity(
+          msg(str`Please select a date that is no later than ${formattedMax}.`, {
+            id: 'sl.dateField.rangeOverflow'
+          })
+        );
+      } else {
+        this.setCustomValidity(msg('Please enter a valid date.', { id: 'sl.dateField.typeMismatch' }));
+      }
     } else if (this.required && !this.value) {
       this.setCustomValidity(msg('Please enter a date.', { id: 'sl.dateField.valueMissing' }));
     } else if (this.value && this.min && this.value < this.min) {

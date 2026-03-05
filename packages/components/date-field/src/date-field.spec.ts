@@ -1742,6 +1742,7 @@ describe('sl-date-field', () => {
 
       expect(el.value).to.be.undefined;
       expect(el.valid).to.be.false;
+      expect(el.validationMessage).to.equal('Please select a date that is no earlier than 03/15/2026.');
     });
 
     it('should not set value when typing a date after max', async () => {
@@ -1764,6 +1765,7 @@ describe('sl-date-field', () => {
 
       expect(el.value).to.be.undefined;
       expect(el.valid).to.be.false;
+      expect(el.validationMessage).to.equal('Please select a date that is no later than 03/15/2026.');
     });
   });
 

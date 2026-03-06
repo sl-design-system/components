@@ -13,6 +13,7 @@ sl-select-year {
 .helper-text {
   color: var(--sl-color-foreground-info-plain);
   contain: inline-size;
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
   overflow-wrap: anywhere;
   padding: var(--sl-size-050) var(--sl-size-100);
   white-space: initial;

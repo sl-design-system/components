@@ -10,6 +10,7 @@ import { property, state } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './calendar.scss.js';
+import { MonthView } from './month-view.js';
 import { SelectDay } from './select-day.js';
 import { SelectMonth } from './select-month.js';
 import { SelectYear } from './select-year.js';
@@ -181,8 +182,35 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
               `
             : nothing}
     `;
-  } // TODO: add aria-describedby to the select-day component that points to the helper text, and make sure the helper text is localized.
+  } // TODO: add translation to helper text...
   // TODO: maybe it needs to take into account formatter from the date-field?
+
+  override updated(): void {
+    requestAnimationFrame(() => {
+      this.#updateHelperTextDescription();
+    });
+  }
+
+  #updateHelperTextDescription(): void {
+    const helperText = this.renderRoot.querySelector('#min-max-helper-text');
+
+    const focusableDay = this.renderRoot
+        .querySelector<SelectDay>('sl-select-day')
+        ?.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')
+        ?.renderRoot.querySelector('button[tabindex="0"]'),
+      focusableMonth = this.renderRoot
+        .querySelector<SelectMonth>('sl-select-month')
+        ?.renderRoot.querySelector('button[tabindex="0"]'),
+      focusableYear = this.renderRoot
+        .querySelector<SelectYear>('sl-select-year')
+        ?.renderRoot.querySelector('button[tabindex="0"]');
+
+    for (const element of [focusableDay, focusableMonth, focusableYear]) {
+      if (element) {
+        element.ariaDescribedByElements = helperText ? [helperText] : null;
+      }
+    }
+  }
 
   /** Returns the format options for the helper text, omitting the year when min and max are in the same year. */
   get #helperTextFormatOptions(): Intl.DateTimeFormatOptions {

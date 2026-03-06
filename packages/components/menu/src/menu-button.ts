@@ -33,10 +33,7 @@ declare global {
  * @slot button - Any content for the button should be slotted here.
  */
 @localized()
-export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitElement), [
-  'aria-disabled',
-  'aria-label'
-]) {
+export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitElement), ['aria-label']) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -48,6 +45,10 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
+
+  static override get observedAttributes(): string[] {
+    return [...(super.observedAttributes ?? []), 'aria-disabled'];
+  }
 
   /** Observe changes to aria-describedby and aria-labelledby attributes. */
   #observer = new MutationObserver(() => this.#updateAriaReferences());
@@ -205,7 +206,7 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
     if (this.#isAriaDisabled()) {
       if (['Enter', ' ', 'ArrowDown', 'ArrowUp'].includes(event.key)) {
         event.preventDefault();
-        event.stopPropagation();
+        event.stopImmediatePropagation();
       }
       return;
     }

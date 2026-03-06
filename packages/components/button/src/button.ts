@@ -120,7 +120,7 @@ export class Button extends LitElement {
   #onClick(event: Event): void {
     if (this.disabled || (this.hasAttribute('aria-disabled') && this.getAttribute('aria-disabled') !== 'false')) {
       event.preventDefault();
-      event.stopPropagation();
+      event.stopImmediatePropagation();
     } else if (this.type === 'reset') {
       if (this.internals.form) {
         this.internals.form.reset();
@@ -142,7 +142,7 @@ export class Button extends LitElement {
     if (this.disabled || (this.hasAttribute('aria-disabled') && this.getAttribute('aria-disabled') !== 'false')) {
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
-        event.stopPropagation();
+        event.stopImmediatePropagation();
       }
       return;
     }
@@ -151,7 +151,7 @@ export class Button extends LitElement {
       this.click();
 
       event.preventDefault();
-      event.stopPropagation();
+      event.stopImmediatePropagation();
     }
   }
 

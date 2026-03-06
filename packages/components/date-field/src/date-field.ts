@@ -333,12 +333,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       </div>
 
       <dialog
-        ${anchor({
-          element: this,
-          offset: DateField.offset,
-          position: 'bottom-start',
-          viewportMargin: DateField.viewportMargin
-        })}
+        ${anchor({ element: this, position: 'bottom-start', supportCSSAnchorPositioning: true })}
         @beforetoggle=${this.#onBeforeToggle}
         @toggle=${this.#onToggle}
         @keydown=${this.#onKeydown}

@@ -525,6 +525,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     if (!relatedTarget || (!this.contains(relatedTarget) && !this.renderRoot.contains(relatedTarget))) {
       this.focusEvent.emit();
     }
+
+    this.placeholderShown = false;
   };
 
   #onFocusOut = (event: FocusEvent): void => {
@@ -536,6 +538,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.updateState({ touched: true });
       this.updateValidity();
     }
+
+    this.placeholderShown = !this.value && !!this.placeholder;
   };
 
   #onKeydown(event: KeyboardEvent): void {

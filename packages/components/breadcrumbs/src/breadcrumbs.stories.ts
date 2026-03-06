@@ -88,7 +88,7 @@ export const Mobile: Story = {
   ...Basic,
   globals: {
     viewport: {
-      value: 'iphone13'
+      value: 'mobile'
     }
   }
 };

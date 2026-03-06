@@ -45,7 +45,7 @@ export const Confirm: Story = {
 export const Mobile: Story = {
   globals: {
     viewport: {
-      value: 'iphone5'
+      value: 'mobile'
     }
   },
   args: {

@@ -11,11 +11,6 @@ type Story = StoryObj<Props>;
 export default {
   title: 'Navigation/Paginator/Paginator',
   tags: ['draft'],
-  globals: {
-    viewport: {
-      value: 'reset'
-    }
-  },
   args: {
     page: 2,
     pageSize: 10,
@@ -54,7 +49,7 @@ export const Basic: Story = {};
 export const Mobile: Story = {
   globals: {
     viewport: {
-      value: 'iphone5'
+      value: 'mobileSmall'
     }
   }
 };
@@ -62,11 +57,6 @@ export const Mobile: Story = {
 export const All: Story = {
   args: {
     totalItems: 200
-  },
-  globals: {
-    viewport: {
-      value: 'reset'
-    }
   },
   render: ({ page, pageSize, totalItems }) => {
     const sizes = ['sm', 'md', 'lg'];

@@ -18,6 +18,9 @@ const config: StorybookConfig = {
     disableTelemetry: true
   },
   framework: '@storybook/web-components-vite',
+  features: {
+    viewportStoryGlobals: true
+  },
   refs: {
     angular: {
       title: 'Angular',

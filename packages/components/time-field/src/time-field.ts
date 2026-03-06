@@ -95,21 +95,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** The value in HH:mm format. */
   #value: string | undefined;
 
-  /**
-   * Syncs the input's lang attribute with the component's locale.
-   */
-  #syncInputLang(): void {
-    if (!this.input) {
-      return;
-    }
-
-    if (this.locale && this.locale !== 'default') {
-      this.input.lang = this.locale;
-    } else {
-      this.input.removeAttribute('lang');
-    }
-  }
-
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
@@ -118,6 +103,9 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<string>>;
+
+  /** @internal The dialog element that is also the popover. */
+  @query('dialog') dialog?: HTMLDialogElement;
 
   /** Whether the time field is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
@@ -130,9 +118,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** @internal The input element in the light DOM. */
   input!: HTMLInputElement;
-
-  /** @internal The dialog element that is also the popover. */
-  @query('dialog') dialog?: HTMLDialogElement;
 
   /**
    * The maximum time selectable in the field.
@@ -970,6 +955,21 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       } else {
         targetMinuteEl?.focus();
       }
+    }
+  }
+
+  /**
+   * Syncs the input's lang attribute with the component's locale.
+   */
+  #syncInputLang(): void {
+    if (!this.input) {
+      return;
+    }
+
+    if (this.locale && this.locale !== 'default') {
+      this.input.lang = this.locale;
+    } else {
+      this.input.removeAttribute('lang');
     }
   }
 }

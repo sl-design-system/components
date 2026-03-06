@@ -26,11 +26,6 @@ export default {
       }
     }
   },
-  parameters: {
-    viewport: {
-      defaultViewport: 'reset'
-    }
-  },
   render: ({ breadcrumbs, hideHomeLabel, inverted, homeUrl, noHome }) => html`
     <style>
       sl-breadcrumbs[inverted] {
@@ -91,9 +86,9 @@ export const Inverted: Story = {
 
 export const Mobile: Story = {
   ...Basic,
-  parameters: {
+  globals: {
     viewport: {
-      defaultViewport: 'iphone13'
+      value: 'mobile'
     }
   }
 };

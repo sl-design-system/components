@@ -1338,7 +1338,7 @@
 						},
 						"subtlest": {
 							"$type": "color",
-							"$value": "rgba( {sanoma-learning.color.palette.grey.900}, 47%)",
+							"$value": "rgba( {sanoma-learning.color.palette.grey.900}, 48%)",
 							"$description": "Use for subtlest grey text for purely stylistic purposes with no specific meaning."
 						},
 						"onInverted": {

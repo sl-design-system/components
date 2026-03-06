@@ -2,7 +2,7 @@ import { type TextField } from '@sl-design-system/text-field';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { TimeField } from './time-field.js';
@@ -468,18 +468,13 @@ describe('sl-time-field', () => {
     let dialog: HTMLDialogElement, outsideButton: HTMLButtonElement;
 
     beforeEach(async () => {
-      el = await fixture(html`<sl-time-field start="12:00"></sl-time-field>`);
+      el = await fixture(html`
+        <sl-time-field start="12:00"></sl-time-field>
+        <button>Outside</button>
+      `);
 
       dialog = el.renderRoot.querySelector('dialog')!;
-
-      outsideButton = document.createElement('button');
-      outsideButton.textContent = 'Outside';
-
-      document.body.appendChild(outsideButton);
-    });
-
-    afterEach(() => {
-      outsideButton?.remove();
+      outsideButton = el.nextElementSibling as HTMLButtonElement;
     });
 
     it('should close the popover when focus moves outside the component', async () => {

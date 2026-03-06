@@ -1,5 +1,12 @@
 # @sl-design-system/locales
 
+## 0.2.0
+
+### Minor Changes
+
+- [#3055](https://github.com/sl-design-system/components/pull/3055) [`5616832`](https://github.com/sl-design-system/components/commit/561683221a54010ff326b449468769597e22fb10) - Improved label for Time Field toggle dropdown button.
+  If you have a custom translation file make sure to update your translation for the key `sl.timeField.toggleDropdown` as well to mean "Select time"
+
 ## 0.1.0
 
 ### Minor Changes

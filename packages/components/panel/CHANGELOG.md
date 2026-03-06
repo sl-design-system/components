@@ -1,5 +1,16 @@
 # @sl-design-system/panel
 
+## 0.3.3
+
+### Patch Changes
+
+- [#3033](https://github.com/sl-design-system/components/pull/3033) [`7822cb6`](https://github.com/sl-design-system/components/commit/7822cb61eafc07ceb4419a7c67d9750d2426bf0d) - Remove the initial CSS transition that animated a closed panel
+
+- Updated dependencies [[`716e305`](https://github.com/sl-design-system/components/commit/716e305a7cc5cbafb5dd97b16c9f70e4320d45e4), [`330e06f`](https://github.com/sl-design-system/components/commit/330e06ff36c7a5c96cf313b60a5013d6307477c7), [`2f8d8bf`](https://github.com/sl-design-system/components/commit/2f8d8bf32ca6e90eb9d117c1fcc434a59905769c), [`a7ac909`](https://github.com/sl-design-system/components/commit/a7ac90987881881bd0cb916c583e68c785b52622)]:
+  - @sl-design-system/shared@0.11.0
+  - @sl-design-system/icon@1.4.2
+  - @sl-design-system/tool-bar@0.2.2
+
 ## 0.3.2
 
 ### Patch Changes

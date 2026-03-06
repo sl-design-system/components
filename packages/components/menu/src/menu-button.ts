@@ -33,10 +33,7 @@ declare global {
  * @slot button - Any content for the button should be slotted here.
  */
 @localized()
-export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitElement), [
-  'aria-disabled',
-  'aria-label'
-]) {
+export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitElement), ['aria-label']) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -48,6 +45,10 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
+
+  static override get observedAttributes(): string[] {
+    return [...(super.observedAttributes ?? []), 'aria-disabled'];
+  }
 
   /** Observe changes to aria-describedby and aria-labelledby attributes. */
   #observer = new MutationObserver(() => this.#updateAriaReferences());
@@ -106,6 +107,14 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
     });
   }
 
+  override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null): void {
+    super.attributeChangedCallback(name, oldValue, newValue);
+
+    if (name === 'aria-disabled') {
+      this.requestUpdate();
+    }
+  }
+
   override disconnectedCallback(): void {
     this.#observer.disconnect();
 
@@ -136,6 +145,13 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
         @click=${this.#onClick}
         @keydown=${this.#onKeydown}
         ?disabled=${this.disabled}
+        aria-disabled=${this.hasAttribute('aria-disabled')
+          ? this.getAttribute('aria-disabled') !== 'false'
+            ? 'true'
+            : 'false'
+          : this.disabled
+            ? 'true'
+            : 'false'}
         aria-expanded="false"
         aria-haspopup="menu"
         fill=${ifDefined(this.fill)}
@@ -161,10 +177,40 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
   }
 
   #onClick(): void {
+    if (this.#isAriaDisabled()) {
+      return;
+    }
+
     this.menu.togglePopover();
   }
 
+  #isAriaDisabled(): boolean {
+    if (this.disabled) {
+      return true;
+    }
+
+    const ariaDisabled = this.getAttribute('aria-disabled');
+    if (ariaDisabled !== null) {
+      return ariaDisabled !== 'false';
+    }
+
+    const buttonAriaDisabled = this.button?.getAttribute('aria-disabled');
+    if (buttonAriaDisabled !== null) {
+      return buttonAriaDisabled !== 'false';
+    }
+
+    return false;
+  }
+
   #onKeydown(event: KeyboardEvent): void {
+    if (this.#isAriaDisabled()) {
+      if (['Enter', ' ', 'ArrowDown', 'ArrowUp'].includes(event.key)) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      }
+      return;
+    }
+
     if (event.key === 'Escape') {
       // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the menu
       // does not close parent containers (such as dialogs).

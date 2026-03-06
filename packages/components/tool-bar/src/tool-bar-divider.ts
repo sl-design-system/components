@@ -17,4 +17,10 @@ export class ToolBarDivider extends LitElement {
    * This should be used when the tool-bar is displayed on a dark background.
    */
   @property({ type: Boolean, reflect: true }) inverted?: boolean;
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.setAttribute('aria-hidden', 'true');
+  }
 }

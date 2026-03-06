@@ -40,11 +40,6 @@ export default {
     disableCancel: false,
     title: 'Title'
   },
-  parameters: {
-    viewport: {
-      defaultViewport: 'reset'
-    }
-  },
   render: args => {
     const {
       body,
@@ -174,9 +169,9 @@ export const Lazy: Story = {
 };
 
 export const Mobile: Story = {
-  parameters: {
+  globals: {
     viewport: {
-      defaultViewport: 'iphone5'
+      value: 'mobile'
     }
   },
   args: {

@@ -119,7 +119,7 @@ dialog {
   opacity: 0;
   padding: calc(var(--sl-size-050) - var(--sl-size-borderWidth-default));
   position-anchor: --field;
-  position-area: top span-right;
+  position-area: bottom span-right;
   position-try-fallbacks: flip-block;
 
   @media (prefers-reduced-motion: no-preference) {

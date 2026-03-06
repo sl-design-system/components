@@ -10,5 +10,5 @@ storybookCategory: navigation
 eleventyNavigation:
   parent: Components
   key: Tree
-  status: new
+  status: ready
 ---

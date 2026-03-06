@@ -1,5 +1,17 @@
 # @sl-design-system/form
 
+## 1.3.5
+
+### Patch Changes
+
+- [#2955](https://github.com/sl-design-system/components/pull/2955) [`ed7376b`](https://github.com/sl-design-system/components/commit/ed7376b4aa21c5df7d50119d839000abbab1cbcf) - Fix CSS alphabetical ordering.
+
+- [#3014](https://github.com/sl-design-system/components/pull/3014) [`ae8b9da`](https://github.com/sl-design-system/components/commit/ae8b9da97d3e5adc0a9ecb8feabec67699893bcc) - Change font-weight to normal for optional and required control's labels
+
+- Updated dependencies [[`716e305`](https://github.com/sl-design-system/components/commit/716e305a7cc5cbafb5dd97b16c9f70e4320d45e4), [`2f8d8bf`](https://github.com/sl-design-system/components/commit/2f8d8bf32ca6e90eb9d117c1fcc434a59905769c)]:
+  - @sl-design-system/shared@0.11.0
+  - @sl-design-system/inline-message@2.0.4
+
 ## 1.3.4
 
 ### Patch Changes

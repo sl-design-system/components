@@ -1,5 +1,17 @@
 # @sl-design-system/shared
 
+## 0.11.0
+
+### Minor Changes
+
+- [#3012](https://github.com/sl-design-system/components/pull/3012) [`2f8d8bf`](https://github.com/sl-design-system/components/commit/2f8d8bf32ca6e90eb9d117c1fcc434a59905769c) - - fix for `LocaleMixin` to explicitly update the `locale` property
+  - move common date utils from the calendar package so they can be used in date-field as well
+
+### Patch Changes
+
+- [#3041](https://github.com/sl-design-system/components/pull/3041) [`716e305`](https://github.com/sl-design-system/components/commit/716e305a7cc5cbafb5dd97b16c9f70e4320d45e4) - Fixes `AnchorController` that was clearing `ariaDescribedByElements` on the anchor element when a popover opens or closes.
+  Changing the `aria-describedby` attribute also clears the `ariaDescribedByElements` property, which broke references set by other components (e.g. `sl-menu-button` forwarding tooltip references to its inner `sl-button`).
+
 ## 0.10.0
 
 ### Minor Changes

@@ -1,5 +1,15 @@
 # @sl-design-system/search-field
 
+## 0.2.4
+
+### Patch Changes
+
+- [#3065](https://github.com/sl-design-system/components/pull/3065) [`bd7a08e`](https://github.com/sl-design-system/components/commit/bd7a08e52d65dea1d2b6ff04009afbbc3ab68f0d) - Ensured the `sl-search` event is fired with an empty string when the field is cleared via keyboard (backspace/escape) or the clear button
+
+- Updated dependencies [[`716e305`](https://github.com/sl-design-system/components/commit/716e305a7cc5cbafb5dd97b16c9f70e4320d45e4), [`2f8d8bf`](https://github.com/sl-design-system/components/commit/2f8d8bf32ca6e90eb9d117c1fcc434a59905769c)]:
+  - @sl-design-system/shared@0.11.0
+  - @sl-design-system/text-field@1.6.8
+
 ## 0.2.3
 
 ### Patch Changes

@@ -1,5 +1,24 @@
 # @sl-design-system/teas
 
+## 1.1.0
+
+### Minor Changes
+
+- [#3020](https://github.com/sl-design-system/components/pull/3020) [`738e4a7`](https://github.com/sl-design-system/components/commit/738e4a77005043de2f9977fab9fb04d4fce6369d) - Added
+  - new elevation.surface.raised.primary token
+
+  Fixed
+  - form input interactive backgrounds (color.background.input.plain.interactive.plain) from plain to bold variants across all themes (e.g., accent.grey.interactive.bold) for better state contrast.
+
+- [#2970](https://github.com/sl-design-system/components/pull/2970) [`e92ebb1`](https://github.com/sl-design-system/components/commit/e92ebb16c596919aaa301be2604ab5f3539738a9) - Caret icons have been updated to implement the new alignment strategy used in Font Awesome 7
+
+### Patch Changes
+
+- [#2982](https://github.com/sl-design-system/components/pull/2982) [`5784b96`](https://github.com/sl-design-system/components/commit/5784b9682e183391f842b10f1d194ceb137606f0) - Updated global.css so we have the opportunity to overwrite the link color from a component.
+
+- Updated dependencies [[`330e06f`](https://github.com/sl-design-system/components/commit/330e06ff36c7a5c96cf313b60a5013d6307477c7)]:
+  - @sl-design-system/icon@1.4.2
+
 ## 1.0.1
 
 ### Patch Changes

@@ -5,7 +5,7 @@ import { type LocaleModule, configureLocalization } from '@lit/localize';
 import * as locales from '@sl-design-system/locales';
 import { type Preview } from '@storybook/web-components-vite';
 import MockDate from 'mockdate';
-import { INITIAL_VIEWPORTS } from 'storybook/viewport';
+
 import { updateTheme, themes, type Mode } from './themes.js';
 
 // Set a fixed date in non-development environments for consistent Storybook snapshots
@@ -18,6 +18,49 @@ const { setLocale } = configureLocalization({
   targetLocales: locales.targetLocales,
   loadLocale: locale => Promise.resolve((locales as Record<string, unknown>)[locale] as LocaleModule)
 });
+
+const customViewports = {
+  mobileSmall: {
+    name: 'Mobile small',
+    styles: {
+      width: '320px',
+      height: '480px'
+    },
+    type: 'mobile'
+  },
+  mobile: {
+    name: 'Mobile',
+    styles: {
+      width: '375px',
+      height: '667px'
+    },
+    type: 'mobile'
+  },
+  mobileLarge: {
+    name: 'Mobile large',
+    styles: {
+      width: '425px',
+      height: '750px'
+    },
+    type: 'mobile'
+  },
+  tablet: {
+    name: 'Tablet',
+    styles: {
+      width: '768px',
+      height: '1024px'
+    },
+    type: 'tablet'
+  },
+  desktop: {
+    name: 'Desktop',
+    styles: {
+      width: '1280px',
+      height: '800px'
+    },
+    type: 'desktop'
+  },
+};
 
 const preview: Preview = {
   decorators: [
@@ -91,7 +134,7 @@ const preview: Preview = {
       }
     },
     viewport: {
-      viewports: INITIAL_VIEWPORTS
+      options: customViewports
     },
     a11y: {
       config: {

@@ -130,9 +130,10 @@ describe('sl-tool-bar', () => {
       el.disabled = true;
       await el.updateComplete;
 
-      // All buttons should be aria-disabled
+      // All buttons should be aria-disabled, and native disabled should be removed for focusability
       expect(buttons[0]).to.have.attribute('aria-disabled', 'true');
-      expect(buttons[1]).to.have.attribute('disabled');
+      expect(buttons[1]).to.have.attribute('aria-disabled', 'true');
+      expect(buttons[1]).not.to.have.attribute('disabled');
       expect(buttons[2]).to.have.attribute('aria-disabled', 'true');
 
       // Re-enable the toolbar

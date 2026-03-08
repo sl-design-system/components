@@ -80,6 +80,9 @@ export class Button extends LitElement {
    */
   @property({ reflect: true }) variant?: ButtonVariant;
 
+  /** @internal */
+  @property({ attribute: 'aria-disabled', reflect: true }) override ariaDisabled: string | null = null;
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -118,7 +121,7 @@ export class Button extends LitElement {
   }
 
   #onClick(event: Event): void {
-    if (this.disabled || (this.hasAttribute('aria-disabled') && this.getAttribute('aria-disabled') !== 'false')) {
+    if (this.disabled || (this.ariaDisabled !== null && this.ariaDisabled !== 'false')) {
       event.preventDefault();
       event.stopImmediatePropagation();
     } else if (this.type === 'reset') {
@@ -139,7 +142,7 @@ export class Button extends LitElement {
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    if (this.disabled || (this.hasAttribute('aria-disabled') && this.getAttribute('aria-disabled') !== 'false')) {
+    if (this.disabled || (this.ariaDisabled !== null && this.ariaDisabled !== 'false')) {
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
         event.stopImmediatePropagation();

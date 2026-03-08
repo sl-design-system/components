@@ -33,7 +33,10 @@ declare global {
  * @slot button - Any content for the button should be slotted here.
  */
 @localized()
-export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitElement), ['aria-label']) {
+export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitElement), [
+  'aria-disabled',
+  'aria-label'
+]) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -46,12 +49,11 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  static override get observedAttributes(): string[] {
-    return [...(super.observedAttributes ?? []), 'aria-disabled'];
-  }
-
   /** Observe changes to aria-describedby and aria-labelledby attributes. */
-  #observer = new MutationObserver(() => this.#updateAriaReferences());
+  #observer = new MutationObserver(() => {
+    this.#updateAriaReferences();
+    this.requestUpdate();
+  });
 
   /** The state of the menu popover. */
   #popoverState?: string;
@@ -107,18 +109,18 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
     });
   }
 
-  override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null): void {
-    super.attributeChangedCallback(name, oldValue, newValue);
-
-    if (name === 'aria-disabled') {
-      this.requestUpdate();
-    }
-  }
-
   override disconnectedCallback(): void {
     this.#observer.disconnect();
 
     super.disconnectedCallback();
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('disabled') && this.disabled) {
+      this.button.ariaDisabled = 'true';
+    }
   }
 
   override firstUpdated(changes: PropertyValues<this>): void {
@@ -145,13 +147,6 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
         @click=${this.#onClick}
         @keydown=${this.#onKeydown}
         ?disabled=${this.disabled}
-        aria-disabled=${this.hasAttribute('aria-disabled')
-          ? this.getAttribute('aria-disabled') !== 'false'
-            ? 'true'
-            : 'false'
-          : this.disabled
-            ? 'true'
-            : 'false'}
         aria-expanded="false"
         aria-haspopup="menu"
         fill=${ifDefined(this.fill)}
@@ -177,33 +172,24 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
   }
 
   #onClick(): void {
-    if (this.#isAriaDisabled()) {
+    if (this.#isDisabled()) {
       return;
     }
 
     this.menu.togglePopover();
   }
 
-  #isAriaDisabled(): boolean {
+  #isDisabled(): boolean {
     if (this.disabled) {
       return true;
     }
 
-    const ariaDisabled = this.getAttribute('aria-disabled');
-    if (ariaDisabled !== null) {
-      return ariaDisabled !== 'false';
-    }
-
-    const buttonAriaDisabled = this.button?.getAttribute('aria-disabled');
-    if (buttonAriaDisabled !== null) {
-      return buttonAriaDisabled !== 'false';
-    }
-
-    return false;
+    const ariaDisabled = this.button?.ariaDisabled;
+    return ariaDisabled !== null && ariaDisabled !== 'false';
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    if (this.#isAriaDisabled()) {
+    if (this.#isDisabled()) {
       if (['Enter', ' ', 'ArrowDown', 'ArrowUp'].includes(event.key)) {
         event.preventDefault();
         event.stopImmediatePropagation();
@@ -286,7 +272,10 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
       this.button.removeAttribute('aria-labelledby');
     }
 
-    this.#observer.observe(this, { attributes: true, attributeFilter: ['aria-describedby', 'aria-labelledby'] });
+    this.#observer.observe(this, {
+      attributes: true,
+      attributeFilter: ['aria-describedby', 'aria-labelledby']
+    });
   }
 
   /** Set an aria reference on the button using Element properties. */

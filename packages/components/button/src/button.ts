@@ -37,8 +37,14 @@ export class Button extends LitElement {
 
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
-    click: this.#onClick,
-    keydown: this.#onKeydown
+    click: {
+      handler: this.#onClick,
+      options: { capture: true }
+    },
+    keydown: {
+      handler: this.#onKeydown,
+      options: { capture: true }
+    }
   });
 
   /** Observe changes to the slotted content that aren't caught by the `slotchange` event. */

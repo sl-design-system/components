@@ -8,8 +8,7 @@ import {
   type ButtonVariant
 } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
-import { type PopoverPosition } from '@sl-design-system/shared';
-import { ObserveAttributesMixin } from '@sl-design-system/shared/mixins.js';
+import { EventsController, ObserveAttributesMixin, type PopoverPosition } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -51,6 +50,18 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
     this.#updateAriaReferences();
     this.#delegateAriaDisabled();
     this.requestUpdate();
+  });
+
+  // eslint-disable-next-line no-unused-private-class-members
+  #events = new EventsController(this, {
+    click: {
+      handler: this.#onHostClick,
+      options: { capture: true }
+    },
+    keydown: {
+      handler: this.#onHostKeydown,
+      options: { capture: true }
+    }
   });
 
   /** The state of the menu popover. */
@@ -198,6 +209,20 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
         <slot></slot>
       </sl-menu>
     `;
+  }
+
+  #onHostClick(event: Event): void {
+    if (this.#isDisabled()) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
+  }
+
+  #onHostKeydown(event: KeyboardEvent): void {
+    if (this.#isDisabled() && ['Enter', ' ', 'ArrowDown', 'ArrowUp'].includes(event.key)) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
   }
 
   #onClick(): void {

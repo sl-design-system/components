@@ -238,7 +238,8 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
       return true;
     }
 
-    const ariaDisabled = this.button?.ariaDisabled;
+    const hostAriaDisabled = this.ariaDisabled ?? this.getAttribute('aria-disabled'),
+      ariaDisabled = hostAriaDisabled ?? this.button?.ariaDisabled ?? null;
     return ariaDisabled !== null && ariaDisabled !== 'false';
   }
 

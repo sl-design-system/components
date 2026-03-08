@@ -700,10 +700,11 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       buttons.forEach(el => {
         if (el.hasAttribute('disabled') || el.disabled) {
           // If natively disabled, convert to aria-disabled for focusability
+          const isAttribute = el.hasAttribute('disabled');
           el.removeAttribute('disabled');
           el.disabled = false;
           el.ariaDisabled = 'true';
-          el.setAttribute('data-toolbar-disabled-native', '');
+          el.setAttribute('data-toolbar-disabled-native', isAttribute ? 'attribute' : 'property');
         } else if (
           !el.hasAttribute('data-toolbar-disabled') &&
           !el.hasAttribute('data-toolbar-disabled-original') &&
@@ -726,8 +727,11 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       });
     } else {
       buttons.forEach(el => {
-        if (el.hasAttribute('data-toolbar-disabled-native')) {
-          el.setAttribute('disabled', '');
+        const nativeMarker = el.getAttribute('data-toolbar-disabled-native');
+        if (nativeMarker !== null) {
+          if (nativeMarker === 'attribute') {
+            el.setAttribute('disabled', '');
+          }
           el.disabled = true;
           el.ariaDisabled = null;
           el.removeAttribute('data-toolbar-disabled-native');

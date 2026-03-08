@@ -224,6 +224,40 @@ describe('sl-tool-bar', () => {
       expect(internalButton).to.have.attribute('aria-disabled', 'true');
     });
 
+    it('should preserve originally property-disabled menu-buttons when toolbar is re-enabled', async () => {
+      el = await fixture(html`
+        <sl-tool-bar>
+          <sl-menu-button>
+            <div slot="button">Edit</div>
+            <sl-menu-item>Rename...</sl-menu-item>
+          </sl-menu-button>
+        </sl-tool-bar>
+      `);
+      const menuButton = el.querySelector('sl-menu-button') as MenuButton;
+      menuButton.disabled = true;
+      await menuButton.updateComplete;
+      await el.updateComplete;
+
+      // Verify initial state - sl-menu-button has no [disabled] attribute but .disabled is true
+      expect(menuButton).not.to.have.attribute('disabled');
+      expect(menuButton.disabled).to.be.true;
+
+      el.disabled = true;
+      await el.updateComplete;
+
+      expect(menuButton).not.to.have.attribute('disabled');
+      expect(menuButton.disabled).to.be.false;
+      const internalButton = menuButton.renderRoot.querySelector('sl-button');
+      expect(internalButton).to.have.attribute('aria-disabled', 'true');
+
+      el.disabled = false;
+      await el.updateComplete;
+
+      // Restoration should restore .disabled = true but NOT add [disabled] attribute
+      expect(menuButton).not.to.have.attribute('disabled');
+      expect(menuButton.disabled).to.be.true;
+    });
+
     it('should be idempotent when multiple updates occur while disabled', async () => {
       // Create a toolbar with mixed states
       el = await fixture(html`
@@ -284,14 +318,14 @@ describe('sl-tool-bar', () => {
 
       expect(button).to.have.attribute('aria-disabled', 'true');
       expect(button).not.to.have.attribute('disabled');
-      expect(button).to.have.attribute('data-toolbar-disabled-native', '');
+      expect(button).to.have.attribute('data-toolbar-disabled-native', 'attribute');
       expect(button).not.to.have.attribute('data-toolbar-disabled-original');
 
       // Re-run sync (idempotency check)
       el.requestUpdate();
       await el.updateComplete;
 
-      expect(button).to.have.attribute('data-toolbar-disabled-native', '');
+      expect(button).to.have.attribute('data-toolbar-disabled-native', 'attribute');
       expect(button).not.to.have.attribute('data-toolbar-disabled-original');
 
       // Re-enable
@@ -326,7 +360,7 @@ describe('sl-tool-bar', () => {
       expect(menuButton.disabled).to.be.false;
       const internalButton = menuButton.renderRoot.querySelector('sl-button');
       expect(internalButton).to.have.attribute('aria-disabled', 'true');
-      expect(menuButton).to.have.attribute('data-toolbar-disabled-native', '');
+      expect(menuButton).to.have.attribute('data-toolbar-disabled-native', 'property');
 
       // Re-enable
       el.disabled = false;

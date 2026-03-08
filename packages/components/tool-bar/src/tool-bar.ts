@@ -698,12 +698,17 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     if (this.disabled) {
       buttons.forEach(el => {
-        if (el.hasAttribute('disabled')) {
+        if (el.hasAttribute('disabled') || el.disabled) {
           // If natively disabled, convert to aria-disabled for focusability
           el.removeAttribute('disabled');
+          el.disabled = false;
           el.ariaDisabled = 'true';
           el.setAttribute('data-toolbar-disabled-native', '');
-        } else if (!el.hasAttribute('data-toolbar-disabled') && !el.hasAttribute('data-toolbar-disabled-original')) {
+        } else if (
+          !el.hasAttribute('data-toolbar-disabled') &&
+          !el.hasAttribute('data-toolbar-disabled-original') &&
+          !el.hasAttribute('data-toolbar-disabled-native')
+        ) {
           // Store original aria-disabled state if we haven't already
           let ariaDisabled = el.getAttribute('aria-disabled');
           if (el.tagName === 'SL-MENU-BUTTON' && ariaDisabled === null) {
@@ -723,8 +728,11 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       buttons.forEach(el => {
         if (el.hasAttribute('data-toolbar-disabled-native')) {
           el.setAttribute('disabled', '');
+          el.disabled = true;
           el.ariaDisabled = null;
           el.removeAttribute('data-toolbar-disabled-native');
+          el.removeAttribute('data-toolbar-disabled-original');
+          el.removeAttribute('data-toolbar-disabled');
         } else if (el.hasAttribute('data-toolbar-disabled-original')) {
           const original = el.getAttribute('data-toolbar-disabled-original');
           el.ariaDisabled = original;

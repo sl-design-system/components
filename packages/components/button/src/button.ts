@@ -154,7 +154,7 @@ export class Button extends LitElement {
       this.click();
 
       event.preventDefault();
-      event.stopImmediatePropagation();
+      event.stopPropagation();
     }
   }
 

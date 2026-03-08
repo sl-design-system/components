@@ -286,7 +286,11 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       const isDisabled = item.disabled || item.ariaDisabled;
 
       return html`
-        <sl-menu-item @click=${() => item.click?.()} ?disabled=${isDisabled} ?selectable=${item.selectable}>
+        <sl-menu-item
+          @click=${isDisabled ? undefined : () => item.click?.()}
+          ?disabled=${isDisabled}
+          ?selectable=${item.selectable}
+        >
           ${item.icon ? html`<sl-icon .name=${item.icon}></sl-icon>` : nothing} ${item.label}
         </sl-menu-item>
       `;
@@ -415,7 +419,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       // Check internal button for MenuButton since aria-disabled is forwarded to it
       if (el instanceof MenuButton) {
         const internalButton = el.renderRoot.querySelector('sl-button');
-        const internalAriaDisabled = internalButton?.getAttribute('aria-disabled');
+        const internalAriaDisabled = internalButton?.getAttribute('aria-disabled') ?? null;
         if (internalAriaDisabled !== null && internalAriaDisabled !== 'false') {
           return true;
         }

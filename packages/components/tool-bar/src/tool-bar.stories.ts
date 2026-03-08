@@ -256,7 +256,7 @@ export const Disabled: Story = {
   args: {
     ...Basic.args,
     description:
-      'This example shows a disabled tool bar. Note that the "Copy" button is intentionally truly disabled and therefore not focusable, unlike the other elements which are only aria-disabled.',
+      'This example shows a disabled tool bar. The toolbar and its items, including the "Copy" button, are aria-disabled but remain focusable to support accessible keyboard navigation.',
     disabled: true
   }
 };

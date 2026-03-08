@@ -33,10 +33,7 @@ declare global {
  * @slot button - Any content for the button should be slotted here.
  */
 @localized()
-export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitElement), [
-  'aria-disabled',
-  'aria-label'
-]) {
+export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitElement), ['aria-label']) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -49,9 +46,10 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** Observe changes to aria-describedby and aria-labelledby attributes. */
+  /** Observe changes to aria-describedby, aria-labelledby and aria-disabled attributes. */
   #observer = new MutationObserver(() => {
     this.#updateAriaReferences();
+    this.#delegateAriaDisabled();
     this.requestUpdate();
   });
 
@@ -94,6 +92,32 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
    */
   @property() size?: ButtonSize;
 
+  /** Flag to prevent recursion during aria-disabled delegation. */
+  #isDelegating = false;
+
+  /** The aria-disabled state of the button. */
+  #ariaDisabled: string | null = null;
+
+  /**
+   * The aria-disabled state of the button.
+   * @default null
+   */
+  override get ariaDisabled(): string | null {
+    return this.#ariaDisabled;
+  }
+
+  override set ariaDisabled(value: string | null) {
+    this.#ariaDisabled = value;
+
+    if (this.button) {
+      this.button.ariaDisabled = value;
+    } else if (value !== null) {
+      this.setAttribute('aria-disabled', value);
+    } else if (this.hasAttribute('aria-disabled')) {
+      this.removeAttribute('aria-disabled');
+    }
+  }
+
   /**
    * The variant of the button.
    * @default 'secondary'
@@ -105,7 +129,7 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
 
     this.#observer.observe(this, {
       attributes: true,
-      attributeFilter: ['aria-describedby', 'aria-labelledby']
+      attributeFilter: ['aria-describedby', 'aria-labelledby', 'aria-disabled']
     });
   }
 
@@ -118,8 +142,12 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('disabled') && this.disabled) {
-      this.button.ariaDisabled = 'true';
+    if (changes.has('disabled')) {
+      if (this.disabled) {
+        this.button.ariaDisabled = 'true';
+      } else if (this.ariaDisabled !== 'true') {
+        this.button.ariaDisabled = null;
+      }
     }
   }
 
@@ -133,6 +161,7 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
 
     requestAnimationFrame(() => {
       this.#updateAriaReferences();
+      this.#delegateAriaDisabled();
     });
   }
 
@@ -274,8 +303,23 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
 
     this.#observer.observe(this, {
       attributes: true,
-      attributeFilter: ['aria-describedby', 'aria-labelledby']
+      attributeFilter: ['aria-describedby', 'aria-labelledby', 'aria-disabled']
     });
+  }
+
+  /** Delegate the aria-disabled attribute to the internal button and remove it from the host. */
+  #delegateAriaDisabled(): void {
+    if (this.#isDelegating || !this.button) {
+      return;
+    }
+
+    const value = this.getAttribute('aria-disabled');
+    if (value !== null) {
+      this.#isDelegating = true;
+      this.button.ariaDisabled = value;
+      this.removeAttribute('aria-disabled');
+      this.#isDelegating = false;
+    }
   }
 
   /** Set an aria reference on the button using Element properties. */

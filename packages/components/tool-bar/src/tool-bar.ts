@@ -705,7 +705,12 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
           el.setAttribute('data-toolbar-disabled-native', '');
         } else if (!el.hasAttribute('data-toolbar-disabled') && !el.hasAttribute('data-toolbar-disabled-original')) {
           // Store original aria-disabled state if we haven't already
-          const ariaDisabled = el.getAttribute('aria-disabled');
+          let ariaDisabled = el.getAttribute('aria-disabled');
+          if (el.tagName === 'SL-MENU-BUTTON' && ariaDisabled === null) {
+            const internalButton = el.renderRoot.querySelector('sl-button');
+            ariaDisabled = internalButton?.getAttribute('aria-disabled') ?? null;
+          }
+
           if (ariaDisabled !== null) {
             el.setAttribute('data-toolbar-disabled-original', ariaDisabled);
           } else {

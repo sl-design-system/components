@@ -42,6 +42,15 @@ describe('sl-menu-button', () => {
       expect(el.button).to.have.attribute('aria-disabled', 'true');
     });
 
+    it('should proxy the ariaDisabled property to the input element', async () => {
+      el.ariaDisabled = 'true';
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el).to.not.have.attribute('aria-disabled');
+      expect(el.button).to.have.attribute('aria-disabled', 'true');
+    });
+
     it('should not show the menu when aria-disabled is set to true', async () => {
       el.setAttribute('aria-disabled', 'true');
       await new Promise(resolve => setTimeout(resolve, 50));
@@ -105,6 +114,32 @@ describe('sl-menu-button', () => {
         expect(button).to.have.attribute('disabled');
         expect(button.disabled).to.be.true;
         expect(el.disabled).to.be.true;
+      });
+
+      it('should properly sync and restore the internal button state when disabled changes', async () => {
+        el.disabled = true;
+        await el.updateComplete;
+        expect(button.ariaDisabled).to.equal('true');
+
+        el.disabled = false;
+        await el.updateComplete;
+        expect(button.ariaDisabled).to.be.null;
+      });
+
+      it('should not override an explicit aria-disabled when disabled is toggled', async () => {
+        el.ariaDisabled = 'true';
+        await el.updateComplete;
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(button.ariaDisabled).to.equal('true');
+
+        el.disabled = true;
+        await el.updateComplete;
+        expect(button.ariaDisabled).to.equal('true');
+
+        el.disabled = false;
+        await el.updateComplete;
+        expect(button.ariaDisabled).to.equal('true');
       });
 
       it('should not have an explicit size', () => {

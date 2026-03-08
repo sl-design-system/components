@@ -24,6 +24,7 @@ import { type MenuButton } from './menu-button.js';
 
 type Props = Pick<MenuButton, 'disabled' | 'fill' | 'position' | 'shape' | 'size' | 'variant'> & {
   alignSelf: string;
+  ariaDisabled?: string;
   body: string | (() => TemplateResult);
   justifySelf: string;
   label?: string;
@@ -58,6 +59,9 @@ export default {
     alignSelf: {
       control: 'inline-radio',
       options: ['start', 'center', 'end']
+    },
+    ariaDisabled: {
+      control: 'text'
     },
     body: {
       table: { disable: true }
@@ -107,7 +111,20 @@ export default {
     // Disables Chromatic's snapshotting on a story level
     chromatic: { disableSnapshot: true }
   },
-  render: ({ alignSelf, body, disabled, fill, justifySelf, label, menuItems, position, shape, size, variant }) => {
+  render: ({
+    alignSelf,
+    ariaDisabled,
+    body,
+    disabled,
+    fill,
+    justifySelf,
+    label,
+    menuItems,
+    position,
+    shape,
+    size,
+    variant
+  }) => {
     return html`
       <style>
         #root-inner {
@@ -118,6 +135,7 @@ export default {
       </style>
       <sl-menu-button
         ?disabled=${disabled}
+        aria-disabled=${ifDefined(ariaDisabled)}
         aria-label=${ifDefined(label)}
         fill=${ifDefined(fill)}
         position=${ifDefined(position)}
@@ -153,6 +171,13 @@ export const Disabled: Story = {
   args: {
     ...Basic.args,
     disabled: true
+  }
+};
+
+export const AriaDisabled: Story = {
+  args: {
+    ...Basic.args,
+    ariaDisabled: 'true'
   }
 };
 
@@ -337,7 +362,7 @@ export const All: Story = {
         align-items: center;
         display: inline-grid;
         gap: 1rem;
-        grid-template-columns: repeat(5, auto);
+        grid-template-columns: repeat(6, auto);
         justify-items: center;
       }
     </style>
@@ -347,6 +372,7 @@ export const All: Story = {
       <span>Icon & text</span>
       <span>Text</span>
       <span>Disabled</span>
+      <span>aria-disabled</span>
 
       <span>md</span>
       <sl-menu-button aria-label="Label">
@@ -395,6 +421,18 @@ export const All: Story = {
           Delete...
         </sl-menu-item>
       </sl-menu-button>
+      <sl-menu-button aria-disabled="true">
+        <sl-icon name="far-gear" slot="button"></sl-icon>
+        <span slot="button">Settings</span>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
 
       <span>lg</span>
       <sl-menu-button aria-label="Label" size="lg">
@@ -432,6 +470,18 @@ export const All: Story = {
         </sl-menu-item>
       </sl-menu-button>
       <sl-menu-button disabled size="lg">
+        <sl-icon name="far-gear" slot="button"></sl-icon>
+        <span slot="button">Settings</span>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-menu-button aria-disabled="true" size="lg">
         <sl-icon name="far-gear" slot="button"></sl-icon>
         <span slot="button">Settings</span>
         <sl-menu-item>

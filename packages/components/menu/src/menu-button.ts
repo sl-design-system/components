@@ -315,8 +315,13 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
 
     const value = this.getAttribute('aria-disabled');
     if (value !== null) {
+      // Normalize presence-only / empty-string to 'true' to reflect a "true" aria-disabled state
+      const normalizedValue = value === '' ? 'true' : value;
+
       this.#isDelegating = true;
-      this.button.ariaDisabled = value;
+      this.button.ariaDisabled = normalizedValue;
+      // Keep the component's ariaDisabled property in sync with the delegated value
+      this.ariaDisabled = normalizedValue;
       this.removeAttribute('aria-disabled');
       this.#isDelegating = false;
     }

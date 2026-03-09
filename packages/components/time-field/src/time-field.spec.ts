@@ -483,7 +483,7 @@ describe('sl-time-field', () => {
 
       expect(dialog).to.match(':popover-open');
 
-      el.dispatchEvent(new FocusEvent('focusout', { bubbles: true, composed: true, relatedTarget: outsideButton }));
+      outsideButton.focus();
       await el.updateComplete;
 
       expect(dialog).not.to.match(':popover-open');
@@ -508,7 +508,6 @@ describe('sl-time-field', () => {
       expect(dialog).to.match(':popover-open');
 
       el.dispatchEvent(new FocusEvent('focusout', { bubbles: true, composed: true, relatedTarget: null }));
-      await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(dialog).not.to.match(':popover-open');
@@ -519,8 +518,6 @@ describe('sl-time-field', () => {
       await el.updateComplete;
 
       outsideButton.focus();
-      el.dispatchEvent(new FocusEvent('focusout', { bubbles: true, composed: true, relatedTarget: outsideButton }));
-      await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(document.activeElement).to.equal(outsideButton);
@@ -533,7 +530,6 @@ describe('sl-time-field', () => {
       expect(dialog).to.match(':popover-open');
 
       el.renderRoot.querySelector<HTMLElement>('.minutes li')?.click();
-      await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(dialog).not.to.match(':popover-open');
@@ -549,7 +545,6 @@ describe('sl-time-field', () => {
       expect(dialog).to.match(':popover-open');
 
       await userEvent.keyboard('{Escape}');
-      await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(dialog).not.to.match(':popover-open');
@@ -560,13 +555,11 @@ describe('sl-time-field', () => {
       el.textField.focus();
       await userEvent.tab();
       await userEvent.keyboard('{Space}');
-      await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(dialog).to.match(':popover-open');
 
       await userEvent.tab();
-      await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(dialog).not.to.match(':popover-open');
@@ -577,13 +570,11 @@ describe('sl-time-field', () => {
       el.textField.focus();
       await userEvent.tab();
       await userEvent.keyboard('{Space}');
-      await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(dialog).to.match(':popover-open');
 
       await userEvent.tab({ shift: true });
-      await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(dialog).not.to.match(':popover-open');

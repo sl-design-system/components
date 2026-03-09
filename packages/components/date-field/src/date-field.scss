@@ -76,6 +76,10 @@
   padding-inline-start: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default));
 }
 
+.select-all {
+  font-kerning: none;
+}
+
 .wrapper {
   display: inline-grid;
 

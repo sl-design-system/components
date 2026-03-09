@@ -327,14 +327,8 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       currentValue = this.timeParts[partType],
       hasValue = currentValue !== undefined,
       displayValue = hasValue ? String(currentValue).padStart(part.value.length, '0') : placeholder,
-      isHour = partType === 'hour',
-      isValidHour = isHour && typeof currentValue === 'number' && currentValue >= 0 && currentValue <= 23,
       valueText = hasValue
-        ? isHour
-          ? isValidHour
-            ? this.#getHourName(locale, currentValue)
-            : String(currentValue).padStart(part.value.length, '0')
-          : String(currentValue)
+        ? String(currentValue).padStart(part.value.length, '0')
         : msg('Empty', { id: 'sl.timeField.empty' });
 
     return html`
@@ -523,6 +517,8 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     this.#valueAsNumbers = { hours, minutes: constrainedMinutes };
     this.#value = this.#formatTime(this.#valueAsNumbers.hours, this.#valueAsNumbers.minutes);
+    const { hours: normalizedHours, minutes: normalizedMinutes } = this.#valueAsNumbers;
+    this.timeParts = { hour: normalizedHours, minute: normalizedMinutes };
     this.requestUpdate('value');
 
     this.changeEvent.emit(this.value ?? '');
@@ -595,6 +591,8 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     this.#valueAsNumbers = { hours: this.#valueAsNumbers?.hours ?? this.#startTime?.hours ?? 0, minutes: minute };
     this.#value = this.#formatTime(this.#valueAsNumbers.hours ?? 0, this.#valueAsNumbers.minutes ?? 0);
+    const { hours: normalizedHours, minutes: normalizedMinutes } = this.#valueAsNumbers;
+    this.timeParts = { hour: normalizedHours, minute: normalizedMinutes };
     this.requestUpdate('value');
 
     this.changeEvent.emit(this.value ?? '');
@@ -833,14 +831,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   //     })
   //     .join('');
   // }
-
-  #getHourName(locale: string, hour: number): string {
-    const date = new Date(2000, 0, 1, hour, 0, 0, 0);
-    return new Intl.DateTimeFormat(locale !== 'default' ? locale : undefined, {
-      hour: '2-digit',
-      hourCycle: 'h23'
-    }).format(date);
-  }
 
   #selectContent(span: HTMLElement): void {
     const range = document.createRange();

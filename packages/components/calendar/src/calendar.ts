@@ -11,7 +11,7 @@ import { property, state } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './calendar.scss.js';
-import { MonthView } from './month-view.js';
+import { type MonthView } from './month-view.js';
 import { SelectDay } from './select-day.js';
 import { SelectMonth } from './select-month.js';
 import { SelectYear } from './select-year.js';
@@ -175,20 +175,18 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           ? html`
               <span id="min-max-helper-text" class="helper-text"
                 ><sl-icon name="info"></sl-icon>
-                ${msg(
-                  str`From ${format(this.min, this.locale, { day: '2-digit', month: '2-digit', year: 'numeric' })}`,
-                  { id: 'sl.calendar.rangeFrom' }
-                )}
+                ${msg(str`From ${format(this.min, this.locale, this.#helperTextFormatOptions)}`, {
+                  id: 'sl.calendar.rangeFrom'
+                })}
               </span>
             `
           : this.max
             ? html`
                 <span id="min-max-helper-text" class="helper-text"
                   ><sl-icon name="info"></sl-icon>
-                  ${msg(
-                    str`Until ${format(this.max, this.locale, { day: '2-digit', month: '2-digit', year: 'numeric' })}`,
-                    { id: 'sl.calendar.rangeUntil' }
-                  )}
+                  ${msg(str`Until ${format(this.max, this.locale, this.#helperTextFormatOptions)}`, {
+                    id: 'sl.calendar.rangeUntil'
+                  })}
                 </span>
               `
             : nothing}

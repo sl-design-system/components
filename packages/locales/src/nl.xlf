@@ -410,6 +410,20 @@
   <source>Empty</source>
   <target>Leeg</target>
 </trans-unit>
+<trans-unit id="sl.calendar.rangeBetween">
+  <source>Between <x id="0" equiv-text="${format(this.min, this.locale, this.#helperTextFormatOptions)}"/> and
+              <x id="1" equiv-text="${format(this.max, this.locale, this.#helperTextFormatOptions)}"/></source>
+  <target>Tussen <x id="0" equiv-text="${format(this.min, this.locale, this.#helperTextFormatOptions)}"/> en
+              <x id="1" equiv-text="${format(this.max, this.locale, this.#helperTextFormatOptions)}"/></target>
+</trans-unit>
+<trans-unit id="sl.calendar.rangeFrom">
+  <source>From <x id="0" equiv-text="${format(this.min, this.locale, { day: '2-digit', month: '2-digit', year: 'numeric' })}"/></source>
+  <target>Van <x id="0" equiv-text="${format(this.min, this.locale, { day: '2-digit', month: '2-digit', year: 'numeric' })}"/></target>
+</trans-unit>
+<trans-unit id="sl.calendar.rangeUntil">
+  <source>Until <x id="0" equiv-text="${format(this.max, this.locale, { day: '2-digit', month: '2-digit', year: 'numeric' })}"/></source>
+  <target>Tot <x id="0" equiv-text="${format(this.max, this.locale, { day: '2-digit', month: '2-digit', year: 'numeric' })}"/></target>
+</trans-unit>
 </body>
 </file>
 </xliff>

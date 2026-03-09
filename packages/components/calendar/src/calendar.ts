@@ -1,3 +1,4 @@
+import { msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { format } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
@@ -162,52 +163,62 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       ${this.min && this.max
         ? html`
             <span id="min-max-helper-text" class="helper-text"
-              ><sl-icon name="info"></sl-icon>Between ${format(this.min, this.locale, this.#helperTextFormatOptions)}
-              and ${format(this.max, this.locale, this.#helperTextFormatOptions)}</span
-            >
+              ><sl-icon name="info"></sl-icon>
+              ${msg(
+                str`Between ${format(this.min, this.locale, this.#helperTextFormatOptions)} and
+              ${format(this.max, this.locale, this.#helperTextFormatOptions)}`,
+                { id: 'sl.calendar.rangeBetween' }
+              )}
+            </span>
           `
         : this.min
           ? html`
               <span id="min-max-helper-text" class="helper-text"
-                ><sl-icon name="info"></sl-icon>From
-                ${format(this.min, this.locale, { day: '2-digit', month: '2-digit', year: 'numeric' })}</span
-              >
+                ><sl-icon name="info"></sl-icon>
+                ${msg(
+                  str`From ${format(this.min, this.locale, { day: '2-digit', month: '2-digit', year: 'numeric' })}`,
+                  { id: 'sl.calendar.rangeFrom' }
+                )}
+              </span>
             `
           : this.max
             ? html`
                 <span id="min-max-helper-text" class="helper-text"
-                  ><sl-icon name="info"></sl-icon>Until
-                  ${format(this.max, this.locale, { day: '2-digit', month: '2-digit', year: 'numeric' })}</span
-                >
+                  ><sl-icon name="info"></sl-icon>
+                  ${msg(
+                    str`Until ${format(this.max, this.locale, { day: '2-digit', month: '2-digit', year: 'numeric' })}`,
+                    { id: 'sl.calendar.rangeUntil' }
+                  )}
+                </span>
               `
             : nothing}
     `;
-  } // TODO: add translation to helper text...
-  // TODO: maybe it needs to take into account formatter from the date-field?
+  }
 
   override updated(): void {
-    requestAnimationFrame(() => {
-      this.#updateHelperTextDescription();
-    });
+    requestAnimationFrame(() => this.#updateHelperTextDescription());
   }
 
   #updateHelperTextDescription(): void {
-    const helperText = this.renderRoot.querySelector('#min-max-helper-text');
+    const helperText = this.renderRoot.querySelector('#min-max-helper-text'),
+      describedBy = helperText ? [helperText] : null;
 
     const focusableDay = this.renderRoot
         .querySelector<SelectDay>('sl-select-day')
         ?.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')
-        ?.renderRoot.querySelector('button[tabindex="0"]'),
+        ?.renderRoot.querySelector<HTMLButtonElement>(
+          'button:not(:disabled):not([part~="previous-month"]):not([part~="next-month"])'
+        ),
       focusableMonth = this.renderRoot
         .querySelector<SelectMonth>('sl-select-month')
-        ?.renderRoot.querySelector('button[tabindex="0"]'),
+        ?.renderRoot.querySelector<HTMLButtonElement>('button:not(:disabled)'),
       focusableYear = this.renderRoot
         .querySelector<SelectYear>('sl-select-year')
-        ?.renderRoot.querySelector('button[tabindex="0"]');
+        ?.renderRoot.querySelector<HTMLButtonElement>('button:not(:disabled)');
 
     for (const element of [focusableDay, focusableMonth, focusableYear]) {
       if (element) {
-        element.ariaDescribedByElements = helperText ? [helperText] : null;
+        element.ariaDescribedByElements = describedBy;
       }
     }
   }
@@ -268,6 +279,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     // Wait until the new mode has rendered before focusing the correct element
     requestAnimationFrame(() => {
       this.renderRoot.querySelector(event.detail === 'month' ? 'sl-select-month' : 'sl-select-year')?.focus();
+      this.#updateHelperTextDescription();
     });
   }
 }

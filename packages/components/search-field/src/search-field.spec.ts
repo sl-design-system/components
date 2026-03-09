@@ -84,6 +84,15 @@ describe('sl-search-field', () => {
       expect(onClear).to.be.calledOnce;
     });
 
+    it('should emit a search event when the clear button is clicked', () => {
+      const onSearch: (value: string) => void = spy();
+
+      el.addEventListener('sl-search', (event: SlSearchEvent) => onSearch(event.detail));
+      el.renderRoot.querySelector('button')?.click();
+
+      expect(onSearch).to.be.calledOnceWith('');
+    });
+
     it('should emit a clear event when the escape key is pressed', async () => {
       const onClear = spy();
 
@@ -92,6 +101,16 @@ describe('sl-search-field', () => {
       await userEvent.keyboard('{Escape}');
 
       expect(onClear).to.be.calledOnce;
+    });
+
+    it('should emit a search event when the escape key is pressed', async () => {
+      const onSearch: (value: string) => void = spy();
+
+      el.addEventListener('sl-search', (event: SlSearchEvent) => onSearch(event.detail));
+      el.focus();
+      await userEvent.keyboard('{Escape}');
+
+      expect(onSearch).to.be.calledOnceWith('');
     });
 
     it('should emit a search event with the value when enter is pressed', async () => {
@@ -184,14 +203,16 @@ describe('sl-search-field', () => {
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 400));
 
-      expect(onSearch).to.have.been.calledTwice;
+      expect(onSearch).to.have.been.calledThrice;
       expect(onSearch).to.have.been.calledWith('world');
     });
 
-    it('should not emit search event for empty value after debounce', async () => {
+    it('should emit sl-clear event and search event for empty value after debounce', async () => {
       const onSearch: (value: string) => void = spy();
+      const onClear = spy();
 
       el.addEventListener('sl-search', (event: SlSearchEvent) => onSearch(event.detail));
+      el.addEventListener('sl-clear', onClear);
       el.focus();
 
       // Type and then delete
@@ -203,8 +224,9 @@ describe('sl-search-field', () => {
       // Wait for debounce + buffer
       await new Promise(resolve => setTimeout(resolve, 400));
 
-      // Should not emit for empty value
-      expect(onSearch).not.to.have.been.called;
+      // Should emit search with empty string for empty value, and should emit clear
+      expect(onSearch).to.have.been.calledOnceWith('');
+      expect(onClear).to.have.been.calledOnce;
     });
 
     it('should cancel debounced search when Enter is pressed', async () => {

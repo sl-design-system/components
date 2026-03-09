@@ -868,10 +868,25 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #adjustTimePart(partType: TimePartType, delta: number): void {
+    console.log(this.min, this.max);
     const startTime = this.#getStartTime(),
       currentValue = this.timeParts[partType] ?? (partType === 'hour' ? startTime.hours : startTime.minutes),
       maxValue = this.#getMaxForType(partType),
-      newValue = (((currentValue + delta) % (maxValue + 1)) + (maxValue + 1)) % (maxValue + 1);
+      minTime = this.min ? this.#parseTime(this.min) : undefined,
+      maxTime = this.max ? this.#parseTime(this.max) : undefined,
+      wrapped = (((currentValue + delta) % (maxValue + 1)) + (maxValue + 1)) % (maxValue + 1),
+      currentHour = this.timeParts.hour ?? startTime.hours,
+      effectiveMin =
+        partType === 'hour' ? (minTime?.hours ?? 0) : minTime && currentHour === minTime.hours ? minTime.minutes : 0,
+      effectiveMax =
+        partType === 'hour'
+          ? (maxTime?.hours ?? maxValue)
+          : maxTime && currentHour === maxTime.hours
+            ? maxTime.minutes
+            : maxValue,
+      newValue = Math.min(Math.max(wrapped, effectiveMin), effectiveMax);
+
+    console.log({ minTime, maxTime, partType, currentValue, delta, wrapped, effectiveMin, effectiveMax, newValue });
 
     this.timeParts = { ...this.timeParts, [partType]: newValue };
     this.#enteredDigits = 0;

@@ -385,7 +385,7 @@ describe('sl-time-field', () => {
       el.value = '08:00';
       await el.updateComplete;
 
-      const input = el.renderRoot.querySelector('input');
+      const input = el.renderRoot.querySelector('[role="spinbutton"]');
 
       expect(input).to.exist;
       (input as HTMLInputElement).focus();
@@ -400,7 +400,7 @@ describe('sl-time-field', () => {
       el.value = '14:00';
       await el.updateComplete;
 
-      const input = el.renderRoot.querySelector('input');
+      const input = el.renderRoot.querySelector('[role="spinbutton"]');
 
       expect(input).to.exist;
       (input as HTMLInputElement).focus();
@@ -412,11 +412,14 @@ describe('sl-time-field', () => {
     });
 
     it('should not go below the minimum time when using the arrow keys in the select dropdown', async () => {
+      el.value = '08:30';
+      el.min = '08:30';
+      await el.updateComplete;
+
       el.renderRoot.querySelector('sl-field-button')?.click();
       await el.updateComplete;
 
       const selectedMinute = el.renderRoot.querySelector<HTMLElement>('.minutes li[aria-selected="true"]');
-
       expect(selectedMinute).to.exist;
 
       selectedMinute?.focus();
@@ -429,12 +432,13 @@ describe('sl-time-field', () => {
       expect(selectedHourAfter).to.exist;
       expect(selectedHourAfter).to.have.trimmed.text('08');
       expect(selectedMinuteAfter).to.exist;
-      expect(selectedMinuteAfter).to.have.trimmed.text('00');
-      expect(el.value).to.equal('08:00');
+      expect(selectedMinuteAfter).to.have.trimmed.text('30');
+      expect(el.value).to.equal('08:30');
     });
 
     it('should not go above the maximum time when using arrow keys in the select dropdown', async () => {
       el.value = '14:00';
+      el.max = '14:00';
       await el.updateComplete;
 
       el.renderRoot.querySelector('sl-field-button')?.click();

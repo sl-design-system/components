@@ -70,6 +70,7 @@ export default {
       <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
           <sl-time-field
+            style="width: fit-content;"
             ?disabled=${disabled}
             hour-step=${ifDefined(hourStep)}
             locale=${ifDefined(locale)}

@@ -1,8 +1,10 @@
 name: Website a11y automated tests
 
-on: pull-request
-types: [opened, synchronize, reopened, edited] 
-branches: - main
+pull_request:
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened, closed]
 
 jobs:
   generate-urls:

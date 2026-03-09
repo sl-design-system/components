@@ -366,6 +366,140 @@ describe('sl-time-field', () => {
     });
   });
 
+  describe('focusout', () => {
+    let dialog: HTMLDialogElement, outsideButton: HTMLButtonElement;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-time-field start="12:00"></sl-time-field>
+        <button>Outside</button>
+      `);
+
+      dialog = el.renderRoot.querySelector('dialog')!;
+      outsideButton = el.nextElementSibling as HTMLButtonElement;
+    });
+
+    it('should close the popover when focus moves outside the component', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      expect(dialog).to.match(':popover-open');
+
+      outsideButton.focus();
+      await el.updateComplete;
+
+      expect(dialog).not.to.match(':popover-open');
+    });
+
+    it('should not close the popover when focus moves within the component', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      expect(dialog).to.match(':popover-open');
+
+      el.dispatchEvent(
+        new FocusEvent('focusout', {
+          bubbles: true,
+          composed: true,
+          relatedTarget: el.renderRoot.querySelector('[role="spinbutton"]')!
+        })
+      );
+      await el.updateComplete;
+
+      expect(dialog).to.match(':popover-open');
+    });
+
+    it('should close the popover when focus leaves the page entirely', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      expect(dialog).to.match(':popover-open');
+
+      el.dispatchEvent(new FocusEvent('focusout', { bubbles: true, composed: true, relatedTarget: null }));
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(dialog).not.to.match(':popover-open');
+    });
+
+    it('should not restore focus to the text-field when focus is leaving the component', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      outsideButton.focus();
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(document.activeElement).to.equal(outsideButton);
+    });
+
+    it('should restore focus to the text-field when the popover is closed by selecting a minute', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      expect(dialog).to.match(':popover-open');
+
+      el.renderRoot.querySelector<HTMLElement>('.minutes li')?.click();
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(dialog).not.to.match(':popover-open');
+      expect(el).to.match(':focus-within');
+    });
+
+    it('should restore focus to the text-field when the popover is closed by pressing Escape', async () => {
+      const input = el.renderRoot.querySelector('[role="spinbutton"]');
+
+      expect(input).to.exist;
+      (input as HTMLInputElement).focus();
+
+      await userEvent.tab();
+      await userEvent.keyboard('{Space}');
+      await el.updateComplete;
+
+      expect(dialog).to.match(':popover-open');
+
+      await userEvent.keyboard('{Escape}');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(dialog).not.to.match(':popover-open');
+      expect(el).to.match(':focus-within');
+    });
+
+    it('should close the popover and move focus outside the component when pressing Tab', async () => {
+      const input = el.renderRoot.querySelector('[role="spinbutton"]');
+
+      expect(input).to.exist;
+      (input as HTMLInputElement).focus();
+      await userEvent.tab();
+      await userEvent.keyboard('{Space}');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(dialog).to.match(':popover-open');
+
+      await userEvent.tab();
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(dialog).not.to.match(':popover-open');
+      expect(document.activeElement).to.equal(outsideButton);
+    });
+
+    it('should close the popover and move focus to the button when pressing Shift+Tab', async () => {
+      const input = el.renderRoot.querySelector('[role="spinbutton"]');
+
+      expect(input).to.exist;
+      (input as HTMLInputElement).focus();
+      await userEvent.tab();
+      await userEvent.keyboard('{Space}');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(dialog).to.match(':popover-open');
+
+      await userEvent.tab({ shift: true });
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(dialog).not.to.match(':popover-open');
+      expect(el.shadowRoot?.activeElement).to.equal(el.button);
+    });
+  });
+
   describe('min/max', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-time-field min="08:00" max="14:00"></sl-time-field>`);

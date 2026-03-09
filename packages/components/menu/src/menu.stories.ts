@@ -323,7 +323,7 @@ export const All: Story = {
         display: flex;
         margin: 0 !important;
         opacity: 1;
-        position: static !important;
+        position: relative !important;
       }
     </style>
     <div class="container">
@@ -450,6 +450,10 @@ export const All: Story = {
             <sl-icon name="far-trash"></sl-icon>
             Danger
           </sl-menu-item>
+          <sl-menu-item variant="danger" selected>
+            <sl-icon name="far-trash"></sl-icon>
+            Danger, selected
+          </sl-menu-item>
           <sl-menu-item disabled variant="danger">
             <sl-icon name="far-trash"></sl-icon>
             Danger, disabled
@@ -477,6 +481,7 @@ export const All: Story = {
         </sl-menu-item>
         <sl-menu-item-group heading="Group heading">
           <sl-menu-item variant="danger">Danger</sl-menu-item>
+          <sl-menu-item variant="danger" selected>Danger, selected</sl-menu-item>
           <sl-menu-item disabled variant="danger">Danger, disabled</sl-menu-item>
         </sl-menu-item-group>
       </sl-menu>

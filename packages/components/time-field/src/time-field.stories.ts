@@ -67,7 +67,7 @@ export default {
     reportValidity = reportValidity ?? true;
 
     return html`
-      <sl-form>
+      <sl-form .value=${value}>
         <sl-form-field .hint=${hint} .label=${label}>
           <sl-time-field
             style="width: fit-content;"
@@ -81,7 +81,7 @@ export default {
             ?readonly=${readonly}
             ?required=${required}
             start=${ifDefined(start)}
-            value=${ifDefined(value)}
+            .value=${value}
           ></sl-time-field>
         </sl-form-field>
         ${reportValidity

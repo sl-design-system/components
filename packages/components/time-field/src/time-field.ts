@@ -121,6 +121,9 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** @internal The input element in the light DOM. */
   input!: HTMLInputElement;
 
+  /** @internal */
+  readonly internals = this.attachInternals();
+
   /**
    * The maximum time selectable in the field.
    * @default undefined
@@ -219,6 +222,8 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       }
     }
 
+    this.internals.role = 'group';
+
     // Hide the input visually; it is only used for form submission
     this.input.style.cssText = 'position:absolute;opacity:0;pointer-events:none;width:0;height:0;overflow:hidden;';
 
@@ -239,8 +244,35 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.#startTime = this.start ? this.#parseTime(this.start) : undefined;
     }
 
+    if (changes.has('timeParts') || changes.has('placeholder') || changes.has('value')) {
+      if (this.value || this.timeParts.hour !== undefined || this.timeParts.minute !== undefined) {
+        this.placeholderShown = false;
+      } else if (this.placeholder) {
+        this.placeholderShown = true;
+      } else {
+        this.placeholderShown = false;
+      }
+    }
+
+    if (changes.has('placeholderShown')) {
+      if (this.placeholderShown) {
+        this.internals.states.add('placeholder-shown');
+      } else {
+        this.internals.states.delete('placeholder-shown');
+      }
+    }
+
     if (changes.has('value')) {
-      this.input.value = this.value || '';
+      if (this.value) {
+        this.internals.states.add('has-value');
+      } else {
+        this.internals.states.delete('has-value');
+      }
+
+      this.internals.setFormValue(this.value || null);
+    }
+
+    if (changes.has('min') || changes.has('max') || changes.has('required') || changes.has('value')) {
       this.updateValidity();
     }
   }
@@ -365,13 +397,12 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         @paste=${this.#onPaste}
         aria-disabled=${this.disabled ? 'true' : 'false'}
         aria-label=${getTimeUnitName(locale, partType)}
-        aria-readonly=${this.readonly ? 'true' : 'false'}
+        aria-readonly=${this.readonly || this.selectOnly ? 'true' : 'false'}
         aria-valuemax=${this.#getMaxForType(partType)}
         aria-valuemin=${this.#getMinForType(partType)}
         aria-valuenow=${ifDefined(currentValue)}
         aria-valuetext=${valueText}
-        class="${partType}s-spinbutton"
-        contenteditable=${this.disabled ? 'false' : 'true'}
+        contenteditable=${this.disabled || this.readonly || this.selectOnly ? 'false' : 'true'}
         inputmode="numeric"
         role="spinbutton"
         tabindex=${this.disabled ? '-1' : timePartIndex === this.#rovingIndex ? '0' : '-1'}
@@ -471,9 +502,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.setCustomValidity('');
     }
   }
-
-  timeFormatCache: Record<string, DateFormatPart[]> = {};
-  timeUnitCache: Record<string, Record<string, string>> = {};
 
   /** Returns the formatted date string for the select-all input. */
   #getFormattedValue(): string {
@@ -887,29 +915,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       });
     }
   }
-
-  /** Returns the formatted date string for the select-all input. */
-  // #getFormattedValue(): string {
-  //   const locale = this.locale ?? 'default',
-  //     parts = this.getTimeFormat(locale);
-
-  //   return parts
-  //     .map(part => {
-  //       if (part.type === 'literal') {
-  //         return part.value;
-  //       }
-
-  //       const partType = part.type as TimePartType,
-  //         currentValue = this.timeParts[partType];
-
-  //       if (currentValue !== undefined) {
-  //         return String(currentValue).padStart(part.value.length, '0');
-  //       }
-
-  //       return getDateUnitLetter(locale, partType).repeat(part.value.length);
-  //     })
-  //     .join('');
-  // }
 
   #selectContent(span: HTMLElement): void {
     const range = document.createRange();

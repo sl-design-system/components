@@ -36,7 +36,8 @@ export function getDateFormat(locale: string, date?: Date): DateFormatPart[] {
   // when the value is set in DateField, we force 2-digit formatting
   const intlParts = new Intl.DateTimeFormat(locale, {
     hour: '2-digit',
-    minute: '2-digit'
+    minute: '2-digit',
+    hourCycle: 'h23'
   }).formatToParts(date ?? new Date());
 
   // Extend the parts to include the indices of each part in the formatted string

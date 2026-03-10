@@ -44,7 +44,9 @@ jobs:
 
       - name: Change .md paths to URLs
         id: generate_urls
-        run: node scripts/generate_test_URLs.js "${{ steps.detect_changes.outputs.all_changed_files }}"
+        run: node scripts/generate_test_URLs.js
+        env:
+          CHANGED_MD: '${{ steps.detect_changes.outputs.all_changed_files }}'
 
       - name: Build website
         run: yarn website

@@ -5,6 +5,9 @@ on:
     branches:
       - main
     types: [opened, synchronize, reopened, closed]
+  push:
+    branches:
+      - main
 
 jobs:
   generate-urls:

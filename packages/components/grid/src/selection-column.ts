@@ -17,6 +17,11 @@ declare global {
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridSelectionColumn<T = any> extends GridColumn<T> {
+  /** @internal */
+  override get baseScopedElements(): Record<string, typeof HTMLElement> {
+    return { 'sl-checkbox': Checkbox };
+  }
+
   /** Set this property to true to select all rows in the grid. */
   @property({ type: Boolean, attribute: 'select-all' }) selectAll?: boolean;
 
@@ -24,7 +29,6 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
     super.connectedCallback();
 
     this.grow = 0;
-    this.scopedElements = { 'sl-checkbox': Checkbox };
   }
 
   override willUpdate(changes: PropertyValues<this>): void {

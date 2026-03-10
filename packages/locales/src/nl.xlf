@@ -411,10 +411,8 @@
   <target>Leeg</target>
 </trans-unit>
 <trans-unit id="sl.calendar.rangeBetween">
-  <source>Between <x id="0" equiv-text="${format(this.min, this.locale, this.#helperTextFormatOptions)}"/> and
-              <x id="1" equiv-text="${format(this.max, this.locale, this.#helperTextFormatOptions)}"/></source>
-  <target>Tussen <x id="0" equiv-text="${format(this.min, this.locale, this.#helperTextFormatOptions)}"/> en
-              <x id="1" equiv-text="${format(this.max, this.locale, this.#helperTextFormatOptions)}"/></target>
+  <source>Between <x id="0" equiv-text="${format(this.min, this.locale, this.#helperTextFormatOptions)}"/> and <x id="1" equiv-text="${format(this.max, this.locale, this.#helperTextFormatOptions)}"/></source>
+  <target>Tussen <x id="0" equiv-text="${format(this.min, this.locale, this.#helperTextFormatOptions)}"/> en <x id="1" equiv-text="${format(this.max, this.locale, this.#helperTextFormatOptions)}"/></target>
 </trans-unit>
 <trans-unit id="sl.calendar.rangeFrom">
   <source>From <x id="0" equiv-text="${format(this.min, this.locale, this.#helperTextFormatOptions)}"/></source>

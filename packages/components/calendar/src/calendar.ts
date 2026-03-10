@@ -165,8 +165,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
             <span id="min-max-helper-text" class="helper-text"
               ><sl-icon name="info"></sl-icon>
               ${msg(
-                str`Between ${format(this.min, this.locale, this.#helperTextFormatOptions)} and
-              ${format(this.max, this.locale, this.#helperTextFormatOptions)}`,
+                str`Between ${format(this.min, this.locale, this.#helperTextFormatOptions)} and ${format(this.max, this.locale, this.#helperTextFormatOptions)}`,
                 { id: 'sl.calendar.rangeBetween' }
               )}
             </span>
@@ -193,13 +192,18 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     `;
   }
 
-  override updated(): void {
-    requestAnimationFrame(() => this.#updateHelperTextDescription());
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('min') || changes.has('max') || changes.has('mode') || changes.has('month')) {
+      requestAnimationFrame(() => {
+        this.#updateHelperTextDescription();
+      });
+    }
   }
 
   #updateHelperTextDescription(): void {
-    const helperText = this.renderRoot.querySelector('#min-max-helper-text'),
-      describedBy = helperText ? [helperText] : null;
+    const helperText = this.renderRoot.querySelector('#min-max-helper-text');
 
     const focusableDay = this.renderRoot
         .querySelector<SelectDay>('sl-select-day')
@@ -216,7 +220,15 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
     for (const element of [focusableDay, focusableMonth, focusableYear]) {
       if (element) {
-        element.ariaDescribedByElements = describedBy;
+        const existingDescriptions = (element.ariaDescribedByElements ?? []).filter(
+          el => el.id !== 'min-max-helper-text'
+        );
+
+        element.ariaDescribedByElements = helperText
+          ? [...existingDescriptions, helperText]
+          : existingDescriptions.length
+            ? existingDescriptions
+            : null;
       }
     }
   }

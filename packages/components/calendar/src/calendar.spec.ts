@@ -581,4 +581,171 @@ describe('sl-calendar', () => {
       expect(selectYear).to.have.attribute('max', maxDate.toISOString());
     });
   });
+
+  describe('helper text', () => {
+    it('should not render helper text when neither min nor max is set', async () => {
+      el = await fixture(html`<sl-calendar></sl-calendar>`);
+
+      expect(el.renderRoot.querySelector('#min-max-helper-text')).not.to.exist;
+    });
+
+    it('should render proper helper text when both min and max are set', async () => {
+      el = await fixture(html`
+        <sl-calendar
+          min=${new Date(2023, 0, 1).toISOString()}
+          max=${new Date(2023, 11, 31).toISOString()}
+        ></sl-calendar>
+      `);
+
+      const helperText = el.renderRoot.querySelector('#min-max-helper-text');
+
+      expect(helperText).to.exist;
+      expect(helperText).to.have.trimmed.text('Between January 01 and December 31');
+    });
+
+    it('should render proper helper text when only min is set', async () => {
+      el = await fixture(html`<sl-calendar min=${new Date(2023, 0, 1).toISOString()}></sl-calendar>`);
+
+      const helperText = el.renderRoot.querySelector('#min-max-helper-text');
+
+      expect(helperText).to.exist;
+      expect(helperText).to.have.trimmed.text('From 01/01/2023');
+    });
+
+    it('should render proper helper text when only max is set', async () => {
+      el = await fixture(html`<sl-calendar max=${new Date(2023, 11, 31).toISOString()}></sl-calendar>`);
+
+      const helperText = el.renderRoot.querySelector('#min-max-helper-text');
+
+      expect(helperText).to.exist;
+      expect(helperText).to.have.trimmed.text('Until 12/31/2023');
+    });
+
+    it('should use long month format without year in the helper text when min and max are within the same year', async () => {
+      el = await fixture(html`
+        <sl-calendar
+          min=${new Date(2023, 0, 15).toISOString()}
+          max=${new Date(2023, 5, 20).toISOString()}
+        ></sl-calendar>
+      `);
+
+      const helperText = el.renderRoot.querySelector('#min-max-helper-text');
+
+      expect(helperText).to.exist;
+      expect(helperText).to.have.trimmed.text('Between January 15 and June 20');
+    });
+
+    it('should include the year in the helper text when min and max are in different years', async () => {
+      el = await fixture(html`
+        <sl-calendar
+          min=${new Date(2023, 0, 1).toISOString()}
+          max=${new Date(2024, 11, 31).toISOString()}
+        ></sl-calendar>
+      `);
+
+      const helperText = el.renderRoot.querySelector('#min-max-helper-text');
+
+      expect(helperText).to.exist;
+      expect(helperText).to.have.trimmed.text('Between 01/01/2023 and 12/31/2024');
+    });
+
+    it('should set ariaDescribedByElements on the first focusable day button', async () => {
+      el = await fixture(html`
+        <sl-calendar
+          min=${new Date(2023, 0, 1).toISOString()}
+          max=${new Date(2023, 11, 31).toISOString()}
+        ></sl-calendar>
+      `);
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const helperText = el.renderRoot.querySelector('#min-max-helper-text'),
+        focusableDay = el.renderRoot
+          .querySelector<SelectDay>('sl-select-day')
+          ?.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')
+          ?.renderRoot.querySelector<HTMLButtonElement>(
+            'button:not(:disabled):not([part~="previous-month"]):not([part~="next-month"])'
+          );
+
+      expect(focusableDay).to.exist;
+      expect(focusableDay?.ariaDescribedByElements).to.include(helperText);
+    });
+
+    it('should set ariaDescribedByElements on the first focusable month button', async () => {
+      el = await fixture(html`
+        <sl-calendar
+          min=${new Date(2023, 0, 1).toISOString()}
+          max=${new Date(2023, 11, 31).toISOString()}
+        ></sl-calendar>
+      `);
+
+      el.renderRoot
+        .querySelector<SelectDay>('sl-select-day')
+        ?.renderRoot.querySelector<HTMLElement>('.current-month')
+        ?.click();
+      await el.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const helperText = el.renderRoot.querySelector('#min-max-helper-text'),
+        focusableMonth = el.renderRoot
+          .querySelector<SelectMonth>('sl-select-month')
+          ?.renderRoot.querySelector<HTMLButtonElement>('button:not(:disabled)');
+
+      expect(focusableMonth).to.exist;
+      expect(focusableMonth?.ariaDescribedByElements).to.include(helperText);
+    });
+
+    it('should set ariaDescribedByElements on the first focusable year button', async () => {
+      el = await fixture(html`
+        <sl-calendar
+          min=${new Date(2023, 0, 1).toISOString()}
+          max=${new Date(2024, 11, 31).toISOString()}
+        ></sl-calendar>
+      `);
+
+      el.renderRoot
+        .querySelector<SelectDay>('sl-select-day')
+        ?.renderRoot.querySelector<HTMLElement>('.current-year')
+        ?.click();
+      await el.updateComplete;
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const helperText = el.renderRoot.querySelector('#min-max-helper-text'),
+        focusableYear = el.renderRoot
+          .querySelector<SelectYear>('sl-select-year')
+          ?.renderRoot.querySelector<HTMLButtonElement>('button:not(:disabled)');
+
+      expect(focusableYear).to.exist;
+      expect(focusableYear?.ariaDescribedByElements).to.include(helperText);
+    });
+
+    it('should preserve existing ariaDescribedByElements when adding helper text', async () => {
+      el = await fixture(html`
+        <sl-calendar
+          min=${new Date(2023, 2, 1).toISOString()}
+          max=${new Date(2023, 2, 31).toISOString()}
+          .indicatorDates=${[{ date: new Date(2023, 2, 1), color: 'blue', label: 'Event' }]}
+        ></sl-calendar>
+      `);
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const helperText = el.renderRoot.querySelector('#min-max-helper-text'),
+        monthView = el.renderRoot
+          .querySelector<SelectDay>('sl-select-day')
+          ?.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])'),
+        firstDayButton = monthView?.renderRoot.querySelector<HTMLButtonElement>(
+          'button:not(:disabled):not([part~="previous-month"]):not([part~="next-month"])'
+        ),
+        indicatorTooltip = (monthView?.renderRoot as ShadowRoot)?.getElementById(
+          `indicator-${new Date(2023, 2, 1).toISOString()}`
+        );
+
+      expect(firstDayButton).to.exist;
+      expect(indicatorTooltip).to.exist;
+      expect(firstDayButton?.ariaDescribedByElements).to.include(helperText);
+      expect(firstDayButton?.ariaDescribedByElements).to.include(indicatorTooltip);
+    });
+  });
 });

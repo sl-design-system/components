@@ -19,8 +19,7 @@ export const templates = {
   'sl.calendar.previousMonth': str`Vorige maand, ${0}`,
   'sl.calendar.previousYear': str`Vorig jaar, ${0}`,
   'sl.calendar.previousYears': 'Ga 12 jaar vooruit',
-  'sl.calendar.rangeBetween': str`Tussen ${0} en
-              ${1}`,
+  'sl.calendar.rangeBetween': str`Tussen ${0} en ${1}`,
   'sl.calendar.rangeFrom': str`Van ${0}`,
   'sl.calendar.rangeUntil': str`Tot ${0}`,
   'sl.calendar.week': 'Week',

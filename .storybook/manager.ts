@@ -48,7 +48,8 @@ const findComponentTags = (stories: LeafEntry[] = []) => {
 
   return Object.entries(tagToCount)
     .filter(([tag, count]) => count === stories.length && !SYSTEM_TAGS.includes(tag))
-    .map(([tag]) => tag);
+    .map(([tag]) => tag)
+    .filter(tag => tag !== 'manifest');
 };
 
 addons.setConfig({

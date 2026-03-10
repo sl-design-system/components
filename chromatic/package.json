@@ -28,7 +28,7 @@
       "command": "storybook dev -p 6008 --no-open",
       "service": {
         "readyWhen": {
-          "lineMatches": "Storybook \\S+ for .*web-components-vite.* started"
+          "lineMatches": "Storybook ready!"
         }
       },
       "files": [

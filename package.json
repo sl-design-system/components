@@ -474,7 +474,7 @@
     "chai": "^6.2.2",
     "chai-datetime": "^1.8.1",
     "chai-dom": "^1.12.1",
-    "chromatic": "^13.3.0",
+    "chromatic": "^13.3.5",
     "eslint": "^9.27.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.3.3",

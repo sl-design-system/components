@@ -47,7 +47,7 @@
       ],
       "service": {
         "readyWhen": {
-          "lineMatches": "Storybook \\S+ for .*angular.* started"
+          "lineMatches": "Storybook ready!"
         }
       },
       "files": [
@@ -116,6 +116,7 @@
     "@storybook/addon-docs": "^10.2.17",
     "@storybook/angular": "^10.2.17",
     "@types/jasmine": "~6.0.0",
+    "baseline-browser-mapping": "^2.10.0",
     "jasmine-core": "~6.1.0",
     "karma": "~6.4.4",
     "karma-chrome-launcher": "~3.2.0",

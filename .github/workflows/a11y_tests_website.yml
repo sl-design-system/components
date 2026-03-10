@@ -23,6 +23,12 @@ jobs:
         id: generate_urls
         run: node scripts/generate_test_URLs.js "${{ steps.detect_changes.outputs.all_changed_files }}"
 
+      - name: Build website
+        run: yarn website
+
+      - name: Start server
+        run: yarn workspace @sl-design-system/website start
+
       - name: Run Playwright & axe-core tests
         run: npx playwright test --config=playwright.config.ts --project=website
 

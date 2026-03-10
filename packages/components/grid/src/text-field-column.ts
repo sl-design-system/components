@@ -13,10 +13,9 @@ declare global {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridTextFieldColumn<T = any> extends GridColumn<T> {
-  override connectedCallback(): void {
-    super.connectedCallback();
-
-    this.scopedElements = { ...this.scopedElements, 'sl-text-field': TextField };
+  /** @internal */
+  override get baseScopedElements(): Record<string, typeof HTMLElement> {
+    return { 'sl-text-field': TextField };
   }
 
   override renderData(item: ListDataSourceDataItem<T>): TemplateResult {

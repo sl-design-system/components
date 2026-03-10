@@ -138,7 +138,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
             <sl-select-month
               @sl-select=${this.#onSelectMonth}
               @sl-toggle=${this.#onToggleMonthYear}
-              ?show-today=${this.showToday}
+              ?show-current=${this.showToday}
               .selected=${this.selected}
               .month=${this.month}
               locale=${ifDefined(this.locale)}
@@ -152,7 +152,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           () => html`
             <sl-select-year
               @sl-select=${this.#onSelectYear}
-              ?show-today=${this.showToday}
+              ?show-current=${this.showToday}
               .selected=${this.selected}
               .year=${this.month}
               max=${ifDefined(this.max?.toISOString())}

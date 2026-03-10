@@ -464,12 +464,12 @@ describe('sl-calendar', () => {
       await el.updateComplete;
     });
 
-    it('should pass show-today to select-month', async () => {
+    it('should pass show-today to select-month as show-current', async () => {
       el.showToday = true;
       await el.updateComplete;
 
       const selectMonth = el.renderRoot.querySelector<SelectMonth>('sl-select-month');
-      expect(selectMonth).to.have.attribute('show-today');
+      expect(selectMonth).to.have.attribute('show-current');
     });
 
     it('should pass selected date to select-month', async () => {
@@ -533,12 +533,12 @@ describe('sl-calendar', () => {
       await el.updateComplete;
     });
 
-    it('should pass show-today to select-year', async () => {
+    it('should pass show-today to select-year as show-current', async () => {
       el.showToday = true;
       await el.updateComplete;
 
       const selectYear = el.renderRoot.querySelector<SelectYear>('sl-select-year');
-      expect(selectYear).to.have.attribute('show-today');
+      expect(selectYear).to.have.attribute('show-current');
     });
 
     it('should pass selected date to select-year', async () => {

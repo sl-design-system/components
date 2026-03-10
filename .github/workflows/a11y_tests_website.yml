@@ -26,6 +26,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
       - name: Detect changed .md files
         id: detect_changes
         uses: tj-actions/changed-files@v44
@@ -40,21 +49,8 @@ jobs:
         run: yarn website
 
       - name: Start server
-        run: yarn workspace @sl-design-system/website start
-
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps
+        run: yarn workspace @sl-design-system/website start &
+        working-directory: .
 
       - name: Run Playwright & axe-core tests
         run: npx playwright test --config=playwright.config.ts --project=website
@@ -65,10 +61,8 @@ jobs:
           name: a11y-results
           path: reports/
 
-      - name: Generate summary report
-        run: node scripts/generate_summary.js
-
       - name: Comment summary on PR
+        if: github.event_name == 'pull_request'
         uses: actions/github-script@v6
         with:
           script: |
@@ -80,7 +74,7 @@ jobs:
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: `### Accessibility Test Summary\n\n${summary}`
+                body: `### Accessibility Test Summary\n\n\`\`\`json\n${summary}\`\`\``
               });
             } else {
               console.log('Summary file not found.');

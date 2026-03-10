@@ -652,7 +652,7 @@ describe('sl-calendar', () => {
       expect(helperText).to.have.trimmed.text('Between 01/01/2023 and 12/31/2024');
     });
 
-    it('should set ariaDescribedByElements on the first focusable day button', async () => {
+    it('should set ariaDescribedByElements on a focused day button', async () => {
       el = await fixture(html`
         <sl-calendar
           locale="en-US"
@@ -661,21 +661,20 @@ describe('sl-calendar', () => {
         ></sl-calendar>
       `);
 
-      await new Promise(resolve => requestAnimationFrame(resolve));
-
-      const helperText = el.renderRoot.querySelector('#min-max-helper-text'),
-        focusableDay = el.renderRoot
+      const monthView = el.renderRoot
           .querySelector<SelectDay>('sl-select-day')
-          ?.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')
-          ?.renderRoot.querySelector<HTMLButtonElement>(
-            'button:not(:disabled):not([part~="previous-month"]):not([part~="next-month"])'
-          );
+          ?.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])'),
+        dayButton = monthView?.renderRoot.querySelector<HTMLButtonElement>('button[tabindex="0"]');
 
-      expect(focusableDay).to.exist;
-      expect(focusableDay?.ariaDescribedByElements).to.include(helperText);
+      dayButton?.focus();
+
+      const helperText = el.renderRoot.querySelector('#min-max-helper-text');
+
+      expect(dayButton).to.exist;
+      expect(dayButton?.ariaDescribedByElements).to.include(helperText);
     });
 
-    it('should set ariaDescribedByElements on the first focusable month button', async () => {
+    it('should set ariaDescribedByElements on a focused month button', async () => {
       el = await fixture(html`
         <sl-calendar
           locale="en-US"
@@ -684,6 +683,7 @@ describe('sl-calendar', () => {
         ></sl-calendar>
       `);
 
+      // Switch to month mode
       el.renderRoot
         .querySelector<SelectDay>('sl-select-day')
         ?.renderRoot.querySelector<HTMLElement>('.current-month')
@@ -691,16 +691,18 @@ describe('sl-calendar', () => {
       await el.updateComplete;
       await new Promise(resolve => requestAnimationFrame(resolve));
 
-      const helperText = el.renderRoot.querySelector('#min-max-helper-text'),
-        focusableMonth = el.renderRoot
-          .querySelector<SelectMonth>('sl-select-month')
-          ?.renderRoot.querySelector<HTMLButtonElement>('button:not(:disabled)');
+      const selectMonth = el.renderRoot.querySelector<SelectMonth>('sl-select-month'),
+        monthButton = selectMonth?.renderRoot.querySelector<HTMLButtonElement>('table button:not(:disabled)');
 
-      expect(focusableMonth).to.exist;
-      expect(focusableMonth?.ariaDescribedByElements).to.include(helperText);
+      monthButton?.focus();
+
+      const helperText = el.renderRoot.querySelector('#min-max-helper-text');
+
+      expect(monthButton).to.exist;
+      expect(monthButton?.ariaDescribedByElements).to.include(helperText);
     });
 
-    it('should set ariaDescribedByElements on the first focusable year button', async () => {
+    it('should set ariaDescribedByElements on a focused year button', async () => {
       el = await fixture(html`
         <sl-calendar
           locale="en-US"
@@ -709,21 +711,23 @@ describe('sl-calendar', () => {
         ></sl-calendar>
       `);
 
+      // Switch to year mode
       el.renderRoot
         .querySelector<SelectDay>('sl-select-day')
         ?.renderRoot.querySelector<HTMLElement>('.current-year')
         ?.click();
       await el.updateComplete;
-
       await new Promise(resolve => requestAnimationFrame(resolve));
 
-      const helperText = el.renderRoot.querySelector('#min-max-helper-text'),
-        focusableYear = el.renderRoot
-          .querySelector<SelectYear>('sl-select-year')
-          ?.renderRoot.querySelector<HTMLButtonElement>('button:not(:disabled)');
+      const selectYear = el.renderRoot.querySelector<SelectYear>('sl-select-year'),
+        yearButton = selectYear?.renderRoot.querySelector<HTMLButtonElement>('table button:not(:disabled)');
 
-      expect(focusableYear).to.exist;
-      expect(focusableYear?.ariaDescribedByElements).to.include(helperText);
+      yearButton?.focus();
+
+      const helperText = el.renderRoot.querySelector('#min-max-helper-text');
+
+      expect(yearButton).to.exist;
+      expect(yearButton?.ariaDescribedByElements).to.include(helperText);
     });
 
     it('should preserve existing ariaDescribedByElements when adding helper text', async () => {
@@ -736,23 +740,22 @@ describe('sl-calendar', () => {
         ></sl-calendar>
       `);
 
-      await new Promise(resolve => requestAnimationFrame(resolve));
-
-      const helperText = el.renderRoot.querySelector('#min-max-helper-text'),
-        monthView = el.renderRoot
+      const monthView = el.renderRoot
           .querySelector<SelectDay>('sl-select-day')
           ?.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])'),
-        firstDayButton = monthView?.renderRoot.querySelector<HTMLButtonElement>(
-          'button:not(:disabled):not([part~="previous-month"]):not([part~="next-month"])'
-        ),
+        dayButton = monthView?.renderRoot.querySelector<HTMLButtonElement>('button[tabindex="0"]'),
         indicatorTooltip = (monthView?.renderRoot as ShadowRoot)?.getElementById(
           `indicator-${new Date(2023, 2, 1).toISOString()}`
         );
 
-      expect(firstDayButton).to.exist;
+      dayButton?.focus();
+
+      const helperText = el.renderRoot.querySelector('#min-max-helper-text');
+
+      expect(dayButton).to.exist;
       expect(indicatorTooltip).to.exist;
-      expect(firstDayButton?.ariaDescribedByElements).to.include(helperText);
-      expect(firstDayButton?.ariaDescribedByElements).to.include(indicatorTooltip);
+      expect(dayButton?.ariaDescribedByElements).to.include(helperText);
+      expect(dayButton?.ariaDescribedByElements).to.include(indicatorTooltip);
     });
   });
 });

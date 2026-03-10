@@ -2,7 +2,7 @@ import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { format } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, LocaleMixin, event } from '@sl-design-system/shared';
+import { type EventEmitter, EventsController, LocaleMixin, event } from '@sl-design-system/shared';
 import { dateConverter, dateListConverter } from '@sl-design-system/shared/converters.js';
 import { isSameDate } from '@sl-design-system/shared/date.js';
 import { type SlChangeEvent, type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
@@ -11,7 +11,6 @@ import { property, state } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './calendar.scss.js';
-import { type MonthView } from './month-view.js';
 import { SelectDay } from './select-day.js';
 import { SelectMonth } from './select-month.js';
 import { SelectYear } from './select-year.js';
@@ -43,6 +42,12 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
+
+  /** Events controller. */
+  // eslint-disable-next-line no-unused-private-class-members
+  #events = new EventsController(this, {
+    focusin: this.#onFocusIn
+  });
 
   /**
    * Tracks the previously active calendar mode (`'day' | 'month' | 'year'`) so the
@@ -193,46 +198,33 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     `;
   }
 
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    const helperTextProps: Array<keyof Calendar> = ['min', 'max', 'mode', 'month', 'selected', 'indicatorDates'];
-
-    if (helperTextProps.some(prop => changes.has(prop))) {
-      requestAnimationFrame(() => {
-        this.#updateHelperTextDescription();
-      });
+  /** Sets `ariaDescribedByElements` on the button that receives focus inside the calendar grid. */
+  #onFocusIn(event: FocusEvent): void {
+    if (!this.min && !this.max) {
+      return;
     }
-  }
 
-  #updateHelperTextDescription(): void {
     const helperText = this.renderRoot.querySelector('#min-max-helper-text');
 
-    const focusableDay = this.renderRoot
-        .querySelector<SelectDay>('sl-select-day')
-        ?.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')
-        ?.renderRoot.querySelector<HTMLButtonElement>(
-          'button:not(:disabled):not([part~="previous-month"]):not([part~="next-month"])'
-        ),
-      focusableMonth = this.renderRoot
-        .querySelector<SelectMonth>('sl-select-month')
-        ?.renderRoot.querySelector<HTMLButtonElement>('button:not(:disabled)'),
-      focusableYear = this.renderRoot
-        .querySelector<SelectYear>('sl-select-year')
-        ?.renderRoot.querySelector<HTMLButtonElement>('button:not(:disabled)');
+    if (!helperText) {
+      return;
+    }
 
-    for (const element of [focusableDay, focusableMonth, focusableYear]) {
-      if (element) {
-        const existingDescriptions = (element.ariaDescribedByElements ?? []).filter(
-          el => el.id !== 'min-max-helper-text'
-        );
+    const activeView =
+      this.mode === 'month' ? 'sl-select-month' : this.mode === 'year' ? 'sl-select-year' : 'sl-select-day';
 
-        element.ariaDescribedByElements = helperText
-          ? [...existingDescriptions, helperText]
-          : existingDescriptions.length
-            ? existingDescriptions
-            : null;
-      }
+    const button =
+      event
+        .composedPath()
+        .find((el): el is HTMLButtonElement => el instanceof HTMLButtonElement && !!el.closest('table[role="grid"]')) ??
+      this.renderRoot
+        .querySelector(activeView)
+        ?.renderRoot?.querySelector<HTMLButtonElement>('table button:not(:disabled)');
+
+    if (button) {
+      const existing = (button.ariaDescribedByElements ?? []).filter(el => el.id !== 'min-max-helper-text');
+
+      button.ariaDescribedByElements = [...existing, helperText];
     }
   }
 
@@ -292,7 +284,6 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     // Wait until the new mode has rendered before focusing the correct element
     requestAnimationFrame(() => {
       this.renderRoot.querySelector(event.detail === 'month' ? 'sl-select-month' : 'sl-select-year')?.focus();
-      this.#updateHelperTextDescription();
     });
   }
 }

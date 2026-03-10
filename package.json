@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/monorepo",
-  "packageManager": "yarn@4.10.3",
+  "packageManager": "yarn@4.13.0",
   "private": true,
   "repository": {
     "type": "git",
@@ -362,7 +362,7 @@
       "command": "storybook dev -p 6006 --no-open",
       "service": {
         "readyWhen": {
-          "lineMatches": "Storybook \\S+ for .*web-components-vite.* started"
+          "lineMatches": "Storybook ready!"
         }
       },
       "files": [

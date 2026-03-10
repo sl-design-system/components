@@ -24,14 +24,14 @@ table {
 
 td,
 th {
-  padding: var(--sl-size-025);
+  padding: var(--sl-size-010);
   position: relative;
 }
 
 [part~='week-day'],
 [part~='week-number'] {
   color: var(--sl-color-foreground-disabled);
-  font-weight: normal;
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
 }
 
 [part='week-day'] {
@@ -47,7 +47,8 @@ th {
 }
 
 [part~='week-number'] {
-  min-inline-size: var(--sl-size-400);
+  inline-size: auto;
+  min-inline-size: calc(var(--sl-size-300) + 2 * var(--sl-size-050) + 2 * var(--sl-size-010));
   position: relative;
   text-align: center;
 
@@ -138,7 +139,7 @@ button {
 }
 
 [part~='indicator']::after {
-  background: var(--sl-color-background-accent-blue-bold);
+  background: var(--sl-color-border-accent-blue-plain);
   block-size: var(--sl-size-075);
   border: var(--sl-size-borderWidth-default) solid var(--sl-elevation-surface-raised-default);
   border-radius: var(--sl-size-borderRadius-full);
@@ -152,17 +153,17 @@ button {
 }
 
 [part~='indicator-green']::after {
-  background: var(--sl-color-background-accent-green-bold);
+  background: var(--sl-color-border-accent-green-plain);
 }
 
 [part~='indicator-grey']::after {
-  background: var(--sl-color-background-accent-grey-bold);
+  background: var(--sl-color-border-accent-grey-bold);
 }
 
 [part~='indicator-red']::after {
-  background: var(--sl-color-background-accent-red-bold);
+  background: var(--sl-color-border-accent-red-plain);
 }
 
 [part~='indicator-yellow']::after {
-  background: var(--sl-color-background-accent-yellow-bold);
+  background: var(--sl-color-border-accent-yellow-plain);
 }

@@ -1,5 +1,6 @@
 :host {
   --_days-in-week: 7;
+  --_cell-size: calc(var(--sl-size-300) + 2 * var(--sl-size-050) + 2 * var(--sl-size-010));
 
   display: inline-flex;
   flex-direction: column;
@@ -8,15 +9,15 @@
 
 :host([show-week-numbers]) {
   .days-of-week {
-    grid-template-columns: var(--sl-size-600) repeat(var(--_days-in-week), var(--sl-size-450));
+    grid-template-columns: var(--_cell-size) repeat(var(--_days-in-week), var(--_cell-size));
   }
 
   .scroller {
-    max-inline-size: calc(var(--sl-size-600) + var(--_days-in-week) * var(--sl-size-450) + var(--sl-size-100));
+    max-inline-size: calc(var(--_cell-size) + var(--_days-in-week) * var(--_cell-size));
   }
 
   sl-month-view::part(week-number) {
-    min-inline-size: calc(var(--sl-size-500) + 2 * var(--sl-size-025));
+    min-inline-size: var(--_cell-size);
   }
 }
 
@@ -48,14 +49,16 @@ sl-button {
 .days-of-week {
   color: var(--sl-color-foreground-disabled);
   display: grid;
-  font-weight: normal;
-  grid-template-columns: repeat(var(--_days-in-week), var(--sl-size-450));
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+  grid-template-columns: repeat(var(--_days-in-week), var(--_cell-size));
   line-height: calc((24 / 14) * 1em);
-  padding: var(--sl-size-050);
+  padding-block: var(--sl-size-050);
+  padding-inline: 0;
 }
 
 .day-of-week,
 .week-number {
+  padding-inline: var(--sl-size-010);
   text-align: center;
 }
 
@@ -75,7 +78,7 @@ sl-button {
   align-items: start;
   display: flex;
   flex-grow: 1;
-  max-inline-size: calc(var(--_days-in-week) * var(--sl-size-450) + var(--sl-size-100));
+  max-inline-size: calc(var(--_days-in-week) * var(--_cell-size));
   outline: none;
   overflow: scroll hidden;
   overscroll-behavior-x: contain;
@@ -86,7 +89,7 @@ sl-button {
 
 sl-month-view {
   flex-shrink: 0;
-  padding-inline: var(--sl-size-050);
+  padding-inline: 0;
   scroll-snap-align: start;
   scroll-snap-stop: always;
 

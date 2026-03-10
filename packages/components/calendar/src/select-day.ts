@@ -510,7 +510,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       return;
     }
 
-    const width = parseInt(getComputedStyle(this).width) || 0,
+    const { width } = this.scroller.getBoundingClientRect(),
       canSelectPrevious = this.#canSelectPreviousMonth(),
       canSelectNext = this.#canSelectNextMonth();
 

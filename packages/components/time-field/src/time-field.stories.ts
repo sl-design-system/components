@@ -106,7 +106,7 @@ export const Disabled: Story = {
 export const Placeholder: Story = {
   args: {
     placeholder: 'Add a time',
-    hint: 'We format the time, so you probably don\'t have to explain anything to the user in a placeholder. If you want you can set a custom placeholder, but be careful you are not degrading the user experience by doing so.'
+    hint: "We format the time, so you probably don't have to explain anything to the user in a placeholder. If you want you can set a custom placeholder, but be careful you are not degrading the user experience by doing so."
   }
 };
 

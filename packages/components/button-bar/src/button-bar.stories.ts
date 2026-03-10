@@ -31,11 +31,6 @@ export default {
       options: ['sm', 'md', 'lg']
     }
   },
-  parameters: {
-    viewport: {
-      defaultViewport: 'reset'
-    }
-  },
   render: ({ align, buttons, reverse, size }) => html`
     <sl-button-bar .align=${align} ?reverse=${reverse} size=${ifDefined(size)}>
       ${buttons?.() ??

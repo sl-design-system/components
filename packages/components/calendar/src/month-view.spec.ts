@@ -482,6 +482,8 @@ describe('sl-month-view', () => {
       await el.updateComplete;
 
       const button = el.renderRoot.querySelector<HTMLElement>('button[part~="indicator"]')!;
+      expect(button).to.not.have.attribute('aria-describedby');
+
       await userEvent.hover(button);
       await el.updateComplete;
 
@@ -508,26 +510,33 @@ describe('sl-month-view', () => {
 
       const date13 = new Date(2023, 2, 13).toISOString();
       const button13 = el.renderRoot.querySelector<HTMLElement>(`td[data-date="${date13}"] button`)!;
+      expect(button13).to.not.have.attribute('aria-describedby');
+
       await userEvent.hover(button13);
       await el.updateComplete;
 
       tooltips = el.renderRoot.querySelectorAll('sl-tooltip');
       expect(tooltips).to.have.length(1);
       expect(tooltips[0].textContent?.trim()).to.equal('First');
+      expect(button13).to.have.attribute('aria-describedby', tooltips[0].id);
 
       // Clear hover
       await userEvent.unhover(button13);
       await el.updateComplete;
       expect(el.renderRoot.querySelectorAll('sl-tooltip')).to.have.length(0);
+      expect(button13).to.not.have.attribute('aria-describedby');
 
       const date14 = new Date(2023, 2, 14).toISOString();
       const button14 = el.renderRoot.querySelector<HTMLElement>(`td[data-date="${date14}"] button`)!;
+      expect(button14).to.not.have.attribute('aria-describedby');
+
       await userEvent.hover(button14);
       await el.updateComplete;
 
       tooltips = el.renderRoot.querySelectorAll('sl-tooltip');
       expect(tooltips).to.have.length(1);
       expect(tooltips[0].textContent?.trim()).to.equal('Second');
+      expect(button14).to.have.attribute('aria-describedby', tooltips[0].id);
     });
 
     it('should render no tooltip when no color or label provided', async () => {

@@ -481,8 +481,11 @@ describe('sl-month-view', () => {
       el.indicatorDates = [{ date: new Date(el.month.getFullYear(), el.month.getMonth(), 13), label: 'Special day' }];
       await el.updateComplete;
 
-      const button = el.renderRoot.querySelector<HTMLElement>('button[part~="indicator"]'),
-        tooltip = button?.nextElementSibling;
+      const button = el.renderRoot.querySelector<HTMLElement>('button[part~="indicator"]')!;
+      await userEvent.hover(button);
+      await el.updateComplete;
+
+      const tooltip = button.nextElementSibling;
 
       expect(button).to.exist;
       expect(button).to.have.attribute('aria-describedby', tooltip?.id);
@@ -490,6 +493,41 @@ describe('sl-month-view', () => {
       expect(tooltip).to.match('sl-tooltip');
       expect(tooltip).to.have.attribute('id');
       expect(tooltip?.textContent?.trim()).to.equal('Special day');
+    });
+
+    it('should only render one tooltip at a time when multiple indicators are present', async () => {
+      el.indicatorDates = [
+        { date: new Date(2023, 2, 13), label: 'First' },
+        { date: new Date(2023, 2, 14), label: 'Second' },
+        { date: new Date(2023, 2, 15), label: 'Third' }
+      ];
+      await el.updateComplete;
+
+      let tooltips = el.renderRoot.querySelectorAll('sl-tooltip');
+      expect(tooltips).to.have.length(0);
+
+      const date13 = new Date(2023, 2, 13).toISOString();
+      const button13 = el.renderRoot.querySelector<HTMLElement>(`td[data-date="${date13}"] button`)!;
+      await userEvent.hover(button13);
+      await el.updateComplete;
+
+      tooltips = el.renderRoot.querySelectorAll('sl-tooltip');
+      expect(tooltips).to.have.length(1);
+      expect(tooltips[0].textContent?.trim()).to.equal('First');
+
+      // Clear hover
+      await userEvent.unhover(button13);
+      await el.updateComplete;
+      expect(el.renderRoot.querySelectorAll('sl-tooltip')).to.have.length(0);
+
+      const date14 = new Date(2023, 2, 14).toISOString();
+      const button14 = el.renderRoot.querySelector<HTMLElement>(`td[data-date="${date14}"] button`)!;
+      await userEvent.hover(button14);
+      await el.updateComplete;
+
+      tooltips = el.renderRoot.querySelectorAll('sl-tooltip');
+      expect(tooltips).to.have.length(1);
+      expect(tooltips[0].textContent?.trim()).to.equal('Second');
     });
 
     it('should render no tooltip when no color or label provided', async () => {

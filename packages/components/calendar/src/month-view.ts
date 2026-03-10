@@ -188,8 +188,8 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
    */
   @property({ type: Boolean, attribute: 'show-week-numbers' }) showWeekNumbers?: boolean;
 
-  /** @internal Whether per day indicator tooltips are rendered into the DOM. */
-  @state() tooltipsRendered = false;
+  /** @internal Which day tooltip should be shown. */
+  @state() private _hoveredDay?: Date;
 
   /** @internal The translated days of the week. */
   @state() weekDays: Array<{ long: string; short: string }> = [];
@@ -320,6 +320,10 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
               <button
                 @click=${(event: Event & { target: HTMLElement }) => this.#onClick(event, day)}
                 @keydown=${(event: KeyboardEvent) => this.#onKeydown(event, day)}
+                @pointerover=${() => (this._hoveredDay = day.date)}
+                @pointerout=${() => (this._hoveredDay = undefined)}
+                @focusin=${() => (this._hoveredDay = day.date)}
+                @focusout=${() => (this._hoveredDay = undefined)}
                 ?autofocus=${autofocus}
                 aria-current=${ifDefined(parts.includes('today') ? 'date' : undefined)}
                 aria-describedby=${ifDefined(day.indicator?.label ? `indicator-${day.date.toISOString()}` : undefined)}
@@ -329,7 +333,7 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
               >
                 <span>${day.date.getDate()}</span>
               </button>
-              ${day.indicator?.label
+              ${day.indicator?.label && this._hoveredDay && isSameDate(day.date, this._hoveredDay)
                 ? html`
                     <sl-tooltip id="indicator-${day.date.toISOString()}" offset="4">${day.indicator.label}</sl-tooltip>
                   `

@@ -584,7 +584,7 @@ describe('sl-calendar', () => {
 
   describe('helper text', () => {
     it('should not render helper text when neither min nor max is set', async () => {
-      el = await fixture(html`<sl-calendar></sl-calendar>`);
+      el = await fixture(html`<sl-calendar locale="en-US"></sl-calendar>`);
 
       expect(el.renderRoot.querySelector('#min-max-helper-text')).not.to.exist;
     });
@@ -592,6 +592,7 @@ describe('sl-calendar', () => {
     it('should render proper helper text when both min and max are set', async () => {
       el = await fixture(html`
         <sl-calendar
+          locale="en-US"
           min=${new Date(2023, 0, 1).toISOString()}
           max=${new Date(2023, 11, 31).toISOString()}
         ></sl-calendar>
@@ -604,7 +605,7 @@ describe('sl-calendar', () => {
     });
 
     it('should render proper helper text when only min is set', async () => {
-      el = await fixture(html`<sl-calendar min=${new Date(2023, 0, 1).toISOString()}></sl-calendar>`);
+      el = await fixture(html`<sl-calendar locale="en-US" min=${new Date(2023, 0, 1).toISOString()}></sl-calendar>`);
 
       const helperText = el.renderRoot.querySelector('#min-max-helper-text');
 
@@ -613,7 +614,7 @@ describe('sl-calendar', () => {
     });
 
     it('should render proper helper text when only max is set', async () => {
-      el = await fixture(html`<sl-calendar max=${new Date(2023, 11, 31).toISOString()}></sl-calendar>`);
+      el = await fixture(html`<sl-calendar locale="en-US" max=${new Date(2023, 11, 31).toISOString()}></sl-calendar>`);
 
       const helperText = el.renderRoot.querySelector('#min-max-helper-text');
 
@@ -624,6 +625,7 @@ describe('sl-calendar', () => {
     it('should use long month format without year in the helper text when min and max are within the same year', async () => {
       el = await fixture(html`
         <sl-calendar
+          locale="en-US"
           min=${new Date(2023, 0, 15).toISOString()}
           max=${new Date(2023, 5, 20).toISOString()}
         ></sl-calendar>
@@ -638,6 +640,7 @@ describe('sl-calendar', () => {
     it('should include the year in the helper text when min and max are in different years', async () => {
       el = await fixture(html`
         <sl-calendar
+          locale="en-US"
           min=${new Date(2023, 0, 1).toISOString()}
           max=${new Date(2024, 11, 31).toISOString()}
         ></sl-calendar>
@@ -652,6 +655,7 @@ describe('sl-calendar', () => {
     it('should set ariaDescribedByElements on the first focusable day button', async () => {
       el = await fixture(html`
         <sl-calendar
+          locale="en-US"
           min=${new Date(2023, 0, 1).toISOString()}
           max=${new Date(2023, 11, 31).toISOString()}
         ></sl-calendar>
@@ -674,6 +678,7 @@ describe('sl-calendar', () => {
     it('should set ariaDescribedByElements on the first focusable month button', async () => {
       el = await fixture(html`
         <sl-calendar
+          locale="en-US"
           min=${new Date(2023, 0, 1).toISOString()}
           max=${new Date(2023, 11, 31).toISOString()}
         ></sl-calendar>
@@ -698,6 +703,7 @@ describe('sl-calendar', () => {
     it('should set ariaDescribedByElements on the first focusable year button', async () => {
       el = await fixture(html`
         <sl-calendar
+          locale="en-US"
           min=${new Date(2023, 0, 1).toISOString()}
           max=${new Date(2024, 11, 31).toISOString()}
         ></sl-calendar>
@@ -723,6 +729,7 @@ describe('sl-calendar', () => {
     it('should preserve existing ariaDescribedByElements when adding helper text', async () => {
       el = await fixture(html`
         <sl-calendar
+          locale="en-US"
           min=${new Date(2023, 2, 1).toISOString()}
           max=${new Date(2023, 2, 31).toISOString()}
           .indicatorDates=${[{ date: new Date(2023, 2, 1), color: 'blue', label: 'Event' }]}

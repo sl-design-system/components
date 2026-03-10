@@ -1,4 +1,4 @@
-import { msg, str } from '@lit/localize';
+import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { format } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
@@ -26,6 +26,7 @@ declare global {
 /**
  * A calendar component for displaying and selecting dates.
  */
+@localized()
 export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
@@ -195,7 +196,9 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('min') || changes.has('max') || changes.has('mode') || changes.has('month')) {
+    const helperTextProps: Array<keyof Calendar> = ['min', 'max', 'mode', 'month', 'selected', 'indicatorDates'];
+
+    if (helperTextProps.some(prop => changes.has(prop))) {
       requestAnimationFrame(() => {
         this.#updateHelperTextDescription();
       });

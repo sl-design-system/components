@@ -19,11 +19,15 @@ declare global {
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridDragHandleColumn<T = any> extends GridColumn<T> {
+  /** @internal */
+  override get baseScopedElements(): Record<string, typeof HTMLElement> {
+    return { 'sl-icon': Icon };
+  }
+
   override connectedCallback(): void {
     super.connectedCallback();
 
     this.grow = 0;
-    this.scopedElements = { ...this.scopedElements, 'sl-icon': Icon };
   }
 
   override willUpdate(changes: PropertyValues<this>): void {

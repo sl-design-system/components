@@ -34,7 +34,7 @@ export const Stable = styled(Status)(({ theme }) => ({
   color: `color-mix(in srgb, ${theme.color.darker} 70%, ${theme.color.positive})`
 }));
 
-const SYSTEM_TAGS = ['dev', 'autodocs', 'test'];
+const SYSTEM_TAGS = ['dev', 'autodocs', 'manifest', 'test'];
 
 const findComponentTags = (stories: LeafEntry[] = []) => {
   const allTags = stories.flatMap((story) => story?.tags ?? []);
@@ -48,8 +48,7 @@ const findComponentTags = (stories: LeafEntry[] = []) => {
 
   return Object.entries(tagToCount)
     .filter(([tag, count]) => count === stories.length && !SYSTEM_TAGS.includes(tag))
-    .map(([tag]) => tag)
-    .filter(tag => tag !== 'manifest');
+    .map(([tag]) => tag);
 };
 
 addons.setConfig({

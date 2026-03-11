@@ -1,5 +1,5 @@
 ---
-'@sl-design-system/calendar': patch
+'@sl-design-system/tooltip': patch
 ---
 
-Display only one tooltip when hovering a calendar month view
+Display only one tooltip when hovering a calendar

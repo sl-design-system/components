@@ -302,7 +302,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   override render(): TemplateResult {
-    const locale = this.locale ?? 'default',
+    const locale = this.locale || 'default',
       parts = getDateFormat(locale);
 
     return html`
@@ -559,7 +559,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** Returns the formatted date string for the select-all input. */
   #getFormattedValue(): string {
-    const locale = this.locale ?? 'default',
+    const locale = this.locale || 'default',
       parts = getDateFormat(locale);
 
     return parts
@@ -815,7 +815,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     const span = event.target as HTMLElement;
 
     // Check if the pressed key is a separator character
-    const locale = this.locale ?? 'default',
+    const locale = this.locale || 'default',
       parts = getDateFormat(locale),
       separators = parts.filter((p: DateFormatPart) => p.type === 'literal').map((p: DateFormatPart) => p.value);
 

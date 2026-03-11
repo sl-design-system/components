@@ -1211,84 +1211,52 @@ describe('sl-time-field', () => {
   });
 
   describe('locale', () => {
-    // it('should set the lang attribute on the input when locale attribute is set', async () => {
-    //   el = await fixture(html`<sl-time-field locale="de-DE"></sl-time-field>`);
-    //   // expect(el.input).to.have.attribute('lang', 'de-DE');
-    // });
+    it('should gracefully handle "default" locale without crashing', async () => {
+      const field = await fixture<TimeField>(html`<sl-time-field locale="default" value="00:00"></sl-time-field>`);
 
-    // it('should update the input lang when locale property changes', async () => {
-    //   el = await fixture(html`<sl-time-field locale="fi"></sl-time-field>`);
-    //   expect(el.input).to.have.attribute('lang', 'fi');
-
-    //   el.locale = 'sv';
-    //   await el.updateComplete;
-    //   expect(el.input).to.have.attribute('lang', 'sv');
-    // });
-
-    // it('should remove the lang attribute from input when locale is "default" and no lang attribute is set', async () => {
-    //   el = await fixture(html`<sl-time-field locale="default"></sl-time-field>`);
-    //   expect(el.input).not.to.have.attribute('lang');
-    // });
-
-    // it('should remove the lang attribute when switching from a specific locale to "default"', async () => {
-    //   el = await fixture(html`<sl-time-field locale="fi"></sl-time-field>`);
-    //   expect(el.input).to.have.attribute('lang', 'fi');
-
-    //   el.locale = 'default';
-    //   await el.updateComplete;
-    //   expect(el.input).not.to.have.attribute('lang');
-    // });
-
-    it('should gracefully handle "default" and empty locale strings without crashing', async () => {
-      // We want to ensure no RangeError is thrown by Intl.DateTimeFormat
-      const el1 = await fixture<TimeField>(html`<sl-time-field locale="default" value="00:00"></sl-time-field>`);
-      const el2 = await fixture<TimeField>(html`<sl-time-field locale="" value="00:00"></sl-time-field>`);
-
-      expect(el1).to.exist;
-      expect(el2).to.exist;
-      expect(el1.value).to.equal('00:00');
-      expect(el2.value).to.equal('00:00');
+      expect(field).to.exist;
+      expect(field.value).to.equal('00:00');
+      expect(field.renderRoot.querySelectorAll('span[role="spinbutton"]')).to.have.length(2);
     });
 
-    // it('should update the input lang when document language changes', async () => {
-    //   const originalLang = document.documentElement.lang;
-    //   document.documentElement.lang = 'fr';
+    it('should gracefully handle an empty locale attribute without crashing', async () => {
+      const field = await fixture<TimeField>(html`<sl-time-field locale="" value="00:00"></sl-time-field>`);
 
-    //   el = await fixture(html`<sl-time-field></sl-time-field>`);
-    //   expect(el.input).to.have.attribute('lang', 'fr');
+      expect(field).to.exist;
+      expect(field.value).to.equal('00:00');
+      expect(field.renderRoot.querySelectorAll('span[role="spinbutton"]')).to.have.length(2);
+    });
 
-    //   document.documentElement.lang = 'es';
-    //   // Wait for MutationObserver in LocaleMixin
-    //   await new Promise(resolve => setTimeout(resolve));
+    it('should gracefully handle an empty locale property after initialization', async () => {
+      const field = await fixture<TimeField>(html`<sl-time-field value="12:34"></sl-time-field>`);
 
-    //   expect(el.input).to.have.attribute('lang', 'es');
+      field.locale = '';
+      await field.updateComplete;
 
-    //   document.documentElement.lang = originalLang;
-    // });
+      expect(field.value).to.equal('12:34');
+      expect(field.renderRoot.querySelectorAll('span[role="spinbutton"]')).to.have.length(2);
+    });
 
-    // it('should not set the lang attribute on the input when no locale matches', async () => {
-    //   const originalLang = document.documentElement.lang;
-    //   const originalNavigatorLang = navigator.language;
+    it('should keep keyboard interaction working when locale is set to an empty string', async () => {
+      const field = await fixture<TimeField>(html`<sl-time-field locale=""></sl-time-field>`),
+        hourSpinbutton = field.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
 
-    //   Object.defineProperty(navigator, 'language', {
-    //     value: '',
-    //     configurable: true
-    //   });
+      hourSpinbutton.focus();
+      await userEvent.keyboard('09');
+      await userEvent.keyboard('15');
 
-    //   document.documentElement.lang = 'temp';
-    //   document.documentElement.removeAttribute('lang');
-    //   await new Promise(resolve => setTimeout(resolve));
+      expect(field.value).to.equal('09:15');
+    });
 
-    //   el = await fixture(html`<sl-time-field></sl-time-field>`);
-    //   // expect(el.input).not.to.have.attribute('lang');
+    it('should keep popover interaction working when locale is set to an empty string', async () => {
+      const field = await fixture<TimeField>(html`<sl-time-field locale="" start="12:00"></sl-time-field>`),
+        button = field.renderRoot.querySelector<HTMLElement>('sl-field-button')!,
+        dialog = field.renderRoot.querySelector<HTMLDialogElement>('dialog')!;
 
-    //   Object.defineProperty(navigator, 'language', {
-    //     value: originalNavigatorLang,
-    //     configurable: true
-    //   });
+      button.click();
+      await field.updateComplete;
 
-    //   document.documentElement.lang = originalLang;
-    //   await new Promise(resolve => setTimeout(resolve));
-    // });
+      expect(dialog).to.match(':popover-open');
+    });
   });
 });

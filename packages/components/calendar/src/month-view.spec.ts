@@ -1,3 +1,4 @@
+import { isPopoverOpen } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import '@sl-design-system/tooltip/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
@@ -481,13 +482,8 @@ describe('sl-month-view', () => {
       el.indicatorDates = [{ date: new Date(el.month.getFullYear(), el.month.getMonth(), 13), label: 'Special day' }];
       await el.updateComplete;
 
-      const button = el.renderRoot.querySelector<HTMLElement>('button[part~="indicator"]')!;
-      expect(button).to.not.have.attribute('aria-describedby');
-
-      await userEvent.hover(button);
-      await el.updateComplete;
-
-      const tooltip = button.nextElementSibling;
+      const button = el.renderRoot.querySelector<HTMLElement>('button[part~="indicator"]'),
+        tooltip = button?.nextElementSibling;
 
       expect(button).to.exist;
       expect(button).to.have.attribute('aria-describedby', tooltip?.id);
@@ -497,46 +493,44 @@ describe('sl-month-view', () => {
       expect(tooltip?.textContent?.trim()).to.equal('Special day');
     });
 
-    it('should only render one tooltip at a time when multiple indicators are present', async () => {
+    it('should only show one tooltip at a time and maintain ARIA stability', async () => {
       el.indicatorDates = [
         { date: new Date(2023, 2, 13), label: 'First' },
-        { date: new Date(2023, 2, 14), label: 'Second' },
-        { date: new Date(2023, 2, 15), label: 'Third' }
+        { date: new Date(2023, 2, 14), label: 'Second' }
       ];
       await el.updateComplete;
 
-      let tooltips = el.renderRoot.querySelectorAll('sl-tooltip');
-      expect(tooltips).to.have.length(0);
-
       const date13 = new Date(2023, 2, 13).toISOString();
+      const date14 = new Date(2023, 2, 14).toISOString();
       const button13 = el.renderRoot.querySelector<HTMLElement>(`td[data-date="${date13}"] button`)!;
-      expect(button13).to.not.have.attribute('aria-describedby');
+      const button14 = el.renderRoot.querySelector<HTMLElement>(`td[data-date="${date14}"] button`)!;
+      const tooltips = el.renderRoot.querySelectorAll('sl-tooltip');
 
+      expect(tooltips).to.have.length(2);
+      expect(button13).to.have.attribute('aria-describedby', tooltips[0].id);
+      expect(button14).to.have.attribute('aria-describedby', tooltips[1].id);
+      expect(Array.from(tooltips).every(t => !isPopoverOpen(t))).to.be.true;
+
+      // 1. Hover first button
       await userEvent.hover(button13);
       await el.updateComplete;
+      expect(isPopoverOpen(tooltips[0])).to.be.true;
+      expect(isPopoverOpen(tooltips[1])).to.be.false;
 
-      tooltips = el.renderRoot.querySelectorAll('sl-tooltip');
-      expect(tooltips).to.have.length(1);
-      expect(tooltips[0].textContent?.trim()).to.equal('First');
-      expect(button13).to.have.attribute('aria-describedby', tooltips[0].id);
-
-      // Clear hover
-      await userEvent.unhover(button13);
-      await el.updateComplete;
-      expect(el.renderRoot.querySelectorAll('sl-tooltip')).to.have.length(0);
-      expect(button13).to.not.have.attribute('aria-describedby');
-
-      const date14 = new Date(2023, 2, 14).toISOString();
-      const button14 = el.renderRoot.querySelector<HTMLElement>(`td[data-date="${date14}"] button`)!;
-      expect(button14).to.not.have.attribute('aria-describedby');
-
+      // 2. Transition to second button
       await userEvent.hover(button14);
       await el.updateComplete;
+      expect(isPopoverOpen(tooltips[0])).to.be.false;
+      expect(isPopoverOpen(tooltips[1])).to.be.true;
 
-      tooltips = el.renderRoot.querySelectorAll('sl-tooltip');
-      expect(tooltips).to.have.length(1);
-      expect(tooltips[0].textContent?.trim()).to.equal('Second');
-      expect(button14).to.have.attribute('aria-describedby', tooltips[0].id);
+      // 3. Unhover
+      await userEvent.unhover(button14);
+      await el.updateComplete;
+      expect(Array.from(tooltips).every(t => !isPopoverOpen(t))).to.be.true;
+
+      // 4. ARIA stability check (even when closed)
+      expect(button13).to.have.attribute('aria-describedby', tooltips[0].id);
+      expect(button14).to.have.attribute('aria-describedby', tooltips[1].id);
     });
 
     it('should render no tooltip when no color or label provided', async () => {

@@ -840,5 +840,38 @@ describe('ArrayListDataSource', () => {
 
       expect(onSelectionChange).not.to.have.been.called;
     });
+
+    it('should recalculate groups after setData and update', () => {
+      ds = new ArrayListDataSource(people, { groupBy: 'profession' });
+
+      const groupsBefore = ds.items.filter(item => isListDataSourceGroupItem(item)).map(({ label }) => label);
+
+      expect(groupsBefore).to.deep.equal(['Endocrinologist', 'Gastroenterologist', 'Nephrologist', 'Ophthalmologist']);
+
+      // Replace with data that has different professions
+      ds.setData([
+        {
+          id: 100,
+          firstName: 'Alice',
+          lastName: 'Wonder',
+          profession: 'Surgeon',
+          status: 'Available',
+          membership: 'Regular'
+        },
+        {
+          id: 101,
+          firstName: 'Bob',
+          lastName: 'Builder',
+          profession: 'Dermatologist',
+          status: 'Busy',
+          membership: 'Premium'
+        }
+      ]);
+      ds.update();
+
+      const groupsAfter = ds.items.filter(item => isListDataSourceGroupItem(item)).map(({ label }) => label);
+
+      expect(groupsAfter).to.deep.equal(['Dermatologist', 'Surgeon']);
+    });
   });
 });

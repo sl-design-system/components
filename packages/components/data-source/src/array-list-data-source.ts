@@ -103,6 +103,7 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
   setData(items: T[]): void {
     const options = this.#options;
 
+    this.#groups = undefined;
     this.#mappedItems = items.map(item => ({
       id: options.getId?.(item) ?? (item as { id: unknown }).id ?? item,
       groupId: options.getGroupId?.(item) ?? (options.groupBy ? getValueByPath(item, options.groupBy) : undefined),

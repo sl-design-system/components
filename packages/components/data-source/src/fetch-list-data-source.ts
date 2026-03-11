@@ -50,7 +50,7 @@ export interface FetchListDataSourceOptions<T> extends ListDataSourceOptions<T> 
    * The groups can be collapsed by default. When the user expands a group, the items
    * can then be loaded on demand.
    */
-  groups?: Array<Partial<ListDataSourceGroupItem>>;
+  groups?: Array<Partial<ListDataSourceGroupItem> & { collapsed?: boolean }>;
 
   /** The number of items to fetch per page. */
   pageSize: number;
@@ -132,12 +132,18 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
             ...group,
             id: group.id ?? group,
             type: 'group',
-            collapsed: group.collapsed ?? true,
             members: Array.from({ length: group.size ?? FetchListDataSource.defaultSize }),
             pages: {}
           }
         ])
       );
+
+      // Initialize collapsed state from options
+      for (const group of options.groups) {
+        if (group.collapsed ?? true) {
+          this.collapseGroup(group.id);
+        }
+      }
     } else {
       // Create a dummy group for managing the pages when no groups are provided
       this.#groups = new Map([
@@ -146,7 +152,6 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
           {
             id: FetchListDataSourceDummyGroup,
             type: 'group',
-            collapsed: false,
             members: Array.from({ length: options.size ?? FetchListDataSource.defaultSize }),
             pages: {},
             size: options.size ?? FetchListDataSource.defaultSize
@@ -174,32 +179,6 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
 
     // Initialize the items array, but do not emit an event yet
     this.update(false);
-  }
-
-  override expandGroup(id: unknown): void {
-    const group = this.#groups.get(id);
-    if (group) {
-      group.collapsed = false;
-    }
-  }
-
-  override collapseGroup(id: unknown): void {
-    const group = this.#groups.get(id);
-    if (group) {
-      group.collapsed = true;
-    }
-  }
-
-  override toggleGroup(id: unknown): void {
-    if (this.isGroupCollapsed(id)) {
-      this.expandGroup(id);
-    } else {
-      this.collapseGroup(id);
-    }
-  }
-
-  override isGroupCollapsed(id: unknown): boolean {
-    return this.#groups.get(id)?.collapsed ?? false;
   }
 
   override reorder(
@@ -324,7 +303,7 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
 
       group.startIndex = index;
 
-      if (!group.collapsed && group.members) {
+      if (!this.isGroupCollapsed(group.id) && group.members) {
         items.push(...group.members);
         index += group.members.length;
       }
@@ -342,7 +321,7 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
     for (const group of this.#groups.values()) {
       // Always count the group header itself
       let groupSize = 1;
-      if (!group.collapsed && group.members) {
+      if (!this.isGroupCollapsed(group.id) && group.members) {
         groupSize += group.members.length;
       }
 

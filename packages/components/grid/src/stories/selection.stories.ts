@@ -3,7 +3,11 @@ import { Avatar } from '@sl-design-system/avatar';
 import { Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
-import { ArrayListDataSource, isListDataSourceDataItem } from '@sl-design-system/data-source';
+import {
+  ArrayListDataSource,
+  isListDataSourceDataItem,
+  isListDataSourceGroupItem
+} from '@sl-design-system/data-source';
 import { type Student, getStudents } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
@@ -299,10 +303,25 @@ export const WithLinks: Story = {
 
 export const Grouped: Story = {
   render: (_, { loaded: { students } }) => {
-    const dataSource = new ArrayListDataSource(students as Student[], {
+    let data = students as Student[];
+
+    const ds = new ArrayListDataSource(data, {
       groupBy: 'school.id',
       groupLabelPath: 'school.name'
     });
+
+    const onDelete = (): void => {
+      const ids = ds.items
+        .filter(item => ds.isSelected(item))
+        .flatMap(item => (isListDataSourceGroupItem(item) ? (item.members ?? []) : [item]))
+        .map(item => item.data.id);
+
+      data = data.filter(student => !ids.includes(student.id));
+
+      ds.setData(data);
+      ds.deselectAll();
+      ds.update();
+    };
 
     return html`
       <p>
@@ -313,7 +332,7 @@ export const Grouped: Story = {
         them by using the floating tool-bar at the bottom of the grid. You can add bulk actions by using the
         <code>bulk-actions</code> slot.
       </p>
-      <sl-grid .dataSource=${dataSource}>
+      <sl-grid .dataSource=${ds}>
         <sl-grid-selection-column></sl-grid-selection-column>
         <sl-grid-column
           grow="3"
@@ -322,6 +341,12 @@ export const Grouped: Story = {
           .scopedElements=${{ 'sl-avatar': Avatar }}
         ></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>
+
+        <!-- These get slotted into the floating tool-bar -->
+        <sl-button @click=${onDelete} fill="outline" slot="bulk-actions" variant="inverted">
+          <sl-icon name="far-trash"></sl-icon>
+          Delete
+        </sl-button>
       </sl-grid>
     `;
   }

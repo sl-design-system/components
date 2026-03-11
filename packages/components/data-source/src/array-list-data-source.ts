@@ -57,31 +57,6 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
     this.update(false);
   }
 
-  override expandGroup(id: unknown): void {
-    const group = this.#groups?.get(id);
-    if (group) {
-      group.collapsed = false;
-    }
-  }
-
-  override collapseGroup(id: unknown): void {
-    const group = this.#groups?.get(id);
-    if (group) {
-      group.collapsed = true;
-    }
-  }
-
-  override toggleGroup(id: unknown, force?: boolean): void {
-    const group = this.#groups?.get(id);
-    if (group) {
-      group.collapsed = force ?? !group.collapsed;
-    }
-  }
-
-  override isGroupCollapsed(id: unknown): boolean {
-    return this.#groups?.get(id)?.collapsed ?? false;
-  }
-
   override reorder(
     item: ListDataSourceItem<T>,
     relativeItem: ListDataSourceItem<T>,
@@ -250,6 +225,7 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
 
         if (item.groupId !== currentGroup?.id) {
           currentGroup = this.#groups?.get(item.groupId);
+
           if (currentGroup) {
             currentGroupSelected = this.isSelected(currentGroup);
             currentGroup.members = [];
@@ -270,7 +246,7 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
         }
 
         // Only push the item if the group is not collapsed
-        if (!currentGroup?.collapsed) {
+        if (!this.isGroupCollapsed(currentGroup?.id)) {
           grouped.push(item);
         }
       }

@@ -655,4 +655,146 @@ describe('ArrayListDataSource', () => {
       ]);
     });
   });
+
+  describe('updating', () => {
+    beforeEach(() => {
+      ds = new ArrayListDataSource(people);
+    });
+
+    it('should replace items when setData is called with new data', () => {
+      const newPeople: Person[] = [
+        {
+          id: 100,
+          firstName: 'Alice',
+          lastName: 'Wonder',
+          profession: 'Surgeon',
+          status: 'Available',
+          membership: 'Regular'
+        }
+      ];
+
+      ds.setData(newPeople);
+      ds.update();
+
+      const items = ds.items.filter(item => isListDataSourceDataItem(item)).map(({ data }) => data);
+
+      expect(items).to.have.length(1);
+      expect(items[0]).to.deep.equal(newPeople[0]);
+    });
+
+    it('should update size after setData', () => {
+      const newPeople: Person[] = [
+        {
+          id: 100,
+          firstName: 'Alice',
+          lastName: 'Wonder',
+          profession: 'Surgeon',
+          status: 'Available',
+          membership: 'Regular'
+        },
+        {
+          id: 101,
+          firstName: 'Bob',
+          lastName: 'Builder',
+          profession: 'Surgeon',
+          status: 'Busy',
+          membership: 'Premium'
+        }
+      ];
+
+      ds.setData(newPeople);
+      ds.update();
+
+      expect(ds.size).to.equal(2);
+      expect(ds.totalSize).to.equal(2);
+    });
+
+    it('should handle setData with an empty array', () => {
+      ds.setData([]);
+      ds.update();
+
+      expect(ds.items).to.have.length(0);
+      expect(ds.size).to.equal(0);
+    });
+
+    it('should preserve filters when updating data', () => {
+      ds.addFilter('status', 'status', 'Available');
+      ds.update();
+
+      const newPeople: Person[] = [
+        {
+          id: 100,
+          firstName: 'Alice',
+          lastName: 'Wonder',
+          profession: 'Surgeon',
+          status: 'Available',
+          membership: 'Regular'
+        },
+        {
+          id: 101,
+          firstName: 'Bob',
+          lastName: 'Builder',
+          profession: 'Surgeon',
+          status: 'Busy',
+          membership: 'Premium'
+        }
+      ];
+
+      ds.setData(newPeople);
+      ds.update();
+
+      const items = ds.items.filter(item => isListDataSourceDataItem(item)).map(({ data }) => data);
+
+      expect(items).to.have.length(1);
+      expect(items[0].firstName).to.equal('Alice');
+    });
+
+    it('should preserve sorting when updating data', () => {
+      ds.setSort('firstName', 'asc');
+      ds.update();
+
+      const newPeople: Person[] = [
+        {
+          id: 100,
+          firstName: 'Charlie',
+          lastName: 'Brown',
+          profession: 'Surgeon',
+          status: 'Available',
+          membership: 'Regular'
+        },
+        {
+          id: 101,
+          firstName: 'Alice',
+          lastName: 'Wonder',
+          profession: 'Surgeon',
+          status: 'Available',
+          membership: 'Premium'
+        }
+      ];
+
+      ds.setData(newPeople);
+      ds.update();
+
+      const items = ds.items.filter(item => isListDataSourceDataItem(item)).map(({ data }) => data);
+
+      expect(items[0].firstName).to.equal('Alice');
+      expect(items[1].firstName).to.equal('Charlie');
+    });
+
+    it('should preserve selection when updating data', () => {
+      ds = new ArrayListDataSource(people, { selects: 'multiple' });
+
+      ds.select(ds.items.at(0)!);
+      ds.select(ds.items.at(2)!);
+
+      expect(ds.selection.size).to.equal(2);
+
+      ds.setData([...people]);
+      ds.update();
+
+      expect(ds.selection.size).to.equal(2);
+      expect(ds.isSelected(ds.items.at(0))).to.be.true;
+      expect(ds.isSelected(ds.items.at(2))).to.be.true;
+    });
+  });
 });

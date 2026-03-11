@@ -52,11 +52,13 @@ jobs:
         run: yarn website
 
       - name: Start server
-        run: yarn workspace @sl-design-system/website start &
+        run: yarn workspace @sl-design-system/website start
         working-directory: .
 
       - name: Run Playwright & axe-core tests
-        run: npx playwright test --config=playwright.config.ts --project=website
+        run: |
+          npx playwright install
+          yarn playwright test --config=playwright.config.ts --project=website
 
       - name: Upload test results
         uses: actions/upload-artifact@v4

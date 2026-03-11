@@ -486,75 +486,78 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** @internal */
   override updateInternalValidity(): void {
+    // Don't override custom validity set by the user
+    if (this.validity.customError) {
+      return;
+    }
+
     const { hour, minute } = this.timeParts,
       hasCompleteTime = hour !== undefined && minute !== undefined;
 
+    // Check for incomplete time with partial input (bad input)
     if (hasCompleteTime && !this.value) {
       const completeParts = this.timeParts as TimePart, // safe: hasCompleteTime guarantees both are defined
         minTime = this.min ? this.#parseTime(this.min) : undefined,
         maxTime = this.max ? this.#parseTime(this.max) : undefined;
 
       if (minTime && this.#compareTimes(completeParts, minTime) < 0) {
-        this.setCustomValidity(
+        this.internals.setValidity(
+          { rangeUnderflow: true },
           msg(str`Please select a time that is no earlier than ${this.min}.`, {
             id: 'sl.dateField.rangeUnderflow'
           })
         );
+        return;
       } else if (maxTime && this.#compareTimes(completeParts, maxTime) > 0) {
-        this.setCustomValidity(
+        this.internals.setValidity(
+          { rangeOverflow: true },
           msg(str`Please select a time that is no later than ${this.max}.`, {
             id: 'sl.dateField.rangeOverflow'
           })
         );
+        return;
       } else {
-        this.setCustomValidity(msg('Please enter a valid time.', { id: 'sl.dateField.typeMismatch' }));
+        this.internals.setValidity(
+          { badInput: true },
+          msg('Please enter a valid time.', { id: 'sl.dateField.typeMismatch' })
+        );
+        return;
       }
-    } else if (this.required && !this.value) {
-      this.setCustomValidity(msg('Please enter a time.', { id: 'sl.dateField.valueMissing' }));
-    } else if (this.value && this.min && this.value < this.min) {
-      // const formattedMin = this.#formatter?.format(this.min) ?? this.min.toLocaleTimeString();
+    }
 
-      this.setCustomValidity(
+    // Check for required field without value
+    if (this.required && !this.value) {
+      this.internals.setValidity(
+        { valueMissing: true },
+        msg('Please enter a time.', { id: 'sl.dateField.valueMissing' })
+      );
+      return;
+    }
+
+    // Check for value below minimum
+    if (this.value && this.min && this.value < this.min) {
+      this.internals.setValidity(
+        { rangeUnderflow: true },
         msg(str`Please select a time that is no earlier than ${this.min}.`, {
           id: 'sl.dateField.rangeUnderflow'
         })
       );
-    } else if (this.value && this.max && this.value > this.max) {
-      // const formattedMax = this.#formatter?.format(this.max) ?? this.max.toLocaleDateString();
+      return;
+    }
 
-      this.setCustomValidity(
+    // Check for value above maximum
+    if (this.value && this.max && this.value > this.max) {
+      this.internals.setValidity(
+        { rangeOverflow: true },
         msg(str`Please select a time that is no later than ${this.max}.`, {
           id: 'sl.dateField.rangeOverflow'
         })
       );
-    } else {
-      this.setCustomValidity('');
+      return;
     }
-    // if (this.required && !this.value) {
-    //   this.setCustomValidity(msg('Please enter a time.', { id: 'sl.timeField.valueMissing' }));
-    // } else if (this.input.value && (this.min || this.max)) {
-    //   const time = this.#valueAsNumbers,
-    //     minTime = this.min ? this.#parseTime(this.min) : undefined,
-    //     maxTime = this.max ? this.#parseTime(this.max) : undefined;
 
-    //   if (minTime && (time?.hours ?? 0) * 60 + (time?.minutes ?? 0) < minTime.hours * 60 + minTime.minutes) {
-    //     this.setCustomValidity(
-    //       msg(str`Please select a time that is no earlier than ${this.min}.`, {
-    //         id: 'sl.timeField.validation.rangeUnderflow'
-    //       })
-    //     );
-    //   } else if (maxTime && (time?.hours ?? 0) * 60 + (time?.minutes ?? 0) > maxTime.hours * 60 + maxTime.minutes) {
-    //     this.setCustomValidity(
-    //       msg(str`Please select a time that is no later than ${this.max}.`, {
-    //         id: 'sl.timeField.validation.rangeOverflow'
-    //       })
-    //     );
-    //   } else {
-    //     this.setCustomValidity('');
-    //   }
-    // } else {
-    //   this.setCustomValidity('');
-    // }
+    // All valid - clear any validity errors
+    this.internals.setValidity({});
   }
 
   /** Returns the formatted date string for the select-all input. */

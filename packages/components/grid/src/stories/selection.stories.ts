@@ -119,19 +119,54 @@ export const MultipleRow: Story = {
   render: (_, { loaded: { students } }) => {
     const ds = new ArrayListDataSource(students as Student[]);
 
-    const onCopy = (): void => {
-      const selection = ds.items.filter(item => ds.isSelected(item));
-
-      console.log('selection', selection);
-    };
-
-    const onDelete = (): void => {
-      const selection = ds.items
+    const getSelectedIds = (): string[] => {
+      return ds.items
         .filter(item => ds.isSelected(item))
         .filter(item => isListDataSourceDataItem(item))
         .map(item => item.data.id);
+    };
 
-      const data = (students as Student[]).filter(student => !selection.includes(student.id));
+    const onCopy = (): void => {
+      const ids = getSelectedIds();
+
+      const data = (students as Student[]).flatMap(student => {
+        if (ids.includes(student.id)) {
+          const copy = {
+            ...student,
+            id: `${student.id}-copy`,
+            lastName: `${student.lastName} (copy)`,
+            fullName: `${student.firstName}${student.infix ? ` ${student.infix}` : ''} ${student.lastName} (copy)`
+          };
+
+          return [student, copy];
+        }
+
+        return [student];
+      });
+
+      ds.setData(data);
+      ds.update();
+    };
+
+    const onDelete = (): void => {
+      const ids = getSelectedIds(),
+        data = (students as Student[]).filter(student => !ids.includes(student.id));
+
+      ds.setData(data);
+      ds.deselectAll();
+      ds.update();
+    };
+
+    const onUpdate = (): void => {
+      const ids = getSelectedIds();
+
+      const data = (students as Student[]).map(student => {
+        if (ids.includes(student.id)) {
+          return { ...student, email: 'updated@example.com' };
+        }
+
+        return student;
+      });
 
       ds.setData(data);
       ds.update();
@@ -142,6 +177,12 @@ export const MultipleRow: Story = {
         This example shows how you can select multiple rows at a time, but not just by toggling the checkbox at the
         start of the row, but by clicking anywhere on the row. This is done by setting the
         <code>row-action</code> property to the <code>select</code> value.
+      </p>
+      <p>
+        This example also shows how you can perform bulk actions on the selected rows by using the floating tool-bar at
+        the bottom of the grid. The actions do not create a new data source, but instead update the existing data source
+        by calling <code>setData()</code> and <code>update()</code> to signal the grid the data has changed. This way,
+        you do not lose any state when the data changes.
       </p>
       <sl-grid .dataSource=${ds} row-action="select">
         <sl-grid-selection-column></sl-grid-selection-column>
@@ -154,6 +195,7 @@ export const MultipleRow: Story = {
         <sl-grid-column path="email"></sl-grid-column>
 
         <!-- These get slotted into the floating tool-bar -->
+        <sl-button @click=${onUpdate} fill="outline" slot="bulk-actions" variant="inverted">Update emails</sl-button>
         <sl-button @click=${onCopy} fill="outline" slot="bulk-actions" variant="inverted">
           <sl-icon name="far-copy"></sl-icon>
           Duplicate

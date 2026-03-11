@@ -873,5 +873,80 @@ describe('ArrayListDataSource', () => {
 
       expect(groupsAfter).to.deep.equal(['Dermatologist', 'Surgeon']);
     });
+
+    it('should remember collapsed group state after setData when the group still exists', () => {
+      ds = new ArrayListDataSource(people, { groupBy: 'profession' });
+
+      // Collapse the 'Nephrologist' group
+      ds.collapseGroup('Nephrologist');
+      ds.update();
+
+      expect(ds.isGroupCollapsed('Nephrologist')).to.be.true;
+
+      // Update with data that still contains the 'Nephrologist' group
+      ds.setData([
+        {
+          id: 1,
+          firstName: 'Ann',
+          lastName: 'A',
+          profession: 'Nephrologist',
+          status: 'Available',
+          membership: 'Regular'
+        },
+        {
+          id: 2,
+          firstName: 'Bob',
+          lastName: 'B',
+          profession: 'Endocrinologist',
+          status: 'Busy',
+          membership: 'Premium'
+        }
+      ]);
+      ds.update();
+
+      expect(ds.isGroupCollapsed('Nephrologist')).to.be.true;
+      expect(ds.isGroupCollapsed('Endocrinologist')).to.be.false;
+
+      // Verify the collapsed group's members are hidden
+      const types = ds.items.map(({ type }) => type);
+
+      expect(types).to.deep.equal(['group', 'data', 'group']);
+    });
+
+    it('should remember collapsed state even for groups no longer present in the data', () => {
+      ds = new ArrayListDataSource(people, { groupBy: 'profession' });
+
+      // Collapse 'Ophthalmologist'
+      ds.collapseGroup('Ophthalmologist');
+      ds.update();
+
+      expect(ds.isGroupCollapsed('Ophthalmologist')).to.be.true;
+
+      // Replace with data that does not contain 'Ophthalmologist'
+      ds.setData([
+        {
+          id: 1,
+          firstName: 'Ann',
+          lastName: 'A',
+          profession: 'Surgeon',
+          status: 'Available',
+          membership: 'Regular'
+        },
+        {
+          id: 2,
+          firstName: 'Bob',
+          lastName: 'B',
+          profession: 'Dermatologist',
+          status: 'Busy',
+          membership: 'Premium'
+        }
+      ]);
+      ds.update();
+
+      // The collapsed state is still remembered
+      expect(ds.isGroupCollapsed('Ophthalmologist')).to.be.true;
+      expect(ds.isGroupCollapsed('Surgeon')).to.be.false;
+      expect(ds.isGroupCollapsed('Dermatologist')).to.be.false;
+    });
   });
 });

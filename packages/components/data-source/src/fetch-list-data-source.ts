@@ -141,7 +141,7 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
       // Initialize collapsed state from options
       for (const group of options.groups) {
         if (group.collapsed ?? true) {
-          this.collapseGroup(group.id);
+          this.collapseGroup(group.id ?? group);
         }
       }
     } else {

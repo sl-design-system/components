@@ -36,6 +36,9 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
+      - name: Install Playwright browsers
+        run: npx playwright install
+
       - name: Detect changed .md files
         id: detect_changes
         uses: tj-actions/changed-files@v44
@@ -52,13 +55,11 @@ jobs:
         run: yarn website
 
       - name: Start server
-        run: yarn workspace @sl-design-system/website start
+        run: yarn workspace @sl-design-system/website start &
         working-directory: .
 
       - name: Run Playwright & axe-core tests
-        run: |
-          npx playwright install
-          yarn playwright test --config=playwright.config.ts --project=website
+        run: yarn playwright test --config=playwright.config.ts --project=website
 
       - name: Upload test results
         uses: actions/upload-artifact@v4

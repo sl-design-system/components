@@ -22,6 +22,18 @@ export interface DateFormatPart extends Intl.DateTimeFormatPart {
   end: number;
 }
 
+/** A partial time where only hour or only minute may be set (e.g. during keyboard editing). */
+export interface PartialTimePart {
+  hour?: number;
+  minute?: number;
+}
+
+/** A complete time with both hour and minute always present as numbers. */
+export interface TimePart {
+  hour: number;
+  minute: number;
+}
+
 const dateFormatCache: Record<string, DateFormatPart[]> = {},
   dateUnitCache: Record<string, Record<string, string>> = {};
 

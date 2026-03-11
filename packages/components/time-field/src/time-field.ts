@@ -16,7 +16,14 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './time-field.scss.js';
-import { type DateFormatPart, getDateFormat, getTimeUnitLetter, getTimeUnitName } from './utils.js';
+import {
+  type DateFormatPart,
+  type PartialTimePart,
+  TimePart,
+  getDateFormat,
+  getTimeUnitLetter,
+  getTimeUnitName
+} from './utils.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -33,6 +40,9 @@ const timeSeparators = new Map<string, string>();
  */
 @localized()
 export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(LitElement))) {
+  /** @internal */
+  static formAssociated = true;
+
   /** The default step between each hour option. */
   static hourStep = 1;
 
@@ -86,10 +96,10 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
    * The start time; the time that has the initial focus when the picker is opened when
    * there is no value set.
    */
-  #startTime?: { hours: number; minutes: number } | undefined;
+  #startTime?: TimePart | undefined;
 
   /** The current value in numbers. */
-  #valueAsNumbers: { hours: number; minutes: number } | undefined;
+  #valueAsNumbers: TimePart | undefined;
 
   /** The value in HH:mm format. */
   #value: string | undefined;
@@ -118,8 +128,8 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** The step between each hour option. */
   @property({ type: Number, attribute: 'hour-step' }) hourStep = TimeField.hourStep;
 
-  /** @internal The input element in the light DOM. */
-  input!: HTMLInputElement;
+  // /** @internal The input element in the light DOM. */
+  // input!: HTMLInputElement;
 
   /** @internal */
   readonly internals = this.attachInternals();
@@ -182,7 +192,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
    * These are stored separately from `value` to support partial times.
    * @internal
    */
-  @state() timeParts: { hour?: number; minute?: number } = {};
+  @state() timeParts: PartialTimePart = {};
 
   override get value(): string | undefined {
     return this.#value;
@@ -193,10 +203,10 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     if (value) {
       const time = this.#parseTime(value);
 
-      if (time && !Number.isNaN(time.hours) && !Number.isNaN(time.minutes)) {
-        this.#value = this.#formatTime(time?.hours ?? 0, time?.minutes ?? 0);
+      if (time && !Number.isNaN(time.hour) && !Number.isNaN(time.minute)) {
+        this.#value = this.#formatTime(time.hour, time.minute);
         this.#valueAsNumbers = time;
-        this.timeParts = { hour: time.hours, minute: time.minutes };
+        this.timeParts = { hour: time.hour, minute: time.minute };
       } else {
         this.#value = undefined;
         this.#valueAsNumbers = undefined;
@@ -212,23 +222,23 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   override connectedCallback(): void {
     super.connectedCallback();
 
-    if (!this.input) {
-      this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
-      this.input.autocomplete = 'off';
-      this.input.slot = 'input';
+    // if (!this.input) {
+    //   this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
+    //   this.input.autocomplete = 'off';
+    //   this.input.slot = 'input';
 
-      if (!this.input.parentElement) {
-        this.append(this.input);
-      }
-    }
+    //   if (!this.input.parentElement) {
+    //     this.append(this.input);
+    //   }
+    // }
 
     this.internals.role = 'group';
 
     // Hide the input visually; it is only used for form submission
-    this.input.style.cssText = 'position:absolute;opacity:0;pointer-events:none;width:0;height:0;overflow:hidden;';
+    // this.input.style.cssText = 'position:absolute;opacity:0;pointer-events:none;width:0;height:0;overflow:hidden;';
 
-    this.setFormControlElement(this.input);
-    this.#syncInputLang();
+    this.setFormControlElement(this);
+    // this.#syncInputLang();
   }
 
   override firstUpdated(changes: PropertyValues<this>): void {
@@ -280,11 +290,11 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('required')) {
-      this.input.required = !!this.required;
-    }
+    // if (changes.has('required')) {
+    //   this.input.required = !!this.required;
+    // }
 
-    this.#syncInputLang();
+    // this.#syncInputLang();
   }
 
   override focus(): void {
@@ -419,7 +429,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     let hours = Array.from({ length: 24 / this.hourStep }, (_, i) => i * this.hourStep);
 
     if (this.min) {
-      const minHour = this.#parseTime(this.min)?.hours;
+      const minHour = this.#parseTime(this.min)?.hour;
 
       if (minHour !== undefined) {
         hours = hours.filter(h => h >= minHour);
@@ -427,7 +437,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     if (this.max) {
-      const maxHour = this.#parseTime(this.max)?.hours;
+      const maxHour = this.#parseTime(this.max)?.hour;
 
       if (maxHour !== undefined) {
         hours = hours.filter(h => h <= maxHour);
@@ -439,7 +449,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         <li
           @click=${() => this.#onHourClick(hour)}
           @keydown=${(event: KeyboardEvent) => this.#onHourKeydown(event, hour)}
-          aria-selected=${hour === this.#valueAsNumbers?.hours}
+          aria-selected=${hour === this.#valueAsNumbers?.hour}
           role="option"
           tabindex="-1"
         >
@@ -464,7 +474,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           @click=${() => this.#onMinuteClick(minute)}
           @keydown=${(event: KeyboardEvent) => this.#onMinuteKeydown(event, minute)}
           ?disabled=${isDisabled}
-          aria-selected=${minute === this.#valueAsNumbers?.minutes && !isDisabled}
+          aria-selected=${minute === this.#valueAsNumbers?.minute && !isDisabled}
           role="option"
           tabindex=${ifDefined(isDisabled ? undefined : '-1')}
         >
@@ -476,31 +486,75 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** @internal */
   override updateInternalValidity(): void {
-    if (this.required && !this.value) {
-      this.setCustomValidity(msg('Please enter a time.', { id: 'sl.timeField.valueMissing' }));
-    } else if (this.input.value && (this.min || this.max)) {
-      const time = this.#valueAsNumbers,
+    const { hour, minute } = this.timeParts,
+      hasCompleteTime = hour !== undefined && minute !== undefined;
+
+    if (hasCompleteTime && !this.value) {
+      const completeParts = this.timeParts as TimePart, // safe: hasCompleteTime guarantees both are defined
         minTime = this.min ? this.#parseTime(this.min) : undefined,
         maxTime = this.max ? this.#parseTime(this.max) : undefined;
 
-      if (minTime && (time?.hours ?? 0) * 60 + (time?.minutes ?? 0) < minTime.hours * 60 + minTime.minutes) {
+      if (minTime && this.#compareTimes(completeParts, minTime) < 0) {
         this.setCustomValidity(
           msg(str`Please select a time that is no earlier than ${this.min}.`, {
-            id: 'sl.timeField.validation.rangeUnderflow'
+            id: 'sl.dateField.rangeUnderflow'
           })
         );
-      } else if (maxTime && (time?.hours ?? 0) * 60 + (time?.minutes ?? 0) > maxTime.hours * 60 + maxTime.minutes) {
+      } else if (maxTime && this.#compareTimes(completeParts, maxTime) > 0) {
         this.setCustomValidity(
           msg(str`Please select a time that is no later than ${this.max}.`, {
-            id: 'sl.timeField.validation.rangeOverflow'
+            id: 'sl.dateField.rangeOverflow'
           })
         );
       } else {
-        this.setCustomValidity('');
+        this.setCustomValidity(msg('Please enter a valid time.', { id: 'sl.dateField.typeMismatch' }));
       }
+    } else if (this.required && !this.value) {
+      this.setCustomValidity(msg('Please enter a time.', { id: 'sl.dateField.valueMissing' }));
+    } else if (this.value && this.min && this.value < this.min) {
+      // const formattedMin = this.#formatter?.format(this.min) ?? this.min.toLocaleTimeString();
+
+      this.setCustomValidity(
+        msg(str`Please select a time that is no earlier than ${this.min}.`, {
+          id: 'sl.dateField.rangeUnderflow'
+        })
+      );
+    } else if (this.value && this.max && this.value > this.max) {
+      // const formattedMax = this.#formatter?.format(this.max) ?? this.max.toLocaleDateString();
+
+      this.setCustomValidity(
+        msg(str`Please select a time that is no later than ${this.max}.`, {
+          id: 'sl.dateField.rangeOverflow'
+        })
+      );
     } else {
       this.setCustomValidity('');
     }
+    // if (this.required && !this.value) {
+    //   this.setCustomValidity(msg('Please enter a time.', { id: 'sl.timeField.valueMissing' }));
+    // } else if (this.input.value && (this.min || this.max)) {
+    //   const time = this.#valueAsNumbers,
+    //     minTime = this.min ? this.#parseTime(this.min) : undefined,
+    //     maxTime = this.max ? this.#parseTime(this.max) : undefined;
+
+    //   if (minTime && (time?.hours ?? 0) * 60 + (time?.minutes ?? 0) < minTime.hours * 60 + minTime.minutes) {
+    //     this.setCustomValidity(
+    //       msg(str`Please select a time that is no earlier than ${this.min}.`, {
+    //         id: 'sl.timeField.validation.rangeUnderflow'
+    //       })
+    //     );
+    //   } else if (maxTime && (time?.hours ?? 0) * 60 + (time?.minutes ?? 0) > maxTime.hours * 60 + maxTime.minutes) {
+    //     this.setCustomValidity(
+    //       msg(str`Please select a time that is no later than ${this.max}.`, {
+    //         id: 'sl.timeField.validation.rangeOverflow'
+    //       })
+    //     );
+    //   } else {
+    //     this.setCustomValidity('');
+    //   }
+    // } else {
+    //   this.setCustomValidity('');
+    // }
   }
 
   /** Returns the formatted date string for the select-all input. */
@@ -577,8 +631,8 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.#popoverClosing ||
       !(relatedTarget instanceof Node) ||
       this.dialog?.contains(relatedTarget) ||
-      relatedTarget === this.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]') ||
-      relatedTarget === this.input
+      relatedTarget === this.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]') //||
+      // relatedTarget === this.input
     ) {
       return;
     }
@@ -619,12 +673,12 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
   }
 
-  #onHourClick(hours: number): void {
-    const constrainedMinutes = this.#getConstrainedMinutes(hours, this.#valueAsNumbers?.minutes ?? 0);
+  #onHourClick(hour: number): void {
+    const constrainedMinutes = this.#getConstrainedMinutes(hour, this.#valueAsNumbers?.minute ?? 0);
 
-    this.#valueAsNumbers = { hours, minutes: constrainedMinutes };
-    this.#value = this.#formatTime(this.#valueAsNumbers.hours, this.#valueAsNumbers.minutes);
-    const { hours: normalizedHours, minutes: normalizedMinutes } = this.#valueAsNumbers;
+    this.#valueAsNumbers = { hour, minute: constrainedMinutes };
+    this.#value = this.#formatTime(this.#valueAsNumbers.hour, this.#valueAsNumbers.minute);
+    const { hour: normalizedHours, minute: normalizedMinutes } = this.#valueAsNumbers;
     this.timeParts = { hour: normalizedHours, minute: normalizedMinutes };
     this.requestUpdate('value');
 
@@ -696,9 +750,9 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       return;
     }
 
-    this.#valueAsNumbers = { hours: this.#valueAsNumbers?.hours ?? this.#startTime?.hours ?? 0, minutes: minute };
-    this.#value = this.#formatTime(this.#valueAsNumbers.hours ?? 0, this.#valueAsNumbers.minutes ?? 0);
-    const { hours: normalizedHours, minutes: normalizedMinutes } = this.#valueAsNumbers;
+    this.#valueAsNumbers = { hour: this.#valueAsNumbers?.hour ?? this.#startTime?.hour ?? 0, minute: minute };
+    this.#value = this.#formatTime(this.#valueAsNumbers.hour ?? 0, this.#valueAsNumbers.minute ?? 0);
+    const { hour: normalizedHours, minute: normalizedMinutes } = this.#valueAsNumbers;
     this.timeParts = { hour: normalizedHours, minute: normalizedMinutes };
     this.requestUpdate('value');
 
@@ -840,7 +894,10 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       case 'Delete':
         event.preventDefault();
         if (!this.readonly) {
-          this.timeParts = { ...this.timeParts, [partType]: undefined };
+          this.timeParts = {
+            hour: partType === 'hour' ? undefined : this.timeParts.hour,
+            minute: partType === 'minute' ? undefined : this.timeParts.minute
+          };
           this.#enteredDigits = 0;
           this.#selectContent(span);
           this.#trySetValue();
@@ -947,30 +1004,53 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       newValue = combined > maxValue ? digit : combined;
     }
 
-    this.timeParts = { ...this.timeParts, [partType]: newValue };
+    this.timeParts = {
+      hour: partType === 'hour' ? newValue : this.timeParts.hour,
+      minute: partType === 'minute' ? newValue : this.timeParts.minute
+    };
     this.#enteredDigits++;
   }
 
   #adjustTimePart(partType: TimePartType, delta: number): void {
     const startTime = this.#getStartTime(),
-      currentValue = this.timeParts[partType] ?? (partType === 'hour' ? startTime.hours : startTime.minutes),
+      currentValue = this.timeParts[partType] ?? (partType === 'hour' ? startTime.hour : startTime.minute),
       maxValue = this.#getMaxForType(partType),
       minTime = this.min ? this.#parseTime(this.min) : undefined,
       maxTime = this.max ? this.#parseTime(this.max) : undefined,
-      wrapped = (((currentValue + delta) % (maxValue + 1)) + (maxValue + 1)) % (maxValue + 1),
-      currentHour = this.timeParts.hour ?? startTime.hours,
+      wrapped = ((((currentValue || 0) + delta) % (maxValue + 1)) + (maxValue + 1)) % (maxValue + 1),
+      currentHour = this.timeParts.hour ?? startTime.hour,
       effectiveMin =
-        partType === 'hour' ? (minTime?.hours ?? 0) : minTime && currentHour === minTime.hours ? minTime.minutes : 0,
+        partType === 'hour'
+          ? (minTime?.hour ?? 0)
+          : minTime && currentHour === minTime.hour
+            ? (minTime.minute ?? 0)
+            : 0,
       effectiveMax =
         partType === 'hour'
-          ? (maxTime?.hours ?? maxValue)
-          : maxTime && currentHour === maxTime.hours
-            ? maxTime.minutes
+          ? (maxTime?.hour ?? maxValue)
+          : maxTime && currentHour === maxTime.hour
+            ? (maxTime.minute ?? maxValue)
             : maxValue,
       newValue = Math.min(Math.max(wrapped, effectiveMin), effectiveMax);
 
-    this.timeParts = { ...this.timeParts, [partType]: newValue };
+    this.timeParts = {
+      hour: partType === 'hour' ? newValue : this.timeParts.hour,
+      minute: partType === 'minute' ? newValue : this.timeParts.minute
+    };
     this.#enteredDigits = 0;
+  }
+
+  /**
+   * Compares two time objects.
+   * @param time1 The first time as a TimePart object.
+   * @param time2 The second time as a TimePart object.
+   * @returns A negative number if time1 is earlier than time2, a positive number if time1 is later than time2, or 0 if they are equal.
+   */
+  #compareTimes(time1: TimePart, time2: TimePart): number {
+    const totalMinutes1 = time1.hour * 60 + time1.minute,
+      totalMinutes2 = time2.hour * 60 + time2.minute;
+
+    return totalMinutes1 - totalMinutes2;
   }
 
   #trySetValue(): void {
@@ -979,9 +1059,9 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     if (hour !== undefined && minute !== undefined) {
       const constrainedMinutes = this.#getConstrainedMinutes(hour, minute);
 
-      this.#valueAsNumbers = { hours: hour, minutes: constrainedMinutes };
+      this.#valueAsNumbers = { hour, minute: constrainedMinutes };
       this.#value = this.#formatTime(hour, constrainedMinutes);
-      this.input.value = this.#value ?? '';
+      // this.input.value = this.#value ?? '';
       this.requestUpdate('value');
 
       this.#scrollTimeIntoView(hour, constrainedMinutes);
@@ -991,7 +1071,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     } else {
       this.#valueAsNumbers = undefined;
       this.#value = undefined;
-      this.input.value = '';
+      // this.input.value = '';
       this.requestUpdate('value');
       this.updateValidity();
     }
@@ -1007,10 +1087,10 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     const text = event.clipboardData?.getData('text/plain') ?? '',
       time = this.#parseTime(text);
 
-    if (time && !Number.isNaN(time.hours) && !Number.isNaN(time.minutes)) {
+    if (time && !Number.isNaN(time.hour) && !Number.isNaN(time.minute)) {
       this.#valueAsNumbers = time;
-      this.#value = this.#formatTime(time.hours, time.minutes);
-      this.input.value = this.#value ?? '';
+      this.#value = this.#formatTime(time.hour, time.minute);
+      // this.input.value = this.#value ?? '';
       this.requestUpdate('value');
 
       this.changeEvent.emit(this.value ?? '');
@@ -1033,8 +1113,8 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
   }
 
-  #formatTime(hours: number, minutes: number): string | undefined {
-    if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
+  #formatTime(hours: number | undefined, minutes: number | undefined): string | undefined {
+    if (hours === undefined || minutes === undefined || hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
       return undefined;
     }
 
@@ -1042,12 +1122,12 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #isMinuteDisabled(minutes: number): boolean {
-    const hour = this.#valueAsNumbers?.hours ?? this.#startTime?.hours ?? 0;
+    const hour = this.#valueAsNumbers?.hour ?? this.#startTime?.hour ?? 0;
 
     if (this.min) {
       const minTime = this.#parseTime(this.min);
 
-      if (minTime && hour === minTime.hours && minutes < minTime.minutes) {
+      if (minTime && hour === minTime.hour && minutes < (minTime.minute ?? 0)) {
         return true;
       }
     }
@@ -1055,7 +1135,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     if (this.max) {
       const maxTime = this.#parseTime(this.max);
 
-      if (maxTime && hour === maxTime.hours && minutes > maxTime.minutes) {
+      if (maxTime && hour === maxTime.hour && minutes > (maxTime.minute ?? 59)) {
         return true;
       }
     }
@@ -1063,24 +1143,24 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     return false;
   }
 
-  #parseTime(value: string): { hours: number; minutes: number } | undefined {
+  #parseTime(value: string): TimePart | undefined {
     const timeParts = value.split(this.#getTimeSeparator()).map(Number);
 
     if (timeParts.length === 2) {
-      return { hours: timeParts[0], minutes: timeParts[1] };
+      return { hour: timeParts[0], minute: timeParts[1] };
     } else {
       return undefined;
     }
   }
 
-  #getStartTime(): { hours: number; minutes: number } {
+  #getStartTime(): TimePart {
     let time = this.#valueAsNumbers;
     if (!time && this.start) {
       time = this.#parseTime(this.start);
     }
 
     // Fallback to the current time, with minutes set to 0
-    time ||= { hours: new Date().getHours(), minutes: 0 };
+    time ||= { hour: new Date().getHours(), minute: 0 };
 
     return time;
   }
@@ -1089,13 +1169,13 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     const minTime = this.min ? this.#parseTime(this.min) : undefined,
       maxTime = this.max ? this.#parseTime(this.max) : undefined;
 
-    if (minTime && hours === minTime.hours && minutes < minTime.minutes) {
-      const constrained = Math.ceil(minTime.minutes / this.minuteStep) * this.minuteStep;
+    if (minTime && hours === minTime.hour && minutes < (minTime.minute ?? 0)) {
+      const constrained = Math.ceil((minTime.minute ?? 0) / this.minuteStep) * this.minuteStep;
       return Math.min(Math.max(constrained, 0), 59);
     }
 
-    if (maxTime && hours === maxTime.hours && minutes > maxTime.minutes) {
-      const constrained = Math.floor(maxTime.minutes / this.minuteStep) * this.minuteStep;
+    if (maxTime && hours === maxTime.hour && minutes > (maxTime.minute ?? 59)) {
+      const constrained = Math.floor((maxTime.minute ?? 59) / this.minuteStep) * this.minuteStep;
       return Math.min(Math.max(constrained, 0), 59);
     }
 
@@ -1124,32 +1204,32 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       maxTime = this.max ? this.#parseTime(this.max) : undefined;
 
     // Find the closest hour and minute based on the steps
-    time.hours = Math.round(time.hours / this.hourStep) * this.hourStep;
-    time.minutes = Math.round(time.minutes / this.minuteStep) * this.minuteStep;
+    time.hour = Math.round(time.hour / this.hourStep) * this.hourStep;
+    time.minute = Math.round(time.minute / this.minuteStep) * this.minuteStep;
 
     // Apply min/max constraints
-    if (minTime && (time.hours < minTime.hours || (time.hours === minTime.hours && time.minutes < minTime.minutes))) {
-      time.hours = minTime.hours;
-      const roundedMinutes = Math.ceil(minTime.minutes / this.minuteStep) * this.minuteStep;
+    if (minTime && (time.hour < minTime.hour || (time.hour === minTime.hour && time.minute < minTime.minute))) {
+      time.hour = minTime.hour;
+      const roundedMinutes = Math.ceil(minTime.minute / this.minuteStep) * this.minuteStep;
 
       if (roundedMinutes >= 60) {
         // When rounding up crosses the hour boundary (e.g. 10:59 with 5-minute steps),
         // Move to the next hour and reset minutes to 0, but avoid creating an invalid 24:xx time
-        if (minTime.hours < 23) {
-          time.hours = minTime.hours + 1;
-          time.minutes = 0;
+        if (minTime.hour < 23) {
+          time.hour = minTime.hour + 1;
+          time.minute = 0;
         } else {
           // Edge case: 23:59 with a step that would round to 60
-          time.minutes = 59;
+          time.minute = 59;
         }
       } else {
-        time.minutes = roundedMinutes;
+        time.minute = roundedMinutes;
       }
     }
 
-    if (maxTime && (time.hours > maxTime.hours || (time.hours === maxTime.hours && time.minutes > maxTime.minutes))) {
-      time.hours = maxTime.hours;
-      time.minutes = Math.floor(maxTime.minutes / this.minuteStep) * this.minuteStep;
+    if (maxTime && (time.hour > maxTime.hour || (time.hour === maxTime.hour && time.minute > maxTime.minute))) {
+      time.hour = maxTime.hour;
+      time.minute = Math.floor(maxTime.minute / this.minuteStep) * this.minuteStep;
     }
 
     // Request update after calculating constrained time and then await it
@@ -1157,10 +1237,10 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     await this.updateComplete;
 
     // Scroll to the start time
-    this.#scrollTimeIntoView(time.hours, time.minutes, 'start');
+    this.#scrollTimeIntoView(time.hour, time.minute, 'start');
 
     // Focus the appropriate element
-    this.#focusTimeElement(time.hours, time.minutes, focus);
+    this.#focusTimeElement(time.hour, time.minute, focus);
   }
 
   #scrollTimeIntoView(hours: number, minutes?: number, block: ScrollLogicalPosition = 'nearest'): void {
@@ -1169,7 +1249,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     let minHour = 0;
     if (this.min) {
-      minHour = this.#parseTime(this.min)?.hours ?? 0;
+      minHour = this.#parseTime(this.min)?.hour ?? 0;
     }
 
     const hoursIndex = Math.floor((hours - minHour) / this.hourStep),
@@ -1188,7 +1268,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     let minHour = 0;
     if (this.min) {
-      minHour = this.#parseTime(this.min)?.hours ?? 0;
+      minHour = this.#parseTime(this.min)?.hour ?? 0;
     }
 
     const hoursIndex = Math.floor((hours - minHour) / this.hourStep),
@@ -1208,21 +1288,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       } else {
         targetMinuteEl?.focus();
       }
-    }
-  }
-
-  /**
-   * Syncs the input's lang attribute with the component's locale.
-   */
-  #syncInputLang(): void {
-    if (!this.input) {
-      return;
-    }
-
-    if (this.locale && this.locale !== 'default') {
-      this.input.lang = this.locale;
-    } else {
-      this.input.removeAttribute('lang');
     }
   }
 }

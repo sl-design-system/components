@@ -58,6 +58,9 @@ jobs:
         run: yarn workspace @sl-design-system/website start &
         working-directory: .
 
+      - name: Wait for server
+        run: yarn dlx wait-on http://localhost:8000
+
       - name: Run Playwright & axe-core tests
         run: yarn playwright test --config=playwright.config.ts --project=website
 

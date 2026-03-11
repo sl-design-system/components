@@ -796,5 +796,21 @@ describe('ArrayListDataSource', () => {
       expect(ds.isSelected(ds.items.at(0))).to.be.true;
       expect(ds.isSelected(ds.items.at(2))).to.be.true;
     });
+
+    it('should remove selection for deleted items after setData', () => {
+      ds = new ArrayListDataSource(people, { selects: 'multiple' });
+
+      ds.select(ds.items.at(0)!);
+      ds.select(ds.items.at(1)!);
+
+      expect(ds.selection.size).to.equal(2);
+
+      // Remove the first person from the data
+      ds.setData(people.slice(1));
+      ds.update();
+
+      expect(ds.selection.size).to.equal(1);
+      expect(ds.isSelected(ds.items.at(0))).to.be.true;
+    });
   });
 });

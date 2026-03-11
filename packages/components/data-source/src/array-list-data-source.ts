@@ -113,11 +113,21 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
 
     // Remove any selected ids that no longer exist in the new dataset
     const validIds = new Set(this.#mappedItems.map(item => item.id));
+    let selectionChanged = false;
 
     for (const id of this.selection) {
       if (!validIds.has(id)) {
         this.selection.delete(id);
+        selectionChanged = true;
       }
+    }
+
+    if (selectionChanged) {
+      this.dispatchEvent(
+        new CustomEvent('sl-selection-change', {
+          detail: { selection: this.selection }
+        })
+      );
     }
   }
 

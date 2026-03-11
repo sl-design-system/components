@@ -812,5 +812,33 @@ describe('ArrayListDataSource', () => {
       expect(ds.selection.size).to.equal(1);
       expect(ds.isSelected(ds.items.at(0))).to.be.true;
     });
+
+    it('should emit sl-selection-change when a selected item is removed', () => {
+      ds = new ArrayListDataSource(people, { selects: 'multiple' });
+
+      ds.select(ds.items.at(0)!);
+
+      const onSelectionChange = spy();
+      ds.addEventListener('sl-selection-change', onSelectionChange);
+
+      // Remove the first person (which is selected)
+      ds.setData(people.slice(1));
+
+      expect(onSelectionChange).to.have.been.calledOnce;
+    });
+
+    it('should not emit sl-selection-change when no selected items are removed', () => {
+      ds = new ArrayListDataSource(people, { selects: 'multiple' });
+
+      ds.select(ds.items.at(0)!);
+
+      const onSelectionChange = spy();
+      ds.addEventListener('sl-selection-change', onSelectionChange);
+
+      // Replace data but keep all items (selection stays intact)
+      ds.setData([...people]);
+
+      expect(onSelectionChange).not.to.have.been.called;
+    });
   });
 });

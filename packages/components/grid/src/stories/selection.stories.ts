@@ -117,7 +117,9 @@ export const Multiple: Story = {
 
 export const MultipleRow: Story = {
   render: (_, { loaded: { students } }) => {
-    const ds = new ArrayListDataSource(students as Student[]);
+    let data = [...(students as Student[])];
+
+    const ds = new ArrayListDataSource(data);
 
     const getSelectedIds = (): string[] => {
       return ds.items
@@ -129,7 +131,7 @@ export const MultipleRow: Story = {
     const onCopy = (): void => {
       const ids = getSelectedIds();
 
-      const data = (students as Student[]).flatMap(student => {
+      data = data.flatMap(student => {
         if (ids.includes(student.id)) {
           const copy = {
             ...student,
@@ -149,8 +151,9 @@ export const MultipleRow: Story = {
     };
 
     const onDelete = (): void => {
-      const ids = getSelectedIds(),
-        data = (students as Student[]).filter(student => !ids.includes(student.id));
+      const ids = getSelectedIds();
+
+      data = data.filter(student => !ids.includes(student.id));
 
       ds.setData(data);
       ds.deselectAll();
@@ -160,7 +163,7 @@ export const MultipleRow: Story = {
     const onUpdate = (): void => {
       const ids = getSelectedIds();
 
-      const data = (students as Student[]).map(student => {
+      data = data.map(student => {
         if (ids.includes(student.id)) {
           return { ...student, email: 'updated@example.com' };
         }

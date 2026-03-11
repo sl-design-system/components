@@ -3,7 +3,7 @@ import { Avatar } from '@sl-design-system/avatar';
 import { Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
-import { ArrayListDataSource } from '@sl-design-system/data-source';
+import { ArrayListDataSource, isListDataSourceDataItem } from '@sl-design-system/data-source';
 import { type Student, getStudents } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
@@ -117,13 +117,33 @@ export const Multiple: Story = {
 
 export const MultipleRow: Story = {
   render: (_, { loaded: { students } }) => {
+    const ds = new ArrayListDataSource(students as Student[]);
+
+    const onCopy = (): void => {
+      const selection = ds.items.filter(item => ds.isSelected(item));
+
+      console.log('selection', selection);
+    };
+
+    const onDelete = (): void => {
+      const selection = ds.items
+        .filter(item => ds.isSelected(item))
+        .filter(item => isListDataSourceDataItem(item))
+        .map(item => item.data.id);
+
+      const data = (students as Student[]).filter(student => !selection.includes(student.id));
+
+      ds.setData(data);
+      ds.update();
+    };
+
     return html`
       <p>
         This example shows how you can select multiple rows at a time, but not just by toggling the checkbox at the
         start of the row, but by clicking anywhere on the row. This is done by setting the
         <code>row-action</code> property to the <code>select</code> value.
       </p>
-      <sl-grid .items=${students} row-action="select">
+      <sl-grid .dataSource=${ds} row-action="select">
         <sl-grid-selection-column></sl-grid-selection-column>
         <sl-grid-column
           grow="3"
@@ -134,11 +154,11 @@ export const MultipleRow: Story = {
         <sl-grid-column path="email"></sl-grid-column>
 
         <!-- These get slotted into the floating tool-bar -->
-        <sl-button fill="outline" slot="bulk-actions" variant="inverted">
+        <sl-button @click=${onCopy} fill="outline" slot="bulk-actions" variant="inverted">
           <sl-icon name="far-copy"></sl-icon>
           Duplicate
         </sl-button>
-        <sl-button fill="outline" slot="bulk-actions" variant="inverted">
+        <sl-button @click=${onDelete} fill="outline" slot="bulk-actions" variant="inverted">
           <sl-icon name="far-trash"></sl-icon>
           Delete
         </sl-button>

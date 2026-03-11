@@ -26,6 +26,9 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
   /** The mapped array of items, as provided in the constructor. */
   #mappedItems: Array<ListDataSourceDataItem<T>> = [];
 
+  /** The options for the data source. */
+  #options: ListDataSourceOptions<T>;
+
   /** The items, including any group items. This is used for rendering the list. */
   #viewItems: Array<ListDataSourceItem<T>> = [];
 
@@ -48,14 +51,9 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
   constructor(items: T[], options: ListDataSourceOptions<T> = {}) {
     super(options);
 
-    this.#mappedItems = items.map(item => ({
-      id: options.getId?.(item) ?? (item as { id: unknown }).id ?? item,
-      groupId: options.getGroupId?.(item) ?? (options.groupBy ? getValueByPath(item, options.groupBy) : undefined),
-      type: 'data',
-      data: item,
-      selected: options.isSelected?.(item)
-    }));
+    this.#options = options;
 
+    this.setData(items);
     this.update(false);
   }
 
@@ -99,6 +97,19 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
 
     items.splice(from, 1);
     items.splice(to + (from < to ? -1 : 0), 0, item);
+  }
+
+  /** Update the data source with a new array of items. */
+  setData(items: T[]): void {
+    const options = this.#options;
+
+    this.#mappedItems = items.map(item => ({
+      id: options.getId?.(item) ?? (item as { id: unknown }).id ?? item,
+      groupId: options.getGroupId?.(item) ?? (options.groupBy ? getValueByPath(item, options.groupBy) : undefined),
+      type: 'data',
+      data: item,
+      selected: options.isSelected?.(item)
+    }));
   }
 
   update(emitEvent = true): void {

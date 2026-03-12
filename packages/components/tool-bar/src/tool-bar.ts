@@ -62,7 +62,7 @@ export type ToolBarItem = ToolBarItemButton | ToolBarItemDivider | ToolBarItemGr
  *
  * @csspart wrapper - The wrapper element that contains the tool bar items.
  *
- * @slot - The tool bar items.
+ * @slot default - The tool bar items.
  */
 @localized()
 export class ToolBar extends ScopedElementsMixin(LitElement) {
@@ -141,7 +141,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   @property({ reflect: true }) align?: 'start' | 'end';
 
   /**
-   * If true, the tool-bar will have a border (when there is no inverted set) and padding around it.
+   * If `true`, the tool-bar will have a border (when there is no inverted set) and padding around it.
    * Use this when you want the tool-bar to be visually distinct from surrounding content.
    */
   @property({ type: Boolean, reflect: true }) contained?: boolean;
@@ -289,6 +289,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     `;
   }
 
+  /** @internal */
   override focus(): void {
     this.#rovingTabindexController.focus();
   }
@@ -339,7 +340,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
    * size changes that are not observed).
    *
    * When invoked, any pending recalculation is canceled and a new one is scheduled
-   * with a 200&nbsp;ms delay. Once the timeout elapses, the tool-bar temporarily reveals
+   * with a 200ms delay. Once the timeout elapses, the tool-bar temporarily reveals
    * the first hidden item, measures the wrapper and items, and internally triggers a
    * resize/measurement pass to recompute which items should be visible or moved into
    * the overflow menu.

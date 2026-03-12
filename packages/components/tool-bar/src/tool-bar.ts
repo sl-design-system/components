@@ -702,8 +702,10 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
           // If natively disabled, convert to aria-disabled for focusability
           const isAttribute = el.hasAttribute('disabled');
           el.removeAttribute('disabled');
+          if ('ariaDisabled' in el) {
+            el.ariaDisabled = 'true';
+          }
           el.disabled = false;
-          el.ariaDisabled = 'true';
           el.setAttribute('data-toolbar-disabled-native', isAttribute ? 'attribute' : 'property');
         } else if (
           !el.hasAttribute('data-toolbar-disabled') &&

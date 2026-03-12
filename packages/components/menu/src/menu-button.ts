@@ -119,9 +119,8 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
 
   override set ariaDisabled(value: string | null) {
     this.#ariaDisabled = value;
-
     if (this.button) {
-      this.button.ariaDisabled = this.disabled ? 'true' : value;
+      this.button.ariaDisabled = value;
     } else if (value !== null) {
       this.setAttribute('aria-disabled', value);
     } else if (this.hasAttribute('aria-disabled')) {
@@ -152,10 +151,6 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
-
-    if (changes.has('disabled')) {
-      this.button.ariaDisabled = this.disabled ? 'true' : this.ariaDisabled;
-    }
   }
 
   override firstUpdated(changes: PropertyValues<this>): void {
@@ -182,6 +177,7 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
       <sl-button
         @click=${this.#onClick}
         @keydown=${this.#onKeydown}
+        ?disabled=${this.disabled}
         aria-expanded="false"
         aria-haspopup="menu"
         fill=${ifDefined(this.fill)}

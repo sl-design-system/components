@@ -52,6 +52,9 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
   /** Either an instanceof of Tooltip, or a cleanup function. */
   #tooltip?: Tooltip | (() => void);
 
+  /** Whether the `aria-label` attribute is being changed internally. */
+  #isInternalAriaLabelUpdate = false;
+
   /** @internal The default (non-pressed) icon. */
   @state() defaultIcon?: Icon;
 
@@ -84,6 +87,14 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
 
   /** @internal Emits when the button has been toggled. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
+
+  override attributeChangedCallback(name: string, old: string | null, value: string | null): void {
+    if (name === 'aria-label' && this.#isInternalAriaLabelUpdate) {
+      return;
+    }
+
+    super.attributeChangedCallback(name, old, value);
+  }
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -156,7 +167,7 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
               this.#tooltip = tooltip;
               tooltip.textContent = this.label!;
             },
-            { context: this.shadowRoot! }
+            { ariaRelation: 'label', context: this.shadowRoot! }
           );
         }
       } else if (this.#tooltip instanceof Tooltip) {
@@ -170,6 +181,12 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('pressed')) {
       this.setAttribute('aria-pressed', (this.pressed ?? false).toString());
+    }
+
+    if (this.hasAttribute('icon-only') && this.label && this.hasAttribute('aria-label')) {
+      this.#isInternalAriaLabelUpdate = true;
+      this.removeAttribute('aria-label');
+      this.#isInternalAriaLabelUpdate = false;
     }
   }
 

@@ -270,4 +270,50 @@ describe('sl-toggle-button', () => {
       expect(errorStub).not.to.have.been.called;
     });
   });
+
+  describe('label and tooltip', () => {
+    it('should show a tooltip when a label is set', async () => {
+      el = await fixture(html`
+        <sl-toggle-button .label=${'Settings'}>
+          <sl-icon name="far-gear" slot="default"></sl-icon>
+          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+        </sl-toggle-button>
+      `);
+
+      await el.updateComplete;
+      el.focus();
+      await userEvent.hover(el);
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const tooltip = document.querySelector('sl-tooltip');
+      expect(tooltip).to.exist;
+      expect(tooltip?.textContent).to.equal('Settings');
+    });
+
+    it('should have aria-labelledby and no aria-label for icon-only buttons', async () => {
+      el = await fixture(html`
+        <sl-toggle-button .label=${'Settings'}>
+          <sl-icon name="far-gear" slot="default"></sl-icon>
+          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+        </sl-toggle-button>
+      `);
+
+      await el.updateComplete;
+      el.focus();
+      await userEvent.hover(el);
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const tooltip = document.querySelector('sl-tooltip');
+      expect(el).not.to.have.attribute('aria-label');
+      expect(el).to.have.attribute('aria-labelledby', tooltip?.id);
+    });
+
+    it('should have aria-label and no aria-labelledby for buttons with text', async () => {
+      el = await fixture(html`<sl-toggle-button .label=${'Settings'}>Settings</sl-toggle-button>`);
+
+      await el.updateComplete;
+      expect(el).to.have.attribute('aria-label', 'Settings');
+      expect(el).not.to.have.attribute('aria-labelledby');
+    });
+  });
 });

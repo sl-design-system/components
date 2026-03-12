@@ -8,7 +8,7 @@ title: Components
 <link href="/css/categories/components.css" rel="stylesheet" type="text/css">
 
 Components list
-<div class="wrapper wrapper2">
+<div class="wrapper">
 {% for component in collections.components %}
   <div class="component">
   <h3>{{component.data.title}}</h3>

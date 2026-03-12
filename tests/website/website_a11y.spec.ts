@@ -4,10 +4,9 @@ import { createHtmlReport } from 'axe-html-reporter';
 import fs from 'fs';
 import urls from '../../changed-urls.json';
 
-urls.forEach(url => {
+urls.forEach((url, index, arr) => {
   test(`Website accessibility test on ${url}`, async ({ page }) => {
     const projectName = test.info().project.name;
-    const resultsAll = [];
 
     await page.goto(url);
 
@@ -37,6 +36,12 @@ urls.forEach(url => {
       report: `[Report for ${safeName}](reports/${projectName}/${safeName}_a11y_report.html)`
     };
 
-    fs.appendFileSync('reports/summary.json', JSON.stringify(summary, null, 2) + '\n');
+    if (index === 0) {
+      fs.writeFileSync('reports/summary.json', '[\n' + JSON.stringify(summary, null, 2) + ', \n');
+    } else if (index < arr.length - 1) {
+      fs.appendFileSync('reports/summary.json', JSON.stringify(summary, null, 2) + ', \n');
+    } else {
+      fs.appendFileSync('reports/summary.json', JSON.stringify(summary, null, 2) + '\n]\n');
+    }
   });
 });

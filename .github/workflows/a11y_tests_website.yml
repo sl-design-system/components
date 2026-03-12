@@ -25,7 +25,7 @@ env:
   TOKENS_STUDIO_API_KEY: ${{ secrets.TOKENS_STUDIO_2_API_KEY }}
 
 jobs:
-  generate-urls:
+  a11y-tests-for-changed-pages:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

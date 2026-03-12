@@ -326,14 +326,6 @@
   <source>Please enter a time.</source>
   <target>Voer een tijd in.</target>
 </trans-unit>
-<trans-unit id="sl.timeField.validation.rangeUnderflow">
-  <source>Please select a time that is no earlier than <x id="0" equiv-text="${this.min}"/>.</source>
-  <target>Voer een tijd in die niet eerder is dan <x id="0" equiv-text="${this.min}"/>.</target>
-</trans-unit>
-<trans-unit id="sl.timeField.validation.rangeOverflow">
-  <source>Please select a time that is no later than <x id="0" equiv-text="${this.max}"/>.</source>
-  <target>Voer een tijd in die niet later is dan <x id="0" equiv-text="${this.max}"/>.</target>
-</trans-unit>
 <trans-unit id="sl.timeField.selectHours">
   <source>Select hours</source>
   <target>Selecteer uren</target>
@@ -367,8 +359,8 @@
   <target>Jaren tussen <x id="0" equiv-text="${yearsRange.at(0) ?? ''}"/> en <x id="1" equiv-text="${yearsRange.at(-1) ?? ''}"/></target>
 </trans-unit>
 <trans-unit id="sl.timeField.typeMismatch">
-  <source>Please enter a valid time in HH<x id="0" equiv-text="${this.#getTimeSeparator()}"/>MM.</source>
-  <target>Voer een geldige tijd in als HH<x id="0" equiv-text="${this.#getTimeSeparator()}"/>MM.</target>
+  <source>Please enter a valid time.</source>
+  <target>Voer een geldige tijd in.</target>
 </trans-unit>
 <trans-unit id="sl.calendar.changeMonth">
   <source><x id="0" equiv-text="${format(this.displayMonth!, this.locale, { month: 'long' })}"/>, change month</source>
@@ -409,6 +401,18 @@
 <trans-unit id="sl.dateField.empty">
   <source>Empty</source>
   <target>Leeg</target>
+</trans-unit>
+<trans-unit id="sl.timeField.empty">
+  <source>Empty</source>
+  <target>Leeg</target>
+</trans-unit>
+<trans-unit id="sl.timeField.rangeUnderflow">
+  <source>Please select a time that is no earlier than <x id="0" equiv-text="${this.min}"/>.</source>
+  <target>Voer een tijd in die niet eerder is dan <x id="0" equiv-text="${this.min}"/>.</target>
+</trans-unit>
+<trans-unit id="sl.timeField.rangeOverflow">
+  <source>Please select a time that is no later than <x id="0" equiv-text="${this.max}"/>.</source>
+  <target>Voer een tijd in die niet later is dan <x id="0" equiv-text="${this.max}"/>.</target>
 </trans-unit>
 </body>
 </file>

@@ -116,8 +116,8 @@ export function getTimeUnitLetter(locale: string, unit: 'hour' | 'minute' | 'sec
 }
 
 /**
- * Returns a localized date template string for a given locale.
- * For example: 'HH:MM:SS' for en-US.
+ * Returns a localized time template string for a given locale.
+ * For example: 'HH:MM' for en-US.
  */
 export function getTimeTemplate(locale: string): string {
   const parts = getDateFormat(locale),

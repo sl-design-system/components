@@ -67,7 +67,7 @@ export default {
     reportValidity = reportValidity ?? true;
 
     return html`
-      <sl-form .value=${value}>
+      <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
           <sl-time-field
             style="width: fit-content;"

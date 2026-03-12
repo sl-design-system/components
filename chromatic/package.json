@@ -28,7 +28,7 @@
       "command": "storybook dev -p 6008 --no-open",
       "service": {
         "readyWhen": {
-          "lineMatches": "Storybook \\S+ for .*web-components-vite.* started"
+          "lineMatches": "Storybook ready!"
         }
       },
       "files": [
@@ -40,13 +40,13 @@
     }
   },
   "devDependencies": {
-    "@storybook/addon-a11y": "^10.0.7",
-    "@storybook/addon-docs": "^10.0.7",
-    "@storybook/addon-themes": "^10.0.7",
-    "@storybook/web-components-vite": "^10.0.7",
-    "lit": "^3.3.1",
-    "storybook": "^10.0.7",
-    "storybook-addon-pseudo-states": "^10.0.7",
+    "@storybook/addon-a11y": "0.0.0-pr-34105-sha-d0a83f8a",
+    "@storybook/addon-docs": "0.0.0-pr-34105-sha-d0a83f8a",
+    "@storybook/addon-themes": "0.0.0-pr-34105-sha-d0a83f8a",
+    "@storybook/web-components-vite": "0.0.0-pr-34105-sha-d0a83f8a",
+    "lit": "^3.3.2",
+    "storybook": "0.0.0-pr-34105-sha-d0a83f8a",
+    "storybook-addon-pseudo-states": "0.0.0-pr-34105-sha-d0a83f8a",
     "tslib": "^2.8.1",
     "typescript": "^5.5.4",
     "wireit": "^0.14.12"

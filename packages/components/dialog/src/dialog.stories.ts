@@ -35,6 +35,9 @@ Icon.register(faBurst);
 export default {
   title: 'Overlay/Dialog',
   tags: ['stable'],
+  globals: {
+    viewport: undefined
+  },
   args: {
     closeButton: false,
     disableCancel: false,

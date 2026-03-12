@@ -210,16 +210,9 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       return;
     }
 
-    const activeView =
-      this.mode === 'month' ? 'sl-select-month' : this.mode === 'year' ? 'sl-select-year' : 'sl-select-day';
-
-    const button =
-      event
-        .composedPath()
-        .find((el): el is HTMLButtonElement => el instanceof HTMLButtonElement && !!el.closest('table[role="grid"]')) ??
-      this.renderRoot
-        .querySelector(activeView)
-        ?.renderRoot?.querySelector<HTMLButtonElement>('table button:not(:disabled)');
+    const button = event
+      .composedPath()
+      .find((el): el is HTMLButtonElement => el instanceof HTMLButtonElement && !!el.closest('table[role="grid"]'));
 
     if (button) {
       const existing = (button.ariaDescribedByElements ?? []).filter(el => el.id !== 'min-max-helper-text');
@@ -283,7 +276,32 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
     // Wait until the new mode has rendered before focusing the correct element
     requestAnimationFrame(() => {
-      this.renderRoot.querySelector(event.detail === 'month' ? 'sl-select-month' : 'sl-select-year')?.focus();
+      const subComponent = this.renderRoot.querySelector(
+        event.detail === 'month' ? 'sl-select-month' : 'sl-select-year'
+      );
+
+      if (subComponent) {
+        subComponent.focus();
+
+        this.#setHelperTextOnFirstButton(subComponent);
+      }
     });
+  }
+
+  /** Sets `ariaDescribedByElements` on the first focusable button (day, month or year depending on view) */
+  #setHelperTextOnFirstButton(subComponent: Element): void {
+    const helperText = this.renderRoot.querySelector('#min-max-helper-text');
+
+    if (!helperText || !subComponent) {
+      return;
+    }
+
+    const button = subComponent.shadowRoot?.querySelector<HTMLButtonElement>('table button:not(:disabled)');
+
+    if (button) {
+      const existingDescription = (button.ariaDescribedByElements ?? []).filter(el => el.id !== 'min-max-helper-text');
+
+      button.ariaDescribedByElements = [...existingDescription, helperText];
+    }
   }
 }

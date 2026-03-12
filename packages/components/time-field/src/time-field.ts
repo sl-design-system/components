@@ -2,7 +2,14 @@ import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin, type SlFormControlEvent, type SlUpdateStateEvent } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, LocaleMixin, anchor, event } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  EventsController,
+  LocaleMixin,
+  anchor,
+  event,
+  isPopoverOpen
+} from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { FieldButton, TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
@@ -46,6 +53,22 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** @internal The default margin between the popover and the viewport. */
   static viewportMargin = 8;
+
+  /** Events controller. */
+  // eslint-disable-next-line no-unused-private-class-members
+  #events = new EventsController(this, {
+    focusout: this.#onFocusout
+  });
+
+  /**
+   * Flag indicating that focus should not be restored to the text-field when the popover
+   * closes. This is set when focus moves away from the dialog to either an internal control
+   * (e.g. the clock button via Shift+Tab) or outside the component (e.g. via Tab).
+   */
+  #focusLeavingComponent = false;
+
+  /** Track when the popover is in the process of closing. */
+  #popoverClosing = false;
 
   /**
    * Flag indicating whether the popover was just closed. We need to know this so we can
@@ -259,6 +282,8 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           viewportMargin: TimeField.viewportMargin
         })}
         @beforetoggle=${this.#onBeforeToggle}
+        @focusin=${this.#onDialogFocusin}
+        @focusout=${this.#onDialogFocusout}
         @toggle=${this.#onToggle}
         @keydown=${this.#onKeydown}
         id="dialog"
@@ -396,8 +421,62 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     if (event.newState === 'open') {
       this.button?.setAttribute('aria-expanded', 'true');
     } else {
+      this.#popoverClosing = true;
       this.button?.setAttribute('aria-expanded', 'false');
       this.#popoverJustClosed = true;
+    }
+  }
+
+  #onDialogFocusin(event: FocusEvent): void {
+    const target = event.target;
+
+    if (!(target instanceof HTMLLIElement)) {
+      return;
+    }
+
+    // Reset previously focused <li> so only one has tabindex="0"
+    this.dialog?.querySelectorAll('li[tabindex="0"]').forEach(li => {
+      if (li !== target) {
+        li.setAttribute('tabindex', '-1');
+      }
+    });
+
+    target.tabIndex = 0;
+  }
+
+  #onDialogFocusout(event: FocusEvent): void {
+    const relatedTarget = event.relatedTarget;
+
+    if (
+      this.#popoverClosing ||
+      !(relatedTarget instanceof Node) ||
+      this.dialog?.contains(relatedTarget) ||
+      relatedTarget === this.textField ||
+      relatedTarget === this.input
+    ) {
+      return;
+    }
+
+    this.#focusLeavingComponent = true;
+    this.dialog?.hidePopover();
+  }
+
+  #onFocusout(event: FocusEvent): void {
+    const leavingComponent =
+      !(event.relatedTarget instanceof Node) ||
+      (!this.contains(event.relatedTarget) && !this.shadowRoot?.contains(event.relatedTarget));
+
+    if (leavingComponent) {
+      const dialogIsOpen = isPopoverOpen(this.dialog);
+
+      // Only mark as "focus leaving" when the popover is not already in the process of closing
+      if (!this.#popoverClosing && dialogIsOpen) {
+        this.#focusLeavingComponent = true;
+      }
+
+      if (dialogIsOpen) {
+        this.dialog?.hidePopover();
+      }
     }
   }
 
@@ -491,7 +570,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.updateValidity();
 
     this.dialog?.hidePopover();
-    this.textField.focus();
   }
 
   #onMinuteKeydown(event: KeyboardEvent, minutes: number): void {
@@ -690,7 +768,13 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   async #onToggle(event: ToggleEvent): Promise<void> {
     if (event.newState === 'closed') {
+      if (!this.#focusLeavingComponent) {
+        this.textField.focus();
+      }
+
+      this.#popoverClosing = false;
       this.#popoverJustClosed = false;
+      this.#focusLeavingComponent = false;
     } else {
       await this.#scrollAndFocusStartTime();
     }

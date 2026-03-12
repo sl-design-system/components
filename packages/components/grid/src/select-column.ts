@@ -15,15 +15,17 @@ declare global {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridSelectColumn<T = any> extends GridColumn<T> {
+  /** @internal */
+  override get baseScopedElements(): Record<string, typeof HTMLElement> {
+    return {
+      'sl-option': Option,
+      'sl-select': Select
+    };
+  }
+
   /** The options for the select. */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @property({ type: Array }) options?: Array<{ label: string; value: any }> | string[];
-
-  override connectedCallback(): void {
-    super.connectedCallback();
-
-    this.scopedElements = { ...this.scopedElements, 'sl-select': Select, 'sl-option': Option };
-  }
 
   override renderData(item: ListDataSourceDataItem<T>): TemplateResult {
     return html`

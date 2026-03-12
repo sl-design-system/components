@@ -34,7 +34,7 @@ describe('sl-menu-button', () => {
       expect(el.disabled).not.to.be.true;
     });
 
-    it('should proxy the aria-disabled attribute to the input element', async () => {
+    it('should proxy the aria-disabled attribute to the button element', async () => {
       el.setAttribute('aria-disabled', 'true');
       await el.updateComplete;
 
@@ -42,7 +42,7 @@ describe('sl-menu-button', () => {
       expect(button.ariaDisabled).to.equal('true');
     });
 
-    it('should proxy the ariaDisabled property to the input element', async () => {
+    it('should proxy the ariaDisabled property to the button element', async () => {
       el.ariaDisabled = 'true';
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 50));

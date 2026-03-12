@@ -188,9 +188,6 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
    */
   @property({ type: Boolean, attribute: 'show-week-numbers' }) showWeekNumbers?: boolean;
 
-  /** @internal Whether per day indicator tooltips are rendered into the DOM. */
-  @state() tooltipsRendered = false;
-
   /** @internal The translated days of the week. */
   @state() weekDays: Array<{ long: string; short: string }> = [];
 

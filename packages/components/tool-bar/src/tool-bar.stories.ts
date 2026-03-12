@@ -196,7 +196,7 @@ export const Basic: Story = {
         <sl-icon name="far-scissors"></sl-icon>
         Cut
       </sl-button>
-      <sl-button disabled fill="outline">
+      <sl-button aria-disabled="true" fill="outline">
         <sl-icon name="far-copy"></sl-icon>
         Copy
       </sl-button>
@@ -393,7 +393,7 @@ export const Overflow: Story = {
 export const State: Story = {
   args: {
     description:
-      'This example shows a how the tool bar automatically updates when the disabled state of buttons changes.',
+      'This example shows a how the tool bar automatically updates when the aria-disabled state of buttons changes. Note that the buttons remain focusable even when disabled.',
     itemsOutsideContainer: () => {
       const onClick = (event: SlToggleEvent<boolean>) => {
         const toggle = event.currentTarget as ToggleButton;
@@ -401,7 +401,7 @@ export const State: Story = {
         const buttons = container?.querySelectorAll<Button>('sl-button');
 
         buttons?.forEach((button: Button) => {
-          button.disabled = event.detail;
+          button.ariaDisabled = event.detail ? 'true' : null;
         });
 
         announce(event.detail ? 'Actions disabled' : 'Actions enabled');

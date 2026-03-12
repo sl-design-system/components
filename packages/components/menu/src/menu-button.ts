@@ -186,7 +186,6 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
       <sl-button
         @click=${this.#onClick}
         @keydown=${this.#onKeydown}
-        ?disabled=${this.disabled}
         aria-expanded="false"
         aria-haspopup="menu"
         fill=${ifDefined(this.fill)}

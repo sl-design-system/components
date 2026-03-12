@@ -107,12 +107,13 @@ describe('sl-menu-button', () => {
         expect(el.disabled).not.to.be.true;
       });
 
-      it('should have a disabled button when set', async () => {
+      it('should have an aria-disabled button when set', async () => {
         el.disabled = true;
         await el.updateComplete;
 
-        expect(button).to.have.attribute('disabled');
-        expect(button.disabled).to.be.true;
+        expect(button).not.to.have.attribute('disabled');
+        expect(button.ariaDisabled).to.equal('true');
+        expect(button.tabIndex).to.equal(0);
         expect(el.disabled).to.be.true;
       });
 

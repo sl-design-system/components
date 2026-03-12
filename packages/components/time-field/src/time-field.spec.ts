@@ -208,8 +208,8 @@ describe('sl-time-field', () => {
       expect(button).to.have.attribute('aria-expanded', 'false');
     });
 
-    it('should have aria-haspopup set to listbox', () => {
-      expect(button).to.have.attribute('aria-haspopup', 'listbox');
+    it('should have aria-haspopup set to dialog', () => {
+      expect(button).to.have.attribute('aria-haspopup', 'dialog');
     });
   });
 

@@ -2,7 +2,14 @@ import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, LocaleMixin, anchor, event, isPopoverOpen } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  EventsController,
+  LocaleMixin,
+  anchor,
+  event,
+  isPopoverOpen
+} from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { FieldButton } from '@sl-design-system/text-field';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
@@ -58,6 +65,12 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** @internal The default margin between the popover and the viewport. */
   static viewportMargin = 8;
+
+  /** Events controller. */
+  // eslint-disable-next-line no-unused-private-class-members
+  #events = new EventsController(this, {
+    focusout: this.#onFocusout
+  });
 
   /**
    * Flag indicating that focus should not be restored to the text-field when the popover
@@ -313,7 +326,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           ?disabled=${this.disabled || this.readonly}
           aria-controls="dialog"
           aria-expanded=${this.dialog && isPopoverOpen(this.dialog) ? 'true' : 'false'}
-          aria-haspopup="listbox"
+          aria-haspopup="dialog"
           aria-label=${msg('Select time', { id: 'sl.timeField.toggleDropdown' })}
           tabindex=${this.disabled || this.readonly ? '-1' : '0'}
         >
@@ -611,7 +624,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.#popoverClosing ||
       !(relatedTarget instanceof Node) ||
       this.dialog?.contains(relatedTarget) ||
-      this.renderRoot.contains(relatedTarget)
+      relatedTarget === this.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')
     ) {
       return;
     }
@@ -622,9 +635,9 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   #onFocusIn = (event: FocusEvent): void => {
     // Only emit when focus enters from outside the component
-    const relatedTarget = event.relatedTarget;
+    const relatedTarget = event.relatedTarget as Node | null;
 
-    if (!relatedTarget || (!this.contains(relatedTarget) && !this.shadowRoot?.contains(relatedTarget))) {
+    if (!relatedTarget || (!this.contains(relatedTarget) && !this.renderRoot.contains(relatedTarget))) {
       this.focusEvent.emit();
     }
 
@@ -632,29 +645,36 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   };
 
   #onFocusOut = (event: FocusEvent): void => {
-    // Check if focus is leaving the component entirely
-    const relatedTarget = event.relatedTarget;
-    const leavingComponent =
-      !(relatedTarget instanceof Node) || (!this.contains(relatedTarget) && !this.shadowRoot?.contains(relatedTarget));
+    // Only emit when focus leaves the component entirely
+    const relatedTarget = event.relatedTarget as Node | null;
 
-    if (leavingComponent) {
-      // Update form state and emit blur event
+    if (!relatedTarget || (!this.contains(relatedTarget) && !this.renderRoot.contains(relatedTarget))) {
       this.placeholderShown = !this.value && !!this.placeholder;
+
       this.blurEvent.emit();
       this.updateState({ touched: true });
       this.updateValidity();
+    }
+  };
 
-      // Handle popover closing
+  #onFocusout(event: FocusEvent): void {
+    const leavingComponent =
+      !(event.relatedTarget instanceof Node) ||
+      (!this.contains(event.relatedTarget) && !this.shadowRoot?.contains(event.relatedTarget));
+
+    if (leavingComponent) {
       const dialogIsOpen = isPopoverOpen(this.dialog);
+
+      // Only mark as "focus leaving" when the popover is not already in the process of closing
+      if (!this.#popoverClosing && dialogIsOpen) {
+        this.#focusLeavingComponent = true;
+      }
+
       if (dialogIsOpen) {
-        // Only mark as "focus leaving" when the popover is not already in the process of closing
-        if (!this.#popoverClosing) {
-          this.#focusLeavingComponent = true;
-        }
         this.dialog?.hidePopover();
       }
     }
-  };
+  }
 
   #onButtonClick(event: MouseEvent): void {
     event.stopPropagation();

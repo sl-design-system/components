@@ -78,8 +78,9 @@ Avoid Callout when the user must complete multiple steps, compare options, or fo
 | - | - | - | - |
 | 1 | Container | Fixed area within the layout at page or section level. | no |
 | 2 | Icon | Indicates meaning and intent, especially for caution. | yes |
-| 3 | Content | Short text describing the situation and its impact. | no |
-| 4 | Action | A focused button or link that helps the user progress. | yes |
+| 3 | Title | Short text describing the situation and its impact. | no |
+| 4 | Description | Main message text. Can appear without a title. | yes |
+| 4 | Content | Optional slot for custom content, mainly buttons and links. | yes |
 
 {.ds-table .ds-table-align-top}
 
@@ -94,9 +95,9 @@ Avoid Callout when the user must complete multiple steps, compare options, or fo
 Use variants to match the intent of the message and the level of emphasis needed.
 
 - **Info (default):** Provides persistent guidance or contextual notes.
-- **Positive:** Confirms a state or outcome that remains relevant in the layout.
-- **Caution:** Highlights risk, incomplete setup, or conditions that may affect outcomes.
-- **Negative:** Indicates a problem that may block progress or requires attention.
+- **Success:** Confirms a state or outcome that remains relevant in the layout.
+- **Warning:** Highlights risk, incomplete setup, or conditions that may affect outcomes.
+- **Danger:** Indicates a problem that may block progress or requires attention.
 
 </section>
 

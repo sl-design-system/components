@@ -593,8 +593,8 @@ describe('sl-calendar', () => {
       el = await fixture(html`
         <sl-calendar
           locale="en-US"
-          min=${new Date(2023, 0, 1).toISOString()}
-          max=${new Date(2023, 11, 31).toISOString()}
+          min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}
+          max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}
         ></sl-calendar>
       `);
 
@@ -605,7 +605,9 @@ describe('sl-calendar', () => {
     });
 
     it('should render proper helper text when only min is set', async () => {
-      el = await fixture(html`<sl-calendar locale="en-US" min=${new Date(2023, 0, 1).toISOString()}></sl-calendar>`);
+      el = await fixture(
+        html`<sl-calendar locale="en-US" min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}></sl-calendar>`
+      );
 
       const helperText = el.renderRoot.querySelector('#min-max-helper-text');
 
@@ -614,7 +616,9 @@ describe('sl-calendar', () => {
     });
 
     it('should render proper helper text when only max is set', async () => {
-      el = await fixture(html`<sl-calendar locale="en-US" max=${new Date(2023, 11, 31).toISOString()}></sl-calendar>`);
+      el = await fixture(
+        html`<sl-calendar locale="en-US" max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}></sl-calendar>`
+      );
 
       const helperText = el.renderRoot.querySelector('#min-max-helper-text');
 
@@ -626,8 +630,8 @@ describe('sl-calendar', () => {
       el = await fixture(html`
         <sl-calendar
           locale="en-US"
-          min=${new Date(2023, 0, 15).toISOString()}
-          max=${new Date(2023, 5, 20).toISOString()}
+          min=${new Date(Date.UTC(2023, 0, 15)).toISOString()}
+          max=${new Date(Date.UTC(2023, 5, 20)).toISOString()}
         ></sl-calendar>
       `);
 
@@ -641,8 +645,8 @@ describe('sl-calendar', () => {
       el = await fixture(html`
         <sl-calendar
           locale="en-US"
-          min=${new Date(2023, 0, 1).toISOString()}
-          max=${new Date(2024, 11, 31).toISOString()}
+          min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}
+          max=${new Date(Date.UTC(2024, 11, 31)).toISOString()}
         ></sl-calendar>
       `);
 
@@ -656,8 +660,8 @@ describe('sl-calendar', () => {
       el = await fixture(html`
         <sl-calendar
           locale="en-US"
-          min=${new Date(2023, 0, 1).toISOString()}
-          max=${new Date(2023, 11, 31).toISOString()}
+          min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}
+          max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}
         ></sl-calendar>
       `);
 
@@ -678,8 +682,8 @@ describe('sl-calendar', () => {
       el = await fixture(html`
         <sl-calendar
           locale="en-US"
-          min=${new Date(2023, 0, 1).toISOString()}
-          max=${new Date(2023, 11, 31).toISOString()}
+          min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}
+          max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}
         ></sl-calendar>
       `);
 
@@ -706,8 +710,8 @@ describe('sl-calendar', () => {
       el = await fixture(html`
         <sl-calendar
           locale="en-US"
-          min=${new Date(2023, 0, 1).toISOString()}
-          max=${new Date(2024, 11, 31).toISOString()}
+          min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}
+          max=${new Date(Date.UTC(2024, 11, 31)).toISOString()}
         ></sl-calendar>
       `);
 
@@ -731,12 +735,14 @@ describe('sl-calendar', () => {
     });
 
     it('should preserve existing ariaDescribedByElements when adding helper text', async () => {
+      const indicatorDate = new Date(Date.UTC(2023, 2, 1));
+
       el = await fixture(html`
         <sl-calendar
           locale="en-US"
-          min=${new Date(2023, 2, 1).toISOString()}
-          max=${new Date(2023, 2, 31).toISOString()}
-          .indicatorDates=${[{ date: new Date(2023, 2, 1), color: 'blue', label: 'Event' }]}
+          min=${new Date(Date.UTC(2023, 2, 1)).toISOString()}
+          max=${new Date(Date.UTC(2023, 2, 31)).toISOString()}
+          .indicatorDates=${[{ date: indicatorDate, color: 'blue', label: 'Event' }]}
         ></sl-calendar>
       `);
 
@@ -745,7 +751,7 @@ describe('sl-calendar', () => {
           ?.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])'),
         dayButton = monthView?.renderRoot.querySelector<HTMLButtonElement>('button[tabindex="0"]'),
         indicatorTooltip = (monthView?.renderRoot as ShadowRoot)?.getElementById(
-          `indicator-${new Date(2023, 2, 1).toISOString()}`
+          `indicator-${indicatorDate.toISOString()}`
         );
 
       dayButton?.focus();

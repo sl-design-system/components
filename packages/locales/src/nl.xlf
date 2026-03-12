@@ -124,11 +124,11 @@
 </trans-unit>
 <trans-unit id="sl.calendar.previousYears">
   <source>Go back 12 years</source>
-  <target>Ga 12 jaar vooruit</target>
+  <target>Ga 12 jaar terug</target>
 </trans-unit>
 <trans-unit id="sl.calendar.nextYears">
   <source>Go forward 12 years</source>
-  <target>Ga 12 jaar terug</target>
+  <target>Ga 12 jaar vooruit</target>
 </trans-unit>
 <trans-unit id="sl.grid.sortDescending">
   <source>Sort descending</source>

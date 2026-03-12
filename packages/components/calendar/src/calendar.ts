@@ -292,7 +292,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   #setHelperTextOnFirstButton(subComponent: Element): void {
     const helperText = this.renderRoot.querySelector('#min-max-helper-text');
 
-    if (!helperText || !subComponent) {
+    if (!helperText) {
       return;
     }
 

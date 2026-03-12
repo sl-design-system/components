@@ -40,13 +40,13 @@
     }
   },
   "devDependencies": {
-    "@storybook/addon-a11y": "0.0.0-pr-34100-sha-210f2133",
-    "@storybook/addon-docs": "0.0.0-pr-34100-sha-210f2133",
-    "@storybook/addon-themes": "0.0.0-pr-34100-sha-210f2133",
-    "@storybook/web-components-vite": "0.0.0-pr-34100-sha-210f2133",
+    "@storybook/addon-a11y": "0.0.0-pr-34105-sha-d0a83f8a",
+    "@storybook/addon-docs": "0.0.0-pr-34105-sha-d0a83f8a",
+    "@storybook/addon-themes": "0.0.0-pr-34105-sha-d0a83f8a",
+    "@storybook/web-components-vite": "0.0.0-pr-34105-sha-d0a83f8a",
     "lit": "^3.3.2",
-    "storybook": "0.0.0-pr-34100-sha-210f2133",
-    "storybook-addon-pseudo-states": "0.0.0-pr-34100-sha-210f2133",
+    "storybook": "0.0.0-pr-34105-sha-d0a83f8a",
+    "storybook-addon-pseudo-states": "0.0.0-pr-34105-sha-d0a83f8a",
     "tslib": "^2.8.1",
     "typescript": "^5.5.4",
     "wireit": "^0.14.12"

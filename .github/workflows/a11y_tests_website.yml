@@ -5,10 +5,14 @@ on:
     branches:
       - main
     types: [opened, synchronize, reopened, closed]
+    paths:
+      - 'website/src/**'
 
   push:
     branches:
       - main
+    paths:
+      - 'website/src/**'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -47,9 +51,15 @@ jobs:
 
       - name: Change .md paths to URLs
         id: generate_urls
-        run: node scripts/generate_test_URLs.js
+        uses: actions/github-script@v6
         env:
           CHANGED_MD: '${{ steps.detect_changes.outputs.all_changed_files }}'
+        with:
+          script: |
+            const fs = require('fs');
+            const files = process.env.CHANGED_MD.length !== 0 ? process.env.CHANGED_MD.split(' ').filter(Boolean) : ['/'];
+            const urls = files.map(file => file.replace(/^website\/src\//, '').replace(/\.md$/, '/'));
+            fs.writeFileSync('changed-urls.json', JSON.stringify(urls, null, 2));
 
       - name: Build website
         run: yarn website
@@ -79,11 +89,12 @@ jobs:
             const path = 'reports/summary.json';
             if (fs.existsSync(path)) {
               const summary = fs.readFileSync(path, 'utf8');
+              const summary_array = JSON.parse(summary);
               github.rest.issues.createComment({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: `### Accessibility Test Summary\n\n\`\`\`json\n${summary}\`\`\``
+                body: `### Accessibility Test Summary\n\n\`\`\`json\n${summary_array})\`\`\``
               });
             } else {
               console.log('Summary file not found.');

@@ -25,18 +25,18 @@ urls.forEach(url => {
         violations: accessibilityScanResults.violations
       },
       options: {
-        projectKey: `${projectName}-${safeName}`
+        projectKey: `${projectName}-${safeName}`,
+        outputDir: `reports/${projectName}`,
+        reportFileName: `${safeName}_a11y_report.html`
       }
     });
 
-    fs.mkdirSync(`reports/${projectName}`, { recursive: true });
-    fs.writeFileSync(`reports/${projectName}/${safeName}_a11y_report.html`, report);
-
     const summary = {
       url,
-      violations: accessibilityScanResults.violations.length
+      violations: accessibilityScanResults.violations.length,
+      report: `[Report for ${safeName}](reports/${projectName}/${safeName}_a11y_report.html)`
     };
 
-    fs.appendFileSync('reports/summary.json', `${JSON.stringify(summary)} + \n`);
+    fs.appendFileSync('reports/summary.json', JSON.stringify(summary, null, 2) + '\n');
   });
 });

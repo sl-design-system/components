@@ -121,7 +121,7 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
     this.#ariaDisabled = value;
 
     if (this.button) {
-      this.button.ariaDisabled = value;
+      this.button.ariaDisabled = this.disabled ? 'true' : value;
     } else if (value !== null) {
       this.setAttribute('aria-disabled', value);
     } else if (this.hasAttribute('aria-disabled')) {
@@ -154,11 +154,7 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
     super.updated(changes);
 
     if (changes.has('disabled')) {
-      if (this.disabled) {
-        this.button.ariaDisabled = 'true';
-      } else if (this.ariaDisabled !== 'true') {
-        this.button.ariaDisabled = null;
-      }
+      this.button.ariaDisabled = this.disabled ? 'true' : this.ariaDisabled;
     }
   }
 

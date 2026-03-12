@@ -130,7 +130,6 @@ describe('sl-menu-button', () => {
       it('should not override an explicit aria-disabled when disabled is toggled', async () => {
         el.ariaDisabled = 'true';
         await el.updateComplete;
-        await new Promise(resolve => setTimeout(resolve, 50));
 
         expect(button.ariaDisabled).to.equal('true');
 
@@ -141,6 +140,37 @@ describe('sl-menu-button', () => {
         el.disabled = false;
         await el.updateComplete;
         expect(button.ariaDisabled).to.equal('true');
+      });
+
+      it('should treat empty aria-disabled attribute as true and sync it', async () => {
+        el.setAttribute('aria-disabled', '');
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(button.ariaDisabled).to.equal('true');
+      });
+
+      it('should treat truthy aria-disabled values as disabled', async () => {
+        el.ariaDisabled = 'foo';
+        await el.updateComplete;
+
+        const menu = el.renderRoot.querySelector('sl-menu') as Menu;
+        button.click();
+        expect(menu).not.to.match(':popover-open');
+        expect(button.ariaDisabled).to.equal('foo');
+      });
+
+      it('should restore truthy aria-disabled when native disabled is toggled', async () => {
+        el.ariaDisabled = 'foo';
+        await el.updateComplete;
+        expect(button.ariaDisabled).to.equal('foo');
+
+        el.disabled = true;
+        await el.updateComplete;
+        expect(button.ariaDisabled).to.equal('true');
+
+        el.disabled = false;
+        await el.updateComplete;
+        expect(button.ariaDisabled).to.equal('foo');
       });
 
       it('should not have an explicit size', () => {

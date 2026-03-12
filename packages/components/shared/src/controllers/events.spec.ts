@@ -29,7 +29,11 @@ class TestElement extends LitElement {
   }
 }
 
-customElements.define('shared-events-test', TestElement);
+try {
+  customElements.define('shared-events-test', TestElement);
+} catch {
+  // Element may already be defined in watch / repeated test runs
+}
 
 describe('EventsController', () => {
   it('should register a simple function listener', async () => {

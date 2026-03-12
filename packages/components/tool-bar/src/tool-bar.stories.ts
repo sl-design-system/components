@@ -393,7 +393,7 @@ export const Overflow: Story = {
 export const State: Story = {
   args: {
     description:
-      'This example shows a how the tool bar automatically updates when the aria-disabled state of buttons changes. Note that the buttons remain focusable even when disabled.',
+      'This example shows how the tool bar automatically updates when the aria-disabled state of buttons changes. Note that the buttons remain focusable even when disabled.',
     itemsOutsideContainer: () => {
       const onClick = (event: SlToggleEvent<boolean>) => {
         const toggle = event.currentTarget as ToggleButton;

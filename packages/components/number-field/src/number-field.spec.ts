@@ -177,6 +177,13 @@ describe('sl-number-field', () => {
       expect(el.querySelector('input')).not.to.have.attribute('aria-valuenow');
     });
 
+    it('should not have floating point artifacts in aria-valuenow', async () => {
+      el.valueAsNumber = 1323.34;
+      await el.updateComplete;
+
+      expect(el.querySelector('input')).to.have.attribute('aria-valuenow', '1323.34');
+    });
+
     it('should show the formatted valueAsNumber when changed programmatically', async () => {
       el.valueAsNumber = 2000;
       await el.updateComplete;

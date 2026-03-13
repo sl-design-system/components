@@ -224,7 +224,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** Returns the format options for the helper text, omitting the year when min and max are in the same year. */
   get #helperTextFormatOptions(): Intl.DateTimeFormatOptions {
     return this.min && this.max && this.min.getFullYear() === this.max.getFullYear()
-      ? { day: '2-digit', month: 'long' }
+      ? { day: 'numeric', month: 'long' }
       : { day: '2-digit', month: '2-digit', year: 'numeric' };
   }
 

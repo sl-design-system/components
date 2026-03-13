@@ -581,4 +581,187 @@ describe('sl-calendar', () => {
       expect(selectYear).to.have.attribute('max', maxDate.toISOString());
     });
   });
+
+  describe('helper text', () => {
+    it('should not render helper text when neither min nor max is set', async () => {
+      el = await fixture(html`<sl-calendar locale="en-GB"></sl-calendar>`);
+
+      expect(el.renderRoot.querySelector('.helper-text')).not.to.exist;
+    });
+
+    it('should render proper helper text when both min and max are set', async () => {
+      el = await fixture(html`
+        <sl-calendar
+          locale="en-GB"
+          min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}
+          max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}
+        ></sl-calendar>
+      `);
+
+      const helperText = el.renderRoot.querySelector('.helper-text');
+
+      expect(helperText).to.exist;
+      expect(helperText).to.have.trimmed.text('Between 1 January and 31 December');
+    });
+
+    it('should render proper helper text when only min is set', async () => {
+      el = await fixture(
+        html`<sl-calendar locale="en-GB" min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}></sl-calendar>`
+      );
+
+      const helperText = el.renderRoot.querySelector('.helper-text');
+
+      expect(helperText).to.exist;
+      expect(helperText).to.have.trimmed.text('No earlier than 01/01/2023');
+    });
+
+    it('should render proper helper text when only max is set', async () => {
+      el = await fixture(
+        html`<sl-calendar locale="en-GB" max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}></sl-calendar>`
+      );
+
+      const helperText = el.renderRoot.querySelector('.helper-text');
+
+      expect(helperText).to.exist;
+      expect(helperText).to.have.trimmed.text('No later than 31/12/2023');
+    });
+
+    it('should use long month format without year in the helper text when min and max are within the same year', async () => {
+      el = await fixture(html`
+        <sl-calendar
+          locale="en-GB"
+          min=${new Date(Date.UTC(2023, 0, 15)).toISOString()}
+          max=${new Date(Date.UTC(2023, 5, 20)).toISOString()}
+        ></sl-calendar>
+      `);
+
+      const helperText = el.renderRoot.querySelector('.helper-text');
+
+      expect(helperText).to.exist;
+      expect(helperText).to.have.trimmed.text('Between 15 January and 20 June');
+    });
+
+    it('should include the year in the helper text when min and max are in different years', async () => {
+      el = await fixture(html`
+        <sl-calendar
+          locale="en-GB"
+          min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}
+          max=${new Date(Date.UTC(2024, 11, 31)).toISOString()}
+        ></sl-calendar>
+      `);
+
+      const helperText = el.renderRoot.querySelector('.helper-text');
+
+      expect(helperText).to.exist;
+      expect(helperText).to.have.trimmed.text('Between 01/01/2023 and 31/12/2024');
+    });
+
+    it('should set ariaDescribedByElements on a focused day button', async () => {
+      el = await fixture(html`
+        <sl-calendar
+          locale="en-GB"
+          min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}
+          max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}
+        ></sl-calendar>
+      `);
+
+      const monthView = el.renderRoot
+          .querySelector<SelectDay>('sl-select-day')
+          ?.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])'),
+        dayButton = monthView?.renderRoot.querySelector<HTMLButtonElement>('button[tabindex="0"]');
+
+      dayButton?.focus();
+
+      const helperText = el.renderRoot.querySelector('.helper-text');
+
+      expect(dayButton).to.exist;
+      expect(dayButton?.ariaDescribedByElements).to.include(helperText);
+    });
+
+    it('should set ariaDescribedByElements on a focused month button', async () => {
+      el = await fixture(html`
+        <sl-calendar
+          locale="en-GB"
+          min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}
+          max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}
+        ></sl-calendar>
+      `);
+
+      // Switch to month mode
+      el.renderRoot
+        .querySelector<SelectDay>('sl-select-day')
+        ?.renderRoot.querySelector<HTMLElement>('.current-month')
+        ?.click();
+      await el.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const selectMonth = el.renderRoot.querySelector<SelectMonth>('sl-select-month'),
+        monthButton = selectMonth?.renderRoot.querySelector<HTMLButtonElement>('table button:not(:disabled)');
+
+      monthButton?.focus();
+
+      const helperText = el.renderRoot.querySelector('.helper-text');
+
+      expect(monthButton).to.exist;
+      expect(monthButton?.ariaDescribedByElements).to.include(helperText);
+    });
+
+    it('should set ariaDescribedByElements on a focused year button', async () => {
+      el = await fixture(html`
+        <sl-calendar
+          locale="en-GB"
+          min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}
+          max=${new Date(Date.UTC(2024, 11, 31)).toISOString()}
+        ></sl-calendar>
+      `);
+
+      // Switch to year mode
+      el.renderRoot
+        .querySelector<SelectDay>('sl-select-day')
+        ?.renderRoot.querySelector<HTMLElement>('.current-year')
+        ?.click();
+      await el.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const selectYear = el.renderRoot.querySelector<SelectYear>('sl-select-year'),
+        yearButton = selectYear?.renderRoot.querySelector<HTMLButtonElement>('table button:not(:disabled)');
+
+      yearButton?.focus();
+
+      const helperText = el.renderRoot.querySelector('.helper-text');
+
+      expect(yearButton).to.exist;
+      expect(yearButton?.ariaDescribedByElements).to.include(helperText);
+    });
+
+    it('should preserve existing ariaDescribedByElements when adding helper text', async () => {
+      const indicatorDate = new Date(2023, 2, 14);
+
+      el = await fixture(html`
+        <sl-calendar
+          locale="en-GB"
+          show-today
+          min=${new Date(Date.UTC(2023, 2, 1)).toISOString()}
+          max=${new Date(Date.UTC(2023, 2, 31)).toISOString()}
+          .indicatorDates=${[{ date: indicatorDate, color: 'blue', label: 'Event' }]}
+        ></sl-calendar>
+      `);
+
+      const monthView = el.renderRoot
+          .querySelector<SelectDay>('sl-select-day')
+          ?.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])'),
+        dayButton = monthView?.renderRoot.querySelector<HTMLButtonElement>('button[tabindex="0"]'),
+        indicatorId = dayButton?.getAttribute('aria-describedby'),
+        indicatorTooltip = indicatorId ? (monthView?.renderRoot as ShadowRoot)?.getElementById(indicatorId) : null;
+
+      dayButton?.focus();
+
+      const helperText = el.renderRoot.querySelector('.helper-text');
+
+      expect(dayButton).to.exist;
+      expect(indicatorTooltip).to.exist;
+      expect(dayButton?.ariaDescribedByElements).to.include(helperText);
+      expect(dayButton?.ariaDescribedByElements).to.include(indicatorTooltip);
+    });
+  });
 });

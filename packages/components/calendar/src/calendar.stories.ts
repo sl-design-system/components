@@ -146,6 +146,20 @@ export const FirstDayOfWeek: Story = {
   }
 };
 
+export const Min: Story = {
+  args: {
+    min: new Date(2025, 0, 10),
+    month: new Date(2025, 0, 1)
+  }
+};
+
+export const Max: Story = {
+  args: {
+    max: new Date(2025, 0, 20),
+    month: new Date(2025, 0, 1)
+  }
+};
+
 export const MinMax: Story = {
   args: {
     max: new Date(2025, 0, 20),

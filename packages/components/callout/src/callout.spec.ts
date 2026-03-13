@@ -22,11 +22,11 @@ describe('sl-callout', () => {
       expect(el.variant).to.be.undefined;
     });
 
-    it('should have positive variant when set', async () => {
-      el.variant = 'positive';
+    it('should have success variant when set', async () => {
+      el.variant = 'success';
       await el.updateComplete;
 
-      expect(el).to.have.attribute('variant', 'positive');
+      expect(el).to.have.attribute('variant', 'success');
     });
   });
 

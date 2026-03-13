@@ -6,7 +6,7 @@ import { restore, spy, stub } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import '../register.js';
-import { type Button, type ButtonType } from './button.js';
+import { Button, type ButtonType } from './button.js';
 
 describe('sl-button', () => {
   let el: Button;
@@ -145,9 +145,91 @@ describe('sl-button', () => {
     });
 
     it('should prevent click events from bubbling up the DOM', async () => {
+      const el = await fixture<Button>(html`<sl-button disabled>Hello world</sl-button>`);
+      const clickEvent = new MouseEvent('click', { bubbles: true, cancelable: true });
+      const stopImmediatePropagationSpy = spy(clickEvent, 'stopImmediatePropagation');
+
+      el.dispatchEvent(clickEvent);
+
+      expect(stopImmediatePropagationSpy).to.have.been.called;
+    });
+
+    it('should suppress events in the capture phase when disabled', async () => {
+      const wrapper = await fixture<HTMLDivElement>(html`
+        <div id="wrapper">
+          <sl-button disabled>Disabled</sl-button>
+        </div>
+      `);
+      const button = wrapper.querySelector('sl-button')!;
+      let captureCalled = false;
+      let bubbleCalled = false;
+
+      wrapper.addEventListener('click', () => (captureCalled = true), { capture: true });
+      wrapper.addEventListener('click', () => (bubbleCalled = true));
+
+      button.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true, cancelable: true }));
+
+      expect(captureCalled, 'capture listener on parent should be called').to.be.true;
+      expect(bubbleCalled, 'bubble listener on parent should NOT be called').to.be.false;
+    });
+
+    it('should NOT suppress events when enabled', async () => {
+      const wrapper = await fixture<HTMLDivElement>(html`
+        <div id="wrapper">
+          <sl-button>Enabled</sl-button>
+        </div>
+      `);
+      const button = wrapper.querySelector('sl-button')!;
+      let captureCalled = false;
+      let bubbleCalled = false;
+
+      wrapper.addEventListener('click', () => (captureCalled = true), { capture: true });
+      wrapper.addEventListener('click', () => (bubbleCalled = true));
+
+      button.click();
+
+      expect(captureCalled, 'capture listener on parent should be called').to.be.true;
+      expect(bubbleCalled, 'bubble listener on parent should be called').to.be.true;
+    });
+
+    it('should prevent Enter keydown event from bubbling up the DOM', async () => {
+      const keydownEvent = new KeyboardEvent('keydown', { key: 'Enter' }),
+        preventDefaultSpy = spy(keydownEvent, 'preventDefault'),
+        stopImmediatePropagationSpy = spy(keydownEvent, 'stopImmediatePropagation');
+
+      el.disabled = true;
+      await el.updateComplete;
+
+      el.dispatchEvent(keydownEvent);
+
+      expect(preventDefaultSpy).to.have.been.called;
+      expect(stopImmediatePropagationSpy).to.have.been.called;
+    });
+
+    it('should prevent Space keydown event from bubbling up the DOM', async () => {
+      const keydownEvent = new KeyboardEvent('keydown', { key: ' ' }),
+        preventDefaultSpy = spy(keydownEvent, 'preventDefault'),
+        stopImmediatePropagationSpy = spy(keydownEvent, 'stopImmediatePropagation');
+
+      el.disabled = true;
+      await el.updateComplete;
+
+      el.dispatchEvent(keydownEvent);
+
+      expect(preventDefaultSpy).to.have.been.called;
+      expect(stopImmediatePropagationSpy).to.have.been.called;
+    });
+  });
+
+  describe('aria-disabled', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-button>Hello world</sl-button>`);
+    });
+
+    it('should prevent click events from bubbling up the DOM', async () => {
       const clickEvent = new Event('click'),
         preventDefaultSpy = spy(clickEvent, 'preventDefault'),
-        stopPropagationSpy = spy(clickEvent, 'stopPropagation');
+        stopImmediatePropagationSpy = spy(clickEvent, 'stopImmediatePropagation');
 
       el.setAttribute('aria-disabled', 'true');
       await el.updateComplete;
@@ -155,35 +237,43 @@ describe('sl-button', () => {
       el.dispatchEvent(clickEvent);
 
       expect(preventDefaultSpy).to.have.been.called;
-      expect(stopPropagationSpy).to.have.been.called;
+      expect(stopImmediatePropagationSpy).to.have.been.called;
     });
 
     it('should prevent Enter keydown event from bubbling up the DOM', async () => {
       const keydownEvent = new KeyboardEvent('keydown', { key: 'Enter' }),
         preventDefaultSpy = spy(keydownEvent, 'preventDefault'),
-        stopPropagationSpy = spy(keydownEvent, 'stopPropagation');
+        stopImmediatePropagationSpy = spy(keydownEvent, 'stopImmediatePropagation');
 
-      el.disabled = true;
+      el.setAttribute('aria-disabled', 'true');
       await el.updateComplete;
 
       el.dispatchEvent(keydownEvent);
 
       expect(preventDefaultSpy).to.have.been.called;
-      expect(stopPropagationSpy).to.have.been.called;
+      expect(stopImmediatePropagationSpy).to.have.been.called;
     });
 
     it('should prevent Space keydown event from bubbling up the DOM', async () => {
       const keydownEvent = new KeyboardEvent('keydown', { key: ' ' }),
         preventDefaultSpy = spy(keydownEvent, 'preventDefault'),
-        stopPropagationSpy = spy(keydownEvent, 'stopPropagation');
+        stopImmediatePropagationSpy = spy(keydownEvent, 'stopImmediatePropagation');
 
-      el.disabled = true;
+      el.setAttribute('aria-disabled', 'true');
       await el.updateComplete;
 
       el.dispatchEvent(keydownEvent);
 
       expect(preventDefaultSpy).to.have.been.called;
-      expect(stopPropagationSpy).to.have.been.called;
+      expect(stopImmediatePropagationSpy).to.have.been.called;
+    });
+
+    it('should be focusable when aria-disabled is set', async () => {
+      el.setAttribute('aria-disabled', 'true');
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('tabindex', '0');
+      expect(el.tabIndex).to.equal(0);
     });
   });
 

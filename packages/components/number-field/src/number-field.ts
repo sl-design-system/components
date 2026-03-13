@@ -186,7 +186,7 @@ export class NumberField extends LocaleMixin(TextField) {
     }
 
     if (changes.has('min')) {
-      if (typeof this.min === 'number') {
+      if (typeof this.min === 'number' && !Number.isNaN(this.min)) {
         this.input.setAttribute('aria-valuemin', String(this.min));
       } else {
         this.input.removeAttribute('aria-valuemin');
@@ -194,7 +194,7 @@ export class NumberField extends LocaleMixin(TextField) {
     }
 
     if (changes.has('max')) {
-      if (typeof this.max === 'number') {
+      if (typeof this.max === 'number' && !Number.isNaN(this.max)) {
         this.input.setAttribute('aria-valuemax', String(this.max));
       } else {
         this.input.removeAttribute('aria-valuemax');

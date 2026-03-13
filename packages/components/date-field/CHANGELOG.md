@@ -1,5 +1,34 @@
 # @sl-design-system/date-field
 
+## 0.1.0
+
+### Minor Changes
+
+- [#3012](https://github.com/sl-design-system/components/pull/3012) [`2f8d8bf`](https://github.com/sl-design-system/components/commit/2f8d8bf32ca6e90eb9d117c1fcc434a59905769c) - Various improvements:
+  - Major improvements to accessibility by having separate spinbutton inputs for each date part
+  - Keyboard entry is now supported. Users can type in a date, but they can also use the arrow keys to navigate between date parts and increment/decrement values. This works for any locale
+  - Require confirmation is a new prop that, when enabled, requires users to confirm their selection in the calendar popover before it is applied to the input field. This prevents accidental date changes and allows users to review their selection before confirming it
+  - Styling improvements
+
+### Patch Changes
+
+- [#3073](https://github.com/sl-design-system/components/pull/3073) [`14e1286`](https://github.com/sl-design-system/components/commit/14e12869d8250c9292b15c60e69c99907277302e) - Fix positioning of popover when there's not enough space
+
+  Due to the calendar element lazy rendering, the anchor directive was initialized before the calendar element was rendered. This caused the directive to calculate the position of the popover based on the height of the popover without the calendar. When the calendar was later rendered, the popover became taller and there was not enough space to position the popover at the bottom.
+
+  This problem will not happen when CSS Anchor Positioning is used. This standard is already supported in all latest browsers, but in some older versions (which we still support), it doesn't work.
+
+  The anchor directive has been changed so you can tell it to do nothing if CSS Anchor Positioning is supported. In that case, the directive will only initialize if the browser does not support CSS Anchor Positioning. This way, the popover will be positioned correctly in all browsers.
+
+- Updated dependencies [[`a4a0c23`](https://github.com/sl-design-system/components/commit/a4a0c23a5341a2026c23e6e7fdf05cfdd44dc16c), [`716e305`](https://github.com/sl-design-system/components/commit/716e305a7cc5cbafb5dd97b16c9f70e4320d45e4), [`9e361f4`](https://github.com/sl-design-system/components/commit/9e361f40a25242652c3f7878851fbfd2a75c8f3d), [`330e06f`](https://github.com/sl-design-system/components/commit/330e06ff36c7a5c96cf313b60a5013d6307477c7), [`192a51d`](https://github.com/sl-design-system/components/commit/192a51d63689cca9d91cdee60c7d4389905d8257), [`3dd4bf8`](https://github.com/sl-design-system/components/commit/3dd4bf8c1f0fd0d94494f741e95ad8ddd5613fe4), [`14e1286`](https://github.com/sl-design-system/components/commit/14e12869d8250c9292b15c60e69c99907277302e), [`ed7376b`](https://github.com/sl-design-system/components/commit/ed7376b4aa21c5df7d50119d839000abbab1cbcf), [`2f8d8bf`](https://github.com/sl-design-system/components/commit/2f8d8bf32ca6e90eb9d117c1fcc434a59905769c), [`2f8d8bf`](https://github.com/sl-design-system/components/commit/2f8d8bf32ca6e90eb9d117c1fcc434a59905769c), [`2f8d8bf`](https://github.com/sl-design-system/components/commit/2f8d8bf32ca6e90eb9d117c1fcc434a59905769c), [`ae8b9da`](https://github.com/sl-design-system/components/commit/ae8b9da97d3e5adc0a9ecb8feabec67699893bcc), [`ed7376b`](https://github.com/sl-design-system/components/commit/ed7376b4aa21c5df7d50119d839000abbab1cbcf)]:
+  - @sl-design-system/button@1.3.4
+  - @sl-design-system/shared@0.11.0
+  - @sl-design-system/icon@1.4.2
+  - @sl-design-system/calendar@0.0.5
+  - @sl-design-system/form@1.3.5
+  - @sl-design-system/button-bar@1.4.0
+  - @sl-design-system/text-field@1.6.8
+
 ## 0.0.5
 
 ### Patch Changes

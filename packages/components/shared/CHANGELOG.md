@@ -1,5 +1,23 @@
 # @sl-design-system/shared
 
+## 0.11.0
+
+### Minor Changes
+
+- [#3073](https://github.com/sl-design-system/components/pull/3073) [`14e1286`](https://github.com/sl-design-system/components/commit/14e12869d8250c9292b15c60e69c99907277302e) - Add `supportCSSAnchorPositioning` option to the anchor directive
+
+  Setting this to true will cause the directive to do nothing if CSS anchor positioning is supported in the browser. It will then use CSS anchor positioning to position the element. In older browsers it will still use floating-ui to position the element.
+
+  A component has to explicitly opt-in to using CSS Anchor Positioning by setting this option to true. You should set it to true when you want to use CSS Anchor Positioning.
+
+- [#3012](https://github.com/sl-design-system/components/pull/3012) [`2f8d8bf`](https://github.com/sl-design-system/components/commit/2f8d8bf32ca6e90eb9d117c1fcc434a59905769c) - - fix for `LocaleMixin` to explicitly update the `locale` property
+  - move common date utils from the calendar package so they can be used in date-field as well
+
+### Patch Changes
+
+- [#3041](https://github.com/sl-design-system/components/pull/3041) [`716e305`](https://github.com/sl-design-system/components/commit/716e305a7cc5cbafb5dd97b16c9f70e4320d45e4) - Fixes `AnchorController` that was clearing `ariaDescribedByElements` on the anchor element when a popover opens or closes.
+  Changing the `aria-describedby` attribute also clears the `ariaDescribedByElements` property, which broke references set by other components (e.g. `sl-menu-button` forwarding tooltip references to its inner `sl-button`).
+
 ## 0.10.0
 
 ### Minor Changes

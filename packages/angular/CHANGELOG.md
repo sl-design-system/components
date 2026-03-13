@@ -1,5 +1,31 @@
 # @sl-design-system/angular
 
+## 4.1.0
+
+### Minor Changes
+
+- [#3012](https://github.com/sl-design-system/components/pull/3012) [`2f8d8bf`](https://github.com/sl-design-system/components/commit/2f8d8bf32ca6e90eb9d117c1fcc434a59905769c) - Add `DateFieldDirective` for `<sl-date-field>`
+
+- [#2950](https://github.com/sl-design-system/components/pull/2950) [`c5b7466`](https://github.com/sl-design-system/components/commit/c5b746664936488023c610f1886a0dcd8de401f6) - A new `MessageDialogService` for Angular applications that simplifies opening and managing message dialogs programmatically.
+  The service provides methods to display confirmation, alert, and custom message dialogs with proper lifecycle management and Angular integration.
+  Dialogs can be created with simple text messages or by passing custom Angular components for more complex scenarios.
+
+### Patch Changes
+
+- Updated dependencies [[`ed7376b`](https://github.com/sl-design-system/components/commit/ed7376b4aa21c5df7d50119d839000abbab1cbcf), [`330e06f`](https://github.com/sl-design-system/components/commit/330e06ff36c7a5c96cf313b60a5013d6307477c7), [`a8d2247`](https://github.com/sl-design-system/components/commit/a8d22476ef580f2534bf3e585d72e5d8db8313dc), [`5616832`](https://github.com/sl-design-system/components/commit/561683221a54010ff326b449468769597e22fb10), [`ed7376b`](https://github.com/sl-design-system/components/commit/ed7376b4aa21c5df7d50119d839000abbab1cbcf), [`c303b6a`](https://github.com/sl-design-system/components/commit/c303b6a3fe7656b6ccd9e53c92e9d2d13099761f), [`5616832`](https://github.com/sl-design-system/components/commit/561683221a54010ff326b449468769597e22fb10), [`f82f7e9`](https://github.com/sl-design-system/components/commit/f82f7e94cb966f02f62fd1ff0c9f2d7d4144cf75), [`ae8b9da`](https://github.com/sl-design-system/components/commit/ae8b9da97d3e5adc0a9ecb8feabec67699893bcc), [`be0e099`](https://github.com/sl-design-system/components/commit/be0e0996c91a261fd8de5f8701d084268929fc17), [`ddf0175`](https://github.com/sl-design-system/components/commit/ddf0175ec6f60add915c485e45c77511cf4c4664), [`49eab13`](https://github.com/sl-design-system/components/commit/49eab1323d08cb12f995d20845391009cdb4217d)]:
+  - @sl-design-system/time-field@0.1.0
+  - @sl-design-system/icon@1.4.2
+  - @sl-design-system/combobox@0.1.7
+  - @sl-design-system/locales@0.2.0
+  - @sl-design-system/form@1.3.5
+  - @sl-design-system/switch@1.1.7
+  - @sl-design-system/checkbox@2.1.9
+  - @sl-design-system/number-field@0.1.7
+  - @sl-design-system/radio-group@1.1.8
+  - @sl-design-system/select@2.1.2
+  - @sl-design-system/text-area@1.1.7
+  - @sl-design-system/text-field@1.6.8
+
 ## 4.0.1
 
 ### Patch Changes

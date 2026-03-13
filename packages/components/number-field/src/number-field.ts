@@ -141,8 +141,6 @@ export class NumberField extends LocaleMixin(TextField) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.input.setAttribute('inputmode', this.inputMode || 'numeric');
-
     // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
     const style = document.createElement('style');
     style.innerHTML = `
@@ -318,6 +316,7 @@ export class NumberField extends LocaleMixin(TextField) {
   protected override updateInputElement(input: HTMLInputElement): void {
     super.updateInputElement(input);
 
+    input.inputMode = this.inputMode || 'numeric';
     input.role = 'spinbutton';
   }
 

@@ -80,7 +80,7 @@ Avoid Callout when the user must complete multiple steps, compare options, or fo
 | 2 | Icon | Indicates meaning and intent, especially for caution. | yes |
 | 3 | Title | Short text describing the situation and its impact. | no |
 | 4 | Description | Main message text. Can appear without a title. | yes |
-| 4 | Content | Optional slot for custom content, mainly buttons and links. | yes |
+| 5 | Content | Optional slot for custom content, mainly buttons and links. | yes |
 
 {.ds-table .ds-table-align-top}
 

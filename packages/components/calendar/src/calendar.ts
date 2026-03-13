@@ -180,8 +180,8 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           ? html`
               <div class="helper-text">
                 <sl-icon name="info"></sl-icon>
-                ${msg(str`From ${format(this.min, this.locale, this.#helperTextFormatOptions)}`, {
-                  id: 'sl.calendar.rangeFrom'
+                ${msg(str`No earlier than ${format(this.min, this.locale, this.#helperTextFormatOptions)}`, {
+                  id: 'sl.calendar.rangeNoEarlierThan'
                 })}
               </div>
             `
@@ -189,8 +189,8 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
             ? html`
                 <div class="helper-text">
                   <sl-icon name="info"></sl-icon>
-                  ${msg(str`Until ${format(this.max, this.locale, this.#helperTextFormatOptions)}`, {
-                    id: 'sl.calendar.rangeUntil'
+                  ${msg(str`No later than ${format(this.max, this.locale, this.#helperTextFormatOptions)}`, {
+                    id: 'sl.calendar.rangeNoLaterThan'
                   })}
                 </div>
               `

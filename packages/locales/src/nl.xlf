@@ -414,13 +414,13 @@
   <source>Between <x id="0" equiv-text="${format(this.min, this.locale, this.#helperTextFormatOptions)}"/> and <x id="1" equiv-text="${format(this.max, this.locale, this.#helperTextFormatOptions)}"/></source>
   <target>Tussen <x id="0" equiv-text="${format(this.min, this.locale, this.#helperTextFormatOptions)}"/> en <x id="1" equiv-text="${format(this.max, this.locale, this.#helperTextFormatOptions)}"/></target>
 </trans-unit>
-<trans-unit id="sl.calendar.rangeFrom">
-  <source>From <x id="0" equiv-text="${format(this.min, this.locale, this.#helperTextFormatOptions)}"/></source>
-  <target>Van <x id="0" equiv-text="${format(this.min, this.locale, this.#helperTextFormatOptions)}"/></target>
+<trans-unit id="sl.calendar.rangeNoEarlierThan">
+  <source>No earlier than <x id="0" equiv-text="${format(this.min, this.locale, this.#helperTextFormatOptions)}"/></source>
+  <target>Niet eerder dan <x id="0" equiv-text="${format(this.min, this.locale, this.#helperTextFormatOptions)}"/></target>
 </trans-unit>
-<trans-unit id="sl.calendar.rangeUntil">
-  <source>Until <x id="0" equiv-text="${format(this.max, this.locale, this.#helperTextFormatOptions)}"/></source>
-  <target>Tot <x id="0" equiv-text="${format(this.max, this.locale, this.#helperTextFormatOptions)}"/></target>
+<trans-unit id="sl.calendar.rangeNoLaterThan">
+  <source>No later than <x id="0" equiv-text="${format(this.max, this.locale, this.#helperTextFormatOptions)}"/></source>
+  <target>Uiterlijk <x id="0" equiv-text="${format(this.max, this.locale, this.#helperTextFormatOptions)}"/></target>
 </trans-unit>
 </body>
 </file>

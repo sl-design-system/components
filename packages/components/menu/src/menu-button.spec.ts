@@ -34,12 +34,40 @@ describe('sl-menu-button', () => {
       expect(el.disabled).not.to.be.true;
     });
 
-    it('should proxy the aria-disabled attribute to the input element', async () => {
+    it('should proxy the aria-disabled attribute to the button element', async () => {
       el.setAttribute('aria-disabled', 'true');
+      await el.updateComplete;
+
+      expect(el).to.not.have.attribute('aria-disabled');
+      expect(button.ariaDisabled).to.equal('true');
+    });
+
+    it('should proxy the ariaDisabled property to the button element', async () => {
+      el.ariaDisabled = 'true';
+      await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(el).to.not.have.attribute('aria-disabled');
       expect(el.button).to.have.attribute('aria-disabled', 'true');
+    });
+
+    it('should not show the menu when aria-disabled is set to true', async () => {
+      el.setAttribute('aria-disabled', 'true');
+      await new Promise(resolve => setTimeout(resolve, 50));
+      await el.updateComplete;
+
+      button.click();
+      expect(menu).not.to.match(':popover-open');
+
+      button.focus();
+      await userEvent.keyboard('{ArrowDown}');
+      expect(menu).not.to.match(':popover-open');
+
+      await userEvent.keyboard('{Enter}');
+      expect(menu).not.to.match(':popover-open');
+
+      await userEvent.keyboard('{ }');
+      expect(menu).not.to.match(':popover-open');
     });
 
     it('should proxy the aria-label attribute to the input element', async () => {
@@ -85,7 +113,75 @@ describe('sl-menu-button', () => {
 
         expect(button).to.have.attribute('disabled');
         expect(button.disabled).to.be.true;
+        expect(button.tabIndex).to.equal(-1);
         expect(el.disabled).to.be.true;
+      });
+
+      it('should properly sync and restore the internal button state when disabled changes', async () => {
+        el.disabled = true;
+        await el.updateComplete;
+        expect(button).to.have.attribute('disabled');
+
+        el.disabled = false;
+        await el.updateComplete;
+        expect(button).not.to.have.attribute('disabled');
+      });
+
+      it('should have an aria-disabled button when ariaDisabled is set', async () => {
+        el.ariaDisabled = 'true';
+        await el.updateComplete;
+
+        expect(button).not.to.have.attribute('disabled');
+        expect(button.ariaDisabled).to.equal('true');
+        expect(button.tabIndex).to.equal(0);
+      });
+
+      it('should not override an explicit aria-disabled when disabled is toggled', async () => {
+        el.ariaDisabled = 'true';
+        await el.updateComplete;
+
+        expect(button.ariaDisabled).to.equal('true');
+
+        el.disabled = true;
+        await el.updateComplete;
+        expect(button.ariaDisabled).to.equal('true');
+
+        el.disabled = false;
+        await el.updateComplete;
+        expect(button.ariaDisabled).to.equal('true');
+      });
+
+      it('should treat empty aria-disabled attribute as true and sync it', async () => {
+        el.setAttribute('aria-disabled', '');
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(button.ariaDisabled).to.equal('true');
+      });
+
+      it('should treat truthy aria-disabled values as disabled', async () => {
+        el.ariaDisabled = 'foo';
+        await el.updateComplete;
+
+        const menu = el.renderRoot.querySelector('sl-menu') as Menu;
+        button.click();
+        expect(menu).not.to.match(':popover-open');
+        expect(button.ariaDisabled).to.equal('foo');
+      });
+
+      it('should not override truthy aria-disabled when native disabled is toggled', async () => {
+        el.ariaDisabled = 'foo';
+        await el.updateComplete;
+        expect(button.ariaDisabled).to.equal('foo');
+
+        el.disabled = true;
+        await el.updateComplete;
+        expect(button).to.have.attribute('disabled');
+        expect(button.ariaDisabled).to.equal('foo');
+
+        el.disabled = false;
+        await el.updateComplete;
+        expect(button).not.to.have.attribute('disabled');
+        expect(button.ariaDisabled).to.equal('foo');
       });
 
       it('should not have an explicit size', () => {

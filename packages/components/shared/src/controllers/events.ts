@@ -1,7 +1,12 @@
 import { type ReactiveController, type ReactiveControllerHost } from 'lit';
 
 export type EventRegistration = Partial<{
-  [name in keyof GlobalEventHandlersEventMap]: (event: GlobalEventHandlersEventMap[name]) => void | Promise<void>;
+  [name in keyof GlobalEventHandlersEventMap]:
+    | ((event: GlobalEventHandlersEventMap[name]) => void | Promise<void>)
+    | {
+        handler(event: GlobalEventHandlersEventMap[name]): void | Promise<void>;
+        options?: boolean | AddEventListenerOptions;
+      };
 }>;
 
 export class EventsController implements ReactiveController {
@@ -16,9 +21,11 @@ export class EventsController implements ReactiveController {
   }
 
   hostConnected(): void {
-    Object.entries(this.#events ?? {}).forEach(([name, listener]) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      this.listen<any>(this.#host, name, listener);
+    Object.entries(this.#events ?? {}).forEach(([name, registration]) => {
+      const handler = typeof registration === 'function' ? registration : registration.handler;
+      const options = typeof registration === 'function' ? undefined : registration.options;
+
+      this.listen(this.#host, name as keyof GlobalEventHandlersEventMap, handler as EventListener, options);
     });
   }
 

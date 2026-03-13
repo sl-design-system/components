@@ -94,7 +94,7 @@ jobs:
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: `### Accessibility Test Summary\n\n\ ${summary} \n\n `
+                body: `### Accessibility Test Summary\n\n\ ${summary} \n\n [View detailed results](${runUrl}).`
               });
             } else {
               console.log('Summary file not found.');

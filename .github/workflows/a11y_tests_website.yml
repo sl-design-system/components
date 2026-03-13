@@ -85,16 +85,16 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
             const fs = require('fs');
             const path = 'reports/summary.json';
             if (fs.existsSync(path)) {
               const summary = fs.readFileSync(path, 'utf8');
-              const summary_array = JSON.parse(summary);
               github.rest.issues.createComment({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: `### Accessibility Test Summary\n\n\`\`\`json\n${summary_array})\`\`\``
+                body: `### Accessibility Test Summary\n\n\ ${summary} \n\n `
               });
             } else {
               console.log('Summary file not found.');

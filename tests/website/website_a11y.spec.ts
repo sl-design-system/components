@@ -32,8 +32,7 @@ urls.forEach((url, index, arr) => {
 
     const summary = {
       url,
-      violations: accessibilityScanResults.violations.length,
-      report: `[Report for ${safeName}](reports/${projectName}/${safeName}_a11y_report.html)`
+      violations: accessibilityScanResults.violations.length
     };
 
     if (index === 0) {

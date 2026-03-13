@@ -282,15 +282,15 @@ describe('sl-toggle-button', () => {
 
       await el.updateComplete;
       el.focus();
-      await userEvent.hover(el);
-      await new Promise(resolve => setTimeout(resolve, 50));
+      el.dispatchEvent(new PointerEvent('pointerover', { bubbles: true, composed: true }));
+      await new Promise(resolve => setTimeout(resolve, 100));
 
       const tooltip = document.querySelector('sl-tooltip');
       expect(tooltip).to.exist;
       expect(tooltip?.textContent).to.equal('Settings');
     });
 
-    it('should have aria-labelledby and no aria-label for icon-only buttons', async () => {
+    it('should have aria-label initially and aria-labelledby after interaction for icon-only buttons', async () => {
       el = await fixture(html`
         <sl-toggle-button .label=${'Settings'}>
           <sl-icon name="far-gear" slot="default"></sl-icon>
@@ -299,21 +299,37 @@ describe('sl-toggle-button', () => {
       `);
 
       await el.updateComplete;
+
+      // Initial state: fallback aria-label should be present
+      expect(el).to.have.attribute('aria-label', 'Settings');
+      expect(el).not.to.have.attribute('aria-labelledby');
+
       el.focus();
-      await userEvent.hover(el);
-      await new Promise(resolve => setTimeout(resolve, 50));
+      el.dispatchEvent(new PointerEvent('pointerover', { bubbles: true, composed: true }));
+      await new Promise(resolve => setTimeout(resolve, 100));
 
       const tooltip = document.querySelector('sl-tooltip');
+      expect(tooltip).to.exist;
       expect(el).not.to.have.attribute('aria-label');
       expect(el).to.have.attribute('aria-labelledby', tooltip?.id);
     });
 
-    it('should have aria-label and no aria-labelledby for buttons with text', async () => {
+    it('should have aria-label and aria-describedby for buttons with text after interaction', async () => {
       el = await fixture(html`<sl-toggle-button .label=${'Settings'}>Settings</sl-toggle-button>`);
 
       await el.updateComplete;
+
       expect(el).to.have.attribute('aria-label', 'Settings');
-      expect(el).not.to.have.attribute('aria-labelledby');
+      expect(el).not.to.have.attribute('aria-describedby');
+
+      el.focus();
+      el.dispatchEvent(new PointerEvent('pointerover', { bubbles: true, composed: true }));
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const tooltip = document.querySelector('sl-tooltip');
+      expect(tooltip).to.exist;
+      expect(el).to.have.attribute('aria-label', 'Settings');
+      expect(el).to.have.attribute('aria-describedby', tooltip?.id);
     });
   });
 });

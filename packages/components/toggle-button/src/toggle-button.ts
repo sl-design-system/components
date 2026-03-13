@@ -166,8 +166,12 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
             tooltip => {
               this.#tooltip = tooltip;
               tooltip.textContent = this.label!;
+              this.#updateAriaAttributes();
             },
-            { ariaRelation: 'label', context: this.shadowRoot! }
+            {
+              ariaRelation: this.#isIconOnly() ? 'label' : 'description',
+              context: this.shadowRoot!
+            }
           );
         }
       } else if (this.#tooltip instanceof Tooltip) {
@@ -183,10 +187,8 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
       this.setAttribute('aria-pressed', (this.pressed ?? false).toString());
     }
 
-    if (this.hasAttribute('icon-only') && this.label && this.hasAttribute('aria-label')) {
-      this.#isInternalAriaLabelUpdate = true;
-      this.removeAttribute('aria-label');
-      this.#isInternalAriaLabelUpdate = false;
+    if (changes.has('label') || changes.has('hasText') || changes.has('defaultIcon') || changes.has('pressedIcon')) {
+      this.#updateAriaAttributes();
     }
   }
 
@@ -236,5 +238,48 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
     this.hasText = !!event.target
       .assignedNodes({ flatten: true })
       .filter(node => node.textContent && node.textContent.trim().length > 0).length;
+  }
+
+  /**
+   * Update aria-label, aria-describedby and aria-labelledby.
+   * For icon-only buttons, aria-label is removed only after the tooltip is created,
+   * setting aria-labelledby as the accessible name. Otherwise, aria-label is used
+   * as the accessible name, and the tooltip provides a description via aria-describedby.
+   */
+  #updateAriaAttributes(): void {
+    if (!this.label) {
+      return;
+    }
+
+    if (this.#tooltip instanceof Tooltip) {
+      const isIconOnly = this.#isIconOnly();
+      console.log('#updateAriaAttributes: tooltip exists. isIconOnly:', isIconOnly, 'id:', this.#tooltip.id);
+      this.#isInternalAriaLabelUpdate = true;
+      if (isIconOnly) {
+        console.log('#updateAriaAttributes: removing aria-label, setting aria-labelledby');
+        this.removeAttribute('aria-label');
+        this.setAttribute('aria-labelledby', this.#tooltip.id);
+        this.removeAttribute('aria-describedby');
+      } else {
+        console.log('#updateAriaAttributes: setting aria-label, setting aria-describedby');
+        this.setAttribute('aria-label', this.label);
+        this.setAttribute('aria-describedby', this.#tooltip.id);
+        this.removeAttribute('aria-labelledby');
+      }
+      this.#isInternalAriaLabelUpdate = false;
+    } else {
+      console.log('#updateAriaAttributes: tooltip is lazy. isIconOnly:', this.#isIconOnly());
+      // While the tooltip is lazy, keep aria-label as a fallback
+      this.#isInternalAriaLabelUpdate = true;
+      this.setAttribute('aria-label', this.label);
+      this.#isInternalAriaLabelUpdate = false;
+      this.removeAttribute('aria-labelledby');
+      this.removeAttribute('aria-describedby');
+    }
+  }
+
+  /** @internal Returns true if the button only contains icons and no text. */
+  #isIconOnly(): boolean {
+    return !this.hasText && !!this.defaultIcon && !!this.pressedIcon;
   }
 }

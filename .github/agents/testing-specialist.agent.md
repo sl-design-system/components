@@ -265,6 +265,17 @@ variant?: 'primary' | 'secondary';
 8. **Accessibility**: Include tests for ARIA attributes and keyboard navigation
 9. **Edge Cases**: Test boundary conditions and error states
 10. **Keep Tests Simple**: One concept per test
+11. **Spacing in Tests**: Add a blank line between variable definitions and assertions for readability:
+    ```typescript
+    it('should emit event with correct data', async () => {
+      const spy = sinon.spy();
+      el.addEventListener('sl-change', spy);
+
+      await userEvent.click(el);
+
+      expect(spy).to.have.been.calledOnce;
+    });
+    ```
 
 ## Troubleshooting
 

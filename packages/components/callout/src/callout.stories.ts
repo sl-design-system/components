@@ -21,7 +21,7 @@ const variants: CalloutVariant[] = ['info', 'positive', 'caution', 'negative'];
 Icon.register(faArrowDownToLine, faArrowRightToBracket, fasFileSignature, fasShield);
 
 export default {
-  title: 'Feedback & status/Callout',
+  title: 'Layout/Callout',
   tags: ['draft'],
   args: {
     variant: 'info'

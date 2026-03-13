@@ -32,7 +32,7 @@ eleventyNavigation:
     <h2 class="title" slot="title">New learning module available</h2>
     <div class="content">
       Your teacher has added a new module: <a href="javascript:void(0)">Introduction to Fractions</a> Complete it before the end of the week to stay on track.
-      <sl-button class="callout-button" fill="outline" variant="warning">Start module</sl-button>
+      <sl-button fill="outline" variant="warning">Start module</sl-button>
     </div>
   </sl-callout>
 </div>

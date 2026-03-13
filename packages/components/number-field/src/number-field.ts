@@ -174,9 +174,16 @@ export class NumberField extends LocaleMixin(TextField) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('value') || changes.has('valueAsNumber') || changes.has('formattedValue')) {
+    if (
+      changes.has('rawValue') ||
+      changes.has('value') ||
+      changes.has('valueAsNumber') ||
+      changes.has('formattedValue')
+    ) {
       if (typeof this.valueAsNumber === 'number' && !Number.isNaN(this.valueAsNumber)) {
-        this.input.setAttribute('aria-valuenow', String(this.valueAsNumber));
+        // `toPrecision(12)` is used to prevent floating point artifacts; for example without it,
+        // "€1,323.34" will have aria-valuenow of "1323.3399999999997"
+        this.input.setAttribute('aria-valuenow', String(parseFloat(this.valueAsNumber.toPrecision(12))));
       } else {
         this.input.removeAttribute('aria-valuenow');
       }

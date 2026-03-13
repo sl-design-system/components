@@ -1,0 +1,101 @@
+name: Website a11y automated tests
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened, closed]
+    paths:
+      - 'website/src/**'
+
+  push:
+    branches:
+      - main
+    paths:
+      - 'website/src/**'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+env:
+  FIGMA_TOKEN: ${{ secrets.FIGMA_AUTH_TOKEN }}
+  FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
+  GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  HUSKY: 0
+  TOKENS_STUDIO_API_KEY: ${{ secrets.TOKENS_STUDIO_2_API_KEY }}
+
+jobs:
+  a11y-tests-for-changed-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Install Playwright browsers
+        run: npx playwright install
+
+      - name: Detect changed .md files
+        id: detect_changes
+        uses: tj-actions/changed-files@v44
+        with:
+          files: 'website/src/**/*.md'
+
+      - name: Change .md paths to URLs
+        id: generate_urls
+        uses: actions/github-script@v6
+        env:
+          CHANGED_MD: '${{ steps.detect_changes.outputs.all_changed_files }}'
+        with:
+          script: |
+            const fs = require('fs');
+            const files = process.env.CHANGED_MD.length !== 0 ? process.env.CHANGED_MD.split(' ').filter(Boolean) : ['/'];
+            const urls = files.map(file => file.replace(/^website\/src\//, '').replace(/\.md$/, '/'));
+            fs.writeFileSync('changed-urls.json', JSON.stringify(urls, null, 2));
+
+      - name: Build website
+        run: yarn website
+
+      - name: Start server
+        run: yarn workspace @sl-design-system/website start &
+        working-directory: .
+
+      - name: Wait for server
+        run: yarn dlx wait-on http://localhost:8000
+
+      - name: Run Playwright & axe-core tests
+        run: yarn playwright test --config=playwright.config.ts --project=website
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: a11y-results
+          path: reports/
+
+      - name: Comment summary on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const fs = require('fs');
+            const path = 'reports/summary.json';
+            if (fs.existsSync(path)) {
+              const summary = fs.readFileSync(path, 'utf8');
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `### Accessibility Test Summary\n\n\ ${summary} \n\n [View detailed results](${runUrl}).`
+              });
+            } else {
+              console.log('Summary file not found.');
+            }

@@ -24,7 +24,7 @@ eleventyNavigation:
     passing by. Witness the battle-scarred Triceratops, its frilled head adorned with formidable horns, a
     testament to survival in a harsh world. Feel the ground shake as the mighty Stegosaurus lumbers past, its
     plated back a fortress against predators. Explore, learn, and immerse yourself in the wonders of the Mesozoic
-    era — Discovering Dinosaurs: A Prehistoric Adventure awaits! 🌎🦕🌿
+    era — Discovering Dinosaurs: A Prehistoric Adventure awaits! 🌎🦕🌿 Test
   </sl-accordion-item>
   <sl-accordion-item summary="Geography Safari: Mapping Our World">
     Grab your compass and explore the globe! Discover continents, oceans, mountains, and rainforests. Study maps,

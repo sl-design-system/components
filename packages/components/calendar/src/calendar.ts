@@ -168,31 +168,31 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       ])}
       ${this.min && this.max
         ? html`
-            <span id="min-max-helper-text" class="helper-text"
-              ><sl-icon name="info"></sl-icon>
+            <div class="helper-text">
+              <sl-icon name="info"></sl-icon>
               ${msg(
                 str`Between ${format(this.min, this.locale, this.#helperTextFormatOptions)} and ${format(this.max, this.locale, this.#helperTextFormatOptions)}`,
                 { id: 'sl.calendar.rangeBetween' }
               )}
-            </span>
+            </div>
           `
         : this.min
           ? html`
-              <span id="min-max-helper-text" class="helper-text"
-                ><sl-icon name="info"></sl-icon>
+              <div class="helper-text">
+                <sl-icon name="info"></sl-icon>
                 ${msg(str`From ${format(this.min, this.locale, this.#helperTextFormatOptions)}`, {
                   id: 'sl.calendar.rangeFrom'
                 })}
-              </span>
+              </div>
             `
           : this.max
             ? html`
-                <span id="min-max-helper-text" class="helper-text"
-                  ><sl-icon name="info"></sl-icon>
+                <div class="helper-text">
+                  <sl-icon name="info"></sl-icon>
                   ${msg(str`Until ${format(this.max, this.locale, this.#helperTextFormatOptions)}`, {
                     id: 'sl.calendar.rangeUntil'
                   })}
-                </span>
+                </div>
               `
             : nothing}
     `;
@@ -204,7 +204,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       return;
     }
 
-    const helperText = this.renderRoot.querySelector('#min-max-helper-text');
+    const helperText = this.renderRoot.querySelector('.helper-text');
 
     if (!helperText) {
       return;
@@ -215,7 +215,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       .find((el): el is HTMLButtonElement => el instanceof HTMLButtonElement && !!el.closest('table[role="grid"]'));
 
     if (button) {
-      const existing = (button.ariaDescribedByElements ?? []).filter(el => el.id !== 'min-max-helper-text');
+      const existing = (button.ariaDescribedByElements ?? []).filter(el => !el.classList?.contains('helper-text'));
 
       button.ariaDescribedByElements = [...existing, helperText];
     }
@@ -290,7 +290,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /** Sets `ariaDescribedByElements` on the first focusable button (day, month or year depending on view) */
   #setHelperTextOnFirstButton(subComponent: Element): void {
-    const helperText = this.renderRoot.querySelector('#min-max-helper-text');
+    const helperText = this.renderRoot.querySelector('.helper-text');
 
     if (!helperText) {
       return;
@@ -299,7 +299,9 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     const button = subComponent.shadowRoot?.querySelector<HTMLButtonElement>('table button:not(:disabled)');
 
     if (button) {
-      const existingDescription = (button.ariaDescribedByElements ?? []).filter(el => el.id !== 'min-max-helper-text');
+      const existingDescription = (button.ariaDescribedByElements ?? []).filter(
+        el => !el.classList?.contains('helper-text')
+      );
 
       button.ariaDescribedByElements = [...existingDescription, helperText];
     }

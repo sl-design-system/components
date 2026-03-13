@@ -586,7 +586,7 @@ describe('sl-calendar', () => {
     it('should not render helper text when neither min nor max is set', async () => {
       el = await fixture(html`<sl-calendar locale="en-GB"></sl-calendar>`);
 
-      expect(el.renderRoot.querySelector('#min-max-helper-text')).not.to.exist;
+      expect(el.renderRoot.querySelector('.helper-text')).not.to.exist;
     });
 
     it('should render proper helper text when both min and max are set', async () => {
@@ -598,7 +598,7 @@ describe('sl-calendar', () => {
         ></sl-calendar>
       `);
 
-      const helperText = el.renderRoot.querySelector('#min-max-helper-text');
+      const helperText = el.renderRoot.querySelector('.helper-text');
 
       expect(helperText).to.exist;
       expect(helperText).to.have.trimmed.text('Between 1 January and 31 December');
@@ -609,7 +609,7 @@ describe('sl-calendar', () => {
         html`<sl-calendar locale="en-GB" min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}></sl-calendar>`
       );
 
-      const helperText = el.renderRoot.querySelector('#min-max-helper-text');
+      const helperText = el.renderRoot.querySelector('.helper-text');
 
       expect(helperText).to.exist;
       expect(helperText).to.have.trimmed.text('From 01/01/2023');
@@ -620,7 +620,7 @@ describe('sl-calendar', () => {
         html`<sl-calendar locale="en-GB" max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}></sl-calendar>`
       );
 
-      const helperText = el.renderRoot.querySelector('#min-max-helper-text');
+      const helperText = el.renderRoot.querySelector('.helper-text');
 
       expect(helperText).to.exist;
       expect(helperText).to.have.trimmed.text('Until 31/12/2023');
@@ -635,7 +635,7 @@ describe('sl-calendar', () => {
         ></sl-calendar>
       `);
 
-      const helperText = el.renderRoot.querySelector('#min-max-helper-text');
+      const helperText = el.renderRoot.querySelector('.helper-text');
 
       expect(helperText).to.exist;
       expect(helperText).to.have.trimmed.text('Between 15 January and 20 June');
@@ -650,7 +650,7 @@ describe('sl-calendar', () => {
         ></sl-calendar>
       `);
 
-      const helperText = el.renderRoot.querySelector('#min-max-helper-text');
+      const helperText = el.renderRoot.querySelector('.helper-text');
 
       expect(helperText).to.exist;
       expect(helperText).to.have.trimmed.text('Between 01/01/2023 and 31/12/2024');
@@ -672,7 +672,7 @@ describe('sl-calendar', () => {
 
       dayButton?.focus();
 
-      const helperText = el.renderRoot.querySelector('#min-max-helper-text');
+      const helperText = el.renderRoot.querySelector('.helper-text');
 
       expect(dayButton).to.exist;
       expect(dayButton?.ariaDescribedByElements).to.include(helperText);
@@ -700,7 +700,7 @@ describe('sl-calendar', () => {
 
       monthButton?.focus();
 
-      const helperText = el.renderRoot.querySelector('#min-max-helper-text');
+      const helperText = el.renderRoot.querySelector('.helper-text');
 
       expect(monthButton).to.exist;
       expect(monthButton?.ariaDescribedByElements).to.include(helperText);
@@ -728,7 +728,7 @@ describe('sl-calendar', () => {
 
       yearButton?.focus();
 
-      const helperText = el.renderRoot.querySelector('#min-max-helper-text');
+      const helperText = el.renderRoot.querySelector('.helper-text');
 
       expect(yearButton).to.exist;
       expect(yearButton?.ariaDescribedByElements).to.include(helperText);
@@ -756,7 +756,7 @@ describe('sl-calendar', () => {
 
       dayButton?.focus();
 
-      const helperText = el.renderRoot.querySelector('#min-max-helper-text');
+      const helperText = el.renderRoot.querySelector('.helper-text');
 
       expect(dayButton).to.exist;
       expect(indicatorTooltip).to.exist;

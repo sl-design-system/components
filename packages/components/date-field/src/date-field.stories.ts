@@ -90,7 +90,7 @@ export default {
     };
 
     return html`
-      <sl-form .value=${value}>
+      <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
           <sl-date-field
             ?disabled=${disabled}

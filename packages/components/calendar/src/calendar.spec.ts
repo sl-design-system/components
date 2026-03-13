@@ -612,7 +612,7 @@ describe('sl-calendar', () => {
       const helperText = el.renderRoot.querySelector('.helper-text');
 
       expect(helperText).to.exist;
-      expect(helperText).to.have.trimmed.text('From 01/01/2023');
+      expect(helperText).to.have.trimmed.text('No earlier than 01/01/2023');
     });
 
     it('should render proper helper text when only max is set', async () => {
@@ -623,7 +623,7 @@ describe('sl-calendar', () => {
       const helperText = el.renderRoot.querySelector('.helper-text');
 
       expect(helperText).to.exist;
-      expect(helperText).to.have.trimmed.text('Until 31/12/2023');
+      expect(helperText).to.have.trimmed.text('No later than 31/12/2023');
     });
 
     it('should use long month format without year in the helper text when min and max are within the same year', async () => {

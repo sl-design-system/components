@@ -1,5 +1,25 @@
 # @sl-design-system/calendar
 
+## 0.0.5
+
+### Patch Changes
+
+- [#3021](https://github.com/sl-design-system/components/pull/3021) [`192a51d`](https://github.com/sl-design-system/components/commit/192a51d63689cca9d91cdee60c7d4389905d8257) - Remove aria-selected attributes from grid cells
+
+- [#3082](https://github.com/sl-design-system/components/pull/3082) [`3dd4bf8`](https://github.com/sl-design-system/components/commit/3dd4bf8c1f0fd0d94494f741e95ad8ddd5613fe4) - Fix bug where `showCurrent` wasn't set for select month & year
+
+- [#3012](https://github.com/sl-design-system/components/pull/3012) [`2f8d8bf`](https://github.com/sl-design-system/components/commit/2f8d8bf32ca6e90eb9d117c1fcc434a59905769c) - Fix `autofocus` behavior
+
+  This fix ensures that when a calendar is focused, it focuses the correct day. By default it will focus the current day, but if a date is already selected it will focus that one instead.
+
+- [#2955](https://github.com/sl-design-system/components/pull/2955) [`ed7376b`](https://github.com/sl-design-system/components/commit/ed7376b4aa21c5df7d50119d839000abbab1cbcf) - Fix code formatting issues.
+
+- Updated dependencies [[`a4a0c23`](https://github.com/sl-design-system/components/commit/a4a0c23a5341a2026c23e6e7fdf05cfdd44dc16c), [`716e305`](https://github.com/sl-design-system/components/commit/716e305a7cc5cbafb5dd97b16c9f70e4320d45e4), [`1eb362d`](https://github.com/sl-design-system/components/commit/1eb362dd94930ce7c1cf028f3cfa7a3eec903ab2), [`9e361f4`](https://github.com/sl-design-system/components/commit/9e361f40a25242652c3f7878851fbfd2a75c8f3d), [`330e06f`](https://github.com/sl-design-system/components/commit/330e06ff36c7a5c96cf313b60a5013d6307477c7), [`16de6e2`](https://github.com/sl-design-system/components/commit/16de6e28a36896904a0da7e6e72f0e859d5ed351)]:
+  - @sl-design-system/button@1.3.4
+  - @sl-design-system/tooltip@1.3.2
+  - @sl-design-system/icon@1.4.2
+  - @sl-design-system/format-date@0.1.5
+
 ## 0.0.4
 
 ### Patch Changes

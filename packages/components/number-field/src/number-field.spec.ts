@@ -38,8 +38,10 @@ describe('sl-number-field', () => {
       expect(el.querySelector('input')).to.have.attribute('role', 'spinbutton');
     });
 
-    it('should not have an aria-valuenow attribute', () => {
+    it('should not have any aria-value* attributes', () => {
       expect(el.querySelector('input')).not.to.have.attribute('aria-valuenow');
+      expect(el.querySelector('input')).not.to.have.attribute('aria-valuemax');
+      expect(el.querySelector('input')).not.to.have.attribute('aria-valuemin');
     });
 
     it('should always have type "text"', () => {

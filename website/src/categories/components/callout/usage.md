@@ -115,26 +115,6 @@ Density sets the spacing of the Callout to match the content and the surrounding
 
 <section>
 
-## Behaviours
-Callout behaviours focus on persistence, placement in the layout, and lightweight interactions.
-
-### Layout Element
-It is intentionally placed and remains visible within the page structure, near the content it relates to. It is not event-driven or temporary, and it remains visible in the layout even after the user completes any actions within it.
-
-### Interaction model
-Callouts can include interactive elements, but interactions should stay simple. Prefer a single button, and use links only for simple navigation to a relevant destination, such as settings or a related page. Avoid multiple competing actions.
-
-### Content guidelines
-Choose an icon that reinforces the intent, and keep the copy concise. Aim for a short caution statement and, if necessary, a single sentence describing the consequence. If an action is present, it should clearly resolve or progress the situation.
-
-### Relationship to [Inline message](/categories/components/inline-message/)
-Callout is placed in the layout to provide persistent context and can host actions. [Inline message](/categories/components/inline-message/) is event-driven feedback after an action and stays non-interactive.
-
-</section>
-
-
-<section>
-
 ## Figma Properties
 
 <div class="ds-table-wrapper">
@@ -153,6 +133,26 @@ Callout is placed in the layout to provide persistent context and can host actio
 {.ds-table .ds-table-align-top}
 
 </div>
+
+</section>
+
+
+<section>
+
+## Behaviours
+Callout behaviours focus on persistence, placement in the layout, and lightweight interactions.
+
+### Layout Element
+It is intentionally placed and remains visible within the page structure, near the content it relates to. It is not event-driven or temporary, and it remains visible in the layout even after the user completes any actions within it.
+
+### Interaction model
+Callouts can include interactive elements, but interactions should stay simple. Prefer a single button, and use links only for simple navigation to a relevant destination, such as settings or a related page. Avoid multiple competing actions.
+
+### Content guidelines
+Choose an icon that reinforces the intent, and keep the copy concise. Aim for a short caution statement and, if necessary, a single sentence describing the consequence. If an action is present, it should clearly resolve or progress the situation.
+
+### Inline Message Relationship
+Callout is placed in the layout to provide persistent context and contain actions. [Inline message](/categories/components/inline-message/) is event-driven feedback after an action and stays non-interactive.
 
 </section>
 

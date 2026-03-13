@@ -28,7 +28,7 @@ eleventyNavigation:
 </style>
 <section class="no-heading">
 <div class="ds-example">
-  <sl-callout density="relaxed" variant="caution">
+  <sl-callout density="relaxed" variant="warning">
     <h2 class="title" slot="title">New learning module available</h2>
     <div class="content">
       Your teacher has added a new module: <a href="javascript:void(0)">Introduction to Fractions</a> Complete it before the end of the week to stay on track.
@@ -40,7 +40,7 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-  <sl-callout density="relaxed" variant="caution">
+  <sl-callout density="relaxed" variant="warning">
     <h2 slot="title">New learning module available</h2>
     <div class="content">
       Your teacher has added a new module:

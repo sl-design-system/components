@@ -141,7 +141,7 @@ Callout is placed in the layout to provide persistent context and can host actio
 
 | Item | Options | Description |
 | - | - | - |
-| Variant | `info`, `positive`, `caution`, `negative` | Sets the semantic intent of the Callout. |
+| Variant | `info`, `success`, `warning`, `danger` | Sets the semantic intent of the Callout. |
 | Density | `default`, `relaxed` | Sets the spacing density for the Callout. |
 | Show Title | `boolean` | Controls whether the title is displayed. |
 | Title | `text` | Title text shown when Show Title is enabled. |

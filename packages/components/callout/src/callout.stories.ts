@@ -16,7 +16,7 @@ interface Props extends Pick<Callout, 'density' | 'variant'> {
 }
 type Story = StoryObj<Props>;
 
-const variants: CalloutVariant[] = ['info', 'positive', 'caution', 'negative'];
+const variants: CalloutVariant[] = ['info', 'success', 'warning', 'danger'];
 
 Icon.register(faArrowDownToLine, faArrowRightToBracket, fasFileSignature, fasShield);
 
@@ -154,7 +154,7 @@ export const WithActions: Story = {
       }
     </style>
     <div class="container">
-      <sl-callout density="default" variant="caution">
+      <sl-callout density="default" variant="warning">
         <sl-icon slot="icon" name="fas-shield"></sl-icon>
         <div class="content">
           Student data export requires encrypted storage.
@@ -164,7 +164,7 @@ export const WithActions: Story = {
           </sl-button>
         </div>
       </sl-callout>
-      <sl-callout density="relaxed" variant="caution">
+      <sl-callout density="relaxed" variant="warning">
         <sl-icon slot="icon" name="fas-shield"></sl-icon>
         <div class="content">
           Student data export requires encrypted storage.

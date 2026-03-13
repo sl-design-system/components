@@ -33,21 +33,21 @@
   }
 }
 
-:host([variant='positive']) {
+:host([variant='success']) {
   background: var(--sl-color-background-positive-subtlest);
   color: var(--sl-color-foreground-positive-bold);
 
   --sl-color-component-link-idle: var(--sl-color-foreground-positive-bold);
 }
 
-:host([variant='negative']) {
+:host([variant='danger']) {
   background: var(--sl-color-background-negative-subtlest);
   color: var(--sl-color-foreground-negative-bold);
 
   --sl-color-component-link-idle: var(--sl-color-foreground-negative-bold);
 }
 
-:host([variant='caution']) {
+:host([variant='warning']) {
   background: var(--sl-color-background-caution-subtlest);
   color: var(--sl-color-foreground-caution-bold);
 

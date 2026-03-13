@@ -34,6 +34,14 @@ describe('sl-number-field', () => {
       expect(el.querySelector('input')).to.have.attribute('inputmode', 'numeric');
     });
 
+    it('should have a spinbutton role', () => {
+      expect(el.querySelector('input')).to.have.attribute('role', 'spinbutton');
+    });
+
+    it('should not have an aria-valuenow attribute', () => {
+      expect(el.querySelector('input')).not.to.have.attribute('aria-valuenow');
+    });
+
     it('should always have type "text"', () => {
       expect(el.type).to.equal('text');
     });
@@ -149,6 +157,24 @@ describe('sl-number-field', () => {
       expect(el.input.value).to.equal('1,000');
     });
 
+    it('should have the raw number as aria-valuenow', () => {
+      expect(el.querySelector('input')).to.have.attribute('aria-valuenow', '1000');
+    });
+
+    it('should update aria-valuenow when the value changes', async () => {
+      el.valueAsNumber = 2500;
+      await el.updateComplete;
+
+      expect(el.querySelector('input')).to.have.attribute('aria-valuenow', '2500');
+    });
+
+    it('should remove aria-valuenow when the value is cleared', async () => {
+      el.value = undefined;
+      await el.updateComplete;
+
+      expect(el.querySelector('input')).not.to.have.attribute('aria-valuenow');
+    });
+
     it('should show the formatted valueAsNumber when changed programmatically', async () => {
       el.valueAsNumber = 2000;
       await el.updateComplete;
@@ -259,6 +285,10 @@ describe('sl-number-field', () => {
       el = await fixture(html`<sl-number-field min="2" value="-1"></sl-number-field>`);
     });
 
+    it('should have aria-valuemin', () => {
+      expect(el.querySelector('input')).to.have.attribute('aria-valuemin', '2');
+    });
+
     it('should be invalid when value is lower than min', () => {
       expect(el.valid).to.be.false;
     });
@@ -277,6 +307,10 @@ describe('sl-number-field', () => {
   describe('max', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-number-field max="12" value="13"></sl-number-field>`);
+    });
+
+    it('should have aria-valuemax', () => {
+      expect(el.querySelector('input')).to.have.attribute('aria-valuemax', '12');
     });
 
     it('should be invalid when value is greater than max', () => {

@@ -142,6 +142,7 @@ export class NumberField extends LocaleMixin(TextField) {
     super.connectedCallback();
 
     this.input.setAttribute('inputmode', this.inputMode || 'numeric');
+    this.input.setAttribute('role', 'spinbutton');
 
     // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
     const style = document.createElement('style');
@@ -170,6 +171,34 @@ export class NumberField extends LocaleMixin(TextField) {
 
     if (changes.has('min') || changes.has('max')) {
       this.updateValidity();
+    }
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('value') || changes.has('valueAsNumber') || changes.has('formattedValue')) {
+      if (typeof this.valueAsNumber === 'number' && !Number.isNaN(this.valueAsNumber)) {
+        this.input.setAttribute('aria-valuenow', String(this.valueAsNumber));
+      } else {
+        this.input.removeAttribute('aria-valuenow');
+      }
+    }
+
+    if (changes.has('min')) {
+      if (typeof this.min === 'number') {
+        this.input.setAttribute('aria-valuemin', String(this.min));
+      } else {
+        this.input.removeAttribute('aria-valuemin');
+      }
+    }
+
+    if (changes.has('max')) {
+      if (typeof this.max === 'number') {
+        this.input.setAttribute('aria-valuemax', String(this.max));
+      } else {
+        this.input.removeAttribute('aria-valuemax');
+      }
     }
   }
 

@@ -18,7 +18,6 @@ export interface ListDataSourceItemBase {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface ListDataSourceGroupItem<T = any> extends ListDataSourceItemBase {
   type: 'group';
-  collapsed?: boolean;
   count?: number;
   label?: string;
   members?: Array<ListDataSourceDataItem<T>>;
@@ -116,6 +115,9 @@ export function isListDataSourceGroupItem<T>(item?: ListDataSourceItemBase): ite
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends DataSource<T, U> {
+  /** The set of collapsed group ids. */
+  #collapsedGroups = new Set<unknown>();
+
   /** Map of all active filters. */
   #filters: Map<string, DataSourceFilter<T>> = new Map();
 
@@ -492,26 +494,38 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
    * Expands the group with the given id.
    * @param id  - The id of the group to expand
    */
-  abstract expandGroup(id: unknown): void;
+  expandGroup(id: unknown): void {
+    this.#collapsedGroups.delete(id);
+  }
 
   /**
    * Collapses the group with the given id.
    * @param id  - The id of the group to collapse
    */
-  abstract collapseGroup(id: unknown): void;
+  collapseGroup(id: unknown): void {
+    this.#collapsedGroups.add(id);
+  }
 
   /**
    * Toggles the expansion state of the group with the given id.
    * @param id  - The id of the group to toggle
-   * @param force - If true, the group will be expanded. If false, it will be collapsed.
+   * @param force - If true, the group will be collapsed. If false, it will be expanded.
    */
-  abstract toggleGroup(id: unknown, force?: boolean): void;
+  toggleGroup(id: unknown, force?: boolean): void {
+    if (force ?? !this.isGroupCollapsed(id)) {
+      this.collapseGroup(id);
+    } else {
+      this.expandGroup(id);
+    }
+  }
 
   /**
    * Returns whether the group with the given id is collapsed.
    * @param id  - The id of the group to check
    */
-  abstract isGroupCollapsed(id: unknown): boolean;
+  isGroupCollapsed(id: unknown): boolean {
+    return this.#collapsedGroups.has(id);
+  }
 
   /**
    * Reorder the item in the data source.

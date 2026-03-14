@@ -655,4 +655,298 @@ describe('ArrayListDataSource', () => {
       ]);
     });
   });
+
+  describe('updating', () => {
+    beforeEach(() => {
+      ds = new ArrayListDataSource(people);
+    });
+
+    it('should replace items when setData is called with new data', () => {
+      const newPeople: Person[] = [
+        {
+          id: 100,
+          firstName: 'Alice',
+          lastName: 'Wonder',
+          profession: 'Surgeon',
+          status: 'Available',
+          membership: 'Regular'
+        }
+      ];
+
+      ds.setData(newPeople);
+      ds.update();
+
+      const items = ds.items.filter(item => isListDataSourceDataItem(item)).map(({ data }) => data);
+
+      expect(items).to.have.length(1);
+      expect(items[0]).to.deep.equal(newPeople[0]);
+    });
+
+    it('should update size after setData', () => {
+      const newPeople: Person[] = [
+        {
+          id: 100,
+          firstName: 'Alice',
+          lastName: 'Wonder',
+          profession: 'Surgeon',
+          status: 'Available',
+          membership: 'Regular'
+        },
+        {
+          id: 101,
+          firstName: 'Bob',
+          lastName: 'Builder',
+          profession: 'Surgeon',
+          status: 'Busy',
+          membership: 'Premium'
+        }
+      ];
+
+      ds.setData(newPeople);
+      ds.update();
+
+      expect(ds.size).to.equal(2);
+      expect(ds.totalSize).to.equal(2);
+    });
+
+    it('should handle setData with an empty array', () => {
+      ds.setData([]);
+      ds.update();
+
+      expect(ds.items).to.have.length(0);
+      expect(ds.size).to.equal(0);
+    });
+
+    it('should preserve filters when updating data', () => {
+      ds.addFilter('status', 'status', 'Available');
+      ds.update();
+
+      const newPeople: Person[] = [
+        {
+          id: 100,
+          firstName: 'Alice',
+          lastName: 'Wonder',
+          profession: 'Surgeon',
+          status: 'Available',
+          membership: 'Regular'
+        },
+        {
+          id: 101,
+          firstName: 'Bob',
+          lastName: 'Builder',
+          profession: 'Surgeon',
+          status: 'Busy',
+          membership: 'Premium'
+        }
+      ];
+
+      ds.setData(newPeople);
+      ds.update();
+
+      const items = ds.items.filter(item => isListDataSourceDataItem(item)).map(({ data }) => data);
+
+      expect(items).to.have.length(1);
+      expect(items[0].firstName).to.equal('Alice');
+    });
+
+    it('should preserve sorting when updating data', () => {
+      ds.setSort('firstName', 'asc');
+      ds.update();
+
+      const newPeople: Person[] = [
+        {
+          id: 100,
+          firstName: 'Charlie',
+          lastName: 'Brown',
+          profession: 'Surgeon',
+          status: 'Available',
+          membership: 'Regular'
+        },
+        {
+          id: 101,
+          firstName: 'Alice',
+          lastName: 'Wonder',
+          profession: 'Surgeon',
+          status: 'Available',
+          membership: 'Premium'
+        }
+      ];
+
+      ds.setData(newPeople);
+      ds.update();
+
+      const items = ds.items.filter(item => isListDataSourceDataItem(item)).map(({ data }) => data);
+
+      expect(items[0].firstName).to.equal('Alice');
+      expect(items[1].firstName).to.equal('Charlie');
+    });
+
+    it('should preserve selection when updating data', () => {
+      ds = new ArrayListDataSource(people, { selects: 'multiple' });
+
+      ds.select(ds.items.at(0)!);
+      ds.select(ds.items.at(2)!);
+
+      expect(ds.selection.size).to.equal(2);
+
+      ds.setData([...people]);
+      ds.update();
+
+      expect(ds.selection.size).to.equal(2);
+      expect(ds.isSelected(ds.items.at(0))).to.be.true;
+      expect(ds.isSelected(ds.items.at(2))).to.be.true;
+    });
+
+    it('should remove selection for deleted items after setData', () => {
+      ds = new ArrayListDataSource(people, { selects: 'multiple' });
+
+      ds.select(ds.items.at(0)!);
+      ds.select(ds.items.at(1)!);
+
+      expect(ds.selection.size).to.equal(2);
+
+      // Remove the first person from the data
+      ds.setData(people.slice(1));
+      ds.update();
+
+      expect(ds.selection.size).to.equal(1);
+      expect(ds.isSelected(ds.items.at(0))).to.be.true;
+    });
+
+    it('should emit sl-selection-change when a selected item is removed', () => {
+      ds = new ArrayListDataSource(people, { selects: 'multiple' });
+
+      ds.select(ds.items.at(0)!);
+
+      const onSelectionChange = spy();
+      ds.addEventListener('sl-selection-change', onSelectionChange);
+
+      // Remove the first person (which is selected)
+      ds.setData(people.slice(1));
+
+      expect(onSelectionChange).to.have.been.calledOnce;
+    });
+
+    it('should not emit sl-selection-change when no selected items are removed', () => {
+      ds = new ArrayListDataSource(people, { selects: 'multiple' });
+
+      ds.select(ds.items.at(0)!);
+
+      const onSelectionChange = spy();
+      ds.addEventListener('sl-selection-change', onSelectionChange);
+
+      // Replace data but keep all items (selection stays intact)
+      ds.setData([...people]);
+
+      expect(onSelectionChange).not.to.have.been.called;
+    });
+
+    it('should recalculate groups after setData and update', () => {
+      ds = new ArrayListDataSource(people, { groupBy: 'profession' });
+
+      const groupsBefore = ds.items.filter(item => isListDataSourceGroupItem(item)).map(({ label }) => label);
+
+      expect(groupsBefore).to.deep.equal(['Endocrinologist', 'Gastroenterologist', 'Nephrologist', 'Ophthalmologist']);
+
+      // Replace with data that has different professions
+      ds.setData([
+        {
+          id: 100,
+          firstName: 'Alice',
+          lastName: 'Wonder',
+          profession: 'Surgeon',
+          status: 'Available',
+          membership: 'Regular'
+        },
+        {
+          id: 101,
+          firstName: 'Bob',
+          lastName: 'Builder',
+          profession: 'Dermatologist',
+          status: 'Busy',
+          membership: 'Premium'
+        }
+      ]);
+      ds.update();
+
+      const groupsAfter = ds.items.filter(item => isListDataSourceGroupItem(item)).map(({ label }) => label);
+
+      expect(groupsAfter).to.deep.equal(['Dermatologist', 'Surgeon']);
+    });
+
+    it('should remember collapsed group state after setData when the group still exists', () => {
+      ds = new ArrayListDataSource(people, { groupBy: 'profession' });
+
+      // Collapse the 'Nephrologist' group
+      ds.collapseGroup('Nephrologist');
+      ds.update();
+
+      expect(ds.isGroupCollapsed('Nephrologist')).to.be.true;
+
+      // Update with data that still contains the 'Nephrologist' group
+      ds.setData([
+        {
+          id: 1,
+          firstName: 'Ann',
+          lastName: 'A',
+          profession: 'Nephrologist',
+          status: 'Available',
+          membership: 'Regular'
+        },
+        {
+          id: 2,
+          firstName: 'Bob',
+          lastName: 'B',
+          profession: 'Endocrinologist',
+          status: 'Busy',
+          membership: 'Premium'
+        }
+      ]);
+      ds.update();
+
+      expect(ds.isGroupCollapsed('Nephrologist')).to.be.true;
+      expect(ds.isGroupCollapsed('Endocrinologist')).to.be.false;
+
+      // Verify the collapsed group's members are hidden
+      const types = ds.items.map(({ type }) => type);
+
+      expect(types).to.deep.equal(['group', 'data', 'group']);
+    });
+
+    it('should remember collapsed state even for groups no longer present in the data', () => {
+      ds = new ArrayListDataSource(people, { groupBy: 'profession' });
+
+      // Collapse 'Ophthalmologist'
+      ds.collapseGroup('Ophthalmologist');
+      ds.update();
+
+      expect(ds.isGroupCollapsed('Ophthalmologist')).to.be.true;
+
+      // Replace with data that does not contain 'Ophthalmologist'
+      ds.setData([
+        {
+          id: 1,
+          firstName: 'Ann',
+          lastName: 'A',
+          profession: 'Surgeon',
+          status: 'Available',
+          membership: 'Regular'
+        },
+        {
+          id: 2,
+          firstName: 'Bob',
+          lastName: 'B',
+          profession: 'Dermatologist',
+          status: 'Busy',
+          membership: 'Premium'
+        }
+      ]);
+      ds.update();
+
+      // The collapsed state is still remembered
+      expect(ds.isGroupCollapsed('Ophthalmologist')).to.be.true;
+      expect(ds.isGroupCollapsed('Surgeon')).to.be.false;
+      expect(ds.isGroupCollapsed('Dermatologist')).to.be.false;
+    });
+  });
 });

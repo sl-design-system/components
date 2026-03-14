@@ -92,6 +92,10 @@
   }
 }
 
+::slotted(span[slot='selected-content']) {
+  display: contents;
+}
+
 [part='placeholder'] {
   color: var(--sl-color-foreground-subtlest);
 }

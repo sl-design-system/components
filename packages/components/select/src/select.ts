@@ -370,7 +370,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
       slotNodes.forEach(node => {
         const rootNode = node.getRootNode();
 
-        // Unlike node.closeNode(), importNode() is implemented in the
+        // Unlike node.cloneNode(), importNode() is implemented in the
         // scoped custom element registry polyfill, so it will upgrade
         // the cloned node if it's a custom element.
         clones.push((rootNode as Document).importNode(node, true));

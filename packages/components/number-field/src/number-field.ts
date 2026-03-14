@@ -141,8 +141,6 @@ export class NumberField extends LocaleMixin(TextField) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.input.setAttribute('inputmode', this.inputMode || 'numeric');
-
     // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
     const style = document.createElement('style');
     style.innerHTML = `
@@ -170,6 +168,41 @@ export class NumberField extends LocaleMixin(TextField) {
 
     if (changes.has('min') || changes.has('max')) {
       this.updateValidity();
+    }
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (
+      changes.has('rawValue') ||
+      changes.has('value') ||
+      changes.has('valueAsNumber') ||
+      changes.has('formattedValue')
+    ) {
+      if (typeof this.valueAsNumber === 'number' && !Number.isNaN(this.valueAsNumber)) {
+        // `toPrecision(12)` is used to prevent floating point artifacts; for example without it,
+        // "€1,323.34" will have aria-valuenow of "1323.3399999999997"
+        this.input.setAttribute('aria-valuenow', String(parseFloat(this.valueAsNumber.toPrecision(12))));
+      } else {
+        this.input.removeAttribute('aria-valuenow');
+      }
+    }
+
+    if (changes.has('min')) {
+      if (typeof this.min === 'number' && !Number.isNaN(this.min)) {
+        this.input.setAttribute('aria-valuemin', String(this.min));
+      } else {
+        this.input.removeAttribute('aria-valuemin');
+      }
+    }
+
+    if (changes.has('max')) {
+      if (typeof this.max === 'number' && !Number.isNaN(this.max)) {
+        this.input.setAttribute('aria-valuemax', String(this.max));
+      } else {
+        this.input.removeAttribute('aria-valuemax');
+      }
     }
   }
 
@@ -285,6 +318,13 @@ export class NumberField extends LocaleMixin(TextField) {
     } else {
       super.onKeydown(event);
     }
+  }
+
+  protected override updateInputElement(input: HTMLInputElement): void {
+    super.updateInputElement(input);
+
+    input.inputMode = this.inputMode || 'numeric';
+    input.role = 'spinbutton';
   }
 
   /** @internal Implement custom number validity checks. */

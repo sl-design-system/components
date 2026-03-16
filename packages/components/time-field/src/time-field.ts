@@ -19,7 +19,7 @@ import styles from './time-field.scss.js';
 import {
   type DateFormatPart,
   type PartialTimePart,
-  TimePart,
+  type TimePart,
   getDateFormat,
   getTimeUnitLetter,
   getTimeUnitName
@@ -406,7 +406,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         contenteditable=${this.disabled || this.readonly || this.selectOnly ? 'false' : 'true'}
         inputmode="numeric"
         role="spinbutton"
-        tabindex=${this.disabled ? '-1' : timePartIndex === this.#rovingIndex ? '0' : '-1'}
+        tabindex=${ifDefined(this.disabled ? undefined : timePartIndex === this.#rovingIndex ? '0' : '-1')}
         >${displayValue}</span
       >
     `;
@@ -487,8 +487,19 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     // Check for incomplete time with partial input (bad input)
     if (hasCompleteTime && !this.value) {
-      const completeParts = this.timeParts as TimePart, // safe: hasCompleteTime guarantees both are defined
-        minTime = this.min ? this.#parseTime(this.min) : undefined,
+      const completeParts = this.timeParts as TimePart; // safe: hasCompleteTime guarantees both are defined
+      const { hour: completeHour, minute: completeMinute } = completeParts;
+
+      // If the parsed time parts are out of bounds, treat this as bad input instead of a range error
+      if (completeHour < 0 || completeHour > 23 || completeMinute < 0 || completeMinute > 59) {
+        this.internals.setValidity(
+          { badInput: true },
+          msg('Please enter a valid time.', { id: 'sl.timeField.typeMismatch' })
+        );
+        return;
+      }
+
+      const minTime = this.min ? this.#parseTime(this.min) : undefined,
         maxTime = this.max ? this.#parseTime(this.max) : undefined;
 
       if (minTime && this.#compareTimes(completeParts, minTime) < 0) {
@@ -526,25 +537,33 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     // Check for value below minimum
-    if (this.value && this.min && this.value < this.min) {
-      this.internals.setValidity(
-        { rangeUnderflow: true },
-        msg(str`Please select a time that is no earlier than ${this.min}.`, {
-          id: 'sl.timeField.rangeUnderflow'
-        })
-      );
-      return;
+    if (this.value && this.min && this.#valueAsNumbers) {
+      const minTime = this.#parseTime(this.min);
+
+      if (minTime && this.#compareTimes(this.#valueAsNumbers, minTime) < 0) {
+        this.internals.setValidity(
+          { rangeUnderflow: true },
+          msg(str`Please select a time that is no earlier than ${this.min}.`, {
+            id: 'sl.timeField.rangeUnderflow'
+          })
+        );
+        return;
+      }
     }
 
     // Check for value above maximum
-    if (this.value && this.max && this.value > this.max) {
-      this.internals.setValidity(
-        { rangeOverflow: true },
-        msg(str`Please select a time that is no later than ${this.max}.`, {
-          id: 'sl.timeField.rangeOverflow'
-        })
-      );
-      return;
+    if (this.value && this.max && this.#valueAsNumbers) {
+      const maxTime = this.#parseTime(this.max);
+
+      if (maxTime && this.#compareTimes(this.#valueAsNumbers, maxTime) > 0) {
+        this.internals.setValidity(
+          { rangeOverflow: true },
+          msg(str`Please select a time that is no later than ${this.max}.`, {
+            id: 'sl.timeField.rangeOverflow'
+          })
+        );
+        return;
+      }
     }
 
     // All valid - clear any validity errors
@@ -849,7 +868,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     if (event.key >= '0' && event.key <= '9') {
       event.preventDefault();
 
-      if (this.readonly) {
+      if (this.readonly || this.selectOnly) {
         return;
       }
 
@@ -900,7 +919,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       case 'Backspace':
       case 'Delete':
         event.preventDefault();
-        if (!this.readonly) {
+        if (!this.readonly && !this.selectOnly) {
           this.timeParts = {
             hour: partType === 'hour' ? undefined : this.timeParts.hour,
             minute: partType === 'minute' ? undefined : this.timeParts.minute
@@ -950,12 +969,14 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     // Backspace/Delete clears the value and time parts
     if (event.key === 'Backspace' || event.key === 'Delete') {
       event.preventDefault();
-      this.timeParts = {};
-      this.#enteredDigits = 0;
-      this.value = undefined;
-      this.changeEvent.emit(this.value ?? '');
-      this.updateState({ dirty: true });
-      this.updateValidity();
+      if (!this.readonly && !this.selectOnly) {
+        this.timeParts = {};
+        this.#enteredDigits = 0;
+        this.value = undefined;
+        this.changeEvent.emit(this.value ?? '');
+        this.updateState({ dirty: true });
+        this.updateValidity();
+      }
       this.#exitSelectAll(true);
 
       return;
@@ -1111,16 +1132,20 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       time = this.#parseTime(text);
 
     if (time && !Number.isNaN(time.hour) && !Number.isNaN(time.minute)) {
-      this.#valueAsNumbers = time;
-      this.#value = this.#formatTime(time.hour, time.minute);
-      const { hour: normalizedHours, minute: normalizedMinutes } = this.#valueAsNumbers;
-      this.timeParts = { hour: normalizedHours, minute: normalizedMinutes };
+      const formattedTime = this.#formatTime(time.hour, time.minute);
 
-      this.requestUpdate('value');
+      // Only apply the paste if formatTime succeeded (values are within valid ranges)
+      if (formattedTime) {
+        this.#valueAsNumbers = time;
+        this.#value = formattedTime;
+        this.timeParts = { hour: time.hour, minute: time.minute };
 
-      this.changeEvent.emit(this.value ?? '');
-      this.updateState({ dirty: true });
-      this.updateValidity();
+        this.requestUpdate('value');
+
+        this.changeEvent.emit(this.value ?? '');
+        this.updateState({ dirty: true });
+        this.updateValidity();
+      }
     }
   }
 

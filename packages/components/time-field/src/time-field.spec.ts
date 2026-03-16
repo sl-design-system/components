@@ -1450,16 +1450,17 @@ describe('sl-time-field', () => {
       expect(el.validationMessage).to.equal('Please enter a time.');
     });
 
-    // it('should be invalid when the time has the wrong syntax', async () => {
-    //   el.textField.focus();
-    //   await userEvent.keyboard('ab:cd');
+    it('should prevent non-numeric input and remain valid when entering invalid characters', async () => {
+      const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+      hourSpinbutton.focus();
+      await userEvent.keyboard('ab:cd');
+      await el.updateComplete;
 
-    //   el.textField.input.blur();
-    //   await el.updateComplete;
-
-    //   expect(el.valid).to.be.false;
-    //   expect(el.validationMessage).to.equal('Please enter a valid time in HH:MM.');
-    // });
+      // Component should prevent non-numeric input, so value remains empty
+      expect(el.value).to.be.undefined;
+      expect(el.valid).to.be.false;
+      expect(el.validationMessage).to.equal('Please enter a time.');
+    });
 
     it('should be valid when the time has the correct syntax', async () => {
       el.value = '12:34';

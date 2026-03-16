@@ -44,8 +44,8 @@ export function getDateFormat(locale: string, date?: Date): DateFormatPart[] {
     return dateFormatCache[locale];
   }
 
-  // To prevent the format changing from 2 digits day/month to 1 digit
-  // when the value is set in DateField, we force 2-digit formatting
+  // To prevent the format changing from 2-digit to 1-digit hours/minutes
+  // when the value changes, we force 2-digit time formatting
   const intlParts = new Intl.DateTimeFormat(locale, {
     hour: '2-digit',
     minute: '2-digit',

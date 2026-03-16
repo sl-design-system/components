@@ -413,7 +413,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         contenteditable=${this.disabled || this.readonly || this.selectOnly ? 'false' : 'true'}
         inputmode="numeric"
         role="spinbutton"
-        tabindex=${this.disabled ? undefined : datePartIndex === this.#rovingIndex ? '0' : '-1'}
+        tabindex=${ifDefined(this.disabled ? undefined : datePartIndex === this.#rovingIndex ? '0' : '-1')}
         >${displayValue}</span
       >
     `;

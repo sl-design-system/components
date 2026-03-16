@@ -366,6 +366,259 @@ describe('sl-time-field', () => {
     });
   });
 
+  describe('arrow key step navigation', () => {
+    describe('with default steps', () => {
+      beforeEach(async () => {
+        el = await fixture(html`<sl-time-field value="12:30"></sl-time-field>`);
+      });
+
+      it('should increment hour by 1 when ArrowUp is pressed on hour input', async () => {
+        const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+        hourSpinbutton.focus();
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('13:30');
+      });
+
+      it('should decrement hour by 1 when ArrowDown is pressed on hour input', async () => {
+        const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+        hourSpinbutton.focus();
+        await userEvent.keyboard('{ArrowDown}');
+
+        expect(el.value).to.equal('11:30');
+      });
+
+      it('should increment minute by 5 when ArrowUp is pressed on minute input', async () => {
+        const minuteSpinbutton = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]')[1];
+        minuteSpinbutton.focus();
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('12:35');
+      });
+
+      it('should decrement minute by 5 when ArrowDown is pressed on minute input', async () => {
+        const minuteSpinbutton = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]')[1];
+        minuteSpinbutton.focus();
+        await userEvent.keyboard('{ArrowDown}');
+
+        expect(el.value).to.equal('12:25');
+      });
+
+      it('should wrap hour from 23 to 0 when incrementing', async () => {
+        el.value = '23:30';
+        await el.updateComplete;
+
+        const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+        hourSpinbutton.focus();
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('00:30');
+      });
+
+      it('should wrap hour from 0 to 23 when decrementing', async () => {
+        el.value = '00:30';
+        await el.updateComplete;
+
+        const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+        hourSpinbutton.focus();
+        await userEvent.keyboard('{ArrowDown}');
+
+        expect(el.value).to.equal('23:30');
+      });
+
+      it('should wrap minute from 55 to 0 when incrementing', async () => {
+        el.value = '12:55';
+        await el.updateComplete;
+
+        const minuteSpinbutton = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]')[1];
+        minuteSpinbutton.focus();
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('12:00');
+      });
+
+      it('should wrap minute from 0 to 55 when decrementing', async () => {
+        el.value = '12:00';
+        await el.updateComplete;
+
+        const minuteSpinbutton = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]')[1];
+        minuteSpinbutton.focus();
+        await userEvent.keyboard('{ArrowDown}');
+
+        expect(el.value).to.equal('12:55');
+      });
+    });
+
+    describe('with custom hour step', () => {
+      beforeEach(async () => {
+        el = await fixture(html`<sl-time-field hour-step="3" value="12:30"></sl-time-field>`);
+      });
+
+      it('should increment hour by 3 when ArrowUp is pressed', async () => {
+        const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+        hourSpinbutton.focus();
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('15:30');
+      });
+
+      it('should decrement hour by 3 when ArrowDown is pressed', async () => {
+        const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+        hourSpinbutton.focus();
+        await userEvent.keyboard('{ArrowDown}');
+
+        expect(el.value).to.equal('09:30');
+      });
+
+      it('should wrap correctly with custom step', async () => {
+        el.value = '22:30';
+        await el.updateComplete;
+
+        const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+        hourSpinbutton.focus();
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('01:30');
+      });
+    });
+
+    describe('with custom minute step', () => {
+      beforeEach(async () => {
+        el = await fixture(html`<sl-time-field minute-step="15" value="12:30"></sl-time-field>`);
+      });
+
+      it('should increment minute by 15 when ArrowUp is pressed', async () => {
+        const minuteSpinbutton = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]')[1];
+        minuteSpinbutton.focus();
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('12:45');
+      });
+
+      it('should decrement minute by 15 when ArrowDown is pressed', async () => {
+        const minuteSpinbutton = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]')[1];
+        minuteSpinbutton.focus();
+        await userEvent.keyboard('{ArrowDown}');
+
+        expect(el.value).to.equal('12:15');
+      });
+
+      it('should wrap correctly with custom step', async () => {
+        el.value = '12:45';
+        await el.updateComplete;
+
+        const minuteSpinbutton = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]')[1];
+        minuteSpinbutton.focus();
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('12:00');
+      });
+    });
+
+    describe('with both custom steps', () => {
+      beforeEach(async () => {
+        el = await fixture(html`<sl-time-field hour-step="2" minute-step="10" value="10:20"></sl-time-field>`);
+      });
+
+      it('should use hourStep for hour navigation', async () => {
+        const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+        hourSpinbutton.focus();
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('12:20');
+
+        await userEvent.keyboard('{ArrowDown}');
+        await userEvent.keyboard('{ArrowDown}');
+
+        expect(el.value).to.equal('08:20');
+      });
+
+      it('should use minuteStep for minute navigation', async () => {
+        const minuteSpinbutton = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]')[1];
+        minuteSpinbutton.focus();
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('10:30');
+
+        await userEvent.keyboard('{ArrowDown}');
+        await userEvent.keyboard('{ArrowDown}');
+
+        expect(el.value).to.equal('10:10');
+      });
+    });
+
+    describe('with min/max constraints', () => {
+      beforeEach(async () => {
+        el = await fixture(html`<sl-time-field hour-step="2" min="08:00" max="18:00" value="10:00"></sl-time-field>`);
+      });
+
+      it('should respect min constraint when using custom hour step', async () => {
+        el.value = '08:00';
+        await el.updateComplete;
+
+        const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+        hourSpinbutton.focus();
+        await userEvent.keyboard('{ArrowDown}');
+
+        expect(el.value).to.equal('08:00');
+      });
+
+      it('should respect max constraint when using custom hour step', async () => {
+        el.value = '18:00';
+        await el.updateComplete;
+
+        const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+        hourSpinbutton.focus();
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('18:00');
+      });
+
+      it('should respect minute constraints with custom minute step', async () => {
+        el = await fixture(
+          html`<sl-time-field minute-step="15" min="10:30" max="10:45" value="10:30"></sl-time-field>`
+        );
+
+        const minuteSpinbutton = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]')[1];
+        minuteSpinbutton.focus();
+        await userEvent.keyboard('{ArrowDown}');
+
+        // Should stay at min when trying to go below
+        expect(el.value).to.equal('10:30');
+
+        el.value = '10:45';
+        await el.updateComplete;
+        minuteSpinbutton.focus();
+        await userEvent.keyboard('{ArrowUp}');
+
+        // When at 10:45 and stepping up by 15, wraps to 0, then constrains to min (30)
+        expect(el.value).to.equal('10:30');
+      });
+    });
+
+    describe('readonly and selectOnly', () => {
+      it('should not change value when readonly with arrow keys', async () => {
+        el = await fixture(html`<sl-time-field readonly value="12:30"></sl-time-field>`);
+
+        const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+        hourSpinbutton.focus();
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('12:30');
+      });
+
+      it('should not change value when selectOnly with arrow keys', async () => {
+        el = await fixture(html`<sl-time-field select-only value="12:30"></sl-time-field>`);
+
+        const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+        hourSpinbutton.focus();
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('12:30');
+      });
+    });
+  });
+
   describe('focusout', () => {
     let dialog: HTMLDialogElement, outsideButton: HTMLButtonElement;
 

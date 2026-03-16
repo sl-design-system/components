@@ -871,7 +871,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       case 'ArrowUp':
         event.preventDefault();
         if (!this.readonly && !this.selectOnly) {
-          this.#adjustTimePart(partType, 1);
+          this.#adjustTimePart(partType, partType === 'hour' ? this.hourStep : this.minuteStep);
           this.#selectContent(span);
           this.#trySetValue();
         }
@@ -880,7 +880,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       case 'ArrowDown':
         event.preventDefault();
         if (!this.readonly && !this.selectOnly) {
-          this.#adjustTimePart(partType, -1);
+          this.#adjustTimePart(partType, partType === 'hour' ? -this.hourStep : -this.minuteStep);
           this.#selectContent(span);
           this.#trySetValue();
         }

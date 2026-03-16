@@ -98,6 +98,7 @@
 
 .wrapper {
   flex: 1;
+  outline: 0;
   overflow: hidden;
   padding-block: calc(var(--sl-size-100) - var(--sl-size-borderWidth-default));
   padding-inline-start: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default));
@@ -142,11 +143,11 @@ button {
   outline: 0;
   padding: 0;
 
-  // &:focus-visible sl-icon {
-  //  border-radius: var(--sl-size-borderRadius-circle);
-  //  outline: var(--sl-size-focusring-width) solid var(--sl-color-focusring-default);
-  //  outline-offset: var(--sl-size-focusring-offset);
-  // }
+  &:focus-visible sl-icon {
+    border-radius: var(--sl-size-borderRadius-circle);
+    outline: var(--sl-size-focusring-width) solid var(--sl-color-focusring-default);
+    outline-offset: var(--sl-size-focusring-offset);
+  }
 
   &:hover {
     sl-icon[name='circle-xmark'] {

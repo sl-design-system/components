@@ -2,14 +2,7 @@ import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import {
-  type EventEmitter,
-  EventsController,
-  LocaleMixin,
-  anchor,
-  event,
-  isPopoverOpen
-} from '@sl-design-system/shared';
+import { type EventEmitter, LocaleMixin, anchor, event, isPopoverOpen } from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { FieldButton } from '@sl-design-system/text-field';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
@@ -65,12 +58,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** @internal The default margin between the popover and the viewport. */
   static viewportMargin = 8;
-
-  /** Events controller. */
-  // eslint-disable-next-line no-unused-private-class-members
-  #events = new EventsController(this, {
-    focusout: this.#onFocusout
-  });
 
   /**
    * Flag indicating that focus should not be restored to the text-field when the popover
@@ -674,15 +661,8 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.blurEvent.emit();
       this.updateState({ touched: true });
       this.updateValidity();
-    }
-  };
 
-  #onFocusout(event: FocusEvent): void {
-    const leavingComponent =
-      !(event.relatedTarget instanceof Node) ||
-      (!this.contains(event.relatedTarget) && !this.shadowRoot?.contains(event.relatedTarget));
-
-    if (leavingComponent) {
+      // Handle dialog-specific behavior when focus leaves
       const dialogIsOpen = isPopoverOpen(this.dialog);
 
       // Only mark as "focus leaving" when the popover is not already in the process of closing
@@ -694,7 +674,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         this.dialog?.hidePopover();
       }
     }
-  }
+  };
 
   #onButtonClick(event: MouseEvent): void {
     event.stopPropagation();

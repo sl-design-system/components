@@ -1450,7 +1450,7 @@ describe('sl-time-field', () => {
       expect(el.validationMessage).to.equal('Please enter a time.');
     });
 
-    it('should prevent non-numeric input and remain valid when entering invalid characters', async () => {
+    it('should prevent non-numeric input and remain invalid when entering invalid characters', async () => {
       const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
       hourSpinbutton.focus();
       await userEvent.keyboard('ab:cd');

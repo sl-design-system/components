@@ -244,7 +244,8 @@ export const All: StoryObj = {
           <sl-callout density="relaxed" variant=${variant}> The main content of the callout </sl-callout>
           <sl-callout density="relaxed" variant=${variant}>
             <h2 slot="title">
-              ${`The "${variant}" callout title, esse laboris nisi ut quis ullamco dolor elit do commodo ea mollit eu irure.`}
+              The "${variant}" callout title, esse laboris nisi ut quis ullamco dolor elit do commodo ea mollit eu
+              irure.
             </h2>
             <p>
               Duis ut magna commodo minim cillum voluptate incididunt ea labore adipisicing do ad anim. Incididunt non

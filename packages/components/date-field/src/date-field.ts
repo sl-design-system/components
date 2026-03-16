@@ -402,6 +402,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         @focus=${this.#onPartFocus}
         @keydown=${(e: KeyboardEvent) => this.#onPartKeydown(e, partType)}
         @paste=${this.#onPaste}
+        @drop=${(e: Event) => e.preventDefault()}
         aria-disabled=${this.disabled ? 'true' : 'false'}
         aria-label=${getDateUnitName(locale, partType)}
         aria-readonly=${this.readonly || this.selectOnly ? 'true' : 'false'}

@@ -395,6 +395,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         @focus=${this.#onPartFocus}
         @keydown=${(e: KeyboardEvent) => this.#onPartKeydown(e, partType)}
         @paste=${this.#onPaste}
+        @drop=${(e: Event) => e.preventDefault()}
         aria-disabled=${this.disabled ? 'true' : 'false'}
         aria-label=${getTimeUnitName(locale, partType)}
         aria-readonly=${this.readonly || this.selectOnly ? 'true' : 'false'}

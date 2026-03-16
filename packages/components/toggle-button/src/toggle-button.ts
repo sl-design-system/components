@@ -248,6 +248,13 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
    */
   #updateAriaAttributes(): void {
     if (!this.label) {
+      // When the label is cleared, also clear all ARIA attributes that may
+      // reference a now-removed tooltip to avoid stale relationships.
+      this.#isInternalAriaLabelUpdate = true;
+      this.removeAttribute('aria-label');
+      this.removeAttribute('aria-labelledby');
+      this.removeAttribute('aria-describedby');
+      this.#isInternalAriaLabelUpdate = false;
       return;
     }
 

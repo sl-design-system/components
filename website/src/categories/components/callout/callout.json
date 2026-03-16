@@ -1,7 +1,7 @@
 {
   "layout": "categories/components/components.njk",
   "tags": "callout",
-  "componentStatus": "draft",
+  "componentStatus": "preview",
   "componentTagName": [
     {
       "name": "Callout",

@@ -1,0 +1,29 @@
+{
+  "name": "@sl-design-system/docs-components",
+  "private": true,
+  "type": "module",
+  "version": "0.0.0",
+  "description": "Web components used in the documentation of the SL Design System",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sl-design-system/components.git"
+  },
+  "scripts": {
+    "build": "tsdown"
+  },
+  "exports": {
+    "./page-toc": "./dist/page-toc/page-toc.js",
+    "./package.json": "./package.json"
+  },
+  "devDependencies": {
+    "@typescript/native-preview": "^7.0.0-dev.20260315.1",
+    "lit": "^3.3.2",
+    "tsdown": "^0.21.2",
+    "typescript": "^5.9.3",
+    "wireit": "^0.14.12"
+  },
+  "peerDependencies": {
+    "lit": "^3.3.2"
+  }
+}

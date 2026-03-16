@@ -22,6 +22,8 @@
     "tools/stylelint-config",
     "tools/theme-selector-plugin",
     "tools/vitest-browser-lit",
+    "docs/components",
+    "docs/website",
     "website"
   ],
   "scripts": {

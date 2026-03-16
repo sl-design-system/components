@@ -4,7 +4,7 @@ import { Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
-import { type MenuItem } from '@sl-design-system/menu';
+import { MenuButton, type MenuItem } from '@sl-design-system/menu';
 import '@sl-design-system/menu/register.js';
 import { closestElementComposed } from '@sl-design-system/shared';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
@@ -104,8 +104,10 @@ describe('sl-tool-bar', () => {
 
       const children = el.children;
       // Only check interactive elements (buttons and menu-buttons), not dividers
-      expect(children.item(0)).to.have.attribute('disabled'); // sl-button
-      expect(children.item(3)).to.have.attribute('disabled'); // sl-menu-button
+      expect(children.item(0)).to.have.attribute('aria-disabled', 'true'); // sl-button
+      const menuButton = children.item(3) as MenuButton;
+      const internalButton = menuButton.renderRoot.querySelector('sl-button');
+      expect(internalButton).to.have.attribute('aria-disabled', 'true');
     });
 
     it('should preserve originally disabled buttons when toolbar is re-enabled', async () => {
@@ -130,10 +132,11 @@ describe('sl-tool-bar', () => {
       el.disabled = true;
       await el.updateComplete;
 
-      // All buttons should be disabled
-      expect(buttons[0]).to.have.attribute('disabled');
-      expect(buttons[1]).to.have.attribute('disabled');
-      expect(buttons[2]).to.have.attribute('disabled');
+      // All buttons should be aria-disabled, and native disabled should be removed for focusability
+      expect(buttons[0]).to.have.attribute('aria-disabled', 'true');
+      expect(buttons[1]).to.have.attribute('aria-disabled', 'true');
+      expect(buttons[1]).not.to.have.attribute('disabled');
+      expect(buttons[2]).to.have.attribute('aria-disabled', 'true');
 
       // Re-enable the toolbar
       el.disabled = false;
@@ -141,9 +144,230 @@ describe('sl-tool-bar', () => {
 
       // Originally enabled buttons should be enabled again
       // but originally disabled button should remain disabled
-      expect(buttons[0]).not.to.have.attribute('disabled');
+      expect(buttons[0]).not.to.have.attribute('aria-disabled');
       expect(buttons[1]).to.have.attribute('disabled');
-      expect(buttons[2]).not.to.have.attribute('disabled');
+      expect(buttons[1]).not.to.have.attribute('aria-disabled');
+      expect(buttons[2]).not.to.have.attribute('aria-disabled');
+    });
+
+    it('should preserve originally aria-disabled buttons when toolbar is re-enabled', async () => {
+      // Create a toolbar with one button already aria-disabled
+      el = await fixture(html`
+        <sl-tool-bar style="inline-size: 400px">
+          <sl-button>Enabled Button</sl-button>
+          <sl-button aria-disabled="true">Originally Aria Disabled</sl-button>
+          <sl-button>Another Enabled</sl-button>
+        </sl-tool-bar>
+      `);
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const buttons = Array.from(el.querySelectorAll('sl-button'));
+
+      // Verify initial state
+      expect(buttons[0]).not.to.have.attribute('aria-disabled');
+      expect(buttons[1]).to.have.attribute('aria-disabled', 'true');
+      expect(buttons[2]).not.to.have.attribute('aria-disabled');
+
+      // Disable the toolbar
+      el.disabled = true;
+      await el.updateComplete;
+
+      // All buttons should be aria-disabled, including the originally aria-disabled one
+      expect(buttons[0]).to.have.attribute('aria-disabled', 'true');
+      expect(buttons[1]).to.have.attribute('aria-disabled', 'true');
+      expect(buttons[2]).to.have.attribute('aria-disabled', 'true');
+
+      // Re-enable the toolbar
+      el.disabled = false;
+      await el.updateComplete;
+
+      // Originally enabled buttons should be enabled again
+      // but originally aria-disabled button should remain aria-disabled
+      expect(buttons[0]).not.to.have.attribute('aria-disabled');
+      expect(buttons[1]).to.have.attribute('aria-disabled', 'true');
+      expect(buttons[2]).not.to.have.attribute('aria-disabled');
+    });
+
+    it('should preserve originally aria-disabled menu-buttons when toolbar is re-enabled', async () => {
+      el = await fixture(html`
+        <sl-tool-bar style="inline-size: 400px">
+          <sl-menu-button aria-disabled="true">
+            <div slot="button">Originally Aria Disabled</div>
+            <sl-menu-item>Item 1</sl-menu-item>
+          </sl-menu-button>
+        </sl-tool-bar>
+      `);
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const menuButton = el.querySelector('sl-menu-button')!;
+
+      // Verify initial state - aria-disabled should be delegated to internal button, so it's NOT on host
+      expect(menuButton).not.to.have.attribute('aria-disabled');
+      const internalButton = menuButton.renderRoot.querySelector('sl-button');
+      expect(internalButton).to.have.attribute('aria-disabled', 'true');
+
+      el.disabled = true;
+      await el.updateComplete;
+
+      // Host should now have aria-disabled removed (by mixin), but internal button should have it
+      expect(menuButton).not.to.have.attribute('aria-disabled');
+      expect(internalButton).to.have.attribute('aria-disabled', 'true');
+      // And it should have our marker
+      expect(menuButton).to.have.attribute('data-toolbar-disabled-original', 'true');
+
+      el.disabled = false;
+      await el.updateComplete;
+
+      // Host aria-disabled should be removed by restore + mixin delegation
+      expect(menuButton).not.to.have.attribute('aria-disabled');
+      // Internal button should still be aria-disabled="true"
+      expect(internalButton).to.have.attribute('aria-disabled', 'true');
+    });
+
+    it('should preserve originally property-disabled menu-buttons when toolbar is re-enabled', async () => {
+      el = await fixture(html`
+        <sl-tool-bar>
+          <sl-menu-button>
+            <div slot="button">Edit</div>
+            <sl-menu-item>Rename...</sl-menu-item>
+          </sl-menu-button>
+        </sl-tool-bar>
+      `);
+      const menuButton = el.querySelector('sl-menu-button') as MenuButton;
+      menuButton.disabled = true;
+      await menuButton.updateComplete;
+      await el.updateComplete;
+
+      // Verify initial state - sl-menu-button has no [disabled] attribute but .disabled is true
+      expect(menuButton).not.to.have.attribute('disabled');
+      expect(menuButton.disabled).to.be.true;
+
+      el.disabled = true;
+      await el.updateComplete;
+
+      expect(menuButton).not.to.have.attribute('disabled');
+      expect(menuButton.disabled).to.be.false;
+      const internalButton = menuButton.renderRoot.querySelector('sl-button');
+      expect(internalButton).to.have.attribute('aria-disabled', 'true');
+
+      el.disabled = false;
+      await el.updateComplete;
+
+      // Restoration should restore .disabled = true but NOT add [disabled] attribute
+      expect(menuButton).not.to.have.attribute('disabled');
+      expect(menuButton.disabled).to.be.true;
+    });
+
+    it('should be idempotent when multiple updates occur while disabled', async () => {
+      // Create a toolbar with mixed states
+      el = await fixture(html`
+        <sl-tool-bar style="inline-size: 400px">
+          <sl-button>Enabled</sl-button>
+          <sl-button aria-disabled="false">Explicitly Enabled</sl-button>
+          <sl-button aria-disabled="true">Disabled</sl-button>
+        </sl-tool-bar>
+      `);
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const buttons = Array.from(el.querySelectorAll('sl-button'));
+
+      el.disabled = true;
+      await el.updateComplete;
+
+      expect(buttons[0]).to.have.attribute('aria-disabled', 'true');
+      expect(buttons[0]).to.have.attribute('data-toolbar-disabled');
+      expect(buttons[1]).to.have.attribute('aria-disabled', 'true');
+      expect(buttons[1]).to.have.attribute('data-toolbar-disabled-original', 'false');
+      expect(buttons[2]).to.have.attribute('aria-disabled', 'true');
+      expect(buttons[2]).to.have.attribute('data-toolbar-disabled-original', 'true');
+
+      // Trigger weight/size changes or multiple updates while disabled
+      el.requestUpdate();
+      await el.updateComplete;
+      el.requestUpdate();
+      await el.updateComplete;
+
+      // Verify tracking hasn't changed (idempotence)
+      // If it weren't idempotent, data-toolbar-disabled-original might have become "true" for button 1
+      expect(buttons[1]).to.have.attribute('data-toolbar-disabled-original', 'false');
+      expect(buttons[0]).to.have.attribute('data-toolbar-disabled');
+      expect(buttons[0]).not.to.have.attribute('data-toolbar-disabled-original');
+
+      // Re-enable
+      el.disabled = false;
+      await el.updateComplete;
+
+      // Should restore correctly
+      expect(buttons[0]).not.to.have.attribute('aria-disabled');
+      expect(buttons[1]).to.have.attribute('aria-disabled', 'false');
+      expect(buttons[2]).to.have.attribute('aria-disabled', 'true');
+    });
+
+    it('should be idempotent for originally disabled buttons', async () => {
+      el = await fixture(html`
+        <sl-tool-bar style="inline-size: 400px">
+          <sl-button disabled>Originally Disabled</sl-button>
+        </sl-tool-bar>
+      `);
+      await new Promise(resolve => setTimeout(resolve, 50));
+      const button = el.querySelector('sl-button')!;
+
+      // Disable the toolbar
+      el.disabled = true;
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('aria-disabled', 'true');
+      expect(button).not.to.have.attribute('disabled');
+      expect(button).to.have.attribute('data-toolbar-disabled-native', 'attribute');
+      expect(button).not.to.have.attribute('data-toolbar-disabled-original');
+
+      // Re-run sync (idempotency check)
+      el.requestUpdate();
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('data-toolbar-disabled-native', 'attribute');
+      expect(button).not.to.have.attribute('data-toolbar-disabled-original');
+
+      // Re-enable
+      el.disabled = false;
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('disabled');
+      expect(button).not.to.have.attribute('aria-disabled');
+    });
+
+    it('should handle originally disabled sl-menu-button (property-based)', async () => {
+      el = await fixture(html`
+        <sl-tool-bar style="inline-size: 400px">
+          <sl-menu-button .disabled=${true}>
+            <div slot="button">Menu</div>
+            <sl-menu-item>Item 1</sl-menu-item>
+          </sl-menu-button>
+        </sl-tool-bar>
+      `);
+      await new Promise(resolve => setTimeout(resolve, 50));
+      const menuButton = el.querySelector('sl-menu-button')!;
+
+      // Verify it's actually disabled but HAS NO ATTRIBUTE (doesn't reflect)
+      expect(menuButton.disabled).to.be.true;
+      expect(menuButton).not.to.have.attribute('disabled');
+
+      // Disable the toolbar
+      el.disabled = true;
+      await el.updateComplete;
+
+      // It should be converted to aria-disabled
+      expect(menuButton.disabled).to.be.false;
+      const internalButton = menuButton.renderRoot.querySelector('sl-button');
+      expect(internalButton).to.have.attribute('aria-disabled', 'true');
+      expect(menuButton).to.have.attribute('data-toolbar-disabled-native', 'property');
+
+      // Re-enable
+      el.disabled = false;
+      await el.updateComplete;
+
+      expect(menuButton.disabled).to.be.true;
+      expect(menuButton).not.to.have.attribute('aria-disabled');
     });
 
     it('should have made all slotted elements visible', () => {
@@ -155,6 +379,37 @@ describe('sl-tool-bar', () => {
 
       expect(allVisible).to.be.true;
       expect(el.menuItems).to.have.length(0);
+    });
+
+    it('should preserve originally aria-disabled="false" buttons when toolbar is re-enabled', async () => {
+      el = await fixture(html`
+        <sl-tool-bar style="inline-size: 400px">
+          <sl-button>Enabled Button</sl-button>
+          <sl-button aria-disabled="false">Originally Aria Disabled False</sl-button>
+          <sl-button>Another Enabled</sl-button>
+        </sl-tool-bar>
+      `);
+      await new Promise(resolve => setTimeout(resolve, 50));
+      const buttons = Array.from(el.querySelectorAll('sl-button'));
+
+      expect(buttons[0]).not.to.have.attribute('aria-disabled');
+      expect(buttons[1]).to.have.attribute('aria-disabled', 'false');
+      expect(buttons[2]).not.to.have.attribute('aria-disabled');
+
+      el.disabled = true;
+      await el.updateComplete;
+
+      expect(buttons[0]).to.have.attribute('aria-disabled', 'true');
+      expect(buttons[1]).to.have.attribute('aria-disabled', 'true');
+      expect(buttons[2]).to.have.attribute('aria-disabled', 'true');
+
+      el.disabled = false;
+      await el.updateComplete;
+      // Originally enabled buttons should be enabled again
+      // and originally aria-disabled="false" button should return to aria-disabled="false"
+      expect(buttons[0]).not.to.have.attribute('aria-disabled');
+      expect(buttons[1]).to.have.attribute('aria-disabled', 'false');
+      expect(buttons[2]).not.to.have.attribute('aria-disabled');
     });
 
     it('should not have a menu button', () => {
@@ -820,6 +1075,25 @@ describe('sl-tool-bar', () => {
 
       const focusedButton = closestElementComposed(document.activeElement!, 'sl-button');
       expect(focusedButton).to.equal(buttons[buttons.length - 1]);
+    });
+
+    it('should focus aria-disabled buttons using arrow keys', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      const buttons = Array.from(el.querySelectorAll('sl-button'));
+
+      el.focus();
+      await el.updateComplete;
+
+      // First button should be focused (aria-disabled)
+      expect(closestElementComposed(document.activeElement!, 'sl-button')).to.equal(buttons[0]);
+
+      await userEvent.keyboard('{ArrowRight}');
+      await el.updateComplete;
+
+      // Second button should be focused (aria-disabled)
+      expect(closestElementComposed(document.activeElement!, 'sl-button')).to.equal(buttons[1]);
     });
 
     it('should move focus to next item when pressing ArrowRight', async () => {

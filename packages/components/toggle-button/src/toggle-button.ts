@@ -146,7 +146,7 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
     super.updated(changes);
 
     if (changes.has('defaultIcon') || changes.has('hasText') || changes.has('pressedIcon')) {
-      this.toggleAttribute('icon-only', !this.hasText && !!this.defaultIcon && !!this.pressedIcon);
+      this.toggleAttribute('icon-only', this.#isIconOnly());
       this.toggleAttribute('text-only', !!this.hasText && !this.defaultIcon && !this.pressedIcon);
     }
 

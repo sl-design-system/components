@@ -142,6 +142,12 @@ button {
   outline: 0;
   padding: 0;
 
+  // &:focus-visible sl-icon {
+  //  border-radius: var(--sl-size-borderRadius-circle);
+  //  outline: var(--sl-size-focusring-width) solid var(--sl-color-focusring-default);
+  //  outline-offset: var(--sl-size-focusring-offset);
+  // }
+
   &:hover {
     sl-icon[name='circle-xmark'] {
       opacity: 0;

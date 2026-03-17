@@ -63,10 +63,13 @@
   outline-color: var(--sl-color-border-focused);
 }
 
-// :host(:focus:has(button:focus)),
-// :host(:focus:has(button:focus-visible)) {
-//  outline-color: red; // transparent;
+// :host:has(button:focus) {
+//  outline-color: transparent;
 // }
+
+:host([clear-focused]) {
+  outline-color: transparent;
+}
 
 :host([aria-expanded='true']) {
   outline-color: var(--sl-color-border-focused);
@@ -139,6 +142,7 @@ button {
   background: transparent;
   block-size: calc(1lh + (var(--sl-size-100) - var(--sl-size-borderWidth-default)) * 2);
   border: 0;
+  border-radius: var(--sl-size-borderRadius-default);
   cursor: pointer;
   display: inline-grid;
   font: inherit;

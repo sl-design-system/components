@@ -208,7 +208,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
       this.button.tabIndex = this.disabled ? -1 : 0;
       this.button.setAttribute('aria-expanded', 'false');
       this.button.setAttribute('aria-haspopup', 'listbox');
-      this.setAttribute('aria-keyshortcuts', 'Delete Backspace');
+      this.button.setAttribute('aria-keyshortcuts', 'Delete Backspace');
       this.prepend(this.button);
     }
 

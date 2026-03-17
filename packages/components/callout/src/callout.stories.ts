@@ -1,6 +1,7 @@
 import { faArrowDownToLine, faArrowRightToBracket } from '@fortawesome/pro-regular-svg-icons';
 import { faFileSignature as fasFileSignature, faShield as fasShield } from '@fortawesome/pro-solid-svg-icons';
 import '@sl-design-system/button/register.js';
+import '@sl-design-system/button-bar/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
@@ -22,7 +23,7 @@ Icon.register(faArrowDownToLine, faArrowRightToBracket, fasFileSignature, fasShi
 
 export default {
   title: 'Layout/Callout',
-  tags: ['draft'],
+  tags: ['preview'],
   args: {
     variant: 'info'
   },
@@ -134,11 +135,6 @@ export const WithActions: Story = {
         gap: 8px;
       }
 
-      .actions {
-        display: flex;
-        gap: 8px;
-      }
-
       sl-callout sl-button {
         align-self: flex-start;
       }
@@ -182,7 +178,7 @@ export const WithActions: Story = {
           <p>
             Make sure you are prepared by checking the <a href="javascript:void(0)">trip details & packing list</a>.
           </p>
-          <div class="actions">
+          <sl-button-bar>
             <sl-button fill="solid" variant="primary">
               <sl-icon name="far-arrow-right-to-bracket"></sl-icon>
               Review & Sign
@@ -191,7 +187,7 @@ export const WithActions: Story = {
               <sl-icon name="far-arrow-down-to-line"></sl-icon>
               Download PDF
             </sl-button>
-          </div>
+          </sl-button-bar>
         </div>
       </sl-callout>
       <sl-callout density="relaxed" variant="info">
@@ -200,7 +196,7 @@ export const WithActions: Story = {
         <div class="content">
           <p>The 6th-grade museum visit is on 21 Nov. Please review the details and submit a consent form.</p>
           <p>Make sure you are prepared by checking the <a href="#">trip details & packing list</a>.</p>
-          <div class="actions">
+          <sl-button-bar>
             <sl-button fill="solid" variant="primary">
               <sl-icon name="far-arrow-right-to-bracket"></sl-icon>
               Review & Sign
@@ -209,7 +205,7 @@ export const WithActions: Story = {
               <sl-icon name="far-arrow-down-to-line"></sl-icon>
               Download PDF
             </sl-button>
-          </div>
+          </sl-button-bar>
         </div>
       </sl-callout>
     </div>

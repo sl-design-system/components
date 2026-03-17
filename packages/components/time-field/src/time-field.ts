@@ -59,15 +59,14 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** @internal The default margin between the popover and the viewport. */
   static viewportMargin = 8;
 
-  /**
-   * Flag indicating that focus should not be restored to the text-field when the popover
-   * closes. This is set when focus moves away from the dialog to either an internal control
-   * (e.g. the clock button via Shift+Tab) or outside the component (e.g. via Tab).
-   */
-  #focusLeavingComponent = false;
+  /** Tracks how many digits have been entered for the current part. */
+  #enteredDigits = 0;
 
-  /** Track when the popover is in the process of closing. */
-  #popoverClosing = false;
+  /**
+   * Flag to prevent willUpdate from clearing timeParts when the value is set
+   * to undefined internally (e.g. when the user enters an invalid time).
+   */
+  #preserveTimeParts = false;
 
   /**
    * Flag indicating whether the popover was just closed. We need to know this so we can
@@ -90,9 +89,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** The value in HH:mm format. */
   #value: string | undefined;
-
-  /** Tracks how many digits have been entered for the current part. */
-  #enteredDigits = 0;
 
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
@@ -221,17 +217,26 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.removeEventListener('focusout', this.#onFocusOut);
   }
 
-  override firstUpdated(changes: PropertyValues<this>): void {
-    super.firstUpdated(changes);
-
-    this.updateValidity();
-  }
-
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
     if (changes.has('start')) {
       this.#startTime = this.start ? this.#parseTime(this.start) : undefined;
+    }
+
+    if (changes.has('value')) {
+      if (this.value) {
+        this.timeParts = {
+          hour: this.#valueAsNumbers?.hour,
+          minute: this.#valueAsNumbers?.minute
+        };
+      } else if (changes.get('value') !== undefined && !this.#preserveTimeParts) {
+        // Only clear parts if value was explicitly set to undefined (not on first render)
+        this.timeParts = {};
+        this.#enteredDigits = 0;
+      }
+
+      this.#preserveTimeParts = false;
     }
 
     if (changes.has('timeParts') || changes.has('placeholder') || changes.has('value')) {
@@ -329,8 +334,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           viewportMargin: TimeField.viewportMargin
         })}
         @beforetoggle=${this.#onBeforeToggle}
-        @focusin=${this.#onDialogFocusin}
-        @focusout=${this.#onDialogFocusout}
         @toggle=${this.#onToggle}
         @keydown=${this.#onKeydown}
         id="dialog"
@@ -460,6 +463,16 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         </li>
       `;
     });
+  }
+
+  /** Show the time picker. */
+  showPicker(): void {
+    this.dialog?.showPopover();
+  }
+
+  /** Hide the time picker. */
+  hidePicker(): void {
+    this.dialog?.hidePopover();
   }
 
   /** @internal */
@@ -598,46 +611,12 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onBeforeToggle(event: ToggleEvent): void {
-    if (event.newState === 'open') {
-      this.button?.setAttribute('aria-expanded', 'true');
-    } else {
-      this.#popoverClosing = true;
+    if (event.newState !== 'open') {
       this.button?.setAttribute('aria-expanded', 'false');
       this.#popoverJustClosed = true;
+    } else {
+      this.button?.setAttribute('aria-expanded', 'true');
     }
-  }
-
-  #onDialogFocusin(event: FocusEvent): void {
-    const target = event.target;
-
-    if (!(target instanceof HTMLLIElement)) {
-      return;
-    }
-
-    // Reset previously focused <li> so only one has tabindex="0"
-    this.dialog?.querySelectorAll('li[tabindex="0"]').forEach(li => {
-      if (li !== target) {
-        li.setAttribute('tabindex', '-1');
-      }
-    });
-
-    target.tabIndex = 0;
-  }
-
-  #onDialogFocusout(event: FocusEvent): void {
-    const relatedTarget = event.relatedTarget;
-
-    if (
-      this.#popoverClosing ||
-      !(relatedTarget instanceof Node) ||
-      this.dialog?.contains(relatedTarget) ||
-      relatedTarget === this.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')
-    ) {
-      return;
-    }
-
-    this.#focusLeavingComponent = true;
-    this.dialog?.hidePopover();
   }
 
   #onFocusIn = (event: FocusEvent): void => {
@@ -662,27 +641,14 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.updateState({ touched: true });
       this.updateValidity();
 
-      // Handle dialog-specific behavior when focus leaves
-      const dialogIsOpen = isPopoverOpen(this.dialog);
-
-      // Only mark as "focus leaving" when the popover is not already in the process of closing
-      if (!this.#popoverClosing && dialogIsOpen) {
-        this.#focusLeavingComponent = true;
-      }
-
-      if (dialogIsOpen) {
-        this.dialog?.hidePopover();
+      // Close popover when focus leaves the component (unless it was already closed by Tab handling)
+      if (this.dialog?.matches(':popover-open')) {
+        this.dialog.hidePopover();
       }
     }
   };
 
-  #onButtonClick(event: MouseEvent): void {
-    event.stopPropagation();
-
-    if (this.disabled || this.readonly) {
-      return;
-    }
-
+  #onButtonClick(): void {
     // Prevents the popover from reopening immediately after it was just closed
     if (!this.#popoverJustClosed) {
       this.dialog?.togglePopover();
@@ -719,10 +685,48 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   async #onKeydown(event: KeyboardEvent): Promise<void> {
-    if (event.key === 'Escape') {
-      // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the date field
+    if (event.key === 'Tab') {
+      // Prevent default Tab behavior
+      event.preventDefault();
+
+      // Close the popover first
+      this.dialog?.hidePopover();
+
+      // Then manually move focus to the appropriate element
+      if (event.shiftKey) {
+        // Shift+Tab: move to button
+        this.button?.focus();
+      } else {
+        // Tab: move to the next focusable element after this component
+        // We need to find the next tabbable element in document order after this component
+        const allElements = Array.from(document.querySelectorAll('*'));
+        const componentIndex = allElements.indexOf(this);
+
+        // Find the next focusable element after this component
+        for (let i = componentIndex + 1; i < allElements.length; i++) {
+          const el = allElements[i] as HTMLElement;
+          if (
+            el.tabIndex >= 0 &&
+            !el.hasAttribute('disabled') &&
+            el.offsetParent !== null && // visible
+            (el.matches('a[href], button, textarea, input, select') || el.hasAttribute('tabindex'))
+          ) {
+            el.focus();
+            break;
+          }
+        }
+      }
+
+      return;
+    } else if (event.key === 'Escape') {
+      // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the time field
       // does not close parent containers (such as dialogs).
       event.stopPropagation();
+
+      // Restore focus after the popover closes (browser handles closing via native popover API)
+      requestAnimationFrame(() => {
+        this.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')?.focus();
+      });
     } else if (['ArrowUp', 'ArrowDown'].includes(event.key)) {
       event.preventDefault();
 
@@ -949,14 +953,12 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     // Backspace/Delete clears the value and time parts
     if (event.key === 'Backspace' || event.key === 'Delete') {
       event.preventDefault();
-      if (!this.readonly && !this.selectOnly) {
-        this.timeParts = {};
-        this.#enteredDigits = 0;
-        this.value = undefined;
-        this.changeEvent.emit(this.value ?? '');
-        this.updateState({ dirty: true });
-        this.updateValidity();
-      }
+      this.timeParts = {};
+      this.#enteredDigits = 0;
+      this.value = undefined;
+      this.changeEvent.emit(this.value ?? '');
+      this.updateState({ dirty: true });
+      this.updateValidity();
       this.#exitSelectAll(true);
 
       return;
@@ -1080,7 +1082,8 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #trySetValue(): void {
-    const { hour, minute } = this.timeParts;
+    const { hour, minute } = this.timeParts,
+      hadValue = this.value !== undefined;
 
     if (hour !== undefined && minute !== undefined) {
       const constrainedMinutes = this.#getConstrainedMinutes(hour, minute);
@@ -1094,9 +1097,16 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.updateState({ dirty: true });
       this.updateValidity();
     } else {
+      this.#preserveTimeParts = true;
       this.#valueAsNumbers = undefined;
       this.#value = undefined;
       this.requestUpdate('value');
+
+      if (hadValue) {
+        this.changeEvent.emit(this.value ?? '');
+        this.updateState({ dirty: true });
+      }
+
       this.updateValidity();
     }
   }
@@ -1131,13 +1141,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   async #onToggle(event: ToggleEvent): Promise<void> {
     if (event.newState === 'closed') {
-      if (!this.#focusLeavingComponent) {
-        this.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')?.focus();
-      }
-
-      this.#popoverClosing = false;
       this.#popoverJustClosed = false;
-      this.#focusLeavingComponent = false;
     } else {
       await this.#scrollAndFocusStartTime();
     }

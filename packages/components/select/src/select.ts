@@ -406,6 +406,14 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     this.#setSelectedOption(undefined, true);
   }
 
+  /** Returns whether the clear button inside the select-button's shadow DOM has focus. */
+  #isClearButtonFocused(): boolean {
+    const shadowRoot = this.button.renderRoot as ShadowRoot,
+      clearButton = shadowRoot.querySelector('button');
+
+    return !!clearButton && shadowRoot.activeElement === clearButton;
+  }
+
   #onClick(event: Event): void {
     if (event.target === this) {
       this.button.focus();
@@ -448,7 +456,33 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
       return;
     } else if (!this.listbox?.matches(':popover-open')) {
-      if (['ArrowDown', 'Enter', ' '].includes(event.key)) {
+      if (event.key === 'Tab' && this.clearable && this.selectedOption) {
+        const clearButton = this.button.renderRoot.querySelector<HTMLElement>('button');
+
+        if (clearButton) {
+          const shadowRoot = this.button.renderRoot as ShadowRoot;
+
+          if (!event.shiftKey && shadowRoot.activeElement !== clearButton) {
+            // Tab from the combobox → move focus to the clear button
+            event.preventDefault();
+            clearButton.focus();
+          } else if (event.shiftKey && shadowRoot.activeElement === clearButton) {
+            // Shift+Tab from the clear button → move focus back to the combobox
+            event.preventDefault();
+            this.button.focus();
+          }
+        }
+
+        return;
+      } else if (['Enter', ' '].includes(event.key) && this.#isClearButtonFocused()) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        this.#onClear();
+        this.button.focus();
+
+        return;
+      } else if (['ArrowDown', 'Enter', ' '].includes(event.key)) {
         this.#rovingTabindexController.focus();
       } else if (event.key === 'Home') {
         this.#rovingTabindexController.focusToElement(0);

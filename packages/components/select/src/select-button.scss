@@ -63,6 +63,11 @@
   outline-color: var(--sl-color-border-focused);
 }
 
+// :host(:focus:has(button:focus)),
+// :host(:focus:has(button:focus-visible)) {
+//  outline-color: red; // transparent;
+// }
+
 :host([aria-expanded='true']) {
   outline-color: var(--sl-color-border-focused);
 
@@ -98,7 +103,6 @@
 
 .wrapper {
   flex: 1;
-  outline: 0;
   overflow: hidden;
   padding-block: calc(var(--sl-size-100) - var(--sl-size-borderWidth-default));
   padding-inline-start: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default));
@@ -140,14 +144,23 @@ button {
   font: inherit;
   justify-content: center;
   margin-inline-start: var(--sl-size-050);
-  outline: 0;
+
+  // outline: 0;
   padding: 0;
 
-  &:focus-visible sl-icon {
-    border-radius: var(--sl-size-borderRadius-circle);
-    outline: var(--sl-size-focusring-width) solid var(--sl-color-focusring-default);
-    outline-offset: var(--sl-size-focusring-offset);
+  &:focus-visible {
+    // border-radius: var(--sl-size-borderRadius-circle);
+    // outline: var(--sl-size-focusring-width) solid var(--sl-color-focusring-default);
+    // outline-offset: var(--sl-size-focusring-offset);
+    outline: var(--sl-color-border-focused) solid var(--sl-size-borderWidth-focusRing);
+    z-index: 1; // Ensure outline is above the status border
   }
+
+  // &:focus sl-icon {
+  //  border-radius: var(--sl-size-borderRadius-circle);
+  //  outline: var(--sl-size-focusring-width) solid var(--sl-color-focusring-default);
+  //  outline-offset: var(--sl-size-focusring-offset);
+  // }
 
   &:hover {
     sl-icon[name='circle-xmark'] {

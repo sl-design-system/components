@@ -33,9 +33,6 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   }
 
   /** @internal */
-  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
-
-  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   // eslint-disable-next-line no-unused-private-class-members
@@ -110,7 +107,6 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
         class="wrapper"
         part=${this.placeholder && !hasSelected ? 'placeholder' : 'selected-option'}
         style="inline-size: ${inlineSize}"
-        tabindex="0"
       >
         ${hasSelected
           ? html`<span part="selected"><slot name="selected-content"></slot></span>`
@@ -121,7 +117,7 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
             <button
               @click=${this.#onClick}
               aria-label=${msg('Clear selection', { id: 'sl.select.clearSelection' })}
-              tabindex="0"
+              tabindex="-1"
             >
               <sl-icon name="circle-xmark"></sl-icon>
               <sl-icon name="circle-xmark-solid"></sl-icon>
@@ -147,22 +143,6 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
       event.stopPropagation();
 
       this.clearEvent.emit();
-    }
-
-    if (!this.disabled && this.clearable && this.selected && event.key === 'Tab') {
-      const wrapper = this.renderRoot.querySelector<HTMLElement>('.wrapper'),
-        button = this.renderRoot.querySelector<HTMLElement>('button'),
-        target = event.composedPath()[0];
-
-      console.log('wrapper', wrapper, 'button', button, 'target', target);
-
-      if (!event.shiftKey && target === wrapper && button) {
-        event.preventDefault();
-        button.focus();
-      } else if (event.shiftKey && target === button && wrapper) {
-        event.preventDefault();
-        wrapper.focus();
-      }
     }
   }
 }

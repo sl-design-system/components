@@ -287,6 +287,9 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     const locale = this.locale || 'default',
       parts = getDateFormat(locale);
 
+    // Track time part index (non-literal parts only) to avoid recomputing in renderPart
+    let timePartIndex = 0;
+
     return html`
       <div class="field">
         <div class="wrapper">
@@ -303,7 +306,12 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
                 </span>
               `
             : html`
-                <div class="parts">${parts.map(part => this.renderPart(part, locale))}</div>
+                <div class="parts">
+                  ${parts.map(part => {
+                    const index = part.type === 'literal' ? -1 : timePartIndex++;
+                    return this.renderPart(part, locale, index);
+                  })}
+                </div>
                 ${this.placeholder
                   ? html`
                       <div aria-hidden=${ifDefined(this.placeholderShown ? undefined : 'true')} class="placeholder">
@@ -363,15 +371,12 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   /** @internal */
-  renderPart(part: DateFormatPart, locale: string): TemplateResult {
+  renderPart(part: DateFormatPart, locale: string, timePartIndex: number): TemplateResult {
     if (part.type === 'literal') {
       return html`<span @pointerdown=${this.#onSeparatorPointerDown} class="separator">${part.value}</span>`;
     }
 
     const partType = part.type as TimePartType,
-      formatParts = getDateFormat(locale),
-      timePartTypes = formatParts.filter(p => p.type !== 'literal').map(p => p.type),
-      timePartIndex = timePartTypes.indexOf(partType),
       placeholder = getTimeUnitLetter(locale, partType).repeat(part.value.length),
       currentValue = this.timeParts[partType],
       hasValue = currentValue !== undefined,
@@ -1200,13 +1205,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     if (!time) {
       const now = new Date();
       let hour = Math.ceil(now.getHours() / this.hourStep) * this.hourStep;
-      let minute = Math.ceil(now.getMinutes() / this.minuteStep) * this.minuteStep;
-
-      // Handle minute overflow
-      if (minute >= 60) {
-        hour += 1;
-        minute = 0;
-      }
+      const minute = 0;
 
       // Handle hour overflow
       if (hour >= 24) {

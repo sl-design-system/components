@@ -835,7 +835,7 @@ describe('sl-time-field', () => {
       const input = el.renderRoot.querySelector('[role="spinbutton"]');
 
       expect(input).to.exist;
-      (input as HTMLInputElement).focus();
+      (input as HTMLElement).focus();
 
       await userEvent.keyboard('{ArrowDown}');
       await el.updateComplete;
@@ -850,7 +850,7 @@ describe('sl-time-field', () => {
       const input = el.renderRoot.querySelector('[role="spinbutton"]');
 
       expect(input).to.exist;
-      (input as HTMLInputElement).focus();
+      (input as HTMLElement).focus();
 
       await userEvent.keyboard('{ArrowUp}');
       await el.updateComplete;

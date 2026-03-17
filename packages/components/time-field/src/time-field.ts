@@ -335,6 +335,8 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         })}
         @beforetoggle=${this.#onBeforeToggle}
         @toggle=${this.#onToggle}
+        @focusin=${this.#onDialogFocusin}
+        @focusout=${this.#onDialogFocusout}
         @keydown=${this.#onKeydown}
         id="dialog"
         popover
@@ -426,13 +428,13 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     return hours.map(
-      hour => html`
+      (hour, index) => html`
         <li
           @click=${() => this.#onHourClick(hour)}
           @keydown=${(event: KeyboardEvent) => this.#onHourKeydown(event, hour)}
           aria-selected=${hour === this.#valueAsNumbers?.hour}
           role="option"
-          tabindex="-1"
+          tabindex=${index === 0 ? '0' : '-1'}
         >
           ${hour.toString().padStart(2, '0')}
         </li>
@@ -447,7 +449,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   renderMinutes(): TemplateResult[] {
     const minutes = Array.from({ length: 60 / this.minuteStep }, (_, i) => i * this.minuteStep);
 
-    return minutes.map(minute => {
+    return minutes.map((minute, index) => {
       const isDisabled = this.#isMinuteDisabled(minute);
 
       return html`
@@ -457,7 +459,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           ?disabled=${isDisabled}
           aria-selected=${minute === this.#valueAsNumbers?.minute && !isDisabled}
           role="option"
-          tabindex=${ifDefined(isDisabled ? undefined : '-1')}
+          tabindex=${ifDefined(isDisabled ? undefined : index === 0 ? '0' : '-1')}
         >
           ${minute.toString().padStart(2, '0')}
         </li>
@@ -641,8 +643,10 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.updateState({ touched: true });
       this.updateValidity();
 
-      // Close popover when focus leaves the component (unless it was already closed by Tab handling)
-      if (this.dialog?.matches(':popover-open')) {
+      // Close popover when focus leaves the component entirely
+      // But don't close it if focus is moving to the dialog (handled by dialog's focusout)
+      const movingToDialog = relatedTarget && this.dialog?.contains(relatedTarget);
+      if (!movingToDialog && this.dialog?.matches(':popover-open')) {
         this.dialog.hidePopover();
       }
     }
@@ -652,6 +656,38 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     // Prevents the popover from reopening immediately after it was just closed
     if (!this.#popoverJustClosed) {
       this.dialog?.togglePopover();
+    }
+  }
+
+  #onDialogFocusin(event: FocusEvent): void {
+    const target = event.target;
+
+    if (!(target instanceof HTMLLIElement)) {
+      return;
+    }
+
+    // Reset previously focused <li> so only one has tabindex="0" (roving tabindex pattern)
+    this.dialog?.querySelectorAll('li[tabindex="0"]').forEach(li => {
+      if (li !== target) {
+        li.setAttribute('tabindex', '-1');
+      }
+    });
+
+    target.tabIndex = 0;
+  }
+
+  #onDialogFocusout(event: FocusEvent): void {
+    const relatedTarget = event.relatedTarget;
+
+    // If focus is moving within the dialog, do nothing
+    if (relatedTarget instanceof Node && this.dialog?.contains(relatedTarget)) {
+      return;
+    }
+
+    // Focus is leaving the dialog - close the popover
+    // This happens when Tab moves focus out of the dialog
+    if (this.dialog?.matches(':popover-open')) {
+      this.dialog.hidePopover();
     }
   }
 
@@ -685,40 +721,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   async #onKeydown(event: KeyboardEvent): Promise<void> {
-    if (event.key === 'Tab') {
-      // Prevent default Tab behavior
-      event.preventDefault();
-
-      // Close the popover first
-      this.dialog?.hidePopover();
-
-      // Then manually move focus to the appropriate element
-      if (event.shiftKey) {
-        // Shift+Tab: move to button
-        this.button?.focus();
-      } else {
-        // Tab: move to the next focusable element after this component
-        // We need to find the next tabbable element in document order after this component
-        const allElements = Array.from(document.querySelectorAll('*'));
-        const componentIndex = allElements.indexOf(this);
-
-        // Find the next focusable element after this component
-        for (let i = componentIndex + 1; i < allElements.length; i++) {
-          const el = allElements[i] as HTMLElement;
-          if (
-            el.tabIndex >= 0 &&
-            !el.hasAttribute('disabled') &&
-            el.offsetParent !== null && // visible
-            (el.matches('a[href], button, textarea, input, select') || el.hasAttribute('tabindex'))
-          ) {
-            el.focus();
-            break;
-          }
-        }
-      }
-
-      return;
-    } else if (event.key === 'Escape') {
+    if (event.key === 'Escape') {
       // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the time field
       // does not close parent containers (such as dialogs).
       event.stopPropagation();

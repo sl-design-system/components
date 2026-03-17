@@ -119,7 +119,7 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
               @click=${this.#onClick}
               @focus=${() => this.setAttribute('clear-focused', '')}
               aria-label=${msg('Clear selection', { id: 'sl.select.clearSelection' })}
-              tabindex="-1"
+              tabindex="0"
             >
               <sl-icon name="circle-xmark"></sl-icon>
               <sl-icon name="circle-xmark-solid"></sl-icon>

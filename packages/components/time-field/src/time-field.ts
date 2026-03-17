@@ -941,10 +941,10 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     // Tab focuses the field-button; Shift-Tab lets the browser move focus outside
     if (event.key === 'Tab') {
-      event.preventDefault();
       this.#exitSelectAll();
 
       if (!event.shiftKey) {
+        event.preventDefault();
         requestAnimationFrame(() => {
           this.renderRoot.querySelector<HTMLElement>('sl-field-button')?.focus();
         });

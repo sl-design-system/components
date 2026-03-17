@@ -105,3 +105,5 @@ __snapshots__
 
 # Intellij
 .idea/
+
+*storybook.log

@@ -4736,6 +4736,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@roenlie/vite-plugin-import-css-sheet@npm:^0.0.7":
+  version: 0.0.7
+  resolution: "@roenlie/vite-plugin-import-css-sheet@npm:0.0.7"
+  dependencies:
+    lightningcss: "npm:^1.29.3"
+  peerDependencies:
+    vite: ^6.2.4
+  checksum: 10c0/ac47e0df132dcdc273e1f378699c80013bb7c73a17ffa09a8d7a2f6a6404f44ddba60ab3b72ef7744e0e938c3ffe3f154314ed292662f81219e01e5b8be901eb
+  languageName: node
+  linkType: hard
+
 "@rolldown/binding-android-arm64@npm:1.0.0-beta.47":
   version: 1.0.0-beta.47
   resolution: "@rolldown/binding-android-arm64@npm:1.0.0-beta.47"
@@ -5625,11 +5636,18 @@ __metadata:
   resolution: "@sl-design-system/doc-components@workspace:docs/components"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.6"
+    "@roenlie/vite-plugin-import-css-sheet": "npm:^0.0.7"
     "@sl-design-system/icon": "workspace:^"
+    "@storybook/addon-a11y": "npm:^10.0.7"
+    "@storybook/addon-docs": "npm:^10.0.7"
+    "@storybook/addon-vitest": "npm:^10.0.7"
+    "@storybook/web-components": "npm:^10.0.7"
+    "@storybook/web-components-vite": "npm:^10.0.7"
     "@tsdown/css": "npm:^0.21.4"
     "@typescript/native-preview": "npm:^7.0.0-dev.20260315.1"
     lit: "npm:^3.3.2"
     sass-embedded: "npm:^1.98.0"
+    storybook: "npm:^10.0.7"
     tsdown: "npm:^0.21.2"
     typescript: "npm:^5.9.3"
     wireit: "npm:^0.14.12"
@@ -16539,7 +16557,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lightningcss@npm:^1.32.0":
+"lightningcss@npm:^1.29.3, lightningcss@npm:^1.32.0":
   version: 1.32.0
   resolution: "lightningcss@npm:1.32.0"
   dependencies:

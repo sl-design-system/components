@@ -1,3 +1,4 @@
+import { isPopoverOpen } from '@sl-design-system/shared';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
@@ -5,6 +6,29 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { TimeField } from './time-field.js';
+
+/**
+ * Helper function to wait for a popover to open or close.
+ * @param dialog The dialog element to watch
+ * @param shouldBeOpen Whether we're waiting for it to open (true) or close (false)
+ * @param timeout Maximum time to wait in milliseconds
+ */
+function waitForPopoverState(dialog: HTMLDialogElement, shouldBeOpen: boolean, timeout = 10000): Promise<void> {
+  const startTime = Date.now();
+
+  return new Promise((resolve, reject) => {
+    const check = () => {
+      if (isPopoverOpen(dialog) === shouldBeOpen) {
+        resolve();
+      } else if (Date.now() - startTime > timeout) {
+        reject(new Error(`Timeout waiting for popover to ${shouldBeOpen ? 'open' : 'close'}`));
+      } else {
+        requestAnimationFrame(check);
+      }
+    };
+    check();
+  });
+}
 
 describe('sl-time-field', () => {
   let el: TimeField;
@@ -277,18 +301,24 @@ describe('sl-time-field', () => {
     });
 
     it('should focus the start hour when opened', async () => {
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog')!;
       el.renderRoot.querySelector('sl-field-button')?.click();
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 50));
+
+      // Wait for popover to open
+      await waitForPopoverState(dialog, true);
 
       expect(el.shadowRoot?.activeElement).to.match('li');
       expect(el.shadowRoot?.activeElement?.parentElement).to.match('ul.hours');
     });
 
     it('should switch focus between start hour and minute when pressing horizontal arrows', async () => {
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog')!;
       el.renderRoot.querySelector('sl-field-button')?.click();
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 50));
+
+      // Wait for popover to open
+      await waitForPopoverState(dialog, true);
 
       await userEvent.keyboard('{ArrowRight}');
 
@@ -304,9 +334,12 @@ describe('sl-time-field', () => {
     });
 
     it('should select the hour when pressing enter on an hour option', async () => {
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog')!;
       el.renderRoot.querySelector('sl-field-button')?.click();
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 50));
+
+      // Wait for popover to open
+      await waitForPopoverState(dialog, true);
 
       await userEvent.keyboard('{ArrowDown}');
       await userEvent.keyboard('{Enter}');
@@ -315,9 +348,12 @@ describe('sl-time-field', () => {
     });
 
     it('should select the hour when pressing space on an hour option', async () => {
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog')!;
       el.renderRoot.querySelector('sl-field-button')?.click();
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 50));
+
+      // Wait for popover to open
+      await waitForPopoverState(dialog, true);
 
       await userEvent.keyboard('{ArrowUp}');
       await userEvent.keyboard(' ');
@@ -326,9 +362,12 @@ describe('sl-time-field', () => {
     });
 
     it('should select the minute when pressing enter on a minute option', async () => {
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog')!;
       el.renderRoot.querySelector('sl-field-button')?.click();
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 50));
+
+      // Wait for popover to open
+      await waitForPopoverState(dialog, true);
 
       await userEvent.keyboard('{ArrowRight}');
       await userEvent.keyboard('{ArrowDown}');
@@ -338,9 +377,12 @@ describe('sl-time-field', () => {
     });
 
     it('should select the minute when pressing space on a minute option', async () => {
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog')!;
       el.renderRoot.querySelector('sl-field-button')?.click();
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 50));
+
+      // Wait for popover to open
+      await waitForPopoverState(dialog, true);
 
       await userEvent.keyboard('{ArrowRight}');
       await userEvent.keyboard('{ArrowUp}');
@@ -669,7 +711,9 @@ describe('sl-time-field', () => {
       expect(dialog).to.match(':popover-open');
 
       el.dispatchEvent(new FocusEvent('focusout', { bubbles: true, composed: true, relatedTarget: null }));
-      await new Promise(resolve => setTimeout(resolve, 50));
+
+      // Wait for popover to close
+      await waitForPopoverState(dialog, false);
 
       expect(dialog).not.to.match(':popover-open');
     });
@@ -679,7 +723,9 @@ describe('sl-time-field', () => {
       await el.updateComplete;
 
       outsideButton.focus();
-      await new Promise(resolve => setTimeout(resolve, 50));
+
+      // Wait for popover to close
+      await waitForPopoverState(dialog, false);
 
       expect(document.activeElement).to.equal(outsideButton);
     });
@@ -691,7 +737,9 @@ describe('sl-time-field', () => {
       expect(dialog).to.match(':popover-open');
 
       el.renderRoot.querySelector<HTMLElement>('.minutes li')?.click();
-      await new Promise(resolve => setTimeout(resolve, 50));
+
+      // Wait for popover to close
+      await waitForPopoverState(dialog, false);
 
       expect(dialog).not.to.match(':popover-open');
       expect(el).to.match(':focus-within');
@@ -706,53 +754,59 @@ describe('sl-time-field', () => {
       await userEvent.tab();
       await userEvent.keyboard('{Space}');
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 100));
+
+      // Wait for popover to open
+      await waitForPopoverState(dialog, true);
 
       expect(dialog).to.match(':popover-open');
 
       await userEvent.keyboard('{Escape}');
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 100));
+
+      // Wait for popover to close
+      await waitForPopoverState(dialog, false);
 
       expect(dialog).not.to.match(':popover-open');
       expect(el).to.match(':focus-within');
     });
 
     it('should close the popover and move focus outside the component when pressing Tab', async () => {
-      const input = el.renderRoot.querySelector('[role="spinbutton"]');
+      const button = el.renderRoot.querySelector<HTMLElement>('sl-field-button')!;
 
-      expect(input).to.exist;
-      (input as HTMLElement).focus();
-      await userEvent.tab();
-      await userEvent.keyboard('{Space}');
+      button.click();
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 100));
+
+      // Wait for popover to open
+      await waitForPopoverState(dialog, true);
 
       expect(dialog).to.match(':popover-open');
 
       await userEvent.tab();
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 100));
+
+      // Wait for popover to close
+      await waitForPopoverState(dialog, false);
 
       expect(dialog).not.to.match(':popover-open');
       expect(document.activeElement).to.equal(outsideButton);
     });
 
     it('should close the popover and move focus to the button when pressing Shift+Tab', async () => {
-      const input = el.renderRoot.querySelector('[role="spinbutton"]');
+      const button = el.renderRoot.querySelector<HTMLElement>('sl-field-button')!;
 
-      expect(input).to.exist;
-      (input as HTMLElement).focus();
-      await userEvent.tab();
-      await userEvent.keyboard('{Space}');
+      button.click();
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 100));
+
+      // Wait for popover to open
+      await waitForPopoverState(dialog, true);
 
       expect(dialog).to.match(':popover-open');
 
       await userEvent.tab({ shift: true });
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 100));
+
+      // Wait for popover to close
+      await waitForPopoverState(dialog, false);
 
       expect(dialog).not.to.match(':popover-open');
       expect(el.shadowRoot?.activeElement).to.equal(el.button);
@@ -1181,9 +1235,12 @@ describe('sl-time-field', () => {
       el = await fixture(html`<sl-time-field min="08:42" minute-step="15" value="08:00"></sl-time-field>`);
       await el.updateComplete;
 
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog')!;
       el.renderRoot.querySelector('sl-field-button')?.click();
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 50));
+
+      // Wait for popover to open
+      await waitForPopoverState(dialog, true);
 
       const minutes00 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
           li => li.textContent?.trim() === '00'
@@ -1212,9 +1269,12 @@ describe('sl-time-field', () => {
       el = await fixture(html`<sl-time-field min="08:40" value="08:50"></sl-time-field>`);
       await el.updateComplete;
 
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog')!;
       el.renderRoot.querySelector('sl-field-button')?.click();
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 50));
+
+      // Wait for popover to open
+      await waitForPopoverState(dialog, true);
 
       const minutes30 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
         li => li.textContent?.trim() === '30'
@@ -1234,9 +1294,12 @@ describe('sl-time-field', () => {
       el = await fixture(html`<sl-time-field min="08:40" value="08:50"></sl-time-field>`);
       await el.updateComplete;
 
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog')!;
       el.renderRoot.querySelector('sl-field-button')?.click();
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 50));
+
+      // Wait for popover to open
+      await waitForPopoverState(dialog, true);
 
       const minutes30 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
         li => li.textContent?.trim() === '30'
@@ -1256,9 +1319,12 @@ describe('sl-time-field', () => {
       el = await fixture(html`<sl-time-field min="08:40" value="08:30"></sl-time-field>`);
       await el.updateComplete;
 
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog')!;
       el.renderRoot.querySelector('sl-field-button')?.click();
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 100));
+
+      // Wait for popover to open
+      await waitForPopoverState(dialog, true);
 
       const minutes30 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
         li => li.textContent?.trim() === '30'
@@ -1306,9 +1372,12 @@ describe('sl-time-field', () => {
       el = await fixture(html`<sl-time-field min="08:40" value="08:50" minute-step="5"></sl-time-field>`);
       await el.updateComplete;
 
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog')!;
       el.renderRoot.querySelector('sl-field-button')?.click();
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 100));
+
+      // Wait for popover to open
+      await waitForPopoverState(dialog, true);
 
       const minutes30 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
         li => li.textContent?.trim() === '30'
@@ -1319,6 +1388,9 @@ describe('sl-time-field', () => {
       minutes30.click();
       await el.updateComplete;
 
+      // Verify popover is still open after clicking disabled minute
+      expect(dialog).to.match(':popover-open');
+
       const minutes40 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
         li => li.textContent?.trim() === '40'
       ) as HTMLElement;
@@ -1327,7 +1399,11 @@ describe('sl-time-field', () => {
       await el.updateComplete;
 
       expect(el.shadowRoot?.activeElement).to.equal(minutes40);
-      await userEvent.keyboard('{ArrowDown}');
+      expect(dialog.contains(el.shadowRoot?.activeElement as Node)).to.be.true;
+
+      // Dispatch keyboard event directly to the dialog
+      dialog.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, cancelable: true }));
+      await el.updateComplete;
 
       const focusedElement = el.shadowRoot?.activeElement;
 

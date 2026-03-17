@@ -646,7 +646,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       // Close popover when focus leaves the component entirely
       // But don't close it if focus is moving to the dialog (handled by dialog's focusout)
       const movingToDialog = relatedTarget && this.dialog?.contains(relatedTarget);
-      if (!movingToDialog && this.dialog?.matches(':popover-open')) {
+      if (!movingToDialog && this.dialog && isPopoverOpen(this.dialog)) {
         this.dialog.hidePopover();
       }
     }
@@ -686,7 +686,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     // Focus is leaving the dialog - close the popover
     // This happens when Tab moves focus out of the dialog
-    if (this.dialog?.matches(':popover-open')) {
+    if (this.dialog && isPopoverOpen(this.dialog)) {
       this.dialog.hidePopover();
     }
   }
@@ -784,7 +784,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.updateValidity();
 
     this.dialog?.hidePopover();
-    this.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')?.focus();
+    this.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]')[1]?.focus();
   }
 
   #onMinuteKeydown(event: KeyboardEvent, minutes: number): void {
@@ -1196,8 +1196,25 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       time = this.#parseTime(this.start);
     }
 
-    // Fallback to the current time, with minutes set to 0
-    time ||= { hour: new Date().getHours(), minute: 0 };
+    // Fallback to the current time, rounded up to the next valid step
+    if (!time) {
+      const now = new Date();
+      let hour = Math.ceil(now.getHours() / this.hourStep) * this.hourStep;
+      let minute = Math.ceil(now.getMinutes() / this.minuteStep) * this.minuteStep;
+
+      // Handle minute overflow
+      if (minute >= 60) {
+        hour += 1;
+        minute = 0;
+      }
+
+      // Handle hour overflow
+      if (hour >= 24) {
+        hour = 0;
+      }
+
+      time = { hour, minute };
+    }
 
     return time;
   }

@@ -1,5 +1,20 @@
 # @sl-design-system/select
 
+## 2.1.2
+
+### Patch Changes
+
+- [#3098](https://github.com/sl-design-system/components/pull/3098) [`771727b`](https://github.com/sl-design-system/components/commit/771727b4fa8ef952c01f72f9548ba6c74d9cb02d) - Fix cloned custom elements in the selected option not having a shadow root
+
+  This fixes a bug where options have custom elements (such as `<sl-icon>`) that are cloned when an option is selected, but the cloned elements are not upgraded and thus do not have a shadow root. This can be due to the custom element not being registered in the parent scope. This fix uses `importNode()` instead of `cloneNode()` to ensure that the cloned elements are properly upgraded and have their shadow DOM initialized.
+
+- [#3098](https://github.com/sl-design-system/components/pull/3098) [`771727b`](https://github.com/sl-design-system/components/commit/771727b4fa8ef952c01f72f9548ba6c74d9cb02d) - Fix styling regression where the select no longer took up the full available width
+
+- Updated dependencies [[`716e305`](https://github.com/sl-design-system/components/commit/716e305a7cc5cbafb5dd97b16c9f70e4320d45e4), [`330e06f`](https://github.com/sl-design-system/components/commit/330e06ff36c7a5c96cf313b60a5013d6307477c7), [`14e1286`](https://github.com/sl-design-system/components/commit/14e12869d8250c9292b15c60e69c99907277302e), [`ed7376b`](https://github.com/sl-design-system/components/commit/ed7376b4aa21c5df7d50119d839000abbab1cbcf), [`2f8d8bf`](https://github.com/sl-design-system/components/commit/2f8d8bf32ca6e90eb9d117c1fcc434a59905769c), [`ae8b9da`](https://github.com/sl-design-system/components/commit/ae8b9da97d3e5adc0a9ecb8feabec67699893bcc)]:
+  - @sl-design-system/shared@0.11.0
+  - @sl-design-system/icon@1.4.2
+  - @sl-design-system/form@1.3.5
+
 ## 2.1.1
 
 ### Patch Changes

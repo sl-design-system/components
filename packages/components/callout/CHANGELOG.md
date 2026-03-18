@@ -1,5 +1,19 @@
 # @sl-design-system/callout
 
+## 0.1.0
+
+### Minor Changes
+
+- [#2982](https://github.com/sl-design-system/components/pull/2982) [`5784b96`](https://github.com/sl-design-system/components/commit/5784b9682e183391f842b10f1d194ceb137606f0) - Improved the color contrast when using links in the body of the callout. When there is global styling for links, or when links nested in other elements (`p`, `span`, etc) we advise you to use the global.css provided in your theme package, because it is impossible to style nested slotted elements from a component.
+
+- [#2964](https://github.com/sl-design-system/components/pull/2964) [`c06bb04`](https://github.com/sl-design-system/components/commit/c06bb04cc7bd5b06247f7c24a0a80ee076614900) - Renamed Callout variant values: `positive` → `success`, `caution` → `warning`, `negative` → `danger`. The `info` variant remains unchanged.
+
+### Patch Changes
+
+- Updated dependencies [[`716e305`](https://github.com/sl-design-system/components/commit/716e305a7cc5cbafb5dd97b16c9f70e4320d45e4), [`330e06f`](https://github.com/sl-design-system/components/commit/330e06ff36c7a5c96cf313b60a5013d6307477c7), [`14e1286`](https://github.com/sl-design-system/components/commit/14e12869d8250c9292b15c60e69c99907277302e), [`2f8d8bf`](https://github.com/sl-design-system/components/commit/2f8d8bf32ca6e90eb9d117c1fcc434a59905769c)]:
+  - @sl-design-system/shared@0.11.0
+  - @sl-design-system/icon@1.4.2
+
 ## 0.0.3
 
 ### Patch Changes

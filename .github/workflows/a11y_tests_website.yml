@@ -75,13 +75,14 @@ jobs:
         run: yarn playwright test --config=playwright.config.ts --project=website
 
       - name: Upload test results
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: a11y-results
           path: reports/
 
       - name: Comment summary on PR
-        if: github.event_name == 'pull_request'
+        if: always()
         uses: actions/github-script@v6
         with:
           script: |

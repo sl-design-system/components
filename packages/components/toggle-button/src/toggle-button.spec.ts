@@ -331,7 +331,7 @@ describe('sl-toggle-button', () => {
 
     it('should be icon-only even if one icon is missing (Errors variant)', async () => {
       el = await fixture(html`
-        <sl-toggle-button .label=${'Settings'}>
+        <sl-toggle-button style="margin-top: 50px" .label=${'Settings'}>
           <sl-icon name="far-gear" slot="default"></sl-icon>
         </sl-toggle-button>
       `);

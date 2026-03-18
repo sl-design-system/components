@@ -130,6 +130,9 @@ export class Tooltip extends LitElement {
   /** Events controller. */
   #events = new EventsController(this);
 
+  /** Timer for showing/hiding the tooltip. */
+  #timer?: number;
+
   #matchesAnchor = (element: Element): boolean => {
     if (!this.id || !element || element.nodeType !== Node.ELEMENT_NODE) {
       return false;
@@ -197,42 +200,28 @@ export class Tooltip extends LitElement {
     return undefined;
   };
 
-  #getParentsUntil = (element: Element, selector: string) => {
-    const parents: Element[] = [];
-    let parent = element?.parentNode as HTMLElement | null;
-    while (parent && typeof parent.matches === 'function') {
-      parents.unshift(parent);
-      if (parent.matches(selector)) return parents;
-      else parent = parent.parentNode as HTMLElement | null;
-    }
-    return parents;
-  };
-
   #onHide = (event: Event): void => {
-    let toTooltip = false;
-    let fromTooltip = false;
-    let toChild = false;
-    if (event instanceof PointerEvent) {
-      toTooltip = (event.relatedTarget as Element)?.nodeName === 'SL-TOOLTIP';
-      fromTooltip =
-        (event.target as Element)?.nodeName === 'SL-TOOLTIP' && !this.#matchesAnchor(event.relatedTarget as Element);
+    window.clearTimeout(this.#timer);
 
-      const relatedTarget = event.relatedTarget,
-        relatedPath =
-          relatedTarget instanceof Element ? [relatedTarget, ...this.#getParentsUntil(relatedTarget, 'body')] : [];
-      toChild = relatedPath.some(el => this.#matchesAnchor(el));
-    }
-
-    if (toChild) {
+    if (event.type === 'click') {
+      this.hidePopover();
       return;
     }
 
-    // Check if event target or any element in composed path (for shadow DOM) matches the anchor
-    const matchesAnchor = !!this.#findAnchorInEvent(event);
+    this.#timer = window.setTimeout(
+      () => {
+        const anchorHovered = !!this.anchorElement?.matches(':hover');
+        const tooltipHovered = this.matches(':hover');
+        const safeTriangleHovered = !!this.renderRoot.querySelector('.safe-triangle:hover');
 
-    if ((matchesAnchor && !toTooltip) || fromTooltip) {
-      this.hidePopover();
-    }
+        if (event.type === 'focusout') {
+          this.hidePopover();
+        } else if (!anchorHovered && !tooltipHovered && !safeTriangleHovered) {
+          this.hidePopover();
+        }
+      },
+      event.type === 'focusout' ? 0 : this.hideDelay
+    );
   };
 
   #showTooltip = (element: HTMLElement): void => {
@@ -271,12 +260,14 @@ export class Tooltip extends LitElement {
 
     // For hover events
     if (event.type === 'pointerover') {
-      this.#showTooltip(anchorElement);
+      window.clearTimeout(this.#timer);
+      this.#timer = window.setTimeout(() => this.#showTooltip(anchorElement), this.showDelay);
       return;
     }
 
     // For keyboard navigation (focus events)
     if (event.type === 'focusin') {
+      window.clearTimeout(this.#timer);
       const path = event.composedPath();
 
       requestAnimationFrame(() => {
@@ -297,6 +288,12 @@ export class Tooltip extends LitElement {
     }
   }
 
+  /**
+   * The amount of time to wait before hiding the tooltip when the user mouses out.
+   * @default 0
+   */
+  @property({ type: Number, attribute: 'hide-delay' }) hideDelay = 0;
+
   /** The maximum width of the tooltip. */
   @property({ type: Number, attribute: 'max-width' }) maxWidth?: number;
 
@@ -311,6 +308,12 @@ export class Tooltip extends LitElement {
    * @type {'top' | 'right' | 'bottom' | 'left' | 'top-start' | 'top-end' | 'right-start' | 'right-end' | 'bottom-start' | 'bottom-end' | 'left-start' | 'left-end'}
    */
   @property() position: PopoverPosition = 'top';
+
+  /**
+   * The amount of time to wait before showing the tooltip when the user mouses in.
+   * @default 150
+   */
+  @property({ type: Number, attribute: 'show-delay' }) showDelay = 150;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -327,6 +330,12 @@ export class Tooltip extends LitElement {
     this.#events.listen(root, 'keydown', this.#onKeydown);
     this.#events.listen(root, 'pointerover', this.#onShow);
     this.#events.listen(root, 'pointerout', this.#onHide);
+  }
+
+  override disconnectedCallback(): void {
+    super.disconnectedCallback();
+
+    window.clearTimeout(this.#timer);
   }
 
   override willUpdate(changes: PropertyValues<this>): void {

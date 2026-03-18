@@ -283,7 +283,7 @@ describe('sl-toggle-button', () => {
       await el.updateComplete;
       el.focus();
       el.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(requestAnimationFrame);
 
       const tooltip = el.nextElementSibling as HTMLElement | null;
       expect(tooltip).to.exist;
@@ -306,7 +306,7 @@ describe('sl-toggle-button', () => {
 
       el.focus();
       el.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(requestAnimationFrame);
 
       const tooltip = el.nextElementSibling as HTMLElement | null;
       expect(tooltip).to.exist;
@@ -324,7 +324,7 @@ describe('sl-toggle-button', () => {
 
       el.focus();
       el.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(requestAnimationFrame);
 
       const tooltip = el.nextElementSibling as HTMLElement | null;
       expect(tooltip).to.exist;
@@ -340,8 +340,7 @@ describe('sl-toggle-button', () => {
       `);
 
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 100));
-
+      await new Promise(requestAnimationFrame);
       expect(el).to.have.attribute('icon-only');
 
       // Initial state: fallback aria-label should be present
@@ -350,7 +349,7 @@ describe('sl-toggle-button', () => {
 
       el.focus();
       el.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
-      await new Promise(resolve => setTimeout(resolve, 150));
+      await new Promise(requestAnimationFrame);
 
       const tooltip = el.nextElementSibling as HTMLElement | null;
       expect(tooltip).to.exist;

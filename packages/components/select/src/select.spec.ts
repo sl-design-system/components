@@ -275,6 +275,22 @@ describe('sl-select', () => {
       expect(el.validationMessage).to.equal('Custom error message');
       expect(el.validity.customError).to.be.true;
     });
+
+    it('should have aria-keyshortcuts on the button', () => {
+      expect(button).to.have.attribute('aria-keyshortcuts', 'Delete Backspace');
+    });
+
+    it('should restore tabindex to 0 when disabled is toggled back to false', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('tabindex', '-1');
+
+      el.disabled = false;
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('tabindex', '0');
+    });
   });
 
   describe('groups', () => {
@@ -725,6 +741,25 @@ describe('sl-select', () => {
 
       expect(document.activeElement).to.equal(button);
     });
+
+    it('should stop Escape key propagation when the listbox is open', async () => {
+      const onKeydown = spy();
+
+      el.parentElement!.addEventListener('keydown', onKeydown);
+
+      button.focus();
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      await userEvent.keyboard('{Escape}');
+      await el.updateComplete;
+
+      const escapeEvents = onKeydown.getCalls().filter(call => (call.args[0] as KeyboardEvent).key === 'Escape');
+
+      expect(escapeEvents).to.have.length(0);
+
+      el.parentElement!.removeEventListener('keydown', onKeydown);
+    });
   });
 
   describe('automatic sizing', () => {
@@ -1066,6 +1101,119 @@ describe('sl-select', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       expect(document.activeElement).to.equal(button);
+    });
+  });
+
+  describe('clearable', () => {
+    let clearButton: HTMLButtonElement;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-select clearable value="1">
+          <sl-option value="1">Option 1</sl-option>
+          <sl-option value="2">Option 2</sl-option>
+          <sl-option value="3">Option 3</sl-option>
+        </sl-select>
+      `);
+
+      button = el.querySelector('sl-select-button')!;
+      clearButton = button.renderRoot.querySelector('button')!;
+    });
+
+    it('should have a clear button', () => {
+      expect(clearButton).to.exist;
+    });
+
+    it('should have tabindex 0 on the clear button', () => {
+      expect(clearButton).to.have.attribute('tabindex', '0');
+    });
+
+    it('should have aria-hidden on the clear button', () => {
+      expect(clearButton).to.have.attribute('aria-hidden', 'true');
+    });
+
+    it('should set clear-focused attribute when clear button receives focus', async () => {
+      clearButton.focus();
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('clear-focused');
+    });
+
+    it('should remove clear-focused attribute when clear button loses focus', async () => {
+      clearButton.focus();
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('clear-focused');
+
+      clearButton.blur();
+      await el.updateComplete;
+
+      expect(button).not.to.have.attribute('clear-focused');
+    });
+
+    it('should clear selection when pressing Enter on the focused clear button', async () => {
+      clearButton.focus();
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+
+      expect(el.value).to.be.undefined;
+    });
+
+    it('should clear selection when pressing Space on the focused clear button', async () => {
+      clearButton.focus();
+      await userEvent.keyboard(' ');
+      await el.updateComplete;
+
+      expect(el.value).to.be.undefined;
+    });
+
+    it('should close the popover when pressing Enter on clear button while popover is open', async () => {
+      button.focus();
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('aria-expanded', 'true');
+
+      clearButton.focus();
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(button).to.have.attribute('aria-expanded', 'false');
+    });
+
+    it('should focus the select button after clearing with Enter', async () => {
+      clearButton.focus();
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(document.activeElement).to.equal(button);
+    });
+
+    it('should focus the select button after clearing with Space', async () => {
+      clearButton.focus();
+      await userEvent.keyboard(' ');
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(document.activeElement).to.equal(button);
+    });
+
+    it('should clear selection when pressing Backspace on the select button', async () => {
+      button.focus();
+      await userEvent.keyboard('{Backspace}');
+      await el.updateComplete;
+
+      expect(el.value).to.be.undefined;
+    });
+
+    it('should clear selection when pressing Delete on the select button', async () => {
+      button.focus();
+      await userEvent.keyboard('{Delete}');
+      await el.updateComplete;
+
+      expect(el.value).to.be.undefined;
     });
   });
 });

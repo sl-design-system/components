@@ -5,7 +5,9 @@ This is a collection of release notes for the SL Design System. Each release not
 The release notes are ordered by the date the release was made. From latest, to oldest.
 
 # March 18, 2026
+
 `Callout` has been promoted from `draft` to `preview`.
+
 ## New features
 
 - [`angular`](https://github.com/sl-design-system/components/blob/main/packages/angular/CHANGELOG.md) adds a `DateFieldDirective` for `<sl-date-field>` and a new `MessageDialogService` for programmatically opening and managing message dialogs.

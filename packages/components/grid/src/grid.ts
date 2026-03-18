@@ -587,7 +587,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   renderGroupRow(item: ListDataSourceGroupItem, index: number): TemplateResult {
-    const draggable = !!this.#columnDefinitions.find(col => !col.hidden && col instanceof GridDragHandleColumn),
+    const collapsed = this.dataSource?.isGroupCollapsed(item.id),
+      draggable = !!this.#columnDefinitions.find(col => !col.hidden && col instanceof GridDragHandleColumn),
       selectable = !!this.#columnDefinitions.find(col => !col.hidden && col instanceof GridSelectionColumn);
 
     return html`
@@ -596,7 +597,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           <sl-grid-group-header
             @sl-select=${(event: SlSelectEvent<boolean>) => this.#onGroupSelect(event, item)}
             @sl-toggle=${(event: SlToggleEvent<boolean>) => this.#onGroupToggle(event, item)}
-            ?collapsed=${item.collapsed}
+            ?collapsed=${collapsed}
             ?drag-handle=${draggable}
             ?selectable=${selectable}
             .selected=${item.selected ?? 'none'}

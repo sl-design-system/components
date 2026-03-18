@@ -150,7 +150,7 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
       this.toggleAttribute('text-only', !!this.hasText && !this.defaultIcon && !this.pressedIcon);
 
       // If the tooltip is still lazy, its ariaRelation might be outdated now that icons have loaded.
-      // We clear it so it picks up the correct relation in the next update.
+      // We clear it so that when it is (re)initialized later in this update, it uses the correct relation.
       if (typeof this.#tooltip === 'function') {
         this.#tooltip();
         this.#tooltip = undefined;

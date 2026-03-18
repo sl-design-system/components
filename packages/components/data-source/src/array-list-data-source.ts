@@ -26,6 +26,9 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
   /** The mapped array of items, as provided in the constructor. */
   #mappedItems: Array<ListDataSourceDataItem<T>> = [];
 
+  /** The options for the data source. */
+  #options: ListDataSourceOptions<T>;
+
   /** The items, including any group items. This is used for rendering the list. */
   #viewItems: Array<ListDataSourceItem<T>> = [];
 
@@ -48,40 +51,10 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
   constructor(items: T[], options: ListDataSourceOptions<T> = {}) {
     super(options);
 
-    this.#mappedItems = items.map(item => ({
-      id: options.getId?.(item) ?? (item as { id: unknown }).id ?? item,
-      groupId: options.getGroupId?.(item) ?? (options.groupBy ? getValueByPath(item, options.groupBy) : undefined),
-      type: 'data',
-      data: item,
-      selected: options.isSelected?.(item)
-    }));
+    this.#options = options;
 
+    this.setData(items);
     this.update(false);
-  }
-
-  override expandGroup(id: unknown): void {
-    const group = this.#groups?.get(id);
-    if (group) {
-      group.collapsed = false;
-    }
-  }
-
-  override collapseGroup(id: unknown): void {
-    const group = this.#groups?.get(id);
-    if (group) {
-      group.collapsed = true;
-    }
-  }
-
-  override toggleGroup(id: unknown, force?: boolean): void {
-    const group = this.#groups?.get(id);
-    if (group) {
-      group.collapsed = force ?? !group.collapsed;
-    }
-  }
-
-  override isGroupCollapsed(id: unknown): boolean {
-    return this.#groups?.get(id)?.collapsed ?? false;
   }
 
   override reorder(
@@ -99,6 +72,39 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
 
     items.splice(from, 1);
     items.splice(to + (from < to ? -1 : 0), 0, item);
+  }
+
+  /** Update the data source with a new array of items. */
+  setData(items: T[]): void {
+    const options = this.#options;
+
+    this.#groups = undefined;
+    this.#mappedItems = items.map(item => ({
+      id: options.getId?.(item) ?? (item as { id: unknown }).id ?? item,
+      groupId: options.getGroupId?.(item) ?? (options.groupBy ? getValueByPath(item, options.groupBy) : undefined),
+      type: 'data',
+      data: item,
+      selected: options.isSelected?.(item)
+    }));
+
+    // Remove any selected ids that no longer exist in the new dataset
+    const validIds = new Set(this.#mappedItems.map(item => item.id));
+    let selectionChanged = false;
+
+    for (const id of this.selection) {
+      if (!validIds.has(id)) {
+        this.selection.delete(id);
+        selectionChanged = true;
+      }
+    }
+
+    if (selectionChanged) {
+      this.dispatchEvent(
+        new CustomEvent('sl-selection-change', {
+          detail: { selection: this.selection }
+        })
+      );
+    }
   }
 
   update(emitEvent = true): void {
@@ -219,6 +225,7 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
 
         if (item.groupId !== currentGroup?.id) {
           currentGroup = this.#groups?.get(item.groupId);
+
           if (currentGroup) {
             currentGroupSelected = this.isSelected(currentGroup);
             currentGroup.members = [];
@@ -239,7 +246,7 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
         }
 
         // Only push the item if the group is not collapsed
-        if (!currentGroup?.collapsed) {
+        if (!this.isGroupCollapsed(currentGroup?.id)) {
           grouped.push(item);
         }
       }

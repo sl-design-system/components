@@ -10,6 +10,7 @@
   color: var(--sl-color-foreground-plain);
   cursor: pointer;
   display: inline-flex;
+  flex-grow: 1;
   max-inline-size: 100%;
   min-inline-size: 0;
   outline: transparent solid var(--sl-size-borderWidth-focusRing);
@@ -94,6 +95,10 @@
   button {
     block-size: calc(1lh + (var(--sl-size-175) - var(--sl-size-borderWidth-default)) * 2);
   }
+}
+
+::slotted(span[slot='selected-content']) {
+  display: contents;
 }
 
 [part='placeholder'] {

@@ -52,7 +52,7 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
   /** Either an instanceof of Tooltip, or a cleanup function. */
   #tooltip?: Tooltip | (() => void);
 
-  /** Whether the `aria-label` attribute is being changed internally. */
+  /** @internal Whether the `aria-label` attribute is being changed internally. */
   #isInternalAriaLabelUpdate = false;
 
   /** @internal The default (non-pressed) icon. */

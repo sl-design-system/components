@@ -348,7 +348,6 @@ describe('sl-toggle-button', () => {
       expect(el).to.have.attribute('aria-label', 'Settings');
       expect(el).not.to.have.attribute('aria-labelledby');
 
-      // Interaction
       el.focus();
       el.dispatchEvent(new PointerEvent('pointerover', { bubbles: true, composed: true }));
       await new Promise(resolve => setTimeout(resolve, 150));

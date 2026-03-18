@@ -1,5 +1,8 @@
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
+import { setup } from '@sl-design-system/sanoma-learning';
 import { type Preview } from '@storybook/web-components-vite';
+
+setup();
 
 const preview: Preview = {
   parameters: {

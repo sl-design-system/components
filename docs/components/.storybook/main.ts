@@ -1,4 +1,4 @@
-import { importCSSSheet } from '@roenlie/vite-plugin-import-css-sheet';
+import { importCSSSheet } from '@roenlie/vite-plugin-import-css-sheet'
 import { type StorybookConfig } from '@storybook/web-components-vite';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -22,6 +22,9 @@ const config: StorybookConfig = {
     getAbsolutePath('@storybook/addon-docs')
   ],
   framework: getAbsolutePath('@storybook/web-components-vite'),
+  staticDirs: [
+    { from: '../../../packages/themes', to: '/themes' },
+  ],
   async viteFinal(config) {
     const { mergeConfig } = await import('vite');
 

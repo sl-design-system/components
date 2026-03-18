@@ -282,10 +282,10 @@ describe('sl-toggle-button', () => {
 
       await el.updateComplete;
       el.focus();
-      el.dispatchEvent(new PointerEvent('pointerover', { bubbles: true, composed: true }));
+      el.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      const tooltip = document.querySelector('sl-tooltip');
+      const tooltip = el.nextElementSibling as HTMLElement | null;
       expect(tooltip).to.exist;
       expect(tooltip?.textContent).to.equal('Settings');
     });
@@ -305,10 +305,10 @@ describe('sl-toggle-button', () => {
       expect(el).not.to.have.attribute('aria-labelledby');
 
       el.focus();
-      el.dispatchEvent(new PointerEvent('pointerover', { bubbles: true, composed: true }));
+      el.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      const tooltip = document.querySelector('sl-tooltip');
+      const tooltip = el.nextElementSibling as HTMLElement | null;
       expect(tooltip).to.exist;
       expect(el).not.to.have.attribute('aria-label');
       expect(el).to.have.attribute('aria-labelledby', tooltip?.id);
@@ -323,10 +323,10 @@ describe('sl-toggle-button', () => {
       expect(el).not.to.have.attribute('aria-describedby');
 
       el.focus();
-      el.dispatchEvent(new PointerEvent('pointerover', { bubbles: true, composed: true }));
+      el.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      const tooltip = document.querySelector('sl-tooltip');
+      const tooltip = el.nextElementSibling as HTMLElement | null;
       expect(tooltip).to.exist;
       expect(el).to.have.attribute('aria-label', 'Settings');
       expect(el).to.have.attribute('aria-describedby', tooltip?.id);
@@ -349,10 +349,10 @@ describe('sl-toggle-button', () => {
       expect(el).not.to.have.attribute('aria-labelledby');
 
       el.focus();
-      el.dispatchEvent(new PointerEvent('pointerover', { bubbles: true, composed: true }));
+      el.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
       await new Promise(resolve => setTimeout(resolve, 150));
 
-      const tooltip = document.querySelector('sl-tooltip');
+      const tooltip = el.nextElementSibling as HTMLElement | null;
       expect(tooltip).to.exist;
       expect(el).not.to.have.attribute('aria-label');
       expect(el).to.have.attribute('aria-labelledby', tooltip?.id);

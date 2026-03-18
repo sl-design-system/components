@@ -283,7 +283,6 @@ describe('sl-toggle-button', () => {
       await el.updateComplete;
       el.focus();
       el.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
-      await new Promise(requestAnimationFrame);
 
       const tooltip = el.nextElementSibling as HTMLElement | null;
       expect(tooltip).to.exist;
@@ -306,7 +305,6 @@ describe('sl-toggle-button', () => {
 
       el.focus();
       el.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
-      await new Promise(requestAnimationFrame);
 
       const tooltip = el.nextElementSibling as HTMLElement | null;
       expect(tooltip).to.exist;
@@ -324,7 +322,6 @@ describe('sl-toggle-button', () => {
 
       el.focus();
       el.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
-      await new Promise(requestAnimationFrame);
 
       const tooltip = el.nextElementSibling as HTMLElement | null;
       expect(tooltip).to.exist;
@@ -349,7 +346,6 @@ describe('sl-toggle-button', () => {
 
       el.focus();
       el.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
-      await new Promise(requestAnimationFrame);
 
       const tooltip = el.nextElementSibling as HTMLElement | null;
       expect(tooltip).to.exist;

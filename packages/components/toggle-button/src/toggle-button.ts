@@ -52,6 +52,9 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
   /** Either an instanceof of Tooltip, or a cleanup function. */
   #tooltip?: Tooltip | (() => void);
 
+  /** @internal Whether the `aria-label` attribute is being changed internally. */
+  #isInternalAriaLabelUpdate = false;
+
   /** @internal The default (non-pressed) icon. */
   @state() defaultIcon?: Icon;
 
@@ -84,6 +87,14 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
 
   /** @internal Emits when the button has been toggled. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
+
+  override attributeChangedCallback(name: string, old: string | null, value: string | null): void {
+    if (name === 'aria-label' && this.#isInternalAriaLabelUpdate) {
+      return;
+    }
+
+    super.attributeChangedCallback(name, old, value);
+  }
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -135,8 +146,15 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
     super.updated(changes);
 
     if (changes.has('defaultIcon') || changes.has('hasText') || changes.has('pressedIcon')) {
-      this.toggleAttribute('icon-only', !this.hasText && !!this.defaultIcon && !!this.pressedIcon);
+      this.toggleAttribute('icon-only', this.#isIconOnly());
       this.toggleAttribute('text-only', !!this.hasText && !this.defaultIcon && !this.pressedIcon);
+
+      // If the tooltip is still lazy, its ariaRelation might be outdated now that icons have loaded.
+      // We clear it so that when it is (re)initialized later in this update, it uses the correct relation.
+      if (typeof this.#tooltip === 'function') {
+        this.#tooltip();
+        this.#tooltip = undefined;
+      }
     }
 
     if (changes.has('defaultIcon') || changes.has('pressedIcon')) {
@@ -145,21 +163,27 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
       });
     }
 
-    if (changes.has('label')) {
-      if (this.label) {
-        if (this.#tooltip instanceof Tooltip) {
+    if (this.label) {
+      if (this.#tooltip instanceof Tooltip) {
+        if (changes.has('label')) {
           this.#tooltip.textContent = this.label;
-        } else {
-          this.#tooltip ||= Tooltip.lazy(
-            this,
-            tooltip => {
-              this.#tooltip = tooltip;
-              tooltip.textContent = this.label!;
-            },
-            { context: this.shadowRoot! }
-          );
         }
-      } else if (this.#tooltip instanceof Tooltip) {
+      } else if (!this.#tooltip) {
+        this.#tooltip = Tooltip.lazy(
+          this,
+          tooltip => {
+            this.#tooltip = tooltip;
+            tooltip.textContent = this.label!;
+            this.#updateAriaAttributes();
+          },
+          {
+            ariaRelation: this.#isIconOnly() ? 'label' : 'description',
+            context: this.shadowRoot!
+          }
+        );
+      }
+    } else {
+      if (this.#tooltip instanceof Tooltip) {
         this.#tooltip.remove();
         this.#tooltip = undefined;
       } else if (this.#tooltip) {
@@ -170,6 +194,10 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('pressed')) {
       this.setAttribute('aria-pressed', (this.pressed ?? false).toString());
+    }
+
+    if (changes.has('label') || changes.has('hasText') || changes.has('defaultIcon') || changes.has('pressedIcon')) {
+      this.#updateAriaAttributes();
     }
   }
 
@@ -219,5 +247,51 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
     this.hasText = !!event.target
       .assignedNodes({ flatten: true })
       .filter(node => node.textContent && node.textContent.trim().length > 0).length;
+  }
+
+  /**
+   * Update aria-label, aria-describedby and aria-labelledby.
+   * For icon-only buttons, aria-label is removed only after the tooltip is created,
+   * setting aria-labelledby as the accessible name. Otherwise, aria-label is used
+   * as the accessible name, and the tooltip provides a description via aria-describedby.
+   */
+  #updateAriaAttributes(): void {
+    if (!this.label) {
+      // When the label is cleared, also clear all ARIA attributes that may
+      // reference a now-removed tooltip to avoid stale relationships.
+      this.#isInternalAriaLabelUpdate = true;
+      this.removeAttribute('aria-label');
+      this.removeAttribute('aria-labelledby');
+      this.removeAttribute('aria-describedby');
+      this.#isInternalAriaLabelUpdate = false;
+      return;
+    }
+
+    if (this.#tooltip instanceof Tooltip) {
+      const isIconOnly = this.#isIconOnly();
+      this.#isInternalAriaLabelUpdate = true;
+      if (isIconOnly) {
+        this.removeAttribute('aria-label');
+        this.setAttribute('aria-labelledby', this.#tooltip.id);
+        this.removeAttribute('aria-describedby');
+      } else {
+        this.setAttribute('aria-label', this.label);
+        this.setAttribute('aria-describedby', this.#tooltip.id);
+        this.removeAttribute('aria-labelledby');
+      }
+      this.#isInternalAriaLabelUpdate = false;
+    } else {
+      // While the tooltip is lazy, keep aria-label as a fallback
+      this.#isInternalAriaLabelUpdate = true;
+      this.setAttribute('aria-label', this.label);
+      this.#isInternalAriaLabelUpdate = false;
+      this.removeAttribute('aria-labelledby');
+      this.removeAttribute('aria-describedby');
+    }
+  }
+
+  /** @internal Returns true if the button only contains icons and no text. */
+  #isIconOnly(): boolean {
+    return !this.hasText && (!!this.defaultIcon || !!this.pressedIcon);
   }
 }

@@ -1132,6 +1132,25 @@ describe('sl-select', () => {
       expect(clearButton).to.have.attribute('aria-hidden', 'true');
     });
 
+    it('should remove aria-hidden from the clear button when it receives focus', async () => {
+      clearButton.focus();
+      await el.updateComplete;
+
+      expect(clearButton).not.to.have.attribute('aria-hidden');
+    });
+
+    it('should restore aria-hidden on the clear button when it loses focus', async () => {
+      clearButton.focus();
+      await el.updateComplete;
+
+      expect(clearButton).not.to.have.attribute('aria-hidden');
+
+      clearButton.blur();
+      await el.updateComplete;
+
+      expect(clearButton).to.have.attribute('aria-hidden', 'true');
+    });
+
     it('should set clear-focused attribute when clear button receives focus', async () => {
       clearButton.focus();
       await el.updateComplete;

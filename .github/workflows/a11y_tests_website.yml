@@ -4,7 +4,7 @@ on:
   pull_request:
     branches:
       - main
-    types: [opened, synchronize, reopened, closed]
+    types: [opened, synchronize, reopened]
     paths:
       - 'website/src/**'
 
@@ -87,14 +87,14 @@ jobs:
           script: |
             const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
             const fs = require('fs');
-            const path = 'reports/summary.json';
+            const path = 'reports/website/a11y_test_summary.txt';
             if (fs.existsSync(path)) {
               const summary = fs.readFileSync(path, 'utf8');
               github.rest.issues.createComment({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: `### Accessibility Test Summary\n\n\ ${summary} \n\n [View detailed results](${runUrl}).`
+                body: `### Accessibility Test Summary\n\n\ ${summary} \n\n [Dowload reports](${runUrl})`
               });
             } else {
               console.log('Summary file not found.');

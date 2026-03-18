@@ -1,46 +1,48 @@
-import { test } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { AxeResults } from 'axe-core';
 import { createHtmlReport } from 'axe-html-reporter';
 import fs from 'fs';
 import urls from '../../changed-urls.json';
 
-urls.forEach((url, index, arr) => {
+let summary = '';
+let currentUrl: string;
+let axe: AxeBuilder;
+let results: AxeResults;
+let firstTest = true;
+
+test.beforeEach(async ({ page }, testInfo) => {
+  currentUrl = testInfo.title.replace('Website accessibility test on ', '');
+  await page.goto(currentUrl, { waitUntil: 'load' });
+  axe = new AxeBuilder({ page });
+
+  // tests should be run on the whole page only for the first URL, then we can limit it to the main container to speed up the tests
+  if (!firstTest) {
+    axe = axe.include('.ds-container');
+  }
+  firstTest = false;
+});
+
+test.afterEach(async ({ page }) => {
+  summary = `Tested page: ${currentUrl},\nNumber of violations: ${results.violations.length}\n\n`;
+  fs.mkdirSync('reports/website', { recursive: true });
+  fs.appendFileSync('reports/website/a11y_test_summary.txt', summary);
+
+  createHtmlReport({
+    results: {
+      violations: results.violations
+    },
+    options: {
+      projectKey: `${currentUrl}`,
+      outputDir: 'reports/website',
+      reportFileName: `${currentUrl.replaceAll('/', '_')}a11y_report.html`
+    }
+  });
+});
+
+urls.forEach(url => {
   test(`Website accessibility test on ${url}`, async ({ page }) => {
-    const projectName = test.info().project.name;
-
-    await page.goto(url);
-
-    const safeName = url === '/' ? 'home' : url.replace(/\//g, '_').replace(/^\_/, '');
-
-    let accessibilityScanResults;
-    if (url === '/') {
-      accessibilityScanResults = await new AxeBuilder({ page }).analyze();
-    } else {
-      accessibilityScanResults = await new AxeBuilder({ page }).include('.ds-container').analyze();
-    }
-
-    const report = createHtmlReport({
-      results: {
-        violations: accessibilityScanResults.violations
-      },
-      options: {
-        projectKey: `${projectName}-${safeName}`,
-        outputDir: `reports/${projectName}`,
-        reportFileName: `${safeName}_a11y_report.html`
-      }
-    });
-
-    const summary = {
-      url,
-      violations: accessibilityScanResults.violations.length
-    };
-
-    if (index === 0) {
-      fs.writeFileSync('reports/summary.json', '[\n' + JSON.stringify(summary, null, 2) + ', \n');
-    } else if (index < arr.length - 1) {
-      fs.appendFileSync('reports/summary.json', JSON.stringify(summary, null, 2) + ', \n');
-    } else {
-      fs.appendFileSync('reports/summary.json', JSON.stringify(summary, null, 2) + '\n]\n');
-    }
+    results = await axe.analyze();
+    expect(results.violations).toHaveLength(0);
   });
 });

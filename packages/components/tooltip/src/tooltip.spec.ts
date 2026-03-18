@@ -43,8 +43,9 @@ describe('sl-tooltip', () => {
 
     it('should toggle the tooltip on focusin and focusout', async () => {
       button?.focus();
+      await tooltip.updateComplete;
       // Give some time for the tooltip to open
-      await waitFor((tooltip.showDelay ?? 0) + 10);
+      await waitFor((tooltip.showDelay ?? 0) + 50);
       expect(tooltip).to.match(':popover-open');
 
       const focusoutEvent = new Event('focusout', { bubbles: true });

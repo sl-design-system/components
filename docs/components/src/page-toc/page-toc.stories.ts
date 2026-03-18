@@ -24,6 +24,7 @@ export default {
     return html`
       <style>
         .doc {
+          align-items: start;
           display: flex;
           gap: 1rem;
           inline-size: calc(100vw - 2rem);

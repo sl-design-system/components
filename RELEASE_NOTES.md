@@ -4,6 +4,46 @@ This is a collection of release notes for the SL Design System. Each release not
 
 The release notes are ordered by the date the release was made. From latest, to oldest.
 
+# March 18, 2026
+
+`Callout` has been promoted from `draft` to `preview`.
+
+## New features
+
+- [`angular`](https://github.com/sl-design-system/components/blob/main/packages/angular/CHANGELOG.md) adds a `DateFieldDirective` for `<sl-date-field>` and a new `MessageDialogService` for programmatically opening and managing message dialogs.
+- [`button-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/button-bar/CHANGELOG.md) adds ability to style using `:state(icon-only)` and `:state(empty)` pseudo-classes.
+- [`callout`](https://github.com/sl-design-system/components/blob/main/packages/components/callout/CHANGELOG.md) has improved color contrast when using links in the body. The `variant` values have changed to match other components.
+- [`data-source`](https://github.com/sl-design-system/components/blob/main/packages/components/data-source/CHANGELOG.md) adds a new `setData()` method to `ArrayListDataSource` for updating data without losing state (e.g. selection).
+- [`date-field`](https://github.com/sl-design-system/components/blob/main/packages/components/date-field/CHANGELOG.md) has major improvements: separate spinbutton inputs for each date part for better accessibility, keyboard entry support for any locale, and a new `requireConfirmation` prop for the calendar popover.
+- [`menu`](https://github.com/sl-design-system/components/blob/main/packages/components/menu/CHANGELOG.md) has improved keyboard navigation and focus management, including proper submenu Escape behavior, initial focus on open, and closing menus when focus leaves.
+- [`time-field`](https://github.com/sl-design-system/components/blob/main/packages/components/time-field/CHANGELOG.md) now works properly with `min` and/or `max` constraints, disabling out-of-range minutes.
+
+## Bug fixes
+
+- [`breadcrumbs`](https://github.com/sl-design-system/components/blob/main/packages/components/breadcrumbs/CHANGELOG.md) fixes links no longer being copied but assigned to dynamic slots, preserving framework-specific routing attributes.
+- [`button`](https://github.com/sl-design-system/components/blob/main/packages/components/button/CHANGELOG.md) now blocks click/keyboard activation when `aria-disabled` is set and improves the disabled inverted variant look.
+- [`calendar`](https://github.com/sl-design-system/components/blob/main/packages/components/calendar/CHANGELOG.md) various fixes: added helper text for min/max date ranges, fixed autofocus behavior, removed incorrect `aria-selected` attributes.
+- [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md) removes `aria-hidden` from tags in disabled combobox and fixes disappearing placeholder when value is set programmatically.
+- [`date-field`](https://github.com/sl-design-system/components/blob/main/packages/components/date-field/CHANGELOG.md) fixes popover positioning when there's not enough space, by leveraging CSS Anchor Positioning where supported.
+- [`grid`](https://github.com/sl-design-system/components/blob/main/packages/components/grid/CHANGELOG.md) fixes `scopedElements` timing issue in columns when used in Angular.
+- [`icon`](https://github.com/sl-design-system/components/blob/main/packages/components/icon/CHANGELOG.md) fixes icons flashing at large size when styles are not loaded yet.
+- [`menu`](https://github.com/sl-design-system/components/blob/main/packages/components/menu/CHANGELOG.md) adds hover/active indicator for better accessibility, improves menu-group header accessibility, and fixes tooltip integration across shadow DOM boundaries.
+- [`search-field`](https://github.com/sl-design-system/components/blob/main/packages/components/search-field/CHANGELOG.md) now fires `sl-search` with an empty string when the field is cleared.
+- [`select`](https://github.com/sl-design-system/components/blob/main/packages/components/select/CHANGELOG.md) fixes cloned custom elements not having a shadow root, and a styling regression where select no longer took up full width.
+- [`tabs`](https://github.com/sl-design-system/components/blob/main/packages/components/tabs/CHANGELOG.md) fixes unwanted scroll-to-panel on resize.
+- [`time-field`](https://github.com/sl-design-system/components/blob/main/packages/components/time-field/CHANGELOG.md) various accessibility improvements: proper focus management when the picker closes, `lang` attribute propagation.
+- [`tool-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/tool-bar/CHANGELOG.md) now uses `aria-disabled` instead of `disabled` for better accessibility and improved inverted color contrast.
+- [`tooltip`](https://github.com/sl-design-system/components/blob/main/packages/components/tooltip/CHANGELOG.md) fixes tooltip appearing in open popovers, and improves cross-shadow-DOM support using `ariaDescribedByElements`/`ariaLabelledByElements`.
+- [`tree`](https://github.com/sl-design-system/components/blob/main/packages/components/tree/CHANGELOG.md) fixes parent selection state updates and keyboard navigation when nested elements are focused.
+
+## Theme updates
+
+- All themes have been updated with a new `elevation.surface.raised.primary` token and fixed form input interactive backgrounds for better state contrast.
+- All themes have updated caret icons to implement the new alignment strategy used in Font Awesome 7.
+- All themes have an updated `global.css` that allows components to overwrite the link color.
+- [Magister](https://github.com/sl-design-system/components/blob/main/packages/themes/magister/CHANGELOG.md) has various color token adjustments for grey backgrounds and neutral foreground.
+- [Sanoma Learning](https://github.com/sl-design-system/components/blob/main/packages/themes/sanoma-learning/CHANGELOG.md) has changed `color-foreground-disabled` and `background-foreground-accent-grey-subtlest` tokens.
+
 # January 28, 2026
 
 ## Theme updates

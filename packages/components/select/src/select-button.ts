@@ -115,9 +115,10 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
       ${!this.disabled && this.clearable && this.selected
         ? html`
             <button
-              @blur=${() => this.removeAttribute('clear-focused')}
               @click=${this.#onClick}
-              @focus=${() => this.setAttribute('clear-focused', '')}
+              @focusin=${() => this.setAttribute('clear-focused', '')}
+              @focusout=${() => this.removeAttribute('clear-focused')}
+              aria-hidden="true"
               aria-label=${msg('Clear selection', { id: 'sl.select.clearSelection' })}
               tabindex="0"
             >

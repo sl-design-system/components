@@ -8,7 +8,8 @@ import {
   ObserveAttributesMixin,
   RovingTabindexController,
   anchor,
-  event
+  event,
+  isPopoverOpen
 } from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
@@ -455,6 +456,19 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
       event.stopPropagation();
 
       return;
+    } else if (['Enter', ' '].includes(event.key) && this.#isClearButtonFocused()) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (this.listbox && isPopoverOpen(this.listbox)) {
+        this.#popoverClosing = true;
+        this.listbox.hidePopover();
+      }
+
+      this.#onClear();
+      this.button.focus();
+
+      return;
     } else if (!this.listbox?.matches(':popover-open')) {
       if (event.key === 'Tab' && this.clearable && this.selectedOption) {
         const clearButton = this.button.renderRoot.querySelector<HTMLElement>('button');
@@ -472,14 +486,6 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
             this.button.focus();
           }
         }
-
-        return;
-      } else if (['Enter', ' '].includes(event.key) && this.#isClearButtonFocused()) {
-        event.preventDefault();
-        event.stopPropagation();
-
-        this.#onClear();
-        this.button.focus();
 
         return;
       } else if (['ArrowDown', 'Enter', ' '].includes(event.key)) {

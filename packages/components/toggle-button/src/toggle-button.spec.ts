@@ -356,5 +356,38 @@ describe('sl-toggle-button', () => {
       expect(el).not.to.have.attribute('aria-label');
       expect(el).to.have.attribute('aria-labelledby', tooltip?.id);
     });
+
+    it('should remove aria-label, aria-labelledby, and aria-describedby when label is removed', async () => {
+      el = await fixture(html`
+        <sl-toggle-button .label=${'Settings'}>
+          <sl-icon name="far-gear" slot="default"></sl-icon>
+          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+        </sl-toggle-button>
+      `);
+
+      await el.updateComplete;
+
+      el.focus();
+      el.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
+      await new Promise(requestAnimationFrame);
+
+      let tooltip = el.nextElementSibling as HTMLElement | null;
+
+      expect(tooltip).to.exist;
+      expect(el).to.have.attribute('aria-labelledby', tooltip?.id);
+      expect(el).not.to.have.attribute('aria-label');
+
+      el.label = undefined;
+      await el.updateComplete;
+
+      tooltip = el.nextElementSibling as HTMLElement | null;
+      if (tooltip?.tagName === 'SL-TOOLTIP') {
+        expect.fail('Tooltip should have been removed');
+      }
+
+      expect(el).not.to.have.attribute('aria-label');
+      expect(el).not.to.have.attribute('aria-labelledby');
+      expect(el).not.to.have.attribute('aria-describedby');
+    });
   });
 });

@@ -1,5 +1,18 @@
 # @sl-design-system/locales
 
+## 0.2.0
+
+### Minor Changes
+
+- [#3075](https://github.com/sl-design-system/components/pull/3075) [`6470631`](https://github.com/sl-design-system/components/commit/64706319468be7753a04742dd0d0920912076eec) - New translations for helper text in the `calendar` when there is `min`, `max` or both are set: `sl.calendar.rangeBetween`, `sl.calendar.rangeNoEarlierThan` and `sl.calendar.rangeNoLaterThan`.
+
+- [#3055](https://github.com/sl-design-system/components/pull/3055) [`5616832`](https://github.com/sl-design-system/components/commit/561683221a54010ff326b449468769597e22fb10) - Improved label for Time Field toggle dropdown button.
+  If you have a custom translation file make sure to update your translation for the key `sl.timeField.toggleDropdown` as well to mean "Select time"
+
+### Patch Changes
+
+- [#3075](https://github.com/sl-design-system/components/pull/3075) [`6470631`](https://github.com/sl-design-system/components/commit/64706319468be7753a04742dd0d0920912076eec) - Fixes Dutch translations for `sl.calendar.previousYears` and `sl.calendar.nextYears`.
+
 ## 0.1.0
 
 ### Minor Changes

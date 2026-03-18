@@ -331,5 +331,32 @@ describe('sl-toggle-button', () => {
       expect(el).to.have.attribute('aria-label', 'Settings');
       expect(el).to.have.attribute('aria-describedby', tooltip?.id);
     });
+
+    it('should be icon-only even if one icon is missing (Errors variant)', async () => {
+      el = await fixture(html`
+        <sl-toggle-button .label=${'Settings'}>
+          <sl-icon name="far-gear" slot="default"></sl-icon>
+        </sl-toggle-button>
+      `);
+
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(el).to.have.attribute('icon-only');
+
+      // Initial state: fallback aria-label should be present
+      expect(el).to.have.attribute('aria-label', 'Settings');
+      expect(el).not.to.have.attribute('aria-labelledby');
+
+      // Interaction
+      el.focus();
+      el.dispatchEvent(new PointerEvent('pointerover', { bubbles: true, composed: true }));
+      await new Promise(resolve => setTimeout(resolve, 150));
+
+      const tooltip = document.querySelector('sl-tooltip');
+      expect(tooltip).to.exist;
+      expect(el).not.to.have.attribute('aria-label');
+      expect(el).to.have.attribute('aria-labelledby', tooltip?.id);
+    });
   });
 });

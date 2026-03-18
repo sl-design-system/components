@@ -148,6 +148,13 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
     if (changes.has('defaultIcon') || changes.has('hasText') || changes.has('pressedIcon')) {
       this.toggleAttribute('icon-only', this.#isIconOnly());
       this.toggleAttribute('text-only', !!this.hasText && !this.defaultIcon && !this.pressedIcon);
+
+      // If the tooltip is still lazy, its ariaRelation might be outdated now that icons have loaded.
+      // We clear it so it picks up the correct relation in the next update.
+      if (typeof this.#tooltip === 'function') {
+        this.#tooltip();
+        this.#tooltip = undefined;
+      }
     }
 
     if (changes.has('defaultIcon') || changes.has('pressedIcon')) {
@@ -156,25 +163,27 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
       });
     }
 
-    if (changes.has('label')) {
-      if (this.label) {
-        if (this.#tooltip instanceof Tooltip) {
+    if (this.label) {
+      if (this.#tooltip instanceof Tooltip) {
+        if (changes.has('label')) {
           this.#tooltip.textContent = this.label;
-        } else {
-          this.#tooltip ||= Tooltip.lazy(
-            this,
-            tooltip => {
-              this.#tooltip = tooltip;
-              tooltip.textContent = this.label!;
-              this.#updateAriaAttributes();
-            },
-            {
-              ariaRelation: this.#isIconOnly() ? 'label' : 'description',
-              context: this.shadowRoot!
-            }
-          );
         }
-      } else if (this.#tooltip instanceof Tooltip) {
+      } else if (!this.#tooltip) {
+        this.#tooltip = Tooltip.lazy(
+          this,
+          tooltip => {
+            this.#tooltip = tooltip;
+            tooltip.textContent = this.label!;
+            this.#updateAriaAttributes();
+          },
+          {
+            ariaRelation: this.#isIconOnly() ? 'label' : 'description',
+            context: this.shadowRoot!
+          }
+        );
+      }
+    } else {
+      if (this.#tooltip instanceof Tooltip) {
         this.#tooltip.remove();
         this.#tooltip = undefined;
       } else if (this.#tooltip) {
@@ -283,6 +292,6 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
 
   /** @internal Returns true if the button only contains icons and no text. */
   #isIconOnly(): boolean {
-    return !this.hasText && !!this.defaultIcon && !!this.pressedIcon;
+    return !this.hasText && (!!this.defaultIcon || !!this.pressedIcon);
   }
 }

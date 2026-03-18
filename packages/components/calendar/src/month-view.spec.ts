@@ -514,18 +514,21 @@ describe('sl-month-view', () => {
       // 1. Hover first button
       await userEvent.hover(button13);
       await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 200));
       expect(isPopoverOpen(tooltips[0])).to.be.true;
       expect(isPopoverOpen(tooltips[1])).to.be.false;
 
       // 2. Transition to second button
       await userEvent.hover(button14);
       await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 200));
       expect(isPopoverOpen(tooltips[0])).to.be.false;
       expect(isPopoverOpen(tooltips[1])).to.be.true;
 
       // 3. Unhover
       await userEvent.unhover(button14);
       await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
       expect(Array.from(tooltips).every(t => !isPopoverOpen(t))).to.be.true;
 
       // 4. ARIA stability check (even when closed)

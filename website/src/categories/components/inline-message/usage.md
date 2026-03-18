@@ -62,6 +62,7 @@ Instead of inline messages, use [hints](/categories/components/form-field/) to g
 
 ### Interactive elements
 Avoid using inline messages with interactive elements inside. Inline messages are not designed to be interactive. They are meant to provide information or context, not to serve as interactive elements themselves. Using them in this way can lead to confusion and a poor user experience and accessibility problems.
+If you need to include interactive elements, consider using the [Callout](/categories/components/callout/usage/) component instead.
 
 </section>
 

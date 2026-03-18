@@ -13,7 +13,7 @@ declare global {
 
 export type CalloutDensity = 'default' | 'relaxed';
 
-export type CalloutVariant = 'info' | 'positive' | 'caution' | 'negative';
+export type CalloutVariant = 'info' | 'success' | 'warning' | 'danger';
 
 /**
  * A callout component for displaying additional information.
@@ -43,11 +43,11 @@ export class Callout extends ScopedElementsMixin(LitElement) {
   /** @internal The name of the icon, depending on the variant. */
   get iconName(): string {
     switch (this.variant) {
-      case 'positive':
+      case 'success':
         return 'circle-check-solid';
-      case 'caution':
+      case 'warning':
         return 'octagon-exclamation-solid';
-      case 'negative':
+      case 'danger':
         return 'diamond-exclamation-solid';
       default:
         return 'info';

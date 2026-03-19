@@ -21,6 +21,9 @@ const config: StorybookConfig = {
     getAbsolutePath('@storybook/addon-a11y'),
     getAbsolutePath('@storybook/addon-docs')
   ],
+  core: {
+    disableTelemetry: true
+  },
   framework: getAbsolutePath('@storybook/web-components-vite'),
   staticDirs: [
     { from: '../../../packages/themes', to: '/themes' },

@@ -3,6 +3,7 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Icon } from '@sl-design-system/icon';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './page-toc.css' with { type: 'css' };
 
 interface TocEntry {
@@ -24,6 +25,32 @@ export class PageToc extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static styles: CSSResultGroup = styles;
 
+  /** All observed headings in document order. */
+  #headings: Element[] = [];
+
+  /** Update the active heading when scrolling. */
+  #observer = new IntersectionObserver(
+    entries => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          this.#visibleIds.add(entry.target.id);
+        } else {
+          this.#visibleIds.delete(entry.target.id);
+        }
+      }
+
+      // Always pick the first visible heading in document order
+      const firstVisible = this.#headings.find(h => this.#visibleIds.has(h.id));
+      if (firstVisible) {
+        this.activeId = firstVisible.id;
+      }
+    },
+    { rootMargin: '0px 0px -60% 0px', threshold: 0 }
+  );
+
+  /** Currently visible heading IDs. */
+  #visibleIds = new Set<string>();
+
   /** @internal The grouped heading entries for the TOC. */
   @state() entries: TocEntry[] = [];
 
@@ -33,35 +60,19 @@ export class PageToc extends ScopedElementsMixin(LitElement) {
   /** The selector for the main content area. */
   @property() target = 'main';
 
-  #observer?: IntersectionObserver;
-
-  connectedCallback(): void {
-    super.connectedCallback();
-
-    this.#observer = new IntersectionObserver(
-      entries => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            this.activeId = entry.target.id;
-          }
-        }
-      },
-      { rootMargin: '0px 0px -60% 0px', threshold: 1.0 }
-    );
-  }
-
   disconnectedCallback(): void {
-    super.disconnectedCallback();
+    this.#observer.disconnect();
 
-    this.#observer?.disconnect();
-    this.#observer = undefined;
+    super.disconnectedCallback();
   }
 
   willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
     if (changes.has('target')) {
-      this.#observer?.disconnect();
+      this.#observer.disconnect();
+      this.#visibleIds.clear();
+      this.#headings = [];
 
       const target = document.querySelector<HTMLElement>(this.target ?? 'main');
       if (!target) {
@@ -85,9 +96,10 @@ export class PageToc extends ScopedElementsMixin(LitElement) {
           entries.push(entry);
         }
 
-        this.#observer?.observe(heading);
+        this.#observer.observe(heading);
       }
 
+      this.#headings = headings;
       this.entries = entries;
     }
   }
@@ -101,20 +113,27 @@ export class PageToc extends ScopedElementsMixin(LitElement) {
         </h2>
         ${this.entries.length
           ? html`
+              <span class="active"></span>
               <ul>
                 ${this.entries.map(
                   entry => html`
                     <li>
-                      <a href="#${entry.id}" class=${entry.id === this.activeId ? 'active' : ''}>${entry.text}</a>
+                      <a aria-current=${ifDefined(entry.id === this.activeId ? true : undefined)} href="#${entry.id}">
+                        ${entry.text}
+                      </a>
+
                       ${entry.children.length
                         ? html`
                             <ul>
                               ${entry.children.map(
                                 child => html`
                                   <li>
-                                    <a href="#${child.id}" class=${child.id === this.activeId ? 'active' : ''}
-                                      >${child.text}</a
+                                    <a
+                                      aria-current=${ifDefined(child.id === this.activeId ? true : undefined)}
+                                      href="#${child.id}"
                                     >
+                                      ${child.text}
+                                    </a>
                                   </li>
                                 `
                               )}

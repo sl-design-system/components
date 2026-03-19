@@ -18,5 +18,5 @@
     "verbatimModuleSyntax": true,
     "skipLibCheck": true
   },
-  "include": ["src"]
+  "include": ["env.d.ts", "src"]
 }

@@ -79,24 +79,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: a11y-results
-          path: reports/
-
-      - name: Comment summary on PR
-        if: always()
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
-            const fs = require('fs');
-            const path = 'reports/website/a11y_test_summary.txt';
-            if (fs.existsSync(path)) {
-              const summary = fs.readFileSync(path, 'utf8');
-              github.rest.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: `### Accessibility Test Summary\n\n\ ${summary} \n\n [Dowload reports](${runUrl})`
-              });
-            } else {
-              console.log('Summary file not found.');
-            }
+          path: reports/website

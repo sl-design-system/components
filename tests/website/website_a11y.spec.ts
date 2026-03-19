@@ -2,47 +2,54 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { AxeResults } from 'axe-core';
 import { createHtmlReport } from 'axe-html-reporter';
-import fs from 'fs';
 import urls from '../../changed-urls.json';
 
-let summary = '';
-let currentUrl: string;
+let url: string;
 let axe: AxeBuilder;
 let results: AxeResults;
-let firstTest = true;
+const homePageUrl = '/';
 
-test.beforeEach(async ({ page }, testInfo) => {
-  currentUrl = testInfo.title.replace('Website accessibility test on ', '');
-  await page.goto(currentUrl, { waitUntil: 'load' });
+function createNumberedList<T>(items: T[]): string {
+  return items.map((item, index) => `${index + 1}. ${item}`).join('\n');
+}
+
+test.beforeEach(async ({ page }) => {
+  url = page.url();
   axe = new AxeBuilder({ page });
 
-  // tests should be run on the whole page only for the first URL, then we can limit it to the main container to speed up the tests
-  if (!firstTest) {
-    axe = axe.include('.ds-container');
+  // We want to only test whole page with <header> and <nav> while testing the homepage. For other pages we limit tests to only <main> content.
+  if (url !== homePageUrl) {
+    axe = axe.include('main');
   }
-  firstTest = false;
 });
 
 test.afterEach(async ({ page }) => {
-  summary = `Tested page: ${currentUrl},\nNumber of violations: ${results.violations.length}\n\n`;
-  fs.mkdirSync('reports/website', { recursive: true });
-  fs.appendFileSync('reports/website/a11y_test_summary.txt', summary);
+  if (results.violations.length > 0) {
+    const violationDetails = results.violations
+      .map(violation => {
+        const nodeDetails = createNumberedList(violation.nodes.flatMap(node => node.target));
+        return `${violation.id} (${violation.impact}) \n${violation.description}\n${nodeDetails}`;
+      })
+      .join('\n\n');
+    console.error(`Accessibility violations found:\n\n${violationDetails}`);
+  }
 
   createHtmlReport({
     results: {
       violations: results.violations
     },
     options: {
-      projectKey: `${currentUrl}`,
+      projectKey: `${url}`,
       outputDir: 'reports/website',
-      reportFileName: `${currentUrl.replaceAll('/', '_')}a11y_report.html`
+      reportFileName: `${url.replaceAll('/', '_')}a11y_report.html`
     }
   });
 });
 
 urls.forEach(url => {
   test(`Website accessibility test on ${url}`, async ({ page }) => {
+    await page.goto(url, { waitUntil: 'load' });
     results = await axe.analyze();
-    expect(results.violations).toHaveLength(0);
+    expect(results.violations.length, 'Accessibility violations found, see details above').toBe(0);
   });
 });

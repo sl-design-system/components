@@ -2,7 +2,7 @@ import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
 import '@sl-design-system/listbox/register.js';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
-import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { fixture, oneEvent } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
@@ -259,7 +259,7 @@ describe('sl-combobox', () => {
 
       el.addEventListener('sl-focus', onFocus);
       input.focus();
-      await new Promise(resolve => setTimeout(resolve, 300));
+      await oneEvent(el, 'sl-focus');
 
       expect(onFocus).to.have.been.calledOnce;
     });

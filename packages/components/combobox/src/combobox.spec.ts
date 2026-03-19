@@ -258,8 +258,9 @@ describe('sl-combobox', () => {
       const onFocus = spy();
 
       el.addEventListener('sl-focus', onFocus);
+      const focusEvent = oneEvent(el, 'sl-focus');
       input.focus();
-      await oneEvent(el, 'sl-focus');
+      await focusEvent;
 
       expect(onFocus).to.have.been.calledOnce;
     });

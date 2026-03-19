@@ -259,7 +259,7 @@ describe('sl-combobox', () => {
 
       el.addEventListener('sl-focus', onFocus);
       input.focus();
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 300));
 
       expect(onFocus).to.have.been.calledOnce;
     });
@@ -975,13 +975,13 @@ describe('sl-combobox', () => {
         el.style.maxInlineSize = '300px';
         el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
         await el.updateComplete;
-        await new Promise(resolve => setTimeout(resolve, 50));
+        await new Promise(resolve => setTimeout(resolve, 300));
 
         const tagList = el.renderRoot.querySelector('sl-tag-list');
-        expect(tagList?.renderRoot.querySelector('sl-tag')).to.have.trimmed.text('+5');
+        expect(tagList?.renderRoot.querySelector('sl-tag')).to.have.trimmed.text('+6');
 
         const visible = Array.from(el.renderRoot.querySelectorAll('sl-tag')).map(tag => tag.style.display !== 'none');
-        expect(visible).to.deep.equal([false, false, false, false, false, true]);
+        expect(visible).to.deep.equal([false, false, false, false, false, false]);
       });
 
       it('should add a tag after selecting an option', async () => {

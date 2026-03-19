@@ -943,8 +943,8 @@ describe('sl-combobox', () => {
         const getVisibilityState = () =>
           Array.from(el.renderRoot.querySelectorAll('sl-tag')).map(tag => tag.style.display !== 'none');
 
-        // Allow initial layout/stacking to settle
-        await new Promise(resolve => setTimeout(resolve, 50));
+        // Allow initial layout/stacking to settle (the component has a 200ms debounce)
+        await new Promise(resolve => setTimeout(resolve, 300));
         const firstState = getVisibilityState();
 
         // Wait long enough to cover any potential oscillation cycles

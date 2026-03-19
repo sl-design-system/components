@@ -38,7 +38,11 @@ sl-text-field {
 }
 
 sl-tag-list {
+  flex: 1;
   max-inline-size: 66%;
+  min-inline-size: 0;
+  position: relative;
+  z-index: 1;
 }
 
 sl-tag {

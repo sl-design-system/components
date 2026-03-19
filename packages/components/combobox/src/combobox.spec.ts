@@ -923,6 +923,47 @@ describe('sl-combobox', () => {
         expect(tagList).to.have.attribute('stacked');
       });
 
+      it('should have a stable layout for the tag list', () => {
+        const tagList = el.renderRoot.querySelector('sl-tag-list') as HTMLElement;
+        const styles = getComputedStyle(tagList);
+
+        expect(styles.flexGrow).to.equal('1');
+        expect(styles.minInlineSize).to.equal('0px');
+        expect(styles.position).to.equal('relative');
+        expect(styles.zIndex).to.equal('1');
+      });
+
+      it('should not flicker when selecting many items in a limited space', async () => {
+        el.style.maxInlineSize = '300px';
+        await el.updateComplete;
+
+        let mutationCount = 0;
+        const observer = new MutationObserver(mutations => {
+          mutations.forEach(mutation => {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+              mutationCount++;
+            }
+          });
+        });
+
+        const tagList = el.renderRoot.querySelector('sl-tag-list')!;
+        observer.observe(tagList, { attributes: true, subtree: true, attributeFilter: ['style'] });
+
+        // Select items that would trigger a collapse
+        el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
+        await el.updateComplete;
+
+        // Wait for any potential oscillation sessions (they run every 200ms)
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        observer.disconnect();
+
+        // One update cycle might hide/show several tags.
+        // If it flickers, this count would be much higher than the number of tags.
+        // 6 tags being hidden + 6 being reset = 12. Let's allow for some overhead.
+        expect(mutationCount).to.be.below(30);
+      });
+
       it('should have a tag for each selected option', () => {
         const tags = el.renderRoot.querySelectorAll('sl-tag');
 
@@ -946,10 +987,10 @@ describe('sl-combobox', () => {
         await new Promise(resolve => setTimeout(resolve, 50));
 
         const tagList = el.renderRoot.querySelector('sl-tag-list');
-        expect(tagList?.renderRoot.querySelector('sl-tag')).to.have.trimmed.text('+4');
+        expect(tagList?.renderRoot.querySelector('sl-tag')).to.have.trimmed.text('+5');
 
         const visible = Array.from(el.renderRoot.querySelectorAll('sl-tag')).map(tag => tag.style.display !== 'none');
-        expect(visible).to.deep.equal([false, false, false, false, true, true]);
+        expect(visible).to.deep.equal([false, false, false, false, false, true]);
       });
 
       it('should add a tag after selecting an option', async () => {

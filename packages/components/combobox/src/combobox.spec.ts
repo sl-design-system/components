@@ -989,10 +989,10 @@ describe('sl-combobox', () => {
           await el.updateComplete;
           await vi.advanceTimersByTimeAsync(300);
 
-          const tagList = el.renderRoot.querySelector('sl-tag-list');
-          const stackTag = tagList?.renderRoot.querySelector('sl-tag');
-          const tags = Array.from(el.renderRoot.querySelectorAll('sl-tag'));
-          const hiddenCount = tags.filter(tag => tag.style.display === 'none').length;
+          const tagList = el.renderRoot.querySelector('sl-tag-list'),
+            stackTag = tagList?.renderRoot.querySelector('sl-tag'),
+            tags = Array.from(el.renderRoot.querySelectorAll('sl-tag')),
+            hiddenCount = tags.filter(tag => tag.style.display === 'none').length;
 
           expect(hiddenCount).to.be.greaterThan(0);
           expect(stackTag).to.have.trimmed.text(`+${hiddenCount}`);
@@ -1012,6 +1012,7 @@ describe('sl-combobox', () => {
         await el.updateComplete;
 
         const tags = el.renderRoot.querySelectorAll('sl-tag');
+
         expect(tags).to.have.lengthOf(2);
         expect(tags[0]).to.have.trimmed.text('Option 2');
         expect(tags[1]).to.have.trimmed.text('Option 1');

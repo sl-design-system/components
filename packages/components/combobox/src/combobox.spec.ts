@@ -935,18 +935,18 @@ describe('sl-combobox', () => {
       });
 
       it('should not flicker when selecting many items in a limited space', async () => {
-        el.style.maxInlineSize = '300px';
-
-        // Select items that would trigger a collapse
-        el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
-        await el.updateComplete;
-
-        const getVisibilityState = () =>
-          Array.from(el.renderRoot.querySelectorAll('sl-tag')).map(tag => tag.style.display !== 'none');
-
         vi.useFakeTimers();
 
         try {
+          el.style.maxInlineSize = '300px';
+
+          // Select items that would trigger a collapse
+          el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
+          await el.updateComplete;
+
+          const getVisibilityState = () =>
+            Array.from(el.renderRoot.querySelectorAll('sl-tag')).map(tag => tag.style.display !== 'none');
+
           // Allow initial layout/stacking to settle (the component has a 200ms debounce)
           await vi.advanceTimersByTimeAsync(300);
           await el.updateComplete;

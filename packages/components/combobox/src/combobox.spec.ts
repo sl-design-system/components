@@ -988,6 +988,7 @@ describe('sl-combobox', () => {
           el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
           await el.updateComplete;
           await vi.advanceTimersByTimeAsync(300);
+          await el.updateComplete;
 
           const tagList = el.renderRoot.querySelector('sl-tag-list'),
             stackTag = tagList?.renderRoot.querySelector('sl-tag'),

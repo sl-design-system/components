@@ -1,6 +1,7 @@
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
+import { Icon } from '@sl-design-system/icon';
 import { Listbox, Option, OptionGroup } from '@sl-design-system/listbox';
 import {
   type EventEmitter,
@@ -12,7 +13,7 @@ import {
   isPopoverOpen
 } from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
 import { SelectButton } from './select-button.js';
 import styles from './select.scss.js';
@@ -58,6 +59,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
+      'sl-icon': Icon,
       'sl-listbox': Listbox,
       'sl-select-button': SelectButton
     };
@@ -146,6 +148,9 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
   /** @internal */
   readonly internals = this.attachInternals();
+
+  /** @internal The clear button element in the shadow DOM. */
+  @query('.clear-button') clearButton?: HTMLButtonElement;
 
   /** @internal The listbox element that is also the popover. */
   @query('sl-listbox') listbox?: Listbox;
@@ -301,8 +306,25 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   }
 
   override render(): TemplateResult {
+    const showClearButton = !this.disabled && this.clearable && this.selectedOption;
+
     return html`
       <slot name="button"></slot>
+      ${showClearButton
+        ? html`
+            <button
+              @click=${this.#onClearButtonClick}
+              @focusin=${() => this.button?.setAttribute('clear-focused', '')}
+              @focusout=${() => this.button?.removeAttribute('clear-focused')}
+              aria-label=${msg('Clear selection', { id: 'sl.select.clearSelection' })}
+              class="clear-button"
+              tabindex="0"
+            >
+              <sl-icon name="circle-xmark"></sl-icon>
+              <sl-icon name="circle-xmark-solid"></sl-icon>
+            </button>
+          `
+        : nothing}
       <sl-listbox
         ${anchor({
           element: this.button,
@@ -412,6 +434,19 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     this.#setSelectedOption(undefined, true);
   }
 
+  #onClearButtonClick(event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (this.listbox && isPopoverOpen(this.listbox)) {
+      this.#popoverClosing = true;
+      this.listbox.hidePopover();
+    }
+
+    this.#onClear();
+    this.button.focus();
+  }
+
   #onClick(event: Event): void {
     if (event.target === this) {
       this.button.focus();
@@ -425,6 +460,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   #onFocusout(event: FocusEvent): void {
     const leavingComponent =
       event.relatedTarget !== this.button &&
+      event.relatedTarget !== this.clearButton &&
       (!(event.relatedTarget instanceof Element) || event.relatedTarget?.closest('sl-select') !== this);
 
     if (leavingComponent) {
@@ -451,19 +487,6 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     if (this.disabled) {
       event.preventDefault();
       event.stopPropagation();
-
-      return;
-    } else if (['Enter', ' '].includes(event.key) && this.#isClearButtonFocused()) {
-      event.preventDefault();
-      event.stopPropagation();
-
-      if (this.listbox && isPopoverOpen(this.listbox)) {
-        this.#popoverClosing = true;
-        this.listbox.hidePopover();
-      }
-
-      this.#onClear();
-      this.button.focus();
 
       return;
     } else if (!this.listbox?.matches(':popover-open')) {
@@ -597,12 +620,6 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
     // Pass the largest width to the button
     this.button.optionSize = maxWidth;
-  }
-
-  #isClearButtonFocused(): boolean {
-    const clearButton = this.button.renderRoot.querySelector('button');
-
-    return !!clearButton && this.button.shadowRoot?.activeElement === clearButton;
   }
 
   #setupMeasureElement(): HTMLElement {

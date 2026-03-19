@@ -1,11 +1,10 @@
-import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { type FormControlShowValidity } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { Option } from '@sl-design-system/listbox';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type SlClearEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './select-button.scss.js';
 import { type SelectSize } from './select.js';
@@ -23,7 +22,6 @@ declare global {
  * @csspart placeholder - The placeholder text when no option is selected.
  * @csspart selected-option - The container for the selected option.
  */
-@localized()
 export class SelectButton extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
@@ -85,16 +83,6 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
         this.removeAttribute('aria-required');
       }
     }
-
-    if (changes.has('selected')) {
-      const valueText = this.selected?.textContent?.trim();
-
-      if (valueText) {
-        this.setAttribute('aria-valuetext', valueText);
-      } else {
-        this.removeAttribute('aria-valuetext');
-      }
-    }
   }
 
   override render(): TemplateResult {
@@ -122,32 +110,10 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
           ? html`<span part="selected"><slot name="selected-content"></slot></span>`
           : this.placeholder || '\u00a0'}
       </div>
-      ${!this.disabled && this.clearable && this.selected
-        ? html`
-            <button
-              @click=${this.#onClick}
-              @focusin=${() => this.setAttribute('clear-focused', '')}
-              @focusout=${() => this.removeAttribute('clear-focused')}
-              aria-hidden="true"
-              aria-label=${msg('Clear selection', { id: 'sl.select.clearSelection' })}
-              tabindex="0"
-            >
-              <sl-icon name="circle-xmark"></sl-icon>
-              <sl-icon name="circle-xmark-solid"></sl-icon>
-            </button>
-          `
-        : nothing}
-      <span class="status">
+      <span class="status" aria-hidden="true">
         <sl-icon name="chevron-down"></sl-icon>
       </span>
     `;
-  }
-
-  #onClick(event: Event): void {
-    event.preventDefault();
-    event.stopPropagation();
-
-    this.clearEvent.emit();
   }
 
   #onKeydown(event: KeyboardEvent): void {

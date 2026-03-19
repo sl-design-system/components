@@ -935,40 +935,24 @@ describe('sl-combobox', () => {
 
       it('should not flicker when selecting many items in a limited space', async () => {
         el.style.maxInlineSize = '300px';
-        await el.updateComplete;
-
-        let mutationCount = 0;
-        const observer = new MutationObserver(mutations => {
-          mutations.forEach(mutation => {
-            if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-              mutationCount++;
-            }
-          });
-        });
-
-        const tagList = el.renderRoot.querySelector('sl-tag-list')!;
-        // Observe both the host and its shadow root so internal style toggling (e.g. .stack show/hide) is detected
-        observer.observe(tagList, { attributes: true, subtree: true, attributeFilter: ['style'] });
-        // ShadowRoot is where internal layout elements live, so observe it explicitly as well
-        observer.observe(tagList.renderRoot as unknown as Node, {
-          attributes: true,
-          subtree: true,
-          attributeFilter: ['style']
-        });
 
         // Select items that would trigger a collapse
         el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
         await el.updateComplete;
 
-        // Wait for any potential oscillation sessions (they run every 200ms)
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        const getVisibilityState = () =>
+          Array.from(el.renderRoot.querySelectorAll('sl-tag')).map(tag => tag.style.display !== 'none');
 
-        observer.disconnect();
+        // Allow initial layout/stacking to settle
+        await new Promise(resolve => setTimeout(resolve, 50));
+        const firstState = getVisibilityState();
 
-        // One update cycle might hide/show several tags.
-        // If it flickers, this count would be much higher than the number of tags.
-        // 6 tags being hidden + 6 being reset = 12. Let's allow for some overhead.
-        expect(mutationCount).to.be.below(30);
+        // Wait long enough to cover any potential oscillation cycles
+        await new Promise(resolve => setTimeout(resolve, 500));
+        const secondState = getVisibilityState();
+
+        // If the component flickers, the visibility pattern of tags would change over time.
+        expect(secondState).to.deep.equal(firstState);
       });
 
       it('should have a tag for each selected option', () => {

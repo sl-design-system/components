@@ -987,10 +987,12 @@ describe('sl-combobox', () => {
         await new Promise(resolve => setTimeout(resolve, 300));
 
         const tagList = el.renderRoot.querySelector('sl-tag-list');
-        expect(tagList?.renderRoot.querySelector('sl-tag')).to.have.trimmed.text('+6');
+        const stackTag = tagList?.renderRoot.querySelector('sl-tag');
+        const tags = Array.from(el.renderRoot.querySelectorAll('sl-tag'));
+        const hiddenCount = tags.filter(tag => tag.style.display === 'none').length;
 
-        const visible = Array.from(el.renderRoot.querySelectorAll('sl-tag')).map(tag => tag.style.display !== 'none');
-        expect(visible.some(v => v === false)).to.be.true;
+        expect(hiddenCount).to.be.greaterThan(0);
+        expect(stackTag).to.have.trimmed.text(`+${hiddenCount}`);
       });
 
       it('should add a tag after selecting an option', async () => {

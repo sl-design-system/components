@@ -947,7 +947,14 @@ describe('sl-combobox', () => {
         });
 
         const tagList = el.renderRoot.querySelector('sl-tag-list')!;
+        // Observe both the host and its shadow root so internal style toggling (e.g. .stack show/hide) is detected
         observer.observe(tagList, { attributes: true, subtree: true, attributeFilter: ['style'] });
+        // ShadowRoot is where internal layout elements live, so observe it explicitly as well
+        observer.observe(tagList.renderRoot as unknown as Node, {
+          attributes: true,
+          subtree: true,
+          attributeFilter: ['style']
+        });
 
         // Select items that would trigger a collapse
         el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];

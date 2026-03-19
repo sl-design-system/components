@@ -182,8 +182,8 @@ describe('sl-tag', () => {
 
     it('should not collapse when contents exceed container width by less than 0.5px', async () => {
       // We create a scenario where we can precisely control the width.
-      // Note: Browser rendering of fractional pixels can be inconsistent,
-      // but the logic in tag-list.ts uses getBoundingClientRect().width.
+      // The component logic uses getBoundingClientRect().width, so we stub it
+      // to avoid relying on actual browser sub-pixel rendering.
 
       el = await fixture(html`
         <sl-tag-list stacked style=${listStyles}>
@@ -194,7 +194,11 @@ describe('sl-tag', () => {
 
       // Total tags width = 100 + 100 = 200px (gap is 0)
       // We set the container width to 199.7px (diff = 0.3px, which is < 0.5px)
-      el.style.inlineSize = '199.7px';
+      (el as unknown as HTMLElement).getBoundingClientRect = () => new DOMRect(0, 0, 199.7, 20);
+
+      Array.from(el.querySelectorAll('sl-tag')).forEach(tag => {
+        (tag as HTMLElement).getBoundingClientRect = () => new DOMRect(0, 0, 100, 20);
+      });
 
       // Give it enough time for ResizeObserver + 200ms timeout
       await new Promise(resolve => setTimeout(resolve, 250));
@@ -213,7 +217,11 @@ describe('sl-tag', () => {
       `);
 
       // Total = 200px. Container = 199.4px (diff = 0.6px > 0.5px)
-      el.style.inlineSize = '199.4px';
+      (el as unknown as HTMLElement).getBoundingClientRect = () => new DOMRect(0, 0, 199.4, 20);
+
+      Array.from(el.querySelectorAll('sl-tag')).forEach(tag => {
+        (tag as HTMLElement).getBoundingClientRect = () => new DOMRect(0, 0, 100, 20);
+      });
 
       await new Promise(resolve => setTimeout(resolve, 250));
 

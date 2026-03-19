@@ -229,8 +229,10 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     let availableWidth = this.getBoundingClientRect().width;
 
-    // We only need to determine visibility if there isn't enough space
-    if (totalTagsWidth > availableWidth) {
+    // We only need to determine visibility if there isn't enough space.
+    // We use a small buffer of 0.5px to account for sub-pixel rounding
+    // errors that can cause layout oscillation at certain zoom levels.
+    if (totalTagsWidth > availableWidth + 0.5) {
       // Take the stack into account if there isn't enough space
       availableWidth -= this.stackInlineSize + gap;
 

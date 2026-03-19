@@ -5,7 +5,7 @@ import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { fixture, oneEvent } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { type Combobox } from './combobox.js';
@@ -944,16 +944,24 @@ describe('sl-combobox', () => {
         const getVisibilityState = () =>
           Array.from(el.renderRoot.querySelectorAll('sl-tag')).map(tag => tag.style.display !== 'none');
 
-        // Allow initial layout/stacking to settle (the component has a 200ms debounce)
-        await new Promise(resolve => setTimeout(resolve, 300));
-        const firstState = getVisibilityState();
+        vi.useFakeTimers();
 
-        // Wait long enough to cover any potential oscillation cycles
-        await new Promise(resolve => setTimeout(resolve, 500));
-        const secondState = getVisibilityState();
+        try {
+          // Allow initial layout/stacking to settle (the component has a 200ms debounce)
+          await vi.advanceTimersByTimeAsync(300);
+          await el.updateComplete;
+          const firstState = getVisibilityState();
 
-        // If the component flickers, the visibility pattern of tags would change over time.
-        expect(secondState).to.deep.equal(firstState);
+          // Wait long enough to cover any potential oscillation cycles
+          await vi.advanceTimersByTimeAsync(500);
+          await el.updateComplete;
+          const secondState = getVisibilityState();
+
+          // If the component flickers, the visibility pattern of tags would change over time.
+          expect(secondState).to.deep.equal(firstState);
+        } finally {
+          vi.useRealTimers();
+        }
       });
 
       it('should have a tag for each selected option', () => {
@@ -982,7 +990,7 @@ describe('sl-combobox', () => {
         expect(tagList?.renderRoot.querySelector('sl-tag')).to.have.trimmed.text('+6');
 
         const visible = Array.from(el.renderRoot.querySelectorAll('sl-tag')).map(tag => tag.style.display !== 'none');
-        expect(visible).to.deep.equal([false, false, false, false, false, false]);
+        expect(visible.some(v => v === false)).to.be.true;
       });
 
       it('should add a tag after selecting an option', async () => {

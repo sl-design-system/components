@@ -1,6 +1,6 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { type TagList } from './tag-list.js';
@@ -181,57 +181,70 @@ describe('sl-tag', () => {
     const tagStyles = 'inline-size: 100px; margin: 0; padding: 0; border: none; box-sizing: border-box;';
 
     it('should not collapse when contents exceed container width by less than 0.5px', async () => {
-      // We create a scenario where we can precisely control the width.
-      // The component logic uses getBoundingClientRect().width, so we stub it
-      // to avoid relying on actual browser sub-pixel rendering.
+      vi.useFakeTimers();
 
-      el = await fixture(html`
-        <sl-tag-list stacked style=${listStyles}>
-          <sl-tag style=${tagStyles}>Tag 1</sl-tag>
-          <sl-tag style=${tagStyles}>Tag 2</sl-tag>
-        </sl-tag-list>
-      `);
+      try {
+        // We create a scenario where we can precisely control the width.
+        // The component logic uses getBoundingClientRect().width, so we stub it
+        // to avoid relying on actual browser sub-pixel rendering.
 
-      // Total tags width = 100 + 100 = 200px (gap is 0)
-      // We set the container width to 199.7px (diff = 0.3px, which is < 0.5px)
-      (el as unknown as HTMLElement).getBoundingClientRect = () => new DOMRect(0, 0, 199.7, 20);
+        el = await fixture(html`
+          <sl-tag-list stacked style=${listStyles}>
+            <sl-tag style=${tagStyles}>Tag 1</sl-tag>
+            <sl-tag style=${tagStyles}>Tag 2</sl-tag>
+          </sl-tag-list>
+        `);
 
-      Array.from(el.querySelectorAll('sl-tag')).forEach(tag => {
-        (tag as HTMLElement).getBoundingClientRect = () => new DOMRect(0, 0, 100, 20);
-      });
+        // Total tags width = 100 + 100 = 200px (gap is 0)
+        // We set the container width to 199.7px (diff = 0.3px, which is < 0.5px)
+        (el as unknown as HTMLElement).getBoundingClientRect = () => new DOMRect(0, 0, 199.7, 20);
 
-      // Give it enough time for ResizeObserver + 200ms timeout
-      await new Promise(resolve => setTimeout(resolve, 250));
+        Array.from(el.querySelectorAll('sl-tag')).forEach(tag => {
+          (tag as HTMLElement).getBoundingClientRect = () => new DOMRect(0, 0, 100, 20);
+        });
 
-      const stack = el.renderRoot.querySelector('.stack') as HTMLElement;
+        // Advance fake timers past the 200ms debounce/loop-breaker timeout
+        await vi.advanceTimersByTimeAsync(210);
 
-      expect(stack.style.display).to.equal('none');
+        const stack = el.renderRoot.querySelector('.stack') as HTMLElement;
+
+        expect(stack.style.display).to.equal('none');
+      } finally {
+        vi.useRealTimers();
+      }
     });
 
     it('should collapse when contents exceed container width by more than 0.5px', async () => {
-      el = await fixture(html`
-        <sl-tag-list stacked style=${listStyles}>
-          <sl-tag style=${tagStyles}>Tag 1</sl-tag>
-          <sl-tag style=${tagStyles}>Tag 2</sl-tag>
-        </sl-tag-list>
-      `);
+      vi.useFakeTimers();
 
-      // Total = 200px. Container = 199.4px (diff = 0.6px > 0.5px)
-      (el as unknown as HTMLElement).getBoundingClientRect = () => new DOMRect(0, 0, 199.4, 20);
+      try {
+        el = await fixture(html`
+          <sl-tag-list stacked style=${listStyles}>
+            <sl-tag style=${tagStyles}>Tag 1</sl-tag>
+            <sl-tag style=${tagStyles}>Tag 2</sl-tag>
+          </sl-tag-list>
+        `);
 
-      Array.from(el.querySelectorAll('sl-tag')).forEach(tag => {
-        (tag as HTMLElement).getBoundingClientRect = () => new DOMRect(0, 0, 100, 20);
-      });
+        // Total = 200px. Container = 199.4px (diff = 0.6px > 0.5px)
+        (el as unknown as HTMLElement).getBoundingClientRect = () => new DOMRect(0, 0, 199.4, 20);
 
-      await new Promise(resolve => setTimeout(resolve, 250));
+        Array.from(el.querySelectorAll('sl-tag')).forEach(tag => {
+          (tag as HTMLElement).getBoundingClientRect = () => new DOMRect(0, 0, 100, 20);
+        });
 
-      const stack = el.renderRoot.querySelector('.stack') as HTMLElement;
-      const tags = Array.from(el.querySelectorAll('sl-tag')) as HTMLElement[];
-      const hiddenTags = tags.filter(tag => tag.style.display === 'none');
+        // Advance fake timers past the 200ms debounce/loop-breaker timeout
+        await vi.advanceTimersByTimeAsync(210);
 
-      // Stack should be visible and at least one tag should be collapsed.
-      expect(stack.style.display).to.not.equal('none');
-      expect(hiddenTags.length).to.be.greaterThan(0);
+        const stack = el.renderRoot.querySelector('.stack') as HTMLElement;
+        const tags = Array.from(el.querySelectorAll('sl-tag')) as HTMLElement[];
+        const hiddenTags = tags.filter(tag => tag.style.display === 'none');
+
+        // Stack should be visible and at least one tag should be collapsed.
+        expect(stack.style.display).to.not.equal('none');
+        expect(hiddenTags.length).to.be.greaterThan(0);
+      } finally {
+        vi.useRealTimers();
+      }
     });
   });
 });

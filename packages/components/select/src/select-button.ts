@@ -85,6 +85,16 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
         this.removeAttribute('aria-required');
       }
     }
+
+    if (changes.has('selected')) {
+      const valueText = this.selected?.textContent?.trim();
+
+      if (valueText) {
+        this.setAttribute('aria-valuetext', valueText);
+      } else {
+        this.removeAttribute('aria-valuetext');
+      }
+    }
   }
 
   override render(): TemplateResult {
@@ -116,8 +126,8 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
         ? html`
             <button
               @click=${this.#onClick}
-              @focusin=${this.#onClearFocusin}
-              @focusout=${this.#onClearFocusout}
+              @focusin=${() => this.setAttribute('clear-focused', '')}
+              @focusout=${() => this.removeAttribute('clear-focused')}
               aria-hidden="true"
               aria-label=${msg('Clear selection', { id: 'sl.select.clearSelection' })}
               tabindex="0"
@@ -127,7 +137,7 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
             </button>
           `
         : nothing}
-      <span aria-hidden="true" class="status">
+      <span class="status">
         <sl-icon name="chevron-down"></sl-icon>
       </span>
     `;
@@ -138,22 +148,6 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
     event.stopPropagation();
 
     this.clearEvent.emit();
-  }
-
-  #onClearFocusin(event: Event): void {
-    const button = event.target as HTMLButtonElement;
-
-    // When the clear button receives focus, make it visible to assistive technology
-    button.removeAttribute('aria-hidden');
-    this.setAttribute('clear-focused', '');
-  }
-
-  #onClearFocusout(event: Event): void {
-    const button = event.target as HTMLButtonElement;
-
-    // When focus leaves the clear button, hide it from the accessibility tree again
-    button.setAttribute('aria-hidden', 'true');
-    this.removeAttribute('clear-focused');
   }
 
   #onKeydown(event: KeyboardEvent): void {

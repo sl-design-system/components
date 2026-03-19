@@ -97,6 +97,32 @@ describe('sl-select', () => {
       expect(el.value).to.be.undefined;
     });
 
+    it('should not have aria-valuetext when no option is selected', () => {
+      expect(button).not.to.have.attribute('aria-valuetext');
+    });
+
+    it('should have aria-valuetext when an option is selected', async () => {
+      el.value = '2';
+      await el.updateComplete;
+      await button.updateComplete;
+
+      expect(button).to.have.attribute('aria-valuetext', 'Option 2');
+    });
+
+    it('should remove aria-valuetext when the selection is cleared', async () => {
+      el.value = '1';
+      await el.updateComplete;
+      await button.updateComplete;
+
+      expect(button).to.have.attribute('aria-valuetext', 'Option 1');
+
+      el.value = undefined;
+      await el.updateComplete;
+      await button.updateComplete;
+
+      expect(button).not.to.have.attribute('aria-valuetext');
+    });
+
     it('should proxy the aria-describedby attribute to the button element', async () => {
       el.setAttribute('aria-describedby', 'id');
       await new Promise(resolve => setTimeout(resolve, 50));
@@ -1132,23 +1158,10 @@ describe('sl-select', () => {
       expect(clearButton).to.have.attribute('aria-hidden', 'true');
     });
 
-    it('should remove aria-hidden from the clear button when it receives focus', async () => {
-      clearButton.focus();
-      await el.updateComplete;
+    it('should have aria-valuetext matching the selected option text', async () => {
+      await button.updateComplete;
 
-      expect(clearButton).not.to.have.attribute('aria-hidden');
-    });
-
-    it('should restore aria-hidden on the clear button when it loses focus', async () => {
-      clearButton.focus();
-      await el.updateComplete;
-
-      expect(clearButton).not.to.have.attribute('aria-hidden');
-
-      clearButton.blur();
-      await el.updateComplete;
-
-      expect(clearButton).to.have.attribute('aria-hidden', 'true');
+      expect(button).to.have.attribute('aria-valuetext', 'Option 1');
     });
 
     it('should set clear-focused attribute when clear button receives focus', async () => {

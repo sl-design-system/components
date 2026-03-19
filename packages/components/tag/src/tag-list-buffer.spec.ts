@@ -26,8 +26,8 @@ describe('sl-tag-list - sub-pixel buffer', () => {
     // We set the container width to 199.7px (diff = 0.3px, which is < 0.5px)
     el.style.inlineSize = '199.7px';
 
-    // Give it plenty of time for ResizeObserver + 200ms timeout
-    await new Promise(resolve => setTimeout(resolve, 500));
+    // Give it enough time for ResizeObserver + 200ms timeout
+    await new Promise(resolve => setTimeout(resolve, 250));
 
     const stack = el.renderRoot.querySelector('.stack') as HTMLElement;
 
@@ -45,7 +45,7 @@ describe('sl-tag-list - sub-pixel buffer', () => {
     // Total = 200px. Container = 199.4px (diff = 0.6px > 0.5px)
     el.style.inlineSize = '199.4px';
 
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise(resolve => setTimeout(resolve, 250));
 
     const stack = el.renderRoot.querySelector('.stack') as HTMLElement;
 

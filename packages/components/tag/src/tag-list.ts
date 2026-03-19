@@ -8,6 +8,8 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './tag-list.scss.js';
 import { type SlRemoveEvent, Tag, type TagSize, type TagVariant } from './tag.js';
 
+const SUBPIXEL_BUFFER_PX = 0.5;
+
 declare global {
   interface HTMLElementTagNameMap {
     'sl-tag-list': TagList;
@@ -230,9 +232,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     let availableWidth = this.getBoundingClientRect().width;
 
     // We only need to determine visibility if there isn't enough space.
-    // We use a small buffer of 0.5px to account for sub-pixel rounding
+    // We use a small buffer to account for sub-pixel rounding
     // errors that can cause layout oscillation at certain zoom levels.
-    if (totalTagsWidth > availableWidth + 0.5) {
+    if (totalTagsWidth > availableWidth + SUBPIXEL_BUFFER_PX) {
       // Take the stack into account if there isn't enough space
       availableWidth -= this.stackInlineSize + gap;
 

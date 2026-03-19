@@ -981,18 +981,24 @@ describe('sl-combobox', () => {
       });
 
       it('should stack options when there is limited space', async () => {
-        el.style.maxInlineSize = '300px';
-        el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
-        await el.updateComplete;
-        await new Promise(resolve => setTimeout(resolve, 300));
+        vi.useFakeTimers();
 
-        const tagList = el.renderRoot.querySelector('sl-tag-list');
-        const stackTag = tagList?.renderRoot.querySelector('sl-tag');
-        const tags = Array.from(el.renderRoot.querySelectorAll('sl-tag'));
-        const hiddenCount = tags.filter(tag => tag.style.display === 'none').length;
+        try {
+          el.style.maxInlineSize = '300px';
+          el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
+          await el.updateComplete;
+          await vi.advanceTimersByTimeAsync(300);
 
-        expect(hiddenCount).to.be.greaterThan(0);
-        expect(stackTag).to.have.trimmed.text(`+${hiddenCount}`);
+          const tagList = el.renderRoot.querySelector('sl-tag-list');
+          const stackTag = tagList?.renderRoot.querySelector('sl-tag');
+          const tags = Array.from(el.renderRoot.querySelectorAll('sl-tag'));
+          const hiddenCount = tags.filter(tag => tag.style.display === 'none').length;
+
+          expect(hiddenCount).to.be.greaterThan(0);
+          expect(stackTag).to.have.trimmed.text(`+${hiddenCount}`);
+        } finally {
+          vi.useRealTimers();
+        }
       });
 
       it('should add a tag after selecting an option', async () => {

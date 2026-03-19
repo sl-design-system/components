@@ -177,8 +177,8 @@ describe('sl-tag', () => {
   });
 
   describe('sub-pixel buffer', () => {
-    const listStyles = 'gap: 0px; padding: 0; margin: 0; border: none;';
-    const tagStyles = 'inline-size: 100px; margin: 0; padding: 0; border: none; box-sizing: border-box;';
+    const listStyles = 'gap: 0px; padding: 0; margin: 0; border: none;',
+      tagStyles = 'inline-size: 100px; margin: 0; padding: 0; border: none; box-sizing: border-box;';
 
     it('should not collapse when contents exceed container width by less than 0.5px', async () => {
       vi.useFakeTimers();

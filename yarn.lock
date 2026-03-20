@@ -5189,8 +5189,8 @@ __metadata:
     "@sl-design-system/text-field": "npm:^1.6.8"
     "@sl-design-system/time-field": "npm:^0.1.0"
     "@standard-schema/spec": "npm:^1.1.0"
-    "@storybook/addon-docs": "npm:10.3.1"
-    "@storybook/angular": "npm:10.3.1"
+    "@storybook/addon-docs": "npm:^10.3.1"
+    "@storybook/angular": "npm:^10.3.1"
     "@types/jasmine": "npm:~6.0.0"
     baseline-browser-mapping: "npm:^2.10.9"
     jasmine-core: "npm:~6.1.0"
@@ -5201,7 +5201,7 @@ __metadata:
     karma-jasmine-html-reporter: "npm:~2.2.0"
     ng-packagr: "npm:^21.2.1"
     rxjs: "npm:~7.8.2"
-    storybook: "npm:10.3.1"
+    storybook: "npm:^10.3.1"
     tslib: "npm:^2.8.1"
     typescript: "npm:~5.9.3"
     wireit: "npm:^0.14.12"
@@ -5371,13 +5371,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/chromatic@workspace:chromatic"
   dependencies:
-    "@storybook/addon-a11y": "npm:10.3.1"
-    "@storybook/addon-docs": "npm:10.3.1"
-    "@storybook/addon-themes": "npm:10.3.1"
-    "@storybook/web-components-vite": "npm:10.3.1"
+    "@storybook/addon-a11y": "npm:^10.3.1"
+    "@storybook/addon-docs": "npm:^10.3.1"
+    "@storybook/addon-themes": "npm:^10.3.1"
+    "@storybook/web-components-vite": "npm:^10.3.1"
     lit: "npm:^3.3.2"
-    storybook: "npm:10.3.1"
-    storybook-addon-pseudo-states: "npm:10.3.1"
+    storybook: "npm:^10.3.1"
+    storybook-addon-pseudo-states: "npm:^10.3.1"
     tslib: "npm:^2.8.1"
     typescript: "npm:^5.5.4"
     wireit: "npm:^0.14.12"
@@ -5549,7 +5549,7 @@ __metadata:
     eslint-plugin-unused-imports: "npm:^4.1.4"
     eslint-plugin-wc: "npm:^3.0.1"
     prettier: "npm:^3.8.1"
-    storybook: "npm:10.3.1"
+    storybook: "npm:^10.3.1"
     typescript: "npm:^5.5.4"
     typescript-eslint: "npm:^8.33.0"
   peerDependencies:
@@ -5786,11 +5786,11 @@ __metadata:
     "@custom-elements-manifest/analyzer": "npm:^0.11.0"
     "@faker-js/faker": "npm:^10.3.0"
     "@lit/localize-tools": "npm:^0.8.1"
-    "@storybook/addon-a11y": "npm:10.3.1"
-    "@storybook/addon-docs": "npm:10.3.1"
-    "@storybook/addon-vitest": "npm:10.3.1"
-    "@storybook/web-components": "npm:10.3.1"
-    "@storybook/web-components-vite": "npm:10.3.1"
+    "@storybook/addon-a11y": "npm:^10.3.1"
+    "@storybook/addon-docs": "npm:^10.3.1"
+    "@storybook/addon-vitest": "npm:^10.3.1"
+    "@storybook/web-components": "npm:^10.3.1"
+    "@storybook/web-components-vite": "npm:^10.3.1"
     "@types/chai-datetime": "npm:^1.0.0"
     "@types/chai-dom": "npm:^1.11.3"
     "@types/sinon": "npm:^21.0.0"
@@ -5811,7 +5811,7 @@ __metadata:
     playwright: "npm:^1.58.2"
     sinon: "npm:^21.0.3"
     sinon-chai: "npm:^4.0.1"
-    storybook: "npm:10.3.1"
+    storybook: "npm:^10.3.1"
     stylelint: "npm:^16.19.1"
     typescript: "npm:^5.5.4"
     vite: "npm:^8.0.1"
@@ -6318,7 +6318,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-a11y@npm:10.3.1":
+"@storybook/addon-a11y@npm:^10.3.1":
   version: 10.3.1
   resolution: "@storybook/addon-a11y@npm:10.3.1"
   dependencies:
@@ -6330,7 +6330,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-docs@npm:10.3.1":
+"@storybook/addon-docs@npm:^10.3.1":
   version: 10.3.1
   resolution: "@storybook/addon-docs@npm:10.3.1"
   dependencies:
@@ -6347,7 +6347,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-themes@npm:10.3.1":
+"@storybook/addon-themes@npm:^10.3.1":
   version: 10.3.1
   resolution: "@storybook/addon-themes@npm:10.3.1"
   dependencies:
@@ -6358,7 +6358,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-vitest@npm:10.3.1":
+"@storybook/addon-vitest@npm:^10.3.1":
   version: 10.3.1
   resolution: "@storybook/addon-vitest@npm:10.3.1"
   dependencies:
@@ -6383,7 +6383,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/angular@npm:10.3.1":
+"@storybook/angular@npm:^10.3.1":
   version: 10.3.1
   resolution: "@storybook/angular@npm:10.3.1"
   dependencies:
@@ -6524,7 +6524,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/web-components-vite@npm:10.3.1":
+"@storybook/web-components-vite@npm:^10.3.1":
   version: 10.3.1
   resolution: "@storybook/web-components-vite@npm:10.3.1"
   dependencies:
@@ -6536,7 +6536,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/web-components@npm:10.3.1":
+"@storybook/web-components@npm:10.3.1, @storybook/web-components@npm:^10.3.1":
   version: 10.3.1
   resolution: "@storybook/web-components@npm:10.3.1"
   dependencies:
@@ -22236,7 +22236,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"storybook-addon-pseudo-states@npm:10.3.1":
+"storybook-addon-pseudo-states@npm:^10.3.1":
   version: 10.3.1
   resolution: "storybook-addon-pseudo-states@npm:10.3.1"
   peerDependencies:
@@ -22245,7 +22245,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"storybook@npm:10.3.1":
+"storybook@npm:^10.3.1":
   version: 10.3.1
   resolution: "storybook@npm:10.3.1"
   dependencies:

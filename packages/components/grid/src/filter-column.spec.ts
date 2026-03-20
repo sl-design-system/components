@@ -142,11 +142,12 @@ describe('sl-grid-filter-column', () => {
 
     it('should remove the filter when the select field is cleared', async () => {
       const filter = el.renderRoot.querySelector<GridFilter>('thead tr:last-of-type th:last-of-type sl-grid-filter')!,
-        selectButton = filter.renderRoot.querySelector('sl-select-button');
+        select = filter.renderRoot.querySelector('sl-select');
 
       expect(filter.value).to.equal('Premium');
 
-      selectButton?.renderRoot.querySelector('button')?.click();
+      await select?.updateComplete;
+      select?.renderRoot.querySelector<HTMLButtonElement>('.clear-button')?.click();
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(filter.value).to.be.undefined;

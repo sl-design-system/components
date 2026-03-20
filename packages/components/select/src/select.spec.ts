@@ -276,8 +276,8 @@ describe('sl-select', () => {
       expect(el.validity.customError).to.be.true;
     });
 
-    it('should have aria-keyshortcuts on the button', () => {
-      expect(button).to.have.attribute('aria-keyshortcuts', 'Delete Backspace');
+    it('should not have aria-keyshortcuts when not clearable', () => {
+      expect(button).not.to.have.attribute('aria-keyshortcuts');
     });
 
     it('should restore tabindex to 0 when disabled is toggled back to false', async () => {
@@ -1122,6 +1122,25 @@ describe('sl-select', () => {
 
     it('should have a clear button', () => {
       expect(clearButton).to.exist;
+    });
+
+    it('should have aria-keyshortcuts on the button when clearable with a selected value', () => {
+      expect(button).to.have.attribute('aria-keyshortcuts', 'Delete Backspace');
+    });
+
+    it('should not have aria-keyshortcuts after clearing the value', async () => {
+      clearButton.focus();
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+
+      expect(button).not.to.have.attribute('aria-keyshortcuts');
+    });
+
+    it('should not have aria-keyshortcuts when disabled', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      expect(button).not.to.have.attribute('aria-keyshortcuts');
     });
 
     it('should have tabindex 0 on the clear button', () => {

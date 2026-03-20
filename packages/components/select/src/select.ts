@@ -12,7 +12,12 @@ import {
   event,
   isPopoverOpen
 } from '@sl-design-system/shared';
-import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
+import {
+  type SlBlurEvent,
+  type SlChangeEvent,
+  type SlClearEvent,
+  type SlFocusEvent
+} from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
 import { SelectButton } from './select-button.js';
@@ -129,6 +134,9 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
   /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<T | undefined>>;
+
+  /** @internal Emits when the value is cleared. */
+  @event({ name: 'sl-clear' }) clearEvent!: EventEmitter<SlClearEvent>;
 
   /** Will display a clear button when an option is selected. */
   @property({ type: Boolean, reflect: true }) clearable?: boolean;
@@ -445,6 +453,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     }
 
     this.#onClear();
+    this.clearEvent.emit();
     this.button.focus();
   }
 

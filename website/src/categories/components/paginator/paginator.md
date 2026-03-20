@@ -10,6 +10,6 @@ storybookCategory: navigation
 eleventyNavigation:
   parent: Components
   key: Paginator
-  status: new
+  status: ready
 ---
 

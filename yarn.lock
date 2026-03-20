@@ -6262,9 +6262,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/vitest-browser-lit@workspace:tools/vitest-browser-lit"
   dependencies:
-    "@vitest/browser": "npm:^4.1.0"
+    "@vitest/browser": "npm:^4.0.17"
     lit: "npm:^3.3.2"
-    vitest: "npm:^4.1.0"
+    vitest: "npm:^4.0.17"
   peerDependencies:
     "@vitest/browser": ">=2.1.0"
     lit: ">3.0.0"
@@ -7672,7 +7672,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitest/browser@npm:^4.1.0":
+"@vitest/browser@npm:^4.0.17":
   version: 4.1.0
   resolution: "@vitest/browser@npm:4.1.0"
   dependencies:
@@ -24027,7 +24027,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vitest@npm:^4.1.0":
+"vitest@npm:^4.0.17":
   version: 4.1.0
   resolution: "vitest@npm:4.1.0"
   dependencies:

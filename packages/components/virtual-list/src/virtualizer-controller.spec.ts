@@ -54,6 +54,14 @@ describe('VirtualizerController', () => {
     host = await fixture<TestHost>(
       html`<test-host style="display: block; height: 320px; line-height: 32px; overflow: auto;"></test-host>`
     );
+
+    // Wait for the virtualizer to stabilize; items initially measure with
+    // offsetHeight 0 during Lit's commit phase and the ResizeObserver needs
+    // multiple animation frames to correct them.
+    for (let i = 0; i < 3; i++) {
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await host.updateComplete;
+    }
   });
 
   afterEach(() => {
@@ -68,7 +76,9 @@ describe('VirtualizerController', () => {
     expect(items.map(i => i.dataset['index'])).to.deep.equal(
       Array.from({ length: items.length }, (_, i) => i.toString())
     );
-    expect(items.map(i => i.textContent)).to.deep.equal(Array.from({ length: items.length }, (_, i) => `Index ${i}`));
+    expect(items.map(i => i.textContent?.trim())).to.deep.equal(
+      Array.from({ length: items.length }, (_, i) => `Index ${i}`)
+    );
   });
 
   it('should only render visible items plus overscan', () => {

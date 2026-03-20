@@ -34,14 +34,14 @@ export interface TimePart {
   minute: number;
 }
 
-const dateFormatCache: Record<string, DateFormatPart[]> = {},
-  dateUnitCache: Record<string, Record<string, string>> = {};
+const timeFormatCache: Record<string, DateFormatPart[]> = {},
+  timeUnitCache: Record<string, Record<string, string>> = {};
 
-/** Returns the date format parts for a given locale. */
-export function getDateFormat(locale: string, date?: Date): DateFormatPart[] {
+/** Returns the time format parts for a given locale. */
+export function getTimeFormat(locale: string, date?: Date): DateFormatPart[] {
   // Only cache when no date is provided
-  if (!date && dateFormatCache[locale]) {
-    return dateFormatCache[locale];
+  if (!date && timeFormatCache[locale]) {
+    return timeFormatCache[locale];
   }
 
   // To prevent the format changing from 2-digit to 1-digit hours/minutes
@@ -64,7 +64,7 @@ export function getDateFormat(locale: string, date?: Date): DateFormatPart[] {
   });
 
   if (!date) {
-    dateFormatCache[locale] = parts;
+    timeFormatCache[locale] = parts;
   }
 
   return parts;
@@ -93,8 +93,8 @@ export function getTimeUnitName(locale: string, unit: 'hour' | 'minute' | 'secon
 
 /** Returns the first letter of the localized unit name for hour, minute, and second. */
 function getTimeUnitLetters(locale: string): Record<'hours' | 'minutes' | 'seconds', string> {
-  if (dateUnitCache[locale]) {
-    return dateUnitCache[locale];
+  if (timeUnitCache[locale]) {
+    return timeUnitCache[locale];
   }
 
   const units: Record<'hours' | 'minutes' | 'seconds', string> = {
@@ -103,7 +103,7 @@ function getTimeUnitLetters(locale: string): Record<'hours' | 'minutes' | 'secon
     seconds: getTimeUnitName(locale, 'second').charAt(0)
   };
 
-  dateUnitCache[locale] = units;
+  timeUnitCache[locale] = units;
 
   return units;
 }
@@ -120,7 +120,7 @@ export function getTimeUnitLetter(locale: string, unit: 'hour' | 'minute' | 'sec
  * For example: 'HH:MM' for en-US.
  */
 export function getTimeTemplate(locale: string): string {
-  const parts = getDateFormat(locale),
+  const parts = getTimeFormat(locale),
     units = getTimeUnitLetters(locale);
 
   return parts

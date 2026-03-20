@@ -13,7 +13,7 @@ import {
   type DateFormatPart,
   type PartialTimePart,
   type TimePart,
-  getDateFormat,
+  getTimeFormat,
   getTimeUnitLetter,
   getTimeUnitName
 } from './utils.js';
@@ -272,6 +272,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
   }
 
+  /** @internal */
   override focus(): void {
     const selectAll = this.renderRoot.querySelector<HTMLElement>('.select-all');
 
@@ -281,11 +282,12 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     this.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')?.focus();
+    this.internals.states.add('has-focus');
   }
 
   override render(): TemplateResult {
     const locale = this.locale || 'default',
-      parts = getDateFormat(locale);
+      parts = getTimeFormat(locale);
 
     // Track time part index (non-literal parts only) to avoid recomputing in renderPart
     let timePartIndex = 0;
@@ -357,7 +359,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         >
           ${this.renderHours()}
         </ul>
-        <hr />
+        <hr aria-hidden="true" />
         <ul
           aria-label=${msg('Select minutes', { id: 'sl.timeField.selectMinutes' })}
           class="minutes"
@@ -373,7 +375,9 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** @internal */
   renderPart(part: DateFormatPart, locale: string, timePartIndex: number): TemplateResult {
     if (part.type === 'literal') {
-      return html`<span @pointerdown=${this.#onSeparatorPointerDown} class="separator">${part.value}</span>`;
+      return html`
+        <span @pointerdown=${this.#onSeparatorPointerDown} class="separator" aria-hidden="true">${part.value}</span>
+      `;
     }
 
     const partType = part.type as TimePartType,
@@ -437,6 +441,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         <li
           @click=${() => this.#onHourClick(hour)}
           @keydown=${(event: KeyboardEvent) => this.#onHourKeydown(event, hour)}
+          aria-label=${`${hour.toString()} ${msg(getTimeUnitName(this.locale || 'default', 'hour'), { id: 'sl.timeField.hourOptionLabel' })}`}
           aria-selected=${hour === this.#valueAsNumbers?.hour}
           role="option"
           tabindex=${index === 0 ? '0' : '-1'}
@@ -462,6 +467,9 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           @click=${() => this.#onMinuteClick(minute)}
           @keydown=${(event: KeyboardEvent) => this.#onMinuteKeydown(event, minute)}
           ?disabled=${isDisabled}
+          aria-label=${`${minute.toString()} ${msg(getTimeUnitName(this.locale || 'default', 'minute'), {
+            id: 'sl.timeField.minuteOptionLabel'
+          })}`}
           aria-selected=${minute === this.#valueAsNumbers?.minute && !isDisabled}
           role="option"
           tabindex=${ifDefined(isDisabled ? undefined : index === 0 ? '0' : '-1')}
@@ -534,6 +542,14 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       }
     }
 
+    if (!hasCompleteTime && (this.timeParts.hour !== undefined || this.timeParts.minute !== undefined)) {
+      this.internals.setValidity(
+        { badInput: true },
+        msg('Please enter a valid time.', { id: 'sl.timeField.typeMismatch' })
+      );
+      return;
+    }
+
     // Check for required field without value
     if (this.required && !this.value) {
       this.internals.setValidity(
@@ -580,7 +596,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** Returns the formatted time string for the select-all input. */
   #getFormattedValue(): string {
     const locale = this.locale || 'default',
-      parts = getDateFormat(locale);
+      parts = getTimeFormat(locale);
 
     return parts
       .map(part => {
@@ -811,6 +827,10 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     if (!isSpinbutton) {
       this.renderRoot.ownerDocument.getSelection()?.removeAllRanges();
     }
+
+    if (!this.selectAll) {
+      this.internals.states.delete('has-focus');
+    }
   }
 
   #onPartFocus(event: FocusEvent): void {
@@ -824,6 +844,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     this.#enteredDigits = 0;
+    this.internals.states.add('has-focus');
 
     // Workaround for WebKit changing the selection on focus.
     requestAnimationFrame(() => this.#selectContent(span));
@@ -834,7 +855,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     // Check if the pressed key is a separator character
     const locale = this.locale || 'default',
-      parts = getDateFormat(locale),
+      parts = getTimeFormat(locale),
       separators = parts.filter((p: DateFormatPart) => p.type === 'literal').map((p: DateFormatPart) => p.value);
 
     if (separators.includes(event.key)) {
@@ -847,6 +868,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       event.preventDefault();
 
       this.selectAll = true;
+      this.internals.states.add('has-focus');
 
       requestAnimationFrame(() => {
         const selectAll = this.renderRoot.querySelector<HTMLElement>('.select-all')!;
@@ -875,7 +897,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         requestAnimationFrame(() => this.#selectContent(span));
       }
 
-      this.#trySetValue();
+      this.#trySetValue(true);
       return;
     }
 
@@ -983,6 +1005,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   #exitSelectAll(refocus = false): void {
     this.selectAll = false;
+    this.internals.states.delete('has-focus');
 
     if (refocus) {
       requestAnimationFrame(() => {
@@ -1089,12 +1112,21 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     return totalMinutes1 - totalMinutes2;
   }
 
-  #trySetValue(): void {
+  #trySetValue(digit?: boolean): void {
     const { hour, minute } = this.timeParts,
       hadValue = this.value !== undefined;
 
+    console.log('trySetValue', { hour, minute, timeParts: this.timeParts, value: this.value });
+
     if (hour !== undefined && minute !== undefined) {
-      const constrainedMinutes = this.#getConstrainedMinutes(hour, minute);
+      let constrainedMinutes = this.#getConstrainedMinutes(hour, minute);
+
+      if (digit) {
+        // When typing digits, allow temporarily out-of-range values (e.g., "2" when hourStep is 4), but constrain them when applying the value to avoid unexpected jumps while typing. Validation will handle out-of-range values.
+        constrainedMinutes = Math.min(Math.max(minute, 0), 59); // Don't auto-constrain minutes on manual input, to avoid unexpected changes while typing. Validation will handle out-of-range values.
+      }
+
+      console.log('Setting value with hour and minute', { hour, minute, constrainedMinutes });
 
       this.#valueAsNumbers = { hour, minute: constrainedMinutes };
       this.#value = this.#formatTime(hour, constrainedMinutes);

@@ -3,7 +3,11 @@ import { Avatar } from '@sl-design-system/avatar';
 import { Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
-import { ArrayListDataSource } from '@sl-design-system/data-source';
+import {
+  ArrayListDataSource,
+  isListDataSourceDataItem,
+  isListDataSourceGroupItem
+} from '@sl-design-system/data-source';
 import { type Student, getStudents } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
@@ -117,13 +121,77 @@ export const Multiple: Story = {
 
 export const MultipleRow: Story = {
   render: (_, { loaded: { students } }) => {
+    let data = [...(students as Student[])];
+
+    const ds = new ArrayListDataSource(data);
+
+    const getSelectedIds = (): string[] => {
+      return ds.items
+        .filter(item => ds.isSelected(item))
+        .filter(item => isListDataSourceDataItem(item))
+        .map(item => item.data.id);
+    };
+
+    const onCopy = (): void => {
+      const ids = getSelectedIds();
+
+      data = data.flatMap(student => {
+        if (ids.includes(student.id)) {
+          const copy = {
+            ...student,
+            id: `${student.id}-copy`,
+            lastName: `${student.lastName} (copy)`,
+            fullName: `${student.firstName}${student.infix ? ` ${student.infix}` : ''} ${student.lastName} (copy)`
+          };
+
+          return [student, copy];
+        }
+
+        return [student];
+      });
+
+      ds.setData(data);
+      ds.update();
+    };
+
+    const onDelete = (): void => {
+      const ids = getSelectedIds();
+
+      data = data.filter(student => !ids.includes(student.id));
+
+      ds.setData(data);
+      ds.deselectAll();
+      ds.update();
+    };
+
+    const onUpdate = (): void => {
+      const ids = getSelectedIds();
+
+      data = data.map(student => {
+        if (ids.includes(student.id)) {
+          return { ...student, email: 'updated@example.com' };
+        }
+
+        return student;
+      });
+
+      ds.setData(data);
+      ds.update();
+    };
+
     return html`
       <p>
         This example shows how you can select multiple rows at a time, but not just by toggling the checkbox at the
         start of the row, but by clicking anywhere on the row. This is done by setting the
         <code>row-action</code> property to the <code>select</code> value.
       </p>
-      <sl-grid .items=${students} row-action="select">
+      <p>
+        This example also shows how you can perform bulk actions on the selected rows by using the floating tool-bar at
+        the bottom of the grid. The actions do not create a new data source, but instead update the existing data source
+        by calling <code>setData()</code> and <code>update()</code> to signal the grid the data has changed. This way,
+        you do not lose any state when the data changes.
+      </p>
+      <sl-grid .dataSource=${ds} row-action="select">
         <sl-grid-selection-column></sl-grid-selection-column>
         <sl-grid-column
           grow="3"
@@ -134,11 +202,12 @@ export const MultipleRow: Story = {
         <sl-grid-column path="email"></sl-grid-column>
 
         <!-- These get slotted into the floating tool-bar -->
-        <sl-button fill="outline" slot="bulk-actions" variant="inverted">
+        <sl-button @click=${onUpdate} fill="outline" slot="bulk-actions" variant="inverted">Update emails</sl-button>
+        <sl-button @click=${onCopy} fill="outline" slot="bulk-actions" variant="inverted">
           <sl-icon name="far-copy"></sl-icon>
           Duplicate
         </sl-button>
-        <sl-button fill="outline" slot="bulk-actions" variant="inverted">
+        <sl-button @click=${onDelete} fill="outline" slot="bulk-actions" variant="inverted">
           <sl-icon name="far-trash"></sl-icon>
           Delete
         </sl-button>
@@ -234,10 +303,25 @@ export const WithLinks: Story = {
 
 export const Grouped: Story = {
   render: (_, { loaded: { students } }) => {
-    const dataSource = new ArrayListDataSource(students as Student[], {
+    let data = students as Student[];
+
+    const ds = new ArrayListDataSource(data, {
       groupBy: 'school.id',
       groupLabelPath: 'school.name'
     });
+
+    const onDelete = (): void => {
+      const ids = ds.items
+        .filter(item => ds.isSelected(item))
+        .flatMap(item => (isListDataSourceGroupItem(item) ? (item.members ?? []) : [item]))
+        .map(item => item.data.id);
+
+      data = data.filter(student => !ids.includes(student.id));
+
+      ds.setData(data);
+      ds.deselectAll();
+      ds.update();
+    };
 
     return html`
       <p>
@@ -248,7 +332,7 @@ export const Grouped: Story = {
         them by using the floating tool-bar at the bottom of the grid. You can add bulk actions by using the
         <code>bulk-actions</code> slot.
       </p>
-      <sl-grid .dataSource=${dataSource}>
+      <sl-grid .dataSource=${ds}>
         <sl-grid-selection-column></sl-grid-selection-column>
         <sl-grid-column
           grow="3"
@@ -257,6 +341,12 @@ export const Grouped: Story = {
           .scopedElements=${{ 'sl-avatar': Avatar }}
         ></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>
+
+        <!-- These get slotted into the floating tool-bar -->
+        <sl-button @click=${onDelete} fill="outline" slot="bulk-actions" variant="inverted">
+          <sl-icon name="far-trash"></sl-icon>
+          Delete
+        </sl-button>
       </sl-grid>
     `;
   }

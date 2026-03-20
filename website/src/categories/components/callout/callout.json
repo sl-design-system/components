@@ -1,0 +1,11 @@
+{
+  "layout": "categories/components/components.njk",
+  "tags": "callout",
+  "componentStatus": "preview",
+  "componentTagName": [
+    {
+      "name": "Callout",
+      "selector": "sl-callout"
+    }
+  ]
+}

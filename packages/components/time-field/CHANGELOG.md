@@ -1,5 +1,26 @@
 # @sl-design-system/time-field
 
+## 0.1.0
+
+### Minor Changes
+
+- [#2955](https://github.com/sl-design-system/components/pull/2955) [`ed7376b`](https://github.com/sl-design-system/components/commit/ed7376b4aa21c5df7d50119d839000abbab1cbcf) - Fix `time-field` to work properly with `min` and/or `max` constraints. Disable minutes that are out of range.
+
+### Patch Changes
+
+- [#3055](https://github.com/sl-design-system/components/pull/3055) [`5616832`](https://github.com/sl-design-system/components/commit/561683221a54010ff326b449468769597e22fb10) - Improved label for dropdown toggle button
+
+- [#3061](https://github.com/sl-design-system/components/pull/3061) [`be0e099`](https://github.com/sl-design-system/components/commit/be0e0996c91a261fd8de5f8701d084268929fc17) - Accessibility improvements - fix focus management when the time picker dialog closes: the dialog now properly closes when focus leaves the component, Tab moves focus to the next focusable element outside the component, Shift+Tab moves focus to the clock button, and Escape or selecting a value restores focus to the text field.
+
+- [#3091](https://github.com/sl-design-system/components/pull/3091) [`ddf0175`](https://github.com/sl-design-system/components/commit/ddf0175ec6f60add915c485e45c77511cf4c4664) - Change color token to --sl-color-foreground-plain in the timefield's dialog
+
+- [#2954](https://github.com/sl-design-system/components/pull/2954) [`49eab13`](https://github.com/sl-design-system/components/commit/49eab1323d08cb12f995d20845391009cdb4217d) - Propagate `lang` attribute to the internal input element to improve screen reader accessibility for localized time formats.
+
+- Updated dependencies [[`330e06f`](https://github.com/sl-design-system/components/commit/330e06ff36c7a5c96cf313b60a5013d6307477c7), [`ed7376b`](https://github.com/sl-design-system/components/commit/ed7376b4aa21c5df7d50119d839000abbab1cbcf), [`ae8b9da`](https://github.com/sl-design-system/components/commit/ae8b9da97d3e5adc0a9ecb8feabec67699893bcc)]:
+  - @sl-design-system/icon@1.4.2
+  - @sl-design-system/form@1.3.5
+  - @sl-design-system/text-field@1.6.8
+
 ## 0.0.2
 
 ### Patch Changes

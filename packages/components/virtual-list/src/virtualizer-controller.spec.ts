@@ -1,7 +1,7 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { ref } from 'lit/directives/ref.js';
+import { type RefOrCallback, ref } from 'lit/directives/ref.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { VirtualizerController } from './virtualizer-controller.js';
@@ -34,7 +34,9 @@ class TestHost extends LitElement {
             virtualItems,
             virtualItem => virtualItem.key,
             virtualItem => html`
-              <div data-index=${virtualItem.index} ${ref(virtualizer.measureElement)}>Index ${virtualItem.index}</div>
+              <div data-index=${virtualItem.index} ${ref(virtualizer.measureElement as RefOrCallback<Element>)}>
+                Index ${virtualItem.index}
+              </div>
             `
           )}
         </div>

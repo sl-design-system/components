@@ -91,7 +91,9 @@ export const Errors: Story = {
   render: () => {
     return html`
       <p>
-        When the 'pressed' icon is not set you will get an error in the console and the button will not look correct
+        When the 'pressed' icon is not set you will get an error in the console and the button will not look correct.
+        <strong>Note:</strong> these errors (button turning red and console errors) only show up when running on
+        localhost / in development mode.
       </p>
       <sl-toggle-button aria-label="Show settings" fill="outline">
         <sl-icon name="pinata" slot="default"></sl-icon>

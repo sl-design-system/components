@@ -301,8 +301,11 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
                   @blur=${this.#onSelectAllBlur}
                   @keydown=${this.#onSelectAllKeydown}
                   @mousedown=${this.#onSelectAllMouseDown}
+                  @beforeinput=${(event: InputEvent) => event.preventDefault()}
+                  @paste=${(event: ClipboardEvent) => event.preventDefault()}
+                  @drop=${(event: DragEvent) => event.preventDefault()}
                   class="select-all"
-                  contenteditable="true"
+                  contenteditable="plaintext-only"
                 >
                   ${this.#getFormattedValue()}
                 </span>
@@ -441,7 +444,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         <li
           @click=${() => this.#onHourClick(hour)}
           @keydown=${(event: KeyboardEvent) => this.#onHourKeydown(event, hour)}
-          aria-label=${`${hour.toString()} ${msg(getTimeUnitName(this.locale || 'default', 'hour'), { id: 'sl.timeField.hourOptionLabel' })}`}
+          aria-label=${`${hour.toString()} ${getTimeUnitName(this.locale || 'default', 'hour')}`}
           aria-selected=${hour === this.#valueAsNumbers?.hour}
           role="option"
           tabindex=${index === 0 ? '0' : '-1'}
@@ -467,9 +470,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           @click=${() => this.#onMinuteClick(minute)}
           @keydown=${(event: KeyboardEvent) => this.#onMinuteKeydown(event, minute)}
           ?disabled=${isDisabled}
-          aria-label=${`${minute.toString()} ${msg(getTimeUnitName(this.locale || 'default', 'minute'), {
-            id: 'sl.timeField.minuteOptionLabel'
-          })}`}
+          aria-label=${`${minute.toString()} ${getTimeUnitName(this.locale || 'default', 'minute')}`}
           aria-selected=${minute === this.#valueAsNumbers?.minute && !isDisabled}
           role="option"
           tabindex=${ifDefined(isDisabled ? undefined : index === 0 ? '0' : '-1')}
@@ -1116,8 +1117,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     const { hour, minute } = this.timeParts,
       hadValue = this.value !== undefined;
 
-    console.log('trySetValue', { hour, minute, timeParts: this.timeParts, value: this.value });
-
     if (hour !== undefined && minute !== undefined) {
       let constrainedMinutes = this.#getConstrainedMinutes(hour, minute);
 
@@ -1125,8 +1124,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         // When typing digits, allow temporarily out-of-range values (e.g., "2" when hourStep is 4), but constrain them when applying the value to avoid unexpected jumps while typing. Validation will handle out-of-range values.
         constrainedMinutes = Math.min(Math.max(minute, 0), 59); // Don't auto-constrain minutes on manual input, to avoid unexpected changes while typing. Validation will handle out-of-range values.
       }
-
-      console.log('Setting value with hour and minute', { hour, minute, constrainedMinutes });
 
       this.#valueAsNumbers = { hour, minute: constrainedMinutes };
       this.#value = this.#formatTime(hour, constrainedMinutes);

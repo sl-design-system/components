@@ -17,13 +17,12 @@
   display: inline-grid;
   font: inherit;
   inline-size: calc(1lh + (var(--sl-size-100) - var(--sl-size-borderWidth-default)) * 2);
-  inset-block-start: 50%;
+  inset-block: 0;
   inset-inline-end: calc(var(--sl-size-150) + var(--sl-size-100) + var(--sl-size-200));
   justify-content: center;
+  margin-block: auto;
   padding: 0;
   position: absolute;
-  transform: translateY(-50%);
-  z-index: 1;
 
   &:focus-visible {
     outline: var(--sl-color-border-focused) solid var(--sl-size-borderWidth-focusRing);

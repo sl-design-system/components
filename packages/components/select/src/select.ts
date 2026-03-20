@@ -214,7 +214,6 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
       this.button.tabIndex = this.disabled ? -1 : 0;
       this.button.setAttribute('aria-expanded', 'false');
       this.button.setAttribute('aria-haspopup', 'listbox');
-      this.button.setAttribute('aria-keyshortcuts', 'Delete Backspace');
       this.prepend(this.button);
     }
 
@@ -249,11 +248,13 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
     if (changes.has('clearable')) {
       this.button.clearable = this.clearable;
+      this.#updateAriaKeyShortcuts();
     }
 
     if (changes.has('disabled')) {
       this.button.disabled = this.disabled;
       this.button.tabIndex = this.disabled ? -1 : 0;
+      this.#updateAriaKeyShortcuts();
     }
 
     if (changes.has('placeholder')) {
@@ -676,6 +677,15 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     }
 
     this.#updateValueAndValidity();
+    this.#updateAriaKeyShortcuts();
+  }
+
+  #updateAriaKeyShortcuts(): void {
+    if (this.clearable && !this.disabled && this.selectedOption) {
+      this.button.setAttribute('aria-keyshortcuts', 'Delete Backspace');
+    } else {
+      this.button.removeAttribute('aria-keyshortcuts');
+    }
   }
 
   #updateValueAndValidity(): void {

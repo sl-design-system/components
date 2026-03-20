@@ -8,23 +8,21 @@
 .clear-button {
   align-items: center;
   appearance: none;
-  aspect-ratio: 1;
   background: transparent;
-  block-size: 100%;
+  block-size: calc(1lh + (var(--sl-size-100) - var(--sl-size-borderWidth-default)) * 2);
   border: 0;
-  border-inline-end: var(--sl-size-borderWidth-default) solid var(--sl-color-border-neutral-subtle);
   border-radius: var(--sl-size-borderRadius-default);
   box-sizing: border-box;
   cursor: pointer;
   display: inline-grid;
   font: inherit;
-  inset-block-start: 0;
-  inset-inline-end: calc(
-    var(--sl-size-150) - var(--sl-size-borderWidth-default) + var(--sl-size-200) + var(--sl-size-050)
-  );
+  inline-size: calc(1lh + (var(--sl-size-100) - var(--sl-size-borderWidth-default)) * 2);
+  inset-block-start: 50%;
+  inset-inline-end: calc(var(--sl-size-150) + var(--sl-size-100) + var(--sl-size-200));
   justify-content: center;
   padding: 0;
   position: absolute;
+  transform: translateY(-50%);
   z-index: 1;
 
   &:focus-visible {
@@ -67,9 +65,9 @@
 }
 
 :host([size='lg']) .clear-button {
-  inset-inline-end: calc(
-    var(--sl-size-200) - var(--sl-size-borderWidth-default) + var(--sl-size-200) + var(--sl-size-050)
-  );
+  block-size: calc(1lh + (var(--sl-size-175) - var(--sl-size-borderWidth-default)) * 2);
+  inline-size: calc(1lh + (var(--sl-size-175) - var(--sl-size-borderWidth-default)) * 2);
+  inset-inline-end: calc(var(--sl-size-200) + var(--sl-size-100) + var(--sl-size-200));
 }
 
 sl-listbox {

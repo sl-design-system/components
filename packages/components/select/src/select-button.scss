@@ -74,9 +74,9 @@
 
 :host([clearable]) {
   .status {
-    margin-inline-start: calc(
-      var(--sl-size-200) + var(--sl-size-050) + var(--sl-size-borderWidth-default) + var(--sl-size-050)
-    );
+    border-inline-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-neutral-subtle);
+    margin-inline-start: 0;
+    padding-inline-start: calc(var(--sl-size-100) - var(--sl-size-borderWidth-default));
   }
 }
 

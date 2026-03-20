@@ -1,5 +1,7 @@
+import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
+import { Icon } from '@sl-design-system/icon';
 import { Option } from '@sl-design-system/listbox';
 import '@sl-design-system/listbox/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
@@ -974,6 +976,54 @@ describe('sl-select', () => {
 
       container = button.querySelector('[slot="selected-content"]');
       expect(container).to.have.trimmed.text('Updated');
+    });
+
+    it('should upgrade any cloned custom elements of the selected option', async () => {
+      class ScopedSelectWrapper extends ScopedElementsMixin(LitElement) {
+        static get scopedElements(): ScopedElementsMap {
+          return {
+            'sl-icon': Icon,
+            'sl-option': Option,
+            'sl-select': Select
+          };
+        }
+
+        override render(): TemplateResult {
+          return html`
+            <sl-select>
+              <sl-option value="1" label="Option 1">
+                <sl-icon name="far-star"></sl-icon>
+                Option 1
+              </sl-option>
+              <sl-option value="2" label="Option 2">Option 2</sl-option>
+            </sl-select>
+          `;
+        }
+      }
+
+      try {
+        customElements.define('scoped-select-wrapper', ScopedSelectWrapper);
+      } catch {
+        // empty
+      }
+
+      // Ensure the test is set up correctly and the icon is not registered globally
+      expect(window.customElements.get('sl-icon')).to.be.undefined;
+
+      const wrapper = await fixture<ScopedSelectWrapper>(html`<scoped-select-wrapper></scoped-select-wrapper>`);
+
+      el = wrapper.renderRoot.querySelector('sl-select')!;
+      button = el.querySelector('sl-select-button')!;
+
+      el.value = '1';
+      await el.updateComplete;
+
+      const container = button.querySelector('[slot="selected-content"]');
+      expect(container).to.exist;
+
+      const icon = container!.querySelector('sl-icon');
+      expect(icon).to.exist;
+      expect(icon?.shadowRoot).not.to.be.null;
     });
   });
 

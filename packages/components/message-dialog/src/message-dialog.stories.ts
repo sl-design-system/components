@@ -15,6 +15,9 @@ type Story = StoryObj<Props>;
 export default {
   title: 'Overlay/Message dialog',
   tags: ['preview'],
+  globals: {
+    viewport: undefined
+  },
   parameters: {
     // Disables Chromatic's snapshotting on a story level
     chromatic: { disableSnapshot: true }

@@ -1,6 +1,6 @@
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { ref } from 'lit/directives/ref.js';
+import { type RefOrCallback, ref } from 'lit/directives/ref.js';
 import { repeat } from 'lit/directives/repeat.js';
 import styles from './virtual-list.scss.js';
 import { VirtualizerController } from './virtualizer-controller.js';
@@ -92,7 +92,11 @@ export class VirtualList<T = any> extends LitElement {
               const item = this.items[virtualItem.index];
 
               return html`
-                <div part="item" data-index=${virtualItem.index} ${ref(virtualizer.measureElement)}>
+                <div
+                  part="item"
+                  data-index=${virtualItem.index}
+                  ${ref(virtualizer.measureElement as RefOrCallback<Element>)}
+                >
                   ${this.renderItem ? this.renderItem(item, virtualItem.index) : item}
                 </div>
               `;

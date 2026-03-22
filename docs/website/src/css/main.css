@@ -1,3 +1,7 @@
+@view-transition {
+  navigation: auto;
+}
+
 html {
   background: var(--sl-elevation-surface-base-default);
   color: var(--sl-color-foreground-plain);
@@ -16,12 +20,14 @@ body {
     'sidebar'
     'content'
     'toc';
-  grid-template-columns: 1fr;
   min-block-size: 100dvh;
-}
 
-@media (width >= 1024px) {
-  .site-layout {
+  @media (width >= 640px) {
+    grid-template-areas: 'sidebar content';
+    grid-template-columns: 280px 1fr;
+  }
+
+  @media (width >= 1024px) {
     grid-template-areas: 'sidebar content toc';
     grid-template-columns: 280px 1fr 220px;
   }

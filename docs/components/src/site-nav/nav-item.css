@@ -1,19 +1,17 @@
 /* stylelint-disable custom-property-pattern */
 
 :host {
-  --_bg: transparent;
-  --_bg-mix: transparent;
-  --_bg-opacity: 0;
-  --_color: var(--sl-color-foreground-plain);
-  --_font-weight: inherit;
+  --_bg-color: transparent;
+  --_bg-mix-color: var(--sl-color-background-neutral-interactive-plain);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
   --nav-indent: var(--sl-size-200);
 
+  color: var(--sl-color-foreground-plain);
   display: block;
   outline: none;
 }
 
 :host(:hover) {
-  --_bg-mix: var(--sl-color-background-accent-grey-subtlest);
   --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
 }
 
@@ -22,24 +20,14 @@
 }
 
 :host([aria-current='page']) {
-  --_bg: var(--sl-color-background-selected-subtlest);
-  --_bg-mix: var(--sl-color-background-selected-subtlest);
-  --_bg-opacity: 0;
-  --_color: var(--sl-color-foreground-accent-blue-bold);
-  --_font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
-}
+  --_bg-color: var(--sl-color-background-selected-subtlest);
+  --_bg-mix-color: var(--sl-color-background-selected-interactive-plain);
 
-:host([aria-current='page']:hover) {
-  --_bg-mix: var(--sl-color-background-selected-bold);
-  --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
-}
-
-:host([aria-current='page']:active) {
-  --_bg-opacity: var(--sl-opacity-interactive-plain-active);
+  color: var(--sl-color-foreground-accent-blue-bold);
 }
 
 :host(:focus-visible) summary,
-:host(:focus-visible) .leaf {
+:host(:focus-visible) a {
   outline: var(--sl-size-borderWidth-focusRing) solid var(--sl-color-border-focused);
   outline-offset: calc(var(--sl-size-borderWidth-focusRing) * -1);
 }
@@ -52,7 +40,7 @@ summary {
   align-items: center;
   background: color-mix(in srgb, var(--_bg), var(--_bg-mix) calc(100% * var(--_bg-opacity)));
   border-radius: var(--sl-size-borderRadius-md);
-  color: var(--_color);
+  color: inherit;
   cursor: pointer;
   display: flex;
   font-weight: var(--_font-weight);
@@ -61,29 +49,29 @@ summary {
   padding-block: var(--sl-size-075);
   padding-inline: calc(var(--sl-size-100) + var(--nav-level, 0) * var(--nav-indent)) var(--sl-size-100);
   position: relative;
-}
 
-summary::-webkit-details-marker {
-  display: none;
-}
+  &::-webkit-details-marker {
+    display: none;
+  }
 
-summary a {
-  color: inherit;
-  flex: 1;
-  text-decoration: none;
-}
+  a {
+    color: inherit;
+    flex: 1;
+    text-decoration: none;
+  }
 
-summary .label {
-  flex: 1;
+  .label {
+    flex: 1;
+  }
 }
 
 .active {
   background: var(--sl-color-background-selected-bold);
   block-size: var(--sl-size-300);
   border-radius: var(--sl-size-150);
-  inline-size: var(--sl-size-050);
+  inline-size: calc(var(--sl-size-075) - var(--sl-size-010));
   inset-block-start: 50%;
-  inset-inline-start: calc(-1 * (var(--sl-size-050) + var(--sl-size-050)));
+  inset-inline-start: calc(-1 * (var(--sl-size-125) - var(--sl-size-010)));
   position: absolute;
   translate: 0 -50%;
 }
@@ -103,29 +91,26 @@ details[open] > summary .chevron {
 
 details[open] > slot {
   border-inline-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-025);
   margin-inline-start: calc(var(--sl-size-100) + var(--nav-level, 0) * var(--nav-indent) + 0.5em);
+  padding-inline-start: var(--sl-size-075);
 }
 
-.leaf {
+a {
   align-items: center;
-  background: color-mix(in srgb, var(--_bg), var(--_bg-mix) calc(100% * var(--_bg-opacity)));
-  border-radius: var(--sl-size-borderRadius-md);
-  color: var(--_color);
+  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  border-radius: var(--sl-size-borderRadius-default);
+  color: inherit;
   display: flex;
-  font-weight: var(--_font-weight);
   gap: var(--sl-size-100);
   padding-block: var(--sl-size-075);
   padding-inline: calc(var(--sl-size-100) + var(--nav-level, 0) * var(--nav-indent)) var(--sl-size-100);
   position: relative;
   text-decoration: none;
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  :host(:where(:active, :focus-visible, :hover)) summary,
-  :host(:where(:active, :focus-visible, :hover)) .leaf {
-    transition-duration: var(--sl-animation-button-duration);
-    transition-property: background, color;
-    transition-timing-function: var(--sl-animation-button-easing);
+  @media (prefers-reduced-motion: no-preference) {
+    transition: background 200ms ease-in-out;
   }
 }

@@ -97,7 +97,7 @@ export class NavItem extends ScopedElementsMixin(LitElement) {
     }
 
     return html`
-      <a href=${ifDefined(this.href)} class="leaf" tabindex="-1">
+      <a href=${ifDefined(this.href)} tabindex="-1">
         ${this.active ? html`<span class="active"></span>` : nothing}
         ${this.icon ? html`<sl-icon name=${this.icon}></sl-icon>` : nothing} ${this.heading}
       </a>

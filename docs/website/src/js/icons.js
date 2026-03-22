@@ -1,5 +1,5 @@
 // Auto-generated from page frontmatter icons
-import { faBook, faCircleQuestion, faRocket } from '@fortawesome/pro-regular-svg-icons';
+import { faBorderAll, faPalette, faBook, faCircleQuestion, faBolt, faInputPipe, faTableCells, faTableLayout, faCompass, faLayerGroup, faAlarmClock, faWrench, faRocket } from '@fortawesome/pro-regular-svg-icons';
 import { Icon } from '@sl-design-system/icon';
 
-Icon.register(faBook, faCircleQuestion, faRocket);
+Icon.register(faBorderAll, faPalette, faBook, faCircleQuestion, faBolt, faInputPipe, faTableCells, faTableLayout, faCompass, faLayerGroup, faAlarmClock, faWrench, faRocket);

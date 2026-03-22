@@ -49,7 +49,7 @@ doc-site-nav {
 footer {
   align-items: center;
   /* stylelint-disable-next-line custom-property-pattern */
-  border-block-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-default);
+  border-block-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
   display: flex;
   justify-content: space-between;
   padding: var(--sl-size-200) var(--sl-size-300);
@@ -66,6 +66,6 @@ footer {
   }
 
   sl-icon {
-    font-size: var(--sl-size-300);
+    inline-size: var(--sl-size-300);
   }
 }

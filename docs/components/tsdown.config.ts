@@ -10,8 +10,8 @@ const cssPlugin = {
     // Check if this is a CSS import with type: 'css' attribute
     const cssImportRegex = /import\s+(\w+)\s+from\s+['"]([^'"]+\.css)['"]\s+with\s+\{\s*type:\s*['"]css['"]\s*\}/g;
 
-    let transformedCode = code;
-    let hasTransformations = false;
+    let transformedCode = code,
+      hasTransformations = false;
 
     transformedCode = transformedCode.replace(cssImportRegex, (match, varName, cssPath) => {
       hasTransformations = true;
@@ -21,6 +21,8 @@ const cssPlugin = {
 
       try {
         const cssContent = readFileSync(resolvedPath, 'utf-8');
+
+        this.addWatchFile(resolvedPath); // Watch the CSS file for changes
 
         // Create a CSSStyleSheet with the CSS content
         return `

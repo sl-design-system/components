@@ -27,18 +27,16 @@ export class Sidebar extends ScopedElementsMixin(LitElement) {
     return html`
       <header>
         <a href="/" aria-label="SL Design System">
-          <img class="logo-light" src="/assets/logo-black.svg" alt="SL Design System" width="179" height="32">
-          <img class="logo-dark" src="/assets/logo.svg" alt="SL Design System" width="179" height="32">
+          <img class="logo-light" src="/assets/logo-black.svg" alt="SL Design System" width="179" height="32" />
+          <img class="logo-dark" src="/assets/logo.svg" alt="SL Design System" width="179" height="32" />
         </a>
       </header>
 
       <doc-search></doc-search>
 
-      <div class="body">
-        <doc-site-nav>
-          <slot></slot>
-        </doc-site-nav>
-      </div>
+      <doc-site-nav>
+        <slot></slot>
+      </doc-site-nav>
 
       <footer>
         <a href="https://github.com/sl-design-system/components" target="_blank" rel="noopener noreferrer">

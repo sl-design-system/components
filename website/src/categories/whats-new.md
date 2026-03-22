@@ -20,6 +20,53 @@ eleventyNavigation:
 <section>
 
 ## SL Design System Update
+<small>February - March 2026</small>
+
+Here's an update on what we've been working on recently:
+
+### Component Status Updates
+- **Callout** has been promoted from `draft` to `preview`. <ds-status status="preview"></ds-status>
+
+### New Features
+- **Angular** includes a new `DateFieldDirective` for `<sl-date-field>` and a `MessageDialogService` for programmatically opening and managing message dialogs.
+- **Button Bar** exposes new `:state(icon-only)` and `:state(empty)` pseudo-classes for custom styling. <ds-status status="stable"></ds-status>
+- **Callout** has improved color contrast when using links in the body and updated `variant` values to match other components. <ds-status status="preview"></ds-status>
+- **Data Source** has a new `setData()` method on `ArrayListDataSource` for updating data without losing state (e.g. selection).
+- **Date Field** uses separate `spinbutton` inputs for each date part for better accessibility, supports keyboard entry for any locale, and adds a new `requireConfirmation` prop for the calendar popover. <ds-status status="stable"></ds-status>
+- **Menu** has improved keyboard navigation and focus management, including proper submenu Escape behavior, initial focus on open, and closing menus when focus leaves. <ds-status status="preview"></ds-status>
+- **Time Field** has improved `min` and `max` constraint handling, disabling out-of-range minutes in the picker. <ds-status status="draft"></ds-status>
+
+### Bug Fixes & Improvements
+We have been working on a lot of bug fixes, the details can be found on our [release notes page](https://github.com/sl-design-system/components/blob/main/RELEASE_NOTES.md). The following components have one or more issues resolved:
+- [`breadcrumbs`](https://github.com/sl-design-system/components/blob/main/packages/components/breadcrumbs/CHANGELOG.md)
+- [`button`](https://github.com/sl-design-system/components/blob/main/packages/components/button/CHANGELOG.md)
+- [`calendar`](https://github.com/sl-design-system/components/blob/main/packages/components/calendar/CHANGELOG.md)
+- [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md)
+- [`date-field`](https://github.com/sl-design-system/components/blob/main/packages/components/date-field/CHANGELOG.md)
+- [`form`](https://github.com/sl-design-system/components/blob/main/packages/components/form/CHANGELOG.md)
+- [`grid`](https://github.com/sl-design-system/components/blob/main/packages/components/grid/CHANGELOG.md)
+- [`icon`](https://github.com/sl-design-system/components/blob/main/packages/components/icon/CHANGELOG.md)
+- [`menu`](https://github.com/sl-design-system/components/blob/main/packages/components/menu/CHANGELOG.md)
+- [`search-field`](https://github.com/sl-design-system/components/blob/main/packages/components/search-field/CHANGELOG.md)
+- [`select`](https://github.com/sl-design-system/components/blob/main/packages/components/select/CHANGELOG.md)
+- [`tabs`](https://github.com/sl-design-system/components/blob/main/packages/components/tabs/CHANGELOG.md)
+- [`time-field`](https://github.com/sl-design-system/components/blob/main/packages/components/time-field/CHANGELOG.md)
+- [`tool-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/tool-bar/CHANGELOG.md)
+- [`tooltip`](https://github.com/sl-design-system/components/blob/main/packages/components/tooltip/CHANGELOG.md)
+- [`tree`](https://github.com/sl-design-system/components/blob/main/packages/components/tree/CHANGELOG.md)
+
+### Theme Updates
+- All themes have been updated with new tokens (`icon.2xs`, `color.background.highlight`, `elevation.surface.raised.primary`), improved form input interactive backgrounds for better state contrast, new caret icons aligned with the Font Awesome 7 strategy, and link color overrides in `global.css`.
+- [Magister](https://github.com/sl-design-system/components/blob/main/packages/themes/magister/CHANGELOG.md) has new values for `color.palette.orange` and `color.palette.grey`, with adjusted tokens that depend on them. Additional color token adjustments for grey backgrounds and neutral foreground.
+- [Sanoma Learning](https://github.com/sl-design-system/components/blob/main/packages/themes/sanoma-learning/CHANGELOG.md) has changed `color-foreground-disabled` and `background-foreground-accent-grey-subtlest` tokens.
+
+### Documentation Updates
+- [Callout](/categories/components/callout/) - New documentation added with usage guidelines, accessibility information and code examples.
+
+</section>
+<section>
+
+## SL Design System Update
 <small>January 2026</small>
 
 Here’s an update on what we’ve been working on recently:

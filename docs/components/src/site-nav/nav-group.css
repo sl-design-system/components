@@ -1,0 +1,17 @@
+:host {
+  display: block;
+}
+
+:host(:not(:first-of-type)) {
+  margin-block-start: var(--sl-size-300);
+}
+
+h2 {
+  color: var(--sl-color-foreground-plain);
+  font: var(--sl-text-new-body-sm);
+  font-family: Roboto, var(--sl-text-new-typeset-fontFamily-body), sans-serif;
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+  margin: 0;
+  padding-block: var(--sl-size-075);
+  padding-inline: var(--sl-size-100);
+}

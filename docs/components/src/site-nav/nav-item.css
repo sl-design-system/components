@@ -1,0 +1,131 @@
+/* stylelint-disable custom-property-pattern */
+
+:host {
+  --_bg: transparent;
+  --_bg-mix: transparent;
+  --_bg-opacity: 0;
+  --_color: var(--sl-color-foreground-plain);
+  --_font-weight: inherit;
+  --nav-indent: var(--sl-size-200);
+
+  display: block;
+  outline: none;
+}
+
+:host(:hover) {
+  --_bg-mix: var(--sl-color-background-accent-grey-subtlest);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
+}
+
+:host(:active) {
+  --_bg-opacity: var(--sl-opacity-interactive-plain-active);
+}
+
+:host([aria-current='page']) {
+  --_bg: var(--sl-color-background-selected-subtlest);
+  --_bg-mix: var(--sl-color-background-selected-subtlest);
+  --_bg-opacity: 0;
+  --_color: var(--sl-color-foreground-accent-blue-bold);
+  --_font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+}
+
+:host([aria-current='page']:hover) {
+  --_bg-mix: var(--sl-color-background-selected-bold);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
+}
+
+:host([aria-current='page']:active) {
+  --_bg-opacity: var(--sl-opacity-interactive-plain-active);
+}
+
+:host(:focus-visible) summary,
+:host(:focus-visible) .leaf {
+  outline: var(--sl-size-borderWidth-focusRing) solid var(--sl-color-border-focused);
+  outline-offset: calc(var(--sl-size-borderWidth-focusRing) * -1);
+}
+
+details {
+  border: none;
+}
+
+summary {
+  align-items: center;
+  background: color-mix(in srgb, var(--_bg), var(--_bg-mix) calc(100% * var(--_bg-opacity)));
+  border-radius: var(--sl-size-borderRadius-md);
+  color: var(--_color);
+  cursor: pointer;
+  display: flex;
+  font-weight: var(--_font-weight);
+  gap: var(--sl-size-100);
+  list-style: none;
+  padding-block: var(--sl-size-075);
+  padding-inline: calc(var(--sl-size-100) + var(--nav-level, 0) * var(--nav-indent)) var(--sl-size-100);
+  position: relative;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary a {
+  color: inherit;
+  flex: 1;
+  text-decoration: none;
+}
+
+summary .label {
+  flex: 1;
+}
+
+.active {
+  background: var(--sl-color-background-selected-bold);
+  block-size: var(--sl-size-300);
+  border-radius: var(--sl-size-150);
+  inline-size: var(--sl-size-050);
+  inset-block-start: 50%;
+  inset-inline-start: calc(-1 * (var(--sl-size-050) + var(--sl-size-050)));
+  position: absolute;
+  translate: 0 -50%;
+}
+
+:host([data-level='0']) .active {
+  display: none;
+}
+
+.chevron {
+  margin-inline-start: auto;
+  transition: transform 0.15s ease;
+}
+
+details[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+details[open] > slot {
+  border-inline-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+  display: block;
+  margin-inline-start: calc(var(--sl-size-100) + var(--nav-level, 0) * var(--nav-indent) + 0.5em);
+}
+
+.leaf {
+  align-items: center;
+  background: color-mix(in srgb, var(--_bg), var(--_bg-mix) calc(100% * var(--_bg-opacity)));
+  border-radius: var(--sl-size-borderRadius-md);
+  color: var(--_color);
+  display: flex;
+  font-weight: var(--_font-weight);
+  gap: var(--sl-size-100);
+  padding-block: var(--sl-size-075);
+  padding-inline: calc(var(--sl-size-100) + var(--nav-level, 0) * var(--nav-indent)) var(--sl-size-100);
+  position: relative;
+  text-decoration: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :host(:where(:active, :focus-visible, :hover)) summary,
+  :host(:where(:active, :focus-visible, :hover)) .leaf {
+    transition-duration: var(--sl-animation-button-duration);
+    transition-property: background, color;
+    transition-timing-function: var(--sl-animation-button-easing);
+  }
+}

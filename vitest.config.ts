@@ -47,6 +47,30 @@ export default defineConfig({
           },
           setupFiles: 'vitest.setup.ts'
         }
+      },
+      {
+        extends: true,
+        test: {
+          name: 'docs',
+          include: ['docs/components/**/*.spec.ts'],
+          browser: {
+            enabled: true,
+            headless: true,
+            provider: playwright({
+              contextOptions: {
+                locale: 'en',
+                reducedMotion: 'reduce'
+              }
+            }),
+            instances: [
+              {
+                browser: 'chromium'
+              }
+            ],
+            viewport: { width: 1024, height: 768 }
+          },
+          setupFiles: 'vitest.setup.ts'
+        }
       }
     ]
   }

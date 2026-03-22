@@ -19,11 +19,13 @@ export default function (eleventyConfig) {
   });
 
   eleventyConfig.addPassthroughCopy({ 'src/css': 'css' });
+  eleventyConfig.addPassthroughCopy({ 'src/assets': 'assets' });
 
   eleventyConfig.addWatchTarget('../components/dist/**/*.(css|js)');
 
   eleventyConfig.addPassthroughCopy({
     [join(themePath, 'light.css')]: 'theme/light.css',
+    [join(themePath, 'dark.css')]: 'theme/dark.css',
     [join(themePath, 'global.css')]: 'theme/global.css',
     [join(themePath, 'fonts.css')]: 'theme/fonts.css',
     [join(themePath, 'fonts')]: 'theme/fonts'

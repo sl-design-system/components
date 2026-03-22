@@ -10,8 +10,11 @@
     "url": "https://github.com/sl-design-system/components.git"
   },
   "exports": {
-    "./nav/nav": "./dist/nav/nav.js",
     "./page-toc/page-toc": "./dist/page-toc/page-toc.js",
+    "./search/search": "./dist/search/search.js",
+    "./sidebar/sidebar": "./dist/sidebar/sidebar.js",
+    "./site-nav/site-nav": "./dist/site-nav/site-nav.js",
+    "./theme-switch/theme-switch": "./dist/theme-switch/theme-switch.js",
     "./package.json": "./package.json"
   },
   "scripts": {
@@ -21,21 +24,23 @@
   },
   "dependencies": {
     "@open-wc/scoped-elements": "^3.0.6",
-    "@sl-design-system/icon": "workspace:^"
+    "@sl-design-system/icon": "workspace:^",
+    "@sl-design-system/search-field": "workspace:^",
+    "@sl-design-system/switch": "workspace:^"
   },
   "devDependencies": {
     "@roenlie/vite-plugin-import-css-sheet": "^0.0.7",
-    "@storybook/addon-a11y": "^10.0.7",
-    "@storybook/addon-docs": "^10.0.7",
-    "@storybook/addon-vitest": "^10.0.7",
-    "@storybook/web-components": "^10.0.7",
-    "@storybook/web-components-vite": "^10.0.7",
+    "@storybook/addon-a11y": "^10.3.1",
+    "@storybook/addon-docs": "^10.3.1",
+    "@storybook/addon-vitest": "^10.3.1",
+    "@storybook/web-components": "^10.3.1",
+    "@storybook/web-components-vite": "^10.3.1",
     "@tsdown/css": "^0.21.4",
     "@typescript/native-preview": "^7.0.0-dev.20260315.1",
     "lit": "^3.3.2",
     "sass-embedded": "^1.98.0",
-    "storybook": "^10.0.7",
-    "tsdown": "^0.21.2",
+    "storybook": "^10.3.1",
+    "tsdown": "^0.21.4",
     "typescript": "^5.9.3",
     "wireit": "^0.14.12"
   },
@@ -43,6 +48,8 @@
     "lit": "^3.3.2"
   },
   "inlinedDependencies": {
-    "@fortawesome/pro-regular-svg-icons": "7.1.0"
+    "@fortawesome/free-brands-svg-icons": "7.2.0",
+    "@fortawesome/pro-regular-svg-icons": "7.2.0",
+    "@fortawesome/pro-solid-svg-icons": "7.2.0"
   }
 }

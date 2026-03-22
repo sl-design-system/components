@@ -1,43 +1,49 @@
-{%- macro renderNav(entries, activePage) -%}
-  <ul class="nav-list">
-    {%- for entry in entries -%}
-      {%- set isActive = (entry.url == activePage) -%}
-      {%- set hasChildren = entry.children | length -%}
-      {%- set hasActiveChild = false -%}
-      {%- if hasChildren -%}
-        {%- for child in entry.children -%}
-          {%- if child.url == activePage -%}
-            {%- set hasActiveChild = true -%}
-          {%- endif -%}
-          {%- if child.children | length -%}
-            {%- for grandchild in child.children -%}
-              {%- if grandchild.url == activePage -%}
-                {%- set hasActiveChild = true -%}
-              {%- endif -%}
-            {%- endfor -%}
-          {%- endif -%}
-        {%- endfor -%}
-      {%- endif -%}
-
-      <li class="nav-item">
-        {%- if hasChildren -%}
-          <details{{ ' open' if (isActive or hasActiveChild) }}>
-            <summary class="nav-link{{ ' is-active' if isActive }}">
-              {%- if entry.url -%}
-                <a href="{{ entry.url }}">{{ entry.title }}</a>
-              {%- else -%}
-                {{ entry.title }}
-              {%- endif -%}
-            </summary>
-            {{ renderNav(entry.children, activePage) }}
-          </details>
-        {%- else -%}
-          <a href="{{ entry.url }}" class="nav-link{{ ' is-active' if isActive }}">{{ entry.title }}</a>
+{%- macro renderItems(entries, activePage) -%}
+  {%- for entry in entries -%}
+    {%- set isActive = (entry.url == activePage) -%}
+    {%- set hasChildren = entry.children | length -%}
+    {%- set hasActiveChild = false -%}
+    {%- if hasChildren -%}
+      {%- for child in entry.children -%}
+        {%- if child.url == activePage -%}
+          {%- set hasActiveChild = true -%}
         {%- endif -%}
-      </li>
-    {%- endfor -%}
-  </ul>
+        {%- if child.children | length -%}
+          {%- for grandchild in child.children -%}
+            {%- if grandchild.url == activePage -%}
+              {%- set hasActiveChild = true -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+    <doc-nav-item
+      heading="{{ entry.title }}"
+      {%- if entry.url %} href="{{ entry.url }}"{% endif %}
+      {%- if entry.icon %} icon="{{ entry.icon }}"{% endif %}
+      {%- if isActive %} active{% endif %}
+      {%- if hasChildren and (isActive or hasActiveChild) %} open{% endif %}
+    >
+      {%- if hasChildren -%}
+        {{ renderItems(entry.children, activePage) }}
+      {%- endif -%}
+    </doc-nav-item>
+  {%- endfor -%}
 {%- endmacro -%}
 
 {%- set navPages = collections.all | eleventyNavigation -%}
-{{ renderNav(navPages, page.url) }}
+<doc-site-nav>
+  {%- for entry in navPages -%}
+    {%- if entry.children | length -%}
+      <doc-nav-group heading="{{ entry.title }}">
+        {{ renderItems(entry.children, page.url) }}
+      </doc-nav-group>
+    {%- else -%}
+      <doc-nav-item
+        heading="{{ entry.title }}"
+        {%- if entry.url %} href="{{ entry.url }}"{% endif %}
+        {%- if entry.url == page.url %} active{% endif %}
+      ></doc-nav-item>
+    {%- endif -%}
+  {%- endfor -%}
+</doc-site-nav>

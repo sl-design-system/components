@@ -6290,6 +6290,8 @@ __metadata:
     "@open-wc/scoped-elements": "npm:^3.0.6"
     "@roenlie/vite-plugin-import-css-sheet": "npm:^0.0.7"
     "@sl-design-system/icon": "workspace:^"
+    "@sl-design-system/search-field": "workspace:^"
+    "@sl-design-system/switch": "workspace:^"
     "@storybook/addon-a11y": "npm:^10.3.1"
     "@storybook/addon-docs": "npm:^10.3.1"
     "@storybook/addon-vitest": "npm:^10.3.1"
@@ -6836,7 +6838,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/search-field@npm:^0.2.4, @sl-design-system/search-field@workspace:packages/components/search-field":
+"@sl-design-system/search-field@npm:^0.2.4, @sl-design-system/search-field@workspace:^, @sl-design-system/search-field@workspace:packages/components/search-field":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/search-field@workspace:packages/components/search-field"
   dependencies:
@@ -6917,7 +6919,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/switch@npm:^1.1.7, @sl-design-system/switch@workspace:packages/components/switch":
+"@sl-design-system/switch@npm:^1.1.7, @sl-design-system/switch@workspace:^, @sl-design-system/switch@workspace:packages/components/switch":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/switch@workspace:packages/components/switch"
   dependencies:

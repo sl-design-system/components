@@ -44,8 +44,11 @@ export default defineConfig({
     tsgo: true,
   },
   entry: [
-    'src/nav/nav.ts',
-    'src/page-toc/page-toc.ts'
+    'src/page-toc/page-toc.ts',
+    'src/search/search.ts',
+    'src/sidebar/sidebar.ts',
+    'src/site-nav/site-nav.ts',
+    'src/theme-switch/theme-switch.ts'
   ],
   exports: true,
   platform: 'browser',

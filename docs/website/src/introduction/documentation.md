@@ -1,10 +1,11 @@
 ---
-title: About
+title: Documentation
 layout: base.njk
 eleventyNavigation:
-  key: About
+  key: Documentation
   parent: Introduction
   order: 0
+  icon: book
 ---
 
 The **SL Design System** is a collection of reusable web components built with [Lit](https://lit.dev/). It provides a consistent, accessible, and themeable set of UI building blocks for Sanoma Learning applications.

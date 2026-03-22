@@ -1,3 +1,4 @@
+import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { dirname, join } from 'node:path';
 import * as esbuild from 'esbuild';
@@ -32,6 +33,42 @@ export default function (eleventyConfig) {
   });
 
   eleventyConfig.on('eleventy.before', async () => {
+    // Scan pages for icon names in eleventyNavigation frontmatter
+    const icons = new Set();
+    const files = readdirSync('src', { recursive: true });
+
+    for (const file of files) {
+      if (typeof file !== 'string' || !file.endsWith('.md')) continue;
+
+      const content = readFileSync(join('src', file), 'utf-8'),
+        frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/),
+        iconMatch = frontmatterMatch?.[1].match(/^\s+icon:\s*(\S+)/m);
+
+      if (iconMatch) {
+        icons.add(iconMatch[1]);
+      }
+    }
+
+    // Generate icon registration module
+    let iconsJs = '// Auto-generated from page frontmatter icons\n';
+
+    if (icons.size > 0) {
+      const importNames = [...icons].map(
+        name =>
+          'fa' +
+          name
+            .split('-')
+            .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+            .join('')
+      );
+
+      iconsJs += `import { ${importNames.join(', ')} } from '@fortawesome/pro-regular-svg-icons';\n`;
+      iconsJs += `import { Icon } from '@sl-design-system/icon';\n\n`;
+      iconsJs += `Icon.register(${importNames.join(', ')});\n`;
+    }
+
+    writeFileSync('src/js/icons.js', iconsJs);
+
     await esbuild.build({
       entryPoints: ['src/js/main.js'],
       bundle: true,

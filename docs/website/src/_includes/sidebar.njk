@@ -20,7 +20,7 @@
     <doc-nav-item
       heading="{{ entry.title }}"
       {%- if entry.url %} href="{{ entry.url }}"{% endif %}
-      {%- if entry.icon %} icon="{{ entry.icon }}"{% endif %}
+      {%- if entry.icon %} icon="far-{{ entry.icon }}"{% endif %}
       {%- if isActive %} active{% endif %}
       {%- if hasChildren and (isActive or hasActiveChild) %} open{% endif %}
     >
@@ -42,6 +42,7 @@
       <doc-nav-item
         heading="{{ entry.title }}"
         {%- if entry.url %} href="{{ entry.url }}"{% endif %}
+        {%- if entry.data.icon %} icon="far-{{ entry.data.icon }}"{% endif %}
         {%- if entry.url == page.url %} active{% endif %}
       ></doc-nav-item>
     {%- endif -%}

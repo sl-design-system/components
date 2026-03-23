@@ -228,13 +228,17 @@ describe('sl-select', () => {
     });
 
     it('should emit an sl-blur event when blurring the select', () => {
-      const onBlur = spy();
+      const onBlur = spy(),
+        otherButton = document.createElement('button');
 
+      el.after(otherButton);
       el.addEventListener('sl-blur', onBlur);
       el.focus();
-      el.querySelector<HTMLElement>('sl-select-button')?.blur();
+      otherButton.focus();
 
       expect(onBlur).to.have.been.calledOnce;
+
+      otherButton.remove();
     });
 
     it('should emit an sl-validate event when calling reportValidity', () => {
@@ -640,7 +644,10 @@ describe('sl-select', () => {
     });
 
     it('should close the popover when focus leaves the select', async () => {
-      const listbox = el.renderRoot.querySelector('sl-listbox');
+      const listbox = el.renderRoot.querySelector('sl-listbox'),
+        otherButton = document.createElement('button');
+
+      el.after(otherButton);
 
       button.focus();
       await userEvent.keyboard('{ArrowDown}');
@@ -648,10 +655,12 @@ describe('sl-select', () => {
 
       expect(listbox).to.match(':popover-open');
 
-      await userEvent.keyboard('{Tab}');
+      otherButton.focus();
       await el.updateComplete;
 
       expect(listbox).not.to.match(':popover-open');
+
+      otherButton.remove();
     });
 
     it('should focus the button after the popover closes', async () => {

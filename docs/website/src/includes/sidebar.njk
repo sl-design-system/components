@@ -1,6 +1,7 @@
 {%- macro renderItems(entries, activePage) -%}
   {%- for entry in entries -%}
     {%- set isActive = (entry.url == activePage) -%}
+    {%- set isOpen = entry.open | default(false) -%}
     {%- set hasChildren = entry.children | length -%}
     {%- set hasActiveChild = false -%}
     {%- if hasChildren -%}
@@ -22,6 +23,7 @@
       {%- if entry.url %} href="{{ entry.url }}"{% endif %}
       {%- if entry.icon %} icon="far-{{ entry.icon }}"{% endif %}
       {%- if isActive %} active{% endif %}
+      {%- if isOpen %} open{% endif %}
       {%- if hasChildren and (isActive or hasActiveChild) %} open{% endif %}
     >
       {%- if hasChildren -%}
@@ -35,15 +37,18 @@
 <doc-site-nav>
   {%- for entry in navPages -%}
     {%- if entry.children | length -%}
-      <doc-nav-group heading="{{ entry.title }}">
+      <doc-nav-group heading="{{ entry.title }}"
+        {%- if entry.collapsible %} collapsible{% endif %}
+        {%- if entry.collapsed %} collapsed{% endif %}>
         {{ renderItems(entry.children, page.url) }}
       </doc-nav-group>
     {%- else -%}
       <doc-nav-item
         heading="{{ entry.title }}"
         {%- if entry.url %} href="{{ entry.url }}"{% endif %}
-        {%- if entry.data.icon %} icon="far-{{ entry.data.icon }}"{% endif %}
         {%- if entry.url == page.url %} active{% endif %}
+        {%- if entry.data.icon %} icon="far-{{ entry.data.icon }}"{% endif %}
+        {%- if entry.data.open %} open="{{entry.data.open }}"{% endif %}
       ></doc-nav-item>
     {%- endif -%}
   {%- endfor -%}

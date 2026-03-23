@@ -67,7 +67,7 @@ export class NavItem extends ScopedElementsMixin(LitElement) {
   override updated(): void {
     // Sync ARIA states with properties
     if (this.expandable) {
-      this.setAttribute('aria-expanded', String(this.open));
+      this.setAttribute('aria-expanded', Boolean(this.open).toString());
     } else {
       this.removeAttribute('aria-expanded');
     }

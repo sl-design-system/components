@@ -9,7 +9,7 @@ eleventyNavigation:
 
 ## Alignment
 
-The icons are left-aligned to improve the experience for users with low vision, as the expanded/collapsed indicator is closer to the accordion title. Test
+The icons are left-aligned to improve the experience for users with low vision, as the expanded/collapsed indicator is closer to the accordion title.
 
 </section>
 

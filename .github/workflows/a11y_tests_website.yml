@@ -41,7 +41,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Install Playwright browsers
-        run: npx playwright install
+        run: yarn playwright install --with-deps
 
       - name: Detect changed .md files
         id: detect_changes
@@ -58,7 +58,11 @@ jobs:
           script: |
             const fs = require('fs');
             const files = process.env.CHANGED_MD.length !== 0 ? process.env.CHANGED_MD.split(' ').filter(Boolean) : ['/'];
-            const urls = files.map(file => file.replace(/^website\/src\//, '').replace(/\.md$/, '/'));
+            const urls = files.map(file => {
+              if (file === 'website/src/index.md') return '/';
+              if (file === 'website/src/404.md') return '/404.html';
+              return file.replace(/^website\/src\//, '').replace(/\.md$/, '/');
+            });
             fs.writeFileSync('changed-urls.json', JSON.stringify(urls, null, 2));
 
       - name: Build website

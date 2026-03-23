@@ -183,6 +183,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       // Reset the timeout, so it always ends with visible stack
       if (this.#breakResizeObserverLoop) {
         clearTimeout(this.#breakResizeObserverLoop);
+        this.#breakResizeObserverLoop = undefined;
       }
     } else if (this.#breakResizeObserverLoop) {
       return;
@@ -190,10 +191,14 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     // Break the loop if it keeps switching between stack visibility; workaround
     // is to just wait a little bit before updating the visibility again.
-    this.#breakResizeObserverLoop = setTimeout(() => {
-      this.#updateVisibility();
-      this.#breakResizeObserverLoop = undefined;
-    }, 200);
+    // We use a shorter delay for initial/subsequent updates to avoid Chromatic issues.
+    this.#breakResizeObserverLoop = setTimeout(
+      () => {
+        this._updateVisibility();
+        this.#breakResizeObserverLoop = undefined;
+      },
+      this.stackInlineSize === 0 ? 0 : 50
+    );
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
@@ -209,12 +214,10 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     this.#rovingTabindexController.clearElementCache();
 
-    requestAnimationFrame(() => {
-      this.#updateVisibility();
-    });
+    this._updateVisibility();
   }
 
-  #updateVisibility(): void {
+  _updateVisibility(): void {
     if (!this.stacked || !this.stack || !this.tags) {
       return;
     }
@@ -294,6 +297,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     // Calculate the stack size based on the visibility of the tags
     this.stackSize = this.tags.reduce((acc, tag) => (tag.style.display === 'none' ? acc + 1 : acc), 0);
     this.stack.style.display = this.stackSize === 0 ? 'none' : '';
+    this.stack.classList.toggle('double', this.stackSize === 2);
+    this.stack.classList.toggle('triple', this.stackSize >= 3);
+
     const stackTag = this.stack.querySelector('sl-tag');
 
     if (stackTag) {

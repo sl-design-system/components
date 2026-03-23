@@ -98,7 +98,7 @@ describe('sl-tag', () => {
       `);
 
       // Give the resize observer time to do its thing
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 50));
     });
 
     it('should have a stack', () => {
@@ -138,7 +138,7 @@ describe('sl-tag', () => {
 
     it('should have hidden tags with tabindex -1', async () => {
       // Give some time to updateVisibility
-      await new Promise(resolve => setTimeout(resolve, 200));
+      await new Promise(resolve => setTimeout(resolve, 60));
 
       const tag = el.renderRoot.querySelector('sl-tag');
 
@@ -156,10 +156,10 @@ describe('sl-tag', () => {
 
     it('should not have a stack when there is enough space', async () => {
       // Give the `#breakResizeObserverLoop` time to do its thing
-      await new Promise(resolve => setTimeout(resolve, 201));
+      await new Promise(resolve => setTimeout(resolve, 60));
 
       el.style.inlineSize = '2000px';
-      await new Promise(resolve => setTimeout(resolve, 300));
+      await new Promise(resolve => setTimeout(resolve, 100));
 
       expect(el.renderRoot.querySelector('.stack')).to.not.be.displayed;
     });
@@ -173,6 +173,50 @@ describe('sl-tag', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       expect(tag).to.have.trimmed.text('+6');
+    });
+
+    it('should apply the double class when there are 2 hidden tags', () => {
+      vi.useFakeTimers();
+      try {
+        const tags = Array.from(el.querySelectorAll('sl-tag'));
+        el.getBoundingClientRect = () => new DOMRect(0, 0, 150, 20);
+        el.stackInlineSize = 40;
+        tags.forEach(t => (t.getBoundingClientRect = () => new DOMRect(0, 0, 50, 20)));
+
+        el._updateVisibility();
+
+        const stack = el.renderRoot.querySelector('.stack');
+        expect(el.stackSize).to.equal(6);
+        expect(stack).to.have.class('triple');
+
+        el.getBoundingClientRect = () => new DOMRect(0, 0, 388, 20);
+        el._updateVisibility();
+
+        expect(el.stackSize).to.equal(2);
+        expect(stack).to.have.class('double');
+      } finally {
+        vi.useRealTimers();
+      }
+    });
+
+    it('should apply the triple class when there are 3 or more hidden tags', () => {
+      vi.useFakeTimers();
+      try {
+        el.getBoundingClientRect = () => new DOMRect(0, 0, 100, 20);
+        el.stackInlineSize = 40;
+        Array.from(el.querySelectorAll('sl-tag')).forEach(
+          t => (t.getBoundingClientRect = () => new DOMRect(0, 0, 50, 20))
+        );
+
+        el._updateVisibility();
+
+        const stack = el.renderRoot.querySelector('.stack');
+
+        expect(el.stackSize).to.be.at.least(3);
+        expect(stack).to.have.class('triple');
+      } finally {
+        vi.useRealTimers();
+      }
     });
   });
 
@@ -197,14 +241,14 @@ describe('sl-tag', () => {
 
         // Total tags width = 100 + 100 = 200px (gap is 0)
         // We set the container width to 199.7px (diff = 0.3px, which is < 0.5px)
-        (el as unknown as HTMLElement).getBoundingClientRect = () => new DOMRect(0, 0, 199.7, 20);
+        el.getBoundingClientRect = () => new DOMRect(0, 0, 199.7, 20);
 
         Array.from(el.querySelectorAll('sl-tag')).forEach(tag => {
-          (tag as HTMLElement).getBoundingClientRect = () => new DOMRect(0, 0, 100, 20);
+          tag.getBoundingClientRect = () => new DOMRect(0, 0, 100, 20);
         });
 
-        // Advance fake timers past the 200ms debounce/loop-breaker timeout
-        await vi.advanceTimersByTimeAsync(210);
+        // Advance fake timers past the 50ms debounce/loop-breaker timeout
+        await vi.advanceTimersByTimeAsync(60);
 
         const stack = el.renderRoot.querySelector('.stack') as HTMLElement;
 
@@ -226,14 +270,14 @@ describe('sl-tag', () => {
         `);
 
         // Total = 200px. Container = 199.4px (diff = 0.6px > 0.5px)
-        (el as unknown as HTMLElement).getBoundingClientRect = () => new DOMRect(0, 0, 199.4, 20);
+        el.getBoundingClientRect = () => new DOMRect(0, 0, 199.4, 20);
 
         Array.from(el.querySelectorAll('sl-tag')).forEach(tag => {
-          (tag as HTMLElement).getBoundingClientRect = () => new DOMRect(0, 0, 100, 20);
+          tag.getBoundingClientRect = () => new DOMRect(0, 0, 100, 20);
         });
 
-        // Advance fake timers past the 200ms debounce/loop-breaker timeout
-        await vi.advanceTimersByTimeAsync(210);
+        // Advance fake timers past the 50ms debounce/loop-breaker timeout
+        await vi.advanceTimersByTimeAsync(60);
 
         const stack = el.renderRoot.querySelector('.stack') as HTMLElement;
         const tags = Array.from(el.querySelectorAll('sl-tag')) as HTMLElement[];
@@ -273,7 +317,7 @@ describe('sl-tag', () => {
           tag.getBoundingClientRect = () => new DOMRect(0, 0, 100, 20);
         });
 
-        await vi.advanceTimersByTimeAsync(250);
+        await vi.advanceTimersByTimeAsync(60);
 
         const tags = Array.from(el.querySelectorAll('sl-tag'));
         const visibility = tags.map(t => t.style.display);
@@ -308,7 +352,9 @@ describe('sl-tag', () => {
           tag.getBoundingClientRect = () => new DOMRect(0, 0, 100, 20);
         });
 
-        await vi.advanceTimersByTimeAsync(250);
+        el._updateVisibility();
+
+        await vi.advanceTimersByTimeAsync(60);
 
         const tags = Array.from(el.querySelectorAll('sl-tag'));
         const visibility = tags.map(t => t.style.display);

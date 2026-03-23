@@ -247,4 +247,77 @@ describe('sl-tag', () => {
       }
     });
   });
+
+  describe('visibility edge cases', () => {
+    it('should always keep the last tag visible if there is any space left', async () => {
+      vi.useFakeTimers();
+
+      try {
+        el = await fixture(html`
+          <sl-tag-list stacked style="gap: 10px; padding: 0; margin: 0; border: none;">
+            <sl-tag style="inline-size: 100px;">Tag 1</sl-tag>
+            <sl-tag style="inline-size: 100px;">Tag 2</sl-tag>
+            <sl-tag style="inline-size: 100px;">Tag 3</sl-tag>
+          </sl-tag-list>
+        `);
+
+        // Total tags: 300px + 20px gaps = 320px
+        // Give 55px of available space.
+        // Stack takes 40px (mocked via stackInlineSize).
+        // adjusted availableWidth = 55 - 40 - 10 = 5px.
+        // 5px > 0, so the last tag should remain visible!
+        el.getBoundingClientRect = () => new DOMRect(0, 0, 55, 20);
+        el.stackInlineSize = 40;
+
+        Array.from(el.querySelectorAll('sl-tag')).forEach(tag => {
+          tag.getBoundingClientRect = () => new DOMRect(0, 0, 100, 20);
+        });
+
+        await vi.advanceTimersByTimeAsync(250);
+
+        const tags = Array.from(el.querySelectorAll('sl-tag'));
+        const visibility = tags.map(t => t.style.display);
+
+        expect(visibility).to.deep.equal(['none', 'none', '']);
+        expect(el.stackSize).to.equal(2);
+      } finally {
+        vi.useRealTimers();
+      }
+    });
+
+    it('should hide the last tag if there is absolutely no space left', async () => {
+      vi.useFakeTimers();
+
+      try {
+        el = await fixture(html`
+          <sl-tag-list stacked style="gap: 10px; padding: 0; margin: 0; border: none;">
+            <sl-tag style="inline-size: 100px;">Tag 1</sl-tag>
+            <sl-tag style="inline-size: 100px;">Tag 2</sl-tag>
+            <sl-tag style="inline-size: 100px;">Tag 3</sl-tag>
+          </sl-tag-list>
+        `);
+
+        // Give 40px of available space.
+        // Stack takes 40px.
+        // adjusted availableWidth = 40 - 40 - 10 = -10px.
+        // -10px <= 0, so the last tag SHOULD be hidden!
+        el.getBoundingClientRect = () => new DOMRect(0, 0, 40, 20);
+        el.stackInlineSize = 40;
+
+        Array.from(el.querySelectorAll('sl-tag')).forEach(tag => {
+          tag.getBoundingClientRect = () => new DOMRect(0, 0, 100, 20);
+        });
+
+        await vi.advanceTimersByTimeAsync(250);
+
+        const tags = Array.from(el.querySelectorAll('sl-tag'));
+        const visibility = tags.map(t => t.style.display);
+
+        expect(visibility).to.deep.equal(['none', 'none', 'none']);
+        expect(el.stackSize).to.equal(3);
+      } finally {
+        vi.useRealTimers();
+      }
+    });
+  });
 });

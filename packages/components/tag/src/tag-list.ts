@@ -219,6 +219,16 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       return;
     }
 
+    const listDiv = this.renderRoot.querySelector('.list') as HTMLElement,
+      originalFlexWrap = this.style.flexWrap,
+      originalListFlexWrap = listDiv?.style.flexWrap;
+
+    // Temporarily apply flex-wrap: wrap to prevent the flex blowout loop while measuring
+    this.style.flexWrap = 'wrap';
+    if (listDiv) {
+      listDiv.style.flexWrap = 'wrap';
+    }
+
     // Reset visibility of all tags
     this.tags.forEach(tag => (tag.style.display = ''));
 
@@ -231,6 +241,12 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     let availableWidth = this.getBoundingClientRect().width;
 
+    // Restore styling
+    this.style.flexWrap = originalFlexWrap;
+    if (listDiv) {
+      listDiv.style.flexWrap = originalListFlexWrap;
+    }
+
     // We only need to determine visibility if there isn't enough space.
     // We use a small buffer to account for sub-pixel rounding
     // errors that can cause layout oscillation at certain zoom levels.
@@ -239,6 +255,11 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       availableWidth -= this.stackInlineSize + gap;
 
       for (let i = 0; i < this.tags.length; i++) {
+        // ALWAYS keep the last tag visible if there's any available space left
+        if (i === this.tags.length - 1 && availableWidth > 0) {
+          break;
+        }
+
         totalTagsWidth -= sizes[i] + gap;
         this.tags[i].style.display = 'none';
 

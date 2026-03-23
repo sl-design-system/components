@@ -1,7 +1,7 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { ref } from 'lit/directives/ref.js';
+import { type RefOrCallback, ref } from 'lit/directives/ref.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { VirtualizerController } from './virtualizer-controller.js';
@@ -34,7 +34,9 @@ class TestHost extends LitElement {
             virtualItems,
             virtualItem => virtualItem.key,
             virtualItem => html`
-              <div data-index=${virtualItem.index} ${ref(virtualizer.measureElement)}>Index ${virtualItem.index}</div>
+              <div data-index=${virtualItem.index} ${ref(virtualizer.measureElement as RefOrCallback<Element>)}>
+                Index ${virtualItem.index}
+              </div>
             `
           )}
         </div>
@@ -52,6 +54,14 @@ describe('VirtualizerController', () => {
     host = await fixture<TestHost>(
       html`<test-host style="display: block; height: 320px; line-height: 32px; overflow: auto;"></test-host>`
     );
+
+    // Wait for the virtualizer to stabilize; items initially measure with
+    // offsetHeight 0 during Lit's commit phase and the ResizeObserver needs
+    // multiple animation frames to correct them.
+    for (let i = 0; i < 3; i++) {
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await host.updateComplete;
+    }
   });
 
   afterEach(() => {
@@ -66,7 +76,9 @@ describe('VirtualizerController', () => {
     expect(items.map(i => i.dataset['index'])).to.deep.equal(
       Array.from({ length: items.length }, (_, i) => i.toString())
     );
-    expect(items.map(i => i.textContent)).to.deep.equal(Array.from({ length: items.length }, (_, i) => `Index ${i}`));
+    expect(items.map(i => i.textContent?.trim())).to.deep.equal(
+      Array.from({ length: items.length }, (_, i) => `Index ${i}`)
+    );
   });
 
   it('should only render visible items plus overscan', () => {

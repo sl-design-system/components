@@ -182,12 +182,12 @@ export class Tooltip extends LitElement {
         const ariaSelector = `[aria-describedby~="${this.id}"], [aria-labelledby~="${this.id}"]`,
           ariaMatch = el.shadowRoot.querySelector(ariaSelector);
 
-        if (ariaMatch && this.#matchesAnchor(ariaMatch)) {
+        if (ariaMatch && (path.includes(ariaMatch) || el === event.target) && this.#matchesAnchor(ariaMatch)) {
           return ariaMatch as HTMLElement;
         }
 
         for (const child of el.shadowRoot.children) {
-          if (this.#matchesAnchor(child)) {
+          if ((path.includes(child) || el === event.target) && this.#matchesAnchor(child)) {
             return child as HTMLElement;
           }
         }

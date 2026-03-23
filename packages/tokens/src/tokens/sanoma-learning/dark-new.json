@@ -1486,7 +1486,7 @@
 				},
 				"disabled": {
 					"$type": "color",
-					"$value": "{sanoma-learning.color.foreground.accent.grey.faint}",
+					"$value": "rgba( {sanoma-learning.color.palette.grey.900}, 50%)",
 					"$description": "Use for foreground in a disabled state."
 				},
 				"inverted": {

@@ -219,8 +219,12 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    const gap = parseInt(getComputedStyle(this).gap);
+    const gapValue = getComputedStyle(this).gap;
+    let gap = Number.parseFloat(gapValue);
 
+    if (!Number.isFinite(gap)) {
+      gap = 0;
+    }
     // When inside a combobox, we need to:
     // 1. Lock the parent container to its current pixel width (prevents flex blowout)
     // 2. Force tag-list to fill its flex allocation via width:100% (measures max allowed space)

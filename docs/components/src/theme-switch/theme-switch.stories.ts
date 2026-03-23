@@ -1,12 +1,11 @@
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import { type ThemeSwitch } from './theme-switch.js';
+import { ThemeSwitch } from './theme-switch.js';
 
 type Props = Pick<ThemeSwitch, 'colorScheme'>;
 type Story = StoryObj<Props>;
 
 try {
-  const { ThemeSwitch } = await import('./theme-switch.js');
   customElements.define('doc-theme-switch', ThemeSwitch);
 } catch {
   /* empty */
@@ -14,7 +13,6 @@ try {
 
 export default {
   title: 'Theme Switch',
-  tags: ['autodocs'],
   args: {
     colorScheme: 'light'
   },

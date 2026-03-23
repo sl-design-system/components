@@ -27,6 +27,14 @@ describe('doc-nav-group', () => {
       expect(el.heading).to.be.undefined;
     });
 
+    it('should not be collapsible by default', () => {
+      expect(el.collapsible).to.not.be.ok;
+    });
+
+    it('should not be collapsed by default', () => {
+      expect(el.collapsed).to.not.be.ok;
+    });
+
     it('should not render a heading element when none is set', () => {
       const h2 = el.renderRoot.querySelector('h2');
 
@@ -58,7 +66,7 @@ describe('doc-nav-group', () => {
     it('should display the heading text', () => {
       const h2 = el.renderRoot.querySelector('h2');
 
-      expect(h2).to.have.text('Getting Started');
+      expect(h2?.textContent?.trim()).to.equal('Getting Started');
     });
 
     it('should still render a slot', () => {
@@ -79,7 +87,7 @@ describe('doc-nav-group', () => {
 
       const h2 = el.renderRoot.querySelector('h2');
 
-      expect(h2).to.have.text('Updated');
+      expect(h2?.textContent?.trim()).to.equal('Updated');
     });
 
     it('should remove the heading when set to undefined', async () => {
@@ -107,6 +115,79 @@ describe('doc-nav-group', () => {
 
       expect(assigned).to.have.length(1);
       expect(assigned[0]).to.have.class('test-child');
+    });
+  });
+
+  describe('collapsible', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <doc-nav-group heading="Section" collapsible>
+          <span class="test-child">Child content</span>
+        </doc-nav-group>
+      `);
+    });
+
+    it('should have the collapsible attribute', () => {
+      expect(el).to.have.attribute('collapsible');
+    });
+
+    it('should render a chevron icon', () => {
+      const chevron = el.renderRoot.querySelector('.chevron');
+
+      expect(chevron).to.exist;
+    });
+
+    it('should not be collapsed by default', () => {
+      expect(el.collapsed).to.not.be.ok;
+    });
+
+    it('should toggle collapsed when heading is clicked', async () => {
+      const h2 = el.renderRoot.querySelector('h2')!;
+
+      h2.click();
+      await el.updateComplete;
+
+      expect(el.collapsed).to.be.true;
+      expect(el).to.have.attribute('collapsed');
+
+      h2.click();
+      await el.updateComplete;
+
+      expect(el.collapsed).to.be.false;
+      expect(el).to.not.have.attribute('collapsed');
+    });
+
+    it('should not render a chevron when not collapsible', async () => {
+      el.collapsible = false;
+      await el.updateComplete;
+
+      const chevron = el.renderRoot.querySelector('.chevron');
+
+      expect(chevron).to.not.exist;
+    });
+  });
+
+  describe('collapsed', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <doc-nav-group heading="Section" collapsible collapsed>
+          <span class="test-child">Child content</span>
+        </doc-nav-group>
+      `);
+    });
+
+    it('should have the collapsed attribute', () => {
+      expect(el).to.have.attribute('collapsed');
+    });
+
+    it('should expand when heading is clicked', async () => {
+      const h2 = el.renderRoot.querySelector('h2')!;
+
+      h2.click();
+      await el.updateComplete;
+
+      expect(el.collapsed).to.be.false;
+      expect(el).to.not.have.attribute('collapsed');
     });
   });
 });

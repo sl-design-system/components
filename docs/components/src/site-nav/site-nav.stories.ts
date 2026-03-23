@@ -13,6 +13,9 @@ import {
 import { Icon } from '@sl-design-system/icon';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
+import { NavGroup } from './nav-group.js';
+import { NavItem } from './nav-item.js';
+import { SiteNav } from './site-nav.js';
 
 Icon.register(
   faBook,
@@ -31,9 +34,6 @@ type Props = Record<string, never>;
 type Story = StoryObj<Props>;
 
 try {
-  const { SiteNav } = await import('./site-nav.js');
-  const { NavGroup } = await import('./nav-group.js');
-  const { NavItem } = await import('./nav-item.js');
   customElements.define('doc-site-nav', SiteNav);
   customElements.define('doc-nav-group', NavGroup);
   customElements.define('doc-nav-item', NavItem);
@@ -56,9 +56,6 @@ function onNavClick(event: Event): void {
 
 export default {
   title: 'Site Navigation',
-  parameters: {
-    layout: 'padded'
-  },
   render: () => {
     return html`
       <style>

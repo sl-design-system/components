@@ -19,8 +19,21 @@
   },
   "scripts": {
     "build": "tsdown",
-    "start": "storybook dev -p 6009",
+    "start": "wireit",
     "watch": "tsdown --watch"
+  },
+  "wireit": {
+    "start": {
+      "command": "storybook dev -p 6009 --no-open",
+      "service": {
+        "readyWhen": {
+          "lineMatches": "Storybook ready!"
+        }
+      },
+      "files": [
+        ".storybook/main.ts"
+      ]
+    }
   },
   "dependencies": {
     "@open-wc/scoped-elements": "^3.0.6",

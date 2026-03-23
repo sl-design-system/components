@@ -7134,7 +7134,9 @@ __metadata:
   dependencies:
     "@11ty/eleventy": "npm:^3.0.0"
     "@11ty/eleventy-navigation": "npm:^0.3.5"
+    "@fortawesome/pro-regular-svg-icons": "npm:^7.2.0"
     "@sl-design-system/doc-components": "workspace:^"
+    "@sl-design-system/icon": "workspace:^"
     "@sl-design-system/sanoma-learning": "workspace:*"
     "@webcomponents/scoped-custom-element-registry": "npm:^0.0.10"
     esbuild: "npm:^0.25.0"

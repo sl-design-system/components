@@ -6,12 +6,43 @@
   margin-block-start: var(--sl-size-300);
 }
 
+:host([collapsible]) h2 {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  user-select: none;
+}
+
+:host([collapsed]) {
+  sl-icon {
+    transform: rotate(-90deg);
+  }
+
+  slot {
+    display: none;
+  }
+}
+
 h2 {
   color: var(--sl-color-foreground-plain);
   font-size: inherit;
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
   margin: 0;
   padding: var(--sl-size-075) var(--sl-size-100);
+}
+
+a {
+  color: inherit;
+  text-decoration: dotted underline;
+
+  &:hover {
+    text-decoration-style: solid;
+  }
+}
+
+sl-icon {
+  margin-inline-start: auto;
+  transition: transform 0.2s ease;
 }
 
 slot {

@@ -29,10 +29,10 @@ export class NavItem extends ScopedElementsMixin(LitElement) {
   @property() icon?: string;
 
   /** Whether this is the active/current page. */
-  @property({ type: Boolean, reflect: true }) active = false;
+  @property({ type: Boolean, reflect: true }) active?: boolean;
 
   /** Whether the children are expanded. */
-  @property({ type: Boolean, reflect: true }) open = false;
+  @property({ type: Boolean, reflect: true }) open?: boolean;
 
   /** @internal Whether this item has child nav items. */
   @state() expandable = false;

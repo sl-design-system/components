@@ -19,10 +19,8 @@ export default function (eleventyConfig) {
     });
   });
 
-  eleventyConfig.addPassthroughCopy({ 'src/css': 'css' });
   eleventyConfig.addPassthroughCopy({ 'src/assets': 'assets' });
-
-  eleventyConfig.addWatchTarget('../components/dist/**/*.(css|js)');
+  eleventyConfig.addPassthroughCopy({ 'src/css': 'css' });
 
   eleventyConfig.addPassthroughCopy({
     [join(themePath, 'light.css')]: 'theme/light.css',
@@ -31,6 +29,8 @@ export default function (eleventyConfig) {
     [join(themePath, 'fonts.css')]: 'theme/fonts.css',
     [join(themePath, 'fonts')]: 'theme/fonts'
   });
+
+  eleventyConfig.addWatchTarget('../components/dist/**/*.(css|js)');
 
   eleventyConfig.on('eleventy.before', async () => {
     // Scan pages for icon names in eleventyNavigation frontmatter
@@ -80,10 +80,10 @@ export default function (eleventyConfig) {
 
   return {
     dir: {
-      input: 'src',
+      input: 'src/content',
       output: 'dist',
-      includes: '_includes',
-      data: '_data'
+      includes: '../includes',
+      data: '../data'
     },
     templateFormats: ['njk', 'md'],
     markdownTemplateEngine: 'njk',

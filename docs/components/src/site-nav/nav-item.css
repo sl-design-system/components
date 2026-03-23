@@ -11,14 +11,6 @@
   outline: none;
 }
 
-:host(:hover) {
-  --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
-}
-
-:host(:active) {
-  --_bg-opacity: var(--sl-opacity-interactive-plain-active);
-}
-
 :host([aria-current='page']) {
   --_bg-color: var(--sl-color-background-selected-subtlest);
   --_bg-mix-color: var(--sl-color-background-selected-interactive-plain);
@@ -58,6 +50,14 @@ summary {
     display: none;
   }
 
+  &:hover {
+    --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
+  }
+
+  &:active {
+    --_bg-opacity: var(--sl-opacity-interactive-plain-active);
+  }
+
   a {
     color: inherit;
     flex: 1;
@@ -75,7 +75,7 @@ summary {
   border-radius: var(--sl-size-150);
   inline-size: calc(var(--sl-size-075) - var(--sl-size-010));
   inset-block-start: 50%;
-  inset-inline-start: calc(-1 * (var(--sl-size-125) - var(--sl-size-010)));
+  inset-inline-start: calc(-1 * (var(--sl-size-150) - var(--sl-size-010)));
   position: absolute;
   translate: 0 -50%;
 }
@@ -103,7 +103,7 @@ details[open] > slot {
   flex-direction: column;
   gap: var(--sl-size-025);
   margin-inline-start: calc(var(--sl-size-100) + var(--nav-level, 0) * var(--nav-indent) + 0.5em);
-  padding-inline-start: var(--sl-size-075);
+  padding-inline-start: var(--sl-size-100);
 }
 
 .leaf {
@@ -113,12 +113,19 @@ details[open] > slot {
   color: inherit;
   display: flex;
   gap: var(--sl-size-100);
-  padding-block: var(--sl-size-075);
-  padding-inline: calc(var(--sl-size-100) + var(--nav-level, 0) * var(--nav-indent)) var(--sl-size-100);
+  padding: var(--sl-size-075) var(--sl-size-100);
   position: relative;
   text-decoration: none;
 
   @media (prefers-reduced-motion: no-preference) {
     transition: background 200ms ease-in-out;
+  }
+
+  &:hover {
+    --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
+  }
+
+  &:active {
+    --_bg-opacity: var(--sl-opacity-interactive-plain-active);
   }
 }

@@ -1,10 +1,10 @@
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
+import { Sidebar } from './sidebar.js';
 
 type Story = StoryObj;
 
 try {
-  const { Sidebar } = await import('./sidebar.js');
   customElements.define('doc-sidebar', Sidebar);
 } catch {
   /* empty */
@@ -12,7 +12,6 @@ try {
 
 export default {
   title: 'Sidebar',
-  tags: ['autodocs'],
   parameters: {
     layout: 'fullscreen'
   },

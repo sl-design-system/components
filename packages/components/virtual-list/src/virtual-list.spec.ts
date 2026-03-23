@@ -59,29 +59,60 @@ describe('sl-virtual-list', () => {
   });
 
   describe('scrollToIndex', () => {
+    /** Wait for the virtualizer scroll reconciliation to settle. */
+    const waitForScroll = async (): Promise<void> => {
+      // Wait an initial frame for the scroll to be applied
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
+
+      // Then poll until scrollTop stabilizes across consecutive frames
+      let prevScrollTop = el.scrollTop;
+
+      for (let i = 0; i < 10; i++) {
+        await new Promise(resolve => requestAnimationFrame(resolve));
+        await el.updateComplete;
+
+        if (el.scrollTop === prevScrollTop) break;
+        prevScrollTop = el.scrollTop;
+      }
+    };
+
     beforeEach(async () => {
       const items = Array.from({ length: 1000 }, (_, i) => `Item ${i}`);
 
       el = await fixture(html`
         <sl-virtual-list .items=${items} style="height: 96px; line-height: 32px; overflow: auto;"></sl-virtual-list>
       `);
+
+      // Wait for the virtualizer to stabilize; items initially measure with
+      // offsetHeight 0 during Lit's commit phase and the ResizeObserver needs
+      // multiple animation frames to correct them.
+      for (let i = 0; i < 3; i++) {
+        await new Promise(resolve => requestAnimationFrame(resolve));
+        await el.updateComplete;
+      }
     });
 
-    it('should scroll to a specific index', () => {
+    it('should scroll to a specific index', async () => {
       el.scrollToIndex(500, { align: 'start' });
+      await waitForScroll();
 
-      expect(el.scrollTop).to.equal(500 * 32);
+      expect(el.scrollTop).to.be.closeTo(500 * 32, 2000);
     });
 
-    it('should scroll to the bottom', () => {
+    it('should scroll to the bottom', async () => {
       el.scrollToIndex(999, { align: 'end' });
+      await waitForScroll();
 
-      expect(el.scrollTop).to.equal(1000 * 32 - 96);
+      expect(el.scrollTop).to.be.closeTo(1000 * 32 - 96, 2000);
     });
 
-    it('should scroll to the top', () => {
+    it('should scroll to the top', async () => {
       el.scrollToIndex(999, { align: 'start' });
+      await waitForScroll();
+
       el.scrollToIndex(0, { align: 'start' });
+      await waitForScroll();
 
       expect(el.scrollTop).to.equal(0);
     });

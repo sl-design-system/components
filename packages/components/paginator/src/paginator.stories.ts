@@ -11,6 +11,9 @@ type Story = StoryObj<Props>;
 export default {
   title: 'Navigation/Paginator/Paginator',
   tags: ['draft'],
+  globals: {
+    viewport: undefined
+  },
   args: {
     page: 2,
     pageSize: 10,

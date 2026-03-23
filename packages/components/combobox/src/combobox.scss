@@ -1,5 +1,7 @@
 :host {
   display: flex;
+  max-inline-size: 100%;
+  min-inline-size: 0;
   vertical-align: middle;
 }
 
@@ -23,6 +25,7 @@
 sl-text-field {
   flex: 1;
   max-inline-size: 100%;
+  min-inline-size: 0;
 
   &:has(> sl-tag-list) {
     padding-inline: calc(var(--sl-size-075) - var(--sl-size-borderWidth-default)) 0;

@@ -219,21 +219,29 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    const listDiv = this.renderRoot.querySelector('.list') as HTMLElement,
-      originalFlexWrap = this.style.flexWrap,
-      originalListFlexWrap = listDiv?.style.flexWrap;
+    const gap = parseInt(getComputedStyle(this).gap);
 
-    // Temporarily apply flex-wrap: wrap to prevent the flex blowout loop while measuring
-    this.style.flexWrap = 'wrap';
-    if (listDiv) {
-      listDiv.style.flexWrap = 'wrap';
+    // When inside a combobox, we need to:
+    // 1. Lock the parent container to its current pixel width (prevents flex blowout)
+    // 2. Force tag-list to fill its flex allocation via width:100% (measures max allowed space)
+    // When standalone, just lock our own current width to prevent expansion during measurement.
+    const parentContainer = this.closest('sl-combobox') || this.closest('sl-text-field');
+    const originalParentWidth = parentContainer ? (parentContainer as HTMLElement).style.width : undefined;
+    const originalSelfWidth = this.style.width;
+
+    if (parentContainer) {
+      const parentWidth = parentContainer.getBoundingClientRect().width;
+      (parentContainer as HTMLElement).style.width = `${parentWidth}px`;
+      this.style.width = '100%';
+    } else {
+      const selfWidth = this.getBoundingClientRect().width;
+      this.style.width = `${selfWidth}px`;
     }
 
     // Reset visibility of all tags
     this.tags.forEach(tag => (tag.style.display = ''));
 
-    const gap = parseInt(getComputedStyle(this).gap),
-      sizes = this.tags.map(t => t.getBoundingClientRect().width);
+    const sizes = this.tags.map(t => t.getBoundingClientRect().width);
 
     // Calculate the total width of all tags
     let totalTagsWidth = sizes.reduce((acc, size) => acc + size, 0);
@@ -241,10 +249,10 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     let availableWidth = this.getBoundingClientRect().width;
 
-    // Restore styling
-    this.style.flexWrap = originalFlexWrap;
-    if (listDiv) {
-      listDiv.style.flexWrap = originalListFlexWrap;
+    // Restore original styles
+    this.style.width = originalSelfWidth;
+    if (parentContainer) {
+      (parentContainer as HTMLElement).style.width = originalParentWidth!;
     }
 
     // We only need to determine visibility if there isn't enough space.

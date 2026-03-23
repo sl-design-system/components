@@ -40,6 +40,14 @@ declare global {
 export type SelectSize = 'md' | 'lg';
 
 /**
+ * Extra width needed when the clear button is visible.
+ * - 4px clear button margin (margin-inline-start: var(--sl-size-050))
+ * - 34px clear button width (calc(1lh + (var(--sl-size-100) - var(--sl-size-borderWidth-default)) * 2))
+ * - 4px status icon padding difference with/without the clear button
+ */
+const CLEAR_BUTTON_TOTAL_WIDTH = 42;
+
+/**
  * A form control that allows users to select one option from a list of options.
  *
  * @slot default - Place for `sl-option` and `sl-option-group` elements
@@ -95,6 +103,9 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
   /** The last option that was rendered in the button's selected content. Used to avoid unnecessary DOM updates. */
   #lastRenderedOption?: Option | null;
+
+  /** The raw measured width of the largest option text, before any adjustments. */
+  #largestOptionWidth = 0;
 
   /** Detect when options are added to the host, or a nested option group and clear the cache. */
   #observer = new MutationObserver(() => this.#rovingTabindexController.clearElementCache());
@@ -257,6 +268,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     if (changes.has('clearable')) {
       this.button.clearable = this.clearable;
       this.#updateAriaKeyShortcuts();
+      this.#updateButtonOptionSize();
     }
 
     if (changes.has('disabled')) {
@@ -452,8 +464,8 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
       this.listbox.hidePopover();
     }
 
-    this.#onClear();
     this.clearEvent.emit();
+    this.#onClear();
     this.button.focus();
   }
 
@@ -636,8 +648,18 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     // Clean up measure element
     document.body.removeChild(measureElement);
 
-    // Pass the largest width to the button
-    this.button.optionSize = maxWidth;
+    // Store the raw width and update the button
+    this.#largestOptionWidth = maxWidth;
+    this.#updateButtonOptionSize();
+  }
+
+  /** Updates the button's optionSize, accounting for the clear button width when clearable. */
+  #updateButtonOptionSize(): void {
+    if (this.#largestOptionWidth) {
+      const extra = this.clearable ? CLEAR_BUTTON_TOTAL_WIDTH : 0;
+
+      this.button.optionSize = this.#largestOptionWidth + extra;
+    }
   }
 
   #setupMeasureElement(): HTMLElement {

@@ -39,7 +39,7 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   /** Will display a clear button when an option is selected. */
   @property({ type: Boolean, reflect: true }) clearable?: boolean;
 
-  /** @internal Emits when the user clicks the clear button. */
+  /** @internal Emits when the user clears the selection via Backspace or Delete. */
   @event({ name: 'sl-clear' }) clearEvent!: EventEmitter<SlClearEvent>;
 
   /** Whether the button is disabled. */
@@ -88,17 +88,7 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     const hasSelected = !!this.selected;
 
-    let inlineSize = '100%';
-
-    if (this.optionSize) {
-      const shouldAccountForClearButton = this.clearable && !this.selected,
-        clearButtonTotalWidth =
-          4 /* clear button margin: margin-inline-start: var(--sl-size-050) */ +
-          34 /* clear button width: block-size: calc(1lh + (var(--sl-size-100) - var(--sl-size-borderWidth-default)) * 2);  */ +
-          4; /* status icon padding: difference between the padding-inline-start with and without the clear button */
-
-      inlineSize = `${this.optionSize + (shouldAccountForClearButton ? clearButtonTotalWidth : 0)}px`;
-    }
+    const inlineSize = this.optionSize ? `${this.optionSize}px` : '100%';
 
     return html`
       <div

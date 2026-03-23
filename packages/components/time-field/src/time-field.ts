@@ -664,9 +664,9 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onClick(event: Event): void {
+    // this is needed to get the link between the label and the input working,
+    // because that doesn't work when the input is actually a contenteditable span
     if (event.target === this) {
-      // this.#rovingTabindexController.focus();
-      console.log('Time field clicked');
       this.focus();
     }
   }

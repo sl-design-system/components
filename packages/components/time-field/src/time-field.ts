@@ -2,7 +2,14 @@ import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, LocaleMixin, anchor, event, isPopoverOpen } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  EventsController,
+  LocaleMixin,
+  anchor,
+  event,
+  isPopoverOpen
+} from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { FieldButton } from '@sl-design-system/text-field';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
@@ -55,6 +62,12 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
+
+  /** Events controller. */
+  // eslint-disable-next-line no-unused-private-class-members
+  #events = new EventsController(this, {
+    click: this.#onClick
+  });
 
   /** @internal The default margin between the popover and the viewport. */
   static viewportMargin = 8;
@@ -400,6 +413,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         @keydown=${(e: KeyboardEvent) => this.#onPartKeydown(e, partType)}
         @paste=${this.#onPaste}
         @drop=${(e: Event) => e.preventDefault()}
+        @click=${(e: Event) => e.stopPropagation()}
         aria-disabled=${this.disabled ? 'true' : 'false'}
         aria-label=${getTimeUnitName(locale, partType)}
         aria-readonly=${this.readonly || this.selectOnly ? 'true' : 'false'}
@@ -442,7 +456,10 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     return hours.map(
       (hour, index) => html`
         <li
-          @click=${() => this.#onHourClick(hour)}
+          @click=${(e: Event) => {
+            e.stopPropagation();
+            this.#onHourClick(hour);
+          }}
           @keydown=${(event: KeyboardEvent) => this.#onHourKeydown(event, hour)}
           aria-label=${`${hour.toString()} ${getTimeUnitName(this.locale || 'default', 'hour')}`}
           aria-selected=${hour === this.#valueAsNumbers?.hour}
@@ -467,7 +484,10 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
       return html`
         <li
-          @click=${() => this.#onMinuteClick(minute)}
+          @click=${(e: Event) => {
+            e.stopPropagation();
+            this.#onMinuteClick(minute);
+          }}
           @keydown=${(event: KeyboardEvent) => this.#onMinuteKeydown(event, minute)}
           ?disabled=${isDisabled}
           aria-label=${`${minute.toString()} ${getTimeUnitName(this.locale || 'default', 'minute')}`}
@@ -643,6 +663,14 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
   }
 
+  #onClick(event: Event): void {
+    if (event.target === this) {
+      // this.#rovingTabindexController.focus();
+      console.log('Time field clicked');
+      this.focus();
+    }
+  }
+
   #onFocusIn = (event: FocusEvent): void => {
     // Only emit when focus enters from outside the component
     const relatedTarget = event.relatedTarget as Node | null;
@@ -674,7 +702,8 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
   };
 
-  #onButtonClick(): void {
+  #onButtonClick(e: Event): void {
+    e.stopPropagation();
     // Prevents the popover from reopening immediately after it was just closed
     if (!this.#popoverJustClosed) {
       this.dialog?.togglePopover();

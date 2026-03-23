@@ -7,6 +7,7 @@ import urls from '../../changed-urls.json';
 let axe: AxeBuilder;
 let results: AxeResults;
 const homePageUrl = '/';
+const domainName = 'http://localhost:8000/';
 
 function createNumberedList<T>(items: T[]): string {
   return items.map((item, index) => `${index + 1}. ${item}`).join('\n');
@@ -37,16 +38,16 @@ test.afterEach(async ({ page }) => {
     },
     options: {
       outputDir: 'reports/website',
-      reportFileName: `${page.url().replace('http://localhost:8000/', '').replaceAll('/', '_')}a11y_report.html`
+      reportFileName: `${page.url().replace(domainName, '').replaceAll('/', '_')}a11y_report.html`
     }
   });
 });
 
-// Test the homepage scanning the full page including <header> and <nav>
+// Test only the homepage scanning the full page including <header> and <nav>
 test.describe('Full test for homepage', () => {
   if (urls.includes(homePageUrl)) {
     test('A11y test on home page', async ({ page }) => {
-      await page.goto('/', { waitUntil: 'load' });
+      await page.goto(homePageUrl, { waitUntil: 'load' });
       results = await axe.analyze();
       expect(results.violations.length, 'Accessibility violations found, see details above').toBe(0);
     });

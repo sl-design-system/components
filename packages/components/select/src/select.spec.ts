@@ -1133,7 +1133,7 @@ describe('sl-select', () => {
       expect(clearButton).to.exist;
     });
 
-    it('should have aria-keyshortcuts on the button when clearable with a selected value', () => {
+    it('should have aria-keyshortcuts on the button when select is clearable with a selected value', () => {
       expect(button).to.have.attribute('aria-keyshortcuts', 'Delete Backspace');
     });
 

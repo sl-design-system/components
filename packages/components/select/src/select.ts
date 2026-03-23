@@ -323,8 +323,8 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
         ? html`
             <button
               @click=${this.#onClearButtonClick}
-              @focusin=${() => this.button?.setAttribute('clear-focused', '')}
-              @focusout=${() => this.button?.removeAttribute('clear-focused')}
+              @focusin=${this.#onClearButtonFocusin}
+              @focusout=${this.#onClearButtonFocusout}
               aria-label=${msg('Clear selection', { id: 'sl.select.clearSelection' })}
               class="clear-button"
               tabindex="0"
@@ -455,6 +455,14 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     this.#onClear();
     this.clearEvent.emit();
     this.button.focus();
+  }
+
+  #onClearButtonFocusin(): void {
+    this.button?.setAttribute('clear-focused', '');
+  }
+
+  #onClearButtonFocusout(): void {
+    this.button?.removeAttribute('clear-focused');
   }
 
   #onClick(event: Event): void {

@@ -51,7 +51,7 @@ jobs:
 
       - name: Change .md paths to URLs
         id: generate_urls
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         env:
           CHANGED_MD: '${{ steps.detect_changes.outputs.all_changed_files }}'
         with:

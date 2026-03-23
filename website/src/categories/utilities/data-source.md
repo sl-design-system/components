@@ -249,7 +249,7 @@ const ds = new FetchListDataSource({
 
 - **Lazy loading**: Items are not fetched until they are accessed (via the Proxy-based `items` array). Accessing an index triggers a page fetch automatically.
 - **Placeholders**: While a page is loading, placeholder items are returned. Components can check for the `ListDataSourcePlaceholder` symbol to render loading indicators.
-- **Page caching**: Each page is fetched only once. Calling `update()` resets the cache and re-fetches data.
+- **Page caching**: Each page is fetched only once. Calling `update()` resets the cache so the next access re-fetches data.
 
 ### Groups
 

@@ -51,6 +51,8 @@ The class hierarchy is:
 | `removeSort()` | Clear the current sort |
 | `update()` | Recompute items and emit `sl-update` |
 
+{.ds-table .ds-table-align-top}
+
 You never instantiate `DataSource` directly — use one of the concrete subclasses instead.
 
 </section>
@@ -74,6 +76,8 @@ Items can be grouped by a property path. Groups are represented as `ListDataSour
 | `toggleGroup(id, force?)` | Toggle a group's collapsed state |
 | `isGroupCollapsed(id)` | Check whether a group is collapsed |
 
+{.ds-table .ds-table-align-top}
+
 ### Pagination
 
 When the `pagination` option is enabled, only a slice of items is returned based on the current page and page size. This affects the value of `size`, while `totalSize` continues to report the total number of items available for pagination:
@@ -87,6 +91,8 @@ When the `pagination` option is enabled, only a slice of items is returned based
 | `totalSize` | The total number of items in the data source after filtering but before pagination; use this for paginator/selection logic and page count calculations |
 | `setPage(page)` | Navigate to a specific page |
 | `setPageSize(pageSize)` | Change the number of items per page |
+
+{.ds-table .ds-table-align-top}
 
 When pagination is disabled, `size` and `totalSize` are equal. When pagination is enabled, `size` usually equals `pageSize` (except on the last page), while `totalSize` stays constant for the active filters and is what components such as paginators should rely on.
 ### Selection
@@ -106,6 +112,8 @@ Selection can be configured as `'single'` or `'multiple'` via the `selects` opti
 | `deselectAll()` | Deselect all items |
 | `areAllSelected()` | Whether all items are selected |
 | `areSomeSelected()` | Whether some (but not all) items are selected |
+
+{.ds-table .ds-table-align-top}
 
 ### Options
 
@@ -127,6 +135,8 @@ The `ListDataSourceOptions` object accepted by subclass constructors supports th
 | `getId(item)` | Return a unique id for an item |
 | `getGroupId(item)` | Return the group id for an item |
 | `isSelected(item)` | Return the initial selected state of an item |
+
+{.ds-table .ds-table-align-top}
 
 </section>
 
@@ -303,6 +313,12 @@ A data source is passed to a component as a JavaScript property — not as an HT
 html`<sl-grid .dataSource=${dataSource}></sl-grid>`
 ```
 
+In Angular templates:
+
+```html
+<sl-grid [dataSource]="dataSource"></sl-grid>
+```
+
 Or set it imperatively:
 
 ```ts
@@ -399,6 +415,8 @@ Data sources emit the following events:
 | `sl-update` | Fired after `update()` completes. The detail contains a reference to the data source. |
 | `sl-selection-change` | Fired when the selection changes (select, deselect, toggle, selectAll, deselectAll). |
 
+{.ds-table .ds-table-align-top}
+
 </section>
 
 <section>
@@ -414,6 +432,8 @@ The package exports several helper types and functions:
 | `isListDataSourceDataItem(item)` | Type guard for narrowing to `ListDataSourceDataItem` |
 | `isListDataSourceGroupItem(item)` | Type guard for narrowing to `ListDataSourceGroupItem` |
 | `ListDataSourcePlaceholder` | Symbol used as a placeholder for items that are being loaded |
+
+{.ds-table .ds-table-align-top}
 
 </section>
 

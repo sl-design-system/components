@@ -76,16 +76,19 @@ Items can be grouped by a property path. Groups are represented as `ListDataSour
 
 ### Pagination
 
-When the `pagination` option is enabled, only a slice of items is returned based on the current page and page size:
+When the `pagination` option is enabled, only a slice of items is returned based on the current page and page size. This affects the value of `size`, while `totalSize` continues to report the total number of items available for pagination:
 
 | Method / Property | Description |
 | --- | --- |
 | `page` | The current page index (zero-based) |
 | `pageSize` | The number of items per page (default: 10) |
 | `pagination` | Whether pagination is enabled |
+| `size` | The number of items currently exposed by the data source (e.g. the items on the current page after filtering/pagination) |
+| `totalSize` | The total number of items in the data source after filtering but before pagination; use this for paginator/selection logic and page count calculations |
 | `setPage(page)` | Navigate to a specific page |
 | `setPageSize(pageSize)` | Change the number of items per page |
 
+When pagination is disabled, `size` and `totalSize` are equal. When pagination is enabled, `size` usually equals `pageSize` (except on the last page), while `totalSize` stays constant for the active filters and is what components such as paginators should rely on.
 ### Selection
 
 Selection can be configured as `'single'` or `'multiple'` via the `selects` option. The data source tracks selection state and emits `sl-selection-change` events:

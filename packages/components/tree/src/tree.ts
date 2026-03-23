@@ -8,7 +8,7 @@ import { VirtualizerController } from '@sl-design-system/virtual-list';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { ref } from 'lit/directives/ref.js';
+import { type RefOrCallback, ref } from 'lit/directives/ref.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { TreeDataSource, type TreeDataSourceNode } from './tree-data-source.js';
 import { TreeNode } from './tree-node.js';
@@ -184,7 +184,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
                   @sl-toggle=${() => this.#onToggle(item)}
                   @keydown=${this.#onKeydown}
                   data-index=${virtualItem.index}
-                  ${ref(virtualizer.measureElement) /* must be *after* data-index */}
+                  ${ref(virtualizer.measureElement as RefOrCallback<Element>) /* must be *after* data-index */}
                   ?expandable=${item.expandable}
                   ?expanded=${item.expanded}
                   ?indeterminate=${item.indeterminate}

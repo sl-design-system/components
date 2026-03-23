@@ -292,6 +292,101 @@ class MyDataSource extends FetchListDataSource<Person> {
 
 <section>
 
+## Using with components
+
+A data source is passed to a component as a JavaScript property — not as an HTML attribute. In Lit templates, use the dot-prefix (`.dataSource`) to bind the property:
+
+```ts
+html`<sl-grid .dataSource=${dataSource}></sl-grid>`
+```
+
+Or set it imperatively:
+
+```ts
+const grid = document.querySelector('sl-grid');
+grid.dataSource = dataSource;
+```
+
+### Grid
+
+The grid is the primary consumer of data sources. It supports both `ArrayListDataSource` and `FetchListDataSource`. You can also pass a plain `items` array, in which case the grid will create an `ArrayListDataSource` for you internally.
+
+```ts
+import { ArrayListDataSource } from '@sl-design-system/data-source';
+
+const ds = new ArrayListDataSource(people, {
+  pagination: true,
+  pageSize: 10,
+  sortBy: 'name'
+});
+
+return html`
+  <sl-grid .dataSource=${ds}>
+    <sl-grid-column path="name"></sl-grid-column>
+    <sl-grid-column path="age"></sl-grid-column>
+    <sl-grid-column path="department"></sl-grid-column>
+  </sl-grid>
+`;
+```
+
+Operations performed on the data source — such as filtering, sorting, or pagination — are automatically reflected in the grid.
+
+### Grid with remote data
+
+For server-side data, use `FetchListDataSource`. The grid will trigger page fetches automatically as the user scrolls or navigates:
+
+```ts
+import {
+  FetchListDataSource,
+  FetchListDataSourceError
+} from '@sl-design-system/data-source';
+
+const ds = new FetchListDataSource({
+  pageSize: 10,
+  pagination: true,
+  fetchPage: async ({ page, pageSize }) => {
+    const response = await fetch(
+      `/api/people?page=${page}&size=${pageSize}`
+    );
+
+    if (!response.ok) {
+      throw new FetchListDataSourceError('Failed to fetch', response);
+    }
+
+    const { data, total } = await response.json();
+    return { items: data, totalItems: total };
+  }
+});
+
+return html`
+  <sl-grid .dataSource=${ds}>
+    <sl-grid-column path="name"></sl-grid-column>
+    <sl-grid-column path="department"></sl-grid-column>
+  </sl-grid>
+`;
+```
+
+### Paginator
+
+The paginator component shares the same data source as the grid. Pass the same instance to both so the paginator can control pagination:
+
+```ts
+return html`
+  <sl-grid .dataSource=${ds}>
+    <sl-grid-column path="name"></sl-grid-column>
+  </sl-grid>
+  <sl-paginator .dataSource=${ds}></sl-paginator>
+`;
+```
+
+### Tree
+
+The tree component uses its own data source types — `FlatTreeDataSource` and `NestedTreeDataSource` — which are separate from the list data sources documented above. See the tree component documentation for details.
+
+</section>
+
+<section>
+
 ## Events
 
 Data sources emit the following events:

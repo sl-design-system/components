@@ -39,14 +39,19 @@ const timeFormatCache: Record<string, DateFormatPart[]> = {},
 
 /** Returns the time format parts for a given locale. */
 export function getTimeFormat(locale: string, date?: Date): DateFormatPart[] {
+  // Normalize locale for Intl API: treat empty string and 'default' as undefined
+  const normalizedLocale = locale && locale !== 'default' ? locale : undefined;
+  // Use original locale as cache key to maintain stability
+  const cacheKey = locale;
+
   // Only cache when no date is provided
-  if (!date && timeFormatCache[locale]) {
-    return timeFormatCache[locale];
+  if (!date && timeFormatCache[cacheKey]) {
+    return timeFormatCache[cacheKey];
   }
 
   // To prevent the format changing from 2-digit to 1-digit hours/minutes
   // when the value changes, we force 2-digit time formatting
-  const intlParts = new Intl.DateTimeFormat(locale, {
+  const intlParts = new Intl.DateTimeFormat(normalizedLocale, {
     hour: '2-digit',
     minute: '2-digit',
     hourCycle: 'h23'
@@ -64,7 +69,7 @@ export function getTimeFormat(locale: string, date?: Date): DateFormatPart[] {
   });
 
   if (!date) {
-    timeFormatCache[locale] = parts;
+    timeFormatCache[cacheKey] = parts;
   }
 
   return parts;

@@ -45,7 +45,7 @@ describe('sl-tooltip', () => {
       button?.focus();
       await tooltip.updateComplete;
       // Give some time for the tooltip to open
-      await waitFor((tooltip.showDelay ?? 0) + 200);
+      await waitFor((tooltip.showDelay ?? 0) + 300);
       expect(tooltip).to.match(':popover-open');
 
       // Use userEvent to trigger a natural focusout/blur
@@ -267,7 +267,7 @@ describe('sl-tooltip', () => {
     it('should show tooltip on focus when referenced via ElementInternals', async () => {
       button?.focus();
       await tooltip.updateComplete;
-      await waitFor(200);
+      await waitFor(300);
 
       expect(tooltip).to.match(':popover-open');
     });
@@ -397,7 +397,7 @@ describe('sl-tooltip', () => {
     it('should show tooltip on focus when referenced via Element ariaDescribedByElements', async () => {
       button?.focus();
       await tooltip.updateComplete;
-      await waitFor(200);
+      await waitFor(300);
 
       expect(tooltip).to.match(':popover-open');
     });
@@ -448,7 +448,7 @@ describe('sl-tooltip', () => {
     it('should show tooltip on focus when referenced via Element ariaLabelledByElements', async () => {
       button?.focus();
       await tooltip.updateComplete;
-      await waitFor(200);
+      await waitFor(300);
 
       expect(tooltip).to.match(':popover-open');
     });

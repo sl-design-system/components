@@ -413,7 +413,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         @keydown=${(e: KeyboardEvent) => this.#onPartKeydown(e, partType)}
         @paste=${this.#onPaste}
         @drop=${(e: Event) => e.preventDefault()}
-        @click=${(e: Event) => e.stopPropagation()}
         aria-disabled=${this.disabled ? 'true' : 'false'}
         aria-label=${getTimeUnitName(locale, partType)}
         aria-readonly=${this.readonly || this.selectOnly ? 'true' : 'false'}
@@ -456,10 +455,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     return hours.map(
       (hour, index) => html`
         <li
-          @click=${(e: Event) => {
-            e.stopPropagation();
-            this.#onHourClick(hour);
-          }}
+          @click=${() => this.#onHourClick(hour)}
           @keydown=${(event: KeyboardEvent) => this.#onHourKeydown(event, hour)}
           aria-label=${`${hour.toString()} ${getTimeUnitName(this.locale || 'default', 'hour')}`}
           aria-selected=${hour === this.#valueAsNumbers?.hour}
@@ -484,10 +480,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
       return html`
         <li
-          @click=${(e: Event) => {
-            e.stopPropagation();
-            this.#onMinuteClick(minute);
-          }}
+          @click=${() => this.#onMinuteClick(minute)}
           @keydown=${(event: KeyboardEvent) => this.#onMinuteKeydown(event, minute)}
           ?disabled=${isDisabled}
           aria-label=${`${minute.toString()} ${getTimeUnitName(this.locale || 'default', 'minute')}`}
@@ -666,7 +659,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   #onClick(event: Event): void {
     // this is needed to get the link between the label and the input working,
     // because that doesn't work when the input is actually a contenteditable span
-    if (event.target === this) {
+    if (event.composedPath()[0] === this) {
       this.focus();
     }
   }
@@ -702,8 +695,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
   };
 
-  #onButtonClick(e: Event): void {
-    e.stopPropagation();
+  #onButtonClick(): void {
     // Prevents the popover from reopening immediately after it was just closed
     if (!this.#popoverJustClosed) {
       this.dialog?.togglePopover();

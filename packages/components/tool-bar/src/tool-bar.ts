@@ -792,7 +792,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
   #updateMapping(): void {
     const slot = this.renderRoot.querySelector('slot')!,
-      elements = slot.assignedElements({ flatten: true });
+      elements = slot?.assignedElements({ flatten: true }) ?? [];
 
     this.empty = elements.length === 0;
 

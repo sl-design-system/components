@@ -228,6 +228,49 @@ describe('doc-nav-item', () => {
       expect(el.open).to.be.true;
     });
 
+    it('should emit an sl-toggle event when opened', async () => {
+      const details = el.renderRoot.querySelector<HTMLDetailsElement>('details')!;
+
+      let event: Event | undefined;
+      el.addEventListener('sl-toggle', (e: Event) => (event = e));
+
+      details.open = true;
+      details.dispatchEvent(new Event('toggle'));
+      await el.updateComplete;
+
+      expect(event).to.exist;
+      expect((event as CustomEvent).detail).to.be.true;
+    });
+
+    it('should emit an sl-toggle event when closed', async () => {
+      el.open = true;
+      await el.updateComplete;
+
+      const details = el.renderRoot.querySelector<HTMLDetailsElement>('details')!;
+
+      let event: Event | undefined;
+      el.addEventListener('sl-toggle', (e: Event) => (event = e));
+
+      details.open = false;
+      details.dispatchEvent(new Event('toggle'));
+      await el.updateComplete;
+
+      expect(event).to.exist;
+      expect((event as CustomEvent).detail).to.be.false;
+    });
+
+    it('should not emit an sl-toggle event for non-expandable items', async () => {
+      const leaf = await fixture(html`<doc-nav-item heading="Leaf" href="/leaf/"></doc-nav-item>`);
+
+      let event: Event | undefined;
+      leaf.addEventListener('sl-toggle', (e: Event) => (event = e));
+
+      leaf.click();
+      await leaf.updateComplete;
+
+      expect(event).to.be.undefined;
+    });
+
     it('should reflect the open attribute', async () => {
       el.open = true;
       await el.updateComplete;

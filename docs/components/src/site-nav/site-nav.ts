@@ -2,39 +2,34 @@ import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit'
 import { NavItem } from './nav-item.js';
 import styles from './site-nav.css' with { type: 'css' };
 
-export { NavGroup } from './nav-group.js';
-export { NavItem } from './nav-item.js';
-
 export class SiteNav extends LitElement {
   /** @internal */
   static styles: CSSResultGroup = styles;
 
-  /** Returns all visible (not inside a collapsed parent) nav-items in DOM order. */
-  #getVisibleItems(): NavItem[] {
-    return Array.from(this.querySelectorAll('*'))
-      .filter((el): el is NavItem => el instanceof NavItem)
-      .filter(item => {
-        let parent = item.parentElement;
+  override connectedCallback(): void {
+    super.connectedCallback();
 
-        while (parent && parent !== this) {
-          if (parent instanceof NavItem && parent.expandable && !parent.open) {
-            return false;
-          }
-          parent = parent.parentElement;
-        }
+    this.addEventListener('keydown', this.#onKeydown);
 
-        return true;
-      });
+    // Set up roving tabindex after children are parsed
+    requestAnimationFrame(() => this.#initTabIndex());
   }
 
-  #focusItem(items: NavItem[], index: number): void {
-    items.forEach((item, i) => {
-      item.tabIndex = i === index ? 0 : -1;
-    });
-    items[index]?.focus();
+  override disconnectedCallback(): void {
+    this.removeEventListener('keydown', this.#onKeydown);
+
+    super.disconnectedCallback();
   }
 
-  #onKeyDown = (event: KeyboardEvent): void => {
+  override render(): TemplateResult {
+    return html`
+      <nav aria-label="Site navigation" role="tree">
+        <slot @slotchange=${() => this.#initTabIndex()}></slot>
+      </nav>
+    `;
+  }
+
+  #onKeydown = (event: KeyboardEvent): void => {
     const items = this.#getVisibleItems(),
       current = items.indexOf(document.activeElement as NavItem);
 
@@ -104,19 +99,29 @@ export class SiteNav extends LitElement {
     }
   };
 
-  override connectedCallback(): void {
-    super.connectedCallback();
+  /** Returns all visible (not inside a collapsed parent) nav-items in DOM order. */
+  #getVisibleItems(): NavItem[] {
+    return Array.from(this.querySelectorAll('*'))
+      .filter((el): el is NavItem => el instanceof NavItem)
+      .filter(item => {
+        let parent = item.parentElement;
 
-    this.addEventListener('keydown', this.#onKeyDown);
+        while (parent && parent !== this) {
+          if (parent instanceof NavItem && parent.expandable && !parent.open) {
+            return false;
+          }
+          parent = parent.parentElement;
+        }
 
-    // Set up roving tabindex after children are parsed
-    requestAnimationFrame(() => this.#initTabIndex());
+        return true;
+      });
   }
 
-  override disconnectedCallback(): void {
-    this.removeEventListener('keydown', this.#onKeyDown);
-
-    super.disconnectedCallback();
+  #focusItem(items: NavItem[], index: number): void {
+    items.forEach((item, i) => {
+      item.tabIndex = i === index ? 0 : -1;
+    });
+    items[index]?.focus();
   }
 
   #initTabIndex(): void {
@@ -124,13 +129,5 @@ export class SiteNav extends LitElement {
     items.forEach((item, i) => {
       item.tabIndex = i === 0 ? 0 : -1;
     });
-  }
-
-  override render(): TemplateResult {
-    return html`
-      <nav aria-label="Site navigation" role="tree">
-        <slot @slotchange=${() => this.#initTabIndex()}></slot>
-      </nav>
-    `;
   }
 }

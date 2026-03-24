@@ -19,6 +19,12 @@ export class NavItem extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static styles: CSSResultGroup = styles;
 
+  /** Whether this is the active/current page. */
+  @property({ type: Boolean, reflect: true }) active?: boolean;
+
+  /** @internal Whether this item has child nav items. */
+  @state() expandable = false;
+
   /** The display text for this nav item. */
   @property() heading?: string;
 
@@ -28,17 +34,11 @@ export class NavItem extends ScopedElementsMixin(LitElement) {
   /** The icon name (for top-level items). */
   @property() icon?: string;
 
-  /** Whether this is the active/current page. */
-  @property({ type: Boolean, reflect: true }) active?: boolean;
+  /** @internal The nesting level (0-based), computed from DOM. */
+  @state() level = 0;
 
   /** Whether the children are expanded. */
   @property({ type: Boolean, reflect: true }) open?: boolean;
-
-  /** @internal Whether this item has child nav items. */
-  @state() expandable = false;
-
-  /** @internal The nesting level (0-based), computed from DOM. */
-  @state() level = 0;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -65,17 +65,16 @@ export class NavItem extends ScopedElementsMixin(LitElement) {
   }
 
   override updated(): void {
-    // Sync ARIA states with properties
-    if (this.expandable) {
-      this.setAttribute('aria-expanded', Boolean(this.open).toString());
-    } else {
-      this.removeAttribute('aria-expanded');
-    }
-
     if (this.active) {
       this.setAttribute('aria-current', 'page');
     } else {
       this.removeAttribute('aria-current');
+    }
+
+    if (this.expandable) {
+      this.setAttribute('aria-expanded', Boolean(this.open).toString());
+    } else {
+      this.removeAttribute('aria-expanded');
     }
   }
 
@@ -91,7 +90,7 @@ export class NavItem extends ScopedElementsMixin(LitElement) {
               : html`<span class="label">${this.heading}</span>`}
             <sl-icon class="chevron" name="far-chevron-right" size="xs"></sl-icon>
           </summary>
-          <slot @slotchange=${this.#onSlotChange}></slot>
+          <slot @click=${this.#onClick} @slotchange=${this.#onSlotChange}></slot>
         </details>
       `;
     }
@@ -105,14 +104,20 @@ export class NavItem extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  #onSlotChange(event: Event): void {
-    const slot = event.target as HTMLSlotElement,
-      children = slot.assignedElements({ flatten: true });
+  #onClick(event: Event): void {
+    const link = event.composedPath().find(el => el instanceof HTMLElement && el.matches('a.leaf'));
+    if (!link) {
+      return;
+    }
+  }
+
+  #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    const children = event.target.assignedElements({ flatten: true });
 
     this.expandable = children.some(child => child.localName === this.localName);
   }
 
-  #onToggle(event: Event): void {
-    this.open = (event.target as HTMLDetailsElement).open;
+  #onToggle(event: Event & { target: HTMLDetailsElement }): void {
+    this.open = event.target.open;
   }
 }

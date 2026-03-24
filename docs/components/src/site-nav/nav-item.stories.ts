@@ -72,9 +72,9 @@ export const Expandable: Story = {
       </style>
       <doc-nav-group>
         <doc-nav-item .heading=${heading} .icon=${icon} .active=${active} .open=${open}>
-          <doc-nav-item heading="Intro" href="#"></doc-nav-item>
-          <doc-nav-item heading="Setup" href="#"></doc-nav-item>
-          <doc-nav-item heading="Configuration" href="#"></doc-nav-item>
+          <doc-nav-item heading="Intro" href="javascript:void(0)"></doc-nav-item>
+          <doc-nav-item heading="Setup" href="javascript:void(0)"></doc-nav-item>
+          <doc-nav-item heading="Configuration" href="javascript:void(0)"></doc-nav-item>
         </doc-nav-item>
       </doc-nav-group>
     `;
@@ -101,13 +101,13 @@ export const Nested: Story = {
       </style>
       <doc-nav-group>
         <doc-nav-item heading="Contribute" icon="far-code-branch" open>
-          <doc-nav-item heading="Code of Conduct" href="#"></doc-nav-item>
-          <doc-nav-item heading="Translations" href="#"></doc-nav-item>
-          <doc-nav-item heading="Homepage" href="#" active></doc-nav-item>
-          <doc-nav-item heading="Desktop" href="#"></doc-nav-item>
+          <doc-nav-item heading="Code of Conduct"></doc-nav-item>
+          <doc-nav-item heading="Translations"></doc-nav-item>
+          <doc-nav-item heading="Homepage" active></doc-nav-item>
+          <doc-nav-item heading="Desktop"></doc-nav-item>
         </doc-nav-item>
         <doc-nav-item heading="User Manual" icon="far-file-lines">
-          <doc-nav-item heading="Getting Started" href="#"></doc-nav-item>
+          <doc-nav-item heading="Getting Started"></doc-nav-item>
         </doc-nav-item>
       </doc-nav-group>
     `;

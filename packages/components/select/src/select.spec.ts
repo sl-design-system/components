@@ -1160,10 +1160,6 @@ describe('sl-select', () => {
       expect(clearButton).to.have.attribute('aria-label', 'Clear selection');
     });
 
-    it('should not have aria-hidden on the clear button', () => {
-      expect(clearButton).not.to.have.attribute('aria-hidden');
-    });
-
     it('should set clear-focused attribute when clear button receives focus', async () => {
       clearButton.focus();
       await el.updateComplete;

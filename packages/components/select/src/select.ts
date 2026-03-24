@@ -157,7 +157,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   /** @internal */
   readonly internals = this.attachInternals();
 
-  /** @internal The clear button element in the shadow DOM. */
+  /** @internal The clear button element. */
   @query('.clear-button') clearButton?: HTMLButtonElement;
 
   /** @internal The listbox element that is also the popover. */
@@ -327,7 +327,6 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
               @focusout=${this.#onClearButtonFocusout}
               aria-label=${msg('Clear selection', { id: 'sl.select.clearSelection' })}
               class="clear-button"
-              tabindex="0"
             >
               <sl-icon name="circle-xmark"></sl-icon>
               <sl-icon name="circle-xmark-solid"></sl-icon>

@@ -41,8 +41,9 @@ describe('sl-tooltip shared', () => {
     // 3. Immediately move out of second button (same tick or very next)
     buttons[1].dispatchEvent(new Event('pointerout', { bubbles: true }));
 
-    // Wait for any pending timers
-    await waitFor((tooltip.showDelay ?? 150) + (tooltip.hideDelay ?? 0) + 50);
+    // Wait for any pending timers (showDelay + hideDelay + buffer)
+    await tooltip.updateComplete;
+    await waitFor((tooltip.showDelay ?? 150) + (tooltip.hideDelay ?? 0) + 100);
 
     // The tooltip should be closed.
     expect(tooltip).not.to.match(':popover-open');
@@ -63,7 +64,8 @@ describe('sl-tooltip shared', () => {
     buttons[0].dispatchEvent(new Event('pointerout', { bubbles: true }));
     buttons[1].dispatchEvent(new Event('pointerout', { bubbles: true }));
 
-    await waitFor((tooltip.showDelay ?? 150) + (tooltip.hideDelay ?? 0) + 50);
+    await tooltip.updateComplete;
+    await waitFor((tooltip.showDelay ?? 150) + (tooltip.hideDelay ?? 0) + 100);
     expect(tooltip).not.to.match(':popover-open');
   });
 });

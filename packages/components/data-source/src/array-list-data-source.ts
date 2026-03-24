@@ -74,7 +74,7 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
     items.splice(to + (from < to ? -1 : 0), 0, item);
   }
 
-  /** Returns the selected items. */
+  /** Returns the selected data objects (raw {@link T} items). */
   getSelectedItems(): T[] {
     return this.#mappedItems.filter(item => this.isSelected(item)).map(item => item.data);
   }

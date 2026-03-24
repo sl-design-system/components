@@ -4,6 +4,12 @@ import { property } from 'lit/decorators.js';
 import styles from './tooltip.scss.js';
 
 declare global {
+  interface HTMLElementEventMap {
+    'sl-close': CustomEvent<void>;
+  }
+}
+
+declare global {
   interface HTMLElementTagNameMap {
     'sl-tooltip': Tooltip;
   }
@@ -346,7 +352,7 @@ export class Tooltip extends LitElement {
     this.#events.listen(root, 'keydown', this.#onKeydown);
     this.#events.listen(root, 'pointerover', this.#onShow);
     this.#events.listen(root, 'pointerout', this.#onHide);
-    this.#events.listen(root, 'sl-close', this.#onShow as EventListener);
+    this.#events.listen(root, 'sl-close', this.#onShow);
   }
 
   override disconnectedCallback(): void {

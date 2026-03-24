@@ -4,7 +4,7 @@ import { property } from 'lit/decorators.js';
 import styles from './tooltip.scss.js';
 
 declare global {
-  interface HTMLElementEventMap {
+  interface GlobalEventHandlersEventMap {
     'sl-close': CustomEvent<void>;
   }
 }
@@ -227,16 +227,21 @@ export class Tooltip extends LitElement {
           }
           return;
         }
-        if (anchorHovered || tooltipHovered || safeTriangleHovered) {
+
+        const isFocusVisible = !!this.anchorElement?.matches(':focus-visible');
+
+        if (anchorHovered || tooltipHovered || safeTriangleHovered || isFocusVisible) {
           return;
         }
 
-        // If the current anchor isn't hovered, check if any other buttons that reference this tooltip are hovered
+        // If the current anchor isn't hovered or focused, check if any other buttons that reference this tooltip are hovered
         const root = this.getRootNode() as ParentNode;
-        const potentialAnchors = root.querySelectorAll(
-          `[aria-describedby~="${this.id}"], [aria-labelledby~="${this.id}"]`
-        );
-        const anyAnchorHovered = Array.from(potentialAnchors).some(el => el.matches(':hover'));
+        const potentialAnchors = Array.from(root.querySelectorAll<HTMLElement>('*')).filter(el => {
+          return (
+            el.matches(`[aria-describedby~="${this.id}"], [aria-labelledby~="${this.id}"]`) || this.#matchesAnchor(el)
+          );
+        });
+        const anyAnchorHovered = potentialAnchors.some(el => el.matches(':hover') || el.matches(':focus-visible'));
 
         if (!anyAnchorHovered) {
           this.hidePopover();
@@ -290,15 +295,30 @@ export class Tooltip extends LitElement {
     // For keyboard navigation (focus events or dialog/popover closing)
     if (event.type === 'focusin' || event.type === 'sl-close') {
       window.clearTimeout(this.#timer);
+
+      // If the event is sl-close, the event path might not contain the anchor (as it comes from the dialog)
+      // So we use the activeElement (or shadowRoot.activeElement) as a candidate anchor.
+      const candidateAnchor =
+        event.type === 'sl-close'
+          ? (this.getRootNode() as Document | ShadowRoot).activeElement || document.activeElement
+          : anchorElement;
+
+      if (!candidateAnchor || !(candidateAnchor instanceof HTMLElement) || !this.#matchesAnchor(candidateAnchor)) {
+        if (event.type === 'focusin') {
+          return;
+        }
+      }
+
+      const activeAnchor = (candidateAnchor as HTMLElement) || anchorElement;
       const path = event.composedPath();
 
       requestAnimationFrame(() => {
         const hasFocusVisible =
-          anchorElement.matches(':focus-visible') ||
+          activeAnchor.matches(':focus-visible') ||
           path.some(el => el instanceof Element && el.matches(':focus-visible'));
 
         if (hasFocusVisible) {
-          this.#showTooltip(anchorElement);
+          this.#showTooltip(activeAnchor);
         }
       });
     }

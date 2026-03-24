@@ -30,7 +30,7 @@ th {
 
 [part~='week-day'],
 [part~='week-number'] {
-  color: var(--sl-color-foreground-disabled);
+  color: var(--sl-color-foreground-subtlest);
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
 }
 
@@ -48,7 +48,7 @@ th {
 
 [part~='week-number'] {
   inline-size: auto;
-  min-inline-size: calc(var(--sl-size-300) + 2 * var(--sl-size-050) + 2 * var(--sl-size-010));
+  min-inline-size: calc(var(--sl-size-400) - 2 * var(--sl-size-010));
   position: relative;
   text-align: center;
 

@@ -18,7 +18,8 @@
 header {
   align-items: center;
   display: flex;
-  padding-inline: var(--sl-size-150) var(--sl-size-050);
+  gap: var(--sl-size-100);
+  padding-inline: var(--sl-size-050) var(--sl-size-none);
 
   span {
     font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
@@ -26,7 +27,7 @@ header {
   }
 
   sl-button + sl-button {
-    margin-inline-start: var(--sl-size-100);
+    margin-inline-start: calc(-1 * var(--sl-size-050));
   }
 }
 
@@ -41,7 +42,7 @@ table {
   box-sizing: content-box;
   inline-size: 100%;
   margin: 0;
-  padding: var(--sl-size-100);
+  padding: 0 0 var(--sl-size-100) 0;
 }
 
 td {
@@ -94,7 +95,7 @@ button {
     outline: transparent solid var(--sl-size-outlineWidth-default);
     outline-offset: var(--sl-size-outlineOffset-default);
     padding: calc(var(--sl-size-025) - var(--sl-size-borderWidth-subtle))
-      calc(var(--sl-size-100) - var(--sl-size-borderWidth-action));
+      calc(var(--sl-size-075) - var(--sl-size-borderWidth-action));
 
     @media (prefers-reduced-motion: no-preference) {
       transition: 0.2s ease-in-out;

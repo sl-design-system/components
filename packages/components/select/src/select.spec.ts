@@ -1239,5 +1239,57 @@ describe('sl-select', () => {
 
       expect(el.value).to.be.undefined;
     });
+
+    it('should emit sl-clear when clearing via keyboard', async () => {
+      const onClear = spy();
+
+      el.addEventListener('sl-clear', onClear);
+      button.focus();
+      await userEvent.keyboard('{Backspace}');
+      await el.updateComplete;
+
+      expect(onClear).to.have.been.calledOnce;
+    });
+
+    it('should emit sl-clear when clearing via the clear button', async () => {
+      const onClear = spy();
+
+      el.addEventListener('sl-clear', onClear);
+      clearButton.focus();
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+
+      expect(onClear).to.have.been.calledOnce;
+    });
+
+    it('should emit sl-change before sl-clear when clearing via keyboard', async () => {
+      const onChange = spy(),
+        onClear = spy();
+
+      el.addEventListener('sl-change', onChange);
+      el.addEventListener('sl-clear', onClear);
+      button.focus();
+      await userEvent.keyboard('{Backspace}');
+      await el.updateComplete;
+
+      expect(onChange).to.have.been.calledOnce;
+      expect(onClear).to.have.been.calledOnce;
+      expect(onChange).to.have.been.calledBefore(onClear);
+    });
+
+    it('should emit sl-change before sl-clear when clearing via the clear button', async () => {
+      const onChange = spy(),
+        onClear = spy();
+
+      el.addEventListener('sl-change', onChange);
+      el.addEventListener('sl-clear', onClear);
+      clearButton.focus();
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+
+      expect(onChange).to.have.been.calledOnce;
+      expect(onClear).to.have.been.calledOnce;
+      expect(onChange).to.have.been.calledBefore(onClear);
+    });
   });
 });

@@ -28,7 +28,7 @@ describe('sl-tooltip shared', () => {
   it('should not stay open when moving rapidly between buttons and then out', async () => {
     // 1. Hover first button
     buttons[0].dispatchEvent(new Event('pointerover', { bubbles: true }));
-    await waitFor(160);
+    await waitFor((tooltip.showDelay ?? 150) + 10);
 
     expect(tooltip).to.match(':popover-open');
     expect(tooltip.anchorElement).to.equal(buttons[0]);
@@ -51,7 +51,7 @@ describe('sl-tooltip shared', () => {
   it('should hide even if multiple pointerover events are fired for different buttons', async () => {
     // Hover btn 1
     buttons[0].dispatchEvent(new Event('pointerover', { bubbles: true }));
-    await waitFor(160);
+    await waitFor((tooltip.showDelay ?? 150) + 10);
 
     expect(tooltip).to.match(':popover-open');
 

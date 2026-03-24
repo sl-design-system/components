@@ -103,13 +103,13 @@ describe('sl-time-field', () => {
       const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
       hourSpinbutton.focus();
       await userEvent.keyboard('1');
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await el.updateComplete;
       await userEvent.keyboard('2');
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await el.updateComplete;
       await userEvent.keyboard('3');
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await el.updateComplete;
       await userEvent.keyboard('4');
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await el.updateComplete;
       await el.updateComplete;
 
       expect(onChange).to.have.been.called;

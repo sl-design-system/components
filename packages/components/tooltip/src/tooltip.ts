@@ -209,6 +209,10 @@ export class Tooltip extends LitElement {
   #onHide = (event: Event): void => {
     window.clearTimeout(this.#timer);
 
+    if (!isPopoverOpen(this) && !this.#timer) {
+      return;
+    }
+
     if (event.type === 'click') {
       this.hidePopover();
       return;
@@ -303,9 +307,7 @@ export class Tooltip extends LitElement {
       window.clearTimeout(this.#timer);
 
       if (!(anchorElement instanceof HTMLElement) || !this.#matchesAnchor(anchorElement)) {
-        if (event.type === 'focusin') {
-          return;
-        }
+        return;
       }
 
       const path = event.composedPath();

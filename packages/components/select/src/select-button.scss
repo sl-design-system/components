@@ -72,7 +72,7 @@
   outline-color: transparent;
 }
 
-:host([clearable]) {
+:host(:state(clearable)) {
   .wrapper {
     padding-inline-end: calc(1lh + (var(--sl-size-100) - var(--sl-size-borderWidth-default)) * 2);
   }

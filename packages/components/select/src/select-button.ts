@@ -43,17 +43,7 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   @property({ type: Boolean, reflect: true }) clearable?: boolean;
 
   /** @internal Whether the clear button is focused. */
-  set clearFocused(value: boolean) {
-    if (value) {
-      this.#internals.states.add('clear-focused');
-    } else {
-      this.#internals.states.delete('clear-focused');
-    }
-  }
-
-  get clearFocused(): boolean {
-    return this.#internals.states.has('clear-focused');
-  }
+  @property({ type: Boolean, attribute: false }) clearFocused?: boolean;
 
   /** @internal Emits when the user clears the selection via Backspace or Delete. */
   @event({ name: 'sl-clear' }) clearEvent!: EventEmitter<SlClearEvent>;
@@ -91,6 +81,22 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
+
+    if (changes.has('clearable')) {
+      if (this.clearable) {
+        this.#internals.states.add('clearable');
+      } else {
+        this.#internals.states.delete('clearable');
+      }
+    }
+
+    if (changes.has('clearFocused')) {
+      if (this.clearFocused) {
+        this.#internals.states.add('clear-focused');
+      } else {
+        this.#internals.states.delete('clear-focused');
+      }
+    }
 
     if (changes.has('required')) {
       if (this.required) {

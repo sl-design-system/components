@@ -309,10 +309,10 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   async #onClose(): Promise<void> {
     this.#updateDocumentElement(false);
 
-    this.inert = true;
-
     // Wait until all animations have finished before emitting the close event
     await Promise.allSettled(this.dialog?.getAnimations({ subtree: true }).map(a => a.finished) ?? []);
+
+    this.inert = true;
 
     this.closeEvent.emit();
   }

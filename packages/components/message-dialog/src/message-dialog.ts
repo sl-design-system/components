@@ -139,6 +139,12 @@ export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   @query('dialog') dialog?: HTMLDialogElement;
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.inert = true;
+  }
+
   override render(): TemplateResult {
     const { buttons, message, title } = this.config ?? {};
 
@@ -172,6 +178,7 @@ export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** Show the message dialog as a modal, in the top layer, with a backdrop. */
   showModal(): void {
+    this.inert = false;
     this.dialog?.showModal();
   }
 
@@ -186,6 +193,7 @@ export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
     // Wait until all animations have finished before triggering the action
     await Promise.allSettled(this.dialog?.getAnimations({ subtree: true }).map(a => a.finished) ?? []);
 
+    this.inert = true;
     button.action?.();
   }
 
@@ -196,6 +204,7 @@ export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
     // Wait until all animations have finished before triggering the action
     await Promise.allSettled(this.dialog?.getAnimations({ subtree: true }).map(a => a.finished) ?? []);
 
+    this.inert = true;
     this.cancelEvent.emit();
   }
 
@@ -221,6 +230,7 @@ export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
       // Wait until all animations have finished before triggering the action
       await Promise.allSettled(this.dialog?.getAnimations({ subtree: true }).map(a => a.finished) ?? []);
 
+      this.inert = true;
       this.cancelEvent.emit();
     }
   }

@@ -2,6 +2,15 @@
   display: contents;
 }
 
+:host([inert]) {
+  display: none;
+
+  dialog,
+  dialog::backdrop {
+    transition: none;
+  }
+}
+
 dialog {
   background: var(--sl-elevation-surface-raised-default);
   border: 0;
@@ -52,9 +61,10 @@ dialog {
     }
 
     // Enter animation
-    @starting-style {
-      display: flex;
-      translate: 0 100%;
+    &[open] {
+      @starting-style {
+        translate: 0 100%;
+      }
     }
   }
 
@@ -93,9 +103,10 @@ dialog {
     }
 
     // Enter animation
-    @starting-style {
-      display: flex;
-      scale: 1.1;
+    &[open] {
+      @starting-style {
+        scale: 1.1;
+      }
     }
   }
 

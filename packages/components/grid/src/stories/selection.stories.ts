@@ -310,6 +310,15 @@ export const Grouped: Story = {
       groupLabelPath: 'school.name'
     });
 
+    const onClick = (): void => {
+      const selected = ds.unfilteredItems
+        .filter(item => isListDataSourceDataItem(item))
+        .filter(item => ds.isSelected(item))
+        .map(item => item.data.firstName);
+
+      document.getElementById('selected-students')!.innerText = selected.join(', ') || '(no selected students)';
+    };
+
     const onDelete = (): void => {
       const ids = ds.items
         .filter(item => ds.isSelected(item))
@@ -332,6 +341,10 @@ export const Grouped: Story = {
         them by using the floating tool-bar at the bottom of the grid. You can add bulk actions by using the
         <code>bulk-actions</code> slot.
       </p>
+      <sl-button-bar @click=${onClick} style="margin-block-end: var(--sl-size-200)">
+        <sl-button>Get selected students</sl-button>
+        <span id="selected-students">(no selected students)</span>
+      </sl-button-bar>
       <sl-grid .dataSource=${ds}>
         <sl-grid-selection-column></sl-grid-selection-column>
         <sl-grid-column

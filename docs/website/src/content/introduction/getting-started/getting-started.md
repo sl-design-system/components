@@ -1,8 +1,8 @@
 ---
-title: Getting Started
+title: Getting started
 layout: base.njk
 eleventyNavigation:
-  key: Getting Started
+  key: Getting started
   parent: Introduction
   order: 2
   icon: rocket

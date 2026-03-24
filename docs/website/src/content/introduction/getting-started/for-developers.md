@@ -1,9 +1,9 @@
 ---
-title: For Developers
+title: For developers
 layout: base.njk
 eleventyNavigation:
-  key: For Developers
-  parent: Getting Started
+  key: For developers
+  parent: Getting started
   order: 1
 ---
 

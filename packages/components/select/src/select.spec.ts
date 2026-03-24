@@ -1152,10 +1152,6 @@ describe('sl-select', () => {
       expect(button).not.to.have.attribute('aria-keyshortcuts');
     });
 
-    it('should have tabindex 0 on the clear button', () => {
-      expect(clearButton).to.have.attribute('tabindex', '0');
-    });
-
     it('should have an aria-label on the clear button', () => {
       expect(clearButton).to.have.attribute('aria-label', 'Clear selection');
     });

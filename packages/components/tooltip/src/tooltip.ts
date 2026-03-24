@@ -174,10 +174,10 @@ export class Tooltip extends LitElement {
     const path = event.composedPath();
 
     // First check elements directly in the composed path
-    const direct = path.find((el): el is HTMLElement => el instanceof Element && this.#matchesAnchor(el));
+    const anchor = path.find((el): el is HTMLElement => el instanceof Element && this.#matchesAnchor(el));
 
-    if (direct) {
-      return direct;
+    if (anchor) {
+      return anchor;
     }
 
     for (const el of path) {
@@ -215,8 +215,24 @@ export class Tooltip extends LitElement {
         const safeTriangleHovered = !!this.renderRoot.querySelector('.safe-triangle:hover');
 
         if (event.type === 'focusout') {
-          this.hidePopover();
-        } else if (!anchorHovered && !tooltipHovered && !safeTriangleHovered) {
+          const anchorForEvent = this.#findAnchorInEvent(event);
+          if (anchorForEvent === this.anchorElement || !anchorForEvent) {
+            this.hidePopover();
+          }
+          return;
+        }
+        if (anchorHovered || tooltipHovered || safeTriangleHovered) {
+          return;
+        }
+
+        // If the current anchor isn't hovered, check if any other buttons that reference this tooltip are hovered
+        const root = this.getRootNode() as HTMLElement;
+        const potentialAnchors = root.querySelectorAll(
+          `[aria-describedby~="${this.id}"], [aria-labelledby~="${this.id}"]`
+        );
+        const anyAnchorHovered = Array.from(potentialAnchors).some(el => el.matches(':hover'));
+
+        if (!anyAnchorHovered) {
           this.hidePopover();
         }
       },
@@ -289,7 +305,7 @@ export class Tooltip extends LitElement {
   }
 
   /**
-   * The amount of time to wait before hiding the tooltip when the user mouses out.
+   * The amount of time to wait before hiding the tooltip when the user moves the mouse/pointer out.
    * @default 0
    */
   @property({ type: Number, attribute: 'hide-delay' }) hideDelay = 0;
@@ -310,7 +326,7 @@ export class Tooltip extends LitElement {
   @property() position: PopoverPosition = 'top';
 
   /**
-   * The amount of time to wait before showing the tooltip when the user mouses in.
+   * The amount of time to wait before showing the tooltip when the user moves the mouse/pointer in.
    * @default 150
    */
   @property({ type: Number, attribute: 'show-delay' }) showDelay = 150;

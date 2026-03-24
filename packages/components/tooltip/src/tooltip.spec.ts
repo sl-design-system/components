@@ -48,8 +48,8 @@ describe('sl-tooltip', () => {
       await waitFor((tooltip.showDelay ?? 0) + 50);
       expect(tooltip).to.match(':popover-open');
 
-      const focusoutEvent = new Event('focusout', { bubbles: true });
-      button?.dispatchEvent(focusoutEvent);
+      // Use userEvent to trigger a natural focusout/blur
+      await userEvent.tab();
       await waitFor((tooltip.hideDelay ?? 0) + 10);
       expect(tooltip).not.to.match(':popover-open');
     });
@@ -542,7 +542,7 @@ describe('sl-tooltip', () => {
       expect(button).to.have.attribute('aria-describedby', tooltip?.id);
       expect(button).not.to.have.attribute('aria-labelledby');
 
-      await waitFor((tooltip?.showDelay ?? 150) + 10);
+      await tooltip.updateComplete;
       expect(tooltip).to.match(':popover-open');
     });
 
@@ -555,7 +555,7 @@ describe('sl-tooltip', () => {
 
       expect(tooltip).to.exist;
       expect(button).to.have.attribute('aria-describedby', tooltip?.id);
-      await waitFor((tooltip?.showDelay ?? 150) + 10);
+      await tooltip.updateComplete;
       expect(tooltip).to.match(':popover-open');
     });
 

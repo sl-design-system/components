@@ -112,7 +112,6 @@ Selection can be configured as `'single'` or `'multiple'` via the `selects` opti
 | `deselectAll()` | Deselect all items |
 | `areAllSelected()` | Whether all items are selected |
 | `areSomeSelected()` | Whether some (but not all) items are selected |
-| `getSelectedItems()` | Return the raw data objects of all currently selected items |
 
 {.ds-table .ds-table-align-top}
 
@@ -228,6 +227,19 @@ const item = ds.items[2];
 const target = ds.items[0];
 
 ds.reorder(item, target, 'before');
+```
+
+### Getting selected items
+
+Use `getSelectedItems()` to retrieve the raw data objects of all currently selected items:
+
+```ts
+const ds = new ArrayListDataSource(people, { selects: 'multiple' });
+
+ds.select(ds.items.at(0)!);
+ds.select(ds.items.at(2)!);
+
+const selected = ds.getSelectedItems(); // [people[0], people[2]]
 ```
 
 </section>

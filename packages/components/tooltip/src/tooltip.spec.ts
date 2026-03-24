@@ -270,7 +270,8 @@ describe('sl-tooltip', () => {
     it('should show tooltip on focus when referenced via ElementInternals', async () => {
       button?.focus();
       await tooltip.updateComplete;
-      await waitFor(300);
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await tooltip.updateComplete;
 
       expect(tooltip).to.match(':popover-open');
     });
@@ -400,7 +401,8 @@ describe('sl-tooltip', () => {
     it('should show tooltip on focus when referenced via Element ariaDescribedByElements', async () => {
       button?.focus();
       await tooltip.updateComplete;
-      await waitFor(300);
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await tooltip.updateComplete;
 
       expect(tooltip).to.match(':popover-open');
     });
@@ -451,7 +453,8 @@ describe('sl-tooltip', () => {
     it('should show tooltip on focus when referenced via Element ariaLabelledByElements', async () => {
       button?.focus();
       await tooltip.updateComplete;
-      await waitFor(300);
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await tooltip.updateComplete;
 
       expect(tooltip).to.match(':popover-open');
     });

@@ -112,6 +112,7 @@ Selection can be configured as `'single'` or `'multiple'` via the `selects` opti
 | `deselectAll()` | Deselect all items |
 | `areAllSelected()` | Whether all items are selected |
 | `areSomeSelected()` | Whether some (but not all) items are selected |
+| `getSelectedItems()` | Return the raw data objects of all currently selected items |
 
 {.ds-table .ds-table-align-top}
 

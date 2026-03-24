@@ -104,6 +104,28 @@ describe('sl-tooltip', () => {
 
       expect(getComputedStyle(tooltip).maxInlineSize).to.equal('150px');
     });
+
+    it('should show the tooltip when focus returns to the button after sl-close', async () => {
+      button?.focus();
+      await tooltip.updateComplete;
+      await waitFor((tooltip.showDelay ?? 0) + 50);
+      expect(tooltip).to.match(':popover-open');
+
+      // Simulate a dialog opening (which would steal focus)
+      button?.blur();
+      tooltip.hidePopover();
+      await tooltip.updateComplete;
+      expect(tooltip).not.to.match(':popover-open');
+
+      // Now focus the button again (as if dialog closed and restored focus)
+      button?.focus();
+      // Dispatch sl-close to simulate the dialog closing event
+      el.dispatchEvent(new CustomEvent('sl-close', { bubbles: true, composed: true }));
+
+      await tooltip.updateComplete;
+      await waitFor((tooltip.showDelay ?? 0) + 50);
+      expect(tooltip).to.match(':popover-open');
+    });
   });
 
   describe('linked via aria-labelledby', () => {

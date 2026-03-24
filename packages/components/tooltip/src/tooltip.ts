@@ -281,8 +281,8 @@ export class Tooltip extends LitElement {
       return;
     }
 
-    // For keyboard navigation (focus events)
-    if (event.type === 'focusin') {
+    // For keyboard navigation (focus events or dialog/popover closing)
+    if (event.type === 'focusin' || event.type === 'sl-close') {
       window.clearTimeout(this.#timer);
       const path = event.composedPath();
 
@@ -346,6 +346,7 @@ export class Tooltip extends LitElement {
     this.#events.listen(root, 'keydown', this.#onKeydown);
     this.#events.listen(root, 'pointerover', this.#onShow);
     this.#events.listen(root, 'pointerout', this.#onHide);
+    this.#events.listen(root, 'sl-close', this.#onShow);
   }
 
   override disconnectedCallback(): void {

@@ -36,8 +36,24 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { keydown: this.#onKeydown });
 
+  /** @internal */
+  #internals = this.attachInternals();
+
   /** Will display a clear button when an option is selected. */
   @property({ type: Boolean, reflect: true }) clearable?: boolean;
+
+  /** @internal Whether the clear button is focused. */
+  set clearFocused(value: boolean) {
+    if (value) {
+      this.#internals.states.add('clear-focused');
+    } else {
+      this.#internals.states.delete('clear-focused');
+    }
+  }
+
+  get clearFocused(): boolean {
+    return this.#internals.states.has('clear-focused');
+  }
 
   /** @internal Emits when the user clears the selection via Backspace or Delete. */
   @event({ name: 'sl-clear' }) clearEvent!: EventEmitter<SlClearEvent>;

@@ -1126,7 +1126,7 @@ describe('sl-select', () => {
       `);
 
       button = el.querySelector('sl-select-button')!;
-      clearButton = el.renderRoot.querySelector('.clear-button')!;
+      clearButton = el.renderRoot.querySelector('button')!;
     });
 
     it('should have a clear button', () => {
@@ -1156,23 +1156,23 @@ describe('sl-select', () => {
       expect(clearButton).to.have.attribute('aria-label', 'Clear selection');
     });
 
-    it('should set clear-focused attribute when clear button receives focus', async () => {
+    it('should set clear-focused state when clear button receives focus', async () => {
       clearButton.focus();
       await el.updateComplete;
 
-      expect(button).to.have.attribute('clear-focused');
+      expect(button).to.match(':state(clear-focused)');
     });
 
-    it('should remove clear-focused attribute when clear button loses focus', async () => {
+    it('should remove clear-focused state when clear button loses focus', async () => {
       clearButton.focus();
       await el.updateComplete;
 
-      expect(button).to.have.attribute('clear-focused');
+      expect(button).to.match(':state(clear-focused)');
 
       clearButton.blur();
       await el.updateComplete;
 
-      expect(button).not.to.have.attribute('clear-focused');
+      expect(button).not.to.match(':state(clear-focused)');
     });
 
     it('should clear selection when pressing Enter on the focused clear button', async () => {

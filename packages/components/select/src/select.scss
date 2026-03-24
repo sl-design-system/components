@@ -5,7 +5,7 @@
   vertical-align: middle;
 }
 
-.clear-button {
+button {
   align-items: center;
   appearance: none;
   background: transparent;
@@ -21,11 +21,12 @@
   inset-inline-end: calc(var(--sl-size-150) + var(--sl-size-100) + var(--sl-size-200));
   justify-content: center;
   margin-block: auto;
+  outline: transparent solid var(--sl-size-borderWidth-focusRing);
   padding: 0;
   position: absolute;
 
   &:focus-visible {
-    outline: var(--sl-color-border-focused) solid var(--sl-size-borderWidth-focusRing);
+    outline-color: var(--sl-color-border-focused);
   }
 
   &:hover {
@@ -63,7 +64,7 @@
   }
 }
 
-:host([size='lg']) .clear-button {
+:host([size='lg']) button {
   block-size: calc(1lh + (var(--sl-size-175) - var(--sl-size-borderWidth-default)) * 2);
   inline-size: calc(1lh + (var(--sl-size-175) - var(--sl-size-borderWidth-default)) * 2);
   inset-inline-end: calc(var(--sl-size-200) + var(--sl-size-100) + var(--sl-size-200));

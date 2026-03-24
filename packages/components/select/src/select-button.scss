@@ -68,7 +68,7 @@
   }
 }
 
-:host([clear-focused]) {
+:host(:state(clear-focused)) {
   outline-color: transparent;
 }
 

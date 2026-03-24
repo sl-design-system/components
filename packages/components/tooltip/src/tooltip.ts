@@ -226,7 +226,7 @@ export class Tooltip extends LitElement {
         }
 
         // If the current anchor isn't hovered, check if any other buttons that reference this tooltip are hovered
-        const root = this.getRootNode() as HTMLElement;
+        const root = this.getRootNode() as ParentNode;
         const potentialAnchors = root.querySelectorAll(
           `[aria-describedby~="${this.id}"], [aria-labelledby~="${this.id}"]`
         );
@@ -346,7 +346,7 @@ export class Tooltip extends LitElement {
     this.#events.listen(root, 'keydown', this.#onKeydown);
     this.#events.listen(root, 'pointerover', this.#onShow);
     this.#events.listen(root, 'pointerout', this.#onHide);
-    this.#events.listen(root, 'sl-close', this.#onShow);
+    this.#events.listen(root, 'sl-close', this.#onShow as EventListener);
   }
 
   override disconnectedCallback(): void {

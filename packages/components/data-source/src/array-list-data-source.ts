@@ -6,7 +6,6 @@ import {
   type ListDataSourceGroupItem,
   type ListDataSourceItem,
   type ListDataSourceOptions,
-  isListDataSourceDataItem,
   isListDataSourceGroupItem
 } from './list-data-source.js';
 
@@ -77,10 +76,7 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
 
   /** Returns the selected items. */
   getSelectedItems(): T[] {
-    return this.#mappedItems
-      .filter(item => isListDataSourceDataItem(item))
-      .filter(item => this.isSelected(item))
-      .map(item => item.data);
+    return this.#mappedItems.filter(item => this.isSelected(item)).map(item => item.data);
   }
 
   /** Update the data source with a new array of items. */

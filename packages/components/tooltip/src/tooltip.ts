@@ -208,6 +208,7 @@ export class Tooltip extends LitElement {
 
   #onHide = (event: Event): void => {
     window.clearTimeout(this.#timer);
+    this.#timer = undefined;
 
     if (!isPopoverOpen(this) && !this.#timer) {
       return;
@@ -305,6 +306,7 @@ export class Tooltip extends LitElement {
     // For keyboard navigation (focus events or dialog/popover closing)
     if (event.type === 'focusin' || event.type === 'sl-close') {
       window.clearTimeout(this.#timer);
+      this.#timer = undefined;
 
       if (!(anchorElement instanceof HTMLElement) || !this.#matchesAnchor(anchorElement)) {
         return;

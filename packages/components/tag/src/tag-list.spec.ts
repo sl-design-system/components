@@ -171,7 +171,17 @@ describe('sl-tag', () => {
 
       (el.querySelector('sl-tag:last-child') as HTMLElement)?.focus();
       await userEvent.keyboard('{Backspace}');
-      await new Promise(resolve => setTimeout(resolve, 300));
+
+      await new Promise<void>(resolve => {
+        const check = (): void => {
+          if (tag?.textContent?.trim() === '+6') {
+            resolve();
+          } else {
+            requestAnimationFrame(check);
+          }
+        };
+        requestAnimationFrame(check);
+      });
 
       expect(tag).to.have.trimmed.text('+6');
     });

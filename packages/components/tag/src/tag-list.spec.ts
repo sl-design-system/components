@@ -169,8 +169,9 @@ describe('sl-tag', () => {
 
       expect(tag).to.have.trimmed.text('+7');
 
-      el.querySelector('sl-tag:last-child')?.remove();
-      await new Promise(resolve => setTimeout(resolve));
+      (el.querySelector('sl-tag:last-child') as HTMLElement)?.focus();
+      await userEvent.keyboard('{Backspace}');
+      await new Promise(resolve => setTimeout(resolve, 300));
 
       expect(tag).to.have.trimmed.text('+6');
     });

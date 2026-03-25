@@ -54,6 +54,9 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { click: this.#onClick, keydown: this.#onKeydown });
 
+  /** @internal */
+  readonly #internals = this.attachInternals();
+
   /** Responsive behavior utility. */
   #media = new MediaController(this);
 
@@ -96,9 +99,17 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   @property({ type: Boolean, attribute: 'disable-cancel' }) disableCancel?: boolean;
 
   override connectedCallback(): void {
+    // Hide the element before the shadow root exists to prevent
+    // light DOM content from briefly causing overflow on the page
+    // this.style.display = 'none';
+
     super.connectedCallback();
 
     this.inert = true;
+    this.#internals.states.add('closed');
+
+    // Clean up stale dialog classes that may persist from previous navigations
+    document.documentElement.classList.remove('sl-dialog-enter', 'sl-dialog-leave');
   }
 
   override disconnectedCallback(): void {
@@ -253,6 +264,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     this.#observer.observe(this.body!);
 
     this.inert = false;
+    // this.style.display = '';
+    this.#internals.states.delete('closed');
     this.dialog?.showModal();
 
     // Workaround for broken focus behavior when using <slot> inside <dialog>
@@ -313,6 +326,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     await Promise.allSettled(this.dialog?.getAnimations({ subtree: true }).map(a => a.finished) ?? []);
 
     this.inert = true;
+    // this.style.display = 'none';
+    this.#internals.states.add('closed');
 
     this.closeEvent.emit();
   }

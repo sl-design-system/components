@@ -16,18 +16,23 @@ describe('sl-button', () => {
       el = await fixture(html`<sl-button>Hello world</sl-button>`);
     });
 
-    it('should have a button role', () => {
-      expect(el).to.have.attribute('role', 'button');
+    it('should have a native button in the shadow DOM', () => {
+      const button = el.renderRoot.querySelector('button');
+
+      expect(button).to.exist;
+      expect(button).to.have.attribute('type', 'button');
     });
 
     it('should not be disabled', () => {
       expect(el).not.to.have.attribute('disabled');
-      expect(el).not.to.match(':disabled');
       expect(el.disabled).not.to.be.true;
+      expect(el.renderRoot.querySelector('button')).not.to.have.attribute('disabled');
     });
 
-    it('should have a tabindex', () => {
-      expect(el).to.have.attribute('tabindex', '0');
+    it('should delegate focus to the inner button', () => {
+      el.focus();
+
+      expect(el.renderRoot.querySelector('button')).to.equal(el.shadowRoot?.activeElement);
     });
 
     it('should not have an explicit shape', () => {
@@ -141,7 +146,7 @@ describe('sl-button', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('disabled');
-      expect(el).to.match(':disabled');
+      expect(el.renderRoot.querySelector('button')).to.have.attribute('disabled');
     });
 
     it('should prevent click events from bubbling up the DOM', async () => {
@@ -191,34 +196,6 @@ describe('sl-button', () => {
       expect(captureCalled, 'capture listener on parent should be called').to.be.true;
       expect(bubbleCalled, 'bubble listener on parent should be called').to.be.true;
     });
-
-    it('should prevent Enter keydown event from bubbling up the DOM', async () => {
-      const keydownEvent = new KeyboardEvent('keydown', { key: 'Enter' }),
-        preventDefaultSpy = spy(keydownEvent, 'preventDefault'),
-        stopImmediatePropagationSpy = spy(keydownEvent, 'stopImmediatePropagation');
-
-      el.disabled = true;
-      await el.updateComplete;
-
-      el.dispatchEvent(keydownEvent);
-
-      expect(preventDefaultSpy).to.have.been.called;
-      expect(stopImmediatePropagationSpy).to.have.been.called;
-    });
-
-    it('should prevent Space keydown event from bubbling up the DOM', async () => {
-      const keydownEvent = new KeyboardEvent('keydown', { key: ' ' }),
-        preventDefaultSpy = spy(keydownEvent, 'preventDefault'),
-        stopImmediatePropagationSpy = spy(keydownEvent, 'stopImmediatePropagation');
-
-      el.disabled = true;
-      await el.updateComplete;
-
-      el.dispatchEvent(keydownEvent);
-
-      expect(preventDefaultSpy).to.have.been.called;
-      expect(stopImmediatePropagationSpy).to.have.been.called;
-    });
   });
 
   describe('aria-disabled', () => {
@@ -240,40 +217,23 @@ describe('sl-button', () => {
       expect(stopImmediatePropagationSpy).to.have.been.called;
     });
 
-    it('should prevent Enter keydown event from bubbling up the DOM', async () => {
-      const keydownEvent = new KeyboardEvent('keydown', { key: 'Enter' }),
-        preventDefaultSpy = spy(keydownEvent, 'preventDefault'),
-        stopImmediatePropagationSpy = spy(keydownEvent, 'stopImmediatePropagation');
-
+    it('should set aria-disabled on the inner button', async () => {
       el.setAttribute('aria-disabled', 'true');
       await el.updateComplete;
 
-      el.dispatchEvent(keydownEvent);
-
-      expect(preventDefaultSpy).to.have.been.called;
-      expect(stopImmediatePropagationSpy).to.have.been.called;
-    });
-
-    it('should prevent Space keydown event from bubbling up the DOM', async () => {
-      const keydownEvent = new KeyboardEvent('keydown', { key: ' ' }),
-        preventDefaultSpy = spy(keydownEvent, 'preventDefault'),
-        stopImmediatePropagationSpy = spy(keydownEvent, 'stopImmediatePropagation');
-
-      el.setAttribute('aria-disabled', 'true');
-      await el.updateComplete;
-
-      el.dispatchEvent(keydownEvent);
-
-      expect(preventDefaultSpy).to.have.been.called;
-      expect(stopImmediatePropagationSpy).to.have.been.called;
+      expect(el.renderRoot.querySelector('button')).to.have.attribute('aria-disabled', 'true');
     });
 
     it('should be focusable when aria-disabled is set', async () => {
       el.setAttribute('aria-disabled', 'true');
       await el.updateComplete;
 
-      expect(el).to.have.attribute('tabindex', '0');
-      expect(el.tabIndex).to.equal(0);
+      const button = el.renderRoot.querySelector('button')!;
+
+      expect(button).not.to.have.attribute('disabled');
+
+      el.focus();
+      expect(el.shadowRoot?.activeElement).to.equal(button);
     });
   });
 

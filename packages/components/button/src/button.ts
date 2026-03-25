@@ -1,5 +1,5 @@
 import { EventsController, closestElementComposed } from '@sl-design-system/shared';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './button.scss.js';
 
@@ -33,16 +33,18 @@ export class Button extends LitElement {
   static formAssociated = true;
 
   /** @internal */
+  static override shadowRootOptions: ShadowRootInit = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: true
+  };
+
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
     click: {
       handler: this.#onClick,
-      options: { capture: true }
-    },
-    keydown: {
-      handler: this.#onKeydown,
       options: { capture: true }
     }
   });
@@ -89,14 +91,11 @@ export class Button extends LitElement {
   /** @internal */
   @property({ attribute: 'aria-disabled', reflect: true }) override ariaDisabled: string | null = null;
 
+  /** @internal */
+  @property({ attribute: 'aria-label', reflect: true }) override ariaLabel: string | null = null;
+
   override connectedCallback(): void {
     super.connectedCallback();
-
-    this.setAttribute('role', 'button');
-
-    if (!this.hasAttribute('tabindex')) {
-      this.tabIndex = 0;
-    }
 
     this.#observer.observe(this, { characterData: true, childList: true, subtree: true });
   }
@@ -114,16 +113,17 @@ export class Button extends LitElement {
     super.disconnectedCallback();
   }
 
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    if (changes.has('disabled')) {
-      this.tabIndex = this.disabled ? -1 : 0;
-    }
-  }
-
   override render(): TemplateResult {
-    return html`<slot></slot>`;
+    return html`
+      <button
+        ?disabled=${this.disabled}
+        aria-disabled=${this.ariaDisabled !== null && this.ariaDisabled !== 'false' ? 'true' : nothing}
+        aria-label=${this.ariaLabel ?? nothing}
+        type="button"
+      >
+        <slot></slot>
+      </button>
+    `;
   }
 
   #onClick(event: Event): void {
@@ -144,23 +144,6 @@ export class Button extends LitElement {
         // Workaround for not wanting a dependency on the `@sl-design-system/form` package
         (closestElementComposed(this, 'sl-form') as unknown as { requestSubmit(): void })?.requestSubmit();
       }
-    }
-  }
-
-  #onKeydown(event: KeyboardEvent): void {
-    if (this.disabled || (this.ariaDisabled !== null && this.ariaDisabled !== 'false')) {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-      }
-      return;
-    }
-
-    if (event.key === 'Enter' || event.key === ' ') {
-      this.click();
-
-      event.preventDefault();
-      event.stopPropagation();
     }
   }
 

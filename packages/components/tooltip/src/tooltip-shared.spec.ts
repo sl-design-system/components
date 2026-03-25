@@ -20,6 +20,13 @@ describe('sl-tooltip shared', () => {
     while (el.matches(':popover-open') && Date.now() - startedAt < timeout) {
       await waitFor(25);
     }
+
+    if (el.matches(':popover-open')) {
+      const id = (el as HTMLElement & { id?: string }).id;
+      throw new Error(
+        `Timed out after ${timeout}ms waiting for popover${id ? ` with id "${id}"` : ''} to close.`
+      );
+    }
   };
 
   beforeEach(async () => {
@@ -27,7 +34,7 @@ describe('sl-tooltip shared', () => {
       <div style="display: flex; gap: 8px;">
         <sl-button id="btn1" aria-describedby="tooltip">Button 1</sl-button>
         <sl-button id="btn2" aria-describedby="tooltip">Button 2</sl-button>
-        <sl-tooltip id="tooltip" show-delay="150" hide-delay="0">Shared Tooltip</sl-tooltip>
+        <sl-tooltip id="tooltip" show-delay="5" hide-delay="0">Shared Tooltip</sl-tooltip>
       </div>
     `);
     buttons = Array.from(el.querySelectorAll('sl-button'));

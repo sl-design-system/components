@@ -30,6 +30,30 @@ function waitForPopoverState(dialog: HTMLDialogElement, shouldBeOpen: boolean, t
   });
 }
 
+function waitForToggleEvent(
+  dialog: HTMLDialogElement,
+  expectedState: 'open' | 'closed',
+  timeout = 5000
+): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const timeoutId = setTimeout(() => {
+      dialog.removeEventListener('toggle', handler);
+      reject(new Error(`Timeout waiting for toggle event with state ${expectedState}`));
+    }, timeout);
+
+    const handler = (event: Event) => {
+      const toggleEvent = event as ToggleEvent;
+      if (toggleEvent.newState === expectedState) {
+        clearTimeout(timeoutId);
+        dialog.removeEventListener('toggle', handler);
+        resolve();
+      }
+    };
+
+    dialog.addEventListener('toggle', handler);
+  });
+}
+
 describe('sl-time-field', () => {
   let el: TimeField;
 
@@ -1627,14 +1651,14 @@ describe('sl-time-field', () => {
       expect(dialog).not.to.match(':popover-open');
     });
 
-    it('should focus the hour spinbutton and allow keyboard input after label click', async () => {
+    it('should focus the hour spinbutton and retain focus on keyboard input after label click', async () => {
       label.click();
       await el.updateComplete;
 
       const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
       expect(el.shadowRoot?.activeElement).to.equal(hourSpinbutton);
 
-      // Verify the spinbutton can receive keyboard input
+      // Verify the spinbutton can receive keyboard input without losing focus
       hourSpinbutton.dispatchEvent(new KeyboardEvent('keydown', { key: '1' }));
       expect(el.shadowRoot?.activeElement).to.equal(hourSpinbutton);
     });
@@ -1722,11 +1746,13 @@ describe('sl-time-field', () => {
       button.click();
       await el.updateComplete;
 
+      await waitForPopoverState(dialog, true);
       expect(dialog).to.match(':popover-open');
 
       button.click();
       await el.updateComplete;
 
+      await waitForPopoverState(dialog, false);
       expect(dialog).not.to.match(':popover-open');
     });
 
@@ -1749,9 +1775,11 @@ describe('sl-time-field', () => {
       await waitForPopoverState(dialog, false);
 
       expect(dialog).not.to.match(':popover-open');
-      await new Promise(resolve => setTimeout(resolve, 500));
 
-      //Third click should be able to open it again - not permanently suppressed
+      // Wait for the toggle event to complete, which resets #popoverJustClosed
+      await waitForToggleEvent(dialog, 'closed');
+
+      // Third click should be able to open it again - not permanently suppressed
       button.click();
       await el.updateComplete;
       await waitForPopoverState(dialog, true);

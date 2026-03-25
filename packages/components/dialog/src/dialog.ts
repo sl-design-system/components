@@ -361,6 +361,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       document.documentElement.style.setProperty('--sl-dialog-translate', `0 ${bodyMargin}px`);
 
       // Add class to `<html>` for styling purposes
+      document.documentElement.classList.remove('sl-dialog-leave');
       document.documentElement.classList.add('sl-dialog-enter');
 
       // Disable scrolling while the dialog is open
@@ -371,6 +372,17 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
       // Remove open class
       document.documentElement.classList.remove('sl-dialog-enter');
+
+      if (this.#media.mobile) {
+        document.documentElement.classList.add('sl-dialog-leave');
+
+        // remove after animation ends to prevent replays on resize
+        document.body.addEventListener(
+          'animationend',
+          () => document.documentElement.classList.remove('sl-dialog-leave'),
+          { once: true }
+        );
+      }
     }
   }
 

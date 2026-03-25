@@ -143,16 +143,26 @@ export const themes: Theme[] = [
       setup();
     }
   },
-  // {
-  //   id: 'sanoma-utbildning',
-  //   name: 'Sanoma Utbildning',
-  //   fonts: ['https://use.typekit.net/zjd4wix.css'],
-  //   setup: async () => {
-  //     const { setup } = await import('@sl-design-system/sanoma-utbildning');
+  {
+    id: 'sanoma-pro',
+    name: 'Sanoma Pro',
+    fonts: ['https://use.typekit.net/zjd4wix.css'],
+    setup: async () => {
+      const { setup } = await import('@sl-design-system/sanoma-pro');
 
-  //     setup();
-  //   }
-  // },
+      setup();
+    }
+  },
+  {
+    id: 'sanoma-utbildning',
+    name: 'Sanoma Utbildning',
+    fonts: ['https://use.typekit.net/zjd4wix.css'],
+    setup: async () => {
+      const { setup } = await import('@sl-design-system/sanoma-utbildning');
+
+      setup();
+    }
+  },
   {
     id: 'teas',
     name: 'TEAS',

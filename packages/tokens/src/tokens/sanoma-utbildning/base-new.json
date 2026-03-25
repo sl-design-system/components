@@ -270,7 +270,7 @@
 					},
 					"heading": {
 						"$type": "fontFamilies",
-						"$value": "Roboto"
+						"$value": "The Message"
 					}
 				},
 				"fontWeight": {

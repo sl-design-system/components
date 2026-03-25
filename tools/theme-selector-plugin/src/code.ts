@@ -8,7 +8,7 @@
 // This shows the HTML page in "ui.html".
 figma.showUI(__html__, {
   width: 280,
-  height: 436,
+  height: 478,
   themeColors: true
 });
 
@@ -53,6 +53,14 @@ const themeFonts = {
   Max: [{ family: 'Open Sans', style: 'SemiBold' }],
   'My Digital Book': [{ family: 'Open Sans', style: 'SemiBold' }],
   Neon: [{ family: 'Open Sans', style: 'SemiBold' }],
+  'Sanoma Pro': [
+    { family: 'Roboto', style: 'SemiBold' },
+    { family: 'The Message', style: 'SemiBold' }
+  ],
+  'Sanoma Utbildning': [
+    { family: 'Roboto', style: 'SemiBold' },
+    { family: 'The Message', style: 'SemiBold' }
+  ],
   Teas: [{ family: 'Open Sans', style: 'SemiBold' }],
   Tig: [
     { family: 'Open Sans', style: 'SemiBold' },
@@ -116,6 +124,7 @@ const getSubCollections = async (collection: VariableCollection | VariableCollec
       modeCollection.modeId = mode.modeId;
 
       // add the fonts to the modeCollection if they exist in the themeFonts object, so we can load them later
+      console.log('[slds]', 'mode.name:', mode.name, 'fonts:', themeFonts[mode.name as keyof typeof themeFonts]);
       if (mode.name in themeFonts) {
         modeCollection.fonts = themeFonts[mode.name as keyof typeof themeFonts];
       } else {

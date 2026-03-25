@@ -212,7 +212,19 @@ const build = async (production = false, path) => {
   // you can (un)comment out each theme until you find the one that is causing issues
   // console.log('Building themes:', themes);
 
-  const oldThemes = [...themes];
+  // Filter out themes that don't have base.json
+  const themesWithBase = [];
+  for (const [theme, variant] of themes) {
+    const baseFilePath = join(cwd, path, theme, 'base.json');
+    try {
+      await readFile(baseFilePath);
+      themesWithBase.push([theme, variant]);
+    } catch {
+      console.log(`Skipping deprecated scenario for ${theme}/${variant}: no base.json found`);
+    }
+  }
+
+  const oldThemes = [...themesWithBase];
 
   // Filter out files that are not in the `files` array
   const filterFiles = files => async token => {

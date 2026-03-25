@@ -396,8 +396,8 @@
 	{
 		"name": "Sanoma-Utbildning",
 		"selectedTokenSets": {
-			"sanoma-utbildning_onhold/theme-new": "enabled",
-			"sanoma-utbildning_onhold/base-new": "enabled"
+			"sanoma-utbildning/theme-new": "enabled",
+			"sanoma-utbildning/base-new": "enabled"
 		},
 		"figmaStyleReferences": {},
 		"figmaVariableReferences": {},
@@ -407,8 +407,8 @@
 	{
 		"name": "Sanoma-Pro",
 		"selectedTokenSets": {
-			"sanoma-pro_onhold/theme-new": "enabled",
-			"sanoma-pro_onhold/base-new": "enabled"
+			"sanoma-pro/theme-new": "enabled",
+			"sanoma-pro/base-new": "enabled"
 		},
 		"figmaStyleReferences": {},
 		"figmaVariableReferences": {},
@@ -677,7 +677,7 @@
 	{
 		"name": "Light",
 		"selectedTokenSets": {
-			"sanoma-utbildning_onhold/light-new": "enabled"
+			"sanoma-utbildning/light-new": "enabled"
 		},
 		"figmaStyleReferences": {},
 		"figmaVariableReferences": {},
@@ -687,7 +687,7 @@
 	{
 		"name": "Light",
 		"selectedTokenSets": {
-			"sanoma-pro_onhold/light-new": "enabled"
+			"sanoma-pro/light-new": "enabled"
 		},
 		"figmaStyleReferences": {},
 		"figmaVariableReferences": {},

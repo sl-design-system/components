@@ -103,7 +103,8 @@ describe('sl-tooltip shared', () => {
     // 1. Focus first button and wait for it to open
     buttons[0].focus();
     await tooltip.updateComplete;
-    await waitFor((tooltip.showDelay ?? 150) + 50);
+    await new Promise(resolve => requestAnimationFrame(resolve));
+    await tooltip.updateComplete;
     expect(tooltip).to.match(':popover-open');
     expect(tooltip.anchorElement).to.equal(buttons[0]);
 

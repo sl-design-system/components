@@ -49,6 +49,8 @@ export default defineConfig({
     'src/page-toc/page-toc.ts',
     'src/search/search.ts',
     'src/sidebar/sidebar.ts',
+    'src/site-nav/nav-group.ts',
+    'src/site-nav/nav-item.ts',
     'src/site-nav/site-nav.ts',
     'src/theme-switch/theme-switch.ts'
   ],

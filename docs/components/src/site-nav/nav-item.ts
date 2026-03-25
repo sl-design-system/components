@@ -45,6 +45,17 @@ export class NavItem extends ScopedElementsMixin(LitElement) {
 
     this.setAttribute('role', 'treeitem');
 
+    const style = document.createElement('style');
+    style.innerText = `
+      doc-nav-item:has(> doc-nav-item[active])::part(active) {
+        position-anchor: --active;
+      }
+      doc-nav-item > doc-nav-item[active]::part(leaf) {
+        anchor-name: --active;
+      }
+    `;
+    this.append(style);
+
     // Compute nesting level by counting ancestor nav-item elements
     let level = 0,
       parent = this.parentElement;
@@ -65,12 +76,6 @@ export class NavItem extends ScopedElementsMixin(LitElement) {
   }
 
   override updated(): void {
-    if (this.active) {
-      this.setAttribute('aria-current', 'page');
-    } else {
-      this.removeAttribute('aria-current');
-    }
-
     if (this.expandable) {
       this.setAttribute('aria-expanded', Boolean(this.open).toString());
     } else {
@@ -83,32 +88,31 @@ export class NavItem extends ScopedElementsMixin(LitElement) {
       return html`
         <details ?open=${this.open} @toggle=${this.#onToggle}>
           <summary tabindex="-1">
-            ${this.active ? html`<span class="active"></span>` : nothing}
             ${this.icon ? html`<sl-icon name=${this.icon}></sl-icon>` : nothing}
             ${this.href
               ? html`<a href=${this.href}>${this.heading}</a>`
               : html`<span class="label">${this.heading}</span>`}
             <sl-icon class="chevron" name="far-chevron-right" size="xs"></sl-icon>
           </summary>
-          <slot @click=${this.#onClick} @slotchange=${this.#onSlotChange}></slot>
+          <div class="subtree">
+            <span part="active"></span>
+            <slot @slotchange=${this.#onSlotChange}></slot>
+          </div>
         </details>
       `;
     }
 
     return html`
-      <a href=${ifDefined(this.href)} class="leaf" tabindex="-1">
-        ${this.active ? html`<span class="active"></span>` : nothing}
+      <a
+        href=${ifDefined(this.href)}
+        aria-current=${ifDefined(this.active ? 'page' : undefined)}
+        part="leaf"
+        tabindex="-1"
+      >
         ${this.icon ? html`<sl-icon name=${this.icon}></sl-icon>` : nothing} ${this.heading}
       </a>
       <slot @slotchange=${this.#onSlotChange}></slot>
     `;
-  }
-
-  #onClick(event: Event): void {
-    const link = event.composedPath().find(el => el instanceof HTMLElement && el.matches('a.leaf'));
-    if (!link) {
-      return;
-    }
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {

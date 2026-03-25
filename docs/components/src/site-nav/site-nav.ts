@@ -2,6 +2,8 @@ import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit'
 import { NavItem } from './nav-item.js';
 import styles from './site-nav.css' with { type: 'css' };
 
+const insideStorybook = location.pathname.startsWith('/iframe.html');
+
 export class SiteNav extends LitElement {
   /** @internal */
   static styles: CSSResultGroup = styles;
@@ -11,11 +13,14 @@ export class SiteNav extends LitElement {
 
     this.addEventListener('keydown', this.#onKeydown);
 
+    navigation.addEventListener('navigate', this.#onNavigate);
+
     // Set up roving tabindex after children are parsed
     requestAnimationFrame(() => this.#initTabIndex());
   }
 
   override disconnectedCallback(): void {
+    navigation.removeEventListener('navigate', this.#onNavigate);
     this.removeEventListener('keydown', this.#onKeydown);
 
     super.disconnectedCallback();
@@ -97,6 +102,44 @@ export class SiteNav extends LitElement {
       event.preventDefault();
       event.stopPropagation();
     }
+  };
+
+  #onNavigate = (event: NavigateEvent): void => {
+    // Return early if the event can't be intercepted or is a download request
+    if (!event.canIntercept || event.downloadRequest !== null) {
+      return;
+    }
+
+    // Return early if the navigation is just a hash change on the same page
+    if (!insideStorybook && event.hashChange) {
+      return;
+    }
+
+    // Remove the active state from the currently active item, if any
+    this.querySelector('doc-nav-item[active]')?.removeAttribute('active');
+
+    // Add the active state to the clicked nav item (if any)
+    event.sourceElement?.getRootNode()?.host?.setAttribute('active', '');
+
+    // In Storybook, just update the URL and let Storybook handle the rest
+    if (insideStorybook) {
+      return;
+    }
+
+    event.intercept({
+      async handler() {
+        const response = await fetch(new URL(event.destination.url)),
+          text = await response.text(),
+          doc = new DOMParser().parseFromString(text, 'text/html'),
+          newContent = doc.querySelector('main.content'),
+          currentContent = document.querySelector('main.content');
+
+        if (newContent && currentContent) {
+          document.title = doc.title;
+          currentContent.innerHTML = newContent.innerHTML;
+        }
+      }
+    });
   };
 
   /** Returns all visible (not inside a collapsed parent) nav-items in DOM order. */

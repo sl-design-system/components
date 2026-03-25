@@ -63,7 +63,7 @@ export default {
           max-inline-size: 280px;
         }
       </style>
-      <doc-site-nav @click=${onNavClick}>
+      <doc-site-nav>
         <doc-nav-group heading="Introduction">
           <doc-nav-item heading="Documentation" href="#" icon="far-book"></doc-nav-item>
           <doc-nav-item heading="FAQ" href="#" icon="far-circle-question"></doc-nav-item>

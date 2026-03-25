@@ -13,6 +13,8 @@
     "./page-toc/page-toc": "./dist/page-toc/page-toc.js",
     "./search/search": "./dist/search/search.js",
     "./sidebar/sidebar": "./dist/sidebar/sidebar.js",
+    "./site-nav/nav-group": "./dist/site-nav/nav-group.js",
+    "./site-nav/nav-item": "./dist/site-nav/nav-item.js",
     "./site-nav/site-nav": "./dist/site-nav/site-nav.js",
     "./theme-switch/theme-switch": "./dist/theme-switch/theme-switch.js",
     "./package.json": "./package.json"
@@ -61,9 +63,6 @@
     "lit": "^3.3.2"
   },
   "inlinedDependencies": {
-    "@floating-ui/core": "1.7.5",
-    "@floating-ui/dom": "1.7.6",
-    "@floating-ui/utils": "0.2.11",
     "@fortawesome/free-brands-svg-icons": "7.2.0",
     "@fortawesome/pro-regular-svg-icons": "7.2.0",
     "@fortawesome/pro-solid-svg-icons": "7.2.0"

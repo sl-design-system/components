@@ -1,3 +1,4 @@
+import '@sl-design-system/button/register.js';
 import '@sl-design-system/form/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html, nothing } from 'lit';
@@ -70,6 +71,7 @@ export default {
       <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
           <sl-time-field
+            style="width: fit-content;"
             ?disabled=${disabled}
             hour-step=${ifDefined(hourStep)}
             locale=${ifDefined(locale)}
@@ -80,7 +82,7 @@ export default {
             ?readonly=${readonly}
             ?required=${required}
             start=${ifDefined(start)}
-            value=${ifDefined(value)}
+            .value=${value}
           ></sl-time-field>
         </sl-form-field>
         ${reportValidity

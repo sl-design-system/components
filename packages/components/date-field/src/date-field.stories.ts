@@ -28,6 +28,7 @@ type Props = Pick<
   label?: string;
   reportValidity?: boolean;
   slot?(): TemplateResult;
+  width?: string;
 };
 type Story = StoryObj<Props>;
 
@@ -42,7 +43,8 @@ export default {
     required: false,
     selectOnly: false,
     showValid: true,
-    showWeekNumbers: false
+    showWeekNumbers: false,
+    width: 'fit-content'
   },
   argTypes: {
     hint: {
@@ -83,14 +85,15 @@ export default {
     showValid,
     showWeekNumbers,
     slot,
-    value
+    value,
+    width
   }) => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
       event.target.closest('sl-form')?.reportValidity();
     };
 
     return html`
-      <sl-form .value=${value}>
+      <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
           <sl-date-field
             ?disabled=${disabled}
@@ -105,7 +108,7 @@ export default {
             min=${ifDefined(min?.toISOString())}
             month=${ifDefined(month?.toISOString())}
             placeholder=${ifDefined(placeholder)}
-            style="width: fit-content"
+            style="width: ${width}"
           >
             ${slot?.()}
           </sl-date-field>
@@ -128,6 +131,12 @@ export const Disabled: Story = {
   args: {
     disabled: true,
     value: new Date(2025, 0, 15)
+  }
+};
+
+export const ExplicitWidth: Story = {
+  args: {
+    width: '250px'
   }
 };
 

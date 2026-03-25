@@ -206,6 +206,41 @@ export class Tooltip extends LitElement {
     return undefined;
   };
 
+  #findAnchorFromElement = (element: Element | null): HTMLElement | undefined => {
+    if (!element) {
+      return undefined;
+    }
+
+    let current: Element | null = element;
+
+    while (current) {
+      if (current instanceof HTMLElement && this.#matchesAnchor(current)) {
+        return current;
+      }
+
+      if (current.parentElement) {
+        current = current.parentElement;
+        continue;
+      }
+
+      const rootNode = current.getRootNode();
+      current = rootNode instanceof ShadowRoot ? rootNode.host : null;
+    }
+
+    return undefined;
+  };
+
+  #findFocusedAnchor = (): HTMLElement | undefined => {
+    const root = this.getRootNode() as Document | ShadowRoot;
+    let activeElement: Element | null = root.activeElement || document.activeElement;
+
+    while (activeElement instanceof HTMLElement && activeElement.shadowRoot?.activeElement) {
+      activeElement = activeElement.shadowRoot.activeElement;
+    }
+
+    return this.#findAnchorFromElement(activeElement);
+  };
+
   #onHide = (event: Event): void => {
     window.clearTimeout(this.#timer);
     this.#timer = undefined;
@@ -252,6 +287,8 @@ export class Tooltip extends LitElement {
   };
 
   #showTooltip = (element: HTMLElement): void => {
+    const wasOpen = isPopoverOpen(this);
+
     this.anchorElement = element;
 
     const anchorSlot = this.anchorElement?.getAttribute('slot');
@@ -259,8 +296,10 @@ export class Tooltip extends LitElement {
       this.setAttribute('slot', anchorSlot); // make sure the tooltip is slotted correctly, otherwise it might inherit styles from the wrong slot
     }
 
-    if (!isPopoverOpen(this)) {
+    if (!wasOpen) {
       this.showPopover();
+    } else {
+      this.#anchor.updatePosition();
     }
 
     requestAnimationFrame(() => {
@@ -271,12 +310,9 @@ export class Tooltip extends LitElement {
   #onShow = (event: Event): void => {
     // If the event is sl-close, the event path might not contain the anchor (as it comes from the dialog)
     // So we use the activeElement (or shadowRoot.activeElement) as a candidate anchor.
-    const candidateAnchor =
-      event.type === 'sl-close'
-        ? (this.getRootNode() as Document | ShadowRoot).activeElement || document.activeElement
-        : undefined;
+    const candidateAnchor = event.type === 'focusin' || event.type === 'sl-close' ? this.#findFocusedAnchor() : null;
 
-    const anchorElement = (candidateAnchor as HTMLElement) || this.#findAnchorInEvent(event);
+    const anchorElement = candidateAnchor || this.#findAnchorInEvent(event);
 
     if (!anchorElement) {
       return;
@@ -316,16 +352,20 @@ export class Tooltip extends LitElement {
 
       const path = event.composedPath();
 
-      requestAnimationFrame(() => {
-        const hasFocusVisible =
-          anchorElement.matches(':focus-visible') ||
-          path.some(el => el instanceof Element && el.matches(':focus-visible'));
+      // If already open (e.g. tabbing between shared buttons), update anchor immediately
+      if (isPopoverOpen(this)) {
+        this.#showTooltip(anchorElement);
+      } else {
+        requestAnimationFrame(() => {
+          const hasFocusVisible =
+            anchorElement.matches(':focus-visible') ||
+            path.some(el => el instanceof Element && el.matches(':focus-visible'));
 
-        if (hasFocusVisible) {
-          // If already open (e.g. tabbing between shared buttons), update anchor immediately
-          this.#showTooltip(anchorElement);
-        }
-      });
+          if (hasFocusVisible) {
+            this.#showTooltip(anchorElement);
+          }
+        });
+      }
     }
   };
 

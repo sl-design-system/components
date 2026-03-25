@@ -1,8 +1,10 @@
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
+import '@sl-design-system/button-bar/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { Tooltip } from './tooltip.js';
 
@@ -76,13 +78,17 @@ describe('sl-tooltip shared', () => {
     await waitFor((tooltip.showDelay ?? 150) + 50);
     expect(tooltip).to.match(':popover-open');
     expect(tooltip.anchorElement).to.equal(buttons[0]);
+    const firstInsetInlineStart = tooltip.style.insetInlineStart;
 
     // 2. Move to second button
     // The anchor should update IMMEDIATELY without waiting for showDelay again
     buttons[1].dispatchEvent(new Event('pointerover', { bubbles: true }));
     await tooltip.updateComplete;
+    await new Promise(resolve => requestAnimationFrame(resolve));
+    await waitFor(10);
 
     expect(tooltip.anchorElement).to.equal(buttons[1]);
+    expect(tooltip.style.insetInlineStart).not.to.equal(firstInsetInlineStart);
   });
 
   it('should update anchor immediately when tabbing between buttons', async () => {
@@ -101,5 +107,36 @@ describe('sl-tooltip shared', () => {
     await tooltip.updateComplete;
 
     expect(tooltip.anchorElement).to.equal(buttons[1]);
+  });
+
+  it('should move the anchor to the next shared button when tabbing in a button bar', async () => {
+    const tabFixture = await fixture(html`
+      <div>
+        <sl-button-bar>
+          <sl-button id="tab-btn-1" aria-describedby="tab-tooltip">Button 1</sl-button>
+          <sl-button id="tab-btn-2" aria-describedby="tab-tooltip">Button 2</sl-button>
+          <sl-button id="tab-btn-3" aria-describedby="tab-tooltip">Button 3</sl-button>
+        </sl-button-bar>
+        <sl-tooltip id="tab-tooltip" show-delay="0" hide-delay="0">Shared Tooltip</sl-tooltip>
+      </div>
+    `);
+
+    const tabButtons = Array.from(tabFixture.querySelectorAll<HTMLElement>('sl-button'));
+    const tabTooltip = tabFixture.querySelector('sl-tooltip') as Tooltip;
+
+    tabButtons[0].focus();
+    await tabTooltip.updateComplete;
+    await new Promise(resolve => requestAnimationFrame(resolve));
+    await tabTooltip.updateComplete;
+
+    expect(tabTooltip).to.match(':popover-open');
+    expect(tabTooltip.anchorElement).to.equal(tabButtons[0]);
+
+    await userEvent.tab();
+    await tabTooltip.updateComplete;
+    await new Promise(resolve => requestAnimationFrame(resolve));
+    await tabTooltip.updateComplete;
+
+    expect(tabTooltip.anchorElement).to.equal(tabButtons[1]);
   });
 });

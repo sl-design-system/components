@@ -98,6 +98,14 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
       }
     }
 
+    if (changes.has('selected')) {
+      if (this.selected) {
+        this.#internals.states.add('has-selection');
+      } else {
+        this.#internals.states.delete('has-selection');
+      }
+    }
+
     if (changes.has('required')) {
       if (this.required) {
         this.setAttribute('aria-required', 'true');

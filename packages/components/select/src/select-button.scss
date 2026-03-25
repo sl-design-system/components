@@ -72,7 +72,7 @@
   outline-color: transparent;
 }
 
-:host(:state(clearable)) {
+:host(:state(clearable):state(has-selection)) {
   .wrapper {
     padding-inline-end: calc(1lh + (var(--sl-size-100) - var(--sl-size-borderWidth-default)) * 2);
   }
@@ -93,7 +93,7 @@
   }
 }
 
-:host([clearable][size='lg']) {
+:host(:state(clearable):state(has-selection)[size='lg']) {
   .wrapper {
     padding-inline-end: calc(1lh + (var(--sl-size-175) - var(--sl-size-borderWidth-default)) * 2);
   }

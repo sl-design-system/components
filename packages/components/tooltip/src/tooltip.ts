@@ -254,7 +254,7 @@ export class Tooltip extends LitElement {
     const knownAnchors: HTMLElement[] = [];
 
     for (const anchor of this.#knownAnchors) {
-      if (!anchor.isConnected || anchor.getRootNode() !== root) {
+      if (!anchor.isConnected || anchor.getRootNode() !== root || !this.#matchesAnchor(anchor)) {
         this.#knownAnchors.delete(anchor);
       } else {
         knownAnchors.push(anchor);

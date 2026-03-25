@@ -68,7 +68,6 @@ describe('sl-tooltip shared', () => {
 
     await tooltip.updateComplete;
     await waitFor((tooltip.showDelay ?? 150) + (tooltip.hideDelay ?? 0) + 50);
-    await waitFor((tooltip.showDelay ?? 150) + (tooltip.hideDelay ?? 0) + 50);
     expect(tooltip).not.to.match(':popover-open');
   });
 

@@ -70,6 +70,19 @@ describe('sl-tooltip', () => {
       expect(tooltip).not.to.match(':popover-open');
     });
 
+    it('should ignore unrelated focusout events while open', async () => {
+      button?.dispatchEvent(new Event('pointerover', { bubbles: true }));
+      await waitFor((tooltip.showDelay ?? 0) + 10);
+      expect(tooltip).to.match(':popover-open');
+
+      const other = document.createElement('input');
+      el.appendChild(other);
+      other.dispatchEvent(new Event('focusout', { bubbles: true, composed: true }));
+
+      await tooltip.updateComplete;
+      expect(tooltip).to.match(':popover-open');
+    });
+
     it('should toggle the tooltip on focus and Escape key pressed', async () => {
       button?.focus();
       // Give some time for the tooltip to open

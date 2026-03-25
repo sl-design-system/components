@@ -139,6 +139,12 @@ export class Tooltip extends LitElement {
   /** Timer for showing/hiding the tooltip. */
   #timer?: number;
 
+  /** Whether the current open state was triggered by focus-based interaction. */
+  #openedByFocus = false;
+
+  /** Anchors observed for this tooltip, used to avoid full DOM scans on hide. */
+  #knownAnchors = new Set<HTMLElement>();
+
   #matchesAnchor = (element: Element): boolean => {
     if (!this.id || !element || element.nodeType !== Node.ELEMENT_NODE) {
       return false;
@@ -241,6 +247,23 @@ export class Tooltip extends LitElement {
     return this.#findAnchorFromElement(activeElement);
   };
 
+  #getPotentialAnchors = (): HTMLElement[] => {
+    const root = this.getRootNode() as ParentNode;
+    const selector = `[aria-describedby~="${this.id}"], [aria-labelledby~="${this.id}"]`;
+    const ariaAnchors = Array.from(root.querySelectorAll<HTMLElement>(selector));
+    const knownAnchors: HTMLElement[] = [];
+
+    for (const anchor of this.#knownAnchors) {
+      if (!anchor.isConnected || anchor.getRootNode() !== root) {
+        this.#knownAnchors.delete(anchor);
+      } else {
+        knownAnchors.push(anchor);
+      }
+    }
+
+    return Array.from(new Set([...ariaAnchors, ...knownAnchors]));
+  };
+
   #onHide = (event: Event): void => {
     window.clearTimeout(this.#timer);
     this.#timer = undefined;
@@ -257,8 +280,22 @@ export class Tooltip extends LitElement {
         const safeTriangleHovered = !!this.renderRoot.querySelector('.safe-triangle:hover');
 
         if (event.type === 'focusout') {
-          const anchorForEvent = this.#findAnchorInEvent(event);
-          if (anchorForEvent === this.anchorElement || !anchorForEvent) {
+          if (!this.#openedByFocus) {
+            return;
+          }
+
+          const anchorForEvent = this.#findAnchorInEvent(event),
+            focusedAnchor = this.#findFocusedAnchor();
+
+          const movedToAnotherSharedAnchor =
+            !!focusedAnchor && focusedAnchor !== this.anchorElement && this.#matchesAnchor(focusedAnchor);
+          if (movedToAnotherSharedAnchor) {
+            return;
+          }
+
+          // Ignore unrelated focusouts. Hide only when the current anchor actually lost focus.
+          const currentAnchorLostFocus = !!this.anchorElement && !this.anchorElement.matches(':focus-visible');
+          if (anchorForEvent === this.anchorElement || currentAnchorLostFocus) {
             this.hidePopover();
           }
           return;
@@ -270,12 +307,8 @@ export class Tooltip extends LitElement {
           return;
         }
 
-        // If the current anchor isn't hovered or focused, check if any other buttons that reference this tooltip are hovered
-        const root = this.getRootNode() as ParentNode;
-        const selector = `[aria-describedby~="${this.id}"], [aria-labelledby~="${this.id}"]`;
-        const potentialAnchors = Array.from(root.querySelectorAll<HTMLElement>(selector)).concat(
-          Array.from(root.querySelectorAll<HTMLElement>('*')).filter(el => this.#matchesAnchor(el))
-        );
+        // If the current anchor isn't hovered or focused, check known anchors for hover/focus.
+        const potentialAnchors = this.#getPotentialAnchors();
         const anyAnchorHovered = potentialAnchors.some(el => el.matches(':hover') || el.matches(':focus-visible'));
 
         if (!anyAnchorHovered) {
@@ -286,10 +319,12 @@ export class Tooltip extends LitElement {
     );
   };
 
-  #showTooltip = (element: HTMLElement): void => {
+  #showTooltip = (element: HTMLElement, openedByFocus = false): void => {
     const wasOpen = isPopoverOpen(this);
 
+    this.#openedByFocus = openedByFocus;
     this.anchorElement = element;
+    this.#knownAnchors.add(element);
 
     const anchorSlot = this.anchorElement?.getAttribute('slot');
     if (typeof anchorSlot === 'string') {
@@ -334,9 +369,9 @@ export class Tooltip extends LitElement {
 
       // If already open, update anchor immediately to avoid "stickiness"
       if (isPopoverOpen(this)) {
-        this.#showTooltip(anchorElement);
+        this.#showTooltip(anchorElement, false);
       } else {
-        this.#timer = window.setTimeout(() => this.#showTooltip(anchorElement), this.showDelay);
+        this.#timer = window.setTimeout(() => this.#showTooltip(anchorElement, false), this.showDelay);
       }
       return;
     }
@@ -354,7 +389,7 @@ export class Tooltip extends LitElement {
 
       // If already open (e.g. tabbing between shared buttons), update anchor immediately
       if (isPopoverOpen(this)) {
-        this.#showTooltip(anchorElement);
+        this.#showTooltip(anchorElement, true);
       } else {
         requestAnimationFrame(() => {
           const hasFocusVisible =
@@ -362,7 +397,7 @@ export class Tooltip extends LitElement {
             path.some(el => el instanceof Element && el.matches(':focus-visible'));
 
           if (hasFocusVisible) {
-            this.#showTooltip(anchorElement);
+            this.#showTooltip(anchorElement, true);
           }
         });
       }

@@ -254,7 +254,7 @@ export class Tooltip extends LitElement {
     const knownAnchors: HTMLElement[] = [];
 
     for (const anchor of this.#knownAnchors) {
-      if (!anchor.isConnected || anchor.getRootNode() !== root || !this.#matchesAnchor(anchor)) {
+      if (!anchor.isConnected || !this.#matchesAnchor(anchor)) {
         this.#knownAnchors.delete(anchor);
       } else {
         knownAnchors.push(anchor);
@@ -389,15 +389,16 @@ export class Tooltip extends LitElement {
       }
 
       const path = event.composedPath();
+      const getHasFocusVisible = (): boolean =>
+        anchorElement.matches(':focus-visible') ||
+        path.some(el => el instanceof Element && el.matches(':focus-visible'));
 
       // If already open (e.g. tabbing between shared buttons), update anchor immediately
       if (isPopoverOpen(this)) {
-        this.#showTooltip(anchorElement, true);
+        this.#showTooltip(anchorElement, getHasFocusVisible());
       } else {
         requestAnimationFrame(() => {
-          const hasFocusVisible =
-            anchorElement.matches(':focus-visible') ||
-            path.some(el => el instanceof Element && el.matches(':focus-visible'));
+          const hasFocusVisible = getHasFocusVisible();
 
           if (hasFocusVisible) {
             this.#showTooltip(anchorElement, true);

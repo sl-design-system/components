@@ -83,6 +83,19 @@ describe('sl-tooltip', () => {
       expect(tooltip).to.match(':popover-open');
     });
 
+    it('should not switch to focus-open mode on focusin without focus-visible when already open', async () => {
+      button?.dispatchEvent(new Event('pointerover', { bubbles: true }));
+      await waitFor((tooltip.showDelay ?? 0) + 10);
+      expect(tooltip).to.match(':popover-open');
+
+      button?.dispatchEvent(new Event('focusin', { bubbles: true, composed: true }));
+      button?.dispatchEvent(new Event('focusout', { bubbles: true, composed: true }));
+
+      await tooltip.updateComplete;
+
+      expect(tooltip).to.match(':popover-open');
+    });
+
     it('should toggle the tooltip on focus and Escape key pressed', async () => {
       button?.focus();
       // Give some time for the tooltip to open
@@ -90,6 +103,7 @@ describe('sl-tooltip', () => {
       expect(tooltip).to.match(':popover-open');
 
       await userEvent.keyboard('{Escape}');
+
       expect(tooltip).not.to.match(':popover-open');
     });
 
@@ -99,6 +113,7 @@ describe('sl-tooltip', () => {
       expect(tooltip).to.match(':popover-open');
 
       await userEvent.keyboard('{Escape}');
+
       expect(tooltip).not.to.match(':popover-open');
     });
 
@@ -130,6 +145,7 @@ describe('sl-tooltip', () => {
       await tooltip.updateComplete;
       await new Promise(resolve => requestAnimationFrame(resolve));
       await tooltip.updateComplete;
+
       expect(tooltip).to.match(':popover-open');
     });
   });

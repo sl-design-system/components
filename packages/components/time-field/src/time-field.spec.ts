@@ -1730,7 +1730,7 @@ describe('sl-time-field', () => {
       expect(dialog).not.to.match(':popover-open');
     });
 
-    it.skip('should allow reopening popover after closing it via button', async () => {
+    it('should allow reopening popover after closing it via button', async () => {
       el = await fixture(html`<sl-time-field></sl-time-field>`);
 
       const button = el.renderRoot.querySelector<HTMLElement>('sl-field-button')!;
@@ -1749,6 +1749,7 @@ describe('sl-time-field', () => {
       await waitForPopoverState(dialog, false);
 
       expect(dialog).not.to.match(':popover-open');
+      await new Promise(resolve => setTimeout(resolve, 500));
 
       //Third click should be able to open it again - not permanently suppressed
       button.click();

@@ -296,6 +296,12 @@ export class Tooltip extends LitElement {
       return;
     }
 
+    // Ignore unrelated focusout events when the tooltip was not opened by focus.
+    // This avoids overriding a pending hover show timer with a no-op timeout.
+    if (event.type === 'focusout' && !this.#openedByFocus) {
+      return;
+    }
+
     this.#timer = window.setTimeout(
       () => {
         const anchorHovered = !!this.anchorElement?.matches(':hover');

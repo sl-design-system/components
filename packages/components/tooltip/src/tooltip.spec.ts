@@ -572,6 +572,21 @@ describe('sl-tooltip', () => {
       expect(tooltip).to.match(':popover-open');
     });
 
+    it('should keep pending hover show timer cancellable after unrelated focusout', async () => {
+      tooltip.showDelay = 150;
+
+      button?.dispatchEvent(new Event('pointerover', { bubbles: true }));
+
+      const other = document.createElement('input');
+      el.appendChild(other);
+      other.dispatchEvent(new Event('focusout', { bubbles: true, composed: true }));
+
+      button?.dispatchEvent(new Event('pointerout', { bubbles: true }));
+      await waitFor((tooltip.showDelay ?? 150) + 50);
+
+      expect(tooltip).not.to.match(':popover-open');
+    });
+
     it('should create a tooltip lazily on focusin', async () => {
       Tooltip.lazy(button, createdTooltip => (tooltip = createdTooltip));
 

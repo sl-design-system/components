@@ -210,10 +210,6 @@ export class Tooltip extends LitElement {
     window.clearTimeout(this.#timer);
     this.#timer = undefined;
 
-    if (!isPopoverOpen(this) && !this.#timer) {
-      return;
-    }
-
     if (event.type === 'click') {
       this.hidePopover();
       return;

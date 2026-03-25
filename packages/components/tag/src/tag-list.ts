@@ -45,6 +45,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   /** Timer used for breaking a possible resize observer loop. */
   #breakResizeObserverLoop?: ReturnType<typeof setTimeout>;
 
+  /** Animation frame used to batch slot-change visibility updates. */
+  #scheduleVisibilityUpdate?: number;
+
   /**
    * Observe size changes so we can determine when to display a counter
    * with the amount of hidden tags.
@@ -115,6 +118,11 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       this.#breakResizeObserverLoop = undefined;
     }
 
+    if (this.#scheduleVisibilityUpdate !== undefined) {
+      cancelAnimationFrame(this.#scheduleVisibilityUpdate);
+      this.#scheduleVisibilityUpdate = undefined;
+    }
+
     super.disconnectedCallback();
   }
 
@@ -168,9 +176,16 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   }
 
   #onRemove(event: SlRemoveEvent & { target: Tag }): void {
-    const index = this.#rovingTabindexController.elements.indexOf(event.target as Tag);
+    const elements = this.#rovingTabindexController.elements,
+      index = elements.indexOf(event.target as Tag),
+      nextIndex = index === 0 ? 1 : index - 1,
+      nextFocusableTag = elements[nextIndex];
 
-    this.#rovingTabindexController.focusToElement(index + (index === 0 ? 1 : -1));
+    if (!nextFocusableTag) {
+      return;
+    }
+
+    this.#rovingTabindexController.focusToElement(nextFocusableTag);
   }
 
   #onResize(entries: ResizeObserverEntry[]): void {
@@ -194,7 +209,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     // We use a shorter delay for initial/subsequent updates to avoid Chromatic issues.
     this.#breakResizeObserverLoop = setTimeout(
       () => {
-        this._updateVisibility();
+        this.#updateVisibility();
         this.#breakResizeObserverLoop = undefined;
       },
       this.stackInlineSize === 0 ? 0 : 50
@@ -214,10 +229,17 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     this.#rovingTabindexController.clearElementCache();
 
-    this._updateVisibility();
+    if (this.#scheduleVisibilityUpdate !== undefined) {
+      cancelAnimationFrame(this.#scheduleVisibilityUpdate);
+    }
+
+    this.#scheduleVisibilityUpdate = requestAnimationFrame(() => {
+      this.#updateVisibility();
+      this.#scheduleVisibilityUpdate = undefined;
+    });
   }
 
-  _updateVisibility(): void {
+  #updateVisibility(): void {
     if (!this.stacked || !this.stack || !this.tags) {
       return;
     }
@@ -227,22 +249,6 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     if (!Number.isFinite(gap)) {
       gap = 0;
-    }
-    // When used inside a combobox/text field, we need to:
-    // 1. Lock the closest parent container (sl-combobox or sl-text-field) to its current pixel width (prevents flex blowout)
-    // 2. Force tag-list to fill its flex allocation via width:100% (measures max allowed space)
-    // When not inside either, just lock our own current width to prevent expansion during measurement.
-    const parentContainer = this.closest('sl-combobox') || this.closest('sl-text-field');
-    const originalParentWidth = parentContainer ? (parentContainer as HTMLElement).style.width : undefined;
-    const originalSelfWidth = this.style.width;
-
-    if (parentContainer) {
-      const parentWidth = parentContainer.getBoundingClientRect().width;
-      (parentContainer as HTMLElement).style.width = `${parentWidth}px`;
-      this.style.width = '100%';
-    } else {
-      const selfWidth = this.getBoundingClientRect().width;
-      this.style.width = `${selfWidth}px`;
     }
 
     // Reset visibility of all tags
@@ -256,12 +262,6 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     let availableWidth = this.getBoundingClientRect().width;
 
-    // Restore original styles
-    this.style.width = originalSelfWidth;
-    if (parentContainer) {
-      (parentContainer as HTMLElement).style.width = originalParentWidth!;
-    }
-
     // We only need to determine visibility if there isn't enough space.
     // We use a small buffer to account for sub-pixel rounding
     // errors that can cause layout oscillation at certain zoom levels.
@@ -270,15 +270,17 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       availableWidth -= this.stackInlineSize + gap;
 
       for (let i = 0; i < this.tags.length; i++) {
-        // ALWAYS keep the last tag visible if there's any available space left
-        if (i === this.tags.length - 1 && availableWidth > 0) {
+        const isLastTag = i === this.tags.length - 1;
+
+        // Keep the last tag visible only when it truly fits, to prevent overflow-induced width jitter.
+        if (isLastTag && sizes[i] <= availableWidth + SUBPIXEL_BUFFER_PX) {
           break;
         }
 
-        totalTagsWidth -= sizes[i] + gap;
+        totalTagsWidth -= sizes[i] + (isLastTag ? 0 : gap);
         this.tags[i].style.display = 'none';
 
-        if (totalTagsWidth <= availableWidth) {
+        if (totalTagsWidth <= availableWidth + SUBPIXEL_BUFFER_PX) {
           break;
         }
       }

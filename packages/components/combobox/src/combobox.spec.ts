@@ -928,7 +928,9 @@ describe('sl-combobox', () => {
         const tagList = el.renderRoot.querySelector('sl-tag-list') as HTMLElement;
         const styles = getComputedStyle(tagList);
 
-        expect(styles.flexGrow).to.equal('1');
+        expect(styles.flexGrow).to.equal('0');
+        expect(styles.flexShrink).to.equal('1');
+        expect(styles.flexBasis).to.equal('66%');
         expect(styles.minInlineSize).to.equal('0px');
         expect(styles.position).to.equal('relative');
         expect(styles.zIndex).to.equal('1');
@@ -947,18 +949,21 @@ describe('sl-combobox', () => {
           const getVisibilityState = () =>
             Array.from(el.renderRoot.querySelectorAll('sl-tag')).map(tag => tag.style.display !== 'none');
 
-          // Allow initial layout/stacking to settle (the component has a 200ms debounce)
+          // Allow initial layout/stacking to settle.
           await vi.advanceTimersByTimeAsync(300);
           await el.updateComplete;
-          const firstState = getVisibilityState();
+          const firstState = getVisibilityState(),
+            firstInputWidth = input.getBoundingClientRect().width;
 
           // Wait long enough to cover any potential oscillation cycles
           await vi.advanceTimersByTimeAsync(500);
           await el.updateComplete;
-          const secondState = getVisibilityState();
+          const secondState = getVisibilityState(),
+            secondInputWidth = input.getBoundingClientRect().width;
 
           // If the component flickers, the visibility pattern of tags would change over time.
           expect(secondState).to.deep.equal(firstState);
+          expect(secondInputWidth).to.be.closeTo(firstInputWidth, 0.5);
         } finally {
           vi.useRealTimers();
         }
@@ -993,10 +998,14 @@ describe('sl-combobox', () => {
           const tagList = el.renderRoot.querySelector('sl-tag-list'),
             stackTag = tagList?.renderRoot.querySelector('sl-tag'),
             tags = Array.from(el.renderRoot.querySelectorAll('sl-tag')),
-            hiddenCount = tags.filter(tag => tag.style.display === 'none').length;
+            visibility = tags.map(tag => tag.style.display !== 'none'),
+            hiddenCount = visibility.filter(isVisible => !isVisible).length,
+            visibleCount = visibility.length - hiddenCount;
 
+          expect(visibleCount).to.be.greaterThan(0);
           expect(hiddenCount).to.be.greaterThan(0);
           expect(stackTag).to.have.trimmed.text(`+${hiddenCount}`);
+          expect(visibility.join(',')).to.match(/^false(,false)*,true(,true)*$/);
         } finally {
           vi.useRealTimers();
         }

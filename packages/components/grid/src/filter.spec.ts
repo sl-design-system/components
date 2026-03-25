@@ -143,7 +143,7 @@ describe('sl-grid-filter', () => {
       await new Promise(resolve => setTimeout(resolve, 50));
       await select?.updateComplete;
 
-      // Use Backspace to clear the selection, which triggers sl-clear via sl-select-button
+      // Use Backspace to clear the selection, sl-select handles the clear and emits sl-clear
       selectButton?.focus();
       await userEvent.keyboard('{Backspace}');
       await new Promise(resolve => setTimeout(resolve, 50));

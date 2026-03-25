@@ -430,7 +430,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   #onButtonClick(): void {
     if (this.disabled) {
       return;
-    } else if (!this.listbox?.matches(':popover-open') && !this.#popoverClosing) {
+    } else if (!this.listbox || (!isPopoverOpen(this.listbox) && !this.#popoverClosing)) {
       this.listbox?.showPopover();
     }
 
@@ -487,7 +487,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
       (!(event.relatedTarget instanceof Element) || event.relatedTarget?.closest('sl-select') !== this);
 
     if (leavingComponent) {
-      const listboxIsOpen = this.listbox?.matches(':popover-open');
+      const listboxIsOpen = this.listbox && isPopoverOpen(this.listbox);
 
       // Mark as "focus leaving component" when:
       // - We're not already in the process of programmatically closing (#popoverClosing),
@@ -512,7 +512,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
       event.stopPropagation();
 
       return;
-    } else if (!this.listbox?.matches(':popover-open')) {
+    } else if (!this.listbox || !isPopoverOpen(this.listbox)) {
       if (['ArrowDown', 'Enter', ' '].includes(event.key)) {
         this.#rovingTabindexController.focus();
       } else if (event.key === 'Home') {

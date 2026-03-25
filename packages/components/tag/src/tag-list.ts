@@ -228,10 +228,10 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     if (!Number.isFinite(gap)) {
       gap = 0;
     }
-    // When inside a combobox, we need to:
-    // 1. Lock the parent container to its current pixel width (prevents flex blowout)
+    // When used inside a combobox/text field, we need to:
+    // 1. Lock the closest parent container (sl-combobox or sl-text-field) to its current pixel width (prevents flex blowout)
     // 2. Force tag-list to fill its flex allocation via width:100% (measures max allowed space)
-    // When standalone, just lock our own current width to prevent expansion during measurement.
+    // When not inside either, just lock our own current width to prevent expansion during measurement.
     const parentContainer = this.closest('sl-combobox') || this.closest('sl-text-field');
     const originalParentWidth = parentContainer ? (parentContainer as HTMLElement).style.width : undefined;
     const originalSelfWidth = this.style.width;

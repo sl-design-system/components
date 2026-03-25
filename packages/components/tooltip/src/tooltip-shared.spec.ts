@@ -14,15 +14,15 @@ describe('sl-tooltip shared', () => {
   let tooltip: Tooltip;
 
   const waitFor = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
-  const waitForPopoverToClose = async (el: HTMLElement, timeout = 1000): Promise<void> => {
+  const waitForPopoverToClose = async (popover: HTMLElement, timeout = 1000): Promise<void> => {
     const startedAt = Date.now();
 
-    while (el.matches(':popover-open') && Date.now() - startedAt < timeout) {
+    while (popover.matches(':popover-open') && Date.now() - startedAt < timeout) {
       await waitFor(25);
     }
 
-    if (el.matches(':popover-open')) {
-      const id = (el as HTMLElement & { id?: string }).id;
+    if (popover.matches(':popover-open')) {
+      const id = (popover as HTMLElement & { id?: string }).id;
       throw new Error(
         `Timed out after ${timeout}ms waiting for popover${id ? ` with id "${id}"` : ''} to close.`
       );

@@ -363,6 +363,9 @@ export class Tooltip extends LitElement {
       return;
     }
 
+    // Track anchors as soon as they are detected, even when showing is delayed.
+    this.#knownAnchors.add(anchorElement);
+
     // For hover events
     if (event.type === 'pointerover') {
       window.clearTimeout(this.#timer);

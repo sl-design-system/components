@@ -14,6 +14,13 @@ describe('sl-tooltip shared', () => {
   let tooltip: Tooltip;
 
   const waitFor = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+  const waitForPopoverToClose = async (el: HTMLElement, timeout = 1000): Promise<void> => {
+    const startedAt = Date.now();
+
+    while (el.matches(':popover-open') && Date.now() - startedAt < timeout) {
+      await waitFor(25);
+    }
+  };
 
   beforeEach(async () => {
     el = await fixture(html`
@@ -42,10 +49,11 @@ describe('sl-tooltip shared', () => {
 
     // 3. Immediately move out of second button (same tick or very next)
     buttons[1].dispatchEvent(new Event('pointerout', { bubbles: true }));
+    await userEvent.hover(document.body);
 
-    // Wait for any pending timers (showDelay + hideDelay + buffer)
+    // Wait for any pending timers/event queue work.
     await tooltip.updateComplete;
-    await waitFor((tooltip.showDelay ?? 150) + (tooltip.hideDelay ?? 0) + 50);
+    await waitForPopoverToClose(tooltip, (tooltip.showDelay ?? 150) + (tooltip.hideDelay ?? 0) + 250);
 
     // The tooltip should be closed.
     expect(tooltip).not.to.match(':popover-open');
@@ -65,9 +73,10 @@ describe('sl-tooltip shared', () => {
     // Now move out of BOTH (simulated jump out)
     buttons[0].dispatchEvent(new Event('pointerout', { bubbles: true }));
     buttons[1].dispatchEvent(new Event('pointerout', { bubbles: true }));
+    await userEvent.hover(document.body);
 
     await tooltip.updateComplete;
-    await waitFor((tooltip.showDelay ?? 150) + (tooltip.hideDelay ?? 0) + 50);
+    await waitForPopoverToClose(tooltip, (tooltip.showDelay ?? 150) + (tooltip.hideDelay ?? 0) + 250);
     expect(tooltip).not.to.match(':popover-open');
   });
 
@@ -137,5 +146,39 @@ describe('sl-tooltip shared', () => {
     await tabTooltip.updateComplete;
 
     expect(tabTooltip.anchorElement).to.equal(tabButtons[1]);
+  });
+
+  it('should close after rapid pointer transitions for shared anchors connected via ElementInternals', async () => {
+    const internalsFixture = await fixture(html`
+      <div style="display: flex; gap: 8px;">
+        <sl-button id="internals-btn-1">Button 1</sl-button>
+        <sl-button id="internals-btn-2">Button 2</sl-button>
+        <sl-tooltip id="internals-tooltip" show-delay="150" hide-delay="0">Shared Tooltip</sl-tooltip>
+      </div>
+    `);
+
+    const internalsButtons = Array.from(internalsFixture.querySelectorAll<Button>('sl-button'));
+    const internalsTooltip = internalsFixture.querySelector('sl-tooltip') as Tooltip;
+
+    if (internalsButtons[0].internals && internalsButtons[1].internals) {
+      internalsButtons[0].internals.ariaDescribedByElements = [internalsTooltip];
+      internalsButtons[1].internals.ariaDescribedByElements = [internalsTooltip];
+    }
+
+    internalsButtons[0].dispatchEvent(new Event('pointerover', { bubbles: true }));
+    await waitFor((internalsTooltip.showDelay ?? 150) + 50);
+    expect(internalsTooltip).to.match(':popover-open');
+
+    internalsButtons[0].dispatchEvent(new Event('pointerout', { bubbles: true }));
+    internalsButtons[1].dispatchEvent(new Event('pointerover', { bubbles: true }));
+    internalsButtons[1].dispatchEvent(new Event('pointerout', { bubbles: true }));
+    await userEvent.hover(document.body);
+
+    await internalsTooltip.updateComplete;
+    await waitForPopoverToClose(
+      internalsTooltip,
+      (internalsTooltip.showDelay ?? 150) + (internalsTooltip.hideDelay ?? 0) + 250
+    );
+    expect(internalsTooltip).not.to.match(':popover-open');
   });
 });

@@ -228,13 +228,17 @@ describe('sl-select', () => {
     });
 
     it('should emit an sl-blur event when blurring the select', () => {
-      const onBlur = spy();
+      const onBlur = spy(),
+        otherButton = document.createElement('button');
 
+      el.after(otherButton);
       el.addEventListener('sl-blur', onBlur);
       el.focus();
-      el.querySelector<HTMLElement>('sl-select-button')?.blur();
+      otherButton.focus();
 
       expect(onBlur).to.have.been.calledOnce;
+
+      otherButton.remove();
     });
 
     it('should emit an sl-validate event when calling reportValidity', () => {
@@ -274,6 +278,22 @@ describe('sl-select', () => {
 
       expect(el.validationMessage).to.equal('Custom error message');
       expect(el.validity.customError).to.be.true;
+    });
+
+    it('should not have aria-keyshortcuts when not clearable', () => {
+      expect(button).not.to.have.attribute('aria-keyshortcuts');
+    });
+
+    it('should restore tabindex to 0 when disabled is toggled back to false', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('tabindex', '-1');
+
+      el.disabled = false;
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('tabindex', '0');
     });
   });
 
@@ -624,7 +644,10 @@ describe('sl-select', () => {
     });
 
     it('should close the popover when focus leaves the select', async () => {
-      const listbox = el.renderRoot.querySelector('sl-listbox');
+      const listbox = el.renderRoot.querySelector('sl-listbox'),
+        otherButton = document.createElement('button');
+
+      el.after(otherButton);
 
       button.focus();
       await userEvent.keyboard('{ArrowDown}');
@@ -632,10 +655,12 @@ describe('sl-select', () => {
 
       expect(listbox).to.match(':popover-open');
 
-      await userEvent.keyboard('{Tab}');
+      otherButton.focus();
       await el.updateComplete;
 
       expect(listbox).not.to.match(':popover-open');
+
+      otherButton.remove();
     });
 
     it('should focus the button after the popover closes', async () => {
@@ -724,6 +749,25 @@ describe('sl-select', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       expect(document.activeElement).to.equal(button);
+    });
+
+    it('should stop Escape key propagation when the listbox is open', async () => {
+      const onKeydown = spy();
+
+      el.parentElement!.addEventListener('keydown', onKeydown);
+
+      button.focus();
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      await userEvent.keyboard('{Escape}');
+      await el.updateComplete;
+
+      const escapeEvents = onKeydown.getCalls().filter(call => (call.args[0] as KeyboardEvent).key === 'Escape');
+
+      expect(escapeEvents).to.have.length(0);
+
+      el.parentElement!.removeEventListener('keydown', onKeydown);
     });
   });
 
@@ -1066,6 +1110,186 @@ describe('sl-select', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       expect(document.activeElement).to.equal(button);
+    });
+  });
+
+  describe('clearable', () => {
+    let clearButton: HTMLButtonElement;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-select clearable value="1">
+          <sl-option value="1">Option 1</sl-option>
+          <sl-option value="2">Option 2</sl-option>
+          <sl-option value="3">Option 3</sl-option>
+        </sl-select>
+      `);
+
+      button = el.querySelector('sl-select-button')!;
+      clearButton = el.renderRoot.querySelector('button')!;
+    });
+
+    it('should have a clear button', () => {
+      expect(clearButton).to.exist;
+    });
+
+    it('should have aria-keyshortcuts on the button when select is clearable with a selected value', () => {
+      expect(button).to.have.attribute('aria-keyshortcuts', 'Delete Backspace');
+    });
+
+    it('should not have aria-keyshortcuts after clearing the value', async () => {
+      clearButton.focus();
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+
+      expect(button).not.to.have.attribute('aria-keyshortcuts');
+    });
+
+    it('should not have aria-keyshortcuts when disabled', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      expect(button).not.to.have.attribute('aria-keyshortcuts');
+    });
+
+    it('should have an aria-label on the clear button', () => {
+      expect(clearButton).to.have.attribute('aria-label', 'Clear selection');
+    });
+
+    it('should set clear-focused state when clear button receives focus', async () => {
+      clearButton.focus();
+      await el.updateComplete;
+
+      expect(button).to.match(':state(clear-focused)');
+    });
+
+    it('should remove clear-focused state when clear button loses focus', async () => {
+      clearButton.focus();
+      await el.updateComplete;
+
+      expect(button).to.match(':state(clear-focused)');
+
+      clearButton.blur();
+      await el.updateComplete;
+
+      expect(button).not.to.match(':state(clear-focused)');
+    });
+
+    it('should clear selection when pressing Enter on the focused clear button', async () => {
+      clearButton.focus();
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+
+      expect(el.value).to.be.undefined;
+    });
+
+    it('should clear selection when pressing Space on the focused clear button', async () => {
+      clearButton.focus();
+      await userEvent.keyboard(' ');
+      await el.updateComplete;
+
+      expect(el.value).to.be.undefined;
+    });
+
+    it('should close the popover when pressing Enter on clear button while popover is open', async () => {
+      button.focus();
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('aria-expanded', 'true');
+
+      clearButton.focus();
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(button).to.have.attribute('aria-expanded', 'false');
+    });
+
+    it('should focus the select button after clearing with Enter', async () => {
+      clearButton.focus();
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(document.activeElement).to.equal(button);
+    });
+
+    it('should focus the select button after clearing with Space', async () => {
+      clearButton.focus();
+      await userEvent.keyboard(' ');
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(document.activeElement).to.equal(button);
+    });
+
+    it('should clear selection when pressing Backspace on the select button', async () => {
+      button.focus();
+      await userEvent.keyboard('{Backspace}');
+      await el.updateComplete;
+
+      expect(el.value).to.be.undefined;
+    });
+
+    it('should clear selection when pressing Delete on the select button', async () => {
+      button.focus();
+      await userEvent.keyboard('{Delete}');
+      await el.updateComplete;
+
+      expect(el.value).to.be.undefined;
+    });
+
+    it('should emit sl-clear when clearing via keyboard', async () => {
+      const onClear = spy();
+
+      el.addEventListener('sl-clear', onClear);
+      button.focus();
+      await userEvent.keyboard('{Backspace}');
+      await el.updateComplete;
+
+      expect(onClear).to.have.been.calledOnce;
+    });
+
+    it('should emit sl-clear when clearing via the clear button', async () => {
+      const onClear = spy();
+
+      el.addEventListener('sl-clear', onClear);
+      clearButton.focus();
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+
+      expect(onClear).to.have.been.calledOnce;
+    });
+
+    it('should emit sl-change before sl-clear when clearing via keyboard', async () => {
+      const onChange = spy(),
+        onClear = spy();
+
+      el.addEventListener('sl-change', onChange);
+      el.addEventListener('sl-clear', onClear);
+      button.focus();
+      await userEvent.keyboard('{Backspace}');
+      await el.updateComplete;
+
+      expect(onChange).to.have.been.calledOnce;
+      expect(onClear).to.have.been.calledOnce;
+      expect(onChange).to.have.been.calledBefore(onClear);
+    });
+
+    it('should emit sl-change before sl-clear when clearing via the clear button', async () => {
+      const onChange = spy(),
+        onClear = spy();
+
+      el.addEventListener('sl-change', onChange);
+      el.addEventListener('sl-clear', onClear);
+      clearButton.focus();
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+
+      expect(onChange).to.have.been.calledOnce;
+      expect(onClear).to.have.been.calledOnce;
+      expect(onChange).to.have.been.calledBefore(onClear);
     });
   });
 });

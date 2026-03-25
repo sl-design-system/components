@@ -183,8 +183,8 @@ export class Tooltip extends LitElement {
    * (e.g. `sl-button` with `ariaDescribedByElements`) is inside its shadow DOM.
    */
   #findAnchorInEvent = (event: Event): HTMLElement | undefined => {
-    const path = event.composedPath();
-    const escapedId = this.#getEscapedTooltipId();
+    const path = event.composedPath(),
+      escapedId = this.#getEscapedTooltipId();
 
     // First check elements directly in the composed path
     const anchor = path.find((el): el is HTMLElement => el instanceof Element && this.#matchesAnchor(el));
@@ -284,8 +284,12 @@ export class Tooltip extends LitElement {
   };
 
   #onHide = (event: Event): void => {
-    window.clearTimeout(this.#timer);
-    this.#timer = undefined;
+    // Only clear the timer for focusout when the tooltip was opened by focus; otherwise,
+    // an unrelated focusout could cancel a pending hover showDelay timer.
+    if (event.type !== 'focusout' || this.#openedByFocus) {
+      window.clearTimeout(this.#timer);
+      this.#timer = undefined;
+    }
 
     if (event.type === 'click') {
       this.hidePopover();

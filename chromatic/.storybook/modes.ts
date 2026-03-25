@@ -37,7 +37,7 @@ export const allModes = {
     theme: 'sanoma-learning'
   },
   'sanoma-pro': {
-    theme: 'sanoma-proq'
+    theme: 'sanoma-pro'
   },
   'sanoma-utbildning': {
     theme: 'sanoma-utbildning'

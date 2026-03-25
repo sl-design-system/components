@@ -1,7 +1,7 @@
 import { register, transformLineHeight } from '@tokens-studio/sd-transforms';
 import { kebabCase } from 'change-case';
 import cssnano from 'cssnano';
-import { readdir, readFile, writeFile } from 'fs/promises';
+import { access, readdir, readFile, writeFile } from 'fs/promises';
 import { argv } from 'node:process';
 import { join } from 'path';
 import postcss from 'postcss';
@@ -217,10 +217,14 @@ const build = async (production = false, path) => {
   for (const [theme, variant] of themes) {
     const baseFilePath = join(cwd, path, theme, 'base.json');
     try {
-      await readFile(baseFilePath);
+      await access(baseFilePath);
       themesWithBase.push([theme, variant]);
-    } catch {
-      console.log(`Skipping deprecated scenario for ${theme}/${variant}: no base.json found`);
+    } catch (error) {
+      if (error && error.code === 'ENOENT') {
+        console.log(`Skipping deprecated scenario for ${theme}/${variant}: no base.json found`);
+      } else {
+        throw error;
+      }
     }
   }
 

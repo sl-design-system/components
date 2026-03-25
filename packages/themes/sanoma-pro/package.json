@@ -1,7 +1,6 @@
 {
   "name": "@sl-design-system/sanoma-pro",
   "description": "Sanoma Pro theme for the SL Design System",
-  "private": true,
   "version": "0.0.1",
   "license": "Apache 2.0",
   "publishConfig": {
@@ -18,7 +17,10 @@
   "types": "./index.d.ts",
   "exports": {
     ".": "./index.js",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./global.css": "./global.css",
+    "./light.css": "./light.css",
+    "./css/*": "./css/*"
   },
   "files": [
     "**/*.css",

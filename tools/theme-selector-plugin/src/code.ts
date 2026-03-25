@@ -124,7 +124,6 @@ const getSubCollections = async (collection: VariableCollection | VariableCollec
       modeCollection.modeId = mode.modeId;
 
       // add the fonts to the modeCollection if they exist in the themeFonts object, so we can load them later
-      console.log('[slds]', 'mode.name:', mode.name, 'fonts:', themeFonts[mode.name as keyof typeof themeFonts]);
       if (mode.name in themeFonts) {
         modeCollection.fonts = themeFonts[mode.name as keyof typeof themeFonts];
       } else {

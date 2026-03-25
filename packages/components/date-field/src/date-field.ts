@@ -5,7 +5,7 @@ import { ButtonBar } from '@sl-design-system/button-bar';
 import { Calendar } from '@sl-design-system/calendar';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, LocaleMixin, anchor, event } from '@sl-design-system/shared';
+import { type EventEmitter, EventsController, LocaleMixin, anchor, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { isSameDate } from '@sl-design-system/shared/date.js';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
@@ -59,6 +59,12 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
+
+  /** Events controller. */
+  // eslint-disable-next-line no-unused-private-class-members
+  #events = new EventsController(this, {
+    click: this.#onClick
+  });
 
   /** @internal The default margin between the popover and the viewport. */
   static viewportMargin = 8;
@@ -288,6 +294,19 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
   }
 
+  /** @internal */
+  override focus(): void {
+    const selectAll = this.renderRoot.querySelector<HTMLElement>('.select-all');
+
+    if (selectAll) {
+      selectAll.focus();
+      return;
+    }
+
+    this.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')?.focus();
+    this.internals.states.add('has-focus');
+  }
+
   override render(): TemplateResult {
     const locale = this.locale ?? 'default',
       parts = getDateFormat(locale);
@@ -504,6 +523,14 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.#setValueAndCloseDialog(event.detail);
   }
 
+  #onClick(event: Event): void {
+    // this is needed to get the link between the label and the input working,
+    // because that doesn't work when the input is actually a contenteditable span
+    if (!this.disabled && event.composedPath()[0] === this) {
+      this.focus();
+    }
+  }
+
   #onConfirm(): void {
     const selected = this.calendar?.selected;
 
@@ -551,6 +578,10 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     if (!isSpinbutton) {
       this.renderRoot.ownerDocument.getSelection()?.removeAllRanges();
     }
+
+    if (!this.selectAll) {
+      this.internals.states.delete('has-focus');
+    }
   }
 
   #onPartFocus(event: FocusEvent): void {
@@ -564,6 +595,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     this.#enteredDigits = 0;
+    this.internals.states.add('has-focus');
 
     // Workaround for WebKit changing the selection on focus.
     requestAnimationFrame(() => this.#selectContent(span));
@@ -587,6 +619,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       event.preventDefault();
 
       this.selectAll = true;
+      this.internals.states.add('has-focus');
 
       requestAnimationFrame(() => {
         const selectAll = this.renderRoot.querySelector<HTMLElement>('.select-all')!;
@@ -822,6 +855,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   #exitSelectAll(refocus = false): void {
     this.selectAll = false;
+    this.internals.states.delete('has-focus');
 
     if (refocus) {
       requestAnimationFrame(() => {

@@ -216,7 +216,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     super.connectedCallback();
 
     this.internals.role = 'group';
-
     this.setFormControlElement(this);
 
     this.addEventListener('focusin', this.#onFocusIn);
@@ -659,7 +658,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   #onClick(event: Event): void {
     // this is needed to get the link between the label and the input working,
     // because that doesn't work when the input is actually a contenteditable span
-    if (event.composedPath()[0] === this) {
+    if (!this.disabled && event.composedPath()[0] === this) {
       this.focus();
     }
   }

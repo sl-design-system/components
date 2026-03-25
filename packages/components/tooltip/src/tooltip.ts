@@ -184,6 +184,7 @@ export class Tooltip extends LitElement {
    */
   #findAnchorInEvent = (event: Event): HTMLElement | undefined => {
     const path = event.composedPath();
+    const escapedId = this.#getEscapedTooltipId();
 
     // First check elements directly in the composed path
     const anchor = path.find((el): el is HTMLElement => el instanceof Element && this.#matchesAnchor(el));
@@ -194,8 +195,9 @@ export class Tooltip extends LitElement {
 
     for (const el of path) {
       if (el instanceof Element && el.shadowRoot) {
-        const ariaSelector = `[aria-describedby~="${this.id}"], [aria-labelledby~="${this.id}"]`,
-          ariaMatch = el.shadowRoot.querySelector(ariaSelector);
+        const ariaMatch = escapedId
+          ? el.shadowRoot.querySelector(`[aria-describedby~="${escapedId}"], [aria-labelledby~="${escapedId}"]`)
+          : null;
 
         if (ariaMatch && (path.includes(ariaMatch) || el === event.target) && this.#matchesAnchor(ariaMatch)) {
           return ariaMatch as HTMLElement;
@@ -247,6 +249,14 @@ export class Tooltip extends LitElement {
     return this.#findAnchorFromElement(activeElement);
   };
 
+  #getEscapedTooltipId = (): string | undefined => {
+    if (!this.id || typeof CSS === 'undefined' || typeof CSS.escape !== 'function') {
+      return undefined;
+    }
+
+    return CSS.escape(this.id);
+  };
+
   #getKnownAnchors = (): HTMLElement[] => {
     const knownAnchors: HTMLElement[] = [];
 
@@ -262,8 +272,13 @@ export class Tooltip extends LitElement {
   };
 
   #getAriaAnchors = (): HTMLElement[] => {
+    const escapedId = this.#getEscapedTooltipId();
+    if (!escapedId) {
+      return [];
+    }
+
     const root = this.getRootNode() as ParentNode;
-    const selector = `[aria-describedby~="${this.id}"], [aria-labelledby~="${this.id}"]`;
+    const selector = `[aria-describedby~="${escapedId}"], [aria-labelledby~="${escapedId}"]`;
 
     return Array.from(root.querySelectorAll<HTMLElement>(selector));
   };

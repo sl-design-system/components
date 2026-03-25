@@ -247,10 +247,7 @@ export class Tooltip extends LitElement {
     return this.#findAnchorFromElement(activeElement);
   };
 
-  #getPotentialAnchors = (): HTMLElement[] => {
-    const root = this.getRootNode() as ParentNode;
-    const selector = `[aria-describedby~="${this.id}"], [aria-labelledby~="${this.id}"]`;
-    const ariaAnchors = Array.from(root.querySelectorAll<HTMLElement>(selector));
+  #getKnownAnchors = (): HTMLElement[] => {
     const knownAnchors: HTMLElement[] = [];
 
     for (const anchor of this.#knownAnchors) {
@@ -261,7 +258,14 @@ export class Tooltip extends LitElement {
       }
     }
 
-    return Array.from(new Set([...ariaAnchors, ...knownAnchors]));
+    return knownAnchors;
+  };
+
+  #getAriaAnchors = (): HTMLElement[] => {
+    const root = this.getRootNode() as ParentNode;
+    const selector = `[aria-describedby~="${this.id}"], [aria-labelledby~="${this.id}"]`;
+
+    return Array.from(root.querySelectorAll<HTMLElement>(selector));
   };
 
   #onHide = (event: Event): void => {
@@ -307,8 +311,16 @@ export class Tooltip extends LitElement {
           return;
         }
 
-        // If the current anchor isn't hovered or focused, check known anchors for hover/focus.
-        const potentialAnchors = this.#getPotentialAnchors();
+        // First check known anchors to avoid scanning the whole root on every hide attempt.
+        const knownAnchors = this.#getKnownAnchors();
+        const anyKnownAnchorHovered = knownAnchors.some(el => el.matches(':hover') || el.matches(':focus-visible'));
+
+        if (anyKnownAnchorHovered) {
+          return;
+        }
+
+        // Fallback for anchors not yet tracked in #knownAnchors.
+        const potentialAnchors = Array.from(new Set([...knownAnchors, ...this.#getAriaAnchors()]));
         const anyAnchorHovered = potentialAnchors.some(el => el.matches(':hover') || el.matches(':focus-visible'));
 
         if (!anyAnchorHovered) {

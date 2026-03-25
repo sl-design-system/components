@@ -160,8 +160,8 @@ describe('sl-tooltip shared', () => {
     const internalsFixture = await fixture(html`
       <div style="display: flex; gap: 8px;">
         <sl-button id="internals-btn-1">Button 1</sl-button>
-        <sl-button id="internals-btn-2">Button 2</sl-button>
-        <sl-tooltip id="internals-tooltip" show-delay="150" hide-delay="0">Shared Tooltip</sl-tooltip>
+        <sl-button id="internals-btn-2">Button 2</button>
+        <sl-tooltip id="internals-tooltip" show-delay="10" hide-delay="0">Shared Tooltip</sl-tooltip>
       </div>
     `);
 

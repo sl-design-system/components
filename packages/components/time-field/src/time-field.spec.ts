@@ -110,7 +110,6 @@ describe('sl-time-field', () => {
       await el.updateComplete;
       await userEvent.keyboard('4');
       await el.updateComplete;
-      await el.updateComplete;
 
       expect(onChange).to.have.been.called;
     });

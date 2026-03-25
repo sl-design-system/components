@@ -229,6 +229,19 @@ const target = ds.items[0];
 ds.reorder(item, target, 'before');
 ```
 
+### Getting selected items
+
+Use `getSelectedItems()` to retrieve the raw data objects of all currently selected items:
+
+```ts
+const ds = new ArrayListDataSource(people, { selects: 'multiple' });
+
+ds.select(ds.items.at(0)!);
+ds.select(ds.items.at(2)!);
+
+const selected = ds.getSelectedItems(); // [people[0], people[2]]
+```
+
 </section>
 
 <section>

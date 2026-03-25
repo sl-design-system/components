@@ -66,6 +66,40 @@ describe('sl-tooltip shared', () => {
 
     await tooltip.updateComplete;
     await waitFor((tooltip.showDelay ?? 150) + (tooltip.hideDelay ?? 0) + 50);
+    await waitFor((tooltip.showDelay ?? 150) + (tooltip.hideDelay ?? 0) + 50);
     expect(tooltip).not.to.match(':popover-open');
+  });
+
+  it('should update anchor immediately when moving between buttons while open', async () => {
+    // 1. Hover first button and wait for it to open
+    buttons[0].dispatchEvent(new Event('pointerover', { bubbles: true }));
+    await waitFor((tooltip.showDelay ?? 150) + 50);
+    expect(tooltip).to.match(':popover-open');
+    expect(tooltip.anchorElement).to.equal(buttons[0]);
+
+    // 2. Move to second button
+    // The anchor should update IMMEDIATELY without waiting for showDelay again
+    buttons[1].dispatchEvent(new Event('pointerover', { bubbles: true }));
+    await tooltip.updateComplete;
+
+    expect(tooltip.anchorElement).to.equal(buttons[1]);
+  });
+
+  it('should update anchor immediately when tabbing between buttons', async () => {
+    // 1. Focus first button and wait for it to open
+    buttons[0].focus();
+    await tooltip.updateComplete;
+    await waitFor((tooltip.showDelay ?? 150) + 50);
+    expect(tooltip).to.match(':popover-open');
+    expect(tooltip.anchorElement).to.equal(buttons[0]);
+
+    // 2. Focus second button
+    // The anchor should update IMMEDIATELY (well, after focusin and rAF)
+    buttons[1].focus();
+    await tooltip.updateComplete;
+    await new Promise(resolve => requestAnimationFrame(resolve));
+    await tooltip.updateComplete;
+
+    expect(tooltip.anchorElement).to.equal(buttons[1]);
   });
 });

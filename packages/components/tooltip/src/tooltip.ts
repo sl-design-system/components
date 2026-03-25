@@ -295,7 +295,13 @@ export class Tooltip extends LitElement {
     // For hover events
     if (event.type === 'pointerover') {
       window.clearTimeout(this.#timer);
-      this.#timer = window.setTimeout(() => this.#showTooltip(anchorElement), this.showDelay);
+
+      // If already open, update anchor immediately to avoid "stickiness"
+      if (isPopoverOpen(this)) {
+        this.#showTooltip(anchorElement);
+      } else {
+        this.#timer = window.setTimeout(() => this.#showTooltip(anchorElement), this.showDelay);
+      }
       return;
     }
 
@@ -316,6 +322,7 @@ export class Tooltip extends LitElement {
           path.some(el => el instanceof Element && el.matches(':focus-visible'));
 
         if (hasFocusVisible) {
+          // If already open (e.g. tabbing between shared buttons), update anchor immediately
           this.#showTooltip(anchorElement);
         }
       });

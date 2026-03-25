@@ -17,8 +17,8 @@ describe('sl-tooltip', () => {
   const waitFor = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
   const showTooltip = async () => {
-    const focusinEvent = new Event('pointerover', { bubbles: true });
-    button?.dispatchEvent(focusinEvent);
+    const pointerOverEvent = new Event('pointerover', { bubbles: true });
+    button?.dispatchEvent(pointerOverEvent);
     await tooltip.updateComplete;
     return await waitFor((tooltip.showDelay ?? 0) + 10);
   };
@@ -145,8 +145,6 @@ describe('sl-tooltip', () => {
   });
 
   describe('multiple ids', () => {
-    let button: Button;
-
     beforeEach(async () => {
       el = await fixture(html`
         <div style="block-size: 400px; inline-size: 400px;">
@@ -186,8 +184,6 @@ describe('sl-tooltip', () => {
   });
 
   describe('multiple ids with aria-labelledby', () => {
-    let button: Button;
-
     beforeEach(async () => {
       el = await fixture(html`
         <div style="block-size: 400px; inline-size: 400px;">
@@ -213,8 +209,6 @@ describe('sl-tooltip', () => {
   });
 
   describe('ElementInternals ariaDescribedByElements', () => {
-    let button: Button;
-
     beforeEach(async () => {
       el = await fixture(html`
         <div style="block-size: 400px; inline-size: 400px;">
@@ -267,8 +261,6 @@ describe('sl-tooltip', () => {
   });
 
   describe('ElementInternals ariaLabelledByElements', () => {
-    let button: Button;
-
     beforeEach(async () => {
       el = await fixture(html`
         <div style="block-size: 400px; inline-size: 400px;">
@@ -312,8 +304,7 @@ describe('sl-tooltip', () => {
   });
 
   describe('ElementInternals with multiple elements', () => {
-    let button: Button;
-    let otherElement: HTMLSpanElement;
+    let otherElement: HTMLElement;
 
     beforeEach(async () => {
       el = await fixture(html`
@@ -328,7 +319,7 @@ describe('sl-tooltip', () => {
       tooltip = el.querySelector('sl-tooltip') as Tooltip;
       tooltip.showDelay = 0;
       tooltip.hideDelay = 0;
-      otherElement = el.querySelector('#other-element') as HTMLSpanElement;
+      otherElement = el.querySelector('#other-element') as HTMLElement;
 
       // Set multiple elements in ariaDescribedByElements
       if (button.internals) {
@@ -346,8 +337,6 @@ describe('sl-tooltip', () => {
   });
 
   describe('Element ariaDescribedByElements', () => {
-    let button: Button;
-
     beforeEach(async () => {
       el = await fixture(html`
         <div style="block-size: 400px; inline-size: 400px;">
@@ -398,8 +387,6 @@ describe('sl-tooltip', () => {
   });
 
   describe('Element ariaLabelledByElements', () => {
-    let button: Button;
-
     beforeEach(async () => {
       el = await fixture(html`
         <div style="block-size: 400px; inline-size: 400px;">
@@ -531,10 +518,6 @@ describe('sl-tooltip', () => {
   });
 
   describe('Tooltip lazy()', () => {
-    let el: HTMLElement;
-    let button: Button;
-    let tooltip: Tooltip;
-
     beforeEach(async () => {
       el = await fixture(html`
         <div style="display: block; width: 400px; height: 400px;">
@@ -599,10 +582,6 @@ describe('sl-tooltip', () => {
   });
 
   describe('delay semantics', () => {
-    let el: HTMLElement;
-    let button: Button;
-    let tooltip: Tooltip;
-
     beforeEach(async () => {
       el = await fixture(html`
         <div style="display: block; width: 400px; height: 400px;">

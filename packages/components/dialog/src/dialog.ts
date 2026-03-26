@@ -366,7 +366,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   #updateDocumentElement(opening?: boolean): void {
     if (opening) {
-      console.log('probably the dialog opens?');
       const width = window.innerWidth,
         bodyMargin = 16;
 
@@ -377,29 +376,18 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       document.documentElement.style.setProperty('--sl-dialog-translate', `0 ${bodyMargin}px`);
 
       // Add class to `<html>` for styling purposes
-      //   document.documentElement.classList.remove('sl-dialog-leave');
+      document.documentElement.classList.remove('sl-dialog-leave');
       document.documentElement.classList.add('sl-dialog-enter');
 
       // Disable scrolling while the dialog is open
       document.documentElement.style.overflow = 'hidden';
     } else {
-      console.log('probably the dialog closes?');
       // Reenable scrolling after the dialog has closed
       document.documentElement.style.overflow = '';
 
-      // Remove open class
+      // Swap enter for leave; the CSS transition animates the body back to normal
       document.documentElement.classList.remove('sl-dialog-enter');
-
-      if (this.#media.mobile) {
-        document.documentElement.classList.add('sl-dialog-leave');
-
-        // remove after animation ends to prevent replays on resize
-        document.body.addEventListener(
-          'animationend',
-          () => document.documentElement.classList.remove('sl-dialog-leave'),
-          { once: true }
-        );
-      }
+      document.documentElement.classList.add('sl-dialog-leave');
     }
   } // TODO: not animating sl-dialog-leave when resize from mobile to desktop
 

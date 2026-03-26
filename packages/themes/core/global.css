@@ -1,17 +1,22 @@
 html {
   background: var(--sl-color-palette-grey-800);
 
-  /*&.sl-dialog-leave body {*/
-  /*  animation: sl-dialog-leave 0.2s ease-out forwards;*/
-  /*}*/
+  @media (prefers-reduced-motion: no-preference) {
+    &.sl-dialog-enter body {
+      transition:
+        border-radius 0.2s ease-out,
+        scale 0.2s ease-out,
+        translate 0.2s ease-out;
+    }
 
-  @media (width <= 600px) and (prefers-reduced-motion: no-preference) {
     &.sl-dialog-leave body {
       animation: sl-dialog-leave 0.2s ease-out forwards;
     }
 
-    &.sl-dialog-enter body {
-      animation: sl-dialog-enter 0.2s ease-in forwards;
+    @media (width <= 600px) {
+      &.sl-dialog-enter body {
+        animation: sl-dialog-enter 0.2s ease-in forwards;
+      }
     }
   }
 }

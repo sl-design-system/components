@@ -6066,9 +6066,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/sanoma-utbildning@workspace:packages/themes/sanoma-utbildning_onhold":
+"@sl-design-system/sanoma-pro@workspace:packages/themes/sanoma-pro":
   version: 0.0.0-use.local
-  resolution: "@sl-design-system/sanoma-utbildning@workspace:packages/themes/sanoma-utbildning_onhold"
+  resolution: "@sl-design-system/sanoma-pro@workspace:packages/themes/sanoma-pro"
+  dependencies:
+    "@sl-design-system/icon": "npm:1.4.2"
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/sanoma-utbildning@workspace:packages/themes/sanoma-utbildning":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/sanoma-utbildning@workspace:packages/themes/sanoma-utbildning"
   dependencies:
     "@sl-design-system/icon": "npm:1.4.2"
   languageName: unknown

@@ -55,7 +55,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   #events = new EventsController(this, { click: this.#onClick, keydown: this.#onKeydown });
 
   /** @internal */
-  readonly #internals = this.attachInternals();
+  // readonly #internals = this.attachInternals();
 
   /** Responsive behavior utility. */
   #media = new MediaController(this);
@@ -106,10 +106,10 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.inert = true;
-    this.#internals.states.add('closed');
+    // this.#internals.states.add('closed');
 
     // Clean up stale dialog classes that may persist from previous navigations
-    document.documentElement.classList.remove('sl-dialog-enter', 'sl-dialog-leave');
+    //  document.documentElement.classList.remove('sl-dialog-enter', 'sl-dialog-leave');
   }
 
   override disconnectedCallback(): void {
@@ -265,7 +265,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
     this.inert = false;
     // this.style.display = '';
-    this.#internals.states.delete('closed');
+    // this.#internals.states.delete('closed');
     this.dialog?.showModal();
 
     // Workaround for broken focus behavior when using <slot> inside <dialog>
@@ -327,7 +327,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
     this.inert = true;
     // this.style.display = 'none';
-    this.#internals.states.add('closed');
+    // this.#internals.states.add('closed');
 
     this.closeEvent.emit();
   }
@@ -366,6 +366,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   #updateDocumentElement(opening?: boolean): void {
     if (opening) {
+      console.log('probably the dialog opens?');
       const width = window.innerWidth,
         bodyMargin = 16;
 
@@ -376,12 +377,13 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       document.documentElement.style.setProperty('--sl-dialog-translate', `0 ${bodyMargin}px`);
 
       // Add class to `<html>` for styling purposes
-      document.documentElement.classList.remove('sl-dialog-leave');
+      //   document.documentElement.classList.remove('sl-dialog-leave');
       document.documentElement.classList.add('sl-dialog-enter');
 
       // Disable scrolling while the dialog is open
       document.documentElement.style.overflow = 'hidden';
     } else {
+      console.log('probably the dialog closes?');
       // Reenable scrolling after the dialog has closed
       document.documentElement.style.overflow = '';
 
@@ -399,7 +401,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         );
       }
     }
-  }
+  } // TODO: not animating sl-dialog-leave when resize from mobile to desktop
 
   #updatePrimaryButtons(): void {
     const buttons =

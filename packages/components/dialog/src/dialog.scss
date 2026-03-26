@@ -2,14 +2,13 @@
   display: contents;
 }
 
-:host(:state(closed)) {
-  display: none;
-
-  dialog,
-  dialog::backdrop {
-    transition: none;
-  }
-}
+// :host(:state(closed)) {
+//  display: none;
+//  dialog,
+//  dialog::backdrop {
+//    transition: none;
+//  }
+// }
 
 dialog {
   background: var(--sl-elevation-surface-raised-default);

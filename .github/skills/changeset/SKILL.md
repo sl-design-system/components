@@ -54,11 +54,11 @@ If no packages remain after filtering, inform the user that no changeset is need
 
 ### 3. Determine number of changesets needed
 
-Changesets can include multiple packages with different bump types, but if there are many unrelated changes it may be better to create multiple changesets. Ask the user if they want to create one changeset for all changes or separate changesets for different groups of changes, unless it's obvious.
+Changesets can include multiple packages with different bump types, but if there are many unrelated changes it may be better to create multiple changesets. Prompt the user if they want to create one changeset for all changes or separate changesets for different groups of changes, unless it's obvious.
 
 ### 4. Determine the Bump Type
 
-Summarize the changes found and ask the user what kind of version bump is appropriate, unless the context makes it obvious:
+Summarize the changes found and prompt the user what kind of version bump is appropriate, unless the context makes it obvious:
 
 - **patch**: Bug fixes, minor improvements, documentation updates, accessibility improvements
 - **minor**: New features, new components, new public API methods/properties
@@ -134,4 +134,4 @@ After creating the changeset, show the user:
 - The bump type for each
 - The summary text
 
-Ask if they want to adjust anything.
+Prompt if they want to adjust anything (yes/no).

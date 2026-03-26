@@ -62,6 +62,18 @@ export class Button extends LitElement {
   /** @internal */
   @property({ attribute: 'aria-label', reflect: true }) override ariaLabel: string | null = null;
 
+  /**
+   * Set's the command to be invoked when the button is activated.
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API
+   */
+  @property() command?: string;
+
+  /**
+   * The DOM id of the element that will be invoked when the button is activated.
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API
+   */
+  @property({ attribute: 'commandfor' }) commandFor?: string;
+
   /** Whether the button is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
@@ -115,11 +127,16 @@ export class Button extends LitElement {
   }
 
   override render(): TemplateResult {
+    const root = this.getRootNode() as Document | ShadowRoot,
+      commandForElement = this.commandFor ? (root.getElementById?.(this.commandFor) ?? null) : null;
+
     return html`
       <button
+        .command=${this.command}
+        .commandForElement=${commandForElement}
+        ?disabled=${this.disabled}
         aria-disabled=${ifDefined(this.ariaDisabled === 'true' ? 'true' : undefined)}
         aria-label=${ifDefined(this.ariaLabel || undefined)}
-        ?disabled=${this.disabled}
         type="button"
       >
         <slot></slot>

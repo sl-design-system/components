@@ -237,6 +237,67 @@ describe('sl-button', () => {
     });
   });
 
+  describe('invoker API', () => {
+    it('should not have a command by default', async () => {
+      el = await fixture(html`<sl-button>Click me</sl-button>`);
+
+      expect(el.command).to.be.undefined;
+    });
+
+    it('should not have a commandFor by default', async () => {
+      el = await fixture(html`<sl-button>Click me</sl-button>`);
+
+      expect(el.commandFor).to.be.undefined;
+    });
+
+    it('should pass the command to the inner button', async () => {
+      el = await fixture(html`<sl-button command="show-modal">Click me</sl-button>`);
+
+      expect(el.renderRoot.querySelector('button')).to.have.property('command', 'show-modal');
+    });
+
+    it('should set commandForElement on the inner button when commandFor matches a sibling element', async () => {
+      const wrapper = await fixture<HTMLDivElement>(html`
+        <div>
+          <sl-button commandfor="target">Click me</sl-button>
+          <span id="target"></span>
+        </div>
+      `);
+
+      el = wrapper.querySelector('sl-button')!;
+
+      const button = el.renderRoot.querySelector('button')!,
+        target = wrapper.querySelector('#target');
+
+      expect(button).to.have.property('commandForElement', target);
+    });
+
+    it('should set commandForElement to null when no matching element is found', async () => {
+      el = await fixture(html`<sl-button commandfor="nonexistent">Click me</sl-button>`);
+
+      expect(el.renderRoot.querySelector('button')).to.have.property('commandForElement', null);
+    });
+
+    it('should open a dialog when command is "show-modal" and commandfor points to a dialog', async () => {
+      const wrapper = await fixture(html`
+        <div>
+          <sl-button command="show-modal" commandfor="my-dialog">Open</sl-button>
+          <dialog id="my-dialog">Dialog content</dialog>
+        </div>
+      `);
+
+      el = wrapper.querySelector('sl-button')!;
+
+      const dialog = wrapper.querySelector<HTMLDialogElement>('dialog')!;
+
+      expect(dialog.open).to.be.false;
+
+      el.renderRoot.querySelector('button')!.click();
+
+      expect(dialog.open).to.be.true;
+    });
+  });
+
   describe('form integration', () => {
     it('should call reset() on the parent form when the button type is reset', async () => {
       const form: Form = await fixture(html`

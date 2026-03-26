@@ -74,9 +74,15 @@ jobs:
       - name: Ensure Amplify branch exists
         if: github.event_name == 'pull_request'
         run: |
-          aws amplify create-branch \
+          if aws amplify get-branch \
             --app-id "${{ env.AWS_AMPLIFY_APP_ID }}" \
-            --branch-name "${{ steps.branch.outputs.name }}" 2>/dev/null || true
+            --branch-name "${{ steps.branch.outputs.name }}" >/dev/null 2>&1; then
+            echo "Amplify branch '${{ steps.branch.outputs.name }}' already exists."
+          else
+            aws amplify create-branch \
+              --app-id "${{ env.AWS_AMPLIFY_APP_ID }}" \
+              --branch-name "${{ steps.branch.outputs.name }}"
+          fi
 
       - name: Deploy to AWS Amplify
         id: deploy

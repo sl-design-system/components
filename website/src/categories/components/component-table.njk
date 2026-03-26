@@ -53,7 +53,7 @@
                           <code>{{member.default | escape}}</code>
                         {%- endif -%}
                       </td>
-                      <td class="ds-table__description">{{member.description | escape | nl2br}}</td>
+                      <td class="ds-table__description">{% if member.description %}{{member.description | escape | markdownLinks | normalizeBreaks}}{% endif %}</td>
                       </tr>
                     {%- endif -%}
                   {%- endfor -%}
@@ -93,7 +93,7 @@
                         <code>{{member.return.type.text | escape}}</code>
                       {%- endif -%}
                     </td>
-                    <td class="ds-table__description">{{member.description | escape | nl2br}}</td>
+                    <td class="ds-table__description">{% if member.description %}{{member.description | escape | markdownLinks | normalizeBreaks}}{% endif %}</td>
                     </tr>
                   {%- endfor -%}
                   </tbody>
@@ -125,7 +125,7 @@
                             <code>{{ event.type.text | escape}}</code>
                           {%- endif -%}
                         </td>
-                        <td>{{event.description | escape | nl2br}}</td>
+                        <td>{% if event.description %}{{event.description | escape | markdownLinks | normalizeBreaks}}{% endif %}</td>
                       </tr>
                     {%- endif -%}
                   {%- endfor -%}
@@ -151,7 +151,7 @@
                   {%- for slot in declaration.slots -%}
                     <tr>
                       <td><code>{{slot.name}}</code></td>
-                      <td>{{slot.description | escape | nl2br}}</td>
+                      <td>{% if slot.description %}{{slot.description | escape | markdownLinks | normalizeBreaks}}{% endif %}</td>
                     </tr>
                   {%- endfor -%}
                   </tbody>
@@ -176,7 +176,7 @@
                   {%- for property in declaration.cssProperties -%}
                     <tr>
                       <td><code>{{property.name}}</code></td>
-                      <td>{{property.description | escape | nl2br}}</td>
+                      <td>{% if property.description %}{{property.description | escape | markdownLinks | normalizeBreaks}}{% endif %}</td>
                     </tr>
                   {%- endfor -%}
                   </tbody>
@@ -201,7 +201,7 @@
                   {%- for property in declaration.cssParts -%}
                     <tr>
                       <td><code>{{property.name}}</code></td>
-                      <td>{{property.description | escape | nl2br }}</td>
+                      <td>{% if property.description %}{{property.description | escape | markdownLinks | normalizeBreaks}}{% endif %}</td>
                     </tr>
                   {%- endfor -%}
                   </tbody>

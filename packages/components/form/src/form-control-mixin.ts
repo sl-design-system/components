@@ -60,6 +60,7 @@ export interface FormControl {
   readonly validationMessage: string;
   readonly validity: ValidityState;
   readonly validityState: FormControlValidityState;
+  readonly updateComplete?: Promise<boolean>;
 
   customValidity?: string;
   dirty?: boolean;

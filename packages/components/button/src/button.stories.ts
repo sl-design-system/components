@@ -99,9 +99,9 @@ export const Disabled: Story = {
       <p>
         This example shows 2 disabled buttons. One via the <code>disabled</code> property. You can no longer interact
         with that button. You cannot focus it. It cannot receive pointer events. The second button is disabled using the
-        <code>aria-disabled</code> attribute. This button is also visually disabled, but you can still focus it and it
-        will receive pointer events. This second button can used in combination with a tooltip to explain why the button
-        is disabled.
+        <code>aria-disabled</code> attribute. This button is also visually disabled and will not be activated when
+        clicked or when Space/Enter is pressed, but it remains focusable and can still receive pointer events. This
+        second button can be used in combination with a tooltip to explain why the button is disabled.
       </p>
       <div style="display: inline-flex; gap: 1rem">
         <sl-button
@@ -391,6 +391,83 @@ export const All: Story = {
         </sl-button>
 
         <div class="inverted-background"></div>
+      </section>
+
+      <style>
+        .inverted-showcase {
+          background: var(--sl-color-foreground-accent-grey-bold);
+          padding: 2rem;
+          border-radius: var(--sl-size-borderRadius-default);
+          margin-top: 2rem;
+          display: grid;
+          grid-template-columns: auto auto auto;
+          gap: 1rem 2rem;
+          align-items: center;
+          justify-content: start;
+        }
+        .inverted-showcase > span {
+          color: var(--sl-color-foreground-inverted-bold);
+          font-weight: bold;
+          justify-self: end;
+        }
+        .inverted-showcase > strong {
+          color: var(--sl-color-foreground-inverted-bold);
+          margin-bottom: 1rem;
+        }
+      </style>
+
+      <section class="inverted-showcase">
+        <span></span>
+        <strong>Inverted Idle</strong>
+        <strong>Inverted Disabled</strong>
+
+        <span>Outline</span>
+        <sl-button variant="inverted" fill="outline">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button variant="inverted" fill="outline" disabled>
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+
+        <span>Solid</span>
+        <sl-button variant="inverted">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button variant="inverted" disabled>
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+
+        <span>Ghost</span>
+        <sl-button variant="inverted" fill="ghost">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button variant="inverted" fill="ghost" disabled>
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+
+        <span>Link</span>
+        <sl-button variant="inverted" fill="link">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button variant="inverted" fill="link" disabled>
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
       </section>
     `;
   }

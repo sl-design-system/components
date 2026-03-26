@@ -5,8 +5,6 @@ import { faPinata as fasPinata } from '@fortawesome/pro-solid-svg-icons';
 import { faPinata as fatPinata } from '@fortawesome/pro-thin-svg-icons';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import Events from 'storybook/internal/core-events';
-import { addons } from 'storybook/preview-api';
 import '../register.js';
 import { Icon, type IconSize } from './icon.js';
 
@@ -39,6 +37,7 @@ const sizeName = (size: string): string => {
 };
 
 const sizes: IconSize[] = ['2xs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'];
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 let storyId: string;
 
 const copyIconName = async (name: string): Promise<void> => {
@@ -49,7 +48,7 @@ export default {
   title: 'Media/Icon',
   tags: ['stable'],
   args: {
-    icons: Object.keys(window.SLDS?.icons)
+    icons: Object.keys(window.SLDS?.icons || {})
   },
   argTypes: {
     icons: {
@@ -178,16 +177,8 @@ export const FlexContainer: Story = {
 
 export const All: Story = {
   render: () => {
-    const icons = Object.keys(window.SLDS?.icons);
+    const icons = Object.keys(window.SLDS?.icons || {});
 
-    if (icons.length === 0) {
-      setTimeout(() => {
-        addons.getChannel().emit(Events.UPDATE_STORY_ARGS, {
-          storyId,
-          updatedArgs: { icons: Object.keys(window.SLDS.icons) }
-        });
-      }, 200);
-    }
     return html`
       <style>
         section {
@@ -212,15 +203,9 @@ export const All: Story = {
 };
 
 export const AllIcons: Story = {
-  render: ({ icons }) => {
-    if (icons.length === 0) {
-      setTimeout(() => {
-        addons.getChannel().emit(Events.UPDATE_STORY_ARGS, {
-          storyId,
-          updatedArgs: { icons: Object.keys(window.SLDS.icons) }
-        });
-      }, 200);
-    }
+  render: () => {
+    const icons = Object.keys(window.SLDS?.icons || {});
+
     return html`
       <style>
         section {

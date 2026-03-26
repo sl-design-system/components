@@ -1,3 +1,4 @@
+import '@sl-design-system/button/register.js';
 import '@sl-design-system/form/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html, nothing } from 'lit';
@@ -31,7 +32,6 @@ export default {
   args: {
     disabled: false,
     label: 'Time',
-    placeholder: 'Select time',
     readonly: false,
     required: false,
     value: ''
@@ -71,6 +71,7 @@ export default {
       <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
           <sl-time-field
+            style="width: fit-content;"
             ?disabled=${disabled}
             hour-step=${ifDefined(hourStep)}
             locale=${ifDefined(locale)}
@@ -81,7 +82,7 @@ export default {
             ?readonly=${readonly}
             ?required=${required}
             start=${ifDefined(start)}
-            value=${ifDefined(value)}
+            .value=${value}
           ></sl-time-field>
         </sl-form-field>
         ${reportValidity
@@ -104,6 +105,13 @@ export const Disabled: Story = {
   }
 };
 
+export const Placeholder: Story = {
+  args: {
+    placeholder: 'Add a time',
+    hint: "We format the time, so you probably don't have to explain anything to the user in a placeholder. If you want you can set a custom placeholder, but be careful you are not degrading the user experience by doing so."
+  }
+};
+
 export const Finnish: Story = {
   args: {
     hint: 'In Finnish (fi) the time separator is a dot (.)',
@@ -114,9 +122,9 @@ export const Finnish: Story = {
 
 export const MinMax: Story = {
   args: {
-    hint: 'The allowed time range is between 08:00 and 18:00',
-    min: '08:00',
-    max: '18:00',
+    hint: 'The allowed time range is between 08:40 and 18:20',
+    min: '08:40',
+    max: '18:20',
     start: '09:00'
   }
 };

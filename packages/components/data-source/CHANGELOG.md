@@ -1,5 +1,25 @@
 # @sl-design-system/data-source
 
+## 0.3.0
+
+### Minor Changes
+
+- [#3087](https://github.com/sl-design-system/components/pull/3087) [`9988030`](https://github.com/sl-design-system/components/commit/998803034373309dd8ada34540d06bfeb9cac783) - Add a new `setData(items: T[])` method to `ArrayListDataSource` for updating the data without losing state. This allows for bulk actions on selected rows in the grid, as shown in the updated selection story.
+
+  This also refactors how we store the collapsed group state in `ListDataSource` by moving it from the group item to a private set of collapsed group ids. This ensures that the collapsed state is preserved even when the group items are updated, which is important for the new `setData` method. The `FetchListDataSource` is also updated to reflect this change in how collapsed state is handled.
+
+### Patch Changes
+
+- Updated dependencies [[`716e305`](https://github.com/sl-design-system/components/commit/716e305a7cc5cbafb5dd97b16c9f70e4320d45e4), [`14e1286`](https://github.com/sl-design-system/components/commit/14e12869d8250c9292b15c60e69c99907277302e), [`2f8d8bf`](https://github.com/sl-design-system/components/commit/2f8d8bf32ca6e90eb9d117c1fcc434a59905769c)]:
+  - @sl-design-system/shared@0.11.0
+
+## 0.2.4
+
+### Patch Changes
+
+- Updated dependencies [[`e3eb2de`](https://github.com/sl-design-system/components/commit/e3eb2de61e86203aab22cd55bbad4cc058e66a2d)]:
+  - @sl-design-system/shared@0.10.0
+
 ## 0.2.3
 
 ### Patch Changes

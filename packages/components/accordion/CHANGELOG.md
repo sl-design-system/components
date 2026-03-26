@@ -1,5 +1,22 @@
 # @sl-design-system/accordion
 
+## 1.2.3
+
+### Patch Changes
+
+- Updated dependencies [[`716e305`](https://github.com/sl-design-system/components/commit/716e305a7cc5cbafb5dd97b16c9f70e4320d45e4), [`330e06f`](https://github.com/sl-design-system/components/commit/330e06ff36c7a5c96cf313b60a5013d6307477c7), [`14e1286`](https://github.com/sl-design-system/components/commit/14e12869d8250c9292b15c60e69c99907277302e), [`2f8d8bf`](https://github.com/sl-design-system/components/commit/2f8d8bf32ca6e90eb9d117c1fcc434a59905769c)]:
+  - @sl-design-system/shared@0.11.0
+  - @sl-design-system/icon@1.4.2
+
+## 1.2.2
+
+### Patch Changes
+
+- [#2923](https://github.com/sl-design-system/components/pull/2923) [`4f5e7c4`](https://github.com/sl-design-system/components/commit/4f5e7c495f5071a338bbd963b261636a558de59e) - Adds missing `icon` dependency.
+
+- Updated dependencies [[`e3eb2de`](https://github.com/sl-design-system/components/commit/e3eb2de61e86203aab22cd55bbad4cc058e66a2d)]:
+  - @sl-design-system/shared@0.10.0
+
 ## 1.2.1
 
 ### Patch Changes

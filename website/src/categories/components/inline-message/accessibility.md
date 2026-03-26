@@ -18,6 +18,16 @@ Here you can find [an example of how to use the Announcer utility when showing a
 
 It is also good practice to make sure the keyboard focus lands on a logical place after the message is closed. You can do this in an event handler that listens to the `sl-dismiss` event on the inline message.
 </section>
+
+<section>
+
+## Inline message title
+
+We recommend using a heading element (e.g. `<h2>`) for the Inline message title.
+This way, screen readers announce it as a heading, making it easier to find and understand what the inline message is about.
+
+</section>
+
 <section>
 
 ## WAI-ARIA

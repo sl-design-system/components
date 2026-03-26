@@ -26,6 +26,11 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
   /** @internal The direction of the sorting */
   @property({ attribute: false }) ariaSorting?: 'ascending' | 'descending';
 
+  /** @internal */
+  override get baseScopedElements(): Record<string, typeof HTMLElement> {
+    return { 'sl-grid-sorter': GridSorter };
+  }
+
   /** The direction this columns should be sorted in. */
   @property() direction?: DataSourceSortDirection;
 
@@ -41,7 +46,6 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
     super.connectedCallback();
 
     this.id ||= `grid-sort-${nextUniqueId++}`;
-    this.scopedElements = { ...this.scopedElements, 'sl-grid-sorter': GridSorter };
   }
 
   override willUpdate(changes: PropertyValues<this>): void {

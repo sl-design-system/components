@@ -20,15 +20,15 @@ body {
 }
 
 a[href] {
-  color: var(--sl-color-link-idle);
+  color: var(--sl-color-component-link-idle, var(--sl-color-link-idle));
 }
 
 a[href]:active {
-  color: var(--sl-color-link-active);
+  color: var(--sl-color-component-link-active, var(--sl-color-link-active));
 }
 
 a[href]:hover {
-  color: var(--sl-color-link-hover);
+  color: var(--sl-color-component-link-hover, var(--sl-color-link-hover));
 }
 
 @keyframes sl-dialog-enter {

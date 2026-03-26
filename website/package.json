@@ -22,7 +22,9 @@
       "files": [
         "../packages/components/**/*.ts",
         "!../packages/components/**/*.{d,spec,stories}.ts",
-        "custom-elements-manifest.config.js"
+        "custom-elements-manifest.config.js",
+        "../scripts/cem-plugins.js",
+        "../scripts/cem-plugin-event-decorator.js"
       ],
       "output": [
         "src/_data/custom-elements/custom-elements.{json,md}"
@@ -101,18 +103,18 @@
       ]
     },
     "copy-tokens:core": {
-      "command": "cpx '../packages/tokens/src/core.json' 'src/_data/tokens/'",
+      "command": "cpx '../packages/tokens/src/tokens/core.json' 'src/_data/tokens/'",
       "files": [
-        "../packages/tokens/src/core.json"
+        "../packages/tokens/src/tokens/core.json"
       ],
       "output": [
         "src/_data/tokens/core.json"
       ]
     },
     "copy-tokens:base": {
-      "command": "cpx '../packages/tokens/src/sanoma-learning/base.json' 'src/_data/tokens/'",
+      "command": "cpx '../packages/tokens/src/tokens/sanoma-learning/base.json' 'src/_data/tokens/'",
       "files": [
-        "../packages/tokens/src/sanoma-learning/base.json"
+        "../packages/tokens/src/tokens/sanoma-learning/base.json"
       ],
       "output": [
         "src/_data/tokens/base.json"
@@ -172,7 +174,7 @@
     "@11ty/eleventy-img": "^3.1.8",
     "@11ty/eleventy-navigation": "^0.3.5",
     "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
-    "@custom-elements-manifest/analyzer": "^0.10.10",
+    "@custom-elements-manifest/analyzer": "^0.11.0",
     "@custom-elements-manifest/to-markdown": "^0.1.0",
     "@luncheon/esbuild-plugin-gzip": "^0.1.0",
     "@types/markdown-it": "^14.1.2",
@@ -181,14 +183,14 @@
     "cem-plugin-expanded-types": "^1.4.0",
     "cpx": "^1.5.0",
     "elasticlunr": "^0.9.5",
-    "esbuild": "^0.25.11",
+    "esbuild": "^0.25.12",
     "esbuild-plugin-minify-html-literals": "^2.0.1",
     "html-minifier": "^4.0.0",
     "markdown-it": "^14.1.0",
     "markdown-it-anchor": "^8.6.7",
     "markdown-it-attrs": "^4.1.6",
-    "sass": "^1.93.2",
-    "slugify": "^1.6.6",
+    "sass": "^1.98.0",
+    "slugify": "^1.6.8",
     "tiny-glob": "^0.2.9",
     "typescript": "^5.5.4",
     "wireit": "^0.14.12"

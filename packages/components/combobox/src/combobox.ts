@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin, type SlFormControlEvent, type SlUpdateStateEvent } from '@sl-design-system/form';
@@ -135,10 +136,13 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
   /**
    * The behavior of the combobox when it comes to suggesting options based on user input.
-   * - 'off': Suggest is off
+   * - 'off': Suggest is off; the input field is read-only.
    * - 'inline': Only suggest options inside the input
    * - 'list': Filter options in the list based on user input
    * - 'both': Use both inline and list suggestions
+   *
+   * Note: This property is ignored when `select-only` is true, as the input field
+   * is read-only in that case.
    *
    * @see https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-autocomplete
    */
@@ -211,8 +215,11 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   @property() placeholder?: string;
 
   /**
-   * Whether the component is select only. This means you cannot type in the text field,
-   * but you can still select options.
+   * Whether the component is select only. This means the input field is read-only
+   * and you cannot type to filter results but you can still select options.
+   *
+   * When enabled, any `autocomplete` property values are ignored and the
+   * component effectively uses `aria-autocomplete="none"`.
    */
   @property({ type: Boolean, reflect: true, attribute: 'select-only' }) selectOnly?: boolean;
 
@@ -240,6 +247,15 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   /** @internal The wrapper element that is also the popover. */
   @query('[part="wrapper"]') wrapper?: HTMLSlotElement;
 
+  /** @internal The aria-autocomplete value based on the component state. */
+  get #ariaAutocomplete(): 'none' | 'inline' | 'list' | 'both' {
+    if (this.selectOnly || this.autocomplete === 'off') {
+      return 'none';
+    }
+
+    return this.autocomplete || 'both';
+  }
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -254,7 +270,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     }
 
     this.input.setAttribute('role', 'combobox');
-    this.input.setAttribute('aria-autocomplete', this.autocomplete || 'both');
+    this.input.setAttribute('aria-autocomplete', this.#ariaAutocomplete);
     this.input.setAttribute('aria-expanded', 'false');
     this.input.setAttribute('aria-haspopup', 'listbox');
 
@@ -336,10 +352,10 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     if (changes.has('selectedItems')) {
       // Workaround for Safari not allowing `::slotted(input)::placeholder`
       // See https://bugs.webkit.org/show_bug.cgi?id=223814
-      this.toggleAttribute('has-selected-items', this.multiple && this.selectedItems.length > 0);
+      this.toggleAttribute('has-selected-items', Boolean(this.multiple && this.selectedItems.length > 0));
       if (this.items.length) {
-        this.#updateTextFieldValue(!this.#isInitialRender);
-        this.#updateValue();
+        this.#updateTextFieldValue();
+        this.#updateValue(!this.#isInitialRender);
         this.#isInitialRender = false;
       }
     }
@@ -357,7 +373,20 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     }
 
     if (changes.has('autocomplete') || changes.has('selectOnly')) {
-      this.input.readOnly = this.selectOnly ?? this.autocomplete === 'off';
+      const value = this.#ariaAutocomplete;
+
+      // Warn developers about conflicting configuration
+      if (import.meta.env?.DEV && this.selectOnly && this.autocomplete && this.autocomplete !== 'off') {
+        console.warn(
+          `sl-combobox: The 'autocomplete="${this.autocomplete}"' property is ignored when 'selectOnly' is true. ` +
+            'Select-only comboboxes have a read-only input field and therefore cannot have autocomplete. ' +
+            'The component will use aria-autocomplete="none" instead.'
+        );
+      }
+
+      // Set ARIA-compliant aria-autocomplete value (maps 'off' to 'none')
+      this.input.setAttribute('aria-autocomplete', value);
+      this.input.readOnly = !!this.selectOnly;
     }
 
     if (changes.has('disabled')) {
@@ -410,7 +439,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
                       @sl-remove=${() => this.#onRemove(item)}
                       ?disabled=${this.disabled}
                       ?removable=${!this.disabled}
-                      aria-hidden="true"
+                      aria-hidden=${this.disabled ? nothing : 'true'}
                       class=${this.focusedTag === item ? 'focused' : ''}
                     >
                       ${item.label}
@@ -468,6 +497,22 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     }
   }
 
+  override updateInternalValidity(): void {
+    if (!this.validity.customError) {
+      if (this.multiple) {
+        this.internals.setValidity(
+          { valueMissing: this.required && this.selectedItems.length === 0 },
+          msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
+        );
+      } else {
+        this.internals.setValidity(
+          { valueMissing: this.required && !this.input.value },
+          msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
+        );
+      }
+    }
+  }
+
   #onBeforeToggle(event: ToggleEvent): void {
     if (event.newState === 'open') {
       this.input.setAttribute('aria-expanded', 'true');
@@ -513,6 +558,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       // If we are leaving the component, make sure the input value reflects the selected items
       this.#updateCreateCustomOption();
       this.#updateTextFieldValue();
+      this.updateValidity();
     }
   }
 
@@ -701,7 +747,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         // - The `selected` attribute on the option -> call `#updateValue`
         // - The `value` property -> call `#updateSelectedItems`
         if (hasSelected) {
-          this.#updateValue();
+          this.#updateValue(false);
         } else {
           this.#updateSelectedItems();
         }
@@ -1302,70 +1348,64 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   }
 
   /** Update the value in the text field. */
-  #updateTextFieldValue(emitEvent = true): void {
+  #updateTextFieldValue(): void {
     if (this.multiple) {
-      this.input.placeholder = this.selectedItems.map(i => i.label).join(', ') || '';
+      this.input.placeholder = this.selectedItems.map(i => i.label).join(', ') || this.placeholder || '';
       this.input.value = '';
-      this.internals.setFormValue(this.input.placeholder);
-      this.internals.setValidity(
-        { valueMissing: this.required && !this.input.placeholder },
-        msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
-      );
-      this.updateValidity();
     } else {
       const item = this.selectedItems.at(0);
       if (item) {
         this.input.value = item.label;
         this.input.setSelectionRange(-1, -1);
-        this.formValue = this.#useVirtualList ? item.index : item.value?.toString() || item.label;
-        this.internals.setFormValue(
-          this.#useVirtualList && item.index ? item.index.toString() : item.value?.toString() || item.label
-        );
       } else {
         this.input.value = '';
-        this.formValue = null;
-        this.internals.setFormValue(null);
-      }
-
-      this.internals.setValidity(
-        { valueMissing: this.required && !this.input.value },
-        msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
-      );
-      this.updateValidity();
-
-      if (emitEvent) {
-        this.changeEvent.emit(this.value);
       }
     }
   }
 
   /** Updates the value based on the current selection. */
-  #updateValue(): void {
+  #updateValue(emitEvent = true): void {
     const values = this.selectedItems.map(i => i.value!);
 
-    if (this.value === undefined) {
-      this.value = this.multiple ? values : values[0];
-      const valueString = this.multiple ? values.join(', ') : values[0]?.toString();
-      this.internals.setFormValue(valueString);
-    }
+    const isValueEqual = this.multiple
+      ? Array.isArray(this.value) &&
+        this.value.length === values.length &&
+        values.every(v => (this.value as U[]).includes(v))
+      : this.value === values[0];
 
     // Do nothing if the value hasn't changed
-    if (
-      this.multiple &&
-      Array.isArray(this.value) &&
-      this.value.length === values.length &&
-      values.every(v => (this.value as U[]).includes(v))
-    ) {
-      return;
-    } else if (this.value === values[0]) {
+    if (isValueEqual) {
+      this.#updateFormValue();
+      this.updateValidity();
       return;
     }
 
-    this.value = this.multiple ? values : values[0];
-    const valueString = this.multiple ? values.join(', ') : values[0]?.toString();
+    this.value = (this.multiple ? values : values[0]) as U | U[];
+    this.#updateFormValue();
 
-    this.internals.setFormValue(valueString);
-    this.changeEvent.emit(this.value);
+    if (emitEvent) {
+      this.changeEvent.emit(this.value);
+      this.updateState({ dirty: true });
+    }
     this.updateValidity();
+  }
+
+  /** Syncs the form value with the current selection. */
+  #updateFormValue(): void {
+    if (this.multiple) {
+      const values = this.selectedItems.map(i => i.value!);
+      this.internals.setFormValue(values.join(', ') || null);
+    } else {
+      const item = this.selectedItems.at(0);
+      if (item) {
+        this.internals.setFormValue(
+          this.#useVirtualList && item.index !== undefined
+            ? item.index.toString()
+            : item.value?.toString() || item.label
+        );
+      } else {
+        this.internals.setFormValue(null);
+      }
+    }
   }
 }

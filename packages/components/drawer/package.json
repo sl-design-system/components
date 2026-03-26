@@ -42,9 +42,11 @@
     "@sl-design-system/button-bar": "^1.2.1"
   },
   "devDependencies": {
-    "@open-wc/scoped-elements": "^3.0.6"
+    "@open-wc/scoped-elements": "^3.0.6",
+    "lit": "^3.3.2"
   },
   "peerDependencies": {
-    "@open-wc/scoped-elements": "^3.0.6"
+    "@open-wc/scoped-elements": "^3.0.6",
+    "lit": "^3.1.4"
   }
 }

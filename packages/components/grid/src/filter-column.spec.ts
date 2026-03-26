@@ -1,6 +1,7 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { GridFilter } from './filter.js';
 import { Grid } from './grid.js';
@@ -137,16 +138,17 @@ describe('sl-grid-filter-column', () => {
       const filter = el.renderRoot.querySelector<GridFilter>('thead tr:last-of-type th:last-of-type sl-grid-filter')!,
         selectButton = filter.renderRoot.querySelector('sl-select-button');
 
-      expect(selectButton?.renderRoot).to.have.trimmed.text('Premium');
+      expect(selectButton).to.have.trimmed.text('Premium');
     });
 
     it('should remove the filter when the select field is cleared', async () => {
       const filter = el.renderRoot.querySelector<GridFilter>('thead tr:last-of-type th:last-of-type sl-grid-filter')!,
-        selectButton = filter.renderRoot.querySelector('sl-select-button');
+        selectButton = filter.renderRoot.querySelector<HTMLElement>('sl-select-button');
 
       expect(filter.value).to.equal('Premium');
 
-      selectButton?.renderRoot.querySelector('button')?.click();
+      selectButton?.focus();
+      await userEvent.keyboard('{Backspace}');
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(filter.value).to.be.undefined;

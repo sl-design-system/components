@@ -98,6 +98,30 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   /** @internal Emits when the panel expands/collapses. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
+  /** Tracks the active requestAnimationFrame ID for state updates to allow debouncing/cancellations on rapid toggles. */
+  #toggleRafId?: number;
+
+  /** Tracks whether the `no-transition` attribute was added by the component's internal lifecycle rather than a user. */
+  #addedNoTransitionInternally = false;
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    if (!this.hasUpdated && !this.hasAttribute('no-transition')) {
+      this.setAttribute('no-transition', '');
+      this.#addedNoTransitionInternally = true;
+    }
+  }
+
+  override disconnectedCallback(): void {
+    if (this.#toggleRafId !== undefined) {
+      cancelAnimationFrame(this.#toggleRafId);
+      this.#toggleRafId = undefined;
+    }
+
+    super.disconnectedCallback();
+  }
+
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
@@ -110,7 +134,18 @@ export class Panel extends ScopedElementsMixin(LitElement) {
     super.firstUpdated(changes);
 
     requestAnimationFrame(() => {
+      if (!this.isConnected) {
+        return;
+      }
+
       this.#onHeaderSlotChange();
+
+      // We need to wait for the first render to complete before we can enable transitions
+      requestAnimationFrame(() => {
+        if (this.isConnected && this.#addedNoTransitionInternally) {
+          this.removeAttribute('no-transition');
+        }
+      });
     });
   }
 
@@ -161,13 +196,32 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   }
 
   /**
-   * Toggle's the collapsed state of the panel. This only does something if the panel is collapsible.
+   * Toggles the collapsed state of the panel. This only does something if the panel is collapsible.
    * @param force Whether to force the panel to be collapsed or expanded.
    */
   toggle(force: boolean = !this.collapsed): void {
-    requestAnimationFrame(() => {
-      this.collapsed = force;
+    if (!this.collapsible) {
+      return;
+    }
+
+    const nextState = force;
+
+    if (this.#toggleRafId !== undefined) {
+      cancelAnimationFrame(this.#toggleRafId);
+      this.#toggleRafId = undefined;
+    }
+
+    // Schedule the state change on the next animation frame to keep CSS transitions smooth,
+    // especially when toggling rapidly. This avoids visual glitches that can occur when the
+    // DOM/state is updated synchronously.
+    if (!!this.collapsed === nextState) {
+      return;
+    }
+
+    this.#toggleRafId = requestAnimationFrame(() => {
+      this.collapsed = nextState;
       this.toggleEvent.emit(this.collapsed);
+      this.#toggleRafId = undefined;
     });
   }
 

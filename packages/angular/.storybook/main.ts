@@ -13,6 +13,9 @@ const config: StorybookConfig = {
     disableTelemetry: true
   },
   framework: '@storybook/angular',
+  features: {
+    viewportStoryGlobals: true
+  },
   staticDirs: [
     { from: '../../themes', to: '/themes' }
   ],

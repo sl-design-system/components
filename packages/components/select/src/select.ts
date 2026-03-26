@@ -1,6 +1,7 @@
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
+import { Icon } from '@sl-design-system/icon';
 import { Listbox, Option, OptionGroup } from '@sl-design-system/listbox';
 import {
   type EventEmitter,
@@ -8,10 +9,16 @@ import {
   ObserveAttributesMixin,
   RovingTabindexController,
   anchor,
-  event
+  event,
+  isPopoverOpen
 } from '@sl-design-system/shared';
-import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import {
+  type SlBlurEvent,
+  type SlChangeEvent,
+  type SlClearEvent,
+  type SlFocusEvent
+} from '@sl-design-system/shared/events.js';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
 import { SelectButton } from './select-button.js';
 import styles from './select.scss.js';
@@ -37,6 +44,9 @@ export type SelectSize = 'md' | 'lg';
  *
  * @slot default - Place for `sl-option` and `sl-option-group` elements
  * @csspart listbox - Set `--sl-popover-max-block-size` and/or `--sl-popover-min-block-size` to control the minimum and maximum height of the dropdown (within the limits of the available screen real estate)
+ * @csspart selected - The selected option element within the select's internal `sl-select-button`, exposed for styling via `<sl-select>`
+ * @csspart selected-option - The container for the selected option within the select's internal `sl-select-button`, exposed for styling via `<sl-select>`
+ * @csspart placeholder - The placeholder text when no option is selected within the select's internal `sl-select-button`, exposed for styling via `<sl-select>`
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -54,6 +64,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
+      'sl-icon': Icon,
       'sl-listbox': Listbox,
       'sl-select-button': SelectButton
     };
@@ -75,6 +86,16 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   /** The initial state when the form was associated with the select. Used to reset the select. */
   #initialState?: T;
 
+  /**
+   * Track when focus is intentionally leaving the component (e.g. by clicking outside or tabbing away).
+   * Set to true in #onFocusout when the listbox is open, and we're not already programmatically closing it.
+   * Used to prevent restoring focus to the button when the user intentionally moved focus elsewhere.
+   */
+  #focusLeavingComponent = false;
+
+  /** The last option that was rendered in the button's selected content. Used to avoid unnecessary DOM updates. */
+  #lastRenderedOption?: Option | null;
+
   /** Detect when options are added to the host, or a nested option group and clear the cache. */
   #observer = new MutationObserver(() => this.#rovingTabindexController.clearElementCache());
 
@@ -94,6 +115,9 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     listenerScope: (): HTMLElement => this.listbox!
   });
 
+  /** @internal The container element for the selected option's content in the button's light DOM. */
+  #selectedContentContainer?: HTMLElement;
+
   /**
    * @internal Since we move the aria-label to the button, we need to proxy it here,
    * otherwise the `<sl-form-validation-errors>` component will not be able to read it.
@@ -110,6 +134,9 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
   /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<T | undefined>>;
+
+  /** @internal Emits when the value is cleared. */
+  @event({ name: 'sl-clear' }) clearEvent!: EventEmitter<SlClearEvent>;
 
   /** Will display a clear button when an option is selected. */
   @property({ type: Boolean, reflect: true }) clearable?: boolean;
@@ -129,6 +156,9 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
   /** @internal */
   readonly internals = this.attachInternals();
+
+  /** @internal The clear button element. */
+  @query('button') clearButton?: HTMLButtonElement;
 
   /** @internal The listbox element that is also the popover. */
   @query('sl-listbox') listbox?: Listbox;
@@ -180,7 +210,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
       this.button = this.shadowRoot!.createElement('sl-select-button');
       this.button.addEventListener('click', () => this.#onButtonClick());
       this.button.addEventListener('keydown', (event: KeyboardEvent) => this.#onKeydown(event));
-      this.button.addEventListener('sl-clear', () => this.#onClear());
+      this.button.addEventListener('sl-clear', this.#onButtonClear);
       this.button.clearable = !!this.clearable;
       this.button.disabled = !!this.disabled;
       this.button.placeholder = this.placeholder;
@@ -226,11 +256,13 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
     if (changes.has('clearable')) {
       this.button.clearable = this.clearable;
+      this.#updateAriaKeyShortcuts();
     }
 
     if (changes.has('disabled')) {
       this.button.disabled = this.disabled;
       this.button.tabIndex = this.disabled ? -1 : 0;
+      this.#updateAriaKeyShortcuts();
     }
 
     if (changes.has('placeholder')) {
@@ -283,8 +315,23 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   }
 
   override render(): TemplateResult {
+    const showClearButton = !this.disabled && this.clearable && this.selectedOption;
+
     return html`
       <slot name="button"></slot>
+      ${showClearButton
+        ? html`
+            <button
+              @click=${this.#onClearButtonClick}
+              @focusin=${this.#onClearButtonFocusin}
+              @focusout=${this.#onClearButtonFocusout}
+              aria-label=${msg('Clear selection', { id: 'sl.select.clearSelection' })}
+            >
+              <sl-icon name="circle-xmark"></sl-icon>
+              <sl-icon name="circle-xmark-solid"></sl-icon>
+            </button>
+          `
+        : nothing}
       <sl-listbox
         ${anchor({
           element: this.button,
@@ -309,6 +356,65 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     this.button?.focus(options);
   }
 
+  #renderSelectedContent(): void {
+    if (!this.button) {
+      return;
+    }
+
+    // Avoid unnecessary DOM work if the selected option hasn't changed
+    if (this.#lastRenderedOption === this.selectedOption) {
+      return;
+    }
+
+    let container =
+      this.#selectedContentContainer ??
+      this.button.querySelector<HTMLElement>('[slot="selected-content"]') ??
+      undefined;
+
+    if (!this.selectedOption) {
+      // No selected option: remove any existing selected-content container
+      if (container && container.parentNode === this.button) {
+        container.remove();
+      }
+
+      this.#selectedContentContainer = undefined;
+      this.#lastRenderedOption = null;
+
+      return;
+    }
+
+    if (!container) {
+      container = document.createElement('span');
+      container.setAttribute('slot', 'selected-content');
+
+      // Append the selected content as a child of the button (in the button's light DOM)
+      this.button.appendChild(container);
+    }
+
+    this.#selectedContentContainer = container;
+
+    const slotNodes = this.selectedOption.renderRoot.querySelector('slot')?.assignedNodes() ?? [];
+
+    if (slotNodes.length) {
+      const clones: Node[] = [];
+
+      slotNodes.forEach(node => {
+        const rootNode = node.getRootNode();
+
+        // Unlike node.cloneNode(), importNode() is implemented in the
+        // scoped custom element registry polyfill, so it will upgrade
+        // the cloned node if it's a custom element.
+        clones.push((rootNode as Document).importNode(node, true));
+      });
+
+      container.replaceChildren(...clones);
+    } else {
+      container.textContent = this.selectedOption.textContent?.trim() || '';
+    }
+
+    this.#lastRenderedOption = this.selectedOption;
+  }
+
   #onBeforetoggle({ newState }: ToggleEvent): void {
     if (newState === 'open') {
       this.button.setAttribute('aria-expanded', 'true');
@@ -324,15 +430,44 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   #onButtonClick(): void {
     if (this.disabled) {
       return;
-    } else if (!this.listbox?.matches(':popover-open') && !this.#popoverClosing) {
+    } else if (!this.listbox || (!isPopoverOpen(this.listbox) && !this.#popoverClosing)) {
       this.listbox?.showPopover();
     }
 
     this.#popoverClosing = false;
   }
 
+  #onButtonClear = (event: Event): void => {
+    event.stopPropagation();
+
+    this.#onClear();
+    this.clearEvent.emit();
+  };
+
   #onClear(): void {
     this.#setSelectedOption(undefined, true);
+  }
+
+  #onClearButtonClick(event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (this.listbox && isPopoverOpen(this.listbox)) {
+      this.#popoverClosing = true;
+      this.listbox.hidePopover();
+    }
+
+    this.#onClear();
+    this.clearEvent.emit();
+    this.button.focus();
+  }
+
+  #onClearButtonFocusin(): void {
+    this.button.clearFocused = true;
+  }
+
+  #onClearButtonFocusout(): void {
+    this.button.clearFocused = false;
   }
 
   #onClick(event: Event): void {
@@ -348,12 +483,21 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   #onFocusout(event: FocusEvent): void {
     const leavingComponent =
       event.relatedTarget !== this.button &&
+      event.relatedTarget !== this.clearButton &&
       (!(event.relatedTarget instanceof Element) || event.relatedTarget?.closest('sl-select') !== this);
 
     if (leavingComponent) {
-      if (this.listbox?.matches(':popover-open')) {
-        this.listbox.hidePopover();
+      const listboxIsOpen = this.listbox && isPopoverOpen(this.listbox);
 
+      // Mark as "focus leaving component" when:
+      // - We're not already in the process of programmatically closing (#popoverClosing),
+      // - The listbox is currently open (if open, we'll close it, which means this is initiated by user).
+      if (!this.#popoverClosing && listboxIsOpen) {
+        this.#focusLeavingComponent = true;
+      }
+
+      if (listboxIsOpen) {
+        this.listbox!.hidePopover();
         this.#popoverClosing = true;
       }
 
@@ -368,7 +512,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
       event.stopPropagation();
 
       return;
-    } else if (!this.listbox?.matches(':popover-open')) {
+    } else if (!this.listbox || !isPopoverOpen(this.listbox)) {
       if (['ArrowDown', 'Enter', ' '].includes(event.key)) {
         this.#rovingTabindexController.focus();
       } else if (event.key === 'Home') {
@@ -391,6 +535,8 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
     if (option) {
       this.#setSelectedOption(option);
+      // Programmatically closing, not because user moved focus away
+      this.#popoverClosing = true;
       this.listbox?.hidePopover();
     }
   }
@@ -401,6 +547,8 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
       event.stopPropagation();
 
       this.#setSelectedOption(event.target);
+      // Programmatically closing, not because user moved focus away
+      this.#popoverClosing = true;
       this.listbox?.hidePopover();
     } else if (event.key === 'Escape') {
       // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the select
@@ -441,12 +589,14 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     if (event.newState === 'open') {
       this.#rovingTabindexController.focus();
     } else if (event.newState === 'closed') {
-      const activeElement = (this.getRootNode() as Document | ShadowRoot).activeElement;
-      if (activeElement?.closest('sl-select') === this) {
+      // Only restore focus to the button if the popover was closed by selecting an option,
+      // not when focus was moved away intentionally (e.g. by clicking outside or tabbing away)
+      if (!this.#focusLeavingComponent) {
         this.button.focus();
       }
 
       this.#popoverClosing = false;
+      this.#focusLeavingComponent = false;
     }
   }
 
@@ -540,12 +690,24 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     this.button.selected = this.selectedOption;
     this.value = this.selectedOption?.value;
 
+    // Update the selected content in the light DOM
+    this.#renderSelectedContent();
+
     if (emitEvent) {
       this.changeEvent.emit(this.value);
       this.updateState({ dirty: true });
     }
 
     this.#updateValueAndValidity();
+    this.#updateAriaKeyShortcuts();
+  }
+
+  #updateAriaKeyShortcuts(): void {
+    if (this.clearable && !this.disabled && this.selectedOption) {
+      this.button.setAttribute('aria-keyshortcuts', 'Delete Backspace');
+    } else {
+      this.button.removeAttribute('aria-keyshortcuts');
+    }
   }
 
   #updateValueAndValidity(): void {

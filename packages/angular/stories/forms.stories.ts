@@ -12,6 +12,7 @@ import { ButtonComponent } from '@sl-design-system/angular/button';
 import { ButtonBarComponent } from '@sl-design-system/angular/button-bar';
 import { CheckboxComponent, CheckboxGroupComponent } from '@sl-design-system/angular/checkbox';
 import { ComboboxComponent } from '@sl-design-system/angular/combobox';
+import { DateFieldComponent } from '@sl-design-system/angular/date-field';
 import { FormComponent, FormFieldComponent } from '@sl-design-system/angular/form';
 import {
   CheckboxDirective,
@@ -36,6 +37,7 @@ import { TextFieldComponent } from '@sl-design-system/angular/text-field';
 import { TimeFieldComponent } from '@sl-design-system/angular/time-field';
 import { Form } from '@sl-design-system/form';
 import { type Meta, type StoryFn, moduleMetadata } from '@storybook/angular';
+import { DateFieldDirective } from '../src/forms/date-field.directive';
 
 @Component({
   selector: 'sla-all-form-controls-reactive',
@@ -47,6 +49,10 @@ import { type Meta, type StoryFn, moduleMetadata } from '@storybook/angular';
 
       <sl-form-field label="Number field">
         <sl-number-field formControlName="numberField"></sl-number-field>
+      </sl-form-field>
+
+      <sl-form-field label="Date field">
+        <sl-date-field formControlName="dateField"></sl-date-field>
       </sl-form-field>
 
       <sl-form-field label="Time field">
@@ -118,6 +124,7 @@ import { type Meta, type StoryFn, moduleMetadata } from '@storybook/angular';
     CheckboxDirective,
     CheckboxGroupDirective,
     ComboboxDirective,
+    DateFieldDirective,
     NumberFieldDirective,
     RadioGroupDirective,
     SelectDirective,
@@ -133,6 +140,7 @@ export class AllFormControlsReactiveComponent {
     checkboxGroup: new FormControl(['2', '1', '0']),
     comboboxSingle: new FormControl(''),
     comboboxMultiple: new FormControl(''),
+    dateField: new FormControl(new Date(2026, 0, 1)),
     numberField: new FormControl(10),
     radioGroup: new FormControl('1'),
     select: new FormControl('1'),
@@ -165,6 +173,10 @@ export class AllFormControlsReactiveComponent {
 
       <sl-form-field label="Number field">
         <sl-number-field formControlName="numberField" required></sl-number-field>
+      </sl-form-field>
+
+      <sl-form-field label="Date field">
+        <sl-date-field formControlName="dateField" required></sl-date-field>
       </sl-form-field>
 
       <sl-form-field label="Time field">
@@ -242,6 +254,7 @@ export class AllFormControlsReactiveComponent {
     CheckboxDirective,
     CheckboxGroupDirective,
     ComboboxDirective,
+    DateFieldDirective,
     NumberFieldDirective,
     RadioGroupDirective,
     SelectDirective,
@@ -259,6 +272,7 @@ export class AllFormControlsEmptyReactiveComponent {
     checkboxGroup: new FormControl([]),
     comboboxSingle: new FormControl(''),
     comboboxMultiple: new FormControl(''),
+    dateField: new FormControl(''),
     numberField: new FormControl(),
     radioGroup: new FormControl(''),
     select: new FormControl(''),
@@ -295,6 +309,10 @@ export class AllFormControlsEmptyReactiveComponent {
 
       <sl-form-field label="Number field">
         <sl-number-field [(ngModel)]="formGroup.numberField"></sl-number-field>
+      </sl-form-field>
+
+      <sl-form-field label="Date field">
+        <sl-date-field [(ngModel)]="formGroup.dateField"></sl-date-field>
       </sl-form-field>
 
       <sl-form-field label="Time field">
@@ -366,6 +384,7 @@ export class AllFormControlsEmptyReactiveComponent {
     CheckboxDirective,
     CheckboxGroupDirective,
     ComboboxDirective,
+    DateFieldDirective,
     NumberFieldDirective,
     RadioGroupDirective,
     SelectDirective,
@@ -381,6 +400,7 @@ export class AllFormControlsTemplateComponent {
     checkboxGroup: ['2', '1', '0'],
     comboboxMultiple: ['Option 1', 'Option 2'],
     comboboxSingle: 'Option 1',
+    dateField: '01/01/2026',
     numberField: 10,
     radioGroup: '1',
     select: '1',
@@ -401,6 +421,14 @@ export class AllFormControlsTemplateComponent {
 
       <sl-form-field label="Number field">
         <sl-number-field [(ngModel)]="formGroup.numberField" min="5" max="15" required></sl-number-field>
+      </sl-form-field>
+
+      <sl-form-field label="Date field">
+        <sl-date-field [(ngModel)]="formGroup.dateField" required></sl-date-field>
+      </sl-form-field>
+
+      <sl-form-field label="Time field">
+        <sl-time-field [(ngModel)]="formGroup.timeField" required></sl-time-field>
       </sl-form-field>
 
       <sl-form-field label="Text area">
@@ -474,12 +502,14 @@ export class AllFormControlsTemplateComponent {
     CheckboxDirective,
     CheckboxGroupDirective,
     ComboboxDirective,
+    DateFieldDirective,
     NumberFieldDirective,
     RadioGroupDirective,
     SelectDirective,
     SwitchDirective,
     TextAreaDirective,
-    TextFieldDirective
+    TextFieldDirective,
+    TimeFieldDirective
   ]
 })
 export class AllFormControlsEmptyTemplateComponent {
@@ -490,6 +520,7 @@ export class AllFormControlsEmptyTemplateComponent {
     checkboxGroup: [],
     comboboxMultiple: [],
     comboboxSingle: '',
+    dateField: '',
     numberField: '',
     radioGroup: null,
     select: '',
@@ -599,6 +630,7 @@ export default {
         CheckboxComponent,
         CheckboxGroupComponent,
         ComboboxComponent,
+        DateFieldComponent,
         FormComponent,
         FormFieldComponent,
         NumberFieldComponent,

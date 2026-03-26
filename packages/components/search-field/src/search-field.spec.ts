@@ -1,8 +1,8 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
-import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { type SearchField, type SlSearchEvent } from './search-field.js';
 
@@ -84,6 +84,15 @@ describe('sl-search-field', () => {
       expect(onClear).to.be.calledOnce;
     });
 
+    it('should emit a search event when the clear button is clicked', () => {
+      const onSearch: (value: string) => void = spy();
+
+      el.addEventListener('sl-search', (event: SlSearchEvent) => onSearch(event.detail));
+      el.renderRoot.querySelector('button')?.click();
+
+      expect(onSearch).to.be.calledOnceWith('');
+    });
+
     it('should emit a clear event when the escape key is pressed', async () => {
       const onClear = spy();
 
@@ -92,6 +101,16 @@ describe('sl-search-field', () => {
       await userEvent.keyboard('{Escape}');
 
       expect(onClear).to.be.calledOnce;
+    });
+
+    it('should emit a search event when the escape key is pressed', async () => {
+      const onSearch: (value: string) => void = spy();
+
+      el.addEventListener('sl-search', (event: SlSearchEvent) => onSearch(event.detail));
+      el.focus();
+      await userEvent.keyboard('{Escape}');
+
+      expect(onSearch).to.be.calledOnceWith('');
     });
 
     it('should emit a search event with the value when enter is pressed', async () => {
@@ -119,12 +138,13 @@ describe('sl-search-field', () => {
 
       // Type a character
       await userEvent.type(el.input, 'a');
+      await el.updateComplete;
 
       // Should not emit immediately
       expect(onSearch).not.to.have.been.called;
 
-      // Wait for debounce (300ms)
-      await new Promise(resolve => setTimeout(resolve, 350));
+      // Wait for debounce (300ms + buffer)
+      await new Promise(resolve => setTimeout(resolve, 400));
 
       // Should have emitted after debounce period
       expect(onSearch).to.have.been.calledOnce;
@@ -139,12 +159,14 @@ describe('sl-search-field', () => {
 
       // Type first character
       await userEvent.type(el.input, 'h');
+      await el.updateComplete;
 
       // Wait 200ms (less than debounce period)
       await new Promise(resolve => setTimeout(resolve, 200));
 
       // Type second character - should reset timer
       await userEvent.type(el.input, 'e');
+      await el.updateComplete;
 
       // Wait another 200ms (still less than 300ms from second character)
       await new Promise(resolve => setTimeout(resolve, 200));
@@ -152,8 +174,8 @@ describe('sl-search-field', () => {
       // Should not have emitted yet
       expect(onSearch).not.to.have.been.called;
 
-      // Wait for remaining debounce time
-      await new Promise(resolve => setTimeout(resolve, 150));
+      // Wait for remaining debounce time + buffer
+      await new Promise(resolve => setTimeout(resolve, 200));
 
       // Should have emitted with full text
       expect(onSearch).to.have.been.calledOnce;
@@ -168,35 +190,43 @@ describe('sl-search-field', () => {
 
       // First typing session
       await userEvent.type(el.input, 'hello');
-      await new Promise(resolve => setTimeout(resolve, 350));
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 400));
 
       expect(onSearch).to.have.been.calledOnce;
       expect(onSearch).to.have.been.calledWith('hello');
 
       // Clear and start new typing session
       el.clear();
+      await el.updateComplete;
       await userEvent.type(el.input, 'world');
-      await new Promise(resolve => setTimeout(resolve, 350));
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 400));
 
-      expect(onSearch).to.have.been.calledTwice;
+      expect(onSearch).to.have.been.calledThrice;
       expect(onSearch).to.have.been.calledWith('world');
     });
 
-    it('should not emit search event for empty value after debounce', async () => {
+    it('should emit sl-clear event and search event for empty value after debounce', async () => {
       const onSearch: (value: string) => void = spy();
+      const onClear = spy();
 
       el.addEventListener('sl-search', (event: SlSearchEvent) => onSearch(event.detail));
+      el.addEventListener('sl-clear', onClear);
       el.focus();
 
       // Type and then delete
       await userEvent.type(el.input, 'a');
+      await el.updateComplete;
       await userEvent.keyboard('{Backspace}');
+      await el.updateComplete;
 
-      // Wait for debounce
-      await new Promise(resolve => setTimeout(resolve, 350));
+      // Wait for debounce + buffer
+      await new Promise(resolve => setTimeout(resolve, 400));
 
-      // Should not emit for empty value
-      expect(onSearch).not.to.have.been.called;
+      // Should emit search with empty string for empty value, and should emit clear
+      expect(onSearch).to.have.been.calledOnceWith('');
+      expect(onClear).to.have.been.calledOnce;
     });
 
     it('should cancel debounced search when Enter is pressed', async () => {
@@ -207,16 +237,18 @@ describe('sl-search-field', () => {
 
       // Type some text
       await userEvent.type(el.input, 'test');
+      await el.updateComplete;
 
       // Press Enter before debounce completes
       await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
 
       // Should emit immediately from Enter press
       expect(onSearch).to.have.been.calledOnce;
       expect(onSearch).to.have.been.calledWith('test');
 
-      // Wait for where debounce would have fired
-      await new Promise(resolve => setTimeout(resolve, 350));
+      // Wait for where debounce would have fired + buffer
+      await new Promise(resolve => setTimeout(resolve, 400));
 
       // Should still only have been called once (debounce was cancelled)
       expect(onSearch).to.have.been.calledOnce;

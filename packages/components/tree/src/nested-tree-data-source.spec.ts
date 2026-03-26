@@ -510,4 +510,62 @@ describe('NestedTreeDataSource', () => {
       expect(ds.items.map(n => n.label)).to.deep.equal(['C', 'Z', 'Y', 'B', 'A']);
     });
   });
+
+  describe('selection sync', () => {
+    beforeEach(() => {
+      ds = new NestedTreeDataSource<TestItem>(
+        [
+          {
+            id: 1,
+            name: 'Parent',
+            children: [
+              { id: 11, name: 'Child 1' },
+              { id: 12, name: 'Child 2' }
+            ]
+          }
+        ],
+        {
+          getId: ({ id }) => id,
+          getLabel: ({ name }) => name,
+          getChildren: ({ children }) => children,
+          isExpandable: ({ children }) => !!children?.length,
+          multiple: true
+        }
+      );
+      ds.update();
+    });
+
+    it('should update parent selection state when a child selection changes', () => {
+      const parent = ds.items[0];
+      ds.expand(parent);
+
+      ds.selectAll();
+      expect(parent.selected).to.be.true;
+      expect(parent.children![0].selected).to.be.true;
+      expect(parent.children![1].selected).to.be.true;
+
+      // Deselect one child manually
+      parent.children![0].selected = false;
+      ds.update();
+
+      expect(parent.selected).to.be.false;
+      expect(parent.indeterminate).to.be.true;
+      expect(parent.children![1].selected).to.be.true;
+    });
+
+    it('should update parent selection state when all children are selected', () => {
+      const parent = ds.items[0];
+      ds.expand(parent);
+
+      expect(parent.selected).to.be.false;
+
+      // Select all children manually
+      parent.children![0].selected = true;
+      parent.children![1].selected = true;
+      ds.update();
+
+      expect(parent.selected).to.be.true;
+      expect(parent.indeterminate).to.be.false;
+    });
+  });
 });

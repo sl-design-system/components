@@ -48,6 +48,9 @@ export class GridColumn<T = any> extends LitElement {
   /** The state changed event callback. */
   #onStateChanged = () => this.stateChanged();
 
+  /** The scoped elements set on this column. */
+  #scopedElements: Record<string, typeof HTMLElement>;
+
   /** Actual width of the column. */
   #width?: number;
 
@@ -70,6 +73,14 @@ export class GridColumn<T = any> extends LitElement {
    * The column width may still grow larger when `grow` is not 0.
    */
   @property({ type: Boolean, attribute: 'auto-width' }) autoWidth?: boolean;
+
+  /**
+   * @internal The internal scoped elements for this column. This is defined separately so it doesn't
+   * get overridden by the public `scopedElements` property.
+   */
+  get baseScopedElements(): Record<string, typeof HTMLElement> {
+    return {};
+  }
 
   /** @internal Emits when the column definition has changed. */
   @event({ name: 'sl-column-update' }) columnUpdateEvent!: EventEmitter<SlColumnUpdateEvent<T>>;
@@ -112,11 +123,18 @@ export class GridColumn<T = any> extends LitElement {
   /** Renderer function for the column value of each cell. */
   @property({ attribute: false }) renderer?: GridColumnDataRenderer<T>;
 
+  get scopedElements(): Record<string, typeof HTMLElement> {
+    return this.#scopedElements;
+  }
+
   /**
    * The custom elements used for rendering this column. Since the rendering the column cells is done
    * in the parent grid component, the custom elements need to be registered in the parent grid.
    */
-  @property({ attribute: false }) scopedElements?: Record<string, typeof HTMLElement>;
+  @property({ attribute: false })
+  set scopedElements(value: Record<string, typeof HTMLElement> | undefined) {
+    this.#scopedElements = { ...this.baseScopedElements, ...(value ?? {}) };
+  }
 
   /** Whether this column is sticky when the user scrolls horizontally. */
   @property({ type: Boolean }) sticky?: boolean;
@@ -135,6 +153,12 @@ export class GridColumn<T = any> extends LitElement {
   @property({ type: Number })
   get width(): number | undefined {
     return this.#width;
+  }
+
+  constructor() {
+    super();
+
+    this.#scopedElements = this.baseScopedElements;
   }
 
   override connectedCallback(): void {

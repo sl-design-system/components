@@ -1,8 +1,8 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
-import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { TabGroup, type TabsAlignment } from './tab-group.js';
 import { type Tab } from './tab.js';
@@ -234,6 +234,18 @@ describe('sl-tab-group', () => {
     it('should select the second tab by default', () => {
       expect(el.querySelector('sl-tab[selected]')).to.have.text('Tab 2');
       expect(el.querySelector('sl-tab-panel[aria-hidden="false"]')).to.have.text('Panel 2');
+    });
+
+    it('should not scroll the page when the tab group is resized', async () => {
+      const scrollTo = spy(window, 'scrollTo');
+
+      el.style.width = '200px';
+      await el.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      expect(scrollTo).not.to.have.been.called;
+
+      scrollTo.restore();
     });
   });
 

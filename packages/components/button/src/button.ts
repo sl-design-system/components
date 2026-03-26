@@ -37,8 +37,14 @@ export class Button extends LitElement {
 
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
-    click: this.#onClick,
-    keydown: this.#onKeydown
+    click: {
+      handler: this.#onClick,
+      options: { capture: true }
+    },
+    keydown: {
+      handler: this.#onKeydown,
+      options: { capture: true }
+    }
   });
 
   /** Observe changes to the slotted content that aren't caught by the `slotchange` event. */
@@ -80,6 +86,9 @@ export class Button extends LitElement {
    */
   @property({ reflect: true }) variant?: ButtonVariant;
 
+  /** @internal */
+  @property({ attribute: 'aria-disabled', reflect: true }) override ariaDisabled: string | null = null;
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -118,9 +127,9 @@ export class Button extends LitElement {
   }
 
   #onClick(event: Event): void {
-    if (this.disabled || this.ariaDisabled === 'true') {
+    if (this.disabled || (this.ariaDisabled !== null && this.ariaDisabled !== 'false')) {
       event.preventDefault();
-      event.stopPropagation();
+      event.stopImmediatePropagation();
     } else if (this.type === 'reset') {
       if (this.internals.form) {
         this.internals.form.reset();
@@ -139,6 +148,14 @@ export class Button extends LitElement {
   }
 
   #onKeydown(event: KeyboardEvent): void {
+    if (this.disabled || (this.ariaDisabled !== null && this.ariaDisabled !== 'false')) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      }
+      return;
+    }
+
     if (event.key === 'Enter' || event.key === ' ') {
       this.click();
 

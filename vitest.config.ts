@@ -1,5 +1,5 @@
-/// <reference types="@vitest/browser/providers/playwright" />
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
+import { playwright } from '@vitest/browser-playwright';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
@@ -18,7 +18,7 @@ export default defineConfig({
           browser: {
             enabled: true,
             headless: true,
-            provider: 'playwright',
+            provider: playwright(),
             instances: [{ browser: 'chromium' }]
           },
           setupFiles: ['.storybook/vitest.setup.ts']
@@ -32,14 +32,15 @@ export default defineConfig({
           browser: {
             enabled: true,
             headless: true,
-            provider: 'playwright',
+            provider: playwright({
+              contextOptions: {
+                locale: 'en',
+                reducedMotion: 'reduce'
+              }
+            }),
             instances: [
               {
-                browser: 'chromium',
-                context: {
-                  locale: 'en',
-                  reducedMotion: 'reduce'
-                }
+                browser: 'chromium'
               }
             ],
             viewport: { width: 1024, height: 768 }

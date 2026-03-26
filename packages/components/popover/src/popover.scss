@@ -53,30 +53,30 @@
   opacity: 1;
 }
 
-:host([actual-placement^='bottom']) .arrow {
+:host([actual-placement^='bottom']) [part='arrow'] {
   inset-block-start: calc(var(--_arrow-block-size) * -1);
 }
 
-:host([actual-placement^='left']) .arrow {
+:host([actual-placement^='left']) [part='arrow'] {
   inset-inline-end: calc(var(--_arrow-inline-size) * -1);
   rotate: 90deg;
   transform-origin: left;
   translate: calc(var(--_arrow-block-size) / 2) calc(var(--_arrow-inline-size) / -2);
 }
 
-:host([actual-placement^='right']) .arrow {
+:host([actual-placement^='right']) [part='arrow'] {
   inset-inline-start: calc(var(--_arrow-inline-size) * -1);
   rotate: -90deg;
   transform-origin: right;
   translate: calc(var(--_arrow-block-size) / -2) calc(var(--_arrow-inline-size) / -2);
 }
 
-:host([actual-placement^='top']) .arrow {
+:host([actual-placement^='top']) [part='arrow'] {
   inset-block-end: calc(var(--_arrow-block-size) * -1);
   scale: 1 -1;
 }
 
-.arrow {
+[part='arrow'] {
   block-size: var(--_arrow-block-size);
   display: inline-flex;
   fill: var(--sl-elevation-surface-raised-default);

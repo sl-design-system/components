@@ -1,8 +1,8 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
-import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
 import { GridFilter } from './filter.js';
 
 try {
@@ -135,13 +135,18 @@ describe('sl-grid-filter', () => {
 
       el.addEventListener('sl-filter-change', onFilterChange);
 
-      const select = el.renderRoot.querySelector('sl-select');
-      select?.querySelector('sl-select-button')?.click();
-      select?.querySelector('sl-option')?.click();
-      await new Promise(resolve => setTimeout(resolve));
+      const select = el.renderRoot.querySelector('sl-select'),
+        selectButton = select?.querySelector('sl-select-button');
 
-      select?.querySelector('sl-select-button')?.renderRoot.querySelector('button')?.click();
-      await new Promise(resolve => setTimeout(resolve));
+      selectButton?.click();
+      select?.querySelector('sl-option')?.click();
+      await new Promise(resolve => setTimeout(resolve, 50));
+      await select?.updateComplete;
+
+      // Use Backspace to clear the selection, sl-select handles the clear and emits sl-clear
+      selectButton?.focus();
+      await userEvent.keyboard('{Backspace}');
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(onFilterChange).to.have.callCount(2);
       expect(onFilterChange).to.have.been.calledWithMatch({ detail: { value: undefined } });

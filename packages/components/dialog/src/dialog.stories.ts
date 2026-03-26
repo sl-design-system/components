@@ -35,15 +35,13 @@ Icon.register(faBurst);
 export default {
   title: 'Overlay/Dialog',
   tags: ['stable'],
+  globals: {
+    viewport: undefined
+  },
   args: {
     closeButton: false,
     disableCancel: false,
     title: 'Title'
-  },
-  parameters: {
-    viewport: {
-      defaultViewport: 'reset'
-    }
   },
   render: args => {
     const {
@@ -174,9 +172,9 @@ export const Lazy: Story = {
 };
 
 export const Mobile: Story = {
-  parameters: {
+  globals: {
     viewport: {
-      defaultViewport: 'iphone5'
+      value: 'mobile'
     }
   },
   args: {

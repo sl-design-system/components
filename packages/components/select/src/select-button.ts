@@ -1,11 +1,10 @@
-import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { type FormControlShowValidity } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { Option } from '@sl-design-system/listbox';
+import { type Option } from '@sl-design-system/listbox';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type SlClearEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './select-button.scss.js';
 import { type SelectSize } from './select.js';
@@ -23,7 +22,6 @@ declare global {
  * @csspart placeholder - The placeholder text when no option is selected.
  * @csspart selected-option - The container for the selected option.
  */
-@localized()
 export class SelectButton extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
@@ -38,10 +36,16 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { keydown: this.#onKeydown });
 
+  /** @internal */
+  #internals = this.attachInternals();
+
   /** Will display a clear button when an option is selected. */
   @property({ type: Boolean, reflect: true }) clearable?: boolean;
 
-  /** @internal Emits when the user clicks the clear button. */
+  /** @internal Whether the clear button is focused. */
+  @property({ type: Boolean, attribute: false }) clearFocused?: boolean;
+
+  /** @internal Emits when the user clears the selection via Backspace or Delete. */
   @event({ name: 'sl-clear' }) clearEvent!: EventEmitter<SlClearEvent>;
 
   /** Whether the button is disabled. */
@@ -78,6 +82,30 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
+    if (changes.has('clearable')) {
+      if (this.clearable) {
+        this.#internals.states.add('clearable');
+      } else {
+        this.#internals.states.delete('clearable');
+      }
+    }
+
+    if (changes.has('clearFocused')) {
+      if (this.clearFocused) {
+        this.#internals.states.add('clear-focused');
+      } else {
+        this.#internals.states.delete('clear-focused');
+      }
+    }
+
+    if (changes.has('selected')) {
+      if (this.selected) {
+        this.#internals.states.add('has-selection');
+      } else {
+        this.#internals.states.delete('has-selection');
+      }
+    }
+
     if (changes.has('required')) {
       if (this.required) {
         this.setAttribute('aria-required', 'true');
@@ -88,59 +116,24 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    let selected: string | HTMLElement | undefined = undefined;
+    const hasSelected = !!this.selected;
 
-    if (this.selected?.childElementCount === 1) {
-      selected = this.selected.children[0].cloneNode(true) as HTMLElement;
-      selected.part.add('selected');
-    } else if (this.selected?.childElementCount) {
-      selected = this.selected.cloneNode(true) as HTMLElement;
-      selected.removeAttribute('aria-selected');
-      selected.removeAttribute('selected');
-      selected.part.add('selected');
-    } else {
-      selected = this.selected?.textContent?.trim();
-    }
-
-    let inlineSize = '100%';
-
-    if (this.optionSize) {
-      const shouldAccountForClearButton = this.clearable && !this.selected,
-        clearButtonTotalWidth =
-          4 /* clear button margin: margin-inline-start: var(--sl-size-050) */ +
-          34 /* clear button width: block-size: calc(1lh + (var(--sl-size-100) - var(--sl-size-borderWidth-default)) * 2);  */ +
-          4; /* status icon padding: difference between the padding-inline-start with and without the clear button */
-
-      inlineSize = `${this.optionSize + (shouldAccountForClearButton ? clearButtonTotalWidth : 0)}px`;
-    }
+    const inlineSize = this.optionSize ? `${this.optionSize}px` : '100%';
 
     return html`
-      <div part=${this.placeholder && !selected ? 'placeholder' : 'selected-option'} style="inline-size: ${inlineSize}">
-        ${selected || this.placeholder || '\u00a0'}
+      <div
+        class="wrapper"
+        part=${this.placeholder && !hasSelected ? 'placeholder' : 'selected-option'}
+        style="inline-size: ${inlineSize}"
+      >
+        ${hasSelected
+          ? html`<span part="selected"><slot name="selected-content"></slot></span>`
+          : this.placeholder || '\u00a0'}
       </div>
-      ${!this.disabled && this.clearable && this.selected
-        ? html`
-            <button
-              @click=${this.#onClick}
-              aria-label=${msg('Clear selection', { id: 'sl.select.clearSelection' })}
-              tabindex="-1"
-            >
-              <sl-icon name="circle-xmark"></sl-icon>
-              <sl-icon name="circle-xmark-solid"></sl-icon>
-            </button>
-          `
-        : nothing}
-      <span class="status">
+      <span class="status" aria-hidden="true">
         <sl-icon name="chevron-down"></sl-icon>
       </span>
     `;
-  }
-
-  #onClick(event: Event): void {
-    event.preventDefault();
-    event.stopPropagation();
-
-    this.clearEvent.emit();
   }
 
   #onKeydown(event: KeyboardEvent): void {

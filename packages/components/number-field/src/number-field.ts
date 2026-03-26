@@ -17,6 +17,11 @@ export type NumberFieldButtonsAlignment = 'end' | 'edges';
 
 /**
  * A number field component.
+ *
+ * @omit type - We should not document the type property from TextField in the NumberField, as it is always 'text' internally.
+ *
+ * @slot prefix - Used for step buttons when `stepButtons` is set to 'edges'. If overridden, the step down button will not be rendered automatically, and you will need to implement your own button logic.
+ * @slot suffix - Used for step buttons internally (when `stepButtons` is set). If overridden, the step buttons will not be rendered automatically, and you will need to implement your own button logic.
  */
 @localized()
 export class NumberField extends LocaleMixin(TextField) {
@@ -33,8 +38,14 @@ export class NumberField extends LocaleMixin(TextField) {
   #valueAsNumber?: number;
 
   /**
+   * Whether the number field is disabled; when set no interaction is possible.
+   * @override
+   */
+  @property({ type: Boolean, reflect: true }) override disabled?: boolean;
+
+  /**
    * Number formatting options.
-   * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat
+   * See [Intl.NumberFormat options documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat) for more details.
    */
   @property({ type: Object, attribute: 'format-options' }) formatOptions?: Intl.NumberFormatOptions;
 
@@ -80,6 +91,12 @@ export class NumberField extends LocaleMixin(TextField) {
   @property({ type: Number }) min?: number;
 
   /**
+   * Whether the number field is a required field.
+   * @override
+   */
+  @property({ type: Boolean, reflect: true }) override required?: boolean;
+
+  /**
    * The amount by which the value will be increased/decreased by a step up/down.
    * @default 1
    */
@@ -87,6 +104,13 @@ export class NumberField extends LocaleMixin(TextField) {
 
   /** Step buttons placement for incrementing / decrementing. No step buttons by default. */
   @property({ reflect: true, attribute: 'step-buttons' }) stepButtons?: NumberFieldButtonsAlignment;
+
+  /**
+   * The input type is always 'text' for number fields and cannot be changed.
+   * @override
+   */
+  @property({ attribute: false })
+  override type = 'text' as const;
 
   override get value(): string | undefined {
     return this.#value;
@@ -149,7 +173,11 @@ export class NumberField extends LocaleMixin(TextField) {
     }
   }
 
-  /** @internal */
+  /**
+   * Renders the prefix slot content with step down button when step buttons are at edges.
+   *
+   * Remember that if you override this method, the step down button will no longer be rendered automatically when `stepButtons` is set to 'edges'. You will need to implement your own button logic if needed.
+   */
   override renderPrefix(): TemplateResult | typeof nothing {
     return this.stepButtons === 'edges'
       ? html`
@@ -165,7 +193,12 @@ export class NumberField extends LocaleMixin(TextField) {
       : nothing;
   }
 
-  /** @internal */
+  /**
+   * Renders the suffix slot content with step buttons.
+   *
+   * Remember that if you override this method, the step buttons will no longer be rendered automatically.
+   * You will need to implement your own button logic if needed.
+   */
   override renderSuffix(): TemplateResult | typeof nothing {
     return this.stepButtons
       ? this.stepButtons === 'end'

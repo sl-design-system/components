@@ -1,11 +1,34 @@
-import { type TextField } from '@sl-design-system/text-field';
+import { isPopoverOpen } from '@sl-design-system/shared';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
-import { userEvent } from '@vitest/browser/context';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { TimeField } from './time-field.js';
+
+/**
+ * Helper function to wait for a popover to open or close.
+ * @param dialog The dialog element to watch
+ * @param shouldBeOpen Whether we're waiting for it to open (true) or close (false)
+ * @param timeout Maximum time to wait in milliseconds
+ */
+function waitForPopoverState(dialog: HTMLDialogElement, shouldBeOpen: boolean, timeout = 10000): Promise<void> {
+  const startTime = Date.now();
+
+  return new Promise((resolve, reject) => {
+    const check = () => {
+      if (isPopoverOpen(dialog) === shouldBeOpen) {
+        resolve();
+      } else if (Date.now() - startTime > timeout) {
+        reject(new Error(`Timeout waiting for popover to ${shouldBeOpen ? 'open' : 'close'}`));
+      } else {
+        requestAnimationFrame(check);
+      }
+    };
+    check();
+  });
+}
 
 describe('sl-time-field', () => {
   let el: TimeField;
@@ -59,33 +82,35 @@ describe('sl-time-field', () => {
     });
 
     it('should support entering a time via the keyboard', async () => {
-      el.textField.focus();
-      await userEvent.keyboard('12:34');
-      el.textField.input.blur();
+      const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+      hourSpinbutton.focus();
+      await userEvent.keyboard('12');
+      await userEvent.keyboard('34');
 
       expect(el.value).to.equal('12:34');
-      expect(el.textField.value).to.equal('12:34');
-      expect(el.textField.input.selectionStart).to.equal(5);
-      expect(el.textField.input.selectionEnd).to.equal(5);
     });
 
     it('should emit a change event when the time is changed via the keyboard', async () => {
       const onChange = spy();
 
       el.addEventListener('sl-change', onChange);
-      el.textField.focus();
-      await userEvent.keyboard('12:34');
-      el.textField.input.blur();
+      const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+      hourSpinbutton.focus();
+      await userEvent.keyboard('12');
+      await userEvent.keyboard('34');
       await el.updateComplete;
 
-      expect(onChange).to.have.been.calledOnce;
+      expect(onChange).to.have.been.called;
     });
 
     it('should emit a change event when the time is changed via the arrow keys', async () => {
       const onChange = spy();
 
+      el.value = '12:00';
+      await el.updateComplete;
+
       el.addEventListener('sl-change', onChange);
-      el.textField.focus();
+      el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')?.focus();
       await userEvent.keyboard('{ArrowUp}');
 
       expect(onChange).to.have.been.calledOnce;
@@ -177,99 +202,38 @@ describe('sl-time-field', () => {
       button?.click();
       expect(dialog?.matches(':popover-open')).to.be.false;
     });
-  });
 
-  describe('text field', () => {
-    let textField: TextField;
-
-    beforeEach(async () => {
-      el = await fixture(html`<sl-time-field></sl-time-field>`);
-      textField = el.renderRoot.querySelector('sl-text-field')!;
+    it('should have an accessible name', () => {
+      expect(button).to.have.attribute('aria-label');
     });
 
-    it('should exist', () => {
-      expect(textField).to.exist;
+    it('should have aria-controls pointing to the dialog', () => {
+      expect(button).to.have.attribute('aria-controls', 'dialog');
     });
 
-    it('should have a text type', () => {
-      expect(textField.type).to.equal('text');
+    it('should have aria-expanded set to false initially', () => {
+      expect(button).to.have.attribute('aria-expanded', 'false');
     });
 
-    it('should not be disabled', () => {
-      expect(textField).not.to.have.attribute('disabled');
-    });
-
-    it('should be disabled when set', async () => {
-      el.disabled = true;
+    it('should update aria-expanded to true when popover is opened', async () => {
+      button.click();
       await el.updateComplete;
 
-      expect(textField).to.have.attribute('disabled');
+      expect(button).to.have.attribute('aria-expanded', 'true');
     });
 
-    it('should not be readonly', () => {
-      expect(textField).not.to.have.attribute('readonly');
-    });
-
-    it('should be readonly when set', async () => {
-      el.readonly = true;
+    it('should update aria-expanded to false when popover is closed', async () => {
+      button.click();
       await el.updateComplete;
 
-      expect(textField).to.have.attribute('readonly');
-    });
-
-    it('should not have a placeholder', () => {
-      expect(textField).not.to.have.attribute('placeholder');
-    });
-
-    it('should have a placeholder when set', async () => {
-      el.placeholder = 'Select time';
+      button.click();
       await el.updateComplete;
 
-      expect(textField).to.have.attribute('placeholder', 'Select time');
+      expect(button).to.have.attribute('aria-expanded', 'false');
     });
 
-    it('should not be required', () => {
-      expect(textField).not.to.have.attribute('required');
-    });
-
-    it('should be required when set', async () => {
-      el.required = true;
-      await el.updateComplete;
-
-      expect(textField).to.have.attribute('required');
-    });
-
-    it('should not have a value', () => {
-      expect(textField.input.value).to.equal('');
-      expect(textField.value).to.equal('');
-    });
-
-    it('should have a value when set', async () => {
-      el.value = '2:45';
-      await el.updateComplete;
-
-      expect(textField.input.value).to.equal('02:45');
-      expect(textField.value).to.equal('02:45');
-    });
-
-    it('should open the popover on click', async () => {
-      textField.click();
-      await el.updateComplete;
-
-      const dialog = el.renderRoot.querySelector<HTMLElement>('dialog')!;
-
-      expect(dialog).to.exist;
-      expect(dialog).to.match(':popover-open');
-    });
-
-    it('should not open the popover on focus', async () => {
-      textField.focus();
-      await el.updateComplete;
-
-      const dialog = el.renderRoot.querySelector<HTMLElement>('dialog')!;
-
-      expect(dialog).to.exist;
-      expect(dialog).not.to.match(':popover-open');
+    it('should have aria-haspopup set to dialog', () => {
+      expect(button).to.have.attribute('aria-haspopup', 'dialog');
     });
   });
 
@@ -334,22 +298,27 @@ describe('sl-time-field', () => {
       await el.updateComplete;
 
       expect(el.value).to.equal('04:10');
-      expect(el.textField.value).to.equal('04:10');
     });
 
     it('should focus the start hour when opened', async () => {
-      el.textField.focus();
-      await userEvent.tab();
-      await userEvent.keyboard('{Space}');
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog')!;
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      // Wait for popover to open
+      await waitForPopoverState(dialog, true);
 
       expect(el.shadowRoot?.activeElement).to.match('li');
       expect(el.shadowRoot?.activeElement?.parentElement).to.match('ul.hours');
     });
 
     it('should switch focus between start hour and minute when pressing horizontal arrows', async () => {
-      el.textField.focus();
-      await userEvent.tab();
-      await userEvent.keyboard('{Space}');
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog')!;
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      // Wait for popover to open
+      await waitForPopoverState(dialog, true);
 
       await userEvent.keyboard('{ArrowRight}');
 
@@ -365,53 +334,61 @@ describe('sl-time-field', () => {
     });
 
     it('should select the hour when pressing enter on an hour option', async () => {
-      el.textField.focus();
-      await userEvent.tab();
-      await userEvent.keyboard('{Enter}');
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog')!;
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      // Wait for popover to open
+      await waitForPopoverState(dialog, true);
 
       await userEvent.keyboard('{ArrowDown}');
       await userEvent.keyboard('{Enter}');
 
       expect(el.value).to.equal('13:00');
-      expect(el.textField.value).to.equal('13:00');
     });
 
     it('should select the hour when pressing space on an hour option', async () => {
-      el.textField.focus();
-      await userEvent.tab();
-      await userEvent.keyboard('{Space}');
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog')!;
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      // Wait for popover to open
+      await waitForPopoverState(dialog, true);
 
       await userEvent.keyboard('{ArrowUp}');
-      await userEvent.keyboard('{Space}');
+      await userEvent.keyboard(' ');
 
       expect(el.value).to.equal('11:00');
-      expect(el.textField.value).to.equal('11:00');
     });
 
     it('should select the minute when pressing enter on a minute option', async () => {
-      el.textField.focus();
-      await userEvent.tab();
-      await userEvent.keyboard('{Enter}');
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog')!;
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      // Wait for popover to open
+      await waitForPopoverState(dialog, true);
 
       await userEvent.keyboard('{ArrowRight}');
       await userEvent.keyboard('{ArrowDown}');
       await userEvent.keyboard('{Enter}');
 
       expect(el.value).to.equal('12:05');
-      expect(el.textField.value).to.equal('12:05');
     });
 
     it('should select the minute when pressing space on a minute option', async () => {
-      el.textField.focus();
-      await userEvent.tab();
-      await userEvent.keyboard('{Space}');
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog')!;
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      // Wait for popover to open
+      await waitForPopoverState(dialog, true);
 
       await userEvent.keyboard('{ArrowRight}');
       await userEvent.keyboard('{ArrowUp}');
-      await userEvent.keyboard('{Space}');
+      await userEvent.keyboard(' ');
 
       expect(el.value).to.equal('12:55');
-      expect(el.textField.value).to.equal('12:55');
     });
 
     it('should update the dialog selection when the timeField value is changed', async () => {
@@ -431,6 +408,411 @@ describe('sl-time-field', () => {
     });
   });
 
+  describe('arrow key step navigation', () => {
+    describe('with default steps', () => {
+      beforeEach(async () => {
+        el = await fixture(html`<sl-time-field value="12:30"></sl-time-field>`);
+      });
+
+      it('should increment hour by 1 when ArrowUp is pressed on hour input', async () => {
+        const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+        hourSpinbutton.focus();
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('13:30');
+      });
+
+      it('should decrement hour by 1 when ArrowDown is pressed on hour input', async () => {
+        const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+        hourSpinbutton.focus();
+        await userEvent.keyboard('{ArrowDown}');
+
+        expect(el.value).to.equal('11:30');
+      });
+
+      it('should increment minute by 5 when ArrowUp is pressed on minute input', async () => {
+        const minuteSpinbutton = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]')[1];
+        minuteSpinbutton.focus();
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('12:35');
+      });
+
+      it('should decrement minute by 5 when ArrowDown is pressed on minute input', async () => {
+        const minuteSpinbutton = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]')[1];
+        minuteSpinbutton.focus();
+        await userEvent.keyboard('{ArrowDown}');
+
+        expect(el.value).to.equal('12:25');
+      });
+
+      it('should wrap hour from 23 to 0 when incrementing', async () => {
+        el.value = '23:30';
+        await el.updateComplete;
+
+        const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+        hourSpinbutton.focus();
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('00:30');
+      });
+
+      it('should wrap hour from 0 to 23 when decrementing', async () => {
+        el.value = '00:30';
+        await el.updateComplete;
+
+        const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+        hourSpinbutton.focus();
+        await userEvent.keyboard('{ArrowDown}');
+
+        expect(el.value).to.equal('23:30');
+      });
+
+      it('should wrap minute from 55 to 0 when incrementing', async () => {
+        el.value = '12:55';
+        await el.updateComplete;
+
+        const minuteSpinbutton = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]')[1];
+        minuteSpinbutton.focus();
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('12:00');
+      });
+
+      it('should wrap minute from 0 to 55 when decrementing', async () => {
+        el.value = '12:00';
+        await el.updateComplete;
+
+        const minuteSpinbutton = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]')[1];
+        minuteSpinbutton.focus();
+        await userEvent.keyboard('{ArrowDown}');
+
+        expect(el.value).to.equal('12:55');
+      });
+    });
+
+    describe('with custom hour step', () => {
+      beforeEach(async () => {
+        el = await fixture(html`<sl-time-field hour-step="3" value="12:30"></sl-time-field>`);
+      });
+
+      it('should increment hour by 3 when ArrowUp is pressed', async () => {
+        const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+        hourSpinbutton.focus();
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('15:30');
+      });
+
+      it('should decrement hour by 3 when ArrowDown is pressed', async () => {
+        const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+        hourSpinbutton.focus();
+        await userEvent.keyboard('{ArrowDown}');
+
+        expect(el.value).to.equal('09:30');
+      });
+
+      it('should wrap correctly with custom step', async () => {
+        el.value = '22:30';
+        await el.updateComplete;
+
+        const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+        hourSpinbutton.focus();
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('01:30');
+      });
+    });
+
+    describe('with custom minute step', () => {
+      beforeEach(async () => {
+        el = await fixture(html`<sl-time-field minute-step="15" value="12:30"></sl-time-field>`);
+      });
+
+      it('should increment minute by 15 when ArrowUp is pressed', async () => {
+        const minuteSpinbutton = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]')[1];
+        minuteSpinbutton.focus();
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('12:45');
+      });
+
+      it('should decrement minute by 15 when ArrowDown is pressed', async () => {
+        const minuteSpinbutton = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]')[1];
+        minuteSpinbutton.focus();
+        await userEvent.keyboard('{ArrowDown}');
+
+        expect(el.value).to.equal('12:15');
+      });
+
+      it('should wrap correctly with custom step', async () => {
+        el.value = '12:45';
+        await el.updateComplete;
+
+        const minuteSpinbutton = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]')[1];
+        minuteSpinbutton.focus();
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('12:00');
+      });
+    });
+
+    describe('with both custom steps', () => {
+      beforeEach(async () => {
+        el = await fixture(html`<sl-time-field hour-step="2" minute-step="10" value="10:20"></sl-time-field>`);
+      });
+
+      it('should use hourStep for hour navigation', async () => {
+        const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+        hourSpinbutton.focus();
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('12:20');
+
+        await userEvent.keyboard('{ArrowDown}');
+        await userEvent.keyboard('{ArrowDown}');
+
+        expect(el.value).to.equal('08:20');
+      });
+
+      it('should use minuteStep for minute navigation', async () => {
+        const minuteSpinbutton = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]')[1];
+        minuteSpinbutton.focus();
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('10:30');
+
+        await userEvent.keyboard('{ArrowDown}');
+        await userEvent.keyboard('{ArrowDown}');
+
+        expect(el.value).to.equal('10:10');
+      });
+    });
+
+    describe('with min/max constraints', () => {
+      beforeEach(async () => {
+        el = await fixture(html`<sl-time-field hour-step="2" min="08:00" max="18:00" value="10:00"></sl-time-field>`);
+      });
+
+      it('should respect min constraint when using custom hour step', async () => {
+        el.value = '08:00';
+        await el.updateComplete;
+
+        const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+        hourSpinbutton.focus();
+        await userEvent.keyboard('{ArrowDown}');
+
+        expect(el.value).to.equal('08:00');
+      });
+
+      it('should respect max constraint when using custom hour step', async () => {
+        el.value = '18:00';
+        await el.updateComplete;
+
+        const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+        hourSpinbutton.focus();
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('18:00');
+      });
+
+      it('should respect minute constraints with custom minute step', async () => {
+        el = await fixture(
+          html`<sl-time-field minute-step="15" min="10:30" max="10:45" value="10:30"></sl-time-field>`
+        );
+
+        const minuteSpinbutton = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]')[1];
+        minuteSpinbutton.focus();
+        await userEvent.keyboard('{ArrowDown}');
+
+        // Should stay at min when trying to go below
+        expect(el.value).to.equal('10:30');
+
+        el.value = '10:45';
+        await el.updateComplete;
+        minuteSpinbutton.focus();
+        await userEvent.keyboard('{ArrowUp}');
+
+        // When at 10:45 and stepping up by 15, wraps to 0, then constrains to min (30)
+        expect(el.value).to.equal('10:30');
+      });
+    });
+
+    describe('readonly and selectOnly', () => {
+      it('should not change value when readonly with arrow keys', async () => {
+        el = await fixture(html`<sl-time-field readonly value="12:30"></sl-time-field>`);
+
+        const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+        hourSpinbutton.focus();
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('12:30');
+      });
+
+      it('should not change value when selectOnly with arrow keys', async () => {
+        el = await fixture(html`<sl-time-field select-only value="12:30"></sl-time-field>`);
+
+        const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+        hourSpinbutton.focus();
+        await userEvent.keyboard('{ArrowUp}');
+
+        expect(el.value).to.equal('12:30');
+      });
+    });
+  });
+
+  describe('focusout', () => {
+    let dialog: HTMLDialogElement, outsideButton: HTMLButtonElement;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-time-field start="12:00"></sl-time-field>
+        <button>Outside</button>
+      `);
+
+      dialog = el.renderRoot.querySelector('dialog')!;
+      outsideButton = el.nextElementSibling as HTMLButtonElement;
+    });
+
+    it('should close the popover when focus moves outside the component', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      expect(dialog).to.match(':popover-open');
+
+      outsideButton.focus();
+      await el.updateComplete;
+
+      expect(dialog).not.to.match(':popover-open');
+    });
+
+    it('should not close the popover when focus moves within the component', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      expect(dialog).to.match(':popover-open');
+
+      el.dispatchEvent(
+        new FocusEvent('focusout', {
+          bubbles: true,
+          composed: true,
+          relatedTarget: el.renderRoot.querySelector('[role="spinbutton"]')!
+        })
+      );
+      await el.updateComplete;
+
+      expect(dialog).to.match(':popover-open');
+    });
+
+    it('should close the popover when focus leaves the page entirely', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      expect(dialog).to.match(':popover-open');
+
+      el.dispatchEvent(new FocusEvent('focusout', { bubbles: true, composed: true, relatedTarget: null }));
+
+      // Wait for popover to close
+      await waitForPopoverState(dialog, false);
+
+      expect(dialog).not.to.match(':popover-open');
+    });
+
+    it('should not restore focus to the text-field when focus is leaving the component', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      outsideButton.focus();
+
+      // Wait for popover to close
+      await waitForPopoverState(dialog, false);
+
+      expect(document.activeElement).to.equal(outsideButton);
+    });
+
+    it('should restore focus to the text-field when the popover is closed by selecting a minute', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      expect(dialog).to.match(':popover-open');
+
+      el.renderRoot.querySelector<HTMLElement>('.minutes li')?.click();
+
+      // Wait for popover to close
+      await waitForPopoverState(dialog, false);
+
+      expect(dialog).not.to.match(':popover-open');
+      expect(el).to.match(':focus-within');
+    });
+
+    it('should restore focus to the text-field when the popover is closed by pressing Escape', async () => {
+      const input = el.renderRoot.querySelector('[role="spinbutton"]');
+
+      expect(input).to.exist;
+      (input as HTMLElement).focus();
+
+      await userEvent.tab();
+      await userEvent.keyboard('{Space}');
+      await el.updateComplete;
+
+      // Wait for popover to open
+      await waitForPopoverState(dialog, true);
+
+      expect(dialog).to.match(':popover-open');
+
+      await userEvent.keyboard('{Escape}');
+      await el.updateComplete;
+
+      // Wait for popover to close
+      await waitForPopoverState(dialog, false);
+
+      expect(dialog).not.to.match(':popover-open');
+      expect(el).to.match(':focus-within');
+    });
+
+    it('should close the popover and move focus outside the component when pressing Tab', async () => {
+      const button = el.renderRoot.querySelector<HTMLElement>('sl-field-button')!;
+
+      button.click();
+      await el.updateComplete;
+
+      // Wait for popover to open
+      await waitForPopoverState(dialog, true);
+
+      expect(dialog).to.match(':popover-open');
+
+      await userEvent.tab();
+      await el.updateComplete;
+
+      // Wait for popover to close
+      await waitForPopoverState(dialog, false);
+
+      expect(dialog).not.to.match(':popover-open');
+      expect(document.activeElement).to.equal(outsideButton);
+    });
+
+    it('should close the popover and move focus to the button when pressing Shift+Tab', async () => {
+      const button = el.renderRoot.querySelector<HTMLElement>('sl-field-button')!;
+
+      button.click();
+      await el.updateComplete;
+
+      // Wait for popover to open
+      await waitForPopoverState(dialog, true);
+
+      expect(dialog).to.match(':popover-open');
+
+      await userEvent.tab({ shift: true });
+      await el.updateComplete;
+
+      // Wait for popover to close
+      await waitForPopoverState(dialog, false);
+
+      expect(dialog).not.to.match(':popover-open');
+      expect(el.shadowRoot?.activeElement).to.equal(el.button);
+    });
+  });
+
   describe('min/max', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-time-field min="08:00" max="14:00"></sl-time-field>`);
@@ -447,33 +829,87 @@ describe('sl-time-field', () => {
     });
 
     it('should not go below the minimum time when using the arrow keys', async () => {
-      el.value = '09:00';
+      el.value = '08:00';
       await el.updateComplete;
 
-      el.textField.focus();
+      const input = el.renderRoot.querySelector('[role="spinbutton"]');
+
+      expect(input).to.exist;
+      (input as HTMLElement).focus();
+
       await userEvent.keyboard('{ArrowDown}');
-      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
 
       expect(el.value).to.equal('08:00');
-      expect(el.textField.value).to.equal('08:00');
     });
 
     it('should not go above the maximum time when using the arrow keys', async () => {
-      el.value = '13:00';
+      el.value = '14:00';
       await el.updateComplete;
 
-      el.textField.focus();
+      const input = el.renderRoot.querySelector('[role="spinbutton"]');
+
+      expect(input).to.exist;
+      (input as HTMLElement).focus();
+
       await userEvent.keyboard('{ArrowUp}');
-      await userEvent.keyboard('{ArrowUp}');
+      await el.updateComplete;
 
       expect(el.value).to.equal('14:00');
-      expect(el.textField.value).to.equal('14:00');
     });
 
+    it('should not go below the minimum time when using the arrow keys in the select dropdown', async () => {
+      el.value = '08:30';
+      el.min = '08:30';
+      await el.updateComplete;
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      const selectedMinute = el.renderRoot.querySelector<HTMLElement>('.minutes li[aria-selected="true"]');
+      expect(selectedMinute).to.exist;
+
+      selectedMinute?.focus();
+      await userEvent.keyboard('{ArrowUp}');
+      await el.updateComplete;
+
+      const selectedHourAfter = el.renderRoot.querySelector<HTMLElement>('.hours li[aria-selected="true"]'),
+        selectedMinuteAfter = el.renderRoot.querySelector<HTMLElement>('.minutes li[aria-selected="true"]');
+
+      expect(selectedHourAfter).to.exist;
+      expect(selectedHourAfter).to.have.trimmed.text('08');
+      expect(selectedMinuteAfter).to.exist;
+      expect(selectedMinuteAfter).to.have.trimmed.text('30');
+      expect(el.value).to.equal('08:30');
+    });
+
+    it('should not go above the maximum time when using arrow keys in the select dropdown', async () => {
+      el.value = '14:00';
+      el.max = '14:00';
+      await el.updateComplete;
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      const selectedMinute = el.renderRoot.querySelector<HTMLElement>('.minutes li[aria-selected="true"]');
+
+      expect(selectedMinute).to.exist;
+
+      selectedMinute?.focus();
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      const selectedHourAfter = el.renderRoot.querySelector<HTMLElement>('.hours li[aria-selected="true"]'),
+        selectedMinuteAfter = el.renderRoot.querySelector<HTMLElement>('.minutes li[aria-selected="true"]');
+
+      expect(selectedHourAfter).to.exist;
+      expect(selectedHourAfter).to.have.trimmed.text('14');
+      expect(selectedMinuteAfter).to.exist;
+      expect(selectedMinuteAfter).to.have.trimmed.text('00');
+      expect(el.value).to.equal('14:00');
+    });
     it('should be invalid when the value is before the minimum time', async () => {
-      el.textField.focus();
-      await userEvent.keyboard('07:00');
-      el.textField.input.blur();
+      el.value = '07:00';
       await el.updateComplete;
 
       expect(el.valid).to.be.false;
@@ -481,9 +917,7 @@ describe('sl-time-field', () => {
     });
 
     it('should be invalid when the value is after the maximum time', async () => {
-      el.textField.focus();
-      await userEvent.keyboard('19:00');
-      el.textField.input.blur();
+      el.value = '19:00';
       await el.updateComplete;
 
       expect(el.valid).to.be.false;
@@ -491,12 +925,575 @@ describe('sl-time-field', () => {
     });
 
     it('should be valid when the value is within the range', async () => {
-      el.textField.focus();
-      await userEvent.keyboard('10:00');
-      el.textField.input.blur();
+      el.value = '10:00';
       await el.updateComplete;
 
       expect(el.valid).to.be.true;
+    });
+  });
+
+  describe('disabling minutes based on min/max', () => {
+    it('should disable minutes when selected hour equals min hour', async () => {
+      el = await fixture(html`<sl-time-field min="08:40" value="08:00"></sl-time-field>`);
+      await el.updateComplete;
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      el.requestUpdate();
+      await el.updateComplete;
+
+      const minutes00 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+          li => li.textContent?.trim() === '00'
+        ),
+        minutes35 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+          li => li.textContent?.trim() === '35'
+        ),
+        minutes40 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+          li => li.textContent?.trim() === '40'
+        ),
+        minutes45 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+          li => li.textContent?.trim() === '45'
+        );
+
+      expect(minutes00).to.have.attribute('disabled');
+      expect(minutes35).to.have.attribute('disabled');
+      expect(minutes40).not.to.have.attribute('disabled');
+      expect(minutes45).not.to.have.attribute('disabled');
+    });
+
+    it('should disable minutes when selected hour equals max hour', async () => {
+      el = await fixture(html`<sl-time-field max="14:20" value="14:00"></sl-time-field>`);
+      await el.updateComplete;
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      const minutes15 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+          li => li.textContent?.trim() === '15'
+        ),
+        minutes20 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+          li => li.textContent?.trim() === '20'
+        ),
+        minutes25 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+          li => li.textContent?.trim() === '25'
+        ),
+        minutes55 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+          li => li.textContent?.trim() === '55'
+        );
+
+      expect(minutes15).not.to.have.attribute('disabled');
+      expect(minutes20).not.to.have.attribute('disabled');
+      expect(minutes25).to.have.attribute('disabled');
+      expect(minutes55).to.have.attribute('disabled');
+    });
+
+    it('should not disable minutes when selected hour is between min and max hours', async () => {
+      el = await fixture(html`<sl-time-field min="08:40" max="14:20" value="10:00"></sl-time-field>`);
+      await el.updateComplete;
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      const disabledMinutes = Array.from(el.renderRoot.querySelectorAll('.minutes li[disabled]'));
+      expect(disabledMinutes).to.have.length(0);
+    });
+
+    it('should not change value when clicking on a disabled minute', async () => {
+      el = await fixture(html`<sl-time-field min="08:40" value="08:50"></sl-time-field>`);
+      await el.updateComplete;
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      const minutes30 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+        li => li.textContent?.trim() === '30'
+      );
+
+      expect(minutes30).to.have.attribute('disabled');
+
+      const originalValue = el.value;
+      (minutes30 as HTMLElement)?.click();
+      await el.updateComplete;
+
+      expect(el.value).to.equal(originalValue);
+    });
+
+    it('should focus first enabled minute when navigating to minutes column', async () => {
+      el = await fixture(html`<sl-time-field min="08:40" value="08:00" minute-step="5"></sl-time-field>`);
+      await el.updateComplete;
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      const hour08 = Array.from(el.renderRoot.querySelectorAll('.hours li')).find(
+        li => li.textContent?.trim() === '08'
+      ) as HTMLElement;
+      hour08.focus();
+
+      await userEvent.keyboard('{ArrowRight}');
+
+      const focusedElement = el.shadowRoot?.activeElement;
+
+      expect(focusedElement).to.exist;
+      expect(focusedElement).to.have.trimmed.text('40');
+    });
+
+    it('should go to first enabled minutes when pressing ArrowDown from last enabled minutes', async () => {
+      el = await fixture(html`<sl-time-field max="14:20" value="14:00" minute-step="5"></sl-time-field>`);
+      await el.updateComplete;
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      const minute20 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+        li => li.textContent?.trim() === '20'
+      ) as HTMLElement;
+      minute20.focus();
+
+      await userEvent.keyboard('{ArrowDown}');
+
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('00');
+    });
+
+    it('should take into account minutes constraints when using arrow keys on input with min', async () => {
+      el = await fixture(html`<sl-time-field min="08:40" value="08:40"></sl-time-field>`);
+      await el.updateComplete;
+
+      const spinbuttons = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+      spinbuttons[1].focus(); // Focus on minutes
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      expect(el.value).to.equal('08:40');
+    });
+
+    it('should take into account minutes constraints when using arrow keys on input with max', async () => {
+      el = await fixture(html`<sl-time-field max="14:20" value="14:20"></sl-time-field>`);
+      await el.updateComplete;
+
+      const spinbuttons = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+      spinbuttons[1].focus(); // Focus on minutes
+      await userEvent.keyboard('{ArrowUp}');
+      await el.updateComplete;
+
+      expect(el.value).to.equal('14:20');
+    });
+
+    it('should adjust minutes when arrowing hours down to min hour with minute constraints', async () => {
+      el = await fixture(html`<sl-time-field min="08:40" value="09:30"></sl-time-field>`);
+      await el.updateComplete;
+
+      const spinbuttons = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+      spinbuttons[0].focus(); // Focus on hours
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      expect(el.value).to.equal('08:40');
+    });
+
+    it('should adjust minutes when arrowing hours up to max hour with minute constraints', async () => {
+      el = await fixture(html`<sl-time-field max="14:20" value="13:30"></sl-time-field>`);
+      await el.updateComplete;
+
+      const spinbuttons = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+      spinbuttons[0].focus(); // Focus on hours
+      await userEvent.keyboard('{ArrowUp}');
+      await el.updateComplete;
+
+      expect(el.value).to.equal('14:20');
+    });
+
+    it('should handle arrowing hours below min hour and adjust both hours and minutes', async () => {
+      el = await fixture(html`<sl-time-field min="10:45" value="10:30"></sl-time-field>`);
+      await el.updateComplete;
+
+      const spinbuttons = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+      spinbuttons[0].focus(); // Focus on hours
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      expect(el.value).to.equal('10:45');
+    });
+
+    it('should handle arrowing hours above max hour and adjust both hours and minutes', async () => {
+      el = await fixture(html`<sl-time-field max="15:30" value="15:45"></sl-time-field>`);
+      await el.updateComplete;
+
+      const spinbuttons = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+      spinbuttons[0].focus(); // Focus on hours
+      await userEvent.keyboard('{ArrowUp}');
+      await el.updateComplete;
+
+      expect(el.value).to.equal('15:30');
+    });
+
+    it('should keep minutes when arrowing to hour that allows current minutes', async () => {
+      el = await fixture(html`<sl-time-field max="14:20" value="12:15"></sl-time-field>`);
+      await el.updateComplete;
+
+      const spinbuttons = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+      spinbuttons[0].focus(); // Focus on hours
+      await userEvent.keyboard('{ArrowUp}');
+      await el.updateComplete;
+
+      expect(el.value).to.equal('13:15');
+    });
+
+    it('should pick a valid minute when an hour is clicked and some minutes are disabled and min is set', async () => {
+      el = await fixture(html`<sl-time-field min="08:40"></sl-time-field>`);
+      await el.updateComplete;
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      const hour08 = Array.from(el.renderRoot.querySelectorAll('.hours li')).find(
+        li => li.textContent?.trim() === '08'
+      );
+      (hour08 as HTMLElement)?.click();
+      await el.updateComplete;
+
+      expect(el.value).to.equal('08:40');
+    });
+
+    it('should constrain minutes when selecting an hour via click and max is set', async () => {
+      el = await fixture(html`<sl-time-field max="14:20" value="10:00"></sl-time-field>`);
+      await el.updateComplete;
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      const hour14 = Array.from(el.renderRoot.querySelectorAll('.hours li')).find(
+        li => li.textContent?.trim() === '14'
+      ) as HTMLElement;
+      hour14.click();
+      await el.updateComplete;
+
+      expect(el.value).to.equal('14:00');
+    });
+
+    it('should have aria-selected set to false for disabled minutes', async () => {
+      el = await fixture(html`<sl-time-field min="08:40" value="08:30"></sl-time-field>`);
+      await el.updateComplete;
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      const minutes30 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+        li => li.textContent?.trim() === '30'
+      );
+
+      expect(minutes30).to.have.attribute('disabled');
+      expect(minutes30).to.have.attribute('aria-selected', 'false');
+    });
+
+    it('should scroll to constrained minute when opening picker with invalid minute', async () => {
+      el = await fixture(html`<sl-time-field min="08:40" value="08:30"></sl-time-field>`);
+      await el.updateComplete;
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      const minutes30 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+          li => li.textContent?.trim() === '30'
+        ),
+        minutes40 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+          li => li.textContent?.trim() === '40'
+        );
+
+      expect(minutes30).to.have.attribute('disabled');
+      expect(minutes40).not.have.attribute('disabled');
+    });
+
+    it('should handle both min and max minute constraints for the same hour', async () => {
+      el = await fixture(html`<sl-time-field min="10:20" max="10:40" value="10:00"></sl-time-field>`);
+      await el.updateComplete;
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      const minutes15 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+          li => li.textContent?.trim() === '15'
+        ),
+        minutes20 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+          li => li.textContent?.trim() === '20'
+        ),
+        minutes40 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+          li => li.textContent?.trim() === '40'
+        ),
+        minutes45 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+          li => li.textContent?.trim() === '45'
+        );
+
+      expect(minutes15).to.have.attribute('disabled');
+      expect(minutes20).not.to.have.attribute('disabled');
+      expect(minutes40).not.to.have.attribute('disabled');
+      expect(minutes45).to.have.attribute('disabled');
+    });
+
+    it('should handle minute step that does not align with min constraint', async () => {
+      el = await fixture(html`<sl-time-field min="08:42" minute-step="15" value="08:00"></sl-time-field>`);
+      await el.updateComplete;
+
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog')!;
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      // Wait for popover to open
+      await waitForPopoverState(dialog, true);
+
+      const minutes00 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+          li => li.textContent?.trim() === '00'
+        ),
+        minutes30 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+          li => li.textContent?.trim() === '30'
+        ),
+        minutes45 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+          li => li.textContent?.trim() === '45'
+        );
+
+      expect(minutes00).to.have.attribute('disabled');
+      expect(minutes30).to.have.attribute('disabled');
+      expect(minutes45).not.to.have.attribute('disabled');
+
+      const hour08 = Array.from(el.renderRoot.querySelectorAll('.hours li')).find(
+        li => li.textContent?.trim() === '08'
+      );
+      (hour08 as HTMLElement)?.click();
+      await el.updateComplete;
+
+      expect(el.value).to.equal('08:45');
+    });
+
+    it('should not allow using Enter to select minutes on disabled minutes', async () => {
+      el = await fixture(html`<sl-time-field min="08:40" value="08:50"></sl-time-field>`);
+      await el.updateComplete;
+
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog')!;
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      // Wait for popover to open
+      await waitForPopoverState(dialog, true);
+
+      const minutes30 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+        li => li.textContent?.trim() === '30'
+      ) as HTMLElement;
+
+      expect(minutes30).to.have.attribute('disabled');
+
+      const originalValue = el.value;
+      minutes30.focus();
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+
+      expect(el.value).to.equal(originalValue);
+    });
+
+    it('should not allow using Space to select minutes on disabled minutes', async () => {
+      el = await fixture(html`<sl-time-field min="08:40" value="08:50"></sl-time-field>`);
+      await el.updateComplete;
+
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog')!;
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      // Wait for popover to open
+      await waitForPopoverState(dialog, true);
+
+      const minutes30 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+        li => li.textContent?.trim() === '30'
+      ) as HTMLElement;
+
+      expect(minutes30).to.have.attribute('disabled');
+
+      const originalValue = el.value;
+      minutes30.focus();
+      await userEvent.keyboard(' ');
+      await el.updateComplete;
+
+      expect(el.value).to.equal(originalValue);
+    });
+
+    it('should not focus disabled minutes when value contains disabled minute', async () => {
+      el = await fixture(html`<sl-time-field min="08:40" value="08:30"></sl-time-field>`);
+      await el.updateComplete;
+
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog')!;
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      // Wait for popover to open
+      await waitForPopoverState(dialog, true);
+
+      const minutes30 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+        li => li.textContent?.trim() === '30'
+      );
+
+      expect(minutes30).to.have.attribute('disabled');
+
+      const originalValue = el.value;
+      (minutes30 as HTMLElement)?.click();
+      await el.updateComplete;
+
+      expect(el.value).to.equal(originalValue);
+    });
+
+    it('should not have tabindex on disabled minutes to prevent focus', async () => {
+      el = await fixture(html`<sl-time-field min="08:40" value="08:50"></sl-time-field>`);
+      await el.updateComplete;
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      const minutes30 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+        li => li.textContent?.trim() === '30'
+      ) as HTMLElement;
+
+      expect(minutes30).to.have.attribute('disabled');
+
+      minutes30.focus();
+
+      expect(el.shadowRoot?.activeElement).not.to.equal(minutes30);
+
+      const minutes40 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+        li => li.textContent?.trim() === '40'
+      ) as HTMLElement;
+
+      expect(minutes40).not.to.have.attribute('disabled');
+      expect(minutes40).to.have.attribute('tabindex', '-1');
+
+      minutes40.focus();
+
+      expect(el.shadowRoot?.activeElement).to.equal(minutes40);
+    });
+
+    it('should maintain keyboard navigation after clicking near disabled minute', async () => {
+      el = await fixture(html`<sl-time-field min="08:40" value="08:50" minute-step="5"></sl-time-field>`);
+      await el.updateComplete;
+
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog')!;
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      // Wait for popover to open
+      await waitForPopoverState(dialog, true);
+
+      const minutes30 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+        li => li.textContent?.trim() === '30'
+      ) as HTMLElement;
+
+      expect(minutes30).to.have.attribute('disabled');
+
+      minutes30.click();
+      await el.updateComplete;
+
+      // Verify popover is still open after clicking disabled minute
+      expect(dialog).to.match(':popover-open');
+
+      const minutes40 = Array.from(el.renderRoot.querySelectorAll('.minutes li')).find(
+        li => li.textContent?.trim() === '40'
+      ) as HTMLElement;
+
+      minutes40.focus();
+      await el.updateComplete;
+
+      expect(el.shadowRoot?.activeElement).to.equal(minutes40);
+      expect(dialog.contains(el.shadowRoot?.activeElement as Node)).to.be.true;
+
+      // Dispatch keyboard event directly to the dialog
+      dialog.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, cancelable: true }));
+      await el.updateComplete;
+
+      const focusedElement = el.shadowRoot?.activeElement;
+
+      expect(focusedElement).to.have.trimmed.text('45');
+    });
+
+    it('should handle min time with minutes 59 when minute-step is set to 5', async () => {
+      el = await fixture(html`<sl-time-field min="10:59" minute-step="5"></sl-time-field>`);
+      await el.updateComplete;
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      const hour10 = Array.from(el.renderRoot.querySelectorAll('.hours li')).find(
+        li => li.textContent?.trim() === '10'
+      );
+
+      (hour10 as HTMLElement)?.click();
+      await el.updateComplete;
+
+      // Should be 10:59, not 10:60
+      expect(el.value).to.equal('10:59');
+    });
+
+    it('should handle min time at 23:59 when minute-step is set to 5', async () => {
+      el = await fixture(html`<sl-time-field min="23:59" minute-step="5"></sl-time-field>`);
+      await el.updateComplete;
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      const hour23 = Array.from(el.renderRoot.querySelectorAll('.hours li')).find(
+        li => li.textContent?.trim() === '23'
+      );
+
+      (hour23 as HTMLElement)?.click();
+      await el.updateComplete;
+
+      // Should be 23:59, not 23:60 or 24:00
+      expect(el.value).to.equal('23:59');
+    });
+
+    it('should handle min time with large minute step near hour boundary', async () => {
+      el = await fixture(html`<sl-time-field min="10:58" minute-step="15"></sl-time-field>`);
+      await el.updateComplete;
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      const hour10 = Array.from(el.renderRoot.querySelectorAll('.hours li')).find(
+        li => li.textContent?.trim() === '10'
+      );
+
+      (hour10 as HTMLElement).click();
+      await el.updateComplete;
+
+      // Should be 10:59, not 10:60 or 10:75
+      expect(el.value).to.equal('10:59');
+    });
+
+    it('should not change current value when opening dialog with constraints', async () => {
+      el = await fixture(html`<sl-time-field min="08:00" max="17:00" value="10:37"></sl-time-field>`);
+      await el.updateComplete;
+
+      const originalValue = el.value;
+      expect(originalValue).to.equal('10:37');
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      expect(el.value).to.equal(originalValue);
+      expect(el.value).to.equal('10:37');
+
+      el.dialog?.hidePopover();
+      await el.updateComplete;
+
+      expect(el.value).to.equal('10:37');
+    });
+
+    it('should not change the value when opening dialog with minute step constraints', async () => {
+      el = await fixture(html`<sl-time-field minute-step="15" value="10:23"></sl-time-field>`);
+      await el.updateComplete;
+
+      const originalValue = el.value;
+      expect(originalValue).to.equal('10:23');
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
+
+      expect(el.value).to.equal('10:23');
     });
   });
 
@@ -529,209 +1526,73 @@ describe('sl-time-field', () => {
       expect(el.validationMessage).to.equal('Please enter a time.');
     });
 
-    it('should be invalid when the time has the wrong syntax', async () => {
-      el.textField.focus();
+    it('should prevent non-numeric input and remain invalid when entering invalid characters', async () => {
+      const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+      hourSpinbutton.focus();
       await userEvent.keyboard('ab:cd');
-
-      el.textField.input.blur();
       await el.updateComplete;
 
+      // Component should prevent non-numeric input, so value remains empty
+      expect(el.value).to.be.undefined;
       expect(el.valid).to.be.false;
-      expect(el.validationMessage).to.equal('Please enter a valid time in HH:MM.');
+      expect(el.validationMessage).to.equal('Please enter a time.');
     });
 
     it('should be valid when the time has the correct syntax', async () => {
-      el.textField.focus();
-      await userEvent.keyboard('12:34');
-      el.textField.input.blur();
+      el.value = '12:34';
       await el.updateComplete;
 
       expect(el.valid).to.be.true;
     });
   });
 
-  describe('start time', () => {
-    beforeEach(async () => {
-      el = await fixture(html`<sl-time-field></sl-time-field>`);
+  describe('locale', () => {
+    it('should gracefully handle "default" locale without crashing', async () => {
+      const field = await fixture<TimeField>(html`<sl-time-field locale="default" value="00:00"></sl-time-field>`);
+
+      expect(field).to.exist;
+      expect(field.value).to.equal('00:00');
+      expect(field.renderRoot.querySelectorAll('span[role="spinbutton"]')).to.have.length(2);
     });
 
-    it('should use the current time by default', async () => {
-      const now = new Date(),
-        hours = (now.getHours() - 1).toString().padStart(2, '0'),
-        current = `${hours}:00`;
+    it('should gracefully handle an empty locale attribute without crashing', async () => {
+      const field = await fixture<TimeField>(html`<sl-time-field locale="" value="00:00"></sl-time-field>`);
 
-      el.textField.focus();
-      await el.updateComplete;
-
-      await userEvent.keyboard('{ArrowDown}');
-
-      expect(el.value).to.equal(current);
-      expect(el.textField.value).to.equal(current);
+      expect(field).to.exist;
+      expect(field.value).to.equal('00:00');
+      expect(field.renderRoot.querySelectorAll('span[role="spinbutton"]')).to.have.length(2);
     });
 
-    it('should use the start time when pressing the up/down arrows', async () => {
-      el.start = '09:00';
-      await el.updateComplete;
+    it('should gracefully handle an empty locale property after initialization', async () => {
+      const field = await fixture<TimeField>(html`<sl-time-field value="12:34"></sl-time-field>`);
 
-      el.textField.focus();
-      await el.updateComplete;
+      field.locale = '';
+      await field.updateComplete;
 
-      await userEvent.keyboard('{ArrowDown}');
-
-      expect(el.value).to.equal('08:00');
-      expect(el.textField.value).to.equal('08:00');
-    });
-  });
-
-  describe('value', () => {
-    beforeEach(async () => {
-      el = await fixture(html`<sl-time-field value="09:00"></sl-time-field>`);
+      expect(field.value).to.equal('12:34');
+      expect(field.renderRoot.querySelectorAll('span[role="spinbutton"]')).to.have.length(2);
     });
 
-    it('should be reflected in the text field', () => {
-      const textField = el.renderRoot.querySelector('sl-text-field')!;
+    it('should keep keyboard interaction working when locale is set to an empty string', async () => {
+      const field = await fixture<TimeField>(html`<sl-time-field locale=""></sl-time-field>`),
+        hourSpinbutton = field.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
 
-      expect(textField.input.value).to.equal('09:00');
-      expect(textField.value).to.equal('09:00');
+      hourSpinbutton.focus();
+      await userEvent.keyboard('09');
+      await userEvent.keyboard('15');
+
+      expect(field.value).to.equal('09:15');
     });
 
-    it('should be possible to enter a new time via the keyboard', async () => {
-      el.textField.focus();
-      await userEvent.keyboard('12:34');
-      el.textField.input.blur();
+    it('should keep popover interaction working when locale is set to an empty string', async () => {
+      const field = await fixture<TimeField>(html`<sl-time-field locale="" start="12:00"></sl-time-field>`),
+        button = field.renderRoot.querySelector<HTMLElement>('sl-field-button')!,
+        dialog = field.renderRoot.querySelector<HTMLDialogElement>('dialog')!;
 
-      expect(el.value).to.equal('12:34');
-      expect(el.textField.value).to.equal('12:34');
-      expect(el.textField.input.selectionStart).to.equal(5);
-      expect(el.textField.input.selectionEnd).to.equal(5);
-    });
+      button.click();
+      await field.updateComplete;
 
-    it('should clear the value after removing all the text', async () => {
-      el.textField.focus();
-      for (let i = 0; i < 5; i++) {
-        await userEvent.keyboard('{Delete}');
-      }
-
-      el.textField.input.blur();
-      await el.updateComplete;
-
-      expect(el.value).to.be.undefined;
-      expect(el.textField.value).to.equal(null);
-      expect(el.textField.input.selectionStart).to.equal(0);
-      expect(el.textField.input.selectionEnd).to.equal(0);
-    });
-
-    it('should clear the selection after removing all text', async () => {
-      el.textField.focus();
-      for (let i = 0; i < 5; i++) {
-        await userEvent.keyboard('{Delete}');
-      }
-      await userEvent.tab();
-      await userEvent.keyboard('{Enter}');
-
-      const selected = el.renderRoot.querySelectorAll('dialog li[aria-selected="true"]');
-      expect(selected).to.have.lengthOf(0);
-    });
-
-    it('should focus the hour when focusing the text field', async () => {
-      const textField = el.renderRoot.querySelector('sl-text-field')!;
-      textField.focus();
-      await el.updateComplete;
-
-      const { selectionStart, selectionEnd } = textField.input;
-      expect(selectionStart).to.equal(0);
-      expect(selectionEnd).to.equal(2);
-    });
-
-    it('should switch between hour and minute when using the horizontal arrow keys', async () => {
-      el.textField.focus();
-      await el.updateComplete;
-
-      // Move focus to the minutes
-      await userEvent.keyboard('{ArrowRight}');
-
-      expect(el.textField.input.selectionStart).to.equal(3);
-      expect(el.textField.input.selectionEnd).to.equal(5);
-
-      // Move focus to the end
-      await userEvent.keyboard('{ArrowRight}');
-
-      expect(el.textField.input.selectionStart).to.equal(5);
-      expect(el.textField.input.selectionEnd).to.equal(5);
-
-      // Move focus 1 space left
-      await userEvent.keyboard('{ArrowLeft}');
-
-      expect(el.textField.input.selectionStart).to.equal(4);
-      expect(el.textField.input.selectionEnd).to.equal(4);
-
-      // Move focus 1 space left (now just before the ':')
-      await userEvent.keyboard('{ArrowLeft}');
-
-      expect(el.textField.input.selectionStart).to.equal(3);
-      expect(el.textField.input.selectionEnd).to.equal(3);
-
-      // Move focus to the hours
-      await userEvent.keyboard('{ArrowLeft}');
-
-      expect(el.textField.input.selectionStart).to.equal(0);
-      expect(el.textField.input.selectionEnd).to.equal(2);
-
-      // Move focus to the start
-      await userEvent.keyboard('{ArrowLeft}');
-
-      expect(el.textField.input.selectionStart).to.equal(0);
-      expect(el.textField.input.selectionEnd).to.equal(0);
-    });
-
-    it('should increment the hour when pressing the up arrow with the hour selected', async () => {
-      el.textField.focus();
-      await el.updateComplete;
-
-      await userEvent.keyboard('{ArrowUp}');
-
-      expect(el.value).to.equal('10:00');
-      expect(el.textField.value).to.equal('10:00');
-      expect(el.textField.input.selectionStart).to.equal(0);
-      expect(el.textField.input.selectionEnd).to.equal(2);
-    });
-
-    it('should decrement the hour when pressing the down arrow with the hour selected', async () => {
-      el.textField.focus();
-      await el.updateComplete;
-
-      await userEvent.keyboard('{ArrowDown}');
-
-      expect(el.value).to.equal('08:00');
-      expect(el.textField.value).to.equal('08:00');
-      expect(el.textField.input.selectionStart).to.equal(0);
-      expect(el.textField.input.selectionEnd).to.equal(2);
-    });
-
-    it('should increment the minute when pressing the up arrow with the minute selected', async () => {
-      el.textField.focus();
-      await el.updateComplete;
-
-      await userEvent.keyboard('{ArrowRight}');
-      await userEvent.keyboard('{ArrowUp}');
-
-      expect(el.value).to.equal('09:01');
-      expect(el.textField.value).to.equal('09:01');
-      expect(el.textField.input.selectionStart).to.equal(3);
-      expect(el.textField.input.selectionEnd).to.equal(5);
-    });
-
-    it('should decrement the minute when pressing the down arrow with the minute selected', async () => {
-      el.textField.focus();
-      await el.updateComplete;
-
-      await userEvent.keyboard('{ArrowRight}');
-      await userEvent.keyboard('{ArrowDown}');
-
-      expect(el.value).to.equal('09:59');
-      expect(el.textField.value).to.equal('09:59');
-      expect(el.textField.input.selectionStart).to.equal(3);
-      expect(el.textField.input.selectionEnd).to.equal(5);
+      expect(dialog).to.match(':popover-open');
     });
   });
 });

@@ -181,6 +181,10 @@ sl-tool-bar {
   @media (prefers-reduced-motion: no-preference) {
     transition: grid-template-rows 300ms ease-in-out;
   }
+
+  :host([no-transition]) & {
+    transition: none;
+  }
 }
 
 [part='inner'] {
@@ -197,6 +201,10 @@ sl-icon {
 
   @media (prefers-reduced-motion: no-preference) {
     transition: transform 200ms ease-in-out;
+  }
+
+  :host([no-transition]) & {
+    transition: none;
   }
 }
 

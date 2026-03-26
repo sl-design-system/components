@@ -1,6 +1,6 @@
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { ref } from 'lit/directives/ref.js';
+import { type RefOrCallback, ref } from 'lit/directives/ref.js';
 import { repeat } from 'lit/directives/repeat.js';
 import styles from './virtual-list.scss.js';
 import { VirtualizerController } from './virtualizer-controller.js';
@@ -80,7 +80,11 @@ export class VirtualList<T = any> extends LitElement {
 
     return html`
       <div part="wrapper" style="block-size: ${virtualizer.getTotalSize()}px;">
-        <div part="container" style="gap: ${this.gap ?? 0}px; translate: 0px ${virtualItems[0]?.start ?? 0}px">
+        <div
+          part="container"
+          style="gap: ${this.gap ?? 0}px; translate: 0px ${(virtualItems[0]?.start ?? 0) -
+          (virtualizer.options.scrollMargin ?? 0)}px"
+        >
           ${repeat(
             virtualItems,
             virtualItem => virtualItem.key,
@@ -88,7 +92,11 @@ export class VirtualList<T = any> extends LitElement {
               const item = this.items[virtualItem.index];
 
               return html`
-                <div part="item" data-index=${virtualItem.index} ${ref(virtualizer.measureElement)}>
+                <div
+                  part="item"
+                  data-index=${virtualItem.index}
+                  ${ref(virtualizer.measureElement as RefOrCallback<Element>)}
+                >
                   ${this.renderItem ? this.renderItem(item, virtualItem.index) : item}
                 </div>
               `;

@@ -179,7 +179,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     }
 
     if (emitEvent) {
-      this.update();
+      this.update(false);
     }
   }
 
@@ -192,7 +192,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     node.expanded = false;
 
     if (emitEvent) {
-      this.update();
+      this.update(false);
     }
   }
 
@@ -202,9 +202,9 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
       if (node.expandable) {
         if (typeof force === 'boolean') {
           if (force) {
-            this.expand(node, true);
+            this.expand(node, false);
           } else {
-            this.collapse(node, true);
+            this.collapse(node, false);
           }
         } else if (node.expanded) {
           this.collapse(node, false);
@@ -218,7 +218,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
 
     traverse(node);
 
-    this.update();
+    this.update(false);
   }
 
   /** Expands all descendants of a given tree node. */
@@ -235,7 +235,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
   async expandAll(): Promise<void> {
     const traverse = async (node: TreeDataSourceNode<T>): Promise<void> => {
       if (node.expandable) {
-        this.expand(node, true);
+        this.expand(node, false);
 
         if (node.childrenLoading) {
           await node.childrenLoading;
@@ -251,7 +251,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
       await traverse(node);
     }
 
-    this.update();
+    this.update(true); // Keep sync here, as async loading might have happened
   }
 
   /** Collapses all expandable tree nodes. */
@@ -266,7 +266,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
 
     this.nodes.forEach(traverse);
 
-    this.update();
+    this.update(false);
   }
 
   /** Selects the given node and any children. */
@@ -298,15 +298,13 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
       // Update parent nodes
       let parent = node.parent;
       while (parent) {
-        parent.selected = parent.children!.every(child => child.selected);
-        parent.indeterminate =
-          !parent.selected && parent.children!.some(child => child.indeterminate || child.selected);
+        this.#updateParent(parent);
         parent = parent.parent;
       }
     }
 
     if (emitEvent) {
-      this.update();
+      this.update(false);
     }
   }
 
@@ -333,15 +331,13 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
       // Update parent nodes
       let parent = node.parent;
       while (parent) {
-        parent.selected = parent.children!.every(child => child.selected);
-        parent.indeterminate =
-          !parent.selected && parent.children!.some(child => child.indeterminate || child.selected);
+        this.#updateParent(parent);
         parent = parent.parent;
       }
     }
 
     if (emitEvent) {
-      this.update();
+      this.update(false);
     }
   }
 
@@ -359,7 +355,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
 
     this.nodes.forEach(traverse);
 
-    this.update();
+    this.update(false);
   }
 
   /** Deselects all nodes in the tree. */
@@ -375,7 +371,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
 
     this.nodes.forEach(traverse);
 
-    this.update();
+    this.update(false);
   }
 
   /** Flattens the tree nodes to an array based on the expansion state. */
@@ -543,5 +539,49 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
       parent,
       type: 'skeleton'
     };
+  }
+  /**
+   * Updates the view of the data source.
+   * @param sync Whether to synchronize the selection state of the tree.
+   */
+  abstract override update(sync?: boolean): void;
+
+  /**
+   * Synchronizes the selection state of the entire tree.
+   * @internal
+   */
+  protected syncSelection(): void {
+    if (!this.multiple) {
+      return;
+    }
+
+    const traverse = (node: TreeDataSourceNode<T>): void => {
+      if (node.expandable && node.children && node.children.length > 0) {
+        node.children.forEach(traverse);
+        this.#updateParent(node);
+      } else if (node.selected) {
+        this.#selection.add(node);
+      } else {
+        this.#selection.delete(node);
+      }
+    };
+
+    this.nodes.forEach(traverse);
+  }
+
+  /** Update the selected and indeterminate state of the given parent node. */
+  #updateParent(node: TreeDataSourceNode<T>): void {
+    if (!node.children) {
+      return;
+    }
+
+    node.selected = node.children.length > 0 && node.children.every(child => child.selected);
+    node.indeterminate = !node.selected && node.children.some(child => child.indeterminate || child.selected);
+
+    if (node.selected) {
+      this.#selection.add(node);
+    } else {
+      this.#selection.delete(node);
+    }
   }
 }

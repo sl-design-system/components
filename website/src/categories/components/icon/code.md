@@ -48,7 +48,7 @@ In addition to the provided icons you can use all icons available in Font Awesom
 
 <ds-code-snippet language="bash"> yarn add @fortawesome/pro-regular-svg-icons</ds-code-snippet>
 
-The icons need to be registered in order for them to load and be available in you application. You can choose the icon you want to use on [the Font Awesome website](https://fontawesome.com/icons) to find the name and pakage. Then you will need to import that icon from the corresponding package:
+The icons need to be registered in order for them to load and be available in your application. You can choose the icon you want to use on [the Font Awesome website](https://fontawesome.com/icons) to find the name and package. Then you will need to import that icon from the corresponding package:
 
 <ds-code-snippet language="javascript">import { faTruckFast } from '@fortawesome/pro-regular-svg-icons';</ds-code-snippet>
 
@@ -63,7 +63,7 @@ Now you can use the icon:
 
 <ds-code-snippet language="html">&lt;sl-icon name="far-truck-fast"&gt;&lt;/sl-icon&gt;</ds-code-snippet>
 
-Where you import and register the icon is up to you, but it is advised to do this on the highest shared "parent" of all places that use the icon. So a very generally used icon could be registered in the same place you have the `setup()` for you theme, but an icon that is used only in dashboards can be registred in the dashboard-module.
+Where you import and register the icon is up to you, but it is advised to do this on the highest shared "parent" of all places that use the icon. So a very generally used icon could be registered in the same place you have the `setup()` for your theme, but an icon that is used only in dashboards can be registered in the dashboard-module.
 
 
 **Notes**

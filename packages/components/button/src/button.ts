@@ -1,6 +1,7 @@
 import { EventsController, closestElementComposed } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './button.scss.js';
 
 declare global {
@@ -55,6 +56,12 @@ export class Button extends LitElement {
   /** @internal. */
   readonly internals = this.attachInternals();
 
+  /** @internal */
+  @property({ attribute: 'aria-disabled', reflect: true }) override ariaDisabled: string | null = null;
+
+  /** @internal */
+  @property({ attribute: 'aria-label', reflect: true }) override ariaLabel: string | null = null;
+
   /** Whether the button is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
@@ -88,16 +95,16 @@ export class Button extends LitElement {
    */
   @property({ reflect: true }) variant?: ButtonVariant;
 
-  /** @internal */
-  @property({ attribute: 'aria-disabled', reflect: true }) override ariaDisabled: string | null = null;
-
-  /** @internal */
-  @property({ attribute: 'aria-label', reflect: true }) override ariaLabel: string | null = null;
-
   override connectedCallback(): void {
     super.connectedCallback();
 
     this.#observer.observe(this, { characterData: true, childList: true, subtree: true });
+  }
+
+  override disconnectedCallback(): void {
+    this.#observer.disconnect();
+
+    super.disconnectedCallback();
   }
 
   override firstUpdated(changes: PropertyValues<this>): void {
@@ -107,17 +114,11 @@ export class Button extends LitElement {
     this.#onUpdate();
   }
 
-  override disconnectedCallback(): void {
-    this.#observer.disconnect();
-
-    super.disconnectedCallback();
-  }
-
   override render(): TemplateResult {
     return html`
       <button
         ?disabled=${this.disabled}
-        aria-disabled=${this.ariaDisabled !== null && this.ariaDisabled !== 'false' ? 'true' : nothing}
+        aria-disabled=${ifDefined(this.ariaDisabled !== null && this.ariaDisabled !== 'false' ? 'true' : undefined)}
         aria-label=${this.ariaLabel ?? nothing}
         type="button"
       >
@@ -127,7 +128,7 @@ export class Button extends LitElement {
   }
 
   #onClick(event: Event): void {
-    if (this.disabled || (this.ariaDisabled !== null && this.ariaDisabled !== 'false')) {
+    if (this.disabled || this.ariaDisabled === 'true') {
       event.preventDefault();
       event.stopImmediatePropagation();
     } else if (this.type === 'reset') {
@@ -139,7 +140,7 @@ export class Button extends LitElement {
       }
     } else if (this.type === 'submit') {
       if (this.internals.form) {
-        this.internals.form?.requestSubmit();
+        this.internals.form.requestSubmit();
       } else {
         // Workaround for not wanting a dependency on the `@sl-design-system/form` package
         (closestElementComposed(this, 'sl-form') as unknown as { requestSubmit(): void })?.requestSubmit();

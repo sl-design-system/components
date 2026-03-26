@@ -1,5 +1,5 @@
 import { EventsController, closestElementComposed } from '@sl-design-system/shared';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './button.scss.js';
@@ -117,9 +117,9 @@ export class Button extends LitElement {
   override render(): TemplateResult {
     return html`
       <button
+        aria-disabled=${ifDefined(this.ariaDisabled === 'true' ? 'true' : undefined)}
+        aria-label=${ifDefined(this.ariaLabel || undefined)}
         ?disabled=${this.disabled}
-        aria-disabled=${ifDefined(this.ariaDisabled !== null && this.ariaDisabled !== 'false' ? 'true' : undefined)}
-        aria-label=${this.ariaLabel ?? nothing}
         type="button"
       >
         <slot></slot>
@@ -153,23 +153,26 @@ export class Button extends LitElement {
       .querySelector('slot')
       ?.assignedNodes({ flatten: true })
       .filter(node => {
-        return node.nodeType === Node.ELEMENT_NODE || (node.textContent && node.textContent.trim().length > 0);
+        return node.nodeType === Node.ELEMENT_NODE || node.textContent?.trim().length;
       });
 
-    let hasIcon = false;
+    let iconOnly = false;
 
-    if (filteredNodes?.length === 1) {
-      const el = filteredNodes[0] as HTMLElement;
-      // This button is icon-only if it only contains an icon.
-      hasIcon = el.nodeName === 'SL-ICON' || this.#hasOnlyIconAsChild(el);
+    // This button is icon-only if it only contains an icon.
+    if (filteredNodes?.length === 1 && filteredNodes[0].nodeType === Node.ELEMENT_NODE) {
+      const el = filteredNodes[0] as Element;
+
+      iconOnly =
+        el.nodeName === 'SL-ICON' ||
+        ((el.textContent || '').trim().length === 0 &&
+          el.children.length === 1 &&
+          el.children[0].nodeName === 'SL-ICON');
     }
 
-    this.toggleAttribute('icon-only', hasIcon);
-  }
-
-  #hasOnlyIconAsChild(el: HTMLElement): boolean {
-    return (
-      (el.textContent || '').trim().length === 0 && el.children.length === 1 && el.children[0].nodeName === 'SL-ICON'
-    );
+    if (iconOnly) {
+      this.internals.states.add('icon-only');
+    } else {
+      this.internals.states.delete('icon-only');
+    }
   }
 }

@@ -4,45 +4,12 @@
   vertical-align: middle;
 }
 
-button {
-  --_bg-color: var(--sl-color-background-secondary-bold);
-  --_bg-mix-color: var(--sl-color-background-secondary-interactive-bold);
-  --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
-
-  align-items: center;
-  appearance: none;
-  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
-  border: var(--sl-size-borderWidth-action) solid var(--sl-color-border-secondary-bold);
-  border-radius: var(--sl-size-borderRadius-default);
-  color: var(--sl-color-foreground-secondary-bold);
-  cursor: pointer;
-  display: inline-flex;
-  font: inherit;
-  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
-  gap: var(--sl-size-075);
-  justify-content: center;
-  margin: 0;
-  outline: transparent solid var(--sl-size-borderWidth-focusRing);
-  outline-offset: var(--sl-size-outlineOffset-default);
-  padding: calc(var(--sl-size-100) - var(--sl-size-borderWidth-action))
-    calc(var(--sl-size-200) - var(--sl-size-borderWidth-action));
-  user-select: none;
-}
-
 :host(:where(:not([fill]), [fill='solid'])) button {
   color: var(--sl-color-foreground-secondary-onBold);
 }
 
 :host(:where([fill='ghost'], [fill='outline'])) button {
   --_bg-mix-color: var(--sl-color-background-secondary-interactive-plain);
-}
-
-button:hover {
-  --_bg-opacity: var(--sl-opacity-interactive-bold-hover);
-}
-
-button:active {
-  --_bg-opacity: var(--sl-opacity-interactive-bold-active);
 }
 
 :host([variant='primary']) button {
@@ -170,7 +137,7 @@ button:active {
   --_bg-opacity: var(--sl-opacity-interactive-plain-active);
 }
 
-:host([icon-only]) button {
+:host(:state(icon-only)) button {
   aspect-ratio: 1;
   block-size: calc(1lh + (var(--sl-size-100) - var(--sl-size-borderWidth-action)) * 2);
   padding: 0;
@@ -185,7 +152,7 @@ button:active {
   --sl-icon-size: var(--sl-size-150);
 }
 
-:host([size='sm'][icon-only]) button {
+:host([size='sm']:state(icon-only)) button {
   block-size: calc(1lh + (var(--sl-size-025) - var(--sl-size-borderWidth-action)) * 2);
   padding: 0;
 }
@@ -196,7 +163,7 @@ button:active {
     calc(var(--sl-size-300) - var(--sl-size-borderWidth-action));
 }
 
-:host([size='lg'][icon-only]) button {
+:host([size='lg']:state(icon-only)) button {
   block-size: calc(1lh + (var(--sl-size-175) - var(--sl-size-borderWidth-action)) * 2);
   padding: 0;
 }
@@ -224,10 +191,6 @@ button:active {
 
 :host(:is([disabled], [aria-disabled='true'])[fill='outline']) button {
   border-color: var(--sl-color-border-disabled);
-}
-
-button:focus-visible {
-  outline-color: var(--sl-color-border-focused);
 }
 
 :host([variant='inverted']) button:focus-visible {
@@ -259,6 +222,43 @@ button:focus-visible {
 :host([variant='inverted']:where([disabled], [aria-disabled='true']):where([fill='outline'])) button {
   background: transparent;
   border-color: var(--sl-color-border-inverted);
+}
+
+button {
+  --_bg-color: var(--sl-color-background-secondary-bold);
+  --_bg-mix-color: var(--sl-color-background-secondary-interactive-bold);
+  --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
+
+  align-items: center;
+  appearance: none;
+  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  border: var(--sl-size-borderWidth-action) solid var(--sl-color-border-secondary-bold);
+  border-radius: var(--sl-size-borderRadius-default);
+  color: var(--sl-color-foreground-secondary-bold);
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+  gap: var(--sl-size-075);
+  justify-content: center;
+  margin: 0;
+  outline: transparent solid var(--sl-size-borderWidth-focusRing);
+  outline-offset: var(--sl-size-outlineOffset-default);
+  padding: calc(var(--sl-size-100) - var(--sl-size-borderWidth-action))
+    calc(var(--sl-size-200) - var(--sl-size-borderWidth-action));
+  user-select: none;
+
+  &:focus-visible {
+    outline-color: var(--sl-color-border-focused);
+  }
+
+  &:hover {
+    --_bg-opacity: var(--sl-opacity-interactive-bold-hover);
+  }
+
+  &:active {
+    --_bg-opacity: var(--sl-opacity-interactive-bold-active);
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {

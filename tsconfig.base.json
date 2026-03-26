@@ -14,7 +14,6 @@
     "noUnusedParameters": true,
     "skipLibCheck": true,
     "sourceMap": true,
-    "stableTypeOrdering": true,
     "target": "esnext",
     "types": ["*"],
     "useDefineForClassFields": false

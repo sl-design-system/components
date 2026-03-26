@@ -114,6 +114,17 @@ export const CloseButton: Story = {
   }
 };
 
+export const Commands: Story = {
+  render: () => html`
+    <sl-button command="--show-modal" commandfor="invoker-dialog" variant="primary">Open dialog</sl-button>
+    <sl-dialog id="invoker-dialog" close-button>
+      <span slot="title">Invoker API</span>
+      <p>This dialog was opened using the Invoker Commands API. No JavaScript needed!</p>
+      <sl-button slot="primary-actions" command="--close" commandfor="invoker-dialog">Close</sl-button>
+    </sl-dialog>
+  `
+};
+
 export const DisableCancel: Story = {
   args: {
     body: () =>

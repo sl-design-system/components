@@ -52,7 +52,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   // eslint-disable-next-line no-unused-private-class-members
-  #events = new EventsController(this, { click: this.#onClick, keydown: this.#onKeydown });
+  #events = new EventsController(this, { click: this.#onClick, command: this.#onCommand, keydown: this.#onKeydown });
 
   /** Responsive behavior utility. */
   #media = new MediaController(this);
@@ -302,6 +302,18 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     const button = event.composedPath().find((el): el is Button => el instanceof Button);
 
     if (button?.hasAttribute('sl-dialog-close')) {
+      this.close();
+    }
+  }
+
+  #onCommand(event: Event): void {
+    const { command } = event as Event & { command: string };
+
+    if (command === '--show-modal') {
+      event.preventDefault();
+      this.showModal();
+    } else if (command === '--close') {
+      event.preventDefault();
       this.close();
     }
   }

@@ -400,4 +400,56 @@ describe('sl-dialog', () => {
       expect(button?.parentElement).to.match('slot[name="primary-actions"]');
     });
   });
+
+  describe('invoker API', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-dialog>
+          <span slot="title">Dialog title</span>
+          <p>The dialog content</p>
+        </sl-dialog>
+      `);
+
+      dialog = el.renderRoot.querySelector('dialog')!;
+    });
+
+    it('should call showModal() when receiving a command event with "--show-modal"', () => {
+      const showModalSpy = spy(el, 'showModal');
+      const event = new Event('command', { bubbles: true, cancelable: true });
+      Object.defineProperty(event, 'command', { value: '--show-modal' });
+
+      el.dispatchEvent(event);
+
+      expect(showModalSpy).to.have.been.calledOnce;
+      expect(event.defaultPrevented).to.be.true;
+    });
+
+    it('should call close() when receiving a command event with "--close"', () => {
+      // First open the dialog
+      el.showModal();
+      expect(dialog.open).to.be.true;
+
+      const closeSpy = spy(el, 'close');
+      const event = new Event('command', { bubbles: true, cancelable: true });
+      Object.defineProperty(event, 'command', { value: '--close' });
+
+      el.dispatchEvent(event);
+
+      expect(closeSpy).to.have.been.calledOnce;
+      expect(event.defaultPrevented).to.be.true;
+    });
+
+    it('should not react to unknown command values', () => {
+      const showModalSpy = spy(el, 'showModal'),
+        closeSpy = spy(el, 'close');
+      const event = new Event('command', { bubbles: true, cancelable: true });
+      Object.defineProperty(event, 'command', { value: 'toggle' });
+
+      el.dispatchEvent(event);
+
+      expect(showModalSpy).not.to.have.been.called;
+      expect(closeSpy).not.to.have.been.called;
+      expect(event.defaultPrevented).to.be.false;
+    });
+  });
 });

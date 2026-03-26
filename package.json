@@ -467,9 +467,9 @@
     "@types/chai-dom": "^1.11.3",
     "@types/sinon": "^21.0.0",
     "@types/sinon-chai": "^4.0.0",
-    "@vitest/browser-playwright": "~4.0.17",
-    "@vitest/coverage-v8": "~4.0.17",
-    "@vitest/ui": "~4.0.17",
+    "@vitest/browser-playwright": "~4.1.1",
+    "@vitest/coverage-v8": "~4.1.1",
+    "@vitest/ui": "~4.1.1",
     "@webcomponents/scoped-custom-element-registry": "^0.0.10",
     "chai": "^6.2.2",
     "chai-datetime": "^1.8.1",
@@ -485,9 +485,9 @@
     "sinon-chai": "^4.0.1",
     "storybook": "^10.3.3",
     "stylelint": "^16.19.1",
-    "typescript": "^5.5.4",
-    "vite": "^8.0.2",
-    "vitest": "~4.0.17",
+    "typescript": "^6.0.2",
+    "vite": "^8.0.3",
+    "vitest": "~4.1.1",
     "wireit": "^0.14.12"
   }
 }

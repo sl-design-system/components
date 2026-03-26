@@ -119,6 +119,7 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
 
   override set ariaDisabled(value: string | null) {
     this.#ariaDisabled = value;
+
     if (this.button) {
       this.button.ariaDisabled = value;
     } else if (value !== null) {
@@ -147,10 +148,6 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
     this.#observer.disconnect();
 
     super.disconnectedCallback();
-  }
-
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
   }
 
   override firstUpdated(changes: PropertyValues<this>): void {

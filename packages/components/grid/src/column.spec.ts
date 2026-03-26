@@ -1,9 +1,9 @@
 import { Avatar } from '@sl-design-system/avatar';
 import '@sl-design-system/avatar/register.js';
 import { ListDataSourcePlaceholder } from '@sl-design-system/data-source';
+import { Person } from '@sl-design-system/example-data';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
-import { Person } from 'tools/example-data/index.js';
 import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { GridColumnDataRenderer } from './column.js';

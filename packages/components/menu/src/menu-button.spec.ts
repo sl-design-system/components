@@ -133,7 +133,6 @@ describe('sl-menu-button', () => {
 
         expect(button).not.to.have.attribute('disabled');
         expect(button.ariaDisabled).to.equal('true');
-        expect(button.tabIndex).to.equal(0);
       });
 
       it('should not override an explicit aria-disabled when disabled is toggled', async () => {

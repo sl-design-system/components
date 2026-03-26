@@ -51,13 +51,6 @@ export class ButtonBar extends LitElement {
   @property() fill?: ButtonFill;
 
   /**
-   * Whether the bar only contains icon-only buttons.
-   * Determined based on the actual content, so does not need to be set.
-   * @internal
-   */
-  @property({ type: Boolean, reflect: true, attribute: 'icon-only' }) iconOnly?: boolean;
-
-  /**
    * When set to true, the button order is reversed.
    * @default false
    */
@@ -108,13 +101,13 @@ export class ButtonBar extends LitElement {
           await el.updateComplete;
         }
 
-        return el.hasAttribute('icon-only') && el.getAttribute('fill') === 'ghost';
+        return el.matches(':state(icon-only)') && el.getAttribute('fill') === 'ghost';
       })
     );
 
-    this.iconOnly = !!icons.length && icons.every(Boolean);
+    const iconOnly = !!icons.length && icons.every(Boolean);
 
-    if (this.iconOnly) {
+    if (iconOnly) {
       this.#internals.states.add('icon-only');
     } else {
       this.#internals.states.delete('icon-only');

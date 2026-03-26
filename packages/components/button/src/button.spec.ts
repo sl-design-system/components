@@ -99,15 +99,15 @@ describe('sl-button', () => {
         `);
       });
 
-      it('should have an icon-only attribute', () => {
-        expect(el).to.have.attribute('icon-only');
+      it('should have the icon-only state', () => {
+        expect(el).to.match(':state(icon-only)');
       });
 
-      it('should not have an icon-only attribute when text is added', async () => {
+      it('should not have the icon-only state when text is added', async () => {
         el.appendChild(document.createTextNode('Favorite'));
         await el.updateComplete;
 
-        expect(el).not.to.have.attribute('icon-only');
+        expect(el).not.to.match(':state(icon-only)');
       });
     });
 
@@ -120,8 +120,8 @@ describe('sl-button', () => {
         `);
       });
 
-      it('should have an icon-only attribute', () => {
-        expect(el).to.have.attribute('icon-only');
+      it('should have the icon-only state', () => {
+        expect(el).to.match(':state(icon-only)');
       });
     });
 
@@ -131,7 +131,7 @@ describe('sl-button', () => {
       });
 
       it('should not have an icon-only attribute', () => {
-        expect(el).not.to.have.attribute('icon-only');
+        expect(el).not.to.match(':state(icon-only)');
       });
     });
   });

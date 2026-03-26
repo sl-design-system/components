@@ -48,9 +48,7 @@ describe('sl-button-bar', () => {
     });
 
     it('should not be icon-only', () => {
-      expect(el).not.to.have.attribute('icon-only');
       expect(el).not.to.match(':state(icon-only)');
-      expect(el.iconOnly).not.to.be.true;
     });
 
     it('should not be empty', () => {
@@ -106,10 +104,6 @@ describe('sl-button-bar', () => {
       await el.updateComplete;
     });
 
-    it('should have an icon-only attribute', () => {
-      expect(el).to.have.attribute('icon-only');
-    });
-
     it('should have the icon-only state', () => {
       expect(el).to.match(':state(icon-only)');
     });
@@ -132,10 +126,6 @@ describe('sl-button-bar', () => {
       await el.updateComplete;
     });
 
-    it('should not have an icon-only attribute', () => {
-      expect(el).not.to.have.attribute('icon-only');
-    });
-
     it('should not have the icon-only state', () => {
       expect(el).not.to.match(':state(icon-only)');
     });
@@ -154,10 +144,6 @@ describe('sl-button-bar', () => {
 
       // Give the buttons a chance to update
       await el.updateComplete;
-    });
-
-    it('should not have an icon-only attribute', () => {
-      expect(el).not.to.have.attribute('icon-only');
     });
 
     it('should not match :state(icon-only)', () => {

@@ -132,11 +132,11 @@ export class Button extends LitElement {
 
     return html`
       <button
-        .command=${this.command}
         .commandForElement=${commandForElement}
         ?disabled=${this.disabled}
         aria-disabled=${ifDefined(this.ariaDisabled === 'true' ? 'true' : undefined)}
         aria-label=${ifDefined(this.ariaLabel || undefined)}
+        command=${ifDefined(this.command)}
         type="button"
       >
         <slot></slot>

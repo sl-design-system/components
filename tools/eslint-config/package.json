@@ -42,7 +42,7 @@
   "peerDependencies": {
     "eslint": "^9.17.0",
     "storybook": "^10.0.0",
-    "typescript": "^5.5.4"
+    "typescript": "^5.9.3 || ^6.0.0"
   },
   "peerDependenciesMeta": {
     "storybook": {
@@ -52,6 +52,6 @@
   "devDependencies": {
     "eslint": "^9.27.0",
     "storybook": "^10.3.3",
-    "typescript": "^5.5.4"
+    "typescript": "^6.0.2"
   }
 }

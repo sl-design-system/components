@@ -29,7 +29,8 @@ header {
   gap: var(--sl-size-100);
   justify-content: space-between;
   margin-block-end: var(--sl-size-050);
-  padding-inline: var(--sl-size-050) var(--sl-size-none);
+  padding-block: var(--sl-size-025);
+  padding-inline: var(--sl-size-050) var(--sl-size-025);
 
   .next-month {
     margin-inline-start: calc(-1 * var(--sl-size-050));
@@ -59,7 +60,7 @@ sl-button {
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
   grid-template-columns: repeat(var(--_days-in-week), var(--_cell-size));
   line-height: calc((24 / 14) * 1em);
-  margin-block-end: var(--sl-size-050);
+  margin-block-end: var(--sl-size-025);
   padding-block: var(--sl-size-050);
   padding-inline: 0;
 }
@@ -90,8 +91,6 @@ sl-button {
   outline: none;
   overflow: scroll hidden;
   overscroll-behavior-x: contain;
-
-  // padding-block: var(--_focus-offset);
   scroll-padding-inline: 0;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;

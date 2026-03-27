@@ -19,7 +19,9 @@ header {
   align-items: center;
   display: flex;
   gap: var(--sl-size-100);
-  padding-inline: var(--sl-size-050) var(--sl-size-none);
+  margin-block-end: var(--sl-size-050);
+  padding-block: var(--sl-size-025);
+  padding-inline: var(--sl-size-050) var(--sl-size-025);
 
   span {
     font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);

@@ -19,7 +19,9 @@ header {
   align-items: center;
   display: flex;
   gap: var(--sl-size-100);
-  padding-inline: var(--sl-size-050) var(--sl-size-none);
+  margin-block-end: var(--sl-size-050);
+  padding-block: var(--sl-size-025);
+  padding-inline: var(--sl-size-050) var(--sl-size-025);
 
   .current-year {
     font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
@@ -92,8 +94,6 @@ button {
     background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
     border: var(--sl-size-borderWidth-subtle) solid transparent;
     border-radius: var(--sl-size-borderRadius-default);
-
-    // min-block-size: var(--sl-size-300);
     outline: transparent solid var(--sl-size-outlineWidth-default);
     outline-offset: var(--sl-size-outlineOffset-default);
     padding: calc(var(--sl-size-025) - var(--sl-size-borderWidth-subtle))

@@ -179,40 +179,6 @@ describe('sl-tag', () => {
 
       expect(tag).to.have.trimmed.text('+6');
     });
-
-    it('should apply the double class when there are 2 hidden tags', async () => {
-      const tags = Array.from(el.querySelectorAll('sl-tag'));
-      el.getBoundingClientRect = () => new DOMRect(0, 0, 150, 20);
-      el.stackInlineSize = 40;
-      tags.forEach(t => (t.getBoundingClientRect = () => new DOMRect(0, 0, 50, 20)));
-
-      await triggerVisibilityUpdate();
-
-      const stack = el.renderRoot.querySelector('.stack');
-      expect(el.stackSize).to.equal(6);
-      expect(stack).to.have.class('triple');
-
-      el.getBoundingClientRect = () => new DOMRect(0, 0, 388, 20);
-      await triggerVisibilityUpdate();
-
-      expect(el.stackSize).to.equal(2);
-      expect(stack).to.have.class('double');
-    });
-
-    it('should apply the triple class when there are 3 or more hidden tags', async () => {
-      el.getBoundingClientRect = () => new DOMRect(0, 0, 100, 20);
-      el.stackInlineSize = 40;
-      Array.from(el.querySelectorAll('sl-tag')).forEach(
-        t => (t.getBoundingClientRect = () => new DOMRect(0, 0, 50, 20))
-      );
-
-      await triggerVisibilityUpdate();
-
-      const stack = el.renderRoot.querySelector('.stack');
-
-      expect(el.stackSize).to.be.at.least(3);
-      expect(stack).to.have.class('triple');
-    });
   });
 
   describe('sub-pixel buffer', () => {

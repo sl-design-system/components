@@ -927,13 +927,16 @@ describe('sl-combobox', () => {
       it('should have a stable layout for the tag list', () => {
         const tagList = el.renderRoot.querySelector('sl-tag-list') as HTMLElement;
         const styles = getComputedStyle(tagList);
+        const hostStyles = getComputedStyle(el);
 
         expect(styles.flexGrow).to.equal('0');
         expect(styles.flexShrink).to.equal('1');
-        expect(styles.flexBasis).to.equal('66%');
+        expect(styles.flexBasis).to.equal('auto');
         expect(styles.minInlineSize).to.equal('0px');
+        expect(styles.overflowX).to.equal('visible');
         expect(styles.position).to.equal('relative');
         expect(styles.zIndex).to.equal('1');
+        expect(hostStyles.contain).to.include('inline-size');
       });
 
       it('should not flicker when selecting many items in a limited space', async () => {
@@ -964,6 +967,33 @@ describe('sl-combobox', () => {
           // If the component flickers, the visibility pattern of tags would change over time.
           expect(secondState).to.deep.equal(firstState);
           expect(secondInputWidth).to.be.closeTo(firstInputWidth, 0.5);
+        } finally {
+          vi.useRealTimers();
+        }
+      });
+
+      it('should keep the input width bounded while adding tags in limited space', async () => {
+        vi.useFakeTimers();
+
+        try {
+          el.style.maxInlineSize = '300px';
+          const textField = el.renderRoot.querySelector('sl-text-field') as HTMLElement;
+
+          for (const count of [1, 2, 3, 4, 5, 6]) {
+            el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'].slice(0, count);
+            await el.updateComplete;
+            await vi.advanceTimersByTimeAsync(300);
+            await el.updateComplete;
+
+            const inputWidth = input.getBoundingClientRect().width,
+              fieldWidth = textField.getBoundingClientRect().width,
+              comboboxWidth = el.getBoundingClientRect().width;
+
+            expect(inputWidth).to.be.a('number');
+            expect(Number.isFinite(inputWidth)).to.be.true;
+            expect(inputWidth).to.be.at.most(fieldWidth + 0.5);
+            expect(comboboxWidth).to.be.at.most(300.5);
+          }
         } finally {
           vi.useRealTimers();
         }

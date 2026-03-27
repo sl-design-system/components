@@ -190,7 +190,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
   #onResize(entries: ResizeObserverEntry[]): void {
     const stackEntry = entries.find(entry => entry.target === this.stack),
-      stackInlineSize = stackEntry?.contentRect.width;
+      // Use border-box width, not content-box width, so layout-affecting box size
+      // is accounted for when computing available space for visible tags.
+      stackInlineSize = stackEntry ? (stackEntry.target as HTMLElement).getBoundingClientRect().width : undefined;
 
     if (stackInlineSize && stackInlineSize !== this.stackInlineSize) {
       this.stackInlineSize = stackInlineSize;
@@ -251,16 +253,29 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       gap = 0;
     }
 
-    // Reset visibility of all tags
-    this.tags.forEach(tag => (tag.style.display = ''));
+    // Lock current width while measuring with all tags visible.
+    // Without this, the element can expand during measurement and cause oscillation/flicker.
+    const originalWidth = this.style.width,
+      lockedWidth = this.getBoundingClientRect().width;
 
-    const sizes = this.tags.map(t => t.getBoundingClientRect().width);
+    this.style.width = `${lockedWidth}px`;
 
-    // Calculate the total width of all tags
-    let totalTagsWidth = sizes.reduce((acc, size) => acc + size, 0);
-    totalTagsWidth += gap * (this.tags.length - 1);
+    let sizes: number[] = [],
+      totalTagsWidth = 0,
+      availableWidth = lockedWidth;
 
-    let availableWidth = this.getBoundingClientRect().width;
+    try {
+      // Reset visibility of all tags
+      this.tags.forEach(tag => (tag.style.display = ''));
+
+      sizes = this.tags.map(t => t.getBoundingClientRect().width);
+
+      // Calculate the total width of all tags
+      totalTagsWidth = sizes.reduce((acc, size) => acc + size, 0);
+      totalTagsWidth += gap * (this.tags.length - 1);
+    } finally {
+      this.style.width = originalWidth;
+    }
 
     // We only need to determine visibility if there isn't enough space.
     // We use a small buffer to account for sub-pixel rounding
@@ -299,8 +314,6 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     // Calculate the stack size based on the visibility of the tags
     this.stackSize = this.tags.reduce((acc, tag) => (tag.style.display === 'none' ? acc + 1 : acc), 0);
     this.stack.style.display = this.stackSize === 0 ? 'none' : '';
-    this.stack.classList.toggle('double', this.stackSize === 2);
-    this.stack.classList.toggle('triple', this.stackSize >= 3);
 
     const stackTag = this.stack.querySelector('sl-tag');
 

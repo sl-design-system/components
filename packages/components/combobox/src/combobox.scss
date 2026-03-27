@@ -1,5 +1,8 @@
 :host {
+  // Prevent selected tags from increasing the host's intrinsic inline size in unconstrained containers (e.g. Storybook mobile canvas).
+  contain: inline-size;
   display: flex;
+  inline-size: 100%;
   max-inline-size: 100%;
   min-inline-size: 0;
   vertical-align: middle;
@@ -24,8 +27,10 @@
 
 sl-text-field {
   flex: 1;
+  inline-size: 100%;
   max-inline-size: 100%;
   min-inline-size: 0;
+  overflow: hidden;
 
   &:has(> sl-tag-list) {
     padding-inline: calc(var(--sl-size-075) - var(--sl-size-borderWidth-default)) 0;
@@ -41,7 +46,7 @@ sl-text-field {
 }
 
 sl-tag-list {
-  flex: 0 1 66%;
+  flex: 0 1 auto;
   max-inline-size: 66%;
   min-inline-size: 0;
   position: relative;

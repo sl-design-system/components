@@ -1,5 +1,6 @@
 import { faPlus, faUniversalAccess } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/avatar/register.js';
+import '@sl-design-system/dialog/register.js';
 import { Student, getStudents } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
@@ -95,21 +96,10 @@ export const Avatar: Story = {
 
 export const Command: Story = {
   render: () => html`
-    <style>
-      dialog {
-        border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
-        border-radius: var(--sl-size-borderRadius-default);
-        padding: var(--sl-size-300);
-
-        &::backdrop {
-          background: var(--sl-color-blanket-plain);
-        }
-      }
-    </style>
-    <sl-button command="show-modal" commandfor="invoker-dialog" variant="primary">Open dialog</sl-button>
-    <dialog id="invoker-dialog">
+    <sl-button command="--show-modal" commandfor="invoker-dialog" variant="primary">Open dialog</sl-button>
+    <sl-dialog id="invoker-dialog">
       <p>This dialog was opened using the Invoker Commands API. No JavaScript needed!</p>
-      <sl-button command="close" commandfor="invoker-dialog">Close</sl-button>
+      <sl-button command="--close" commandfor="invoker-dialog">Close</sl-button>
     </dialog>
   `
 };

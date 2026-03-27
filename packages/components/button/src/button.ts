@@ -63,7 +63,7 @@ export class Button extends LitElement {
   @property({ attribute: 'aria-label', reflect: true }) override ariaLabel: string | null = null;
 
   /**
-   * Set's the command to be invoked when the button is activated.
+   * Sets the command to be invoked when the button is activated.
    * @see https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API
    */
   @property() command?: string;

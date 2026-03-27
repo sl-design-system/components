@@ -89,6 +89,35 @@ describe('sl-button', () => {
 
       expect(el).to.have.attribute('variant', 'primary');
     });
+
+    it('should emit a click event on mouse click', async () => {
+      const onClick = spy();
+
+      el.addEventListener('click', onClick);
+      await userEvent.click(el.renderRoot.querySelector('button')!);
+
+      expect(onClick).to.have.been.calledOnce;
+    });
+
+    it('should emit a click event on Enter', async () => {
+      const onClick = spy();
+
+      el.addEventListener('click', onClick);
+      el.focus();
+      await userEvent.keyboard('{Enter}');
+
+      expect(onClick).to.have.been.calledOnce;
+    });
+
+    it('should emit a click event on Space', async () => {
+      const onClick = spy();
+
+      el.addEventListener('click', onClick);
+      el.focus();
+      await userEvent.keyboard('{ }');
+
+      expect(onClick).to.have.been.calledOnce;
+    });
   });
 
   describe('icon', () => {
@@ -234,6 +263,34 @@ describe('sl-button', () => {
 
       el.focus();
       expect(el.shadowRoot?.activeElement).to.equal(button);
+    });
+
+    it('should not activate on mouse click when aria-disabled is set', async () => {
+      const onClick = spy();
+
+      el.setAttribute('aria-disabled', 'true');
+      el.addEventListener('click', onClick);
+      await el.updateComplete;
+
+      // Do not use userEvent.click(button) since playwright does not trigger
+      // click events on disabled elements, even if they are only aria-disabled.
+      el.renderRoot.querySelector('button')?.click();
+
+      expect(onClick).not.to.have.been.called;
+    });
+
+    it('should not activate on Enter or Space when aria-disabled is set', async () => {
+      const onClick = spy();
+
+      el.setAttribute('aria-disabled', 'true');
+      el.addEventListener('click', onClick);
+      await el.updateComplete;
+
+      el.focus();
+      await userEvent.keyboard('{Enter}');
+      await userEvent.keyboard('{ }');
+
+      expect(onClick).not.to.have.been.called;
     });
   });
 

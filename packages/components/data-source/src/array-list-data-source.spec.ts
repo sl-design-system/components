@@ -584,6 +584,86 @@ describe('ArrayListDataSource', () => {
         expect(ds.isSelected(group.members?.at(1))).to.be.true;
       });
     });
+
+    describe('getSelectedItems', () => {
+      it('should return an empty array when nothing is selected', () => {
+        ds = new ArrayListDataSource(people, { selects: 'single' });
+
+        expect(ds.getSelectedItems()).to.deep.equal([]);
+      });
+
+      it('should return the selected item in single select mode', () => {
+        ds = new ArrayListDataSource(people, { selects: 'single' });
+        ds.select(ds.items.at(0)!);
+
+        const selected = ds.getSelectedItems();
+
+        expect(selected).to.have.length(1);
+        expect(selected[0]).to.equal(people[0]);
+      });
+
+      it('should return all selected items in multiple select mode', () => {
+        ds = new ArrayListDataSource(people, { selects: 'multiple' });
+        ds.select(ds.items.at(0)!);
+        ds.select(ds.items.at(1)!);
+
+        const selected = ds.getSelectedItems();
+
+        expect(selected).to.have.length(2);
+        expect(selected).to.include(people[0]);
+        expect(selected).to.include(people[1]);
+      });
+
+      it('should return the raw data objects, not wrapped items', () => {
+        ds = new ArrayListDataSource(people, { selects: 'single' });
+        ds.select(ds.items.at(0)!);
+
+        const selected = ds.getSelectedItems();
+
+        expect(selected[0]).to.not.have.property('type');
+        expect(selected[0]).to.have.property('firstName');
+      });
+
+      it('should not include deselected items', () => {
+        ds = new ArrayListDataSource(people, { selects: 'multiple' });
+        ds.select(ds.items.at(0)!);
+        ds.select(ds.items.at(1)!);
+        ds.deselect(ds.items.at(0)!);
+
+        const selected = ds.getSelectedItems();
+
+        expect(selected).to.have.length(1);
+        expect(selected[0]).to.equal(people[1]);
+      });
+
+      it('should return all items when selectAll is used', () => {
+        ds = new ArrayListDataSource(people, { selects: 'multiple' });
+        ds.selectAll();
+        ds.update();
+
+        const selected = ds.getSelectedItems();
+
+        expect(selected).to.have.length(people.length);
+      });
+
+      it('should exclude items deselected after selectAll', () => {
+        ds = new ArrayListDataSource(people, { selects: 'multiple' });
+        ds.selectAll();
+        ds.update();
+        ds.deselect(ds.items.at(0)!);
+
+        const selected = ds.getSelectedItems();
+
+        expect(selected).to.have.length(people.length - 1);
+        expect(selected).to.not.include(people[0]);
+      });
+
+      it('should return an empty array when selects is not set', () => {
+        ds = new ArrayListDataSource(people);
+
+        expect(ds.getSelectedItems()).to.deep.equal([]);
+      });
+    });
   });
 
   describe('sorting', () => {

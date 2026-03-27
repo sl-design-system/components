@@ -100,7 +100,7 @@ export const Command: Story = {
     <sl-dialog id="invoker-dialog">
       <p>This dialog was opened using the Invoker Commands API. No JavaScript needed!</p>
       <sl-button command="--close" commandfor="invoker-dialog">Close</sl-button>
-    </dialog>
+    </sl-dialog>
   `
 };
 

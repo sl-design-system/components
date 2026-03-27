@@ -3,7 +3,13 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Button } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, EventsController, MediaController, event } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  EventsController,
+  type MediaChangeEvent,
+  MediaController,
+  event
+} from '@sl-design-system/shared';
 import { type SlCancelEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
@@ -54,11 +60,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { click: this.#onClick, keydown: this.#onKeydown });
 
-  /** @internal */
-  // readonly #internals = this.attachInternals();
-
   /** Responsive behavior utility. */
-  #media = new MediaController(this);
+  #media = new MediaController(this, { onChange: event => this.#onMediaChange(event) });
 
   /** Observe size changes to the dialog. */
   #observer = new ResizeObserver(() => this.#onScroll());
@@ -99,17 +102,9 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   @property({ type: Boolean, attribute: 'disable-cancel' }) disableCancel?: boolean;
 
   override connectedCallback(): void {
-    // Hide the element before the shadow root exists to prevent
-    // light DOM content from briefly causing overflow on the page
-    // this.style.display = 'none';
-
     super.connectedCallback();
 
     this.inert = true;
-    // this.#internals.states.add('closed');
-
-    // Clean up stale dialog classes that may persist from previous navigations
-    //  document.documentElement.classList.remove('sl-dialog-enter', 'sl-dialog-leave');
   }
 
   override disconnectedCallback(): void {
@@ -264,8 +259,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     this.#observer.observe(this.body!);
 
     this.inert = false;
-    // this.style.display = '';
-    // this.#internals.states.delete('closed');
     this.dialog?.showModal();
 
     // Workaround for broken focus behavior when using <slot> inside <dialog>
@@ -326,8 +319,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     await Promise.allSettled(this.dialog?.getAnimations({ subtree: true }).map(a => a.finished) ?? []);
 
     this.inert = true;
-    // this.style.display = 'none';
-    // this.#internals.states.add('closed');
 
     this.closeEvent.emit();
   }
@@ -338,6 +329,28 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
     this.close();
   }
+
+  #onMediaChange = ({ previous, current }: MediaChangeEvent): void => {
+    if (!this.dialog?.open) {
+      return;
+    }
+
+    if (previous === 'mobile') {
+      // Leaving mobile while dialog is open
+      document.documentElement.classList.remove('sl-dialog-enter');
+      document.documentElement.classList.add('sl-dialog-leave');
+
+      document.body.addEventListener(
+        'animationend',
+        () => document.documentElement.classList.remove('sl-dialog-leave'),
+        { once: true }
+      );
+    } else if (current === 'mobile') {
+      // Entering mobile while dialog is open
+      document.documentElement.classList.remove('sl-dialog-leave');
+      document.documentElement.classList.add('sl-dialog-enter');
+    }
+  };
 
   #onKeydown(event: KeyboardEvent): void {
     if (event.key === 'Escape') {
@@ -366,15 +379,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   #updateDocumentElement(opening?: boolean): void {
     if (opening) {
-      const width = window.innerWidth,
-        bodyMargin = 16;
-
-      const scale = (width - bodyMargin * 2) / width;
-
-      // Set the scale and translate values so that the body has a 16px margin on each side
-      document.documentElement.style.setProperty('--sl-dialog-scale', scale.toString());
-      document.documentElement.style.setProperty('--sl-dialog-translate', `0 ${bodyMargin}px`);
-
       // Add class to `<html>` for styling purposes
       document.documentElement.classList.remove('sl-dialog-leave');
       document.documentElement.classList.add('sl-dialog-enter');
@@ -385,11 +389,21 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       // Reenable scrolling after the dialog has closed
       document.documentElement.style.overflow = '';
 
-      // Swap enter for leave; the CSS transition animates the body back to normal
+      // Remove open class
       document.documentElement.classList.remove('sl-dialog-enter');
-      document.documentElement.classList.add('sl-dialog-leave');
+
+      // Only play the leave animation on mobile, where the body was scaled
+      if (this.#media.mobile) {
+        document.documentElement.classList.add('sl-dialog-leave');
+
+        document.body.addEventListener(
+          'animationend',
+          () => document.documentElement.classList.remove('sl-dialog-leave'),
+          { once: true }
+        );
+      }
     }
-  } // TODO: not animating sl-dialog-leave when resize from mobile to desktop
+  }
 
   #updatePrimaryButtons(): void {
     const buttons =

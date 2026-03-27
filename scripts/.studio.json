@@ -1,0 +1,23 @@
+{
+  "$schema": "https://tokens.studio/schema/cli",
+  "configurations": {
+    "core": {
+      "project": "018489e1-57cf-4dd3-a13a-942f34f4083a",
+      "ref": {
+        "type": "branch",
+        "name": "main"
+      },
+      "output": "../packages/tokens/src/core",
+      "format": "raw"
+    },
+    "deprecated": {
+      "project": "018489e1-57cf-4dd3-a13a-942f34f4083a",
+      "ref": {
+        "type": "branch",
+        "name": "main"
+      },
+      "output": "../packages/tokens/src/deprecated",
+      "format": "raw"
+    }
+  }
+}

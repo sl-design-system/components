@@ -5559,7 +5559,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/example-data@workspace:tools/example-data":
+"@sl-design-system/example-data@npm:^1.0.0, @sl-design-system/example-data@workspace:tools/example-data":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/example-data@workspace:tools/example-data"
   languageName: unknown
@@ -5619,6 +5619,7 @@ __metadata:
     "@sl-design-system/checkbox": "npm:^2.1.9"
     "@sl-design-system/data-source": "npm:^0.3.0"
     "@sl-design-system/ellipsize-text": "npm:^0.0.2"
+    "@sl-design-system/example-data": "npm:^1.0.0"
     "@sl-design-system/icon": "npm:^1.4.2"
     "@sl-design-system/listbox": "npm:^0.1.6"
     "@sl-design-system/scrollbar": "npm:^0.1.2"

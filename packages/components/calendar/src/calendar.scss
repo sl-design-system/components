@@ -10,11 +10,6 @@ sl-select-year {
   inline-size: 100%;
 }
 
-sl-select-month,
-sl-select-year {
-  min-inline-size: 274px;
-}
-
 .helper-text {
   color: var(--sl-color-foreground-info-plain);
   contain: inline-size;

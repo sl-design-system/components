@@ -1,10 +1,12 @@
 :host {
   --_days-in-week: 7;
   --_cell-size: calc(var(--sl-size-300) + 2 * var(--sl-size-050) + 2 * var(--sl-size-010));
+  --_focus-offset: var(--sl-size-outlineOffset-default);
 
   display: inline-flex;
   flex-direction: column;
   max-inline-size: fit-content;
+  padding: var(--_focus-offset);
 }
 
 :host([show-week-numbers]) {
@@ -88,6 +90,8 @@ sl-button {
   outline: none;
   overflow: scroll hidden;
   overscroll-behavior-x: contain;
+
+  // padding-block: var(--_focus-offset);
   scroll-padding-inline: 0;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;

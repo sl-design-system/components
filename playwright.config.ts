@@ -1,12 +1,11 @@
 import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
-  testDir: './tests',
-
   timeout: 30 * 1000,
 
   projects: [
     {
+      testDir: './tests',
       name: 'storybook',
       use: {
         baseURL: 'http://localhost:6006'
@@ -15,6 +14,7 @@ export default defineConfig({
     },
     {
       name: 'website',
+      testDir: './website/tests',
       use: {
         baseURL: 'http://localhost:8000'
       },

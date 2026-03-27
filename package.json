@@ -40,7 +40,9 @@
     "storybook": "wireit",
     "test": "wireit",
     "version": "wireit",
-    "website": "wireit"
+    "website": "wireit",
+    "website:a11y:test": "wireit",
+    "website:a11y:test:urls": "node scripts/run-website-a11y-test.js"
   },
   "wireit": {
     "build": {
@@ -448,6 +450,12 @@
     "website": {
       "dependencies": [
         "./website:build"
+      ]
+    },
+    "website:a11y:test": {
+      "command": "node scripts/get-changed-urls.js && yarn exec playwright test --project=website",
+      "dependencies": [
+        "test:setup"
       ]
     }
   },

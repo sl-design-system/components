@@ -43,27 +43,10 @@ jobs:
       - name: Install Playwright browsers
         run: yarn playwright install --with-deps
 
-      - name: Detect changed .md files
-        id: detect_changes
-        uses: tj-actions/changed-files@v44
-        with:
-          files: 'website/src/**/*.md'
-
-      - name: Change .md paths to URLs
-        id: generate_urls
-        uses: actions/github-script@v6
+      - name: Generate changed URLs
+        run: yarn dlx scripts/get-changed-urls.js
         env:
-          CHANGED_MD: '${{ steps.detect_changes.outputs.all_changed_files }}'
-        with:
-          script: |
-            const fs = require('fs');
-            const files = process.env.CHANGED_MD.length !== 0 ? process.env.CHANGED_MD.split(' ').filter(Boolean) : ['/'];
-            const urls = files.map(file => {
-              if (file === 'website/src/index.md') return '/';
-              if (file === 'website/src/404.md') return '/404.html';
-              return file.replace(/^website\/src\//, '').replace(/\.md$/, '/');
-            });
-            fs.writeFileSync('changed-urls.json', JSON.stringify(urls, null, 2));
+          BASE: origin/main
 
       - name: Build website
         run: yarn website

@@ -45,6 +45,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   /** Timer used for breaking a possible resize observer loop. */
   #breakResizeObserverLoop?: ReturnType<typeof setTimeout>;
 
+  /** Tracks whether the first visibility resolution already happened. */
+  #hasResolvedInitialVisibility = false;
+
   /** Animation frame used to batch slot-change visibility updates. */
   #scheduleVisibilityUpdate?: number;
 
@@ -206,16 +209,19 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       return;
     }
 
+    // Resolve the first visual state synchronously so screenshot tooling captures
+    // the final stacked state instead of the transient pre-stack state.
+    if (!this.#hasResolvedInitialVisibility) {
+      this.#runVisibilityUpdate();
+      return;
+    }
+
     // Break the loop if it keeps switching between stack visibility; workaround
     // is to just wait a little bit before updating the visibility again.
-    // We use a shorter delay for initial/subsequent updates to avoid Chromatic issues.
-    this.#breakResizeObserverLoop = setTimeout(
-      () => {
-        this.#updateVisibility();
-        this.#breakResizeObserverLoop = undefined;
-      },
-      this.stackInlineSize === 0 ? 0 : 50
-    );
+    this.#breakResizeObserverLoop = setTimeout(() => {
+      this.#runVisibilityUpdate();
+      this.#breakResizeObserverLoop = undefined;
+    }, 50);
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
@@ -231,14 +237,32 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     this.#rovingTabindexController.clearElementCache();
 
+    // Resolve the first layout immediately, without timers.
+    if (!this.#hasResolvedInitialVisibility) {
+      this.#runVisibilityUpdate();
+      return;
+    }
+
     if (this.#scheduleVisibilityUpdate !== undefined) {
       cancelAnimationFrame(this.#scheduleVisibilityUpdate);
     }
 
     this.#scheduleVisibilityUpdate = requestAnimationFrame(() => {
-      this.#updateVisibility();
+      this.#runVisibilityUpdate();
       this.#scheduleVisibilityUpdate = undefined;
     });
+  }
+
+  #runVisibilityUpdate(): void {
+    if (this.stack) {
+      this.stackInlineSize = this.stack.getBoundingClientRect().width;
+    }
+
+    this.#updateVisibility();
+
+    if (!this.#hasResolvedInitialVisibility && this.stacked && this.tags.length > 0) {
+      this.#hasResolvedInitialVisibility = true;
+    }
   }
 
   #updateVisibility(): void {

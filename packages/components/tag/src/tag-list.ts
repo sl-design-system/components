@@ -338,6 +338,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     // Calculate the stack size based on the visibility of the tags
     this.stackSize = this.tags.reduce((acc, tag) => (tag.style.display === 'none' ? acc + 1 : acc), 0);
     this.stack.style.display = this.stackSize === 0 ? 'none' : '';
+    // Ensure legacy decoration classes are not kept on existing elements (e.g. after HMR).
+    this.stack.classList.remove('double', 'triple');
 
     const stackTag = this.stack.querySelector('sl-tag');
 

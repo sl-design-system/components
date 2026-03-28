@@ -179,6 +179,16 @@ describe('sl-tag', () => {
 
       expect(tag).to.have.trimmed.text('+6');
     });
+
+    it('should clear legacy stack decoration classes', async () => {
+      const stack = el.renderRoot.querySelector('.stack') as HTMLElement;
+      stack.classList.add('double', 'triple');
+
+      await triggerVisibilityUpdate();
+
+      expect(stack).not.to.have.class('double');
+      expect(stack).not.to.have.class('triple');
+    });
   });
 
   describe('sub-pixel buffer', () => {
@@ -252,7 +262,7 @@ describe('sl-tag', () => {
       // Container is 150px, stack 40px, gap 10px => remaining width for visible tags is 100px.
       // Last tag is 100px, so it should remain visible.
       el.getBoundingClientRect = () => new DOMRect(0, 0, 150, 20);
-      el.stackInlineSize = 40;
+      el.stack!.getBoundingClientRect = () => new DOMRect(0, 0, 40, 20);
 
       Array.from(el.querySelectorAll('sl-tag')).forEach(tag => {
         tag.getBoundingClientRect = () => new DOMRect(0, 0, 100, 20);
@@ -279,7 +289,7 @@ describe('sl-tag', () => {
       // Container is 140px, stack 40px, gap 10px => remaining width is 90px.
       // Last tag is 100px, so it should be hidden.
       el.getBoundingClientRect = () => new DOMRect(0, 0, 140, 20);
-      el.stackInlineSize = 40;
+      el.stack!.getBoundingClientRect = () => new DOMRect(0, 0, 40, 20);
 
       Array.from(el.querySelectorAll('sl-tag')).forEach(tag => {
         tag.getBoundingClientRect = () => new DOMRect(0, 0, 100, 20);

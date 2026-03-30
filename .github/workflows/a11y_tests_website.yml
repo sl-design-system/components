@@ -44,7 +44,7 @@ jobs:
         run: yarn playwright install --with-deps
 
       - name: Generate changed URLs
-        run: yarn dlx scripts/get-changed-urls.js
+        run: node scripts/get-changed-urls.js
         env:
           BASE: origin/main
 

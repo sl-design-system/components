@@ -238,7 +238,7 @@ export const Dialog: Story = {
     const onClick = async (event: Event & { target: HTMLElement }) => {
       const dialog = document.createElement('sl-dialog');
       dialog.innerHTML = `
-        <span slot="title">Tooltip</span>
+        <h1 slot="title">Tooltip</h1>
         Tooltip should be closed when the dialog is closed..
         <sl-button slot="primary-actions" sl-dialog-close variant="primary">Close</sl-button>
       `;

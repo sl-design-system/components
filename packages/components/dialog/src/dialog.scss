@@ -145,7 +145,8 @@ dialog {
   }
 }
 
-slot[name='title']::slotted(h1) {
+// Keep * selector instead of just h1 for backward compatibility
+slot[name='title']::slotted(*) {
   color: var(--sl-color-foreground-bold);
   font-size: 1.7em;
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);

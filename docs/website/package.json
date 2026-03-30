@@ -7,8 +7,8 @@
     "build": "eleventy"
   },
   "dependencies": {
-    "@11ty/eleventy": "^3.0.0",
-    "@11ty/eleventy-navigation": "^0.3.5",
+    "@11ty/eleventy": "^3.1.5",
+    "@11ty/eleventy-navigation": "^1.0.5",
     "@fortawesome/pro-regular-svg-icons": "^7.2.0",
     "@sl-design-system/doc-components": "workspace:^",
     "@sl-design-system/icon": "workspace:^",

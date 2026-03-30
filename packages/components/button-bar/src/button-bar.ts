@@ -101,7 +101,8 @@ export class ButtonBar extends LitElement {
           await el.updateComplete;
         }
 
-        return el.matches(':state(icon-only)') && el.getAttribute('fill') === 'ghost';
+        // Also check for the `icon-only` attribute for backward compatibility with older button versions
+        return (el.matches(':state(icon-only)') || el.hasAttribute('icon-only')) && el.getAttribute('fill') === 'ghost';
       })
     );
 

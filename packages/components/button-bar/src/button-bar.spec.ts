@@ -151,6 +151,28 @@ describe('sl-button-bar', () => {
     });
   });
 
+  describe('icon only with icon-only attribute (backward compatibility)', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-button-bar>
+          <sl-button aria-label="Close" fill="ghost" icon-only>
+            <sl-icon name="close"></sl-icon>
+          </sl-button>
+          <sl-button aria-label="Fullscreen" fill="ghost" icon-only>
+            <sl-icon name="full-screen"></sl-icon>
+          </sl-button>
+        </sl-button-bar>
+      `);
+
+      // Give the buttons a chance to update
+      await el.updateComplete;
+    });
+
+    it('should have the icon-only state', () => {
+      expect(el).to.match(':state(icon-only)');
+    });
+  });
+
   describe('empty', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-button-bar></sl-button-bar>`);

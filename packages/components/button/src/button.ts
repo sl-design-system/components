@@ -165,12 +165,9 @@ export class Button extends LitElement {
   }
 
   #onUpdate(): void {
-    const filteredNodes = this.renderRoot
-      .querySelector('slot')
-      ?.assignedNodes({ flatten: true })
-      .filter(node => {
-        return node.nodeType === Node.ELEMENT_NODE || (node.textContent && node.textContent.trim().length > 0);
-      });
+    const filteredNodes = (
+      this.renderRoot.querySelector('slot')?.assignedNodes({ flatten: true }) ?? Array.from(this.renderRoot.childNodes)
+    ).filter(node => node.nodeType === Node.ELEMENT_NODE || (node.textContent && node.textContent.trim().length > 0));
 
     let hasIcon = false;
 

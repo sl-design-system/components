@@ -10,6 +10,9 @@
     "url": "https://github.com/sl-design-system/components.git"
   },
   "exports": {
+    "./copy-button/copy-button": "./dist/copy-button/copy-button.js",
+    "./example/example": "./dist/example/example.js",
+    "./install-info/install-info": "./dist/install-info/install-info.js",
     "./page-toc/page-toc": "./dist/page-toc/page-toc.js",
     "./search/search": "./dist/search/search.js",
     "./sidebar/sidebar": "./dist/sidebar/sidebar.js",
@@ -41,7 +44,8 @@
     "@open-wc/scoped-elements": "^3.0.6",
     "@sl-design-system/icon": "workspace:^",
     "@sl-design-system/search-field": "workspace:^",
-    "@sl-design-system/switch": "workspace:^"
+    "@sl-design-system/switch": "workspace:^",
+    "prismjs": "^1.30.0"
   },
   "devDependencies": {
     "@roenlie/vite-plugin-import-css-sheet": "^0.0.7",
@@ -51,6 +55,7 @@
     "@storybook/web-components": "^10.3.3",
     "@storybook/web-components-vite": "^10.3.3",
     "@tsdown/css": "^0.21.7",
+    "@types/prismjs": "^1.26.6",
     "@typescript/native-preview": "^7.0.0-dev.20260315.1",
     "lit": "^3.3.2",
     "sass-embedded": "^1.98.0",
@@ -63,6 +68,9 @@
     "lit": "^3.3.2"
   },
   "inlinedDependencies": {
+    "@floating-ui/core": "1.7.5",
+    "@floating-ui/dom": "1.7.6",
+    "@floating-ui/utils": "0.2.11",
     "@fortawesome/free-brands-svg-icons": "7.2.0",
     "@fortawesome/pro-regular-svg-icons": "7.2.0",
     "@fortawesome/pro-solid-svg-icons": "7.2.0"

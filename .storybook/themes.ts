@@ -146,7 +146,10 @@ export const themes: Theme[] = [
   {
     id: 'sanoma-pro',
     name: 'Sanoma Pro',
-    fonts: ['https://use.typekit.net/zjd4wix.css'],
+    fonts: [
+      'https://use.typekit.net/qxz3bgp.css',
+      '/themes/sanoma-pro/fonts.css'
+    ],
     setup: async () => {
       const { setup } = await import('@sl-design-system/sanoma-pro');
 
@@ -156,7 +159,10 @@ export const themes: Theme[] = [
   {
     id: 'sanoma-utbildning',
     name: 'Sanoma Utbildning',
-    fonts: ['https://use.typekit.net/zjd4wix.css'],
+    fonts: [
+      'https://use.typekit.net/nia2gqh.css',
+      '/themes/sanoma-utbildning/fonts.css'
+    ],
     setup: async () => {
       const { setup } = await import('@sl-design-system/sanoma-utbildning');
 

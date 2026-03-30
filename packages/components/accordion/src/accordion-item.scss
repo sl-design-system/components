@@ -128,7 +128,13 @@ svg,
 sl-icon {
   align-self: start;
   flex-shrink: 0;
-  margin-block-start: round(up, 1ex - 1cap, 1px);
+  margin-block-start: calc((1lh - var(--sl-size-200)) / 2);
+
+  // As of march 2026, FF does not support text-box
+  // see https://caniuse.com/mdn-css_properties_text-box
+  @supports (text-box: trim-both) {
+    margin-block-start: round(up, 1ex - 1cap, 1px);
+  }
 }
 
 sl-icon {

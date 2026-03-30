@@ -39,7 +39,7 @@ const themeFonts = {
   'Sanoma Learning': [{ family: 'Roboto', style: 'SemiBold' }],
   'Bingel DC': [{ family: 'Proxima Nova', style: 'Semibold' }], // doens't exist in the library
   'Bingel Int': [{ family: 'Proxima Nova', style: 'Semibold' }], // doens't exist in the library
-  'Click edu': [{ family: 'Open Sans', style: 'SemiBold' }],
+  'Click Edu': [{ family: 'Open Sans', style: 'SemiBold' }],
   'Editorial Suite': [
     { family: 'Open Sans', style: 'SemiBold' },
     { family: 'Raleway', style: 'SemiBold' }

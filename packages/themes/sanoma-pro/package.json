@@ -20,15 +20,14 @@
     "./package.json": "./package.json",
     "./global.css": "./global.css",
     "./light.css": "./light.css",
-    "./css/*": "./css/*"
+    "./light.min.css": "./light.min.css",
+    "./css/*.css": "./css/*.css"
   },
   "files": [
     "**/*.css",
     "**/*.d.ts",
     "**/*.d.ts.map",
     "**/*.js",
-    "**/*.js.map",
-    "**/*.json",
     "**/*.scss",
     "fonts/*",
     "CHANGELOG.md"

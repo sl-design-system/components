@@ -3,6 +3,7 @@
   --_cell-size: calc(var(--sl-size-300) + 2 * var(--sl-size-050) + 2 * var(--sl-size-010));
   --_focus-offset: var(--sl-size-outlineOffset-default);
   --_week-number-column-size: var(--sl-size-450);
+  --_week-number-column-padding-inline: var(--sl-size-025);
 
   display: inline-flex;
   flex-direction: column;
@@ -73,7 +74,8 @@ sl-button {
 }
 
 .week-number {
-  min-inline-size: calc(var(--_week-number-column-size) - 2 * var(--sl-size-010));
+  min-inline-size: calc(var(--_week-number-column-size) - 2 * var(--_week-number-column-padding-inline));
+  padding-inline: var(--_week-number-column-padding-inline);
   position: relative;
 
   &::after {

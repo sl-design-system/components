@@ -2,6 +2,7 @@
   --_days-in-week: 7;
   --_cell-size: calc(var(--sl-size-300) + 2 * var(--sl-size-050) + 2 * var(--sl-size-010));
   --_focus-offset: var(--sl-size-outlineOffset-default);
+  --_week-number-column-size: var(--sl-size-450);
 
   display: inline-flex;
   flex-direction: column;
@@ -11,15 +12,15 @@
 
 :host([show-week-numbers]) {
   .days-of-week {
-    grid-template-columns: var(--sl-size-400) repeat(var(--_days-in-week), var(--_cell-size));
+    grid-template-columns: var(--_week-number-column-size) repeat(var(--_days-in-week), var(--_cell-size));
   }
 
   .scroller {
-    max-inline-size: calc(var(--sl-size-400) + var(--_days-in-week) * var(--_cell-size));
+    max-inline-size: calc(var(--_week-number-column-size) + var(--_days-in-week) * var(--_cell-size));
   }
 
   sl-month-view::part(week-number) {
-    min-inline-size: calc(var(--sl-size-400) - 2 * var(--sl-size-010));
+    min-inline-size: calc(var(--_week-number-column-size) - 2 * var(--sl-size-010));
   }
 }
 
@@ -72,6 +73,7 @@ sl-button {
 }
 
 .week-number {
+  min-inline-size: calc(var(--_week-number-column-size) - 2 * var(--sl-size-010));
   position: relative;
 
   &::after {

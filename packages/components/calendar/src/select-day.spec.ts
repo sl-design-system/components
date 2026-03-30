@@ -235,6 +235,17 @@ describe('sl-select-day', () => {
         const monthView = el.renderRoot.querySelector('sl-month-view:not([inert])');
         expect(monthView).to.have.property('showWeekNumbers', true);
       });
+
+      it('should expand week number column when the localized label is longer', async () => {
+        el.showWeekNumbers = true;
+        await el.updateComplete;
+
+        el.localizedWeekOfYear = 'ThisIsAVeryLongWeekLabel';
+        await el.updateComplete;
+
+        const width = el.style.getPropertyValue('--_week-number-column-size');
+        expect(width).to.match(/^\d+px$/);
+      });
     });
   });
 

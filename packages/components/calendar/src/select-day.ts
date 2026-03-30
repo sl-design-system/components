@@ -198,6 +198,10 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
+    if (changes.has('localizedWeekOfYear') || changes.has('showWeekNumbers')) {
+      this.#updateWeekNumberColumnSize();
+    }
+
     if (changes.has('max') || changes.has('min') || changes.has('month')) {
       void this.#updateMonthViews();
     }
@@ -542,6 +546,30 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     } else if (this.scroller.scrollLeft !== left) {
       this.scroller.scrollLeft = left;
     }
+  }
+
+  /** Measures the week number header and increases the column width when text does not fit. */
+  #updateWeekNumberColumnSize(): void {
+    // Reset before measurement so the column can both grow and shrink when locale changes.
+    this.style.removeProperty('--_week-number-column-size');
+
+    if (!this.showWeekNumbers) {
+      return;
+    }
+
+    const weekNumber = this.renderRoot.querySelector<HTMLElement>('.days-of-week .week-number');
+    if (!weekNumber) {
+      return;
+    }
+
+    const minimumColumnSize = Math.ceil(weekNumber.getBoundingClientRect().width),
+      requiredColumnSize = Math.max(minimumColumnSize, Math.ceil(weekNumber.scrollWidth));
+
+    if (requiredColumnSize > minimumColumnSize) {
+      this.style.setProperty('--_week-number-column-size', `${requiredColumnSize}px`);
+    }
+
+    this.#scrollToMonth(0);
   }
 
   async #updateMonthViews(): Promise<void> {

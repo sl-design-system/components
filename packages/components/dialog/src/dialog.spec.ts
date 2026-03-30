@@ -15,7 +15,7 @@ describe('sl-dialog', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-dialog>
-          <span slot="title">Dialog title</span>
+          <h1 slot="title">Dialog title</h1>
           <p>The dialog content</p>
         </sl-dialog>
       `);
@@ -64,7 +64,7 @@ describe('sl-dialog', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-dialog>
-          <span slot="title">Dialog title</span>
+          <h1 slot="title">Dialog title</h1>
           <p>The dialog content</p>
         </sl-dialog>
       `);
@@ -99,7 +99,7 @@ describe('sl-dialog', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-dialog close-button>
-          <span slot="title">Dialog title</span>
+          <h1 slot="title">Dialog title</h1>
           <p>The dialog content</p>
           <sl-button slot="actions" sl-dialog-close>Close</sl-button>
         </sl-dialog>
@@ -285,7 +285,7 @@ describe('sl-dialog', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-dialog>
-          <span slot="title">Dialog title</span>
+          <h1 slot="title">Dialog title</h1>
           <p>The dialog content</p>
         </sl-dialog>
       `);

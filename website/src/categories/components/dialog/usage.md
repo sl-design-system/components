@@ -30,7 +30,7 @@ magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.
 
 <!--The dialog-->
 <sl-dialog id="dialog-example">
-    <span slot="title">Dialog title</span>
+    <h1 slot="title">Dialog title</h1>
     Dolore nulla ad magna nostrud cillum...
     <sl-button slot="primary-actions" sl-dialog-close autofocus>Close</sl-button>
 </sl-dialog>

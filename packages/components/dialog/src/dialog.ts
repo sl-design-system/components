@@ -346,6 +346,15 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         { once: true }
       );
     } else if (current === 'mobile') {
+      const width = window.innerWidth,
+        bodyMargin = 16;
+
+      const scale = (width - bodyMargin * 2) / width;
+
+      // Set the scale and translate values so that the body has a 16px margin on each side
+      document.documentElement.style.setProperty('--sl-dialog-scale', scale.toString());
+      document.documentElement.style.setProperty('--sl-dialog-translate', `0 ${bodyMargin}px`);
+
       // Entering mobile while dialog is open
       document.documentElement.classList.remove('sl-dialog-leave');
       document.documentElement.classList.add('sl-dialog-enter');
@@ -379,6 +388,15 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   #updateDocumentElement(opening?: boolean): void {
     if (opening) {
+      const width = window.innerWidth,
+        bodyMargin = 16;
+
+      const scale = (width - bodyMargin * 2) / width;
+
+      // Set the scale and translate values so that the body has a 16px margin on each side
+      document.documentElement.style.setProperty('--sl-dialog-scale', scale.toString());
+      document.documentElement.style.setProperty('--sl-dialog-translate', `0 ${bodyMargin}px`);
+
       // Add class to `<html>` for styling purposes
       document.documentElement.classList.remove('sl-dialog-leave');
       document.documentElement.classList.add('sl-dialog-enter');
@@ -389,8 +407,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       // Reenable scrolling after the dialog has closed
       document.documentElement.style.overflow = '';
 
-      // Remove open class
-      document.documentElement.classList.remove('sl-dialog-enter');
+      // Remove dialog classes
+      document.documentElement.classList.remove('sl-dialog-enter', 'sl-dialog-leave');
 
       // Only play the leave animation on mobile, where the body was scaled
       if (this.#media.mobile) {

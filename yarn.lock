@@ -5790,6 +5790,7 @@ __metadata:
     chromatic: "npm:^15.3.0"
     eslint: "npm:^9.27.0"
     husky: "npm:^9.1.7"
+    invokers-polyfill: "npm:^1.0.1"
     lint-staged: "npm:^16.4.0"
     lit: "npm:^3.3.2"
     mockdate: "npm:^3.0.5"
@@ -14337,6 +14338,13 @@ __metadata:
     hasown: "npm:^2.0.2"
     side-channel: "npm:^1.1.0"
   checksum: 10c0/03966f5e259b009a9bf1a78d60da920df198af4318ec004f57b8aef1dd3fe377fbc8cce63a96e8c810010302654de89f9e19de1cd8ad0061d15be28a695465c7
+  languageName: node
+  linkType: hard
+
+"invokers-polyfill@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "invokers-polyfill@npm:1.0.1"
+  checksum: 10c0/18f181f422e18cabcc0f99d2d2f7abe43c7ced822045b3804045f9473584c951ad6f7b700eea62c7154b3dab9cdccdc1f36ea6d61fecdf6c69764910270f0357
   languageName: node
   linkType: hard
 

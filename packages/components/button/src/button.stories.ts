@@ -98,8 +98,9 @@ export const Command: Story = {
   render: () => html`
     <sl-button command="--show-modal" commandfor="invoker-dialog" variant="primary">Open dialog</sl-button>
     <sl-dialog id="invoker-dialog">
+      <h1 slot="title">Dialog opened with Invoker Commands API</h1>
       <p>This dialog was opened using the Invoker Commands API. No JavaScript needed!</p>
-      <sl-button command="--close" commandfor="invoker-dialog">Close</sl-button>
+      <sl-button command="--close" commandfor="invoker-dialog" slot="primary-actions">Close</sl-button>
     </sl-dialog>
   `
 };

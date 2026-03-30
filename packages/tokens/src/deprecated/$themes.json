@@ -1,316 +1,122 @@
 [
   {
-    "name": "Tokens",
-    "group": "Tokens",
+    "name": "Tig",
+    "group": "Legacy",
     "selectedTokenSets": {
-      "system": "enabled",
-      "primitives": "enabled"
-    }
-  },
-  {
-    "name": "Collection I",
-    "group": "Base",
-    "selectedTokenSets": {
-      "I/base-new": "enabled",
-      "I/theme-new": "enabled"
-    }
-  },
-  {
-    "name": "Collection II",
-    "group": "Base",
-    "selectedTokenSets": {
-      "II/theme-new": "enabled",
-      "II/base-new": "enabled"
-    }
-  },
-  {
-    "name": "Sanoma Learning",
-    "group": "Themes I",
-    "selectedTokenSets": {
-      "sanoma-learning/theme-new": "enabled",
-      "sanoma-learning/base-new": "enabled"
+      "core": "enabled",
+      "tig/light": "enabled",
+      "tig/base": "enabled"
     }
   },
   {
     "name": "Bingel DC",
-    "group": "Themes I",
+    "group": "Legacy",
     "selectedTokenSets": {
-      "bingel-dc/base-new": "enabled",
-      "bingel-dc/theme-new": "enabled"
-    }
-  },
-  {
-    "name": "Click Edu",
-    "group": "Themes I",
-    "selectedTokenSets": {
-      "clickedu/theme-new": "enabled",
-      "clickedu/base-new": "enabled"
-    }
-  },
-  {
-    "name": "Teas",
-    "group": "Themes I",
-    "selectedTokenSets": {
-      "teas/theme-new": "enabled",
-      "teas/base-new": "enabled"
-    }
-  },
-  {
-    "name": "Tig",
-    "group": "Themes I",
-    "selectedTokenSets": {
-      "tig/base-new": "enabled",
-      "tig/theme-new": "enabled"
-    }
-  },
-  {
-    "name": "Neon",
-    "group": "Themes I",
-    "selectedTokenSets": {
-      "neon/theme-new": "enabled",
-      "neon/base-new": "enabled"
-    }
-  },
-  {
-    "name": "Bingel Int",
-    "group": "Themes I",
-    "selectedTokenSets": {
-      "bingel-int/base-new": "enabled",
-      "bingel-int/theme-new": "enabled"
-    }
-  },
-  {
-    "name": "Editorial Suite",
-    "group": "Themes I",
-    "selectedTokenSets": {
-      "editorial-suite/base-new": "enabled",
-      "editorial-suite/theme-new": "enabled"
-    }
-  },
-  {
-    "name": "Its Learning",
-    "group": "Themes I",
-    "selectedTokenSets": {
-      "itslearning/base-new": "enabled",
-      "itslearning/theme-new": "enabled"
-    }
-  },
-  {
-    "name": "Kampus",
-    "group": "Themes I",
-    "selectedTokenSets": {
-      "kampus/base-new": "enabled",
-      "kampus/theme-new": "enabled"
-    }
-  },
-  {
-    "name": "Magister",
-    "group": "Themes I",
-    "selectedTokenSets": {
-      "magister/base-new": "enabled",
-      "magister/theme-new": "enabled"
-    }
-  },
-  {
-    "name": "Max",
-    "group": "Themes I",
-    "selectedTokenSets": {
-      "max/theme-new": "enabled",
-      "max/base-new": "enabled"
+      "core": "enabled",
+      "bingel-dc/base": "enabled",
+      "bingel-dc/light": "enabled"
     }
   },
   {
     "name": "My Digital Book",
-    "group": "Themes I",
+    "group": "Legacy",
     "selectedTokenSets": {
-      "my-digital-book/theme-new": "enabled",
-      "my-digital-book/base-new": "enabled"
+      "core": "enabled",
+      "my-digital-book/base": "enabled",
+      "my-digital-book/light": "enabled"
     }
   },
   {
-    "name": "Placeholder",
-    "group": "Themes II",
+    "name": "Neon",
+    "group": "Legacy",
     "selectedTokenSets": {
-      "placeholder/base-new": "enabled",
-      "placeholder/theme-new": "enabled"
+      "core": "enabled",
+      "neon/base": "enabled",
+      "neon/light": "enabled",
+      "neon/dark": "enabled"
     }
   },
   {
-    "name": "Light",
-    "group": "Sanoma Learning",
+    "name": "Sanoma Learning",
+    "group": "Legacy",
     "selectedTokenSets": {
-      "sanoma-learning/light-new": "enabled"
+      "core": "enabled",
+      "sanoma-learning/dark": "enabled",
+      "sanoma-learning/base": "enabled",
+      "sanoma-learning/light": "enabled"
     }
   },
   {
-    "name": "Dark",
-    "group": "Sanoma Learning",
+    "name": "Teas",
+    "group": "Legacy",
     "selectedTokenSets": {
-      "sanoma-learning/dark-new": "enabled"
+      "core": "enabled",
+      "teas/light": "enabled",
+      "teas/base": "enabled"
     }
   },
   {
-    "name": "Light",
-    "group": "Bingel DC",
+    "name": "Magister",
+    "group": "Legacy",
     "selectedTokenSets": {
-      "bingel-dc/light-new": "enabled"
+      "core": "enabled",
+      "magister/dark": "enabled",
+      "magister/base": "enabled",
+      "magister/light": "enabled"
     }
   },
   {
-    "name": "Light",
-    "group": "Bingel Int",
+    "name": "Max",
+    "group": "Legacy",
     "selectedTokenSets": {
-      "bingel-int/light-new": "enabled"
+      "core": "enabled",
+      "max/base": "enabled",
+      "max/light": "enabled"
     }
   },
   {
-    "name": "Light",
-    "group": "Click edu",
+    "name": "Kampus",
+    "group": "Legacy",
     "selectedTokenSets": {
-      "clickedu/light-new": "enabled"
+      "core": "enabled",
+      "kampus/light": "enabled",
+      "kampus/base": "enabled"
     }
   },
   {
-    "name": "Light",
-    "group": "Editorial Suite",
+    "name": "Editorial Suite",
+    "group": "Legacy",
     "selectedTokenSets": {
-      "editorial-suite/light-new": "enabled"
+      "core": "enabled",
+      "editorial-suite/light": "enabled",
+      "editorial-suite/base": "enabled"
     }
   },
   {
-    "name": "Light",
-    "group": "Its Learning",
+    "name": "Its Learning",
+    "group": "Legacy",
     "selectedTokenSets": {
-      "itslearning/light-new": "enabled"
+      "core": "enabled",
+      "itslearning/base": "enabled",
+      "itslearning/light": "enabled"
     }
   },
   {
-    "name": "Light",
-    "group": "Kampus",
+    "name": "Bingel INT",
+    "group": "Legacy",
     "selectedTokenSets": {
-      "kampus/light-new": "enabled"
+      "core": "enabled",
+      "bingel-int/light": "enabled",
+      "bingel-int/base": "enabled"
     }
   },
   {
-    "name": "Light",
-    "group": "Magister",
+    "name": "Click Edu",
+    "group": "Legacy",
     "selectedTokenSets": {
-      "magister/light-new": "enabled"
-    }
-  },
-  {
-    "name": "Dark",
-    "group": "Magister",
-    "selectedTokenSets": {
-      "magister/dark-new": "enabled"
-    }
-  },
-  {
-    "name": "Light",
-    "group": "Max",
-    "selectedTokenSets": {
-      "max/light-new": "enabled"
-    }
-  },
-  {
-    "name": "Light",
-    "group": "My Digital Book",
-    "selectedTokenSets": {
-      "my-digital-book/light-new": "enabled"
-    }
-  },
-  {
-    "name": "Light",
-    "group": "Neon",
-    "selectedTokenSets": {
-      "neon/light-new": "enabled"
-    }
-  },
-  {
-    "name": "Dark",
-    "group": "Neon",
-    "selectedTokenSets": {
-      "neon/dark-new": "enabled"
-    }
-  },
-  {
-    "name": "Light",
-    "group": "Teas",
-    "selectedTokenSets": {
-      "teas/light-new": "enabled"
-    }
-  },
-  {
-    "name": "Light",
-    "group": "Tig",
-    "selectedTokenSets": {
-      "tig/light-new": "enabled"
-    }
-  },
-  {
-    "name": "Compact",
-    "group": "Early readers",
-    "selectedTokenSets": {
-      "target-group/early/compact": "enabled"
-    }
-  },
-  {
-    "name": "Relaxed",
-    "group": "Early readers",
-    "selectedTokenSets": {
-      "target-group/early/relaxed": "enabled"
-    }
-  },
-  {
-    "name": "Default",
-    "group": "Early readers",
-    "selectedTokenSets": {
-      "target-group/early/default": "enabled"
-    }
-  },
-  {
-    "name": "Compact",
-    "group": "Advanced readers",
-    "selectedTokenSets": {
-      "target-group/advanced/compact": "enabled"
-    }
-  },
-  {
-    "name": "Default",
-    "group": "Advanced readers",
-    "selectedTokenSets": {
-      "target-group/advanced/default": "enabled"
-    }
-  },
-  {
-    "name": "Relaxed",
-    "group": "Advanced readers",
-    "selectedTokenSets": {
-      "target-group/advanced/relaxed": "enabled"
-    }
-  },
-  {
-    "name": "Early",
-    "group": "Target group",
-    "selectedTokenSets": {
-      "target-group/early/base": "enabled",
-      "target-group/spacing": "enabled",
-      "target-group/early/typography": "enabled",
-      "target-group/base": "enabled",
-      "target-group/typography": "enabled",
-      "target-group/early/spacing": "enabled"
-    }
-  },
-  {
-    "name": "Advanced",
-    "group": "Target group",
-    "selectedTokenSets": {
-      "target-group/advanced/base": "enabled",
-      "target-group/spacing": "enabled",
-      "target-group/base": "enabled",
-      "target-group/typography": "enabled",
-      "target-group/advanced/typography": "enabled",
-      "target-group/advanced/spacing": "enabled"
+      "core": "enabled",
+      "clickedu/light": "enabled",
+      "clickedu/base": "enabled"
     }
   }
 ]

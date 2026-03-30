@@ -66,7 +66,7 @@ The button-bar component in the footer will automatically stack the buttons vert
 
 The `<sl-dialog>` component supports the [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API). This allows you to open and close dialogs declaratively using `<sl-button>`, without needing any JavaScript.
 
-Set the `command` property on an `<sl-button>` to specify the action, and the `commandfor` property to reference the `id` of the dialog:
+Set the `command` attribute on an `<sl-button>` to specify the action, and the `commandfor` attribute to reference the `id` of the dialog:
 
 | Command | Description |
 | --- | --- |

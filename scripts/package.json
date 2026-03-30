@@ -7,7 +7,6 @@
   "type": "module",
   "scripts": {
     "import-tokens": "yarn exec studio pull",
-    "import-tokens-deprecated": "yarn workspace deprecated-tokens exec studio pull --host graphql.prod.tokens.studio",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "workspaces": [

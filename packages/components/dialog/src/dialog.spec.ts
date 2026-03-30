@@ -430,7 +430,7 @@ describe('sl-dialog', () => {
       expect(document.documentElement).to.have.class('sl-dialog-enter');
     });
 
-    it('should add sl-dialog-leave when closing the dialog', async () => {
+    it('should remove sl-dialog-enter when closing the dialog', async () => {
       el.showModal();
       await new Promise(resolve => setTimeout(resolve));
 
@@ -438,24 +438,10 @@ describe('sl-dialog', () => {
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(document.documentElement).not.to.have.class('sl-dialog-enter');
-      expect(document.documentElement).to.have.class('sl-dialog-leave');
-    });
-
-    it('should remove sl-dialog-leave after animationend on body', async () => {
-      el.showModal();
-      await new Promise(resolve => setTimeout(resolve));
-
-      el.close();
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(document.documentElement).to.have.class('sl-dialog-leave');
-
-      document.body.dispatchEvent(new Event('animationend'));
-
       expect(document.documentElement).not.to.have.class('sl-dialog-leave');
     });
 
-    it('should remove sl-dialog-enter and add sl-dialog-leave when resizing to desktop while open', async () => {
+    it('should remove sl-dialog-enter when resizing to desktop while open', async () => {
       el.showModal();
 
       expect(document.documentElement).to.have.class('sl-dialog-enter');
@@ -464,7 +450,7 @@ describe('sl-dialog', () => {
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(document.documentElement).not.to.have.class('sl-dialog-enter');
-      expect(document.documentElement).to.have.class('sl-dialog-leave');
+      expect(document.documentElement).not.to.have.class('sl-dialog-leave');
     });
 
     it('should not toggle classes when resizing while dialog is closed', async () => {

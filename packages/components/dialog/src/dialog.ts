@@ -315,10 +315,10 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   async #onClose(): Promise<void> {
     this.#updateDocumentElement(false);
 
+    this.inert = true;
+
     // Wait until all animations have finished before emitting the close event
     await Promise.allSettled(this.dialog?.getAnimations({ subtree: true }).map(a => a.finished) ?? []);
-
-    this.inert = true;
 
     this.closeEvent.emit();
   }
@@ -340,11 +340,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       document.documentElement.classList.remove('sl-dialog-enter');
       document.documentElement.classList.add('sl-dialog-leave');
 
-      document.body.addEventListener(
-        'animationend',
-        () => document.documentElement.classList.remove('sl-dialog-leave'),
-        { once: true }
-      );
+      this.#listenForLeaveAnimationEnd();
     } else if (current === 'mobile') {
       const width = window.innerWidth,
         bodyMargin = 16;
@@ -386,6 +382,24 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       ?.toggleAttribute('sticky', scrollTop + clientHeight < scrollHeight);
   }
 
+  #listenForLeaveAnimationEnd(): void {
+    // The leave animation only plays when prefers-reduced-motion is not set;
+    // if reduced motion is preferred, remove the class immediately.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.remove('sl-dialog-leave');
+      return;
+    }
+
+    const onAnimationEnd = (event: AnimationEvent): void => {
+      if (event.animationName === 'sl-dialog-leave') {
+        document.documentElement.classList.remove('sl-dialog-leave');
+        document.body.removeEventListener('animationend', onAnimationEnd);
+      }
+    };
+
+    document.body.addEventListener('animationend', onAnimationEnd);
+  }
+
   #updateDocumentElement(opening?: boolean): void {
     if (opening) {
       const width = window.innerWidth,
@@ -414,11 +428,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       if (this.#media.mobile) {
         document.documentElement.classList.add('sl-dialog-leave');
 
-        document.body.addEventListener(
-          'animationend',
-          () => document.documentElement.classList.remove('sl-dialog-leave'),
-          { once: true }
-        );
+        this.#listenForLeaveAnimationEnd();
       }
     }
   }

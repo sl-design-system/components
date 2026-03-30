@@ -4,15 +4,6 @@
   display: contents;
 }
 
-:host([inert]) {
-  display: none;
-
-  dialog,
-  dialog::backdrop {
-    transition: none;
-  }
-}
-
 dialog {
   background: var(--sl-elevation-surface-raised-default);
   border: 0;
@@ -39,10 +30,6 @@ dialog {
         opacity: 0;
       }
     }
-
-    @starting-style {
-      scale: 1.1;
-    }
   }
 
   &:focus-visible {
@@ -62,6 +49,12 @@ dialog {
     @supports not (overlay: auto) {
       transition-duration: 0s;
     }
+  }
+
+  // Enter animation
+  @starting-style {
+    display: flex;
+    scale: 1.1;
   }
 }
 

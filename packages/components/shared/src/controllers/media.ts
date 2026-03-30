@@ -47,7 +47,13 @@ export class MediaController implements ReactiveController {
 
   /** Current device based on the active media query. */
   get device(): MediaDevice {
-    return [...this.#mediaQueries.entries()].find(([, mql]) => mql.matches)?.[0] ?? 'desktop';
+    for (const [device, mql] of this.#mediaQueries) {
+      if (mql.matches) {
+        return device;
+      }
+    }
+
+    return 'desktop';
   }
 
   /** Previous device before the last media query change. */

@@ -145,9 +145,7 @@ dialog {
   }
 }
 
-// We should be explicit here and target h1, but due to eleventy's markdown processing,
-// we need to be flexible and target any element that could be slotted in as a title.
-slot[name='title']::slotted(*) {
+slot[name='title']::slotted(h1) {
   color: var(--sl-color-foreground-bold);
   font-size: 1.7em;
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);

@@ -8,10 +8,9 @@ eleventyNavigation:
 
 <section>
 <div class="ds-example">
-
 <sl-button id="open-button" fill="solid" variant="primary">Open dialog</sl-button>
 <sl-dialog id="dialog-example">
-<span slot="title">Dialog title</span>
+<h1 slot="title">Dialog title</h1>
 Dolore nulla ad magna nostrud cillum veniam sint et consectetur anim Lorem. Sint fugiat id deserunt magna et
 tempor veniam eu fugiat fugiat. Fugiat mollit sint labore adipisicing do mollit eu dolore nulla enim cillum.<br/><br/>
 Pariatur amet occaecat dolor consectetur aliqua mollit est aliquip irure cupidatat. Reprehenderit consectetur
@@ -19,7 +18,6 @@ anim sunt voluptate dolor aute non enim aliqua sit. Occaecat irure ullamco aliqu
 magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.
 <sl-button slot="primary-actions" sl-dialog-close autofocus>Close</sl-button>
 </sl-dialog>
-
 </div>
 
 <div class="ds-code">

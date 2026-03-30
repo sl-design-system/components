@@ -318,6 +318,30 @@ describe('sl-dialog', () => {
 
       expect(dialog.close).not.to.have.been.called;
     });
+
+    it('should call requestClose() on the inner dialog', () => {
+      el.showModal();
+
+      spy(dialog, 'requestClose');
+
+      el.requestClose();
+
+      expect(dialog.requestClose).to.have.been.calledOnce;
+    });
+
+    it('should set returnValue on the dialog when calling close() with a value', () => {
+      el.showModal();
+      el.close('result');
+
+      expect(dialog.returnValue).to.equal('result');
+    });
+
+    it('should set returnValue on the dialog when calling requestClose() with a value', () => {
+      el.showModal();
+      el.requestClose('result');
+
+      expect(dialog.returnValue).to.equal('result');
+    });
   });
 
   describe('inheritance', () => {
@@ -401,11 +425,11 @@ describe('sl-dialog', () => {
     });
   });
 
-  describe('invoker API', () => {
+  describe('commands', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-dialog>
-          <span slot="title">Dialog title</span>
+          <h1 slot="title">Dialog title</h1>
           <p>The dialog content</p>
         </sl-dialog>
       `);
@@ -415,8 +439,7 @@ describe('sl-dialog', () => {
 
     it('should call showModal() when receiving a command event with "--show-modal"', () => {
       const showModalSpy = spy(el, 'showModal');
-      const event = new Event('command', { bubbles: true, cancelable: true });
-      Object.defineProperty(event, 'command', { value: '--show-modal' });
+      const event = new CommandEvent('command', { command: '--show-modal', bubbles: true, cancelable: true });
 
       el.dispatchEvent(event);
 
@@ -430,8 +453,7 @@ describe('sl-dialog', () => {
       expect(dialog.open).to.be.true;
 
       const closeSpy = spy(el, 'close');
-      const event = new Event('command', { bubbles: true, cancelable: true });
-      Object.defineProperty(event, 'command', { value: '--close' });
+      const event = new CommandEvent('command', { command: '--close', bubbles: true, cancelable: true });
 
       el.dispatchEvent(event);
 
@@ -442,14 +464,26 @@ describe('sl-dialog', () => {
     it('should not react to unknown command values', () => {
       const showModalSpy = spy(el, 'showModal'),
         closeSpy = spy(el, 'close');
-      const event = new Event('command', { bubbles: true, cancelable: true });
-      Object.defineProperty(event, 'command', { value: 'toggle' });
+      const event = new CommandEvent('command', { command: 'toggle', bubbles: true, cancelable: true });
 
       el.dispatchEvent(event);
 
       expect(showModalSpy).not.to.have.been.called;
       expect(closeSpy).not.to.have.been.called;
       expect(event.defaultPrevented).to.be.false;
+    });
+
+    it('should call requestClose() when receiving a command event with "--request-close"', () => {
+      el.showModal();
+      expect(dialog.open).to.be.true;
+
+      const requestCloseSpy = spy(el, 'requestClose');
+      const event = new CommandEvent('command', { command: '--request-close', bubbles: true, cancelable: true });
+
+      el.dispatchEvent(event);
+
+      expect(requestCloseSpy).to.have.been.calledOnce;
+      expect(event.defaultPrevented).to.be.true;
     });
   });
 });

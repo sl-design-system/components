@@ -2,6 +2,11 @@
 '@sl-design-system/button': major
 ---
 
-Use a native `<button>` element inside the shadow DOM instead of simulating button behavior on the host element
+Breaking changes:
 
-This change replaces the custom keyboard handling and ARIA role setup with a proper native button. Focus is now delegated to the inner button via `delegatesFocus`. The `icon-only` attribute has been replaced with a `:state(icon-only)` CSS custom state.
+- The component now renders a native `<button>` inside the shadow DOM, changing the DOM structure
+- The `icon-only` attribute and `iconOnly` property have been removed in favor of the `:state(icon-only)` CSS custom state
+
+The new DOM structure with the `<button>` element now allows us to use the new Invoker Commands API, which enables declarative opening and closing of dialogs without needing JavaScript. The `delegatesFocus` option is used to delegate focus to the inner button, ensuring proper keyboard navigation and accessibility. We also no longer need custom keyboard handling or ARIA role setup, as the native button will handle this for us.
+
+Finally, the `icon-only` attribute and `iconOnly` property were never meant to be public API. They have been removed in favor of the `:state(icon-only)` CSS custom state.

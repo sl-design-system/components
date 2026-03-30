@@ -266,13 +266,25 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     });
   }
 
-  /** Close the dialog. */
-  close(): void {
+  /**
+   * Close the dialog.
+   * @param returnValue - Optional value to set as the dialog's return value.
+   */
+  close(returnValue?: string): void {
     if (this.dialog?.open) {
       this.#observer.disconnect();
 
-      this.dialog?.close();
+      this.dialog?.close(returnValue);
     }
+  }
+
+  /**
+   * Request the dialog to close. This will fire a `cancel` event on the `<dialog>`,
+   * which can be prevented. If not prevented, the dialog will close.
+   * @param returnValue - Optional value to set as the dialog's return value.
+   */
+  requestClose(returnValue?: string): void {
+    this.dialog?.requestClose(returnValue);
   }
 
   #onBackdropClick(event: MouseEvent): void {
@@ -315,6 +327,9 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     } else if (command === '--close') {
       event.preventDefault();
       this.close();
+    } else if (command === '--request-close') {
+      event.preventDefault();
+      this.requestClose();
     }
   }
 

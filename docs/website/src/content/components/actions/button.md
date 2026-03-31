@@ -1,6 +1,6 @@
 ---
 title: Button
-layout: base.njk
+layout: component.njk
 eleventyNavigation:
   key: Button
   parent: Actions

@@ -4,12 +4,15 @@ import { dirname, join } from 'node:path';
 import * as esbuild from 'esbuild';
 import eleventyNavigationPlugin from '@11ty/eleventy-navigation';
 import markdownItAnchor from 'markdown-it-anchor';
+import { getComponents } from './src/utils/manifest.js';
 
 const require = createRequire(import.meta.url);
 const themePath = dirname(require.resolve('@sl-design-system/sanoma-learning/package.json'));
 
 /** @param {import('@11ty/eleventy').UserConfig} eleventyConfig */
 export default function (eleventyConfig) {
+  const allComponents = getComponents();
+
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
 
   eleventyConfig.amendLibrary('md', mdLib => {
@@ -31,6 +34,36 @@ export default function (eleventyConfig) {
   });
 
   eleventyConfig.addWatchTarget('../components/dist/**/*.(css|js)');
+
+  // Helpers
+  eleventyConfig.addNunjucksGlobal('getComponent', tagName => {
+    const component = allComponents.find(c => c.tagName === tagName);
+    if (!component) {
+      throw new Error(
+        `Unable to find "<${tagName}>". Make sure the file name is the same as the tag name (without prefix).`
+      );
+    }
+    return component;
+  });
+
+  eleventyConfig.addCollection('componentPages', function (collectionApi) {
+    const componentPages = collectionApi.getFilteredByGlob(
+      path.join(eleventyConfig.directories.input, 'components/**/*.md')
+    );
+
+    return componentPages.map(page => {
+      const componentName = path.basename(page.inputPath, '.md'),
+        tagName = `sl-${componentName}`,
+        component = allComponents.find(c => c.tagName === tagName);
+
+      // Add component to the page's data
+      if (component) {
+        page.data.component = component;
+      }
+
+      return page;
+    });
+  });
 
   eleventyConfig.on('eleventy.before', async () => {
     // Scan pages for icon names in eleventyNavigation frontmatter

@@ -6,14 +6,9 @@ import { property } from 'lit/decorators.js';
 import styles from './accordion-item.scss.js';
 import { type AccordionIconType } from './accordion.js';
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'sl-accordion-item': AccordionItem;
-  }
-}
-
 /**
  * An accordion item component.
+ * @element sl-accordion-item
  *
  * @csspart details - Details element of the accordion-item
  * @csspart summary - Header element of the accordion-item
@@ -191,3 +186,9 @@ export class AccordionItem extends LitElement {
     requestAnimationFrame(() => details.classList.add(state));
   }
 }
+
+// declare global {
+//   interface HTMLElementTagNameMap {
+//     'sl-accordion-item': AccordionItem;
+//   }
+// }

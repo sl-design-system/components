@@ -343,6 +343,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
         @beforetoggle=${this.#onBeforetoggle}
         @click=${this.#onListboxClick}
         @keydown=${this.#onListboxKeydown}
+        @mousedown=${this.#onListboxMousedown}
         @toggle=${this.#onToggle}
         part="listbox"
         popover
@@ -538,6 +539,22 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
       // Programmatically closing, not because user moved focus away
       this.#popoverClosing = true;
       this.listbox?.hidePopover();
+    }
+  }
+
+  #onListboxMousedown(event: MouseEvent): void {
+    if (event.button !== 0 || !this.listbox) {
+      return;
+    }
+
+    const { left, right, top, bottom } = this.listbox.getBoundingClientRect();
+    const inListboxBounds =
+      event.clientX >= left && event.clientX <= right && event.clientY >= top && event.clientY <= bottom;
+
+    // Prevent focus from moving off the trigger when interacting with the native listbox scrollbar.
+    // This avoids a focusout-driven popover close while preserving the subsequent click event.
+    if (inListboxBounds) {
+      event.preventDefault();
     }
   }
 

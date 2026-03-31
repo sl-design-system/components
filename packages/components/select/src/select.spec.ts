@@ -663,6 +663,28 @@ describe('sl-select', () => {
       otherButton.remove();
     });
 
+    it('should prevent default on listbox mousedown to keep the popover open during scrollbar interactions', async () => {
+      const listbox = el.renderRoot.querySelector('sl-listbox')!;
+
+      button.focus();
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      const { left, top } = listbox.getBoundingClientRect();
+      const event = new MouseEvent('mousedown', {
+        bubbles: true,
+        cancelable: true,
+        clientX: left + 1,
+        clientY: top + 1
+      });
+
+      listbox.dispatchEvent(event);
+      await el.updateComplete;
+
+      expect(event.defaultPrevented).to.be.true;
+      expect(listbox).to.match(':popover-open');
+    });
+
     it('should focus the button after the popover closes', async () => {
       button.focus();
 

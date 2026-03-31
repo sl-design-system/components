@@ -7,7 +7,7 @@ Reworked the tooltip interaction model for hover and keyboard focus, especially 
 ### What changed
 
 - Improved anchor detection across composed paths, shadow roots, `Element.aria*ByElements`, and `ElementInternals`.
-- Added `show-delay` and `hide-delay` support to make opening/closing timing explicit and configurable.
+- Added `show-delay` and `hide-delay` support to make opening/closing timing explicit and configurable. The default hover behavior now waits `showDelay` (150ms) before opening; to restore the previous immediate behavior, set `show-delay="0"` on the tooltip.
 - Refactored hide/show flow to handle rapid pointer transitions more reliably and prevent sticky/open-state race conditions.
 - Added guard logic so tooltips stay open when keyboard focus moves between focusable descendants inside the same composite anchor (`:focus-within` handling), while still closing when the anchor truly loses focus.
 - Added an optimization to avoid unnecessary hide-path processing when handling `pointerout` while the tooltip is already closed.

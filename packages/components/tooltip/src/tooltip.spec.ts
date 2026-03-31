@@ -126,7 +126,9 @@ describe('sl-tooltip', () => {
 
     it('should toggle the tooltip on focus and Escape key pressed', async () => {
       button?.focus();
-      await waitFor((tooltip?.showDelay ?? 150) + 10);
+      await tooltip.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await tooltip.updateComplete;
       expect(tooltip).to.match(':popover-open');
 
       await userEvent.keyboard('{Escape}');

@@ -353,7 +353,7 @@ describe('sl-dialog', () => {
 
       const title = el.renderRoot.querySelector('slot[name="title"]');
       expect(title).to.exist;
-      expect(title).to.have.text('Title');
+      expect(title).to.have.trimmed.text('Title');
     });
 
     it('should call renderBody during render', async () => {

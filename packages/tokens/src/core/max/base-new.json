@@ -1,12 +1,77 @@
 {
   "I": {
+    "icon": {
+      "typeset": {
+        "fontWeight": {
+          "solid": {
+            "$value": "{icon.typeset.fontWeight.icon-solid}",
+            "$type": "fontWeight"
+          },
+          "regular": {
+            "$value": "{icon.typeset.fontWeight.icon-regular}",
+            "$type": "fontWeight"
+          }
+        }
+      }
+    },
     "size": {
-      "text-new": {
-        "heading": {
-          "2xl": {
-            "$value": "{size.font.600}",
+      "icon": {
+        "font": {
+          "lg": {
+            "$value": "{size-new.icon.lg}",
             "$type": "fontSize"
           },
+          "md": {
+            "$value": "{size-new.icon.md}",
+            "$type": "fontSize"
+          },
+          "sm": {
+            "$value": "{size-new.icon.sm}",
+            "$type": "fontSize"
+          },
+          "xl": {
+            "$value": "{size-new.icon.xl}",
+            "$type": "fontSize"
+          },
+          "xs": {
+            "$value": "{size-new.icon.xs}",
+            "$type": "fontSize"
+          },
+          "2xl": {
+            "$value": "{size-new.icon.2xl}",
+            "$type": "fontSize"
+          },
+          "2xs": {
+            "$value": "{size-new.icon.2xs}",
+            "$type": "fontSize"
+          },
+          "3xl": {
+            "$value": "{size-new.icon.3xl}",
+            "$type": "fontSize"
+          },
+          "4xl": {
+            "$value": "{size-new.icon.4xl}",
+            "$type": "fontSize"
+          }
+        }
+      },
+      "text-new": {
+        "body": {
+          "lg": {
+            "$value": "{size.font.200}",
+            "$type": "fontSize"
+          },
+          "md": {
+            "$value": "{size.font.175}",
+            "$type": "fontSize",
+            "$description": "default text size for body"
+          },
+          "sm": {
+            "$value": "{size.font.150}",
+            "$type": "fontSize"
+          }
+        },
+        "heading": {
           "lg": {
             "$value": "{size.font.300}",
             "$type": "fontSize"
@@ -15,29 +80,30 @@
             "$value": "{size.font.200}",
             "$type": "fontSize"
           },
+          "sm": {
+            "$value": "{size.font.175}",
+            "$type": "fontSize"
+          },
           "xl": {
             "$value": "{size.font.400}",
             "$type": "fontSize"
           },
-          "sm": {
-            "$value": "{size.font.175}",
+          "2xl": {
+            "$value": "{size.font.600}",
             "$type": "fontSize"
           }
+        }
+      },
+      "borderWidth": {
+        "action": {
+          "$value": "{size.borderWidth.subtle}",
+          "$type": "borderWidth",
+          "$description": "Sets the standard border width for action components."
         },
-        "body": {
-          "lg": {
-            "$value": "{size.font.200}",
-            "$type": "fontSize"
-          },
-          "sm": {
-            "$value": "{size.font.150}",
-            "$type": "fontSize"
-          },
-          "md": {
-            "$value": "{size.font.175}",
-            "$type": "fontSize",
-            "$description": "default text size for body"
-          }
+        "default": {
+          "$value": "{size.borderWidth.subtle}",
+          "$type": "borderWidth",
+          "$description": "Sets the standard border width for UI elements."
         }
       },
       "borderRadius": {
@@ -69,58 +135,6 @@
           "$description": "Use for pill-shaped elements like badges, and circular rounding for components with equal width and height, such as icon buttons and avatars."
         }
       },
-      "borderWidth": {
-        "action": {
-          "$value": "{size.borderWidth.subtle}",
-          "$type": "borderWidth",
-          "$description": "Sets the standard border width for action components."
-        },
-        "default": {
-          "$value": "{size.borderWidth.subtle}",
-          "$type": "borderWidth",
-          "$description": "Sets the standard border width for UI elements."
-        }
-      },
-      "icon": {
-        "font": {
-          "3xl": {
-            "$value": "{size-new.icon.3xl}",
-            "$type": "fontSize"
-          },
-          "4xl": {
-            "$value": "{size-new.icon.4xl}",
-            "$type": "fontSize"
-          },
-          "2xl": {
-            "$value": "{size-new.icon.2xl}",
-            "$type": "fontSize"
-          },
-          "2xs": {
-            "$value": "{size-new.icon.2xs}",
-            "$type": "fontSize"
-          },
-          "xl": {
-            "$value": "{size-new.icon.xl}",
-            "$type": "fontSize"
-          },
-          "md": {
-            "$value": "{size-new.icon.md}",
-            "$type": "fontSize"
-          },
-          "lg": {
-            "$value": "{size-new.icon.lg}",
-            "$type": "fontSize"
-          },
-          "sm": {
-            "$value": "{size-new.icon.sm}",
-            "$type": "fontSize"
-          },
-          "xs": {
-            "$value": "{size-new.icon.xs}",
-            "$type": "fontSize"
-          }
-        }
-      },
       "outlineWidth": {
         "default": {
           "$value": "{size.borderWidth.bold}",
@@ -129,92 +143,26 @@
         }
       }
     },
+    "space": {
+      "offset": {
+        "default": {
+          "$value": "{space.075}",
+          "$type": "space",
+          "$description": "Defines the standard spacing offset."
+        }
+      }
+    },
     "text-new": {
-      "typeset": {
-        "fontFamily": {
-          "icon": {
-            "$value": "{icon.typeset.fontFamily.classic}",
-            "$type": "fontFamily"
-          },
-          "heading": {
-            "$value": "Open Sans",
-            "$type": "fontFamily"
-          },
-          "body": {
-            "$value": "Open Sans",
-            "$type": "fontFamily"
-          }
-        },
-        "fontWeight": {
-          "semiBold": {
-            "$value": "{fontWeight.600}",
-            "$type": "fontWeight"
-          },
-          "regular": {
-            "$value": "{fontWeight.400}",
-            "$type": "fontWeight"
-          }
-        }
-      },
-      "icon": {
-        "outline": {
-          "$value": {
-            "fontFamily": "{icon.typeset.fontFamily.classic}",
-            "fontWeight": "{icon.typeset.fontWeight.icon-regular}"
-          },
-          "$type": "typography"
-        },
-        "solid": {
-          "$value": {
-            "fontFamily": "{icon.typeset.fontFamily.classic}",
-            "fontWeight": "{icon.typeset.fontWeight.icon-solid}"
-          },
-          "$type": "typography"
-        }
-      },
-      "heading": {
-        "2xl": {
-          "$value": {
-            "fontSize": "{I.size.text-new.heading.2xl}",
-            "fontFamily": "{I.text-new.typeset.fontFamily.body}",
-            "lineHeight": "{size.lineHeight.600}"
-          },
-          "$type": "typography"
-        },
-        "md": {
-          "$value": {
-            "fontSize": "{I.size.text-new.heading.md}",
-            "fontFamily": "{I.text-new.typeset.fontFamily.body}",
-            "lineHeight": "{size.lineHeight.250}"
-          },
-          "$type": "typography"
-        },
-        "xl": {
-          "$value": {
-            "fontSize": "{I.size.text-new.heading.xl}",
-            "fontFamily": "{I.text-new.typeset.fontFamily.body}",
-            "lineHeight": "{size.lineHeight.500}"
-          },
-          "$type": "typography"
-        },
-        "sm": {
-          "$value": {
-            "fontSize": "{I.size.text-new.heading.sm}",
-            "fontFamily": "{I.text-new.typeset.fontFamily.body}",
-            "lineHeight": "{size.lineHeight.250}"
-          },
-          "$type": "typography"
-        },
+      "body": {
         "lg": {
           "$value": {
-            "fontSize": "{I.size.text-new.heading.lg}",
+            "fontSize": "{I.size.text-new.body.lg}",
             "fontFamily": "{I.text-new.typeset.fontFamily.body}",
-            "lineHeight": "{size.lineHeight.400}"
+            "fontWeight": "{I.text-new.typeset.fontWeight.regular}",
+            "lineHeight": "{size.lineHeight.300}"
           },
           "$type": "typography"
-        }
-      },
-      "body": {
+        },
         "md": {
           "$value": {
             "fontSize": "{I.size.text-new.body.md}",
@@ -232,26 +180,25 @@
             "lineHeight": "{size.lineHeight.200}"
           },
           "$type": "typography"
-        },
-        "lg": {
+        }
+      },
+      "icon": {
+        "solid": {
           "$value": {
-            "fontSize": "{I.size.text-new.body.lg}",
-            "fontFamily": "{I.text-new.typeset.fontFamily.body}",
-            "fontWeight": "{I.text-new.typeset.fontWeight.regular}",
-            "lineHeight": "{size.lineHeight.300}"
+            "fontFamily": "{icon.typeset.fontFamily.classic}",
+            "fontWeight": "{icon.typeset.fontWeight.icon-solid}"
+          },
+          "$type": "typography"
+        },
+        "outline": {
+          "$value": {
+            "fontFamily": "{icon.typeset.fontFamily.classic}",
+            "fontWeight": "{icon.typeset.fontWeight.icon-regular}"
           },
           "$type": "typography"
         }
       },
       "input": {
-        "md": {
-          "$value": {
-            "fontSize": "{I.size.text-new.body.md}",
-            "fontFamily": "{I.text-new.typeset.fontFamily.body}",
-            "lineHeight": "{size.lineHeight.300}"
-          },
-          "$type": "typography"
-        },
         "lg": {
           "$value": {
             "fontSize": "{I.size.text-new.body.md}",
@@ -259,29 +206,82 @@
             "lineHeight": "{size.lineHeight.400}"
           },
           "$type": "typography"
+        },
+        "md": {
+          "$value": {
+            "fontSize": "{I.size.text-new.body.md}",
+            "fontFamily": "{I.text-new.typeset.fontFamily.body}",
+            "lineHeight": "{size.lineHeight.300}"
+          },
+          "$type": "typography"
         }
-      }
-    },
-    "icon": {
+      },
+      "heading": {
+        "lg": {
+          "$value": {
+            "fontSize": "{I.size.text-new.heading.lg}",
+            "fontFamily": "{I.text-new.typeset.fontFamily.body}",
+            "lineHeight": "{size.lineHeight.400}"
+          },
+          "$type": "typography"
+        },
+        "md": {
+          "$value": {
+            "fontSize": "{I.size.text-new.heading.md}",
+            "fontFamily": "{I.text-new.typeset.fontFamily.body}",
+            "lineHeight": "{size.lineHeight.250}"
+          },
+          "$type": "typography"
+        },
+        "sm": {
+          "$value": {
+            "fontSize": "{I.size.text-new.heading.sm}",
+            "fontFamily": "{I.text-new.typeset.fontFamily.body}",
+            "lineHeight": "{size.lineHeight.250}"
+          },
+          "$type": "typography"
+        },
+        "xl": {
+          "$value": {
+            "fontSize": "{I.size.text-new.heading.xl}",
+            "fontFamily": "{I.text-new.typeset.fontFamily.body}",
+            "lineHeight": "{size.lineHeight.500}"
+          },
+          "$type": "typography"
+        },
+        "2xl": {
+          "$value": {
+            "fontSize": "{I.size.text-new.heading.2xl}",
+            "fontFamily": "{I.text-new.typeset.fontFamily.body}",
+            "lineHeight": "{size.lineHeight.600}"
+          },
+          "$type": "typography"
+        }
+      },
       "typeset": {
+        "fontFamily": {
+          "body": {
+            "$value": "Open Sans",
+            "$type": "fontFamily"
+          },
+          "icon": {
+            "$value": "{icon.typeset.fontFamily.classic}",
+            "$type": "fontFamily"
+          },
+          "heading": {
+            "$value": "Open Sans",
+            "$type": "fontFamily"
+          }
+        },
         "fontWeight": {
           "regular": {
-            "$value": "{icon.typeset.fontWeight.icon-regular}",
+            "$value": "{fontWeight.400}",
             "$type": "fontWeight"
           },
-          "solid": {
-            "$value": "{icon.typeset.fontWeight.icon-solid}",
+          "semiBold": {
+            "$value": "{fontWeight.600}",
             "$type": "fontWeight"
           }
-        }
-      }
-    },
-    "space": {
-      "offset": {
-        "default": {
-          "$value": "{space.075}",
-          "$type": "space",
-          "$description": "Defines the standard spacing offset."
         }
       }
     }

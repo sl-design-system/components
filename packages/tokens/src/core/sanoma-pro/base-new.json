@@ -1,6 +1,45 @@
 {
   "I": {
     "size": {
+      "text-new": {
+        "heading": {
+          "xl": {
+            "$value": "{size.font.400}",
+            "$type": "fontSize"
+          },
+          "lg": {
+            "$value": "{size.font.300}",
+            "$type": "fontSize"
+          },
+          "md": {
+            "$value": "{size.font.200}",
+            "$type": "fontSize"
+          },
+          "sm": {
+            "$value": "{size.font.175}",
+            "$type": "fontSize"
+          },
+          "2xl": {
+            "$value": "{size.font.600}",
+            "$type": "fontSize"
+          }
+        },
+        "body": {
+          "lg": {
+            "$value": "{size.font.200}",
+            "$type": "fontSize"
+          },
+          "md": {
+            "$value": "{size.font.175}",
+            "$type": "fontSize",
+            "$description": "default text size for body"
+          },
+          "sm": {
+            "$value": "{size.font.150}",
+            "$type": "fontSize"
+          }
+        }
+      },
       "icon": {
         "font": {
           "lg": {
@@ -23,6 +62,10 @@
             "$value": "{size-new.icon.xs}",
             "$type": "fontSize"
           },
+          "2xl": {
+            "$value": "{size-new.icon.2xl}",
+            "$type": "fontSize"
+          },
           "2xs": {
             "$value": "{size-new.icon.2xs}",
             "$type": "fontSize"
@@ -34,60 +77,17 @@
           "4xl": {
             "$value": "{size-new.icon.4xl}",
             "$type": "fontSize"
-          },
-          "2xl": {
-            "$value": "{size-new.icon.2xl}",
-            "$type": "fontSize"
-          }
-        }
-      },
-      "text-new": {
-        "body": {
-          "lg": {
-            "$value": "{size.font.200}",
-            "$type": "fontSize"
-          },
-          "md": {
-            "$value": "{size.font.175}",
-            "$type": "fontSize",
-            "$description": "default text size for body"
-          },
-          "sm": {
-            "$value": "{size.font.150}",
-            "$type": "fontSize"
-          }
-        },
-        "heading": {
-          "lg": {
-            "$value": "{size.font.300}",
-            "$type": "fontSize"
-          },
-          "md": {
-            "$value": "{size.font.200}",
-            "$type": "fontSize"
-          },
-          "sm": {
-            "$value": "{size.font.175}",
-            "$type": "fontSize"
-          },
-          "xl": {
-            "$value": "{size.font.400}",
-            "$type": "fontSize"
-          },
-          "2xl": {
-            "$value": "{size.font.600}",
-            "$type": "fontSize"
           }
         }
       },
       "borderWidth": {
         "action": {
-          "$value": "{size.borderWidth.bold}",
+          "$value": "{size.borderWidth.subtle}",
           "$type": "borderWidth",
           "$description": "Sets the standard border width for action components."
         },
         "default": {
-          "$value": "{size.borderWidth.bold}",
+          "$value": "{size.borderWidth.subtle}",
           "$type": "borderWidth",
           "$description": "Sets the standard border width for UI elements."
         }
@@ -129,20 +129,6 @@
         }
       }
     },
-    "icon": {
-      "typeset": {
-        "fontWeight": {
-          "solid": {
-            "$value": "{icon.typeset.fontWeight.icon-solid}",
-            "$type": "fontWeight"
-          },
-          "regular": {
-            "$value": "{icon.typeset.fontWeight.icon-regular}",
-            "$type": "fontWeight"
-          }
-        }
-      }
-    },
     "space": {
       "offset": {
         "default": {
@@ -154,15 +140,6 @@
     },
     "text-new": {
       "body": {
-        "lg": {
-          "$value": {
-            "fontSize": "{I.size.text-new.body.lg}",
-            "fontFamily": "{I.text-new.typeset.fontFamily.body}",
-            "fontWeight": "{I.text-new.typeset.fontWeight.regular}",
-            "lineHeight": "{size.lineHeight.300}"
-          },
-          "$type": "typography"
-        },
         "md": {
           "$value": {
             "fontSize": "{I.size.text-new.body.md}",
@@ -178,6 +155,15 @@
             "fontFamily": "{I.text-new.typeset.fontFamily.body}",
             "fontWeight": "{I.text-new.typeset.fontWeight.regular}",
             "lineHeight": "{size.lineHeight.200}"
+          },
+          "$type": "typography"
+        },
+        "lg": {
+          "$value": {
+            "fontSize": "{I.size.text-new.body.lg}",
+            "fontFamily": "{I.text-new.typeset.fontFamily.body}",
+            "fontWeight": "{I.text-new.typeset.fontWeight.regular}",
+            "lineHeight": "{size.lineHeight.300}"
           },
           "$type": "typography"
         }
@@ -220,7 +206,8 @@
         "lg": {
           "$value": {
             "fontSize": "{I.size.text-new.heading.lg}",
-            "fontFamily": "{I.text-new.typeset.fontFamily.body}",
+            "fontFamily": "{I.text-new.typeset.fontFamily.heading}",
+            "fontWeight": "{fontWeight.600}",
             "lineHeight": "{size.lineHeight.400}"
           },
           "$type": "typography"
@@ -228,7 +215,8 @@
         "md": {
           "$value": {
             "fontSize": "{I.size.text-new.heading.md}",
-            "fontFamily": "{I.text-new.typeset.fontFamily.body}",
+            "fontFamily": "{I.text-new.typeset.fontFamily.heading}",
+            "fontWeight": "{fontWeight.600}",
             "lineHeight": "{size.lineHeight.250}"
           },
           "$type": "typography"
@@ -236,7 +224,8 @@
         "sm": {
           "$value": {
             "fontSize": "{I.size.text-new.heading.sm}",
-            "fontFamily": "{I.text-new.typeset.fontFamily.body}",
+            "fontFamily": "{I.text-new.typeset.fontFamily.heading}",
+            "fontWeight": "{fontWeight.600}",
             "lineHeight": "{size.lineHeight.250}"
           },
           "$type": "typography"
@@ -244,7 +233,8 @@
         "xl": {
           "$value": {
             "fontSize": "{I.size.text-new.heading.xl}",
-            "fontFamily": "{I.text-new.typeset.fontFamily.body}",
+            "fontFamily": "{I.text-new.typeset.fontFamily.heading}",
+            "fontWeight": "{fontWeight.600}",
             "lineHeight": "{size.lineHeight.500}"
           },
           "$type": "typography"
@@ -253,6 +243,7 @@
           "$value": {
             "fontSize": "{I.size.text-new.heading.2xl}",
             "fontFamily": "{I.text-new.typeset.fontFamily.heading}",
+            "fontWeight": "{fontWeight.600}",
             "lineHeight": "{size.lineHeight.600}"
           },
           "$type": "typography"
@@ -261,7 +252,7 @@
       "typeset": {
         "fontFamily": {
           "body": {
-            "$value": "Lato",
+            "$value": "Roboto",
             "$type": "fontFamily"
           },
           "icon": {
@@ -269,7 +260,7 @@
             "$type": "fontFamily"
           },
           "heading": {
-            "$value": "Lato",
+            "$value": "The Message",
             "$type": "fontFamily"
           }
         },
@@ -279,7 +270,23 @@
             "$type": "fontWeight"
           },
           "semiBold": {
-            "$value": "{fontWeight.600}",
+            "$value": "{fontWeight.500}",
+            "$type": "fontWeight"
+          }
+        }
+      }
+    }
+  },
+  "II": {
+    "icon": {
+      "typeset": {
+        "fontWeight": {
+          "regular": {
+            "$value": "{icon.typeset.fontWeight.icon-regular}",
+            "$type": "fontWeight"
+          },
+          "solid": {
+            "$value": "{icon.typeset.fontWeight.icon-solid}",
             "$type": "fontWeight"
           }
         }

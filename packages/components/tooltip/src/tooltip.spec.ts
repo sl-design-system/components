@@ -153,10 +153,29 @@ describe('sl-tooltip', () => {
       expect(getComputedStyle(tooltip).maxInlineSize).to.equal('150px');
     });
 
-    it('should show the tooltip when focus returns to the button after sl-close', async () => {
+    it('should show the tooltip on sl-close dispatched outside the tooltip root while anchor keeps focus', async () => {
       button?.focus();
-      // Dispatch sl-close to simulate the dialog closing event
-      el.dispatchEvent(new CustomEvent('sl-close', { bubbles: true, composed: true }));
+      await tooltip.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await tooltip.updateComplete;
+
+      expect(tooltip).to.match(':popover-open');
+
+      // Keep the anchor focused, but close the tooltip first so reopening can only come from sl-close handling.
+      if (tooltip.matches(':popover-open')) {
+        tooltip.hidePopover();
+      }
+
+      await tooltip.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await tooltip.updateComplete;
+      expect(tooltip).not.to.match(':popover-open');
+
+      // Dispatch sl-close from outside the tooltip root (e.g. document-level overlay close).
+      const overlay = document.createElement('div');
+      document.body.append(overlay);
+      overlay.dispatchEvent(new CustomEvent('sl-close', { bubbles: true, composed: true }));
+      overlay.remove();
 
       await tooltip.updateComplete;
       await new Promise(resolve => requestAnimationFrame(resolve));

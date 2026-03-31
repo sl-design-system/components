@@ -497,7 +497,8 @@ export class Tooltip extends LitElement {
     this.setAttribute('role', 'tooltip');
     this.setAttribute('aria-hidden', 'true'); // Prevent the tooltip from being read by screen readers multiple times
 
-    const root = this.getRootNode() as HTMLElement;
+    const root = this.getRootNode() as HTMLElement,
+      eventTargetForClose = this.ownerDocument ?? document;
 
     this.#events.listen(root, 'click', this.#onHide, { capture: true });
     this.#events.listen(root, 'focusin', this.#onShow);
@@ -505,7 +506,7 @@ export class Tooltip extends LitElement {
     this.#events.listen(root, 'keydown', this.#onKeydown);
     this.#events.listen(root, 'pointerover', this.#onShow);
     this.#events.listen(root, 'pointerout', this.#onHide);
-    this.#events.listen(root, 'sl-close', this.#onShow);
+    this.#events.listen(eventTargetForClose, 'sl-close', this.#onShow);
   }
 
   override disconnectedCallback(): void {

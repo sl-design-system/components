@@ -160,39 +160,36 @@ export const Shared: Story = {
 
 export const NestedChildren: Story = {
   args: {
-    message: 'This is the tooltip message'
-  },
-  render: ({ message }) => html`
-    <style>
-      #root-inner {
-        box-sizing: border-box;
-        min-block-size: calc(100dvh - 2rem);
-        padding: 1rem;
-      }
+    example: ({ message }) => html`
+      <style>
+        .nested-children-container {
+          border: 1px solid black;
+          margin: 20px;
+          padding: 20px;
+        }
 
-      .nested-children {
-        display: grid;
-        gap: 1rem;
-      }
+        @media (max-width: 37.5rem) {
+          #root-inner {
+            box-sizing: border-box;
+            display: block;
+            height: auto;
+            min-block-size: calc(100dvh - 2rem);
+            padding: 1rem;
+          }
 
-      .nested-children-container {
-        border: 1px solid black;
-        box-sizing: border-box;
-        inline-size: min(100%, 40rem);
-        margin: 0 auto;
-        padding: 1.25rem;
-      }
+          .nested-children-container {
+            margin: 12px 0;
+            padding: 16px;
+          }
 
-      .nested-children-action {
-        display: flex;
-        justify-content: center;
-      }
-    </style>
-    <div class="nested-children">
-      <p>
-        This example is not necessarily a good practice, but it shows that the tooltip can be used on an element that
-        has many (interactive) child elements.
-      </p>
+          .nested-children-eye-icon-wrap {
+            display: flex;
+            justify-content: center;
+          }
+        }
+      </style>
+      This example is not necessarily a good practice, but it shows that the tooltip can be used on an element that has
+      many (interactive) child elements.
       <div
         class="nested-children-container"
         aria-describedby="task-details-not-available-tooltip"
@@ -213,15 +210,15 @@ export const NestedChildren: Story = {
           <sl-button> Some button </sl-button>
         </p>
       </div>
-      <div class="nested-children-action">
-        <sl-button aria-label="Look" fill="outline" aria-describedby="tooltip">
+      <div class="nested-children-eye-icon-wrap">
+        <sl-button class="nested-children-eye-icon" aria-label="Look" fill="outline" aria-describedby="tooltip">
           <sl-icon name="eye"></sl-icon>
         </sl-button>
       </div>
       <sl-tooltip id="task-details-not-available-tooltip"> Tooltip on the div </sl-tooltip>
       <sl-tooltip id="tooltip">${message}</sl-tooltip>
-    </div>
-  `
+    `
+  }
 };
 
 export const IconButton: Story = {

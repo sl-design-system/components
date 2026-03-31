@@ -23,9 +23,7 @@ describe('sl-tooltip shared', () => {
 
     if (popover.matches(':popover-open')) {
       const id = (popover as HTMLElement & { id?: string }).id;
-      throw new Error(
-        `Timed out after ${timeout}ms waiting for popover${id ? ` with id "${id}"` : ''} to close.`
-      );
+      throw new Error(`Timed out after ${timeout}ms waiting for popover${id ? ` with id "${id}"` : ''} to close.`);
     }
   };
 
@@ -73,8 +71,8 @@ describe('sl-tooltip shared', () => {
 
     expect(tooltip).to.match(':popover-open');
 
-    // Pointerover btn 2 (clears btn 1 hide timer if it existed, but here we are already open)
-    // This clears the btn 1 "show" timer (already done) and starts btn 2 "show" timer.
+    // Pointerover btn 2 while the tooltip is already open; this should switch/update the active anchor.
+    // After pointerout from all anchors, the tooltip should still close.
     buttons[1].dispatchEvent(new Event('pointerover', { bubbles: true }));
 
     // Now move out of BOTH (simulated jump out)

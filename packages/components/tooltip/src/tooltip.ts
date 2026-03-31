@@ -187,7 +187,7 @@ export class Tooltip extends LitElement {
       escapedId = this.#getEscapedTooltipId();
 
     // First check elements directly in the composed path
-    const anchor = path.find((el): el is HTMLElement => el instanceof Element && this.#matchesAnchor(el));
+    const anchor = path.find((el): el is HTMLElement => el instanceof HTMLElement && this.#matchesAnchor(el));
 
     if (anchor) {
       return anchor;
@@ -199,13 +199,21 @@ export class Tooltip extends LitElement {
           ? el.shadowRoot.querySelector(`[aria-describedby~="${escapedId}"], [aria-labelledby~="${escapedId}"]`)
           : null;
 
-        if (ariaMatch && (path.includes(ariaMatch) || el === event.target) && this.#matchesAnchor(ariaMatch)) {
-          return ariaMatch as HTMLElement;
+        if (
+          ariaMatch instanceof HTMLElement &&
+          (path.includes(ariaMatch) || el === event.target) &&
+          this.#matchesAnchor(ariaMatch)
+        ) {
+          return ariaMatch;
         }
 
         for (const child of el.shadowRoot.children) {
-          if ((path.includes(child) || el === event.target) && this.#matchesAnchor(child)) {
-            return child as HTMLElement;
+          if (
+            child instanceof HTMLElement &&
+            (path.includes(child) || el === event.target) &&
+            this.#matchesAnchor(child)
+          ) {
+            return child;
           }
         }
       }

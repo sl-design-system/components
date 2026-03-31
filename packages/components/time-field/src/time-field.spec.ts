@@ -84,9 +84,13 @@ describe('sl-time-field', () => {
     it('should support entering a time via the keyboard', async () => {
       el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')?.focus();
 
-      await userEvent.keyboard('12');
+      await userEvent.keyboard('1');
       await el.updateComplete;
-      await userEvent.keyboard('34');
+      await userEvent.keyboard('2');
+      await el.updateComplete;
+      await userEvent.keyboard('3');
+      await el.updateComplete;
+      await userEvent.keyboard('4');
       await el.updateComplete;
 
       expect(el.value).to.equal('12:34');

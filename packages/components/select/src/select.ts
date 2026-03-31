@@ -543,19 +543,14 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   }
 
   #onListboxMousedown(event: MouseEvent): void {
-    if (event.button !== 0 || !this.listbox) {
+    if (event.button !== 0 || !this.listbox || event.target !== this.listbox) {
       return;
     }
 
-    const { left, right, top, bottom } = this.listbox.getBoundingClientRect();
-    const inListboxBounds =
-      event.clientX >= left && event.clientX <= right && event.clientY >= top && event.clientY <= bottom;
-
     // Prevent focus from moving off the trigger when interacting with the native listbox scrollbar.
-    // This avoids a focusout-driven popover close while preserving the subsequent click event.
-    if (inListboxBounds) {
-      event.preventDefault();
-    }
+    // We only do this when the mousedown targets the listbox itself to avoid suppressing
+    // default pointer behavior for option interactions.
+    event.preventDefault();
   }
 
   #onListboxKeydown(event: KeyboardEvent): void {

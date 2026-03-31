@@ -145,28 +145,23 @@ dialog {
   }
 }
 
-slot[name='title'] {
+// Keep * selector instead of just h1 for backward compatibility
+slot[name='title'] h1,
+slot[name='title']::slotted(*) {
   color: var(--sl-color-foreground-bold);
-  font-size: 1.7em;
+  font-size: calc((24 / 14) * 1em);
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
-  line-height: 1.42em;
+  line-height: 1em; // Only applies on FF where text-box is not yet supported
+  margin: 0;
+  padding-inline-end: calc(var(--sl-size-450) / 2);
+  text-box: trim-both cap alphabetic;
+  text-wrap: balance;
 
   @media (width <= 600px) {
-    font-size: 1.2em;
-    line-height: 1.42em;
-  }
-
-  &::slotted(*) {
-    margin: 0;
-    padding-inline-end: calc(var(--sl-size-450) / 2);
-    text-box: trim-both cap alphabetic;
-    text-wrap: balance;
-
-    @media (width <= 600px) {
-      grid-area: 1 / 2;
-      justify-self: center;
-      padding-inline-end: 0;
-    }
+    font-size: calc((16 / 14) * 1em);
+    grid-area: 1 / 2;
+    justify-self: center;
+    padding-inline-end: 0;
   }
 }
 

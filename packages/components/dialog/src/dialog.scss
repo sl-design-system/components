@@ -158,10 +158,9 @@ slot[name='title']::slotted(*) {
   text-wrap: balance;
 
   @media (width <= 600px) {
-    font-size: 1.2em;
+    font-size: calc((16 / 14) * 1em);
     grid-area: 1 / 2;
     justify-self: center;
-    line-height: 1.42em;
     padding-inline-end: 0;
   }
 }

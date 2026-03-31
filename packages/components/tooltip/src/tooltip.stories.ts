@@ -160,11 +160,41 @@ export const Shared: Story = {
 
 export const NestedChildren: Story = {
   args: {
-    example: ({ message }) => html`
-      This example is not necessarily a good practice, but it shows that the tooltip can be used on an element that has
-      many (interactive) child elements.
+    message: 'This is the tooltip message'
+  },
+  render: ({ message }) => html`
+    <style>
+      #root-inner {
+        box-sizing: border-box;
+        min-block-size: calc(100dvh - 2rem);
+        padding: 1rem;
+      }
+
+      .nested-children {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .nested-children-container {
+        border: 1px solid black;
+        box-sizing: border-box;
+        inline-size: min(100%, 40rem);
+        margin: 0 auto;
+        padding: 1.25rem;
+      }
+
+      .nested-children-action {
+        display: flex;
+        justify-content: center;
+      }
+    </style>
+    <div class="nested-children">
+      <p>
+        This example is not necessarily a good practice, but it shows that the tooltip can be used on an element that
+        has many (interactive) child elements.
+      </p>
       <div
-        style="border: 1px solid black; padding: 20px; margin: 20px"
+        class="nested-children-container"
         aria-describedby="task-details-not-available-tooltip"
         @click=${(e: MouseEvent) => console.log('Div clicked', e)}
         tabindex="0"
@@ -183,13 +213,15 @@ export const NestedChildren: Story = {
           <sl-button> Some button </sl-button>
         </p>
       </div>
-      <sl-button aria-label="Look" fill="outline" aria-describedby="tooltip">
-        <sl-icon name="eye"></sl-icon>
-      </sl-button>
+      <div class="nested-children-action">
+        <sl-button aria-label="Look" fill="outline" aria-describedby="tooltip">
+          <sl-icon name="eye"></sl-icon>
+        </sl-button>
+      </div>
       <sl-tooltip id="task-details-not-available-tooltip"> Tooltip on the div </sl-tooltip>
       <sl-tooltip id="tooltip">${message}</sl-tooltip>
-    `
-  }
+    </div>
+  `
 };
 
 export const IconButton: Story = {

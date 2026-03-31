@@ -43,12 +43,9 @@ dialog {
     border-radius: var(--sl-size-borderRadius-default) var(--sl-size-borderRadius-default) 0 0;
 
     // Exit animation
-    &:not(:modal) {
+    &:not(:modal),
+    &.closing {
       translate: 0 100%;
-
-      @supports not (overlay: auto) {
-        transition-duration: 0s;
-      }
     }
 
     // Enter animation
@@ -84,13 +81,10 @@ dialog {
     }
 
     // Exit animation
-    &:not(:modal) {
+    &:not(:modal),
+    &.closing {
       opacity: 0;
       scale: 0.7;
-
-      @supports not (overlay: auto) {
-        transition-duration: 0s;
-      }
     }
 
     // Enter animation

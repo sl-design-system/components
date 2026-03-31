@@ -276,10 +276,27 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   /** Close the dialog. */
   close(): void {
-    if (this.dialog?.open) {
-      this.#observer.disconnect();
+    if (!this.dialog?.open) {
+      return;
+    }
 
-      this.dialog?.close();
+    this.#observer.disconnect();
+    this.#updateDocumentElement(false);
+
+    if (CSS.supports('overlay', 'auto')) {
+      this.dialog.close();
+    } else {
+      // Without overlay support (Safari/Firefox), trigger the exit transition
+      // while the dialog is still in the top layer. Start the body animation
+      // at the same time so both run in parallel.
+
+      this.dialog.classList.add('closing');
+
+      requestAnimationFrame(() => {
+        void Promise.allSettled(this.dialog?.getAnimations().map(a => a.finished) ?? []).then(() => {
+          this.dialog?.close();
+        });
+      });
     }
   }
 
@@ -315,12 +332,20 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   }
 
   async #onClose(): Promise<void> {
-    this.#updateDocumentElement(false);
+    // Only needed if the dialog was closed externally (e.g. via dialog.close() directly),
+    // bypassing our close() method which already calls this proactively.
+    if (document.documentElement.style.overflow === 'hidden') {
+      this.#updateDocumentElement(false);
+    }
 
     this.inert = true;
 
     // Wait until all animations have finished before emitting the close event
     await Promise.allSettled(this.dialog?.getAnimations({ subtree: true }).map(a => a.finished) ?? []);
+
+    // Remove only after animations complete — removing earlier would clear translate: 0 100%
+    // while Safari's display transition is still running, causing a visible flash.
+    this.dialog?.classList.remove('closing');
 
     this.closeEvent.emit();
   }

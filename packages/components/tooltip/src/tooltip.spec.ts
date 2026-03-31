@@ -124,6 +124,38 @@ describe('sl-tooltip', () => {
       expect(tooltip).to.match(':popover-open');
     });
 
+    it('should stay open on focusout when the anchor remains hovered', async () => {
+      button?.focus();
+      await tooltip.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await tooltip.updateComplete;
+
+      expect(tooltip).to.match(':popover-open');
+
+      const originalMatches = button.matches.bind(button);
+      const matchesSpy = vi.spyOn(button, 'matches').mockImplementation((selector: string): boolean => {
+        if (selector === ':hover') {
+          return true;
+        }
+
+        if (selector === ':focus-within') {
+          return false;
+        }
+
+        return originalMatches(selector);
+      });
+
+      try {
+        button?.blur();
+        button?.dispatchEvent(new Event('focusout', { bubbles: true, composed: true }));
+        await waitFor(10);
+
+        expect(tooltip).to.match(':popover-open');
+      } finally {
+        matchesSpy.mockRestore();
+      }
+    });
+
     it('should toggle the tooltip on focus and Escape key pressed', async () => {
       button?.focus();
       await tooltip.updateComplete;

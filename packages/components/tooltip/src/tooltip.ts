@@ -325,6 +325,13 @@ export class Tooltip extends LitElement {
             return;
           }
 
+          // Keep the tooltip visible when pointer hover is still active.
+          // Without this guard, a focusout can close the tooltip even though the anchor
+          // remains hovered, and no new pointerover will fire to reopen it.
+          if (anchorHovered || tooltipHovered || safeTriangleHovered) {
+            return;
+          }
+
           const anchorForEvent = this.#findAnchorInEvent(event),
             focusedAnchor = this.#findFocusedAnchor();
 

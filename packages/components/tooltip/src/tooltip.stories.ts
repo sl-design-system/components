@@ -239,7 +239,7 @@ export const Dialog: Story = {
       const dialog = document.createElement('sl-dialog');
       dialog.innerHTML = `
         <h1 slot="title">Tooltip</h1>
-        Tooltip should be closed when the dialog is closed..
+        Tooltip should be closed when the dialog is closed.
         <sl-button slot="primary-actions" sl-dialog-close variant="primary">Close</sl-button>
       `;
       dialog.addEventListener('sl-close', () => dialog.remove());

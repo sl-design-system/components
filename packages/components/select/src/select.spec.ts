@@ -670,12 +670,9 @@ describe('sl-select', () => {
       await userEvent.keyboard('{ArrowDown}');
       await el.updateComplete;
 
-      const { left, top } = listbox.getBoundingClientRect();
       const event = new MouseEvent('mousedown', {
         bubbles: true,
-        cancelable: true,
-        clientX: left + 1,
-        clientY: top + 1
+        cancelable: true
       });
 
       listbox.dispatchEvent(event);

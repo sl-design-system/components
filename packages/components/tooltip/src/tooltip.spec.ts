@@ -2,6 +2,7 @@ import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { Menu, MenuButton } from '@sl-design-system/menu';
 import '@sl-design-system/menu/register.js';
+import { isPopoverOpen } from '@sl-design-system/shared';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -86,8 +87,7 @@ describe('sl-tooltip', () => {
       const hidePopoverSpy = vi.spyOn(tooltip, 'hidePopover');
 
       try {
-        expect(tooltip).not.to.match(':popover-open');
-        expect(tooltip.matches('.\\:popover-open')).to.be.false;
+        expect(isPopoverOpen(tooltip)).to.be.false;
 
         tooltip.dispatchEvent(new Event('pointerout', { bubbles: true }));
         await waitFor(10);

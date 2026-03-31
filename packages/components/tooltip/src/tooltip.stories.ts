@@ -172,8 +172,9 @@ export const NestedChildren: Story = {
           #root-inner {
             box-sizing: border-box;
             display: block;
-            height: auto;
-            min-block-size: calc(100dvh - 2rem);
+            height: calc(100dvh - 2rem);
+            min-block-size: 0;
+            overflow-y: auto;
             padding: 1rem;
           }
 

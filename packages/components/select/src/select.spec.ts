@@ -692,7 +692,8 @@ describe('sl-select', () => {
 
       const event = new MouseEvent('mousedown', {
         bubbles: true,
-        cancelable: true
+        cancelable: true,
+        composed: true
       });
 
       option.dispatchEvent(event);

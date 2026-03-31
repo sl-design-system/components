@@ -124,6 +124,36 @@ describe('sl-tooltip', () => {
       expect(tooltip).to.match(':popover-open');
     });
 
+    it('should still close on focusout after pointerover when it was opened by focus', async () => {
+      button?.focus();
+      await tooltip.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await tooltip.updateComplete;
+      expect(tooltip).to.match(':popover-open');
+
+      // Pointer over while open should not flip internal mode from focus-open to hover-open.
+      button?.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
+
+      const originalMatches = button.matches.bind(button);
+      const matchesSpy = vi.spyOn(button, 'matches').mockImplementation((selector: string): boolean => {
+        if (selector === ':hover' || selector === ':focus-visible' || selector === ':focus-within') {
+          return false;
+        }
+
+        return originalMatches(selector);
+      });
+
+      try {
+        button?.blur();
+        button?.dispatchEvent(new Event('focusout', { bubbles: true, composed: true }));
+        await waitFor(10);
+
+        expect(tooltip).not.to.match(':popover-open');
+      } finally {
+        matchesSpy.mockRestore();
+      }
+    });
+
     it('should stay open on focusout when the anchor remains hovered', async () => {
       button?.focus();
       await tooltip.updateComplete;

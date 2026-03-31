@@ -435,7 +435,7 @@ export class Tooltip extends LitElement {
 
       // If already open, update anchor immediately to avoid "stickiness"
       if (isPopoverOpen(this)) {
-        this.#showTooltip(anchorElement, false);
+        this.#showTooltip(anchorElement, this.#openedByFocus);
       } else {
         this.#timer = window.setTimeout(() => this.#showTooltip(anchorElement, false), this.showDelay);
       }

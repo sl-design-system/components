@@ -151,7 +151,9 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     return html`
       <slot name="header">
         <div part="titles">
-          <slot name="title" id="title">${title}</slot>
+          <slot name="title" id="title">
+            <h1>${title}</h1>
+          </slot>
           ${this.#media.mobile
             ? html`
                 <slot @slotchange=${this.#updatePrimaryButtons} name="primary-actions">

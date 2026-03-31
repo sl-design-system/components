@@ -4,7 +4,7 @@ import { Menu, MenuButton } from '@sl-design-system/menu';
 import '@sl-design-system/menu/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { Tooltip } from './tooltip.js';
@@ -68,6 +68,22 @@ describe('sl-tooltip', () => {
       button?.dispatchEvent(pointerEvent);
       await waitFor((tooltip.hideDelay ?? 0) + 10);
       expect(tooltip).not.to.match(':popover-open');
+    });
+
+    it('should not run hide logic on pointerout when tooltip is closed', async () => {
+      const hidePopoverSpy = vi.spyOn(tooltip, 'hidePopover');
+
+      try {
+        expect(tooltip).not.to.match(':popover-open');
+        expect(tooltip.matches('.\\:popover-open')).to.be.false;
+
+        tooltip.dispatchEvent(new Event('pointerout', { bubbles: true }));
+        await waitFor(10);
+
+        expect(hidePopoverSpy).not.toHaveBeenCalled();
+      } finally {
+        hidePopoverSpy.mockRestore();
+      }
     });
 
     it('should ignore unrelated focusout events while open', async () => {

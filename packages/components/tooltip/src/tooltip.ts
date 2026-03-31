@@ -296,6 +296,10 @@ export class Tooltip extends LitElement {
       return;
     }
 
+    if (event.type === 'pointerout' && !isPopoverOpen(this)) {
+      return;
+    }
+
     // Ignore unrelated focusout events when the tooltip was not opened by focus.
     // This avoids overriding a pending hover show timer with a no-op timeout.
     if (event.type === 'focusout' && !this.#openedByFocus) {

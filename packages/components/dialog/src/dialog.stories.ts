@@ -211,29 +211,6 @@ export const MobileScrolling: Story = {
   }
 };
 
-export const All: Story = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    // See https://storybook.js.org/docs/essentials/actions#automatically-matching-args to learn how to setup logging in the Actions panel
-    await userEvent.click(canvas.getByTestId('button'));
-  },
-  render: () => {
-    const onClick = (event: Event & { target: HTMLElement }): void => {
-      (event.target.nextElementSibling as Dialog).showModal();
-    };
-
-    return html`
-      <sl-button fill="outline" size="md" @click=${onClick} data-testid="button">Show Dialog</sl-button>
-      <sl-dialog close-button disable-cancel>
-        <h1 slot="title">Title</h1>
-        Body text
-        <sl-button slot="primary-actions" sl-dialog-close autofocus>Cancel</sl-button>
-        <sl-button slot="primary-actions" variant="primary" sl-dialog-close>Action</sl-button>
-      </sl-dialog>
-    `;
-  }
-};
-
 export const DialogWithOverlayComponents: Story = {
   render: () => {
     const onClick = async (event: Event & { target: HTMLElement }) => {
@@ -335,6 +312,29 @@ export const DialogWithOverlayComponents: Story = {
         <code>Escape</code> key) does not accidentally close the parent dialog.
       </section>
       <sl-button @click=${onClick}>Open dialog</sl-button>
+    `;
+  }
+};
+
+export const All: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // See https://storybook.js.org/docs/essentials/actions#automatically-matching-args to learn how to setup logging in the Actions panel
+    await userEvent.click(canvas.getByTestId('button'));
+  },
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      (event.target.nextElementSibling as Dialog).showModal();
+    };
+
+    return html`
+      <sl-button fill="outline" size="md" @click=${onClick} data-testid="button">Show Dialog</sl-button>
+      <sl-dialog close-button disable-cancel>
+        <h1 slot="title">Title</h1>
+        Body text
+        <sl-button slot="primary-actions" sl-dialog-close autofocus>Cancel</sl-button>
+        <sl-button slot="primary-actions" variant="primary" sl-dialog-close>Action</sl-button>
+      </sl-dialog>
     `;
   }
 };

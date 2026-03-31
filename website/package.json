@@ -99,7 +99,9 @@
     "copy-tokens": {
       "dependencies": [
         "copy-tokens:core",
-        "copy-tokens:base"
+        "copy-tokens:base",
+        "copy-tokens:primitives",
+        "copy-tokens:system"
       ]
     },
     "copy-tokens:core": {
@@ -118,6 +120,24 @@
       ],
       "output": [
         "src/_data/tokens/base.json"
+      ]
+    },
+    "copy-tokens:primitives": {
+      "command": "cpx '../packages/tokens/src/tokens/primitives.json' 'src/_data/tokens/'",
+      "files": [
+        "../packages/tokens/src/tokens/primitives.json"
+      ],
+      "output": [
+        "src/_data/tokens/primitives.json"
+      ]
+    },
+    "copy-tokens:system": {
+      "command": "cpx '../packages/tokens/src/tokens/system.json' 'src/_data/tokens/'",
+      "files": [
+        "../packages/tokens/src/tokens/system.json"
+      ],
+      "output": [
+        "src/_data/tokens/system.json"
       ]
     },
     "lint": {

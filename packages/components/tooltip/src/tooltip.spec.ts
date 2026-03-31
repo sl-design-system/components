@@ -42,6 +42,18 @@ describe('sl-tooltip', () => {
     });
 
     it('should toggle the tooltip on focusin and focusout', async () => {
+      el = await fixture(html`
+        <div style="display: block; width: 400px; height: 400px;">
+          <sl-button aria-describedby="tooltip" fill="outline" style="margin-top: 100px">Button element</sl-button>
+          <button type="button">Outside focus target</button>
+          <sl-tooltip id="tooltip">Message with lots of long text, that exceeds 150px easily</sl-tooltip>
+        </div>
+      `);
+      button = el.querySelector('sl-button') as Button;
+      tooltip = el.querySelector('sl-tooltip') as Tooltip;
+      tooltip.showDelay = 0;
+      tooltip.hideDelay = 0;
+
       button?.focus();
       await tooltip.updateComplete;
       await new Promise(resolve => requestAnimationFrame(resolve));
@@ -49,8 +61,8 @@ describe('sl-tooltip', () => {
 
       expect(tooltip).to.match(':popover-open');
 
-      // Use userEvent to trigger a natural focusout/blur
-      await userEvent.tab();
+      button?.blur();
+      button?.dispatchEvent(new Event('focusout', { bubbles: true, composed: true }));
       await tooltip.updateComplete;
       await new Promise(resolve => requestAnimationFrame(resolve));
       await tooltip.updateComplete;
@@ -176,6 +188,38 @@ describe('sl-tooltip', () => {
       overlay.dispatchEvent(new CustomEvent('sl-close', { bubbles: true, composed: true }));
       overlay.remove();
 
+      await tooltip.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await tooltip.updateComplete;
+
+      expect(tooltip).to.match(':popover-open');
+    });
+
+    it('should keep the tooltip open when focus moves between focusable children in the same anchor', async () => {
+      el = await fixture(html`
+        <div style="display: block; width: 400px; height: 400px;">
+          <div aria-describedby="tooltip" tabindex="-1">
+            <button type="button">First child</button>
+            <button type="button">Second child</button>
+          </div>
+          <sl-tooltip id="tooltip">Message with lots of long text, that exceeds 150px easily</sl-tooltip>
+        </div>
+      `);
+
+      tooltip = el.querySelector('sl-tooltip') as Tooltip;
+      tooltip.showDelay = 0;
+      tooltip.hideDelay = 0;
+
+      const [firstChildButton, secondChildButton] = Array.from(el.querySelectorAll<HTMLButtonElement>('button'));
+
+      firstChildButton.focus();
+      await tooltip.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await tooltip.updateComplete;
+
+      expect(tooltip).to.match(':popover-open');
+
+      secondChildButton.focus();
       await tooltip.updateComplete;
       await new Promise(resolve => requestAnimationFrame(resolve));
       await tooltip.updateComplete;

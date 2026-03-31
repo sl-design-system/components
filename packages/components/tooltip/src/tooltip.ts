@@ -334,9 +334,16 @@ export class Tooltip extends LitElement {
             return;
           }
 
+          const hasFocusWithinCurrentAnchor = !!this.anchorElement?.matches(':focus-within');
+
+          // If focus is still logically within this anchor (including descendants), keep the tooltip open.
+          if (hasFocusWithinCurrentAnchor) {
+            return;
+          }
+
           // Ignore unrelated focusouts. Hide only when the current anchor actually lost focus.
-          const currentAnchorLostFocus = !!this.anchorElement && !this.anchorElement.matches(':focus-visible');
-          if (anchorForEvent === this.anchorElement || currentAnchorLostFocus) {
+          const currentAnchorLostFocus = !!this.anchorElement && !hasFocusWithinCurrentAnchor;
+          if (currentAnchorLostFocus && (!anchorForEvent || anchorForEvent === this.anchorElement)) {
             this.hidePopover();
           }
           return;

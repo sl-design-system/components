@@ -369,15 +369,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
       this.#listenForLeaveAnimationEnd();
     } else if (current === 'mobile') {
-      const width = window.innerWidth,
-        bodyMargin = 16;
-
-      const scale = (width - bodyMargin * 2) / width;
-
-      // Set the scale and translate values so that the body has a 16px margin on each side
-      document.documentElement.style.setProperty('--sl-dialog-scale', scale.toString());
-      document.documentElement.style.setProperty('--sl-dialog-translate', `0 ${bodyMargin}px`);
-
       // Entering mobile while dialog is open
       document.documentElement.classList.remove('sl-dialog-leave');
       document.documentElement.classList.add('sl-dialog-enter');
@@ -429,15 +420,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   #updateDocumentElement(opening?: boolean): void {
     if (opening) {
-      const width = window.innerWidth,
-        bodyMargin = 16;
-
-      const scale = (width - bodyMargin * 2) / width;
-
-      // Set the scale and translate values so that the body has a 16px margin on each side
-      document.documentElement.style.setProperty('--sl-dialog-scale', scale.toString());
-      document.documentElement.style.setProperty('--sl-dialog-translate', `0 ${bodyMargin}px`);
-
       // Add class to `<html>` for styling purposes
       document.documentElement.classList.remove('sl-dialog-leave');
       document.documentElement.classList.add('sl-dialog-enter');

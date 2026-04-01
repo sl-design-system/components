@@ -1,4 +1,8 @@
 html {
+  /* Body scale/translate for the mobile dialog animation. */
+  --sl-dialog-scale: 0.92;
+  --sl-dialog-translate: 0 var(--sl-size-200);
+
   background: var(--sl-color-palette-grey-800);
 
   @media (prefers-reduced-motion: no-preference) {

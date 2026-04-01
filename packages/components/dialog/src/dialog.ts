@@ -420,6 +420,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   #updateDocumentElement(opening?: boolean): void {
     if (opening) {
+      // TODO: Probably there is an error in safari with --sl-dialog-scale, previously it was calcucated based on window width
+
       // Add class to `<html>` for styling purposes
       document.documentElement.classList.remove('sl-dialog-leave');
       document.documentElement.classList.add('sl-dialog-enter');

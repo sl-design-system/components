@@ -2,6 +2,7 @@ import { type Constructor } from '@open-wc/dedupe-mixin';
 import { type ReactiveElement } from 'lit';
 
 export interface ProxyAriaAttributesMixinInterface {
+  getProxyTarget(): HTMLElement | undefined;
   setProxyTarget(target: HTMLElement): void;
 }
 
@@ -73,6 +74,11 @@ export function ProxyAriaAttributesMixin<T extends Constructor<ReactiveElement> 
 
     static override get observedAttributes(): string[] {
       return [...(super.observedAttributes ?? []), ...(observedAttributes ?? [])];
+    }
+
+    /** @internal */
+    getProxyTarget(): HTMLElement | undefined {
+      return targetElements.get(this);
     }
 
     /** @internal */

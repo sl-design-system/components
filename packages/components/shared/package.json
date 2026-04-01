@@ -36,6 +36,10 @@
       "import": "./src/events.js",
       "types": "./src/events.d.ts"
     },
+    "./helpers/proxy-aria-attributes.js": {
+      "import": "./src/helpers/proxy-aria-attributes.js",
+      "types": "./src/helpers/proxy-aria-attributes.d.ts"
+    },
     "./mixins.js": {
       "import": "./src/mixins.js",
       "types": "./src/mixins.d.ts"

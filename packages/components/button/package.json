@@ -22,7 +22,6 @@
   "customElements": "custom-elements.json",
   "exports": {
     ".": "./index.js",
-    "./helpers.js": "./src/helpers.js",
     "./package.json": "./package.json",
     "./register.js": "./register.js"
   },

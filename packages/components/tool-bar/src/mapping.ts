@@ -1,16 +1,11 @@
 import { Button } from '@sl-design-system/button';
-import {
-  getButtonAccessibleName,
-  getButtonAriaAttribute,
-  getButtonDescription,
-  isButtonDisabled
-} from '@sl-design-system/button/helpers.js';
 import { MenuButton, type MenuItem } from '@sl-design-system/menu';
 import {
-  getMenuButtonAccessibleName,
-  getMenuButtonDescription,
-  isMenuButtonDisabled
-} from '@sl-design-system/menu/helpers.js';
+  getProxiedAccessibleName,
+  getProxiedAriaAttribute,
+  getProxiedDescription,
+  isProxiedDisabled
+} from '@sl-design-system/shared/helpers/proxy-aria-attributes.js';
 import { ToolBarDivider } from './tool-bar-divider.js';
 
 export interface ToolBarItemBase {
@@ -52,8 +47,8 @@ export interface ToolBarItemMenu extends ToolBarItemBase {
 export type ToolBarItem = ToolBarItemButton | ToolBarItemDivider | ToolBarItemGroup | ToolBarItemMenu;
 
 export function mapButtonToItem(button: Button): ToolBarItemButton {
-  const label = getButtonAccessibleName(button) || getButtonDescription(button),
-    disabled = isButtonDisabled(button);
+  const label = getProxiedAccessibleName(button) || getProxiedDescription(button),
+    disabled = isProxiedDisabled(button);
 
   return {
     element: button,
@@ -62,16 +57,16 @@ export function mapButtonToItem(button: Button): ToolBarItemButton {
     disabled: disabled === true,
     icon: button.querySelector('sl-icon')?.getAttribute('name'),
     label,
-    selectable: !!getButtonAriaAttribute(button, 'aria-pressed'),
+    selectable: !!getProxiedAriaAttribute(button, 'aria-pressed'),
     visible: true,
     click: () => button.click()
   };
 }
 
 export function mapMenuButtonToItem(menuButton: MenuButton): ToolBarItemMenu {
-  const label = getMenuButtonAccessibleName(menuButton) || getMenuButtonDescription(menuButton),
+  const label = getProxiedAccessibleName(menuButton) || getProxiedDescription(menuButton),
     menuItems = Array.from(menuButton.querySelectorAll('sl-menu-item')).map(el => mapMenuItemToItem(el)),
-    disabled = isMenuButtonDisabled(menuButton);
+    disabled = isProxiedDisabled(menuButton);
 
   return {
     element: menuButton,

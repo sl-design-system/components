@@ -47,6 +47,16 @@ describe('ProxyAriaAttributesMixin', () => {
     expect(TestElement.observedAttributes).to.include('aria-owns');
   });
 
+  it('should return the proxy target from getProxyTarget', () => {
+    expect(el.getProxyTarget()).to.equal(button);
+  });
+
+  it('should return undefined from getProxyTarget before setProxyTarget is called', () => {
+    const fresh = document.createElement('proxy-aria-test') as TestElement;
+
+    expect(fresh.getProxyTarget()).to.be.undefined;
+  });
+
   it('should forward a plain attribute to the target element', () => {
     el.setAttribute('aria-disabled', 'true');
 

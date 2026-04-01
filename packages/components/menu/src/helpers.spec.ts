@@ -1,11 +1,15 @@
+import {
+  getProxiedAccessibleName,
+  getProxiedDescription,
+  isProxiedDisabled
+} from '@sl-design-system/shared/helpers/proxy-aria-attributes.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
-import { getMenuButtonAccessibleName, getMenuButtonDescription, isMenuButtonDisabled } from './helpers.js';
 import { type MenuButton } from './menu-button.js';
 
-describe('getMenuButtonAccessibleName', () => {
+describe('getProxiedAccessibleName', () => {
   let el: MenuButton;
 
   describe('slotted button content', () => {
@@ -19,7 +23,7 @@ describe('getMenuButtonAccessibleName', () => {
     });
 
     it('should return the slotted button text', () => {
-      expect(getMenuButtonAccessibleName(el)).to.equal('Edit');
+      expect(getProxiedAccessibleName(el)).to.equal('Edit');
     });
   });
 
@@ -34,7 +38,7 @@ describe('getMenuButtonAccessibleName', () => {
     });
 
     it('should prefer aria-label over slotted content', () => {
-      expect(getMenuButtonAccessibleName(el)).to.equal('Actions menu');
+      expect(getProxiedAccessibleName(el)).to.equal('Actions menu');
     });
   });
 
@@ -54,7 +58,7 @@ describe('getMenuButtonAccessibleName', () => {
     });
 
     it('should prefer aria-labelledby over aria-label and slotted content', () => {
-      expect(getMenuButtonAccessibleName(el)).to.equal('External label');
+      expect(getProxiedAccessibleName(el)).to.equal('External label');
     });
   });
 
@@ -69,7 +73,7 @@ describe('getMenuButtonAccessibleName', () => {
     });
 
     it('should return the aria-label', () => {
-      expect(getMenuButtonAccessibleName(el)).to.equal('More options');
+      expect(getProxiedAccessibleName(el)).to.equal('More options');
     });
   });
 
@@ -83,12 +87,12 @@ describe('getMenuButtonAccessibleName', () => {
     });
 
     it('should return an empty string', () => {
-      expect(getMenuButtonAccessibleName(el)).to.equal('');
+      expect(getProxiedAccessibleName(el)).to.equal('');
     });
   });
 });
 
-describe('getMenuButtonDescription', () => {
+describe('getProxiedDescription', () => {
   let el: MenuButton;
 
   describe('no description', () => {
@@ -102,7 +106,7 @@ describe('getMenuButtonDescription', () => {
     });
 
     it('should return an empty string', () => {
-      expect(getMenuButtonDescription(el)).to.equal('');
+      expect(getProxiedDescription(el)).to.equal('');
     });
   });
 
@@ -117,7 +121,7 @@ describe('getMenuButtonDescription', () => {
     });
 
     it('should return the aria-description value', () => {
-      expect(getMenuButtonDescription(el)).to.equal('Contains editing actions');
+      expect(getProxiedDescription(el)).to.equal('Contains editing actions');
     });
   });
 
@@ -137,7 +141,7 @@ describe('getMenuButtonDescription', () => {
     });
 
     it('should return text from the referenced element', () => {
-      expect(getMenuButtonDescription(el)).to.equal('Opens a menu with file actions');
+      expect(getProxiedDescription(el)).to.equal('Opens a menu with file actions');
     });
   });
 
@@ -157,12 +161,12 @@ describe('getMenuButtonDescription', () => {
     });
 
     it('should prefer aria-describedby over aria-description', () => {
-      expect(getMenuButtonDescription(el)).to.equal('From describedby');
+      expect(getProxiedDescription(el)).to.equal('From describedby');
     });
   });
 });
 
-describe('isMenuButtonDisabled', () => {
+describe('isProxiedDisabled', () => {
   let el: MenuButton;
 
   describe('not disabled', () => {
@@ -176,7 +180,7 @@ describe('isMenuButtonDisabled', () => {
     });
 
     it('should return false', () => {
-      expect(isMenuButtonDisabled(el)).to.equal(false);
+      expect(isProxiedDisabled(el)).to.equal(false);
     });
   });
 
@@ -191,7 +195,7 @@ describe('isMenuButtonDisabled', () => {
     });
 
     it('should return true', () => {
-      expect(isMenuButtonDisabled(el)).to.equal(true);
+      expect(isProxiedDisabled(el)).to.equal(true);
     });
   });
 
@@ -206,7 +210,7 @@ describe('isMenuButtonDisabled', () => {
     });
 
     it('should return aria', () => {
-      expect(isMenuButtonDisabled(el)).to.equal('aria');
+      expect(isProxiedDisabled(el)).to.equal('aria');
     });
   });
 });

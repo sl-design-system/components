@@ -710,7 +710,7 @@ describe('sl-tooltip', () => {
       expect(button).to.have.attribute('aria-describedby', tooltip?.id);
       expect(button).not.to.have.attribute('aria-labelledby');
 
-      await tooltip.updateComplete;
+      await waitFor((tooltip.showDelay ?? 150) + 10);
       expect(tooltip).to.match(':popover-open');
     });
 

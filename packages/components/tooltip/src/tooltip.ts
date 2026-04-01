@@ -69,7 +69,7 @@ export class Tooltip extends LitElement {
 
   /** To attach the `sl-tooltip` to the DOM tree and anchor element */
   static lazy(target: Element, callback: (target: Tooltip) => void, options: TooltipOptions = {}): () => void {
-    const createTooltip = (): void => {
+    const createTooltip = (event: Event): void => {
       let context = options.context;
       if (!context && target.shadowRoot?.registry?.get('sl-tooltip')) {
         context = target.shadowRoot;
@@ -108,11 +108,38 @@ export class Tooltip extends LitElement {
       callback(tooltip);
 
       tooltip.anchorElement = target as HTMLElement;
-      tooltip.showPopover();
+
+      if (event.type === 'pointerover') {
+        const showDelay = tooltip.showDelay ?? 0;
+
+        if (showDelay > 0) {
+          const onPointerOut = () => {
+            clearTimeout(showTimer);
+            showTimer = undefined;
+          };
+
+          target.addEventListener('pointerout', onPointerOut, { once: true });
+          showTimer = setTimeout(() => {
+            target.removeEventListener('pointerout', onPointerOut);
+            showTimer = undefined;
+
+            // The anchor/tooltip may have been removed before the delay elapsed.
+            if (tooltip.isConnected) {
+              tooltip.showPopover();
+            }
+          }, showDelay);
+        } else {
+          tooltip.showPopover();
+        }
+      } else {
+        tooltip.showPopover();
+      }
 
       // We only need to create the tooltip once, so ignore all future events.
       cleanup();
     };
+
+    let showTimer: ReturnType<typeof setTimeout> | undefined;
 
     const cleanup = () => {
       ['focusin', 'pointerover'].forEach(eventName => target.removeEventListener(eventName, createTooltip));
@@ -316,6 +343,11 @@ export class Tooltip extends LitElement {
     return Array.from(root.querySelectorAll<HTMLElement>(selector));
   };
 
+  #hideTooltip = (): void => {
+    this.hidePopover();
+    this.#openedByFocus = false;
+  };
+
   #onHide = (event: Event): void => {
     // Only clear the timer for focusout when the tooltip was opened by focus; otherwise,
     // an unrelated focusout could cancel a pending hover showDelay timer.
@@ -325,7 +357,7 @@ export class Tooltip extends LitElement {
     }
 
     if (event.type === 'click') {
-      this.hidePopover();
+      this.#hideTooltip();
       return;
     }
 
@@ -376,7 +408,7 @@ export class Tooltip extends LitElement {
           // Ignore unrelated focusouts. Hide only when the current anchor actually lost focus.
           const currentAnchorLostFocus = !!this.anchorElement && !hasFocusWithinCurrentAnchor;
           if (currentAnchorLostFocus && (!anchorForEvent || anchorForEvent === this.anchorElement)) {
-            this.hidePopover();
+            this.#hideTooltip();
           }
           return;
         }
@@ -400,7 +432,7 @@ export class Tooltip extends LitElement {
         const anyAnchorHovered = potentialAnchors.some(el => el.matches(':hover') || el.matches(':focus-visible'));
 
         if (!anyAnchorHovered) {
-          this.hidePopover();
+          this.#hideTooltip();
         }
       },
       event.type === 'focusout' ? 0 : this.hideDelay
@@ -498,7 +530,7 @@ export class Tooltip extends LitElement {
 
   #onKeydown(event: KeyboardEvent): void {
     if (isPopoverOpen(this) && event.key === 'Escape') {
-      this.hidePopover();
+      this.#hideTooltip();
     }
   }
 

@@ -1,4 +1,5 @@
 import { Button } from '@sl-design-system/button';
+import { getButtonAccessibleName, getButtonAriaAttribute, isButtonDisabled } from '@sl-design-system/button/helpers.js';
 import '@sl-design-system/button/register.js';
 import { ArrayListDataSource, type ListDataSource } from '@sl-design-system/data-source';
 import '@sl-design-system/select/register.js';
@@ -32,47 +33,47 @@ describe('sl-paginator', () => {
     });
 
     it('should have a disabled previous button', () => {
-      const button = el.renderRoot.querySelector(':nth-child(1 of sl-button.nav)');
+      const button = el.renderRoot.querySelector<Button>(':nth-child(1 of sl-button.nav)');
 
       expect(button).to.exist;
-      expect(button).to.have.attribute('aria-label', 'Go to the previous page (0)');
-      expect(button).to.match(':disabled');
+      expect(getButtonAccessibleName(button!)).to.equal('Go to the previous page (0)');
+      expect(isButtonDisabled(button!)).to.equal(true);
     });
 
     it('should enable the previous button when the current page is not the first', async () => {
       el.page = 1;
       await el.updateComplete;
 
-      const button = el.renderRoot.querySelector(':nth-child(1 of sl-button.nav)');
+      const button = el.renderRoot.querySelector<Button>(':nth-child(1 of sl-button.nav)');
 
       expect(button).to.exist;
-      expect(button).not.to.match(':disabled');
+      expect(isButtonDisabled(button!)).to.equal(false);
     });
 
     it('should have a enabled next button', () => {
-      const button = el.renderRoot.querySelector(':nth-child(2 of sl-button.nav)');
+      const button = el.renderRoot.querySelector<Button>(':nth-child(2 of sl-button.nav)');
 
       expect(button).to.exist;
-      expect(button).to.have.attribute('aria-label', 'Go to the next page (2)');
-      expect(button).not.to.match(':disabled');
+      expect(getButtonAccessibleName(button!)).to.equal('Go to the next page (2)');
+      expect(isButtonDisabled(button!)).to.equal(false);
     });
 
     it('should disable the next button when the current page is the last', async () => {
       el.page = 19;
       await el.updateComplete;
 
-      const button = el.renderRoot.querySelector(':nth-child(2 of sl-button.nav)');
+      const button = el.renderRoot.querySelector<Button>(':nth-child(2 of sl-button.nav)');
 
       expect(button).to.exist;
-      expect(button).to.match(':disabled');
+      expect(isButtonDisabled(button!)).to.equal(true);
     });
 
     it('should have the current page set to the first page', () => {
-      const button = el.renderRoot.querySelector('sl-button[aria-current="page"]');
+      const button = el.renderRoot.querySelector<Button>('sl-button.current');
 
       expect(button).to.exist;
-      expect(button).to.have.trimmed.text('1');
-      expect(button).to.match('.current');
+      expect(getButtonAccessibleName(button!)).to.equal('1');
+      expect(getButtonAriaAttribute(button!, 'aria-current')).to.equal('page');
     });
 
     it('should have a page size of 10', () => {
@@ -147,9 +148,9 @@ describe('sl-paginator', () => {
 
       expect(el.page).to.equal(1);
 
-      const currentPage = el.renderRoot.querySelector('sl-button[aria-current="page"]');
-      expect(currentPage).to.have.trimmed.text('2');
-      expect(currentPage).to.match('.current');
+      const currentPage = el.renderRoot.querySelector<Button>('sl-button.current');
+      expect(getButtonAccessibleName(currentPage!)).to.equal('2');
+      expect(getButtonAriaAttribute(currentPage!, 'aria-current')).to.equal('page');
     });
 
     it('should update the current page when a page button is clicked', async () => {
@@ -158,9 +159,9 @@ describe('sl-paginator', () => {
 
       expect(el.page).to.equal(2);
 
-      const currentPage = el.renderRoot.querySelector('sl-button[aria-current="page"]');
-      expect(currentPage).to.have.trimmed.text('3');
-      expect(currentPage).to.match('.current');
+      const currentPage = el.renderRoot.querySelector<Button>('sl-button.current');
+      expect(getButtonAccessibleName(currentPage!)).to.equal('3');
+      expect(getButtonAriaAttribute(currentPage!, 'aria-current')).to.equal('page');
     });
 
     it('should update the current page when a menu item is clicked', async () => {
@@ -169,18 +170,18 @@ describe('sl-paginator', () => {
 
       expect(el.page).to.equal(9);
 
-      const currentPage = el.renderRoot.querySelector('sl-button[aria-current="page"]');
-      expect(currentPage).to.have.trimmed.text('10');
-      expect(currentPage).to.match('.current');
+      const currentPage = el.renderRoot.querySelector<Button>('sl-button.current');
+      expect(getButtonAccessibleName(currentPage!)).to.equal('10');
+      expect(getButtonAriaAttribute(currentPage!, 'aria-current')).to.equal('page');
     });
 
     it('should update the current page when the page property is changed', async () => {
       el.page = 5;
       await el.updateComplete;
 
-      const currentPage = el.renderRoot.querySelector('sl-button[aria-current="page"]');
-      expect(currentPage).to.have.trimmed.text('6');
-      expect(currentPage).to.match('.current');
+      const currentPage = el.renderRoot.querySelector<Button>('sl-button.current');
+      expect(getButtonAccessibleName(currentPage!)).to.equal('6');
+      expect(getButtonAriaAttribute(currentPage!, 'aria-current')).to.equal('page');
     });
 
     it('should decrement the current page when the previous button is clicked', async () => {
@@ -192,9 +193,9 @@ describe('sl-paginator', () => {
 
       expect(el.page).to.equal(9);
 
-      const currentPage = el.renderRoot.querySelector('sl-button[aria-current="page"]');
-      expect(currentPage).to.have.trimmed.text('10');
-      expect(currentPage).to.match('.current');
+      const currentPage = el.renderRoot.querySelector<Button>('sl-button.current');
+      expect(getButtonAccessibleName(currentPage!)).to.equal('10');
+      expect(getButtonAriaAttribute(currentPage!, 'aria-current')).to.equal('page');
     });
 
     it('should emit an sl-page-change event when the page has changed', async () => {
@@ -261,8 +262,8 @@ describe('sl-paginator', () => {
       expect(el.page).to.equal(5);
       expect(el.pageSize).to.equal(15);
 
-      const currentPage = el.renderRoot.querySelector('sl-button[aria-current="page"]');
-      expect(currentPage).to.have.trimmed.text('6');
+      const currentPage = el.renderRoot.querySelector<Button>('sl-button.current');
+      expect(getButtonAccessibleName(currentPage!)).to.equal('6');
     });
 
     it('should update the data source when the current page changes', async () => {

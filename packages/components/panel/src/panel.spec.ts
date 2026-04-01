@@ -1,3 +1,5 @@
+import { Button } from '@sl-design-system/button';
+import { getButtonAriaAttribute, getButtonAriaProperty } from '@sl-design-system/button/helpers.js';
 import '@sl-design-system/button/register.js';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
@@ -74,10 +76,11 @@ describe('sl-panel', () => {
     });
 
     it('should use ARIA to indicate expanded state', async () => {
-      const button = el.renderRoot.querySelector('sl-button');
+      const body = el.renderRoot.querySelector('[part="body"]'),
+        button = el.renderRoot.querySelector<Button>('sl-button');
 
-      expect(button).to.have.attribute('aria-controls', 'body');
-      expect(button).to.have.attribute('aria-expanded', 'true');
+      expect(getButtonAriaAttribute(button!, 'aria-expanded')).to.equal('true');
+      expect(getButtonAriaProperty(button!, 'ariaControlsElements')).to.deep.equal([body]);
 
       button?.click();
       await el.updateComplete;
@@ -85,7 +88,7 @@ describe('sl-panel', () => {
       // Wait for the animation to finish
       await new Promise(resolve => setTimeout(resolve, 300));
 
-      expect(button).to.have.attribute('aria-expanded', 'false');
+      expect(getButtonAriaAttribute(button!, 'aria-expanded')).to.equal('false');
     });
 
     it('should have a body with a role of "region"', () => {

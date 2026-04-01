@@ -45,6 +45,19 @@ export function getButtonAriaAttribute(button: Button, name: string): string | n
 }
 
 /**
+ * Returns the value of the given ARIA property on the inner `<button>` element.
+ * This is useful for element reference properties like `ariaLabelledByElements`
+ * or `ariaDescribedByElements` that `ProxyAriaAttributesMixin` forwards from
+ * the host to the inner button.
+ */
+export function getButtonAriaProperty<K extends keyof HTMLButtonElement>(
+  button: Button,
+  name: K
+): HTMLButtonElement[K] | undefined {
+  return button.renderRoot?.querySelector('button')?.[name];
+}
+
+/**
  * Returns the accessible description for the given button, following the
  * priority: aria-describedby → aria-description.
  *

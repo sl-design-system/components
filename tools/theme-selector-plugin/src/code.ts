@@ -8,7 +8,7 @@
 // This shows the HTML page in "ui.html".
 figma.showUI(__html__, {
   width: 280,
-  height: 436,
+  height: 478,
   themeColors: true
 });
 
@@ -39,7 +39,7 @@ const themeFonts = {
   'Sanoma Learning': [{ family: 'Roboto', style: 'SemiBold' }],
   'Bingel DC': [{ family: 'Proxima Nova', style: 'Semibold' }], // doens't exist in the library
   'Bingel Int': [{ family: 'Proxima Nova', style: 'Semibold' }], // doens't exist in the library
-  'Click edu': [{ family: 'Open Sans', style: 'SemiBold' }],
+  'Click Edu': [{ family: 'Open Sans', style: 'SemiBold' }],
   'Editorial Suite': [
     { family: 'Open Sans', style: 'SemiBold' },
     { family: 'Raleway', style: 'SemiBold' }
@@ -53,6 +53,14 @@ const themeFonts = {
   Max: [{ family: 'Open Sans', style: 'SemiBold' }],
   'My Digital Book': [{ family: 'Open Sans', style: 'SemiBold' }],
   Neon: [{ family: 'Open Sans', style: 'SemiBold' }],
+  'Sanoma Pro': [
+    { family: 'Roboto', style: 'SemiBold' },
+    { family: 'The Message', style: 'SemiBold' }
+  ],
+  'Sanoma Utbildning': [
+    { family: 'Roboto', style: 'SemiBold' },
+    { family: 'The Message', style: 'SemiBold' }
+  ],
   Teas: [{ family: 'Open Sans', style: 'SemiBold' }],
   Tig: [
     { family: 'Open Sans', style: 'SemiBold' },

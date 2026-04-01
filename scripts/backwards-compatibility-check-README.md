@@ -15,7 +15,7 @@ mkdir -p old-themes && cd old-themes
 ### 2. Download all theme packages at their 3rd most recent version (oldest of the 3 latest)
 
 ```bash
-for theme in bingel-dc bingel-int clickedu editorial-suite itslearning kampus magister max my-digital-book neon sanoma-learning teas tig; do
+for theme in bingel-dc bingel-int clickedu editorial-suite itslearning kampus magister max my-digital-book neon sanoma-learning sanoma-pro sanoma-utbildning teas tig; do
   version=$(npm view @sl-design-system/$theme versions --json --registry=https://npm.pkg.github.com 2>/dev/null | jq -r '.[-3]' 2>/dev/null)
   if [ "$version" != "null" ] && [ -n "$version" ]; then
     echo "📦 Downloading @sl-design-system/$theme@$version..."

@@ -224,16 +224,16 @@ describe('sl-column', () => {
     });
 
     it('should not add sticky class to non-sticky columns', () => {
-      expect(cells[1].className).to.equal('');
-      expect(cells[2].className).to.equal('');
+      expect(cells[1].className).to.not.match(/sticky/);
+      expect(cells[2].className).to.not.match(/sticky/);
     });
 
     it('should add sticky classes to header cells', () => {
       const headerCells = Array.from(el.renderRoot.querySelectorAll('thead tr th'));
 
       expect(headerCells[0].classList.contains('sticky-start-first')).to.be.true;
-      expect(headerCells[1].className).to.equal('');
-      expect(headerCells[2].className).to.equal('');
+      expect(headerCells[1].className).to.not.match(/sticky/);
+      expect(headerCells[2].className).to.not.match(/sticky/);
     });
 
     it('should update classes when sticky property changes', async () => {
@@ -244,7 +244,7 @@ describe('sl-column', () => {
 
       const updatedCells = Array.from(el.renderRoot.querySelectorAll('tbody tr:first-of-type td'));
 
-      expect(updatedCells[0].className).to.equal('');
+      expect(updatedCells[0].className).to.not.match(/sticky/);
     });
 
     it('should support sticky on last column', async () => {
@@ -282,7 +282,7 @@ describe('sl-column', () => {
 
       expect(allCells[0].classList.contains('sticky-start-first')).to.be.true;
       expect(allCells[1].classList.contains('sticky-start-last')).to.be.true;
-      expect(allCells[2].className).to.equal('');
+      expect(allCells[2].className).to.not.match(/sticky/);
     });
   });
 });

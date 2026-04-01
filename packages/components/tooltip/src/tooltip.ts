@@ -536,6 +536,7 @@ export class Tooltip extends LitElement {
     super.disconnectedCallback();
 
     clearTimeout(this.#timer);
+    this.#timer = undefined;
   }
 
   override willUpdate(changes: PropertyValues<this>): void {

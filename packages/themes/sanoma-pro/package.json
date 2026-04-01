@@ -28,6 +28,8 @@
     "**/*.d.ts",
     "**/*.d.ts.map",
     "**/*.js",
+    "**/*.js.map",
+    "**/*.json",
     "**/*.scss",
     "fonts/*",
     "CHANGELOG.md"

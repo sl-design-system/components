@@ -1,5 +1,16 @@
 import { Button } from '@sl-design-system/button';
-import { MenuButton } from '@sl-design-system/menu';
+import {
+  getButtonAccessibleName,
+  getButtonAriaAttribute,
+  getButtonDescription,
+  isButtonDisabled
+} from '@sl-design-system/button/helpers.js';
+import { MenuButton, type MenuItem } from '@sl-design-system/menu';
+import {
+  getMenuButtonAccessibleName,
+  getMenuButtonDescription,
+  isMenuButtonDisabled
+} from '@sl-design-system/menu/helpers.js';
 import { ToolBarDivider } from './tool-bar-divider.js';
 
 export interface ToolBarItemBase {
@@ -40,71 +51,33 @@ export interface ToolBarItemMenu extends ToolBarItemBase {
 
 export type ToolBarItem = ToolBarItemButton | ToolBarItemDivider | ToolBarItemGroup | ToolBarItemMenu;
 
-export function mapButtonToItem(host: HTMLElement, button: Button): ToolBarItemButton {
-  let label: string | undefined = button.getAttribute('aria-label') || button.textContent?.trim();
-
-  if (button.hasAttribute('aria-labelledby')) {
-    const buttonLabelledby = button.getAttribute('aria-labelledby');
-
-    if (host.querySelector(`#${buttonLabelledby}`)) {
-      label = host.querySelector(`#${buttonLabelledby}`)?.textContent?.trim();
-    } else if (
-      button.nextElementSibling &&
-      button.nextElementSibling.tagName === 'SL-TOOLTIP' &&
-      buttonLabelledby === button.nextElementSibling.id
-    ) {
-      label = button.nextElementSibling.textContent?.trim();
-    }
-  } else if (!label && button.hasAttribute('aria-describedby')) {
-    label = host.querySelector(`#${button.getAttribute('aria-describedby')}`)?.textContent?.trim();
-  }
-
-  const ariaDisabled = button.getAttribute('aria-disabled');
+export function mapButtonToItem(button: Button): ToolBarItemButton {
+  const label = getButtonAccessibleName(button) || getButtonDescription(button),
+    disabled = isButtonDisabled(button);
 
   return {
     element: button,
     type: 'button',
-    ariaDisabled: ariaDisabled !== null && ariaDisabled !== 'false',
-    disabled: button.hasAttribute('disabled'),
+    ariaDisabled: disabled === 'aria',
+    disabled: disabled === true,
     icon: button.querySelector('sl-icon')?.getAttribute('name'),
     label,
-    selectable: button.hasAttribute('aria-pressed'),
+    selectable: !!getButtonAriaAttribute(button, 'aria-pressed'),
     visible: true,
     click: () => button.click()
   };
 }
 
-export function mapMenuButtonToItem(host: HTMLElement, menuButton: MenuButton): ToolBarItemMenu {
-  let label: string | undefined =
-    menuButton.renderRoot.querySelector('sl-button')?.getAttribute('aria-label') ||
-    menuButton.querySelector('[slot="button"]')?.textContent?.trim();
-
-  if (menuButton.hasAttribute('aria-labelledby')) {
-    const buttonLabelledby = menuButton.getAttribute('aria-labelledby');
-
-    if (host.querySelector(`#${buttonLabelledby}`)) {
-      label = host.querySelector(`#${buttonLabelledby}`)?.textContent?.trim();
-    } else if (
-      menuButton.nextElementSibling &&
-      menuButton.nextElementSibling.tagName === 'SL-TOOLTIP' &&
-      buttonLabelledby === menuButton.nextElementSibling.id
-    ) {
-      label = menuButton.nextElementSibling.textContent?.trim();
-    }
-  } else if (!label && menuButton.hasAttribute('aria-describedby')) {
-    label = host.querySelector(`#${menuButton.getAttribute('aria-describedby')}`)?.textContent?.trim();
-  }
-
-  // const menuItems = Array.from(menuButton.querySelectorAll('sl-menu-item')).map(el => mapButtonToItem(host, el));
-  const menuItems: Array<ToolBarItemButton | ToolBarItemMenu> = [];
-
-  const ariaDisabled = menuButton.getAttribute('aria-disabled');
+export function mapMenuButtonToItem(menuButton: MenuButton): ToolBarItemMenu {
+  const label = getMenuButtonAccessibleName(menuButton) || getMenuButtonDescription(menuButton),
+    menuItems = Array.from(menuButton.querySelectorAll('sl-menu-item')).map(el => mapMenuItemToItem(el)),
+    disabled = isMenuButtonDisabled(menuButton);
 
   return {
     element: menuButton,
     type: 'menu',
-    ariaDisabled: ariaDisabled !== null && ariaDisabled !== 'false',
-    disabled: menuButton.hasAttribute('disabled'),
+    ariaDisabled: disabled === 'aria',
+    disabled: disabled === true,
     icon: menuButton.querySelector('sl-icon')?.getAttribute('name'),
     label,
     menuItems,
@@ -112,36 +85,29 @@ export function mapMenuButtonToItem(host: HTMLElement, menuButton: MenuButton): 
   };
 }
 
-export function updateMapping(
-  host: HTMLElement & { renderRoot: DocumentFragment | HTMLElement; empty?: boolean; items?: ToolBarItem[] }
-): {
-  needsMeasurement: boolean;
-} {
-  const slot = host.renderRoot.querySelector('slot')!,
-    elements = slot.assignedElements({ flatten: true });
+export function mapMenuItemToItem(menuItem: MenuItem): ToolBarItemButton {
+  return {
+    element: menuItem,
+    type: 'button',
+    disabled: menuItem.hasAttribute('disabled'),
+    icon: menuItem.querySelector('sl-icon')?.getAttribute('name'),
+    label: menuItem.textContent?.trim() || undefined,
+    visible: true
+  };
+}
 
-  host.empty = elements.length === 0;
-
-  host.items = elements
+export function mapElementsToItems(elements: Element[]): ToolBarItem[] {
+  return elements
     .map(element => {
-      if (element instanceof HTMLElement) {
-        element.style.visibility = '';
-        element.style.position = '';
-      }
-
       if (element instanceof Button) {
-        return mapButtonToItem(host, element);
+        return mapButtonToItem(element);
       } else if (element instanceof MenuButton) {
-        return mapMenuButtonToItem(host, element);
+        return mapMenuButtonToItem(element);
       } else if (element instanceof ToolBarDivider) {
         return { element, type: 'divider' as const, visible: true };
-      } else if (!['SL-TOOLTIP'].includes(element.tagName)) {
-        console.warn(`Unknown element type: ${element.tagName} in sl-tool-bar.`);
       }
 
       return undefined;
     })
-    .filter(item => item !== undefined) as ToolBarItem[];
-
-  return { needsMeasurement: true };
+    .filter(item => item !== undefined);
 }

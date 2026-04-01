@@ -291,6 +291,52 @@ describe('ProxyAriaAttributesMixin', () => {
     });
   });
 
+  describe('nested mixin', () => {
+    class InnerElement extends ProxyAriaAttributesMixin(LitElement, ['aria-labelledby']) {
+      override render() {
+        return html`<button><slot></slot></button>`;
+      }
+
+      override firstUpdated(): void {
+        this.setProxyTarget(this.renderRoot.querySelector('button')!);
+      }
+    }
+
+    class OuterElement extends ProxyAriaAttributesMixin(LitElement, ['aria-labelledby']) {
+      override render() {
+        return html`<proxy-aria-inner><slot></slot></proxy-aria-inner>`;
+      }
+
+      override firstUpdated(): void {
+        this.setProxyTarget(this.renderRoot.querySelector('proxy-aria-inner')!);
+      }
+    }
+
+    try {
+      customElements.define('proxy-aria-inner', InnerElement);
+      customElements.define('proxy-aria-outer', OuterElement);
+    } catch {
+      // Already defined
+    }
+
+    it('should set ariaLabelledByElements on the deepest target element', async () => {
+      const label = document.createElement('span');
+      label.id = 'nested-label';
+      label.textContent = 'Nested label';
+      document.body.prepend(label);
+
+      const outer = await fixture<OuterElement>(html`<proxy-aria-outer>Click me</proxy-aria-outer>`);
+      const inner = outer.renderRoot.querySelector('proxy-aria-inner') as InnerElement;
+      const deepButton = inner.renderRoot.querySelector('button')!;
+
+      outer.setAttribute('aria-labelledby', 'nested-label');
+
+      expect(deepButton.ariaLabelledByElements).to.deep.equal([label]);
+
+      label.remove();
+    });
+  });
+
   describe('no observedAttributes specified', () => {
     let defaultEl: InstanceType<typeof DefaultElement>, defaultButton: HTMLButtonElement;
 

@@ -1,5 +1,11 @@
 import { type Form } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
+import {
+  getProxiedAccessibleName,
+  getProxiedAriaProperty,
+  getProxiedDescription,
+  isProxiedDisabled
+} from '@sl-design-system/shared/helpers/proxy-aria-attributes.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { restore, spy, stub } from 'sinon';
@@ -479,7 +485,7 @@ describe('sl-button', () => {
         el.setAttribute('aria-disabled', 'true');
         await el.updateComplete;
 
-        expect(button).to.have.attribute('aria-disabled', 'true');
+        expect(isProxiedDisabled(el)).to.equal('aria');
       });
 
       it('should be focusable when aria-disabled is set', async () => {
@@ -530,27 +536,11 @@ describe('sl-button', () => {
 
         el = wrapper.querySelector('sl-button')!;
 
-        // Wait for the requestAnimationFrame in attributeChangedCallback
-        await new Promise(resolve => requestAnimationFrame(resolve));
-
-        const button = el.renderRoot.querySelector('button')!,
-          label = wrapper.querySelector('#my-label')!;
-
-        expect(button.ariaLabelledByElements).to.deep.equal([label]);
+        expect(getProxiedAccessibleName(el)).to.equal('Label text');
       });
 
       it('should remove the aria-labelledby attribute from the host', async () => {
-        const wrapper = await fixture(html`
-          <div>
-            <span id="my-label">Label text</span>
-            <sl-button aria-labelledby="my-label">Click me</sl-button>
-          </div>
-        `);
-
-        el = wrapper.querySelector('sl-button')!;
-
-        // Wait for the requestAnimationFrame in attributeChangedCallback
-        await new Promise(resolve => requestAnimationFrame(resolve));
+        el = await fixture(html`<sl-button aria-labelledby="my-label">Click me</sl-button>`);
 
         expect(el).not.to.have.attribute('aria-labelledby');
       });
@@ -558,12 +548,7 @@ describe('sl-button', () => {
       it('should set ariaLabelledByElements to an empty array when the referenced element does not exist', async () => {
         el = await fixture(html`<sl-button aria-labelledby="nonexistent">Click me</sl-button>`);
 
-        // Wait for the requestAnimationFrame in attributeChangedCallback
-        await new Promise(resolve => requestAnimationFrame(resolve));
-
-        const button = el.renderRoot.querySelector('button')!;
-
-        expect(button.ariaLabelledByElements).to.deep.equal([]);
+        expect(getProxiedAriaProperty(el, 'ariaLabelledByElements' as keyof HTMLElement)).to.deep.equal([]);
       });
     });
 
@@ -578,27 +563,11 @@ describe('sl-button', () => {
 
         el = wrapper.querySelector('sl-button')!;
 
-        // Wait for the requestAnimationFrame in attributeChangedCallback
-        await new Promise(resolve => requestAnimationFrame(resolve));
-
-        const button = el.renderRoot.querySelector('button')!,
-          desc = wrapper.querySelector('#my-desc')!;
-
-        expect(button.ariaDescribedByElements).to.deep.equal([desc]);
+        expect(getProxiedDescription(el)).to.equal('Description text');
       });
 
       it('should remove the aria-describedby attribute from the host', async () => {
-        const wrapper = await fixture(html`
-          <div>
-            <span id="my-desc">Description text</span>
-            <sl-button aria-describedby="my-desc">Click me</sl-button>
-          </div>
-        `);
-
-        el = wrapper.querySelector('sl-button')!;
-
-        // Wait for the requestAnimationFrame in attributeChangedCallback
-        await new Promise(resolve => requestAnimationFrame(resolve));
+        el = await fixture(html`<sl-button aria-describedby="my-desc">Click me</sl-button>`);
 
         expect(el).not.to.have.attribute('aria-describedby');
       });
@@ -606,9 +575,7 @@ describe('sl-button', () => {
       it('should set ariaDescribedByElements to an empty array when the referenced element does not exist', async () => {
         el = await fixture(html`<sl-button aria-describedby="nonexistent">Click me</sl-button>`);
 
-        const button = el.renderRoot.querySelector('button')!;
-
-        expect(button.ariaDescribedByElements).to.deep.equal([]);
+        expect(getProxiedAriaProperty(el, 'ariaDescribedByElements' as keyof HTMLElement)).to.deep.equal([]);
       });
     });
   });

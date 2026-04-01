@@ -69,6 +69,23 @@ export class Tooltip extends LitElement {
 
   /** To attach the `sl-tooltip` to the DOM tree and anchor element */
   static lazy(target: Element, callback: (target: Tooltip) => void, options: TooltipOptions = {}): () => void {
+    let showTimer: ReturnType<typeof setTimeout> | undefined;
+    let onPendingPointerOut: (() => void) | undefined;
+
+    const removeCreateListeners = () => {
+      ['focusin', 'pointerover'].forEach(eventName => target.removeEventListener(eventName, createTooltip));
+    };
+
+    const clearPendingShow = () => {
+      clearTimeout(showTimer);
+      showTimer = undefined;
+
+      if (onPendingPointerOut) {
+        target.removeEventListener('pointerout', onPendingPointerOut);
+        onPendingPointerOut = undefined;
+      }
+    };
+
     const createTooltip = (event: Event): void => {
       let context = options.context;
       if (!context && target.shadowRoot?.registry?.get('sl-tooltip')) {
@@ -93,7 +110,7 @@ export class Tooltip extends LitElement {
         );
 
         tooltip.remove();
-        cleanup();
+        removeCreateListeners();
 
         return;
       }
@@ -113,18 +130,22 @@ export class Tooltip extends LitElement {
         const showDelay = tooltip.showDelay ?? 0;
 
         if (showDelay > 0) {
-          const onPointerOut = () => {
+          onPendingPointerOut = () => {
             clearTimeout(showTimer);
             showTimer = undefined;
+            onPendingPointerOut = undefined;
           };
 
-          target.addEventListener('pointerout', onPointerOut, { once: true });
+          target.addEventListener('pointerout', onPendingPointerOut, { once: true });
           showTimer = setTimeout(() => {
-            target.removeEventListener('pointerout', onPointerOut);
+            if (onPendingPointerOut) {
+              target.removeEventListener('pointerout', onPendingPointerOut);
+              onPendingPointerOut = undefined;
+            }
             showTimer = undefined;
 
             // The anchor/tooltip may have been removed before the delay elapsed.
-            if (tooltip.isConnected) {
+            if (tooltip.isConnected && target.isConnected && tooltip.anchorElement?.isConnected) {
               tooltip.showPopover();
             }
           }, showDelay);
@@ -136,13 +157,12 @@ export class Tooltip extends LitElement {
       }
 
       // We only need to create the tooltip once, so ignore all future events.
-      cleanup();
+      removeCreateListeners();
     };
 
-    let showTimer: ReturnType<typeof setTimeout> | undefined;
-
     const cleanup = () => {
-      ['focusin', 'pointerover'].forEach(eventName => target.removeEventListener(eventName, createTooltip));
+      removeCreateListeners();
+      clearPendingShow();
     };
 
     ['focusin', 'pointerover'].forEach(eventName => target.addEventListener(eventName, createTooltip));

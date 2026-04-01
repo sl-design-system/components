@@ -34,8 +34,11 @@ describe('sl-grid-sorter', () => {
       expect(el.shadowRoot?.querySelector('sl-icon')).to.have.attribute('name', 'sort');
     });
 
-    it('should have an aria label on the button', () => {
-      expect(el.renderRoot.querySelector('sl-button')).to.have.attribute('aria-label', 'Sort ascending');
+    it('should have an aria label on the inner button', () => {
+      expect(el.renderRoot.querySelector('sl-button')?.renderRoot.querySelector('button')).to.have.attribute(
+        'aria-label',
+        'Sort ascending'
+      );
     });
 
     it('should have a ghost button', () => {
@@ -91,7 +94,10 @@ describe('sl-grid-sorter', () => {
     });
 
     it('should have an aria label on the button', () => {
-      expect(el.renderRoot.querySelector('sl-button')).to.have.attribute('aria-label', 'Sort descending');
+      expect(el.renderRoot.querySelector('sl-button')?.renderRoot.querySelector('button')).to.have.attribute(
+        'aria-label',
+        'Sort descending'
+      );
     });
 
     it('should have a primary solid button', () => {
@@ -132,7 +138,10 @@ describe('sl-grid-sorter', () => {
     });
 
     it('should have an aria label on the button', () => {
-      expect(el.renderRoot.querySelector('sl-button')).to.have.attribute('aria-label', 'Remove sort');
+      expect(el.renderRoot.querySelector('sl-button')?.renderRoot.querySelector('button')).to.have.attribute(
+        'aria-label',
+        'Remove sort'
+      );
     });
 
     it('should have a primary solid button', () => {

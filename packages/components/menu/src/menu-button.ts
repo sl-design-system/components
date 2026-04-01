@@ -8,7 +8,8 @@ import {
   type ButtonVariant
 } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
-import { EventsController, ObserveAttributesMixin, type PopoverPosition } from '@sl-design-system/shared';
+import { EventsController, type PopoverPosition } from '@sl-design-system/shared';
+import { ProxyAriaAttributesMixin } from '@sl-design-system/shared/mixins.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -32,7 +33,7 @@ declare global {
  * @slot button - Any content for the button should be slotted here.
  */
 @localized()
-export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitElement), ['aria-label']) {
+export class MenuButton extends ProxyAriaAttributesMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -44,13 +45,6 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
-
-  /** Observe changes to aria-describedby, aria-labelledby and aria-disabled attributes. */
-  #observer = new MutationObserver(() => {
-    this.#updateAriaReferences();
-    this.#delegateAriaDisabled();
-    this.requestUpdate();
-  });
 
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
@@ -103,65 +97,19 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
    */
   @property() size?: ButtonSize;
 
-  /** Flag to prevent recursion during aria-disabled delegation. */
-  #isDelegating = false;
-
-  /** The aria-disabled state of the button. */
-  #ariaDisabled: string | null = null;
-
-  /**
-   * The aria-disabled state of the button.
-   * @default null
-   */
-  override get ariaDisabled(): string | null {
-    return this.#ariaDisabled;
-  }
-
-  override set ariaDisabled(value: string | null) {
-    this.#ariaDisabled = value;
-
-    if (this.button) {
-      this.button.ariaDisabled = value;
-    } else if (value !== null) {
-      this.setAttribute('aria-disabled', value);
-    } else if (this.hasAttribute('aria-disabled')) {
-      this.removeAttribute('aria-disabled');
-    }
-  }
-
   /**
    * The variant of the button.
    * @default 'secondary'
    */
   @property() variant?: ButtonVariant;
 
-  override connectedCallback(): void {
-    super.connectedCallback();
-
-    this.#observer.observe(this, {
-      attributes: true,
-      attributeFilter: ['aria-describedby', 'aria-labelledby', 'aria-disabled']
-    });
-  }
-
-  override disconnectedCallback(): void {
-    this.#observer.disconnect();
-
-    super.disconnectedCallback();
-  }
-
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
-    this.setAttributesTarget(this.button);
+    this.setProxyTarget(this.button);
 
     this.button.setAttribute('aria-controls', this.menu.id);
     this.menu.anchorElement = this.button;
-
-    requestAnimationFrame(() => {
-      this.#updateAriaReferences();
-      this.#delegateAriaDisabled();
-    });
   }
 
   override render(): TemplateResult {
@@ -199,6 +147,14 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
     `;
   }
 
+  #onClick(): void {
+    if (this.#isDisabled()) {
+      return;
+    }
+
+    this.menu.togglePopover();
+  }
+
   #onHostClick(event: Event): void {
     if (this.#isDisabled()) {
       event.preventDefault();
@@ -213,30 +169,13 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
     }
   }
 
-  #onClick(): void {
-    if (this.#isDisabled()) {
-      return;
-    }
-
-    this.menu.togglePopover();
-  }
-
-  #isDisabled(): boolean {
-    if (this.disabled) {
-      return true;
-    }
-
-    const hostAriaDisabled = this.ariaDisabled ?? this.getAttribute('aria-disabled'),
-      ariaDisabled = hostAriaDisabled ?? this.button?.ariaDisabled ?? null;
-    return ariaDisabled !== null && ariaDisabled !== 'false';
-  }
-
   #onKeydown(event: KeyboardEvent): void {
     if (this.#isDisabled()) {
       if (['Enter', ' ', 'ArrowDown', 'ArrowUp'].includes(event.key)) {
         event.preventDefault();
         event.stopImmediatePropagation();
       }
+
       return;
     }
 
@@ -288,89 +227,7 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
     }
   }
 
-  /**
-   * Update aria-describedby and aria-labelledby references on the button.
-   * Sets Element.ariaDescribedByElements and Element.ariaLabelledByElements properties
-   * to work across shadow DOM boundaries (e.g. with tooltips).
-   */
-  #updateAriaReferences(): void {
-    if (!this.button) {
-      return;
-    }
-
-    // Temporarily stop observing so removing attributes from the host doesn't retrigger this method
-    this.#observer.disconnect();
-
-    if (this.hasAttribute('aria-describedby')) {
-      this.#setAriaReference('aria-describedby', 'ariaDescribedByElements');
-    } else {
-      this.button.ariaDescribedByElements = null;
-      this.button.removeAttribute('aria-describedby');
-    }
-
-    if (this.hasAttribute('aria-labelledby')) {
-      this.#setAriaReference('aria-labelledby', 'ariaLabelledByElements');
-    } else {
-      this.button.ariaLabelledByElements = null;
-      this.button.removeAttribute('aria-labelledby');
-    }
-
-    this.#observer.observe(this, {
-      attributes: true,
-      attributeFilter: ['aria-describedby', 'aria-labelledby', 'aria-disabled']
-    });
-  }
-
-  /** Delegate the aria-disabled attribute to the internal button and remove it from the host. */
-  #delegateAriaDisabled(): void {
-    if (this.#isDelegating || !this.button) {
-      return;
-    }
-
-    const value = this.getAttribute('aria-disabled');
-    if (value !== null) {
-      // Normalize presence-only / empty-string to 'true' to reflect a "true" aria-disabled state
-      const normalizedValue = value === '' ? 'true' : value;
-
-      this.#isDelegating = true;
-      this.button.ariaDisabled = normalizedValue;
-      // Keep the component's ariaDisabled property in sync with the delegated value
-      this.ariaDisabled = normalizedValue;
-      this.removeAttribute('aria-disabled');
-      this.#isDelegating = false;
-    }
-  }
-
-  /** Set an aria reference on the button using Element properties. */
-  #setAriaReference(attribute: string, property: 'ariaDescribedByElements' | 'ariaLabelledByElements'): void {
-    const ariaValue = this.getAttribute(attribute);
-
-    // Clear if attribute was removed or if the attribute only contained whitespace
-    if (!ariaValue || !ariaValue.trim()) {
-      this.button[property] = null;
-      this.button.removeAttribute(attribute);
-      this.removeAttribute(attribute);
-      return;
-    }
-
-    // Query elements from the root node (to find elements outside shadow DOM)
-    const elements = ariaValue
-      .trim()
-      .split(/\s+/)
-      .map(id => (this.getRootNode() as ParentNode).querySelector(`#${id}`))
-      .filter((el): el is Element => el !== null);
-
-    if (elements.length === 0) {
-      this.button[property] = null;
-      this.button.removeAttribute(attribute);
-    } else {
-      // Set the Element property: ariaLabelledByElements/ariaDescribedByElements to get it working with shadow DOM boundary.
-      // Setting this property adds empty aria-labelledby/aria-describedby to the element,
-      // If we removed it by setting aria-labelledby/aria-describedby with ids, it would break the connection for the assistive technologies.
-      // See: https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Reflected_attributes#setting_the_property_and_attribute
-      this.button[property] = elements;
-    }
-
-    this.removeAttribute(attribute);
+  #isDisabled(): boolean {
+    return this.disabled || this.button.ariaDisabled === 'true';
   }
 }

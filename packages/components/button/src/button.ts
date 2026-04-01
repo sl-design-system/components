@@ -1,6 +1,7 @@
-import { EventsController, closestElementComposed } from '@sl-design-system/shared';
+import { closestElementComposed } from '@sl-design-system/shared';
+import { ProxyAriaAttributesMixin } from '@sl-design-system/shared/mixins.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './button.scss.js';
 
@@ -29,7 +30,7 @@ export type ButtonVariant = 'primary' | 'secondary' | 'success' | 'info' | 'warn
  *
  * @slot default - Text label of the button. Optionally an <code>sl-icon</code> can be added
  */
-export class Button extends LitElement {
+export class Button extends ProxyAriaAttributesMixin(LitElement) {
   /** @internal */
   static formAssociated = true;
 
@@ -42,25 +43,14 @@ export class Button extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  // eslint-disable-next-line no-unused-private-class-members
-  #events = new EventsController(this, {
-    click: {
-      handler: this.#onClick,
-      options: { capture: true }
-    }
-  });
-
   /** Observe changes to the slotted content that aren't caught by the `slotchange` event. */
   #observer = new MutationObserver(() => this.#onUpdate());
 
   /** @internal. */
   readonly internals = this.attachInternals();
 
-  /** @internal */
-  @property({ attribute: 'aria-disabled', reflect: true }) override ariaDisabled: string | null = null;
-
-  /** @internal */
-  @property({ attribute: 'aria-label', reflect: true }) override ariaLabel: string | null = null;
+  /** @internal The button element. */
+  @query('button') button!: HTMLButtonElement;
 
   /**
    * Sets the command to be invoked when the button is activated.
@@ -122,6 +112,8 @@ export class Button extends LitElement {
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
+    this.setProxyTarget(this.button);
+
     // Initial update
     this.#onUpdate();
   }
@@ -132,11 +124,10 @@ export class Button extends LitElement {
 
     return html`
       <button
+        @click=${this.#onClick}
+        command=${ifDefined(this.command)}
         .commandForElement=${commandForElement}
         ?disabled=${this.disabled}
-        aria-disabled=${ifDefined(this.ariaDisabled === 'true' ? 'true' : undefined)}
-        aria-label=${ifDefined(this.ariaLabel || undefined)}
-        command=${ifDefined(this.command)}
         type="button"
       >
         <slot></slot>
@@ -145,7 +136,7 @@ export class Button extends LitElement {
   }
 
   #onClick(event: Event): void {
-    if (this.disabled || this.ariaDisabled === 'true') {
+    if (this.disabled || this.button.ariaDisabled) {
       event.preventDefault();
       event.stopImmediatePropagation();
     } else if (this.type === 'reset') {

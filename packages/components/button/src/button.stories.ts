@@ -4,6 +4,7 @@ import '@sl-design-system/dialog/register.js';
 import { Student, getStudents } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
+import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -135,6 +136,28 @@ export const Disabled: Story = {
           Disabled (ARIA only) button
         </sl-button>
       </div>
+    `;
+  }
+};
+
+export const IconOnly: Story = {
+  render: ({ fill, shape, size, variant }) => {
+    return html`
+      <p>
+        This example shows an icon-only button. When using an icon-only button, it's important to provide an accessible
+        name using the <code>aria-label</code> attribute so that assistive technologies can convey the purpose of the
+        button to users.
+      </p>
+      <sl-button
+        aria-labelledby="tooltip"
+        fill=${ifDefined(fill)}
+        shape=${ifDefined(shape)}
+        size=${ifDefined(size)}
+        variant=${ifDefined(variant)}
+      >
+        <sl-icon name="far-plus"></sl-icon>
+      </sl-button>
+      <sl-tooltip id="tooltip">Always have a tooltip for icon-only buttons to explain their purpose</sl-tooltip>
     `;
   }
 };

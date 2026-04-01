@@ -33,14 +33,14 @@ describe('sl-dialog', () => {
     });
 
     it('should not have a close button', () => {
-      expect(dialog.querySelector('sl-button[aria-label="Close"]')).not.to.exist;
+      expect(dialog.querySelector('sl-button.sl-close')).not.to.exist;
     });
 
     it('should have a close button when set', async () => {
       el.closeButton = true;
       await el.updateComplete;
 
-      expect(dialog.querySelector('sl-button[aria-label="Close"]')).to.exist;
+      expect(dialog.querySelector('sl-button.sl-close')).to.exist;
     });
 
     it('should not have a role of dialog', () => {
@@ -224,7 +224,7 @@ describe('sl-dialog', () => {
       const onClose = spy();
 
       el.addEventListener('sl-close', onClose);
-      el.renderRoot.querySelector<Button>('sl-button[aria-label="Close"]')?.click();
+      el.renderRoot.querySelector<Button>('sl-button.sl-close')?.click();
 
       // Actually wait for the `sl-close` event to be emitted
       await oneEvent(el, 'sl-close');

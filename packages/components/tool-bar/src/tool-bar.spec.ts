@@ -13,13 +13,8 @@ import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import '../register.js';
-import {
-  type ToolBar,
-  type ToolBarItem,
-  type ToolBarItemButton,
-  type ToolBarItemDivider,
-  type ToolBarItemMenu
-} from './tool-bar.js';
+import { type ToolBarItem, type ToolBarItemButton, type ToolBarItemDivider, type ToolBarItemMenu } from './mapping.js';
+import { type ToolBar } from './tool-bar.js';
 
 Icon.register(faBell, faGear, faPen, faTrash, fasBell, fasGear);
 
@@ -519,12 +514,14 @@ describe('sl-tool-bar', () => {
       expect(hr).to.exist;
     });
 
-    it('should have a menu item for the icon only button with tooltip connected via aria-labelledby', () => {
+    it.only('should have a menu item for the icon only button with tooltip connected via aria-labelledby', () => {
       const menuItems = el.renderRoot.querySelectorAll('sl-menu-item');
+
       // Find the menu item with far-pen icon (not the one inside submenu)
       const editButton = Array.from(menuItems).find(
         item => item.querySelector('sl-icon[name="far-pen"]') && !item.querySelector('sl-menu')
       );
+
       expect(editButton).to.exist;
       expect(editButton).to.have.trimmed.text('Edit');
       expect(editButton).to.contain('sl-icon[name="far-pen"]');

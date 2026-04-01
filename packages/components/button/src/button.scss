@@ -172,24 +172,24 @@
   border-radius: var(--sl-size-borderRadius-full);
 }
 
-:host([disabled]) button {
+button:disabled {
   pointer-events: none;
 }
 
-:host(:is([disabled], [aria-disabled='true'])) button {
+button:is(:disabled, [aria-disabled]) {
   color: var(--sl-color-foreground-disabled);
   cursor: default;
 }
 
-:host(:is([disabled], [aria-disabled='true']):where(:not([fill]), [fill='solid'])) button {
+:host(:where(:not([fill]), [fill='solid'])) button:is(:disabled, [aria-disabled]) {
   background: var(--sl-color-background-disabled);
 }
 
-:host(:is([disabled], [aria-disabled='true']):where([fill='ghost'], [fill='link'], [fill='outline'])) button {
+:host(:where([fill='ghost'], [fill='link'], [fill='outline'])) button:is(:disabled, [aria-disabled]) {
   background: transparent;
 }
 
-:host(:is([disabled], [aria-disabled='true'])[fill='outline']) button {
+:host([fill='outline']) button:is(:disabled, [aria-disabled]) {
   border-color: var(--sl-color-border-disabled);
 }
 
@@ -197,12 +197,12 @@
   outline-color: var(--sl-color-border-inverted);
 }
 
-:host([variant='inverted']:where([disabled], [aria-disabled='true'])) button {
+:host([variant='inverted']) button:is(:disabled, [aria-disabled]) {
   color: var(--sl-color-foreground-inverted-bold);
   opacity: var(--sl-opacity-disabled);
 }
 
-:host([variant='inverted']:where([disabled], [aria-disabled='true']):where(:not([fill]), [fill='solid'])) button {
+:host([variant='inverted']:where(:not([fill]), [fill='solid'])) button:is(:disabled, [aria-disabled]) {
   background: color-mix(
     in srgb,
     var(--sl-color-background-inverted-bold),
@@ -211,15 +211,15 @@
   color: var(--sl-color-foreground-inverted-onBold);
 }
 
-:host([variant='inverted']:where([disabled], [aria-disabled='true']):where([fill='ghost'])) button {
+:host([variant='inverted']:where([fill='ghost'])) button:is(:disabled, [aria-disabled]) {
   background: transparent;
 }
 
-:host([variant='inverted']:where([disabled], [aria-disabled='true']):where([fill='link'])) button {
+:host([variant='inverted']:where([fill='link'])) button:is(:disabled, [aria-disabled]) {
   background: transparent;
 }
 
-:host([variant='inverted']:where([disabled], [aria-disabled='true']):where([fill='outline'])) button {
+:host([variant='inverted']:where([fill='outline'])) button:is(:disabled, [aria-disabled]) {
   background: transparent;
   border-color: var(--sl-color-border-inverted);
 }

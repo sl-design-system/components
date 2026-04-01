@@ -9,30 +9,29 @@ import '../register.js';
 import { Button, type ButtonType } from './button.js';
 
 describe('sl-button', () => {
-  let el: Button;
+  let el: Button, button: HTMLButtonElement;
 
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-button>Hello world</sl-button>`);
+      button = el.renderRoot.querySelector('button')!;
     });
 
     it('should have a native button in the shadow DOM', () => {
-      const button = el.renderRoot.querySelector('button');
-
       expect(button).to.exist;
       expect(button).to.have.attribute('type', 'button');
     });
 
     it('should not be disabled', () => {
+      expect(button).not.to.have.attribute('disabled');
       expect(el).not.to.have.attribute('disabled');
       expect(el.disabled).not.to.be.true;
-      expect(el.renderRoot.querySelector('button')).not.to.have.attribute('disabled');
     });
 
     it('should delegate focus to the inner button', () => {
       el.focus();
 
-      expect(el.renderRoot.querySelector('button')).to.equal(el.shadowRoot?.activeElement);
+      expect(el.shadowRoot?.activeElement).to.equal(button);
     });
 
     it('should not have an explicit shape', () => {
@@ -124,7 +123,9 @@ describe('sl-button', () => {
     describe('icon only, directly in button', () => {
       beforeEach(async () => {
         el = await fixture(html`
-          <sl-button aria-label="Mark as favorite"><sl-icon name="star"></sl-icon></sl-button>
+          <sl-button aria-label="Mark as favorite">
+            <sl-icon name="star"></sl-icon>
+          </sl-button>
         `);
       });
 
@@ -168,6 +169,7 @@ describe('sl-button', () => {
   describe('disabled', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-button>Hello world</sl-button>`);
+      button = el.renderRoot.querySelector('button')!;
     });
 
     it('should be disabled when set', async () => {
@@ -175,15 +177,15 @@ describe('sl-button', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('disabled');
-      expect(el.renderRoot.querySelector('button')).to.have.attribute('disabled');
+      expect(button).to.have.attribute('disabled');
     });
 
     it('should prevent click events from bubbling up the DOM', async () => {
-      const el = await fixture<Button>(html`<sl-button disabled>Hello world</sl-button>`);
-      const clickEvent = new MouseEvent('click', { bubbles: true, cancelable: true });
-      const stopImmediatePropagationSpy = spy(clickEvent, 'stopImmediatePropagation');
+      const el = await fixture<Button>(html`<sl-button disabled>Hello world</sl-button>`),
+        clickEvent = new MouseEvent('click', { bubbles: true, cancelable: true }),
+        stopImmediatePropagationSpy = spy(clickEvent, 'stopImmediatePropagation');
 
-      el.dispatchEvent(clickEvent);
+      el.renderRoot.querySelector('button')?.dispatchEvent(clickEvent);
 
       expect(stopImmediatePropagationSpy).to.have.been.called;
     });
@@ -194,14 +196,15 @@ describe('sl-button', () => {
           <sl-button disabled>Disabled</sl-button>
         </div>
       `);
-      const button = wrapper.querySelector('sl-button')!;
+      const button = wrapper.querySelector('sl-button')!,
+        innerButton = button.renderRoot.querySelector('button')!;
       let captureCalled = false;
       let bubbleCalled = false;
 
       wrapper.addEventListener('click', () => (captureCalled = true), { capture: true });
       wrapper.addEventListener('click', () => (bubbleCalled = true));
 
-      button.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true, cancelable: true }));
+      innerButton.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true, cancelable: true }));
 
       expect(captureCalled, 'capture listener on parent should be called').to.be.true;
       expect(bubbleCalled, 'bubble listener on parent should NOT be called').to.be.false;
@@ -213,84 +216,18 @@ describe('sl-button', () => {
           <sl-button>Enabled</sl-button>
         </div>
       `);
-      const button = wrapper.querySelector('sl-button')!;
+      const button = wrapper.querySelector('sl-button')!,
+        innerButton = button.renderRoot.querySelector('button')!;
       let captureCalled = false;
       let bubbleCalled = false;
 
       wrapper.addEventListener('click', () => (captureCalled = true), { capture: true });
       wrapper.addEventListener('click', () => (bubbleCalled = true));
 
-      button.click();
+      innerButton.click();
 
       expect(captureCalled, 'capture listener on parent should be called').to.be.true;
       expect(bubbleCalled, 'bubble listener on parent should be called').to.be.true;
-    });
-  });
-
-  describe('aria-disabled', () => {
-    beforeEach(async () => {
-      el = await fixture(html`<sl-button>Hello world</sl-button>`);
-    });
-
-    it('should prevent click events from bubbling up the DOM', async () => {
-      const clickEvent = new Event('click'),
-        preventDefaultSpy = spy(clickEvent, 'preventDefault'),
-        stopImmediatePropagationSpy = spy(clickEvent, 'stopImmediatePropagation');
-
-      el.setAttribute('aria-disabled', 'true');
-      await el.updateComplete;
-
-      el.dispatchEvent(clickEvent);
-
-      expect(preventDefaultSpy).to.have.been.called;
-      expect(stopImmediatePropagationSpy).to.have.been.called;
-    });
-
-    it('should set aria-disabled on the inner button', async () => {
-      el.setAttribute('aria-disabled', 'true');
-      await el.updateComplete;
-
-      expect(el.renderRoot.querySelector('button')).to.have.attribute('aria-disabled', 'true');
-    });
-
-    it('should be focusable when aria-disabled is set', async () => {
-      el.setAttribute('aria-disabled', 'true');
-      await el.updateComplete;
-
-      const button = el.renderRoot.querySelector('button')!;
-
-      expect(button).not.to.have.attribute('disabled');
-
-      el.focus();
-      expect(el.shadowRoot?.activeElement).to.equal(button);
-    });
-
-    it('should not activate on mouse click when aria-disabled is set', async () => {
-      const onClick = spy();
-
-      el.setAttribute('aria-disabled', 'true');
-      el.addEventListener('click', onClick);
-      await el.updateComplete;
-
-      // Do not use userEvent.click(button) since playwright does not trigger
-      // click events on disabled elements, even if they are only aria-disabled.
-      el.renderRoot.querySelector('button')?.click();
-
-      expect(onClick).not.to.have.been.called;
-    });
-
-    it('should not activate on Enter or Space when aria-disabled is set', async () => {
-      const onClick = spy();
-
-      el.setAttribute('aria-disabled', 'true');
-      el.addEventListener('click', onClick);
-      await el.updateComplete;
-
-      el.focus();
-      await userEvent.keyboard('{Enter}');
-      await userEvent.keyboard('{ }');
-
-      expect(onClick).not.to.have.been.called;
     });
   });
 
@@ -363,9 +300,12 @@ describe('sl-button', () => {
         </sl-form>
       `);
 
+      el = form.querySelector('sl-button')!;
+      button = el.renderRoot.querySelector('button')!;
+
       spy(form, 'reset');
 
-      form.querySelector('sl-button')?.click();
+      button.click();
 
       expect(form.reset).to.have.been.calledOnce;
     });
@@ -377,9 +317,12 @@ describe('sl-button', () => {
         </sl-form>
       `);
 
+      el = form.querySelector('sl-button')!;
+      button = el.renderRoot.querySelector('button')!;
+
       spy(form, 'requestSubmit');
 
-      form.querySelector('sl-button')?.click();
+      button.click();
 
       expect(form.requestSubmit).to.have.been.calledOnce;
     });
@@ -395,7 +338,8 @@ describe('sl-button', () => {
         </form>
       `);
 
-      el = form.firstElementChild as Button;
+      el = form.querySelector('sl-button')!;
+      button = el.renderRoot.querySelector('button')!;
     };
 
     afterEach(() => restore());
@@ -420,7 +364,7 @@ describe('sl-button', () => {
         const requestSubmit = stub(form, 'requestSubmit').returns(undefined),
           reset = stub(form, 'reset').returns(undefined);
 
-        el.click();
+        button.click();
 
         expect(requestSubmit).not.to.have.been.called;
         expect(reset).not.to.have.been.called;
@@ -455,7 +399,7 @@ describe('sl-button', () => {
       it('should call reset() on the form when clicked', () => {
         const reset = stub(form, 'reset').returns(undefined);
 
-        el.click();
+        button.click();
 
         expect(reset).to.have.been.calledOnce;
       });
@@ -485,7 +429,7 @@ describe('sl-button', () => {
       it('should call requestSubmit() on the form when clicked', () => {
         const requestSubmit = stub(form, 'requestSubmit').returns(undefined);
 
-        el.click();
+        button.click();
 
         expect(requestSubmit).to.have.been.calledOnce;
       });
@@ -506,6 +450,165 @@ describe('sl-button', () => {
         await userEvent.keyboard('{Space}');
 
         expect(requestSubmit).to.have.been.calledOnce;
+      });
+    });
+  });
+
+  describe('accessibility', () => {
+    describe('aria-disabled', () => {
+      beforeEach(async () => {
+        el = await fixture(html`<sl-button>Hello world</sl-button>`);
+        button = el.renderRoot.querySelector('button')!;
+      });
+
+      it('should prevent click events from bubbling up the DOM', async () => {
+        const clickEvent = new Event('click'),
+          preventDefaultSpy = spy(clickEvent, 'preventDefault'),
+          stopImmediatePropagationSpy = spy(clickEvent, 'stopImmediatePropagation');
+
+        el.setAttribute('aria-disabled', 'true');
+        await el.updateComplete;
+
+        button.dispatchEvent(clickEvent);
+
+        expect(preventDefaultSpy).to.have.been.called;
+        expect(stopImmediatePropagationSpy).to.have.been.called;
+      });
+
+      it('should set aria-disabled on the inner button', async () => {
+        el.setAttribute('aria-disabled', 'true');
+        await el.updateComplete;
+
+        expect(button).to.have.attribute('aria-disabled', 'true');
+      });
+
+      it('should be focusable when aria-disabled is set', async () => {
+        el.setAttribute('aria-disabled', 'true');
+        await el.updateComplete;
+
+        el.focus();
+        expect(el.shadowRoot?.activeElement).to.equal(button);
+      });
+
+      it('should not activate on mouse click when aria-disabled is set', async () => {
+        const onClick = spy();
+
+        el.setAttribute('aria-disabled', 'true');
+        el.addEventListener('click', onClick);
+        await el.updateComplete;
+
+        // Do not use userEvent.click(button) since playwright does not trigger
+        // click events on disabled elements, even if they are only aria-disabled.
+        button.click();
+
+        expect(onClick).not.to.have.been.called;
+      });
+
+      it('should not activate on Enter or Space when aria-disabled is set', async () => {
+        const onClick = spy();
+
+        el.setAttribute('aria-disabled', 'true');
+        el.addEventListener('click', onClick);
+        await el.updateComplete;
+
+        el.focus();
+        await userEvent.keyboard('{Enter}');
+        await userEvent.keyboard('{ }');
+
+        expect(onClick).not.to.have.been.called;
+      });
+    });
+
+    describe('aria-labelledby', () => {
+      it('should set ariaLabelledByElements on the inner button', async () => {
+        const wrapper = await fixture(html`
+          <div>
+            <span id="my-label">Label text</span>
+            <sl-button aria-labelledby="my-label">Click me</sl-button>
+          </div>
+        `);
+
+        el = wrapper.querySelector('sl-button')!;
+
+        // Wait for the requestAnimationFrame in attributeChangedCallback
+        await new Promise(resolve => requestAnimationFrame(resolve));
+
+        const button = el.renderRoot.querySelector('button')!,
+          label = wrapper.querySelector('#my-label')!;
+
+        expect(button.ariaLabelledByElements).to.deep.equal([label]);
+      });
+
+      it('should remove the aria-labelledby attribute from the host', async () => {
+        const wrapper = await fixture(html`
+          <div>
+            <span id="my-label">Label text</span>
+            <sl-button aria-labelledby="my-label">Click me</sl-button>
+          </div>
+        `);
+
+        el = wrapper.querySelector('sl-button')!;
+
+        // Wait for the requestAnimationFrame in attributeChangedCallback
+        await new Promise(resolve => requestAnimationFrame(resolve));
+
+        expect(el).not.to.have.attribute('aria-labelledby');
+      });
+
+      it('should set ariaLabelledByElements to an empty array when the referenced element does not exist', async () => {
+        el = await fixture(html`<sl-button aria-labelledby="nonexistent">Click me</sl-button>`);
+
+        // Wait for the requestAnimationFrame in attributeChangedCallback
+        await new Promise(resolve => requestAnimationFrame(resolve));
+
+        const button = el.renderRoot.querySelector('button')!;
+
+        expect(button.ariaLabelledByElements).to.deep.equal([]);
+      });
+    });
+
+    describe('aria-describedby', () => {
+      it('should set ariaDescribedByElements on the inner button', async () => {
+        const wrapper = await fixture(html`
+          <div>
+            <span id="my-desc">Description text</span>
+            <sl-button aria-describedby="my-desc">Click me</sl-button>
+          </div>
+        `);
+
+        el = wrapper.querySelector('sl-button')!;
+
+        // Wait for the requestAnimationFrame in attributeChangedCallback
+        await new Promise(resolve => requestAnimationFrame(resolve));
+
+        const button = el.renderRoot.querySelector('button')!,
+          desc = wrapper.querySelector('#my-desc')!;
+
+        expect(button.ariaDescribedByElements).to.deep.equal([desc]);
+      });
+
+      it('should remove the aria-describedby attribute from the host', async () => {
+        const wrapper = await fixture(html`
+          <div>
+            <span id="my-desc">Description text</span>
+            <sl-button aria-describedby="my-desc">Click me</sl-button>
+          </div>
+        `);
+
+        el = wrapper.querySelector('sl-button')!;
+
+        // Wait for the requestAnimationFrame in attributeChangedCallback
+        await new Promise(resolve => requestAnimationFrame(resolve));
+
+        expect(el).not.to.have.attribute('aria-describedby');
+      });
+
+      it('should set ariaDescribedByElements to an empty array when the referenced element does not exist', async () => {
+        el = await fixture(html`<sl-button aria-describedby="nonexistent">Click me</sl-button>`);
+
+        const button = el.renderRoot.querySelector('button')!;
+
+        expect(button.ariaDescribedByElements).to.deep.equal([]);
       });
     });
   });

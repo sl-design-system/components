@@ -7,6 +7,7 @@ import { RovingTabindexController } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { type ToolBarItem, updateMapping } from './mapping.js';
 import { ToolBarDivider } from './tool-bar-divider.js';
 import styles from './tool-bar.scss.js';
 
@@ -15,44 +16,6 @@ declare global {
     'sl-tool-bar': ToolBar;
   }
 }
-
-export interface ToolBarItemBase {
-  element: HTMLElement;
-  visible: boolean;
-}
-
-export interface ToolBarItemButton extends ToolBarItemBase {
-  type: 'button';
-  ariaDisabled?: boolean;
-  disabled?: boolean;
-  icon?: string | null;
-  label?: string | null;
-  selectable?: boolean;
-
-  click?(): void;
-}
-
-export interface ToolBarItemDivider extends ToolBarItemBase {
-  type: 'divider';
-}
-
-export interface ToolBarItemGroup extends ToolBarItemBase {
-  type: 'group';
-  buttons: ToolBarItemButton[];
-  label?: string | null;
-  selects?: 'single' | 'multiple';
-}
-
-export interface ToolBarItemMenu extends ToolBarItemBase {
-  type: 'menu';
-  ariaDisabled?: boolean;
-  disabled?: boolean;
-  icon?: string | null;
-  label?: string | null;
-  menuItems: Array<ToolBarItemButton | ToolBarItemDivider | ToolBarItemMenu>;
-}
-
-export type ToolBarItem = ToolBarItemButton | ToolBarItemDivider | ToolBarItemGroup | ToolBarItemMenu;
 
 /**
  * A responsive container that automatically hides items in an overflow menu when space is limited.
@@ -82,6 +45,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** Timeout for debouncing forceRecalculation calls. */
+  #forceRecalculationTimeout?: ReturnType<typeof setTimeout>;
+
   /** Observe changes to the child elements. */
   #mutationObserver = new MutationObserver(() => this.#updateMapping());
 
@@ -94,19 +60,16 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     // its size changes as buttons are hidden, which can cause an infinite loop that
     // only stops when all hideable buttons are hidden. We stop that loop when the
     // actual vertical overflow is gone.
-    const entry = entries.at(0);
+    const entry = entries.at(0),
+      contentBox = entry?.contentBoxSize?.at(0),
+      wrapper = this.renderRoot.querySelector('[part="wrapper"]');
 
-    if (!entry) {
+    if (!entry || !contentBox || !wrapper) {
       return;
     }
 
-    const contentBox = entry.contentBoxSize?.at(0);
-    if (!contentBox) return;
-
     const availableWidth = contentBox.inlineSize;
 
-    const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
-    if (!wrapper) return;
     if (
       availableWidth > 0 ||
       wrapper.clientWidth < wrapper.scrollWidth ||
@@ -119,15 +82,12 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** Timeout for debouncing resize events. */
   #resizeTimeout?: ReturnType<typeof requestAnimationFrame>;
 
-  /** Timeout for debouncing forceRecalculation calls. */
-  #forceRecalculationTimeout?: ReturnType<typeof setTimeout>;
-
   /** Manage the keyboard navigation. */
   #rovingTabindexController = new RovingTabindexController<HTMLElement>(this, {
     direction: 'horizontal',
-    focusInIndex: (elements: HTMLElement[]) => elements.findIndex(el => !this.#isElementDisabled(el, true)),
+    focusInIndex: (elements: HTMLElement[]) => elements.findIndex(el => !this.#isElementDisabled(el)),
     elements: () => this.#getFocusableElements(),
-    isFocusableElement: (el: HTMLElement) => !(el instanceof ToolBarDivider) && !this.#isElementDisabled(el, true)
+    isFocusableElement: (el: HTMLElement) => !(el instanceof ToolBarDivider) && !this.#isElementDisabled(el)
   });
 
   /**
@@ -157,6 +117,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** @internal True when the tool-bar is empty. */
   @property({ type: Boolean, reflect: true }) empty?: boolean;
 
+  /** The fill of buttons and menu buttons (also overflow menu button). */
+  @property() fill?: Extract<ButtonFill, 'ghost' | 'outline'>;
+
   /**
    * Use this if you want the menu button that appears when the tool bar overflows to use the "inverted" variant.
    * This also overrides all slotted button and menu-button variants to `inverted` when set.
@@ -168,9 +131,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
   /** @internal The tool bar items that should be shown in the overflow menu. */
   @state() menuItems: ToolBarItem[] = [];
-
-  /** The fill of buttons and menu buttons (also overflow menu button). */
-  @property() fill?: Extract<ButtonFill, 'ghost' | 'outline'>;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -186,15 +146,17 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   }
 
   override disconnectedCallback(): void {
-    this.#resizeObserver.disconnect();
     this.#mutationObserver.disconnect();
+    this.#resizeObserver.disconnect();
 
     if (this.#resizeTimeout) {
       cancelAnimationFrame(this.#resizeTimeout);
+      this.#resizeTimeout = undefined;
     }
 
     if (this.#forceRecalculationTimeout) {
       clearTimeout(this.#forceRecalculationTimeout);
+      this.#forceRecalculationTimeout = undefined;
     }
 
     // Reset measurements to ensure clean state on reconnect
@@ -241,7 +203,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       this.#measureItems();
 
       this.#resizeObserver.observe(this);
-
       this.#rovingTabindexController.clearElementCache();
     });
   }
@@ -339,227 +300,23 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     // Debounce with 200ms delay
     this.#forceRecalculationTimeout = setTimeout(() => {
-      const firstHidden = this.items.filter(item => !item.visible)[0];
+      const firstHidden = this.items.find(item => !item.visible);
       if (!firstHidden) {
         return;
       }
+
       const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
       if (wrapper) {
         this.#onResize(window.innerWidth);
       }
+
       this.#needsMeasurement = true;
       this.#measureItems();
     }, 200);
   }
 
-  /**
-   * Get all focusable elements including visible toolbar items and overflow menu button.
-   */
-  #getFocusableElements(): HTMLElement[] {
-    const visibleItems = (this.items || [])
-      .filter(item => item.visible)
-      .map(item => {
-        // For menu buttons, get the internal sl-button element
-        if (item.element instanceof MenuButton) {
-          return item.element.renderRoot.querySelector('sl-button') as HTMLElement;
-        }
-        return item.element;
-      })
-      .filter((el): el is HTMLElement => el !== null);
-
-    const menuButton = this.renderRoot.querySelector('sl-menu-button');
-    if (!menuButton) {
-      return visibleItems;
-    }
-    const menuButtonElement = menuButton.renderRoot?.querySelector('sl-button') as HTMLElement | null;
-
-    return menuButtonElement ? [...visibleItems, menuButtonElement] : visibleItems;
-  }
-
-  /**
-   * Find the toolbar item associated with an element.
-   * Handles both direct elements and internal buttons from menu buttons.
-   */
-  #findItemForElement(el: HTMLElement): ToolBarItem | undefined {
-    return this.items?.find(item => {
-      if (item.element === el) {
-        return true;
-      }
-      if (item.element instanceof MenuButton) {
-        const internalButton = item.element.renderRoot.querySelector('sl-button');
-
-        return internalButton === el;
-      }
-      return false;
-    });
-  }
-
-  /**
-   * Check if an element is disabled.
-   * For menu buttons, the element might be the internal sl-button from the shadow DOM,
-   * so we need to find the original item to get the correct disabled state.
-   *
-   * @param el The element to check.
-   * @param ignoreAria If true, only check for the native disabled attribute.
-   */
-  #isElementDisabled(el: HTMLElement, ignoreAria = false): boolean {
-    const isNativelyDisabled =
-      el.hasAttribute('disabled') || (el instanceof Button || el instanceof MenuButton ? el.disabled : false);
-
-    if (isNativelyDisabled) {
-      return true;
-    }
-
-    if (!ignoreAria) {
-      const ariaDisabled = el.getAttribute('aria-disabled');
-      if (ariaDisabled !== null && ariaDisabled !== 'false') {
-        return true;
-      }
-
-      // Check internal button for MenuButton since aria-disabled is forwarded to it
-      if (el instanceof MenuButton) {
-        const internalButton = el.renderRoot.querySelector('sl-button');
-        const internalAriaDisabled = internalButton?.getAttribute('aria-disabled') ?? null;
-        if (internalAriaDisabled !== null && internalAriaDisabled !== 'false') {
-          return true;
-        }
-      }
-    }
-
-    // Find the toolbar item for this element
-    const item = this.#findItemForElement(el);
-
-    if (item && 'disabled' in item && (item.disabled || (!ignoreAria && item.ariaDisabled))) {
-      return true;
-    }
-
-    // Check parent menu button for overflow menu button
-    const parentMenuButton = el.closest('sl-menu-button');
-
-    if (parentMenuButton && parentMenuButton !== el) {
-      if (parentMenuButton.hasAttribute('disabled') || parentMenuButton.disabled) {
-        return true;
-      }
-
-      if (!ignoreAria) {
-        const parentAriaDisabled = parentMenuButton.getAttribute('aria-disabled');
-        if (parentAriaDisabled !== null && parentAriaDisabled !== 'false') {
-          return true;
-        }
-
-        const internalButton = parentMenuButton.renderRoot.querySelector('sl-button');
-        const internalAriaDisabled = internalButton?.getAttribute('aria-disabled');
-        if (internalAriaDisabled !== null && internalAriaDisabled !== 'false') {
-          return true;
-        }
-      }
-    }
-
-    return false;
-  }
-
-  #mapButtonToItem(button: HTMLElement): ToolBarItemButton {
-    let label: string | undefined = button.getAttribute('aria-label') || button.textContent?.trim();
-
-    if (button.hasAttribute('aria-labelledby')) {
-      const buttonLabelledby = button.getAttribute('aria-labelledby');
-
-      if (this.querySelector(`#${buttonLabelledby}`)) {
-        label = this.querySelector(`#${buttonLabelledby}`)?.textContent?.trim();
-      } else if (
-        button.nextElementSibling &&
-        button.nextElementSibling.tagName === 'SL-TOOLTIP' &&
-        buttonLabelledby === button.nextElementSibling.id
-      ) {
-        label = button.nextElementSibling.textContent?.trim();
-      }
-    } else if (!label && button.hasAttribute('aria-describedby')) {
-      label = this.querySelector(`#${button.getAttribute('aria-describedby')}`)?.textContent?.trim();
-    }
-
-    const ariaDisabled = button.getAttribute('aria-disabled');
-
-    return {
-      element: button,
-      type: 'button',
-      ariaDisabled: ariaDisabled !== null && ariaDisabled !== 'false',
-      disabled: button.hasAttribute('disabled'),
-      icon: button.querySelector('sl-icon')?.getAttribute('name'),
-      label,
-      selectable: button.hasAttribute('aria-pressed'),
-      visible: true,
-      click: () => button.click()
-    };
-  }
-
-  #mapMenuButtonToItem(menuButton: MenuButton): ToolBarItemMenu {
-    let label: string | undefined =
-      menuButton.renderRoot.querySelector('sl-button')?.getAttribute('aria-label') ||
-      menuButton.querySelector('[slot="button"]')?.textContent?.trim();
-
-    if (menuButton.hasAttribute('aria-labelledby')) {
-      const buttonLabelledby = menuButton.getAttribute('aria-labelledby');
-
-      if (this.querySelector(`#${buttonLabelledby}`)) {
-        label = this.querySelector(`#${buttonLabelledby}`)?.textContent?.trim();
-      } else if (
-        menuButton.nextElementSibling &&
-        menuButton.nextElementSibling.tagName === 'SL-TOOLTIP' &&
-        buttonLabelledby === menuButton.nextElementSibling.id
-      ) {
-        label = menuButton.nextElementSibling.textContent?.trim();
-      }
-    } else if (!label && menuButton.hasAttribute('aria-describedby')) {
-      label = this.querySelector(`#${menuButton.getAttribute('aria-describedby')}`)?.textContent?.trim();
-    }
-
-    const menuItems = Array.from(menuButton.querySelectorAll('sl-menu-item')).map(el => this.#mapButtonToItem(el));
-
-    const ariaDisabled = menuButton.getAttribute('aria-disabled');
-
-    return {
-      element: menuButton,
-      type: 'menu',
-      ariaDisabled: ariaDisabled !== null && ariaDisabled !== 'false',
-      disabled: menuButton.hasAttribute('disabled'),
-      icon: menuButton.querySelector('sl-icon')?.getAttribute('name'),
-      label,
-      menuItems,
-      visible: true
-    };
-  }
-
-  #measureItems(): void {
-    const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
-    if (
-      this.offsetParent === null ||
-      (wrapper?.clientWidth === wrapper?.scrollWidth && wrapper?.clientHeight === wrapper?.scrollHeight)
-    ) {
-      this.#needsMeasurement = true;
-      return;
-    }
-
-    // Ensure all items are visible for accurate measurements
-    this.items.forEach(item => {
-      item.element.style.visibility = '';
-      item.element.style.position = '';
-      item.visible = true;
-    });
-
-    // Force layout before measuring
-    void this.offsetHeight;
-
-    this.#widths = this.items.map(item => item.element.getBoundingClientRect().width);
-
-    // If measurements are invalid (any width is zero for non-divider items), mark as needing re-measurement
-    const hasInvalidMeasurements = this.items.some((item, i) => item.type !== 'divider' && this.#widths[i] === 0);
-
-    this.#needsMeasurement = hasInvalidMeasurements;
-  }
-
   #onResize(availableWidth: number): void {
     const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
-
     if (!wrapper) {
       return;
     }
@@ -676,6 +433,114 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     });
   }
 
+  /**
+   * Check if an element is disabled.
+   * For menu buttons, the element might be the internal sl-button from the shadow DOM,
+   * so we need to find the original item to get the correct disabled state.
+   */
+  #isElementDisabled(el: HTMLElement): boolean {
+    const isNativelyDisabled =
+      el.hasAttribute('disabled') || (el instanceof Button || el instanceof MenuButton ? el.disabled : false);
+
+    if (isNativelyDisabled) {
+      return true;
+    }
+
+    // Find the toolbar item for this element
+    const item = this.#findItemForElement(el);
+
+    if (item && 'disabled' in item && item.disabled) {
+      return true;
+    }
+
+    // Check parent menu button for overflow menu button
+    const parentMenuButton = el.closest('sl-menu-button');
+
+    if (parentMenuButton && parentMenuButton !== el) {
+      if (parentMenuButton.hasAttribute('disabled') || parentMenuButton.disabled) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  /**
+   * Get all focusable elements including visible toolbar items and overflow menu button.
+   */
+  #getFocusableElements(): HTMLElement[] {
+    const visibleItems = (this.items || [])
+      .filter(item => item.visible)
+      .map(item => {
+        // For menu buttons, get the internal sl-button element
+        if (item.element instanceof MenuButton) {
+          return item.element.renderRoot.querySelector('sl-button') as HTMLElement;
+        }
+
+        return item.element;
+      })
+      .filter((el): el is HTMLElement => el !== null);
+
+    const menuButton = this.renderRoot.querySelector('sl-menu-button');
+    if (!menuButton) {
+      return visibleItems;
+    }
+
+    const menuButtonElement = menuButton.renderRoot?.querySelector('sl-button');
+
+    return menuButtonElement ? [...visibleItems, menuButtonElement] : visibleItems;
+  }
+
+  /**
+   * Find the toolbar item associated with an element.
+   * Handles both direct elements and internal buttons from menu buttons.
+   */
+  #findItemForElement(el: HTMLElement): ToolBarItem | undefined {
+    return this.items?.find(item => {
+      if (item.element === el) {
+        return true;
+      } else if (item.element instanceof MenuButton) {
+        const internalButton = item.element.renderRoot.querySelector('sl-button');
+
+        return internalButton === el;
+      }
+
+      return false;
+    });
+  }
+
+  #measureItems(): void {
+    const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
+    if (
+      this.offsetParent === null ||
+      (wrapper?.clientWidth === wrapper?.scrollWidth && wrapper?.clientHeight === wrapper?.scrollHeight)
+    ) {
+      this.#needsMeasurement = true;
+      return;
+    }
+
+    // Ensure all items are visible for accurate measurements
+    this.items.forEach(item => {
+      item.element.style.visibility = '';
+      item.element.style.position = '';
+      item.visible = true;
+    });
+
+    // Force layout before measuring
+    void this.offsetHeight;
+
+    const widths = this.items.map(item => item.element.getBoundingClientRect().width);
+
+    // If measurements are invalid (any width is zero for non-divider items), mark as needing re-measurement
+    const hasInvalidMeasurements = this.items.some((item, i) => item.type !== 'divider' && widths[i] === 0);
+
+    this.#needsMeasurement = hasInvalidMeasurements;
+
+    if (widths.length > 0) {
+      this.#widths = widths;
+    }
+  }
+
   #updateButtonAttributes(elements: Element[]): void {
     elements.forEach(el => {
       this.#updateButtonFillAndVariant(el);
@@ -758,6 +623,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     if (el.tagName === 'SL-BUTTON' || el.tagName === 'SL-MENU-BUTTON') {
       targets.push(el);
     }
+
     targets.push(...Array.from(el.querySelectorAll('sl-button, sl-menu-button')));
 
     targets.forEach(btn => {
@@ -779,6 +645,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     if (el.tagName === 'SL-TOOL-BAR-DIVIDER') {
       dividers.push(el);
     }
+
     dividers.push(...Array.from(el.querySelectorAll('sl-tool-bar-divider')));
 
     dividers.forEach(divider => {
@@ -791,33 +658,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   }
 
   #updateMapping(): void {
-    const slot = this.renderRoot.querySelector('slot')!,
-      elements = slot.assignedElements({ flatten: true });
+    const { needsMeasurement } = updateMapping(this);
 
-    this.empty = elements.length === 0;
-
-    this.items = elements
-      .map(element => {
-        if (element instanceof HTMLElement) {
-          element.style.visibility = '';
-          element.style.position = '';
-        }
-
-        if (element instanceof Button) {
-          return this.#mapButtonToItem(element);
-        } else if (element instanceof MenuButton) {
-          return this.#mapMenuButtonToItem(element);
-        } else if (element instanceof ToolBarDivider) {
-          return { element, type: 'divider', visible: true };
-        } else if (!['SL-TOOLTIP'].includes(element.tagName)) {
-          console.warn(`Unknown element type: ${element.tagName} in sl-tool-bar.`);
-        }
-
-        return undefined;
-      })
-      .filter(item => item !== undefined) as ToolBarItem[];
-
-    this.#needsMeasurement = true;
+    this.#needsMeasurement = needsMeasurement;
 
     // The menu-button may have appeared or disappeared, so we need to re-measure
     this.#measureItems();

@@ -715,9 +715,13 @@ describe('sl-tooltip', () => {
     });
 
     it('should keep pending hover show timer cancellable after unrelated focusout', async () => {
-      tooltip.showDelay = 150;
+      Tooltip.lazy(button, createdTooltip => {
+        tooltip = createdTooltip;
+        tooltip.showDelay = 150;
+      });
 
       button?.dispatchEvent(new Event('pointerover', { bubbles: true }));
+      expect(tooltip).to.exist;
 
       const other = document.createElement('input');
       el.appendChild(other);
@@ -732,13 +736,14 @@ describe('sl-tooltip', () => {
     it('should create a tooltip lazily on focusin', async () => {
       Tooltip.lazy(button, createdTooltip => (tooltip = createdTooltip));
 
-      button.dispatchEvent(new Event('focusin', { bubbles: true }));
+      button.focus();
 
+      await tooltip.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
       await tooltip.updateComplete;
 
       expect(tooltip).to.exist;
       expect(button).to.have.attribute('aria-describedby', tooltip?.id);
-      await tooltip.updateComplete;
       expect(tooltip).to.match(':popover-open');
     });
 

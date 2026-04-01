@@ -61,7 +61,14 @@ dialog {
     dialog::backdrop {
       transition: 0.2s ease-in-out;
       transition-behavior: allow-discrete;
-      transition-property: display, opacity, overlay, translate;
+      transition-property: opacity, overlay, translate;
+    }
+
+    @supports (overlay: auto) {
+      dialog,
+      dialog::backdrop {
+        transition-property: display, opacity, overlay, translate;
+      }
     }
 
     dialog[open]::backdrop {

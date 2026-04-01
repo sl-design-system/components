@@ -71,12 +71,12 @@ dialog {
   }
 }
 
-h2 {
+h1 {
   color: var(--sl-color-foreground-bold);
-  font-size: 1.7em;
+  font-size: calc((24 / 14) * 1em);
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
-  line-height: 1.42em;
-  margin-block: 0;
+  line-height: 1em; // Only applies on FF where text-box is not yet supported
+  margin: 0;
   text-box: trim-both cap alphabetic;
 }
 

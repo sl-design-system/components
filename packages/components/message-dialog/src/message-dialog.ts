@@ -150,7 +150,7 @@ export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
         aria-labelledby="title"
         role="alertdialog"
       >
-        <h2 id="title">${title}</h2>
+        <h1 id="title">${title}</h1>
         <p>${message}</p>
         <sl-button-bar align="end">
           ${buttons?.map(

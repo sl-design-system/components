@@ -266,6 +266,8 @@ export class GridColumn<T = any> extends LitElement {
 
     if (this.sticky && this.stickyOrder && this.stickyPosition) {
       classes.push(`sticky-${this.stickyPosition}-${this.stickyOrder}`);
+    } else if (this.sticky && this.stickyPosition) {
+      classes.push(`sticky-${this.stickyPosition}`);
     }
 
     return classes;

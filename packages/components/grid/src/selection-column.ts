@@ -50,10 +50,11 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
   override renderHeaderRow(index: number): TemplateResult | typeof nothing {
     if (index === 0) {
       const checked = !!this.grid?.dataSource?.selected && this.grid?.dataSource?.areAllSelected(),
-        indeterminate = this.grid?.dataSource?.areSomeSelected();
+        indeterminate = this.grid?.dataSource?.areSomeSelected(),
+        classes = this.getClasses();
 
       return html`
-        <th part="header selection" role="columnheader">
+        <th class=${classes.length ? classes.join(' ') : nothing} part="header selection" role="columnheader">
           <sl-checkbox
             @sl-change=${({ detail }: SlChangeEvent<boolean>) => this.#onToggleAll(detail)}
             ?checked=${checked}
@@ -65,13 +66,23 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
         </th>
       `;
     } else {
-      return html`<th part="header selection-placeholder" role="columnheader"></th>`;
+      const classes = this.getClasses();
+
+      return html`
+        <th
+          class=${classes.length ? classes.join(' ') : nothing}
+          part="header selection-placeholder"
+          role="columnheader"
+        ></th>
+      `;
     }
   }
 
   override renderData(item: ListDataSourceDataItem<T>): TemplateResult {
+    const classes = this.getClasses(item.data);
+
     return html`
-      <td @click=${this.#onClick} part="data selection">
+      <td @click=${this.#onClick} class=${classes.length ? classes.join(' ') : nothing} part="data selection">
         <sl-checkbox
           @sl-change=${() => this.#onToggle(item)}
           ?checked=${item.selected}

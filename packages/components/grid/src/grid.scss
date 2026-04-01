@@ -140,6 +140,11 @@
     }
   }
 
+  th[class*='sticky'],
+  td[class*='sticky'] {
+    z-index: 1; // Ensure the sticky cell is above relatively positioned elements in other columns, but below the scroll fade on the left
+  }
+
   sl-scrollbar::before {
     background: var(--sl-color-border-plain);
     content: '';
@@ -183,6 +188,11 @@
 
   th.sticky-end-first {
     background: var(--_vertical-border), var(--_head-cell-background);
+  }
+
+  th[class*='sticky'],
+  td[class*='sticky'] {
+    z-index: 1; // Ensure the sticky cell is above relatively positioned elements in other columns, but below the scroll fade on the left
   }
 
   sl-scrollbar::after {

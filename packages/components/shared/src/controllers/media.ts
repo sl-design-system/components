@@ -56,11 +56,6 @@ export class MediaController implements ReactiveController {
     return 'desktop';
   }
 
-  /** Previous device before the last media query change. */
-  get previousDevice(): MediaDevice | undefined {
-    return this.#previousDevice;
-  }
-
   constructor(host: ReactiveControllerHost & HTMLElement, config?: MediaControllerConfig) {
     this.#config = config;
     this.#host = host;

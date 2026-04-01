@@ -7,9 +7,7 @@ declare global {
   interface GlobalEventHandlersEventMap {
     'sl-close': CustomEvent<void>;
   }
-}
 
-declare global {
   interface HTMLElementTagNameMap {
     'sl-tooltip': Tooltip;
   }
@@ -137,13 +135,40 @@ export class Tooltip extends LitElement {
   #events = new EventsController(this);
 
   /** Timer for showing/hiding the tooltip. */
-  #timer?: number;
+  #timer?: ReturnType<typeof setTimeout>;
 
   /** Whether the current open state was triggered by focus-based interaction. */
   #openedByFocus = false;
 
   /** Anchors observed for this tooltip, used to avoid full DOM scans on hide. */
   #knownAnchors = new Set<HTMLElement>();
+
+  /**
+   * The amount of time to wait before hiding the tooltip when the user moves the mouse/pointer out.
+   * @default 0
+   */
+  @property({ type: Number, attribute: 'hide-delay' }) hideDelay = 0;
+
+  /** The maximum width of the tooltip. */
+  @property({ type: Number, attribute: 'max-width' }) maxWidth?: number;
+
+  /**
+   * The offset distance of the tooltip from its anchor.
+   * @default Tooltip.offset (12px)
+   */
+  @property({ type: Number }) offset?: number;
+
+  /**
+   * Position of the tooltip relative to its anchor.
+   * @type {'top' | 'right' | 'bottom' | 'left' | 'top-start' | 'top-end' | 'right-start' | 'right-end' | 'bottom-start' | 'bottom-end' | 'left-start' | 'left-end'}
+   */
+  @property() position: PopoverPosition = 'top';
+
+  /**
+   * The amount of time to wait before showing the tooltip when the user moves the mouse/pointer in.
+   * @default 150
+   */
+  @property({ type: Number, attribute: 'show-delay' }) showDelay = 150;
 
   #matchesAnchor = (element: Element): boolean => {
     if (!this.id || !element || element.nodeType !== Node.ELEMENT_NODE) {
@@ -258,7 +283,7 @@ export class Tooltip extends LitElement {
   };
 
   #getEscapedTooltipId = (): string | undefined => {
-    if (!this.id || typeof CSS === 'undefined' || typeof CSS.escape !== 'function') {
+    if (!this.id) {
       return undefined;
     }
 
@@ -295,7 +320,7 @@ export class Tooltip extends LitElement {
     // Only clear the timer for focusout when the tooltip was opened by focus; otherwise,
     // an unrelated focusout could cancel a pending hover showDelay timer.
     if (event.type !== 'focusout' || this.#openedByFocus) {
-      window.clearTimeout(this.#timer);
+      clearTimeout(this.#timer);
       this.#timer = undefined;
     }
 
@@ -314,7 +339,7 @@ export class Tooltip extends LitElement {
       return;
     }
 
-    this.#timer = window.setTimeout(
+    this.#timer = setTimeout(
       () => {
         const anchorHovered = !!this.anchorElement?.matches(':hover');
         const tooltipHovered = this.matches(':hover');
@@ -431,20 +456,20 @@ export class Tooltip extends LitElement {
 
     // For hover events
     if (event.type === 'pointerover') {
-      window.clearTimeout(this.#timer);
+      clearTimeout(this.#timer);
 
       // If already open, update anchor immediately to avoid "stickiness"
       if (isPopoverOpen(this)) {
         this.#showTooltip(anchorElement, this.#openedByFocus);
       } else {
-        this.#timer = window.setTimeout(() => this.#showTooltip(anchorElement, false), this.showDelay);
+        this.#timer = setTimeout(() => this.#showTooltip(anchorElement, false), this.showDelay);
       }
       return;
     }
 
     // For keyboard navigation (focus events or dialog/popover closing)
     if (event.type === 'focusin' || event.type === 'sl-close') {
-      window.clearTimeout(this.#timer);
+      clearTimeout(this.#timer);
       this.#timer = undefined;
 
       if (!(anchorElement instanceof HTMLElement) || !this.#matchesAnchor(anchorElement)) {
@@ -477,33 +502,6 @@ export class Tooltip extends LitElement {
     }
   }
 
-  /**
-   * The amount of time to wait before hiding the tooltip when the user moves the mouse/pointer out.
-   * @default 0
-   */
-  @property({ type: Number, attribute: 'hide-delay' }) hideDelay = 0;
-
-  /** The maximum width of the tooltip. */
-  @property({ type: Number, attribute: 'max-width' }) maxWidth?: number;
-
-  /**
-   * The offset distance of the tooltip from its anchor.
-   * @default Tooltip.offset (12px)
-   */
-  @property({ type: Number }) offset?: number;
-
-  /**
-   * Position of the tooltip relative to its anchor.
-   * @type {'top' | 'right' | 'bottom' | 'left' | 'top-start' | 'top-end' | 'right-start' | 'right-end' | 'bottom-start' | 'bottom-end' | 'left-start' | 'left-end'}
-   */
-  @property() position: PopoverPosition = 'top';
-
-  /**
-   * The amount of time to wait before showing the tooltip when the user moves the mouse/pointer in.
-   * @default 150
-   */
-  @property({ type: Number, attribute: 'show-delay' }) showDelay = 150;
-
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -526,7 +524,7 @@ export class Tooltip extends LitElement {
   override disconnectedCallback(): void {
     super.disconnectedCallback();
 
-    window.clearTimeout(this.#timer);
+    clearTimeout(this.#timer);
   }
 
   override willUpdate(changes: PropertyValues<this>): void {

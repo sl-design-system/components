@@ -1770,16 +1770,12 @@ describe('sl-time-field', () => {
       await waitForPopoverState(dialog, true);
 
       expect(dialog).to.match(':popover-open');
-
-      // Second click closes
+      const togglePromise = waitForToggleEvent(dialog, 'closed');
       button.click();
       await el.updateComplete;
-      await waitForPopoverState(dialog, false);
+      await Promise.all([waitForPopoverState(dialog, false), togglePromise]);
 
       expect(dialog).not.to.match(':popover-open');
-
-      // Wait for the toggle event to complete, which resets #popoverJustClosed
-      await waitForToggleEvent(dialog, 'closed');
 
       // Third click should be able to open it again - not permanently suppressed
       button.click();

@@ -12,6 +12,7 @@ import styles from './dialog.scss.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
+    command: Event; // Workaround for older TypeScript versions
     'sl-close': SlCloseEvent;
   }
 

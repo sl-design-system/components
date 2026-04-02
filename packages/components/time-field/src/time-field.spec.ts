@@ -36,12 +36,13 @@ function waitForToggleEvent(
   timeout = 5000
 ): Promise<void> {
   return new Promise((resolve, reject) => {
+    let handler: (event: Event) => void = () => {};
     const timeoutId = setTimeout(() => {
       dialog.removeEventListener('toggle', handler);
       reject(new Error(`Timeout waiting for toggle event with state ${expectedState}`));
     }, timeout);
 
-    const handler = (event: Event) => {
+    handler = (event: Event) => {
       const toggleEvent = event as ToggleEvent;
       if (toggleEvent.newState === expectedState) {
         clearTimeout(timeoutId);

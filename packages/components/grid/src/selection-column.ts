@@ -4,6 +4,7 @@ import { type ListDataSourceDataItem, type ListDataSourceItem } from '@sl-design
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { GridColumn } from './column.js';
 
 declare global {
@@ -54,7 +55,7 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
         classes = this.getClasses();
 
       return html`
-        <th class=${classes.length ? classes.join(' ') : nothing} part="header selection" role="columnheader">
+        <th class=${ifDefined(classes.join(' '))} part="header selection" role="columnheader">
           <sl-checkbox
             @sl-change=${({ detail }: SlChangeEvent<boolean>) => this.#onToggleAll(detail)}
             ?checked=${checked}
@@ -69,11 +70,7 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
       const classes = this.getClasses();
 
       return html`
-        <th
-          class=${classes.length ? classes.join(' ') : nothing}
-          part="header selection-placeholder"
-          role="columnheader"
-        ></th>
+        <th class=${ifDefined(classes.join(' '))} part="header selection-placeholder" role="columnheader"></th>
       `;
     }
   }
@@ -82,7 +79,7 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
     const classes = this.getClasses(item.data);
 
     return html`
-      <td @click=${this.#onClick} class=${classes.length ? classes.join(' ') : nothing} part="data selection">
+      <td @click=${this.#onClick} class=${ifDefined(classes.join(' '))} part="data selection">
         <sl-checkbox
           @sl-change=${() => this.#onToggle(item)}
           ?checked=${item.selected}

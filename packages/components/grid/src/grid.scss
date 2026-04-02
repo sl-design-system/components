@@ -140,11 +140,6 @@
     }
   }
 
-  th[class*='sticky'],
-  td[class*='sticky'] {
-    z-index: 1; // Ensure the sticky cell is above relatively positioned elements in other columns, but below the scroll fade on the left
-  }
-
   sl-scrollbar::before {
     background: var(--sl-color-border-plain);
     content: '';
@@ -190,17 +185,19 @@
     background: var(--_vertical-border), var(--_head-cell-background);
   }
 
-  th[class*='sticky'],
-  td[class*='sticky'] {
-    z-index: 1; // Ensure the sticky cell is above relatively positioned elements in other columns, but below the scroll fade overlay
-  }
-
   sl-scrollbar::after {
     background: var(--sl-color-border-plain);
     content: '';
     inline-size: var(--sl-size-borderWidth-default);
     inset: 0 calc(var(--sl-size-borderWidth-default) * -1) 0 auto;
     position: absolute;
+  }
+}
+
+:host(:where([scrollable-start], [scrollable-end])) {
+  th[class*='sticky'],
+  td[class*='sticky'] {
+    z-index: 1; // Ensure the sticky cell is above relatively positioned elements in other columns, but below the scroll fade overlay
   }
 }
 

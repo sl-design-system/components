@@ -296,13 +296,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** @internal */
   override focus(): void {
-    const selectAll = this.renderRoot.querySelector<HTMLElement>('.select-all');
-
-    if (selectAll) {
-      selectAll.focus();
-      return;
-    }
-
     this.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')?.focus();
     this.internals.states.add('has-focus');
   }
@@ -619,7 +612,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       event.preventDefault();
 
       this.selectAll = true;
-      this.internals.states.add('has-focus');
 
       requestAnimationFrame(() => {
         const selectAll = this.renderRoot.querySelector<HTMLElement>('.select-all')!;

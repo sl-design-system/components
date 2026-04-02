@@ -286,13 +286,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** @internal */
   override focus(): void {
-    const selectAll = this.renderRoot.querySelector<HTMLElement>('.select-all');
-
-    if (selectAll) {
-      selectAll.focus();
-      return;
-    }
-
     this.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')?.focus();
     this.internals.states.add('has-focus');
   }
@@ -318,9 +311,8 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
                   @drop=${(event: DragEvent) => event.preventDefault()}
                   class="select-all"
                   contenteditable="plaintext-only"
+                  >${this.#getFormattedValue()}</span
                 >
-                  ${this.#getFormattedValue()}
-                </span>
               `
             : html`
                 <div class="parts">

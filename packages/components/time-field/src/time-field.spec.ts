@@ -1648,7 +1648,9 @@ describe('sl-time-field', () => {
 
       hourSpinbutton.focus();
       await userEvent.keyboard('09');
+      await el.updateComplete;
       await userEvent.keyboard('15');
+      await el.updateComplete;
 
       expect(field.value).to.equal('09:15');
     });

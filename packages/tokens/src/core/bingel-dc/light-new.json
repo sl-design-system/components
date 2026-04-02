@@ -1,130 +1,968 @@
 {
   "bingel-dc": {
     "color": {
-      "link": {
-        "idle": {
-          "$value": "{bingel-dc.color.foreground.accent.blue.plain}",
-          "$type": "color",
-          "$description": "Use for links in their default or hovered state."
-        },
-        "hover": {
-          "$value": "{bingel-dc.color.palette.blue.500}",
-          "$type": "color",
-          "$description": "Use for links in hover state."
-        },
-        "muted": {
-          "idle": {
-            "$value": "{bingel-dc.color.foreground.accent.grey.subtlest}",
-            "$type": "color",
-            "$description": "Use for muted links in idle state."
+      "palette": {
+        "purple": {
+          "150": {
+            "$value": "#d9d3ff",
+            "$type": "color"
           },
-          "hover": {
-            "$value": "{bingel-dc.color.link.hover}",
-            "$type": "color",
-            "$description": "Use for muted links in hover state."
+          "100": {
+            "$value": "#ebe8ff",
+            "$type": "color"
           },
-          "active": {
-            "$value": "{bingel-dc.color.link.active}",
-            "$type": "color",
-            "$description": "Use for muted links in active state."
+          "900": {
+            "$value": "#270a6b",
+            "$type": "color"
+          },
+          "200": {
+            "$value": "#bdb0ff",
+            "$type": "color"
+          },
+          "800": {
+            "$value": "#43149e",
+            "$type": "color"
+          },
+          "050": {
+            "$value": "#f3f2ff",
+            "$type": "color"
+          },
+          "300": {
+            "$value": "#9d83ff",
+            "$type": "color"
+          },
+          "500": {
+            "$value": "#6e2dfa",
+            "$type": "color"
+          },
+          "400": {
+            "$value": "#7e51ff",
+            "$type": "color"
+          },
+          "700": {
+            "$value": "#5217c6",
+            "$type": "color"
+          },
+          "600": {
+            "$value": "#5f1be6",
+            "$type": "color"
           }
         },
-        "active": {
-          "$value": "{bingel-dc.color.palette.blue.600}",
-          "$type": "color",
-          "$description": "Use for links in active state."
-        },
-        "focused": {
-          "idle": {
-            "$value": "{bingel-dc.color.palette.blue.700}",
-            "$type": "color",
-            "$description": "Used for the linkcolor of navigation aids in idle state, such as skip links, when they are focused or visible."
+        "yellow": {
+          "800": {
+            "$value": "#724511",
+            "$type": "color"
           },
-          "hover": {
-            "$value": "{bingel-dc.color.palette.blue.800}",
-            "$type": "color",
-            "$description": "Used for the linkcolor of navigation aids in hovered state, such as skip links, when they are focused or visible."
+          "400": {
+            "$value": "#ecc206",
+            "$type": "color"
           },
-          "active": {
-            "$value": "{bingel-dc.color.palette.blue.900}",
-            "$type": "color",
-            "$description": "Used for the linkcolor of navigation aids in pressed state, such as skip links, when they are focused or visible."
+          "100": {
+            "$value": "#fffec2",
+            "$type": "color"
+          },
+          "700": {
+            "$value": "#86540d",
+            "$type": "color"
+          },
+          "600": {
+            "$value": "#a36b05",
+            "$type": "color"
+          },
+          "900": {
+            "$value": "#432405",
+            "$type": "color"
+          },
+          "300": {
+            "$value": "#fddc12",
+            "$type": "color"
+          },
+          "050": {
+            "$value": "#fefde8",
+            "$type": "color"
+          },
+          "500": {
+            "$value": "#cc9702",
+            "$type": "color"
+          },
+          "150": {
+            "$value": "#fff889",
+            "$type": "color"
+          },
+          "200": {
+            "$value": "#ffec40",
+            "$type": "color"
           }
         },
-        "inverted": {
-          "idle": {
-            "$value": "{bingel-dc.color.foreground.inverted.plain}",
-            "$type": "color",
-            "$description": "Use for inverted links in idle state."
+        "grey": {
+          "000": {
+            "$value": "#FFFFFF",
+            "$type": "color"
           },
-          "hover": {
-            "$value": "{bingel-dc.color.palette.blue.100}",
-            "$type": "color",
-            "$description": "Use for inverted links in hover state."
+          "700": {
+            "$value": "#54585D",
+            "$type": "color"
           },
-          "active": {
-            "$value": "{bingel-dc.color.palette.blue.150}",
-            "$type": "color",
-            "$description": "Use for inverted links in active state."
+          "150": {
+            "$value": "#D5D9DE",
+            "$type": "color"
+          },
+          "200": {
+            "$value": "#C7CDD3",
+            "$type": "color"
+          },
+          "600": {
+            "$value": "#71777D",
+            "$type": "color"
+          },
+          "050": {
+            "$value": "#F2F3F5",
+            "$type": "color"
+          },
+          "500": {
+            "$value": "#8D959D",
+            "$type": "color"
+          },
+          "300": {
+            "$value": "#B8C0C8",
+            "$type": "color"
+          },
+          "100": {
+            "$value": "#E3E6EA",
+            "$type": "color"
+          },
+          "900": {
+            "$value": "#1B1C1E",
+            "$type": "color"
+          },
+          "800": {
+            "$value": "#373A3E",
+            "$type": "color"
+          },
+          "400": {
+            "$value": "#AAB3BD",
+            "$type": "color"
+          }
+        },
+        "orange": {
+          "500": {
+            "$value": "#D48300",
+            "$type": "color"
+          },
+          "400": {
+            "$value": "#FF9D00",
+            "$type": "color"
+          },
+          "100": {
+            "$value": "#FFDFAC",
+            "$type": "color"
+          },
+          "050": {
+            "$value": "#FFF0D7",
+            "$type": "color"
+          },
+          "900": {
+            "$value": "#281900",
+            "$type": "color"
+          },
+          "600": {
+            "$value": "#A96800",
+            "$type": "color"
+          },
+          "800": {
+            "$value": "#533300",
+            "$type": "color"
+          },
+          "150": {
+            "$value": "#FFCF81",
+            "$type": "color"
+          },
+          "700": {
+            "$value": "#7E4E00",
+            "$type": "color"
+          },
+          "300": {
+            "$value": "#FFAE2B",
+            "$type": "color"
+          },
+          "200": {
+            "$value": "#FFBE56",
+            "$type": "color"
+          }
+        },
+        "blue": {
+          "800": {
+            "$value": "#002649",
+            "$type": "color"
+          },
+          "700": {
+            "$value": "#002F62",
+            "$type": "color"
+          },
+          "100": {
+            "$value": "#ACD2F5",
+            "$type": "color"
+          },
+          "050": {
+            "$value": "#E6F1FB",
+            "$type": "color"
+          },
+          "150": {
+            "$value": "#81BAEF",
+            "$type": "color"
+          },
+          "900": {
+            "$value": "#001223",
+            "$type": "color"
+          },
+          "300": {
+            "$value": "#2B8BE4",
+            "$type": "color"
+          },
+          "400": {
+            "$value": "#0074DF",
+            "$type": "color"
+          },
+          "200": {
+            "$value": "#56A3EA",
+            "$type": "color"
+          },
+          "500": {
+            "$value": "#0060B9",
+            "$type": "color"
+          },
+          "600": {
+            "$value": "#004D94",
+            "$type": "color"
+          }
+        },
+        "green": {
+          "700": {
+            "$value": "#235500",
+            "$type": "color"
+          },
+          "200": {
+            "$value": "#84C856",
+            "$type": "color"
+          },
+          "100": {
+            "$value": "#C3E4AC",
+            "$type": "color"
+          },
+          "600": {
+            "$value": "#2E7200",
+            "$type": "color"
+          },
+          "300": {
+            "$value": "#65BA2B",
+            "$type": "color"
+          },
+          "900": {
+            "$value": "#0B1B00",
+            "$type": "color"
+          },
+          "150": {
+            "$value": "#A4D681",
+            "$type": "color"
+          },
+          "050": {
+            "$value": "#E2F2D7",
+            "$type": "color"
+          },
+          "400": {
+            "$value": "#46AC00",
+            "$type": "color"
+          },
+          "500": {
+            "$value": "#3A8F00",
+            "$type": "color"
+          },
+          "800": {
+            "$value": "#173800",
+            "$type": "color"
+          }
+        },
+        "teal": {
+          "600": {
+            "$value": "#008080",
+            "$type": "color"
+          },
+          "200": {
+            "$value": "#4afef0",
+            "$type": "color"
+          },
+          "900": {
+            "$value": "#003235",
+            "$type": "color"
+          },
+          "100": {
+            "$value": "#c5fffa",
+            "$type": "color"
+          },
+          "700": {
+            "$value": "#066769",
+            "$type": "color"
+          },
+          "500": {
+            "$value": "#00a8a5",
+            "$type": "color"
+          },
+          "800": {
+            "$value": "#0a5757",
+            "$type": "color"
+          },
+          "400": {
+            "$value": "#00d0c9",
+            "$type": "color"
+          },
+          "300": {
+            "$value": "#15ece2",
+            "$type": "color"
+          },
+          "050": {
+            "$value": "#eefffc",
+            "$type": "color"
+          },
+          "150": {
+            "$value": "#8bfff5",
+            "$type": "color"
+          }
+        },
+        "red": {
+          "150": {
+            "$value": "#F18694",
+            "$type": "color"
+          },
+          "600": {
+            "$value": "#96071A",
+            "$type": "color"
+          },
+          "900": {
+            "$value": "#240206",
+            "$type": "color"
+          },
+          "800": {
+            "$value": "#4A030D",
+            "$type": "color"
+          },
+          "500": {
+            "$value": "#BD0820",
+            "$type": "color"
+          },
+          "200": {
+            "$value": "#EC5D70",
+            "$type": "color"
+          },
+          "050": {
+            "$value": "#FBD9DD",
+            "$type": "color"
+          },
+          "100": {
+            "$value": "#F6AFB9",
+            "$type": "color"
+          },
+          "700": {
+            "$value": "#700513",
+            "$type": "color"
+          },
+          "300": {
+            "$value": "#E8334B",
+            "$type": "color"
+          },
+          "400": {
+            "$value": "#E30A27",
+            "$type": "color"
           }
         }
       },
-      "border": {
-        "bold": {
-          "$value": "{bingel-dc.color.border.accent.grey.bold}",
-          "$type": "color",
-          "$description": "A neutral border option that passes min 3:1 contrast ratios."
-        },
-        "info": {
-          "bold": {
-            "$value": "{bingel-dc.color.border.accent.blue.bold}",
-            "$type": "color",
-            "$description": "Use for borders that highlight informative actions or messages on muted, subtlest and subtle background colors."
-          },
-          "plain": {
-            "$value": "{bingel-dc.color.border.accent.blue.plain}",
-            "$type": "color",
-            "$description": "Use for borders that highlight informative actions or messages on elevation.surface background colors."
-          },
-          "subtle": {
-            "$value": "{bingel-dc.color.background.info.subtle}",
-            "$type": "color",
-            "$description": "Use for subtle borders on color.background.info background colors."
-          }
-        },
-        "input": {
-          "$value": "{bingel-dc.color.border.bold}",
-          "$type": "color",
-          "$description": "Use for borders of form UI elements, such as text fields, checkboxes and, radio buttons."
-        },
-        "plain": {
-          "$value": "{bingel-dc.color.border.accent.grey.plain}",
-          "$type": "color",
-          "$description": "Use to visually group or seperate UI elements, such as card, tabs or side panel dividers."
-        },
+      "background": {
         "accent": {
           "red": {
-            "bold": {
-              "$value": "{bingel-dc.color.foreground.accent.red.bold}",
-              "$type": "color",
-              "$description": "Use for bold red borders for purely stylistic purposes with no specific meaning."
+            "interactive": {
+              "plain": {
+                "$value": "{bingel-dc.color.palette.red.400}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+              },
+              "bold": {
+                "$value": "{bingel-dc.color.palette.red.900}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+              }
             },
-            "plain": {
-              "$value": "{bingel-dc.color.background.accent.red.bold}",
+            "subtle": {
+              "$value": "set_alpha({bingel-dc.color.palette.red.400}, {bingel-dc.opacity.subtle})",
               "$type": "color",
-              "$description": "Use for plain red borders for purely stylistic purposes with no specific meaning."
+              "$description": "A subtle red background option in idle state, applied purely for stylistic purposes without specific meaning."
+            },
+            "subtlest": {
+              "$value": "set_alpha({bingel-dc.color.palette.red.400}, {bingel-dc.opacity.subtlest})",
+              "$type": "color",
+              "$description": "The subtlest red background option for interactive elements, applied purely for stylistic purposes without specific meaning."
+            },
+            "bold": {
+              "$value": "{bingel-dc.color.palette.red.400}",
+              "$type": "color",
+              "$description": "A vibrant red background option, applied purely for stylistic purposes without specific meaning."
+            }
+          },
+          "teal": {
+            "bold": {
+              "$value": "{bingel-dc.color.palette.teal.600}",
+              "$type": "color",
+              "$description": "A vibrant teal background option, applied purely for stylistic purposes without specific meaning."
+            },
+            "interactive": {
+              "bold": {
+                "$value": "{bingel-dc.color.palette.teal.900}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+              },
+              "plain": {
+                "$value": "{bingel-dc.color.palette.teal.400}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the subtlest and subtle background to indicate the hover and pressed state."
+              }
+            },
+            "subtle": {
+              "$value": "set_alpha({bingel-dc.color.palette.teal.400}, {bingel-dc.opacity.subtle})",
+              "$type": "color",
+              "$description": "A subtle teal background option in idle state, applied purely for stylistic purposes without specific meaning."
+            },
+            "subtlest": {
+              "$value": "set_alpha({bingel-dc.color.palette.teal.400}, {bingel-dc.opacity.subtlest})",
+              "$type": "color",
+              "$description": "The subtlest teal background option for interactive elements, applied purely for stylistic purposes without specific meaning."
+            }
+          },
+          "orange": {
+            "subtlest": {
+              "$value": "set_alpha({bingel-dc.color.palette.orange.400}, {bingel-dc.opacity.subtlest})",
+              "$type": "color",
+              "$description": "The subtlest orange background option for interactive elements, applied purely for stylistic purposes without specific meaning."
+            },
+            "bold": {
+              "$value": "{bingel-dc.color.palette.orange.400}",
+              "$type": "color",
+              "$description": "A vibrant orange background option, applied purely for stylistic purposes without specific meaning."
+            },
+            "subtle": {
+              "$value": "set_alpha({bingel-dc.color.palette.orange.400}, {bingel-dc.opacity.subtle})",
+              "$type": "color",
+              "$description": "A subtle orange background option in idle state, applied purely for stylistic purposes without specific meaning."
+            },
+            "interactive": {
+              "bold": {
+                "$value": "{bingel-dc.color.palette.orange.700}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+              },
+              "plain": {
+                "$value": "{bingel-dc.color.palette.orange.400}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+              }
+            }
+          },
+          "green": {
+            "bold": {
+              "$value": "{bingel-dc.color.palette.green.600}",
+              "$type": "color",
+              "$description": "A vibrant green background option, applied purely for stylistic purposes without specific meaning."
+            },
+            "subtle": {
+              "$value": "set_alpha({bingel-dc.color.palette.green.400}, {bingel-dc.opacity.subtle})",
+              "$type": "color",
+              "$description": "A subtle green background option in idle state, applied purely for stylistic purposes without specific meaning."
+            },
+            "interactive": {
+              "bold": {
+                "$value": "{bingel-dc.color.palette.green.900}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+              },
+              "plain": {
+                "$value": "{bingel-dc.color.palette.green.400}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+              }
+            },
+            "subtlest": {
+              "$value": "set_alpha({bingel-dc.color.palette.green.400}, {bingel-dc.opacity.subtlest})",
+              "$type": "color",
+              "$description": "The subtlest green background option for interactive elements, applied purely for stylistic purposes without specific meaning."
+            }
+          },
+          "yellow": {
+            "interactive": {
+              "bold": {
+                "$value": "{bingel-dc.color.palette.yellow.600}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+              },
+              "plain": {
+                "$value": "{bingel-dc.color.palette.yellow.400}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the subtlest and subtle background to indicate the hover and pressed state."
+              }
+            },
+            "subtlest": {
+              "$value": "set_alpha({bingel-dc.color.palette.yellow.400}, {bingel-dc.opacity.subtlest})",
+              "$type": "color",
+              "$description": "The subtlest yellow background option for interactive elements, applied purely for stylistic purposes without specific meaning."
+            },
+            "bold": {
+              "$value": "{bingel-dc.color.palette.yellow.400}",
+              "$type": "color",
+              "$description": "A vibrant yellow background option, applied purely for stylistic purposes without specific meaning."
+            },
+            "subtle": {
+              "$value": "set_alpha({bingel-dc.color.palette.yellow.400}, {bingel-dc.opacity.subtle})",
+              "$type": "color",
+              "$description": "A subtle yellow background option in idle state, applied purely for stylistic purposes without specific meaning."
+            }
+          },
+          "grey": {
+            "interactive": {
+              "plain": {
+                "$value": "{bingel-dc.color.palette.grey.200}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+              },
+              "bold": {
+                "$value": "{bingel-dc.color.palette.grey.500}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+              }
+            },
+            "subtle": {
+              "$value": "set_alpha({bingel-dc.color.palette.grey.400}, {bingel-dc.opacity.subtle})",
+              "$type": "color",
+              "$description": "A subtle grey background option in idle state, applied purely for stylistic purposes without specific meaning."
+            },
+            "bold": {
+              "$value": "{bingel-dc.color.palette.grey.100}",
+              "$type": "color",
+              "$description": "A vibrant grey background option, applied purely for stylistic purposes without specific meaning."
+            },
+            "subtlest": {
+              "$value": "set_alpha({bingel-dc.color.palette.grey.400}, {bingel-dc.opacity.subtlest})",
+              "$type": "color",
+              "$description": "The subtlest grey background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             }
           },
           "blue": {
-            "bold": {
-              "$value": "{bingel-dc.color.foreground.accent.blue.bold}",
+            "subtlest": {
+              "$value": "set_alpha({bingel-dc.color.background.accent.blue.bold}, {bingel-dc.opacity.subtlest})",
               "$type": "color",
-              "$description": "Use for bold blue borders for purely stylistic purposes with no specific meaning."
+              "$description": "The subtlest blue background option for interactive elements, applied purely for stylistic purposes without specific meaning."
+            },
+            "bold": {
+              "$value": "{bingel-dc.color.palette.blue.400}",
+              "$type": "color",
+              "$description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
+            },
+            "interactive": {
+              "plain": {
+                "$value": "{bingel-dc.color.background.accent.blue.bold}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+              },
+              "bold": {
+                "$value": "{bingel-dc.color.palette.blue.900}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+              }
+            },
+            "subtle": {
+              "$value": "set_alpha({bingel-dc.color.background.accent.blue.bold}, {bingel-dc.opacity.subtle})",
+              "$type": "color",
+              "$description": "A subtle blue background option in idle state, applied purely for stylistic purposes without specific meaning."
+            }
+          },
+          "purple": {
+            "bold": {
+              "$value": "{bingel-dc.color.palette.purple.600}",
+              "$type": "color",
+              "$description": "A vibrant purple background option, applied purely for stylistic purposes without specific meaning."
+            },
+            "subtlest": {
+              "$value": "set_alpha({bingel-dc.color.palette.purple.400}, {bingel-dc.opacity.subtlest})",
+              "$type": "color",
+              "$description": "The subtlest purple background option for interactive elements, applied purely for stylistic purposes without specific meaning."
+            },
+            "interactive": {
+              "plain": {
+                "$value": "{bingel-dc.color.palette.purple.400}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+              },
+              "bold": {
+                "$value": "{bingel-dc.color.palette.purple.900}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+              }
+            },
+            "subtle": {
+              "$value": "set_alpha({bingel-dc.color.palette.purple.400}, {bingel-dc.opacity.subtle})",
+              "$type": "color",
+              "$description": "A subtle purple background option in idle state, applied purely for stylistic purposes without specific meaning."
+            }
+          }
+        },
+        "positive": {
+          "subtlest": {
+            "$value": "{bingel-dc.color.background.accent.green.subtlest}",
+            "$type": "color",
+            "$description": "The subtlest background option for communicating a positive outcome."
+          },
+          "interactive": {
+            "bold": {
+              "$value": "{bingel-dc.color.background.accent.green.interactive.bold}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
             "plain": {
-              "$value": "{bingel-dc.color.background.accent.blue.bold}",
+              "$value": "{bingel-dc.color.background.accent.green.interactive.plain}",
               "$type": "color",
-              "$description": "Use for plain blue borders for purely stylistic purposes with no specific meaning."
+              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+            }
+          },
+          "bold": {
+            "$value": "{bingel-dc.color.background.accent.green.bold}",
+            "$type": "color",
+            "$description": "Use for the background of actions with bold emphasis related to messages that communicate a positive outcome."
+          },
+          "subtle": {
+            "$value": "{bingel-dc.color.background.accent.green.subtle}",
+            "$type": "color",
+            "$description": "A subtle background option for communicating a positive outcome."
+          }
+        },
+        "inverted": {
+          "subtlest": {
+            "$value": "set_alpha({bingel-dc.color.palette.grey.000}, {bingel-dc.opacity.subtlest})",
+            "$type": "color",
+            "$description": "The subtlest inverted background option."
+          },
+          "bold": {
+            "$value": "{bingel-dc.color.palette.grey.000}",
+            "$type": "color",
+            "$description": "A solid inverted background option."
+          },
+          "interactive": {
+            "plain": {
+              "$value": "{bingel-dc.color.palette.grey.200}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+            },
+            "bold": {
+              "$value": "{bingel-dc.color.palette.grey.800}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+            }
+          },
+          "subtle": {
+            "$value": "set_alpha({bingel-dc.color.palette.grey.000}, {bingel-dc.opacity.subtle})",
+            "$type": "color",
+            "$description": "A subtle inverted background option."
+          }
+        },
+        "selected": {
+          "subtle": {
+            "$value": "{bingel-dc.color.background.accent.blue.subtle}",
+            "$type": "color",
+            "$description": "Use for backgrounds of elements in selected state with subtle emphasis, such as in opened dropdowns."
+          },
+          "bold": {
+            "$value": "{bingel-dc.color.background.accent.blue.bold}",
+            "$type": "color",
+            "$description": "Use for backgrounds of elements in selected state with bold emphasis, such as in opened dropdowns."
+          },
+          "interactive": {
+            "bold": {
+              "$value": "{bingel-dc.color.background.accent.blue.interactive.bold}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+            },
+            "plain": {
+              "$value": "{bingel-dc.color.background.accent.blue.interactive.plain}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+            }
+          },
+          "subtlest": {
+            "$value": "{bingel-dc.color.background.accent.blue.subtlest}",
+            "$type": "color",
+            "$description": "The subtlest background in the primary action color."
+          }
+        },
+        "info": {
+          "subtlest": {
+            "$value": "{bingel-dc.color.background.accent.blue.subtlest}",
+            "$type": "color",
+            "$description": "The subtlest background for informative messages."
+          },
+          "interactive": {
+            "bold": {
+              "$value": "{bingel-dc.color.background.accent.blue.interactive.bold}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+            },
+            "plain": {
+              "$value": "{bingel-dc.color.background.accent.blue.interactive.plain}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+            }
+          },
+          "bold": {
+            "$value": "{bingel-dc.color.background.accent.blue.bold}",
+            "$type": "color",
+            "$description": "Use for the background of actions with bold emphasis related to informative messages."
+          },
+          "subtle": {
+            "$value": "{bingel-dc.color.background.accent.blue.subtle}",
+            "$type": "color",
+            "$description": "A subtle background for informative messages."
+          }
+        },
+        "input": {
+          "interactive": {
+            "$value": "{bingel-dc.color.background.accent.grey.interactive.plain}",
+            "$type": "color",
+            "$description": "Used as transparent layer on top of the input background to indicate the hover state."
+          },
+          "plain": {
+            "$value": "{bingel-dc.color.palette.grey.000}",
+            "$type": "color",
+            "$description": "Use for backgrounds of form UI elements, such as text fields, checkboxes, and radio buttons."
+          }
+        },
+        "negative": {
+          "subtle": {
+            "$value": "{bingel-dc.color.background.accent.red.subtle}",
+            "$type": "color",
+            "$description": "A subtle background option to communicate negative or serious error states (e.g., validation errors or irreversible actions)."
+          },
+          "interactive": {
+            "plain": {
+              "$value": "{bingel-dc.color.background.accent.red.interactive.plain}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+            },
+            "bold": {
+              "$value": "{bingel-dc.color.background.accent.red.interactive.bold}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+            }
+          },
+          "subtlest": {
+            "$value": "{bingel-dc.color.background.accent.red.subtlest}",
+            "$type": "color",
+            "$description": "The subtlest background option to communicate negative or serious error states (e.g., validation errors or irreversible actions)."
+          },
+          "bold": {
+            "$value": "{bingel-dc.color.background.accent.red.bold}",
+            "$type": "color",
+            "$description": "Use for the background of actions with bold emphasis related to messages that communicate negative or serious error states (e.g., validation errors or irreversible actions)."
+          }
+        },
+        "primary": {
+          "bold": {
+            "$value": "{bingel-dc.color.background.accent.blue.bold}",
+            "$type": "color",
+            "$description": "A vibrant background option used for primary actions."
+          },
+          "interactive": {
+            "bold": {
+              "$value": "{bingel-dc.color.background.accent.blue.interactive.bold}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+            },
+            "plain": {
+              "$value": "{bingel-dc.color.background.accent.blue.interactive.plain}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+            }
+          },
+          "subtle": {
+            "$value": "{bingel-dc.color.background.accent.blue.subtle}",
+            "$type": "color",
+            "$description": "A subtle background in the primary action color."
+          },
+          "subtlest": {
+            "$value": "{bingel-dc.color.background.accent.blue.subtlest}",
+            "$type": "color",
+            "$description": "The subtlest background in the primary action color."
+          }
+        },
+        "neutral": {
+          "bold": {
+            "$value": "{bingel-dc.color.palette.grey.050}",
+            "$type": "color",
+            "$description": "A vibrant background option used for neutral actions."
+          },
+          "subtlest": {
+            "$value": "{bingel-dc.color.background.accent.grey.subtlest}",
+            "$type": "color",
+            "$description": "The subtlest background in the neutral action color."
+          },
+          "interactive": {
+            "bold": {
+              "$value": "{bingel-dc.color.palette.grey.700}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+            },
+            "plain": {
+              "$value": "{bingel-dc.color.background.accent.grey.interactive.bold}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+            }
+          },
+          "subtle": {
+            "$value": "{bingel-dc.color.background.accent.grey.subtle}",
+            "$type": "color",
+            "$description": "A subtle background in the neutral action color."
+          }
+        },
+        "secondary": {
+          "subtle": {
+            "$value": "{bingel-dc.color.background.accent.grey.subtle}",
+            "$type": "color",
+            "$description": "A subtle background in the secondary action color."
+          },
+          "subtlest": {
+            "$value": "{bingel-dc.color.background.accent.grey.subtlest}",
+            "$type": "color",
+            "$description": "The subtlest background in the secondary action color."
+          },
+          "interactive": {
+            "plain": {
+              "$value": "{bingel-dc.color.background.accent.grey.interactive.plain}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+            },
+            "bold": {
+              "$value": "{bingel-dc.color.background.accent.grey.interactive.bold}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+            }
+          },
+          "bold": {
+            "$value": "{bingel-dc.color.background.accent.grey.bold}",
+            "$type": "color",
+            "$description": "A vibrant background option used for secondary actions."
+          }
+        },
+        "interactive": {
+          "plain": {
+            "$value": "{bingel-dc.color.background.accent.blue.interactive.plain}",
+            "$type": "color",
+            "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+          },
+          "bold": {
+            "$value": "{bingel-dc.color.background.accent.blue.interactive.bold}",
+            "$type": "color",
+            "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+          }
+        },
+        "bold": {
+          "$value": "{bingel-dc.color.border.bold}",
+          "$type": "color",
+          "$description": "Use for backgrounds of elements in a neutral state that require a bold emphasis or a minimum color contrast of 3:1, such as switch backgrounds."
+        },
+        "caution": {
+          "subtle": {
+            "$value": "{bingel-dc.color.background.accent.orange.subtle}",
+            "$type": "color",
+            "$description": "A subtle background option to communicate caution to prevent errors."
+          },
+          "interactive": {
+            "bold": {
+              "$value": "{bingel-dc.color.background.accent.orange.interactive.bold}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+            },
+            "plain": {
+              "$value": "{bingel-dc.color.background.accent.orange.interactive.plain}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+            }
+          },
+          "bold": {
+            "$value": "{bingel-dc.color.background.accent.orange.bold}",
+            "$type": "color",
+            "$description": "Use for the background of actions with bold emphasis related to messages that communicate caution."
+          },
+          "subtlest": {
+            "$value": "{bingel-dc.color.background.accent.orange.subtlest}",
+            "$type": "color",
+            "$description": "The subtlest background option to communicate caution to prevent errors."
+          }
+        },
+        "highlight": {
+          "$value": "{bingel-dc.color.palette.yellow.100}",
+          "$type": "color"
+        },
+        "subtle": {
+          "$value": "{bingel-dc.color.background.accent.grey.subtle}",
+          "$type": "color",
+          "$description": "Use for backgrounds of elements in a neutral state with subtle emphasis."
+        },
+        "disabled": {
+          "$value": "{bingel-dc.color.palette.grey.100}",
+          "$type": "color",
+          "$description": "Use for backgrounds of elements in disabled state."
+        }
+      },
+      "border": {
+        "accent": {
+          "yellow": {
+            "plain": {
+              "$value": "{bingel-dc.color.background.accent.yellow.bold}",
+              "$type": "color",
+              "$description": "Use for plain yellow borders for purely stylistic purposes with no specific meaning."
+            },
+            "bold": {
+              "$value": "{bingel-dc.color.foreground.accent.yellow.bold}",
+              "$type": "color",
+              "$description": "Use for bold yellow borders for purely stylistic purposes with no specific meaning."
+            }
+          },
+          "teal": {
+            "plain": {
+              "$value": "{bingel-dc.color.background.accent.teal.bold}",
+              "$type": "color",
+              "$description": "Use for plain teal borders for purely stylistic purposes with no specific meaning."
+            },
+            "bold": {
+              "$value": "{bingel-dc.color.foreground.accent.teal.bold}",
+              "$type": "color",
+              "$description": "Use for bold teal borders for purely stylistic purposes with no specific meaning."
+            }
+          },
+          "purple": {
+            "plain": {
+              "$value": "{bingel-dc.color.background.accent.purple.bold}",
+              "$type": "color",
+              "$description": "Use for plain purple borders for purely stylistic purposes with no specific meaning."
+            },
+            "bold": {
+              "$value": "{bingel-dc.color.foreground.accent.purple.bold}",
+              "$type": "color",
+              "$description": "Use for bold purple borders for purely stylistic purposes with no specific meaning."
+            }
+          },
+          "orange": {
+            "plain": {
+              "$value": "{bingel-dc.color.background.accent.orange.bold}",
+              "$type": "color",
+              "$description": "Use for plain orange borders for purely stylistic purposes with no specific meaning."
+            },
+            "bold": {
+              "$value": "{bingel-dc.color.foreground.accent.orange.bold}",
+              "$type": "color",
+              "$description": "Use for bold orange borders for purely stylistic purposes with no specific meaning."
             }
           },
           "grey": {
@@ -132,11 +970,6 @@
               "$value": "{bingel-dc.color.palette.grey.500}",
               "$type": "color",
               "$description": "Use for bold grey borders for purely stylistic purposes with no specific meaning."
-            },
-            "faint": {
-              "$value": "{bingel-dc.color.palette.grey.100}",
-              "$type": "color",
-              "$description": "Use for faint grey borders for purely stylistic purposes with no specific meaning."
             },
             "heavy": {
               "$value": "{bingel-dc.color.palette.grey.900}",
@@ -147,18 +980,11 @@
               "$value": "{bingel-dc.color.palette.grey.150}",
               "$type": "color",
               "$description": "Use for plain grey borders for purely stylistic purposes with no specific meaning."
-            }
-          },
-          "teal": {
-            "bold": {
-              "$value": "{bingel-dc.color.foreground.accent.teal.bold}",
-              "$type": "color",
-              "$description": "Use for bold teal borders for purely stylistic purposes with no specific meaning."
             },
-            "plain": {
-              "$value": "{bingel-dc.color.background.accent.teal.bold}",
+            "faint": {
+              "$value": "{bingel-dc.color.palette.grey.100}",
               "$type": "color",
-              "$description": "Use for plain teal borders for purely stylistic purposes with no specific meaning."
+              "$description": "Use for faint grey borders for purely stylistic purposes with no specific meaning."
             }
           },
           "green": {
@@ -173,121 +999,58 @@
               "$description": "Use for plain green borders for purely stylistic purposes with no specific meaning."
             }
           },
-          "orange": {
-            "bold": {
-              "$value": "{bingel-dc.color.foreground.accent.orange.bold}",
-              "$type": "color",
-              "$description": "Use for bold orange borders for purely stylistic purposes with no specific meaning."
-            },
+          "blue": {
             "plain": {
-              "$value": "{bingel-dc.color.background.accent.orange.bold}",
+              "$value": "{bingel-dc.color.background.accent.blue.bold}",
               "$type": "color",
-              "$description": "Use for plain orange borders for purely stylistic purposes with no specific meaning."
+              "$description": "Use for plain blue borders for purely stylistic purposes with no specific meaning."
+            },
+            "bold": {
+              "$value": "{bingel-dc.color.foreground.accent.blue.bold}",
+              "$type": "color",
+              "$description": "Use for bold blue borders for purely stylistic purposes with no specific meaning."
             }
           },
-          "purple": {
-            "bold": {
-              "$value": "{bingel-dc.color.foreground.accent.purple.bold}",
-              "$type": "color",
-              "$description": "Use for bold purple borders for purely stylistic purposes with no specific meaning."
-            },
+          "red": {
             "plain": {
-              "$value": "{bingel-dc.color.background.accent.purple.bold}",
+              "$value": "{bingel-dc.color.background.accent.red.bold}",
               "$type": "color",
-              "$description": "Use for plain purple borders for purely stylistic purposes with no specific meaning."
-            }
-          },
-          "yellow": {
-            "bold": {
-              "$value": "{bingel-dc.color.foreground.accent.yellow.bold}",
-              "$type": "color",
-              "$description": "Use for bold yellow borders for purely stylistic purposes with no specific meaning."
+              "$description": "Use for plain red borders for purely stylistic purposes with no specific meaning."
             },
-            "plain": {
-              "$value": "{bingel-dc.color.background.accent.yellow.bold}",
+            "bold": {
+              "$value": "{bingel-dc.color.foreground.accent.red.bold}",
               "$type": "color",
-              "$description": "Use for plain yellow borders for purely stylistic purposes with no specific meaning."
+              "$description": "Use for bold red borders for purely stylistic purposes with no specific meaning."
             }
           }
         },
-        "caution": {
-          "bold": {
-            "$value": "{bingel-dc.color.border.accent.orange.bold}",
+        "info": {
+          "subtle": {
+            "$value": "{bingel-dc.color.background.info.subtle}",
             "$type": "color",
-            "$description": "Use for borders that highlight caution to help prevent mistakes or errors on muted, subtlest and subtle background colors."
+            "$description": "Use for subtle borders on color.background.info background colors."
           },
+          "plain": {
+            "$value": "{bingel-dc.color.border.accent.blue.plain}",
+            "$type": "color",
+            "$description": "Use for borders that highlight informative actions or messages on elevation.surface background colors."
+          },
+          "bold": {
+            "$value": "{bingel-dc.color.border.accent.blue.bold}",
+            "$type": "color",
+            "$description": "Use for borders that highlight informative actions or messages on muted, subtlest and subtle background colors."
+          }
+        },
+        "caution": {
           "plain": {
             "$value": "{bingel-dc.color.border.accent.orange.plain}",
             "$type": "color",
             "$description": "Use for borders that highlight caution to help prevent mistakes or errors on elevation.surface background colors."
-          }
-        },
-        "focused": {
-          "$value": "{bingel-dc.color.border.accent.blue.plain}",
-          "$type": "color",
-          "$description": "Use for focus rings of elements in a focus state."
-        },
-        "neutral": {
+          },
           "bold": {
-            "$value": "{bingel-dc.color.border.accent.grey.bold}",
+            "$value": "{bingel-dc.color.border.accent.orange.bold}",
             "$type": "color",
-            "$description": "Use for borders that highlight neutral actions or messages on muted, subtlest and subtle background colors."
-          },
-          "plain": {
-            "$value": "{bingel-dc.color.border.accent.grey.plain}",
-            "$type": "color",
-            "$description": "Use for borders that highlight neutral actions or messages on elevation.surface background colors."
-          },
-          "subtle": {
-            "$value": "{bingel-dc.color.background.accent.grey.subtle}",
-            "$type": "color",
-            "$description": "Use for subtle borders on color.background.neutral background colors."
-          }
-        },
-        "primary": {
-          "bold": {
-            "$value": "{bingel-dc.color.border.accent.blue.plain}",
-            "$type": "color",
-            "$description": "Use for borders that highlight primary actions or messages on muted, subtlest and subtle background colors."
-          },
-          "plain": {
-            "$value": "{bingel-dc.color.border.accent.blue.plain}",
-            "$type": "color",
-            "$description": "Use for borders that highlight primary actions or messages on elevation.surface background colors."
-          }
-        },
-        "disabled": {
-          "$value": "{bingel-dc.color.foreground.disabled}",
-          "$type": "color",
-          "$description": "Use for borders of elements in a disabled state."
-        },
-        "inverted": {
-          "$value": "{bingel-dc.color.palette.grey.000}",
-          "$type": "color",
-          "$description": "Use for borders on bold backgrounds."
-        },
-        "negative": {
-          "bold": {
-            "$value": "{bingel-dc.color.border.accent.red.bold}",
-            "$type": "color",
-            "$description": "Use for borders that highlight negative or serious error states on muted, subtlest and subtle background colors."
-          },
-          "plain": {
-            "$value": "{bingel-dc.color.border.accent.red.plain}",
-            "$type": "color",
-            "$description": "Use for borders that highlight negative or serious error states on elevation.surface background colors."
-          }
-        },
-        "positive": {
-          "bold": {
-            "$value": "{bingel-dc.color.border.accent.green.bold}",
-            "$type": "color",
-            "$description": "Use for borders that highlight a favorable outcome on muted, subtlest and subtle background colors."
-          },
-          "plain": {
-            "$value": "{bingel-dc.color.border.accent.green.plain}",
-            "$type": "color",
-            "$description": "Use for borders that highlight a favorable outcome on elevation.surface background colors."
+            "$description": "Use for borders that highlight caution to help prevent mistakes or errors on muted, subtlest and subtle background colors."
           }
         },
         "selected": {
@@ -306,969 +1069,145 @@
             "$type": "color",
             "$description": "Use for borders that highlight secondary actions or messages on elevation.surface background colors."
           }
-        }
-      },
-      "palette": {
-        "blue": {
-          "150": {
-            "$value": "#81BAEF",
-            "$type": "color"
-          },
-          "100": {
-            "$value": "#ACD2F5",
-            "$type": "color"
-          },
-          "200": {
-            "$value": "#56A3EA",
-            "$type": "color"
-          },
-          "300": {
-            "$value": "#2B8BE4",
-            "$type": "color"
-          },
-          "400": {
-            "$value": "#0074DF",
-            "$type": "color"
-          },
-          "500": {
-            "$value": "#0060B9",
-            "$type": "color"
-          },
-          "600": {
-            "$value": "#004D94",
-            "$type": "color"
-          },
-          "700": {
-            "$value": "#002F62",
-            "$type": "color"
-          },
-          "800": {
-            "$value": "#002649",
-            "$type": "color"
-          },
-          "900": {
-            "$value": "#001223",
-            "$type": "color"
-          },
-          "050": {
-            "$value": "#E6F1FB",
-            "$type": "color"
-          }
         },
-        "red": {
-          "100": {
-            "$value": "#F6AFB9",
-            "$type": "color"
-          },
-          "150": {
-            "$value": "#F18694",
-            "$type": "color"
-          },
-          "200": {
-            "$value": "#EC5D70",
-            "$type": "color"
-          },
-          "300": {
-            "$value": "#E8334B",
-            "$type": "color"
-          },
-          "400": {
-            "$value": "#E30A27",
-            "$type": "color"
-          },
-          "500": {
-            "$value": "#BD0820",
-            "$type": "color"
-          },
-          "600": {
-            "$value": "#96071A",
-            "$type": "color"
-          },
-          "700": {
-            "$value": "#700513",
-            "$type": "color"
-          },
-          "800": {
-            "$value": "#4A030D",
-            "$type": "color"
-          },
-          "900": {
-            "$value": "#240206",
-            "$type": "color"
-          },
-          "050": {
-            "$value": "#FBD9DD",
-            "$type": "color"
-          }
-        },
-        "grey": {
-          "100": {
-            "$value": "#E3E6EA",
-            "$type": "color"
-          },
-          "150": {
-            "$value": "#D5D9DE",
-            "$type": "color"
-          },
-          "200": {
-            "$value": "#C7CDD3",
-            "$type": "color"
-          },
-          "300": {
-            "$value": "#B8C0C8",
-            "$type": "color"
-          },
-          "400": {
-            "$value": "#AAB3BD",
-            "$type": "color"
-          },
-          "500": {
-            "$value": "#8D959D",
-            "$type": "color"
-          },
-          "600": {
-            "$value": "#71777D",
-            "$type": "color"
-          },
-          "700": {
-            "$value": "#54585D",
-            "$type": "color"
-          },
-          "800": {
-            "$value": "#373A3E",
-            "$type": "color"
-          },
-          "900": {
-            "$value": "#1B1C1E",
-            "$type": "color"
-          },
-          "000": {
-            "$value": "#FFFFFF",
-            "$type": "color"
-          },
-          "050": {
-            "$value": "#F2F3F5",
-            "$type": "color"
-          }
-        },
-        "teal": {
-          "100": {
-            "$value": "#c5fffa",
-            "$type": "color"
-          },
-          "150": {
-            "$value": "#8bfff5",
-            "$type": "color"
-          },
-          "200": {
-            "$value": "#4afef0",
-            "$type": "color"
-          },
-          "300": {
-            "$value": "#15ece2",
-            "$type": "color"
-          },
-          "400": {
-            "$value": "#00d0c9",
-            "$type": "color"
-          },
-          "500": {
-            "$value": "#00a8a5",
-            "$type": "color"
-          },
-          "600": {
-            "$value": "#008080",
-            "$type": "color"
-          },
-          "700": {
-            "$value": "#066769",
-            "$type": "color"
-          },
-          "800": {
-            "$value": "#0a5757",
-            "$type": "color"
-          },
-          "900": {
-            "$value": "#003235",
-            "$type": "color"
-          },
-          "050": {
-            "$value": "#eefffc",
-            "$type": "color"
-          }
-        },
-        "green": {
-          "100": {
-            "$value": "#C3E4AC",
-            "$type": "color"
-          },
-          "150": {
-            "$value": "#A4D681",
-            "$type": "color"
-          },
-          "200": {
-            "$value": "#84C856",
-            "$type": "color"
-          },
-          "300": {
-            "$value": "#65BA2B",
-            "$type": "color"
-          },
-          "400": {
-            "$value": "#46AC00",
-            "$type": "color"
-          },
-          "500": {
-            "$value": "#3A8F00",
-            "$type": "color"
-          },
-          "600": {
-            "$value": "#2E7200",
-            "$type": "color"
-          },
-          "700": {
-            "$value": "#235500",
-            "$type": "color"
-          },
-          "800": {
-            "$value": "#173800",
-            "$type": "color"
-          },
-          "900": {
-            "$value": "#0B1B00",
-            "$type": "color"
-          },
-          "050": {
-            "$value": "#E2F2D7",
-            "$type": "color"
-          }
-        },
-        "orange": {
-          "100": {
-            "$value": "#FFDFAC",
-            "$type": "color"
-          },
-          "150": {
-            "$value": "#FFCF81",
-            "$type": "color"
-          },
-          "200": {
-            "$value": "#FFBE56",
-            "$type": "color"
-          },
-          "300": {
-            "$value": "#FFAE2B",
-            "$type": "color"
-          },
-          "400": {
-            "$value": "#FF9D00",
-            "$type": "color"
-          },
-          "500": {
-            "$value": "#D48300",
-            "$type": "color"
-          },
-          "600": {
-            "$value": "#A96800",
-            "$type": "color"
-          },
-          "700": {
-            "$value": "#7E4E00",
-            "$type": "color"
-          },
-          "800": {
-            "$value": "#533300",
-            "$type": "color"
-          },
-          "900": {
-            "$value": "#281900",
-            "$type": "color"
-          },
-          "050": {
-            "$value": "#FFF0D7",
-            "$type": "color"
-          }
-        },
-        "purple": {
-          "100": {
-            "$value": "#ebe8ff",
-            "$type": "color"
-          },
-          "150": {
-            "$value": "#d9d3ff",
-            "$type": "color"
-          },
-          "200": {
-            "$value": "#bdb0ff",
-            "$type": "color"
-          },
-          "300": {
-            "$value": "#9d83ff",
-            "$type": "color"
-          },
-          "400": {
-            "$value": "#7e51ff",
-            "$type": "color"
-          },
-          "500": {
-            "$value": "#6e2dfa",
-            "$type": "color"
-          },
-          "600": {
-            "$value": "#5f1be6",
-            "$type": "color"
-          },
-          "700": {
-            "$value": "#5217c6",
-            "$type": "color"
-          },
-          "800": {
-            "$value": "#43149e",
-            "$type": "color"
-          },
-          "900": {
-            "$value": "#270a6b",
-            "$type": "color"
-          },
-          "050": {
-            "$value": "#f3f2ff",
-            "$type": "color"
-          }
-        },
-        "yellow": {
-          "100": {
-            "$value": "#fffec2",
-            "$type": "color"
-          },
-          "150": {
-            "$value": "#fff889",
-            "$type": "color"
-          },
-          "200": {
-            "$value": "#ffec40",
-            "$type": "color"
-          },
-          "300": {
-            "$value": "#fddc12",
-            "$type": "color"
-          },
-          "400": {
-            "$value": "#ecc206",
-            "$type": "color"
-          },
-          "500": {
-            "$value": "#cc9702",
-            "$type": "color"
-          },
-          "600": {
-            "$value": "#a36b05",
-            "$type": "color"
-          },
-          "700": {
-            "$value": "#86540d",
-            "$type": "color"
-          },
-          "800": {
-            "$value": "#724511",
-            "$type": "color"
-          },
-          "900": {
-            "$value": "#432405",
-            "$type": "color"
-          },
-          "050": {
-            "$value": "#fefde8",
-            "$type": "color"
-          }
-        }
-      },
-      "skeleton": {
-        "plain": {
-          "$value": "{bingel-dc.color.background.accent.grey.subtle}",
+        "disabled": {
+          "$value": "{bingel-dc.color.foreground.disabled}",
           "$type": "color",
-          "$description": "Use for skeleton loading states."
-        },
-        "subtle": {
-          "$value": "{bingel-dc.color.background.accent.grey.subtlest}",
-          "$type": "color",
-          "$description": "Use for the pulse or shimmer effect in skeleton loading states."
-        }
-      },
-      "background": {
-        "bold": {
-          "$value": "{bingel-dc.color.border.bold}",
-          "$type": "color",
-          "$description": "Use for backgrounds of elements in a neutral state that require a bold emphasis or a minimum color contrast of 3:1, such as switch backgrounds."
-        },
-        "info": {
-          "bold": {
-            "$value": "{bingel-dc.color.background.accent.blue.bold}",
-            "$type": "color",
-            "$description": "Use for the background of actions with bold emphasis related to informative messages."
-          },
-          "subtle": {
-            "$value": "{bingel-dc.color.background.accent.blue.subtle}",
-            "$type": "color",
-            "$description": "A subtle background for informative messages."
-          },
-          "subtlest": {
-            "$value": "{bingel-dc.color.background.accent.blue.subtlest}",
-            "$type": "color",
-            "$description": "The subtlest background for informative messages."
-          },
-          "interactive": {
-            "bold": {
-              "$value": "{bingel-dc.color.background.accent.blue.interactive.bold}",
-              "$type": "color",
-              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-            },
-            "plain": {
-              "$value": "{bingel-dc.color.background.accent.blue.interactive.plain}",
-              "$type": "color",
-              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-            }
-          }
-        },
-        "input": {
-          "plain": {
-            "$value": "{bingel-dc.color.palette.grey.000}",
-            "$type": "color",
-            "$description": "Use for backgrounds of form UI elements, such as text fields, checkboxes, and radio buttons."
-          },
-          "interactive": {
-            "$value": "{bingel-dc.color.background.accent.grey.interactive.plain}",
-            "$type": "color",
-            "$description": "Used as transparent layer on top of the input background to indicate the hover state."
-          }
-        },
-        "accent": {
-          "red": {
-            "bold": {
-              "$value": "{bingel-dc.color.palette.red.400}",
-              "$type": "color",
-              "$description": "A vibrant red background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "subtlest": {
-              "$value": "set_alpha({bingel-dc.color.palette.red.400}, {bingel-dc.opacity.subtlest})",
-              "$type": "color",
-              "$description": "The subtlest red background option for interactive elements, applied purely for stylistic purposes without specific meaning."
-            },
-            "interactive": {
-              "bold": {
-                "$value": "{bingel-dc.color.palette.red.900}",
-                "$type": "color",
-                "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-              },
-              "plain": {
-                "$value": "{bingel-dc.color.palette.red.400}",
-                "$type": "color",
-                "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-              }
-            },
-            "subtle": {
-              "$value": "set_alpha({bingel-dc.color.palette.red.400}, {bingel-dc.opacity.subtle})",
-              "$type": "color",
-              "$description": "A subtle red background option in idle state, applied purely for stylistic purposes without specific meaning."
-            }
-          },
-          "blue": {
-            "bold": {
-              "$value": "{bingel-dc.color.palette.blue.400}",
-              "$type": "color",
-              "$description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "subtlest": {
-              "$value": "set_alpha({bingel-dc.color.background.accent.blue.bold}, {bingel-dc.opacity.subtlest})",
-              "$type": "color",
-              "$description": "The subtlest blue background option for interactive elements, applied purely for stylistic purposes without specific meaning."
-            },
-            "interactive": {
-              "bold": {
-                "$value": "{bingel-dc.color.palette.blue.900}",
-                "$type": "color",
-                "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-              },
-              "plain": {
-                "$value": "{bingel-dc.color.background.accent.blue.bold}",
-                "$type": "color",
-                "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-              }
-            },
-            "subtle": {
-              "$value": "set_alpha({bingel-dc.color.background.accent.blue.bold}, {bingel-dc.opacity.subtle})",
-              "$type": "color",
-              "$description": "A subtle blue background option in idle state, applied purely for stylistic purposes without specific meaning."
-            }
-          },
-          "grey": {
-            "bold": {
-              "$value": "{bingel-dc.color.palette.grey.100}",
-              "$type": "color",
-              "$description": "A vibrant grey background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "subtle": {
-              "$value": "set_alpha({bingel-dc.color.palette.grey.400}, {bingel-dc.opacity.subtle})",
-              "$type": "color",
-              "$description": "A subtle grey background option in idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "subtlest": {
-              "$value": "set_alpha({bingel-dc.color.palette.grey.400}, {bingel-dc.opacity.subtlest})",
-              "$type": "color",
-              "$description": "The subtlest grey background option for interactive elements, applied purely for stylistic purposes without specific meaning."
-            },
-            "interactive": {
-              "bold": {
-                "$value": "{bingel-dc.color.palette.grey.500}",
-                "$type": "color",
-                "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-              },
-              "plain": {
-                "$value": "{bingel-dc.color.palette.grey.200}",
-                "$type": "color",
-                "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-              }
-            }
-          },
-          "teal": {
-            "bold": {
-              "$value": "{bingel-dc.color.palette.teal.600}",
-              "$type": "color",
-              "$description": "A vibrant teal background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "subtle": {
-              "$value": "set_alpha({bingel-dc.color.palette.teal.400}, {bingel-dc.opacity.subtle})",
-              "$type": "color",
-              "$description": "A subtle teal background option in idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "subtlest": {
-              "$value": "set_alpha({bingel-dc.color.palette.teal.400}, {bingel-dc.opacity.subtlest})",
-              "$type": "color",
-              "$description": "The subtlest teal background option for interactive elements, applied purely for stylistic purposes without specific meaning."
-            },
-            "interactive": {
-              "bold": {
-                "$value": "{bingel-dc.color.palette.teal.900}",
-                "$type": "color",
-                "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-              },
-              "plain": {
-                "$value": "{bingel-dc.color.palette.teal.400}",
-                "$type": "color",
-                "$description": "Used as transparent layer on top of the subtlest and subtle background to indicate the hover and pressed state."
-              }
-            }
-          },
-          "green": {
-            "bold": {
-              "$value": "{bingel-dc.color.palette.green.600}",
-              "$type": "color",
-              "$description": "A vibrant green background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "subtlest": {
-              "$value": "set_alpha({bingel-dc.color.palette.green.400}, {bingel-dc.opacity.subtlest})",
-              "$type": "color",
-              "$description": "The subtlest green background option for interactive elements, applied purely for stylistic purposes without specific meaning."
-            },
-            "interactive": {
-              "bold": {
-                "$value": "{bingel-dc.color.palette.green.900}",
-                "$type": "color",
-                "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-              },
-              "plain": {
-                "$value": "{bingel-dc.color.palette.green.400}",
-                "$type": "color",
-                "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-              }
-            },
-            "subtle": {
-              "$value": "set_alpha({bingel-dc.color.palette.green.400}, {bingel-dc.opacity.subtle})",
-              "$type": "color",
-              "$description": "A subtle green background option in idle state, applied purely for stylistic purposes without specific meaning."
-            }
-          },
-          "orange": {
-            "bold": {
-              "$value": "{bingel-dc.color.palette.orange.400}",
-              "$type": "color",
-              "$description": "A vibrant orange background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "subtle": {
-              "$value": "set_alpha({bingel-dc.color.palette.orange.400}, {bingel-dc.opacity.subtle})",
-              "$type": "color",
-              "$description": "A subtle orange background option in idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "subtlest": {
-              "$value": "set_alpha({bingel-dc.color.palette.orange.400}, {bingel-dc.opacity.subtlest})",
-              "$type": "color",
-              "$description": "The subtlest orange background option for interactive elements, applied purely for stylistic purposes without specific meaning."
-            },
-            "interactive": {
-              "bold": {
-                "$value": "{bingel-dc.color.palette.orange.700}",
-                "$type": "color",
-                "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-              },
-              "plain": {
-                "$value": "{bingel-dc.color.palette.orange.400}",
-                "$type": "color",
-                "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-              }
-            }
-          },
-          "purple": {
-            "bold": {
-              "$value": "{bingel-dc.color.palette.purple.600}",
-              "$type": "color",
-              "$description": "A vibrant purple background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "subtlest": {
-              "$value": "set_alpha({bingel-dc.color.palette.purple.400}, {bingel-dc.opacity.subtlest})",
-              "$type": "color",
-              "$description": "The subtlest purple background option for interactive elements, applied purely for stylistic purposes without specific meaning."
-            },
-            "interactive": {
-              "bold": {
-                "$value": "{bingel-dc.color.palette.purple.900}",
-                "$type": "color",
-                "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-              },
-              "plain": {
-                "$value": "{bingel-dc.color.palette.purple.400}",
-                "$type": "color",
-                "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-              }
-            },
-            "subtle": {
-              "$value": "set_alpha({bingel-dc.color.palette.purple.400}, {bingel-dc.opacity.subtle})",
-              "$type": "color",
-              "$description": "A subtle purple background option in idle state, applied purely for stylistic purposes without specific meaning."
-            }
-          },
-          "yellow": {
-            "bold": {
-              "$value": "{bingel-dc.color.palette.yellow.400}",
-              "$type": "color",
-              "$description": "A vibrant yellow background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "subtle": {
-              "$value": "set_alpha({bingel-dc.color.palette.yellow.400}, {bingel-dc.opacity.subtle})",
-              "$type": "color",
-              "$description": "A subtle yellow background option in idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "subtlest": {
-              "$value": "set_alpha({bingel-dc.color.palette.yellow.400}, {bingel-dc.opacity.subtlest})",
-              "$type": "color",
-              "$description": "The subtlest yellow background option for interactive elements, applied purely for stylistic purposes without specific meaning."
-            },
-            "interactive": {
-              "bold": {
-                "$value": "{bingel-dc.color.palette.yellow.600}",
-                "$type": "color",
-                "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-              },
-              "plain": {
-                "$value": "{bingel-dc.color.palette.yellow.400}",
-                "$type": "color",
-                "$description": "Used as transparent layer on top of the subtlest and subtle background to indicate the hover and pressed state."
-              }
-            }
-          }
-        },
-        "subtle": {
-          "$value": "{bingel-dc.color.background.accent.grey.subtle}",
-          "$type": "color",
-          "$description": "Use for backgrounds of elements in a neutral state with subtle emphasis."
-        },
-        "caution": {
-          "bold": {
-            "$value": "{bingel-dc.color.background.accent.orange.bold}",
-            "$type": "color",
-            "$description": "Use for the background of actions with bold emphasis related to messages that communicate caution."
-          },
-          "subtle": {
-            "$value": "{bingel-dc.color.background.accent.orange.subtle}",
-            "$type": "color",
-            "$description": "A subtle background option to communicate caution to prevent errors."
-          },
-          "subtlest": {
-            "$value": "{bingel-dc.color.background.accent.orange.subtlest}",
-            "$type": "color",
-            "$description": "The subtlest background option to communicate caution to prevent errors."
-          },
-          "interactive": {
-            "bold": {
-              "$value": "{bingel-dc.color.background.accent.orange.interactive.bold}",
-              "$type": "color",
-              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-            },
-            "plain": {
-              "$value": "{bingel-dc.color.background.accent.orange.interactive.plain}",
-              "$type": "color",
-              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-            }
-          }
+          "$description": "Use for borders of elements in a disabled state."
         },
         "neutral": {
-          "bold": {
-            "$value": "{bingel-dc.color.palette.grey.050}",
+          "plain": {
+            "$value": "{bingel-dc.color.border.accent.grey.plain}",
             "$type": "color",
-            "$description": "A vibrant background option used for neutral actions."
+            "$description": "Use for borders that highlight neutral actions or messages on elevation.surface background colors."
+          },
+          "bold": {
+            "$value": "{bingel-dc.color.border.accent.grey.bold}",
+            "$type": "color",
+            "$description": "Use for borders that highlight neutral actions or messages on muted, subtlest and subtle background colors."
           },
           "subtle": {
             "$value": "{bingel-dc.color.background.accent.grey.subtle}",
             "$type": "color",
-            "$description": "A subtle background in the neutral action color."
-          },
-          "subtlest": {
-            "$value": "{bingel-dc.color.background.accent.grey.subtlest}",
-            "$type": "color",
-            "$description": "The subtlest background in the neutral action color."
-          },
-          "interactive": {
-            "bold": {
-              "$value": "{bingel-dc.color.palette.grey.700}",
-              "$type": "color",
-              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-            },
-            "plain": {
-              "$value": "{bingel-dc.color.background.accent.grey.interactive.bold}",
-              "$type": "color",
-              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-            }
+            "$description": "Use for subtle borders on color.background.neutral background colors."
           }
         },
-        "primary": {
+        "positive": {
+          "plain": {
+            "$value": "{bingel-dc.color.border.accent.green.plain}",
+            "$type": "color",
+            "$description": "Use for borders that highlight a favorable outcome on elevation.surface background colors."
+          },
           "bold": {
-            "$value": "{bingel-dc.color.background.accent.blue.bold}",
+            "$value": "{bingel-dc.color.border.accent.green.bold}",
             "$type": "color",
-            "$description": "A vibrant background option used for primary actions."
-          },
-          "subtle": {
-            "$value": "{bingel-dc.color.background.accent.blue.subtle}",
-            "$type": "color",
-            "$description": "A subtle background in the primary action color."
-          },
-          "subtlest": {
-            "$value": "{bingel-dc.color.background.accent.blue.subtlest}",
-            "$type": "color",
-            "$description": "The subtlest background in the primary action color."
-          },
-          "interactive": {
-            "bold": {
-              "$value": "{bingel-dc.color.background.accent.blue.interactive.bold}",
-              "$type": "color",
-              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-            },
-            "plain": {
-              "$value": "{bingel-dc.color.background.accent.blue.interactive.plain}",
-              "$type": "color",
-              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-            }
+            "$description": "Use for borders that highlight a favorable outcome on muted, subtlest and subtle background colors."
           }
-        },
-        "disabled": {
-          "$value": "{bingel-dc.color.palette.grey.100}",
-          "$type": "color",
-          "$description": "Use for backgrounds of elements in disabled state."
         },
         "inverted": {
+          "$value": "{bingel-dc.color.palette.grey.000}",
+          "$type": "color",
+          "$description": "Use for borders on bold backgrounds."
+        },
+        "primary": {
+          "plain": {
+            "$value": "{bingel-dc.color.border.accent.blue.plain}",
+            "$type": "color",
+            "$description": "Use for borders that highlight primary actions or messages on elevation.surface background colors."
+          },
           "bold": {
-            "$value": "{bingel-dc.color.palette.grey.000}",
+            "$value": "{bingel-dc.color.border.accent.blue.plain}",
             "$type": "color",
-            "$description": "A solid inverted background option."
-          },
-          "subtlest": {
-            "$value": "set_alpha({bingel-dc.color.palette.grey.000}, {bingel-dc.opacity.subtlest})",
-            "$type": "color",
-            "$description": "The subtlest inverted background option."
-          },
-          "interactive": {
-            "bold": {
-              "$value": "{bingel-dc.color.palette.grey.800}",
-              "$type": "color",
-              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-            },
-            "plain": {
-              "$value": "{bingel-dc.color.palette.grey.200}",
-              "$type": "color",
-              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-            }
-          },
-          "subtle": {
-            "$value": "set_alpha({bingel-dc.color.palette.grey.000}, {bingel-dc.opacity.subtle})",
-            "$type": "color",
-            "$description": "A subtle inverted background option."
+            "$description": "Use for borders that highlight primary actions or messages on muted, subtlest and subtle background colors."
           }
         },
         "negative": {
+          "plain": {
+            "$value": "{bingel-dc.color.border.accent.red.plain}",
+            "$type": "color",
+            "$description": "Use for borders that highlight negative or serious error states on elevation.surface background colors."
+          },
           "bold": {
-            "$value": "{bingel-dc.color.background.accent.red.bold}",
+            "$value": "{bingel-dc.color.border.accent.red.bold}",
             "$type": "color",
-            "$description": "Use for the background of actions with bold emphasis related to messages that communicate negative or serious error states (e.g., validation errors or irreversible actions)."
-          },
-          "subtle": {
-            "$value": "{bingel-dc.color.background.accent.red.subtle}",
+            "$description": "Use for borders that highlight negative or serious error states on muted, subtlest and subtle background colors."
+          }
+        },
+        "bold": {
+          "$value": "{bingel-dc.color.border.accent.grey.bold}",
+          "$type": "color",
+          "$description": "A neutral border option that passes min 3:1 contrast ratios."
+        },
+        "focused": {
+          "$value": "{bingel-dc.color.border.accent.blue.plain}",
+          "$type": "color",
+          "$description": "Use for focus rings of elements in a focus state."
+        },
+        "plain": {
+          "$value": "{bingel-dc.color.border.accent.grey.plain}",
+          "$type": "color",
+          "$description": "Use to visually group or seperate UI elements, such as card, tabs or side panel dividers."
+        },
+        "input": {
+          "$value": "{bingel-dc.color.border.bold}",
+          "$type": "color",
+          "$description": "Use for borders of form UI elements, such as text fields, checkboxes and, radio buttons."
+        }
+      },
+      "foreground": {
+        "caution": {
+          "onBold": {
+            "$value": "{bingel-dc.color.foreground.accent.orange.onBold}",
             "$type": "color",
-            "$description": "A subtle background option to communicate negative or serious error states (e.g., validation errors or irreversible actions)."
+            "$description": "Use for text that communicates caution to prevent mistakes or errors on 'color.background.caution.bold'."
           },
-          "subtlest": {
-            "$value": "{bingel-dc.color.background.accent.red.subtlest}",
+          "bold": {
+            "$value": "{bingel-dc.color.foreground.accent.orange.bold}",
             "$type": "color",
-            "$description": "The subtlest background option to communicate negative or serious error states (e.g., validation errors or irreversible actions)."
+            "$description": "Use for text that communicates caution to prevent mistakes or errors on caution backgrounds, such as 'color.background.caution.muted', and 'color.background.caution.subtle'."
           },
-          "interactive": {
-            "bold": {
-              "$value": "{bingel-dc.color.background.accent.red.interactive.bold}",
-              "$type": "color",
-              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-            },
-            "plain": {
-              "$value": "{bingel-dc.color.background.accent.red.interactive.plain}",
-              "$type": "color",
-              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-            }
+          "plain": {
+            "$value": "{bingel-dc.color.foreground.accent.orange.plain}",
+            "$type": "color",
+            "$description": "Use for text that communicates caution to prevent mistakes or errors on neutral backgrounds."
+          }
+        },
+        "primary": {
+          "onBold": {
+            "$value": "{bingel-dc.color.foreground.accent.blue.onBold}",
+            "$type": "color",
+            "$description": "Use for primary actions on 'color.background.primary.bold'"
+          },
+          "bold": {
+            "$value": "{bingel-dc.color.foreground.accent.blue.bold}",
+            "$type": "color",
+            "$description": "Use for primary actions on 'color.background.primary.muted' and 'color.background.primary.subtle'."
           }
         },
         "positive": {
           "bold": {
-            "$value": "{bingel-dc.color.background.accent.green.bold}",
+            "$value": "{bingel-dc.color.foreground.accent.green.bold}",
             "$type": "color",
-            "$description": "Use for the background of actions with bold emphasis related to messages that communicate a positive outcome."
-          },
-          "subtle": {
-            "$value": "{bingel-dc.color.background.accent.green.subtle}",
-            "$type": "color",
-            "$description": "A subtle background option for communicating a positive outcome."
-          },
-          "subtlest": {
-            "$value": "{bingel-dc.color.background.accent.green.subtlest}",
-            "$type": "color",
-            "$description": "The subtlest background option for communicating a positive outcome."
-          },
-          "interactive": {
-            "bold": {
-              "$value": "{bingel-dc.color.background.accent.green.interactive.bold}",
-              "$type": "color",
-              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-            },
-            "plain": {
-              "$value": "{bingel-dc.color.background.accent.green.interactive.plain}",
-              "$type": "color",
-              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-            }
-          }
-        },
-        "selected": {
-          "bold": {
-            "$value": "{bingel-dc.color.background.accent.blue.bold}",
-            "$type": "color",
-            "$description": "Use for backgrounds of elements in selected state with bold emphasis, such as in opened dropdowns."
-          },
-          "subtle": {
-            "$value": "{bingel-dc.color.background.accent.blue.subtle}",
-            "$type": "color",
-            "$description": "Use for backgrounds of elements in selected state with subtle emphasis, such as in opened dropdowns."
-          },
-          "subtlest": {
-            "$value": "{bingel-dc.color.background.accent.blue.subtlest}",
-            "$type": "color",
-            "$description": "The subtlest background in the primary action color."
-          },
-          "interactive": {
-            "bold": {
-              "$value": "{bingel-dc.color.background.accent.blue.interactive.bold}",
-              "$type": "color",
-              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-            },
-            "plain": {
-              "$value": "{bingel-dc.color.background.accent.blue.interactive.plain}",
-              "$type": "color",
-              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-            }
-          }
-        },
-        "highlight": {
-          "$value": "{bingel-dc.color.palette.yellow.100}",
-          "$type": "color"
-        },
-        "secondary": {
-          "bold": {
-            "$value": "{bingel-dc.color.background.accent.grey.bold}",
-            "$type": "color",
-            "$description": "A vibrant background option used for secondary actions."
-          },
-          "subtle": {
-            "$value": "{bingel-dc.color.background.accent.grey.subtle}",
-            "$type": "color",
-            "$description": "A subtle background in the secondary action color."
-          },
-          "subtlest": {
-            "$value": "{bingel-dc.color.background.accent.grey.subtlest}",
-            "$type": "color",
-            "$description": "The subtlest background in the secondary action color."
-          },
-          "interactive": {
-            "bold": {
-              "$value": "{bingel-dc.color.background.accent.grey.interactive.bold}",
-              "$type": "color",
-              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-            },
-            "plain": {
-              "$value": "{bingel-dc.color.background.accent.grey.interactive.plain}",
-              "$type": "color",
-              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-            }
-          }
-        },
-        "interactive": {
-          "bold": {
-            "$value": "{bingel-dc.color.background.accent.blue.interactive.bold}",
-            "$type": "color",
-            "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-          },
-          "plain": {
-            "$value": "{bingel-dc.color.background.accent.blue.interactive.plain}",
-            "$type": "color",
-            "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-          }
-        }
-      },
-      "foreground": {
-        "bold": {
-          "$value": "{bingel-dc.color.foreground.accent.grey.bold}",
-          "$type": "color",
-          "$description": "Use for headers and labels."
-        },
-        "info": {
-          "bold": {
-            "$value": "{bingel-dc.color.foreground.accent.blue.bold}",
-            "$type": "color",
-            "$description": "Use for text that communicates informative messages the user needs to be aware of on info backgrounds, such as 'color.background.info.muted' and 'color.background.info.subtle'."
-          },
-          "plain": {
-            "$value": "{bingel-dc.color.foreground.accent.blue.plain}",
-            "$type": "color",
-            "$description": "Use for text that communicates informative messages the user needs to be aware of on neutral backgrounds."
+            "$description": "Use for text that communicates a favorable outcome on positive backgrounds, such as 'color.background.positive.muted', and 'color.background.positive.subtle'."
           },
           "onBold": {
-            "$value": "{bingel-dc.color.foreground.accent.blue.onBold}",
+            "$value": "{bingel-dc.color.foreground.accent.green.onBold}",
             "$type": "color",
-            "$description": "Use for text that communicates informative messages the user needs to be aware of on info backgrounds, such as 'color.background.info.bold'."
+            "$description": "Use for text that communicates a favorable outcome on positive backgrounds, such as 'color.background.positive.bold'."
+          },
+          "plain": {
+            "$value": "{bingel-dc.color.foreground.accent.green.plain}",
+            "$type": "color",
+            "$description": "Use for text that communicates a favorable outcome on neutral backgrounds.'"
           }
-        },
-        "brand": {
-          "$value": "{bingel-dc.color.foreground.accent.blue.plain}",
-          "$type": "color",
-          "$description": "Use for non-interactive brand-reinforcing text."
-        },
-        "plain": {
-          "$value": "{bingel-dc.color.foreground.accent.grey.plain}",
-          "$type": "color",
-          "$description": "Use for body copy and menu items."
         },
         "accent": {
           "red": {
+            "onBold": {
+              "$value": "{bingel-dc.color.foreground.inverted.plain}",
+              "$type": "color",
+              "$description": "Use for text on 'color.background.accent.red.bold', when used purely for stylistic purposes without specific meaning."
+            },
             "bold": {
               "$value": "{bingel-dc.color.palette.red.700}",
               "$type": "color",
@@ -1278,50 +1217,18 @@
               "$value": "{bingel-dc.color.palette.red.400}",
               "$type": "color",
               "$description": "Use for red text on neutral backgrounds for purely stylistic purposes with no specific meaning."
-            },
-            "onBold": {
-              "$value": "{bingel-dc.color.foreground.inverted.plain}",
-              "$type": "color",
-              "$description": "Use for text on 'color.background.accent.red.bold', when used purely for stylistic purposes without specific meaning."
-            }
-          },
-          "blue": {
-            "bold": {
-              "$value": "{bingel-dc.color.palette.blue.700}",
-              "$type": "color",
-              "$description": "Use for blue text on 'color.background.accent.blue.muted' or 'color.background.accent.blue.subtle', when used purely for stylistic purposes without specific meaning."
-            },
-            "plain": {
-              "$value": "{bingel-dc.color.palette.blue.400}",
-              "$type": "color",
-              "$description": "Use for blue text on neutral backgrounds for purely stylistic purposes with no specific meaning."
-            },
-            "onBold": {
-              "$value": "{bingel-dc.color.foreground.inverted.plain}",
-              "$type": "color",
-              "$description": "Use for text on 'color.background.accent.blue.bold', when used purely for stylistic purposes without specific meaning."
             }
           },
           "grey": {
-            "bold": {
-              "$value": "{bingel-dc.color.palette.grey.900}",
+            "onInverted": {
+              "$value": "{bingel-dc.color.foreground.bold}",
               "$type": "color",
-              "$description": "Use for bold grey text for purely stylistic purposes with no specific meaning."
+              "$description": "Use for text on 'color.background.inverted', when used purely for stylistic purposes without specific meaning."
             },
             "faint": {
               "$value": "{bingel-dc.color.palette.grey.300}",
               "$type": "color",
               "$description": "Use for faint text on neutral backgrounds, providing low contrast. Not intended for primary content, as it does not meet WCAG 2.2 AA contrast requirements. Use sparingly where accessibility isn't a critical concern."
-            },
-            "plain": {
-              "$value": "{bingel-dc.color.palette.grey.800}",
-              "$type": "color",
-              "$description": "Use for plain grey text for purely stylistic purposes with no specific meaning."
-            },
-            "onBold": {
-              "$value": "{bingel-dc.color.foreground.bold}",
-              "$type": "color",
-              "$description": "Use for text on 'color.background.accent.grey.bold', when used purely for stylistic purposes without specific meaning."
             },
             "subtle": {
               "$value": "{bingel-dc.color.palette.grey.700}",
@@ -1333,44 +1240,37 @@
               "$type": "color",
               "$description": "Use for muted grey text for purely stylistic purposes with no specific meaning."
             },
-            "onInverted": {
+            "plain": {
+              "$value": "{bingel-dc.color.palette.grey.800}",
+              "$type": "color",
+              "$description": "Use for plain grey text for purely stylistic purposes with no specific meaning."
+            },
+            "bold": {
+              "$value": "{bingel-dc.color.palette.grey.900}",
+              "$type": "color",
+              "$description": "Use for bold grey text for purely stylistic purposes with no specific meaning."
+            },
+            "onBold": {
               "$value": "{bingel-dc.color.foreground.bold}",
               "$type": "color",
-              "$description": "Use for text on 'color.background.inverted', when used purely for stylistic purposes without specific meaning."
+              "$description": "Use for text on 'color.background.accent.grey.bold', when used purely for stylistic purposes without specific meaning."
             }
           },
-          "teal": {
-            "bold": {
-              "$value": "{bingel-dc.color.palette.teal.700}",
+          "yellow": {
+            "onBold": {
+              "$value": "{bingel-dc.color.foreground.bold}",
               "$type": "color",
-              "$description": "Use for teal text on 'color.background.accent.teal.muted' or 'color.background.accent.teal.subtle', when used purely for stylistic purposes without specific meaning."
+              "$description": "Use for text on 'color.background.accent.yellow.bold', when used purely for stylistic purposes without specific meaning."
+            },
+            "bold": {
+              "$value": "{bingel-dc.color.palette.yellow.700}",
+              "$type": "color",
+              "$description": "Use for yellow text on 'color.background.accent.yellow.muted' or 'color.background.accent.yellow.subtle', when used purely for stylistic purposes without specific meaning."
             },
             "plain": {
-              "$value": "{bingel-dc.color.palette.teal.600}",
+              "$value": "{bingel-dc.color.palette.yellow.600}",
               "$type": "color",
-              "$description": "Use for teal text on neutral backgrounds for purely stylistic purposes with no specific meaning."
-            },
-            "onBold": {
-              "$value": "{bingel-dc.color.foreground.inverted.plain}",
-              "$type": "color",
-              "$description": "Use for text on 'color.background.accent.blue.bold', when used purely for stylistic purposes without specific meaning."
-            }
-          },
-          "green": {
-            "bold": {
-              "$value": "{bingel-dc.color.palette.green.700}",
-              "$type": "color",
-              "$description": "Use for green text on 'color.background.accent.green.muted' or 'color.background.accent.green.subtle', when used purely for stylistic purposes without specific meaning."
-            },
-            "plain": {
-              "$value": "{bingel-dc.color.palette.green.600}",
-              "$type": "color",
-              "$description": "Use for green text on neutral backgrounds for purely stylistic purposes with no specific meaning."
-            },
-            "onBold": {
-              "$value": "{bingel-dc.color.foreground.inverted.plain}",
-              "$type": "color",
-              "$description": "Use for text on 'color.background.accent.green.bold', when used purely for stylistic purposes without specific meaning."
+              "$description": "Use for yellow text on neutral backgrounds for purely stylistic purposes with no specific meaning."
             }
           },
           "orange": {
@@ -1391,37 +1291,71 @@
             }
           },
           "purple": {
-            "bold": {
-              "$value": "{bingel-dc.color.palette.purple.700}",
+            "onBold": {
+              "$value": "{bingel-dc.color.foreground.inverted.plain}",
               "$type": "color",
-              "$description": "Use for purple text on 'color.background.accent.purple.muted' or 'color.background.accent.purple.subtle', when used purely for stylistic purposes without specific meaning."
+              "$description": "Use for text on 'color.background.accent.purple.bold', when used purely for stylistic purposes without specific meaning."
             },
             "plain": {
               "$value": "{bingel-dc.color.palette.purple.400}",
               "$type": "color",
               "$description": "Use for purple text on neutral backgrounds for purely stylistic purposes with no specific meaning."
             },
+            "bold": {
+              "$value": "{bingel-dc.color.palette.purple.700}",
+              "$type": "color",
+              "$description": "Use for purple text on 'color.background.accent.purple.muted' or 'color.background.accent.purple.subtle', when used purely for stylistic purposes without specific meaning."
+            }
+          },
+          "blue": {
+            "bold": {
+              "$value": "{bingel-dc.color.palette.blue.700}",
+              "$type": "color",
+              "$description": "Use for blue text on 'color.background.accent.blue.muted' or 'color.background.accent.blue.subtle', when used purely for stylistic purposes without specific meaning."
+            },
+            "plain": {
+              "$value": "{bingel-dc.color.palette.blue.400}",
+              "$type": "color",
+              "$description": "Use for blue text on neutral backgrounds for purely stylistic purposes with no specific meaning."
+            },
             "onBold": {
               "$value": "{bingel-dc.color.foreground.inverted.plain}",
               "$type": "color",
-              "$description": "Use for text on 'color.background.accent.purple.bold', when used purely for stylistic purposes without specific meaning."
+              "$description": "Use for text on 'color.background.accent.blue.bold', when used purely for stylistic purposes without specific meaning."
             }
           },
-          "yellow": {
-            "bold": {
-              "$value": "{bingel-dc.color.palette.yellow.700}",
-              "$type": "color",
-              "$description": "Use for yellow text on 'color.background.accent.yellow.muted' or 'color.background.accent.yellow.subtle', when used purely for stylistic purposes without specific meaning."
-            },
+          "teal": {
             "plain": {
-              "$value": "{bingel-dc.color.palette.yellow.600}",
+              "$value": "{bingel-dc.color.palette.teal.600}",
               "$type": "color",
-              "$description": "Use for yellow text on neutral backgrounds for purely stylistic purposes with no specific meaning."
+              "$description": "Use for teal text on neutral backgrounds for purely stylistic purposes with no specific meaning."
+            },
+            "bold": {
+              "$value": "{bingel-dc.color.palette.teal.700}",
+              "$type": "color",
+              "$description": "Use for teal text on 'color.background.accent.teal.muted' or 'color.background.accent.teal.subtle', when used purely for stylistic purposes without specific meaning."
             },
             "onBold": {
-              "$value": "{bingel-dc.color.foreground.bold}",
+              "$value": "{bingel-dc.color.foreground.inverted.plain}",
               "$type": "color",
-              "$description": "Use for text on 'color.background.accent.yellow.bold', when used purely for stylistic purposes without specific meaning."
+              "$description": "Use for text on 'color.background.accent.blue.bold', when used purely for stylistic purposes without specific meaning."
+            }
+          },
+          "green": {
+            "plain": {
+              "$value": "{bingel-dc.color.palette.green.600}",
+              "$type": "color",
+              "$description": "Use for green text on neutral backgrounds for purely stylistic purposes with no specific meaning."
+            },
+            "onBold": {
+              "$value": "{bingel-dc.color.foreground.inverted.plain}",
+              "$type": "color",
+              "$description": "Use for text on 'color.background.accent.green.bold', when used purely for stylistic purposes without specific meaning."
+            },
+            "bold": {
+              "$value": "{bingel-dc.color.palette.green.700}",
+              "$type": "color",
+              "$description": "Use for green text on 'color.background.accent.green.muted' or 'color.background.accent.green.subtle', when used purely for stylistic purposes without specific meaning."
             }
           }
         },
@@ -1430,75 +1364,17 @@
           "$type": "color",
           "$description": "Use for subheadings."
         },
-        "caution": {
-          "bold": {
-            "$value": "{bingel-dc.color.foreground.accent.orange.bold}",
-            "$type": "color",
-            "$description": "Use for text that communicates caution to prevent mistakes or errors on caution backgrounds, such as 'color.background.caution.muted', and 'color.background.caution.subtle'."
-          },
-          "plain": {
-            "$value": "{bingel-dc.color.foreground.accent.orange.plain}",
-            "$type": "color",
-            "$description": "Use for text that communicates caution to prevent mistakes or errors on neutral backgrounds."
-          },
-          "onBold": {
-            "$value": "{bingel-dc.color.foreground.accent.orange.onBold}",
-            "$type": "color",
-            "$description": "Use for text that communicates caution to prevent mistakes or errors on 'color.background.caution.bold'."
-          }
-        },
-        "neutral": {
-          "bold": {
-            "$value": "{bingel-dc.color.foreground.accent.grey.bold}",
-            "$type": "color",
-            "$description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
-          },
-          "plain": {
-            "$value": "{bingel-dc.color.foreground.accent.grey.subtlest}",
-            "$type": "color",
-            "$description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
-          },
-          "onBold": {
-            "$value": "{bingel-dc.color.foreground.accent.grey.onBold}",
-            "$type": "color",
-            "$description": "Use for neutral actions on 'color.background.neutral.bold'"
-          }
-        },
-        "primary": {
-          "bold": {
-            "$value": "{bingel-dc.color.foreground.accent.blue.bold}",
-            "$type": "color",
-            "$description": "Use for primary actions on 'color.background.primary.muted' and 'color.background.primary.subtle'."
-          },
-          "onBold": {
-            "$value": "{bingel-dc.color.foreground.accent.blue.onBold}",
-            "$type": "color",
-            "$description": "Use for primary actions on 'color.background.primary.bold'"
-          }
-        },
         "disabled": {
           "$value": "{bingel-dc.color.foreground.accent.grey.faint}",
           "$type": "color",
           "$description": "Use for text in a disabled state."
         },
-        "inverted": {
-          "bold": {
-            "$value": "{bingel-dc.color.palette.grey.000}",
-            "$type": "color",
-            "$description": "Use for inverted text on 'color.background.inverted.subtlest', and 'color.background.inverted.subtle'."
-          },
-          "plain": {
-            "$value": "{bingel-dc.color.palette.grey.000}",
-            "$type": "color",
-            "$description": "Use for plain inverted text."
-          },
-          "onBold": {
-            "$value": "{bingel-dc.color.palette.grey.900}",
-            "$type": "color",
-            "$description": "Use for inverted text on 'color.background.inverted.bold'."
-          }
-        },
         "negative": {
+          "onBold": {
+            "$value": "{bingel-dc.color.foreground.accent.red.onBold}",
+            "$type": "color",
+            "$description": "Use for text that communicates negative or serious error states (e.g., validation errors or irreversible actions) on 'color.background.negative.bold'."
+          },
           "bold": {
             "$value": "{bingel-dc.color.foreground.accent.red.bold}",
             "$type": "color",
@@ -1508,31 +1384,31 @@
             "$value": "{bingel-dc.color.foreground.accent.red.plain}",
             "$type": "color",
             "$description": "Use for text that communicates negative or serious error states (e.g., validation errors or irreversible actions) on neutral backgrounds."
-          },
-          "onBold": {
-            "$value": "{bingel-dc.color.foreground.accent.red.onBold}",
-            "$type": "color",
-            "$description": "Use for text that communicates negative or serious error states (e.g., validation errors or irreversible actions) on 'color.background.negative.bold'."
           }
         },
-        "positive": {
-          "bold": {
-            "$value": "{bingel-dc.color.foreground.accent.green.bold}",
+        "neutral": {
+          "onBold": {
+            "$value": "{bingel-dc.color.foreground.accent.grey.onBold}",
             "$type": "color",
-            "$description": "Use for text that communicates a favorable outcome on positive backgrounds, such as 'color.background.positive.muted', and 'color.background.positive.subtle'."
+            "$description": "Use for neutral actions on 'color.background.neutral.bold'"
+          },
+          "bold": {
+            "$value": "{bingel-dc.color.foreground.accent.grey.bold}",
+            "$type": "color",
+            "$description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
           },
           "plain": {
-            "$value": "{bingel-dc.color.foreground.accent.green.plain}",
+            "$value": "{bingel-dc.color.foreground.accent.grey.subtlest}",
             "$type": "color",
-            "$description": "Use for text that communicates a favorable outcome on neutral backgrounds.'"
-          },
-          "onBold": {
-            "$value": "{bingel-dc.color.foreground.accent.green.onBold}",
-            "$type": "color",
-            "$description": "Use for text that communicates a favorable outcome on positive backgrounds, such as 'color.background.positive.bold'."
+            "$description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
           }
         },
         "selected": {
+          "onBold": {
+            "$value": "{bingel-dc.color.foreground.accent.blue.onBold}",
+            "$type": "color",
+            "$description": "Use for text in selected states (e.g., tabs or menu items)."
+          },
           "bold": {
             "$value": "{bingel-dc.color.foreground.accent.blue.bold}",
             "$type": "color",
@@ -1542,12 +1418,51 @@
             "$value": "{bingel-dc.color.foreground.accent.blue.plain}",
             "$type": "color",
             "$description": "Used as selected foreground color on white backgrounds."
+          }
+        },
+        "inverted": {
+          "plain": {
+            "$value": "{bingel-dc.color.palette.grey.000}",
+            "$type": "color",
+            "$description": "Use for plain inverted text."
           },
+          "bold": {
+            "$value": "{bingel-dc.color.palette.grey.000}",
+            "$type": "color",
+            "$description": "Use for inverted text on 'color.background.inverted.subtlest', and 'color.background.inverted.subtle'."
+          },
+          "onBold": {
+            "$value": "{bingel-dc.color.palette.grey.900}",
+            "$type": "color",
+            "$description": "Use for inverted text on 'color.background.inverted.bold'."
+          }
+        },
+        "brand": {
+          "$value": "{bingel-dc.color.foreground.accent.blue.plain}",
+          "$type": "color",
+          "$description": "Use for non-interactive brand-reinforcing text."
+        },
+        "info": {
           "onBold": {
             "$value": "{bingel-dc.color.foreground.accent.blue.onBold}",
             "$type": "color",
-            "$description": "Use for text in selected states (e.g., tabs or menu items)."
+            "$description": "Use for text that communicates informative messages the user needs to be aware of on info backgrounds, such as 'color.background.info.bold'."
+          },
+          "plain": {
+            "$value": "{bingel-dc.color.foreground.accent.blue.plain}",
+            "$type": "color",
+            "$description": "Use for text that communicates informative messages the user needs to be aware of on neutral backgrounds."
+          },
+          "bold": {
+            "$value": "{bingel-dc.color.foreground.accent.blue.bold}",
+            "$type": "color",
+            "$description": "Use for text that communicates informative messages the user needs to be aware of on info backgrounds, such as 'color.background.info.muted' and 'color.background.info.subtle'."
           }
+        },
+        "bold": {
+          "$value": "{bingel-dc.color.foreground.accent.grey.bold}",
+          "$type": "color",
+          "$description": "Use for headers and labels."
         },
         "subtlest": {
           "$value": "{bingel-dc.color.foreground.accent.grey.subtlest}",
@@ -1565,6 +1480,91 @@
             "$type": "color",
             "$description": "Use for secondary actions on 'color.background.secondary.bold'"
           }
+        },
+        "plain": {
+          "$value": "{bingel-dc.color.foreground.accent.grey.plain}",
+          "$type": "color",
+          "$description": "Use for body copy and menu items."
+        }
+      },
+      "link": {
+        "focused": {
+          "active": {
+            "$value": "{bingel-dc.color.palette.blue.900}",
+            "$type": "color",
+            "$description": "Used for the linkcolor of navigation aids in pressed state, such as skip links, when they are focused or visible."
+          },
+          "hover": {
+            "$value": "{bingel-dc.color.palette.blue.800}",
+            "$type": "color",
+            "$description": "Used for the linkcolor of navigation aids in hovered state, such as skip links, when they are focused or visible."
+          },
+          "idle": {
+            "$value": "{bingel-dc.color.palette.blue.700}",
+            "$type": "color",
+            "$description": "Used for the linkcolor of navigation aids in idle state, such as skip links, when they are focused or visible."
+          }
+        },
+        "muted": {
+          "idle": {
+            "$value": "{bingel-dc.color.foreground.accent.grey.subtlest}",
+            "$type": "color",
+            "$description": "Use for muted links in idle state."
+          },
+          "active": {
+            "$value": "{bingel-dc.color.link.active}",
+            "$type": "color",
+            "$description": "Use for muted links in active state."
+          },
+          "hover": {
+            "$value": "{bingel-dc.color.link.hover}",
+            "$type": "color",
+            "$description": "Use for muted links in hover state."
+          }
+        },
+        "inverted": {
+          "hover": {
+            "$value": "{bingel-dc.color.palette.blue.100}",
+            "$type": "color",
+            "$description": "Use for inverted links in hover state."
+          },
+          "idle": {
+            "$value": "{bingel-dc.color.foreground.inverted.plain}",
+            "$type": "color",
+            "$description": "Use for inverted links in idle state."
+          },
+          "active": {
+            "$value": "{bingel-dc.color.palette.blue.150}",
+            "$type": "color",
+            "$description": "Use for inverted links in active state."
+          }
+        },
+        "active": {
+          "$value": "{bingel-dc.color.palette.blue.600}",
+          "$type": "color",
+          "$description": "Use for links in active state."
+        },
+        "idle": {
+          "$value": "{bingel-dc.color.foreground.accent.blue.plain}",
+          "$type": "color",
+          "$description": "Use for links in their default or hovered state."
+        },
+        "hover": {
+          "$value": "{bingel-dc.color.palette.blue.500}",
+          "$type": "color",
+          "$description": "Use for links in hover state."
+        }
+      },
+      "skeleton": {
+        "plain": {
+          "$value": "{bingel-dc.color.background.accent.grey.subtle}",
+          "$type": "color",
+          "$description": "Use for skeleton loading states."
+        },
+        "subtle": {
+          "$value": "{bingel-dc.color.background.accent.grey.subtlest}",
+          "$type": "color",
+          "$description": "Use for the pulse or shimmer effect in skeleton loading states."
         }
       },
       "blanket": {
@@ -1576,34 +1576,18 @@
       }
     },
     "opacity": {
-      "bold": {
-        "$value": "1",
-        "$type": "opacity"
-      },
-      "muted": {
-        "$value": "0",
-        "$type": "opacity"
-      },
-      "moderate": {
-        "$value": "0.8",
-        "$type": "opacity"
-      },
-      "subtlest": {
-        "$value": "0.1",
-        "$type": "opacity"
-      },
       "interactive": {
-        "bold": {
-          "idle": {
-            "$value": "0",
+        "reversed": {
+          "active": {
+            "$value": "1",
             "$type": "opacity"
           },
           "hover": {
-            "$value": "0.2",
+            "$value": "0.9",
             "$type": "opacity"
           },
-          "active": {
-            "$value": "0.4",
+          "idle": {
+            "$value": "0.8",
             "$type": "opacity"
           }
         },
@@ -1621,20 +1605,36 @@
             "$type": "opacity"
           }
         },
-        "reversed": {
+        "bold": {
           "idle": {
-            "$value": "0.8",
-            "$type": "opacity"
-          },
-          "hover": {
-            "$value": "0.9",
+            "$value": "0",
             "$type": "opacity"
           },
           "active": {
-            "$value": "1",
+            "$value": "0.4",
+            "$type": "opacity"
+          },
+          "hover": {
+            "$value": "0.2",
             "$type": "opacity"
           }
         }
+      },
+      "bold": {
+        "$value": "1",
+        "$type": "opacity"
+      },
+      "subtlest": {
+        "$value": "0.1",
+        "$type": "opacity"
+      },
+      "moderate": {
+        "$value": "0.8",
+        "$type": "opacity"
+      },
+      "muted": {
+        "$value": "0",
+        "$type": "opacity"
       },
       "subtle": {
         "$value": "0.2",
@@ -1643,44 +1643,44 @@
     },
     "elevation": {
       "surface": {
-        "base": {
-          "default": {
-            "$value": "{bingel-dc.color.palette.grey.000}",
-            "$type": "color",
-            "$description": "The default, flat surface level. Used for primary content backgrounds or non-interactive UI regions."
-          }
-        },
         "raised": {
-          "sunken": {
-            "$value": "{bingel-dc.color.palette.grey.050}",
+          "primary": {
+            "$value": "{bingel-dc.color.background.accent.blue.bold}",
             "$type": "color",
-            "$description": "Background for components that create a sunken effect, typically used for grouping related items."
+            "$description": "Background of elevated components with a Primary background color like a floating toolbar that sit on top of the base surface. Use in combination with Inverted buttons, 'color.foreground.inverted.bold' and 'elevation.shadow.raised'."
           },
           "default": {
             "$value": "{bingel-dc.color.palette.grey.000}",
             "$type": "color",
             "$description": "Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
           },
-          "primary": {
-            "$value": "{bingel-dc.color.background.accent.blue.bold}",
+          "alternative": {
+            "$value": "{bingel-dc.color.palette.grey.100}",
             "$type": "color",
-            "$description": "Background of elevated components with a Primary background color like a floating toolbar that sit on top of the base surface. Use in combination with Inverted buttons, 'color.foreground.inverted.bold' and 'elevation.shadow.raised'."
+            "$description": "An alternate surface color used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
           },
           "inverted": {
             "$value": "{bingel-dc.color.palette.grey.900}",
             "$type": "color",
             "$description": "Background of elevated components with an inverted background color like tooltips that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
           },
-          "alternative": {
-            "$value": "{bingel-dc.color.palette.grey.100}",
+          "sunken": {
+            "$value": "{bingel-dc.color.palette.grey.050}",
             "$type": "color",
-            "$description": "An alternate surface color used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
+            "$description": "Background for components that create a sunken effect, typically used for grouping related items."
           }
         },
         "shadow": {
           "$value": "{bingel-dc.color.palette.grey.900}",
           "$type": "color",
           "$description": "Used as color for shadows."
+        },
+        "base": {
+          "default": {
+            "$value": "{bingel-dc.color.palette.grey.000}",
+            "$type": "color",
+            "$description": "The default, flat surface level. Used for primary content backgrounds or non-interactive UI regions."
+          }
         }
       }
     },

@@ -6,7 +6,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "import-tokens": "yarn exec studio pull",
+    "import-tokens": "yarn exec studio pull --ci",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "workspaces": [

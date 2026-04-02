@@ -1,9 +1,13 @@
 {
   "tokenSetOrder": [
-    "primitives",
-    "system",
-    "base-new",
-    "theme-new",
+    "top-level/primitives",
+    "top-level/system",
+    "top-level/base-new",
+    "top-level/theme-new",
+    "I/base-new",
+    "I/theme-new",
+    "II/base-new",
+    "II/theme-new",
     "bingel-dc/theme-new",
     "bingel-dc/base-new",
     "bingel-dc/light-new",
@@ -52,12 +56,8 @@
     "tig/theme-new",
     "tig/base-new",
     "tig/light-new",
-    "placeholder/theme-new",
     "placeholder/base-new",
     "placeholder/light-new",
-    "I/base-new",
-    "I/theme-new",
-    "II/base-new",
-    "II/theme-new"
+    "placeholder/theme-new"
   ]
 }

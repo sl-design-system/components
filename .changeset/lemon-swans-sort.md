@@ -10,3 +10,11 @@ Add `ProxyAriaAttributesMixin` that forwards ARIA attributes from a custom eleme
 - Supports an optional list of observed attributes; when omitted, all `aria-*` attributes are proxied automatically via a `MutationObserver`.
 
 `ProxyAriaAttributesMixin` is the successor to `ObserveAttributesMixin`; `ObserveAttributesMixin` remains exported for backwards compatibility and may be removed in a future release.
+
+Also add helper functions exported from `@sl-design-system/shared/helpers/proxied-aria-attributes.js` for inspecting the accessible state of elements that use `ProxyAriaAttributesMixin`:
+
+- `getProxiedAccessibleName(host)` — resolves the accessible name via `aria-labelledby` → `aria-label` → slotted text content
+- `getProxiedDescription(host)` — resolves the accessible description via `aria-describedby` → `aria-description`
+- `isProxiedDisabled(host)` — returns `false`, `true`, or `'aria'`
+- `getProxiedAriaAttribute(host, name)` — reads a forwarded ARIA attribute from the proxy target
+- `getProxiedAriaProperty(host, name)` — reads a forwarded ARIA element-reference property from the proxy target

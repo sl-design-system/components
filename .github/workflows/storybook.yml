@@ -108,16 +108,37 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           comment-author: 'github-actions[bot]'
-          body-includes: Storybook preview
+          body-includes: '### 🕸 Preview deploys'
+
+      - if: github.event_name == 'pull_request'
+        name: Build comment body
+        id: comment
+        env:
+          EXISTING_BODY: ${{ steps.fc.outputs.comment-body }}
+          PREVIEW_URL: ${{ steps.deploy.outputs.preview_url }}
+        run: |
+          BODY="### 🕸 Preview deploys"
+          BODY="$BODY
+          - **Storybook:** $PREVIEW_URL"
+
+          WEBSITE_LINE=$(echo "$EXISTING_BODY" | grep '^- \*\*Website:\*\*' || true)
+          if [ -n "$WEBSITE_LINE" ]; then
+            BODY="$BODY
+          $WEBSITE_LINE"
+          fi
+
+          {
+            echo "body<<EOF"
+            echo "$BODY"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
 
       - if: github.event_name == 'pull_request'
         uses: peter-evans/create-or-update-comment@v4
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            ### 🕸 Storybook preview
-            You can view a preview [here](${{ steps.deploy.outputs.preview_url }}) (commit [`${{ github.event.pull_request.head.sha }}`](https://github.com/sl-design-system/components/commit/${{ github.event.pull_request.head.sha }})).
+          body: ${{ steps.comment.outputs.body }}
           edit-mode: replace
 
   cleanup:
@@ -125,7 +146,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Cleanup
     steps:
-      - uses: aws-actions/configure-aws-credentials@v4
+      - uses: aws-actions/configure-aws-credentials@v6
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

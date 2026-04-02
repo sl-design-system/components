@@ -8,6 +8,7 @@ import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/listbox/register.js';
 import { FormInDialog } from '@sl-design-system/lit-examples';
+import '@sl-design-system/menu/register.js';
 import '@sl-design-system/popover/register.js';
 import '@sl-design-system/select/register.js';
 import '@sl-design-system/text-area/register.js';

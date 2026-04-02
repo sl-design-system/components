@@ -15,7 +15,6 @@ on:
   workflow_dispatch:
 
 env:
-  FIGMA_TOKEN: ${{ secrets.FIGMA_AUTH_TOKEN }}
   FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
   HUSKY: 0
   TOKENS_STUDIO_API_KEY: ${{ secrets.TOKENS_STUDIO_2_API_KEY }}
@@ -150,4 +149,4 @@ jobs:
         run: |
           aws amplify delete-branch \
             --app-id "${{ secrets.AWS_AMPLIFY_APP_ID }}" \
-            --branch-name "pr-${{ github.event.pull_request.number }}"
+            --branch-name "storybook-${{ github.event.pull_request.number }}"

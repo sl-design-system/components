@@ -303,5 +303,26 @@ describe('sl-tag', () => {
       expect(visibility).to.deep.equal(['none', 'none', 'none']);
       expect(el.stackSize).to.equal(3);
     });
+
+    it('should not overwrite cached stack width when the stack measurement is 0', async () => {
+      el = await fixture(html`
+        <sl-tag-list stacked style="gap: 10px; padding: 0; margin: 0; border: none;">
+          <sl-tag style="inline-size: 100px;">Tag 1</sl-tag>
+          <sl-tag style="inline-size: 100px;">Tag 2</sl-tag>
+        </sl-tag-list>
+      `);
+
+      el.stackInlineSize = 40;
+      el.getBoundingClientRect = () => new DOMRect(0, 0, 250, 20);
+      el.stack!.getBoundingClientRect = () => new DOMRect(0, 0, 0, 20);
+
+      Array.from(el.querySelectorAll('sl-tag')).forEach(tag => {
+        tag.getBoundingClientRect = () => new DOMRect(0, 0, 100, 20);
+      });
+
+      await triggerVisibilityUpdate();
+
+      expect(el.stackInlineSize).to.equal(40);
+    });
   });
 });

@@ -255,7 +255,11 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
   #runVisibilityUpdate(): void {
     if (this.stack) {
-      this.stackInlineSize = this.stack.getBoundingClientRect().width;
+      const measuredStackInlineSize = this.stack.getBoundingClientRect().width;
+
+      if (measuredStackInlineSize > 0) {
+        this.stackInlineSize = measuredStackInlineSize;
+      }
     }
 
     this.#updateVisibility();

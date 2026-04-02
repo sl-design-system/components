@@ -268,8 +268,16 @@ export const Dialog: Story = {
     const onClick = async (event: Event & { target: HTMLElement }) => {
       const dialog = document.createElement('sl-dialog');
       dialog.innerHTML = `
-        <h1 slot="title">Tooltip</h1>
-        Tooltip should be closed when the dialog is closed.
+        <h1 slot="title">Tooltip behavior</h1>
+        <p>Opening this dialog hides the tooltip.</p>
+        <p>
+          If you opened it with keyboard focus on the trigger, the tooltip can reappear after closing (focus returns to
+          the trigger).
+        </p>
+        <p>
+          If you opened it with mouse click, the tooltip stays closed after closing until the trigger is hovered/focused
+          again.
+        </p>
         <sl-button slot="primary-actions" sl-dialog-close variant="primary">Close</sl-button>
       `;
       dialog.addEventListener('sl-close', () => dialog.remove());

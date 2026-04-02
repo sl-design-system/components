@@ -38,16 +38,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: 'yarn'
+
       - run: yarn install --immutable
+
       - run: NODE_ENV=production yarn website
+
       - uses: actions/configure-pages@v5
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: 'website/dist'
+
       - id: deployment
         uses: actions/deploy-pages@v4
 
@@ -56,11 +62,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: 'yarn'
+
       - run: yarn install --immutable
+
       - run: NODE_ENV=production yarn website
 
       - uses: aws-actions/configure-aws-credentials@v6

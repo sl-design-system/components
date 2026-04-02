@@ -58,9 +58,6 @@ jobs:
             echo "name=main" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Debug amplify branches
-        run: aws amplify list-branches --app-id "${{ secrets.AWS_AMPLIFY_APP_ID }}"
-
       - name: Ensure Amplify branch exists
         if: github.event_name == 'pull_request'
         run: |

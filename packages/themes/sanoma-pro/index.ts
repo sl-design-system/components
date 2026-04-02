@@ -6,6 +6,5 @@ import { icons } from './icons.js';
  * like icons, ...
  */
 export const setup = (): void => {
-  console.log('register Icons');
   Icon.register(icons as IconLibrary);
 };

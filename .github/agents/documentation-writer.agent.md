@@ -257,7 +257,7 @@ Use action-oriented, concise labels that clearly describe what happens when clic
 ### Dialog actions
 \`\`\`html
 <sl-dialog>
-  <span slot="title">Confirm action</span>
+  <h1 slot="title">Confirm action</h1>
   <p>Are you sure you want to continue?</p>
   <sl-button-bar slot="actions">
     <sl-button>Cancel</sl-button>

@@ -175,7 +175,8 @@ describe('sl-tag-list', () => {
       expect(tag).to.have.trimmed.text('+7');
 
       el.querySelector('sl-tag:last-child')?.remove();
-      await new Promise(resolve => setTimeout(resolve));
+      await el.updateComplete;
+      await triggerVisibilityUpdate();
 
       expect(tag).to.have.trimmed.text('+6');
     });

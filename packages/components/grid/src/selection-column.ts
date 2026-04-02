@@ -84,6 +84,7 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
 
     return html`
       <td @click=${this.#onClick} class=${ifDefined(classes.join(' ') || undefined)} part="data selection">
+        <sl-checkbox
           @sl-change=${() => this.#onToggle(item)}
           ?checked=${item.selected}
           aria-label=${msg('Select row', { id: 'sl.grid.selectRow' })}

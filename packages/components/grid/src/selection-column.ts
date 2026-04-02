@@ -55,7 +55,7 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
         classes = this.getClasses();
 
       return html`
-        <th class=${ifDefined(classes.join(' '))} part="header selection" role="columnheader">
+        <th class=${ifDefined(classes.join(' ') || undefined)} part="header selection" role="columnheader">
           <sl-checkbox
             @sl-change=${({ detail }: SlChangeEvent<boolean>) => this.#onToggleAll(detail)}
             ?checked=${checked}
@@ -70,7 +70,11 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
       const classes = this.getClasses();
 
       return html`
-        <th class=${ifDefined(classes.join(' '))} part="header selection-placeholder" role="columnheader"></th>
+        <th
+          class=${ifDefined(classes.join(' ') || undefined)}
+          part="header selection-placeholder"
+          role="columnheader"
+        ></th>
       `;
     }
   }
@@ -79,8 +83,7 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
     const classes = this.getClasses(item.data);
 
     return html`
-      <td @click=${this.#onClick} class=${ifDefined(classes.join(' '))} part="data selection">
-        <sl-checkbox
+      <td @click=${this.#onClick} class=${ifDefined(classes.join(' ') || undefined)} part="data selection">
           @sl-change=${() => this.#onToggle(item)}
           ?checked=${item.selected}
           aria-label=${msg('Select row', { id: 'sl.grid.selectRow' })}

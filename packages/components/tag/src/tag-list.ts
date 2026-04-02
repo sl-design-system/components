@@ -274,7 +274,10 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    const gapValue = getComputedStyle(this).gap;
+    const styles = getComputedStyle(this),
+      // Use inline-axis gap for width calculations.
+      // When `gap` has two values (row column), parsing `gap` directly can pick the wrong one.
+      gapValue = styles.columnGap && styles.columnGap !== 'normal' ? styles.columnGap : styles.gap;
     let gap = Number.parseFloat(gapValue);
 
     if (!Number.isFinite(gap)) {

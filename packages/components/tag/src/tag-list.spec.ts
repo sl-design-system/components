@@ -249,6 +249,32 @@ describe('sl-tag-list', () => {
   });
 
   describe('visibility edge cases', () => {
+    it('should use column gap when gap shorthand has two values', async () => {
+      el = await fixture(html`
+        <sl-tag-list stacked style="gap: 4px 12px; padding: 0; margin: 0; border: none;">
+          <sl-tag style="inline-size: 100px;">Tag 1</sl-tag>
+          <sl-tag style="inline-size: 100px;">Tag 2</sl-tag>
+          <sl-tag style="inline-size: 100px;">Tag 3</sl-tag>
+        </sl-tag-list>
+      `);
+
+      // With column-gap=12px and stack=40px, container=260px should keep only the last tag visible.
+      el.getBoundingClientRect = () => new DOMRect(0, 0, 260, 20);
+      el.stack!.getBoundingClientRect = () => new DOMRect(0, 0, 40, 20);
+
+      Array.from(el.querySelectorAll('sl-tag')).forEach(tag => {
+        tag.getBoundingClientRect = () => new DOMRect(0, 0, 100, 20);
+      });
+
+      await triggerVisibilityUpdate();
+
+      const tags = Array.from(el.querySelectorAll('sl-tag'));
+      const visibility = tags.map(t => t.style.display);
+
+      expect(visibility).to.deep.equal(['none', 'none', '']);
+      expect(el.stackSize).to.equal(2);
+    });
+
     it('should keep the last tag visible when it fits in the remaining width', async () => {
       el = await fixture(html`
         <sl-tag-list stacked style="gap: 10px; padding: 0; margin: 0; border: none;">

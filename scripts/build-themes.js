@@ -1,7 +1,7 @@
 import { register, transformLineHeight } from '@tokens-studio/sd-transforms';
 import { kebabCase } from 'change-case';
 import cssnano from 'cssnano';
-import { readdir, readFile, writeFile } from 'fs/promises';
+import { access, readdir, readFile, writeFile } from 'fs/promises';
 import { argv } from 'node:process';
 import { join } from 'path';
 import postcss from 'postcss';
@@ -212,7 +212,23 @@ const build = async (production = false, path) => {
   // you can (un)comment out each theme until you find the one that is causing issues
   // console.log('Building themes:', themes);
 
-  const oldThemes = [...themes];
+  // Filter out themes that don't have base.json
+  const themesWithBase = [];
+  for (const [theme, variant] of themes) {
+    const baseFilePath = join(cwd, path, theme, 'base.json');
+    try {
+      await access(baseFilePath);
+      themesWithBase.push([theme, variant]);
+    } catch (error) {
+      if (error && error.code === 'ENOENT') {
+        console.log(`Skipping deprecated scenario for ${theme}/${variant}: no base.json found`);
+      } else {
+        throw error;
+      }
+    }
+  }
+
+  const oldThemes = [...themesWithBase];
 
   // Filter out files that are not in the `files` array
   const filterFiles = files => async token => {

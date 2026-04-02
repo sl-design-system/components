@@ -1,4 +1,4 @@
-import { getProxiedAccessibleName } from '@sl-design-system/shared/helpers/proxy-aria-attributes.js';
+import { getProxiedAccessibleName } from '@sl-design-system/shared/helpers/proxied-aria-attributes.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';

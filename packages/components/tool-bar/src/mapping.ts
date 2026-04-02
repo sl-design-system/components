@@ -5,7 +5,7 @@ import {
   getProxiedAriaAttribute,
   getProxiedDescription,
   isProxiedDisabled
-} from '@sl-design-system/shared/helpers/proxy-aria-attributes.js';
+} from '@sl-design-system/shared/helpers/proxied-aria-attributes.js';
 import { ToolBarDivider } from './tool-bar-divider.js';
 
 export interface ToolBarItemBase {

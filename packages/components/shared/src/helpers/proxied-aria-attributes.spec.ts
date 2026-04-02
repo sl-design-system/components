@@ -8,7 +8,7 @@ import {
   getProxiedAriaProperty,
   getProxiedDescription,
   isProxiedDisabled
-} from './proxy-aria-attributes.js';
+} from './proxied-aria-attributes.js';
 
 class SingleProxyElement extends ProxyAriaAttributesMixin(LitElement, [
   'aria-controls',
@@ -70,7 +70,7 @@ try {
   // Already defined
 }
 
-describe('proxy-aria-attributes helpers', () => {
+describe('proxied-aria-attributes helpers', () => {
   describe('single-level proxy', () => {
     let el: SingleProxyElement;
 

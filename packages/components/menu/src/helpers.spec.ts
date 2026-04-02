@@ -2,7 +2,7 @@ import {
   getProxiedAccessibleName,
   getProxiedDescription,
   isProxiedDisabled
-} from '@sl-design-system/shared/helpers/proxy-aria-attributes.js';
+} from '@sl-design-system/shared/helpers/proxied-aria-attributes.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';

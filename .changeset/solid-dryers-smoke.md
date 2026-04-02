@@ -2,7 +2,7 @@
 '@sl-design-system/shared': minor
 ---
 
-Add helper functions for inspecting accessible state of elements using `ProxyAriaAttributesMixin`. Import from `@sl-design-system/shared/helpers/proxy-aria-attributes.js`.
+Add helper functions for inspecting accessible state of elements using `ProxyAriaAttributesMixin`. Import from `@sl-design-system/shared/helpers/proxied-aria-attributes.js`.
 
 | Function                              | Description                                                                                                     |
 | ------------------------------------- | --------------------------------------------------------------------------------------------------------------- |

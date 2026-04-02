@@ -86,10 +86,14 @@ describe('sl-time-field', () => {
       hourSpinbutton.focus();
       await el.updateComplete;
 
-      await userEvent.keyboard('12');
-      await new Promise(resolve => setTimeout(resolve, 50));
-      await userEvent.keyboard('34');
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await userEvent.keyboard('1');
+      await el.updateComplete;
+      await userEvent.keyboard('2');
+      await el.updateComplete;
+      await userEvent.keyboard('3');
+      await el.updateComplete;
+      await userEvent.keyboard('4');
+      await el.updateComplete;
 
       expect(el.value).to.equal('12:34');
     });
@@ -1647,10 +1651,14 @@ describe('sl-time-field', () => {
         hourSpinbutton = field.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
 
       hourSpinbutton.focus();
-      await userEvent.keyboard('09');
-      await new Promise(resolve => setTimeout(resolve, 50));
-      await userEvent.keyboard('15');
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await userEvent.keyboard('0');
+      await field.updateComplete;
+      await userEvent.keyboard('9');
+      await field.updateComplete;
+      await userEvent.keyboard('1');
+      await field.updateComplete;
+      await userEvent.keyboard('5');
+      await field.updateComplete;
 
       expect(field.value).to.equal('09:15');
     });

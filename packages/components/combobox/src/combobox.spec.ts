@@ -14,6 +14,14 @@ import { type SelectedGroup } from './selected-group.js';
 
 describe('sl-combobox', () => {
   let el: Combobox, input: HTMLInputElement;
+  const waitForNextFrame = async (): Promise<void> => {
+    if (vi.isFakeTimers()) {
+      vi.advanceTimersToNextFrame();
+      return;
+    }
+
+    await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+  };
 
   describe('defaults', () => {
     beforeEach(async () => {
@@ -955,12 +963,14 @@ describe('sl-combobox', () => {
           // Allow initial layout/stacking to settle.
           await vi.advanceTimersByTimeAsync(300);
           await el.updateComplete;
+          await waitForNextFrame();
           const firstState = getVisibilityState(),
             firstInputWidth = input.getBoundingClientRect().width;
 
           // Wait long enough to cover any potential oscillation cycles
           await vi.advanceTimersByTimeAsync(500);
           await el.updateComplete;
+          await waitForNextFrame();
           const secondState = getVisibilityState(),
             secondInputWidth = input.getBoundingClientRect().width;
 
@@ -984,6 +994,7 @@ describe('sl-combobox', () => {
             await el.updateComplete;
             await vi.advanceTimersByTimeAsync(300);
             await el.updateComplete;
+            await waitForNextFrame();
 
             const inputWidth = input.getBoundingClientRect().width,
               fieldWidth = textField.getBoundingClientRect().width,
@@ -1024,6 +1035,7 @@ describe('sl-combobox', () => {
           await el.updateComplete;
           await vi.advanceTimersByTimeAsync(300);
           await el.updateComplete;
+          await waitForNextFrame();
 
           const tagList = el.renderRoot.querySelector('sl-tag-list'),
             stackTag = tagList?.renderRoot.querySelector('sl-tag'),

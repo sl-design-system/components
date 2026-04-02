@@ -39,7 +39,7 @@ eleventyNavigation:
 
 The `<sl-button>` component supports the [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API). This allows you to declaratively connect a button to another element and invoke a command on it, without needing any JavaScript.
 
-Use the `command` attribute to specify the command to invoke, and the `commandfor` attribute to reference the `id` of the target element.
+Use the `command` attribute to specify the command to invoke, and the `commandfor` attribute to reference the `id` of the target element. The `id` must be in the same DOM scope as the `<sl-button>` (i.e. the same document or shadow root). If you already have a JavaScript reference to the target element, you can set the `commandForElement` property directly instead.
 
 For example, you can open and close an `<sl-dialog>` using the `--show-modal` and `--close` commands:
 

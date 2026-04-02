@@ -9,6 +9,7 @@ import {
 } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { EventsController, type PopoverPosition } from '@sl-design-system/shared';
+import { isProxiedDisabled } from '@sl-design-system/shared/helpers/proxied-aria-attributes.js';
 import { ProxyAriaAttributesMixin } from '@sl-design-system/shared/mixins.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
@@ -228,6 +229,6 @@ export class MenuButton extends ProxyAriaAttributesMixin(ScopedElementsMixin(Lit
   }
 
   #isDisabled(): boolean {
-    return this.disabled || this.button.ariaDisabled === 'true';
+    return this.disabled || !!isProxiedDisabled(this.button);
   }
 }

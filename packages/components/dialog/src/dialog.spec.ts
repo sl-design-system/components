@@ -1,5 +1,6 @@
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
+import { getProxiedAccessibleName } from '@sl-design-system/shared/helpers/proxied-aria-attributes.js';
 import { fixture, oneEvent } from '@sl-design-system/vitest-browser-lit';
 import { type LitElement, type TemplateResult, html } from 'lit';
 import { spy, stub } from 'sinon';
@@ -41,6 +42,15 @@ describe('sl-dialog', () => {
       await el.updateComplete;
 
       expect(dialog.querySelector('sl-button.sl-close')).to.exist;
+    });
+
+    it('should have an accessible name for the close button', async () => {
+      el.closeButton = true;
+      await el.updateComplete;
+
+      const closeButton = dialog.querySelector<Button>('sl-button.sl-close')!;
+
+      expect(getProxiedAccessibleName(closeButton)).to.equal('Close');
     });
 
     it('should not have a role of dialog', () => {

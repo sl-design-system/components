@@ -41,7 +41,7 @@ describe('sl-paginator', () => {
 
       expect(button).to.exist;
       expect(getProxiedAccessibleName(button!)).to.equal('Go to the previous page (0)');
-      expect(isProxiedDisabled(button!)).to.equal(true);
+      expect(isProxiedDisabled(button!)).to.be.true;
     });
 
     it('should enable the previous button when the current page is not the first', async () => {
@@ -51,7 +51,7 @@ describe('sl-paginator', () => {
       const button = el.renderRoot.querySelector<Button>(':nth-child(1 of sl-button.nav)');
 
       expect(button).to.exist;
-      expect(isProxiedDisabled(button!)).to.equal(false);
+      expect(isProxiedDisabled(button!)).to.be.false;
     });
 
     it('should have a enabled next button', () => {
@@ -59,7 +59,7 @@ describe('sl-paginator', () => {
 
       expect(button).to.exist;
       expect(getProxiedAccessibleName(button!)).to.equal('Go to the next page (2)');
-      expect(isProxiedDisabled(button!)).to.equal(false);
+      expect(isProxiedDisabled(button!)).to.be.false;
     });
 
     it('should disable the next button when the current page is the last', async () => {
@@ -69,7 +69,7 @@ describe('sl-paginator', () => {
       const button = el.renderRoot.querySelector<Button>(':nth-child(2 of sl-button.nav)');
 
       expect(button).to.exist;
-      expect(isProxiedDisabled(button!)).to.equal(true);
+      expect(isProxiedDisabled(button!)).to.be.true;
     });
 
     it('should have the current page set to the first page', () => {

@@ -1,6 +1,12 @@
 import { faGear } from '@fortawesome/pro-regular-svg-icons';
 import { type Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
+import {
+  getProxiedAccessibleName,
+  getProxiedAriaAttribute,
+  getProxiedAriaProperty,
+  isProxiedDisabled
+} from '@sl-design-system/shared/helpers/proxied-aria-attributes.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
@@ -12,7 +18,7 @@ import { type Menu } from './menu.js';
 Icon.register(faGear);
 
 describe('sl-menu-button', () => {
-  let el: MenuButton, button: Button, menu: Menu, innerButton: HTMLButtonElement;
+  let el: MenuButton, button: Button, menu: Menu;
 
   describe('defaults', () => {
     beforeEach(async () => {
@@ -27,7 +33,6 @@ describe('sl-menu-button', () => {
 
       button = el.renderRoot.querySelector('sl-button') as Button;
       menu = el.renderRoot.querySelector('sl-menu') as Menu;
-      innerButton = button.renderRoot.querySelector('button')!;
     });
 
     it('should not be disabled', () => {
@@ -39,7 +44,7 @@ describe('sl-menu-button', () => {
         el.disabled = true;
         await el.updateComplete;
 
-        expect(innerButton).to.have.attribute('disabled');
+        expect(isProxiedDisabled(button)).to.be.true;
       });
 
       it('should not have an explicit size', () => {
@@ -126,7 +131,7 @@ describe('sl-menu-button', () => {
 
       describe('show', () => {
         it('should show the menu when the button is clicked', () => {
-          innerButton.click();
+          button.click();
 
           expect(menu).to.match(':popover-open');
         });
@@ -135,7 +140,7 @@ describe('sl-menu-button', () => {
           el.disabled = true;
           await el.updateComplete;
 
-          innerButton.click();
+          button.click();
 
           expect(menu).not.to.match(':popover-open');
         });
@@ -144,7 +149,7 @@ describe('sl-menu-button', () => {
           // Ensure button is not focused
           document.body.focus();
 
-          innerButton.click();
+          button.click();
           await new Promise(resolve => setTimeout(resolve, 50));
 
           expect(menu).to.match(':popover-open');
@@ -200,7 +205,7 @@ describe('sl-menu-button', () => {
         it('should hide the menu when the button is clicked', () => {
           expect(menu).to.match(':popover-open');
 
-          innerButton.click();
+          button.click();
 
           expect(menu).not.to.match(':popover-open');
         });
@@ -282,26 +287,25 @@ describe('sl-menu-button', () => {
 
       button = el.renderRoot.querySelector('sl-button') as Button;
       menu = el.renderRoot.querySelector('sl-menu') as Menu;
-      innerButton = button.renderRoot.querySelector('button')!;
     });
 
     it('should indicate it opens a menu', () => {
-      expect(innerButton).to.have.attribute('aria-haspopup', 'menu');
+      expect(getProxiedAriaAttribute(button, 'aria-haspopup')).to.equal('menu');
     });
 
     it('should not be expanded', () => {
-      expect(innerButton).to.have.attribute('aria-expanded', 'false');
+      expect(getProxiedAriaAttribute(button, 'aria-expanded')).to.equal('false');
     });
 
     it('should be expanded when the menu is open', async () => {
-      innerButton.click();
+      button.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      expect(innerButton).to.have.attribute('aria-expanded', 'true');
+      expect(getProxiedAriaAttribute(button, 'aria-expanded')).to.equal('true');
     });
 
     it('should be linked to the menu', () => {
-      expect(innerButton.ariaControlsElements).to.contain(menu);
+      expect(getProxiedAriaProperty(button, 'ariaControlsElements')).to.contain(menu);
     });
 
     it('should proxy the aria-disabled attribute to the button element', async () => {
@@ -309,7 +313,7 @@ describe('sl-menu-button', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       expect(el).to.not.have.attribute('aria-disabled');
-      expect(innerButton).to.have.attribute('aria-disabled', 'true');
+      expect(isProxiedDisabled(button)).to.equal('aria');
     });
 
     it('should proxy the aria-label attribute to the button element', async () => {
@@ -317,7 +321,7 @@ describe('sl-menu-button', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       expect(el).to.not.have.attribute('aria-label');
-      expect(innerButton).to.have.attribute('aria-label', 'Label');
+      expect(getProxiedAccessibleName(button)).to.equal('Label');
     });
 
     it('should proxy the aria-labelledby attribute to ariaLabelledByElements on the button', async () => {

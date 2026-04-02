@@ -283,10 +283,10 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     // Lock current width while measuring with all tags visible.
     // Without this, the element can expand during measurement and cause oscillation/flicker.
-    const originalWidth = this.style.width,
+    const originalInlineSize = this.style.inlineSize,
       lockedWidth = this.getBoundingClientRect().width;
 
-    this.style.width = `${lockedWidth}px`;
+    this.style.inlineSize = `${lockedWidth}px`;
 
     let sizes: number[] = [],
       totalTagsWidth = 0,
@@ -302,7 +302,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       totalTagsWidth = sizes.reduce((acc, size) => acc + size, 0);
       totalTagsWidth += gap * (this.tags.length - 1);
     } finally {
-      this.style.width = originalWidth;
+      this.style.inlineSize = originalInlineSize;
     }
 
     // We only need to determine visibility if there isn't enough space.

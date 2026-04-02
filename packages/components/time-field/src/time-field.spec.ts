@@ -87,9 +87,9 @@ describe('sl-time-field', () => {
       await el.updateComplete;
 
       await userEvent.keyboard('12');
-      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
       await userEvent.keyboard('34');
-      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(el.value).to.equal('12:34');
     });
@@ -1648,7 +1648,9 @@ describe('sl-time-field', () => {
 
       hourSpinbutton.focus();
       await userEvent.keyboard('09');
+      await new Promise(resolve => setTimeout(resolve, 50));
       await userEvent.keyboard('15');
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(field.value).to.equal('09:15');
     });

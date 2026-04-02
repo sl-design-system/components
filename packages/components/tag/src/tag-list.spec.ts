@@ -5,7 +5,7 @@ import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { type TagList } from './tag-list.js';
 
-describe('sl-tag', () => {
+describe('sl-tag-list', () => {
   let el: TagList;
   const triggerVisibilityUpdate = async (): Promise<void> => {
     const slot = el.renderRoot.querySelector('slot');

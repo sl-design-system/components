@@ -53,13 +53,10 @@ jobs:
         id: branch
         run: |
           if [ "${{ github.event_name }}" == "pull_request" ]; then
-            echo "name=pr-${{ github.event.pull_request.number }}" >> "$GITHUB_OUTPUT"
+            echo "name=storybook-${{ github.event.pull_request.number }}" >> "$GITHUB_OUTPUT"
           else
             echo "name=main" >> "$GITHUB_OUTPUT"
           fi
-
-      - name: Debug amplify
-        run: aws amplify list-apps
 
       - name: Debug amplify branches
         run: aws amplify list-branches --app-id "${{ secrets.AWS_AMPLIFY_APP_ID }}"

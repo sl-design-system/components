@@ -1,5 +1,5 @@
 ---
-'@sl-design-system/button-bar': major
+'@sl-design-system/button-bar': minor
 ---
 
 Replace the `icon-only` attribute with a `:state(icon-only)` CSS custom state

@@ -250,6 +250,12 @@ describe('sl-button', () => {
       expect(el.commandFor).to.be.undefined;
     });
 
+    it('should not have a commandForElement by default', async () => {
+      el = await fixture(html`<sl-button>Click me</sl-button>`);
+
+      expect(el.commandForElement).to.be.undefined;
+    });
+
     it('should pass the command to the inner button', async () => {
       el = await fixture(html`<sl-button command="show-modal">Click me</sl-button>`);
 
@@ -276,6 +282,41 @@ describe('sl-button', () => {
       el = await fixture(html`<sl-button commandfor="nonexistent">Click me</sl-button>`);
 
       expect(el.renderRoot.querySelector('button')).to.have.property('commandForElement', null);
+    });
+
+    it('should set commandForElement on the inner button when the property is set directly', async () => {
+      const wrapper = await fixture<HTMLDivElement>(html`
+        <div>
+          <sl-button command="show-modal">Click me</sl-button>
+          <dialog>Dialog content</dialog>
+        </div>
+      `);
+
+      el = wrapper.querySelector('sl-button')!;
+
+      const target = wrapper.querySelector('dialog')!;
+      el.commandForElement = target;
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('button')).to.have.property('commandForElement', target);
+    });
+
+    it('should prefer commandForElement over commandFor', async () => {
+      const wrapper = await fixture<HTMLDivElement>(html`
+        <div>
+          <sl-button command="show-modal" commandfor="other">Click me</sl-button>
+          <span id="other"></span>
+          <dialog>Dialog content</dialog>
+        </div>
+      `);
+
+      el = wrapper.querySelector('sl-button')!;
+
+      const target = wrapper.querySelector('dialog')!;
+      el.commandForElement = target;
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('button')).to.have.property('commandForElement', target);
     });
 
     it('should open a dialog when command is "show-modal" and commandfor points to a dialog', async () => {

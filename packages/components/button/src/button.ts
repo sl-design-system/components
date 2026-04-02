@@ -60,9 +60,17 @@ export class Button extends ProxyAriaAttributesMixin(LitElement) {
 
   /**
    * The DOM id of the element that will be invoked when the button is activated.
+   * The referenced element must be in the same DOM scope as the `<sl-button>`.
    * @see https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API
    */
   @property({ attribute: 'commandfor' }) commandFor?: string;
+
+  /**
+   * The element that will be invoked when the button is activated.
+   * Use this instead of `commandFor` when you already have a reference to the element.
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API
+   */
+  @property({ attribute: false }) commandForElement?: Element;
 
   /** Whether the button is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
@@ -119,14 +127,17 @@ export class Button extends ProxyAriaAttributesMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    const root = this.getRootNode() as Document | ShadowRoot,
-      commandForElement = this.commandFor ? (root.getElementById?.(this.commandFor) ?? null) : null;
+    let target = this.commandForElement ?? null;
+
+    if (!target && this.commandFor) {
+      target = (this.getRootNode() as Document | ShadowRoot).getElementById?.(this.commandFor) ?? null;
+    }
 
     return html`
       <button
         @click=${this.#onClick}
         command=${ifDefined(this.command)}
-        .commandForElement=${commandForElement}
+        .commandForElement=${target}
         ?disabled=${this.disabled}
         type="button"
       >
@@ -136,7 +147,7 @@ export class Button extends ProxyAriaAttributesMixin(LitElement) {
   }
 
   #onClick(event: Event): void {
-    if (this.disabled || this.button.ariaDisabled) {
+    if (this.disabled || this.button.ariaDisabled === 'true') {
       event.preventDefault();
       event.stopImmediatePropagation();
     } else if (this.type === 'reset') {

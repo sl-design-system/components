@@ -9,4 +9,4 @@ Add `ProxyAriaAttributesMixin` that forwards ARIA attributes from a custom eleme
 - Supports **nesting**: when two components using this mixin are nested, element reference properties propagate all the way to the deepest native element.
 - Supports an optional list of observed attributes; when omitted, all `aria-*` attributes are proxied automatically via a `MutationObserver`.
 
-This will replace `ObserveAttributesMixin`.
+`ProxyAriaAttributesMixin` is the successor to `ObserveAttributesMixin`; `ObserveAttributesMixin` remains exported for backwards compatibility and may be removed in a future release.

@@ -15,14 +15,8 @@ on:
   workflow_dispatch:
 
 env:
-  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  AWS_AMPLIFY_APP_ID: ${{ secrets.AWS_AMPLIFY_APP_ID }}
-  AWS_REGION: ${{ secrets.AWS_REGION }}
-  AWS_ROLE_ARN: ${{ secrets.AWS_ROLE_ARN }}
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-  FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
   FIGMA_TOKEN: ${{ secrets.FIGMA_AUTH_TOKEN }}
+  FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
   HUSKY: 0
   TOKENS_STUDIO_API_KEY: ${{ secrets.TOKENS_STUDIO_2_API_KEY }}
 
@@ -40,10 +34,9 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: 'yarn'
 
-      # Set up GitHub Actions caching for Wireit.
       - uses: google/wireit@setup-github-actions-caching/v2
 
       - run: yarn install --immutable
@@ -52,9 +45,9 @@ jobs:
 
       - uses: aws-actions/configure-aws-credentials@v6
         with:
-          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Set branch name
         id: branch
@@ -69,18 +62,18 @@ jobs:
         run: aws amplify list-apps
 
       - name: Debug amplify branches
-        run: aws amplify list-branches --app-id "${{ env.AWS_AMPLIFY_APP_ID }}"
+        run: aws amplify list-branches --app-id "${{ secrets.AWS_AMPLIFY_APP_ID }}"
 
       - name: Ensure Amplify branch exists
         if: github.event_name == 'pull_request'
         run: |
           if aws amplify get-branch \
-            --app-id "${{ env.AWS_AMPLIFY_APP_ID }}" \
+            --app-id "${{ secrets.AWS_AMPLIFY_APP_ID }}" \
             --branch-name "${{ steps.branch.outputs.name }}" >/dev/null 2>&1; then
             echo "Amplify branch '${{ steps.branch.outputs.name }}' already exists."
           else
             aws amplify create-branch \
-              --app-id "${{ env.AWS_AMPLIFY_APP_ID }}" \
+              --app-id "${{ secrets.AWS_AMPLIFY_APP_ID }}" \
               --branch-name "${{ steps.branch.outputs.name }}"
           fi
 
@@ -88,7 +81,7 @@ jobs:
         id: deploy
         run: |
           DEPLOYMENT=$(aws amplify create-deployment \
-            --app-id "${{ env.AWS_AMPLIFY_APP_ID }}" \
+            --app-id "${{ secrets.AWS_AMPLIFY_APP_ID }}" \
             --branch-name "${{ steps.branch.outputs.name }}" \
             --output json)
 
@@ -99,12 +92,12 @@ jobs:
           curl -sSf -T deployment.zip "$ZIP_URL"
 
           aws amplify start-deployment \
-            --app-id "${{ env.AWS_AMPLIFY_APP_ID }}" \
+            --app-id "${{ secrets.AWS_AMPLIFY_APP_ID }}" \
             --branch-name "${{ steps.branch.outputs.name }}" \
             --job-id "$JOB_ID"
 
           DEFAULT_DOMAIN=$(aws amplify get-app \
-            --app-id "${{ env.AWS_AMPLIFY_APP_ID }}" \
+            --app-id "${{ secrets.AWS_AMPLIFY_APP_ID }}" \
             --query 'app.defaultDomain' \
             --output text)
           echo "preview_url=https://${{ steps.branch.outputs.name }}.${DEFAULT_DOMAIN}" >> "$GITHUB_OUTPUT"
@@ -134,12 +127,12 @@ jobs:
     steps:
       - uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Delete PR branch from Amplify
         run: |
           aws amplify delete-branch \
-            --app-id "${{ env.AWS_AMPLIFY_APP_ID }}" \
+            --app-id "${{ secrets.AWS_AMPLIFY_APP_ID }}" \
             --branch-name "pr-${{ github.event.pull_request.number }}"

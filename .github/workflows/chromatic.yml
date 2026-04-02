@@ -2,10 +2,10 @@ name: 'Chromatic'
 
 on:
   pull_request:
-    branches: [ "main" ]
+    branches: ['main']
     types: [opened, synchronize, reopened, closed, ready_for_review]
   push:
-    branches: [ "main" ]
+    branches: ['main']
 
   workflow_dispatch:
 
@@ -24,7 +24,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: 'yarn'
       - name: Install dependencies
         run: yarn install --immutable

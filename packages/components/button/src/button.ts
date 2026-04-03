@@ -46,6 +46,9 @@ export class Button extends ForwardAriaMixin(LitElement) {
   /** Observe changes to the slotted content that aren't caught by the `slotchange` event. */
   #observer = new MutationObserver(() => this.#onUpdate());
 
+  /** Stores tabIndex set before the button is rendered. */
+  #tabIndex = 0;
+
   /** @internal. */
   readonly internals = this.attachInternals();
 
@@ -93,6 +96,18 @@ export class Button extends ForwardAriaMixin(LitElement) {
    */
   @property({ reflect: true }) size?: ButtonSize;
 
+  override get tabIndex(): number {
+    return this.#tabIndex;
+  }
+
+  override set tabIndex(value: number) {
+    if (this.button) {
+      this.#tabIndex = this.button.tabIndex = value;
+    } else {
+      this.#tabIndex = value;
+    }
+  }
+
   /**
    * The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.
    * @default button
@@ -121,6 +136,10 @@ export class Button extends ForwardAriaMixin(LitElement) {
     super.firstUpdated(changes);
 
     this.setProxyTarget(this.button);
+
+    if (this.hasAttribute('tabindex')) {
+      this.tabIndex = parseInt(this.getAttribute('tabindex') ?? '0');
+    }
 
     // Initial update
     this.#onUpdate();

@@ -99,7 +99,7 @@ describe('sl-button', () => {
       const onClick = spy();
 
       el.addEventListener('click', onClick);
-      await userEvent.click(el.renderRoot.querySelector('button')!);
+      await userEvent.click(el.renderRoot.querySelector('button'));
 
       expect(onClick).to.have.been.calledOnce;
     });
@@ -202,8 +202,8 @@ describe('sl-button', () => {
           <sl-button disabled>Disabled</sl-button>
         </div>
       `);
-      const button = wrapper.querySelector('sl-button')!,
-        innerButton = button.renderRoot.querySelector('button')!;
+      const button = wrapper.querySelector('sl-button'),
+        innerButton = button.renderRoot.querySelector('button');
       let captureCalled = false;
       let bubbleCalled = false;
 
@@ -222,8 +222,8 @@ describe('sl-button', () => {
           <sl-button>Enabled</sl-button>
         </div>
       `);
-      const button = wrapper.querySelector('sl-button')!,
-        innerButton = button.renderRoot.querySelector('button')!;
+      const button = wrapper.querySelector('sl-button'),
+        innerButton = button.renderRoot.querySelector('button');
       let captureCalled = false;
       let bubbleCalled = false;
 
@@ -272,7 +272,7 @@ describe('sl-button', () => {
 
       el = wrapper.querySelector('sl-button')!;
 
-      const button = el.renderRoot.querySelector('button')!,
+      const button = el.renderRoot.querySelector('button'),
         target = wrapper.querySelector('#target');
 
       expect(button).to.have.property('commandForElement', target);
@@ -294,7 +294,7 @@ describe('sl-button', () => {
 
       el = wrapper.querySelector('sl-button')!;
 
-      const target = wrapper.querySelector('dialog')!;
+      const target = wrapper.querySelector('dialog');
       el.commandForElement = target;
       await el.updateComplete;
 
@@ -312,7 +312,7 @@ describe('sl-button', () => {
 
       el = wrapper.querySelector('sl-button')!;
 
-      const target = wrapper.querySelector('dialog')!;
+      const target = wrapper.querySelector('dialog');
       el.commandForElement = target;
       await el.updateComplete;
 
@@ -329,11 +329,11 @@ describe('sl-button', () => {
 
       el = wrapper.querySelector('sl-button')!;
 
-      const dialog = wrapper.querySelector<HTMLDialogElement>('dialog')!;
+      const dialog = wrapper.querySelector<HTMLDialogElement>('dialog');
 
       expect(dialog.open).to.be.false;
 
-      el.renderRoot.querySelector('button')!.click();
+      el.renderRoot.querySelector('button').click();
 
       expect(dialog.open).to.be.true;
     });
@@ -498,6 +498,22 @@ describe('sl-button', () => {
 
         expect(requestSubmit).to.have.been.calledOnce;
       });
+    });
+  });
+
+  describe('tabindex', () => {
+    it('should default to 0', async () => {
+      el = await fixture(html`<sl-button>Hello world</sl-button>`);
+      button = el.renderRoot.querySelector('button')!;
+
+      expect(button.tabIndex).to.equal(0);
+    });
+
+    it('should forward tabindex="-1" to the inner button', async () => {
+      el = await fixture(html`<sl-button tabindex="-1">Hello world</sl-button>`);
+      button = el.renderRoot.querySelector('button')!;
+
+      expect(button.tabIndex).to.equal(-1);
     });
   });
 

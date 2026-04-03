@@ -44,6 +44,15 @@ Your responsibilities include:
 - Use descriptive test names following "should" conventions
 - Test both success and failure paths
 
+5. DEBUGGING:
+
+When visual output is wrong or a story behaves unexpectedly, use the debug skill (`/debug`) to inspect the running Storybook. The dev server runs on `http://localhost:6006` and hot-reloads on file changes — no restart needed.
+
+- Use `mcp__playwright__browser_navigate` + `mcp__playwright__browser_take_screenshot` to capture a story's iframe at `http://localhost:6006/iframe.html?id=<story-id>`
+- Story IDs follow `<title-kebab>--<story-kebab>` (e.g. `actions-button--basic`)
+- Use `mcp__chrome-devtools__list_console_messages` / `mcp__chrome-devtools__get_console_message` to catch Lit warnings, registration errors, or unhandled rejections
+- Always check the console when a component doesn't render as expected before making further code changes
+
 GENERAL GUIDELINES:
 
 - Ask clarifying questions if requirements are ambiguous

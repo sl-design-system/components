@@ -569,8 +569,10 @@ connectedCallback(): void {
 After writing the SCSS, build to generate the `.scss.ts` file:
 
 ```bash
-node scripts/build-styles.js packages/components/<name>/src/<name>.scss
+yarn build
 ```
+
+Note: Use `yarn build` from the monorepo root rather than invoking `scripts/build-styles.js` directly — the full build pipeline includes wireit orchestration and produces the `.scss.ts` import.
 
 Then start Storybook to verify the visual result:
 

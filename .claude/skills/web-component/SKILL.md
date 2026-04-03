@@ -219,7 +219,7 @@ Additional imports:
 
 ```ts
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { <InnerComponent> } from '@sl-design-system/<inner>/src/<inner>.js';
+import { <InnerComponent> } from '@sl-design-system/<inner>';
 ```
 
 Class declaration:
@@ -300,7 +300,7 @@ export class ...
 - Multi-word attributes use kebab-case: `@property({ attribute: 'display-name' })`.
 - Type aliases go before the class, after `declare global`: `export type <PascalName>Size = 'sm' | 'md' | 'lg';`
 - Naming: `<PascalName><PropertyName>` (e.g., `ButtonSize`, `DialogRole`).
-- Private fields use `#` prefix (not TypeScript `private`).
+- Private fields use `#` prefix (not TypeScript `private`). **Exception**: fields decorated with `@query`, `@queryAll`, or `@queryAssignedElements` must NOT use `#` — esbuild does not support TypeScript experimental decorators on private class fields. Mark them `/** @internal */` instead.
 - Event handlers: `#onEventName` in PascalCase (e.g., `#onClick`, `#onKeydown`).
 - Slot change handlers type: `Event & { target: HTMLSlotElement }`.
 - Use `EventsController` for DOM event handling (it auto-adds/removes listeners):
@@ -314,11 +314,38 @@ export class ...
 - `render()` returns `TemplateResult`.
 - JSDoc: use `/** @internal */` for non-public API members. Document `@slot`, `@csspart`, `@cssprop` on the class.
 
-## Step 3: Install dependencies
+### Using icons
+
+Built-in icons are defined in `packages/tokens/src/tokens/core.json` under the `icon.core` key. Their `$value` is the icon name (e.g., `"xmark"`, `"circle-check"`, `"magnifying-glass"`). These are available without registration.
+
+If the icon you need is **not** in `core.json`, use the FontAwesome name with `far-` prefix (e.g., `far-circle-info`). You must register it at module level before the class:
+
+```ts
+import { faCircleInfo } from '@fortawesome/pro-regular-svg-icons';
+import { Icon } from '@sl-design-system/icon';
+
+Icon.register(faCircleInfo);
+```
+
+Then reference it as `name="far-circle-info"` in the template.
+
+Add `"@fortawesome/pro-regular-svg-icons": "^7.2.0"` to `dependencies` in `package.json`.
+
+If unsure which icon to use, search at https://fontawesome.com/search?ip=classic&s=regular.
+
+## Step 3: Register in tsconfig.all.json
+
+Add the new component to the `references` array in `/tsconfig.all.json` (at the repo root), keeping the list alphabetically sorted:
+
+```json
+{ "path": "./packages/components/<kebab-name>" },
+```
+
+## Step 4: Install dependencies
 
 Run `yarn` from the monorepo root to link the new package.
 
-## Step 4: Summary
+## Step 5: Summary
 
 List the created files and remind the user they still need to create:
 

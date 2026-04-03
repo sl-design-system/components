@@ -2,6 +2,10 @@
 
 Sanoma Learning Design System — a Lit 3 web component library published as `@sl-design-system/*` packages.
 
+**GitHub:** https://github.com/sl-design-system/components
+**Storybook (main):** https://storybook.sanomalearning.design
+**Docs (main):** https://sanomalearning.design
+
 ## Quick Reference
 
 ```bash

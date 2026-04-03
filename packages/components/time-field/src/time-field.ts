@@ -905,10 +905,14 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       }
 
       const digit = parseInt(event.key, 10);
+      const wasEmpty = this.timeParts[partType] === undefined || this.#enteredDigits === 0;
       this.#applyDigitToTimePart(partType, digit);
 
-      // Auto-advance when max digits (2) reached
-      if (this.#enteredDigits >= 2) {
+      // Auto-advance when max digits (2) reached OR when single digit makes second digit impossible
+      const shouldAutoAdvance =
+        this.#enteredDigits >= 2 || (wasEmpty && this.#shouldAutoAdvanceOnSingleDigit(partType, digit));
+
+      if (shouldAutoAdvance) {
         this.#enteredDigits = 0;
         this.#moveFocus(span, 1);
       } else {
@@ -1128,6 +1132,19 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       totalMinutes2 = time2.hour * 60 + time2.minute;
 
     return totalMinutes1 - totalMinutes2;
+  }
+
+  /**
+   * Determines if we should auto-advance to the next field after entering a single digit.
+   * For hours: digits 3-9 make a second digit impossible (since max hour is 23)
+   * For minutes: digits 6-9 make a second digit impossible (since max minute is 59)
+   */
+  #shouldAutoAdvanceOnSingleDigit(partType: TimePartType, digit: number): boolean {
+    if (partType === 'hour') {
+      return digit >= 3;
+    } else {
+      return digit >= 6;
+    }
   }
 
   #trySetValue(digit?: boolean): void {

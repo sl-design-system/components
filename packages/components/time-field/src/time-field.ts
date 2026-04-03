@@ -36,7 +36,12 @@ type TimePartType = 'hour' | 'minute';
 const timeSeparators = new Map<string, string>();
 
 /**
- * A time field control for selecting a time.
+ * A form component that allows the user to pick a time.
+ * Uses individual spinbutton inputs per time part for improved accessibility.
+ *
+ * @cssState has-focus - Set when the time field has focus.
+ * @cssState has-value - Set when the time field has a value.
+ * @cssState placeholder-shown - Set when the time field is empty and has a placeholder.
  */
 @localized()
 export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(LitElement))) {
@@ -88,7 +93,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
    */
   #popoverJustClosed = false;
 
-  /** The index of the active date part for roving tabindex. */
+  /** The index of the active time part for roving tabindex. */
   #rovingIndex = 0;
 
   /**

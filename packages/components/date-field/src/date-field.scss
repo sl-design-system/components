@@ -36,7 +36,7 @@
   }
 }
 
-:host(:hover:not(:focus-within)) {
+:host(:hover:not(:state(has-focus))) {
   --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
 }
 

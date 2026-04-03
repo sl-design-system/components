@@ -6,6 +6,7 @@ Add `ProxyAriaAttributesMixin` that forwards ARIA attributes from a custom eleme
 
 - **Reference attributes** (`aria-labelledby`, `aria-describedby`, `aria-controls`, etc.) are resolved to DOM elements and set via element reference properties (e.g. `ariaLabelledByElements`) on the target.
 - **Value attributes** (`aria-label`, `aria-disabled`, etc.) are forwarded as regular attributes on the target.
+- **`ariaDisabled` property** is explicitly intercepted: setting it to `'true'` sets `aria-disabled="true"` on the target; setting it to `null` removes `aria-disabled` from the target. This fixes a bug where the `MutationObserver` path could not propagate attribute *removal*, leaving the target in a stale disabled state.
 - Supports **nesting**: when two components using this mixin are nested, element reference properties propagate all the way to the deepest native element.
 - Supports an optional list of observed attributes; when omitted, all `aria-*` attributes are proxied automatically via a `MutationObserver`.
 

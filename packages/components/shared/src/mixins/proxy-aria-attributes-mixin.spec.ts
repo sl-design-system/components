@@ -116,6 +116,67 @@ describe('ProxyAriaAttributesMixin', () => {
     expect(button).to.have.attribute('aria-label', 'Second');
   });
 
+  describe('ariaDisabled property', () => {
+    it('should set aria-disabled on the target when set to "true"', () => {
+      el.ariaDisabled = 'true';
+
+      expect(button).to.have.attribute('aria-disabled', 'true');
+    });
+
+    it('should not set aria-disabled on the host when set to "true"', () => {
+      el.ariaDisabled = 'true';
+
+      expect(el).not.to.have.attribute('aria-disabled');
+    });
+
+    it('should remove aria-disabled from the target when set to null', () => {
+      el.ariaDisabled = 'true';
+      el.ariaDisabled = null;
+
+      expect(button).not.to.have.attribute('aria-disabled');
+    });
+
+    it('should reflect the stored value via the getter', () => {
+      el.ariaDisabled = 'true';
+      expect(el.ariaDisabled).to.equal('true');
+
+      el.ariaDisabled = null;
+      expect(el.ariaDisabled).to.be.null;
+    });
+
+    it('should flush to the target when set before setProxyTarget is called', async () => {
+      class DeferredTargetElement extends ProxyAriaAttributesMixin(LitElement, ['aria-disabled']) {
+        override render() {
+          // eslint-disable-next-line lit-a11y/accessible-name
+          return html`<button></button>`;
+        }
+        // Does NOT call setProxyTarget — caller sets it manually
+      }
+
+      try {
+        customElements.define('proxy-aria-deferred', DeferredTargetElement);
+      } catch {
+        // Already defined
+      }
+
+      const deferredEl = document.createElement('proxy-aria-deferred') as InstanceType<typeof DeferredTargetElement>;
+      deferredEl.ariaDisabled = 'true';
+      document.body.appendChild(deferredEl);
+      await deferredEl.updateComplete;
+
+      const btn = deferredEl.renderRoot.querySelector('button')!;
+
+      // Target not registered yet — property was buffered, button is untouched
+      expect(btn).not.to.have.attribute('aria-disabled');
+
+      deferredEl.setProxyTarget(btn);
+
+      expect(btn).to.have.attribute('aria-disabled', 'true');
+
+      deferredEl.remove();
+    });
+  });
+
   describe('aria-labelledby', () => {
     it('should set ariaLabelledByElements on the target', () => {
       const label = document.createElement('span');

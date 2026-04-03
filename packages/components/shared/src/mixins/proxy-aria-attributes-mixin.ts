@@ -34,6 +34,13 @@ const ELEMENT_REFERENCES: Record<string, keyof ARIAMixin> = {
  * In both cases the attribute is removed from the host after forwarding, so the host
  * element does not expose duplicate or stale ARIA information.
  *
+ * **`ariaDisabled` property:** The mixin intercepts the `ariaDisabled` property directly
+ * so that both setting and clearing it are forwarded to the target. Setting `ariaDisabled`
+ * to `'true'` adds `aria-disabled="true"` on the target; setting it to `null` (or any
+ * value other than `'true'`) removes `aria-disabled` from the target. This is necessary
+ * because the `MutationObserver` path cannot detect attribute *removal* and would otherwise
+ * leave the target in a stale disabled state.
+ *
  * **Nesting:** When two components using this mixin are nested (e.g. `<sl-menu-button>`
  * containing `<sl-button>`), the outer mixin sets element reference properties on the
  * inner host. The inner host intercepts these property assignments and forwards them to
@@ -66,7 +73,8 @@ export function ProxyAriaAttributesMixin<T extends Constructor<ReactiveElement> 
   // WeakMaps keyed by instance so private state is accessible from both the class
   // methods and the defineProperty interceptors (which can't access #private fields).
   const targetElements = new WeakMap<ProxyAriaAttributesImpl, HTMLElement>(),
-    propertyStorage = new WeakMap<ProxyAriaAttributesImpl, Map<string, Element[] | Element | null>>();
+    propertyStorage = new WeakMap<ProxyAriaAttributesImpl, Map<string, Element[] | Element | null>>(),
+    ariaDisabledStorage = new WeakMap<ProxyAriaAttributesImpl, string | null>();
 
   class ProxyAriaAttributesImpl extends constructor {
     #observer?: MutationObserver;
@@ -90,6 +98,16 @@ export function ProxyAriaAttributesMixin<T extends Constructor<ReactiveElement> 
       if (stored) {
         for (const [prop, value] of stored) {
           (target as unknown as Record<string, Element[] | Element | null>)[prop] = value;
+        }
+      }
+
+      // Forward ariaDisabled if it was set via property before the target was available
+      if (ariaDisabledStorage.has(this)) {
+        const value = ariaDisabledStorage.get(this) ?? null;
+        if (value === 'true') {
+          target.setAttribute('aria-disabled', 'true');
+        } else {
+          target.removeAttribute('aria-disabled');
         }
       }
 
@@ -183,6 +201,29 @@ export function ProxyAriaAttributesMixin<T extends Constructor<ReactiveElement> 
       this.#pendingAttributes.clear();
     }
   }
+
+  // Intercept the ariaDisabled property so that setting it to null/false removes
+  // aria-disabled from the target, which the MutationObserver/attributeChangedCallback
+  // path cannot do (it skips null attribute values in #forwardAttributes).
+  Object.defineProperty(ProxyAriaAttributesImpl.prototype, 'ariaDisabled', {
+    configurable: true,
+    enumerable: true,
+    get(this: ProxyAriaAttributesImpl): string | null {
+      return ariaDisabledStorage.get(this) ?? null;
+    },
+    set(this: ProxyAriaAttributesImpl, value: string | null) {
+      ariaDisabledStorage.set(this, value);
+
+      const target = targetElements.get(this);
+      if (target) {
+        if (value === 'true') {
+          target.setAttribute('aria-disabled', 'true');
+        } else {
+          target.removeAttribute('aria-disabled');
+        }
+      }
+    }
+  });
 
   // Intercept element reference property assignments on the prototype. This is what
   // enables nesting: when a parent mixin resolves e.g. aria-labelledby to elements and

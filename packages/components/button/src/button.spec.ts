@@ -96,10 +96,11 @@ describe('sl-button', () => {
     });
 
     it('should emit a click event on mouse click', async () => {
-      const onClick = spy();
+      const button = el.renderRoot.querySelector('button'),
+        onClick = spy();
 
       el.addEventListener('click', onClick);
-      await userEvent.click(el.renderRoot.querySelector('button'));
+      await userEvent.click(button!);
 
       expect(onClick).to.have.been.calledOnce;
     });
@@ -203,14 +204,14 @@ describe('sl-button', () => {
         </div>
       `);
       const button = wrapper.querySelector('sl-button'),
-        innerButton = button.renderRoot.querySelector('button');
+        innerButton = button?.renderRoot.querySelector('button');
       let captureCalled = false;
       let bubbleCalled = false;
 
       wrapper.addEventListener('click', () => (captureCalled = true), { capture: true });
       wrapper.addEventListener('click', () => (bubbleCalled = true));
 
-      innerButton.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true, cancelable: true }));
+      innerButton?.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true, cancelable: true }));
 
       expect(captureCalled, 'capture listener on parent should be called').to.be.true;
       expect(bubbleCalled, 'bubble listener on parent should NOT be called').to.be.false;
@@ -223,14 +224,14 @@ describe('sl-button', () => {
         </div>
       `);
       const button = wrapper.querySelector('sl-button'),
-        innerButton = button.renderRoot.querySelector('button');
+        innerButton = button?.renderRoot.querySelector('button');
       let captureCalled = false;
       let bubbleCalled = false;
 
       wrapper.addEventListener('click', () => (captureCalled = true), { capture: true });
       wrapper.addEventListener('click', () => (bubbleCalled = true));
 
-      innerButton.click();
+      innerButton?.click();
 
       expect(captureCalled, 'capture listener on parent should be called').to.be.true;
       expect(bubbleCalled, 'bubble listener on parent should be called').to.be.true;
@@ -295,7 +296,7 @@ describe('sl-button', () => {
       el = wrapper.querySelector('sl-button')!;
 
       const target = wrapper.querySelector('dialog');
-      el.commandForElement = target;
+      el.commandForElement = target!;
       await el.updateComplete;
 
       expect(el.renderRoot.querySelector('button')).to.have.property('commandForElement', target);
@@ -313,7 +314,7 @@ describe('sl-button', () => {
       el = wrapper.querySelector('sl-button')!;
 
       const target = wrapper.querySelector('dialog');
-      el.commandForElement = target;
+      el.commandForElement = target!;
       await el.updateComplete;
 
       expect(el.renderRoot.querySelector('button')).to.have.property('commandForElement', target);
@@ -329,11 +330,11 @@ describe('sl-button', () => {
 
       el = wrapper.querySelector('sl-button')!;
 
-      const dialog = wrapper.querySelector<HTMLDialogElement>('dialog');
+      const dialog = wrapper.querySelector<HTMLDialogElement>('dialog')!;
 
       expect(dialog.open).to.be.false;
 
-      el.renderRoot.querySelector('button').click();
+      el.renderRoot.querySelector('button')?.click();
 
       expect(dialog.open).to.be.true;
     });

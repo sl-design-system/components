@@ -1,6 +1,8 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
+import { Icon } from '@sl-design-system/icon';
 import { ToolBar, ToolBarDivider } from '@sl-design-system/tool-bar';
+import { Tooltip, tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { lift, setBlockType, toggleMark, wrapIn } from 'prosemirror-commands';
@@ -10,6 +12,21 @@ import { type EditorState } from 'prosemirror-state';
 import { liftListItem, wrapInList } from 'prosemirror-schema-list';
 import { type EditorView } from 'prosemirror-view';
 import styles from './editor-toolbar.scss.js';
+
+Icon.register({
+  'editor-bold': {
+    svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 12h9a4 4 0 0 1 0 8H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h7a4 4 0 0 1 0 8"/></svg>'
+  },
+  'editor-italic': {
+    svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" x2="10" y1="4" y2="4"/><line x1="14" x2="5" y1="20" y2="20"/><line x1="15" x2="9" y1="4" y2="20"/></svg>'
+  },
+  'editor-underline': {
+    svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4v6a6 6 0 0 0 12 0V4"/><line x1="4" x2="20" y1="20" y2="20"/></svg>'
+  },
+  'editor-strikethrough': {
+    svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4H9a3 3 0 0 0-2.83 4"/><path d="M14 12a4 4 0 0 1 0 8H6"/><line x1="4" x2="20" y1="12" y2="12"/></svg>'
+  }
+});
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -28,8 +45,10 @@ export class EditorToolbar extends ScopedElementsMixin(LitElement) {
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
+      'sl-icon': Icon,
       'sl-tool-bar': ToolBar,
-      'sl-tool-bar-divider': ToolBarDivider
+      'sl-tool-bar-divider': ToolBarDivider,
+      'sl-tooltip': Tooltip
     };
   }
 
@@ -54,16 +73,16 @@ export class EditorToolbar extends ScopedElementsMixin(LitElement) {
     return html`
       <sl-tool-bar ?disabled=${this.disabled}>
         ${schema?.marks.strong
-          ? this.#renderButton('Bold', 'B', 'bold')
+          ? this.#renderIconButton('Bold', 'editor-bold', 'bold')
           : nothing}
         ${schema?.marks.em
-          ? this.#renderButton('Italic', 'I', 'italic')
+          ? this.#renderIconButton('Italic', 'editor-italic', 'italic')
           : nothing}
         ${schema?.marks.underline
-          ? this.#renderButton('Underline', 'U', 'underline')
+          ? this.#renderIconButton('Underline', 'editor-underline', 'underline')
           : nothing}
         ${schema?.marks.strikethrough
-          ? this.#renderButton('Strikethrough', 'S', 'strikethrough')
+          ? this.#renderIconButton('Strikethrough', 'editor-strikethrough', 'strikethrough')
           : nothing}
 
         ${schema?.marks.code || schema?.nodes.blockquote
@@ -123,6 +142,19 @@ export class EditorToolbar extends ScopedElementsMixin(LitElement) {
         fill=${active ? 'outline' : nothing}
         @click=${() => this.#execFormat(format)}
       >${text}</sl-button>
+    `;
+  }
+
+  #renderIconButton(label: string, iconName: string, format: string): TemplateResult {
+    const active = this.#isFormatActive(format);
+
+    return html`
+      <sl-button
+        ${tooltip(label, { ariaRelation: 'label' })}
+        aria-pressed=${active}
+        fill=${active ? 'outline' : nothing}
+        @click=${() => this.#execFormat(format)}
+      ><sl-icon name=${iconName}></sl-icon></sl-button>
     `;
   }
 

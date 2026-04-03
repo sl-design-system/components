@@ -1,7 +1,8 @@
+import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { EventsController } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
 import { baseKeymap } from 'prosemirror-commands';
 import { history } from 'prosemirror-history';
 import { keymap } from 'prosemirror-keymap';
@@ -10,6 +11,7 @@ import { EditorState, type Plugin } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { setHTML } from './commands.js';
 import styles from './editor.scss.js';
+import { EditorToolbar } from './editor-toolbar.js';
 import { buildKeymap, buildListKeymap } from './keymap.js';
 import { type EditorMarks, type EditorNodes, marks, nodes } from './schema.js';
 import { createContentNode, getHTML } from './utils.js';
@@ -20,9 +22,16 @@ declare global {
   }
 }
 
-export class Editor extends FormControlMixin(LitElement) {
+export class Editor extends ScopedElementsMixin(FormControlMixin(LitElement)) {
   /** @internal */
   static formAssociated = true;
+
+  /** @internal */
+  static get scopedElements(): ScopedElementsMap {
+    return {
+      'sl-editor-toolbar': EditorToolbar
+    };
+  }
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
@@ -38,6 +47,9 @@ export class Editor extends FormControlMixin(LitElement) {
 
   /** Additional plugins. */
   @property({ attribute: false }) plugins?: Plugin[];
+
+  /** Whether to show the formatting toolbar. Defaults to true. */
+  @property({ type: Boolean }) toolbar = true;
 
   override get value(): string {
     return this.#value;
@@ -55,6 +67,9 @@ export class Editor extends FormControlMixin(LitElement) {
   /** The ProseMirror editor view instance. */
   view?: EditorView;
 
+  /** @internal Reference to the toolbar element. */
+  @query('sl-editor-toolbar') toolbarElement?: EditorToolbar;
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -66,6 +81,10 @@ export class Editor extends FormControlMixin(LitElement) {
 
   override firstUpdated(): void {
     this.view ??= this.createEditor();
+
+    if (this.toolbarElement) {
+      this.toolbarElement.view = this.view;
+    }
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -83,6 +102,7 @@ export class Editor extends FormControlMixin(LitElement) {
     return html`
       <slot style="display: none"></slot>
       <div class="container">
+        ${this.toolbar ? html`<sl-editor-toolbar ?disabled=${this.disabled}></sl-editor-toolbar>` : ''}
         <div class="mount"></div>
       </div>
     `;
@@ -96,9 +116,13 @@ export class Editor extends FormControlMixin(LitElement) {
       { mount },
       {
         state,
-        dispatchTransaction: function (tr) {
-          // `this` is bound to the view instance.
-          (this as unknown as EditorView).updateState(this.state.apply(tr));
+        dispatchTransaction: (tr) => {
+          editor.updateState(editor.state.apply(tr));
+
+          // Notify toolbar so it can sync active-state of buttons
+          if (this.toolbarElement) {
+            this.toolbarElement.editorState = editor.state;
+          }
         }
       }
     );

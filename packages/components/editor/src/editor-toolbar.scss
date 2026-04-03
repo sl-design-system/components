@@ -1,0 +1,9 @@
+:host {
+  display: block;
+}
+
+sl-tool-bar {
+  border-block-end: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+  padding-block: var(--sl-size-050);
+  padding-inline: var(--sl-size-050);
+}

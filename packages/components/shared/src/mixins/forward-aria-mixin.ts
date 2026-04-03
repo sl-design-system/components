@@ -1,7 +1,7 @@
 import { type Constructor } from '@open-wc/dedupe-mixin';
 import { type ReactiveElement } from 'lit';
 
-export interface ProxyAriaAttributesMixinInterface {
+export interface ForwardAriaMixinInterface {
   getProxyTarget(): HTMLElement | undefined;
   setProxyTarget(target: HTMLElement): void;
 }
@@ -16,7 +16,7 @@ const ELEMENT_REFERENCES: Record<string, keyof ARIAMixin> = {
 };
 
 /**
- * Mixin that proxies ARIA attributes from a custom element host to a target element
+ * Mixin that forwards ARIA attributes from a custom element host to a target element
  * inside its shadow DOM. This is necessary because screen readers cannot pierce the
  * shadow boundary, so ARIA attributes set on the host (e.g. by a consumer) must be
  * forwarded to the actual interactive element (e.g. a native `<button>`).
@@ -46,13 +46,13 @@ const ELEMENT_REFERENCES: Record<string, keyof ARIAMixin> = {
  * inner host. The inner host intercepts these property assignments and forwards them to
  * its own target, so references propagate all the way to the deepest native element.
  *
- * **Observed attributes:** Pass an array of attribute names to proxy only those. When
- * omitted, all `aria-*` attributes are proxied automatically using a MutationObserver.
+ * **Observed attributes:** Pass an array of attribute names to forward only those. When
+ * omitted, all `aria-*` attributes are forwarded automatically using a MutationObserver.
  */
-export function ProxyAriaAttributesMixin<T extends Constructor<ReactiveElement> & { observedAttributes?: string[] }>(
+export function ForwardAriaMixin<T extends Constructor<ReactiveElement> & { observedAttributes?: string[] }>(
   constructor: T,
   observedAttributes?: string[]
-): T & Constructor<ProxyAriaAttributesMixinInterface> {
+): T & Constructor<ForwardAriaMixinInterface> {
   // Build the set of element reference properties (e.g. ariaLabelledByElements) that
   // correspond to the observed attributes. These need prototype-level property interceptors
   // to support nesting (see the defineProperty loop below).
@@ -72,11 +72,11 @@ export function ProxyAriaAttributesMixin<T extends Constructor<ReactiveElement> 
 
   // WeakMaps keyed by instance so private state is accessible from both the class
   // methods and the defineProperty interceptors (which can't access #private fields).
-  const targetElements = new WeakMap<ProxyAriaAttributesImpl, HTMLElement>(),
-    propertyStorage = new WeakMap<ProxyAriaAttributesImpl, Map<string, Element[] | Element | null>>(),
-    ariaDisabledStorage = new WeakMap<ProxyAriaAttributesImpl, string | null>();
+  const targetElements = new WeakMap<ForwardAriaImpl, HTMLElement>(),
+    propertyStorage = new WeakMap<ForwardAriaImpl, Map<string, Element[] | Element | null>>(),
+    ariaDisabledStorage = new WeakMap<ForwardAriaImpl, string | null>();
 
-  class ProxyAriaAttributesImpl extends constructor {
+  class ForwardAriaImpl extends constructor {
     #observer?: MutationObserver;
     #pendingAttributes = new Set<string>();
 
@@ -205,13 +205,13 @@ export function ProxyAriaAttributesMixin<T extends Constructor<ReactiveElement> 
   // Intercept the ariaDisabled property so that setting it to null/false removes
   // aria-disabled from the target, which the MutationObserver/attributeChangedCallback
   // path cannot do (it skips null attribute values in #forwardAttributes).
-  Object.defineProperty(ProxyAriaAttributesImpl.prototype, 'ariaDisabled', {
+  Object.defineProperty(ForwardAriaImpl.prototype, 'ariaDisabled', {
     configurable: true,
     enumerable: true,
-    get(this: ProxyAriaAttributesImpl): string | null {
+    get(this: ForwardAriaImpl): string | null {
       return ariaDisabledStorage.get(this) ?? null;
     },
-    set(this: ProxyAriaAttributesImpl, value: string | null) {
+    set(this: ForwardAriaImpl, value: string | null) {
       ariaDisabledStorage.set(this, value);
 
       const target = targetElements.get(this);
@@ -231,13 +231,13 @@ export function ProxyAriaAttributesMixin<T extends Constructor<ReactiveElement> 
   // it to our own proxy target. If the target isn't available yet (it renders later),
   // the value is buffered in propertyStorage and flushed in setProxyTarget.
   for (const prop of interceptedProps) {
-    Object.defineProperty(ProxyAriaAttributesImpl.prototype, prop, {
+    Object.defineProperty(ForwardAriaImpl.prototype, prop, {
       configurable: true,
       enumerable: true,
-      get(this: ProxyAriaAttributesImpl) {
+      get(this: ForwardAriaImpl) {
         return propertyStorage.get(this)?.get(prop) ?? null;
       },
-      set(this: ProxyAriaAttributesImpl, value: Element[] | Element | null) {
+      set(this: ForwardAriaImpl, value: Element[] | Element | null) {
         let stored = propertyStorage.get(this);
         if (!stored) {
           stored = new Map();
@@ -253,5 +253,5 @@ export function ProxyAriaAttributesMixin<T extends Constructor<ReactiveElement> 
     });
   }
 
-  return ProxyAriaAttributesImpl;
+  return ForwardAriaImpl;
 }

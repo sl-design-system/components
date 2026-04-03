@@ -1,11 +1,11 @@
 import { Button } from '@sl-design-system/button';
 import { MenuButton, type MenuItem } from '@sl-design-system/menu';
 import {
-  getProxiedAccessibleName,
-  getProxiedAriaAttribute,
-  getProxiedDescription,
-  isProxiedDisabled
-} from '@sl-design-system/shared/helpers/proxied-aria-attributes.js';
+  getForwardedAccessibleName,
+  getForwardedAriaAttribute,
+  getForwardedDescription,
+  isForwardedDisabled
+} from '@sl-design-system/shared/helpers/forward-aria.js';
 import { ToolBarDivider } from './tool-bar-divider.js';
 
 export interface ToolBarItemBase {
@@ -47,8 +47,8 @@ export interface ToolBarItemMenu extends ToolBarItemBase {
 export type ToolBarItem = ToolBarItemButton | ToolBarItemDivider | ToolBarItemGroup | ToolBarItemMenu;
 
 export function mapButtonToItem(button: Button): ToolBarItemButton {
-  const label = getProxiedAccessibleName(button) || getProxiedDescription(button),
-    disabled = isProxiedDisabled(button);
+  const label = getForwardedAccessibleName(button) || getForwardedDescription(button),
+    disabled = isForwardedDisabled(button);
 
   return {
     element: button,
@@ -57,16 +57,16 @@ export function mapButtonToItem(button: Button): ToolBarItemButton {
     disabled: disabled === true,
     icon: button.querySelector('sl-icon')?.getAttribute('name'),
     label,
-    selectable: !!getProxiedAriaAttribute(button, 'aria-pressed'),
+    selectable: !!getForwardedAriaAttribute(button, 'aria-pressed'),
     visible: true,
     click: () => button.click()
   };
 }
 
 export function mapMenuButtonToItem(menuButton: MenuButton): ToolBarItemMenu {
-  const label = getProxiedAccessibleName(menuButton) || getProxiedDescription(menuButton),
+  const label = getForwardedAccessibleName(menuButton) || getForwardedDescription(menuButton),
     menuItems = Array.from(menuButton.querySelectorAll('sl-menu-item')).map(el => mapMenuItemToItem(el)),
-    disabled = isProxiedDisabled(menuButton);
+    disabled = isForwardedDisabled(menuButton);
 
   return {
     element: menuButton,

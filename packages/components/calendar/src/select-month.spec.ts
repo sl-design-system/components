@@ -1,5 +1,5 @@
 import { Button } from '@sl-design-system/button';
-import { getProxiedAccessibleName } from '@sl-design-system/shared/helpers/proxied-aria-attributes.js';
+import { getForwardedAccessibleName } from '@sl-design-system/shared/helpers/forward-aria.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
@@ -79,13 +79,13 @@ describe('sl-select-month', () => {
     it('should have an accessible name for the previous year button', () => {
       const prev = el.renderRoot.querySelector<Button>('.arrows sl-button:first-of-type')!;
 
-      expect(getProxiedAccessibleName(prev)).to.equal(`Previous year, ${currentYear - 1}`);
+      expect(getForwardedAccessibleName(prev)).to.equal(`Previous year, ${currentYear - 1}`);
     });
 
     it('should have an accessible name for the next year button', () => {
       const next = el.renderRoot.querySelector<Button>('.arrows sl-button:last-of-type')!;
 
-      expect(getProxiedAccessibleName(next)).to.equal(`Next year, ${currentYear + 1}`);
+      expect(getForwardedAccessibleName(next)).to.equal(`Next year, ${currentYear + 1}`);
     });
 
     it('should emit sl-select with selected month when clicked', () => {

@@ -1,10 +1,7 @@
 import { Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
-import {
-  getProxiedAriaAttribute,
-  getProxiedAriaProperty
-} from '@sl-design-system/shared/helpers/proxied-aria-attributes.js';
+import { getForwardedAriaAttribute, getForwardedAriaProperty } from '@sl-design-system/shared/helpers/forward-aria.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
@@ -82,8 +79,8 @@ describe('sl-panel', () => {
       const body = el.renderRoot.querySelector('[part="body"]'),
         button = el.renderRoot.querySelector<Button>('sl-button');
 
-      expect(getProxiedAriaAttribute(button!, 'aria-expanded')).to.equal('true');
-      expect(getProxiedAriaProperty(button!, 'ariaControlsElements')).to.deep.equal([body]);
+      expect(getForwardedAriaAttribute(button!, 'aria-expanded')).to.equal('true');
+      expect(getForwardedAriaProperty(button!, 'ariaControlsElements')).to.deep.equal([body]);
 
       button?.click();
       await el.updateComplete;
@@ -91,7 +88,7 @@ describe('sl-panel', () => {
       // Wait for the animation to finish
       await new Promise(resolve => setTimeout(resolve, 300));
 
-      expect(getProxiedAriaAttribute(button!, 'aria-expanded')).to.equal('false');
+      expect(getForwardedAriaAttribute(button!, 'aria-expanded')).to.equal('false');
     });
 
     it('should have a body with a role of "region"', () => {

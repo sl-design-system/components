@@ -8,7 +8,7 @@ import '../register.js';
 import { syncDisabledState } from './disabled-state.js';
 import { type ToolBar } from './tool-bar.js';
 
-// Note: sl-button and sl-menu-button use ProxyAriaAttributesMixin which forwards
+// Note: sl-button and sl-menu-button use ForwardAriaMixin which forwards
 // aria-* attributes from the host to the shadow DOM target and removes them from
 // the host. This means we cannot reliably check aria-disabled on hosts after any
 // await (the proxy may have fired). All assertions on syncDisabledState's direct
@@ -36,7 +36,7 @@ describe('syncDisabledState', () => {
       expect(buttons[1]).to.have.attribute('disabled');
       expect(buttons[2]).not.to.have.attribute('disabled');
 
-      // Disable - assert synchronously before ProxyAriaAttributesMixin fires
+      // Disable - assert synchronously before ForwardAriaMixin fires
       syncDisabledState(el, true);
 
       expect(buttons[0]).to.have.attribute('data-toolbar-disabled');
@@ -52,8 +52,8 @@ describe('syncDisabledState', () => {
       expect(buttons[2]).not.to.have.attribute('data-toolbar-disabled');
     });
 
-    it('should handle initially aria-disabled buttons with ProxyAriaAttributesMixin', async () => {
-      // ProxyAriaAttributesMixin forwards aria-disabled from the sl-button host
+    it('should handle initially aria-disabled buttons with ForwardAriaMixin', async () => {
+      // ForwardAriaMixin forwards aria-disabled from the sl-button host
       // to its shadow <button> and removes it from the host. syncDisabledState
       // therefore cannot detect the original aria-disabled state and treats the
       // button as "no disabled state" (data-toolbar-disabled marker).
@@ -89,7 +89,7 @@ describe('syncDisabledState', () => {
     });
 
     it('should handle initially aria-disabled menu-buttons', async () => {
-      // sl-menu-button also uses ProxyAriaAttributesMixin, so aria-disabled
+      // sl-menu-button also uses ForwardAriaMixin, so aria-disabled
       // is forwarded to the internal sl-button and removed from the host
       el = await fixture(html`
         <sl-tool-bar style="inline-size: 400px">

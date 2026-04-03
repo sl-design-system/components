@@ -1,6 +1,6 @@
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
-import { getProxiedAccessibleName } from '@sl-design-system/shared/helpers/proxied-aria-attributes.js';
+import { getForwardedAccessibleName } from '@sl-design-system/shared/helpers/forward-aria.js';
 import { fixture, oneEvent } from '@sl-design-system/vitest-browser-lit';
 import { type LitElement, type TemplateResult, html } from 'lit';
 import { spy, stub } from 'sinon';
@@ -50,7 +50,7 @@ describe('sl-dialog', () => {
 
       const closeButton = dialog.querySelector<Button>('sl-button.sl-close')!;
 
-      expect(getProxiedAccessibleName(closeButton)).to.equal('Close');
+      expect(getForwardedAccessibleName(closeButton)).to.equal('Close');
     });
 
     it('should not have a role of dialog', () => {

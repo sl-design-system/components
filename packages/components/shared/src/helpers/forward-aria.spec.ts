@@ -1,16 +1,16 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, html } from 'lit';
 import { describe, expect, it } from 'vitest';
-import { ProxyAriaAttributesMixin } from '../mixins/proxy-aria-attributes-mixin.js';
+import { ForwardAriaMixin } from '../mixins/forward-aria-mixin.js';
 import {
-  getProxiedAccessibleName,
-  getProxiedAriaAttribute,
-  getProxiedAriaProperty,
-  getProxiedDescription,
-  isProxiedDisabled
-} from './proxied-aria-attributes.js';
+  getForwardedAccessibleName,
+  getForwardedAriaAttribute,
+  getForwardedAriaProperty,
+  getForwardedDescription,
+  isForwardedDisabled
+} from './forward-aria.js';
 
-class SingleProxyElement extends ProxyAriaAttributesMixin(LitElement, [
+class SingleProxyElement extends ForwardAriaMixin(LitElement, [
   'aria-controls',
   'aria-describedby',
   'aria-description',
@@ -28,7 +28,7 @@ class SingleProxyElement extends ProxyAriaAttributesMixin(LitElement, [
   }
 }
 
-class InnerProxyElement extends ProxyAriaAttributesMixin(LitElement, [
+class InnerProxyElement extends ForwardAriaMixin(LitElement, [
   'aria-describedby',
   'aria-description',
   'aria-disabled',
@@ -44,7 +44,7 @@ class InnerProxyElement extends ProxyAriaAttributesMixin(LitElement, [
   }
 }
 
-class NestedProxyElement extends ProxyAriaAttributesMixin(LitElement, [
+class NestedProxyElement extends ForwardAriaMixin(LitElement, [
   'aria-describedby',
   'aria-description',
   'aria-disabled',
@@ -70,21 +70,21 @@ try {
   // Already defined
 }
 
-describe('proxied-aria-attributes helpers', () => {
+describe('forward-aria helpers', () => {
   describe('single-level proxy', () => {
     let el: SingleProxyElement;
 
-    describe('getProxiedAccessibleName', () => {
+    describe('getForwardedAccessibleName', () => {
       it('should return slotted text content', async () => {
         el = await fixture(html`<proxy-helper-single>Click me</proxy-helper-single>`);
 
-        expect(getProxiedAccessibleName(el)).to.equal('Click me');
+        expect(getForwardedAccessibleName(el)).to.equal('Click me');
       });
 
       it('should prefer aria-label over slotted content', async () => {
         el = await fixture(html`<proxy-helper-single aria-label="Label">Click me</proxy-helper-single>`);
 
-        expect(getProxiedAccessibleName(el)).to.equal('Label');
+        expect(getForwardedAccessibleName(el)).to.equal('Label');
       });
 
       it('should prefer aria-labelledby over aria-label', async () => {
@@ -96,13 +96,13 @@ describe('proxied-aria-attributes helpers', () => {
         `);
 
         el = div.querySelector('proxy-helper-single')!;
-        expect(getProxiedAccessibleName(el)).to.equal('External');
+        expect(getForwardedAccessibleName(el)).to.equal('External');
       });
 
       it('should return empty string when there is no label', async () => {
         el = await fixture(html`<proxy-helper-single></proxy-helper-single>`);
 
-        expect(getProxiedAccessibleName(el)).to.equal('');
+        expect(getForwardedAccessibleName(el)).to.equal('');
       });
 
       it('should join multiple aria-labelledby references', async () => {
@@ -115,21 +115,21 @@ describe('proxied-aria-attributes helpers', () => {
         `);
 
         el = div.querySelector('proxy-helper-single')!;
-        expect(getProxiedAccessibleName(el)).to.equal('First Second');
+        expect(getForwardedAccessibleName(el)).to.equal('First Second');
       });
     });
 
-    describe('getProxiedDescription', () => {
+    describe('getForwardedDescription', () => {
       it('should return empty string when there is no description', async () => {
         el = await fixture(html`<proxy-helper-single>Click me</proxy-helper-single>`);
 
-        expect(getProxiedDescription(el)).to.equal('');
+        expect(getForwardedDescription(el)).to.equal('');
       });
 
       it('should return aria-description value', async () => {
         el = await fixture(html`<proxy-helper-single aria-description="Helpful hint">Click me</proxy-helper-single>`);
 
-        expect(getProxiedDescription(el)).to.equal('Helpful hint');
+        expect(getForwardedDescription(el)).to.equal('Helpful hint');
       });
 
       it('should return text from aria-describedby reference', async () => {
@@ -141,7 +141,7 @@ describe('proxied-aria-attributes helpers', () => {
         `);
 
         el = div.querySelector('proxy-helper-single')!;
-        expect(getProxiedDescription(el)).to.equal('Description text');
+        expect(getForwardedDescription(el)).to.equal('Description text');
       });
 
       it('should prefer aria-describedby over aria-description', async () => {
@@ -155,25 +155,25 @@ describe('proxied-aria-attributes helpers', () => {
         `);
 
         el = div.querySelector('proxy-helper-single')!;
-        expect(getProxiedDescription(el)).to.equal('From describedby');
+        expect(getForwardedDescription(el)).to.equal('From describedby');
       });
     });
 
-    describe('getProxiedAriaAttribute', () => {
+    describe('getForwardedAriaAttribute', () => {
       it('should return the attribute value from the target', async () => {
         el = await fixture(html`<proxy-helper-single aria-expanded="true">Click me</proxy-helper-single>`);
 
-        expect(getProxiedAriaAttribute(el, 'aria-expanded')).to.equal('true');
+        expect(getForwardedAriaAttribute(el, 'aria-expanded')).to.equal('true');
       });
 
       it('should return null when the attribute is not set', async () => {
         el = await fixture(html`<proxy-helper-single>Click me</proxy-helper-single>`);
 
-        expect(getProxiedAriaAttribute(el, 'aria-expanded')).to.be.null;
+        expect(getForwardedAriaAttribute(el, 'aria-expanded')).to.be.null;
       });
     });
 
-    describe('getProxiedAriaProperty', () => {
+    describe('getForwardedAriaProperty', () => {
       it('should return the property value from the target', async () => {
         const div = await fixture(html`
           <div>
@@ -184,29 +184,29 @@ describe('proxied-aria-attributes helpers', () => {
 
         el = div.querySelector('proxy-helper-single')!;
 
-        const elements = getProxiedAriaProperty(el, 'ariaControlsElements' as keyof HTMLElement);
+        const elements = getForwardedAriaProperty(el, 'ariaControlsElements' as keyof HTMLElement);
         expect(elements).to.deep.equal([div.querySelector('#ctrl-target')]);
       });
     });
 
-    describe('isProxiedDisabled', () => {
+    describe('isForwardedDisabled', () => {
       it('should return false when not disabled', async () => {
         el = await fixture(html`<proxy-helper-single>Click me</proxy-helper-single>`);
 
-        expect(isProxiedDisabled(el)).to.equal(false);
+        expect(isForwardedDisabled(el)).to.equal(false);
       });
 
       it('should return true when the disabled property is set', async () => {
         el = await fixture(html`<proxy-helper-single>Click me</proxy-helper-single>`);
         (el as unknown as { disabled: boolean }).disabled = true;
 
-        expect(isProxiedDisabled(el)).to.equal(true);
+        expect(isForwardedDisabled(el)).to.equal(true);
       });
 
       it('should return aria when aria-disabled is set', async () => {
         el = await fixture(html`<proxy-helper-single aria-disabled="true">Click me</proxy-helper-single>`);
 
-        expect(isProxiedDisabled(el)).to.equal('aria');
+        expect(isForwardedDisabled(el)).to.equal('aria');
       });
     });
   });
@@ -214,11 +214,11 @@ describe('proxied-aria-attributes helpers', () => {
   describe('nested proxy chain', () => {
     let el: NestedProxyElement;
 
-    describe('getProxiedAccessibleName', () => {
+    describe('getForwardedAccessibleName', () => {
       it('should follow the proxy chain to the deepest target', async () => {
         el = await fixture(html`<proxy-helper-nested aria-label="Deep label">Click me</proxy-helper-nested>`);
 
-        expect(getProxiedAccessibleName(el)).to.equal('Deep label');
+        expect(getForwardedAccessibleName(el)).to.equal('Deep label');
       });
 
       it('should resolve aria-labelledby through the chain', async () => {
@@ -230,23 +230,23 @@ describe('proxied-aria-attributes helpers', () => {
         `);
 
         el = div.querySelector('proxy-helper-nested')!;
-        expect(getProxiedAccessibleName(el)).to.equal('Nested external');
+        expect(getForwardedAccessibleName(el)).to.equal('Nested external');
       });
 
       it('should fall back to slotted text content', async () => {
         el = await fixture(html`<proxy-helper-nested>Nested text</proxy-helper-nested>`);
 
-        expect(getProxiedAccessibleName(el)).to.equal('Nested text');
+        expect(getForwardedAccessibleName(el)).to.equal('Nested text');
       });
     });
 
-    describe('getProxiedDescription', () => {
+    describe('getForwardedDescription', () => {
       it('should follow the proxy chain for aria-description', async () => {
         el = await fixture(html`
           <proxy-helper-nested aria-description="Deep description">Click me</proxy-helper-nested>
         `);
 
-        expect(getProxiedDescription(el)).to.equal('Deep description');
+        expect(getForwardedDescription(el)).to.equal('Deep description');
       });
 
       it('should follow the proxy chain for aria-describedby', async () => {
@@ -258,28 +258,28 @@ describe('proxied-aria-attributes helpers', () => {
         `);
 
         el = div.querySelector('proxy-helper-nested')!;
-        expect(getProxiedDescription(el)).to.equal('Nested description');
+        expect(getForwardedDescription(el)).to.equal('Nested description');
       });
     });
 
-    describe('isProxiedDisabled', () => {
+    describe('isForwardedDisabled', () => {
       it('should return false when not disabled', async () => {
         el = await fixture(html`<proxy-helper-nested>Click me</proxy-helper-nested>`);
 
-        expect(isProxiedDisabled(el)).to.equal(false);
+        expect(isForwardedDisabled(el)).to.equal(false);
       });
 
       it('should return true for native disabled', async () => {
         el = await fixture(html`<proxy-helper-nested>Click me</proxy-helper-nested>`);
         el.disabled = true;
 
-        expect(isProxiedDisabled(el)).to.equal(true);
+        expect(isForwardedDisabled(el)).to.equal(true);
       });
 
       it('should follow the proxy chain for aria-disabled', async () => {
         el = await fixture(html`<proxy-helper-nested aria-disabled="true">Click me</proxy-helper-nested>`);
 
-        expect(isProxiedDisabled(el)).to.equal('aria');
+        expect(isForwardedDisabled(el)).to.equal('aria');
       });
     });
   });

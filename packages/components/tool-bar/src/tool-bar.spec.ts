@@ -107,7 +107,7 @@ describe('sl-tool-bar', () => {
       await el.updateComplete;
 
       const children = el.children;
-      // ProxyAriaAttributesMixin forwards aria-disabled from host to shadow DOM,
+      // ForwardAriaMixin forwards aria-disabled from host to shadow DOM,
       // so check tracking attributes instead which are not affected by the proxy
       expect(children.item(0)).to.have.attribute('data-toolbar-disabled');
       expect(children.item(3)).to.have.attribute('data-toolbar-disabled');

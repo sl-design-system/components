@@ -3,10 +3,10 @@ import '@sl-design-system/button/register.js';
 import { ArrayListDataSource, type ListDataSource } from '@sl-design-system/data-source';
 import '@sl-design-system/select/register.js';
 import {
-  getProxiedAccessibleName,
-  getProxiedAriaAttribute,
-  isProxiedDisabled
-} from '@sl-design-system/shared/helpers/proxied-aria-attributes.js';
+  getForwardedAccessibleName,
+  getForwardedAriaAttribute,
+  isForwardedDisabled
+} from '@sl-design-system/shared/helpers/forward-aria.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy, stub } from 'sinon';
@@ -40,8 +40,8 @@ describe('sl-paginator', () => {
       const button = el.renderRoot.querySelector<Button>(':nth-child(1 of sl-button.nav)');
 
       expect(button).to.exist;
-      expect(getProxiedAccessibleName(button!)).to.equal('Go to the previous page (0)');
-      expect(isProxiedDisabled(button!)).to.be.true;
+      expect(getForwardedAccessibleName(button!)).to.equal('Go to the previous page (0)');
+      expect(isForwardedDisabled(button!)).to.be.true;
     });
 
     it('should enable the previous button when the current page is not the first', async () => {
@@ -51,15 +51,15 @@ describe('sl-paginator', () => {
       const button = el.renderRoot.querySelector<Button>(':nth-child(1 of sl-button.nav)');
 
       expect(button).to.exist;
-      expect(isProxiedDisabled(button!)).to.be.false;
+      expect(isForwardedDisabled(button!)).to.be.false;
     });
 
     it('should have a enabled next button', () => {
       const button = el.renderRoot.querySelector<Button>(':nth-child(2 of sl-button.nav)');
 
       expect(button).to.exist;
-      expect(getProxiedAccessibleName(button!)).to.equal('Go to the next page (2)');
-      expect(isProxiedDisabled(button!)).to.be.false;
+      expect(getForwardedAccessibleName(button!)).to.equal('Go to the next page (2)');
+      expect(isForwardedDisabled(button!)).to.be.false;
     });
 
     it('should disable the next button when the current page is the last', async () => {
@@ -69,15 +69,15 @@ describe('sl-paginator', () => {
       const button = el.renderRoot.querySelector<Button>(':nth-child(2 of sl-button.nav)');
 
       expect(button).to.exist;
-      expect(isProxiedDisabled(button!)).to.be.true;
+      expect(isForwardedDisabled(button!)).to.be.true;
     });
 
     it('should have the current page set to the first page', () => {
       const button = el.renderRoot.querySelector<Button>('sl-button.current');
 
       expect(button).to.exist;
-      expect(getProxiedAccessibleName(button!)).to.equal('1');
-      expect(getProxiedAriaAttribute(button!, 'aria-current')).to.equal('page');
+      expect(getForwardedAccessibleName(button!)).to.equal('1');
+      expect(getForwardedAriaAttribute(button!, 'aria-current')).to.equal('page');
     });
 
     it('should have a page size of 10', () => {
@@ -153,8 +153,8 @@ describe('sl-paginator', () => {
       expect(el.page).to.equal(1);
 
       const currentPage = el.renderRoot.querySelector<Button>('sl-button.current');
-      expect(getProxiedAccessibleName(currentPage!)).to.equal('2');
-      expect(getProxiedAriaAttribute(currentPage!, 'aria-current')).to.equal('page');
+      expect(getForwardedAccessibleName(currentPage!)).to.equal('2');
+      expect(getForwardedAriaAttribute(currentPage!, 'aria-current')).to.equal('page');
     });
 
     it('should update the current page when a page button is clicked', async () => {
@@ -164,8 +164,8 @@ describe('sl-paginator', () => {
       expect(el.page).to.equal(2);
 
       const currentPage = el.renderRoot.querySelector<Button>('sl-button.current');
-      expect(getProxiedAccessibleName(currentPage!)).to.equal('3');
-      expect(getProxiedAriaAttribute(currentPage!, 'aria-current')).to.equal('page');
+      expect(getForwardedAccessibleName(currentPage!)).to.equal('3');
+      expect(getForwardedAriaAttribute(currentPage!, 'aria-current')).to.equal('page');
     });
 
     it('should update the current page when a menu item is clicked', async () => {
@@ -175,8 +175,8 @@ describe('sl-paginator', () => {
       expect(el.page).to.equal(9);
 
       const currentPage = el.renderRoot.querySelector<Button>('sl-button.current');
-      expect(getProxiedAccessibleName(currentPage!)).to.equal('10');
-      expect(getProxiedAriaAttribute(currentPage!, 'aria-current')).to.equal('page');
+      expect(getForwardedAccessibleName(currentPage!)).to.equal('10');
+      expect(getForwardedAriaAttribute(currentPage!, 'aria-current')).to.equal('page');
     });
 
     it('should update the current page when the page property is changed', async () => {
@@ -184,8 +184,8 @@ describe('sl-paginator', () => {
       await el.updateComplete;
 
       const currentPage = el.renderRoot.querySelector<Button>('sl-button.current');
-      expect(getProxiedAccessibleName(currentPage!)).to.equal('6');
-      expect(getProxiedAriaAttribute(currentPage!, 'aria-current')).to.equal('page');
+      expect(getForwardedAccessibleName(currentPage!)).to.equal('6');
+      expect(getForwardedAriaAttribute(currentPage!, 'aria-current')).to.equal('page');
     });
 
     it('should decrement the current page when the previous button is clicked', async () => {
@@ -198,8 +198,8 @@ describe('sl-paginator', () => {
       expect(el.page).to.equal(9);
 
       const currentPage = el.renderRoot.querySelector<Button>('sl-button.current');
-      expect(getProxiedAccessibleName(currentPage!)).to.equal('10');
-      expect(getProxiedAriaAttribute(currentPage!, 'aria-current')).to.equal('page');
+      expect(getForwardedAccessibleName(currentPage!)).to.equal('10');
+      expect(getForwardedAriaAttribute(currentPage!, 'aria-current')).to.equal('page');
     });
 
     it('should emit an sl-page-change event when the page has changed', async () => {
@@ -267,7 +267,7 @@ describe('sl-paginator', () => {
       expect(el.pageSize).to.equal(15);
 
       const currentPage = el.renderRoot.querySelector<Button>('sl-button.current');
-      expect(getProxiedAccessibleName(currentPage!)).to.equal('6');
+      expect(getForwardedAccessibleName(currentPage!)).to.equal('6');
     });
 
     it('should update the data source when the current page changes', async () => {

@@ -9,8 +9,8 @@ import {
 } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { EventsController, type PopoverPosition } from '@sl-design-system/shared';
-import { isProxiedDisabled } from '@sl-design-system/shared/helpers/proxied-aria-attributes.js';
-import { ProxyAriaAttributesMixin } from '@sl-design-system/shared/mixins.js';
+import { isForwardedDisabled } from '@sl-design-system/shared/helpers/forward-aria.js';
+import { ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -34,7 +34,7 @@ declare global {
  * @slot button - Any content for the button should be slotted here.
  */
 @localized()
-export class MenuButton extends ProxyAriaAttributesMixin(ScopedElementsMixin(LitElement)) {
+export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -229,6 +229,6 @@ export class MenuButton extends ProxyAriaAttributesMixin(ScopedElementsMixin(Lit
   }
 
   #isDisabled(): boolean {
-    return this.disabled || !!isProxiedDisabled(this.button);
+    return this.disabled || !!isForwardedDisabled(this.button);
   }
 }

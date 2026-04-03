@@ -1,16 +1,16 @@
 import { type LitElement } from 'lit';
-import { type ProxyAriaAttributesMixinInterface } from '../mixins/proxy-aria-attributes-mixin.js';
+import { type ForwardAriaMixinInterface } from '../mixins/forward-aria-mixin.js';
 
 /**
- * Follows the proxy target chain to the deepest element. When the target itself
- * also uses `ProxyAriaAttributesMixin`, its `getProxyTarget()` is followed recursively
+ * Follows the forwarding target chain to the deepest element. When the target itself
+ * also uses `ForwardAriaMixin`, its `getProxyTarget()` is followed recursively
  * so that the helpers read from the actual native element where ARIA ends up.
  */
-function resolveDeepTarget(host: LitElement & ProxyAriaAttributesMixinInterface): HTMLElement | undefined {
+function resolveDeepTarget(host: LitElement & ForwardAriaMixinInterface): HTMLElement | undefined {
   let target = host.getProxyTarget();
 
   while (target && 'getProxyTarget' in target) {
-    const next = (target as unknown as ProxyAriaAttributesMixinInterface).getProxyTarget();
+    const next = (target as unknown as ForwardAriaMixinInterface).getProxyTarget();
     if (!next || next === target) break;
     target = next;
   }
@@ -19,12 +19,12 @@ function resolveDeepTarget(host: LitElement & ProxyAriaAttributesMixinInterface)
 }
 
 /**
- * Returns the accessible name for the given element that uses `ProxyAriaAttributesMixin`,
+ * Returns the accessible name for the given element that uses `ForwardAriaMixin`,
  * following the accessible name computation priority: aria-labelledby → aria-label → text content.
  *
- * @param host The custom element host that uses `ProxyAriaAttributesMixin`.
+ * @param host The custom element host that uses `ForwardAriaMixin`.
  */
-export function getProxiedAccessibleName(host: LitElement & ProxyAriaAttributesMixinInterface): string {
+export function getForwardedAccessibleName(host: LitElement & ForwardAriaMixinInterface): string {
   const target = resolveDeepTarget(host);
 
   // 1. aria-labelledby
@@ -53,12 +53,12 @@ export function getProxiedAccessibleName(host: LitElement & ProxyAriaAttributesM
 }
 
 /**
- * Returns the accessible description for the given element that uses `ProxyAriaAttributesMixin`,
+ * Returns the accessible description for the given element that uses `ForwardAriaMixin`,
  * following the priority: aria-describedby → aria-description.
  *
- * @param host The custom element host that uses `ProxyAriaAttributesMixin`.
+ * @param host The custom element host that uses `ForwardAriaMixin`.
  */
-export function getProxiedDescription(host: LitElement & ProxyAriaAttributesMixinInterface): string {
+export function getForwardedDescription(host: LitElement & ForwardAriaMixinInterface): string {
   const target = resolveDeepTarget(host);
 
   // 1. aria-describedby
@@ -75,31 +75,28 @@ export function getProxiedDescription(host: LitElement & ProxyAriaAttributesMixi
 }
 
 /**
- * Returns the value of the given ARIA attribute on the proxy target element.
- * Because `ProxyAriaAttributesMixin` forwards ARIA attributes from the host to
+ * Returns the value of the given ARIA attribute on the forwarding target element.
+ * Because `ForwardAriaMixin` forwards ARIA attributes from the host to
  * the target, this is where the actual value ends up.
  *
- * @param host The custom element host that uses `ProxyAriaAttributesMixin`.
+ * @param host The custom element host that uses `ForwardAriaMixin`.
  * @param name The ARIA attribute name (e.g. 'aria-expanded', 'aria-current').
  */
-export function getProxiedAriaAttribute(
-  host: LitElement & ProxyAriaAttributesMixinInterface,
-  name: string
-): string | null {
+export function getForwardedAriaAttribute(host: LitElement & ForwardAriaMixinInterface, name: string): string | null {
   return resolveDeepTarget(host)?.getAttribute(name) ?? null;
 }
 
 /**
- * Returns the value of the given ARIA property on the proxy target element.
+ * Returns the value of the given ARIA property on the forwarding target element.
  * This is useful for element reference properties like `ariaLabelledByElements`
- * or `ariaDescribedByElements` that `ProxyAriaAttributesMixin` forwards from
+ * or `ariaDescribedByElements` that `ForwardAriaMixin` forwards from
  * the host to the target.
  *
- * @param host The custom element host that uses `ProxyAriaAttributesMixin`.
+ * @param host The custom element host that uses `ForwardAriaMixin`.
  * @param name The property name on the target element (e.g. 'ariaLabelledByElements').
  */
-export function getProxiedAriaProperty<K extends keyof HTMLElement>(
-  host: LitElement & ProxyAriaAttributesMixinInterface,
+export function getForwardedAriaProperty<K extends keyof HTMLElement>(
+  host: LitElement & ForwardAriaMixinInterface,
   name: K
 ): HTMLElement[K] | undefined {
   return (resolveDeepTarget(host) as HTMLElement)?.[name];
@@ -111,9 +108,9 @@ export function getProxiedAriaProperty<K extends keyof HTMLElement>(
  * - `true` if the element is natively disabled (the `disabled` attribute/property)
  * - `'aria'` if the element is disabled via `aria-disabled="true"`
  *
- * @param host The custom element host that uses `ProxyAriaAttributesMixin`.
+ * @param host The custom element host that uses `ForwardAriaMixin`.
  */
-export function isProxiedDisabled(host: LitElement & ProxyAriaAttributesMixinInterface): false | true | 'aria' {
+export function isForwardedDisabled(host: LitElement & ForwardAriaMixinInterface): false | true | 'aria' {
   if ((host as unknown as { disabled?: boolean }).disabled) {
     return true;
   }

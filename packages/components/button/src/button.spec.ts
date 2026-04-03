@@ -1,11 +1,11 @@
 import { type Form } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
 import {
-  getProxiedAccessibleName,
-  getProxiedAriaProperty,
-  getProxiedDescription,
-  isProxiedDisabled
-} from '@sl-design-system/shared/helpers/proxied-aria-attributes.js';
+  getForwardedAccessibleName,
+  getForwardedAriaProperty,
+  getForwardedDescription,
+  isForwardedDisabled
+} from '@sl-design-system/shared/helpers/forward-aria.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { restore, spy, stub } from 'sinon';
@@ -526,7 +526,7 @@ describe('sl-button', () => {
         el.setAttribute('aria-disabled', 'true');
         await el.updateComplete;
 
-        expect(isProxiedDisabled(el)).to.equal('aria');
+        expect(isForwardedDisabled(el)).to.equal('aria');
       });
 
       it('should be focusable when aria-disabled is set', async () => {
@@ -577,7 +577,7 @@ describe('sl-button', () => {
 
         el = wrapper.querySelector('sl-button')!;
 
-        expect(getProxiedAccessibleName(el)).to.equal('Label text');
+        expect(getForwardedAccessibleName(el)).to.equal('Label text');
       });
 
       it('should remove the aria-labelledby attribute from the host', async () => {
@@ -589,7 +589,7 @@ describe('sl-button', () => {
       it('should set ariaLabelledByElements to an empty array when the referenced element does not exist', async () => {
         el = await fixture(html`<sl-button aria-labelledby="nonexistent">Click me</sl-button>`);
 
-        expect(getProxiedAriaProperty(el, 'ariaLabelledByElements' as keyof HTMLElement)).to.deep.equal([]);
+        expect(getForwardedAriaProperty(el, 'ariaLabelledByElements' as keyof HTMLElement)).to.deep.equal([]);
       });
     });
 
@@ -604,7 +604,7 @@ describe('sl-button', () => {
 
         el = wrapper.querySelector('sl-button')!;
 
-        expect(getProxiedDescription(el)).to.equal('Description text');
+        expect(getForwardedDescription(el)).to.equal('Description text');
       });
 
       it('should remove the aria-describedby attribute from the host', async () => {
@@ -616,7 +616,7 @@ describe('sl-button', () => {
       it('should set ariaDescribedByElements to an empty array when the referenced element does not exist', async () => {
         el = await fixture(html`<sl-button aria-describedby="nonexistent">Click me</sl-button>`);
 
-        expect(getProxiedAriaProperty(el, 'ariaDescribedByElements' as keyof HTMLElement)).to.deep.equal([]);
+        expect(getForwardedAriaProperty(el, 'ariaDescribedByElements' as keyof HTMLElement)).to.deep.equal([]);
       });
     });
   });

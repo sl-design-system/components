@@ -1,5 +1,5 @@
 import { closestElementComposed } from '@sl-design-system/shared';
-import { ProxyAriaAttributesMixin } from '@sl-design-system/shared/mixins.js';
+import { ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -30,7 +30,7 @@ export type ButtonVariant = 'primary' | 'secondary' | 'success' | 'info' | 'warn
  *
  * @slot default - Text label of the button. Optionally an <code>sl-icon</code> can be added
  */
-export class Button extends ProxyAriaAttributesMixin(LitElement) {
+export class Button extends ForwardAriaMixin(LitElement) {
   /** @internal */
   static formAssociated = true;
 

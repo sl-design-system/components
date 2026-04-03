@@ -1,9 +1,9 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { ProxyAriaAttributesMixin } from './proxy-aria-attributes-mixin.js';
+import { ForwardAriaMixin } from './forward-aria-mixin.js';
 
-class TestElement extends ProxyAriaAttributesMixin(LitElement, [
+class TestElement extends ForwardAriaMixin(LitElement, [
   'aria-activedescendant',
   'aria-controls',
   'aria-describedby',
@@ -23,16 +23,16 @@ class TestElement extends ProxyAriaAttributesMixin(LitElement, [
 }
 
 try {
-  customElements.define('proxy-aria-test', TestElement);
+  customElements.define('forward-aria-test', TestElement);
 } catch {
   // Element may already be defined in watch / repeated test runs
 }
 
-describe('ProxyAriaAttributesMixin', () => {
+describe('ForwardAriaMixin', () => {
   let el: TestElement, button: HTMLButtonElement;
 
   beforeEach(async () => {
-    el = await fixture(html`<proxy-aria-test>Click me</proxy-aria-test>`);
+    el = await fixture(html`<forward-aria-test>Click me</forward-aria-test>`);
     button = el.renderRoot.querySelector('button')!;
   });
 
@@ -52,7 +52,7 @@ describe('ProxyAriaAttributesMixin', () => {
   });
 
   it('should return undefined from getProxyTarget before setProxyTarget is called', () => {
-    const fresh = document.createElement('proxy-aria-test') as TestElement;
+    const fresh = document.createElement('forward-aria-test') as TestElement;
 
     expect(fresh.getProxyTarget()).to.be.undefined;
   });
@@ -85,20 +85,20 @@ describe('ProxyAriaAttributesMixin', () => {
   });
 
   it('should not forward the attribute if no target element is set', async () => {
-    class NoTargetElement extends ProxyAriaAttributesMixin(LitElement, ['aria-label']) {
+    class NoTargetElement extends ForwardAriaMixin(LitElement, ['aria-label']) {
       override render() {
         return html`<button><slot></slot></button>`;
       }
     }
 
     try {
-      customElements.define('proxy-aria-no-target-test', NoTargetElement);
+      customElements.define('forward-aria-no-target-test', NoTargetElement);
     } catch {
       // Already defined
     }
 
     const noTargetEl = await fixture<NoTargetElement>(
-      html`<proxy-aria-no-target-test>Click</proxy-aria-no-target-test>`
+      html`<forward-aria-no-target-test>Click</forward-aria-no-target-test>`
     );
     noTargetEl.setAttribute('aria-label', 'Test');
 
@@ -145,7 +145,7 @@ describe('ProxyAriaAttributesMixin', () => {
     });
 
     it('should flush to the target when set before setProxyTarget is called', async () => {
-      class DeferredTargetElement extends ProxyAriaAttributesMixin(LitElement, ['aria-disabled']) {
+      class DeferredTargetElement extends ForwardAriaMixin(LitElement, ['aria-disabled']) {
         override render() {
           // eslint-disable-next-line lit-a11y/accessible-name
           return html`<button></button>`;
@@ -154,12 +154,12 @@ describe('ProxyAriaAttributesMixin', () => {
       }
 
       try {
-        customElements.define('proxy-aria-deferred', DeferredTargetElement);
+        customElements.define('forward-aria-deferred', DeferredTargetElement);
       } catch {
         // Already defined
       }
 
-      const deferredEl = document.createElement('proxy-aria-deferred') as InstanceType<typeof DeferredTargetElement>;
+      const deferredEl = document.createElement('forward-aria-deferred') as InstanceType<typeof DeferredTargetElement>;
       deferredEl.ariaDisabled = 'true';
       document.body.appendChild(deferredEl);
       await deferredEl.updateComplete;
@@ -363,7 +363,7 @@ describe('ProxyAriaAttributesMixin', () => {
   });
 
   describe('nested mixin', () => {
-    class InnerElement extends ProxyAriaAttributesMixin(LitElement, ['aria-labelledby']) {
+    class InnerElement extends ForwardAriaMixin(LitElement, ['aria-labelledby']) {
       override render() {
         return html`<button><slot></slot></button>`;
       }
@@ -373,19 +373,19 @@ describe('ProxyAriaAttributesMixin', () => {
       }
     }
 
-    class OuterElement extends ProxyAriaAttributesMixin(LitElement, ['aria-labelledby']) {
+    class OuterElement extends ForwardAriaMixin(LitElement, ['aria-labelledby']) {
       override render() {
-        return html`<proxy-aria-inner><slot></slot></proxy-aria-inner>`;
+        return html`<forward-aria-inner><slot></slot></forward-aria-inner>`;
       }
 
       override firstUpdated(): void {
-        this.setProxyTarget(this.renderRoot.querySelector('proxy-aria-inner')!);
+        this.setProxyTarget(this.renderRoot.querySelector('forward-aria-inner')!);
       }
     }
 
     try {
-      customElements.define('proxy-aria-inner', InnerElement);
-      customElements.define('proxy-aria-outer', OuterElement);
+      customElements.define('forward-aria-inner', InnerElement);
+      customElements.define('forward-aria-outer', OuterElement);
     } catch {
       // Already defined
     }
@@ -396,8 +396,8 @@ describe('ProxyAriaAttributesMixin', () => {
       label.textContent = 'Nested label';
       document.body.prepend(label);
 
-      const outer = await fixture<OuterElement>(html`<proxy-aria-outer>Click me</proxy-aria-outer>`);
-      const inner = outer.renderRoot.querySelector('proxy-aria-inner') as InnerElement;
+      const outer = await fixture<OuterElement>(html`<forward-aria-outer>Click me</forward-aria-outer>`);
+      const inner = outer.renderRoot.querySelector('forward-aria-inner') as InnerElement;
       const deepButton = inner.renderRoot.querySelector('button')!;
 
       outer.setAttribute('aria-labelledby', 'nested-label');
@@ -411,7 +411,7 @@ describe('ProxyAriaAttributesMixin', () => {
   describe('no observedAttributes specified', () => {
     let defaultEl: InstanceType<typeof DefaultElement>, defaultButton: HTMLButtonElement;
 
-    class DefaultElement extends ProxyAriaAttributesMixin(LitElement) {
+    class DefaultElement extends ForwardAriaMixin(LitElement) {
       override render() {
         return html`<button><slot></slot></button>`;
       }
@@ -422,13 +422,13 @@ describe('ProxyAriaAttributesMixin', () => {
     }
 
     try {
-      customElements.define('proxy-aria-default-test', DefaultElement);
+      customElements.define('forward-aria-default-test', DefaultElement);
     } catch {
       // Already defined
     }
 
     beforeEach(async () => {
-      defaultEl = await fixture(html`<proxy-aria-default-test>Click me</proxy-aria-default-test>`);
+      defaultEl = await fixture(html`<forward-aria-default-test>Click me</forward-aria-default-test>`);
       defaultButton = defaultEl.renderRoot.querySelector('button')!;
     });
 
@@ -460,7 +460,7 @@ describe('ProxyAriaAttributesMixin', () => {
     });
 
     it('should forward pre-existing aria-* attributes after the target is set', async () => {
-      const el = document.createElement('proxy-aria-default-test') as InstanceType<typeof DefaultElement>;
+      const el = document.createElement('forward-aria-default-test') as InstanceType<typeof DefaultElement>;
       el.setAttribute('aria-label', 'Pre-existing');
       el.textContent = 'Click me';
 

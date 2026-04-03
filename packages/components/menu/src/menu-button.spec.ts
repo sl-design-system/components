@@ -2,11 +2,11 @@ import { faGear } from '@fortawesome/pro-regular-svg-icons';
 import { type Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import {
-  getProxiedAccessibleName,
-  getProxiedAriaAttribute,
-  getProxiedAriaProperty,
-  isProxiedDisabled
-} from '@sl-design-system/shared/helpers/proxied-aria-attributes.js';
+  getForwardedAccessibleName,
+  getForwardedAriaAttribute,
+  getForwardedAriaProperty,
+  isForwardedDisabled
+} from '@sl-design-system/shared/helpers/forward-aria.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
@@ -44,7 +44,7 @@ describe('sl-menu-button', () => {
         el.disabled = true;
         await el.updateComplete;
 
-        expect(isProxiedDisabled(button)).to.be.true;
+        expect(isForwardedDisabled(button)).to.be.true;
       });
 
       it('should not have an explicit size', () => {
@@ -290,22 +290,22 @@ describe('sl-menu-button', () => {
     });
 
     it('should indicate it opens a menu', () => {
-      expect(getProxiedAriaAttribute(button, 'aria-haspopup')).to.equal('menu');
+      expect(getForwardedAriaAttribute(button, 'aria-haspopup')).to.equal('menu');
     });
 
     it('should not be expanded', () => {
-      expect(getProxiedAriaAttribute(button, 'aria-expanded')).to.equal('false');
+      expect(getForwardedAriaAttribute(button, 'aria-expanded')).to.equal('false');
     });
 
     it('should be expanded when the menu is open', async () => {
       button.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      expect(getProxiedAriaAttribute(button, 'aria-expanded')).to.equal('true');
+      expect(getForwardedAriaAttribute(button, 'aria-expanded')).to.equal('true');
     });
 
     it('should be linked to the menu', () => {
-      expect(getProxiedAriaProperty(button, 'ariaControlsElements')).to.contain(menu);
+      expect(getForwardedAriaProperty(button, 'ariaControlsElements')).to.contain(menu);
     });
 
     it('should proxy the aria-disabled attribute to the button element', async () => {
@@ -313,7 +313,7 @@ describe('sl-menu-button', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       expect(el).to.not.have.attribute('aria-disabled');
-      expect(isProxiedDisabled(button)).to.equal('aria');
+      expect(isForwardedDisabled(button)).to.equal('aria');
     });
 
     it('should proxy the aria-label attribute to the button element', async () => {
@@ -321,7 +321,7 @@ describe('sl-menu-button', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       expect(el).to.not.have.attribute('aria-label');
-      expect(getProxiedAccessibleName(button)).to.equal('Label');
+      expect(getForwardedAccessibleName(button)).to.equal('Label');
     });
 
     it('should proxy the aria-labelledby attribute to ariaLabelledByElements on the button', async () => {

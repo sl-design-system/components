@@ -26,6 +26,16 @@ This is the way to show a dialog when you have the code in your template, if you
   </sl-dialog>
 ```
 
+### Props
+
+```typescript
+
+  onClick: (event: Event & { target: HTMLElement }) => {
+    (event.target.nextElementSibling as DialogElement).showModal();
+  }
+
+```
+
 
 ## Popover
 

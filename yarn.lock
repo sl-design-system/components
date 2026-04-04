@@ -5463,8 +5463,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/editor@workspace:packages/components/editor"
   dependencies:
+    "@open-wc/scoped-elements": "npm:^3.0.6"
+    "@sl-design-system/button": "npm:^1.3.4"
     "@sl-design-system/form": "npm:^1.3.5"
+    "@sl-design-system/icon": "npm:^1.4.2"
     "@sl-design-system/shared": "npm:^0.11.0"
+    "@sl-design-system/tool-bar": "npm:^0.2.2"
+    "@sl-design-system/tooltip": "npm:^1.3.2"
     prosemirror-commands: "npm:^1.5.2"
     prosemirror-history: "npm:^1.4.0"
     prosemirror-inputrules: "npm:^1.4.0"
@@ -5474,6 +5479,7 @@ __metadata:
     prosemirror-state: "npm:^1.4.3"
     prosemirror-view: "npm:^1.33.8"
   peerDependencies:
+    "@open-wc/scoped-elements": ^3.0.6
     prosemirror-commands: ^1.5.2
     prosemirror-history: ^1.4.0
     prosemirror-inputrules: ^1.4.0

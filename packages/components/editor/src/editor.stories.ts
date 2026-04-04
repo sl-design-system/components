@@ -11,7 +11,7 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Form/Editor',
-  tags: ['!dev'],
+  tags: [/*'!dev',*/ 'draft'],
   args: {
     disabled: false,
     label: 'Label',

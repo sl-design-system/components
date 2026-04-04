@@ -1,10 +1,11 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
+import { TextSelection } from 'prosemirror-state';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import '../register.js';
-import { Editor } from './editor.js';
 import { EditorToolbar } from './editor-toolbar.js';
+import { Editor } from './editor.js';
 
 describe('sl-editor-toolbar', () => {
   let editor: Editor;
@@ -96,9 +97,7 @@ describe('sl-editor-toolbar', () => {
 
   describe('with content', () => {
     beforeEach(async () => {
-      editor = await fixture<Editor>(html`
-        <sl-editor .value=${'<p><strong>bold text</strong></p>'}></sl-editor>
-      `);
+      editor = await fixture<Editor>(html`<sl-editor .value=${'<p><strong>bold text</strong></p>'}></sl-editor>`);
       toolbar = editor.renderRoot.querySelector('sl-editor-toolbar')!;
       await toolbar.updateComplete;
     });
@@ -117,9 +116,7 @@ describe('sl-editor-toolbar', () => {
 
   describe('active state', () => {
     beforeEach(async () => {
-      editor = await fixture<Editor>(html`
-        <sl-editor .value=${'<p><strong>bold</strong></p>'}></sl-editor>
-      `);
+      editor = await fixture<Editor>(html`<sl-editor .value=${'<p><strong>bold</strong></p>'}></sl-editor>`);
       toolbar = editor.renderRoot.querySelector('sl-editor-toolbar')!;
       await toolbar.updateComplete;
     });
@@ -130,7 +127,7 @@ describe('sl-editor-toolbar', () => {
       // Select the "bold" text by dispatching a selection transaction
       const tr = view.state.tr.setSelection(
         // Select all content inside the paragraph
-        view.state.selection.constructor.near(view.state.doc.resolve(2))
+        TextSelection.near(view.state.doc.resolve(2))
       );
       view.dispatch(tr);
       await toolbar.updateComplete;

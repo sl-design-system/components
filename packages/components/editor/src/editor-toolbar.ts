@@ -1,3 +1,14 @@
+import {
+  faArrowRotateLeft,
+  faArrowRotateRight,
+  faCode,
+  faH1,
+  faH2,
+  faH3,
+  faList,
+  faListOl,
+  faQuoteLeft
+} from '@fortawesome/pro-regular-svg-icons';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
@@ -7,9 +18,9 @@ import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } f
 import { property, state } from 'lit/decorators.js';
 import { lift, setBlockType, toggleMark, wrapIn } from 'prosemirror-commands';
 import { redo, undo } from 'prosemirror-history';
-import { type MarkType, type Node as PMNode, type NodeType } from 'prosemirror-model';
-import { type EditorState } from 'prosemirror-state';
+import { type MarkType, type NodeType, type Node as PMNode } from 'prosemirror-model';
 import { liftListItem, wrapInList } from 'prosemirror-schema-list';
+import { type EditorState } from 'prosemirror-state';
 import { type EditorView } from 'prosemirror-view';
 import styles from './editor-toolbar.scss.js';
 
@@ -27,6 +38,8 @@ Icon.register({
     svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4H9a3 3 0 0 0-2.83 4"/><path d="M14 12a4 4 0 0 1 0 8H6"/><line x1="4" x2="20" y1="12" y2="12"/></svg>'
   }
 });
+
+Icon.register(faArrowRotateLeft, faArrowRotateRight, faCode, faH1, faH2, faH3, faList, faListOl, faQuoteLeft);
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -72,76 +85,48 @@ export class EditorToolbar extends ScopedElementsMixin(LitElement) {
 
     return html`
       <sl-tool-bar ?disabled=${this.disabled}>
-        ${schema?.marks.strong
-          ? this.#renderIconButton('Bold', 'editor-bold', 'bold')
-          : nothing}
-        ${schema?.marks.em
-          ? this.#renderIconButton('Italic', 'editor-italic', 'italic')
-          : nothing}
-        ${schema?.marks.underline
-          ? this.#renderIconButton('Underline', 'editor-underline', 'underline')
-          : nothing}
+        ${schema?.marks.strong ? this.#renderIconButton('Bold', 'editor-bold', 'bold') : nothing}
+        ${schema?.marks.em ? this.#renderIconButton('Italic', 'editor-italic', 'italic') : nothing}
+        ${schema?.marks.underline ? this.#renderIconButton('Underline', 'editor-underline', 'underline') : nothing}
         ${schema?.marks.strikethrough
           ? this.#renderIconButton('Strikethrough', 'editor-strikethrough', 'strikethrough')
           : nothing}
-
-        ${schema?.marks.code || schema?.nodes.blockquote
-          ? html`<sl-tool-bar-divider></sl-tool-bar-divider>`
-          : nothing}
-
-        ${schema?.marks.code
-          ? this.#renderButton('Inline code', '</>', 'code')
-          : nothing}
-        ${schema?.nodes.blockquote
-          ? this.#renderButton('Blockquote', '\u201C', 'blockquote')
-          : nothing}
-
+        ${schema?.marks.code || schema?.nodes.blockquote ? html`<sl-tool-bar-divider></sl-tool-bar-divider>` : nothing}
+        ${schema?.marks.code ? this.#renderIconButton('Inline code', 'far-code', 'code') : nothing}
+        ${schema?.nodes.blockquote ? this.#renderIconButton('Blockquote', 'far-quote-left', 'blockquote') : nothing}
         ${schema?.nodes.heading
           ? html`
               <sl-tool-bar-divider></sl-tool-bar-divider>
-              ${this.#renderButton('Heading 1', 'H1', 'heading-1')}
-              ${this.#renderButton('Heading 2', 'H2', 'heading-2')}
-              ${this.#renderButton('Heading 3', 'H3', 'heading-3')}
+              ${this.#renderIconButton('Heading 1', 'far-h1', 'heading-1')}
+              ${this.#renderIconButton('Heading 2', 'far-h2', 'heading-2')}
+              ${this.#renderIconButton('Heading 3', 'far-h3', 'heading-3')}
             `
           : nothing}
-
         ${schema?.nodes.bulletList || schema?.nodes.orderedList
           ? html`<sl-tool-bar-divider></sl-tool-bar-divider>`
           : nothing}
-
         ${schema?.nodes.bulletList && schema.nodes.listItem
-          ? this.#renderButton('Bullet list', '\u2022\u2013', 'bullet-list')
+          ? this.#renderIconButton('Bullet list', 'far-list', 'bullet-list')
           : nothing}
         ${schema?.nodes.orderedList && schema.nodes.listItem
-          ? this.#renderButton('Ordered list', '1.', 'ordered-list')
+          ? this.#renderIconButton('Ordered list', 'far-list-ol', 'ordered-list')
           : nothing}
 
         <sl-tool-bar-divider></sl-tool-bar-divider>
 
         <sl-button
-          aria-label="Undo"
+          ${tooltip('Undo', { ariaRelation: 'label' })}
           aria-disabled=${this.#canUndo() ? nothing : 'true'}
           @click=${() => this.#onUndo()}
-        >\u21A9</sl-button>
+          ><sl-icon name="far-arrow-rotate-left"></sl-icon
+        ></sl-button>
         <sl-button
-          aria-label="Redo"
+          ${tooltip('Redo', { ariaRelation: 'label' })}
           aria-disabled=${this.#canRedo() ? nothing : 'true'}
           @click=${() => this.#onRedo()}
-        >\u21AA</sl-button>
+          ><sl-icon name="far-arrow-rotate-right"></sl-icon
+        ></sl-button>
       </sl-tool-bar>
-    `;
-  }
-
-  #renderButton(label: string, text: string, format: string): TemplateResult {
-    const active = this.#isFormatActive(format);
-
-    return html`
-      <sl-button
-        aria-label=${label}
-        aria-pressed=${active}
-        fill=${active ? 'outline' : nothing}
-        @click=${() => this.#execFormat(format)}
-      >${text}</sl-button>
     `;
   }
 
@@ -154,7 +139,8 @@ export class EditorToolbar extends ScopedElementsMixin(LitElement) {
         aria-pressed=${active}
         fill=${active ? 'outline' : nothing}
         @click=${() => this.#execFormat(format)}
-      ><sl-icon name=${iconName}></sl-icon></sl-button>
+        ><sl-icon name=${iconName}></sl-icon
+      ></sl-button>
     `;
   }
 
@@ -164,18 +150,30 @@ export class EditorToolbar extends ScopedElementsMixin(LitElement) {
     const schema = state.schema;
 
     switch (format) {
-      case 'bold':        return this.#isMarkActive(schema.marks.strong);
-      case 'italic':      return this.#isMarkActive(schema.marks.em);
-      case 'underline':   return this.#isMarkActive(schema.marks.underline);
-      case 'strikethrough': return this.#isMarkActive(schema.marks.strikethrough);
-      case 'code':        return this.#isMarkActive(schema.marks.code);
-      case 'blockquote':  return this.#isNodeActive(schema.nodes.blockquote);
-      case 'heading-1':   return this.#isNodeActive(schema.nodes.heading, { level: 1 });
-      case 'heading-2':   return this.#isNodeActive(schema.nodes.heading, { level: 2 });
-      case 'heading-3':   return this.#isNodeActive(schema.nodes.heading, { level: 3 });
-      case 'bullet-list': return this.#isNodeActive(schema.nodes.bulletList);
-      case 'ordered-list': return this.#isNodeActive(schema.nodes.orderedList);
-      default:            return false;
+      case 'bold':
+        return this.#isMarkActive(schema.marks.strong);
+      case 'italic':
+        return this.#isMarkActive(schema.marks.em);
+      case 'underline':
+        return this.#isMarkActive(schema.marks.underline);
+      case 'strikethrough':
+        return this.#isMarkActive(schema.marks.strikethrough);
+      case 'code':
+        return this.#isMarkActive(schema.marks.code);
+      case 'blockquote':
+        return this.#isNodeActive(schema.nodes.blockquote);
+      case 'heading-1':
+        return this.#isNodeActive(schema.nodes.heading, { level: 1 });
+      case 'heading-2':
+        return this.#isNodeActive(schema.nodes.heading, { level: 2 });
+      case 'heading-3':
+        return this.#isNodeActive(schema.nodes.heading, { level: 3 });
+      case 'bullet-list':
+        return this.#isNodeActive(schema.nodes.bulletList);
+      case 'ordered-list':
+        return this.#isNodeActive(schema.nodes.orderedList);
+      default:
+        return false;
     }
   }
 
@@ -291,5 +289,4 @@ export class EditorToolbar extends ScopedElementsMixin(LitElement) {
     redo(this.view.state, this.view.dispatch);
     this.view.focus();
   }
-
 }

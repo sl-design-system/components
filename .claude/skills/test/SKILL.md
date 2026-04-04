@@ -57,6 +57,15 @@ import { fixture, oneEvent } from '@sl-design-system/vitest-browser-lit';
 
 // Only when mocking time (date/calendar components):
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+
+// Only when testing forwarded ARIA attributes (components using ForwardAriaMixin):
+import {
+  getForwardedAccessibleName,
+  getForwardedDescription,
+  getForwardedAriaAttribute,
+  getForwardedAriaProperty,
+  isForwardedDisabled
+} from '@sl-design-system/shared/helpers/forward-aria.js';
 ```
 
 ### Test structure
@@ -138,6 +147,46 @@ expect(arr).to.have.lengthOf(3);
 el.renderRoot.querySelector('...'); // shadow DOM queries
 el.querySelector('...'); // light DOM queries
 el.shadowRoot!.activeElement; // focus within shadow DOM
+```
+
+### Testing forwarded ARIA attributes
+
+For components that use `ForwardAriaMixin`, use the forwarded ARIA helpers instead of directly querying inner elements:
+
+```typescript
+const button = el.renderRoot.querySelector('sl-button') as Button;
+
+// Test accessible name (resolves aria-labelledby → aria-label → text content)
+expect(getForwardedAccessibleName(button)).to.equal('Close');
+
+// Test specific ARIA attributes
+expect(getForwardedAriaAttribute(button, 'aria-haspopup')).to.equal('menu');
+expect(getForwardedAriaAttribute(button, 'aria-expanded')).to.equal('true');
+
+// Test ARIA properties
+expect(getForwardedAriaProperty(button, 'ariaLabelledByElements')).to.deep.equal([labelEl]);
+
+// Test disabled state forwarding
+el.disabled = true;
+await el.updateComplete;
+expect(isForwardedDisabled(button)).to.be.true;
+```
+
+Always prefer these helpers over `button.getAttribute('aria-label')` — they correctly resolve the forwarded target regardless of shadow DOM nesting.
+
+### Testing custom states
+
+For components that use `ElementInternals.states`, test custom states with the `:state()` pseudo-class:
+
+```typescript
+// Test that a custom state is set
+expect(el).to.match(':state(icon-only)');
+expect(el).not.to.match(':state(empty)');
+
+// Test after state change
+el.textContent = '';
+await el.updateComplete;
+expect(el).to.match(':state(empty)');
 ```
 
 ### Async patterns

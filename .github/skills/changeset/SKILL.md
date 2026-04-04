@@ -36,6 +36,9 @@ Map each changed file to its package by looking at the closest `package.json` in
 - `packages/locales/` → `@sl-design-system/locales`
 - `packages/themes/<name>` → `@sl-design-system/<name>`
 - `tools/eslint-config/` → `@sl-design-system/eslint-config`
+- `tools/eslint-plugin-slds/` → `@sl-design-system/eslint-plugin-slds`
+- `tools/stylelint-config/` → `@sl-design-system/stylelint-config`
+- `tools/vitest-browser-lit/` → `@sl-design-system/vitest-browser-lit`
 
 ### 2. Filter Out Ignored Packages
 
@@ -48,7 +51,14 @@ The following packages are **excluded** from changesets (configured in `.changes
 - `@sl-design-system/tokens`
 - `@sl-design-system/website`
 
-Also exclude changes to files outside of packages (e.g. root config files, scripts, tools).
+The following `tools/` packages are **private** and also excluded:
+
+- `@sl-design-system/example-data` (private)
+- `@sl-design-system/figma-theme-selector` (private)
+
+The remaining `tools/` packages (`eslint-config`, `eslint-plugin-slds`, `stylelint-config`, `vitest-browser-lit`) **are published** and DO need changesets when modified.
+
+Also exclude changes to files outside of packages (e.g. root config files, scripts).
 
 If no packages remain after filtering, inform the user that no changeset is needed.
 

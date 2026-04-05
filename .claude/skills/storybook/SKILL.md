@@ -369,10 +369,30 @@ export const Toggle: Story = {
 
 ## Step 3: Verify
 
-After writing the stories, start the dev server if not already running and check that the stories render correctly:
+After writing the stories, verify they render correctly in Storybook.
 
-```
+### Starting Storybook
+
+Start Storybook in a **terminal** (not a background process) so the user can see the output:
+
+```bash
 yarn start --watch
 ```
 
-Navigate to the component's stories in Storybook (port 6006) and verify all stories render without errors.
+- Runs on **http://localhost:6006**
+- Ready when the terminal prints `Storybook X.X.X for web-components-vite started` — this takes 30–60 seconds on first run
+- Keep the process running while you work; it hot-reloads on `.ts` and `.scss` changes
+- Watch the terminal output for **compile errors** — TypeScript and SCSS errors appear there
+- **Stop the server** with Ctrl+C once you are done verifying
+
+### Navigating to a story
+
+Use the Playwright MCP tools to open the story iframe directly:
+
+```
+http://localhost:6006/iframe.html?id=<story-id>&viewMode=story
+```
+
+### Screenshot testing
+
+See the `screenshot-stories` skill for how to take screenshots of stories.

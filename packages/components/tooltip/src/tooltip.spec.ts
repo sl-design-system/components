@@ -186,6 +186,42 @@ describe('sl-tooltip', () => {
       }
     });
 
+    it('should restore the tooltip to the focused shared anchor after unhovering another shared anchor', async () => {
+      el = await fixture(html`
+        <div style="display: block; width: 400px; height: 400px;">
+          <sl-button id="first" aria-describedby="tooltip" fill="outline">First button</sl-button>
+          <sl-button id="second" aria-describedby="tooltip" fill="outline">Second button</sl-button>
+          <sl-tooltip id="tooltip">Shared tooltip</sl-tooltip>
+        </div>
+      `);
+
+      const firstButton = el.querySelector<Button>('#first')!,
+        secondButton = el.querySelector<Button>('#second')!;
+      tooltip = el.querySelector('sl-tooltip') as Tooltip;
+      tooltip.showDelay = 0;
+      tooltip.hideDelay = 0;
+
+      firstButton.focus();
+      await tooltip.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await tooltip.updateComplete;
+
+      expect(tooltip).to.match(':popover-open');
+      expect(tooltip.anchorElement).to.equal(firstButton);
+
+      secondButton.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
+      await waitFor(10);
+
+      expect(tooltip).to.match(':popover-open');
+      expect(tooltip.anchorElement).to.equal(secondButton);
+
+      secondButton.dispatchEvent(new Event('pointerout', { bubbles: true, composed: true }));
+      await waitFor(10);
+
+      expect(tooltip).to.match(':popover-open');
+      expect(tooltip.anchorElement).to.equal(firstButton);
+    });
+
     it('should toggle the tooltip on focus and Escape key pressed', async () => {
       button?.focus();
       await tooltip.updateComplete;

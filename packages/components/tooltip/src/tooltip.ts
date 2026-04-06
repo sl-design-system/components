@@ -395,6 +395,14 @@ export class Tooltip extends LitElement {
           return;
         }
 
+        // When hover leaves a shared anchor, restore the tooltip to the focused anchor
+        // if the tooltip was originally opened through keyboard focus.
+        const focusedAnchor = this.#findFocusedAnchor();
+        if (this.#openedByFocus && focusedAnchor && this.#matchesAnchor(focusedAnchor)) {
+          this.#showTooltip(focusedAnchor, true);
+          return;
+        }
+
         // First check known anchors to avoid scanning the whole root on every hide attempt.
         const knownAnchors = this.#getKnownAnchors();
         const anyKnownAnchorHovered = knownAnchors.some(el => el.matches(':hover') || el.matches(':focus-visible'));

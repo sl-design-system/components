@@ -8,6 +8,7 @@ import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/listbox/register.js';
 import { FormInDialog } from '@sl-design-system/lit-examples';
+import '@sl-design-system/menu/register.js';
 import '@sl-design-system/popover/register.js';
 import '@sl-design-system/select/register.js';
 import '@sl-design-system/text-area/register.js';
@@ -105,6 +106,23 @@ export const CloseButton: Story = {
     `,
     title: 'Close button'
   }
+};
+
+export const Commands: Story = {
+  render: () => html`
+    <sl-button command="--show-modal" commandfor="invoker-dialog" variant="primary">Open dialog</sl-button>
+    <sl-dialog id="invoker-dialog" close-button>
+      <span slot="title">Invoker API</span>
+      <p>
+        This dialog was opened using the Invoker Commands API. The button has a <code>command</code> attribute of
+        <code>--show-modal</code>. This is a custom command that will trigger the dialog to call
+        <code>showModal()</code> on itself. The close button inside the dialog has a <code>--close</code> command that
+        will trigger the dialog to call <code>close()</code> on itself. This way you can control things like dialogs
+        using buttons without any JavaScript needed!
+      </p>
+      <sl-button slot="primary-actions" command="--close" commandfor="invoker-dialog">Close</sl-button>
+    </sl-dialog>
+  `
 };
 
 export const DisableCancel: Story = {

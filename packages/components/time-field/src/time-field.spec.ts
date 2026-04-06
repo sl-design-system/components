@@ -1649,8 +1649,9 @@ describe('sl-time-field', () => {
     });
 
     it('should keep keyboard interaction working when locale is set to an empty string', async () => {
-      const field = await fixture<TimeField>(html`<sl-time-field locale=""></sl-time-field>`),
-        hourSpinbutton = field.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+      const field = await fixture<TimeField>(html`<sl-time-field locale=""></sl-time-field>`);
+
+      field.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')?.focus();
 
       hourSpinbutton.focus();
       await userEvent.keyboard('0');

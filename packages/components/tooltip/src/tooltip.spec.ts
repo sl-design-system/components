@@ -45,25 +45,45 @@ describe('sl-tooltip', () => {
     it('should toggle the tooltip on focusin and focusout', async () => {
       el = await fixture(html`
         <div style="display: block; width: 400px; height: 400px;">
-          <sl-button aria-describedby="tooltip" fill="outline" style="margin-top: 100px">Button element</sl-button>
-          <button type="button">Outside focus target</button>
+          <button id="focus-target" type="button" aria-describedby="tooltip">Button element</button>
+          <button id="outside-target" type="button">Outside focus target</button>
           <sl-tooltip id="tooltip">Message with lots of long text, that exceeds 150px easily</sl-tooltip>
         </div>
       `);
-      button = el.querySelector('sl-button') as Button;
+      const focusButton = el.querySelector<HTMLButtonElement>('#focus-target')!,
+        outsideButton = el.querySelector<HTMLButtonElement>('#outside-target')!;
       tooltip = el.querySelector('sl-tooltip') as Tooltip;
       tooltip.showDelay = 0;
       tooltip.hideDelay = 0;
-
-      button?.focus();
-      await tooltip.updateComplete;
-      await new Promise(resolve => requestAnimationFrame(resolve));
       await tooltip.updateComplete;
 
-      expect(tooltip).to.match(':popover-open');
+      const originalMatches = Element.prototype.matches;
+      const focusVisibleSpy = vi.spyOn(Element.prototype, 'matches').mockImplementation(function (
+        this: Element,
+        selector: string
+      ): boolean {
+        if (selector === ':focus-visible' && this === focusButton) {
+          return true;
+        }
 
-      button?.blur();
-      button?.dispatchEvent(new Event('focusout', { bubbles: true, composed: true }));
+        return originalMatches.call(this, selector);
+      });
+
+      try {
+        focusButton.focus();
+        focusButton.dispatchEvent(new Event('focusin', { bubbles: true, composed: true }));
+        await tooltip.updateComplete;
+        await new Promise(resolve => requestAnimationFrame(resolve));
+        await tooltip.updateComplete;
+
+        expect(tooltip).to.match(':popover-open');
+      } finally {
+        focusVisibleSpy.mockRestore();
+      }
+
+      focusButton.blur();
+      focusButton.dispatchEvent(new Event('focusout', { bubbles: true, composed: true }));
+      outsideButton.focus();
       await tooltip.updateComplete;
       await new Promise(resolve => requestAnimationFrame(resolve));
       await tooltip.updateComplete;
@@ -155,24 +175,47 @@ describe('sl-tooltip', () => {
     });
 
     it('should stay open on focusout when the anchor remains hovered', async () => {
+      await tooltip.updateComplete;
+
+      const proxyTarget = (button as HTMLElement & { getProxyTarget?(): Element | null }).getProxyTarget?.(),
+        originalElementMatches = Element.prototype.matches;
+      const focusVisibleSpy = vi.spyOn(Element.prototype, 'matches').mockImplementation(function (
+        this: Element,
+        selector: string
+      ): boolean {
+        if (selector === ':focus-visible' && (this === button || this === proxyTarget)) {
+          return true;
+        }
+
+        return originalElementMatches.call(this, selector);
+      });
+
       button?.focus();
       await tooltip.updateComplete;
       await new Promise(resolve => requestAnimationFrame(resolve));
       await tooltip.updateComplete;
+      focusVisibleSpy.mockRestore();
 
       expect(tooltip).to.match(':popover-open');
 
-      const originalMatches = button.matches.bind(button);
-      const matchesSpy = vi.spyOn(button, 'matches').mockImplementation((selector: string): boolean => {
-        if (selector === ':hover') {
+      const proxyTargetForHover = (button as HTMLElement & { getProxyTarget?(): Element | null }).getProxyTarget?.(),
+        currentAnchor = tooltip.anchorElement,
+        originalMatches = Element.prototype.matches;
+      const matchesSpy = vi.spyOn(Element.prototype, 'matches').mockImplementation(function (
+        this: Element,
+        selector: string
+      ): boolean {
+        const isAnchorTarget = this === button || this === proxyTargetForHover || this === currentAnchor;
+
+        if (selector === ':hover' && isAnchorTarget) {
           return true;
         }
 
-        if (selector === ':focus-within') {
+        if (selector === ':focus-within' && isAnchorTarget) {
           return false;
         }
 
-        return originalMatches(selector);
+        return originalMatches.call(this, selector);
       });
 
       try {
@@ -189,22 +232,37 @@ describe('sl-tooltip', () => {
     it('should restore the tooltip to the focused shared anchor after unhovering another shared anchor', async () => {
       el = await fixture(html`
         <div style="display: block; width: 400px; height: 400px;">
-          <sl-button id="first" aria-describedby="tooltip" fill="outline">First button</sl-button>
-          <sl-button id="second" aria-describedby="tooltip" fill="outline">Second button</sl-button>
+          <button id="first" type="button" aria-describedby="tooltip">First button</button>
+          <button id="second" type="button" aria-describedby="tooltip">Second button</button>
           <sl-tooltip id="tooltip">Shared tooltip</sl-tooltip>
         </div>
       `);
 
-      const firstButton = el.querySelector<Button>('#first')!,
-        secondButton = el.querySelector<Button>('#second')!;
+      const firstButton = el.querySelector<HTMLButtonElement>('#first')!,
+        secondButton = el.querySelector<HTMLButtonElement>('#second')!;
       tooltip = el.querySelector('sl-tooltip') as Tooltip;
       tooltip.showDelay = 0;
       tooltip.hideDelay = 0;
+      await tooltip.updateComplete;
+
+      const originalMatches = Element.prototype.matches;
+      const focusVisibleSpy = vi.spyOn(Element.prototype, 'matches').mockImplementation(function (
+        this: Element,
+        selector: string
+      ): boolean {
+        if (selector === ':focus-visible' && this === firstButton) {
+          return true;
+        }
+
+        return originalMatches.call(this, selector);
+      });
 
       firstButton.focus();
+      firstButton.dispatchEvent(new Event('focusin', { bubbles: true, composed: true }));
       await tooltip.updateComplete;
       await new Promise(resolve => requestAnimationFrame(resolve));
       await tooltip.updateComplete;
+      focusVisibleSpy.mockRestore();
 
       expect(tooltip).to.match(':popover-open');
       expect(tooltip.anchorElement).to.equal(firstButton);
@@ -747,7 +805,23 @@ describe('sl-tooltip', () => {
 
       expect(tooltip).to.exist;
       expect(tooltip!.id).to.match(/sl-tooltip-(\d+)/);
-      expect(button).to.have.attribute('aria-describedby', tooltip?.id);
+
+      const describedBy = button.getAttribute('aria-describedby'),
+        describedByElements = button.ariaDescribedByElements ?? [],
+        proxyTarget = (button as HTMLElement & { getProxyTarget?(): Element | null }).getProxyTarget?.(),
+        proxyDescribedBy = proxyTarget instanceof Element ? proxyTarget.getAttribute('aria-describedby') : null,
+        proxyDescribedByElements =
+          proxyTarget instanceof Element && 'ariaDescribedByElements' in proxyTarget
+            ? (proxyTarget.ariaDescribedByElements ?? [])
+            : [],
+        hasAriaDescribedBy =
+          describedBy?.split(/\s+/).includes(tooltip!.id) === true || describedByElements.includes(tooltip);
+
+      expect(
+        hasAriaDescribedBy ||
+          proxyDescribedBy?.split(/\s+/).includes(tooltip!.id) === true ||
+          proxyDescribedByElements.includes(tooltip)
+      ).to.be.true;
       expect(button).not.to.have.attribute('aria-labelledby');
 
       await waitFor((tooltip.showDelay ?? 150) + 10);

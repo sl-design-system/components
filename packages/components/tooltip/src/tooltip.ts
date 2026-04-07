@@ -189,6 +189,21 @@ export class Tooltip extends LitElement {
       return true;
     }
 
+    // Support components that forward ARIA to an internal proxy target (e.g. ForwardAriaMixin).
+    const proxyTarget = (element as Element & { getProxyTarget?(): Element | null }).getProxyTarget?.();
+    if (proxyTarget instanceof Element && proxyTarget !== element) {
+      const proxyDescribedBy = proxyTarget.getAttribute('aria-describedby'),
+        proxyLabelledBy = proxyTarget.getAttribute('aria-labelledby');
+
+      if (matchesAria(proxyDescribedBy) || matchesAria(proxyLabelledBy)) {
+        return true;
+      }
+
+      if (proxyTarget.ariaDescribedByElements?.includes(this) || proxyTarget.ariaLabelledByElements?.includes(this)) {
+        return true;
+      }
+    }
+
     // Check Element.ariaDescribedByElements and Element.ariaLabelledByElements directly on the element
     // This handles cases where the property is set directly on the element (e.g. `sl-button` inside `sl-menu-button`)
     if (element.ariaDescribedByElements?.includes(this) || element.ariaLabelledByElements?.includes(this)) {
@@ -319,6 +334,27 @@ export class Tooltip extends LitElement {
     return Array.from(root.querySelectorAll<HTMLElement>(selector));
   };
 
+  #normalizeAnchorElement = (element: HTMLElement): HTMLElement => {
+    let normalized = element;
+
+    while (true) {
+      const rootNode = normalized.getRootNode();
+      if (!(rootNode instanceof ShadowRoot)) {
+        return normalized;
+      }
+
+      const host = rootNode.host;
+      const proxyTarget = (host as HTMLElement & { getProxyTarget?(): Element | null }).getProxyTarget?.();
+
+      if (host instanceof HTMLElement && proxyTarget === normalized && this.#matchesAnchor(host)) {
+        normalized = host;
+        continue;
+      }
+
+      return normalized;
+    }
+  };
+
   #hideTooltip = (): void => {
     this.hidePopover();
     this.#openedByFocus = false;
@@ -424,12 +460,13 @@ export class Tooltip extends LitElement {
   };
 
   #showTooltip = (element: HTMLElement, openedByFocus = false): void => {
+    const normalizedElement = this.#normalizeAnchorElement(element);
     const wasOpen = isPopoverOpen(this),
-      anchorChanged = this.anchorElement !== element;
+      anchorChanged = this.anchorElement !== normalizedElement;
 
     this.#openedByFocus = openedByFocus;
-    this.anchorElement = element;
-    this.#knownAnchors.add(element);
+    this.anchorElement = normalizedElement;
+    this.#knownAnchors.add(normalizedElement);
 
     const anchorSlot = this.anchorElement?.getAttribute('slot');
     if (typeof anchorSlot === 'string') {

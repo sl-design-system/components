@@ -10,6 +10,22 @@ export class AnchorController implements ReactiveController {
   #config: AnchorControllerConfig;
   #host: ReactiveControllerHost & HTMLElement;
 
+  #position(anchorElement: Element): void {
+    if (this.#cleanup) {
+      this.#cleanup();
+      this.#cleanup = undefined;
+    }
+
+    this.#cleanup = positionPopover(this.#host, anchorElement, {
+      ...this.#config,
+      arrowElement: this.arrowElement,
+      arrowPadding: this.arrowPadding,
+      maxWidth: this.maxWidth,
+      offset: this.offset,
+      position: this.position
+    });
+  }
+
   #onBeforeToggle = (event: Event): void => {
     const anchorElement = this.#getAnchorElement(),
       { newState, oldState } = event as ToggleEvent;
@@ -17,14 +33,7 @@ export class AnchorController implements ReactiveController {
     this.#linkAnchorWithPopover(newState === 'open');
 
     if (anchorElement && newState === 'open' && oldState === 'closed') {
-      this.#cleanup = positionPopover(this.#host, anchorElement, {
-        ...this.#config,
-        arrowElement: this.arrowElement,
-        arrowPadding: this.arrowPadding,
-        maxWidth: this.maxWidth,
-        offset: this.offset,
-        position: this.position
-      });
+      this.#position(anchorElement);
     } else if (this.#cleanup) {
       this.#cleanup();
       this.#cleanup = undefined;
@@ -114,6 +123,16 @@ export class AnchorController implements ReactiveController {
     }
 
     this.#host.removeAttribute('aria-details');
+  }
+
+  updatePosition(): void {
+    const anchorElement = this.#getAnchorElement();
+
+    if (!anchorElement || !isPopoverOpen(this.#host)) {
+      return;
+    }
+
+    this.#position(anchorElement);
   }
 
   #getAnchorElement(): Element | null {

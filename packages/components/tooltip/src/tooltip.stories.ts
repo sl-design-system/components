@@ -161,10 +161,38 @@ export const Shared: Story = {
 export const NestedChildren: Story = {
   args: {
     example: ({ message }) => html`
+      <style>
+        .nested-children-container {
+          border: 1px solid black;
+          margin: 20px;
+          padding: 20px;
+        }
+
+        @media (max-width: 37.5rem) {
+          #root-inner {
+            box-sizing: border-box;
+            display: block;
+            height: calc(100dvh - 2rem);
+            min-block-size: 0;
+            overflow-y: auto;
+            padding: 1rem;
+          }
+
+          .nested-children-container {
+            margin: 12px 0;
+            padding: 16px;
+          }
+
+          .nested-children-eye-icon-wrap {
+            display: flex;
+            justify-content: center;
+          }
+        }
+      </style>
       This example is not necessarily a good practice, but it shows that the tooltip can be used on an element that has
       many (interactive) child elements.
       <div
-        style="border: 1px solid black; padding: 20px; margin: 20px"
+        class="nested-children-container"
         aria-describedby="task-details-not-available-tooltip"
         @click=${(e: MouseEvent) => console.log('Div clicked', e)}
         tabindex="0"
@@ -183,9 +211,11 @@ export const NestedChildren: Story = {
           <sl-button> Some button </sl-button>
         </p>
       </div>
-      <sl-button aria-label="Look" fill="outline" aria-describedby="tooltip">
-        <sl-icon name="eye"></sl-icon>
-      </sl-button>
+      <div class="nested-children-eye-icon-wrap">
+        <sl-button class="nested-children-eye-icon" aria-label="Look" fill="outline" aria-describedby="tooltip">
+          <sl-icon name="eye"></sl-icon>
+        </sl-button>
+      </div>
       <sl-tooltip id="task-details-not-available-tooltip"> Tooltip on the div </sl-tooltip>
       <sl-tooltip id="tooltip">${message}</sl-tooltip>
     `
@@ -238,8 +268,16 @@ export const Dialog: Story = {
     const onClick = async (event: Event & { target: HTMLElement }) => {
       const dialog = document.createElement('sl-dialog');
       dialog.innerHTML = `
-        <h1 slot="title">Tooltip</h1>
-        Tooltip should be closed when the dialog is closed.
+        <h1 slot="title">Tooltip behavior</h1>
+        <p>Opening this dialog hides the tooltip.</p>
+        <p>
+          If you opened it with keyboard focus on the trigger, the tooltip can reappear after closing (focus returns to
+          the trigger).
+        </p>
+        <p>
+          If you opened it with mouse click, the tooltip stays closed after closing until the trigger is hovered/focused
+          again.
+        </p>
         <sl-button slot="primary-actions" sl-dialog-close variant="primary">Close</sl-button>
       `;
       dialog.addEventListener('sl-close', () => dialog.remove());

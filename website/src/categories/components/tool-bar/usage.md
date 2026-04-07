@@ -76,25 +76,35 @@ eleventyNavigation:
 
 ## When to use
 
-Use the tool bar to group related actions together in a horizontal bar. It is especially useful when you have many actions and limited space, because items that don't fit are automatically moved into an overflow menu.
+### Contextual Actions
 
-Here are a few examples:
-- **Student answer editor**: Group formatting actions like bold, italic, and underline so students can style their written answers.
-- **Lesson builder**: Combine actions like duplicate, reorder, export, and delete for teachers managing lesson content.
-- **Assignment management**: Provide quick access to actions like publish, download, and archive for managing assignments.
-- **Content review**: Group tools for commenting, highlighting, and approving student submissions.
+Use to place actions close to the content or region they affect (for example, controls for a list, table, editor, or card). It works best for a consistent action set for that view (for example, filter, sort, export, edit, insert actions). Use dividers to separate groups (for example, “view”, “manage”, “format”) so users can scan quickly.
+
+### Bulk Actions
+
+Use to expose actions that apply to multiple items at once (for example, “Move”, “Delete”, “Assign”, “Export”) when the user selects one or more items in a list or table. Keep the most important bulk actions visible and move the rest into overflow.
+
+### Action density
+
+Use when the same set of actions must remain available across different widths. Overflow keeps the layout stable while ensuring secondary actions stay accessible.
 
 </section>
+
 
 <section>
 
 ## When not to use
 
-- **Simple form actions**: If you only need a few buttons like "Save" and "Cancel", use a Button bar instead. The tool bar is meant for larger sets of actions.
-- **Navigation**: Don't use a tool bar for navigating between pages or sections. Use tabs or a navigation menu instead.
-- **Single action**: If there's only one action, a standalone button is enough — no need for a tool bar.
+### Too Many Actions
+
+If you have a long list of actions, or actions that are infrequent and not tied to the current view/content, avoid a toolbar. Move actions into a more suitable pattern (context menus, inline actions, progressive disclosure) or place them in a more global location (page header, navigation, or settings) so the toolbar stays scannable and purposeful.
+
+### Navigation, Flows, and Simple Actions
+
+Don’t use the toolbar for navigation between pages/sections or as the primary control in multi-step flows. If you only need a small set of primary actions (especially in step-by-step layouts), consider using a [Button Bar](/categories/components/button-bar/) instead.
 
 </section>
+
 
 <section>
 
@@ -104,10 +114,11 @@ Here are a few examples:
 
 |Item|Name|Description|Optional|
 |-|-|-|-|
-|1|Tool bar container|The wrapper that holds all items and handles overflow|no|
-|2|Button|An action button placed inside the tool bar|yes|
-|3|Divider|A visual separator to group related items|yes|
-|4|Overflow menu|A menu button that appears when items don't fit|yes|
+|1| Container | Wraps all actions and defines layout, spacing, and optional surface (contained). |no|
+|2| Item | A single action element placed in the toolbar (button, menu button, or buttons group). |no|
+|3| Divider | A visual separator between groups; also becomes a separator inside overflow. |yes|
+|4| Overflow trigger | A “more actions” control that appears when items don’t fit. |no|
+|5| Overflow menu | The menu that contains hidden actions (keeps order and group separation). |no|
 
 {.ds-table .ds-table-align-top}
 
@@ -115,20 +126,114 @@ Here are a few examples:
 
 </section>
 
+
 <section>
 
-## Figma Options
+## Variants
+
+These options change the toolbar’s appearance so it stays clear and readable across different surfaces and action styles.
+
+- Fill: Controls the look of the actions inside the toolbar. Use **Outline** when actions need stronger emphasis and clearer boundaries, or use **Ghost** when actions should feel lighter and blend into the interface.
+- Inverted: Switches the toolbar styling for dark or inverted surfaces. Use it to maintain contrast and readability when the toolbar sits on a darker background.
+- Contained: Adds a surface around the toolbar (background and padding). Use it to visually separate the toolbar from surrounding content or to make it feel like a distinct control area.
+
+</section>
+
+
+<section>
+
+## States
+
+- Default: Actions are available and visible until overflow is needed.
+- Overflow: Some actions move into the overflow menu when space is limited.
+- Disabled: The tool bar and its actions are not interactive.
+
+</section>
+
+
+<section>
+
+## Figma Properties
 
 With these options you can adjust the appearance of the tool bar in Figma.
 
 <div class="ds-table-wrapper">
 
-|Item|Options|Description|
-|-|-|-|
-|Contained|`boolean`|Adds a border and padding around the tool bar|
+| Item | Options | Description |
+| --- | --- | --- |
+| Fill | `Ghost` `Outline` | Sets the visual style applied to actions inside the tool bar. |
+| Inverted | `boolean` | Switches the tool bar to an inverted appearance for dark surfaces. |
+| Contained | `boolean` | Adds a surface treatment (background and padding) around the tool bar. |
+| Overflow | `boolean` | Preview-only toggle to show the overflow state in Figma. |
+| Item 3–5 | `boolean` | Preview-only toggles to add/remove extra items in the Figma example. |
+| Divider 1–5 | `boolean` | Preview-only toggles to add/remove dividers between groups in the Figma example. |
 
 {.ds-table .ds-table-align-top}
 
 </div>
+
+### Toolbar item
+  
+<div class="ds-table-wrapper">
+
+| Item | Options | Description |
+| --- | --- | --- |
+| Item | `Button` `Menu` `Button Group` | Swaps the supported action type used for a single tool bar item. |
+| Fill | `Outline` `Ghost` | Matches the item’s style to the tool bar style where needed. |
+| Inverted | `boolean` | Matches the item’s appearance to inverted surfaces where needed. |
+
+{.ds-table .ds-table-align-top}
+
+</div>
+
+
+### Toolbar Group  
+
+<div class="ds-table-wrapper">
+
+| Item | Options | Description |
+| --- | --- | --- |
+| Overflow | `boolean` | Switches a button group between expanded buttons and a collapsed menu-style version. |
+| Inverted | `boolean` | Matches the group appearance to inverted surfaces where needed. |
+| Button 3–5 | `boolean` | Preview-only toggles to control how many grouped actions are shown in the example. |
+
+{.ds-table .ds-table-align-top}
+
+</div> 
+  
+
+</section>
+
+
+<section>
+
+## Behaviours
+
+### Groups related controls
+
+Controls are organised into logical groups to improve scannability and usability. When space is limited, groups help determine how items collapse into the overflow menu. Dividers should only be used to separate meaningful groups. Avoid using dividers between every item.
+
+### Handles overflow
+
+When space is limited, especially on smaller screens, actions move into the overflow menu while the remaining actions keep visible. In the overflow dropdown, groups are separated with dividers to preserve structure and clarity.
+  
+
+  
+### Consistent styling and clear icon actions
+
+The toolbar applies a consistent visual style across its items (for example, matching fill and inverted appearance) so actions look like part of the same system. If you use icon-only actions, ensure they remain understandable through labels and/or tooltips, and avoid placing many icon-only actions without strong familiarity or supporting text.
+
+
+</section>
+
+
+<section>
+
+## Related components
+
+- [Button](/categories/components/button/)
+- [Menu](/categories/components/menu/)
+- [Menu Button](/categories/components/menu-button/)
+- [Tooltip](/categories/components/tooltip/)
 
 </section>

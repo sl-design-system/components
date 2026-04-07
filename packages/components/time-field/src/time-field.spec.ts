@@ -1651,7 +1651,7 @@ describe('sl-time-field', () => {
       await userEvent.keyboard('9');
       await userEvent.keyboard('1');
       await userEvent.keyboard('5');
-      await el.updateComplete;
+      await field.updateComplete;
 
       expect(field.value).to.equal('09:15');
     });

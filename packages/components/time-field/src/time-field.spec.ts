@@ -1645,7 +1645,9 @@ describe('sl-time-field', () => {
     it('should keep keyboard interaction working when locale is set to an empty string', async () => {
       const field = await fixture<TimeField>(html`<sl-time-field locale=""></sl-time-field>`);
 
-      field.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')?.focus();
+      const hourSpinbutton = field.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+      hourSpinbutton.focus();
+      await field.updateComplete;
 
       await userEvent.keyboard('9');
       await userEvent.keyboard('1');
@@ -1815,9 +1817,27 @@ describe('sl-time-field', () => {
 
       expect(dialog).to.match(':popover-open');
 
+      const togglePromise = new Promise<void>((resolve, reject) => {
+        let handler: (event: Event) => void = () => {};
+        const timeoutId = setTimeout(() => {
+          dialog.removeEventListener('toggle', handler);
+          reject(new Error("Timeout waiting for toggle event with state 'closed'"));
+        }, 5000); // 5 second timeout
+
+        handler = (event: Event) => {
+          const toggleEvent = event as ToggleEvent;
+          if (toggleEvent.newState === 'closed') {
+            clearTimeout(timeoutId);
+            dialog.removeEventListener('toggle', handler);
+            resolve();
+          }
+        };
+
+        dialog.addEventListener('toggle', handler);
+      });
       button.click();
       await el.updateComplete;
-      await waitForPopoverState(dialog, false);
+      await Promise.all([waitForPopoverState(dialog, false), togglePromise]);
 
       expect(dialog).not.to.match(':popover-open');
 

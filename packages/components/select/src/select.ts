@@ -343,6 +343,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
         @beforetoggle=${this.#onBeforetoggle}
         @click=${this.#onListboxClick}
         @keydown=${this.#onListboxKeydown}
+        @mousedown=${this.#onListboxMousedown}
         @toggle=${this.#onToggle}
         part="listbox"
         popover
@@ -539,6 +540,24 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
       this.#popoverClosing = true;
       this.listbox?.hidePopover();
     }
+  }
+
+  /**
+   * Mousedown on the listbox surface (including scrollbar area) can move focus away
+   * from the trigger button, which fires `focusout` on `<sl-select>` and closes the popover.
+   *
+   * We intentionally use `mousedown` (not `pointerdown`) to keep this fix scoped to the
+   * mouse-triggered focus-transfer path that causes the regression.
+   */
+  #onListboxMousedown(event: MouseEvent): void {
+    if (event.button !== 0 || !this.listbox || event.target !== this.listbox) {
+      return;
+    }
+
+    // Prevent focus from moving off the trigger when interacting with the listbox surface.
+    // We only do this when the mousedown targets the listbox itself to avoid suppressing
+    // default pointer behavior for option interactions.
+    event.preventDefault();
   }
 
   #onListboxKeydown(event: KeyboardEvent): void {

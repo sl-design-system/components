@@ -1,4 +1,5 @@
 import { Button } from '@sl-design-system/button';
+import { getForwardedAccessibleName } from '@sl-design-system/shared/helpers/forward-aria.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
@@ -68,11 +69,23 @@ describe('sl-select-month', () => {
     });
 
     it('should have enabled previous and next year buttons', () => {
-      const prev = el.renderRoot.querySelector('sl-button[aria-label^="Previous year"]'),
-        next = el.renderRoot.querySelector('sl-button[aria-label^="Next year"]');
+      const prev = el.renderRoot.querySelector('.arrows sl-button:first-of-type'),
+        next = el.renderRoot.querySelector('.arrows sl-button:last-of-type');
 
       expect(prev).to.exist.and.not.match(':disabled');
       expect(next).to.exist.and.not.match(':disabled');
+    });
+
+    it('should have an accessible name for the previous year button', () => {
+      const prev = el.renderRoot.querySelector<Button>('.arrows sl-button:first-of-type')!;
+
+      expect(getForwardedAccessibleName(prev)).to.equal(`Previous year, ${currentYear - 1}`);
+    });
+
+    it('should have an accessible name for the next year button', () => {
+      const next = el.renderRoot.querySelector<Button>('.arrows sl-button:last-of-type')!;
+
+      expect(getForwardedAccessibleName(next)).to.equal(`Next year, ${currentYear + 1}`);
     });
 
     it('should emit sl-select with selected month when clicked', () => {
@@ -122,14 +135,14 @@ describe('sl-select-month', () => {
     });
 
     it('should increment year when next is clicked', async () => {
-      el.renderRoot.querySelector<Button>('sl-button[aria-label^="Next year"]')?.click();
+      el.renderRoot.querySelector<Button>('.arrows sl-button:last-of-type')?.click();
       await el.updateComplete;
 
       expect(el.month.getFullYear()).to.equal(currentYear + 1);
     });
 
     it('should decrement year when previous is clicked', async () => {
-      el.renderRoot.querySelector<Button>('sl-button[aria-label^="Previous year"]')?.click();
+      el.renderRoot.querySelector<Button>('.arrows sl-button:first-of-type')?.click();
       await el.updateComplete;
 
       expect(el.month.getFullYear()).to.equal(currentYear - 1);
@@ -152,14 +165,14 @@ describe('sl-select-month', () => {
     });
 
     it('should disable navigating to a previous year (since min is current year)', () => {
-      const prev = el.renderRoot.querySelector('sl-button[aria-label^="Previous year"]');
+      const prev = el.renderRoot.querySelector('.arrows sl-button:first-of-type');
 
       expect(prev).to.have.attribute('disabled');
       expect(prev).to.match(':disabled');
     });
 
     it('should disable navigating to a next year (since max is current year)', () => {
-      const next = el.renderRoot.querySelector('sl-button[aria-label^="Next year"]');
+      const next = el.renderRoot.querySelector('.arrows sl-button:last-of-type');
 
       expect(next).to.have.attribute('disabled');
       expect(next).to.match(':disabled');

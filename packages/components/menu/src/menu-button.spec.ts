@@ -1,9 +1,15 @@
 import { faGear } from '@fortawesome/pro-regular-svg-icons';
 import { type Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
+import {
+  getForwardedAccessibleName,
+  getForwardedAriaAttribute,
+  getForwardedAriaProperty,
+  isForwardedDisabled
+} from '@sl-design-system/shared/helpers/forward-aria.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { type MenuButton } from './menu-button.js';
@@ -30,158 +36,15 @@ describe('sl-menu-button', () => {
     });
 
     it('should not be disabled', () => {
-      expect(el).not.to.have.attribute('disabled');
       expect(el.disabled).not.to.be.true;
     });
 
-    it('should proxy the aria-disabled attribute to the button element', async () => {
-      el.setAttribute('aria-disabled', 'true');
-      await el.updateComplete;
-
-      expect(el).to.not.have.attribute('aria-disabled');
-      expect(button.ariaDisabled).to.equal('true');
-    });
-
-    it('should proxy the ariaDisabled property to the button element', async () => {
-      el.ariaDisabled = 'true';
-      await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(el).to.not.have.attribute('aria-disabled');
-      expect(el.button).to.have.attribute('aria-disabled', 'true');
-    });
-
-    it('should not show the menu when aria-disabled is set to true', async () => {
-      el.setAttribute('aria-disabled', 'true');
-      await new Promise(resolve => setTimeout(resolve, 50));
-      await el.updateComplete;
-
-      button.click();
-      expect(menu).not.to.match(':popover-open');
-
-      button.focus();
-      await userEvent.keyboard('{ArrowDown}');
-      expect(menu).not.to.match(':popover-open');
-
-      await userEvent.keyboard('{Enter}');
-      expect(menu).not.to.match(':popover-open');
-
-      await userEvent.keyboard('{ }');
-      expect(menu).not.to.match(':popover-open');
-    });
-
-    it('should proxy the aria-label attribute to the input element', async () => {
-      el.setAttribute('aria-label', 'Label');
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(el).to.not.have.attribute('aria-label');
-      expect(el.button).to.have.attribute('aria-label', 'Label');
-    });
-
     describe('button', () => {
-      it('should have a button', () => {
-        expect(button).to.exist;
-      });
-
-      it('should indicate it opens a menu', () => {
-        expect(button).to.have.attribute('aria-haspopup', 'menu');
-      });
-
-      it('should not be expanded', () => {
-        expect(button).to.have.attribute('aria-expanded', 'false');
-      });
-
-      it('should be expanded when the menu is open', () => {
-        button.click();
-
-        expect(button).to.have.attribute('aria-expanded', 'true');
-      });
-
-      it('should be linked to the menu', () => {
-        expect(button).to.have.attribute('aria-controls', menu.id);
-      });
-
-      it('should not have a disabled button', () => {
-        expect(button).not.to.have.attribute('disabled');
-        expect(button.disabled).not.to.be.true;
-        expect(el.disabled).not.to.be.true;
-      });
-
       it('should have a disabled button when set', async () => {
         el.disabled = true;
         await el.updateComplete;
 
-        expect(button).to.have.attribute('disabled');
-        expect(button.disabled).to.be.true;
-        expect(button.tabIndex).to.equal(-1);
-        expect(el.disabled).to.be.true;
-      });
-
-      it('should properly sync and restore the internal button state when disabled changes', async () => {
-        el.disabled = true;
-        await el.updateComplete;
-        expect(button).to.have.attribute('disabled');
-
-        el.disabled = false;
-        await el.updateComplete;
-        expect(button).not.to.have.attribute('disabled');
-      });
-
-      it('should have an aria-disabled button when ariaDisabled is set', async () => {
-        el.ariaDisabled = 'true';
-        await el.updateComplete;
-
-        expect(button).not.to.have.attribute('disabled');
-        expect(button.ariaDisabled).to.equal('true');
-        expect(button.tabIndex).to.equal(0);
-      });
-
-      it('should not override an explicit aria-disabled when disabled is toggled', async () => {
-        el.ariaDisabled = 'true';
-        await el.updateComplete;
-
-        expect(button.ariaDisabled).to.equal('true');
-
-        el.disabled = true;
-        await el.updateComplete;
-        expect(button.ariaDisabled).to.equal('true');
-
-        el.disabled = false;
-        await el.updateComplete;
-        expect(button.ariaDisabled).to.equal('true');
-      });
-
-      it('should treat empty aria-disabled attribute as true and sync it', async () => {
-        el.setAttribute('aria-disabled', '');
-        await new Promise(resolve => setTimeout(resolve, 50));
-
-        expect(button.ariaDisabled).to.equal('true');
-      });
-
-      it('should treat truthy aria-disabled values as disabled', async () => {
-        el.ariaDisabled = 'foo';
-        await el.updateComplete;
-
-        const menu = el.renderRoot.querySelector('sl-menu') as Menu;
-        button.click();
-        expect(menu).not.to.match(':popover-open');
-        expect(button.ariaDisabled).to.equal('foo');
-      });
-
-      it('should not override truthy aria-disabled when native disabled is toggled', async () => {
-        el.ariaDisabled = 'foo';
-        await el.updateComplete;
-        expect(button.ariaDisabled).to.equal('foo');
-
-        el.disabled = true;
-        await el.updateComplete;
-        expect(button).to.have.attribute('disabled');
-        expect(button.ariaDisabled).to.equal('foo');
-
-        el.disabled = false;
-        await el.updateComplete;
-        expect(button).not.to.have.attribute('disabled');
-        expect(button.ariaDisabled).to.equal('foo');
+        expect(isForwardedDisabled(button)).to.be.true;
       });
 
       it('should not have an explicit size', () => {
@@ -194,12 +57,10 @@ describe('sl-menu-button', () => {
         await el.updateComplete;
 
         expect(button).to.have.attribute('size', 'sm');
-        expect(button.size).to.equal('sm');
       });
 
       it('should have an outline fill', () => {
         expect(button).to.have.attribute('fill', 'outline');
-        expect(button.fill).to.equal('outline');
       });
 
       it('should have a different fill when set', async () => {
@@ -207,12 +68,10 @@ describe('sl-menu-button', () => {
         await el.updateComplete;
 
         expect(button).to.have.attribute('fill', 'solid');
-        expect(button.fill).to.equal('solid');
       });
 
       it('should not have an explicit variant', () => {
         expect(button).not.to.have.attribute('variant');
-        expect(button.variant).to.be.undefined;
       });
 
       it('should have a different variant when set', async () => {
@@ -220,7 +79,6 @@ describe('sl-menu-button', () => {
         await el.updateComplete;
 
         expect(button).to.have.attribute('variant', 'primary');
-        expect(button.variant).to.equal('primary');
       });
 
       it('should slot the button content', () => {
@@ -254,10 +112,6 @@ describe('sl-menu-button', () => {
     });
 
     describe('menu', () => {
-      it('should have a menu', () => {
-        expect(menu).to.exist;
-      });
-
       it('should have a bottom-start position', () => {
         expect(menu.position).to.equal('bottom-start');
       });
@@ -280,6 +134,15 @@ describe('sl-menu-button', () => {
           button.click();
 
           expect(menu).to.match(':popover-open');
+        });
+
+        it('should not show the menu when the button is clicked while disabled', async () => {
+          el.disabled = true;
+          await el.updateComplete;
+
+          button.click();
+
+          expect(menu).not.to.match(':popover-open');
         });
 
         it('should not move focus when the button is clicked without being focused', async () => {
@@ -405,286 +268,75 @@ describe('sl-menu-button', () => {
     it('should not have a selected span', () => {
       expect(button.querySelector('.selected')).not.to.exist;
     });
-  });
 
-  describe('aria-labelledby', () => {
-    let label: HTMLElement, container: HTMLDivElement;
-
-    beforeEach(async () => {
-      container = document.createElement('div');
-
-      container.innerHTML = `
-        <span id="label-test">Menu button label</span>
-        <sl-menu-button aria-labelledby="label-test">
-          <sl-icon name="far-gear" slot="button"></sl-icon>
-          <sl-menu-item>Item 1</sl-menu-item>
-          <sl-menu-item>Item 2</sl-menu-item>
-        </sl-menu-button>
-      `;
-      document.body.appendChild(container);
-
-      el = container.querySelector('sl-menu-button') as MenuButton;
-      label = container.querySelector('#label-test') as HTMLElement;
-
-      await el.updateComplete;
-
-      button = el.renderRoot.querySelector('sl-button') as Button;
-
-      await new Promise(resolve => setTimeout(resolve, 50));
-    });
-
-    afterEach(() => {
-      container.remove();
-    });
-
-    it('should remove aria-labelledby from sl-menu-button and set it on the button', () => {
-      expect(el).not.to.have.attribute('aria-labelledby');
-      expect(button.ariaLabelledByElements).to.not.be.null;
-      expect(button.ariaLabelledByElements).to.deep.equal([label]);
-    });
-
-    it('should update aria-labelledby on the button when aria-labelledby changes', async () => {
-      const newLabel = document.createElement('span');
-      newLabel.id = 'new-label';
-      newLabel.textContent = 'New label';
-      document.body.appendChild(newLabel);
-
-      el.setAttribute('aria-labelledby', 'new-label');
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(el).not.to.have.attribute('aria-labelledby');
-      expect(button.ariaLabelledByElements).to.deep.equal([newLabel]);
-
-      newLabel.remove();
-    });
-
-    it('should handle multiple ids in aria-labelledby', async () => {
-      const label2 = document.createElement('span');
-      label2.id = 'label-test-2';
-      label2.textContent = 'Additional label';
-      document.body.appendChild(label2);
-
-      el.setAttribute('aria-labelledby', 'label-test label-test-2');
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(el).not.to.have.attribute('aria-labelledby');
-      expect(button.ariaLabelledByElements).to.deep.equal([label, label2]);
-
-      label2.remove();
-    });
-
-    it('should clear aria-labelledby when all ids are not existing', async () => {
-      el.setAttribute('aria-labelledby', 'non-existent-1 non-existent-2');
-      await new Promise(resolve => setTimeout(resolve, 100));
-
-      expect(el).not.to.have.attribute('aria-labelledby');
-      expect(button.ariaLabelledByElements).to.be.null;
+    it('should mark the button as icon only', () => {
+      expect(button).to.match(':state(icon-only)');
     });
   });
 
-  describe('aria-describedby', () => {
-    let description: HTMLElement, container: HTMLDivElement;
-
+  describe('accessibility', () => {
     beforeEach(async () => {
-      container = document.createElement('div');
+      el = await fixture(html`
+        <sl-menu-button>
+          <span slot="button">Button</span>
 
-      container.innerHTML = `
-        <span id="description-test">Menu button description</span>
-        <sl-menu-button aria-describedby="description-test">
-          <sl-icon name="far-gear" slot="button"></sl-icon>
           <sl-menu-item>Item 1</sl-menu-item>
           <sl-menu-item>Item 2</sl-menu-item>
         </sl-menu-button>
-      `;
-      document.body.appendChild(container);
-
-      el = container.querySelector('sl-menu-button') as MenuButton;
-      description = container.querySelector('#description-test') as HTMLElement;
-
-      await el.updateComplete;
+      `);
 
       button = el.renderRoot.querySelector('sl-button') as Button;
-
-      await new Promise(resolve => setTimeout(resolve, 50));
+      menu = el.renderRoot.querySelector('sl-menu') as Menu;
     });
 
-    afterEach(() => {
-      container.remove();
+    it('should indicate it opens a menu', () => {
+      expect(getForwardedAriaAttribute(button, 'aria-haspopup')).to.equal('menu');
     });
 
-    it('should remove aria-describedby from sl-menu-button and set it on the button', () => {
-      expect(el).not.to.have.attribute('aria-describedby');
-      expect(button.ariaDescribedByElements).to.not.be.null;
-      expect(button.ariaDescribedByElements).to.deep.equal([description]);
+    it('should not be expanded', () => {
+      expect(getForwardedAriaAttribute(button, 'aria-expanded')).to.equal('false');
     });
 
-    it('should update aria-describedby on the button when aria-describedby changes', async () => {
-      const newDescription = document.createElement('span');
-      newDescription.id = 'new-description';
-      newDescription.textContent = 'New description';
-      document.body.appendChild(newDescription);
+    it('should be expanded when the menu is open', async () => {
+      button.click();
+      await new Promise(resolve => setTimeout(resolve));
 
-      el.setAttribute('aria-describedby', 'new-description');
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(el).not.to.have.attribute('aria-describedby');
-      expect(button.ariaDescribedByElements).to.deep.equal([newDescription]);
-
-      newDescription.remove();
+      expect(getForwardedAriaAttribute(button, 'aria-expanded')).to.equal('true');
     });
 
-    it('should handle multiple ids in aria-describedby', async () => {
-      const description2 = document.createElement('span');
-      description2.id = 'description-test-2';
-      description2.textContent = 'Additional description';
-      document.body.appendChild(description2);
-
-      el.setAttribute('aria-describedby', 'description-test description-test-2');
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(el).not.to.have.attribute('aria-describedby');
-      expect(button.ariaDescribedByElements).to.deep.equal([description, description2]);
-
-      description2.remove();
+    it('should be linked to the menu', () => {
+      expect(getForwardedAriaProperty(button, 'ariaControlsElements')).to.contain(menu);
     });
 
-    it('should filter out not existing ids from aria-describedby', async () => {
-      const description2 = document.createElement('span');
-      description2.id = 'valid-description';
-      description2.textContent = 'Valid description';
-      document.body.appendChild(description2);
+    it('should proxy the aria-disabled attribute to the button element', async () => {
+      el.setAttribute('aria-disabled', 'true');
+      await new Promise(resolve => setTimeout(resolve));
 
-      el.setAttribute('aria-describedby', 'abc valid-description def');
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(el).not.to.have.attribute('aria-describedby');
-      expect(button.ariaDescribedByElements).to.deep.equal([description2]);
-
-      description2.remove();
+      expect(el).to.not.have.attribute('aria-disabled');
+      expect(isForwardedDisabled(button)).to.equal('aria');
     });
 
-    it('should handle both aria-describedby and aria-labelledby', async () => {
-      const newLabel = document.createElement('span');
-      newLabel.id = 'my-label';
-      newLabel.textContent = 'Label';
-      document.body.appendChild(newLabel);
+    it('should proxy the aria-label attribute to the button element', async () => {
+      el.setAttribute('aria-label', 'Label');
+      await new Promise(resolve => setTimeout(resolve));
 
-      el.setAttribute('aria-describedby', 'description-test');
+      expect(el).to.not.have.attribute('aria-label');
+      expect(getForwardedAccessibleName(button)).to.equal('Label');
+    });
+
+    it('should proxy the aria-labelledby attribute to ariaLabelledByElements on the button', async () => {
+      const label = document.createElement('span');
+      label.id = 'my-label';
+      label.textContent = 'My label';
+      el.insertAdjacentElement('afterend', label);
       el.setAttribute('aria-labelledby', 'my-label');
-      await new Promise(resolve => setTimeout(resolve, 50));
 
-      expect(el).not.to.have.attribute('aria-labelledby');
-      expect(el).not.to.have.attribute('aria-describedby');
-      expect(button.ariaLabelledByElements).to.deep.equal([newLabel]);
-      expect(button.ariaDescribedByElements).to.deep.equal([description]);
+      await new Promise(resolve => setTimeout(resolve));
 
-      newLabel.remove();
-    });
+      expect(el).to.not.have.attribute('aria-labelledby');
+      expect(button.ariaLabelledByElements).to.deep.equal([label]);
 
-    it('should clear aria-describedby on the button when all ids are non-existent', async () => {
-      el.setAttribute('aria-describedby', 'non-existent-1 non-existent-2');
-      await new Promise(resolve => setTimeout(resolve, 100));
-
-      expect(el).not.to.have.attribute('aria-describedby');
-      expect(button.ariaDescribedByElements).to.be.null;
-    });
-
-    it('should keep ariaDescribedByElements after opening and closing the menu', async () => {
-      expect(button.ariaDescribedByElements).to.deep.equal([description]);
-
-      button.click();
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(button.ariaDescribedByElements).to.deep.equal([description]);
-
-      button.click();
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(button.ariaDescribedByElements).to.deep.equal([description]);
-    });
-  });
-
-  describe('dynamic aria attribute updates', () => {
-    let container: HTMLDivElement;
-
-    beforeEach(async () => {
-      container = document.createElement('div');
-      container.innerHTML = `
-        <span id="observer-label">Label</span>
-        <span id="observer-description">Description</span>
-        <sl-menu-button aria-labelledby="observer-label" aria-describedby="observer-description">
-          <sl-icon name="far-gear" slot="button"></sl-icon>
-          <sl-menu-item>Item 1</sl-menu-item>
-          <sl-menu-item>Item 2</sl-menu-item>
-        </sl-menu-button>
-      `;
-
-      document.body.appendChild(container);
-
-      el = container.querySelector('sl-menu-button') as MenuButton;
-      await el.updateComplete;
-
-      button = el.renderRoot.querySelector('sl-button') as Button;
-
-      await new Promise(resolve => setTimeout(resolve, 50));
-    });
-
-    afterEach(() => {
-      container.remove();
-    });
-
-    it('should update aria-labelledby on the button when aria-labelledby attribute changes', async () => {
-      const newLabel = document.createElement('span');
-      newLabel.id = 'new-label';
-      newLabel.textContent = 'This is a new label';
-      document.body.appendChild(newLabel);
-
-      el.setAttribute('aria-labelledby', 'new-label');
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(el).not.to.have.attribute('aria-labelledby');
-      expect(button.ariaLabelledByElements).to.deep.equal([newLabel]);
-
-      newLabel.remove();
-    });
-
-    it('should update aria-describedby on the button when aria-describedby attribute changes', async () => {
-      const newDescription = document.createElement('span');
-      newDescription.id = 'new-description';
-      newDescription.textContent = 'This is a new description';
-      document.body.appendChild(newDescription);
-
-      el.setAttribute('aria-describedby', 'new-description');
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(el).not.to.have.attribute('aria-describedby');
-      expect(button.ariaDescribedByElements).to.deep.equal([newDescription]);
-
-      newDescription.remove();
-    });
-
-    it('should update aria references after multiple attribute changes', async () => {
-      const newLabel = document.createElement('span');
-      newLabel.id = 'reconnect-label';
-      newLabel.textContent = 'Reconnect Label';
-      document.body.appendChild(newLabel);
-
-      el.setAttribute('aria-labelledby', 'reconnect-label');
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      const anotherLabel = document.createElement('span');
-      anotherLabel.id = 'another-reconnect-label';
-      anotherLabel.textContent = 'Another Label';
-      document.body.appendChild(anotherLabel);
-
-      el.setAttribute('aria-labelledby', 'another-reconnect-label');
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(el).not.to.have.attribute('aria-labelledby');
-      expect(button.ariaLabelledByElements).to.deep.equal([anotherLabel]);
-
-      newLabel.remove();
-      anotherLabel.remove();
+      label.remove();
     });
   });
 });

@@ -20,7 +20,7 @@
   padding: var(--sl-size-100);
 }
 
-:host([empty]) {
+:host(:state(empty)) {
   padding: 0;
 
   [part='wrapper'] {

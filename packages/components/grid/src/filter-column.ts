@@ -36,6 +36,14 @@ export class GridFilterColumn<T = any> extends GridSortColumn<T> {
   /** Reference to the rendered `<sl-grid-filter>` element. */
   #filterRef: Ref<GridFilter> = createRef();
 
+  /** @internal */
+  override get baseScopedElements(): Record<string, typeof HTMLElement> {
+    return {
+      ...super.baseScopedElements,
+      'sl-grid-filter': GridFilter
+    };
+  }
+
   /** Returns the element that is rendered in the table header. */
   get filterElement(): GridFilter | undefined {
     return this.#filterRef.value;
@@ -78,7 +86,6 @@ export class GridFilterColumn<T = any> extends GridSortColumn<T> {
     super.connectedCallback();
 
     this.id ||= `grid-filter-${nextUniqueId++}`;
-    this.scopedElements = { ...this.scopedElements, 'sl-grid-filter': GridFilter };
   }
 
   override willUpdate(changes: PropertyValues<this>): void {

@@ -1,6 +1,7 @@
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
+import { Icon } from '@sl-design-system/icon';
 import { Listbox, Option, OptionGroup } from '@sl-design-system/listbox';
 import {
   type EventEmitter,
@@ -8,10 +9,16 @@ import {
   ObserveAttributesMixin,
   RovingTabindexController,
   anchor,
-  event
+  event,
+  isPopoverOpen
 } from '@sl-design-system/shared';
-import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import {
+  type SlBlurEvent,
+  type SlChangeEvent,
+  type SlClearEvent,
+  type SlFocusEvent
+} from '@sl-design-system/shared/events.js';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
 import { SelectButton } from './select-button.js';
 import styles from './select.scss.js';
@@ -57,6 +64,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
+      'sl-icon': Icon,
       'sl-listbox': Listbox,
       'sl-select-button': SelectButton
     };
@@ -127,6 +135,9 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<T | undefined>>;
 
+  /** @internal Emits when the value is cleared. */
+  @event({ name: 'sl-clear' }) clearEvent!: EventEmitter<SlClearEvent>;
+
   /** Will display a clear button when an option is selected. */
   @property({ type: Boolean, reflect: true }) clearable?: boolean;
 
@@ -145,6 +156,9 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
   /** @internal */
   readonly internals = this.attachInternals();
+
+  /** @internal The clear button element. */
+  @query('button') clearButton?: HTMLButtonElement;
 
   /** @internal The listbox element that is also the popover. */
   @query('sl-listbox') listbox?: Listbox;
@@ -196,7 +210,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
       this.button = this.shadowRoot!.createElement('sl-select-button');
       this.button.addEventListener('click', () => this.#onButtonClick());
       this.button.addEventListener('keydown', (event: KeyboardEvent) => this.#onKeydown(event));
-      this.button.addEventListener('sl-clear', () => this.#onClear());
+      this.button.addEventListener('sl-clear', this.#onButtonClear);
       this.button.clearable = !!this.clearable;
       this.button.disabled = !!this.disabled;
       this.button.placeholder = this.placeholder;
@@ -242,11 +256,13 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
     if (changes.has('clearable')) {
       this.button.clearable = this.clearable;
+      this.#updateAriaKeyShortcuts();
     }
 
     if (changes.has('disabled')) {
       this.button.disabled = this.disabled;
       this.button.tabIndex = this.disabled ? -1 : 0;
+      this.#updateAriaKeyShortcuts();
     }
 
     if (changes.has('placeholder')) {
@@ -299,8 +315,23 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   }
 
   override render(): TemplateResult {
+    const showClearButton = !this.disabled && this.clearable && this.selectedOption;
+
     return html`
       <slot name="button"></slot>
+      ${showClearButton
+        ? html`
+            <button
+              @click=${this.#onClearButtonClick}
+              @focusin=${this.#onClearButtonFocusin}
+              @focusout=${this.#onClearButtonFocusout}
+              aria-label=${msg('Clear selection', { id: 'sl.select.clearSelection' })}
+            >
+              <sl-icon name="circle-xmark"></sl-icon>
+              <sl-icon name="circle-xmark-solid"></sl-icon>
+            </button>
+          `
+        : nothing}
       <sl-listbox
         ${anchor({
           element: this.button,
@@ -312,6 +343,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
         @beforetoggle=${this.#onBeforetoggle}
         @click=${this.#onListboxClick}
         @keydown=${this.#onListboxKeydown}
+        @mousedown=${this.#onListboxMousedown}
         @toggle=${this.#onToggle}
         part="listbox"
         popover
@@ -368,7 +400,12 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
       const clones: Node[] = [];
 
       slotNodes.forEach(node => {
-        clones.push(node.cloneNode(true));
+        const rootNode = node.getRootNode();
+
+        // Unlike node.cloneNode(), importNode() is implemented in the
+        // scoped custom element registry polyfill, so it will upgrade
+        // the cloned node if it's a custom element.
+        clones.push((rootNode as Document).importNode(node, true));
       });
 
       container.replaceChildren(...clones);
@@ -394,15 +431,44 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   #onButtonClick(): void {
     if (this.disabled) {
       return;
-    } else if (!this.listbox?.matches(':popover-open') && !this.#popoverClosing) {
+    } else if (!this.listbox || (!isPopoverOpen(this.listbox) && !this.#popoverClosing)) {
       this.listbox?.showPopover();
     }
 
     this.#popoverClosing = false;
   }
 
+  #onButtonClear = (event: Event): void => {
+    event.stopPropagation();
+
+    this.#onClear();
+    this.clearEvent.emit();
+  };
+
   #onClear(): void {
     this.#setSelectedOption(undefined, true);
+  }
+
+  #onClearButtonClick(event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (this.listbox && isPopoverOpen(this.listbox)) {
+      this.#popoverClosing = true;
+      this.listbox.hidePopover();
+    }
+
+    this.#onClear();
+    this.clearEvent.emit();
+    this.button.focus();
+  }
+
+  #onClearButtonFocusin(): void {
+    this.button.clearFocused = true;
+  }
+
+  #onClearButtonFocusout(): void {
+    this.button.clearFocused = false;
   }
 
   #onClick(event: Event): void {
@@ -418,10 +484,11 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   #onFocusout(event: FocusEvent): void {
     const leavingComponent =
       event.relatedTarget !== this.button &&
+      event.relatedTarget !== this.clearButton &&
       (!(event.relatedTarget instanceof Element) || event.relatedTarget?.closest('sl-select') !== this);
 
     if (leavingComponent) {
-      const listboxIsOpen = this.listbox?.matches(':popover-open');
+      const listboxIsOpen = this.listbox && isPopoverOpen(this.listbox);
 
       // Mark as "focus leaving component" when:
       // - We're not already in the process of programmatically closing (#popoverClosing),
@@ -446,7 +513,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
       event.stopPropagation();
 
       return;
-    } else if (!this.listbox?.matches(':popover-open')) {
+    } else if (!this.listbox || !isPopoverOpen(this.listbox)) {
       if (['ArrowDown', 'Enter', ' '].includes(event.key)) {
         this.#rovingTabindexController.focus();
       } else if (event.key === 'Home') {
@@ -473,6 +540,24 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
       this.#popoverClosing = true;
       this.listbox?.hidePopover();
     }
+  }
+
+  /**
+   * Mousedown on the listbox surface (including scrollbar area) can move focus away
+   * from the trigger button, which fires `focusout` on `<sl-select>` and closes the popover.
+   *
+   * We intentionally use `mousedown` (not `pointerdown`) to keep this fix scoped to the
+   * mouse-triggered focus-transfer path that causes the regression.
+   */
+  #onListboxMousedown(event: MouseEvent): void {
+    if (event.button !== 0 || !this.listbox || event.target !== this.listbox) {
+      return;
+    }
+
+    // Prevent focus from moving off the trigger when interacting with the listbox surface.
+    // We only do this when the mousedown targets the listbox itself to avoid suppressing
+    // default pointer behavior for option interactions.
+    event.preventDefault();
   }
 
   #onListboxKeydown(event: KeyboardEvent): void {
@@ -633,6 +718,15 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     }
 
     this.#updateValueAndValidity();
+    this.#updateAriaKeyShortcuts();
+  }
+
+  #updateAriaKeyShortcuts(): void {
+    if (this.clearable && !this.disabled && this.selectedOption) {
+      this.button.setAttribute('aria-keyshortcuts', 'Delete Backspace');
+    } else {
+      this.button.removeAttribute('aria-keyshortcuts');
+    }
   }
 
   #updateValueAndValidity(): void {

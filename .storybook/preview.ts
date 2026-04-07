@@ -1,12 +1,22 @@
-import '@af-utils/scrollend-polyfill';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import '@sl-design-system/announcer/register.js';
 import { type LocaleModule, configureLocalization } from '@lit/localize';
 import * as locales from '@sl-design-system/locales';
 import { type Preview } from '@storybook/web-components-vite';
 import MockDate from 'mockdate';
-import { INITIAL_VIEWPORTS } from 'storybook/viewport';
 import { updateTheme, themes, type Mode } from './themes.js';
+
+// Load the polyfill for the Invoker API if needed
+if (!('command' in HTMLButtonElement.prototype)) {
+  const { apply } = await import('invokers-polyfill/fn');
+
+  apply();
+}
+
+// Load the polyfill for the scrollend event if needed
+if (!('onscrollend' in window)) {
+  await import('@af-utils/scrollend-polyfill' as any);
+}
 
 // Set a fixed date in non-development environments for consistent Storybook snapshots
 if (!import.meta.env?.DEV) {
@@ -19,11 +29,62 @@ const { setLocale } = configureLocalization({
   loadLocale: locale => Promise.resolve((locales as Record<string, unknown>)[locale] as LocaleModule)
 });
 
+const customViewports = {
+  mobileSmall: {
+    name: 'Mobile small',
+    styles: {
+      width: '320px',
+      height: '480px'
+    },
+    type: 'mobile'
+  },
+  mobile: {
+    name: 'Mobile',
+    styles: {
+      width: '375px',
+      height: '667px'
+    },
+    type: 'mobile'
+  },
+  mobileLarge: {
+    name: 'Mobile large',
+    styles: {
+      width: '425px',
+      height: '750px'
+    },
+    type: 'mobile'
+  },
+  tablet: {
+    name: 'Tablet',
+    styles: {
+      width: '768px',
+      height: '1024px'
+    },
+    type: 'tablet'
+  },
+  desktop: {
+    name: 'Desktop',
+    styles: {
+      width: '1280px',
+      height: '800px'
+    },
+    type: 'desktop'
+  },
+};
+
 const preview: Preview = {
   decorators: [
     (story, { globals: { locale = locales.sourceLocale } }) => {
       document.documentElement.lang = locale;
-      setLocale(locale);
+
+      try {
+        // Try and set the @lit/localize locale; will throw an error if the
+        // locale is not available. Ignore those errors since the locale can
+        // still be valid for components that use the Intl APIs.
+        setLocale(locale);
+      } catch {
+        // empty
+      }
 
       return story();
     }
@@ -51,21 +112,30 @@ const preview: Preview = {
         dynamicTitle: true,
         icon: 'mirror',
         items: [
-          { value: 'light', left: '🌞', title: 'Light mode' },
-          { value: 'dark', left: '🌛', title: 'Dark mode' }
+          { value: 'light', icon: 'sun', title: 'Light mode' },
+          { value: 'dark', icon: 'moon', title: 'Dark mode' }
         ]
       }
     },
     locale: {
       name: 'Locale',
       description: 'Internationalization locale',
-      defaultValue: 'en',
+      defaultValue: 'en-GB',
       toolbar: {
         dynamicTitle: true,
         icon: 'globe',
         items: [
-          { value: 'en', right: '🇺🇸', title: 'English' },
-          { value: 'nl', right: '🇳🇱', title: 'Nederlands' }
+          { value: 'de', right: '🇩🇪', title: 'Deutsch' },
+          { value: 'en-GB', right: '🇬🇧', title: 'English (UK)' },
+          { value: 'es', right: '🇪🇸', title: 'Español' },
+          { value: 'fr', right: '🇫🇷', title: 'Français' },
+          { value: 'it', right: '🇮🇹', title: 'Italiano' },
+          { value: 'nl', right: '🇳🇱', title: 'Nederlands' },
+          { value: 'nl-BE', right: '🇧🇪', title: 'Nederlands (België)' },
+          { value: 'no', right: '🇳🇴', title: 'Norsk' },
+          { value: 'pl', right: '🇵🇱', title: 'Polski' },
+          { value: 'fi', right: '🇫🇮', title: 'Suomi' },
+          { value: 'sv', right: '🇸🇪', title: 'Svenska' }
         ]
       }
     }
@@ -91,7 +161,7 @@ const preview: Preview = {
       }
     },
     viewport: {
-      viewports: INITIAL_VIEWPORTS
+      options: customViewports
     },
     a11y: {
       config: {

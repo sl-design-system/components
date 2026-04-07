@@ -5,6 +5,15 @@ eleventyNavigation:
   parent: Dialog
   key: DialogAccessibility
 ---
+
+<section>
+
+## Dialog title
+
+The dialog title should be an `<h1>` element. Since the dialog is a separate layer on top of the page, it establishes its own heading hierarchy. This means the title should always be at the top level (`<h1>`), regardless of the heading level used on the page that opens the dialog.
+
+</section>
+
 <section>
 
 ## Keyboard interactions

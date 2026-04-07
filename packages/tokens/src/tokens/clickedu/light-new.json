@@ -100,7 +100,7 @@
 				"plain": {
 					"$type": "color",
 					"$value": "{clickedu.color.border.accent.grey.plain}",
-					"$description": "Use to visually group or seperate UI elements, such as card, tabs or side panel dividers."
+					"$description": "Use to visually group or separate UI elements, such as card, tabs or side panel dividers."
 				},
 				"accent": {
 					"red": {
@@ -1361,7 +1361,7 @@
 						"onBold": {
 							"$type": "color",
 							"$value": "{clickedu.color.foreground.inverted.plain}",
-							"$description": "Use for text on 'color.background.accent.blue.bold', when used purely for stylistic purposes without specific meaning."
+							"$description": "Use for text on 'color.background.accent.teal.bold', when used purely for stylistic purposes without specific meaning."
 						}
 					},
 					"green": {
@@ -1480,7 +1480,7 @@
 					},
 					"onBold": {
 						"$type": "color",
-						"$value": "{clickedu.color.foreground.accent.red.onBold}",
+						"$value": "{clickedu.color.foreground.accent.purple.onBold}",
 						"$description": "Use for primary actions on 'color.background.primary.bold'"
 					}
 				},
@@ -1532,7 +1532,7 @@
 					"plain": {
 						"$type": "color",
 						"$value": "{clickedu.color.foreground.accent.green.plain}",
-						"$description": "Use for text that communicates a favorable outcome on neutral backgrounds.'"
+						"$description": "Use for text that communicates a favorable outcome on neutral backgrounds."
 					},
 					"onBold": {
 						"$type": "color",

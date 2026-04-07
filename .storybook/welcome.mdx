@@ -14,7 +14,12 @@ If you are looking for documentation, you can go to [sanomalearning.design](http
 The code can be found on [GitHub](https://github.com/sl-design-system/components).
 
 Each component has a status that indicates the maturity of the component. The statuses are:
+
 - <Draft>Draft</Draft> The component is in active development and not ready for use.
 - <Preview>Preview</Preview> The component is ready for use and available in all themes, but not yet used by CFAs.
 - <Stable>Stable</Stable> The component is mature and used by CFAs.
 - <Deprecated>Deprecated</Deprecated> The component will be removed in the future and should be avoided.
+
+You can switch between locales using the locale switcher in the toolbar. The design system currently provides English (en) and Dutch (nl) translations. Other locales are listed as well, but do not have translations. Any language that is not available will fall back to English.
+
+Note that some components support localization in the form of `Intl` browser APIs. Those components support all locales that are supported by the browser and do not require explicit translations.

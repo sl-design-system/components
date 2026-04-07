@@ -1,3 +1,4 @@
+import '@sl-design-system/button/register.js';
 import '@sl-design-system/form/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html, nothing } from 'lit';
@@ -31,7 +32,6 @@ export default {
   args: {
     disabled: false,
     label: 'Time',
-    placeholder: 'Select time',
     readonly: false,
     required: false,
     value: ''
@@ -71,6 +71,7 @@ export default {
       <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
           <sl-time-field
+            style="width: fit-content;"
             ?disabled=${disabled}
             hour-step=${ifDefined(hourStep)}
             locale=${ifDefined(locale)}
@@ -81,7 +82,7 @@ export default {
             ?readonly=${readonly}
             ?required=${required}
             start=${ifDefined(start)}
-            value=${ifDefined(value)}
+            .value=${value}
           ></sl-time-field>
         </sl-form-field>
         ${reportValidity
@@ -101,6 +102,13 @@ export const Basic: Story = {};
 export const Disabled: Story = {
   args: {
     disabled: true
+  }
+};
+
+export const Placeholder: Story = {
+  args: {
+    placeholder: 'Add a time',
+    hint: "We format the time, so you probably don't have to explain anything to the user in a placeholder. If you want you can set a custom placeholder, but be careful you are not degrading the user experience by doing so."
   }
 };
 

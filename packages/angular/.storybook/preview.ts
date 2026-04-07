@@ -43,8 +43,8 @@ const preview: Preview = {
         dynamicTitle: true,
         icon: 'mirror',
         items: [
-          { value: 'light', left: '🌞', title: 'Light mode' },
-          { value: 'dark', left: '🌛', title: 'Dark mode' }
+          { value: 'light', icon: 'sun', title: 'Light mode' },
+          { value: 'dark', icon: 'moon', title: 'Dark mode' }
         ]
       }
     },
@@ -68,7 +68,7 @@ const preview: Preview = {
       }
     },
     viewport: {
-      viewports: INITIAL_VIEWPORTS
+      options: INITIAL_VIEWPORTS
     }
   }
 };

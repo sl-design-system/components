@@ -1338,7 +1338,7 @@
 						},
 						"subtlest": {
 							"$type": "color",
-							"$value": "rgba( {sanoma-learning.color.palette.grey.900}, 47%)",
+							"$value": "rgba( {sanoma-learning.color.palette.grey.900}, 48%)",
 							"$description": "Use for subtlest grey text for purely stylistic purposes with no specific meaning."
 						},
 						"onInverted": {
@@ -1486,7 +1486,7 @@
 				},
 				"disabled": {
 					"$type": "color",
-					"$value": "{sanoma-learning.color.foreground.accent.grey.faint}",
+					"$value": "rgba( {sanoma-learning.color.palette.grey.900}, 50%)",
 					"$description": "Use for foreground in a disabled state."
 				},
 				"inverted": {

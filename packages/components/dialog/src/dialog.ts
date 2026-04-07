@@ -12,6 +12,7 @@ import styles from './dialog.scss.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
+    command: Event; // Workaround for older TypeScript versions
     'sl-close': SlCloseEvent;
   }
 
@@ -52,7 +53,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   // eslint-disable-next-line no-unused-private-class-members
-  #events = new EventsController(this, { click: this.#onClick, keydown: this.#onKeydown });
+  #events = new EventsController(this, { click: this.#onClick, command: this.#onCommand, keydown: this.#onKeydown });
 
   /** Responsive behavior utility. */
   #media = new MediaController(this);
@@ -145,7 +146,9 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     return html`
       <slot name="header">
         <div part="titles">
-          <slot name="title" id="title">${title}</slot>
+          <slot name="title" id="title">
+            <h1>${title}</h1>
+          </slot>
           ${this.#media.mobile
             ? html`
                 <slot @slotchange=${this.#updatePrimaryButtons} name="primary-actions">
@@ -266,13 +269,25 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     });
   }
 
-  /** Close the dialog. */
-  close(): void {
+  /**
+   * Close the dialog.
+   * @param returnValue - Optional value to set as the dialog's return value.
+   */
+  close(returnValue?: string): void {
     if (this.dialog?.open) {
       this.#observer.disconnect();
 
-      this.dialog?.close();
+      this.dialog?.close(returnValue);
     }
+  }
+
+  /**
+   * Request the dialog to close. This will fire a `cancel` event on the `<dialog>`,
+   * which can be prevented. If not prevented, the dialog will close.
+   * @param returnValue - Optional value to set as the dialog's return value.
+   */
+  requestClose(returnValue?: string): void {
+    this.dialog?.requestClose(returnValue);
   }
 
   #onBackdropClick(event: MouseEvent): void {
@@ -303,6 +318,21 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
     if (button?.hasAttribute('sl-dialog-close')) {
       this.close();
+    }
+  }
+
+  #onCommand(event: Event): void {
+    const { command } = event as Event & { command: string };
+
+    if (command === '--show-modal') {
+      event.preventDefault();
+      this.showModal();
+    } else if (command === '--close') {
+      event.preventDefault();
+      this.close();
+    } else if (command === '--request-close') {
+      event.preventDefault();
+      this.requestClose();
     }
   }
 

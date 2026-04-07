@@ -1,8 +1,10 @@
 import { faPlus, faUniversalAccess } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/avatar/register.js';
+import '@sl-design-system/dialog/register.js';
 import { Student, getStudents } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
+import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -93,15 +95,26 @@ export const Avatar: Story = {
   }
 };
 
+export const Command: Story = {
+  render: () => html`
+    <sl-button command="--show-modal" commandfor="invoker-dialog" variant="primary">Open dialog</sl-button>
+    <sl-dialog id="invoker-dialog">
+      <h1 slot="title">Dialog opened with Invoker Commands API</h1>
+      <p>This dialog was opened using the Invoker Commands API. No JavaScript needed!</p>
+      <sl-button command="--close" commandfor="invoker-dialog" slot="primary-actions">Close</sl-button>
+    </sl-dialog>
+  `
+};
+
 export const Disabled: Story = {
   render: ({ fill, shape, size, variant }) => {
     return html`
       <p>
         This example shows 2 disabled buttons. One via the <code>disabled</code> property. You can no longer interact
         with that button. You cannot focus it. It cannot receive pointer events. The second button is disabled using the
-        <code>aria-disabled</code> attribute. This button is also visually disabled, but you can still focus it and it
-        will receive pointer events. This second button can used in combination with a tooltip to explain why the button
-        is disabled.
+        <code>aria-disabled</code> attribute. This button is also visually disabled and will not be activated when
+        clicked or when Space/Enter is pressed, but it remains focusable and can still receive pointer events. This
+        second button can be used in combination with a tooltip to explain why the button is disabled.
       </p>
       <div style="display: inline-flex; gap: 1rem">
         <sl-button
@@ -123,6 +136,28 @@ export const Disabled: Story = {
           Disabled (ARIA only) button
         </sl-button>
       </div>
+    `;
+  }
+};
+
+export const IconOnly: Story = {
+  render: ({ fill, shape, size, variant }) => {
+    return html`
+      <p>
+        This example shows an icon-only button. When using an icon-only button, it's important to provide an accessible
+        name using the <code>aria-label</code> attribute so that assistive technologies can convey the purpose of the
+        button to users.
+      </p>
+      <sl-button
+        aria-labelledby="tooltip"
+        fill=${ifDefined(fill)}
+        shape=${ifDefined(shape)}
+        size=${ifDefined(size)}
+        variant=${ifDefined(variant)}
+      >
+        <sl-icon name="far-plus"></sl-icon>
+      </sl-button>
+      <sl-tooltip id="tooltip">Always have a tooltip for icon-only buttons to explain their purpose</sl-tooltip>
     `;
   }
 };

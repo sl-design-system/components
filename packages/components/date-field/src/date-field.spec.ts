@@ -859,6 +859,45 @@ describe('sl-date-field', () => {
 
       expect(selection.rangeCount).to.equal(0);
     });
+
+    it('should set has-focus state when a spinbutton is focused', async () => {
+      const spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+
+      expect(el.internals.states.has('has-focus')).to.be.false;
+
+      spans[0].focus();
+      await el.updateComplete;
+
+      expect(el.internals.states.has('has-focus')).to.be.true;
+    });
+
+    it('should maintain has-focus state when moving between spinbuttons', async () => {
+      const spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+
+      spans[0].focus();
+      await el.updateComplete;
+
+      expect(el.internals.states.has('has-focus')).to.be.true;
+
+      spans[1].focus();
+      await el.updateComplete;
+
+      expect(el.internals.states.has('has-focus')).to.be.true;
+    });
+
+    it('should remove has-focus state when focus leaves all spinbuttons', async () => {
+      const spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+
+      spans[0].focus();
+      await el.updateComplete;
+
+      expect(el.internals.states.has('has-focus')).to.be.true;
+
+      spans[0].blur();
+      await el.updateComplete;
+
+      expect(el.internals.states.has('has-focus')).to.be.false;
+    });
   });
 
   describe('keyboard entry', () => {
@@ -1417,6 +1456,35 @@ describe('sl-date-field', () => {
       expect(selectAll).to.have.trimmed.text('03/DD/YYYY');
     });
 
+    it('should set has-focus state when entering select-all mode', async () => {
+      spans[0].focus();
+      await el.updateComplete;
+
+      expect(el.internals.states.has('has-focus')).to.be.true;
+
+      await userEvent.keyboard('{Control>}a{/Control}');
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('.select-all')).to.exist;
+      expect(el.internals.states.has('has-focus')).to.be.true;
+    });
+
+    it('should maintain has-focus state when exiting select-all mode via keypress', async () => {
+      spans[0].focus();
+      await userEvent.keyboard('{Control>}a{/Control}');
+      await el.updateComplete;
+
+      expect(el.internals.states.has('has-focus')).to.be.true;
+
+      await userEvent.keyboard('1');
+      await el.updateComplete;
+      // Wait for the refocus to complete
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el.renderRoot.querySelector('.select-all')).to.not.exist;
+      expect(el.internals.states.has('has-focus')).to.be.true;
+    });
+
     it('should exit select-all mode on Tab', async () => {
       spans[0].focus();
       await userEvent.keyboard('{Control>}a{/Control}');
@@ -1862,6 +1930,59 @@ describe('sl-date-field', () => {
 
         expect(onChange).to.have.been.calledOnce;
       });
+    });
+  });
+
+  describe('label association', () => {
+    let label: HTMLLabelElement;
+
+    beforeEach(async () => {
+      const container = await fixture(html`
+        <div>
+          <label for="date-field">Select Date</label>
+          <sl-date-field id="date-field"></sl-date-field>
+        </div>
+      `);
+
+      label = container.querySelector('label') as HTMLLabelElement;
+      el = container.querySelector('sl-date-field') as DateField;
+    });
+
+    it('should focus the first spinbutton when label is clicked', async () => {
+      label.click();
+      await el.updateComplete;
+
+      const firstSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]');
+      expect(el.shadowRoot?.activeElement).to.equal(firstSpinbutton);
+    });
+
+    it('should not open the popover when label is clicked', async () => {
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog')!;
+
+      label.click();
+      await el.updateComplete;
+
+      expect(dialog).not.to.match(':popover-open');
+    });
+
+    it('should set has-focus state when label click focuses the spinbutton', async () => {
+      label.click();
+      await el.updateComplete;
+
+      expect(el.internals.states.has('has-focus')).to.be.true;
+    });
+
+    it('should allow popover to open normally after label click', async () => {
+      const button = el.renderRoot.querySelector<HTMLElement>('sl-field-button')!;
+
+      label.click();
+      await el.updateComplete;
+
+      button.click();
+      await el.updateComplete;
+
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog')!;
+      expect(dialog).to.match(':popover-open');
     });
   });
 });

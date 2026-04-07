@@ -2,7 +2,14 @@ import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, LocaleMixin, anchor, event, isPopoverOpen } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  EventsController,
+  LocaleMixin,
+  anchor,
+  event,
+  isPopoverOpen
+} from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { FieldButton } from '@sl-design-system/text-field';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
@@ -29,7 +36,12 @@ type TimePartType = 'hour' | 'minute';
 const timeSeparators = new Map<string, string>();
 
 /**
- * A time field control for selecting a time.
+ * A form component that allows the user to pick a time.
+ * Uses individual spinbutton inputs per time part for improved accessibility.
+ *
+ * @cssState has-focus - Set when the time field has focus.
+ * @cssState has-value - Set when the time field has a value.
+ * @cssState placeholder-shown - Set when the time field is empty and has a placeholder.
  */
 @localized()
 export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(LitElement))) {
@@ -56,6 +68,12 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** Events controller. */
+  // eslint-disable-next-line no-unused-private-class-members
+  #events = new EventsController(this, {
+    click: this.#onClick
+  });
+
   /** @internal The default margin between the popover and the viewport. */
   static viewportMargin = 8;
 
@@ -75,7 +93,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
    */
   #popoverJustClosed = false;
 
-  /** The index of the active date part for roving tabindex. */
+  /** The index of the active time part for roving tabindex. */
   #rovingIndex = 0;
 
   /**
@@ -203,7 +221,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     super.connectedCallback();
 
     this.internals.role = 'group';
-
     this.setFormControlElement(this);
 
     this.addEventListener('focusin', this.#onFocusIn);
@@ -274,13 +291,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** @internal */
   override focus(): void {
-    const selectAll = this.renderRoot.querySelector<HTMLElement>('.select-all');
-
-    if (selectAll) {
-      selectAll.focus();
-      return;
-    }
-
     this.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')?.focus();
     this.internals.states.add('has-focus');
   }
@@ -306,9 +316,8 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
                   @drop=${(event: DragEvent) => event.preventDefault()}
                   class="select-all"
                   contenteditable="plaintext-only"
+                  >${this.#getFormattedValue()}</span
                 >
-                  ${this.#getFormattedValue()}
-                </span>
               `
             : html`
                 <div class="parts">
@@ -643,6 +652,14 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
   }
 
+  #onClick(event: Event): void {
+    // this is needed to get the link between the label and the input working,
+    // because that doesn't work when the input is actually a contenteditable span
+    if (!this.disabled && event.composedPath()[0] === this) {
+      this.focus();
+    }
+  }
+
   #onFocusIn = (event: FocusEvent): void => {
     // Only emit when focus enters from outside the component
     const relatedTarget = event.relatedTarget as Node | null;
@@ -888,10 +905,14 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       }
 
       const digit = parseInt(event.key, 10);
+      const wasEmpty = this.timeParts[partType] === undefined || this.#enteredDigits === 0;
       this.#applyDigitToTimePart(partType, digit);
 
-      // Auto-advance when max digits (2) reached
-      if (this.#enteredDigits >= 2) {
+      // Auto-advance when max digits (2) reached OR when single digit makes second digit impossible
+      const shouldAutoAdvance =
+        this.#enteredDigits >= 2 || (wasEmpty && this.#shouldAutoAdvanceOnSingleDigit(partType, digit));
+
+      if (shouldAutoAdvance) {
         this.#enteredDigits = 0;
         this.#moveFocus(span, 1);
       } else {
@@ -1111,6 +1132,19 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       totalMinutes2 = time2.hour * 60 + time2.minute;
 
     return totalMinutes1 - totalMinutes2;
+  }
+
+  /**
+   * Determines if we should auto-advance to the next field after entering a single digit.
+   * For hours: digits 3-9 make a second digit impossible (since max hour is 23)
+   * For minutes: digits 6-9 make a second digit impossible (since max minute is 59)
+   */
+  #shouldAutoAdvanceOnSingleDigit(partType: TimePartType, digit: number): boolean {
+    if (partType === 'hour') {
+      return digit >= 3;
+    } else {
+      return digit >= 6;
+    }
   }
 
   #trySetValue(digit?: boolean): void {

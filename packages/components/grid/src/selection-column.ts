@@ -4,6 +4,7 @@ import { type ListDataSourceDataItem, type ListDataSourceItem } from '@sl-design
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { GridColumn } from './column.js';
 
 declare global {
@@ -50,10 +51,11 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
   override renderHeaderRow(index: number): TemplateResult | typeof nothing {
     if (index === 0) {
       const checked = !!this.grid?.dataSource?.selected && this.grid?.dataSource?.areAllSelected(),
-        indeterminate = this.grid?.dataSource?.areSomeSelected();
+        indeterminate = this.grid?.dataSource?.areSomeSelected(),
+        classes = this.getClasses();
 
       return html`
-        <th part="header selection" role="columnheader">
+        <th class=${ifDefined(classes.join(' ') || undefined)} part="header selection" role="columnheader">
           <sl-checkbox
             @sl-change=${({ detail }: SlChangeEvent<boolean>) => this.#onToggleAll(detail)}
             ?checked=${checked}
@@ -65,13 +67,23 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
         </th>
       `;
     } else {
-      return html`<th part="header selection-placeholder" role="columnheader"></th>`;
+      const classes = this.getClasses();
+
+      return html`
+        <th
+          class=${ifDefined(classes.join(' ') || undefined)}
+          part="header selection-placeholder"
+          role="columnheader"
+        ></th>
+      `;
     }
   }
 
   override renderData(item: ListDataSourceDataItem<T>): TemplateResult {
+    const classes = this.getClasses(item.data);
+
     return html`
-      <td @click=${this.#onClick} part="data selection">
+      <td @click=${this.#onClick} class=${ifDefined(classes.join(' ') || undefined)} part="data selection">
         <sl-checkbox
           @sl-change=${() => this.#onToggle(item)}
           ?checked=${item.selected}

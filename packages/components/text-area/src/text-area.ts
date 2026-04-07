@@ -222,12 +222,13 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
   }
 
   #setSize(): void {
+    console.log('set size', this.resize);
     if (this.resize === 'auto') {
       this.textarea.style.height = 'auto';
       this.textarea.style.height = `${this.textarea.scrollHeight}px`;
       this.textarea.style.resize = 'none';
     } else {
-      (this.textarea.style.height as string | undefined) = undefined;
+      this.textarea.style.height = 'auto';
     }
   }
 
@@ -239,7 +240,7 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
     textarea.placeholder = this.placeholder ?? '';
     textarea.readOnly = !!this.readonly;
     textarea.required = !!this.required;
-    textarea.rows = this.rows ?? 2;
+    textarea.rows = this.rows ?? 3;
     textarea.style.resize = this.resize ?? 'vertical';
     textarea.wrap = this.wrap ?? 'soft';
 

@@ -139,8 +139,15 @@ export const Required: Story = {
 
 export const Resize: Story = {
   args: {
-    hint: 'This field will resize automatically as you type.',
+    hint: 'This field will resize automatically as you type. By default the minimum number height of the container is 3 rows, but you can change that by setting the `--sl-text-area-rows ` CSS variable.',
     resize: 'auto'
+  }
+};
+
+export const Rows: Story = {
+  args: {
+    hint: 'This field will have a specific number of rows.',
+    rows: 4
   }
 };
 

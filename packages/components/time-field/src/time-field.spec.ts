@@ -1653,7 +1653,6 @@ describe('sl-time-field', () => {
 
       field.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')?.focus();
 
-      hourSpinbutton.focus();
       await userEvent.keyboard('0');
       await field.updateComplete;
       await userEvent.keyboard('9');

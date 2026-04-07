@@ -111,6 +111,9 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   override disconnectedCallback(): void {
     this.#observer.disconnect();
 
+    // Remove dialog classes
+    document.documentElement.classList.remove('sl-dialog-enter', 'sl-dialog-leave');
+
     super.disconnectedCallback();
   }
 

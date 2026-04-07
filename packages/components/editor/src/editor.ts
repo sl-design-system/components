@@ -10,8 +10,8 @@ import { Schema } from 'prosemirror-model';
 import { EditorState, type Plugin } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { setHTML } from './commands.js';
-import styles from './editor.scss.js';
 import { EditorToolbar } from './editor-toolbar.js';
+import styles from './editor.scss.js';
 import { buildKeymap, buildListKeymap } from './keymap.js';
 import { type EditorMarks, type EditorNodes, marks, nodes } from './schema.js';
 import { createContentNode, getHTML } from './utils.js';
@@ -99,10 +99,12 @@ export class Editor extends ScopedElementsMixin(FormControlMixin(LitElement)) {
   }
 
   override render(): TemplateResult {
+    const isDisabled = this.disabled || this.hasAttribute('disabled');
+
     return html`
       <slot style="display: none"></slot>
       <div class="container">
-        ${this.toolbar ? html`<sl-editor-toolbar ?disabled=${this.disabled}></sl-editor-toolbar>` : ''}
+        ${this.toolbar ? html`<sl-editor-toolbar ?disabled=${isDisabled}></sl-editor-toolbar>` : ''}
         <div class="mount"></div>
       </div>
     `;
@@ -116,7 +118,7 @@ export class Editor extends ScopedElementsMixin(FormControlMixin(LitElement)) {
       { mount },
       {
         state,
-        dispatchTransaction: (tr) => {
+        dispatchTransaction: tr => {
           editor.updateState(editor.state.apply(tr));
 
           // Notify toolbar so it can sync active-state of buttons

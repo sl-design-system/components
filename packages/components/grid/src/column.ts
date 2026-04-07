@@ -204,11 +204,7 @@ export class GridColumn<T = any> extends LitElement {
       parts = ['header', ...this.getParts()];
 
     return html`
-      <th
-        class=${ifDefined(classes.length ? classes.join(' ') : undefined)}
-        part=${parts.join(' ')}
-        role="columnheader"
-      >
+      <th class=${ifDefined(classes.join(' ') || undefined)} part=${parts.join(' ')} role="columnheader">
         ${this.renderHeaderLabel()}
       </th>
     `;
@@ -242,13 +238,13 @@ export class GridColumn<T = any> extends LitElement {
 
     if (this.ellipsizeText && typeof data === 'string') {
       return html`
-        <td class=${ifDefined(classes.length ? classes.join(' ') : undefined)} part=${parts.join(' ')}>
+        <td class=${ifDefined(classes.join(' ') || undefined)} part=${parts.join(' ')} role="cell">
           <sl-ellipsize-text>${data}</sl-ellipsize-text>
         </td>
       `;
     } else {
       return html`
-        <td class=${ifDefined(classes.length ? classes.join(' ') : undefined)} part=${parts.join(' ')}>${data}</td>
+        <td class=${ifDefined(classes.join(' ') || undefined)} part=${parts.join(' ')} role="cell">${data}</td>
       `;
     }
   }
@@ -266,6 +262,8 @@ export class GridColumn<T = any> extends LitElement {
 
     if (this.sticky && this.stickyOrder && this.stickyPosition) {
       classes.push(`sticky-${this.stickyPosition}-${this.stickyOrder}`);
+    } else if (this.sticky && this.stickyPosition) {
+      classes.push(`sticky-${this.stickyPosition}`);
     }
 
     return classes;

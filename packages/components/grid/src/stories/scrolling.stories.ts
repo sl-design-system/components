@@ -174,16 +174,15 @@ export const BothSticky: Story = {
     <sl-grid .items=${students}>
       <sl-grid-selection-column sticky></sl-grid-selection-column>
       <sl-grid-column grow="0" header="Nr." path="studentNumber" sticky></sl-grid-column>
+      <sl-grid-column path="group.name" sticky></sl-grid-column>
       <sl-grid-column
         grow="3"
         header="Student"
         path="fullName"
         .renderer=${avatarRenderer}
         .scopedElements=${{ 'sl-avatar': Avatar }}
-        sticky
       ></sl-grid-column>
       <sl-grid-column path="email"></sl-grid-column>
-      <sl-grid-column path="group.name"></sl-grid-column>
       <sl-grid-column path="school.name"></sl-grid-column>
       <sl-grid-column path="school.address"></sl-grid-column>
       <sl-grid-column path="school.city"></sl-grid-column>

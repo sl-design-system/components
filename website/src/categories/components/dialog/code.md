@@ -60,6 +60,47 @@ The button-bar component in the footer will automatically stack the buttons vert
 
 <section>
 
+## Commands
+
+The `<sl-dialog>` component supports the [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API). This allows you to open and close dialogs declaratively using `<sl-button>`, without needing any JavaScript.
+
+Set the `command` attribute on an `<sl-button>` to specify the action, and the `commandfor` attribute to reference the `id` of the dialog:
+
+| Command | Description |
+| --- | --- |
+| `--show-modal` | Opens the dialog as a modal |
+| `--close` | Closes the dialog |
+| `--request-close` | Requests the dialog to close, firing a `cancel` event that can be prevented |
+
+{.ds-table .ds-table-align-top}
+
+<div class="ds-example">
+  <div class="ds-example__code-wrapper">
+    <sl-button command="--show-modal" commandfor="invoker-dialog" variant="primary">Open dialog</sl-button>
+    <sl-dialog id="invoker-dialog">
+      <span slot="title">Dialog title</span>
+      <p>This dialog was opened using the Invoker Commands API. No JavaScript needed!</p>
+      <sl-button command="--close" commandfor="invoker-dialog" slot="primary-actions" autofocus>Close</sl-button>
+    </sl-dialog>
+  </div>
+</div>
+
+<div class="ds-code">
+
+  ```html
+  <sl-button command="--show-modal" commandfor="my-dialog" variant="primary">Open dialog</sl-button>
+  <sl-dialog id="my-dialog">
+    <span slot="title">Dialog title</span>
+    <p>This dialog was opened using the Invoker Commands API. No JavaScript needed!</p>
+    <sl-button command="--close" commandfor="my-dialog" slot="primary-actions" autofocus>Close</sl-button>
+  </sl-dialog>
+  ```
+
+</div>
+</section>
+
+<section>
+
 ## Migrating to SLDS Dialog
 
 When using the dialog in an existing application, and more importantly, using existing code in the contents of the dialog there are a few caveats. Please read our [overlay guidelines](/categories/guidelines/overlays/) on possible issues that can occur and how to prevent or solve them.

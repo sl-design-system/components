@@ -5,7 +5,6 @@
     "emitDeclarationOnly": false,
     "module": "ES2022",
     "moduleResolution": "bundler",
-    "noPropertyAccessFromIndexSignature": true,
     "outDir": "./out-tsc",
     "paths": {
       "@sl-design-system/angular": ["./dist"],

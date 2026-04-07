@@ -1,13 +1,17 @@
 import {
   faArrowRotateLeft,
   faArrowRotateRight,
+  faBold,
   faCode,
   faH1,
   faH2,
   faH3,
+  faItalic,
   faList,
   faListOl,
-  faQuoteLeft
+  faQuoteLeft,
+  faStrikethrough,
+  faUnderline
 } from '@fortawesome/pro-regular-svg-icons';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
@@ -24,28 +28,27 @@ import { type EditorState } from 'prosemirror-state';
 import { type EditorView } from 'prosemirror-view';
 import styles from './editor-toolbar.scss.js';
 
-Icon.register({
-  'editor-bold': {
-    svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 12h9a4 4 0 0 1 0 8H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h7a4 4 0 0 1 0 8"/></svg>'
-  },
-  'editor-italic': {
-    svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" x2="10" y1="4" y2="4"/><line x1="14" x2="5" y1="20" y2="20"/><line x1="15" x2="9" y1="4" y2="20"/></svg>'
-  },
-  'editor-underline': {
-    svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4v6a6 6 0 0 0 12 0V4"/><line x1="4" x2="20" y1="20" y2="20"/></svg>'
-  },
-  'editor-strikethrough': {
-    svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4H9a3 3 0 0 0-2.83 4"/><path d="M14 12a4 4 0 0 1 0 8H6"/><line x1="4" x2="20" y1="12" y2="12"/></svg>'
-  }
-});
-
-Icon.register(faArrowRotateLeft, faArrowRotateRight, faCode, faH1, faH2, faH3, faList, faListOl, faQuoteLeft);
-
 declare global {
   interface HTMLElementTagNameMap {
     'sl-editor-toolbar': EditorToolbar;
   }
 }
+
+Icon.register(
+  faArrowRotateLeft,
+  faArrowRotateRight,
+  faBold,
+  faCode,
+  faH1,
+  faH2,
+  faH3,
+  faItalic,
+  faList,
+  faListOl,
+  faQuoteLeft,
+  faStrikethrough,
+  faUnderline
+);
 
 /**
  * A toolbar for the rich text editor, providing common rich text formatting actions.
@@ -85,11 +88,11 @@ export class EditorToolbar extends ScopedElementsMixin(LitElement) {
 
     return html`
       <sl-tool-bar ?disabled=${this.disabled}>
-        ${schema?.marks.strong ? this.#renderIconButton('Bold', 'editor-bold', 'bold') : nothing}
-        ${schema?.marks.em ? this.#renderIconButton('Italic', 'editor-italic', 'italic') : nothing}
-        ${schema?.marks.underline ? this.#renderIconButton('Underline', 'editor-underline', 'underline') : nothing}
+        ${schema?.marks.strong ? this.#renderIconButton('Bold', 'far-bold', 'bold') : nothing}
+        ${schema?.marks.em ? this.#renderIconButton('Italic', 'far-italic', 'italic') : nothing}
+        ${schema?.marks.underline ? this.#renderIconButton('Underline', 'far-underline', 'underline') : nothing}
         ${schema?.marks.strikethrough
-          ? this.#renderIconButton('Strikethrough', 'editor-strikethrough', 'strikethrough')
+          ? this.#renderIconButton('Strikethrough', 'far-strikethrough', 'strikethrough')
           : nothing}
         ${schema?.marks.code || schema?.nodes.blockquote ? html`<sl-tool-bar-divider></sl-tool-bar-divider>` : nothing}
         ${schema?.marks.code ? this.#renderIconButton('Inline code', 'far-code', 'code') : nothing}

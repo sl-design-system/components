@@ -37,22 +37,22 @@ describe('sl-editor-toolbar', () => {
     });
 
     it('should render a Bold button', () => {
-      const button = getButtonByIconName('editor-bold');
+      const button = getButtonByIconName('far-bold');
       expect(button).to.exist;
     });
 
     it('should render an Italic button', () => {
-      const button = getButtonByIconName('editor-italic');
+      const button = getButtonByIconName('far-italic');
       expect(button).to.exist;
     });
 
     it('should render an Underline button', () => {
-      const button = getButtonByIconName('editor-underline');
+      const button = getButtonByIconName('far-underline');
       expect(button).to.exist;
     });
 
     it('should render a Strikethrough button', () => {
-      const button = getButtonByIconName('editor-strikethrough');
+      const button = getButtonByIconName('far-strikethrough');
       expect(button).to.exist;
     });
 
@@ -135,7 +135,7 @@ describe('sl-editor-toolbar', () => {
       view.dispatch(tr);
       await toolbar.updateComplete;
 
-      const boldButton = getButtonByIconName('editor-bold');
+      const boldButton = getButtonByIconName('far-bold');
       expect(boldButton).to.have.attribute('fill', 'outline');
     });
   });
@@ -187,19 +187,19 @@ describe('sl-editor-toolbar', () => {
     });
 
     it('should apply bold when Bold button is clicked', async () => {
-      const boldButton = getButtonByIconName('editor-bold')!;
+      const boldButton = getButtonByIconName('far-bold')!;
       boldButton.click();
       await toolbar.updateComplete;
 
-      expect(getButtonByIconName('editor-bold')).to.have.attribute('fill', 'outline');
+      expect(getButtonByIconName('far-bold')).to.have.attribute('fill', 'outline');
     });
 
     it('should apply italic when Italic button is clicked', async () => {
-      const italicButton = getButtonByIconName('editor-italic')!;
+      const italicButton = getButtonByIconName('far-italic')!;
       italicButton.click();
       await toolbar.updateComplete;
 
-      expect(getButtonByIconName('editor-italic')).to.have.attribute('fill', 'outline');
+      expect(getButtonByIconName('far-italic')).to.have.attribute('fill', 'outline');
     });
 
     it('should toggle heading when H1 button is clicked', async () => {

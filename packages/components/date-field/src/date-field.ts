@@ -573,7 +573,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.renderRoot.ownerDocument.getSelection()?.removeAllRanges();
     }
 
-    if (!this.selectAll) {
+    if (!this.selectAll && !isSpinbutton) {
       this.internals.states.delete('has-focus');
     }
   }

@@ -94,6 +94,186 @@ describe('sl-time-field', () => {
       expect(el.value).to.equal('12:34');
     });
 
+    it('should auto-advance to minutes when typing a single digit >= 3 in hour field', async () => {
+      const spinbuttons = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+      const hourSpinbutton = spinbuttons[0];
+      const minuteSpinbutton = spinbuttons[1];
+
+      hourSpinbutton.focus();
+      await el.updateComplete;
+
+      // Typing '3' should auto-advance to minutes (since 30+ hours is impossible)
+      await userEvent.keyboard('3');
+      await el.updateComplete;
+
+      expect(el.shadowRoot?.activeElement).to.equal(minuteSpinbutton);
+      expect(el.timeParts.hour).to.equal(3);
+    });
+
+    it('should auto-advance to minutes when typing digit 9 in hour field', async () => {
+      const spinbuttons = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+      const hourSpinbutton = spinbuttons[0];
+      const minuteSpinbutton = spinbuttons[1];
+
+      hourSpinbutton.focus();
+      await el.updateComplete;
+
+      await userEvent.keyboard('9');
+      await el.updateComplete;
+
+      expect(el.shadowRoot?.activeElement).to.equal(minuteSpinbutton);
+      expect(el.timeParts.hour).to.equal(9);
+    });
+
+    it('should NOT auto-advance when typing 0-2 in hour field', async () => {
+      const spinbuttons = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+      const hourSpinbutton = spinbuttons[0];
+
+      hourSpinbutton.focus();
+      await el.updateComplete;
+
+      // Typing '2' should NOT auto-advance (allows typing '23')
+      await userEvent.keyboard('2');
+      await el.updateComplete;
+
+      expect(el.shadowRoot?.activeElement).to.equal(hourSpinbutton);
+      expect(el.timeParts.hour).to.equal(2);
+
+      // Typing another digit should complete the hour and move to minutes
+      await userEvent.keyboard('3');
+      await el.updateComplete;
+
+      expect(el.shadowRoot?.activeElement).to.equal(spinbuttons[1]);
+      expect(el.timeParts.hour).to.equal(23);
+
+      // Complete the time by adding minutes
+      await userEvent.keyboard('0');
+      await userEvent.keyboard('0');
+      await el.updateComplete;
+
+      expect(el.value).to.equal('23:00');
+    });
+
+    it('should reset digit entry when typing single digit >= 6 in minute field', async () => {
+      const spinbuttons = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+      const minuteSpinbutton = spinbuttons[1];
+
+      // First set an hour
+      spinbuttons[0].focus();
+      await userEvent.keyboard('9');
+      await el.updateComplete;
+
+      // Now we should be in minutes field
+      expect(el.shadowRoot?.activeElement).to.equal(minuteSpinbutton);
+
+      // Typing '6' should complete minute entry (since 60+ is impossible)
+      await userEvent.keyboard('6');
+      await el.updateComplete;
+
+      expect(el.value).to.equal('09:06');
+      expect(el.timeParts.minute).to.equal(6);
+    });
+
+    it('should allow two-digit entry for minute values 0-5', async () => {
+      const spinbuttons = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+
+      // Manually set hour to avoid auto-advance complications
+      el.timeParts = { hour: 9 };
+      await el.updateComplete;
+
+      // Focus minute field directly
+      spinbuttons[1].focus();
+      await el.updateComplete;
+
+      // Type '5' in minutes - should allow second digit (doesn't auto-advance)
+      await userEvent.keyboard('5');
+      await el.updateComplete;
+
+      expect(el.timeParts.minute).to.equal(5);
+
+      // Type '9' to complete '59'
+      await userEvent.keyboard('9');
+      await el.updateComplete;
+
+      expect(el.timeParts.minute).to.equal(59);
+      expect(el.value).to.equal('09:59');
+    });
+
+    it('should NOT auto-advance when typing 0 or 1 in hour field', async () => {
+      const spinbuttons = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+      const hourSpinbutton = spinbuttons[0];
+
+      // Test with '0'
+      hourSpinbutton.focus();
+      await el.updateComplete;
+
+      await userEvent.keyboard('0');
+      await el.updateComplete;
+
+      expect(el.shadowRoot?.activeElement).to.equal(hourSpinbutton);
+      expect(el.timeParts.hour).to.equal(0);
+
+      // Clear and test with '1'
+      await userEvent.keyboard('{Backspace}');
+      await el.updateComplete;
+
+      await userEvent.keyboard('1');
+      await el.updateComplete;
+
+      expect(el.shadowRoot?.activeElement).to.equal(hourSpinbutton);
+      expect(el.timeParts.hour).to.equal(1);
+    });
+
+    it('should complete minute entry when typing digits 7, 8, or 9', async () => {
+      const spinbuttons = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+
+      // Test with digit '7'
+      el.timeParts = { hour: 10 };
+      await el.updateComplete;
+
+      spinbuttons[1].focus();
+      await el.updateComplete;
+
+      await userEvent.keyboard('7');
+      await el.updateComplete;
+
+      expect(el.timeParts.minute).to.equal(7);
+      expect(el.value).to.equal('10:07');
+
+      // Test with digit '8' - clear previous minute first
+      el.timeParts = { hour: 11, minute: undefined };
+      await el.updateComplete;
+
+      spinbuttons[1].focus();
+      await el.updateComplete;
+
+      await userEvent.keyboard('8');
+      await el.updateComplete;
+
+      expect(el.timeParts.minute).to.equal(8);
+      expect(el.value).to.equal('11:08');
+    });
+
+    it('should support quick time entry using auto-advance', async () => {
+      const spinbuttons = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+
+      spinbuttons[0].focus();
+      await el.updateComplete;
+
+      // Type '3' (auto-advances) then '0' to get 03:00
+      await userEvent.keyboard('3');
+      await el.updateComplete;
+
+      expect(el.shadowRoot?.activeElement).to.equal(spinbuttons[1]);
+      expect(el.timeParts.hour).to.equal(3);
+
+      await userEvent.keyboard('0');
+      await userEvent.keyboard('0');
+      await el.updateComplete;
+
+      expect(el.value).to.equal('03:00');
+    });
+
     it('should emit a change event when the time is changed via the keyboard', async () => {
       const onChange = spy();
 

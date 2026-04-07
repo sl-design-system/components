@@ -73,7 +73,7 @@ export default {
       <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
           <sl-time-field
-            style="width: ${width ? width : 'fit-content'};"
+            style="inline-size: ${width ? width : 'fit-content'};"
             ?disabled=${disabled}
             hour-step=${ifDefined(hourStep)}
             locale=${ifDefined(locale)}

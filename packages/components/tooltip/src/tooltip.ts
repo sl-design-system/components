@@ -69,7 +69,7 @@ export class Tooltip extends LitElement {
 
   /** To attach the `sl-tooltip` to the DOM tree and anchor element */
   static lazy(target: Element, callback: (target: Tooltip) => void, options: TooltipOptions = {}): () => void {
-    const removeCreateListeners = () => {
+    const removeListeners = () => {
       ['focusin', 'pointerover'].forEach(eventName => target.removeEventListener(eventName, createTooltip));
     };
 
@@ -97,7 +97,7 @@ export class Tooltip extends LitElement {
         );
 
         tooltip.remove();
-        removeCreateListeners();
+        removeListeners();
 
         return;
       }
@@ -114,11 +114,11 @@ export class Tooltip extends LitElement {
       tooltip.anchorElement = target as HTMLElement;
 
       // We only need to create the tooltip once, so ignore all future events.
-      removeCreateListeners();
+      removeListeners();
     };
 
     const cleanup = () => {
-      removeCreateListeners();
+      removeListeners();
     };
 
     ['focusin', 'pointerover'].forEach(eventName => target.addEventListener(eventName, createTooltip));
@@ -193,10 +193,10 @@ export class Tooltip extends LitElement {
   }
 
   override disconnectedCallback(): void {
-    super.disconnectedCallback();
-
     clearTimeout(this.#timer);
     this.#timer = undefined;
+
+    super.disconnectedCallback();
   }
 
   override render(): TemplateResult {
@@ -290,6 +290,8 @@ export class Tooltip extends LitElement {
 
         const isFocusVisible = !!this.anchorElement?.matches(':focus-visible');
 
+        // Keep the tooltip open while the current anchor still has keyboard-visible focus.
+        // This prevents hover-out from hiding a focus-triggered tooltip.
         if (anchorHovered || tooltipHovered || safeTriangleHovered || isFocusVisible) {
           return;
         }
@@ -355,6 +357,7 @@ export class Tooltip extends LitElement {
     // For hover events
     if (event.type === 'pointerover') {
       clearTimeout(this.#timer);
+      this.#timer = undefined;
 
       // If already open, update anchor immediately to avoid "stickiness"
       if (isPopoverOpen(this)) {
@@ -497,7 +500,7 @@ export class Tooltip extends LitElement {
    */
   #findAnchorInEvent = (event: Event): HTMLElement | undefined => {
     const path = event.composedPath(),
-      escapedId = this.#getEscapedTooltipId();
+      escapedId = this.id ? CSS.escape(this.id) : undefined;
 
     // First check elements directly in the composed path
     const anchor = path.find((el): el is HTMLElement => el instanceof HTMLElement && this.#matchesAnchor(el));
@@ -547,7 +550,7 @@ export class Tooltip extends LitElement {
   };
 
   #getAriaAnchors = (): HTMLElement[] => {
-    const escapedId = this.#getEscapedTooltipId();
+    const escapedId = this.id ? CSS.escape(this.id) : undefined;
     if (!escapedId) {
       return [];
     }
@@ -556,14 +559,6 @@ export class Tooltip extends LitElement {
     const selector = `[aria-describedby~="${escapedId}"], [aria-labelledby~="${escapedId}"]`;
 
     return Array.from(root.querySelectorAll<HTMLElement>(selector));
-  };
-
-  #getEscapedTooltipId = (): string | undefined => {
-    if (!this.id) {
-      return undefined;
-    }
-
-    return CSS.escape(this.id);
   };
 
   #getKnownAnchors = (): HTMLElement[] => {
@@ -585,6 +580,10 @@ export class Tooltip extends LitElement {
     this.#openedByFocus = false;
   };
 
+  /**
+   * Checks whether an element is connected to this tooltip through any supported ARIA wiring
+   * (attributes, reflected ARIA element lists, forwarded proxy targets, or ElementInternals).
+   */
   #matchesAnchor = (element: Element): boolean => {
     if (!this.id || !element || element.nodeType !== Node.ELEMENT_NODE) {
       return false;
@@ -631,6 +630,10 @@ export class Tooltip extends LitElement {
     );
   };
 
+  /**
+   * Normalizes an internal proxy target back to the public host element when both represent
+   * the same anchor. This keeps `anchorElement` stable for consumers and tests.
+   */
   #normalizeAnchorElement = (element: HTMLElement): HTMLElement => {
     let normalized = element;
 

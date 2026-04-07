@@ -161,6 +161,7 @@ describe('sl-toggle-button', () => {
 
     it('should not toggle the pressed state when clicked', async () => {
       el.click();
+
       await el.updateComplete;
 
       expect(el).to.have.attribute('aria-pressed', 'false');
@@ -170,7 +171,8 @@ describe('sl-toggle-button', () => {
 
     it('should not toggle the pressed state when pressing enter', async () => {
       el.focus();
-      userEvent.keyboard('{Enter}');
+
+      await userEvent.keyboard('{Enter}');
       await el.updateComplete;
 
       expect(el).to.have.attribute('aria-pressed', 'false');
@@ -180,7 +182,8 @@ describe('sl-toggle-button', () => {
 
     it('should not toggle the pressed state when pressing space', async () => {
       el.focus();
-      userEvent.keyboard('{Space}');
+
+      await userEvent.keyboard('{Space}');
       await el.updateComplete;
 
       expect(el).to.have.attribute('aria-pressed', 'false');

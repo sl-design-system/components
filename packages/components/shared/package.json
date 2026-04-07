@@ -36,6 +36,10 @@
       "import": "./src/events.js",
       "types": "./src/events.d.ts"
     },
+    "./helpers/forward-aria.js": {
+      "import": "./src/helpers/forward-aria.js",
+      "types": "./src/helpers/forward-aria.d.ts"
+    },
     "./mixins.js": {
       "import": "./src/mixins.js",
       "types": "./src/mixins.d.ts"

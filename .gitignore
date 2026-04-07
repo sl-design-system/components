@@ -27,6 +27,8 @@ node_modules/
 # TypeScript cache
 *.tsbuildinfo
 
+.vitest-attachments
+
 # Optional npm cache directory
 .npm
 

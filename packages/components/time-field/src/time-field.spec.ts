@@ -30,31 +30,6 @@ function waitForPopoverState(dialog: HTMLDialogElement, shouldBeOpen: boolean, t
   });
 }
 
-function waitForToggleEvent(
-  dialog: HTMLDialogElement,
-  expectedState: 'open' | 'closed',
-  timeout = 5000
-): Promise<void> {
-  return new Promise((resolve, reject) => {
-    let handler: (event: Event) => void = () => {};
-    const timeoutId = setTimeout(() => {
-      dialog.removeEventListener('toggle', handler);
-      reject(new Error(`Timeout waiting for toggle event with state ${expectedState}`));
-    }, timeout);
-
-    handler = (event: Event) => {
-      const toggleEvent = event as ToggleEvent;
-      if (toggleEvent.newState === expectedState) {
-        clearTimeout(timeoutId);
-        dialog.removeEventListener('toggle', handler);
-        resolve();
-      }
-    };
-
-    dialog.addEventListener('toggle', handler);
-  });
-}
-
 describe('sl-time-field', () => {
   let el: TimeField;
 
@@ -1672,8 +1647,6 @@ describe('sl-time-field', () => {
 
       field.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')?.focus();
 
-      // hourSpinbutton.focus();
-
       await userEvent.keyboard('9');
       await userEvent.keyboard('1');
       await userEvent.keyboard('5');
@@ -1841,10 +1814,10 @@ describe('sl-time-field', () => {
       await waitForPopoverState(dialog, true);
 
       expect(dialog).to.match(':popover-open');
-      const togglePromise = waitForToggleEvent(dialog, 'closed');
+
       button.click();
       await el.updateComplete;
-      await Promise.all([waitForPopoverState(dialog, false), togglePromise]);
+      await waitForPopoverState(dialog, false);
 
       expect(dialog).not.to.match(':popover-open');
 

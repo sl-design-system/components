@@ -41,6 +41,7 @@ dialog {
   dialog {
     border: 0;
     border-radius: var(--sl-size-borderRadius-default) var(--sl-size-borderRadius-default) 0 0;
+    max-inline-size: 100dvw; // Override Safari's default max-width on <dialog>
 
     // Exit animation
     &:not(:modal),

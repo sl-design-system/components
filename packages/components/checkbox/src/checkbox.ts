@@ -286,7 +286,7 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
     }
 
     requestAnimationFrame(() => {
-      if (this.input.labels?.length) {
+      if (!this.input.hasAttribute('aria-labelledby') && this.input.labels?.length) {
         this.input.setAttribute(
           'aria-labelledby',
           Array.from(this.input.labels)

@@ -87,9 +87,9 @@ describe('sl-time-field', () => {
       await el.updateComplete;
 
       await userEvent.keyboard('12');
-      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
       await userEvent.keyboard('34');
-      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(el.value).to.equal('12:34');
     });
@@ -1643,13 +1643,14 @@ describe('sl-time-field', () => {
     });
 
     it('should keep keyboard interaction working when locale is set to an empty string', async () => {
-      const field = await fixture<TimeField>(html`<sl-time-field locale=""></sl-time-field>`),
-        hourSpinbutton = field.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+      const field = await fixture<TimeField>(html`<sl-time-field locale=""></sl-time-field>`);
 
-      hourSpinbutton.focus();
-      await userEvent.keyboard('09');
-      await el.updateComplete;
-      await userEvent.keyboard('15');
+      field.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')?.focus();
+
+      await userEvent.keyboard('0');
+      await userEvent.keyboard('9');
+      await userEvent.keyboard('1');
+      await userEvent.keyboard('5');
       await el.updateComplete;
 
       expect(field.value).to.equal('09:15');

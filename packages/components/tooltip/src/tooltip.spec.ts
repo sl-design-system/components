@@ -502,9 +502,7 @@ describe('sl-tooltip', () => {
   });
 
   describe('Tooltip lazy()', () => {
-    let el: HTMLElement;
-    let button: Button;
-    let tooltip: Tooltip;
+    let el: HTMLElement, button: Button, innerButton: HTMLButtonElement, tooltip: Tooltip;
 
     beforeEach(async () => {
       el = await fixture(html`
@@ -512,7 +510,9 @@ describe('sl-tooltip', () => {
           <sl-button>Button</sl-button>
         </div>
       `);
-      button = el.querySelector('sl-button') as Button;
+
+      button = el.querySelector('sl-button')!;
+      innerButton = button.renderRoot.querySelector('button')!;
     });
 
     it('should create a tooltip lazily on pointerover with default aria-describedby', async () => {
@@ -525,9 +525,9 @@ describe('sl-tooltip', () => {
 
       expect(tooltip).to.exist;
       expect(tooltip!.id).to.match(/sl-tooltip-(\d+)/);
-      expect(button).to.have.attribute('aria-describedby', tooltip?.id);
-      expect(button).not.to.have.attribute('aria-labelledby');
       expect(tooltip).to.match(':popover-open');
+      expect(innerButton.ariaDescribedByElements).to.include(tooltip);
+      expect(innerButton.ariaLabelledByElements).to.be.null;
     });
 
     it('should create a tooltip lazily on focusin', async () => {
@@ -539,8 +539,8 @@ describe('sl-tooltip', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       expect(tooltip).to.exist;
-      expect(button).to.have.attribute('aria-describedby', tooltip?.id);
       expect(tooltip).to.match(':popover-open');
+      expect(innerButton.ariaDescribedByElements).to.include(tooltip);
     });
 
     it('should use aria-labelledby when ariaRelation is label', async () => {
@@ -552,8 +552,8 @@ describe('sl-tooltip', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       expect(tooltip).to.exist;
-      expect(button).to.have.attribute('aria-labelledby', tooltip?.id);
-      expect(button).not.to.have.attribute('aria-describedby');
+      expect(innerButton.ariaDescribedByElements).to.be.null;
+      expect(innerButton.ariaLabelledByElements).to.include(tooltip);
     });
 
     it('should only create the tooltip once', async () => {
@@ -565,7 +565,7 @@ describe('sl-tooltip', () => {
       // Give some time for the tooltip to open
       await new Promise(resolve => setTimeout(resolve));
 
-      expect(el.querySelectorAll('sl-tooltip').length).to.equal(1);
+      expect(el.querySelectorAll('sl-tooltip')).to.have.lengthOf(1);
       expect(tooltip).to.exist;
     });
   });

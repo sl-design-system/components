@@ -31,35 +31,31 @@ export declare type EditorNodes =
   | 'orderedList'
   | 'bulletList';
 
-const SLOT = 0; // https://prosemirror.net/docs/guide/#schema.serialization_and_parsing
+/**
+ * The "hole" constant used in ProseMirror DOM output specs to indicate where child content goes.
+ * @see https://prosemirror.net/docs/guide/#schema.serialization_and_parsing
+ */
+const SLOT = 0;
 
-export const isEmpty = (obj: Record<string, unknown>): boolean => Object.keys(obj).length === 0;
+/** Returns true if the given object has no own keys. */
+const isEmpty = (obj: Record<string, unknown>): boolean => Object.keys(obj).length === 0;
 
-export const removeEntries = (
-  obj: Record<string, unknown>,
-  predicate: (key: string) => boolean
-): Record<string, string> => {
-  return (
-    Object.keys(obj)
-      .filter(key => predicate(key))
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
-      .reduce((acc, curr: any) => Object.assign(acc, { [curr]: obj[curr] }), {})
-  );
+/** Returns a new object containing only the entries where the predicate returns true. */
+const removeEntries = (obj: Record<string, unknown>, predicate: (key: string) => boolean): Record<string, string> => {
+  return Object.fromEntries(Object.entries(obj).filter(([key]) => predicate(key))) as Record<string, string>;
 };
 
-export const removeEmptyEntries = (obj: Record<string, unknown>): Record<string, string> => {
-  const predicate = (key: string): boolean => obj[key] !== null && obj[key] !== undefined && obj[key] !== '';
-
-  return removeEntries(obj, predicate);
+/** Returns a new object with all null, undefined, and empty-string values removed. */
+const removeEmptyEntries = (obj: Record<string, unknown>): Record<string, string> => {
+  return removeEntries(obj, key => obj[key] !== null && obj[key] !== undefined && obj[key] !== '');
 };
 
-export const commonAttributes = (): Attrs => {
-  return {
-    class: { default: null },
-    id: { default: null },
-    style: { default: null }
-  };
-};
+/** Common HTML attributes (class, id, style) shared across multiple node specs. */
+const commonAttributes = (): Attrs => ({
+  class: { default: null },
+  id: { default: null },
+  style: { default: null }
+});
 
 export const marks: Record<EditorMarks, MarkSpec> = {
   /**
@@ -91,8 +87,8 @@ export const marks: Record<EditorMarks, MarkSpec> = {
     ],
     toDOM: (mark: Mark): DOMOutputSpec => [
       'a',
-      // Add default value for href. Otherwise the link is not rendered properly
-      Object.assign({}, { href: '' }, removeEmptyEntries(mark.attrs)),
+      // Ensure href always has a value, otherwise the link is not rendered properly
+      { href: '', ...removeEmptyEntries(mark.attrs) },
       SLOT
     ]
   },
@@ -220,7 +216,7 @@ export const nodes: Record<EditorNodes, NodeSpec> = {
    * A plain textblock paragraph. Represented as a `<p>` element in the DOM.
    */
   paragraph: {
-    attrs: Object.assign({}, commonAttributes()),
+    attrs: { ...commonAttributes() },
     content: 'inline*',
     group: 'block',
     parseDOM: [{ tag: 'p', getAttrs: getAttributes }],
@@ -231,7 +227,7 @@ export const nodes: Record<EditorNodes, NodeSpec> = {
    * A blockquote (`<blockquote>`) which wraps one or more blocks.
    */
   blockquote: {
-    attrs: Object.assign({}, commonAttributes()),
+    attrs: { ...commonAttributes() },
     content: 'inline*',
     defining: true,
     group: 'block',
@@ -251,7 +247,7 @@ export const nodes: Record<EditorNodes, NodeSpec> = {
    * Parsed and serialized as an `<h1>` to an `<h6>` element.
    */
   heading: {
-    attrs: Object.assign({ level: { default: 1 } }, commonAttributes()),
+    attrs: { level: { default: 1 }, ...commonAttributes() },
     content: 'inline*',
     defining: true,
     group: 'block',
@@ -297,12 +293,13 @@ export const nodes: Record<EditorNodes, NodeSpec> = {
    * The last two default to an empty string.
    */
   image: {
-    attrs: Object.assign({}, commonAttributes(), {
+    attrs: {
+      ...commonAttributes(),
       alt: { default: null },
       height: { default: null },
       src: {},
       width: { default: null }
-    }),
+    },
     draggable: true,
     group: 'inline',
     inline: true,
@@ -323,7 +320,7 @@ export const nodes: Record<EditorNodes, NodeSpec> = {
    * A list item. Represented as a `<li>` element.
    */
   listItem: {
-    attrs: Object.assign({}, commonAttributes()),
+    attrs: { ...commonAttributes() },
     content: 'paragraph block*',
     marks: '_',
     parseDOM: [{ tag: 'li', getAttrs: getAttributes }],

@@ -18,9 +18,13 @@ import { type DispatchFn } from './commands.js';
 import { splitListItemKeepMarks } from './list-utils.js';
 import { type EditorMarks, type EditorNodes } from './schema.js';
 
-// https://github.com/ProseMirror/prosemirror-example-setup/blob/master/src/keymap.js
-const mac = typeof navigator !== 'undefined' ? /Mac/.test(navigator.platform) : false;
+// Detect macOS to register platform-specific key bindings.
+const mac = typeof navigator !== 'undefined' ? /Mac|iPhone|iPad|iPod/.test(navigator.userAgent) : false;
 
+/**
+ * Build the core key bindings for the editor: undo/redo, backspace, enter,
+ * bold/italic/underline toggles, and hard-break insertion.
+ */
 export const buildKeymap = (schema: Schema<EditorNodes, EditorMarks>): { [key: string]: Command } => {
   const keys: { [key: string]: Command } = {};
 
@@ -64,6 +68,10 @@ export const buildKeymap = (schema: Schema<EditorNodes, EditorMarks>): { [key: s
   return keys;
 };
 
+/**
+ * Build list-specific key bindings. This is registered as a separate keymap
+ * so list Enter handling takes priority over the generic Enter behavior.
+ */
 export const buildListKeymap = (schema: Schema<EditorNodes, EditorMarks>): { [key: string]: Command } => {
   const keys: { [key: string]: Command } = {};
 

@@ -280,7 +280,6 @@ describe('sl-time-field', () => {
       el.addEventListener('sl-change', onChange);
       const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
       hourSpinbutton.focus();
-      await el.updateComplete;
 
       await userEvent.keyboard('1');
       await userEvent.keyboard('2');

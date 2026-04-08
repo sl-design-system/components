@@ -113,9 +113,11 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
+    this.#leaveAnimationAbort?.abort();
 
-    // Remove dialog classes
+    // Remove dialog classes and restore scrolling
     document.documentElement.classList.remove('sl-dialog-enter', 'sl-dialog-leave');
+    document.documentElement.style.overflow = '';
 
     super.disconnectedCallback();
   }

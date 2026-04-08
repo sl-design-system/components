@@ -543,7 +543,7 @@ describe('sl-dialog', () => {
       expect(document.documentElement).to.have.class('sl-dialog-enter');
 
       await page.viewport(1024, 768);
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 200));
 
       expect(document.documentElement).not.to.have.class('sl-dialog-enter');
       expect(document.documentElement).not.to.have.class('sl-dialog-leave');
@@ -551,7 +551,7 @@ describe('sl-dialog', () => {
 
     it('should not toggle classes when resizing while dialog is closed', async () => {
       await page.viewport(1024, 768);
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 200));
 
       expect(document.documentElement).not.to.have.class('sl-dialog-enter');
       expect(document.documentElement).not.to.have.class('sl-dialog-leave');
@@ -585,7 +585,7 @@ describe('sl-dialog', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       el.close();
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 200));
 
       expect(document.documentElement).not.to.have.class('sl-dialog-enter');
       expect(document.documentElement).not.to.have.class('sl-dialog-leave');

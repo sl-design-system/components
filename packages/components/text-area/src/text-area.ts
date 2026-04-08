@@ -222,13 +222,13 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
   }
 
   #setSize(): void {
-    console.log('set size', this.resize);
     if (this.resize === 'auto') {
       this.textarea.style.height = 'auto';
       this.textarea.style.height = `${this.textarea.scrollHeight}px`;
       this.textarea.style.resize = 'none';
     } else {
-      this.textarea.style.height = 'auto';
+      this.textarea.style.removeProperty('height');
+      // this.textarea.style.height = 'auto';
     }
   }
 

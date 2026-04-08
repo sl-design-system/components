@@ -497,7 +497,7 @@ describe('sl-text-area', () => {
 
         expect(el.resize).to.equal('vertical');
         expect(textArea.style.resize).to.equal('vertical');
-        expect(textArea.style.height).to.equal('74px');
+        expect(textArea.style.height).to.equal('');
       });
 
       it('should update from vertical to none', async () => {
@@ -571,7 +571,7 @@ describe('sl-text-area', () => {
       el.resize = 'vertical';
       await el.updateComplete;
 
-      expect(textArea.style.height).to.equal('74px');
+      expect(textArea.style.height).to.equal('');
       expect(textArea.style.resize).to.equal('vertical');
     });
   });

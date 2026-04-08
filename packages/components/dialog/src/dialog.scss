@@ -51,6 +51,10 @@ dialog {
 
     &.closing::backdrop {
       opacity: 0;
+
+      @starting-style {
+        opacity: 1;
+      }
     }
 
     // Enter animation

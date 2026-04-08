@@ -341,24 +341,24 @@ export const Filter: Story = {
     ...Icons.args
   },
   render: ({ hideGuides: showGuides }) => {
+    const filterTree = (nodes: NestedDataNode[], regex: RegExp): NestedDataNode[] => {
+      return nodes.reduce<NestedDataNode[]>((acc, node) => {
+        const filteredChildren = node.children ? filterTree(node.children, regex) : undefined;
+        const hasMatchingChildren = filteredChildren && filteredChildren.length > 0;
+        const isLeafMatch = !node.children && regex.test(node.name);
+
+        if (isLeafMatch || hasMatchingChildren) {
+          acc.push({ ...node, children: filteredChildren });
+        }
+
+        return acc;
+      }, []);
+    };
+
     const createDataSource = (filter?: string) => {
-      const filterTree = (nodes: NestedDataNode[]): NestedDataNode[] => {
-        if (!filter) return nodes;
+      const data = filter ? filterTree(nestedData, new RegExp(filter, 'i')) : nestedData;
 
-        const regex = new RegExp(filter, 'i');
-
-        return nodes.reduce<NestedDataNode[]>((acc, node) => {
-          const filteredChildren = node.children ? filterTree(node.children) : undefined;
-
-          if (regex.test(node.name) || (filteredChildren && filteredChildren.length > 0)) {
-            acc.push({ ...node, children: filteredChildren });
-          }
-
-          return acc;
-        }, []);
-      };
-
-      return new NestedTreeDataSource(filterTree(nestedData), {
+      return new NestedTreeDataSource(data, {
         getChildren: ({ children }) => children,
         getIcon: ({ name }, expanded) =>
           name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`,
@@ -369,14 +369,21 @@ export const Filter: Story = {
       });
     };
 
-    let dataSource = createDataSource();
+    let dataSource = createDataSource(),
+      empty = false;
 
     const updateTree = (filter?: string) => {
       dataSource = createDataSource(filter);
+      empty = !!filter && dataSource.size === 0;
 
-      const tree = document.querySelector('sl-tree');
+      const tree = document.querySelector('sl-tree') as Tree;
       if (tree) {
         tree.dataSource = dataSource;
+      }
+
+      const msg = document.getElementById('no-results');
+      if (msg) {
+        msg.hidden = !empty;
       }
     };
 
@@ -406,6 +413,7 @@ export const Filter: Story = {
         aria-label="Filtered tree"
         style="max-inline-size: 300px"
       ></sl-tree>
+      <p id="no-results" ?hidden=${!empty}>No matching results.</p>
     `;
   }
 };

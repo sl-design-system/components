@@ -531,7 +531,7 @@ describe('sl-dialog', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       el.close();
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 200));
 
       expect(document.documentElement).not.to.have.class('sl-dialog-enter');
       expect(document.documentElement).not.to.have.class('sl-dialog-leave');

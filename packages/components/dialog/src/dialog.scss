@@ -49,6 +49,10 @@ dialog {
       translate: 0 100%;
     }
 
+    &.closing::backdrop {
+      opacity: 0;
+    }
+
     // Enter animation
     &[open] {
       @starting-style {
@@ -93,6 +97,10 @@ dialog {
     &.closing {
       opacity: 0;
       scale: 0.7;
+    }
+
+    &.closing::backdrop {
+      opacity: 0;
     }
 
     // Enter animation

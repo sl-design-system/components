@@ -115,9 +115,11 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     this.#observer.disconnect();
     this.#leaveAnimationAbort?.abort();
 
-    // Remove dialog classes and restore scrolling
-    document.documentElement.classList.remove('sl-dialog-enter', 'sl-dialog-leave');
-    document.documentElement.style.overflow = '';
+    if (this.dialog?.open) {
+      // Remove dialog classes and restore scrolling only when this dialog is currently open
+      document.documentElement.classList.remove('sl-dialog-enter', 'sl-dialog-leave');
+      document.documentElement.style.overflow = '';
+    }
 
     super.disconnectedCallback();
   }

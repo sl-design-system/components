@@ -1,5 +1,22 @@
 # @sl-design-system/tool-bar
 
+## 0.2.2
+
+### Patch Changes
+
+- [#3022](https://github.com/sl-design-system/components/pull/3022) [`a4a0c23`](https://github.com/sl-design-system/components/commit/a4a0c23a5341a2026c23e6e7fdf05cfdd44dc16c) - Updates ToolBar disabled behavior to prefer aria-disabled for accessibility while preserving keyboard navigation and interaction semantics.
+  ToolBar now sets/removes aria-disabled (instead of disabled) when the toolbar is disabled, and adjusts roving tabindex logic accordingly.
+  ToolBarDivider now has aria-hidden="true" to prevent screen readers from announcing it as "blank".
+
+- [#3001](https://github.com/sl-design-system/components/pull/3001) [`a7ac909`](https://github.com/sl-design-system/components/commit/a7ac90987881881bd0cb916c583e68c785b52622) - Improved the color contrast in the inverted toolbar by using the new elevation.surface.raised.primary token.
+
+- Updated dependencies [[`a4a0c23`](https://github.com/sl-design-system/components/commit/a4a0c23a5341a2026c23e6e7fdf05cfdd44dc16c), [`86ea95d`](https://github.com/sl-design-system/components/commit/86ea95defd6ecf26eec20a46fd4545efd386951f), [`a7ac909`](https://github.com/sl-design-system/components/commit/a7ac90987881881bd0cb916c583e68c785b52622), [`a4a0c23`](https://github.com/sl-design-system/components/commit/a4a0c23a5341a2026c23e6e7fdf05cfdd44dc16c), [`fd4a0d7`](https://github.com/sl-design-system/components/commit/fd4a0d79b4c0d9a1438b437bc7a1122f03d08c11), [`9e361f4`](https://github.com/sl-design-system/components/commit/9e361f40a25242652c3f7878851fbfd2a75c8f3d), [`330e06f`](https://github.com/sl-design-system/components/commit/330e06ff36c7a5c96cf313b60a5013d6307477c7), [`1eb362d`](https://github.com/sl-design-system/components/commit/1eb362dd94930ce7c1cf028f3cfa7a3eec903ab2)]:
+  - @sl-design-system/button@1.3.4
+  - @sl-design-system/menu@0.3.0
+  - @sl-design-system/icon@1.4.2
+  - @sl-design-system/toggle-button@0.0.13
+  - @sl-design-system/toggle-group@0.0.13
+
 ## 0.2.1
 
 ### Patch Changes

@@ -49,7 +49,7 @@ export class GridColumn<T = any> extends LitElement {
   #onStateChanged = () => this.stateChanged();
 
   /** The scoped elements set on this column. */
-  #scopedElements: Record<string, typeof HTMLElement> = {};
+  #scopedElements: Record<string, typeof HTMLElement>;
 
   /** Actual width of the column. */
   #width?: number;
@@ -73,6 +73,14 @@ export class GridColumn<T = any> extends LitElement {
    * The column width may still grow larger when `grow` is not 0.
    */
   @property({ type: Boolean, attribute: 'auto-width' }) autoWidth?: boolean;
+
+  /**
+   * @internal The internal scoped elements for this column. This is defined separately so it doesn't
+   * get overridden by the public `scopedElements` property.
+   */
+  get baseScopedElements(): Record<string, typeof HTMLElement> {
+    return {};
+  }
 
   /** @internal Emits when the column definition has changed. */
   @event({ name: 'sl-column-update' }) columnUpdateEvent!: EventEmitter<SlColumnUpdateEvent<T>>;
@@ -125,7 +133,7 @@ export class GridColumn<T = any> extends LitElement {
    */
   @property({ attribute: false })
   set scopedElements(value: Record<string, typeof HTMLElement> | undefined) {
-    this.#scopedElements = value ?? {};
+    this.#scopedElements = { ...this.baseScopedElements, ...(value ?? {}) };
   }
 
   /** Whether this column is sticky when the user scrolls horizontally. */
@@ -145,6 +153,12 @@ export class GridColumn<T = any> extends LitElement {
   @property({ type: Number })
   get width(): number | undefined {
     return this.#width;
+  }
+
+  constructor() {
+    super();
+
+    this.#scopedElements = this.baseScopedElements;
   }
 
   override connectedCallback(): void {

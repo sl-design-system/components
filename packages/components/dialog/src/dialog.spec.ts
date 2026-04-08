@@ -1,5 +1,6 @@
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
+import { getForwardedAccessibleName } from '@sl-design-system/shared/helpers/forward-aria.js';
 import { fixture, oneEvent } from '@sl-design-system/vitest-browser-lit';
 import { type LitElement, type TemplateResult, html } from 'lit';
 import { spy, stub } from 'sinon';
@@ -15,7 +16,7 @@ describe('sl-dialog', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-dialog>
-          <span slot="title">Dialog title</span>
+          <h1 slot="title">Dialog title</h1>
           <p>The dialog content</p>
         </sl-dialog>
       `);
@@ -33,14 +34,23 @@ describe('sl-dialog', () => {
     });
 
     it('should not have a close button', () => {
-      expect(dialog.querySelector('sl-button[aria-label="Close"]')).not.to.exist;
+      expect(dialog.querySelector('sl-button.sl-close')).not.to.exist;
     });
 
     it('should have a close button when set', async () => {
       el.closeButton = true;
       await el.updateComplete;
 
-      expect(dialog.querySelector('sl-button[aria-label="Close"]')).to.exist;
+      expect(dialog.querySelector('sl-button.sl-close')).to.exist;
+    });
+
+    it('should have an accessible name for the close button', async () => {
+      el.closeButton = true;
+      await el.updateComplete;
+
+      const closeButton = dialog.querySelector<Button>('sl-button.sl-close')!;
+
+      expect(getForwardedAccessibleName(closeButton)).to.equal('Close');
     });
 
     it('should not have a role of dialog', () => {
@@ -64,7 +74,7 @@ describe('sl-dialog', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-dialog>
-          <span slot="title">Dialog title</span>
+          <h1 slot="title">Dialog title</h1>
           <p>The dialog content</p>
         </sl-dialog>
       `);
@@ -99,7 +109,7 @@ describe('sl-dialog', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-dialog close-button>
-          <span slot="title">Dialog title</span>
+          <h1 slot="title">Dialog title</h1>
           <p>The dialog content</p>
           <sl-button slot="actions" sl-dialog-close>Close</sl-button>
         </sl-dialog>
@@ -224,7 +234,7 @@ describe('sl-dialog', () => {
       const onClose = spy();
 
       el.addEventListener('sl-close', onClose);
-      el.renderRoot.querySelector<Button>('sl-button[aria-label="Close"]')?.click();
+      el.renderRoot.querySelector<Button>('sl-button.sl-close')?.click();
 
       // Actually wait for the `sl-close` event to be emitted
       await oneEvent(el, 'sl-close');
@@ -285,7 +295,7 @@ describe('sl-dialog', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-dialog>
-          <span slot="title">Dialog title</span>
+          <h1 slot="title">Dialog title</h1>
           <p>The dialog content</p>
         </sl-dialog>
       `);
@@ -317,6 +327,30 @@ describe('sl-dialog', () => {
       el.close();
 
       expect(dialog.close).not.to.have.been.called;
+    });
+
+    it('should call requestClose() on the inner dialog', () => {
+      el.showModal();
+
+      spy(dialog, 'requestClose');
+
+      el.requestClose();
+
+      expect(dialog.requestClose).to.have.been.calledOnce;
+    });
+
+    it('should set returnValue on the dialog when calling close() with a value', () => {
+      el.showModal();
+      el.close('result');
+
+      expect(dialog.returnValue).to.equal('result');
+    });
+
+    it('should set returnValue on the dialog when calling requestClose() with a value', () => {
+      el.showModal();
+      el.requestClose('result');
+
+      expect(dialog.returnValue).to.equal('result');
     });
   });
 
@@ -353,7 +387,7 @@ describe('sl-dialog', () => {
 
       const title = el.renderRoot.querySelector('slot[name="title"]');
       expect(title).to.exist;
-      expect(title).to.have.text('Title');
+      expect(title).to.have.trimmed.text('Title');
     });
 
     it('should call renderBody during render', async () => {
@@ -398,6 +432,68 @@ describe('sl-dialog', () => {
       expect(button).to.exist;
       expect(button).to.have.text('Custom action');
       expect(button?.parentElement).to.match('slot[name="primary-actions"]');
+    });
+  });
+
+  describe('commands', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-dialog>
+          <h1 slot="title">Dialog title</h1>
+          <p>The dialog content</p>
+        </sl-dialog>
+      `);
+
+      dialog = el.renderRoot.querySelector('dialog')!;
+    });
+
+    it('should call showModal() when receiving a command event with "--show-modal"', () => {
+      const showModalSpy = spy(el, 'showModal');
+      const event = new CommandEvent('command', { command: '--show-modal', bubbles: true, cancelable: true });
+
+      el.dispatchEvent(event);
+
+      expect(showModalSpy).to.have.been.calledOnce;
+      expect(event.defaultPrevented).to.be.true;
+    });
+
+    it('should call close() when receiving a command event with "--close"', () => {
+      // First open the dialog
+      el.showModal();
+      expect(dialog.open).to.be.true;
+
+      const closeSpy = spy(el, 'close');
+      const event = new CommandEvent('command', { command: '--close', bubbles: true, cancelable: true });
+
+      el.dispatchEvent(event);
+
+      expect(closeSpy).to.have.been.calledOnce;
+      expect(event.defaultPrevented).to.be.true;
+    });
+
+    it('should not react to unknown command values', () => {
+      const showModalSpy = spy(el, 'showModal'),
+        closeSpy = spy(el, 'close');
+      const event = new CommandEvent('command', { command: 'toggle', bubbles: true, cancelable: true });
+
+      el.dispatchEvent(event);
+
+      expect(showModalSpy).not.to.have.been.called;
+      expect(closeSpy).not.to.have.been.called;
+      expect(event.defaultPrevented).to.be.false;
+    });
+
+    it('should call requestClose() when receiving a command event with "--request-close"', () => {
+      el.showModal();
+      expect(dialog.open).to.be.true;
+
+      const requestCloseSpy = spy(el, 'requestClose');
+      const event = new CommandEvent('command', { command: '--request-close', bubbles: true, cancelable: true });
+
+      el.dispatchEvent(event);
+
+      expect(requestCloseSpy).to.have.been.calledOnce;
+      expect(event.defaultPrevented).to.be.true;
     });
   });
 });

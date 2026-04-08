@@ -14,6 +14,7 @@ let nextUniqueId = 0;
 /**
  * A floating overlay that appears on top of other elements.
  *
+ * @csspart arrow - The arrow linking the popover to its anchor
  * @csspart container - The container for the popover
  * @slot default - Body content for the popover
  */
@@ -38,7 +39,7 @@ export class Popover extends LitElement {
 
   /** Controller for managing anchoring. */
   #anchor = new AnchorController(this, {
-    arrowElement: '.arrow',
+    arrowElement: '[part="arrow"]',
     arrowPadding: Popover.arrowPadding,
     offset: Popover.offset,
     viewportMargin: Popover.viewportMargin
@@ -80,7 +81,7 @@ export class Popover extends LitElement {
       <div class="container" part="container">
         <slot></slot>
       </div>
-      <div class="arrow" aria-hidden="true">
+      <div part="arrow" aria-hidden="true">
         <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" clip-rule="evenodd" viewBox="0 0 20 11">
           <path d="M0 11 20 11 10 1 0 11" paint-order="stroke" />
         </svg>

@@ -13,9 +13,13 @@ import {
   faUnlock
 } from '@fortawesome/pro-regular-svg-icons';
 import { announce } from '@sl-design-system/announcer';
+import '@sl-design-system/avatar/register.js';
+import '@sl-design-system/badge/register.js';
 import '@sl-design-system/button/register.js';
 import { Icon } from '@sl-design-system/icon';
+import '@sl-design-system/icon/register.js';
 import { SlToggleEvent } from '@sl-design-system/shared/events.js';
+import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { LitElement, type TemplateResult, html } from 'lit';
 import '../register.js';
@@ -246,7 +250,7 @@ export const ActionsWithTooltips: Story = {
       <sl-button aria-labelledby="share-tooltip" fill="ghost" slot="actions">
         <sl-icon name="far-share"></sl-icon>
       </sl-button>
-      <sl-tooltip id="share-tooltip">Paste</sl-tooltip>
+      <sl-tooltip id="share-tooltip">Share</sl-tooltip>
     `,
     content: () => 'This panel contains action buttons with tooltips.'
   }

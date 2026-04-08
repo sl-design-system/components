@@ -65,8 +65,8 @@ describe('sl-select-year', () => {
     });
 
     it('should have enabled back and forward buttons', () => {
-      const prev = el.renderRoot.querySelector('sl-button[aria-label^="Go back 12 years"]'),
-        next = el.renderRoot.querySelector('sl-button[aria-label^="Go forward 12 years"]');
+      const prev = el.renderRoot.querySelector('header sl-button:first-of-type'),
+        next = el.renderRoot.querySelector('header sl-button:last-of-type');
 
       expect(prev).to.exist.and.not.match(':disabled');
       expect(next).to.exist.and.not.match(':disabled');

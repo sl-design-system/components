@@ -35,7 +35,7 @@ For general dialog configuration options like `closeButton`, `disableCancel`, et
 @Component({
   selector: 'app-user-dialog',
   template: `
-    <h2 slot="title">User Details</h2>
+    <h1 slot="title">User Details</h1>
     <p>User ID: {{ data.userId }}</p>
     <sl-button slot="primary-actions" (click)="dialogRef.close('saved')">Save</sl-button>
     <sl-button slot="primary-actions" (click)="dialogRef.close('cancelled')">Cancel</sl-button>
@@ -148,7 +148,7 @@ import { DialogRef } from '@sl-design-system/angular';
 
 @Component({
   template: `
-    <h2 slot="title">{{ data.title }}</h2>
+    <h1 slot="title">{{ data.title }}</h1>
     <p>{{ data.message }}</p>
     <sl-button (click)="dialogRef.close('ok')" slot="primary-actions">OK</sl-button>
   `
@@ -267,14 +267,7 @@ The examples above use the following custom component(s):
 @Component({
   standalone: true,
   imports: [ButtonComponent, CommonModule],
-  template: `<style>
-    h2 {
-      font-size: inherit;
-      font-weight: inherit;
-      margin: 0;
-    }
-  </style>
-  <h2 slot="title">{{ data.title }}</h2>
+  template: `<h1 slot="title">{{ data.title }}</h1>
   <p>{{ data.message }}</p>
   <div>Example content.</div>
   <sl-button (click)="dialogRef.close('cancelled')" slot="primary-actions">Cancel</sl-button>
@@ -306,14 +299,7 @@ import { TextFieldComponent } from '@sl-design-system/angular/text-field';
 
 @Component({
   selector: 'sla-dialog-form',
-  template: `<style>
-    h2 {
-      font-size: inherit;
-      font-weight: inherit;
-      margin: 0;
-    }
-  </style>
-  <h2 slot="title">{{ data.title }}</h2>
+  template: `<h1 slot="title">{{ data.title }}</h1>
   <span>{{ data.details }}</span>
   <sl-form #form>
     <sl-form-field label="Text field">

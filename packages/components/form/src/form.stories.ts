@@ -219,11 +219,11 @@ export const All: Story = {
       </sl-form-field>
 
       <sl-form-field hint="Hint text" label="Date field">
-        <sl-date-field name="dateField" placeholder="Placeholder" required></sl-date-field>
+        <sl-date-field name="dateField" required></sl-date-field>
       </sl-form-field>
 
       <sl-form-field hint="Hint text" label="Time field">
-        <sl-time-field name="timeField" placeholder="Placeholder" required></sl-time-field>
+        <sl-time-field name="timeField" required></sl-time-field>
       </sl-form-field>
 
       <sl-form-field hint="Hint text" label="Text area">

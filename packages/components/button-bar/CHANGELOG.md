@@ -1,5 +1,18 @@
 # @sl-design-system/button-bar
 
+## 1.4.0
+
+### Minor Changes
+
+- [#3012](https://github.com/sl-design-system/components/pull/3012) [`2f8d8bf`](https://github.com/sl-design-system/components/commit/2f8d8bf32ca6e90eb9d117c1fcc434a59905769c) - Add ability to style using `:state(icon-only)` and `:state(empty)`
+
+  The `.icon-only` class still works, but the new `:state()` pseudo-class allows for more flexible styling and is more in line with how states are typically handled in CSS. The `:state(icon-only)` pseudo-class applies when all buttons in the button bar are icon-only, while the `:state(empty)` pseudo-class applies when there are no buttons in the button bar.
+
+### Patch Changes
+
+- Updated dependencies [[`a4a0c23`](https://github.com/sl-design-system/components/commit/a4a0c23a5341a2026c23e6e7fdf05cfdd44dc16c), [`9e361f4`](https://github.com/sl-design-system/components/commit/9e361f40a25242652c3f7878851fbfd2a75c8f3d)]:
+  - @sl-design-system/button@1.3.4
+
 ## 1.3.0
 
 ### Minor Changes

@@ -3,7 +3,8 @@
   --_bg-mix-color: var(--sl-color-background-input-interactive);
   --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
   --_border: var(--sl-color-border-input);
-  --sl-text-area-rows: 3;
+
+  // --sl-text-area-rows: 3;
 
   align-items: start;
   background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
@@ -62,9 +63,9 @@
   }
 }
 
-:host(:where([resize='vertical'], [resize='auto'])) slot[name='textarea']::slotted(textarea) {
-  min-block-size: calc(var(--sl-text-area-rows) * 1lh);
-}
+// :host(:where([resize='vertical'], [resize='auto'])) slot[name='textarea']::slotted(textarea) {
+//   min-block-size: calc(var(--sl-text-area-rows) * 1lh);
+// }
 
 @media (prefers-reduced-motion: no-preference) {
   :host(:where(:hover, :focus-within)) {
@@ -82,6 +83,7 @@ slot[name='textarea']::slotted(textarea) {
   flex: 1;
   font: inherit;
   margin: 0;
+  min-block-size: 1lh;
   outline: none;
   padding-block: calc(var(--sl-size-100) - var(--sl-size-borderWidth-default));
   padding-inline: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default));

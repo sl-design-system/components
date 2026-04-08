@@ -97,7 +97,7 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
 
   /**
    * The number of rows the textarea should initially have.
-   * If not set, the browser defaults to 2 rows.
+   * If not set, the browser defaults to 3 rows.
    */
   @property({ type: Number }) rows?: number;
 
@@ -227,8 +227,7 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
       this.textarea.style.height = `${this.textarea.scrollHeight}px`;
       this.textarea.style.resize = 'none';
     } else {
-      this.textarea.style.removeProperty('height');
-      // this.textarea.style.height = 'auto';
+      (this.textarea.style.height as string | undefined) = undefined;
     }
   }
 
@@ -240,7 +239,7 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
     textarea.placeholder = this.placeholder ?? '';
     textarea.readOnly = !!this.readonly;
     textarea.required = !!this.required;
-    textarea.rows = this.rows ?? 3;
+    textarea.rows = this.rows && this.rows > 0 ? this.rows : 3;
     textarea.style.resize = this.resize ?? 'vertical';
     textarea.wrap = this.wrap ?? 'soft';
 

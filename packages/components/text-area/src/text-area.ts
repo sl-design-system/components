@@ -95,7 +95,8 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
   @property({ reflect: true }) resize: ResizeType = 'vertical';
 
   /**
-   * The number of rows the textarea should initially have.
+   * The number of rows the textarea should have.
+   * For resize auto and vertical, this will determine the *minimum* height of the textarea.
    * If not set, the component defaults to 3 rows.
    */
   @property({ type: Number }) rows?: number;

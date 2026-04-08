@@ -516,7 +516,7 @@ describe('sl-dialog', () => {
       if (dialog?.open) {
         el.close();
 
-        await new Promise(resolve => setTimeout(resolve, 50));
+        await new Promise(resolve => setTimeout(resolve, 200));
       }
     });
 
@@ -576,7 +576,7 @@ describe('sl-dialog', () => {
       if (dialog?.open) {
         el.close();
 
-        await new Promise(resolve => setTimeout(resolve, 50));
+        await new Promise(resolve => setTimeout(resolve, 200));
       }
     });
 

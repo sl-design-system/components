@@ -307,7 +307,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       this.dialog.classList.add('closing');
 
       requestAnimationFrame(() => {
-        void Promise.allSettled(this.dialog?.getAnimations().map(a => a.finished) ?? []).then(() => {
+        void Promise.allSettled(this.dialog?.getAnimations()?.map(animation => animation.finished) ?? []).then(() => {
           this.dialog?.close(returnValue);
         });
       });
@@ -381,7 +381,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     this.inert = true;
 
     // Wait until all animations have finished before emitting the close event
-    await Promise.allSettled(this.dialog?.getAnimations({ subtree: true }).map(a => a.finished) ?? []);
+    await Promise.allSettled(this.dialog?.getAnimations({ subtree: true })?.map(animation => animation.finished) ?? []);
 
     // Remove only after animations complete — removing earlier would clear translate: 0 100%
     // while Safari's display transition is still running, causing a visible flash.

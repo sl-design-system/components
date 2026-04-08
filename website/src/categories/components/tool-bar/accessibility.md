@@ -32,8 +32,6 @@ eleventyNavigation:
 
 {{ 'aria-attributes' | recurringText }}
 
-### Input
-
 <div class="ds-table-wrapper">
 
 |Attribute|Value| Description                                                                                                                                    |

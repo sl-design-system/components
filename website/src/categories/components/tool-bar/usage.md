@@ -99,7 +99,7 @@ Use when the same set of actions must remain available across different widths. 
 
 If you have a long list of actions, or actions that are infrequent and not tied to the current view/content, avoid a toolbar. Move actions into a more suitable pattern (context menus, inline actions, progressive disclosure) or place them in a more global location (page header, navigation, or settings) so the toolbar stays scannable and purposeful.
 
-### Navigation, Flows, and Simple Actions
+### Navigation or Simple Actions
 
 Don’t use the toolbar for navigation between pages/sections or as the primary control in multi-step flows. If you only need a small set of primary actions (especially in step-by-step layouts), consider using a [Button Bar](/categories/components/button-bar/) instead.
 
@@ -133,9 +133,9 @@ Don’t use the toolbar for navigation between pages/sections or as the primary 
 
 These options change the toolbar’s appearance so it stays clear and readable across different surfaces and action styles.
 
-- Fill: Controls the look of the actions inside the toolbar. Use **Outline** when actions need stronger emphasis and clearer boundaries, or use **Ghost** when actions should feel lighter and blend into the interface.
-- Inverted: Switches the toolbar styling for dark or inverted surfaces. Use it to maintain contrast and readability when the toolbar sits on a darker background.
-- Contained: Adds a surface around the toolbar (background and padding). Use it to visually separate the toolbar from surrounding content or to make it feel like a distinct control area.
+- **Fill:** Controls the look of the actions inside the toolbar. Use **Outline** when actions need stronger emphasis and clearer boundaries, or use **Ghost** when actions should feel lighter and blend into the interface.
+- **Inverted:** Switches the toolbar styling for dark or inverted surfaces. Use it to maintain contrast and readability when the toolbar sits on a darker background.
+- **Contained:** Adds a surface around the toolbar (background and padding). Use it to visually separate the toolbar from surrounding content or to make it feel like a distinct control area.
 
 </section>
 
@@ -143,10 +143,11 @@ These options change the toolbar’s appearance so it stays clear and readable a
 <section>
 
 ## States
+These states describe what users see when the toolbar is available, constrained, or unavailable.
 
-- Default: Actions are available and visible until overflow is needed.
-- Overflow: Some actions move into the overflow menu when space is limited.
-- Disabled: The tool bar and its actions are not interactive.
+- **Default:** Actions are available and visible until overflow is needed.
+- **Overflow:** Some actions move into the overflow menu when space is limited.
+- **Disabled:** The tool bar and its actions are not interactive.
 
 </section>
 
@@ -156,6 +157,10 @@ These options change the toolbar’s appearance so it stays clear and readable a
 ## Figma Properties
 
 With these options you can adjust the appearance of the tool bar in Figma.
+
+
+### Toolbar item
+Properties for the main toolbar component used by designers. Some options (like Overflow, Item 3–5, and Divider 1–5) are for previewing compositions and states in Figma.
 
 <div class="ds-table-wrapper">
 
@@ -173,6 +178,7 @@ With these options you can adjust the appearance of the tool bar in Figma.
 </div>
 
 ### Toolbar item
+Properties for the nested toolbar item used inside the toolbar to swap between the supported control types.
   
 <div class="ds-table-wrapper">
 
@@ -188,6 +194,7 @@ With these options you can adjust the appearance of the tool bar in Figma.
 
 
 ### Toolbar Group  
+Properties for the nested toolbar group used inside a toolbar item to build grouped actions and preview the group overflow behaviour.
 
 <div class="ds-table-wrapper">
 

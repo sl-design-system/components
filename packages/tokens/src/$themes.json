@@ -123,7 +123,7 @@
 		"figmaModeId": null
 	},
 	{
-		"name": "Click edu",
+		"name": "Click Edu",
 		"selectedTokenSets": {
 			"clickedu/theme-new": "enabled",
 			"clickedu/base-new": "enabled"
@@ -372,17 +372,6 @@
 		"figmaModeId": null
 	},
 	{
-		"name": "Placeholder",
-		"selectedTokenSets": {
-			"placeholder/base-new": "enabled",
-			"placeholder/theme-new": "enabled"
-		},
-		"figmaStyleReferences": {},
-		"figmaVariableReferences": {},
-		"figmaCollectionId": null,
-		"figmaModeId": null
-	},
-	{
 		"name": "Tig",
 		"selectedTokenSets": {
 			"tig/theme-new": "enabled",
@@ -394,10 +383,10 @@
 		"figmaModeId": null
 	},
 	{
-		"name": "Sanoma-Utbildning",
+		"name": "Placeholder",
 		"selectedTokenSets": {
-			"sanoma-utbildning_onhold/theme-new": "enabled",
-			"sanoma-utbildning_onhold/base-new": "enabled"
+			"placeholder/base-new": "enabled",
+			"placeholder/theme-new": "enabled"
 		},
 		"figmaStyleReferences": {},
 		"figmaVariableReferences": {},
@@ -405,10 +394,21 @@
 		"figmaModeId": null
 	},
 	{
-		"name": "Sanoma-Pro",
+		"name": "Sanoma Utbildning",
 		"selectedTokenSets": {
-			"sanoma-pro_onhold/theme-new": "enabled",
-			"sanoma-pro_onhold/base-new": "enabled"
+			"sanoma-utbildning/theme-new": "enabled",
+			"sanoma-utbildning/base-new": "enabled"
+		},
+		"figmaStyleReferences": {},
+		"figmaVariableReferences": {},
+		"figmaCollectionId": null,
+		"figmaModeId": null
+	},
+	{
+		"name": "Sanoma Pro",
+		"selectedTokenSets": {
+			"sanoma-pro/theme-new": "enabled",
+			"sanoma-pro/base-new": "enabled"
 		},
 		"figmaStyleReferences": {},
 		"figmaVariableReferences": {},
@@ -677,7 +677,7 @@
 	{
 		"name": "Light",
 		"selectedTokenSets": {
-			"sanoma-utbildning_onhold/light-new": "enabled"
+			"sanoma-utbildning/light-new": "enabled"
 		},
 		"figmaStyleReferences": {},
 		"figmaVariableReferences": {},
@@ -687,7 +687,7 @@
 	{
 		"name": "Light",
 		"selectedTokenSets": {
-			"sanoma-pro_onhold/light-new": "enabled"
+			"sanoma-pro/light-new": "enabled"
 		},
 		"figmaStyleReferences": {},
 		"figmaVariableReferences": {},

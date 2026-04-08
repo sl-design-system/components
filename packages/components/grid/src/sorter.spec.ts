@@ -1,3 +1,4 @@
+import { getForwardedAccessibleName } from '@sl-design-system/shared/helpers/forward-aria.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
@@ -34,8 +35,8 @@ describe('sl-grid-sorter', () => {
       expect(el.shadowRoot?.querySelector('sl-icon')).to.have.attribute('name', 'sort');
     });
 
-    it('should have an aria label on the button', () => {
-      expect(el.renderRoot.querySelector('sl-button')).to.have.attribute('aria-label', 'Sort ascending');
+    it('should have an aria label on the inner button', () => {
+      expect(getForwardedAccessibleName(el.renderRoot.querySelector('sl-button')!)).to.equal('Sort ascending');
     });
 
     it('should have a ghost button', () => {
@@ -91,7 +92,7 @@ describe('sl-grid-sorter', () => {
     });
 
     it('should have an aria label on the button', () => {
-      expect(el.renderRoot.querySelector('sl-button')).to.have.attribute('aria-label', 'Sort descending');
+      expect(getForwardedAccessibleName(el.renderRoot.querySelector('sl-button')!)).to.equal('Sort descending');
     });
 
     it('should have a primary solid button', () => {
@@ -132,7 +133,7 @@ describe('sl-grid-sorter', () => {
     });
 
     it('should have an aria label on the button', () => {
-      expect(el.renderRoot.querySelector('sl-button')).to.have.attribute('aria-label', 'Remove sort');
+      expect(getForwardedAccessibleName(el.renderRoot.querySelector('sl-button')!)).to.equal('Remove sort');
     });
 
     it('should have a primary solid button', () => {

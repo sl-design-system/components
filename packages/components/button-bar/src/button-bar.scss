@@ -18,10 +18,10 @@
   justify-content: space-between;
 }
 
-:host([icon-only]) {
-  gap: var(--sl-size-050);
-}
-
 :host([reverse]) {
   flex-direction: row-reverse;
+}
+
+:host(:state(icon-only)) {
+  gap: var(--sl-size-050);
 }

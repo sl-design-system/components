@@ -511,21 +511,29 @@ describe('sl-month-view', () => {
       expect(button14).to.have.attribute('aria-describedby', tooltips[1].id);
       expect(Array.from(tooltips).every(t => !isPopoverOpen(t))).to.be.true;
 
+      const tooltipShowDelay = Math.max(...Array.from(tooltips, t => t.showDelay ?? 0));
+      const tooltipHideDelay = Math.max(...Array.from(tooltips, t => t.hideDelay ?? 0));
+
       // 1. Hover first button
       await userEvent.hover(button13);
       await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, tooltipShowDelay + 50));
+
       expect(isPopoverOpen(tooltips[0])).to.be.true;
       expect(isPopoverOpen(tooltips[1])).to.be.false;
 
       // 2. Transition to second button
       await userEvent.hover(button14);
       await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, tooltipShowDelay + 50));
+
       expect(isPopoverOpen(tooltips[0])).to.be.false;
       expect(isPopoverOpen(tooltips[1])).to.be.true;
 
       // 3. Unhover
       await userEvent.unhover(button14);
       await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, tooltipHideDelay + 50));
       expect(Array.from(tooltips).every(t => !isPopoverOpen(t))).to.be.true;
 
       // 4. ARIA stability check (even when closed)

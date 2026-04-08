@@ -62,7 +62,7 @@
 }
 
 :host(:where([resize='vertical'], [resize='auto'])) slot[name='textarea']::slotted(textarea) {
-  min-block-size: calc(var(--sl-text-area-rows) * 1lh);
+  min-block-size: calc(var(--_sl-text-area-rows, 1) * 1lh);
 }
 
 @media (prefers-reduced-motion: no-preference) {

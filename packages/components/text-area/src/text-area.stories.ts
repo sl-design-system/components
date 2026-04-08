@@ -139,7 +139,7 @@ export const Required: Story = {
 
 export const Resize: Story = {
   args: {
-    hint: 'This field will resize automatically as you type. By default the minimum number height of the container is  determined by the rows attribute, which is 3 by default.',
+    hint: 'This field will resize automatically as you type. By default, the minimum height is determined by the rows attribute (default: 3).',
     resize: 'auto'
   }
 };

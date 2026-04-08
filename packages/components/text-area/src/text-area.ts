@@ -25,7 +25,6 @@ let nextUniqueId = 0;
 /**
  * Multi line text area component.
  *
- * @cssprop --sl-text-area-rows - The number of rows initially visible in the textarea
  * @slot textarea - The slot for the textarea element
  */
 @localized()
@@ -97,7 +96,7 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
 
   /**
    * The number of rows the textarea should initially have.
-   * If not set, the browser defaults to 3 rows.
+   * If not set, the component defaults to 3 rows.
    */
   @property({ type: Number }) rows?: number;
 
@@ -245,7 +244,7 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
     textarea.style.resize = this.resize ?? 'vertical';
     textarea.wrap = this.wrap ?? 'soft';
 
-    textarea.style.setProperty('--sl-text-area-rows', textarea.rows?.toString());
+    textarea.style.setProperty('--_sl-text-area-rows', textarea.rows?.toString());
 
     this.setAttributesTarget(textarea);
 

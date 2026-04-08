@@ -226,8 +226,10 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
       this.textarea.style.height = 'auto';
       this.textarea.style.height = `${this.textarea.scrollHeight}px`;
       this.textarea.style.resize = 'none';
-    } else {
+    } else if (this.resize === 'vertical') {
       (this.textarea.style.height as string | undefined) = undefined;
+    } else {
+      this.textarea.style.removeProperty('height');
     }
   }
 
@@ -242,6 +244,8 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
     textarea.rows = this.rows && this.rows > 0 ? this.rows : 3;
     textarea.style.resize = this.resize ?? 'vertical';
     textarea.wrap = this.wrap ?? 'soft';
+
+    textarea.style.setProperty('--sl-text-area-rows', textarea.rows?.toString());
 
     this.setAttributesTarget(textarea);
 

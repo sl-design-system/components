@@ -36,7 +36,7 @@ eleventyNavigation:
 
 |Attribute|Value| Description                                                                                                                                    |
 |-|-|------------------------------------------------------------------------------------------------------------------------------------------------|
-|`aria-label`	|string| Defines a string that labels the tool bar (describes its purpose). This helps screen reader users understand what the group of actions is for. |
+|`aria-label`|string| Defines a string that labels the tool bar (describes its purpose). This helps screen reader users understand what the group of actions is for. |
 |`aria-labelledby`|string| Links the tool bar to an existing heading or element that describes it, instead of using `aria-label`. |
 
 {.ds-table .ds-table-align-top}

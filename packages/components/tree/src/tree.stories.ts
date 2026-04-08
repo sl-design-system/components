@@ -337,31 +337,63 @@ export const Icons: Story = {
 };
 
 export const Filter: Story = {
-  tags: ['!dev'],
   args: {
     ...Icons.args
   },
-  render: ({ dataSource, hideGuides: showGuides }) => {
-    const onChange = (event: SlChangeEvent<string | undefined>): void => {
-      const value = event.detail ?? '';
+  render: ({ hideGuides: showGuides }) => {
+    const createDataSource = (filter?: string) => {
+      const filterTree = (nodes: NestedDataNode[]): NestedDataNode[] => {
+        if (!filter) return nodes;
 
-      if (value) {
-        const regex = new RegExp(value, 'i');
+        const regex = new RegExp(filter, 'i');
 
-        dataSource?.addFilter('search', (item: NestedDataNode) => regex.test(item.name));
-      } else {
-        dataSource?.removeFilter('search');
+        return nodes.reduce<NestedDataNode[]>((acc, node) => {
+          const filteredChildren = node.children ? filterTree(node.children) : undefined;
+
+          if (regex.test(node.name) || (filteredChildren && filteredChildren.length > 0)) {
+            acc.push({ ...node, children: filteredChildren });
+          }
+
+          return acc;
+        }, []);
+      };
+
+      return new NestedTreeDataSource(filterTree(nestedData), {
+        getChildren: ({ children }) => children,
+        getIcon: ({ name }, expanded) =>
+          name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`,
+        getId: item => item.id,
+        getLabel: ({ name }) => name,
+        isExpandable: ({ children }) => !!children,
+        isExpanded: filter ? () => true : ({ name }) => ['components', 'tree', 'src'].includes(name)
+      });
+    };
+
+    let dataSource = createDataSource();
+
+    const updateTree = (filter?: string) => {
+      dataSource = createDataSource(filter);
+
+      const tree = document.querySelector('sl-tree');
+      if (tree) {
+        tree.dataSource = dataSource;
       }
+    };
 
-      dataSource?.update();
+    const onChange = (event: SlChangeEvent<string | undefined>): void => {
+      updateTree(event.detail || undefined);
     };
 
     const onClear = () => {
-      dataSource?.removeFilter('search');
-      dataSource?.update();
+      updateTree();
     };
 
     return html`
+      <p style="margin-block: 0 1rem">
+        This example shows how filtering can be implemented by creating a new data source with the filtered data and
+        assigning it to the tree. Note that this <strong>does not</strong> use the Filter API of DataSource. That API
+        hasn't been implemented yet.
+      </p>
       <sl-search-field
         @sl-change=${onChange}
         @sl-clear=${onClear}
@@ -371,7 +403,7 @@ export const Filter: Story = {
       <sl-tree
         .dataSource=${dataSource}
         ?show-guides=${showGuides}
-        aria-label="Tree label"
+        aria-label="Filtered tree"
         style="max-inline-size: 300px"
       ></sl-tree>
     `;

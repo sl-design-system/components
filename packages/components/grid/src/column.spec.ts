@@ -196,4 +196,93 @@ describe('sl-column', () => {
       expect(skeletons).to.deep.equal(['SL-SKELETON', 'SL-SKELETON']);
     });
   });
+
+  describe('sticky columns', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-grid>
+          <sl-grid-column path="firstName" sticky></sl-grid-column>
+          <sl-grid-column path="lastName"></sl-grid-column>
+          <sl-grid-column path="age"></sl-grid-column>
+        </sl-grid>
+      `);
+      el.items = [
+        { firstName: 'John', lastName: 'Doe', age: 20 },
+        { firstName: 'Jane', lastName: 'Smith', age: 40 }
+      ];
+      await el.updateComplete;
+
+      // Give grid time to render the table structure
+      await new Promise(resolve => setTimeout(resolve, 100));
+      await el.updateComplete;
+
+      cells = Array.from(el.renderRoot.querySelectorAll('tbody tr:first-of-type td'));
+    });
+
+    it('should add sticky class when sticky is set on first column', () => {
+      expect(cells[0].classList.contains('sticky-start-first')).to.be.true;
+    });
+
+    it('should not add sticky class to non-sticky columns', () => {
+      expect(cells[1].className).to.not.match(/sticky/);
+      expect(cells[2].className).to.not.match(/sticky/);
+    });
+
+    it('should add sticky classes to header cells', () => {
+      const headerCells = Array.from(el.renderRoot.querySelectorAll('thead tr th'));
+
+      expect(headerCells[0].classList.contains('sticky-start-first')).to.be.true;
+      expect(headerCells[1].className).to.not.match(/sticky/);
+      expect(headerCells[2].className).to.not.match(/sticky/);
+    });
+
+    it('should update classes when sticky property changes', async () => {
+      const column = el.querySelector('sl-grid-column');
+      column!.sticky = false;
+      el.requestUpdate();
+      await el.updateComplete;
+
+      const updatedCells = Array.from(el.renderRoot.querySelectorAll('tbody tr:first-of-type td'));
+
+      expect(updatedCells[0].className).to.not.match(/sticky/);
+    });
+
+    it('should support sticky on last column', async () => {
+      el = await fixture(html`
+        <sl-grid>
+          <sl-grid-column path="firstName"></sl-grid-column>
+          <sl-grid-column path="lastName"></sl-grid-column>
+          <sl-grid-column path="age" sticky></sl-grid-column>
+        </sl-grid>
+      `);
+      el.items = [{ firstName: 'John', lastName: 'Doe', age: 20 }];
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
+      await el.updateComplete;
+
+      const endCells = Array.from(el.renderRoot.querySelectorAll('tbody tr:first-of-type td'));
+
+      expect(endCells[2].classList.contains('sticky-end-first')).to.be.true;
+    });
+
+    it('should support multiple consecutive sticky columns', async () => {
+      el = await fixture(html`
+        <sl-grid>
+          <sl-grid-column path="firstName" sticky></sl-grid-column>
+          <sl-grid-column path="lastName" sticky></sl-grid-column>
+          <sl-grid-column path="age"></sl-grid-column>
+        </sl-grid>
+      `);
+      el.items = [{ firstName: 'John', lastName: 'Doe', age: 20 }];
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
+      await el.updateComplete;
+
+      const allCells = Array.from(el.renderRoot.querySelectorAll('tbody tr:first-of-type td'));
+
+      expect(allCells[0].classList.contains('sticky-start-first')).to.be.true;
+      expect(allCells[1].classList.contains('sticky-start-last')).to.be.true;
+      expect(allCells[2].className).to.not.match(/sticky/);
+    });
+  });
 });

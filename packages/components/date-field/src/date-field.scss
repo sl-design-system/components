@@ -24,7 +24,7 @@
   opacity: 0;
 }
 
-:host(:focus-within) {
+:host(:state(has-focus)) {
   outline-color: var(--sl-color-border-focused);
 
   .parts {
@@ -36,7 +36,7 @@
   }
 }
 
-:host(:hover:not(:focus-within)) {
+:host(:hover:not(:state(has-focus))) {
   --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
 }
 

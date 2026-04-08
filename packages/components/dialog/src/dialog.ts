@@ -61,6 +61,9 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { click: this.#onClick, command: this.#onCommand, keydown: this.#onKeydown });
 
+  /** Abort controller for the leave animation listener. */
+  #leaveAnimationAbort?: AbortController;
+
   /** Responsive behavior utility. */
   #media = new MediaController(this, { onChange: event => this.#onMediaChange(event) });
 
@@ -294,8 +297,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       this.dialog.close(returnValue);
     } else {
       // Without overlay support (Safari/Firefox), trigger the exit transition
-      // while the dialog is still in the top layer. Start the body animation
-      // at the same time so both run in parallel.
+      // while the dialog is still in the top layer.
+      // Start the body animation at the same time so both run in parallel.
 
       this.dialog.classList.add('closing');
 
@@ -363,11 +366,13 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   }
 
   async #onClose(): Promise<void> {
-    // Only needed if the dialog was closed externally (e.g. via dialog.close() directly),
-    // bypassing our close() method which already calls this proactively.
-    if (document.documentElement.style.overflow === 'hidden') {
+    // Only needed if the dialog was closed externally (e.g. via dialog.close() directly)
+    if (document.documentElement.classList.contains('sl-dialog-enter')) {
       this.#updateDocumentElement(false);
     }
+
+    // Re-enable scrolling now that the dialog is actually closed
+    document.documentElement.style.overflow = '';
 
     this.inert = true;
 
@@ -432,6 +437,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   }
 
   #listenForLeaveAnimationEnd(): void {
+    this.#leaveAnimationAbort?.abort();
+
     // The leave animation only plays when prefers-reduced-motion is not set;
     // if reduced motion is preferred, remove the class immediately.
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -439,20 +446,23 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    const onAnimationEnd = (event: AnimationEvent): void => {
+    const controller = new AbortController();
+
+    this.#leaveAnimationAbort = controller;
+
+    const onLeaveAnimation = (event: AnimationEvent): void => {
       if (event.animationName === 'sl-dialog-leave') {
         document.documentElement.classList.remove('sl-dialog-leave');
-        document.body.removeEventListener('animationend', onAnimationEnd);
+        controller.abort();
       }
     };
 
-    document.body.addEventListener('animationend', onAnimationEnd);
+    document.body.addEventListener('animationend', onLeaveAnimation, { signal: controller.signal });
+    document.body.addEventListener('animationcancel', onLeaveAnimation, { signal: controller.signal });
   }
 
   #updateDocumentElement(opening?: boolean): void {
     if (opening) {
-      // TODO: Probably there is an error in safari with --sl-dialog-scale, previously it was calcucated based on window width
-
       // Add class to `<html>` for styling purposes
       document.documentElement.classList.remove('sl-dialog-leave');
       document.documentElement.classList.add('sl-dialog-enter');
@@ -460,9 +470,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       // Disable scrolling while the dialog is open
       document.documentElement.style.overflow = 'hidden';
     } else {
-      // Reenable scrolling after the dialog has closed
-      document.documentElement.style.overflow = '';
-
       // Remove dialog classes
       document.documentElement.classList.remove('sl-dialog-enter', 'sl-dialog-leave');
 

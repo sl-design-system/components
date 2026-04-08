@@ -1,3 +1,4 @@
+import { getForwardedAccessibleName } from '@sl-design-system/shared/helpers/forward-aria.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
@@ -18,12 +19,14 @@ describe('sl-infotip', () => {
     });
 
     it('should have an accessible label on the button', () => {
-      const button = el.renderRoot.querySelector('sl-button');
-      expect(button).to.have.attribute('aria-label', 'More information');
+      const button = el.renderRoot.querySelector('sl-button')!;
+
+      expect(getForwardedAccessibleName(button)).to.have.equal('More information');
     });
 
     it('should have a ghost fill on the button', () => {
       const button = el.renderRoot.querySelector('sl-button');
+
       expect(button).to.have.attribute('fill', 'ghost');
     });
 

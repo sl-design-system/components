@@ -53,7 +53,7 @@ export class Infotip extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <sl-button id="trigger" aria-label="More information" fill="ghost" @click=${this.#onClick}>
+      <sl-button @click=${this.#onClick} id="trigger" aria-label="More information" fill="ghost">
         <sl-icon name=${this.icon}></sl-icon>
       </sl-button>
       <sl-popover anchor="trigger" position="top">

@@ -1,4 +1,6 @@
+import '@sl-design-system/form/register.js';
 import '@sl-design-system/icon/register.js';
+import '@sl-design-system/text-field/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -44,17 +46,12 @@ export const RichContent: Story = {
 
 export const InContext: Story = {
   render: ({ content }) => html`
-    <style>
-      label {
-        align-items: center;
-        display: inline-flex;
-        font-family: sans-serif;
-        gap: 0.25rem;
-      }
-    </style>
-    <label>
-      Username
-      <sl-infotip>${content}</sl-infotip>
-    </label>
+    <sl-form-field>
+      <sl-label>
+        Username
+        <sl-infotip slot="infotip">${content}</sl-infotip>
+      </sl-label>
+      <sl-text-field placeholder="Username"></sl-text-field>
+    </sl-form-field>
   `
 };

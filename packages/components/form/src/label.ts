@@ -131,6 +131,7 @@ export class Label extends LitElement {
     return html`
       <slot @slotchange=${this.#onSlotchange} style="display: none"></slot>
       <slot name="label"></slot>
+      <slot name="infotip"></slot>
       ${this.mark === 'optional' && !this.required
         ? html`<span class="optional">(${msg('optional', { id: 'sl.form.optionalLabelIndicator' })})</span>`
         : nothing}

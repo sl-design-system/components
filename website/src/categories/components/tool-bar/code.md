@@ -3,7 +3,7 @@ title: Tool bar code
 tags: code
 APIdescription: {
   sl-tool-bar: "A responsive container that groups buttons and menus. It automatically moves items into an overflow menu when space is limited.",
-  sl-tool-bar-divider: "A visual separator used to group related items within the tool bar.",
+  sl-tool-bar-divider: "A visual separator used to group related items within the tool bar."
 }
 eleventyNavigation:
   parent: Tool bar

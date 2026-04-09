@@ -290,7 +290,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
    * @param returnValue - Optional value to set as the dialog's return value.
    */
   close(returnValue?: string): void {
-    if (!this.dialog?.open) {
+    if (!this.dialog?.open || this.dialog.classList.contains('closing')) {
       return;
     }
 

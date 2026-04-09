@@ -66,6 +66,9 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   /** The hint element. */
   #hint?: Hint;
 
+  /** The infotip element. */
+  #infotip?: Element & { contentId?: string };
+
   /** The label element. */
   #label?: Label;
 
@@ -264,7 +267,23 @@ export class FormField extends ScopedElementsMixin(LitElement) {
 
   #onLabelSlotchange(event: Event & { target: HTMLSlotElement }): void {
     const assignedElements = event.target.assignedElements({ flatten: true }),
-      label = assignedElements.find((el): el is Label => el instanceof Label);
+      label = assignedElements.find((el): el is Label => el instanceof Label),
+      infotip = label?.querySelector<Element & { contentId?: string }>('sl-infotip');
+
+    if (infotip) {
+      this.#infotip = infotip;
+
+      if (this.control && infotip.contentId) {
+        const describedby = this.control.formControlElement.getAttribute('aria-describedby'),
+          ids = describedby?.split(' ') || [];
+
+        if (!ids.includes(infotip.contentId)) {
+          ids.push(infotip.contentId);
+
+          this.control.formControlElement.setAttribute('aria-describedby', ids.join(' '));
+        }
+      }
+    }
 
     if (label) {
       this.#label = label;
@@ -300,16 +319,24 @@ export class FormField extends ScopedElementsMixin(LitElement) {
         this.error = this.control.getLocalizedValidationMessage();
       }
 
-      if (this.#hint) {
+      if (this.#hint || this.#infotip) {
         const describedby = this.control.formControlElement.getAttribute('aria-describedby');
         if (describedby) {
           const ids = describedby.split(' ');
-          if (!ids.includes(this.#hint.id)) {
+          if (this.#hint && !ids.includes(this.#hint.id)) {
             ids.push(this.#hint.id);
-            this.control.formControlElement.setAttribute('aria-describedby', ids.join(' '));
           }
+
+          if (this.#infotip?.contentId && !ids.includes(this.#infotip.contentId)) {
+            ids.push(this.#infotip.contentId);
+          }
+
+          this.control.formControlElement.setAttribute('aria-describedby', ids.join(' '));
         } else {
-          this.control.formControlElement.setAttribute('aria-describedby', this.#hint.id);
+          this.control.formControlElement.setAttribute(
+            'aria-describedby',
+            [this.#hint?.id, this.#infotip?.contentId].filter(Boolean).join(' ')
+          );
         }
       }
 

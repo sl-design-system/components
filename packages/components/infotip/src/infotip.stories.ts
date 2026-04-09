@@ -1,16 +1,16 @@
+import { faStrawberry } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/form/register.js';
+import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/text-field/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
-import { type Infotip } from './infotip.js';
 
-type Props = Pick<Infotip, 'icon' | 'maxWidth'> & {
-  content: string;
-};
+type Props = { content: string };
 type Story = StoryObj<Props>;
+
+Icon.register(faStrawberry);
 
 export default {
   title: 'Overlay/Infotip',
@@ -18,17 +18,21 @@ export default {
   args: {
     content: 'This field requires a unique identifier used for account login.'
   },
-  render: ({ content, icon, maxWidth }) => html`
-    <sl-infotip icon=${ifDefined(icon)} max-width=${ifDefined(maxWidth)}>${content}</sl-infotip>
-  `
+  render: ({ content }) => html`<sl-infotip>${content}</sl-infotip>`
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
 
 export const CustomIcon: Story = {
   args: {
-    icon: 'far-circle-question'
-  }
+    content: 'Strawberries are good for you.'
+  },
+  render: ({ content }) => html`
+    <sl-infotip>
+      <sl-icon name="far-strawberry" slot="icon"></sl-icon>
+      ${content}
+    </sl-infotip>
+  `
 };
 
 export const RichContent: Story = {

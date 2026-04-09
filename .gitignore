@@ -27,6 +27,8 @@ node_modules/
 # TypeScript cache
 *.tsbuildinfo
 
+.vitest-attachments
+
 # Optional npm cache directory
 .npm
 
@@ -76,6 +78,7 @@ packages/locales/**/*.d.ts.map
 packages/locales/**/*.js
 packages/locales/**/*.js.map
 packages/themes/**/*.css
+!packages/themes/**/fonts.css
 !packages/themes/core/*.css
 packages/themes/**/*.d.ts
 packages/themes/**/*.d.ts.map

@@ -169,8 +169,23 @@ describe('sl-tag', () => {
 
       expect(tag).to.have.trimmed.text('+7');
 
-      el.querySelector('sl-tag:last-child')?.remove();
-      await new Promise(resolve => setTimeout(resolve));
+      (el.querySelector('sl-tag:last-child') as HTMLElement)?.focus();
+      await userEvent.keyboard('{Backspace}');
+
+      await new Promise<void>((resolve, reject) => {
+        const start = performance.now();
+        const timeoutMs = 2000;
+        const check = (): void => {
+          if (tag?.textContent?.trim() === '+6') {
+            resolve();
+          } else if (performance.now() - start > timeoutMs) {
+            reject(new Error('Timed out waiting for stack size to update to +6'));
+          } else {
+            requestAnimationFrame(check);
+          }
+        };
+        requestAnimationFrame(check);
+      });
 
       expect(tag).to.have.trimmed.text('+6');
     });

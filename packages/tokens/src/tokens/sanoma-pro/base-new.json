@@ -222,6 +222,7 @@
 					"$value": {
 						"fontSize": "{II-F.size.text-new.heading.lg}",
 						"fontFamily": "{II-F.text-new.typeset.fontFamily.heading}",
+						"fontWeight": "{fontWeight.600}",
 						"lineHeight": "{size.lineHeight.400}"
 					}
 				},
@@ -230,6 +231,7 @@
 					"$value": {
 						"fontSize": "{II-F.size.text-new.heading.md}",
 						"fontFamily": "{II-F.text-new.typeset.fontFamily.heading}",
+						"fontWeight": "{fontWeight.600}",
 						"lineHeight": "{size.lineHeight.250}"
 					}
 				},
@@ -238,6 +240,7 @@
 					"$value": {
 						"fontSize": "{II-F.size.text-new.heading.sm}",
 						"fontFamily": "{II-F.text-new.typeset.fontFamily.heading}",
+						"fontWeight": "{fontWeight.600}",
 						"lineHeight": "{size.lineHeight.250}"
 					}
 				},
@@ -246,6 +249,7 @@
 					"$value": {
 						"fontSize": "{II-F.size.text-new.heading.xl}",
 						"fontFamily": "{II-F.text-new.typeset.fontFamily.heading}",
+						"fontWeight": "{fontWeight.600}",
 						"lineHeight": "{size.lineHeight.500}"
 					}
 				},
@@ -254,6 +258,7 @@
 					"$value": {
 						"fontSize": "{II-F.size.text-new.heading.2xl}",
 						"fontFamily": "{II-F.text-new.typeset.fontFamily.heading}",
+						"fontWeight": "{fontWeight.600}",
 						"lineHeight": "{size.lineHeight.600}"
 					}
 				}
@@ -270,7 +275,7 @@
 					},
 					"heading": {
 						"$type": "fontFamilies",
-						"$value": "Roboto"
+						"$value": "The Message"
 					}
 				},
 				"fontWeight": {

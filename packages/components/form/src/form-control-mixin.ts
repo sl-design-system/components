@@ -464,7 +464,13 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
 
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         message
-          .then(result => this.setCustomValidity(result))
+          .then(result => {
+            // Set native validity directly and update without re-emitting sl-validate.
+            // The promise was already created from an sl-validate handler, so re-emitting
+            // would cause an infinite loop.
+            this.#setNativeCustomValidity(result);
+            this.updateValidity(false);
+          })
           .finally(() => {
             this.#customValidityPromise = undefined;
           });
@@ -472,15 +478,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
         return;
       }
 
-      if (isNative(this.formControlElement)) {
-        this.formControlElement.setCustomValidity(message);
-      } else {
-        if (message === '') {
-          this.formControlElement.internals.setValidity({});
-        } else {
-          this.formControlElement.internals.setValidity({ customError: true }, message);
-        }
-      }
+      this.#setNativeCustomValidity(message);
 
       // If `setCustomValidity` is called during an `updateValidity` call, do not re-enter the method
       if (!this.#updatingValidity) {
@@ -501,6 +499,18 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     setFormControlElement(element: FormControlElement): void {
       this.#formControlElement = element;
       this.#formControlElement.addEventListener('invalid', this.#onInvalid);
+    }
+
+    #setNativeCustomValidity(message: string): void {
+      if (isNative(this.formControlElement)) {
+        this.formControlElement.setCustomValidity(message);
+      } else {
+        if (message === '') {
+          this.formControlElement.internals.setValidity({});
+        } else {
+          this.formControlElement.internals.setValidity({ customError: true }, message);
+        }
+      }
     }
   }
 

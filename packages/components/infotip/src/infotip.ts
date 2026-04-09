@@ -120,10 +120,7 @@ export class Infotip extends ScopedElementsMixin(LitElement) {
 
     // Exclude the content copy and any icon elements
     const nodes = [...this.childNodes].filter(
-      node =>
-        node !== this.#contentCopy &&
-        node.nodeType !== Node.COMMENT_NODE &&
-        !(node instanceof Element && node.getAttribute('slot') === 'icon')
+      node => node !== this.#contentCopy && node.nodeType !== Node.COMMENT_NODE && node !== icon
     );
 
     // Update the content copy with cloned content and assign to default slot

@@ -1,3 +1,3 @@
-export function getComponent() {
+export function getComponents() {
   return [];
 }

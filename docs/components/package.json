@@ -10,16 +10,16 @@
     "url": "https://github.com/sl-design-system/components.git"
   },
   "exports": {
-    "./copy-button/copy-button": "./dist/copy-button/copy-button.js",
-    "./example/example": "./dist/example/example.js",
-    "./install-info/install-info": "./dist/install-info/install-info.js",
-    "./page-toc/page-toc": "./dist/page-toc/page-toc.js",
-    "./search/search": "./dist/search/search.js",
-    "./sidebar/sidebar": "./dist/sidebar/sidebar.js",
-    "./site-nav/nav-group": "./dist/site-nav/nav-group.js",
-    "./site-nav/nav-item": "./dist/site-nav/nav-item.js",
-    "./site-nav/site-nav": "./dist/site-nav/site-nav.js",
-    "./theme-switch/theme-switch": "./dist/theme-switch/theme-switch.js",
+    "./copy-button/copy-button.js": "./dist/copy-button/copy-button.js",
+    "./example/example.js": "./dist/example/example.js",
+    "./install-info/install-info.js": "./dist/install-info/install-info.js",
+    "./page-toc/page-toc.js": "./dist/page-toc/page-toc.js",
+    "./search/search.js": "./dist/search/search.js",
+    "./sidebar/sidebar.js": "./dist/sidebar/sidebar.js",
+    "./site-nav/nav-group.js": "./dist/site-nav/nav-group.js",
+    "./site-nav/nav-item.js": "./dist/site-nav/nav-item.js",
+    "./site-nav/site-nav.js": "./dist/site-nav/site-nav.js",
+    "./theme-switch/theme-switch.js": "./dist/theme-switch/theme-switch.js",
     "./package.json": "./package.json"
   },
   "scripts": {
@@ -73,6 +73,7 @@
     "@floating-ui/utils": "0.2.11",
     "@fortawesome/free-brands-svg-icons": "7.2.0",
     "@fortawesome/pro-regular-svg-icons": "7.2.0",
-    "@fortawesome/pro-solid-svg-icons": "7.2.0"
+    "@fortawesome/pro-solid-svg-icons": "7.2.0",
+    "@open-wc/dedupe-mixin": "2.0.1"
   }
 }

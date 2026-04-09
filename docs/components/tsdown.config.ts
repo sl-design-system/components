@@ -57,7 +57,20 @@ export default defineConfig({
     'src/site-nav/site-nav.ts',
     'src/theme-switch/theme-switch.ts'
   ],
-  exports: true,
+  exports: {
+    customExports(exports) {
+      return Object.fromEntries(
+        Object.entries(exports).map(([key, value]) => {
+          // Skip the root export and keys that already have a file extension (e.g. './foo.js')
+          if (key === '.' || /\.[^/]+$/.test(key)) {
+            return [key, value];
+          }
+
+          return [`${key}.js`, value];
+        })
+      );
+    }
+  },
   platform: 'browser',
   plugins: [cssPlugin]
 })

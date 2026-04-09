@@ -1,6 +1,6 @@
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
-import { dirname, join } from 'node:path';
+import { basename, dirname, join } from 'node:path';
 import * as esbuild from 'esbuild';
 import eleventyNavigationPlugin from '@11ty/eleventy-navigation';
 import markdownItAnchor from 'markdown-it-anchor';
@@ -48,11 +48,11 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addCollection('componentPages', function (collectionApi) {
     const componentPages = collectionApi.getFilteredByGlob(
-      path.join(eleventyConfig.directories.input, 'components/**/*.md')
+      join(eleventyConfig.directories.input, 'components/**/*.md')
     );
 
     return componentPages.map(page => {
-      const componentName = path.basename(page.inputPath, '.md'),
+      const componentName = basename(page.inputPath, '.md'),
         tagName = `sl-${componentName}`,
         component = allComponents.find(c => c.tagName === tagName);
 

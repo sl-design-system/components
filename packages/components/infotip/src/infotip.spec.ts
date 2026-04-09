@@ -34,7 +34,7 @@ describe('sl-infotip', () => {
       expect(button).to.have.attribute('fill', 'ghost');
     });
 
-    it('should have a default icon of far-circle-info', () => {
+    it('should have a default icon of circle-info', () => {
       const icon = el.renderRoot.querySelector('sl-icon');
 
       expect(icon).to.have.attribute('name', 'circle-info');

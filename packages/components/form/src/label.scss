@@ -4,7 +4,7 @@
   gap: var(--sl-size-050);
 }
 
-slot[name='label'] {
+::slotted([slot='label']) {
   color: var(--sl-color-foreground-bold);
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
 }

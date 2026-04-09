@@ -283,6 +283,8 @@ export class FormField extends ScopedElementsMixin(LitElement) {
           this.control.formControlElement.setAttribute('aria-describedby', ids.join(' '));
         }
       }
+    } else {
+      this.#infotip = undefined;
     }
 
     if (label) {

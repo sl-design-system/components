@@ -264,6 +264,23 @@ describe('sl-tag-list', () => {
   });
 
   describe('visibility edge cases', () => {
+    it('should mark visibility as resolved after the initial stabilization pass', async () => {
+      el = await fixture(html`<sl-tag-list stacked></sl-tag-list>`);
+
+      expect(el).not.to.have.attribute('data-visibility-resolved');
+
+      const firstTag = document.createElement('sl-tag');
+      firstTag.textContent = 'Tag 1';
+      const secondTag = document.createElement('sl-tag');
+      secondTag.textContent = 'Tag 2';
+      el.append(firstTag, secondTag);
+
+      await triggerVisibilityUpdate();
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+
+      expect(el).to.have.attribute('data-visibility-resolved');
+    });
+
     it('should use column gap when gap shorthand has two values', async () => {
       el = await fixture(html`
         <sl-tag-list stacked style="gap: 4px 12px; padding: 0; margin: 0; border: none;">
@@ -364,6 +381,40 @@ describe('sl-tag-list', () => {
       await triggerVisibilityUpdate();
 
       expect(el.stackInlineSize).to.equal(40);
+    });
+
+    it('should unstack tags after a stale collapsed width measurement state', async () => {
+      el = await fixture(html`
+        <sl-tag-list stacked style="gap: 10px; padding: 0; margin: 0; border: none;">
+          <sl-tag style="inline-size: 100px;">Tag 1</sl-tag>
+          <sl-tag style="inline-size: 100px;">Tag 2</sl-tag>
+        </sl-tag-list>
+      `);
+
+      const tags = Array.from(el.querySelectorAll('sl-tag')) as HTMLElement[];
+
+      el.stackInlineSize = 40;
+      tags.forEach(tag => {
+        tag.style.display = 'none';
+        tag.getBoundingClientRect = () => new DOMRect(0, 0, 100, 20);
+      });
+
+      // Reproduce a collapsed-width trap:
+      // - when all tags are hidden, host width appears very small (120px)
+      // - when tags are visible, there is enough real space (260px)
+      el.getBoundingClientRect = () => {
+        const visibleTags = tags.filter(tag => tag.style.display !== 'none').length;
+
+        return new DOMRect(0, 0, visibleTags === 0 ? 120 : 260, 20);
+      };
+
+      await triggerVisibilityUpdate();
+
+      const stack = el.renderRoot.querySelector('.stack') as HTMLElement;
+
+      expect(tags.map(tag => tag.style.display)).to.deep.equal(['', '']);
+      expect(el.stackSize).to.equal(0);
+      expect(stack.style.display).to.equal('none');
     });
   });
 });

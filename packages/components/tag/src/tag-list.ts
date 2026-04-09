@@ -31,6 +31,14 @@ declare global {
  */
 @localized()
 export class TagList extends ScopedElementsMixin(LitElement) {
+  constructor() {
+    super();
+
+    // Default to unresolved so stacked lists stay hidden until first stable
+    // visibility calculation completes.
+    this.removeAttribute('data-visibility-resolved');
+  }
+
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -50,6 +58,34 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
   /** Animation frame used to batch slot-change visibility updates. */
   #scheduleVisibilityUpdate?: number;
+
+  /** Animation frame used to run an additional initial stabilization pass. */
+  #initialVisibilityPassFrame?: number;
+
+  /** Number of completed passes before the initial visibility is considered stable. */
+  #initialVisibilityPasses = 0;
+
+  #isStackedActive(): boolean {
+    return this.stacked || this.hasAttribute('stacked');
+  }
+
+  /**
+   * Expose stacked tag list only after initial visibility has been resolved.
+   */
+  #syncInitialVisibilityState(): void {
+    this.toggleAttribute('data-visibility-resolved', !this.#isStackedActive() || this.#hasResolvedInitialVisibility);
+  }
+
+  #resetInitialVisibilityState(): void {
+    this.#hasResolvedInitialVisibility = false;
+    this.#initialVisibilityPasses = 0;
+    this.#syncInitialVisibilityState();
+
+    if (this.#initialVisibilityPassFrame !== undefined) {
+      cancelAnimationFrame(this.#initialVisibilityPassFrame);
+      this.#initialVisibilityPassFrame = undefined;
+    }
+  }
 
   /**
    * Observe size changes so we can determine when to display a counter
@@ -109,6 +145,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.setAttribute('role', 'list');
+    this.#resetInitialVisibilityState();
+    this.#syncInitialVisibilityState();
 
     this.#resizeObserver.observe(this);
   }
@@ -126,6 +164,11 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       this.#scheduleVisibilityUpdate = undefined;
     }
 
+    if (this.#initialVisibilityPassFrame !== undefined) {
+      cancelAnimationFrame(this.#initialVisibilityPassFrame);
+      this.#initialVisibilityPassFrame = undefined;
+    }
+
     super.disconnectedCallback();
   }
 
@@ -138,8 +181,10 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('stacked')) {
       if (this.stacked && this.stack) {
+        this.#resetInitialVisibilityState();
         this.#resizeObserver.observe(this.stack);
       } else {
+        this.#resetInitialVisibilityState();
         this.tags.forEach(tag => (tag.style.display = ''));
       }
     }
@@ -191,11 +236,39 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     this.#rovingTabindexController.focusToElement(nextFocusableTag);
   }
 
+  #isUnknownArray(value: unknown): value is unknown[] {
+    return Array.isArray(value);
+  }
+
+  #isResizeObserverSize(value: unknown): value is { inlineSize: number } {
+    if (typeof value !== 'object' || value === null || !('inlineSize' in value)) {
+      return false;
+    }
+
+    const inlineSize = (value as { inlineSize: unknown }).inlineSize;
+
+    return typeof inlineSize === 'number';
+  }
+
+  #getBorderBoxInlineSize(entry: ResizeObserverEntry): number | undefined {
+    const borderBoxSize = (entry as { borderBoxSize?: unknown }).borderBoxSize;
+
+    if (this.#isUnknownArray(borderBoxSize)) {
+      const firstSize = borderBoxSize[0];
+
+      return this.#isResizeObserverSize(firstSize) ? firstSize.inlineSize : undefined;
+    }
+
+    return this.#isResizeObserverSize(borderBoxSize) ? borderBoxSize.inlineSize : undefined;
+  }
+
   #onResize(entries: ResizeObserverEntry[]): void {
     const stackEntry = entries.find(entry => entry.target === this.stack),
       // Use border-box width, not content-box width, so layout-affecting box size
       // is accounted for when computing available space for visible tags.
-      stackInlineSize = stackEntry ? (stackEntry.target as HTMLElement).getBoundingClientRect().width : undefined;
+      stackInlineSize = stackEntry
+        ? (this.#getBorderBoxInlineSize(stackEntry) ?? stackEntry.contentRect.width)
+        : undefined;
 
     if (stackInlineSize && stackInlineSize !== this.stackInlineSize) {
       this.stackInlineSize = stackInlineSize;
@@ -265,8 +338,19 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     this.#updateVisibility();
 
     if (!this.#hasResolvedInitialVisibility && this.stacked && this.tags.length > 0) {
-      this.#hasResolvedInitialVisibility = true;
+      this.#initialVisibilityPasses += 1;
+
+      if (this.#initialVisibilityPasses >= 2) {
+        this.#hasResolvedInitialVisibility = true;
+      } else {
+        this.#initialVisibilityPassFrame = requestAnimationFrame(() => {
+          this.#initialVisibilityPassFrame = undefined;
+          this.#runVisibilityUpdate();
+        });
+      }
     }
+
+    this.#syncInitialVisibilityState();
   }
 
   #updateVisibility(): void {
@@ -286,18 +370,21 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     // Lock current width while measuring with all tags visible.
     // Without this, the element can expand during measurement and cause oscillation/flicker.
-    const originalInlineSize = this.style.inlineSize,
-      lockedWidth = this.getBoundingClientRect().width;
-
-    this.style.inlineSize = `${lockedWidth}px`;
+    const originalInlineSize = this.style.inlineSize;
 
     let sizes: number[] = [],
       totalTagsWidth = 0,
-      availableWidth = lockedWidth;
+      availableWidth = 0;
 
     try {
       // Reset visibility of all tags
       this.tags.forEach(tag => (tag.style.display = ''));
+
+      // Measure available width after restoring tag visibility.
+      // This prevents the layout from getting stuck in a collapsed width that
+      // was based on a previous stacked state.
+      availableWidth = this.getBoundingClientRect().width;
+      this.style.inlineSize = `${availableWidth}px`;
 
       sizes = this.tags.map(t => t.getBoundingClientRect().width);
 

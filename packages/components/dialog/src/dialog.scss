@@ -80,7 +80,9 @@ dialog {
       }
     }
 
-    dialog[open]::backdrop {
+    // Use a slower fade-in for the backdrop, but not when closing so the
+    // backdrop fade-out finishes at the same time as the dialog transition.
+    dialog[open]:not(.closing)::backdrop {
       transition-duration: 0.5s;
     }
   }
@@ -105,6 +107,10 @@ dialog {
 
     &.closing::backdrop {
       opacity: 0;
+
+      @starting-style {
+        opacity: 1;
+      }
     }
 
     // Enter animation
@@ -123,7 +129,9 @@ dialog {
       transition-property: display, opacity, overlay, scale;
     }
 
-    dialog[open]::backdrop {
+    // Use a slower fade-in for the backdrop, but not when closing so the
+    // backdrop fade-out finishes at the same time as the dialog transition.
+    dialog[open]:not(.closing)::backdrop {
       transition-duration: 0.5s;
     }
   }

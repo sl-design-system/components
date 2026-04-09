@@ -25,7 +25,6 @@ let nextUniqueId = 0;
 /**
  * Multi line text area component.
  *
- * @cssprop --sl-text-area-rows - The number of rows initially visible in the textarea
  * @slot textarea - The slot for the textarea element
  */
 @localized()
@@ -96,8 +95,9 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
   @property({ reflect: true }) resize: ResizeType = 'vertical';
 
   /**
-   * The number of rows the textarea should initially have.
-   * If not set, the browser defaults to 2 rows.
+   * The number of rows the textarea should have.
+   * For resize auto and vertical, this will determine the *minimum* height of the textarea.
+   * If not set, the component defaults to 3 rows.
    */
   @property({ type: Number }) rows?: number;
 
@@ -226,8 +226,10 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
       this.textarea.style.height = 'auto';
       this.textarea.style.height = `${this.textarea.scrollHeight}px`;
       this.textarea.style.resize = 'none';
-    } else {
+    } else if (this.resize === 'vertical') {
       (this.textarea.style.height as string | undefined) = undefined;
+    } else {
+      this.textarea.style.removeProperty('height');
     }
   }
 
@@ -239,9 +241,11 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
     textarea.placeholder = this.placeholder ?? '';
     textarea.readOnly = !!this.readonly;
     textarea.required = !!this.required;
-    textarea.rows = this.rows ?? 2;
+    textarea.rows = this.rows && this.rows > 0 ? this.rows : 3;
     textarea.style.resize = this.resize ?? 'vertical';
     textarea.wrap = this.wrap ?? 'soft';
+
+    textarea.style.setProperty('--_sl-text-area-rows', textarea.rows?.toString());
 
     this.setAttributesTarget(textarea);
 

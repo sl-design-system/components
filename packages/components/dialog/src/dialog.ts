@@ -3,7 +3,13 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Button } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, EventsController, MediaController, event } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  EventsController,
+  type MediaChangeEvent,
+  MediaController,
+  event
+} from '@sl-design-system/shared';
 import { type SlCancelEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
@@ -55,8 +61,11 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { click: this.#onClick, command: this.#onCommand, keydown: this.#onKeydown });
 
+  /** Abort controller for the leave animation listener. */
+  #leaveAnimationAbort?: AbortController;
+
   /** Responsive behavior utility. */
-  #media = new MediaController(this);
+  #media = new MediaController(this, { onChange: event => this.#onMediaChange(event) });
 
   /** Observe size changes to the dialog. */
   #observer = new ResizeObserver(() => this.#onScroll());
@@ -104,6 +113,13 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
+    this.#leaveAnimationAbort?.abort();
+
+    if (this.dialog?.open) {
+      // Remove dialog classes and restore scrolling only when this dialog is currently open
+      document.documentElement.classList.remove('sl-dialog-enter', 'sl-dialog-leave');
+      document.documentElement.style.overflow = '';
+    }
 
     super.disconnectedCallback();
   }
@@ -274,10 +290,27 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
    * @param returnValue - Optional value to set as the dialog's return value.
    */
   close(returnValue?: string): void {
-    if (this.dialog?.open) {
-      this.#observer.disconnect();
+    if (!this.dialog?.open || this.dialog.classList.contains('closing')) {
+      return;
+    }
 
-      this.dialog?.close(returnValue);
+    this.#observer.disconnect();
+    this.#updateDocumentElement(false);
+
+    if (CSS.supports('overlay', 'auto')) {
+      this.dialog.close(returnValue);
+    } else {
+      // Without overlay support (Safari/Firefox), trigger the exit transition
+      // while the dialog is still in the top layer.
+      // Start the body animation at the same time so both run in parallel.
+
+      this.dialog.classList.add('closing');
+
+      requestAnimationFrame(() => {
+        void Promise.allSettled(this.dialog?.getAnimations()?.map(animation => animation.finished) ?? []).then(() => {
+          this.dialog?.close(returnValue);
+        });
+      });
     }
   }
 
@@ -337,12 +370,22 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   }
 
   async #onClose(): Promise<void> {
-    this.#updateDocumentElement(false);
+    // Only needed if the dialog was closed externally (e.g. via dialog.close() directly)
+    if (document.documentElement.classList.contains('sl-dialog-enter')) {
+      this.#updateDocumentElement(false);
+    }
+
+    // Re-enable scrolling now that the dialog is actually closed
+    document.documentElement.style.overflow = '';
 
     this.inert = true;
 
     // Wait until all animations have finished before emitting the close event
-    await Promise.allSettled(this.dialog?.getAnimations({ subtree: true }).map(a => a.finished) ?? []);
+    await Promise.allSettled(this.dialog?.getAnimations({ subtree: true })?.map(animation => animation.finished) ?? []);
+
+    // Remove only after animations complete — removing earlier would clear translate: 0 100%
+    // while Safari's display transition is still running, causing a visible flash.
+    this.dialog?.classList.remove('closing');
 
     this.closeEvent.emit();
   }
@@ -353,6 +396,24 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
     this.close();
   }
+
+  #onMediaChange = ({ previous, current }: MediaChangeEvent): void => {
+    if (!this.dialog?.open) {
+      return;
+    }
+
+    if (previous === 'mobile') {
+      // Leaving mobile while dialog is open
+      document.documentElement.classList.remove('sl-dialog-enter');
+      document.documentElement.classList.add('sl-dialog-leave');
+
+      this.#listenForLeaveAnimationEnd();
+    } else if (current === 'mobile') {
+      // Entering mobile while dialog is open
+      document.documentElement.classList.remove('sl-dialog-leave');
+      document.documentElement.classList.add('sl-dialog-enter');
+    }
+  };
 
   #onKeydown(event: KeyboardEvent): void {
     if (event.key === 'Escape') {
@@ -379,28 +440,49 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       ?.toggleAttribute('sticky', scrollTop + clientHeight < scrollHeight);
   }
 
+  #listenForLeaveAnimationEnd(): void {
+    this.#leaveAnimationAbort?.abort();
+
+    // The leave animation only plays when prefers-reduced-motion is not set;
+    // if reduced motion is preferred, remove the class immediately.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.remove('sl-dialog-leave');
+      return;
+    }
+
+    const controller = new AbortController();
+
+    this.#leaveAnimationAbort = controller;
+
+    const onLeaveAnimation = (event: AnimationEvent): void => {
+      if (event.animationName === 'sl-dialog-leave') {
+        document.documentElement.classList.remove('sl-dialog-leave');
+        controller.abort();
+      }
+    };
+
+    document.body.addEventListener('animationend', onLeaveAnimation, { signal: controller.signal });
+    document.body.addEventListener('animationcancel', onLeaveAnimation, { signal: controller.signal });
+  }
+
   #updateDocumentElement(opening?: boolean): void {
     if (opening) {
-      const width = window.innerWidth,
-        bodyMargin = 16;
-
-      const scale = (width - bodyMargin * 2) / width;
-
-      // Set the scale and translate values so that the body has a 16px margin on each side
-      document.documentElement.style.setProperty('--sl-dialog-scale', scale.toString());
-      document.documentElement.style.setProperty('--sl-dialog-translate', `0 ${bodyMargin}px`);
-
       // Add class to `<html>` for styling purposes
+      document.documentElement.classList.remove('sl-dialog-leave');
       document.documentElement.classList.add('sl-dialog-enter');
 
       // Disable scrolling while the dialog is open
       document.documentElement.style.overflow = 'hidden';
     } else {
-      // Reenable scrolling after the dialog has closed
-      document.documentElement.style.overflow = '';
+      // Remove dialog classes
+      document.documentElement.classList.remove('sl-dialog-enter', 'sl-dialog-leave');
 
-      // Remove open class
-      document.documentElement.classList.remove('sl-dialog-enter');
+      // Only play the leave animation on mobile, where the body was scaled
+      if (this.#media.mobile) {
+        document.documentElement.classList.add('sl-dialog-leave');
+
+        this.#listenForLeaveAnimationEnd();
+      }
     }
   }
 

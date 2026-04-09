@@ -7,6 +7,7 @@ import { Listbox, type ListboxItem, Option, OptionGroup, OptionGroupHeader } fro
 import {
   EventEmitter,
   EventsController,
+  ObserveAttributesMixin,
   type Path,
   type PathKeys,
   anchor,
@@ -63,7 +64,10 @@ let nextUniqueId = 0;
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMixin(LitElement)) {
+export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
+  FormControlMixin(ScopedElementsMixin(LitElement)),
+  ['aria-label']
+) {
   /** @internal The default offset of the popover to the input. */
   static offset = 6;
 
@@ -273,6 +277,8 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     this.input.setAttribute('aria-autocomplete', this.#ariaAutocomplete);
     this.input.setAttribute('aria-expanded', 'false');
     this.input.setAttribute('aria-haspopup', 'listbox');
+
+    this.setAttributesTarget(this.input);
 
     this.#events.listen(this.input, 'click', this.#onInputClick);
     this.#events.listen(this.input, 'focus', this.#onFocus);

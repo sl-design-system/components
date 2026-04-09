@@ -111,6 +111,7 @@ export const Disabled: Story = {
 
 export const EmbeddedComponents: Story = {
   args: {
+    label: 'Student',
     placeholder: 'Select a student',
     slot: () => html`
       <style>
@@ -174,21 +175,24 @@ export const CustomStyling: Story = {
       <p>
         This story shows a select component with custom styling. Each option displays a colored circle, and a label.
       </p>
-
-      <sl-select placeholder="Select a color">
-        <sl-option value="red">
-          <span class="colorball" style="background-color: red;"></span>
-          Red
-        </sl-option>
-        <sl-option value="blue">
-          <span class="colorball" style="background-color: blue;"></span>
-          Blue
-        </sl-option>
-        <sl-option value="green">
-          <span class="colorball" style="background-color: green;"></span>
-          Green
-        </sl-option>
-      </sl-select>
+      <sl-form>
+        <sl-form-field label="Favorite color">
+          <sl-select placeholder="Select a color">
+            <sl-option value="red">
+              <span class="colorball" style="background-color: red;"></span>
+              Red
+            </sl-option>
+            <sl-option value="blue">
+              <span class="colorball" style="background-color: blue;"></span>
+              Blue
+            </sl-option>
+            <sl-option value="green">
+              <span class="colorball" style="background-color: green;"></span>
+              Green
+            </sl-option>
+          </sl-select>
+        </sl-form-field>
+      </sl-form>
     `;
   }
 };
@@ -251,7 +255,11 @@ export const OptionsStyling: Story = {
         displays a colored circle, an sl-icon, and a label. The story shows how to style the selected option display and
         individual option containers.
       </p>
-      <sl-select value="circle">${options.map(optionsRenderer)} </sl-select>
+      <sl-form>
+        <sl-form-field label="Favorite shape">
+          <sl-select value="circle">${options.map(optionsRenderer)} </sl-select>
+        </sl-form-field>
+      </sl-form>
     `;
   }
 };
@@ -375,15 +383,15 @@ export const DisplayInlineBlock: Story = {
       }
     </style>
     <section>
-      <sl-select value="2">
+      <sl-select value="2" aria-label="Select step 1">
         <sl-option value="1">short</sl-option>
         <sl-option value="2">very very long option text</sl-option>
       </sl-select>
-      <sl-select value="2">
+      <sl-select value="2" aria-label="Select step 2">
         <sl-option value="1">short</sl-option>
         <sl-option value="2">very very long option text</sl-option>
       </sl-select>
-      <sl-select value="2">
+      <sl-select value="2" aria-label="Select step 3">
         <sl-option value="1">short</sl-option>
         <sl-option value="2">very very long option text</sl-option>
       </sl-select>

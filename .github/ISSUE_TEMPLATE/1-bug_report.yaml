@@ -1,6 +1,6 @@
 name: 🐛 Bug Report
 description: File a bug report
-labels: ["triage", "bug"]
+labels: ["triage"]
 type: "Bug"
 projects: ["projects/9"]
 body:
@@ -38,7 +38,7 @@ body:
     id: storybook-reproduced
     attributes:
       label: Were you able to reproduce this in our storybook?
-      description: "Please check whether this bug is reproducible in [our storybook](https://storybook.slds.io)."
+      description: "Please check whether this bug is reproducible in [our storybook](https://storybook.sanomalearning.design)."
       options:
         - "Yes"
         - "No"
@@ -81,6 +81,8 @@ body:
         - Angular
         - React
         - Vue
+        - Lit
+        - Svelte
         - Vanilla JS / HTML
         - Other
     validations:
@@ -88,7 +90,7 @@ body:
   - type: dropdown
     id: browsers
     attributes:
-      label: What browsers are you seeing the problem on? (only for bugs in code)
+      label: What browsers are you seeing the problem on?
       multiple: true
       options:
         - All
@@ -109,20 +111,20 @@ body:
     id: operating-system
     attributes:
       label: What operating system are you using?
+      description: Mention when the bug is OS specific; when it only happens on Chrome on Windows, not on Chrome on MacOS for example.
     validations:
-      required: true
+      required: false
   - type: input
     id: component-version
     attributes:
       label: Component version
-      description: Which version of the component are you using?
     validations:
       required: true
   - type: input
     id: theme-version
     attributes:
       label: Theme version
-      description: Which version of the theme are you using? (only when relevant)
+      description: Only when relevant
     validations:
       required: false
   - type: markdown
@@ -133,7 +135,7 @@ body:
     attributes:
       label: 👤 Your name
       description: |
-        Please provide your full name
+        Please provide your full name so we can reach out to you via Slack or email for more information if needed.
     validations:
       required: true
   - type: input
@@ -141,7 +143,7 @@ body:
     attributes:
       label: 🧢 Your product/team
       description: |
-        Which product team is this bug impacting? (i.e. Bingel DC/Pokemon)
+        So we have an idea of the context of the bug.
     validations:
       required: false
   - type: dropdown

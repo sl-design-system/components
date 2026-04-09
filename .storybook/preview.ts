@@ -1,12 +1,22 @@
-import '@af-utils/scrollend-polyfill';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import '@sl-design-system/announcer/register.js';
 import { type LocaleModule, configureLocalization } from '@lit/localize';
 import * as locales from '@sl-design-system/locales';
 import { type Preview } from '@storybook/web-components-vite';
 import MockDate from 'mockdate';
-
 import { updateTheme, themes, type Mode } from './themes.js';
+
+// Load the polyfill for the Invoker API if needed
+if (!('command' in HTMLButtonElement.prototype)) {
+  const { apply } = await import('invokers-polyfill/fn');
+
+  apply();
+}
+
+// Load the polyfill for the scrollend event if needed
+if (!('onscrollend' in window)) {
+  await import('@af-utils/scrollend-polyfill' as any);
+}
 
 // Set a fixed date in non-development environments for consistent Storybook snapshots
 if (!import.meta.env?.DEV) {

@@ -41,20 +41,27 @@ dialog {
   dialog {
     border: 0;
     border-radius: var(--sl-size-borderRadius-default) var(--sl-size-borderRadius-default) 0 0;
+    max-inline-size: 100dvw; // Override Safari's default max-width on <dialog>
 
     // Exit animation
-    &:not(:modal) {
+    &:not(:modal),
+    &.closing {
       translate: 0 100%;
+    }
 
-      @supports not (overlay: auto) {
-        transition-duration: 0s;
+    &.closing::backdrop {
+      opacity: 0;
+
+      @starting-style {
+        opacity: 1;
       }
     }
 
     // Enter animation
-    @starting-style {
-      display: flex;
-      translate: 0 100%;
+    &[open] {
+      @starting-style {
+        translate: 0 100%;
+      }
     }
   }
 
@@ -63,10 +70,19 @@ dialog {
     dialog::backdrop {
       transition: 0.2s ease-in-out;
       transition-behavior: allow-discrete;
-      transition-property: display, opacity, overlay, translate;
+      transition-property: opacity, overlay, translate;
     }
 
-    dialog[open]::backdrop {
+    @supports (overlay: auto) {
+      dialog,
+      dialog::backdrop {
+        transition-property: display, opacity, overlay, translate;
+      }
+    }
+
+    // Use a slower fade-in for the backdrop, but not when closing so the
+    // backdrop fade-out finishes at the same time as the dialog transition.
+    dialog[open]:not(.closing)::backdrop {
       transition-duration: 0.5s;
     }
   }
@@ -83,19 +99,25 @@ dialog {
     }
 
     // Exit animation
-    &:not(:modal) {
+    &:not(:modal),
+    &.closing {
       opacity: 0;
       scale: 0.7;
+    }
 
-      @supports not (overlay: auto) {
-        transition-duration: 0s;
+    &.closing::backdrop {
+      opacity: 0;
+
+      @starting-style {
+        opacity: 1;
       }
     }
 
     // Enter animation
-    @starting-style {
-      display: flex;
-      scale: 1.1;
+    &[open] {
+      @starting-style {
+        scale: 1.1;
+      }
     }
   }
 
@@ -107,7 +129,9 @@ dialog {
       transition-property: display, opacity, overlay, scale;
     }
 
-    dialog[open]::backdrop {
+    // Use a slower fade-in for the backdrop, but not when closing so the
+    // backdrop fade-out finishes at the same time as the dialog transition.
+    dialog[open]:not(.closing)::backdrop {
       transition-duration: 0.5s;
     }
   }

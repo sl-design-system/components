@@ -533,72 +533,121 @@ export const All: Story = {
         <span style="justify-self: center">lg</span>
 
         <span>Placeholder</span>
-        <sl-select placeholder="Select an option">
+        <sl-select placeholder="Select an option" aria-label="Medium select with placeholder">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
         </sl-select>
-        <sl-select placeholder="Select an option" size="lg">
+        <sl-select placeholder="Select an option" size="lg" aria-label="Large select with placeholder">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
         </sl-select>
 
         <span>Selected</span>
-        <sl-select placeholder="Select an option" value="Value 2">
+        <sl-select placeholder="Select an option" value="Value 2" aria-label="Medium select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
         </sl-select>
-        <sl-select placeholder="Select an option" value="Value 2" size="lg">
+        <sl-select
+          placeholder="Select an option"
+          value="Value 2"
+          size="lg"
+          aria-label="Large select with selected value"
+        >
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
         </sl-select>
 
         <span>Clearable</span>
-        <sl-select clearable placeholder="Select an option" value="Value 2">
+        <sl-select
+          clearable
+          placeholder="Select an option"
+          value="Value 2"
+          aria-label="Medium clearable select with selected value"
+        >
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
         </sl-select>
-        <sl-select clearable placeholder="Select an option" value="Value 2" size="lg">
+        <sl-select
+          clearable
+          placeholder="Select an option"
+          value="Value 2"
+          size="lg"
+          aria-label="Large clearable select with selected value"
+        >
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
         </sl-select>
 
         <span>Valid</span>
-        <sl-select placeholder="Select an option" show-validity="valid" value="Value 2">
+        <sl-select
+          placeholder="Select an option"
+          show-validity="valid"
+          value="Value 2"
+          aria-label="Medium valid select with selected value"
+        >
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
         </sl-select>
-        <sl-select placeholder="Select an option" show-validity="valid" value="Value 2" size="lg">
+        <sl-select
+          placeholder="Select an option"
+          show-validity="valid"
+          value="Value 2"
+          size="lg"
+          aria-label="Large valid select with selected value"
+        >
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
         </sl-select>
 
         <span>Invalid</span>
-        <sl-select placeholder="Select an option" show-validity="invalid" value="Value 2">
+        <sl-select
+          placeholder="Select an option"
+          show-validity="invalid"
+          value="Value 2"
+          aria-label="Medium invalid select with selected value"
+        >
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
         </sl-select>
-        <sl-select placeholder="Select an option" show-validity="invalid" value="Value 2" size="lg">
+        <sl-select
+          placeholder="Select an option"
+          show-validity="invalid"
+          value="Value 2"
+          size="lg"
+          aria-label="Large invalid select with selected value"
+        >
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
         </sl-select>
 
         <span>Disabled</span>
-        <sl-select disabled placeholder="Select an option" value="Value 2">
+        <sl-select
+          disabled
+          placeholder="Select an option"
+          value="Value 2"
+          aria-label="Medium disabled select with selected value"
+        >
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
         </sl-select>
-        <sl-select disabled placeholder="Select an option" value="Value 2" size="lg">
+        <sl-select
+          disabled
+          placeholder="Select an option"
+          value="Value 2"
+          size="lg"
+          aria-label="Large disabled select with selected value"
+        >
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>

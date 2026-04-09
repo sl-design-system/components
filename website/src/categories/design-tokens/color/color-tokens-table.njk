@@ -1,7 +1,5 @@
 <section class="ds-tokens">
 <h2 class="ds-tokens__heading">Color</h2>
-{% for color in tokens.system.color -%}
-<h3 class="ds-tokens__heading">{{ color[0] }}</h3>
 <table class="ds-table"><thead>
 <tr>
   <th>Example</th>
@@ -9,19 +7,31 @@
   <th>Token</th>
 </tr></thead>
 <tbody>
-{% for color in color[1] -%}{% if color[1]['$description'] %}
+{% for color in tokens.system.color -%}
+{% if color[1]['$value'] %}
 <tr>
   <td>
     <div class="ds-tokens__color" style="background-color: {{ color[1]['$value'] }}"></div>
     <code>{{ color[1]['$value'] }}</code>
   </td>
-  <td class="ds-tokens__description">{{ color[1]['$description'] | tokenDescription }}</td>
-  <td>{% if color[1]['$description'] %}<code>{{ color[1]['$description'] | tokenName }}{% endif %}</code></td>
+  <td class="ds-tokens__description">color {{ color[0] }}</td>
+  <td><code>--sl-color-{{ color[0] }}</code></td>
+</tr>
+{% else %}
+{% for subcolor in color[1] -%}{% if subcolor[1]['$value'] %}
+<tr>
+  <td>
+    <div class="ds-tokens__color" style="background-color: {{ subcolor[1]['$value'] }}"></div>
+    <code>{{ subcolor[1]['$value'] }}</code>
+  </td>
+  <td class="ds-tokens__description">color {{ color[0] }} {{ subcolor[0] }}</td>
+  <td><code>--sl-color-{{ color[0] }}-{{ subcolor[0] }}</code></td>
 </tr>
 {% endif %}{% endfor -%}
+{% endif %}
+{% endfor -%}
 </tbody>
 </table>
-{% endfor -%}
 </section>
 
 <section class="ds-tokens">

@@ -13,7 +13,7 @@ type Story = StoryObj<Props>;
 Icon.register(faStrawberry);
 
 export default {
-  title: 'Overlay/Infotip',
+  title: 'Utilities/Infotip',
   tags: ['draft'],
   args: {
     content: 'This field requires a unique identifier used for account login.'

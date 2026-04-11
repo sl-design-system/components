@@ -63,6 +63,7 @@ import '@sl-design-system/dialog/register.js';
 import '@sl-design-system/drawer/register.js';
 import '@sl-design-system/editor/register.js';
 import '@sl-design-system/form/register.js';
+import '@sl-design-system/format-date/register.js';
 import '@sl-design-system/grid/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';

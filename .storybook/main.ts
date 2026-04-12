@@ -13,7 +13,8 @@ const config: StorybookConfig = {
   addons: [
     '@storybook/addon-a11y',
     '@storybook/addon-docs',
-    '@storybook/addon-vitest'
+    '@storybook/addon-vitest',
+    'storybook-addon-tag-badges'
   ],
   core: {
     disableTelemetry: true

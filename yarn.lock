@@ -5808,6 +5808,7 @@ __metadata:
     sinon: "npm:^21.0.3"
     sinon-chai: "npm:^4.0.1"
     storybook: "npm:^10.3.5"
+    storybook-addon-tag-badges: "npm:^3.1.0"
     stylelint: "npm:^16.19.1"
     typescript: "npm:^6.0.2"
     vite: "npm:^8.0.8"
@@ -16345,6 +16346,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"map-or-similar@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "map-or-similar@npm:1.5.0"
+  checksum: 10c0/33c6ccfdc272992e33e4e99a69541a3e7faed9de3ac5bc732feb2500a9ee71d3f9d098980a70b7746e7eeb7f859ff7dfb8aa9b5ecc4e34170a32ab78cfb18def
+  languageName: node
+  linkType: hard
+
 "map-visit@npm:^1.0.0":
   version: 1.0.0
   resolution: "map-visit@npm:1.0.0"
@@ -16745,6 +16753,15 @@ __metadata:
     tree-dump: "npm:^1.0.3"
     tslib: "npm:^2.0.0"
   checksum: 10c0/a5f098c3543ddc6dda952fdfeb4178244b2080e4f2244bf84a8946646fae8ba2c7354d44ac5ec9b6bc812ca77258f88da37833a6458d6972e94bf633680ff5cb
+  languageName: node
+  linkType: hard
+
+"memoizerific@npm:^1.11.3":
+  version: 1.11.3
+  resolution: "memoizerific@npm:1.11.3"
+  dependencies:
+    map-or-similar: "npm:^1.5.0"
+  checksum: 10c0/661bf69b7afbfad57f0208f0c63324f4c96087b480708115b78ee3f0237d86c7f91347f6db31528740b2776c2e34c709bcb034e1e910edee2270c9603a0a469e
   languageName: node
   linkType: hard
 
@@ -22022,6 +22039,17 @@ __metadata:
   peerDependencies:
     storybook: ^10.3.5
   checksum: 10c0/19750dd0bd6c6fa44754214f6da2d9be66f60a5f2dcc95d71f26e11e97ccf0fd23e9c2577fa3e618fe5d380900f3f71ef90f7a64905ee1a7329fddc98a269bf2
+  languageName: node
+  linkType: hard
+
+"storybook-addon-tag-badges@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "storybook-addon-tag-badges@npm:3.1.0"
+  dependencies:
+    memoizerific: "npm:^1.11.3"
+  peerDependencies:
+    storybook: ^10.0.0
+  checksum: 10c0/29c1aea1a9f03ec749815862c147ee43d56374bbc153c5b2188b3ec98922b1a02de605ad1d8d048e013eef496672e88130a2f3b882ab314cdf3c53f18dfe0a36
   languageName: node
   linkType: hard
 

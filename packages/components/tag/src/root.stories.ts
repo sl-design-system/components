@@ -5,8 +5,7 @@ import '../register.js';
 type Story = StoryObj;
 
 export default {
-  title: 'Feedback & status/Tag',
-  tags: ['preview']
+  title: 'Feedback & status/Tag'
 } as Meta;
 
 export const All: Story = {

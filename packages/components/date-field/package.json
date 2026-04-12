@@ -1,6 +1,7 @@
 {
   "name": "@sl-design-system/date-field",
   "version": "0.1.0",
+  "status": "draft",
   "description": "Date field component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

@@ -1,6 +1,7 @@
 {
   "name": "@sl-design-system/callout",
   "version": "0.1.0",
+  "status": "preview",
   "description": "Callout component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

@@ -10,7 +10,6 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Feedback & status/Progress bar',
-  tags: ['preview'],
   args: {
     label: 'This is the label of progress bar',
     value: 60,

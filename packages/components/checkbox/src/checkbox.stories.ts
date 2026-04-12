@@ -21,7 +21,6 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Form/Checkbox/Checkbox',
-  tags: ['stable'],
   parameters: {
     a11y: {
       config: {

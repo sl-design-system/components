@@ -20,7 +20,6 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Overlay/Tooltip',
-  tags: ['stable'],
   args: {
     alignSelf: 'center',
     justifySelf: 'center',

@@ -1,6 +1,7 @@
 {
   "name": "@sl-design-system/tree",
   "version": "0.2.3",
+  "status": "preview",
   "description": "Tree component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

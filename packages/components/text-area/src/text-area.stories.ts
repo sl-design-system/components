@@ -27,7 +27,6 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Form/Text area',
-  tags: ['stable'],
   args: {
     disabled: false,
     label: 'Label',

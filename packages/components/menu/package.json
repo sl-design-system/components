@@ -1,6 +1,7 @@
 {
   "name": "@sl-design-system/menu",
   "version": "0.3.0",
+  "status": "preview",
   "description": "Menu components for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

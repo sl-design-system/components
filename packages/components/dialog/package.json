@@ -1,6 +1,7 @@
 {
   "name": "@sl-design-system/dialog",
   "version": "2.0.4",
+  "status": "stable",
   "description": "Dialog component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

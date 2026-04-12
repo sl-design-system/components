@@ -1,5 +1,6 @@
 import { type StorybookConfig } from '@storybook/web-components-vite';
 import { argv } from 'node:process';
+import { injectComponentStatusTags } from './helpers.ts';
 
 const devMode = !argv.includes('build');
 
@@ -17,6 +18,7 @@ const config: StorybookConfig = {
   core: {
     disableTelemetry: true
   },
+  experimental_indexers: async indexers => injectComponentStatusTags(indexers),
   framework: '@storybook/web-components-vite',
   refs: {
     angular: {

@@ -12,8 +12,7 @@ const baseStyle = {
   fontWeight: 'normal',
   lineHeight: '20px',
   paddingBlock: 0,
-  paddingInline: 6,
-  textTransform: 'capitalize'
+  paddingInline: 6
 }
 
 addons.setConfig({

@@ -18,7 +18,7 @@ const config: StorybookConfig = {
   },
   staticDirs: [
     { from: '../../themes', to: '/themes' },
-    { from: '../../../.storybook', to: '/storybook-config' }
+    { from: '../../../.storybook/public', to: '/storybook-static' }
   ],
   docs: {
     //👇 Configure docs

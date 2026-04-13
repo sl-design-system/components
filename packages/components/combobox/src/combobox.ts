@@ -66,7 +66,7 @@ let nextUniqueId = 0;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   FormControlMixin(ScopedElementsMixin(LitElement)),
-  ['aria-label']
+  ['aria-label', 'aria-describedby', 'aria-labelledby']
 ) {
   /** @internal The default offset of the popover to the input. */
   static offset = 6;

@@ -51,11 +51,24 @@ const findComponentTags = (stories: LeafEntry[] = []) => {
     .map(([tag]) => tag);
 };
 
+// Add keyboard shortcuts for expand/collapse all
+document.addEventListener('keydown', (event) => {
+  // Ctrl/Cmd + Shift + E: Expand All
+  if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key === 'E') {
+    event.preventDefault();
+    (window as any).storybookExpandAll?.();
+  }
+  // Ctrl/Cmd + Shift + C: Collapse All
+  if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key === 'C') {
+    event.preventDefault();
+    (window as any).storybookCollapseAll?.();
+  }
+});
+
 addons.setConfig({
   enableShortcuts: false,
   theme: slTheme,
   sidebar: {
-    collapsedRoots: ['getting-started', 'actions', 'components', 'date-time', 'examples', 'feedback-status', 'form', 'grid', 'layout', 'media', 'navigation', 'overlay', 'utilities', 'wrappers'],
     renderLabel: (item: HashEntry, api: API) => {
       if (item.depth !== 1 || item.type === 'docs') return item.name;
 

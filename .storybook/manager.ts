@@ -1,4 +1,3 @@
-import { skip } from 'node:test';
 import { addons } from 'storybook/manager-api';
 import { color, create } from 'storybook/theming';
 

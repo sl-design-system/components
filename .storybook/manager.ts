@@ -3,7 +3,7 @@ import { color, create } from 'storybook/theming';
 
 const theme = create({
   base: 'light',
-  brandImage: 'https://sanomalearning.design/assets/logo-black.svg',
+  brandImage: 'https://sanomalearning.design/assets/logo-black.svg'
 });
 
 const baseStyle = {
@@ -13,7 +13,7 @@ const baseStyle = {
   lineHeight: '20px',
   paddingBlock: 0,
   paddingInline: 6
-}
+};
 
 const display = {
   sidebar: [
@@ -21,7 +21,6 @@ const display = {
     { type: 'component', skipInherited: true }
   ]
 };
-
 
 addons.setConfig({
   enableShortcuts: false,

@@ -270,6 +270,7 @@ export class Tooltip extends LitElement {
           const movedToAnotherSharedAnchor =
             !!focusedAnchor && focusedAnchor !== this.anchorElement && this.#matchesAnchor(focusedAnchor);
           if (movedToAnotherSharedAnchor) {
+            this.#showTooltip(focusedAnchor, true);
             return;
           }
 

@@ -1,5 +1,16 @@
 # @sl-design-system/format-date
 
+## 0.1.6
+
+### Patch Changes
+
+- [#3203](https://github.com/sl-design-system/components/pull/3203) [`7fe0989`](https://github.com/sl-design-system/components/commit/7fe09894e806c3817599e6b0e53b749a01111117) - Fix for empty `date-style` and `time-style` attributes
+
+  Previously, setting `date-style` or `time-style` to an empty string would cause an error due to invalid formatting options being passed to `Intl.DateTimeFormat`. This update ensures that empty string values are treated as `undefined`, allowing the component to fall back to default formatting behavior without throwing an error.
+
+- Updated dependencies [[`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`dd96d1b`](https://github.com/sl-design-system/components/commit/dd96d1b88f030a7b4a81b51d77a8461b5692909c), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538)]:
+  - @sl-design-system/shared@0.12.0
+
 ## 0.1.5
 
 ### Patch Changes

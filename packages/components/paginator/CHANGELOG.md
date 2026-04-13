@@ -1,5 +1,17 @@
 # @sl-design-system/paginator
 
+## 0.2.5
+
+### Patch Changes
+
+- Updated dependencies [[`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`dd96d1b`](https://github.com/sl-design-system/components/commit/dd96d1b88f030a7b4a81b51d77a8461b5692909c), [`01c7740`](https://github.com/sl-design-system/components/commit/01c7740ba9f15a3cbee3065a798424d783b2c452), [`99c1464`](https://github.com/sl-design-system/components/commit/99c1464e46f0f6c2f17d7d8ccd62f58bacaceeb3), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`0d948ac`](https://github.com/sl-design-system/components/commit/0d948ac198645410455b47037fea89b25117e537)]:
+  - @sl-design-system/button@2.0.0
+  - @sl-design-system/shared@0.12.0
+  - @sl-design-system/select@2.1.3
+  - @sl-design-system/form@1.3.6
+  - @sl-design-system/menu@0.3.1
+  - @sl-design-system/announcer@0.0.8
+
 ## 0.2.4
 
 ### Patch Changes

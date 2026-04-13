@@ -34,7 +34,6 @@ Icon.register(faCalendar);
 
 export default {
   title: 'Form/Text field',
-  tags: ['stable'],
   args: {
     disabled: false,
     label: 'Label',

@@ -27,7 +27,6 @@ try {
 
 export default {
   title: 'Date & Time/Calendar/Select Day',
-  tags: ['draft'],
   args: {
     month: new Date(),
     showToday: true

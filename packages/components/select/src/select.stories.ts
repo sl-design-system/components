@@ -32,7 +32,6 @@ Icon.register(fasCircle, fasTriangle, fasHexagon, fasSquare);
 
 export default {
   title: 'Form/Select',
-  tags: ['stable'],
   args: {
     disabled: false,
     label: 'Label',

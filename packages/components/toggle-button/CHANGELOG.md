@@ -1,5 +1,15 @@
 # @sl-design-system/toggle-button
 
+## 0.0.14
+
+### Patch Changes
+
+- [#3089](https://github.com/sl-design-system/components/pull/3089) [`5773ea6`](https://github.com/sl-design-system/components/commit/5773ea6399073ba3f212b5fbfdbab3138b8d1894) - Updated sl-toggle-button to use aria-labelledby for its tooltip connection when in icon-only mode. This ensures better accessibility and prevents duplicate labels by removing the redundant aria-label attribute from the host element while preserving its `label` property value.
+
+- Updated dependencies [[`b68dbc8`](https://github.com/sl-design-system/components/commit/b68dbc853697b015be8ab99a89c936dd627a9de4), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`dd96d1b`](https://github.com/sl-design-system/components/commit/dd96d1b88f030a7b4a81b51d77a8461b5692909c), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538)]:
+  - @sl-design-system/tooltip@1.4.0
+  - @sl-design-system/shared@0.12.0
+
 ## 0.0.13
 
 ### Patch Changes

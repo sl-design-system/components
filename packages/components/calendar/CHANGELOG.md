@@ -1,5 +1,14 @@
 # @sl-design-system/calendar
 
+## 0.0.6
+
+### Patch Changes
+
+- Updated dependencies [[`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`b68dbc8`](https://github.com/sl-design-system/components/commit/b68dbc853697b015be8ab99a89c936dd627a9de4), [`7fe0989`](https://github.com/sl-design-system/components/commit/7fe09894e806c3817599e6b0e53b749a01111117)]:
+  - @sl-design-system/button@2.0.0
+  - @sl-design-system/tooltip@1.4.0
+  - @sl-design-system/format-date@0.1.6
+
 ## 0.0.5
 
 ### Patch Changes

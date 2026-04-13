@@ -44,7 +44,7 @@ describe('sl-tooltip shared', () => {
     buttons[0].dispatchEvent(new Event('pointerover', { bubbles: true }));
     await waitFor((tooltip.showDelay ?? 150) + (tooltip.hideDelay ?? 0) + 50);
 
-    expect(tooltip).to.match(':popover-open');
+    expect(tooltip.matches(':popover-open')).to.be.true;
     expect(tooltip.anchorElement).to.equal(buttons[0]);
 
     // 2. Move rapidly to second button (wait less than showDelay)
@@ -61,7 +61,7 @@ describe('sl-tooltip shared', () => {
     await waitForPopoverToClose(tooltip, (tooltip.showDelay ?? 150) + (tooltip.hideDelay ?? 0) + 250);
 
     // The tooltip should be closed.
-    expect(tooltip).not.to.match(':popover-open');
+    expect(tooltip.matches(':popover-open')).to.be.false;
   });
 
   it('should hide even if multiple pointerover events are fired for different buttons', async () => {
@@ -69,7 +69,7 @@ describe('sl-tooltip shared', () => {
     buttons[0].dispatchEvent(new Event('pointerover', { bubbles: true }));
     await waitFor((tooltip.showDelay ?? 150) + (tooltip.hideDelay ?? 0) + 50);
 
-    expect(tooltip).to.match(':popover-open');
+    expect(tooltip.matches(':popover-open')).to.be.true;
 
     // Pointerover btn 2 while the tooltip is already open; this should switch/update the active anchor.
     // After pointerout from all anchors, the tooltip should still close.
@@ -82,14 +82,14 @@ describe('sl-tooltip shared', () => {
 
     await tooltip.updateComplete;
     await waitForPopoverToClose(tooltip, (tooltip.showDelay ?? 150) + (tooltip.hideDelay ?? 0) + 250);
-    expect(tooltip).not.to.match(':popover-open');
+    expect(tooltip.matches(':popover-open')).to.be.false;
   });
 
   it('should update anchor immediately when moving between buttons while open', async () => {
     // 1. Hover first button and wait for it to open
     buttons[0].dispatchEvent(new Event('pointerover', { bubbles: true }));
     await waitFor((tooltip.showDelay ?? 150) + 50);
-    expect(tooltip).to.match(':popover-open');
+    expect(tooltip.matches(':popover-open')).to.be.true;
     expect(tooltip.anchorElement).to.equal(buttons[0]);
     const firstInsetInlineStart = tooltip.style.insetInlineStart;
 
@@ -110,7 +110,7 @@ describe('sl-tooltip shared', () => {
     await tooltip.updateComplete;
     await new Promise(resolve => requestAnimationFrame(resolve));
     await tooltip.updateComplete;
-    expect(tooltip).to.match(':popover-open');
+    expect(tooltip.matches(':popover-open')).to.be.true;
     expect(tooltip.anchorElement).to.equal(buttons[0]);
 
     // 2. Focus second button
@@ -143,7 +143,7 @@ describe('sl-tooltip shared', () => {
     await new Promise(resolve => requestAnimationFrame(resolve));
     await tabTooltip.updateComplete;
 
-    expect(tabTooltip).to.match(':popover-open');
+    expect(tabTooltip.matches(':popover-open')).to.be.true;
     expect(tabTooltip.anchorElement).to.equal(tabButtons[0]);
 
     await userEvent.tab();
@@ -173,7 +173,7 @@ describe('sl-tooltip shared', () => {
 
     internalsButtons[0].dispatchEvent(new Event('pointerover', { bubbles: true }));
     await waitFor((internalsTooltip.showDelay ?? 150) + 50);
-    expect(internalsTooltip).to.match(':popover-open');
+    expect(internalsTooltip.matches(':popover-open')).to.be.true;
 
     internalsButtons[0].dispatchEvent(new Event('pointerout', { bubbles: true }));
     internalsButtons[1].dispatchEvent(new Event('pointerover', { bubbles: true }));
@@ -185,6 +185,6 @@ describe('sl-tooltip shared', () => {
       internalsTooltip,
       (internalsTooltip.showDelay ?? 150) + (internalsTooltip.hideDelay ?? 0) + 250
     );
-    expect(internalsTooltip).not.to.match(':popover-open');
+    expect(internalsTooltip.matches(':popover-open')).to.be.false;
   });
 });

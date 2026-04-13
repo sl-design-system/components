@@ -336,6 +336,7 @@ export class Tooltip extends LitElement {
     const candidateAnchor = event.type === 'focusin' || event.type === 'sl-close' ? this.#findFocusedAnchor() : null;
 
     const anchorElement = candidateAnchor || this.#findAnchorInEvent(event);
+    const anchorRoot = anchorElement ? this.#findAssignedSlotRoot(anchorElement, event.composedPath()) : undefined;
 
     if (!anchorElement) {
       return;
@@ -358,9 +359,9 @@ export class Tooltip extends LitElement {
 
       // If already open, update anchor immediately to avoid "stickiness"
       if (isPopoverOpen(this)) {
-        this.#showTooltip(anchorElement, this.#openedByFocus);
+        this.#showTooltip(anchorElement, this.#openedByFocus, anchorRoot);
       } else {
-        this.#timer = setTimeout(() => this.#showTooltip(anchorElement, false), this.showDelay);
+        this.#timer = setTimeout(() => this.#showTooltip(anchorElement, false, anchorRoot), this.showDelay);
       }
       return;
     }
@@ -381,13 +382,13 @@ export class Tooltip extends LitElement {
 
       // If already open (e.g. tabbing between shared buttons), update anchor immediately
       if (isPopoverOpen(this)) {
-        this.#showTooltip(anchorElement, getHasFocusVisible());
+        this.#showTooltip(anchorElement, getHasFocusVisible(), anchorRoot);
       } else {
         requestAnimationFrame(() => {
           const hasFocusVisible = getHasFocusVisible();
 
           if (hasFocusVisible) {
-            this.#showTooltip(anchorElement, true);
+            this.#showTooltip(anchorElement, true, anchorRoot);
           }
         });
       }
@@ -482,8 +483,8 @@ export class Tooltip extends LitElement {
         continue;
       }
 
-      const rootNode = current.getRootNode();
-      current = rootNode instanceof ShadowRoot ? rootNode.host : null;
+      const shadowRoot = this.#getShadowRoot(current.getRootNode());
+      current = shadowRoot?.host ?? null;
     }
 
     return undefined;
@@ -546,6 +547,16 @@ export class Tooltip extends LitElement {
     return this.#findAnchorFromElement(activeElement);
   };
 
+  #findAssignedSlotRoot = (anchorElement: HTMLElement, path: EventTarget[]): ShadowRoot | undefined => {
+    const slotInPath = path.find(
+      (el): el is HTMLSlotElement => el instanceof HTMLSlotElement || (el instanceof Element && el.tagName === 'SLOT')
+    );
+    const assignedSlot = anchorElement.assignedSlot || slotInPath;
+    const assignedSlotRoot = this.#getShadowRoot(assignedSlot?.getRootNode());
+
+    return assignedSlotRoot;
+  };
+
   #getAriaAnchors = (): HTMLElement[] => {
     const escapedId = this.id ? CSS.escape(this.id) : undefined;
     if (!escapedId) {
@@ -572,11 +583,30 @@ export class Tooltip extends LitElement {
     return knownAnchors;
   };
 
-  #moveToAnchorRoot = (anchorElement: HTMLElement): boolean => {
-    const anchorRoot = anchorElement.assignedSlot?.getRootNode();
+  #getShadowRoot = (node: Node | null | undefined): ShadowRoot | undefined => {
+    if (node instanceof ShadowRoot) {
+      return node;
+    }
 
-    if (anchorRoot instanceof ShadowRoot && this.getRootNode() !== anchorRoot) {
-      anchorRoot.append(this);
+    // Browser test runners can surface a real ShadowRoot from another realm,
+    // which makes `instanceof ShadowRoot` return false even though the node
+    // still exposes `host` and behaves like a shadow root.
+    if (
+      node?.nodeType === Node.DOCUMENT_FRAGMENT_NODE &&
+      'host' in node &&
+      (node.host as Element)?.nodeType === Node.ELEMENT_NODE
+    ) {
+      return node as ShadowRoot;
+    }
+
+    return undefined;
+  };
+
+  #moveToAnchorRoot = (anchorElement: HTMLElement, anchorRoot?: ShadowRoot): boolean => {
+    const root = anchorRoot ?? this.#findAssignedSlotRoot(anchorElement, []);
+
+    if (root && this.getRootNode() !== root) {
+      root.append(this);
       return true;
     }
 
@@ -744,8 +774,8 @@ export class Tooltip extends LitElement {
     let normalized = element;
 
     while (true) {
-      const rootNode = normalized.getRootNode();
-      if (!(rootNode instanceof ShadowRoot)) {
+      const rootNode = this.#getShadowRoot(normalized.getRootNode());
+      if (!rootNode) {
         return normalized;
       }
 
@@ -761,7 +791,7 @@ export class Tooltip extends LitElement {
     }
   };
 
-  #showTooltip = (element: HTMLElement, openedByFocus = false): void => {
+  #showTooltip = (element: HTMLElement, openedByFocus = false, anchorRoot?: ShadowRoot): void => {
     const normalizedElement = this.#normalizeAnchorElement(element);
     const wasOpen = isPopoverOpen(this),
       anchorChanged = this.anchorElement !== normalizedElement;
@@ -769,9 +799,8 @@ export class Tooltip extends LitElement {
     this.#openedByFocus = openedByFocus;
     this.anchorElement = normalizedElement;
     this.#knownAnchors.add(normalizedElement);
-    if (this.#moveToAnchorRoot(normalizedElement)) {
-      this.#preserveAnchorRelation(normalizedElement);
-    }
+    this.#moveToAnchorRoot(normalizedElement, anchorRoot);
+    this.#preserveAnchorRelation(normalizedElement);
 
     if (!wasOpen) {
       this.showPopover();

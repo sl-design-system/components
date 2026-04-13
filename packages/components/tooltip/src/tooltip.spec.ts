@@ -4,11 +4,40 @@ import { Menu, MenuButton } from '@sl-design-system/menu';
 import '@sl-design-system/menu/register.js';
 import { isPopoverOpen } from '@sl-design-system/shared';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
-import { html } from 'lit';
+import { LitElement, html } from 'lit';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { Tooltip } from './tooltip.js';
+
+class TooltipAssignedSlotHost extends LitElement {
+  override render() {
+    return html`
+      <span id="internal-description">Internal description</span>
+      <slot></slot>
+    `;
+  }
+}
+
+class TooltipTestAnchor extends HTMLElement {
+  readonly internals = this.attachInternals();
+
+  connectedCallback(): void {
+    this.tabIndex = 0;
+
+    if (!this.textContent?.trim()) {
+      this.textContent = 'Anchor';
+    }
+  }
+}
+
+if (!customElements.get('tooltip-assigned-slot-host')) {
+  customElements.define('tooltip-assigned-slot-host', TooltipAssignedSlotHost);
+}
+
+if (!customElements.get('tooltip-test-anchor')) {
+  customElements.define('tooltip-test-anchor', TooltipTestAnchor);
+}
 
 describe('sl-tooltip', () => {
   let el: HTMLElement;
@@ -782,6 +811,60 @@ describe('sl-tooltip', () => {
     });
   });
 
+  describe('with a slotted anchor inside a shadow-root host', () => {
+    let assignedSlotHost: TooltipAssignedSlotHost;
+    let anchor: TooltipTestAnchor;
+    let internalDescription: HTMLElement;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <div style="block-size: 400px; inline-size: 400px;">
+          <tooltip-assigned-slot-host>
+            <tooltip-test-anchor aria-describedby="tooltip">Anchor</tooltip-test-anchor>
+          </tooltip-assigned-slot-host>
+          <sl-tooltip id="tooltip" show-delay="0" hide-delay="0">Tooltip via assigned slot</sl-tooltip>
+        </div>
+      `);
+
+      assignedSlotHost = el.querySelector('tooltip-assigned-slot-host') as TooltipAssignedSlotHost;
+      anchor = el.querySelector('tooltip-test-anchor') as TooltipTestAnchor;
+      tooltip = el.querySelector('sl-tooltip') as Tooltip;
+      internalDescription = assignedSlotHost.shadowRoot!.querySelector('#internal-description') as HTMLElement;
+
+      await tooltip.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+    });
+
+    it('should move into the assigned slot root, preserve internals relations, and reopen on repeated hover', async () => {
+      expect(anchor.assignedSlot).to.exist;
+      expect(anchor.assignedSlot?.getRootNode()).to.equal(assignedSlotHost.shadowRoot);
+
+      anchor.internals.ariaDescribedByElements = [internalDescription];
+      anchor.dispatchEvent(new PointerEvent('pointerover', { bubbles: true, composed: true }));
+      await tooltip.updateComplete;
+      await waitFor(10);
+
+      expect(tooltip.getRootNode()).to.equal(assignedSlotHost.shadowRoot);
+      expect(tooltip).to.match(':popover-open');
+      expect([...anchor.internals.ariaDescribedByElements]).to.include.members([internalDescription, tooltip]);
+      expect(tooltip.anchorElement).to.equal(anchor);
+
+      anchor.dispatchEvent(new PointerEvent('pointerout', { bubbles: true, composed: true }));
+      await tooltip.updateComplete;
+      await waitFor(10);
+
+      expect(tooltip).not.to.match(':popover-open');
+
+      anchor.dispatchEvent(new PointerEvent('pointerover', { bubbles: true, composed: true }));
+      await tooltip.updateComplete;
+      await waitFor(10);
+
+      expect(tooltip).to.match(':popover-open');
+      expect(tooltip.anchorElement).to.equal(anchor);
+      expect([...anchor.internals.ariaDescribedByElements]).to.include.members([internalDescription, tooltip]);
+    });
+  });
+
   describe('Tooltip lazy()', () => {
     let el: HTMLElement, button: Button, innerButton: HTMLButtonElement, tooltip: Tooltip;
 
@@ -847,6 +930,34 @@ describe('sl-tooltip', () => {
       await waitFor((tooltip.showDelay ?? 150) + 50);
 
       expect(tooltip).not.to.match(':popover-open');
+    });
+
+    it('should reopen on repeated hover for a button that forwards ARIA to an inner control', async () => {
+      Tooltip.lazy(button, createdTooltip => {
+        tooltip = createdTooltip;
+        tooltip.showDelay = 0;
+        tooltip.hideDelay = 0;
+      });
+
+      button.dispatchEvent(new Event('pointerover', { bubbles: true }));
+      await tooltip.updateComplete;
+      await waitFor(10);
+
+      expect(tooltip).to.match(':popover-open');
+      expect(innerButton.ariaDescribedByElements).to.include(tooltip);
+
+      innerButton.dispatchEvent(new Event('pointerout', { bubbles: true, composed: true }));
+      await tooltip.updateComplete;
+      await waitFor(10);
+
+      expect(tooltip).not.to.match(':popover-open');
+
+      innerButton.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
+      await tooltip.updateComplete;
+      await waitFor(10);
+
+      expect(tooltip).to.match(':popover-open');
+      expect(innerButton.ariaDescribedByElements).to.include(tooltip);
     });
 
     it('should create a tooltip lazily on focusin', async () => {

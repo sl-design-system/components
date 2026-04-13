@@ -583,6 +583,61 @@ export class Tooltip extends LitElement {
     return false;
   };
 
+  #ensureTooltipInList = (elements: readonly Element[] | null | undefined): Element[] => {
+    const list = elements ? Array.from(elements) : [];
+
+    return list.includes(this) ? list : [...list, this];
+  };
+
+  /**
+   * Checks the raw ARIA attributes because they preserve the original author intent:
+   * whether the tooltip should behave as a label or as a description.
+   */
+  #hasExplicitRelation = (
+    element: Element | null | undefined,
+    attribute: 'aria-describedby' | 'aria-labelledby'
+  ): boolean =>
+    typeof this.id === 'string' &&
+    typeof element?.getAttribute(attribute) === 'string' &&
+    element.getAttribute(attribute)!.split(/\s+/).includes(this.id);
+
+  /**
+   * Checks reflected element lists used by native ARIA reflection APIs and ElementInternals.
+   * We use this after explicit attributes because these lists do not tell us who set them first.
+   */
+  #hasReflectedRelation = (
+    target:
+      | {
+          ariaDescribedByElements?: readonly Element[] | null;
+          ariaLabelledByElements?: readonly Element[] | null;
+        }
+      | null
+      | undefined,
+    relation: 'description' | 'label'
+  ): boolean => {
+    const elements = relation === 'label' ? target?.ariaLabelledByElements : target?.ariaDescribedByElements;
+
+    return !!elements?.includes(this);
+  };
+
+  #hasAnyExplicitRelation = (element: Element | null | undefined): boolean =>
+    this.#hasExplicitRelation(element, 'aria-describedby') || this.#hasExplicitRelation(element, 'aria-labelledby');
+
+  #hasAnyReflectedRelation = (
+    target:
+      | {
+          ariaDescribedByElements?: readonly Element[] | null;
+          ariaLabelledByElements?: readonly Element[] | null;
+        }
+      | null
+      | undefined
+  ): boolean => this.#hasReflectedRelation(target, 'description') || this.#hasReflectedRelation(target, 'label');
+
+  /**
+   * When the tooltip moves into the anchor's shadow root, it can no longer rely on the host's
+   * original ARIA wiring alone. This method mirrors the existing relation onto ElementInternals
+   * without dropping any previously registered labels/descriptions.
+   */
   #preserveAnchorRelation = (anchorElement: HTMLElement): void => {
     const proxyTarget = (anchorElement as Element & { getProxyTarget?(): Element | null }).getProxyTarget?.(),
       internals = (anchorElement as HTMLElement & { internals?: ElementInternals }).internals;
@@ -591,16 +646,46 @@ export class Tooltip extends LitElement {
       return;
     }
 
-    const usesLabelRelation =
+    const hasExplicitLabelRelation =
+      this.#hasExplicitRelation(anchorElement, 'aria-labelledby') ||
+      this.#hasExplicitRelation(proxyTarget, 'aria-labelledby');
+
+    if (hasExplicitLabelRelation) {
+      internals.ariaLabelledByElements = this.#ensureTooltipInList(internals.ariaLabelledByElements);
+      return;
+    }
+
+    const hasExplicitDescriptionRelation =
+      this.#hasExplicitRelation(anchorElement, 'aria-describedby') ||
+      this.#hasExplicitRelation(proxyTarget, 'aria-describedby');
+
+    if (hasExplicitDescriptionRelation) {
+      internals.ariaDescribedByElements = this.#ensureTooltipInList(internals.ariaDescribedByElements);
+      return;
+    }
+
+    const hasLabelRelation =
       anchorElement.ariaLabelledByElements?.includes(this) ||
       proxyTarget?.ariaLabelledByElements?.includes(this) ||
       internals.ariaLabelledByElements?.includes(this);
 
-    if (usesLabelRelation) {
-      internals.ariaLabelledByElements = [this];
-    } else {
-      internals.ariaDescribedByElements = [this];
+    if (hasLabelRelation) {
+      internals.ariaLabelledByElements = this.#ensureTooltipInList(internals.ariaLabelledByElements);
+      return;
     }
+
+    const hasDescriptionRelation =
+      anchorElement.ariaDescribedByElements?.includes(this) ||
+      proxyTarget?.ariaDescribedByElements?.includes(this) ||
+      internals.ariaDescribedByElements?.includes(this);
+
+    if (hasDescriptionRelation) {
+      internals.ariaDescribedByElements = this.#ensureTooltipInList(internals.ariaDescribedByElements);
+      return;
+    }
+
+    // Default to description semantics when the original relation cannot be inferred.
+    internals.ariaDescribedByElements = this.#ensureTooltipInList(internals.ariaDescribedByElements);
   };
 
   #hideTooltip = (): void => {
@@ -624,56 +709,36 @@ export class Tooltip extends LitElement {
   /**
    * Checks whether an element is connected to this tooltip through any supported ARIA wiring
    * (attributes, reflected ARIA element lists, forwarded proxy targets, or ElementInternals).
+   * This is the core anchor-matching predicate used across hover/focus handling.
    */
   #matchesAnchor = (element: Element): boolean => {
     if (!this.id || !element || element.nodeType !== Node.ELEMENT_NODE) {
       return false;
     }
 
-    const describedBy = element.getAttribute('aria-describedby'),
-      labelledBy = element.getAttribute('aria-labelledby');
-
-    // There can be multiple ids in aria-describedby and aria-labelledby, so we need to check if any of them matches the tooltip's id
-    const matchesAria = (value: string | null): boolean =>
-      typeof value === 'string' && value.split(/\s+/).includes(this.id);
-
-    if (matchesAria(describedBy) || matchesAria(labelledBy)) {
+    if (this.#hasAnyExplicitRelation(element) || this.#hasAnyReflectedRelation(element)) {
       return true;
     }
 
     // Support components that forward ARIA to an internal proxy target (e.g. ForwardAriaMixin).
     const proxyTarget = (element as Element & { getProxyTarget?(): Element | null }).getProxyTarget?.();
     if (proxyTarget instanceof Element && proxyTarget !== element) {
-      const proxyDescribedBy = proxyTarget.getAttribute('aria-describedby'),
-        proxyLabelledBy = proxyTarget.getAttribute('aria-labelledby');
-
-      if (matchesAria(proxyDescribedBy) || matchesAria(proxyLabelledBy)) {
+      if (this.#hasAnyExplicitRelation(proxyTarget) || this.#hasAnyReflectedRelation(proxyTarget)) {
         return true;
       }
-
-      if (proxyTarget.ariaDescribedByElements?.includes(this) || proxyTarget.ariaLabelledByElements?.includes(this)) {
-        return true;
-      }
-    }
-
-    // Check Element.ariaDescribedByElements and Element.ariaLabelledByElements directly on the element
-    // This handles cases where the property is set directly on the element (e.g. `sl-button` inside `sl-menu-button`)
-    if (element.ariaDescribedByElements?.includes(this) || element.ariaLabelledByElements?.includes(this)) {
-      return true;
     }
 
     // Check ElementInternals ariaDescribedByElements and ariaLabelledByElements
     // This handles cases where elements use ElementInternals to connect to the tooltip across shadow DOM boundaries
     const internals = (element as HTMLElement & { internals?: ElementInternals }).internals;
 
-    return (
-      internals?.ariaDescribedByElements?.includes(this) || internals?.ariaLabelledByElements?.includes(this) || false
-    );
+    return this.#hasAnyReflectedRelation(internals);
   };
 
   /**
    * Normalizes an internal proxy target back to the public host element when both represent
-   * the same anchor. This keeps `anchorElement` stable for consumers and tests.
+   * the same anchor. This keeps `anchorElement` stable for consumers and tests, even when
+   * ARIA is forwarded to an internal control inside the component's shadow DOM.
    */
   #normalizeAnchorElement = (element: HTMLElement): HTMLElement => {
     let normalized = element;

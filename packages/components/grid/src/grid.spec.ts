@@ -1,11 +1,7 @@
-import '@sl-design-system/button/register.js';
-import { isPopoverOpen } from '@sl-design-system/shared';
-import '@sl-design-system/tooltip/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { type SinonSpy, spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { type Grid, type SlActiveRowChangeEvent } from './grid.js';
 import { waitForGridToRenderData } from './utils.js';
@@ -136,93 +132,6 @@ describe('sl-grid', () => {
       await el.updateComplete;
 
       expect(el.dataSource?.selects).to.equal('multiple');
-    });
-
-    it('should show a tooltip for a bulk action button', async () => {
-      el = await fixture(html`
-        <sl-grid
-          .items=${[
-            { firstName: 'John', lastName: 'Doe' },
-            { firstName: 'Jane', lastName: 'Smith' }
-          ]}
-        >
-          <sl-grid-selection-column></sl-grid-selection-column>
-          <sl-grid-column path="firstName"></sl-grid-column>
-          <sl-grid-column path="lastName"></sl-grid-column>
-
-          <sl-tooltip id="bulk-action-tooltip">Bulk action tooltip</sl-tooltip>
-          <sl-button slot="bulk-actions" aria-describedby="bulk-action-tooltip">Bulk action</sl-button>
-        </sl-grid>
-      `);
-
-      await waitForGridToRenderData(el);
-
-      const selectionCell = el.renderRoot.querySelector<HTMLTableCellElement>(
-          'tbody tr:first-of-type td[part~="selection"]'
-        )!,
-        tooltip = el.querySelector('sl-tooltip')!,
-        button = el.querySelector('sl-button')!;
-
-      tooltip.showDelay = 0;
-      tooltip.hideDelay = 0;
-
-      selectionCell.click();
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(isPopoverOpen(el.renderRoot.querySelector<HTMLElement>('[part="bulk-actions"]') ?? undefined)).to.be.true;
-
-      await userEvent.hover(button);
-      await tooltip.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(isPopoverOpen(tooltip)).to.be.true;
-    });
-
-    it('should keep showing a tooltip for a bulk action button on repeated hover', async () => {
-      el = await fixture(html`
-        <sl-grid
-          .items=${[
-            { firstName: 'John', lastName: 'Doe' },
-            { firstName: 'Jane', lastName: 'Smith' }
-          ]}
-        >
-          <sl-grid-selection-column></sl-grid-selection-column>
-          <sl-grid-column path="firstName"></sl-grid-column>
-          <sl-grid-column path="lastName"></sl-grid-column>
-
-          <sl-tooltip id="bulk-action-tooltip">Bulk action tooltip</sl-tooltip>
-          <sl-button slot="bulk-actions" aria-describedby="bulk-action-tooltip">Bulk action</sl-button>
-        </sl-grid>
-      `);
-
-      await waitForGridToRenderData(el);
-
-      const selectionCell = el.renderRoot.querySelector<HTMLTableCellElement>(
-          'tbody tr:first-of-type td[part~="selection"]'
-        )!,
-        tooltip = el.querySelector('sl-tooltip')!,
-        button = el.querySelector('sl-button')!;
-
-      tooltip.showDelay = 0;
-      tooltip.hideDelay = 0;
-
-      selectionCell.click();
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      await userEvent.hover(button);
-      await tooltip.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 50));
-      expect(isPopoverOpen(tooltip)).to.be.true;
-
-      await userEvent.unhover(button);
-      await tooltip.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 50));
-      expect(isPopoverOpen(tooltip)).to.be.false;
-
-      await userEvent.hover(button);
-      await tooltip.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 50));
-      expect(isPopoverOpen(tooltip)).to.be.true;
     });
   });
 

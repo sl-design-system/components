@@ -29,7 +29,6 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Form/Time field',
-  tags: ['draft'],
   args: {
     disabled: false,
     label: 'Time',

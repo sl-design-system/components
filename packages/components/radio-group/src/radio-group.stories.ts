@@ -17,7 +17,6 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Form/Radio group',
-  tags: ['stable'],
   parameters: {
     a11y: {
       config: {

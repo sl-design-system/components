@@ -20,7 +20,6 @@ Icon.register(faGear, faSliders, faUser);
 
 export default {
   title: 'Navigation/Tabs',
-  tags: ['stable'],
   args: {
     vertical: false
   },

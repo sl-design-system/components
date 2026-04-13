@@ -7,7 +7,6 @@ type Story = StoryObj;
 
 export default {
   title: 'Grid/Editing',
-  tags: ['draft'],
   loaders: [async () => ({ people: (await getPeople()).people })],
   parameters: {
     // Disables Chromatic's snapshotting on a story level

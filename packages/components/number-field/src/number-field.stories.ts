@@ -29,7 +29,6 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Form/Number field',
-  tags: ['preview'],
   args: {
     inputSize: 8,
     label: 'Number'

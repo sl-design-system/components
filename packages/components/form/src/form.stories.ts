@@ -51,7 +51,6 @@ try {
 
 export default {
   title: 'Form/Form',
-  tags: ['preview'],
   args: {
     disabled: false,
     reportValidity: false

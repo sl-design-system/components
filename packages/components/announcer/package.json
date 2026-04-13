@@ -1,6 +1,7 @@
 {
   "name": "@sl-design-system/announcer",
   "version": "0.0.8",
+  "status": "draft",
   "description": "Announcer component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

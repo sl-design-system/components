@@ -1,6 +1,7 @@
 {
   "name": "@sl-design-system/format-number",
   "version": "0.0.8",
+  "status": "preview",
   "description": "Number field component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

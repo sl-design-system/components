@@ -368,7 +368,9 @@
         }
       },
       "files": [
-        ".storybook/main.ts"
+        ".storybook/helpers.ts",
+        ".storybook/main.ts",
+        ".storybook/manager.ts"
       ],
       "dependencies": [
         {
@@ -460,18 +462,18 @@
     "@faker-js/faker": "^10.3.0",
     "@lit/localize-tools": "^0.8.1",
     "@pwrs/cem": "^0.9.16",
-    "@storybook/addon-a11y": "^10.3.4",
-    "@storybook/addon-docs": "^10.3.4",
-    "@storybook/addon-vitest": "^10.3.4",
-    "@storybook/web-components": "^10.3.4",
-    "@storybook/web-components-vite": "^10.3.4",
+    "@storybook/addon-a11y": "^10.3.5",
+    "@storybook/addon-docs": "^10.3.5",
+    "@storybook/addon-vitest": "^10.3.5",
+    "@storybook/web-components": "^10.3.5",
+    "@storybook/web-components-vite": "^10.3.5",
     "@types/chai-datetime": "^1.0.0",
     "@types/chai-dom": "^1.11.3",
     "@types/sinon": "^21.0.0",
     "@types/sinon-chai": "^4.0.0",
-    "@vitest/browser-playwright": "~4.1.2",
-    "@vitest/coverage-v8": "~4.1.2",
-    "@vitest/ui": "~4.1.2",
+    "@vitest/browser-playwright": "~4.1.4",
+    "@vitest/coverage-v8": "~4.1.4",
+    "@vitest/ui": "~4.1.4",
     "@webcomponents/scoped-custom-element-registry": "^0.0.10",
     "chai": "^6.2.2",
     "chai-datetime": "^1.8.1",
@@ -479,18 +481,19 @@
     "chromatic": "^15.3.0",
     "eslint": "^9.27.0",
     "husky": "^9.1.7",
-    "invokers-polyfill": "^1.0.2",
+    "invokers-polyfill": "^1.0.3",
     "lint-staged": "^16.4.0",
     "lit": "^3.3.2",
     "mockdate": "^3.0.5",
     "playwright": "^1.59.1",
     "sinon": "^21.0.3",
     "sinon-chai": "^4.0.1",
-    "storybook": "^10.3.4",
+    "storybook": "^10.3.5",
+    "storybook-addon-tag-badges": "^3.1.0",
     "stylelint": "^16.19.1",
     "typescript": "^6.0.2",
-    "vite": "^8.0.3",
-    "vitest": "~4.1.2",
+    "vite": "^8.0.8",
+    "vitest": "~4.1.4",
     "wireit": "^0.14.12"
   }
 }

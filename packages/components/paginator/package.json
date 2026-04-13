@@ -1,6 +1,7 @@
 {
   "name": "@sl-design-system/paginator",
   "version": "0.2.5",
+  "status": "draft",
   "description": "Paginator components for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

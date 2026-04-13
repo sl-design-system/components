@@ -1,6 +1,7 @@
 {
   "name": "@sl-design-system/drawer",
   "version": "0.0.32",
+  "status": "draft",
   "description": "Drawer component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

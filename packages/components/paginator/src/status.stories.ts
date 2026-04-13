@@ -9,7 +9,6 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Navigation/Paginator/Status',
-  tags: ['draft'],
   args: {
     totalItems: 100,
     pageSize: 10,

@@ -187,7 +187,7 @@
     "markdown-it": "^14.1.0",
     "markdown-it-anchor": "^8.6.7",
     "markdown-it-attrs": "^4.1.6",
-    "sass": "^1.98.0",
+    "sass": "^1.99.0",
     "slugify": "^1.6.8",
     "tiny-glob": "^0.2.9",
     "typescript": "^6.0.2",

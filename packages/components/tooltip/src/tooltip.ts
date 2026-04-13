@@ -341,13 +341,10 @@ export class Tooltip extends LitElement {
       return;
     }
 
-    // Don't show the tooltip if the event comes from inside an open popover
-    // (e.g. hovering over or focusing a menu item in an open menu that belongs to the anchor)
-    const isInsideOpenPopover = event
-      .composedPath()
-      .some(el => el instanceof HTMLElement && el !== this && isPopoverOpen(el));
-
-    if (isInsideOpenPopover) {
+    // Ignore events from open popovers that are nested *inside* the anchor (for example a menu item inside
+    // an open menu-button). Still allow anchors that themselves live inside an open popover, such as a grid
+    // bulk action button inside a floating action bar.
+    if (this.#isInsideNestedOpenPopover(event, anchorElement)) {
       return;
     }
 
@@ -523,7 +520,7 @@ export class Tooltip extends LitElement {
           return ariaMatch;
         }
 
-        for (const child of el.shadowRoot.children) {
+        for (const child of Array.from(el.shadowRoot.children)) {
           if (
             child instanceof HTMLElement &&
             (path.includes(child) || el === event.target) &&
@@ -575,9 +572,53 @@ export class Tooltip extends LitElement {
     return knownAnchors;
   };
 
+  #moveToAnchorRoot = (anchorElement: HTMLElement): boolean => {
+    const anchorRoot = anchorElement.assignedSlot?.getRootNode();
+
+    if (anchorRoot instanceof ShadowRoot && this.getRootNode() !== anchorRoot) {
+      anchorRoot.append(this);
+      return true;
+    }
+
+    return false;
+  };
+
+  #preserveAnchorRelation = (anchorElement: HTMLElement): void => {
+    const proxyTarget = (anchorElement as Element & { getProxyTarget?(): Element | null }).getProxyTarget?.(),
+      internals = (anchorElement as HTMLElement & { internals?: ElementInternals }).internals;
+
+    if (!internals) {
+      return;
+    }
+
+    const usesLabelRelation =
+      anchorElement.ariaLabelledByElements?.includes(this) ||
+      proxyTarget?.ariaLabelledByElements?.includes(this) ||
+      internals.ariaLabelledByElements?.includes(this);
+
+    if (usesLabelRelation) {
+      internals.ariaLabelledByElements = [this];
+    } else {
+      internals.ariaDescribedByElements = [this];
+    }
+  };
+
   #hideTooltip = (): void => {
     this.hidePopover();
     this.#openedByFocus = false;
+  };
+
+  #isInsideNestedOpenPopover = (event: Event, anchorElement: HTMLElement): boolean => {
+    const path = event.composedPath(),
+      anchorIndex = path.findIndex(el => el === anchorElement);
+
+    if (anchorIndex === -1) {
+      return false;
+    }
+
+    return path.some(
+      (el, index) => index < anchorIndex && el instanceof HTMLElement && el !== this && isPopoverOpen(el)
+    );
   };
 
   /**
@@ -663,10 +704,8 @@ export class Tooltip extends LitElement {
     this.#openedByFocus = openedByFocus;
     this.anchorElement = normalizedElement;
     this.#knownAnchors.add(normalizedElement);
-
-    const anchorSlot = this.anchorElement?.getAttribute('slot');
-    if (typeof anchorSlot === 'string') {
-      this.setAttribute('slot', anchorSlot); // make sure the tooltip is slotted correctly, otherwise it might inherit styles from the wrong slot
+    if (this.#moveToAnchorRoot(normalizedElement)) {
+      this.#preserveAnchorRelation(normalizedElement);
     }
 
     if (!wasOpen) {

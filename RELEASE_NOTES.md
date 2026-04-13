@@ -15,6 +15,8 @@ The release notes are ordered by the date the release was made. From latest, to 
   - The `icon-only` attribute and `iconOnly` property have been removed in favor of the `:state(icon-only)` CSS custom state.
   - The new DOM structure allows using the [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API) via the `command` and `commandfor` attributes, and the `commandFor` and `commandForElement` properties, for declaratively opening and closing dialogs without JavaScript. Requires `@sl-design-system/dialog` to be updated to the latest version.
 
+  > **Note for Safari on macOS users:** Because `<sl-button>` now uses a native `<button>` element internally, it follows native browser/OS behavior for keyboard focus. By default, Safari on macOS does not allow focusing buttons with the TAB key. Users who need TAB-focusable buttons must enable "Press Tab to highlight each item on a webpage" in Safari's accessibility settings (Settings → Advanced → Accessibility).
+
 ## New features
 
 - [`button-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/button-bar/CHANGELOG.md) replaces the `icon-only` attribute with a `:state(icon-only)` CSS custom state. The component remains backward compatible with older button versions that still use the `icon-only` attribute.

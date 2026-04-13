@@ -14,20 +14,21 @@ class TooltipAssignedSlotHost extends LitElement {
   override render() {
     return html`
       <span id="internal-description">Internal description</span>
+      <span id="secondary-description">Secondary description</span>
       <slot></slot>
     `;
   }
 }
 
-class TooltipTestAnchor extends HTMLElement {
+class TooltipAssignedSlotAnchor extends LitElement {
   readonly internals = this.attachInternals();
 
-  connectedCallback(): void {
-    this.tabIndex = 0;
+  getProxyTarget(): HTMLButtonElement | null {
+    return this.renderRoot.querySelector('button');
+  }
 
-    if (!this.textContent?.trim()) {
-      this.textContent = 'Anchor';
-    }
+  override render() {
+    return html`<button type="button" aria-describedby="tooltip"><slot></slot></button>`;
   }
 }
 
@@ -35,8 +36,8 @@ if (!customElements.get('tooltip-assigned-slot-host')) {
   customElements.define('tooltip-assigned-slot-host', TooltipAssignedSlotHost);
 }
 
-if (!customElements.get('tooltip-test-anchor')) {
-  customElements.define('tooltip-test-anchor', TooltipTestAnchor);
+if (!customElements.get('tooltip-assigned-slot-anchor')) {
+  customElements.define('tooltip-assigned-slot-anchor', TooltipAssignedSlotAnchor);
 }
 
 describe('sl-tooltip', () => {
@@ -68,7 +69,7 @@ describe('sl-tooltip', () => {
     });
 
     it('should not show the tooltip by default', () => {
-      expect(tooltip).not.to.match(':popover-open');
+      expect(tooltip.matches(':popover-open')).to.be.false;
     });
 
     it('should toggle the tooltip on focusin and focusout', async () => {
@@ -117,7 +118,7 @@ describe('sl-tooltip', () => {
       await new Promise(resolve => requestAnimationFrame(resolve));
       await tooltip.updateComplete;
 
-      expect(tooltip).not.to.match(':popover-open');
+      expect(tooltip.matches(':popover-open')).to.be.false;
     });
 
     it('should toggle the tooltip on pointerover and pointerout', async () => {
@@ -129,7 +130,7 @@ describe('sl-tooltip', () => {
       const pointerEvent = new Event('pointerout', { bubbles: true });
       button?.dispatchEvent(pointerEvent);
       await waitFor((tooltip.hideDelay ?? 0) + 10);
-      expect(tooltip).not.to.match(':popover-open');
+      expect(tooltip.matches(':popover-open')).to.be.false;
     });
 
     it('should not run hide logic on pointerout when tooltip is closed', async () => {
@@ -197,7 +198,7 @@ describe('sl-tooltip', () => {
         button?.dispatchEvent(new Event('focusout', { bubbles: true, composed: true }));
         await waitFor(10);
 
-        expect(tooltip).not.to.match(':popover-open');
+        expect(tooltip.matches(':popover-open')).to.be.false;
       } finally {
         matchesSpy.mockRestore();
       }
@@ -318,7 +319,7 @@ describe('sl-tooltip', () => {
 
       await userEvent.keyboard('{Escape}');
 
-      expect(tooltip).not.to.match(':popover-open');
+      expect(tooltip.matches(':popover-open')).to.be.false;
     });
 
     it('should toggle the tooltip on pointerover and Escape key pressed', async () => {
@@ -328,7 +329,7 @@ describe('sl-tooltip', () => {
 
       await userEvent.keyboard('{Escape}');
 
-      expect(tooltip).not.to.match(':popover-open');
+      expect(tooltip.matches(':popover-open')).to.be.false;
     });
 
     it('should be positioned at the top by default', () => {
@@ -367,7 +368,7 @@ describe('sl-tooltip', () => {
       await tooltip.updateComplete;
       await new Promise(resolve => requestAnimationFrame(resolve));
       await tooltip.updateComplete;
-      expect(tooltip).not.to.match(':popover-open');
+      expect(tooltip.matches(':popover-open')).to.be.false;
 
       // Dispatch sl-close from outside the tooltip root (e.g. document-level overlay close).
       const overlay = document.createElement('div');
@@ -473,7 +474,7 @@ describe('sl-tooltip', () => {
       await tooltip.updateComplete;
       await waitFor(10);
 
-      expect(tooltip).not.to.match(':popover-open');
+      expect(tooltip.matches(':popover-open')).to.be.false;
     });
   });
 
@@ -541,7 +542,7 @@ describe('sl-tooltip', () => {
       await tooltip.updateComplete;
       await waitFor(10);
 
-      expect(tooltip).not.to.match(':popover-open');
+      expect(tooltip.matches(':popover-open')).to.be.false;
     });
 
     it('should show tooltip on focus when referenced via ElementInternals', async () => {
@@ -593,7 +594,7 @@ describe('sl-tooltip', () => {
       await tooltip.updateComplete;
       await waitFor(10);
 
-      expect(tooltip).not.to.match(':popover-open');
+      expect(tooltip.matches(':popover-open')).to.be.false;
     });
   });
 
@@ -667,7 +668,7 @@ describe('sl-tooltip', () => {
       await tooltip.updateComplete;
       await waitFor(10);
 
-      expect(tooltip).not.to.match(':popover-open');
+      expect(tooltip.matches(':popover-open')).to.be.false;
     });
 
     it('should show tooltip on focus when referenced via Element ariaDescribedByElements', async () => {
@@ -717,7 +718,7 @@ describe('sl-tooltip', () => {
       await tooltip.updateComplete;
       await waitFor(10);
 
-      expect(tooltip).not.to.match(':popover-open');
+      expect(tooltip.matches(':popover-open')).to.be.false;
     });
 
     it('should show tooltip on focus when referenced via Element ariaLabelledByElements', async () => {
@@ -778,7 +779,7 @@ describe('sl-tooltip', () => {
       menuItem.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
       await tooltip.updateComplete;
 
-      expect(tooltip).not.to.match(':popover-open');
+      expect(tooltip.matches(':popover-open')).to.be.false;
     });
 
     it('should not show tooltip on focusin of a menu item when the menu is open', async () => {
@@ -792,7 +793,7 @@ describe('sl-tooltip', () => {
       menuItem.focus();
       await tooltip.updateComplete;
 
-      expect(tooltip).not.to.match(':popover-open');
+      expect(tooltip.matches(':popover-open')).to.be.false;
     });
 
     it('should show tooltip on pointerover of the menu-button after the menu is closed', async () => {
@@ -813,55 +814,152 @@ describe('sl-tooltip', () => {
 
   describe('with a slotted anchor inside a shadow-root host', () => {
     let assignedSlotHost: TooltipAssignedSlotHost;
-    let anchor: TooltipTestAnchor;
+    let anchor: Button;
     let internalDescription: HTMLElement;
+    let secondaryDescription: HTMLElement;
+    let outsideButton: HTMLButtonElement;
+    let proxyTarget: HTMLButtonElement;
 
     beforeEach(async () => {
       el = await fixture(html`
         <div style="block-size: 400px; inline-size: 400px;">
           <tooltip-assigned-slot-host>
-            <tooltip-test-anchor aria-describedby="tooltip">Anchor</tooltip-test-anchor>
+            <sl-button aria-describedby="tooltip">Anchor</sl-button>
           </tooltip-assigned-slot-host>
+          <button id="outside-focus-target" type="button">Outside</button>
           <sl-tooltip id="tooltip" show-delay="0" hide-delay="0">Tooltip via assigned slot</sl-tooltip>
         </div>
       `);
 
       assignedSlotHost = el.querySelector('tooltip-assigned-slot-host') as TooltipAssignedSlotHost;
-      anchor = el.querySelector('tooltip-test-anchor') as TooltipTestAnchor;
+      anchor = el.querySelector('sl-button') as Button;
+      outsideButton = el.querySelector('#outside-focus-target') as HTMLButtonElement;
       tooltip = el.querySelector('sl-tooltip') as Tooltip;
       internalDescription = assignedSlotHost.shadowRoot!.querySelector('#internal-description') as HTMLElement;
+      secondaryDescription = assignedSlotHost.shadowRoot!.querySelector('#secondary-description') as HTMLElement;
+      proxyTarget = anchor.renderRoot.querySelector('button') as HTMLButtonElement;
 
       await tooltip.updateComplete;
       await new Promise(resolve => requestAnimationFrame(resolve));
     });
 
-    it('should move into the assigned slot root, preserve internals relations, and reopen on repeated hover', async () => {
+    it('should move into the assigned slot root, preserve internals relations, and reopen on repeated focus', async () => {
       expect(anchor.assignedSlot).to.exist;
       expect(anchor.assignedSlot?.getRootNode()).to.equal(assignedSlotHost.shadowRoot);
 
-      anchor.internals.ariaDescribedByElements = [internalDescription];
-      anchor.dispatchEvent(new PointerEvent('pointerover', { bubbles: true, composed: true }));
+      anchor.internals.ariaDescribedByElements = [internalDescription, secondaryDescription];
+      proxyTarget.focus();
+      document.dispatchEvent(new CustomEvent('sl-close', { bubbles: true, composed: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await tooltip.updateComplete;
 
       expect(tooltip.getRootNode()).to.equal(assignedSlotHost.shadowRoot);
       expect(tooltip).to.match(':popover-open');
-      expect([...anchor.internals.ariaDescribedByElements]).to.include.members([internalDescription, tooltip]);
+      expect([...anchor.internals.ariaDescribedByElements]).to.include.members([
+        internalDescription,
+        secondaryDescription,
+        tooltip
+      ]);
       expect(tooltip.anchorElement).to.equal(anchor);
 
-      anchor.dispatchEvent(new PointerEvent('pointerout', { bubbles: true, composed: true }));
+      proxyTarget.blur();
+      proxyTarget.dispatchEvent(new Event('focusout', { bubbles: true, composed: true }));
+      outsideButton.focus();
       await tooltip.updateComplete;
-      await waitFor(10);
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await tooltip.updateComplete;
 
-      expect(tooltip).not.to.match(':popover-open');
+      expect(tooltip.matches(':popover-open')).to.be.false;
 
-      anchor.dispatchEvent(new PointerEvent('pointerover', { bubbles: true, composed: true }));
+      proxyTarget.focus();
+      document.dispatchEvent(new CustomEvent('sl-close', { bubbles: true, composed: true }));
+      await tooltip.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await tooltip.updateComplete;
+
+      expect(tooltip).to.match(':popover-open');
+      expect(tooltip.anchorElement).to.equal(anchor);
+      expect([...anchor.internals.ariaDescribedByElements]).to.include.members([
+        internalDescription,
+        secondaryDescription,
+        tooltip
+      ]);
+    });
+  });
+
+  describe('with a slotted proxy anchor inside a shadow-root host', () => {
+    let assignedSlotHost: TooltipAssignedSlotHost;
+    let anchor: TooltipAssignedSlotAnchor;
+    let anchorContent: HTMLElement;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <div style="block-size: 400px; inline-size: 400px;">
+          <tooltip-assigned-slot-host>
+            <tooltip-assigned-slot-anchor>
+              <span id="anchor-content">Anchor</span>
+            </tooltip-assigned-slot-anchor>
+          </tooltip-assigned-slot-host>
+          <sl-tooltip id="tooltip" show-delay="0" hide-delay="0">Tooltip via nested slot path</sl-tooltip>
+        </div>
+      `);
+
+      assignedSlotHost = el.querySelector('tooltip-assigned-slot-host') as TooltipAssignedSlotHost;
+      anchor = el.querySelector('tooltip-assigned-slot-anchor') as TooltipAssignedSlotAnchor;
+      anchorContent = el.querySelector('#anchor-content') as HTMLElement;
+      tooltip = el.querySelector('sl-tooltip') as Tooltip;
+
+      await tooltip.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+    });
+
+    it('should ignore unrelated slots from the event path when finding the assigned slot root', async () => {
+      anchorContent.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
       await tooltip.updateComplete;
       await waitFor(10);
 
       expect(tooltip).to.match(':popover-open');
       expect(tooltip.anchorElement).to.equal(anchor);
-      expect([...anchor.internals.ariaDescribedByElements]).to.include.members([internalDescription, tooltip]);
+      expect(tooltip.getRootNode()).to.equal(assignedSlotHost.shadowRoot);
+    });
+  });
+
+  describe('with a slotted native anchor inside a shadow-root host', () => {
+    let assignedSlotHost: TooltipAssignedSlotHost;
+    let anchor: HTMLButtonElement;
+    let externalDescription: HTMLElement;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <div style="block-size: 400px; inline-size: 400px;">
+          <tooltip-assigned-slot-host>
+            <button id="native-anchor" aria-describedby="external-description tooltip">Anchor</button>
+          </tooltip-assigned-slot-host>
+          <span id="external-description">External description</span>
+          <sl-tooltip id="tooltip" show-delay="0" hide-delay="0">Tooltip via assigned slot</sl-tooltip>
+        </div>
+      `);
+
+      assignedSlotHost = el.querySelector('tooltip-assigned-slot-host') as TooltipAssignedSlotHost;
+      anchor = el.querySelector('#native-anchor') as HTMLButtonElement;
+      externalDescription = el.querySelector('#external-description') as HTMLElement;
+      tooltip = el.querySelector('sl-tooltip') as Tooltip;
+
+      await tooltip.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+    });
+
+    it('should keep explicit aria-describedby anchors in the light DOM when they cannot preserve the relation after reparenting', async () => {
+      expect(anchor.assignedSlot?.getRootNode()).to.equal(assignedSlotHost.shadowRoot);
+
+      anchor.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
+      await tooltip.updateComplete;
+      await waitFor(10);
+
+      expect(tooltip).to.match(':popover-open');
+      expect(tooltip.getRootNode()).to.equal(anchor.ownerDocument);
+      expect(Array.from(anchor.ariaDescribedByElements ?? [])).to.include.members([externalDescription, tooltip]);
     });
   });
 
@@ -929,7 +1027,7 @@ describe('sl-tooltip', () => {
       button?.dispatchEvent(new Event('pointerout', { bubbles: true }));
       await waitFor((tooltip.showDelay ?? 150) + 50);
 
-      expect(tooltip).not.to.match(':popover-open');
+      expect(tooltip.matches(':popover-open')).to.be.false;
     });
 
     it('should reopen on repeated hover for a button that forwards ARIA to an inner control', async () => {
@@ -950,7 +1048,7 @@ describe('sl-tooltip', () => {
       await tooltip.updateComplete;
       await waitFor(10);
 
-      expect(tooltip).not.to.match(':popover-open');
+      expect(tooltip.matches(':popover-open')).to.be.false;
 
       innerButton.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
       await tooltip.updateComplete;
@@ -1014,7 +1112,7 @@ describe('sl-tooltip', () => {
     it('should stay closed before showDelay elapses', async () => {
       button.dispatchEvent(new Event('pointerover', { bubbles: true }));
       await new Promise(resolve => setTimeout(resolve, 50));
-      expect(tooltip).not.to.match(':popover-open');
+      expect(tooltip.matches(':popover-open')).to.be.false;
 
       await new Promise(resolve => setTimeout(resolve, 60));
       expect(tooltip).to.match(':popover-open');
@@ -1030,7 +1128,7 @@ describe('sl-tooltip', () => {
       expect(tooltip).to.match(':popover-open');
 
       await new Promise(resolve => setTimeout(resolve, 60));
-      expect(tooltip).not.to.match(':popover-open');
+      expect(tooltip.matches(':popover-open')).to.be.false;
     });
   });
 });

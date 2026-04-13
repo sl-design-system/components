@@ -333,9 +333,10 @@ export class Tooltip extends LitElement {
   #onShow = (event: Event): void => {
     // If the event is sl-close, the event path might not contain the anchor (as it comes from the dialog)
     // So we use the activeElement (or shadowRoot.activeElement) as a candidate anchor.
-    const candidateAnchor = event.type === 'focusin' || event.type === 'sl-close' ? this.#findFocusedAnchor() : null;
+    const anchorInEvent = this.#findAnchorInEvent(event),
+      candidateAnchor = event.type === 'focusin' || event.type === 'sl-close' ? this.#findFocusedAnchor() : null;
 
-    const anchorElement = candidateAnchor || this.#findAnchorInEvent(event);
+    const anchorElement = anchorInEvent || candidateAnchor;
     const anchorRoot = anchorElement ? this.#findAssignedSlotRoot(anchorElement, event.composedPath()) : undefined;
 
     if (!anchorElement) {
@@ -548,9 +549,20 @@ export class Tooltip extends LitElement {
   };
 
   #findAssignedSlotRoot = (anchorElement: HTMLElement, path: EventTarget[]): ShadowRoot | undefined => {
-    const slotInPath = path.find(
-      (el): el is HTMLSlotElement => el instanceof HTMLSlotElement || (el instanceof Element && el.tagName === 'SLOT')
-    );
+    const slotInPath = path.find((el): el is HTMLSlotElement => {
+      const slot =
+        el instanceof HTMLSlotElement
+          ? el
+          : el instanceof Element && el.tagName === 'SLOT'
+            ? (el as HTMLSlotElement)
+            : null;
+
+      if (!slot) {
+        return false;
+      }
+
+      return slot.assignedNodes({ flatten: true }).includes(anchorElement);
+    });
     const assignedSlot = anchorElement.assignedSlot || slotInPath;
     const assignedSlotRoot = this.#getShadowRoot(assignedSlot?.getRootNode());
 
@@ -613,10 +625,74 @@ export class Tooltip extends LitElement {
     return false;
   };
 
+  #canMoveToAnchorRoot = (anchorElement: HTMLElement): boolean => {
+    const proxyTarget = (anchorElement as Element & { getProxyTarget?(): Element | null }).getProxyTarget?.(),
+      internals = (anchorElement as HTMLElement & { internals?: ElementInternals }).internals;
+
+    if (internals) {
+      return true;
+    }
+
+    return !this.#hasAnyExplicitRelation(anchorElement) && !this.#hasAnyExplicitRelation(proxyTarget);
+  };
+
   #ensureTooltipInList = (elements: readonly Element[] | null | undefined): Element[] => {
     const list = elements ? Array.from(elements) : [];
 
     return list.includes(this) ? list : [...list, this];
+  };
+
+  #getElementRelationTargets = (
+    anchorElement: HTMLElement,
+    proxyTarget: Element | null | undefined,
+    relation: 'description' | 'label'
+  ): Element[] => {
+    const attribute = relation === 'label' ? 'aria-labelledby' : 'aria-describedby',
+      targets = new Set<Element>();
+
+    if (this.#hasExplicitRelation(anchorElement, attribute) || this.#hasReflectedRelation(anchorElement, relation)) {
+      targets.add(anchorElement);
+    }
+
+    if (
+      proxyTarget instanceof Element &&
+      proxyTarget !== anchorElement &&
+      (this.#hasExplicitRelation(proxyTarget, attribute) || this.#hasReflectedRelation(proxyTarget, relation))
+    ) {
+      targets.add(proxyTarget);
+    }
+
+    if (targets.size > 0) {
+      return Array.from(targets);
+    }
+
+    return proxyTarget instanceof Element && proxyTarget !== anchorElement ? [proxyTarget] : [anchorElement];
+  };
+
+  #setReflectedRelation = (
+    target:
+      | {
+          ariaDescribedByElements?: readonly Element[] | null;
+          ariaLabelledByElements?: readonly Element[] | null;
+        }
+      | null
+      | undefined,
+    relation: 'description' | 'label'
+  ): void => {
+    if (!target) {
+      return;
+    }
+
+    if (relation === 'label') {
+      (target as { ariaLabelledByElements: Element[] | null }).ariaLabelledByElements = this.#ensureTooltipInList(
+        target.ariaLabelledByElements
+      );
+      return;
+    }
+
+    (target as { ariaDescribedByElements: Element[] | null }).ariaDescribedByElements = this.#ensureTooltipInList(
+      target.ariaDescribedByElements
+    );
   };
 
   /**
@@ -666,56 +742,46 @@ export class Tooltip extends LitElement {
   /**
    * When the tooltip moves into the anchor's shadow root, it can no longer rely on the host's
    * original ARIA wiring alone. This method mirrors the existing relation onto ElementInternals
-   * without dropping any previously registered labels/descriptions.
+   * when available, and otherwise falls back to native ARIA reflection on the anchor/proxy
+   * element without dropping any previously registered labels/descriptions.
    */
   #preserveAnchorRelation = (anchorElement: HTMLElement): void => {
     const proxyTarget = (anchorElement as Element & { getProxyTarget?(): Element | null }).getProxyTarget?.(),
       internals = (anchorElement as HTMLElement & { internals?: ElementInternals }).internals;
+    let relation: 'description' | 'label' = 'description';
 
-    if (!internals) {
-      return;
-    }
-
-    const hasExplicitLabelRelation =
+    if (
       this.#hasExplicitRelation(anchorElement, 'aria-labelledby') ||
-      this.#hasExplicitRelation(proxyTarget, 'aria-labelledby');
-
-    if (hasExplicitLabelRelation) {
-      internals.ariaLabelledByElements = this.#ensureTooltipInList(internals.ariaLabelledByElements);
-      return;
-    }
-
-    const hasExplicitDescriptionRelation =
+      this.#hasExplicitRelation(proxyTarget, 'aria-labelledby')
+    ) {
+      relation = 'label';
+    } else if (
       this.#hasExplicitRelation(anchorElement, 'aria-describedby') ||
-      this.#hasExplicitRelation(proxyTarget, 'aria-describedby');
-
-    if (hasExplicitDescriptionRelation) {
-      internals.ariaDescribedByElements = this.#ensureTooltipInList(internals.ariaDescribedByElements);
-      return;
-    }
-
-    const hasLabelRelation =
+      this.#hasExplicitRelation(proxyTarget, 'aria-describedby')
+    ) {
+      relation = 'description';
+    } else if (
       anchorElement.ariaLabelledByElements?.includes(this) ||
       proxyTarget?.ariaLabelledByElements?.includes(this) ||
-      internals.ariaLabelledByElements?.includes(this);
-
-    if (hasLabelRelation) {
-      internals.ariaLabelledByElements = this.#ensureTooltipInList(internals.ariaLabelledByElements);
-      return;
-    }
-
-    const hasDescriptionRelation =
+      internals?.ariaLabelledByElements?.includes(this)
+    ) {
+      relation = 'label';
+    } else if (
       anchorElement.ariaDescribedByElements?.includes(this) ||
       proxyTarget?.ariaDescribedByElements?.includes(this) ||
-      internals.ariaDescribedByElements?.includes(this);
+      internals?.ariaDescribedByElements?.includes(this)
+    ) {
+      relation = 'description';
+    }
 
-    if (hasDescriptionRelation) {
-      internals.ariaDescribedByElements = this.#ensureTooltipInList(internals.ariaDescribedByElements);
+    if (internals) {
+      this.#setReflectedRelation(internals, relation);
       return;
     }
 
-    // Default to description semantics when the original relation cannot be inferred.
-    internals.ariaDescribedByElements = this.#ensureTooltipInList(internals.ariaDescribedByElements);
+    for (const target of this.#getElementRelationTargets(anchorElement, proxyTarget, relation)) {
+      this.#setReflectedRelation(target, relation);
+    }
   };
 
   #hideTooltip = (): void => {
@@ -799,8 +865,10 @@ export class Tooltip extends LitElement {
     this.#openedByFocus = openedByFocus;
     this.anchorElement = normalizedElement;
     this.#knownAnchors.add(normalizedElement);
-    this.#moveToAnchorRoot(normalizedElement, anchorRoot);
-    this.#preserveAnchorRelation(normalizedElement);
+
+    if (this.#canMoveToAnchorRoot(normalizedElement) && this.#moveToAnchorRoot(normalizedElement, anchorRoot)) {
+      this.#preserveAnchorRelation(normalizedElement);
+    }
 
     if (!wasOpen) {
       this.showPopover();

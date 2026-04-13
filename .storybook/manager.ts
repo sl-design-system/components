@@ -55,6 +55,7 @@ addons.setConfig({
   enableShortcuts: false,
   theme: slTheme,
   sidebar: {
+    collapsedRoots: ['getting-started', 'actions', 'components', 'date-time', 'examples', 'feedback-status', 'form', 'grid', 'layout', 'media', 'navigation', 'overlay', 'utilities', 'wrappers'],
     renderLabel: (item: HashEntry, api: API) => {
       if (item.depth !== 1 || item.type === 'docs') return item.name;
 

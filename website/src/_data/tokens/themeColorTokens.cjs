@@ -17,5 +17,8 @@ function flattenColorTokens(obj, prefix) {
   return results;
 }
 
-module.exports = flattenColorTokens(themeNew.color, '--sl-color-');
+module.exports = Object.entries(themeNew.color).map(([category, value]) => ({
+  category,
+  tokens: flattenColorTokens(value, '--sl-color-' + category + '-')
+}));
 

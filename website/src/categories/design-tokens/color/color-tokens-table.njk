@@ -11,7 +11,7 @@
 {% if color[1]['$value'] %}
 <tr>
   <td>
-    <div class="ds-tokens__color" style="background-color: {{ color[1]['$value'] }}"></div>
+    <div class="ds-tokens__color" style="background-color: var(--sl-color-{{ color[0] }}); border: 1px solid var(--sl-color-border-plain);"></div>
     <code>{{ color[1]['$value'] }}</code>
   </td>
   <td class="ds-tokens__description">color {{ color[0] }}</td>
@@ -21,7 +21,7 @@
 {% for subcolor in color[1] -%}{% if subcolor[1]['$value'] %}
 <tr>
   <td>
-    <div class="ds-tokens__color" style="background-color: {{ subcolor[1]['$value'] }}"></div>
+    <div class="ds-tokens__color" style="background-color: var(--sl-color-{{ color[0] }}-{{ subcolor[0] }}); border: 1px solid var(--sl-color-border-plain);"></div>
     <code>{{ subcolor[1]['$value'] }}</code>
   </td>
   <td class="ds-tokens__description">color {{ color[0] }} {{ subcolor[0] }}</td>
@@ -36,25 +36,28 @@
 
 <section class="ds-tokens">
 <h2 id="color-theme" class="ds-tokens__heading"><a class="header-anchor" href="#color-theme">Color - theme tokens</a></h2>
-<table class="ds-table"><thead>
+{% for group in tokens.themeColorTokens -%}
+<h3 class="ds-tokens__heading">{{ group.category }}</h3>
+<table class="ds-table" style="table-layout: fixed;"><thead>
 <tr>
-  <th>Example</th>
-  <th>Description</th>
-  <th>Token</th>
+  <th style="width: 35%;">Example</th>
+  <th style="width: 30%;">Description</th>
+  <th style="width: 35%;">Token</th>
 </tr></thead>
 <tbody>
-{% for item in tokens.themeColorTokens -%}
+{% for item in group.tokens -%}
 <tr>
   <td>
-    <div class="ds-tokens__color" style="background-color: var({{ item.token }})"></div>
+    <div class="ds-tokens__color" style="background-color: var({{ item.token }}); border: 1px solid var(--sl-color-border-plain);"></div>
     <code>{{ item.value }}</code>
   </td>
-  <td class="ds-tokens__description">{{ item.description }}</td>
-  <td><code>{{ item.token }}</code></td>
+  <td class="ds-tokens__description" style="word-break: break-word;">{{ item.description }}</td>
+  <td style="word-break: break-all;"><code>{{ item.token }}</code></td>
 </tr>
 {% endfor -%}
 </tbody>
 </table>
+{% endfor -%}
 </section>
 
 <section class="ds-tokens">

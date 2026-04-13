@@ -101,7 +101,9 @@
         "copy-tokens:core",
         "copy-tokens:base",
         "copy-tokens:primitives",
-        "copy-tokens:system"
+        "copy-tokens:system",
+        "copy-tokens:base-new",
+        "copy-tokens:theme-new"
       ]
     },
     "copy-tokens:core": {
@@ -138,6 +140,24 @@
       ],
       "output": [
         "src/_data/tokens/system.json"
+      ]
+    },
+    "copy-tokens:base-new": {
+      "command": "cpx '../packages/tokens/src/tokens/tokens/base-new.json' 'src/_data/tokens/'",
+      "files": [
+        "../packages/tokens/src/tokens/tokens/base-new.json"
+      ],
+      "output": [
+        "src/_data/tokens/base-new.json"
+      ]
+    },
+    "copy-tokens:theme-new": {
+      "command": "cpx '../packages/tokens/src/tokens/tokens/theme-new.json' 'src/_data/tokens/'",
+      "files": [
+        "../packages/tokens/src/tokens/tokens/theme-new.json"
+      ],
+      "output": [
+        "src/_data/tokens/theme-new.json"
       ]
     },
     "lint": {

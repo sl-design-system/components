@@ -1,0 +1,238 @@
+{
+	"icon": {
+		"typeset": {
+			"fontWeight": {
+				"solid": {
+					"$type": "fontWeights",
+					"$value": "{icon.typeset.fontWeight.icon-solid}"
+				},
+				"regular": {
+					"$type": "fontWeights",
+					"$value": "{icon.typeset.fontWeight.icon-regular}"
+				}
+			}
+		}
+	},
+	"size": {
+		"icon": {
+			"font": {
+				"lg": {
+					"$type": "fontSizes",
+					"$value": "{base.size.icon.font.lg}"
+				},
+				"md": {
+					"$type": "fontSizes",
+					"$value": "{base.size.icon.font.md}"
+				},
+				"sm": {
+					"$type": "fontSizes",
+					"$value": "{base.size.icon.font.sm}"
+				},
+				"xl": {
+					"$type": "fontSizes",
+					"$value": "{base.size.icon.font.xl}"
+				},
+				"xs": {
+					"$type": "fontSizes",
+					"$value": "{base.size.icon.font.xs}"
+				},
+				"2xl": {
+					"$type": "fontSizes",
+					"$value": "{base.size.icon.font.2xl}"
+				},
+				"2xs": {
+					"$type": "fontSizes",
+					"$value": "{size-new.icon.2xs}"
+				},
+				"3xl": {
+					"$type": "fontSizes",
+					"$value": "{base.size.icon.font.3xl}"
+				},
+				"4xl": {
+					"$type": "fontSizes",
+					"$value": "{base.size.icon.font.4xl}"
+				}
+			}
+		},
+		"text-new": {
+			"body": {
+				"lg": {
+					"$type": "fontSizes",
+					"$value": "{base.size.text-new.body.lg}"
+				},
+				"md": {
+					"$type": "fontSizes",
+					"$value": "{base.size.text-new.body.md}",
+					"$description": "default text size for body"
+				},
+				"sm": {
+					"$type": "fontSizes",
+					"$value": "{base.size.text-new.body.sm}"
+				}
+			},
+			"heading": {
+				"lg": {
+					"$type": "fontSizes",
+					"$value": "{base.size.text-new.heading.lg}"
+				},
+				"md": {
+					"$type": "fontSizes",
+					"$value": "{base.size.text-new.heading.md}"
+				},
+				"sm": {
+					"$type": "fontSizes",
+					"$value": "{base.size.text-new.heading.sm}"
+				},
+				"xl": {
+					"$type": "fontSizes",
+					"$value": "{base.size.text-new.heading.xl}"
+				},
+				"2xl": {
+					"$type": "fontSizes",
+					"$value": "{base.size.text-new.heading.2xl}"
+				}
+			}
+		},
+		"borderWidth": {
+			"action": {
+				"$type": "borderWidth",
+				"$value": "{base.size.borderWidth.action}",
+				"$description": "Sets the standard border width for action components."
+			},
+			"default": {
+				"$type": "borderWidth",
+				"$value": "{base.size.borderWidth.default}",
+				"$description": "Sets the standard border width for UI elements."
+			}
+		},
+		"borderRadius": {
+			"full": {
+				"$type": "borderRadius",
+				"$value": "{base.size.borderRadius.full}",
+				"$description": "Use for pill-shaped elements like badges, and circular rounding for components with equal width and height, such as icon buttons and avatars."
+			},
+			"child": {
+				"$type": "borderRadius",
+				"$value": "{base.size.borderRadius.child}",
+				"$description": "The standard border radius for most components. Use for elements that need subtle rounding without emphasizing their shape."
+			},
+			"default": {
+				"$type": "borderRadius",
+				"$value": "{base.size.borderRadius.default}",
+				"$description": "The standard border radius for most components. Use for elements that need subtle rounding without emphasizing their shape."
+			},
+			"focusRing": {
+				"inside": {
+					"$type": "borderRadius",
+					"$value": "{base.size.borderRadius.focusRing.inside}",
+					"$description": "Use for focusring inside of component when outside focus ring is not possible"
+				},
+				"outside": {
+					"$type": "borderRadius",
+					"$value": "{base.size.borderRadius.focusRing.outside}",
+					"$description": "Use for focusring outside of component"
+				}
+			}
+		},
+		"outlineWidth": {
+			"default": {
+				"$type": "borderWidth",
+				"$value": "{base.size.outlineWidth.default}",
+				"$description": "Sets the standard outline width for UI elements."
+			}
+		}
+	},
+	"space": {
+		"offset": {
+			"default": {
+				"$type": "spacing",
+				"$value": "{base.space.offset.default}",
+				"$description": "Defines the standard spacing offset."
+			}
+		}
+	},
+	"text-new": {
+		"body": {
+			"lg": {
+				"$type": "typography",
+				"$value": "{base.text-new.body.lg}"
+			},
+			"md": {
+				"$type": "typography",
+				"$value": "{base.text-new.body.md}"
+			},
+			"sm": {
+				"$type": "typography",
+				"$value": "{base.text-new.body.sm}"
+			}
+		},
+		"icon": {
+			"solid": {
+				"$type": "typography",
+				"$value": "{base.text-new.icon.solid}"
+			},
+			"outline": {
+				"$type": "typography",
+				"$value": "{base.text-new.icon.outline}"
+			}
+		},
+		"input": {
+			"lg": {
+				"$type": "typography",
+				"$value": "{base.text-new.input.lg}"
+			},
+			"md": {
+				"$type": "typography",
+				"$value": "{base.text-new.input.md}"
+			}
+		},
+		"heading": {
+			"lg": {
+				"$type": "typography",
+				"$value": "{base.text-new.heading.lg}"
+			},
+			"md": {
+				"$type": "typography",
+				"$value": "{base.text-new.heading.md}"
+			},
+			"sm": {
+				"$type": "typography",
+				"$value": "{base.text-new.heading.sm}"
+			},
+			"xl": {
+				"$type": "typography",
+				"$value": "{base.text-new.heading.xl}"
+			},
+			"2xl": {
+				"$type": "typography",
+				"$value": "{base.text-new.heading.2xl}"
+			}
+		},
+		"typeset": {
+			"fontFamily": {
+				"body": {
+					"$type": "fontFamilies",
+					"$value": "{base.text-new.typeset.fontFamily.body}"
+				},
+				"icon": {
+					"$type": "fontFamilies",
+					"$value": "{base.text-new.typeset.fontFamily.icon}"
+				},
+				"heading": {
+					"$type": "fontFamilies",
+					"$value": "{base.text-new.typeset.fontFamily.heading}"
+				}
+			},
+			"fontWeight": {
+				"regular": {
+					"$type": "fontWeights",
+					"$value": "{base.text-new.typeset.fontWeight.regular}"
+				},
+				"semiBold": {
+					"$type": "fontWeights",
+					"$value": "{base.text-new.typeset.fontWeight.semiBold}"
+				}
+			}
+		}
+	}
+}

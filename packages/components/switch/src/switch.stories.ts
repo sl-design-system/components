@@ -19,7 +19,6 @@ Icon.register(faMoonStars, faSunBright);
 
 export default {
   title: 'Form/Switch',
-  tags: ['stable'],
   args: {
     checked: false,
     disabled: false,

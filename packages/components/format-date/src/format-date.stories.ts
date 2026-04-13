@@ -29,7 +29,6 @@ const locales = ['de', 'en-GB', 'es', 'fi', 'fr', 'it', 'nl', 'nl-BE', 'no', 'pl
 
 export default {
   title: 'Utilities/Format date',
-  tags: ['draft'],
   args: {
     fallback: 'invalid date',
     dateStyle: 'long',

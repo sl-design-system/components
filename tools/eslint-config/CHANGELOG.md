@@ -1,5 +1,11 @@
 # @sl-design-system/eslint-config
 
+## 0.5.2
+
+### Patch Changes
+
+- [#3126](https://github.com/sl-design-system/components/pull/3126) [`130ae27`](https://github.com/sl-design-system/components/commit/130ae274bae60bd6291ce2e3b943eb6a2114f9b7) - Bump optional storybook peer dependency from 9 to 10
+
 ## 0.5.1
 
 ### Patch Changes

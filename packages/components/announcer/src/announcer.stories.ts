@@ -12,7 +12,6 @@ type Story = StoryObj<Props>;
 let counter = 0;
 export default {
   title: 'Utilities/Announcer',
-  tags: ['draft'],
   args: {},
   argTypes: {},
   render: () => {

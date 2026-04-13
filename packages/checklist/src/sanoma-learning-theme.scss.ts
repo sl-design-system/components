@@ -118,6 +118,7 @@ export default css`
     --sl-size-outlineOffset-default: calc(
       var(--sl-size-050) - var(--sl-size-010)
     ); /** Defines the default offset for focus indicators. */
+    --sl-opacity-disabled: var(--sl-opacity-new-600);
     --sl-size-new-icon-lg: var(--sl-size-250);
     --sl-size-new-icon-md: var(--sl-size-200);
     --sl-size-new-icon-sm: var(--sl-size-175);
@@ -127,6 +128,9 @@ export default css`
     --sl-size-new-icon-2xs: var(--sl-size-125);
     --sl-size-new-icon-3xl: var(--sl-size-600);
     --sl-size-new-icon-4xl: var(--sl-size-800);
+    --sl-elevation-shadow-sm:
+      0 var(--sl-size-010) var(--sl-size-010) var(--sl-color-shadow-overlay1),
+      0 3px var(--sl-size-025) var(--sl-color-shadow-overlay2);
     --sl-elevation-shadow-overlay:
       0 var(--sl-size-075) var(--sl-size-150) -3px var(--sl-color-shadow-overlay1),
       0 var(--sl-size-150) var(--sl-size-200) var(--sl-color-shadow-overlay2);
@@ -179,6 +183,7 @@ export default css`
     --sl-size-icon-font-xl: var(--sl-size-new-icon-xl);
     --sl-size-icon-font-xs: var(--sl-size-new-icon-xs);
     --sl-size-icon-font-2xl: var(--sl-size-new-icon-2xl);
+    --sl-size-icon-font-2xs: var(--sl-size-new-icon-2xs);
     --sl-size-icon-font-3xl: var(--sl-size-new-icon-3xl);
     --sl-size-icon-font-4xl: var(--sl-size-new-icon-4xl);
     --sl-size-text-new-body-lg: var(--sl-size-font-200);
@@ -212,19 +217,19 @@ export default css`
     ); /** Use for focusring outside of component */
     --sl-space-new-input-vertical: calc(var(--sl-space-new-xs) - var(--sl-size-010));
     --sl-space-new-input-horizontal: calc(var(--sl-space-new-md) - var(--sl-size-010));
-    --sl-text-new-body-lg: var(--sl-text-new-typeset-fontWeight-regular) var(--sl-size-text-new-body-lg) / 24px
+    --sl-text-new-body-lg: var(--sl-text-new-typeset-fontWeight-regular) var(--sl-size-text-new-body-lg)/24px
       var(--sl-text-new-typeset-fontFamily-body);
-    --sl-text-new-body-md: var(--sl-text-new-typeset-fontWeight-regular) var(--sl-size-text-new-body-md) / 20px
+    --sl-text-new-body-md: var(--sl-text-new-typeset-fontWeight-regular) var(--sl-size-text-new-body-md)/20px
       var(--sl-text-new-typeset-fontFamily-body);
-    --sl-text-new-body-sm: var(--sl-text-new-typeset-fontWeight-regular) var(--sl-size-text-new-body-sm) / 16px
+    --sl-text-new-body-sm: var(--sl-text-new-typeset-fontWeight-regular) var(--sl-size-text-new-body-sm)/16px
       var(--sl-text-new-typeset-fontFamily-body);
-    --sl-text-new-input-lg: var(--sl-size-text-new-body-md) / 32px var(--sl-text-new-typeset-fontFamily-body);
-    --sl-text-new-input-md: var(--sl-size-text-new-body-md) / 24px var(--sl-text-new-typeset-fontFamily-body);
-    --sl-text-new-heading-lg: var(--sl-size-text-new-heading-lg) / 32px var(--sl-text-new-typeset-fontFamily-heading);
-    --sl-text-new-heading-md: var(--sl-size-text-new-heading-md) / 20px var(--sl-text-new-typeset-fontFamily-heading);
-    --sl-text-new-heading-sm: var(--sl-size-text-new-heading-sm) / 20px var(--sl-text-new-typeset-fontFamily-heading);
-    --sl-text-new-heading-xl: var(--sl-size-text-new-heading-xl) / 40px var(--sl-text-new-typeset-fontFamily-heading);
-    --sl-text-new-heading-2xl: var(--sl-size-text-new-heading-2xl) / 48px var(--sl-text-new-typeset-fontFamily-heading);
+    --sl-text-new-input-lg: var(--sl-size-text-new-body-md)/32px var(--sl-text-new-typeset-fontFamily-body);
+    --sl-text-new-input-md: var(--sl-size-text-new-body-md)/24px var(--sl-text-new-typeset-fontFamily-body);
+    --sl-text-new-heading-lg: var(--sl-size-text-new-heading-lg)/32px var(--sl-text-new-typeset-fontFamily-heading);
+    --sl-text-new-heading-md: var(--sl-size-text-new-heading-md)/20px var(--sl-text-new-typeset-fontFamily-heading);
+    --sl-text-new-heading-sm: var(--sl-size-text-new-heading-sm)/20px var(--sl-text-new-typeset-fontFamily-heading);
+    --sl-text-new-heading-xl: var(--sl-size-text-new-heading-xl)/40px var(--sl-text-new-typeset-fontFamily-heading);
+    --sl-text-new-heading-2xl: var(--sl-size-text-new-heading-2xl)/48px var(--sl-text-new-typeset-fontFamily-heading);
   }
 
   @media (prefers-color-scheme: light) {
@@ -545,6 +550,7 @@ export default css`
       --sl-color-background-inverted-interactive-plain: var(
         --sl-color-palette-grey-200
       ); /** Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state. */
+      --sl-color-background-highlight: var(--sl-color-palette-yellow-100);
       --sl-color-foreground-accent-red-bold: var(
         --sl-color-palette-red-800
       ); /** Use for red text on 'color.background.accent.red.muted' or 'color.background.accent.red.subtle', when used purely for stylistic purposes without specific meaning. */
@@ -601,6 +607,9 @@ export default css`
       --sl-elevation-surface-raised-default: var(
         --sl-color-palette-grey-000
       ); /** Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'. */
+      --sl-elevation-surface-raised-primary: var(
+        --sl-color-palette-blue-400
+      ); /** Background of elevated components with a Primary background color like a floating toolbar that sit on top of the base surface. Use in combination with Inverted buttons, 'color.foreground.inverted.bold' and 'elevation.shadow.raised'. */
       --sl-elevation-surface-raised-inverted: var(
         --sl-color-palette-grey-900
       ); /** Background of elevated components with an inverted background color like tooltips that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'. */
@@ -729,7 +738,7 @@ export default css`
         --sl-color-background-accent-grey-interactive-bold
       ); /** Used as transparent layer on top of the bold background to indicate the hover and pressed state. */
       --sl-color-background-neutral-interactive-plain: var(
-        --sl-color-background-accent-grey-interactive-plain
+        --sl-color-background-accent-grey-interactive-bold
       ); /** Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state. */
       --sl-color-background-primary-bold: var(
         --sl-color-background-accent-blue-bold
@@ -1333,6 +1342,7 @@ export default css`
       --sl-color-background-selected-interactive-bold: var(
         --sl-color-palette-blue-700
       ); /** Used as transparent layer on top of the bold background to indicate the hover and pressed state. */
+      --sl-color-background-highlight: var(--sl-color-palette-yellow-100);
       --sl-color-foreground-accent-red-bold: var(
         --sl-color-palette-red-600
       ); /** Use for red text on 'color.background.accent.red.muted' or 'color.background.accent.red.subtle', when used purely for stylistic purposes without specific meaning. */
@@ -1368,7 +1378,7 @@ export default css`
       ); /** Use for subtle grey text for purely stylistic purposes with no specific meaning. */
       --sl-color-foreground-accent-grey-subtlest: color-mix(
         in srgb,
-        var(--sl-color-palette-grey-900) 47%,
+        var(--sl-color-palette-grey-900) 48%,
         transparent
       ); /** Use for subtlest grey text for purely stylistic purposes with no specific meaning. */
       --sl-color-foreground-accent-teal-bold: var(
@@ -1404,6 +1414,11 @@ export default css`
       --sl-color-foreground-accent-yellow-onBold: var(
         --sl-color-palette-grey-000
       ); /** Use for text on 'color.background.accent.yellow.bold', when used purely for stylistic purposes without specific meaning. */
+      --sl-color-foreground-disabled: color-mix(
+        in srgb,
+        var(--sl-color-palette-grey-900) 50%,
+        transparent
+      ); /** Use for foreground in a disabled state. */
       --sl-color-foreground-inverted-bold: var(
         --sl-color-palette-grey-000
       ); /** Use for inverted text on 'color.background.inverted.subtlest', and 'color.background.inverted.subtle'. */
@@ -1425,6 +1440,9 @@ export default css`
       --sl-elevation-surface-raised-default: var(
         --sl-color-palette-grey-050
       ); /** Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'. */
+      --sl-elevation-surface-raised-primary: var(
+        --sl-color-palette-blue-500
+      ); /** Background of elevated components with a Primary background color like a floating toolbar that sit on top of the base surface. Use in combination with Inverted buttons, 'color.foreground.inverted.bold' and 'elevation.shadow.raised'. */
       --sl-elevation-surface-raised-inverted: var(
         --sl-color-palette-grey-500
       ); /** Background of elevated components with an inverted background color like tooltips that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'. */
@@ -1493,6 +1511,9 @@ export default css`
       --sl-color-border-primary-plain: var(
         --sl-color-border-accent-blue-plain
       ); /** Use for borders that highlight primary actions or messages on elevation.surface background colors. */
+      --sl-color-border-disabled: var(
+        --sl-color-foreground-disabled
+      ); /** Use for borders of elements in a disabled state. */
       --sl-color-border-negative-plain: var(
         --sl-color-border-accent-red-plain
       ); /** Use for borders that highlight negative or serious error states on elevation.surface background colors. */
@@ -1655,9 +1676,6 @@ export default css`
       --sl-color-foreground-primary-bold: var(
         --sl-color-foreground-accent-blue-bold
       ); /** Use for primary actions on 'color.background.primary.muted' and 'color.background.primary.subtle'. */
-      --sl-color-foreground-disabled: var(
-        --sl-color-foreground-accent-grey-faint
-      ); /** Use for foreground in a disabled state. */
       --sl-color-foreground-inverted-onBold: var(
         --sl-color-foreground-accent-grey-bold
       ); /** Use for inverted text on 'color.background.inverted.bold'. */
@@ -1703,9 +1721,6 @@ export default css`
       --sl-color-border-primary-bold: var(
         --sl-color-border-accent-blue-bold
       ); /** Use for borders that highlight primary actions or messages on muted, subtlest and subtle background colors. */
-      --sl-color-border-disabled: var(
-        --sl-color-foreground-disabled
-      ); /** Use for borders of elements in a disabled state. */
       --sl-color-border-negative-bold: var(
         --sl-color-border-accent-red-bold
       ); /** Use for borders that highlight negative or serious error states on muted, subtlest and subtle background colors. */

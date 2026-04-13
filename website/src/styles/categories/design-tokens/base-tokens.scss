@@ -75,13 +75,12 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  inline-size: fit-content;
 }
 
 .ds-tokens__space {
   background-color: var(--ds-color-light-grey);
-  block-size: 8rem;
-  inline-size: 8rem;
+  block-size: 7rem;
+  inline-size: 7rem;
   margin-block-end: 0.8rem;
 }
 

@@ -1,5 +1,52 @@
 <section class="ds-tokens">
-<h2 id="space" class="ds-tokens__heading"><a class="header-anchor" href="#space">Space</a></h2>
+<h2 id="space-tokens" class="ds-tokens__heading"><a class="header-anchor" href="#space-tokens">Space</a></h2>
+<table class="ds-table"><thead>
+<tr>
+  <th>Example</th>
+  <th>Token title</th>
+  <th>Token</th>
+</tr></thead>
+<tbody>
+{% for item in tokens.spaceTokens.space -%}
+<tr>
+  <td>
+    <div class="ds-tokens__space-example">
+      <div class="ds-tokens__space" style="width: var({{ item.token }}); height: var({{ item.token }});"></div>
+      <code>{{ item.value }}</code>
+    </div>
+  </td>
+  <td class="ds-tokens__description">{{ item.title }}</td>
+  <td><code>{{ item.token }}</code></td>
+</tr>
+{% endfor -%}
+</tbody>
+</table>
+</section>
+
+<section class="ds-tokens">
+<h2 id="space-offset" class="ds-tokens__heading"><a class="header-anchor" href="#space-offset">Space offset</a></h2>
+<table class="ds-table"><thead>
+<tr>
+  <th>Example</th>
+  <th>Token title</th>
+  <th>Token</th>
+</tr></thead>
+<tbody>
+{% for item in tokens.spaceTokens.spaceOffset -%}
+<tr>
+  <td>
+    <code>{{ item.value }}</code>
+  </td>
+  <td class="ds-tokens__description">{{ item.description }}</td>
+  <td><code>{{ item.token }}</code></td>
+</tr>
+{% endfor -%}
+</tbody>
+</table>
+</section>
+
+<section class="ds-tokens">
+<h2 id="space" class="ds-tokens__heading"><a class="header-anchor" href="#space">Space - deprecated</a></h2>
 <table class="ds-table"><thead>
 <tr>
   <th>Example</th>

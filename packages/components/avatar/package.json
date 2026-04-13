@@ -1,6 +1,7 @@
 {
   "name": "@sl-design-system/avatar",
   "version": "1.2.3",
+  "status": "stable",
   "description": "Avatar component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

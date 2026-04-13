@@ -54,7 +54,6 @@ Icon.register(
 
 export default {
   title: 'Actions/Toggle group',
-  tags: ['preview'],
   args: {
     disabled: false,
     multiple: false

@@ -1,6 +1,7 @@
 {
   "name": "@sl-design-system/virtual-list",
   "version": "0.0.5",
+  "status": "draft",
   "description": "Virtual list component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

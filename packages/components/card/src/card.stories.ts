@@ -37,7 +37,6 @@ Icon.register(faDownload, faHeart, fasHeart);
 
 export default {
   title: 'Layout/Card',
-  tags: ['stable'],
   args: {
     title: 'Lorem Ipsum',
     bodyText:

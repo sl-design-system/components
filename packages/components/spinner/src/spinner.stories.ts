@@ -37,7 +37,6 @@ const sizeName = (size: string): string => {
 
 export default {
   title: 'Feedback & status/Spinner',
-  tags: ['stable'],
   argTypes: {
     size: {
       control: 'inline-radio',

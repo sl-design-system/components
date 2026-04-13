@@ -45,7 +45,6 @@ export const components = [
 
 export default {
   title: 'Form/Combobox',
-  tags: ['draft'],
   excludeStories: ['components']
 };
 

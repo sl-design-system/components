@@ -1,6 +1,7 @@
 {
   "name": "@sl-design-system/toggle-button",
   "version": "0.0.14",
+  "status": "preview",
   "description": "Toggle button component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

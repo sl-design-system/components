@@ -46,7 +46,6 @@ const copyIconName = async (name: string): Promise<void> => {
 
 export default {
   title: 'Media/Icon',
-  tags: ['stable'],
   args: {
     icons: Object.keys(window.SLDS?.icons || {})
   },

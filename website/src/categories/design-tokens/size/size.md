@@ -16,5 +16,8 @@ eleventyNavigation:
 </header>
 
 <section class="ds-subpage-section ds-tokens__wrapper">
-{% include "./size-tokens-table.njk" %}
+  <section class="ds-subpage-section__wrapper">
+  {% include "./size-tokens-table.njk" %}
+  </section>
+  <ds-vertical-tabs></ds-vertical-tabs>
 </section>

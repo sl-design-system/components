@@ -1,5 +1,30 @@
 <section class="ds-tokens">
-<h2 class="ds-tokens__heading">Size</h2>
+<h2 id="size" class="ds-tokens__heading"><a class="header-anchor" href="#size">Size</a></h2>
+<table class="ds-table"><thead>
+<tr>
+  <th>Example</th>
+  <th>Token</th>
+  <th>Value</th>
+</tr></thead>
+<tbody>
+{% for property in tokens.primitives.size -%}{% if property[1]['$value'] %}
+<tr>
+  <td>
+    <div class="ds-tokens__size-example">
+      <div class="ds-tokens__size" style="width: {{ property[1]['$value'] }}; height: {{ property[1]['$value'] }};"></div>
+      <code>{{ property[1]['$value'] }}</code>
+    </div>
+  </td>
+  <td><code>--sl-size-{{ property[0] }}</code></td>
+  <td><code>{{ property[1]['$value'] }}</code></td>
+</tr>
+{% endif %}{% endfor -%}
+</tbody>
+</table>
+</section>
+
+<section class="ds-tokens">
+<h2 id="size-deprecated-tokens" class="ds-tokens__heading"><a class="header-anchor" href="#size-deprecated-tokens">Size - deprecated tokens</a></h2>
 <table class="ds-table"><thead>
 <tr>
   <th>Value</th>

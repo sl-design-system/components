@@ -2,10 +2,6 @@ import { access, readFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { type Indexer, type IndexerOptions } from 'storybook/internal/types';
 
-// Caches to avoid redundant filesystem lookups during indexing.
-const packageJsonCache = new Map<string, Promise<string | null>>(),
-  statusCache = new Map<string, Promise<string | null>>();
-
 /**
  * Walks up the directory tree from `fileName` until it finds a `package.json`,
  * returning its absolute path, or `null` if none is found before the root.
@@ -19,7 +15,7 @@ export async function findNearestPackageJson(fileName: string): Promise<string |
     try {
       await access(packageJsonPath);
       return packageJsonPath;
-    } catch (err) {
+    } catch {
       // If the file doesn't exist, move up to the parent directory
       const parentDir = dirname(currentDir);
       if (parentDir === currentDir) {

@@ -2,6 +2,14 @@ import { access, readFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { type Indexer, type IndexerOptions } from 'storybook/internal/types';
 
+// Caches to avoid redundant filesystem lookups during indexing.
+const packageJsonCache = new Map<string, Promise<string | null>>(),
+  statusCache = new Map<string, Promise<string | null>>();
+
+/**
+ * Walks up the directory tree from `fileName` until it finds a `package.json`,
+ * returning its absolute path, or `null` if none is found before the root.
+ */
 export async function findNearestPackageJson(fileName: string): Promise<string | null> {
   let currentDir = dirname(fileName);
 
@@ -23,6 +31,10 @@ export async function findNearestPackageJson(fileName: string): Promise<string |
   }
 }
 
+/**
+ * Returns the `"status"` field from the nearest `package.json` relative to
+ * `storiesFileName`, or `null` if the field is absent or the file cannot be read.
+ */
 export async function getComponentStatus(storiesFileName: string): Promise<string | null> {
   const packageJsonPath = await findNearestPackageJson(storiesFileName);
   if (!packageJsonPath) {
@@ -39,6 +51,12 @@ export async function getComponentStatus(storiesFileName: string): Promise<strin
   }
 }
 
+/**
+ * Wraps each Storybook indexer so that the component's `"status"` value is
+ * appended to every story's tags list. This makes the status available to
+ * `storybook-addon-tag-badges` without having to declare it manually in every
+ * stories file.
+ */
 export async function injectComponentStatusTags(existingIndexers: Indexer[] = []): Promise<Indexer[]> {
   return existingIndexers.map(indexer => {
     return ({
@@ -48,13 +66,17 @@ export async function injectComponentStatusTags(existingIndexers: Indexer[] = []
           existingOutput = await indexer.createIndex(fileName, options);
 
         return existingOutput.map(entry => {
-          const { tags = [] } = entry;
-
-          if (status) {
-            tags.push(status);
+          if (!status) {
+            return entry;
           }
 
-          return entry;
+          const tags = entry.tags ?? [];
+
+          // Avoid adding a duplicate tag if it is somehow already present.
+          return {
+            ...entry,
+            tags: tags.includes(status) ? tags : [...tags, status]
+          };
         });
       }
     });

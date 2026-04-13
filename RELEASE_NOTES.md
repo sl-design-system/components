@@ -13,7 +13,7 @@ The release notes are ordered by the date the release was made. From latest, to 
 - [`button`](https://github.com/sl-design-system/components/blob/main/packages/components/button/CHANGELOG.md) has been updated to `v2.0.0` with the following breaking changes:
   - The component now renders a native `<button>` inside the shadow DOM, changing the DOM structure. `delegatesFocus` is used to delegate focus to the inner button, so keyboard navigation and accessibility remain intact.
   - The `icon-only` attribute and `iconOnly` property have been removed in favor of the `:state(icon-only)` CSS custom state.
-  - The new DOM structure allows using the [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API) via `command`, `commandfor`, and `commandForElement` properties for declaratively opening and closing dialogs without JavaScript. Requires `@sl-design-system/dialog` to be updated to the latest version.
+  - The new DOM structure allows using the [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API) via the `command` and `commandfor` attributes, and the `commandFor` and `commandForElement` properties, for declaratively opening and closing dialogs without JavaScript. Requires `@sl-design-system/dialog` to be updated to the latest version.
 
 ## New features
 

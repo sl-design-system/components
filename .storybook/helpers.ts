@@ -28,51 +28,60 @@ export async function findNearestPackageJson(fileName: string): Promise<string |
 }
 
 /**
- * Returns the `"status"` field from the nearest `package.json` relative to
- * `storiesFileName`, or `null` if the field is absent or the file cannot be read.
+ * Returns the `"status"` and `"version"` fields from the nearest `package.json`
+ * relative to `storiesFileName`, or `null` for absent fields.
  */
-export async function getComponentStatus(storiesFileName: string): Promise<string | null> {
+export async function getComponentMetadata(
+  storiesFileName: string
+): Promise<{ status: string | null; version: string | null }> {
   const packageJsonPath = await findNearestPackageJson(storiesFileName);
   if (!packageJsonPath) {
-    return null;
+    return { status: null, version: null };
   }
 
   try {
     const packageJson = JSON.parse(await readFile(packageJsonPath, 'utf-8'));
 
-    return packageJson.status || null;
+    return {
+      status: packageJson.status || null,
+      version: packageJson.version || null
+    };
   } catch (err) {
     console.error(`Error reading package.json at ${packageJsonPath}:`, err);
-    return null;
+    return { status: null, version: null };
   }
 }
 
 /**
- * Wraps each Storybook indexer so that the component's `"status"` value is
- * appended to every story's tags list. This makes the status available to
- * `storybook-addon-tag-badges` without having to declare it manually in every
+ * Wraps each Storybook indexer so that the component's `"status"` and `"version"`
+ * values are appended to every story's tags list. This makes the metadata available
+ * to `storybook-addon-tag-badges` without having to declare it manually in every
  * stories file.
  */
-export async function injectComponentStatusTags(existingIndexers: Indexer[] = []): Promise<Indexer[]> {
+export async function injectComponentMetadata(existingIndexers: Indexer[] = []): Promise<Indexer[]> {
   return existingIndexers.map(indexer => {
     return ({
       test: indexer.test,
       async createIndex(fileName: string, options: IndexerOptions) {
-        const status = await getComponentStatus(fileName),
+        const { status, version } = await getComponentMetadata(fileName),
           existingOutput = await indexer.createIndex(fileName, options);
 
         return existingOutput.map(entry => {
-          if (!status) {
-            return entry;
+          let tags = entry.tags ?? [];
+
+          // Avoid adding duplicate tags if they are somehow already present.
+          if (status && !tags.includes(status)) {
+            tags = [...tags, status];
           }
 
-          const tags = entry.tags ?? [];
+          if (version) {
+            const versionTag = `v:${version}`;
+            if (!tags.includes(versionTag)) {
+              tags = [...tags, versionTag];
+            }
+          }
 
-          // Avoid adding a duplicate tag if it is somehow already present.
-          return {
-            ...entry,
-            tags: tags.includes(status) ? tags : [...tags, status]
-          };
+          return { ...entry, tags };
         });
       }
     });

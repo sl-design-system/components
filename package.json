@@ -366,7 +366,9 @@
         }
       },
       "files": [
-        ".storybook/main.ts"
+        ".storybook/helpers.ts",
+        ".storybook/main.ts",
+        ".storybook/manager.ts"
       ],
       "dependencies": [
         {

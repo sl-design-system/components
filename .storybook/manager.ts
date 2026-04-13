@@ -1,3 +1,4 @@
+import { skip } from 'node:test';
 import { addons } from 'storybook/manager-api';
 import { color, create } from 'storybook/theming';
 
@@ -15,6 +16,14 @@ const baseStyle = {
   paddingInline: 6
 }
 
+const display = {
+  sidebar: [
+    { type: 'group', skipInherited: false },
+    { type: 'component', skipInherited: true }
+  ]
+};
+
+
 addons.setConfig({
   enableShortcuts: false,
   theme,
@@ -28,7 +37,8 @@ addons.setConfig({
           background: `color-mix(in srgb, ${color.positive}, transparent 80%)`,
           color: `color-mix(in srgb, ${color.darker} 70%, ${color.positive})`
         }
-      }
+      },
+      display
     },
     {
       tags: 'preview',
@@ -39,7 +49,8 @@ addons.setConfig({
           background: `color-mix(in srgb, ${color.secondary}, transparent 80%)`,
           color: `color-mix(in srgb, ${color.darker} 70%, ${color.secondary})`
         }
-      }
+      },
+      display
     },
     {
       tags: 'draft',
@@ -50,6 +61,28 @@ addons.setConfig({
           background: `color-mix(in srgb, ${color.darker}, transparent 80%)`,
           color: color.darker
         }
+      },
+      display
+    },
+    {
+      tags: {
+        prefix: /^v$/i
+      },
+      badge: ({ getTagSuffix, tag }) => {
+        const version = getTagSuffix(tag);
+
+        return {
+          text: `v${version}`,
+          style: {
+            ...baseStyle,
+            background: `color-mix(in srgb, ${color.darker}, transparent 80%)`,
+            color: color.darker
+          }
+        };
+      },
+      display: {
+        sidebar: false,
+        toolbar: true
       }
     }
   ]

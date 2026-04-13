@@ -1,5 +1,23 @@
 # @sl-design-system/date-field
 
+## 0.1.1
+
+### Patch Changes
+
+- [#3077](https://github.com/sl-design-system/components/pull/3077) [`03d369c`](https://github.com/sl-design-system/components/commit/03d369cfb7fccd00ee0d4572b854213df138b1dd) - Fixes a rare issue where it would display an incorrect value if you drag and drop text inside the input parts.
+
+- [#3123](https://github.com/sl-design-system/components/pull/3123) [`5d4d740`](https://github.com/sl-design-system/components/commit/5d4d740e249baa31f8dfe27055faeb8c56c8d21e) - Improved focus handling; clicking on the associated label works and the focus state when navigating to the chooser-button is improved
+
+- [#3125](https://github.com/sl-design-system/components/pull/3125) [`50af60e`](https://github.com/sl-design-system/components/commit/50af60e9372ae9b8c0bda2c5160f57de23528a2d) - Fix field not growing when it has an explicit width
+
+- Updated dependencies [[`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`dd96d1b`](https://github.com/sl-design-system/components/commit/dd96d1b88f030a7b4a81b51d77a8461b5692909c), [`99c1464`](https://github.com/sl-design-system/components/commit/99c1464e46f0f6c2f17d7d8ccd62f58bacaceeb3), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538)]:
+  - @sl-design-system/button@2.0.0
+  - @sl-design-system/button-bar@1.5.0
+  - @sl-design-system/shared@0.12.0
+  - @sl-design-system/form@1.3.6
+  - @sl-design-system/calendar@0.0.6
+  - @sl-design-system/text-field@1.6.9
+
 ## 0.1.0
 
 ### Minor Changes

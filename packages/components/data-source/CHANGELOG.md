@@ -1,5 +1,18 @@
 # @sl-design-system/data-source
 
+## 0.4.0
+
+### Minor Changes
+
+- [#3130](https://github.com/sl-design-system/components/pull/3130) [`f2493fb`](https://github.com/sl-design-system/components/commit/f2493fb09e2f6c31cd84826351078ea324621640) - Add `getSelectedItems()` method to ArrayListDataSource
+
+  This is a utility method that will return the raw data objects of all currently selected items. This method is unique to `ArrayListDataSource` because it depends on all data items being available in memory.
+
+### Patch Changes
+
+- Updated dependencies [[`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`dd96d1b`](https://github.com/sl-design-system/components/commit/dd96d1b88f030a7b4a81b51d77a8461b5692909c), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538)]:
+  - @sl-design-system/shared@0.12.0
+
 ## 0.3.0
 
 ### Minor Changes

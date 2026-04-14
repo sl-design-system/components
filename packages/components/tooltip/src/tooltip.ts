@@ -387,15 +387,17 @@ export class Tooltip extends LitElement {
       return;
     }
 
+    const normalizedAnchorElement = this.#normalizeAnchorElement(anchorElement);
+
     // Ignore events from open popovers that are nested *inside* the anchor (for example a menu item inside
     // an open menu-button). Still allow anchors that themselves live inside an open popover, such as a grid
     // bulk action button inside a floating action bar.
-    if (this.#isInsideNestedOpenPopover(event, anchorElement)) {
+    if (this.#isInsideNestedOpenPopover(event, normalizedAnchorElement)) {
       return;
     }
 
     // Track anchors as soon as they are detected, even when showing is delayed.
-    this.#knownAnchors.add(anchorElement);
+    this.#knownAnchors.add(normalizedAnchorElement);
 
     // For hover events
     if (event.type === 'pointerover') {
@@ -404,9 +406,9 @@ export class Tooltip extends LitElement {
 
       // If already open, update anchor immediately to avoid "stickiness"
       if (isPopoverOpen(this)) {
-        this.#showTooltip(anchorElement, this.#openedByFocus, anchorRoot);
+        this.#showTooltip(normalizedAnchorElement, this.#openedByFocus, anchorRoot);
       } else {
-        this.#timer = setTimeout(() => this.#showTooltip(anchorElement, false, anchorRoot), this.showDelay);
+        this.#timer = setTimeout(() => this.#showTooltip(normalizedAnchorElement, false, anchorRoot), this.showDelay);
       }
       return;
     }
@@ -427,15 +429,15 @@ export class Tooltip extends LitElement {
 
       // If already open (e.g. tabbing between shared buttons), update anchor immediately
       if (isPopoverOpen(this)) {
-        this.#prepareKeyboardAnchors(anchorElement);
-        this.#showTooltip(anchorElement, getHasFocusVisible(), anchorRoot);
+        this.#prepareKeyboardAnchors(normalizedAnchorElement);
+        this.#showTooltip(normalizedAnchorElement, getHasFocusVisible(), anchorRoot);
       } else {
         requestAnimationFrame(() => {
           const hasFocusVisible = getHasFocusVisible();
 
           if (hasFocusVisible) {
-            this.#prepareKeyboardAnchors(anchorElement);
-            this.#showTooltip(anchorElement, true, anchorRoot);
+            this.#prepareKeyboardAnchors(normalizedAnchorElement);
+            this.#showTooltip(normalizedAnchorElement, true, anchorRoot);
           }
         });
       }
@@ -614,11 +616,11 @@ export class Tooltip extends LitElement {
    * only expose the tooltip relation through reflected/forwarded ARIA.
    */
   #discoverAnchorsByScan = (): void => {
-    const root = this.getRootNode() as ParentNode;
-
-    for (const element of Array.from(root.querySelectorAll<HTMLElement>('*'))) {
-      if (this.#matchesAnchor(element)) {
-        this.#knownAnchors.add(this.#normalizeAnchorElement(element));
+    for (const root of this.#getAnchorSearchRoots()) {
+      for (const element of Array.from(root.querySelectorAll<HTMLElement>('*'))) {
+        if (this.#matchesAnchor(element)) {
+          this.#knownAnchors.add(this.#normalizeAnchorElement(element));
+        }
       }
     }
   };
@@ -647,6 +649,31 @@ export class Tooltip extends LitElement {
       this.#discoverAnchorsByScan();
       this.#preparedKeyboardAnchorRoots.add(root);
     }
+  };
+
+  #getAnchorSearchRoots = (): ParentNode[] => {
+    const roots: ParentNode[] = [];
+    const seen = new Set<Node>();
+    let root: Node | null = this.getRootNode();
+
+    while (root && !seen.has(root)) {
+      seen.add(root);
+
+      if (root instanceof Document) {
+        roots.push(root);
+        break;
+      }
+
+      const shadowRoot = this.#getShadowRoot(root);
+      if (!shadowRoot) {
+        break;
+      }
+
+      roots.push(shadowRoot);
+      root = shadowRoot.host.getRootNode();
+    }
+
+    return roots;
   };
 
   #findAssignedSlotRoot = (anchorElement: HTMLElement, path: EventTarget[]): ShadowRoot | undefined => {

@@ -25,7 +25,9 @@ function flattenTokens(obj, prefix) {
 }
 
 module.exports = {
-  space: flattenTokens(primitives.space, '--sl-space-'),
-  spaceOffset: flattenTokens(baseNew.space, '--sl-space-')
+  space: [
+    ...flattenTokens(primitives.space, '--sl-space-'),
+    ...flattenTokens(baseNew.space, '--sl-space-')
+  ]
 };
 

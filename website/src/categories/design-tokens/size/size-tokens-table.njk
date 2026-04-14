@@ -2,9 +2,9 @@
 <h2 id="size" class="ds-tokens__heading"><a class="header-anchor" href="#size">Size</a></h2>
 <table class="ds-table"><thead>
 <tr>
-  <th>Example</th>
-  <th>Token</th>
   <th>Value</th>
+  <th>Token title</th>
+  <th>Token</th>
 </tr></thead>
 <tbody>
 {% for property in tokens.primitives.size -%}{% if property[1]['$value'] %}
@@ -15,8 +15,8 @@
       <code>{{ property[1]['$value'] }}</code>
     </div>
   </td>
+  <td class="ds-tokens__description">size {{ property[0] }}</td>
   <td><code>--sl-size-{{ property[0] }}</code></td>
-  <td><code>{{ property[1]['$value'] }}</code></td>
 </tr>
 {% endif %}{% endfor -%}
 </tbody>

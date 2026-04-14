@@ -26,8 +26,10 @@ function flattenTokens(obj, prefix) {
 }
 
 module.exports = {
-  primitives: flattenTokens(primitives['opacity-new'], '--sl-opacity-new-'),
-  system: flattenTokens(system.opacity, '--sl-opacity-'),
+  primitives: [
+    ...flattenTokens(primitives['opacity-new'], '--sl-opacity-new-'),
+    ...flattenTokens(system.opacity, '--sl-opacity-')
+  ],
   theme: flattenTokens(themeNew.opacity, '--sl-opacity-')
 };
 

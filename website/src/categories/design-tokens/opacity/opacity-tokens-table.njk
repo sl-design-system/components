@@ -12,7 +12,7 @@
   <td>
     <div class="ds-tokens__opacity-example">
       <div class="ds-tokens__opacity-triangles">
-        <div class="ds-tokens__triangle" style="opacity: {{ item.value }};{% if item.value == '0' %}display: none;{% endif %}"></div>
+        <div class="ds-tokens__triangle" style="opacity: {{ item.value }};"></div>
       </div>
       <code>{{ item.value }}</code>
     </div>
@@ -25,30 +25,10 @@
 </table>
 </section>
 
-<section class="ds-tokens">
-<h2 id="opacity-system" class="ds-tokens__heading"><a class="header-anchor" href="#opacity-system">Opacity - system</a></h2>
-<table class="ds-table"><thead>
-<tr>
-  <th>Value</th>
-  <th>Token title</th>
-  <th>Token</th>
-</tr></thead>
-<tbody>
-{% for item in tokens.opacityTokens.system -%}
-<tr>
-  <td>
-    <code>{{ item.value }}</code>
-  </td>
-  <td class="ds-tokens__description">{{ item.title }}</td>
-  <td><code>{{ item.token }}</code></td>
-</tr>
-{% endfor -%}
-</tbody>
-</table>
-</section>
 
 <section class="ds-tokens">
 <h2 id="opacity-theme" class="ds-tokens__heading"><a class="header-anchor" href="#opacity-theme">Opacity - theme tokens</a></h2>
+<h3>Based on Sanoma Learning theme</h3>
 <table class="ds-table"><thead>
 <tr>
   <th>Value</th>
@@ -59,7 +39,12 @@
 {% for item in tokens.opacityTokens.theme -%}
 <tr>
   <td>
-    <code>{{ item.value }}</code>
+    <div class="ds-tokens__opacity-example">
+      <div class="ds-tokens__opacity-triangles">
+        <div class="ds-tokens__triangle" style="opacity: var({{ item.token }});"></div>
+      </div>
+      <code>{{ item.value }}</code>
+    </div>
   </td>
   <td class="ds-tokens__description">{{ item.title }}</td>
   <td><code>{{ item.token }}</code></td>

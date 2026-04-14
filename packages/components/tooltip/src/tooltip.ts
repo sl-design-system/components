@@ -426,12 +426,14 @@ export class Tooltip extends LitElement {
 
       // If already open (e.g. tabbing between shared buttons), update anchor immediately
       if (isPopoverOpen(this)) {
+        this.#prepareKeyboardAnchors(anchorElement);
         this.#showTooltip(anchorElement, getHasFocusVisible(), anchorRoot);
       } else {
         requestAnimationFrame(() => {
           const hasFocusVisible = getHasFocusVisible();
 
           if (hasFocusVisible) {
+            this.#prepareKeyboardAnchors(anchorElement);
             this.#showTooltip(anchorElement, true, anchorRoot);
           }
         });
@@ -970,16 +972,22 @@ export class Tooltip extends LitElement {
   #showTooltip = (element: HTMLElement, openedByFocus = false, anchorRoot?: ShadowRoot): void => {
     const normalizedElement = this.#normalizeAnchorElement(element);
     const wasOpen = isPopoverOpen(this),
-      anchorChanged = this.anchorElement !== normalizedElement;
-    const movedToAnchorRoot =
-      this.#canMoveToAnchorRoot(normalizedElement) && this.#moveToAnchorRoot(normalizedElement, anchorRoot);
+      anchorChanged = this.anchorElement !== normalizedElement,
+      targetAnchorRoot = anchorRoot ?? this.#findAssignedSlotRoot(normalizedElement, []),
+      canMoveToAnchorRoot = !!targetAnchorRoot && this.#canMoveToAnchorRoot(normalizedElement);
+
+    if (canMoveToAnchorRoot) {
+      this.#moveToAnchorRoot(normalizedElement, targetAnchorRoot);
+    }
+
+    const isInAnchorRoot = !!targetAnchorRoot && this.getRootNode() === targetAnchorRoot;
 
     this.#openedByFocus = openedByFocus;
     this.anchorElement = normalizedElement;
     this.#knownAnchors.add(normalizedElement);
-    this.#syncSlotWithAnchor(normalizedElement, movedToAnchorRoot);
+    this.#syncSlotWithAnchor(normalizedElement, isInAnchorRoot);
 
-    if (movedToAnchorRoot) {
+    if (isInAnchorRoot) {
       this.#preserveAnchorRelation(normalizedElement);
     }
 

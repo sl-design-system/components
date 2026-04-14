@@ -42,6 +42,7 @@ doc-sidebar {
   inline-size: 100%;
   justify-self: center;
   max-inline-size: 48rem;
+  min-inline-size: 0;
   padding: var(--sl-size-400);
 }
 

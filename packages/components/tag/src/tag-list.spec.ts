@@ -383,7 +383,7 @@ describe('sl-tag-list', () => {
       expect(el.stackInlineSize).to.equal(40);
     });
 
-    it('should unstack tags after a stale collapsed width measurement state', async () => {
+    it('should unstack tags after a stale collapsed-width measurement', async () => {
       el = await fixture(html`
         <sl-tag-list stacked style="gap: 10px; padding: 0; margin: 0; border: none;">
           <sl-tag style="inline-size: 100px;">Tag 1</sl-tag>

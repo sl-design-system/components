@@ -15,7 +15,6 @@ try {
 
 export default {
   title: 'Date & Time/Calendar/Select Month',
-  tags: ['draft'],
   args: {
     month: new Date()
   },

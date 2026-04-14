@@ -48,7 +48,6 @@ Icon.register(
 
 export default {
   title: 'Actions/Menu/Menu button',
-  tags: ['preview'],
   args: {
     alignSelf: 'center',
     body: 'Button',

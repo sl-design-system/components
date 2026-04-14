@@ -1,6 +1,7 @@
 {
   "name": "@sl-design-system/time-field",
   "version": "0.1.1",
+  "status": "draft",
   "description": "Time field component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

@@ -1,5 +1,6 @@
 import { type StorybookConfig } from '@storybook/web-components-vite';
 import { argv } from 'node:process';
+import { injectComponentMetadata } from './helpers.ts';
 
 const devMode = !argv.includes('build');
 
@@ -12,11 +13,13 @@ const config: StorybookConfig = {
   addons: [
     '@storybook/addon-a11y',
     '@storybook/addon-docs',
-    '@storybook/addon-vitest'
+    '@storybook/addon-vitest',
+    'storybook-addon-tag-badges'
   ],
   core: {
     disableTelemetry: true
   },
+  experimental_indexers: async indexers => injectComponentMetadata(indexers),
   framework: '@storybook/web-components-vite',
   refs: {
     angular: {

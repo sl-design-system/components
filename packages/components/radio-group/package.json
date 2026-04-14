@@ -1,6 +1,7 @@
 {
   "name": "@sl-design-system/radio-group",
   "version": "1.1.9",
+  "status": "stable",
   "description": "Radio group component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

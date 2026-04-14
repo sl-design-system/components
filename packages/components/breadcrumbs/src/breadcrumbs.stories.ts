@@ -12,7 +12,6 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Navigation/Breadcrumbs',
-  tags: ['stable'],
   globals: {
     viewport: undefined
   },

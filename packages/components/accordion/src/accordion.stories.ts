@@ -12,7 +12,6 @@ export type Story = StoryObj<Props>;
 
 export default {
   title: 'Layout/Accordion',
-  tags: ['stable'],
   args: {
     iconType: 'plusminus',
     single: false

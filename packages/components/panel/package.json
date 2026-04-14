@@ -1,6 +1,7 @@
 {
   "name": "@sl-design-system/panel",
   "version": "0.3.4",
+  "status": "draft",
   "description": "Panel component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

@@ -68,7 +68,7 @@ export class Infotip extends ScopedElementsMixin(LitElement) {
     this.append(this.#contentCopy);
 
     this.#observer = new MutationObserver(() => this.#syncContent());
-    this.#observer.observe(this, { childList: true, characterData: true, subtree: true });
+    this.#observer.observe(this, { childList: true, characterData: true, attributes: true, subtree: true });
   }
 
   override firstUpdated(): void {

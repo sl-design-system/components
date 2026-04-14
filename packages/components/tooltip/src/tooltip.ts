@@ -622,8 +622,8 @@ export class Tooltip extends LitElement {
    */
   #discoverAnchorsByScan = (): void => {
     for (const root of this.#getAnchorSearchRoots()) {
-      for (const element of Array.from(root.querySelectorAll<HTMLElement>('*'))) {
-        if (this.#matchesAnchor(element)) {
+      for (const element of Array.from(root.querySelectorAll('*'))) {
+        if (element instanceof HTMLElement && this.#matchesAnchor(element)) {
           this.#knownAnchors.add(this.#normalizeAnchorElement(element));
         }
       }

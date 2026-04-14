@@ -341,7 +341,13 @@ export class Tooltip extends LitElement {
     // focused anchor on the next frame and sync the tooltip to that element.
     if (event.key === 'Tab' && isPopoverOpen(this) && this.#openedByFocus) {
       requestAnimationFrame(() => {
-        const focusedAnchor = this.#findFocusedAnchor() ?? this.#findKnownFocusedAnchor();
+        let focusedAnchor = this.#findFocusedAnchor() ?? this.#findKnownFocusedAnchor();
+        const currentAnchor = this.anchorElement;
+
+        if (!focusedAnchor && currentAnchor instanceof HTMLElement) {
+          this.#prepareKeyboardAnchors(currentAnchor);
+          focusedAnchor = this.#findFocusedAnchor() ?? this.#findKnownFocusedAnchor();
+        }
 
         if (focusedAnchor && focusedAnchor !== this.anchorElement && this.#matchesAnchor(focusedAnchor)) {
           this.#showTooltip(focusedAnchor, true);
@@ -387,7 +393,6 @@ export class Tooltip extends LitElement {
 
     // Track anchors as soon as they are detected, even when showing is delayed.
     this.#knownAnchors.add(anchorElement);
-    this.#discoverAnchors();
 
     // For hover events
     if (event.type === 'pointerover') {
@@ -411,6 +416,8 @@ export class Tooltip extends LitElement {
       if (!(anchorElement instanceof HTMLElement) || !this.#matchesAnchor(anchorElement)) {
         return;
       }
+
+      this.#prepareKeyboardAnchors(anchorElement);
 
       const path = event.composedPath();
       const getHasFocusVisible = (): boolean =>
@@ -588,17 +595,51 @@ export class Tooltip extends LitElement {
     Array.from(this.#knownAnchors).find(anchor => anchor.isConnected && anchor.matches(':focus-within'));
 
   /**
-   * Cache anchors that currently reference this tooltip before later DOM updates
-   * clear reflected ARIA relations on proxy targets. This keeps shared keyboard
-   * navigation working for components like sl-button that forward ARIA into shadow DOM.
+   * Start with cheap lookups: explicit ARIA attributes in this root and anchors we
+   * already observed before. This covers the common cases without scanning the full DOM.
    */
-  #discoverAnchors = (): void => {
+  #seedKnownAnchors = (): void => {
+    for (const anchor of this.#getAriaAnchors()) {
+      this.#knownAnchors.add(this.#normalizeAnchorElement(anchor));
+    }
+
+    void this.#getKnownAnchors();
+  };
+
+  /**
+   * As a last resort for keyboard navigation, scan the root and cache anchors that
+   * only expose the tooltip relation through reflected/forwarded ARIA.
+   */
+  #discoverAnchorsByScan = (): void => {
     const root = this.getRootNode() as ParentNode;
 
     for (const element of Array.from(root.querySelectorAll<HTMLElement>('*'))) {
       if (this.#matchesAnchor(element)) {
         this.#knownAnchors.add(this.#normalizeAnchorElement(element));
       }
+    }
+  };
+
+  /**
+   * Shared keyboard flows need a stable cache because browsers can clear reflected
+   * ARIA relations on proxy targets while focus is moving between anchors.
+   */
+  #prepareKeyboardAnchors = (anchorElement: HTMLElement): void => {
+    this.#seedKnownAnchors();
+
+    if (this.#knownAnchors.size > 1) {
+      return;
+    }
+
+    const proxyTarget = (anchorElement as Element & { getProxyTarget?(): Element | null }).getProxyTarget?.(),
+      internals = (anchorElement as HTMLElement & { internals?: ElementInternals }).internals,
+      reliesOnReflectedRelation =
+        this.#hasAnyReflectedRelation(anchorElement) ||
+        this.#hasAnyReflectedRelation(proxyTarget) ||
+        this.#hasAnyReflectedRelation(internals);
+
+    if (reliesOnReflectedRelation) {
+      this.#discoverAnchorsByScan();
     }
   };
 

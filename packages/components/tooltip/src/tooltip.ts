@@ -332,6 +332,36 @@ export class Tooltip extends LitElement {
   #onKeydown(event: KeyboardEvent): void {
     if (isPopoverOpen(this) && event.key === 'Escape') {
       this.#hideTooltip();
+      return;
+    }
+
+    // `focusin` from delegated focus inside shadow DOM is not always observed on the
+    // same root as the tooltip. When keyboard focus moves with Tab between shared
+    // anchors (for example sl-button elements inside sl-button-bar), re-read the
+    // focused anchor on the next frame and sync the tooltip to that element.
+    if (event.key === 'Tab' && isPopoverOpen(this) && this.#openedByFocus) {
+      requestAnimationFrame(() => {
+        const focusedAnchor = this.#findFocusedAnchor() ?? this.#findKnownFocusedAnchor();
+
+        if (focusedAnchor && focusedAnchor !== this.anchorElement && this.#matchesAnchor(focusedAnchor)) {
+          this.#showTooltip(focusedAnchor, true);
+          return;
+        }
+
+        if (
+          focusedAnchor &&
+          focusedAnchor !== this.anchorElement &&
+          this.#knownAnchors.has(focusedAnchor) &&
+          focusedAnchor.matches(':focus-within')
+        ) {
+          this.#showTooltip(focusedAnchor, true);
+          return;
+        }
+
+        if (!focusedAnchor && !this.anchorElement?.matches(':focus-within')) {
+          this.#hideTooltip();
+        }
+      });
     }
   }
 
@@ -357,6 +387,7 @@ export class Tooltip extends LitElement {
 
     // Track anchors as soon as they are detected, even when showing is delayed.
     this.#knownAnchors.add(anchorElement);
+    this.#discoverAnchors();
 
     // For hover events
     if (event.type === 'pointerover') {
@@ -551,6 +582,24 @@ export class Tooltip extends LitElement {
     }
 
     return this.#findAnchorFromElement(activeElement);
+  };
+
+  #findKnownFocusedAnchor = (): HTMLElement | undefined =>
+    Array.from(this.#knownAnchors).find(anchor => anchor.isConnected && anchor.matches(':focus-within'));
+
+  /**
+   * Cache anchors that currently reference this tooltip before later DOM updates
+   * clear reflected ARIA relations on proxy targets. This keeps shared keyboard
+   * navigation working for components like sl-button that forward ARIA into shadow DOM.
+   */
+  #discoverAnchors = (): void => {
+    const root = this.getRootNode() as ParentNode;
+
+    for (const element of Array.from(root.querySelectorAll<HTMLElement>('*'))) {
+      if (this.#matchesAnchor(element)) {
+        this.#knownAnchors.add(this.#normalizeAnchorElement(element));
+      }
+    }
   };
 
   #findAssignedSlotRoot = (anchorElement: HTMLElement, path: EventTarget[]): ShadowRoot | undefined => {

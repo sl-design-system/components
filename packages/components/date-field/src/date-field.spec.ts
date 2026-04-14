@@ -388,6 +388,16 @@ describe('sl-date-field', () => {
       expect(dialog).to.contain('sl-calendar');
     });
 
+    it('should hide the extra controls area when there are no actions', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      const buttonBar = el.renderRoot.querySelector('sl-button-bar');
+
+      expect(buttonBar).to.match(':state(empty)');
+      expect(getComputedStyle(buttonBar!)).to.have.property('display', 'none');
+    });
+
     it('should hide popover when calendar date is selected', async () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
@@ -1908,6 +1918,16 @@ describe('sl-date-field', () => {
         await el.updateComplete;
 
         expect(el.value).to.equalDate(new Date(2026, 2, 14));
+      });
+
+      it('should show the extra controls area when confirmation is required', async () => {
+        el.renderRoot.querySelector('sl-field-button')?.click();
+        await new Promise(resolve => setTimeout(resolve));
+
+        const buttonBar = el.renderRoot.querySelector('sl-button-bar');
+
+        expect(buttonBar).not.to.match(':state(empty)');
+        expect(getComputedStyle(buttonBar!)).to.have.property('display', 'flex');
       });
 
       it('should not emit sl-change immediately when calendar date is selected', async () => {

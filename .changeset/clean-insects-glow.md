@@ -1,5 +1,6 @@
 ---
 '@sl-design-system/calendar': patch
+'@sl-design-system/date-field': patch
 ---
 
-Align styles for indicators, gaps, paddings, width and font-weight
+Align calendar and date-field spacing, padding and width behavior with the updated picker layout

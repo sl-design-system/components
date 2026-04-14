@@ -47,7 +47,6 @@
   --_br-color: var(--sl-color-border-disabled);
 
   color: var(--sl-color-foreground-disabled);
-  pointer-events: none;
 
   slot,
   button {
@@ -55,7 +54,7 @@
   }
 }
 
-:host(:focus-visible) {
+:host(:state(focus-visible)) {
   outline-color: var(--sl-color-border-focused);
   position: relative;
   z-index: 1; // Make sure the focus ring is above other elements
@@ -84,6 +83,7 @@ button {
   flex-shrink: 0;
   inline-size: calc(var(--sl-size-300) - var(--sl-size-borderWidth-default) * 2);
   justify-content: center;
+  outline: 0;
   padding: 0;
 
   @media (prefers-reduced-motion: no-preference) {

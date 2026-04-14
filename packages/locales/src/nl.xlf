@@ -10,10 +10,6 @@
   <source>Loading</source>
   <target>Laden</target>
 </trans-unit>
-<trans-unit id="sl.tag.removalInstructions">
-  <source>Press the delete or backspace key to remove this item</source>
-  <target>Druk op de delete- of backspacetoets om dit item te verwijderen</target>
-</trans-unit>
 <trans-unit id="sl.common.selected">
   <source>Selected</source>
   <target>Geselecteerd</target>
@@ -425,6 +421,10 @@
 <trans-unit id="sl.calendar.rangeNoLaterThan">
   <source>No later than <x id="0" equiv-text="${format(this.max, this.locale, this.#helperTextFormatOptions)}"/></source>
   <target>Uiterlijk <x id="0" equiv-text="${format(this.max, this.locale, this.#helperTextFormatOptions)}"/></target>
+</trans-unit>
+<trans-unit id="sl.tag.remove">
+  <source>Remove tag '<x id="0" equiv-text="${this.label}"/>'</source>
+  <target>Verwijder tag '<x id="0" equiv-text="${this.label}"/>'</target>
 </trans-unit>
 </body>
 </file>

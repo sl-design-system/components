@@ -99,7 +99,6 @@ export const templates = {
   'sl.select.validation.valueMissing': 'Kies een optie uit de lijst.',
   'sl.tabs.showAll': 'Toon alles',
   'sl.tag.listOfHiddenElements': 'Lijst met verborgen elementen',
-  'sl.tag.removalInstructions': 'Druk op de delete- of backspacetoets om dit item te verwijderen',
   'sl.timeField.empty': 'Leeg',
   'sl.timeField.rangeOverflow': str`Voer een tijd in die niet later is dan ${0}.`,
   'sl.timeField.rangeUnderflow': str`Voer een tijd in die niet eerder is dan ${0}.`,
@@ -109,5 +108,6 @@ export const templates = {
   'sl.timeField.typeMismatch': 'Voer een geldige tijd in.',
   'sl.timeField.valueMissing': 'Voer een tijd in.',
   'sl.toolBar.showMore': 'Meer tonen',
-  'sl.tree.loadingMessage': 'Laden'
+  'sl.tree.loadingMessage': 'Laden',
+  'sl.tag.removeLabel': str`Remove tag '${0}'`
 };

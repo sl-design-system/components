@@ -14,7 +14,7 @@ describe('sl-tag', () => {
       el = await fixture(html`<sl-tag>My label</sl-tag>`);
     });
 
-    it('should not have an explicit', () => {
+    it('should not have an explicit size', () => {
       expect(el).not.to.have.attribute('size');
       expect(el.size).to.be.undefined;
     });
@@ -47,11 +47,8 @@ describe('sl-tag', () => {
       el.removable = true;
       await el.updateComplete;
 
+      expect(el).to.have.attribute('removable');
       expect(el.renderRoot.querySelector('button')).to.exist;
-    });
-
-    it('should not have a tabindex', () => {
-      expect(el).not.to.have.attribute('tabindex');
     });
 
     it('should not have a tooltip', async () => {
@@ -60,50 +57,73 @@ describe('sl-tag', () => {
 
       expect(el).not.to.have.attribute('aria-describedby');
     });
+
+    it('should not be focusable', async () => {
+      el.focus();
+      await el.updateComplete;
+
+      expect(el).not.to.match(':focus');
+      expect(el).not.to.match(':state(focus-visible)');
+    });
   });
 
   describe('removable', () => {
+    let button: HTMLButtonElement;
+
     beforeEach(async () => {
       el = await fixture(html`<sl-tag removable>My label</sl-tag>`);
+      button = el.renderRoot.querySelector('button')!;
     });
 
-    it('should have an ARIA description indicating how to remove the tag', () => {
-      expect(el).to.have.attribute('aria-description', 'Press the delete or backspace key to remove this item');
+    it('should not have the focus-visible state', () => {
+      expect(el).not.to.match(':state(focus-visible)');
     });
 
-    it('should have a tabindex of 0', () => {
-      expect(el).to.have.attribute('tabindex', '0');
-    });
-
-    it('should have a tabindex of -1 when disabled', async () => {
-      el.disabled = true;
+    it('should have the focus-visible state when focused', async () => {
+      el.focus();
       await el.updateComplete;
 
-      expect(el).to.have.attribute('tabindex', '-1');
+      expect(el).to.match(':state(focus-visible)');
     });
 
     it('should have a button', () => {
-      expect(el.renderRoot.querySelector('button')).to.exist;
+      expect(button).to.exist;
     });
 
-    it('should hide the button for ARIA', () => {
-      expect(el.renderRoot.querySelector('button')).to.have.attribute('aria-hidden', 'true');
+    it('should focus the button when the tag is focused', async () => {
+      el.focus();
+      await el.updateComplete;
+
+      expect(button).to.match(':focus');
+    });
+
+    it('should have an accessible label on the remove button', () => {
+      expect(button).to.have.attribute('aria-label', "Remove tag 'My label'");
+    });
+
+    it('should mark the button as aria-disabled when the tag is disabled', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('aria-disabled', 'true');
     });
 
     it('should not be be removed when it is disabled and remove button is clicked', async () => {
-      el.setAttribute('disabled', '');
+      const onRemove = spy(el, 'remove');
+
+      el.disabled = true;
       await el.updateComplete;
 
-      el.renderRoot.querySelector('button')?.click();
+      button.click();
       await el.updateComplete;
 
-      expect(el).to.exist;
+      expect(onRemove).not.to.have.been.called;
     });
 
     it('should be removed when the button is clicked using the keyboard', async () => {
       const onRemove = spy(el, 'remove');
 
-      el.renderRoot.querySelector('button')?.focus();
+      el.focus();
       await userEvent.keyboard('{Enter}');
 
       expect(onRemove).to.have.been.calledOnce;
@@ -131,7 +151,7 @@ describe('sl-tag', () => {
       const onRemove = spy();
 
       el.addEventListener('sl-remove', onRemove);
-      el.renderRoot.querySelector('button')?.click();
+      button.click();
       await el.updateComplete;
 
       expect(onRemove).to.have.been.calledOnce;

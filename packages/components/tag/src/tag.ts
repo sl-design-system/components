@@ -1,10 +1,11 @@
-import { localized, msg } from '@lit/localize';
+import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
-import { EventEmitter, EventsController, event } from '@sl-design-system/shared';
+import { EventEmitter, event } from '@sl-design-system/shared';
 import { Tooltip } from '@sl-design-system/tooltip';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './tag.scss.js';
 
 declare global {
@@ -29,7 +30,12 @@ export type TagVariant = 'neutral' | 'info';
  * <sl-tag>Tag label</sl-tag>
  * ```
  *
+ * @customElement sl-tag
+ *
  * @slot default - The tag label.
+ *
+ * @csspart label - The wrapper around the tag label.
+ * @csspart button - The remove button.
  */
 @localized()
 export class Tag extends ScopedElementsMixin(LitElement) {
@@ -42,10 +48,16 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   }
 
   /** @internal */
+  static override shadowRootOptions: ShadowRootInit = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: true
+  };
+
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  // eslint-disable-next-line no-unused-private-class-members
-  #events = new EventsController(this, { keydown: this.#onKeydown });
+  /** @internal */
+  #internals = this.attachInternals();
 
   /**
    * Observe changes in size, so we can check whether we need to show tooltips
@@ -69,7 +81,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
    * Whether the tag component is removable.
    * @default false
    */
-  @property({ type: Boolean }) removable?: boolean;
+  @property({ type: Boolean, reflect: true }) removable?: boolean;
 
   /** @internal Emits when the tag is removed. */
   @event({ name: 'sl-remove' }) removeEvent!: EventEmitter<SlRemoveEvent>;
@@ -106,35 +118,20 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     super.disconnectedCallback();
   }
 
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    if (changes.has('disabled') || changes.has('removable')) {
-      if (this.removable) {
-        this.setAttribute('tabindex', this.disabled ? '-1' : '0');
-      } else if (this.disabled || changes.get('removable')) {
-        this.removeAttribute('tabindex');
-      }
-    }
-
-    if (changes.has('removable')) {
-      if (this.removable) {
-        this.setAttribute(
-          'aria-description',
-          msg('Press the delete or backspace key to remove this item', { id: 'sl.tag.removalInstructions' })
-        );
-      } else {
-        this.removeAttribute('aria-description');
-      }
-    }
-  }
-
   override render(): TemplateResult {
     return html`
       <slot @slotchange=${this.#onSlotChange} part="label"></slot>
-      ${this.removable && !this.disabled
+      ${this.removable
         ? html`
-            <button @click=${this.#onRemove} ?disabled=${this.disabled} aria-hidden="true" part="button" tabindex="-1">
+            <button
+              @blur=${this.#onBlur}
+              @click=${this.#onRemove}
+              @focus=${this.#onFocus}
+              @keydown=${this.#onKeydown}
+              aria-disabled=${ifDefined(this.disabled ? 'true' : undefined)}
+              aria-label=${msg(str`Remove tag '${this.label}'`, { id: 'sl.tag.remove' })}
+              part="button"
+            >
               <sl-icon name="xmark"></sl-icon>
             </button>
           `
@@ -142,8 +139,16 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     `;
   }
 
+  #onBlur(): void {
+    this.#internals.states.delete('focus-visible');
+  }
+
+  #onFocus(): void {
+    this.#internals.states.add('focus-visible');
+  }
+
   #onKeydown(event: KeyboardEvent): void {
-    if (this.removable && (event.key === 'Backspace' || event.key === 'Delete')) {
+    if (event.key === 'Backspace' || event.key === 'Delete') {
       this.#onRemove(event);
     }
   }
@@ -179,14 +184,6 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     } else if (this.#tooltip) {
       this.#tooltip();
       this.#tooltip = undefined;
-    }
-
-    // If the contents of the tag overflows, make sure it is keyboard focusable,
-    // so the user can tab to it.
-    if (!this.disabled && (this.removable || this.#tooltip)) {
-      this.setAttribute('tabindex', '0');
-    } else if (!this.hasAttribute('aria-labelledby')) {
-      this.removeAttribute('tabindex');
     }
   }
 

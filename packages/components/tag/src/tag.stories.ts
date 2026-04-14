@@ -1,7 +1,6 @@
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { styleMap } from 'lit/directives/style-map.js';
 import '../register.js';
 import { type Tag } from './tag.js';
 
@@ -44,7 +43,7 @@ export default {
       ?disabled=${disabled}
       ?removable=${removable}
       size=${ifDefined(size)}
-      style=${styleMap({ maxWidth })}
+      style=${ifDefined(maxWidth ? `max-inline-size: ${maxWidth}` : undefined)}
       variant=${ifDefined(variant)}
     >
       ${label}
@@ -75,6 +74,13 @@ export const Overflow: Story = {
 
 export const Removable: Story = {
   args: {
+    removable: true
+  }
+};
+
+export const RemovableDisabled: Story = {
+  args: {
+    disabled: true,
     removable: true
   }
 };

@@ -265,7 +265,11 @@ export class Tooltip extends LitElement {
           }
 
           const anchorForEvent = this.#findAnchorInEvent(event),
-            focusedAnchor = this.#findFocusedAnchor();
+            relatedTargetAnchor =
+              event instanceof FocusEvent
+                ? this.#findAnchorFromElement(event.relatedTarget as Element | null)
+                : undefined,
+            focusedAnchor = relatedTargetAnchor ?? this.#findFocusedAnchor();
 
           const movedToAnotherSharedAnchor =
             !!focusedAnchor && focusedAnchor !== this.anchorElement && this.#matchesAnchor(focusedAnchor);

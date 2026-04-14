@@ -962,8 +962,13 @@ describe('sl-tooltip', () => {
       expect(tooltip.getRootNode()).to.equal(anchor.ownerDocument);
       expect(Array.from(anchor.ariaDescribedByElements ?? [])).to.include.members([externalDescription, tooltip]);
     });
+  });
 
-    it('should sync and clear the tooltip slot when reparenting is skipped', async () => {
+  describe('with native anchors that keep the tooltip in the light DOM', () => {
+    let slottedAnchor: HTMLButtonElement;
+    let defaultAnchor: HTMLButtonElement;
+
+    beforeEach(async () => {
       el = await fixture(html`
         <div style="block-size: 400px; inline-size: 400px;">
           <tooltip-assigned-slot-host>
@@ -977,13 +982,15 @@ describe('sl-tooltip', () => {
         </div>
       `);
 
-      const slottedAnchor = el.querySelector('#slotted-anchor') as HTMLButtonElement,
-        defaultAnchor = el.querySelector('#default-anchor') as HTMLButtonElement;
+      slottedAnchor = el.querySelector('#slotted-anchor') as HTMLButtonElement;
+      defaultAnchor = el.querySelector('#default-anchor') as HTMLButtonElement;
       tooltip = el.querySelector('sl-tooltip') as Tooltip;
 
       await tooltip.updateComplete;
       await new Promise(resolve => requestAnimationFrame(resolve));
+    });
 
+    it('should sync and clear the tooltip slot when reparenting is skipped', async () => {
       slottedAnchor.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
       await tooltip.updateComplete;
       await waitFor(10);

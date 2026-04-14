@@ -1005,7 +1005,54 @@ describe('sl-tooltip', () => {
       await tooltip.updateComplete;
       await waitFor(10);
 
-      expect(tooltip).not.to.have.attribute('slot');
+      expect(tooltip.hasAttribute('slot')).to.be.false;
+    });
+  });
+
+  describe('when switching from a shadow-root anchor to a light DOM anchor', () => {
+    let assignedSlotHost: TooltipAssignedSlotHost;
+    let shadowAnchor: Button;
+    let nativeAnchor: HTMLButtonElement;
+    let externalDescription: HTMLElement;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <div style="block-size: 400px; inline-size: 400px;">
+          <tooltip-assigned-slot-host>
+            <sl-button id="shadow-anchor" slot="actions" aria-describedby="tooltip">Shadow anchor</sl-button>
+            <button id="native-anchor" aria-describedby="external-description tooltip">Native anchor</button>
+          </tooltip-assigned-slot-host>
+          <span id="external-description">External description</span>
+          <sl-tooltip id="tooltip" show-delay="0" hide-delay="0">Tooltip via assigned slot</sl-tooltip>
+        </div>
+      `);
+
+      assignedSlotHost = el.querySelector('tooltip-assigned-slot-host') as TooltipAssignedSlotHost;
+      shadowAnchor = el.querySelector('#shadow-anchor') as Button;
+      nativeAnchor = el.querySelector('#native-anchor') as HTMLButtonElement;
+      externalDescription = el.querySelector('#external-description') as HTMLElement;
+      tooltip = el.querySelector('sl-tooltip') as Tooltip;
+
+      await tooltip.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+    });
+
+    it('should move back into the current anchor tree when reparenting is not allowed', async () => {
+      shadowAnchor.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
+      await tooltip.updateComplete;
+      await waitFor(10);
+
+      expect(tooltip.getRootNode()).to.equal(assignedSlotHost.shadowRoot);
+
+      shadowAnchor.dispatchEvent(new Event('pointerout', { bubbles: true, composed: true }));
+      nativeAnchor.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
+      await tooltip.updateComplete;
+      await waitFor(10);
+
+      expect(tooltip.matches(':popover-open')).to.be.true;
+      expect(tooltip.getRootNode()).to.equal(nativeAnchor.getRootNode());
+      expect(tooltip.previousElementSibling).to.equal(nativeAnchor);
+      expect(Array.from(nativeAnchor.ariaDescribedByElements ?? [])).to.include.members([externalDescription, tooltip]);
     });
   });
 
@@ -1049,7 +1096,7 @@ describe('sl-tooltip', () => {
           proxyDescribedBy?.split(/\s+/).includes(tooltip!.id) === true ||
           proxyDescribedByElements.includes(tooltip)
       ).to.be.true;
-      expect(button).not.to.have.attribute('aria-labelledby');
+      expect(button.hasAttribute('aria-labelledby')).to.be.false;
 
       await waitFor((tooltip.showDelay ?? 150) + 10);
       expect(tooltip.matches(':popover-open')).to.be.true;

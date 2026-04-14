@@ -974,10 +974,13 @@ export class Tooltip extends LitElement {
     const wasOpen = isPopoverOpen(this),
       anchorChanged = this.anchorElement !== normalizedElement,
       targetAnchorRoot = anchorRoot ?? this.#findAssignedSlotRoot(normalizedElement, []),
-      canMoveToAnchorRoot = !!targetAnchorRoot && this.#canMoveToAnchorRoot(normalizedElement);
+      canMoveToAnchorRoot = !!targetAnchorRoot && this.#canMoveToAnchorRoot(normalizedElement),
+      currentTooltipRoot = this.getRootNode();
 
     if (canMoveToAnchorRoot) {
       this.#moveToAnchorRoot(normalizedElement, targetAnchorRoot);
+    } else if (currentTooltipRoot !== normalizedElement.getRootNode() && normalizedElement.parentElement) {
+      normalizedElement.insertAdjacentElement('afterend', this);
     }
 
     const isInAnchorRoot = !!targetAnchorRoot && this.getRootNode() === targetAnchorRoot;

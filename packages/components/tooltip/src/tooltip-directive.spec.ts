@@ -127,7 +127,7 @@ describe('tooltip()', () => {
     const tooltipEl = el.nextElementSibling as Tooltip | null;
 
     expect(tooltipEl).to.exist;
-    expect(el).to.have.attribute('aria-labelledby', tooltipEl?.id);
+    expect(el.getAttribute('aria-labelledby')).to.equal(tooltipEl?.id ?? null);
 
     lazySpy.restore();
   });

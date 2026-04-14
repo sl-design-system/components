@@ -697,6 +697,18 @@ export class Tooltip extends LitElement {
     return assignedSlotRoot;
   };
 
+  /**
+   * Event-time slot information can become stale before a delayed show fires.
+   * Prefer the anchor's current assigned slot root when it exists, and only fall
+   * back to the previously captured root for cases that are only discoverable from
+   * the original event path.
+   */
+  #resolveAnchorRoot = (anchorElement: HTMLElement, anchorRootHint?: ShadowRoot): ShadowRoot | undefined => {
+    const currentAssignedSlotRoot = this.#getShadowRoot(anchorElement.assignedSlot?.getRootNode());
+
+    return currentAssignedSlotRoot ?? anchorRootHint;
+  };
+
   #getAriaAnchors = (): HTMLElement[] => {
     const escapedId = this.id ? CSS.escape(this.id) : undefined;
     if (!escapedId) {
@@ -1005,7 +1017,7 @@ export class Tooltip extends LitElement {
     const normalizedElement = this.#normalizeAnchorElement(element);
     const wasOpen = isPopoverOpen(this),
       anchorChanged = this.anchorElement !== normalizedElement,
-      targetAnchorRoot = anchorRoot ?? this.#findAssignedSlotRoot(normalizedElement, []),
+      targetAnchorRoot = this.#resolveAnchorRoot(normalizedElement, anchorRoot),
       canMoveToAnchorRoot = !!targetAnchorRoot && this.#canMoveToAnchorRoot(normalizedElement),
       currentTooltipRoot = this.getRootNode();
 

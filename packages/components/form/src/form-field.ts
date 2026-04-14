@@ -136,22 +136,11 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       Object.entries(this.#errors)
         .filter(([id]) => !errors.find(([errorId]) => errorId === id))
         .forEach(([id, error]) => {
+          const control = this.querySelector<HTMLElement & FormControl>(`#${id}`);
+          this.#updateAriaDescribedBy({ remove: error.id, control });
+
           error.remove();
           delete this.#errors[id];
-
-          // Remove the id from the `aria-describedby` attribute if it exists
-          const control = this.querySelector<HTMLElement & FormControl>(`#${id}`)!,
-            describedby = control.getAttribute('aria-describedby');
-
-          if (describedby) {
-            const describedByIds = describedby.split(' ').filter(existingId => existingId !== error.id);
-
-            if (describedByIds.length) {
-              control.formControlElement.setAttribute('aria-describedby', describedByIds.join(' '));
-            } else {
-              control.formControlElement.removeAttribute('aria-describedby');
-            }
-          }
         });
 
       // Create or update error elements for each error
@@ -175,11 +164,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
           this.prepend(this.#hint);
         }
       } else {
-        const describedby = this.control?.formControlElement.getAttribute('aria-describedby');
-        if (describedby) {
-          const ids = describedby.split(' ').filter(id => id !== this.#hint!.id);
-          this.control?.formControlElement.setAttribute('aria-describedby', ids.join(' '));
-        }
+        this.#updateAriaDescribedBy({ remove: this.#hint?.id });
 
         this.#hint?.remove();
         this.#hint = undefined;
@@ -225,14 +210,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
 
       const control = error.for ? this.querySelector<HTMLElement & FormControl>(`#${error.for}`) : this.control;
       if (control) {
-        const describedby = control.formControlElement.getAttribute('aria-describedby'),
-          ids = describedby ? describedby.split(' ') : [];
-
-        // Add the ID of the error to the `aria-describedby` attribute
-        if (!ids.includes(error.id)) {
-          ids.push(error.id);
-          control.formControlElement.setAttribute('aria-describedby', ids.join(' '));
-        }
+        this.#updateAriaDescribedBy({ add: error.id, control });
       }
     });
 
@@ -247,21 +225,10 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     if (hint) {
       this.#hint = hint;
       this.#hint.id ||= `sl-form-field-hint-${nextUniqueId++}`;
-
-      if (this.control) {
-        const describedby = this.control.formControlElement.getAttribute('aria-describedby');
-        if (describedby) {
-          const ids = describedby.split(' ');
-          if (!ids.includes(this.#hint.id)) {
-            ids.push(this.#hint.id);
-            this.control.formControlElement.setAttribute('aria-describedby', ids.join(' '));
-          }
-        } else {
-          this.control.formControlElement.setAttribute('aria-describedby', this.#hint.id);
-        }
-      }
+      this.#updateAriaDescribedBy({ add: this.#hint.id });
     } else {
-      this.#label = undefined;
+      this.#updateAriaDescribedBy({ remove: this.#hint?.id });
+      this.#hint = undefined;
     }
   }
 
@@ -272,18 +239,9 @@ export class FormField extends ScopedElementsMixin(LitElement) {
 
     if (infotip) {
       this.#infotip = infotip;
-
-      if (this.control && infotip.contentId) {
-        const describedby = this.control.formControlElement.getAttribute('aria-describedby'),
-          ids = describedby?.split(' ') || [];
-
-        if (!ids.includes(infotip.contentId)) {
-          ids.push(infotip.contentId);
-
-          this.control.formControlElement.setAttribute('aria-describedby', ids.join(' '));
-        }
-      }
+      this.#updateAriaDescribedBy({ add: infotip?.contentId });
     } else {
+      this.#updateAriaDescribedBy({ remove: this.#infotip?.contentId });
       this.#infotip = undefined;
     }
 
@@ -321,26 +279,8 @@ export class FormField extends ScopedElementsMixin(LitElement) {
         this.error = this.control.getLocalizedValidationMessage();
       }
 
-      if (this.#hint || this.#infotip) {
-        const describedby = this.control.formControlElement.getAttribute('aria-describedby');
-        if (describedby) {
-          const ids = describedby.split(' ');
-          if (this.#hint && !ids.includes(this.#hint.id)) {
-            ids.push(this.#hint.id);
-          }
-
-          if (this.#infotip?.contentId && !ids.includes(this.#infotip.contentId)) {
-            ids.push(this.#infotip.contentId);
-          }
-
-          this.control.formControlElement.setAttribute('aria-describedby', ids.join(' '));
-        } else {
-          this.control.formControlElement.setAttribute(
-            'aria-describedby',
-            [this.#hint?.id, this.#infotip?.contentId].filter(Boolean).join(' ')
-          );
-        }
-      }
+      this.#updateAriaDescribedBy({ add: this.#hint?.id });
+      this.#updateAriaDescribedBy({ add: this.#infotip?.contentId });
 
       if (this.#label) {
         this.#label.for = this.control.id;
@@ -352,6 +292,42 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       if (this.#label) {
         this.#label.for = this.#label.mark = undefined;
       }
+    }
+  }
+
+  #updateAriaDescribedBy({
+    add,
+    remove,
+    control
+  }: {
+    add?: string;
+    remove?: string;
+    control?: (HTMLElement & FormControl) | null;
+  }): void {
+    const target = control ?? this.control;
+    if (!target) {
+      return;
+    }
+
+    const element = target.formControlElement,
+      describedby = element.getAttribute('aria-describedby'),
+      ids = describedby ? describedby.split(' ') : [];
+
+    if (add && !ids.includes(add)) {
+      ids.push(add);
+    }
+
+    if (remove) {
+      const index = ids.indexOf(remove);
+      if (index !== -1) {
+        ids.splice(index, 1);
+      }
+    }
+
+    if (ids.length) {
+      element.setAttribute('aria-describedby', ids.join(' '));
+    } else {
+      element.removeAttribute('aria-describedby');
     }
   }
 

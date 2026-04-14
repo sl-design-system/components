@@ -6591,10 +6591,10 @@ __metadata:
     esbuild: "npm:^0.25.0"
     lit: "npm:^3.3.2"
     markdown-it: "npm:^14.1.1"
-    markdown-it-anchor: "npm:^9.2.0"
     markdown-it-attrs: "npm:^4.3.1"
     node-html-parser: "npm:^7.1.0"
     prismjs: "npm:^1.30.0"
+    slugify: "npm:^1.6.9"
   languageName: unknown
   linkType: soft
 
@@ -16799,16 +16799,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"markdown-it-anchor@npm:^9.2.0":
-  version: 9.2.0
-  resolution: "markdown-it-anchor@npm:9.2.0"
-  peerDependencies:
-    "@types/markdown-it": "*"
-    markdown-it: "*"
-  checksum: 10c0/1873f4223f6df227a4bf93688f14def2a69bbdf144c6257d1739eab4ac3818d3ac89c5c324fbb2d92e3980641c508a8893df36496e2f84c73630f51a94ad8d9b
-  languageName: node
-  linkType: hard
-
 "markdown-it-attrs@npm:^4.1.6":
   version: 4.1.6
   resolution: "markdown-it-attrs@npm:4.1.6"
@@ -21797,6 +21787,13 @@ __metadata:
   version: 1.6.8
   resolution: "slugify@npm:1.6.8"
   checksum: 10c0/1052797a5e7bc6263c6e8dc64ad41d6f5ae2fd2e3a17c2aead09ded002f10de75283ff0b4da2b04dd2fbd7fa2f38a83abeaa3ab8d29709ca68e7592edd6e90dc
+  languageName: node
+  linkType: hard
+
+"slugify@npm:^1.6.9":
+  version: 1.6.9
+  resolution: "slugify@npm:1.6.9"
+  checksum: 10c0/8473c566ae00c5db26bfbf6182a4a9478ab3c912a9c926e1fdb410736a77228bfca4fdc5c755b46fafa7d2d9900de482fd7a9bd5e5c91128c4743c2c072d88da
   languageName: node
   linkType: hard
 

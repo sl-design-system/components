@@ -140,15 +140,3 @@ The button component renders a native `<button>` element in its shadow DOM, ensu
 | `variant`  | `'primary' \| 'secondary' \| 'ghost' \| 'danger'` | `'secondary'` | Visual style of the button     |
 | `size`     | `'sm' \| 'md' \| 'lg'`                            | `'md'`        | Size of the button             |
 | `disabled` | `boolean`                                         | `false`       | Whether the button is disabled |
-
-## Installation
-
-```bash
-yarn add @sl-design-system/button
-```
-
-Then import and register the component:
-
-```javascript
-import '@sl-design-system/button/register.js';
-```

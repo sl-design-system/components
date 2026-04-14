@@ -15,7 +15,7 @@ markdown.use(markdownItAttrs, {
   allowedAttributes: []
 });
 
-markdown.use(markdownItAnchor, {
-  permalink: markdownItAnchor.permalink.headerLink(),
-  level: [2, 3]
-});
+// markdown.use(markdownItAnchor, {
+//   permalink: markdownItAnchor.permalink.headerLink(),
+//   level: [2, 3]
+// });

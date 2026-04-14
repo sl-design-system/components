@@ -4,8 +4,8 @@ import { basename, dirname, join, resolve } from 'node:path';
 import { parse as HTMLParse } from 'node-html-parser';
 import * as esbuild from 'esbuild';
 import eleventyNavigationPlugin from '@11ty/eleventy-navigation';
+import { anchorHeadingsTransformer } from './src/transformers/anchor-headings.js';
 import { codeExamplesTransformer } from './src/transformers/code-examples.js';
-import { headingTransformer } from './src/transformers/heading.js';
 import { getComponents } from './src/utils/manifest.js';
 import { markdown } from './src/utils/markdown.js';
 
@@ -82,7 +82,7 @@ export default async function (eleventyConfig) {
   eleventyConfig.addTransform('component', function (content) {
     let doc = HTMLParse(content, { blockTextElements: { code: true } });
 
-    const transformers = [headingTransformer(), codeExamplesTransformer()];
+    const transformers = [anchorHeadingsTransformer(), codeExamplesTransformer()];
 
     for (const transformer of transformers) {
       transformer.call(this, doc);

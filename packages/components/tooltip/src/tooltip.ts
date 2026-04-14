@@ -634,7 +634,7 @@ export class Tooltip extends LitElement {
 
     this.#seedKnownAnchors();
 
-    if (this.#knownAnchors.size > 1 || this.#preparedKeyboardAnchorRoots.has(root)) {
+    if (this.#preparedKeyboardAnchorRoots.has(root)) {
       return;
     }
 

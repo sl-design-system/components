@@ -21,6 +21,13 @@ declare global {
   }
 }
 
+const getRequiredColumnSize = (renderedWidth: number, scrollWidth: number): number | undefined => {
+  const minimumColumnSize = Math.ceil(renderedWidth),
+    requiredColumnSize = Math.max(minimumColumnSize, Math.ceil(scrollWidth));
+
+  return requiredColumnSize > minimumColumnSize ? requiredColumnSize : undefined;
+};
+
 @localized()
 export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
@@ -200,6 +207,10 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
     if (changes.has('localizedWeekOfYear') || changes.has('showWeekNumbers')) {
       this.#updateWeekNumberColumnSize();
+    }
+
+    if (changes.has('showWeekNumbers') && changes.get('showWeekNumbers') !== undefined) {
+      requestAnimationFrame(() => this.#scrollToMonth(0));
     }
 
     if (changes.has('max') || changes.has('min') || changes.has('month')) {
@@ -562,10 +573,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       return;
     }
 
-    const minimumColumnSize = Math.ceil(weekNumber.getBoundingClientRect().width),
-      requiredColumnSize = Math.max(minimumColumnSize, Math.ceil(weekNumber.scrollWidth));
+    const requiredColumnSize = getRequiredColumnSize(weekNumber.getBoundingClientRect().width, weekNumber.scrollWidth);
 
-    if (requiredColumnSize > minimumColumnSize) {
+    if (requiredColumnSize) {
       this.style.setProperty('--_week-number-column-size', `${requiredColumnSize}px`);
     }
 

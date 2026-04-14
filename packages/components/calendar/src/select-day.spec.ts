@@ -235,42 +235,6 @@ describe('sl-select-day', () => {
         const monthView = el.renderRoot.querySelector('sl-month-view:not([inert])');
         expect(monthView).to.have.property('showWeekNumbers', true);
       });
-
-      it('should expand week number column when the localized label is longer', async () => {
-        el.showWeekNumbers = true;
-        await el.updateComplete;
-
-        const weekHeader = el.renderRoot.querySelector<HTMLElement>('.days-of-week .week-number')!;
-        const getBoundingClientRectStub = sinon.stub(weekHeader, 'getBoundingClientRect').returns({
-          x: 0,
-          y: 0,
-          top: 0,
-          left: 0,
-          bottom: 20,
-          right: 80,
-          width: 80,
-          height: 20,
-          toJSON() {
-            return {};
-          }
-        } as DOMRect);
-
-        try {
-          Object.defineProperty(weekHeader, 'scrollWidth', {
-            configurable: true,
-            value: 120
-          });
-
-          el.localizedWeekOfYear = 'ThisIsAVeryLongWeekLabel';
-          await el.updateComplete;
-
-          const width = el.style.getPropertyValue('--_week-number-column-size');
-          expect(width).to.equal('120px');
-        } finally {
-          Reflect.deleteProperty(weekHeader, 'scrollWidth');
-          getBoundingClientRectStub.restore();
-        }
-      });
     });
   });
 

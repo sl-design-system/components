@@ -70,6 +70,17 @@ Buttons are available in three sizes:
 </sl-button-bar>
 ```
 
+### Disabled
+
+You can either use the `disabled` attribute to disable a button or set the `aria-disabled="true"` attribute for accessibility. The former will prevent the button from being focusable and will not trigger any events, while the latter will keep the button focusable but will indicate to assistive technologies that the action is unavailable.
+
+```html {.example}
+<sl-button-bar>
+  <sl-button disabled>Disabled</sl-button>
+  <sl-button aria-disabled="true">Aria Disabled</sl-button>
+</sl-button-bar>
+```
+
 ### Icon buttons
 
 Icon buttons are used for actions that can be represented by an icon, such as "close" or "edit". Always provide a text label for accessibility, either through an `<sl-tooltip>` or using `aria-label`.
@@ -86,6 +97,21 @@ Icon buttons are used for actions that can be represented by an icon, such as "c
     <sl-icon name="face-smile"></sl-icon>
   </sl-button>
   <sl-tooltip id="icon-button-tooltip">Smile!</sl-tooltip>
+</sl-button-bar>
+```
+
+### Link buttons
+
+Sometimes you want a link to look like a button. In that case, you can use the `fill="link"` attribute and wrap the button's content in an `<a href>` element.
+
+```html {.example}
+<sl-button-bar>
+  <sl-button fill="link">
+    <a href="https://example.com">Link</a>
+  </sl-button>
+  <sl-button fill="link">
+    <a href="https://example.com" target="_blank">New window</a>
+  </sl-button>
 </sl-button-bar>
 ```
 

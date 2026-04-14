@@ -32,22 +32,15 @@ body {
   }
 }
 
-/* ============================================
-   Sidebar
-   ============================================ */
-
 doc-sidebar {
   grid-area: sidebar;
 }
-
-/* ============================================
-   Main Content
-   ============================================ */
 
 .content {
   box-sizing: border-box;
   grid-area: content;
   inline-size: 100%;
+  justify-self: center;
   max-inline-size: 48rem;
   padding: var(--sl-size-400);
 }
@@ -55,7 +48,6 @@ doc-sidebar {
 .content h1 {
   color: var(--sl-color-foreground-plain);
   font: var(--sl-text-new-heading-2xl);
-  font-family: Roboto, var(--sl-text-new-typeset-fontFamily-heading), sans-serif;
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
   margin: 0;
   text-box-trim: trim-both;
@@ -64,7 +56,6 @@ doc-sidebar {
 .content h2 {
   color: var(--sl-color-foreground-plain);
   font: var(--sl-text-new-heading-xl);
-  font-family: Roboto, var(--sl-text-new-typeset-fontFamily-heading), sans-serif;
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
   margin-block: var(--sl-size-500) var(--sl-size-200);
 }
@@ -72,7 +63,6 @@ doc-sidebar {
 .content h3 {
   color: var(--sl-color-foreground-plain);
   font: var(--sl-text-new-heading-lg);
-  font-family: Roboto, var(--sl-text-new-typeset-fontFamily-heading), sans-serif;
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
   margin-block: var(--sl-size-400) var(--sl-size-150);
 }

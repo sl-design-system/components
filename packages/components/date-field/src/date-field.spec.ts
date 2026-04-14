@@ -397,13 +397,16 @@ describe('sl-date-field', () => {
       expect(dialog).to.match(':popover-open');
       expect(dialog).to.contain('sl-calendar');
 
-      const buttonBar = el.renderRoot.querySelector<HTMLElement>('sl-button-bar');
+      const buttonBar = el.renderRoot.querySelector<HTMLElement & { updateComplete?: Promise<unknown> }>('sl-button-bar');
 
       expect(buttonBar).to.exist;
 
       if (buttonBar == null) {
         throw new Error('Expected sl-button-bar to exist');
       }
+
+      await buttonBar.updateComplete;
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
       expect(buttonBar).to.match(':state(empty)');
       expect(getComputedStyle(buttonBar)).to.have.property('display', 'none');
     });
@@ -1942,6 +1945,8 @@ describe('sl-date-field', () => {
           throw new Error('Expected sl-button-bar to be rendered when confirmation is required');
         }
 
+        await (buttonBar as HTMLElement & { updateComplete?: Promise<unknown> }).updateComplete;
+        await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
         expect(buttonBar).not.to.match(':state(empty)');
         expect(getComputedStyle(buttonBar)).to.have.property('display', 'flex');
       });

@@ -11,7 +11,7 @@
 <tr>
   <td>
     <div class="ds-tokens__size-example">
-      <div class="ds-tokens__size" style="width: {{ property[1]['$value'] }}; height: {{ property[1]['$value'] }};"></div>
+      <div class="ds-tokens__size" style="width: min({{ property[1]['$value'] }}, 15rem); height: min({{ property[1]['$value'] }}, 15rem);"></div>
       <code>{{ property[1]['$value'] }}</code>
     </div>
   </td>
@@ -35,9 +35,8 @@
 {% for property in tokens.core.size -%}{% if property[1]['$value']%}{% if property[1]['$description'] %}
 <tr>
   <td>
-    {{property[0]}}
     <div class="ds-tokens__size-example">
-      <div class="ds-tokens__size" style="width: {{ property[1]['$value'] }}px; height: {{ property[1]['$value'] }}px;"></div>
+      <div class="ds-tokens__size" style="width: min({{ property[1]['$value'] }}{% if property[1]['$value'] != 0 %}px{% endif %}, 10rem); height: min({{ property[1]['$value'] }}{% if property[1]['$value'] != 0 %}px{% endif %}, 10rem);"></div>
       <code>{{ property[1]['$value'] }}{% if property[1]['$value'] != 0 %}px{% endif %}</code>
     </div>
   </td>

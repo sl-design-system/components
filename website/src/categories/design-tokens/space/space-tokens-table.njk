@@ -11,7 +11,7 @@
 <tr>
   <td>
     <div class="ds-tokens__space-example">
-      <div class="ds-tokens__space" style="width: var({{ item.token }}); height: var({{ item.token }});"></div>
+      <div class="ds-tokens__space" style="width: min(var({{ item.token }}), 15rem); height: min(var({{ item.token }}), 15rem);"></div>
       <code>{{ item.value }}</code>
     </div>
   </td>
@@ -36,7 +36,7 @@
 <tr>
   <td>
     <div class="ds-tokens__space-example">
-      <div class="ds-tokens__space" style="width: {{ property[1]['$value'] }}{% if property[1]['$value'] | hasNoUnit %}px{% endif %}; height: {{ property[1]['$value'] }}{% if property[1]['$value'] | hasNoUnit %}px{% endif %}"></div>
+      <div class="ds-tokens__space" style="width: min({{ property[1]['$value'] }}{% if property[1]['$value'] | hasNoUnit %}px{% endif %}, 15rem); height: min({{ property[1]['$value'] }}{% if property[1]['$value'] | hasNoUnit %}px{% endif %}, 15rem)"></div>
       <code>{{ property[1]['$value'] }}{% if property[1]['$value'] | hasNoUnit %}px{% endif %}</code>
     </div>
   </td>

@@ -65,6 +65,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   /** Number of completed passes before the initial visibility is considered stable. */
   #initialVisibilityPasses = 0;
 
+  /** Currently observed stack element, if stacked mode is active. */
+  #observedStack?: HTMLElement;
+
   #isStackedActive(): boolean {
     return this.stacked || this.hasAttribute('stacked');
   }
@@ -85,6 +88,24 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       cancelAnimationFrame(this.#initialVisibilityPassFrame);
       this.#initialVisibilityPassFrame = undefined;
     }
+  }
+
+  #syncStackObservation(): void {
+    const nextObservedStack = this.stacked ? this.stack : undefined;
+
+    if (this.#observedStack === nextObservedStack) {
+      return;
+    }
+
+    if (this.#observedStack) {
+      this.#resizeObserver.unobserve(this.#observedStack);
+    }
+
+    if (nextObservedStack) {
+      this.#resizeObserver.observe(nextObservedStack);
+    }
+
+    this.#observedStack = nextObservedStack;
   }
 
   /**
@@ -146,12 +167,14 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     this.setAttribute('role', 'list');
     this.#resetInitialVisibilityState();
+    this.#syncStackObservation();
 
     this.#resizeObserver.observe(this);
   }
 
   override disconnectedCallback(): void {
     this.#resizeObserver.disconnect();
+    this.#observedStack = undefined;
 
     if (this.#breakResizeObserverLoop) {
       clearTimeout(this.#breakResizeObserverLoop);
@@ -181,12 +204,13 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     if (changes.has('stacked')) {
       if (this.stacked && this.stack) {
         this.#resetInitialVisibilityState();
-        this.#resizeObserver.observe(this.stack);
       } else {
         this.#resetInitialVisibilityState();
         this.tags.forEach(tag => (tag.style.display = ''));
       }
     }
+
+    this.#syncStackObservation();
 
     if (changes.has('variant')) {
       this.tags?.forEach(tag => (tag.variant = this.variant));

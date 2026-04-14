@@ -1,6 +1,6 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { type TagList } from './tag-list.js';
@@ -203,6 +203,18 @@ describe('sl-tag-list', () => {
 
       expect(stack).not.to.have.class('double');
       expect(stack).not.to.have.class('triple');
+    });
+
+    it('should stop observing the previous stack element when stacked mode is disabled', async () => {
+      const stack = el.renderRoot.querySelector('.stack') as HTMLElement;
+      const unobserveSpy = vi.spyOn(ResizeObserver.prototype, 'unobserve');
+
+      el.stacked = false;
+      await el.updateComplete;
+
+      expect(unobserveSpy.mock.calls.some(([target]) => target === stack)).to.be.true;
+
+      unobserveSpy.mockRestore();
     });
   });
 

@@ -143,6 +143,9 @@ export class Tooltip extends LitElement {
   /** Whether the current open state was triggered by focus-based interaction. */
   #openedByFocus = false;
 
+  /** Roots where reflected-ARIA anchor discovery already performed a full-root scan. */
+  #preparedKeyboardAnchorRoots = new WeakSet<ParentNode>();
+
   /** Timer for showing/hiding the tooltip. */
   #timer?: ReturnType<typeof setTimeout>;
 
@@ -417,8 +420,6 @@ export class Tooltip extends LitElement {
         return;
       }
 
-      this.#prepareKeyboardAnchors(anchorElement);
-
       const path = event.composedPath();
       const getHasFocusVisible = (): boolean =>
         anchorElement.matches(':focus-visible') ||
@@ -627,9 +628,11 @@ export class Tooltip extends LitElement {
    * ARIA relations on proxy targets while focus is moving between anchors.
    */
   #prepareKeyboardAnchors = (anchorElement: HTMLElement): void => {
+    const root = this.getRootNode() as ParentNode;
+
     this.#seedKnownAnchors();
 
-    if (this.#knownAnchors.size > 1) {
+    if (this.#knownAnchors.size > 1 || this.#preparedKeyboardAnchorRoots.has(root)) {
       return;
     }
 
@@ -642,6 +645,7 @@ export class Tooltip extends LitElement {
 
     if (reliesOnReflectedRelation) {
       this.#discoverAnchorsByScan();
+      this.#preparedKeyboardAnchorRoots.add(root);
     }
   };
 

@@ -209,7 +209,10 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       this.#updateWeekNumberColumnSize();
     }
 
-    if (changes.has('showWeekNumbers') && changes.get('showWeekNumbers') !== undefined) {
+    if (
+      (changes.has('localizedWeekOfYear') && changes.get('localizedWeekOfYear') !== undefined) ||
+      (changes.has('showWeekNumbers') && changes.get('showWeekNumbers') !== undefined)
+    ) {
       requestAnimationFrame(() => this.#scrollToMonth(0));
     }
 
@@ -578,8 +581,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     if (requiredColumnSize) {
       this.style.setProperty('--_week-number-column-size', `${requiredColumnSize}px`);
     }
-
-    this.#scrollToMonth(0);
   }
 
   async #updateMonthViews(): Promise<void> {

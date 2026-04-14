@@ -25,6 +25,8 @@ declare global {
  *   </sl-tag-list>
  * ```
  *
+ * @customElement sl-tag-list
+ *
  * @slot default - The place for tags.
  */
 @localized()
@@ -200,6 +202,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     );
 
     this.tags.forEach(tag => {
+      tag.role = 'listitem';
       tag.size = this.size;
       tag.variant = this.variant;
       tag.setAttribute('role', 'listitem');

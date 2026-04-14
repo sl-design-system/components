@@ -5,7 +5,10 @@ function flattenTokens(obj, prefix) {
   const results = [];
   for (const [key, val] of Object.entries(obj)) {
     if (val && val['$type']) {
-      const rawValue = (val['$value'] || '').replace(/[{}]/g, '');
+      let rawValue = (typeof val['$value'] === 'string' ? val['$value'] : '').replace(/[{}]/g, '');
+      if (/\s[-+*/]\s/.test(rawValue)) {
+        rawValue = `calc(${rawValue})`;
+      }
       const tokenName = (prefix + key).replace(/^--sl-/, '');
       results.push({
         token: prefix + key,

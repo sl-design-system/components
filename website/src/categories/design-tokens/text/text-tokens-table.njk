@@ -11,7 +11,7 @@
 {% for item in tokens.textTokens.textNew -%}
 <tr>
   <td>
-    {% if item.category != 'icon' %}
+    {% if item.isIcon != true %}
     <p class="ds-tokens__text" style="{% if item.type == 'typography' %}font: var({{ item.token }});{% endif %}{% if item.type == 'fontFamilies' %}font-family: var({{ item.token }});{% endif %}{% if item.type == 'fontWeights' %}font-weight: var({{ item.token }});{% endif %} margin: 0;">Lorem ipsum</p>
     {% endif %}
     <code>{{ item.value }}</code>

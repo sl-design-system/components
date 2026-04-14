@@ -65,29 +65,14 @@ export const All: Story = {
     <div class="container">
       <span>md</span>
       <span>lg</span>
-      <sl-combobox placeholder="Empty" aria-label="Medium Empty">
+      <sl-combobox placeholder="Empty" aria-label="Choose an option">
         <sl-listbox>
           <sl-option>Option 1</sl-option>
           <sl-option>Option 2</sl-option>
           <sl-option>Option 3</sl-option>
         </sl-listbox>
       </sl-combobox>
-      <sl-combobox placeholder="Empty" size="lg" aria-label="Large Empty">
-        <sl-listbox>
-          <sl-option>Option 1</sl-option>
-          <sl-option>Option 2</sl-option>
-          <sl-option>Option 3</sl-option>
-        </sl-listbox>
-      </sl-combobox>
-
-      <sl-combobox placeholder="Selected" value="Option 2" aria-label="Medium Selected">
-        <sl-listbox>
-          <sl-option>Option 1</sl-option>
-          <sl-option>Option 2</sl-option>
-          <sl-option>Option 3</sl-option>
-        </sl-listbox>
-      </sl-combobox>
-      <sl-combobox placeholder="Selected" size="lg" value="Option 2" aria-label="Large Selected">
+      <sl-combobox placeholder="Empty" size="lg" aria-label="Choose an option">
         <sl-listbox>
           <sl-option>Option 1</sl-option>
           <sl-option>Option 2</sl-option>
@@ -95,14 +80,14 @@ export const All: Story = {
         </sl-listbox>
       </sl-combobox>
 
-      <sl-combobox select-only placeholder="Select only" aria-label="Medium Select only">
+      <sl-combobox placeholder="Selected" value="Option 2" aria-label="Choose an option">
         <sl-listbox>
           <sl-option>Option 1</sl-option>
           <sl-option>Option 2</sl-option>
           <sl-option>Option 3</sl-option>
         </sl-listbox>
       </sl-combobox>
-      <sl-combobox select-only placeholder="Select only" size="lg" aria-label="Large Select only">
+      <sl-combobox placeholder="Selected" size="lg" value="Option 2" aria-label="Choose an option">
         <sl-listbox>
           <sl-option>Option 1</sl-option>
           <sl-option>Option 2</sl-option>
@@ -110,14 +95,29 @@ export const All: Story = {
         </sl-listbox>
       </sl-combobox>
 
-      <sl-combobox disabled placeholder="Disabled" aria-label="Medium Disabled">
+      <sl-combobox select-only placeholder="Select only" aria-label="Choose an option">
         <sl-listbox>
           <sl-option>Option 1</sl-option>
           <sl-option>Option 2</sl-option>
           <sl-option>Option 3</sl-option>
         </sl-listbox>
       </sl-combobox>
-      <sl-combobox disabled placeholder="Disabled" size="lg" aria-label="Large Disabled">
+      <sl-combobox select-only placeholder="Select only" size="lg" aria-label="Choose an option">
+        <sl-listbox>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
+        </sl-listbox>
+      </sl-combobox>
+
+      <sl-combobox disabled placeholder="Disabled" aria-label="Choose an option">
+        <sl-listbox>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
+        </sl-listbox>
+      </sl-combobox>
+      <sl-combobox disabled placeholder="Disabled" size="lg" aria-label="Choose an option">
         <sl-listbox>
           <sl-option>Option 1</sl-option>
           <sl-option>Option 2</sl-option>

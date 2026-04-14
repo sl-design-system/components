@@ -37,7 +37,7 @@ export default {
     autocomplete: 'both',
     disabled: false,
     filterResults: false,
-    placeholder: 'Choose a component',
+    placeholder: '',
     selectOnly: false,
     virtualList: false
   },
@@ -67,29 +67,33 @@ export default {
     virtualList
   }) => {
     return html`
-      <sl-combobox
-        ?allow-custom-values=${allowCustomValues}
-        ?disabled=${disabled}
-        ?filter-results=${filterResults}
-        ?group-selected=${groupSelected}
-        ?select-only=${selectOnly}
-        .options=${virtualList ? options : undefined}
-        .value=${value}
-        autocomplete=${ifDefined(autocomplete)}
-        option-group-path=${ifDefined(optionGroupPath)}
-        option-label-path=${ifDefined(optionLabelPath)}
-        option-value-path=${ifDefined(optionValuePath)}
-        placeholder=${ifDefined(placeholder)}
-        style=${`max-width: ${maxWidth ?? 'none'}`}
+      <sl-form>
+        <sl-form-field label="Component">
+          <sl-combobox
+            ?allow-custom-values=${allowCustomValues}
+            ?disabled=${disabled}
+            ?filter-results=${filterResults}
+            ?group-selected=${groupSelected}
+            ?select-only=${selectOnly}
+            .options=${virtualList ? options : undefined}
+            .value=${value}
+            autocomplete=${ifDefined(autocomplete)}
+            option-group-path=${ifDefined(optionGroupPath)}
+            option-label-path=${ifDefined(optionLabelPath)}
+            option-value-path=${ifDefined(optionValuePath)}
+            placeholder=${ifDefined(placeholder)}
+            style=${`max-width: ${maxWidth ?? 'none'}`}
+          >
+            ${virtualList
+              ? nothing
+              : html`
+                  <sl-listbox>
+                    ${Array.isArray(options) ? options.map(o => html`<sl-option>${o}</sl-option>`) : options?.()}
+                  </sl-listbox>
+                `}
+          </sl-combobox>
+        </sl-form-field></sl-form
       >
-        ${virtualList
-          ? nothing
-          : html`
-              <sl-listbox>
-                ${Array.isArray(options) ? options.map(o => html`<sl-option>${o}</sl-option>`) : options?.()}
-              </sl-listbox>
-            `}
-      </sl-combobox>
     `;
   }
 } satisfies Meta<Props>;

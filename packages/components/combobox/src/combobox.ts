@@ -549,7 +549,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   #onFocus(): void {
-    if (!this.#pointerDown) {
+    if (this.#pointerDown) {
       this.wrapper?.showPopover();
     }
   }

@@ -6,6 +6,10 @@
 nav {
   display: flex;
   flex-direction: column;
+
+  &:has(:not([aria-current])) > ul:first-of-type > li:first-of-type > a {
+    anchor-name: --active-link;
+  }
 }
 
 h2 {

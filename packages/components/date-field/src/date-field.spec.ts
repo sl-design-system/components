@@ -397,9 +397,13 @@ describe('sl-date-field', () => {
       expect(dialog).to.match(':popover-open');
       expect(dialog).to.contain('sl-calendar');
 
-      const buttonBar = el.renderRoot.querySelector('sl-button-bar');
+      const buttonBar = el.renderRoot.querySelector<HTMLElement>('sl-button-bar');
 
       expect(buttonBar).to.exist;
+
+      if (buttonBar == null) {
+        throw new Error('Expected sl-button-bar to exist');
+      }
       expect(buttonBar).to.match(':state(empty)');
       expect(getComputedStyle(buttonBar)).to.have.property('display', 'none');
     });

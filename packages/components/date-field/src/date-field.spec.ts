@@ -392,10 +392,16 @@ describe('sl-date-field', () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
+      const dialog = el.renderRoot.querySelector('dialog[popover]');
+
+      expect(dialog).to.match(':popover-open');
+      expect(dialog).to.contain('sl-calendar');
+
       const buttonBar = el.renderRoot.querySelector('sl-button-bar');
 
+      expect(buttonBar).to.exist;
       expect(buttonBar).to.match(':state(empty)');
-      expect(getComputedStyle(buttonBar!)).to.have.property('display', 'none');
+      expect(getComputedStyle(buttonBar)).to.have.property('display', 'none');
     });
 
     it('should hide popover when calendar date is selected', async () => {
@@ -1924,10 +1930,16 @@ describe('sl-date-field', () => {
         el.renderRoot.querySelector('sl-field-button')?.click();
         await new Promise(resolve => setTimeout(resolve));
 
-        const buttonBar = el.renderRoot.querySelector('sl-button-bar');
+        expect(calendar.renderRoot.querySelector('sl-select-day')).to.exist;
+
+        const buttonBar = el.renderRoot.querySelector<HTMLElement>('sl-button-bar');
+
+        if (!buttonBar) {
+          throw new Error('Expected sl-button-bar to be rendered when confirmation is required');
+        }
 
         expect(buttonBar).not.to.match(':state(empty)');
-        expect(getComputedStyle(buttonBar!)).to.have.property('display', 'flex');
+        expect(getComputedStyle(buttonBar)).to.have.property('display', 'flex');
       });
 
       it('should not emit sl-change immediately when calendar date is selected', async () => {

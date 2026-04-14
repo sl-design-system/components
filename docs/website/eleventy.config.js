@@ -27,12 +27,9 @@ export default async function (eleventyConfig) {
     [join(themePath, 'fonts')]: 'theme/fonts'
   });
 
-  // Use absolute paths to prevent Eleventy's GlobRemap from changing chokidar's
-  // CWD, which causes a path mismatch in the template input cache and results
-  // in stale content during watch rebuilds.
   eleventyConfig.addWatchTarget(resolve('../../custom-elements.json'));
   eleventyConfig.addWatchTarget(resolve('../components/dist'));
-  eleventyConfig.setWatchThrottleWaitTime(10); // in milliseconds
+  eleventyConfig.setWatchThrottleWaitTime(100); // in milliseconds
 
   eleventyConfig.on('eleventy.beforeWatch', async changes => {
     let updateComponents = false;
@@ -96,8 +93,8 @@ export default async function (eleventyConfig) {
 
   eleventyConfig.on('eleventy.before', async () => {
     // Scan pages for icon names in eleventyNavigation frontmatter
-    const icons = new Set();
-    const files = readdirSync('src', { recursive: true });
+    const icons = new Set(),
+      files = readdirSync('src', { recursive: true });
 
     for (const file of files) {
       if (typeof file !== 'string' || !file.endsWith('.md')) continue;
@@ -142,14 +139,12 @@ export default async function (eleventyConfig) {
 
   return {
     dir: {
-      data: '../data',
       includes: '../includes',
       input: 'src/content',
       layouts: '../layouts',
       output: 'dist'
     },
     templateFormats: ['njk', 'md'],
-    markdownTemplateEngine: 'njk',
-    htmlTemplateEngine: 'njk'
+    markdownTemplateEngine: 'njk'
   };
 }

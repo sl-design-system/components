@@ -3,11 +3,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "eleventy --serve",
+    "start": "eleventy --serve --quiet",
     "build": "eleventy"
   },
   "dependencies": {
-    "@11ty/eleventy": "^3.1.5",
+    "@11ty/eleventy": "^4.0.0-alpha.7",
     "@11ty/eleventy-navigation": "^1.0.5",
     "@fortawesome/pro-regular-svg-icons": "^7.2.0",
     "@webcomponents/scoped-custom-element-registry": "^0.0.10",

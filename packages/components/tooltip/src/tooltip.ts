@@ -143,6 +143,9 @@ export class Tooltip extends LitElement {
   /** Whether the current open state was triggered by focus-based interaction. */
   #openedByFocus = false;
 
+  /** The root where the tooltip was originally connected before any runtime reparenting. */
+  #originalRoot?: Node;
+
   /** Roots where reflected-ARIA anchor discovery already performed a full-root scan. */
   #preparedKeyboardAnchorRoots = new WeakSet<ParentNode>();
 
@@ -178,6 +181,8 @@ export class Tooltip extends LitElement {
 
   override connectedCallback(): void {
     super.connectedCallback();
+
+    this.#originalRoot ??= this.getRootNode();
 
     this.setAttribute('popover', 'manual');
     this.setAttribute('role', 'tooltip');
@@ -1019,11 +1024,16 @@ export class Tooltip extends LitElement {
       anchorChanged = this.anchorElement !== normalizedElement,
       targetAnchorRoot = this.#resolveAnchorRoot(normalizedElement, anchorRoot),
       canMoveToAnchorRoot = !!targetAnchorRoot && this.#canMoveToAnchorRoot(normalizedElement),
-      currentTooltipRoot = this.getRootNode();
+      currentTooltipRoot = this.getRootNode(),
+      wasReparentedFromOriginalRoot = !!this.#originalRoot && currentTooltipRoot !== this.#originalRoot;
 
     if (canMoveToAnchorRoot) {
       this.#moveToAnchorRoot(normalizedElement, targetAnchorRoot);
-    } else if (currentTooltipRoot !== normalizedElement.getRootNode() && normalizedElement.parentElement) {
+    } else if (
+      wasReparentedFromOriginalRoot &&
+      currentTooltipRoot !== normalizedElement.getRootNode() &&
+      normalizedElement.parentElement
+    ) {
       normalizedElement.insertAdjacentElement('afterend', this);
     }
 

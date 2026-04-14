@@ -3,16 +3,17 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { Tooltip } from '@sl-design-system/tooltip';
-import { type CSSResultGroup, type TemplateResult, html } from 'lit';
-import { property } from 'lit/decorators.js';
+import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
+import { property, query, state } from 'lit/decorators.js';
 import styles from './copy-button.css' with { type: 'css' };
 
 Icon.register(faCopy);
 
-export class CopyButton extends ScopedElementsMixin(Button) {
+export class CopyButton extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
+      'sl-button': Button,
       'sl-icon': Icon,
       'sl-tooltip': Tooltip
     };
@@ -21,42 +22,51 @@ export class CopyButton extends ScopedElementsMixin(Button) {
   /** @internal */
   static override styles: CSSResultGroup = [Button.styles, styles];
 
-  /** Cleanup function for the lazy tooltip. */
-  #cleanupTooltip?: () => void;
+  /** The ID of the timeout used to hide the tooltip. */
+  #setTimeoutId?: number;
 
-  /** The DOM id of the element whose text content should be copied. */
-  @property() target?: string;
+  /** @internal */
+  @state() copyText = 'Copy';
 
-  override connectedCallback(): void {
-    super.connectedCallback();
+  /** The content to be copied to the clipboard. */
+  @property() content?: string;
 
-    this.fill ??= 'ghost';
-    this.addEventListener('click', this.#onClick);
+  /** @internal The tooltip element. */
+  @query('sl-tooltip') tooltip!: Tooltip;
 
-    this.#cleanupTooltip = Tooltip.lazy(this, tooltip => {
-      tooltip.textContent = 'Copy';
-    });
-  }
-
-  override disconnectedCallback(): void {
-    this.removeEventListener('click', this.#onClick);
-    this.#cleanupTooltip?.();
+  disconnectedCallback(): void {
+    if (this.#setTimeoutId) {
+      clearTimeout(this.#setTimeoutId);
+      this.#setTimeoutId = undefined;
+    }
 
     super.disconnectedCallback();
   }
 
   override render(): TemplateResult {
-    return html`<sl-icon name="far-copy"></sl-icon>`;
+    return html`
+      <sl-button @click=${this.#onClick} aria-labelledby="tooltip" ?disabled=${!this.content} fill="ghost">
+        <sl-icon name="far-copy"></sl-icon>
+      </sl-button>
+      <sl-tooltip id="tooltip">${this.copyText}</sl-tooltip>
+    `;
   }
 
-  #onClick = async (): Promise<void> => {
-    if (!this.target) {
-      return;
+  async #onClick() {
+    await navigator.clipboard.writeText(this.content!);
+
+    this.copyText = 'Copied!';
+    await this.updateComplete;
+    this.tooltip.showPopover();
+
+    if (this.#setTimeoutId) {
+      clearTimeout(this.#setTimeoutId);
     }
 
-    const el = document.getElementById(this.target);
-    if (el) {
-      await navigator.clipboard.writeText(el.textContent?.trim() ?? '');
-    }
-  };
+    this.#setTimeoutId = window.setTimeout(() => {
+      this.tooltip.hidePopover();
+      this.copyText = 'Copy';
+      this.#setTimeoutId = undefined;
+    }, 2000);
+  }
 }

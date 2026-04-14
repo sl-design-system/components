@@ -12,6 +12,7 @@
   "exports": {
     "./code-example/code-example.js": "./dist/code-example/code-example.js",
     "./copy-button/copy-button.js": "./dist/copy-button/copy-button.js",
+    "./heading/heading.js": "./dist/heading/heading.js",
     "./install-info/install-info.js": "./dist/install-info/install-info.js",
     "./page-toc/page-toc.js": "./dist/page-toc/page-toc.js",
     "./search/search.js": "./dist/search/search.js",

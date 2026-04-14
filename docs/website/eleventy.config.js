@@ -1,10 +1,11 @@
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
-import { basename, dirname, join } from 'node:path';
+import { basename, dirname, join, resolve } from 'node:path';
 import { parse as HTMLParse } from 'node-html-parser';
 import * as esbuild from 'esbuild';
 import eleventyNavigationPlugin from '@11ty/eleventy-navigation';
 import { codeExamplesTransformer } from './src/transformers/code-examples.js';
+import { headingTransformer } from './src/transformers/heading.js';
 import { getComponents } from './src/utils/manifest.js';
 import { markdown } from './src/utils/markdown.js';
 
@@ -26,8 +27,11 @@ export default async function (eleventyConfig) {
     [join(themePath, 'fonts')]: 'theme/fonts'
   });
 
-  eleventyConfig.addWatchTarget('../../custom-elements.json');
-  eleventyConfig.addWatchTarget('../components/dist/**/*.(css|js)');
+  // Use absolute paths to prevent Eleventy's GlobRemap from changing chokidar's
+  // CWD, which causes a path mismatch in the template input cache and results
+  // in stale content during watch rebuilds.
+  eleventyConfig.addWatchTarget(resolve('../../custom-elements.json'));
+  eleventyConfig.addWatchTarget(resolve('../components/dist'));
   eleventyConfig.setWatchThrottleWaitTime(10); // in milliseconds
 
   eleventyConfig.on('eleventy.beforeWatch', async changes => {
@@ -81,7 +85,7 @@ export default async function (eleventyConfig) {
   eleventyConfig.addTransform('component', function (content) {
     let doc = HTMLParse(content, { blockTextElements: { code: true } });
 
-    const transformers = [codeExamplesTransformer()];
+    const transformers = [headingTransformer(), codeExamplesTransformer()];
 
     for (const transformer of transformers) {
       transformer.call(this, doc);

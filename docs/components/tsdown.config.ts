@@ -48,6 +48,7 @@ export default defineConfig({
   entry: [
     'src/copy-button/copy-button.ts',
     'src/code-example/code-example.ts',
+    'src/heading/heading.ts',
     'src/install-info/install-info.ts',
     'src/page-toc/page-toc.ts',
     'src/search/search.ts',

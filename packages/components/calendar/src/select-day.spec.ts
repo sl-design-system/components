@@ -265,7 +265,7 @@ describe('sl-select-day', () => {
           await el.updateComplete;
 
           const width = el.style.getPropertyValue('--_week-number-column-size');
-          expect(width).to.match(/^\d+px$/);
+          expect(width).to.equal('120px');
         } finally {
           Reflect.deleteProperty(weekHeader, 'scrollWidth');
           getBoundingClientRectStub.restore();

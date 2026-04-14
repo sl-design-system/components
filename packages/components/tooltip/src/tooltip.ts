@@ -705,7 +705,8 @@ export class Tooltip extends LitElement {
     // which makes `instanceof ShadowRoot` return false even though the node
     // still exposes `host` and behaves like a shadow root.
     if (
-      node?.nodeType === Node.DOCUMENT_FRAGMENT_NODE &&
+      node &&
+      node.nodeType === Node.DOCUMENT_FRAGMENT_NODE &&
       'host' in node &&
       (node.host as Element)?.nodeType === Node.ELEMENT_NODE
     ) {

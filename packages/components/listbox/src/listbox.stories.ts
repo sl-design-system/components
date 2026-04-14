@@ -15,7 +15,6 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Utilities/Listbox',
-  tags: ['draft'],
   argTypes: {
     emphasis: {
       control: 'inline-radio',

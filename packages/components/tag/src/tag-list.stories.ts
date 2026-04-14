@@ -14,7 +14,6 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Feedback & status/Tag/Tag list',
-  tags: ['preview'],
   args: {
     count: 50,
     removable: false,

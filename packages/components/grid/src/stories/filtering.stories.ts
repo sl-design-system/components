@@ -15,7 +15,6 @@ type Story = StoryObj;
 
 export default {
   title: 'Grid/Filtering',
-  tags: ['draft'],
   parameters: {
     // Disables Chromatic's snapshotting on a story level
     chromatic: { disableSnapshot: true }

@@ -9,7 +9,6 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Utilities/Emoji browser',
-  tags: ['draft'],
   parameters: {
     layout: 'fullscreen'
   },

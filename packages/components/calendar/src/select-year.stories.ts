@@ -15,7 +15,6 @@ try {
 
 export default {
   title: 'Date & Time/Calendar/Select Year',
-  tags: ['draft'],
   args: {
     year: new Date()
   },

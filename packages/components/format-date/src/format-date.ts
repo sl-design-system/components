@@ -140,7 +140,7 @@ export class FormatDate extends LocaleMixin(LitElement) {
         weekday,
         year
       } = this,
-      predefinedStyles = { dateStyle, timeStyle },
+      predefinedStyles = { dateStyle: dateStyle || undefined, timeStyle: timeStyle || undefined },
       options = { weekday, era, year, month, day, dayPeriod, hour, minute, second, timeZoneName, timeZone, hour12 },
       formatOptions = Object.values(options).every(value => value === undefined) ? predefinedStyles : options;
 

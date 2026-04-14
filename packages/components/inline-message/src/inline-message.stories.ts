@@ -18,7 +18,6 @@ const variants: InlineMessageVariant[] = ['info', 'success', 'warning', 'danger'
 
 export default {
   title: 'Feedback & status/Inline message',
-  tags: ['stable'],
   args: {
     variant: 'info'
   },

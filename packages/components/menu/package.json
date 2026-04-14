@@ -1,6 +1,7 @@
 {
   "name": "@sl-design-system/menu",
-  "version": "0.3.0",
+  "version": "0.3.1",
+  "status": "preview",
   "description": "Menu components for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -38,9 +39,9 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/button": "^1.3.4",
+    "@sl-design-system/button": "^2.0.0",
     "@sl-design-system/icon": "^1.4.2",
-    "@sl-design-system/shared": "^0.11.0"
+    "@sl-design-system/shared": "^0.12.0"
   },
   "devDependencies": {
     "@lit/localize": "^0.12.2",

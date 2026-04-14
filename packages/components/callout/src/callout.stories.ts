@@ -23,7 +23,6 @@ Icon.register(faArrowDownToLine, faArrowRightToBracket, fasFileSignature, fasShi
 
 export default {
   title: 'Layout/Callout',
-  tags: ['preview'],
   args: {
     variant: 'info'
   },

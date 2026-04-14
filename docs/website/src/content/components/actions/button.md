@@ -1,6 +1,6 @@
 ---
 title: Button
-layout: component.njk
+layout: component
 eleventyNavigation:
   key: Button
   parent: Actions
@@ -9,31 +9,52 @@ eleventyNavigation:
 
 A button initiates an action when clicked, like redirecting to a new page or submitting a form. It is a key element for interaction and action.
 
-## Usage
-
-Use buttons for the most important actions you want users to take. Use clear, descriptive labels that explain what happens when the button is clicked.
-
-```html
-<sl-button>Click me</sl-button>
+```html {.example}
+<sl-button>Button</sl-button>
 ```
+
+## Examples
 
 ### Variants
 
-Buttons come in several variants to indicate the level of emphasis:
+Use the `variant` attribute to indicate the type of action.
 
-- **Primary** — For the main action on a page. Use sparingly.
-- **Secondary** — For supporting actions. This is the default.
-- **Ghost** — For low-emphasis actions that blend with surrounding content.
-- **Danger** — For destructive actions like deleting data.
-
-```html
-<sl-button variant="primary">Save</sl-button>
-<sl-button variant="secondary">Cancel</sl-button>
-<sl-button variant="ghost">Learn more</sl-button>
-<sl-button variant="danger">Delete</sl-button>
+```html {.example}
+<sl-button-bar>
+  <sl-button variant="primary">Primary</sl-button>
+  <sl-button variant="secondary">Secondary</sl-button>
+  <sl-button variant="success">Success</sl-button>
+  <sl-button variant="info">Info</sl-button>
+  <sl-button variant="warning">Warning</sl-button>
+  <sl-button variant="danger">Danger</sl-button>
+</sl-button-bar>
 ```
 
-### Sizes
+### Fill
+
+Use the `fill` attribute to change the button's level of emphasis.
+
+```html {.example}
+<sl-button-bar>
+  <sl-button>Solid</sl-button>
+  <sl-button fill="outline">Outline</sl-button>
+  <sl-button fill="link">Link</sl-button>
+  <sl-button fill="ghost">Ghost</sl-button>
+</sl-button-bar>
+```
+
+### Shape
+
+Use the `shape` attribute to change the button's shape.
+
+```html {.example}
+<sl-button-bar>
+  <sl-button>Square</sl-button>
+  <sl-button shape="pill">Pill</sl-button>
+</sl-button-bar>
+```
+
+### Size
 
 Buttons are available in three sizes:
 
@@ -41,10 +62,31 @@ Buttons are available in three sizes:
 - `md` — Medium, the default
 - `lg` — Large, for prominent actions
 
-```html
-<sl-button size="sm">Small</sl-button>
-<sl-button size="md">Medium</sl-button>
-<sl-button size="lg">Large</sl-button>
+```html {.example}
+<sl-button-bar>
+  <sl-button size="sm">Small</sl-button>
+  <sl-button size="md">Medium</sl-button>
+  <sl-button size="lg">Large</sl-button>
+</sl-button-bar>
+```
+
+### Icon buttons
+
+Icon buttons are used for actions that can be represented by an icon, such as "close" or "edit". Always provide a text label for accessibility, either through an `<sl-tooltip>` or using `aria-label`.
+
+```html {.example}
+<sl-button-bar>
+  <sl-button aria-labelledby="icon-button-tooltip">
+    <sl-icon name="face-smile"></sl-icon>
+  </sl-button>
+  <sl-button aria-labelledby="icon-button-tooltip" fill="outline">
+    <sl-icon name="face-smile"></sl-icon>
+  </sl-button>
+  <sl-button aria-labelledby="icon-button-tooltip" fill="ghost">
+    <sl-icon name="face-smile"></sl-icon>
+  </sl-button>
+  <sl-tooltip id="icon-button-tooltip">Smile!</sl-tooltip>
+</sl-button-bar>
 ```
 
 ## Accessibility

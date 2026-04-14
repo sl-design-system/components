@@ -461,7 +461,7 @@
     "@changesets/get-github-info": "^0.8.0",
     "@faker-js/faker": "^10.3.0",
     "@lit/localize-tools": "^0.8.1",
-    "@pwrs/cem": "^0.9.16",
+    "@pwrs/cem": "^0.9.18",
     "@storybook/addon-a11y": "^10.3.5",
     "@storybook/addon-docs": "^10.3.5",
     "@storybook/addon-vitest": "^10.3.5",

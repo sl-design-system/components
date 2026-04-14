@@ -1,6 +1,6 @@
 ---
 title: Navigation
-layout: base.njk
+layout: docs
 eleventyNavigation:
   key: Navigation
   parent: Components

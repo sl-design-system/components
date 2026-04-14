@@ -1,6 +1,6 @@
 ---
 title: Form
-layout: base.njk
+layout: docs
 eleventyNavigation:
   key: Form
   parent: Components

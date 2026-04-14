@@ -105,6 +105,8 @@ export type SlStateChangeEvent<T = any> = CustomEvent<{ grid: Grid<T> }>;
  * Data grid component. This component is designed to be highly customizable
  * and can be used to display a wide variety of data. It supports sorting,
  * filtering, grouping, and more.
+ *
+ * @customElement sl-grid
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Grid<T = any> extends ScopedElementsMixin(LitElement) {

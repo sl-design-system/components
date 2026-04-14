@@ -6,7 +6,6 @@ html {
   background: var(--sl-elevation-surface-base-default);
   color: var(--sl-color-foreground-plain);
   font: var(--sl-text-new-body-md);
-  font-family: Roboto, var(--sl-text-new-typeset-fontFamily-body), sans-serif;
 }
 
 body {
@@ -46,6 +45,7 @@ doc-sidebar {
    ============================================ */
 
 .content {
+  box-sizing: border-box;
   grid-area: content;
   inline-size: 100%;
   max-inline-size: 48rem;
@@ -102,10 +102,10 @@ doc-sidebar {
 }
 
 .content code {
-  background: var(--sl-color-background-accent-grey-subtlest);
+  background: var(--sl-color-background-neutral-subtle);
   border-radius: var(--sl-size-borderRadius-sm);
   font-size: 0.9em;
-  padding-inline: var(--sl-size-050);
+  padding: var(--sl-size-025) var(--sl-size-050);
 }
 
 .content pre {
@@ -133,6 +133,11 @@ doc-sidebar {
   color: var(--sl-color-foreground-accent-blue-bold);
 }
 
+.component-meta {
+  display: flex;
+  gap: var(--sl-size-100);
+}
+
 doc-page-toc {
   align-self: start;
   display: none;
@@ -143,5 +148,74 @@ doc-page-toc {
 
   @media (width >= 1024px) {
     display: block;
+  }
+}
+
+/* ============================================
+   Prism syntax highlighting
+   ============================================ */
+
+.code-token {
+  &.code-comment,
+  &.code-prolog,
+  &.code-doctype,
+  &.code-cdata {
+    color: var(--sl-color-palette-grey-400);
+  }
+
+  &.code-punctuation {
+    color: var(--sl-color-palette-grey-500);
+  }
+
+  &.code-property,
+  &.code-tag,
+  &.code-constant,
+  &.code-symbol,
+  &.code-deleted {
+    color: var(--sl-color-palette-green-400);
+  }
+
+  &.code-attr-name,
+  &.code-boolean,
+  &.code-number {
+    color: var(--sl-color-palette-purple-700);
+  }
+
+  &.code-selector,
+  &.code-string,
+  &.code-char,
+  &.code-builtin,
+  &.code-inserted {
+    color: var(--sl-color-palette-teal-300);
+  }
+
+  &.code-atrule,
+  &.code-function,
+  &.code-class-name {
+    color: var(--sl-color-palette-yellow-300);
+  }
+
+  &.code-attr-value {
+    color: var(--sl-color-palette-blue-300);
+  }
+
+  &.code-keyword {
+    color: var(--sl-color-palette-teal-300);
+  }
+
+  &.code-regex,
+  &.code-important {
+    color: var(--sl-color-palette-orange-300);
+  }
+
+  &.code-operator,
+  &.code-entity,
+  &.code-url,
+  &.code-variable {
+    color: var(--sl-color-foreground-inverted-plain);
+  }
+
+  &.code-namespace {
+    opacity: 0.7;
   }
 }

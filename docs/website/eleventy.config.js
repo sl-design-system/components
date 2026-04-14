@@ -1,26 +1,19 @@
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { basename, dirname, join } from 'node:path';
+import { parse as HTMLParse } from 'node-html-parser';
 import * as esbuild from 'esbuild';
 import eleventyNavigationPlugin from '@11ty/eleventy-navigation';
-import markdownItAnchor from 'markdown-it-anchor';
+import { codeExamplesTransformer } from './src/transformers/code-examples.js';
 import { getComponents } from './src/utils/manifest.js';
+import { markdown } from './src/utils/markdown.js';
 
 const require = createRequire(import.meta.url);
 const themePath = dirname(require.resolve('@sl-design-system/sanoma-learning/package.json'));
 
 /** @param {import('@11ty/eleventy').UserConfig} eleventyConfig */
-export default function (eleventyConfig) {
-  const allComponents = getComponents();
-
-  eleventyConfig.addPlugin(eleventyNavigationPlugin);
-
-  eleventyConfig.amendLibrary('md', mdLib => {
-    mdLib.use(markdownItAnchor, {
-      permalink: markdownItAnchor.permalink.headerLink(),
-      level: [2, 3]
-    });
-  });
+export default async function (eleventyConfig) {
+  let allComponents = await getComponents();
 
   eleventyConfig.addPassthroughCopy({ 'src/assets': 'assets' });
   eleventyConfig.addPassthroughCopy({ 'src/css': 'css' });
@@ -33,9 +26,29 @@ export default function (eleventyConfig) {
     [join(themePath, 'fonts')]: 'theme/fonts'
   });
 
+  eleventyConfig.addWatchTarget('../../custom-elements.json');
   eleventyConfig.addWatchTarget('../components/dist/**/*.(css|js)');
+  eleventyConfig.setWatchThrottleWaitTime(10); // in milliseconds
 
-  // Helpers
+  eleventyConfig.on('eleventy.beforeWatch', async changes => {
+    let updateComponents = false;
+
+    for (const change of changes) {
+      if (change.includes('custom-elements.json') || change.includes('package.json')) {
+        updateComponents = true;
+        break;
+      }
+    }
+
+    if (updateComponents) {
+      allComponents = await getComponents();
+    }
+  });
+
+  eleventyConfig.addPlugin(eleventyNavigationPlugin);
+
+  eleventyConfig.setLibrary('md', markdown);
+
   eleventyConfig.addNunjucksGlobal('getComponent', tagName => {
     const component = allComponents.find(c => c.tagName === tagName);
     if (!component) {
@@ -63,6 +76,18 @@ export default function (eleventyConfig) {
 
       return page;
     });
+  });
+
+  eleventyConfig.addTransform('component', function (content) {
+    let doc = HTMLParse(content, { blockTextElements: { code: true } });
+
+    const transformers = [codeExamplesTransformer()];
+
+    for (const transformer of transformers) {
+      transformer.call(this, doc);
+    }
+
+    return doc.toString();
   });
 
   eleventyConfig.on('eleventy.before', async () => {
@@ -113,10 +138,11 @@ export default function (eleventyConfig) {
 
   return {
     dir: {
-      input: 'src/content',
-      output: 'dist',
+      data: '../data',
       includes: '../includes',
-      data: '../data'
+      input: 'src/content',
+      layouts: '../layouts',
+      output: 'dist'
     },
     templateFormats: ['njk', 'md'],
     markdownTemplateEngine: 'njk',

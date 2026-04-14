@@ -1,6 +1,6 @@
 ---
 title: Getting started
-layout: base.njk
+layout: docs
 eleventyNavigation:
   key: Getting started
   parent: Introduction

@@ -1,6 +1,6 @@
 ---
 title: Date field
-layout: base.njk
+layout: component
 eleventyNavigation:
   key: Date field
   parent: Form

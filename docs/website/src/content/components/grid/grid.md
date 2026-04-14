@@ -1,6 +1,6 @@
 ---
 title: Grid
-layout: base.njk
+layout: docs
 eleventyNavigation:
   key: Grid
   parent: Components

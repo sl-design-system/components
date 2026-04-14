@@ -1,6 +1,6 @@
 ---
 title: Components
-layout: base.njk
+layout: docs.njk
 eleventyNavigation:
   key: Components
   order: 2

@@ -1,6 +1,6 @@
 ---
 title: For designers
-layout: base.njk
+layout: docs
 eleventyNavigation:
   key: For designers
   parent: Getting started

@@ -1,0 +1,22 @@
+:host {
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+  border-radius: var(--sl-size-050);
+  display: block;
+  overflow: clip;
+}
+
+slot[name='source']::slotted(pre) {
+  background: transparent !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.demo {
+  padding: var(--sl-size-200);
+}
+
+.source {
+  background: var(--sl-color-background-accent-grey-subtlest);
+  border-block-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+  padding: var(--sl-size-200);
+}

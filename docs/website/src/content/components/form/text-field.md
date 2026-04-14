@@ -1,6 +1,6 @@
 ---
 title: Text field
-layout: base.njk
+layout: component
 eleventyNavigation:
   key: Text field
   parent: Form

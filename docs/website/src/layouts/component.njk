@@ -1,0 +1,16 @@
+{% extends './docs.njk' %}
+{% set component = getComponent('sl-' + page.fileSlug) %}
+
+{% block beforeContent %}
+<div class="component-meta">
+  <code>&lt;{{ component.tagName }}&gt;</code>
+  <sl-badge size="lg"
+    {% if component.status === 'stable' %}color="green"{% endif %}
+    {% if component.status === 'preview' %}color="blue"{% endif %}
+    {% if component.status === 'draft' %}color="grey"{% endif %}
+  >
+    {{ component.status | capitalize }}
+  </sl-badge>
+  <sl-badge color="grey" emphasis="bold" size="lg">v{{ component.version }}</sl-badge>
+</div>
+{% endblock %}

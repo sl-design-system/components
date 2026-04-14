@@ -4590,58 +4590,58 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pwrs/cem-darwin-arm64@npm:0.9.16":
-  version: 0.9.16
-  resolution: "@pwrs/cem-darwin-arm64@npm:0.9.16"
+"@pwrs/cem-darwin-arm64@npm:0.9.18":
+  version: 0.9.18
+  resolution: "@pwrs/cem-darwin-arm64@npm:0.9.18"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@pwrs/cem-darwin-x64@npm:0.9.16":
-  version: 0.9.16
-  resolution: "@pwrs/cem-darwin-x64@npm:0.9.16"
+"@pwrs/cem-darwin-x64@npm:0.9.18":
+  version: 0.9.18
+  resolution: "@pwrs/cem-darwin-x64@npm:0.9.18"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@pwrs/cem-linux-arm64@npm:0.9.16":
-  version: 0.9.16
-  resolution: "@pwrs/cem-linux-arm64@npm:0.9.16"
+"@pwrs/cem-linux-arm64@npm:0.9.18":
+  version: 0.9.18
+  resolution: "@pwrs/cem-linux-arm64@npm:0.9.18"
   conditions: os=linux & cpu=arm64
   languageName: node
   linkType: hard
 
-"@pwrs/cem-linux-x64@npm:0.9.16":
-  version: 0.9.16
-  resolution: "@pwrs/cem-linux-x64@npm:0.9.16"
+"@pwrs/cem-linux-x64@npm:0.9.18":
+  version: 0.9.18
+  resolution: "@pwrs/cem-linux-x64@npm:0.9.18"
   conditions: os=linux & cpu=x64
   languageName: node
   linkType: hard
 
-"@pwrs/cem-win32-arm64@npm:0.9.16":
-  version: 0.9.16
-  resolution: "@pwrs/cem-win32-arm64@npm:0.9.16"
+"@pwrs/cem-win32-arm64@npm:0.9.18":
+  version: 0.9.18
+  resolution: "@pwrs/cem-win32-arm64@npm:0.9.18"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@pwrs/cem-win32-x64@npm:0.9.16":
-  version: 0.9.16
-  resolution: "@pwrs/cem-win32-x64@npm:0.9.16"
+"@pwrs/cem-win32-x64@npm:0.9.18":
+  version: 0.9.18
+  resolution: "@pwrs/cem-win32-x64@npm:0.9.18"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
-"@pwrs/cem@npm:^0.9.16":
-  version: 0.9.16
-  resolution: "@pwrs/cem@npm:0.9.16"
+"@pwrs/cem@npm:^0.9.18":
+  version: 0.9.18
+  resolution: "@pwrs/cem@npm:0.9.18"
   dependencies:
-    "@pwrs/cem-darwin-arm64": "npm:0.9.16"
-    "@pwrs/cem-darwin-x64": "npm:0.9.16"
-    "@pwrs/cem-linux-arm64": "npm:0.9.16"
-    "@pwrs/cem-linux-x64": "npm:0.9.16"
-    "@pwrs/cem-win32-arm64": "npm:0.9.16"
-    "@pwrs/cem-win32-x64": "npm:0.9.16"
+    "@pwrs/cem-darwin-arm64": "npm:0.9.18"
+    "@pwrs/cem-darwin-x64": "npm:0.9.18"
+    "@pwrs/cem-linux-arm64": "npm:0.9.18"
+    "@pwrs/cem-linux-x64": "npm:0.9.18"
+    "@pwrs/cem-win32-arm64": "npm:0.9.18"
+    "@pwrs/cem-win32-x64": "npm:0.9.18"
   dependenciesMeta:
     "@pwrs/cem-darwin-arm64":
       optional: true
@@ -4657,7 +4657,7 @@ __metadata:
       optional: true
   bin:
     cem: bin/cem.js
-  checksum: 10c0/390103c3b292547234ddc0424eb280ade0cc49ddddaa2017548b2fba593481f9d08cb1e93d241f8fce12cfe58303e5d469a5b0fb4caff7bac547428f4ad123c4
+  checksum: 10c0/943ac12991b3ec99648b49208ff546afa5a37ad6eb00a95b32d9675b8af136ced5f9f048d938a3c104b936bd243f25ba1b26480c5bb17b18a34e5ac48fd8f4e1
   languageName: node
   linkType: hard
 
@@ -5686,18 +5686,18 @@ __metadata:
     "@sl-design-system/icon": "workspace:^"
     "@sl-design-system/search-field": "workspace:^"
     "@sl-design-system/switch": "workspace:^"
-    "@storybook/addon-a11y": "npm:^10.3.3"
-    "@storybook/addon-docs": "npm:^10.3.3"
-    "@storybook/addon-vitest": "npm:^10.3.3"
-    "@storybook/web-components": "npm:^10.3.3"
-    "@storybook/web-components-vite": "npm:^10.3.3"
+    "@storybook/addon-a11y": "npm:^10.3.5"
+    "@storybook/addon-docs": "npm:^10.3.5"
+    "@storybook/addon-vitest": "npm:^10.3.5"
+    "@storybook/web-components": "npm:^10.3.5"
+    "@storybook/web-components-vite": "npm:^10.3.5"
     "@tsdown/css": "npm:^0.21.7"
     "@types/prismjs": "npm:^1.26.6"
-    "@typescript/native-preview": "npm:^7.0.0-dev.20260315.1"
+    "@typescript/native-preview": "npm:^7.0.0-dev.20260413.1"
     lit: "npm:^3.3.2"
     prismjs: "npm:^1.30.0"
-    sass-embedded: "npm:^1.98.0"
-    storybook: "npm:^10.3.3"
+    sass-embedded: "npm:^1.99.0"
+    storybook: "npm:^10.3.5"
     tsdown: "npm:^0.21.7"
     typescript: "npm:^5.9.3"
     wireit: "npm:^0.14.12"
@@ -6038,7 +6038,7 @@ __metadata:
     "@changesets/get-github-info": "npm:^0.8.0"
     "@faker-js/faker": "npm:^10.3.0"
     "@lit/localize-tools": "npm:^0.8.1"
-    "@pwrs/cem": "npm:^0.9.16"
+    "@pwrs/cem": "npm:^0.9.18"
     "@storybook/addon-a11y": "npm:^10.3.5"
     "@storybook/addon-docs": "npm:^10.3.5"
     "@storybook/addon-vitest": "npm:^10.3.5"
@@ -6548,7 +6548,11 @@ __metadata:
     "@webcomponents/scoped-custom-element-registry": "npm:^0.0.10"
     esbuild: "npm:^0.25.0"
     lit: "npm:^3.3.2"
+    markdown-it: "npm:^14.1.1"
     markdown-it-anchor: "npm:^9.2.0"
+    markdown-it-attrs: "npm:^4.3.1"
+    node-html-parser: "npm:^7.1.0"
+    prismjs: "npm:^1.30.0"
   languageName: unknown
   linkType: soft
 
@@ -6596,7 +6600,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-a11y@npm:^10.3.3, @storybook/addon-a11y@npm:^10.3.5":
+"@storybook/addon-a11y@npm:^10.3.5":
   version: 10.3.5
   resolution: "@storybook/addon-a11y@npm:10.3.5"
   dependencies:
@@ -6608,7 +6612,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-docs@npm:^10.3.3, @storybook/addon-docs@npm:^10.3.5":
+"@storybook/addon-docs@npm:^10.3.5":
   version: 10.3.5
   resolution: "@storybook/addon-docs@npm:10.3.5"
   dependencies:
@@ -6636,7 +6640,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-vitest@npm:^10.3.3, @storybook/addon-vitest@npm:^10.3.5":
+"@storybook/addon-vitest@npm:^10.3.5":
   version: 10.3.5
   resolution: "@storybook/addon-vitest@npm:10.3.5"
   dependencies:
@@ -6802,7 +6806,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/web-components-vite@npm:^10.3.3, @storybook/web-components-vite@npm:^10.3.5":
+"@storybook/web-components-vite@npm:^10.3.5":
   version: 10.3.5
   resolution: "@storybook/web-components-vite@npm:10.3.5"
   dependencies:
@@ -6814,7 +6818,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/web-components@npm:10.3.5, @storybook/web-components@npm:^10.3.3, @storybook/web-components@npm:^10.3.5":
+"@storybook/web-components@npm:10.3.5, @storybook/web-components@npm:^10.3.5":
   version: 10.3.5
   resolution: "@storybook/web-components@npm:10.3.5"
   dependencies:
@@ -7779,66 +7783,66 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript/native-preview-darwin-arm64@npm:7.0.0-dev.20260315.1":
-  version: 7.0.0-dev.20260315.1
-  resolution: "@typescript/native-preview-darwin-arm64@npm:7.0.0-dev.20260315.1"
+"@typescript/native-preview-darwin-arm64@npm:7.0.0-dev.20260413.1":
+  version: 7.0.0-dev.20260413.1
+  resolution: "@typescript/native-preview-darwin-arm64@npm:7.0.0-dev.20260413.1"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@typescript/native-preview-darwin-x64@npm:7.0.0-dev.20260315.1":
-  version: 7.0.0-dev.20260315.1
-  resolution: "@typescript/native-preview-darwin-x64@npm:7.0.0-dev.20260315.1"
+"@typescript/native-preview-darwin-x64@npm:7.0.0-dev.20260413.1":
+  version: 7.0.0-dev.20260413.1
+  resolution: "@typescript/native-preview-darwin-x64@npm:7.0.0-dev.20260413.1"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@typescript/native-preview-linux-arm64@npm:7.0.0-dev.20260315.1":
-  version: 7.0.0-dev.20260315.1
-  resolution: "@typescript/native-preview-linux-arm64@npm:7.0.0-dev.20260315.1"
+"@typescript/native-preview-linux-arm64@npm:7.0.0-dev.20260413.1":
+  version: 7.0.0-dev.20260413.1
+  resolution: "@typescript/native-preview-linux-arm64@npm:7.0.0-dev.20260413.1"
   conditions: os=linux & cpu=arm64
   languageName: node
   linkType: hard
 
-"@typescript/native-preview-linux-arm@npm:7.0.0-dev.20260315.1":
-  version: 7.0.0-dev.20260315.1
-  resolution: "@typescript/native-preview-linux-arm@npm:7.0.0-dev.20260315.1"
+"@typescript/native-preview-linux-arm@npm:7.0.0-dev.20260413.1":
+  version: 7.0.0-dev.20260413.1
+  resolution: "@typescript/native-preview-linux-arm@npm:7.0.0-dev.20260413.1"
   conditions: os=linux & cpu=arm
   languageName: node
   linkType: hard
 
-"@typescript/native-preview-linux-x64@npm:7.0.0-dev.20260315.1":
-  version: 7.0.0-dev.20260315.1
-  resolution: "@typescript/native-preview-linux-x64@npm:7.0.0-dev.20260315.1"
+"@typescript/native-preview-linux-x64@npm:7.0.0-dev.20260413.1":
+  version: 7.0.0-dev.20260413.1
+  resolution: "@typescript/native-preview-linux-x64@npm:7.0.0-dev.20260413.1"
   conditions: os=linux & cpu=x64
   languageName: node
   linkType: hard
 
-"@typescript/native-preview-win32-arm64@npm:7.0.0-dev.20260315.1":
-  version: 7.0.0-dev.20260315.1
-  resolution: "@typescript/native-preview-win32-arm64@npm:7.0.0-dev.20260315.1"
+"@typescript/native-preview-win32-arm64@npm:7.0.0-dev.20260413.1":
+  version: 7.0.0-dev.20260413.1
+  resolution: "@typescript/native-preview-win32-arm64@npm:7.0.0-dev.20260413.1"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@typescript/native-preview-win32-x64@npm:7.0.0-dev.20260315.1":
-  version: 7.0.0-dev.20260315.1
-  resolution: "@typescript/native-preview-win32-x64@npm:7.0.0-dev.20260315.1"
+"@typescript/native-preview-win32-x64@npm:7.0.0-dev.20260413.1":
+  version: 7.0.0-dev.20260413.1
+  resolution: "@typescript/native-preview-win32-x64@npm:7.0.0-dev.20260413.1"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
-"@typescript/native-preview@npm:^7.0.0-dev.20260315.1":
-  version: 7.0.0-dev.20260315.1
-  resolution: "@typescript/native-preview@npm:7.0.0-dev.20260315.1"
+"@typescript/native-preview@npm:^7.0.0-dev.20260413.1":
+  version: 7.0.0-dev.20260413.1
+  resolution: "@typescript/native-preview@npm:7.0.0-dev.20260413.1"
   dependencies:
-    "@typescript/native-preview-darwin-arm64": "npm:7.0.0-dev.20260315.1"
-    "@typescript/native-preview-darwin-x64": "npm:7.0.0-dev.20260315.1"
-    "@typescript/native-preview-linux-arm": "npm:7.0.0-dev.20260315.1"
-    "@typescript/native-preview-linux-arm64": "npm:7.0.0-dev.20260315.1"
-    "@typescript/native-preview-linux-x64": "npm:7.0.0-dev.20260315.1"
-    "@typescript/native-preview-win32-arm64": "npm:7.0.0-dev.20260315.1"
-    "@typescript/native-preview-win32-x64": "npm:7.0.0-dev.20260315.1"
+    "@typescript/native-preview-darwin-arm64": "npm:7.0.0-dev.20260413.1"
+    "@typescript/native-preview-darwin-x64": "npm:7.0.0-dev.20260413.1"
+    "@typescript/native-preview-linux-arm": "npm:7.0.0-dev.20260413.1"
+    "@typescript/native-preview-linux-arm64": "npm:7.0.0-dev.20260413.1"
+    "@typescript/native-preview-linux-x64": "npm:7.0.0-dev.20260413.1"
+    "@typescript/native-preview-win32-arm64": "npm:7.0.0-dev.20260413.1"
+    "@typescript/native-preview-win32-x64": "npm:7.0.0-dev.20260413.1"
   dependenciesMeta:
     "@typescript/native-preview-darwin-arm64":
       optional: true
@@ -7856,7 +7860,7 @@ __metadata:
       optional: true
   bin:
     tsgo: bin/tsgo.js
-  checksum: 10c0/d017002bd72e0993d007f661fee11ccdf56a2067edd5f9f81ed4497e652d4e6aada5e6d9cbb480bd3277226fd385355f0269f2c03093cd11e956768a59cd5318
+  checksum: 10c0/572b2aa8e07e0716e4a35ffe772d88db757d251ea2f9bb1b5ecdd8efba7de90671e0ac09277ab74aee7e647fa52d25ae23066c6c6e4a69ead885a698bf406f4c
   languageName: node
   linkType: hard
 
@@ -13892,7 +13896,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"he@npm:^1.2.0":
+"he@npm:1.2.0, he@npm:^1.2.0":
   version: 1.2.0
   resolution: "he@npm:1.2.0"
   bin:
@@ -16729,6 +16733,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"markdown-it-attrs@npm:^4.3.1":
+  version: 4.3.1
+  resolution: "markdown-it-attrs@npm:4.3.1"
+  peerDependencies:
+    markdown-it: ">= 9.0.0"
+  checksum: 10c0/78b6ef298ef43f2163e91f4dc25e907a29e3845384837e5d9e1adc5243091f296840c95adfaa56c28d446c972bb705308c2bb783257a7549f574d396a42e152f
+  languageName: node
+  linkType: hard
+
 "markdown-it@npm:^13.0.1":
   version: 13.0.2
   resolution: "markdown-it@npm:13.0.2"
@@ -17725,6 +17738,16 @@ __metadata:
   bin:
     node-gyp: bin/node-gyp.js
   checksum: 10c0/e8dfbe2b02f23d056f69e01c409381963e92c71cafba6c9cfbf63b038f65ca19ab8183bb6891d080e59c4eb2cc425fc736f42e90afc0f0030ecd97bfc64fb7ad
+  languageName: node
+  linkType: hard
+
+"node-html-parser@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "node-html-parser@npm:7.1.0"
+  dependencies:
+    css-select: "npm:^5.1.0"
+    he: "npm:1.2.0"
+  checksum: 10c0/8bee2616de374bb6f43b62cc8523f6d923cd199b2b7a42c6cf2ca503f1e89c32fb44195bd5af17d6fde1b992ad62c24465b29437213ae25f7770261fc9819173
   languageName: node
   linkType: hard
 
@@ -20871,162 +20894,162 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass-embedded-all-unknown@npm:1.98.0":
-  version: 1.98.0
-  resolution: "sass-embedded-all-unknown@npm:1.98.0"
+"sass-embedded-all-unknown@npm:1.99.0":
+  version: 1.99.0
+  resolution: "sass-embedded-all-unknown@npm:1.99.0"
   dependencies:
-    sass: "npm:1.98.0"
+    sass: "npm:1.99.0"
   conditions: (!cpu=arm | !cpu=arm64 | !cpu=riscv64 | !cpu=x64)
   languageName: node
   linkType: hard
 
-"sass-embedded-android-arm64@npm:1.98.0":
-  version: 1.98.0
-  resolution: "sass-embedded-android-arm64@npm:1.98.0"
+"sass-embedded-android-arm64@npm:1.99.0":
+  version: 1.99.0
+  resolution: "sass-embedded-android-arm64@npm:1.99.0"
   conditions: os=android & cpu=arm64
   languageName: node
   linkType: hard
 
-"sass-embedded-android-arm@npm:1.98.0":
-  version: 1.98.0
-  resolution: "sass-embedded-android-arm@npm:1.98.0"
+"sass-embedded-android-arm@npm:1.99.0":
+  version: 1.99.0
+  resolution: "sass-embedded-android-arm@npm:1.99.0"
   conditions: os=android & cpu=arm
   languageName: node
   linkType: hard
 
-"sass-embedded-android-riscv64@npm:1.98.0":
-  version: 1.98.0
-  resolution: "sass-embedded-android-riscv64@npm:1.98.0"
+"sass-embedded-android-riscv64@npm:1.99.0":
+  version: 1.99.0
+  resolution: "sass-embedded-android-riscv64@npm:1.99.0"
   conditions: os=android & cpu=riscv64
   languageName: node
   linkType: hard
 
-"sass-embedded-android-x64@npm:1.98.0":
-  version: 1.98.0
-  resolution: "sass-embedded-android-x64@npm:1.98.0"
+"sass-embedded-android-x64@npm:1.99.0":
+  version: 1.99.0
+  resolution: "sass-embedded-android-x64@npm:1.99.0"
   conditions: os=android & cpu=x64
   languageName: node
   linkType: hard
 
-"sass-embedded-darwin-arm64@npm:1.98.0":
-  version: 1.98.0
-  resolution: "sass-embedded-darwin-arm64@npm:1.98.0"
+"sass-embedded-darwin-arm64@npm:1.99.0":
+  version: 1.99.0
+  resolution: "sass-embedded-darwin-arm64@npm:1.99.0"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"sass-embedded-darwin-x64@npm:1.98.0":
-  version: 1.98.0
-  resolution: "sass-embedded-darwin-x64@npm:1.98.0"
+"sass-embedded-darwin-x64@npm:1.99.0":
+  version: 1.99.0
+  resolution: "sass-embedded-darwin-x64@npm:1.99.0"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"sass-embedded-linux-arm64@npm:1.98.0":
-  version: 1.98.0
-  resolution: "sass-embedded-linux-arm64@npm:1.98.0"
+"sass-embedded-linux-arm64@npm:1.99.0":
+  version: 1.99.0
+  resolution: "sass-embedded-linux-arm64@npm:1.99.0"
   conditions: os=linux & cpu=arm64
   languageName: node
   linkType: hard
 
-"sass-embedded-linux-arm@npm:1.98.0":
-  version: 1.98.0
-  resolution: "sass-embedded-linux-arm@npm:1.98.0"
+"sass-embedded-linux-arm@npm:1.99.0":
+  version: 1.99.0
+  resolution: "sass-embedded-linux-arm@npm:1.99.0"
   conditions: os=linux & cpu=arm
   languageName: node
   linkType: hard
 
-"sass-embedded-linux-musl-arm64@npm:1.98.0":
-  version: 1.98.0
-  resolution: "sass-embedded-linux-musl-arm64@npm:1.98.0"
+"sass-embedded-linux-musl-arm64@npm:1.99.0":
+  version: 1.99.0
+  resolution: "sass-embedded-linux-musl-arm64@npm:1.99.0"
   conditions: os=linux & cpu=arm64
   languageName: node
   linkType: hard
 
-"sass-embedded-linux-musl-arm@npm:1.98.0":
-  version: 1.98.0
-  resolution: "sass-embedded-linux-musl-arm@npm:1.98.0"
+"sass-embedded-linux-musl-arm@npm:1.99.0":
+  version: 1.99.0
+  resolution: "sass-embedded-linux-musl-arm@npm:1.99.0"
   conditions: os=linux & cpu=arm
   languageName: node
   linkType: hard
 
-"sass-embedded-linux-musl-riscv64@npm:1.98.0":
-  version: 1.98.0
-  resolution: "sass-embedded-linux-musl-riscv64@npm:1.98.0"
+"sass-embedded-linux-musl-riscv64@npm:1.99.0":
+  version: 1.99.0
+  resolution: "sass-embedded-linux-musl-riscv64@npm:1.99.0"
   conditions: os=linux & cpu=riscv64
   languageName: node
   linkType: hard
 
-"sass-embedded-linux-musl-x64@npm:1.98.0":
-  version: 1.98.0
-  resolution: "sass-embedded-linux-musl-x64@npm:1.98.0"
+"sass-embedded-linux-musl-x64@npm:1.99.0":
+  version: 1.99.0
+  resolution: "sass-embedded-linux-musl-x64@npm:1.99.0"
   conditions: os=linux & cpu=x64
   languageName: node
   linkType: hard
 
-"sass-embedded-linux-riscv64@npm:1.98.0":
-  version: 1.98.0
-  resolution: "sass-embedded-linux-riscv64@npm:1.98.0"
+"sass-embedded-linux-riscv64@npm:1.99.0":
+  version: 1.99.0
+  resolution: "sass-embedded-linux-riscv64@npm:1.99.0"
   conditions: os=linux & cpu=riscv64
   languageName: node
   linkType: hard
 
-"sass-embedded-linux-x64@npm:1.98.0":
-  version: 1.98.0
-  resolution: "sass-embedded-linux-x64@npm:1.98.0"
+"sass-embedded-linux-x64@npm:1.99.0":
+  version: 1.99.0
+  resolution: "sass-embedded-linux-x64@npm:1.99.0"
   conditions: os=linux & cpu=x64
   languageName: node
   linkType: hard
 
-"sass-embedded-unknown-all@npm:1.98.0":
-  version: 1.98.0
-  resolution: "sass-embedded-unknown-all@npm:1.98.0"
+"sass-embedded-unknown-all@npm:1.99.0":
+  version: 1.99.0
+  resolution: "sass-embedded-unknown-all@npm:1.99.0"
   dependencies:
-    sass: "npm:1.98.0"
+    sass: "npm:1.99.0"
   conditions: (!os=android | !os=darwin | !os=linux | !os=win32)
   languageName: node
   linkType: hard
 
-"sass-embedded-win32-arm64@npm:1.98.0":
-  version: 1.98.0
-  resolution: "sass-embedded-win32-arm64@npm:1.98.0"
+"sass-embedded-win32-arm64@npm:1.99.0":
+  version: 1.99.0
+  resolution: "sass-embedded-win32-arm64@npm:1.99.0"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"sass-embedded-win32-x64@npm:1.98.0":
-  version: 1.98.0
-  resolution: "sass-embedded-win32-x64@npm:1.98.0"
+"sass-embedded-win32-x64@npm:1.99.0":
+  version: 1.99.0
+  resolution: "sass-embedded-win32-x64@npm:1.99.0"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
-"sass-embedded@npm:^1.98.0":
-  version: 1.98.0
-  resolution: "sass-embedded@npm:1.98.0"
+"sass-embedded@npm:^1.99.0":
+  version: 1.99.0
+  resolution: "sass-embedded@npm:1.99.0"
   dependencies:
     "@bufbuild/protobuf": "npm:^2.5.0"
     colorjs.io: "npm:^0.5.0"
     immutable: "npm:^5.1.5"
     rxjs: "npm:^7.4.0"
-    sass-embedded-all-unknown: "npm:1.98.0"
-    sass-embedded-android-arm: "npm:1.98.0"
-    sass-embedded-android-arm64: "npm:1.98.0"
-    sass-embedded-android-riscv64: "npm:1.98.0"
-    sass-embedded-android-x64: "npm:1.98.0"
-    sass-embedded-darwin-arm64: "npm:1.98.0"
-    sass-embedded-darwin-x64: "npm:1.98.0"
-    sass-embedded-linux-arm: "npm:1.98.0"
-    sass-embedded-linux-arm64: "npm:1.98.0"
-    sass-embedded-linux-musl-arm: "npm:1.98.0"
-    sass-embedded-linux-musl-arm64: "npm:1.98.0"
-    sass-embedded-linux-musl-riscv64: "npm:1.98.0"
-    sass-embedded-linux-musl-x64: "npm:1.98.0"
-    sass-embedded-linux-riscv64: "npm:1.98.0"
-    sass-embedded-linux-x64: "npm:1.98.0"
-    sass-embedded-unknown-all: "npm:1.98.0"
-    sass-embedded-win32-arm64: "npm:1.98.0"
-    sass-embedded-win32-x64: "npm:1.98.0"
+    sass-embedded-all-unknown: "npm:1.99.0"
+    sass-embedded-android-arm: "npm:1.99.0"
+    sass-embedded-android-arm64: "npm:1.99.0"
+    sass-embedded-android-riscv64: "npm:1.99.0"
+    sass-embedded-android-x64: "npm:1.99.0"
+    sass-embedded-darwin-arm64: "npm:1.99.0"
+    sass-embedded-darwin-x64: "npm:1.99.0"
+    sass-embedded-linux-arm: "npm:1.99.0"
+    sass-embedded-linux-arm64: "npm:1.99.0"
+    sass-embedded-linux-musl-arm: "npm:1.99.0"
+    sass-embedded-linux-musl-arm64: "npm:1.99.0"
+    sass-embedded-linux-musl-riscv64: "npm:1.99.0"
+    sass-embedded-linux-musl-x64: "npm:1.99.0"
+    sass-embedded-linux-riscv64: "npm:1.99.0"
+    sass-embedded-linux-x64: "npm:1.99.0"
+    sass-embedded-unknown-all: "npm:1.99.0"
+    sass-embedded-win32-arm64: "npm:1.99.0"
+    sass-embedded-win32-x64: "npm:1.99.0"
     supports-color: "npm:^8.1.1"
     sync-child-process: "npm:^1.0.2"
     varint: "npm:^6.0.0"
@@ -21069,7 +21092,7 @@ __metadata:
       optional: true
   bin:
     sass: dist/bin/sass.js
-  checksum: 10c0/c6f337002d5d96bd3e7192bcaec4b0e0516bd2ef232c4f851fd2a1f77234e3b8cc917a2b435eeaa797919a6e42c79a5a0191e4f2d93cd899887fa2d397b86531
+  checksum: 10c0/f0fb3c6989dc42327a5bfec6ac881bbf2e564053d7179992ee0a38b463058593930559f67c3b0d0cd8f2c97885e9e9d9c0c9c009cafee3fe77b8021d197b2deb
   languageName: node
   linkType: hard
 
@@ -21116,24 +21139,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:1.98.0":
-  version: 1.98.0
-  resolution: "sass@npm:1.98.0"
-  dependencies:
-    "@parcel/watcher": "npm:^2.4.1"
-    chokidar: "npm:^4.0.0"
-    immutable: "npm:^5.1.5"
-    source-map-js: "npm:>=0.6.2 <2.0.0"
-  dependenciesMeta:
-    "@parcel/watcher":
-      optional: true
-  bin:
-    sass: sass.js
-  checksum: 10c0/9e91daa20f970fefb364ac31289f070636da7aa7eaeb43e371ea98fa98085a6dbc2d3d058504226a02d07717faf0a4ce8d41b579ecb428c4a9d96b4dc1944a95
-  languageName: node
-  linkType: hard
-
-"sass@npm:^1.81.0, sass@npm:^1.99.0":
+"sass@npm:1.99.0, sass@npm:^1.81.0, sass@npm:^1.99.0":
   version: 1.99.0
   resolution: "sass@npm:1.99.0"
   dependencies:
@@ -22081,7 +22087,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"storybook@npm:^10.3.3, storybook@npm:^10.3.5":
+"storybook@npm:^10.3.5":
   version: 10.3.5
   resolution: "storybook@npm:10.3.5"
   dependencies:

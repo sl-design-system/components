@@ -1,6 +1,6 @@
 ---
 title: Border
-layout: base.njk
+layout: design-tokens
 eleventyNavigation:
   key: Border
   parent: Design tokens

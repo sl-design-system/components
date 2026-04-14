@@ -1,6 +1,6 @@
 ---
 title: Actions
-layout: base.njk
+layout: docs
 eleventyNavigation:
   key: Actions
   parent: Components

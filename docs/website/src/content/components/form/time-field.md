@@ -1,6 +1,6 @@
 ---
 title: Time field
-layout: base.njk
+layout: component
 eleventyNavigation:
   key: Time field
   parent: Form

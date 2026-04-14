@@ -1,6 +1,6 @@
 ---
 title: Documentation
-layout: base.njk
+layout: docs
 eleventyNavigation:
   key: Documentation
   parent: Introduction

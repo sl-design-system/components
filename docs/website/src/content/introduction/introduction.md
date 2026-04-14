@@ -1,6 +1,6 @@
 ---
 title: Introduction
-layout: base.njk
+layout: docs
 eleventyNavigation:
   key: Introduction
   order: 0

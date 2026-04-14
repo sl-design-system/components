@@ -28,6 +28,7 @@ let nextUniqueId = 0;
 /**
  * Single line text field component.
  *
+ * @customElement sl-text-field
  * @slot prefix - Content shown before the input
  * @slot input - The slot for the input element
  * @slot suffix - Content shown after the input

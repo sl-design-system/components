@@ -1,6 +1,6 @@
 ---
 title: Design tokens
-layout: base.njk
+layout: design-tokens
 eleventyNavigation:
   key: Design tokens
   order: 1

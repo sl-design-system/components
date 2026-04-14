@@ -1,6 +1,6 @@
 ---
 title: Color
-layout: base.njk
+layout: design-tokens
 eleventyNavigation:
   key: Color
   parent: Design tokens

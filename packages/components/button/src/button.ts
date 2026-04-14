@@ -28,6 +28,7 @@ export type ButtonVariant = 'primary' | 'secondary' | 'success' | 'info' | 'warn
  *   <sl-button>Foo</sl-button>
  * ```
  *
+ * @customElement sl-button
  * @slot default - Text label of the button. Optionally an <code>sl-icon</code> can be added
  */
 export class Button extends ForwardAriaMixin(LitElement) {

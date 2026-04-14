@@ -1,5 +1,12 @@
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
+import './theme.js';
 import './icons.js';
+import '@sl-design-system/button/register.js';
+import '@sl-design-system/button-bar/register.js';
+import '@sl-design-system/badge/register.js';
+import '@sl-design-system/icon/register.js';
+import '@sl-design-system/tooltip/register.js';
+import { CodeExample } from '@sl-design-system/doc-components/code-example/code-example.js';
 import { InstallInfo } from '@sl-design-system/doc-components/install-info/install-info.js';
 import { PageToc } from '@sl-design-system/doc-components/page-toc/page-toc.js';
 import { Sidebar } from '@sl-design-system/doc-components/sidebar/sidebar.js';
@@ -7,6 +14,7 @@ import { NavGroup } from '@sl-design-system/doc-components/site-nav/nav-group.js
 import { NavItem } from '@sl-design-system/doc-components/site-nav/nav-item.js';
 import { SiteNav } from '@sl-design-system/doc-components/site-nav/site-nav.js';
 
+customElements.define('doc-code-example', CodeExample);
 customElements.define('doc-install-info', InstallInfo);
 customElements.define('doc-nav-group', NavGroup);
 customElements.define('doc-nav-item', NavItem);

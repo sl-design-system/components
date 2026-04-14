@@ -1,6 +1,6 @@
 ---
 title: Status
-layout: base.njk
+layout: docs
 eleventyNavigation:
   key: Status
   parent: Components

@@ -1,6 +1,6 @@
 ---
 title: Overlay
-layout: base.njk
+layout: docs
 eleventyNavigation:
   key: Overlay
   parent: Components

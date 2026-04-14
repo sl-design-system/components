@@ -1,6 +1,6 @@
 ---
 title: For developers
-layout: base.njk
+layout: docs
 eleventyNavigation:
   key: For developers
   parent: Getting started

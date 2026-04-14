@@ -1,6 +1,6 @@
 ---
 title: FAQ
-layout: base.njk
+layout: docs
 eleventyNavigation:
   key: FAQ
   parent: Introduction

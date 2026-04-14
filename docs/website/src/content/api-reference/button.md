@@ -1,6 +1,6 @@
 ---
 title: Button
-layout: base.njk
+layout: api-reference
 eleventyNavigation:
   key: Button
   parent: API Reference

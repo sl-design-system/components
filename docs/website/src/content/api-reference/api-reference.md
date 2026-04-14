@@ -1,6 +1,6 @@
 ---
 title: API Reference
-layout: base.njk
+layout: api-reference
 eleventyNavigation:
   key: API Reference
   order: 3

@@ -15,6 +15,7 @@ class TooltipAssignedSlotHost extends LitElement {
     return html`
       <span id="internal-description">Internal description</span>
       <span id="secondary-description">Secondary description</span>
+      <slot name="actions"></slot>
       <slot></slot>
     `;
   }
@@ -960,6 +961,44 @@ describe('sl-tooltip', () => {
       expect(tooltip.matches(':popover-open')).to.be.true;
       expect(tooltip.getRootNode()).to.equal(anchor.ownerDocument);
       expect(Array.from(anchor.ariaDescribedByElements ?? [])).to.include.members([externalDescription, tooltip]);
+    });
+
+    it('should sync and clear the tooltip slot when reparenting is skipped', async () => {
+      el = await fixture(html`
+        <div style="block-size: 400px; inline-size: 400px;">
+          <tooltip-assigned-slot-host>
+            <button id="slotted-anchor" slot="actions" aria-describedby="external-description tooltip">
+              Slotted anchor
+            </button>
+            <button id="default-anchor" aria-describedby="external-description tooltip">Default anchor</button>
+          </tooltip-assigned-slot-host>
+          <span id="external-description">External description</span>
+          <sl-tooltip id="tooltip" show-delay="0" hide-delay="0">Tooltip via assigned slot</sl-tooltip>
+        </div>
+      `);
+
+      const slottedAnchor = el.querySelector('#slotted-anchor') as HTMLButtonElement,
+        defaultAnchor = el.querySelector('#default-anchor') as HTMLButtonElement;
+      tooltip = el.querySelector('sl-tooltip') as Tooltip;
+
+      await tooltip.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      slottedAnchor.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
+      await tooltip.updateComplete;
+      await waitFor(10);
+
+      expect(tooltip.getAttribute('slot')).to.equal('actions');
+
+      slottedAnchor.dispatchEvent(new Event('pointerout', { bubbles: true, composed: true }));
+      await tooltip.updateComplete;
+      await waitFor(10);
+
+      defaultAnchor.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
+      await tooltip.updateComplete;
+      await waitFor(10);
+
+      expect(tooltip).not.to.have.attribute('slot');
     });
   });
 

@@ -637,6 +637,21 @@ export class Tooltip extends LitElement {
     return !this.#hasAnyExplicitRelation(anchorElement) && !this.#hasAnyExplicitRelation(proxyTarget);
   };
 
+  #syncSlotWithAnchor = (anchorElement: HTMLElement, movedToAnchorRoot: boolean): void => {
+    if (movedToAnchorRoot) {
+      this.removeAttribute('slot');
+      return;
+    }
+
+    const anchorSlot = anchorElement.getAttribute('slot');
+
+    if (typeof anchorSlot === 'string' && anchorSlot.length > 0) {
+      this.setAttribute('slot', anchorSlot);
+    } else {
+      this.removeAttribute('slot');
+    }
+  };
+
   #ensureTooltipInList = (elements: readonly Element[] | null | undefined): Element[] => {
     const list = elements ? Array.from(elements) : [];
 
@@ -862,12 +877,15 @@ export class Tooltip extends LitElement {
     const normalizedElement = this.#normalizeAnchorElement(element);
     const wasOpen = isPopoverOpen(this),
       anchorChanged = this.anchorElement !== normalizedElement;
+    const movedToAnchorRoot =
+      this.#canMoveToAnchorRoot(normalizedElement) && this.#moveToAnchorRoot(normalizedElement, anchorRoot);
 
     this.#openedByFocus = openedByFocus;
     this.anchorElement = normalizedElement;
     this.#knownAnchors.add(normalizedElement);
+    this.#syncSlotWithAnchor(normalizedElement, movedToAnchorRoot);
 
-    if (this.#canMoveToAnchorRoot(normalizedElement) && this.#moveToAnchorRoot(normalizedElement, anchorRoot)) {
+    if (movedToAnchorRoot) {
       this.#preserveAnchorRelation(normalizedElement);
     }
 

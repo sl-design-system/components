@@ -1,6 +1,7 @@
 {
   "name": "@sl-design-system/ellipsize-text",
   "version": "0.0.2",
+  "status": "draft",
   "description": "Utility component that ellipsizes text if it doesn't fit",
   "license": "Apache-2.0",
   "publishConfig": {

@@ -13,8 +13,7 @@ type ExampleCard = {
 };
 
 export default {
-  title: 'Navigation/Paginator',
-  tags: ['draft']
+  title: 'Navigation/Paginator'
 } satisfies Meta;
 
 export const Connected: Story = {

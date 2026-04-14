@@ -12,7 +12,6 @@ type Story = StoryObj;
 
 export default {
   title: 'Grid/Pagination',
-  tags: ['draft'],
   parameters: {
     // Disables Chromatic's snapshotting on a story level
     chromatic: { disableSnapshot: true }

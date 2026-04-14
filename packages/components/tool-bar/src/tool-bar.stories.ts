@@ -81,7 +81,6 @@ Icon.register(
 
 export default {
   title: 'Actions/Tool bar',
-  tags: ['draft'],
   args: {
     resizable: true,
     enableLogging: false

@@ -13,7 +13,6 @@ const colors: BadgeColor[] = ['blue', 'green', 'grey', 'orange', 'purple', 'red'
 
 export default {
   title: 'Feedback & status/Badge',
-  tags: ['stable'],
   parameters: {
     a11y: {
       config: {

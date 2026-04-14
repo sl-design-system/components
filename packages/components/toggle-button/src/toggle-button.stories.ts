@@ -18,7 +18,6 @@ Icon.register(faGear, fasGear);
 
 export default {
   title: 'Actions/Toggle button',
-  tags: ['preview'],
   args: {
     disabled: false,
     label: 'Show settings',

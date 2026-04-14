@@ -122,7 +122,5 @@ export class FormatNumber extends LocaleMixin(LitElement) {
       useGrouping,
       ...this.formatOptions
     });
-
-    return html`<slot></slot>`;
   }
 }

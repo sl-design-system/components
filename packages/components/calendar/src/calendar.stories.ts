@@ -47,7 +47,6 @@ const indicatorLabels: Record<string, { label: string }> = {
 
 export default {
   title: 'Date & Time/Calendar',
-  tags: ['draft'],
   args: {
     readonly: false,
     showToday: false,

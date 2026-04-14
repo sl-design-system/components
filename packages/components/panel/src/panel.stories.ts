@@ -89,7 +89,6 @@ Icon.register(faBackpack, faBook, faCopy, faGear, faLink, faLock, faList, faPast
 
 export default {
   title: 'Layout/Panel',
-  tags: ['draft'],
   args: {
     collapsible: false,
     density: 'default',

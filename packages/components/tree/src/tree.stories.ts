@@ -188,7 +188,6 @@ export const nestedData: NestedDataNode[] = [
 
 export default {
   title: 'Navigation/Tree',
-  tags: ['preview'],
   excludeStories: ['flatData', 'nestedData'],
   parameters: {
     a11y: {

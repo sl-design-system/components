@@ -14,7 +14,6 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Overlay/Message dialog',
-  tags: ['preview'],
   globals: {
     viewport: undefined
   },

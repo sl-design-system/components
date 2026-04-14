@@ -51,11 +51,11 @@ export class PageToc extends ScopedElementsMixin(LitElement) {
   /** Currently visible heading IDs. */
   #visibleIds = new Set<string>();
 
-  /** @internal The grouped heading entries for the TOC. */
-  @state() entries: TocEntry[] = [];
-
   /** @internal The id of the currently active heading. */
   @state() activeId?: string;
+
+  /** @internal The grouped heading entries for the TOC. */
+  @state() entries: TocEntry[] = [];
 
   /** The selector for the main content area. */
   @property() target = 'main';
@@ -80,17 +80,17 @@ export class PageToc extends ScopedElementsMixin(LitElement) {
         return;
       }
 
-      const headings = Array.from(target.querySelectorAll('h2[id], h3[id]')),
+      const headings = Array.from(target.querySelectorAll<HTMLElement>('doc-heading[id]')),
         entries: TocEntry[] = [];
 
       for (const heading of headings) {
         const entry: TocEntry = {
           id: heading.id,
-          text: heading.textContent?.replace(/^#\s*/, '').trim() ?? '',
+          text: heading.textContent?.trim() ?? '',
           children: []
         };
 
-        if (heading.tagName === 'H3' && entries.length > 0) {
+        if (heading.getAttribute('level') === '3' && entries.length > 0) {
           entries[entries.length - 1].children.push(entry);
         } else {
           entries.push(entry);

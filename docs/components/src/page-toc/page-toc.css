@@ -7,6 +7,7 @@ nav {
   display: flex;
   flex-direction: column;
 
+  /* Make sure the active indicator is positioned correctly on initial load. */
   &:has(:not([aria-current])) > ul:first-of-type > li:first-of-type > a {
     anchor-name: --active-link;
   }

@@ -5677,7 +5677,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/doc-components@workspace:^, @sl-design-system/doc-components@workspace:docs/components":
+"@sl-design-system/doc-components@workspace:docs/components":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/doc-components@workspace:docs/components"
   dependencies:
@@ -6181,7 +6181,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/sanoma-learning@workspace:*, @sl-design-system/sanoma-learning@workspace:packages/themes/sanoma-learning":
+"@sl-design-system/sanoma-learning@workspace:packages/themes/sanoma-learning":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/sanoma-learning@workspace:packages/themes/sanoma-learning"
   dependencies:
@@ -6542,9 +6542,6 @@ __metadata:
     "@11ty/eleventy": "npm:^3.1.5"
     "@11ty/eleventy-navigation": "npm:^1.0.5"
     "@fortawesome/pro-regular-svg-icons": "npm:^7.2.0"
-    "@sl-design-system/doc-components": "workspace:^"
-    "@sl-design-system/icon": "workspace:^"
-    "@sl-design-system/sanoma-learning": "workspace:*"
     "@webcomponents/scoped-custom-element-registry": "npm:^0.0.10"
     esbuild: "npm:^0.25.0"
     lit: "npm:^3.3.2"

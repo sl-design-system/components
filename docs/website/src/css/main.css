@@ -115,7 +115,6 @@ doc-sidebar {
 
 .content :is(h2, h3) a.header-anchor {
   color: var(--sl-color-foreground-accent-grey-subtle);
-  margin-inline-start: var(--sl-size-075);
   text-decoration: none;
 }
 

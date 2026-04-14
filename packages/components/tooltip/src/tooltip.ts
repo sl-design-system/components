@@ -551,21 +551,21 @@ export class Tooltip extends LitElement {
 
   #findAssignedSlotRoot = (anchorElement: HTMLElement, path: EventTarget[]): ShadowRoot | undefined => {
     const slotInPath = path.find((el): el is HTMLSlotElement => {
-      const slot =
-        el instanceof HTMLSlotElement
-          ? el
-          : el instanceof Element && el.tagName === 'SLOT'
-            ? (el as HTMLSlotElement)
-            : null;
+        const slot =
+          el instanceof HTMLSlotElement
+            ? el
+            : el instanceof Element && el.tagName === 'SLOT'
+              ? (el as HTMLSlotElement)
+              : null;
 
-      if (!slot) {
-        return false;
-      }
+        if (!slot) {
+          return false;
+        }
 
-      return slot.assignedNodes({ flatten: true }).includes(anchorElement);
-    });
-    const assignedSlot = anchorElement.assignedSlot || slotInPath;
-    const assignedSlotRoot = this.#getShadowRoot(assignedSlot?.getRootNode());
+        return slot.assignedNodes({ flatten: true }).includes(anchorElement);
+      }),
+      assignedSlot = anchorElement.assignedSlot || slotInPath,
+      assignedSlotRoot = this.#getShadowRoot(assignedSlot?.getRootNode());
 
     return assignedSlotRoot;
   };

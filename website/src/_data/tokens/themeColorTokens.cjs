@@ -7,7 +7,7 @@ function flattenColorTokens(obj, prefix) {
     if (val && val['$type']) {
       results.push({
         token: prefix + key,
-        value: (val['$value'] || '').replace(/^\{|\}$/g, ''),
+        value: (val['$value'] || '').replace(/[{}]/g, ''),
         description: val['$description'] || ''
       });
     } else if (val && typeof val === 'object') {

@@ -2,7 +2,7 @@
 <h2 id="color" class="ds-tokens__heading"><a class="header-anchor" href="#color">Color</a></h2>
 <table class="ds-table"><thead>
 <tr>
-  <th>Example</th>
+  <th>Value</th>
   <th>Token title</th>
   <th>Token</th>
 </tr></thead>
@@ -11,8 +11,10 @@
 {% if color[1]['$value'] %}
 <tr>
   <td>
-    <div class="ds-tokens__color" style="background-color: var(--sl-color-{{ color[0] }}); border: 1px solid var(--sl-color-border-plain);"></div>
-    <code>{{ color[1]['$value'] }}</code>
+    <div class="ds-tokens__color-example">
+      <div class="ds-tokens__color" style="background-color: var(--sl-color-{{ color[0] }}); border: 1px solid var(--sl-color-border-plain);"></div>
+      <code>{{ color[1]['$value'] }}</code>
+    </div>
   </td>
   <td class="ds-tokens__description">color {{ color[0] }}</td>
   <td><code>--sl-color-{{ color[0] }}</code></td>
@@ -21,8 +23,10 @@
 {% for subcolor in color[1] -%}{% if subcolor[1]['$value'] %}
 <tr>
   <td>
-    <div class="ds-tokens__color" style="background-color: var(--sl-color-{{ color[0] }}-{{ subcolor[0] }}); border: 1px solid var(--sl-color-border-plain);"></div>
-    <code>{{ subcolor[1]['$value'] }}</code>
+    <div class="ds-tokens__color-example">
+      <div class="ds-tokens__color" style="background-color: var(--sl-color-{{ color[0] }}-{{ subcolor[0] }}); border: 1px solid var(--sl-color-border-plain);"></div>
+      <code>{{ subcolor[1]['$value'] }}</code>
+    </div>
   </td>
   <td class="ds-tokens__description">color {{ color[0] }} {{ subcolor[0] }}</td>
   <td><code>--sl-color-{{ color[0] }}-{{ subcolor[0] }}</code></td>
@@ -36,11 +40,12 @@
 
 <section class="ds-tokens">
 <h2 id="color-theme" class="ds-tokens__heading"><a class="header-anchor" href="#color-theme">Color - theme tokens</a></h2>
+<h3>Based on Sanoma Learning theme</h3>
 {% for group in tokens.themeColorTokens -%}
-<h3 class="ds-tokens__heading">{{ group.category }}</h3>
+<h4 class="ds-tokens__heading">{{ group.category }}</h4>
 <table class="ds-table" style="table-layout: fixed;"><thead>
 <tr>
-  <th style="width: 35%;">Example</th>
+  <th style="width: 35%;">Value</th>
   <th style="width: 30%;">Description</th>
   <th style="width: 35%;">Token</th>
 </tr></thead>
@@ -48,8 +53,10 @@
 {% for item in group.tokens -%}
 <tr>
   <td>
-    <div class="ds-tokens__color" style="background-color: var({{ item.token }}); border: 1px solid var(--sl-color-border-plain);"></div>
-    <code>{{ item.value }}</code>
+    <div class="ds-tokens__color-example">
+      <div class="ds-tokens__color" style="background-color: var({{ item.token }}); border: 1px solid var(--sl-color-border-plain);"></div>
+      <code>{{ item.value }}</code>
+    </div>
   </td>
   <td class="ds-tokens__description" style="word-break: break-word;">{{ item.description }}</td>
   <td style="word-break: break-all;"><code>{{ item.token }}</code></td>
@@ -66,7 +73,7 @@
 <h3 class="ds-tokens__heading">{{ palette[0] }}</h3>
 <table class="ds-table"><thead>
 <tr>
-  <th>Example</th>
+  <th>Value</th>
   <th>Token title</th>
   <th>Token</th>
 </tr></thead>
@@ -74,8 +81,10 @@
 {% for color in palette[1] -%}{% if color[1]['$description'] %}
 <tr>
   <td>
-    <div class="ds-tokens__color" style="background-color: {{ color[1]['$value'] }}"></div>
-    <code>{{ color[1]['$value'] }}</code>
+    <div class="ds-tokens__color-example">
+      <div class="ds-tokens__color" style="background-color: {{ color[1]['$value'] }}"></div>
+      <code>{{ color[1]['$value'] }}</code>
+    </div>
   </td>
   <td class="ds-tokens__description">{{ color[1]['$description'] | tokenDescription }}</td>
   <td>{% if color[1]['$description'] %}<code>{{ color[1]['$description'] | tokenName }}{% endif %}</code></td>

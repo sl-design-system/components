@@ -5,7 +5,7 @@ function flattenTokens(obj, prefix, category) {
   const results = [];
   for (const [key, val] of Object.entries(obj)) {
     if (val && val['$type']) {
-      const rawValue = (val['$value'] || '').replace(/^\{|\}$/g, '');
+      const rawValue = (val['$value'] || '').replace(/[{}]/g, '');
       const tokenName = (prefix + key).replace(/^--sl-/, '');
       results.push({
         token: prefix + key,

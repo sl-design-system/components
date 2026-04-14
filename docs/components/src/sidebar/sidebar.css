@@ -1,6 +1,7 @@
 :host {
   background: var(--sl-elevation-surface-raised-sunken);
   block-size: 100dvh;
+  border-inline-end: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
   display: flex;
   flex-direction: column;
   inset-block-start: 0;

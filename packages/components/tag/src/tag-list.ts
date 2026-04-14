@@ -146,7 +146,6 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     this.setAttribute('role', 'list');
     this.#resetInitialVisibilityState();
-    this.#syncInitialVisibilityState();
 
     this.#resizeObserver.observe(this);
   }

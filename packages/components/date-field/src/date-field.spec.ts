@@ -1964,6 +1964,25 @@ describe('sl-date-field', () => {
     });
   });
 
+  describe('extra controls', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-date-field>
+          <sl-button>Clear</sl-button>
+        </sl-date-field>
+      `);
+    });
+
+    it('should show the extra controls area when custom actions are slotted', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      const buttonBar = el.renderRoot.querySelector<HTMLElement>('sl-button-bar');
+
+      expect(buttonBar).to.exist;
+    });
+  });
+
   describe('label association', () => {
     let label: HTMLLabelElement;
 

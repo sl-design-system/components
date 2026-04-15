@@ -233,7 +233,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.addEventListener('focusin', this.#onFocusIn);
     this.addEventListener('focusout', this.#onFocusOut);
 
-    this.#slotObserver.observe(this, { attributeFilter: ['slot'], attributes: true, childList: true });
+    this.#slotObserver.observe(this, { attributeFilter: ['slot'], attributes: true, childList: true, subtree: true });
     this.#updateHasActionSlotContent();
   }
 

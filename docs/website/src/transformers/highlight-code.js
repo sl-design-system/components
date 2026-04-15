@@ -41,6 +41,11 @@ export function highlightCodeTransformer(options = {}) {
         lang = langClass ? langClass.replace(/^language-/, '') : 'plain';
 
       code.innerHTML = highlightCode(code.textContent ?? '', lang);
+
+      const pre = code.closest('pre');
+      if (pre) {
+        pre.replaceWith(`<doc-code>${pre.outerHTML}</doc-code>`);
+      }
     });
   };
 }

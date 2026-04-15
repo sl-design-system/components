@@ -1,5 +1,6 @@
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import { playwright } from '@vitest/browser-playwright';
+import { importCSSSheet } from '@roenlie/vite-plugin-import-css-sheet';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
@@ -50,6 +51,7 @@ export default defineConfig({
       },
       {
         extends: true,
+        plugins: [importCSSSheet()],
         test: {
           name: 'docs',
           include: ['docs/components/**/*.spec.ts'],

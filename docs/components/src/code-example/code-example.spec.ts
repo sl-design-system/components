@@ -50,19 +50,24 @@ describe('doc-code-example', () => {
     });
 
     it('should render a copy button', () => {
-      expect(el.renderRoot.querySelector('doc-copy-button')).to.exist;
+      const docCode = el.renderRoot.querySelector('doc-code') as Element & { renderRoot: ShadowRoot };
+
+      expect(docCode?.renderRoot.querySelector('doc-copy-button')).to.exist;
     });
 
-    it('should render the copy button with no content when source is not set', () => {
-      const copyButton = el.renderRoot.querySelector<HTMLElement & { content?: string }>('doc-copy-button');
+    it('should set the copy button content from the source slot', async () => {
+      const docCode = el.renderRoot.querySelector('doc-code') as Element & { renderRoot: ShadowRoot };
+      const copyButton = docCode?.renderRoot.querySelector<HTMLElement & { content?: string }>('doc-copy-button');
 
-      expect(copyButton?.content).to.be.undefined;
+      expect(copyButton?.content).to.equal('<button>Click me</button>');
     });
 
     it('should copy the source to the clipboard on click', async () => {
       const writeText = vi.spyOn(navigator.clipboard, 'writeText').mockResolvedValue(undefined);
 
-      el.renderRoot.querySelector<HTMLElement>('doc-copy-button')!.click();
+      const docCode = el.renderRoot.querySelector('doc-code') as Element & { renderRoot: ShadowRoot };
+      const copyButtonHost = docCode?.renderRoot.querySelector('doc-copy-button') as Element & { renderRoot: ShadowRoot };
+      copyButtonHost?.renderRoot.querySelector<HTMLElement>('sl-button')!.click();
       await el.updateComplete;
 
       expect(writeText).toHaveBeenCalledWith('<button>Click me</button>');
@@ -79,7 +84,7 @@ describe('doc-code-example', () => {
     it('should reflect the justify state on the element', async () => {
       const demo = el.renderRoot.querySelector('.demo');
 
-      expect(demo).to.have.style('justify-content', 'center');
+      expect(demo).to.have.style('justify-items', 'center');
     });
   });
 });

@@ -218,7 +218,7 @@ doc-page-toc {
   &.code-atrule,
   &.code-function,
   &.code-class-name {
-    color: var(--sl-color-palette-yellow-300);
+    color: var(--sl-color-palette-red-300);
   }
 
   &.code-attr-value {

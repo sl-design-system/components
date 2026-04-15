@@ -160,4 +160,11 @@ Sometimes you want a link to look like a button. In that case, you can use the `
 
 The button component renders a native `<button>` element in its shadow DOM, ensuring proper keyboard navigation and screen reader support.
 
-When the button only has an icon and no visible text, make sure to provide an accessible name using `aria-label` or by associating it with a tooltip.
+When the button only has an icon and no visible text, make sure to provide an accessible name using `aria-label` or by associating it with a tooltip:
+
+```html
+<sl-button aria-describedby="tooltip">
+  <sl-icon name="face-smile"></sl-icon>
+</sl-button>
+<sl-tooltip id="tooltip">Smile!</sl-tooltip>
+```

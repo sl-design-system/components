@@ -11,6 +11,7 @@
   },
   "exports": {
     "./code-example/code-example.js": "./dist/code-example/code-example.js",
+    "./code/code.js": "./dist/code/code.js",
     "./copy-button/copy-button.js": "./dist/copy-button/copy-button.js",
     "./heading/heading.js": "./dist/heading/heading.js",
     "./install-info/install-info.js": "./dist/install-info/install-info.js",

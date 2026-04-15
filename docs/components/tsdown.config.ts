@@ -46,8 +46,9 @@ export default defineConfig({
     tsgo: true,
   },
   entry: [
-    'src/copy-button/copy-button.ts',
+    'src/code/code.ts',
     'src/code-example/code-example.ts',
+    'src/copy-button/copy-button.ts',
     'src/heading/heading.ts',
     'src/install-info/install-info.ts',
     'src/page-toc/page-toc.ts',

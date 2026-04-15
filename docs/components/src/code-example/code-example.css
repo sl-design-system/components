@@ -22,14 +22,8 @@
   --_justify: stretch;
 }
 
-:host([show-source]) .source {
+:host([show-source]) doc-code {
   border-block-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
-}
-
-slot[name='source']::slotted(pre) {
-  background: transparent !important;
-  margin: 0 !important;
-  padding: 0 !important;
 }
 
 .demo {
@@ -38,23 +32,8 @@ slot[name='source']::slotted(pre) {
   padding: var(--sl-size-200);
 }
 
-.source {
-  background: var(--sl-color-background-accent-grey-subtlest);
-  padding: var(--sl-size-200);
-  position: relative;
-
-  doc-copy-button {
-    inset-block-start: var(--sl-size-100);
-    inset-inline-end: var(--sl-size-100);
-    opacity: 0;
-    position: absolute;
-    transition: opacity 0.15s;
-  }
-
-  &:hover doc-copy-button,
-  doc-copy-button:focus-within {
-    opacity: 1;
-  }
+doc-code {
+  border-radius: 0;
 }
 
 details {

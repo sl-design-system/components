@@ -232,6 +232,7 @@ export const Sizes: Story = {
       count++;
 
       const badges = canvasElement.querySelectorAll('sl-badge');
+
       badges.forEach(badge => {
         badge.setAttribute('aria-label', `${count} unread messages`);
 
@@ -251,7 +252,7 @@ export const Sizes: Story = {
       Avatars with badges in all available sizes. The badges use <code>role="status"</code> and an
       <code>aria-label</code> that updates every 5 seconds to simulate dynamic content. See the
       <a href="/categories/components/avatar/accessibility/">accessibility guidelines</a> for details on static vs
-      dynamic badge usage.
+      dynamic badge usage in avatar.
     </p>
     <div style="display: flex; flex-direction: column; gap: 1rem">
       ${sizes.map(

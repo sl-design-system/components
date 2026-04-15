@@ -1,4 +1,3 @@
-import { faBarsStaggered } from '@fortawesome/pro-regular-svg-icons';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
@@ -11,8 +10,6 @@ interface TocEntry {
   text: string;
   children: TocEntry[];
 }
-
-Icon.register(faBarsStaggered);
 
 export class PageToc extends ScopedElementsMixin(LitElement) {
   /** @internal */
@@ -57,6 +54,9 @@ export class PageToc extends ScopedElementsMixin(LitElement) {
   /** @internal The grouped heading entries for the TOC. */
   @state() entries: TocEntry[] = [];
 
+  /** @internal The title of the page, taken from the h1. */
+  @state() pageTitle?: string;
+
   /** The selector for the main content area. */
   @property() target = 'main';
 
@@ -79,6 +79,8 @@ export class PageToc extends ScopedElementsMixin(LitElement) {
         console.warn(`Target element "${this.target}" not found.`);
         return;
       }
+
+      this.pageTitle = target.querySelector('h1')?.textContent?.trim();
 
       const headings = Array.from(target.querySelectorAll<HTMLElement>('doc-heading[id]')),
         entries: TocEntry[] = [];
@@ -107,10 +109,7 @@ export class PageToc extends ScopedElementsMixin(LitElement) {
   render(): TemplateResult {
     return html`
       <nav aria-labelledby="page-toc">
-        <h2 id="page-toc">
-          <sl-icon name="far-bars-staggered"></sl-icon>
-          On this page
-        </h2>
+        <h2 id="page-toc">${this.pageTitle}</h2>
         ${this.entries.length
           ? html`
               <span class="active"></span>

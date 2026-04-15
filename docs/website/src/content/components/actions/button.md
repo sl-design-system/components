@@ -36,6 +36,9 @@ Secondary
 Success
 : Confirming a successful or completed operation.
 
+Info
+: Neutral actions that provide additional context or information.
+
 Warning
 : Actions requiring caution or extra user confirmation.
 
@@ -79,8 +82,8 @@ Link
 <sl-button-bar>
   <sl-button>Solid</sl-button>
   <sl-button fill="outline">Outline</sl-button>
-  <sl-button fill="link">Link</sl-button>
   <sl-button fill="ghost">Ghost</sl-button>
+  <sl-button fill="link">Link</sl-button>
 </sl-button-bar>
 ```
 
@@ -92,6 +95,9 @@ Use the `shape` attribute to change the button's shape.
 <sl-button-bar>
   <sl-button>Square</sl-button>
   <sl-button shape="pill">Pill</sl-button>
+  <sl-button aria-label="Smile" shape="pill">
+    <sl-icon name="face-smile"></sl-icon>
+  </sl-button>
 </sl-button-bar>
 ```
 

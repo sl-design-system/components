@@ -73,15 +73,6 @@ doc-sidebar {
     margin-block-end: var(--sl-size-075);
   }
 
-  a {
-    color: var(--sl-color-foreground-accent-blue-bold);
-    text-decoration: underline;
-
-    &:hover {
-      text-decoration: none;
-    }
-  }
-
   code {
     background: var(--sl-color-background-neutral-subtle);
     border-radius: var(--sl-size-borderRadius-sm);

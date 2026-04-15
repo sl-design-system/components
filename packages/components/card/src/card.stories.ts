@@ -547,7 +547,7 @@ export const MediaOptions: Story = {
         ${card(settings, 0)} ${card({ ...settings, fitImage: true }, 1)}
         <span>Fit image with background-color set with <code>--sl-card-image-backdrop</code>:</span
         ><span>Fit image with background set to gradient with <code>--sl-card-image-backdrop</code>:</span>
-        ${card({ ...settings, fitImage: true }, 2)} ${card({ ...settings, fitImage: true, bodyText: '' }, 3)}
+        ${card({ ...settings, fitImage: true }, 2)} ${card({ ...settings, fitImage: true, bodyText: undefined }, 3)}
         <span>Fit image with imageBackdrop:</span><span>With media-margin</span>
         ${card({ ...settings, fitImage: true, imageBackdrop: true }, 1)} ${card({ ...settings, mediaMargin: true }, 0)}
       </div>

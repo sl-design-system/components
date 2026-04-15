@@ -291,13 +291,16 @@ describe('<sl-card>', () => {
 
       // Add body content
       const bodySlot = el.shadowRoot!.querySelector('slot[name="body"]') as HTMLSlotElement;
-      let slotChangePromise = new Promise(resolve => bodySlot.addEventListener('slotchange', resolve, { once: true }));
+      const waitForSlotChange = () =>
+        new Promise<void>(resolve => bodySlot.addEventListener('slotchange', () => resolve(), { once: true }));
+
+      let slotChangePromise = waitForSlotChange();
       el.appendChild(bodyElement);
       await slotChangePromise;
       expect(el.classList.contains('sl-has-article')).to.be.true;
 
       // Remove body content
-      slotChangePromise = new Promise(resolve => bodySlot.addEventListener('slotchange', resolve, { once: true }));
+      slotChangePromise = waitForSlotChange();
       el.removeChild(bodyElement);
       await slotChangePromise;
       expect(el.classList.contains('sl-has-article')).to.be.false;

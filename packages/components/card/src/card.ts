@@ -175,9 +175,9 @@ export class Card extends ScopedElementsMixin(LitElement) {
       article?.style.removeProperty('--_line-clamp');
       this.#setGridSpan();
       return;
-    } else {
-      this.classList.add('sl-has-article');
     }
+
+    this.classList.add('sl-has-article');
 
     article.style.removeProperty('--_line-clamp'); // otherwise it can't calculate the height correctly
     const lineHeight = getComputedStyle(article).lineHeight;

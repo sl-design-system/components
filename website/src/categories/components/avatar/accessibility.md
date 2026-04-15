@@ -6,6 +6,37 @@ eleventyNavigation:
   key: AvatarAccessibility
 ---
 
+<section>
+
+## Avatar with badge
+
+There are two ways to improve the accessibility of `sl-badge` when used inside an avatar, depending on the scenario:
+
+### Dynamic content
+
+If the badge displays information that updates automatically (e.g. an unread message count), add `role="status"` with a descriptive `aria-label`. Screen readers will announce changes in the `aria-label` value when they occur.
+
+```html
+<sl-avatar display-name="Rose Nylund" picture-url="/images/avatar-1.jpg">
+  <sl-badge role="status" aria-label="3 unread messages" slot="badge">3</sl-badge>
+</sl-avatar>
+```
+
+### Static content
+
+If the badge displays information that does not change while the user is interacting with the application, the badge should not have an `aria-label` or any role. Instead, place visually hidden text inside the badge so screen readers announce it when the user navigates to it.
+
+```html
+<sl-avatar display-name="Rose Nylund" picture-url="/images/avatar-1.jpg">
+  <sl-badge slot="badge">
+    <sl-icon name="far-star"></sl-icon>
+    <span class="visually-hidden">admin</span>
+  </sl-badge>
+</sl-avatar>
+```
+
+</section>
+
 <section> 
 
 ## WAI-ARIA
@@ -19,3 +50,4 @@ Several parts of the avatar component will influence what will be available for 
   - The badge text, in the optional (Badge component), will be read after the name.
 
 </section>
+

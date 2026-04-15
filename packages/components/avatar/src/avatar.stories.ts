@@ -203,52 +203,86 @@ export const Overflow: Story = {
   }
 };
 
+let count = 2;
+
+const badgeSizes: Record<string, string> = {
+  sm: 'sm',
+  md: 'sm',
+  lg: 'md',
+  xl: 'md',
+  '2xl': 'md',
+  '3xl': 'lg',
+  '4xl': 'lg'
+};
+
 export const Sizes: Story = {
   args: {
     subheading: 'Subheading'
   },
-  render: ({ color, displayInitials, emphasis, href, pictureUrl, shape, subheading, vertical }) => {
-    const badgeSizes = {
-      sm: 'sm',
-      md: 'sm',
-      lg: 'md',
-      xl: 'md',
-      '2xl': 'md',
-      '3xl': 'lg',
-      '4xl': 'lg'
-    };
+  play: ({ canvasElement }) => {
+    count = 2;
+    const maxCount = 30;
 
-    return html`
-      <div style="display: flex; flex-direction: column; gap: 1rem">
-        ${sizes.map(
-          size => html`
-            <sl-avatar
-              display-name=${`Size: ${size}`}
-              color=${ifDefined(color)}
-              display-initials=${ifDefined(displayInitials)}
-              emphasis=${ifDefined(emphasis)}
-              href=${ifDefined(href)}
-              picture-url=${ifDefined(pictureUrl)}
-              shape=${ifDefined(shape)}
-              size=${size}
-              ?vertical=${vertical}
+    const interval = setInterval(() => {
+      if (!canvasElement.isConnected || count >= maxCount) {
+        clearInterval(interval);
+        return;
+      }
+
+      count++;
+
+      const badges = canvasElement.querySelectorAll('sl-badge');
+      badges.forEach(badge => {
+        badge.setAttribute('aria-label', `${count} unread messages`);
+
+        if ((badge as HTMLElement & { size: string }).size !== 'sm') {
+          const textNode = Array.from(badge.childNodes).find(
+            node => node.nodeType === Node.TEXT_NODE && node.textContent?.trim() !== ''
+          );
+          if (textNode) {
+            textNode.textContent = `${count}`;
+          }
+        }
+      });
+    }, 5000);
+  },
+  render: ({ color, displayInitials, emphasis, href, pictureUrl, shape, subheading, vertical }) => html`
+    <p>
+      Avatars with badges in all available sizes. The badges use <code>role="status"</code> and an
+      <code>aria-label</code> that updates every 5 seconds to simulate dynamic content. See the
+      <a href="/categories/components/avatar/accessibility/">accessibility guidelines</a> for details on static vs
+      dynamic badge usage.
+    </p>
+    <div style="display: flex; flex-direction: column; gap: 1rem">
+      ${sizes.map(
+        size => html`
+          <sl-avatar
+            display-name=${`Size: ${size}`}
+            color=${ifDefined(color)}
+            display-initials=${ifDefined(displayInitials)}
+            emphasis=${ifDefined(emphasis)}
+            href=${ifDefined(href)}
+            picture-url=${ifDefined(pictureUrl)}
+            shape=${ifDefined(shape)}
+            size=${size}
+            ?vertical=${vertical}
+          >
+            ${subheading ? html`<span>${subheading}</span>` : nothing}
+            <sl-badge
+              .size=${badgeSizes[size]}
+              aria-label=${`${count} unread messages`}
+              color="red"
+              emphasis="bold"
+              role="status"
+              slot="badge"
             >
-              ${subheading ? html`<span>${subheading}</span>` : nothing}
-              <sl-badge
-                .size=${badgeSizes[size]}
-                aria-label="2 unread messages"
-                color="red"
-                emphasis="bold"
-                slot="badge"
-              >
-                ${badgeSizes[size] === 'sm' ? nothing : '2'}
-              </sl-badge>
-            </sl-avatar>
-          `
-        )}
-      </div>
-    `;
-  }
+              ${badgeSizes[size] === 'sm' ? nothing : count}
+            </sl-badge>
+          </sl-avatar>
+        `
+      )}
+    </div>
+  `
 };
 
 export const Square: Story = {

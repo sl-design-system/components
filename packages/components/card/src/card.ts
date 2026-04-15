@@ -169,9 +169,12 @@ export class Card extends ScopedElementsMixin(LitElement) {
 
   #setLineClamp(): void {
     //calculate the number of lines in the article
-    const article = this.renderRoot.querySelector('slot[name="body"]');
-    if (!article) {
+    const article: HTMLSlotElement | null = this.renderRoot.querySelector('slot[name="body"]');
+    if (!article || article.assignedNodes({ flatten: true }).length === 0) {
+      this.classList.remove('sl-has-article');
       return;
+    } else {
+      this.classList.add('sl-has-article');
     }
 
     (article as HTMLElement).style.removeProperty('--_line-clamp'); // otherwise it can't calculate the height correctly

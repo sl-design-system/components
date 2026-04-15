@@ -161,20 +161,6 @@ export const IconOnly: Story = {
   }
 };
 
-export const Link: Story = {
-  render: ({ disabled, shape, size, text, variant }) => html`
-    <sl-button
-      ?disabled=${disabled}
-      fill="link"
-      shape=${ifDefined(shape)}
-      size=${ifDefined(size)}
-      variant=${ifDefined(variant)}
-    >
-      <a href="https://example.com">${text}</a>
-    </sl-button>
-  `
-};
-
 export const Pill: Story = {
   args: {
     shape: 'pill'
@@ -399,42 +385,42 @@ export const All: Story = {
         <span>Link</span>
         <sl-button fill="link" variant="primary">
           <sl-icon name="far-universal-access"></sl-icon>
-          <a href="https://example.com">Button</a>
+          Button
           <sl-icon name="far-universal-access"></sl-icon>
         </sl-button>
         <sl-button fill="link" variant="secondary">
           <sl-icon name="far-universal-access"></sl-icon>
-          <a href="https://example.com">Button</a>
+          Button
           <sl-icon name="far-universal-access"></sl-icon>
         </sl-button>
         <sl-button fill="link" variant="success">
           <sl-icon name="far-universal-access"></sl-icon>
-          <a href="https://example.com">Button</a>
+          Button
           <sl-icon name="far-universal-access"></sl-icon>
         </sl-button>
         <sl-button fill="link" variant="warning">
           <sl-icon name="far-universal-access"></sl-icon>
-          <a href="https://example.com">Button</a>
+          Button
           <sl-icon name="far-universal-access"></sl-icon>
         </sl-button>
         <sl-button fill="link" variant="danger">
           <sl-icon name="far-universal-access"></sl-icon>
-          <a href="https://example.com">Button</a>
+          Button
           <sl-icon name="far-universal-access"></sl-icon>
         </sl-button>
         <sl-button fill="link" variant="info">
           <sl-icon name="far-universal-access"></sl-icon>
-          <a href="https://example.com">Button</a>
+          Button
           <sl-icon name="far-universal-access"></sl-icon>
         </sl-button>
         <sl-button fill="link" variant="inverted">
           <sl-icon name="far-universal-access"></sl-icon>
-          <a href="https://example.com">Button</a>
+          Button
           <sl-icon name="far-universal-access"></sl-icon>
         </sl-button>
         <sl-button disabled fill="link">
           <sl-icon name="far-universal-access"></sl-icon>
-          <a href="https://example.com">Button</a>
+          Button
           <sl-icon name="far-universal-access"></sl-icon>
         </sl-button>
 

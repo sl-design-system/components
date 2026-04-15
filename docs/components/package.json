@@ -15,6 +15,7 @@
     "./copy-button/copy-button.js": "./dist/copy-button/copy-button.js",
     "./heading/heading.js": "./dist/heading/heading.js",
     "./install-info/install-info.js": "./dist/install-info/install-info.js",
+    "./open-issue-count/open-issue-count.js": "./dist/open-issue-count/open-issue-count.js",
     "./page-toc/page-toc.js": "./dist/page-toc/page-toc.js",
     "./search/search.js": "./dist/search/search.js",
     "./sidebar/sidebar.js": "./dist/sidebar/sidebar.js",

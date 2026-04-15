@@ -144,12 +144,14 @@ dl {
       font-weight: normal;
     }
 
-    dd {
+    dd code,
+    dd ul {
       font-family: monospace;
     }
 
     ul {
       display: flex;
+      flex-wrap: wrap;
       gap: var(--sl-size-150);
       list-style: none;
       margin: 0;
@@ -159,6 +161,7 @@ dl {
     li {
       display: inline-flex;
       margin: 0;
+      white-space: nowrap;
     }
 
     a {
@@ -258,5 +261,25 @@ doc-page-toc {
 
   &.code-namespace {
     opacity: 0.7;
+  }
+}
+
+#import-snippet {
+  anchor-name: --import;
+
+  &:hover + doc-copy-button {
+    opacity: 1;
+  }
+
+  & + doc-copy-button {
+    opacity: 0;
+    position: absolute;
+    position-anchor: --import;
+    position-area: center end;
+
+    &:focus-within,
+    &:hover {
+      opacity: 1;
+    }
   }
 }

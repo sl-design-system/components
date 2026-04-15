@@ -64,7 +64,8 @@ export async function getComponents() {
   const components = [];
 
   for (const module of manifest.modules || []) {
-    const metadata = await getComponentMetadata(module.path);
+    const metadata = await getComponentMetadata(module.path),
+      name = metadata.packageName.split('/').at(-1);
 
     for (const declaration of module.declarations || []) {
       if (declaration.customElement) {
@@ -83,6 +84,7 @@ export async function getComponents() {
           cssStates,
           events,
           members,
+          name,
           slots
         });
       }

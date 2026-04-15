@@ -51,6 +51,7 @@ export default defineConfig({
     'src/copy-button/copy-button.ts',
     'src/heading/heading.ts',
     'src/install-info/install-info.ts',
+    'src/open-issue-count/open-issue-count.ts',
     'src/page-toc/page-toc.ts',
     'src/search/search.ts',
     'src/sidebar/sidebar.ts',

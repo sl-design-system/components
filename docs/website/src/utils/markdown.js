@@ -1,6 +1,7 @@
 import markdownit from 'markdown-it';
 import markdownItAttrs from 'markdown-it-attrs';
-import markdownItAnchor from 'markdown-it-anchor';
+import markdownItContainer from 'markdown-it-container';
+import markdownItDeflist from 'markdown-it-deflist';
 
 export const markdown = markdownit({
   html: true,
@@ -14,3 +15,18 @@ export const markdown = markdownit({
 markdown.use(markdownItAttrs, {
   allowedAttributes: []
 });
+
+markdown.use(markdownItContainer, 'info', {
+  validate(params) {
+    return params.trim() === 'info';
+  },
+  render(tokens, idx) {
+    if (tokens[idx].nesting === 1) {
+      return '<sl-callout>';
+    } else {
+      return '</sl-callout>';
+    }
+  }
+});
+
+markdown.use(markdownItDeflist);

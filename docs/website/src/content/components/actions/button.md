@@ -11,11 +11,36 @@ eleventyNavigation:
 <sl-button>Button</sl-button>
 ```
 
+## Usage
+
+Buttons should be used in user interfaces when you want to provide users with a clear and actionable way to interact with a webpage, application, or device.
+
+Buttons are used to trigger specific actions or functions. For example, you can use a "Submit" button in a form to send user input to a server, or a "Save" button to save changes in an application.
+
+::: info
+Do not disable a button by default and leave it up to the user to figure out why the action is unavailable. Instead, provide an explanation using a tooltip or by including helper text next to the button.
+:::
+
 ## Examples
 
 ### Variants
 
-Use the `variant` attribute to indicate the type of action.
+Use the `variant` attribute to indicate the urgency or sentiment of the action.
+
+Primary
+: The most important action on the page; the next step in the main user flow.
+
+Secondary
+: Secondary flows, or when there is no clear hierarchy (e.g. dashboards).
+
+Success
+: Confirming a successful or completed operation.
+
+Warning
+: Actions requiring caution or extra user confirmation.
+
+Danger
+: Irreversible or potentially destructive actions.
 
 ```html {.example}
 <sl-button-bar>
@@ -28,9 +53,27 @@ Use the `variant` attribute to indicate the type of action.
 </sl-button-bar>
 ```
 
+There is an additional `inverted` variant that is designed for use on dark backgrounds.
+
+```html {.example .inverted}
+<sl-button variant="inverted">Inverted</sl-button>
+```
+
 ### Fill
 
-Use the `fill` attribute to change the button's level of emphasis.
+Use the `fill` attribute to indicate how essential the action is.
+
+Solid
+: Essential actions that move the user forward in the flow.
+
+Outline
+: Important but optional; draws attention without blocking progress.
+
+Ghost
+: Suggestive or secondary actions that shouldn't distract from the main flow.
+
+Link
+: Informational actions, such as "Read more" or "View details".
 
 ```html {.example}
 <sl-button-bar>
@@ -70,7 +113,7 @@ Buttons are available in three sizes:
 
 ### Disabled
 
-You can either use the `disabled` attribute to disable a button or set the `aria-disabled="true"` attribute for accessibility. The former will prevent the button from being focusable and will not trigger any events, while the latter will keep the button focusable but will indicate to assistive technologies that the action is unavailable.
+You can either use the `disabled` attribute to disable a button or set the `aria-disabled="true"` attribute for accessibility. Both will not trigger any events. The former will prevent the button from being focusable, while the latter will keep the button focusable but will indicate to assistive technologies that the action is unavailable.
 
 ```html {.example}
 <sl-button-bar>
@@ -117,16 +160,4 @@ Sometimes you want a link to look like a button. In that case, you can use the `
 
 The button component renders a native `<button>` element in its shadow DOM, ensuring proper keyboard navigation and screen reader support.
 
-### Keyboard interaction
-
-| Key     | Action                                    |
-| ------- | ----------------------------------------- |
-| `Enter` | Activates the button                      |
-| `Space` | Activates the button                      |
-| `Tab`   | Moves focus to the next focusable element |
-
-### Best practices
-
-- Always provide a visible text label
-- Use `aria-label` only when a visible label is not possible (e.g. icon-only buttons)
-- Don't disable buttons without explaining why the action is unavailable
+When the button only has an icon and no visible text, make sure to provide an accessible name using `aria-label` or by associating it with a tooltip.

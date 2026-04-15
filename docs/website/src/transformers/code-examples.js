@@ -18,6 +18,7 @@ export function codeExamplesTransformer(options = {}) {
         uuid = crypto.randomUUID(),
         id = `code-example-${uuid.slice(-12)}`,
         demo = pre.textContent,
+        inverted = code.classList.contains('inverted'),
         showSource = code.classList.contains('show-source');
 
       const langClass = [...code.classList.values()].find(val => val.startsWith('language-')),
@@ -26,7 +27,7 @@ export function codeExamplesTransformer(options = {}) {
       code.innerHTML = highlightCode(code.textContent ?? '', lang);
 
       const codeExample = parse(`
-        <doc-code-example${showSource ? ' show-source' : ''}>
+        <doc-code-example${inverted ? ' inverted' : ''}${showSource ? ' show-source' : ''}>
           ${demo}
           <pre slot="source">${code.innerHTML}</pre>
         </doc-code-example>

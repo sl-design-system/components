@@ -101,9 +101,13 @@ doc-sidebar {
       padding: 0;
     }
   }
+
+  sl-callout p {
+    margin-block: 0;
+  }
 }
 
-dl.metadata {
+dl {
   align-items: center;
   display: grid;
   gap: var(--sl-size-150) var(--sl-size-200);
@@ -112,42 +116,56 @@ dl.metadata {
 
   dt {
     align-self: center;
-    color: var(--sl-color-foreground-subtlest);
+    font-weight: 600;
   }
 
   dd {
-    font-family: monospace;
     margin: 0;
   }
 
-  ul {
-    display: flex;
-    gap: var(--sl-size-150);
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
+  &.metadata {
+    dt {
+      color: var(--sl-color-foreground-subtlest);
+      font-weight: normal;
+    }
 
-  li {
-    display: inline-flex;
-    margin: 0;
-  }
+    dd {
+      font-family: monospace;
+    }
 
-  a {
-    align-items: center;
-    color: inherit;
-    display: inline-flex;
-    gap: var(--sl-size-050);
-    text-decoration: none;
+    ul {
+      display: flex;
+      gap: var(--sl-size-150);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
 
-    &:hover span {
-      text-decoration: underline;
+    li {
+      display: inline-flex;
+      margin: 0;
+    }
+
+    a {
+      align-items: center;
+      color: inherit;
+      display: inline-flex;
+      gap: var(--sl-size-050);
+      text-decoration: none;
+
+      &:hover span {
+        text-decoration: underline;
+      }
+    }
+
+    svg {
+      inline-size: 18px;
     }
   }
+}
 
-  svg {
-    inline-size: 18px;
-  }
+doc-code-example {
+  margin-block-end: var(--sl-size-300);
 }
 
 doc-page-toc {

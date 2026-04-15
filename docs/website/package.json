@@ -38,6 +38,8 @@
     "lit": "^3.3.2",
     "markdown-it": "^14.1.1",
     "markdown-it-attrs": "^4.3.1",
+    "markdown-it-container": "^4.0.0",
+    "markdown-it-deflist": "^3.0.0",
     "node-html-parser": "^7.1.0",
     "prismjs": "^1.30.0",
     "slugify": "^1.6.9",

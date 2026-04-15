@@ -6664,6 +6664,8 @@ __metadata:
     lit: "npm:^3.3.2"
     markdown-it: "npm:^14.1.1"
     markdown-it-attrs: "npm:^4.3.1"
+    markdown-it-container: "npm:^4.0.0"
+    markdown-it-deflist: "npm:^3.0.0"
     node-html-parser: "npm:^7.1.0"
     prismjs: "npm:^1.30.0"
     slugify: "npm:^1.6.9"
@@ -16887,6 +16889,20 @@ __metadata:
   peerDependencies:
     markdown-it: ">= 9.0.0"
   checksum: 10c0/78b6ef298ef43f2163e91f4dc25e907a29e3845384837e5d9e1adc5243091f296840c95adfaa56c28d446c972bb705308c2bb783257a7549f574d396a42e152f
+  languageName: node
+  linkType: hard
+
+"markdown-it-container@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "markdown-it-container@npm:4.0.0"
+  checksum: 10c0/768390a6e2c182996b4d0be8dd1a7279d266ca2f29936dd8265ef0954a97606bc3514802cc3576db59e119e241e61924a4a1e601a91480be1c12bef5e28797ae
+  languageName: node
+  linkType: hard
+
+"markdown-it-deflist@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "markdown-it-deflist@npm:3.0.0"
+  checksum: 10c0/09222fa810fed11d088cb4b2c8ea07f9af0f68bd15cbf8579dd015a28b4f8e956dfccbf2b86c64800bf297869f5cb8fa51b51f24c7fac2fa4d4b6b279606303c
   languageName: node
   linkType: hard
 

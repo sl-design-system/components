@@ -243,7 +243,7 @@ export const Sizes: Story = {
         cleanup();
       }
     });
-    observer.observe(canvasElement.parentElement ?? document.body, { childList: true });
+    observer.observe(document.body, { childList: true, subtree: true });
 
     const interval = setInterval(() => {
       const count = (countPerCanvas.get(canvasElement) ?? 2) + 1;

@@ -93,6 +93,30 @@ doc-sidebar {
     }
   }
 
+  table {
+    border-collapse: collapse;
+    inline-size: 100%;
+    margin-block-end: var(--sl-size-300);
+
+    th {
+      font-weight: 600;
+      text-align: start;
+    }
+
+    td,
+    th {
+      padding: var(--sl-size-100) var(--sl-size-200);
+    }
+
+    tbody tr {
+      border-block-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+    }
+
+    code {
+      white-space: nowrap;
+    }
+  }
+
   sl-callout p {
     margin-block: 0;
   }

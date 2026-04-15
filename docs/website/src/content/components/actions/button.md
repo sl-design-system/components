@@ -128,7 +128,26 @@ You can either use the `disabled` attribute to disable a button or set the `aria
 </sl-button-bar>
 ```
 
-### Icon buttons
+The `aria-disabled="true"` attribute should not be used as a one-for-one replacement for the `disabled` attribute because they have different functionalities.
+
+Both:
+
+- visually dim the button
+- prevent actions (click, enter/space) on the button
+- announce the button as 'dimmed' or 'disabled' in a screenreader
+
+However, there are some differences:
+
+- `disabled` takes the button out of the tab-focus sequence, `aria-disabled` does not
+- `disabled` disables all pointer events, `aria-disabled` does not
+
+The difference can be useful when you want to combine a disabled button with a tooltip. In that case you want the button to be focusable (so you can hover or tab to it) but you also want it to be dimmed and not clickable. In that case you would use `aria-disabled` instead of `disabled`.
+
+When `disabled` is added to a button there is no need to also add `aria-disabled`; everything `aria-disabled` does, `disabled` does as well.
+
+You can read more on the difference and in which scenarios which option might be preferable on the [MDN page about aria-disabled](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled).
+
+### Icon
 
 Icon buttons are used for actions that can be represented by an icon, such as "close" or "edit". Always provide a text label for accessibility, either through an `<sl-tooltip>` or using `aria-label`.
 
@@ -147,19 +166,25 @@ Icon buttons are used for actions that can be represented by an icon, such as "c
 </sl-button-bar>
 ```
 
-### Link buttons
+### Command
 
-Sometimes you want a link to look like a button. In that case, you can use the `fill="link"` attribute and wrap the button's content in an `<a href>` element.
+The button component supports the [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API). This allows you to declaratively connect a button to another element and invoke a command on it, without needing any JavaScript.
+
+Use the `command` attribute to specify the command to invoke, and the `commandfor` attribute to reference the `id` of the target element. The `id` must be in the same DOM scope as the button (i.e. the same document or shadow root). If you already have a JavaScript reference to the target element, you can set the `commandForElement` property directly instead.
+
+::: info
+Note that not all browsers support the Invoker Commands API yet. When in doubt, use the [invokers-polyfill](https://github.com/keithamus/invokers-polyfill) to ensure compatibility.
+:::
+
+Custom elements cannot use the same commands as native elements, but they can define their own custom commands. For example, the `<sl-dialog>` component defines a `--show-modal` command to open the dialog and a `--close` command to close it.
 
 ```html {.example}
-<sl-button-bar>
-  <sl-button fill="link">
-    <a href="https://example.com">Link</a>
-  </sl-button>
-  <sl-button fill="link">
-    <a href="https://example.com" target="_blank">New window</a>
-  </sl-button>
-</sl-button-bar>
+<sl-button command="--show-modal" commandfor="invoker-dialog" variant="primary"> Open dialog </sl-button>
+<sl-dialog id="invoker-dialog">
+  <h1 slot="title">Commands Example</h1>
+  <p>This dialog was opened without any JavaScript.</p>
+  <sl-button command="--close" commandfor="invoker-dialog" slot="primary-actions"> Close </sl-button>
+</sl-dialog>
 ```
 
 ## Accessibility
@@ -174,3 +199,17 @@ When the button only has an icon and no visible text, make sure to provide an ac
 </sl-button>
 <sl-tooltip id="tooltip">Smile!</sl-tooltip>
 ```
+
+### ARIA
+
+The following ARIA attributes can be used with the button component:
+
+| Attribute          | Description                                                                                                                                                                             |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `aria-label`       | To be used when the button is icon-only and its meaning is clear.                                                                                                                       |
+| `aria-labelledby`  | When a different element serves as the label, for example in the case of an icon-only button that has a label outside the button, this property can be set to the `id` of that element. |
+| `aria-describedby` | When the button needs extra explanation or description you can reference this element here by the `id`. See [Note 1] below for more explanation.                                        |
+| `aria-disabled`    | Announces the button as disabled with a screenreader. See [Note 2] below for more explanation.                                                                                          |
+| `aria-pressed`     | When the button is used as a toggle and is toggled on, the value of this state is true, and when toggled off, the state is false.                                                       |
+
+There is a subtle difference between `aria-labelledby` and `aria-describedby`: a label should be concise, where a description is intended to provide more verbose information. A description can for example be "Items in the trash will be permanently removed after 30 days." to explain what (delayed) effect a "Move to trash" button has.

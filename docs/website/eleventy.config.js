@@ -28,9 +28,13 @@ export default async function (eleventyConfig) {
     [join(themePath, 'fonts')]: 'theme/fonts'
   });
 
-  eleventyConfig.addWatchTarget(resolve('../../custom-elements.json'));
-  eleventyConfig.addWatchTarget(resolve('../components/dist'));
-  eleventyConfig.setWatchThrottleWaitTime(100); // in milliseconds
+  eleventyConfig.addWatchTarget('../components/dist/**/*.js');
+  eleventyConfig.addWatchTarget('./custom-elements.json');
+  eleventyConfig.setWatchThrottleWaitTime(1000);
+
+  eleventyConfig.setServerOptions({
+    domDiff: false
+  });
 
   eleventyConfig.on('eleventy.beforeWatch', async changes => {
     let updateComponents = false;

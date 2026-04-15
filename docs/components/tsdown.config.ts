@@ -1,6 +1,5 @@
 import { readFileSync } from 'node:fs';
 import { URL } from 'node:url';
-import { compile } from 'sass-embedded';
 import { defineConfig } from 'tsdown'
 
 // This plugin handles CSS imports with { type: 'css' } and converts them to CSSStyleSheet
@@ -39,6 +38,7 @@ const cssPlugin = {
 };
 
 export default defineConfig({
+  clean: !process.argv.includes('--watch'),
   deps: {
     onlyBundle: false
   },
@@ -73,6 +73,7 @@ export default defineConfig({
       );
     }
   },
+  hash: false,
   platform: 'browser',
   plugins: [cssPlugin]
 })

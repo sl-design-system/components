@@ -14,7 +14,7 @@ There are two ways to improve the accessibility of `sl-badge` when used inside a
 
 ### Dynamic content
 
-If the badge displays information that updates automatically (e.g. an unread message count), add `role="status"` with a descriptive `aria-label`. Screen readers will announce changes in the `aria-label` value when they occur.
+If the badge displays information that updates automatically (e.g. an unread message count), add `role="status"` with a descriptive `aria-label`. Screen readers will announce changes in the `aria-label` and badge value when they occur.
 
 ```html
 <sl-avatar display-name="Rose Nylund" picture-url="/images/avatar-1.jpg">

@@ -1,4 +1,5 @@
 import { faSchool } from '@fortawesome/pro-regular-svg-icons';
+import { type BadgeSize } from '@sl-design-system/badge';
 import '@sl-design-system/badge/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/tooltip/register.js';
@@ -203,9 +204,7 @@ export const Overflow: Story = {
   }
 };
 
-let count = 2;
-
-const badgeSizes: Record<string, string> = {
+const badgeSizes: Record<AvatarSize, BadgeSize> = {
   sm: 'sm',
   md: 'sm',
   lg: 'md',
@@ -215,24 +214,48 @@ const badgeSizes: Record<string, string> = {
   '4xl': 'lg'
 };
 
+const countPerCanvas = new WeakMap<Element, number>(),
+  intervalPerCanvas = new WeakMap<Element, ReturnType<typeof setInterval>>();
+
 export const Sizes: Story = {
   args: {
     subheading: 'Subheading'
   },
   play: ({ canvasElement }) => {
-    count = 2;
+    // Clear any previously running interval for this canvas (e.g. remount / Docs re-render)
+    const previousInterval = intervalPerCanvas.get(canvasElement);
+    if (previousInterval) {
+      clearInterval(previousInterval);
+    }
+
+    countPerCanvas.set(canvasElement, 2);
     const maxCount = 30;
 
+    const cleanup = () => {
+      clearInterval(interval);
+      intervalPerCanvas.delete(canvasElement);
+      observer.disconnect();
+    };
+
+    // Watch for unmount so we clean up immediately instead of waiting for the next tick
+    const observer = new MutationObserver(() => {
+      if (!canvasElement.isConnected) {
+        cleanup();
+      }
+    });
+    observer.observe(canvasElement.parentElement ?? document.body, { childList: true });
+
     const interval = setInterval(() => {
-      if (!canvasElement.isConnected || count >= maxCount) {
-        clearInterval(interval);
+      const count = (countPerCanvas.get(canvasElement) ?? 2) + 1;
+
+      if (!canvasElement.isConnected || count > maxCount) {
+        cleanup();
         return;
       }
 
-      count++;
+      countPerCanvas.set(canvasElement, count);
 
       const badges = canvasElement.querySelectorAll('sl-badge');
-
       badges.forEach(badge => {
         badge.setAttribute('aria-label', `${count} unread messages`);
 
@@ -246,13 +269,15 @@ export const Sizes: Story = {
         }
       });
     }, 5000);
+
+    intervalPerCanvas.set(canvasElement, interval);
   },
   render: ({ color, displayInitials, emphasis, href, pictureUrl, shape, subheading, vertical }) => html`
     <p>
       Avatars with badges in all available sizes. The badges use <code>role="status"</code> and an
       <code>aria-label</code> that updates every 5 seconds to simulate dynamic content. See the
-      <a href="/categories/components/avatar/accessibility/">accessibility guidelines</a> for details on static vs
-      dynamic badge usage in avatar.
+      <a href="https://sanomalearning.design/categories/components/avatar/accessibility/">accessibility guidelines</a>
+      for details on static vs dynamic badge usage in avatar.
     </p>
     <div style="display: flex; flex-direction: column; gap: 1rem">
       ${sizes.map(
@@ -271,13 +296,13 @@ export const Sizes: Story = {
             ${subheading ? html`<span>${subheading}</span>` : nothing}
             <sl-badge
               .size=${badgeSizes[size]}
-              aria-label=${`${count} unread messages`}
+              aria-label="2 unread messages"
               color="red"
               emphasis="bold"
               role="status"
               slot="badge"
             >
-              ${badgeSizes[size] === 'sm' ? nothing : count}
+              ${badgeSizes[size] === 'sm' ? nothing : 2}
             </sl-badge>
           </sl-avatar>
         `

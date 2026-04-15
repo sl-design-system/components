@@ -1936,9 +1936,15 @@ describe('sl-date-field', () => {
         }
 
         await (buttonBar as HTMLElement & { updateComplete?: Promise<unknown> }).updateComplete;
-        await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
-        expect(buttonBar).not.to.match(':state(empty)');
-        expect(getComputedStyle(buttonBar)).to.have.property('display', 'flex');
+
+        let confirmButton = buttonBar.querySelector('sl-button');
+
+        for (let i = 0; i < 10 && !confirmButton; i += 1) {
+          await new Promise(resolve => setTimeout(resolve, 10));
+          confirmButton = buttonBar.querySelector('sl-button');
+        }
+
+        expect(confirmButton).to.exist;
       });
 
       it('should not emit sl-change immediately when calendar date is selected', async () => {

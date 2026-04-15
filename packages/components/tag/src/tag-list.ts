@@ -68,6 +68,11 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   /** Currently observed stack element, if stacked mode is active. */
   #observedStack?: HTMLElement;
 
+  /**
+   * Stacked lists stay hidden until the first visibility calculation settles.
+   * These helpers keep that initial render stable and ensure the resize observer
+   * follows only the currently rendered stack element.
+   */
   #isStackedActive(): boolean {
     return this.stacked || this.hasAttribute('stacked');
   }
@@ -79,6 +84,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     this.toggleAttribute('data-visibility-resolved', !this.#isStackedActive() || this.#hasResolvedInitialVisibility);
   }
 
+  /**
+   * Restart the initial visibility flow whenever stacked mode needs a fresh layout pass.
+   */
   #resetInitialVisibilityState(): void {
     this.#hasResolvedInitialVisibility = false;
     this.#initialVisibilityPasses = 0;
@@ -90,6 +98,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  /**
+   * Keep the ResizeObserver subscribed to the current stack element only.
+   */
   #syncStackObservation(): void {
     const nextObservedStack = this.stacked ? this.stack : undefined;
 

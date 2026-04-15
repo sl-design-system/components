@@ -932,12 +932,12 @@ describe('sl-combobox', () => {
         expect(tagList).to.have.attribute('stacked');
       });
 
-      it('should have a stable layout for the tag list', () => {
+      it('should have a responsive layout for the tag list', () => {
         const tagList = el.renderRoot.querySelector('sl-tag-list') as HTMLElement;
         const styles = getComputedStyle(tagList);
         const hostStyles = getComputedStyle(el);
 
-        expect(styles.flexGrow).to.equal('0');
+        expect(styles.flexGrow).to.equal('1');
         expect(styles.flexShrink).to.equal('1');
         expect(styles.flexBasis).to.equal('auto');
         expect(styles.minInlineSize).to.equal('0px');
@@ -1048,6 +1048,36 @@ describe('sl-combobox', () => {
           expect(hiddenCount).to.be.greaterThan(0);
           expect(stackTag).to.have.trimmed.text(`+${hiddenCount}`);
           expect(visibility.join(',')).to.match(/^false(,false)*,true(,true)*$/);
+        } finally {
+          vi.useRealTimers();
+        }
+      });
+
+      it('should reveal more tags after the combobox grows again', async () => {
+        vi.useFakeTimers();
+
+        try {
+          el.style.inlineSize = '300px';
+          el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
+          await el.updateComplete;
+          await vi.advanceTimersByTimeAsync(300);
+          await el.updateComplete;
+          await waitForNextFrame();
+
+          const getVisibleCount = () =>
+            Array.from(el.renderRoot.querySelectorAll('sl-tag')).filter(tag => tag.style.display !== 'none').length;
+
+          const collapsedVisibleCount = getVisibleCount();
+
+          el.style.inlineSize = '900px';
+          await vi.advanceTimersByTimeAsync(300);
+          await el.updateComplete;
+          await waitForNextFrame();
+
+          const expandedVisibleCount = getVisibleCount();
+
+          expect(collapsedVisibleCount).to.be.lessThan(6);
+          expect(expandedVisibleCount).to.be.greaterThan(collapsedVisibleCount);
         } finally {
           vi.useRealTimers();
         }

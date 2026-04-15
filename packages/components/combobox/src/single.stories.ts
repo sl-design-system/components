@@ -21,6 +21,7 @@ type Props = Pick<
   | 'selectOnly'
   | 'value'
 > & {
+  label?: string;
   maxWidth?: string;
   options?: unknown[] | (() => TemplateResult);
   optionGroupPath?: string;
@@ -37,6 +38,7 @@ export default {
     autocomplete: 'both',
     disabled: false,
     filterResults: false,
+    label: 'Component',
     placeholder: '',
     selectOnly: false,
     virtualList: false
@@ -56,6 +58,7 @@ export default {
     disabled,
     filterResults,
     groupSelected,
+    label,
     maxWidth,
     optionGroupPath,
     optionLabelPath,
@@ -68,7 +71,7 @@ export default {
   }) => {
     return html`
       <sl-form>
-        <sl-form-field label="Component">
+        <sl-form-field label=${ifDefined(label)}>
           <sl-combobox
             ?allow-custom-values=${allowCustomValues}
             ?disabled=${disabled}
@@ -151,6 +154,7 @@ export const Groups: Story = {
 
 export const RichContent: Story = {
   args: {
+    label: 'Chapter',
     options: () => html`
       <style>
         sl-option::part(wrapper) {
@@ -164,10 +168,10 @@ export const RichContent: Story = {
       <sl-option value="chapter-1">Chapter 1 <sl-badge size="lg" variant="info">Published</sl-badge></sl-option>
       <sl-option value="chapter-2">Chapter 2 <sl-badge size="lg" variant="info">Published</sl-badge></sl-option>
       <sl-option value="chapter-3">
-        Cillum proident reprehenderit amet ipsum labore aliqua ea excepteur enim duis. Nisi eu nulla eiusmod irure ut
-        anim aute ex eiusmod nisi do Lorem ut. Pariatur anim tempor in fugiat. Sit ullamco exercitation ipsum et eu nisi
-        id minim ut. Labore id fugiat exercitation dolor fugiat non dolore anim et enim ex consequat non Lorem. Lorem
-        quis sint et et. <sl-badge emphasis="bold" size="lg">Draft</sl-badge>
+        Chapter 3 - Cillum proident reprehenderit amet ipsum labore aliqua ea excepteur enim duis. Nisi eu nulla eiusmod
+        irure ut anim aute ex eiusmod nisi do Lorem ut. Pariatur anim tempor in fugiat. Sit ullamco exercitation ipsum
+        et eu nisi id minim ut. Labore id fugiat exercitation dolor fugiat non dolore anim et enim ex consequat non
+        Lorem. Lorem quis sint et et. <sl-badge emphasis="bold" size="lg">Draft</sl-badge>
       </sl-option>
     `
   }
@@ -175,6 +179,7 @@ export const RichContent: Story = {
 
 export const Selected: Story = {
   args: {
+    label: 'Your favorite nonsensical word',
     options: () => html`
       <sl-option>Lorem</sl-option>
       <sl-option>Ipsum</sl-option>

@@ -130,7 +130,7 @@ export const All: Story = {
         multiple
         placeholder="Multiple, disabled"
         .value=${['Option 1', 'Option 2']}
-        aria-label="Medium Multiple, disabled"
+        aria-label="Choose an option"
       >
         <sl-listbox>
           <sl-option>Option 1</sl-option>
@@ -144,7 +144,7 @@ export const All: Story = {
         placeholder="Multiple, disabled"
         size="lg"
         .value=${['Option 1', 'Option 2']}
-        aria-label="Large Multiple, disabled"
+        aria-label="Choose an option"
       >
         <sl-listbox>
           <sl-option>Option 1</sl-option>
@@ -153,7 +153,7 @@ export const All: Story = {
         </sl-listbox>
       </sl-combobox>
 
-      <sl-combobox multiple placeholder="Multiple" .value=${['Option 1', 'Option 2']} aria-label="Medium Multiple">
+      <sl-combobox multiple placeholder="Multiple" .value=${['Option 1', 'Option 2']} aria-label="Choose an option">
         <sl-listbox>
           <sl-option>Option 1</sl-option>
           <sl-option>Option 2</sl-option>
@@ -165,7 +165,7 @@ export const All: Story = {
         placeholder="Multiple"
         size="lg"
         .value=${['Option 1', 'Option 2']}
-        aria-label="Large Multiple"
+        aria-label="Choose an option"
       >
         <sl-listbox>
           <sl-option>Option 1</sl-option>
@@ -178,7 +178,7 @@ export const All: Story = {
         multiple
         placeholder="Multiple, stacked"
         .value=${['Option 1', 'Option 2', 'Option 3', 'Option 4']}
-        aria-label="Medium Multiple, stacked"
+        aria-label="Choose an option"
       >
         <sl-listbox>
           <sl-option>Option 1</sl-option>
@@ -193,7 +193,7 @@ export const All: Story = {
         placeholder="Multiple, stacked"
         size="lg"
         .value=${['Option 1', 'Option 2', 'Option 3', 'Option 4']}
-        aria-label="Large Multiple, stacked"
+        aria-label="Choose an option"
       >
         <sl-listbox>
           <sl-option>Option 1</sl-option>

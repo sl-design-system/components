@@ -19,6 +19,7 @@ type Props = Pick<
   | 'selectOnly'
   | 'value'
 > & {
+  hint?: string;
   label?: string;
   maxWidth?: string;
   options?: unknown[] | (() => TemplateResult);
@@ -37,6 +38,7 @@ export default {
     disabled: false,
     filterResults: false,
     label: 'Component',
+    hint: '',
     placeholder: '',
     selectOnly: false,
     virtualList: false
@@ -56,6 +58,7 @@ export default {
     disabled,
     filterResults,
     groupSelected,
+    hint,
     label,
     maxWidth,
     optionGroupPath,
@@ -69,7 +72,7 @@ export default {
   }) => {
     return html`
       <sl-form>
-        <sl-form-field label=${ifDefined(label)}>
+        <sl-form-field label=${ifDefined(label)} hint=${ifDefined(hint)}>
           <sl-combobox
             ?allow-custom-values=${allowCustomValues}
             ?disabled=${disabled}
@@ -202,7 +205,7 @@ export const SelectOnly: Story = {
 
 export const Selected: Story = {
   args: {
-    label: 'Your favourite nonsense word',
+    label: 'Your favourite nonsensical word',
     options: () => html`
       <sl-option>Lorem</sl-option>
       <sl-option selected>Ipsum</sl-option>

@@ -209,10 +209,12 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       this.#updateWeekNumberColumnSize();
     }
 
-    if (
-      (changes.has('localizedWeekOfYear') && changes.get('localizedWeekOfYear') !== undefined) ||
-      (changes.has('showWeekNumbers') && changes.get('showWeekNumbers') !== undefined)
-    ) {
+    const weekNumberHeader = this.renderRoot.querySelector('.days-of-week .week-number'),
+      shouldRecenterForShowWeekNumbers =
+        changes.has('showWeekNumbers') && (weekNumberHeader != null || changes.get('showWeekNumbers') === true),
+      shouldRecenterForLocalizedWeekOfYear = changes.has('localizedWeekOfYear') && weekNumberHeader != null;
+
+    if (shouldRecenterForShowWeekNumbers || shouldRecenterForLocalizedWeekOfYear) {
       requestAnimationFrame(() => this.#scrollToMonth(0));
     }
 

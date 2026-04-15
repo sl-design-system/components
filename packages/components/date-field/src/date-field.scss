@@ -142,16 +142,9 @@ dialog {
 
 sl-button-bar {
   gap: var(--sl-size-300);
-
-  &:state(empty) {
-    display: none;
-  }
-
-  &:not(:state(empty)) {
-    margin-block-start: var(--sl-size-050);
-    padding-block: var(--sl-size-025);
-    padding-inline: var(--sl-size-050) var(--sl-size-025);
-  }
+  margin-block-start: var(--sl-size-050);
+  padding-block: var(--sl-size-025);
+  padding-inline: var(--sl-size-050) var(--sl-size-025);
 }
 
 sl-button {

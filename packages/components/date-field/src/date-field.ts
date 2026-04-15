@@ -76,6 +76,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** Formatter for displaying the value and validation messages. */
   #formatter?: Intl.DateTimeFormat;
 
+  /** Watches light DOM changes so action controls can be rendered only when needed. */
+  #slotObserver = new MutationObserver(() => this.#updateHasActionSlotContent());
+
   /**
    * Flag to prevent willUpdate from clearing dateParts when the value is set
    * to undefined internally (e.g. when the user enters an invalid date).
@@ -106,6 +109,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** @internal Whether the calendar popover is currently visible. */
   @state() calendarVisible?: boolean;
+
+  /** @internal Whether the default slot contains action controls. */
+  @state() hasActionSlotContent?: boolean;
 
   /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<Date | undefined>>;
@@ -226,6 +232,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     this.addEventListener('focusin', this.#onFocusIn);
     this.addEventListener('focusout', this.#onFocusOut);
+
+    this.#slotObserver.observe(this, { attributeFilter: ['slot'], attributes: true, childList: true });
+    this.#updateHasActionSlotContent();
   }
 
   override disconnectedCallback(): void {
@@ -233,6 +242,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     this.removeEventListener('focusin', this.#onFocusIn);
     this.removeEventListener('focusout', this.#onFocusOut);
+    this.#slotObserver.disconnect();
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -303,7 +313,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   override render(): TemplateResult {
     const locale = this.locale ?? 'default',
-      parts = getDateFormat(locale);
+      parts = getDateFormat(locale),
+      hasExtraControls = this.requireConfirmation || this.hasActionSlotContent;
 
     return html`
       <div class="field">
@@ -367,17 +378,21 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
                   show-today
                 ></sl-calendar>
               </slot>
-              <sl-button-bar>
-                <slot></slot>
-                ${this.requireConfirmation
-                  ? html`
-                      <sl-button @click=${this.#onConfirm} variant="primary">
-                        ${msg('Confirm', { id: 'sl.dateField.confirm' })}
-                        <sl-icon name="check"></sl-icon>
-                      </sl-button>
-                    `
-                  : nothing}
-              </sl-button-bar>
+              ${hasExtraControls
+                ? html`
+                    <sl-button-bar>
+                      <slot></slot>
+                      ${this.requireConfirmation
+                        ? html`
+                            <sl-button @click=${this.#onConfirm} variant="primary">
+                              ${msg('Confirm', { id: 'sl.dateField.confirm' })}
+                              <sl-icon name="check"></sl-icon>
+                            </sl-button>
+                          `
+                        : nothing}
+                    </sl-button-bar>
+                  `
+                : nothing}
             `
           : nothing}
       </dialog>
@@ -779,6 +794,12 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     this.calendar.selected = this.value;
+  }
+
+  #updateHasActionSlotContent(): void {
+    this.hasActionSlotContent = Array.from(this.children).some(
+      child => child.slot !== 'calendar' && child.tagName !== 'STYLE'
+    );
   }
 
   #onToggle(event: ToggleEvent): void {

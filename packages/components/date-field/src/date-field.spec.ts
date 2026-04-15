@@ -397,18 +397,8 @@ describe('sl-date-field', () => {
       expect(dialog).to.match(':popover-open');
       expect(dialog).to.contain('sl-calendar');
 
-      const buttonBar = el.renderRoot.querySelector<HTMLElement & { updateComplete?: Promise<unknown> }>('sl-button-bar');
-
-      expect(buttonBar).to.exist;
-
-      if (buttonBar == null) {
-        throw new Error('Expected sl-button-bar to exist');
-      }
-
-      await buttonBar.updateComplete;
-      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
-      expect(buttonBar).to.match(':state(empty)');
-      expect(getComputedStyle(buttonBar)).to.have.property('display', 'none');
+      const buttonBar = el.renderRoot.querySelector('sl-button-bar');
+      expect(buttonBar).not.to.exist;
     });
 
     it('should hide popover when calendar date is selected', async () => {

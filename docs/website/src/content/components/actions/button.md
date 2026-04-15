@@ -7,7 +7,7 @@ eleventyNavigation:
   order: 1
 ---
 
-```html {.example}
+```html {.example .show-source}
 <sl-button>Button</sl-button>
 ```
 

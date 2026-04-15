@@ -1,58 +1,85 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
-import { type LitElement, html } from 'lit';
-import { beforeEach, describe, expect, it } from 'vitest';
-
-// Use dynamic import from dist to avoid CSS module resolution issues in browser tests
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-const { DocCodeExample: DocCodeExampleClass } = await import('@sl-design-system/doc-components/code-example/code-example');
+import { html } from 'lit';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { CodeExample } from './code-example.js';
 
 try {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  customElements.define('doc-code-example', DocCodeExampleClass);
+  customElements.define('doc-code-example', CodeExample);
 } catch {
   /* empty */
 }
 
 describe('doc-code-example', () => {
-  let el: LitElement;
+  let el: CodeExample;
 
-  beforeEach(async () => {
-    el = await fixture(html`
-      <doc-code-example>
-        <button type="button">Click me</button>
-        <pre slot="source"><code>&lt;button&gt;Click me&lt;/button&gt;</code></pre>
-      </doc-code-example>
-    `);
+  describe('defaults', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <doc-code-example>
+          <button type="button">Click me</button>
+          <pre slot="source"><code>&lt;button&gt;Click me&lt;/button&gt;</code></pre>
+        </doc-code-example>
+      `);
+    });
+
+    it('should render', () => {
+      expect(el).to.exist;
+      expect(el).to.be.instanceOf(CodeExample);
+    });
+
+    it('should render a demo area', () => {
+      expect(el.renderRoot.querySelector('.demo')).to.exist;
+    });
+
+    it('should render slotted content in the demo area', () => {
+      const slot = el.renderRoot.querySelector<HTMLSlotElement>('.demo slot');
+
+      expect(slot).to.exist;
+      expect(slot?.assignedElements()).to.have.length.greaterThan(0);
+    });
+
+    it('should render a source area', () => {
+      expect(el.renderRoot.querySelector('.source')).to.exist;
+    });
+
+    it('should render the source slot', () => {
+      const slot = el.renderRoot.querySelector<HTMLSlotElement>('slot[name="source"]');
+
+      expect(slot).to.exist;
+      expect(slot?.assignedElements()).to.have.length.greaterThan(0);
+    });
+
+    it('should render a copy button', () => {
+      expect(el.renderRoot.querySelector('doc-copy-button')).to.exist;
+    });
+
+    it('should render the copy button with no content when source is not set', () => {
+      const copyButton = el.renderRoot.querySelector<HTMLElement & { content?: string }>('doc-copy-button');
+
+      expect(copyButton?.content).to.be.undefined;
+    });
+
+    it('should copy the source to the clipboard on click', async () => {
+      const writeText = vi.spyOn(navigator.clipboard, 'writeText').mockResolvedValue(undefined);
+
+      el.renderRoot.querySelector<HTMLElement>('doc-copy-button')!.click();
+      await el.updateComplete;
+
+      expect(writeText).toHaveBeenCalledWith('<button>Click me</button>');
+
+      writeText.mockRestore();
+    });
   });
 
-  it('should render', () => {
-    expect(el).to.exist;
-    expect(el).to.be.instanceOf(DocCodeExampleClass);
-  });
+  describe('justify', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<doc-code-example justify="center"></doc-code-example>`);
+    });
 
-  it('should render a preview area', () => {
-    const preview = el.renderRoot.querySelector('.preview');
+    it('should reflect the justify state on the element', async () => {
+      const demo = el.renderRoot.querySelector('.demo');
 
-    expect(preview).to.exist;
-  });
-
-  it('should render slotted content in the preview', () => {
-    const slot = el.renderRoot.querySelector<HTMLSlotElement>('.preview slot');
-
-    expect(slot).to.exist;
-    expect(slot?.assignedElements()).to.have.length.greaterThan(0);
-  });
-
-  it('should render a source area', () => {
-    const source = el.renderRoot.querySelector('.source');
-
-    expect(source).to.exist;
-  });
-
-  it('should render the source slot', () => {
-    const slot = el.renderRoot.querySelector<HTMLSlotElement>('slot[name="source"]');
-
-    expect(slot).to.exist;
-    expect(slot?.assignedElements()).to.have.length.greaterThan(0);
+      expect(demo).to.have.style('justify-content', 'center');
+    });
   });
 });

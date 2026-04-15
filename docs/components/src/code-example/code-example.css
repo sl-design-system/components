@@ -5,6 +5,27 @@
   overflow: clip;
 }
 
+:host([inverted]) .demo {
+  background: var(--sl-color-foreground-accent-grey-bold);
+  color: var(--sl-color-foreground-inverted-bold);
+}
+
+:host([justify='center']) {
+  --_justify: center;
+}
+
+:host([justify='end']) {
+  --_justify: end;
+}
+
+:host([justify='stretch']) {
+  --_justify: stretch;
+}
+
+:host([show-source]) .source {
+  border-block-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+}
+
 slot[name='source']::slotted(pre) {
   background: transparent !important;
   margin: 0 !important;
@@ -12,11 +33,67 @@ slot[name='source']::slotted(pre) {
 }
 
 .demo {
+  display: grid;
+  justify-items: var(--_justify, start);
   padding: var(--sl-size-200);
 }
 
 .source {
   background: var(--sl-color-background-accent-grey-subtlest);
-  border-block-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
   padding: var(--sl-size-200);
+  position: relative;
+
+  doc-copy-button {
+    inset-block-start: var(--sl-size-100);
+    inset-inline-end: var(--sl-size-100);
+    opacity: 0;
+    position: absolute;
+    transition: opacity 0.15s;
+  }
+
+  &:hover doc-copy-button,
+  doc-copy-button:focus-within {
+    opacity: 1;
+  }
+}
+
+details {
+  border-block-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+summary {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  font: inherit;
+  gap: var(--sl-size-050);
+  justify-content: center;
+  padding: var(--sl-size-100) var(--sl-size-200);
+  user-select: none;
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: background 0.2s ease-in-out;
+  }
+
+  &:hover {
+    background: var(--sl-color-background-accent-grey-subtlest);
+  }
+
+  &:active {
+    background: var(--sl-color-background-accent-grey-subtle);
+  }
+}
+
+details[open] summary {
+  border-block-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+
+  sl-icon {
+    rotate: 180deg;
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition: rotate 0.2s ease-in-out;
+    }
+  }
 }

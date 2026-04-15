@@ -3,13 +3,36 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "eleventy --serve --quiet",
-    "build": "eleventy"
+    "build": "wireit",
+    "start": "wireit"
+  },
+  "wireit": {
+    "build": {
+      "command": "eleventy",
+      "output": [
+        "dist"
+      ],
+      "dependencies": [
+        "../components:build",
+        "metadata"
+      ]
+    },
+    "metadata": {
+      "command": "cem generate --config ../../.cem.yaml --output ./custom-elements.json"
+    },
+    "start": {
+      "command": "eleventy --serve --quiet",
+      "dependencies": [
+        "../components:build",
+        "metadata"
+      ]
+    }
   },
   "dependencies": {
     "@11ty/eleventy": "^4.0.0-alpha.7",
     "@11ty/eleventy-navigation": "^1.0.5",
     "@fortawesome/pro-regular-svg-icons": "^7.2.0",
+    "@pwrs/cem": "^0.9.19",
     "@webcomponents/scoped-custom-element-registry": "^0.0.10",
     "esbuild": "^0.25.0",
     "lit": "^3.3.2",
@@ -17,6 +40,7 @@
     "markdown-it-attrs": "^4.3.1",
     "node-html-parser": "^7.1.0",
     "prismjs": "^1.30.0",
-    "slugify": "^1.6.9"
+    "slugify": "^1.6.9",
+    "wireit": "^0.14.12"
   }
 }

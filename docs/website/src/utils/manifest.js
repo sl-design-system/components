@@ -1,7 +1,7 @@
 import { access, readFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import manifest from '../../../../custom-elements.json' with { type: 'json' };
+import manifest from '../../custom-elements.json' with { type: 'json' };
 
 // Repo root is 4 levels up from this file (docs/website/src/utils/manifest.js)
 const repoRoot = fileURLToPath(new URL('../../../../', import.meta.url));

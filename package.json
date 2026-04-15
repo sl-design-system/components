@@ -451,7 +451,7 @@
     },
     "website": {
       "dependencies": [
-        "./website:build"
+        "./docs/website:build"
       ]
     }
   },

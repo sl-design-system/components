@@ -209,7 +209,7 @@ The following ARIA attributes can be used with the button component:
 | `aria-label`       | To be used when the button is icon-only and its meaning is clear.                                                                                                                       |
 | `aria-labelledby`  | When a different element serves as the label, for example in the case of an icon-only button that has a label outside the button, this property can be set to the `id` of that element. |
 | `aria-describedby` | When the button needs extra explanation or description you can reference this element here by the `id`. See [Note 1] below for more explanation.                                        |
-| `aria-disabled`    | Announces the button as disabled with a screenreader. See [Note 2] below for more explanation.                                                                                          |
+| `aria-disabled`    | Announces the button as disabled with a screenreader. See [Disabled](#disabled) for more explanation.                                                                                   |
 | `aria-pressed`     | When the button is used as a toggle and is toggled on, the value of this state is true, and when toggled off, the state is false.                                                       |
 
 There is a subtle difference between `aria-labelledby` and `aria-describedby`: a label should be concise, where a description is intended to provide more verbose information. A description can for example be "Items in the trash will be permanently removed after 30 days." to explain what (delayed) effect a "Move to trash" button has.

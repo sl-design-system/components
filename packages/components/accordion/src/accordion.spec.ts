@@ -3,6 +3,7 @@ import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import '../register.js';
+import { type AccordionItem } from './accordion-item.js';
 import { Accordion } from './accordion.js';
 
 describe('sl-accordion', () => {
@@ -55,7 +56,7 @@ describe('sl-accordion', () => {
     });
 
     it('should switch focus between the items when pressing the arrow keys', async () => {
-      const items = Array.from(el.querySelectorAll('sl-accordion-item'));
+      const items = Array.from(el.querySelectorAll<AccordionItem>('sl-accordion-item'));
 
       items.at(0)?.focus();
 
@@ -70,7 +71,7 @@ describe('sl-accordion', () => {
     });
 
     it('should toggle only one accordion when single is set', async () => {
-      const items = Array.from(el.querySelectorAll('sl-accordion-item'));
+      const items = Array.from(el.querySelectorAll<AccordionItem>('sl-accordion-item'));
 
       el.single = true;
       await el.updateComplete;
@@ -92,7 +93,7 @@ describe('sl-accordion', () => {
     });
 
     it('should not toggle only one accordion when there is no single set', async () => {
-      const items = Array.from(el.querySelectorAll('sl-accordion-item'));
+      const items = Array.from(el.querySelectorAll<AccordionItem>('sl-accordion-item'));
 
       items[0].renderRoot.querySelector('summary')?.click();
 

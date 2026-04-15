@@ -241,7 +241,7 @@ export const Sizes: Story = {
                 emphasis="bold"
                 slot="badge"
               >
-                ${badgeSizes[size] === 'sm' ? nothing : '200000'}
+                ${badgeSizes[size] === 'sm' ? nothing : '2'}
               </sl-badge>
             </sl-avatar>
           `

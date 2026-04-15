@@ -95,8 +95,8 @@ export default {
                   </sl-listbox>
                 `}
           </sl-combobox>
-        </sl-form-field></sl-form
-      >
+        </sl-form-field>
+      </sl-form>
     `;
   }
 } satisfies Meta<Props>;

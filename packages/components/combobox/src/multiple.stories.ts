@@ -96,8 +96,8 @@ export default {
                     ${Array.isArray(options) ? options.map(o => html`<sl-option>${o}</sl-option>`) : options?.()}
                   </sl-listbox>
                 `}
-          </sl-combobox></sl-form-field
-        >
+          </sl-combobox>
+        </sl-form-field>
       </sl-form>
     `;
   }

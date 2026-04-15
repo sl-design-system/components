@@ -147,7 +147,7 @@ These states describe what users see when the toolbar is available, constrained,
 
 - **Default:** Actions are available and visible until overflow is needed.
 - **Overflow:** Some actions move into the overflow menu when space is limited.
-- **Disabled:** The tool bar and its actions are not interactive.
+- **Disabled:** The toolbar and its actions are not interactive.
 
 </section>
 
@@ -156,19 +156,19 @@ These states describe what users see when the toolbar is available, constrained,
 
 ## Figma Properties
 
-With these options you can adjust the appearance of the tool bar in Figma.
+With these options you can adjust the appearance of the toolbar in Figma.
 
 
-### Toolbar item
+### Toolbar
 Properties for the main toolbar component used by designers. Some options (like Overflow, Item 3–5, and Divider 1–5) are for previewing compositions and states in Figma.
 
 <div class="ds-table-wrapper">
 
 | Item | Options | Description |
 | --- | --- | --- |
-| Fill | `Ghost` `Outline` | Sets the visual style applied to actions inside the tool bar. |
-| Inverted | `boolean` | Switches the tool bar to an inverted appearance for dark surfaces. |
-| Contained | `boolean` | Adds a surface treatment (background and padding) around the tool bar. |
+| Fill | `Ghost` `Outline` | Sets the visual style applied to actions inside the toolbar. |
+| Inverted | `boolean` | Switches the toolbar to an inverted appearance for dark surfaces. |
+| Contained | `boolean` | Adds a surface treatment (background and padding) around the toolbar. |
 | Overflow | `boolean` | Preview-only toggle to show the overflow state in Figma. |
 | Item 3–5 | `boolean` | Preview-only toggles to add/remove extra items in the Figma example. |
 | Divider 1–5 | `boolean` | Preview-only toggles to add/remove dividers between groups in the Figma example. |
@@ -184,8 +184,8 @@ Properties for the nested toolbar item used inside the toolbar to swap between t
 
 | Item | Options | Description |
 | --- | --- | --- |
-| Item | `Button` `Menu` `Button Group` | Swaps the supported action type used for a single tool bar item. |
-| Fill | `Outline` `Ghost` | Matches the item’s style to the tool bar style where needed. |
+| Item | `Button` `Menu` `Button Group` | Swaps the supported action type used for a single toolbar item. |
+| Fill | `Outline` `Ghost` | Matches the item’s style to the toolbar style where needed. |
 | Inverted | `boolean` | Matches the item’s appearance to inverted surfaces where needed. |
 
 {.ds-table .ds-table-align-top}
@@ -216,15 +216,14 @@ Properties for the nested toolbar group used inside a toolbar item to build grou
 
 ## Behaviours
 
-### Groups related controls
+### Group related controls
 
 Controls are organised into logical groups to improve scannability and usability. When space is limited, groups help determine how items collapse into the overflow menu. Dividers should only be used to separate meaningful groups. Avoid using dividers between every item.
 
 ### Handles overflow
 
-When space is limited, especially on smaller screens, actions move into the overflow menu while the remaining actions keep visible. In the overflow dropdown, groups are separated with dividers to preserve structure and clarity.
+When space is limited, especially on smaller screens, actions move into the overflow menu, while the remaining actions will stay visible. In the overflow dropdown, groups are separated with dividers to preserve structure and clarity.
   
-
   
 ### Consistent styling and clear icon actions
 

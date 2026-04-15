@@ -147,6 +147,7 @@ dl {
     dd code,
     dd ul {
       font-family: monospace;
+      font-size: 1em;
     }
 
     ul {

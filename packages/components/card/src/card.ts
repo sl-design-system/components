@@ -172,6 +172,8 @@ export class Card extends ScopedElementsMixin(LitElement) {
     const article: HTMLSlotElement | null = this.renderRoot.querySelector('slot[name="body"]');
     if (!article || article.assignedNodes({ flatten: true }).length === 0) {
       this.classList.remove('sl-has-article');
+      (article as HTMLElement)?.style.removeProperty('--_line-clamp');
+      this.#setGridSpan();
       return;
     } else {
       this.classList.add('sl-has-article');

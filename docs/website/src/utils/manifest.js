@@ -40,9 +40,14 @@ const getComponentMetadata = async path => {
   }
 
   try {
-    const packageJson = JSON.parse(await readFile(packageJsonPath, 'utf-8'));
+    const packageJson = JSON.parse(await readFile(packageJsonPath, 'utf-8')),
+      repositoryUrl = packageJson.repository?.url,
+      repositoryDirectory = packageJson.repository?.directory;
 
     return {
+      packageName: packageJson.name || null,
+      repositoryUrl,
+      repositoryDirectory,
       status: packageJson.status || null,
       version: packageJson.version || null
     };
@@ -59,7 +64,7 @@ export async function getComponents() {
   const components = [];
 
   for (const module of manifest.modules || []) {
-    const { status, version } = await getComponentMetadata(module.path);
+    const metadata = await getComponentMetadata(module.path);
 
     for (const declaration of module.declarations || []) {
       if (declaration.customElement) {
@@ -72,14 +77,13 @@ export async function getComponents() {
 
         components.push({
           ...declaration,
+          ...metadata,
           cssParts,
           cssProperties,
           cssStates,
           events,
           members,
-          slots,
-          status,
-          version
+          slots
         });
       }
     }

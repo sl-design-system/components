@@ -22,13 +22,9 @@ export type ButtonType = 'button' | 'reset' | 'submit';
 export type ButtonVariant = 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'danger' | 'inverted';
 
 /**
- * A single, simple button, with optionally an icon.
- *
- * ```html
- *   <sl-button>Foo</sl-button>
- * ```
- *
  * @customElement sl-button
+ * @summary Buttons are used to trigger an action or event.
+ *
  * @slot default - Text label of the button. Optionally an <code>sl-icon</code> can be added
  */
 export class Button extends ForwardAriaMixin(LitElement) {

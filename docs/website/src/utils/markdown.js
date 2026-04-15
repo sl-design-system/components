@@ -14,8 +14,3 @@ export const markdown = markdownit({
 markdown.use(markdownItAttrs, {
   allowedAttributes: []
 });
-
-// markdown.use(markdownItAnchor, {
-//   permalink: markdownItAnchor.permalink.headerLink(),
-//   level: [2, 3]
-// });

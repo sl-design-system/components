@@ -55,8 +55,12 @@ doc-sidebar {
   }
 
   p {
-    line-height: 1.6;
     margin-block-end: var(--sl-size-200);
+
+    &.summary {
+      font-size: 1.25em;
+      margin-block-end: var(--sl-size-300);
+    }
   }
 
   ul,
@@ -99,9 +103,51 @@ doc-sidebar {
   }
 }
 
-.component-meta {
-  display: flex;
-  gap: var(--sl-size-100);
+dl.metadata {
+  align-items: center;
+  display: grid;
+  gap: var(--sl-size-150) var(--sl-size-200);
+  grid-template-columns: auto 1fr;
+  margin-block-end: var(--sl-size-400);
+
+  dt {
+    align-self: center;
+    color: var(--sl-color-foreground-subtlest);
+  }
+
+  dd {
+    font-family: monospace;
+    margin: 0;
+  }
+
+  ul {
+    display: flex;
+    gap: var(--sl-size-150);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    display: inline-flex;
+    margin: 0;
+  }
+
+  a {
+    align-items: center;
+    color: inherit;
+    display: inline-flex;
+    gap: var(--sl-size-050);
+    text-decoration: none;
+
+    &:hover span {
+      text-decoration: underline;
+    }
+  }
+
+  svg {
+    inline-size: 18px;
+  }
 }
 
 doc-page-toc {
@@ -116,10 +162,6 @@ doc-page-toc {
     display: block;
   }
 }
-
-/* ============================================
-   Prism syntax highlighting
-   ============================================ */
 
 .code-token {
   &.code-comment,

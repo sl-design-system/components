@@ -7,8 +7,6 @@ eleventyNavigation:
   order: 1
 ---
 
-A button initiates an action when clicked, like redirecting to a new page or submitting a form. It is a key element for interaction and action.
-
 ```html {.example}
 <sl-button>Button</sl-button>
 ```
@@ -132,11 +130,3 @@ The button component renders a native `<button>` element in its shadow DOM, ensu
 - Always provide a visible text label
 - Use `aria-label` only when a visible label is not possible (e.g. icon-only buttons)
 - Don't disable buttons without explaining why the action is unavailable
-
-## API
-
-| Property   | Type                                              | Default       | Description                    |
-| ---------- | ------------------------------------------------- | ------------- | ------------------------------ |
-| `variant`  | `'primary' \| 'secondary' \| 'ghost' \| 'danger'` | `'secondary'` | Visual style of the button     |
-| `size`     | `'sm' \| 'md' \| 'lg'`                            | `'md'`        | Size of the button             |
-| `disabled` | `boolean`                                         | `false`       | Whether the button is disabled |

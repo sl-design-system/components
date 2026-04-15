@@ -172,15 +172,6 @@
   border-radius: var(--sl-size-borderRadius-full);
 }
 
-button:disabled {
-  pointer-events: none;
-}
-
-button:is(:disabled, [aria-disabled]) {
-  color: var(--sl-color-foreground-disabled);
-  cursor: default;
-}
-
 :host(:where(:not([fill]), [fill='solid'])) button:is(:disabled, [aria-disabled]) {
   background: var(--sl-color-background-disabled);
 }
@@ -224,6 +215,11 @@ button:is(:disabled, [aria-disabled]) {
   border-color: var(--sl-color-border-inverted);
 }
 
+::slotted(a) {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
 button {
   --_bg-color: var(--sl-color-background-secondary-bold);
   --_bg-mix-color: var(--sl-color-background-secondary-interactive-bold);
@@ -260,6 +256,15 @@ button {
   &:active {
     --_bg-opacity: var(--sl-opacity-interactive-bold-active);
   }
+
+  &:disabled {
+    pointer-events: none;
+  }
+}
+
+button:is(:disabled, [aria-disabled]) {
+  color: var(--sl-color-foreground-disabled);
+  cursor: default;
 }
 
 @media (prefers-reduced-motion: no-preference) {

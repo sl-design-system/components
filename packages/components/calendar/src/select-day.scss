@@ -8,7 +8,6 @@
   display: inline-flex;
   flex-direction: column;
   max-inline-size: fit-content;
-  padding: var(--_focus-offset);
 }
 
 :host([show-week-numbers]) {

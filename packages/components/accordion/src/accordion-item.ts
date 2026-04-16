@@ -46,6 +46,7 @@ export class AccordionItem extends LitElement {
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
+    this.#syncAccessibilityState();
 
     if (this.open) {
       this.renderRoot.querySelector('details')?.setAttribute('open', '');
@@ -54,6 +55,7 @@ export class AccordionItem extends LitElement {
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
+    this.#syncAccessibilityState();
 
     if (changes.has('open')) {
       this.#animateState(this.open ? 'opening' : 'closing');
@@ -136,6 +138,17 @@ export class AccordionItem extends LitElement {
   #onToggle(event: ToggleEvent): void {
     this.open = event.newState === 'open';
     this.toggleEvent.emit(this.open);
+  }
+
+  #syncAccessibilityState(): void {
+    this.setAttribute('role', 'button');
+    this.setAttribute('aria-expanded', this.open ? 'true' : 'false');
+
+    if (this.disabled) {
+      this.setAttribute('aria-disabled', 'true');
+    } else {
+      this.removeAttribute('aria-disabled');
+    }
   }
 
   /**

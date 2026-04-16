@@ -22,6 +22,7 @@ describe('sl-accordion-item', () => {
 
     it('should not be disabled', () => {
       expect(el).not.to.have.attribute('disabled');
+      expect(el).not.to.have.attribute('aria-disabled');
       expect(el.disabled).not.to.be.true;
     });
 
@@ -59,6 +60,7 @@ describe('sl-accordion-item', () => {
     it('should have the correct attributes', () => {
       expect(summary).to.have.attribute('aria-controls', 'content');
       expect(summary).to.have.attribute('aria-expanded', 'false');
+      expect(summary).not.to.have.attribute('aria-disabled');
     });
 
     it('should open on click', async () => {
@@ -142,12 +144,14 @@ describe('sl-accordion-item', () => {
           Content of disabled accordion item
         </sl-accordion-item>
       `);
+      await el.updateComplete;
 
       details = el.renderRoot.querySelector('details') as HTMLDetailsElement;
       summary = el.renderRoot.querySelector('summary') as HTMLElement;
     });
 
     it('should be disabled', () => {
+      expect(el).to.have.attribute('aria-disabled', 'true');
       expect(el.disabled).to.be.true;
     });
 

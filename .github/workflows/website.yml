@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - main
+      - docs/website-v2
     paths-ignore:
       - 'packages/tokens/src/**'
     types: [opened, synchronize, reopened, closed]
@@ -11,6 +12,7 @@ on:
   push:
     branches:
       - main
+      - docs/website-v2
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:

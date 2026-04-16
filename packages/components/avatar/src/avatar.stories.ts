@@ -231,16 +231,11 @@ export const Sizes: Story = {
     countPerCanvas.set(canvasElement, 2);
     const maxCount = 30;
 
-    const cleanup = () => {
-      clearInterval(interval);
-      intervalPerCanvas.delete(canvasElement);
-      observer.disconnect();
-    };
+    let needsCleanup = false;
 
-    // Watch for unmount so we clean up immediately instead of waiting for the next tick
     const observer = new MutationObserver(() => {
       if (!canvasElement.isConnected) {
-        cleanup();
+        needsCleanup = true;
       }
     });
     observer.observe(document.body, { childList: true, subtree: true });
@@ -248,8 +243,11 @@ export const Sizes: Story = {
     const interval = setInterval(() => {
       const count = (countPerCanvas.get(canvasElement) ?? 2) + 1;
 
-      if (!canvasElement.isConnected || count > maxCount) {
-        cleanup();
+      if (!canvasElement.isConnected || needsCleanup || count > maxCount) {
+        clearInterval(interval);
+        intervalPerCanvas.delete(canvasElement);
+        observer.disconnect();
+
         return;
       }
 

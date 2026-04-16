@@ -9,9 +9,15 @@
   },
   permalink: data => `api-reference/${data.element.tagName}/index.html`,
   eleventyComputed: {
-    title: data => data.element.tagName,
+    title: data => {
+      const words = data.element.name.replace(/([A-Z])/g, ' $1').trim().toLowerCase().split(' ');
+      return words[0].charAt(0).toUpperCase() + words[0].slice(1) + (words.length > 1 ? ' ' + words.slice(1).join(' ') : '');
+    },
     eleventyNavigation: {
-      key: data => data.element.tagName,
+      key: data => {
+        const words = data.element.name.replace(/([A-Z])/g, ' $1').trim().toLowerCase().split(' ');
+        return words[0].charAt(0).toUpperCase() + words[0].slice(1) + (words.length > 1 ? ' ' + words.slice(1).join(' ') : '');
+      },
       parent: 'API Reference'
     }
   }

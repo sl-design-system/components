@@ -15,8 +15,19 @@ const themePath = dirname(require.resolve('@sl-design-system/sanoma-learning/pac
 
 /** @param {import('@11ty/eleventy').UserConfig} eleventyConfig */
 export default async function (eleventyConfig) {
+  const toTitle = name => {
+    const words = name
+      .replace(/([A-Z])/g, ' $1')
+      .trim()
+      .toLowerCase()
+      .split(' ');
+    return (
+      words[0].charAt(0).toUpperCase() + words[0].slice(1) + (words.length > 1 ? ' ' + words.slice(1).join(' ') : '')
+    );
+  };
+
   let allComponents = await getComponents(),
-    customElements = getCustomElements();
+    customElements = getCustomElements().sort((a, b) => toTitle(a.name).localeCompare(toTitle(b.name)));
 
   eleventyConfig.addGlobalData('customElements', customElements);
 

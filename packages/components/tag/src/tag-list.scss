@@ -8,6 +8,10 @@
   gap: var(--sl-size-050);
 }
 
+:host([stacked]:not([data-visibility-resolved])) {
+  visibility: hidden;
+}
+
 :host([stacked]) {
   flex-wrap: nowrap;
 

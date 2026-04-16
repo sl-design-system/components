@@ -93,3 +93,9 @@ export async function getComponents() {
 
   return components;
 }
+
+export function getCustomElements() {
+  return (manifest.modules || []).flatMap(module =>
+    (module.declarations || []).filter(declaration => declaration.customElement)
+  );
+}

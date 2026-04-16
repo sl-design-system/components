@@ -21,7 +21,7 @@
       "command": "cem generate --config ../../.cem.yaml --output ./custom-elements.json"
     },
     "start": {
-      "command": "eleventy --serve --quiet",
+      "command": "eleventy --serve",
       "dependencies": [
         "../components:build",
         "metadata"

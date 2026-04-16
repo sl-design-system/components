@@ -7,7 +7,7 @@ import { parse as HTMLParse } from 'node-html-parser';
 import { anchorHeadingsTransformer } from './src/transformers/anchor-headings.js';
 import { codeExamplesTransformer } from './src/transformers/code-examples.js';
 import { highlightCodeTransformer } from './src/transformers/highlight-code.js';
-import { getComponents } from './src/utils/manifest.js';
+import { getComponents, getCustomElements } from './src/utils/manifest.js';
 import { markdown } from './src/utils/markdown.js';
 
 const require = createRequire(import.meta.url);
@@ -15,7 +15,10 @@ const themePath = dirname(require.resolve('@sl-design-system/sanoma-learning/pac
 
 /** @param {import('@11ty/eleventy').UserConfig} eleventyConfig */
 export default async function (eleventyConfig) {
-  let allComponents = await getComponents();
+  let allComponents = await getComponents(),
+    customElements = getCustomElements();
+
+  eleventyConfig.addGlobalData('customElements', customElements);
 
   eleventyConfig.addPassthroughCopy({ 'src/assets': 'assets' });
   eleventyConfig.addPassthroughCopy({ 'src/css': 'css' });

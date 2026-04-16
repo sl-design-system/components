@@ -1,6 +1,6 @@
 ---
 title: API Reference
-layout: api-reference
+layout: docs
 eleventyNavigation:
   key: API Reference
   order: 3

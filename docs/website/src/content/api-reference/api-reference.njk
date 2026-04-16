@@ -1,0 +1,21 @@
+---js
+{
+  layout: 'docs',
+  pagination: {
+    data: 'customElements',
+    size: 1,
+    alias: 'element',
+    addAllPagesToCollections: true
+  },
+  permalink: data => `api-reference/${data.element.tagName}/index.html`,
+  eleventyComputed: {
+    title: data => data.element.tagName,
+    eleventyNavigation: {
+      key: data => data.element.tagName,
+      parent: 'API Reference'
+    }
+  }
+}
+---
+
+<pre>{{ element | dump(2)}}</pre>

@@ -11,6 +11,9 @@ declare global {
   }
 }
 
+/**
+ * @customElement sl-grid-text-field-column
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridTextFieldColumn<T = any> extends GridColumn<T> {
   /** @internal */

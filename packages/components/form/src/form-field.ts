@@ -34,6 +34,7 @@ let nextUniqueId = 0;
  * A form field component that provides a label, hint, and error message for form controls.
  * It can be used with any form control that extends the `FormControl` mixin.
  *
+ * @customElement sl-form-field
  * @slot label - The `<sl-label>` element to use as the label for the form control.
  * @slot hint - The `<sl-hint>` element to use as a hint for the form control.
  * @slot error - The `<sl-error>` element to use as an error message for the form control.

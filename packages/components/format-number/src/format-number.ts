@@ -12,6 +12,7 @@ declare global {
 /**
  * A utility custom element around the `Intl.NumberFormat` API.
  *
+ * @customElement sl-format-number
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat
  */
 export class FormatNumber extends LocaleMixin(LitElement) {

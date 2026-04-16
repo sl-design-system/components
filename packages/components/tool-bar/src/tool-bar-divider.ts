@@ -8,6 +8,9 @@ declare global {
   }
 }
 
+/**
+ * @customElement sl-tool-bar-divider
+ */
 export class ToolBarDivider extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;

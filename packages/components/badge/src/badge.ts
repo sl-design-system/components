@@ -20,6 +20,7 @@ export type BadgeVariant = 'neutral' | 'primary' | 'info' | 'danger' | 'success'
  * <sl-badge>99+</sl-badge>
  * ```
  *
+ * @customElement sl-badge
  * @slot default - Contents of the badge
  */
 export class Badge extends LitElement {

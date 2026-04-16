@@ -30,6 +30,7 @@ const OBSERVER_OPTIONS: MutationObserverInit = {
  *   </sl-radio-group>
  * ```
  *
+ * @customElement sl-radio-group
  * @slot default - A list of `sl-radio` elements.
  */
 @localized()

@@ -13,6 +13,9 @@ declare global {
   }
 }
 
+/**
+ * @customElement sl-grid-select-column
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridSelectColumn<T = any> extends GridColumn<T> {
   /** @internal */

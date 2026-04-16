@@ -25,6 +25,7 @@ declare global {
  *   </sl-tag-list>
  * ```
  *
+ * @customElement sl-tag-list
  * @slot default - The place for tags.
  */
 @localized()

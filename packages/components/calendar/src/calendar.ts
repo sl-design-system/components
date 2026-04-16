@@ -24,6 +24,8 @@ declare global {
 
 /**
  * A calendar component for displaying and selecting dates.
+ *
+ * @customElement sl-calendar
  */
 @localized()
 export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {

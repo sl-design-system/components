@@ -16,6 +16,7 @@ declare global {
  * If you want drag and drop behavior to be conditional, you can use the `path` property to specify a path
  * to a value in the data item. If the value at that path is truthy, the row will be draggable.
  * If the value is falsy, the row will not be draggable.
+ * @customElement sl-grid-drag-handle-column
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridDragHandleColumn<T = any> extends GridColumn<T> {

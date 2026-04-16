@@ -17,6 +17,7 @@ export type SpinnerSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
  * <sl-spinner></sl-spinner>
  * ```
  *
+ * @customElement sl-spinner
  * @cssprop --sl-spinner-size - The size of the spinner, defaults to `md` if not set.
  */
 export class Spinner extends LitElement {

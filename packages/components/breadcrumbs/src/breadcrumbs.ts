@@ -46,6 +46,7 @@ const isMobile = (): boolean => matchMedia('(width <= 600px)').matches;
 /**
  * A component to display a breadcrumb trail.
  *
+ * @customElement sl-breadcrumbs
  * @slot default - The breadcrumbs to display.
  * @slot home - Custom home link element.
  * @slot tooltips - Internal slot for tooltip elements managed by the component.

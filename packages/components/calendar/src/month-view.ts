@@ -28,6 +28,8 @@ const DAYS_IN_WEEK = 7;
 /**
  * Component that renders a single month of a calendar.
  *
+ * @customElement sl-month-view
+ *
  * @csspart day - The day button.
  * @csspart disabled - The day button when shown as disabled.
  * @csspart indicator - The day button for a date with an indicator.

@@ -18,6 +18,8 @@ const OBSERVER_OPTIONS: MutationObserverInit = { attributeFilter: ['checked'], a
 /**
  * Checkbox group; treat a group of checkboxes as one form input with validation, hints and errors
  *
+ * @customElement sl-checkbox-group
+ *
  * @slot default - A list of `sl-checkbox` elements.
  */
 @localized()

@@ -20,6 +20,7 @@ export type FieldButtonSize = 'md' | 'lg';
  * `TextField`, but also by users of the design system that slot it in their own
  * `<sl-text-field>`.
  *
+ * @customElement sl-field-button
  * @slot default - Add an icon to the button
  */
 export class FieldButton extends LitElement {

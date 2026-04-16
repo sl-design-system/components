@@ -52,6 +52,7 @@ let nextUniqueId = 0;
 /**
  * Tooltip component.
  *
+ * @customElement sl-tooltip
  * @slot default - The slot for the tooltip content.
  */
 export class Tooltip extends LitElement {

@@ -12,6 +12,9 @@ declare global {
 
 export type RadioButtonSize = 'md' | 'lg';
 
+/**
+ * @customElement sl-radio
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Radio<T = any> extends LitElement {
   /** @internal */

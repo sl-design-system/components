@@ -12,6 +12,7 @@ declare global {
 /**
  * A format date component for formatting date and time.
  *
+ * @customElement sl-format-date
  * @slot default - A place for the fallback when there is no valid date/time applied.
  */
 export class FormatDate extends LocaleMixin(LitElement) {

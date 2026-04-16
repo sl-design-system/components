@@ -32,7 +32,7 @@ export class NavItem extends ScopedElementsMixin(LitElement) {
   @property() href?: string;
 
   /** The icon name (for top-level items). */
-  @property() icon?: string;
+  @property({ reflect: true }) icon?: string;
 
   /** @internal The nesting level (0-based), computed from DOM. */
   @state() level = 0;

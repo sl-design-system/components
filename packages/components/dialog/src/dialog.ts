@@ -32,6 +32,8 @@ export type SlCloseEvent = CustomEvent<void>;
 /**
  * A dialog component for displaying modal UI.
  *
+ * @customElement sl-dialog
+ *
  * @csspart dialog - The dialog element
  * @csspart header - The dialog header
  * @csspart titles - The container for the title

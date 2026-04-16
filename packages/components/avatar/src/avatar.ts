@@ -25,6 +25,8 @@ export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
  *   <sl-avatar display-name="Lynn Smith" picture-url="http://sanomalearning.design/avatars/lynn.png"></sl-avatar>
  * ```
  *
+ * @customElement sl-avatar
+ *
  * @csspart avatar - The container for positioning the badge.
  * @csspart initials - The initials to display when no picture is set.
  * @csspart name - The display name, either a `<span>` or `<a>` if `href` is set.

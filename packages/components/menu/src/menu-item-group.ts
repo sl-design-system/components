@@ -13,6 +13,7 @@ declare global {
  * A group of menu items, use this if you want to group menu items in a menu with
  * other menu items.
  *
+ * @customElement sl-menu-item-group
  * @slot default - The menu items within a group.
  * @slot header - The header of the group.
  */

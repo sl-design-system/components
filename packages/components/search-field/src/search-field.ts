@@ -20,6 +20,7 @@ export type SlSearchEvent = CustomEvent<string>;
 /**
  * Search field component.
  *
+ * @customElement sl-search-field
  * @slot input - The slot for the input element
  */
 export class SearchField extends TextField {

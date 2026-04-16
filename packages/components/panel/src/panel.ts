@@ -25,6 +25,8 @@ export type TogglePlacement = 'start' | 'end';
 /**
  * A container that can be collapsed and expanded.
  *
+ * @customElement sl-panel
+ *
  * @csspart header - The header of the panel.
  * @csspart wrapper - The wrapper around the heading.
  * @csspart body - The body of the panel.

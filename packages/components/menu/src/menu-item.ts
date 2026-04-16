@@ -25,6 +25,7 @@ export type MenuItemEmphasis = 'subtle' | 'bold';
 /**
  * Menu item component for use inside a menu.
  *
+ * @customElement sl-menu-item
  * @csspart wrapper - The wrapper around the menu item content.
  *
  * @slot default - Content to display inside the menu item.

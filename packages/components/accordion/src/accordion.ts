@@ -20,6 +20,7 @@ export type AccordionIconType = 'chevron' | 'plusminus';
  *   <sl-accordion>...</sl-accordion>
  * ```
  *
+ * @customElement sl-accordion
  * @slot default - The place for multiple `<sl-accordion-item>`
  */
 export class Accordion extends LitElement {

@@ -29,6 +29,7 @@ export type TagVariant = 'neutral' | 'info';
  * <sl-tag>Tag label</sl-tag>
  * ```
  *
+ * @customElement sl-tag
  * @slot default - The tag label.
  */
 @localized()

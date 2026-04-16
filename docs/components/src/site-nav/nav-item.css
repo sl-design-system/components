@@ -28,6 +28,16 @@
   outline-offset: calc(var(--sl-size-borderWidth-focusRing) * -1);
 }
 
+:host(:not([icon])) summary {
+  padding-inline-start: calc(
+    var(--sl-size-100) + var(--nav-level, 0) * var(--nav-indent) + var(--sl-size-200) + var(--sl-size-100)
+  );
+}
+
+:host(:not([icon])) [part='leaf'] {
+  padding-inline-start: calc(var(--sl-size-100) + var(--sl-size-200) + var(--sl-size-100));
+}
+
 details {
   border: none;
 

@@ -24,6 +24,7 @@ export type MenuEmphasis = 'subtle' | 'bold';
 /**
  * A menu that can be used as a context menu or as a dropdown menu.
  *
+ * @customElement sl-menu
  * @csspart menu - The sl-menu element, use this to set for example a min and/or max inline size of the menu
  *
  * @slot default - The menu's content: menu items or menu item groups.

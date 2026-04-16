@@ -24,6 +24,7 @@ let nextUniqueId = 0;
  *   <sl-switch>Foo</sl-switch>
  * ```
  *
+ * @customElement sl-switch
  * @slot default - Text label of the switch. Technically there are no limits what can be put here; text, images, icons etc.
  * @slot input - The slot for the input element
  */

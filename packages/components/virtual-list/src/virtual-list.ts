@@ -18,6 +18,7 @@ export type VirtualListItemRenderer<T = any> = (item: T, index: number) => Templ
  * A virtual list component that efficiently renders large lists by only rendering
  * items that are visible in the viewport.
  *
+ * @customElement sl-virtual-list
  * @csspart wrapper - The wrapper element that contains the entire virtual list.
  * @csspart container - The container element that holds the virtualized items.
  * @csspart item - Each individual item in the list.

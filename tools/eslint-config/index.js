@@ -1,5 +1,5 @@
 import eslint from '@eslint/js';
-import slds from '@sl-design-system/eslint-plugin-slds'
+import slds from '@sl-design-system/eslint-plugin-slds';
 import stylistic from '@stylistic/eslint-plugin';
 import chaiExpect from 'eslint-plugin-chai-expect';
 import chaiFriendly from 'eslint-plugin-chai-friendly';
@@ -44,7 +44,7 @@ export default tseslint.config(
     rules: {
       ...litA11y.configs.recommended.rules,
       // https://github.com/open-wc/open-wc/issues/2814
-      'lit-a11y/anchor-is-valid': 'off',
+      'lit-a11y/anchor-is-valid': 'off'
     }
   },
   {
@@ -137,7 +137,9 @@ export default tseslint.config(
           endOfLine: 'auto'
         }
       ],
-      'unused-imports/no-unused-imports': 'error'
+      'unused-imports/no-unused-imports': 'error',
+      // Generates false positives with `this.classList`
+      'wc/no-self-class': 'off'
     }
   },
   {

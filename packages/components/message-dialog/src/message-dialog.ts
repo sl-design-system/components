@@ -42,6 +42,7 @@ export interface MessageDialogButton<T = any> {
  * await MessageDialog.alert('Hello, world!');
  * // Dialog has been closed or cancelled at this point
  * ```
+ * @customElement sl-message-dialog
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

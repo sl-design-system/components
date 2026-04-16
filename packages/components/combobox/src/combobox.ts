@@ -58,6 +58,8 @@ let nextUniqueId = 0;
  * Component for selecting one or more options from a list, similar to a native `<select>` element
  * but with the ability to search and filter options.
  *
+ * @customElement sl-combobox
+ *
  * @slot default - The input field
  * @slot options - Contains the listbox with options
  */

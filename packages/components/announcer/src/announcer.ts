@@ -22,6 +22,7 @@ export type SlAnnounceEvent = CustomEvent<{ message: string; urgency?: 'polite' 
  * ```html
  * <sl-live-aria></sl-live-aria>
  * ```
+ * @customElement sl-announcer
  */
 @localized()
 export class Announcer extends LitElement {

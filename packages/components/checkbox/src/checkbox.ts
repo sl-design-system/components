@@ -20,6 +20,8 @@ let nextUniqueId = 0;
 /**
  * A checkbox with 3 states; unchecked, checked and intermediate.
  *
+ * @customElement sl-checkbox
+ *
  * @csspart outer - The outer container of the checkbox.
  * @csspart inner - The inner container of the checkbox.
  * @csspart label - The label of the checkbox.

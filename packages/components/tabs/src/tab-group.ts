@@ -54,6 +54,8 @@ let nextUniqueId = 0;
  *   </sl-tab-group>
  * ```
  *
+ * @customElement sl-tab-group
+ *
  * @csspart container - The container for the tabs.
  * @csspart wrapper - Wraps the scroll container and menu button.
  * @csspart scroller - The scroll container of the tabs.

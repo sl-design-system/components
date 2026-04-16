@@ -13,6 +13,7 @@ export type SkeletonVariant = 'circle' | 'default';
 
 /**
  * Skeletons are used as a temporary placeholder while content is loading to improve the user experience.
+ * @customElement sl-skeleton
  */
 export class Skeleton extends LitElement {
   /** @internal */

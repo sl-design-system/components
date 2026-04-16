@@ -41,16 +41,20 @@ export function calculateVisibility(
   const menuButtonTotalWidth = needsMenu ? menuButtonWidth + gap : 0,
     effectiveWidth = availableWidth - menuButtonTotalWidth;
 
-  // Second pass: set visibility based on effective width
+  // Second pass: set visibility based on effective width.
+  // Once an item doesn't fit, all subsequent items are hidden to preserve order.
   cumulativeWidth = 0;
+  let overflowing = false;
   for (let i = 0; i < items.length; i++) {
     const itemWidth = widths[i],
       gapWidth = i > 0 ? gap : 0,
       requiredWidth = cumulativeWidth + gapWidth + itemWidth;
 
-    items[i].visible = requiredWidth <= effectiveWidth;
-
-    if (items[i].visible) {
+    if (overflowing || requiredWidth > effectiveWidth) {
+      items[i].visible = false;
+      overflowing = true;
+    } else {
+      items[i].visible = true;
       cumulativeWidth = requiredWidth;
     }
   }

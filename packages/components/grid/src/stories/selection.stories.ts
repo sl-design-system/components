@@ -113,6 +113,14 @@ export const Multiple: Story = {
           <sl-icon name="far-right-to-line"></sl-icon>
           Action 3
         </sl-button>
+        <sl-button fill="outline" slot="bulk-actions" variant="inverted">
+          <sl-icon name="far-right-to-line"></sl-icon>
+          This is a very long action button
+        </sl-button>
+        <sl-button fill="outline" slot="bulk-actions" variant="inverted">
+          <sl-icon name="far-right-to-line"></sl-icon>
+          This is another a very long action button
+        </sl-button>
       </sl-grid>
     `;
   }

@@ -362,6 +362,16 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       return;
     }
 
+    // In flexible layouts (e.g. CSS grid with auto columns), hiding items can
+    // shrink the host, causing ResizeObserver to report a smaller width than
+    // what's actually available. Briefly reveal all items and force a reflow
+    // to read the true constrained width before calculating visibility.
+    if (this.menuItems.length > 0) {
+      revealAllItems(this.items);
+      void this.offsetHeight;
+    }
+    availableWidth = this.getBoundingClientRect().width;
+
     // Calculate menu button width (square button based on wrapper height)
     let menuButtonWidth = this.wrapper.getBoundingClientRect().height;
     if ((isNaN(menuButtonWidth) || menuButtonWidth === 0) && this.menuButton) {
@@ -475,14 +485,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   }
 
   #measureItems(): void {
-    // Skip measurement when results would be unreliable:
-    // - offsetParent is null when the element is hidden (display: none), yielding zero widths
-    // - No overflow means all items already fit, so there is nothing to recalculate
-    if (
-      this.offsetParent === null ||
-      (this.wrapper?.clientWidth === this.wrapper?.scrollWidth &&
-        this.wrapper?.clientHeight === this.wrapper?.scrollHeight)
-    ) {
+    // Skip measurement when the element is hidden (display: none), yielding zero widths
+    if (this.offsetParent === null) {
       this.#needsMeasurement = true;
       return;
     }

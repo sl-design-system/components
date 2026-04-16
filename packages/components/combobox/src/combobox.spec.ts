@@ -201,34 +201,8 @@ describe('sl-combobox', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('required');
-      expect(input).to.have.attribute('required');
-    });
-
-    it('should forward aria-label to the input', async () => {
-      el.setAttribute('aria-label', 'Custom combobox label');
-      await el.updateComplete;
-      await new Promise(resolve => requestAnimationFrame(resolve));
-
-      expect(input).to.have.attribute('aria-label', 'Custom combobox label');
-      expect(el).not.to.have.attribute('aria-label');
-    });
-
-    it('should forward aria-describedby to the input', async () => {
-      el.setAttribute('aria-describedby', 'description-id');
-      await el.updateComplete;
-      await new Promise(resolve => requestAnimationFrame(resolve));
-
-      expect(input).to.have.attribute('aria-describedby', 'description-id');
-      expect(el).not.to.have.attribute('aria-describedby');
-    });
-
-    it('should forward aria-labelledby to the input', async () => {
-      el.setAttribute('aria-labelledby', 'label-id');
-      await el.updateComplete;
-      await new Promise(resolve => requestAnimationFrame(resolve));
-
-      expect(input).to.have.attribute('aria-labelledby', 'label-id');
-      expect(el).not.to.have.attribute('aria-labelledby');
+      // Note: required is NOT set on the input - we handle validation through ElementInternals
+      expect(input).not.to.have.attribute('required');
     });
 
     it('should be pristine', () => {

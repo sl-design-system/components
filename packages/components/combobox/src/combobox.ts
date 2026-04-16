@@ -278,8 +278,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     this.input.setAttribute('aria-expanded', 'false');
     this.input.setAttribute('aria-haspopup', 'listbox');
 
-    this.setAttributesTarget(this.input);
-
     this.#events.listen(this.input, 'click', this.#onInputClick);
     this.#events.listen(this.input, 'focus', this.#onFocus);
     this.#events.listen(this.input, 'pointerdown', this.#onPointerDown);
@@ -287,7 +285,13 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
     this.#observer.observe(this);
 
-    this.setFormControlElement(this);
+    // Set the input as the form control element so form-field sets ARIA attributes on it
+    this.setFormControlElement(this.input);
+
+    // Ensure the input has an ID for label association
+    if (!this.input.id) {
+      this.input.id = this.id || `sl-combobox-input-${nextUniqueId++}`;
+    }
 
     /**
      * Light DOM styling workarounds:
@@ -405,9 +409,15 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     }
 
     if (changes.has('required')) {
-      this.input.required = !!this.required;
-
+      // Don't set required on the input - we handle all validation through ElementInternals
+      // This prevents native HTML validation from interfering with our custom validation
       this.updateValidity();
+    }
+
+    // Don't set name on the input - we use ElementInternals for form submission
+    // The input should not submit its value directly to avoid duplicate/incorrect submissions
+    if (changes.has('name') && this.input.hasAttribute('name')) {
+      this.input.removeAttribute('name');
     }
   }
 
@@ -423,7 +433,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         @sl-update-state=${this.#onTextFieldUpdateState}
         ?disabled=${this.disabled}
         ?readonly=${this.selectOnly}
-        ?required=${this.required}
         part="text-field"
         placeholder=${ifDefined(this.multiple && this.selectedItems.length ? undefined : this.placeholder)}
         size=${ifDefined(this.size)}
@@ -493,6 +502,61 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     this.input?.focus(options);
   }
 
+  /**
+   * Override validity to use ElementInternals instead of the input's validity.
+   * This ensures validation state is consistent with our custom validation logic.
+   */
+  override get validity(): ValidityState {
+    return this.internals.validity;
+  }
+
+  /**
+   * Override validationMessage to use ElementInternals instead of the input's validation message.
+   * This ensures the validation message is consistent with our overridden validity.
+   */
+  override get validationMessage(): string {
+    return this.internals.validationMessage;
+  }
+
+  /**
+   * Override setCustomValidity to set validity on internals instead of the input.
+   * This keeps custom validation consistent with our overridden validity getter.
+   */
+  override setCustomValidity(message: string): void {
+    if (message === '') {
+      this.internals.setValidity({});
+    } else {
+      this.internals.setValidity({ customError: true }, message);
+    }
+  }
+
+  /**
+   * Override formValue to use ElementInternals for custom form submission.
+   * This allows us to submit different values (like indices) than what's displayed in the input.
+   */
+  override get formValue(): string | FormData | File | null {
+    return this.internals.form ? this.#getInternalFormValue() : null;
+  }
+
+  override set formValue(_value: string | FormData | File | null) {
+    // Form value is managed through updateFormValue
+  }
+
+  #getInternalFormValue(): string | null {
+    if (this.multiple) {
+      const values = this.selectedItems.map(i => i.value!);
+      return values.join(', ') || null;
+    } else {
+      const item = this.selectedItems.at(0);
+      if (item) {
+        return this.#useVirtualList && item.index !== undefined
+          ? item.index.toString()
+          : item.value?.toString() || item.label;
+      }
+      return null;
+    }
+  }
+
   override getLocalizedValidationMessage(): string {
     if (this.validity.valueMissing) {
       return this.multiple
@@ -505,16 +569,15 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
   override updateInternalValidity(): void {
     if (!this.validity.customError) {
-      if (this.multiple) {
-        this.internals.setValidity(
-          { valueMissing: this.required && this.selectedItems.length === 0 },
-          msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
-        );
+      const isInvalid = this.multiple
+        ? this.required && this.selectedItems.length === 0
+        : this.required && !this.input.value;
+
+      if (isInvalid) {
+        const message = msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' });
+        this.internals.setValidity({ valueMissing: true }, message, this.input);
       } else {
-        this.internals.setValidity(
-          { valueMissing: this.required && !this.input.value },
-          msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
-        );
+        this.internals.setValidity({});
       }
     }
   }
@@ -1396,22 +1459,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     this.updateValidity();
   }
 
-  /** Syncs the form value with the current selection. */
+  /** Syncs the form value with the current selection using ElementInternals. */
   #updateFormValue(): void {
-    if (this.multiple) {
-      const values = this.selectedItems.map(i => i.value!);
-      this.internals.setFormValue(values.join(', ') || null);
-    } else {
-      const item = this.selectedItems.at(0);
-      if (item) {
-        this.internals.setFormValue(
-          this.#useVirtualList && item.index !== undefined
-            ? item.index.toString()
-            : item.value?.toString() || item.label
-        );
-      } else {
-        this.internals.setFormValue(null);
-      }
-    }
+    const formValue = this.#getInternalFormValue();
+    this.internals.setFormValue(formValue);
   }
 }

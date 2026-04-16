@@ -1,93 +1,162 @@
 :host {
-  --_background: var(--sl-color-elevation-surface-raised);
-  --_border: 0;
-  --_border-radius: 3px;
-  --_box-shadow: 0 6px 10px -6px rgb(0 0 0 / 70%);
-  --_gap: 0.5rem;
-  --_spacing: 0.5rem;
-  --_max-inline-size: var(--sl-drawer-max-inline-size, 500px);
-
-  display: block;
-}
-
-:host([attachment='right']) dialog {
-  --_fade-start-x: 100%;
-
-  block-size: 100vh;
-  inset-block-start: 0;
-  inset-inline: unset 0;
-}
-
-:host([attachment='left']) dialog {
-  --_fade-start-x: -100%;
-
-  block-size: 100vh;
-  inset-block-start: 0;
-  inset-inline: 0 unset;
-}
-
-:host([attachment='top']) dialog {
-  --_fade-start-y: -100%;
-
-  inline-size: 100vw;
-  inset-block: 0 unset;
-  inset-inline-start: 0;
-  max-inline-size: 100vw;
-}
-
-:host([attachment='bottom']) dialog {
-  --_fade-start-y: 100%;
-
-  inline-size: 100vw;
-  inset-block: unset 0;
-  inset-inline-start: 0;
-  max-inline-size: 100vw;
+  display: contents;
 }
 
 dialog {
-  background: var(--_background);
-  border: var(--_border);
-  border-radius: var(--_border-radius);
-  box-shadow: var(--_box-shadow);
+  background: var(--sl-color-elevation-surface-raised);
+  border: 0;
+  box-shadow: 0 6px 24px -6px rgb(0 0 0 / 35%);
+  box-sizing: border-box;
+  color: var(--sl-color-foreground-plain);
   display: flex;
   flex-direction: column;
-  gap: var(--_gap);
   margin: 0;
-  max-block-size: min(100vh, 100%);
-  max-block-size: min(100dvb, 100%);
-  max-inline-size: min(90vw, var(--_max-inline-size));
-  padding: 1rem;
-  position: fixed;
-  transform: translate(var(--_fade-start-x, 0), var(--_fade-start-y, 0))
-    scale(var(--_fade-start-sx, 1), var(--_fade-start-sx, 1));
+  overflow: hidden;
+  padding: 0;
 
   &::backdrop {
-    -webkit-backdrop-filter: blur(3px);
-    backdrop-filter: blur(3px);
-    transition: backdrop-filter 0.5s ease;
+    background: rgb(0 0 0 / 40%);
+    opacity: 0;
   }
 
-  @media (prefers-reduced-motion: no-preference) {
-    transition: all 0.5s cubic-bezier(0.25, 0, 0.3, 1);
+  &[open] {
+    &::backdrop {
+      opacity: 1;
+
+      @starting-style {
+        opacity: 0;
+      }
+    }
+  }
+
+  &:focus-visible {
+    outline: none;
   }
 }
 
-dialog[open] {
-  transform: translate(0, 0) scale(1, 1);
+:host([attachment='right']) dialog,
+:host([attachment='left']) dialog {
+  block-size: 100dvh;
+  inline-size: min(90dvw, var(--sl-drawer-inline-size, 28rem));
+  max-block-size: 100dvh;
 }
 
-div {
-  align-items: center;
-  display: grid;
-  gap: var(--_gap);
-  grid-auto-flow: column;
-  grid-template-columns: 1fr auto;
+:host([attachment='right']) dialog {
+  inset: 0 0 0 auto;
+}
 
-  sl-button-bar {
-    grid-column-start: -1;
+:host([attachment='left']) dialog {
+  inset: 0 auto 0 0;
+}
+
+:host([attachment='top']) dialog,
+:host([attachment='bottom']) dialog {
+  block-size: min(90dvh, var(--sl-drawer-block-size, 20rem));
+  inline-size: 100dvw;
+  max-inline-size: 100dvw;
+}
+
+:host([attachment='top']) dialog {
+  inset: 0 0 auto 0;
+}
+
+:host([attachment='bottom']) dialog {
+  inset: auto 0 0 0;
+}
+
+// Enter/leave animations using @starting-style + allow-discrete
+:host([attachment='right']) dialog {
+  translate: 100% 0;
+}
+
+:host([attachment='left']) dialog {
+  translate: -100% 0;
+}
+
+:host([attachment='top']) dialog {
+  translate: 0 -100%;
+}
+
+:host([attachment='bottom']) dialog {
+  translate: 0 100%;
+}
+
+:host([attachment='right']) dialog[open],
+:host([attachment='left']) dialog[open],
+:host([attachment='top']) dialog[open],
+:host([attachment='bottom']) dialog[open] {
+  translate: 0 0;
+}
+
+:host([attachment='right']) dialog[open] {
+  @starting-style {
+    translate: 100% 0;
+  }
+}
+
+:host([attachment='left']) dialog[open] {
+  @starting-style {
+    translate: -100% 0;
+  }
+}
+
+:host([attachment='top']) dialog[open] {
+  @starting-style {
+    translate: 0 -100%;
+  }
+}
+
+:host([attachment='bottom']) dialog[open] {
+  @starting-style {
+    translate: 0 100%;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  dialog,
+  dialog::backdrop {
+    transition: 0.3s cubic-bezier(0.25, 0, 0.3, 1);
+    transition-behavior: allow-discrete;
+    transition-property: opacity, overlay, translate;
   }
 
-  [sl-dialog-close] {
-    order: 1;
+  @supports (overlay: auto) {
+    dialog,
+    dialog::backdrop {
+      transition-property: display, opacity, overlay, translate;
+    }
   }
+}
+
+[part='header'] {
+  align-items: start;
+  box-sizing: border-box;
+  display: flex;
+  gap: var(--sl-size-200);
+  justify-content: space-between;
+  padding: var(--sl-size-200) var(--sl-size-200) var(--sl-size-100);
+}
+
+slot[name='title']::slotted(*),
+slot[name='title'] ::slotted(*) {
+  color: var(--sl-color-foreground-bold);
+  font-size: calc((20 / 14) * 1em);
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+  line-height: 1.2;
+  margin: 0;
+}
+
+sl-button-bar {
+  flex-shrink: 0;
+}
+
+sl-button.sl-close {
+  flex-shrink: 0;
+}
+
+[part='body'] {
+  flex: 1 1 auto;
+  overflow: auto;
+  padding: var(--sl-size-100) var(--sl-size-200) var(--sl-size-200);
+  scrollbar-width: thin;
 }

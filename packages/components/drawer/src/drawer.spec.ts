@@ -32,7 +32,7 @@ describe('sl-drawer', () => {
       expect(el.renderRoot.querySelector('dialog')).not.to.have.attribute('open');
     });
 
-    it('should open and close the drawer', async () => {
+    it('should open and close the drawer as a modal', async () => {
       const dialog = el.renderRoot.querySelector('dialog');
       el.showModal();
       await el.updateComplete;
@@ -48,9 +48,45 @@ describe('sl-drawer', () => {
       expect(document.documentElement.style.overflow).to.equal('');
     });
 
+    it('should open and close the drawer non-modally using show()', async () => {
+      const dialog = el.renderRoot.querySelector('dialog');
+      el.show();
+      await el.updateComplete;
+
+      expect(dialog).to.have.attribute('open');
+      // Non-modal open should not lock page scrolling.
+      expect(document.documentElement.style.overflow).to.equal('');
+
+      el.close();
+      expect(dialog).not.to.have.attribute('open');
+    });
+
+    it('should not open the drawer twice', async () => {
+      const dialog = el.renderRoot.querySelector('dialog');
+      const showModalSpy = spy(dialog!, 'showModal');
+
+      el.showModal();
+      el.showModal();
+
+      expect(showModalSpy).to.have.been.calledOnce;
+    });
+
+    it('should emit sl-close when the drawer closes', async () => {
+      const onClose = spy();
+      el.addEventListener('sl-close', onClose);
+
+      el.showModal();
+      await el.updateComplete;
+
+      el.close();
+      el.renderRoot.querySelector('dialog')?.dispatchEvent(new Event('close'));
+
+      expect(onClose).to.have.been.called;
+    });
+
     it('should not close the drawer when the cancel event is fired but close is disabled', async () => {
       const dialog = el.renderRoot.querySelector('dialog');
-      const cancelEvent = new Event('cancel');
+      const cancelEvent = new Event('cancel', { cancelable: true });
       const cancelEventSpy = spy(cancelEvent, 'preventDefault');
 
       el.disableClose = true;
@@ -64,10 +100,12 @@ describe('sl-drawer', () => {
       expect(cancelEventSpy).to.have.been.called;
     });
 
-    it('should close the drawer when the cancel event is fired and close isn`t disabled', async () => {
+    it('should emit sl-cancel when the cancel event is fired and close isn`t disabled', async () => {
+      const onCancel = spy();
+      el.addEventListener('sl-cancel', onCancel);
+
       const dialog = el.renderRoot.querySelector('dialog');
-      const cancelEvent = new Event('cancel');
-      const cancelEventSpy = spy(cancelEvent, 'preventDefault');
+      const cancelEvent = new Event('cancel', { cancelable: true });
 
       el.disableClose = false;
       el.showModal();
@@ -77,7 +115,7 @@ describe('sl-drawer', () => {
 
       dialog?.dispatchEvent(cancelEvent);
 
-      expect(cancelEventSpy).not.to.have.been.called;
+      expect(onCancel).to.have.been.called;
     });
 
     describe('click event', () => {
@@ -88,19 +126,10 @@ describe('sl-drawer', () => {
       beforeEach(() => {
         el.showModal();
         dialog = el.renderRoot.querySelector('dialog');
-        event = new PointerEvent('click');
+        event = new PointerEvent('click', { bubbles: true, composed: true });
         if (dialog) {
           dialogCloseSpy = spy(dialog, 'close');
         }
-      });
-
-      it('should close the drawer when the close button is clicked', () => {
-        const closeButton = el.renderRoot.querySelector('sl-button[sl-dialog-close]');
-        stub(event, 'target').value(closeButton as HTMLElement);
-
-        dialog?.dispatchEvent(event);
-
-        expect(dialogCloseSpy).to.have.been.called;
       });
 
       it('should close the drawer when the backdrop is clicked', () => {
@@ -129,6 +158,26 @@ describe('sl-drawer', () => {
             left: 500
           } as DOMRect);
           stub(event, 'clientX').value(600);
+          stub(event, 'clientY').value(100);
+
+          dialog.dispatchEvent(event);
+
+          expect(dialogCloseSpy).not.to.have.been.called;
+        }
+      });
+
+      it('should not close the drawer when disableClose is true and the backdrop is clicked', async () => {
+        el.disableClose = true;
+        await el.updateComplete;
+
+        if (dialog) {
+          stub(dialog, 'getBoundingClientRect').returns({
+            top: 0,
+            right: 900,
+            bottom: 600,
+            left: 500
+          } as DOMRect);
+          stub(event, 'clientX').value(100);
           stub(event, 'clientY').value(100);
 
           dialog.dispatchEvent(event);

@@ -21,11 +21,35 @@
   <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
+  {% if hasSidebar %}
+  <header class="mobile-header">
+    <button
+      type="button"
+      class="mobile-header__hamburger"
+      aria-label="Open navigation menu"
+      aria-controls="mobile-drawer"
+      aria-expanded="false"
+    >
+      <sl-icon name="far-bars"></sl-icon>
+    </button>
+    <a href="/" class="mobile-header__logo" aria-label="SL Design System">
+      <img class="logo-light" src="/assets/logo-black.svg" alt="" width="140" height="25" />
+      <img class="logo-dark" src="/assets/logo.svg" alt="" width="140" height="25" />
+    </a>
+  </header>
+  {% endif %}
+
   <div class="site-layout">
     {% if hasSidebar %}
-    <doc-sidebar>
+    <doc-sidebar class="site-sidebar">
       {% include "sidebar.njk" %}
     </doc-sidebar>
+    <sl-drawer id="mobile-drawer" class="mobile-drawer" attachment="left" aria-label="Main navigation">
+      <span slot="title">Menu</span>
+      <doc-sidebar>
+        {% include "sidebar.njk" %}
+      </doc-sidebar>
+    </sl-drawer>
     {% endif %}
 
     <main class="content">

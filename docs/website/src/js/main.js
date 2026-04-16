@@ -1,12 +1,13 @@
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import './theme.js';
 import './icons.js';
-import { faBug, faCircleExclamation, faCode, faFileLines } from '@fortawesome/pro-regular-svg-icons';
+import { faBars, faBug, faCircleExclamation, faCode, faFileLines } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/badge/register.js';
 import '@sl-design-system/callout/register.js';
 import '@sl-design-system/dialog/register.js';
+import '@sl-design-system/drawer/register.js';
 import '@sl-design-system/icon/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/tooltip/register.js';
@@ -22,7 +23,7 @@ import { NavGroup } from '@sl-design-system/doc-components/site-nav/nav-group.js
 import { NavItem } from '@sl-design-system/doc-components/site-nav/nav-item.js';
 import { SiteNav } from '@sl-design-system/doc-components/site-nav/site-nav.js';
 
-Icon.register(faBug, faCircleExclamation, faCode, faFileLines);
+Icon.register(faBars, faBug, faCircleExclamation, faCode, faFileLines);
 
 customElements.define('doc-code', Code);
 customElements.define('doc-code-example', CodeExample);
@@ -35,3 +36,24 @@ customElements.define('doc-open-issue-count', OpenIssueCount);
 customElements.define('doc-page-toc', PageToc);
 customElements.define('doc-sidebar', Sidebar);
 customElements.define('doc-site-nav', SiteNav);
+
+const hamburger = document.querySelector('.mobile-header__hamburger');
+const drawer = document.querySelector('#mobile-drawer');
+
+if (hamburger && drawer) {
+  hamburger.addEventListener('click', () => {
+    drawer.showModal();
+    hamburger.setAttribute('aria-expanded', 'true');
+  });
+
+  drawer.addEventListener('sl-close', () => {
+    hamburger.setAttribute('aria-expanded', 'false');
+  });
+
+  drawer.addEventListener('click', event => {
+    const link = event.target.closest('a');
+    if (link && drawer.contains(link)) {
+      drawer.close();
+    }
+  });
+}

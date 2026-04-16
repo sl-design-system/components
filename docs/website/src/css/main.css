@@ -16,7 +16,6 @@ body {
 .site-layout {
   display: grid;
   grid-template-areas:
-    'sidebar'
     'content'
     'toc';
   min-block-size: 100dvh;
@@ -32,8 +31,110 @@ body {
   }
 }
 
-doc-sidebar {
+.site-sidebar {
   grid-area: sidebar;
+}
+
+/* Mobile: hide the in-grid sidebar; show the hamburger header and drawer. */
+@media (width < 640px) {
+  .site-sidebar {
+    display: none;
+  }
+
+  .content {
+    padding-block-start: var(--sl-size-200);
+  }
+}
+
+/* Desktop: hide the mobile-only header and drawer. */
+@media (width >= 640px) {
+  .mobile-header,
+  .mobile-drawer {
+    display: none;
+  }
+}
+
+.mobile-header {
+  align-items: center;
+  background: var(--sl-elevation-surface-raised-sunken);
+  border-block-end: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+  display: flex;
+  gap: var(--sl-size-200);
+  padding: var(--sl-size-150) var(--sl-size-200);
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 2;
+}
+
+.mobile-header__hamburger {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: var(--sl-size-borderRadius-sm);
+  color: var(--sl-color-foreground-plain);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: var(--sl-size-300);
+  justify-content: center;
+  padding: var(--sl-size-100);
+
+  &:hover {
+    background: var(--sl-color-background-neutral-subtle);
+  }
+
+  &:focus-visible {
+    outline: var(--sl-color-border-focused) solid var(--sl-size-borderWidth-focusRing);
+    outline-offset: var(--sl-size-outlineOffset-default);
+  }
+
+  sl-icon {
+    inline-size: var(--sl-size-300);
+  }
+}
+
+.mobile-header__logo {
+  align-items: center;
+  display: inline-flex;
+  text-decoration: none;
+
+  img {
+    display: block;
+    inline-size: auto;
+    block-size: 2rem;
+  }
+
+  .logo-dark {
+    display: none;
+  }
+}
+
+[data-color-scheme='dark'] .mobile-header__logo .logo-light {
+  display: none;
+}
+
+[data-color-scheme='dark'] .mobile-header__logo .logo-dark {
+  display: block;
+}
+
+.mobile-drawer {
+  --sl-drawer-inline-size: 320px;
+}
+
+.mobile-drawer::part(dialog) {
+  background: var(--sl-elevation-surface-raised-sunken);
+}
+
+.mobile-drawer::part(body) {
+  padding: 0;
+}
+
+.mobile-drawer::part(header) {
+  padding: var(--sl-size-150) var(--sl-size-200) 0;
+}
+
+.mobile-drawer doc-sidebar {
+  border-inline-end: 0;
+  min-block-size: 100%;
 }
 
 .content {

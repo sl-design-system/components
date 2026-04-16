@@ -3,6 +3,7 @@ import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './accordion-item.scss.js';
 import { type AccordionIconType } from './accordion.js';
 
@@ -46,7 +47,6 @@ export class AccordionItem extends LitElement {
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
-    this.#syncAccessibilityState();
 
     if (this.open) {
       this.renderRoot.querySelector('details')?.setAttribute('open', '');
@@ -55,7 +55,6 @@ export class AccordionItem extends LitElement {
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
-    this.#syncAccessibilityState();
 
     if (changes.has('open')) {
       this.#animateState(this.open ? 'opening' : 'closing');
@@ -68,6 +67,7 @@ export class AccordionItem extends LitElement {
         <summary
           @click=${this.#onClick}
           aria-controls="content"
+          aria-disabled=${ifDefined(this.disabled ? 'true' : undefined)}
           aria-expanded=${this.open ? 'true' : 'false'}
           id="summary"
           part="summary"
@@ -138,17 +138,6 @@ export class AccordionItem extends LitElement {
   #onToggle(event: ToggleEvent): void {
     this.open = event.newState === 'open';
     this.toggleEvent.emit(this.open);
-  }
-
-  #syncAccessibilityState(): void {
-    this.setAttribute('role', 'button');
-    this.setAttribute('aria-expanded', this.open ? 'true' : 'false');
-
-    if (this.disabled) {
-      this.setAttribute('aria-disabled', 'true');
-    } else {
-      this.removeAttribute('aria-disabled');
-    }
   }
 
   /**

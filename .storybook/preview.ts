@@ -1,6 +1,6 @@
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import '@sl-design-system/announcer/register.js';
-import { type LocaleModule, configureLocalization } from '@lit/localize';
+import { configureLocalization } from '@lit/localize';
 import * as locales from '@sl-design-system/locales';
 import { type Preview } from '@storybook/web-components-vite';
 import MockDate from 'mockdate';
@@ -26,7 +26,14 @@ if (!import.meta.env?.DEV) {
 const { setLocale } = configureLocalization({
   sourceLocale: locales.sourceLocale,
   targetLocales: locales.targetLocales,
-  loadLocale: locale => Promise.resolve(locales.locales[locale as keyof typeof locales.locales] as LocaleModule)
+  loadLocale: async locale => {
+    const localeKey = locale as keyof typeof locales.locales;
+    const loader = locales.locales[localeKey];
+    if (!loader) {
+      throw new Error(`Unsupported locale: ${locale}`);
+    }
+    return await loader();
+  }
 });
 
 const customViewports = {

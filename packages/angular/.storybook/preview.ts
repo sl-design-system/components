@@ -8,7 +8,14 @@ import { themes, updateTheme } from '../../../.storybook/themes';
 const { setLocale } = configureLocalization({
   sourceLocale: locales.sourceLocale,
   targetLocales: locales.targetLocales,
-  loadLocale: locale => Promise.resolve(locales.locales[locale as keyof typeof locales.locales])
+  loadLocale: async locale => {
+    const localeKey = locale as keyof typeof locales.locales;
+    const loader = locales.locales[localeKey];
+    if (!loader) {
+      throw new Error(`Unsupported locale: ${locale}`);
+    }
+    return await loader();
+  }
 });
 
 const preview: Preview = {

@@ -140,6 +140,12 @@ export class Tooltip extends LitElement {
   /** Anchors observed for this tooltip, used to avoid full DOM scans on hide. */
   #knownAnchors = new Set<HTMLElement>();
 
+  /** Anchors that stay valid even if browser ARIA reflection drops after reparenting. */
+  #stableAnchors = new Set<HTMLElement>();
+
+  /** Anchors that originally depended on explicit ARIA idrefs. */
+  #explicitRelationAnchors = new Set<HTMLElement>();
+
   /** Whether the current open state was triggered by focus-based interaction. */
   #openedByFocus = false;
 
@@ -189,15 +195,15 @@ export class Tooltip extends LitElement {
     this.setAttribute('aria-hidden', 'true'); // Prevent the tooltip from being read by screen readers multiple times
 
     const root = this.getRootNode() as HTMLElement,
-      eventTargetForClose = this.ownerDocument ?? document;
+      documentRoot = this.ownerDocument ?? document;
 
-    this.#events.listen(root, 'click', this.#onHide, { capture: true });
     this.#events.listen(root, 'focusin', this.#onShow);
     this.#events.listen(root, 'focusout', this.#onHide);
     this.#events.listen(root, 'keydown', this.#onKeydown);
-    this.#events.listen(root, 'pointerover', this.#onShow);
-    this.#events.listen(root, 'pointerout', this.#onHide);
-    this.#events.listen(eventTargetForClose, 'sl-close', this.#onShow);
+    this.#events.listen(documentRoot, 'click', this.#onHide, { capture: true });
+    this.#events.listen(documentRoot, 'pointerover', this.#onShow);
+    this.#events.listen(documentRoot, 'pointerout', this.#onHide);
+    this.#events.listen(documentRoot, 'sl-close', this.#onShow);
   }
 
   override disconnectedCallback(): void {
@@ -528,7 +534,35 @@ export class Tooltip extends LitElement {
     let current: Element | null = element;
 
     while (current) {
+      if (current instanceof HTMLElement && this.#stableAnchors.has(current)) {
+        return current;
+      }
+
       if (current instanceof HTMLElement && this.#matchesAnchor(current)) {
+        return current;
+      }
+
+      if (current.parentElement) {
+        current = current.parentElement;
+        continue;
+      }
+
+      const shadowRoot = this.#getShadowRoot(current.getRootNode());
+      current = shadowRoot?.host ?? null;
+    }
+
+    return undefined;
+  };
+
+  #findStableAnchorFromElement = (element: Element | null): HTMLElement | undefined => {
+    if (!element) {
+      return undefined;
+    }
+
+    let current: Element | null = element;
+
+    while (current) {
+      if (current instanceof HTMLElement && this.#stableAnchors.has(current)) {
         return current;
       }
 
@@ -559,6 +593,14 @@ export class Tooltip extends LitElement {
 
     if (anchor) {
       return anchor;
+    }
+
+    const stableAnchor = path.find((el): el is HTMLElement => {
+      return el instanceof Element && !!this.#findStableAnchorFromElement(el);
+    });
+
+    if (stableAnchor) {
+      return this.#findStableAnchorFromElement(stableAnchor);
     }
 
     for (const el of path) {
@@ -730,8 +772,10 @@ export class Tooltip extends LitElement {
     const knownAnchors: HTMLElement[] = [];
 
     for (const anchor of this.#knownAnchors) {
-      if (!anchor.isConnected || !this.#matchesAnchor(anchor)) {
+      if (!anchor.isConnected || (!this.#stableAnchors.has(anchor) && !this.#matchesAnchor(anchor))) {
         this.#knownAnchors.delete(anchor);
+        this.#stableAnchors.delete(anchor);
+        this.#explicitRelationAnchors.delete(anchor);
       } else {
         knownAnchors.push(anchor);
       }
@@ -773,13 +817,17 @@ export class Tooltip extends LitElement {
 
   #canMoveToAnchorRoot = (anchorElement: HTMLElement): boolean => {
     const proxyTarget = (anchorElement as Element & { getProxyTarget?(): Element | null }).getProxyTarget?.(),
-      internals = (anchorElement as HTMLElement & { internals?: ElementInternals }).internals;
+      internals = (anchorElement as HTMLElement & { internals?: ElementInternals }).internals,
+      hasExplicitRelation =
+        this.#explicitRelationAnchors.has(anchorElement) ||
+        this.#hasAnyExplicitRelation(anchorElement) ||
+        this.#hasAnyExplicitRelation(proxyTarget);
 
     if (internals) {
       return true;
     }
 
-    return !this.#hasAnyExplicitRelation(anchorElement) && !this.#hasAnyExplicitRelation(proxyTarget);
+    return !hasExplicitRelation;
   };
 
   #syncSlotWithAnchor = (anchorElement: HTMLElement, movedToAnchorRoot: boolean): void => {
@@ -801,6 +849,34 @@ export class Tooltip extends LitElement {
     const list = elements ? Array.from(elements) : [];
 
     return list.includes(this) ? list : [...list, this];
+  };
+
+  /**
+   * Before moving the tooltip into another root, collect every anchor that currently
+   * matches it. Shared anchors that rely on forwarded/reflected ARIA can lose their
+   * ID-based relation once the tooltip leaves the original root, so we mirror the
+   * relation onto all of them in one pass.
+   */
+  #collectMatchingAnchors = (anchorElement: HTMLElement): HTMLElement[] => {
+    const anchors = new Set<HTMLElement>([anchorElement]);
+
+    for (const root of this.#getAnchorSearchRoots()) {
+      for (const element of Array.from(root.querySelectorAll('*'))) {
+        if (element instanceof HTMLElement && this.#matchesAnchor(element)) {
+          anchors.add(this.#normalizeAnchorElement(element));
+        }
+      }
+    }
+
+    return Array.from(anchors);
+  };
+
+  #rememberAnchorRelation = (anchorElement: HTMLElement): void => {
+    const proxyTarget = (anchorElement as Element & { getProxyTarget?(): Element | null }).getProxyTarget?.();
+
+    if (this.#hasAnyExplicitRelation(anchorElement) || this.#hasAnyExplicitRelation(proxyTarget)) {
+      this.#explicitRelationAnchors.add(anchorElement);
+    }
   };
 
   #getElementRelationTargets = (
@@ -1024,8 +1100,13 @@ export class Tooltip extends LitElement {
       anchorChanged = this.anchorElement !== normalizedElement,
       targetAnchorRoot = this.#resolveAnchorRoot(normalizedElement, anchorRoot),
       canMoveToAnchorRoot = !!targetAnchorRoot && this.#canMoveToAnchorRoot(normalizedElement),
+      anchorsToPreserve = canMoveToAnchorRoot ? this.#collectMatchingAnchors(normalizedElement) : [normalizedElement],
       currentTooltipRoot = this.getRootNode(),
       wasReparentedFromOriginalRoot = !!this.#originalRoot && currentTooltipRoot !== this.#originalRoot;
+
+    for (const anchor of anchorsToPreserve) {
+      this.#rememberAnchorRelation(anchor);
+    }
 
     if (canMoveToAnchorRoot) {
       this.#moveToAnchorRoot(normalizedElement, targetAnchorRoot);
@@ -1045,10 +1126,14 @@ export class Tooltip extends LitElement {
     this.#syncSlotWithAnchor(normalizedElement, isInAnchorRoot);
 
     if (isInAnchorRoot) {
-      this.#preserveAnchorRelation(normalizedElement);
+      for (const anchor of anchorsToPreserve) {
+        this.#knownAnchors.add(anchor);
+        this.#stableAnchors.add(anchor);
+        this.#preserveAnchorRelation(anchor);
+      }
     }
 
-    if (!wasOpen) {
+    if (!wasOpen || !isPopoverOpen(this)) {
       this.showPopover();
     } else if (anchorChanged) {
       this.#anchor.updatePosition();

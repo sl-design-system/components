@@ -154,6 +154,43 @@ describe('sl-tooltip shared', () => {
     expect(tabTooltip.anchorElement).to.equal(tabButtons[1]);
   });
 
+  it('should reopen on a different shared button in a button bar after closing', async () => {
+    const sharedFixture = await fixture(html`
+      <div>
+        <sl-button-bar>
+          <sl-button id="shared-btn-1" aria-describedby="shared-tooltip">Button 1</sl-button>
+          <sl-button id="shared-btn-2" aria-describedby="shared-tooltip">Button 2</sl-button>
+          <sl-button id="shared-btn-3" aria-describedby="shared-tooltip">Button 3</sl-button>
+        </sl-button-bar>
+        <sl-tooltip id="shared-tooltip" show-delay="0" hide-delay="0">Shared Tooltip</sl-tooltip>
+      </div>
+    `);
+
+    const sharedButtons = Array.from(sharedFixture.querySelectorAll<HTMLElement>('sl-button'));
+    const sharedTooltip = sharedFixture.querySelector('sl-tooltip') as Tooltip;
+
+    await userEvent.hover(sharedButtons[0]);
+    await sharedTooltip.updateComplete;
+    await new Promise(resolve => requestAnimationFrame(resolve));
+    await sharedTooltip.updateComplete;
+
+    expect(sharedTooltip.matches(':popover-open')).to.be.true;
+    expect(sharedTooltip.anchorElement).to.equal(sharedButtons[0]);
+
+    await userEvent.hover(document.body);
+    await sharedTooltip.updateComplete;
+    await waitForPopoverToClose(sharedTooltip, 250);
+    expect(sharedTooltip.matches(':popover-open')).to.be.false;
+
+    await userEvent.hover(sharedButtons[1]);
+    await sharedTooltip.updateComplete;
+    await new Promise(resolve => requestAnimationFrame(resolve));
+    await sharedTooltip.updateComplete;
+
+    expect(sharedTooltip.matches(':popover-open')).to.be.true;
+    expect(sharedTooltip.anchorElement).to.equal(sharedButtons[1]);
+  });
+
   it('should close after rapid pointer transitions for shared anchors connected via ElementInternals', async () => {
     const internalsFixture = await fixture(html`
       <div style="display: flex; gap: 8px;">

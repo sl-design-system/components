@@ -200,6 +200,8 @@ export class Tooltip extends LitElement {
     this.#events.listen(root, 'focusin', this.#onShow);
     this.#events.listen(root, 'focusout', this.#onHide);
     this.#events.listen(root, 'keydown', this.#onKeydown);
+    this.#events.listen(root, 'pointerover', this.#onShow);
+    this.#events.listen(root, 'pointerout', this.#onHide);
     this.#events.listen(documentRoot, 'click', this.#onHide, { capture: true });
     this.#events.listen(documentRoot, 'pointerover', this.#onShow);
     this.#events.listen(documentRoot, 'pointerout', this.#onHide);
@@ -578,6 +580,26 @@ export class Tooltip extends LitElement {
     return undefined;
   };
 
+  #isEventActiveAnchor = (element: HTMLElement, event: Event, path: EventTarget[], host: Element): boolean => {
+    if (path.includes(element)) {
+      return true;
+    }
+
+    if (host !== event.target) {
+      return false;
+    }
+
+    if (event.type === 'pointerover') {
+      return element.matches(':hover');
+    }
+
+    if (event.type === 'focusin' || event.type === 'sl-close') {
+      return element.matches(':focus-within');
+    }
+
+    return false;
+  };
+
   /**
    * Find the anchor element for a given event. First checks the composed path directly,
    * then searches inside shadow roots of elements in the path. This handles cases where
@@ -611,7 +633,7 @@ export class Tooltip extends LitElement {
 
         if (
           ariaMatch instanceof HTMLElement &&
-          (path.includes(ariaMatch) || el === event.target) &&
+          this.#isEventActiveAnchor(ariaMatch, event, path, el) &&
           this.#matchesAnchor(ariaMatch)
         ) {
           return ariaMatch;
@@ -620,7 +642,7 @@ export class Tooltip extends LitElement {
         for (const child of Array.from(el.shadowRoot.children)) {
           if (
             child instanceof HTMLElement &&
-            (path.includes(child) || el === event.target) &&
+            this.#isEventActiveAnchor(child, event, path, el) &&
             this.#matchesAnchor(child)
           ) {
             return child;

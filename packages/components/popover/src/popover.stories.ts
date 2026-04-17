@@ -299,7 +299,11 @@ export const All: Story = {
         }
       </style>
       <div>
-        <sl-button id="anchor" variant="primary">This is a popover anchor element (sl-button component) <br aria-hidden="true" /> with all top and bottom popover allowed positions shown <br aria-hidden="true" /> all examples at once</sl-button>
+        <sl-button id="anchor" variant="primary"
+          >This is a popover anchor element (sl-button component) <br aria-hidden="true" />
+          with all top and bottom popover allowed positions shown <br aria-hidden="true" />
+          all examples at once</sl-button
+        >
         <sl-popover anchor="anchor" popover="manual" position="top">Top</sl-popover>
         <sl-popover anchor="anchor" popover="manual" position="top-start">Top start</sl-popover>
         <sl-popover anchor="anchor" popover="manual" position="top-end">Top end</sl-popover>
@@ -309,13 +313,38 @@ export const All: Story = {
       </div>
 
       <div>
-        <sl-button id="anchor2" variant="primary" style="width: 72px; padding: 24px;">This is a popover anchor element (sl-button component) with all right and left popover allowed positions shown all examples at once</sl-button>
-        <sl-popover anchor="anchor2" popover="manual" position="right">Right <br aria-hidden='true'> example</sl-popover>
-        <sl-popover anchor="anchor2" popover="manual" position="right-start">Right <br aria-hidden='true'> start <br aria-hidden='true'> example</sl-popover>
-        <sl-popover anchor="anchor2" popover="manual" position="right-end">Right <br aria-hidden='true'> end <br aria-hidden='true'> example</sl-popover>
-        <sl-popover anchor="anchor2" popover="manual" position="left">Left <br aria-hidden='true'> example</sl-popover>
-        <sl-popover anchor="anchor2" popover="manual" position="left-start">Left <br aria-hidden='true'> start <br aria-hidden='true'> example</sl-popover>
-        <sl-popover anchor="anchor2" popover="manual" position="left-end">Left <br aria-hidden='true'> end <br aria-hidden='true'> example</sl-popover>
+        <sl-button id="anchor2" variant="primary" style="width: 72px; padding: 24px;"
+          >This is a popover anchor element (sl-button component) with all right and left popover allowed positions
+          shown all examples at once</sl-button
+        >
+        <sl-popover anchor="anchor2" popover="manual" position="right"
+          >Right <br aria-hidden="true" />
+          example</sl-popover
+        >
+        <sl-popover anchor="anchor2" popover="manual" position="right-start"
+          >Right <br aria-hidden="true" />
+          start <br aria-hidden="true" />
+          example</sl-popover
+        >
+        <sl-popover anchor="anchor2" popover="manual" position="right-end"
+          >Right <br aria-hidden="true" />
+          end <br aria-hidden="true" />
+          example</sl-popover
+        >
+        <sl-popover anchor="anchor2" popover="manual" position="left"
+          >Left <br aria-hidden="true" />
+          example</sl-popover
+        >
+        <sl-popover anchor="anchor2" popover="manual" position="left-start"
+          >Left <br aria-hidden="true" />
+          start <br aria-hidden="true" />
+          example</sl-popover
+        >
+        <sl-popover anchor="anchor2" popover="manual" position="left-end"
+          >Left <br aria-hidden="true" />
+          end <br aria-hidden="true" />
+          example</sl-popover
+        >
       </div>
     `;
   }

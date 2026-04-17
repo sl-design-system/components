@@ -4,7 +4,7 @@ import { type LocaleModule, configureLocalization } from '@lit/localize';
 import * as locales from '@sl-design-system/locales';
 import { type Preview } from '@storybook/web-components-vite';
 import MockDate from 'mockdate';
-import { updateTheme, themes, type Mode } from './themes.js';
+import { type Mode, themes, updateTheme } from './themes.js';
 
 // Load the polyfill for the Invoker API if needed
 if (!('command' in HTMLButtonElement.prototype)) {
@@ -69,7 +69,7 @@ const customViewports = {
       height: '800px'
     },
     type: 'desktop'
-  },
+  }
 };
 
 const preview: Preview = {
@@ -127,7 +127,7 @@ const preview: Preview = {
         items: [
           { value: 'de', right: '🇩🇪', title: 'Deutsch' },
           { value: 'en-GB', right: '🇬🇧', title: 'English (UK)' },
-          { value: 'es_ES', right: '🇪🇸', title: 'Español' },
+          { value: 'es-ES', right: '🇪🇸', title: 'Español' },
           { value: 'fr', right: '🇫🇷', title: 'Français' },
           { value: 'it', right: '🇮🇹', title: 'Italiano' },
           { value: 'nl', right: '🇳🇱', title: 'Nederlands' },

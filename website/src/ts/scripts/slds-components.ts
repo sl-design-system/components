@@ -2,6 +2,9 @@ import { faGithub, faSlack } from '@fortawesome/free-brands-svg-icons';
 // eslint-disable-next-line import/order
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import {
+  faArrowDownWideShort,
+  faArrowTurnLeftDown,
+  faArrowUpFromBracket,
   faArrowUpRightFromSquare,
   faBug,
   faCode,
@@ -12,13 +15,16 @@ import {
   faFloppyDisk,
   faFolder,
   faFolderOpen,
+  faFont,
   faGear,
   faHeart,
   faMessagesQuestion,
+  faPaste,
   faPen,
   faPenToSquare,
   faPencilRuler,
   faPuzzlePieceSimple,
+  faScissors,
   faTrash,
   faTruckFast,
   faXmark,
@@ -92,6 +98,7 @@ import '@sl-design-system/text-field/register.js';
 import '@sl-design-system/time-field/register.js';
 import '@sl-design-system/toggle-button/register.js';
 import '@sl-design-system/toggle-group/register.js';
+import '@sl-design-system/tool-bar/register.js';
 import '@sl-design-system/tooltip/register.js';
 import { FlatTreeDataSource } from '@sl-design-system/tree';
 import '@sl-design-system/tree/register.js';
@@ -99,6 +106,9 @@ import '@sl-design-system/tree/register.js';
 setup();
 
 Icon.register(
+  faArrowDownWideShort,
+  faArrowTurnLeftDown,
+  faArrowUpFromBracket,
   faArrowUpRightFromSquare,
   faBug,
   faCode,
@@ -110,16 +120,19 @@ Icon.register(
   faFloppyDisk,
   faFolder,
   faFolderOpen,
+  faFont,
   faGear,
   faGithub,
   faHandBackPointUp,
   faHeart,
   faMessagesQuestion,
+  faPaste,
   faPen,
   faPenToSquare,
   faPencilRuler,
   faPuzzlePieceSimple,
   faSchool,
+  faScissors,
   faScreenUsers,
   faSlack,
   faSparkles,

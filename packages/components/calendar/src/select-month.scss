@@ -19,7 +19,9 @@ header {
   align-items: center;
   display: flex;
   gap: var(--sl-size-100);
-  padding-inline: var(--sl-size-150) var(--sl-size-050);
+  margin-block-end: var(--sl-size-050);
+  padding-block: var(--sl-size-025);
+  padding-inline: var(--sl-size-050) var(--sl-size-025);
 
   .current-year {
     font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
@@ -39,10 +41,11 @@ sl-button {
 table {
   block-size: 100%;
   border-collapse: separate;
-  border-spacing: var(--sl-size-100);
+  border-spacing: var(--sl-size-010);
   box-sizing: content-box;
   inline-size: 100%;
   margin: 0;
+  padding: 0 0 var(--sl-size-100) 0;
 }
 
 td {
@@ -94,7 +97,7 @@ button {
     outline: transparent solid var(--sl-size-outlineWidth-default);
     outline-offset: var(--sl-size-outlineOffset-default);
     padding: calc(var(--sl-size-025) - var(--sl-size-borderWidth-subtle))
-      calc(var(--sl-size-100) - var(--sl-size-borderWidth-action));
+      calc(var(--sl-size-025) - var(--sl-size-borderWidth-action));
 
     @media (prefers-reduced-motion: no-preference) {
       transition: 0.2s ease-in-out;

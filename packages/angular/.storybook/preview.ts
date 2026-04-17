@@ -8,7 +8,7 @@ import { themes, updateTheme } from '../../../.storybook/themes';
 const { setLocale } = configureLocalization({
   sourceLocale: locales.sourceLocale,
   targetLocales: locales.targetLocales,
-  loadLocale: locale => Promise.resolve(locales[locale as (typeof locales.targetLocales)[number]])
+  loadLocale: locale => Promise.resolve(locales.locales[locale as keyof typeof locales.locales])
 });
 
 const preview: Preview = {

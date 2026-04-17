@@ -2,4 +2,4 @@
 '@sl-design-system/locales': patch
 ---
 
-Added Italian, Polish and Castalan Spanish language files
+Added Italian, Polish and Castilian Spanish language files

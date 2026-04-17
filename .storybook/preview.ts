@@ -26,7 +26,7 @@ if (!import.meta.env?.DEV) {
 const { setLocale } = configureLocalization({
   sourceLocale: locales.sourceLocale,
   targetLocales: locales.targetLocales,
-  loadLocale: locale => Promise.resolve((locales as Record<string, unknown>)[locale] as LocaleModule)
+  loadLocale: locale => Promise.resolve(locales.locales[locale as keyof typeof locales.locales] as LocaleModule)
 });
 
 const customViewports = {

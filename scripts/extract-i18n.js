@@ -10,7 +10,7 @@ const extract = async (component) => {
 
   const localizer = new RuntimeLitLocalizer({
     sourceLocale: 'en',
-    targetLocales: ['es_ES', 'it', 'nl', 'pl'],
+    targetLocales: ['es-ES', 'it', 'nl', 'pl'],
     inputFiles: join(folder, 'src/**/!(*.{d,spec,stories}).ts'),
     // tsConfig: 'tsconfig.json',
     output: {

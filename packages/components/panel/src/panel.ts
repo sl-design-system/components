@@ -175,7 +175,12 @@ export class Panel extends ScopedElementsMixin(LitElement) {
           </sl-tool-bar>
         </slot>
       </div>
-      <div id="body" part="body" aria-labelledby="heading" role=${ifDefined(this.collapsible ? 'region' : undefined)}>
+      <div
+        id="body"
+        part="body"
+        aria-labelledby=${ifDefined(this.collapsible ? 'heading' : undefined)}
+        role=${ifDefined(this.collapsible ? 'region' : undefined)}
+      >
         <div part="inner">
           <div part="content">
             <slot></slot>

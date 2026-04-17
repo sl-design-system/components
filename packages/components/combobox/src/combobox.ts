@@ -531,6 +531,21 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   /**
+   * Override reportValidity to use ElementInternals instead of the input's native reportValidity.
+   * This ensures the reported validity matches our custom validation logic.
+   */
+  override reportValidity(): boolean {
+    // Workaround for https://github.com/whatwg/html/issues/9878
+    // Note: `report` is an internal property from FormControlMixin, not in the public interface
+    (this as { report?: boolean }).report = true;
+
+    const valid = this.internals.reportValidity();
+    this.updateValidity();
+
+    return valid;
+  }
+
+  /**
    * Override formValue to use ElementInternals for custom form submission.
    * This allows us to submit different values (like indices) than what's displayed in the input.
    */

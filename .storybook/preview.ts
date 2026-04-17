@@ -127,7 +127,7 @@ const preview: Preview = {
         items: [
           { value: 'de', right: '🇩🇪', title: 'Deutsch' },
           { value: 'en-GB', right: '🇬🇧', title: 'English (UK)' },
-          { value: 'es', right: '🇪🇸', title: 'Español' },
+          { value: 'es_ES', right: '🇪🇸', title: 'Español' },
           { value: 'fr', right: '🇫🇷', title: 'Français' },
           { value: 'it', right: '🇮🇹', title: 'Italiano' },
           { value: 'nl', right: '🇳🇱', title: 'Nederlands' },

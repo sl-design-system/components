@@ -56,7 +56,10 @@ const preview: Preview = {
         icon: 'globe',
         items: [
           { value: 'en', right: '🇺🇸', title: 'English' },
-          { value: 'nl', right: '🇳🇱', title: 'Nederlands' }
+          { value: 'es_ES', right: '🇪🇸', title: 'Español' },
+          { value: 'it', right: '🇮🇹', title: 'Italiano' },
+          { value: 'nl', right: '🇳🇱', title: 'Nederlands' },
+          { value: 'pl', right: '🇵🇱', title: 'Polski' }
         ]
       }
     }

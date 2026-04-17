@@ -362,11 +362,14 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    // In flexible layouts (e.g. CSS grid with auto columns), hiding items can
-    // shrink the host, causing ResizeObserver to report a smaller width than
-    // what's actually available. Briefly reveal all items and force a reflow
-    // to read the true constrained width before calculating visibility.
+    // In flexible layouts (e.g. popover with display:flex), hiding items can shrink
+    // the host, causing ResizeObserver to report a progressively smaller width until
+    // all items are hidden. To get the true available width, we reveal all items and
+    // read getBoundingClientRect(). We temporarily set overflow:hidden on the host so
+    // that the revealed content doesn't expand parent containers (e.g. grid cells with
+    // min-inline-size:auto).
     if (this.menuItems.length > 0) {
+      this.style.overflow = 'hidden';
       revealAllItems(this.items);
       void this.offsetHeight;
     }
@@ -379,6 +382,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         (parseFloat(hostStyles.borderInlineStartWidth) || 0) + (parseFloat(hostStyles.borderInlineEndWidth) || 0);
 
     availableWidth = this.getBoundingClientRect().width - paddingInline - borderInline;
+
+    // Restore normal overflow so focus outlines are not permanently clipped.
+    this.style.overflow = '';
 
     // Calculate menu button width (square button based on wrapper height).
     // Include the menu button's margin-inline-start so we reserve the full

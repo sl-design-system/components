@@ -3,6 +3,7 @@
   background: transparent;
   display: flex;
   flex-wrap: nowrap;
+  min-inline-size: 0;
 }
 
 :host([align='end']) [part='wrapper'] {

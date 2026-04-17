@@ -18,7 +18,9 @@ ruleTester.run('singleline-html-template-trimmed', singlelineHtmlTemplateTrimmed
     { code: "someOtherTag` Space is allowed here `;" },
     { code: "html`\n<h1>Hello world</h1>\n`;" },
     { code: "html`<h1>\nHello world\n</h1>`;" },
-    { code: "html`${firstName} ${lastName}`" }
+    { code: "html`${firstName} ${lastName}`" },
+    { code: "html`${study} &middot; ${perStudy[0].schoolPeriodCode}`;" },
+    { code: "html`${prefix}<span>content</span>${suffix}`;" }
   ],
   invalid: [
     {
@@ -40,6 +42,21 @@ ruleTester.run('singleline-html-template-trimmed', singlelineHtmlTemplateTrimmed
       code: "html`   <sl-button>Click me</sl-button>   `;" ,
       errors: [{ messageId: 'unnecessaryWhitespace' }],
       output: "html`<sl-button>Click me</sl-button>`;"
+    },
+    {
+      code: "html` ${firstName}`;",
+      errors: [{ messageId: 'unnecessaryWhitespace' }],
+      output: "html`${firstName}`;"
+    },
+    {
+      code: "html`${lastName} `;",
+      errors: [{ messageId: 'unnecessaryWhitespace' }],
+      output: "html`${lastName}`;"
+    },
+    {
+      code: "html` ${firstName} ${lastName} `;",
+      errors: [{ messageId: 'unnecessaryWhitespace' }],
+      output: "html`${firstName} ${lastName}`;"
     }
   ]
 });

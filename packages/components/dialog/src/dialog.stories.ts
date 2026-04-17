@@ -273,7 +273,7 @@ export const DialogWithOverlayComponents: Story = {
             <sl-popover id="popover-example" anchor="anchor">
               <header style="font-size: 1.1em; padding-block-end: 1rem;">Word Definition</header>
               <section style="padding-block-end: 1rem;">
-                <strong>Photosynthesis</strong> is the process by which green plants and some other organisms <br/>
+                <strong>Photosynthesis</strong> is the process by which green plants and some other organisms <br aria-hidden='true' />
                 use sunlight to synthesize foods from carbon dioxide and water.
               </section>
               <footer>
@@ -324,7 +324,7 @@ export const DialogWithOverlayComponents: Story = {
       </style>
       <section>
         This example shows a dialog with overlay components (such as date fields, selects, comboboxes, popovers, and
-        menu buttons). <br />
+        menu buttons). <br aria-hidden="true" />
         The main purpose is to verify that closing any of these overlay components (for example, by pressing the
         <code>Escape</code> key) does not accidentally close the parent dialog.
       </section>

@@ -299,7 +299,7 @@ export const All: Story = {
         }
       </style>
       <div>
-        <sl-button id="anchor" variant="primary">This is a popover anchor element (sl-button component) </br> with all top and bottom popover allowed positions shown <br aria-hidden='true'> all examples at once</sl-button>
+        <sl-button id="anchor" variant="primary">This is a popover anchor element (sl-button component) <br aria-hidden="true" /> with all top and bottom popover allowed positions shown <br aria-hidden="true" /> all examples at once</sl-button>
         <sl-popover anchor="anchor" popover="manual" position="top">Top</sl-popover>
         <sl-popover anchor="anchor" popover="manual" position="top-start">Top start</sl-popover>
         <sl-popover anchor="anchor" popover="manual" position="top-end">Top end</sl-popover>

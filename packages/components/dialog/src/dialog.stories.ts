@@ -273,7 +273,7 @@ export const DialogWithOverlayComponents: Story = {
             <sl-popover id="popover-example" anchor="anchor">
               <header style="font-size: 1.1em; padding-block-end: 1rem;">Word Definition</header>
               <section style="padding-block-end: 1rem;">
-                <strong>Photosynthesis</strong> is the process by which green plants and some other organisms <br aria-hidden='true' />
+                <strong>Photosynthesis</strong> is the process by which green plants and some other organisms <br aria-hidden="true" />
                 use sunlight to synthesize foods from carbon dioxide and water.
               </section>
               <footer>

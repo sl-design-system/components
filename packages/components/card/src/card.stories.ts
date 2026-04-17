@@ -484,7 +484,7 @@ export const Masonry: Story = {
           >not supported in all browsers yet</a
         >). <br aria-hidden="true" />
         The cards will grow as big as the text needs them to be. The height of the header might change, causing the
-        body-texts not to alight within a row. When it is important they align, use subgrid.<br aria-hidden="true" />
+        body-texts not to align within a row. When it is important they align, use subgrid.<br aria-hidden="true" />
       </p>
       <div class=${!actionButton ? 'grid no-buttons' : 'grid'}>
         ${card(settings, 1)} ${card(settings, 2)} ${card(settings, 0)} ${card(settings, 3)} ${card(settings, 0)}

@@ -21,25 +21,21 @@ export const singlelineHtmlTemplateTrimmed = {
         if (isHtmlTaggedTemplate(node, context)) {
           const { quasi } = node;
           const { quasis } = quasi;
-
-          // Get the raw template content
-          const templateContent = quasis.map(q => q.value.raw).join('');
+          const firstQuasi = quasis[0]?.value.raw ?? '';
+          const lastQuasi = quasis.at(-1)?.value.raw ?? '';
 
           // Skip multiline templates - this rule only applies to single-line templates
-          if (templateContent.includes('\n')) {
+          if (quasis.some(templateElement => templateElement.value.raw.includes('\n'))) {
             return;
           }
 
-          // Skip templates that only contain expressions with spaces between them
-          // For example: html`${firstName} ${lastName}`
-          if (templateContent.trim() === '' && quasi.expressions.length > 0) {
-            return;
-          }
+          // Only the outermost template segments can introduce unnecessary
+          // surrounding whitespace. Inner quasis may legitimately contain
+          // spaces between expressions, e.g. html`${first} ${last}`.
+          const hasLeadingWhitespace = /^\s+/.test(firstQuasi);
+          const hasTrailingWhitespace = /\s+$/.test(lastQuasi);
 
-          // Check if the template has leading or trailing whitespace
-          const hasSurroundingWhitespace = /^\s+|\s+$/.test(templateContent);
-
-          if (hasSurroundingWhitespace) {
+          if (hasLeadingWhitespace || hasTrailingWhitespace) {
             const templateText = context.sourceCode.getText(quasi);
 
             context.report({

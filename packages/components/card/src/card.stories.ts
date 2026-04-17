@@ -288,7 +288,9 @@ export const SubGridHorizontal: Story = {
         }
       </style>
       <p>
-        This grid has 4 columns, because the horizontal cards span 2 columns each it will show 2 cards per row.<br />
+        This grid has 4 columns, because the horizontal cards span 2 columns each it will show 2 cards per row.<br
+          aria-hidden="true"
+        />
         Hiding the media will result in 4 cards per row, but this will look odd, because the cards columns are set to
         200px and 1fr alternating.
       </p>
@@ -480,9 +482,9 @@ export const Masonry: Story = {
         This grid has 3 columns, the rows are set to <code>masonry</code> (although this is
         <a href="https://caniuse.com/mdn-css_properties_grid-template-rows_masonry" target="_blank"
           >not supported in all browsers yet</a
-        >). <br />
+        >). <br aria-hidden="true" />
         The cards will grow as big as the text needs them to be. The height of the header might change, causing the
-        body-texts not to alight within a row. When it is important they align, use subgrid.<br />
+        body-texts not to align within a row. When it is important they align, use subgrid.<br aria-hidden="true" />
       </p>
       <div class=${!actionButton ? 'grid no-buttons' : 'grid'}>
         ${card(settings, 1)} ${card(settings, 2)} ${card(settings, 0)} ${card(settings, 3)} ${card(settings, 0)}
@@ -547,7 +549,7 @@ export const MediaOptions: Story = {
         ${card(settings, 0)} ${card({ ...settings, fitImage: true }, 1)}
         <span>Fit image with background-color set with <code>--sl-card-image-backdrop</code>:</span
         ><span>Fit image with background set to gradient with <code>--sl-card-image-backdrop</code>:</span>
-        ${card({ ...settings, fitImage: true }, 2)} ${card({ ...settings, fitImage: true }, 3)}
+        ${card({ ...settings, fitImage: true }, 2)} ${card({ ...settings, fitImage: true, bodyText: undefined }, 3)}
         <span>Fit image with imageBackdrop:</span><span>With media-margin</span>
         ${card({ ...settings, fitImage: true, imageBackdrop: true }, 1)} ${card({ ...settings, mediaMargin: true }, 0)}
       </div>
@@ -684,18 +686,22 @@ export const Responsive: Story = {
       </style>
       <p>
         This grid has the template columns set to <code>repeat(auto-fit, minmax(400px, 1fr))</code>, which means it will
-        show as many cards as will fit in the available space, with a minimum width of 400px per card.<br />
+        show as many cards as will fit in the available space, with a minimum width of 400px per card.<br
+          aria-hidden="true"
+        />
         The cards will switch to horizontal layout when the column is wider than 500px. This will cause a lot of
         "switching" between horizontal and vertical layout when the viewport is resized, this exact example is not
-        recommended for production use.<br />
+        recommended for production use.<br aria-hidden="true" />
       </p>
       <div class="grid">${card(settings, 1)} ${card(settings, 2)} ${card(settings, 0)} ${card(settings, 3)}</div>
       <p>
         This grid has the template columns set to <code>repeat(auto-fit, minmax(400px, 1fr))</code>, which means it will
-        show as many cards as will fit in the available space, with a minimum width of 400px per card.<br />
+        show as many cards as will fit in the available space, with a minimum width of 400px per card.<br
+          aria-hidden="true"
+        />
         The cards will switch to horizontal layout when the column is wider than 500px. This will cause a lot of
         "switching" between horizontal and vertical layout when the viewport is resized, this exact example is not
-        recommended for production use.<br />
+        recommended for production use.<br aria-hidden="true" />
       </p>
       <div class="grid">${card(settings, 1)} ${card(settings, 2)} ${card(settings, 0)} ${card(settings, 3)}</div>
     `;

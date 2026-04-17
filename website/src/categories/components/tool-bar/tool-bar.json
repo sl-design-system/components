@@ -1,0 +1,16 @@
+{
+  "layout": "categories/components/components.njk",
+  "tags": "tool-bar",
+  "componentStatus": "draft",
+  "componentTagName": [
+    {
+      "name": "Tool bar",
+      "selector": "sl-tool-bar"
+    },
+    {
+      "name": "Tool bar divider",
+      "selector": "sl-tool-bar-divider"
+    }
+  ]
+}
+

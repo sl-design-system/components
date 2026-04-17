@@ -99,13 +99,14 @@ The design system provides accessible building blocks, but it's up to applicatio
 
 <section>
 
-### Deviations from WCAG
+### Note: Safari keyboard focus behavior
 
-While we strive to follow WCAG guidelines as closely as possible, there are some cases where we intentionally deviate from the specifications:
+For our Web components we strive to replicate the native and web platform as closely as possible.
+This means that for some controls (e.g., buttons, links) in Safari, you may experience issues navigating using the TAB key. This is due to Safari’s native behavior, which is well known to Safari users who use assistive technologies.  
 
-- **Dialog keyboard trap**: WCAG 2.1 Success Criterion 2.1.2 requires that keyboard users are trapped inside a dialog. However, the modern`<dialog>` element implements a different behavior where users can focus browser UI. See [https://github.com/sl-design-system/components/issues/1554](https://github.com/sl-design-system/components/issues/1554) for more details.
+#### Enabling full keyboard access in Safari
 
-These deviations are carefully considered and documented. They are only implemented when we believe they provide a better overall user experience while maintaining core accessibility principles.
+To enable access to all interactive elements in Safari using the TAB key, go to Settings, select the “Advanced” section, and enable the option “Press Tab to highlight each item on a webpage.” Once this option is enabled, elements that were previously inaccessible via the keyboard should become accessible using the TAB key.
 
 </section>
 

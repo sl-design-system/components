@@ -37,8 +37,10 @@ export function calculateVisibility(
     cumulativeWidth = requiredWidth;
   }
 
-  // Calculate effective width (reserve space for menu button + gap before it)
-  const menuButtonTotalWidth = needsMenu ? menuButtonWidth + gap : 0,
+  // Calculate effective width (reserve space for menu button when present).
+  // The caller is expected to include any margin/spacing in menuButtonWidth,
+  // so we only subtract the button width itself (no extra gap).
+  const menuButtonTotalWidth = needsMenu ? menuButtonWidth : 0,
     effectiveWidth = availableWidth - menuButtonTotalWidth;
 
   // Second pass: set visibility based on effective width.
@@ -47,7 +49,7 @@ export function calculateVisibility(
   let overflowing = false;
   for (let i = 0; i < items.length; i++) {
     const itemWidth = widths[i],
-      gapWidth = i > 0 ? gap : 0,
+      gapWidth = cumulativeWidth > 0 ? gap : 0,
       requiredWidth = cumulativeWidth + gapWidth + itemWidth;
 
     if (overflowing || requiredWidth > effectiveWidth) {

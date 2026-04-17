@@ -370,12 +370,31 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       revealAllItems(this.items);
       void this.offsetHeight;
     }
-    availableWidth = this.getBoundingClientRect().width;
 
-    // Calculate menu button width (square button based on wrapper height)
+    // Read the content-box width of the host (excluding padding and border)
+    // so that contained toolbars with padding/border are measured correctly.
+    const hostStyles = getComputedStyle(this),
+      paddingInline = (parseFloat(hostStyles.paddingInlineStart) || 0) + (parseFloat(hostStyles.paddingInlineEnd) || 0),
+      borderInline =
+        (parseFloat(hostStyles.borderInlineStartWidth) || 0) + (parseFloat(hostStyles.borderInlineEndWidth) || 0);
+
+    availableWidth = this.getBoundingClientRect().width - paddingInline - borderInline;
+
+    // Calculate menu button width (square button based on wrapper height).
+    // Include the menu button's margin-inline-start so we reserve the full
+    // space the overflow button occupies in the flex layout.
     let menuButtonWidth = this.wrapper.getBoundingClientRect().height;
     if ((isNaN(menuButtonWidth) || menuButtonWidth === 0) && this.menuButton) {
       menuButtonWidth = this.menuButton.getBoundingClientRect().width;
+    }
+
+    // Include the menu button's margin so we reserve the full space it occupies.
+    // When the menu button is not yet rendered, use the wrapper gap as an estimate
+    // since the CSS sets both to the same design token (--sl-size-100).
+    if (this.menuButton) {
+      menuButtonWidth += parseFloat(getComputedStyle(this.menuButton).marginInlineStart) || 0;
+    } else {
+      menuButtonWidth += gap;
     }
 
     calculateVisibility(this.items, this.#widths, availableWidth, gap, menuButtonWidth);

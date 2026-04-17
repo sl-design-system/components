@@ -101,12 +101,12 @@ The design system provides accessible building blocks, but it's up to applicatio
 
 ### Note: Safari keyboard focus behavior
 
-For our Web components we strive to replicate the native and web platform as closely as possible.
-This means that for some controls (e.g., buttons, links) in Safari, you may experience issues navigating using the TAB key. This is due to Safari’s native behavior, which is well known to Safari users who use assistive technologies.  
+For our web components, we strive to replicate the native and web platform as closely as possible.
+This means that for some controls (e.g., buttons, links) in Safari, you may experience issues navigating using the `Tab` key. This is due to Safari’s native behavior, which is well known to Safari users who use assistive technologies.  
 
 #### Enabling full keyboard access in Safari
 
-To enable access to all interactive elements in Safari using the TAB key, go to Settings, select the “Advanced” section, and enable the option “Press Tab to highlight each item on a webpage.” Once this option is enabled, elements that were previously inaccessible via the keyboard should become accessible using the TAB key.
+To enable access to all interactive elements in Safari using the `Tab` key, open Safari, go to Settings, select the “Advanced” section, and enable the option “Press Tab to highlight each item on a webpage.” Once this option is enabled, elements that were previously inaccessible via the keyboard should become accessible using the `Tab` key.
 
 </section>
 

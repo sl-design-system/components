@@ -363,17 +363,15 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    // In flexible layouts (e.g. popover with display:flex), hiding items can shrink
-    // the host, causing ResizeObserver to report a progressively smaller width until
-    // all items are hidden. To get the true available width, we reveal all items and
-    // read getBoundingClientRect(). We temporarily set overflow:hidden on the host so
-    // that the revealed content doesn't expand parent containers (e.g. grid cells with
-    // min-inline-size:auto).
-    if (this.menuItems.length > 0) {
-      this.style.overflow = 'hidden';
-      revealAllItems(this.items);
-      void this.offsetHeight;
-    }
+    // To get the true constrained width, we reveal all items and read
+    // getBoundingClientRect(). We temporarily set `contain: inline-size` so
+    // the browser treats this element's intrinsic sizes as 0, preventing
+    // parent containers from expanding (e.g. a wrapper div in a grid cell).
+    // Unlike `overflow: hidden`, containment works for block-level children
+    // in block formatting contexts too.
+    this.style.contain = 'inline-size';
+    revealAllItems(this.items);
+    void this.offsetHeight;
 
     // Read the content-box width of the host (excluding padding and border)
     // so that contained toolbars with padding/border are measured correctly.
@@ -382,10 +380,20 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       borderInline =
         (parseFloat(hostStyles.borderInlineStartWidth) || 0) + (parseFloat(hostStyles.borderInlineEndWidth) || 0);
 
-    availableWidth = this.getBoundingClientRect().width - paddingInline - borderInline;
+    let measuredWidth = this.getBoundingClientRect().width - paddingInline - borderInline;
 
-    // Restore normal overflow so focus outlines are not permanently clipped.
-    this.style.overflow = '';
+    // If containment collapsed the toolbar (e.g. inline-size: fit-content),
+    // fall back to the natural width without containment.
+    if (measuredWidth <= 0) {
+      this.style.contain = '';
+      void this.offsetHeight;
+      measuredWidth = this.getBoundingClientRect().width - paddingInline - borderInline;
+    }
+
+    availableWidth = measuredWidth;
+
+    // Restore normal containment.
+    this.style.contain = '';
 
     // Calculate menu button width (square button based on wrapper height).
     // Include the menu button's margin-inline-start so we reserve the full

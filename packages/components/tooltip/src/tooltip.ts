@@ -69,11 +69,37 @@ export class Tooltip extends LitElement {
 
   /** To attach the `sl-tooltip` to the DOM tree and anchor element */
   static lazy(target: Element, callback: (target: Tooltip) => void, options: TooltipOptions = {}): () => void {
+    let created = false;
+
+    const getLazyTargets = (): Array<Element | ShadowRoot> => {
+      const targets: Array<Element | ShadowRoot> = [target],
+        shadowRoot = (target as HTMLElement).shadowRoot,
+        proxyTarget = (target as Element & { getProxyTarget?(): Element | null }).getProxyTarget?.();
+
+      if (shadowRoot) {
+        targets.push(shadowRoot);
+      }
+
+      if (proxyTarget instanceof Element && proxyTarget !== target) {
+        targets.push(proxyTarget);
+      }
+
+      return Array.from(new Set(targets));
+    };
+
     const removeListeners = () => {
-      ['focusin', 'pointerover'].forEach(eventName => target.removeEventListener(eventName, createTooltip));
+      for (const eventTarget of getLazyTargets()) {
+        ['focusin', 'pointerover'].forEach(eventName => eventTarget.removeEventListener(eventName, createTooltip));
+      }
     };
 
     const createTooltip = (): void => {
+      if (created) {
+        return;
+      }
+
+      created = true;
+
       let context = options.context;
       if (!context && target.shadowRoot?.registry?.get('sl-tooltip')) {
         context = target.shadowRoot;
@@ -121,7 +147,9 @@ export class Tooltip extends LitElement {
       removeListeners();
     };
 
-    ['focusin', 'pointerover'].forEach(eventName => target.addEventListener(eventName, createTooltip));
+    for (const eventTarget of getLazyTargets()) {
+      ['focusin', 'pointerover'].forEach(eventName => eventTarget.addEventListener(eventName, createTooltip));
+    }
 
     return cleanup;
   }

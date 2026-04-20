@@ -9,6 +9,7 @@
   color: var(--sl-color-foreground-plain);
   display: block;
   outline: none;
+  scroll-margin-block: 8px;
 }
 
 :host([active]) {
@@ -34,7 +35,7 @@
   );
 }
 
-:host(:not([icon])) [part='leaf'] {
+:host(:not([icon])[data-level='0']) [part='leaf'] {
   padding-inline-start: calc(var(--sl-size-100) + var(--sl-size-200) + var(--sl-size-100));
 }
 

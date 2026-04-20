@@ -1,4 +1,5 @@
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
+import { NavGroup } from './nav-group.js';
 import { NavItem } from './nav-item.js';
 import styles from './site-nav.css' with { type: 'css' };
 
@@ -115,11 +116,24 @@ export class SiteNav extends LitElement {
       return;
     }
 
-    // Remove the active state from the currently active item, if any
-    this.querySelector('doc-nav-item[active]')?.removeAttribute('active');
+    // Capture old active item before removing
+    const oldActiveItem = this.querySelector<NavItem>('doc-nav-item[active]');
 
-    // Add the active state to the clicked nav item (if any)
-    event.sourceElement?.getRootNode()?.host?.setAttribute('active', '');
+    // Remove the active state from the currently active item, if any
+    oldActiveItem?.removeAttribute('active');
+
+    // Determine the active nav-item: either the clicked one or the one matching the destination URL
+    const rootNode = event.sourceElement?.getRootNode(),
+      clickedItem = rootNode instanceof ShadowRoot ? rootNode.host : null,
+      destinationPath = new URL(event.destination.url).pathname.replace(/\/$/, ''),
+      activeItem =
+        clickedItem ??
+        Array.from(this.querySelectorAll<NavItem>('doc-nav-item')).find(
+          item => item.href && new URL(item.href, location.href).pathname.replace(/\/$/, '') === destinationPath
+        ) ??
+        null;
+
+    activeItem?.setAttribute('active', '');
 
     // In Storybook, just update the URL and let Storybook handle the rest
     if (insideStorybook) {
@@ -127,7 +141,9 @@ export class SiteNav extends LitElement {
     }
 
     event.intercept({
-      async handler() {
+      handler: async () => {
+        await this.#updateNavTree(oldActiveItem, activeItem);
+
         const response = await fetch(new URL(event.destination.url)),
           text = await response.text(),
           doc = new DOMParser().parseFromString(text, 'text/html'),
@@ -141,6 +157,40 @@ export class SiteNav extends LitElement {
       }
     });
   };
+
+  async #updateNavTree(oldActiveItem: NavItem | null, activeItem: Element | null): Promise<void> {
+    const newAncestors = new Set<Element>();
+    let p: Element | null = activeItem?.parentElement ?? null;
+    while (p) {
+      newAncestors.add(p);
+      p = p.parentElement;
+    }
+
+    let oldParent: Element | null = oldActiveItem?.parentElement ?? null;
+    while (oldParent) {
+      if (!newAncestors.has(oldParent)) {
+        if (oldParent instanceof NavItem && oldParent.expandable) {
+          oldParent.open = false;
+        } else if (oldParent instanceof NavGroup && oldParent.collapsible) {
+          oldParent.collapsed = true;
+        }
+      }
+      oldParent = oldParent.parentElement;
+    }
+
+    let parent: Element | null = activeItem?.parentElement ?? null;
+    while (parent) {
+      if (parent instanceof NavItem && parent.expandable) {
+        parent.open = true;
+      } else if (parent instanceof NavGroup) {
+        parent.collapsed = false;
+      }
+      parent = parent.parentElement;
+    }
+
+    await Promise.resolve();
+    activeItem?.scrollIntoView({ block: 'nearest' });
+  }
 
   /** Returns all visible (not inside a collapsed parent) nav-items in DOM order. */
   #getVisibleItems(): NavItem[] {

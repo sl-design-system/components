@@ -99,6 +99,9 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   /** Detect when options are added to the host, or a nested option group and clear the cache. */
   #observer = new MutationObserver(() => this.#rovingTabindexController.clearElementCache());
 
+  /** Detect when the selected option content changes, so the button can refresh its cloned content. */
+  #selectedOptionObserver = new MutationObserver(() => this.#onSelectedOptionContentChange());
+
   /** Since we can't use `popovertarget`, we need to monitor the closing state manually. */
   #popoverClosing = false;
 
@@ -236,6 +239,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
+    this.#selectedOptionObserver.disconnect();
 
     super.disconnectedCallback();
   }
@@ -414,6 +418,16 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     }
 
     this.#lastRenderedOption = this.selectedOption;
+  }
+
+  #onSelectedOptionContentChange(): void {
+    if (!this.selectedOption) {
+      return;
+    }
+
+    this.#lastRenderedOption = undefined;
+    this.#renderSelectedContent();
+    this.#calculateLargestOptionWidth();
   }
 
   #onBeforetoggle({ newState }: ToggleEvent): void {
@@ -694,6 +708,8 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   }
 
   #setSelectedOption(option?: Option<T>, emitEvent = true): void {
+    this.#selectedOptionObserver.disconnect();
+
     if (this.selectedOption) {
       this.selectedOption.selected = false;
       this.selectedOption.setAttribute('aria-selected', 'false');
@@ -704,6 +720,11 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     if (this.selectedOption) {
       this.selectedOption.selected = true;
       this.selectedOption.setAttribute('aria-selected', 'true');
+      this.#selectedOptionObserver.observe(this.selectedOption, {
+        childList: true,
+        subtree: true,
+        characterData: true
+      });
     }
 
     this.button.selected = this.selectedOption;

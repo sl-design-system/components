@@ -931,6 +931,22 @@ describe('sl-select', () => {
       expect(container).to.be.null;
     });
 
+    it('should update selected content when the selected option text is mutated', async () => {
+      el.value = '1';
+      await el.updateComplete;
+
+      const container = button.querySelector('[slot="selected-content"]');
+      expect(container).to.have.trimmed.text('Option 1');
+
+      const option = el.querySelector('sl-option[value="1"]')!;
+      option.textContent = 'Updated Option 1';
+
+      // Wait for MutationObserver callback to fire
+      await new Promise(resolve => setTimeout(resolve, 0));
+
+      expect(container).to.have.trimmed.text('Updated Option 1');
+    });
+
     it('should handle options with slotted element content', async () => {
       el = await fixture(html`
         <sl-select>

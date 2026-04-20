@@ -222,17 +222,34 @@ export class Tooltip extends LitElement {
     this.setAttribute('role', 'tooltip');
     this.setAttribute('aria-hidden', 'true'); // Prevent the tooltip from being read by screen readers multiple times
 
-    const root = this.getRootNode() as HTMLElement,
+    const root = this.getRootNode(),
       documentRoot = this.ownerDocument ?? document;
 
-    this.#events.listen(root, 'focusin', this.#onShow);
-    this.#events.listen(root, 'focusout', this.#onHide);
-    this.#events.listen(root, 'keydown', this.#onKeydown);
-    this.#events.listen(root, 'pointerover', this.#onShow);
-    this.#events.listen(root, 'pointerout', this.#onHide);
+    if (root instanceof ShadowRoot) {
+      // EventsController does not expose a generic EventTarget overload, but ShadowRoot
+      // is the correct runtime event target for delegated events inside the anchor root.
+      const shadowEventRoot = root as unknown as HTMLElement;
+
+      this.#events.listen(shadowEventRoot, 'focusin', this.#onShow);
+      this.#events.listen(shadowEventRoot, 'focusout', this.#onHide);
+      this.#events.listen(shadowEventRoot, 'keydown', this.#onKeydown);
+      this.#events.listen(shadowEventRoot, 'pointerover', this.#onShow);
+      this.#events.listen(shadowEventRoot, 'pointerout', this.#onHide);
+    } else {
+      this.#events.listen(documentRoot, 'focusin', this.#onShow);
+      this.#events.listen(documentRoot, 'focusout', this.#onHide);
+      this.#events.listen(documentRoot, 'keydown', this.#onKeydown);
+      this.#events.listen(documentRoot, 'pointerover', this.#onShow);
+      this.#events.listen(documentRoot, 'pointerout', this.#onHide);
+    }
+
     this.#events.listen(documentRoot, 'click', this.#onHide, { capture: true });
-    this.#events.listen(documentRoot, 'pointerover', this.#onShow);
-    this.#events.listen(documentRoot, 'pointerout', this.#onHide);
+
+    if (root instanceof ShadowRoot) {
+      this.#events.listen(documentRoot, 'pointerover', this.#onShow);
+      this.#events.listen(documentRoot, 'pointerout', this.#onHide);
+    }
+
     this.#events.listen(documentRoot, 'sl-close', this.#onShow);
   }
 
@@ -645,12 +662,16 @@ export class Tooltip extends LitElement {
       return anchor;
     }
 
-    const stableAnchor = path.find((el): el is HTMLElement => {
-      return el instanceof Element && !!this.#findStableAnchorFromElement(el);
-    });
+    for (const el of path) {
+      if (!(el instanceof Element)) {
+        continue;
+      }
 
-    if (stableAnchor) {
-      return this.#findStableAnchorFromElement(stableAnchor);
+      const stableAnchor = this.#findStableAnchorFromElement(el);
+
+      if (stableAnchor) {
+        return stableAnchor;
+      }
     }
 
     for (const el of path) {

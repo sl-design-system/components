@@ -20,7 +20,7 @@ export class Code extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <code><slot @slotchange=${this.#onSlotChange}></slot></code>
+      <code part="code"><slot @slotchange=${this.#onSlotChange}></slot></code>
       <doc-copy-button .content=${this.source}></doc-copy-button>
     `;
   }

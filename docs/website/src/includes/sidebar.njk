@@ -37,9 +37,16 @@
 <doc-site-nav>
   {%- for entry in navPages -%}
     {%- if entry.children | length -%}
+      {%- set groupHasActiveChild = false -%}
+      {%- for child in entry.children -%}
+        {%- if child.url == page.url -%}{%- set groupHasActiveChild = true -%}{%- endif -%}
+        {%- for grandchild in child.children -%}
+          {%- if grandchild.url == page.url -%}{%- set groupHasActiveChild = true -%}{%- endif -%}
+        {%- endfor -%}
+      {%- endfor -%}
       <doc-nav-group heading="{{ entry.title }}"
         {%- if entry.collapsible %} collapsible{% endif %}
-        {%- if entry.collapsed %} collapsed{% endif %}>
+        {%- if entry.collapsed and not groupHasActiveChild %} collapsed{% endif %}>
         {{ renderItems(entry.children, page.url) }}
       </doc-nav-group>
     {%- else -%}

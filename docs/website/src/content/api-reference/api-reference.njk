@@ -19,18 +19,36 @@
 ---
 
 {% set component = getComponent(element.tagName) %}
+{% set componentPageUrl = getComponentPageUrl(element.packageName) %}
+
+{% if componentPageUrl %}
+<p class="component-ref">Part of the <a href="{{ componentPageUrl }}">{{ element.title }} component</a>.</p>
+{% endif %}
 
 <dl class="metadata">
   <dt>Element</dt>
-  <dd><code>&lt;{{ element.tagName }}&gt;</code></dd>
+  <dd>
+    <ul>
+      <li><code>&lt;{{ element.tagName }}&gt;</code></li>
+      <li>
+        <sl-badge size="lg"
+          {% if component.status === 'stable' %}color="green"{% endif %}
+          {% if component.status === 'preview' %}color="blue"{% endif %}
+          {% if component.status === 'draft' %}color="grey"{% endif %}
+        >
+          {{ component.status | capitalize }}
+        </sl-badge>
+      </li>
+      <li><sl-badge color="grey" emphasis="bold" size="lg">v{{ component.version }}</sl-badge></li>
+    </ul>
+  </dd>
 
   <dt>Package</dt>
   <dd><code>{{ component.packageName }}</code></dd>
 
   <dt>Import</dt>
   <dd>
-    <code id="import-snippet">import { {{ element.name }} } from '{{ component.packageName }}';</code>
-    <doc-copy-button target="import-snippet"></doc-copy-button>
+    <doc-code>import { {{ element.name }} } from '{{ component.packageName }}';</doc-code>
   </dd>
 </dl>
 

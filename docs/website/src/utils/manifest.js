@@ -116,10 +116,15 @@ export async function getComponents() {
   return components;
 }
 
-export function getCustomElements() {
-  return (manifest.modules || [])
-    .flatMap(module => (module.declarations || []).filter(declaration => declaration.customElement))
-    .map(declaration => {
+export async function getCustomElements() {
+  const elements = [];
+
+  for (const module of manifest.modules || []) {
+    const metadata = await getComponentMetadata(module.path);
+
+    for (const declaration of module.declarations || []) {
+      if (!declaration.customElement) continue;
+
       const transformed = transformDescriptions(declaration);
       const fields = (transformed.members || []).filter(m => m.kind === 'field').sort(sortByName);
       const methods = (transformed.members || []).filter(m => m.kind === 'method').sort(sortByName);
@@ -130,12 +135,15 @@ export function getCustomElements() {
         .sort(sortByName);
       const attributesAndProperties = [...fields, ...standaloneAttributes].sort(sortByName);
 
-      return {
+      elements.push({
         ...transformed,
+        ...metadata,
         title: toTitle(declaration.name),
         attributesAndProperties,
         methods
-      };
-    })
-    .sort((a, b) => a.title.localeCompare(b.title));
+      });
+    }
+  }
+
+  return elements.sort((a, b) => a.title.localeCompare(b.title));
 }

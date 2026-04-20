@@ -9,9 +9,8 @@ doc-copy-button:focus-within {
 
 code {
   anchor-name: --code;
-  background: var(--sl-color-background-accent-grey-subtlest);
+  background: var(--sl-color-background-neutral-subtle);
   border-radius: var(--sl-size-borderRadius-default);
-  font-size: 0.9em;
   padding-block: var(--sl-size-025);
   padding-inline: var(--sl-size-075);
 }

@@ -57,6 +57,10 @@ doc-sidebar {
   p {
     margin-block-end: var(--sl-size-200);
 
+    &.component-ref {
+      color: var(--sl-color-foreground-subtlest);
+    }
+
     &.summary {
       font-size: 1.25em;
       margin-block-end: var(--sl-size-300);
@@ -152,6 +156,10 @@ doc-sidebar {
           white-space: normal;
         }
       }
+    }
+
+    doc-code::part(code) {
+      font-size: 0.9em;
     }
   }
 

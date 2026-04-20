@@ -16,7 +16,7 @@ const themePath = dirname(require.resolve('@sl-design-system/sanoma-learning/pac
 /** @param {import('@11ty/eleventy').UserConfig} eleventyConfig */
 export default async function (eleventyConfig) {
   let allComponents = await getComponents(),
-    customElements = getCustomElements();
+    customElements = await getCustomElements();
 
   eleventyConfig.addGlobalData('customElements', customElements);
 
@@ -68,6 +68,10 @@ export default async function (eleventyConfig) {
     return component;
   });
 
+  const componentPageUrlMap = new Map();
+
+  eleventyConfig.addNunjucksGlobal('getComponentPageUrl', packageName => componentPageUrlMap.get(packageName) ?? null);
+
   eleventyConfig.addCollection('componentPages', function (collectionApi) {
     const componentPages = collectionApi.getFilteredByGlob(
       join(eleventyConfig.directories.input, 'components/**/*.md')
@@ -81,6 +85,8 @@ export default async function (eleventyConfig) {
       // Add component to the page's data
       if (component) {
         page.data.component = component;
+        console.log(`Mapping component "${component.tagName}" to page "${page.url}"`);
+        componentPageUrlMap.set(component.packageName, page.url);
       }
 
       return page;

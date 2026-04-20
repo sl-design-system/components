@@ -247,19 +247,24 @@ export class Tooltip extends LitElement {
     this.#events.listen(documentRoot, 'click', this.#onHide, { capture: true });
 
     if (root instanceof ShadowRoot && this.#originalRoot && root !== this.#originalRoot) {
-      const isFromCurrentShadowRoot = (event: Event): boolean => event.composedPath().includes(root);
+      const isFromCurrentShadowRoot = (event: Event): boolean => {
+          const origin = event.composedPath()[0];
 
-      this.#events.listen(documentRoot, 'pointerover', event => {
-        if (!isFromCurrentShadowRoot(event)) {
-          this.#onShow(event);
-        }
-      });
+          return origin instanceof Node && origin.getRootNode() === root;
+        },
+        forwardDocumentEvent =
+          <T extends Event>(handler: (event: T) => void) =>
+          (event: T): void => {
+            if (!isFromCurrentShadowRoot(event)) {
+              handler(event);
+            }
+          };
 
-      this.#events.listen(documentRoot, 'pointerout', event => {
-        if (!isFromCurrentShadowRoot(event)) {
-          this.#onHide(event);
-        }
-      });
+      this.#events.listen(documentRoot, 'focusin', forwardDocumentEvent(this.#onShow));
+      this.#events.listen(documentRoot, 'focusout', forwardDocumentEvent(this.#onHide));
+      this.#events.listen(documentRoot, 'keydown', forwardDocumentEvent(this.#onKeydown));
+      this.#events.listen(documentRoot, 'pointerover', forwardDocumentEvent(this.#onShow));
+      this.#events.listen(documentRoot, 'pointerout', forwardDocumentEvent(this.#onHide));
     }
 
     this.#events.listen(documentRoot, 'sl-close', this.#onShow);

@@ -226,8 +226,9 @@ export class Tooltip extends LitElement {
       documentRoot = this.ownerDocument ?? document;
 
     if (root instanceof ShadowRoot) {
-      // EventsController does not expose a generic EventTarget overload, but ShadowRoot
-      // is the correct runtime event target for delegated events inside the anchor root.
+      // lib.dom does not expose these delegated event names through ShadowRootEventMap,
+      // so EventsController falls through to its Element overload even though a ShadowRoot
+      // is the correct runtime event target here.
       const shadowEventRoot = root as unknown as HTMLElement;
 
       this.#events.listen(shadowEventRoot, 'focusin', this.#onShow);

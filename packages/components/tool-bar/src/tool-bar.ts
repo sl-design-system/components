@@ -370,15 +370,14 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    // To get the true constrained width, reveal all items and measure using
-    // inline-size containment so parent containers don't expand.
+    // Measure the available width with all items visible.
     revealAllItems(this.items);
     void this.offsetHeight;
     availableWidth = measureConstrainedWidth(this);
 
-    // Temporarily remove `all-items-hidden` so we measure the menu button
-    // with its normal margin. Otherwise the measurement alternates between
-    // with/without margin causing flickering.
+    // Remove `all-items-hidden` before measuring so the menu button keeps
+    // its normal margin. Without this, the margin toggles on and off and
+    // causes flickering.
     this.menuButton?.removeAttribute('all-items-hidden');
 
     const menuButtonWidth = measureMenuButtonWidth(this.wrapper, this.menuButton ?? undefined, gap);

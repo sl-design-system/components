@@ -40,17 +40,16 @@ export function calculateVisibility(
   // Reserve space for the menu button when present.
   const effectiveWidth = availableWidth - (needsMenu ? menuButtonWidth : 0);
 
-  // Second pass: set visibility based on effective width.
+  // Second pass: hide items that don't fit in the remaining space.
   setItemVisibility(items, widths, effectiveWidth, gap);
 
-  // When all items are hidden, the menu button's margin is removed via CSS,
-  // freeing extra space. Retry to see if an item fits, but verify it still
-  // fits once the margin is restored to prevent flickering.
+  // When all items are hidden the menu button loses its margin via CSS,
+  // so there is a bit more space. Try fitting one more item, but hide it
+  // again if the margin coming back would cause overflow.
   if (needsMenu && items.every(item => !item.visible || item.type === 'divider')) {
     setItemVisibility(items, widths, effectiveWidth + gap, gap);
 
-    // Verify if visible items + menu button (with margin) exceed the
-    // available width, revert to all-hidden to prevent flickering.
+    // Check that the visible items plus the menu button still fit.
     const visibleWidth = items.reduce(
       (sum, item, i) => (item.visible ? sum + (sum > 0 ? gap : 0) + widths[i] : sum),
       0
@@ -75,8 +74,6 @@ export function calculateVisibility(
       items[i].visible = false;
     }
   }
-
-  console.log('items in calculateVisibility', items);
 }
 
 /** Set item visibility based on effective width, hiding items that don't fit. */
@@ -150,11 +147,10 @@ export function measureMenuButtonWidth(wrapper: HTMLElement, menuButton: HTMLEle
 }
 
 /**
- * Measure the content-box width of the host element.
- *
- * Uses temporary `contain: inline-size` to prevent parent containers from
- * expanding to fit the toolbar's content. Falls back to the natural width
- * when containment collapses the toolbar (e.g. `inline-size: fit-content`).
+ * Measure the available width inside the host element.
+ * Temporarily sets `contain: inline-size` so the parent doesn't grow to fit
+ * the toolbar. If that causes the toolbar to collapse to zero, the natural
+ * width is used instead.
  */
 export function measureConstrainedWidth(host: HTMLElement): number {
   const hostStyles = getComputedStyle(host),

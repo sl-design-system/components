@@ -139,6 +139,29 @@ describe('sl-menu-item', () => {
     });
   });
 
+  describe('selectable aria state', () => {
+    it('should set aria-checked to false for not selected selectable item', async () => {
+      el = await fixture(html`<sl-menu-item selectable>Item 1</sl-menu-item>`);
+
+      expect(el).to.have.attribute('aria-checked', 'false');
+    });
+
+    it('should set aria-checked to true for selected selectable item', async () => {
+      el = await fixture(html`<sl-menu-item selectable selected>Item 1</sl-menu-item>`);
+
+      expect(el).to.have.attribute('aria-checked', 'true');
+    });
+
+    it('should remove aria-checked when item is no longer selectable', async () => {
+      el = await fixture(html`<sl-menu-item selectable>Item 1</sl-menu-item>`);
+
+      el.selectable = false;
+      await el.updateComplete;
+
+      expect(el).not.to.have.attribute('aria-checked');
+    });
+  });
+
   describe('shortcut', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-menu-item shortcut="$mod+Digit1">Item 1</sl-menu-item>`);

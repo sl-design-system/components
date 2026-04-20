@@ -111,8 +111,12 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
       this.role = this.selectable ? selectMode : 'menuitem';
     }
 
-    if (changes.has('selected')) {
-      this.setAttribute('aria-checked', (this.selected || false).toString());
+    if (changes.has('selectable') || changes.has('selected')) {
+      if (this.selectable) {
+        this.setAttribute('aria-checked', (this.selected || false).toString());
+      } else {
+        this.removeAttribute('aria-checked');
+      }
     }
 
     if (changes.has('submenu')) {

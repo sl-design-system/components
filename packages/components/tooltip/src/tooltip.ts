@@ -350,7 +350,9 @@ export class Tooltip extends LitElement {
             focusedAnchor = relatedTargetAnchor ?? this.#findFocusedAnchor();
 
           const movedToAnotherSharedAnchor =
-            !!focusedAnchor && focusedAnchor !== this.anchorElement && this.#matchesAnchor(focusedAnchor);
+            !!focusedAnchor &&
+            focusedAnchor !== this.anchorElement &&
+            (this.#matchesAnchor(focusedAnchor) || this.#stableAnchors.has(focusedAnchor));
           if (movedToAnotherSharedAnchor) {
             this.#showTooltip(focusedAnchor, true);
             return;
@@ -929,8 +931,8 @@ export class Tooltip extends LitElement {
     return !hasExplicitRelation;
   };
 
-  #syncSlotWithAnchor = (anchorElement: HTMLElement, movedToAnchorRoot: boolean): void => {
-    if (movedToAnchorRoot) {
+  #syncSlotWithAnchor = (anchorElement: HTMLElement, isInAnchorRoot: boolean): void => {
+    if (isInAnchorRoot) {
       this.removeAttribute('slot');
       return;
     }

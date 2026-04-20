@@ -286,7 +286,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     this.#observer.observe(this);
 
     // Set the input as the form control element so form-field sets ARIA attributes on it
-    this.setFormControlElement(this.input);
+    this.setFormControlElement(this);
 
     // Ensure the input has an ID for label association
     if (!this.input.id) {
@@ -503,49 +503,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   /**
-   * Override validity to use ElementInternals instead of the input's validity.
-   * This ensures validation state is consistent with our custom validation logic.
-   */
-  override get validity(): ValidityState {
-    return this.internals.validity;
-  }
-
-  /**
-   * Override validationMessage to use ElementInternals instead of the input's validation message.
-   * This ensures the validation message is consistent with our overridden validity.
-   */
-  override get validationMessage(): string {
-    return this.internals.validationMessage;
-  }
-
-  /**
-   * Override setCustomValidity to set validity on internals instead of the input.
-   * This keeps custom validation consistent with our overridden validity getter.
-   */
-  override setCustomValidity(message: string): void {
-    if (message === '') {
-      this.internals.setValidity({});
-    } else {
-      this.internals.setValidity({ customError: true }, message);
-    }
-  }
-
-  /**
-   * Override reportValidity to use ElementInternals instead of the input's native reportValidity.
-   * This ensures the reported validity matches our custom validation logic.
-   */
-  override reportValidity(): boolean {
-    // Workaround for https://github.com/whatwg/html/issues/9878
-    // Note: `report` is an internal property from FormControlMixin, not in the public interface
-    (this as { report?: boolean }).report = true;
-
-    const valid = this.internals.reportValidity();
-    this.updateValidity();
-
-    return valid;
-  }
-
-  /**
    * Override formValue to use ElementInternals for custom form submission.
    * This allows us to submit different values (like indices) than what's displayed in the input.
    */
@@ -590,7 +547,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
       if (isInvalid) {
         const message = msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' });
-        this.internals.setValidity({ valueMissing: true }, message, this.input);
+        this.internals.setValidity({ valueMissing: true }, message);
       } else {
         this.internals.setValidity({});
       }

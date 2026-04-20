@@ -926,6 +926,63 @@ describe('sl-tooltip', () => {
     });
   });
 
+  describe('with shared slotted proxy anchors inside a shadow-root host', () => {
+    let assignedSlotHost: TooltipAssignedSlotHost;
+    let anchors: TooltipAssignedSlotAnchor[];
+    let anchorContents: HTMLElement[];
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <div style="block-size: 400px; inline-size: 400px;">
+          <tooltip-assigned-slot-host>
+            <tooltip-assigned-slot-anchor slot="actions">
+              <span id="shared-anchor-content-1">Anchor 1</span>
+            </tooltip-assigned-slot-anchor>
+            <tooltip-assigned-slot-anchor slot="actions">
+              <span id="shared-anchor-content-2">Anchor 2</span>
+            </tooltip-assigned-slot-anchor>
+          </tooltip-assigned-slot-host>
+          <sl-tooltip id="tooltip" show-delay="0" hide-delay="0">Shared tooltip via proxy targets</sl-tooltip>
+        </div>
+      `);
+
+      assignedSlotHost = el.querySelector('tooltip-assigned-slot-host') as TooltipAssignedSlotHost;
+      anchors = Array.from(el.querySelectorAll('tooltip-assigned-slot-anchor'));
+      anchorContents = [
+        el.querySelector('#shared-anchor-content-1') as HTMLElement,
+        el.querySelector('#shared-anchor-content-2') as HTMLElement
+      ];
+      tooltip = el.querySelector('sl-tooltip') as Tooltip;
+
+      await tooltip.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+    });
+
+    it('should reopen for another shared proxy anchor after moving into the assigned slot root', async () => {
+      anchorContents[0].dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
+      await tooltip.updateComplete;
+      await waitFor(10);
+
+      expect(tooltip.matches(':popover-open')).to.be.true;
+      expect(tooltip.anchorElement).to.equal(anchors[0]);
+      expect(tooltip.getRootNode()).to.equal(assignedSlotHost.shadowRoot);
+
+      anchorContents[0].dispatchEvent(new Event('pointerout', { bubbles: true, composed: true }));
+      await tooltip.updateComplete;
+      await waitFor(10);
+
+      expect(tooltip.matches(':popover-open')).to.be.false;
+
+      anchorContents[1].dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
+      await tooltip.updateComplete;
+      await waitFor(10);
+
+      expect(tooltip.matches(':popover-open')).to.be.true;
+      expect(tooltip.anchorElement).to.equal(anchors[1]);
+      expect(tooltip.getRootNode()).to.equal(assignedSlotHost.shadowRoot);
+    });
+  });
+
   describe('with a slotted native anchor inside a shadow-root host', () => {
     let assignedSlotHost: TooltipAssignedSlotHost;
     let anchor: HTMLButtonElement;

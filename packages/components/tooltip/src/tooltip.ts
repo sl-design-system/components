@@ -806,14 +806,21 @@ export class Tooltip extends LitElement {
     return currentAssignedSlotRoot ?? anchorRootHint;
   };
 
-  #getAriaAnchors = (): HTMLElement[] => {
+  #getAriaAnchorSelector = (): string | undefined => {
     const escapedId = this.id ? CSS.escape(this.id) : undefined;
     if (!escapedId) {
-      return [];
+      return undefined;
     }
 
-    const root = this.getRootNode() as ParentNode;
-    const selector = `[aria-describedby~="${escapedId}"], [aria-labelledby~="${escapedId}"]`;
+    return `[aria-describedby~="${escapedId}"], [aria-labelledby~="${escapedId}"]`;
+  };
+
+  #getAriaAnchors = (root: ParentNode = this.getRootNode() as ParentNode): HTMLElement[] => {
+    const selector = this.#getAriaAnchorSelector();
+
+    if (!selector) {
+      return [];
+    }
 
     return Array.from(root.querySelectorAll<HTMLElement>(selector));
   };
@@ -901,6 +908,46 @@ export class Tooltip extends LitElement {
     return list.includes(this) ? list : [...list, this];
   };
 
+  #requiresFullAnchorDiscovery = (anchorElement: HTMLElement): boolean => {
+    const proxyTarget = (anchorElement as Element & { getProxyTarget?(): Element | null }).getProxyTarget?.(),
+      internals = (anchorElement as HTMLElement & { internals?: ElementInternals }).internals;
+
+    if (this.#hasAnyExplicitRelation(anchorElement)) {
+      return false;
+    }
+
+    return (
+      this.#hasAnyExplicitRelation(proxyTarget) ||
+      this.#hasAnyReflectedRelation(anchorElement) ||
+      this.#hasAnyReflectedRelation(proxyTarget) ||
+      this.#hasAnyReflectedRelation(internals)
+    );
+  };
+
+  /**
+   * Prefer already-known anchors and explicit ARIA selectors before falling back to
+   * a full scan. This keeps repeated hover/focus updates cheap in the common case.
+   */
+  #collectCheapMatchingAnchors = (anchorElement: HTMLElement): Set<HTMLElement> => {
+    const anchors = new Set<HTMLElement>([anchorElement]);
+
+    for (const knownAnchor of this.#getKnownAnchors()) {
+      if (this.#matchesAnchor(knownAnchor)) {
+        anchors.add(this.#normalizeAnchorElement(knownAnchor));
+      }
+    }
+
+    for (const root of this.#getAnchorSearchRoots()) {
+      for (const ariaAnchor of this.#getAriaAnchors(root)) {
+        if (this.#matchesAnchor(ariaAnchor)) {
+          anchors.add(this.#normalizeAnchorElement(ariaAnchor));
+        }
+      }
+    }
+
+    return anchors;
+  };
+
   /**
    * Before moving the tooltip into another root, collect every anchor that currently
    * matches it. Shared anchors that rely on forwarded/reflected ARIA can lose their
@@ -908,12 +955,14 @@ export class Tooltip extends LitElement {
    * relation onto all of them in one pass.
    */
   #collectMatchingAnchors = (anchorElement: HTMLElement): HTMLElement[] => {
-    const anchors = new Set<HTMLElement>([anchorElement]);
+    const anchors = this.#collectCheapMatchingAnchors(anchorElement);
 
-    for (const root of this.#getAnchorSearchRoots()) {
-      for (const element of Array.from(root.querySelectorAll('*'))) {
-        if (element instanceof HTMLElement && this.#matchesAnchor(element)) {
-          anchors.add(this.#normalizeAnchorElement(element));
+    if (anchors.size === 1 && this.#requiresFullAnchorDiscovery(anchorElement)) {
+      for (const root of this.#getAnchorSearchRoots()) {
+        for (const element of Array.from(root.querySelectorAll('*'))) {
+          if (element instanceof HTMLElement && this.#matchesAnchor(element)) {
+            anchors.add(this.#normalizeAnchorElement(element));
+          }
         }
       }
     }

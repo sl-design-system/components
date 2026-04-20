@@ -15,6 +15,10 @@ type Person = { firstName: string; lastName: string };
 
 describe('sl-grid', () => {
   let el: Grid<Person>;
+  const multipleSelectItems = [
+    { firstName: 'John', lastName: 'Doe' },
+    { firstName: 'Jane', lastName: 'Smith' }
+  ];
   const findTooltip = (id: string): HTMLElement | null => {
     return (
       el.querySelector<HTMLElement>(`#${CSS.escape(id)}`) ??
@@ -26,6 +30,21 @@ describe('sl-grid', () => {
     Array.from(el.renderRoot.querySelectorAll<HTMLElement>('sl-tooltip')).find(tooltipEl =>
       tooltipEl.textContent?.includes(text)
     ) ?? null;
+
+  const mountMultipleSelectGrid = async (bulkActions?: unknown): Promise<Grid<Person>> => {
+    el = await fixture(html`
+      <sl-grid .items=${multipleSelectItems}>
+        <sl-grid-selection-column></sl-grid-selection-column>
+        <sl-grid-column path="firstName"></sl-grid-column>
+        <sl-grid-column path="lastName"></sl-grid-column>
+        ${bulkActions}
+      </sl-grid>
+    `);
+
+    await waitForGridToRenderData(el);
+
+    return el;
+  };
 
   describe('defaults', () => {
     beforeEach(async () => {
@@ -77,20 +96,7 @@ describe('sl-grid', () => {
 
   describe('multiple select', () => {
     beforeEach(async () => {
-      el = await fixture(html`
-        <sl-grid
-          .items=${[
-            { firstName: 'John', lastName: 'Doe' },
-            { firstName: 'Jane', lastName: 'Smith' }
-          ]}
-        >
-          <sl-grid-selection-column></sl-grid-selection-column>
-          <sl-grid-column path="firstName"></sl-grid-column>
-          <sl-grid-column path="lastName"></sl-grid-column>
-        </sl-grid>
-      `);
-
-      await waitForGridToRenderData(el);
+      await mountMultipleSelectGrid();
     });
 
     it('should toggle the "selected" part of the row when clicking in the selection column', async () => {
@@ -149,36 +155,29 @@ describe('sl-grid', () => {
 
       expect(el.dataSource?.selects).to.equal('multiple');
     });
+  });
 
-    it('should show a lazy tooltip on a bulk action button in the floating action bar', async () => {
-      el = await fixture(html`
-        <sl-grid
-          .items=${[
-            { firstName: 'John', lastName: 'Doe' },
-            { firstName: 'Jane', lastName: 'Smith' }
-          ]}
-        >
-          <sl-grid-selection-column></sl-grid-selection-column>
-          <sl-grid-column path="firstName"></sl-grid-column>
-          <sl-grid-column path="lastName"></sl-grid-column>
-
-          <sl-button
-            ${tooltip('I am a tooltip')}
-            aria-disabled="true"
-            fill="outline"
-            slot="bulk-actions"
-            variant="inverted"
-          >
-            Action 2
-          </sl-button>
-        </sl-grid>
-      `);
-
-      await waitForGridToRenderData(el);
-
+  describe('multiple select bulk actions', () => {
+    const openBulkActions = async (): Promise<void> => {
       el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')?.click();
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 50));
+    };
+
+    it('should show a lazy tooltip on a bulk action button in the floating action bar', async () => {
+      await mountMultipleSelectGrid(html`
+        <sl-button
+          ${tooltip('I am a tooltip')}
+          aria-disabled="true"
+          fill="outline"
+          slot="bulk-actions"
+          variant="inverted"
+        >
+          Action 2
+        </sl-button>
+      `);
+
+      await openBulkActions();
 
       const bulkActions = el.renderRoot.querySelector<HTMLElement>('[part="bulk-actions"]'),
         button = el.querySelector<HTMLElement>('sl-button[slot="bulk-actions"]');
@@ -199,29 +198,14 @@ describe('sl-grid', () => {
     });
 
     it('should keep showing an explicit tooltip for a bulk action button on repeated hover', async () => {
-      el = await fixture(html`
-        <sl-grid
-          .items=${[
-            { firstName: 'John', lastName: 'Doe' },
-            { firstName: 'Jane', lastName: 'Smith' }
-          ]}
-        >
-          <sl-grid-selection-column></sl-grid-selection-column>
-          <sl-grid-column path="firstName"></sl-grid-column>
-          <sl-grid-column path="lastName"></sl-grid-column>
-
-          <sl-tooltip id="bulk-action-tooltip" show-delay="0" hide-delay="0">Bulk action tooltip</sl-tooltip>
-          <sl-button aria-describedby="bulk-action-tooltip" fill="outline" slot="bulk-actions" variant="inverted">
-            Action 2
-          </sl-button>
-        </sl-grid>
+      await mountMultipleSelectGrid(html`
+        <sl-tooltip id="bulk-action-tooltip" show-delay="0" hide-delay="0">Bulk action tooltip</sl-tooltip>
+        <sl-button aria-describedby="bulk-action-tooltip" fill="outline" slot="bulk-actions" variant="inverted">
+          Action 2
+        </sl-button>
       `);
 
-      await waitForGridToRenderData(el);
-
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')?.click();
-      await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await openBulkActions();
 
       const button = el.querySelector<HTMLElement>('sl-button[slot="bulk-actions"]'),
         explicitTooltip = findTooltip('bulk-action-tooltip');
@@ -251,29 +235,14 @@ describe('sl-grid', () => {
     });
 
     it('should show the explicit bulk action tooltip when hovering the sl-button proxy target', async () => {
-      el = await fixture(html`
-        <sl-grid
-          .items=${[
-            { firstName: 'John', lastName: 'Doe' },
-            { firstName: 'Jane', lastName: 'Smith' }
-          ]}
-        >
-          <sl-grid-selection-column></sl-grid-selection-column>
-          <sl-grid-column path="firstName"></sl-grid-column>
-          <sl-grid-column path="lastName"></sl-grid-column>
-
-          <sl-tooltip id="bulk-action-tooltip" show-delay="0" hide-delay="0">Bulk action tooltip</sl-tooltip>
-          <sl-button aria-describedby="bulk-action-tooltip" fill="outline" slot="bulk-actions" variant="inverted">
-            Action 2
-          </sl-button>
-        </sl-grid>
+      await mountMultipleSelectGrid(html`
+        <sl-tooltip id="bulk-action-tooltip" show-delay="0" hide-delay="0">Bulk action tooltip</sl-tooltip>
+        <sl-button aria-describedby="bulk-action-tooltip" fill="outline" slot="bulk-actions" variant="inverted">
+          Action 2
+        </sl-button>
       `);
 
-      await waitForGridToRenderData(el);
-
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')?.click();
-      await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await openBulkActions();
 
       const button = el.querySelector<HTMLElement & { updateComplete?: Promise<unknown>; renderRoot?: ShadowRoot }>(
           'sl-button[slot="bulk-actions"]'
@@ -296,34 +265,19 @@ describe('sl-grid', () => {
     });
 
     it('should switch between the cancel tooltip and a bulk action tooltip in the floating action bar', async () => {
-      el = await fixture(html`
-        <sl-grid
-          .items=${[
-            { firstName: 'John', lastName: 'Doe' },
-            { firstName: 'Jane', lastName: 'Smith' }
-          ]}
+      await mountMultipleSelectGrid(html`
+        <sl-button
+          ${tooltip('I am a tooltip')}
+          aria-disabled="true"
+          fill="outline"
+          slot="bulk-actions"
+          variant="inverted"
         >
-          <sl-grid-selection-column></sl-grid-selection-column>
-          <sl-grid-column path="firstName"></sl-grid-column>
-          <sl-grid-column path="lastName"></sl-grid-column>
-
-          <sl-button
-            ${tooltip('I am a tooltip')}
-            aria-disabled="true"
-            fill="outline"
-            slot="bulk-actions"
-            variant="inverted"
-          >
-            Action 2
-          </sl-button>
-        </sl-grid>
+          Action 2
+        </sl-button>
       `);
 
-      await waitForGridToRenderData(el);
-
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')?.click();
-      await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await openBulkActions();
 
       const cancelButton = el.renderRoot.querySelector<HTMLElement>('[part="bulk-actions"] > sl-button:last-of-type'),
         cancelTooltip = el.renderRoot.querySelector<HTMLElement>('#tooltip'),
@@ -351,10 +305,7 @@ describe('sl-grid', () => {
       await new Promise(resolve => requestAnimationFrame(resolve));
       await new Promise(resolve => setTimeout(resolve, 250));
 
-      const bulkTooltip =
-        Array.from(el.renderRoot.querySelectorAll<HTMLElement>('sl-tooltip')).find(tooltipEl =>
-          tooltipEl.textContent?.includes('I am a tooltip')
-        ) ?? null;
+      const bulkTooltip = findTooltipByText('I am a tooltip');
 
       expect(bulkTooltip).to.exist;
       expect(bulkTooltip?.tagName).to.equal('SL-TOOLTIP');

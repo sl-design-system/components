@@ -18,7 +18,12 @@ export function calculateVisibility(
   widths: number[],
   availableWidth: number,
   gap: number,
-  menuButtonWidth: number
+  menuButtonWidth: {
+    /** Button width including margin (used when some items are visible alongside the menu button). */
+    full: number;
+    /** Button width without margin (used when all items are hidden and the margin is removed via CSS). */
+    base: number;
+  }
 ): void {
   // First pass: determine if we need overflow menu
   let cumulativeWidth = 0,
@@ -38,27 +43,18 @@ export function calculateVisibility(
   }
 
   // Calculate effective width (reserve space for menu button when present).
-  // The caller is expected to include any margin/spacing in menuButtonWidth,
-  // so we only subtract the button width itself (no extra gap).
-  const menuButtonTotalWidth = needsMenu ? menuButtonWidth : 0,
-    effectiveWidth = availableWidth - menuButtonTotalWidth;
+  const effectiveWidth = availableWidth - (needsMenu ? menuButtonWidth.full : 0);
 
   // Second pass: set visibility based on effective width.
-  // Once an item doesn't fit, all subsequent items are hidden to preserve order.
-  cumulativeWidth = 0;
-  let overflowing = false;
-  for (let i = 0; i < items.length; i++) {
-    const itemWidth = widths[i],
-      gapWidth = cumulativeWidth > 0 ? gap : 0,
-      requiredWidth = cumulativeWidth + gapWidth + itemWidth;
+  setItemVisibility(items, widths, effectiveWidth, gap);
 
-    if (overflowing || requiredWidth > effectiveWidth) {
-      items[i].visible = false;
-      overflowing = true;
-    } else {
-      items[i].visible = true;
-      cumulativeWidth = requiredWidth;
-    }
+  // When all items are hidden, the menu button's margin is removed (via
+  // the `all-items-hidden` CSS rule). Retry with just the base button width
+  // (no margin) to see if an item fits, preventing an oscillation loop.
+  if (needsMenu && items.every(item => !item.visible || item.type === 'divider')) {
+    const effectiveWidthNoMargin = availableWidth - menuButtonWidth.base;
+
+    setItemVisibility(items, widths, effectiveWidthNoMargin, gap);
   }
 
   // Third pass: hide orphaned dividers
@@ -73,6 +69,26 @@ export function calculateVisibility(
 
     if (!hasVisibleBefore || !hasVisibleAfter) {
       items[i].visible = false;
+    }
+  }
+}
+
+/** Set item visibility based on effective width, hiding items that don't fit. */
+function setItemVisibility(items: ToolBarItem[], widths: number[], effectiveWidth: number, gap: number): void {
+  let cumulativeWidth = 0,
+    overflowing = false;
+
+  for (let i = 0; i < items.length; i++) {
+    const itemWidth = widths[i],
+      gapWidth = cumulativeWidth > 0 ? gap : 0,
+      requiredWidth = cumulativeWidth + gapWidth + itemWidth;
+
+    if (overflowing || requiredWidth > effectiveWidth) {
+      items[i].visible = false;
+      overflowing = true;
+    } else {
+      items[i].visible = true;
+      cumulativeWidth = requiredWidth;
     }
   }
 }
@@ -106,27 +122,25 @@ export function measureItemWidths(items: ToolBarItem[]): number[] | undefined {
 }
 
 /**
- * Measure the overflow menu button width including its margin.
- * The menu button is square (aspect-ratio 1:1), so we use the wrapper height as
- * the button width. Falls back to the actual button width or a gap estimate.
+ * Measure the overflow menu button width.
+ * Returns both the full width (with margin, for normal overflow) and the base
+ * width (without margin, for the all-items-hidden state where margin is removed).
  */
-export function measureMenuButtonWidth(wrapper: HTMLElement, menuButton: HTMLElement | undefined, gap: number): number {
-  let width = wrapper.getBoundingClientRect().height;
+export function measureMenuButtonWidth(
+  wrapper: HTMLElement,
+  menuButton: HTMLElement | undefined,
+  gap: number
+): { full: number; base: number } {
+  let base = wrapper.getBoundingClientRect().height;
 
-  if ((isNaN(width) || width === 0) && menuButton) {
-    width = menuButton.getBoundingClientRect().width;
+  if ((isNaN(base) || base === 0) && menuButton) {
+    base = menuButton.getBoundingClientRect().width;
   }
 
-  // Include the menu button's margin so we reserve the full space it occupies.
-  // When the menu button is not yet rendered, use the wrapper gap as an estimate
-  // since the CSS sets both to the same design token (--sl-size-100).
-  if (menuButton) {
-    width += parseFloat(getComputedStyle(menuButton).marginInlineStart) || 0;
-  } else {
-    width += gap;
-  }
+  // Calculate margin: actual value from the menu button, or gap as estimate.
+  const margin = menuButton ? parseFloat(getComputedStyle(menuButton).marginInlineStart) || 0 : gap;
 
-  return width;
+  return { full: base + margin, base };
 }
 
 /**

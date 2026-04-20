@@ -194,6 +194,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   /** Will allow the selection of multiple options if true. */
   @property({ type: Boolean }) multiple?: boolean;
 
+  /** @internal The ID of the label element for this form control. */
+  @property({ attribute: 'data-label-id' }) labelId?: string;
+
   /** The path to use for grouping the options. */
   @property({ attribute: 'option-group-path' }) optionGroupPath?: PathKeys<T>;
 
@@ -331,6 +334,10 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       } else {
         this.#removeSelectedGroup();
       }
+    }
+
+    if (changes.has('labelId') && this.labelId) {
+      this.input.setAttribute('aria-labelledby', this.labelId);
     }
 
     if (

@@ -156,6 +156,8 @@ export class Label extends LitElement {
     }
 
     this.#label.id ||= `sl-label-${nextUniqueId++}`;
+    // Communicate the label ID to the control so it can use it for aria-labelledby
+    this.formControl?.setAttribute('data-label-id', this.#label.id);
   }
 
   #update(): void {

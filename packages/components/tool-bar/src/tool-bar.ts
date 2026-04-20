@@ -376,6 +376,11 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     void this.offsetHeight;
     availableWidth = measureConstrainedWidth(this);
 
+    // Temporarily remove `all-items-hidden` so we measure the menu button
+    // with its normal margin. Otherwise the measurement alternates between
+    // with/without margin causing flickering.
+    this.menuButton?.removeAttribute('all-items-hidden');
+
     const menuButtonWidth = measureMenuButtonWidth(this.wrapper, this.menuButton ?? undefined, gap);
 
     calculateVisibility(this.items, this.#widths, availableWidth, gap, menuButtonWidth);

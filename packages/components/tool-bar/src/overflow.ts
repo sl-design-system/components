@@ -75,6 +75,8 @@ export function calculateVisibility(
       items[i].visible = false;
     }
   }
+
+  console.log('items in calculateVisibility', items);
 }
 
 /** Set item visibility based on effective width, hiding items that don't fit. */

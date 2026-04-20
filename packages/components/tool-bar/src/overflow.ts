@@ -148,18 +148,18 @@ export function measureMenuButtonWidth(wrapper: HTMLElement, menuButton: HTMLEle
 
 /**
  * Measure the available width inside the host element.
- * Temporarily sets `contain: inline-size` so the parent doesn't grow to fit
- * the toolbar. If that causes the toolbar to collapse to zero, the natural
- * width is used instead.
+ * Adds a `measuring` state so CSS applies `contain: inline-size`, preventing
+ * the parent from growing to fit the toolbar. If that causes the toolbar to
+ * collapse to zero, the natural width is used instead.
  */
-export function measureConstrainedWidth(host: HTMLElement): number {
+export function measureConstrainedWidth(host: HTMLElement, internals: ElementInternals): number {
   const hostStyles = getComputedStyle(host),
     paddingInline = (parseFloat(hostStyles.paddingInlineStart) || 0) + (parseFloat(hostStyles.paddingInlineEnd) || 0),
     borderInline =
       (parseFloat(hostStyles.borderInlineStartWidth) || 0) + (parseFloat(hostStyles.borderInlineEndWidth) || 0);
 
-  // Apply containment so parent containers don't expand to fit our content.
-  host.style.contain = 'inline-size';
+  // Add the measuring state so CSS applies containment.
+  internals.states.add('measuring');
   void host.offsetHeight;
 
   let measuredWidth = host.getBoundingClientRect().width - paddingInline - borderInline;
@@ -167,13 +167,13 @@ export function measureConstrainedWidth(host: HTMLElement): number {
   // If containment collapsed the toolbar (e.g. inline-size: fit-content),
   // fall back to the natural width without containment.
   if (measuredWidth <= 0) {
-    host.style.contain = '';
+    internals.states.delete('measuring');
     void host.offsetHeight;
     measuredWidth = host.getBoundingClientRect().width - paddingInline - borderInline;
   }
 
-  // Restore normal containment.
-  host.style.contain = '';
+  // Remove the measuring state to restore normal layout.
+  internals.states.delete('measuring');
 
   return measuredWidth;
 }

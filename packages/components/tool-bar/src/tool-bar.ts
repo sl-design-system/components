@@ -373,7 +373,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     // Measure the available width with all items visible.
     revealAllItems(this.items);
     void this.offsetHeight;
-    availableWidth = measureConstrainedWidth(this);
+    availableWidth = measureConstrainedWidth(this, this.#internals);
 
     // Remove `all-items-hidden` before measuring so the menu button keeps
     // its normal margin. Without this, the margin toggles on and off and

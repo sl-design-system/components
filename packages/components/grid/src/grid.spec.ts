@@ -27,9 +27,9 @@ describe('sl-grid', () => {
   };
 
   const findTooltipByText = (text: string): HTMLElement | null =>
-    Array.from(el.renderRoot.querySelectorAll<HTMLElement>('sl-tooltip')).find(tooltipEl =>
-      tooltipEl.textContent?.includes(text)
-    ) ?? null;
+    Array.from(el.querySelectorAll<HTMLElement>('sl-tooltip'))
+      .concat(Array.from(el.renderRoot.querySelectorAll<HTMLElement>('sl-tooltip')))
+      .find(tooltipEl => tooltipEl.textContent?.includes(text)) ?? null;
 
   const mountMultipleSelectGrid = async (bulkActions?: unknown): Promise<Grid<Person>> => {
     el = await fixture(html`

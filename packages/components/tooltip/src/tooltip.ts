@@ -745,8 +745,8 @@ export class Tooltip extends LitElement {
    * As a last resort for keyboard navigation, scan the root and cache anchors that
    * only expose the tooltip relation through reflected/forwarded ARIA.
    */
-  #discoverAnchorsByScan = (): void => {
-    for (const root of this.#getAnchorSearchRoots()) {
+  #discoverAnchorsByScan = (roots: ParentNode[] = this.#getAnchorSearchRoots()): void => {
+    for (const root of roots) {
       for (const element of Array.from(root.querySelectorAll('*'))) {
         if (element instanceof HTMLElement && this.#matchesAnchor(element)) {
           this.#knownAnchors.add(this.#normalizeAnchorElement(element));
@@ -760,7 +760,8 @@ export class Tooltip extends LitElement {
    * ARIA relations on proxy targets while focus is moving between anchors.
    */
   #prepareKeyboardAnchors = (anchorElement: HTMLElement): void => {
-    const root = this.getRootNode() as ParentNode;
+    const root = this.getRootNode() as ParentNode,
+      searchRoots = this.#getAnchorSearchRoots();
 
     this.#seedKnownAnchors();
 
@@ -776,8 +777,11 @@ export class Tooltip extends LitElement {
         this.#hasAnyReflectedRelation(internals);
 
     if (reliesOnReflectedRelation) {
-      this.#discoverAnchorsByScan();
-      this.#preparedKeyboardAnchorRoots.add(root);
+      this.#discoverAnchorsByScan(searchRoots);
+
+      for (const searchRoot of searchRoots) {
+        this.#preparedKeyboardAnchorRoots.add(searchRoot);
+      }
     }
   };
 

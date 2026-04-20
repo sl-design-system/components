@@ -137,7 +137,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
       <div @pointermove=${this.#onPointermove} class="container">
         <div aria-hidden="true" class="safe-triangle"></div>
         <div part="wrapper">
-          ${this.selected ? html`<sl-icon name="check"></sl-icon>` : nothing}
+          ${this.selectable && this.selected ? html`<sl-icon name="check"></sl-icon>` : nothing}
           <slot></slot>
           ${this.shortcut
             ? html`<kbd aria-hidden="true">${this.#shortcut.renderAsLabel(this.shortcut)}</kbd>`

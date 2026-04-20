@@ -160,6 +160,12 @@ describe('sl-menu-item', () => {
 
       expect(el).not.to.have.attribute('aria-checked');
     });
+
+    it('should not render a check icon when selected but not selectable', async () => {
+      el = await fixture(html`<sl-menu-item selected>Item 1</sl-menu-item>`);
+
+      expect(el.renderRoot.querySelector('sl-icon[name="check"]')).not.to.exist;
+    });
   });
 
   describe('shortcut', () => {

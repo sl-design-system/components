@@ -17,6 +17,12 @@
   display: block;
 }
 
+@media (width < 640px) {
+  header {
+    display: none;
+  }
+}
+
 header {
   padding: var(--sl-size-300);
   padding-block-end: var(--sl-size-200);

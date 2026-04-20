@@ -32,10 +32,9 @@
     >
       <sl-icon name="far-bars"></sl-icon>
     </button>
-    <a href="/" class="mobile-header__logo" aria-label="SL Design System">
-      <img class="logo-light" src="/assets/logo-black.svg" alt="" width="140" height="25" />
-      <img class="logo-dark" src="/assets/logo.svg" alt="" width="140" height="25" />
-    </a>
+    {% if hasGeneratedTitle %}
+    <span class="mobile-header__title">{{ title }}</span>
+    {% endif %}
   </header>
   {% endif %}
 
@@ -45,7 +44,10 @@
       {% include "sidebar.njk" %}
     </doc-sidebar>
     <sl-drawer id="mobile-drawer" class="mobile-drawer" attachment="left" aria-label="Main navigation">
-      <span slot="title">Menu</span>
+      <a slot="title" href="/" class="mobile-drawer__logo" aria-label="SL Design System">
+        <img class="logo-light" src="/assets/logo-black.svg" alt="" width="140" height="25" />
+        <img class="logo-dark" src="/assets/logo.svg" alt="" width="140" height="25" />
+      </a>
       <doc-sidebar>
         {% include "sidebar.njk" %}
       </doc-sidebar>

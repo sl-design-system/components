@@ -17,7 +17,7 @@ let nextUniqueId = 0;
  * @customElement sl-popover
  * @csspart arrow - The arrow linking the popover to its anchor
  * @csspart container - The container for the popover
- * @slot default - Body content for the popover
+ * @slot - Body content for the popover
  */
 export class Popover extends LitElement {
   /** @internal The default padding of the arrow. */

@@ -39,7 +39,7 @@ export type TogglePlacement = 'start' | 'end';
  * @slot heading - The panel's heading. Use this if the `heading` property does not suffice.
  * @slot aside - Additional content to show in the header; replaces the button bar.
  * @slot actions - The panel's actions; will slot in a tool bar by default.
- * @slot default - The panel's content.
+ * @slot - The panel's content.
  * @slot prefix - Content to show before the heading.
  * @slot suffix - Content to show after the heading.
  */

@@ -26,7 +26,7 @@ export type CalloutVariant = 'info' | 'success' | 'warning' | 'danger';
  *
  * @customElement sl-callout
  *
- * @slot default - The body of the callout.
+ * @slot - The body of the callout.
  * @slot icon - Icon shown on the left side of the component.
  * @slot title - Title content for the callout.
  */

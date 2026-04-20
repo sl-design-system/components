@@ -43,7 +43,7 @@ export type SelectSize = 'md' | 'lg';
  * A form control that allows users to select one option from a list of options.
  *
  * @customElement sl-select
- * @slot default - Place for `sl-option` and `sl-option-group` elements
+ * @slot - Place for `sl-option` and `sl-option-group` elements
  * @csspart listbox - Set `--sl-popover-max-block-size` and/or `--sl-popover-min-block-size` to control the minimum and maximum height of the dropdown (within the limits of the available screen real estate)
  * @csspart selected - The selected option element within the select's internal `sl-select-button`, exposed for styling via `<sl-select>`
  * @csspart selected-option - The container for the selected option within the select's internal `sl-select-button`, exposed for styling via `<sl-select>`

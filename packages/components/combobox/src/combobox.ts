@@ -60,7 +60,7 @@ let nextUniqueId = 0;
  *
  * @customElement sl-combobox
  *
- * @slot default - The input field
+ * @slot - The input field
  * @slot options - Contains the listbox with options
  */
 @localized()

@@ -34,7 +34,7 @@ export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
  * @csspart wrapper - The wrapper element around the image and name.
  *
  * @slot badge - The badge to display on the avatar.
- * @slot default - The subheading of the avatar.
+ * @slot - The subheading of the avatar.
  * @slot fallback - The fallback content to display when no picture is set.
  */
 export class Avatar extends ScopedElementsMixin(LitElement) {

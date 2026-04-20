@@ -29,7 +29,7 @@ export type ToggleButtonSize = 'sm' | 'md' | 'lg';
  * ```
  *
  * @customElement sl-toggle-button
- * @slot default - The icon shown in the default state of the button
+ * @slot - The icon shown in the default state of the button
  * @slot pressed - The icon shown in the pressed state of the button
  */
 export class ToggleButton extends ScopedElementsMixin(LitElement) {

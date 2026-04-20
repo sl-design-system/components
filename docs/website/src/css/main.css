@@ -115,6 +115,44 @@ doc-sidebar {
     code {
       white-space: nowrap;
     }
+
+    td:has(sl-icon[name='check']) {
+      text-align: center;
+    }
+
+    .modifier {
+      font-family: monospace;
+    }
+
+    .attribute-name {
+      color: var(--sl-color-foreground-subtlest);
+      font-size: 0.85em;
+    }
+
+    .field-meta {
+      display: block;
+      margin: 0;
+      margin-block-start: var(--sl-size-100);
+
+      div {
+        align-items: baseline;
+        display: flex;
+        gap: var(--sl-size-100);
+      }
+
+      dt {
+        font-size: 0.85em;
+        font-weight: 600;
+      }
+
+      dd {
+        margin: 0;
+
+        code {
+          white-space: normal;
+        }
+      }
+    }
   }
 
   sl-callout p {

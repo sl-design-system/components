@@ -31,7 +31,7 @@ declare global {
  * @customElement sl-menu-button
  * @csspart button - The button element.
  *
- * @slot default - The menu items should be slotted in the default slot.
+ * @slot - The menu items should be slotted in the default slot.
  * @slot button - Any content for the button should be slotted here.
  */
 @localized()

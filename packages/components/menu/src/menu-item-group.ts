@@ -14,7 +14,7 @@ declare global {
  * other menu items.
  *
  * @customElement sl-menu-item-group
- * @slot default - The menu items within a group.
+ * @slot - The menu items within a group.
  * @slot header - The header of the group.
  */
 export class MenuItemGroup extends LitElement {

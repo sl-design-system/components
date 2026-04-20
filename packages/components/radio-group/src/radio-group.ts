@@ -31,7 +31,7 @@ const OBSERVER_OPTIONS: MutationObserverInit = {
  * ```
  *
  * @customElement sl-radio-group
- * @slot default - A list of `sl-radio` elements.
+ * @slot - A list of `sl-radio` elements.
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

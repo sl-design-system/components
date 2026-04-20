@@ -12,7 +12,7 @@ declare global {
 /**
  * An option in a combobox that is grouped. This is a special type of option that displays a group label.
  *
- * @slot default - The option's label.
+ * @slot - The option's label.
  */
 export class GroupedOption extends Option {
   /** @internal */

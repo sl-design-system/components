@@ -20,7 +20,7 @@ const OBSERVER_OPTIONS: MutationObserverInit = { attributeFilter: ['checked'], a
  *
  * @customElement sl-checkbox-group
  *
- * @slot default - A list of `sl-checkbox` elements.
+ * @slot - A list of `sl-checkbox` elements.
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

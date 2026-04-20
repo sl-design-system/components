@@ -26,7 +26,7 @@ export type CardOrientation = 'horizontal' | 'vertical';
  * @cssprop --sl-card-horizontal-breakpoint - When card is smaller than this size it will switch from horizontal (when set) to vertical layout.
  * @cssprop --sl-card-image-backdrop - Color of the image backdrop when `fit-image` is set.
  *
- * @slot default - Title of the card
+ * @slot - Title of the card
  * @slot media - Image of the card.
  * @slot header - Subtitle or badges
  * @slot body - Body text of the card

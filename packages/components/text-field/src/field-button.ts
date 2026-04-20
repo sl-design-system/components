@@ -21,7 +21,7 @@ export type FieldButtonSize = 'md' | 'lg';
  * `<sl-text-field>`.
  *
  * @customElement sl-field-button
- * @slot default - Add an icon to the button
+ * @slot - Add an icon to the button
  */
 export class FieldButton extends LitElement {
   /** @internal */

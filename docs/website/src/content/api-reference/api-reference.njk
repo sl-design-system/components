@@ -9,19 +9,213 @@
   },
   permalink: data => `api-reference/${data.element.tagName}/index.html`,
   eleventyComputed: {
-    title: data => {
-      const words = data.element.name.replace(/([A-Z])/g, ' $1').trim().toLowerCase().split(' ');
-      return words[0].charAt(0).toUpperCase() + words[0].slice(1) + (words.length > 1 ? ' ' + words.slice(1).join(' ') : '');
-    },
+    title: data => data.element.title,
     eleventyNavigation: {
-      key: data => {
-        const words = data.element.name.replace(/([A-Z])/g, ' $1').trim().toLowerCase().split(' ');
-        return words[0].charAt(0).toUpperCase() + words[0].slice(1) + (words.length > 1 ? ' ' + words.slice(1).join(' ') : '');
-      },
+      key: data => data.element.title,
       parent: 'API Reference'
     }
   }
 }
 ---
 
-<pre>{{ element | dump(2)}}</pre>
+{% set component = getComponent(element.tagName) %}
+
+<dl class="metadata">
+  <dt>Element</dt>
+  <dd><code>&lt;{{ element.tagName }}&gt;</code></dd>
+
+  <dt>Package</dt>
+  <dd><code>{{ component.packageName }}</code></dd>
+
+  <dt>Import</dt>
+  <dd>
+    <code id="import-snippet">import { {{ element.name }} } from '{{ component.packageName }}';</code>
+    <doc-copy-button target="import-snippet"></doc-copy-button>
+  </dd>
+</dl>
+
+{% if component.summary %}
+<p class="summary">{{ component.summary | safe }}</p>
+{% endif %}
+
+<h2>Slots</h2>
+{% if element.slots and element.slots.length %}
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for slot in element.slots %}
+    <tr>
+      <td>{% if slot.name %}<code>{{ slot.name }}</code>{% else %}(default){% endif %}</td>
+      <td>{{ slot.description | safe }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>No slots defined.</p>
+{% endif %}
+
+<h2>Attributes & Properties</h2>
+{% if element.attributesAndProperties and element.attributesAndProperties.length %}
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Reflects</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in element.attributesAndProperties %}
+    <tr>
+      <td>
+        {% if item.static %}<sl-badge class="modifier" color="yellow" emphasis="bold">static</sl-badge> {% endif %}<code>{{ item.name }}</code>
+        {% if item.attribute and item.attribute != item.name %}<br><code class="attribute-name">{{ item.attribute }}</code>{% endif %}
+      </td>
+      <td>
+        {{ item.description | safe }}
+        {% if item.type or item.default %}
+        <dl class="field-meta">
+          {% if item.type %}<div><dt>Type</dt><dd><code>{{ item.type.text }}</code></dd></div>{% endif %}
+          {% if item.default %}<div><dt>Default</dt><dd><code>{{ item.default }}</code></dd></div>{% endif %}
+        </dl>
+        {% endif %}
+      </td>
+      <td>{% if item.reflects %}<sl-icon name="check"></sl-icon>{% endif %}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>No attributes or properties defined.</p>
+{% endif %}
+
+<h2>Methods</h2>
+{% if element.methods and element.methods.length %}
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Parameters</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for method in element.methods %}
+    <tr>
+      <td>{% if method.static %}<span class="member-modifier">static</span> {% endif %}<code>{{ method.name }}</code></td>
+      <td>
+        {% if method.parameters and method.parameters.length %}
+          {% for param in method.parameters %}<code>{{ param.name }}{% if param.type %}: {{ param.type.text }}{% endif %}</code>{% if not loop.last %}, {% endif %}{% endfor %}
+        {% endif %}
+      </td>
+      <td>
+        {{ method.description | safe }}
+        {% if method.return and method.return.type and method.return.type.text != "void" %}
+        <dl class="field-meta">
+          <div><dt>Returns</dt><dd><code>{{ method.return.type.text }}</code></dd></div>
+        </dl>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>No methods defined.</p>
+{% endif %}
+
+<h2>Events</h2>
+{% if element.events and element.events.length %}
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for event in element.events %}
+    <tr>
+      <td><code>{{ event.name }}</code></td>
+      <td>{% if event.type %}<code>{{ event.type.text }}</code>{% endif %}</td>
+      <td>{{ event.description | safe }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>No events defined.</p>
+{% endif %}
+
+<h2>CSS custom properties</h2>
+{% if element.cssProperties and element.cssProperties.length %}
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for prop in element.cssProperties %}
+    <tr>
+      <td><code>{{ prop.name }}</code></td>
+      <td>{{ prop.description | safe }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>No CSS custom properties defined.</p>
+{% endif %}
+
+<h2>CSS custom states</h2>
+{% if element.cssStates and element.cssStates.length %}
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for state in element.cssStates %}
+    <tr>
+      <td><code>{{ state.name }}</code></td>
+      <td>{{ state.description | safe }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>No CSS custom states defined.</p>
+{% endif %}
+
+<h2>CSS parts</h2>
+{% if element.cssParts and element.cssParts.length %}
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for part in element.cssParts %}
+    <tr>
+      <td><code>{{ part.name }}</code></td>
+      <td>{{ part.description | safe }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>No CSS parts defined.</p>
+{% endif %}

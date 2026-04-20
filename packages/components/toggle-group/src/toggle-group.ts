@@ -20,7 +20,7 @@ export type ToggleGroupSize = 'sm' | 'md' | 'lg';
  * in the group is active at a time. This behavior can be disabled by setting the `multiple` property.
  *
  * @customElement sl-toggle-group
- * @slot default - The default slot for toggle buttons.
+ * @slot - The default slot for toggle buttons.
  * For toggle group there is a possibility to use toggle buttons with text only.
  */
 export class ToggleGroup extends LitElement {

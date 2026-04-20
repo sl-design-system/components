@@ -22,7 +22,7 @@ declare global {
  * ```
  *
  * @customElement sl-tab
- * @slot default - A place for the tab group content.
+ * @slot - A place for the tab group content.
  * @slot icon - Icon shown on the left side of the component.
  * @slot badge - A place for badge component.
  * @slot subtitle - Subtitle of the tab, containing additional information.

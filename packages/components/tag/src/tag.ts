@@ -30,7 +30,7 @@ export type TagVariant = 'neutral' | 'info';
  * ```
  *
  * @customElement sl-tag
- * @slot default - The tag label.
+ * @slot - The tag label.
  */
 @localized()
 export class Tag extends ScopedElementsMixin(LitElement) {

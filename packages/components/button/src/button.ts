@@ -25,7 +25,7 @@ export type ButtonVariant = 'primary' | 'secondary' | 'success' | 'info' | 'warn
  * @customElement sl-button
  * @summary Buttons are used to trigger an action or event.
  *
- * @slot default - Text label of the button. Optionally an <code>sl-icon</code> can be added
+ * @slot - Text label of the button. Optionally an `<sl-icon>` can be added
  */
 export class Button extends ForwardAriaMixin(LitElement) {
   /** @internal */
@@ -46,7 +46,7 @@ export class Button extends ForwardAriaMixin(LitElement) {
   /** Stores tabIndex set before the button is rendered. */
   #tabIndex = 0;
 
-  /** @internal. */
+  /** @internal */
   readonly internals = this.attachInternals();
 
   /** @internal The button element. */
@@ -72,18 +72,21 @@ export class Button extends ForwardAriaMixin(LitElement) {
    */
   @property({ attribute: false }) commandForElement?: Element;
 
-  /** Whether the button is disabled; when set no interaction is possible. */
+  /**
+   * Whether the button is disabled; when set no interaction is possible.
+   * @default false
+   */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /**
    * The fill of the button.
-   * @default solid
+   * @default 'solid'
    */
   @property({ reflect: true }) fill?: ButtonFill;
 
   /**
    * The shape of the button.
-   * @default square
+   * @default 'square'
    */
   @property({ reflect: true }) shape?: ButtonShape;
 

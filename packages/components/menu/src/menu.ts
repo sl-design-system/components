@@ -27,7 +27,7 @@ export type MenuEmphasis = 'subtle' | 'bold';
  * @customElement sl-menu
  * @csspart menu - The sl-menu element, use this to set for example a min and/or max inline size of the menu
  *
- * @slot default - The menu's content: menu items or menu item groups.
+ * @slot - The menu's content: menu items or menu item groups.
  */
 export class Menu extends LitElement {
   /** @internal The default offset of the menu to its anchor. */

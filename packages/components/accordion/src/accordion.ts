@@ -14,14 +14,10 @@ declare global {
 export type AccordionIconType = 'chevron' | 'plusminus';
 
 /**
- * An accordion component that can contain accordion-items
- *
- * ```html
- *   <sl-accordion>...</sl-accordion>
- * ```
- *
  * @customElement sl-accordion
- * @slot default - The place for multiple `<sl-accordion-item>`
+ * @summary An accordion component that can contain accordion-items.
+ *
+ * @slot - The place for multiple `<sl-accordion-item>`
  */
 export class Accordion extends LitElement {
   /**

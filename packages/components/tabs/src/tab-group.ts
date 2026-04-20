@@ -65,7 +65,7 @@ let nextUniqueId = 0;
  * @cssprop --sl-tab-group-menu-min-inline-size - The minimum inline size of the menu.
  * @cssprop --sl-tab-group-menu-max-inline-size - The maximum inline size of the menu.
  *
- * @slot default - Tab panels or other tab content here.
+ * @slot - Tab panels or other tab content here.
  * @slot tabs - The tabs to display.
  */
 @localized()

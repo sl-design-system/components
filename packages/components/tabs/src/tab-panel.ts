@@ -15,7 +15,7 @@ declare global {
  * ```
  *
  * @customElement sl-tab-panel
- * @slot default - A place for the tab panel content.
+ * @slot - A place for the tab panel content.
  */
 export class TabPanel extends LitElement {
   /** @internal */

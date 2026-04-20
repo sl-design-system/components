@@ -22,7 +22,7 @@ export type ButtonBarAlign = 'start' | 'center' | 'end' | 'space-between';
  * ```
  *
  * @customElement sl-button-bar
- * @slot default - Buttons to be grouped in the bar.
+ * @slot - Buttons to be grouped in the bar.
  * @cssState icon-only - Set when all buttons in the bar are icon-only.
  * @cssState empty - Set when there are no buttons in the bar.
  */

@@ -12,7 +12,7 @@ declare global {
  * A custom option in a combobox; used in combination with the `allowCustomValues`
  * property of the `sl-combobox` element.
  *
- * @slot default - The option's label.
+ * @slot - The option's label.
  */
 export class CustomOption extends Option {
   /** @internal */

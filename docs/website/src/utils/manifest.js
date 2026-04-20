@@ -60,6 +60,28 @@ const getComponentMetadata = async path => {
 
 const sortByName = (a, b) => (a.name || '').localeCompare(b.name || '');
 
+const toTitle = name => {
+  const words = name.replace(/([A-Z])/g, ' $1').trim().toLowerCase().split(' ');
+  return words[0].charAt(0).toUpperCase() + words[0].slice(1) + (words.length > 1 ? ' ' + words.slice(1).join(' ') : '');
+};
+
+const escapeHtml = str => str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const backtickToCode = str => {
+  if (typeof str !== 'string') return str;
+  return escapeHtml(str).replace(/`([^`]+)`/g, '<code>$1</code>');
+};
+
+const transformDescriptions = item => {
+  if (!item || typeof item !== 'object') return item;
+  if (Array.isArray(item)) return item.map(transformDescriptions);
+  const result = { ...item };
+  if ('description' in result) result.description = backtickToCode(result.description);
+  for (const key of Object.keys(result)) {
+    if (Array.isArray(result[key])) result[key] = result[key].map(transformDescriptions);
+  }
+  return result;
+};
+
 export async function getComponents() {
   const components = [];
 
@@ -95,7 +117,25 @@ export async function getComponents() {
 }
 
 export function getCustomElements() {
-  return (manifest.modules || []).flatMap(module =>
-    (module.declarations || []).filter(declaration => declaration.customElement)
-  );
+  return (manifest.modules || [])
+    .flatMap(module => (module.declarations || []).filter(declaration => declaration.customElement))
+    .map(declaration => {
+      const transformed = transformDescriptions(declaration);
+      const fields = (transformed.members || []).filter(m => m.kind === 'field').sort(sortByName);
+      const methods = (transformed.members || []).filter(m => m.kind === 'method').sort(sortByName);
+
+      const coveredAttributes = new Set(fields.map(f => f.attribute).filter(Boolean));
+      const standaloneAttributes = (transformed.attributes || [])
+        .filter(a => !coveredAttributes.has(a.name))
+        .sort(sortByName);
+      const attributesAndProperties = [...fields, ...standaloneAttributes].sort(sortByName);
+
+      return {
+        ...transformed,
+        title: toTitle(declaration.name),
+        attributesAndProperties,
+        methods
+      };
+    })
+    .sort((a, b) => a.title.localeCompare(b.title));
 }

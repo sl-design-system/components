@@ -26,7 +26,7 @@ declare global {
  * ```
  *
  * @customElement sl-tag-list
- * @slot default - The place for tags.
+ * @slot - The place for tags.
  */
 @localized()
 export class TagList extends ScopedElementsMixin(LitElement) {

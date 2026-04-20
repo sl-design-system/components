@@ -15,7 +15,7 @@ import { type AccordionIconType } from './accordion.js';
  * @csspart icon - The icon in the header of the accordion-item
  * @csspart panel - The body of the accordion-item
  *
- * @slot default - Body content for the accordion
+ * @slot - Body content for the accordion
  * @slot summary - Header content for the accordion; use this if the `summary` property is not enough
  * @slot summary-extras - Extra content in the header of the accordion item
  */
@@ -95,7 +95,8 @@ export class AccordionItem extends LitElement {
   /**
    * This is a workaround for `delegatesFocus` not allowing you to select
    * any text in the content of the accordion item.
-   * See https://issues.chromium.org/issues/40622041
+   * @see https://issues.chromium.org/issues/40622041
+   * @ignore
    */
   override focus(options?: FocusOptions): void {
     this.renderRoot.querySelector('summary')?.focus(options);
@@ -104,8 +105,6 @@ export class AccordionItem extends LitElement {
   /**
    * Toggles the component state between open or closed. If the `force` parameter is
    * provided, the state will be set to the value of the parameter.
-   *
-   * @param force - The state to forcibly set the component to
    */
   toggle(force?: boolean): void {
     if (typeof force === 'boolean' && force === this.open) {

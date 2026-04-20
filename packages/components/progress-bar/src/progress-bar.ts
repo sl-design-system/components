@@ -27,7 +27,7 @@ export type ProgressColor = 'blue' | 'green' | 'orange' | 'purple' | 'red' | 'te
  * ```
  *
  * @customElement sl-progress-bar
- * @slot default - A place for helper text like e.g. `20% of 100%`.
+ * @slot - A place for helper text like e.g. `20% of 100%`.
  */
 @localized()
 export class ProgressBar extends ScopedElementsMixin(LitElement) {

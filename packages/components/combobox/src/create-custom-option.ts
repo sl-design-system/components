@@ -14,7 +14,7 @@ declare global {
  * This element is used in combination with the `allowCustomValues`
  * property of the `sl-combobox` element.
  *
- * @slot default - The option's label.
+ * @slot - The option's label.
  */
 @localized()
 export class CreateCustomOption extends Option {

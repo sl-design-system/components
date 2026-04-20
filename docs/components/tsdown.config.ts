@@ -47,6 +47,7 @@ export default defineConfig({
   },
   entry: [
     'src/code/code.ts',
+    'src/code-block/code-block.ts',
     'src/code-example/code-example.ts',
     'src/copy-button/copy-button.ts',
     'src/heading/heading.ts',

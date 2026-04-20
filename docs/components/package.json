@@ -10,6 +10,7 @@
     "url": "https://github.com/sl-design-system/components.git"
   },
   "exports": {
+    "./code-block/code-block.js": "./dist/code-block/code-block.js",
     "./code-example/code-example.js": "./dist/code-example/code-example.js",
     "./code/code.js": "./dist/code/code.js",
     "./copy-button/copy-button.js": "./dist/copy-button/copy-button.js",

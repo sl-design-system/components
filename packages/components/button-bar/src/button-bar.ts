@@ -12,19 +12,13 @@ declare global {
 export type ButtonBarAlign = 'start' | 'center' | 'end' | 'space-between';
 
 /**
- * Groups buttons together in a bar separated by whitespace.
- *
- * ```html
- * <sl-button-bar>
- *   <sl-button>Foo</sl-button>
- *   <sl-button>Bar</sl-button>
- * </sl-button-bar>
- * ```
- *
  * @customElement sl-button-bar
+ * @summary Groups buttons together in a bar separated by whitespace.
+ *
  * @slot - Buttons to be grouped in the bar.
- * @cssState icon-only - Set when all buttons in the bar are icon-only.
- * @cssState empty - Set when there are no buttons in the bar.
+ *
+ * @cssstate empty - Set when there are no buttons in the bar.
+ * @cssstate icon-only - Set when all buttons in the bar are icon-only.
  */
 export class ButtonBar extends LitElement {
   /** @internal */

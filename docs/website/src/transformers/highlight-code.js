@@ -44,7 +44,7 @@ export function highlightCodeTransformer(options = {}) {
 
       const pre = code.closest('pre');
       if (pre) {
-        pre.replaceWith(`<doc-code>${pre.outerHTML}</doc-code>`);
+        pre.replaceWith(`<doc-code-block>${pre.outerHTML}</doc-code-block>`);
       }
     });
   };

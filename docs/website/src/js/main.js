@@ -11,6 +11,7 @@ import '@sl-design-system/icon/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/tooltip/register.js';
 import { Code } from '@sl-design-system/doc-components/code/code.js';
+import { Code as CodeBlock } from '@sl-design-system/doc-components/code-block/code-block.js';
 import { CodeExample } from '@sl-design-system/doc-components/code-example/code-example.js';
 import { CopyButton } from '@sl-design-system/doc-components/copy-button/copy-button.js';
 import { Heading } from '@sl-design-system/doc-components/heading/heading.js';
@@ -25,6 +26,7 @@ import { SiteNav } from '@sl-design-system/doc-components/site-nav/site-nav.js';
 Icon.register(faBug, faCircleExclamation, faCode, faFileLines);
 
 customElements.define('doc-code', Code);
+customElements.define('doc-code-block', CodeBlock);
 customElements.define('doc-code-example', CodeExample);
 customElements.define('doc-copy-button', CopyButton);
 customElements.define('doc-heading', Heading);

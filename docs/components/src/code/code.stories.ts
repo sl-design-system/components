@@ -11,38 +11,12 @@ try {
 }
 
 export default {
-  title: 'Code',
-  render: () => html`
-    <doc-code>
-      <pre><code class="language-typescript">import { LitElement, html } from 'lit';
-
-export class MyElement extends LitElement {
-  override render() {
-    return html\`&lt;p&gt;Hello world!&lt;/p&gt;\`;
-  }
-}</code></pre>
-    </doc-code>
-  `
+  title: 'Inline Code',
+  render: () => html`<p>Use the <doc-code>:state(active)</doc-code> selector to target this state.</p>`
 } satisfies Meta;
 
 export const Basic: Story = {};
 
-export const MultiLine: Story = {
-  render: () => html`
-    <doc-code>
-      <pre><code class="language-html">&lt;sl-button variant="primary"&gt;Click me&lt;/sl-button&gt;
-&lt;sl-button variant="default"&gt;Cancel&lt;/sl-button&gt;</code></pre>
-    </doc-code>
-  `
-};
-
-export const CSS: Story = {
-  render: () => html`
-    <doc-code>
-      <pre><code class="language-css">:host {
-  display: block;
-  color: red;
-}</code></pre>
-    </doc-code>
-  `
+export const Standalone: Story = {
+  render: () => html`<doc-code>const foo = 'bar';</doc-code>`
 };

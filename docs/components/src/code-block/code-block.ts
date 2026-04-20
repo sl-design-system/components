@@ -2,7 +2,7 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { state } from 'lit/decorators.js';
 import { CopyButton } from '../copy-button/copy-button.js';
-import styles from './code.css' with { type: 'css' };
+import styles from './code-block.css' with { type: 'css' };
 
 export class Code extends ScopedElementsMixin(LitElement) {
   /** @internal */
@@ -20,12 +20,16 @@ export class Code extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <code><slot @slotchange=${this.#onSlotChange}></slot></code>
+      <slot @slotchange=${this.#onSlotChange}></slot>
       <doc-copy-button .content=${this.source}></doc-copy-button>
     `;
   }
 
-  #onSlotChange(): void {
-    this.source = this.textContent?.trim() ?? '';
+  #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    const pre = event.target
+      .assignedElements({ flatten: true })
+      .find((el): el is HTMLPreElement => el.tagName === 'PRE');
+
+    this.source = pre?.textContent?.trim() ?? '';
   }
 }

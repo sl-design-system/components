@@ -1,10 +1,5 @@
 :host {
-  background: var(--sl-color-background-accent-grey-subtlest);
-  border-radius: var(--sl-size-borderRadius-default);
-  display: block;
-  overflow-x: auto;
-  padding: var(--sl-size-200);
-  position: relative;
+  display: inline;
 }
 
 :host(:hover) doc-copy-button,
@@ -12,16 +7,19 @@ doc-copy-button:focus-within {
   opacity: 1;
 }
 
-::slotted(pre) {
-  background: transparent !important;
-  margin: 0 !important;
-  padding: 0 !important;
+code {
+  anchor-name: --code;
+  background: var(--sl-color-background-accent-grey-subtlest);
+  border-radius: var(--sl-size-borderRadius-default);
+  font-size: 0.9em;
+  padding-block: var(--sl-size-025);
+  padding-inline: var(--sl-size-075);
 }
 
 doc-copy-button {
-  inset-block-start: var(--sl-size-100);
-  inset-inline-end: var(--sl-size-100);
   opacity: 0;
   position: absolute;
+  position-anchor: --code;
+  position-area: center end;
   transition: opacity 0.15s;
 }

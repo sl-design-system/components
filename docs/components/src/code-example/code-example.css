@@ -21,7 +21,7 @@
   --_justify: stretch;
 }
 
-:host([show-source]) doc-code {
+:host([show-source]) doc-code-block {
   border-block-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
 }
 
@@ -31,7 +31,7 @@
   padding: var(--sl-size-200);
 }
 
-doc-code {
+doc-code-block {
   border-radius: 0;
 }
 

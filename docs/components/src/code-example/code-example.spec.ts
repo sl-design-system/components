@@ -50,13 +50,13 @@ describe('doc-code-example', () => {
     });
 
     it('should render a copy button', () => {
-      const docCode = el.renderRoot.querySelector('doc-code') as Element & { renderRoot: ShadowRoot };
+      const docCode = el.renderRoot.querySelector('doc-code-block') as Element & { renderRoot: ShadowRoot };
 
       expect(docCode?.renderRoot.querySelector('doc-copy-button')).to.exist;
     });
 
     it('should set the copy button content from the source slot', async () => {
-      const docCode = el.renderRoot.querySelector('doc-code') as Element & { renderRoot: ShadowRoot };
+      const docCode = el.renderRoot.querySelector('doc-code-block') as Element & { renderRoot: ShadowRoot };
       const copyButton = docCode?.renderRoot.querySelector<HTMLElement & { content?: string }>('doc-copy-button');
 
       expect(copyButton?.content).to.equal('<button>Click me</button>');
@@ -65,7 +65,7 @@ describe('doc-code-example', () => {
     it('should copy the source to the clipboard on click', async () => {
       const writeText = vi.spyOn(navigator.clipboard, 'writeText').mockResolvedValue(undefined);
 
-      const docCode = el.renderRoot.querySelector('doc-code') as Element & { renderRoot: ShadowRoot };
+      const docCode = el.renderRoot.querySelector('doc-code-block') as Element & { renderRoot: ShadowRoot };
       const copyButtonHost = docCode?.renderRoot.querySelector('doc-copy-button') as Element & { renderRoot: ShadowRoot };
       copyButtonHost?.renderRoot.querySelector<HTMLElement>('sl-button')!.click();
       await el.updateComplete;

@@ -246,7 +246,7 @@ export class Tooltip extends LitElement {
 
     this.#events.listen(documentRoot, 'click', this.#onHide, { capture: true });
 
-    if (root instanceof ShadowRoot) {
+    if (root instanceof ShadowRoot && this.#originalRoot && root !== this.#originalRoot) {
       const isFromCurrentShadowRoot = (event: Event): boolean => event.composedPath().includes(root);
 
       this.#events.listen(documentRoot, 'pointerover', event => {

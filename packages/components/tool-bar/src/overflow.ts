@@ -18,12 +18,7 @@ export function calculateVisibility(
   widths: number[],
   availableWidth: number,
   gap: number,
-  menuButtonWidth: {
-    /** Button width including margin (used when some items are visible alongside the menu button). */
-    full: number;
-    /** Button width without margin (used when all items are hidden and the margin is removed via CSS). */
-    base: number;
-  }
+  menuButtonWidth: number
 ): void {
   // First pass: determine if we need overflow menu
   let cumulativeWidth = 0,
@@ -42,19 +37,28 @@ export function calculateVisibility(
     cumulativeWidth = requiredWidth;
   }
 
-  // Calculate effective width (reserve space for menu button when present).
-  const effectiveWidth = availableWidth - (needsMenu ? menuButtonWidth.full : 0);
+  // Reserve space for the menu button when present.
+  const effectiveWidth = availableWidth - (needsMenu ? menuButtonWidth : 0);
 
   // Second pass: set visibility based on effective width.
   setItemVisibility(items, widths, effectiveWidth, gap);
 
-  // When all items are hidden, the menu button's margin is removed (via
-  // the `all-items-hidden` CSS rule). Retry with just the base button width
-  // (no margin) to see if an item fits, preventing an oscillation loop.
+  // When all items are hidden, the menu button's margin is removed via CSS,
+  // freeing extra space. Retry to see if an item fits, but verify it still
+  // fits once the margin is restored to prevent flickering.
   if (needsMenu && items.every(item => !item.visible || item.type === 'divider')) {
-    const effectiveWidthNoMargin = availableWidth - menuButtonWidth.base;
+    setItemVisibility(items, widths, effectiveWidth + gap, gap);
 
-    setItemVisibility(items, widths, effectiveWidthNoMargin, gap);
+    // Verify if visible items + menu button (with margin) exceed the
+    // available width, revert to all-hidden to prevent flickering.
+    const visibleWidth = items.reduce(
+      (sum, item, i) => (item.visible ? sum + (sum > 0 ? gap : 0) + widths[i] : sum),
+      0
+    );
+
+    if (visibleWidth > 0 && visibleWidth + menuButtonWidth > availableWidth) {
+      items.forEach(item => (item.visible = false));
+    }
   }
 
   // Third pass: hide orphaned dividers
@@ -122,34 +126,33 @@ export function measureItemWidths(items: ToolBarItem[]): number[] | undefined {
 }
 
 /**
- * Measure the overflow menu button width.
- * Returns both the full width (with margin, for normal overflow) and the base
- * width (without margin, for the all-items-hidden state where margin is removed).
+ * Measure the overflow menu button width including its margin.
+ * The menu button is square (aspect-ratio 1:1), so we use the wrapper height as
+ * the button width. Falls back to the actual button width when the wrapper has no height.
  */
-export function measureMenuButtonWidth(
-  wrapper: HTMLElement,
-  menuButton: HTMLElement | undefined,
-  gap: number
-): { full: number; base: number } {
-  let base = wrapper.getBoundingClientRect().height;
+export function measureMenuButtonWidth(wrapper: HTMLElement, menuButton: HTMLElement | undefined, gap: number): number {
+  let width = wrapper.getBoundingClientRect().height;
 
-  if ((isNaN(base) || base === 0) && menuButton) {
-    base = menuButton.getBoundingClientRect().width;
+  if ((isNaN(width) || width === 0) && menuButton) {
+    width = menuButton.getBoundingClientRect().width;
   }
 
-  // Calculate margin: actual value from the menu button, or gap as estimate.
-  const margin = menuButton ? parseFloat(getComputedStyle(menuButton).marginInlineStart) || 0 : gap;
+  // Include the menu button's margin, or use the gap as a fallback estimate.
+  if (menuButton) {
+    width += parseFloat(getComputedStyle(menuButton).marginInlineStart) || 0;
+  } else {
+    width += gap;
+  }
 
-  return { full: base + margin, base };
+  return width;
 }
 
 /**
- * Measure the content-box width of the host element using inline-size containment.
+ * Measure the content-box width of the host element.
  *
- * Temporarily sets `contain: inline-size` so the browser treats the element's
- * intrinsic size as 0, preventing parent containers from expanding (e.g. a flex
- * child in a grid cell). Falls back to the natural width when containment
- * collapses the toolbar (e.g. `inline-size: fit-content`).
+ * Uses temporary `contain: inline-size` to prevent parent containers from
+ * expanding to fit the toolbar's content. Falls back to the natural width
+ * when containment collapses the toolbar (e.g. `inline-size: fit-content`).
  */
 export function measureConstrainedWidth(host: HTMLElement): number {
   const hostStyles = getComputedStyle(host),

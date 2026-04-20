@@ -27,7 +27,7 @@ describe('calculateVisibility', () => {
     const items = [mockItem('button'), mockItem('button'), mockItem('button')],
       widths = [50, 50, 50];
 
-    calculateVisibility(items, widths, 200, 10, { full: 40, base: 40 });
+    calculateVisibility(items, widths, 200, 10, 40);
 
     expect(items.every(i => i.visible)).to.be.true;
   });
@@ -41,7 +41,7 @@ describe('calculateVisibility', () => {
     // effective = 100 - (40+10) = 50
     // item 0: 50 <= 50 → visible
     // item 1: 50+10+50 = 110 > 50 → hidden
-    calculateVisibility(items, widths, 100, 10, { full: 40, base: 40 });
+    calculateVisibility(items, widths, 100, 10, 40);
 
     expect(items[0].visible).to.be.true;
     expect(items[1].visible).to.be.false;
@@ -52,7 +52,7 @@ describe('calculateVisibility', () => {
     const items = [mockItem('button'), mockItem('button')],
       widths = [50, 50];
 
-    calculateVisibility(items, widths, 0, 10, { full: 40, base: 40 });
+    calculateVisibility(items, widths, 0, 10, 40);
 
     expect(items.every(i => !i.visible)).to.be.true;
   });
@@ -61,7 +61,7 @@ describe('calculateVisibility', () => {
     const items = [mockItem('button')],
       widths = [50];
 
-    calculateVisibility(items, widths, 100, 10, { full: 40, base: 40 });
+    calculateVisibility(items, widths, 100, 10, 40);
 
     expect(items[0].visible).to.be.true;
   });
@@ -70,7 +70,7 @@ describe('calculateVisibility', () => {
     const items = [mockItem('button')],
       widths = [150];
 
-    calculateVisibility(items, widths, 100, 10, { full: 40, base: 40 });
+    calculateVisibility(items, widths, 100, 10, 40);
 
     expect(items[0].visible).to.be.false;
   });
@@ -79,7 +79,7 @@ describe('calculateVisibility', () => {
     const items: ToolBarItem[] = [],
       widths: number[] = [];
 
-    calculateVisibility(items, widths, 100, 10, { full: 40, base: 40 });
+    calculateVisibility(items, widths, 100, 10, 40);
 
     expect(items).to.have.length(0);
   });
@@ -89,7 +89,7 @@ describe('calculateVisibility', () => {
       const items = [mockItem('divider'), mockItem('button'), mockItem('button')],
         widths = [10, 50, 50];
 
-      calculateVisibility(items, widths, 200, 10, { full: 40, base: 40 });
+      calculateVisibility(items, widths, 200, 10, 40);
 
       expect(items[0].visible).to.be.false;
       expect(items[1].visible).to.be.true;
@@ -100,7 +100,7 @@ describe('calculateVisibility', () => {
       const items = [mockItem('button'), mockItem('button'), mockItem('divider')],
         widths = [50, 50, 10];
 
-      calculateVisibility(items, widths, 200, 10, { full: 40, base: 40 });
+      calculateVisibility(items, widths, 200, 10, 40);
 
       expect(items[0].visible).to.be.true;
       expect(items[1].visible).to.be.true;
@@ -123,7 +123,7 @@ describe('calculateVisibility', () => {
       // item1: 50+10+10=70 > 50 → hidden
       // item2: hidden
       // divider at 1 has visible before (item0) but no visible after → hidden
-      calculateVisibility(items, widths, 100, 10, { full: 40, base: 40 });
+      calculateVisibility(items, widths, 100, 10, 40);
 
       expect(items[0].visible).to.be.true;
       expect(items[1].visible).to.be.false;
@@ -134,7 +134,7 @@ describe('calculateVisibility', () => {
       const items = [mockItem('button'), mockItem('divider'), mockItem('button')],
         widths = [50, 10, 50];
 
-      calculateVisibility(items, widths, 300, 10, { full: 40, base: 40 });
+      calculateVisibility(items, widths, 300, 10, 40);
 
       expect(items[0].visible).to.be.true;
       expect(items[1].visible).to.be.true;

@@ -104,3 +104,61 @@ export function measureItemWidths(items: ToolBarItem[]): number[] | undefined {
 
   return hasInvalidMeasurements ? undefined : widths;
 }
+
+/**
+ * Measure the overflow menu button width including its margin.
+ * The menu button is square (aspect-ratio 1:1), so we use the wrapper height as
+ * the button width. Falls back to the actual button width or a gap estimate.
+ */
+export function measureMenuButtonWidth(wrapper: HTMLElement, menuButton: HTMLElement | undefined, gap: number): number {
+  let width = wrapper.getBoundingClientRect().height;
+
+  if ((isNaN(width) || width === 0) && menuButton) {
+    width = menuButton.getBoundingClientRect().width;
+  }
+
+  // Include the menu button's margin so we reserve the full space it occupies.
+  // When the menu button is not yet rendered, use the wrapper gap as an estimate
+  // since the CSS sets both to the same design token (--sl-size-100).
+  if (menuButton) {
+    width += parseFloat(getComputedStyle(menuButton).marginInlineStart) || 0;
+  } else {
+    width += gap;
+  }
+
+  return width;
+}
+
+/**
+ * Measure the content-box width of the host element using inline-size containment.
+ *
+ * Temporarily sets `contain: inline-size` so the browser treats the element's
+ * intrinsic size as 0, preventing parent containers from expanding (e.g. a flex
+ * child in a grid cell). Falls back to the natural width when containment
+ * collapses the toolbar (e.g. `inline-size: fit-content`).
+ */
+export function measureConstrainedWidth(host: HTMLElement): number {
+  const hostStyles = getComputedStyle(host),
+    paddingInline = (parseFloat(hostStyles.paddingInlineStart) || 0) + (parseFloat(hostStyles.paddingInlineEnd) || 0),
+    borderInline =
+      (parseFloat(hostStyles.borderInlineStartWidth) || 0) + (parseFloat(hostStyles.borderInlineEndWidth) || 0);
+
+  // Apply containment so parent containers don't expand to fit our content.
+  host.style.contain = 'inline-size';
+  void host.offsetHeight;
+
+  let measuredWidth = host.getBoundingClientRect().width - paddingInline - borderInline;
+
+  // If containment collapsed the toolbar (e.g. inline-size: fit-content),
+  // fall back to the natural width without containment.
+  if (measuredWidth <= 0) {
+    host.style.contain = '';
+    void host.offsetHeight;
+    measuredWidth = host.getBoundingClientRect().width - paddingInline - borderInline;
+  }
+
+  // Restore normal containment.
+  host.style.contain = '';
+
+  return measuredWidth;
+}

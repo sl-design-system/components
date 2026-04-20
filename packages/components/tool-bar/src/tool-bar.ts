@@ -10,7 +10,14 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { updateChildAttributes } from './attribute-propagation.js';
 import { syncDisabledState } from './disabled-state.js';
 import { type ToolBarItem, mapElementsToItems } from './mapping.js';
-import { applyVisibility, calculateVisibility, measureItemWidths, revealAllItems } from './overflow.js';
+import {
+  applyVisibility,
+  calculateVisibility,
+  measureConstrainedWidth,
+  measureItemWidths,
+  measureMenuButtonWidth,
+  revealAllItems
+} from './overflow.js';
 import { ToolBarDivider } from './tool-bar-divider.js';
 import styles from './tool-bar.scss.js';
 
@@ -363,54 +370,13 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    // To get the true constrained width, we reveal all items and read
-    // getBoundingClientRect(). We temporarily set `contain: inline-size` so
-    // the browser treats this element's intrinsic sizes as 0, preventing
-    // parent containers from expanding (e.g. a wrapper div in a grid cell).
-    // Unlike `overflow: hidden`, containment works for block-level children
-    // in block formatting contexts too.
-    this.style.contain = 'inline-size';
+    // To get the true constrained width, reveal all items and measure using
+    // inline-size containment so parent containers don't expand.
     revealAllItems(this.items);
     void this.offsetHeight;
+    availableWidth = measureConstrainedWidth(this);
 
-    // Read the content-box width of the host (excluding padding and border)
-    // so that contained toolbars with padding/border are measured correctly.
-    const hostStyles = getComputedStyle(this),
-      paddingInline = (parseFloat(hostStyles.paddingInlineStart) || 0) + (parseFloat(hostStyles.paddingInlineEnd) || 0),
-      borderInline =
-        (parseFloat(hostStyles.borderInlineStartWidth) || 0) + (parseFloat(hostStyles.borderInlineEndWidth) || 0);
-
-    let measuredWidth = this.getBoundingClientRect().width - paddingInline - borderInline;
-
-    // If containment collapsed the toolbar (e.g. inline-size: fit-content),
-    // fall back to the natural width without containment.
-    if (measuredWidth <= 0) {
-      this.style.contain = '';
-      void this.offsetHeight;
-      measuredWidth = this.getBoundingClientRect().width - paddingInline - borderInline;
-    }
-
-    availableWidth = measuredWidth;
-
-    // Restore normal containment.
-    this.style.contain = '';
-
-    // Calculate menu button width (square button based on wrapper height).
-    // Include the menu button's margin-inline-start so we reserve the full
-    // space the overflow button occupies in the flex layout.
-    let menuButtonWidth = this.wrapper.getBoundingClientRect().height;
-    if ((isNaN(menuButtonWidth) || menuButtonWidth === 0) && this.menuButton) {
-      menuButtonWidth = this.menuButton.getBoundingClientRect().width;
-    }
-
-    // Include the menu button's margin so we reserve the full space it occupies.
-    // When the menu button is not yet rendered, use the wrapper gap as an estimate
-    // since the CSS sets both to the same design token (--sl-size-100).
-    if (this.menuButton) {
-      menuButtonWidth += parseFloat(getComputedStyle(this.menuButton).marginInlineStart) || 0;
-    } else {
-      menuButtonWidth += gap;
-    }
+    const menuButtonWidth = measureMenuButtonWidth(this.wrapper, this.menuButton ?? undefined, gap);
 
     calculateVisibility(this.items, this.#widths, availableWidth, gap, menuButtonWidth);
     applyVisibility(this.items);

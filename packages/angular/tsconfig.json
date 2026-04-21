@@ -8,12 +8,8 @@
     "noPropertyAccessFromIndexSignature": true,
     "outDir": "./out-tsc",
     "paths": {
-      "@sl-design-system/angular": [
-        "packages/angular/dist"
-      ],
-      "@sl-design-system/angular/*": [
-        "packages/angular/dist/*"
-      ]
+      "@sl-design-system/angular": ["./dist"],
+      "@sl-design-system/angular/*": ["./dist/*"]
     }
   },
   "angularCompilerOptions": {

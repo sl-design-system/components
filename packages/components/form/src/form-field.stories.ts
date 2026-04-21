@@ -23,7 +23,6 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Form/Form field',
-  tags: ['stable'],
   args: {
     hint: 'This is a hint',
     label: 'Label'

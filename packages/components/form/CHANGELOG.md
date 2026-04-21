@@ -1,5 +1,15 @@
 # @sl-design-system/form
 
+## 1.3.6
+
+### Patch Changes
+
+- [#3193](https://github.com/sl-design-system/components/pull/3193) [`99c1464`](https://github.com/sl-design-system/components/commit/99c1464e46f0f6c2f17d7d8ccd62f58bacaceeb3) - Fixed an infinite loop in `FormControlMixin` where resolving an async custom validity promise would re-emit the `sl-validate` event, causing the validation handler to create a new promise every 2 seconds indefinitely. The promise resolution now updates validity without re-emitting `sl-validate`.
+
+- Updated dependencies [[`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`dd96d1b`](https://github.com/sl-design-system/components/commit/dd96d1b88f030a7b4a81b51d77a8461b5692909c), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538)]:
+  - @sl-design-system/shared@0.12.0
+  - @sl-design-system/inline-message@2.0.5
+
 ## 1.3.5
 
 ### Patch Changes

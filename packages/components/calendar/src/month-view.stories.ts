@@ -29,7 +29,6 @@ Icon.register(faFlag);
 
 export default {
   title: 'Date & Time/Month view',
-  tags: ['draft'],
   args: {
     hideDaysOtherMonths: false,
     month: new Date(),

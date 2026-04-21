@@ -24,7 +24,6 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Overlay/Popover',
-  tags: ['stable'],
   args: {
     alignSelf: 'center',
     body: "I'm a popover example",
@@ -133,42 +132,42 @@ export const VerticalOverflow: Story = {
   args: {
     body: () => {
       return html`
-        Lorem<br />
-        ipsum<br />
-        dolor<br />
-        sit<br />
-        amet,<br />
-        qui<br />
-        deserunt<br />
-        esse<br />
-        minim<br />
-        cillum<br />
-        nostrud<br />
-        exercitation<br />
-        veniam<br />
-        consequat<br />
-        pariatur<br />
-        exercitation<br />
-        laborum<br />
-        nostrud<br />
-        culpa<br />
-        sunt<br />
-        exercitation<br />
-        pariatur.<br />
-        Nisi<br />
-        ipsum<br />
-        est<br />
-        ullamco<br />
-        nostrud<br />
-        sit<br />
-        pariatur.<br />
-        Ex<br />
-        nisi<br />
-        ipsum<br />
-        et<br />
-        est<br />
-        nulla<br />
-        ex<br />
+        Lorem<br aria-hidden="true" />
+        ipsum<br aria-hidden="true" />
+        dolor<br aria-hidden="true" />
+        sit<br aria-hidden="true" />
+        amet,<br aria-hidden="true" />
+        qui<br aria-hidden="true" />
+        deserunt<br aria-hidden="true" />
+        esse<br aria-hidden="true" />
+        minim<br aria-hidden="true" />
+        cillum<br aria-hidden="true" />
+        nostrud<br aria-hidden="true" />
+        exercitation<br aria-hidden="true" />
+        veniam<br aria-hidden="true" />
+        consequat<br aria-hidden="true" />
+        pariatur<br aria-hidden="true" />
+        exercitation<br aria-hidden="true" />
+        laborum<br aria-hidden="true" />
+        nostrud<br aria-hidden="true" />
+        culpa<br aria-hidden="true" />
+        sunt<br aria-hidden="true" />
+        exercitation<br aria-hidden="true" />
+        pariatur.<br aria-hidden="true" />
+        Nisi<br aria-hidden="true" />
+        ipsum<br aria-hidden="true" />
+        est<br aria-hidden="true" />
+        ullamco<br aria-hidden="true" />
+        nostrud<br aria-hidden="true" />
+        sit<br aria-hidden="true" />
+        pariatur.<br aria-hidden="true" />
+        Ex<br aria-hidden="true" />
+        nisi<br aria-hidden="true" />
+        ipsum<br aria-hidden="true" />
+        et<br aria-hidden="true" />
+        est<br aria-hidden="true" />
+        nulla<br aria-hidden="true" />
+        ex<br aria-hidden="true" />
         ex.
       `;
     }
@@ -300,7 +299,11 @@ export const All: Story = {
         }
       </style>
       <div>
-        <sl-button id="anchor" variant="primary">This is a popover anchor element (sl-button component) </br> with all top and bottom popover allowed positions shown <br> all examples at once</sl-button>
+        <sl-button id="anchor" variant="primary"
+          >This is a popover anchor element (sl-button component) <br aria-hidden="true" />
+          with all top and bottom popover allowed positions shown <br aria-hidden="true" />
+          all examples at once</sl-button
+        >
         <sl-popover anchor="anchor" popover="manual" position="top">Top</sl-popover>
         <sl-popover anchor="anchor" popover="manual" position="top-start">Top start</sl-popover>
         <sl-popover anchor="anchor" popover="manual" position="top-end">Top end</sl-popover>
@@ -310,13 +313,38 @@ export const All: Story = {
       </div>
 
       <div>
-        <sl-button id="anchor2" variant="primary" style="width: 72px; padding: 24px;">This is a popover anchor element (sl-button component) with all right and left popover allowed positions shown all examples at once</sl-button>
-        <sl-popover anchor="anchor2" popover="manual" position="right">Right <br> example</sl-popover>
-        <sl-popover anchor="anchor2" popover="manual" position="right-start">Right <br> start <br> example</sl-popover>
-        <sl-popover anchor="anchor2" popover="manual" position="right-end">Right <br> end <br> example</sl-popover>
-        <sl-popover anchor="anchor2" popover="manual" position="left">Left <br> example</sl-popover>
-        <sl-popover anchor="anchor2" popover="manual" position="left-start">Left <br> start <br> example</sl-popover>
-        <sl-popover anchor="anchor2" popover="manual" position="left-end">Left <br> end <br> example</sl-popover>
+        <sl-button id="anchor2" variant="primary" style="width: 72px; padding: 24px;"
+          >This is a popover anchor element (sl-button component) with all right and left popover allowed positions
+          shown all examples at once</sl-button
+        >
+        <sl-popover anchor="anchor2" popover="manual" position="right"
+          >Right <br aria-hidden="true" />
+          example</sl-popover
+        >
+        <sl-popover anchor="anchor2" popover="manual" position="right-start"
+          >Right <br aria-hidden="true" />
+          start <br aria-hidden="true" />
+          example</sl-popover
+        >
+        <sl-popover anchor="anchor2" popover="manual" position="right-end"
+          >Right <br aria-hidden="true" />
+          end <br aria-hidden="true" />
+          example</sl-popover
+        >
+        <sl-popover anchor="anchor2" popover="manual" position="left"
+          >Left <br aria-hidden="true" />
+          example</sl-popover
+        >
+        <sl-popover anchor="anchor2" popover="manual" position="left-start"
+          >Left <br aria-hidden="true" />
+          start <br aria-hidden="true" />
+          example</sl-popover
+        >
+        <sl-popover anchor="anchor2" popover="manual" position="left-end"
+          >Left <br aria-hidden="true" />
+          end <br aria-hidden="true" />
+          example</sl-popover
+        >
       </div>
     `;
   }

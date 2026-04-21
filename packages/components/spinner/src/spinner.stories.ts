@@ -37,7 +37,6 @@ const sizeName = (size: string): string => {
 
 export default {
   title: 'Feedback & status/Spinner',
-  tags: ['stable'],
   argTypes: {
     size: {
       control: 'inline-radio',
@@ -88,7 +87,7 @@ export const InButton: Story = {
                       <sl-button variant=${buttonVariant} size=${buttonSize}>
                         <sl-spinner></sl-spinner>
                         Sending </sl-button
-                      ><br />
+                      ><br aria-hidden="true" />
                       <sl-button variant=${buttonVariant} fill="outline" size=${buttonSize}>
                         <sl-spinner></sl-spinner>
                         Sending

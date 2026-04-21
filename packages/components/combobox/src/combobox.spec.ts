@@ -2,10 +2,10 @@ import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
 import '@sl-design-system/listbox/register.js';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
-import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { fixture, oneEvent } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { type Combobox } from './combobox.js';
@@ -14,6 +14,14 @@ import { type SelectedGroup } from './selected-group.js';
 
 describe('sl-combobox', () => {
   let el: Combobox, input: HTMLInputElement;
+  const waitForNextFrame = async (): Promise<void> => {
+    if (vi.isFakeTimers()) {
+      vi.advanceTimersToNextFrame();
+      return;
+    }
+
+    await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+  };
 
   describe('defaults', () => {
     beforeEach(async () => {
@@ -258,8 +266,9 @@ describe('sl-combobox', () => {
       const onFocus = spy();
 
       el.addEventListener('sl-focus', onFocus);
+      const focusEvent = oneEvent(el, 'sl-focus');
       input.focus();
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await focusEvent;
 
       expect(onFocus).to.have.been.calledOnce;
     });
@@ -923,6 +932,84 @@ describe('sl-combobox', () => {
         expect(tagList).to.have.attribute('stacked');
       });
 
+      it('should have a responsive layout for the tag list', () => {
+        const tagList = el.renderRoot.querySelector('sl-tag-list') as HTMLElement;
+        const styles = getComputedStyle(tagList);
+        const hostStyles = getComputedStyle(el);
+
+        expect(styles.flexGrow).to.equal('1');
+        expect(styles.flexShrink).to.equal('1');
+        expect(styles.flexBasis).to.equal('auto');
+        expect(styles.minInlineSize).to.equal('0px');
+        expect(styles.overflowX).to.equal('visible');
+        expect(styles.position).to.equal('relative');
+        expect(styles.zIndex).to.equal('1');
+        expect(hostStyles.contain).to.include('inline-size');
+      });
+
+      it('should not flicker when selecting many items in a limited space', async () => {
+        vi.useFakeTimers();
+
+        try {
+          el.style.maxInlineSize = '300px';
+
+          // Select items that would trigger a collapse
+          el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
+          await el.updateComplete;
+
+          const getVisibilityState = () =>
+            Array.from(el.renderRoot.querySelectorAll('sl-tag')).map(tag => tag.style.display !== 'none');
+
+          // Allow initial layout/stacking to settle.
+          await vi.advanceTimersByTimeAsync(300);
+          await el.updateComplete;
+          await waitForNextFrame();
+          const firstState = getVisibilityState(),
+            firstInputWidth = input.getBoundingClientRect().width;
+
+          // Wait long enough to cover any potential oscillation cycles
+          await vi.advanceTimersByTimeAsync(500);
+          await el.updateComplete;
+          await waitForNextFrame();
+          const secondState = getVisibilityState(),
+            secondInputWidth = input.getBoundingClientRect().width;
+
+          // If the component flickers, the visibility pattern of tags would change over time.
+          expect(secondState).to.deep.equal(firstState);
+          expect(secondInputWidth).to.be.closeTo(firstInputWidth, 0.5);
+        } finally {
+          vi.useRealTimers();
+        }
+      });
+
+      it('should keep the input width bounded while adding tags in limited space', async () => {
+        vi.useFakeTimers();
+
+        try {
+          el.style.maxInlineSize = '300px';
+          const textField = el.renderRoot.querySelector('sl-text-field') as HTMLElement;
+
+          for (const count of [1, 2, 3, 4, 5, 6]) {
+            el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'].slice(0, count);
+            await el.updateComplete;
+            await vi.advanceTimersByTimeAsync(300);
+            await el.updateComplete;
+            await waitForNextFrame();
+
+            const inputWidth = input.getBoundingClientRect().width,
+              fieldWidth = textField.getBoundingClientRect().width,
+              comboboxWidth = el.getBoundingClientRect().width;
+
+            expect(inputWidth).to.be.a('number');
+            expect(Number.isFinite(inputWidth)).to.be.true;
+            expect(inputWidth).to.be.at.most(fieldWidth + 0.5);
+            expect(comboboxWidth).to.be.at.most(300.5);
+          }
+        } finally {
+          vi.useRealTimers();
+        }
+      });
+
       it('should have a tag for each selected option', () => {
         const tags = el.renderRoot.querySelectorAll('sl-tag');
 
@@ -940,16 +1027,60 @@ describe('sl-combobox', () => {
       });
 
       it('should stack options when there is limited space', async () => {
-        el.style.maxInlineSize = '300px';
-        el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
-        await el.updateComplete;
-        await new Promise(resolve => setTimeout(resolve, 50));
+        vi.useFakeTimers();
 
-        const tagList = el.renderRoot.querySelector('sl-tag-list');
-        expect(tagList?.renderRoot.querySelector('sl-tag')).to.have.trimmed.text('+4');
+        try {
+          el.style.maxInlineSize = '300px';
+          el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
+          await el.updateComplete;
+          await vi.advanceTimersByTimeAsync(300);
+          await el.updateComplete;
+          await waitForNextFrame();
 
-        const visible = Array.from(el.renderRoot.querySelectorAll('sl-tag')).map(tag => tag.style.display !== 'none');
-        expect(visible).to.deep.equal([false, false, false, false, true, true]);
+          const tagList = el.renderRoot.querySelector('sl-tag-list'),
+            stackTag = tagList?.renderRoot.querySelector('sl-tag'),
+            tags = Array.from(el.renderRoot.querySelectorAll('sl-tag')),
+            visibility = tags.map(tag => tag.style.display !== 'none'),
+            hiddenCount = visibility.filter(isVisible => !isVisible).length,
+            visibleCount = visibility.length - hiddenCount;
+
+          expect(visibleCount).to.be.greaterThan(0);
+          expect(hiddenCount).to.be.greaterThan(0);
+          expect(stackTag).to.have.trimmed.text(`+${hiddenCount}`);
+          expect(visibility.join(',')).to.match(/^false(,false)*,true(,true)*$/);
+        } finally {
+          vi.useRealTimers();
+        }
+      });
+
+      it('should reveal more tags after the combobox grows again', async () => {
+        vi.useFakeTimers();
+
+        try {
+          el.style.inlineSize = '300px';
+          el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
+          await el.updateComplete;
+          await vi.advanceTimersByTimeAsync(300);
+          await el.updateComplete;
+          await waitForNextFrame();
+
+          const getVisibleCount = () =>
+            Array.from(el.renderRoot.querySelectorAll('sl-tag')).filter(tag => tag.style.display !== 'none').length;
+
+          const collapsedVisibleCount = getVisibleCount();
+
+          el.style.inlineSize = '900px';
+          await vi.advanceTimersByTimeAsync(300);
+          await el.updateComplete;
+          await waitForNextFrame();
+
+          const expandedVisibleCount = getVisibleCount();
+
+          expect(collapsedVisibleCount).to.be.lessThan(6);
+          expect(expandedVisibleCount).to.be.greaterThan(collapsedVisibleCount);
+        } finally {
+          vi.useRealTimers();
+        }
       });
 
       it('should add a tag after selecting an option', async () => {
@@ -963,6 +1094,7 @@ describe('sl-combobox', () => {
         await el.updateComplete;
 
         const tags = el.renderRoot.querySelectorAll('sl-tag');
+
         expect(tags).to.have.lengthOf(2);
         expect(tags[0]).to.have.trimmed.text('Option 2');
         expect(tags[1]).to.have.trimmed.text('Option 1');

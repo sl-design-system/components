@@ -1,24 +1,21 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "declaration": true,
     "emitDeclarationOnly": true,
     "experimentalDecorators": true,
     "importHelpers": true,
     "inlineSources": true,
-    "lib": ["ES2022", "ESNext", "DOM", "DOM.Iterable"],
-    "module": "esnext",
+    "lib": ["ES2022", "ESNext", "DOM"],
     "moduleResolution": "bundler",
     "noImplicitAny": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedParameters": true,
-    "rootDir": ".",
     "skipLibCheck": true,
     "sourceMap": true,
-    "strict": true,
     "target": "esnext",
+    "types": ["*"],
     "useDefineForClassFields": false
   }
 }

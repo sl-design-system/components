@@ -3,6 +3,7 @@ import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './accordion-item.scss.js';
 import { type AccordionIconType } from './accordion.js';
 
@@ -66,6 +67,7 @@ export class AccordionItem extends LitElement {
         <summary
           @click=${this.#onClick}
           aria-controls="content"
+          aria-disabled=${ifDefined(this.disabled ? 'true' : undefined)}
           aria-expanded=${this.open ? 'true' : 'false'}
           id="summary"
           part="summary"

@@ -6,6 +6,7 @@ type Story = StoryObj;
 
 export default {
   title: 'Getting started/Checklist',
+  tags: ['!dev'],
   parameters: {
     layout: 'centered'
   },

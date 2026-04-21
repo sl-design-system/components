@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/shared",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "description": "Shared code for the SL Design System components",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -35,6 +35,10 @@
     "./events.js": {
       "import": "./src/events.js",
       "types": "./src/events.d.ts"
+    },
+    "./helpers/forward-aria.js": {
+      "import": "./src/helpers/forward-aria.js",
+      "types": "./src/helpers/forward-aria.d.ts"
     },
     "./mixins.js": {
       "import": "./src/mixins.js",

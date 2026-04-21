@@ -1,5 +1,15 @@
 # @sl-design-system/message-dialog
 
+## 1.1.4
+
+### Patch Changes
+
+- [#3147](https://github.com/sl-design-system/components/pull/3147) [`946eda3`](https://github.com/sl-design-system/components/commit/946eda3c933c3fe90c460f0645d90cd45e5738b4) - Use `<h1>` instead of `<h2>` for the dialog title. Since a dialog is independent of the surrounding page content, it has its own heading hierarchy and the title should always be the top-level heading.
+
+- Updated dependencies [[`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`dd96d1b`](https://github.com/sl-design-system/components/commit/dd96d1b88f030a7b4a81b51d77a8461b5692909c), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`946eda3`](https://github.com/sl-design-system/components/commit/946eda3c933c3fe90c460f0645d90cd45e5738b4)]:
+  - @sl-design-system/button@2.0.0
+  - @sl-design-system/dialog@2.1.0
+
 ## 1.1.3
 
 ### Patch Changes

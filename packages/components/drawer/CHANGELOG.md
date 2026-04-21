@@ -1,5 +1,13 @@
 # @sl-design-system/drawer
 
+## 0.0.32
+
+### Patch Changes
+
+- Updated dependencies [[`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538)]:
+  - @sl-design-system/button@2.0.0
+  - @sl-design-system/button-bar@1.5.0
+
 ## 0.0.31
 
 ### Patch Changes

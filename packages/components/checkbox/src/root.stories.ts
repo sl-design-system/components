@@ -5,8 +5,7 @@ import '../register.js';
 type Story = StoryObj;
 
 export default {
-  title: 'Form/Checkbox',
-  tags: ['stable']
+  title: 'Form/Checkbox'
 } as Meta;
 
 export const All: Story = {

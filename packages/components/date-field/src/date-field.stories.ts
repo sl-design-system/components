@@ -34,7 +34,6 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Form/Date field',
-  tags: ['draft'],
   args: {
     disabled: false,
     label: 'Date',

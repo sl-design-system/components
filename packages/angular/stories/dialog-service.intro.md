@@ -24,7 +24,7 @@ For general dialog configuration options like `closeButton`, `disableCancel`, et
 @Component({
   selector: 'app-user-dialog',
   template: `
-    <h2 slot="title">User Details</h2>
+    <h1 slot="title">User Details</h1>
     <p>User ID: {{ data.userId }}</p>
     <sl-button slot="primary-actions" (click)="dialogRef.close('saved')">Save</sl-button>
     <sl-button slot="primary-actions" (click)="dialogRef.close('cancelled')">Cancel</sl-button>
@@ -137,7 +137,7 @@ import { DialogRef } from '@sl-design-system/angular';
 
 @Component({
   template: `
-    <h2 slot="title">{{ data.title }}</h2>
+    <h1 slot="title">{{ data.title }}</h1>
     <p>{{ data.message }}</p>
     <sl-button (click)="dialogRef.close('ok')" slot="primary-actions">OK</sl-button>
   `

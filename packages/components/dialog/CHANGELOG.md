@@ -1,5 +1,37 @@
 # @sl-design-system/dialog
 
+## 2.1.0
+
+### Minor Changes
+
+- [#3139](https://github.com/sl-design-system/components/pull/3139) [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538) - Add support for the [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API) (`--show-modal`, `--close` and `--request-close` commands)
+
+  The dialog now listens for `command` events and responds to:
+  - `--show-modal` by calling `showModal()`
+  - `--close` by calling `close()`
+  - `--request-close` by calling `requestClose()`, which fires a `cancel` event that can be prevented
+
+  Additionally, `close()` and `requestClose()` now accept an optional `returnValue` parameter.
+
+  This allows buttons to declaratively open and close dialogs without writing any JavaScript.
+
+  Because we wrap the native `<dialog>` element inside `<sl-dialog>`, we use custom command names (`--show-modal`, `--close` and `--request-close`). Using the standard `show-modal` and `close` command names is not allowed and will result in the `command` event not being dispatched.
+
+### Patch Changes
+
+- [#3142](https://github.com/sl-design-system/components/pull/3142) [`dd96d1b`](https://github.com/sl-design-system/components/commit/dd96d1b88f030a7b4a81b51d77a8461b5692909c) - Fixed dialog flickering on viewport resize and improved close/open animations:
+  - Fixed flickering when resizing between mobile and desktop,
+  - Fixed close animation in Safari/Firefox: Browsers without `overlay` support remove the dialog from the top layer immediately on `close()`, which broke exit transitions. The `close()` method now adds a `.closing` class and waits for animations to finish before calling the native `dialog.close()`, so the exit animation plays while the dialog is still visible.
+
+- [#3147](https://github.com/sl-design-system/components/pull/3147) [`946eda3`](https://github.com/sl-design-system/components/commit/946eda3c933c3fe90c460f0645d90cd45e5738b4) - Fix styling of title to override any global styles
+
+  Always use an `<h1>` element with `slot="title"` for the dialog title; the component now correctly resets heading styles so it displays properly. Since a dialog is independent of the surrounding page content, it has its own content hierarchy. This means it should not follow the `h1` > `h2` > `h3` convention of the page it is opened from; the dialog title is always the top-level heading within its own context.
+
+- Updated dependencies [[`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`dd96d1b`](https://github.com/sl-design-system/components/commit/dd96d1b88f030a7b4a81b51d77a8461b5692909c), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538)]:
+  - @sl-design-system/button@2.0.0
+  - @sl-design-system/button-bar@1.5.0
+  - @sl-design-system/shared@0.12.0
+
 ## 2.0.4
 
 ### Patch Changes

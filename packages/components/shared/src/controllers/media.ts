@@ -2,13 +2,28 @@ import { type ReactiveController, type ReactiveControllerHost } from 'lit';
 
 export type MediaDevice = 'mobile' | 'tablet' | 'desktop' | 'digiboard';
 
+export interface MediaChangeEvent {
+  /** Previous device before the change. */
+  previous: MediaDevice;
+
+  /** Current device after the change. */
+  current: MediaDevice;
+}
+
+export type MediaControllerConfig = {
+  /** Callback that fires when the viewport crosses a breakpoint. */
+  onChange?(event: MediaChangeEvent): void;
+};
+
 /**
  * A controller that listens for media query changes and updates the host element
  * when the media query matches or no longer matches.
  */
 export class MediaController implements ReactiveController {
+  #config?: MediaControllerConfig;
   #host: ReactiveControllerHost & HTMLElement;
   #mediaQueries: Map<MediaDevice, MediaQueryList> = new Map();
+  #previousDevice?: MediaDevice;
 
   /** Whether the current device is a mobile device. */
   get mobile(): boolean {
@@ -30,13 +45,26 @@ export class MediaController implements ReactiveController {
     return this.#mediaQueries.get('digiboard')?.matches ?? false;
   }
 
-  constructor(host: ReactiveControllerHost & HTMLElement) {
+  /** Current device based on the active media query. */
+  get device(): MediaDevice {
+    for (const [device, mql] of this.#mediaQueries) {
+      if (mql.matches) {
+        return device;
+      }
+    }
+
+    return 'desktop';
+  }
+
+  constructor(host: ReactiveControllerHost & HTMLElement, config?: MediaControllerConfig) {
+    this.#config = config;
     this.#host = host;
     this.#host.addController(this);
   }
 
   hostConnected(): void {
     this.#setup();
+    this.#previousDevice = this.device;
     this.#mediaQueries.forEach(mql => mql.addEventListener('change', this.#onChange));
   }
 
@@ -45,6 +73,15 @@ export class MediaController implements ReactiveController {
   }
 
   #onChange = (): void => {
+    const current = this.device;
+
+    if (this.#previousDevice !== undefined && this.#previousDevice !== current) {
+      const previous = this.#previousDevice;
+      this.#previousDevice = current;
+
+      this.#config?.onChange?.({ previous, current });
+    }
+
     this.#host.requestUpdate();
   };
 

@@ -1,5 +1,18 @@
 # @sl-design-system/text-area
 
+## 1.1.8
+
+### Patch Changes
+
+- [#3192](https://github.com/sl-design-system/components/pull/3192) [`b2c494d`](https://github.com/sl-design-system/components/commit/b2c494d431192e578160096411ef32e344a6b46c) - The default number of rows is now explicitly set to 3 (previously it mimiced the browser default of 2). The `--sl-text-area-rows` CSS custom property has been removed and replaced with an internal css-variable for better minimum height handling; this means you only need the `rows` property to set the height of the text-area and no longer need to set `--sl-text-area-rows` when the minimum height is smaller than 3 rows.
+
+  If you currently have a scenario where you set `--sl-text-area-rows` to a bigger value than `rows` this will be a "breaking" change in your application. It will still work, but it might look different.
+  For example, if you have a component with `rows=6` and `--sl-text-area-rows: 7`, with this version it will get a height of `6lh`, making it smaller than in the previous version.
+
+- Updated dependencies [[`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`dd96d1b`](https://github.com/sl-design-system/components/commit/dd96d1b88f030a7b4a81b51d77a8461b5692909c), [`99c1464`](https://github.com/sl-design-system/components/commit/99c1464e46f0f6c2f17d7d8ccd62f58bacaceeb3), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538)]:
+  - @sl-design-system/shared@0.12.0
+  - @sl-design-system/form@1.3.6
+
 ## 1.1.7
 
 ### Patch Changes

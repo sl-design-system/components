@@ -14,7 +14,6 @@ Icon.register(faStrawberry);
 
 export default {
   title: 'Utilities/Infotip',
-  tags: ['draft'],
   args: {
     content: 'This field requires a unique identifier used for account login.'
   },

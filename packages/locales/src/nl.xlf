@@ -426,6 +426,10 @@
   <source>Remove tag '<x id="0" equiv-text="${this.label}"/>'</source>
   <target>Verwijder tag '<x id="0" equiv-text="${this.label}"/>'</target>
 </trans-unit>
+<trans-unit id="sl.infotip.moreInformation">
+  <source>More information</source>
+  <target>Meer informatie</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

@@ -165,6 +165,10 @@
     overflow: hidden;
   }
 
+  :host(:not(.sl-has-article)) slot[name='body'] {
+    display: contents;
+  }
+
   slot.title::slotted(*),
   slot[name='body']::slotted(*) {
     margin-block: 0;

@@ -224,7 +224,7 @@ export default {
 
 export const DialogServiceExample: StoryFn = () => ({
   description:
-    'This example demonstrates using the <strong>DialogService</strong> to programmatically open and manage dialogs in Angular applications. The service works with any Angular component as dialog content.<br/><br/>The dialog component receives data through @Inject(DIALOG_DATA), allowing you to pass configuration and content to your dialogs. Use DialogRef to control the dialog and return results when closing.<br/><br/>This example shows basic dialogs with and without close buttons. See the next example for implementing forms inside dialogs.',
+    'This example demonstrates using the <strong>DialogService</strong> to programmatically open and manage dialogs in Angular applications. The service works with any Angular component as dialog content.<br aria-hidden="true" /><br aria-hidden="true" />The dialog component receives data through @Inject(DIALOG_DATA), allowing you to pass configuration and content to your dialogs. Use DialogRef to control the dialog and return results when closing.<br aria-hidden="true" /><br aria-hidden="true" />This example shows basic dialogs with and without close buttons. See the next example for implementing forms inside dialogs.',
   template: '<sla-dialog-service></sla-dialog-service>'
 });
 

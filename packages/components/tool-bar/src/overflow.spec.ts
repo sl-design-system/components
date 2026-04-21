@@ -398,7 +398,7 @@ describe('forceRecalculation', () => {
   });
 });
 
-describe('measureConstrainedWidth', () => {
+describe('width measurement', () => {
   let el: ToolBar;
 
   beforeEach(async () => {
@@ -412,34 +412,51 @@ describe('measureConstrainedWidth', () => {
           <sl-icon name="far-bell"></sl-icon>
           Button 2
         </sl-button>
+        <sl-button>
+          <sl-icon name="far-pen"></sl-icon>
+          Button 3
+        </sl-button>
       </sl-tool-bar>
     `);
 
     await new Promise(resolve => setTimeout(resolve, 50));
   });
 
-  it('should measure the correct content-box width', () => {
-    expect(el.getBoundingClientRect().width).to.equal(400);
+  it('should show all items when there is enough space', () => {
+    expect(el.items.filter(item => item.visible).length).to.equal(3);
+    expect(el.menuItems.length).to.equal(0);
   });
 
-  it('should still have a width when inline-size is fit-content', async () => {
+  it('should hide items when the toolbar gets narrower', async () => {
+    el.style.inlineSize = '150px';
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    expect(el.menuItems.length).to.equal(2);
+  });
+
+  it('should show items again when the toolbar gets wider', async () => {
+    el.style.inlineSize = '150px';
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    expect(el.menuItems.length).to.equal(2);
+
+    el.style.inlineSize = '400px';
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    expect(el.menuItems.length).to.equal(0);
+  });
+
+  it('should keep all items visible when inline-size is fit-content', async () => {
     el.style.inlineSize = 'fit-content';
     await new Promise(resolve => setTimeout(resolve, 100));
 
-    const visibleCount = el.items.filter(item => item.visible).length;
-
-    expect(visibleCount).to.equal(2);
+    expect(el.items.filter(item => item.visible).length).to.equal(3);
   });
 
-  it('should have less space for items when contained', async () => {
-    el.contained = true;
-    await el.updateComplete;
-
-    el.refresh();
+  it('should not leave the measuring state set', async () => {
+    el.style.inlineSize = '150px';
     await new Promise(resolve => setTimeout(resolve, 100));
 
-    const visibleCount = el.items.filter(item => item.visible).length;
-
-    expect(visibleCount).to.equal(2);
+    expect(el.matches(':state(measuring)')).to.be.false;
   });
 });

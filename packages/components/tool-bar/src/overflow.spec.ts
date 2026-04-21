@@ -141,7 +141,9 @@ describe('calculateVisibility', () => {
       expect(items[2].visible).to.be.true;
     });
   });
+});
 
+describe('overflow (integration)', () => {
   describe('all items hidden', () => {
     let el: ToolBar;
 
@@ -176,104 +178,104 @@ describe('calculateVisibility', () => {
       expect(menuButton).to.exist;
     });
   });
-});
 
-describe('overflow (integration)', () => {
-  let el: ToolBar;
+  describe('overflow menu', () => {
+    let el: ToolBar;
 
-  beforeEach(async () => {
-    el = await fixture(html`
-      <sl-tool-bar style="inline-size: 48px">
-        <sl-button>
-          <sl-icon name="far-gear"></sl-icon>
-          Button
-        </sl-button>
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-tool-bar style="inline-size: 48px">
+          <sl-button>
+            <sl-icon name="far-gear"></sl-icon>
+            Button
+          </sl-button>
 
-        <sl-tool-bar-divider></sl-tool-bar-divider>
+          <sl-tool-bar-divider></sl-tool-bar-divider>
 
-        <sl-button aria-labelledby="edit-tooltip" fill="ghost">
-          <sl-icon name="far-pen"></sl-icon>
-        </sl-button>
-        <sl-tooltip id="edit-tooltip">Edit</sl-tooltip>
-
-        <sl-menu-button>
-          <div slot="button">Edit</div>
-          <sl-menu-item>
+          <sl-button aria-labelledby="edit-tooltip" fill="ghost">
             <sl-icon name="far-pen"></sl-icon>
-            Rename...
-          </sl-menu-item>
-          <sl-menu-item>
-            <sl-icon name="far-trash"></sl-icon>
-            Delete...
-          </sl-menu-item>
-        </sl-menu-button>
-      </sl-tool-bar>
-    `);
+          </sl-button>
+          <sl-tooltip id="edit-tooltip">Edit</sl-tooltip>
 
-    // Give the resize observer time to do its thing
-    await new Promise(resolve => setTimeout(resolve, 50));
-  });
+          <sl-menu-button>
+            <div slot="button">Edit</div>
+            <sl-menu-item>
+              <sl-icon name="far-pen"></sl-icon>
+              Rename...
+            </sl-menu-item>
+            <sl-menu-item>
+              <sl-icon name="far-trash"></sl-icon>
+              Delete...
+            </sl-menu-item>
+          </sl-menu-button>
+        </sl-tool-bar>
+      `);
 
-  it('should have hidden all slotted elements', () => {
-    const menuButton = el.shadowRoot?.querySelector('sl-menu-button');
+      // Give the resize observer time to do its thing
+      await new Promise(resolve => setTimeout(resolve, 50));
+    });
 
-    expect(menuButton).to.exist;
-    expect(el.menuItems.length).to.be.greaterThan(0);
-  });
+    it('should have hidden all slotted elements', () => {
+      const menuButton = el.shadowRoot?.querySelector('sl-menu-button');
 
-  it('should have a menu button', () => {
-    const menuButton = el.shadowRoot?.querySelector('sl-menu-button');
+      expect(menuButton).to.exist;
+      expect(el.menuItems.length).to.be.greaterThan(0);
+    });
 
-    expect(menuButton).to.exist;
-  });
+    it('should have a menu button', () => {
+      const menuButton = el.shadowRoot?.querySelector('sl-menu-button');
 
-  it('should have a regular menu item for the button', () => {
-    const menuItem = el.renderRoot.querySelector('sl-menu-item');
+      expect(menuButton).to.exist;
+    });
 
-    expect(menuItem).to.exist;
-    expect(menuItem).to.have.trimmed.text('Button');
-    expect(menuItem).to.contain('sl-icon[name="far-gear"]');
-  });
+    it('should have a regular menu item for the button', () => {
+      const menuItem = el.renderRoot.querySelector('sl-menu-item');
 
-  it('should have an hr element for the divider', () => {
-    const hr = el.renderRoot.querySelector('hr');
+      expect(menuItem).to.exist;
+      expect(menuItem).to.have.trimmed.text('Button');
+      expect(menuItem).to.contain('sl-icon[name="far-gear"]');
+    });
 
-    expect(hr).to.exist;
-  });
+    it('should have an hr element for the divider', () => {
+      const hr = el.renderRoot.querySelector('hr');
 
-  it('should have a menu item for the icon only button with tooltip connected via aria-labelledby', () => {
-    const menuItems = el.renderRoot.querySelectorAll('sl-menu-item');
+      expect(hr).to.exist;
+    });
 
-    const editButton = Array.from(menuItems).find(
-      item => item.querySelector('sl-icon[name="far-pen"]') && !item.querySelector('sl-menu')
-    );
+    it('should have a menu item for the icon only button with tooltip connected via aria-labelledby', () => {
+      const menuItems = el.renderRoot.querySelectorAll('sl-menu-item');
 
-    expect(editButton).to.exist;
-    expect(editButton).to.have.trimmed.text('Edit');
-    expect(editButton).to.contain('sl-icon[name="far-pen"]');
-  });
+      const editButton = Array.from(menuItems).find(
+        item => item.querySelector('sl-icon[name="far-pen"]') && !item.querySelector('sl-menu')
+      );
 
-  it('should have a menu item with submenu for the menu button', () => {
-    const menu = el.renderRoot.querySelector('sl-menu')!,
-      menuItem = menu.parentElement as MenuItem,
-      menuItems = menu.querySelectorAll('sl-menu-item');
+      expect(editButton).to.exist;
+      expect(editButton).to.have.trimmed.text('Edit');
+      expect(editButton).to.contain('sl-icon[name="far-pen"]');
+    });
 
-    expect(menuItem).to.contain.text('Edit');
-    expect(menuItems).to.have.length(2);
-    expect(menuItems[0]).to.have.trimmed.text('Rename...');
-    expect(menuItems[0]).to.contain('sl-icon[name="far-pen"]');
-    expect(menuItems[1]).to.have.trimmed.text('Delete...');
-    expect(menuItems[1]).to.contain('sl-icon[name="far-trash"]');
-  });
+    it('should have a menu item with submenu for the menu button', () => {
+      const menu = el.renderRoot.querySelector('sl-menu')!,
+        menuItem = menu.parentElement as MenuItem,
+        menuItems = menu.querySelectorAll('sl-menu-item');
 
-  it('should proxy clicks on the menu items to the original elements', () => {
-    const onClick = spy();
+      expect(menuItem).to.contain.text('Edit');
+      expect(menuItems).to.have.length(2);
+      expect(menuItems[0]).to.have.trimmed.text('Rename...');
+      expect(menuItems[0]).to.contain('sl-icon[name="far-pen"]');
+      expect(menuItems[1]).to.have.trimmed.text('Delete...');
+      expect(menuItems[1]).to.contain('sl-icon[name="far-trash"]');
+    });
 
-    el.querySelector('sl-button')?.addEventListener('click', onClick);
+    it('should proxy clicks on the menu items to the original elements', () => {
+      const onClick = spy();
 
-    el.renderRoot.querySelector('sl-menu-item')?.click();
+      el.querySelector('sl-button')?.addEventListener('click', onClick);
 
-    expect(onClick).to.have.been.calledOnce;
+      el.renderRoot.querySelector('sl-menu-item')?.click();
+
+      expect(onClick).to.have.been.calledOnce;
+    });
   });
 });
 

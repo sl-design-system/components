@@ -176,13 +176,17 @@ class StoryTemplateExtractor {
     }
 
     // Extract description
-    let descriptionMatch = storyContent.match(/description:\s*{\s*story:\s*['"`]([\s\S]*?)['"`]/);
+    let descriptionMatch = storyContent.match(
+      /description:\s*{\s*story:\s*(["'`])((?:\\.|(?!\1)[\s\S])*?)\1/
+    );
     if (descriptionMatch) {
-      description = descriptionMatch[1].trim();
+      description = descriptionMatch[2].trim();
     } else {
-      descriptionMatch = storyContent.match(/description:\s*['"`]([\s\S]*?)['"`]/);
+      descriptionMatch = storyContent.match(
+        /description:\s*(["'`])((?:\\.|(?!\1)[\s\S])*?)\1/
+      );
       if (descriptionMatch) {
-        description = descriptionMatch[1].trim();
+        description = descriptionMatch[2].trim();
       }
     }
 

@@ -141,6 +141,41 @@ describe('calculateVisibility', () => {
       expect(items[2].visible).to.be.true;
     });
   });
+
+  describe('all items hidden', () => {
+    let el: ToolBar;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-tool-bar style="inline-size: 48px">
+          <sl-button>
+            <sl-icon name="far-gear"></sl-icon>
+            Button 1
+          </sl-button>
+          <sl-button>
+            <sl-icon name="far-bell"></sl-icon>
+            Button 2
+          </sl-button>
+        </sl-tool-bar>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+    });
+
+    it('should hide all items when the toolbar is too narrow', () => {
+      expect(el.items.every(item => !item.visible)).to.be.true;
+    });
+
+    it('should show items in the overflow menu', () => {
+      expect(el.menuItems.length).to.equal(2);
+    });
+
+    it('should show the overflow menu button', () => {
+      const menuButton = el.shadowRoot?.querySelector('sl-menu-button');
+
+      expect(menuButton).to.exist;
+    });
+  });
 });
 
 describe('overflow (integration)', () => {
@@ -360,5 +395,51 @@ describe('forceRecalculation', () => {
     await new Promise(resolve => setTimeout(resolve, 250));
 
     expect(document.body.contains(el)).to.be.false;
+  });
+});
+
+describe('measureConstrainedWidth', () => {
+  let el: ToolBar;
+
+  beforeEach(async () => {
+    el = await fixture(html`
+      <sl-tool-bar style="inline-size: 400px">
+        <sl-button>
+          <sl-icon name="far-gear"></sl-icon>
+          Button 1
+        </sl-button>
+        <sl-button>
+          <sl-icon name="far-bell"></sl-icon>
+          Button 2
+        </sl-button>
+      </sl-tool-bar>
+    `);
+
+    await new Promise(resolve => setTimeout(resolve, 50));
+  });
+
+  it('should measure the correct content-box width', () => {
+    expect(el.getBoundingClientRect().width).to.equal(400);
+  });
+
+  it('should still have a width when inline-size is fit-content', async () => {
+    el.style.inlineSize = 'fit-content';
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    const visibleCount = el.items.filter(item => item.visible).length;
+
+    expect(visibleCount).to.equal(2);
+  });
+
+  it('should have less space for items when contained', async () => {
+    el.contained = true;
+    await el.updateComplete;
+
+    el.refresh();
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    const visibleCount = el.items.filter(item => item.visible).length;
+
+    expect(visibleCount).to.equal(2);
   });
 });

@@ -372,7 +372,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     // Measure the available width with all items visible.
     revealAllItems(this.items);
-    void this.offsetHeight;
     availableWidth = measureConstrainedWidth(this, this.#internals);
 
     // Remove `all-items-hidden` before measuring so the menu button keeps
@@ -489,8 +488,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   }
 
   #measureItems(): void {
-    // Skip measurement when the element is hidden (display: none), yielding zero widths
-    if (this.offsetParent === null) {
+    // Skip measurement when the element has no layout boxes, as widths cannot be measured yet
+    if (this.getClientRects().length === 0) {
       this.#needsMeasurement = true;
       return;
     }

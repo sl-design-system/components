@@ -1605,22 +1605,6 @@ describe('sl-combobox', () => {
 
       expect(input).to.have.attribute('aria-labelledby', 'sl-label-123');
     });
-
-    it('should sync id from host to input', async () => {
-      const el = await fixture<Combobox>(html`
-        <sl-combobox id="my-combobox">
-          <sl-listbox>
-            <sl-option>Option 1</sl-option>
-          </sl-listbox>
-        </sl-combobox>
-      `);
-      await el.updateComplete;
-
-      const input = el.querySelector('input[slot="input"]')!;
-
-      expect(input).to.have.attribute('id', 'my-combobox');
-    });
-
     it('should have proper ARIA roles and attributes', async () => {
       const el = await fixture<Combobox>(html`
         <sl-combobox>

@@ -19,16 +19,9 @@ export type ToggleButtonFill = 'outline' | 'solid';
 export type ToggleButtonSize = 'sm' | 'md' | 'lg';
 
 /**
- * Lets the user toggle between two states.
- *
- * ```html
- *  <sl-toggle-button>
- *    <sl-icon name="far-gear" slot="default"></sl-icon>
- *    <sl-icon name="fas-gear" slot="pressed"></sl-icon>
- *  </sl-toggle-button>
- * ```
- *
  * @customElement sl-toggle-button
+ * @summary Lets the user toggle between two states.
+ *
  * @slot - The icon shown in the default state of the button
  * @slot pressed - The icon shown in the pressed state of the button
  */

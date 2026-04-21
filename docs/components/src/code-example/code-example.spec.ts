@@ -76,6 +76,50 @@ describe('doc-code-example', () => {
     });
   });
 
+  describe('orientation=horizontal', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<doc-code-example orientation="horizontal"></doc-code-example>`);
+    });
+
+    it('should reflect the orientation attribute on the element', () => {
+      expect(el).to.have.attribute('orientation', 'horizontal');
+    });
+
+    it('should lay out the demo area horizontally', () => {
+      const demo = el.renderRoot.querySelector('.demo');
+
+      expect(demo).to.have.style('display', 'flex');
+    });
+
+    it('should add a gap between slotted elements', () => {
+      const demo = el.renderRoot.querySelector('.demo');
+
+      expect(demo).to.have.style('gap', '16px');
+    });
+  });
+
+  describe('orientation=vertical', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<doc-code-example orientation="vertical"></doc-code-example>`);
+    });
+
+    it('should reflect the orientation attribute on the element', () => {
+      expect(el).to.have.attribute('orientation', 'vertical');
+    });
+
+    it('should lay out the demo area vertically', () => {
+      const demo = el.renderRoot.querySelector('.demo');
+
+      expect(demo).to.have.style('display', 'grid');
+    });
+
+    it('should add a gap between slotted elements', () => {
+      const demo = el.renderRoot.querySelector('.demo');
+
+      expect(demo).to.have.style('gap', '16px');
+    });
+  });
+
   describe('justify', () => {
     beforeEach(async () => {
       el = await fixture(html`<doc-code-example justify="center"></doc-code-example>`);

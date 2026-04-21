@@ -17,6 +17,9 @@ export class CodeExample extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static styles: CSSResultGroup = styles;
 
+  /** The orientation of the content within the demo area. */
+  @property({ reflect: true }) orientation?: 'horizontal' | 'vertical';
+
   /** Whether the demo background should use the inverted background color. */
   @property({ type: Boolean, reflect: true }) inverted?: boolean;
 

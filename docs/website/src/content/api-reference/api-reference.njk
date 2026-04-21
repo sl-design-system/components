@@ -126,7 +126,7 @@
   <tbody>
     {% for method in element.methods %}
     <tr>
-      <td>{% if method.static %}<span class="member-modifier">static</span> {% endif %}<code>{{ method.name }}()</code></td>
+      <td>{% if method.static %}<sl-badge class="modifier" color="yellow" emphasis="bold">static</sl-badge> {% endif %}<code>{{ method.name }}()</code></td>
       <td>
         {% if method.parameters and method.parameters.length %}
           {% for param in method.parameters %}<code>{{ param.name }}{% if param.type %}: {{ param.type.text }}{% endif %}</code>{% if not loop.last %}, {% endif %}{% endfor %}

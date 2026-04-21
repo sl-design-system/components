@@ -25,6 +25,18 @@
   border-block-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
 }
 
+:host([orientation='horizontal']) .demo {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sl-size-100);
+  justify-content: var(--_justify, start);
+}
+
+:host([orientation='vertical']) .demo {
+  gap: var(--sl-size-200);
+}
+
 .demo {
   display: grid;
   justify-items: var(--_justify, start);

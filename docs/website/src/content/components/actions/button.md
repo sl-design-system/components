@@ -47,15 +47,13 @@ Warning
 Danger
 : Irreversible or potentially destructive actions.
 
-```html {.example}
-<sl-button-bar>
-  <sl-button variant="primary">Primary</sl-button>
-  <sl-button variant="secondary">Secondary</sl-button>
-  <sl-button variant="success">Success</sl-button>
-  <sl-button variant="info">Info</sl-button>
-  <sl-button variant="warning">Warning</sl-button>
-  <sl-button variant="danger">Danger</sl-button>
-</sl-button-bar>
+```html {.example .horizontal}
+<sl-button variant="primary">Primary</sl-button>
+<sl-button variant="secondary">Secondary</sl-button>
+<sl-button variant="success">Success</sl-button>
+<sl-button variant="info">Info</sl-button>
+<sl-button variant="warning">Warning</sl-button>
+<sl-button variant="danger">Danger</sl-button>
 ```
 
 There is an additional `inverted` variant that is designed for use on dark backgrounds.
@@ -80,27 +78,23 @@ Ghost
 Link
 : Informational actions, such as "Read more" or "View details".
 
-```html {.example}
-<sl-button-bar>
-  <sl-button>Solid</sl-button>
-  <sl-button fill="outline">Outline</sl-button>
-  <sl-button fill="ghost">Ghost</sl-button>
-  <sl-button fill="link">Link</sl-button>
-</sl-button-bar>
+```html {.example .horizontal}
+<sl-button>Solid</sl-button>
+<sl-button fill="outline">Outline</sl-button>
+<sl-button fill="ghost">Ghost</sl-button>
+<sl-button fill="link">Link</sl-button>
 ```
 
 ### Shape
 
 Use the `shape` attribute to change the button's shape.
 
-```html {.example}
-<sl-button-bar>
-  <sl-button>Square</sl-button>
-  <sl-button shape="pill">Pill</sl-button>
-  <sl-button aria-label="Smile" shape="pill">
-    <sl-icon name="face-smile"></sl-icon>
-  </sl-button>
-</sl-button-bar>
+```html {.example .horizontal}
+<sl-button>Square</sl-button>
+<sl-button shape="pill">Pill</sl-button>
+<sl-button aria-label="Smile" shape="pill">
+  <sl-icon name="face-smile"></sl-icon>
+</sl-button>
 ```
 
 ### Size
@@ -111,23 +105,18 @@ Buttons are available in three sizes:
 - `md` — Medium, the default
 - `lg` — Large, for prominent actions
 
-```html {.example}
-<sl-button-bar>
-  <sl-button size="sm">Small</sl-button>
-  <sl-button size="md">Medium</sl-button>
-  <sl-button size="lg">Large</sl-button>
-</sl-button-bar>
+```html {.example .horizontal}
+<sl-button size="sm">Small</sl-button>
+<sl-button size="md">Medium</sl-button>
+<sl-button size="lg">Large</sl-button>
 ```
 
 ### Disabled
 
 You can either use the `disabled` attribute to disable a button or set the `aria-disabled="true"` attribute for accessibility. Both will not trigger any events. The former will prevent the button from being focusable, while the latter will keep the button focusable but will indicate to assistive technologies that the action is unavailable.
 
-```html {.example}
-<sl-button-bar>
-  <sl-button disabled>Disabled</sl-button>
-  <sl-button aria-disabled="true">Aria Disabled</sl-button>
-</sl-button-bar>
+```html {.example .horizontal}
+<sl-button disabled>Disabled</sl-button> <sl-button aria-disabled="true">Aria Disabled</sl-button>
 ```
 
 The `aria-disabled="true"` attribute should not be used as a one-for-one replacement for the `disabled` attribute because they have different functionalities.

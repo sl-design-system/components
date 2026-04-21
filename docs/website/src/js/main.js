@@ -1,7 +1,28 @@
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import './theme.js';
 import './icons.js';
-import { faBug, faCircleExclamation, faCode, faFileLines } from '@fortawesome/pro-regular-svg-icons';
+import {
+  faAlignJustify,
+  faAlignLeft,
+  faAlignRight,
+  faBold,
+  faBug,
+  faCircleExclamation,
+  faCode,
+  faFileLines,
+  faGear,
+  faItalic,
+  faUnderline
+} from '@fortawesome/pro-regular-svg-icons';
+import {
+  faAlignJustify as fasAlignJustify,
+  faAlignLeft as fasAlignLeft,
+  faAlignRight as fasAlignRight,
+  faBold as fasBold,
+  faGear as fasGear,
+  faItalic as fasItalic,
+  faUnderline as fasUnderline
+} from '@fortawesome/pro-solid-svg-icons';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/badge/register.js';
@@ -9,6 +30,8 @@ import '@sl-design-system/callout/register.js';
 import '@sl-design-system/dialog/register.js';
 import '@sl-design-system/icon/register.js';
 import { Icon } from '@sl-design-system/icon';
+import '@sl-design-system/toggle-button/register.js';
+import '@sl-design-system/toggle-group/register.js';
 import '@sl-design-system/tooltip/register.js';
 import { Code } from '@sl-design-system/doc-components/code/code.js';
 import { Code as CodeBlock } from '@sl-design-system/doc-components/code-block/code-block.js';
@@ -23,7 +46,26 @@ import { NavGroup } from '@sl-design-system/doc-components/site-nav/nav-group.js
 import { NavItem } from '@sl-design-system/doc-components/site-nav/nav-item.js';
 import { SiteNav } from '@sl-design-system/doc-components/site-nav/site-nav.js';
 
+// Icons used in the documentation templates
 Icon.register(faBug, faCircleExclamation, faCode, faFileLines);
+
+// Icons used in the code examples
+Icon.register(
+  faAlignLeft,
+  faAlignJustify,
+  faAlignRight,
+  faBold,
+  faGear,
+  faItalic,
+  faUnderline,
+  fasAlignLeft,
+  fasAlignJustify,
+  fasAlignRight,
+  fasBold,
+  fasGear,
+  fasItalic,
+  fasUnderline
+);
 
 customElements.define('doc-code', Code);
 customElements.define('doc-code-block', CodeBlock);

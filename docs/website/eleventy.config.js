@@ -86,7 +86,6 @@ export default async function (eleventyConfig) {
       // Add component to the page's data
       if (component) {
         page.data.component = component;
-        console.log(`Mapping component "${component.tagName}" to page "${page.url}"`);
         componentPageUrlMap.set(component.packageName, page.url);
       }
 

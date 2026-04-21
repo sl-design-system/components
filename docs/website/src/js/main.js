@@ -45,6 +45,7 @@ import '@sl-design-system/dialog/register.js';
 import '@sl-design-system/icon/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/menu/register.js';
+import '@sl-design-system/switch/register.js';
 import '@sl-design-system/toggle-button/register.js';
 import '@sl-design-system/toggle-group/register.js';
 import '@sl-design-system/tooltip/register.js';

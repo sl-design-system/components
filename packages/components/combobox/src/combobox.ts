@@ -288,16 +288,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
     this.#observer.observe(this);
 
-    // Set the input as the form control element so form-field sets ARIA attributes on it
     this.setFormControlElement(this);
 
-    // Forward ARIA attributes from host to input
     this.setAttributesTarget(this.input);
-
-    // Ensure the input has an ID for label association
-    if (!this.input.id) {
-      this.input.id = this.id || `sl-combobox-input-${nextUniqueId++}`;
-    }
 
     /**
      * Light DOM styling workarounds:
@@ -339,8 +332,19 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       }
     }
 
-    if (changes.has('labelId') && this.labelId) {
-      this.input.setAttribute('aria-labelledby', this.labelId);
+    if (changes.has('labelId')) {
+      const previousLabelId = changes.get('labelId'),
+        ariaLabel = this.input.getAttribute('aria-label'),
+        ariaLabelledBy = this.input.getAttribute('aria-labelledby'),
+        hasExplicitAccessibleName = Boolean(ariaLabel || (ariaLabelledBy && ariaLabelledBy !== previousLabelId));
+
+      if (!this.labelId || ariaLabel) {
+        if (ariaLabelledBy === previousLabelId) {
+          this.input.removeAttribute('aria-labelledby');
+        }
+      } else if (!hasExplicitAccessibleName) {
+        this.input.setAttribute('aria-labelledby', this.labelId);
+      }
     }
 
     if (
@@ -419,8 +423,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     }
 
     if (changes.has('required')) {
-      // Don't set required on the input - we handle all validation through ElementInternals
-      // This prevents native HTML validation from interfering with our custom validation
       this.updateValidity();
     }
 

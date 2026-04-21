@@ -34,6 +34,9 @@ export class Label extends LitElement {
   /** Observe the form control for changes to the required attribute. */
   #observer = new MutationObserver(() => this.#update());
 
+  /** Track the previous form control to clean up data-label-id when it changes. */
+  #previousFormControl: (HTMLElement & FormControl & { size?: string }) | null = null;
+
   /** Whether the form control is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) disabled = false;
 
@@ -67,6 +70,11 @@ export class Label extends LitElement {
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
+
+    // Clean up data-label-id from the form control
+    if (this.formControl) {
+      this.formControl.removeAttribute('data-label-id');
+    }
 
     super.disconnectedCallback();
   }
@@ -107,6 +115,11 @@ export class Label extends LitElement {
     }
 
     if (changes.has('formControl')) {
+      // Clean up data-label-id from the previous form control
+      if (this.#previousFormControl && this.#previousFormControl !== this.formControl) {
+        this.#previousFormControl.removeAttribute('data-label-id');
+      }
+
       if (this.formControl) {
         let target: HTMLElement = this.formControl;
 
@@ -120,9 +133,13 @@ export class Label extends LitElement {
 
         this.#observer.observe(target, { attributes: true, attributeFilter: ['disabled', 'required'] });
         this.#update();
+
+        // Update the previous form control reference
+        this.#previousFormControl = this.formControl;
       } else {
         this.#observer.disconnect();
         this.required = undefined;
+        this.#previousFormControl = null;
       }
     }
   }

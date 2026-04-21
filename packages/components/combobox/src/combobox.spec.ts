@@ -208,9 +208,13 @@ describe('sl-combobox', () => {
       el.required = true;
       await el.updateComplete;
 
+      const textField = el.querySelector('sl-text-field');
+      if (textField) {
+        await (textField as unknown as { updateComplete: Promise<boolean> }).updateComplete;
+      }
+
       expect(el).to.have.attribute('required');
-      // Note: required is NOT set on the input - we handle validation through ElementInternals
-      expect(input).not.to.have.attribute('required');
+      expect(input).to.have.attribute('required');
     });
 
     it('should be pristine', () => {

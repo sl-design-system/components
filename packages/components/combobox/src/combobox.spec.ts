@@ -1515,7 +1515,7 @@ describe('sl-combobox', () => {
       `);
 
       // Wait for the mixin's requestAnimationFrame to complete
-      await new Promise(resolve => requestAnimationFrame(() => resolve()));
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
 
       const input = el.querySelector('input[slot="input"]')!;
 

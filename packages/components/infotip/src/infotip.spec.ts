@@ -34,10 +34,10 @@ describe('sl-infotip', () => {
       expect(button).to.have.attribute('fill', 'ghost');
     });
 
-    it('should have a default icon of circle-info', () => {
+    it('should have a default icon of info', () => {
       const icon = el.renderRoot.querySelector('sl-icon');
 
-      expect(icon).to.have.attribute('name', 'circle-info');
+      expect(icon).to.have.attribute('name', 'info');
     });
 
     it('should render the slotted content inside the popover', () => {

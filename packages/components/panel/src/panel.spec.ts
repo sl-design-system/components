@@ -44,6 +44,12 @@ describe('sl-panel', () => {
       expect(body).not.to.have.attribute('role', 'region');
     });
 
+    it('should not set aria-labelledby on the body', () => {
+      const body = el.renderRoot.querySelector('[part="body"]');
+
+      expect(body).not.to.have.attribute('aria-labelledby');
+    });
+
     it('should render the heading into the heading slot', () => {
       const heading = el.renderRoot.querySelector<HTMLSlotElement>('slot[name="heading"]');
 
@@ -95,6 +101,12 @@ describe('sl-panel', () => {
       const body = el.renderRoot.querySelector('[part="body"]');
 
       expect(body).to.have.attribute('role', 'region');
+    });
+
+    it('should set aria-labelledby on the body', () => {
+      const body = el.renderRoot.querySelector('[part="body"]');
+
+      expect(body).to.have.attribute('aria-labelledby', 'heading');
     });
 
     it('should emit an sl-toggle event when button is clicked', async () => {

@@ -169,12 +169,17 @@ export class Card extends ScopedElementsMixin(LitElement) {
 
   #setLineClamp(): void {
     //calculate the number of lines in the article
-    const article = this.renderRoot.querySelector('slot[name="body"]');
-    if (!article) {
+    const article: HTMLSlotElement | null = this.renderRoot.querySelector('slot[name="body"]');
+    if (!article || article.assignedNodes({ flatten: true }).length === 0) {
+      this.classList.remove('sl-has-article');
+      article?.style.removeProperty('--_line-clamp');
+      this.#setGridSpan();
       return;
     }
 
-    (article as HTMLElement).style.removeProperty('--_line-clamp'); // otherwise it can't calculate the height correctly
+    this.classList.add('sl-has-article');
+
+    article.style.removeProperty('--_line-clamp'); // otherwise it can't calculate the height correctly
     const lineHeight = getComputedStyle(article).lineHeight;
 
     const lineHeightFont =
@@ -183,7 +188,7 @@ export class Card extends ScopedElementsMixin(LitElement) {
         : parseInt(lineHeight);
     const lines = Math.floor(article.getBoundingClientRect().height / lineHeightFont);
     if (!isNaN(lines) && lines > 0) {
-      (article as HTMLElement).style.setProperty('--_line-clamp', lines.toString());
+      article.style.setProperty('--_line-clamp', lines.toString());
     }
     this.#setGridSpan();
   }

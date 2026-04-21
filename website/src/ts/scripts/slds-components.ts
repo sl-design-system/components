@@ -74,6 +74,7 @@ import '@sl-design-system/format-number/register.js';
 import '@sl-design-system/grid/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
+import '@sl-design-system/infotip/register.js';
 import '@sl-design-system/inline-message/register.js';
 import '@sl-design-system/listbox/register.js';
 import '@sl-design-system/menu/register.js';

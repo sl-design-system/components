@@ -41,6 +41,7 @@
     { "path": "./packages/components/format-number" },
     { "path": "./packages/components/grid" },
     { "path": "./packages/components/icon" },
+    { "path": "./packages/components/infotip" },
     { "path": "./packages/components/inline-message" },
     { "path": "./packages/components/listbox" },
     { "path": "./packages/components/menu" },

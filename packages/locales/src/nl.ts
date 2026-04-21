@@ -64,6 +64,7 @@ export const templates = {
   'sl.grid.sortAscending': 'Sorteer oplopend',
   'sl.grid.sortDescending': 'Sorteer aflopend',
   'sl.grid.toggleGroup': 'Toon groep',
+  'sl.infotip.moreInformation': 'Meer informatie',
   'sl.messageDialog.alertTitle': 'Mededeling',
   'sl.messageDialog.cancelButton': 'Annuleren',
   'sl.messageDialog.confirmTitle': 'Bevestig',

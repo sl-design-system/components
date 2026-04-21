@@ -96,11 +96,6 @@
         "$value": "chevron-left",
         "$description": "icon.core.chevron-left"
       },
-      "circle-info": {
-        "$type": "Icons",
-        "$value": "circle-info",
-        "$description": "icon.core.circle-info"
-      },
       "circle-solid": {
         "$type": "Icons",
         "$value": "circle",

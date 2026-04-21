@@ -95,7 +95,7 @@ export class Infotip extends ScopedElementsMixin(LitElement) {
         part="button"
       >
         <slot name="icon">
-          <sl-icon name="circle-info"></sl-icon>
+          <sl-icon name="info"></sl-icon>
         </slot>
       </sl-button>
       <sl-popover anchor="trigger" part="popover" position="top">

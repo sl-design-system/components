@@ -19,6 +19,9 @@ let nextUniqueId = 0;
 /**
  * Label component that hooks a `<label>` element up with the input element of the form control,
  * assuming the input element is in the light DOM (same context of the label).
+ *
+ * @slot infotip - The infotip element to show next to the label.
+ * @slot label - The label element, which is rendered in the light DOM.
  */
 @localized()
 export class Label extends LitElement {
@@ -131,6 +134,7 @@ export class Label extends LitElement {
     return html`
       <slot @slotchange=${this.#onSlotchange} style="display: none"></slot>
       <slot name="label"></slot>
+      <slot name="infotip"></slot>
       ${this.mark === 'optional' && !this.required
         ? html`<span class="optional">(${msg('optional', { id: 'sl.form.optionalLabelIndicator' })})</span>`
         : nothing}

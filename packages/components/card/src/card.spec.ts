@@ -244,4 +244,68 @@ describe('<sl-card>', () => {
       expect(el.classList.contains('sl-media-explicit-size')).to.be.true;
     });
   });
+
+  describe('body slot behavior', () => {
+    it('should add sl-has-article class when body slot has content', async () => {
+      el = await fixture(html`
+        <sl-card>
+          <h2>${title}</h2>
+          <p slot="body">${bodyCopy}</p>
+          <sl-button slot="actions">Action</sl-button>
+        </sl-card>
+      `);
+      await el.updateComplete;
+
+      expect(el.classList.contains('sl-has-article')).to.be.true;
+    });
+
+    it('should remove sl-has-article class when body slot is empty', async () => {
+      el = await fixture(html`
+        <sl-card>
+          <h2>${title}</h2>
+          <sl-button slot="actions">Action</sl-button>
+        </sl-card>
+      `);
+      await el.updateComplete;
+
+      expect(el.classList.contains('sl-has-article')).to.be.false;
+    });
+
+    it('should toggle sl-has-article class when body slot content changes', async () => {
+      const container = document.createElement('div');
+      const bodyElement = document.createElement('p');
+      bodyElement.setAttribute('slot', 'body');
+      bodyElement.textContent = bodyCopy;
+
+      container.innerHTML = `
+        <sl-card>
+          <h2>${title}</h2>
+          <sl-button slot="actions">Action</sl-button>
+        </sl-card>
+      `;
+      document.body.appendChild(container);
+      el = container.querySelector('sl-card') as Card;
+      await el.updateComplete;
+
+      expect(el.classList.contains('sl-has-article')).to.be.false;
+
+      // Add body content
+      const bodySlot = el.shadowRoot!.querySelector('slot[name="body"]') as HTMLSlotElement;
+      const waitForSlotChange = () =>
+        new Promise<void>(resolve => bodySlot.addEventListener('slotchange', () => resolve(), { once: true }));
+
+      let slotChangePromise = waitForSlotChange();
+      el.appendChild(bodyElement);
+      await slotChangePromise;
+      expect(el.classList.contains('sl-has-article')).to.be.true;
+
+      // Remove body content
+      slotChangePromise = waitForSlotChange();
+      el.removeChild(bodyElement);
+      await slotChangePromise;
+      expect(el.classList.contains('sl-has-article')).to.be.false;
+
+      document.body.removeChild(container);
+    });
+  });
 });

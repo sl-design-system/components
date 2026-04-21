@@ -1,7 +1,11 @@
 :host {
   align-items: center;
-  color: var(--sl-color-foreground-bold);
   display: inline-flex;
+  gap: var(--sl-size-050);
+}
+
+::slotted([slot='label']) {
+  color: var(--sl-color-foreground-bold);
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
 }
 

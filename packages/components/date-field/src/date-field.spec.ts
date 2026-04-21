@@ -388,6 +388,19 @@ describe('sl-date-field', () => {
       expect(dialog).to.contain('sl-calendar');
     });
 
+    it('should hide the extra controls area when there are no actions', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      const dialog = el.renderRoot.querySelector('dialog[popover]');
+
+      expect(dialog).to.match(':popover-open');
+      expect(dialog).to.contain('sl-calendar');
+
+      const buttonBar = el.renderRoot.querySelector('sl-button-bar');
+      expect(buttonBar).not.to.exist;
+    });
+
     it('should hide popover when calendar date is selected', async () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
@@ -1910,6 +1923,30 @@ describe('sl-date-field', () => {
         expect(el.value).to.equalDate(new Date(2026, 2, 14));
       });
 
+      it('should show the extra controls area when confirmation is required', async () => {
+        el.renderRoot.querySelector('sl-field-button')?.click();
+        await new Promise(resolve => setTimeout(resolve));
+
+        expect(calendar.renderRoot.querySelector('sl-select-day')).to.exist;
+
+        const buttonBar = el.renderRoot.querySelector<HTMLElement>('sl-button-bar');
+
+        if (!buttonBar) {
+          throw new Error('Expected sl-button-bar to be rendered when confirmation is required');
+        }
+
+        await (buttonBar as HTMLElement & { updateComplete?: Promise<unknown> }).updateComplete;
+
+        let confirmButton = buttonBar.querySelector('sl-button');
+
+        for (let i = 0; i < 10 && !confirmButton; i += 1) {
+          await new Promise(resolve => setTimeout(resolve, 10));
+          confirmButton = buttonBar.querySelector('sl-button');
+        }
+
+        expect(confirmButton).to.exist;
+      });
+
       it('should not emit sl-change immediately when calendar date is selected', async () => {
         const onChange = spy();
         el.addEventListener('sl-change', onChange);
@@ -1930,6 +1967,25 @@ describe('sl-date-field', () => {
 
         expect(onChange).to.have.been.calledOnce;
       });
+    });
+  });
+
+  describe('extra controls', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-date-field>
+          <sl-button>Clear</sl-button>
+        </sl-date-field>
+      `);
+    });
+
+    it('should show the extra controls area when custom actions are slotted', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      const buttonBar = el.renderRoot.querySelector<HTMLElement>('sl-button-bar');
+
+      expect(buttonBar).to.exist;
     });
   });
 

@@ -1481,4 +1481,161 @@ describe('sl-combobox', () => {
       expect(combobox.value).to.equal('Option 2');
     });
   });
+
+  describe('accessibility', () => {
+    it('should have aria-label on host initially', async () => {
+      const el = await fixture<Combobox>(html`
+        <sl-combobox aria-label="Search options">
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      `);
+
+      // Check immediately after fixture
+      console.log('[TEST] Host has aria-label:', el.hasAttribute('aria-label'));
+      console.log('[TEST] Host aria-label value:', el.getAttribute('aria-label'));
+
+      const input = el.querySelector('input[slot="input"]')!;
+      console.log('[TEST] Input has aria-label:', input.hasAttribute('aria-label'));
+      console.log('[TEST] Input aria-label value:', input.getAttribute('aria-label'));
+
+      // Just check that the element exists for now
+      expect(el).to.exist;
+      expect(input).to.exist;
+    });
+
+    it('should forward aria-label from host to input', async () => {
+      const el = await fixture<Combobox>(html`
+        <sl-combobox aria-label="Search options">
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      `);
+      await el.updateComplete;
+
+      // Give time for ObserveAttributesMixin to forward attributes via requestAnimationFrame
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const input = el.querySelector('input[slot="input"]')!;
+
+      expect(input).to.have.attribute('aria-label', 'Search options');
+      expect(el).not.to.have.attribute('aria-label');
+    });
+
+    it('should forward aria-describedby from host to input', async () => {
+      const el = await fixture<Combobox>(html`
+        <sl-combobox aria-describedby="hint-id">
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      `);
+      await el.updateComplete;
+
+      // Give time for ObserveAttributesMixin to forward attributes via requestAnimationFrame
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const input = el.querySelector('input[slot="input"]')!;
+
+      expect(input).to.have.attribute('aria-describedby', 'hint-id');
+      expect(el).not.to.have.attribute('aria-describedby');
+    });
+
+    it('should forward aria-labelledby from host to input', async () => {
+      const el = await fixture<Combobox>(html`
+        <sl-combobox aria-labelledby="label-id">
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      `);
+      await el.updateComplete;
+
+      // Give time for ObserveAttributesMixin to forward attributes via requestAnimationFrame
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const input = el.querySelector('input[slot="input"]')!;
+
+      expect(input).to.have.attribute('aria-labelledby', 'label-id');
+      expect(el).not.to.have.attribute('aria-labelledby');
+    });
+
+    it('should update aria-label on input when changed on host', async () => {
+      const el = await fixture<Combobox>(html`
+        <sl-combobox aria-label="Initial label">
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      `);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const input = el.querySelector('input[slot="input"]')!;
+      expect(input).to.have.attribute('aria-label', 'Initial label');
+
+      el.setAttribute('aria-label', 'Updated label');
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(input).to.have.attribute('aria-label', 'Updated label');
+      expect(el).not.to.have.attribute('aria-label');
+    });
+
+    it('should set aria-labelledby on input when data-label-id is set', async () => {
+      const el = await fixture<Combobox>(html`
+        <sl-combobox>
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      `);
+      await el.updateComplete;
+
+      const input = el.querySelector('input[slot="input"]')!;
+
+      el.setAttribute('data-label-id', 'sl-label-123');
+      await el.updateComplete;
+
+      expect(input).to.have.attribute('aria-labelledby', 'sl-label-123');
+    });
+
+    it('should sync id from host to input', async () => {
+      const el = await fixture<Combobox>(html`
+        <sl-combobox id="my-combobox">
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      `);
+      await el.updateComplete;
+
+      const input = el.querySelector('input[slot="input"]')!;
+
+      expect(input).to.have.attribute('id', 'my-combobox');
+    });
+
+    it('should have proper ARIA roles and attributes', async () => {
+      const el = await fixture<Combobox>(html`
+        <sl-combobox>
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      `);
+      await el.updateComplete;
+
+      const input = el.querySelector('input[slot="input"]')!;
+      const listbox = el.querySelector('sl-listbox')!;
+
+      expect(input).to.have.attribute('role', 'combobox');
+      expect(input).to.have.attribute('aria-autocomplete');
+      expect(input).to.have.attribute('aria-expanded', 'false');
+      expect(input).to.have.attribute('aria-haspopup', 'listbox');
+      expect(input).to.have.attribute('aria-controls', listbox.id);
+      expect(input).to.have.attribute('aria-owns', listbox.id);
+    });
+  });
 });

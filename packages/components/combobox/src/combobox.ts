@@ -291,6 +291,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     // Set the input as the form control element so form-field sets ARIA attributes on it
     this.setFormControlElement(this);
 
+    // Forward ARIA attributes from host to input
+    this.setAttributesTarget(this.input);
+
     // Ensure the input has an ID for label association
     if (!this.input.id) {
       this.input.id = this.id || `sl-combobox-input-${nextUniqueId++}`;
@@ -416,8 +419,8 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     }
 
     if (changes.has('required')) {
-      // Don't set required on the input - we handle all validation through ElementInternals
-      // This prevents native HTML validation from interfering with our custom validation
+      this.input.required = !!this.required;
+
       this.updateValidity();
     }
 
@@ -509,33 +512,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     this.input?.focus(options);
   }
 
-  /**
-   * Override formValue to use ElementInternals for custom form submission.
-   * This allows us to submit different values (like indices) than what's displayed in the input.
-   */
-  override get formValue(): string | FormData | File | null {
-    return this.internals.form ? this.#getInternalFormValue() : null;
-  }
-
-  override set formValue(_value: string | FormData | File | null) {
-    // Form value is managed through updateFormValue
-  }
-
-  #getInternalFormValue(): string | null {
-    if (this.multiple) {
-      const values = this.selectedItems.map(i => i.value!);
-      return values.join(', ') || null;
-    } else {
-      const item = this.selectedItems.at(0);
-      if (item) {
-        return this.#useVirtualList && item.index !== undefined
-          ? item.index.toString()
-          : item.value?.toString() || item.label;
-      }
-      return null;
-    }
-  }
-
   override getLocalizedValidationMessage(): string {
     if (this.validity.valueMissing) {
       return this.multiple
@@ -548,15 +524,16 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
   override updateInternalValidity(): void {
     if (!this.validity.customError) {
-      const isInvalid = this.multiple
-        ? this.required && this.selectedItems.length === 0
-        : this.required && !this.input.value;
-
-      if (isInvalid) {
-        const message = msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' });
-        this.internals.setValidity({ valueMissing: true }, message);
+      if (this.multiple) {
+        this.internals.setValidity(
+          { valueMissing: this.required && this.selectedItems.length === 0 },
+          msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
+        );
       } else {
-        this.internals.setValidity({});
+        this.internals.setValidity(
+          { valueMissing: this.required && !this.input.value },
+          msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
+        );
       }
     }
   }
@@ -1440,7 +1417,20 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
   /** Syncs the form value with the current selection using ElementInternals. */
   #updateFormValue(): void {
-    const formValue = this.#getInternalFormValue();
-    this.internals.setFormValue(formValue);
+    if (this.multiple) {
+      const values = this.selectedItems.map(i => i.value!);
+      this.internals.setFormValue(values.join(', ') || null);
+    } else {
+      const item = this.selectedItems.at(0);
+      if (item) {
+        this.internals.setFormValue(
+          this.#useVirtualList && item.index !== undefined
+            ? item.index.toString()
+            : item.value?.toString() || item.label
+        );
+      } else {
+        this.internals.setFormValue(null);
+      }
+    }
   }
 }

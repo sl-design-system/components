@@ -6,7 +6,6 @@ storybook: actions-toggle-button--basic
 eleventyNavigation:
   key: Toggle button
   parent: Actions
-  order: 3
 ---
 
 ```html {.example .show-source}

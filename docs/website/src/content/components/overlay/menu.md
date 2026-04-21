@@ -6,7 +6,6 @@ storybook: actions-menu-menu--basic
 eleventyNavigation:
   key: Menu
   parent: Overlay
-  order: 1
 ---
 
 ```html {.example}

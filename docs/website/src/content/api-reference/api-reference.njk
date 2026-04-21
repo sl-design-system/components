@@ -22,7 +22,7 @@
 {% set componentPageUrl = getComponentPageUrl(element.packageName) %}
 
 {% if componentPageUrl %}
-<p class="component-ref">Part of the <a href="{{ componentPageUrl }}">{{ element.title }} component</a>.</p>
+<p class="component-ref">Part of the <a href="{{ componentPageUrl }}">{{ component.name }} component</a>.</p>
 {% endif %}
 
 <dl class="metadata">

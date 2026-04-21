@@ -6,7 +6,6 @@ storybook: actions-menu-menu-button--basic
 eleventyNavigation:
   key: Menu button
   parent: Actions
-  order: 5
 ---
 
 ```html {.example .show-source}

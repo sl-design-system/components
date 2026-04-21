@@ -5,7 +5,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/sl-design-system/components.git",
+    "url": "https://github.com/sl-design-system/components",
     "directory": "website"
   },
   "type": "module",

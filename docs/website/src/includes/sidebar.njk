@@ -27,7 +27,7 @@
       {%- if hasChildren and (isActive or hasActiveChild) %} open{% endif %}
     >
       {%- if hasChildren -%}
-        {{ renderItems(entry.children, activePage) }}
+        {{ renderItems(entry.children | sort(false, false, "title"), activePage) }}
       {%- endif -%}
     </doc-nav-item>
   {%- endfor -%}

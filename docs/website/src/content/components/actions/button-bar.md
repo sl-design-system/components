@@ -6,7 +6,6 @@ storybook: actions-button-bar--basic
 eleventyNavigation:
   key: Button bar
   parent: Actions
-  order: 2
 ---
 
 ```html {.example .show-source}

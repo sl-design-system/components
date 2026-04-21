@@ -6,7 +6,6 @@ storybook: actions-toggle-group--basic
 eleventyNavigation:
   key: Toggle group
   parent: Actions
-  order: 4
 ---
 
 ```html {.example .show-source}

@@ -6,7 +6,6 @@ storybook: actions-button--basic
 eleventyNavigation:
   key: Button
   parent: Actions
-  order: 1
 ---
 
 ```html {.example .show-source}

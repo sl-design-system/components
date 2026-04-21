@@ -99,8 +99,8 @@
         {{ item.description | safe }}
         {% if item.type or item.default %}
         <dl class="field-meta">
-          {% if item.type %}<div><dt>Type</dt><dd><code>{{ item.type.text }}</code></dd></div>{% endif %}
-          {% if item.default %}<div><dt>Default</dt><dd><code>{{ item.default }}</code></dd></div>{% endif %}
+          {% if item.type %}<dt>Type</dt><dd><code>{{ item.type.text }}</code></dd>{% endif %}
+          {% if item.default %}<dt>Default</dt><dd><code>{{ item.default }}</code></dd>{% endif %}
         </dl>
         {% endif %}
       </td>

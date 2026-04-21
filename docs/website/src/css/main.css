@@ -134,17 +134,14 @@ doc-sidebar {
     }
 
     .field-meta {
-      display: block;
+      display: grid;
+      gap: var(--sl-size-100);
+      grid-template-columns: auto 1fr;
       margin: 0;
       margin-block-start: var(--sl-size-100);
 
-      div {
-        align-items: baseline;
-        display: flex;
-        gap: var(--sl-size-100);
-      }
-
       dt {
+        align-self: start;
         font-size: 0.85em;
         font-weight: 600;
       }

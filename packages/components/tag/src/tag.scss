@@ -21,12 +21,12 @@
   }
 }
 
-:host([removable]) slot {
+:host([removable]) [part='label'] {
   border-inline-end: var(--sl-size-borderWidth-default) solid var(--_br-color);
 }
 
 :host([size='lg']) {
-  slot {
+  [part='label'] {
     padding: calc(var(--sl-size-100) - var(--sl-size-borderWidth-default)) var(--sl-size-150);
   }
 
@@ -48,7 +48,7 @@
 
   color: var(--sl-color-foreground-disabled);
 
-  slot,
+  [part='label'],
   button {
     background: var(--sl-color-background-disabled);
   }
@@ -60,7 +60,7 @@
   z-index: 1; // Make sure the focus ring is above other elements
 }
 
-slot {
+[part='label'] {
   background: var(--_bg-color);
   display: block;
   flex: 1;

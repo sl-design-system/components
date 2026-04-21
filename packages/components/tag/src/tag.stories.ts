@@ -72,6 +72,13 @@ export const Overflow: Story = {
   }
 };
 
+export const OverflowRemovable: Story = {
+  args: {
+    ...Overflow.args,
+    removable: true
+  }
+};
+
 export const Removable: Story = {
   args: {
     removable: true

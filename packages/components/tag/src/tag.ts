@@ -65,14 +65,14 @@ export class Tag extends ScopedElementsMixin(LitElement) {
    */
   #observer = new ResizeObserver(() => this.#onResize());
 
-  /** Either an instanceof of Tooltip, or a cleanup function. */
-  #tooltip?: Tooltip | (() => void);
-
   /**
    * Whether the tag component is disabled, when set no interaction is possible.
    * @default false
    */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
+
+  /** @internal Whether a tooltip should be shown. */
+  @state() tooltip?: boolean;
 
   /** @internal The label of the tag component. */
   @state() label = '';
@@ -107,20 +107,23 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   override disconnectedCallback(): void {
     this.#observer.disconnect();
 
-    if (this.#tooltip instanceof Tooltip) {
-      this.#tooltip?.remove();
-    } else if (this.#tooltip) {
-      this.#tooltip();
-    }
-
-    this.#tooltip = undefined;
-
     super.disconnectedCallback();
   }
 
   override render(): TemplateResult {
+    const hasTabindex = !this.disabled && !this.removable && this.tooltip;
+
     return html`
-      <slot @slotchange=${this.#onSlotChange} part="label"></slot>
+      ${this.tooltip ? html`<sl-tooltip id="tooltip">${this.label}</sl-tooltip>` : nothing}
+      <div
+        @blur=${this.#onBlur}
+        @focus=${this.#onFocus}
+        aria-describedby=${ifDefined(this.tooltip ? 'tooltip' : undefined)}
+        part="label"
+        tabindex=${ifDefined(hasTabindex ? '0' : undefined)}
+      >
+        <slot @slotchange=${this.#onSlotChange}></slot>
+      </div>
       ${this.removable
         ? html`
             <button
@@ -167,24 +170,9 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   }
 
   #onResize(): void {
-    const slot = this.renderRoot.querySelector('slot');
+    const label = this.renderRoot.querySelector('[part="label"]');
 
-    if (slot && slot.clientWidth < slot.scrollWidth) {
-      this.#tooltip ||= Tooltip.lazy(
-        this,
-        tooltip => {
-          this.#tooltip = tooltip;
-          tooltip.textContent = this.label;
-        },
-        { context: this.shadowRoot! }
-      );
-    } else if (this.#tooltip instanceof Tooltip) {
-      this.#tooltip.remove();
-      this.#tooltip = undefined;
-    } else if (this.#tooltip) {
-      this.#tooltip();
-      this.#tooltip = undefined;
-    }
+    this.tooltip = !!(label && label.clientWidth < label.scrollWidth);
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {

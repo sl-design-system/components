@@ -55,7 +55,8 @@ describe('sl-tag', () => {
       el.focus();
       await el.updateComplete;
 
-      expect(el).not.to.have.attribute('aria-describedby');
+      expect(el.renderRoot.querySelector('[part="label"]')).not.to.have.attribute('aria-describedby');
+      expect(el.renderRoot.querySelector('sl-tooltip')).not.to.exist;
     });
 
     it('should not be focusable', async () => {
@@ -170,9 +171,10 @@ describe('sl-tag', () => {
       el.focus();
       await el.updateComplete;
 
-      expect(el).to.have.attribute('aria-describedby');
+      const label = el.renderRoot.querySelector('[part="label"]')!;
+      expect(label).to.have.attribute('aria-describedby');
 
-      const tooltip = document.getElementById(el.getAttribute('aria-describedby')!);
+      const tooltip = el.renderRoot.querySelector('sl-tooltip');
       expect(tooltip).to.exist;
       expect(tooltip).to.have.trimmed.text('My label is very long');
     });

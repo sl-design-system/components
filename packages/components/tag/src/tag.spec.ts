@@ -109,7 +109,7 @@ describe('sl-tag', () => {
       expect(button).to.have.attribute('aria-disabled', 'true');
     });
 
-    it('should not be be removed when it is disabled and remove button is clicked', async () => {
+    it('should not be removed when it is disabled and remove button is clicked', async () => {
       const onRemove = spy(el, 'remove');
 
       el.disabled = true;

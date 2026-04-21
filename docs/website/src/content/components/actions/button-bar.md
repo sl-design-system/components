@@ -51,7 +51,7 @@ End
 Space between
 : Buttons are spread across the full width with space between them.
 
-```html {.example .stretch .vertical}
+```html {.example .justify-stretch .vertical}
 <sl-button-bar>
   <sl-button>Foo</sl-button>
   <sl-button>Bar</sl-button>
@@ -78,7 +78,7 @@ Space between
 
 Use the `reverse` attribute to reverse the visual order of the buttons. This is useful when you want a primary action to appear on the right but still be first in the DOM order for accessibility.
 
-```html {.example .stretch}
+```html {.example .justify-stretch}
 <sl-button-bar align="end" reverse>
   <sl-button variant="primary">Save</sl-button>
   <sl-button fill="ghost">Cancel</sl-button>
@@ -89,7 +89,7 @@ Use the `reverse` attribute to reverse the visual order of the buttons. This is 
 
 Use the `size` attribute to set the size of all buttons in the bar at once, instead of setting it individually on each button.
 
-```html {.example .stretch .vertical}
+```html {.example .justify-stretch .vertical}
 <sl-button-bar size="sm">
   <sl-button>Foo</sl-button>
   <sl-button>Bar</sl-button>
@@ -133,7 +133,7 @@ Use the `fill` attribute to set the fill of all buttons in the bar at once.
 
 Use the `variant` attribute to set the variant of all buttons in the bar at once.
 
-```html {.example .stretch}
+```html {.example .justify-stretch}
 <sl-button-bar align="end" reverse variant="primary">
   <sl-button>Save</sl-button>
   <sl-button fill="ghost">Cancel</sl-button>

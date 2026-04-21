@@ -33,6 +33,7 @@ export default async function (eleventyConfig) {
 
   eleventyConfig.addWatchTarget('../components/dist/**/*.js');
   eleventyConfig.addWatchTarget('./custom-elements.json');
+  eleventyConfig.addWatchTarget('./src/js/{main,theme}.js');
   eleventyConfig.setWatchThrottleWaitTime(1000);
 
   eleventyConfig.setServerOptions({

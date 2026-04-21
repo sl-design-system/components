@@ -5,13 +5,27 @@ import {
   faAlignJustify,
   faAlignLeft,
   faAlignRight,
+  faArrowUpShortWide,
   faBold,
   faBug,
   faCircleExclamation,
+  faClipboard,
   faCode,
+  faCopy,
   faFileLines,
   faGear,
   faItalic,
+  faList,
+  faBook,
+  faPen,
+  faRectanglesMixed,
+  faRocket,
+  faRotateLeft,
+  faRotateRight,
+  faScissors,
+  faTableCells,
+  faTableRows,
+  faTrash,
   faUnderline
 } from '@fortawesome/pro-regular-svg-icons';
 import {
@@ -30,6 +44,7 @@ import '@sl-design-system/callout/register.js';
 import '@sl-design-system/dialog/register.js';
 import '@sl-design-system/icon/register.js';
 import { Icon } from '@sl-design-system/icon';
+import '@sl-design-system/menu/register.js';
 import '@sl-design-system/toggle-button/register.js';
 import '@sl-design-system/toggle-group/register.js';
 import '@sl-design-system/tooltip/register.js';
@@ -54,9 +69,23 @@ Icon.register(
   faAlignLeft,
   faAlignJustify,
   faAlignRight,
+  faArrowUpShortWide,
+  faBook,
   faBold,
+  faClipboard,
+  faCopy,
   faGear,
   faItalic,
+  faList,
+  faPen,
+  faRectanglesMixed,
+  faRocket,
+  faRotateLeft,
+  faRotateRight,
+  faScissors,
+  faTableCells,
+  faTableRows,
+  faTrash,
   faUnderline,
   fasAlignLeft,
   fasAlignJustify,

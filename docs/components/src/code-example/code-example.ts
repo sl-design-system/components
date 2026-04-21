@@ -24,7 +24,7 @@ export class CodeExample extends ScopedElementsMixin(LitElement) {
   @property({ type: Boolean, reflect: true }) inverted?: boolean;
 
   /** The alignment of the content within the demo area. */
-  @property() justify?: 'start' | 'center' | 'end' | 'stretch';
+  @property({ reflect: true }) justify?: 'start' | 'center' | 'end' | 'stretch';
 
   /** Whether to show the source code by default (without requiring the user to expand it). */
   @property({ type: Boolean, reflect: true, attribute: 'show-source' }) showSource?: boolean;

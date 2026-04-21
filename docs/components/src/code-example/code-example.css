@@ -37,10 +37,18 @@
   gap: var(--sl-size-200);
 }
 
+::slotted(sl-menu) {
+  display: flex !important;
+  margin: 0 !important;
+  opacity: 1 !important;
+  position: static !important;
+}
+
 .demo {
   display: grid;
   justify-items: var(--_justify, start);
   padding: var(--sl-size-200);
+  position: relative;
 }
 
 doc-code-block {

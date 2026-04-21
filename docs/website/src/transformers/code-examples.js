@@ -22,8 +22,9 @@ export function codeExamplesTransformer(options = {}) {
             ? 'vertical'
             : null,
         inverted = code.classList.contains('inverted'),
-        showSource = code.classList.contains('show-source'),
-        stretch = code.classList.contains('stretch');
+        justifyClass = [...code.classList.values()].find(val => val.startsWith('justify-')),
+        justify = justifyClass ? justifyClass.replace(/^justify-/, '') : null,
+        showSource = code.classList.contains('show-source');
 
       const langClass = [...code.classList.values()].find(val => val.startsWith('language-')),
         lang = langClass ? langClass.replace(/^language-/, '') : 'plain';
@@ -33,9 +34,9 @@ export function codeExamplesTransformer(options = {}) {
       const codeExample = parse(`
         <doc-code-example
           ${inverted ? ' inverted' : ''}
+          ${justify ? ` justify="${justify}"` : ''}
           ${orientation ? ` orientation="${orientation}"` : ''}
           ${showSource ? ' show-source' : ''}
-          ${stretch ? ' justify="stretch"' : ''}
         >
           ${demo}
           <pre slot="source">${code.innerHTML}</pre>

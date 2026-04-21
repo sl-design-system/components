@@ -1,4 +1,5 @@
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
+import { type PageToc } from '../page-toc/page-toc.js';
 import { NavGroup } from './nav-group.js';
 import { NavItem } from './nav-item.js';
 import styles from './site-nav.css' with { type: 'css' };
@@ -153,6 +154,8 @@ export class SiteNav extends LitElement {
         if (newContent && currentContent) {
           document.title = doc.title;
           currentContent.innerHTML = newContent.innerHTML;
+
+          document.querySelector<PageToc>('doc-page-toc')?.refresh();
         }
       }
     });

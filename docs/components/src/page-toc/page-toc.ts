@@ -70,40 +70,45 @@ export class PageToc extends ScopedElementsMixin(LitElement) {
     super.willUpdate(changes);
 
     if (changes.has('target')) {
-      this.#observer.disconnect();
-      this.#visibleIds.clear();
-      this.#headings = [];
-
-      const target = document.querySelector<HTMLElement>(this.target ?? 'main');
-      if (!target) {
-        console.warn(`Target element "${this.target}" not found.`);
-        return;
-      }
-
-      this.pageTitle = target.querySelector('h1')?.textContent?.trim();
-
-      const headings = Array.from(target.querySelectorAll<HTMLElement>('doc-heading[id]')),
-        entries: TocEntry[] = [];
-
-      for (const heading of headings) {
-        const entry: TocEntry = {
-          id: heading.id,
-          text: heading.textContent?.trim() ?? '',
-          children: []
-        };
-
-        if (heading.getAttribute('level') === '3' && entries.length > 0) {
-          entries[entries.length - 1].children.push(entry);
-        } else {
-          entries.push(entry);
-        }
-
-        this.#observer.observe(heading);
-      }
-
-      this.#headings = headings;
-      this.entries = entries;
+      this.refresh();
     }
+  }
+
+  refresh(): void {
+    this.#observer.disconnect();
+    this.#visibleIds.clear();
+    this.#headings = [];
+    this.activeId = undefined;
+
+    const target = document.querySelector<HTMLElement>(this.target ?? 'main');
+    if (!target) {
+      console.warn(`Target element "${this.target}" not found.`);
+      return;
+    }
+
+    this.pageTitle = target.querySelector('h1')?.textContent?.trim();
+
+    const headings = Array.from(target.querySelectorAll<HTMLElement>('doc-heading[id]')),
+      entries: TocEntry[] = [];
+
+    for (const heading of headings) {
+      const entry: TocEntry = {
+        id: heading.id,
+        text: heading.textContent?.trim() ?? '',
+        children: []
+      };
+
+      if (heading.getAttribute('level') === '3' && entries.length > 0) {
+        entries[entries.length - 1].children.push(entry);
+      } else {
+        entries.push(entry);
+      }
+
+      this.#observer.observe(heading);
+    }
+
+    this.#headings = headings;
+    this.entries = entries;
   }
 
   render(): TemplateResult {

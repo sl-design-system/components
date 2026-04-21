@@ -1513,10 +1513,9 @@ describe('sl-combobox', () => {
           </sl-listbox>
         </sl-combobox>
       `);
-      await el.updateComplete;
 
-      // Give time for ObserveAttributesMixin to forward attributes via requestAnimationFrame
-      await new Promise(resolve => setTimeout(resolve, 100));
+      // Wait for the mixin's requestAnimationFrame to complete
+      await new Promise(resolve => requestAnimationFrame(() => resolve()));
 
       const input = el.querySelector('input[slot="input"]')!;
 
@@ -1532,10 +1531,9 @@ describe('sl-combobox', () => {
           </sl-listbox>
         </sl-combobox>
       `);
-      await el.updateComplete;
 
-      // Give time for ObserveAttributesMixin to forward attributes via requestAnimationFrame
-      await new Promise(resolve => setTimeout(resolve, 100));
+      // Wait for the mixin's requestAnimationFrame to complete
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
 
       const input = el.querySelector('input[slot="input"]')!;
 
@@ -1551,10 +1549,9 @@ describe('sl-combobox', () => {
           </sl-listbox>
         </sl-combobox>
       `);
-      await el.updateComplete;
 
-      // Give time for ObserveAttributesMixin to forward attributes via requestAnimationFrame
-      await new Promise(resolve => setTimeout(resolve, 100));
+      // Wait for the mixin's requestAnimationFrame to complete
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
 
       const input = el.querySelector('input[slot="input"]')!;
 
@@ -1570,15 +1567,18 @@ describe('sl-combobox', () => {
           </sl-listbox>
         </sl-combobox>
       `);
-      await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 100));
+
+      // Wait for the mixin's requestAnimationFrame to complete
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
 
       const input = el.querySelector('input[slot="input"]')!;
       expect(input).to.have.attribute('aria-label', 'Initial label');
+      expect(el).not.to.have.attribute('aria-label');
 
       el.setAttribute('aria-label', 'Updated label');
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 100));
+      // Wait for ObserveAttributesMixin's requestAnimationFrame
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
 
       expect(input).to.have.attribute('aria-label', 'Updated label');
       expect(el).not.to.have.attribute('aria-label');

@@ -419,8 +419,8 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     }
 
     if (changes.has('required')) {
-      this.input.required = !!this.required;
-
+      // Don't set required on the input - we handle all validation through ElementInternals
+      // This prevents native HTML validation from interfering with our custom validation
       this.updateValidity();
     }
 
@@ -443,6 +443,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         @sl-update-state=${this.#onTextFieldUpdateState}
         ?disabled=${this.disabled}
         ?readonly=${this.selectOnly}
+        ?required=${this.required}
         part="text-field"
         placeholder=${ifDefined(this.multiple && this.selectedItems.length ? undefined : this.placeholder)}
         size=${ifDefined(this.size)}
@@ -1415,7 +1416,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     this.updateValidity();
   }
 
-  /** Syncs the form value with the current selection using ElementInternals. */
+  /** Syncs the form value with the current selection. */
   #updateFormValue(): void {
     if (this.multiple) {
       const values = this.selectedItems.map(i => i.value!);

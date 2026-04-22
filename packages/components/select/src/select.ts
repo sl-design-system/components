@@ -100,7 +100,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   #observer = new MutationObserver(() => this.#rovingTabindexController.clearElementCache());
 
   /** Detect when the selected option content changes, so the button can refresh its cloned content. */
-  #selectedOptionObserver = new MutationObserver(() => this.#onSelectedOptionContentChange());
+  #selectedOptionObserver = new MutationObserver(records => this.#onSelectedOptionContentChange(records));
 
   /** Tracks a scheduled largest-option-width recalculation frame. */
   #widthCalculationFrame?: number;
@@ -429,7 +429,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     this.#lastRenderedOption = this.selectedOption;
   }
 
-  #onSelectedOptionContentChange(): void {
+  #onSelectedOptionContentChange(records?: MutationRecord[]): void {
     if (!this.selectedOption) {
       return;
     }
@@ -438,6 +438,12 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     if (selectedOptionValue !== this.value) {
       this.value = selectedOptionValue;
       this.#updateValueAndValidity();
+    }
+
+    const hasSelectedContentChange =
+      !records || records.some(record => record.type !== 'attributes' || record.attributeName !== 'value');
+    if (!hasSelectedContentChange) {
+      return;
     }
 
     this.#lastRenderedOption = undefined;

@@ -1102,6 +1102,58 @@ describe('sl-select', () => {
       expect(new FormData(form).get('fruit')).to.equal('green-apple');
     });
 
+    it('should not recalculate width when only selected option value attribute changes', async () => {
+      el = await fixture(html`
+        <sl-select>
+          <sl-option value="apple">Apple</sl-option>
+          <sl-option value="banana">Banana</sl-option>
+        </sl-select>
+      `);
+
+      button = el.querySelector('sl-select-button')!;
+      el.value = 'apple';
+      await el.updateComplete;
+
+      const optionSizeDescriptor = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(button), 'optionSize');
+      if (!optionSizeDescriptor?.get || !optionSizeDescriptor.set) {
+        throw new Error('Expected optionSize accessor descriptor on SelectButton prototype');
+      }
+
+      const originalRequestAnimationFrame = window.requestAnimationFrame;
+      const frameCallbacks: FrameRequestCallback[] = [];
+      let optionSizeSetCalls = 0;
+      const getOptionSize = optionSizeDescriptor.get.bind(button) as () => number | undefined;
+      const setOptionSize = optionSizeDescriptor.set.bind(button) as (value: number | undefined) => void;
+      try {
+        Object.defineProperty(button, 'optionSize', {
+          configurable: true,
+          get() {
+            return getOptionSize();
+          },
+          set(value: number | undefined) {
+            optionSizeSetCalls += 1;
+            setOptionSize(value);
+          }
+        });
+
+        window.requestAnimationFrame = ((callback: FrameRequestCallback) => {
+          frameCallbacks.push(callback);
+
+          return frameCallbacks.length;
+        }) as typeof window.requestAnimationFrame;
+
+        const option = el.querySelector('sl-option[value="apple"]')!;
+        option.setAttribute('value', 'green-apple');
+        await new Promise(resolve => setTimeout(resolve, 0));
+
+        frameCallbacks.forEach(callback => callback(performance.now()));
+        expect(optionSizeSetCalls).to.equal(0);
+      } finally {
+        delete (button as SelectButton & { optionSize?: number }).optionSize;
+        window.requestAnimationFrame = originalRequestAnimationFrame;
+      }
+    });
+
     it('should handle options with slotted element content', async () => {
       el = await fixture(html`
         <sl-select>

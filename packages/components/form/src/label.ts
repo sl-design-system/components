@@ -137,6 +137,11 @@ export class Label extends LitElement {
         this.#observer.observe(target, { attributes: true, attributeFilter: ['disabled', 'required'] });
         this.#update();
 
+        // Set data-label-id on the new control if the label has already been initialized
+        if (this.#label?.id) {
+          this.formControl.setAttribute('data-label-id', this.#label.id);
+        }
+
         // Update the previous form control reference
         this.#previousFormControl = this.formControl;
       } else {

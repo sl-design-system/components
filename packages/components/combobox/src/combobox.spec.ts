@@ -208,7 +208,7 @@ describe('sl-combobox', () => {
       el.required = true;
       await el.updateComplete;
 
-      const textField = el.querySelector('sl-text-field');
+      const textField = el.renderRoot.querySelector('sl-text-field');
       if (textField) {
         await (textField as unknown as { updateComplete: Promise<boolean> }).updateComplete;
       }

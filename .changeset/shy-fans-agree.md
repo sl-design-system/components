@@ -6,5 +6,6 @@
 ---
 
 Standardized warning and error icons:
-- Changed `warning` icons from `octagon-exclamation-solid` to `triangle-exclamation-solid` in Callout, Inline message, Progress bar, and  validation messages in the Form field. 
-- Changed `error/danger` icons from `diamond-exclamation-solid` or `octagon-exclamation-solid` to the new `octagon-xmark-solid` icon in Callout, Inline message, and Progress bar.
+- Changed `warning` icons from `octagon-exclamation-solid` to `triangle-exclamation-solid` in Callout, Inline message, and Progress bar. 
+- Changed `circle-exclamation-solid` to `triangle-exclamation-solid` in validation messages in the Form field. 
+- Changed `error/danger` icons from `diamond-exclamation-solid` or `octagon-exclamation-solid` to the new `octagon-xmark-solid` icon in Callout, Inline message, and Progress bar. Make sure to update your theme if you update any of these components.

@@ -1,6 +1,6 @@
 import { type CSSResultGroup, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './skeleton.scss.js';
+import styles from './skeleton.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

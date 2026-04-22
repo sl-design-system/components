@@ -10,7 +10,7 @@ import { type CSSResultGroup, LitElement, type TemplateResult, html, render } fr
 import { property } from 'lit/decorators.js';
 import { type GridColumn } from './column.js';
 import { type GridFilterMode, type GridFilterOption } from './filter-column.js';
-import styles from './filter.scss.js';
+import styles from './filter.css' with { type: 'css' };
 
 declare global {
   interface GlobalEventHandlersEventMap {

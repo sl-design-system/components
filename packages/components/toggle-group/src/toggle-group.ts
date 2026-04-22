@@ -3,7 +3,7 @@ import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { ToggleButton } from '@sl-design-system/toggle-button';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './toggle-group.scss.js';
+import styles from './toggle-group.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

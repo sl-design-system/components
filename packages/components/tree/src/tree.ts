@@ -12,7 +12,7 @@ import { type RefOrCallback, ref } from 'lit/directives/ref.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { TreeDataSource, type TreeDataSourceNode } from './tree-data-source.js';
 import { TreeNode } from './tree-node.js';
-import styles from './tree.scss.js';
+import styles from './tree.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

@@ -5,7 +5,7 @@ import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './tag-list.scss.js';
+import styles from './tag-list.css' with { type: 'css' };
 import { type SlRemoveEvent, Tag, type TagSize, type TagVariant } from './tag.js';
 
 const SUBPIXEL_BUFFER_PX = 0.5;
@@ -259,7 +259,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
   #onRemove(event: SlRemoveEvent & { target: Tag }): void {
     const elements = this.#rovingTabindexController.elements,
-      index = elements.indexOf(event.target as Tag),
+      index = elements.indexOf(event.target),
       nextIndex = index === 0 ? 1 : index - 1,
       nextFocusableTag = elements[nextIndex];
 
@@ -279,7 +279,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       return false;
     }
 
-    const inlineSize = (value as { inlineSize: unknown }).inlineSize;
+    const inlineSize = value.inlineSize;
 
     return typeof inlineSize === 'number';
   }

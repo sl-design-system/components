@@ -2,7 +2,7 @@ import { localized, msg } from '@lit/localize';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { type FormControl } from './form-control-mixin.js';
-import styles from './label.scss.js';
+import styles from './label.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

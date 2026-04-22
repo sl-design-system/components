@@ -9,7 +9,7 @@ import { Schema } from 'prosemirror-model';
 import { EditorState, type Plugin } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { setHTML } from './commands.js';
-import styles from './editor.scss.js';
+import styles from './editor.css' with { type: 'css' };
 import { buildKeymap, buildListKeymap } from './keymap.js';
 import { type EditorMarks, type EditorNodes, marks, nodes } from './schema.js';
 import { createContentNode, getHTML } from './utils.js';

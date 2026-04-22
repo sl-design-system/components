@@ -10,7 +10,7 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property, queryAll, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './select-year.scss.js';
+import styles from './select-year.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

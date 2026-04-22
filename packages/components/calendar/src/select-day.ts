@@ -12,7 +12,7 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { MonthView } from './month-view.js';
-import styles from './select-day.scss.js';
+import styles from './select-day.css' with { type: 'css' };
 import { Indicator, getWeekdayNames, indicatorConverter } from './utils.js';
 
 declare global {

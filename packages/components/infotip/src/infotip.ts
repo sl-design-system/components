@@ -4,7 +4,7 @@ import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { Popover } from '@sl-design-system/popover';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
-import styles from './infotip.scss.js';
+import styles from './infotip.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

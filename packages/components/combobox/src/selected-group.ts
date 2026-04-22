@@ -4,7 +4,7 @@ import { Option, OptionGroup } from '@sl-design-system/listbox';
 import { type CSSResultGroup, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { type ComboboxItem } from './combobox';
-import styles from './selected-group.scss.js';
+import styles from './selected-group.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

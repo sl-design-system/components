@@ -8,6 +8,7 @@
     "registry": "https://npm.pkg.github.com",
     "exports": {
       ".": "./dist/index.js",
+      "./format.js": "./dist/format.js",
       "./register.js": "./dist/register.js",
       "./package.json": "./package.json"
     }
@@ -26,6 +27,7 @@
   "customElements": "custom-elements.json",
   "exports": {
     ".": "./src/index.ts",
+    "./format.js": "./src/format.ts",
     "./register.js": "./src/register.ts",
     "./package.json": "./package.json"
   },
@@ -40,6 +42,13 @@
   ],
   "scripts": {
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
+  },
+  "tsdown": {
+    "entry": [
+      "src/index.ts",
+      "src/register.ts",
+      "src/format.ts"
+    ]
   },
   "dependencies": {
     "@sl-design-system/shared": "^0.12.0"

@@ -3,7 +3,7 @@ import { announce } from '@sl-design-system/announcer';
 import { LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE, type ListDataSource } from '@sl-design-system/data-source';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import styles from './status.scss.js';
+import styles from './status.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

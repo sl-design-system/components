@@ -2,7 +2,7 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property } from 'lit/decorators.js';
 import { type RefOrCallback, ref } from 'lit/directives/ref.js';
 import { repeat } from 'lit/directives/repeat.js';
-import styles from './virtual-list.scss.js';
+import styles from './virtual-list.css' with { type: 'css' };
 import { VirtualizerController } from './virtualizer-controller.js';
 
 declare global {

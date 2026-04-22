@@ -7,7 +7,7 @@ import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './breadcrumbs.scss.js';
+import styles from './breadcrumbs.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

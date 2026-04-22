@@ -1,7 +1,7 @@
 import { localized } from '@lit/localize';
 import { EventsController } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
-import styles from './announcer.scss.js';
+import styles from './announcer.css' with { type: 'css' };
 
 declare global {
   interface GlobalEventHandlersEventMap {

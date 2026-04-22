@@ -3,7 +3,7 @@ import { type EventEmitter, EventsController, event } from '@sl-design-system/sh
 import { type SlClearEvent } from '@sl-design-system/shared/events.js';
 import { TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, type TemplateResult, html, nothing } from 'lit';
-import styles from './search-field.scss.js';
+import styles from './search-field.css' with { type: 'css' };
 
 declare global {
   interface GlobalEventHandlersEventMap {

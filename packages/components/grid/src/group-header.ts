@@ -7,7 +7,7 @@ import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlChangeEvent, type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './group-header.scss.js';
+import styles from './group-header.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

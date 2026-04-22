@@ -5,7 +5,7 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import styles from './avatar.scss.js';
+import styles from './avatar.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

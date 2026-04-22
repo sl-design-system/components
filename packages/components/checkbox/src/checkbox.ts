@@ -5,7 +5,7 @@ import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-des
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, svg } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import styles from './checkbox.scss.js';
+import styles from './checkbox.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

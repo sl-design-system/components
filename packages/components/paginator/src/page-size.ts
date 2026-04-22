@@ -9,7 +9,7 @@ import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './page-size.scss.js';
+import styles from './page-size.css' with { type: 'css' };
 
 declare global {
   interface GlobalEventHandlersEventMap {

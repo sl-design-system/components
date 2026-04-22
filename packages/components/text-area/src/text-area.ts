@@ -6,7 +6,7 @@ import { type EventEmitter, ObserveAttributesMixin, event } from '@sl-design-sys
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './text-area.scss.js';
+import styles from './text-area.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

@@ -21,7 +21,7 @@ import {
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
 import { SelectButton } from './select-button.js';
-import styles from './select.scss.js';
+import styles from './select.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

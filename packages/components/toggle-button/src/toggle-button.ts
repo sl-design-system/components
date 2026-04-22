@@ -6,7 +6,7 @@ import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import styles from './toggle-button.scss.js';
+import styles from './toggle-button.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

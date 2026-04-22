@@ -1,6 +1,6 @@
 import { type CSSResultGroup, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './tool-bar-divider.scss.js';
+import styles from './tool-bar-divider.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

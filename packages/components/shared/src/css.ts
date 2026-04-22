@@ -1,4 +1,4 @@
-import breakpoints from './breakpoints.scss.js';
+import breakpoints from './breakpoints.css' with { type: 'css' };
 
 export { breakpoints };
 

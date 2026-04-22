@@ -8,7 +8,7 @@ import { ToolBar } from '@sl-design-system/tool-bar';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './panel.scss.js';
+import styles from './panel.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

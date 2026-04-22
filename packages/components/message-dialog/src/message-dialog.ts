@@ -8,7 +8,7 @@ import { type SlCancelEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './message-dialog.scss.js';
+import styles from './message-dialog.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

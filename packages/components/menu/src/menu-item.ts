@@ -10,7 +10,7 @@ import {
 import { SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
-import styles from './menu-item.scss.js';
+import styles from './menu-item.css' with { type: 'css' };
 import { Menu } from './menu.js';
 
 declare global {

@@ -14,7 +14,7 @@ import { ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './menu-button.scss.js';
+import styles from './menu-button.css' with { type: 'css' };
 import { MenuItem } from './menu-item.js';
 import { Menu } from './menu.js';
 

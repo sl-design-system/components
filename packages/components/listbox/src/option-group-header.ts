@@ -1,6 +1,6 @@
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './option-group-header.scss.js';
+import styles from './option-group-header.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

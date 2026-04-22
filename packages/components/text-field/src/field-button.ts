@@ -1,7 +1,7 @@
 import { EventsController } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './field-button.scss.js';
+import styles from './field-button.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

@@ -4,7 +4,7 @@ import { type EventEmitter, EventsController, RovingTabindexController, event } 
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
-import styles from './checkbox-group.scss.js';
+import styles from './checkbox-group.css' with { type: 'css' };
 import { type Checkbox, type CheckboxSize } from './checkbox.js';
 
 declare global {

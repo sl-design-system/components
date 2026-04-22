@@ -15,7 +15,7 @@ import { FieldButton } from '@sl-design-system/text-field';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './time-field.scss.js';
+import styles from './time-field.css' with { type: 'css' };
 import {
   type DateFormatPart,
   type PartialTimePart,

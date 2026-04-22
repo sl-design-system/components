@@ -1,6 +1,6 @@
 import { Option } from '@sl-design-system/listbox';
 import { type CSSResultGroup } from 'lit';
-import styles from './custom-option.scss.js';
+import styles from './custom-option.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

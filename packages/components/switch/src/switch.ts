@@ -5,7 +5,7 @@ import { type EventEmitter, EventsController, ObserveAttributesMixin, event } fr
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './switch.scss.js';
+import styles from './switch.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

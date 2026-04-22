@@ -1,5 +1,5 @@
 :host {
-  --_transition-duration: 0.3s; // This is used in JavaScript as well
+  --_transition-duration: 0.3s; /* This is used in JavaScript as well */
 
   display: flex;
   outline: 0;
@@ -75,7 +75,6 @@ details {
 summary {
   --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
 
-  // align-items: center;
   background: color-mix(
     in srgb,
     transparent,
@@ -109,7 +108,7 @@ summary {
     border-radius: var(--sl-size-borderRadius-default);
     outline-color: var(--sl-color-border-focused);
     position: relative;
-    z-index: 2; // Make sure the outline is not clipped by the next accordion item
+    z-index: 2; /* Make sure the outline is not clipped by the next accordion item */
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -130,8 +129,10 @@ sl-icon {
   flex-shrink: 0;
   margin-block-start: calc((1lh - var(--sl-size-200)) / 2);
 
-  // As of March 2026, FF does not support text-box
-  // see https://caniuse.com/mdn-css_properties_text-box
+  /** 
+   * As of March 2026, FF does not support text-box
+   * see https://caniuse.com/mdn-css_properties_text-box
+   */
   @supports (text-box: trim-both) {
     margin-block-start: round(up, 1ex - 1cap, 1px);
   }
@@ -163,7 +164,7 @@ g {
 }
 
 .wrapper {
-  animation-duration: 1ms; // Make sure it works when prefers-reduced-motion is on
+  animation-duration: 1ms; /* Make sure it works when prefers-reduced-motion is on */
   animation-fill-mode: both;
   animation-iteration-count: 1;
   animation-timing-function: linear;

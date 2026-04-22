@@ -1,6 +1,6 @@
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './menu-item-group.scss.js';
+import styles from './menu-item-group.css' with { type: 'css' };
 import { MenuItem } from './menu-item.js';
 
 declare global {

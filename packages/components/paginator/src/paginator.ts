@@ -14,7 +14,7 @@ import { property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import styles from './paginator.scss.js';
+import styles from './paginator.css' with { type: 'css' };
 
 declare global {
   interface GlobalEventHandlersEventMap {

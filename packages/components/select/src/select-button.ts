@@ -6,7 +6,7 @@ import { type EventEmitter, EventsController, event } from '@sl-design-system/sh
 import { type SlClearEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './select-button.scss.js';
+import styles from './select-button.css' with { type: 'css' };
 import { type SelectSize } from './select.js';
 
 declare global {

@@ -3,7 +3,7 @@ import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import { AccordionItem } from './accordion-item.js';
-import styles from './accordion.scss.js';
+import styles from './accordion.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

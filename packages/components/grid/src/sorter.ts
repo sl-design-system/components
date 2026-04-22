@@ -9,7 +9,7 @@ import { property } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { type GridColumn } from './column.js';
-import styles from './sorter.scss.js';
+import styles from './sorter.css' with { type: 'css' };
 
 declare global {
   interface GlobalEventHandlersEventMap {

@@ -12,7 +12,7 @@ import { syncDisabledState } from './disabled-state.js';
 import { type ToolBarItem, mapElementsToItems } from './mapping.js';
 import { applyVisibility, calculateVisibility, measureItemWidths, revealAllItems } from './overflow.js';
 import { ToolBarDivider } from './tool-bar-divider.js';
-import styles from './tool-bar.scss.js';
+import styles from './tool-bar.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

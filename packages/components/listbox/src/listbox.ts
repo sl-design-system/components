@@ -3,7 +3,7 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { type PathKeys, getStringByPath, getValueByPath } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './listbox.scss.js';
+import styles from './listbox.css' with { type: 'css' };
 import { OptionGroupHeader } from './option-group-header.js';
 import { OptionGroup } from './option-group.js';
 import { Option, type OptionEmphasis } from './option.js';
@@ -150,7 +150,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
     if (changes.has('items')) {
       if (this.items) {
         this.#virtualizer ||= this.shadowRoot!.createElement('lit-virtualizer');
-        this.#virtualizer.items = (this.items ?? []) as unknown[];
+        this.#virtualizer.items = this.items ?? [];
         this.#virtualizer.renderItem = (item: unknown, index: number) =>
           (this.renderer?.(item as ListboxItem<T, U>, index) ??
             this.#renderItem(item as ListboxItem<T, U>, index)) as unknown as TemplateResult;

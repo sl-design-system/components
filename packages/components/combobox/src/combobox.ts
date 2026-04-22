@@ -23,7 +23,7 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { repeat } from 'lit/directives/repeat.js';
-import styles from './combobox.scss.js';
+import styles from './combobox.css' with { type: 'css' };
 import { CreateCustomOption } from './create-custom-option.js';
 import { CustomOption } from './custom-option.js';
 import { GroupedOption } from './grouped-option.js';
@@ -335,8 +335,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         this.listbox?.remove();
         this.listbox = this.shadowRoot!.createElement('sl-listbox');
         this.listbox.items = this.items;
-        this.listbox.renderer = (item, index: number) =>
-          this.#renderItem(item as ComboboxItem<T, U>, index) as unknown as TemplateResult;
+        this.listbox.renderer = (item, index: number) => this.#renderItem(item as ComboboxItem<T, U>, index);
         this.appendChild(this.listbox);
         this.#useVirtualList = true;
       } else if (changes.get('options')) {
@@ -1380,7 +1379,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       return;
     }
 
-    this.value = (this.multiple ? values : values[0]) as U | U[];
+    this.value = this.multiple ? values : values[0];
     this.#updateFormValue();
 
     if (emitEvent) {

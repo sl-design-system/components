@@ -11,7 +11,7 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property } from 'lit/decorators.js';
 import { type FormControl, type SlFormControlEvent } from './form-control-mixin.js';
 import { FormField, type SlFormFieldEvent } from './form-field.js';
-import styles from './form.scss.js';
+import styles from './form.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

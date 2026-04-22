@@ -4,7 +4,7 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property, state } from 'lit/decorators.js';
 import { Error } from './error.js';
 import { type FormControl, type SlUpdateValidityEvent } from './form-control-mixin.js';
-import styles from './form-field.scss.js';
+import styles from './form-field.css' with { type: 'css' };
 import { Hint } from './hint.js';
 import { Label, type LabelMark } from './label.js';
 

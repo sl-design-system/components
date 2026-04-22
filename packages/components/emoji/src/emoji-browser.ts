@@ -22,7 +22,7 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property, state } from 'lit/decorators.js';
 import { map } from 'lit/directives/map.js';
 import { repeat } from 'lit/directives/repeat.js';
-import styles from './emoji-browser.scss.js';
+import styles from './emoji-browser.css' with { type: 'css' };
 import { type Emoji, type EmojiGroup, EmojiService, type SupportedLocale } from './emoji-service.js';
 
 declare global {

@@ -11,7 +11,7 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property, state } from 'lit/decorators.js';
 import { MenuItemGroup } from './menu-item-group.js';
 import { MenuItem } from './menu-item.js';
-import styles from './menu.scss.js';
+import styles from './menu.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

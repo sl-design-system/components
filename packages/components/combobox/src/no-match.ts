@@ -1,7 +1,7 @@
 import { localized, msg, str } from '@lit/localize';
 import { type CSSResultGroup, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './no-match.scss.js';
+import styles from './no-match.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

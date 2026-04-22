@@ -10,7 +10,7 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property, state } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './calendar.scss.js';
+import styles from './calendar.css' with { type: 'css' };
 import { SelectDay } from './select-day.js';
 import { SelectMonth } from './select-month.js';
 import { SelectYear } from './select-year.js';

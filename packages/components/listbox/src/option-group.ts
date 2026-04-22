@@ -2,7 +2,7 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { OptionGroupHeader } from './option-group-header.js';
-import styles from './option-group.scss.js';
+import styles from './option-group.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

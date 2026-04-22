@@ -5,7 +5,7 @@ import { Menu, MenuButton, MenuItem } from '@sl-design-system/menu';
 import { type EventEmitter, RovingTabindexController, event, getScrollParent } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import styles from './tab-group.scss.js';
+import styles from './tab-group.css' with { type: 'css' };
 import { TabPanel } from './tab-panel.js';
 import { Tab } from './tab.js';
 

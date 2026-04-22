@@ -4,7 +4,7 @@ import { LocaleMixin } from '@sl-design-system/shared/mixins.js';
 import { TextField } from '@sl-design-system/text-field';
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './number-field.scss.js';
+import styles from './number-field.css' with { type: 'css' };
 import { NumberParser } from './number-parser.js';
 
 declare global {

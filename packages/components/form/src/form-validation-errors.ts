@@ -4,7 +4,7 @@ import { InlineMessage } from '@sl-design-system/inline-message';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { type FormController } from './form-controller.js';
-import styles from './form-validation-errors.scss.js';
+import styles from './form-validation-errors.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

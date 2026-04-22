@@ -12,7 +12,7 @@ import '@sl-design-system/tooltip/register.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './month-view.scss.js';
+import styles from './month-view.css' with { type: 'css' };
 import { type Calendar, type Day, Indicator, createCalendar, getWeekdayNames, indicatorConverter } from './utils.js';
 
 declare global {

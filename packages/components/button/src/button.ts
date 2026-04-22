@@ -3,7 +3,7 @@ import { ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './button.scss.js';
+import styles from './button.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

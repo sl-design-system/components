@@ -4,7 +4,7 @@ import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './accordion-item.scss.js';
+import styles from './accordion-item.css' with { type: 'css' };
 import { type AccordionIconType } from './accordion.js';
 
 declare global {

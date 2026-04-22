@@ -13,7 +13,7 @@ import { property } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
 import { IndentGuides } from './indent-guides.js';
 import { type TreeDataSourceNode } from './tree-data-source.js';
-import styles from './tree-node.scss.js';
+import styles from './tree-node.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

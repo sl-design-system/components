@@ -3,7 +3,7 @@ import { MenuButton } from '@sl-design-system/menu';
 import { ToggleButton } from '@sl-design-system/toggle-button';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
-import styles from './card.scss.js';
+import styles from './card.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

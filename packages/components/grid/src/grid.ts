@@ -28,7 +28,7 @@ import { GridColumn } from './column.js';
 import { GridDragHandleColumn } from './drag-handle-column.js';
 import { GridFilterColumn } from './filter-column.js';
 import { type GridFilter, type SlFilterRegisterEvent } from './filter.js';
-import styles from './grid.scss.js';
+import styles from './grid.css' with { type: 'css' };
 import { GridGroupHeader } from './group-header.js';
 import { GridSelectionColumn } from './selection-column.js';
 import { GridSortColumn } from './sort-column.js';

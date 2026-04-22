@@ -2,7 +2,7 @@
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import styles from './icon.scss.js';
+import styles from './icon.css' with { type: 'css' };
 import { type IconDefinition, type IconLibrary } from './models.js';
 
 declare global {

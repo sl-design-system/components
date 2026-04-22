@@ -3,7 +3,7 @@ import { Button, type ButtonSize } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import styles from './drawer.scss.js';
+import styles from './drawer.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

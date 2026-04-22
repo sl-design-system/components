@@ -1,7 +1,7 @@
 import { AnchorController, EventsController, type PopoverPosition, isPopoverOpen } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './tooltip.scss.js';
+import styles from './tooltip.css' with { type: 'css' };
 
 declare global {
   interface GlobalEventHandlersEventMap {
@@ -111,7 +111,7 @@ export class Tooltip extends LitElement {
 
       callback(tooltip);
 
-      tooltip.anchorElement = target as HTMLElement;
+      tooltip.anchorElement = target;
 
       // We only need to create the tooltip once, so ignore all future events.
       removeListeners();

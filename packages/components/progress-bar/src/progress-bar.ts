@@ -6,7 +6,7 @@ import { type CSSResultGroup, LitElement, PropertyValues, type TemplateResult, h
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import styles from './progress-bar.scss.js';
+import styles from './progress-bar.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

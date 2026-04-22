@@ -5,7 +5,7 @@ import { EventEmitter, EventsController, event } from '@sl-design-system/shared'
 import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import styles from './tag.scss.js';
+import styles from './tag.css' with { type: 'css' };
 
 declare global {
   interface GlobalEventHandlersEventMap {

@@ -216,17 +216,26 @@ const badgeSizes: Record<AvatarSize, BadgeSize> = {
 };
 
 const countPerCanvas = new WeakMap<Element, number>(),
-  intervalPerCanvas = new WeakMap<Element, ReturnType<typeof setInterval>>();
+  intervalPerCanvas = new WeakMap<Element, ReturnType<typeof setInterval>>(),
+  observerPerCanvas = new WeakMap<Element, MutationObserver>();
 
 export const Sizes: Story = {
   args: {
     subheading: 'Subheading'
   },
   play: ({ canvasElement }) => {
-    // Clear any previously running interval for this canvas (e.g. remount / Docs re-render)
-    const previousInterval = intervalPerCanvas.get(canvasElement);
+    // Clear any previously running interval and observer for this canvas (e.g. remount / Docs re-render)
+    const previousInterval = intervalPerCanvas.get(canvasElement),
+      previousObserver = observerPerCanvas.get(canvasElement);
+
     if (previousInterval) {
       clearInterval(previousInterval);
+      intervalPerCanvas.delete(canvasElement);
+    }
+
+    if (previousObserver) {
+      previousObserver.disconnect();
+      observerPerCanvas.delete(canvasElement);
     }
 
     countPerCanvas.set(canvasElement, 2);
@@ -240,6 +249,7 @@ export const Sizes: Story = {
       }
     });
     observer.observe(document.body, { childList: true, subtree: true });
+    observerPerCanvas.set(canvasElement, observer);
 
     const interval = setInterval(() => {
       const count = (countPerCanvas.get(canvasElement) ?? 2) + 1;
@@ -248,6 +258,7 @@ export const Sizes: Story = {
         clearInterval(interval);
         intervalPerCanvas.delete(canvasElement);
         observer.disconnect();
+        observerPerCanvas.delete(canvasElement);
 
         return;
       }

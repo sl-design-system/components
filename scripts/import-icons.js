@@ -21,8 +21,11 @@ const cwd = new URL('.', import.meta.url).pathname,
   eslint = new ESLint({ fix: true });
 
 const {
-  default: { icon: coreIcons, icon: coreIconConfig }
+  default: { icon: coreIconTokens }
 } = await import('../packages/tokens/src/tokens/core.json', { with: { type: 'json' } });
+
+const coreIcons = coreIconTokens;  // Keep the full icon object for getFormattedIcons
+const coreIconFontFamily = coreIconTokens.fontFamily;
 
 const getFormattedIcons = (icons, collection) => {
   return Object.entries(icons).reduce((acc, cur) => {
@@ -87,11 +90,14 @@ const buildIcons = async theme => {
   Object.entries(icons).map(([iconName, value]) => {
     const tokenValue = value['$value'] || value.value;
     if (!tokenValue) {
+      delete icons[iconName];
       return;
     }
 
     const faIcon = convertToIconDefinition(tokenValue.replace('fa-', ''), getIconStyle(iconName, text, style));
     if (!faIcon) {
+      console.warn(`[${theme}] FontAwesome icon not found: ${tokenValue} (${iconName})`);
+      delete icons[iconName];
       return;
     }
 
@@ -138,9 +144,9 @@ const buildIcons = async theme => {
   // 4. Write the output to `icons.json`???? Or just `icons.ts` which exports
   console.log(`Writing icons to ${theme}...`);
   const filePath = join(cwd, `../packages/themes/${theme}/icons.ts`),
-    sortedIcons = Object.fromEntries(Object.entries({ ...icons, ...coreCustomIcons, ...iconsCustom }).sort()),
+    sortedIcons = Object.fromEntries(Object.entries({ ...coreCustomIcons, ...icons, ...iconsCustom }).sort()),
     source = `
-      // This is a generated file, do not edit. Edit the core.json or base.json files instead.
+      // This is a generated file, do not edit. Edit the core.json or base-new.json files instead.
       export const icons = ${JSON.stringify(sortedIcons)};
     `,
     results = await eslint.lintText(source, { filePath });
@@ -176,7 +182,7 @@ const buildIconsFromBaseNew = async theme => {
     typeset: {
       fontFamily: {
         icon: {
-          value: coreIconConfig.fontFamily.classic.$value
+          value: coreIconFontFamily.classic.$value
         }
       }
     }
@@ -191,11 +197,14 @@ const buildIconsFromBaseNew = async theme => {
   Object.entries(icons).map(([iconName, value]) => {
     const tokenValue = value['$value'] || value.value;
     if (!tokenValue) {
+      delete icons[iconName];
       return;
     }
 
     const faIcon = convertToIconDefinition(tokenValue.replace('fa-', ''), getIconStyle(iconName, text, style));
     if (!faIcon) {
+      console.warn(`[${theme}] FontAwesome icon not found: ${tokenValue} (${iconName})`);
+      delete icons[iconName];
       return;
     }
 
@@ -240,7 +249,7 @@ const buildIconsFromBaseNew = async theme => {
   // 4. Write the output to `icons.json`???? Or just `icons.ts` which exports
   console.log(`Writing icons to ${theme}...`);
   const filePath = join(cwd, `../packages/themes/${theme}/icons.ts`),
-    sortedIcons = Object.fromEntries(Object.entries({ ...icons, ...coreCustomIcons, ...iconsCustom }).sort()),
+    sortedIcons = Object.fromEntries(Object.entries({ ...coreCustomIcons, ...icons, ...iconsCustom }).sort()),
     source = `
       // This is a generated file, do not edit. Edit the core.json or base-new.json files instead.
       export const icons = ${JSON.stringify(sortedIcons)};
@@ -262,16 +271,18 @@ const buildAllIcons = async () => {
       existsSync(join(cwd, `../packages/tokens/src/tokens/${theme}/base-new.json`))
     );
 
-  themes.forEach(theme => {
+  const buildPromises = themes.map(theme => {
     const hasBaseJson = existsSync(join(cwd, `../packages/tokens/src/tokens/${theme}/base.json`));
     const hasBaseNewJson = existsSync(join(cwd, `../packages/tokens/src/tokens/${theme}/base-new.json`));
 
     if (hasBaseJson) {
-      buildIcons(theme);
+      return buildIcons(theme);
     } else if (hasBaseNewJson) {
-      buildIconsFromBaseNew(theme);
+      return buildIconsFromBaseNew(theme);
     }
   });
+
+  await Promise.all(buildPromises);
 };
 
 const exportCoreIcons = async () => {

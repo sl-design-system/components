@@ -5,7 +5,12 @@
   "description": "Tree component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com",
+    "exports": {
+      ".": "./dist/index.js",
+      "./register.js": "./dist/register.js",
+      "./package.json": "./package.json"
+    }
   },
   "repository": {
     "type": "git",
@@ -17,14 +22,12 @@
     "url": "https://github.com/sl-design-system/components/issues"
   },
   "type": "module",
-  "main": "./index.js",
-  "module": "./index.js",
   "types": "./index.d.ts",
   "customElements": "custom-elements.json",
   "exports": {
-    ".": "./index.js",
-    "./package.json": "./package.json",
-    "./register.js": "./register.js"
+    ".": "./src/index.ts",
+    "./register.js": "./src/register.ts",
+    "./package.json": "./package.json"
   },
   "files": [
     "**/*.d.ts",
@@ -43,16 +46,19 @@
     "@sl-design-system/checkbox": "^2.1.10",
     "@sl-design-system/data-source": "^0.4.0",
     "@sl-design-system/icon": "^1.4.2",
+    "@sl-design-system/menu": "^0.3.1",
     "@sl-design-system/shared": "^0.12.0",
     "@sl-design-system/skeleton": "^1.0.1",
     "@sl-design-system/spinner": "^2.0.1",
     "@sl-design-system/virtual-list": "^0.0.5"
   },
   "devDependencies": {
+    "@lit/localize": "^0.12.2",
     "@open-wc/scoped-elements": "^3.0.6",
     "lit": "^3.3.2"
   },
   "peerDependencies": {
+    "@lit/localize": "^0.12.2",
     "@open-wc/scoped-elements": "^3.0.6",
     "lit": "^3.1.4"
   }

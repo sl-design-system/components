@@ -4,7 +4,11 @@
   "description": "Data source classes for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com",
+    "exports": {
+      ".": "./dist/index.js",
+      "./package.json": "./package.json"
+    }
   },
   "repository": {
     "type": "git",
@@ -16,11 +20,9 @@
     "url": "https://github.com/sl-design-system/components/issues"
   },
   "type": "module",
-  "main": "./index.js",
-  "module": "./index.js",
   "types": "./index.d.ts",
   "exports": {
-    ".": "./index.js",
+    ".": "./src/index.ts",
     "./package.json": "./package.json"
   },
   "files": [
@@ -30,6 +32,11 @@
   ],
   "scripts": {
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
+  },
+  "tsdown": {
+    "entry": [
+      "src/index.ts"
+    ]
   },
   "dependencies": {
     "@sl-design-system/shared": "^0.12.0"

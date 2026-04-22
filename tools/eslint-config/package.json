@@ -37,7 +37,7 @@
     "eslint-plugin-unused-imports": "^4.1.4",
     "eslint-plugin-wc": "^3.0.1",
     "prettier": "^3.8.1",
-    "typescript-eslint": "^8.58.0"
+    "typescript-eslint": "^8.59.0"
   },
   "peerDependencies": {
     "eslint": "^9.17.0",
@@ -52,6 +52,6 @@
   "devDependencies": {
     "eslint": "^9.27.0",
     "storybook": "^10.3.5",
-    "typescript": "^6.0.2"
+    "typescript": "^6.0.3"
   }
 }

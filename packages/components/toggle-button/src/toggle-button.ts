@@ -1,4 +1,3 @@
-/// <reference types="vite/client" />
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { ButtonShape } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';

@@ -72,6 +72,21 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** Observe changes to the child elements. */
   #mutationObserver = new MutationObserver(() => this.refresh());
 
+  /**
+   * Whether the toolbar uses intrinsic sizing (e.g. fit-content) and overflows its
+   * parent. When true, CSS containment is used to measure the external constraint.
+   * Reset on refresh() so a layout change is re-detected.
+   */
+  #fitContent = false;
+
+  /**
+   * The content-box width used in the most recent overflow calculation.
+   * Used to guard against feedback loops in content-sized parents: when hiding
+   * items shrinks the toolbar, the observer fires again with a smaller width,
+   * but we skip recalculation unless there is actual overflow or growth.
+   */
+  #lastAvailableWidth = 0;
+
   /** Flag indicating whether item width measurements are required before recalculating layout. */
   #needsMeasurement = true;
 
@@ -81,20 +96,23 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    // Use the host entry if available, otherwise use the parent entry
-    // (the parent is observed so we detect available space changes for fit-content toolbars).
     const hostEntry = entries.find(e => e.target === this),
-      contentBox = hostEntry?.contentBoxSize?.at(0),
-      availableWidth = contentBox?.inlineSize ?? this.getBoundingClientRect().width;
+      parentEntry = entries.find(e => e.target !== this),
+      contentBox = hostEntry?.contentBoxSize?.at(0);
 
-    // When the tool bar is flexible, its size changes as buttons are hidden, which can cause an
-    // infinite loop that only stops when all hideable buttons are hidden. We stop that loop when
-    // the actual vertical overflow is gone.
-    if (
-      availableWidth > 0 ||
-      this.wrapper.clientWidth < this.wrapper.scrollWidth ||
-      this.wrapper.clientHeight < this.wrapper.scrollHeight
-    ) {
+    // Compute content-box width. The observer entry gives it directly;
+    // the fallback (no host entry) computes it from getBoundingClientRect.
+    const availableWidth = contentBox ? contentBox.inlineSize : this.#getContentBoxWidth();
+
+    // Guard against feedback loops in content-sized parents. After hiding items
+    // the parent may shrink, causing a smaller observer width. We only proceed
+    // when there is actual overflow, pending measurement, growth, or a parent
+    // resize event (for fit-content recovery).
+    const hasOverflow =
+      this.wrapper.clientWidth < this.wrapper.scrollWidth || this.wrapper.clientHeight < this.wrapper.scrollHeight;
+
+    if (parentEntry || hasOverflow || this.#needsMeasurement || availableWidth > this.#lastAvailableWidth) {
+      this.#lastAvailableWidth = availableWidth;
       this.#onResize(availableWidth);
     }
   });
@@ -178,6 +196,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     // Reset measurements to ensure clean state on reconnect
     this.#needsMeasurement = true;
+    this.#fitContent = false;
+    this.#lastAvailableWidth = 0;
 
     super.disconnectedCallback();
   }
@@ -223,11 +243,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       this.#measureItems();
 
       this.#resizeObserver.observe(this);
-
-      // Also observe the parent element so we detect when more space becomes available
-      if (this.parentElement) {
-        this.#resizeObserver.observe(this.parentElement);
-      }
 
       this.#rovingTabindexController.clearElementCache();
     });
@@ -318,10 +333,16 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     this.items = mapElementsToItems(elements);
     this.#needsMeasurement = true;
+    this.#fitContent = false;
+    this.#lastAvailableWidth = 0;
+
+    if (this.parentElement) {
+      this.#resizeObserver.unobserve(this.parentElement);
+    }
 
     // The menu-button may have appeared or disappeared, so we need to re-measure
     this.#measureItems();
-    this.#onResize(this.getBoundingClientRect().width);
+    this.#onResize(this.#getContentBoxWidth());
   }
 
   /**
@@ -377,9 +398,28 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    // Measure the available width with all items visible.
-    revealAllItems(this.items);
-    availableWidth = measureConstrainedWidth(this, this.#internals);
+    // Detect fit-content layout: when items are revealed during measurement the
+    // toolbar may expand beyond its parent. Once detected, CSS containment is
+    // used to measure the external constraint and the parent is observed so we
+    // can detect when more space becomes available.
+    if (!this.#fitContent && this.parentElement) {
+      const hostBorderBox = this.getBoundingClientRect().width;
+
+      if (hostBorderBox > this.parentElement.clientWidth + 1) {
+        this.#fitContent = true;
+        this.#resizeObserver.observe(this.parentElement);
+      }
+    }
+
+    if (this.#fitContent) {
+      // Fit-content: use CSS containment to measure the external constraint
+      availableWidth = measureConstrainedWidth(this, this.#internals);
+    }
+    // For externally constrained toolbars (flex child, fixed width) the
+    // availableWidth parameter from the observer is already the correct
+    // content-box width. We do NOT re-measure here because revealAllItems
+    // may have expanded the toolbar in a content-sized parent, giving a
+    // larger-than-real value.
 
     // Remove `all-items-hidden` before measuring so the menu button keeps
     // its normal margin. Without this, the margin toggles on and off and
@@ -387,6 +427,11 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     this.menuButton?.removeAttribute('all-items-hidden');
 
     const menuButtonWidth = measureMenuButtonWidth(this.wrapper, this.menuButton ?? undefined, gap);
+
+    // Round up to the nearest pixel to account for sub-pixel rounding between
+    // the browser's layout engine and JavaScript's float arithmetic. Without
+    // this, fit-content toolbars may show overflow when all items visually fit.
+    availableWidth = Math.ceil(availableWidth);
 
     calculateVisibility(this.items, this.#widths, availableWidth, gap, menuButtonWidth);
     applyVisibility(this.items);
@@ -492,6 +537,16 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
       return false;
     });
+  }
+
+  /** Compute the content-box width of the host element. */
+  #getContentBoxWidth(): number {
+    const rect = this.getBoundingClientRect(),
+      styles = getComputedStyle(this),
+      padding = (parseFloat(styles.paddingInlineStart) || 0) + (parseFloat(styles.paddingInlineEnd) || 0),
+      border = (parseFloat(styles.borderInlineStartWidth) || 0) + (parseFloat(styles.borderInlineEndWidth) || 0);
+
+    return rect.width - padding - border;
   }
 
   #measureItems(): void {

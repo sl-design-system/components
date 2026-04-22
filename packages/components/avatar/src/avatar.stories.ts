@@ -1,4 +1,5 @@
 import { faSchool } from '@fortawesome/pro-regular-svg-icons';
+import { announce } from '@sl-design-system/announcer';
 import { type BadgeSize } from '@sl-design-system/badge';
 import '@sl-design-system/badge/register.js';
 import { Icon } from '@sl-design-system/icon';
@@ -266,16 +267,18 @@ export const Sizes: Story = {
           }
         }
       });
+
+      announce(`${count} unread messages`);
     }, 5000);
 
     intervalPerCanvas.set(canvasElement, interval);
   },
   render: ({ color, displayInitials, emphasis, href, pictureUrl, shape, subheading, vertical }) => html`
     <p>
-      Avatars with badges in all available sizes. The badges use <code>role="status"</code> and an
-      <code>aria-label</code> that updates every 5 seconds to simulate dynamic content. See the
+      Avatars with badges in all available sizes. The badge count updates every 5 seconds to simulate dynamic content.
+      The <code>announce()</code> function is used to notify screen readers of the updated count. See the
       <a href="https://sanomalearning.design/categories/components/avatar/accessibility/">accessibility guidelines</a>
-      for details on static vs dynamic badge usage in avatar.
+      for details on badge usage in avatar.
     </p>
     <div style="display: flex; flex-direction: column; gap: 1rem">
       ${sizes.map(
@@ -292,14 +295,7 @@ export const Sizes: Story = {
             ?vertical=${vertical}
           >
             ${subheading ? html`<span>${subheading}</span>` : nothing}
-            <sl-badge
-              .size=${badgeSizes[size]}
-              aria-label="2 unread messages"
-              color="red"
-              emphasis="bold"
-              role="status"
-              slot="badge"
-            >
+            <sl-badge .size=${badgeSizes[size]} aria-label="2 unread messages" color="red" emphasis="bold" slot="badge">
               ${badgeSizes[size] === 'sm' ? nothing : 2}
             </sl-badge>
           </sl-avatar>

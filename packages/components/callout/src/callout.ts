@@ -46,9 +46,9 @@ export class Callout extends ScopedElementsMixin(LitElement) {
       case 'success':
         return 'circle-check-solid';
       case 'warning':
-        return 'octagon-exclamation-solid';
+        return 'triangle-exclamation-solid';
       case 'danger':
-        return 'diamond-exclamation-solid';
+        return 'octagon-xmark-solid';
       default:
         return 'info';
     }

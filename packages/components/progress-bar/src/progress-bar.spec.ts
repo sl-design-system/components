@@ -89,7 +89,7 @@ describe('sl-progress-bar', () => {
 
     expect(label).to.exist;
     expect(label).to.have.trimmed.text('Progress label');
-    expect(icon).to.have.attribute('name', 'octagon-exclamation-solid');
+    expect(icon).to.have.attribute('name', 'triangle-exclamation-solid');
   });
 
   it('should have the proper icon when the error variant is set', async () => {
@@ -102,7 +102,7 @@ describe('sl-progress-bar', () => {
 
     expect(label).to.exist;
     expect(label).to.have.trimmed.text('Progress label');
-    expect(icon).to.have.attribute('name', 'triangle-exclamation-solid');
+    expect(icon).to.have.attribute('name', 'octagon-xmark-solid');
   });
 
   it('should have the icon in the helper text part when there is no label', async () => {

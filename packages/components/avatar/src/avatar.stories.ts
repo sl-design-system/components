@@ -1,6 +1,6 @@
 import { faSchool } from '@fortawesome/pro-regular-svg-icons';
 import { announce } from '@sl-design-system/announcer';
-import { type BadgeSize } from '@sl-design-system/badge';
+import { type Badge, type BadgeSize } from '@sl-design-system/badge';
 import '@sl-design-system/badge/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/tooltip/register.js';
@@ -216,60 +216,40 @@ const badgeSizes: Record<AvatarSize, BadgeSize> = {
 };
 
 const countPerCanvas = new WeakMap<Element, number>(),
-  intervalPerCanvas = new WeakMap<Element, ReturnType<typeof setInterval>>(),
-  observerPerCanvas = new WeakMap<Element, MutationObserver>();
+  intervalPerCanvas = new WeakMap<Element, ReturnType<typeof setInterval>>();
 
 export const Sizes: Story = {
   args: {
     subheading: 'Subheading'
   },
   play: ({ canvasElement }) => {
-    // Clear any previously running interval and observer for this canvas (e.g. remount / Docs re-render)
-    const previousInterval = intervalPerCanvas.get(canvasElement),
-      previousObserver = observerPerCanvas.get(canvasElement);
+    const previousInterval = intervalPerCanvas.get(canvasElement);
 
     if (previousInterval) {
       clearInterval(previousInterval);
       intervalPerCanvas.delete(canvasElement);
     }
 
-    if (previousObserver) {
-      previousObserver.disconnect();
-      observerPerCanvas.delete(canvasElement);
-    }
-
     countPerCanvas.set(canvasElement, 2);
     const maxCount = 30;
-
-    let needsCleanup = false;
-
-    const observer = new MutationObserver(() => {
-      if (!canvasElement.isConnected) {
-        needsCleanup = true;
-      }
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
-    observerPerCanvas.set(canvasElement, observer);
 
     const interval = setInterval(() => {
       const count = (countPerCanvas.get(canvasElement) ?? 2) + 1;
 
-      if (!canvasElement.isConnected || needsCleanup || count > maxCount) {
+      if (!canvasElement.isConnected || count > maxCount) {
         clearInterval(interval);
         intervalPerCanvas.delete(canvasElement);
-        observer.disconnect();
-        observerPerCanvas.delete(canvasElement);
 
         return;
       }
 
       countPerCanvas.set(canvasElement, count);
 
-      const badges = canvasElement.querySelectorAll('sl-badge');
+      const badges = canvasElement.querySelectorAll<Badge>('sl-badge');
       badges.forEach(badge => {
         badge.setAttribute('aria-label', `${count} unread messages`);
 
-        if ((badge as HTMLElement & { size: string }).size !== 'sm') {
+        if (badge.size !== 'sm') {
           const textNode = Array.from(badge.childNodes).find(
             node => node.nodeType === Node.TEXT_NODE && node.textContent?.trim() !== ''
           );

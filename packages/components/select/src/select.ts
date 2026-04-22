@@ -236,6 +236,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
     this.#observer.observe(this, { childList: true, subtree: true });
     this.#observeSelectedOptionContent();
+    this.#onSelectedOptionContentChange();
 
     // Listen for i18n updates and update the validation message
     this.#events.listen(window, LOCALE_STATUS_EVENT, this.#updateValueAndValidity);
@@ -760,7 +761,9 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     this.#selectedOptionObserver.observe(this.selectedOption, {
       childList: true,
       subtree: true,
-      characterData: true
+      characterData: true,
+      attributes: true,
+      attributeFilter: ['value']
     });
   }
 

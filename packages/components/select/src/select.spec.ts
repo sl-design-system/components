@@ -968,6 +968,25 @@ describe('sl-select', () => {
       expect(container).to.have.trimmed.text('Updated After Reattach');
     });
 
+    it('should refresh selected content after reconnect when selected option changed while detached', async () => {
+      el.value = '1';
+      await el.updateComplete;
+
+      const container = button.querySelector('[slot="selected-content"]');
+      expect(container).to.have.trimmed.text('Option 1');
+
+      const parent = el.parentElement!;
+      parent.removeChild(el);
+
+      const option = el.querySelector('sl-option[value="1"]')!;
+      option.textContent = 'Updated While Detached';
+
+      parent.appendChild(el);
+      await el.updateComplete;
+
+      expect(container).to.have.trimmed.text('Updated While Detached');
+    });
+
     it('should batch largest option width recalculation while a frame is pending', async () => {
       el.value = '1';
       await el.updateComplete;
@@ -1050,6 +1069,37 @@ describe('sl-select', () => {
       expect(el.value).to.equal('Green Apple');
       expect(onChange).not.to.have.been.called;
       expect(new FormData(form).get('fruit')).to.equal('Green Apple');
+    });
+
+    it('should sync value when selected option value attribute changes', async () => {
+      const form = await fixture<HTMLFormElement>(html`
+        <form>
+          <sl-select name="fruit">
+            <sl-option value="apple">Apple</sl-option>
+            <sl-option value="banana">Banana</sl-option>
+          </sl-select>
+        </form>
+      `);
+
+      el = form.querySelector<Select>('sl-select')!;
+      button = el.querySelector('sl-select-button')!;
+
+      el.value = 'apple';
+      await el.updateComplete;
+
+      const onChange = spy();
+      el.addEventListener('sl-change', onChange);
+
+      const option = el.querySelector('sl-option[value="apple"]')!;
+      option.setAttribute('value', 'green-apple');
+
+      // Wait for MutationObserver callback to fire
+      await new Promise(resolve => setTimeout(resolve, 0));
+      await el.updateComplete;
+
+      expect(el.value).to.equal('green-apple');
+      expect(onChange).not.to.have.been.called;
+      expect(new FormData(form).get('fruit')).to.equal('green-apple');
     });
 
     it('should handle options with slotted element content', async () => {

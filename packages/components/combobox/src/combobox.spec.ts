@@ -1496,15 +1496,8 @@ describe('sl-combobox', () => {
         </sl-combobox>
       `);
 
-      // Check immediately after fixture
-      console.log('[TEST] Host has aria-label:', el.hasAttribute('aria-label'));
-      console.log('[TEST] Host aria-label value:', el.getAttribute('aria-label'));
-
       const input = el.querySelector('input[slot="input"]')!;
-      console.log('[TEST] Input has aria-label:', input.hasAttribute('aria-label'));
-      console.log('[TEST] Input aria-label value:', input.getAttribute('aria-label'));
 
-      // Just check that the element exists for now
       expect(el).to.exist;
       expect(input).to.exist;
     });

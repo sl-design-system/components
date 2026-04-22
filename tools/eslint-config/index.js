@@ -7,11 +7,16 @@ import importPlugin from 'eslint-plugin-import';
 import { configs as litConfigs } from 'eslint-plugin-lit';
 import litA11y from 'eslint-plugin-lit-a11y';
 import mocha from 'eslint-plugin-mocha';
+import oxlint from 'eslint-plugin-oxlint';
 import prettier from 'eslint-plugin-prettier/recommended';
 import storybook from 'eslint-plugin-storybook';
 import unusedImports from 'eslint-plugin-unused-imports';
 import { configs as wcConfigs } from 'eslint-plugin-wc';
+import { createRequire } from 'module';
 import tseslint from 'typescript-eslint';
+
+const require = createRequire(import.meta.url);
+const oxlintConfig = require('../../oxlint.json');
 
 /** @type {import('eslint').Linter.Config[]} */
 export default tseslint.config(
@@ -21,6 +26,7 @@ export default tseslint.config(
   wcConfigs['flat/recommended'],
   slds.configs.recommended,
   mocha.configs.recommended,
+  ...oxlint.buildFromOxlintConfig(oxlintConfig),
   {
     languageOptions: {
       parserOptions: {
@@ -50,20 +56,8 @@ export default tseslint.config(
   {
     files: ['**/*.ts'],
     rules: {
-      'no-fallthrough': [
-        'error',
-        {
-          commentPattern: 'Break[\\s\\w]*omitted'
-        }
-      ],
       // Disable here so we can enable the typescript one
       'no-return-await': 'off',
-      'sort-imports': [
-        'error',
-        {
-          ignoreDeclarationSort: true
-        }
-      ],
       '@stylistic/member-delimiter-style': [
         'error',
         {
@@ -72,8 +66,6 @@ export default tseslint.config(
         }
       ],
       '@stylistic/quotes': ['error', 'single', { avoidEscape: true }],
-      '@typescript-eslint/array-type': ['error', { default: 'array-simple' }],
-      '@typescript-eslint/consistent-type-assertions': 'off',
       '@typescript-eslint/indent': 'off',
       '@typescript-eslint/method-signature-style': ['error', 'method'],
       '@typescript-eslint/no-confusing-void-expression': [
@@ -88,13 +80,6 @@ export default tseslint.config(
           checksVoidReturn: false
         }
       ],
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        {
-          argsIgnorePattern: '^_',
-          varsIgnorePattern: '^_'
-        }
-      ],
       '@typescript-eslint/prefer-readonly': 'off',
       '@typescript-eslint/return-await': ['error', 'always'],
       '@typescript-eslint/semi': 'off',
@@ -102,13 +87,6 @@ export default tseslint.config(
       '@typescript-eslint/strict-boolean-expressions': 'off',
       // https://github.com/43081j/eslint-plugin-lit/issues/188
       '@typescript-eslint/unbound-method': 'off',
-      'import/consistent-type-specifier-style': ['error', 'prefer-inline'],
-      'import/no-duplicates': [
-        'error',
-        {
-          'prefer-inline': true
-        }
-      ],
       'import/order': [
         'error',
         {

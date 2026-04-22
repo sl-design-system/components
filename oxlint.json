@@ -1,0 +1,31 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "import"],
+  "env": {
+    "browser": true,
+    "es2022": true
+  },
+  "rules": {
+    "no-fallthrough": ["error", { "commentPattern": "Break[\\s\\w]*omitted" }],
+    "sort-imports": ["error", { "ignoreDeclarationSort": true }],
+    "typescript/array-type": ["error", { "default": "array-simple" }],
+    "typescript/consistent-type-assertions": "off",
+    "import/consistent-type-specifier-style": ["error", "prefer-inline"],
+    "import/no-duplicates": "error",
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }]
+  },
+  "overrides": [
+    {
+      "files": ["**/*.spec.ts"],
+      "rules": {
+        "no-unused-expressions": "off"
+      }
+    }
+  ],
+  "ignorePatterns": [
+    "**/*.d.ts",
+    "**/*.scss.ts",
+    "**/node_modules/**",
+    "**/dist/**"
+  ]
+}

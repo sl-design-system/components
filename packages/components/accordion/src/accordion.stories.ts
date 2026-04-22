@@ -307,7 +307,7 @@ export const ToggleExternally: Story = {
               <sl-button @click=${this.toggleDino}>Toggle 🦖</sl-button>
               <sl-button @click=${this.toggleAlien}>Toggle 👽</sl-button>
               <p>
-                🦖 state: ${this.dino ? 'open' : 'closed'}<br />
+                🦖 state: ${this.dino ? 'open' : 'closed'}<br aria-hidden="true" />
                 👽 state: ${this.alien ? 'open' : 'closed'}
               </p>
               <sl-accordion>

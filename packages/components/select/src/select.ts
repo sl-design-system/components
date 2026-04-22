@@ -102,6 +102,9 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   /** Detect when the selected option content changes, so the button can refresh its cloned content. */
   #selectedOptionObserver = new MutationObserver(() => this.#onSelectedOptionContentChange());
 
+  /** Tracks a scheduled largest-option-width recalculation frame. */
+  #widthCalculationFrame?: number;
+
   /** Since we can't use `popovertarget`, we need to monitor the closing state manually. */
   #popoverClosing = false;
 
@@ -232,6 +235,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     this.setAttributesTarget(this.button);
 
     this.#observer.observe(this, { childList: true, subtree: true });
+    this.#observeSelectedOptionContent();
 
     // Listen for i18n updates and update the validation message
     this.#events.listen(window, LOCALE_STATUS_EVENT, this.#updateValueAndValidity);
@@ -240,6 +244,10 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   override disconnectedCallback(): void {
     this.#observer.disconnect();
     this.#selectedOptionObserver.disconnect();
+    if (this.#widthCalculationFrame !== undefined) {
+      cancelAnimationFrame(this.#widthCalculationFrame);
+      this.#widthCalculationFrame = undefined;
+    }
 
     super.disconnectedCallback();
   }
@@ -425,9 +433,15 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
       return;
     }
 
+    const selectedOptionValue = this.selectedOption.value;
+    if (selectedOptionValue !== this.value) {
+      this.value = selectedOptionValue;
+      this.#updateValueAndValidity();
+    }
+
     this.#lastRenderedOption = undefined;
     this.#renderSelectedContent();
-    this.#calculateLargestOptionWidth();
+    this.#scheduleLargestOptionWidthCalculation();
   }
 
   #onBeforetoggle({ newState }: ToggleEvent): void {
@@ -708,8 +722,6 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   }
 
   #setSelectedOption(option?: Option<T>, emitEvent = true): void {
-    this.#selectedOptionObserver.disconnect();
-
     if (this.selectedOption) {
       this.selectedOption.selected = false;
       this.selectedOption.setAttribute('aria-selected', 'false');
@@ -720,12 +732,8 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     if (this.selectedOption) {
       this.selectedOption.selected = true;
       this.selectedOption.setAttribute('aria-selected', 'true');
-      this.#selectedOptionObserver.observe(this.selectedOption, {
-        childList: true,
-        subtree: true,
-        characterData: true
-      });
     }
+    this.#observeSelectedOptionContent();
 
     this.button.selected = this.selectedOption;
     this.value = this.selectedOption?.value;
@@ -740,6 +748,31 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
     this.#updateValueAndValidity();
     this.#updateAriaKeyShortcuts();
+  }
+
+  #observeSelectedOptionContent(): void {
+    this.#selectedOptionObserver.disconnect();
+
+    if (!this.selectedOption) {
+      return;
+    }
+
+    this.#selectedOptionObserver.observe(this.selectedOption, {
+      childList: true,
+      subtree: true,
+      characterData: true
+    });
+  }
+
+  #scheduleLargestOptionWidthCalculation(): void {
+    if (this.#widthCalculationFrame !== undefined) {
+      return;
+    }
+
+    this.#widthCalculationFrame = requestAnimationFrame(() => {
+      this.#widthCalculationFrame = undefined;
+      this.#calculateLargestOptionWidth();
+    });
   }
 
   #updateAriaKeyShortcuts(): void {

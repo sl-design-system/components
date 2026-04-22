@@ -1487,7 +1487,7 @@ describe('sl-combobox', () => {
   });
 
   describe('accessibility', () => {
-    it('should have aria-label on host initially', async () => {
+    it('should forward aria-label from host to input', async () => {
       const el = await fixture<Combobox>(html`
         <sl-combobox aria-label="Search options">
           <sl-listbox>
@@ -1500,21 +1500,11 @@ describe('sl-combobox', () => {
 
       expect(el).to.exist;
       expect(input).to.exist;
-    });
-
-    it('should forward aria-label from host to input', async () => {
-      const el = await fixture<Combobox>(html`
-        <sl-combobox aria-label="Search options">
-          <sl-listbox>
-            <sl-option>Option 1</sl-option>
-          </sl-listbox>
-        </sl-combobox>
-      `);
+      expect(el).to.have.attribute('aria-label', 'Search options');
+      expect(input).not.to.have.attribute('aria-label', 'Search options');
 
       // Wait for the mixin's requestAnimationFrame to complete
       await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
-
-      const input = el.querySelector('input[slot="input"]')!;
 
       expect(input).to.have.attribute('aria-label', 'Search options');
       expect(el).not.to.have.attribute('aria-label');

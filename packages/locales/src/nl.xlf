@@ -426,6 +426,10 @@
   <source>No later than <x id="0" equiv-text="${format(this.max, this.locale, this.#helperTextFormatOptions)}"/></source>
   <target>Uiterlijk <x id="0" equiv-text="${format(this.max, this.locale, this.#helperTextFormatOptions)}"/></target>
 </trans-unit>
+<trans-unit id="sl.infotip.moreInformation">
+  <source>More information</source>
+  <target>Meer informatie</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

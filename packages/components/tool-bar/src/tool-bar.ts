@@ -77,14 +77,15 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
   /** Observe changes to the size of the host element. */
   #resizeObserver = new ResizeObserver(entries => {
-    const entry = entries.at(0),
-      contentBox = entry?.contentBoxSize?.at(0);
-
-    if (!entry || !contentBox || !this.wrapper) {
+    if (!this.wrapper) {
       return;
     }
 
-    const availableWidth = contentBox.inlineSize;
+    // Use the host entry if available, otherwise use the parent entry
+    // (the parent is observed so we detect available space changes for fit-content toolbars).
+    const hostEntry = entries.find(e => e.target === this),
+      contentBox = hostEntry?.contentBoxSize?.at(0),
+      availableWidth = contentBox?.inlineSize ?? this.getBoundingClientRect().width;
 
     // When the tool bar is flexible, its size changes as buttons are hidden, which can cause an
     // infinite loop that only stops when all hideable buttons are hidden. We stop that loop when
@@ -222,6 +223,12 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       this.#measureItems();
 
       this.#resizeObserver.observe(this);
+
+      // Also observe the parent element so we detect when more space becomes available
+      if (this.parentElement) {
+        this.#resizeObserver.observe(this.parentElement);
+      }
+
       this.#rovingTabindexController.clearElementCache();
     });
   }
@@ -357,7 +364,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    const gap = parseInt(getComputedStyle(this.wrapper).getPropertyValue('gap')) || 0;
+    const gap = parseFloat(getComputedStyle(this.wrapper).getPropertyValue('gap')) || 0;
 
     // If we need measurements, show all items first and measure
     if (this.#needsMeasurement || this.#widths.length === 0) {

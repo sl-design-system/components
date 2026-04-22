@@ -165,11 +165,19 @@ export function measureConstrainedWidth(host: HTMLElement, internals: ElementInt
   let measuredWidth = host.getBoundingClientRect().width - paddingInline - borderInline;
 
   // If containment collapsed the toolbar (e.g. inline-size: fit-content),
-  // fall back to the natural width without containment.
+  // fall back to the natural width without containment. Use the parent's
+  // client width as an upper bound, because the toolbar's own bounding rect
+  // can exceed the scrollable ancestor when fit-content expands the content.
   if (measuredWidth <= 0) {
     internals.states.delete('measuring');
     void host.offsetHeight;
     measuredWidth = host.getBoundingClientRect().width - paddingInline - borderInline;
+
+    if (host.parentElement) {
+      const parentAvailable = host.parentElement.clientWidth;
+
+      measuredWidth = Math.min(measuredWidth, parentAvailable - paddingInline - borderInline);
+    }
   }
 
   // Remove the measuring state to restore normal layout.

@@ -38,7 +38,8 @@ export default {
 
 export const Checkbox: StoryObj = {
   render: () => ({
-    description: 'You can bind actions to buttons using the (sl-change) event to respond to value changes.',
+    description:
+      'You can bind actions to buttons using the (sl-change) event to respond to value changes.',
     props: {
       action: (event: Event) => console.log('Checkbox toggled, current value:', event)
     },
@@ -54,7 +55,8 @@ export const Checkbox: StoryObj = {
 
 export const Combobox: StoryObj = {
   render: () => ({
-    description: 'You can bind actions to the combobox using the (sl-change) event to respond to value changes.',
+    description:
+      'You can bind actions to the combobox using the (sl-change) event to respond to value changes.',
     props: {
       action: (event: Event) => console.log('Combobox changed, current value:', event)
     },
@@ -72,7 +74,8 @@ export const Combobox: StoryObj = {
 
 export const NumberField: StoryObj = {
   render: () => ({
-    description: 'You can bind actions to buttons using the (sl-change) event to respond to value changes.',
+    description:
+      'You can bind actions to buttons using the (sl-change) event to respond to value changes.',
     props: {
       action: (event: Event) => console.log('NumberField changed, current value:', event)
     },
@@ -82,7 +85,8 @@ export const NumberField: StoryObj = {
 
 export const RadioGroup: StoryObj = {
   render: () => ({
-    description: 'You can bind actions to buttons using the (sl-change) event to respond to value changes.',
+    description:
+      'You can bind actions to buttons using the (sl-change) event to respond to value changes.',
     props: {
       action: (event: Event) => console.log('RadioGroup changed, current value:', event)
     },
@@ -111,7 +115,8 @@ export const SearchField: StoryObj = {
 
 export const Select: StoryObj = {
   render: () => ({
-    description: 'You can bind actions to the select using the (sl-change) event to respond to selection changes.',
+    description:
+      'You can bind actions to the select using the (sl-change) event to respond to selection changes.',
     props: {
       action: (event: Event) => console.log('Select changed, current value:', event)
     },
@@ -127,7 +132,8 @@ export const Select: StoryObj = {
 
 export const Switch: StoryObj = {
   render: () => ({
-    description: 'You can bind actions to the switch using the (sl-change) event to respond to toggle changes.',
+    description:
+      'You can bind actions to the switch using the (sl-change) event to respond to toggle changes.',
     props: {
       action: (event: Event) => console.log('Switch toggled, current value:', event)
     },
@@ -137,21 +143,25 @@ export const Switch: StoryObj = {
 
 export const TextField: StoryObj = {
   render: () => ({
-    description: 'You can bind actions to the text field using the (sl-change) event to respond to input changes.',
+    description:
+      'You can bind actions to the text field using the (sl-change) event to respond to input changes.',
     props: {
       action: (event: Event) => console.log('TextField changed, current value:', event)
     },
-    template: '<sl-text-field (sl-change)="action($event)" placeholder="Type something..."></sl-text-field>'
+    template:
+      '<sl-text-field (sl-change)="action($event)" placeholder="Type something..."></sl-text-field>'
   })
 };
 
 export const TextArea: StoryObj = {
   render: () => ({
-    description: 'You can bind actions to the text area using the (sl-change) event to respond to input changes.',
+    description:
+      'You can bind actions to the text area using the (sl-change) event to respond to input changes.',
     props: {
       action: (event: Event) => console.log('TextArea changed, current value:', event)
     },
-    template: '<sl-text-area (sl-change)="action($event)" placeholder="Enter text..."></sl-text-area>'
+    template:
+      '<sl-text-area (sl-change)="action($event)" placeholder="Enter text..."></sl-text-area>'
   })
 };
 

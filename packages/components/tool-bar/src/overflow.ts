@@ -158,17 +158,20 @@ export function measureConstrainedWidth(host: HTMLElement, internals: ElementInt
 
   // Add the measuring state so CSS applies containment.
   internals.states.add('measuring');
-  void host.offsetHeight;
 
-  let measuredWidth = host.getBoundingClientRect().width - paddingInline - borderInline;
+  try {
+    void host.offsetHeight;
 
-  // If containment collapsed the toolbar to zero, use the parent's width instead.
-  if (measuredWidth <= 0 && host.parentElement) {
-    measuredWidth = host.parentElement.clientWidth - paddingInline - borderInline;
+    let measuredWidth = host.getBoundingClientRect().width - paddingInline - borderInline;
+
+    // If containment collapsed the toolbar to zero, use the parent's width instead.
+    if (measuredWidth <= 0 && host.parentElement) {
+      measuredWidth = host.parentElement.clientWidth - paddingInline - borderInline;
+    }
+
+    return measuredWidth;
+  } finally {
+    // Always remove the measuring state to restore normal layout.
+    internals.states.delete('measuring');
   }
-
-  // Remove the measuring state to restore normal layout.
-  internals.states.delete('measuring');
-
-  return measuredWidth;
 }

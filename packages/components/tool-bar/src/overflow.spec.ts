@@ -455,6 +455,33 @@ describe('width measurement', () => {
     expect(el.items.filter(item => item.visible).length).to.equal(3);
   });
 
+  it('should not show the overflow menu prematurely when fit-content is constrained by the parent', async () => {
+    const container = await fixture<HTMLDivElement>(html`
+        <div style="inline-size: 400px">
+          <sl-tool-bar style="inline-size: fit-content">
+            <sl-button>
+              <sl-icon name="far-gear"></sl-icon>
+              Button 1
+            </sl-button>
+            <sl-button>
+              <sl-icon name="far-bell"></sl-icon>
+              Button 2
+            </sl-button>
+            <sl-button>
+              <sl-icon name="far-pen"></sl-icon>
+              Button 3
+            </sl-button>
+          </sl-tool-bar>
+        </div>
+      `),
+      toolbar = container.querySelector('sl-tool-bar') as ToolBar;
+
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    expect(toolbar.items.filter(item => item.visible).length).to.equal(3);
+    expect(toolbar.menuItems.length).to.equal(0);
+  });
+
   it('should not leave the measuring state set', async () => {
     el.style.inlineSize = '150px';
     await new Promise(resolve => setTimeout(resolve, 100));

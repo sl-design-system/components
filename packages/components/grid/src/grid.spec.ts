@@ -1,3 +1,5 @@
+import '@sl-design-system/button/register.js';
+import { type ToolBar } from '@sl-design-system/tool-bar';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { type SinonSpy, spy } from 'sinon';
@@ -6,7 +8,7 @@ import '../register.js';
 import { type Grid, type SlActiveRowChangeEvent } from './grid.js';
 import { waitForGridToRenderData } from './utils.js';
 
-type Person = { firstName: string; lastName: string };
+type Person = { firstName: string; lastName: string; email?: string };
 
 describe('sl-grid', () => {
   let el: Grid<Person>;
@@ -380,6 +382,82 @@ describe('sl-grid', () => {
 
       expect(toggleSpy).to.have.been.calledOnce;
       expect(toggleSpy.firstCall.args[0]).to.have.property('data', el.items?.at(0));
+    });
+  });
+
+  describe('bulk actions', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-grid
+          style="inline-size: 600px"
+          .items=${[
+            { firstName: 'Sophie', lastName: 'Müller', email: 'sophie.muller@school1.edu' },
+            { firstName: 'Luca', lastName: 'van Dijk', email: 'luca.vandijk@school4.edu' },
+            { firstName: 'Clara', lastName: 'de Vries', email: 'clara.devries@school4.edu' }
+          ]}
+        >
+          <sl-grid-selection-column></sl-grid-selection-column>
+          <sl-grid-column path="firstName"></sl-grid-column>
+          <sl-grid-column path="email"></sl-grid-column>
+          <sl-button fill="outline" slot="bulk-actions" variant="inverted">Duplicate</sl-button>
+          <sl-button fill="outline" slot="bulk-actions" variant="inverted">Move to folder</sl-button>
+          <sl-button fill="outline" slot="bulk-actions" variant="inverted">Delete</sl-button>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+    });
+
+    it('should show the bulk-actions when rows are selected', async () => {
+      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')?.click();
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const popover = el.renderRoot.querySelector<HTMLElement>('[part="bulk-actions"]');
+
+      expect(popover).to.match(':popover-open');
+    });
+
+    it('should not overflow bulk-action buttons when there is enough space', async () => {
+      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')?.click();
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const toolBar = el.renderRoot.querySelector<ToolBar>('sl-tool-bar');
+
+      expect(toolBar).to.exist;
+      expect(toolBar!.menuItems.length).to.equal(0);
+      expect(toolBar!.items.filter(item => item.visible).length).to.equal(3);
+    });
+
+    it('should move bulk-action buttons into the overflow menu when the grid is narrow', async () => {
+      el.style.inlineSize = '250px';
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')?.click();
+      await new Promise(resolve => setTimeout(resolve, 150));
+
+      const toolBar = el.renderRoot.querySelector<ToolBar>('sl-tool-bar');
+
+      expect(toolBar).to.exist;
+      expect(toolBar!.menuItems.length).to.equal(3);
+    });
+
+    it('should restore visible bulk-action buttons when the grid grows back', async () => {
+      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')?.click();
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      el.style.inlineSize = '250px';
+      await new Promise(resolve => setTimeout(resolve, 150));
+
+      const toolBar = el.renderRoot.querySelector<ToolBar>('sl-tool-bar');
+
+      expect(toolBar).to.exist;
+      expect(toolBar!.menuItems.length).to.equal(3);
+
+      el.style.inlineSize = '600px';
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      expect(toolBar!.menuItems.length).to.equal(0);
+      expect(toolBar!.items.filter(item => item.visible).length).to.equal(3);
     });
   });
 });

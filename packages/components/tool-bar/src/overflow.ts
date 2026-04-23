@@ -43,9 +43,8 @@ export function calculateVisibility(
   // Second pass: hide items that don't fit in the remaining space.
   setItemVisibility(items, widths, effectiveWidth, gap);
 
-  // When all items are hidden the menu button loses its margin via CSS,
-  // so there is a bit more space. Try fitting one more item, but hide it
-  // again if the margin coming back would cause overflow.
+  // When all items are hidden, the menu button has no margin, so there is extra space.
+  // Try to show one more item, but revert if the restored margin makes it overflow again.
   if (needsMenu && items.every(item => !item.visible || item.type === 'divider')) {
     setItemVisibility(items, widths, effectiveWidth + gap, gap);
 
@@ -126,8 +125,8 @@ export function measureItemWidths(items: ToolBarItem[]): number[] | undefined {
 
 /**
  * Measure the overflow menu button width including its margin.
- * The menu button is square (aspect-ratio 1:1), so we use the wrapper height as
- * the button width. Falls back to the actual button width when the wrapper has no height.
+ * Uses the wrapper height (the button is square) and falls back
+ * to the actual button width when the wrapper has no height.
  */
 export function measureMenuButtonWidth(wrapper: HTMLElement, menuButton: HTMLElement | undefined, gap: number): number {
   let width = wrapper.getBoundingClientRect().height;
@@ -147,10 +146,9 @@ export function measureMenuButtonWidth(wrapper: HTMLElement, menuButton: HTMLEle
 }
 
 /**
- * Measure the available width inside the host element.
- * Adds a `measuring` state so CSS applies `contain: inline-size`, preventing
- * the parent from growing to fit the toolbar. If that causes the toolbar to
- * collapse to zero, the natural width is used instead.
+ * Measure the available width using CSS containment to prevent the
+ * toolbar from expanding its parent. Falls back to the parent's
+ * width if containment collapses the toolbar to zero.
  */
 export function measureConstrainedWidth(host: HTMLElement, internals: ElementInternals): number {
   const hostStyles = getComputedStyle(host),
@@ -164,11 +162,7 @@ export function measureConstrainedWidth(host: HTMLElement, internals: ElementInt
 
   let measuredWidth = host.getBoundingClientRect().width - paddingInline - borderInline;
 
-  // If containment collapsed the toolbar (e.g. inline-size: fit-content),
-  // fall back to the parent's available width directly. We intentionally do
-  // NOT remove the measuring state and re-measure the host here, because
-  // toggling containment on and off forces multiple layouts and causes visible
-  // flickering during zoom.
+  // If containment collapsed the toolbar to zero, use the parent's width instead.
   if (measuredWidth <= 0 && host.parentElement) {
     measuredWidth = host.parentElement.clientWidth - paddingInline - borderInline;
   }

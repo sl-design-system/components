@@ -1,13 +1,12 @@
 {
   "editor.codeActionsOnSave": {
-    "source.format.oxc": "always",
-    "source.fixAll.oxc": "always"
+    "source.format.oxc": "always"
   },
   "editor.defaultFormatter": "oxc.oxc-vscode",
   "editor.detectIndentation": false,
-  "editor.tabSize": 2,
   "editor.formatOnSave": true,
-  "eslint.format.enable": true,
+  "editor.formatOnSaveMode": "file",
+  "editor.tabSize": 2,
   "oxc.fmt.configPath": ".oxfmtrc.json",
   "[markdown]": {
     "editor.wordWrap": "wordWrapColumn",

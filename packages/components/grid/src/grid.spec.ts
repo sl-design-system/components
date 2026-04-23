@@ -1,4 +1,5 @@
 import '@sl-design-system/button/register.js';
+import '@sl-design-system/menu/register.js';
 import { type ToolBar } from '@sl-design-system/tool-bar';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
@@ -389,7 +390,7 @@ describe('sl-grid', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-grid
-          style="inline-size: 600px"
+          style="inline-size: 1200px"
           .items=${[
             { firstName: 'Sophie', lastName: 'Müller', email: 'sophie.muller@school1.edu' },
             { firstName: 'Luca', lastName: 'van Dijk', email: 'luca.vandijk@school4.edu' },
@@ -399,8 +400,14 @@ describe('sl-grid', () => {
           <sl-grid-selection-column></sl-grid-selection-column>
           <sl-grid-column path="firstName"></sl-grid-column>
           <sl-grid-column path="email"></sl-grid-column>
-          <sl-button fill="outline" slot="bulk-actions" variant="inverted">Duplicate</sl-button>
+          <sl-button fill="outline" slot="bulk-actions" variant="inverted">Duplicate to workspace</sl-button>
           <sl-button fill="outline" slot="bulk-actions" variant="inverted">Move to folder</sl-button>
+          <sl-menu-button slot="bulk-actions" variant="inverted" fill="outline">
+            <span slot="button">More actions</span>
+            <sl-menu-item>Export as PDF</sl-menu-item>
+            <sl-menu-item>Archive selected</sl-menu-item>
+          </sl-menu-button>
+          <sl-button fill="outline" slot="bulk-actions" variant="inverted">Assign to learning pathway</sl-button>
           <sl-button fill="outline" slot="bulk-actions" variant="inverted">Delete</sl-button>
         </sl-grid>
       `);
@@ -425,7 +432,7 @@ describe('sl-grid', () => {
 
       expect(toolBar).to.exist;
       expect(toolBar!.menuItems.length).to.equal(0);
-      expect(toolBar!.items.filter(item => item.visible).length).to.equal(3);
+      expect(toolBar!.items.filter(item => item.visible).length).to.equal(5);
     });
 
     it('should move bulk-action buttons into the overflow menu when the grid is narrow', async () => {
@@ -438,7 +445,7 @@ describe('sl-grid', () => {
       const toolBar = el.renderRoot.querySelector<ToolBar>('sl-tool-bar');
 
       expect(toolBar).to.exist;
-      expect(toolBar!.menuItems.length).to.equal(3);
+      expect(toolBar!.menuItems.length).to.equal(5);
     });
 
     it('should restore visible bulk-action buttons when the grid grows back', async () => {
@@ -451,13 +458,13 @@ describe('sl-grid', () => {
       const toolBar = el.renderRoot.querySelector<ToolBar>('sl-tool-bar');
 
       expect(toolBar).to.exist;
-      expect(toolBar!.menuItems.length).to.equal(3);
+      expect(toolBar!.menuItems.length).to.equal(5);
 
-      el.style.inlineSize = '600px';
+      el.style.inlineSize = '1200px';
       await new Promise(resolve => setTimeout(resolve, 500));
 
       expect(toolBar!.menuItems.length).to.equal(0);
-      expect(toolBar!.items.filter(item => item.visible).length).to.equal(3);
+      expect(toolBar!.items.filter(item => item.visible).length).to.equal(5);
     });
   });
 });

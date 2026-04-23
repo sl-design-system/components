@@ -15,10 +15,10 @@ export const templates = {
   'sl.calendar.monthsLabel': str`Miesiące ${0}`,
   'sl.calendar.nextMonth': str`Następny miesiąc, ${0}`,
   'sl.calendar.nextYear': str`Następny rok, ${0}`,
-  'sl.calendar.nextYears': 'Przejdź naprzód o 12 lat',
+  'sl.calendar.nextYears': 'Kolejne 12 lat',
   'sl.calendar.previousMonth': str`Poprzedni miesiąc, ${0}`,
   'sl.calendar.previousYear': str`Poprzedni rok, ${0}`,
-  'sl.calendar.previousYears': 'Cofnij się o 12 lat',
+  'sl.calendar.previousYears': 'Poprzednie 12 lat',
   'sl.calendar.rangeBetween': str`Między ${0} a ${1}`,
   'sl.calendar.rangeNoEarlierThan': str`Nie wcześniej niż ${0}`,
   'sl.calendar.rangeNoLaterThan': str`Nie później niż ${0}`,
@@ -109,5 +109,6 @@ export const templates = {
   'sl.timeField.typeMismatch': 'Wprowadź prawidłową godzinę.',
   'sl.timeField.valueMissing': 'Wprowadź godzinę.',
   'sl.toolBar.showMore': 'Pokaż więcej',
-  'sl.tree.loadingMessage': 'Ładowanie'
+  'sl.tree.loadingMessage': 'Ładowanie',
+  'sl.infotip.moreInformation': 'More information'
 };

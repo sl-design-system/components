@@ -139,11 +139,11 @@ const { setLocale } = configureLocalization({
   loadLocale: async (locale) => {
     // Dynamic imports enable code-splitting per locale
     switch (locale) {
-      case 'nl': return import('@sl-design-system/locales/nl');
-      case 'it': return import('@sl-design-system/locales/it');
-      case 'es-ES': return import('@sl-design-system/locales/esES');
-      case 'pl': return import('@sl-design-system/locales/pl');
-      default: return import('@sl-design-system/locales/nl');
+      case 'nl': return import('@sl-design-system/locales/nl.js');
+      case 'it': return import('@sl-design-system/locales/it.js');
+      case 'es-ES': return import('@sl-design-system/locales/es-ES.js');
+      case 'pl': return import('@sl-design-system/locales/pl.js');
+      default: return import('@sl-design-system/locales/nl.js');
     }
   }
 });

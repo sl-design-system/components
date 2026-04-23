@@ -109,5 +109,6 @@ export const templates = {
   'sl.timeField.typeMismatch': 'Introduce una hora válida.',
   'sl.timeField.valueMissing': 'Introduce una hora.',
   'sl.toolBar.showMore': 'Mostrar más',
-  'sl.tree.loadingMessage': 'Cargando'
+  'sl.tree.loadingMessage': 'Cargando',
+  'sl.infotip.moreInformation': 'More information'
 };

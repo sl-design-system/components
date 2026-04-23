@@ -27,10 +27,12 @@ const { setLocale } = configureLocalization({
   sourceLocale: locales.sourceLocale,
   targetLocales: locales.targetLocales,
   loadLocale: async locale => {
-    const localeKey = locale as keyof typeof locales.locales;
-    const loader = locales.locales[localeKey];
+    const localeKey = locale as keyof typeof locales.locales,
+      loader = locales.locales[localeKey];
+
     if (!loader) {
-      throw new Error(`Unsupported locale: ${locale}`);
+      console.warn(`Unsupported locale: ${locale}`);
+      return { templates: {} };
     }
     return await loader();
   }

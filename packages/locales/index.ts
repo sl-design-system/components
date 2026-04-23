@@ -1,12 +1,8 @@
 export * from './src/locale-codes.js';
 
-// Re-export locale modules for direct access (these are lazy until explicitly imported)
-export * as esES from './src/es-ES.js';
-export * as it from './src/it.js';
-export * as nl from './src/nl.js';
-export * as pl from './src/pl.js';
-
-// Lazy-loading map for dynamic locale loading
+// Locale modules are intentionally not re-exported from the package entrypoint
+// to avoid making every locale a static dependency. Use the lazy-loading map
+// below, or import locale modules via their subpath when direct access is needed.
 export const locales = {
   'es-ES': () => import('./src/es-ES.js'),
   it: () => import('./src/it.js'),
@@ -19,12 +15,12 @@ export const locales = {
  * @param locale - The locale code to load
  * @returns A promise that resolves to the locale module
  */
-export async function loadLocale(locale: keyof typeof locales) {
-  const loader = locales[locale];
-
-  if (!loader) {
+export async function loadLocale(locale: string) {
+  if (!(locale in locales)) {
     throw new Error(`Unsupported locale: ${locale}`);
   }
+
+  const loader = locales[locale as keyof typeof locales];
 
   return await loader();
 }

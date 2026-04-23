@@ -51,7 +51,7 @@ import {
   faHeart as fasHeart,
   faItalic as fasItalic,
   faListUl as fasListUl,
-  faOctagonXmark as fasOcatagonXmark,
+  faOctagonXmark as fasOctagonXmark,
   faUnderline as fasUnderline
 } from '@fortawesome/pro-solid-svg-icons';
 import '@lit-labs/virtualizer/virtualize.js';
@@ -158,7 +158,7 @@ Icon.register(
   fasItalic,
   fasListUl,
   fasUnderline,
-  fasOcatagonXmark
+  fasOctagonXmark
 );
 
 declare global {

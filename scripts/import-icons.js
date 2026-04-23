@@ -146,7 +146,7 @@ const buildIcons = async theme => {
   const filePath = join(cwd, `../packages/themes/${theme}/icons.ts`),
     sortedIcons = Object.fromEntries(Object.entries({ ...coreCustomIcons, ...icons, ...iconsCustom }).sort()),
     source = `
-      // This is a generated file, do not edit. Edit the core.json or base-new.json files instead.
+      // This is a generated file, do not edit. Edit the core.json files instead.
       export const icons = ${JSON.stringify(sortedIcons)};
     `,
     results = await eslint.lintText(source, { filePath });

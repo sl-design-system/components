@@ -9,7 +9,7 @@ eleventyNavigation:
 <div class="ds-tokens__heading-wrapper">
   <h1 class="ds-heading-1">{{title}}</h1>
   <p class="ds-tokens__heading-description">
-    How do you communicate feedback and status in a consitant, predictable and reassuring way across your application.
+    How do you communicate feedback and status in a consistent, predictable and reassuring way across your application.
   </p>
 </div>
 </header>

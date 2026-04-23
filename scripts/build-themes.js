@@ -244,8 +244,8 @@ const build = async (production = false, path) => {
   };
 
   /**
-   * Filter out the `space.<number>` tokens since they are just aliases
-   * for `size.<number>`. We don't want to generate CSS variables for them.
+   * Filter out the `space.<number>` tokens since they are just aliases for `size.<number>`. We
+   * don't want to generate CSS variables for them.
    *
    * Commented out for now, until there are no more references to `space.<number>`.
    */

@@ -3,6 +3,7 @@
   "arrowParens": "avoid",
   "ignorePatterns": ["*dist", "*generated", "packages/tokens/src/tokens", "website"],
   "insertFinalNewline": true,
+  "jsdoc": true,
   "printWidth": 100,
   "singleQuote": true,
   "sortPackageJson": false,

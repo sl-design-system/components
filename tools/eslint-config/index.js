@@ -134,8 +134,8 @@ export default tseslint.config(
       ...chaiFriendly.configs.recommended.rules,
       ...mocha.configs.recommended.rules,
       /**
-       * The no-floating-promises rule generates false positives with
-       * chai-as-promised and the expect() method in tests.
+       * The no-floating-promises rule generates false positives with chai-as-promised and the
+       * expect() method in tests.
        */
       '@typescript-eslint/no-floating-promises': 'off',
       // False positives with `.not.to.be.true` etc.

@@ -81,8 +81,8 @@ export function sortMembersPlugin() {
 }
 
 /**
- * A plugin that allows to omit inherited or unwanted properties, events,
- * methods, slots, and CSS-related members from component documentation.
+ * A plugin that allows to omit inherited or unwanted properties, events, methods, slots, and
+ * CSS-related members from component documentation.
  *
  * To use this plugin, add specific JSDoc tags to your class declaration:
  *
@@ -94,15 +94,17 @@ export function sortMembersPlugin() {
  * - `@omit-cssprop <cssPropertyName>`: Omits a CSS custom property.
  *
  * Example:
+ *
  * ```ts
  * /**
- *  * @omit type
- *  * @omit-event change
- *  * @omit-method calculateValue
- *  * @omit-slot footer
- *  * @omit-part button
- *  * @omit-cssprop --sl-component-color
+ *  - @omit type
+ *  - @omit-event change
+ *  - @omit-method calculateValue
+ *  - @omit-slot footer
+ *  - @omit-part button
+ *  - @omit-cssprop --sl-component-color
  *  *\/
+ * ```
  */
 export function omitPlugin() {
   const omitTagsByClass = {};

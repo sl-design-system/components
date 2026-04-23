@@ -170,7 +170,10 @@ const getCollectionFromKey = async (key: string): Promise<VariableCollection | n
   }
 };
 
-/** Create the list of themes with all the id's of relevant parents and children and send it to the UI */
+/**
+ * Create the list of themes with all the id's of relevant parents and children and send it to the
+ * UI
+ */
 const sendCollections = () => {
   //find all collections that have a theme as a direct child
   variableCollections
@@ -257,7 +260,7 @@ const sendCollections = () => {
   figma.ui.postMessage(themes, { origin: '*' });
 };
 
-/** use this to find the collection based on the mode name */
+/** Use this to find the collection based on the mode name */
 const findCollectionByName = (name: string) => {
   return variableCollections.find(c => c.name === name);
 };
@@ -267,7 +270,10 @@ const findCollectionById = (id: string) => {
   return variableCollections.find(c => c.id === id);
 };
 
-/** Find the parent collection of a child collection by looking for the child in the modes of the parent collection, based on name or modeId */
+/**
+ * Find the parent collection of a child collection by looking for the child in the modes of the
+ * parent collection, based on name or modeId
+ */
 const findParentCollection = (child: string) => {
   const parent = variableCollections.find(c => {
     const collectionsWithChild = c.modes.filter(mode => {

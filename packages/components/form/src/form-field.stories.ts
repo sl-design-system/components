@@ -2,6 +2,7 @@ import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/combobox/register.js';
 import '@sl-design-system/date-field/register.js';
 import '@sl-design-system/icon/register.js';
+import '@sl-design-system/infotip/register.js';
 import '@sl-design-system/listbox/register.js';
 import '@sl-design-system/number-field/register.js';
 import '@sl-design-system/radio-group/register.js';
@@ -205,23 +206,9 @@ export const CustomLabel: Story = {
   args: {
     label: undefined,
     slot: () => html`
-      <style>
-        span[aria-describedby] {
-          display: inline-flex;
-          margin-inline-start: 0.25rem;
-          vertical-align: top;
-
-          sl-icon {
-            pointer-events: none;
-          }
-        }
-      </style>
       <sl-label>
         This is a <em>custom</em> label
-        <span aria-describedby="tooltip" tabindex="-1">
-          <sl-icon name="info"></sl-icon>
-        </span>
-        <sl-tooltip id="tooltip">Some information about this field</sl-tooltip>
+        <sl-infotip slot="infotip">This is some additional information about this field.</sl-infotip>
       </sl-label>
       <sl-text-field></sl-text-field>
     `

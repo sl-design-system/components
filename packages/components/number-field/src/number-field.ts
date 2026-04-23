@@ -37,6 +37,12 @@ export class NumberField extends LocaleMixin(TextField) {
   /** The number value. */
   #valueAsNumber?: number;
 
+  /** Tracks the latest internal validation message set by this component. */
+  #internalCustomValidity = '';
+
+  /** @internal Flag to mark `setCustomValidity` calls triggered by internal validation. */
+  #settingInternalCustomValidity = false;
+
   /**
    * Whether the number field is disabled; when set no interaction is possible.
    * @override
@@ -287,25 +293,49 @@ export class NumberField extends LocaleMixin(TextField) {
     }
   }
 
+  override setCustomValidity(message: string | Promise<string>): void {
+    if (!this.#settingInternalCustomValidity) {
+      this.#internalCustomValidity = '';
+    }
+
+    super.setCustomValidity(message);
+  }
+
   /** @internal Implement custom number validity checks. */
   override updateInternalValidity(): void {
+    const hasExternalCustomError = this.validity.customError && this.validationMessage !== this.#internalCustomValidity;
+
+    // Preserve custom errors set by consumers; only manage validity we set ourselves.
+    if (hasExternalCustomError) {
+      return;
+    }
+
     if (Number.isNaN(this.valueAsNumber)) {
-      this.setCustomValidity(msg('Please enter a valid number.', { id: 'sl.numberField.validation.invalidNumber' }));
+      this.#setInternalCustomValidity(
+        msg('Please enter a valid number.', { id: 'sl.numberField.validation.invalidNumber' })
+      );
     } else if (typeof this.valueAsNumber === 'number' && this.valueAsNumber > (this.max ?? Infinity)) {
-      this.setCustomValidity(
+      this.#setInternalCustomValidity(
         msg(str`The value must be less than or equal to ${this.max}.`, {
           id: 'sl.numberField.validation.exceedsMaximum'
         })
       );
     } else if (typeof this.valueAsNumber === 'number' && this.valueAsNumber < (this.min ?? -Infinity)) {
-      this.setCustomValidity(
+      this.#setInternalCustomValidity(
         msg(str`The value must be greater than or equal to ${this.min}.`, {
           id: 'sl.numberField.validation.belowMinimum'
         })
       );
     } else {
-      this.setCustomValidity('');
+      this.#setInternalCustomValidity('');
     }
+  }
+
+  #setInternalCustomValidity(message: string): void {
+    this.#settingInternalCustomValidity = true;
+    this.#internalCustomValidity = message;
+    this.setCustomValidity(message);
+    this.#settingInternalCustomValidity = false;
   }
 
   #isButtonDisabled(button: string): boolean {

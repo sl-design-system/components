@@ -477,5 +477,15 @@ describe('sl-number-field', () => {
 
       expect(el.validationMessage).to.equal('');
     });
+
+    it('should preserve externally set custom validity when reporting validity', async () => {
+      el.setCustomValidity('Custom validation message');
+      el.reportValidity();
+      await el.updateComplete;
+
+      expect(el.validationMessage).to.equal('Custom validation message');
+      expect(el.valid).to.be.false;
+      expect(el.showValidity).to.equal('invalid');
+    });
   });
 });

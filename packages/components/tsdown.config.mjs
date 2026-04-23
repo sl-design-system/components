@@ -53,7 +53,9 @@ export default defineConfig({
     devExports: true,
     extensions: true
   },
+  hash: false,
   platform: 'browser',
   sourcemap: true,
+  treeshake: false,
   unbundle: true
 });

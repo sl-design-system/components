@@ -3,17 +3,9 @@
   "arrowParens": "avoid",
   "ignorePatterns": ["*dist", "*generated", "packages/tokens/src/tokens", "website"],
   "insertFinalNewline": true,
-  "printWidth": 120,
+  "printWidth": 100,
   "singleQuote": true,
   "sortPackageJson": false,
   "tabWidth": 2,
-  "trailingComma": "none",
-  "overrides": [
-    {
-      "files": ["*.md"],
-      "options": {
-        "printWidth": 100
-      }
-    }
-  ]
+  "trailingComma": "none"
 }

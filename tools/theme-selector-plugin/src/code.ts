@@ -116,7 +116,9 @@ const getSubCollections = async (collection: VariableCollection | VariableCollec
         figma.notify(`Mode variable not found for ${mode.name}`, { error: true });
         return;
       }
-      const modeCollection = (await getCollectionFromKey(modeVariable.key)) as VariableCollectionWithModeId;
+      const modeCollection = (await getCollectionFromKey(
+        modeVariable.key
+      )) as VariableCollectionWithModeId;
       if (!modeCollection) {
         figma.notify(`Mode collection not found for ${mode.name}`, { error: true });
         return;
@@ -144,7 +146,13 @@ const getCollectionFromKey = async (key: string): Promise<VariableCollection | n
   // loop through the variables and try to import them until we find one that works
   while (!variableByKey && i < variables.length) {
     variableByKey = await figma.variables.importVariableByKeyAsync(variables[i].key);
-    console.log('[slds]', 'variableByKey:', variables[i].name, `(${i + 1} of ${variables.length})`, variableByKey);
+    console.log(
+      '[slds]',
+      'variableByKey:',
+      variables[i].name,
+      `(${i + 1} of ${variables.length})`,
+      variableByKey
+    );
     i++;
   }
 
@@ -152,9 +160,12 @@ const getCollectionFromKey = async (key: string): Promise<VariableCollection | n
     const baseId = variableByKey.variableCollectionId;
     return await figma.variables.getVariableCollectionByIdAsync(baseId);
   } else {
-    figma.notify(`Could not find a variable to load the collection for collection ${variables[i].name}`, {
-      error: true
-    });
+    figma.notify(
+      `Could not find a variable to load the collection for collection ${variables[i].name}`,
+      {
+        error: true
+      }
+    );
     return await new Promise<VariableCollection>(() => {});
   }
 };
@@ -188,7 +199,9 @@ const sendCollections = () => {
       // find the modeId of the themes collection so it can be set on the parent collection
       const themeCollectionAsMode = collection.modes.find(sc => sc.name === themesCollection.name);
       if (!themeCollectionAsMode) {
-        figma.notify(`Theme collection mode id not found for ${themesCollection.name}`, { error: true });
+        figma.notify(`Theme collection mode id not found for ${themesCollection.name}`, {
+          error: true
+        });
         return;
       }
 
@@ -266,7 +279,10 @@ const findParentCollection = (child: string) => {
 };
 
 /** Removes all explicit variable modes from the current page. */
-const removeCurrentVariableModes = (keys: { [collectionId: string]: string }, node: PageNode | FrameNode) => {
+const removeCurrentVariableModes = (
+  keys: { [collectionId: string]: string },
+  node: PageNode | FrameNode
+) => {
   Object.keys(keys).forEach(key => {
     const collectionForKey = variableCollections.find(c => c.id === key);
 
@@ -328,7 +344,9 @@ const setFrameTheme = (
   themeIds: Theme,
   frames: FrameNode[]
 ) => {
-  Promise.all(themeIds.fonts.map(font => figma.loadFontAsync({ family: font.family, style: font.style })))
+  Promise.all(
+    themeIds.fonts.map(font => figma.loadFontAsync({ family: font.family, style: font.style }))
+  )
     .then(() => {
       frames.forEach(frame => {
         console.log('[slds]', frame.name, 'setting theme to', theme.name);
@@ -343,14 +361,19 @@ const setFrameTheme = (
         }
       });
 
-      figma.notify(`Theme is set to ${theme.name} on ${frames.length} frame${frames.length === 1 ? '' : 's'}`);
+      figma.notify(
+        `Theme is set to ${theme.name} on ${frames.length} frame${frames.length === 1 ? '' : 's'}`
+      );
       figma.closePlugin();
     })
     .catch(() => {
       const fontNames = themeIds.fonts.map(font => `${font.family} ${font.style}`).join(', ');
-      figma.notify(`Error loading fonts. Make sure the following fonts are on your page and try again: ${fontNames}`, {
-        error: true
-      });
+      figma.notify(
+        `Error loading fonts. Make sure the following fonts are on your page and try again: ${fontNames}`,
+        {
+          error: true
+        }
+      );
     });
 };
 
@@ -363,10 +386,15 @@ const setPageTheme = (
 ) => {
   removeCurrentVariableModes(figma.currentPage.explicitVariableModes, figma.currentPage);
 
-  Promise.all(themeIds.fonts.map(font => figma.loadFontAsync({ family: font.family, style: font.style })))
+  Promise.all(
+    themeIds.fonts.map(font => figma.loadFontAsync({ family: font.family, style: font.style }))
+  )
     .then(() => {
       figma.currentPage.setExplicitVariableModeForCollection(base, themeIds.collectionModeId);
-      figma.currentPage.setExplicitVariableModeForCollection(collection, themeIds.themeCollectionModeId);
+      figma.currentPage.setExplicitVariableModeForCollection(
+        collection,
+        themeIds.themeCollectionModeId
+      );
       figma.currentPage.setExplicitVariableModeForCollection(themeCollection, themeIds.themeModeId);
 
       if (theme && themeIds.variantId) {
@@ -378,9 +406,12 @@ const setPageTheme = (
     })
     .catch(() => {
       const fontNames = themeIds.fonts.map(font => `${font.family} ${font.style}`).join(', ');
-      figma.notify(`Error loading fonts. Make sure the following fonts are on your page and try again: ${fontNames}`, {
-        error: true
-      });
+      figma.notify(
+        `Error loading fonts. Make sure the following fonts are on your page and try again: ${fontNames}`,
+        {
+          error: true
+        }
+      );
     });
 };
 

@@ -40,7 +40,10 @@ export async function getComponentMetadata(
   }
 
   try {
-    const packageJson = JSON.parse(await readFile(packageJsonPath, 'utf-8'));
+    const packageJson = JSON.parse(await readFile(packageJsonPath, 'utf-8')) as {
+      status?: string;
+      version?: string;
+    };
 
     return {
       status: packageJson.status || null,
@@ -58,9 +61,9 @@ export async function getComponentMetadata(
  * to `storybook-addon-tag-badges` without having to declare it manually in every
  * stories file.
  */
-export async function injectComponentMetadata(existingIndexers: Indexer[] = []): Promise<Indexer[]> {
+export function injectComponentMetadata(existingIndexers: Indexer[] = []): Indexer[] {
   return existingIndexers.map(indexer => {
-    return ({
+    return {
       test: indexer.test,
       async createIndex(fileName: string, options: IndexerOptions) {
         const { status, version } = await getComponentMetadata(fileName),
@@ -84,6 +87,6 @@ export async function injectComponentMetadata(existingIndexers: Indexer[] = []):
           return { ...entry, tags };
         });
       }
-    });
+    };
   });
 }

@@ -5,11 +5,7 @@ import { injectComponentMetadata } from './helpers.ts';
 const devMode = !argv.includes('build');
 
 const config: StorybookConfig = {
-  stories: [
-    '*.mdx',
-    'stories/*.stories.ts',
-    '../packages/{checklist,components}/**/*.stories.ts'
-  ],
+  stories: ['*.mdx', 'stories/*.stories.ts', '../packages/{checklist,components}/**/*.stories.ts'],
   addons: [
     '@storybook/addon-a11y',
     '@storybook/addon-docs',

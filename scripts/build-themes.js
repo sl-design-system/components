@@ -89,7 +89,9 @@ StyleDictionary.registerTransform({
     // If the token is a new contextual token, do not kebab-case it
     if (
       filePath &&
-      (filePath.includes('primitives.json') || filePath.includes('system.json') || filePath.endsWith('-new.json'))
+      (filePath.includes('primitives.json') ||
+        filePath.includes('system.json') ||
+        filePath.endsWith('-new.json'))
     ) {
       return [config.prefix].concat(path).join('-');
     } else {
@@ -101,7 +103,10 @@ StyleDictionary.registerTransform({
 StyleDictionary.registerFileHeader({
   name: 'sl/legal',
   fileHeader: () => {
-    return [`Copyright ${new Date().getFullYear()} Sanoma Learning`, 'SPDX-License-Identifier: Apache-2.0'];
+    return [
+      `Copyright ${new Date().getFullYear()} Sanoma Learning`,
+      'SPDX-License-Identifier: Apache-2.0'
+    ];
   }
 });
 
@@ -164,7 +169,8 @@ StyleDictionary.registerTransform({
   name: 'sl/wrapMathInCalc',
   type: 'value',
   transitive: true,
-  filter: token => typeof token.original?.$value === 'string' && mathPresent.test(token.original.$value),
+  filter: token =>
+    typeof token.original?.$value === 'string' && mathPresent.test(token.original.$value),
   transform: token => {
     token.original.$value = `calc(${token.original.$value})`;
 
@@ -261,7 +267,9 @@ const build = async (production = false, path) => {
 
       const files = [
         {
-          destination: old ? `${themeBase}/${theme}/${variant}-deprecated.css` : `${themeBase}/${theme}/${variant}.css`,
+          destination: old
+            ? `${themeBase}/${theme}/${variant}-deprecated.css`
+            : `${themeBase}/${theme}/${variant}.css`,
           // filter: excludeSpaceTokens,
           format: 'css/variables',
           options: {
@@ -274,14 +282,18 @@ const build = async (production = false, path) => {
       if (production) {
         files.push(
           {
-            destination: old ? `${themeBase}/${theme}/css/base-deprecated.css` : `${themeBase}/${theme}/css/base.css`,
+            destination: old
+              ? `${themeBase}/${theme}/css/base-deprecated.css`
+              : `${themeBase}/${theme}/css/base.css`,
             // filter: excludeSpaceTokens,
             format: 'css/variables',
             options: {
               fileHeader: 'sl/legal',
               outputReferences: true
             },
-            filter: filterFiles(old ? ['core.json', 'base.json'] : ['system.json', 'primitives.json', 'base-new.json'])
+            filter: filterFiles(
+              old ? ['core.json', 'base.json'] : ['system.json', 'primitives.json', 'base-new.json']
+            )
           },
           {
             destination: old
@@ -294,7 +306,9 @@ const build = async (production = false, path) => {
               outputReferences: true,
               selector: '@mixin sl-theme-base'
             },
-            filter: filterFiles(old ? ['core.json', 'base.json'] : ['system.json', 'primitives.json', 'base-new.json'])
+            filter: filterFiles(
+              old ? ['core.json', 'base.json'] : ['system.json', 'primitives.json', 'base-new.json']
+            )
           },
           {
             destination: old
@@ -352,8 +366,12 @@ const build = async (production = false, path) => {
     }
   };
 
-  const configs = themes.map(([theme, variant]) => createConfigForThemeVariant(theme, variant, false));
-  const oldConfigs = oldThemes.map(([theme, variant]) => createConfigForThemeVariant(theme, variant, true));
+  const configs = themes.map(([theme, variant]) =>
+    createConfigForThemeVariant(theme, variant, false)
+  );
+  const oldConfigs = oldThemes.map(([theme, variant]) =>
+    createConfigForThemeVariant(theme, variant, true)
+  );
 
   for (const cfg of [...configs, ...oldConfigs]) {
     const sd = new StyleDictionary(cfg);

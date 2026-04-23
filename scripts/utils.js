@@ -147,5 +147,8 @@ export function humanize(str) {
  * @return the underscored string.
  */
 export function underscore(str) {
-  return str.replace(STRING_UNDERSCORE_REGEXP_1, '$1_$2').replace(STRING_UNDERSCORE_REGEXP_2, '_').toLowerCase();
+  return str
+    .replace(STRING_UNDERSCORE_REGEXP_1, '$1_$2')
+    .replace(STRING_UNDERSCORE_REGEXP_2, '_')
+    .toLowerCase();
 }

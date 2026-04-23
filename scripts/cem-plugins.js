@@ -53,7 +53,8 @@ export function noPrivateFieldsPlugin() {
 export function sortMembersPlugin() {
   function sortBy(fieldName) {
     return (a, b) => {
-      const valueA = a[fieldName], valueB = b[fieldName];
+      const valueA = a[fieldName],
+        valueB = b[fieldName];
 
       if (valueA < valueB) {
         return -1;
@@ -62,7 +63,7 @@ export function sortMembersPlugin() {
       } else {
         return 0;
       }
-    }
+    };
   }
 
   return {
@@ -76,7 +77,7 @@ export function sortMembersPlugin() {
         });
       });
     }
-  }
+  };
 }
 
 /**
@@ -143,7 +144,10 @@ export function omitPlugin() {
             rawComment = ts.getTextOfJSDocComment(tag.comment)?.trim();
           } else if (Array.isArray(tag.comment)) {
             // Fallback for older TypeScript versions with array-based comments
-            rawComment = tag.comment.map(part => (typeof part === 'string' ? part : part.text || '')).join('').trim();
+            rawComment = tag.comment
+              .map(part => (typeof part === 'string' ? part : part.text || ''))
+              .join('')
+              .trim();
           }
         } else {
           rawComment = '';
@@ -154,7 +158,7 @@ export function omitPlugin() {
         }
 
         const parts = rawComment.split(/\s+/),
-         value = parts[0];
+          value = parts[0];
 
         // Ensure we have a valid identifier-like token as the first part.
         if (!value || !/^[A-Za-z0-9._-]+$/.test(value)) {

@@ -1,12 +1,16 @@
 {
   "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit"
+    "source.format.oxc": "always",
+    "source.fixAll.oxc": "always"
   },
+  "editor.defaultFormatter": "oxc.oxc-vscode",
   "editor.detectIndentation": false,
   "editor.tabSize": 2,
-  "eslint.experimental.useFlatConfig": true,
+  "editor.formatOnSave": true,
   "eslint.format.enable": true,
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  "oxc.fmt.configPath": ".oxfmtrc.json",
+  "[markdown]": {
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.wordWrapColumn": 100
   }
 }

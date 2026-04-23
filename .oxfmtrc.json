@@ -1,0 +1,18 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "arrowParens": "avoid",
+  "ignorePatterns": ["*dist", "*generated", "website"],
+  "printWidth": 120,
+  "singleQuote": true,
+  "sortPackageJson": false,
+  "tabWidth": 2,
+  "trailingComma": "none",
+  "overrides": [
+    {
+      "files": ["*.md"],
+      "options": {
+        "printWidth": 100
+      }
+    }
+  ]
+}

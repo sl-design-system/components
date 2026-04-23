@@ -334,8 +334,12 @@ export class NumberField extends LocaleMixin(TextField) {
   #setInternalCustomValidity(message: string): void {
     this.#settingInternalCustomValidity = true;
     this.#internalCustomValidity = message;
-    this.setCustomValidity(message);
-    this.#settingInternalCustomValidity = false;
+
+    try {
+      this.setCustomValidity(message);
+    } finally {
+      this.#settingInternalCustomValidity = false;
+    }
   }
 
   #isButtonDisabled(button: string): boolean {

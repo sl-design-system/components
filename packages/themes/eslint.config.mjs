@@ -6,10 +6,7 @@ import config from '../../eslint.config.mjs';
  */
 export default [
   {
-    ignores: [
-      'packages/themes/**/*.d.ts',
-      'packages/themes/core**/*'
-    ]
+    ignores: ['packages/themes/**/*.d.ts', 'packages/themes/core**/*']
   },
   ...config,
   {

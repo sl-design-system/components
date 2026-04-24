@@ -1,12 +1,5 @@
 export * from './src/locale-codes.js';
 
-// Re-export locale modules for backward compatibility
-// Modern bundlers can tree-shake unused locales
-export * as nl from './src/nl.js';
-export * as it from './src/it.js';
-export * as pl from './src/pl.js';
-export * as esES from './src/es-ES.js';
-
 // Lazy-loading map for dynamic imports (recommended for optimal performance)
 export const locales = {
   'es-ES': () => import('./src/es-ES.js'),
@@ -17,6 +10,7 @@ export const locales = {
 
 /**
  * Dynamically load a locale module.
+ *
  * @param locale - The locale code to load
  * @returns A promise that resolves to the locale module
  */

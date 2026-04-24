@@ -149,3 +149,69 @@ export function humanize(str: string): string {
 export function underscore(str: string): string {
   return str.replace(STRING_UNDERSCORE_REGEXP_1, '$1_$2').replace(STRING_UNDERSCORE_REGEXP_2, '_').toLowerCase();
 }
+
+/**
+ * Returns the appropriate plural suffix for the "character" word based on locale.
+ * Uses Intl.PluralRules API to determine the correct plural form for the current locale.
+ *
+ * ```javascript
+ * getCharacterPluralSuffix(1)  // '' (en: "character", pl: "znak")
+ * getCharacterPluralSuffix(2)  // 's' (en: "characters", pl: "znaki" → 'i')
+ * getCharacterPluralSuffix(5)  // 's' (en: "characters", pl: "znaków" → 'ów')
+ * ```
+ *
+ * @method getCharacterPluralSuffix
+ * @param count The number of characters
+ * @return The plural suffix for the word "character" in the current locale
+ */
+export function getCharacterPluralSuffix(count: number): string {
+  const locale = document.documentElement.lang || navigator.language || 'en';
+
+  // For English (source locale), use simple pluralization
+  if (locale === 'en') {
+    return count > 1 ? 's' : '';
+  }
+
+  // For other locales, use Intl.PluralRules
+  try {
+    const pr = new Intl.PluralRules(locale);
+    const rule = pr.select(count);
+
+    // Polish pluralization rules for "znak" (character):
+    // one (1) → "znak" (no suffix)
+    // few (2-4, 22-24, 32-34, etc.) → "znaki" (suffix: 'i')
+    // many (0, 5+, 11-14, etc.) → "znaków" (suffix: 'ów')
+    if (locale === 'pl') {
+      switch (rule) {
+        case 'one':
+          return '';
+        case 'few':
+          return 'i';
+        case 'many':
+          return 'ów';
+        default:
+          return 'ów';
+      }
+    }
+
+    // Spanish pluralization rules for "carácter":
+    // one (1) → "carácter" (no suffix)
+    // other (0, 2+) → "caracteres" (suffix: 'es')
+    if (locale.startsWith('es')) {
+      return rule === 'one' ? '' : 'es';
+    }
+
+    // Italian pluralization rules for "carattere":
+    // one (1) → "carattere" (no suffix)
+    // other (0, 2+) → "caratteri" (suffix: 'i')
+    if (locale === 'it') {
+      return rule === 'one' ? '' : 'i';
+    }
+
+    // For other languages (Dutch, English, etc.), fall back to simple plural logic
+    return count > 1 ? 's' : '';
+  } catch {
+    // Fallback if Intl.PluralRules is not supported
+    return count > 1 ? 's' : '';
+  }
+}

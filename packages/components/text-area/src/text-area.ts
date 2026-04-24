@@ -2,7 +2,7 @@ import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, ObserveAttributesMixin, event } from '@sl-design-system/shared';
+import { type EventEmitter, ObserveAttributesMixin, event, getCharacterPluralSuffix } from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -183,9 +183,9 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
       const length = this.value.length;
 
       return msg(
-        str`Please enter at least ${this.minLength} characters (you currently have ${length} character${
-          length > 1 ? 's' : ''
-        }).`,
+        str`Please enter at least ${this.minLength} character${getCharacterPluralSuffix(
+          this.minLength ?? 0
+        )} (you currently have ${length} character${getCharacterPluralSuffix(length)}).`,
         { id: 'sl.common.validation.tooShort' }
       );
     }

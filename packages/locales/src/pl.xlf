@@ -63,8 +63,8 @@
   <target>Wprowadź prawidłową liczbę.</target>
 </trans-unit>
 <trans-unit id="sl.common.validation.tooShort">
-  <source>Please enter at least <x id="0" equiv-text="${this.minLength}"/> characters (you currently have <x id="1" equiv-text="${length}"/> character<x id="2" equiv-text="${length &gt; 1 ? 's' : ''}"/>).</source>
-  <target>Wprowadź co najmniej <x id="0" equiv-text="${this.minLength}"/> znaków (obecnie masz <x id="1" equiv-text="${length}"/> znak<x id="2" equiv-text="${length &gt; 1 ? 'ów' : ''}"/>).</target>
+  <source>Please enter at least <x id="0" equiv-text="${this.minLength}"/> character<x id="1" equiv-text="${getCharacterPluralSuffix(this.minLength ?? 0)}"/> (you currently have <x id="2" equiv-text="${length}"/> character<x id="3" equiv-text="${getCharacterPluralSuffix(length)}"/>).</source>
+  <target>Wprowadź co najmniej <x id="0" equiv-text="${this.minLength}"/> znak<x id="1" equiv-text="${getCharacterPluralSuffix(length)}"/>) (obecnie masz <x id="2" equiv-text="${length}"/> znak<x id="3" equiv-text="${getCharacterPluralSuffix(length)}"/>).</target>
 </trans-unit>
 <trans-unit id="sl.checkbox.validation.valueMissing">
   <source>Please check this box.</source>

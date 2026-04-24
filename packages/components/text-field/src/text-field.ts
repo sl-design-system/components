@@ -7,7 +7,8 @@ import {
   ObserveAttributesMixin,
   ObserveAttributesMixinInterface,
   closestElementComposed,
-  event
+  event,
+  getCharacterPluralSuffix
 } from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
@@ -264,9 +265,7 @@ export class TextField
       const length = this.value?.toString().length || 0;
 
       return msg(
-        str`Please enter at least ${this.minLength} characters (you currently have ${length} character${
-          length > 1 ? 's' : ''
-        }).`,
+        str`Please enter at least ${this.minLength} character${getCharacterPluralSuffix(this.minLength ?? 0)} (you currently have ${length} character${getCharacterPluralSuffix(length)}).`,
         { id: 'sl.common.validation.tooShort' }
       );
     }

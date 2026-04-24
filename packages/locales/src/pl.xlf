@@ -432,6 +432,7 @@
 </trans-unit>
 <trans-unit id="sl.infotip.moreInformation">
   <source>More information</source>
+  <target>Więcej informacji</target>
 </trans-unit>
 </body>
 </file>

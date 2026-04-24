@@ -65,6 +65,7 @@ export const templates = {
   'sl.grid.sortAscending': 'Sortuj rosnąco',
   'sl.grid.sortDescending': 'Sortuj malejąco',
   'sl.grid.toggleGroup': 'Pokaż grupę',
+  'sl.infotip.moreInformation': 'Więcej informacji',
   'sl.messageDialog.alertTitle': 'Powiadomienie',
   'sl.messageDialog.cancelButton': 'Anuluj',
   'sl.messageDialog.confirmTitle': 'Potwierdź',
@@ -110,6 +111,5 @@ export const templates = {
   'sl.timeField.typeMismatch': 'Wprowadź prawidłową godzinę.',
   'sl.timeField.valueMissing': 'Wprowadź godzinę.',
   'sl.toolBar.showMore': 'Pokaż więcej',
-  'sl.tree.loadingMessage': 'Ładowanie',
-  'sl.infotip.moreInformation': 'More information'
+  'sl.tree.loadingMessage': 'Ładowanie'
 };

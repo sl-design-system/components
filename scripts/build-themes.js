@@ -1,16 +1,16 @@
 import { register, transformLineHeight } from '@tokens-studio/sd-transforms';
 import { kebabCase } from 'change-case';
 import cssnano from 'cssnano';
-import { access, readdir, readFile, writeFile } from 'fs/promises';
+import { access, readFile, readdir, writeFile } from 'fs/promises';
 import { argv } from 'node:process';
 import { join } from 'path';
 import postcss from 'postcss';
 import StyleDictionary from 'style-dictionary';
 
 // Match math expressions that are not wrapped in a `calc`, `rgb` or `hsl` function.
-const mathPresent = /^(?!calc|color-mix|rgb|hsl).*\s[\+\-\*\/]\s.*/;
+const mathPresent = /^(?!calc|color-mix|rgb|hsl).*\s[+\-*/]\s.*/;
 
-register(StyleDictionary);
+await register(StyleDictionary);
 
 const isObject = item => {
   return item && typeof item === 'object' && !Array.isArray(item);
@@ -237,22 +237,6 @@ const build = async (production = false, path) => {
     return files.some(file => filePath.endsWith(file));
   };
 
-  /**
-   * Filter out the `space.<number>` tokens since they are just aliases
-   * for `size.<number>`. We don't want to generate CSS variables for them.
-   *
-   * Commented out for now, until there are no more references to `space.<number>`.
-   */
-  const excludeSpaceTokens = token => {
-    if (token.type !== 'dimension') {
-      return true;
-    } else {
-      const [name, number] = token.path;
-
-      return !(name === 'space' && !Number.isNaN(Number(number)));
-    }
-  };
-
   const createConfigForThemeVariant = (theme, variant, old) => {
     {
       const tokensets = old
@@ -262,7 +246,6 @@ const build = async (production = false, path) => {
       const files = [
         {
           destination: old ? `${themeBase}/${theme}/${variant}-deprecated.css` : `${themeBase}/${theme}/${variant}.css`,
-          // filter: excludeSpaceTokens,
           format: 'css/variables',
           options: {
             fileHeader: 'sl/legal',
@@ -275,7 +258,6 @@ const build = async (production = false, path) => {
         files.push(
           {
             destination: old ? `${themeBase}/${theme}/css/base-deprecated.css` : `${themeBase}/${theme}/css/base.css`,
-            // filter: excludeSpaceTokens,
             format: 'css/variables',
             options: {
               fileHeader: 'sl/legal',
@@ -287,7 +269,6 @@ const build = async (production = false, path) => {
             destination: old
               ? `${themeBase}/${theme}/scss/base-deprecated.scss`
               : `${themeBase}/${theme}/scss/base.scss`,
-            // filter: excludeSpaceTokens,
             format: 'css/variables',
             options: {
               fileHeader: 'sl/legal',
@@ -300,7 +281,6 @@ const build = async (production = false, path) => {
             destination: old
               ? `${themeBase}/${theme}/css/${variant}-deprecated.css`
               : `${themeBase}/${theme}/css/${variant}.css`,
-            // filter: excludeSpaceTokens,
             format: 'css/variables',
             options: {
               fileHeader: 'sl/legal',
@@ -312,7 +292,6 @@ const build = async (production = false, path) => {
             destination: old
               ? `${themeBase}/${theme}/scss/${variant}-deprecated.scss`
               : `${themeBase}/${theme}/scss/${variant}.scss`,
-            // filter: excludeSpaceTokens,
             format: 'css/variables',
             options: {
               fileHeader: 'sl/legal',
@@ -372,4 +351,4 @@ const build = async (production = false, path) => {
   }
 };
 
-build(argv.includes('--production'), '../packages/tokens/src/tokens');
+await build(argv.includes('--production'), '../packages/tokens/src/tokens');

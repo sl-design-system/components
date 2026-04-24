@@ -18,9 +18,8 @@ const STRING_DASHERIZE_REGEXP = /[ _]/g,
  * camelize('My Favorite Items')  // 'myFavoriteItems'
  * ```
  *
- * @method camelize
  * @param str The string to camelize.
- * @return the camelized string.
+ * @returns the camelized string.
  */
 export function camelize(str) {
   return str
@@ -40,9 +39,8 @@ export function camelize(str) {
  * capitalize('my favorite items') // 'My favorite items'
  * ```
  *
- * @method capitalize
  * @param str The string to capitalize.
- * @return The capitalized string.
+ * @returns The capitalized string.
  */
 export function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.substr(1);
@@ -58,9 +56,8 @@ export function capitalize(str) {
  * classify('my favorite items')  // 'MyFavoriteItems'
  * ```
  *
- * @method classify
  * @param str the string to classify
- * @return the classified string
+ * @returns the classified string
  */
 export function classify(str) {
   return str
@@ -79,9 +76,8 @@ export function classify(str) {
  * dasherize('my favorite items') // 'my-favorite-items'
  * ```
  *
- * @method dasherize
  * @param str The string to dasherize.
- * @return the dasherized string.
+ * @returns the dasherized string.
  */
 export function dasherize(str) {
   return decamelize(str).replace(STRING_DASHERIZE_REGEXP, '-');
@@ -97,9 +93,8 @@ export function dasherize(str) {
  * decamelize('my favorite items') // 'my favorite items'
  * ```
  *
- * @method decamelize
  * @param str The string to decamelize.
- * @return the decamelized string.
+ * @returns the decamelized string.
  */
 export function decamelize(str) {
   return str.replace(STRING_DECAMELIZE_REGEXP, '$1_$2').toLowerCase();
@@ -115,9 +110,8 @@ export function decamelize(str) {
  * humanize('my favorite items') // 'My favorite items'
  * ```
  *
- * @method humanize
  * @param str The string to humanize.
- * @return The humanized string.
+ * @returns The humanized string.
  */
 export function humanize(str) {
   return capitalize(
@@ -142,9 +136,8 @@ export function humanize(str) {
  * underscore('my favorite items')  // 'my_favorite_items'
  * ```
  *
- * @method underscore
  * @param str The string to underscore.
- * @return the underscored string.
+ * @returns the underscored string.
  */
 export function underscore(str) {
   return str.replace(STRING_UNDERSCORE_REGEXP_1, '$1_$2').replace(STRING_UNDERSCORE_REGEXP_2, '_').toLowerCase();

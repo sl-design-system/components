@@ -44,10 +44,12 @@ class StoryTemplateExtractor {
     if (minIndent === Infinity || minIndent === 0) return text;
 
     // Remove the common indentation from all lines
-    return lines.map(line => {
-      if (line.trim().length === 0) return ''; // Keep empty lines empty
-      return line.substring(Math.max(minIndent - baseIndent, 0));
-    }).join('\n');
+    return lines
+      .map(line => {
+        if (line.trim().length === 0) return ''; // Keep empty lines empty
+        return line.substring(Math.max(minIndent - baseIndent, 0));
+      })
+      .join('\n');
   }
 
   /**
@@ -80,7 +82,7 @@ class StoryTemplateExtractor {
             description: storyObject.description || null
           });
         }
-      } catch (error) {
+      } catch {
         // Try regex fallback for this story
         const regexResult = this.extractStoryWithRegex(storyName, storyObjectContent);
 
@@ -109,7 +111,7 @@ class StoryTemplateExtractor {
           props: storyObject.props || null,
           description: storyObject.description || null
         });
-      } catch (error) {
+      } catch {
         // Try regex fallback for this story
         const regexResult = this.extractStoryWithRegex(storyName, storyObjectContent);
 
@@ -133,8 +135,8 @@ class StoryTemplateExtractor {
       // For simple string properties, we can convert to JSON format
       // Replace single quotes with double quotes for JSON compatibility
       let jsonContent = objectContent
-        .replace(/'/g, '"')  // Convert single quotes to double quotes
-        .replace(/(\w+):/g, '"$1":');  // Add quotes around property names
+        .replace(/'/g, '"') // Convert single quotes to double quotes
+        .replace(/(\w+):/g, '"$1":'); // Add quotes around property names
 
       // Wrap in braces to make it a valid JSON object
       const wrappedContent = `{${jsonContent}}`;
@@ -176,15 +178,11 @@ class StoryTemplateExtractor {
     }
 
     // Extract description
-    let descriptionMatch = storyContent.match(
-      /description:\s*{\s*story:\s*(["'`])((?:\\.|(?!\1)[\s\S])*?)\1/
-    );
+    let descriptionMatch = storyContent.match(/description:\s*{\s*story:\s*(["'`])((?:\\.|(?!\1)[\s\S])*?)\1/);
     if (descriptionMatch) {
       description = descriptionMatch[2].trim();
     } else {
-      descriptionMatch = storyContent.match(
-        /description:\s*(["'`])((?:\\.|(?!\1)[\s\S])*?)\1/
-      );
+      descriptionMatch = storyContent.match(/description:\s*(["'`])((?:\\.|(?!\1)[\s\S])*?)\1/);
       if (descriptionMatch) {
         description = descriptionMatch[2].trim();
       }
@@ -237,7 +235,8 @@ class StoryTemplateExtractor {
     const fileImports = this.extractImports(content);
 
     // Extract component definitions using regex (still needed for @Component classes)
-    const componentRegex = /@Component\s*\(\s*{[\s\S]*?}\s*\)\s*export\s+class\s+(\w+)[\s\S]*?(?=@Component|export\s+default|$)/g;
+    const componentRegex =
+      /@Component\s*\(\s*{[\s\S]*?}\s*\)\s*export\s+class\s+(\w+)[\s\S]*?(?=@Component|export\s+default|$)/g;
     const components = [];
 
     let match;
@@ -352,7 +351,7 @@ To add custom introduction content, create ${fileName}.intro.md */}
     }
 
     // Add stories documentation
-    stories.forEach((story, index) => {
+    stories.forEach(story => {
       const component = components.find(c => story.template && story.template.includes(c.selector));
 
       mdx += `## ${story.name.replace(/([A-Z])/g, ' $1').trim()}
@@ -370,8 +369,12 @@ To add custom introduction content, create ${fileName}.intro.md */}
 \`\`\`typescript
 ${fileImports ? fileImports + '\n\n' : ''}@Component({
   selector: '${component.selector}',
-  template: \`${component.template}\`${component.imports ? `,
-  imports: [${component.imports}]` : ''}
+  template: \`${component.template}\`${
+    component.imports
+      ? `,
+  imports: [${component.imports}]`
+      : ''
+  }
 })
 export class ${component.name} {
 ${component.classContent || '  // Component logic here'}
@@ -415,10 +418,18 @@ The examples above use the following custom component(s):
             referencedComponents.forEach(refComp => {
               mdx += `
 \`\`\`typescript
-@Component({${refComp.selector ? `
-  selector: '${refComp.selector}',` : ''}
-  standalone: true,${refComp.imports ? `
-  imports: [${refComp.imports}],` : ''}
+@Component({${
+                refComp.selector
+                  ? `
+  selector: '${refComp.selector}',`
+                  : ''
+              }
+  standalone: true,${
+    refComp.imports
+      ? `
+  imports: [${refComp.imports}],`
+      : ''
+  }
   template: \`${refComp.template}\`
 })
 export class ${refComp.name} {
@@ -436,13 +447,17 @@ ${refComp.classContent || '  // Component logic here'}
 \`\`\`html
 ${story.template}
 \`\`\`
-${story.props ? `
+${
+  story.props
+    ? `
 ### Props
 
 \`\`\`typescript
 ${story.props}
 \`\`\`
-` : ''}
+`
+    : ''
+}
 
 `;
       }
@@ -504,8 +519,7 @@ ${story.props}
       fs.mkdirSync(this.outputPath, { recursive: true });
     }
 
-    const storyFiles = fs.readdirSync(this.angularStoriesPath)
-      .filter(file => file.endsWith('.stories.ts'));
+    const storyFiles = fs.readdirSync(this.angularStoriesPath).filter(file => file.endsWith('.stories.ts'));
 
     console.log(`Found ${storyFiles.length} story files to process...`);
 
@@ -562,7 +576,8 @@ ${story.props}
    * Process specific files (for CLI usage)
    */
   processSpecificFiles(filePatterns) {
-    const storyFiles = fs.readdirSync(this.angularStoriesPath)
+    const storyFiles = fs
+      .readdirSync(this.angularStoriesPath)
       .filter(file => file.endsWith('.stories.ts'))
       .filter(file => {
         return filePatterns.some(pattern => {

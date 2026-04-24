@@ -1,0 +1,30 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["eslint", "import", "jsdoc", "oxc", "promise", "typescript", "unicorn", "vitest"],
+  "options": {
+    "typeAware": true,
+    "typeCheck": true
+  },
+  "env": {
+    "browser": true,
+    "es2022": true
+  },
+  "rules": {
+    "import/consistent-type-specifier-style": ["error", "prefer-inline"],
+    "import/no-duplicates": "error",
+    "no-fallthrough": ["error", { "commentPattern": "Break[\\s\\w]*omitted" }],
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
+    "sort-imports": ["error", { "ignoreDeclarationSort": true }],
+    "typescript/array-type": ["error", { "default": "array-simple" }],
+    "typescript/consistent-type-assertions": "off"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.spec.ts"],
+      "rules": {
+        "no-unused-expressions": "off"
+      }
+    }
+  ],
+  "ignorePatterns": ["**/*.d.ts", "**/*.scss.ts", "**/node_modules/**", "**/dist/**", "**/vendor/**", "website"]
+}

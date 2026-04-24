@@ -10,12 +10,12 @@ import { fass } from '@fortawesome/sharp-solid-svg-icons';
 import { exec } from 'child_process';
 import pkg from 'eslint';
 import fg from 'fast-glob';
-import { promises as fs, existsSync } from 'fs';
+import { existsSync, promises as fs } from 'fs';
 import { basename, join } from 'path';
 
 library.add(fas, far, fal, fat, fad, fass, fasr, fasl);
 
-const { ESLint } = pkg
+const { ESLint } = pkg;
 
 const cwd = new URL('.', import.meta.url).pathname,
   eslint = new ESLint({ fix: true });
@@ -75,12 +75,15 @@ const getIconPrefixFromStyle = style => {
 const buildIcons = async theme => {
   // 1. Get icon tokens from `base.json`
   const {
-    default: { icon: { style, themeIcons }, text }
+    default: {
+      icon: { style, themeIcons },
+      text
+    }
   } = await import(`../packages/tokens/src/tokens/${theme}/base.json`, { with: { type: 'json' } });
 
   const icons = {
     ...getFormattedIcons(coreIcons, 'core'),
-    ...(themeIcons ? getFormattedIcons({ themeIcons },'themeIcons') : {})
+    ...(themeIcons ? getFormattedIcons({ themeIcons }, 'themeIcons') : {})
   };
 
   // fetch all FA tokens and store these
@@ -102,7 +105,6 @@ const buildIcons = async theme => {
 
     const svg = `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">${paths.map((p, i) => `<path d="${p}" fill="var(--sl-icon-fill-${getColorToken(i, 'regular')})"></path>`).join('')}</svg>`;
 
-
     icons[iconName] = {
       value: tokenValue,
       type: value['$type'] || value.type,
@@ -116,7 +118,6 @@ const buildIcons = async theme => {
     await fs.mkdir(iconsFolderPath);
   }
 
-
   // 3. Convert downloaded icons to appropriate format?
   // We only need the `<path>` data for `<sl-icon>`
 
@@ -126,11 +127,9 @@ const buildIcons = async theme => {
   const filesToRead = customIconFiles.map(fileName => {
     const iconName = fileName.replace('icon=', '').replace('.svg', '');
 
-    return fs
-      .readFile(join(cwd, `../packages/themes/${theme}/icons/${fileName}`), 'utf8')
-      .then(svg => {
-        iconsCustom[iconName] = { svg: svg.replace('<svg ','<svg fill="var(--sl-icon-fill-default)" ') }
-      });
+    return fs.readFile(join(cwd, `../packages/themes/${theme}/icons/${fileName}`), 'utf8').then(svg => {
+      iconsCustom[iconName] = { svg: svg.replace('<svg ', '<svg fill="var(--sl-icon-fill-default)" ') };
+    });
   });
 
   await Promise.all(filesToRead);
@@ -145,12 +144,12 @@ const buildIcons = async theme => {
     `,
     results = await eslint.lintText(source, { filePath });
 
-    await ESLint.outputFixes(results);
+  await ESLint.outputFixes(results);
   await fs.writeFile(filePath, results[0].output);
 };
 
 const buildAllIcons = async () => {
-  const folders = (await fg('../packages/themes/*', { cwd, onlyDirectories: true }));
+  const folders = await fg('../packages/themes/*', { cwd, onlyDirectories: true });
 
   folders
     .map(folder => basename(folder))
@@ -162,7 +161,7 @@ const buildAllIcons = async () => {
 const exportCoreIcons = async () => {
   const iconsFolderPath = join(cwd, `../packages/themes/core/icons/`);
   if (!existsSync(iconsFolderPath)) {
-    await fs.mkdir(iconsFolderPath,{ recursive: true });
+    await fs.mkdir(iconsFolderPath, { recursive: true });
   }
 
   for (const file of await fs.readdir(iconsFolderPath)) {
@@ -191,11 +190,10 @@ const exportCoreIcons = async () => {
   const filesToRead = customIconFiles.map(fileName => {
     const iconName = fileName.replace('icon=', '').replace('.svg', '');
 
-    return fs
-      .readFile(join(cwd, `../packages/themes/core/icons/${fileName}`), 'utf8')
-      .then(svg => {
-        svg = svg.replace('<svg ','<svg fill="var(--sl-icon-fill-default)" ');
-        iconsCustom[iconName] = { svg }});
+    return fs.readFile(join(cwd, `../packages/themes/core/icons/${fileName}`), 'utf8').then(svg => {
+      svg = svg.replace('<svg ', '<svg fill="var(--sl-icon-fill-default)" ');
+      iconsCustom[iconName] = { svg };
+    });
   });
 
   await Promise.all(filesToRead);
@@ -203,5 +201,5 @@ const exportCoreIcons = async () => {
   return iconsCustom;
 };
 
-const coreCustomIcons  = await exportCoreIcons();
-buildAllIcons();
+const coreCustomIcons = await exportCoreIcons();
+await buildAllIcons();

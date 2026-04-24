@@ -2,7 +2,7 @@ import { create, ts } from '@custom-elements-manifest/analyzer';
 import fg from 'fast-glob';
 import fs from 'fs';
 import { basename, join, resolve } from 'path';
-import { methodAndFieldPlugin, noPrivateFieldsPlugin, sortMembersPlugin, omitPlugin } from './cem-plugins.js';
+import { methodAndFieldPlugin, noPrivateFieldsPlugin, omitPlugin, sortMembersPlugin } from './cem-plugins.js';
 import { eventDecoratorPlugin } from './cem-plugin-event-decorator.js';
 
 const cwd = new URL('.', import.meta.url).pathname;
@@ -41,4 +41,4 @@ const buildAllManifests = async () => {
   components.forEach(component => buildManifest(basename(component)));
 };
 
-buildAllManifests();
+await buildAllManifests();

@@ -7,7 +7,7 @@
  * See backwards-compatibility-check-README.md for setup instructions.
  */
 
-import { readdir, readFile } from 'fs/promises';
+import { readFile, readdir } from 'fs/promises';
 import { join } from 'path';
 import { argv } from 'node:process';
 
@@ -42,7 +42,7 @@ async function getCombinedVariables(themePath, variant) {
     const newFile = await readFile(join(themePath, `${variant}.css`), 'utf-8');
     const newVars = extractCSSVariables(newFile);
     newVars.forEach(v => variables.add(v));
-  } catch (err) {
+  } catch  {
     // File might not exist
   }
 
@@ -50,7 +50,7 @@ async function getCombinedVariables(themePath, variant) {
     const oldFile = await readFile(join(themePath, `${variant}-deprecated.css`), 'utf-8');
     const oldVars = extractCSSVariables(oldFile);
     oldVars.forEach(v => variables.add(v));
-  } catch (err) {
+  } catch  {
     // File might not exist
   }
 
@@ -67,7 +67,7 @@ async function getReferenceVariables(referencePath, variant) {
   try {
     const refFile = await readFile(join(referencePath, `${variant}.css`), 'utf-8');
     return extractCSSVariables(refFile);
-  } catch (err) {
+  } catch  {
     return new Set();
   }
 }
@@ -79,6 +79,7 @@ async function getReferenceVariables(referencePath, variant) {
  * @returns {string[]} Array of missing variable names
  */
 function findMissingVariables(reference, current) {
+  /** @type {string[]} */
   const missing = [];
 
   reference.forEach(variable => {

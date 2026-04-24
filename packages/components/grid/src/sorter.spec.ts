@@ -36,7 +36,9 @@ describe('sl-grid-sorter', () => {
     });
 
     it('should have an aria label on the inner button', () => {
-      expect(getForwardedAccessibleName(el.renderRoot.querySelector('sl-button')!)).to.equal('Sort ascending');
+      expect(getForwardedAccessibleName(el.renderRoot.querySelector('sl-button')!)).to.equal(
+        'Sort ascending'
+      );
     });
 
     it('should have a ghost button', () => {
@@ -92,7 +94,9 @@ describe('sl-grid-sorter', () => {
     });
 
     it('should have an aria label on the button', () => {
-      expect(getForwardedAccessibleName(el.renderRoot.querySelector('sl-button')!)).to.equal('Sort descending');
+      expect(getForwardedAccessibleName(el.renderRoot.querySelector('sl-button')!)).to.equal(
+        'Sort descending'
+      );
     });
 
     it('should have a primary solid button', () => {
@@ -133,7 +137,9 @@ describe('sl-grid-sorter', () => {
     });
 
     it('should have an aria label on the button', () => {
-      expect(getForwardedAccessibleName(el.renderRoot.querySelector('sl-button')!)).to.equal('Remove sort');
+      expect(getForwardedAccessibleName(el.renderRoot.querySelector('sl-button')!)).to.equal(
+        'Remove sort'
+      );
     });
 
     it('should have a primary solid button', () => {

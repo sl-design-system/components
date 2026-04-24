@@ -147,7 +147,8 @@ sl-popover ::slotted(a[href]:focus-visible) {
   background: color-mix(
     in srgb,
     transparent,
-    var(--sl-color-background-primary-interactive-plain) calc(100% * var(--sl-opacity-interactive-plain-hover))
+    var(--sl-color-background-primary-interactive-plain)
+      calc(100% * var(--sl-opacity-interactive-plain-hover))
   );
   color: var(--sl-color-foreground-plain) !important;
 }
@@ -160,8 +161,8 @@ sl-popover ::slotted(a[href]:focus-visible) {
 sl-popover ::slotted(a[href]:hover)::before,
 sl-popover ::slotted(a[href]:focus-visible)::before {
   background: var(--sl-color-background-selected-bold);
-  border-radius: var(--sl-size-borderRadius-none) var(--sl-size-borderRadius-child) var(--sl-size-borderRadius-child)
-    var(--sl-size-borderRadius-none);
+  border-radius: var(--sl-size-borderRadius-none) var(--sl-size-borderRadius-child)
+    var(--sl-size-borderRadius-child) var(--sl-size-borderRadius-none);
   content: '';
   inline-size: var(--sl-size-050);
   inset-block: var(--sl-size-025);

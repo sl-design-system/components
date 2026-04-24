@@ -28,8 +28,12 @@ describe('sl-tooltip', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <div style="display: block; width: 400px; height: 400px;">
-          <sl-button aria-describedby="tooltip" fill="outline" style="margin-top: 100px">Button element</sl-button>
-          <sl-tooltip id="tooltip">Message with lots of long text, that exceeds 150px easily</sl-tooltip>
+          <sl-button aria-describedby="tooltip" fill="outline" style="margin-top: 100px"
+            >Button element</sl-button
+          >
+          <sl-tooltip id="tooltip"
+            >Message with lots of long text, that exceeds 150px easily</sl-tooltip
+          >
         </div>
       `);
       button = el.querySelector('sl-button') as Button;
@@ -47,7 +51,9 @@ describe('sl-tooltip', () => {
         <div style="display: block; width: 400px; height: 400px;">
           <button id="focus-target" type="button" aria-describedby="tooltip">Button element</button>
           <button id="outside-target" type="button">Outside focus target</button>
-          <sl-tooltip id="tooltip">Message with lots of long text, that exceeds 150px easily</sl-tooltip>
+          <sl-tooltip id="tooltip"
+            >Message with lots of long text, that exceeds 150px easily</sl-tooltip
+          >
         </div>
       `);
       const focusButton = el.querySelector<HTMLButtonElement>('#focus-target')!,
@@ -155,13 +161,19 @@ describe('sl-tooltip', () => {
       button?.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
 
       const originalMatches = button.matches.bind(button);
-      const matchesSpy = vi.spyOn(button, 'matches').mockImplementation((selector: string): boolean => {
-        if (selector === ':hover' || selector === ':focus-visible' || selector === ':focus-within') {
-          return false;
-        }
+      const matchesSpy = vi
+        .spyOn(button, 'matches')
+        .mockImplementation((selector: string): boolean => {
+          if (
+            selector === ':hover' ||
+            selector === ':focus-visible' ||
+            selector === ':focus-within'
+          ) {
+            return false;
+          }
 
-        return originalMatches(selector);
-      });
+          return originalMatches(selector);
+        });
 
       try {
         button?.blur();
@@ -177,7 +189,9 @@ describe('sl-tooltip', () => {
     it('should stay open on focusout when the anchor remains hovered', async () => {
       await tooltip.updateComplete;
 
-      const proxyTarget = (button as HTMLElement & { getProxyTarget?(): Element | null }).getProxyTarget?.(),
+      const proxyTarget = (
+          button as HTMLElement & { getProxyTarget?(): Element | null }
+        ).getProxyTarget?.(),
         originalElementMatches = Element.prototype.matches;
       const focusVisibleSpy = vi.spyOn(Element.prototype, 'matches').mockImplementation(function (
         this: Element,
@@ -198,14 +212,17 @@ describe('sl-tooltip', () => {
 
       expect(tooltip).to.match(':popover-open');
 
-      const proxyTargetForHover = (button as HTMLElement & { getProxyTarget?(): Element | null }).getProxyTarget?.(),
+      const proxyTargetForHover = (
+          button as HTMLElement & { getProxyTarget?(): Element | null }
+        ).getProxyTarget?.(),
         currentAnchor = tooltip.anchorElement,
         originalMatches = Element.prototype.matches;
       const matchesSpy = vi.spyOn(Element.prototype, 'matches').mockImplementation(function (
         this: Element,
         selector: string
       ): boolean {
-        const isAnchorTarget = this === button || this === proxyTargetForHover || this === currentAnchor;
+        const isAnchorTarget =
+          this === button || this === proxyTargetForHover || this === currentAnchor;
 
         if (selector === ':hover' && isAnchorTarget) {
           return true;
@@ -360,7 +377,9 @@ describe('sl-tooltip', () => {
             <button type="button">First child</button>
             <button type="button">Second child</button>
           </div>
-          <sl-tooltip id="tooltip">Message with lots of long text, that exceeds 150px easily</sl-tooltip>
+          <sl-tooltip id="tooltip"
+            >Message with lots of long text, that exceeds 150px easily</sl-tooltip
+          >
         </div>
       `);
 
@@ -368,7 +387,9 @@ describe('sl-tooltip', () => {
       tooltip.showDelay = 0;
       tooltip.hideDelay = 0;
 
-      const [firstChildButton, secondChildButton] = Array.from(el.querySelectorAll<HTMLButtonElement>('button'));
+      const [firstChildButton, secondChildButton] = Array.from(
+        el.querySelectorAll<HTMLButtonElement>('button')
+      );
 
       firstChildButton.focus();
       await tooltip.updateComplete;
@@ -390,8 +411,12 @@ describe('sl-tooltip', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <div style="display: block; width: 400px; height: 400px;">
-          <sl-button aria-labelledby="tooltip" fill="outline" style="margin-top: 100px">Button element</sl-button>
-          <sl-tooltip id="tooltip">Message with lots of long text, that exceeds 150px easily</sl-tooltip>
+          <sl-button aria-labelledby="tooltip" fill="outline" style="margin-top: 100px"
+            >Button element</sl-button
+          >
+          <sl-tooltip id="tooltip"
+            >Message with lots of long text, that exceeds 150px easily</sl-tooltip
+          >
         </div>
       `);
       button = el.querySelector('sl-button') as Button;
@@ -453,7 +478,9 @@ describe('sl-tooltip', () => {
       el = await fixture(html`
         <div style="block-size: 400px; inline-size: 400px;">
           <span id="other-label">Other label</span>
-          <sl-button aria-labelledby="other-label tooltip">Button with multiple label ids </sl-button>
+          <sl-button aria-labelledby="other-label tooltip"
+            >Button with multiple label ids
+          </sl-button>
           <sl-tooltip id="tooltip">Tooltip label</sl-tooltip>
         </div>
       `);
@@ -808,14 +835,18 @@ describe('sl-tooltip', () => {
 
       const describedBy = button.getAttribute('aria-describedby'),
         describedByElements = button.ariaDescribedByElements ?? [],
-        proxyTarget = (button as HTMLElement & { getProxyTarget?(): Element | null }).getProxyTarget?.(),
-        proxyDescribedBy = proxyTarget instanceof Element ? proxyTarget.getAttribute('aria-describedby') : null,
+        proxyTarget = (
+          button as HTMLElement & { getProxyTarget?(): Element | null }
+        ).getProxyTarget?.(),
+        proxyDescribedBy =
+          proxyTarget instanceof Element ? proxyTarget.getAttribute('aria-describedby') : null,
         proxyDescribedByElements =
           proxyTarget instanceof Element && 'ariaDescribedByElements' in proxyTarget
             ? (proxyTarget.ariaDescribedByElements ?? [])
             : [],
         hasAriaDescribedBy =
-          describedBy?.split(/\s+/).includes(tooltip!.id) === true || describedByElements.includes(tooltip);
+          describedBy?.split(/\s+/).includes(tooltip!.id) === true ||
+          describedByElements.includes(tooltip);
 
       expect(
         hasAriaDescribedBy ||

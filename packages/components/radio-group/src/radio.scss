@@ -105,7 +105,11 @@
 [part='box'] {
   align-items: center;
   aspect-ratio: 1;
-  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  background: color-mix(
+    in srgb,
+    var(--_bg-color),
+    var(--_bg-mix-color) calc(100% * var(--_bg-opacity))
+  );
   block-size: var(--sl-size-300);
   border: var(--sl-size-borderWidth-default) solid var(--_border);
   border-radius: 50%;

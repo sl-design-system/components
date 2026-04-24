@@ -1,4 +1,10 @@
-import { faFileLines, faFolder, faFolderOpen, faPen, faTrash } from '@fortawesome/pro-regular-svg-icons';
+import {
+  faFileLines,
+  faFolder,
+  faFolderOpen,
+  faPen,
+  faTrash
+} from '@fortawesome/pro-regular-svg-icons';
 import { Badge } from '@sl-design-system/badge';
 import { Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
@@ -38,7 +44,10 @@ export interface NestedDataNode {
 export interface LazyNestedDataNode {
   id: string;
   expandable?: boolean;
-  children?: LazyNestedDataNode[] | Promise<LazyNestedDataNode[]> | Array<Promise<LazyNestedDataNode>>;
+  children?:
+    | LazyNestedDataNode[]
+    | Promise<LazyNestedDataNode[]>
+    | Array<Promise<LazyNestedDataNode>>;
 }
 
 Icon.register(faFileLines, faFolder, faFolderOpen, faPen, faTrash);
@@ -195,8 +204,9 @@ export default {
         rules: [
           {
             /**
-             * The rule is disabled due to unnecessary Storybook a11y bug.
-             * The role `treegrid` has children with proper role `row`, but the error appears even then (but it should not).
+             * The rule is disabled due to unnecessary Storybook a11y bug. The role `treegrid` has
+             * children with proper role `row`, but the error appears even then (but it should
+             * not).
              */
             id: 'aria-required-children',
             enabled: false
@@ -218,7 +228,8 @@ export default {
   },
   render: ({ dataSource, hideGuides, maxWidth, renderer, scopedElements, styles }) => {
     const onToggle = () => dataSource?.selection.forEach(node => dataSource?.toggle(node)),
-      onToggleDescendants = () => dataSource?.selection.forEach(node => dataSource?.toggleDescendants(node)),
+      onToggleDescendants = () =>
+        dataSource?.selection.forEach(node => dataSource?.toggleDescendants(node)),
       onExpandAll = () => dataSource?.expandAll(),
       onCollapseAll = () => dataSource?.collapseAll();
 
@@ -326,7 +337,8 @@ export const Icons: Story = {
   args: {
     dataSource: new NestedTreeDataSource(nestedData, {
       getChildren: ({ children }) => children,
-      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
+      getIcon: ({ name }, expanded) =>
+        name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`,
       getId: item => item.id,
       getLabel: ({ name }) => name,
       isExpandable: ({ children }) => !!children,
@@ -396,9 +408,9 @@ export const Filter: Story = {
 
     return html`
       <p style="margin-block: 0 1rem">
-        This example shows how filtering can be implemented by creating a new data source with the filtered data and
-        assigning it to the tree. Note that this <strong>does not</strong> use the Filter API of DataSource. That API
-        hasn't been implemented yet.
+        This example shows how filtering can be implemented by creating a new data source with the
+        filtered data and assigning it to the tree. Note that this <strong>does not</strong> use the
+        Filter API of DataSource. That API hasn't been implemented yet.
       </p>
       <sl-search-field
         @sl-change=${onChange}
@@ -455,7 +467,8 @@ export const Multiple: Story = {
   args: {
     dataSource: new NestedTreeDataSource(nestedData, {
       getChildren: ({ children }) => children,
-      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
+      getIcon: ({ name }, expanded) =>
+        name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`,
       getId: item => item.id,
       getLabel: ({ name }) => name,
       isExpanded: ({ name }) => ['components', 'tree', 'src'].includes(name),
@@ -492,7 +505,10 @@ export const PageScrolling: Story = {
       [1, 2, 3].map(id => ({
         id,
         name: `Root ${id}`,
-        children: Array.from({ length: 1000 }).map((_, i) => ({ id: 1000 * id + i, name: `Child ${i}` }))
+        children: Array.from({ length: 1000 }).map((_, i) => ({
+          id: 1000 * id + i,
+          name: `Child ${i}`
+        }))
       })),
       {
         getChildren: ({ children }) => children,
@@ -543,7 +559,8 @@ export const Sorting: Story = {
   render: () => {
     const ds = new NestedTreeDataSource(nestedData, {
       getChildren: ({ children }) => children,
-      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
+      getIcon: ({ name }, expanded) =>
+        name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`,
       getId: item => item.id,
       getLabel: ({ name }) => name,
       isExpandable: ({ children }) => !!children,
@@ -553,6 +570,8 @@ export const Sorting: Story = {
     ds.setSort('name', 'asc');
     ds.update();
 
-    return html`<sl-tree .dataSource=${ds} aria-label="Tree label" style="max-inline-size: 300px"></sl-tree>`;
+    return html`
+      <sl-tree .dataSource=${ds} aria-label="Tree label" style="max-inline-size: 300px"></sl-tree>
+    `;
   }
 };

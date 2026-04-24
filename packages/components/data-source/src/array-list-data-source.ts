@@ -10,10 +10,9 @@ import {
 } from './list-data-source.js';
 
 /**
- * A data source that can be used to filter, group by, sort,
- * and paginate an array of items. Use this data source when
- * you have all the data you need in memory and you don't need
- * to load any additional data.
+ * A data source that can be used to filter, group by, sort, and paginate an array of items. Use
+ * this data source when you have all the data you need in memory and you don't need to load any
+ * additional data.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class ArrayListDataSource<T = any> extends ListDataSource<T> {
@@ -86,7 +85,9 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
     this.#groups = undefined;
     this.#mappedItems = items.map(item => ({
       id: options.getId?.(item) ?? (item as { id: unknown }).id ?? item,
-      groupId: options.getGroupId?.(item) ?? (options.groupBy ? getValueByPath(item, options.groupBy) : undefined),
+      groupId:
+        options.getGroupId?.(item) ??
+        (options.groupBy ? getValueByPath(item, options.groupBy) : undefined),
       type: 'data',
       data: item,
       selected: options.isSelected?.(item)
@@ -140,12 +141,8 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
 
       for (const [path, values] of Object.entries<unknown[]>(pathFilters)) {
         /**
-         * Convert the value to a string and trim it, so we can match
-         * an empty string to:
-         * - ''
-         * - '   '
-         * - null
-         * - undefined
+         * Convert the value to a string and trim it, so we can match an empty string to: - '' - ' '
+         * - null - undefined
          */
         items = items.filter(
           ({ data: item }) =>
@@ -161,7 +158,9 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
       filters
         .filter(f => typeof f.by === 'function')
         .forEach(({ by, value }) => {
-          items = items.filter(({ data: item }) => item && (by as DataSourceFilterFunction<T>)(item, value));
+          items = items.filter(
+            ({ data: item }) => item && (by as DataSourceFilterFunction<T>)(item, value)
+          );
         });
     }
 
@@ -314,7 +313,9 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
       if (!groups.has(group)) {
         let label = groupLabels.get(group);
         if (!label) {
-          label = this.groupLabelPath ? getStringByPath(item.data, this.groupLabelPath) : String(group);
+          label = this.groupLabelPath
+            ? getStringByPath(item.data, this.groupLabelPath)
+            : String(group);
           groupLabels.set(group, label);
         }
 

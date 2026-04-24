@@ -5,7 +5,7 @@ import { basename, join } from 'path';
 
 const cwd = new URL('.', import.meta.url).pathname;
 
-const extract = async (component) => {
+const extract = async component => {
   const folder = join(cwd, `../packages/components/${component}`);
 
   const localizer = new RuntimeLitLocalizer({

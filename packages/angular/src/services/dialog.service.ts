@@ -1,9 +1,20 @@
-import { ApplicationRef, ChangeDetectorRef, Injectable, Injector, NgZone, Type, createComponent } from '@angular/core';
+import {
+  ApplicationRef,
+  ChangeDetectorRef,
+  Injectable,
+  Injector,
+  NgZone,
+  Type,
+  createComponent
+} from '@angular/core';
 import { Dialog } from '@sl-design-system/dialog';
 import '@sl-design-system/dialog/register.js';
 import { Observable, Subject } from 'rxjs';
 
-/**  Utility type to get all public properties from the Dialog, plus 'component' and 'data' properties additionally. */
+/**
+ * Utility type to get all public properties from the Dialog, plus 'component' and 'data' properties
+ * additionally.
+ */
 type DialogProps = Omit<
   {
     [K in keyof Dialog as Dialog[K] extends (...args: unknown[]) => unknown ? never : K]: Dialog[K];
@@ -24,7 +35,9 @@ export interface DialogConfig<T> extends Partial<DialogProps> {
 const applyDialogProps = (dialog: Dialog, config: DialogConfig<unknown>): void => {
   Object.keys(config).forEach(key => {
     if (key !== 'component' && key !== 'data' && key in dialog) {
-      (dialog as unknown as Record<string, unknown>)[key] = (config as unknown as Record<string, unknown>)[key];
+      (dialog as unknown as Record<string, unknown>)[key] = (
+        config as unknown as Record<string, unknown>
+      )[key];
     }
   });
 };
@@ -32,10 +45,11 @@ const applyDialogProps = (dialog: Dialog, config: DialogConfig<unknown>): void =
 /**
  * DialogRef is a handle for interacting with an opened dialog instance.
  *
- * Provides methods to close the dialog and observe when it has been closed.
- * Allows passing an optional result value when closing the dialog, which will be emitted to subscribers.
+ * Provides methods to close the dialog and observe when it has been closed. Allows passing an
+ * optional result value when closing the dialog, which will be emitted to subscribers.
  *
  * Example usage:
+ *
  * ```TypeScript
  * const dialogRef = dialogService.showModal<MyComponent, MyResultType>({ component: MyComponent });
  * dialogRef.afterClosed().subscribe(result => {
@@ -55,9 +69,10 @@ export class DialogRef<T = unknown> {
   #result?: T;
 
   /**
-   * Callback function type for handling the dialog close event.
-   * This property holds a reference to a function that is invoked when the dialog emits the `sl-close` event.
-   * It is used internally to notify subscribers and perform cleanup when the dialog is closed, either by user action or programmatically.
+   * Callback function type for handling the dialog close event. This property holds a reference to
+   * a function that is invoked when the dialog emits the `sl-close` event. It is used internally to
+   * notify subscribers and perform cleanup when the dialog is closed, either by user action or
+   * programmatically.
    */
   #onClose: () => void;
 
@@ -105,9 +120,9 @@ export class DialogRef<T = unknown> {
 }
 
 /**
- * DialogService is a service for opening and managing dialogs in Angular apps.
- * Provides methods to show dialogs with custom components, pass data, and handle dialog lifecycle events.
- * Tracks all opened dialogs and allows closing them programmatically.
+ * DialogService is a service for opening and managing dialogs in Angular apps. Provides methods to
+ * show dialogs with custom components, pass data, and handle dialog lifecycle events. Tracks all
+ * opened dialogs and allows closing them programmatically.
  */
 @Injectable({
   providedIn: 'root'
@@ -176,6 +191,7 @@ export class DialogService {
 
   /**
    * A method that closes all currently opened dialogs
+   *
    * @param result Optional result to pass to all dialogs
    */
   closeAll(result?: unknown): void {

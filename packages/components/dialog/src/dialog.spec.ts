@@ -449,7 +449,11 @@ describe('sl-dialog', () => {
 
     it('should call showModal() when receiving a command event with "--show-modal"', () => {
       const showModalSpy = spy(el, 'showModal');
-      const event = new CommandEvent('command', { command: '--show-modal', bubbles: true, cancelable: true });
+      const event = new CommandEvent('command', {
+        command: '--show-modal',
+        bubbles: true,
+        cancelable: true
+      });
 
       el.dispatchEvent(event);
 
@@ -463,7 +467,11 @@ describe('sl-dialog', () => {
       expect(dialog.open).to.be.true;
 
       const closeSpy = spy(el, 'close');
-      const event = new CommandEvent('command', { command: '--close', bubbles: true, cancelable: true });
+      const event = new CommandEvent('command', {
+        command: '--close',
+        bubbles: true,
+        cancelable: true
+      });
 
       el.dispatchEvent(event);
 
@@ -474,7 +482,11 @@ describe('sl-dialog', () => {
     it('should not react to unknown command values', () => {
       const showModalSpy = spy(el, 'showModal'),
         closeSpy = spy(el, 'close');
-      const event = new CommandEvent('command', { command: 'toggle', bubbles: true, cancelable: true });
+      const event = new CommandEvent('command', {
+        command: 'toggle',
+        bubbles: true,
+        cancelable: true
+      });
 
       el.dispatchEvent(event);
 
@@ -488,7 +500,11 @@ describe('sl-dialog', () => {
       expect(dialog.open).to.be.true;
 
       const requestCloseSpy = spy(el, 'requestClose');
-      const event = new CommandEvent('command', { command: '--request-close', bubbles: true, cancelable: true });
+      const event = new CommandEvent('command', {
+        command: '--request-close',
+        bubbles: true,
+        cancelable: true
+      });
 
       el.dispatchEvent(event);
 

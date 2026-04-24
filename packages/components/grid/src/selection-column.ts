@@ -1,6 +1,9 @@
 import { msg } from '@lit/localize';
 import { Checkbox } from '@sl-design-system/checkbox';
-import { type ListDataSourceDataItem, type ListDataSourceItem } from '@sl-design-system/data-source';
+import {
+  type ListDataSourceDataItem,
+  type ListDataSourceItem
+} from '@sl-design-system/data-source';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -13,9 +16,7 @@ declare global {
   }
 }
 
-/**
- * A grid column that can be used to select items in the grid.
- */
+/** A grid column that can be used to select items in the grid. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridSelectionColumn<T = any> extends GridColumn<T> {
   /** @internal */
@@ -55,7 +56,11 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
         classes = this.getClasses();
 
       return html`
-        <th class=${ifDefined(classes.join(' ') || undefined)} part="header selection" role="columnheader">
+        <th
+          class=${ifDefined(classes.join(' ') || undefined)}
+          part="header selection"
+          role="columnheader"
+        >
           <sl-checkbox
             @sl-change=${({ detail }: SlChangeEvent<boolean>) => this.#onToggleAll(detail)}
             ?checked=${checked}
@@ -83,7 +88,11 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
     const classes = this.getClasses(item.data);
 
     return html`
-      <td @click=${this.#onClick} class=${ifDefined(classes.join(' ') || undefined)} part="data selection">
+      <td
+        @click=${this.#onClick}
+        class=${ifDefined(classes.join(' ') || undefined)}
+        part="data selection"
+      >
         <sl-checkbox
           @sl-change=${() => this.#onToggle(item)}
           ?checked=${item.selected}

@@ -262,7 +262,9 @@ describe('sl-toggle-button', () => {
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect(errorStub).to.have.been.calledWith('Do not use the same icon for both states of the toggle button.');
+      expect(errorStub).to.have.been.calledWith(
+        'Do not use the same icon for both states of the toggle button.'
+      );
     });
 
     it('should not log an error if only text is slotted', async () => {

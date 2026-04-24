@@ -289,7 +289,10 @@ export const All: Story = {
       </div>
       <div>
         <h3>Selected date</h3>
-        <sl-month-view .month=${new Date(2024, 11, 10)} .selected=${new Date(2024, 11, 4)}></sl-month-view>
+        <sl-month-view
+          .month=${new Date(2024, 11, 10)}
+          .selected=${new Date(2024, 11, 4)}
+        ></sl-month-view>
       </div>
       <div>
         <h3>Show today</h3>

@@ -23,7 +23,7 @@ const items = Array.from({ length: 10000 }, (_, i) => `Item ${i + 1}`);
 html`
   <sl-virtual-list
     .items=${items}
-    .renderItem=${(item) => html`<div>${item}</div>`}
+    .renderItem=${item => html`<div>${item}</div>`}
     estimate-size="50"
   >
   </sl-virtual-list>

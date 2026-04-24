@@ -1,10 +1,14 @@
 import { type ButtonFill } from '@sl-design-system/button';
 
 /**
- * Propagate `fill`, `variant` and `inverted` attributes to child buttons,
- * menu-buttons and tool-bar-dividers inside the given elements.
+ * Propagate `fill`, `variant` and `inverted` attributes to child buttons, menu-buttons and
+ * tool-bar-dividers inside the given elements.
  */
-export function updateChildAttributes(elements: Element[], fill?: ButtonFill, inverted?: boolean): void {
+export function updateChildAttributes(
+  elements: Element[],
+  fill?: ButtonFill,
+  inverted?: boolean
+): void {
   elements.forEach(el => {
     updateButtonFillAndVariant(el, fill, inverted);
     updateDividerVariant(el, inverted);

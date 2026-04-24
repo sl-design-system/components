@@ -71,7 +71,9 @@ describe('sl-listbox', () => {
 
       const renderedOptions = Array.from(el.querySelectorAll('sl-option'));
 
-      expect(renderedOptions.map(o => o.textContent)).to.deep.equal(el.options.slice(0, renderedOptions.length));
+      expect(renderedOptions.map(o => o.textContent)).to.deep.equal(
+        el.options.slice(0, renderedOptions.length)
+      );
     });
 
     it('should use the given label, selected and value path for each item', async () => {

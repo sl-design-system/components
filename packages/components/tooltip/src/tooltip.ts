@@ -1,5 +1,16 @@
-import { AnchorController, EventsController, type PopoverPosition, isPopoverOpen } from '@sl-design-system/shared';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import {
+  AnchorController,
+  EventsController,
+  type PopoverPosition,
+  isPopoverOpen
+} from '@sl-design-system/shared';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './tooltip.scss.js';
 
@@ -23,26 +34,26 @@ declare global {
 
 export interface TooltipOptions {
   /**
-   * This determines the context that is used to create the `<sl-tooltip>` element. If
-   * not provided, the tooltip will be created on the target element if it has a `shadowRoot`,
-   * or the root node of the target element.
+   * This determines the context that is used to create the `<sl-tooltip>` element. If not provided,
+   * the tooltip will be created on the target element if it has a `shadowRoot`, or the root node of
+   * the target element.
    */
   context?: Document | ShadowRoot;
 
   /**
-   * This is the node where the tooltip will be added to. This can be useful when
-   * you don't want the tooltip to be added next to the anchor element. If not provided,
-   * it will be added next to the anchor element.
+   * This is the node where the tooltip will be added to. This can be useful when you don't want the
+   * tooltip to be added next to the anchor element. If not provided, it will be added next to the
+   * anchor element.
    */
   parentNode?: Node;
 
   /**
-   * Which ARIA relationship attribute to add to the anchor (`aria-describedby` or `aria-labelledby`).
-   * Defaults to 'description' ('aria-describedby').
+   * Which ARIA relationship attribute to add to the anchor (`aria-describedby` or
+   * `aria-labelledby`). Defaults to 'description' ('aria-describedby').
    *
-   * A good example of when to use `aria-labelledby`
-   * is when the tooltip provides a label or title for the anchor element,
-   * such as an icon only button (so button with only an icon) and no visible text.
+   * A good example of when to use `aria-labelledby` is when the tooltip provides a label or title
+   * for the anchor element, such as an icon only button (so button with only an icon) and no
+   * visible text.
    */
   ariaRelation?: 'description' | 'label';
 }
@@ -68,9 +79,15 @@ export class Tooltip extends LitElement {
   static viewportMargin = 8;
 
   /** To attach the `sl-tooltip` to the DOM tree and anchor element */
-  static lazy(target: Element, callback: (target: Tooltip) => void, options: TooltipOptions = {}): () => void {
+  static lazy(
+    target: Element,
+    callback: (target: Tooltip) => void,
+    options: TooltipOptions = {}
+  ): () => void {
     const removeListeners = () => {
-      ['focusin', 'pointerover'].forEach(eventName => target.removeEventListener(eventName, createTooltip));
+      ['focusin', 'pointerover'].forEach(eventName =>
+        target.removeEventListener(eventName, createTooltip)
+      );
     };
 
     const createTooltip = (): void => {
@@ -121,7 +138,9 @@ export class Tooltip extends LitElement {
       removeListeners();
     };
 
-    ['focusin', 'pointerover'].forEach(eventName => target.addEventListener(eventName, createTooltip));
+    ['focusin', 'pointerover'].forEach(eventName =>
+      target.addEventListener(eventName, createTooltip)
+    );
 
     return cleanup;
   }
@@ -148,6 +167,7 @@ export class Tooltip extends LitElement {
 
   /**
    * The amount of time to wait before hiding the tooltip when the user moves the mouse/pointer out.
+   *
    * @default 0
    */
   @property({ type: Number, attribute: 'hide-delay' }) hideDelay = 0;
@@ -157,18 +177,32 @@ export class Tooltip extends LitElement {
 
   /**
    * The offset distance of the tooltip from its anchor.
+   *
    * @default Tooltip.offset (12px)
    */
   @property({ type: Number }) offset?: number;
 
   /**
    * Position of the tooltip relative to its anchor.
-   * @type {'top' | 'right' | 'bottom' | 'left' | 'top-start' | 'top-end' | 'right-start' | 'right-end' | 'bottom-start' | 'bottom-end' | 'left-start' | 'left-end'}
+   *
+   * @type {'top'
+   *   | 'right'
+   *   | 'bottom'
+   *   | 'left'
+   *   | 'top-start'
+   *   | 'top-end'
+   *   | 'right-start'
+   *   | 'right-end'
+   *   | 'bottom-start'
+   *   | 'bottom-end'
+   *   | 'left-start'
+   *   | 'left-end'}
    */
   @property() position: PopoverPosition = 'top';
 
   /**
    * The amount of time to wait before showing the tooltip when the user moves the mouse/pointer in.
+   *
    * @default 150
    */
   @property({ type: Number, attribute: 'show-delay' }) showDelay = 150;
@@ -268,7 +302,9 @@ export class Tooltip extends LitElement {
             focusedAnchor = this.#findFocusedAnchor();
 
           const movedToAnotherSharedAnchor =
-            !!focusedAnchor && focusedAnchor !== this.anchorElement && this.#matchesAnchor(focusedAnchor);
+            !!focusedAnchor &&
+            focusedAnchor !== this.anchorElement &&
+            this.#matchesAnchor(focusedAnchor);
           if (movedToAnotherSharedAnchor) {
             return;
           }
@@ -282,7 +318,10 @@ export class Tooltip extends LitElement {
 
           // Ignore unrelated focusouts. Hide only when the current anchor actually lost focus.
           const currentAnchorLostFocus = !!this.anchorElement && !hasFocusWithinCurrentAnchor;
-          if (currentAnchorLostFocus && (!anchorForEvent || anchorForEvent === this.anchorElement)) {
+          if (
+            currentAnchorLostFocus &&
+            (!anchorForEvent || anchorForEvent === this.anchorElement)
+          ) {
             this.#hideTooltip();
           }
           return;
@@ -306,7 +345,9 @@ export class Tooltip extends LitElement {
 
         // First check known anchors to avoid scanning the whole root on every hide attempt.
         const knownAnchors = this.#getKnownAnchors();
-        const anyKnownAnchorHovered = knownAnchors.some(el => el.matches(':hover') || el.matches(':focus-visible'));
+        const anyKnownAnchorHovered = knownAnchors.some(
+          el => el.matches(':hover') || el.matches(':focus-visible')
+        );
 
         if (anyKnownAnchorHovered) {
           return;
@@ -314,7 +355,9 @@ export class Tooltip extends LitElement {
 
         // Fallback for anchors not yet tracked in #knownAnchors.
         const potentialAnchors = Array.from(new Set([...knownAnchors, ...this.#getAriaAnchors()]));
-        const anyAnchorHovered = potentialAnchors.some(el => el.matches(':hover') || el.matches(':focus-visible'));
+        const anyAnchorHovered = potentialAnchors.some(
+          el => el.matches(':hover') || el.matches(':focus-visible')
+        );
 
         if (!anyAnchorHovered) {
           this.#hideTooltip();
@@ -333,7 +376,8 @@ export class Tooltip extends LitElement {
   #onShow = (event: Event): void => {
     // If the event is sl-close, the event path might not contain the anchor (as it comes from the dialog)
     // So we use the activeElement (or shadowRoot.activeElement) as a candidate anchor.
-    const candidateAnchor = event.type === 'focusin' || event.type === 'sl-close' ? this.#findFocusedAnchor() : null;
+    const candidateAnchor =
+      event.type === 'focusin' || event.type === 'sl-close' ? this.#findFocusedAnchor() : null;
 
     const anchorElement = candidateAnchor || this.#findAnchorInEvent(event);
 
@@ -398,9 +442,9 @@ export class Tooltip extends LitElement {
   };
 
   /**
-   * Calculate a "safe triangle" for the submenu to a user can safely move his cursor
-   * from the trigger to the submenu without the submenu closing.
-   * See https://www.smashingmagazine.com/2023/08/better-context-menus-safe-triangles
+   * Calculate a "safe triangle" for the submenu to a user can safely move his cursor from the
+   * trigger to the submenu without the submenu closing. See
+   * https://www.smashingmagazine.com/2023/08/better-context-menus-safe-triangles
    */
   #calculateSafeTriangle(): void {
     const actualPlacement = this.getAttribute('actual-placement');
@@ -493,17 +537,19 @@ export class Tooltip extends LitElement {
   };
 
   /**
-   * Find the anchor element for a given event. First checks the composed path directly,
-   * then searches inside shadow roots of elements in the path. This handles cases where
-   * the pointer is over a host element (e.g. `sl-menu-button`) but the actual anchor
-   * (e.g. `sl-button` with `ariaDescribedByElements`) is inside its shadow DOM.
+   * Find the anchor element for a given event. First checks the composed path directly, then
+   * searches inside shadow roots of elements in the path. This handles cases where the pointer is
+   * over a host element (e.g. `sl-menu-button`) but the actual anchor (e.g. `sl-button` with
+   * `ariaDescribedByElements`) is inside its shadow DOM.
    */
   #findAnchorInEvent = (event: Event): HTMLElement | undefined => {
     const path = event.composedPath(),
       escapedId = this.id ? CSS.escape(this.id) : undefined;
 
     // First check elements directly in the composed path
-    const anchor = path.find((el): el is HTMLElement => el instanceof HTMLElement && this.#matchesAnchor(el));
+    const anchor = path.find(
+      (el): el is HTMLElement => el instanceof HTMLElement && this.#matchesAnchor(el)
+    );
 
     if (anchor) {
       return anchor;
@@ -512,7 +558,9 @@ export class Tooltip extends LitElement {
     for (const el of path) {
       if (el instanceof Element && el.shadowRoot) {
         const ariaMatch = escapedId
-          ? el.shadowRoot.querySelector(`[aria-describedby~="${escapedId}"], [aria-labelledby~="${escapedId}"]`)
+          ? el.shadowRoot.querySelector(
+              `[aria-describedby~="${escapedId}"], [aria-labelledby~="${escapedId}"]`
+            )
           : null;
 
         if (
@@ -601,7 +649,9 @@ export class Tooltip extends LitElement {
     }
 
     // Support components that forward ARIA to an internal proxy target (e.g. ForwardAriaMixin).
-    const proxyTarget = (element as Element & { getProxyTarget?(): Element | null }).getProxyTarget?.();
+    const proxyTarget = (
+      element as Element & { getProxyTarget?(): Element | null }
+    ).getProxyTarget?.();
     if (proxyTarget instanceof Element && proxyTarget !== element) {
       const proxyDescribedBy = proxyTarget.getAttribute('aria-describedby'),
         proxyLabelledBy = proxyTarget.getAttribute('aria-labelledby');
@@ -610,14 +660,20 @@ export class Tooltip extends LitElement {
         return true;
       }
 
-      if (proxyTarget.ariaDescribedByElements?.includes(this) || proxyTarget.ariaLabelledByElements?.includes(this)) {
+      if (
+        proxyTarget.ariaDescribedByElements?.includes(this) ||
+        proxyTarget.ariaLabelledByElements?.includes(this)
+      ) {
         return true;
       }
     }
 
     // Check Element.ariaDescribedByElements and Element.ariaLabelledByElements directly on the element
     // This handles cases where the property is set directly on the element (e.g. `sl-button` inside `sl-menu-button`)
-    if (element.ariaDescribedByElements?.includes(this) || element.ariaLabelledByElements?.includes(this)) {
+    if (
+      element.ariaDescribedByElements?.includes(this) ||
+      element.ariaLabelledByElements?.includes(this)
+    ) {
       return true;
     }
 
@@ -626,13 +682,15 @@ export class Tooltip extends LitElement {
     const internals = (element as HTMLElement & { internals?: ElementInternals }).internals;
 
     return (
-      internals?.ariaDescribedByElements?.includes(this) || internals?.ariaLabelledByElements?.includes(this) || false
+      internals?.ariaDescribedByElements?.includes(this) ||
+      internals?.ariaLabelledByElements?.includes(this) ||
+      false
     );
   };
 
   /**
-   * Normalizes an internal proxy target back to the public host element when both represent
-   * the same anchor. This keeps `anchorElement` stable for consumers and tests.
+   * Normalizes an internal proxy target back to the public host element when both represent the
+   * same anchor. This keeps `anchorElement` stable for consumers and tests.
    */
   #normalizeAnchorElement = (element: HTMLElement): HTMLElement => {
     let normalized = element;
@@ -644,7 +702,9 @@ export class Tooltip extends LitElement {
       }
 
       const host = rootNode.host;
-      const proxyTarget = (host as HTMLElement & { getProxyTarget?(): Element | null }).getProxyTarget?.();
+      const proxyTarget = (
+        host as HTMLElement & { getProxyTarget?(): Element | null }
+      ).getProxyTarget?.();
 
       if (host instanceof HTMLElement && proxyTarget === normalized && this.#matchesAnchor(host)) {
         normalized = host;

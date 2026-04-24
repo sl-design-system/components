@@ -10,7 +10,12 @@ describe('sl-virtual-list', () => {
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(
-        html`<sl-virtual-list .items=${['Item 1', 'Item 2', 'Item 3']} style="line-height: 32px"></sl-virtual-list>`
+        html`
+<sl-virtual-list
+          .items=${['Item 1', 'Item 2', 'Item 3']}
+          style="line-height: 32px"
+        ></sl-virtual-list>
+`
       );
     });
 
@@ -47,7 +52,9 @@ describe('sl-virtual-list', () => {
       const items = Array.from({ length: 50 }, (_, i) => `Item ${i}`),
         renderItem = (item: string) => html`<div part="custom-item">${item}</div>`;
 
-      el = await fixture(html`<sl-virtual-list .items=${items} .renderItem=${renderItem}></sl-virtual-list>`);
+      el = await fixture(
+        html`<sl-virtual-list .items=${items} .renderItem=${renderItem}></sl-virtual-list>`
+      );
     });
 
     it('should render custom items', () => {
@@ -81,7 +88,10 @@ describe('sl-virtual-list', () => {
       const items = Array.from({ length: 1000 }, (_, i) => `Item ${i}`);
 
       el = await fixture(html`
-        <sl-virtual-list .items=${items} style="height: 96px; line-height: 32px; overflow: auto;"></sl-virtual-list>
+        <sl-virtual-list
+          .items=${items}
+          style="height: 96px; line-height: 32px; overflow: auto;"
+        ></sl-virtual-list>
       `);
 
       // Wait for the virtualizer to stabilize; items initially measure with

@@ -9,8 +9,8 @@ declare global {
 }
 
 /**
- * A header for an option group. Split out as a separate component so it can
- * be used both with `<lit-virtualizer>` and without.
+ * A header for an option group. Split out as a separate component so it can be used both with
+ * `<lit-virtualizer>` and without.
  */
 export class OptionGroupHeader extends LitElement {
   /** @internal */

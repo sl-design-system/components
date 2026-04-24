@@ -4,12 +4,13 @@ import { type ToolBarItem } from './mapping.js';
  * Calculate which items should be visible based on available width.
  *
  * Runs a two-pass algorithm:
- * 1. Determine whether an overflow menu is needed at all.
- * 2. Set each item's `visible` flag based on the effective width (accounting for the
- *    overflow menu button when present).
  *
- * After the two passes, orphaned dividers (dividers with no visible non-divider
- * neighbours on either side) are also hidden.
+ * 1. Determine whether an overflow menu is needed at all.
+ * 2. Set each item's `visible` flag based on the effective width (accounting for the overflow menu
+ *    button when present).
+ *
+ * After the two passes, orphaned dividers (dividers with no visible non-divider neighbours on
+ * either side) are also hidden.
  *
  * This function **mutates** the `visible` property of each item in place.
  */
@@ -61,9 +62,11 @@ export function calculateVisibility(
       continue;
     }
 
-    const hasVisibleBefore = i > 0 && items.slice(0, i).some(item => item.visible && item.type !== 'divider'),
+    const hasVisibleBefore =
+        i > 0 && items.slice(0, i).some(item => item.visible && item.type !== 'divider'),
       hasVisibleAfter =
-        i < items.length - 1 && items.slice(i + 1).some(item => item.visible && item.type !== 'divider');
+        i < items.length - 1 &&
+        items.slice(i + 1).some(item => item.visible && item.type !== 'divider');
 
     if (!hasVisibleBefore || !hasVisibleAfter) {
       items[i].visible = false;
@@ -89,8 +92,8 @@ export function revealAllItems(items: ToolBarItem[]): void {
 }
 
 /**
- * Measure the widths of all items. Returns `undefined` if measurements are invalid
- * (e.g. non-divider items have zero width).
+ * Measure the widths of all items. Returns `undefined` if measurements are invalid (e.g.
+ * non-divider items have zero width).
  */
 export function measureItemWidths(items: ToolBarItem[]): number[] | undefined {
   const widths = items.map(item => item.element.getBoundingClientRect().width),

@@ -125,14 +125,25 @@ export const All: Story = {
         </sl-listbox>
       </sl-combobox>
 
-      <sl-combobox disabled multiple placeholder="Multiple, disabled" .value=${['Option 1', 'Option 2']}>
+      <sl-combobox
+        disabled
+        multiple
+        placeholder="Multiple, disabled"
+        .value=${['Option 1', 'Option 2']}
+      >
         <sl-listbox>
           <sl-option>Option 1</sl-option>
           <sl-option>Option 2</sl-option>
           <sl-option>Option 3</sl-option>
         </sl-listbox>
       </sl-combobox>
-      <sl-combobox disabled multiple placeholder="Multiple, disabled" size="lg" .value=${['Option 1', 'Option 2']}>
+      <sl-combobox
+        disabled
+        multiple
+        placeholder="Multiple, disabled"
+        size="lg"
+        .value=${['Option 1', 'Option 2']}
+      >
         <sl-listbox>
           <sl-option>Option 1</sl-option>
           <sl-option>Option 2</sl-option>
@@ -155,7 +166,11 @@ export const All: Story = {
         </sl-listbox>
       </sl-combobox>
 
-      <sl-combobox multiple placeholder="Multiple, stacked" .value=${['Option 1', 'Option 2', 'Option 3', 'Option 4']}>
+      <sl-combobox
+        multiple
+        placeholder="Multiple, stacked"
+        .value=${['Option 1', 'Option 2', 'Option 3', 'Option 4']}
+      >
         <sl-listbox>
           <sl-option>Option 1</sl-option>
           <sl-option>Option 2</sl-option>

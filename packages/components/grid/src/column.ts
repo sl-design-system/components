@@ -1,4 +1,7 @@
-import { type ListDataSourceDataItem, ListDataSourcePlaceholder } from '@sl-design-system/data-source';
+import {
+  type ListDataSourceDataItem,
+  ListDataSourcePlaceholder
+} from '@sl-design-system/data-source';
 import {
   type EventEmitter,
   type PathKeys,
@@ -27,7 +30,9 @@ export type GridColumnAlignment = 'start' | 'center' | 'end';
 
 /** Custom renderer type for column headers. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type GridColumnHeaderRenderer<T = any> = (column: GridColumn<T>) => string | undefined | TemplateResult;
+export type GridColumnHeaderRenderer<T = any> = (
+  column: GridColumn<T>
+) => string | undefined | TemplateResult;
 
 /** Custom renderer type for column cells. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -58,17 +63,19 @@ export class GridColumn<T = any> extends LitElement {
   @property() align?: GridColumnAlignment;
 
   /**
-   * Automatically sets the width of the column based on the column contents when this is set to `true`.
+   * Automatically sets the width of the column based on the column contents when this is set to
+   * `true`.
    *
-   * For performance reasons the column width is calculated automatically only once when the grid items
-   * are rendered for the first time and the calculation only considers the rows which are currently
-   * rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell
-   * content changes, the column width might not match the contents anymore.
+   * For performance reasons the column width is calculated automatically only once when the grid
+   * items are rendered for the first time and the calculation only considers the rows which are
+   * currently rendered in DOM (a bit more than what is currently visible). If the grid is scrolled,
+   * or the cell content changes, the column width might not match the contents anymore.
    *
-   * Hidden columns are ignored in the calculation and their widths are not automatically updated when
-   * you show a column that was initially hidden.
+   * Hidden columns are ignored in the calculation and their widths are not automatically updated
+   * when you show a column that was initially hidden.
    *
-   * You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.
+   * You can manually trigger the auto sizing behavior again by calling
+   * `grid.recalculateColumnWidths()`.
    *
    * The column width may still grow larger when `grow` is not 0.
    */
@@ -101,8 +108,8 @@ export class GridColumn<T = any> extends LitElement {
   }
 
   /**
-   * The ratio with which the column will grow relative to the other columns.
-   * A ratio of 0 means the column width is fixed.
+   * The ratio with which the column will grow relative to the other columns. A ratio of 0 means the
+   * column width is fixed.
    *
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow}
    */
@@ -128,8 +135,9 @@ export class GridColumn<T = any> extends LitElement {
   }
 
   /**
-   * The custom elements used for rendering this column. Since the rendering the column cells is done
-   * in the parent grid component, the custom elements need to be registered in the parent grid.
+   * The custom elements used for rendering this column. Since the rendering the column cells is
+   * done in the parent grid component, the custom elements need to be registered in the parent
+   * grid.
    */
   @property({ attribute: false })
   set scopedElements(value: Record<string, typeof HTMLElement> | undefined) {
@@ -178,22 +186,22 @@ export class GridColumn<T = any> extends LitElement {
   }
 
   /**
-   * This method is called when the contents of the grid has changed.
-   * This happens when the items property is directly set or when the data source has changed.
+   * This method is called when the contents of the grid has changed. This happens when the items
+   * property is directly set or when the data source has changed.
    */
   itemsChanged(): void {}
 
   /**
-   * This method is called when the state of the grid has changed.
-   * This happens for examples when a filter or sorting changes.
+   * This method is called when the state of the grid has changed. This happens for examples when a
+   * filter or sorting changes.
    */
   stateChanged(): void {}
 
   /**
    * This method renders the `<th>` element and all the related attributes, classes and content.
-   * Override this method if you want to customize how a header is rendered. Do not override this
-   * if you only want to change the classes, contents or parts of the header. See this specific
-   * methods for that.
+   * Override this method if you want to customize how a header is rendered. Do not override this if
+   * you only want to change the classes, contents or parts of the header. See this specific methods
+   * for that.
    */
   renderHeaderRow(index: number): TemplateResult | typeof nothing {
     if (index >= this.headerRowCount) {
@@ -204,20 +212,26 @@ export class GridColumn<T = any> extends LitElement {
       parts = ['header', ...this.getParts()];
 
     return html`
-      <th class=${ifDefined(classes.join(' ') || undefined)} part=${parts.join(' ')} role="columnheader">
+      <th
+        class=${ifDefined(classes.join(' ') || undefined)}
+        part=${parts.join(' ')}
+        role="columnheader"
+      >
         ${this.renderHeaderLabel()}
       </th>
     `;
   }
 
   /**
-   * This method renders the label for the header. This is used to render the content of the
-   * `<th>` element. Override this method if you want to customize how a header label is rendered.
-   * Do not override this if you only want to change the classes, contents or parts of the header.
+   * This method renders the label for the header. This is used to render the content of the `<th>`
+   * element. Override this method if you want to customize how a header label is rendered. Do not
+   * override this if you only want to change the classes, contents or parts of the header.
    */
   renderHeaderLabel(): string | undefined | TemplateResult {
     if (this.header) {
-      return typeof this.header === 'string' ? html`<span>${this.header}</span>` : this.header(this);
+      return typeof this.header === 'string'
+        ? html`<span>${this.header}</span>`
+        : this.header(this);
     } else if (this.path) {
       return html`<span>${getNameByPath(this.path)}</span>`;
     }
@@ -227,9 +241,9 @@ export class GridColumn<T = any> extends LitElement {
 
   /**
    * This method renders the `<td>` element and all the related attributes, classes and content.
-   * Override this method if you want to customize how a cell is rendered. Do not override this
-   * if you only want to change the classes, contents or parts of the cell. See this specific
-   * methods for that.
+   * Override this method if you want to customize how a cell is rendered. Do not override this if
+   * you only want to change the classes, contents or parts of the cell. See this specific methods
+   * for that.
    */
   renderData(item: ListDataSourceDataItem<T>): TemplateResult {
     const classes = this.getClasses(item.data),
@@ -244,7 +258,9 @@ export class GridColumn<T = any> extends LitElement {
       `;
     } else {
       return html`
-        <td class=${ifDefined(classes.join(' ') || undefined)} part=${parts.join(' ')} role="cell">${data}</td>
+        <td class=${ifDefined(classes.join(' ') || undefined)} part=${parts.join(' ')} role="cell">
+          ${data}
+        </td>
       `;
     }
   }
@@ -253,9 +269,9 @@ export class GridColumn<T = any> extends LitElement {
   renderStyles(): CSSResult | void {}
 
   /**
-   * Returns an array of strings that are set as class attribute on the `<td>` element.
-   * This is used for styling the cells internally. Override this method if you want to add
-   * custom classes to the cells.
+   * Returns an array of strings that are set as class attribute on the `<td>` element. This is used
+   * for styling the cells internally. Override this method if you want to add custom classes to the
+   * cells.
    */
   getClasses(_item?: T): string[] {
     const classes: string[] = [];
@@ -270,12 +286,11 @@ export class GridColumn<T = any> extends LitElement {
   }
 
   /**
-   * Returns the display value for the given item. This is used to render the cell content.
-   * The logic here is as follows:
-   * 1. If a renderer is set, it will be used to render the cell content.
-   * 2. If the item is a placeholder, a skeleton will be returned.
-   * 3. If a path is set, the value will be retrieved from the item using the path.
-   * 4. If no path is set, the value 'No path set' will be returned.
+   * Returns the display value for the given item. This is used to render the cell content. The
+   * logic here is as follows: 1. If a renderer is set, it will be used to render the cell content.
+   * 2. If the item is a placeholder, a skeleton will be returned. 3. If a path is set, the value
+   * will be retrieved from the item using the path. 4. If no path is set, the value 'No path set'
+   * will be returned.
    *
    * Override this method if you want to change the way the cell content is rendered.
    */
@@ -283,7 +298,11 @@ export class GridColumn<T = any> extends LitElement {
     if (this.renderer) {
       return this.renderer(item);
     } else if (item === ListDataSourcePlaceholder) {
-      return html`<sl-skeleton style="inline-size: ${Math.max(Math.random() * 100, 30)}%"></sl-skeleton>`;
+      return html`
+<sl-skeleton
+        style="inline-size: ${Math.max(Math.random() * 100, 30)}%"
+      ></sl-skeleton>
+`;
     } else if (this.path) {
       return getValueByPath(item, this.path);
     } else {
@@ -292,9 +311,9 @@ export class GridColumn<T = any> extends LitElement {
   }
 
   /**
-   * Returns an array of strings that are set as part attributes on the `<td>` element.
-   * This is used for styling the cells externally. Override this method if you want to add
-   * custom parts to the cells.
+   * Returns an array of strings that are set as part attributes on the `<td>` element. This is used
+   * for styling the cells externally. Override this method if you want to add custom parts to the
+   * cells.
    */
   getParts(item?: T): string[] {
     let parts: string[] = [];

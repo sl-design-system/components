@@ -1,7 +1,13 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
   "arrowParens": "avoid",
-  "ignorePatterns": ["*dist", "*generated", "packages/tokens/src/tokens", "website"],
+  "ignorePatterns": [
+    "*dist",
+    "*generated",
+    "packages/components/shared/src/vendor",
+    "packages/tokens/src/tokens",
+    "website"
+  ],
   "insertFinalNewline": true,
   "jsdoc": true,
   "printWidth": 100,

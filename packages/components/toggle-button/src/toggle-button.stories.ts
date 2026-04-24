@@ -90,15 +90,19 @@ export const Errors: Story = {
   render: () => {
     return html`
       <p>
-        When the 'pressed' icon is not set you will get an error in the console and the button will not look correct.
-        <strong>Note:</strong> these errors (button turning red and console errors) only show up when running on
-        localhost / in development mode.
+        When the 'pressed' icon is not set you will get an error in the console and the button will
+        not look correct.
+        <strong>Note:</strong> these errors (button turning red and console errors) only show up
+        when running on localhost / in development mode.
       </p>
       <sl-toggle-button aria-label="Show settings" fill="outline">
         <sl-icon name="pinata" slot="default"></sl-icon>
       </sl-toggle-button>
 
-      <p>Setting the same icon for both states as "workaround" will not work, you will get the same error</p>
+      <p>
+        Setting the same icon for both states as "workaround" will not work, you will get the same
+        error
+      </p>
       <sl-toggle-button aria-label="Show settings" fill="outline">
         <sl-icon name="far-gear" slot="default"></sl-icon>
         <sl-icon name="far-gear" slot="pressed"></sl-icon>
@@ -112,7 +116,11 @@ export const All: Story = {
     const renderRow = (options: { fill: ToggleButtonFill; size: ToggleButtonSize }) => {
       return html`
         <div>
-          <sl-toggle-button aria-label="Show settings" fill=${ifDefined(options.fill)} size=${ifDefined(options.size)}>
+          <sl-toggle-button
+            aria-label="Show settings"
+            fill=${ifDefined(options.fill)}
+            size=${ifDefined(options.size)}
+          >
             <sl-icon name="far-gear" slot="default"></sl-icon>
             <sl-icon name="fas-gear" slot="pressed"></sl-icon>
           </sl-toggle-button>
@@ -256,7 +264,10 @@ export const All: Story = {
           size: 'lg'
         })}
       </section>
-      <p>First item on the first row is the default combination of values; subtle, outline, md and square shape.</p>
+      <p>
+        First item on the first row is the default combination of values; subtle, outline, md and
+        square shape.
+      </p>
     `;
   }
 };

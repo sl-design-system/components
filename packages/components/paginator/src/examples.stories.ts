@@ -43,7 +43,11 @@ export const Connected: Story = {
       </style>
       <section>
         <sl-paginator-status total-items="200" page-size="10"></sl-paginator-status>
-        <sl-paginator @sl-page-change=${onPageChange} page-size="10" total-items="200"></sl-paginator>
+        <sl-paginator
+          @sl-page-change=${onPageChange}
+          page-size="10"
+          total-items="200"
+        ></sl-paginator>
         <sl-paginator-page-size
           @sl-page-size-change=${onPageSizeChange}
           page-size="10"
@@ -95,8 +99,8 @@ export const DataSource: Story = {
           );
 
           /**
-           * We need to trigger an update on this component, so it will
-           * re-render the cards when the data source is updated.
+           * We need to trigger an update on this component, so it will re-render the cards when the
+           * data source is updated.
            */
           onUpdate = () => this.requestUpdate();
 
@@ -129,7 +133,9 @@ export const DataSource: Story = {
                   item => html`
                     <sl-card responsive padding>
                       <h2>Card ${(item as ListDataSourceDataItem<ExampleCard>).data.nr}</h2>
-                      <div slot="body">${(item as ListDataSourceDataItem<ExampleCard>).data.title}</div>
+                      <div slot="body">
+                        ${(item as ListDataSourceDataItem<ExampleCard>).data.title}
+                      </div>
                     </sl-card>
                   `
                 )}

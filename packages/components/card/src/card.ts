@@ -1,7 +1,13 @@
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { MenuButton } from '@sl-design-system/menu';
 import { ToggleButton } from '@sl-design-system/toggle-button';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './card.scss.js';
 
@@ -44,17 +50,26 @@ export class Card extends ScopedElementsMixin(LitElement) {
   /** @internal The slotted media. */
   @queryAssignedElements({ slot: 'media' }) media?: HTMLElement[];
 
-  /** When set the image won't be stretched and cropped to fill the whole container, but instead shown fully, with a margin around it.
-   *  In horizontal mode this will need the card to have an explicit image size set, either by subgrid or by `--sl-card-media-size`*/
+  /**
+   * When set the image won't be stretched and cropped to fill the whole container, but instead
+   * shown fully, with a margin around it. In horizontal mode this will need the card to have an
+   * explicit image size set, either by subgrid or by `--sl-card-media-size`
+   */
   @property({ reflect: true, attribute: 'fit-image', type: Boolean }) fitImage?: boolean;
 
   /** Adds a little margin around the image */
   @property({ reflect: true, attribute: 'media-margin', type: Boolean }) mediaMargin?: boolean;
 
-  /** When fit-image is set, setting this will create a blurred copy of the image in the margin around the image. */
+  /**
+   * When fit-image is set, setting this will create a blurred copy of the image in the margin
+   * around the image.
+   */
   @property({ reflect: true, attribute: 'image-backdrop', type: Boolean }) imageBackdrop?: boolean;
 
-  /** When the grid inside the card is defined by a parent grid, ideal for layout consistency, even when the contents of the card change. */
+  /**
+   * When the grid inside the card is defined by a parent grid, ideal for layout consistency, even
+   * when the contents of the card change.
+   */
   @property({ type: Boolean }) subgrid?: boolean;
 
   /** The position of the media in relation to the text */
@@ -111,9 +126,14 @@ export class Card extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    const breakpoint = parseInt(window.getComputedStyle(this).getPropertyValue('--sl-card-horizontal-breakpoint')) || 0;
+    const breakpoint =
+      parseInt(window.getComputedStyle(this).getPropertyValue('--sl-card-horizontal-breakpoint')) ||
+      0;
     this.classList.remove('sl-horizontal');
-    if (this.orientation === 'horizontal' && (this.getBoundingClientRect().width > breakpoint || breakpoint === 0)) {
+    if (
+      this.orientation === 'horizontal' &&
+      (this.getBoundingClientRect().width > breakpoint || breakpoint === 0)
+    ) {
       this.classList.add('sl-horizontal');
     }
 
@@ -155,7 +175,9 @@ export class Card extends ScopedElementsMixin(LitElement) {
     }
     const media = this.media[0];
     if (this.shadowRoot?.querySelector('.backdrop')) {
-      this.shadowRoot.querySelector('.backdrop')?.setAttribute('href', media.getAttribute('href') || '');
+      this.shadowRoot
+        .querySelector('.backdrop')
+        ?.setAttribute('href', media.getAttribute('href') || '');
     } else {
       const backdrop = this.shadowRoot?.querySelector('figure');
       if (!backdrop) {
@@ -247,7 +269,9 @@ export class Card extends ScopedElementsMixin(LitElement) {
     const title: HTMLSlotElement | null = this.shadowRoot.querySelector('slot.title');
 
     if (title && title.assignedNodes({ flatten: true }).length > 0) {
-      const link = title.assignedNodes({ flatten: true }).find(el => el instanceof HTMLAnchorElement);
+      const link = title
+        .assignedNodes({ flatten: true })
+        .find(el => el instanceof HTMLAnchorElement);
       if (!link) {
         this.classList.remove('sl-has-link');
         this.removeEventListener('click', () => {});
@@ -256,7 +280,9 @@ export class Card extends ScopedElementsMixin(LitElement) {
         this.addEventListener('click', (e: MouseEvent) => {
           const shouldStopPropagation = e
             .composedPath()
-            .find(el => el instanceof Element && (el.matches('sl-button') || el.matches('slot.title')));
+            .find(
+              el => el instanceof Element && (el.matches('sl-button') || el.matches('slot.title'))
+            );
           if (!shouldStopPropagation) {
             link.click();
           }

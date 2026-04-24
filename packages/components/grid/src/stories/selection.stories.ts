@@ -42,14 +42,19 @@ export const Activate: Story = {
 
     return html`
       <p>
-        This example allows you to activate a student by clicking anywhere on the row, or by using the keyboard to click
-        on the button with the avatar. This behavior is enabled by setting the <code>row-action</code> property to
-        <code>activate</code>. After activation, the activated student will be highlighted in the grid by setting the
-        <code>activeRow</code> property. An <code>sl-grid-active-row-change</code> event is dispatched when the active
-        row changes, which you can use to update the UI or perform other actions based on the active row.
+        This example allows you to activate a student by clicking anywhere on the row, or by using
+        the keyboard to click on the button with the avatar. This behavior is enabled by setting the
+        <code>row-action</code> property to <code>activate</code>. After activation, the activated
+        student will be highlighted in the grid by setting the <code>activeRow</code> property. An
+        <code>sl-grid-active-row-change</code> event is dispatched when the active row changes,
+        which you can use to update the UI or perform other actions based on the active row.
       </p>
       <p id="selection">You have not activated anybody yet.</p>
-      <sl-grid @sl-grid-active-row-change=${onActiveRowChange} .items=${students} row-action="activate">
+      <sl-grid
+        @sl-grid-active-row-change=${onActiveRowChange}
+        .items=${students}
+        row-action="activate"
+      >
         <sl-grid-column
           grow="3"
           header="Student"
@@ -71,10 +76,12 @@ export const Multiple: Story = {
   render: ({ selectAll }, { loaded: { students } }) => {
     return html`
       <p>
-        This example shows how you can select multiple rows by toggling the checkbox in the first column. If you add an
-        <code>sl-grid-selection-column</code> element, it will automatically enable multi selection for you. When you
-        have selected multiple rows, you can perform bulk actions on them by using the floating tool-bar at the bottom
-        of the grid. You can add bulk actions by using the <code>bulk-actions</code> slot.
+        This example shows how you can select multiple rows by toggling the checkbox in the first
+        column. If you add an
+        <code>sl-grid-selection-column</code> element, it will automatically enable multi selection
+        for you. When you have selected multiple rows, you can perform bulk actions on them by using
+        the floating tool-bar at the bottom of the grid. You can add bulk actions by using the
+        <code>bulk-actions</code> slot.
       </p>
       <sl-grid .items=${(students as Student[]).slice(0, 5)}>
         <sl-grid-selection-column ?select-all=${selectAll}></sl-grid-selection-column>
@@ -180,15 +187,17 @@ export const MultipleRow: Story = {
 
     return html`
       <p>
-        This example shows how you can select multiple rows at a time, but not just by toggling the checkbox at the
-        start of the row, but by clicking anywhere on the row. This is done by setting the
+        This example shows how you can select multiple rows at a time, but not just by toggling the
+        checkbox at the start of the row, but by clicking anywhere on the row. This is done by
+        setting the
         <code>row-action</code> property to the <code>select</code> value.
       </p>
       <p>
-        This example also shows how you can perform bulk actions on the selected rows by using the floating tool-bar at
-        the bottom of the grid. The actions do not create a new data source, but instead update the existing data source
-        by calling <code>setData()</code> and <code>update()</code> to signal the grid the data has changed. This way,
-        you do not lose any state when the data changes.
+        This example also shows how you can perform bulk actions on the selected rows by using the
+        floating tool-bar at the bottom of the grid. The actions do not create a new data source,
+        but instead update the existing data source by calling <code>setData()</code> and
+        <code>update()</code> to signal the grid the data has changed. This way, you do not lose any
+        state when the data changes.
       </p>
       <sl-grid .dataSource=${ds} row-action="select">
         <sl-grid-selection-column></sl-grid-selection-column>
@@ -201,7 +210,9 @@ export const MultipleRow: Story = {
         <sl-grid-column path="email"></sl-grid-column>
 
         <!-- These get slotted into the floating tool-bar -->
-        <sl-button @click=${onUpdate} fill="outline" slot="bulk-actions" variant="inverted">Update emails</sl-button>
+        <sl-button @click=${onUpdate} fill="outline" slot="bulk-actions" variant="inverted"
+          >Update emails</sl-button
+        >
         <sl-button @click=${onCopy} fill="outline" slot="bulk-actions" variant="inverted">
           <sl-icon name="far-copy"></sl-icon>
           Duplicate
@@ -219,8 +230,8 @@ export const WithFiltering: Story = {
   render: (_, { loaded: { students } }) => {
     return html`
       <p>
-        This example shows a combination of selection and filtering. You can have a selection that may not be visible
-        due to filtering.
+        This example shows a combination of selection and filtering. You can have a selection that
+        may not be visible due to filtering.
       </p>
       <sl-grid .items=${students}>
         <sl-grid-selection-column></sl-grid-selection-column>
@@ -264,9 +275,9 @@ export const WithLinks: Story = {
 
     return html`
       <p>
-        This example shows how you can have mixed selection: you can perform bulk actions using the checkbox in the
-        selection column while at the same time clicking anywhere else to activate the row. Using keyboard, you can do
-        both.
+        This example shows how you can have mixed selection: you can perform bulk actions using the
+        checkbox in the selection column while at the same time clicking anywhere else to activate
+        the row. Using keyboard, you can do both.
       </p>
       <p id="selection">You have not activated or selected anybody yet.</p>
       <sl-grid
@@ -315,7 +326,8 @@ export const Grouped: Story = {
         .filter(item => ds.isSelected(item))
         .map(item => item.data.firstName);
 
-      document.getElementById('selected-students')!.innerText = selected.join(', ') || '(no selected students)';
+      document.getElementById('selected-students')!.innerText =
+        selected.join(', ') || '(no selected students)';
     };
 
     const onDelete = (): void => {
@@ -334,10 +346,11 @@ export const Grouped: Story = {
     return html`
       <p>
         This example shows how selection works in combination with grouping. By adding a
-        <code>sl-grid-selection-column</code> element, the grid is automatically configured for multiple selection.
-        Since grouping is also enabled through the <code>groupBy</code> data source option, the grid will automatically
-        handle the selection of groups and items. When you have selected multiple rows, you can perform bulk actions on
-        them by using the floating tool-bar at the bottom of the grid. You can add bulk actions by using the
+        <code>sl-grid-selection-column</code> element, the grid is automatically configured for
+        multiple selection. Since grouping is also enabled through the <code>groupBy</code> data
+        source option, the grid will automatically handle the selection of groups and items. When
+        you have selected multiple rows, you can perform bulk actions on them by using the floating
+        tool-bar at the bottom of the grid. You can add bulk actions by using the
         <code>bulk-actions</code> slot.
       </p>
       <sl-button-bar @click=${onClick} style="margin-block-end: var(--sl-size-200)">

@@ -29,12 +29,18 @@ class TestHost extends LitElement {
 
     return html`
       <div style="block-size: ${virtualizer.getTotalSize()}px;">
-        <div style="translate: 0px ${(virtualItems[0]?.start ?? 0) - (virtualizer.options.scrollMargin ?? 0)}px;">
+        <div
+          style="translate: 0px ${(virtualItems[0]?.start ?? 0) -
+          (virtualizer.options.scrollMargin ?? 0)}px;"
+        >
           ${repeat(
             virtualItems,
             virtualItem => virtualItem.key,
             virtualItem => html`
-              <div data-index=${virtualItem.index} ${ref(virtualizer.measureElement as RefOrCallback<Element>)}>
+              <div
+                data-index=${virtualItem.index}
+                ${ref(virtualizer.measureElement as RefOrCallback<Element>)}
+              >
                 Index ${virtualItem.index}
               </div>
             `
@@ -52,7 +58,11 @@ describe('VirtualizerController', () => {
 
   beforeEach(async () => {
     host = await fixture<TestHost>(
-      html`<test-host style="display: block; height: 320px; line-height: 32px; overflow: auto;"></test-host>`
+      html`
+<test-host
+        style="display: block; height: 320px; line-height: 32px; overflow: auto;"
+      ></test-host>
+`
     );
 
     // Wait for the virtualizer to stabilize; items initially measure with

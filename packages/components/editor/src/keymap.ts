@@ -21,13 +21,25 @@ import { type EditorMarks, type EditorNodes } from './schema.js';
 // https://github.com/ProseMirror/prosemirror-example-setup/blob/master/src/keymap.js
 const mac = typeof navigator !== 'undefined' ? /Mac/.test(navigator.platform) : false;
 
-export const buildKeymap = (schema: Schema<EditorNodes, EditorMarks>): { [key: string]: Command } => {
+export const buildKeymap = (
+  schema: Schema<EditorNodes, EditorMarks>
+): { [key: string]: Command } => {
   const keys: { [key: string]: Command } = {};
 
   keys['Mod-z'] = undo;
   keys['Shift-Mod-z'] = redo;
-  keys['Backspace'] = chainCommands(undoInputRule, deleteSelection, joinBackward, selectNodeBackward);
-  keys['Enter'] = chainCommands(newlineInCode, createParagraphNear, liftEmptyBlock, splitBlockKeepMarks);
+  keys['Backspace'] = chainCommands(
+    undoInputRule,
+    deleteSelection,
+    joinBackward,
+    selectNodeBackward
+  );
+  keys['Enter'] = chainCommands(
+    newlineInCode,
+    createParagraphNear,
+    liftEmptyBlock,
+    splitBlockKeepMarks
+  );
 
   if (!mac) {
     keys['Mod-y'] = redo;
@@ -64,7 +76,9 @@ export const buildKeymap = (schema: Schema<EditorNodes, EditorMarks>): { [key: s
   return keys;
 };
 
-export const buildListKeymap = (schema: Schema<EditorNodes, EditorMarks>): { [key: string]: Command } => {
+export const buildListKeymap = (
+  schema: Schema<EditorNodes, EditorMarks>
+): { [key: string]: Command } => {
   const keys: { [key: string]: Command } = {};
 
   if (schema.nodes.listItem) {

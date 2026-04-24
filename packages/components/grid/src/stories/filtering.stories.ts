@@ -26,11 +26,12 @@ export const Basic: Story = {
   render: (_, { loaded: { students } }) => {
     return html`
       <p>
-        This example filters students based on their name and school. The filters are set declaratively on the
-        <code>sl-grid-filter-column</code> elements using its <code>value</code> property. It filters on the school id,
-        not the school name. This prevents unwanted behavior for schools with similar names. But showing the school ids
-        is also unwanted behavior. Therefore, the <code>label-path</code> property is used to show the name of the
-        school instead of the id.
+        This example filters students based on their name and school. The filters are set
+        declaratively on the
+        <code>sl-grid-filter-column</code> elements using its <code>value</code> property. It
+        filters on the school id, not the school name. This prevents unwanted behavior for schools
+        with similar names. But showing the school ids is also unwanted behavior. Therefore, the
+        <code>label-path</code> property is used to show the name of the school instead of the id.
       </p>
       <sl-grid .items=${students}>
         <sl-grid-filter-column
@@ -64,10 +65,12 @@ export const DataSource: Story = {
 
     return html`
       <p>
-        This example is filtered on the students name and the school. The difference here is that the filter is set
-        programmatically on the data source using the <code>filters</code> option in the constructor. Remember to set an
-        <code>id</code> on the <code>sl-grid-filter-column</code> element and use the same <code>id</code> as the id
-        property in the filter config. That way the filter on the data source and the filter column are linked together.
+        This example is filtered on the students name and the school. The difference here is that
+        the filter is set programmatically on the data source using the <code>filters</code> option
+        in the constructor. Remember to set an <code>id</code> on the
+        <code>sl-grid-filter-column</code> element and use the same <code>id</code> as the id
+        property in the filter config. That way the filter on the data source and the filter column
+        are linked together.
       </p>
       <sl-grid .dataSource=${dataSource}>
         <sl-grid-filter-column
@@ -92,8 +95,8 @@ export const DataSource: Story = {
 export const Selection: Story = {
   render: (_, { loaded: { students } }) => html`
     <p>
-      This example shows how you can combine selection and filtering in a grid. Even though some rows may not be visible
-      due to filtering, any selected rows will remain selected.
+      This example shows how you can combine selection and filtering in a grid. Even though some
+      rows may not be visible due to filtering, any selected rows will remain selected.
     </p>
     <sl-grid .items=${students}>
       <sl-grid-selection-column></sl-grid-selection-column>
@@ -121,9 +124,10 @@ export const ExplicitOptions: Story = {
 
     return html`
       <p>
-        This example shows how you can provide an explicit list of options for the filter column. Instead of
-        automatically generating the options from the data, you can define them yourself. This is useful when you are
-        using a <code>FetchListDataSource</code> or when you want to change the order of the options.
+        This example shows how you can provide an explicit list of options for the filter column.
+        Instead of automatically generating the options from the data, you can define them yourself.
+        This is useful when you are using a <code>FetchListDataSource</code> or when you want to
+        change the order of the options.
       </p>
       <sl-grid .items=${students}>
         <sl-grid-filter-column
@@ -147,13 +151,15 @@ export const ExplicitOptions: Story = {
 export const Custom: Story = {
   render: (_, { loaded: { students } }) => {
     const dataSource = new ArrayListDataSource(students as Student[], {
-      filters: [{ id: 'custom', by: (student: Student): boolean => student.school.id === 'school-1' }]
+      filters: [
+        { id: 'custom', by: (student: Student): boolean => student.school.id === 'school-1' }
+      ]
     });
 
     return html`
       <p>
-        This example filters students on the "Gymnasium Sankt Georg" school via a custom filter on the data source
-        directly. There are no filter columns in this grid.
+        This example filters students on the "Gymnasium Sankt Georg" school via a custom filter on
+        the data source directly. There are no filter columns in this grid.
       </p>
       <sl-grid .dataSource=${dataSource}>
         <sl-grid-column
@@ -201,8 +207,8 @@ export const Grouped: Story = {
 
     return html`
       <p>
-        This example shows how you can combine grouping with filtering in a grid. Any groups that do not have any items
-        that match the filter criteria will not be shown.
+        This example shows how you can combine grouping with filtering in a grid. Any groups that do
+        not have any items that match the filter criteria will not be shown.
       </p>
       <sl-grid .dataSource=${dataSource}>
         <sl-grid-filter-column
@@ -251,11 +257,12 @@ export const Outside: Story = {
       </style>
       <div class="header">
         <p>
-          This example shows how you can filter a grid using an external search field. The way to implement this is by
-          listening to the input event of the search field and updating the data source accordingly using the
-          <code>addFilter</code> and <code>removeFilter</code> methods. When you filter using the search field, you can
-          still narrow the filter using the filter columns in the grid. The search field is not linked to any of the
-          filter columns.
+          This example shows how you can filter a grid using an external search field. The way to
+          implement this is by listening to the input event of the search field and updating the
+          data source accordingly using the
+          <code>addFilter</code> and <code>removeFilter</code> methods. When you filter using the
+          search field, you can still narrow the filter using the filter columns in the grid. The
+          search field is not linked to any of the filter columns.
         </p>
         <sl-search-field @input=${onInput} placeholder="Filter here"></sl-search-field>
       </div>

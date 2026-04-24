@@ -105,8 +105,9 @@ export const Basic: Story = {
         <header style="font:var(--sl-text-new-heading-sm);">Hello! I am a popover!</header>
         <section>
           <p>
-            I'm a lightweight and flexible UI element that appears on top of other content. I am often used to display
-            additional information, actions, or contextual content without disrupting the main flow of the interface.
+            I'm a lightweight and flexible UI element that appears on top of other content. I am
+            often used to display additional information, actions, or contextual content without
+            disrupting the main flow of the interface.
           </p>
         </section>
         <sl-button @click=${onClick} variant="primary">Button</sl-button>
@@ -120,9 +121,9 @@ export const NoDescribedBy: Story = {
     noDescribedby: true,
     body: () => {
       return html`
-        Lorem ipsum dolor sit amet, qui deserunt esse minim cillum nostrud exercitation veniam consequat pariatur
-        exercitation laborum nostrud culpa sunt exercitation pariatur. Nisi ipsum est ullamco nostrud sit pariatur. Ex
-        nisi ipsum et est nulla ex ex.
+        Lorem ipsum dolor sit amet, qui deserunt esse minim cillum nostrud exercitation veniam
+        consequat pariatur exercitation laborum nostrud culpa sunt exercitation pariatur. Nisi ipsum
+        est ullamco nostrud sit pariatur. Ex nisi ipsum et est nulla ex ex.
       `;
     }
   }
@@ -197,11 +198,16 @@ export const RichContent: Story = {
           ></sl-avatar>
         </header>
         <section>
-          <p>Our longest serving math teacher, but also responsible for several extracurricular activities.</p>
+          <p>
+            Our longest serving math teacher, but also responsible for several extracurricular
+            activities.
+          </p>
           <p><strong>Manager:</strong> Anna Johansson</p>
         </section>
         <sl-button-bar align="end">
-          <sl-button @click=${onClick} size="sm" variant="primary" fill="outline">Send email</sl-button>
+          <sl-button @click=${onClick} size="sm" variant="primary" fill="outline"
+            >Send email</sl-button
+          >
           <sl-button @click=${onClick} size="sm" variant="primary">Send Slack message</sl-button>
         </sl-button-bar>
       `;
@@ -217,7 +223,8 @@ export const WithTooltips: Story = {
           {
             /**
              * The rule is disabled for icon-only sl-buttons because they use ariaLabelledByElements
-             * to set aria-labelledby across shadow DOM boundaries, which the a11y checker cannot detect.
+             * to set aria-labelledby across shadow DOM boundaries, which the a11y checker cannot
+             * detect.
              */
             id: 'button-name',
             enabled: false,
@@ -233,7 +240,9 @@ export const WithTooltips: Story = {
         popover =
           button.nextElementSibling?.tagName === 'SL-POPOVER'
             ? (button.nextElementSibling as HTMLElement)
-            : (button.parentElement?.querySelector(`sl-popover[anchor="${button.id}"]`) as HTMLElement);
+            : (button.parentElement?.querySelector(
+                `sl-popover[anchor="${button.id}"]`
+              ) as HTMLElement);
 
       popover?.togglePopover();
     };
@@ -248,13 +257,24 @@ export const WithTooltips: Story = {
       </style>
       <p>Buttons with popovers and tooltips connected via <code>aria-labelledby</code></p>
       <div class="container">
-        <sl-button @click=${onClick} aria-labelledby="tooltip-settings" variant="primary" id="btn-settings">
+        <sl-button
+          @click=${onClick}
+          aria-labelledby="tooltip-settings"
+          variant="primary"
+          id="btn-settings"
+        >
           <sl-icon name="far-gear"></sl-icon>
         </sl-button>
         <sl-popover anchor="btn-settings">Popover content for Settings</sl-popover>
         <sl-tooltip id="tooltip-settings">Settings</sl-tooltip>
 
-        <sl-button @click=${onClick} aria-labelledby="tooltip-edit" variant="primary" size="lg" id="btn-edit">
+        <sl-button
+          @click=${onClick}
+          aria-labelledby="tooltip-edit"
+          variant="primary"
+          size="lg"
+          id="btn-edit"
+        >
           <sl-icon name="far-pen"></sl-icon>
         </sl-button>
         <sl-popover anchor="btn-edit">Popover content for Edit</sl-popover>
@@ -263,14 +283,25 @@ export const WithTooltips: Story = {
 
       <p>Buttons with popovers and tooltips connected via <code>aria-describedby</code></p>
       <div class="container">
-        <sl-button @click=${onClick} aria-describedby="tooltip-settings-1" variant="primary" id="btn-settings-1">
+        <sl-button
+          @click=${onClick}
+          aria-describedby="tooltip-settings-1"
+          variant="primary"
+          id="btn-settings-1"
+        >
           <sl-icon name="far-gear"></sl-icon>
           Settings
         </sl-button>
         <sl-popover anchor="btn-settings-1">Popover content for Settings</sl-popover>
         <sl-tooltip id="tooltip-settings-1" position="bottom">Open settings popover</sl-tooltip>
 
-        <sl-button @click=${onClick} aria-describedby="tooltip-edit-1" variant="primary" size="lg" id="btn-edit-1">
+        <sl-button
+          @click=${onClick}
+          aria-describedby="tooltip-edit-1"
+          variant="primary"
+          size="lg"
+          id="btn-edit-1"
+        >
           <sl-icon name="far-pen"></sl-icon>
           Edit
         </sl-button>
@@ -308,14 +339,16 @@ export const All: Story = {
         <sl-popover anchor="anchor" popover="manual" position="top-start">Top start</sl-popover>
         <sl-popover anchor="anchor" popover="manual" position="top-end">Top end</sl-popover>
         <sl-popover anchor="anchor" popover="manual" position="bottom">Bottom</sl-popover>
-        <sl-popover anchor="anchor" popover="manual" position="bottom-start">Bottom start</sl-popover>
+        <sl-popover anchor="anchor" popover="manual" position="bottom-start"
+          >Bottom start</sl-popover
+        >
         <sl-popover anchor="anchor" popover="manual" position="bottom-end">Bottom end</sl-popover>
       </div>
 
       <div>
         <sl-button id="anchor2" variant="primary" style="width: 72px; padding: 24px;"
-          >This is a popover anchor element (sl-button component) with all right and left popover allowed positions
-          shown all examples at once</sl-button
+          >This is a popover anchor element (sl-button component) with all right and left popover
+          allowed positions shown all examples at once</sl-button
         >
         <sl-popover anchor="anchor2" popover="manual" position="right"
           >Right <br aria-hidden="true" />

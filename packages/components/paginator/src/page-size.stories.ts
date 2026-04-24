@@ -36,7 +36,12 @@ export const DataSource: Story = {
     dataSource.setPageSize(5);
     dataSource.update();
 
-    return html`<sl-paginator-page-size .dataSource=${dataSource} .pageSizes=${pageSizes}></sl-paginator-page-size>`;
+    return html`
+<sl-paginator-page-size
+      .dataSource=${dataSource}
+      .pageSizes=${pageSizes}
+    ></sl-paginator-page-size>
+`;
   }
 };
 

@@ -77,7 +77,9 @@ export default {
             >
               Button
             </sl-button>
-            <sl-tooltip id="tooltip" .position=${position} .maxWidth=${maxWidth}>${message}</sl-tooltip>
+            <sl-tooltip id="tooltip" .position=${position} .maxWidth=${maxWidth}
+              >${message}</sl-tooltip
+            >
           `}
     `;
   }
@@ -88,7 +90,10 @@ export const Basic: Story = {};
 export const Directive: Story = {
   args: {
     example: ({ alignSelf, justifySelf, message }) => html`
-      <sl-button ${tooltip(message)} style=${styleMap({ 'align-self': alignSelf, 'justify-self': justifySelf })}>
+      <sl-button
+        ${tooltip(message)}
+        style=${styleMap({ 'align-self': alignSelf, 'justify-self': justifySelf })}
+      >
         Button
       </sl-button>
     `
@@ -106,16 +111,20 @@ export const DirectiveWithOptions: Story = {
         }
       </style>
       <p>
-        This story demonstrates hot to use the tooltip directive with some inline options (custom 'ariaRelation', custom
-        'position' and 'maxWidth') on a <code>sl-button</code>. The example shows how to add a tooltip directly without
-        a separate <code>sl-tooltip</code> element.
+        This story demonstrates hot to use the tooltip directive with some inline options (custom
+        'ariaRelation', custom 'position' and 'maxWidth') on a <code>sl-button</code>. The example
+        shows how to add a tooltip directly without a separate <code>sl-tooltip</code> element.
       </p>
 
       <div class="container">
         <sl-button
           variant="primary"
           fill="solid"
-          ${tooltip('My tooltip example', { ariaRelation: 'label', position: 'bottom-start', maxWidth: 100 })}
+          ${tooltip('My tooltip example', {
+            ariaRelation: 'label',
+            position: 'bottom-start',
+            maxWidth: 100
+          })}
         >
           <sl-icon name="face-smile" size="lg"></sl-icon>
         </sl-button>
@@ -128,7 +137,12 @@ export const Disabled: Story = {
   args: {
     example: ({ alignSelf, justifySelf, message }) => html`
       <div
-        style=${styleMap({ 'align-self': alignSelf, display: 'inline-flex', gap: '1rem', 'justify-self': justifySelf })}
+        style=${styleMap({
+          'align-self': alignSelf,
+          display: 'inline-flex',
+          gap: '1rem',
+          'justify-self': justifySelf
+        })}
       >
         <sl-button ${tooltip(message)} disabled>Disabled button</sl-button>
         <sl-button ${tooltip(message)} aria-disabled="true">Disabled (ARIA only) button</sl-button>
@@ -141,7 +155,9 @@ export const Shared: Story = {
   args: {
     example: ({ alignSelf, justifySelf, message }) => html`
       <sl-button-bar style=${styleMap({ 'align-self': alignSelf, 'justify-self': justifySelf })}>
-        <sl-button aria-describedby="tooltip" fill="outline"><sl-spinner></sl-spinner> We</sl-button>
+        <sl-button aria-describedby="tooltip" fill="outline"
+          ><sl-spinner></sl-spinner> We</sl-button
+        >
         <sl-button aria-describedby="tooltip" fill="outline">all</sl-button>
         <sl-button aria-describedby="tooltip" fill="outline">share</sl-button>
         <sl-button aria-describedby="tooltip" fill="outline">the</sl-button>
@@ -188,8 +204,8 @@ export const NestedChildren: Story = {
           }
         }
       </style>
-      This example is not necessarily a good practice, but it shows that the tooltip can be used on an element that has
-      many (interactive) child elements.
+      This example is not necessarily a good practice, but it shows that the tooltip can be used on
+      an element that has many (interactive) child elements.
       <div
         class="nested-children-container"
         aria-describedby="task-details-not-available-tooltip"
@@ -197,21 +213,31 @@ export const NestedChildren: Story = {
         tabindex="0"
       >
         <sl-button aria-describedby="tooltip"> Some button </sl-button>
-        <p>The div has a tooltip attached, hovering over the child elements will not cause the tooltip to dissapear.</p>
         <p>
-          Please beware when using the tooltip in a similar scenario: Not all elements are reachable by all
-          screenreaders. A div for example, without any interactions or a role, will not be announced in a special way
-          by the screenreader, so it also has no "stop" to read out the contents of the tooltip.
+          The div has a tooltip attached, hovering over the child elements will not cause the
+          tooltip to dissapear.
         </p>
         <p>
-          Tooltips will be shown for user using keyboard navigation when the element has focus. That means you can only
-          use tooltips on elements that are focusable, like buttons or links. If the element you want to describe can
-          not have the focus you will need to use something like an info button that will show the tooltip.
+          Please beware when using the tooltip in a similar scenario: Not all elements are reachable
+          by all screenreaders. A div for example, without any interactions or a role, will not be
+          announced in a special way by the screenreader, so it also has no "stop" to read out the
+          contents of the tooltip.
+        </p>
+        <p>
+          Tooltips will be shown for user using keyboard navigation when the element has focus. That
+          means you can only use tooltips on elements that are focusable, like buttons or links. If
+          the element you want to describe can not have the focus you will need to use something
+          like an info button that will show the tooltip.
           <sl-button> Some button </sl-button>
         </p>
       </div>
       <div class="nested-children-eye-icon-wrap">
-        <sl-button class="nested-children-eye-icon" aria-label="Look" fill="outline" aria-describedby="tooltip">
+        <sl-button
+          class="nested-children-eye-icon"
+          aria-label="Look"
+          fill="outline"
+          aria-describedby="tooltip"
+        >
           <sl-icon name="eye"></sl-icon>
         </sl-button>
       </div>
@@ -257,7 +283,9 @@ export const All: Story = {
         }
       </style>
       <sl-button aria-describedby="tooltip"> Button </sl-button>
-      <sl-tooltip id="tooltip" position="top" max-width="300">This is the tooltip message</sl-tooltip>
+      <sl-tooltip id="tooltip" position="top" max-width="300"
+        >This is the tooltip message</sl-tooltip
+      >
     `;
   }
 };
@@ -294,7 +322,9 @@ export const Dialog: Story = {
         }
       </style>
       <sl-button aria-describedby="tooltip" @click=${onClick}> Button </sl-button>
-      <sl-tooltip id="tooltip" position="top" max-width="300">This is the tooltip message</sl-tooltip>
+      <sl-tooltip id="tooltip" position="top" max-width="300"
+        >This is the tooltip message</sl-tooltip
+      >
     `;
   }
 };

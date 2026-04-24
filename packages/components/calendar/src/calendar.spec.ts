@@ -305,7 +305,9 @@ describe('sl-calendar', () => {
 
       // Select June (6th button = index 5)
       const monthButtons = Array.from(
-        el.renderRoot.querySelector<SelectMonth>('sl-select-month')?.renderRoot.querySelectorAll('button') ?? []
+        el.renderRoot
+          .querySelector<SelectMonth>('sl-select-month')
+          ?.renderRoot.querySelectorAll('button') ?? []
       );
       monthButtons.at(5)?.click();
       await el.updateComplete;
@@ -606,7 +608,12 @@ describe('sl-calendar', () => {
 
     it('should render proper helper text when only min is set', async () => {
       el = await fixture(
-        html`<sl-calendar locale="en-GB" min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}></sl-calendar>`
+        html`
+<sl-calendar
+          locale="en-GB"
+          min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}
+        ></sl-calendar>
+`
       );
 
       const helperText = el.renderRoot.querySelector('.helper-text');
@@ -617,7 +624,12 @@ describe('sl-calendar', () => {
 
     it('should render proper helper text when only max is set', async () => {
       el = await fixture(
-        html`<sl-calendar locale="en-GB" max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}></sl-calendar>`
+        html`
+<sl-calendar
+          locale="en-GB"
+          max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}
+        ></sl-calendar>
+`
       );
 
       const helperText = el.renderRoot.querySelector('.helper-text');
@@ -696,7 +708,9 @@ describe('sl-calendar', () => {
       await new Promise(resolve => requestAnimationFrame(resolve));
 
       const selectMonth = el.renderRoot.querySelector<SelectMonth>('sl-select-month'),
-        monthButton = selectMonth?.renderRoot.querySelector<HTMLButtonElement>('table button:not(:disabled)');
+        monthButton = selectMonth?.renderRoot.querySelector<HTMLButtonElement>(
+          'table button:not(:disabled)'
+        );
 
       monthButton?.focus();
 
@@ -724,7 +738,9 @@ describe('sl-calendar', () => {
       await new Promise(resolve => requestAnimationFrame(resolve));
 
       const selectYear = el.renderRoot.querySelector<SelectYear>('sl-select-year'),
-        yearButton = selectYear?.renderRoot.querySelector<HTMLButtonElement>('table button:not(:disabled)');
+        yearButton = selectYear?.renderRoot.querySelector<HTMLButtonElement>(
+          'table button:not(:disabled)'
+        );
 
       yearButton?.focus();
 
@@ -752,7 +768,9 @@ describe('sl-calendar', () => {
           ?.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])'),
         dayButton = monthView?.renderRoot.querySelector<HTMLButtonElement>('button[tabindex="0"]'),
         indicatorId = dayButton?.getAttribute('aria-describedby'),
-        indicatorTooltip = indicatorId ? (monthView?.renderRoot as ShadowRoot)?.getElementById(indicatorId) : null;
+        indicatorTooltip = indicatorId
+          ? (monthView?.renderRoot as ShadowRoot)?.getElementById(indicatorId)
+          : null;
 
       dayButton?.focus();
 

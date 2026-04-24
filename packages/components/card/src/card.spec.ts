@@ -292,7 +292,9 @@ describe('<sl-card>', () => {
       // Add body content
       const bodySlot = el.shadowRoot!.querySelector('slot[name="body"]') as HTMLSlotElement;
       const waitForSlotChange = () =>
-        new Promise<void>(resolve => bodySlot.addEventListener('slotchange', () => resolve(), { once: true }));
+        new Promise<void>(resolve =>
+          bodySlot.addEventListener('slotchange', () => resolve(), { once: true })
+        );
 
       let slotChangePromise = waitForSlotChange();
       el.appendChild(bodyElement);

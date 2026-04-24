@@ -1,4 +1,7 @@
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
 import { Icon } from '@sl-design-system/icon';
@@ -802,7 +805,9 @@ describe('sl-select', () => {
       await userEvent.keyboard('{Escape}');
       await el.updateComplete;
 
-      const escapeEvents = onKeydown.getCalls().filter(call => (call.args[0] as KeyboardEvent).key === 'Escape');
+      const escapeEvents = onKeydown
+        .getCalls()
+        .filter(call => (call.args[0] as KeyboardEvent).key === 'Escape');
 
       expect(escapeEvents).to.have.length(0);
 
@@ -835,8 +840,8 @@ describe('sl-select', () => {
             <sl-option value="short">Short</sl-option>
             <sl-option value="medium-length">Medium length option</sl-option>
             <sl-option value="very-long"
-              >This is an extremely long option text that should be much wider than the parent max-width
-              constraint</sl-option
+              >This is an extremely long option text that should be much wider than the parent
+              max-width constraint</sl-option
             >
           </sl-select>
         </div>
@@ -1093,7 +1098,9 @@ describe('sl-select', () => {
       // Ensure the test is set up correctly and the icon is not registered globally
       expect(window.customElements.get('sl-icon')).to.be.undefined;
 
-      const wrapper = await fixture<ScopedSelectWrapper>(html`<scoped-select-wrapper></scoped-select-wrapper>`);
+      const wrapper = await fixture<ScopedSelectWrapper>(
+        html`<scoped-select-wrapper></scoped-select-wrapper>`
+      );
 
       el = wrapper.renderRoot.querySelector('sl-select')!;
       button = el.querySelector('sl-select-button')!;

@@ -36,7 +36,7 @@ export const templates = {
   'sl.common.allOptions': 'Tutte le opzioni',
   'sl.common.close': 'Chiudi',
   'sl.common.selected': 'Selezionato',
-  'sl.common.validation.tooShort': str`Inserisci almeno ${0} carattere${1} (attualmente ne hai ${2} carattere${3}).`,
+  'sl.common.validation.tooShort': str`Inserisci almeno ${0} caratter${1} (attualmente ne hai ${2} caratter${3}).`,
   'sl.dateField.confirm': 'Conferma',
   'sl.dateField.empty': 'Vuoto',
   'sl.dateField.rangeOverflow': str`Seleziona una data non posteriore a ${0}.`,

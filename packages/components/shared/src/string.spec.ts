@@ -1,10 +1,11 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import {
   camelize,
   capitalize,
   classify,
   dasherize,
   decamelize,
+  getCharacterPluralSuffix,
   humanize,
   underscore
 } from './string.js';
@@ -201,6 +202,204 @@ describe('string utils', () => {
 
     it('should return the correct string with space in the original string', () => {
       expect(underscore('my favorite items')).to.equal('my_favorite_items');
+    });
+  });
+
+  describe('getCharacterPluralSuffix', () => {
+    const originalLang = document.documentElement.lang;
+
+    afterEach(() => {
+      document.documentElement.lang = originalLang;
+    });
+
+    describe('English', () => {
+      it('should return empty string for 1 character', () => {
+        document.documentElement.lang = 'en';
+        expect(getCharacterPluralSuffix(1)).to.equal('');
+      });
+
+      it('should return "s" for 0 characters', () => {
+        document.documentElement.lang = 'en';
+        expect(getCharacterPluralSuffix(0)).to.equal('s');
+      });
+
+      it('should return "s" for 2 characters', () => {
+        document.documentElement.lang = 'en';
+        expect(getCharacterPluralSuffix(2)).to.equal('s');
+      });
+
+      it('should return "s" for many characters', () => {
+        document.documentElement.lang = 'en';
+        expect(getCharacterPluralSuffix(100)).to.equal('s');
+      });
+
+      it('should work with en-GB locale', () => {
+        document.documentElement.lang = 'en-GB';
+        expect(getCharacterPluralSuffix(1)).to.equal('');
+        expect(getCharacterPluralSuffix(2)).to.equal('s');
+      });
+    });
+
+    describe('Polish', () => {
+      beforeEach(() => {
+        document.documentElement.lang = 'pl';
+      });
+
+      it('should return empty string for 1 (one form)', () => {
+        expect(getCharacterPluralSuffix(1)).to.equal('');
+      });
+
+      it('should return "i" for 2 (few form)', () => {
+        expect(getCharacterPluralSuffix(2)).to.equal('i');
+      });
+
+      it('should return "i" for 3 (few form)', () => {
+        expect(getCharacterPluralSuffix(3)).to.equal('i');
+      });
+
+      it('should return "i" for 4 (few form)', () => {
+        expect(getCharacterPluralSuffix(4)).to.equal('i');
+      });
+
+      it('should return "ów" for 5 (many form)', () => {
+        expect(getCharacterPluralSuffix(5)).to.equal('ów');
+      });
+
+      it('should return "ów" for 0 (many form)', () => {
+        expect(getCharacterPluralSuffix(0)).to.equal('ów');
+      });
+
+      it('should return "ów" for 11-14 (many form)', () => {
+        expect(getCharacterPluralSuffix(11)).to.equal('ów');
+        expect(getCharacterPluralSuffix(12)).to.equal('ów');
+        expect(getCharacterPluralSuffix(13)).to.equal('ów');
+        expect(getCharacterPluralSuffix(14)).to.equal('ów');
+      });
+
+      it('should return "i" for 22-24 (few form)', () => {
+        expect(getCharacterPluralSuffix(22)).to.equal('i');
+        expect(getCharacterPluralSuffix(23)).to.equal('i');
+        expect(getCharacterPluralSuffix(24)).to.equal('i');
+      });
+
+      it('should return "ów" for 25+ (many form)', () => {
+        expect(getCharacterPluralSuffix(25)).to.equal('ów');
+        expect(getCharacterPluralSuffix(100)).to.equal('ów');
+      });
+    });
+
+    describe('Spanish', () => {
+      beforeEach(() => {
+        document.documentElement.lang = 'es-ES';
+      });
+
+      it('should return "carácter" for 1', () => {
+        expect(getCharacterPluralSuffix(1)).to.equal('carácter');
+      });
+
+      it('should return "caracteres" for 0', () => {
+        expect(getCharacterPluralSuffix(0)).to.equal('caracteres');
+      });
+
+      it('should return "caracteres" for 2', () => {
+        expect(getCharacterPluralSuffix(2)).to.equal('caracteres');
+      });
+
+      it('should return "caracteres" for many', () => {
+        expect(getCharacterPluralSuffix(100)).to.equal('caracteres');
+      });
+
+      it('should work with other Spanish locales', () => {
+        document.documentElement.lang = 'es-MX';
+        expect(getCharacterPluralSuffix(1)).to.equal('carácter');
+        expect(getCharacterPluralSuffix(2)).to.equal('caracteres');
+      });
+    });
+
+    describe('Italian', () => {
+      beforeEach(() => {
+        document.documentElement.lang = 'it';
+      });
+
+      it('should return "e" for 1', () => {
+        expect(getCharacterPluralSuffix(1)).to.equal('e');
+      });
+
+      it('should return "i" for 0', () => {
+        expect(getCharacterPluralSuffix(0)).to.equal('i');
+      });
+
+      it('should return "i" for 2', () => {
+        expect(getCharacterPluralSuffix(2)).to.equal('i');
+      });
+
+      it('should return "i" for many', () => {
+        expect(getCharacterPluralSuffix(100)).to.equal('i');
+      });
+    });
+
+    describe('Dutch (fallback)', () => {
+      beforeEach(() => {
+        document.documentElement.lang = 'nl';
+      });
+
+      it('should return empty string for 1', () => {
+        expect(getCharacterPluralSuffix(1)).to.equal('');
+      });
+
+      it('should return "s" for 0', () => {
+        expect(getCharacterPluralSuffix(0)).to.equal('s');
+      });
+
+      it('should return "s" for 2', () => {
+        expect(getCharacterPluralSuffix(2)).to.equal('s');
+      });
+
+      it('should return "s" for many', () => {
+        expect(getCharacterPluralSuffix(100)).to.equal('s');
+      });
+    });
+
+    describe('fallback behavior', () => {
+      it('should use navigator.language if document.documentElement.lang is empty', () => {
+        document.documentElement.lang = '';
+        const originalNavigatorLanguage = Object.getOwnPropertyDescriptor(navigator, 'language');
+
+        Object.defineProperty(navigator, 'language', {
+          value: 'en',
+          configurable: true
+        });
+
+        expect(getCharacterPluralSuffix(1)).to.equal('');
+        expect(getCharacterPluralSuffix(2)).to.equal('s');
+
+        if (originalNavigatorLanguage) {
+          Object.defineProperty(navigator, 'language', originalNavigatorLanguage);
+        }
+      });
+
+      it('should default to "en" if both are empty', () => {
+        document.documentElement.lang = '';
+        const originalNavigatorLanguage = Object.getOwnPropertyDescriptor(navigator, 'language');
+
+        Object.defineProperty(navigator, 'language', {
+          value: '',
+          configurable: true
+        });
+
+        expect(getCharacterPluralSuffix(1)).to.equal('');
+        expect(getCharacterPluralSuffix(2)).to.equal('s');
+
+        if (originalNavigatorLanguage) {
+          Object.defineProperty(navigator, 'language', originalNavigatorLanguage);
+        }
+      });
+
+      it('should use simple pluralization for unsupported locales', () => {
+        document.documentElement.lang = 'fr';
+        expect(getCharacterPluralSuffix(1)).to.equal('');
+        expect(getCharacterPluralSuffix(2)).to.equal('s');
+      });
     });
   });
 });

@@ -125,7 +125,7 @@ To add support for a new language, create a new xliff file with the appropriate 
 
 ## Loading Translations
 
-The `@sl-design-system/locales` package provides multiple ways to load translations, depending on your needs.
+The `@sl-design-system/locales` package provides locale data through subpath exports for optimal tree-shaking and code-splitting.
 
 ### Recommended: Dynamic Loading with @lit/localize
 
@@ -165,34 +165,21 @@ await setLocale('nl'); // Loads Dutch translations on-demand
 - Locales are only loaded when needed
 - Reduces initial bundle size
 
-### Alternative: Using the loadLocale Helper
-
-The package provides a `loadLocale` helper for convenience:
-
-```typescript
-import { loadLocale } from '@sl-design-system/locales';
-
-// Load a specific locale
-const dutchTranslations = await loadLocale('nl');
-const closeText = dutchTranslations.templates['sl.common.close']; // "Sluiten"
-```
-
 ### Direct Import (Static)
 
-If you know which locale you need at build time:
+If you know which locale you need at build time, import directly from the subpath export:
 
 ```typescript
-// Option 1: Import from main package (backward compatible)
-import { nl } from '@sl-design-system/locales';
-
-// Option 2: Import from subpath export
 import * as nl from '@sl-design-system/locales/nl.js';
+import * as it from '@sl-design-system/locales/it.js';
+import * as esES from '@sl-design-system/locales/es-ES.js';
+import * as pl from '@sl-design-system/locales/pl.js';
 
 // Access translations directly
 const closeText = nl.templates['sl.common.close']; // "Sluiten"
 ```
 
-**Note:** Direct imports load the locale immediately. For better performance, prefer dynamic loading. Modern bundlers can tree-shake unused locales when importing from the main package.
+**Note:** Direct imports load the locale immediately and include it in your bundle. For better performance with multiple locales, prefer dynamic loading.
 
 ### Accessing Locale Metadata
 

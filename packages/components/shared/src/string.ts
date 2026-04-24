@@ -209,13 +209,13 @@ export function getCharacterPluralSuffix(count: number): string {
     // one (1) → "carattere"
     // other (0, 2+) → "caratteri"
     if (locale === 'it') {
-      return rule === 'one' ? 'carattere' : 'caratteri';
+      return rule === 'one' ? 'e' : 'i';
     }
 
     // For other languages (Dutch, English, etc.), fall back to simple plural logic
-    return count > 1 ? 's' : '';
+    return count === 1 ? '' : 's';
   } catch {
     // Fallback if Intl.PluralRules is not supported
-    return count > 1 ? 's' : '';
+    return count === 1 ? '' : 's';
   }
 }

@@ -66,7 +66,7 @@ addons.setConfig({
       tags: {
         prefix: /^v$/i
       },
-      badge: ({ getTagSuffix, tag }) => {
+      badge: ({ getTagSuffix, tag }: { getTagSuffix: (tag: string) => string; tag: string }) => {
         const version = getTagSuffix(tag);
 
         return {

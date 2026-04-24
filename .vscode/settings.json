@@ -19,7 +19,7 @@
   },
   "[typescript][typescriptreact]": {
     "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": "always"
+      "source.fixAll.oxc": "always"
     }
   }
 }

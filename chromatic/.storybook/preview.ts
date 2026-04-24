@@ -2,7 +2,7 @@ import { withThemeFromJSXProvider } from '@storybook/addon-themes';
 import { type Preview } from '@storybook/web-components';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import { html } from 'lit';
-import { themes, updateTheme, type Mode } from '../../.storybook/themes';
+import { type Mode, themes, updateTheme } from '../../.storybook/themes';
 import MockDate from 'mockdate';
 
 // Id's of components that only need to be rendered once, not in all mock states.

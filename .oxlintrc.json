@@ -16,7 +16,9 @@
     "no-unused-vars": ["error", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
     "sort-imports": ["error", { "ignoreDeclarationSort": true }],
     "typescript/array-type": ["error", { "default": "array-simple" }],
-    "typescript/consistent-type-assertions": "off"
+    "typescript/consistent-type-assertions": "off",
+    // Triggers false positives for Lit event handlers
+    "typescript/unbound-method": "off"
   },
   "overrides": [
     {
@@ -26,5 +28,12 @@
       }
     }
   ],
-  "ignorePatterns": ["**/*.d.ts", "**/*.scss.ts", "**/node_modules/**", "**/dist/**", "**/vendor/**", "website"]
+  "ignorePatterns": [
+    "**/*.d.ts",
+    "**/*.scss.ts",
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/vendor/**",
+    "website"
+  ]
 }

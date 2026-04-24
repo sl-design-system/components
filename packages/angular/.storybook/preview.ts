@@ -3,7 +3,7 @@ import { configureLocalization } from '@lit/localize';
 import * as locales from '@sl-design-system/locales';
 import { Preview } from '@storybook/angular';
 import { INITIAL_VIEWPORTS } from 'storybook/viewport';
-import { themes, updateTheme } from '../../../.storybook/themes';
+import { Mode, themes, updateTheme } from '../../../.storybook/themes';
 
 const { setLocale } = configureLocalization({
   sourceLocale: locales.sourceLocale,
@@ -13,14 +13,19 @@ const { setLocale } = configureLocalization({
 
 const preview: Preview = {
   decorators: [
-    (story, { globals: { locale = locales.sourceLocale } }) => {
+    (story, { globals: { locale = locales.sourceLocale } }: { globals: { locale?: string } }) => {
       document.documentElement.lang = locale;
-      setLocale(locale);
+      void setLocale(locale);
 
       return story();
     },
-    (story, { globals: { mode = 'light', theme = 'sanoma-learning' } }) => {
-      updateTheme(theme, mode);
+    (
+      story,
+      {
+        globals: { mode = 'light', theme = 'sanoma-learning' }
+      }: { globals: { mode?: Mode; theme?: string } }
+    ) => {
+      void updateTheme(theme, mode);
 
       return story();
     }

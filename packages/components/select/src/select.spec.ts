@@ -996,7 +996,10 @@ describe('sl-select', () => {
       el.value = '1';
       await el.updateComplete;
 
-      const optionSizeDescriptor = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(button), 'optionSize');
+      const optionSizeDescriptor = Object.getOwnPropertyDescriptor(
+        Object.getPrototypeOf(button),
+        'optionSize'
+      );
       if (!optionSizeDescriptor?.get || !optionSizeDescriptor.set) {
         throw new Error('Expected optionSize accessor descriptor on SelectButton prototype');
       }
@@ -1005,7 +1008,9 @@ describe('sl-select', () => {
       const frameCallbacks: FrameRequestCallback[] = [];
       let optionSizeSetCalls = 0;
       const getOptionSize = optionSizeDescriptor.get.bind(button) as () => number | undefined;
-      const setOptionSize = optionSizeDescriptor.set.bind(button) as (value: number | undefined) => void;
+      const setOptionSize = optionSizeDescriptor.set.bind(button) as (
+        value: number | undefined
+      ) => void;
       try {
         Object.defineProperty(button, 'optionSize', {
           configurable: true,
@@ -1119,7 +1124,10 @@ describe('sl-select', () => {
       el.value = 'apple';
       await el.updateComplete;
 
-      const optionSizeDescriptor = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(button), 'optionSize');
+      const optionSizeDescriptor = Object.getOwnPropertyDescriptor(
+        Object.getPrototypeOf(button),
+        'optionSize'
+      );
       if (!optionSizeDescriptor?.get || !optionSizeDescriptor.set) {
         throw new Error('Expected optionSize accessor descriptor on SelectButton prototype');
       }
@@ -1128,7 +1136,9 @@ describe('sl-select', () => {
       const frameCallbacks: FrameRequestCallback[] = [];
       let optionSizeSetCalls = 0;
       const getOptionSize = optionSizeDescriptor.get.bind(button) as () => number | undefined;
-      const setOptionSize = optionSizeDescriptor.set.bind(button) as (value: number | undefined) => void;
+      const setOptionSize = optionSizeDescriptor.set.bind(button) as (
+        value: number | undefined
+      ) => void;
       try {
         Object.defineProperty(button, 'optionSize', {
           configurable: true,

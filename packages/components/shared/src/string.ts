@@ -198,7 +198,7 @@ export function getCharacterPluralSuffix(count: number): string {
     // one (1) → "carácter" (no suffix)
     // other (0, 2+) → "caracteres" (suffix: 'es')
     if (locale.startsWith('es')) {
-      return rule === 'one' ? '' : 'es';
+      return rule === 'one' ? 'carácter' : 'caracteres';
     }
 
     // Italian pluralization rules for "carattere":

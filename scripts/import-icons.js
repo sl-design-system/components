@@ -88,7 +88,7 @@ const buildIcons = async theme => {
   };
 
   // fetch all FA tokens and store these
-  Object.entries(icons).map(([iconName, value]) => {
+  Object.entries(icons).forEach(([iconName, value]) => {
     const tokenValue = value['$value'] || value.value;
     if (!tokenValue) {
       return;
@@ -126,7 +126,7 @@ const buildIcons = async theme => {
   // We only need the `<path>` data for `<sl-icon>`
 
   const customIconFiles = await fs.readdir(iconsFolderPath);
-  const iconsCustom = [];
+  const iconsCustom = {};
 
   const filesToRead = customIconFiles.map(fileName => {
     const iconName = fileName.replace('icon=', '').replace('.svg', '');
@@ -146,7 +146,9 @@ const buildIcons = async theme => {
   console.log(`Writing icons to ${theme}...`);
   const filePath = join(cwd, `../packages/themes/${theme}/icons.ts`),
     sortedIcons = Object.fromEntries(
-      Object.entries({ ...icons, ...coreCustomIcons, ...iconsCustom }).sort()
+      Object.entries({ ...icons, ...coreCustomIcons, ...iconsCustom }).sort((a, b) =>
+        a[0].localeCompare(b[0])
+      )
     ),
     source = `
       // This is a generated file, do not edit. Edit the core.json or base.json files instead.
@@ -199,7 +201,7 @@ const exportCoreIcons = async () => {
   // We only need the `<path>` data for `<sl-icon>`
 
   const customIconFiles = await fs.readdir(iconsFolderPath);
-  const iconsCustom = [];
+  const iconsCustom = {};
 
   const filesToRead = customIconFiles.map(fileName => {
     const iconName = fileName.replace('icon=', '').replace('.svg', '');

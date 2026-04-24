@@ -4,7 +4,7 @@ import { camelize, dasherize } from './utils.js';
 
 function getComponentEvents(component, eventMap) {
   return component.events?.map(event => {
-    const matches = event.type.text.match(/(\w+)(\<(.+)\>)?/),
+    const matches = event.type.text.match(/(\w+)(<(.+)>)?/),
       type = matches[1],
       angularName = camelize(event.name),
       code = `  @Output() ${angularName} = new EventEmitter<${type ?? 'void'}>();`,

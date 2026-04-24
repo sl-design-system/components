@@ -477,7 +477,7 @@ export const ToggleExternally: Story = {
 
           togglePanel() {
             this.renderRoot.querySelector('sl-panel')?.toggle();
-            announce(`Panel ${this.collapsed ? 'collapsing' : 'expanding'}`);
+            announce(`Panel ${this.collapsed ? 'expanding' : 'collapsing'}`);
             this.requestUpdate();
           }
 

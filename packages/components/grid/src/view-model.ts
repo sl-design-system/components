@@ -226,11 +226,20 @@ export class GridViewModel<T = any> {
   /**
    * Flattens the column groups.
    *
-   * So the following column definitions: - group 1 - column 1 - column 2 - group 2 - column 3 -
-   * column 4 - group 3 - column 5
+   * So the following column definitions:
    *
-   * Will be flattened to: [ [ group 1, group 2, group 3 ], [ column 1, column 2, column 3, column
-   * 4, column 5 ] ]
+   *     - group 1
+   *       - column 1
+   *       - column 2
+   *     - group 2
+   *       - column 3
+   *       - column 4
+   *     - group 3
+   *       - column 5
+   *
+   * Will be flattened to:
+   *
+   * [ [ group 1, group 2, group 3 ], [ column 1, column 2, column 3, column 4, column 5 ] ]
    */
   #flattenColumnGroups(columns: Array<GridColumn<T>>): Array<Array<GridColumn<T>>> {
     const groups = columns.filter(

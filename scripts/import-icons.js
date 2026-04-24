@@ -87,7 +87,7 @@ const buildIcons = async theme => {
   };
 
   // fetch all FA tokens and store these
-  Object.entries(icons).map(([iconName, value]) => {
+  Object.entries(icons).forEach(([iconName, value]) => {
     const tokenValue = value['$value'] || value.value;
     if (!tokenValue) {
       delete icons[iconName];
@@ -194,7 +194,7 @@ const buildIconsFromBaseNew = async theme => {
   };
 
   // fetch all FA tokens and store these
-  Object.entries(icons).map(([iconName, value]) => {
+  Object.entries(icons).forEach(([iconName, value]) => {
     const tokenValue = value['$value'] || value.value;
     if (!tokenValue) {
       delete icons[iconName];
@@ -232,7 +232,7 @@ const buildIconsFromBaseNew = async theme => {
   // We only need the `<path>` data for `<sl-icon>`
 
   const customIconFiles = await fs.readdir(iconsFolderPath);
-  const iconsCustom = [];
+  const iconsCustom = {};
 
   const filesToRead = customIconFiles.map(fileName => {
     const iconName = fileName.replace('icon=', '').replace('.svg', '');

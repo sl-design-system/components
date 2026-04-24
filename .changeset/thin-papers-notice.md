@@ -12,7 +12,6 @@
 '@sl-design-system/teas': patch
 '@sl-design-system/max': patch
 '@sl-design-system/tig': patch
-'@sl-design-system/myvanin': patch
 '@sl-design-system/sanoma-pro': patch
 '@sl-design-system/sanoma-utbildning': patch
 ---

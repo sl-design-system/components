@@ -207,12 +207,11 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
               ],
               [
                 'skeleton',
-                () =>
-                  html`
-<sl-skeleton
+                () => html`
+                  <sl-skeleton
                     style="inline-size: ${Math.max(20, Math.random() * 60)}%"
                   ></sl-skeleton>
-`
+                `
               ]
             ],
             () =>

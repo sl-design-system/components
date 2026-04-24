@@ -173,13 +173,11 @@ describe('sl-grid-filter', () => {
     });
 
     it('should use the column header value as the filter label', async () => {
-      el = await fixture(
-        html`
-<sl-grid-filter
+      el = await fixture(html`
+        <sl-grid-filter
           .column=${{ header: html`Lorem<sl-button>Ipsum</sl-button>` }}
         ></sl-grid-filter>
-`
-      );
+      `);
 
       expect(el.renderRoot.querySelector('sl-search-field')).to.have.property(
         'placeholder',

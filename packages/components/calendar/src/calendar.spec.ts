@@ -607,14 +607,12 @@ describe('sl-calendar', () => {
     });
 
     it('should render proper helper text when only min is set', async () => {
-      el = await fixture(
-        html`
-<sl-calendar
+      el = await fixture(html`
+        <sl-calendar
           locale="en-GB"
           min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}
         ></sl-calendar>
-`
-      );
+      `);
 
       const helperText = el.renderRoot.querySelector('.helper-text');
 
@@ -623,14 +621,12 @@ describe('sl-calendar', () => {
     });
 
     it('should render proper helper text when only max is set', async () => {
-      el = await fixture(
-        html`
-<sl-calendar
+      el = await fixture(html`
+        <sl-calendar
           locale="en-GB"
           max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}
         ></sl-calendar>
-`
-      );
+      `);
 
       const helperText = el.renderRoot.querySelector('.helper-text');
 

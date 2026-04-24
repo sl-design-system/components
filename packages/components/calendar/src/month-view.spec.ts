@@ -216,10 +216,10 @@ describe('sl-month-view', () => {
       el.renderer = (day: Day, monthView: MonthView): TemplateResult | undefined => {
         if (day.today) {
           return html`
-<button .part=${monthView.getDayParts(day).join(' ')}>
-            <span>TODAY</span>
-          </button>
-`;
+            <button .part=${monthView.getDayParts(day).join(' ')}>
+              <span>TODAY</span>
+            </button>
+          `;
         }
 
         return undefined;

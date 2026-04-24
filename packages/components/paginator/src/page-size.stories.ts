@@ -37,11 +37,11 @@ export const DataSource: Story = {
     dataSource.update();
 
     return html`
-<sl-paginator-page-size
-      .dataSource=${dataSource}
-      .pageSizes=${pageSizes}
-    ></sl-paginator-page-size>
-`;
+      <sl-paginator-page-size
+        .dataSource=${dataSource}
+        .pageSizes=${pageSizes}
+      ></sl-paginator-page-size>
+    `;
   }
 };
 

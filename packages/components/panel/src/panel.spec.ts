@@ -361,13 +361,9 @@ describe('sl-panel', () => {
     });
 
     it('should NOT remove no-transition if it was provided by the user', async () => {
-      const el = await fixture<Panel>(
-        html`
-<sl-panel collapsible collapsed no-transition heading="Heading"
-          >Body content</sl-panel
-        >
-`
-      );
+      const el = await fixture<Panel>(html`
+        <sl-panel collapsible collapsed no-transition heading="Heading">Body content</sl-panel>
+      `);
 
       await el.updateComplete;
       await new Promise(resolve => requestAnimationFrame(resolve));

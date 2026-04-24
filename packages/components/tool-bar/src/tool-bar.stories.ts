@@ -323,9 +323,8 @@ export const InvertedContained: Story = {
   args: {
     contained: true,
     description: html`
-This example shows a contained tool bar with inverted buttons and a width set
-    to 400px.
-`,
+      This example shows a contained tool bar with inverted buttons and a width set to 400px.
+    `,
     inverted: true,
     items: () => html`
       <sl-button fill="outline">Action 1</sl-button>

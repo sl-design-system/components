@@ -571,11 +571,7 @@ export const Sorting: Story = {
     ds.update();
 
     return html`
-<sl-tree
-      .dataSource=${ds}
-      aria-label="Tree label"
-      style="max-inline-size: 300px"
-    ></sl-tree>
-`;
+      <sl-tree .dataSource=${ds} aria-label="Tree label" style="max-inline-size: 300px"></sl-tree>
+    `;
   }
 };

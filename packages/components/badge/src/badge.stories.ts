@@ -101,12 +101,9 @@ export const Variant: Story = {
     </p>
     <div>
       ${variants.map(
-        variant =>
-          html`
-<sl-badge .emphasis=${emphasis} .size=${size} variant=${variant}
-            >${variant}</sl-badge
-          >
-`
+        variant => html`
+          <sl-badge .emphasis=${emphasis} .size=${size} variant=${variant}>${variant}</sl-badge>
+        `
       )}
     </div>
   `

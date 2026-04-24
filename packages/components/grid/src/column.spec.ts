@@ -145,11 +145,8 @@ describe('sl-column', () => {
     beforeEach(async () => {
       const avatarRenderer: GridColumnDataRenderer<Person> = ({ firstName, lastName }) => {
         return html`
-<sl-avatar
-          .displayName=${[firstName, lastName].join(' ')}
-          size="sm"
-        ></sl-avatar>
-`;
+          <sl-avatar .displayName=${[firstName, lastName].join(' ')} size="sm"></sl-avatar>
+        `;
       };
 
       el = await fixture(html`

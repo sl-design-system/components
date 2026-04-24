@@ -299,10 +299,8 @@ export class GridColumn<T = any> extends LitElement {
       return this.renderer(item);
     } else if (item === ListDataSourcePlaceholder) {
       return html`
-<sl-skeleton
-        style="inline-size: ${Math.max(Math.random() * 100, 30)}%"
-      ></sl-skeleton>
-`;
+        <sl-skeleton style="inline-size: ${Math.max(Math.random() * 100, 30)}%"></sl-skeleton>
+      `;
     } else if (this.path) {
       return getValueByPath(item, this.path);
     } else {

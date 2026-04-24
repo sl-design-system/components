@@ -185,12 +185,11 @@ export default {
 
 export const Basic: Story = {
   args: {
-    actions: () =>
-      html`
-<sl-button fill="ghost" slot="actions" aria-label="Remove"
-        ><sl-icon name="far-trash"></sl-icon
-      ></sl-button>
-`,
+    actions: () => html`
+      <sl-button fill="ghost" slot="actions" aria-label="Remove">
+        <sl-icon name="far-trash"></sl-icon>
+      </sl-button>
+    `,
     content: () => html`<span>Panel content</span>`,
     heading: 'Panel heading'
   }
@@ -198,12 +197,11 @@ export const Basic: Story = {
 
 export const WithPrefix: Story = {
   args: {
-    actions: () =>
-      html`
-<sl-button fill="ghost" slot="actions" aria-label="Remove"
-        ><sl-icon name="far-trash"></sl-icon
-      ></sl-button>
-`,
+    actions: () => html`
+      <sl-button fill="ghost" slot="actions" aria-label="Remove">
+        <sl-icon name="far-trash"></sl-icon>
+      </sl-button>
+    `,
     content: () => html`<span>Panel content</span>`,
     prefix: () => html`<sl-icon slot="prefix" name="far-backpack"></sl-icon>`,
     heading: 'Panel heading'
@@ -212,12 +210,11 @@ export const WithPrefix: Story = {
 
 export const WithSuffix: Story = {
   args: {
-    actions: () =>
-      html`
-<sl-button fill="ghost" slot="actions" aria-label="Remove"
-        ><sl-icon name="far-trash"></sl-icon
-      ></sl-button>
-`,
+    actions: () => html`
+      <sl-button fill="ghost" slot="actions" aria-label="Remove">
+        <sl-icon name="far-trash"></sl-icon>
+      </sl-button>
+    `,
     content: () => html`<span>Panel content</span>`,
     suffix: () =>
       html`<sl-badge slot="suffix" emphasis="subtle" size="lg" variant="info">suffix</sl-badge>`,

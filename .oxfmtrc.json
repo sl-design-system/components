@@ -10,6 +10,7 @@
   ],
   "insertFinalNewline": true,
   "jsdoc": true,
+  "jsdoc.capitalizeDescriptions": false,
   "printWidth": 100,
   "singleQuote": true,
   "sortPackageJson": false,

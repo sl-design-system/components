@@ -57,13 +57,11 @@ describe('VirtualizerController', () => {
   let host: TestHost;
 
   beforeEach(async () => {
-    host = await fixture<TestHost>(
-      html`
-<test-host
+    host = await fixture<TestHost>(html`
+      <test-host
         style="display: block; height: 320px; line-height: 32px; overflow: auto;"
       ></test-host>
-`
-    );
+    `);
 
     // Wait for the virtualizer to stabilize; items initially measure with
     // offsetHeight 0 during Lit's commit phase and the ResizeObserver needs

@@ -896,16 +896,9 @@ describe('sl-time-field', () => {
       });
 
       it('should respect minute constraints with custom minute step', async () => {
-        el = await fixture(
-          html`
-<sl-time-field
-            minute-step="15"
-            min="10:30"
-            max="10:45"
-            value="10:30"
-          ></sl-time-field>
-`
-        );
+        el = await fixture(html`
+          <sl-time-field minute-step="15" min="10:30" max="10:45" value="10:30"></sl-time-field>
+        `);
 
         const minuteSpinbutton =
           el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]')[1];

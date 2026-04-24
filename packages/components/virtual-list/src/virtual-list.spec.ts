@@ -9,14 +9,12 @@ describe('sl-virtual-list', () => {
 
   describe('defaults', () => {
     beforeEach(async () => {
-      el = await fixture(
-        html`
-<sl-virtual-list
+      el = await fixture(html`
+        <sl-virtual-list
           .items=${['Item 1', 'Item 2', 'Item 3']}
           style="line-height: 32px"
         ></sl-virtual-list>
-`
-      );
+      `);
     });
 
     it('should have an empty items array by default', () => {

@@ -451,10 +451,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   renderPart(part: DateFormatPart, locale: string): TemplateResult {
     if (part.type === 'literal') {
       return html`
-<span @pointerdown=${this.#onSeparatorPointerDown} class="separator"
-        >${part.value}</span
-      >
-`;
+        <span @pointerdown=${this.#onSeparatorPointerDown} class="separator">${part.value}</span>
+      `;
     }
 
     const partType = part.type as DatePartType,

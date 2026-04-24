@@ -68,6 +68,7 @@ describe('sl-tool-bar', () => {
 
       // Give the resize observer time to do its thing
       await new Promise(resolve => setTimeout(resolve, 50));
+      await el.updateComplete;
     });
 
     it('should have a toolbar role', () => {
@@ -124,10 +125,11 @@ describe('sl-tool-bar', () => {
       expect(el.menuItems).to.have.length(0);
     });
 
-    it('should not have a menu button', () => {
+    it('should have a hidden menu button', () => {
       const menuButton = el.shadowRoot?.querySelector('sl-menu-button');
 
-      expect(menuButton).not.to.exist;
+      expect(menuButton).to.exist;
+      expect(menuButton).to.have.attribute('hidden');
     });
 
     it('should map the slotted items', () => {

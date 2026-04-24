@@ -771,6 +771,10 @@ export const All: Story = {
           flex: 0 1 auto;
           min-inline-size: 0;
         }
+
+        .wrapper > div {
+          min-inline-size: 0;
+        }
       </style>
       <div class="container">
         <div class="wrapper">

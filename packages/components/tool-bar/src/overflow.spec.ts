@@ -482,6 +482,32 @@ describe('width measurement', () => {
     expect(toolbar.menuItems.length).to.equal(0);
   });
 
+  it('should overflow items when a padded div grid item shrinks (All story scenario)', async () => {
+    const container = await fixture<HTMLDivElement>(html`
+        <div style="display: grid; grid-template-columns: 1fr; inline-size: 700px;">
+          <div style="padding: 1.6rem;">
+            <sl-tool-bar>
+              <sl-button>Button 1</sl-button>
+              <sl-button>Button 2</sl-button>
+              <sl-button>Button 3</sl-button>
+              <sl-button>Button 4</sl-button>
+              <sl-button>Button 5</sl-button>
+            </sl-tool-bar>
+          </div>
+        </div>
+      `),
+      toolbar = container.querySelector('sl-tool-bar') as ToolBar;
+
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    expect(toolbar.menuItems.length).to.equal(0);
+
+    container.style.inlineSize = '200px';
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    expect(toolbar.menuItems.length).to.equal(1);
+  });
+
   it('should not leave the measuring state set', async () => {
     el.style.inlineSize = '150px';
     await new Promise(resolve => setTimeout(resolve, 100));

@@ -88,25 +88,16 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     }
 
     const hostEntry = entries.find(e => e.target === this),
-      parentEntry = entries.find(e => e.target !== this),
-      contentBox = hostEntry?.contentBoxSize?.at(0);
+      parentEntry = entries.find(e => e.target !== this);
 
-    // Get the width from the observer entry. Only used to detect
-    // growth, not for the actual overflow calculation.
-    const observerWidth = contentBox ? contentBox.inlineSize : this.#getContentBoxWidth();
-
-    // Only recalculate when there is real overflow, more space,
-    // a pending measurement, or the parent changed size.
+    // Only recalculate when there is real overflow, a pending measurement,
+    // the parent changed size, or the toolbar's own width changed.
     const hasOverflow =
       this.wrapper.clientWidth < this.wrapper.scrollWidth || this.wrapper.clientHeight < this.wrapper.scrollHeight;
 
-    // If the parent grew but the toolbar didn't (because hidden items
-    // keep it small), force a re-measurement to check if more items fit.
-    if (parentEntry && !hostEntry && this.menuItems.length > 0) {
-      this.#needsMeasurement = true;
-    }
+    const widthChanged = hostEntry !== undefined && Math.ceil(this.#getContentBoxWidth()) !== this.#lastAvailableWidth;
 
-    if (parentEntry || hasOverflow || this.#needsMeasurement || observerWidth > this.#lastAvailableWidth) {
+    if (parentEntry || hasOverflow || this.#needsMeasurement || widthChanged) {
       this.#onResize();
     }
   });
@@ -236,6 +227,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     requestAnimationFrame(() => {
       this.#measureItems();
 
+      // Calculate overflow immediately so items are hidden before the first paint, preventing a flash of all items visible.
+      this.#onResize();
+
       this.#resizeObserver.observe(this);
 
       this.#rovingTabindexController.clearElementCache();
@@ -248,19 +242,16 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         <slot @slotchange=${this.#onSlotChange}></slot>
       </div>
 
-      ${this.menuItems.length
-        ? html`
-            <sl-menu-button
-              aria-disabled=${ifDefined(this.disabled ? 'true' : undefined)}
-              aria-label=${msg('Show more', { id: 'sl.toolBar.showMore' })}
-              fill=${ifDefined(this.fill)}
-              variant=${ifDefined(this.inverted ? 'inverted' : undefined)}
-            >
-              <sl-icon name="ellipsis-vertical" slot="button"></sl-icon>
-              ${this.menuItems.map(item => this.renderMenuItem(item))}
-            </sl-menu-button>
-          `
-        : nothing}
+      <sl-menu-button
+        aria-disabled=${ifDefined(this.disabled ? 'true' : undefined)}
+        aria-label=${msg('Show more', { id: 'sl.toolBar.showMore' })}
+        fill=${ifDefined(this.fill)}
+        ?hidden=${this.menuItems.length === 0}
+        variant=${ifDefined(this.inverted ? 'inverted' : undefined)}
+      >
+        <sl-icon name="ellipsis-vertical" slot="button"></sl-icon>
+        ${this.menuItems.map(item => this.renderMenuItem(item))}
+      </sl-menu-button>
     `;
   }
 
@@ -388,6 +379,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       return;
     }
 
+    // Always reveal items before measuring available width.
+    revealAllItems(this.items);
+
     // Detect fit-content: if the toolbar overflows its parent,
     // switch to CSS containment and watch the parent for changes.
     if (!this.#fitContent && this.parentElement) {
@@ -408,7 +402,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       availableWidth = this.#getContentBoxWidth();
     }
 
-    // Reset `all-items-hidden` so the menu button keeps its margin during measurement. Otherwise, it flickers.
+    // Remove `all-items-hidden` so the margin resolves correctly, but keep `hidden` to avoid layout changes during measurement.
     this.menuButton?.removeAttribute('all-items-hidden');
 
     const menuButtonWidth = measureMenuButtonWidth(this.wrapper, this.menuButton ?? undefined, gap);
@@ -419,12 +413,15 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     this.#lastAvailableWidth = availableWidth;
 
     calculateVisibility(this.items, this.#widths, availableWidth, gap, menuButtonWidth);
-    applyVisibility(this.items);
 
-    const allItemsHidden = this.items.every(item => !item.visible);
+    const hiddenItems = this.items.filter(item => !item.visible),
+      allItemsHidden = hiddenItems.length === this.items.length;
 
+    this.menuButton?.toggleAttribute('hidden', hiddenItems.length === 0);
     this.menuButton?.toggleAttribute('all-items-hidden', allItemsHidden);
-    this.menuItems = this.items.filter(item => !item.visible);
+
+    applyVisibility(this.items);
+    this.menuItems = hiddenItems;
 
     if (this.menuItems.length > 0 && this.parentElement) {
       this.#resizeObserver.observe(this.parentElement);
@@ -503,7 +500,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       })
       .filter((el): el is HTMLElement => el !== null);
 
-    if (!this.menuButton) {
+    if (!this.menuButton || this.menuItems.length === 0) {
       return visibleItems;
     }
 

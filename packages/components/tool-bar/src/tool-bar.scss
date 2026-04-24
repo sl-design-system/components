@@ -60,6 +60,10 @@
 sl-menu-button {
   margin-inline-start: var(--sl-size-100);
 
+  &[hidden] {
+    display: none;
+  }
+
   sl-icon + hr {
     display: none;
   }

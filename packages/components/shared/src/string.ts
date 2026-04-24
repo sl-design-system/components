@@ -152,6 +152,9 @@ export function underscore(str: string): string {
     .toLowerCase();
 }
 
+// Cache for Intl.PluralRules instances to avoid repeated allocations
+const pluralRulesCache = new Map<string, Intl.PluralRules>();
+
 /**
  * Returns the locale-specific pluralized form used for the "character" label. Uses Intl.PluralRules
  * API to determine the correct plural form for the current locale.
@@ -181,7 +184,12 @@ export function getCharacterPluralSuffix(count: number): string {
 
   // For other locales, use Intl.PluralRules
   try {
-    const pr = new Intl.PluralRules(locale);
+    // Get cached PluralRules instance or create a new one
+    let pr = pluralRulesCache.get(locale);
+    if (!pr) {
+      pr = new Intl.PluralRules(locale);
+      pluralRulesCache.set(locale, pr);
+    }
     const rule = pr.select(count);
 
     // Polish pluralization rules for "znak" (character):

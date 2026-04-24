@@ -31,16 +31,14 @@ const { setLocale } = configureLocalization({
 const preview: Preview = {
   decorators: [
     (story, { globals: { locale = sourceLocale } }) => {
-      document.documentElement.lang = locale;
+      document.documentElement.lang = locale as string;
 
-      try {
-        // Try and set the @lit/localize locale; will throw an error if the
-        // locale is not available. Ignore those errors since the locale can
-        // still be valid for components that use the Intl APIs.
-        void setLocale(locale);
-      } catch {
+      // Try and set the @lit/localize locale; ignore async loading failures
+      // since the locale can still be valid for components that use the Intl
+      // APIs.
+      void setLocale(locale as string).catch(() => {
         // empty
-      }
+      });
 
       return story();
     }

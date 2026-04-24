@@ -148,13 +148,16 @@ export class AccordionItem extends LitElement {
   /**
    * Animate the details opening or closing. This process is done in steps.
    *
-   * Opening: 1. Add the `open` attribute to the details element, so the wrapper is visible 2. Add
-   * an `animationend` listener that will remove the `opening` class 3. Add the `opening` class to
-   * the details in the next frame (for browser compatibility)
+   * Opening:
    *
-   * Closing: 1. Add an `animationend` listener that will remove the `closing` class and `open`
-   * attribute 2. Add the `closing` class to the details in the next frame (for browser
-   * compatibility)
+   * 1. Add the `open` attribute to the details element, so the wrapper is visible
+   * 2. Add an `animationend` listener that will remove the `opening` class
+   * 3. Add the `opening` class to the details in the next frame (for browser compatibility)
+   *
+   * Closing:
+   *
+   * 1. Add an `animationend` listener that will remove the `closing` class and `open` attribute
+   * 2. Add the `closing` class to the details in the next frame (for browser compatibility)
    *
    * The specific order of adding/removing the `open` attribute is necessary for the animation to
    * work. This will also trigger the `toggle` event, which in turn will trigger our own `sl-toggle`

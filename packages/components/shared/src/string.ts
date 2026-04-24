@@ -153,25 +153,27 @@ export function underscore(str: string): string {
 }
 
 /**
- * Returns the appropriate plural suffix for the "character" word based on locale. Uses
- * Intl.PluralRules API to determine the correct plural form for the current locale.
+ * Returns the locale-specific pluralized form used for the "character" label. Uses Intl.PluralRules
+ * API to determine the correct plural form for the current locale.
+ *
+ * Note: despite the historical name, this helper does not always return a literal suffix. Some
+ * locales can require a full localized word or form rather than an English-style ending.
  *
  * ```javascript
- * getCharacterPluralSuffix(1); // '' (en: "character", pl: "znak")
- * getCharacterPluralSuffix(2); // 's' (en: "characters", pl: "znaki" → 'i')
- * getCharacterPluralSuffix(5); // 's' (en: "characters", pl: "znaków" → 'ów')
- * ```
+ * getCharacterPluralSuffix(1)  // '' in English ("character"), but may be a full singular form in other locales
+ * getCharacterPluralSuffix(2)  // 's' in English ("characters"), but may be a different localized plural form
+ * getCharacterPluralSuffix(5)  // 's' in English ("characters"), but may be a different localized plural form
  *
  * @function getCharacterPluralSuffix
  * @param count The number of characters
  * @returns The plural suffix for the word "character" in the current locale
+ * ```
  */
 export function getCharacterPluralSuffix(count: number): string {
   const locale = document.documentElement.lang || navigator.language || 'en';
-
   // For English (source locale), use simple pluralization
-  if (locale === 'en') {
-    return count > 1 ? 's' : '';
+  if (locale === 'en' || locale.startsWith('en-')) {
+    return count === 1 ? '' : 's';
   }
 
   // For other locales, use Intl.PluralRules
@@ -204,10 +206,10 @@ export function getCharacterPluralSuffix(count: number): string {
     }
 
     // Italian pluralization rules for "carattere":
-    // one (1) → "carattere" (no suffix)
-    // other (0, 2+) → "caratteri" (suffix: 'i')
+    // one (1) → "carattere"
+    // other (0, 2+) → "caratteri"
     if (locale === 'it') {
-      return rule === 'one' ? '' : 'i';
+      return rule === 'one' ? 'carattere' : 'caratteri';
     }
 
     // For other languages (Dutch, English, etc.), fall back to simple plural logic

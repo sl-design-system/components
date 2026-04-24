@@ -112,6 +112,12 @@ export class Select<T = any> extends ObserveAttributesMixin(
   /** Detect when options are added to the host, or a nested option group and clear the cache. */
   #observer = new MutationObserver(() => this.#rovingTabindexController.clearElementCache());
 
+  /** Detect when the selected option content changes, so the button can refresh its cloned content. */
+  #selectedOptionObserver = new MutationObserver(records => this.#onSelectedOptionContentChange(records));
+
+  /** Tracks a scheduled largest-option-width recalculation frame. */
+  #widthCalculationFrame?: number;
+
   /** Since we can't use `popovertarget`, we need to monitor the closing state manually. */
   #popoverClosing = false;
 
@@ -247,6 +253,8 @@ export class Select<T = any> extends ObserveAttributesMixin(
     this.setAttributesTarget(this.button);
 
     this.#observer.observe(this, { childList: true, subtree: true });
+    this.#observeSelectedOptionContent();
+    this.#onSelectedOptionContentChange();
 
     // Listen for i18n updates and update the validation message
     this.#events.listen(window, LOCALE_STATUS_EVENT, this.#updateValueAndValidity);
@@ -254,6 +262,11 @@ export class Select<T = any> extends ObserveAttributesMixin(
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
+    this.#selectedOptionObserver.disconnect();
+    if (this.#widthCalculationFrame !== undefined) {
+      cancelAnimationFrame(this.#widthCalculationFrame);
+      this.#widthCalculationFrame = undefined;
+    }
 
     super.disconnectedCallback();
   }
@@ -430,6 +443,28 @@ export class Select<T = any> extends ObserveAttributesMixin(
     }
 
     this.#lastRenderedOption = this.selectedOption;
+  }
+
+  #onSelectedOptionContentChange(records?: MutationRecord[]): void {
+    if (!this.selectedOption) {
+      return;
+    }
+
+    const selectedOptionValue = this.selectedOption.value;
+    if (selectedOptionValue !== this.value) {
+      this.value = selectedOptionValue;
+      this.#updateValueAndValidity();
+    }
+
+    const hasSelectedContentChange =
+      !records || records.some(record => record.type !== 'attributes' || record.attributeName !== 'value');
+    if (!hasSelectedContentChange) {
+      return;
+    }
+
+    this.#lastRenderedOption = undefined;
+    this.#renderSelectedContent();
+    this.#scheduleLargestOptionWidthCalculation();
   }
 
   #onBeforetoggle({ newState }: ToggleEvent): void {
@@ -721,6 +756,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
       this.selectedOption.selected = true;
       this.selectedOption.setAttribute('aria-selected', 'true');
     }
+    this.#observeSelectedOptionContent();
 
     this.button.selected = this.selectedOption;
     this.value = this.selectedOption?.value;
@@ -735,6 +771,33 @@ export class Select<T = any> extends ObserveAttributesMixin(
 
     this.#updateValueAndValidity();
     this.#updateAriaKeyShortcuts();
+  }
+
+  #observeSelectedOptionContent(): void {
+    this.#selectedOptionObserver.disconnect();
+
+    if (!this.selectedOption) {
+      return;
+    }
+
+    this.#selectedOptionObserver.observe(this.selectedOption, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+      attributes: true,
+      attributeFilter: ['value']
+    });
+  }
+
+  #scheduleLargestOptionWidthCalculation(): void {
+    if (this.#widthCalculationFrame !== undefined) {
+      return;
+    }
+
+    this.#widthCalculationFrame = requestAnimationFrame(() => {
+      this.#widthCalculationFrame = undefined;
+      this.#calculateLargestOptionWidth();
+    });
   }
 
   #updateAriaKeyShortcuts(): void {

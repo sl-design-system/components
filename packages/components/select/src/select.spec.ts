@@ -936,6 +936,229 @@ describe('sl-select', () => {
       expect(container).to.be.null;
     });
 
+    it('should update selected content when the selected option text is mutated', async () => {
+      el.value = '1';
+      await el.updateComplete;
+
+      const container = button.querySelector('[slot="selected-content"]');
+      expect(container).to.have.trimmed.text('Option 1');
+
+      const option = el.querySelector('sl-option[value="1"]')!;
+      option.textContent = 'Updated Option 1';
+
+      // Wait for MutationObserver callback to fire
+      await new Promise(resolve => setTimeout(resolve, 0));
+
+      expect(container).to.have.trimmed.text('Updated Option 1');
+    });
+
+    it('should keep observing selected option content after detach/attach with unchanged value', async () => {
+      el.value = '1';
+      await el.updateComplete;
+
+      const container = button.querySelector('[slot="selected-content"]');
+      expect(container).to.have.trimmed.text('Option 1');
+
+      const parent = el.parentElement!;
+      parent.removeChild(el);
+      parent.appendChild(el);
+      await el.updateComplete;
+
+      const option = el.querySelector('sl-option[value="1"]')!;
+      option.textContent = 'Updated After Reattach';
+
+      // Wait for MutationObserver callback to fire
+      await new Promise(resolve => setTimeout(resolve, 0));
+
+      expect(container).to.have.trimmed.text('Updated After Reattach');
+    });
+
+    it('should refresh selected content after reconnect when selected option changed while detached', async () => {
+      el.value = '1';
+      await el.updateComplete;
+
+      const container = button.querySelector('[slot="selected-content"]');
+      expect(container).to.have.trimmed.text('Option 1');
+
+      const parent = el.parentElement!;
+      parent.removeChild(el);
+
+      const option = el.querySelector('sl-option[value="1"]')!;
+      option.textContent = 'Updated While Detached';
+
+      parent.appendChild(el);
+      await el.updateComplete;
+
+      expect(container).to.have.trimmed.text('Updated While Detached');
+    });
+
+    it('should batch largest option width recalculation while a frame is pending', async () => {
+      el.value = '1';
+      await el.updateComplete;
+
+      const optionSizeDescriptor = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(button), 'optionSize');
+      if (!optionSizeDescriptor?.get || !optionSizeDescriptor.set) {
+        throw new Error('Expected optionSize accessor descriptor on SelectButton prototype');
+      }
+
+      const originalRequestAnimationFrame = window.requestAnimationFrame;
+      const frameCallbacks: FrameRequestCallback[] = [];
+      let optionSizeSetCalls = 0;
+      const getOptionSize = optionSizeDescriptor.get.bind(button) as () => number | undefined;
+      const setOptionSize = optionSizeDescriptor.set.bind(button) as (value: number | undefined) => void;
+      try {
+        Object.defineProperty(button, 'optionSize', {
+          configurable: true,
+          get() {
+            return getOptionSize();
+          },
+          set(value: number | undefined) {
+            optionSizeSetCalls += 1;
+            setOptionSize(value);
+          }
+        });
+
+        window.requestAnimationFrame = ((callback: FrameRequestCallback) => {
+          frameCallbacks.push(callback);
+
+          return frameCallbacks.length;
+        }) as typeof window.requestAnimationFrame;
+
+        const option = el.querySelector('sl-option[value="1"]')!;
+        option.textContent = 'Update 1';
+        await new Promise(resolve => setTimeout(resolve, 0));
+
+        option.textContent = 'Update 2';
+        await new Promise(resolve => setTimeout(resolve, 0));
+
+        expect(optionSizeSetCalls).to.equal(0);
+
+        frameCallbacks.forEach(callback => callback(performance.now()));
+        expect(optionSizeSetCalls).to.equal(1);
+      } finally {
+        delete (button as SelectButton & { optionSize?: number }).optionSize;
+        window.requestAnimationFrame = originalRequestAnimationFrame;
+      }
+    });
+
+    it('should sync value and form value when selected option implicit value changes', async () => {
+      const form = await fixture<HTMLFormElement>(html`
+        <form>
+          <sl-select name="fruit">
+            <sl-option>Apple</sl-option>
+            <sl-option>Banana</sl-option>
+          </sl-select>
+        </form>
+      `);
+
+      el = form.querySelector<Select>('sl-select')!;
+      button = el.querySelector('sl-select-button')!;
+
+      el.value = 'Apple';
+      await el.updateComplete;
+
+      const onChange = spy();
+      el.addEventListener('sl-change', onChange);
+
+      const container = button.querySelector('[slot="selected-content"]');
+      expect(container).to.have.trimmed.text('Apple');
+
+      const option = el.querySelector('sl-option')!;
+      option.textContent = 'Green Apple';
+
+      // Wait for MutationObserver callback to fire
+      await new Promise(resolve => setTimeout(resolve, 0));
+      await el.updateComplete;
+
+      expect(container).to.have.trimmed.text('Green Apple');
+      expect(el.value).to.equal('Green Apple');
+      expect(onChange).not.to.have.been.called;
+      expect(new FormData(form).get('fruit')).to.equal('Green Apple');
+    });
+
+    it('should sync value when selected option value attribute changes', async () => {
+      const form = await fixture<HTMLFormElement>(html`
+        <form>
+          <sl-select name="fruit">
+            <sl-option value="apple">Apple</sl-option>
+            <sl-option value="banana">Banana</sl-option>
+          </sl-select>
+        </form>
+      `);
+
+      el = form.querySelector<Select>('sl-select')!;
+      button = el.querySelector('sl-select-button')!;
+
+      el.value = 'apple';
+      await el.updateComplete;
+
+      const onChange = spy();
+      el.addEventListener('sl-change', onChange);
+
+      const option = el.querySelector('sl-option[value="apple"]')!;
+      option.setAttribute('value', 'green-apple');
+
+      // Wait for MutationObserver callback to fire
+      await new Promise(resolve => setTimeout(resolve, 0));
+      await el.updateComplete;
+
+      expect(el.value).to.equal('green-apple');
+      expect(onChange).not.to.have.been.called;
+      expect(new FormData(form).get('fruit')).to.equal('green-apple');
+    });
+
+    it('should not recalculate width when only selected option value attribute changes', async () => {
+      el = await fixture(html`
+        <sl-select>
+          <sl-option value="apple">Apple</sl-option>
+          <sl-option value="banana">Banana</sl-option>
+        </sl-select>
+      `);
+
+      button = el.querySelector('sl-select-button')!;
+      el.value = 'apple';
+      await el.updateComplete;
+
+      const optionSizeDescriptor = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(button), 'optionSize');
+      if (!optionSizeDescriptor?.get || !optionSizeDescriptor.set) {
+        throw new Error('Expected optionSize accessor descriptor on SelectButton prototype');
+      }
+
+      const originalRequestAnimationFrame = window.requestAnimationFrame;
+      const frameCallbacks: FrameRequestCallback[] = [];
+      let optionSizeSetCalls = 0;
+      const getOptionSize = optionSizeDescriptor.get.bind(button) as () => number | undefined;
+      const setOptionSize = optionSizeDescriptor.set.bind(button) as (value: number | undefined) => void;
+      try {
+        Object.defineProperty(button, 'optionSize', {
+          configurable: true,
+          get() {
+            return getOptionSize();
+          },
+          set(value: number | undefined) {
+            optionSizeSetCalls += 1;
+            setOptionSize(value);
+          }
+        });
+
+        window.requestAnimationFrame = ((callback: FrameRequestCallback) => {
+          frameCallbacks.push(callback);
+
+          return frameCallbacks.length;
+        }) as typeof window.requestAnimationFrame;
+
+        const option = el.querySelector('sl-option[value="apple"]')!;
+        option.setAttribute('value', 'green-apple');
+        await new Promise(resolve => setTimeout(resolve, 0));
+
+        frameCallbacks.forEach(callback => callback(performance.now()));
+        expect(optionSizeSetCalls).to.equal(0);
+      } finally {
+        delete (button as SelectButton & { optionSize?: number }).optionSize;
+        window.requestAnimationFrame = originalRequestAnimationFrame;
+      }
+    });
+
     it('should handle options with slotted element content', async () => {
       el = await fixture(html`
         <sl-select>

@@ -199,8 +199,9 @@ export function getCharacterPluralSuffix(count: number): string {
     }
 
     // Spanish pluralization rules for "carácter":
-    // one (1) → "carácter" (no suffix)
-    // other (0, 2+) → "caracteres" (suffix: 'es')
+    // this branch returns the full localized form, not just a suffix
+    // one (1) → "carácter"
+    // other (0, 2+) → "caracteres"
     if (locale.startsWith('es')) {
       return rule === 'one' ? 'carácter' : 'caracteres';
     }

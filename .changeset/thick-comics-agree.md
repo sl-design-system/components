@@ -4,4 +4,4 @@
 '@sl-design-system/text-field': patch
 ---
 
-Changed key for the translation certain elements. Make sure you also update the locales package when you update to this version of the component
+Changed the translation keys for certain elements. Make sure you also update `@sl-design-system/locales` when updating to these component versions.

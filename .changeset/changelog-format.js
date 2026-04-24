@@ -59,12 +59,15 @@ async function getReleaseLine(changeset, type, options) {
   })();
 
   const users = usersFromSummary.length
-    ? usersFromSummary.map(userFromSummary => `[@${userFromSummary}](https://github.com/${userFromSummary})`).join(', ')
+    ? usersFromSummary
+        .map(userFromSummary => `[@${userFromSummary}](https://github.com/${userFromSummary})`)
+        .join(', ')
     : links.user;
 
-  const prefix = [links.pull === null ? '' : ` ${links.pull}`, links.commit === null ? '' : ` ${links.commit}`].join(
-    ''
-  );
+  const prefix = [
+    links.pull === null ? '' : ` ${links.pull}`,
+    links.commit === null ? '' : ` ${links.commit}`
+  ].join('');
 
   return `\n\n-${prefix ? `${prefix} -` : ''} ${firstLine}\n${futureLines.map(l => `  ${l}`).join('\n')}`;
 }

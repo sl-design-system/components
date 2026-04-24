@@ -3,8 +3,8 @@ import { dirname, join } from 'node:path';
 import { type Indexer, type IndexerOptions } from 'storybook/internal/types';
 
 /**
- * Walks up the directory tree from `fileName` until it finds a `package.json`,
- * returning its absolute path, or `null` if none is found before the root.
+ * Walks up the directory tree from `fileName` until it finds a `package.json`, returning its
+ * absolute path, or `null` if none is found before the root.
  */
 export async function findNearestPackageJson(fileName: string): Promise<string | null> {
   let currentDir = dirname(fileName);
@@ -28,8 +28,8 @@ export async function findNearestPackageJson(fileName: string): Promise<string |
 }
 
 /**
- * Returns the `"status"` and `"version"` fields from the nearest `package.json`
- * relative to `storiesFileName`, or `null` for absent fields.
+ * Returns the `"status"` and `"version"` fields from the nearest `package.json` relative to
+ * `storiesFileName`, or `null` for absent fields.
  */
 export async function getComponentMetadata(
   storiesFileName: string
@@ -56,10 +56,9 @@ export async function getComponentMetadata(
 }
 
 /**
- * Wraps each Storybook indexer so that the component's `"status"` and `"version"`
- * values are appended to every story's tags list. This makes the metadata available
- * to `storybook-addon-tag-badges` without having to declare it manually in every
- * stories file.
+ * Wraps each Storybook indexer so that the component's `"status"` and `"version"` values are
+ * appended to every story's tags list. This makes the metadata available to
+ * `storybook-addon-tag-badges` without having to declare it manually in every stories file.
  */
 export function injectComponentMetadata(existingIndexers: Indexer[] = []): Indexer[] {
   return existingIndexers.map(indexer => {

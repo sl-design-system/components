@@ -27,7 +27,7 @@ This pattern establishes a fixed mapping between meaning, icon, and usage across
 
 <section>
 
-## <sl-icon name="info" style="color:var(--sl-color-foreground-info-bold)"></sl-icon> Info 
+## <sl-icon name="info" style="color:var(--sl-color-foreground-info-bold);margin-inline-end:var(--sl-size-050);"></sl-icon> Info 
 
 ### Purpose
 Provide neutral information that may be relevant to the user, without urgency or required action.
@@ -40,7 +40,7 @@ Provide neutral information that may be relevant to the user, without urgency or
 
 <section>
 
-## <sl-icon name="circle-check-solid" style="color:var(--sl-color-foreground-positive-bold)"></sl-icon> Success 
+## <sl-icon name="circle-check-solid" style="color:var(--sl-color-foreground-positive-bold);margin-inline-end:var(--sl-size-050);"></sl-icon> Success 
 
 ### Purpose
 Confirm that an action has been completed successfully.
@@ -54,7 +54,7 @@ Confirm that an action has been completed successfully.
 
 <section>
 
-## <sl-icon name="triangle-exclamation-solid" style="color:var(--sl-color-foreground-caution-bold)"></sl-icon> Warning 
+## <sl-icon name="triangle-exclamation-solid" style="color:var(--sl-color-foreground-caution-bold);margin-inline-end:var(--sl-size-050);"></sl-icon> Warning 
 
 ### Purpose
 Indicate that something requires attention, but can still be corrected.
@@ -68,7 +68,7 @@ Indicate that something requires attention, but can still be corrected.
 
 <section>
 
-## <sl-icon name="fas-octagon-xmark" style="color:var(--sl-color-foreground-negative-bold)"></sl-icon> Danger
+## <sl-icon name="fas-octagon-xmark" style="color:var(--sl-color-foreground-negative-bold);margin-inline-end:var(--sl-size-050);"></sl-icon> Danger
 
 ### Purpose
 Warn users about destructive or irreversible actions.

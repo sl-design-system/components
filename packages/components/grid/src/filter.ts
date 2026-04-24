@@ -1,11 +1,20 @@
 import { localized, msg, str } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { type DataSourceFilterFunction } from '@sl-design-system/data-source';
 import { Icon } from '@sl-design-system/icon';
 import { Option } from '@sl-design-system/listbox';
 import { SearchField } from '@sl-design-system/search-field';
 import { Select } from '@sl-design-system/select';
-import { type EventEmitter, type PathKeys, event, getNameByPath, getValueByPath } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  type PathKeys,
+  event,
+  getNameByPath,
+  getValueByPath
+} from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, render } from 'lit';
 import { property } from 'lit/decorators.js';
 import { type GridColumn } from './column.js';
@@ -52,6 +61,7 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
 
   /**
    * Whether the grid is currently being filtered by this column.
+   *
    * @internal
    */
   @property({ type: Boolean, reflect: true }) active = false;
@@ -77,7 +87,11 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
   /** The path to the field to filter on. */
   @property() path?: PathKeys<T>;
 
-  /** The label as it needs to be shown in the filter. Only use this when the label needs to be something else than the column header converted to lowercase (and stripped of any html tags in case of a ColumnHeaderRenderer). */
+  /**
+   * The label as it needs to be shown in the filter. Only use this when the label needs to be
+   * something else than the column header converted to lowercase (and stripped of any html tags in
+   * case of a ColumnHeaderRenderer).
+   */
   @property({ type: String, attribute: 'filter-label' }) filterLabel?: string;
 
   get value(): string | string[] | undefined {
@@ -122,7 +136,10 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
         >
           ${this.options?.map(option => {
             return html`
-              <sl-option ?selected=${this.value?.includes(option.value as string)} .value=${option.value}>
+              <sl-option
+                ?selected=${this.value?.includes(option.value as string)}
+                .value=${option.value}
+              >
                 ${option.label}
               </sl-option>
             `;

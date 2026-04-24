@@ -38,7 +38,9 @@
 ::slotted(sl-toggle-button) {
   --_border-width: 0px;
   --_button-border-radius: 0;
-  --_focus-outline-offset: calc(var(--sl-size-outlineOffset-default) + var(--sl-size-borderWidth-button-outline));
+  --_focus-outline-offset: calc(
+    var(--sl-size-outlineOffset-default) + var(--sl-size-borderWidth-button-outline)
+  );
 
   position: relative;
 

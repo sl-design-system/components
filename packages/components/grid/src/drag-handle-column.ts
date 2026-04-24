@@ -13,9 +13,9 @@ declare global {
 /**
  * A grid column that can be used to drag and drop rows.
  *
- * If you want drag and drop behavior to be conditional, you can use the `path` property to specify a path
- * to a value in the data item. If the value at that path is truthy, the row will be draggable.
- * If the value is falsy, the row will not be draggable.
+ * If you want drag and drop behavior to be conditional, you can use the `path` property to specify
+ * a path to a value in the data item. If the value at that path is truthy, the row will be
+ * draggable. If the value is falsy, the row will not be draggable.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridDragHandleColumn<T = any> extends GridColumn<T> {
@@ -53,8 +53,10 @@ export class GridDragHandleColumn<T = any> extends GridColumn<T> {
     // of `mousedown` and `touchstart`. See https://bugs.webkit.org/show_bug.cgi?id=267852
     return html`
       <td
-        @mousedown=${(event: Event & { target: HTMLElement }) => this.#onStartDrag(event, item.data)}
-        @touchstart=${(event: Event & { target: HTMLElement }) => this.#onStartDrag(event, item.data)}
+        @mousedown=${(event: Event & { target: HTMLElement }) =>
+          this.#onStartDrag(event, item.data)}
+        @touchstart=${(event: Event & { target: HTMLElement }) =>
+          this.#onStartDrag(event, item.data)}
         part="data drag-handle ${draggable ? '' : 'fixed'}"
       >
         ${draggable ? html`<sl-icon name="grip-lines"></sl-icon>` : nothing}

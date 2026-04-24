@@ -42,7 +42,9 @@ describe('sl-grid', () => {
     });
 
     it('should render column headers', () => {
-      const columns = Array.from(el.renderRoot.querySelectorAll('th')).map(col => col.textContent?.trim());
+      const columns = Array.from(el.renderRoot.querySelectorAll('th')).map(col =>
+        col.textContent?.trim()
+      );
 
       expect(columns).to.deep.equal(['First name', 'Last name']);
     });
@@ -78,7 +80,9 @@ describe('sl-grid', () => {
     });
 
     it('should toggle the "selected" part of the row when clicking in the selection column', async () => {
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')
+        ?.click();
       await new Promise(resolve => setTimeout(resolve));
 
       const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
@@ -86,19 +90,29 @@ describe('sl-grid', () => {
     });
 
     it('should not toggle the "selected" part of the row when clicking anywhere in the row', async () => {
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      const selectedRow = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr[part~="selected"]');
+      const selectedRow = el.renderRoot.querySelector<HTMLTableRowElement>(
+        'tbody tr[part~="selected"]'
+      );
       expect(selectedRow).to.be.null;
     });
 
     it('should support multiple selection by clicking different rows', async () => {
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')?.click();
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:last-of-type td[part~="selection"]')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')
+        ?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:last-of-type td[part~="selection"]')
+        ?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      const rows = el.renderRoot.querySelectorAll<HTMLTableRowElement>('tbody tr[part~="selected"]');
+      const rows = el.renderRoot.querySelectorAll<HTMLTableRowElement>(
+        'tbody tr[part~="selected"]'
+      );
       expect(rows).to.have.lengthOf(2);
     });
 
@@ -107,8 +121,12 @@ describe('sl-grid', () => {
 
       el.addEventListener('sl-grid-selection-change', onSelectionChange);
 
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')?.click();
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:last-of-type td[part~="selection"]')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')
+        ?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:last-of-type td[part~="selection"]')
+        ?.click();
 
       expect(onSelectionChange).to.have.been.calledTwice;
     });
@@ -116,7 +134,9 @@ describe('sl-grid', () => {
     it('should call toggle() on the data source when a row is selected', () => {
       const toggleSpy = spy(el.dataSource!, 'toggle');
 
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')
+        ?.click();
 
       expect(toggleSpy).to.have.been.calledOnce;
       expect(toggleSpy.firstCall.args[0]).to.have.property('data', el.items?.at(0));
@@ -161,7 +181,9 @@ describe('sl-grid', () => {
     });
 
     it('should toggle the "selected" part of the row when clicking in the row', async () => {
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
       await new Promise(resolve => setTimeout(resolve));
 
       const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
@@ -170,17 +192,25 @@ describe('sl-grid', () => {
 
     it('should allow only one row to be selected at a time', async () => {
       // Select first row
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      let selectedRows = el.renderRoot.querySelectorAll<HTMLTableRowElement>('tbody tr[part~="selected"]');
+      let selectedRows = el.renderRoot.querySelectorAll<HTMLTableRowElement>(
+        'tbody tr[part~="selected"]'
+      );
       expect(selectedRows).to.have.lengthOf(1);
 
       // Select second row - should deselect first row
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:nth-of-type(2) td:last-of-type')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:nth-of-type(2) td:last-of-type')
+        ?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      selectedRows = el.renderRoot.querySelectorAll<HTMLTableRowElement>('tbody tr[part~="selected"]');
+      selectedRows = el.renderRoot.querySelectorAll<HTMLTableRowElement>(
+        'tbody tr[part~="selected"]'
+      );
       expect(selectedRows).to.have.lengthOf(1);
 
       // Verify first row is no longer selected
@@ -194,14 +224,18 @@ describe('sl-grid', () => {
 
     it('should deselect a row when clicking it again', async () => {
       // Select a row
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
       await new Promise(resolve => setTimeout(resolve));
 
       let row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
       expect(row?.part.contains('selected')).to.be.true;
 
       // Click again to deselect
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
       await new Promise(resolve => setTimeout(resolve));
 
       row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
@@ -213,8 +247,12 @@ describe('sl-grid', () => {
 
       el.addEventListener('sl-grid-selection-change', onSelectionChange);
 
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:nth-of-type(2) td:last-of-type')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:nth-of-type(2) td:last-of-type')
+        ?.click();
 
       expect(onSelectionChange).to.have.been.calledTwice;
     });
@@ -222,7 +260,9 @@ describe('sl-grid', () => {
     it('should call toggle() on the data source when a row is selected', () => {
       const toggleSpy = spy(el.dataSource!, 'toggle');
 
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
 
       expect(toggleSpy).to.have.been.calledOnce;
       expect(toggleSpy.firstCall.args[0]).to.have.property('data', el.items?.at(0));
@@ -284,13 +324,17 @@ describe('sl-grid', () => {
       tbody.querySelector<HTMLTableRowElement>('tr:last-of-type')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      expect(tbody.querySelector<HTMLTableRowElement>('tr:last-of-type')).to.match('[part~="active"]');
+      expect(tbody.querySelector<HTMLTableRowElement>('tr:last-of-type')).to.match(
+        '[part~="active"]'
+      );
       expect(el.activeRow).to.deep.equal(el.items!.at(1));
 
       tbody.querySelector<HTMLTableRowElement>('tr:last-of-type')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      expect(tbody.querySelector<HTMLTableRowElement>('tr:last-of-type')).to.not.match('[part~="active"]');
+      expect(tbody.querySelector<HTMLTableRowElement>('tr:last-of-type')).to.not.match(
+        '[part~="active"]'
+      );
       expect(el.activeRow).to.be.undefined;
     });
 
@@ -326,13 +370,17 @@ describe('sl-grid', () => {
     });
 
     it('should toggle the "selected" part of the row when clicking in the selection column', async () => {
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')
+        ?.click();
       await new Promise(resolve => setTimeout(resolve));
 
       let row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
       expect(row?.part.contains('selected')).to.be.true;
 
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')
+        ?.click();
       await new Promise(resolve => setTimeout(resolve));
 
       row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
@@ -340,13 +388,17 @@ describe('sl-grid', () => {
     });
 
     it('should toggle the "selected" part of the row when clicking anywhere in the row', async () => {
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
       await new Promise(resolve => setTimeout(resolve));
 
       let row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
       expect(row?.part.contains('selected')).to.be.true;
 
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
       await new Promise(resolve => setTimeout(resolve));
 
       row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
@@ -354,11 +406,17 @@ describe('sl-grid', () => {
     });
 
     it('should support multiple selection by clicking different rows', async () => {
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:last-of-type td:last-of-type')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:last-of-type td:last-of-type')
+        ?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      const rows = el.renderRoot.querySelectorAll<HTMLTableRowElement>('tbody tr[part~="selected"]');
+      const rows = el.renderRoot.querySelectorAll<HTMLTableRowElement>(
+        'tbody tr[part~="selected"]'
+      );
       expect(rows).to.have.lengthOf(2);
     });
 
@@ -367,8 +425,12 @@ describe('sl-grid', () => {
 
       el.addEventListener('sl-grid-selection-change', onSelectionChange);
 
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:last-of-type td:last-of-type')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:last-of-type td:last-of-type')
+        ?.click();
 
       expect(onSelectionChange).to.have.been.calledTwice;
     });
@@ -376,7 +438,9 @@ describe('sl-grid', () => {
     it('should call toggle() on the data source when a row is selected', () => {
       const toggleSpy = spy(el.dataSource!, 'toggle');
 
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
 
       expect(toggleSpy).to.have.been.calledOnce;
       expect(toggleSpy.firstCall.args[0]).to.have.property('data', el.items?.at(0));

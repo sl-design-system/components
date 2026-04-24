@@ -24,7 +24,9 @@ function handleEventDecorator(classNode, moduleDoc, mixinName = null) {
     currClass = moduleDoc?.declarations?.find(decl => decl.name === className);
 
   classNode?.members
-    ?.filter(member => member?.modifiers?.some(mod => mod?.expression?.expression?.getText() === 'event'))
+    ?.filter(member =>
+      member?.modifiers?.some(mod => mod?.expression?.expression?.getText() === 'event')
+    )
     .forEach(member => {
       const eventDecorator = member.modifiers.find(decorator('event')),
         name = eventDecorator?.expression?.arguments?.at(0)?.properties?.at(0)?.initializer?.text,
@@ -72,4 +74,3 @@ export function eventDecoratorPlugin() {
     }
   };
 }
-

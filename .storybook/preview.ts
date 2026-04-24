@@ -1,6 +1,7 @@
+// eslint-disable-next-line import/order
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
-import '@sl-design-system/announcer/register.js';
 import { configureLocalization } from '@lit/localize';
+import '@sl-design-system/announcer/register.js';
 import * as locales from '@sl-design-system/locales';
 import { type Preview } from '@storybook/web-components-vite';
 import MockDate from 'mockdate';
@@ -90,7 +91,7 @@ const preview: Preview = {
         // Try and set the @lit/localize locale; will throw an error if the
         // locale is not available. Ignore those errors since the locale can
         // still be valid for components that use the Intl APIs.
-        setLocale(locale);
+        void setLocale(locale);
       } catch {
         // empty
       }

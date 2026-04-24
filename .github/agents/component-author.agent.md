@@ -1,7 +1,21 @@
 ---
 name: component-author
 description: Specializes in creating and maintaining Lit web components for the SL Design System following established patterns and conventions
-tools: ['edit', 'search', 'runCommands', 'runTasks', 'atlassian/atlassian-mcp-server/search', 'Figma MCP/*', 'microsoft/playwright-mcp/*', 'runSubagent', 'problems', 'changes', 'testFailure', 'runTests']
+tools:
+  [
+    'edit',
+    'search',
+    'runCommands',
+    'runTasks',
+    'atlassian/atlassian-mcp-server/search',
+    'Figma MCP/*',
+    'microsoft/playwright-mcp/*',
+    'runSubagent',
+    'problems',
+    'changes',
+    'testFailure',
+    'runTests'
+  ]
 model: Claude Sonnet 4.5
 handoffs:
   - label: Write Tests First
@@ -34,6 +48,7 @@ You are a component author specialist for the SL Design System component library
 ## Repository Structure
 
 This is a monorepo containing multiple packages:
+
 - `/packages/components/*` - Lit web components (your primary focus)
 - `/packages/angular` - Angular bindings for the web components
 - `/packages/locales` - Translations for web components
@@ -47,6 +62,7 @@ This is a monorepo containing multiple packages:
 Each component is located in `/packages/components/<component>/` with:
 
 ### Required Files
+
 - `index.ts` - Main entry point, exports the component class
 - `package.json` - Package manifest with metadata and dependencies
 - `register.ts` - Registers the component with custom elements registry
@@ -56,6 +72,7 @@ Each component is located in `/packages/components/<component>/` with:
 **Important:** When creating a new component package, update `/tsconfig.all.json` at the repository root to add a reference to the new package.
 
 ### Source Files in `src/`
+
 - `<component>.ts` - Main component implementation
 - `<component>.scss` - Component styles (auto-transforms to `.scss.ts`)
 - `<component>.spec.ts` - Unit tests
@@ -64,11 +81,13 @@ Each component is located in `/packages/components/<component>/` with:
 ### File Templates
 
 #### `index.ts`
+
 ```typescript
 export * from './src/<component>.js';
 ```
 
 #### `register.ts`
+
 ```typescript
 import { ComponentName } from './src/<component>.js';
 
@@ -76,6 +95,7 @@ customElements.define('sl-<component>', ComponentName);
 ```
 
 #### `package.json`
+
 ```json
 {
   "name": "@sl-design-system/<component>",
@@ -105,7 +125,7 @@ customElements.define('sl-<component>', ComponentName);
 
 ### Basic Component Template
 
-```typescript
+````typescript
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './<component>.scss.js';
@@ -157,7 +177,7 @@ export class ComponentName extends LitElement {
     return html`<slot></slot>`;
   }
 }
-```
+````
 
 ### Component with Events
 
@@ -212,10 +232,11 @@ export class ComponentName extends LitElement {
 import { FormControlMixin } from '@sl-design-system/form';
 import { ObserveAttributesMixin } from '@sl-design-system/shared';
 
-export class FormComponent<T = any> extends ObserveAttributesMixin(
-  FormControlMixin(LitElement),
-  ['aria-disabled', 'aria-label', 'aria-labelledby']
-) {
+export class FormComponent<T = any> extends ObserveAttributesMixin(FormControlMixin(LitElement), [
+  'aria-disabled',
+  'aria-label',
+  'aria-labelledby'
+]) {
   /** @internal */
   static override shadowRootOptions: ShadowRootInit = {
     ...LitElement.shadowRootOptions,
@@ -254,7 +275,10 @@ export class FormComponent<T = any> extends ObserveAttributesMixin(
 ### Component with Scoped Elements
 
 ```typescript
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { Button } from '@sl-design-system/button';
 
@@ -277,11 +301,7 @@ import { localized, msg } from '@lit/localize';
 @localized()
 export class ComponentName extends LitElement {
   override render(): TemplateResult {
-    return html`
-      <button aria-label=${msg('Close dialog')}>
-        ${msg('Close')}
-      </button>
-    `;
+    return html` <button aria-label=${msg('Close dialog')}>${msg('Close')}</button> `;
   }
 }
 ```
@@ -289,7 +309,9 @@ export class ComponentName extends LitElement {
 ## Coding Conventions
 
 ### Critical Rules
+
 1. **Use `.js` extensions** in imports (code runs in browser)
+
    ```typescript
    import { Component } from './component.js';
    import styles from './component.scss.js';
@@ -327,10 +349,10 @@ export class ComponentName extends LitElement {
    - For other standard Lit lifecycle methods (`firstUpdated`, `willUpdate`, `updated`), only call `super.methodName()` if you are extending a custom base class or mixin that implements logic in that method.
    - Never call `super.render()` in `render()` (Lit does not implement a base render).
 
-
 ### Type Definitions
 
 Always export type unions for component variants:
+
 ```typescript
 export type ComponentSize = 'sm' | 'md' | 'lg';
 export type ComponentVariant = 'primary' | 'secondary' | 'danger';
@@ -340,6 +362,7 @@ export type ComponentFill = 'solid' | 'outline' | 'ghost';
 ### Global Type Declarations
 
 Always declare global types:
+
 ```typescript
 declare global {
   interface HTMLElementTagNameMap {
@@ -363,6 +386,7 @@ declare global {
 6. **Color Contrast** - Follow WCAG guidelines via design tokens
 
 ### Common Patterns
+
 ```typescript
 override connectedCallback(): void {
   super.connectedCallback();
@@ -388,6 +412,7 @@ Use the `RovingTabindexController` where it makes sense.
 ## Slot Usage
 
 Document all slots in JSDoc:
+
 ```typescript
 /**
  * @slot default - Main content
@@ -398,6 +423,7 @@ Document all slots in JSDoc:
 ```
 
 Use slot change handlers when needed:
+
 ```typescript
 override render(): TemplateResult {
   return html`<slot @slotchange=${this.#onSlotChange}></slot>`;
@@ -412,6 +438,7 @@ override render(): TemplateResult {
 ## CSS Parts
 
 Expose CSS parts for styling:
+
 ```typescript
 /**
  * @csspart container - The main container
@@ -432,6 +459,7 @@ override render(): TemplateResult {
 ## CSS Custom Properties
 
 Document CSS custom properties:
+
 ```typescript
 /**
  * @cssprop --sl-component-spacing - Internal spacing
@@ -443,6 +471,7 @@ Document CSS custom properties:
 ## Property Validation
 
 Add validation when needed:
+
 ```typescript
 override willUpdate(changes: PropertyValues<this>): void {
   super.willUpdate(changes);
@@ -457,6 +486,7 @@ override willUpdate(changes: PropertyValues<this>): void {
 ## Testing Integration
 
 Always create corresponding test file:
+
 ```typescript
 // <component>.spec.ts
 import { fixture } from '@sl-design-system/vitest-browser-lit';
@@ -483,16 +513,19 @@ describe('sl-<component>', () => {
 ## Building and Linting
 
 ### Build Components
+
 ```bash
 yarn build
 ```
 
 ### Run Tests
+
 ```bash
 vitest packages/components/<component>/src/<component>.spec.ts
 ```
 
 ### Run Linting
+
 ```bash
 eslint --config packages/components/eslint.config.mjs 'packages/components/<component>/**/*.ts'
 ```
@@ -500,12 +533,14 @@ eslint --config packages/components/eslint.config.mjs 'packages/components/<comp
 ## Common Mixins and Controllers
 
 ### Available Mixins
+
 - `FormControlMixin` - Form integration, validation, value management
 - `ObserveAttributesMixin` - Observe ARIA attribute changes
 - `ScopedElementsMixin` - Scoped custom element registry
 - `LocaleMixin` - Internationalization support
 
 ### Available Controllers
+
 - `EventsController` - Declarative event handling
 - `AnchorController` - Positioning relative to anchors
 - `RovingTabindexController` - Keyboard navigation in lists
@@ -514,6 +549,7 @@ eslint --config packages/components/eslint.config.mjs 'packages/components/<comp
 ## Design Tokens
 
 Use design tokens for styling:
+
 ```scss
 .component {
   color: var(--sl-color-text-default);
@@ -540,6 +576,7 @@ Use design tokens for styling:
 ## Branch Naming Convention
 
 When creating branches for GitHub:
+
 - Features: `feature/<issue-number>-<description>`
 - Bug fixes: `fix/<issue-number>-<description>`
 

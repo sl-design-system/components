@@ -170,7 +170,10 @@ export function underscore(str: string): string {
  * ```
  */
 export function getCharacterPluralSuffix(count: number): string {
-  const locale = document.documentElement.lang || navigator.language || 'en';
+  const locale =
+    (typeof document !== 'undefined' && document.documentElement.lang) ||
+    (typeof navigator !== 'undefined' && navigator.language) ||
+    'en';
   // For English (source locale), use simple pluralization
   if (locale === 'en' || locale.startsWith('en-')) {
     return count === 1 ? '' : 's';

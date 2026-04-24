@@ -3,7 +3,7 @@ import { configureLocalization } from '@lit/localize';
 import { sourceLocale, targetLocales } from '@sl-design-system/locales';
 import { Preview } from '@storybook/angular';
 import { INITIAL_VIEWPORTS } from 'storybook/viewport';
-import { themes, updateTheme } from '../../../.storybook/themes';
+import { Mode, themes, updateTheme } from '../../../.storybook/themes';
 
 // Lazy-loading map for locale modules
 const locales = {
@@ -32,14 +32,22 @@ const preview: Preview = {
   decorators: [
     (story, { globals: { locale = sourceLocale } }) => {
       document.documentElement.lang = locale;
-      setLocale(locale);
+
+      try {
+        // Try and set the @lit/localize locale; will throw an error if the
+        // locale is not available. Ignore those errors since the locale can
+        // still be valid for components that use the Intl APIs.
+        void setLocale(locale);
+      } catch {
+        // empty
+      }
 
       return story();
-    },
-    (story, { globals: { mode = 'light', theme = 'sanoma-learning' } }) => {
-      updateTheme(theme, mode);
-
-      return story();
+    }
+  ],
+  loaders: [
+    async ({ globals: { mode = 'light', theme = 'sanoma-learning' } }) => {
+      await updateTheme(theme, mode as Mode);
     }
   ],
   globalTypes: {

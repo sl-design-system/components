@@ -146,7 +146,10 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
     this.manage();
   }
 
-  updateWithVirtualizer({ elements }: FocusGroupConfig<T> = { elements: () => [] }, event: RangeChangedEvent): void {
+  updateWithVirtualizer(
+    { elements }: FocusGroupConfig<T> = { elements: () => [] },
+    event: RangeChangedEvent
+  ): void {
     this.unmanage();
     this.#elements = elements;
     this.clearElementCache(event.first);
@@ -173,7 +176,8 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
   focusToElement(elementIndex: number): void;
 
   focusToElement(elementOrIndex: T | number): void {
-    this.currentIndex = typeof elementOrIndex === 'number' ? elementOrIndex : this.elements.indexOf(elementOrIndex);
+    this.currentIndex =
+      typeof elementOrIndex === 'number' ? elementOrIndex : this.elements.indexOf(elementOrIndex);
     this.elementEnterAction(this.elements[this.currentIndex]);
     this.focus({ preventScroll: false });
   }
@@ -222,7 +226,10 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
     } else if (event.type === 'focusout' && relatedTarget === null) {
       return true;
     } else {
-      return !this.elements.includes(relatedTarget as T) || !this.elements.includes(event.composedPath()[0] as T);
+      return (
+        !this.elements.includes(relatedTarget as T) ||
+        !this.elements.includes(event.composedPath()[0] as T)
+      );
     }
   }
 

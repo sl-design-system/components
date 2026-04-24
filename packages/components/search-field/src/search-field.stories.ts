@@ -50,7 +50,12 @@ export const CustomIcon: Story = {
     Icon.register(faPoo);
 
     return html`
-      <sl-search-field aria-label="Search" ?disabled=${disabled} .placeholder=${placeholder} .value=${value}>
+      <sl-search-field
+        aria-label="Search"
+        ?disabled=${disabled}
+        .placeholder=${placeholder}
+        .value=${value}
+      >
         <sl-icon name="far-poo" slot="prefix"></sl-icon>
       </sl-search-field>
     `;

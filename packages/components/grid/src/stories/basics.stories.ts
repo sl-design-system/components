@@ -62,7 +62,10 @@ export const Basic: Story = {
 
 export const ColumnGroups: Story = {
   render: (_, { loaded: { students } }) => html`
-    <p>This example shows how you can group columns together using the <code>sl-grid-column-group</code> component.</p>
+    <p>
+      This example shows how you can group columns together using the
+      <code>sl-grid-column-group</code> component.
+    </p>
     <sl-grid .items=${students} striped no-skip-links>
       <sl-grid-column-group header="Name">
         <sl-grid-column path="firstName"></sl-grid-column>
@@ -80,10 +83,17 @@ export const ColumnGroups: Story = {
 export const EllipsizeText: Story = {
   render: (_, { loaded: { students } }) => html`
     <p>
-      This example shows how to use the <code>ellipsize-text</code> attribute to truncate text that overflows its
-      column. Content that is truncated will also automatically add a tooltip with the full text.
+      This example shows how to use the <code>ellipsize-text</code> attribute to truncate text that
+      overflows its column. Content that is truncated will also automatically add a tooltip with the
+      full text.
     </p>
-    <sl-grid .items=${students} style="max-inline-size: 500px" ellipsize-text column-divider no-skip-links>
+    <sl-grid
+      .items=${students}
+      style="max-inline-size: 500px"
+      ellipsize-text
+      column-divider
+      no-skip-links
+    >
       <sl-grid-column path="firstName"></sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>
       <sl-grid-column path="school.name"></sl-grid-column>
@@ -107,10 +117,11 @@ export const Header: Story = {
       }
     </style>
     <p>
-      This example shows how to customize the column headers by setting the <code>header</code> property of
-      <code>sl-grid-column</code>. If you are using custom elements in the header, make sure you add the
-      <code>scopedElements</code> property to the column with the used custom elements. If you don't do this, the custom
-      elements won't be rendered correctly.
+      This example shows how to customize the column headers by setting the
+      <code>header</code> property of <code>sl-grid-column</code>. If you are using custom elements
+      in the header, make sure you add the <code>scopedElements</code> property to the column with
+      the used custom elements. If you don't do this, the custom elements won't be rendered
+      correctly.
     </p>
     <sl-grid .items=${students} no-skip-links>
       <sl-grid-column
@@ -179,8 +190,9 @@ export const MenuButton: Story = {
       </style>
       <p>
         This example has a column with a custom <code>renderer</code> property that renders an
-        <code>sl-menu-button</code> inside it. Make sure to add the <code>scopedElements</code> property to the column
-        with the used custom elements. If you don't do this, the custom elements won't be rendered correctly.
+        <code>sl-menu-button</code> inside it. Make sure to add the
+        <code>scopedElements</code> property to the column with the used custom elements. If you
+        don't do this, the custom elements won't be rendered correctly.
       </p>
       <sl-grid .items=${students}>
         <sl-grid-column
@@ -214,7 +226,10 @@ export const SkipLinks: Story = {
     };
 
     return html`
-      <p>This example shows how, when using keyboard navigation, you can skip the grid and jump directly past it.</p>
+      <p>
+        This example shows how, when using keyboard navigation, you can skip the grid and jump
+        directly past it.
+      </p>
       <sl-grid .items=${students} column-divider>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>
@@ -245,7 +260,9 @@ export const LazyLoad: Story = {
     const dataSource = new FetchListDataSource<Quote>({
       pageSize: 30,
       fetchPage: async ({ page, pageSize }) => {
-        const response = await fetch(`https://dummyjson.com/quotes?skip=${page * pageSize}&limit=${pageSize}`);
+        const response = await fetch(
+          `https://dummyjson.com/quotes?skip=${page * pageSize}&limit=${pageSize}`
+        );
 
         if (response.ok) {
           const { quotes, total } = (await response.json()) as QuotesResponse;
@@ -259,9 +276,10 @@ export const LazyLoad: Story = {
 
     return html`
       <p>
-        This example shows how you can lazy load the data. It uses <code>FetchListDataSource</code> to lazy load quotes
-        by famous people from a remote service. It initially will only load the data for the visible rows. If you scroll
-        further down the page, it will load additional data as needed. It uses data from
+        This example shows how you can lazy load the data. It uses
+        <code>FetchListDataSource</code> to lazy load quotes by famous people from a remote service.
+        It initially will only load the data for the visible rows. If you scroll further down the
+        page, it will load additional data as needed. It uses data from
         <a href="https://dummyjson.com" target="_blank">https://dummyjson.com</a>.
       </p>
       <sl-grid .dataSource=${dataSource}>
@@ -283,7 +301,9 @@ export const Skeleton: Story = {
               style="aspect-ratio: 1; block-size: var(--sl-size-300); inline-size: auto"
               variant="circle"
             ></sl-skeleton>
-            <sl-skeleton style="block-size: 18px; inline-size: ${Math.max(Math.random() * 100, 30)}%"></sl-skeleton>
+            <sl-skeleton
+              style="block-size: 18px; inline-size: ${Math.max(Math.random() * 100, 30)}%"
+            ></sl-skeleton>
           </div>
         `;
       } else {
@@ -302,7 +322,10 @@ export const Skeleton: Story = {
     const dataSource = new FetchListDataSource<Student>({
       pageSize: 30,
       fetchPage: async ({ page, pageSize }) => {
-        const { students, total } = await getStudents({ count: pageSize, startIndex: page * pageSize });
+        const { students, total } = await getStudents({
+          count: pageSize,
+          startIndex: page * pageSize
+        });
 
         // Simulate a slow response: wait for 5 seconds
         await new Promise(resolve => setTimeout(resolve, 5000));
@@ -313,7 +336,9 @@ export const Skeleton: Story = {
     });
 
     return html`
-      <p>This example customizes the rendering of the student column to also handle loading states.</p>
+      <p>
+        This example customizes the rendering of the student column to also handle loading states.
+      </p>
       <sl-grid .dataSource=${dataSource}>
         <sl-grid-column grow="0" header="Nr." path="studentNumber" width="120"></sl-grid-column>
         <sl-grid-column
@@ -330,11 +355,19 @@ export const Skeleton: Story = {
 export const ReorderColumns: Story = {
   render: (_, { loaded: { students } }) => {
     class GridReorderExample extends LitElement {
-      @state() columns = [{ path: 'fullName' }, { path: 'email' }, { path: 'group.name' }, { path: 'school.name' }];
+      @state() columns = [
+        { path: 'fullName' },
+        { path: 'email' },
+        { path: 'group.name' },
+        { path: 'school.name' }
+      ];
 
       override render(): TemplateResult {
         return html`
-          <p>This example demonstrates that when you reorder columns in a grid, the grid updates accordingly.</p>
+          <p>
+            This example demonstrates that when you reorder columns in a grid, the grid updates
+            accordingly.
+          </p>
           <sl-button-bar style="margin-block-end: 1rem">
             <sl-button @click=${this.onClick}>Reorder columns</sl-button>
           </sl-button-bar>

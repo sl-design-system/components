@@ -318,7 +318,9 @@ describe('sl-text-field', () => {
 
   describe('aria attributes', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-text-field aria-label="my label" aria-disabled="true"></sl-text-field>`);
+      el = await fixture(
+        html`<sl-text-field aria-label="my label" aria-disabled="true"></sl-text-field>`
+      );
       input = el.querySelector('input')!;
 
       // Give time to rewrite arias

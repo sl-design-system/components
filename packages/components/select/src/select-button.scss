@@ -4,7 +4,11 @@
   --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
 
   align-items: center;
-  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  background: color-mix(
+    in srgb,
+    var(--_bg-color),
+    var(--_bg-mix-color) calc(100% * var(--_bg-opacity))
+  );
   border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-input);
   border-radius: var(--sl-size-borderRadius-default);
   color: var(--sl-color-foreground-plain);
@@ -78,7 +82,8 @@
   }
 
   .status {
-    border-inline-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-neutral-subtle);
+    border-inline-start: var(--sl-size-borderWidth-default) solid
+      var(--sl-color-border-neutral-subtle);
     margin-inline-start: 0;
     padding-inline-start: calc(var(--sl-size-100) - var(--sl-size-borderWidth-default));
   }

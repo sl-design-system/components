@@ -67,7 +67,8 @@ export const MenuButton: StoryObj = {
 
 export const ToggleButton: StoryObj = {
   render: () => ({
-    description: 'You can bind actions to buttons using the (sl-toggle) event to respond to toggle state changes.',
+    description:
+      'You can bind actions to buttons using the (sl-toggle) event to respond to toggle state changes.',
     props: {
       action: (event: Event) => console.log('Button toggled, current value:', event)
     },

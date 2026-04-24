@@ -16,13 +16,11 @@ const config: StorybookConfig = {
   features: {
     viewportStoryGlobals: true
   },
-  staticDirs: [
-    { from: '../../themes', to: '/themes' }
-  ],
+  staticDirs: [{ from: '../../themes', to: '/themes' }],
   docs: {
     //👇 Configure docs
     defaultName: 'Documentation',
-    docsMode: false, // 👈 Set to false to show both docs and canvas tabs
+    docsMode: false // 👈 Set to false to show both docs and canvas tabs
   }
 };
 

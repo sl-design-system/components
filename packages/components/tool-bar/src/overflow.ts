@@ -4,12 +4,13 @@ import { type ToolBarItem } from './mapping.js';
  * Calculate which items should be visible based on available width.
  *
  * Runs a two-pass algorithm:
- * 1. Determine whether an overflow menu is needed at all.
- * 2. Set each item's `visible` flag based on the effective width (accounting for the
- *    overflow menu button when present).
  *
- * After the two passes, orphaned dividers (dividers with no visible non-divider
- * neighbours on either side) are also hidden.
+ * 1. Determine whether an overflow menu is needed at all.
+ * 2. Set each item's `visible` flag based on the effective width (accounting for the overflow menu
+ *    button when present).
+ *
+ * After the two passes, orphaned dividers (dividers with no visible non-divider neighbours on
+ * either side) are also hidden.
  *
  * This function **mutates** the `visible` property of each item in place.
  */
@@ -65,9 +66,11 @@ export function calculateVisibility(
       continue;
     }
 
-    const hasVisibleBefore = i > 0 && items.slice(0, i).some(item => item.visible && item.type !== 'divider'),
+    const hasVisibleBefore =
+        i > 0 && items.slice(0, i).some(item => item.visible && item.type !== 'divider'),
       hasVisibleAfter =
-        i < items.length - 1 && items.slice(i + 1).some(item => item.visible && item.type !== 'divider');
+        i < items.length - 1 &&
+        items.slice(i + 1).some(item => item.visible && item.type !== 'divider');
 
     if (!hasVisibleBefore || !hasVisibleAfter) {
       items[i].visible = false;
@@ -76,7 +79,12 @@ export function calculateVisibility(
 }
 
 /** Set item visibility based on effective width, hiding items that don't fit. */
-function setItemVisibility(items: ToolBarItem[], widths: number[], effectiveWidth: number, gap: number): void {
+function setItemVisibility(
+  items: ToolBarItem[],
+  widths: number[],
+  effectiveWidth: number,
+  gap: number
+): void {
   let cumulativeWidth = 0,
     overflowing = false;
 
@@ -113,8 +121,8 @@ export function revealAllItems(items: ToolBarItem[]): void {
 }
 
 /**
- * Measure the widths of all items. Returns `undefined` if measurements are invalid
- * (e.g. non-divider items have zero width).
+ * Measure the widths of all items. Returns `undefined` if measurements are invalid (e.g.
+ * non-divider items have zero width).
  */
 export function measureItemWidths(items: ToolBarItem[]): number[] | undefined {
   const widths = items.map(item => item.element.getBoundingClientRect().width),
@@ -124,11 +132,14 @@ export function measureItemWidths(items: ToolBarItem[]): number[] | undefined {
 }
 
 /**
- * Measure the overflow menu button width including its margin.
- * Uses the wrapper height (the button is square) and falls back
- * to the actual button width when the wrapper has no height.
+ * Measure the overflow menu button width including its margin. Uses the wrapper height (the button
+ * is square) and falls back to the actual button width when the wrapper has no height.
  */
-export function measureMenuButtonWidth(wrapper: HTMLElement, menuButton: HTMLElement | undefined, gap: number): number {
+export function measureMenuButtonWidth(
+  wrapper: HTMLElement,
+  menuButton: HTMLElement | undefined,
+  gap: number
+): number {
   let width = wrapper.getBoundingClientRect().height;
 
   if ((isNaN(width) || width === 0) && menuButton) {
@@ -146,15 +157,17 @@ export function measureMenuButtonWidth(wrapper: HTMLElement, menuButton: HTMLEle
 }
 
 /**
- * Measure the available width using CSS containment to prevent the
- * toolbar from expanding its parent. Falls back to the parent's
- * width if containment collapses the toolbar to zero.
+ * Measure the available width using CSS containment to prevent the toolbar from expanding its
+ * parent. Falls back to the parent's width if containment collapses the toolbar to zero.
  */
 export function measureConstrainedWidth(host: HTMLElement, internals: ElementInternals): number {
   const hostStyles = getComputedStyle(host),
-    paddingInline = (parseFloat(hostStyles.paddingInlineStart) || 0) + (parseFloat(hostStyles.paddingInlineEnd) || 0),
+    paddingInline =
+      (parseFloat(hostStyles.paddingInlineStart) || 0) +
+      (parseFloat(hostStyles.paddingInlineEnd) || 0),
     borderInline =
-      (parseFloat(hostStyles.borderInlineStartWidth) || 0) + (parseFloat(hostStyles.borderInlineEndWidth) || 0);
+      (parseFloat(hostStyles.borderInlineStartWidth) || 0) +
+      (parseFloat(hostStyles.borderInlineEndWidth) || 0);
 
   // Add the measuring state so CSS applies containment.
   internals.states.add('measuring');
@@ -180,16 +193,19 @@ export function measureConstrainedWidth(host: HTMLElement, internals: ElementInt
 export function getContentBoxWidth(host: HTMLElement): number {
   const rect = host.getBoundingClientRect(),
     styles = getComputedStyle(host),
-    padding = (parseFloat(styles.paddingInlineStart) || 0) + (parseFloat(styles.paddingInlineEnd) || 0),
-    border = (parseFloat(styles.borderInlineStartWidth) || 0) + (parseFloat(styles.borderInlineEndWidth) || 0);
+    padding =
+      (parseFloat(styles.paddingInlineStart) || 0) + (parseFloat(styles.paddingInlineEnd) || 0),
+    border =
+      (parseFloat(styles.borderInlineStartWidth) || 0) +
+      (parseFloat(styles.borderInlineEndWidth) || 0);
 
   return rect.width - padding - border;
 }
 
 /**
- * Check if the host is wider than its parent. This means the host sizes itself
- * by its content (e.g. `inline-size: fit-content`) instead of filling the parent.
- * A 1px tolerance avoids false positives from sub-pixel rounding.
+ * Check if the host is wider than its parent. This means the host sizes itself by its content (e.g.
+ * `inline-size: fit-content`) instead of filling the parent. A 1px tolerance avoids false positives
+ * from sub-pixel rounding.
  */
 export function isFitContent(host: HTMLElement, parent: HTMLElement): boolean {
   return host.getBoundingClientRect().width > parent.clientWidth + 1;

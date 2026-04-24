@@ -1,5 +1,8 @@
 import { faCircleCheck, faCircleExclamation } from '@fortawesome/pro-solid-svg-icons';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { Skeleton } from '@sl-design-system/skeleton';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
@@ -23,9 +26,7 @@ const SANOMA_LEARNING_TYPEKIT_URL = 'https://use.typekit.net/kes1hoh.css';
 
 Icon.register(faCircleCheck, faCircleExclamation);
 
-/**
- * A component to check if the SL Design System has been installed correctly.
- */
+/** A component to check if the SL Design System has been installed correctly. */
 @customElement('slds-checklist')
 export class Checklist extends ScopedElementsMixin(LitElement) {
   /** @internal */
@@ -55,8 +56,11 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
     return html`
       <h1>SL Design System Checklist</h1>
       <p>
-        Welcome to the Sanoma Learning Design System. You will find a checklist below of the steps described in our
-        <a href="https://sanomalearning.design/categories/getting-started/developers/" target="_blank"
+        Welcome to the Sanoma Learning Design System. You will find a checklist below of the steps
+        described in our
+        <a
+          href="https://sanomalearning.design/categories/getting-started/developers/"
+          target="_blank"
           >getting started for developers guide</a
         >
         🚀.
@@ -66,8 +70,8 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
 
       <p>
         📚 You can find the documentation for the SL Design System at
-        <a href="https://sanomalearning.design" target="_blank">sanomalearning.design</a>. If you have any questions or
-        need help, you can reach out to us on
+        <a href="https://sanomalearning.design" target="_blank">sanomalearning.design</a>. If you
+        have any questions or need help, you can reach out to us on
         <a href="https://sanoma.slack.com/archives/C03SA9HUUA3" target="_blank">Slack</a> or
         <a href="https://github.com/sl-design-system/components/issues" target="_blank">GitHub</a>.
       </p>
@@ -79,7 +83,10 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
       item => html`
         <details .open=${!!item.description}>
           <summary @click=${(event: Event) => event.preventDefault()}>
-            <sl-icon .name=${item.description ? 'fas-circle-exclamation' : 'fas-circle-check'} size="xl"></sl-icon>
+            <sl-icon
+              .name=${item.description ? 'fas-circle-exclamation' : 'fas-circle-check'}
+              size="xl"
+            ></sl-icon>
             <span>${item.title}</span>
           </summary>
           <p>${item.description}</p>
@@ -128,9 +135,10 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
   #checkButton(): TemplateResult | void {
     if (!customElements.get('sl-button')) {
       return html`
-        The <code>sl-button</code> component is not loaded. Make sure you have installed the button package and added
-        the <code>import</code> statement to your application as described in the
-        <a href="https://sanomalearning.design/categories/getting-started/developers/#start-using-components"
+        The <code>sl-button</code> component is not loaded. Make sure you have installed the button
+        package and added the <code>import</code> statement to your application as described in the
+        <a
+          href="https://sanomalearning.design/categories/getting-started/developers/#start-using-components"
           >start using components</a
         >
         section.
@@ -140,20 +148,25 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
 
   async #checkFonts(): Promise<TemplateResult | void> {
     if (this.#checkTheme()) {
-      return html`We cannot check the fonts until the CSS Custom Properties are loaded. Please fix this first.`;
+      return html`We cannot check the fonts until the CSS Custom Properties are loaded. Please fix
+      this first.`;
     }
 
     const styles = getComputedStyle(this),
-      required = ['--sl-text-typeset-font-family-body', '--sl-text-typeset-font-family-heading'].map(name =>
-        styles.getPropertyValue(name)
-      ),
+      required = [
+        '--sl-text-typeset-font-family-body',
+        '--sl-text-typeset-font-family-heading'
+      ].map(name => styles.getPropertyValue(name)),
       available = await this.#getDocumentFontFamilies();
 
     if (!required.every(family => available.includes(family))) {
       return html`Not all required fonts are available. Your theme uses the font families
-      ${required.map((family, index) => html`<code>${family}</code>${index < required.length - 1 ? ' and ' : ''}`)}. The
-      fonts used in the theme are not a part of the theme package. Please make sure the fonts are loaded and the
-      font-family names match the exact spelling used in the Design System tokens.`;
+      ${required.map(
+        (family, index) => html`<code>${family}</code>${index < required.length - 1 ? ' and ' : ''}`
+      )}.
+      The fonts used in the theme are not a part of the theme package. Please make sure the fonts
+      are loaded and the font-family names match the exact spelling used in the Design System
+      tokens.`;
     }
   }
 
@@ -162,27 +175,34 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
 
     if (iconCount <= 2) {
       return html`
-        The theme icons are not loaded. Please make sure you are calling the <code>setup()</code> method from the theme
-        package as described in the
-        <a href="https://sanomalearning.design/categories/getting-started/developers/#setup-a-theme">setup a theme</a>
+        The theme icons are not loaded. Please make sure you are calling the
+        <code>setup()</code> method from the theme package as described in the
+        <a href="https://sanomalearning.design/categories/getting-started/developers/#setup-a-theme"
+          >setup a theme</a
+        >
         section.
       `;
     }
   }
 
   #checkTheme(): TemplateResult | void {
-    const base = !!getComputedStyle(this.parentElement!).getPropertyValue('--sl-color-palette-white-base'),
+    const base = !!getComputedStyle(this.parentElement!).getPropertyValue(
+        '--sl-color-palette-white-base'
+      ),
       lightOrDark = !!getComputedStyle(this.parentElement!).getPropertyValue(
         '--sl-color-surface-solid-primary-foreground'
       );
 
     if (base && !lightOrDark) {
-      return html`The base theme is set up correctly, but the tokens for the light or dark mode are missing. You likely
-      need to include the stylesheet for the light or dark mode in your application.`;
+      return html`The base theme is set up correctly, but the tokens for the light or dark mode are
+      missing. You likely need to include the stylesheet for the light or dark mode in your
+      application.`;
     } else if (!base && !lightOrDark) {
-      return html`We could not detect any theme tokens. Please make sure you have installed the theme package and added
-        the stylesheets to your application as described in the
-        <a href="https://sanomalearning.design/categories/getting-started/developers/#setup-a-theme">setup a theme</a>
+      return html`We could not detect any theme tokens. Please make sure you have installed the
+        theme package and added the stylesheets to your application as described in the
+        <a href="https://sanomalearning.design/categories/getting-started/developers/#setup-a-theme"
+          >setup a theme</a
+        >
         section.`;
     }
   }

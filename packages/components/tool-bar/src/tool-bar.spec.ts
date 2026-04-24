@@ -11,7 +11,12 @@ import { LitElement, html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import '../register.js';
-import { type ToolBarItem, type ToolBarItemButton, type ToolBarItemDivider, type ToolBarItemMenu } from './mapping.js';
+import {
+  type ToolBarItem,
+  type ToolBarItemButton,
+  type ToolBarItemDivider,
+  type ToolBarItemMenu
+} from './mapping.js';
 import { type ToolBar } from './tool-bar.js';
 
 Icon.register(faBell, faGear, faPen, faTrash, fasBell, fasGear);
@@ -496,7 +501,9 @@ describe('sl-tool-bar', () => {
       expect(menuButton).to.exist;
 
       // Start from first visible button and navigate right
-      const firstVisibleButton = overflowToolbar.querySelector('sl-button:not([style*="display: none"])') as Button;
+      const firstVisibleButton = overflowToolbar.querySelector(
+        'sl-button:not([style*="display: none"])'
+      ) as Button;
       firstVisibleButton?.focus();
       await (overflowToolbar as ToolBar).updateComplete;
 
@@ -550,11 +557,15 @@ describe('sl-tool-bar', () => {
       // Navigate forward twice (first -> second -> third enabled button)
       await userEvent.keyboard('{ArrowRight}');
       await el.updateComplete;
-      expect(closestElementComposed(document.activeElement!, 'sl-button')).to.equal(enabledButtons[1]);
+      expect(closestElementComposed(document.activeElement!, 'sl-button')).to.equal(
+        enabledButtons[1]
+      );
 
       await userEvent.keyboard('{ArrowRight}');
       await el.updateComplete;
-      expect(closestElementComposed(document.activeElement!, 'sl-button')).to.equal(enabledButtons[2]);
+      expect(closestElementComposed(document.activeElement!, 'sl-button')).to.equal(
+        enabledButtons[2]
+      );
     });
   });
 });

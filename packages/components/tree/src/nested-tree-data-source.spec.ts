@@ -151,7 +151,11 @@ describe('NestedTreeDataSource', () => {
 
       ds.expandDescendants(node);
 
-      expect(ds.items.filter(i => i.expandable).map(i => i.expanded)).to.deep.equal([true, false, true]);
+      expect(ds.items.filter(i => i.expandable).map(i => i.expanded)).to.deep.equal([
+        true,
+        false,
+        true
+      ]);
       expect(ds.items).to.have.length(6);
     });
 
@@ -195,12 +199,8 @@ describe('NestedTreeDataSource', () => {
   describe('level guides', () => {
     beforeEach(() => {
       /**
-       * A (level 0, not last)
-       * └─ A.1 (level 1, last child)
-       *   ├─ A.1.1 (level 2, not last child)
-       *   └─ A.1.2 (level 2, last child)
-       * B (level 0, last child)
-       * └─ B.1 (level 1, last child)
+       * A (level 0, not last) └─ A.1 (level 1, last child) ├─ A.1.1 (level 2, not last child) └─
+       * A.1.2 (level 2, last child) B (level 0, last child) └─ B.1 (level 1, last child)
        */
       ds = new NestedTreeDataSource<TestItem>(
         [

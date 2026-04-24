@@ -9,7 +9,14 @@ interface Symbols {
   index(v: string): string;
 }
 
-const nonLiteralParts = new Set(['decimal', 'fraction', 'integer', 'minusSign', 'plusSign', 'group']);
+const nonLiteralParts = new Set([
+  'decimal',
+  'fraction',
+  'integer',
+  'minusSign',
+  'plusSign',
+  'group'
+]);
 
 // This list is derived from https://www.unicode.org/cldr/charts/43/supplemental/language_plural_rules.html#comparison and includes
 // all unique numbers which we need to check in order to determine all the plural forms for a given locale.
@@ -45,7 +52,10 @@ function getSymbols(
 
   // Safari does not support the signDisplay option, but our number parser polyfills it.
   // If no plus sign was returned, but the original options contained signDisplay, default to the '+' character.
-  if (!plusSign && (originalOptions?.signDisplay === 'exceptZero' || originalOptions?.signDisplay === 'always')) {
+  if (
+    !plusSign &&
+    (originalOptions?.signDisplay === 'exceptZero' || originalOptions?.signDisplay === 'always')
+  ) {
     plusSign = '+';
   }
 
@@ -63,7 +73,9 @@ function getSymbols(
 
   // this set is also for a regex, it's all literals that might be in the string we want to eventually parse that
   // don't contribute to the numerical value
-  const allPartsLiterals = allParts.filter(p => !nonLiteralParts.has(p.type)).map(p => escapeRegex(p.value));
+  const allPartsLiterals = allParts
+    .filter(p => !nonLiteralParts.has(p.type))
+    .map(p => escapeRegex(p.value));
   const pluralPartsLiterals = pluralParts.flatMap(p =>
     p.filter(p => !nonLiteralParts.has(p.type)).map(p => escapeRegex(p.value))
   );
@@ -77,7 +89,9 @@ function getSymbols(
       : new RegExp(`${sortedLiterals.join('|')}|[\\p{White_Space}]`, 'gu');
 
   // These are for replacing non-latn characters with the latn equivalent
-  const numerals = [...new Intl.NumberFormat(intlOptions.locale, { useGrouping: false }).format(9876543210)].reverse();
+  const numerals = [
+    ...new Intl.NumberFormat(intlOptions.locale, { useGrouping: false }).format(9876543210)
+  ].reverse();
   const indexes = new Map(numerals.map((d, i) => [d, i]));
   const numeral = new RegExp(`[${numerals.join('')}]`, 'g');
   const index = (d: string) => String(indexes.get(d));

@@ -18,9 +18,7 @@ export interface NestedTreeDataSourceOptions<T> extends NestedTreeDataSourceMapp
   multiple?: boolean;
 }
 
-/**
- * A tree model that represents a nested list of nodes.
- */
+/** A tree model that represents a nested list of nodes. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class NestedTreeDataSource<T = any> extends TreeDataSource<T> {
   /** The mapping from the source model to the tree model. */
@@ -96,7 +94,11 @@ export class NestedTreeDataSource<T = any> extends TreeDataSource<T> {
     this.dispatchEvent(new CustomEvent('sl-update'));
   }
 
-  #mapToTreeNode(item: T, parent?: TreeDataSourceNode<T>, lastNodeInLevel?: boolean): TreeDataSourceNode<T> {
+  #mapToTreeNode(
+    item: T,
+    parent?: TreeDataSourceNode<T>,
+    lastNodeInLevel?: boolean
+  ): TreeDataSourceNode<T> {
     const {
       getAriaDescription,
       getChildren,

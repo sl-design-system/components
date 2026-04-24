@@ -1,5 +1,5 @@
 /// <reference types="vite/client" />
-import { localized, msg, str } from '@lit/localize';
+import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin, type SlFormControlEvent, type SlUpdateStateEvent } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
@@ -453,9 +453,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         <button
           @click=${this.#onButtonClick}
           ?disabled=${this.disabled}
-          aria-label=${msg(str`${this.listbox?.matches(':popover-open') ? 'Hide' : 'Show'} the options`, {
-            id: 'sl.combobox.toggleOptions'
-          })}
+          aria-label=${this.listbox?.matches(':popover-open')
+            ? msg('Hide the options', { id: 'sl.combobox.hideOptions' })
+            : msg('Show the options', { id: 'sl.combobox.showOptions' })}
           slot="suffix"
           tabindex="-1"
         >

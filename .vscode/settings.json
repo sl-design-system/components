@@ -8,8 +8,18 @@
   "editor.formatOnSaveMode": "file",
   "editor.tabSize": 2,
   "oxc.fmt.configPath": ".oxfmtrc.json",
+  "[css][scss]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.stylelint": "always"
+    }
+  },
   "[markdown]": {
     "editor.wordWrap": "wordWrapColumn",
     "editor.wordWrapColumn": 100
+  },
+  "[typescript][typescriptreact]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "always"
+    }
   }
 }

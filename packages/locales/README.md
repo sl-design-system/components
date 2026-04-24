@@ -174,13 +174,17 @@ const closeText = dutchTranslations.templates['sl.common.close']; // "Sluiten"
 If you know which locale you need at build time:
 
 ```typescript
+// Option 1: Import from main package (backward compatible)
 import { nl } from '@sl-design-system/locales';
+
+// Option 2: Import from subpath export
+import * as nl from '@sl-design-system/locales/nl.js';
 
 // Access translations directly
 const closeText = nl.templates['sl.common.close']; // "Sluiten"
 ```
 
-**Note:** Direct imports load the locale immediately. For better performance, prefer dynamic loading.
+**Note:** Direct imports load the locale immediately. For better performance, prefer dynamic loading. Modern bundlers can tree-shake unused locales when importing from the main package.
 
 ### Accessing Locale Metadata
 

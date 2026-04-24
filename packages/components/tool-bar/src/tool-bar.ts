@@ -13,6 +13,9 @@ import { type ToolBarItem, mapElementsToItems } from './mapping.js';
 import {
   applyVisibility,
   calculateVisibility,
+  getContentBoxWidth,
+  hasWrapperOverflow,
+  isFitContent,
   measureConstrainedWidth,
   measureItemWidths,
   measureMenuButtonWidth,
@@ -92,12 +95,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     // Only recalculate when there is real overflow, a pending measurement,
     // the parent changed size, or the toolbar's own width changed.
-    const hasOverflow =
-      this.wrapper.clientWidth < this.wrapper.scrollWidth || this.wrapper.clientHeight < this.wrapper.scrollHeight;
+    const widthChanged = hostEntry !== undefined && Math.ceil(getContentBoxWidth(this)) !== this.#lastAvailableWidth;
 
-    const widthChanged = hostEntry !== undefined && Math.ceil(this.#getContentBoxWidth()) !== this.#lastAvailableWidth;
-
-    if (parentEntry || hasOverflow || this.#needsMeasurement || widthChanged) {
+    if (parentEntry || hasWrapperOverflow(this.wrapper) || this.#needsMeasurement || widthChanged) {
       this.#onResize();
     }
   });
@@ -384,13 +384,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     // Detect fit-content: if the toolbar overflows its parent,
     // switch to CSS containment and watch the parent for changes.
-    if (!this.#fitContent && this.parentElement) {
-      const hostBorderBox = this.getBoundingClientRect().width;
-
-      if (hostBorderBox > this.parentElement.clientWidth + 1) {
-        this.#fitContent = true;
-        this.#resizeObserver.observe(this.parentElement);
-      }
+    if (!this.#fitContent && this.parentElement && isFitContent(this, this.parentElement)) {
+      this.#fitContent = true;
+      this.#resizeObserver.observe(this.parentElement);
     }
 
     let availableWidth: number;
@@ -399,7 +395,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       // Fit-content: use CSS containment to measure the external constraint
       availableWidth = measureConstrainedWidth(this, this.#internals);
     } else {
-      availableWidth = this.#getContentBoxWidth();
+      availableWidth = getContentBoxWidth(this);
     }
 
     // Remove `all-items-hidden` so the margin resolves correctly, but keep `hidden` to avoid layout changes during measurement.
@@ -525,16 +521,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
       return false;
     });
-  }
-
-  /** Compute the content-box width of the host element. */
-  #getContentBoxWidth(): number {
-    const rect = this.getBoundingClientRect(),
-      styles = getComputedStyle(this),
-      padding = (parseFloat(styles.paddingInlineStart) || 0) + (parseFloat(styles.paddingInlineEnd) || 0),
-      border = (parseFloat(styles.borderInlineStartWidth) || 0) + (parseFloat(styles.borderInlineEndWidth) || 0);
-
-    return rect.width - padding - border;
   }
 
   #measureItems(): void {

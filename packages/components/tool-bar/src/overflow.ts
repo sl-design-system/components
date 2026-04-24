@@ -175,3 +175,27 @@ export function measureConstrainedWidth(host: HTMLElement, internals: ElementInt
     internals.states.delete('measuring');
   }
 }
+
+/** Compute the content-box width of an element. */
+export function getContentBoxWidth(host: HTMLElement): number {
+  const rect = host.getBoundingClientRect(),
+    styles = getComputedStyle(host),
+    padding = (parseFloat(styles.paddingInlineStart) || 0) + (parseFloat(styles.paddingInlineEnd) || 0),
+    border = (parseFloat(styles.borderInlineStartWidth) || 0) + (parseFloat(styles.borderInlineEndWidth) || 0);
+
+  return rect.width - padding - border;
+}
+
+/**
+ * Check if the host is wider than its parent. This means the host sizes itself
+ * by its content (e.g. `inline-size: fit-content`) instead of filling the parent.
+ * A 1px tolerance avoids false positives from sub-pixel rounding.
+ */
+export function isFitContent(host: HTMLElement, parent: HTMLElement): boolean {
+  return host.getBoundingClientRect().width > parent.clientWidth + 1;
+}
+
+/** Check if the wrapper's content is overflowing its visible bounds. */
+export function hasWrapperOverflow(wrapper: HTMLElement): boolean {
+  return wrapper.clientWidth < wrapper.scrollWidth || wrapper.clientHeight < wrapper.scrollHeight;
+}

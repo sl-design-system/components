@@ -4,7 +4,7 @@ import { camelize, dasherize } from './utils.js';
 
 function getComponentEvents(component, eventMap) {
   return component.events?.map(event => {
-    const matches = event.type.text.match(/(\w+)(<(.+)>)?/),
+    const matches = event.type.text.match(/(\w+)(\<(.+)\>)?/),
       type = matches[1],
       angularName = camelize(event.name),
       code = `  @Output() ${angularName} = new EventEmitter<${type ?? 'void'}>();`,
@@ -30,7 +30,13 @@ import { CePassthrough } from '@sl-design-system/angular';
 export class ${component.name}Component extends CePassthrough<${component.name}> {${events.length ? `\n  static override eventMap = {\n${events.map(event => `    '${event.name}': '${event.angularName}'`).join(',\n')}\n  };\n` : ''}
 ${
   component.members
-    ?.filter(member => member.kind === 'field' && !member.privacy && !member.static && !member.name.endsWith('Event'))
+    ?.filter(
+      member =>
+        member.kind === 'field' &&
+        !member.privacy &&
+        !member.static &&
+        !member.name.endsWith('Event')
+    )
     .map(member => `  @Input() ${member.name}!: ${component.name}['${member.name}'];`)
     .join('\n') ?? ''
 }
@@ -89,10 +95,16 @@ const generateComponents = async (modules, exclude, outDir) => {
   );
 
   const components = modules
-    .flatMap(m => m.declarations.filter(decl => (!exclude.includes(decl.name) && decl.customElement) || decl.tagName))
+    .flatMap(m =>
+      m.declarations.filter(
+        decl => (!exclude.includes(decl.name) && decl.customElement) || decl.tagName
+      )
+    )
     .filter(({ tagName }) => ceMap.has(tagName) && ceMap.get(tagName).package);
 
-  const packages = new Map(components.map(c => [ceMap.get(c.tagName).package.split('/').pop(), []]));
+  const packages = new Map(
+    components.map(c => [ceMap.get(c.tagName).package.split('/').pop(), []])
+  );
 
   for (const component of components) {
     const ce = ceMap.get(component.tagName),

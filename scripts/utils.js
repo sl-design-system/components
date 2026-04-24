@@ -10,16 +10,16 @@ const STRING_DASHERIZE_REGEXP = /[ _]/g,
  * Returns the lowerCamelCase form of a string.
  *
  * ```javascript
- * camelize('innerHTML')          // 'innerHTML'
- * camelize('action_name')        // 'actionName'
- * camelize('css-class-name')     // 'cssClassName'
- * camelize('object.path.name')   // 'objectPathName'
- * camelize('my favorite items')  // 'myFavoriteItems'
- * camelize('My Favorite Items')  // 'myFavoriteItems'
+ * camelize('innerHTML'); // 'innerHTML'
+ * camelize('action_name'); // 'actionName'
+ * camelize('css-class-name'); // 'cssClassName'
+ * camelize('object.path.name'); // 'objectPathName'
+ * camelize('my favorite items'); // 'myFavoriteItems'
+ * camelize('My Favorite Items'); // 'myFavoriteItems'
  * ```
  *
  * @param str The string to camelize.
- * @returns the camelized string.
+ * @returns The camelized string.
  */
 export function camelize(str) {
   return str
@@ -33,10 +33,10 @@ export function camelize(str) {
  * Returns the Capitalized form of a string
  *
  * ```javascript
- * capitalize('innerHTML')         // 'InnerHTML'
- * capitalize('action_name')       // 'Action_name'
- * capitalize('css-class-name')    // 'Css-class-name'
- * capitalize('my favorite items') // 'My favorite items'
+ * capitalize('innerHTML'); // 'InnerHTML'
+ * capitalize('action_name'); // 'Action_name'
+ * capitalize('css-class-name'); // 'Css-class-name'
+ * capitalize('my favorite items'); // 'My favorite items'
  * ```
  *
  * @param str The string to capitalize.
@@ -50,14 +50,14 @@ export function capitalize(str) {
  * Returns the UpperCamelCase form of a string.
  *
  * ```javascript
- * classify('innerHTML')          // 'InnerHTML'
- * classify('action_name')        // 'ActionName'
- * classify('css-class-name')     // 'CssClassName'
- * classify('my favorite items')  // 'MyFavoriteItems'
+ * classify('innerHTML'); // 'InnerHTML'
+ * classify('action_name'); // 'ActionName'
+ * classify('css-class-name'); // 'CssClassName'
+ * classify('my favorite items'); // 'MyFavoriteItems'
  * ```
  *
- * @param str the string to classify
- * @returns the classified string
+ * @param str The string to classify
+ * @returns The classified string
  */
 export function classify(str) {
   return str
@@ -70,14 +70,14 @@ export function classify(str) {
  * Replaces underscores, spaces, or camelCase with dashes.
  *
  * ```javascript
- * dasherize('innerHTML')         // 'inner-html'
- * dasherize('action_name')       // 'action-name'
- * dasherize('css-class-name')    // 'css-class-name'
- * dasherize('my favorite items') // 'my-favorite-items'
+ * dasherize('innerHTML'); // 'inner-html'
+ * dasherize('action_name'); // 'action-name'
+ * dasherize('css-class-name'); // 'css-class-name'
+ * dasherize('my favorite items'); // 'my-favorite-items'
  * ```
  *
  * @param str The string to dasherize.
- * @returns the dasherized string.
+ * @returns The dasherized string.
  */
 export function dasherize(str) {
   return decamelize(str).replace(STRING_DASHERIZE_REGEXP, '-');
@@ -87,14 +87,14 @@ export function dasherize(str) {
  * Converts a camelized string into all lower case separated by underscores.
  *
  * ```javascript
- * decamelize('innerHTML')         // 'inner_html'
- * decamelize('action_name')       // 'action_name'
- * decamelize('css-class-name')    // 'css-class-name'
- * decamelize('my favorite items') // 'my favorite items'
+ * decamelize('innerHTML'); // 'inner_html'
+ * decamelize('action_name'); // 'action_name'
+ * decamelize('css-class-name'); // 'css-class-name'
+ * decamelize('my favorite items'); // 'my favorite items'
  * ```
  *
  * @param str The string to decamelize.
- * @returns the decamelized string.
+ * @returns The decamelized string.
  */
 export function decamelize(str) {
   return str.replace(STRING_DECAMELIZE_REGEXP, '$1_$2').toLowerCase();
@@ -104,10 +104,10 @@ export function decamelize(str) {
  * Returns the Humanized form of a string
  *
  * ```javascript
- * humanize('innerHTML')         // 'Inner html'
- * humanize('action_name')       // 'Action name'
- * humanize('css-class-name')    // 'Css class name'
- * humanize('my favorite items') // 'My favorite items'
+ * humanize('innerHTML'); // 'Inner html'
+ * humanize('action_name'); // 'Action name'
+ * humanize('css-class-name'); // 'Css class name'
+ * humanize('my favorite items'); // 'My favorite items'
  * ```
  *
  * @param str The string to humanize.
@@ -126,19 +126,21 @@ export function humanize(str) {
 }
 
 /**
- * More general than decamelize. Returns the lower\_case\_and\_underscored
- * form of a string.
+ * More general than decamelize. Returns the lower_case_and_underscored form of a string.
  *
  * ```javascript
- * underscore('innerHTML')          // 'inner_html'
- * underscore('action_name')        // 'action_name'
- * underscore('css-class-name')     // 'css_class_name'
- * underscore('my favorite items')  // 'my_favorite_items'
+ * underscore('innerHTML'); // 'inner_html'
+ * underscore('action_name'); // 'action_name'
+ * underscore('css-class-name'); // 'css_class_name'
+ * underscore('my favorite items'); // 'my_favorite_items'
  * ```
  *
  * @param str The string to underscore.
- * @returns the underscored string.
+ * @returns The underscored string.
  */
 export function underscore(str) {
-  return str.replace(STRING_UNDERSCORE_REGEXP_1, '$1_$2').replace(STRING_UNDERSCORE_REGEXP_2, '_').toLowerCase();
+  return str
+    .replace(STRING_UNDERSCORE_REGEXP_1, '$1_$2')
+    .replace(STRING_UNDERSCORE_REGEXP_2, '_')
+    .toLowerCase();
 }

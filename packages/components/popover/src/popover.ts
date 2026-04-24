@@ -1,5 +1,11 @@
 import { AnchorController, EventsController, type PopoverPosition } from '@sl-design-system/shared';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './popover.scss.js';
 
@@ -34,7 +40,6 @@ export class Popover extends LitElement {
   /** @internal The default margin between the tooltip and the viewport. */
   static viewportMargin = 8;
 
-  // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { keydown: this.#onKeydown });
 
   /** Controller for managing anchoring. */
@@ -47,14 +52,16 @@ export class Popover extends LitElement {
 
   /**
    * The position of popover relative to its anchor.
+   *
    * @default bottom
    */
   @property() position?: PopoverPosition = 'bottom';
 
   /**
-   * When the contents of your popover is too long to be read inline this should be set to true so the user
-   * can navigate to the popover content themselves. `aria-details` is always set, regardless of this property.
-   * Read more about this in the [accessibility documentation](https://sanomalearning.design/categories/components/popover/accessibility/).
+   * When the contents of your popover is too long to be read inline this should be set to true so
+   * the user can navigate to the popover content themselves. `aria-details` is always set,
+   * regardless of this property. Read more about this in the [accessibility
+   * documentation](https://sanomalearning.design/categories/components/popover/accessibility/).
    */
   @property({ type: Boolean, attribute: 'no-describedby' }) noDescribedby?: boolean;
 
@@ -82,7 +89,12 @@ export class Popover extends LitElement {
         <slot></slot>
       </div>
       <div part="arrow" aria-hidden="true">
-        <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" clip-rule="evenodd" viewBox="0 0 20 11">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xml:space="preserve"
+          clip-rule="evenodd"
+          viewBox="0 0 20 11"
+        >
           <path d="M0 11 20 11 10 1 0 11" paint-order="stroke" />
         </svg>
       </div>

@@ -21,17 +21,15 @@ export interface ClassElement {
 }
 
 /**
- * Helper for decorating a property that is compatible with both TypeScript
- * and Babel decorators. The optional `finisher` can be used to perform work on
- * the class. The optional `descriptor` should return a PropertyDescriptor
- * to install for the given property.
+ * Helper for decorating a property that is compatible with both TypeScript and Babel decorators.
+ * The optional `finisher` can be used to perform work on the class. The optional `descriptor`
+ * should return a PropertyDescriptor to install for the given property.
  *
- * @param finisher {function} Optional finisher method; receives the element
- * constructor and property key as arguments and has no return value.
- * @param descriptor {function} Optional descriptor method; receives the
- * property key as an argument and returns a property descriptor to define for
- * the given property.
- * @returns {ClassElement|void}
+ * @param finisher {function} Optional finisher method; receives the element constructor and
+ *   property key as arguments and has no return value.
+ * @param descriptor {function} Optional descriptor method; receives the property key as an argument
+ *   and returns a property descriptor to define for the given property.
+ * @returns {ClassElement | void}
  */
 export const decorateProperty =
   ({
@@ -45,7 +43,7 @@ export const decorateProperty =
     protoOrDescriptor: ReactiveElement | ClassElement,
     name?: PropertyKey
     // Note TypeScript requires the return type to be `void|any`
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-redundant-type-constituents
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): void | any => {
     // TypeScript / Babel legacy mode
     if (name !== undefined) {
@@ -60,7 +58,8 @@ export const decorateProperty =
       // so try to use it here.
       const key: PropertyKey =
         // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
-        ((protoOrDescriptor as unknown as any).originalKey as PropertyKey) ?? (protoOrDescriptor as ClassElement).key;
+        ((protoOrDescriptor as unknown as any).originalKey as PropertyKey) ??
+        (protoOrDescriptor as ClassElement).key;
       const info: ClassElement =
         descriptor != undefined
           ? {

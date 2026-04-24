@@ -1,8 +1,8 @@
 /**
  * Backwards Compatibility Check for CSS Variables
  *
- * This script compares CSS variables between the current theme files and reference theme files
- * to ensure backwards compatibility.
+ * This script compares CSS variables between the current theme files and reference theme files to
+ * ensure backwards compatibility.
  *
  * See backwards-compatibility-check-README.md for setup instructions.
  */
@@ -13,6 +13,7 @@ import { argv } from 'node:process';
 
 /**
  * Extracts CSS custom properties (variables) from CSS content
+ *
  * @param {string} cssContent - The CSS file content
  * @returns {Set<string>} Set of CSS variable names (including --)
  */
@@ -31,6 +32,7 @@ function extractCSSVariables(cssContent) {
 
 /**
  * Reads and combines CSS variables from light.css and light-deprecated.css (or dark variants)
+ *
  * @param {string} themePath - Path to the theme folder
  * @param {string} variant - 'light' or 'dark'
  * @returns {Promise<Set<string>>} Combined set of CSS variables
@@ -42,7 +44,7 @@ async function getCombinedVariables(themePath, variant) {
     const newFile = await readFile(join(themePath, `${variant}.css`), 'utf-8');
     const newVars = extractCSSVariables(newFile);
     newVars.forEach(v => variables.add(v));
-  } catch  {
+  } catch {
     // File might not exist
   }
 
@@ -50,7 +52,7 @@ async function getCombinedVariables(themePath, variant) {
     const oldFile = await readFile(join(themePath, `${variant}-deprecated.css`), 'utf-8');
     const oldVars = extractCSSVariables(oldFile);
     oldVars.forEach(v => variables.add(v));
-  } catch  {
+  } catch {
     // File might not exist
   }
 
@@ -59,6 +61,7 @@ async function getCombinedVariables(themePath, variant) {
 
 /**
  * Gets CSS variables from a reference file
+ *
  * @param {string} referencePath - Path to the reference theme folder
  * @param {string} variant - 'light' or 'dark'
  * @returns {Promise<Set<string>>} Set of CSS variables
@@ -67,13 +70,14 @@ async function getReferenceVariables(referencePath, variant) {
   try {
     const refFile = await readFile(join(referencePath, `${variant}.css`), 'utf-8');
     return extractCSSVariables(refFile);
-  } catch  {
+  } catch {
     return new Set();
   }
 }
 
 /**
  * Compares CSS variables and finds missing ones
+ *
  * @param {Set<string>} reference - Reference variables (from old location)
  * @param {Set<string>} current - Current variables (from packages/themes)
  * @returns {string[]} Array of missing variable names
@@ -91,9 +95,7 @@ function findMissingVariables(reference, current) {
   return missing.sort();
 }
 
-/**
- * Main function to check backwards compatibility
- */
+/** Main function to check backwards compatibility */
 async function checkBackwardsCompatibility() {
   // Get reference path from command line arguments
   const referenceRoot = argv[2];

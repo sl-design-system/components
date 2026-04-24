@@ -1,9 +1,6 @@
 {
-  "$schema": "https://unpkg.com/@changesets/config@2.2.0/schema.json",
-  "changelog": [
-    "./changelog-format.js",
-    { "repo": "sl-design-system/components" }
-  ],
+  "$schema": "../node_modules/@changesets/config/schema.json",
+  "changelog": ["./changelog-format.js", { "repo": "sl-design-system/components" }],
   "commit": false,
   "fixed": [],
   "linked": [],

@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-escape */
 import { humanize } from './string.js';
 
 type ArrayPathImpl<T, Key extends string> = Key extends `${infer K}[${infer I}]${infer Rest}`
@@ -63,7 +62,11 @@ export function getValueByPath<T, P extends PathKeys<T>>(obj: T, path: P): Path<
   return result as Path<T, P>;
 }
 
-export function setValueByPath<T, P extends PathKeys<T>>(obj: T, path: P, value: Path<T, P> | undefined): void {
+export function setValueByPath<T, P extends PathKeys<T>>(
+  obj: T,
+  path: P,
+  value: Path<T, P> | undefined
+): void {
   const keys = path.match(/([^[\].]+|\[\d+\])/g) ?? [];
 
   let result: unknown = obj;

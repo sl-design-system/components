@@ -1,0 +1,76 @@
+name: Website a11y automated tests
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'website/src/**'
+      - 'website/tests/**'
+
+  push:
+    branches:
+      - main
+    paths:
+      - 'website/src/**'
+      - 'website/tests/**'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+env:
+  FIGMA_TOKEN: ${{ secrets.FIGMA_AUTH_TOKEN }}
+  FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
+  GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  HUSKY: 0
+  TOKENS_STUDIO_API_KEY: ${{ secrets.TOKENS_STUDIO_2_API_KEY }}
+
+jobs:
+  a11y-tests-for-changed-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch base branch
+        run: git fetch origin ${{ github.base_ref || 'main' }} --depth=1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Install Playwright browsers
+        run: yarn playwright install --with-deps
+
+      - name: Generate changed URLs
+        run: node scripts/get-changed-urls.js
+        env:
+          BASE: origin/${{ github.base_ref || 'main' }}
+
+      - name: Build website
+        run: yarn website
+
+      - name: Start server
+        run: yarn workspace @sl-design-system/website start &
+        working-directory: .
+
+      - name: Wait for server
+        run: yarn dlx wait-on --timeout 600000 --interval 1000 http://localhost:8000
+
+      - name: Run Playwright & axe-core tests
+        run: yarn playwright test --config=playwright.config.ts --project=website
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: a11y-results
+          path: reports/website

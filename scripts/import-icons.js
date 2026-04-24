@@ -42,7 +42,8 @@ const getColorToken = (pathCounter, style) => {
 };
 
 const getIconStyle = (iconName, text, style) => {
-  const familyPrefix = text.typeset.fontFamily.icon.value === 'Font Awesome 6 Sharp' ? 'sharp-' : '',
+  const familyPrefix =
+      text.typeset.fontFamily.icon.value === 'Font Awesome 6 Sharp' ? 'sharp-' : '',
     weight = style?.outline?.value
       ? style.outline.value.split('.').pop().replace('}', '').replace('icon-', '')
       : 'regular',
@@ -93,7 +94,10 @@ const buildIcons = async theme => {
       return;
     }
 
-    const faIcon = convertToIconDefinition(tokenValue.replace('fa-', ''), getIconStyle(iconName, text, style));
+    const faIcon = convertToIconDefinition(
+      tokenValue.replace('fa-', ''),
+      getIconStyle(iconName, text, style)
+    );
     if (!faIcon) {
       return;
     }
@@ -127,9 +131,13 @@ const buildIcons = async theme => {
   const filesToRead = customIconFiles.map(fileName => {
     const iconName = fileName.replace('icon=', '').replace('.svg', '');
 
-    return fs.readFile(join(cwd, `../packages/themes/${theme}/icons/${fileName}`), 'utf8').then(svg => {
-      iconsCustom[iconName] = { svg: svg.replace('<svg ', '<svg fill="var(--sl-icon-fill-default)" ') };
-    });
+    return fs
+      .readFile(join(cwd, `../packages/themes/${theme}/icons/${fileName}`), 'utf8')
+      .then(svg => {
+        iconsCustom[iconName] = {
+          svg: svg.replace('<svg ', '<svg fill="var(--sl-icon-fill-default)" ')
+        };
+      });
   });
 
   await Promise.all(filesToRead);
@@ -137,7 +145,9 @@ const buildIcons = async theme => {
   // 4. Write the output to `icons.json`???? Or just `icons.ts` which exports
   console.log(`Writing icons to ${theme}...`);
   const filePath = join(cwd, `../packages/themes/${theme}/icons.ts`),
-    sortedIcons = Object.fromEntries(Object.entries({ ...icons, ...coreCustomIcons, ...iconsCustom }).sort()),
+    sortedIcons = Object.fromEntries(
+      Object.entries({ ...icons, ...coreCustomIcons, ...iconsCustom }).sort()
+    ),
     source = `
       // This is a generated file, do not edit. Edit the core.json or base.json files instead.
       export const icons = ${JSON.stringify(sortedIcons)};
@@ -172,13 +182,17 @@ const exportCoreIcons = async () => {
   await new Promise((resolve, reject) => {
     console.log(`Extracting icons from Figma for core...`);
     // Pbs7HEwKmwm6wAX9tfjk2N is the page id in figma where the icons are stored
-    exec(`yarn run figma-export use-config .figmaexportrc.js Pbs7HEwKmwm6wAX9tfjk2N`, { cwd }, error => {
-      if (error) {
-        reject(error);
-      }
+    exec(
+      `yarn run figma-export use-config .figmaexportrc.js Pbs7HEwKmwm6wAX9tfjk2N`,
+      { cwd },
+      error => {
+        if (error) {
+          reject(error);
+        }
 
-      resolve();
-    });
+        resolve();
+      }
+    );
   });
 
   // 3. Convert downloaded icons to appropriate format?

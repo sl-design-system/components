@@ -185,11 +185,27 @@ export const IndicatorDates: Story = {
   args: {
     indicatorDates: [
       { date: new Date(), color: 'red', label: indicatorLabels.red.label },
-      { date: new Date('2025-09-05'), color: 'blue' as IndicatorColor, label: indicatorLabels.blue.label },
+      {
+        date: new Date('2025-09-05'),
+        color: 'blue' as IndicatorColor,
+        label: indicatorLabels.blue.label
+      },
       { date: new Date('2025-09-24'), label: indicatorLabels.default.label },
-      { date: new Date('2025-09-09'), color: 'green' as IndicatorColor, label: indicatorLabels.green.label },
-      { date: new Date('2025-09-11'), color: 'grey' as IndicatorColor, label: indicatorLabels.grey.label },
-      { date: new Date('2025-09-12'), color: 'yellow' as IndicatorColor, label: indicatorLabels.yellow.label },
+      {
+        date: new Date('2025-09-09'),
+        color: 'green' as IndicatorColor,
+        label: indicatorLabels.green.label
+      },
+      {
+        date: new Date('2025-09-11'),
+        color: 'grey' as IndicatorColor,
+        label: indicatorLabels.grey.label
+      },
+      {
+        date: new Date('2025-09-12'),
+        color: 'yellow' as IndicatorColor,
+        label: indicatorLabels.yellow.label
+      },
       { date: new Date('2025-09-18'), color: 'red', label: indicatorLabels.red.label }
     ],
     month: new Date('2025-09-01'),
@@ -249,7 +265,10 @@ export const All: Story = {
 
         <div class="calendar-wrapper">
           <span>Selected</span>
-          <sl-calendar month=${mockDate.toISOString()} selected=${selectedDate.toISOString()}></sl-calendar>
+          <sl-calendar
+            month=${mockDate.toISOString()}
+            selected=${selectedDate.toISOString()}
+          ></sl-calendar>
         </div>
 
         <div class="calendar-wrapper">
@@ -308,7 +327,11 @@ export const All: Story = {
 
         <div class="calendar-wrapper">
           <span>Readonly</span>
-          <sl-calendar month=${mockDate.toISOString()} readonly selected=${selectedDate.toISOString()}></sl-calendar>
+          <sl-calendar
+            month=${mockDate.toISOString()}
+            readonly
+            selected=${selectedDate.toISOString()}
+          ></sl-calendar>
         </div>
       </section>
     `;

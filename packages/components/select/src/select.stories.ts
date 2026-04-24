@@ -17,7 +17,10 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type Select, type SelectSize } from './select.js';
 
-type Props = Pick<Select, 'clearable' | 'disabled' | 'placeholder' | 'required' | 'size' | 'value'> & {
+type Props = Pick<
+  Select,
+  'clearable' | 'disabled' | 'placeholder' | 'required' | 'size' | 'value'
+> & {
   hint?: string;
   label?: string;
   options?(): TemplateResult;
@@ -49,7 +52,19 @@ export default {
       control: 'text'
     }
   },
-  render: ({ clearable, disabled, hint, label, options, placeholder, reportValidity, required, size, slot, value }) => {
+  render: ({
+    clearable,
+    disabled,
+    hint,
+    label,
+    options,
+    placeholder,
+    reportValidity,
+    required,
+    size,
+    slot,
+    value
+  }) => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
       event.target.closest('sl-form')?.reportValidity();
     };
@@ -171,7 +186,8 @@ export const CustomStyling: Story = {
       </style>
 
       <p>
-        This story shows a select component with custom styling. Each option displays a colored circle, and a label.
+        This story shows a select component with custom styling. Each option displays a colored
+        circle, and a label.
       </p>
 
       <sl-select placeholder="Select a color">
@@ -246,9 +262,9 @@ export const OptionsStyling: Story = {
         }
       </style>
       <p>
-        This story demonstrates select options with custom content, including icons and styled elements. Each option
-        displays a colored circle, an sl-icon, and a label. The story shows how to style the selected option display and
-        individual option containers.
+        This story demonstrates select options with custom content, including icons and styled
+        elements. Each option displays a colored circle, an sl-icon, and a label. The story shows
+        how to style the selected option display and individual option containers.
       </p>
       <sl-select value="circle">${options.map(optionsRenderer)} </sl-select>
     `;
@@ -294,8 +310,9 @@ export const NoVisibleLabel: StoryObj = {
   render: () => {
     return html`
       <p style="margin: 0 0 1rem 0">
-        This select has no internal or external label. It only has an <code>aria-label</code> attribute. That attribute
-        is automatically applied to the <code>sl-select-button</code> element.
+        This select has no internal or external label. It only has an
+        <code>aria-label</code> attribute. That attribute is automatically applied to the
+        <code>sl-select-button</code> element.
       </p>
       <sl-select aria-label="Select an option">
         <sl-option value="1">Option 1</sl-option>
@@ -310,7 +327,10 @@ export const OptionOverflow: Story = {
   args: {
     hint: 'This field has a lot of options, try scrolling through them.',
     options: () => html`
-      ${Array.from({ length: 100 }, (_, i) => html`<sl-option value=${i + 1}>Option ${i + 1}</sl-option>`)}
+      ${Array.from(
+        { length: 100 },
+        (_, i) => html`<sl-option value=${i + 1}>Option ${i + 1}</sl-option>`
+      )}
     `
   }
 };
@@ -335,12 +355,13 @@ export const TextOverflow: Story = {
       'Cupidatat adipisicing adipisicing dolore in ea ea magna culpa Lorem aute veniam in. Laboris ea pariatur velit adipisicing pariatur aliqua Lorem est aliqua Lorem minim excepteur.',
     options: () => html`
       <sl-option value="1">
-        Voluptate sint ullamco proident cillum sint nostrud laborum labore et ad minim veniam eiusmod.
+        Voluptate sint ullamco proident cillum sint nostrud laborum labore et ad minim veniam
+        eiusmod.
       </sl-option>
       <sl-option value="2">Consequat cupidatat amet sunt laborum laborum quis.</sl-option>
       <sl-option value="3">
-        Culpa cillum nulla aute non quis deserunt minim sit magna. Consectetur in laborum mollit ea cillum dolor est ut
-        deserunt qui nostrud deserunt. Labore adipisicing anim non sint.
+        Culpa cillum nulla aute non quis deserunt minim sit magna. Consectetur in laborum mollit ea
+        cillum dolor est ut deserunt qui nostrud deserunt. Labore adipisicing anim non sint.
       </sl-option>
     `
   }
@@ -427,7 +448,10 @@ export const CustomAsyncValidity: Story = {
     slot: () => {
       const onValidate = (event: Event & { target: Select }): void => {
         const promise = new Promise<string>(resolve =>
-          setTimeout(() => resolve(event.target.value === '2' ? '' : 'Select the second option'), 2000)
+          setTimeout(
+            () => resolve(event.target.value === '2' ? '' : 'Select the second option'),
+            2000
+          )
         );
 
         event.target.setCustomValidity(promise);

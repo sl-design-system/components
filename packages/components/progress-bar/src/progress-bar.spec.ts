@@ -126,6 +126,8 @@ describe('sl-progress-bar', () => {
     el.variant = 'warning';
     await el.updateComplete;
 
-    expect((sendToAnnouncerSpy.getCall(-1).args[0] as SlAnnounceEvent).detail.message).to.equal('60%');
+    expect((sendToAnnouncerSpy.getCall(-1).args[0] as SlAnnounceEvent).detail.message).to.equal(
+      '60%'
+    );
   });
 });

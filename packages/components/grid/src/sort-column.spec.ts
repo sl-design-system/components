@@ -31,7 +31,9 @@ describe('sl-sort-column', () => {
     });
 
     it('should have a header row count of 1', () => {
-      const headerRowCount = Array.from(el.querySelectorAll('sl-grid-sort-column')).map(col => col.headerRowCount);
+      const headerRowCount = Array.from(el.querySelectorAll('sl-grid-sort-column')).map(
+        col => col.headerRowCount
+      );
 
       expect(headerRowCount).to.deep.equal([1, 1, 1]);
     });
@@ -51,14 +53,22 @@ describe('sl-sort-column', () => {
     it('should set the correct parts on the th elements', () => {
       const parts = Array.from(el.renderRoot.querySelectorAll('th')).map(th => th.part.value);
 
-      expect(parts).to.deep.equal(['header sort first-name', 'header sort last-name', 'header sort age']);
+      expect(parts).to.deep.equal([
+        'header sort first-name',
+        'header sort last-name',
+        'header sort age'
+      ]);
     });
 
     it('should render the sorter in the header row', () => {
       const headers = Array.from(el.renderRoot.querySelectorAll('thead tr th > *'));
 
       expect(headers.every(h => h instanceof GridSorter)).to.be.true;
-      expect(headers.map(h => h.textContent?.trim())).to.deep.equal(['First name', 'Last name', 'Age']);
+      expect(headers.map(h => h.textContent?.trim())).to.deep.equal([
+        'First name',
+        'Last name',
+        'Age'
+      ]);
     });
 
     it('should not be sorted on any column', () => {
@@ -110,16 +120,23 @@ describe('sl-sort-column', () => {
     });
 
     it('should change the aria-sort when the direction changes', async () => {
-      const sorter = el.renderRoot.querySelector<GridSorter>('thead th:last-of-type sl-grid-sorter');
+      const sorter = el.renderRoot.querySelector<GridSorter>(
+        'thead th:last-of-type sl-grid-sorter'
+      );
 
       sorter?.renderRoot.querySelector('sl-button')?.click();
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      expect(el.renderRoot.querySelector('th:last-of-type')).to.have.attribute('aria-sort', 'descending');
+      expect(el.renderRoot.querySelector('th:last-of-type')).to.have.attribute(
+        'aria-sort',
+        'descending'
+      );
     });
 
     it('should change the sorting when clicking the sorter in another column', async () => {
-      const sorter = el.renderRoot.querySelector<GridSorter>('thead th:first-of-type sl-grid-sorter');
+      const sorter = el.renderRoot.querySelector<GridSorter>(
+        'thead th:first-of-type sl-grid-sorter'
+      );
 
       sorter?.renderRoot.querySelector('sl-button')?.click();
       await new Promise(resolve => setTimeout(resolve, 50));

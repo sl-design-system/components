@@ -1,6 +1,12 @@
 import { FormControlMixin } from '@sl-design-system/form';
 import { EventsController } from '@sl-design-system/shared';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import { baseKeymap } from 'prosemirror-commands';
 import { history } from 'prosemirror-history';
@@ -27,7 +33,6 @@ export class Editor extends FormControlMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { focusout: this.#onFocusout });
 
   /** The value of the content in the editor. */

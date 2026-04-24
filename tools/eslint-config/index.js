@@ -1,5 +1,5 @@
 import eslint from '@eslint/js';
-import slds from '@sl-design-system/eslint-plugin-slds'
+import slds from '@sl-design-system/eslint-plugin-slds';
 import stylistic from '@stylistic/eslint-plugin';
 import chaiExpect from 'eslint-plugin-chai-expect';
 import chaiFriendly from 'eslint-plugin-chai-friendly';
@@ -8,7 +8,6 @@ import { configs as litConfigs } from 'eslint-plugin-lit';
 import litA11y from 'eslint-plugin-lit-a11y';
 import mocha from 'eslint-plugin-mocha';
 import oxlint from 'eslint-plugin-oxlint';
-import prettier from 'eslint-plugin-prettier/recommended';
 import storybook from 'eslint-plugin-storybook';
 import unusedImports from 'eslint-plugin-unused-imports';
 import { configs as wcConfigs } from 'eslint-plugin-wc';
@@ -16,7 +15,7 @@ import { createRequire } from 'module';
 import tseslint from 'typescript-eslint';
 
 const require = createRequire(import.meta.url);
-const oxlintConfig = require('../../oxlint.json');
+const oxlintConfig = require('../../.oxlintrc.json');
 
 /** @type {import('eslint').Linter.Config[]} */
 export default tseslint.config(
@@ -34,7 +33,6 @@ export default tseslint.config(
       }
     }
   },
-  prettier,
   {
     plugins: {
       import: importPlugin,
@@ -50,7 +48,7 @@ export default tseslint.config(
     rules: {
       ...litA11y.configs.recommended.rules,
       // https://github.com/open-wc/open-wc/issues/2814
-      'lit-a11y/anchor-is-valid': 'off',
+      'lit-a11y/anchor-is-valid': 'off'
     }
   },
   {
@@ -104,17 +102,6 @@ export default tseslint.config(
       'lit-a11y/click-events-have-key-events': 'off',
       // This generates false positives for popovers
       'lit-a11y/no-autofocus': 'off',
-      'prettier/prettier': [
-        'error',
-        {
-          arrowParens: 'avoid',
-          printWidth: 120,
-          singleQuote: true,
-          tabWidth: 2,
-          trailingComma: 'none',
-          endOfLine: 'auto'
-        }
-      ],
       'unused-imports/no-unused-imports': 'error'
     }
   },
@@ -125,8 +112,8 @@ export default tseslint.config(
       ...chaiFriendly.configs.recommended.rules,
       ...mocha.configs.recommended.rules,
       /**
-       * The no-floating-promises rule generates false positives with
-       * chai-as-promised and the expect() method in tests.
+       * The no-floating-promises rule generates false positives with chai-as-promised and the
+       * expect() method in tests.
        */
       '@typescript-eslint/no-floating-promises': 'off',
       // False positives with `.not.to.be.true` etc.

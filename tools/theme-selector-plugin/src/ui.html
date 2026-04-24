@@ -8,94 +8,93 @@
 <span id="loading"> Loading themes...</span>
 
 <style>
-body {
-  color: var(--figma-color-text);
-  display: grid;
-  font-family: Inter, Roboto, sans-serif;
-  font-size: 11px;
-  margin: 0;
-  padding: 16px;
-  place-content: stretch;
-}
-form {
-  display: none;
-  flex-direction: column;
-  gap: 16px;
-  margin: 0;
-}
-div {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
+  body {
+    color: var(--figma-color-text);
+    display: grid;
+    font-family: Inter, Roboto, sans-serif;
+    font-size: 11px;
+    margin: 0;
+    padding: 16px;
+    place-content: stretch;
+  }
+  form {
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+    margin: 0;
+  }
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
 
-span {
-  display: grid;
-  place-content: center;
-}
+  span {
+    display: grid;
+    place-content: center;
+  }
 
-h1 {
-  color: var(--figma-color-text-secondary);
-  font-size: 14px;
-  margin: 0;
-}
+  h1 {
+    color: var(--figma-color-text-secondary);
+    font-size: 14px;
+    margin: 0;
+  }
 
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-li {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
 
-input[type="radio"] {
-  margin: 0;
-}
+  input[type='radio'] {
+    margin: 0;
+  }
 
-button {
-  background-color: var(--figma-color-bg-brand);
-  color: white;
-  border: none;
-  padding: 0px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: inherit;
-  line-height: 32px;
-}
+  button {
+    background-color: var(--figma-color-bg-brand);
+    color: white;
+    border: none;
+    padding: 0px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: inherit;
+    line-height: 32px;
+  }
 </style>
 <script>
+  document.getElementById('select').onclick = () => {
+    const theme = document.querySelector('input[name="theme"]:checked').value;
+    parent.postMessage({ pluginMessage: { type: 'selectTheme', theme } }, '*');
+  };
 
-document.getElementById('select').onclick = () => {
-  const theme = document.querySelector('input[name="theme"]:checked').value;
-  parent.postMessage({ pluginMessage: { type: 'selectTheme', theme } }, '*');
-}
+  window.onmessage = e => {
+    if (e.data.pluginMessage) {
+      const theme = document.getElementById('theme');
+      e.data.pluginMessage.forEach(item => {
+        const option = document.createElement('li');
+        const input = document.createElement('input');
+        input.type = 'radio';
+        input.name = 'theme';
+        input.value = item.compoundId;
+        input.id = item.compoundId;
+        const label = document.createElement('label');
+        label.innerText = item.name;
+        label.htmlFor = item.compoundId;
+        option.appendChild(input);
+        option.appendChild(label);
+        theme.appendChild(option);
+      });
 
-window.onmessage = (e) => {
-  if(e.data.pluginMessage){
-    const theme = document.getElementById('theme');
-    e.data.pluginMessage.forEach((item) => {
-      const option = document.createElement('li');
-      const input = document.createElement('input');
-      input.type = 'radio';
-      input.name = 'theme';
-      input.value = item.compoundId;
-      input.id = item.compoundId;
-      const label = document.createElement('label');
-      label.innerText = item.name;
-      label.htmlFor = item.compoundId;
-      option.appendChild(input);
-      option.appendChild(label);
-      theme.appendChild(option);
-    });
-
-    document.getElementById('loading').style.display = 'none';
-    document.querySelector('form').style.display = 'flex';
-  }
-};
+      document.getElementById('loading').style.display = 'none';
+      document.querySelector('form').style.display = 'flex';
+    }
+  };
 </script>

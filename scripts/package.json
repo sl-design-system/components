@@ -30,7 +30,6 @@
     "fast-glob": "^3.3.3",
     "graphql": "^16.13.1",
     "postcss": "^8.5.8",
-    "prettier": "^3.8.1",
     "sass": "^1.99.0",
     "style-dictionary": "^5.1.1"
   }

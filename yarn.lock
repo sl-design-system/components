@@ -5679,7 +5679,6 @@ __metadata:
     "@sl-design-system/eslint-plugin-slds": "npm:^0.1.0"
     "@stylistic/eslint-plugin": "npm:^4.4.1"
     eslint: "npm:^9.27.0"
-    eslint-config-prettier: "npm:^10.1.5"
     eslint-plugin-chai-expect: "npm:^3.1.0"
     eslint-plugin-chai-friendly: "npm:^1.0.1"
     eslint-plugin-import: "npm:^2.31.0"
@@ -5689,7 +5688,6 @@ __metadata:
     eslint-plugin-storybook: "npm:^10.3.3"
     eslint-plugin-unused-imports: "npm:^4.1.4"
     eslint-plugin-wc: "npm:^3.0.1"
-    prettier: "npm:^3.8.1"
     storybook: "npm:^10.3.5"
     typescript: "npm:^6.0.2"
     typescript-eslint: "npm:^8.58.0"
@@ -6139,7 +6137,6 @@ __metadata:
     fast-glob: "npm:^3.3.3"
     graphql: "npm:^16.13.1"
     postcss: "npm:^8.5.8"
-    prettier: "npm:^3.8.1"
     sass: "npm:^1.99.0"
     style-dictionary: "npm:^5.1.1"
   languageName: unknown
@@ -6224,7 +6221,6 @@ __metadata:
   dependencies:
     postcss: "npm:^8.5.8"
     postcss-lit: "npm:^1.4.1"
-    prettier: "npm:^3.8.1"
     stylelint: "npm:^16.19.1"
     stylelint-config-standard: "npm:^38.0.0"
     stylelint-config-standard-scss: "npm:^15.0.1"
@@ -12111,17 +12107,6 @@ __metadata:
   version: 5.0.0
   resolution: "escape-string-regexp@npm:5.0.0"
   checksum: 10c0/6366f474c6f37a802800a435232395e04e9885919873e382b157ab7e8f0feb8fed71497f84a6f6a81a49aab41815522f5839112bd38026d203aea0c91622df95
-  languageName: node
-  linkType: hard
-
-"eslint-config-prettier@npm:^10.1.5":
-  version: 10.1.5
-  resolution: "eslint-config-prettier@npm:10.1.5"
-  peerDependencies:
-    eslint: ">=7.0.0"
-  bin:
-    eslint-config-prettier: bin/cli.js
-  checksum: 10c0/5486255428e4577e8064b40f27db299faf7312b8e43d7b4bc913a6426e6c0f5950cd519cad81ae24e9aecb4002c502bc665c02e3b52efde57af2debcf27dd6e0
   languageName: node
   linkType: hard
 
@@ -20037,7 +20022,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^3.3.3, prettier@npm:^3.5.3, prettier@npm:^3.8.1":
+"prettier@npm:^3.3.3, prettier@npm:^3.5.3":
   version: 3.8.1
   resolution: "prettier@npm:3.8.1"
   bin:

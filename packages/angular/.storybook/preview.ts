@@ -1,16 +1,25 @@
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import { configureLocalization } from '@lit/localize';
-import * as locales from '@sl-design-system/locales';
+import { sourceLocale, targetLocales } from '@sl-design-system/locales';
 import { Preview } from '@storybook/angular';
 import { INITIAL_VIEWPORTS } from 'storybook/viewport';
 import { themes, updateTheme } from '../../../.storybook/themes';
 
+// Lazy-loading map for locale modules
+const locales = {
+  'es-ES': () => import('@sl-design-system/locales/es-ES.js'),
+  it: () => import('@sl-design-system/locales/it.js'),
+  nl: () => import('@sl-design-system/locales/nl.js'),
+  pl: () => import('@sl-design-system/locales/pl.js')
+} as const;
+
 const { setLocale } = configureLocalization({
-  sourceLocale: locales.sourceLocale,
-  targetLocales: locales.targetLocales,
+  sourceLocale,
+  targetLocales,
   loadLocale: async locale => {
-    const localeKey = locale as keyof typeof locales.locales;
-    const loader = locales.locales[localeKey];
+    const localeKey = locale as keyof typeof locales,
+      loader = locales[localeKey];
+
     if (!loader) {
       console.warn(`Unsupported locale: ${locale}`);
       return { templates: {} };
@@ -21,7 +30,7 @@ const { setLocale } = configureLocalization({
 
 const preview: Preview = {
   decorators: [
-    (story, { globals: { locale = locales.sourceLocale } }) => {
+    (story, { globals: { locale = sourceLocale } }) => {
       document.documentElement.lang = locale;
       setLocale(locale);
 

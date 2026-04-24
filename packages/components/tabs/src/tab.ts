@@ -80,7 +80,7 @@ export class Tab extends LitElement {
       : html`<div part="outer">${this.renderContent()}</div>`;
   }
 
-  /** @ignore */
+  /** @internal */
   renderContent(): TemplateResult {
     return html`
       <div part="inner">

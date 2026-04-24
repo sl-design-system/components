@@ -153,12 +153,10 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
     super.disconnectedCallback();
   }
 
-  /** @ignore Stores The initial state of the radio group */
   formAssociatedCallback(): void {
     this.#initialState = this.value;
   }
 
-  /** @ignore Resets The radio group to the initial state */
   formResetCallback(): void {
     this.value = this.#initialState;
 

@@ -61,8 +61,9 @@ export class Icon extends LitElement {
   static register(...icons: IconDefinition[]): void;
 
   /**
-   * @ignore Store All icons from the IconLibrary of the theme (icons.json) in the icon registry for
-   *   easy access. Is run in the setup method of each theme.
+   * Store all icons from the IconLibrary of the theme (icons.json) in the icon registry for easy
+   * access. Is run in the setup method of each theme.
+   *
    * @param {IconLibrary} icons The IconLibrary of the theme
    */
   static register(icons: IconLibrary): void;

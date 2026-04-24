@@ -162,12 +162,10 @@ export class Switch<T = any> extends ObserveAttributesMixin(
     this.#onLabelSlotChange();
   }
 
-  /** @ignore Stores The initial state of the switch */
   formAssociatedCallback(): void {
     this.#initialState = this.hasAttribute('checked');
   }
 
-  /** @ignore Resets The switch to the initial state */
   formResetCallback(): void {
     this.checked = this.#initialState;
     this.changeEvent.emit(this.formValue);

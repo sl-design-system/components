@@ -258,12 +258,10 @@ export class Select<T = any> extends ObserveAttributesMixin(
     super.disconnectedCallback();
   }
 
-  /** @ignore Stores The initial state of the select */
   formAssociatedCallback(): void {
     this.#initialState = this.value;
   }
 
-  /** @ignore Resets The select to the initial state */
   formResetCallback(): void {
     this.value = this.#initialState;
     this.changeEvent.emit(this.value);

@@ -133,7 +133,7 @@
       ]
     },
     "build:locales": {
-      "command": "node scripts/build-packages.js locales",
+      "command": "node scripts/build-packages.js locales && oxfmt packages/locales/src",
       "dependencies": [
         "build:locales:code"
       ],

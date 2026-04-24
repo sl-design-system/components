@@ -27,9 +27,10 @@ export const templates = {
   'sl.checkbox.validation.valueMissing': 'Seleziona questa casella.',
   'sl.checkbox.validation.valueMissingMultiple': "Seleziona almeno un'opzione.",
   'sl.combobox.createCustomOption': str`Crea "${0}"`,
+  'sl.combobox.hideOptions': 'Nascondi le opzioni',
   'sl.combobox.noOptionsFound': str`Nessuna opzione che inizia con "${0}" è stata trovata.`,
   'sl.combobox.selectedOptions': 'Opzioni selezionate',
-  'sl.combobox.toggleOptions': str`${0} le opzioni`,
+  'sl.combobox.showOptions': 'Mostra le opzioni',
   'sl.combobox.validation.valueMissing': "Seleziona un'opzione.",
   'sl.combobox.validation.valueMissingMultiple': "Seleziona almeno un'opzione.",
   'sl.common.allOptions': 'Tutte le opzioni',
@@ -64,6 +65,7 @@ export const templates = {
   'sl.grid.sortAscending': 'Ordina crescente',
   'sl.grid.sortDescending': 'Ordina decrescente',
   'sl.grid.toggleGroup': 'Mostra gruppo',
+  'sl.infotip.moreInformation': 'Più informazioni',
   'sl.messageDialog.alertTitle': 'Avviso',
   'sl.messageDialog.cancelButton': 'Annulla',
   'sl.messageDialog.confirmTitle': 'Conferma',
@@ -109,6 +111,5 @@ export const templates = {
   'sl.timeField.typeMismatch': 'Inserisci un orario valido.',
   'sl.timeField.valueMissing': 'Inserisci un orario.',
   'sl.toolBar.showMore': 'Mostra altro',
-  'sl.tree.loadingMessage': 'Caricamento',
-  'sl.infotip.moreInformation': 'More information'
+  'sl.tree.loadingMessage': 'Caricamento'
 };

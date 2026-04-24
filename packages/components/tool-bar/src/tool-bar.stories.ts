@@ -159,7 +159,7 @@ export default {
         }
 
         .container sl-tool-bar {
-          flex: ${resizable && !width ? 1 : 0} 1 auto;
+          flex: ${resizable && !width ? '1 1 0' : '0 1 auto'};
           min-inline-size: 0;
         }
       </style>

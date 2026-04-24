@@ -91,8 +91,11 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
    */
   #fitContent = false;
 
-  /** The width used in the last overflow calculation, used to prevent repeated recalculations. */
-  #lastAvailableWidth = 0;
+  /**
+   * The host's content-box width at the last overflow calculation, used to detect width changes in
+   * the ResizeObserver callback and avoid unnecessary recalculations.
+   */
+  #lastHostWidth = 0;
 
   /** Flag indicating whether item width measurements are required before recalculating layout. */
   #needsMeasurement = true;
@@ -109,7 +112,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     // Only recalculate when there is real overflow, a pending measurement,
     // the parent changed size, or the toolbar's own width changed.
     const widthChanged =
-      hostEntry !== undefined && Math.ceil(getContentBoxWidth(this)) !== this.#lastAvailableWidth;
+      hostEntry !== undefined && Math.ceil(getContentBoxWidth(this)) !== this.#lastHostWidth;
 
     if (parentEntry || hasWrapperOverflow(this.wrapper) || this.#needsMeasurement || widthChanged) {
       this.#onResize();
@@ -203,7 +206,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     // Reset measurements to ensure clean state on reconnect
     this.#needsMeasurement = true;
     this.#fitContent = false;
-    this.#lastAvailableWidth = 0;
+    this.#lastHostWidth = 0;
 
     super.disconnectedCallback();
   }
@@ -343,7 +346,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     this.items = mapElementsToItems(elements);
     this.#needsMeasurement = true;
     this.#fitContent = false;
-    this.#lastAvailableWidth = 0;
+    this.#lastHostWidth = 0;
 
     if (this.parentElement) {
       this.#resizeObserver.unobserve(this.parentElement);
@@ -428,7 +431,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     // Round up to avoid sub-pixel rounding issues that can cause false overflow when all items actually fit.
     availableWidth = Math.ceil(availableWidth);
 
-    this.#lastAvailableWidth = availableWidth;
+    this.#lastHostWidth = Math.ceil(getContentBoxWidth(this));
 
     calculateVisibility(this.items, this.#widths, availableWidth, gap, menuButtonWidth);
 

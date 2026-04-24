@@ -28,7 +28,9 @@ describe('sl-paginator-status', () => {
 
   describe('first page', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-paginator-status page-size="15" total-items="100"></sl-paginator-status>`);
+      el = await fixture(
+        html`<sl-paginator-status page-size="15" total-items="100"></sl-paginator-status>`
+      );
     });
 
     it('should display the status', () => {
@@ -38,7 +40,9 @@ describe('sl-paginator-status', () => {
 
   describe('current page', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-paginator-status page="7" page-size="15" total-items="209"></sl-paginator-status>`);
+      el = await fixture(
+        html`<sl-paginator-status page="7" page-size="15" total-items="209"></sl-paginator-status>`
+      );
     });
 
     it('should display the status', () => {
@@ -48,7 +52,9 @@ describe('sl-paginator-status', () => {
 
   describe('last page', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-paginator-status page="14" page-size="15" total-items="209"></sl-paginator-status>`);
+      el = await fixture(
+        html`<sl-paginator-status page="14" page-size="15" total-items="209"></sl-paginator-status>`
+      );
     });
 
     it('should display the status', () => {
@@ -58,7 +64,9 @@ describe('sl-paginator-status', () => {
 
   describe('invalid page', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-paginator-status page-size="15" total-items="209"></sl-paginator-status>`);
+      el = await fixture(
+        html`<sl-paginator-status page-size="15" total-items="209"></sl-paginator-status>`
+      );
     });
 
     it('should show the first page, if the page number is negative', async () => {
@@ -83,7 +91,9 @@ describe('sl-paginator-status', () => {
       announce = spy();
       document.body.addEventListener('sl-announce', announce);
 
-      el = await fixture(html`<sl-paginator-status page="7" page-size="15" total-items="209"></sl-paginator-status>`);
+      el = await fixture(
+        html`<sl-paginator-status page="7" page-size="15" total-items="209"></sl-paginator-status>`
+      );
     });
 
     afterEach(() => document.body.removeEventListener('sl-announce', announce));
@@ -137,7 +147,12 @@ describe('sl-paginator-status', () => {
   describe('custom item label', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-paginator-status .itemLabel=${'books'} page="14" page-size="15" total-items="209"></sl-paginator-status>
+        <sl-paginator-status
+          .itemLabel=${'books'}
+          page="14"
+          page-size="15"
+          total-items="209"
+        ></sl-paginator-status>
       `);
     });
 

@@ -1,12 +1,12 @@
 # Translations
 
-Translations are an important part of our design system, allowing us to provide a consistent user experience across different languages and regions. 
+Translations are an important part of our design system, allowing us to provide a consistent user experience across different languages and regions.
 In this document, we will outline the process for adding translations to our components, including the tools and libraries we use, as well as the structure of our translation files.
 
 For the translations in Sanoma Learning Design System, we use [Lit Localize](https://lit.dev/docs/localization/overview/) library.
 
 Translations are provided in the `locales` folder. The translations are stored in `xlif` files, one for each language.
-The file names are the language codes (e.g., `en.json`, `nl.json`, etc.). 
+The file names are the language codes (e.g., `en.json`, `nl.json`, etc.).
 Each `xlif` file contains key-value pairs, where the keys are the same across all languages, and the values are the translated strings.
 
 ## What do example translation look like?
@@ -32,7 +32,6 @@ In the xliff file:
 </trans-unit>
 ```
 
-
 ## Id scheme naming
 
 The basic structure of the `id` scheme is:
@@ -41,7 +40,7 @@ The basic structure of the `id` scheme is:
 sl.packageName.textDescription
 ```
 
-Every **id** will start with `sl.` to indicate that it is a Sanoma Learning Design System id. 
+Every **id** will start with `sl.` to indicate that it is a Sanoma Learning Design System id.
 The `packageName` part will be the name of the package component in **camelCase**,
 and the `textDescription` part will be a short description of the text (also in **camelCase**).
 
@@ -75,11 +74,13 @@ For better organization, we use these (example) standard context groups:
 ### Best Practices
 
 1. **Be specific**: Use detailed descriptions that clearly indicate the purpose
-  - Good: `sl.datePicker.previousMonth`
-  - Avoid: `sl.datePicker.previous`
+
+- Good: `sl.datePicker.previousMonth`
+- Avoid: `sl.datePicker.previous`
 
 2. **Consistency**: Use the same pattern for similar messages across components
-  - For validation: always use `validation.tooShort`, not `tooFew` or `notEnough`.
+
+- For validation: always use `validation.tooShort`, not `tooFew` or `notEnough`.
 
 3. **Reuse carefully**: Before creating a new ID, check if an existing `common` translation fits.
 
@@ -89,8 +90,9 @@ When using variables in translations:
 
 ```js
 // Example with variables
-msg(str`Please enter at least ${this.minLength} characters (you currently have ${length})`,
-  { id: 'sl.textField.validation.tooShort' });
+msg(str`Please enter at least ${this.minLength} characters (you currently have ${length})`, {
+  id: 'sl.textField.validation.tooShort'
+});
 ```
 
 ## Adding New Translations
@@ -109,10 +111,10 @@ yarn run extract-i18n
 
 More information about the xliff files structure and generated translations can be found in the [Lit Localize documentation](https://lit.dev/docs/localization/overview/#extracting-messages).
 
-
 ## Supported Languages
 
 The SL design system currently supports these languages:
+
 - English (default)
 - Dutch (nl)
 

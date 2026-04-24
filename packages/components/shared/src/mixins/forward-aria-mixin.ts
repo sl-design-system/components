@@ -16,43 +16,43 @@ const ELEMENT_REFERENCES: Record<string, keyof ARIAMixin> = {
 };
 
 /**
- * Mixin that forwards ARIA attributes from a custom element host to a target element
- * inside its shadow DOM. This is necessary because screen readers cannot pierce the
- * shadow boundary, so ARIA attributes set on the host (e.g. by a consumer) must be
- * forwarded to the actual interactive element (e.g. a native `<button>`).
+ * Mixin that forwards ARIA attributes from a custom element host to a target element inside its
+ * shadow DOM. This is necessary because screen readers cannot pierce the shadow boundary, so ARIA
+ * attributes set on the host (e.g. by a consumer) must be forwarded to the actual interactive
+ * element (e.g. a native `<button>`).
  *
- * The host calls `setProxyTarget(element)` (typically in `firstUpdated`) to designate
- * the element that should receive the forwarded attributes.
+ * The host calls `setProxyTarget(element)` (typically in `firstUpdated`) to designate the element
+ * that should receive the forwarded attributes.
  *
  * There are two categories of ARIA attributes:
- * - **Reference attributes** like `aria-labelledby` and `aria-describedby` point to other
- *   elements by ID. These are resolved to actual DOM elements and set via the corresponding
- *   element reference properties (e.g. `ariaLabelledByElements`) on the target.
- * - **Value attributes** like `aria-label` and `aria-disabled` are simple strings and are
- *   forwarded as regular attributes on the target.
  *
- * In both cases the attribute is removed from the host after forwarding, so the host
- * element does not expose duplicate or stale ARIA information.
+ * - **Reference attributes** like `aria-labelledby` and `aria-describedby` point to other elements by
+ *   ID. These are resolved to actual DOM elements and set via the corresponding element reference
+ *   properties (e.g. `ariaLabelledByElements`) on the target.
+ * - **Value attributes** like `aria-label` and `aria-disabled` are simple strings and are forwarded
+ *   as regular attributes on the target.
  *
- * **`ariaDisabled` property:** The mixin intercepts the `ariaDisabled` property directly
- * so that both setting and clearing it are forwarded to the target. Setting `ariaDisabled`
- * to `'true'` adds `aria-disabled="true"` on the target; setting it to `null` (or any
- * value other than `'true'`) removes `aria-disabled` from the target. This is necessary
- * because the `MutationObserver` path cannot detect attribute *removal* and would otherwise
- * leave the target in a stale disabled state.
+ * In both cases the attribute is removed from the host after forwarding, so the host element does
+ * not expose duplicate or stale ARIA information.
  *
- * **Nesting:** When two components using this mixin are nested (e.g. `<sl-menu-button>`
- * containing `<sl-button>`), the outer mixin sets element reference properties on the
- * inner host. The inner host intercepts these property assignments and forwards them to
- * its own target, so references propagate all the way to the deepest native element.
+ * **`ariaDisabled` property:** The mixin intercepts the `ariaDisabled` property directly so that
+ * both setting and clearing it are forwarded to the target. Setting `ariaDisabled` to `'true'` adds
+ * `aria-disabled="true"` on the target; setting it to `null` (or any value other than `'true'`)
+ * removes `aria-disabled` from the target. This is necessary because the `MutationObserver` path
+ * cannot detect attribute _removal_ and would otherwise leave the target in a stale disabled
+ * state.
  *
- * **Observed attributes:** Pass an array of attribute names to forward only those. When
- * omitted, all `aria-*` attributes are forwarded automatically using a MutationObserver.
+ * **Nesting:** When two components using this mixin are nested (e.g. `<sl-menu-button>` containing
+ * `<sl-button>`), the outer mixin sets element reference properties on the inner host. The inner
+ * host intercepts these property assignments and forwards them to its own target, so references
+ * propagate all the way to the deepest native element.
+ *
+ * **Observed attributes:** Pass an array of attribute names to forward only those. When omitted,
+ * all `aria-*` attributes are forwarded automatically using a MutationObserver.
  */
-export function ForwardAriaMixin<T extends Constructor<ReactiveElement> & { observedAttributes?: string[] }>(
-  constructor: T,
-  observedAttributes?: string[]
-): T & Constructor<ForwardAriaMixinInterface> {
+export function ForwardAriaMixin<
+  T extends Constructor<ReactiveElement> & { observedAttributes?: string[] }
+>(constructor: T, observedAttributes?: string[]): T & Constructor<ForwardAriaMixinInterface> {
   // Build the set of element reference properties (e.g. ariaLabelledByElements) that
   // correspond to the observed attributes. These need prototype-level property interceptors
   // to support nesting (see the defineProperty loop below).
@@ -149,7 +149,11 @@ export function ForwardAriaMixin<T extends Constructor<ReactiveElement> & { obse
       super.disconnectedCallback();
     }
 
-    override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null): void {
+    override attributeChangedCallback(
+      name: string,
+      oldValue: string | null,
+      newValue: string | null
+    ): void {
       super.attributeChangedCallback(name, oldValue, newValue);
 
       // Only intercept attributes from our explicit list (the MutationObserver
@@ -189,7 +193,8 @@ export function ForwardAriaMixin<T extends Constructor<ReactiveElement> & { obse
           if (elementsProp.endsWith('Elements')) {
             (targetElement as unknown as Record<string, Element[]>)[elementsProp] = elements;
           } else {
-            (targetElement as unknown as Record<string, Element | null>)[elementsProp] = elements[0] ?? null;
+            (targetElement as unknown as Record<string, Element | null>)[elementsProp] =
+              elements[0] ?? null;
           }
         } else {
           targetElement.setAttribute(name, value);

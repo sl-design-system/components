@@ -1,9 +1,24 @@
 import { localized, msg } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { Menu, MenuButton, MenuItem } from '@sl-design-system/menu';
-import { type EventEmitter, RovingTabindexController, event, getScrollParent } from '@sl-design-system/shared';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import {
+  type EventEmitter,
+  RovingTabindexController,
+  event,
+  getScrollParent
+} from '@sl-design-system/shared';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './tab-group.scss.js';
 import { TabPanel } from './tab-panel.js';
@@ -45,13 +60,13 @@ let nextUniqueId = 0;
  * A tab group component that can contain tabs and tab panels.
  *
  * ```html
- *   <sl-tab-group>
- *     <sl-tab>First tab</sl-tab>
- *     <sl-tab selected>Second tab</sl-tab>
+ * <sl-tab-group>
+ *   <sl-tab>First tab</sl-tab>
+ *   <sl-tab selected>Second tab</sl-tab>
  *
- *     <sl-tab-panel>Content of tab 1</sl-tab-panel>
- *     <sl-tab-panel>Content of tab 2</sl-tab-panel>
- *   </sl-tab-group>
+ *   <sl-tab-panel>Content of tab 1</sl-tab-panel>
+ *   <sl-tab-panel>Content of tab 2</sl-tab-panel>
+ * </sl-tab-group>
  * ```
  *
  * @csspart container - The container for the tabs.
@@ -89,9 +104,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   #menu?: Menu;
 
   /**
-   * Observe changes to the selected tab and update accordingly. This observer
-   * is necessary for changes to the selected tab that are made programmatically.
-   * Selected changes made by the user are handled by the click event listener.
+   * Observe changes to the selected tab and update accordingly. This observer is necessary for
+   * changes to the selected tab that are made programmatically. Selected changes made by the user
+   * are handled by the click event listener.
    */
   #mutationObserver = new MutationObserver(entries => {
     const selected = entries.find(
@@ -125,9 +140,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   });
 
   /**
-   * Observe changes to the size of the tablist so:
-   * - we can determine when to display an overflow menu with tab items
-   * - we know when we need to reposition the active tab indicator
+   * Observe changes to the size of the tablist so: - we can determine when to display an overflow
+   * menu with tab items - we know when we need to reposition the active tab indicator
    */
   #resizeObserver = new ResizeObserver(entries => {
     const hostResized = entries.some(entry => entry.target === this);
@@ -158,7 +172,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       return index === -1 ? 0 : index;
     },
     isFocusableElement: (el: Tab) => !el.disabled,
-    listenerScope: (): HTMLElement => this.renderRoot.querySelector('[part="tablist"]') as HTMLElement
+    listenerScope: (): HTMLElement =>
+      this.renderRoot.querySelector('[part="tablist"]') as HTMLElement
   });
 
   /** Determines whether the active tab indicator should animate. */
@@ -168,9 +183,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   #timeoutId?: ReturnType<typeof setTimeout>;
 
   /**
-   * Determines when the contents of a tab is shown. Auto means the contents will be
-   * shown when the tab is focused. Manual means the user has to activate the tab first
-   * by clicking or using the keyboard.
+   * Determines when the contents of a tab is shown. Auto means the contents will be shown when the
+   * tab is focused. Manual means the user has to activate the tab first by clicking or using the
+   * keyboard.
    *
    * For backwards compatibility, the default is 'manual'.
    *
@@ -180,6 +195,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
   /**
    * The alignment of tabs within the wrapper.
+   *
    * @default 'start'
    */
   @property({ attribute: 'align-tabs', reflect: true }) alignTabs?: TabsAlignment;
@@ -204,6 +220,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
   /**
    * Renders the tabs vertically instead of the default horizontal.
+   *
    * @default false
    */
   @property({ type: Boolean, reflect: true }) vertical?: boolean;
@@ -272,7 +289,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
           <div class="fade-container">
             <div class="fade fade-start"></div>
             <div class="fade fade-end"></div>
-            <div @scroll=${(event: Event) => this.#onScroll(event.target as HTMLElement)} part="scroller">
+            <div
+              @scroll=${(event: Event) => this.#onScroll(event.target as HTMLElement)}
+              part="scroller"
+            >
               <div
                 @click=${this.#onClick}
                 @focusin=${this.#onFocusin}
@@ -295,7 +315,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
                   <sl-icon name="ellipsis" slot="button"></sl-icon>
                   ${this.menuItems?.map(
                     menuItem => html`
-                      <sl-menu-item @click=${() => this.#onMenuItemClick(menuItem.tab)} ?disabled=${menuItem.disabled}>
+                      <sl-menu-item
+                        @click=${() => this.#onMenuItemClick(menuItem.tab)}
+                        ?disabled=${menuItem.disabled}
+                      >
                         ${menuItem.title}
                       </sl-menu-item>
                     `
@@ -323,7 +346,11 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #onFocusin(event: FocusEvent): void {
-    if (event.target instanceof Tab && this.selectedTab !== event.target && this.activation === 'auto') {
+    if (
+      event.target instanceof Tab &&
+      this.selectedTab !== event.target &&
+      this.activation === 'auto'
+    ) {
       this.#updateSelectedTab(event.target);
     }
   }
@@ -371,7 +398,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #onTabSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    this.tabs = event.target.assignedElements({ flatten: true }).filter((el): el is Tab => el instanceof Tab);
+    this.tabs = event.target
+      .assignedElements({ flatten: true })
+      .filter((el): el is Tab => el instanceof Tab);
     this.tabs.forEach((tab, index) => {
       tab.id ||= `${this.#idPrefix}-tab-${index + 1}`;
     });
@@ -455,7 +484,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   #scrollToTabPanelStart(): void {
     const { bottom: containerBottom = 0 } =
         this.renderRoot.querySelector('[part="container"]')?.getBoundingClientRect() || {},
-      { top: wrapperTop = 0 } = this.renderRoot.querySelector('[part="wrapper"]')?.getBoundingClientRect() || {},
+      { top: wrapperTop = 0 } =
+        this.renderRoot.querySelector('[part="wrapper"]')?.getBoundingClientRect() || {},
       { top = 0 } = this.renderRoot.querySelector('[part="panels"]')?.getBoundingClientRect() || {};
 
     // Scroll to make sure the top of the panel is visible, but don't scroll too far
@@ -473,7 +503,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       this.tabs?.forEach(tab => tab.toggleAttribute('selected', tab === selectedTab));
 
       this.querySelectorAll('sl-tab-panel').forEach(panel => {
-        panel.setAttribute('aria-hidden', selectedTab?.getAttribute('aria-controls') === panel.id ? 'false' : 'true');
+        panel.setAttribute(
+          'aria-hidden',
+          selectedTab?.getAttribute('aria-controls') === panel.id ? 'false' : 'true'
+        );
       });
 
       this.selectedTab = selectedTab;

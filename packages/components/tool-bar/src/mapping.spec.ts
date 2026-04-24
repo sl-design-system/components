@@ -53,7 +53,9 @@ describe('mapButtonToItem', () => {
   });
 
   it('should detect an icon', async () => {
-    const button = await fixture<Button>(html`<sl-button><sl-icon name="far-save"></sl-icon> Save</sl-button>`),
+    const button = await fixture<Button>(
+        html`<sl-button><sl-icon name="far-save"></sl-icon> Save</sl-button>`
+      ),
       item = mapButtonToItem(button);
 
     expect(item.icon).to.equal('far-save');
@@ -152,7 +154,9 @@ describe('mapMenuItemToItem', () => {
   });
 
   it('should detect an icon in a menu item', async () => {
-    const el = await fixture<MenuItem>(html`<sl-menu-item><sl-icon name="far-pen"></sl-icon> Edit</sl-menu-item>`),
+    const el = await fixture<MenuItem>(
+        html`<sl-menu-item><sl-icon name="far-pen"></sl-icon> Edit</sl-menu-item>`
+      ),
       item = mapMenuItemToItem(el);
 
     expect(item.icon).to.equal('far-pen');

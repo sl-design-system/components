@@ -17,7 +17,7 @@ To start using the SL Design System, you need to setup a theme for your applicat
 After installing the theme, you need to import the theme in your application. You can do this by loading the theme in your application:
 
 ```html
-<link href="@sl-design-system/sanoma-learning/all.css" rel="stylesheet">
+<link href="@sl-design-system/sanoma-learning/all.css" rel="stylesheet" />
 ```
 
 ## Components

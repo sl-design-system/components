@@ -59,8 +59,12 @@ describe('sl-tooltip', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <div style="display: block; width: 400px; height: 400px;">
-          <sl-button aria-describedby="tooltip" fill="outline" style="margin-top: 100px">Button element</sl-button>
-          <sl-tooltip id="tooltip">Message with lots of long text, that exceeds 150px easily</sl-tooltip>
+          <sl-button aria-describedby="tooltip" fill="outline" style="margin-top: 100px"
+            >Button element</sl-button
+          >
+          <sl-tooltip id="tooltip"
+            >Message with lots of long text, that exceeds 150px easily</sl-tooltip
+          >
         </div>
       `);
       button = el.querySelector('sl-button') as Button;
@@ -78,7 +82,9 @@ describe('sl-tooltip', () => {
         <div style="display: block; width: 400px; height: 400px;">
           <button id="focus-target" type="button" aria-describedby="tooltip">Button element</button>
           <button id="outside-target" type="button">Outside focus target</button>
-          <sl-tooltip id="tooltip">Message with lots of long text, that exceeds 150px easily</sl-tooltip>
+          <sl-tooltip id="tooltip"
+            >Message with lots of long text, that exceeds 150px easily</sl-tooltip
+          >
         </div>
       `);
       const focusButton = el.querySelector<HTMLButtonElement>('#focus-target')!,
@@ -186,13 +192,19 @@ describe('sl-tooltip', () => {
       button?.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
 
       const originalMatches = button.matches.bind(button);
-      const matchesSpy = vi.spyOn(button, 'matches').mockImplementation((selector: string): boolean => {
-        if (selector === ':hover' || selector === ':focus-visible' || selector === ':focus-within') {
-          return false;
-        }
+      const matchesSpy = vi
+        .spyOn(button, 'matches')
+        .mockImplementation((selector: string): boolean => {
+          if (
+            selector === ':hover' ||
+            selector === ':focus-visible' ||
+            selector === ':focus-within'
+          ) {
+            return false;
+          }
 
-        return originalMatches(selector);
-      });
+          return originalMatches(selector);
+        });
 
       try {
         button?.blur();
@@ -208,7 +220,9 @@ describe('sl-tooltip', () => {
     it('should stay open on focusout when the anchor remains hovered', async () => {
       await tooltip.updateComplete;
 
-      const proxyTarget = (button as HTMLElement & { getProxyTarget?(): Element | null }).getProxyTarget?.(),
+      const proxyTarget = (
+          button as HTMLElement & { getProxyTarget?(): Element | null }
+        ).getProxyTarget?.(),
         originalElementMatches = Element.prototype.matches;
       const focusVisibleSpy = vi.spyOn(Element.prototype, 'matches').mockImplementation(function (
         this: Element,
@@ -229,14 +243,17 @@ describe('sl-tooltip', () => {
 
       expect(tooltip.matches(':popover-open')).to.be.true;
 
-      const proxyTargetForHover = (button as HTMLElement & { getProxyTarget?(): Element | null }).getProxyTarget?.(),
+      const proxyTargetForHover = (
+          button as HTMLElement & { getProxyTarget?(): Element | null }
+        ).getProxyTarget?.(),
         currentAnchor = tooltip.anchorElement,
         originalMatches = Element.prototype.matches;
       const matchesSpy = vi.spyOn(Element.prototype, 'matches').mockImplementation(function (
         this: Element,
         selector: string
       ): boolean {
-        const isAnchorTarget = this === button || this === proxyTargetForHover || this === currentAnchor;
+        const isAnchorTarget =
+          this === button || this === proxyTargetForHover || this === currentAnchor;
 
         if (selector === ':hover' && isAnchorTarget) {
           return true;
@@ -391,7 +408,9 @@ describe('sl-tooltip', () => {
             <button type="button">First child</button>
             <button type="button">Second child</button>
           </div>
-          <sl-tooltip id="tooltip">Message with lots of long text, that exceeds 150px easily</sl-tooltip>
+          <sl-tooltip id="tooltip"
+            >Message with lots of long text, that exceeds 150px easily</sl-tooltip
+          >
         </div>
       `);
 
@@ -399,7 +418,9 @@ describe('sl-tooltip', () => {
       tooltip.showDelay = 0;
       tooltip.hideDelay = 0;
 
-      const [firstChildButton, secondChildButton] = Array.from(el.querySelectorAll<HTMLButtonElement>('button'));
+      const [firstChildButton, secondChildButton] = Array.from(
+        el.querySelectorAll<HTMLButtonElement>('button')
+      );
 
       firstChildButton.focus();
       await tooltip.updateComplete;
@@ -421,8 +442,12 @@ describe('sl-tooltip', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <div style="display: block; width: 400px; height: 400px;">
-          <sl-button aria-labelledby="tooltip" fill="outline" style="margin-top: 100px">Button element</sl-button>
-          <sl-tooltip id="tooltip">Message with lots of long text, that exceeds 150px easily</sl-tooltip>
+          <sl-button aria-labelledby="tooltip" fill="outline" style="margin-top: 100px"
+            >Button element</sl-button
+          >
+          <sl-tooltip id="tooltip"
+            >Message with lots of long text, that exceeds 150px easily</sl-tooltip
+          >
         </div>
       `);
       button = el.querySelector('sl-button') as Button;
@@ -484,7 +509,9 @@ describe('sl-tooltip', () => {
       el = await fixture(html`
         <div style="block-size: 400px; inline-size: 400px;">
           <span id="other-label">Other label</span>
-          <sl-button aria-labelledby="other-label tooltip">Button with multiple label ids </sl-button>
+          <sl-button aria-labelledby="other-label tooltip"
+            >Button with multiple label ids
+          </sl-button>
           <sl-tooltip id="tooltip">Tooltip label</sl-tooltip>
         </div>
       `);
@@ -828,7 +855,9 @@ describe('sl-tooltip', () => {
             <sl-button aria-describedby="tooltip">Anchor</sl-button>
           </tooltip-assigned-slot-host>
           <button id="outside-focus-target" type="button">Outside</button>
-          <sl-tooltip id="tooltip" show-delay="0" hide-delay="0">Tooltip via assigned slot</sl-tooltip>
+          <sl-tooltip id="tooltip" show-delay="0" hide-delay="0"
+            >Tooltip via assigned slot</sl-tooltip
+          >
         </div>
       `);
 
@@ -836,8 +865,12 @@ describe('sl-tooltip', () => {
       anchor = el.querySelector('sl-button') as Button;
       outsideButton = el.querySelector('#outside-focus-target') as HTMLButtonElement;
       tooltip = el.querySelector('sl-tooltip') as Tooltip;
-      internalDescription = assignedSlotHost.shadowRoot!.querySelector('#internal-description') as HTMLElement;
-      secondaryDescription = assignedSlotHost.shadowRoot!.querySelector('#secondary-description') as HTMLElement;
+      internalDescription = assignedSlotHost.shadowRoot!.querySelector(
+        '#internal-description'
+      ) as HTMLElement;
+      secondaryDescription = assignedSlotHost.shadowRoot!.querySelector(
+        '#secondary-description'
+      ) as HTMLElement;
       proxyTarget = anchor.renderRoot.querySelector('button') as HTMLButtonElement;
 
       await tooltip.updateComplete;
@@ -902,7 +935,9 @@ describe('sl-tooltip', () => {
               <span id="anchor-content">Anchor</span>
             </tooltip-assigned-slot-anchor>
           </tooltip-assigned-slot-host>
-          <sl-tooltip id="tooltip" show-delay="0" hide-delay="0">Tooltip via nested slot path</sl-tooltip>
+          <sl-tooltip id="tooltip" show-delay="0" hide-delay="0"
+            >Tooltip via nested slot path</sl-tooltip
+          >
         </div>
       `);
 
@@ -942,7 +977,9 @@ describe('sl-tooltip', () => {
               <span id="shared-anchor-content-2">Anchor 2</span>
             </tooltip-assigned-slot-anchor>
           </tooltip-assigned-slot-host>
-          <sl-tooltip id="tooltip" show-delay="0" hide-delay="0">Shared tooltip via proxy targets</sl-tooltip>
+          <sl-tooltip id="tooltip" show-delay="0" hide-delay="0"
+            >Shared tooltip via proxy targets</sl-tooltip
+          >
         </div>
       `);
 
@@ -992,10 +1029,14 @@ describe('sl-tooltip', () => {
       el = await fixture(html`
         <div style="block-size: 400px; inline-size: 400px;">
           <tooltip-assigned-slot-host>
-            <button id="native-anchor" aria-describedby="external-description tooltip">Anchor</button>
+            <button id="native-anchor" aria-describedby="external-description tooltip">
+              Anchor
+            </button>
           </tooltip-assigned-slot-host>
           <span id="external-description">External description</span>
-          <sl-tooltip id="tooltip" show-delay="0" hide-delay="0">Tooltip via assigned slot</sl-tooltip>
+          <sl-tooltip id="tooltip" show-delay="0" hide-delay="0"
+            >Tooltip via assigned slot</sl-tooltip
+          >
         </div>
       `);
 
@@ -1017,7 +1058,10 @@ describe('sl-tooltip', () => {
 
       expect(tooltip.matches(':popover-open')).to.be.true;
       expect(tooltip.getRootNode()).to.equal(anchor.ownerDocument);
-      expect(Array.from(anchor.ariaDescribedByElements ?? [])).to.include.members([externalDescription, tooltip]);
+      expect(Array.from(anchor.ariaDescribedByElements ?? [])).to.include.members([
+        externalDescription,
+        tooltip
+      ]);
     });
   });
 
@@ -1029,13 +1073,21 @@ describe('sl-tooltip', () => {
       el = await fixture(html`
         <div style="block-size: 400px; inline-size: 400px;">
           <tooltip-assigned-slot-host>
-            <button id="slotted-anchor" slot="actions" aria-describedby="external-description tooltip">
+            <button
+              id="slotted-anchor"
+              slot="actions"
+              aria-describedby="external-description tooltip"
+            >
               Slotted anchor
             </button>
-            <button id="default-anchor" aria-describedby="external-description tooltip">Default anchor</button>
+            <button id="default-anchor" aria-describedby="external-description tooltip">
+              Default anchor
+            </button>
           </tooltip-assigned-slot-host>
           <span id="external-description">External description</span>
-          <sl-tooltip id="tooltip" show-delay="0" hide-delay="0">Tooltip via assigned slot</sl-tooltip>
+          <sl-tooltip id="tooltip" show-delay="0" hide-delay="0"
+            >Tooltip via assigned slot</sl-tooltip
+          >
         </div>
       `);
 
@@ -1076,11 +1128,17 @@ describe('sl-tooltip', () => {
       el = await fixture(html`
         <div style="block-size: 400px; inline-size: 400px;">
           <tooltip-assigned-slot-host>
-            <sl-button id="shadow-anchor" slot="actions" aria-describedby="tooltip">Shadow anchor</sl-button>
-            <button id="native-anchor" aria-describedby="external-description tooltip">Native anchor</button>
+            <sl-button id="shadow-anchor" slot="actions" aria-describedby="tooltip"
+              >Shadow anchor</sl-button
+            >
+            <button id="native-anchor" aria-describedby="external-description tooltip">
+              Native anchor
+            </button>
           </tooltip-assigned-slot-host>
           <span id="external-description">External description</span>
-          <sl-tooltip id="tooltip" show-delay="0" hide-delay="0">Tooltip via assigned slot</sl-tooltip>
+          <sl-tooltip id="tooltip" show-delay="0" hide-delay="0"
+            >Tooltip via assigned slot</sl-tooltip
+          >
         </div>
       `);
 
@@ -1109,7 +1167,10 @@ describe('sl-tooltip', () => {
       expect(tooltip.matches(':popover-open')).to.be.true;
       expect(tooltip.getRootNode()).to.equal(nativeAnchor.getRootNode());
       expect(tooltip.previousElementSibling).to.equal(nativeAnchor);
-      expect(Array.from(nativeAnchor.ariaDescribedByElements ?? [])).to.include.members([externalDescription, tooltip]);
+      expect(Array.from(nativeAnchor.ariaDescribedByElements ?? [])).to.include.members([
+        externalDescription,
+        tooltip
+      ]);
     });
   });
 
@@ -1139,14 +1200,18 @@ describe('sl-tooltip', () => {
 
       const describedBy = button.getAttribute('aria-describedby'),
         describedByElements = button.ariaDescribedByElements ?? [],
-        proxyTarget = (button as HTMLElement & { getProxyTarget?(): Element | null }).getProxyTarget?.(),
-        proxyDescribedBy = proxyTarget instanceof Element ? proxyTarget.getAttribute('aria-describedby') : null,
+        proxyTarget = (
+          button as HTMLElement & { getProxyTarget?(): Element | null }
+        ).getProxyTarget?.(),
+        proxyDescribedBy =
+          proxyTarget instanceof Element ? proxyTarget.getAttribute('aria-describedby') : null,
         proxyDescribedByElements =
           proxyTarget instanceof Element && 'ariaDescribedByElements' in proxyTarget
             ? (proxyTarget.ariaDescribedByElements ?? [])
             : [],
         hasAriaDescribedBy =
-          describedBy?.split(/\s+/).includes(tooltip!.id) === true || describedByElements.includes(tooltip);
+          describedBy?.split(/\s+/).includes(tooltip!.id) === true ||
+          describedByElements.includes(tooltip);
 
       expect(
         hasAriaDescribedBy ||

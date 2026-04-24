@@ -41,6 +41,7 @@ yarn extract-templates:watch
 ## Output
 
 Generated files are placed in `packages/angular/stories/generated/` with the naming convention:
+
 - `{storyname}.generated.mdx`
 
 Example: `accordion.stories.ts` → `accordion.generated.mdx`
@@ -62,10 +63,10 @@ The generated MDX files are automatically included in Storybook via the configur
 
 ```typescript
 stories: [
-  '../stories/*.mdx',                        // Manual docs
-  '../stories/generated/*.generated.mdx',    // Auto-generated docs
-  '../stories/*.stories.ts'                  // Stories
-]
+  '../stories/*.mdx', // Manual docs
+  '../stories/generated/*.generated.mdx', // Auto-generated docs
+  '../stories/*.stories.ts' // Stories
+];
 ```
 
 ## Benefits
@@ -90,6 +91,7 @@ stories: [
 To add custom introduction content to your generated documentation:
 
 1. **Create an introduction file** named `{component}.intro.md` next to your story file:
+
    ```
    packages/angular/stories/
    ├── accordion.stories.ts
@@ -97,14 +99,17 @@ To add custom introduction content to your generated documentation:
    ```
 
 2. **Write your introduction** in Markdown format:
+
    ```markdown
    An Accordion is a collapsible content panel...
 
    ## Key Features
+
    - Feature 1
    - Feature 2
 
    ## When to Use
+
    Use accordions when...
    ```
 
@@ -123,6 +128,7 @@ The custom introduction will be inserted after the title and before the componen
 The extractor recognizes these patterns in story files:
 
 ### Component Definition
+
 ```typescript
 @Component({
   selector: 'app-example',
@@ -134,6 +140,7 @@ export class ExampleComponent {
 ```
 
 ### Story Definition
+
 ```typescript
 export const ExampleStory: StoryObj = {
   render: () => ({
@@ -153,16 +160,19 @@ The script can be configured by modifying `scripts/extract-story-templates.js`:
 ## Troubleshooting
 
 ### No files generated
+
 - Check that story files exist in `packages/angular/stories/`
 - Ensure story files contain `@Component` decorators
 - Verify file permissions for the output directory
 
 ### Malformed output
+
 - Check that component templates use backticks (template literals)
 - Ensure proper TypeScript syntax in story files
 - Review the parsing regex patterns in the script
 
 ### Storybook doesn't show generated docs
+
 - Verify `.storybook/main.ts` includes the generated files pattern
 - Check that files are actually generated in the expected location
 - Restart Storybook after configuration changes

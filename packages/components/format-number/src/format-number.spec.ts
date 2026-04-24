@@ -220,7 +220,9 @@ describe('sl-format-number', () => {
 
   describe('locale', () => {
     it('should format using the element locale attribute', async () => {
-      el = await fixture(html`<sl-format-number number="1234.56" locale="nl-NL"></sl-format-number>`);
+      el = await fixture(
+        html`<sl-format-number number="1234.56" locale="nl-NL"></sl-format-number>`
+      );
 
       expect(el.renderRoot).to.have.text('1.234,56');
     });

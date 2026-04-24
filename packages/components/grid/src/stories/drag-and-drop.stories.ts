@@ -22,8 +22,9 @@ export const Basic: Story = {
   render: (_, { loaded: { students } }) => {
     return html`
       <p>
-        This example shows basic drag and drop behavior. You can drag and row and drop it in between other rows. This
-        way you can reorder the items in the grid. This is the default behavior when you add a
+        This example shows basic drag and drop behavior. You can drag and row and drop it in between
+        other rows. This way you can reorder the items in the grid. This is the default behavior
+        when you add a
         <code>sl-grid-drag-handle-column</code> to the grid. The column automatically sets the
         <code>draggable-rows</code> property to <code>between</code>.
       </p>
@@ -54,7 +55,12 @@ export const OnTop: Story = {
     };
 
     return html`
-      <sl-grid @sl-grid-drop=${onDrop} draggable-rows="on-top" .dropFilter=${dropFilter} .items=${people}>
+      <sl-grid
+        @sl-grid-drop=${onDrop}
+        draggable-rows="on-top"
+        .dropFilter=${dropFilter}
+        .items=${people}
+      >
         <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>

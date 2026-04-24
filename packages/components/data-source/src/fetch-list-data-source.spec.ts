@@ -1,6 +1,9 @@
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { FetchListDataSource, type FetchListDataSourceCallbackOptions } from './fetch-list-data-source.js';
+import {
+  FetchListDataSource,
+  type FetchListDataSourceCallbackOptions
+} from './fetch-list-data-source.js';
 import { type ListDataSourceDataItem, ListDataSourcePlaceholder } from './list-data-source.js';
 import { type Person, people } from './list-data-source.spec.js';
 
@@ -190,7 +193,9 @@ describe('FetchListDataSource', () => {
         ds.items.at(0);
 
         expect(ds.fetchPage).to.have.been.calledOnce;
-        expect(ds.fetchPage).to.have.been.calledWithMatch({ sort: { by: 'firstName', direction: 'desc' } });
+        expect(ds.fetchPage).to.have.been.calledWithMatch({
+          sort: { by: 'firstName', direction: 'desc' }
+        });
       });
 
       it('should emit an update event after fetching a page', async () => {

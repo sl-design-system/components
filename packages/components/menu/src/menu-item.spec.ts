@@ -178,7 +178,10 @@ describe('sl-menu-item', () => {
     });
 
     it('should have an aria-keyshortcuts attribute', () => {
-      expect(el).to.have.attribute('aria-keyshortcuts', navigator.platform.indexOf('Mac') > -1 ? 'Meta+1' : 'Ctrl+1');
+      expect(el).to.have.attribute(
+        'aria-keyshortcuts',
+        navigator.platform.indexOf('Mac') > -1 ? 'Meta+1' : 'Ctrl+1'
+      );
     });
 
     it('should hide the kbd element from assistive technologies', () => {
@@ -200,7 +203,9 @@ describe('sl-menu-item', () => {
 
       el.addEventListener('click', onClick);
 
-      await userEvent.keyboard(navigator.platform.indexOf('Mac') > -1 ? '{Meta>}1{/Meta}' : '{Control>}1{/Control}');
+      await userEvent.keyboard(
+        navigator.platform.indexOf('Mac') > -1 ? '{Meta>}1{/Meta}' : '{Control>}1{/Control}'
+      );
 
       expect(onClick).to.have.been.calledOnce;
     });

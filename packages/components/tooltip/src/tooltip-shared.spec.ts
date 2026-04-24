@@ -23,7 +23,9 @@ describe('sl-tooltip shared', () => {
 
     if (popover.matches(':popover-open')) {
       const id = (popover as HTMLElement & { id?: string }).id;
-      throw new Error(`Timed out after ${timeout}ms waiting for popover${id ? ` with id "${id}"` : ''} to close.`);
+      throw new Error(
+        `Timed out after ${timeout}ms waiting for popover${id ? ` with id "${id}"` : ''} to close.`
+      );
     }
   };
 
@@ -58,7 +60,10 @@ describe('sl-tooltip shared', () => {
 
     // Wait for any pending timers/event queue work.
     await tooltip.updateComplete;
-    await waitForPopoverToClose(tooltip, (tooltip.showDelay ?? 150) + (tooltip.hideDelay ?? 0) + 250);
+    await waitForPopoverToClose(
+      tooltip,
+      (tooltip.showDelay ?? 150) + (tooltip.hideDelay ?? 0) + 250
+    );
 
     // The tooltip should be closed.
     expect(tooltip.matches(':popover-open')).to.be.false;
@@ -81,7 +86,10 @@ describe('sl-tooltip shared', () => {
     await userEvent.hover(document.body);
 
     await tooltip.updateComplete;
-    await waitForPopoverToClose(tooltip, (tooltip.showDelay ?? 150) + (tooltip.hideDelay ?? 0) + 250);
+    await waitForPopoverToClose(
+      tooltip,
+      (tooltip.showDelay ?? 150) + (tooltip.hideDelay ?? 0) + 250
+    );
     expect(tooltip.matches(':popover-open')).to.be.false;
   });
 
@@ -196,7 +204,9 @@ describe('sl-tooltip shared', () => {
       <div style="display: flex; gap: 8px;">
         <sl-button id="internals-btn-1">Button 1</sl-button>
         <sl-button id="internals-btn-2">Button 2</sl-button>
-        <sl-tooltip id="internals-tooltip" show-delay="10" hide-delay="0">Shared Tooltip</sl-tooltip>
+        <sl-tooltip id="internals-tooltip" show-delay="10" hide-delay="0"
+          >Shared Tooltip</sl-tooltip
+        >
       </div>
     `);
 

@@ -6,7 +6,10 @@ import { type TemplateResult, html, nothing } from 'lit';
 import '../register.js';
 import { type RadioGroup } from './radio-group.js';
 
-type Props = Pick<RadioGroup, 'disabled' | 'horizontal' | 'required' | 'showValid' | 'size' | 'value'> & {
+type Props = Pick<
+  RadioGroup,
+  'disabled' | 'horizontal' | 'required' | 'showValid' | 'size' | 'value'
+> & {
   hint?: string;
   label?: string;
   options?(): TemplateResult;
@@ -47,7 +50,19 @@ export default {
       control: 'text'
     }
   },
-  render: ({ disabled, hint, horizontal, label, options, reportValidity, required, showValid, slot, value, size }) => {
+  render: ({
+    disabled,
+    hint,
+    horizontal,
+    label,
+    options,
+    reportValidity,
+    required,
+    showValid,
+    slot,
+    value,
+    size
+  }) => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
       event.target.closest('sl-form')?.reportValidity();
     };
@@ -105,12 +120,13 @@ export const Overflow: Story = {
     options: () => html`
       <sl-radio value="1">Lorem ipsum</sl-radio>
       <sl-radio value="2">
-        Elit consectetur duis nisi id veniam id deserunt cupidatat. Consectetur consectetur consequat ea
+        Elit consectetur duis nisi id veniam id deserunt cupidatat. Consectetur consectetur
+        consequat ea
       </sl-radio>
       <sl-radio value="3">
-        Amet consequat veniam nostrud labore. Labore labore sunt in nisi ut voluptate cillum. Consequat ex dolor nostrud
-        duis veniam ut est. Commodo dolor incididunt laborum cupidatat anim magna voluptate Lorem eu elit eiusmod mollit
-        irure.
+        Amet consequat veniam nostrud labore. Labore labore sunt in nisi ut voluptate cillum.
+        Consequat ex dolor nostrud duis veniam ut est. Commodo dolor incididunt laborum cupidatat
+        anim magna voluptate Lorem eu elit eiusmod mollit irure.
       </sl-radio>
     `
   }
@@ -165,7 +181,10 @@ export const CustomAsyncValidity: Story = {
     slot: () => {
       const onValidate = (event: Event & { target: RadioGroup }): void => {
         const promise = new Promise<string>(resolve =>
-          setTimeout(() => resolve(event.target.value === '2' ? '' : 'Pick the middle option'), 2000)
+          setTimeout(
+            () => resolve(event.target.value === '2' ? '' : 'Pick the middle option'),
+            2000
+          )
         );
 
         event.target.setCustomValidity(promise);

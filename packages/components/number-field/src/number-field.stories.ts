@@ -204,18 +204,45 @@ export const All: Story = {
 
       <span>Empty</span>
       <sl-number-field aria-label="Number field" placeholder="Placeholder"></sl-number-field>
-      <sl-number-field aria-label="Number field" placeholder="Placeholder" size="lg"></sl-number-field>
+      <sl-number-field
+        aria-label="Number field"
+        placeholder="Placeholder"
+        size="lg"
+      ></sl-number-field>
 
       <span>Value</span>
-      <sl-number-field aria-label="Number field" placeholder="Placeholder" value="100"></sl-number-field>
-      <sl-number-field aria-label="Number field" placeholder="Placeholder" size="lg" value="100"></sl-number-field>
+      <sl-number-field
+        aria-label="Number field"
+        placeholder="Placeholder"
+        value="100"
+      ></sl-number-field>
+      <sl-number-field
+        aria-label="Number field"
+        placeholder="Placeholder"
+        size="lg"
+        value="100"
+      ></sl-number-field>
 
       <span>Disabled</span>
-      <sl-number-field aria-label="Number field" disabled placeholder="Placeholder"></sl-number-field>
-      <sl-number-field aria-label="Number field" disabled placeholder="Placeholder" size="lg"></sl-number-field>
+      <sl-number-field
+        aria-label="Number field"
+        disabled
+        placeholder="Placeholder"
+      ></sl-number-field>
+      <sl-number-field
+        aria-label="Number field"
+        disabled
+        placeholder="Placeholder"
+        size="lg"
+      ></sl-number-field>
 
       <span>Disabled with value</span>
-      <sl-number-field aria-label="Number field" disabled placeholder="Placeholder" value="100"></sl-number-field>
+      <sl-number-field
+        aria-label="Number field"
+        disabled
+        placeholder="Placeholder"
+        value="100"
+      ></sl-number-field>
       <sl-number-field
         aria-label="Number field"
         disabled
@@ -225,7 +252,12 @@ export const All: Story = {
       ></sl-number-field>
 
       <span>Readonly</span>
-      <sl-number-field aria-label="Number field" placeholder="Placeholder" readonly value="100"></sl-number-field>
+      <sl-number-field
+        aria-label="Number field"
+        placeholder="Placeholder"
+        readonly
+        value="100"
+      ></sl-number-field>
       <sl-number-field
         aria-label="Number field"
         placeholder="Placeholder"
@@ -235,7 +267,11 @@ export const All: Story = {
       ></sl-number-field>
 
       <span>Empty, step buttons: end</span>
-      <sl-number-field aria-label="Number field" placeholder="Placeholder" step-buttons="end"></sl-number-field>
+      <sl-number-field
+        aria-label="Number field"
+        placeholder="Placeholder"
+        step-buttons="end"
+      ></sl-number-field>
       <sl-number-field
         aria-label="Number field"
         placeholder="Placeholder"
@@ -291,7 +327,11 @@ export const All: Story = {
       ></sl-number-field>
 
       <span>Empty, step buttons: edges</span>
-      <sl-number-field aria-label="Number field" placeholder="Placeholder" step-buttons="edges"></sl-number-field>
+      <sl-number-field
+        aria-label="Number field"
+        placeholder="Placeholder"
+        step-buttons="edges"
+      ></sl-number-field>
       <sl-number-field
         aria-label="Number field"
         placeholder="Placeholder"

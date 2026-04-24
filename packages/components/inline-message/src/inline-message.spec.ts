@@ -95,7 +95,9 @@ describe('sl-inline-message', () => {
 
   describe('auto size', () => {
     it('should have a size of md by default', async () => {
-      el = await fixture(html`<sl-inline-message style="width: 200px">Inline message</sl-inline-message>`);
+      el = await fixture(
+        html`<sl-inline-message style="width: 200px">Inline message</sl-inline-message>`
+      );
 
       expect(el).to.have.attribute('size', 'md');
       expect(el.size).to.equal('md');
@@ -104,11 +106,12 @@ describe('sl-inline-message', () => {
     it('should automatically change the size to lg when the text is too long', async () => {
       el = await fixture(html`
         <sl-inline-message style="width: 100px">
-          In ad occaecat id magna magna eiusmod cupidatat nulla. Minim minim commodo dolore quis deserunt nisi do
-          commodo ut minim aliqua et. Aliquip cupidatat laborum proident proident cupidatat consequat eiusmod qui
-          deserunt. Duis fugiat fugiat irure anim incididunt. Aute est nisi quis et sint eiusmod commodo veniam ut et
-          nulla eiusmod velit irure. Aute cillum amet dolore consectetur aliqua nulla ullamco ut in adipisicing. Culpa
-          excepteur ullamco aliquip elit veniam minim.
+          In ad occaecat id magna magna eiusmod cupidatat nulla. Minim minim commodo dolore quis
+          deserunt nisi do commodo ut minim aliqua et. Aliquip cupidatat laborum proident proident
+          cupidatat consequat eiusmod qui deserunt. Duis fugiat fugiat irure anim incididunt. Aute
+          est nisi quis et sint eiusmod commodo veniam ut et nulla eiusmod velit irure. Aute cillum
+          amet dolore consectetur aliqua nulla ullamco ut in adipisicing. Culpa excepteur ullamco
+          aliquip elit veniam minim.
         </sl-inline-message>
       `);
       await new Promise(resolve => setTimeout(resolve, 50));
@@ -171,7 +174,10 @@ describe('sl-inline-message', () => {
 
       const announcement = announce.lastCall.firstArg as SlAnnounceEvent;
 
-      expect(announcement.detail).to.deep.equal({ message: 'Title  Inline message', urgency: 'polite' });
+      expect(announcement.detail).to.deep.equal({
+        message: 'Title  Inline message',
+        urgency: 'polite'
+      });
     });
   });
 });

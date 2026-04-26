@@ -266,27 +266,31 @@ export class Card extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    const title: HTMLSlotElement | null = this.shadowRoot.querySelector('slot.title');
+    const title = this.shadowRoot.querySelector<HTMLSlotElement>('slot.title');
 
     if (title && title.assignedNodes({ flatten: true }).length > 0) {
       const link = title
         .assignedNodes({ flatten: true })
         .find(el => el instanceof HTMLAnchorElement);
+
+      const onClick = (event: Event): void => {
+        const shouldStopPropagation = event
+          .composedPath()
+          .find(
+            el => el instanceof Element && (el.matches('sl-button') || el.matches('slot.title'))
+          );
+
+        if (!shouldStopPropagation) {
+          link!.click();
+        }
+      };
+
       if (!link) {
         this.classList.remove('sl-has-link');
-        this.removeEventListener('click', () => {});
+        this.removeEventListener('click', onClick);
       } else {
         this.classList.add('sl-has-link');
-        this.addEventListener('click', (e: MouseEvent) => {
-          const shouldStopPropagation = e
-            .composedPath()
-            .find(
-              el => el instanceof Element && (el.matches('sl-button') || el.matches('slot.title'))
-            );
-          if (!shouldStopPropagation) {
-            link.click();
-          }
-        });
+        this.addEventListener('click', onClick);
       }
     }
   }

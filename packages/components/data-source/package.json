@@ -33,5 +33,8 @@
   },
   "dependencies": {
     "@sl-design-system/shared": "^0.12.0"
+  },
+  "devDependencies": {
+    "@sl-design-system/example-data": "^1.0.0"
   }
 }

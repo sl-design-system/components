@@ -413,12 +413,9 @@ describe('NestedTreeDataSource', () => {
 
       errorDs.expand(parentNode);
 
-      try {
-        await parentNode.childrenLoading;
-      } catch (error) {
-        expect(error).to.be.instanceof(Error);
-        expect((error as Error).message).to.equal('Failed to load children');
-      }
+      await expect(parentNode.childrenLoading).rejects.toThrow(
+        new Error('Failed to load children')
+      );
 
       expect(parentNode.children).to.be.undefined;
       expect(parentNode.childrenLoading).to.be.instanceof(Promise);

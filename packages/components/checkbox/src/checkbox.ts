@@ -59,6 +59,7 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  // oxlint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
     click: this.#onClick,
     focusin: this.#onFocusin,

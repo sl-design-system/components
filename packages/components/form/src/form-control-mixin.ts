@@ -481,7 +481,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       if (typeof message !== 'string') {
         this.#customValidityPromise = message;
 
-        message
+        void message
           .then(result => {
             // Set native validity directly and update without re-emitting sl-validate.
             // The promise was already created from an sl-validate handler, so re-emitting

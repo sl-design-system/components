@@ -653,19 +653,11 @@ describe('sl-breadcrumbs', () => {
             'slot[name^="breadcrumb-"]:not([name*="menu"])'
           )
         ),
-        visibleLinks = slots.map(slot => slot.assignedElements()[0]) as HTMLElement[];
+        visibleLinks = slots.map(slot => slot.assignedElements()[0]) as HTMLElement[],
+        shortLink = visibleLinks.find(link => link.textContent?.trim() === 'Short');
 
-      // Find the "Short" link - it should not have any tooltip attributes initially
-      const shortLink = visibleLinks.find(link => link.textContent?.trim() === 'Short');
-
-      if (shortLink) {
-        // Check if link is actually not truncated (offsetWidth >= scrollWidth)
-        const isTruncated = shortLink.offsetWidth < shortLink.scrollWidth;
-
-        if (!isTruncated) {
-          expect(shortLink).not.to.have.attribute('data-has-tooltip');
-        }
-      }
+      expect(shortLink).to.exist;
+      expect(shortLink).not.to.have.attribute('data-has-tooltip');
     });
 
     it('should detect truncation based on offsetWidth vs scrollWidth', () => {
@@ -674,16 +666,12 @@ describe('sl-breadcrumbs', () => {
             'slot[name^="breadcrumb-"]:not([name*="menu"])'
           )
         ),
-        visibleLinks = slots.map(slot => slot.assignedElements()[0]) as HTMLElement[];
+        visibleLinks = slots.map(slot => slot.assignedElements()[0]) as HTMLElement[],
+        markedLinks = visibleLinks.filter(link => link.hasAttribute('data-has-tooltip'));
 
-      visibleLinks.forEach(link => {
-        const isTruncated = link.offsetWidth < link.scrollWidth,
-          hasTooltipMarker = link.hasAttribute('data-has-tooltip');
-
-        // If marked for tooltip, it should be truncated
-        if (hasTooltipMarker) {
-          expect(isTruncated).to.be.true;
-        }
+      expect(markedLinks.length).to.be.greaterThan(0);
+      markedLinks.forEach(link => {
+        expect(link.offsetWidth).to.be.lessThan(link.scrollWidth);
       });
     });
   });

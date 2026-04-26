@@ -198,7 +198,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   /** When set will group all the selected options at the top of the listbox. */
   @property({ type: Boolean, attribute: 'group-selected' }) groupSelected?: boolean;
 
-  /** @internal. */
+  /** @internal */
   readonly internals = this.attachInternals();
 
   /** @internal The input element in the light DOM. */

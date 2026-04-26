@@ -1,5 +1,6 @@
+import { type Person, getPeople } from '@sl-design-system/example-data';
 import { spy } from 'sinon';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { ArrayListDataSource } from './array-list-data-source.js';
 import {
   LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE,
@@ -7,10 +8,26 @@ import {
   isListDataSourceDataItem,
   isListDataSourceGroupItem
 } from './list-data-source.js';
-import { type Person, people } from './list-data-source.spec.js';
+
+// First 10 people from example-data (count: 10):
+//  0: Aria Bailey,    Endocrinologist,   Busy,      Premium
+//  1: Aaliyah Butler, Nephrologist,      Available, VIP
+//  2: Eleanor Price,  Ophthalmologist,   Available, Regular
+//  3: Allison Torres, Allergist,         Available, Regular
+//  4: Madeline Lewis, Gastroenterologist,Busy,      VIP
+//  5: Anna Myers,     Anesthesiologist,  Available, Premium
+//  6: Ashley Howard,  Urologist,         Available, Regular
+//  7: Cooper Phillips,Cardiologist,      Busy,      Premium
+//  8: Lauren Wright,  Pediatrician,      Available, Regular
+//  9: Abigail Lewis,  Nephrologist,      Available, Regular
 
 describe('ArrayListDataSource', () => {
+  let people: Person[];
   let ds: ArrayListDataSource<Person>;
+
+  beforeAll(async () => {
+    ({ people } = await getPeople({ count: 10 }));
+  });
 
   describe('basics', () => {
     beforeEach(() => {
@@ -103,7 +120,7 @@ describe('ArrayListDataSource', () => {
       ds.addFilter('id', 'profession', 'Gastroenterologist');
       ds.update();
 
-      expect(ds.items).to.have.length(2);
+      expect(ds.items).to.have.length(1);
       expect(
         ds.items
           .filter(item => isListDataSourceDataItem(item))
@@ -116,7 +133,7 @@ describe('ArrayListDataSource', () => {
       ds.addFilter('id2', 'membership', 'Premium');
       ds.update();
 
-      expect(ds.items).to.have.length(4);
+      expect(ds.items).to.have.length(8);
       expect(
         ds.items
           .filter(item => isListDataSourceDataItem(item))
@@ -124,20 +141,32 @@ describe('ArrayListDataSource', () => {
       ).to.be.true;
     });
 
-    it('should filter numbers as well as strings', () => {
-      ds.addFilter('id', 'id', '1');
+    it('should filter by status', () => {
+      ds.addFilter('id', 'status', 'Busy');
       ds.update();
 
-      expect(ds.items).to.have.length(1);
-      expect(ds.items[0].id).to.equal(1);
+      expect(ds.items).to.have.length(3);
+      expect(
+        ds.items
+          .filter(item => isListDataSourceDataItem(item))
+          .every(({ data: { status } }) => status === 'Busy')
+      ).to.be.true;
     });
 
     it('should filter whitespace, null and undefined as blank values', () => {
-      ds.addFilter('id', 'pictureUrl', '');
-      ds.update();
+      type PersonWithPicture = Person & { pictureUrl?: string | null };
+      const dsWithBlanks = new ArrayListDataSource<PersonWithPicture>([
+        { ...people[0], pictureUrl: '' },
+        { ...people[1], pictureUrl: null },
+        { ...people[2], pictureUrl: '  ' },
+        { ...people[3], pictureUrl: undefined },
+        { ...people[4], pictureUrl: 'https://example.com' }
+      ]);
 
-      expect(ds.items).to.have.length(4);
-      expect(ds.items.map(({ id }) => id)).to.deep.equal([1, 211, 201, 3]);
+      dsWithBlanks.addFilter('id', 'pictureUrl', '');
+      dsWithBlanks.update();
+
+      expect(dsWithBlanks.items).to.have.length(4);
     });
 
     it('should filter by function', () => {
@@ -146,7 +175,7 @@ describe('ArrayListDataSource', () => {
       });
       ds.update();
 
-      expect(ds.items).to.have.length(2);
+      expect(ds.items).to.have.length(1);
       expect(
         ds.items
           .filter(item => isListDataSourceDataItem(item))
@@ -155,24 +184,24 @@ describe('ArrayListDataSource', () => {
     });
 
     it('should combine filters', () => {
-      ds.addFilter('id1', 'profession', 'Gastroenterologist');
-      ds.addFilter('id2', 'status', 'Busy');
-      ds.addFilter('id3', ({ firstName }) => /Bob/.test(firstName));
+      ds.addFilter('id1', 'profession', 'Nephrologist');
+      ds.addFilter('id2', 'status', 'Available');
+      ds.addFilter('id3', ({ firstName }) => /Abigail/.test(firstName));
       ds.update();
 
       expect(ds.items).to.have.length(1);
 
       const { data } = ds.items[0] as ListDataSourceDataItem<Person>;
-      expect(data.firstName).to.equal('Bob');
-      expect(data.profession).to.equal('Gastroenterologist');
-      expect(data.status).to.equal('Busy');
+      expect(data.firstName).to.equal('Abigail');
+      expect(data.profession).to.equal('Nephrologist');
+      expect(data.status).to.equal('Available');
     });
 
     it('should reset the filtered items when removing a filter', () => {
       ds.addFilter('id', 'profession', 'Gastroenterologist');
       ds.update();
 
-      expect(ds.items).to.have.length(2);
+      expect(ds.items).to.have.length(1);
 
       ds.removeFilter('id');
       ds.update();
@@ -184,7 +213,7 @@ describe('ArrayListDataSource', () => {
       ds.addFilter('id', 'profession', 'Gastroenterologist');
       ds.update();
 
-      expect(ds.items).to.have.length(2);
+      expect(ds.items).to.have.length(1);
       expect(ds.unfilteredItems).to.have.length(people.length);
     });
   });
@@ -204,7 +233,8 @@ describe('ArrayListDataSource', () => {
       });
 
       it('should have an increased length to account for the group items', () => {
-        expect(ds.items.length).to.equal(people.length + 4);
+        // 10 people in 9 profession groups (Nephrologist has 2 members)
+        expect(ds.items.length).to.equal(people.length + 9);
       });
 
       it('should have group items at the start of each group', () => {
@@ -212,14 +242,24 @@ describe('ArrayListDataSource', () => {
 
         expect(types).to.deep.equal([
           'group',
-          'data',
+          'data', // Allergist
+          'group',
+          'data', // Anesthesiologist
+          'group',
+          'data', // Cardiologist
+          'group',
+          'data', // Endocrinologist
+          'group',
+          'data', // Gastroenterologist
           'group',
           'data',
-          'data',
+          'data', // Nephrologist (2 members)
           'group',
-          'data',
+          'data', // Ophthalmologist
           'group',
-          'data'
+          'data', // Pediatrician
+          'group',
+          'data' // Urologist
         ]);
       });
 
@@ -238,14 +278,24 @@ describe('ArrayListDataSource', () => {
         const types = ds.items.map(({ type }) => type);
 
         expect(types).to.deep.equal([
+          'group', // Allergist (collapsed, member hidden)
           'group',
+          'data', // Anesthesiologist
+          'group',
+          'data', // Cardiologist
+          'group',
+          'data', // Endocrinologist
+          'group',
+          'data', // Gastroenterologist
           'group',
           'data',
-          'data',
+          'data', // Nephrologist
           'group',
-          'data',
+          'data', // Ophthalmologist
           'group',
-          'data'
+          'data', // Pediatrician
+          'group',
+          'data' // Urologist
         ]);
       });
     });
@@ -259,10 +309,15 @@ describe('ArrayListDataSource', () => {
           .map(({ label }) => label);
 
         expect(groupLabels).to.deep.equal([
+          'Urologist',
+          'Pediatrician',
           'Ophthalmologist',
           'Nephrologist',
           'Gastroenterologist',
-          'Endocrinologist'
+          'Endocrinologist',
+          'Cardiologist',
+          'Anesthesiologist',
+          'Allergist'
         ]);
       });
 
@@ -291,9 +346,14 @@ describe('ArrayListDataSource', () => {
 
         expect(groupLabels).to.deep.equal([
           'Nephrologist',
+          'Allergist',
+          'Anesthesiologist',
+          'Cardiologist',
           'Endocrinologist',
           'Gastroenterologist',
-          'Ophthalmologist'
+          'Ophthalmologist',
+          'Pediatrician',
+          'Urologist'
         ]);
       });
     });
@@ -307,11 +367,17 @@ describe('ArrayListDataSource', () => {
       });
 
       it('should use the label path for the group label', () => {
-        const groupLabels = ds.items
-          .filter(item => isListDataSourceGroupItem(item))
-          .map(({ label }) => label);
+        const groups = ds.items.filter(item => isListDataSourceGroupItem(item));
 
-        expect(groupLabels).to.deep.equal(['Premium', 'Regular', 'Regular', 'VIP']);
+        // Each group's label should equal the membership of the first person with that profession
+        groups.forEach(group => {
+          const firstMember = people.find(p => p.profession === group.id);
+          expect(group.label).to.equal(firstMember?.membership);
+        });
+
+        // Groups should be sorted by their label (membership value)
+        const labels = groups.map(({ label }) => label ?? '');
+        expect(labels).to.deep.equal([...labels].sort((a, b) => a.localeCompare(b)));
       });
     });
   });
@@ -326,7 +392,7 @@ describe('ArrayListDataSource', () => {
         .filter(item => isListDataSourceDataItem(item))
         .map(({ data: { firstName } }) => firstName);
 
-      expect(firstNames).to.deep.equal(['Ann', 'Bob']);
+      expect(firstNames).to.deep.equal(['Allison', 'Madeline', 'Anna']);
     });
 
     it('should update pagination after changing the page', () => {
@@ -337,7 +403,7 @@ describe('ArrayListDataSource', () => {
         .filter(item => isListDataSourceDataItem(item))
         .map(({ data: { firstName } }) => firstName);
 
-      expect(firstNames).to.deep.equal(['Ann', 'John', 'Jane']);
+      expect(firstNames).to.deep.equal(['Aria', 'Aaliyah', 'Eleanor']);
     });
 
     it('should update pagination after changing the page size', () => {
@@ -348,7 +414,7 @@ describe('ArrayListDataSource', () => {
         .filter(item => isListDataSourceDataItem(item))
         .map(({ data: { firstName } }) => firstName);
 
-      expect(firstNames).to.deep.equal(['Jane', 'Ann']);
+      expect(firstNames).to.deep.equal(['Eleanor', 'Allison']);
     });
   });
 
@@ -569,7 +635,7 @@ describe('ArrayListDataSource', () => {
       it('should select all items in a group when calling select() with the group', () => {
         const group = ds.items
           .filter(item => isListDataSourceGroupItem(item))
-          .find(({ id }) => id === 'Gastroenterologist')!;
+          .find(({ id }) => id === 'Nephrologist')!;
 
         ds.select(group);
 
@@ -582,7 +648,7 @@ describe('ArrayListDataSource', () => {
       it('should deselect all items in a group when calling deselect() with the group', () => {
         const group = ds.items
           .filter(item => isListDataSourceGroupItem(item))
-          .find(({ id }) => id === 'Gastroenterologist')!;
+          .find(({ id }) => id === 'Nephrologist')!;
 
         ds.select(group);
         expect(ds.selection.size).to.equal(2);
@@ -597,7 +663,7 @@ describe('ArrayListDataSource', () => {
       it('should deselect the group if an item in the group is deselected', () => {
         const group = ds.items
           .filter(item => isListDataSourceGroupItem(item))
-          .find(({ id }) => id === 'Gastroenterologist')!;
+          .find(({ id }) => id === 'Nephrologist')!;
 
         ds.select(group);
         expect(ds.selection.size).to.equal(2);
@@ -613,7 +679,7 @@ describe('ArrayListDataSource', () => {
       it('should select the group if all items in the group are selected', () => {
         const group = ds.items
           .filter(item => isListDataSourceGroupItem(item))
-          .find(({ id }) => id === 'Gastroenterologist')!;
+          .find(({ id }) => id === 'Nephrologist')!;
 
         ds.select(group.members!.at(0)!);
         ds.select(group.members!.at(1)!);
@@ -720,7 +786,18 @@ describe('ArrayListDataSource', () => {
         .filter(item => isListDataSourceDataItem(item))
         .map(({ data: { firstName } }) => firstName);
 
-      expect(firstNames).to.deep.equal(['Ann', 'Ann', 'Bob', 'Jane', 'John']);
+      expect(firstNames).to.deep.equal([
+        'Aaliyah',
+        'Abigail',
+        'Allison',
+        'Anna',
+        'Aria',
+        'Ashley',
+        'Cooper',
+        'Eleanor',
+        'Lauren',
+        'Madeline'
+      ]);
     });
 
     it('should sort in a descending direction', () => {
@@ -731,16 +808,40 @@ describe('ArrayListDataSource', () => {
         .filter(item => isListDataSourceDataItem(item))
         .map(({ data: { firstName } }) => firstName);
 
-      expect(firstNames).to.deep.equal(['John', 'Jane', 'Bob', 'Ann', 'Ann']);
+      expect(firstNames).to.deep.equal([
+        'Madeline',
+        'Lauren',
+        'Eleanor',
+        'Cooper',
+        'Ashley',
+        'Aria',
+        'Anna',
+        'Allison',
+        'Abigail',
+        'Aaliyah'
+      ]);
     });
 
-    it('should sort numbers', () => {
-      ds.setSort('id', 'desc');
+    it('should sort by another field', () => {
+      ds.setSort('lastName', 'desc');
       ds.update();
 
-      const ids = ds.items.filter(item => isListDataSourceDataItem(item)).map(({ id }) => id);
+      const lastNames = ds.items
+        .filter(item => isListDataSourceDataItem(item))
+        .map(({ data: { lastName } }) => lastName);
 
-      expect(ids).to.deep.equal([211, 201, 32, 3, 1]);
+      expect(lastNames).to.deep.equal([
+        'Wright',
+        'Torres',
+        'Price',
+        'Phillips',
+        'Myers',
+        'Lewis',
+        'Lewis',
+        'Howard',
+        'Butler',
+        'Bailey'
+      ]);
     });
 
     it('should reset the original order when removing a sort', () => {
@@ -752,11 +853,16 @@ describe('ArrayListDataSource', () => {
         .map(({ data: { profession } }) => profession);
 
       expect(professions).to.deep.equal([
+        'Allergist',
+        'Anesthesiologist',
+        'Cardiologist',
         'Endocrinologist',
         'Gastroenterologist',
-        'Gastroenterologist',
         'Nephrologist',
-        'Ophthalmologist'
+        'Nephrologist',
+        'Ophthalmologist',
+        'Pediatrician',
+        'Urologist'
       ]);
 
       ds.removeSort();
@@ -770,8 +876,13 @@ describe('ArrayListDataSource', () => {
         'Endocrinologist',
         'Nephrologist',
         'Ophthalmologist',
+        'Allergist',
         'Gastroenterologist',
-        'Gastroenterologist'
+        'Anesthesiologist',
+        'Urologist',
+        'Cardiologist',
+        'Pediatrician',
+        'Nephrologist'
       ]);
     });
   });
@@ -784,9 +895,9 @@ describe('ArrayListDataSource', () => {
     it('should replace items when setData is called with new data', () => {
       const newPeople: Person[] = [
         {
-          id: 100,
           firstName: 'Alice',
           lastName: 'Wonder',
+          email: 'alice@example.com',
           profession: 'Surgeon',
           status: 'Available',
           membership: 'Regular'
@@ -805,17 +916,17 @@ describe('ArrayListDataSource', () => {
     it('should update size after setData', () => {
       const newPeople: Person[] = [
         {
-          id: 100,
           firstName: 'Alice',
           lastName: 'Wonder',
+          email: 'alice@example.com',
           profession: 'Surgeon',
           status: 'Available',
           membership: 'Regular'
         },
         {
-          id: 101,
           firstName: 'Bob',
           lastName: 'Builder',
+          email: 'bob@example.com',
           profession: 'Surgeon',
           status: 'Busy',
           membership: 'Premium'
@@ -843,17 +954,17 @@ describe('ArrayListDataSource', () => {
 
       const newPeople: Person[] = [
         {
-          id: 100,
           firstName: 'Alice',
           lastName: 'Wonder',
+          email: 'alice@example.com',
           profession: 'Surgeon',
           status: 'Available',
           membership: 'Regular'
         },
         {
-          id: 101,
           firstName: 'Bob',
           lastName: 'Builder',
+          email: 'bob@example.com',
           profession: 'Surgeon',
           status: 'Busy',
           membership: 'Premium'
@@ -875,17 +986,17 @@ describe('ArrayListDataSource', () => {
 
       const newPeople: Person[] = [
         {
-          id: 100,
           firstName: 'Charlie',
           lastName: 'Brown',
+          email: 'charlie@example.com',
           profession: 'Surgeon',
           status: 'Available',
           membership: 'Regular'
         },
         {
-          id: 101,
           firstName: 'Alice',
           lastName: 'Wonder',
+          email: 'alice@example.com',
           profession: 'Surgeon',
           status: 'Available',
           membership: 'Premium'
@@ -969,26 +1080,31 @@ describe('ArrayListDataSource', () => {
         .map(({ label }) => label);
 
       expect(groupsBefore).to.deep.equal([
+        'Allergist',
+        'Anesthesiologist',
+        'Cardiologist',
         'Endocrinologist',
         'Gastroenterologist',
         'Nephrologist',
-        'Ophthalmologist'
+        'Ophthalmologist',
+        'Pediatrician',
+        'Urologist'
       ]);
 
       // Replace with data that has different professions
       ds.setData([
         {
-          id: 100,
           firstName: 'Alice',
           lastName: 'Wonder',
+          email: 'alice@example.com',
           profession: 'Surgeon',
           status: 'Available',
           membership: 'Regular'
         },
         {
-          id: 101,
           firstName: 'Bob',
           lastName: 'Builder',
+          email: 'bob@example.com',
           profession: 'Dermatologist',
           status: 'Busy',
           membership: 'Premium'
@@ -1015,17 +1131,17 @@ describe('ArrayListDataSource', () => {
       // Update with data that still contains the 'Nephrologist' group
       ds.setData([
         {
-          id: 1,
           firstName: 'Ann',
           lastName: 'A',
+          email: 'ann.a@example.com',
           profession: 'Nephrologist',
           status: 'Available',
           membership: 'Regular'
         },
         {
-          id: 2,
           firstName: 'Bob',
           lastName: 'B',
+          email: 'bob.b@example.com',
           profession: 'Endocrinologist',
           status: 'Busy',
           membership: 'Premium'
@@ -1054,17 +1170,17 @@ describe('ArrayListDataSource', () => {
       // Replace with data that does not contain 'Ophthalmologist'
       ds.setData([
         {
-          id: 1,
           firstName: 'Ann',
           lastName: 'A',
+          email: 'ann.a@example.com',
           profession: 'Surgeon',
           status: 'Available',
           membership: 'Regular'
         },
         {
-          id: 2,
           firstName: 'Bob',
           lastName: 'B',
+          email: 'bob.b@example.com',
           profession: 'Dermatologist',
           status: 'Busy',
           membership: 'Premium'

@@ -18,8 +18,6 @@ export type NumberFieldButtonsAlignment = 'end' | 'edges';
 /**
  * A number field component.
  *
- * @omit type - We should not document the type property from TextField in the NumberField, as it is always 'text' internally.
- *
  * @slot prefix - Used for step buttons when `stepButtons` is set to 'edges'. If overridden, the step down button will not be rendered automatically, and you will need to implement your own button logic.
  * @slot suffix - Used for step buttons internally (when `stepButtons` is set). If overridden, the step buttons will not be rendered automatically, and you will need to implement your own button logic.
  */
@@ -114,7 +112,7 @@ export class NumberField extends LocaleMixin(TextField) {
   /**
    * The input type is always 'text' for number fields and cannot be changed.
    *
-   * @override
+   * @internal Type is always 'text' for number-field, so don't document.
    */
   @property({ attribute: false })
   override type = 'text' as const;

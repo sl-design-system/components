@@ -141,7 +141,7 @@ export class GridColumn<T = any> extends LitElement {
    */
   @property({ attribute: false })
   set scopedElements(value: Record<string, typeof HTMLElement> | undefined) {
-    this.#scopedElements = { ...this.baseScopedElements, ...(value ?? {}) };
+    this.#scopedElements = { ...this.baseScopedElements, ...value };
   }
 
   /** Whether this column is sticky when the user scrolls horizontally. */

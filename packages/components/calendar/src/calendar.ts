@@ -58,8 +58,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** Events controller. */
-
+  // oxlint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
     focusin: this.#onFocusIn
   });

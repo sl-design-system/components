@@ -115,7 +115,7 @@ export class VirtualizerController<
         instance: Virtualizer<Element, TItemElement> | Virtualizer<Window, TItemElement>,
         sync: boolean
       ) => {
-        this.#host.updateComplete.then(() => this.#host.requestUpdate());
+        void this.#host.updateComplete.then(() => this.#host.requestUpdate());
         this.#options.onChange?.(
           instance as unknown as Virtualizer<TScrollElement, TItemElement>,
           sync

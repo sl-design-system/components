@@ -49,7 +49,7 @@ export function getStringByPath<T, P extends PathKeys<T>>(obj: T, path: P): stri
 }
 
 export function getValueByPath<T, P extends PathKeys<T>>(obj: T, path: P): Path<T, P> {
-  const keys = path.split(/[\.\[\]]/).filter(Boolean);
+  const keys = path.split(/[.[\]]/).filter(Boolean);
   let result: unknown = obj;
 
   for (const key of keys) {

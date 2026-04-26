@@ -17,14 +17,24 @@
     "sort-imports": ["error", { "ignoreDeclarationSort": true }],
     "typescript/array-type": ["error", { "default": "array-simple" }],
     "typescript/consistent-type-assertions": "off",
-    // Triggers false positives for Lit event handlers
     "typescript/unbound-method": "off"
+  },
+  "settings": {
+    "jsdoc": {
+      "tagNamePreference": {
+        "csspart": "csspart",
+        "cssprop": "cssprop",
+        "cssstate": "cssstate",
+        "slot": "slot"
+      }
+    }
   },
   "overrides": [
     {
       "files": ["**/*.spec.ts"],
       "rules": {
-        "no-unused-expressions": "off"
+        "no-unused-expressions": "off",
+        "vitest/valid-expect": "off"
       }
     }
   ],

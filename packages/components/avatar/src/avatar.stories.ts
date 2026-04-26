@@ -125,19 +125,17 @@ export default {
 export const Basic: Story = {};
 
 export const Colors: Story = {
-  argTypes: {
-    ...[
-      'color',
-      'displayName',
-      'displayInitials',
-      'emphasis',
-      'href',
-      'imageOnly',
-      'pictureUrl',
-      'subheading',
-      'vertical'
-    ].reduce((acc, prop) => ({ ...acc, [prop]: { table: { disable: true } } }), {})
-  },
+  argTypes: [
+    'color',
+    'displayName',
+    'displayInitials',
+    'emphasis',
+    'href',
+    'imageOnly',
+    'pictureUrl',
+    'subheading',
+    'vertical'
+  ].reduce((acc, prop) => ({ ...acc, [prop]: { table: { disable: true } } }), {}),
   render: ({ shape, size }) => html`
     <div style="display: inline-grid; grid-template-columns: auto auto; gap: 1rem">
       ${colors.map(

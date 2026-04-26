@@ -97,7 +97,7 @@ export const positionPopover = (
       middleware.push(arrow({ element: arrowElement, padding: options.arrowPadding }));
     }
 
-    computePosition(anchor, element, {
+    void computePosition(anchor, element, {
       strategy: 'fixed',
       placement: options.position ?? 'top',
       middleware

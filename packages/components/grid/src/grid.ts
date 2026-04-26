@@ -1040,6 +1040,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       if (col instanceof GridFilterColumn) {
         const { value } = this.dataSource?.filters.get(col.id) || {};
         if (value) {
+          // oxlint-disable-next-line typescript/no-base-to-string
           col.value = String(value);
         }
       } else if (col instanceof GridSortColumn && this.dataSource?.sort) {

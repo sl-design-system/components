@@ -29,7 +29,7 @@ export class SearchField extends TextField {
   /** @internal Debounce timer for search events */
   #debounceTimer?: ReturnType<typeof setTimeout>;
 
-  // eslint-disable-next-line no-unused-private-class-members
+  // oxlint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { keydown: this.#onKeyDown, input: this.#onInput });
 
   /** @internal Emits when the user clears the field. */

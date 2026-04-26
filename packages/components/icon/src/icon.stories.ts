@@ -38,8 +38,6 @@ const sizeName = (size: string): string => {
 
 const sizes: IconSize[] = ['2xs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'];
 
-let storyId: string;
-
 const copyIconName = async (name: string): Promise<void> => {
   await navigator.clipboard.writeText(name);
 };
@@ -56,12 +54,6 @@ export default {
       }
     }
   },
-  decorators: [
-    (story, storyProperties) => {
-      storyId = storyProperties.id;
-      return story();
-    }
-  ],
   render: ({ icons }) => {
     icons = ['info', 'star', 'chevron-right', 'home-blank'];
     return html`

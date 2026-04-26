@@ -29,8 +29,8 @@ export type ButtonBarAlign = 'start' | 'center' | 'end' | 'space-between';
  * ```
  *
  * @slot default - Buttons to be grouped in the bar.
- * @cssState icon-only - Set when all buttons in the bar are icon-only.
- * @cssState empty - Set when there are no buttons in the bar.
+ * @cssstate icon-only - Set when all buttons in the bar are icon-only.
+ * @cssstate empty - Set when there are no buttons in the bar.
  */
 export class ButtonBar extends LitElement {
   /** @internal */

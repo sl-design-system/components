@@ -54,6 +54,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  // oxlint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { keydown: this.#onKeydown });
 
   /** Observe changes in size, so we can check whether we need to show tooltips for truncated links. */

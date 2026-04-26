@@ -62,7 +62,7 @@ export class Button extends ForwardAriaMixin(LitElement) {
   /** Stores tabIndex set before the button is rendered. */
   #tabIndex = 0;
 
-  /** @internal. */
+  /** @internal */
   readonly internals = this.attachInternals();
 
   /** @internal The button element. */

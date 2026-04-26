@@ -40,6 +40,7 @@ export class Popover extends LitElement {
   /** @internal The default margin between the tooltip and the viewport. */
   static viewportMargin = 8;
 
+  // oxlint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { keydown: this.#onKeydown });
 
   /** Controller for managing anchoring. */

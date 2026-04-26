@@ -23,6 +23,7 @@ export class Radio<T = any> extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  // oxlint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
     click: this.#onClick,
     keydown: this.#onKeydown

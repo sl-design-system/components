@@ -43,6 +43,7 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  // oxlint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
     'sl-form-control': this.#onFormControl,
     'sl-form-field': this.#onFormField
@@ -85,7 +86,7 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
     return !this.dirty;
   }
 
-  /** @internals Emits when the form has been reset. */
+  /** @internal Emits when the form has been reset. */
   @event({ name: 'sl-reset' }) resetEvent!: EventEmitter<SlResetEvent>;
 
   /** Indicates whether to show validity state. */

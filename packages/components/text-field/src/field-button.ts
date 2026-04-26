@@ -24,6 +24,7 @@ export class FieldButton extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  // oxlint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { keydown: this.#onKeydown });
 
   /** Determines if the button is disabled. */

@@ -81,60 +81,54 @@ describe('sl-drawer', () => {
     });
 
     describe('click event', () => {
-      let dialog: HTMLDialogElement | null;
+      let dialog: HTMLDialogElement;
       let event: PointerEvent;
       let dialogCloseSpy: SinonSpy;
 
       beforeEach(() => {
         el.showModal();
-        dialog = el.renderRoot.querySelector('dialog');
+        dialog = el.renderRoot.querySelector('dialog')!;
         event = new PointerEvent('click');
-        if (dialog) {
-          dialogCloseSpy = spy(dialog, 'close');
-        }
+        dialogCloseSpy = spy(dialog, 'close');
       });
 
       it('should close the drawer when the close button is clicked', () => {
         const closeButton = el.renderRoot.querySelector('sl-button[sl-dialog-close]');
         stub(event, 'target').value(closeButton as HTMLElement);
 
-        dialog?.dispatchEvent(event);
+        dialog.dispatchEvent(event);
 
         expect(dialogCloseSpy).to.have.been.called;
       });
 
       it('should close the drawer when the backdrop is clicked', () => {
-        if (dialog) {
-          stub(dialog, 'getBoundingClientRect').returns({
-            top: 0,
-            right: 900,
-            bottom: 600,
-            left: 500
-          } as DOMRect);
-          stub(event, 'clientX').value(100);
-          stub(event, 'clientY').value(100);
+        stub(dialog, 'getBoundingClientRect').returns({
+          top: 0,
+          right: 900,
+          bottom: 600,
+          left: 500
+        } as DOMRect);
+        stub(event, 'clientX').value(100);
+        stub(event, 'clientY').value(100);
 
-          dialog.dispatchEvent(event);
+        dialog.dispatchEvent(event);
 
-          expect(dialogCloseSpy).to.have.been.called;
-        }
+        expect(dialogCloseSpy).to.have.been.called;
       });
 
       it("should not close the drawer when there's a click in the drawer itself", () => {
-        if (dialog) {
-          stub(dialog, 'getBoundingClientRect').returns({
-            top: 0,
-            right: 900,
-            bottom: 600,
-            left: 500
-          } as DOMRect);
-          stub(event, 'clientX').value(600);
-          stub(event, 'clientY').value(100);
+        stub(dialog, 'getBoundingClientRect').returns({
+          top: 0,
+          right: 900,
+          bottom: 600,
+          left: 500
+        } as DOMRect);
+        stub(event, 'clientX').value(600);
+        stub(event, 'clientY').value(100);
 
-          dialog.dispatchEvent(event);
+        dialog.dispatchEvent(event);
 
-          expect(dialogCloseSpy).not.to.have.been.called;
-        }
+        expect(dialogCloseSpy).not.to.have.been.called;
       });
     });
   });

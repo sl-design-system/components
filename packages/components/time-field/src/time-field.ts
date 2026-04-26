@@ -53,9 +53,9 @@ const timeSeparators = new Map<string, string>();
  * A form component that allows the user to pick a time. Uses individual spinbutton inputs per time
  * part for improved accessibility.
  *
- * @cssState has-focus - Set when the time field has focus.
- * @cssState has-value - Set when the time field has a value.
- * @cssState placeholder-shown - Set when the time field is empty and has a placeholder.
+ * @cssstate has-focus - Set when the time field has focus.
+ * @cssstate has-value - Set when the time field has a value.
+ * @cssstate placeholder-shown - Set when the time field is empty and has a placeholder.
  */
 @localized()
 export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(LitElement))) {
@@ -82,8 +82,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** Events controller. */
-
+  // oxlint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
     click: this.#onClick
   });

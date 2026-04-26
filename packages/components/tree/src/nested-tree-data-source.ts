@@ -143,7 +143,7 @@ export class NestedTreeDataSource<T = any> extends TreeDataSource<T> {
         );
       } else if (children instanceof Promise) {
         treeNode.childrenLoading = new Promise(resolve => {
-          children.then(loadedChildren => {
+          void children.then(loadedChildren => {
             treeNode.children = loadedChildren.map((child, index) =>
               this.#mapToTreeNode(child, treeNode, index === loadedChildren.length - 1)
             );

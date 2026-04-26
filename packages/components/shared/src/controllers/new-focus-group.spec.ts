@@ -601,23 +601,4 @@ describe('NewFocusGroupController', () => {
       expect(firstElements).to.not.equal(secondElements);
     });
   });
-
-  describe('update config', () => {
-    beforeEach(async () => {
-      config = {
-        elements: () => Array.from(el.renderRoot.querySelectorAll('button')),
-        wrap: true
-      };
-
-      el = await fixture(html`<new-focus-group .config=${config}></new-focus-group>`);
-      el.controller!.manage();
-    });
-
-    it('should update the configuration', () => {
-      el.controller!.update({ elements: config!.elements, wrap: false });
-
-      // After update, wrap should be false
-      el.controller!.elements[0].focus();
-    });
-  });
 });

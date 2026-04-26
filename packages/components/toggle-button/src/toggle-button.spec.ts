@@ -1,5 +1,6 @@
 import '@sl-design-system/icon/register.js';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
+import { Tooltip } from '@sl-design-system/tooltip';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy, stub } from 'sinon';
@@ -385,9 +386,7 @@ describe('sl-toggle-button', () => {
       await el.updateComplete;
 
       tooltip = el.nextElementSibling as HTMLElement | null;
-      if (tooltip?.tagName === 'SL-TOOLTIP') {
-        expect.fail('Tooltip should have been removed');
-      }
+      expect(tooltip).not.to.be.instanceOf(Tooltip);
 
       expect(el).not.to.have.attribute('aria-label');
       expect(el).not.to.have.attribute('aria-labelledby');

@@ -610,7 +610,7 @@ describe('sl-breadcrumbs', () => {
   describe('tooltips for truncated links', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-breadcrumbs style="width: 200px;">
+        <sl-breadcrumbs style="width: 600px;">
           <a
             href="javascript:void(0)"
             style="max-width: 100px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"

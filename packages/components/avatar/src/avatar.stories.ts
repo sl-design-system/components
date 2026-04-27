@@ -308,8 +308,10 @@ export const Sizes: Story = {
     </style>
     <p>
       Avatars with badges in all available sizes. The <code>sm</code> and <code>4xl</code> badges
-      use <code>role="status"</code> with a visually-hidden <code>span</code> providing context for
-      screen readers; their count updates every 5 seconds to simulate dynamic content. See the
+      use <code>role="status"</code> so screen readers announce count changes; their count updates
+      every 5&nbsp;seconds to demonstrate dynamic content. The remaining sizes show static badges
+      without a role; they use a visually-hidden <code>span</code> so screen readers still announce
+      the badge text when the user navigates to it. See the
       <a href="https://sanomalearning.design/categories/components/avatar/accessibility/"
         >accessibility guidelines</a
       >
@@ -338,11 +340,9 @@ export const Sizes: Story = {
               slot="badge"
             >
               ${badgeSizes[size] === 'sm' ? nothing : '2'}
-              ${size === 'sm'
+              ${badgeSizes[size] === 'sm'
                 ? html`<span class="screen-reader-only">2 unread messages</span>`
-                : size === '4xl'
-                  ? html`<span class="screen-reader-only">unread messages</span>`
-                  : nothing}
+                : html`<span class="screen-reader-only">unread messages</span>`}
             </sl-badge>
           </sl-avatar>
         `

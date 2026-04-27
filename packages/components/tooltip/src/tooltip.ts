@@ -548,7 +548,16 @@ export class Tooltip extends LitElement {
       clearTimeout(this.#timer);
       this.#timer = undefined;
 
-      if (!(anchorElement instanceof HTMLElement) || !this.#matchesAnchor(anchorElement)) {
+      if (!(anchorElement instanceof HTMLElement)) {
+        return;
+      }
+
+      const normalizedAnchorElement = this.#normalizeAnchorElement(anchorElement);
+
+      if (
+        !this.#matchesAnchor(normalizedAnchorElement) &&
+        !this.#stableAnchors.has(normalizedAnchorElement)
+      ) {
         return;
       }
 

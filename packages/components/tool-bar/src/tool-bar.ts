@@ -392,9 +392,11 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     const gap = parseFloat(getComputedStyle(this.wrapper).getPropertyValue('gap')) || 0;
 
-    // If we need measurements, show all items first and measure
+    // Show all items once, so we can measure both items and available width.
+    revealAllItems(this.items);
+
+    // If we need measurements, measure the items now that they are visible.
     if (this.#needsMeasurement || this.#widths.length === 0) {
-      revealAllItems(this.items);
       this.#measureItems();
     }
 
@@ -402,9 +404,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     if (this.#widths.length === 0 || this.#widths.length !== this.items.length) {
       return;
     }
-
-    // Show all items so we can measure how much space is available.
-    revealAllItems(this.items);
 
     // Detect fit-content: if the toolbar overflows its parent,
     // switch to CSS containment and watch the parent for changes.

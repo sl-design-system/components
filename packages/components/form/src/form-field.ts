@@ -1,6 +1,15 @@
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { type EventEmitter, event } from '@sl-design-system/shared';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { Error } from './error.js';
 import { type FormControl, type SlUpdateValidityEvent } from './form-control-mixin.js';
@@ -31,8 +40,8 @@ export type SlFormFieldEvent = CustomEvent<{ unregister?(): void }> & { target: 
 let nextUniqueId = 0;
 
 /**
- * A form field component that provides a label, hint, and error message for form controls.
- * It can be used with any form control that extends the `FormControl` mixin.
+ * A form field component that provides a label, hint, and error message for form controls. It can
+ * be used with any form control that extends the `FormControl` mixin.
  *
  * @slot label - The `<sl-label>` element to use as the label for the form control.
  * @slot hint - The `<sl-hint>` element to use as a hint for the form control.
@@ -88,8 +97,8 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   @event({ name: 'sl-form-field' }) formFieldEvent!: EventEmitter<SlFormFieldEvent>;
 
   /**
-   * A hint that will be shown when there are no validation messages.
-   * You can also slot an `<sl-hint>` element.
+   * A hint that will be shown when there are no validation messages. You can also slot an
+   * `<sl-hint>` element.
    */
   @property() hint?: string;
 
@@ -102,7 +111,11 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    const event = new CustomEvent('sl-form-field', { bubbles: true, composed: true, detail: {} }) as SlFormFieldEvent;
+    const event = new CustomEvent('sl-form-field', {
+      bubbles: true,
+      composed: true,
+      detail: {}
+    }) as SlFormFieldEvent;
     this.formFieldEvent.emit(event);
     this.#unregister = event.detail.unregister;
 
@@ -130,7 +143,9 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     super.updated(changes);
 
     if (!this.#customError && changes.has('errors')) {
-      const errors = Object.entries(this.errors).filter((error): error is [string, string] => !!error[0] && !!error[1]);
+      const errors = Object.entries(this.errors).filter(
+        (error): error is [string, string] => !!error[0] && !!error[1]
+      );
 
       // Remove any errors that are no longer present
       Object.entries(this.#errors)
@@ -195,20 +210,28 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       <slot name="label" @slotchange=${this.#onLabelSlotchange}></slot>
       <div class="wrapper" part="wrapper">
         <slot @slotchange=${this.#onHintSlotchange} name="hint"></slot>
-        <slot @slotchange=${this.#onSlotchange} @sl-update-validity=${this.#onUpdateValidity} part="controls"></slot>
+        <slot
+          @slotchange=${this.#onSlotchange}
+          @sl-update-validity=${this.#onUpdateValidity}
+          part="controls"
+        ></slot>
         <slot @slotchange=${this.#onErrorSlotchange} name="error"></slot>
       </div>
     `;
   }
 
   #onErrorSlotchange(event: Event & { target: HTMLSlotElement }): void {
-    const errors = event.target.assignedElements({ flatten: true }).filter((el): el is Error => el instanceof Error);
+    const errors = event.target
+      .assignedElements({ flatten: true })
+      .filter((el): el is Error => el instanceof Error);
 
     errors.forEach(error => {
       // Make sure every error has a unique ID
       error.id ||= `sl-form-field-error-${nextUniqueId++}`;
 
-      const control = error.for ? this.querySelector<HTMLElement & FormControl>(`#${error.for}`) : this.control;
+      const control = error.for
+        ? this.querySelector<HTMLElement & FormControl>(`#${error.for}`)
+        : this.control;
       if (control) {
         this.#updateAriaDescribedBy({ add: error.id, control });
       }

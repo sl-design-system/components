@@ -89,7 +89,11 @@
 }
 
 [part='track'] {
-  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  background: color-mix(
+    in srgb,
+    var(--_bg-color),
+    var(--_bg-mix-color) calc(100% * var(--_bg-opacity))
+  );
   border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-bold);
   border-radius: calc((var(--_handle-size) + var(--sl-size-025) * 2) / 2);
   box-sizing: border-box;

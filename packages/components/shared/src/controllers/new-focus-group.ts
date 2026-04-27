@@ -213,7 +213,8 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
   focusToElement(elementIndex: number): void;
 
   focusToElement(elementOrIndex: T | number): void {
-    this.currentIndex = typeof elementOrIndex === 'number' ? elementOrIndex : this.elements.indexOf(elementOrIndex);
+    this.currentIndex =
+      typeof elementOrIndex === 'number' ? elementOrIndex : this.elements.indexOf(elementOrIndex);
     this.elementEnterAction(this.elements[this.currentIndex]);
     this.focus({ preventScroll: false });
 
@@ -299,7 +300,11 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
     // Original wrapping behavior
     let steps = length;
     let nextIndex = (length + this.currentIndex + diff) % length;
-    while (steps && this.elements[nextIndex] && !this.isFocusableElement(this.elements[nextIndex])) {
+    while (
+      steps &&
+      this.elements[nextIndex] &&
+      !this.isFocusableElement(this.elements[nextIndex])
+    ) {
       nextIndex = (length + nextIndex + diff) % length;
       steps -= 1;
     }
@@ -331,7 +336,10 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
     } else if (event.type === 'focusout' && relatedTarget === null) {
       return true;
     } else {
-      return !this.elements.includes(relatedTarget as T) || !this.elements.includes(event.composedPath()[0] as T);
+      return (
+        !this.elements.includes(relatedTarget as T) ||
+        !this.elements.includes(event.composedPath()[0] as T)
+      );
     }
   }
 
@@ -419,7 +427,10 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
               const searchColumn = searchIndex % this.#directionLength();
 
               // Check if we're still in the same column
-              if (searchColumn === targetColumn && this.isFocusableElement(this.elements[searchIndex])) {
+              if (
+                searchColumn === targetColumn &&
+                this.isFocusableElement(this.elements[searchIndex])
+              ) {
                 this.focusToElement(searchIndex);
                 found = true;
                 break;

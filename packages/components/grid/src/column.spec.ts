@@ -36,13 +36,19 @@ describe('sl-column', () => {
     });
 
     it('should render column headers', () => {
-      const columns = Array.from(el.renderRoot.querySelectorAll('th')).map(col => col.textContent?.trim());
+      const columns = Array.from(el.renderRoot.querySelectorAll('th')).map(col =>
+        col.textContent?.trim()
+      );
 
       expect(columns).to.deep.equal(['First name', 'Last name', 'Current age']);
     });
 
     it('should have the right justify-content value', () => {
-      expect(cells.map(cell => getComputedStyle(cell).justifyContent)).to.deep.equal(['start', 'start', 'end']);
+      expect(cells.map(cell => getComputedStyle(cell).justifyContent)).to.deep.equal([
+        'start',
+        'start',
+        'end'
+      ]);
     });
 
     it('should have the right grow value', () => {
@@ -103,7 +109,9 @@ describe('sl-column', () => {
     });
 
     it('should render "No path set" for the column that has no path', () => {
-      const cells = Array.from(el.renderRoot.querySelectorAll('tbody td')).map(el => el.textContent?.trim());
+      const cells = Array.from(el.renderRoot.querySelectorAll('tbody td')).map(el =>
+        el.textContent?.trim()
+      );
 
       expect(cells).to.deep.equal(['Foo', '', 'No path set']);
     });
@@ -125,7 +133,9 @@ describe('sl-column', () => {
     });
 
     it('should render nothing', () => {
-      const data = Array.from(el.renderRoot.querySelectorAll('tbody td')).map(el => el.textContent?.trim());
+      const data = Array.from(el.renderRoot.querySelectorAll('tbody td')).map(el =>
+        el.textContent?.trim()
+      );
 
       expect(data).to.deep.equal(['Bar', '']);
     });
@@ -134,7 +144,9 @@ describe('sl-column', () => {
   describe('custom renderer', () => {
     beforeEach(async () => {
       const avatarRenderer: GridColumnDataRenderer<Person> = ({ firstName, lastName }) => {
-        return html`<sl-avatar .displayName=${[firstName, lastName].join(' ')} size="sm"></sl-avatar>`;
+        return html`
+          <sl-avatar .displayName=${[firstName, lastName].join(' ')} size="sm"></sl-avatar>
+        `;
       };
 
       el = await fixture(html`
@@ -168,7 +180,10 @@ describe('sl-column', () => {
     });
 
     it('should have the right parts, including one set on the column', () => {
-      expect(cells.map(cell => cell.getAttribute('part'))).to.deep.equal(['data', 'data number age']);
+      expect(cells.map(cell => cell.getAttribute('part'))).to.deep.equal([
+        'data',
+        'data number age'
+      ]);
     });
   });
 

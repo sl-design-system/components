@@ -13,11 +13,15 @@ import { type Meta, StoryObj, moduleMetadata } from '@storybook/angular';
     dinoState:{{ this.dinoState }} alienState:{{ this.alienState }}
 
     <sl-accordion>
-      <sl-accordion-item summary="Discovering Dinosaurs: A Prehistoric Adventure" [open]="dinoState">
+      <sl-accordion-item
+        summary="Discovering Dinosaurs: A Prehistoric Adventure"
+        [open]="dinoState"
+      >
         Embark on a thrilling journey back in time to the age of dinosaurs! 🌎🦕🌿🦖
       </sl-accordion-item>
       <sl-accordion-item summary="Journey Through Ancient Civilizations">
-        Pack your virtual bags and travel through time to ancient Egypt, Greece, Rome, and beyond 🌍🏛️🔍🏺
+        Pack your virtual bags and travel through time to ancient Egypt, Greece, Rome, and beyond
+        🌍🏛️🔍🏺
       </sl-accordion-item>
       <sl-accordion-item summary="Space Odyssey: Exploring Planets and Stars" [open]="alienState">
         Buckle up for a cosmic adventure! 🚀🪐👽

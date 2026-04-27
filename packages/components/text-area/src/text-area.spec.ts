@@ -654,7 +654,9 @@ describe('sl-text-area', () => {
 
       const shortHeight = textArea.style.height;
 
-      await userEvent.keyboard('\nLonger text that spans multiple lines\nAnd another line\nAnd yet another line');
+      await userEvent.keyboard(
+        '\nLonger text that spans multiple lines\nAnd another line\nAnd yet another line'
+      );
       await el.updateComplete;
 
       const longHeight = textArea.style.height;
@@ -675,7 +677,12 @@ describe('sl-text-area', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-text-area>
-          <textarea id="foo" placeholder="I am a custom textarea" spellcheck="true" slot="textarea"></textarea>
+          <textarea
+            id="foo"
+            placeholder="I am a custom textarea"
+            spellcheck="true"
+            slot="textarea"
+          ></textarea>
         </sl-text-area>
       `);
     });

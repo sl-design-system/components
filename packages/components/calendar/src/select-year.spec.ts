@@ -170,7 +170,20 @@ describe('sl-select-year', () => {
         button.hasAttribute('disabled')
       );
 
-      expect(disabled).to.deep.equal([true, true, true, false, false, false, false, false, true, true, true, true]);
+      expect(disabled).to.deep.equal([
+        true,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        true,
+        true,
+        true
+      ]);
     });
   });
 

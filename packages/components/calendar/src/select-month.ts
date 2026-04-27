@@ -1,13 +1,27 @@
 import { localized, msg, str } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import { FormatDate, format } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, LocaleMixin, NewFocusGroupController, event } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  LocaleMixin,
+  NewFocusGroupController,
+  event
+} from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { type SlSelectEvent, SlToggleEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property, queryAll, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -32,7 +46,10 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   /** @internal */
-  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+  static override shadowRootOptions: ShadowRootInit = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: true
+  };
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
@@ -62,12 +79,14 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /**
    * The maximum date selectable in the month.
+   *
    * @default undefined
    */
   @property({ converter: dateConverter }) max?: Date;
 
   /**
    * The minimum date selectable in the month.
+   *
    * @default undefined
    */
   @property({ converter: dateConverter }) min?: Date;
@@ -86,6 +105,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /**
    * Highlights the current month when set.
+   *
    * @default false
    */
   @property({ type: Boolean, attribute: 'show-current' }) showCurrent?: boolean;
@@ -144,14 +164,21 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           ? html`
               <sl-button
                 @click=${this.#onToggleYearSelect}
-                aria-label=${msg(str`${format(this.month, this.locale, { year: 'numeric' })}, change year`, {
-                  id: 'sl.calendar.changeYear'
-                })}
+                aria-label=${msg(
+                  str`${format(this.month, this.locale, { year: 'numeric' })}, change year`,
+                  {
+                    id: 'sl.calendar.changeYear'
+                  }
+                )}
                 class="current-year"
                 fill="link"
                 variant="secondary"
               >
-                <sl-format-date .date=${this.month} locale=${ifDefined(this.locale)} year="numeric"></sl-format-date>
+                <sl-format-date
+                  .date=${this.month}
+                  locale=${ifDefined(this.locale)}
+                  year="numeric"
+                ></sl-format-date>
                 <sl-icon name="caret-down-solid"></sl-icon>
               </sl-button>
             `
@@ -160,7 +187,9 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           <sl-button
             @click=${this.#onPrevious}
             ?disabled=${!this.#canSelectYear(-1)}
-            aria-label=${msg(str`Previous year, ${currentYear - 1}`, { id: 'sl.calendar.previousYear' })}
+            aria-label=${msg(str`Previous year, ${currentYear - 1}`, {
+              id: 'sl.calendar.previousYear'
+            })}
             fill="ghost"
             variant="secondary"
           >
@@ -178,7 +207,10 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         </div>
       </header>
 
-      <table aria-label=${msg(str`Months of ${currentYear}`, { id: 'sl.calendar.monthsLabel' })} role="grid">
+      <table
+        aria-label=${msg(str`Months of ${currentYear}`, { id: 'sl.calendar.monthsLabel' })}
+        role="grid"
+      >
         <tbody>
           ${rows.map(
             (row, rowIndex) => html`
@@ -193,7 +225,9 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   renderMonth(month: Month, rowIndex: number, colIndex: number): TemplateResult {
-    const current = month.value === new Date().getMonth() && this.month.getFullYear() === new Date().getFullYear(),
+    const current =
+        month.value === new Date().getMonth() &&
+        this.month.getFullYear() === new Date().getFullYear(),
       selected = !!(
         this.selected &&
         this.selected.getMonth() === month.value &&
@@ -223,8 +257,8 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /**
    * For arrow keys, we need to detect if we're at a visual boundary (first/last button position)
-   * and trying to navigate beyond it AND navigation is not blocked by min/max constraints.
-   * If we can load a new range, do so. Otherwise, let the focus group controller handle it.
+   * and trying to navigate beyond it AND navigation is not blocked by min/max constraints. If we
+   * can load a new range, do so. Otherwise, let the focus group controller handle it.
    */
   async #onKeydown(event: KeyboardEvent & { target: HTMLButtonElement }): Promise<void> {
     const buttons = Array.from(this.buttons),
@@ -253,7 +287,11 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       shouldLoadNewRange = true;
       event.preventDefault();
       this.#onPrevious();
-    } else if (event.key === 'ArrowDown' && currentIndex >= buttons.length - this.#cols && canGoLater) {
+    } else if (
+      event.key === 'ArrowDown' &&
+      currentIndex >= buttons.length - this.#cols &&
+      canGoLater
+    ) {
       shouldLoadNewRange = true;
       event.preventDefault();
       this.#onNext();
@@ -280,13 +318,21 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onNext(): void {
-    this.month = new Date(this.month.getFullYear() + 1, this.month.getMonth(), this.month.getDate());
+    this.month = new Date(
+      this.month.getFullYear() + 1,
+      this.month.getMonth(),
+      this.month.getDate()
+    );
 
     this.#announce(this.month);
   }
 
   #onPrevious(): void {
-    this.month = new Date(this.month.getFullYear() - 1, this.month.getMonth(), this.month.getDate());
+    this.month = new Date(
+      this.month.getFullYear() - 1,
+      this.month.getMonth(),
+      this.month.getDate()
+    );
 
     this.#announce(this.month);
   }
@@ -331,9 +377,12 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     // Set a short timeout to debounce multiple calls
     this.#announceTimeoutId = setTimeout(() => {
       announce(
-        msg(str`Months of the year ${Intl.DateTimeFormat(this.locale, { year: 'numeric' }).format(month)}`, {
-          id: 'sl.calendar.announceMonthsOfYear'
-        }),
+        msg(
+          str`Months of the year ${Intl.DateTimeFormat(this.locale, { year: 'numeric' }).format(month)}`,
+          {
+            id: 'sl.calendar.announceMonthsOfYear'
+          }
+        ),
         'polite'
       );
 

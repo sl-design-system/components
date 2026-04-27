@@ -18,9 +18,7 @@ export interface FlatTreeDataSourceOptions<T> extends FlatTreeDataSourceMapping<
   multiple?: boolean;
 }
 
-/**
- * A tree model that represents a flat list of nodes.
- */
+/** A tree model that represents a flat list of nodes. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class FlatTreeDataSource<T = any> extends TreeDataSource<T> {
   /** The mapping from the source model to the tree model. */
@@ -134,7 +132,11 @@ export class FlatTreeDataSource<T = any> extends TreeDataSource<T> {
     return rootNodes;
   }
 
-  #mapToTreeNode(item: T, parent?: TreeDataSourceNode<T>, lastNodeInLevel?: boolean): TreeDataSourceNode<T> {
+  #mapToTreeNode(
+    item: T,
+    parent?: TreeDataSourceNode<T>,
+    lastNodeInLevel?: boolean
+  ): TreeDataSourceNode<T> {
     const {
       getAriaDescription,
       getChildrenCount,

@@ -31,7 +31,16 @@ type Props = Pick<
 };
 type Story = StoryObj<Props>;
 
-const colors: AvatarColor[] = ['blue', 'green', 'grey', 'orange', 'purple', 'red', 'teal', 'yellow'],
+const colors: AvatarColor[] = [
+    'blue',
+    'green',
+    'grey',
+    'orange',
+    'purple',
+    'red',
+    'teal',
+    'yellow'
+  ],
   sizes: AvatarSize[] = ['sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'];
 
 Icon.register(faSchool);
@@ -198,7 +207,8 @@ export const CustomInitials: Story = {
 
 export const Overflow: Story = {
   args: {
-    displayName: 'If the display name does not fit, it will be truncated and a tooltip will automatically be added',
+    displayName:
+      'If the display name does not fit, it will be truncated and a tooltip will automatically be added',
     maxWidth: '300px',
     size: 'lg',
     subheading: 'Ipsum adipisicing exercitation amet et anim consectetur.'
@@ -264,11 +274,23 @@ export const Sizes: Story = {
 
     intervalPerCanvas.set(canvasElement, interval);
   },
-  render: ({ color, displayInitials, emphasis, href, pictureUrl, shape, subheading, vertical }) => html`
+  render: ({
+    color,
+    displayInitials,
+    emphasis,
+    href,
+    pictureUrl,
+    shape,
+    subheading,
+    vertical
+  }) => html`
     <p>
-      Avatars with badges in all available sizes. The badge count updates every 5 seconds to simulate dynamic content.
-      The <code>announce()</code> function is used to notify screen readers of the updated count. See the
-      <a href="https://sanomalearning.design/categories/components/avatar/accessibility/">accessibility guidelines</a>
+      Avatars with badges in all available sizes. The badge count updates every 5 seconds to
+      simulate dynamic content. The <code>announce()</code> function is used to notify screen
+      readers of the updated count. See the
+      <a href="https://sanomalearning.design/categories/components/avatar/accessibility/"
+        >accessibility guidelines</a
+      >
       for details on badge usage in avatar.
     </p>
     <div style="display: flex; flex-direction: column; gap: 1rem">
@@ -286,7 +308,13 @@ export const Sizes: Story = {
             ?vertical=${vertical}
           >
             ${subheading ? html`<span>${subheading}</span>` : nothing}
-            <sl-badge .size=${badgeSizes[size]} aria-label="2 unread messages" color="red" emphasis="bold" slot="badge">
+            <sl-badge
+              .size=${badgeSizes[size]}
+              aria-label="2 unread messages"
+              color="red"
+              emphasis="bold"
+              slot="badge"
+            >
               ${badgeSizes[size] === 'sm' ? nothing : 2}
             </sl-badge>
           </sl-avatar>

@@ -42,22 +42,21 @@ export type ListDataSourceItem<T = any> = ListDataSourceGroupItem<T> | ListDataS
 
 export interface ListDataSourceMapping<T> {
   /**
-   * Returns a unique identifier for the group the item belongs to. Use this
-   * if the group cannot easily be derived from the item itself. If it can,
-   * use the `groupBy` option instead.
+   * Returns a unique identifier for the group the item belongs to. Use this if the group cannot
+   * easily be derived from the item itself. If it can, use the `groupBy` option instead.
    */
   getGroupId?(item: T): unknown;
 
   /**
-   * Returns a unique identifier for the item in the list. If not provided, the item itself
-   * will be used as the identifier.
+   * Returns a unique identifier for the item in the list. If not provided, the item itself will be
+   * used as the identifier.
    */
   getId?(item: T): unknown;
 
   /**
-   * Returns whether the given item is selected. This is only used for the initial
-   * selected state of the item. If you want to select/deselect an item programmatically,
-   * use the `select` and `deselect` methods on the data source.
+   * Returns whether the given item is selected. This is only used for the initial selected state of
+   * the item. If you want to select/deselect an item programmatically, use the `select` and
+   * `deselect` methods on the data source.
    */
   isSelected?(item: T): boolean;
 }
@@ -104,12 +103,16 @@ export const LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE = 10;
 export const ListDataSourcePlaceholder = Symbol('ListDataSourcePlaceholder');
 
 /** Use this for narrowing ListDataSourceItem type to ListDataSourceDataItem. */
-export function isListDataSourceDataItem<T>(item?: ListDataSourceItemBase): item is ListDataSourceDataItem<T> {
+export function isListDataSourceDataItem<T>(
+  item?: ListDataSourceItemBase
+): item is ListDataSourceDataItem<T> {
   return item?.type === 'data';
 }
 
 /** Use this for narrowing ListDataSourceItem type to ListDataSourceGroupItem. */
-export function isListDataSourceGroupItem<T>(item?: ListDataSourceItemBase): item is ListDataSourceGroupItem<T> {
+export function isListDataSourceGroupItem<T>(
+  item?: ListDataSourceItemBase
+): item is ListDataSourceGroupItem<T> {
   return item?.type === 'group';
 }
 
@@ -128,9 +131,8 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
   #groupLabelPath?: PathKeys<T>;
 
   /**
-   * The set of selected groups in the data source. This selection
-   * is kept separate from the selection of items, so that they do not
-   * interfere with each other.
+   * The set of selected groups in the data source. This selection is kept separate from the
+   * selection of items, so that they do not interfere with each other.
    */
   #groupSelection: Set<unknown> = new Set();
 
@@ -159,8 +161,8 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
   #selects?: 'single' | 'multiple';
 
   /**
-   * The value and path/function to use for sorting. When setting this property,
-   * it will cause the data to be automatically sorted.
+   * The value and path/function to use for sorting. When setting this property, it will cause the
+   * data to be automatically sorted.
    */
   #sort?: DataSourceSort<T>;
 
@@ -204,10 +206,9 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
   /**
    * The current selection of item(s).
    *
-   * This is a set of ids. Depending on the "select all" state, it either
-   * are the selected ids or the deselected ids. If you want to use the
-   * selection, take the select all state into account. If you want to know
-   * the state of a single item, use the `isSelected` method.
+   * This is a set of ids. Depending on the "select all" state, it either are the selected ids or
+   * the deselected ids. If you want to use the selection, take the select all state into account.
+   * If you want to know the state of a single item, use the `isSelected` method.
    */
   get selection() {
     return this.#selection;
@@ -272,6 +273,7 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
 
   /**
    * Groups the items in the data source by the specified property path.
+   *
    * @param path - The path to the property used for grouping the items
    * @param labelPath - Optional path to the property used for generating group labels
    */
@@ -288,6 +290,7 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
 
   /**
    * Sets the current page.
+   *
    * @param page - The page number to set
    */
   setPage(page: number): void {
@@ -296,6 +299,7 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
 
   /**
    * Sets the number of items that are shown on a page.
+   *
    * @param pageSize - The number of items per page
    */
   setPageSize(pageSize: number): void {
@@ -319,8 +323,9 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
   }
 
   /**
-   * Selects the item. Whether it is added to the selection or replaces
-   * any previously selected item is based on the `selects` value.
+   * Selects the item. Whether it is added to the selection or replaces any previously selected item
+   * is based on the `selects` value.
+   *
    * @param item - The item to select
    */
   select(item: ListDataSourceItemBase, update = true): void {
@@ -347,7 +352,10 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
     if (update) {
       if (isListDataSourceGroupItem(item)) {
         item.members?.forEach(member => this.select(member, false));
-      } else if (isListDataSourceDataItem(item) && item.group?.members?.every(member => this.isSelected(member))) {
+      } else if (
+        isListDataSourceDataItem(item) &&
+        item.group?.members?.every(member => this.isSelected(member))
+      ) {
         this.select(item.group, false);
       }
 
@@ -357,6 +365,7 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
 
   /**
    * Deselects the item.
+   *
    * @param item - The item to deselect
    */
   deselect(item: ListDataSourceItemBase, update = true): void {
@@ -384,7 +393,10 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
     if (update) {
       if (isListDataSourceGroupItem(item)) {
         item.members?.forEach(member => this.deselect(member, false));
-      } else if (isListDataSourceDataItem(item) && item.group?.members?.some(member => !this.isSelected(member))) {
+      } else if (
+        isListDataSourceDataItem(item) &&
+        item.group?.members?.some(member => !this.isSelected(member))
+      ) {
         this.deselect(item.group, false);
       }
 
@@ -394,6 +406,7 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
 
   /**
    * Toggles the selection state of an item.
+   *
    * @param item - The item to toggle the selection state for
    * @param force - If true, the item will be selected. If false, it will be deselected.
    */
@@ -417,6 +430,7 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
 
   /**
    * Returns whether the item is selected.
+   *
    * @param item - The item to check
    */
   isSelected(item?: ListDataSourceItemBase): boolean {
@@ -492,7 +506,8 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
 
   /**
    * Expands the group with the given id.
-   * @param id  - The id of the group to expand
+   *
+   * @param id - The id of the group to expand
    */
   expandGroup(id: unknown): void {
     this.#collapsedGroups.delete(id);
@@ -500,7 +515,8 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
 
   /**
    * Collapses the group with the given id.
-   * @param id  - The id of the group to collapse
+   *
+   * @param id - The id of the group to collapse
    */
   collapseGroup(id: unknown): void {
     this.#collapsedGroups.add(id);
@@ -508,7 +524,8 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
 
   /**
    * Toggles the expansion state of the group with the given id.
-   * @param id  - The id of the group to toggle
+   *
+   * @param id - The id of the group to toggle
    * @param force - If true, the group will be collapsed. If false, it will be expanded.
    */
   toggleGroup(id: unknown, force?: boolean): void {
@@ -521,7 +538,8 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
 
   /**
    * Returns whether the group with the given id is collapsed.
-   * @param id  - The id of the group to check
+   *
+   * @param id - The id of the group to check
    */
   isGroupCollapsed(id: unknown): boolean {
     return this.#collapsedGroups.has(id);
@@ -529,6 +547,7 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
 
   /**
    * Reorder the item in the data source.
+   *
    * @param item The item to reorder.
    * @param relativeItem The item to reorder relative to.
    * @param position The position relative to the relativeItem.

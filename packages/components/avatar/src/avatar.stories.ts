@@ -1,6 +1,5 @@
 import { faSchool } from '@fortawesome/pro-regular-svg-icons';
-import { announce } from '@sl-design-system/announcer';
-import { type Badge, type BadgeSize } from '@sl-design-system/badge';
+import { type BadgeSize } from '@sl-design-system/badge';
 import '@sl-design-system/badge/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/tooltip/register.js';
@@ -255,21 +254,15 @@ export const Sizes: Story = {
 
       countPerCanvas.set(canvasElement, count);
 
-      const badges = canvasElement.querySelectorAll<Badge>('sl-badge');
-      badges.forEach(badge => {
-        badge.setAttribute('aria-label', `${count} unread messages`);
+      canvasElement.querySelectorAll('sl-badge').forEach(badge => {
+        const textNode = [...badge.childNodes].find(
+          n => n.nodeType === Node.TEXT_NODE && n.textContent?.trim()
+        );
 
-        if (badge.size !== 'sm') {
-          const textNode = Array.from(badge.childNodes).find(
-            node => node.nodeType === Node.TEXT_NODE && node.textContent?.trim() !== ''
-          );
-          if (textNode) {
-            textNode.textContent = `${count}`;
-          }
+        if (textNode) {
+          textNode.textContent = `${count}`;
         }
       });
-
-      announce(`${count} unread messages`);
     }, 5000);
 
     intervalPerCanvas.set(canvasElement, interval);
@@ -284,10 +277,24 @@ export const Sizes: Story = {
     subheading,
     vertical
   }) => html`
+    <style>
+      .screen-reader-only {
+        block-size: 1px;
+        border: 0;
+        clip-path: inset(50%);
+        inline-size: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        white-space: nowrap;
+      }
+    </style>
     <p>
       Avatars with badges in all available sizes. The badge count updates every 5 seconds to
-      simulate dynamic content. The <code>announce()</code> function is used to notify screen
-      readers of the updated count. See the
+      simulate dynamic content. Each badge uses <code>role="status"</code> with a visually-hidden
+      <code>span</code> element providing context for screen readers, while the visible number
+      remains a plain text node. See the
       <a href="https://sanomalearning.design/categories/components/avatar/accessibility/"
         >accessibility guidelines</a
       >
@@ -310,12 +317,13 @@ export const Sizes: Story = {
             ${subheading ? html`<span>${subheading}</span>` : nothing}
             <sl-badge
               .size=${badgeSizes[size]}
-              aria-label="2 unread messages"
               color="red"
               emphasis="bold"
+              role="status"
               slot="badge"
             >
-              ${badgeSizes[size] === 'sm' ? nothing : 2}
+              ${badgeSizes[size] === 'sm' ? nothing : '2'}
+              <span class="screen-reader-only">unread messages</span>
             </sl-badge>
           </sl-avatar>
         `

@@ -38,7 +38,7 @@ export function calculateVisibility(
     cumulativeWidth = requiredWidth;
   }
 
-  // Reserve space for the menu button when present.
+  // Reserve space for the menu button when present
   const effectiveWidth = availableWidth - (needsMenu ? menuButtonWidth : 0);
 
   // Second pass: hide items that don't fit in the remaining space.

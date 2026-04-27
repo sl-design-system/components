@@ -255,7 +255,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       this.#onResize();
 
       this.#resizeObserver.observe(this);
-
       this.#rovingTabindexController.clearElementCache();
     });
   }
@@ -404,7 +403,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    // Always reveal items before measuring available width.
+    // Show all items so we can measure how much space is available.
     revealAllItems(this.items);
 
     // Detect fit-content: if the toolbar overflows its parent,

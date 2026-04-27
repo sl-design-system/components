@@ -160,6 +160,7 @@ describe('overflow (integration)', () => {
       `);
 
       await new Promise(resolve => setTimeout(resolve, 50));
+      await el.updateComplete;
     });
 
     it('should hide all items when the toolbar is too narrow', () => {
@@ -211,6 +212,7 @@ describe('overflow (integration)', () => {
 
       // Give the resize observer time to do its thing
       await new Promise(resolve => setTimeout(resolve, 50));
+      await el.updateComplete;
     });
 
     it('should have hidden all slotted elements', () => {
@@ -420,6 +422,7 @@ describe('width measurement', () => {
     `);
 
     await new Promise(resolve => setTimeout(resolve, 50));
+    await el.updateComplete;
   });
 
   it('should show all items when there is enough space', () => {

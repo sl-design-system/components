@@ -552,8 +552,6 @@ export class Tooltip extends LitElement {
         return;
       }
 
-      const normalizedAnchorElement = this.#normalizeAnchorElement(anchorElement);
-
       if (
         !this.#matchesAnchor(normalizedAnchorElement) &&
         !this.#stableAnchors.has(normalizedAnchorElement)
@@ -818,7 +816,7 @@ export class Tooltip extends LitElement {
       this.#knownAnchors.add(this.#normalizeAnchorElement(anchor));
     }
 
-    void this.#getKnownAnchors();
+    this.#getKnownAnchors();
   };
 
   /**

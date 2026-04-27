@@ -400,8 +400,12 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       this.#measureItems();
     }
 
-    // If measurements failed or items changed, don't proceed
-    if (this.#widths.length === 0 || this.#widths.length !== this.items.length) {
+    // If measurements failed, are still pending, or items changed, don't proceed.
+    if (
+      this.#needsMeasurement ||
+      this.#widths.length === 0 ||
+      this.#widths.length !== this.items.length
+    ) {
       return;
     }
 

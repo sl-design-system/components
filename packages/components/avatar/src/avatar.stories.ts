@@ -242,6 +242,8 @@ export const Sizes: Story = {
     countPerCanvas.set(canvasElement, 2);
     const maxCount = 30;
 
+    const dynamicSizes: AvatarSize[] = ['sm', '4xl'];
+
     const interval = setInterval(() => {
       const count = (countPerCanvas.get(canvasElement) ?? 2) + 1;
 
@@ -254,13 +256,27 @@ export const Sizes: Story = {
 
       countPerCanvas.set(canvasElement, count);
 
-      canvasElement.querySelectorAll('sl-badge').forEach(badge => {
-        const textNode = [...badge.childNodes].find(
-          n => n.nodeType === Node.TEXT_NODE && n.textContent?.trim()
-        );
+      dynamicSizes.forEach(size => {
+        const avatar = canvasElement.querySelector<HTMLElement>(`sl-avatar[size='${size}']`),
+          badge = avatar?.querySelector('sl-badge');
 
-        if (textNode) {
-          textNode.textContent = `${count}`;
+        if (!badge) return;
+
+        // For sm badges there is no visible text, so update the sr-only span
+        // with the full message. For 4xl badges update the visible text node.
+        if (size === 'sm') {
+          const srSpan = badge.querySelector('.screen-reader-only');
+          if (srSpan) {
+            srSpan.textContent = `${count} unread messages`;
+          }
+        } else {
+          const textNode = [...badge.childNodes].find(
+            n => n.nodeType === Node.TEXT_NODE && n.textContent?.trim()
+          );
+
+          if (textNode) {
+            textNode.textContent = `${count}`;
+          }
         }
       });
     }, 5000);
@@ -291,10 +307,9 @@ export const Sizes: Story = {
       }
     </style>
     <p>
-      Avatars with badges in all available sizes. The badge count updates every 5 seconds to
-      simulate dynamic content. Each badge uses <code>role="status"</code> with a visually-hidden
-      <code>span</code> element providing context for screen readers, while the visible number
-      remains a plain text node. See the
+      Avatars with badges in all available sizes. The <code>sm</code> and <code>4xl</code> badges
+      use <code>role="status"</code> with a visually-hidden <code>span</code> providing context for
+      screen readers; their count updates every 5 seconds to simulate dynamic content. See the
       <a href="https://sanomalearning.design/categories/components/avatar/accessibility/"
         >accessibility guidelines</a
       >
@@ -319,11 +334,15 @@ export const Sizes: Story = {
               .size=${badgeSizes[size]}
               color="red"
               emphasis="bold"
-              role="status"
+              role=${ifDefined(size === 'sm' || size === '4xl' ? 'status' : undefined)}
               slot="badge"
             >
               ${badgeSizes[size] === 'sm' ? nothing : '2'}
-              <span class="screen-reader-only">unread messages</span>
+              ${size === 'sm'
+                ? html`<span class="screen-reader-only">2 unread messages</span>`
+                : size === '4xl'
+                  ? html`<span class="screen-reader-only">unread messages</span>`
+                  : nothing}
             </sl-badge>
           </sl-avatar>
         `

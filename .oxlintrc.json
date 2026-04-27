@@ -33,6 +33,7 @@
     {
       "files": ["**/*.spec.ts"],
       "rules": {
+        "jest/valid-expect": "off",
         "no-unused-expressions": "off",
         "vitest/valid-expect": "off"
       }

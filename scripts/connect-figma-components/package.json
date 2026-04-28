@@ -1,0 +1,15 @@
+{
+  "name": "@sl-design-system/connect-figma-components",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Figma Code Connect mappings for SL Design System web components",
+  "type": "module",
+  "scripts": {
+    "connect:publish": "figma connect publish",
+    "connect:unpublish": "figma connect unpublish"
+  },
+  "devDependencies": {
+    "@figma/code-connect": "^1.4.4",
+    "typescript": "^6.0.2"
+  }
+}

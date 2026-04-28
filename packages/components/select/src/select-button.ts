@@ -1,10 +1,19 @@
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { type FormControlShowValidity } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { type Option } from '@sl-design-system/listbox';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type SlClearEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './select-button.scss.js';
 import { type SelectSize } from './select.js';
@@ -16,8 +25,8 @@ declare global {
 }
 
 /**
- * SelectButton is used internally by the Select component to display the selected
- * option and handle user interactions.
+ * SelectButton is used internally by the Select component to display the selected option and handle
+ * user interactions.
  *
  * @csspart placeholder - The placeholder text when no option is selected.
  * @csspart selected-option - The container for the selected option.
@@ -137,7 +146,12 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    if (!this.disabled && this.clearable && this.selected && ['Backspace', 'Delete'].includes(event.key)) {
+    if (
+      !this.disabled &&
+      this.clearable &&
+      this.selected &&
+      ['Backspace', 'Delete'].includes(event.key)
+    ) {
       event.preventDefault();
       event.stopPropagation();
 

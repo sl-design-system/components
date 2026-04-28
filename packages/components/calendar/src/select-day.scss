@@ -12,11 +12,16 @@
 
 :host([show-week-numbers]) {
   .days-of-week {
-    grid-template-columns: var(--_week-number-column-size) repeat(var(--_days-in-week), var(--_cell-size));
+    grid-template-columns: var(--_week-number-column-size) repeat(
+        var(--_days-in-week),
+        var(--_cell-size)
+      );
   }
 
   .scroller {
-    max-inline-size: calc(var(--_week-number-column-size) + var(--_days-in-week) * var(--_cell-size));
+    max-inline-size: calc(
+      var(--_week-number-column-size) + var(--_days-in-week) * var(--_cell-size)
+    );
   }
 
   sl-month-view::part(week-number) {
@@ -73,7 +78,9 @@ sl-button {
 }
 
 .week-number {
-  min-inline-size: calc(var(--_week-number-column-size) - 2 * var(--_week-number-column-padding-inline));
+  min-inline-size: calc(
+    var(--_week-number-column-size) - 2 * var(--_week-number-column-padding-inline)
+  );
   padding-inline: var(--_week-number-column-padding-inline);
   position: relative;
 

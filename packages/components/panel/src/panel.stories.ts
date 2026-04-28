@@ -27,7 +27,14 @@ import { type Panel, type PanelDensity, PanelElevation, type TogglePlacement } f
 
 type Props = Pick<
   Panel,
-  'collapsed' | 'collapsible' | 'density' | 'divider' | 'elevation' | 'heading' | 'noBorder' | 'togglePlacement'
+  | 'collapsed'
+  | 'collapsible'
+  | 'density'
+  | 'divider'
+  | 'elevation'
+  | 'heading'
+  | 'noBorder'
+  | 'togglePlacement'
 > & {
   actions?(): string | TemplateResult;
   content?(): string | TemplateResult;
@@ -42,7 +49,13 @@ const elevations: PanelElevation[] = ['none', 'raised', 'sunken'];
 
 const togglePlacements: TogglePlacement[] = ['start', 'end'];
 
-const users: Array<{ name: string; picture?: string; days: number; since: string; signal: string }> = [
+const users: Array<{
+  name: string;
+  picture?: string;
+  days: number;
+  since: string;
+  signal: string;
+}> = [
   {
     name: 'Yousef van der Schaaf',
     picture: 'https://randomuser.me/api/portraits/mendfgdfgdfdfg/81.jpg',
@@ -85,7 +98,20 @@ const users: Array<{ name: string; picture?: string; days: number; since: string
   }
 ];
 
-Icon.register(faBackpack, faBook, faCopy, faGear, faLink, faLock, faList, faPaste, faPen, faShare, faTrash, faUnlock);
+Icon.register(
+  faBackpack,
+  faBook,
+  faCopy,
+  faGear,
+  faLink,
+  faLock,
+  faList,
+  faPaste,
+  faPen,
+  faShare,
+  faTrash,
+  faUnlock
+);
 
 export default {
   title: 'Layout/Panel',
@@ -159,8 +185,11 @@ export default {
 
 export const Basic: Story = {
   args: {
-    actions: () =>
-      html`<sl-button fill="ghost" slot="actions" aria-label="Remove"><sl-icon name="far-trash"></sl-icon></sl-button>`,
+    actions: () => html`
+      <sl-button fill="ghost" slot="actions" aria-label="Remove">
+        <sl-icon name="far-trash"></sl-icon>
+      </sl-button>
+    `,
     content: () => html`<span>Panel content</span>`,
     heading: 'Panel heading'
   }
@@ -168,8 +197,11 @@ export const Basic: Story = {
 
 export const WithPrefix: Story = {
   args: {
-    actions: () =>
-      html`<sl-button fill="ghost" slot="actions" aria-label="Remove"><sl-icon name="far-trash"></sl-icon></sl-button>`,
+    actions: () => html`
+      <sl-button fill="ghost" slot="actions" aria-label="Remove">
+        <sl-icon name="far-trash"></sl-icon>
+      </sl-button>
+    `,
     content: () => html`<span>Panel content</span>`,
     prefix: () => html`<sl-icon slot="prefix" name="far-backpack"></sl-icon>`,
     heading: 'Panel heading'
@@ -178,10 +210,14 @@ export const WithPrefix: Story = {
 
 export const WithSuffix: Story = {
   args: {
-    actions: () =>
-      html`<sl-button fill="ghost" slot="actions" aria-label="Remove"><sl-icon name="far-trash"></sl-icon></sl-button>`,
+    actions: () => html`
+      <sl-button fill="ghost" slot="actions" aria-label="Remove">
+        <sl-icon name="far-trash"></sl-icon>
+      </sl-button>
+    `,
     content: () => html`<span>Panel content</span>`,
-    suffix: () => html`<sl-badge slot="suffix" emphasis="subtle" size="lg" variant="info">suffix</sl-badge>`,
+    suffix: () =>
+      html`<sl-badge slot="suffix" emphasis="subtle" size="lg" variant="info">suffix</sl-badge>`,
     heading: 'Panel heading'
   }
 };
@@ -214,19 +250,42 @@ export const OverflowActions: Story = {
   args: {
     ...Basic.args,
     actions: () => html`
-      <sl-button fill="ghost" slot="actions" aria-label="Edit"><sl-icon name="far-pen"></sl-icon></sl-button>
-      <sl-button fill="ghost" slot="actions" aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
-      <sl-button fill="ghost" slot="actions" aria-label="Paste"><sl-icon name="far-paste"></sl-icon></sl-button>
-      <sl-button fill="ghost" slot="actions" aria-label="Book"><sl-icon name="far-book"></sl-icon></sl-button>
-      <sl-button fill="ghost" slot="actions" aria-label="Share"><sl-icon name="far-share"></sl-icon></sl-button>
-      <sl-button fill="ghost" slot="actions" aria-label="List"><sl-icon name="far-list"></sl-icon></sl-button>
-      <sl-button fill="ghost" slot="actions" aria-label="Link"><sl-icon name="far-link"></sl-icon></sl-button>
-      <sl-button fill="ghost" slot="actions" aria-label="Lock"><sl-icon name="far-lock"></sl-icon></sl-button>
-      <sl-button fill="ghost" slot="actions" aria-label="Unlock"><sl-icon name="far-unlock"></sl-icon></sl-button>
-      <sl-button fill="ghost" slot="actions" aria-label="Settings"><sl-icon name="far-gear"></sl-icon></sl-button>
-      <sl-button fill="ghost" slot="actions" aria-label="Remove"><sl-icon name="far-trash"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Edit"
+        ><sl-icon name="far-pen"></sl-icon
+      ></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Copy"
+        ><sl-icon name="far-copy"></sl-icon
+      ></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Paste"
+        ><sl-icon name="far-paste"></sl-icon
+      ></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Book"
+        ><sl-icon name="far-book"></sl-icon
+      ></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Share"
+        ><sl-icon name="far-share"></sl-icon
+      ></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="List"
+        ><sl-icon name="far-list"></sl-icon
+      ></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Link"
+        ><sl-icon name="far-link"></sl-icon
+      ></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Lock"
+        ><sl-icon name="far-lock"></sl-icon
+      ></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Unlock"
+        ><sl-icon name="far-unlock"></sl-icon
+      ></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Settings"
+        ><sl-icon name="far-gear"></sl-icon
+      ></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Remove"
+        ><sl-icon name="far-trash"></sl-icon
+      ></sl-button>
     `,
-    content: () => "If you add too many actions that won't fit on 1 line, it will add a menu button for the overflow."
+    content: () =>
+      "If you add too many actions that won't fit on 1 line, it will add a menu button for the overflow."
   }
 };
 
@@ -345,7 +404,9 @@ export const NoPaddingContent: Story = {
                 <td class="cell">${users[rowIndex].days}</td>
                 <td class="cell">${users[rowIndex].since}</td>
                 <td class="cell">
-                  <sl-badge emphasis="subtle" size="lg" variant="info">${users[rowIndex].signal}</sl-badge>
+                  <sl-badge emphasis="subtle" size="lg" variant="info"
+                    >${users[rowIndex].signal}</sl-badge
+                  >
                 </td>
               </tr>
             `
@@ -391,7 +452,9 @@ export const ToggleExternally: Story = {
 
           override render(): TemplateResult {
             return html`
-              <h2>We use the announcer to inform the user, when the panel is opened/closed externally.</h2>
+              <h2>
+                We use the announcer to inform the user, when the panel is opened/closed externally.
+              </h2>
               <sl-button @click=${this.togglePanel}>Toggle panel</sl-button>
               <p>State: ${this.collapsed ? 'closed' : 'open'}</p>
               <sl-panel
@@ -399,20 +462,22 @@ export const ToggleExternally: Story = {
                 collapsible
                 heading="Discovering Dinosaurs 🦕"
               >
-                Embark on a thrilling journey back in time to the age of dinosaurs, where colossal creatures roamed the
-                Earth 🌎 and ancient landscapes teemed with life. This prehistoric adventure invites you to explore a
-                world untouched by modern civilization, filled with towering ferns 🌿, volcanic mountains, and the
-                thunderous footsteps of giants like the Tyrannosaurus rex 🦖 and the Triceratops. Whether you're
-                navigating dense jungles or witnessing dramatic encounters between predator and prey, every moment is
-                packed with excitement and discovery. Get ready to uncover the mysteries of a lost era and experience
-                the awe-inspiring power of nature in its most primal form.
+                Embark on a thrilling journey back in time to the age of dinosaurs, where colossal
+                creatures roamed the Earth 🌎 and ancient landscapes teemed with life. This
+                prehistoric adventure invites you to explore a world untouched by modern
+                civilization, filled with towering ferns 🌿, volcanic mountains, and the thunderous
+                footsteps of giants like the Tyrannosaurus rex 🦖 and the Triceratops. Whether
+                you're navigating dense jungles or witnessing dramatic encounters between predator
+                and prey, every moment is packed with excitement and discovery. Get ready to uncover
+                the mysteries of a lost era and experience the awe-inspiring power of nature in its
+                most primal form.
               </sl-panel>
             `;
           }
 
           togglePanel() {
             this.renderRoot.querySelector('sl-panel')?.toggle();
-            announce(`Panel ${this.collapsed ? 'collapsing' : 'expanding'}`);
+            announce(`Panel ${this.collapsed ? 'expanding' : 'collapsing'}`);
             this.requestUpdate();
           }
 
@@ -474,8 +539,8 @@ export const All: Story = {
           For nested panels or areas where no visual background or separation is needed.
         </sl-panel>
         <sl-panel elevation="raised" heading="Raised">
-          Adds elevation to visually lift the panel from the surrounding content. Use when the panel is placed on top of
-          the page body.
+          Adds elevation to visually lift the panel from the surrounding content. Use when the panel
+          is placed on top of the page body.
         </sl-panel>
         <sl-panel elevation="sunken" heading="Sunken">
           Adds a subtle inset effect. Useful for grouping nested content within a panel.
@@ -484,18 +549,25 @@ export const All: Story = {
         <h3>Density</h3>
         Density adjusts the internal spacing of content within the panel.
         <sl-panel heading="Default"> The default spacing for general use. </sl-panel>
-        <sl-panel density="relaxed" heading="Relaxed"> Adds extra padding for a more relaxed layout. </sl-panel>
+        <sl-panel density="relaxed" heading="Relaxed">
+          Adds extra padding for a more relaxed layout.
+        </sl-panel>
 
         <h3>Divider</h3>
         Dividers can be added to visually separate sections within a panel.
-        <sl-panel heading="Without divider"> Use when visual separation is not needed between sections. </sl-panel>
+        <sl-panel heading="Without divider">
+          Use when visual separation is not needed between sections.
+        </sl-panel>
         <sl-panel divider heading="With divider">
           Adds a horizontal divider to separate content areas clearly.
         </sl-panel>
 
         <h3>No border</h3>
-        By default, there is a border around the panel. This can be removed by setting the no-border attribute.
-        <sl-panel heading="With border"> A border around the panel to make it more distinct in the layout. </sl-panel>
+        By default, there is a border around the panel. This can be removed by setting the no-border
+        attribute.
+        <sl-panel heading="With border">
+          A border around the panel to make it more distinct in the layout.
+        </sl-panel>
         <sl-panel no-border heading="No border">
           Best used when elevation or other context provides sufficient separation.
         </sl-panel>

@@ -28,7 +28,7 @@ export class NumberField extends LocaleMixin(TextField) {
   /** @internal */
   static override styles = [TextField.styles, styles];
 
-  /** Parser used for user input.  */
+  /** Parser used for user input. */
   #parser = new NumberParser(this.locale);
 
   /** The string value. */
@@ -45,13 +45,15 @@ export class NumberField extends LocaleMixin(TextField) {
 
   /**
    * Whether the number field is disabled; when set no interaction is possible.
+   *
    * @override
    */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
   /**
-   * Number formatting options.
-   * See [Intl.NumberFormat options documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat) for more details.
+   * Number formatting options. See [Intl.NumberFormat options
+   * documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat)
+   * for more details.
    */
   @property({ type: Object, attribute: 'format-options' }) formatOptions?: Intl.NumberFormatOptions;
 
@@ -83,27 +85,31 @@ export class NumberField extends LocaleMixin(TextField) {
   }
 
   /**
-   * The maximum value that is acceptable and valid.
-   * If the value is greater, the control will be invalid.
+   * The maximum value that is acceptable and valid. If the value is greater, the control will be
+   * invalid.
+   *
    * @default Infinity
    */
   @property({ type: Number }) max?: number;
 
   /**
-   * The minimum value that is acceptable and valid.
-   * If the value is less, the control will be invalid.
+   * The minimum value that is acceptable and valid. If the value is less, the control will be
+   * invalid.
+   *
    * @default -Infinity
    */
   @property({ type: Number }) min?: number;
 
   /**
    * Whether the number field is a required field.
+   *
    * @override
    */
   @property({ type: Boolean, reflect: true }) override required?: boolean;
 
   /**
    * The amount by which the value will be increased/decreased by a step up/down.
+   *
    * @default 1
    */
   @property({ type: Number }) step?: number;
@@ -113,6 +119,7 @@ export class NumberField extends LocaleMixin(TextField) {
 
   /**
    * The input type is always 'text' for number fields and cannot be changed.
+   *
    * @override
    */
   @property({ attribute: false })
@@ -182,7 +189,9 @@ export class NumberField extends LocaleMixin(TextField) {
   /**
    * Renders the prefix slot content with step down button when step buttons are at edges.
    *
-   * Remember that if you override this method, the step down button will no longer be rendered automatically when `stepButtons` is set to 'edges'. You will need to implement your own button logic if needed.
+   * Remember that if you override this method, the step down button will no longer be rendered
+   * automatically when `stepButtons` is set to 'edges'. You will need to implement your own button
+   * logic if needed.
    */
   override renderPrefix(): TemplateResult | typeof nothing {
     return this.stepButtons === 'edges'
@@ -202,8 +211,8 @@ export class NumberField extends LocaleMixin(TextField) {
   /**
    * Renders the suffix slot content with step buttons.
    *
-   * Remember that if you override this method, the step buttons will no longer be rendered automatically.
-   * You will need to implement your own button logic if needed.
+   * Remember that if you override this method, the step buttons will no longer be rendered
+   * automatically. You will need to implement your own button logic if needed.
    */
   override renderSuffix(): TemplateResult | typeof nothing {
     return this.stepButtons
@@ -245,7 +254,10 @@ export class NumberField extends LocaleMixin(TextField) {
   stepDown(decrement: number = this.step ?? 1): void {
     const value = this.valueAsNumber || 0;
 
-    this.#valueAsNumber = Math.min(Math.max(value - decrement, this.min ?? -Infinity), this.max ?? Infinity);
+    this.#valueAsNumber = Math.min(
+      Math.max(value - decrement, this.min ?? -Infinity),
+      this.max ?? Infinity
+    );
     this.#value = this.#valueAsNumber.toString();
     this.requestUpdate('formattedValue');
 
@@ -256,7 +268,10 @@ export class NumberField extends LocaleMixin(TextField) {
   stepUp(increment: number = this.step ?? 1): void {
     const value = this.valueAsNumber || 0;
 
-    this.#valueAsNumber = Math.min(Math.max(value + increment, this.min ?? -Infinity), this.max ?? Infinity);
+    this.#valueAsNumber = Math.min(
+      Math.max(value + increment, this.min ?? -Infinity),
+      this.max ?? Infinity
+    );
     this.#value = this.#valueAsNumber.toString();
     this.requestUpdate('formattedValue');
 
@@ -347,13 +362,17 @@ export class NumberField extends LocaleMixin(TextField) {
       return (
         this.disabled ||
         this.readonly ||
-        (this.max !== undefined && this.valueAsNumber !== undefined && this.max === this.valueAsNumber)
+        (this.max !== undefined &&
+          this.valueAsNumber !== undefined &&
+          this.max === this.valueAsNumber)
       );
     } else if (button === 'down') {
       return (
         this.disabled ||
         this.readonly ||
-        (this.min !== undefined && this.valueAsNumber !== undefined && this.min === this.valueAsNumber)
+        (this.min !== undefined &&
+          this.valueAsNumber !== undefined &&
+          this.min === this.valueAsNumber)
       );
     } else {
       return false;

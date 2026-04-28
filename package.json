@@ -133,7 +133,7 @@
       ]
     },
     "build:locales": {
-      "command": "node scripts/build-packages.js locales",
+      "command": "node scripts/build-packages.js locales && oxfmt packages/locales/src",
       "dependencies": [
         "build:locales:code"
       ],
@@ -147,7 +147,7 @@
       ]
     },
     "build:locales:code": {
-      "command": "lit-localize build && eslint --fix 'packages/locales/src/*.ts' --ignore-pattern '**/*.d.ts'",
+      "command": "lit-localize build && eslint --fix 'packages/locales/src/*.ts' --ignore-pattern 'packages/locales/src/*.d.ts' && oxfmt packages/locales/src",
       "clean": false,
       "files": [
         "lit-localize.json",
@@ -494,6 +494,7 @@
     "lint-staged": "^16.4.0",
     "lit": "^3.3.2",
     "mockdate": "^3.0.5",
+    "oxfmt": "^0.46.0",
     "playwright": "^1.59.1",
     "sinon": "^21.0.3",
     "sinon-chai": "^4.0.1",

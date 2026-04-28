@@ -24,8 +24,8 @@ export default {
     };
     return html`
       <p>
-        The &lt;sl-announcer&gt;&lt;/sl-announcer&gt; is not in this file, it is in the template so there is only one
-        instance of it that all components can use.
+        The &lt;sl-announcer&gt;&lt;/sl-announcer&gt; is not in this file, it is in the template so
+        there is only one instance of it that all components can use.
       </p>
       <sl-button @click=${sendWithEvent}>Event, polite</sl-button>
       <sl-button @click=${sendWithFunction}>Function, assertive</sl-button>

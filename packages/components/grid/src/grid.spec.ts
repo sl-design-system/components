@@ -1,7 +1,12 @@
+import '@sl-design-system/button/register.js';
+import { isPopoverOpen } from '@sl-design-system/shared';
+import { tooltip } from '@sl-design-system/tooltip';
+import '@sl-design-system/tooltip/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { type SinonSpy, spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { type Grid, type SlActiveRowChangeEvent } from './grid.js';
 import { waitForGridToRenderData } from './utils.js';
@@ -10,6 +15,36 @@ type Person = { firstName: string; lastName: string };
 
 describe('sl-grid', () => {
   let el: Grid<Person>;
+  const multipleSelectItems = [
+    { firstName: 'John', lastName: 'Doe' },
+    { firstName: 'Jane', lastName: 'Smith' }
+  ];
+  const findTooltip = (id: string): HTMLElement | null => {
+    return (
+      el.querySelector<HTMLElement>(`#${CSS.escape(id)}`) ??
+      el.renderRoot.querySelector<HTMLElement>(`#${CSS.escape(id)}`)
+    );
+  };
+
+  const findTooltipByText = (text: string): HTMLElement | null =>
+    Array.from(el.querySelectorAll<HTMLElement>('sl-tooltip'))
+      .concat(Array.from(el.renderRoot.querySelectorAll<HTMLElement>('sl-tooltip')))
+      .find(tooltipEl => tooltipEl.textContent?.includes(text)) ?? null;
+
+  const mountMultipleSelectGrid = async (bulkActions?: unknown): Promise<Grid<Person>> => {
+    el = await fixture(html`
+      <sl-grid .items=${multipleSelectItems}>
+        <sl-grid-selection-column></sl-grid-selection-column>
+        <sl-grid-column path="firstName"></sl-grid-column>
+        <sl-grid-column path="lastName"></sl-grid-column>
+        ${bulkActions}
+      </sl-grid>
+    `);
+
+    await waitForGridToRenderData(el);
+
+    return el;
+  };
 
   describe('defaults', () => {
     beforeEach(async () => {
@@ -42,7 +77,9 @@ describe('sl-grid', () => {
     });
 
     it('should render column headers', () => {
-      const columns = Array.from(el.renderRoot.querySelectorAll('th')).map(col => col.textContent?.trim());
+      const columns = Array.from(el.renderRoot.querySelectorAll('th')).map(col =>
+        col.textContent?.trim()
+      );
 
       expect(columns).to.deep.equal(['First name', 'Last name']);
     });
@@ -61,24 +98,13 @@ describe('sl-grid', () => {
 
   describe('multiple select', () => {
     beforeEach(async () => {
-      el = await fixture(html`
-        <sl-grid
-          .items=${[
-            { firstName: 'John', lastName: 'Doe' },
-            { firstName: 'Jane', lastName: 'Smith' }
-          ]}
-        >
-          <sl-grid-selection-column></sl-grid-selection-column>
-          <sl-grid-column path="firstName"></sl-grid-column>
-          <sl-grid-column path="lastName"></sl-grid-column>
-        </sl-grid>
-      `);
-
-      await waitForGridToRenderData(el);
+      await mountMultipleSelectGrid();
     });
 
     it('should toggle the "selected" part of the row when clicking in the selection column', async () => {
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')
+        ?.click();
       await new Promise(resolve => setTimeout(resolve));
 
       const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
@@ -86,19 +112,29 @@ describe('sl-grid', () => {
     });
 
     it('should not toggle the "selected" part of the row when clicking anywhere in the row', async () => {
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      const selectedRow = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr[part~="selected"]');
+      const selectedRow = el.renderRoot.querySelector<HTMLTableRowElement>(
+        'tbody tr[part~="selected"]'
+      );
       expect(selectedRow).to.be.null;
     });
 
     it('should support multiple selection by clicking different rows', async () => {
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')?.click();
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:last-of-type td[part~="selection"]')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')
+        ?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:last-of-type td[part~="selection"]')
+        ?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      const rows = el.renderRoot.querySelectorAll<HTMLTableRowElement>('tbody tr[part~="selected"]');
+      const rows = el.renderRoot.querySelectorAll<HTMLTableRowElement>(
+        'tbody tr[part~="selected"]'
+      );
       expect(rows).to.have.lengthOf(2);
     });
 
@@ -107,8 +143,12 @@ describe('sl-grid', () => {
 
       el.addEventListener('sl-grid-selection-change', onSelectionChange);
 
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')?.click();
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:last-of-type td[part~="selection"]')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')
+        ?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:last-of-type td[part~="selection"]')
+        ?.click();
 
       expect(onSelectionChange).to.have.been.calledTwice;
     });
@@ -116,7 +156,9 @@ describe('sl-grid', () => {
     it('should call toggle() on the data source when a row is selected', () => {
       const toggleSpy = spy(el.dataSource!, 'toggle');
 
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')
+        ?.click();
 
       expect(toggleSpy).to.have.been.calledOnce;
       expect(toggleSpy.firstCall.args[0]).to.have.property('data', el.items?.at(0));
@@ -132,6 +174,181 @@ describe('sl-grid', () => {
       await el.updateComplete;
 
       expect(el.dataSource?.selects).to.equal('multiple');
+    });
+  });
+
+  describe('multiple select bulk actions', () => {
+    const openBulkActions = async (): Promise<void> => {
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')
+        ?.click();
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+    };
+
+    it('should show a lazy tooltip on a bulk action button in the floating action bar', async () => {
+      await mountMultipleSelectGrid(html`
+        <sl-button
+          ${tooltip('I am a tooltip')}
+          aria-disabled="true"
+          fill="outline"
+          slot="bulk-actions"
+          variant="inverted"
+        >
+          Action 2
+        </sl-button>
+      `);
+
+      await openBulkActions();
+
+      const bulkActions = el.renderRoot.querySelector<HTMLElement>('[part="bulk-actions"]'),
+        button = el.querySelector<HTMLElement>('sl-button[slot="bulk-actions"]');
+
+      expect(bulkActions).to.exist;
+      expect(button).to.exist;
+      expect(isPopoverOpen(bulkActions!)).to.be.true;
+
+      await userEvent.hover(button!);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 250));
+
+      const lazyTooltip = findTooltipByText('I am a tooltip');
+
+      expect(lazyTooltip).to.exist;
+      expect(lazyTooltip?.tagName).to.equal('SL-TOOLTIP');
+      expect(isPopoverOpen(lazyTooltip!)).to.be.true;
+    });
+
+    it('should keep showing an explicit tooltip for a bulk action button on repeated hover', async () => {
+      await mountMultipleSelectGrid(html`
+        <sl-tooltip id="bulk-action-tooltip" show-delay="0" hide-delay="0"
+          >Bulk action tooltip</sl-tooltip
+        >
+        <sl-button
+          aria-describedby="bulk-action-tooltip"
+          fill="outline"
+          slot="bulk-actions"
+          variant="inverted"
+        >
+          Action 2
+        </sl-button>
+      `);
+
+      await openBulkActions();
+
+      const button = el.querySelector<HTMLElement>('sl-button[slot="bulk-actions"]'),
+        explicitTooltip = findTooltip('bulk-action-tooltip');
+
+      expect(button).to.exist;
+      expect(explicitTooltip).to.exist;
+
+      await userEvent.hover(button!);
+      await el.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(isPopoverOpen(explicitTooltip!)).to.be.true;
+
+      await userEvent.unhover(button!);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(isPopoverOpen(explicitTooltip!)).to.be.false;
+
+      await userEvent.hover(button!);
+      await el.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(isPopoverOpen(explicitTooltip!)).to.be.true;
+    });
+
+    it('should show the explicit bulk action tooltip when hovering the sl-button proxy target', async () => {
+      await mountMultipleSelectGrid(html`
+        <sl-tooltip id="bulk-action-tooltip" show-delay="0" hide-delay="0"
+          >Bulk action tooltip</sl-tooltip
+        >
+        <sl-button
+          aria-describedby="bulk-action-tooltip"
+          fill="outline"
+          slot="bulk-actions"
+          variant="inverted"
+        >
+          Action 2
+        </sl-button>
+      `);
+
+      await openBulkActions();
+
+      const button = el.querySelector<
+          HTMLElement & { updateComplete?: Promise<unknown>; renderRoot?: ShadowRoot }
+        >('sl-button[slot="bulk-actions"]'),
+        explicitTooltip = findTooltip('bulk-action-tooltip');
+
+      await button?.updateComplete;
+
+      const proxyTarget = button?.renderRoot?.querySelector<HTMLElement>('button');
+
+      expect(proxyTarget).to.exist;
+      expect(explicitTooltip).to.exist;
+
+      await userEvent.hover(proxyTarget!);
+      await el.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(isPopoverOpen(explicitTooltip!)).to.be.true;
+    });
+
+    it('should switch between the cancel tooltip and a bulk action tooltip in the floating action bar', async () => {
+      await mountMultipleSelectGrid(html`
+        <sl-button
+          ${tooltip('I am a tooltip')}
+          aria-disabled="true"
+          fill="outline"
+          slot="bulk-actions"
+          variant="inverted"
+        >
+          Action 2
+        </sl-button>
+      `);
+
+      await openBulkActions();
+
+      const cancelButton = el.renderRoot.querySelector<HTMLElement>(
+          '[part="bulk-actions"] > sl-button:last-of-type'
+        ),
+        cancelTooltip = el.renderRoot.querySelector<HTMLElement>('#tooltip'),
+        bulkButton = el.querySelector<
+          HTMLElement & { updateComplete?: Promise<unknown>; renderRoot?: ShadowRoot }
+        >('sl-button[slot="bulk-actions"]');
+
+      await bulkButton?.updateComplete;
+
+      const bulkProxyTarget = bulkButton?.renderRoot?.querySelector<HTMLElement>('button');
+
+      expect(cancelButton).to.exist;
+      expect(cancelTooltip).to.exist;
+      expect(bulkButton).to.exist;
+      expect(bulkProxyTarget).to.exist;
+
+      await userEvent.hover(cancelButton!);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 250));
+
+      expect(isPopoverOpen(cancelTooltip!)).to.be.true;
+
+      await userEvent.hover(bulkProxyTarget!);
+      await el.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await new Promise(resolve => setTimeout(resolve, 250));
+
+      const bulkTooltip = findTooltipByText('I am a tooltip');
+
+      expect(bulkTooltip).to.exist;
+      expect(bulkTooltip?.tagName).to.equal('SL-TOOLTIP');
+      expect(isPopoverOpen(cancelTooltip!)).to.be.false;
+      expect(isPopoverOpen(bulkTooltip!)).to.be.true;
     });
   });
 
@@ -161,7 +378,9 @@ describe('sl-grid', () => {
     });
 
     it('should toggle the "selected" part of the row when clicking in the row', async () => {
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
       await new Promise(resolve => setTimeout(resolve));
 
       const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
@@ -170,17 +389,25 @@ describe('sl-grid', () => {
 
     it('should allow only one row to be selected at a time', async () => {
       // Select first row
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      let selectedRows = el.renderRoot.querySelectorAll<HTMLTableRowElement>('tbody tr[part~="selected"]');
+      let selectedRows = el.renderRoot.querySelectorAll<HTMLTableRowElement>(
+        'tbody tr[part~="selected"]'
+      );
       expect(selectedRows).to.have.lengthOf(1);
 
       // Select second row - should deselect first row
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:nth-of-type(2) td:last-of-type')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:nth-of-type(2) td:last-of-type')
+        ?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      selectedRows = el.renderRoot.querySelectorAll<HTMLTableRowElement>('tbody tr[part~="selected"]');
+      selectedRows = el.renderRoot.querySelectorAll<HTMLTableRowElement>(
+        'tbody tr[part~="selected"]'
+      );
       expect(selectedRows).to.have.lengthOf(1);
 
       // Verify first row is no longer selected
@@ -194,14 +421,18 @@ describe('sl-grid', () => {
 
     it('should deselect a row when clicking it again', async () => {
       // Select a row
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
       await new Promise(resolve => setTimeout(resolve));
 
       let row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
       expect(row?.part.contains('selected')).to.be.true;
 
       // Click again to deselect
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
       await new Promise(resolve => setTimeout(resolve));
 
       row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
@@ -213,8 +444,12 @@ describe('sl-grid', () => {
 
       el.addEventListener('sl-grid-selection-change', onSelectionChange);
 
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:nth-of-type(2) td:last-of-type')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:nth-of-type(2) td:last-of-type')
+        ?.click();
 
       expect(onSelectionChange).to.have.been.calledTwice;
     });
@@ -222,7 +457,9 @@ describe('sl-grid', () => {
     it('should call toggle() on the data source when a row is selected', () => {
       const toggleSpy = spy(el.dataSource!, 'toggle');
 
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
 
       expect(toggleSpy).to.have.been.calledOnce;
       expect(toggleSpy.firstCall.args[0]).to.have.property('data', el.items?.at(0));
@@ -284,13 +521,17 @@ describe('sl-grid', () => {
       tbody.querySelector<HTMLTableRowElement>('tr:last-of-type')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      expect(tbody.querySelector<HTMLTableRowElement>('tr:last-of-type')).to.match('[part~="active"]');
+      expect(tbody.querySelector<HTMLTableRowElement>('tr:last-of-type')).to.match(
+        '[part~="active"]'
+      );
       expect(el.activeRow).to.deep.equal(el.items!.at(1));
 
       tbody.querySelector<HTMLTableRowElement>('tr:last-of-type')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      expect(tbody.querySelector<HTMLTableRowElement>('tr:last-of-type')).to.not.match('[part~="active"]');
+      expect(tbody.querySelector<HTMLTableRowElement>('tr:last-of-type')).to.not.match(
+        '[part~="active"]'
+      );
       expect(el.activeRow).to.be.undefined;
     });
 
@@ -326,13 +567,17 @@ describe('sl-grid', () => {
     });
 
     it('should toggle the "selected" part of the row when clicking in the selection column', async () => {
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')
+        ?.click();
       await new Promise(resolve => setTimeout(resolve));
 
       let row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
       expect(row?.part.contains('selected')).to.be.true;
 
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')
+        ?.click();
       await new Promise(resolve => setTimeout(resolve));
 
       row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
@@ -340,13 +585,17 @@ describe('sl-grid', () => {
     });
 
     it('should toggle the "selected" part of the row when clicking anywhere in the row', async () => {
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
       await new Promise(resolve => setTimeout(resolve));
 
       let row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
       expect(row?.part.contains('selected')).to.be.true;
 
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
       await new Promise(resolve => setTimeout(resolve));
 
       row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
@@ -354,11 +603,17 @@ describe('sl-grid', () => {
     });
 
     it('should support multiple selection by clicking different rows', async () => {
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:last-of-type td:last-of-type')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:last-of-type td:last-of-type')
+        ?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      const rows = el.renderRoot.querySelectorAll<HTMLTableRowElement>('tbody tr[part~="selected"]');
+      const rows = el.renderRoot.querySelectorAll<HTMLTableRowElement>(
+        'tbody tr[part~="selected"]'
+      );
       expect(rows).to.have.lengthOf(2);
     });
 
@@ -367,8 +622,12 @@ describe('sl-grid', () => {
 
       el.addEventListener('sl-grid-selection-change', onSelectionChange);
 
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:last-of-type td:last-of-type')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:last-of-type td:last-of-type')
+        ?.click();
 
       expect(onSelectionChange).to.have.been.calledTwice;
     });
@@ -376,7 +635,9 @@ describe('sl-grid', () => {
     it('should call toggle() on the data source when a row is selected', () => {
       const toggleSpy = spy(el.dataSource!, 'toggle');
 
-      el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')?.click();
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
 
       expect(toggleSpy).to.have.been.calledOnce;
       expect(toggleSpy.firstCall.args[0]).to.have.property('data', el.items?.at(0));

@@ -1,5 +1,9 @@
 import { Avatar } from '@sl-design-system/avatar';
-import { ArrayListDataSource, FetchListDataSource, FetchListDataSourceError } from '@sl-design-system/data-source';
+import {
+  ArrayListDataSource,
+  FetchListDataSource,
+  FetchListDataSourceError
+} from '@sl-design-system/data-source';
 import { type Student, getStudents } from '@sl-design-system/example-data';
 import '@sl-design-system/paginator/register.js';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
@@ -43,9 +47,10 @@ export const Basic: Story = {
         }
       </style>
       <p>
-        This is an example of how to paginate data in a grid. It uses the <code>ArrayListDataSource</code> with the
-        <code>pagination</code> option enabled. You can change the page it starts on by setting the
-        <code>page</code> option. The page size can be changed by setting the <code>pageSize</code> option.
+        This is an example of how to paginate data in a grid. It uses the
+        <code>ArrayListDataSource</code> with the <code>pagination</code> option enabled. You can
+        change the page it starts on by setting the <code>page</code> option. The page size can be
+        changed by setting the <code>pageSize</code> option.
       </p>
       <sl-grid .dataSource=${ds}>
         <sl-grid-column grow="0" header="Nr." path="studentNumber"></sl-grid-column>
@@ -100,8 +105,9 @@ export const Filtering: Story = {
         }
       </style>
       <p>
-        This example shows you can combine filtering with pagination. The <code>sl-paginator-status</code> component
-        will always reflect the filtered size of the data source, not the total number of items in the data source.
+        This example shows you can combine filtering with pagination. The
+        <code>sl-paginator-status</code> component will always reflect the filtered size of the data
+        source, not the total number of items in the data source.
       </p>
       <sl-grid .dataSource=${ds}>
         <sl-grid-filter-column
@@ -153,7 +159,9 @@ export const LazyLoad: Story = {
       pageSize: 10,
       pagination: true,
       fetchPage: async ({ page, pageSize }) => {
-        const response = await fetch(`https://dummyjson.com/quotes?skip=${page * pageSize}&limit=${pageSize}`);
+        const response = await fetch(
+          `https://dummyjson.com/quotes?skip=${page * pageSize}&limit=${pageSize}`
+        );
 
         if (response.ok) {
           const { quotes, total } = (await response.json()) as QuotesResponse;
@@ -180,9 +188,10 @@ export const LazyLoad: Story = {
         }
       </style>
       <p>
-        This example shows how you can combine <code>FetchListDataSource</code> with pagination to lazy load data when
-        you change pages. You should try to make sure the <code>pageSize</code> in the grid is the same as the batch
-        size from the remote endpoint. That way each page will only need 1 endpoint call. It uses data from
+        This example shows how you can combine <code>FetchListDataSource</code> with pagination to
+        lazy load data when you change pages. You should try to make sure the
+        <code>pageSize</code> in the grid is the same as the batch size from the remote endpoint.
+        That way each page will only need 1 endpoint call. It uses data from
         <a href="https://dummyjson.com" target="_blank">https://dummyjson.com</a>.
       </p>
       <sl-grid .dataSource=${ds}>
@@ -193,7 +202,10 @@ export const LazyLoad: Story = {
       <div class="pagination">
         <sl-paginator-status .dataSource=${ds}></sl-paginator-status>
         <sl-paginator .dataSource=${ds}></sl-paginator>
-        <sl-paginator-page-size .dataSource=${ds} page-sizes="[5,10,15,20]"></sl-paginator-page-size>
+        <sl-paginator-page-size
+          .dataSource=${ds}
+          page-sizes="[5,10,15,20]"
+        ></sl-paginator-page-size>
       </div>
     `;
   }
@@ -242,8 +254,9 @@ export const Manual: Story = {
         }
       </style>
       <p>
-        This example shows how you can manually paginate the data in the grid, without using a data source. This is not
-        really meant to be used as an example. It's a more proof of what is technically possible.
+        This example shows how you can manually paginate the data in the grid, without using a data
+        source. This is not really meant to be used as an example. It's a more proof of what is
+        technically possible.
       </p>
       <sl-grid .items=${(students as Student[]).slice(0, 10)}>
         <sl-grid-column grow="0" header="Nr." path="studentNumber"></sl-grid-column>
@@ -260,7 +273,10 @@ export const Manual: Story = {
           .itemLabel=${'students'}
           .totalItems=${(students as Student[]).length}
         ></sl-paginator-status>
-        <sl-paginator @sl-page-change=${onPageChange} .totalItems=${(students as Student[]).length}></sl-paginator>
+        <sl-paginator
+          @sl-page-change=${onPageChange}
+          .totalItems=${(students as Student[]).length}
+        ></sl-paginator>
         <sl-paginator-page-size
           @sl-page-size-change=${onPageSizeChange}
           .itemLabel=${'Students'}

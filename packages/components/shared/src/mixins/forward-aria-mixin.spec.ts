@@ -159,7 +159,9 @@ describe('ForwardAriaMixin', () => {
         // Already defined
       }
 
-      const deferredEl = document.createElement('forward-aria-deferred') as InstanceType<typeof DeferredTargetElement>;
+      const deferredEl = document.createElement('forward-aria-deferred') as InstanceType<
+        typeof DeferredTargetElement
+      >;
       deferredEl.ariaDisabled = 'true';
       document.body.appendChild(deferredEl);
       await deferredEl.updateComplete;
@@ -396,7 +398,9 @@ describe('ForwardAriaMixin', () => {
       label.textContent = 'Nested label';
       document.body.prepend(label);
 
-      const outer = await fixture<OuterElement>(html`<forward-aria-outer>Click me</forward-aria-outer>`);
+      const outer = await fixture<OuterElement>(
+        html`<forward-aria-outer>Click me</forward-aria-outer>`
+      );
       const inner = outer.renderRoot.querySelector('forward-aria-inner') as InnerElement;
       const deepButton = inner.renderRoot.querySelector('button')!;
 
@@ -428,7 +432,9 @@ describe('ForwardAriaMixin', () => {
     }
 
     beforeEach(async () => {
-      defaultEl = await fixture(html`<forward-aria-default-test>Click me</forward-aria-default-test>`);
+      defaultEl = await fixture(
+        html`<forward-aria-default-test>Click me</forward-aria-default-test>`
+      );
       defaultButton = defaultEl.renderRoot.querySelector('button')!;
     });
 
@@ -460,7 +466,9 @@ describe('ForwardAriaMixin', () => {
     });
 
     it('should forward pre-existing aria-* attributes after the target is set', async () => {
-      const el = document.createElement('forward-aria-default-test') as InstanceType<typeof DefaultElement>;
+      const el = document.createElement('forward-aria-default-test') as InstanceType<
+        typeof DefaultElement
+      >;
       el.setAttribute('aria-label', 'Pre-existing');
       el.textContent = 'Click me';
 

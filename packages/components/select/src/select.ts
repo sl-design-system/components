@@ -1,5 +1,8 @@
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { Listbox, Option, OptionGroup } from '@sl-design-system/listbox';
@@ -18,7 +21,14 @@ import {
   type SlClearEvent,
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
 import { SelectButton } from './select-button.js';
 import styles from './select.scss.js';
@@ -50,11 +60,10 @@ export type SelectSize = 'md' | 'lg';
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(ScopedElementsMixin(LitElement)), [
-  'aria-describedby',
-  'aria-label',
-  'aria-labelledby'
-]) {
+export class Select<T = any> extends ObserveAttributesMixin(
+  FormControlMixin(ScopedElementsMixin(LitElement)),
+  ['aria-describedby', 'aria-label', 'aria-labelledby']
+) {
   /** @internal */
   static formAssociated = true;
 
@@ -87,20 +96,26 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   #initialState?: T;
 
   /**
-   * Track when focus is intentionally leaving the component (e.g. by clicking outside or tabbing away).
-   * Set to true in #onFocusout when the listbox is open, and we're not already programmatically closing it.
-   * Used to prevent restoring focus to the button when the user intentionally moved focus elsewhere.
+   * Track when focus is intentionally leaving the component (e.g. by clicking outside or tabbing
+   * away). Set to true in #onFocusout when the listbox is open, and we're not already
+   * programmatically closing it. Used to prevent restoring focus to the button when the user
+   * intentionally moved focus elsewhere.
    */
   #focusLeavingComponent = false;
 
-  /** The last option that was rendered in the button's selected content. Used to avoid unnecessary DOM updates. */
+  /**
+   * The last option that was rendered in the button's selected content. Used to avoid unnecessary
+   * DOM updates.
+   */
   #lastRenderedOption?: Option | null;
 
   /** Detect when options are added to the host, or a nested option group and clear the cache. */
   #observer = new MutationObserver(() => this.#rovingTabindexController.clearElementCache());
 
   /** Detect when the selected option content changes, so the button can refresh its cloned content. */
-  #selectedOptionObserver = new MutationObserver(records => this.#onSelectedOptionContentChange(records));
+  #selectedOptionObserver = new MutationObserver(records =>
+    this.#onSelectedOptionContentChange(records)
+  );
 
   /** Tracks a scheduled largest-option-width recalculation frame. */
   #widthCalculationFrame?: number;
@@ -148,8 +163,9 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   @property({ type: Boolean, reflect: true }) clearable?: boolean;
 
   /**
-   * The current option in the listbox. This is the option that will become the
-   * selected option if the user presses Enter/Space.
+   * The current option in the listbox. This is the option that will become the selected option if
+   * the user presses Enter/Space.
+   *
    * @internal
    */
   @state() currentOption?: Option<T>;
@@ -170,12 +186,15 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   @query('sl-listbox') listbox?: Listbox;
 
   /** @internal */
-  @queryAssignedElements({ selector: 'sl-option-group', flatten: true }) optionGroups?: OptionGroup[];
+  @queryAssignedElements({ selector: 'sl-option-group', flatten: true })
+  optionGroups?: OptionGroup[];
 
   /** @internal A flattened array of all options (even grouped ones). */
   get options(): Array<Option<T>> {
     const elements =
-      this.renderRoot.querySelector<HTMLSlotElement>('slot:not([name])')?.assignedElements({ flatten: true }) ?? [];
+      this.renderRoot
+        .querySelector<HTMLSlotElement>('slot:not([name])')
+        ?.assignedElements({ flatten: true }) ?? [];
 
     return elements.flatMap(element => this.#getAllOptions(element));
   }
@@ -194,13 +213,14 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
   /**
    * The size of the select.
+   *
    * @default md
    */
   @property({ reflect: true }) size?: SelectSize;
 
   /**
-   * The number of pixels from the top of the viewport the select should be hidden on scroll.
-   * Use this when there is a sticky header you don't want dropdowns to fall on top of.
+   * The number of pixels from the top of the viewport the select should be hidden on scroll. Use
+   * this when there is a sticky header you don't want dropdowns to fall on top of.
    */
   @property({ type: Number, attribute: 'hide-margin-top' }) rootMarginTop: number = 0;
 
@@ -253,12 +273,10 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     super.disconnectedCallback();
   }
 
-  /** @ignore Stores the initial state of the select */
   formAssociatedCallback(): void {
     this.#initialState = this.value;
   }
 
-  /** @ignore Resets the select to the initial state */
   formResetCallback(): void {
     this.value = this.#initialState;
     this.changeEvent.emit(this.value);
@@ -441,7 +459,8 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     }
 
     const hasSelectedContentChange =
-      !records || records.some(record => record.type !== 'attributes' || record.attributeName !== 'value');
+      !records ||
+      records.some(record => record.type !== 'attributes' || record.attributeName !== 'value');
     if (!hasSelectedContentChange) {
       return;
     }
@@ -520,7 +539,8 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     const leavingComponent =
       event.relatedTarget !== this.button &&
       event.relatedTarget !== this.clearButton &&
-      (!(event.relatedTarget instanceof Element) || event.relatedTarget?.closest('sl-select') !== this);
+      (!(event.relatedTarget instanceof Element) ||
+        event.relatedTarget?.closest('sl-select') !== this);
 
     if (leavingComponent) {
       const listboxIsOpen = this.listbox && isPopoverOpen(this.listbox);
@@ -578,8 +598,8 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   }
 
   /**
-   * Mousedown on the listbox surface (including scrollbar area) can move focus away
-   * from the trigger button, which fires `focusout` on `<sl-select>` and closes the popover.
+   * Mousedown on the listbox surface (including scrollbar area) can move focus away from the
+   * trigger button, which fires `focusout` on `<sl-select>` and closes the popover.
    *
    * We intentionally use `mousedown` (not `pointerdown`) to keep this fix scoped to the
    * mouse-triggered focus-transfer path that causes the regression.
@@ -677,9 +697,8 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
         measureElement.textContent = textContent;
 
         /**
-         * Add extra space for the icon and gap in the option:
-         * - icon width: 16px, --sl-icon-size: var(--sl-size-200) in icon.scss
-         * - gap: 8px, gap: var(--sl-size-100) in option.scss
+         * Add extra space for the icon and gap in the option: - icon width: 16px, --sl-icon-size:
+         * var(--sl-size-200) in icon.scss - gap: 8px, gap: var(--sl-size-100) in option.scss
          */
         const totalWidth = measureElement.getBoundingClientRect().width + 16 + 8;
         maxWidth = Math.max(maxWidth, totalWidth);

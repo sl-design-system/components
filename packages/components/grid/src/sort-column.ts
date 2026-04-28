@@ -1,4 +1,7 @@
-import { type DataSourceSortDirection, type DataSourceSortFunction } from '@sl-design-system/data-source';
+import {
+  type DataSourceSortDirection,
+  type DataSourceSortFunction
+} from '@sl-design-system/data-source';
 import { getNameByPath } from '@sl-design-system/shared';
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -15,9 +18,7 @@ declare global {
 
 let nextUniqueId = 0;
 
-/**
- * A grid column that can be sorted.
- */
+/** A grid column that can be sorted. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridSortColumn<T = any> extends GridColumn<T> {
   /** Reference to the rendered `<sl-grid-sorter>` element. */
@@ -81,7 +82,12 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
     const parts = ['header', 'sort', ...this.getParts()];
 
     return html`
-      <th aria-sort=${ifDefined(this.ariaSorting)} part=${parts.join(' ')} role="columnheader" scope="col">
+      <th
+        aria-sort=${ifDefined(this.ariaSorting)}
+        part=${parts.join(' ')}
+        role="columnheader"
+        scope="col"
+      >
         <sl-grid-sorter
           ${ref(this.#sorterRef)}
           .column=${this}

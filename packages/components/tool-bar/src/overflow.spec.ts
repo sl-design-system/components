@@ -15,9 +15,7 @@ import { type ToolBar } from './tool-bar.js';
 
 Icon.register(faBell, faGear, faPen, faTrash);
 
-/**
- * Helper to create a mock ToolBarItem for pure-function testing (no DOM needed).
- */
+/** Helper to create a mock ToolBarItem for pure-function testing (no DOM needed). */
 function mockItem(type: ToolBarItem['type'], visible = true): ToolBarItem {
   return { type, visible, element: document.createElement('div') } as ToolBarItem;
 }

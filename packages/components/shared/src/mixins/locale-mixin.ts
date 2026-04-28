@@ -25,7 +25,9 @@ documentElementObserver.observe(document.documentElement, {
   attributeFilter: ['lang']
 });
 
-export function LocaleMixin<T extends Constructor<ReactiveElement>>(constructor: T): T & Constructor<Locale> {
+export function LocaleMixin<T extends Constructor<ReactiveElement>>(
+  constructor: T
+): T & Constructor<Locale> {
   class LocaleImpl extends constructor {
     #locale?: string;
 

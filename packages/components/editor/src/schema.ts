@@ -48,7 +48,8 @@ export const removeEntries = (
 };
 
 export const removeEmptyEntries = (obj: Record<string, unknown>): Record<string, string> => {
-  const predicate = (key: string): boolean => obj[key] !== null && obj[key] !== undefined && obj[key] !== '';
+  const predicate = (key: string): boolean =>
+    obj[key] !== null && obj[key] !== undefined && obj[key] !== '';
 
   return removeEntries(obj, predicate);
 };
@@ -63,8 +64,8 @@ export const commonAttributes = (): Attrs => {
 
 export const marks: Record<EditorMarks, MarkSpec> = {
   /**
-   * A link. Has `href` and `title` attributes. `title` defaults to an empty string.
-   * Rendered and parsed as an `<a>` element.
+   * A link. Has `href` and `title` attributes. `title` defaults to an empty string. Rendered and
+   * parsed as an `<a>` element.
    */
   link: {
     attrs: {
@@ -97,16 +98,14 @@ export const marks: Record<EditorMarks, MarkSpec> = {
     ]
   },
   /**
-   * An emphasis mark. Rendered as an `<em>` element.
-   * Has parse rules that also match `<i>` and `font-style: italic`.
+   * An emphasis mark. Rendered as an `<em>` element. Has parse rules that also match `<i>` and
+   * `font-style: italic`.
    */
   em: {
     parseDOM: [{ tag: 'i' }, { tag: 'em' }, { style: 'font-style=italic' }],
     toDOM: (): DOMOutputSpec => ['em', SLOT]
   },
-  /**
-   * A strong mark. Rendered as `<strong>`, parse rules also match `<b>` and `font-weight: bold`.
-   */
+  /** A strong mark. Rendered as `<strong>`, parse rules also match `<b>` and `font-weight: bold`. */
   strong: {
     parseDOM: [
       { tag: 'strong' },
@@ -136,9 +135,7 @@ export const marks: Record<EditorMarks, MarkSpec> = {
     ],
     toDOM: (): DOMOutputSpec => ['strong', SLOT]
   },
-  /**
-   * Code font mark. Represented as a `<code>` element.
-   */
+  /** Code font mark. Represented as a `<code>` element. */
   code: {
     parseDOM: [
       { tag: 'span.code', preserveWhitespace: true },
@@ -154,7 +151,10 @@ export const marks: Record<EditorMarks, MarkSpec> = {
             return {};
           }
 
-          if (dom.style.fontFamily && dom.style.fontFamily.toLowerCase().indexOf('monospace') >= 0) {
+          if (
+            dom.style.fontFamily &&
+            dom.style.fontFamily.toLowerCase().indexOf('monospace') >= 0
+          ) {
             return {};
           }
 
@@ -165,29 +165,34 @@ export const marks: Record<EditorMarks, MarkSpec> = {
     toDOM: (): DOMOutputSpec => ['code', SLOT]
   },
   /**
-   * An underline mark. Rendered as a `<u>` element. Parse rules also match `text-decoration: underline`.
+   * An underline mark. Rendered as a `<u>` element. Parse rules also match `text-decoration:
+   * underline`.
    */
   underline: {
     parseDOM: [{ tag: 'u' }, { style: 'text-decoration=underline' }],
     toDOM: (): DOMOutputSpec => ['u', SLOT]
   },
   /**
-   * A strikethrough mark. Rendered as a `<del>` element.
-   * Parse rules also match `<s>`, `<strike>`, `text-decoration: line-through`.
+   * A strikethrough mark. Rendered as a `<del>` element. Parse rules also match `<s>`, `<strike>`,
+   * `text-decoration: line-through`.
    */
   strikethrough: {
-    parseDOM: [{ tag: 'del' }, { tag: 's' }, { tag: 'strike' }, { style: 'text-decoration=line-through' }],
+    parseDOM: [
+      { tag: 'del' },
+      { tag: 's' },
+      { tag: 'strike' },
+      { style: 'text-decoration=line-through' }
+    ],
     toDOM: (): DOMOutputSpec => ['del', SLOT]
   },
-  /**
-   * A subscript mark. Rendered as a `<sub>` element. Parse rules also match `vertical-align: sub`.
-   */
+  /** A subscript mark. Rendered as a `<sub>` element. Parse rules also match `vertical-align: sub`. */
   subscript: {
     parseDOM: [{ tag: 'sub' }, { style: 'vertical-align=sub' }],
     toDOM: (): DOMOutputSpec => ['sub', SLOT]
   },
   /**
-   * A superscript mark. Rendered as a `<sup>` element. Parse rules also match `vertical-align: super`.
+   * A superscript mark. Rendered as a `<sup>` element. Parse rules also match `vertical-align:
+   * super`.
    */
   superscript: {
     parseDOM: [{ tag: 'sup' }, { style: 'vertical-align=super' }],
@@ -216,9 +221,7 @@ export const nodes: Record<EditorNodes, NodeSpec> = {
   doc: {
     content: 'block+'
   },
-  /**
-   * A plain textblock paragraph. Represented as a `<p>` element in the DOM.
-   */
+  /** A plain textblock paragraph. Represented as a `<p>` element in the DOM. */
   paragraph: {
     attrs: Object.assign({}, commonAttributes()),
     content: 'inline*',
@@ -227,9 +230,7 @@ export const nodes: Record<EditorNodes, NodeSpec> = {
     toDOM: (node: PMNode): DOMOutputSpec =>
       isEmpty(node.attrs) ? ['p', SLOT] : ['p', removeEmptyEntries(node.attrs), SLOT]
   },
-  /**
-   * A blockquote (`<blockquote>`) which wraps one or more blocks.
-   */
+  /** A blockquote (`<blockquote>`) which wraps one or more blocks. */
   blockquote: {
     attrs: Object.assign({}, commonAttributes()),
     content: 'inline*',
@@ -238,17 +239,15 @@ export const nodes: Record<EditorNodes, NodeSpec> = {
     parseDOM: [{ tag: 'blockquote', getAttrs: getAttributes }],
     toDOM: (node: PMNode): DOMOutputSpec => ['blockquote', removeEmptyEntries(node.attrs), SLOT]
   },
-  /**
-   * A horizontal (`<hr>`) rule.
-   */
+  /** A horizontal (`<hr>`) rule. */
   horizontalRule: {
     group: 'block',
     parseDOM: [{ tag: 'hr' }],
     toDOM: (): DOMOutputSpec => ['hr']
   },
   /**
-   * A heading textblock with a `level` attribute that has to hold a number from 1 to 6.
-   * Parsed and serialized as an `<h1>` to an `<h6>` element.
+   * A heading textblock with a `level` attribute that has to hold a number from 1 to 6. Parsed and
+   * serialized as an `<h1>` to an `<h6>` element.
    */
   heading: {
     attrs: Object.assign({ level: { default: 1 } }, commonAttributes()),
@@ -256,12 +255,30 @@ export const nodes: Record<EditorNodes, NodeSpec> = {
     defining: true,
     group: 'block',
     parseDOM: [
-      { tag: 'h1', getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 1 }) },
-      { tag: 'h2', getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 2 }) },
-      { tag: 'h3', getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 3 }) },
-      { tag: 'h4', getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 4 }) },
-      { tag: 'h5', getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 5 }) },
-      { tag: 'h6', getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 6 }) }
+      {
+        tag: 'h1',
+        getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 1 })
+      },
+      {
+        tag: 'h2',
+        getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 2 })
+      },
+      {
+        tag: 'h3',
+        getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 3 })
+      },
+      {
+        tag: 'h4',
+        getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 4 })
+      },
+      {
+        tag: 'h5',
+        getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 5 })
+      },
+      {
+        tag: 'h6',
+        getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 6 })
+      }
     ],
     toDOM: (node: PMNode): DOMOutputSpec => {
       const attrs = removeEntries(node.attrs, key => key !== 'level'),
@@ -271,8 +288,8 @@ export const nodes: Record<EditorNodes, NodeSpec> = {
     }
   },
   /**
-   * A code listing. Prevents marks or non-text inline nodes by default.
-   * Represented as a `<pre>` element with a `<code>` element inside.
+   * A code listing. Prevents marks or non-text inline nodes by default. Represented as a `<pre>`
+   * element with a `<code>` element inside.
    */
   codeBlock: {
     code: true,
@@ -293,8 +310,8 @@ export const nodes: Record<EditorNodes, NodeSpec> = {
     group: 'inline'
   },
   /**
-   * An inline image (`<img>`) node. Supports `src`, `alt`, and `href` attributes.
-   * The last two default to an empty string.
+   * An inline image (`<img>`) node. Supports `src`, `alt`, and `href` attributes. The last two
+   * default to an empty string.
    */
   image: {
     attrs: Object.assign({}, commonAttributes(), {
@@ -309,9 +326,7 @@ export const nodes: Record<EditorNodes, NodeSpec> = {
     parseDOM: [{ tag: 'img[src]', getAttrs: getAttributes }],
     toDOM: (node: PMNode): DOMOutputSpec => ['img', removeEmptyEntries(node.attrs)]
   },
-  /**
-   * A hard line break. Represented as a `<br>` element in the DOM.
-   */
+  /** A hard line break. Represented as a `<br>` element in the DOM. */
   hardBreak: {
     group: 'inline',
     inline: true,
@@ -319,9 +334,7 @@ export const nodes: Record<EditorNodes, NodeSpec> = {
     selectable: false,
     toDOM: (): DOMOutputSpec => ['br']
   },
-  /**
-   * A list item. Represented as a `<li>` element.
-   */
+  /** A list item. Represented as a `<li>` element. */
   listItem: {
     attrs: Object.assign({}, commonAttributes()),
     content: 'paragraph block*',
@@ -330,8 +343,8 @@ export const nodes: Record<EditorNodes, NodeSpec> = {
     toDOM: (node: PMNode): DOMOutputSpec => ['li', removeEmptyEntries(node.attrs), SLOT]
   },
   /**
-   * An ordered list. Represented as an `<ol>` element. Has a single `order` attribute
-   * which determines the number at which the list starts counting. Defaults to 1.
+   * An ordered list. Represented as an `<ol>` element. Has a single `order` attribute which
+   * determines the number at which the list starts counting. Defaults to 1.
    */
   orderedList: {
     attrs: {
@@ -362,9 +375,7 @@ export const nodes: Record<EditorNodes, NodeSpec> = {
       return order === 1 ? ['ol', SLOT] : ['ol', { start: order }, SLOT];
     }
   },
-  /**
-   * An unordered list. Represented as a `<ul>` element.
-   */
+  /** An unordered list. Represented as a `<ul>` element. */
   bulletList: {
     content: 'listItem+',
     group: 'block',

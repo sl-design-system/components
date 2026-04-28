@@ -36,7 +36,9 @@ describe('sl-paginator-page-size', () => {
 
   describe('page sizes', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-paginator-page-size page-sizes="[5,10,20]"></sl-paginator-page-size>`);
+      el = await fixture(
+        html`<sl-paginator-page-size page-sizes="[5,10,20]"></sl-paginator-page-size>`
+      );
     });
 
     it('should have an enabled select', () => {
@@ -77,9 +79,12 @@ describe('sl-paginator-page-size', () => {
 
   describe('custom item label', () => {
     beforeEach(async () => {
-      el = await fixture(
-        html`<sl-paginator-page-size .itemLabel=${'Students'} page-sizes="[5,10,20]"></sl-paginator-page-size>`
-      );
+      el = await fixture(html`
+        <sl-paginator-page-size
+          .itemLabel=${'Students'}
+          page-sizes="[5,10,20]"
+        ></sl-paginator-page-size>
+      `);
     });
 
     it('should have a proper label', () => {
@@ -90,9 +95,15 @@ describe('sl-paginator-page-size', () => {
     });
 
     it('should have options with proper aria-label', () => {
-      const pageSizes = Array.from(el.renderRoot.querySelectorAll('sl-option')).map(o => o.ariaLabel);
+      const pageSizes = Array.from(el.renderRoot.querySelectorAll('sl-option')).map(
+        o => o.ariaLabel
+      );
 
-      expect(pageSizes).to.deep.equal(['5 Students per page', '10 Students per page', '20 Students per page']);
+      expect(pageSizes).to.deep.equal([
+        '5 Students per page',
+        '10 Students per page',
+        '20 Students per page'
+      ]);
     });
   });
 });

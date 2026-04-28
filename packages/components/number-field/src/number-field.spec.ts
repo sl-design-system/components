@@ -381,7 +381,9 @@ describe('sl-number-field', () => {
     });
 
     it('should increase the value when step up button is clicked', async () => {
-      const button = el.renderRoot.querySelector('sl-field-button[aria-label="Step up"]') as HTMLButtonElement;
+      const button = el.renderRoot.querySelector(
+        'sl-field-button[aria-label="Step up"]'
+      ) as HTMLButtonElement;
 
       expect(button).to.exist;
 
@@ -392,7 +394,9 @@ describe('sl-number-field', () => {
     });
 
     it('should decrease the value when step down button is clicked', async () => {
-      const button = el.renderRoot.querySelector('sl-field-button[aria-label="Step down"]') as HTMLButtonElement;
+      const button = el.renderRoot.querySelector(
+        'sl-field-button[aria-label="Step down"]'
+      ) as HTMLButtonElement;
 
       expect(button).to.exist;
 

@@ -29,7 +29,16 @@ type Props = Pick<
 };
 type Story = StoryObj<Props>;
 
-const colors: AvatarColor[] = ['blue', 'green', 'grey', 'orange', 'purple', 'red', 'teal', 'yellow'],
+const colors: AvatarColor[] = [
+    'blue',
+    'green',
+    'grey',
+    'orange',
+    'purple',
+    'red',
+    'teal',
+    'yellow'
+  ],
   sizes: AvatarSize[] = ['sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'];
 
 Icon.register(faSchool);
@@ -196,7 +205,8 @@ export const CustomInitials: Story = {
 
 export const Overflow: Story = {
   args: {
-    displayName: 'If the display name does not fit, it will be truncated and a tooltip will automatically be added',
+    displayName:
+      'If the display name does not fit, it will be truncated and a tooltip will automatically be added',
     maxWidth: '300px',
     size: 'lg',
     subheading: 'Ipsum adipisicing exercitation amet et anim consectetur.'

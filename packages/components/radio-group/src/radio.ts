@@ -1,6 +1,12 @@
 import { type FormControlShowValidity } from '@sl-design-system/form';
 import { EventsController } from '@sl-design-system/shared';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './radio.scss.js';
 
@@ -34,6 +40,7 @@ export class Radio<T = any> extends LitElement {
 
   /**
    * The size of the radio button.
+   *
    * @default md
    */
   @property({ reflect: true }) size?: RadioButtonSize;

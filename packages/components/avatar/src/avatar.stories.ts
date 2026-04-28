@@ -227,6 +227,35 @@ const badgeSizes: Record<AvatarSize, BadgeSize> = {
 const countPerCanvas = new WeakMap<Element, number>(),
   intervalPerCanvas = new WeakMap<Element, ReturnType<typeof setInterval>>();
 
+/** Update the badge text and live-region for a given avatar size. */
+const updateStatus = (canvas: Element, size: AvatarSize, count: number): void => {
+  const avatar = canvas.querySelector<HTMLElement>(`sl-avatar[size='${size}']`);
+
+  if (!avatar) return;
+
+  // Update the visible text node inside the badge (sm badges have no text).
+  if (badgeSizes[size] !== 'sm') {
+    const badge = avatar.querySelector('sl-badge'),
+      textNode =
+        badge &&
+        [...badge.childNodes].find(n => n.nodeType === Node.TEXT_NODE && n.textContent?.trim());
+
+    if (textNode) {
+      textNode.textContent = `${count}`;
+    }
+  }
+
+  // Clear first, then set after a frame so every browser (including Firefox)
+  // treats it as a full content change and announces the complete text.
+  const status = avatar.querySelector<HTMLSpanElement>('[role="status"]');
+  if (status) {
+    status.textContent = '';
+    requestAnimationFrame(() => {
+      status.textContent = `${count} unread messages`;
+    });
+  }
+};
+
 export const Sizes: Story = {
   args: {
     subheading: 'Subheading'
@@ -236,46 +265,14 @@ export const Sizes: Story = {
 
     if (previousInterval) {
       clearInterval(previousInterval);
-      intervalPerCanvas.delete(canvasElement);
     }
 
     countPerCanvas.set(canvasElement, 2);
-    const maxCount = 30;
-
-    const updateBadge = (size: AvatarSize, count: number): void => {
-      const avatar = canvasElement.querySelector<HTMLElement>(`sl-avatar[size='${size}']`);
-
-      if (!avatar) return;
-
-      const isSm = badgeSizes[size] === 'sm';
-
-      // Update the visible text node inside the badge (non-sm only).
-      if (!isSm) {
-        const badge = avatar.querySelector('sl-badge'),
-          textNode =
-            badge &&
-            [...badge.childNodes].find(n => n.nodeType === Node.TEXT_NODE && n.textContent?.trim());
-
-        if (textNode) {
-          textNode.textContent = `${count}`;
-        }
-      }
-
-      // Clear the live region text, then set the new value after a frame so
-      // every browser (including Firefox) treats it as a full content change.
-      const status = avatar.querySelector<HTMLSpanElement>('[role="status"]');
-      if (status) {
-        status.textContent = '';
-        requestAnimationFrame(() => {
-          status.textContent = `${count} unread messages`;
-        });
-      }
-    };
 
     const interval = setInterval(() => {
       const count = (countPerCanvas.get(canvasElement) ?? 2) + 1;
 
-      if (!canvasElement.isConnected || count > maxCount) {
+      if (!canvasElement.isConnected || count > 9) {
         clearInterval(interval);
         intervalPerCanvas.delete(canvasElement);
 
@@ -284,10 +281,9 @@ export const Sizes: Story = {
 
       countPerCanvas.set(canvasElement, count);
 
-      // Stagger updates so both live regions don't fire at the same time,
-      // which would cause screen readers to announce the count twice.
-      updateBadge('4xl', count);
-      setTimeout(() => updateBadge('sm', count), 2500);
+      // Update sm and 4xl with a delay between them to avoid double announcements.
+      updateStatus(canvasElement, '4xl', count);
+      setTimeout(() => updateStatus(canvasElement, 'sm', count), 2500);
     }, 5000);
 
     intervalPerCanvas.set(canvasElement, interval);
@@ -344,13 +340,12 @@ export const Sizes: Story = {
             <sl-badge .size=${badgeSizes[size]} color="red" emphasis="bold" slot="badge">
               ${badgeSizes[size] === 'sm' ? nothing : '2'}
             </sl-badge>
-            ${size === 'sm' || size === '4xl'
-              ? html`
-                  <span class="screen-reader-only" role="status" slot="badge">
-                    2 unread messages
-                  </span>
-                `
-              : html`<span class="screen-reader-only" slot="badge"> 2 unread messages </span>`}
+            <span
+              class="screen-reader-only"
+              role=${ifDefined(size === 'sm' || size === '4xl' ? 'status' : undefined)}
+            >
+              2 unread messages
+            </span>
           </sl-avatar>
         `
       )}

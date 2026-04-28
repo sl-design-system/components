@@ -310,8 +310,8 @@ export const Sizes: Story = {
       Avatars with badges in all available sizes. The <code>sm</code> and <code>4xl</code> badges
       use <code>role="status"</code> so screen readers announce count changes; their count updates
       every 5&nbsp;seconds to demonstrate dynamic content. The remaining sizes show static badges
-      without a role; they use a visually-hidden <code>span</code> so screen readers still announce
-      the badge text when the user navigates to it. See the
+      whose content does not change, so they do not need a role, instead they use a visually-hidden
+      <code>span</code> that screen readers announce when the user navigates to the badge. See the
       <a href="https://sanomalearning.design/categories/components/avatar/accessibility/"
         >accessibility guidelines</a
       >

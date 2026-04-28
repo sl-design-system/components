@@ -14,11 +14,20 @@ There are two ways to improve the accessibility of `sl-badge` when used inside a
 
 ### Dynamic content
 
-Sometimes, when the badge value updates automatically (e.g. an unread message count), the change is not automatically announced by screen readers. We need to explicitly notify the user that something has changed.
+When the badge value updates automatically (e.g. an unread message count), screen readers need to be notified that something has changed. Add `role="status"` to the badge. Place a visually-hidden `span` inside the badge with a descriptive text that screen readers will announce on every update. The visible number remains a plain text node.
 
-We recommend using the `Announcer` utility (`announce` function) to inform users about the updated badge value. The badge itself should have a descriptive `aria-label` so screen readers can read it when the user navigates to it manually.
+```html
+<sl-avatar display-name="Rose Nylund" picture-url="/images/avatar-1.jpg">
+  <sl-badge role="status" slot="badge">
+    2
+    <span class="screen-reader-only">unread messages</span>
+  </sl-badge>
+</sl-avatar>
+```
 
-Here you can find [an example of how to use the Announcer utility with the avatar badge](https://storybook.sanomalearning.design/?path=/story/media-avatar--sizes).
+When the count changes, update the visible text node. The visually-hidden span provides context that does not change, so the screen reader announces the number followed by "unread messages":
+
+Here you can find [an example of how to use dynamic badges with the avatar](https://storybook.sanomalearning.design/?path=/story/media-avatar--sizes).
 
 ### Static content
 
@@ -35,7 +44,7 @@ If the badge displays information that does not change while the user is interac
 
 </section>
 
-<section> 
+<section>
 
 ## WAI-ARIA
 

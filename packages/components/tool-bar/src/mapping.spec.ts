@@ -133,6 +133,39 @@ describe('mapMenuButtonToItem', () => {
     expect(item.disabled).to.equal(false);
     expect(item.ariaDisabled).to.equal(true);
   });
+
+  it('should map label from button slot content before first render update', () => {
+    const el = document.createElement('sl-menu-button') as MenuButton;
+    el.innerHTML = `
+      <span slot="button"><sl-icon name="far-ban"></sl-icon> Block</span>
+      <sl-menu-item>Item 1</sl-menu-item>
+    `;
+
+    const item = mapMenuButtonToItem(el);
+
+    expect(item.label).to.equal('Block');
+  });
+
+  it('should map label from host aria-labelledby before first render update', () => {
+    const container = document.createElement('div'),
+      label = document.createElement('span'),
+      el = document.createElement('sl-menu-button') as MenuButton;
+
+    label.id = 'menu-label';
+    label.textContent = 'Visibility';
+    container.append(label, el);
+    document.body.append(container);
+
+    el.setAttribute('aria-labelledby', 'menu-label');
+    el.innerHTML = '<sl-menu-item>Item 1</sl-menu-item>';
+
+    try {
+      const item = mapMenuButtonToItem(el);
+      expect(item.label).to.equal('Visibility');
+    } finally {
+      container.remove();
+    }
+  });
 });
 
 describe('mapMenuItemToItem', () => {

@@ -69,6 +69,12 @@ export class Tooltip extends LitElement {
   /** @internal The default padding of the arrow. */
   static arrowPadding = 16;
 
+  /** @internal The fixed delay before hover-triggered tooltips open. */
+  static readonly hoverShowDelay = 500;
+
+  /** @internal The fixed delay before hover-triggered tooltips close. */
+  static readonly hoverHideDelay = 200;
+
   /** @internal The default offset of the tooltip to its anchor. */
   static offset = 12;
 
@@ -207,13 +213,6 @@ export class Tooltip extends LitElement {
   /** Timer for showing/hiding the tooltip. */
   #timer?: ReturnType<typeof setTimeout>;
 
-  /**
-   * The amount of time to wait before hiding the tooltip when the user moves the mouse/pointer out.
-   *
-   * @default 0
-   */
-  @property({ type: Number, attribute: 'hide-delay' }) hideDelay = 0;
-
   /** The maximum width of the tooltip. */
   @property({ type: Number, attribute: 'max-width' }) maxWidth?: number;
 
@@ -241,13 +240,6 @@ export class Tooltip extends LitElement {
    *   | 'left-end'}
    */
   @property() position: PopoverPosition = 'top';
-
-  /**
-   * The amount of time to wait before showing the tooltip when the user moves the mouse/pointer in.
-   *
-   * @default 150
-   */
-  @property({ type: Number, attribute: 'show-delay' }) showDelay = 150;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -448,7 +440,7 @@ export class Tooltip extends LitElement {
           this.#hideTooltip();
         }
       },
-      event.type === 'focusout' ? 0 : this.hideDelay
+      event.type === 'focusout' ? 0 : Tooltip.hoverHideDelay
     );
   };
 
@@ -537,7 +529,7 @@ export class Tooltip extends LitElement {
       } else {
         this.#timer = setTimeout(
           () => this.#showTooltip(normalizedAnchorElement, false, anchorRoot),
-          this.showDelay
+          Tooltip.hoverShowDelay
         );
       }
       return;

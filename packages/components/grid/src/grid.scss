@@ -562,6 +562,7 @@ tfoot {
   justify-self: anchor-center;
   margin: 0;
   max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-800) * 2);
+  overflow: clip;
   padding: 0;
   padding-inline-end: var(--sl-size-100);
   position-anchor: --table;

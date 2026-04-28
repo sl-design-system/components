@@ -100,7 +100,6 @@ describe('sl-tooltip shared', () => {
     buttons[1].dispatchEvent(new Event('pointerover', { bubbles: true }));
     await tooltip.updateComplete;
     await new Promise(resolve => requestAnimationFrame(resolve));
-    await waitFor(Tooltip.hoverShowDelay + 10);
 
     expect(tooltip.anchorElement).to.equal(buttons[1]);
     expect(tooltip.style.insetInlineStart).not.to.equal(firstInsetInlineStart);

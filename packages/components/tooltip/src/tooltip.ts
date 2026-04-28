@@ -213,6 +213,34 @@ export class Tooltip extends LitElement {
   /** Timer for showing/hiding the tooltip. */
   #timer?: ReturnType<typeof setTimeout>;
 
+  /**
+   * Legacy API alias kept for backwards compatibility.
+   *
+   * @deprecated `sl-tooltip` hover show timing is fixed and no longer configurable.
+   */
+  @property({ type: Number, attribute: 'show-delay' })
+  get showDelay(): number {
+    return Tooltip.hoverShowDelay;
+  }
+
+  set showDelay(_value: number) {
+    // no-op: kept only to avoid breaking existing API usage
+  }
+
+  /**
+   * Legacy API alias kept for backwards compatibility.
+   *
+   * @deprecated `sl-tooltip` hover hide timing is fixed and no longer configurable.
+   */
+  @property({ type: Number, attribute: 'hide-delay' })
+  get hideDelay(): number {
+    return Tooltip.hoverHideDelay;
+  }
+
+  set hideDelay(_value: number) {
+    // no-op: kept only to avoid breaking existing API usage
+  }
+
   /** The maximum width of the tooltip. */
   @property({ type: Number, attribute: 'max-width' }) maxWidth?: number;
 

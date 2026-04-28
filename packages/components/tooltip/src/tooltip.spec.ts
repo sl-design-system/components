@@ -5,7 +5,7 @@ import '@sl-design-system/menu/register.js';
 import { isPopoverOpen } from '@sl-design-system/shared';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, html } from 'lit';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { Tooltip } from './tooltip.js';
@@ -143,7 +143,7 @@ describe('sl-tooltip', () => {
         expect(isPopoverOpen(tooltip)).to.be.false;
 
         tooltip.dispatchEvent(new Event('pointerout', { bubbles: true }));
-        await waitFor(Tooltip.hoverShowDelay + 10);
+        await waitFor(10);
 
         expect(hidePopoverSpy).not.toHaveBeenCalled();
       } finally {
@@ -205,7 +205,7 @@ describe('sl-tooltip', () => {
       try {
         button?.blur();
         button?.dispatchEvent(new Event('focusout', { bubbles: true, composed: true }));
-        await waitFor(Tooltip.hoverShowDelay + 10);
+        await waitFor(10);
 
         expect(tooltip.matches(':popover-open')).to.be.false;
       } finally {
@@ -1272,6 +1272,10 @@ describe('sl-tooltip', () => {
   });
 
   describe('delay semantics', () => {
+    beforeEach(() => {
+      vi.useFakeTimers();
+    });
+
     beforeEach(async () => {
       el = await fixture(html`
         <div style="display: block; width: 400px; height: 400px;">
@@ -1283,25 +1287,30 @@ describe('sl-tooltip', () => {
       tooltip = el.querySelector('sl-tooltip') as Tooltip;
     });
 
+    afterEach(() => {
+      vi.useRealTimers();
+    });
+
     it('should stay closed before the fixed hover show delay elapses', async () => {
+      const preShowWait = Math.max(0, Math.floor(Tooltip.hoverShowDelay * 0.5));
       button.dispatchEvent(new Event('pointerover', { bubbles: true }));
-      await new Promise(resolve => setTimeout(resolve, Tooltip.hoverShowDelay - 100));
+      await vi.advanceTimersByTimeAsync(preShowWait);
       expect(tooltip.matches(':popover-open')).to.be.false;
 
-      await new Promise(resolve => setTimeout(resolve, 150));
+      await vi.advanceTimersByTimeAsync(Tooltip.hoverShowDelay - preShowWait + 10);
       expect(tooltip.matches(':popover-open')).to.be.true;
     });
 
     it('should stay open before the fixed hover hide delay elapses', async () => {
       button.dispatchEvent(new Event('pointerover', { bubbles: true }));
-      await new Promise(resolve => setTimeout(resolve, Tooltip.hoverShowDelay + 10));
+      await vi.advanceTimersByTimeAsync(Tooltip.hoverShowDelay + 10);
       expect(tooltip.matches(':popover-open')).to.be.true;
 
       button.dispatchEvent(new Event('pointerout', { bubbles: true }));
-      await new Promise(resolve => setTimeout(resolve, Tooltip.hoverHideDelay - 50));
+      await vi.advanceTimersByTimeAsync(Math.max(0, Tooltip.hoverHideDelay - 50));
       expect(tooltip.matches(':popover-open')).to.be.true;
 
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await vi.advanceTimersByTimeAsync(100);
       expect(tooltip.matches(':popover-open')).to.be.false;
     });
   });

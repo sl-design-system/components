@@ -67,14 +67,14 @@ function getLabelFromAriaLabelledBy(host: HTMLElement): string {
   }
 
   const root = host.getRootNode(),
-    getElementById =
+    getLabelledByElement =
       root instanceof Document || root instanceof ShadowRoot
-        ? root.getElementById.bind(root)
+        ? (id: string) => root.querySelector<HTMLElement>(`#${CSS.escape(id)}`)
         : undefined;
 
   return labelledByIds
     .split(/\s+/)
-    .map(id => getElementById?.(id)?.textContent?.trim())
+    .map(id => getLabelledByElement?.(id)?.textContent?.trim())
     .filter(Boolean)
     .join(' ');
 }
@@ -95,9 +95,7 @@ function getMenuButtonLabel(menuButton: MenuButton): string {
   }
 
   return Array.from(menuButton.children)
-    .filter(
-      (el): el is HTMLElement => el instanceof HTMLElement && el.slot === 'button'
-    )
+    .filter((el): el is HTMLElement => el instanceof HTMLElement && el.slot === 'button')
     .map(el => el.textContent?.trim())
     .filter(Boolean)
     .join(' ');

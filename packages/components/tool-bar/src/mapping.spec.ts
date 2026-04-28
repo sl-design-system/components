@@ -135,7 +135,7 @@ describe('mapMenuButtonToItem', () => {
   });
 
   it('should map label from button slot content before first render update', () => {
-    const el = document.createElement('sl-menu-button') as MenuButton;
+    const el = document.createElement('sl-menu-button');
     el.innerHTML = `
       <span slot="button"><sl-icon name="far-ban"></sl-icon> Block</span>
       <sl-menu-item>Item 1</sl-menu-item>
@@ -149,7 +149,7 @@ describe('mapMenuButtonToItem', () => {
   it('should map label from host aria-labelledby before first render update', () => {
     const container = document.createElement('div'),
       label = document.createElement('span'),
-      el = document.createElement('sl-menu-button') as MenuButton;
+      el = document.createElement('sl-menu-button');
 
     label.id = 'menu-label';
     label.textContent = 'Visibility';
@@ -165,6 +165,17 @@ describe('mapMenuButtonToItem', () => {
     } finally {
       container.remove();
     }
+  });
+
+  it('should map label from host aria-label before first render update', () => {
+    const el = document.createElement('sl-menu-button');
+
+    el.setAttribute('aria-label', 'Visibility');
+    el.innerHTML = '<sl-menu-item>Item 1</sl-menu-item>';
+
+    const item = mapMenuButtonToItem(el);
+
+    expect(item.label).to.equal('Visibility');
   });
 });
 

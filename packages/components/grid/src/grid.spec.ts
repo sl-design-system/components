@@ -1,5 +1,7 @@
 import '@sl-design-system/button/register.js';
+import '@sl-design-system/menu/register.js';
 import { isPopoverOpen } from '@sl-design-system/shared';
+import { type ToolBar } from '@sl-design-system/tool-bar';
 import { tooltip } from '@sl-design-system/tooltip';
 import '@sl-design-system/tooltip/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
@@ -11,7 +13,7 @@ import '../register.js';
 import { type Grid, type SlActiveRowChangeEvent } from './grid.js';
 import { waitForGridToRenderData } from './utils.js';
 
-type Person = { firstName: string; lastName: string };
+type Person = { firstName: string; lastName: string; email?: string };
 
 describe('sl-grid', () => {
   let el: Grid<Person>;
@@ -641,6 +643,102 @@ describe('sl-grid', () => {
 
       expect(toggleSpy).to.have.been.calledOnce;
       expect(toggleSpy.firstCall.args[0]).to.have.property('data', el.items?.at(0));
+    });
+  });
+
+  describe('bulk actions', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-grid
+          style="inline-size: 1200px"
+          .items=${[
+            { firstName: 'Sophie', lastName: 'Müller', email: 'sophie.muller@school1.edu' },
+            { firstName: 'Luca', lastName: 'van Dijk', email: 'luca.vandijk@school4.edu' },
+            { firstName: 'Clara', lastName: 'de Vries', email: 'clara.devries@school4.edu' }
+          ]}
+        >
+          <sl-grid-selection-column></sl-grid-selection-column>
+          <sl-grid-column path="firstName"></sl-grid-column>
+          <sl-grid-column path="email"></sl-grid-column>
+          <sl-button fill="outline" slot="bulk-actions" variant="inverted"
+            >Duplicate to workspace</sl-button
+          >
+          <sl-button fill="outline" slot="bulk-actions" variant="inverted"
+            >Move to folder</sl-button
+          >
+          <sl-menu-button slot="bulk-actions" variant="inverted" fill="outline">
+            <span slot="button">More actions</span>
+            <sl-menu-item>Export as PDF</sl-menu-item>
+            <sl-menu-item>Archive selected</sl-menu-item>
+          </sl-menu-button>
+          <sl-button fill="outline" slot="bulk-actions" variant="inverted"
+            >Assign to learning pathway</sl-button
+          >
+          <sl-button fill="outline" slot="bulk-actions" variant="inverted">Delete</sl-button>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+    });
+
+    it('should show the bulk-actions when rows are selected', async () => {
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')
+        ?.click();
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const popover = el.renderRoot.querySelector<HTMLElement>('[part="bulk-actions"]');
+
+      expect(popover).to.match(':popover-open');
+    });
+
+    it('should not overflow bulk-action buttons when there is enough space', async () => {
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')
+        ?.click();
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const toolBar = el.renderRoot.querySelector<ToolBar>('sl-tool-bar');
+
+      expect(toolBar).to.exist;
+      expect(toolBar!.menuItems.length).to.equal(0);
+      expect(toolBar!.items.filter(item => item.visible).length).to.equal(5);
+    });
+
+    it('should move bulk-action buttons into the overflow menu when the grid is narrow', async () => {
+      el.style.inlineSize = '250px';
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')
+        ?.click();
+      await new Promise(resolve => setTimeout(resolve, 150));
+
+      const toolBar = el.renderRoot.querySelector<ToolBar>('sl-tool-bar');
+
+      expect(toolBar).to.exist;
+      expect(toolBar!.menuItems.length).to.equal(5);
+    });
+
+    it('should restore visible bulk-action buttons when the grid grows back', async () => {
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')
+        ?.click();
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      el.style.inlineSize = '250px';
+      await new Promise(resolve => setTimeout(resolve, 150));
+
+      const toolBar = el.renderRoot.querySelector<ToolBar>('sl-tool-bar');
+
+      expect(toolBar).to.exist;
+      expect(toolBar!.menuItems.length).to.equal(5);
+
+      el.style.inlineSize = '1200px';
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      expect(toolBar!.menuItems.length).to.equal(0);
+      expect(toolBar!.items.filter(item => item.visible).length).to.equal(5);
     });
   });
 });

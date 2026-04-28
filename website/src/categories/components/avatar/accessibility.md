@@ -14,18 +14,18 @@ There are two ways to improve the accessibility of `sl-badge` when used inside a
 
 ### Dynamic content
 
-When the badge value updates automatically (e.g. an unread message count), screen readers need to be notified that something has changed. Add `role="status"` to the badge. Place a visually-hidden `span` inside the badge with a descriptive text that screen readers will announce on every update. The visible number remains a plain text node.
+When the badge value updates automatically (e.g. an unread message count), screen readers need to be notified that something has changed. Place a visually-hidden `span` with `role="status"` as a sibling of the badge in the same slot. This keeps the badge's layout intact while providing a live region for screen reader announcements.
 
 ```html
 <sl-avatar display-name="Rose Nylund" picture-url="/images/avatar-1.jpg">
-  <sl-badge role="status" slot="badge">
-    2
-    <span class="screen-reader-only">unread messages</span>
-  </sl-badge>
+  <sl-badge slot="badge">2</sl-badge>
+  <span class="screen-reader-only" role="status" slot="badge">
+    2 unread messages
+  </span>
 </sl-avatar>
 ```
 
-When the count changes, update the visible text node. The visually-hidden span provides context that does not change, so the screen reader announces the number followed by "unread messages":
+When the count changes, update the visible text node inside the badge and clear then reset the live region text. Clearing first ensures every browser (including Firefox) announces the full text.
 
 Here you can find [an example of how to use dynamic badges with the avatar](https://storybook.sanomalearning.design/?path=/story/media-avatar--sizes).
 

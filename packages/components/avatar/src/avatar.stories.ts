@@ -242,7 +242,35 @@ export const Sizes: Story = {
     countPerCanvas.set(canvasElement, 2);
     const maxCount = 30;
 
-    const dynamicSizes: AvatarSize[] = ['sm', '4xl'];
+    const updateBadge = (size: AvatarSize, count: number): void => {
+      const avatar = canvasElement.querySelector<HTMLElement>(`sl-avatar[size='${size}']`);
+
+      if (!avatar) return;
+
+      const isSm = badgeSizes[size] === 'sm';
+
+      // Update the visible text node inside the badge (non-sm only).
+      if (!isSm) {
+        const badge = avatar.querySelector('sl-badge'),
+          textNode =
+            badge &&
+            [...badge.childNodes].find(n => n.nodeType === Node.TEXT_NODE && n.textContent?.trim());
+
+        if (textNode) {
+          textNode.textContent = `${count}`;
+        }
+      }
+
+      // Clear the live region text, then set the new value after a frame so
+      // every browser (including Firefox) treats it as a full content change.
+      const status = avatar.querySelector<HTMLSpanElement>('[role="status"]');
+      if (status) {
+        status.textContent = '';
+        requestAnimationFrame(() => {
+          status.textContent = `${count} unread messages`;
+        });
+      }
+    };
 
     const interval = setInterval(() => {
       const count = (countPerCanvas.get(canvasElement) ?? 2) + 1;
@@ -256,29 +284,10 @@ export const Sizes: Story = {
 
       countPerCanvas.set(canvasElement, count);
 
-      dynamicSizes.forEach(size => {
-        const avatar = canvasElement.querySelector<HTMLElement>(`sl-avatar[size='${size}']`),
-          badge = avatar?.querySelector('sl-badge');
-
-        if (!badge) return;
-
-        // For sm badges there is no visible text, so update the sr-only span
-        // with the full message. For 4xl badges update the visible text node.
-        if (size === 'sm') {
-          const srSpan = badge.querySelector('.screen-reader-only');
-          if (srSpan) {
-            srSpan.textContent = `${count} unread messages`;
-          }
-        } else {
-          const textNode = [...badge.childNodes].find(
-            n => n.nodeType === Node.TEXT_NODE && n.textContent?.trim()
-          );
-
-          if (textNode) {
-            textNode.textContent = `${count}`;
-          }
-        }
-      });
+      // Stagger updates so both live regions don't fire at the same time,
+      // which would cause screen readers to announce the count twice.
+      updateBadge('4xl', count);
+      setTimeout(() => updateBadge('sm', count), 2500);
     }, 5000);
 
     intervalPerCanvas.set(canvasElement, interval);
@@ -307,15 +316,15 @@ export const Sizes: Story = {
       }
     </style>
     <p>
-      Avatars with badges in all available sizes. The <code>sm</code> and <code>4xl</code> badges
-      use <code>role="status"</code> so screen readers announce count changes; their count updates
-      every 5&nbsp;seconds to demonstrate dynamic content. The remaining sizes show static badges
-      whose content does not change, so they do not need a role, instead they use a visually-hidden
-      <code>span</code> that screen readers announce when the user navigates to the badge. See the
+      Avatars with badges in all sizes. The <code>sm</code> and <code>4xl</code> badges have a
+      sibling <code>&lt;span role="status"&gt;</code> with a descriptive text like "3 unread
+      messages" that updates every 5&nbsp;seconds to show how dynamic content works with screen
+      readers. The other badges are static and use a visually-hidden <code>span</code> with the same
+      kind of text for screen readers. See the
       <a href="https://sanomalearning.design/categories/components/avatar/accessibility/"
         >accessibility guidelines</a
       >
-      for details on badge usage in avatar.
+      for details.
     </p>
     <div style="display: flex; flex-direction: column; gap: 1rem">
       ${sizes.map(
@@ -332,18 +341,16 @@ export const Sizes: Story = {
             ?vertical=${vertical}
           >
             ${subheading ? html`<span>${subheading}</span>` : nothing}
-            <sl-badge
-              .size=${badgeSizes[size]}
-              color="red"
-              emphasis="bold"
-              role=${ifDefined(size === 'sm' || size === '4xl' ? 'status' : undefined)}
-              slot="badge"
-            >
+            <sl-badge .size=${badgeSizes[size]} color="red" emphasis="bold" slot="badge">
               ${badgeSizes[size] === 'sm' ? nothing : '2'}
-              ${badgeSizes[size] === 'sm'
-                ? html`<span class="screen-reader-only">2 unread messages</span>`
-                : html`<span class="screen-reader-only">unread messages</span>`}
             </sl-badge>
+            ${size === 'sm' || size === '4xl'
+              ? html`
+                  <span class="screen-reader-only" role="status" slot="badge">
+                    2 unread messages
+                  </span>
+                `
+              : html`<span class="screen-reader-only" slot="badge"> 2 unread messages </span>`}
           </sl-avatar>
         `
       )}

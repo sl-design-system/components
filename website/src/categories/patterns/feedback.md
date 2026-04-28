@@ -25,59 +25,79 @@ This pattern establishes a fixed mapping between meaning, icon, and usage across
 
 </section>
 
-<section>
+<div class="feedback-card">
+  <div class="feedback-card__icon-panel">
+    <sl-icon name="info" size="3xl" style="color:var(--sl-color-foreground-info-bold)"></sl-icon>
+  </div>
+  <div class="feedback-card__content">
 
-## <sl-icon name="info" style="color:var(--sl-color-foreground-info-bold);margin-inline-end:var(--sl-size-050);"></sl-icon> Info 
+### Info
 
-### Purpose
 Provide neutral information that may be relevant to the user, without urgency or required action.
 
-### Use for
+**Use for**
+
 - Additional context or explanation
 - Helpful, non‑critical information
 
-</section>
+  </div>
+</div>
 
-<section>
+<div class="feedback-card">
+  <div class="feedback-card__icon-panel">
+    <sl-icon name="circle-check-solid" size="3xl" style="color:var(--sl-color-foreground-positive-bold)"></sl-icon>
+  </div>
+  <div class="feedback-card__content">
 
-## <sl-icon name="circle-check-solid" style="color:var(--sl-color-foreground-positive-bold);margin-inline-end:var(--sl-size-050);"></sl-icon> Success 
+### Success
 
-### Purpose
 Confirm that an action has been completed successfully.
 
-### Use for
+**Use for**
+
 - Successful form submissions
 - Completed actions or steps
 - Positive system states
 
-</section>
+  </div>
+</div>
 
-<section>
+<div class="feedback-card">
+  <div class="feedback-card__icon-panel">
+    <sl-icon name="triangle-exclamation-solid" size="3xl" style="color:var(--sl-color-foreground-caution-bold)"></sl-icon>
+  </div>
+  <div class="feedback-card__content">
 
-## <sl-icon name="triangle-exclamation-solid" style="color:var(--sl-color-foreground-caution-bold);margin-inline-end:var(--sl-size-050);"></sl-icon> Warning 
+### Warning
 
-### Purpose
 Indicate that something requires attention, but can still be corrected.
 
-### Use for
+**Use for**
+
 - Validation feedback; this icon appears at the start of the error message underneath the invalid input 
 - Missing or incorrect input
 - Situations that may cause issues if not addressed
 
-</section>
+  </div>
+</div>
 
-<section>
+<div class="feedback-card">
+  <div class="feedback-card__icon-panel">
+    <sl-icon name="fas-octagon-xmark" size="3xl" style="color:var(--sl-color-foreground-negative-bold)"></sl-icon>
+  </div>
+  <div class="feedback-card__content">
 
-## <sl-icon name="fas-octagon-xmark" style="color:var(--sl-color-foreground-negative-bold);margin-inline-end:var(--sl-size-050);"></sl-icon> Danger
+### Danger
 
-### Purpose
 Warn users about destructive or irreversible actions.
 
-### Use for
+**Use for**
+
 - Deleting content
 - Overwriting or permanently changing data
 
-</section>
+  </div>
+</div>
 
 <section>
 

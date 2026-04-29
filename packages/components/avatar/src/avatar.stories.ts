@@ -283,7 +283,11 @@ export const Sizes: Story = {
 
       // Update sm and 4xl with a delay between them to avoid double announcements.
       updateStatus(canvasElement, '4xl', count);
-      setTimeout(() => updateStatus(canvasElement, 'sm', count), 2500);
+      setTimeout(() => {
+        if (canvasElement.isConnected) {
+          updateStatus(canvasElement, 'sm', count);
+        }
+      }, 2500);
     }, 5000);
 
     intervalPerCanvas.set(canvasElement, interval);

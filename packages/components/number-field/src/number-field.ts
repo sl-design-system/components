@@ -37,11 +37,8 @@ export class NumberField extends LocaleMixin(TextField) {
   /** The number value. */
   #valueAsNumber?: number;
 
-  /** Tracks the latest internal validation message set by this component. */
-  #internalCustomValidity = '';
-
-  /** @internal Flag to mark `setCustomValidity` calls triggered by internal validation. */
-  #settingInternalCustomValidity = false;
+  /** Tracks whether the current custom error was set by internal number validation. */
+  #hasInternalCustomError = false;
 
   /**
    * Whether the number field is disabled; when set no interaction is possible.
@@ -309,19 +306,14 @@ export class NumberField extends LocaleMixin(TextField) {
   }
 
   override setCustomValidity(message: string | Promise<string>): void {
-    if (!this.#settingInternalCustomValidity) {
-      this.#internalCustomValidity = '';
-    }
-
+    this.#hasInternalCustomError = false;
     super.setCustomValidity(message);
   }
 
   /** @internal Implement custom number validity checks. */
   override updateInternalValidity(): void {
-    const hasExternalCustomError = this.validity.customError && this.validationMessage !== this.#internalCustomValidity;
-
-    // Preserve custom errors set by consumers; only manage validity we set ourselves.
-    if (hasExternalCustomError) {
+    // Don't override custom validity set by consumers.
+    if (this.validity.customError && !this.#hasInternalCustomError) {
       return;
     }
 
@@ -329,13 +321,19 @@ export class NumberField extends LocaleMixin(TextField) {
       this.#setInternalCustomValidity(
         msg('Please enter a valid number.', { id: 'sl.numberField.validation.invalidNumber' })
       );
-    } else if (typeof this.valueAsNumber === 'number' && this.valueAsNumber > (this.max ?? Infinity)) {
+    } else if (
+      typeof this.valueAsNumber === 'number' &&
+      this.valueAsNumber > (this.max ?? Infinity)
+    ) {
       this.#setInternalCustomValidity(
         msg(str`The value must be less than or equal to ${this.max}.`, {
           id: 'sl.numberField.validation.exceedsMaximum'
         })
       );
-    } else if (typeof this.valueAsNumber === 'number' && this.valueAsNumber < (this.min ?? -Infinity)) {
+    } else if (
+      typeof this.valueAsNumber === 'number' &&
+      this.valueAsNumber < (this.min ?? -Infinity)
+    ) {
       this.#setInternalCustomValidity(
         msg(str`The value must be greater than or equal to ${this.min}.`, {
           id: 'sl.numberField.validation.belowMinimum'
@@ -347,14 +345,8 @@ export class NumberField extends LocaleMixin(TextField) {
   }
 
   #setInternalCustomValidity(message: string): void {
-    this.#settingInternalCustomValidity = true;
-    this.#internalCustomValidity = message;
-
-    try {
-      this.setCustomValidity(message);
-    } finally {
-      this.#settingInternalCustomValidity = false;
-    }
+    this.#hasInternalCustomError = message !== '';
+    super.setCustomValidity(message);
   }
 
   #isButtonDisabled(button: string): boolean {

@@ -343,6 +343,7 @@ export const Sizes: Story = {
             <span
               class="screen-reader-only"
               role=${ifDefined(size === 'sm' || size === '4xl' ? 'status' : undefined)}
+              slot="badge"
             >
               2 unread messages
             </span>

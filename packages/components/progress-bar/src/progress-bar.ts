@@ -73,9 +73,9 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
       case 'success':
         return 'circle-check-solid';
       case 'warning':
-        return 'octagon-exclamation-solid';
-      case 'error':
         return 'triangle-exclamation-solid';
+      case 'error':
+        return 'octagon-xmark-solid';
       default:
         return 'circle-check-solid';
     }

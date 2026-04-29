@@ -57,7 +57,7 @@ export class Error extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <sl-icon name="circle-exclamation-solid"></sl-icon>
+      <sl-icon name="triangle-exclamation-solid"></sl-icon>
       <slot></slot>
     `;
   }

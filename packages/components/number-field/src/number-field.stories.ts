@@ -173,6 +173,39 @@ export const Required: Story = {
   }
 };
 
+export const CustomValidity: Story = {
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      event.target.closest('sl-form')?.reportValidity();
+    };
+
+    const onValidate = (event: Event & { target: NumberField }): void => {
+      const value = event.target.valueAsNumber;
+
+      let message = '';
+      if (value !== undefined && value !== 42) {
+        message = 'Enter 42';
+      }
+
+      event.target.setCustomValidity(message);
+    };
+
+    return html`
+      <sl-form>
+        <sl-form-field
+          hint="This story has built-in number validation and custom validation. Enter 42 to make it valid."
+          label="Number"
+        >
+          <sl-number-field @sl-validate=${onValidate} required></sl-number-field>
+        </sl-form-field>
+        <sl-button-bar>
+          <sl-button @click=${onClick}>Report validity</sl-button>
+        </sl-button-bar>
+      </sl-form>
+    `;
+  }
+};
+
 export const StepButtonsEnd: Story = {
   args: {
     ...Basic.args,

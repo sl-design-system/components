@@ -15,11 +15,11 @@
 .feedback-card__icon-panel {
   align-items: center;
   background: var(--sl-color-background-accent-grey-subtlest);
-  block-size: 17rem;
+  block-size: 22rem;
   border: 1px solid var(--sl-color-border-neutral-subtle);
   border-radius: var(--sl-size-borderRadius-md);
   display: flex;
-  inline-size: 17rem;
+  inline-size: 22rem;
   justify-content: center;
 
   @media (min-width: $md-lg-breakpoint) {
@@ -40,10 +40,17 @@
 
   ul {
     margin: 0;
+    margin-block-start: 0.4rem;
     padding-inline-start: 1.5rem;
+  }
+
+  p strong {
+    display: inline-block;
+    margin-block-start: 1rem;
   }
 }
 
 .ds-subpage-section__wrapper .feedback-card__content h3 {
   margin-block-start: 0;
+  margin-block-end: 1.4rem;
 }

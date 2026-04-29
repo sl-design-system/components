@@ -74,7 +74,7 @@ Indicate that something requires attention, but can still be corrected.
 
 **Use for**
 
-- Validation feedback; this icon appears at the start of the error message underneath the invalid input 
+- Validation feedback; this icon appears at the start of the error message underneath the invalid input
 - Missing or incorrect input
 - Situations that may cause issues if not addressed
 
@@ -83,7 +83,7 @@ Indicate that something requires attention, but can still be corrected.
 
 <div class="feedback-card">
   <div class="feedback-card__icon-panel">
-    <sl-icon name="fas-octagon-xmark" size="3xl" style="color:var(--sl-color-foreground-negative-bold)"></sl-icon>
+    <sl-icon name="octagon-xmark-solid" size="3xl" style="color:var(--sl-color-foreground-negative-bold)"></sl-icon>
   </div>
   <div class="feedback-card__content">
 

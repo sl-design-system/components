@@ -93,6 +93,46 @@ describe('sl-inline-message', () => {
     });
   });
 
+  describe('icons', () => {
+    it('should render the info icon by default', async () => {
+      el = await fixture(html`<sl-inline-message>Inline message</sl-inline-message>`);
+
+      const icon = el.renderRoot.querySelector('[part="icon"] sl-icon');
+
+      expect(icon).to.have.attribute('name', 'info');
+    });
+
+    it('should render the circle-check-solid icon for the success variant', async () => {
+      el = await fixture(
+        html`<sl-inline-message variant="success">Inline message</sl-inline-message>`
+      );
+
+      const icon = el.renderRoot.querySelector('[part="icon"] sl-icon');
+
+      expect(icon).to.have.attribute('name', 'circle-check-solid');
+    });
+
+    it('should render the triangle-exclamation-solid icon for the warning variant', async () => {
+      el = await fixture(
+        html`<sl-inline-message variant="warning">Inline message</sl-inline-message>`
+      );
+
+      const icon = el.renderRoot.querySelector('[part="icon"] sl-icon');
+
+      expect(icon).to.have.attribute('name', 'triangle-exclamation-solid');
+    });
+
+    it('should render the octagon-xmark-solid icon for the danger variant', async () => {
+      el = await fixture(
+        html`<sl-inline-message variant="danger">Inline message</sl-inline-message>`
+      );
+
+      const icon = el.renderRoot.querySelector('[part="icon"] sl-icon');
+
+      expect(icon).to.have.attribute('name', 'octagon-xmark-solid');
+    });
+  });
+
   describe('auto size', () => {
     it('should have a size of md by default', async () => {
       el = await fixture(

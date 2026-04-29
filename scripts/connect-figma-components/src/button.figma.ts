@@ -39,8 +39,8 @@ function getExample() {
   // The default size is "md".
   const size =
     buttonBase.getEnum('↕️ - Size', {
-      Small: 'sm',
-      Large: 'lg'
+      SM: 'sm',
+      LG: 'lg'
     }) || 'md';
 
   let icon;
@@ -49,11 +49,16 @@ function getExample() {
   }
 
   return figma.code`
-    <sl-button${disabled ? ' disabled' : ''}${fill !== 'solid' ? ` fill="${fill}"` : ''}${size !== 'md' ? ` size="${size}"` : ''}${
-      variant !== 'secondary' ? ` variant="${variant}"` : ''
-    }>
-  ${iconStart ? icon?.executeTemplate().example : ''}${iconStart && icon ? '\n  ' : ''}${label}${iconEnd && icon ? '\n  ' : ''}${iconEnd ? icon?.executeTemplate().example : ''}
-</sl-button>
+    <sl-button
+      ${disabled ? ' disabled' : ''}
+      ${fill !== 'solid' ? ` fill="${fill}"` : ''}
+      ${size !== 'md' ? ` size="${size}"` : ''}
+      ${variant !== 'secondary' ? ` variant="${variant}"` : ''}
+    >
+      ${iconStart ? icon?.executeTemplate().example : ''}
+      ${label}
+      ${iconEnd ? icon?.executeTemplate().example : ''}
+    </sl-button>
   `;
 }
 

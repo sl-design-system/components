@@ -50,11 +50,11 @@ function getExample() {
 
   return figma.code`
     <sl-button
-      ${disabled ? ' disabled' : ''}
-      ${fill !== 'solid' ? ` fill="${fill}"` : ''}
+      ${disabled ? 'disabled' : ''}
+      ${fill !== 'solid' ? `fill="${fill}"` : ''}
       shape="pill"
-      ${size !== 'md' ? ` size="${size}"` : ''}
-      ${variant !== 'secondary' ? ` variant="${variant}"` : ''}
+      ${size !== 'md' ? `size="${size}"` : ''}
+      ${variant !== 'secondary' ? `variant="${variant}"` : ''}
     >
       ${iconStart ? icon?.executeTemplate().example : ''}
       ${label}

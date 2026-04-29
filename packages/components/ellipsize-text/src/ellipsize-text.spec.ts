@@ -8,7 +8,9 @@ describe('sl-ellipsize-text', () => {
   let el: EllipsizeText;
 
   beforeEach(async () => {
-    el = await fixture(html`<sl-ellipsize-text>This is a long text that should be truncated</sl-ellipsize-text>`);
+    el = await fixture(
+      html`<sl-ellipsize-text>This is a long text that should be truncated</sl-ellipsize-text>`
+    );
   });
 
   it('should render a slot with the text', () => {

@@ -44,7 +44,11 @@ export interface ToolBarItemMenu extends ToolBarItemBase {
   menuItems: Array<ToolBarItemButton | ToolBarItemDivider | ToolBarItemMenu>;
 }
 
-export type ToolBarItem = ToolBarItemButton | ToolBarItemDivider | ToolBarItemGroup | ToolBarItemMenu;
+export type ToolBarItem =
+  | ToolBarItemButton
+  | ToolBarItemDivider
+  | ToolBarItemGroup
+  | ToolBarItemMenu;
 
 export function mapButtonToItem(button: Button): ToolBarItemButton {
   const label = getForwardedAccessibleName(button) || getForwardedDescription(button),
@@ -65,7 +69,9 @@ export function mapButtonToItem(button: Button): ToolBarItemButton {
 
 export function mapMenuButtonToItem(menuButton: MenuButton): ToolBarItemMenu {
   const label = getForwardedAccessibleName(menuButton) || getForwardedDescription(menuButton),
-    menuItems = Array.from(menuButton.querySelectorAll('sl-menu-item')).map(el => mapMenuItemToItem(el)),
+    menuItems = Array.from(menuButton.querySelectorAll('sl-menu-item')).map(el =>
+      mapMenuItemToItem(el)
+    ),
     disabled = isForwardedDisabled(menuButton);
 
   return {

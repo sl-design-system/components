@@ -48,7 +48,9 @@ describe('sl-select-month', () => {
       const currentMonthButton = el.renderRoot.querySelector<HTMLButtonElement>('button.current');
 
       expect(currentMonthButton).to.exist;
-      expect(currentMonthButton).to.have.trimmed.text(new Date().toLocaleString('default', { month: 'long' }));
+      expect(currentMonthButton).to.have.trimmed.text(
+        new Date().toLocaleString('default', { month: 'long' })
+      );
     });
 
     it('should not have a selected month', () => {
@@ -153,7 +155,10 @@ describe('sl-select-month', () => {
     beforeEach(async () => {
       // Allow only months April (3) through September (8)
       el = await fixture(html`
-        <sl-select-month .min=${new Date(currentYear, 3, 1)} .max=${new Date(currentYear, 8, 1)}></sl-select-month>
+        <sl-select-month
+          .min=${new Date(currentYear, 3, 1)}
+          .max=${new Date(currentYear, 8, 1)}
+        ></sl-select-month>
       `);
     });
 

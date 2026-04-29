@@ -1,4 +1,11 @@
-import { type AfterViewInit, Directive, ElementRef, Input, type OnChanges, type OnDestroy } from '@angular/core';
+import {
+  type AfterViewInit,
+  Directive,
+  ElementRef,
+  Input,
+  type OnChanges,
+  type OnDestroy
+} from '@angular/core';
 import { Tooltip } from '@sl-design-system/tooltip';
 import '@sl-design-system/tooltip/register.js';
 

@@ -10,15 +10,16 @@ declare global {
 }
 
 /**
- * A component that renders indentation guides for tree nodes. This component
- * is not public API and is used internally by `<sl-tree>`.
+ * A component that renders indentation guides for tree nodes. This component is not public API and
+ * is used internally by `<sl-tree>`.
  */
 export class IndentGuides extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** Whether this node is the last one on this level; used for styling. */
-  @property({ type: Boolean, attribute: 'last-node-in-level', reflect: true }) lastNodeInLevel?: boolean;
+  @property({ type: Boolean, attribute: 'last-node-in-level', reflect: true })
+  lastNodeInLevel?: boolean;
 
   /** Level of indentation. */
   @property({ type: Number }) level = 0;

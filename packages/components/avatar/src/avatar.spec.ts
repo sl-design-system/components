@@ -8,7 +8,9 @@ describe('sl-avatar', () => {
   let el: Avatar;
 
   beforeEach(async () => {
-    el = await fixture(html`<sl-avatar display-name="Emma Henderson - Van Deursen">Straight A student</sl-avatar>`);
+    el = await fixture(
+      html`<sl-avatar display-name="Emma Henderson - Van Deursen">Straight A student</sl-avatar>`
+    );
   });
 
   it('should render the name', () => {
@@ -129,7 +131,9 @@ describe('sl-avatar', () => {
 
     await el.updateComplete;
 
-    const slotted = el.renderRoot.querySelector<HTMLSlotElement>('slot:not([name]')?.assignedElements();
+    const slotted = el.renderRoot
+      .querySelector<HTMLSlotElement>('slot:not([name]')
+      ?.assignedElements();
 
     expect(slotted).to.have.length(1);
     expect(slotted![0]).to.eql(fallback);

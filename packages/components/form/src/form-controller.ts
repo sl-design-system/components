@@ -78,7 +78,10 @@ export class FormController<T extends Record<string, any> = Record<string, any>>
     }
   }
 
-  constructor(host: ReactiveControllerHost & LitElement, options: Partial<FormControllerOptions> = {}) {
+  constructor(
+    host: ReactiveControllerHost & LitElement,
+    options: Partial<FormControllerOptions> = {}
+  ) {
     super();
 
     this.#host = host;
@@ -121,8 +124,8 @@ export class FormController<T extends Record<string, any> = Record<string, any>>
   }
 
   /**
-   * Notify the `FormValidationErrors` component that the form state has changed.
-   * Emit the event in the next frame, so the form controls have to time to update.
+   * Notify the `FormValidationErrors` component that the form state has changed. Emit the event in
+   * the next frame, so the form controls have to time to update.
    */
   #emitUpdateEvent(): void {
     requestAnimationFrame(() => {

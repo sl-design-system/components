@@ -1,5 +1,8 @@
 import { localized } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -16,13 +19,11 @@ export type CalloutDensity = 'default' | 'relaxed';
 export type CalloutVariant = 'info' | 'success' | 'warning' | 'danger';
 
 /**
- * A callout component for displaying additional information.
- * The component can contain actions (e.g. buttons)
- * and should not be shown/hidden dynamically in response to user actions
- * (unlike the inline-message).
- * This means the callout should remain visible as part of the static page layout,
- * rather than appearing or disappearing based on user interaction.
- * There is no aria role on this component as it is not meant to interrupt the user.
+ * A callout component for displaying additional information. The component can contain actions
+ * (e.g. buttons) and should not be shown/hidden dynamically in response to user actions (unlike the
+ * inline-message). This means the callout should remain visible as part of the static page layout,
+ * rather than appearing or disappearing based on user interaction. There is no aria role on this
+ * component as it is not meant to interrupt the user.
  *
  * @slot default - The body of the callout.
  * @slot icon - Icon shown on the left side of the component.
@@ -59,12 +60,14 @@ export class Callout extends ScopedElementsMixin(LitElement) {
 
   /**
    * The density of the callout.
+   *
    * @default 'default'
    */
   @property({ reflect: true }) density?: CalloutDensity;
 
   /**
    * The variant of the callout.
+   *
    * @default 'info'
    */
   @property({ reflect: true }) variant?: CalloutVariant;

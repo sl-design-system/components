@@ -35,9 +35,8 @@ export interface TreeDataSourceMapping<T> {
   getAriaDescription?(item: T): string | undefined;
 
   /**
-   * Returns the number of children. This can be used in combination with
-   * lazy loading children. This way, the tree component can show skeletons
-   * for the children while they are being loaded.
+   * Returns the number of children. This can be used in combination with lazy loading children.
+   * This way, the tree component can show skeletons for the children while they are being loaded.
    */
   getChildrenCount?(item: T): number | undefined;
 
@@ -48,9 +47,9 @@ export interface TreeDataSourceMapping<T> {
   getId(item: T): unknown;
 
   /**
-   * Returns a string that is used as the label for the tree node.
-   * If you want to customize how the tree node is rendered, you can
-   * provide your own `TreeItemRenderer` function to the tree component.
+   * Returns a string that is used as the label for the tree node. If you want to customize how the
+   * tree node is rendered, you can provide your own `TreeItemRenderer` function to the tree
+   * component.
    */
   getLabel(item: T): string;
 
@@ -58,16 +57,16 @@ export interface TreeDataSourceMapping<T> {
   isExpandable(item: T): boolean;
 
   /**
-   * Returns whether the given node is expanded. This is only used for the initial
-   * expanded state of the node. If you want to expand/collapse a node programmatically,
-   * use the `expand` and `collapse` methods on the data source.
+   * Returns whether the given node is expanded. This is only used for the initial expanded state of
+   * the node. If you want to expand/collapse a node programmatically, use the `expand` and
+   * `collapse` methods on the data source.
    */
   isExpanded?(item: T): boolean;
 
   /**
-   * Returns whether the given node is selected. This is only used for the initial
-   * selected state of the node. If you want to select/deselect a node programmatically,
-   * use the `select` and `deselect` methods on the data source.
+   * Returns whether the given node is selected. This is only used for the initial selected state of
+   * the node. If you want to select/deselect a node programmatically, use the `select` and
+   * `deselect` methods on the data source.
    */
   isSelected?(item: T): boolean;
 }
@@ -80,9 +79,7 @@ export interface TreeDataSourceOptions<T> {
   multiple?: boolean;
 }
 
-/**
- * Abstract class used to provide a common interface for tree data.
- */
+/** Abstract class used to provide a common interface for tree data. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSourceNode<T>> {
   /** Map of all active filters. */
@@ -98,8 +95,8 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
   #multiple?: boolean;
 
   /**
-   * The value and path/function to use for sorting. When setting this property,
-   * it will cause the data to be automatically sorted.
+   * The value and path/function to use for sorting. When setting this property, it will cause the
+   * data to be automatically sorted.
    */
   #sort?: DataSourceSort<T>;
 
@@ -131,7 +128,11 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     this.#multiple = options.multiple;
   }
 
-  addFilter(_id: string, _by: string | PathKeys<T> | DataSourceFilterFunction<T>, _value?: unknown): void {
+  addFilter(
+    _id: string,
+    _by: string | PathKeys<T> | DataSourceFilterFunction<T>,
+    _value?: unknown
+  ): void {
     throw new Error('Filtering is not yet supported in tree data sources.');
   }
 
@@ -139,7 +140,10 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     throw new Error('Filtering is not yet supported in tree data sources.');
   }
 
-  setSort(by: string | PathKeys<T> | DataSourceSortFunction<T>, direction: DataSourceSortDirection): void {
+  setSort(
+    by: string | PathKeys<T> | DataSourceSortFunction<T>,
+    direction: DataSourceSortDirection
+  ): void {
     this.#sort = { by, direction };
   }
 
@@ -148,10 +152,9 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
   }
 
   /**
-   * Toggles the expansion state of a tree node. You can optionally force the
-   * state to a specific value using the `force` parameter. The `emitEvent`
-   * parameter determines whether the model should emit an `sl-update` event
-   * after changing the state.
+   * Toggles the expansion state of a tree node. You can optionally force the state to a specific
+   * value using the `force` parameter. The `emitEvent` parameter determines whether the model
+   * should emit an `sl-update` event after changing the state.
    */
   toggle(node: TreeDataSourceNode<T>, force?: boolean, emitEvent?: boolean): void {
     if ((typeof force === 'boolean' && !force) || node.expanded) {
@@ -377,8 +380,8 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
   /** Flattens the tree nodes to an array based on the expansion state. */
   toViewArray(): Array<TreeDataSourceNode<T>> {
     /**
-     * Calculate level guides for a node by walking up the parent chain.
-     * Always add the parent's level, but stop walking up when we reach a last child.
+     * Calculate level guides for a node by walking up the parent chain. Always add the parent's
+     * level, but stop walking up when we reach a last child.
      */
     const calculateLevelGuides = (node: TreeDataSourceNode<T>): number[] => {
       const guides: number[] = [];
@@ -463,7 +466,9 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
           if (typeof treeNode.childrenCount === 'number') {
             return [
               treeNode,
-              ...Array.from({ length: treeNode.childrenCount }).map(() => this.#createSkeletonTreeNode(treeNode))
+              ...Array.from({ length: treeNode.childrenCount }).map(() =>
+                this.#createSkeletonTreeNode(treeNode)
+              )
             ];
           } else {
             return [treeNode, this.#createPlaceholderTreeNode(treeNode)];
@@ -542,12 +547,14 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
   }
   /**
    * Updates the view of the data source.
+   *
    * @param sync Whether to synchronize the selection state of the tree.
    */
   abstract override update(sync?: boolean): void;
 
   /**
    * Synchronizes the selection state of the entire tree.
+   *
    * @internal
    */
   protected syncSelection(): void {
@@ -576,7 +583,8 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     }
 
     node.selected = node.children.length > 0 && node.children.every(child => child.selected);
-    node.indeterminate = !node.selected && node.children.some(child => child.indeterminate || child.selected);
+    node.indeterminate =
+      !node.selected && node.children.some(child => child.indeterminate || child.selected);
 
     if (node.selected) {
       this.#selection.add(node);

@@ -1,5 +1,12 @@
 import { type ButtonFill, type ButtonSize, type ButtonVariant } from '@sl-design-system/button';
-import { type CSSResultGroup, LitElement, type PropertyValues, ReactiveElement, type TemplateResult, html } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  ReactiveElement,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './button-bar.scss.js';
 
@@ -37,6 +44,7 @@ export class ButtonBar extends LitElement {
 
   /**
    * The alignment of the buttons within the bar.
+   *
    * @default 'start'
    */
   @property({ reflect: true }) align?: ButtonBarAlign;
@@ -46,24 +54,28 @@ export class ButtonBar extends LitElement {
 
   /**
    * Determines the fill of all buttons in the bar.
+   *
    * @default undefined
    */
   @property() fill?: ButtonFill;
 
   /**
    * When set to true, the button order is reversed.
+   *
    * @default false
    */
   @property({ type: Boolean, reflect: true }) reverse?: boolean;
 
   /**
    * Determines the size of all buttons in the bar.
+   *
    * @default undefined
    */
   @property() size?: ButtonSize;
 
   /**
    * Determines the variant of all buttons in the bar.
+   *
    * @default undefined
    */
   @property() variant?: ButtonVariant;
@@ -102,7 +114,10 @@ export class ButtonBar extends LitElement {
         }
 
         // Also check for the `icon-only` attribute for backward compatibility with older button versions
-        return (el.matches(':state(icon-only)') || el.hasAttribute('icon-only')) && el.getAttribute('fill') === 'ghost';
+        return (
+          (el.matches(':state(icon-only)') || el.hasAttribute('icon-only')) &&
+          el.getAttribute('fill') === 'ghost'
+        );
       })
     );
 

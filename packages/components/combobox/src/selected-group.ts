@@ -1,5 +1,8 @@
 import { localized, msg } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { Option, OptionGroup } from '@sl-design-system/listbox';
 import { type CSSResultGroup, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -12,9 +15,7 @@ declare global {
   }
 }
 
-/**
- * A special option group that displays selected options at the top of the listbox.
- */
+/** A special option group that displays selected options at the top of the listbox. */
 @localized()
 export class SelectedGroup extends ScopedElementsMixin(OptionGroup) {
   /** @internal */
@@ -47,15 +48,17 @@ export class SelectedGroup extends ScopedElementsMixin(OptionGroup) {
   override render(): TemplateResult {
     return html`
       <div part="wrapper">
-        <sl-option-group-header>${msg('Selected', { id: 'sl.common.selected' })}</sl-option-group-header>
+        <sl-option-group-header>
+          ${msg('Selected', { id: 'sl.common.selected' })}
+        </sl-option-group-header>
         <slot></slot>
       </div>
       ${this.hasGroups
         ? nothing
         : html`
-            <sl-option-group-header divider
-              >${msg('All options', { id: 'sl.common.allOptions' })}</sl-option-group-header
-            >
+            <sl-option-group-header divider>
+              ${msg('All options', { id: 'sl.common.allOptions' })}
+            </sl-option-group-header>
           `}
     `;
   }

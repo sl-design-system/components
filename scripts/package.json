@@ -6,6 +6,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "connect-figma-componenets": "yarn workspace @sl-design-system/connect-figma-components connect:publish",
     "import-tokens": "yarn exec tokensstudio pull --host graphql.prod.tokens.studio",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

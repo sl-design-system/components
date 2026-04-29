@@ -1,0 +1,8 @@
+{
+  "codeConnect": {
+    "include": ["src/*.figma.ts"],
+    "label": "SL Design System",
+    "language": "html",
+    "parser": "html"
+  }
+}

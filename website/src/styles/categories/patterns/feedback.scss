@@ -4,22 +4,22 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  margin-block-end: 2rem;
 
   @media (min-width: $md-lg-breakpoint) {
     align-items: flex-start;
     flex-direction: row;
+    margin-block-end: 2rem;
   }
 }
 
 .feedback-card__icon-panel {
   align-items: center;
   background: var(--sl-color-background-accent-grey-subtlest);
-  block-size: 22rem;
+  block-size: 18rem;
   border: 1px solid var(--sl-color-border-neutral-subtle);
   border-radius: var(--sl-size-borderRadius-md);
   display: flex;
-  inline-size: 22rem;
+  inline-size: 100%;
   justify-content: center;
 
   @media (min-width: $md-lg-breakpoint) {
@@ -32,7 +32,7 @@
 .feedback-card__content {
   flex: 1;
   inline-size: 100%;
-  padding: 1.2rem 2rem;
+  padding: 2rem 0 0;
 
   @media (min-width: $md-lg-breakpoint) {
     padding: 0 2rem;

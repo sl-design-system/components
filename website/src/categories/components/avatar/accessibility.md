@@ -36,8 +36,29 @@ If the badge displays information that does not change while the user is interac
 ```html
 <sl-avatar display-name="Rose Nylund" picture-url="/images/avatar-1.jpg">
   <sl-badge slot="badge">
+    2
+    <span class="screen-reader-only">unread messages</span>
+  </sl-badge>
+</sl-avatar>
+```
+
+If the badge has no visible text (e.g. a small dot indicator), put the full descriptive text in the hidden span:
+
+```html
+<sl-avatar display-name="Rose Nylund" picture-url="/images/avatar-1.jpg">
+  <sl-badge size="sm" slot="badge">
+    <span class="screen-reader-only">2 unread messages</span>
+  </sl-badge>
+</sl-avatar>
+```
+
+The same pattern works for icon-only badges:
+
+```html
+<sl-avatar display-name="Rose Nylund" picture-url="/images/avatar-1.jpg">
+  <sl-badge slot="badge">
     <sl-icon name="far-star"></sl-icon>
-    <span class="visually-hidden">admin</span>
+    <span class="screen-reader-only">admin</span>
   </sl-badge>
 </sl-avatar>
 ```

@@ -315,8 +315,8 @@ export const Sizes: Story = {
       Avatars with badges in all sizes. The <code>sm</code> and <code>4xl</code> badges have a
       sibling <code>&lt;span role="status"&gt;</code> with a descriptive text like "3 unread
       messages" that updates every 5&nbsp;seconds to show how dynamic content works with screen
-      readers. The other badges are static and use a visually-hidden <code>span</code> with the same
-      kind of text for screen readers. See the
+      readers. The other badges are static and have a visually-hidden <code>span</code> inside the
+      badge with the same kind of text for screen readers. See the
       <a href="https://sanomalearning.design/categories/components/avatar/accessibility/"
         >accessibility guidelines</a
       >
@@ -339,14 +339,19 @@ export const Sizes: Story = {
             ${subheading ? html`<span>${subheading}</span>` : nothing}
             <sl-badge .size=${badgeSizes[size]} color="red" emphasis="bold" slot="badge">
               ${badgeSizes[size] === 'sm' ? nothing : '2'}
+              ${size !== 'sm' && size !== '4xl'
+                ? badgeSizes[size] === 'sm'
+                  ? html`<span class="screen-reader-only">2 unread messages</span>`
+                  : html`<span class="screen-reader-only">unread messages</span>`
+                : nothing}
             </sl-badge>
-            <span
-              class="screen-reader-only"
-              role=${ifDefined(size === 'sm' || size === '4xl' ? 'status' : undefined)}
-              slot="badge"
-            >
-              2 unread messages
-            </span>
+            ${size === 'sm' || size === '4xl'
+              ? html`
+                  <span class="screen-reader-only" role="status" slot="badge">
+                    2 unread messages
+                  </span>
+                `
+              : nothing}
           </sl-avatar>
         `
       )}

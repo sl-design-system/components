@@ -276,6 +276,20 @@ describe('overflow (integration)', () => {
 
       expect(onClick).to.have.been.calledOnce;
     });
+
+    it('should proxy clicks on overflow submenu items to the original menu items', () => {
+      const originalMenuItem = el.querySelector('sl-menu-button sl-menu-item'),
+        onClick = spy(),
+        overflowSubmenuItem = el.renderRoot.querySelector('sl-menu[slot="submenu"] sl-menu-item');
+
+      originalMenuItem?.addEventListener('click', onClick);
+
+      if (overflowSubmenuItem instanceof HTMLElement) {
+        overflowSubmenuItem.click();
+      }
+
+      expect(onClick).to.have.been.calledOnce;
+    });
   });
 });
 

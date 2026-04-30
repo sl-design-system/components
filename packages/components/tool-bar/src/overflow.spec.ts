@@ -282,11 +282,11 @@ describe('overflow (integration)', () => {
         onClick = spy(),
         overflowSubmenuItem = el.renderRoot.querySelector('sl-menu[slot="submenu"] sl-menu-item');
 
-      originalMenuItem?.addEventListener('click', onClick);
+      expect(originalMenuItem, 'expected original menu item to exist').to.exist;
+      expect(overflowSubmenuItem, 'expected overflow submenu item to exist').to.exist;
 
-      if (overflowSubmenuItem instanceof HTMLElement) {
-        overflowSubmenuItem.click();
-      }
+      (originalMenuItem as MenuItem).addEventListener('click', onClick);
+      (overflowSubmenuItem as MenuItem).click();
 
       expect(onClick).to.have.been.calledOnce;
     });

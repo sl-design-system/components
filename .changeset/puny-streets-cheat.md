@@ -1,5 +1,5 @@
 ---
-'@sl-design-system/tool-bar': patch
+"@sl-design-system/tool-bar": patch
 ---
 
 Fix missing labels for `sl-menu-button` items rendered in the tool-bar overflow menu when mapping happens before ARIA forwarding is ready (e.g. nested slot scenarios such as Grid bulk actions).

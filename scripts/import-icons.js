@@ -21,8 +21,11 @@ const cwd = new URL('.', import.meta.url).pathname,
   eslint = new ESLint({ fix: true });
 
 const {
-  default: { icon: coreIcons }
+  default: { icon: coreIconTokens }
 } = await import('../packages/tokens/src/tokens/core.json', { with: { type: 'json' } });
+
+const coreIcons = coreIconTokens; // Keep the full icon object for getFormattedIcons
+const coreIconFontFamily = coreIconTokens.fontFamily;
 
 const getFormattedIcons = (icons, collection) => {
   return Object.entries(icons).reduce((acc, cur) => {
@@ -88,9 +91,10 @@ const buildIcons = async theme => {
   };
 
   // fetch all FA tokens and store these
-  Object.entries(icons).map(([iconName, value]) => {
+  Object.entries(icons).forEach(([iconName, value]) => {
     const tokenValue = value['$value'] || value.value;
     if (!tokenValue) {
+      delete icons[iconName];
       return;
     }
 
@@ -99,6 +103,8 @@ const buildIcons = async theme => {
       getIconStyle(iconName, text, style)
     );
     if (!faIcon) {
+      console.warn(`[${theme}] FontAwesome icon not found: ${tokenValue} (${iconName})`);
+      delete icons[iconName];
       return;
     }
 
@@ -146,10 +152,126 @@ const buildIcons = async theme => {
   console.log(`Writing icons to ${theme}...`);
   const filePath = join(cwd, `../packages/themes/${theme}/icons.ts`),
     sortedIcons = Object.fromEntries(
-      Object.entries({ ...icons, ...coreCustomIcons, ...iconsCustom }).sort()
+      Object.entries({ ...coreCustomIcons, ...icons, ...iconsCustom }).sort()
     ),
     source = `
-      // This is a generated file, do not edit. Edit the core.json or base.json files instead.
+      // This is a generated file, do not edit. Edit the core.json files instead.
+      export const icons = ${JSON.stringify(sortedIcons)};
+    `,
+    results = await eslint.lintText(source, { filePath });
+
+  await ESLint.outputFixes(results);
+  await fs.writeFile(filePath, results[0].output);
+};
+
+const buildIconsFromBaseNew = async theme => {
+  // 1. Get icon tokens from `base-new.json` which uses routing prefixes
+  const baseNewModule = await import(`../packages/tokens/src/tokens/${theme}/base-new.json`, {
+    with: { type: 'json' }
+  });
+  const baseNewData = baseNewModule.default;
+
+  // Find the routing prefix that contains icon data (e.g., 'II-F', 'I-A', etc.)
+  const routingPrefix = Object.keys(baseNewData).find(key => baseNewData[key]?.icon);
+
+  if (!routingPrefix) {
+    console.warn(`No icon data found in base-new.json for ${theme}`);
+    return;
+  }
+
+  const {
+    icon: { typeset: iconTypeset, themeIcons }
+  } = baseNewData[routingPrefix];
+
+  // Create a style object compatible with the existing getIconStyle function
+  // In base-new.json, the structure is icon.typeset.fontWeight.{solid, regular}
+  const style = {
+    solid: iconTypeset?.fontWeight?.solid,
+    outline: iconTypeset?.fontWeight?.regular
+  };
+
+  // Create a text object compatible with getIconStyle - use core icon font family
+  const text = {
+    typeset: {
+      fontFamily: {
+        icon: {
+          value: coreIconFontFamily.classic.$value
+        }
+      }
+    }
+  };
+
+  const icons = {
+    ...getFormattedIcons(coreIcons, 'core'),
+    ...(themeIcons ? getFormattedIcons({ themeIcons }, 'themeIcons') : {})
+  };
+
+  // fetch all FA tokens and store these
+  Object.entries(icons).forEach(([iconName, value]) => {
+    const tokenValue = value['$value'] || value.value;
+    if (!tokenValue) {
+      delete icons[iconName];
+      return;
+    }
+
+    const faIcon = convertToIconDefinition(
+      tokenValue.replace('fa-', ''),
+      getIconStyle(iconName, text, style)
+    );
+    if (!faIcon) {
+      console.warn(`[${theme}] FontAwesome icon not found: ${tokenValue} (${iconName})`);
+      delete icons[iconName];
+      return;
+    }
+
+    const {
+        icon: [width, height, , , path]
+      } = faIcon,
+      paths = Array.isArray(path) ? path : [path];
+
+    const svg = `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">${paths.map((p, i) => `<path d="${p}" fill="var(--sl-icon-fill-${getColorToken(i, 'regular')})"></path>`).join('')}</svg>`;
+
+    icons[iconName] = {
+      value: tokenValue,
+      type: value['$type'] || value.type,
+      description: value['$description'] || value.description,
+      svg
+    };
+  });
+
+  const iconsFolderPath = join(cwd, `../packages/themes/${theme}/icons/`);
+  if (!existsSync(iconsFolderPath)) {
+    await fs.mkdir(iconsFolderPath);
+  }
+
+  // 3. Convert downloaded icons to appropriate format?
+  // We only need the `<path>` data for `<sl-icon>`
+
+  const customIconFiles = await fs.readdir(iconsFolderPath);
+  const iconsCustom = {};
+
+  const filesToRead = customIconFiles.map(fileName => {
+    const iconName = fileName.replace('icon=', '').replace('.svg', '');
+
+    return fs
+      .readFile(join(cwd, `../packages/themes/${theme}/icons/${fileName}`), 'utf8')
+      .then(svg => {
+        iconsCustom[iconName] = {
+          svg: svg.replace('<svg ', '<svg fill="var(--sl-icon-fill-default)" ')
+        };
+      });
+  });
+
+  await Promise.all(filesToRead);
+
+  // 4. Write the output to `icons.json`???? Or just `icons.ts` which exports
+  console.log(`Writing icons to ${theme}...`);
+  const filePath = join(cwd, `../packages/themes/${theme}/icons.ts`),
+    sortedIcons = Object.fromEntries(
+      Object.entries({ ...coreCustomIcons, ...icons, ...iconsCustom }).sort()
+    ),
+    source = `
+      // This is a generated file, do not edit. Edit the core.json or base-new.json files instead.
       export const icons = ${JSON.stringify(sortedIcons)};
     `,
     results = await eslint.lintText(source, { filePath });
@@ -161,11 +283,29 @@ const buildIcons = async theme => {
 const buildAllIcons = async () => {
   const folders = await fg('../packages/themes/*', { cwd, onlyDirectories: true });
 
-  folders
+  const themes = folders
     .map(folder => basename(folder))
     .filter(theme => theme.indexOf('core') < 0)
-    .filter(theme => existsSync(join(cwd, `../packages/tokens/src/tokens/${theme}/base.json`)))
-    .forEach(component => buildIcons(basename(component)));
+    .filter(
+      theme =>
+        existsSync(join(cwd, `../packages/tokens/src/tokens/${theme}/base.json`)) ||
+        existsSync(join(cwd, `../packages/tokens/src/tokens/${theme}/base-new.json`))
+    );
+
+  const buildPromises = themes.map(theme => {
+    const hasBaseJson = existsSync(join(cwd, `../packages/tokens/src/tokens/${theme}/base.json`));
+    const hasBaseNewJson = existsSync(
+      join(cwd, `../packages/tokens/src/tokens/${theme}/base-new.json`)
+    );
+
+    if (hasBaseJson) {
+      return buildIcons(theme);
+    } else if (hasBaseNewJson) {
+      return buildIconsFromBaseNew(theme);
+    }
+  });
+
+  await Promise.all(buildPromises);
 };
 
 const exportCoreIcons = async () => {

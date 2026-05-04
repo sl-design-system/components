@@ -37,6 +37,9 @@ export class NumberField extends LocaleMixin(TextField) {
   /** The number value. */
   #valueAsNumber?: number;
 
+  /** Tracks whether the current custom error was set by internal number validation. */
+  #hasInternalCustomError = false;
+
   /**
    * Whether the number field is disabled; when set no interaction is possible.
    *
@@ -302,17 +305,27 @@ export class NumberField extends LocaleMixin(TextField) {
     }
   }
 
+  override setCustomValidity(message: string | Promise<string>): void {
+    this.#hasInternalCustomError = false;
+    super.setCustomValidity(message);
+  }
+
   /** @internal Implement custom number validity checks. */
   override updateInternalValidity(): void {
+    // Don't override custom validity set by consumers.
+    if (this.validity.customError && !this.#hasInternalCustomError) {
+      return;
+    }
+
     if (Number.isNaN(this.valueAsNumber)) {
-      this.setCustomValidity(
+      this.#setInternalCustomValidity(
         msg('Please enter a valid number.', { id: 'sl.numberField.validation.invalidNumber' })
       );
     } else if (
       typeof this.valueAsNumber === 'number' &&
       this.valueAsNumber > (this.max ?? Infinity)
     ) {
-      this.setCustomValidity(
+      this.#setInternalCustomValidity(
         msg(str`The value must be less than or equal to ${this.max}.`, {
           id: 'sl.numberField.validation.exceedsMaximum'
         })
@@ -321,14 +334,19 @@ export class NumberField extends LocaleMixin(TextField) {
       typeof this.valueAsNumber === 'number' &&
       this.valueAsNumber < (this.min ?? -Infinity)
     ) {
-      this.setCustomValidity(
+      this.#setInternalCustomValidity(
         msg(str`The value must be greater than or equal to ${this.min}.`, {
           id: 'sl.numberField.validation.belowMinimum'
         })
       );
     } else {
-      this.setCustomValidity('');
+      this.#setInternalCustomValidity('');
     }
+  }
+
+  #setInternalCustomValidity(message: string): void {
+    this.#hasInternalCustomError = message !== '';
+    super.setCustomValidity(message);
   }
 
   #isButtonDisabled(button: string): boolean {

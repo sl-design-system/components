@@ -84,13 +84,41 @@ export class Tooltip extends LitElement {
     callback: (target: Tooltip) => void,
     options: TooltipOptions = {}
   ): () => void {
+    let created = false;
+
+    const getLazyTargets = (): Array<Element | ShadowRoot> => {
+      const targets: Array<Element | ShadowRoot> = [target],
+        shadowRoot = (target as HTMLElement).shadowRoot,
+        proxyTarget = (
+          target as Element & { getProxyTarget?(): Element | null }
+        ).getProxyTarget?.();
+
+      if (shadowRoot) {
+        targets.push(shadowRoot);
+      }
+
+      if (proxyTarget instanceof Element && proxyTarget !== target) {
+        targets.push(proxyTarget);
+      }
+
+      return Array.from(new Set(targets));
+    };
+
     const removeListeners = () => {
-      ['focusin', 'pointerover'].forEach(eventName =>
-        target.removeEventListener(eventName, createTooltip)
-      );
+      for (const eventTarget of getLazyTargets()) {
+        ['focusin', 'pointerover'].forEach(eventName =>
+          eventTarget.removeEventListener(eventName, createTooltip)
+        );
+      }
     };
 
     const createTooltip = (): void => {
+      if (created) {
+        return;
+      }
+
+      created = true;
+
       let context = options.context;
       if (!context && target.shadowRoot?.registry?.get('sl-tooltip')) {
         context = target.shadowRoot;
@@ -138,9 +166,11 @@ export class Tooltip extends LitElement {
       removeListeners();
     };
 
-    ['focusin', 'pointerover'].forEach(eventName =>
-      target.addEventListener(eventName, createTooltip)
-    );
+    for (const eventTarget of getLazyTargets()) {
+      ['focusin', 'pointerover'].forEach(eventName =>
+        eventTarget.addEventListener(eventName, createTooltip)
+      );
+    }
 
     return cleanup;
   }
@@ -159,8 +189,20 @@ export class Tooltip extends LitElement {
   /** Anchors observed for this tooltip, used to avoid full DOM scans on hide. */
   #knownAnchors = new Set<HTMLElement>();
 
+  /** Anchors that stay valid even if browser ARIA reflection drops after reparenting. */
+  #stableAnchors = new Set<HTMLElement>();
+
+  /** Anchors that originally depended on explicit ARIA idrefs. */
+  #explicitRelationAnchors = new Set<HTMLElement>();
+
   /** Whether the current open state was triggered by focus-based interaction. */
   #openedByFocus = false;
+
+  /** The root where the tooltip was originally connected before any runtime reparenting. */
+  #originalRoot?: Node;
+
+  /** Roots where reflected-ARIA anchor discovery already performed a full-root scan. */
+  #preparedKeyboardAnchorRoots = new WeakSet<ParentNode>();
 
   /** Timer for showing/hiding the tooltip. */
   #timer?: ReturnType<typeof setTimeout>;
@@ -210,20 +252,58 @@ export class Tooltip extends LitElement {
   override connectedCallback(): void {
     super.connectedCallback();
 
+    this.#originalRoot ??= this.getRootNode();
+
     this.setAttribute('popover', 'manual');
     this.setAttribute('role', 'tooltip');
     this.setAttribute('aria-hidden', 'true'); // Prevent the tooltip from being read by screen readers multiple times
 
-    const root = this.getRootNode() as HTMLElement,
-      eventTargetForClose = this.ownerDocument ?? document;
+    const root = this.getRootNode(),
+      documentRoot = this.ownerDocument ?? document;
 
-    this.#events.listen(root, 'click', this.#onHide, { capture: true });
-    this.#events.listen(root, 'focusin', this.#onShow);
-    this.#events.listen(root, 'focusout', this.#onHide);
-    this.#events.listen(root, 'keydown', this.#onKeydown);
-    this.#events.listen(root, 'pointerover', this.#onShow);
-    this.#events.listen(root, 'pointerout', this.#onHide);
-    this.#events.listen(eventTargetForClose, 'sl-close', this.#onShow);
+    if (root instanceof ShadowRoot) {
+      // lib.dom does not expose these delegated event names through ShadowRootEventMap,
+      // so EventsController falls through to its Element overload even though a ShadowRoot
+      // is the correct runtime event target here.
+      const shadowEventRoot = root as unknown as HTMLElement;
+
+      this.#events.listen(shadowEventRoot, 'focusin', this.#onShow);
+      this.#events.listen(shadowEventRoot, 'focusout', this.#onHide);
+      this.#events.listen(shadowEventRoot, 'keydown', this.#onKeydown);
+      this.#events.listen(shadowEventRoot, 'pointerover', this.#onShow);
+      this.#events.listen(shadowEventRoot, 'pointerout', this.#onHide);
+    } else {
+      this.#events.listen(documentRoot, 'focusin', this.#onShow);
+      this.#events.listen(documentRoot, 'focusout', this.#onHide);
+      this.#events.listen(documentRoot, 'keydown', this.#onKeydown);
+      this.#events.listen(documentRoot, 'pointerover', this.#onShow);
+      this.#events.listen(documentRoot, 'pointerout', this.#onHide);
+    }
+
+    this.#events.listen(documentRoot, 'click', this.#onHide, { capture: true });
+
+    if (root instanceof ShadowRoot && this.#originalRoot && root !== this.#originalRoot) {
+      const isFromCurrentShadowRoot = (event: Event): boolean => {
+          const origin = event.composedPath()[0];
+
+          return origin instanceof Node && origin.getRootNode() === root;
+        },
+        forwardDocumentEvent =
+          <T extends Event>(handler: (event: T) => void) =>
+          (event: T): void => {
+            if (!isFromCurrentShadowRoot(event)) {
+              handler(event);
+            }
+          };
+
+      this.#events.listen(documentRoot, 'focusin', forwardDocumentEvent(this.#onShow));
+      this.#events.listen(documentRoot, 'focusout', forwardDocumentEvent(this.#onHide));
+      this.#events.listen(documentRoot, 'keydown', forwardDocumentEvent(this.#onKeydown));
+      this.#events.listen(documentRoot, 'pointerover', forwardDocumentEvent(this.#onShow));
+      this.#events.listen(documentRoot, 'pointerout', forwardDocumentEvent(this.#onHide));
+    }
+
+    this.#events.listen(documentRoot, 'sl-close', this.#onShow);
   }
 
   override disconnectedCallback(): void {
@@ -299,13 +379,18 @@ export class Tooltip extends LitElement {
           }
 
           const anchorForEvent = this.#findAnchorInEvent(event),
-            focusedAnchor = this.#findFocusedAnchor();
+            relatedTargetAnchor =
+              event instanceof FocusEvent
+                ? this.#findAnchorFromElement(event.relatedTarget as Element | null)
+                : undefined,
+            focusedAnchor = relatedTargetAnchor ?? this.#findFocusedAnchor();
 
           const movedToAnotherSharedAnchor =
             !!focusedAnchor &&
             focusedAnchor !== this.anchorElement &&
-            this.#matchesAnchor(focusedAnchor);
+            (this.#matchesAnchor(focusedAnchor) || this.#stableAnchors.has(focusedAnchor));
           if (movedToAnotherSharedAnchor) {
+            this.#showTooltip(focusedAnchor, true);
             return;
           }
 
@@ -370,33 +455,76 @@ export class Tooltip extends LitElement {
   #onKeydown(event: KeyboardEvent): void {
     if (isPopoverOpen(this) && event.key === 'Escape') {
       this.#hideTooltip();
+      return;
+    }
+
+    // `focusin` from delegated focus inside shadow DOM is not always observed on the
+    // same root as the tooltip. When keyboard focus moves with Tab between shared
+    // anchors (for example sl-button elements inside sl-button-bar), re-read the
+    // focused anchor on the next frame and sync the tooltip to that element.
+    if (event.key === 'Tab' && isPopoverOpen(this) && this.#openedByFocus) {
+      requestAnimationFrame(() => {
+        let focusedAnchor = this.#findFocusedAnchor() ?? this.#findKnownFocusedAnchor();
+        const currentAnchor = this.anchorElement;
+
+        if (!focusedAnchor && currentAnchor instanceof HTMLElement) {
+          this.#prepareKeyboardAnchors(currentAnchor);
+          focusedAnchor = this.#findFocusedAnchor() ?? this.#findKnownFocusedAnchor();
+        }
+
+        if (
+          focusedAnchor &&
+          focusedAnchor !== this.anchorElement &&
+          this.#matchesAnchor(focusedAnchor)
+        ) {
+          this.#showTooltip(focusedAnchor, true);
+          return;
+        }
+
+        if (
+          focusedAnchor &&
+          focusedAnchor !== this.anchorElement &&
+          this.#knownAnchors.has(focusedAnchor) &&
+          focusedAnchor.matches(':focus-within')
+        ) {
+          this.#showTooltip(focusedAnchor, true);
+          return;
+        }
+
+        if (!focusedAnchor && !this.anchorElement?.matches(':focus-within')) {
+          this.#hideTooltip();
+        }
+      });
     }
   }
 
   #onShow = (event: Event): void => {
     // If the event is sl-close, the event path might not contain the anchor (as it comes from the dialog)
     // So we use the activeElement (or shadowRoot.activeElement) as a candidate anchor.
-    const candidateAnchor =
-      event.type === 'focusin' || event.type === 'sl-close' ? this.#findFocusedAnchor() : null;
+    const anchorInEvent = this.#findAnchorInEvent(event),
+      candidateAnchor =
+        event.type === 'focusin' || event.type === 'sl-close' ? this.#findFocusedAnchor() : null;
 
-    const anchorElement = candidateAnchor || this.#findAnchorInEvent(event);
+    const anchorElement = anchorInEvent || candidateAnchor;
+    const anchorRoot = anchorElement
+      ? this.#findAssignedSlotRoot(anchorElement, event.composedPath())
+      : undefined;
 
     if (!anchorElement) {
       return;
     }
 
-    // Don't show the tooltip if the event comes from inside an open popover
-    // (e.g. hovering over or focusing a menu item in an open menu that belongs to the anchor)
-    const isInsideOpenPopover = event
-      .composedPath()
-      .some(el => el instanceof HTMLElement && el !== this && isPopoverOpen(el));
+    const normalizedAnchorElement = this.#normalizeAnchorElement(anchorElement);
 
-    if (isInsideOpenPopover) {
+    // Ignore events from open popovers that are nested *inside* the anchor (for example a menu item inside
+    // an open menu-button). Still allow anchors that themselves live inside an open popover, such as a grid
+    // bulk action button inside a floating action bar.
+    if (this.#isInsideNestedOpenPopover(event, normalizedAnchorElement)) {
       return;
     }
 
     // Track anchors as soon as they are detected, even when showing is delayed.
-    this.#knownAnchors.add(anchorElement);
+    this.#knownAnchors.add(normalizedAnchorElement);
 
     // For hover events
     if (event.type === 'pointerover') {
@@ -405,9 +533,12 @@ export class Tooltip extends LitElement {
 
       // If already open, update anchor immediately to avoid "stickiness"
       if (isPopoverOpen(this)) {
-        this.#showTooltip(anchorElement, this.#openedByFocus);
+        this.#showTooltip(normalizedAnchorElement, this.#openedByFocus, anchorRoot);
       } else {
-        this.#timer = setTimeout(() => this.#showTooltip(anchorElement, false), this.showDelay);
+        this.#timer = setTimeout(
+          () => this.#showTooltip(normalizedAnchorElement, false, anchorRoot),
+          this.showDelay
+        );
       }
       return;
     }
@@ -417,7 +548,14 @@ export class Tooltip extends LitElement {
       clearTimeout(this.#timer);
       this.#timer = undefined;
 
-      if (!(anchorElement instanceof HTMLElement) || !this.#matchesAnchor(anchorElement)) {
+      if (!(anchorElement instanceof HTMLElement)) {
+        return;
+      }
+
+      if (
+        !this.#matchesAnchor(normalizedAnchorElement) &&
+        !this.#stableAnchors.has(normalizedAnchorElement)
+      ) {
         return;
       }
 
@@ -428,13 +566,15 @@ export class Tooltip extends LitElement {
 
       // If already open (e.g. tabbing between shared buttons), update anchor immediately
       if (isPopoverOpen(this)) {
-        this.#showTooltip(anchorElement, getHasFocusVisible());
+        this.#prepareKeyboardAnchors(normalizedAnchorElement);
+        this.#showTooltip(normalizedAnchorElement, getHasFocusVisible(), anchorRoot);
       } else {
         requestAnimationFrame(() => {
           const hasFocusVisible = getHasFocusVisible();
 
           if (hasFocusVisible) {
-            this.#showTooltip(anchorElement, true);
+            this.#prepareKeyboardAnchors(normalizedAnchorElement);
+            this.#showTooltip(normalizedAnchorElement, true, anchorRoot);
           }
         });
       }
@@ -520,6 +660,10 @@ export class Tooltip extends LitElement {
     let current: Element | null = element;
 
     while (current) {
+      if (current instanceof HTMLElement && this.#stableAnchors.has(current)) {
+        return current;
+      }
+
       if (current instanceof HTMLElement && this.#matchesAnchor(current)) {
         return current;
       }
@@ -529,11 +673,60 @@ export class Tooltip extends LitElement {
         continue;
       }
 
-      const rootNode = current.getRootNode();
-      current = rootNode instanceof ShadowRoot ? rootNode.host : null;
+      const shadowRoot = this.#getShadowRoot(current.getRootNode());
+      current = shadowRoot?.host ?? null;
     }
 
     return undefined;
+  };
+
+  #findStableAnchorFromElement = (element: Element | null): HTMLElement | undefined => {
+    if (!element) {
+      return undefined;
+    }
+
+    let current: Element | null = element;
+
+    while (current) {
+      if (current instanceof HTMLElement && this.#stableAnchors.has(current)) {
+        return current;
+      }
+
+      if (current.parentElement) {
+        current = current.parentElement;
+        continue;
+      }
+
+      const shadowRoot = this.#getShadowRoot(current.getRootNode());
+      current = shadowRoot?.host ?? null;
+    }
+
+    return undefined;
+  };
+
+  #isEventActiveAnchor = (
+    element: HTMLElement,
+    event: Event,
+    path: EventTarget[],
+    host: Element
+  ): boolean => {
+    if (path.includes(element)) {
+      return true;
+    }
+
+    if (host !== event.target) {
+      return false;
+    }
+
+    if (event.type === 'pointerover') {
+      return element.matches(':hover');
+    }
+
+    if (event.type === 'focusin' || event.type === 'sl-close') {
+      return element.matches(':focus-within');
+    }
+
+    return false;
   };
 
   /**
@@ -556,6 +749,18 @@ export class Tooltip extends LitElement {
     }
 
     for (const el of path) {
+      if (!(el instanceof Element)) {
+        continue;
+      }
+
+      const stableAnchor = this.#findStableAnchorFromElement(el);
+
+      if (stableAnchor) {
+        return stableAnchor;
+      }
+    }
+
+    for (const el of path) {
       if (el instanceof Element && el.shadowRoot) {
         const ariaMatch = escapedId
           ? el.shadowRoot.querySelector(
@@ -565,16 +770,16 @@ export class Tooltip extends LitElement {
 
         if (
           ariaMatch instanceof HTMLElement &&
-          (path.includes(ariaMatch) || el === event.target) &&
+          this.#isEventActiveAnchor(ariaMatch, event, path, el) &&
           this.#matchesAnchor(ariaMatch)
         ) {
           return ariaMatch;
         }
 
-        for (const child of el.shadowRoot.children) {
+        for (const child of Array.from(el.shadowRoot.children)) {
           if (
             child instanceof HTMLElement &&
-            (path.includes(child) || el === event.target) &&
+            this.#isEventActiveAnchor(child, event, path, el) &&
             this.#matchesAnchor(child)
           ) {
             return child;
@@ -597,14 +802,147 @@ export class Tooltip extends LitElement {
     return this.#findAnchorFromElement(activeElement);
   };
 
-  #getAriaAnchors = (): HTMLElement[] => {
-    const escapedId = this.id ? CSS.escape(this.id) : undefined;
-    if (!escapedId) {
-      return [];
+  #findKnownFocusedAnchor = (): HTMLElement | undefined =>
+    Array.from(this.#knownAnchors).find(
+      anchor => anchor.isConnected && anchor.matches(':focus-within')
+    );
+
+  /**
+   * Start with cheap lookups: explicit ARIA attributes in this root and anchors we already observed
+   * before. This covers the common cases without scanning the full DOM.
+   */
+  #seedKnownAnchors = (): void => {
+    for (const anchor of this.#getAriaAnchors()) {
+      this.#knownAnchors.add(this.#normalizeAnchorElement(anchor));
     }
 
-    const root = this.getRootNode() as ParentNode;
-    const selector = `[aria-describedby~="${escapedId}"], [aria-labelledby~="${escapedId}"]`;
+    this.#getKnownAnchors();
+  };
+
+  /**
+   * As a last resort for keyboard navigation, scan the root and cache anchors that only expose the
+   * tooltip relation through reflected/forwarded ARIA.
+   */
+  #discoverAnchorsByScan = (roots: ParentNode[] = this.#getAnchorSearchRoots()): void => {
+    for (const root of roots) {
+      for (const element of Array.from(root.querySelectorAll('*'))) {
+        if (element instanceof HTMLElement && this.#matchesAnchor(element)) {
+          this.#knownAnchors.add(this.#normalizeAnchorElement(element));
+        }
+      }
+    }
+  };
+
+  /**
+   * Shared keyboard flows need a stable cache because browsers can clear reflected ARIA relations
+   * on proxy targets while focus is moving between anchors.
+   */
+  #prepareKeyboardAnchors = (anchorElement: HTMLElement): void => {
+    const root = this.getRootNode() as ParentNode,
+      searchRoots = this.#getAnchorSearchRoots();
+
+    this.#seedKnownAnchors();
+
+    if (this.#preparedKeyboardAnchorRoots.has(root)) {
+      return;
+    }
+
+    const proxyTarget = (
+        anchorElement as Element & { getProxyTarget?(): Element | null }
+      ).getProxyTarget?.(),
+      internals = (anchorElement as HTMLElement & { internals?: ElementInternals }).internals,
+      reliesOnReflectedRelation =
+        this.#hasAnyReflectedRelation(anchorElement) ||
+        this.#hasAnyReflectedRelation(proxyTarget) ||
+        this.#hasAnyReflectedRelation(internals);
+
+    if (reliesOnReflectedRelation) {
+      this.#discoverAnchorsByScan(searchRoots);
+
+      for (const searchRoot of searchRoots) {
+        this.#preparedKeyboardAnchorRoots.add(searchRoot);
+      }
+    }
+  };
+
+  #getAnchorSearchRoots = (): ParentNode[] => {
+    const roots: ParentNode[] = [];
+    const seen = new Set<Node>();
+    let root: Node | null = this.getRootNode();
+
+    while (root && !seen.has(root)) {
+      seen.add(root);
+
+      if (root instanceof Document) {
+        roots.push(root);
+        break;
+      }
+
+      const shadowRoot = this.#getShadowRoot(root);
+      if (!shadowRoot) {
+        break;
+      }
+
+      roots.push(shadowRoot);
+      root = shadowRoot.host.getRootNode();
+    }
+
+    return roots;
+  };
+
+  #findAssignedSlotRoot = (
+    anchorElement: HTMLElement,
+    path: EventTarget[]
+  ): ShadowRoot | undefined => {
+    const slotInPath = path.find((el): el is HTMLSlotElement => {
+        const slot =
+          el instanceof HTMLSlotElement
+            ? el
+            : el instanceof Element && el.tagName === 'SLOT'
+              ? (el as HTMLSlotElement)
+              : null;
+
+        if (!slot) {
+          return false;
+        }
+
+        return slot.assignedNodes({ flatten: true }).includes(anchorElement);
+      }),
+      assignedSlot = anchorElement.assignedSlot || slotInPath,
+      assignedSlotRoot = this.#getShadowRoot(assignedSlot?.getRootNode());
+
+    return assignedSlotRoot;
+  };
+
+  /**
+   * Event-time slot information can become stale before a delayed show fires. Prefer the anchor's
+   * current assigned slot root when it exists, and only fall back to the previously captured root
+   * for cases that are only discoverable from the original event path.
+   */
+  #resolveAnchorRoot = (
+    anchorElement: HTMLElement,
+    anchorRootHint?: ShadowRoot
+  ): ShadowRoot | undefined => {
+    const currentAssignedSlotRoot = this.#getShadowRoot(anchorElement.assignedSlot?.getRootNode());
+
+    return currentAssignedSlotRoot ?? anchorRootHint;
+  };
+
+  #getAriaAnchorSelector = (): string | undefined => {
+    const escapedId = this.id ? CSS.escape(this.id) : undefined;
+    if (!escapedId) {
+      return undefined;
+    }
+
+    return `[aria-describedby~="${escapedId}"], [aria-labelledby~="${escapedId}"]`;
+  };
+
+  #getAriaAnchors = (root: ParentNode = this.getRootNode() as ParentNode): HTMLElement[] => {
+    const selector = this.#getAriaAnchorSelector();
+
+    if (!selector) {
+      return [];
+    }
 
     return Array.from(root.querySelectorAll<HTMLElement>(selector));
   };
@@ -613,8 +951,13 @@ export class Tooltip extends LitElement {
     const knownAnchors: HTMLElement[] = [];
 
     for (const anchor of this.#knownAnchors) {
-      if (!anchor.isConnected || !this.#matchesAnchor(anchor)) {
+      if (
+        !anchor.isConnected ||
+        (!this.#stableAnchors.has(anchor) && !this.#matchesAnchor(anchor))
+      ) {
         this.#knownAnchors.delete(anchor);
+        this.#stableAnchors.delete(anchor);
+        this.#explicitRelationAnchors.delete(anchor);
       } else {
         knownAnchors.push(anchor);
       }
@@ -623,28 +966,330 @@ export class Tooltip extends LitElement {
     return knownAnchors;
   };
 
+  #getShadowRoot = (node: Node | null | undefined): ShadowRoot | undefined => {
+    if (node instanceof ShadowRoot) {
+      return node;
+    }
+
+    // Browser test runners can surface a real ShadowRoot from another realm,
+    // which makes `instanceof ShadowRoot` return false even though the node
+    // still exposes `host` and behaves like a shadow root.
+    if (
+      node &&
+      node.nodeType === Node.DOCUMENT_FRAGMENT_NODE &&
+      'host' in node &&
+      (node.host as Element)?.nodeType === Node.ELEMENT_NODE
+    ) {
+      return node as ShadowRoot;
+    }
+
+    return undefined;
+  };
+
+  #moveToAnchorRoot = (anchorElement: HTMLElement, anchorRoot?: ShadowRoot): boolean => {
+    const root = anchorRoot ?? this.#findAssignedSlotRoot(anchorElement, []);
+
+    if (root && this.getRootNode() !== root) {
+      root.append(this);
+      return true;
+    }
+
+    return false;
+  };
+
+  #canMoveToAnchorRoot = (anchorElement: HTMLElement): boolean => {
+    const proxyTarget = (
+        anchorElement as Element & { getProxyTarget?(): Element | null }
+      ).getProxyTarget?.(),
+      internals = (anchorElement as HTMLElement & { internals?: ElementInternals }).internals,
+      hasExplicitRelation =
+        this.#explicitRelationAnchors.has(anchorElement) ||
+        this.#hasAnyExplicitRelation(anchorElement) ||
+        this.#hasAnyExplicitRelation(proxyTarget);
+
+    if (internals) {
+      return true;
+    }
+
+    return !hasExplicitRelation;
+  };
+
+  #syncSlotWithAnchor = (anchorElement: HTMLElement, isInAnchorRoot: boolean): void => {
+    if (isInAnchorRoot) {
+      this.removeAttribute('slot');
+      return;
+    }
+
+    const anchorSlot = anchorElement.getAttribute('slot');
+
+    if (typeof anchorSlot === 'string' && anchorSlot.length > 0) {
+      this.setAttribute('slot', anchorSlot);
+    } else {
+      this.removeAttribute('slot');
+    }
+  };
+
+  #ensureTooltipInList = (elements: readonly Element[] | null | undefined): Element[] => {
+    const list = elements ? Array.from(elements) : [];
+
+    return list.includes(this) ? list : [...list, this];
+  };
+
+  #requiresFullAnchorDiscovery = (anchorElement: HTMLElement): boolean => {
+    const proxyTarget = (
+        anchorElement as Element & { getProxyTarget?(): Element | null }
+      ).getProxyTarget?.(),
+      internals = (anchorElement as HTMLElement & { internals?: ElementInternals }).internals;
+
+    if (this.#hasAnyExplicitRelation(anchorElement)) {
+      return false;
+    }
+
+    return (
+      this.#hasAnyExplicitRelation(proxyTarget) ||
+      this.#hasAnyReflectedRelation(anchorElement) ||
+      this.#hasAnyReflectedRelation(proxyTarget) ||
+      this.#hasAnyReflectedRelation(internals)
+    );
+  };
+
+  /**
+   * Prefer already-known anchors and explicit ARIA selectors before falling back to a full scan.
+   * This keeps repeated hover/focus updates cheap in the common case.
+   */
+  #collectCheapMatchingAnchors = (anchorElement: HTMLElement): Set<HTMLElement> => {
+    const anchors = new Set<HTMLElement>([anchorElement]);
+
+    for (const knownAnchor of this.#getKnownAnchors()) {
+      if (this.#matchesAnchor(knownAnchor)) {
+        anchors.add(this.#normalizeAnchorElement(knownAnchor));
+      }
+    }
+
+    for (const root of this.#getAnchorSearchRoots()) {
+      for (const ariaAnchor of this.#getAriaAnchors(root)) {
+        if (this.#matchesAnchor(ariaAnchor)) {
+          anchors.add(this.#normalizeAnchorElement(ariaAnchor));
+        }
+      }
+    }
+
+    return anchors;
+  };
+
+  /**
+   * Before moving the tooltip into another root, collect every anchor that currently matches it.
+   * Shared anchors that rely on forwarded/reflected ARIA can lose their ID-based relation once the
+   * tooltip leaves the original root, so we mirror the relation onto all of them in one pass.
+   */
+  #collectMatchingAnchors = (anchorElement: HTMLElement): HTMLElement[] => {
+    const anchors = this.#collectCheapMatchingAnchors(anchorElement);
+
+    if (anchors.size === 1 && this.#requiresFullAnchorDiscovery(anchorElement)) {
+      for (const root of this.#getAnchorSearchRoots()) {
+        for (const element of Array.from(root.querySelectorAll('*'))) {
+          if (element instanceof HTMLElement && this.#matchesAnchor(element)) {
+            anchors.add(this.#normalizeAnchorElement(element));
+          }
+        }
+      }
+    }
+
+    return Array.from(anchors);
+  };
+
+  #rememberAnchorRelation = (anchorElement: HTMLElement): void => {
+    const proxyTarget = (
+      anchorElement as Element & { getProxyTarget?(): Element | null }
+    ).getProxyTarget?.();
+
+    if (this.#hasAnyExplicitRelation(anchorElement) || this.#hasAnyExplicitRelation(proxyTarget)) {
+      this.#explicitRelationAnchors.add(anchorElement);
+    }
+  };
+
+  #getElementRelationTargets = (
+    anchorElement: HTMLElement,
+    proxyTarget: Element | null | undefined,
+    relation: 'description' | 'label'
+  ): Element[] => {
+    const attribute = relation === 'label' ? 'aria-labelledby' : 'aria-describedby',
+      targets = new Set<Element>();
+
+    if (
+      this.#hasExplicitRelation(anchorElement, attribute) ||
+      this.#hasReflectedRelation(anchorElement, relation)
+    ) {
+      targets.add(anchorElement);
+    }
+
+    if (
+      proxyTarget instanceof Element &&
+      proxyTarget !== anchorElement &&
+      (this.#hasExplicitRelation(proxyTarget, attribute) ||
+        this.#hasReflectedRelation(proxyTarget, relation))
+    ) {
+      targets.add(proxyTarget);
+    }
+
+    if (targets.size > 0) {
+      return Array.from(targets);
+    }
+
+    return proxyTarget instanceof Element && proxyTarget !== anchorElement
+      ? [proxyTarget]
+      : [anchorElement];
+  };
+
+  #setReflectedRelation = (
+    target:
+      | {
+          ariaDescribedByElements?: readonly Element[] | null;
+          ariaLabelledByElements?: readonly Element[] | null;
+        }
+      | null
+      | undefined,
+    relation: 'description' | 'label'
+  ): void => {
+    if (!target) {
+      return;
+    }
+
+    if (relation === 'label') {
+      (target as { ariaLabelledByElements: Element[] | null }).ariaLabelledByElements =
+        this.#ensureTooltipInList(target.ariaLabelledByElements);
+      return;
+    }
+
+    (target as { ariaDescribedByElements: Element[] | null }).ariaDescribedByElements =
+      this.#ensureTooltipInList(target.ariaDescribedByElements);
+  };
+
+  /**
+   * Checks the raw ARIA attributes because they preserve the original author intent: whether the
+   * tooltip should behave as a label or as a description.
+   */
+  #hasExplicitRelation = (
+    element: Element | null | undefined,
+    attribute: 'aria-describedby' | 'aria-labelledby'
+  ): boolean =>
+    typeof this.id === 'string' &&
+    typeof element?.getAttribute(attribute) === 'string' &&
+    element.getAttribute(attribute)!.split(/\s+/).includes(this.id);
+
+  /**
+   * Checks reflected element lists used by native ARIA reflection APIs and ElementInternals. We use
+   * this after explicit attributes because these lists do not tell us who set them first.
+   */
+  #hasReflectedRelation = (
+    target:
+      | {
+          ariaDescribedByElements?: readonly Element[] | null;
+          ariaLabelledByElements?: readonly Element[] | null;
+        }
+      | null
+      | undefined,
+    relation: 'description' | 'label'
+  ): boolean => {
+    const elements =
+      relation === 'label' ? target?.ariaLabelledByElements : target?.ariaDescribedByElements;
+
+    return !!elements?.includes(this);
+  };
+
+  #hasAnyExplicitRelation = (element: Element | null | undefined): boolean =>
+    this.#hasExplicitRelation(element, 'aria-describedby') ||
+    this.#hasExplicitRelation(element, 'aria-labelledby');
+
+  #hasAnyReflectedRelation = (
+    target:
+      | {
+          ariaDescribedByElements?: readonly Element[] | null;
+          ariaLabelledByElements?: readonly Element[] | null;
+        }
+      | null
+      | undefined
+  ): boolean =>
+    this.#hasReflectedRelation(target, 'description') ||
+    this.#hasReflectedRelation(target, 'label');
+
+  /**
+   * When the tooltip moves into the anchor's shadow root, it can no longer rely on the host's
+   * original ARIA wiring alone. This method mirrors the existing relation onto ElementInternals
+   * when available, and otherwise falls back to native ARIA reflection on the anchor/proxy element
+   * without dropping any previously registered labels/descriptions.
+   */
+  #preserveAnchorRelation = (anchorElement: HTMLElement): void => {
+    const proxyTarget = (
+        anchorElement as Element & { getProxyTarget?(): Element | null }
+      ).getProxyTarget?.(),
+      internals = (anchorElement as HTMLElement & { internals?: ElementInternals }).internals;
+    let relation: 'description' | 'label' = 'description';
+
+    if (
+      this.#hasExplicitRelation(anchorElement, 'aria-labelledby') ||
+      this.#hasExplicitRelation(proxyTarget, 'aria-labelledby')
+    ) {
+      relation = 'label';
+    } else if (
+      this.#hasExplicitRelation(anchorElement, 'aria-describedby') ||
+      this.#hasExplicitRelation(proxyTarget, 'aria-describedby')
+    ) {
+      relation = 'description';
+    } else if (
+      anchorElement.ariaLabelledByElements?.includes(this) ||
+      proxyTarget?.ariaLabelledByElements?.includes(this) ||
+      internals?.ariaLabelledByElements?.includes(this)
+    ) {
+      relation = 'label';
+    } else if (
+      anchorElement.ariaDescribedByElements?.includes(this) ||
+      proxyTarget?.ariaDescribedByElements?.includes(this) ||
+      internals?.ariaDescribedByElements?.includes(this)
+    ) {
+      relation = 'description';
+    }
+
+    if (internals) {
+      this.#setReflectedRelation(internals, relation);
+      return;
+    }
+
+    for (const target of this.#getElementRelationTargets(anchorElement, proxyTarget, relation)) {
+      this.#setReflectedRelation(target, relation);
+    }
+  };
+
   #hideTooltip = (): void => {
     this.hidePopover();
     this.#openedByFocus = false;
   };
 
+  #isInsideNestedOpenPopover = (event: Event, anchorElement: HTMLElement): boolean => {
+    const path = event.composedPath(),
+      anchorIndex = path.findIndex(el => el === anchorElement);
+
+    if (anchorIndex === -1) {
+      return false;
+    }
+
+    return path.some(
+      (el, index) =>
+        index < anchorIndex && el instanceof HTMLElement && el !== this && isPopoverOpen(el)
+    );
+  };
+
   /**
    * Checks whether an element is connected to this tooltip through any supported ARIA wiring
-   * (attributes, reflected ARIA element lists, forwarded proxy targets, or ElementInternals).
+   * (attributes, reflected ARIA element lists, forwarded proxy targets, or ElementInternals). This
+   * is the core anchor-matching predicate used across hover/focus handling.
    */
   #matchesAnchor = (element: Element): boolean => {
     if (!this.id || !element || element.nodeType !== Node.ELEMENT_NODE) {
       return false;
     }
 
-    const describedBy = element.getAttribute('aria-describedby'),
-      labelledBy = element.getAttribute('aria-labelledby');
-
-    // There can be multiple ids in aria-describedby and aria-labelledby, so we need to check if any of them matches the tooltip's id
-    const matchesAria = (value: string | null): boolean =>
-      typeof value === 'string' && value.split(/\s+/).includes(this.id);
-
-    if (matchesAria(describedBy) || matchesAria(labelledBy)) {
+    if (this.#hasAnyExplicitRelation(element) || this.#hasAnyReflectedRelation(element)) {
       return true;
     }
 
@@ -653,51 +1298,29 @@ export class Tooltip extends LitElement {
       element as Element & { getProxyTarget?(): Element | null }
     ).getProxyTarget?.();
     if (proxyTarget instanceof Element && proxyTarget !== element) {
-      const proxyDescribedBy = proxyTarget.getAttribute('aria-describedby'),
-        proxyLabelledBy = proxyTarget.getAttribute('aria-labelledby');
-
-      if (matchesAria(proxyDescribedBy) || matchesAria(proxyLabelledBy)) {
+      if (this.#hasAnyExplicitRelation(proxyTarget) || this.#hasAnyReflectedRelation(proxyTarget)) {
         return true;
       }
-
-      if (
-        proxyTarget.ariaDescribedByElements?.includes(this) ||
-        proxyTarget.ariaLabelledByElements?.includes(this)
-      ) {
-        return true;
-      }
-    }
-
-    // Check Element.ariaDescribedByElements and Element.ariaLabelledByElements directly on the element
-    // This handles cases where the property is set directly on the element (e.g. `sl-button` inside `sl-menu-button`)
-    if (
-      element.ariaDescribedByElements?.includes(this) ||
-      element.ariaLabelledByElements?.includes(this)
-    ) {
-      return true;
     }
 
     // Check ElementInternals ariaDescribedByElements and ariaLabelledByElements
     // This handles cases where elements use ElementInternals to connect to the tooltip across shadow DOM boundaries
     const internals = (element as HTMLElement & { internals?: ElementInternals }).internals;
 
-    return (
-      internals?.ariaDescribedByElements?.includes(this) ||
-      internals?.ariaLabelledByElements?.includes(this) ||
-      false
-    );
+    return this.#hasAnyReflectedRelation(internals);
   };
 
   /**
    * Normalizes an internal proxy target back to the public host element when both represent the
-   * same anchor. This keeps `anchorElement` stable for consumers and tests.
+   * same anchor. This keeps `anchorElement` stable for consumers and tests, even when ARIA is
+   * forwarded to an internal control inside the component's shadow DOM.
    */
   #normalizeAnchorElement = (element: HTMLElement): HTMLElement => {
     let normalized = element;
 
     while (true) {
-      const rootNode = normalized.getRootNode();
-      if (!(rootNode instanceof ShadowRoot)) {
+      const rootNode = this.#getShadowRoot(normalized.getRootNode());
+      if (!rootNode) {
         return normalized;
       }
 
@@ -715,21 +1338,49 @@ export class Tooltip extends LitElement {
     }
   };
 
-  #showTooltip = (element: HTMLElement, openedByFocus = false): void => {
+  #showTooltip = (element: HTMLElement, openedByFocus = false, anchorRoot?: ShadowRoot): void => {
     const normalizedElement = this.#normalizeAnchorElement(element);
     const wasOpen = isPopoverOpen(this),
-      anchorChanged = this.anchorElement !== normalizedElement;
+      anchorChanged = this.anchorElement !== normalizedElement,
+      targetAnchorRoot = this.#resolveAnchorRoot(normalizedElement, anchorRoot),
+      canMoveToAnchorRoot = !!targetAnchorRoot && this.#canMoveToAnchorRoot(normalizedElement),
+      anchorsToPreserve = canMoveToAnchorRoot
+        ? this.#collectMatchingAnchors(normalizedElement)
+        : [normalizedElement],
+      currentTooltipRoot = this.getRootNode(),
+      wasReparentedFromOriginalRoot =
+        !!this.#originalRoot && currentTooltipRoot !== this.#originalRoot;
+
+    for (const anchor of anchorsToPreserve) {
+      this.#rememberAnchorRelation(anchor);
+    }
+
+    if (canMoveToAnchorRoot) {
+      this.#moveToAnchorRoot(normalizedElement, targetAnchorRoot);
+    } else if (
+      wasReparentedFromOriginalRoot &&
+      currentTooltipRoot !== normalizedElement.getRootNode() &&
+      normalizedElement.parentElement
+    ) {
+      normalizedElement.insertAdjacentElement('afterend', this);
+    }
+
+    const isInAnchorRoot = !!targetAnchorRoot && this.getRootNode() === targetAnchorRoot;
 
     this.#openedByFocus = openedByFocus;
     this.anchorElement = normalizedElement;
     this.#knownAnchors.add(normalizedElement);
+    this.#syncSlotWithAnchor(normalizedElement, isInAnchorRoot);
 
-    const anchorSlot = this.anchorElement?.getAttribute('slot');
-    if (typeof anchorSlot === 'string') {
-      this.setAttribute('slot', anchorSlot); // make sure the tooltip is slotted correctly, otherwise it might inherit styles from the wrong slot
+    if (isInAnchorRoot) {
+      for (const anchor of anchorsToPreserve) {
+        this.#knownAnchors.add(anchor);
+        this.#stableAnchors.add(anchor);
+        this.#preserveAnchorRelation(anchor);
+      }
     }
 
-    if (!wasOpen) {
+    if (!wasOpen || !isPopoverOpen(this)) {
       this.showPopover();
     } else if (anchorChanged) {
       this.#anchor.updatePosition();

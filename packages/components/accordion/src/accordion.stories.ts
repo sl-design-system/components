@@ -142,7 +142,7 @@ export const Extras: Story = {
         Embark on a thrilling journey back in time to the age of dinosaurs! 🌎🦕🌿🦖
       </sl-accordion-item>
       <sl-accordion-item summary="Journey Through Ancient Civilizations">
-        <sl-icon name="octagon-exclamation-solid" slot="summary-extras"></sl-icon>
+        <sl-icon name="octagon-xmark-solid" slot="summary-extras"></sl-icon>
         Pack your virtual bags and travel through time to ancient Egypt, Greece, Rome, and beyond
         🌍🏛️🔍🏺
       </sl-accordion-item>

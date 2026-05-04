@@ -265,7 +265,7 @@ describe('sl-tooltip', () => {
       try {
         button?.blur();
         button?.dispatchEvent(new Event('focusout', { bubbles: true, composed: true }));
-        await waitFor(Tooltip.hoverShowDelay + 10);
+        await waitFor(10);
 
         expect(tooltip.matches(':popover-open')).to.be.true;
       } finally {

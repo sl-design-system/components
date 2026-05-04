@@ -1,4 +1,5 @@
 import { faSchool } from '@fortawesome/pro-regular-svg-icons';
+import { type BadgeSize } from '@sl-design-system/badge';
 import '@sl-design-system/badge/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/tooltip/register.js';
@@ -213,52 +214,152 @@ export const Overflow: Story = {
   }
 };
 
+const badgeSizes: Record<AvatarSize, BadgeSize> = {
+  sm: 'sm',
+  md: 'sm',
+  lg: 'md',
+  xl: 'md',
+  '2xl': 'md',
+  '3xl': 'lg',
+  '4xl': 'lg'
+};
+
+const countPerCanvas = new WeakMap<Element, number>(),
+  intervalPerCanvas = new WeakMap<Element, ReturnType<typeof setInterval>>();
+
+/** Update the badge text and live-region for a given avatar size. */
+const updateStatus = (canvas: Element, size: AvatarSize, count: number): void => {
+  const avatar = canvas.querySelector<HTMLElement>(`sl-avatar[size='${size}']`);
+
+  if (!avatar) return;
+
+  // Update the visible text node inside the badge (sm badges have no text).
+  if (badgeSizes[size] !== 'sm') {
+    const badge = avatar.querySelector('sl-badge'),
+      textNode =
+        badge &&
+        [...badge.childNodes].find(n => n.nodeType === Node.TEXT_NODE && n.textContent?.trim());
+
+    if (textNode) {
+      textNode.textContent = `${count}`;
+    }
+  }
+
+  // Clear first, then set after a frame so every browser (including Firefox)
+  // treats it as a full content change and announces the complete text.
+  const status = avatar.querySelector<HTMLSpanElement>('[role="status"]');
+  if (status) {
+    status.textContent = '';
+    requestAnimationFrame(() => {
+      status.textContent = `${count} unread messages`;
+    });
+  }
+};
+
 export const Sizes: Story = {
   args: {
     subheading: 'Subheading'
   },
-  render: ({ color, displayInitials, emphasis, href, pictureUrl, shape, subheading, vertical }) => {
-    const badgeSizes = {
-      sm: 'sm',
-      md: 'sm',
-      lg: 'md',
-      xl: 'md',
-      '2xl': 'md',
-      '3xl': 'lg',
-      '4xl': 'lg'
-    };
+  play: ({ canvasElement }) => {
+    const previousInterval = intervalPerCanvas.get(canvasElement);
 
-    return html`
-      <div style="display: flex; flex-direction: column; gap: 1rem">
-        ${sizes.map(
-          size => html`
-            <sl-avatar
-              display-name=${`Size: ${size}`}
-              color=${ifDefined(color)}
-              display-initials=${ifDefined(displayInitials)}
-              emphasis=${ifDefined(emphasis)}
-              href=${ifDefined(href)}
-              picture-url=${ifDefined(pictureUrl)}
-              shape=${ifDefined(shape)}
-              size=${size}
-              ?vertical=${vertical}
-            >
-              ${subheading ? html`<span>${subheading}</span>` : nothing}
-              <sl-badge
-                .size=${badgeSizes[size]}
-                aria-label="2 unread messages"
-                color="red"
-                emphasis="bold"
-                slot="badge"
-              >
-                ${badgeSizes[size] === 'sm' ? nothing : '2'}
-              </sl-badge>
-            </sl-avatar>
-          `
-        )}
-      </div>
-    `;
-  }
+    if (previousInterval) {
+      clearInterval(previousInterval);
+    }
+
+    countPerCanvas.set(canvasElement, 2);
+
+    const interval = setInterval(() => {
+      const count = (countPerCanvas.get(canvasElement) ?? 2) + 1;
+
+      if (!canvasElement.isConnected || count > 9) {
+        clearInterval(interval);
+        intervalPerCanvas.delete(canvasElement);
+
+        return;
+      }
+
+      countPerCanvas.set(canvasElement, count);
+
+      updateStatus(canvasElement, '4xl', count);
+      setTimeout(() => {
+        if (canvasElement.isConnected) {
+          updateStatus(canvasElement, 'sm', count);
+        }
+      }, 2500);
+    }, 5000);
+
+    intervalPerCanvas.set(canvasElement, interval);
+  },
+  render: ({
+    color,
+    displayInitials,
+    emphasis,
+    href,
+    pictureUrl,
+    shape,
+    subheading,
+    vertical
+  }) => html`
+    <style>
+      .screen-reader-only {
+        block-size: 1px;
+        border: 0;
+        clip-path: inset(50%);
+        inline-size: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        white-space: nowrap;
+      }
+    </style>
+    <p>
+      Avatars with badges in all sizes. The <code>sm</code> and <code>4xl</code> badges have a
+      sibling <code>&lt;span role="status"&gt;</code> with a descriptive text like "3 unread
+      messages" that updates every 5&nbsp;seconds to show how dynamic content works with screen
+      readers. The other badges are static and have a visually-hidden <code>span</code> inside the
+      badge with the same kind of text for screen readers. See the
+      <a href="https://sanomalearning.design/categories/components/avatar/accessibility/"
+        >accessibility guidelines</a
+      >
+      for details.
+    </p>
+    <div style="display: flex; flex-direction: column; gap: 1rem">
+      ${sizes.map(
+        size => html`
+          <sl-avatar
+            display-name=${`Size: ${size}`}
+            color=${ifDefined(color)}
+            display-initials=${ifDefined(displayInitials)}
+            emphasis=${ifDefined(emphasis)}
+            href=${ifDefined(href)}
+            picture-url=${ifDefined(pictureUrl)}
+            shape=${ifDefined(shape)}
+            size=${size}
+            ?vertical=${vertical}
+          >
+            ${subheading ? html`<span>${subheading}</span>` : nothing}
+            <sl-badge .size=${badgeSizes[size]} color="red" emphasis="bold" slot="badge">
+              ${badgeSizes[size] === 'sm' ? nothing : '2'}
+              ${size !== 'sm' && size !== '4xl'
+                ? badgeSizes[size] === 'sm'
+                  ? html`<span class="screen-reader-only">2 unread messages</span>`
+                  : html`<span class="screen-reader-only">unread messages</span>`
+                : nothing}
+            </sl-badge>
+            ${size === 'sm' || size === '4xl'
+              ? html`
+                  <span class="screen-reader-only" role="status" slot="badge">
+                    2 unread messages
+                  </span>
+                `
+              : nothing}
+          </sl-avatar>
+        `
+      )}
+    </div>
+  `
 };
 
 export const Square: Story = {

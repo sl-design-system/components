@@ -213,6 +213,12 @@ export class Tooltip extends LitElement {
   /** Timer for showing/hiding the tooltip. */
   #timer?: ReturnType<typeof setTimeout>;
 
+  /** Whether a deprecation warning for the `showDelay` compatibility alias was already logged. */
+  #showDelayDeprecationWarned = false;
+
+  /** Whether a deprecation warning for the `hideDelay` compatibility alias was already logged. */
+  #hideDelayDeprecationWarned = false;
+
   /**
    * Legacy API alias kept for backwards compatibility.
    *
@@ -224,6 +230,13 @@ export class Tooltip extends LitElement {
   }
 
   set showDelay(_value: number) {
+    if (!this.#showDelayDeprecationWarned && _value !== Tooltip.hoverShowDelay) {
+      this.#showDelayDeprecationWarned = true;
+      console.warn(
+        `The 'showDelay' / 'show-delay' API on <sl-tooltip> is deprecated and ignored. Hover show timing is fixed at ${Tooltip.hoverShowDelay}ms.`
+      );
+    }
+
     // no-op: kept only to avoid breaking existing API usage
   }
 
@@ -238,6 +251,13 @@ export class Tooltip extends LitElement {
   }
 
   set hideDelay(_value: number) {
+    if (!this.#hideDelayDeprecationWarned && _value !== Tooltip.hoverHideDelay) {
+      this.#hideDelayDeprecationWarned = true;
+      console.warn(
+        `The 'hideDelay' / 'hide-delay' API on <sl-tooltip> is deprecated and ignored. Hover hide timing is fixed at ${Tooltip.hoverHideDelay}ms.`
+      );
+    }
+
     // no-op: kept only to avoid breaking existing API usage
   }
 

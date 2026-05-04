@@ -1302,11 +1302,21 @@ describe('sl-tooltip', () => {
     });
 
     it('should keep legacy delay aliases as no-op compatibility shims', async () => {
-      tooltip.showDelay = 0;
-      tooltip.hideDelay = 0;
-      tooltip.setAttribute('show-delay', '0');
-      tooltip.setAttribute('hide-delay', '0');
-      await tooltip.updateComplete;
+      const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+      try {
+        tooltip.showDelay = 0;
+        tooltip.hideDelay = 0;
+        tooltip.setAttribute('show-delay', '250');
+        tooltip.setAttribute('hide-delay', '50');
+        await tooltip.updateComplete;
+
+        expect(warnSpy).toHaveBeenCalledTimes(2);
+        expect(warnSpy.mock.calls[0]?.[0]).to.contain("'showDelay' / 'show-delay'");
+        expect(warnSpy.mock.calls[1]?.[0]).to.contain("'hideDelay' / 'hide-delay'");
+      } finally {
+        warnSpy.mockRestore();
+      }
 
       expect(tooltip.showDelay).to.equal(Tooltip.hoverShowDelay);
       expect(tooltip.hideDelay).to.equal(Tooltip.hoverHideDelay);

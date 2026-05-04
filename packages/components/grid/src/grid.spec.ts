@@ -223,9 +223,7 @@ describe('sl-grid', () => {
 
     it('should keep showing an explicit tooltip for a bulk action button on repeated hover', async () => {
       await mountMultipleSelectGrid(html`
-        <sl-tooltip id="bulk-action-tooltip" show-delay="0" hide-delay="0"
-          >Bulk action tooltip</sl-tooltip
-        >
+        <sl-tooltip id="bulk-action-tooltip">Bulk action tooltip</sl-tooltip>
         <sl-button
           aria-describedby="bulk-action-tooltip"
           fill="outline"
@@ -267,9 +265,7 @@ describe('sl-grid', () => {
 
     it('should show the explicit bulk action tooltip when hovering the sl-button proxy target', async () => {
       await mountMultipleSelectGrid(html`
-        <sl-tooltip id="bulk-action-tooltip" show-delay="0" hide-delay="0"
-          >Bulk action tooltip</sl-tooltip
-        >
+        <sl-tooltip id="bulk-action-tooltip">Bulk action tooltip</sl-tooltip>
         <sl-button
           aria-describedby="bulk-action-tooltip"
           fill="outline"

@@ -64,7 +64,7 @@
 </trans-unit>
 <trans-unit id="sl.common.validation.tooShort">
   <source>Please enter at least <x id="0" equiv-text="${this.minLength}"/> character<x id="1" equiv-text="${getCharacterPluralSuffix(this.minLength ?? 0)}"/> (you currently have <x id="2" equiv-text="${length}"/> character<x id="3" equiv-text="${getCharacterPluralSuffix(length)}"/>).</source>
-  <target>Voer tenminste <x id="0" equiv-text="${this.minLength}"/> karakter<x id="1" equiv-text="${getCharacterPluralSuffix(this.minLength ?? 0)}"/> in (je hebt op dit momoment <x id="2" equiv-text="${length}"/> karakter<x id="3" equiv-text="${getCharacterPluralSuffix(length)}"/>).</target>
+  <target>Voer tenminste <x id="0" equiv-text="${this.minLength}"/> karakter<x id="1" equiv-text="${getCharacterPluralSuffix(this.minLength ?? 0)}"/> in (je hebt op dit moment <x id="2" equiv-text="${length}"/> karakter<x id="3" equiv-text="${getCharacterPluralSuffix(length)}"/>).</target>
 </trans-unit>
 <trans-unit id="sl.checkbox.validation.valueMissing">
   <source>Please check this box.</source>

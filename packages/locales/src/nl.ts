@@ -36,7 +36,7 @@ export const templates = {
   'sl.common.allOptions': 'Alle opties',
   'sl.common.close': 'Sluiten',
   'sl.common.selected': 'Geselecteerd',
-  'sl.common.validation.tooShort': str`Voer tenminste ${0} karakter${1} in (je hebt op dit momoment ${2} karakter${3}).`,
+  'sl.common.validation.tooShort': str`Voer tenminste ${0} karakter${1} in (je hebt op dit moment ${2} karakter${3}).`,
   'sl.dateField.confirm': 'Bevestigen',
   'sl.dateField.empty': 'Leeg',
   'sl.dateField.rangeOverflow': str`Voer een datum in die niet later is dan ${0}.`,

@@ -316,7 +316,7 @@ describe('sl-tooltip', () => {
       expect(tooltip.anchorElement).to.equal(secondButton);
 
       secondButton.dispatchEvent(new Event('pointerout', { bubbles: true, composed: true }));
-      await waitFor(Tooltip.hoverShowDelay + 10);
+      await waitFor(Tooltip.hoverHideDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.true;
       expect(tooltip.anchorElement).to.equal(firstButton);
@@ -486,7 +486,7 @@ describe('sl-tooltip', () => {
 
       button?.dispatchEvent(new Event('pointerout', { bubbles: true }));
       await tooltip.updateComplete;
-      await waitFor(Tooltip.hoverShowDelay + 10);
+      await waitFor(Tooltip.hoverHideDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.false;
     });
@@ -552,7 +552,7 @@ describe('sl-tooltip', () => {
 
       button?.dispatchEvent(new Event('pointerout', { bubbles: true }));
       await tooltip.updateComplete;
-      await waitFor(Tooltip.hoverShowDelay + 10);
+      await waitFor(Tooltip.hoverHideDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.false;
     });
@@ -602,7 +602,7 @@ describe('sl-tooltip', () => {
 
       button?.dispatchEvent(new Event('pointerout', { bubbles: true }));
       await tooltip.updateComplete;
-      await waitFor(Tooltip.hoverShowDelay + 10);
+      await waitFor(Tooltip.hoverHideDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.false;
     });
@@ -672,7 +672,7 @@ describe('sl-tooltip', () => {
 
       button?.dispatchEvent(new Event('pointerout', { bubbles: true }));
       await tooltip.updateComplete;
-      await waitFor(Tooltip.hoverShowDelay + 10);
+      await waitFor(Tooltip.hoverHideDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.false;
     });
@@ -720,7 +720,7 @@ describe('sl-tooltip', () => {
 
       button?.dispatchEvent(new Event('pointerout', { bubbles: true }));
       await tooltip.updateComplete;
-      await waitFor(Tooltip.hoverShowDelay + 10);
+      await waitFor(Tooltip.hoverHideDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.false;
     });
@@ -974,7 +974,7 @@ describe('sl-tooltip', () => {
 
       anchorContents[0].dispatchEvent(new Event('pointerout', { bubbles: true, composed: true }));
       await tooltip.updateComplete;
-      await waitFor(Tooltip.hoverShowDelay + 10);
+      await waitFor(Tooltip.hoverHideDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.false;
 
@@ -1072,7 +1072,7 @@ describe('sl-tooltip', () => {
 
       slottedAnchor.dispatchEvent(new Event('pointerout', { bubbles: true, composed: true }));
       await tooltip.updateComplete;
-      await waitFor(Tooltip.hoverShowDelay + 10);
+      await waitFor(Tooltip.hoverHideDelay + 10);
 
       defaultAnchor.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
       await tooltip.updateComplete;
@@ -1220,7 +1220,7 @@ describe('sl-tooltip', () => {
 
       innerButton.dispatchEvent(new Event('pointerout', { bubbles: true, composed: true }));
       await tooltip.updateComplete;
-      await waitFor(Tooltip.hoverShowDelay + 10);
+      await waitFor(Tooltip.hoverHideDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.false;
 
@@ -1299,6 +1299,31 @@ describe('sl-tooltip', () => {
 
       await vi.advanceTimersByTimeAsync(Tooltip.hoverShowDelay - preShowWait + 10);
       expect(tooltip.matches(':popover-open')).to.be.true;
+    });
+
+    it('should keep legacy delay aliases as no-op compatibility shims', async () => {
+      tooltip.showDelay = 0;
+      tooltip.hideDelay = 0;
+      tooltip.setAttribute('show-delay', '0');
+      tooltip.setAttribute('hide-delay', '0');
+      await tooltip.updateComplete;
+
+      expect(tooltip.showDelay).to.equal(Tooltip.hoverShowDelay);
+      expect(tooltip.hideDelay).to.equal(Tooltip.hoverHideDelay);
+
+      button.dispatchEvent(new Event('pointerover', { bubbles: true }));
+      await vi.advanceTimersByTimeAsync(Tooltip.hoverShowDelay - 1);
+      expect(tooltip.matches(':popover-open')).to.be.false;
+
+      await vi.advanceTimersByTimeAsync(2);
+      expect(tooltip.matches(':popover-open')).to.be.true;
+
+      button.dispatchEvent(new Event('pointerout', { bubbles: true }));
+      await vi.advanceTimersByTimeAsync(Tooltip.hoverHideDelay - 1);
+      expect(tooltip.matches(':popover-open')).to.be.true;
+
+      await vi.advanceTimersByTimeAsync(2);
+      expect(tooltip.matches(':popover-open')).to.be.false;
     });
 
     it('should stay open before the fixed hover hide delay elapses', async () => {

@@ -1,5 +1,5 @@
 ---
-'@sl-design-system/tooltip': minor
+'@sl-design-system/tooltip': major
 ---
 
 Reworks tooltip hover timing to use fixed, non-configurable delays for more consistent UX:

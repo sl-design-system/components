@@ -281,7 +281,6 @@ export const Sizes: Story = {
 
       countPerCanvas.set(canvasElement, count);
 
-      // Update sm and 4xl with a delay between them to avoid double announcements.
       updateStatus(canvasElement, '4xl', count);
       setTimeout(() => {
         if (canvasElement.isConnected) {

@@ -385,6 +385,62 @@ export const ClickEvents: Story = {
   }
 };
 
+export const OverflowMenuItemClicks: Story = {
+  args: {
+    width: '160px',
+    enableLogging: true,
+    description:
+      'This example reproduces click handling for menu items when a menu-button is moved into the overflow menu. Open the overflow menu (ellipsis), open "Visibility", then click "Hide" or "Show".',
+    items: () => {
+      const handleClick = (event: Event, actionName: string) => {
+        console.log(`${actionName} clicked`, event);
+        const logging = document.getElementById('logging');
+        if (logging) {
+          const logEntry = document.createElement('div');
+          logEntry.textContent = `${actionName} clicked`;
+          logging.prepend(logEntry);
+          announce(`${actionName} clicked`);
+        }
+      };
+
+      return html`
+        <sl-button @click=${(e: Event) => handleClick(e, 'Duplicate')} fill="outline">
+          <sl-icon name="far-copy"></sl-icon>
+          Duplicate
+        </sl-button>
+        <sl-menu-button
+          aria-label="Visibility"
+          fill="outline"
+          @click=${(e: Event) => handleClick(e, 'Visibility button')}
+        >
+          <sl-icon name="far-gear" slot="button"></sl-icon>
+          <span slot="button">Visibility</span>
+          <sl-menu-item @click=${(e: Event) => handleClick(e, 'Hide')}>
+            <sl-icon name="far-bars-filter"></sl-icon>
+            Hide
+          </sl-menu-item>
+          <sl-menu-item @click=${(e: Event) => handleClick(e, 'Show')}>
+            <sl-icon name="far-universal-access"></sl-icon>
+            Show
+          </sl-menu-item>
+        </sl-menu-button>
+        <sl-button @click=${(e: Event) => handleClick(e, 'Delete')} fill="outline">
+          <sl-icon name="far-trash"></sl-icon>
+          Delete
+        </sl-button>
+        <sl-button @click=${(e: Event) => handleClick(e, 'Action 1')} fill="outline">
+          <sl-icon name="far-arrow-down-to-line"></sl-icon>
+          Action 1
+        </sl-button>
+        <sl-button @click=${(e: Event) => handleClick(e, 'Action 2')} fill="outline">
+          <sl-icon name="far-arrow-up-from-bracket"></sl-icon>
+          Action 2
+        </sl-button>
+      `;
+    }
+  }
+};
+
 export const Overflow: Story = {
   args: {
     ...Basic.args,

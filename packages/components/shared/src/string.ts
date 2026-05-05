@@ -196,7 +196,7 @@ export function getCharacterPluralSuffix(count: number): string {
     // one (1) → "znak" (no suffix)
     // few (2-4, 22-24, 32-34, etc.) → "znaki" (suffix: 'i')
     // many (0, 5+, 11-14, etc.) → "znaków" (suffix: 'ów')
-    if (locale === 'pl') {
+    if (locale === 'pl' || locale.startsWith('pl-')) {
       switch (rule) {
         case 'one':
           return '';
@@ -220,7 +220,7 @@ export function getCharacterPluralSuffix(count: number): string {
     // Italian pluralization rules for "carattere":
     // one (1) → "carattere"
     // other (0, 2+) → "caratteri"
-    if (locale === 'it') {
+    if (locale === 'it' || locale.startsWith('it-')) {
       return rule === 'one' ? 'e' : 'i';
     }
 

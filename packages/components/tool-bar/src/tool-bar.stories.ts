@@ -441,16 +441,17 @@ export const Tooltips: Story = {
   args: {
     description: 'This example shows a tool bar with different tooltip techniques on the buttons.',
     items: () => html`
-      <sl-button aria-labelledby="tooltip-bold" fill="outline">
+      <sl-button aria-label="Bold" aria-labelledby="tooltip-bold" fill="outline">
         <sl-icon name="far-bold"></sl-icon>
       </sl-button>
       <sl-tooltip id="tooltip-bold">Bold</sl-tooltip>
 
-      <sl-button ${tooltip('Italic', { ariaRelation: 'label' })} fill="outline">
+      <sl-button aria-label="Italic" ${tooltip('Italic', { ariaRelation: 'label' })} fill="outline">
         <sl-icon name="far-italic"></sl-icon>
       </sl-button>
 
       <sl-button
+        aria-label="Underline (disabled)"
         aria-disabled="true"
         ${tooltip('Underline (disabled)', { ariaRelation: 'label' })}
         fill="outline"
